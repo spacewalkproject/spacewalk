@@ -417,3 +417,34 @@ def ostr_to_sym(octstr, ftype):
 def f_date(dbiDate):
     return "%04d-%02d-%02d %02d:%02d:%02d" % (dbiDate.year, dbiDate.month,
         dbiDate.day, dbiDate.hour, dbiDate.minute, dbiDate.second)
+
+
+class payload:
+    """ this class implements simple file like object usable for reading payload
+        from rpm, mpm, etc.
+        it skips first 'skip' bytes of header
+    """
+    def __init__(self, filename, skip=0):
+        self.fileobj = open(filename, 'r')
+        self.skip = skip
+        self.seek(0)
+
+    def seek(self, offset, whence=0):
+        if whence == 0:
+            offset += self.skip
+        return self.fileobj.seek(offset, whence)
+
+    def tell(self):
+        return self.fileobj.tell() - self.skip
+
+    def truncate(self, size=-1):
+        raise AttributeError("'Payload' object do not implement this method")
+
+    def write(self, str):
+        raise AttributeError("'Payload' object do not implement this method")
+
+    def writelines(self, seq):
+        raise AttributeError("'Payload' object do not implement this method")
+
+    def __getattr__(self, x):
+        return getattr(self.fileobj, x)
