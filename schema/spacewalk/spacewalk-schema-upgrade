@@ -243,7 +243,7 @@ system("/sbin/restorecon $logfile 2>&1 > /dev/null");
 print "Executing spacewalk-sql, the log is in [$logfile].\n";
 
 my $pid = IPC::Open3::open3(my $wfh, '>&LOG', '>&LOG',
-	'spacewalk-sql', '--select-mode', "$SCHEMA_UPGRADE_LOGDIR/$stamp-script.sql") or die "Error running spacewalk-sql: $!\n";
+	'spacewalk-sql', '--select-mode-direct', "$SCHEMA_UPGRADE_LOGDIR/$stamp-script.sql") or die "Error running spacewalk-sql: $!\n";
 close $wfh;
 
 waitpid $pid, 0;
