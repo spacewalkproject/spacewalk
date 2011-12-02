@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 1.6.38
+Version: 1.6.39
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -334,6 +334,13 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Fri Dec 02 2011 Miroslav Suchý 1.6.39-1
+- IPv6: first try findHostByRoute() and then try getaddrinfo()
+- IPv6: assign to hostname only if we are unable to resolve it
+- IPv6: IPv4 is most probably set up better, lets overwrite IPv6 values (if
+  mismatch)
+- 743259 - take hostname of client instead of server
+
 * Tue Nov 29 2011 Miroslav Suchý 1.6.38-1
 - define __init__, __getattribute__, __setattr__ on Debian and workaround those
   mising methods on RHEL5
