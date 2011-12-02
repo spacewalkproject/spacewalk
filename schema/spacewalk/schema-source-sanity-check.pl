@@ -5,7 +5,7 @@ use warnings FATAL => 'all';
 
 use File::Find ();
 use Getopt::Long ();
-use Digest::SHA1 ();
+use Digest::SHA ();
 
 my %files;
 my $show_ignored = 0;
@@ -96,7 +96,7 @@ for my $c (sort keys %{ $files{postgres} }) {
 		$error = 1;
 		next;
 	};
-	my $sha1 = new Digest::SHA1;
+	my $sha1 = new Digest::SHA(1);
 	$sha1->addfile(\*FILE);
 	my $sha1_hex = $sha1->hexdigest();
 	close FILE;

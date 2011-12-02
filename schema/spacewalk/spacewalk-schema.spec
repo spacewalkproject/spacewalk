@@ -11,7 +11,7 @@ Url:            http://fedorahosted.org/spacewalk/
 BuildArch:      noarch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
-BuildRequires:  perl(Digest::SHA1)
+BuildRequires:  perl(Digest::SHA)
 BuildRequires:  python
 
 Obsoletes:      rhn-satellite-schema <= 5.1.0
