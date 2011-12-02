@@ -90,7 +90,11 @@ EOF
 	if ($filename eq '-') {
 		$wfh = '<&STDIN';
 	}
-	$pid = IPC::Open3::open3($wfh, $rfh, '>&STDERR', @command) or return 2;
+	if ($select_direct) {
+		exec(@command) or die "young\n";
+	} else {
+		$pid = IPC::Open3::open3($wfh, $rfh, '>&STDERR', @command) or return 2;
+	}
 	close $wfh;
 } else {
 	die "The config file [$config_file] specifies unknown db_backend [$options{db_backend}] \n";
