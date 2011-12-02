@@ -135,7 +135,7 @@ sub bugs_fixed {
 SELECT  EBL.bug_id, EBL.summary, EBL.href
   FROM  $bl_table EBL
  WHERE  EBL.errata_id = ?
-ORDER BY UPPER(EBL.bug_id)
+ORDER BY EBL.bug_id
 EOQ
 
   $sth = $dbh->prepare($query);
