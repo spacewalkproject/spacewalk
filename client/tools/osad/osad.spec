@@ -16,7 +16,7 @@ Group:   System Environment/Daemons
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.10.27
+Version: 5.10.28
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -275,6 +275,9 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 %endif
 
 %changelog
+* Fri Dec 02 2011 Jan Pazdziora 5.10.28-1
+- Using password_in for parameter name to avoid confusion.
+
 * Mon Nov 28 2011 Miroslav Suchý 5.10.27-1
 - specify missing param password (mc@suse.de)
 
