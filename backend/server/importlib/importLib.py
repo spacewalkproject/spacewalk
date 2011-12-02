@@ -793,13 +793,16 @@ def move_package(filename, basedir, relpath, checksum_type, checksum, force=None
     """
     packagePath = basedir + "/" + relpath
     # Is the file there already?
-    if os.path.isfile(packagePath) and not force:
-        # Get its checksum
-        localsum = getFileChecksum(checksum_type, packagePath)
-        if checksum == localsum:
-            # Same file, so get outa here
-            return 
-        raise FileConflictError(os.path.basename(packagePath))
+    if os.path.isfile(packagePath):
+        if force:
+            os.unlink(packagePath)
+        else:
+            # Get its checksum
+            localsum = getFileChecksum(checksum_type, packagePath)
+            if checksum == localsum:
+                # Same file, so get outa here
+                return
+            raise FileConflictError(os.path.basename(packagePath))
 
     dir = os.path.dirname(packagePath)
     # Create the directory where the file will reside
