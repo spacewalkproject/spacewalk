@@ -89,7 +89,7 @@ def find_gateway():
         return ""
 
 def find_gateway6(device):
-    response = execute("ip -f inet6 route list dev eth0|awk '/^default/ {print $3}'")
+    response = execute("ip -f inet6 route list dev %s|awk '/^default/ {print $3}'" % device)
     if response:
         return response[0]
     else:
