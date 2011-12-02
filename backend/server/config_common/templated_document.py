@@ -51,6 +51,7 @@ class ServerTemplatedDocument(TemplatedDocument):
             RHN_PREFIX + 'description'    : self.description,            
             RHN_PREFIX + 'hostname'       : self.hostname,
             RHN_PREFIX + 'ip_address'     : self.ipaddr,
+            RHN_PREFIX + 'ip6_address'    : self.ip6addr,
             RHN_PREFIX + 'custom_info'    : self.custom_info,
             RHN_PREFIX + 'net_interface.ip_address'         : self.net_intf_ipaddr,
             RHN_PREFIX + 'net_interface.netmask'            : self.net_intf_netmask,
@@ -79,6 +80,9 @@ class ServerTemplatedDocument(TemplatedDocument):
 
     def ipaddr(self):
         return self._get_network_info_attr('ipaddr')
+
+    def ip6addr(self):
+        return self._get_network_info_attr('ip6addr')
 
     def _get_network_info_attr(self, attr):
         network_infos = self.server.hardware_by_class(NetworkInformation)
