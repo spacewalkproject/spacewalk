@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.6.34
+Version:        1.6.35
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -66,6 +66,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Fri Dec 02 2011 Milan Zazrivec <mzazrivec@redhat.com> 1.6.35-1
+- schema sanity check: use newer Digest::SHA module
+
 * Fri Dec 02 2011 Milan Zazrivec <mzazrivec@redhat.com> 1.6.34-1
 - spacewalk-sql: use exec to launch psql in direct mode
 - schema upgrade: run spacewalk-sql in direct mode
