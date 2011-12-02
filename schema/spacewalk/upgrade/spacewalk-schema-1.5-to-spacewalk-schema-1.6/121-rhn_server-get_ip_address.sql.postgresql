@@ -12,12 +12,6 @@
 -- Red Hat trademarks are not licensed under GPLv2. No permission is
 -- granted to use or replicate Red Hat trademarks that are incorporated
 -- in this software or its documentation.
---
---
---
---
-
-create schema rhn_server;
 
 --update pg_setting
 update pg_settings set setting = 'rhn_server,' || setting where name = 'search_path';
