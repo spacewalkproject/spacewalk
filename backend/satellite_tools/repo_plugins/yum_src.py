@@ -17,6 +17,7 @@ import yum
 import shutil
 import sys
 import gzip
+import os.path
 from yum.update_md import UpdateMetadata, UpdateNoticeException, UpdateNotice
 from yum.yumRepo import YumRepository
 try:
@@ -99,6 +100,7 @@ class ContentSource:
         repo.mirrorlist = url
         repo.baseurl = [url]
         repo.basecachedir = self.cache_dir
+        repo._dirSetAttr('pkgdir', os.path.join(CFG.MOUNT_POINT, CFG.PREPENDED_DIR, '1'))
         if hasattr(repo, 'base_persistdir'):
             repo.base_persistdir = self.cache_dir
         if self.proxy_url is not None:
