@@ -65,8 +65,6 @@ class Packages(RPC_Base):
         self.functions.append('listChannelSourceBySession')
         self.functions.append('listMissingSourcePackages')
         self.functions.append('listMissingSourcePackagesBySession')
-        self.functions.append('uploadPackage')
-        self.functions.append('uploadPackageBySession')
         self.functions.append('channelPackageSubscription')
         self.functions.append('channelPackageSubscriptionBySession')
         self.functions.append('no_op')
@@ -251,55 +249,6 @@ class Packages(RPC_Base):
 
         return missing_packages
 
-
-    def uploadPackage(self, username, password, info):
-        """ Uploads an RPM package. """
-        log_debug(3)
-
-        channels = info.get('channels', [])
-        force = info.get('force', 0)
-
-        org_id, force = rhnPackageUpload.authenticate(username, password,
-            channels=channels, force=force)
-        return self._uploadPackage(channels, org_id, force, info)
-
-    def uploadPackageBySession(self, session_string, info):
-        log_debug(3)
-        channels = info.get('channels', [])
-        force = info.get('force', 0)
-        org_id, force = rhnPackageUpload.authenticate_session(session_string,
-            channels=channels, force=force)
-        return self._uploadPackage(channels, org_id, force, info)
-
-    def _uploadPackage(self, channels, org_id, force, info):
-        """ Write the bits to a temporary file """
-        packageBits = info['package']
-
-        package_stream = tempfile.TemporaryFile()
-        package_stream.write(packageBits)
-        package_stream.seek(0, 0)
-        del packageBits
-
-        header, payload_stream, header_start, header_end = \
-            rhnPackageUpload.load_package(package_stream)
-
-        checksum_type = header.checksum_type()
-        checksum = getFileChecksum(header.checksum_type(), file=payload_stream)
-
-        relative_path = rhnPackageUpload.relative_path_from_header(
-            header, org_id=org_id,checksum=checksum, checksum_type=checksum_type)
-
-        package_dict, diff_level = rhnPackageUpload.push_package(
-            header, payload_stream, checksum_type, checksum, org_id=org_id, force=force,
-            header_start=header_start, header_end=header_end,
-            relative_path=relative_path)
-
-        if diff_level:
-            return package_dict, diff_level
-
-        return 0
-
-    
     def channelPackageSubscription(self, username, password, info):
         """ Uploads an RPM package. """
         log_debug(3)
