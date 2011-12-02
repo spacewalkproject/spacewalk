@@ -797,6 +797,7 @@
             <!--  Advanced Options Page -->
             <form-property name="networkType" type="java.lang.String" />
             <form-property name="networkInterface" type="java.lang.String" />
+            <form-property name="useIpv6Gateway" type="java.lang.String"/>
             <form-property name="kernelParamsType" type="java.lang.String" />
             <form-property name="kernelParams" type="java.lang.String" />
             <form-property name="postKernelParamsType" type="java.lang.String" />

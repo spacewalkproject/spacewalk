@@ -149,12 +149,17 @@ public class KickstartFormatter {
     private static final String CHDIR_RPMS = "cd /tmp/rhn_rpms";
     private static final String REDHAT_MGMT_SERVER = "$redhat_management_server";
     public static final String STATIC_NETWORK_VAR = "static_network";
+    public static final String USE_IPV6_GATEWAY = "use_ipv6_gateway";
     private static final String STATIC_NETWORK_COMMAND = "network --bootproto static" +
-                                                 " " + "--device %s --ip %s" +
+                                                 " " + "--device %s" +
                                                  " " + "--gateway %s" +
                                                  " " + "--nameserver %s" +
-                                                 " " + "--netmask %s" +
                                                  " " + "--hostname %s";
+    private static final String STATIC_NETWORK_COMMAND1 = " " + "--ip %s" +
+                                                 " " + "--netmask %s";
+    private static final String STATIC_NETWORK_COMMAND2 = " " + "--ipv6 %s";
+    private static final String STATIC_NETWORK_COMMAND3 = " " + "--ipv6 %s/%s";
+
     private static final String NETWORK_STRING =
                                     "#if $varExists('%s')" + NEWLINE +
                                         "$%s" + NEWLINE +
@@ -364,13 +369,61 @@ public class KickstartFormatter {
      * @param nameServer the nameserver information
      * @param netmask the netmask information
      * @param hostName the host name information
-     * @return the network* lne for a static host
+     * @return the network* line for a static host
      */
     public static String makeStaticNetworkCommand(String device,
                             String ip, String gateway,
                             String nameServer, String netmask, String hostName) {
-        return String.format(STATIC_NETWORK_COMMAND, device, ip,
-                                gateway, nameServer, netmask, hostName);
+        return String.format(STATIC_NETWORK_COMMAND + STATIC_NETWORK_COMMAND1, device,
+                                gateway, nameServer, hostName, ip, netmask);
+    }
+
+    /**
+     * Returns the network line for static networks
+     * network --bootproto static --device $DEVICE --ip $IPADDR --ipv6 $IP6ADDR
+     * --gateway $GATEWAY --nameserver $NAMESERVER
+     * --netmask $NETMASK --hostname $HOSTNAME
+     * @param device the network interface name (eth0)
+     * @param hostName the host name info
+     * @param nameServer the nameserver info
+     * @param ip4 the ipv4 address of the interface
+     * @param nm4 the ipv4 netmask of the interface
+     * @param gw4 the ipv4 gateway
+     * @param ip6 the ipv6 address of the interface
+     * @param nm6 the ipv6 netmask of the interface
+     * @param gw6 the ipv6 gateway
+     * @param preferIpv6Gateway whether or not should ipv6 gateway be prefered
+     * @return the network* line for a static host
+     */
+    public static String makeStaticNetworkCommand(String device, String hostName,
+            String nameServer, String ip4, String nm4, String gw4,
+            String ip6, String nm6, String gw6, boolean preferIpv6Gateway) {
+
+        String gateway;
+        if (preferIpv6Gateway && gw6 != null && gw6.length() != 0) {
+            gateway = gw6;
+        }
+        else {
+            gateway = gw4;
+        }
+
+        String command = String.format(STATIC_NETWORK_COMMAND, device, gateway,
+            nameServer, hostName);
+
+        if (ip4 != null && ip4.length() > 0 && nm4 != null && nm4.length() > 0) {
+            command += String.format(STATIC_NETWORK_COMMAND1, ip4, nm4);
+        }
+
+        if (ip6 != null && ip6.length() > 0) {
+            if (nm6 == null || nm6.length() == 0) {
+                command += String.format(STATIC_NETWORK_COMMAND2, ip6);
+            }
+            else {
+                command += String.format(STATIC_NETWORK_COMMAND3, ip6, nm6);
+            }
+        }
+
+        return command;
     }
 
     /**

@@ -104,6 +104,7 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
     public static final String NETWORK_TYPE = "networkType";
     public static final String NETWORK_INTERFACE = "networkInterface";
     public static final String NETWORK_INTERFACES = "networkInterfaces";
+    public static final String USE_IPV6_GATEWAY = "useIpv6Gateway";
     /**
      * {@inheritDoc}
      */
@@ -449,6 +450,9 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
 
         cmd.setNetworkDevice(form.getString(NETWORK_TYPE),
                                             form.getString(NETWORK_INTERFACE));
+        if (form.getString(USE_IPV6_GATEWAY).equals("1")) {
+            cmd.setIpv6Gateway();
+        }
         cmd.setKernelOptions(parseKernelOptions(form, ctx.getRequest(),
                             form.getString(RequestContext.COBBLER_ID), false));
         cmd.setPostKernelOptions(parseKernelOptions(form, ctx.getRequest(),

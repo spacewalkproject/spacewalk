@@ -6,7 +6,7 @@
         <th><bean:message key="kickstart.netconn.jsp.label" />:</th>
         <td>
 		<input type="radio" name="networkType" value="dhcp"
-				onclick="form.dhcpNetworkId.disabled = false; form.staticNetworkId.disabled = true;"
+				onclick="form.dhcpNetworkId.disabled = false; form.staticNetworkId.disabled = true; form.useIpv6Gateway.disabled = true;"
 				<c:if test="${form.networkType == 'dhcp'}">checked="checked"</c:if>
 				  />
               <bean:message key="kickstart.netconn.dhcp.jsp.label"/>&nbsp;
@@ -31,7 +31,7 @@
 		<br />
 		<c:if test="${empty noStatic}">
 		<input type="radio" name="networkType" value="static"
-				onclick="form.staticNetworkId.disabled = false;form.dhcpNetworkId.disabled = true;"
+				onclick="form.staticNetworkId.disabled = false; form.dhcpNetworkId.disabled = true; form.useIpv6Gateway.disabled = false;"
 				<c:if test="${not form.networkType}">checked="checked"</c:if>
 				  />
               <bean:message key="kickstart.netconn.static.jsp.label"/>&nbsp;
@@ -54,9 +54,13 @@
 		</c:otherwise>
 		</c:choose>
 		<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" name="useIpv6Gateway" value="1"
+        <c:if test="${form.networkType ne 'static'}">disabled="true"</c:if>/>
+        <bean:message key="kickstart.netconn.static.useipv6gw.jsp.label"/>&nbsp;
+        <br />
 		</c:if>
 		<input type="radio" name="networkType" value="link"
-				onclick="form.staticNetworkId.disabled = true;form.dhcpNetworkId.disabled = true;"
+				onclick="form.staticNetworkId.disabled = true;form.dhcpNetworkId.disabled = true; form.useIpv6Gateway.disabled = true;"
 				<c:if test="${form.networkType == 'link' or empty form.networkType}">checked="checked"</c:if>
 				  />
               <bean:message key="kickstart.netconn.dhcp.jsp.link"/>&nbsp;

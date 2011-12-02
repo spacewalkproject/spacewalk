@@ -143,6 +143,7 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
     private Profile createdProfile;
     // Static device
     private String networkInterface;
+    private boolean useIpv6Gateway = false;
     private boolean isDhcp;
 
     private String kernelOptions;
@@ -770,6 +771,14 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
         if (!isDhcp) {
             ksAction.getKickstartActionDetails().setStaticDevice(networkInterface);
         }
+
+        SystemRecord rec = this.getHostServer().getCobblerObject(null);
+        Map<String, Object> meta = rec.getKsMeta();
+        meta.put(KickstartFormatter.USE_IPV6_GATEWAY,
+            this.useIpv6Gateway() ? "true" : "false");
+        rec.setKsMeta(meta);
+        rec.save();
+
         return ksAction;
     }
 
@@ -1352,6 +1361,21 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
             isDhcp = DHCP_NETWORK_TYPE.equals(networkType);
             networkInterface = networkInterfaceIn;
         }
+    }
+
+    /**
+     * Sets to use IPv6 gateway.
+     */
+    public void setIpv6Gateway() {
+        useIpv6Gateway = true;
+    }
+
+    /**
+     * Indicate whether an IPv6 gateway is to be used for re-provisioning.
+     * @return true if IPv6 gateway is to be used, false otherwise.
+     */
+    public boolean useIpv6Gateway() {
+        return useIpv6Gateway;
     }
 
     /**

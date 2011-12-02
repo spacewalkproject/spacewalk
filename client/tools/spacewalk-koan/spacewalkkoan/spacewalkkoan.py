@@ -83,7 +83,17 @@ def find_name_servers():
 
 def find_gateway():
     response = execute("route -n | awk '/^0\.0\.0\.0/ {print $2}'")
-    return response[0]
+    if response:
+        return response[0]
+    else:
+        return ""
+
+def find_gateway6(device):
+    response = execute("ip -f inet6 route list dev eth0|awk '/^default/ {print $3}'")
+    if response:
+        return response[0]
+    else:
+        return ""
 
 def getSystemId():
     path = "/etc/sysconfig/rhn/systemid"
@@ -93,18 +103,25 @@ def getSystemId():
 
 def update_static_device_records(kickstart_host, static_device):
     client = xmlrpclib.Server("https://" + kickstart_host + "/rpc/api")
-    data = {"gateway": find_gateway(),\
+    data = {"gateway" : find_gateway(),\
             "nameservers": find_name_servers(),\
-            "hostname": find_host_name(),\
+            "hostname" : find_host_name(),\
             "device" :  static_device,\
             "ip": find_ip(static_device),\
-            "netmask": find_netmask(static_device)}
-    msg = """Unable to retrieve the '%s' information needed to update static network configuration information.
-             Details:\n %s"""
-    for key, value in data.items():
-        if not value:
-            raise Exception(msg % (key, pprint.pformat(data)))
-    client.system.setup_static_network(getSystemId(), data)
+            "netmask" : find_netmask(static_device)}
+
+    data6 = {"gateway" : find_gateway6(static_device), \
+             "device" : static_device, \
+             "ip" : find_ip6(static_device), \
+             "netmask" : find_netmask6(static_device)}
+
+    api_version = client.api.get_version()
+
+    # Since api_version >= 11.1 we support setup_static_network with IPv6 data
+    if float(api_version) <= 11.00:
+        client.system.setup_static_network(getSystemId(), data)
+    else:
+        client.system.setup_static_network(getSystemId(), data, data6)
 
 def initiate(kickstart_host, base, extra_append, static_device=None, system_record="", preserve_files=[]):
 

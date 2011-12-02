@@ -4395,22 +4395,11 @@ public class SystemHandler extends BaseHandler {
     }
 
     /**
-     * Method to setup the static network configuration for a given server
-     * This is used by spacewalkkoan if the user selects static networking option
-     * in the advanced configuration section during provisioning.
-     * It basically adds $static_network variable to the cobbler system record
-     * which gets rendered during the kickstart.
-     * @param clientcert the client certificate or the system id file
-     * @param data a map holding the network details like ip, gateway,
-     *              name servers, ip, netmask and hostname.
-     *
-     * @return 1 on success exception otherwise.
-     *
-     * @xmlrpc.ignore Since this API is for internal integration between services and
-     * is not useful to external users of the API, the typical XMLRPC API documentation
-     * is not being included.
+     * Authenticates the client system by the client cert and looks up system record.
+     * @param clientcert Client certificate.
+     * @return SystemRecord.
      */
-    public int setupStaticNetwork(String clientcert, Map<String, Object> data) {
+    private SystemRecord getSystemRecordFromClientCert(String clientcert) {
         StringReader rdr = new StringReader(clientcert);
         Server server = null;
 
@@ -4438,6 +4427,27 @@ public class SystemHandler extends BaseHandler {
             throw new MethodInvalidParamException();
         }
         SystemRecord rec = server.getCobblerObject(null);
+        return rec;
+    }
+
+    /**
+     * Method to setup the static network configuration for a given server
+     * This is used by spacewalkkoan if the user selects static networking option
+     * in the advanced configuration section during provisioning.
+     * It basically adds $static_network variable to the cobbler system record
+     * which gets rendered during the kickstart.
+     * @param clientcert the client certificate or the system id file
+     * @param data a map holding the network details like ip, gateway,
+     *              name servers, ip, netmask and hostname.
+     *
+     * @return 1 on success exception otherwise.
+     *
+     * @xmlrpc.ignore Since this API is for internal integration between services and
+     * is not useful to external users of the API, the typical XMLRPC API documentation
+     * is not being included.
+     */
+    public int setupStaticNetwork(String clientcert, Map<String, Object> data) {
+        SystemRecord rec = getSystemRecordFromClientCert(clientcert);
         if (rec == null) {
             throw new NoSuchSystemException();
         }
@@ -4454,6 +4464,63 @@ public class SystemHandler extends BaseHandler {
         rec.setGateway(gateway);
         rec.setNameServers(nameservers);
         Map<String, Object> meta = rec.getKsMeta();
+        meta.put(KickstartFormatter.STATIC_NETWORK_VAR, command);
+        rec.setKsMeta(meta);
+        rec.save();
+        return 1;
+    }
+
+    /**
+     * Method to setup the static network IPv4 and IPv6 configuration for a given server
+     * This is used by spacewalkkoan if the user selects static networking option
+     * in the advanced configuration section during provisioning.
+     * It basically adds $static_network variable to the cobbler system record
+     * which gets rendered during the kickstart.
+     * @param clientcert the client certificate or the system id file
+     * @param data a map holding the IPv4 network details like ip, gateway,
+     *              name servers, ip, netmask and hostname.
+     *
+     * @param data6 a map holding the IPv6 network details like ip, netmask, gateway
+     *              and device.
+     * @return 1 on success exception otherwise.
+     *
+     * @xmlrpc.ignore Since this API is for internal integration between services and
+     * is not useful to external users of the API, the typical XMLRPC API documentation
+     * is not being included.
+     */
+    public int setupStaticNetwork(String clientcert, Map<String, Object> data,
+        Map<String, Object> data6) {
+        SystemRecord rec = getSystemRecordFromClientCert(clientcert);
+        if (rec == null) {
+            throw new NoSuchSystemException();
+        }
+
+        String device = (String)data.get("device");
+        // General network info
+        String hostName = (String)data.get("hostname");
+        List<String> nameservers = (List<String>)data.get("nameservers");
+        // IPv4 network info
+        String ip4 = (String)data.get("ip");
+        String nm4 = (String)data.get("netmask");
+        String gw4 = (String)data.get("gateway");
+        // IPv6 network info
+        String ip6 = (String) data6.get("ip");
+        String nm6 = (String) data6.get("netmask");
+        String gw6 = (String) data6.get("gateway");
+
+        Map<String, Object> meta = rec.getKsMeta();
+        String ipv6GatewayMeta = (String) meta.get(KickstartFormatter.USE_IPV6_GATEWAY);
+        boolean preferIpv6Gateway = false;
+        if (ipv6GatewayMeta != null && ipv6GatewayMeta.equals("true")) {
+            preferIpv6Gateway = true;
+        }
+
+        String command = KickstartFormatter.makeStaticNetworkCommand(device, hostName,
+            nameservers.get(0), ip4, nm4, gw4, ip6, nm6, gw6, preferIpv6Gateway);
+
+        rec.setHostName(hostName);
+        rec.setGateway((preferIpv6Gateway) ? gw6 : gw4);
+        rec.setNameServers(nameservers);
         meta.put(KickstartFormatter.STATIC_NETWORK_VAR, command);
         rec.setKsMeta(meta);
         rec.save();
