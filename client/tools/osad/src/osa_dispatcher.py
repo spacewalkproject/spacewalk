@@ -264,14 +264,14 @@ class Runner(jabber_lib.Runner):
                 insert into rhnPushDispatcher 
                        (id, jabber_id, last_checkin, hostname, port, password)
                 values (sequence_nextval('rhn_pushdispatch_id_seq'), :jabber_id_in, current_timestamp,
-                       :hostname_in, :port_in, :password);
+                       :hostname_in, :port_in, :password_in);
             end if;
         end;
     """)
 
     def _register_dispatcher(self, jabber_id, hostname, port):
-        h = rhnSQL.prepare(self._query_register_dispatcher, params = ( 'hostname_in varchar', 'port_in numeric', 'jabber_id_in varchar', 'password varchar' ))
-        h.execute(jabber_id_in=jabber_id, hostname_in=hostname, port_in=port, password=self._password)
+        h = rhnSQL.prepare(self._query_register_dispatcher, params = ( 'hostname_in varchar', 'port_in numeric', 'jabber_id_in varchar', 'password_in varchar' ))
+        h.execute(jabber_id_in=jabber_id, hostname_in=hostname, port_in=port, password_in=self._password)
         rhnSQL.commit()
 
     _query_get_client_jids = rhnSQL.Statement("""
