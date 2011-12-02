@@ -108,7 +108,11 @@ class PackagePush(basePackageUpload.BasePackageUpload):
         if ret != apache.OK:
             return ret
 
-        temp_stream = rhnPackageUpload.write_temp_file(req, 16384, self.packaging)
+        temp_stream = rhnPackageUpload.write_temp_file(req, 16384,
+                        os.path.join(CFG.MOUNT_POINT, CFG.PREPENDED_DIR, str(self.org_id)),
+                        '-'.join((self.package_name, self.package_version,
+                                 self.package_release, self.package_arch)),
+                        self.packaging)
 
         header, payload_stream, header_start, header_end = \
             rhnPackageUpload.load_package(temp_stream)
@@ -131,9 +135,10 @@ class PackagePush(basePackageUpload.BasePackageUpload):
             raise rhnFault(104, "Mismatching information")
         
         package_dict, diff_level = rhnPackageUpload.push_package(header,
-            payload_stream, checksum_type, checksum, force=self.force,
+            temp_stream, checksum_type, checksum, force=self.force,
             header_start=header_start, header_end=header_end,
             relative_path=self.rel_package_path, org_id=self.org_id)
+        temp_stream.delete=False
 
         if diff_level:
             return self._send_package_diff(req, diff_level, package_dict)
