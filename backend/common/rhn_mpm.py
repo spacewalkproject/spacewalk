@@ -20,6 +20,7 @@ import tempfile
 import xmlrpclib
 import struct
 import sys
+import fileutils
 
 from types import ListType, TupleType
 
@@ -170,8 +171,7 @@ class MPM_Package:
         # Read the header
         input_stream.seek(128, 0)
         header_data = self._read_bytes(input_stream, header_len)
-        payload_stream = tempfile.TemporaryFile()
-        self.stream_copy(input_stream, payload_stream)
+        payload_stream = fileutils.payload(input_stream.name, input_stream.tell())
 
         self._read_header(header_data, header_flags)
         self._read_payload(payload_stream, payload_flags)
