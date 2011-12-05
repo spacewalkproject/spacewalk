@@ -13,11 +13,12 @@
 # granted to use or replicate Red Hat trademarks that are incorporated
 # in this software or its documentation.
 #
-import sys, os, time
 import hashlib
+import os
 import re
+import sys
+import time
 from datetime import datetime
-import traceback
 from optparse import OptionParser
 from spacewalk.server import rhnPackage, rhnSQL, rhnChannel, rhnPackageUpload
 from spacewalk.common import rhnLog
