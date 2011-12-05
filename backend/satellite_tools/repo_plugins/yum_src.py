@@ -97,12 +97,16 @@ class ContentSource:
         self.proxy_user = CFG.http_proxy_username
         self.proxy_pass = CFG.http_proxy_password
 
-        if (self.proxy_user is not None and self.proxy_pass is not None and self.proxy_addr is not None):
-            self.proxy_url = "http://%s:%s@%s" %(self.proxy_user, self.proxy_pass, self.proxy_addr)
-        elif (self.proxy_addr is not None):
-            self.proxy_url = "http://%s" %(self.proxy_addr)
+        if (self.proxy_user is not None and
+            self.proxy_pass is not None and
+            self.proxy_addr is not None):
+            self.proxy_url = "http://%s:%s@%s" % (
+                self.proxy_user, self.proxy_pass, self.proxy_addr)
+        elif self.proxy_addr is not None:
+            self.proxy_url = "http://" + self.proxy_addr
         else:
             self.proxy_url = None
+
         repo = yum.yumRepo.YumRepository(name)
         repo.populate(self.configparser, name, self.yumbase.conf)
         self.repo = repo
