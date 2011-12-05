@@ -339,12 +339,14 @@ public abstract class CobblerObject {
         for (String key : map.keySet()) {
             if (map.get(key) == null) {
                 string.append(key + " ");
-            } else if(map.get(key) instanceof List<?>){
+            }
+            else if (map.get(key) instanceof List<?>) {
                 List<String> values = (List)map.get(key);
                 for (String value : values) {
                     string.append(key + "=" + value + " ");
                 }
-            } else {
+            }
+            else {
                 string.append(key + "=" + map.get(key) + " ");
             }
         }
@@ -386,13 +388,15 @@ public abstract class CobblerObject {
             String[] split = option.split("=");
             if (split.length == 1) {
                 toRet.put(split[0], null);
-            } else if (split.length == 2) {
+            }
+            else if (split.length == 2) {
                 if (toRet.containsKey(split[0])) {
                     List<String> list = (List)toRet.get(split[0]);
                     list.add(split[1]);
                     toRet.put(split[0], list);
-                } else {
-                    toRet.put(split[0],new ArrayList<String>(Arrays.asList(split[1])));
+                }
+                else {
+                    toRet.put(split[0], new ArrayList<String>(Arrays.asList(split[1])));
                 }
             }
         }
