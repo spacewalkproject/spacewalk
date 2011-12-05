@@ -81,9 +81,10 @@ class YumUpdateMetadata(UpdateMetadata):
                             no = self._no_cache.setdefault(file['name'], set())
                             no.add(un)
 
-class ContentSource:
-    repo = None
+class ContentSource(object):
     def __init__(self, url, name):
+        self.url = url
+        self.name = name
         self.yumbase = yum.YumBase()
         self.yumbase.preconf.fn=YUMSRC_CONF
         if not os.path.exists(YUMSRC_CONF):
@@ -110,10 +111,18 @@ class ContentSource:
         repo = yum.yumRepo.YumRepository(name)
         repo.populate(self.configparser, name, self.yumbase.conf)
         self.repo = repo
+        self.sack = None
+
+        self.setup_repo(repo)
+        self.num_packages = 0
+        self.num_excluded = 0
+
+    def setup_repo(self, repo):
+        """Fetch repository metadata"""
         repo.cache = 0
         repo.metadata_expire = 0
-        repo.mirrorlist = url
-        repo.baseurl = [url]
+        repo.mirrorlist = self.url
+        repo.baseurl = [self.url]
         repo.basecachedir = CACHE_DIR
         repo.pkgdir = os.path.join(CFG.MOUNT_POINT, CFG.PREPENDED_DIR, '1')
         if hasattr(repo, 'base_persistdir'):
@@ -126,21 +135,17 @@ class ContentSource:
         warnings.disable()
         repo.baseurlSetup()
         warnings.restore()
-
         repo.setup(False)
-        self.num_packages = 0
-        self.num_excluded = 0
-
+        self.sack = self.repo.getPackageSack()
 
     def list_packages(self, filters):
         """ list packages"""
-        sack = self.repo.getPackageSack()
-        sack.populate(self.repo, 'metadata', None, 0)
-        list = sack.returnPackages()
+        self.sack.populate(self.repo, 'metadata', None, 0)
+        list = self.sack.returnPackages()
         self.num_packages = len(list)
         if filters:
             list = self._filter_packages(list, filters)
-            list = self._get_package_dependencies(sack, list)
+            list = self._get_package_dependencies(self.sack, list)
             self.num_excluded = self.num_packages - len(list)
         to_return = []
         for pack in list:
