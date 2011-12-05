@@ -126,10 +126,10 @@ class RepoSync(object):
         return getattr(submod, "ContentSource")
 
     def import_updates(self, plug, url):
-      notices = plug.get_updates()
-      self.print_msg("Repo " + url + " has " + str(len(notices)) + " errata.")
-      if len(notices) > 0:
-        self.upload_updates(notices)
+        notices = plug.get_updates()
+        self.print_msg("Repo %s has %s errata." % (url, len(notices)))
+        if notices:
+            self.upload_updates(notices)
 
     def upload_updates(self, notices):
         batch = []
@@ -329,9 +329,9 @@ class RepoSync(object):
                     if db_pack['channel_label'] == self.channel_label:
                         # package is already in the channel
                         to_link = False
-		elif db_pack['channel_label'] == self.channel_label:
+                elif db_pack['channel_label'] == self.channel_label:
 		    # different package with SAME NVREA
-		    self.disassociate_package(db_pack)
+                    self.disassociate_package(db_pack)
 
             if to_download or to_link:
                 to_process.append((pack, to_download, to_link))
@@ -440,21 +440,18 @@ class RepoSync(object):
 		  checksum_type=pack['checksum_type'], checksum=pack['checksum'])
 
     def _importer_run(self, package, caller, backend):
-            importer = ChannelPackageSubscription(
-                       [IncompletePackage().populate(package)],
-                       backend, caller=caller, repogen=False)
-            importer.run()
-
+        importer = ChannelPackageSubscription(
+            [IncompletePackage().populate(package)],
+            backend, caller=caller, repogen=False)
+        importer.run()
 
     def load_channel(self):
         return rhnChannel.channel_info(self.channel_label)
-
 
     def print_msg(self, message):
         rhnLog.log_clean(0, message)
         if not self.quiet:
             print message
-
 
     def error_msg(self, message):
         rhnLog.log_clean(0, message)
@@ -470,10 +467,10 @@ class RepoSync(object):
     def _to_db_date(self, date):
         ret = ""
         if date.isdigit():
-          ret = datetime.fromtimestamp(float(date)).isoformat(' ')
+            ret = datetime.fromtimestamp(float(date)).isoformat(' ')
         else:
-          # we expect to get ISO formated date
-          ret = date
+            # we expect to get ISO formated date
+            ret = date
         return ret
 
     def fix_notice(self, notice):
@@ -585,7 +582,7 @@ class ContentPackage:
 
     def load_checksum_from_header(self):
         if self.path is None:
-           raise rhnFault(50, "Unable to load package", explain=0)
+            raise rhnFault(50, "Unable to load package", explain=0)
         self.file = open(self.path, 'rb')
         self.header, self.payload_stream, self.header_start, self.header_end = \
                 rhnPackageUpload.load_package(self.file)
