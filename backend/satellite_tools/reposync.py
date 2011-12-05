@@ -211,7 +211,7 @@ class RepoSync(object):
                        and at.label = 'rpm'
                        and ch.label = :channel_label
                 """ % (orgStatement, epochStatement))
-                apply(h.execute, (), param_dict)
+                h.execute(**param_dict)
                 cs = h.fetchone_dict() or None
 
                 if not cs:
