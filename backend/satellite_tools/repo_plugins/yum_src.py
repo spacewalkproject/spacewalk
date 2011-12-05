@@ -34,6 +34,7 @@ except ImportError:
 from spacewalk.satellite_tools.reposync import ContentPackage
 from spacewalk.common.rhnConfig import CFG, initCFG
 
+CACHE_DIR = '/var/cache/rhn/reposync/'
 YUMSRC_CONF='/etc/rhn/spacewalk-repo-sync/yum.conf'
 
 class YumWarnings:
@@ -82,14 +83,13 @@ class YumUpdateMetadata(UpdateMetadata):
 
 class ContentSource:
     repo = None
-    cache_dir = '/var/cache/rhn/reposync/'
     def __init__(self, url, name):
         self.yumbase = yum.YumBase()
         self.yumbase.preconf.fn=YUMSRC_CONF
         if not os.path.exists(YUMSRC_CONF):
             self.yumbase.preconf.fn='/dev/null'
         self.configparser = ConfigParser()
-        self._clean_cache(self.cache_dir + name)
+        self._clean_cache(CACHE_DIR + name)
 
         # read the proxy configuration in /etc/rhn/rhn.conf
         initCFG('server.satellite')
@@ -110,10 +110,11 @@ class ContentSource:
         repo.metadata_expire = 0
         repo.mirrorlist = url
         repo.baseurl = [url]
-        repo.basecachedir = self.cache_dir
+        repo.basecachedir = CACHE_DIR
         repo.pkgdir = os.path.join(CFG.MOUNT_POINT, CFG.PREPENDED_DIR, '1')
         if hasattr(repo, 'base_persistdir'):
-            repo.base_persistdir = self.cache_dir
+            repo.base_persistdir = CACHE_DIR
+
         if self.proxy_url is not None:
             repo.proxy = self.proxy_url
 
