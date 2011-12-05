@@ -75,12 +75,21 @@ _queryLookupOrgId = rhnSQL.Statement("""
       FROM web_customer
 """)
 
+_queryLookupBaseOrgId = rhnSQL.Statement("""
+    SELECT min(id) as id
+      FROM web_customer
+""")
+
 def get_org_id():
     """
      Fetch base org id
     """
-    rows = get_all_orgs()
-    return rows[0]['id']
+    h = rhnSQL.prepare(_queryLookupBaseOrgId)
+    h.execute()
+    row = h.fetchone_dict()
+    if not row or not row['id']:
+        raise NoOrgIdError("Unable to look up org_id")
+    return row['id']
 
 def create_first_org(owner):
     """ create first org_id if needed
