@@ -118,13 +118,16 @@ class ServerTemplatedDocument(TemplatedDocument):
 
 
     def net_intf_ipaddr(self, interface_name):
-        return self._get_interface_info_attr(interface_name, 'ip_addr')
+        ipv4 = self._get_interface_info_attr(interface_name, 'ipv4')
+        return self._get_interface_address_attr(ipv4, 'address')
 
     def net_intf_netmask(self, interface_name):
-        return self._get_interface_info_attr(interface_name, 'netmask')
+        ipv4 = self._get_interface_info_attr(interface_name, 'ipv4')
+        return self._get_interface_address_attr(ipv4, 'netmask')
 
     def net_intf_broadcast(self, interface_name):
-        return self._get_interface_info_attr(interface_name, 'broadcast')
+        ipv4 = self._get_interface_info_attr(interface_name, 'ipv4')
+        return self._get_interface_address_attr(ipv4, 'broadcast')
 
     def net_intf_hwaddr(self, interface_name):
         return self._get_interface_info_attr(interface_name, 'hw_addr')
@@ -139,3 +142,9 @@ class ServerTemplatedDocument(TemplatedDocument):
             return None
 
         return iface[attr]
+
+    def _get_interface_address_attr(self, address, attr):
+        if (address is None) or (len(address.db_ifaces) == 0) or (attr not in address.db_ifaces[0]):
+            return None
+        else:
+            return address.db_ifaces[0][attr]
