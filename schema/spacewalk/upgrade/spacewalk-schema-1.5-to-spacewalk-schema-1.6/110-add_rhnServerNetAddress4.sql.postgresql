@@ -13,6 +13,8 @@ CREATE TABLE rhnServerNetAddress4
     modified   timestamptz default current_timestamp NOT NULL
 );
 
-CREATE UNIQUE INDEX rhn_srv_net_addr4_iid_addr_uq
-    ON rhnServerNetAddress4 (interface_id, address)
-    ;
+CREATE INDEX rhn_srv_net_addr4_iid_addr_uq
+    ON rhnServerNetAddress4 (interface_id, address);
+
+ALTER TABLE rhnServerNetAddress4
+    ADD CONSTRAINT rhn_srv_net_addr4_iid_addr_uq UNIQUE (interface_id, address);
