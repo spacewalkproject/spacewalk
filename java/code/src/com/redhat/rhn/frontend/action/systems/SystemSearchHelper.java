@@ -238,6 +238,13 @@ public class SystemSearchHelper {
                     s.trim().equalsIgnoreCase("NOT")) {
                 s = s.toUpperCase();
             }
+            else {
+                // Escape colons in IPv6 address automatically.
+                // (colon is a special lucene character)
+                if (IP6.equals(mode)) {
+                    s = s.replace(":", "\\:");
+                }
+            }
             buf.append(s);
             buf.append(" ");
         }
