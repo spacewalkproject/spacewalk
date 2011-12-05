@@ -104,14 +104,6 @@ def create_first_org(owner):
         verify_family_permissions()
     return get_org_id()
 
-_query_get_slot_types = rhnSQL.Statement("""
-    select sg.group_type slot_type_id, sgt.label slot_name
-      from rhnServerGroup sg,
-           rhnServerGroupType sgt
-     where sg.org_id = :org_id
-       and sg.group_type = sgt.id
-""")
-
 _query_get_allorg_slot_types = rhnSQL.Statement("""
     select sg.org_id,sg.group_type as slot_type_id, 
            sgt.label as slot_name, sg.max_members, sg.current_members
