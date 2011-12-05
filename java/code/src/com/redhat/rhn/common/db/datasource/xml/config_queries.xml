@@ -2068,36 +2068,30 @@ SELECT  CC.id,
 <!-- Returns the list of configuration channels to display as options for SSM server to
      subscribe to. This query will *not* display channels that every server in the SSM
      is already subscribed to since it would be redundant.
-
-     Since recent changes have made this query much more complex, below is a quick
-     explanation of how it functions.
-
-     - For each config channel, take the set difference (MINUS) of the servers selected the
-       SSM and the servers subscribed to that channel. The result represents the servers
-       in the SSM that still may want to subscribe to that channel.
-     - The last query (the last AND) in the outer query returns all channels where there
-       are no servers that may be subscribed to the channel (i.e. when there are no servers
-       returned from the above difference; WHERE NOT EXISTS). These channels should *not*
-       be shown to the user since they will effectively be a no-op on a subscribe operation.
-     - Return all config channels that the user has permissions to that are not part of
-       the above channel exclusions.
 -->
 <mode name="ssm_channels_for_subscribe_choose" class="com.redhat.rhn.frontend.dto.ConfigChannelDto">
   <query params="org_id, user_id">
 SELECT  CC.id, CC.name
-  FROM  rhnConfigChannel CC, rhnConfigChannelType CCT
+  FROM  rhnConfigChannel CC
+  JOIN  rhnConfigChannelType CCT
+    ON  CC.confchan_type_id = CCT.id
+  LEFT  JOIN (SELECT count(RS.element) server_cnt,
+                     SCC.config_channel_id
+                FROM rhnSet RS
+                LEFT JOIN rhnServerConfigChannel SCC
+                  ON RS.element = SCC.server_id
+               WHERE RS.label = 'system_list'
+                 AND RS.user_id = :user_id
+               GROUP BY SCC.config_channel_id
+              ) SSMCHannels
+    ON  CC.id = SSMCHannels.config_channel_id
  WHERE  CC.org_id = :org_id
-   AND  CC.confchan_type_id = CCT.id
    AND  rhn_config_channel.get_user_chan_access(CC.id, :user_id) = 1
    AND  CCT.label = 'normal'
-   AND  CC.id NOT IN ( SELECT XXX.config_channel_id
-                         FROM rhnServerConfigChannel XXX
-                        WHERE NOT EXISTS ( SELECT RS.element
-                                             FROM rhnSet RS LEFT OUTER JOIN rhnServerConfigChannel SCC
-                                             ON RS.element = SCC.server_id
-                                            WHERE RS.label = 'system_list'
-                                            AND SCC.config_channel_id is null
-                                            AND SCC.server_id is null) )
+   AND  COALESCE(SSMCHannels.server_cnt, 0) &lt; (SELECT count(*)
+                                                    FROM rhnSet
+                                                   WHERE label = 'system_list'
+                                                     AND user_id = :user_id)
 ORDER BY UPPER(CC.name)
   </query>
   <elaborator name="ssm_channel_elab" />
