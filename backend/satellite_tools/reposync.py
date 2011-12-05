@@ -19,7 +19,7 @@ import re
 import sys
 import time
 from datetime import datetime
-from optparse import OptionParser
+
 from spacewalk.server import rhnPackage, rhnSQL, rhnChannel, rhnPackageUpload
 from spacewalk.common import rhnLog
 from spacewalk.common.rhnLog import log_debug
@@ -42,75 +42,55 @@ def set_filter_opt(option, opt_str, value, parser):
     parser.values.filters.append((f_type, re.split('[,\s]+', value)))
 
 
-    parser = None
-    type = None
-    urls = None
-    channel_label = None
-    channel = None
-    fail = False
-    quiet = False
-    regen = False
-    filters = []
 class RepoSync(object):
+    def __init__(self, channel_label, repo_type, url=None, fail=False,
+                 quiet=False, filters=[]):
+        self.regen = False
+        self.fail = fail
+        self.quiet = quiet
+        self.filters = filters
+        self.type = repo_type
 
-    def main(self):
         initCFG('server')
         db_string = CFG.DEFAULT_DB #"rhnsat/rhnsat@rhnsat"
         rhnSQL.initDB(db_string)
-        (options, args) = self.process_args()
 
+        # setup logging
         log_filename = 'reposync.log'
-        if options.channel_label:
-            date = time.localtime()
-            datestr = '%d.%02d.%02d-%02d:%02d:%02d' % (date.tm_year, date.tm_mon, date.tm_mday, date.tm_hour, date.tm_min, date.tm_sec)
-            log_filename = options.channel_label + '-' +  datestr + '.log'
-
+        date = time.localtime()
+        datestr = '%d.%02d.%02d-%02d:%02d:%02d' % (
+            date.tm_year, date.tm_mon, date.tm_mday, date.tm_hour,
+            date.tm_min, date.tm_sec)
+        log_filename = channel_label + '-' +  datestr + '.log'
         rhnLog.initLOG(default_log_location + log_filename)
         #os.fchown isn't in 2.4 :/
         os.system("chgrp apache " + default_log_location + log_filename)
 
-        if options.type not in ["yum"]:
-            print "Error: Unknown type %s" % options.type
-            sys.exit(2)
-
-        quit = False
-        if not options.url:
-            if options.channel_label:
-                # TODO:need to look at user security across orgs
-                h = rhnSQL.prepare("""select s.id, s.source_url
-                                      from rhnContentSource s,
-                                           rhnChannelContentSource cs,
-                                           rhnChannel c
-                                     where s.id = cs.source_id
-                                       and cs.channel_id = c.id
-                                       and c.label = :label""")
-                h.execute(label=options.channel_label)
-                source_data = h.fetchall_dict() or []
-                if source_data:
-                    self.urls = [(row['id'], row['source_url']) for row in source_data]
-                else:
-                    quit = True
-                    self.error_msg("Channel has no URL associated")
-        else:
-            self.urls = [(None, options.url)]
-        if not options.channel_label:
-            quit = True
-            self.error_msg("--channel must be specified")
-
-        self.filters = options.filters
         self.log_msg("\nSync started: %s" % (time.asctime(time.localtime())))
         self.log_msg(str(sys.argv))
 
+        if not url:
+            # TODO:need to look at user security across orgs
+            h = rhnSQL.prepare("""select s.id, s.source_url
+                                  from rhnContentSource s,
+                                       rhnChannelContentSource cs,
+                                       rhnChannel c
+                                 where s.id = cs.source_id
+                                   and cs.channel_id = c.id
+                                   and c.label = :label""")
+            h.execute(label=channel_label)
+            source_data = h.fetchall_dict()
+            if source_data:
+                self.urls = [(row['id'], row['source_url']) for row in source_data]
+            else:
+                self.error_msg("Channel has no URL associated")
+                sys.exit(1)
+        else:
+            self.urls = [(None, url)]
 
-        if quit:
-            sys.exit(1)
+        self.channel_label = channel_label
 
-        self.type = options.type
-        self.channel_label = options.channel_label
-        self.fail = options.fail
-        self.quiet = options.quiet
         self.channel = self.load_channel()
-
         if not self.channel or not rhnChannel.isCustomChannel(self.channel['id']):
             self.print_msg("Channel does not exist or is not custom.")
             sys.exit(1)
@@ -137,17 +117,6 @@ class RepoSync(object):
                              where label = :channel""")
         h.execute(channel=self.channel['label'])
 
-    def process_args(self):
-        self.parser = OptionParser()
-        self.parser.add_option('-u', '--url', action='store', dest='url', help='The url to sync')
-        self.parser.add_option('-c', '--channel', action='store', dest='channel_label', help='The label of the channel to sync packages to')
-        self.parser.add_option('-t', '--type', action='store', dest='type', help='The type of repo, currently only "yum" is supported', default='yum')
-        self.parser.add_option('-f', '--fail', action='store_true', dest='fail', default=False , help="If a package import fails, fail the entire operation")
-        self.parser.add_option('-q', '--quiet', action='store_true', dest='quiet', default=False, help="Print no output, still logs output")
-        self.parser.add_option('-i', '--include', action='callback', callback=set_filter_opt, type='str', nargs=1, dest='filters', default=[], help="List of included packages")
-        self.parser.add_option('-e', '--exclude', action='callback', callback=set_filter_opt, type='str', nargs=1, dest='filters', default=[], help="List of excluded packages")
-
-        return self.parser.parse_args()
 
     def load_plugin(self):
         name = self.type + "_src"

@@ -19,6 +19,7 @@ LOCK = None
 import sys
 import os
 import socket
+from optparse import OptionParser
 
 
 def systemExit(code, msg=None):
@@ -55,10 +56,43 @@ def main():
         LOCK = rhnLockfile.Lockfile('/var/run/spacewalk-repo-sync.pid')
     except rhnLockfile.LockfileLockedException:
         systemExit(1, "ERROR: attempting to run more than one instance of spacewalk-repo-sync Exiting.")
-    sync = reposync.RepoSync()
-    sync.main()
+
+    parser = OptionParser()
+    parser.add_option('-u', '--url', action='store', dest='url',
+                      help='The url to sync')
+    parser.add_option('-c', '--channel', action='store',
+                      dest='channel_label',
+                      help='The label of the channel to sync packages to')
+    parser.add_option('-t', '--type', action='store', dest='repo_type',
+                      help='The type of repo, currently only "yum" is supported',
+                      default='yum')
+    parser.add_option('-f', '--fail', action='store_true', dest='fail',
+                      default=False,
+                      help="If a package import fails, fail the entire operation")
+    parser.add_option('-q', '--quiet', action='store_true', dest='quiet',
+                      default=False, help="Print no output, still logs output")
+    parser.add_option('-i', '--include', action='callback',
+                      callback=reposync.set_filter_opt, type='str', nargs=1,
+                      dest='filters', default=[],
+                      help="List of included packages")
+    parser.add_option('-e', '--exclude', action='callback',
+                      callback=reposync.set_filter_opt,
+                      type='str', nargs=1, dest='filters', default=[],
+                      help="List of excluded packages")
+    (options, args) = parser.parse_args()
+
+    if not options.channel_label:
+        systemExit(1, "--channel must be specified")
+
+    reposync.RepoSync(channel_label=options.channel_label,
+                      repo_type=options.repo_type,
+                      url=options.url,
+                      fail=options.fail,
+                      quiet=options.quiet,
+                      filters=options.filters)
     releaseLOCK()
     return 0
+
 
 if __name__ == '__main__':
     try:
