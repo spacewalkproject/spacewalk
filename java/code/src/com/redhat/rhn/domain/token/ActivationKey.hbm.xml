@@ -27,7 +27,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 
     <query name="ActivationKey.findByToken">
         <![CDATA[from com.redhat.rhn.domain.token.ActivationKey as ak where ak.token = :token and
-        	kickstartSession = null]]>
+               kickstartSession is null]]>
     </query>
 
     <query name="ActivationKey.findByServer">
