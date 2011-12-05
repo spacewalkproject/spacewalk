@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.6.84
+Version: 1.6.85
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -557,6 +557,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Dec 05 2011 Milan Zazrivec <mzazrivec@redhat.com> 1.6.85-1
+- IPv6: allow for IPv6 search without having to escape colons
+
 * Mon Dec 05 2011 Jan Pazdziora 1.6.84-1
 - Fix query to determine config channels in SSM (jrenner@suse.de)
 - fix checkstyle issues (tlestach@redhat.com)
