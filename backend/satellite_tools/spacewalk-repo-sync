@@ -50,7 +50,7 @@ def main():
     if os.getuid() != 0:
         systemExit(8, 'ERROR: must be root to execute.')
 
-    LOCK = None
+    global LOCK
     try:
         LOCK = rhnLockfile.Lockfile('/var/run/spacewalk-repo-sync.pid')
     except rhnLockfile.LockfileLockedException:
