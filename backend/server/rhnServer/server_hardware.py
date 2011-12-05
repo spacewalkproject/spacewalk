@@ -969,6 +969,7 @@ class Hardware:
 
         net_iface_info = NetIfaceInformation()
         net_iface_info.reload(sysid)
+        self.__hardware[NetIfaceInformation] = [net_iface_info]
 
         # now set the flag
         self.__changed = 0
