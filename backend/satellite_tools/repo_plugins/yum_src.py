@@ -142,7 +142,7 @@ class ContentSource:
             if pack.arch == 'src':
                 continue
             new_pack = ContentPackage()
-            new_pack.setNVREA(pack.name, pack.version, pack.release, 
+            new_pack.setNVREA(pack.name, pack.version, pack.release,
                               pack.epoch, pack.arch)
             new_pack.unique_id = pack
             new_pack.checksum_type = pack.checksums[0][0]
@@ -213,8 +213,8 @@ class ContentSource:
         shutil.rmtree(directory, True)
 
     def get_updates(self):
-      if not self.repo.repoXML.repoData.has_key('updateinfo'):
-        return []
-      um = YumUpdateMetadata()
-      um.add(self.repo, all=True)
-      return um.notices
+        if not self.repo.repoXML.repoData.has_key('updateinfo'):
+            return []
+        um = YumUpdateMetadata()
+        um.add(self.repo, all=True)
+        return um.notices
