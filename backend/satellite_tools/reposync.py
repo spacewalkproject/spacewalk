@@ -41,7 +41,6 @@ def set_filter_opt(option, opt_str, value, parser):
     else:                               f_type = '-'
     parser.values.filters.append((f_type, re.split('[,\s]+', value)))
 
-class RepoSync:
 
     parser = None
     type = None
@@ -52,6 +51,7 @@ class RepoSync:
     quiet = False
     regen = False
     filters = []
+class RepoSync(object):
 
     def main(self):
         initCFG('server')
