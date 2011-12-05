@@ -2097,8 +2097,8 @@ ORDER BY UPPER(CC.name)
   <elaborator name="ssm_channel_elab" />
 </mode>
 
-<!-- Returns the list of configuration channels that *every* server currently in the SSM
-     are subscribed to. The idea here is that these will need to be taken into account
+<!-- Returns the list of configuration channels that at least one server currently in the SSM
+     is subscribed to. The idea here is that these will need to be taken into account
      when ranking newly subscribed channels, so these must be added to the user selection
      (they are not already in the user selection because they were omitted as effectively
      a no-op since the subscriptions exist.
@@ -2109,19 +2109,21 @@ ORDER BY UPPER(CC.name)
 <mode name="ssm_channels_for_subscribe_already_sub" class="com.redhat.rhn.frontend.dto.ConfigChannelDto">
   <query params="org_id, user_id">
 SELECT  CC.id, CC.name
-  FROM  rhnConfigChannel CC, rhnConfigChannelType CCT
+  FROM  rhnConfigChannel CC
+  JOIN  rhnConfigChannelType CCT
+    ON  CC.confchan_type_id = CCT.id
+  LEFT  JOIN (SELECT DISTINCT SCC.config_channel_id
+                FROM rhnSet RS
+                LEFT JOIN rhnServerConfigChannel SCC
+                  ON RS.element = SCC.server_id
+               WHERE RS.label = 'system_list'
+                 AND RS.user_id = :user_id
+             ) SSMCHannels
+    ON  CC.id = SSMCHannels.config_channel_id
  WHERE  CC.org_id = :org_id
-   AND  CC.confchan_type_id = CCT.id
    AND  rhn_config_channel.get_user_chan_access(CC.id, :user_id) = 1
    AND  CCT.label = 'normal'
-   AND  CC.id IN ( SELECT XXX.config_channel_id
-                         FROM rhnServerConfigChannel XXX
-                        WHERE NOT EXISTS ( SELECT RS.element
-                                            FROM rhnSet RS LEFT OUTER JOIN rhnServerConfigChannel SCC
-                                            ON RS.element = SCC.server_id
-                                           WHERE RS.label = 'system_list'
-                                           AND SCC.config_channel_id is null
-                                           AND SCC.server_id is null) )
+   AND  SSMCHannels.config_channel_id is not NULL
 ORDER BY UPPER(CC.name)
   </query>
   <elaborator name="ssm_channel_elab" />
