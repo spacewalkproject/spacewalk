@@ -4,7 +4,7 @@ Name: spacewalk-search
 Summary: Spacewalk Full Text Search Server
 Group: Applications/Internet
 License: GPLv2
-Version: 1.6.6
+Version: 1.6.7
 Release: 1%{?dist}
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
@@ -124,6 +124,9 @@ fi
 %{_sysconfdir}/logrotate.d/rhn-search
 
 %changelog
+* Mon Dec 05 2011 Milan Zazrivec <mzazrivec@redhat.com> 1.6.7-1
+- IPv6: create indexes for correct data
+
 * Wed Nov 30 2011 Martin Minar <mminar@redhat.com> 1.6.6-1
 - jakarta-oro package in Fedora 16 no longer provides oro dependency. Let's
   require jakarta-oro instead of oro. (mminar@redhat.com)
