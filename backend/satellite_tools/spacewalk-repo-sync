@@ -48,14 +48,14 @@ def main():
 
     # quick check to see if you are a super-user.
     if os.getuid() != 0:
-        sys.stderr.write('ERROR: must be root to execute\n')
-        sys.exit(8)
+        systemExit(8, 'ERROR: must be root to execute.')
 
     LOCK = None
     try:
         LOCK = rhnLockfile.Lockfile('/var/run/spacewalk-repo-sync.pid')
     except rhnLockfile.LockfileLockedException:
-        systemExit(1, "ERROR: attempting to run more than one instance of spacewalk-repo-sync Exiting.")
+        systemExit(1, "ERROR: attempting to run more than one instance of "
+                      "spacewalk-repo-sync Exiting.")
 
     parser = OptionParser()
     parser.add_option('-u', '--url', action='store', dest='url',
