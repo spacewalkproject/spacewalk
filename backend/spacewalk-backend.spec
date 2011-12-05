@@ -12,7 +12,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.6.48
+Version: 1.6.49
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -675,6 +675,13 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Mon Dec 05 2011 Michael Mraka <michael.mraka@redhat.com> 1.6.49-1
+- 676369 - sync packages directly to /var/satellite
+- 676369 - move package to the final location
+- 676369 - create tempfile under /var/satellite
+- uploadPackage* function have been deprecated long time before Satellite 4.0
+- read payload directly from inputstream
+
 * Mon Dec 05 2011 Jan Pazdziora 1.6.48-1
 - _query_get_slot_types not used, removing.
 - IPv6: add new macro rhn.system.ip6_address for templates of configuration
