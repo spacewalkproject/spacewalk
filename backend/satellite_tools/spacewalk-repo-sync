@@ -16,17 +16,17 @@
 #
 
 LOCK = None
-
-
 import sys
+import os
+import socket
+
+
 def systemExit(code, msg=None):
     "Exit with a code and optional message(s). Saved a few lines of code."
     sys.stderr.write(str(msg)+'\n')
     sys.exit(code)
 
 try:
-    import os
-    import socket
     from rhn import rhnLockfile
     from spacewalk.common.rhnConfig import CFG
     from spacewalk.common.rhnTB import fetchTraceback
