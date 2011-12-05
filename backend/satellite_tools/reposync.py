@@ -49,7 +49,6 @@ class RepoSync(object):
         self.fail = fail
         self.quiet = quiet
         self.filters = filters
-        self.type = repo_type
 
         initCFG('server')
         db_string = CFG.DEFAULT_DB #"rhnsat/rhnsat@rhnsat"
@@ -88,6 +87,7 @@ class RepoSync(object):
         else:
             self.urls = [(None, url)]
 
+        self.repo_plugin = self.load_plugin(repo_type)
         self.channel_label = channel_label
 
         self.channel = self.load_channel()
@@ -95,10 +95,12 @@ class RepoSync(object):
             self.print_msg("Channel does not exist or is not custom.")
             sys.exit(1)
 
+    def sync(self):
+        """Trigger a reposync"""
         start_time = datetime.now()
-        for (id, url) in self.urls:
-            plugin = self.load_plugin()(url, self.channel_label)
-            self.import_packages(plugin, id, url)
+        for (repo_id, url) in self.urls:
+            plugin = self.repo_plugin(url, self.channel_label)
+            self.import_packages(plugin, repo_id, url)
             self.import_updates(plugin, url)
         if self.regen:
             taskomatic.add_to_repodata_queue_for_channel_package_subscription(
@@ -117,9 +119,8 @@ class RepoSync(object):
                              where label = :channel""")
         h.execute(channel=self.channel['label'])
 
-
-    def load_plugin(self):
-        name = self.type + "_src"
+    def load_plugin(self, repo_type):
+        name = repo_type + "_src"
         mod = __import__('spacewalk.satellite_tools.repo_plugins', globals(), locals(), [name])
         submod = getattr(mod, name)
         return getattr(submod, "ContentSource")
