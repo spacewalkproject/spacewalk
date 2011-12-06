@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.6.37
+Version:        1.6.38
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -66,6 +66,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Tue Dec 06 2011 Milan Zazrivec <mzazrivec@redhat.com> 1.6.38-1
+- pgsql schema upgrade: syntax fix & fix index names
+
 * Mon Dec 05 2011 Milan Zazrivec <mzazrivec@redhat.com> 1.6.37-1
 - pgsql: consistent unique constraints
 - pgsql: consistent not null constraint
