@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 1.6.31
+Version: 1.6.32
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -256,6 +256,25 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Tue Dec 06 2011 Jan Pazdziora 1.6.32-1
+- IPv6: reprovisioning with static network interface (mzazrivec@redhat.com)
+- code cleanup - function base_entitlement is not used anymore
+  (msuchy@redhat.com)
+- code cleanup - function addon_entitlements is not used anymore
+  (msuchy@redhat.com)
+- code cleanup - function ks_session_redir is not used anymore
+  (msuchy@redhat.com)
+- code cleanup - callback rhn:delete_servers_cb is not used anymore
+  (msuchy@redhat.com)
+- code cleanup - callback server_hardware_list_refresh_cb is not used anymore
+  (msuchy@redhat.com)
+- code cleanup - tag rhn-server-network-details is not used anymore
+  (msuchy@redhat.com)
+- code cleanup - tag rhn-server-device is not used anymore (msuchy@redhat.com)
+- code cleanup - tag rhn-dmi-info is not used anymore (msuchy@redhat.com)
+- code cleanup - tag rhn-server-hardware-profile is not used anywhere
+  (msuchy@redhat.com)
+
 * Tue Nov 29 2011 Miroslav Suchý 1.6.31-1
 - IPv6: code cleanup - package RHN::DB::Server::NetInterface is not used
   anymore
