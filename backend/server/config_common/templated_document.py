@@ -59,6 +59,7 @@ class ServerTemplatedDocument(TemplatedDocument):
             RHN_PREFIX + 'net_interface.hardware_address'   : self.net_intf_hwaddr,
             RHN_PREFIX + 'net_interface.driver_module'      : self.net_intf_module,
             RHN_PREFIX + 'net_interface.ip6_address'        : self.net_intf_ip6addr,
+            RHN_PREFIX + 'net_interface.ip6_netmask'        : self.net_intf_ip6netmask,
         })
 
     #######################
@@ -140,6 +141,17 @@ class ServerTemplatedDocument(TemplatedDocument):
         """
         ipv6 = self._get_interface_info_attr(interface_name, 'ipv6')
         return self._get_interface_address6_attr(ipv6, scope, order, 'address')
+
+    def net_intf_ip6netmask(self, interface_name, scope='universe', order=0):
+        """ get IPv6 netmask
+
+        interface_name is name of interface, e.g. 'eth0'
+        scope is either 'link', 'universe' or 'host'
+        order is zero based index as there can be more than one IP address
+             for given scope and interface
+        """
+        ipv6 = self._get_interface_info_attr(interface_name, 'ipv6')
+        return self._get_interface_address6_attr(ipv6, scope, order, 'netmask')
 
     def net_intf_hwaddr(self, interface_name):
         return self._get_interface_info_attr(interface_name, 'hw_addr')
