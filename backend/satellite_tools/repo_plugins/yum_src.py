@@ -192,9 +192,8 @@ class ContentSource:
         return selected
 
     def _get_package_dependencies(self, sack, packages):
-        yumbase = yum.YumBase()
-        yumbase.pkgSack = sack
-        resolved_deps = yumbase.findDeps(packages)
+        self.yumbase.pkgSack = sack
+        resolved_deps = self.yumbase.findDeps(packages)
         for (pkg,deps) in resolved_deps.items():
             for (dep,dep_packages) in deps.items():
                 packages.extend(dep_packages)
