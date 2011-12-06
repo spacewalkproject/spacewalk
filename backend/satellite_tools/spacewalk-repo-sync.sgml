@@ -59,6 +59,12 @@ Syncs the content from yum repos into Spacewalk or Satellite channels.
     If the url is not supplied, the tool will look to see what repositories are associated
     with the specified channel and use those.
 </para>
+<para>
+    Additional configuration options for yum_src plugin can be placed in
+    <filename>/etc/rhn/spacewalk-repo-sync/yum.conf</filename>. Don't forget to put
+    [main] section there.
+</para>
+
 </refsect1>
 
 <refsect1><title>Options</title>
