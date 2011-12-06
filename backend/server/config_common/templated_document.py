@@ -58,6 +58,7 @@ class ServerTemplatedDocument(TemplatedDocument):
             RHN_PREFIX + 'net_interface.broadcast'          : self.net_intf_broadcast,
             RHN_PREFIX + 'net_interface.hardware_address'   : self.net_intf_hwaddr,
             RHN_PREFIX + 'net_interface.driver_module'      : self.net_intf_module,
+            RHN_PREFIX + 'net_interface.ip6_address'        : self.net_intf_ip6addr,
         })
 
     #######################
@@ -129,6 +130,17 @@ class ServerTemplatedDocument(TemplatedDocument):
         ipv4 = self._get_interface_info_attr(interface_name, 'ipv4')
         return self._get_interface_address_attr(ipv4, 'broadcast')
 
+    def net_intf_ip6addr(self, interface_name, scope='universe', order=0):
+        """ get IPv6 address
+
+        interface_name is name of interface, e.g. 'eth0'
+        scope is either 'link', 'universe' or 'host'
+        order is zero based index as there can be more than one IP address
+             for given scope and interface
+        """
+        ipv6 = self._get_interface_info_attr(interface_name, 'ipv6')
+        return self._get_interface_address6_attr(ipv6, scope, order, 'address')
+
     def net_intf_hwaddr(self, interface_name):
         return self._get_interface_info_attr(interface_name, 'hw_addr')
 
@@ -148,3 +160,23 @@ class ServerTemplatedDocument(TemplatedDocument):
             return None
         else:
             return address.db_ifaces[0][attr]
+
+    def _get_interface_address6_attr(self, address, scope, order, attr):
+        """ return attribute of given address
+
+        address is list of interfaces
+        e.g.: [{'scope': 'universe', 'netmask': '64', 'address': '2620:52:0:2223:20c:29ff:fecb:d06e',
+        'interface_id': 127}, {'scope': 'link', 'netmask': '64', 'address':
+        'fe80::20c:29ff:fecb:d06e', 'interface_id': 127}]
+        scope is either 'link', 'universe' or 'host'
+        order is zero based index as there can be more than one IP address
+             for given scope and interface
+        attr is attribute, e.g "netmask"
+        """
+        if (address is None):
+            return None
+        ifaces = [i for i in address.db_ifaces if (i['scope'] == scope)]
+        if (order >= len(ifaces)) or (attr not in ifaces[order]):
+            return None
+        else:
+            return ifaces[order][attr]
