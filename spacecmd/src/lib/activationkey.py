@@ -313,7 +313,7 @@ def do_activationkey_listchildchannels(self, args):
     details = self.client.activationkey.getDetails(self.session, key)
 
     if len(details.get('child_channel_labels')):
-        print '\n'.join(details.get('child_channel_labels'))
+        print '\n'.join(sorted(details.get('child_channel_labels')))
 
 ####################
 
@@ -790,7 +790,7 @@ def do_activationkey_details(self, args):
         print '-----------------'
         print details.get('base_channel_label')
 
-        for channel in details.get('child_channel_labels'):
+        for channel in sorted(details.get('child_channel_labels')):
             print ' |-- %s' % channel
 
         print
@@ -812,7 +812,7 @@ def do_activationkey_details(self, args):
         print
         print 'Packages'
         print '--------'
-        for package in details.get('packages'):
+        for package in sorted(details.get('packages')):
             name = package.get('name')
 
             if package.get('arch'):
