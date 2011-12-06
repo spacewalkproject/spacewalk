@@ -699,6 +699,7 @@ class NetIfaceAddress(Device):
             select *
             from %s
             where interface_id = :interface_id
+            order by interface_id
         """ % self.table)
         h.execute(interface_id=interface_id)
         self.db_ifaces = []
