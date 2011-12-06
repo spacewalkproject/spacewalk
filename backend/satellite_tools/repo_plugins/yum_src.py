@@ -18,6 +18,7 @@ import shutil
 import sys
 import gzip
 import os.path
+from yum.config import ConfigParser
 from yum.update_md import UpdateMetadata, UpdateNoticeException, UpdateNotice
 from yum.yumRepo import YumRepository
 try:
@@ -30,6 +31,8 @@ except ImportError:
     iterparse = cElementTree.iterparse
 from spacewalk.satellite_tools.reposync import ContentPackage
 from spacewalk.common.rhnConfig import CFG, initCFG
+
+YUMSRC_CONF='/etc/rhn/spacewalk-repo-sync/yum.conf'
 
 class YumWarnings:
     def write(self, s):
@@ -79,6 +82,11 @@ class ContentSource:
     repo = None
     cache_dir = '/var/cache/rhn/reposync/'
     def __init__(self, url, name):
+        self.yumbase = yum.YumBase()
+        self.yumbase.preconf.fn=YUMSRC_CONF
+        if not os.path.exists(YUMSRC_CONF):
+            self.yumbase.preconf.fn='/dev/null'
+        self.configparser = ConfigParser()
         self._clean_cache(self.cache_dir + name)
 
         # read the proxy configuration in /etc/rhn/rhn.conf
@@ -94,6 +102,7 @@ class ContentSource:
         else:
             self.proxy_url = None
         repo = yum.yumRepo.YumRepository(name)
+        repo.populate(self.configparser, name, self.yumbase.conf)
         self.repo = repo
         repo.cache = 0
         repo.metadata_expire = 0
