@@ -364,18 +364,14 @@ SELECT  DISTINCT EFP.package_id,
                  Csum.checksum md5sum,
                  EF.filename AS FILENAME,
                  C.name AS CHANNEL_NAME
-  FROM  rhnChannel C,
-        rhnErrataFilePackage EFP,
-        rhnErrataFileChannel EFC,
-        rhnErrataFile EF,
-        rhnChecksum Csum
- WHERE  EF.errata_id = :errata_id
-   AND  EF.id = EFC.errata_file_id (+)
-   AND  EF.id = EFP.errata_file_id (+)
-   AND  EFC.channel_id IN (SELECT AC.channel_id FROM rhnAvailableChannels AC WHERE AC.org_id = :org_id)
-   AND  EFC.channel_id = C.id
-   AND  EF.checksum_id = Csum.id
-ORDER BY C.name, EF.filename DESC
+            FROM rhnChecksum Csum
+            JOIN rhnErrataFile EF ON EF.checksum_id = Csum.id
+ LEFT OUTER JOIN rhnErrataFileChannel EFC ON EF.id = EFC.errata_file_id
+ LEFT OUTER JOIN rhnErrataFilePackage EFP ON EF.id = EFP.errata_file_id
+            JOIN rhnChannel C ON C.id = EFC.channel_id
+           WHERE EF.errata_id = :errata_id
+             AND EFC.channel_id IN (SELECT AC.channel_id FROM rhnAvailableChannels AC WHERE AC.org_id = :org_id)
+        ORDER BY C.name, EF.filename DESC
 EOQ
 
   $sth = $dbh->prepare($query);
