@@ -109,7 +109,7 @@ class ContentSource:
         repo.mirrorlist = url
         repo.baseurl = [url]
         repo.basecachedir = self.cache_dir
-        repo._dirSetAttr('pkgdir', os.path.join(CFG.MOUNT_POINT, CFG.PREPENDED_DIR, '1'))
+        repo.pkgdir = os.path.join(CFG.MOUNT_POINT, CFG.PREPENDED_DIR, '1')
         if hasattr(repo, 'base_persistdir'):
             repo.base_persistdir = self.cache_dir
         if self.proxy_url is not None:
