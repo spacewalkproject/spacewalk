@@ -3,7 +3,7 @@ Name: spacewalk-koan
 Group: System Environment/Kernel
 License: GPLv2
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 1.6.2
+Version: 1.6.3
 Release: 1%{?dist}
 BuildArch : noarch
 URL:            https://fedorahosted.org/spacewalk
@@ -47,6 +47,13 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/rhn/actions/
 
 %changelog
+* Tue Dec 06 2011 Miroslav Suchý 1.6.3-1
+- fix a rookie mistake (mzazrivec@redhat.com)
+- IPv6: reprovisioning with static network interface (mzazrivec@redhat.com)
+- fix TB during re-provisioning with static nic (mzazrivec@redhat.com)
+- IPv6: routines to determine IPv6 address/netmask (mzazrivec@redhat.com)
+- IPv6: don't include ::1 as a valid nameserver addr (mzazrivec@redhat.com)
+
 * Wed Sep 07 2011 Martin Minar <mminar@redhat.com> 1.6.2-1
 - 736066 - parse ifconfig output in POSIX locale only (mzazrivec@redhat.com)
 
