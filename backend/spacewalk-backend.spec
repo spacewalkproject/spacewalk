@@ -12,7 +12,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.6.51
+Version: 1.6.52
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -675,6 +675,13 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Tue Dec 06 2011 Miroslav Suchý 1.6.52-1
+- IPv6: order network interaces
+- IPv6: implement macro rhn.system.net_interface.ip6_netmask for config files
+  templates
+- IPv6: implement macro rhn.system.net_interface.ip6_address for config files
+  templates
+
 * Mon Dec 05 2011 Miroslav Suchý 1.6.51-1
 - IPv6: fix current macros for IPv4
 
