@@ -13,7 +13,7 @@ CREATE TABLE rhnServerNetAddress4
     modified   timestamptz default current_timestamp NOT NULL
 );
 
-CREATE INDEX rhn_srv_net_addr4_iid_addr_uq
+CREATE INDEX rhn_srv_net_addr4_iid_addr_idx
     ON rhnServerNetAddress4 (interface_id, address);
 
 ALTER TABLE rhnServerNetAddress4
