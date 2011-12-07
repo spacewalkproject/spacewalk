@@ -292,7 +292,7 @@ sub init_statements {
                   );
   $self->dbprepare(
     'same_host_probes_from_probeid',
-"select probe_id from check_probe where host_id in (select host_id from check_probe where probe_id = ?)"
+"select probe_id from rhn_check_probe where host_id in (select host_id from rhn_check_probe where probe_id = ?)"
   );
   $self->dbprepare('dual', 'select * from dual');
 } ## end sub init_statements
