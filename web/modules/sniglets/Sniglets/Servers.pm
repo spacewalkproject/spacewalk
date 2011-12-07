@@ -69,7 +69,6 @@ sub register_callbacks {
   my $class = shift;
   my $pxt = shift;
 
-  $pxt->register_callback('rhn:proxy_entitlement_cb' => \&proxy_entitlement_cb);
   $pxt->register_callback('rhn:cancel_scheduled_proxy_install_cb' => \&cancel_scheduled_proxy_install);
 
   $pxt->register_callback('rhn:delete_server_cb' => \&delete_server_cb);
@@ -157,179 +156,19 @@ sub proxy_entitlement_form {
 
   my %subs;
 
-  $subs{proxy_version_dropdown} = "";
-  $subs{proxy_button} = '';
-
   if ($server->is_proxy()) {
     my @evr = $server->proxy_evr;
     my $version = $evr[1];
 
     $subs{version} = $version;
 
-    if ($version >= 3.6) {
-      my $session = Sniglets::AppInstall::find_session_in_progress(
-	 $pxt,
-	 -file =>'/applications/rhn-proxy/' . $version . '/install-rhn-proxy.xml',
-	 -process => 'install_progress',
-	);
-
-      if ($session) {
-	$pxt->redirect("/network/systems/details/proxy/install_progress.pxt?sid=$sid&version=$version");
-      }
-      else {
-	$subs{proxy_message} = "This machine is currently a licensed RHN Proxy (v$version).";
-	$subs{proxy_button} = PXT::HTML->submit(-name => 'deactivate_proxy', -value => 'Deactivate Proxy');
-	$subs{proxy_button} .= PXT::HTML->submit(-name => 'configure_proxy', -value => 'Configure Proxy');
-      }
-    }
-    else {
-      $subs{proxy_message} = "This machine is currently a licensed RHN Proxy (v$version).";
-      $subs{proxy_button} = PXT::HTML->submit(-name => 'deactivate_proxy', -value => 'Deactivate License');
-    }
-
-    $block = PXT::Utils->perform_substitutions($block, \%subs);
-    return $block;
-  }
-  else {
-    $server->deactivate_proxy(); # free up the channel entitlement if it is already used.
-  }
-
-  #  base requirement for proxy box
-  my $base_channel_id = $server->base_channel_id();
-
-  throw "no base channels" unless $base_channel_id;
-  throw "not a proxy candidate" unless (RHN::Server->child_channel_candidates(-server_id => $sid, -channel_family_label => 'rhn-proxy'));
-
-  my @channel_families = RHN::Channel->channel_entitlement_overview($pxt->user->org_id);
-  my ($proxy_entitlement, @trash) = grep { $_->[1] eq 'Red Hat Network Proxy' } @channel_families;
-  my ($current_members,  $max_members) = ($proxy_entitlement->[2], $proxy_entitlement->[3]);
-
-  if (!$max_members or ($current_members < $max_members)) {
-    # for bug 12283, we display a dropdown of proxy versions for which the 
-    # appropriate channels are available. This will take into account new proxy 
-    # versions as long as the proxy_chans_by_version map in RHN::DB::Channel
-    # is appropriately updated (and thus RHN::Channel->proxy_channel_versions
-    # subsequently returns all the available proxy versions
-
-    my @subscribable_channels = RHN::Channel->subscribable_channels(server_id => $sid,
-   								    user_id => $pxt->user->id,
-								    base_channel_id => $base_channel_id);
-    my @proxy_versions = RHN::Channel->proxy_channel_versions;
-
-    my @possible_proxies;
-    foreach my $proxy_ver (sort { $b <=> $a } @proxy_versions) {
-        my @valid_channels = RHN::Channel->proxy_channels_by_version(version => $proxy_ver);
-        foreach my $sub_chan (@subscribable_channels) {
-            if (grep /$sub_chan->{LABEL}/, @valid_channels) {
-                push @possible_proxies, ["RHN Proxy v$proxy_ver", $proxy_ver];
-                last;
-            }
-        }
-    }
-
-    if (@possible_proxies) {
-      $subs{proxy_message} = "You may activate this machine as an RHN Proxy. " .
-                             "The following versions are available for activation." .
-                             "<div class=\"site-alert\">WebUI RHN Proxy installer is obsoleted since version 5.3. Please use command line installer from package spacewalk-proxy-installer.</div>";
-
-      $subs{proxy_version_dropdown} = 
-          PXT::HTML->select(-name => "proxy_version",
-                            -options => \@possible_proxies);
-
-      $subs{proxy_button} = PXT::HTML->submit(-name => 'activate_proxy', -value => 'Activate Proxy');
-
-    }
-    else {
-
-      $subs{proxy_message} = "The necessary channels required to activate an RHN Proxy are unavailable.";
-
-    }
-  }
-  else {
-    $subs{proxy_message} = 'All RHN Proxy subscriptions are currently being used.';
+  	$subs{proxy_message} = "This machine is currently a licensed RHN Proxy (v$version).";
+  } else {
+    $subs{proxy_message} = "<div class=\"site-alert\">WebUI RHN Proxy installer is obsoleted since version 5.3. Please use command line installer from package spacewalk-proxy-installer.</div>";
   }
 
   $block = PXT::Utils->perform_substitutions($block, \%subs);
-
   return $block;
-}
-
-sub proxy_entitlement_cb {
-  my $pxt = shift;
-
-  throw "User '" . $pxt->user->id . "' attempted to access proxy interface without permission."
-    unless $pxt->user->org->has_channel_family_entitlement('rhn-proxy');
-
-  my $sid = $pxt->param('sid');
-  throw "no server id!" unless $sid;
-  my $server = RHN::Server->lookup(-id => $sid);
-
-  my $proxy_version = $pxt->dirty_param('proxy_version') || 0;
-  if ($proxy_version >= 3.6) {
-    # we are installing v.3.6 or greater
-    $pxt->redirect("/network/systems/details/proxy/index.pxt?sid=$sid&version=$proxy_version");
-  }
-
-  # proxy_version wasn't past in, must be doing a configure
-  # let's get the version param
-  if ($proxy_version == 0) {
-      $proxy_version = $pxt->dirty_param('version') || 0;
-  }
-
-  if ($pxt->dirty_param('configure_proxy')) {
-    $pxt->redirect("/network/systems/details/proxy/configure.pxt?sid=$sid&version=$proxy_version");
-  }
-
-  my $transaction = RHN::DB->connect();
-
-  eval {
-    # handle RHN Proxy stuff...
-    if ($pxt->dirty_param('deactivate_proxy')) {
-
-      my @evr = $server->proxy_evr;
-      my $version = $evr[1];
-
-      if ($version >= 3.6) {
-	$pxt->redirect("/network/systems/details/proxy/deactivate.pxt?sid=$sid&version=$version");
-      }
-
-      $transaction = $server->deactivate_proxy($transaction);
-
-      $pxt->push_message(site_info => sprintf("The server <strong>%s</strong> has been deactivated as an RHN Proxy (v%s).",
-					      PXT::Utils->escapeHTML($server->name), $version));
-    }
-    elsif ($pxt->dirty_param('activate_proxy')) {
-
-      $transaction = $server->activate_proxy(-transaction => $transaction, -version => $proxy_version);
-      $pxt->push_message(site_info => sprintf("The server <strong>%s</strong> has been activated as an RHN Proxy (v%s).",
-					      PXT::Utils->escapeHTML($server->name), $proxy_version));
-
-
-    }
-  };
-
-  if ($@) {
-    my $E = $@;
-    $transaction->rollback();
-
-    if (ref $E and catchable($E)) {
-
-      if ($E->is_rhn_exception('channel_family_no_subscriptions')) {
-
-	$pxt->push_message(local_alert => "This assignment would exceed your allowed RHN Proxy subscriptions.");
-
-	return;
-      }
-      else {
-	throw $E;
-      }
-    }
-    else {
-      die $E;
-    }
-  }
-
-  $pxt->redirect("proxy.pxt", sid => $server->id);
 }
 
 sub cancel_scheduled_proxy_install {

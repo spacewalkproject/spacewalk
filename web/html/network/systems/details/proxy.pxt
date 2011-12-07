@@ -17,23 +17,12 @@
 
     <h2><img src="/img/rhn-icon-proxy.gif"/> RHN Proxy</h2>
 
-    <pxt-form method="post">
       <rhn-proxy-entitlement-form>
         <div class="page-summary">
           <p>{proxy_message}</p>
-          <p>{proxy_version_dropdown}</p>
         </div>
 
-        <div align="right">
-          <hr/>
-          {proxy_button}
-          <input type="hidden" name="pxt:trap" value="rhn:proxy_entitlement_cb"/>
-          <input type="hidden" name="version" value="{version}"/>
-          <pxt-hidden name="sid"/>
-
-        </div>
       </rhn-proxy-entitlement-form>
-    </pxt-form>
 
   </grail-canvas-template>
 </pxt-passthrough>
