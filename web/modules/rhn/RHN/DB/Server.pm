@@ -2394,20 +2394,6 @@ sub system_packages_missing_from_channels {
   return $system_manifest->packages_not_available_from($channel_manifest);
 }
 
-# The hostname of the proxy this system thinks it's connecting to
-sub proxy_hostname {
-  my $self = shift;
-
-  my $ds = new RHN::DataSource::System(-mode => 'proxy_path_for_server');
-  my $data = $ds->execute_query(-sid => $self->id);
-
-  if ($data and ref $data eq 'ARRAY') {
-    return $data->[0]->{HOSTNAME};
-  }
-
-  return;
-}
-
 sub packaging_type {
   my $class_or_self = shift;
 
