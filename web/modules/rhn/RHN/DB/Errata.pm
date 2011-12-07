@@ -225,13 +225,15 @@ sub affected_channels {
 # EOQ
 
   $query = <<EOQ;
-SELECT DISTINCT C.id, C.name
-  FROM rhnAvailableChannels AC, rhnChannel C, rhnChannelErrata CE
- WHERE CE.errata_id = ?
-   AND CE.channel_id = C.id
-   AND AC.org_id = ?
-   AND C.id = AC.channel_id
- ORDER BY UPPER(C.name)
+SELECT * from (
+  SELECT DISTINCT C.id, C.name
+    FROM rhnAvailableChannels AC, rhnChannel C, rhnChannelErrata CE
+   WHERE CE.errata_id = ?
+     AND CE.channel_id = C.id
+     AND AC.org_id = ?
+     AND C.id = AC.channel_id
+) X
+ORDER BY UPPER(X.name)
 EOQ
 
   $sth = $dbh->prepare($query);
