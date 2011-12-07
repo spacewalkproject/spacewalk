@@ -10,7 +10,7 @@ pushd `dirname $0`/.. >/dev/null
 # say python to be nice to pipe
 export PYTHONUNBUFFERED=1
 
-declare -a PACKAGES
+PACKAGES=$(mktemp)
 
 for tag in $TAGS; do
   rel-eng/koji-missing-builds.py $KOJI_MISSING_BUILD_BREW_ARG --no-extra $tag | \
@@ -22,15 +22,12 @@ for tag in $TAGS; do
       echo Building package in path $package for $tag
       cd $package && \
           ${TITO_PATH}tito release $tag && \
-          PACKAGES[${#PACKAGES[@]}]=$package
+          echo $package>$PACKAGES
     )
     done
 done
 if [ "0$FEDORA_UPLOAD" -eq 1 ] ; then
-  for package in "${PACKAGES[@]}"; do
-    echo $package
-  done | sort | uniq |\
-  while read package ; do
+  for package in $(cat $PACKAGES | sort | uniq); do
   (
       echo Uploading tgz for path $package
       cd $package && LC_ALL=C ${TITO_PATH}tito build --tgz | \
@@ -39,5 +36,6 @@ if [ "0$FEDORA_UPLOAD" -eq 1 ] ; then
   )
   done
 fi
+rm $PACKAGES
 
 popd >/dev/null
