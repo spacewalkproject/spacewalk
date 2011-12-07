@@ -2536,17 +2536,6 @@ sub guess_hostname {
   return $hostname;
 }
 
-# Make a guess at this system's RHN parent server
-sub guess_rhn_parent {
-  my $self = shift;
-
-  my $parent = $self->proxy_hostname;
-
-  $parent ||= PXT::Config->get('kickstart_host') || PXT::Config->get('base_domain');
-
-  return $parent;
-}
-
 sub cleanup_monitoring_for_system {
   my $class = shift;
   my $id = shift;
