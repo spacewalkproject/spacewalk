@@ -225,7 +225,9 @@ public class KickstartEditCommand extends BaseKickstartCommand {
             this.ksdata.getKickstartDefaults().setKstree(tree);
             if (!ksdata.isRawData() && !StringUtils.isBlank(url)) {
                 KickstartCommand kcmd = this.ksdata.getCommand("url");
-                kcmd.setArguments("--url " + url);
+                if (kcmd != null) {
+                    kcmd.setArguments("--url " + url);
+                }
 
                 // Any time we update the kickstartable tree we need to remove any existing
                 // yum repo commands and re-add them for the new tree if necessary:
