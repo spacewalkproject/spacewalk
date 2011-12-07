@@ -306,17 +306,6 @@ sub proxy_channel_versions {
   return sort(keys %proxy_chans_by_version);
 }
 
-sub proxy_channels_by_version {
-  my $class = shift;
-  my %params = validate(@_, { version => {type => Params::Validate::SCALAR } });
-
-  if (not exists $proxy_chans_by_version{$params{version}}) {
-    die "invalid proxy version";
-  }
-
-  return @{$proxy_chans_by_version{$params{version}}};
-}
-
 sub has_downloads {
   my $class = shift;
   my $cid = shift;
