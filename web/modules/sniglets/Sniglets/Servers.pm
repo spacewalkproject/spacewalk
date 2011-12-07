@@ -69,8 +69,6 @@ sub register_callbacks {
   my $class = shift;
   my $pxt = shift;
 
-  $pxt->register_callback('rhn:cancel_scheduled_proxy_install_cb' => \&cancel_scheduled_proxy_install);
-
   $pxt->register_callback('rhn:delete_server_cb' => \&delete_server_cb);
   $pxt->register_callback('rhn:reboot_server_cb' => \&reboot_server_cb);
 
@@ -169,23 +167,6 @@ sub proxy_entitlement_form {
 
   $block = PXT::Utils->perform_substitutions($block, \%subs);
   return $block;
-}
-
-sub cancel_scheduled_proxy_install {
-  my $pxt = shift;
-
-  my $sid = $pxt->param('sid');
-  throw "param 'sid' needed but not provided." unless $sid;
-
-  my $server = RHN::Server->lookup(-id => $sid);
-
-  if ($server->is_proxy) {
-    $server->deactivate_proxy();
-    $pxt->push_message(site_info => 'RHN Proxy installation cancelled');
-  }
-
-  my $url = $pxt->uri;
-  $pxt->redirect($url . "?sid=$sid");
 }
 
 sub server_name {
