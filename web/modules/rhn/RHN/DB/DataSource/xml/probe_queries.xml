@@ -234,7 +234,7 @@ SELECT  S.id system_id,
         TO_CHAR(PS.last_check, 'YYYY-MM-DD HH24:MI:SS') AS LAST_CHECK
   FROM  rhnServer S, rhn_probe P, rhn_probe_state PS, rhnUserServerPerms USP
  WHERE  P.recid = PS.probe_id
-   AND  S.id = (SELECT host_id from check_probe where probe_id = P.recid)
+   AND  S.id = (SELECT host_id from rhn_check_probe where probe_id = P.recid)
    AND  customer_id = :org_id
    AND  P.probe_type = 'check'
    AND  PS.state = 'OK'
@@ -255,7 +255,7 @@ SELECT  S.id system_id,
         TO_CHAR(PS.last_check, 'YYYY-MM-DD HH24:MI:SS') AS LAST_CHECK
   FROM  rhnServer S, rhn_probe P, rhn_probe_state PS, rhnUserServerPerms USP
  WHERE  P.recid = PS.probe_id
-   AND  S.id = (SELECT host_id from check_probe where probe_id = P.recid)
+   AND  S.id = (SELECT host_id from rhn_check_probe where probe_id = P.recid)
    AND  customer_id = :org_id
    AND  P.probe_type = 'check'
    AND  PS.state = 'WARNING'
@@ -276,7 +276,7 @@ SELECT  S.id system_id,
         TO_CHAR(PS.last_check, 'YYYY-MM-DD HH24:MI:SS') AS LAST_CHECK
   FROM  rhnServer S, rhn_probe P, rhn_probe_state PS, rhnUserServerPerms USP
  WHERE  P.recid = PS.probe_id
-   AND  S.id = (SELECT host_id from check_probe where probe_id = P.recid)
+   AND  S.id = (SELECT host_id from rhn_check_probe where probe_id = P.recid)
    AND  customer_id = :org_id
    AND  P.probe_type = 'check'
    AND  PS.state = 'CRITICAL'
@@ -297,7 +297,7 @@ SELECT  S.id system_id,
         TO_CHAR(PS.last_check, 'YYYY-MM-DD HH24:MI:SS') AS LAST_CHECK
   FROM  rhnServer S, rhn_probe P, rhn_probe_state PS, rhnUserServerPerms USP
  WHERE  P.recid = PS.probe_id
-   AND  S.id = (SELECT host_id from check_probe where probe_id = P.recid)
+   AND  S.id = (SELECT host_id from rhn_check_probe where probe_id = P.recid)
    AND  customer_id = :org_id
    AND  P.probe_type = 'check'
    AND  PS.state = 'UNKNOWN'
@@ -318,7 +318,7 @@ SELECT  S.id system_id,
         TO_CHAR(PS.last_check, 'YYYY-MM-DD HH24:MI:SS') AS LAST_CHECK
   FROM  rhnServer S, rhn_probe P, rhn_probe_state PS, rhnUserServerPerms USP
  WHERE  P.recid = PS.probe_id
-   AND  S.id = (SELECT host_id from check_probe where probe_id = P.recid)
+   AND  S.id = (SELECT host_id from rhn_check_probe where probe_id = P.recid)
    AND  customer_id = :org_id
    AND  P.probe_type = 'check'
    AND  PS.state = 'PENDING'
@@ -339,7 +339,7 @@ SELECT  S.id system_id,
         TO_CHAR(PS.last_check, 'YYYY-MM-DD HH24:MI:SS') AS LAST_CHECK
   FROM  rhnServer S, rhn_probe P, rhn_probe_state PS, rhnUserServerPerms USP
  WHERE  P.recid = PS.probe_id
-   AND  S.id = (SELECT host_id from check_probe where probe_id = P.recid)
+   AND  S.id = (SELECT host_id from rhn_check_probe where probe_id = P.recid)
    AND  customer_id = :org_id
    AND  P.probe_type = 'check'
    AND  USP.user_id = :user_id
@@ -360,7 +360,7 @@ SELECT  S.id system_id,
         TO_CHAR(PS.last_check, 'YYYY-MM-DD HH24:MI:SS') AS LAST_CHECK
   FROM  rhnServer S, rhn_probe P, rhn_probe_state PS
  WHERE  P.recid = PS.probe_id
-   AND  S.id = (SELECT host_id from check_probe where probe_id = P.recid)
+   AND  S.id = (SELECT host_id from rhn_check_probe where probe_id = P.recid)
 <!-- In group -->
    AND  exists (SELECT 1 from rhnServerGroupMembership SGM 
                      WHERE SGM.server_id = s.ID
