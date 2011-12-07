@@ -1633,9 +1633,9 @@ ORDER BY  UPPER(NVRE)
 <mode name="channel_errata_comparison">
   <query params="eid, cid">
 SELECT P1.id,
-       PN.name NAME,
-       PE1.evr.as_vre_simple() || '-' || PA.label ERRATA_VERSION,
-       PE2.evr.as_vre_simple() || '-' || PA.label CHANNEL_VERSION
+       PN.name AS NAME,
+       evr_t_as_vre_simple(PE1.evr) || '-' || PA.label AS ERRATA_VERSION,
+       evr_t_as_vre_simple(PE2.evr) || '-' || PA.label AS CHANNEL_VERSION
   FROM rhnPackageName PN,
        rhnPackageEVR PE2,
        rhnPackage P2,
@@ -1668,16 +1668,16 @@ SELECT P1.id,
                   PE2.epoch, PE2.version, PE2.release) > 0
    AND P1.name_id = PN.id
    AND P1.package_arch_id = PA.id
-ORDER BY PN.name, PE2.evr.as_vre_simple() || '-' || PA.label
+ORDER BY PN.name, evr_t_as_vre_simple(PE2.evr) || '-' || PA.label
   </query>
 </mode>
 
 <mode name="channel_erratatmp_comparison">
   <query params="eid, cid">
 SELECT P1.id,
-       PN.name NAME,
-       PE1.evr.as_vre_simple() || '-' || PA.label ERRATA_VERSION,
-       PE2.evr.as_vre_simple() || '-' || PA.label CHANNEL_VERSION
+       PN.name AS NAME,
+       evr_t_as_vre_simple(PE1.evr) || '-' || PA.label AS ERRATA_VERSION,
+       evr_t_as_vre_simple(PE2.evr) || '-' || PA.label AS CHANNEL_VERSION
   FROM rhnPackageName PN,
        rhnPackageEVR PE2,
        rhnPackage P2,
@@ -1710,16 +1710,16 @@ SELECT P1.id,
                   PE2.epoch, PE2.version, PE2.release) > 0
    AND P1.name_id = PN.id
    AND P1.package_arch_id = PA.id
-ORDER BY PN.name, PE2.evr.as_vre_simple() || '-' || PA.label
+ORDER BY PN.name, evr_t_as_vre_simple(PE2.evr) || '-' || PA.label
   </query>
 </mode>
 
 <mode name="channel_errata_intersection">
   <query params="eid, cid">
 SELECT P1.id,
-       PN.name NAME,
-       PE1.evr.as_vre_simple() || '-' || PA.label ERRATA_VERSION,
-       PE2.evr.as_vre_simple() || '-' || PA.label CHANNEL_VERSION
+       PN.name AS NAME,
+       evr_t_as_vre_simple(PE1.evr) || '-' || PA.label AS ERRATA_VERSION,
+       evr_t_as_vre_simple(PE2.evr) || '-' || PA.label AS CHANNEL_VERSION
   FROM rhnPackageName PN,
        rhnPackageEVR PE2,
        rhnChannelNewestPackage CNP,
@@ -1737,15 +1737,15 @@ SELECT P1.id,
    AND P1.evr_id = PE1.id
    AND P1.name_id = PN.id
    AND P1.package_arch_id = PA.id
-ORDER BY PN.name, PE2.evr.as_vre_simple() || '-' || PA.label
+ORDER BY PN.name, evr_t_as_vre_simple(PE2.evr) || '-' || PA.label
   </query>
 </mode>
 
 <mode name="channel_errata_full_intersection">
   <query params="eid, cid">
 SELECT P.id,
-       PN.name NAME,
-       evr_t_as_vre_simple(PE.evr) || '-' || PA.label VERSION
+       PN.name AS NAME,
+       evr_t_as_vre_simple(PE.evr) || '-' || PA.label AS VERSION
   FROM rhnPackageName PN,
        rhnPackageEVR PE,
        rhnPackageArch PA,
