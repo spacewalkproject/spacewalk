@@ -529,66 +529,6 @@ EOQ
 }
 
 
-sub activate_proxy {
-  my $self = shift;
-  my %params = validate(@_, {transaction => 0, version => 0});
-
-  my $transaction = $params{transaction};
-  my $version  = $params{version} || '1.1';
-
-  my $dbh = $transaction || RHN::DB->connect();
-  my $query;
-  my $sth;
-
-  if ($self->is_satellite()) {
-    throw("proxy_system_is_satellite");
-  }
-
-  $query = <<EOQ;
-DELETE FROM rhnProxyInfo WHERE server_id = ?
-EOQ
-  $sth = $dbh->prepare($query);
-  $sth->execute($self->id);
-
-  $query = <<EOQ;
-SELECT * FROM rhnServer WHERE id = ?
-EOQ
-  $sth = $dbh->prepare($query);
-  $sth->execute($self->id);
-
-  my @row = $sth->fetchrow;
-  $sth->finish;
-
-  $query = <<EOQ;
-INSERT INTO  rhnProxyInfo (server_id, proxy_evr_id)
-     VALUES  (:server_id, lookup_evr(NULL, :version, '1'))
-EOQ
-
-  $sth = $dbh->prepare($query);
-
-  $sth->execute_h(server_id => $self->id, version => $version);
-
-  # In spacewalk that is all, for satellite we subscribe the proxy channel
-  if (PXT::Config->get('subscribe_proxy_channel')) {
-    my $proxy_chan_info = $self->proxy_channel_by_version(-version => $version);
-    my $proxy_label = $proxy_chan_info->{CHANNEL_LABEL};
-
-    if (not $proxy_label) {
-      $dbh->rollback;
-      throw '(proxy_no_proxy_child_channel)';
-    }
-    $self->subscribe_to_channel($proxy_label, $dbh);
-  }
-
-  unless ($transaction) {
-    $dbh->commit;
-  }
-
-  return $dbh;
-}
-
-
-
 sub deactivate_proxy {
   my $self = shift;
   my $transaction = shift;
