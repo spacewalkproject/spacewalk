@@ -180,11 +180,11 @@ class ConfigFilesHandler(rhnHandler):
         file['username'] = file.get('user','')
         file['groupname'] = file.get('group','')
         file['file_mode'] = file.get('mode','')
-        # if the selinux flag is not sent by the client it is set to the last file revision  
-        # (or to the empty string in case of first revision) - see the bug  
+        # if the selinux flag is not sent by the client it is set to the last file
+        # revision (or to None (i.e. NULL) in case of first revision) - see the bug
         # 644985 - SELinux context cleared from RHEL4 rhncfg-client
-        selinux_ctx_or_none = file.get('selinux_ctx', None)
-        if selinux_ctx_or_none is None:
+        file['selinux_ctx'] = file.get('selinux_ctx', None)
+        if not file['selinux_ctx']:
             # RHEL4 or RHEL5+ with disabled selinux - set from the last revision
             h = rhnSQL.prepare(self._query_current_selinux_lookup)
             apply(h.execute, (), file)
@@ -192,10 +192,7 @@ class ConfigFilesHandler(rhnHandler):
             if row:
                 file['selinux_ctx'] = row['selinux_ctx']
             else:
-                file['selinux_ctx'] = ''
-        else:
-            # RHEL5+ with enabled selinux - set from the incoming request
-            file['selinux_ctx'] = selinux_ctx_or_none
+                file['selinux_ctx'] = None
         result = {}
 
         try:
