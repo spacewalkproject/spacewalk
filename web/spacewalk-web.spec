@@ -150,7 +150,6 @@ rm -rf $RPM_BUILD_ROOT
 %{perl_vendorlib}/RHN/Access.pm
 %{perl_vendorlib}/RHN/Access/
 %{perl_vendorlib}/RHN/Action.pm
-%{perl_vendorlib}/RHN/AppInstall/
 %{perl_vendorlib}/RHN/Cache/
 %{perl_vendorlib}/RHN/Cert.pm
 %{perl_vendorlib}/RHN/Channel.pm

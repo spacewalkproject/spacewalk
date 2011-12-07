@@ -40,7 +40,6 @@ use RHN::Kickstart::Session;
 
 use Sniglets::Forms;
 use Sniglets::HTML;
-use Sniglets::AppInstall;
 use Sniglets::ServerActions;
 use Sniglets::ActivationKeys;
 
