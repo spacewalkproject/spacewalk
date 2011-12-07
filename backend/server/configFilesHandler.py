@@ -38,7 +38,7 @@ import rhnSession
 # Exceptions
 class BaseConfigFileError(Exception):
     def __init__(self, args):
-        apply(Exception.__init__, (self, ) + args)
+        Exception.__init__(self, *args)
 
 class ConfigFileError(BaseConfigFileError):
     def __init__(self, file, *args):
@@ -187,7 +187,7 @@ class ConfigFilesHandler(rhnHandler):
         if not file['selinux_ctx']:
             # RHEL4 or RHEL5+ with disabled selinux - set from the last revision
             h = rhnSQL.prepare(self._query_current_selinux_lookup)
-            apply(h.execute, (), file)
+            h.execute(**file)
             row = h.fetchone_dict()
             if row:
                 file['selinux_ctx'] = row['selinux_ctx']
@@ -310,7 +310,7 @@ class ConfigFilesHandler(rhnHandler):
 
 
         h = rhnSQL.prepare(self._query_content_lookup)
-        apply(h.execute, (), file)
+        h.execute(**file)
         row = h.fetchone_dict()
 
         if row:
@@ -355,7 +355,7 @@ class ConfigFilesHandler(rhnHandler):
 
         # Look up the config info first
         h = rhnSQL.prepare(config_info_query)
-        apply(h.execute, (), file)
+        h.execute(**file)
         row = h.fetchone_dict()
         if not row:
             # Hmm
@@ -365,7 +365,7 @@ class ConfigFilesHandler(rhnHandler):
 
         # Look up the config file itself
         h = rhnSQL.prepare(self._query_lookup_config_file)
-        apply(h.execute, (), file)
+        h.execute(**file)
         row = h.fetchone_dict()
         if row:
             # Yay we already have this file
@@ -393,7 +393,7 @@ class ConfigFilesHandler(rhnHandler):
         # Assume we don't have any revision for now
         file['revision'] = 1
         h = rhnSQL.prepare(self._query_lookup_revision)
-        apply(h.execute, (), file)
+        h.execute(**file)
         row = h.fetchone_dict()
         if row:
             # Is it the same revision as this one?
@@ -436,7 +436,7 @@ class ConfigFilesHandler(rhnHandler):
 
     def _update_revision(self, file):
         h = rhnSQL.prepare(self._query_update_revision)
-        apply(h.execute, (), file)
+        h.execute(**file)
 
 
     def _insert_revision(self, file):
@@ -469,7 +469,7 @@ class ConfigFilesHandler(rhnHandler):
 
     def _update_config_file(self, file):
         h = rhnSQL.prepare(self._query_update_config_file)
-        apply(h.execute, (), file)
+        h.execute(**file)
 
     def _format_file_results(self, row):
         server = None
