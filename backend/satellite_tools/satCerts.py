@@ -121,6 +121,18 @@ _query_get_allorg_slot_types = rhnSQL.Statement("""
      where sg.group_type = sgt.id
 """)
 
+_query_get_slots = rhnSQL.Statement("""
+select org, slot_name, sum(max_members) as max_members, sum(current_members) as current_members
+from (
+select case when rhnServerGroup.org_id = :base_org_id then 'base' else 'other' end as org,
+       rhnServerGroupType.label as slot_name,
+       rhnServerGroup.max_members,
+       rhnServerGroup.current_members
+  from rhnServerGroup, rhnServerGroupType
+ where rhnServerGroup.group_type = rhnServerGroupType.id
+) X
+group by org, slot_name
+""")
 
 def set_slots_from_cert(cert):
     """ populates database with entitlements from an RHN certificate
@@ -129,6 +141,61 @@ def set_slots_from_cert(cert):
     """
 
     org_id = get_org_id()
+    counts = {}
+    h = rhnSQL.prepare(_query_get_slots)
+    h.execute(base_org_id = org_id)
+    rows = h.fetchall_dict()
+
+    for entry in rows:
+        if not counts.has_key(entry['slot_name']):
+            counts[entry['slot_name']] = { 'base' : ( 0, 0 ), 'other' : ( 0, 0 ) }
+
+        counts[entry['slot_name']][entry['org']] = ( entry['max_members'], entry['current_members'] )
+
+    has_error = False
+    for slot_type in cert.get_slot_types():
+        slots = cert.get_slots(slot_type)
+        db_label = slots.get_db_label()
+        quantity = slots.get_quantity()
+        # Do not pass along a NULL quantity - NULL for
+        # rhnServerGroup.max_members means 'no maximum' BZ #160046
+        if not quantity:
+            quantity = 0
+        else:
+            quantity = int(quantity)
+
+        if not counts.has_key(db_label):
+            continue
+
+        allocated = counts[db_label]['base'][1] + counts[db_label]['other'][0]
+        if allocated > quantity:
+            has_error = True
+            sys.stderr.write("Certificate specifies %s of %s entitlements.\n" % ( quantity, db_label ))
+            sys.stderr.write("    There are ")
+            if counts[db_label]['base'][1]:
+                sys.stderr.write("%s entitlements used by systems in the base (id %s) organization" % ( counts[db_label]['base'][1], org_id ))
+            if counts[db_label]['base'][1] and counts[db_label]['other'][0]:
+                sys.stderr.write(",\n    plus ")
+            if counts[db_label]['other'][0]:
+                sys.stderr.write("%s entitlements allocated to non-base org(s) (%s used)" % ( counts[db_label]['other'][0], counts[db_label]['other'][1] ))
+            sys.stderr.write(".\n")
+
+            sys.stderr.write("    You might need to ")
+            if counts[db_label]['base'][1]:
+                sys.stderr.write("unentitle some systems in the base organization")
+            if counts[db_label]['base'][1] and counts[db_label]['other'][0]:
+                sys.stderr.write(",\n    or ")
+            if counts[db_label]['other'][0]:
+                sys.stderr.write("deallocate some entitlements from non-base organization(s)")
+            sys.stderr.write(".\n")
+            sys.stderr.write("    You need to free %s entitlements to match the new certificate.\n" % (allocated - quantity))
+
+    if has_error:
+        sys.stderr.write("Activation failed, will now exit with no changes.\n")
+        sys.exit(1)
+
+
+
     activate_system_entitlement = rhnSQL.Procedure(
                                 "rhn_entitlements.activate_system_entitlement")
     org_service_proc = rhnSQL.Procedure("rhn_entitlements.modify_org_service")
