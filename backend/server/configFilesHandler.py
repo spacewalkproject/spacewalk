@@ -375,8 +375,6 @@ class ConfigFilesHandler(rhnHandler):
             return
 
         # Have to insert this config file, gotta use the api to keep quotas up2date...
-        #h = rhnSQL.prepare(self._query_insert_config_file)
-        #apply(h.execute, (), file)
         insert_call = rhnSQL.Function("rhn_config.insert_file",
                                       rhnSQL.types.NUMBER())
         file['config_file_id'] = insert_call(file['config_channel_id'], file['path'])
