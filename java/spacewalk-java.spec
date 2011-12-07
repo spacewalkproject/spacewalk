@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.6.86
+Version: 1.6.87
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -557,6 +557,12 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Dec 07 2011 Tomas Lestach <tlestach@redhat.com> 1.6.87-1
+- 751681 - fix ISE, when changing tree of a kickstart with deleted --url option
+  (tlestach@redhat.com)
+- make ant build working on F16 (tlestach@redhat.com)
+- replace '= null' with 'is null' (tlestach@redhat.com)
+
 * Mon Dec 05 2011 Michael Mraka <michael.mraka@redhat.com> 1.6.86-1
 - fixed list of config channels relevant to SSM
 
