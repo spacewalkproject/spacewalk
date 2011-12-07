@@ -12,7 +12,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.6.53
+Version: 1.6.54
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -675,6 +675,11 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Wed Dec 07 2011 Michael Mraka <michael.mraka@redhat.com> 1.6.54-1
+- removed dead (commented out) code
+- removed deprecated apply() function
+- 760892 - set selinux=None if selinux is disabled
+
 * Tue Dec 06 2011 Michael Mraka <michael.mraka@redhat.com> 1.6.53-1
 - 676369 - set pkgdir directly not via private API
 - 621166 - let's enable yum_src tuning (via config file)
