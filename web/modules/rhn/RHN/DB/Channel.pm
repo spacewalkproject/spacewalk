@@ -301,11 +301,6 @@ my %proxy_chans_by_version = (
 			     );
 
 
-sub proxy_channel_versions {
-  my $class = shift;
-  return sort(keys %proxy_chans_by_version);
-}
-
 sub has_downloads {
   my $class = shift;
   my $cid = shift;
