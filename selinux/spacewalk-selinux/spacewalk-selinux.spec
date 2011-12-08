@@ -7,7 +7,7 @@
 %define modulename spacewalk
 
 Name:           spacewalk-selinux
-Version:        1.6.1
+Version:        1.6.2
 Release:        1%{?dist}
 Summary:        SELinux policy module supporting Spacewalk Server
 
@@ -113,6 +113,10 @@ fi
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
+* Thu Dec 08 2011 Miroslav Suchý 1.6.2-1
+- code cleanup - rhn-load-ssl-cert and rhn-sudo-load-ssl-cert are not needed
+  anymore
+
 * Thu Jul 21 2011 Jan Pazdziora 1.6.1-1
 - Revert "Fedora 15 uses oracledb_port_t instead of oracle_port_t."
 
