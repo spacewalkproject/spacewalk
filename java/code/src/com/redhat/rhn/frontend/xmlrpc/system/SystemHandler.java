@@ -3524,7 +3524,12 @@ public class SystemHandler extends BaseHandler {
 
         if (details.containsKey("auto_errata_update")) {
             Boolean autoUpdate = (Boolean)details.get("auto_errata_update");
+
             if (autoUpdate.booleanValue()) {
+                if (server.getAutoUpdate().equals("N")) {
+                    // schedule errata update only it if the value has changed
+                    ActionManager.scheduleAllErrataUpdate(loggedInUser, server, new Date());
+                }
                 server.setAutoUpdate("Y");
             }
             else {
