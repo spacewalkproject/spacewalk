@@ -12,7 +12,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.6.54
+Version: 1.6.55
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -675,6 +675,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Thu Dec 08 2011 Michael Mraka <michael.mraka@redhat.com> 1.6.55-1
+- 676369 - directory may not exist
+
 * Wed Dec 07 2011 Michael Mraka <michael.mraka@redhat.com> 1.6.54-1
 - removed dead (commented out) code
 - removed deprecated apply() function
