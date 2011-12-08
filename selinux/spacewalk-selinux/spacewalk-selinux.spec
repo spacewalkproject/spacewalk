@@ -89,7 +89,7 @@ fi
 #this may be safely remove when BZ 505066 is fixed
 if /usr/sbin/selinuxenabled ; then
   /sbin/restorecon -rvvi /usr/share/rhn/satidmap.pl /usr/sbin/rhn-sat-restart-silent /var/log/rhn /var/cache/rhn \
-        /usr/bin/rhn-sudo-ssl-tool /usr/bin/rhn-sudo-load-ssl-cert /usr/sbin/tanukiwrapper
+        /usr/bin/rhn-sudo-ssl-tool /usr/sbin/tanukiwrapper
 fi
 
 %postun
@@ -103,7 +103,7 @@ if [ $1 -eq 0 ]; then
 fi
 
 /sbin/restorecon -rvvi /usr/share/rhn/satidmap.pl %{_sbindir}/rhn-sat-restart-silent /var/log/rhn /var/cache/rhn \
-    %{_bindir}/rhn-sudo-ssl-tool %{_bindir}/rhn-sudo-load-ssl-cert /usr/sbin/tanukiwrapper
+    %{_bindir}/rhn-sudo-ssl-tool /usr/sbin/tanukiwrapper
 
 %files
 %defattr(-,root,root,0755)

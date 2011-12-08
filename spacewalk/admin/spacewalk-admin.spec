@@ -36,13 +36,11 @@ make -f Makefile.admin install PREFIX=$RPM_BUILD_ROOT
 mkdir -p $RPM_BUILD_ROOT%{_mandir}/man8/
 %{_bindir}/pod2man --section=8 man/validate-sat-cert.pod > $RPM_BUILD_ROOT%{_mandir}/man8/validate-sat-cert.8
 %{_bindir}/pod2man --section=8 rhn-config-schema.pl > $RPM_BUILD_ROOT%{_mandir}/man8/rhn-config-schema.pl.8
-%{_bindir}/pod2man --section=8 rhn-load-ssl-cert.pl > $RPM_BUILD_ROOT%{_mandir}/man8/rhn-load-ssl-cert.pl.8
 %{_bindir}/pod2man --section=8 man/spacewalk-service.pod > $RPM_BUILD_ROOT%{_mandir}/man8/spacewalk-service.8
 %{_bindir}/pod2man --section=8 man/rhn-sat-restart-silent.pod > $RPM_BUILD_ROOT%{_mandir}/man8/rhn-sat-restart-silent.8
 %{_bindir}/pod2man --section=8 rhn-config-satellite.pl > $RPM_BUILD_ROOT%{_mandir}/man8/rhn-config-satellite.pl.8
 install -p man/rhn-satellite.8 $RPM_BUILD_ROOT%{_mandir}/man8/
 install -p man/validate-sat-cert.pl.8 $RPM_BUILD_ROOT%{_mandir}/man8/
-install -p man/rhn-sudo-load-ssl-cert.8 $RPM_BUILD_ROOT%{_mandir}/man8/
 chmod 0644 $RPM_BUILD_ROOT%{_mandir}/man8/*.8*
 ln -s spacewalk-service $RPM_BUILD_ROOT%{_sbindir}/rhn-satellite
 
@@ -59,8 +57,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/rhn-config-satellite.pl
 %{_bindir}/rhn-config-schema.pl
 %{_bindir}/rhn-generate-pem.pl
-%{_bindir}/rhn-sudo-load-ssl-cert
-%{_bindir}/rhn-load-ssl-cert.pl
 %{_bindir}/rhn-deploy-ca-cert.pl
 %{_bindir}/rhn-install-ssl-cert.pl
 %{_sbindir}/rhn-sat-restart-silent
@@ -69,8 +65,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/validate-sat-cert.pl.8*
 %{_mandir}/man8/rhn-satellite.8*
 %{_mandir}/man8/rhn-config-schema.pl.8*
-%{_mandir}/man8/rhn-load-ssl-cert.pl.8*
-%{_mandir}/man8/rhn-sudo-load-ssl-cert.8*
 %{_mandir}/man8/spacewalk-service.8*
 %{_mandir}/man8/rhn-sat-restart-silent.8*
 %{_mandir}/man8/rhn-config-satellite.pl.8*
