@@ -142,6 +142,8 @@ def set_slots_from_cert(cert):
 
     org_id = get_org_id()
     counts = {}
+    slot_table = rhnSQL.Table("rhnServerGroupType", "label")
+
     h = rhnSQL.prepare(_query_get_slots)
     h.execute(base_org_id = org_id)
     rows = h.fetchall_dict()
@@ -189,6 +191,12 @@ def set_slots_from_cert(cert):
                 sys.stderr.write("deallocate some entitlements from non-base organization(s)")
             sys.stderr.write(".\n")
             sys.stderr.write("    You need to free %s entitlements to match the new certificate.\n" % (allocated - quantity))
+            if slot_table.has_key(db_label):
+                entitlement_name = slot_table[db_label]['name']
+                entitlement_name = entitlement_name.replace(' Entitled Servers', '')
+                entitlement_name = entitlement_name.replace('Spacewalk ', '')
+                entitlement_name = entitlement_name.replace('RHN ', '')
+                sys.stderr.write("    In the WebUI, the entitlement is named %s.\n" % entitlement_name)
 
     if has_error:
         sys.stderr.write("Activation failed, will now exit with no changes.\n")
@@ -199,7 +207,6 @@ def set_slots_from_cert(cert):
     activate_system_entitlement = rhnSQL.Procedure(
                                 "rhn_entitlements.activate_system_entitlement")
     org_service_proc = rhnSQL.Procedure("rhn_entitlements.modify_org_service")
-    slot_table = rhnSQL.Table("rhnServerGroupType", "label")
     # Fetch all available entitlements; the ones that are not present in the
     # cert will have to be set to zero
     h = rhnSQL.prepare(_query_get_allorg_slot_types)
