@@ -20,7 +20,7 @@ A utility to create and manage channels at different update levels.
 <RefSynopsisDiv>
 <Synopsis>
     <cmdsynopsis>
-        <command>spaceawlk-create-channel</command>
+        <command>spacewalk-create-channel</command>
         <arg>options <replaceable>...</replaceable></arg>
         <arg>-l<replaceable>USER</replaceable></arg>
         <arg>--username=<replaceable>USER</replaceable></arg>
