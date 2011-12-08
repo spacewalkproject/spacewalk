@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        1.6.2
+Version:        1.6.3
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -105,6 +105,10 @@ rm -rf %{buildroot}
 %{_mandir}/man8/spacewalk-make-mount-points*
 
 %changelog
+* Thu Dec 08 2011 Miroslav Suchý 1.6.3-1
+- code cleanup - rhn-load-ssl-cert and rhn-sudo-load-ssl-cert are not needed
+  anymore
+
 * Fri Nov 04 2011 Milan Zazrivec <mzazrivec@redhat.com> 1.6.2-1
 - 679335 - remove osa-dispatcher login credentials from rhn.conf
 
