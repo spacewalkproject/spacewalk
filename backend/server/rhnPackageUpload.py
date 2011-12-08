@@ -40,6 +40,8 @@ def write_temp_file(req, buffer_size, dir, prefix, packaging=None):
     suffix = ''
     if packaging == 'deb':
         suffix = '.deb'
+    if not os.path.isdir(dir):
+        os.makedirs(dir)
     t = tempfile.NamedTemporaryFile(
                         dir=dir, prefix=prefix + '.',
                         suffix=suffix)
