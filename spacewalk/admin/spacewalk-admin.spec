@@ -2,7 +2,7 @@
 Summary: Various utility scripts and data files for RHN Satellite installations
 Name: spacewalk-admin
 URL:     https://fedorahosted.org/spacewalk
-Version: 1.6.1
+Version: 1.6.2
 Release: 1%{?dist}
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 License: GPLv2
@@ -70,6 +70,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/rhn-config-satellite.pl.8*
 
 %changelog
+* Thu Dec 08 2011 Miroslav Suchý 1.6.2-1
+- code cleanup - rhn-load-ssl-cert and rhn-sudo-load-ssl-cert are not needed
+  anymore
+
 * Tue Oct 04 2011 Miroslav Suchý 1.6.1-1
 - writing pod documentation to shell script is not smart, move it aside
 
