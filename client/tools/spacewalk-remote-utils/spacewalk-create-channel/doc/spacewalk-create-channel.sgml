@@ -132,9 +132,9 @@ the Spacewalk or Satellite server.
         </listitem>
     </varlistentry>
     <varlistentry>
-        <term>-u<replaceable>UPDATE</replaceable>, --update=<replaceable>UPDATE</replaceable></term>
+        <term>-u<replaceable>UPDATE_LEVEL</replaceable>, --update=<replaceable>UPDATE_LEVEL</replaceable></term>
         <listitem>
-            <para>The update level of a channel to create (e.g. gold,u1,u2,u3,u4,u5,u6,u7,u8,u9), where gold stands for the initial release.</para>
+            <para>The update level of a channel to create (e.g. GOLD, U1, U2, U3, U4, U5, U6, U7, U8, U9), where GOLD stands for the initial release.</para>
         </listitem>
     </varlistentry>
     <varlistentry>
