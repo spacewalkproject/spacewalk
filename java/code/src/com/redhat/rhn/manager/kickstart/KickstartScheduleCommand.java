@@ -592,7 +592,7 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
             cmd.setKernelOptions(getExtraOptions());
             cmd.setPostKernelOptions(postKernelOptions);
             cmd.setScheduledAction(kickstartAction);
-            cmd.setNetworkInfo(isDhcp, networkInterface);
+            cmd.setNetworkInfo(isDhcp, networkInterface, this.useIpv6Gateway());
             ValidatorError cobblerError = cmd.store();
             if (cobblerError != null) {
                 return cobblerError;
@@ -606,7 +606,7 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
             cmd.setKernelOptions(kernelOptions);
             cmd.setPostKernelOptions(postKernelOptions);
             cmd.setScheduledAction(kickstartAction);
-            cmd.setNetworkInfo(isDhcp, networkInterface);
+            cmd.setNetworkInfo(isDhcp, networkInterface, this.useIpv6Gateway());
             ValidatorError cobblerError = cmd.store();
             if (cobblerError != null) {
                 return cobblerError;
@@ -771,13 +771,6 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
         if (!isDhcp) {
             ksAction.getKickstartActionDetails().setStaticDevice(networkInterface);
         }
-
-        SystemRecord rec = this.getHostServer().getCobblerObject(null);
-        Map<String, Object> meta = rec.getKsMeta();
-        meta.put(KickstartFormatter.USE_IPV6_GATEWAY,
-            this.useIpv6Gateway() ? "true" : "false");
-        rec.setKsMeta(meta);
-        rec.save();
 
         return ksAction;
     }
