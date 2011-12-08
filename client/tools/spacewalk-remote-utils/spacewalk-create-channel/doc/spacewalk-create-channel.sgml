@@ -62,7 +62,7 @@ A utility to create and manage channels at different update levels.
         <arg>--sourceChannel=<replaceable>SOURCE_CHANNEL</replaceable></arg>
     </cmdsynopsis>
     <cmdsynopsis>
-        <arg>-p <replaceable>PARENT_CHANNEL</replaceable></arg>
+        <arg>-P <replaceable>PARENT_CHANNEL</replaceable></arg>
         <arg>--parent=<replaceable>PARENT_CHANNEL</replaceable></arg>
     </cmdsynopsis>
     <cmdsynopsis>
