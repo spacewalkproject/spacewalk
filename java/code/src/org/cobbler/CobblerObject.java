@@ -337,17 +337,14 @@ public abstract class CobblerObject {
     private String convertOptionsMap(Map<String, Object> map) {
         StringBuilder string = new StringBuilder();
         for (String key : map.keySet()) {
-            if (map.get(key) == null) {
+            List<String> keyList = (List)map.get(key);
+            if (keyList.isEmpty()) {
                 string.append(key + " ");
             }
-            else if (map.get(key) instanceof List<?>) {
-                List<String> values = (List)map.get(key);
-                for (String value : values) {
+            else {
+                for (String value : keyList) {
                     string.append(key + "=" + value + " ");
                 }
-            }
-            else {
-                string.append(key + "=" + map.get(key) + " ");
             }
         }
         return string.toString();
@@ -379,7 +376,7 @@ public abstract class CobblerObject {
     private Map<String, Object> parseKernelOpts(String kernelOpts) {
         Map<String, Object> toRet = new HashMap<String, Object>();
 
-        if (kernelOpts == null || kernelOpts.equals("")) {
+        if (StringUtils.isEmpty(kernelOpts)) {
             return toRet;
         }
 
@@ -387,13 +384,12 @@ public abstract class CobblerObject {
         for (String option : options) {
             String[] split = option.split("=");
             if (split.length == 1) {
-                toRet.put(split[0], null);
+                toRet.put(split[0], new ArrayList<String>());
             }
             else if (split.length == 2) {
                 if (toRet.containsKey(split[0])) {
                     List<String> list = (List)toRet.get(split[0]);
                     list.add(split[1]);
-                    toRet.put(split[0], list);
                 }
                 else {
                     toRet.put(split[0], new ArrayList<String>(Arrays.asList(split[1])));
