@@ -5,7 +5,7 @@
 %define vardir         /var/lib/nocpulse
 Name:         SputLite
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version:      1.6.4
+Version:      1.6.5
 Release:      1%{?dist}
 Summary:      Command queue processor (Sputnik Lite)
 URL:          https://fedorahosted.org/spacewalk
@@ -98,6 +98,9 @@ fi
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Fri Dec 09 2011 Jan Pazdziora 1.6.5-1
+- replace synonyms with real table names (mc@suse.de)
+
 * Tue Nov 29 2011 Jan Pazdziora 1.6.4-1
 - Fixing typo (under / undef).
 
