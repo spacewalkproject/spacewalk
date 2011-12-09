@@ -82,7 +82,15 @@ class Function(sql_base.Procedure):
         query = "SELECT %s(%s)" % (self.name, positional_args)
 
         log_debug(2, query, args)
-        ret = self.cursor.execute(query, args)
+        try:
+            ret = self.cursor.execute(query, args)
+        except psycopg2.Error, e:
+            error_code = 99999
+            m = re.match('ERROR: +-([0-9]+)', e.pgerror)
+            if m:
+                error_code = int(m.group(1))
+            raise sql_base.SQLError(error_code, e.pgerror, e)
+
         if self.ret_type == None:
             return ret
         else:
