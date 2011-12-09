@@ -225,7 +225,13 @@ public class NetworkInterface extends BaseDomainHelper implements
      * @return If available, returns a global IPv6 address.
      */
     public String getIp6Addr() {
-        return findServerNetAddress6ByScope("universe");
+        String address = findServerNetAddress6ByScope("universe");
+        // RHEL-5 registration may return "global" rather than "universe"
+        // for global addresses (a libnl thing).
+        if (address == null) {
+            address = findServerNetAddress6ByScope("global");
+        }
+        return address;
     }
 
     /**
