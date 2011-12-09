@@ -12,7 +12,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.6.55
+Version: 1.6.56
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -675,6 +675,25 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Fri Dec 09 2011 Jan Pazdziora 1.6.56-1
+- remove use of deprecated `apply` function (iartarisi@suse.cz)
+- move comment to its proper place (iartarisi@suse.cz)
+- fix indentation, whitespace and string concatenation (iartarisi@suse.cz)
+- get the repo_type as an argument instead of reading it from the instance attr
+  (iartarisi@suse.cz)
+- move option parsing from reposync.py to the spacewalk-repo-sync script
+  (iartarisi@suse.cz)
+- use the print_msg function instead of print to also log the message
+  (iartarisi@suse.cz)
+- use new-style classes (iartarisi@suse.cz)
+- remove unused `traceback` import and arrange std lib modules one per line
+  (iartarisi@suse.cz)
+- moved standard library imports to the top of the file (iartarisi@suse.cz)
+- remove useless check for importing module (iartarisi@suse.cz)
+- simplified systemExit function with what we use (iartarisi@suse.cz)
+- Catch any psycopg2 errors and reraise them as sql_base.SQLError, in functions
+  and procedures.
+
 * Thu Dec 08 2011 Michael Mraka <michael.mraka@redhat.com> 1.6.55-1
 - 676369 - directory may not exist
 
