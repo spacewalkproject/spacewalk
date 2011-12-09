@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 1.6.39
+Version: 1.6.40
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -334,6 +334,9 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Fri Dec 09 2011 Miroslav Suchý 1.6.40-1
+- 569790 - for scope on rhel5 do s/global/universe/
+
 * Fri Dec 02 2011 Miroslav Suchý 1.6.39-1
 - IPv6: first try findHostByRoute() and then try getaddrinfo()
 - IPv6: assign to hostname only if we are unable to resolve it
