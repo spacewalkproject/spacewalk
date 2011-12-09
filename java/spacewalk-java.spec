@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.6.87
+Version: 1.6.88
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -557,6 +557,21 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Dec 09 2011 Tomas Lestach <tlestach@redhat.com> 1.6.88-1
+- fix cfg template handling at kickstart profile rename (tlestach@redhat.com)
+- Fix display of static snippets. (ug@suse.de)
+- 752480 - point directly back to the Preferences page, as we do not ship
+  online documentation with Spacewalk. (jpazdziora@redhat.com)
+- 750475 - point to the latest Apache Lucene documentation as the link to 2.3.2
+  is not longer valid. (jpazdziora@redhat.com)
+- 672652 - fix behaviour with cosmetic issues (tlestach@redhat.com)
+- fix checkstyle issue (tlestach@redhat.com)
+- IPv6: RHEL-5 registration may return "global" for an IPv6 address
+  (mzazrivec@redhat.com)
+- IPv6: don't update non-existing cobbler profile (mzazrivec@redhat.com)
+- 735381 - schedule errata update, when turning on auto_errata_update via
+  system.setDetails API (tlestach@redhat.com)
+
 * Wed Dec 07 2011 Tomas Lestach <tlestach@redhat.com> 1.6.87-1
 - 751681 - fix ISE, when changing tree of a kickstart with deleted --url option
   (tlestach@redhat.com)
