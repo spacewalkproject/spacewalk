@@ -16,6 +16,7 @@ package com.redhat.rhn.manager.kickstart.cobbler;
 
 import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.domain.kickstart.KickstartData;
+import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.user.User;
 
 import org.apache.commons.lang.StringUtils;
@@ -47,14 +48,20 @@ public class CobblerProfileEditCommand extends CobblerProfileCommand {
             return new CobblerProfileCreateCommand(ksData, user).store();
         }
 
-        String cobName = makeCobblerName(ksData);
-
         Profile prof = Profile.lookupById(CobblerXMLRPCHelper.getConnection(user),
                 ksData.getCobblerId());
 
         if (prof != null) {
+            String cobName = makeCobblerName(ksData);
             if (!cobName.equals(prof.getName())) {
-                prof.setName(makeCobblerName(ksData));
+                // delete current cfg file
+                KickstartFactory.removeKickstartTemplatePath(ksData);
+                // create new cfg file
+                KickstartFactory.saveKickstartData(ksData);
+                // change ks profile name
+                prof.setName(cobName);
+                // change ks profile cfg path
+                prof.setKickstart(this.ksData.buildCobblerFileName());
             }
             updateCobblerFields(prof);
         }

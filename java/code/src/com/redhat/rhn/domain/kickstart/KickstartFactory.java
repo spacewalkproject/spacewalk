@@ -385,7 +385,7 @@ public class KickstartFactory extends HibernateFactory {
         else {
             log.debug("No ks meta for this profile.");
         }
-        String path = getKickstartTemplatePath(ksdataIn, p);
+        String path = ksdataIn.buildCobblerFileName();
         log.debug("writing ks file to : " + path);
         FileUtils.writeStringToFile(fileData, path);
     }
@@ -411,6 +411,15 @@ public class KickstartFactory extends HibernateFactory {
      * @return number of tuples affected by delete
      */
     public static int removeKickstartData(KickstartData ksdataIn) {
+        removeKickstartTemplatePath(ksdataIn);
+        return singleton.removeObject(ksdataIn);
+    }
+
+    /**
+     * Removes ks cfg template path
+     * @param ksdataIn kickstart data
+     */
+    public static void removeKickstartTemplatePath(KickstartData ksdataIn) {
         Profile p = Profile.lookupById(CobblerXMLRPCHelper.getAutomatedConnection(),
                 ksdataIn.getCobblerId());
         String path = getKickstartTemplatePath(ksdataIn, p);
@@ -419,7 +428,6 @@ public class KickstartFactory extends HibernateFactory {
             log.debug("deleting : " + path);
             file.delete();
         }
-        return singleton.removeObject(ksdataIn);
     }
 
     /**

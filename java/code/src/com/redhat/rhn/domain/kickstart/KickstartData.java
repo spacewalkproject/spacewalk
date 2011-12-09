@@ -1321,17 +1321,19 @@ public class KickstartData {
             }
         }
 
-        String path = "";
+        return buildCobblerFileName();
+    }
 
+    /**
+     * Build std kickstart cfg template path
+     * @return ks cfg template path
+     */
+    public String buildCobblerFileName() {
         if (isRawData()) {
             return CobblerCommand.makeCobblerFileName(RAW_DIR + "/" + getLabel(), getOrg());
         }
-        else {
-            return CobblerCommand.makeCobblerFileName(WIZARD_DIR + "/" + getLabel(),
-                    getOrg());
-        }
+        return CobblerCommand.makeCobblerFileName(WIZARD_DIR + "/" + getLabel(), getOrg());
     }
-
 
     /**
      * @return Returns if up2date/yum should be verbose

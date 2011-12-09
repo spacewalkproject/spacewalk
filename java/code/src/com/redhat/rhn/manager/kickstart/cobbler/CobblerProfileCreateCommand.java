@@ -79,7 +79,7 @@ public class CobblerProfileCreateCommand extends CobblerProfileCommand {
         prof.setVirtCpus(ConfigDefaults.get().getDefaultVirtCpus());
         prof.setVirtRam(ConfigDefaults.get().getDefaultVirtMemorySize());
         prof.setVirtFileSize(ConfigDefaults.get().getDefaultVirtDiskSize());
-        prof.setKickstart(this.ksData.getCobblerFileName());
+        prof.setKickstart(this.ksData.buildCobblerFileName());
         prof.save();
 
         updateCobblerFields(prof);
