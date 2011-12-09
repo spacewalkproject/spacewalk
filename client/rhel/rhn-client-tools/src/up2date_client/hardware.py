@@ -565,8 +565,11 @@ def read_network_interfaces():
         for info in dev_info:
             # one interface may have more IPv6 addresses
             for ip6 in info.get_ipv6_addresses():
+                scope = ip6.scope
+                if scope == 'global':
+                    scope = 'universe'
                 ip6_list.append({
-                    'scope':   ip6.scope,
+                    'scope':   scope,
                     'addr':    ip6.address,
                     'netmask': ip6.netmask
                 })
