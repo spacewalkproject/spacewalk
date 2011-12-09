@@ -65,6 +65,7 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
     /**
      * @param dhcp true if the network type is dhcp
      * @param networkInterfaceIn The name of the network interface
+     * @param useIpv6GatewayIn whether to use ipv6 gateway
      */
     public void setNetworkInfo(boolean dhcp, String networkInterfaceIn,
         boolean useIpv6GatewayIn) {
