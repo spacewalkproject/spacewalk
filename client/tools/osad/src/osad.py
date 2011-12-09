@@ -20,6 +20,7 @@ import types
 import string
 from rhn import rpclib
 import random
+import socket
 
 from up2date_client.config import initUp2dateConfig
 from up2date_client import config
@@ -96,6 +97,9 @@ class Runner(jabber_lib.Runner):
         set_logfile(logfile)
         self.debug_level = debug_level
         set_debug_level(debug_level)
+
+        self._tcp_keepalive_timeout = config['tcp_keepalive_timeout']
+        self._tcp_keepalive_count = config['tcp_keepalive_count']
 
         log_debug(3, "Updating configuration")
 
@@ -210,6 +214,9 @@ class Runner(jabber_lib.Runner):
         c.client_id = self._client_name
         c.shared_key = self._shared_key
         c.time_drift = self._time_drift
+        c._sock.setsockopt(socket.SOL_SOCKET, socket.SO_KEEPALIVE, 1)
+        c._sock.setsockopt(socket.SOL_TCP, socket.TCP_KEEPIDLE, self._tcp_keepalive_timeout)
+        c._sock.setsockopt(socket.SOL_TCP, socket.TCP_KEEPCNT, self._tcp_keepalive_count)
 
         # Update the jabber ID
         systemid = open(self._systemid_file).read()
@@ -267,6 +274,9 @@ class Runner(jabber_lib.Runner):
             log_debug(3, "Forcing run_rhn_check")
             run_rhn_check = 1
         ret['run_rhn_check'] = int(run_rhn_check)
+
+        ret['tcp_keepalive_timeout'] = int(osad_config.get('tcp_keepalive_timeout', defval=1800))
+        ret['tcp_keepalive_count'] = int(osad_config.get('tcp_keepalive_count', defval=3))
 
         systemid = osad_config.get('systemid')
         if systemid is None:
