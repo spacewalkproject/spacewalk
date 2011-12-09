@@ -443,9 +443,8 @@ This email will be sent when any of the following apply:
 Disabling this email:
 ----------------------
 
-To learn how to disable this email for systems:
-
-https://{4}/rhn/help/reference/en-US/s1-sm-your-rhn.jsp
+To disable this email for systems, visit the Preferences page at
+https://{4}/rhn/account/UserPreferences.do
 
 
 Thank you for using @@PRODUCT_NAME@@.
