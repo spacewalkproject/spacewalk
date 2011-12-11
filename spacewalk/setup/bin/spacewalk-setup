@@ -47,21 +47,19 @@ my %answers = ();
 Spacewalk::Setup::load_answer_file(\%opts, \%answers);
 my $product_name = $answers{'product_name'} || 'Spacewalk';
 
+$answers{hostname} ||= Sys::Hostname::hostname;
+
 # Skip the logfile init, normally just used when called from install.pl,
 # which already did this.
 if (not $opts{"skip-logfile-init"}) {
     Spacewalk::Setup::init_log_files($product_name, @ARGV);
 }
 
-
 if ($opts{"run-cobbler"}) {
     print Spacewalk::Setup::loc("* Setting up Cobbler..\n");
     setup_cobbler(\%opts, \%answers);
     exit 0;
 }
-
-
-$answers{hostname} ||= Sys::Hostname::hostname;
 
 my %rhnOptions = ();
 if (-e Spacewalk::Setup::DEFAULT_RHN_CONF_LOCATION) {
@@ -233,21 +231,132 @@ sub remove_old_jvm {
 sub setup_cobbler {
   my $opts = shift;
   my $answers = shift;
+
+  my $cobbler_version = `rpm -q --queryformat '%{version}' cobbler`;
+
+  # newer versions of Cobbler don't ship the config templates
+  if ($cobbler_version =~ /2\.0/) {
+    # Cobbler 2.0 can use the old helper script
+    system(COBBLER_COMMAND);
+  } else {
+    my $cobbler_dir = '/etc/cobbler';
+    my $cobbler_settings_file = 'settings';
+    my $cobbler_modules_file = 'modules.conf';
+
+    my %cobbler_settings = (
+      'server'                   => $answers->{'hostname'},
+      'next_server'              => $answers->{'hostname'},
+      'redhat_management_server' => $answers->{'hostname'},
+      'redhat_management_type'   => 'site',
+      'pxe_just_once'            => 1
+    );
+
+    Spacewalk::Setup::backup_file($cobbler_dir, $cobbler_settings_file);
+
+    open(FILE, "<$cobbler_dir/$cobbler_settings_file");
+
+    my @output_lines;
+    while(<FILE>) {
+      my $line = $_;
+
+      foreach my $key (keys(%cobbler_settings)) {
+          if ($line =~ /^$key ?:/) {
+            $line = "$key: $cobbler_settings{$key}\n";
+            last;
+          }
+      }
+
+      push(@output_lines, $line);
+    }
+
+    close(FILE);
+
+    # write the new file
+    open(FILE, ">$cobbler_dir/$cobbler_settings_file");
+    for my $line (@output_lines) {
+      print FILE $line;
+    }
+    close(FILE);
+
+    my %cobbler_modules = ( 'authentication' => 'authn_spacewalk' );
+    Spacewalk::Setup::backup_file($cobbler_dir, $cobbler_modules_file);
+    open(FILE, "<$cobbler_dir/$cobbler_modules_file");
+
+    @output_lines = ();
+    my $replace = 0;
+    my $value = '';
+    while(<FILE>) {
+      my $line = $_;
+
+      # look for the next 'module' line
+      if ($replace) {
+          if ($line =~ /^module ?=/) {
+              $line = "module = $value\n";
+              push(@output_lines, $line);
+              $replace = 0;
+              next;
+          } else {
+              next;
+          }
+      }
+
+      # look for a section in the config
+      foreach my $key (keys(%cobbler_modules)) {
+          if ($line =~ /^\[$key\]/) {
+            $replace = 1;
+            $value = $cobbler_modules{$key};
+            last;
+          }
+      }
+
+      push(@output_lines, $line);
+    }
+
+    close(FILE);
+
+    # write the new file
+    open(FILE, ">$cobbler_dir/$cobbler_modules_file");
+    for my $line (@output_lines) {
+      print FILE $line;
+    }
+    close(FILE);
+
+    my $skip_rhnconf = 0;
+    open(FILE, "<" . Spacewalk::Setup::DEFAULT_RHN_CONF_LOCATION);
+    while (<FILE>) {
+        if ($_ =~ /^cobbler\.host/) {
+          $skip_rhnconf = 1;
+          last;
+        }
+    }
+    close(FILE);
+
+    if (!$skip_rhnconf) {
+      open(FILE, ">>" . Spacewalk::Setup::DEFAULT_RHN_CONF_LOCATION);
+      print FILE "#cobbler host name\n";
+      print FILE "cobbler.host = " . $answers->{'hostname'} . "\n";
+      close(FILE);
+    }
+  }
+
+  Spacewalk::Setup::ask(
+    -noninteractive => $opts{"non-interactive"},
+    -question => "Cobbler requires tftp and xinetd services be turned on for PXE provisioning functionality. Enable these services",
+    -test => sub { my $text = shift; return $text =~ /^[YyNn]/ },
+    -answer => \$answers->{"enable-tftp"},
+    -default => 'Y',
+  );
+
   if ($opts{'enable-tftp'}) {
     $answers{'enable-tftp'} = $opts{'enable-tftp'};
-  }  
-  if ($answers{'enable-tftp'} and $answers{'enable-tftp'} =~ /^[Yy]/ ) {
-      system(COBBLER_COMMAND . " --enable-tftp=yes");
   }
-  elsif ($answers{'enable-tftp'}) {
-      system(COBBLER_COMMAND . " --enable-tftp=no");
+
+  if (($answers{'enable-tftp'} and $answers{'enable-tftp'} =~ /^[Yy]/) || $opts{"non-interactive"}) {
+      system("chkconfig tftp on");
+      system("chkconfig xinetd on");
   }
-  elsif ($opts{"non-interactive"}) {
-      system(COBBLER_COMMAND . " --enable-tftp=yes");
-  }
-  else {
-      system(COBBLER_COMMAND);
-  }  
+
+  system("cobbler sync");
 }
 
 sub setup_admin_email {
@@ -997,7 +1106,7 @@ sub populate_initial_configs {
     my $opts = shift;
     my $answers = shift;
 
-    # TODO: This may need to be addressed. Can query this for postgresql with 
+    # TODO: This may need to be addressed. Can query this for postgresql with
     # "show client_encoding;":
     my $charset = 'UTF8';
     if ($answers{'db-backend'} eq 'oracle') {
@@ -1210,7 +1319,7 @@ sub setup_monitoring {
 
   my $flags = fcntl(STDIN, F_GETFD, 0);
   fcntl(STDIN, F_SETFD, $flags & ~FD_CLOEXEC);
-  
+
   return 1;
 }
 

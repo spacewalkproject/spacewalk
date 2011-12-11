@@ -7,7 +7,6 @@ from os.path import exists, join, dirname, basename, isdir, isfile
 from os import system
 import sys
 import re
-import optparse
 
 from spacewalk.common import rhnConfig
 
@@ -48,28 +47,11 @@ def ask_yes_no(question, default_val = None):
 
     return ans.lower() == 'y'
 
-def setup_pxe_services(options):
-    enable = "yes" == options.tftp
-    if not options.tftp:
-        q = "Cobbler requires tftp and xinetd services be turned on for PXE provisioning functionality. Enable these services"  
-        enable = ask_yes_no(q, 'y')
-    if enable:
-        system("chkconfig tftp on")
-        system('chkconfig xinetd on')
-
 def gen_template(template, answers, output):
 	t = Template(file=template, searchList=answers)
 	open(output,"w").write(t.respond())
 
-def setup_options(parser):
-    parser.add_option("-t", "--enable-tftp", dest="tftp", type="choice", choices=["yes","no"],
-                  help="Enables tftp and xinetd services required for Cobbler PXE provisioning functionality (yes or no)")
-
-
 def main():
-    parser = optparse.OptionParser()
-    setup_options(parser)
-    options, args = parser.parse_args()
     answers = dict(loadFile(DEFAULTS))
     answers['server'] = gethostname()
     answers['next_server'] = answers['server']
@@ -87,7 +69,6 @@ def main():
     if not m.search(conf_lines):
         system ("echo 'cobbler.host = %s' >> %s " % (answers['server'],
                       rhnConfig._CONFIG_FILE))
-    setup_pxe_services(options)    
     system("cobbler sync")
 
     
@@ -104,28 +85,15 @@ cobbler-setup
 =head1 SYNOPSIS
 
 	cobbler-setup
-	cobbler-setup --enable-tftp=yes
 
 =head1 DESCRIPTION
 
 The B<cobbler-setup> program generates configuration files for cobbler
 in F</etc/cobbler>, based on templates in
-F</usr/share/cobbler/installer_templates>. It also offers to enable
-services needed for PXT (B<xinetd> and B<tftp>), unless
-prevented with B<--enable-tftp=no>.
+F</usr/share/cobbler/installer_templates>.
 
 The tool is generally called automatically by Spacewalk's
 B<spacewalk-setup>.
-
-=head1 OPTIONS
-
-=over 4
-
-=item --enable-tftp=yes, --enable-tftp=no
-
-This option prevents B<cobbler-setup> from asking whether to setup the
-B<xinetd> and B<tftp> services. With B<yes>, the action will be done,
-with B<no> it will not.
 
 =back
 
