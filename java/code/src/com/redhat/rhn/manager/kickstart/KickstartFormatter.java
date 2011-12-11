@@ -35,6 +35,7 @@ import com.redhat.rhn.domain.token.Token;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.user.UserFactory;
 import com.redhat.rhn.manager.channel.ChannelManager;
+import com.redhat.rhn.manager.kickstart.cobbler.CobblerXMLRPCHelper;
 import com.redhat.rhn.manager.download.DownloadManager;
 
 import org.apache.commons.lang.StringUtils;
@@ -232,7 +233,14 @@ public class KickstartFormatter {
         addEnd(buf);
         buf.append(NEWLINE);
         buf.append("%" + KickstartScript.TYPE_PRE);
-        buf.append("$kickstart_start");
+        buf.append(NEWLINE);
+
+        if (CobblerXMLRPCHelper.getCobblerVersion() >= 2.2) {
+            addCobblerSnippet(buf, "kickstart_start");
+        } else {
+            buf.append("$kickstart_start");
+        }
+
         addCobblerSnippet(buf, "pre_install_network_config");
         buf.append(NEWLINE);
 
@@ -268,7 +276,13 @@ public class KickstartFormatter {
         addCobblerSnippet(buf, "post_install_kernel_options");
         addCobblerSnippet(buf, "koan_environment");
         buf.append(NEWLINE);
-        buf.append("$kickstart_done");
+
+        if (CobblerXMLRPCHelper.getCobblerVersion() >= 2.2) {
+            addCobblerSnippet(buf, "kickstart_done");
+        } else {
+            buf.append("$kickstart_done");
+        }
+
         buf.append(NEWLINE);
         addEnd(buf);
         String retval = buf.toString();
