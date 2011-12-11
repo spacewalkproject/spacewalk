@@ -378,7 +378,7 @@ public class SystemRecord extends CobblerObject {
                                                       dataMap.get(GET_INTERFACES);
           if (interfaces != null) {
               for (String name : interfaces.keySet()) {
-                  networks.add(Network.load(name, interfaces.get(name)));
+                  networks.add(Network.load(client, name, interfaces.get(name)));
               }
           }
           return networks;
