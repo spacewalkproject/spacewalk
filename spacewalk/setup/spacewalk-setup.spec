@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        1.6.3
+Version:        1.6.4
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -105,6 +105,9 @@ rm -rf %{buildroot}
 %{_mandir}/man8/spacewalk-make-mount-points*
 
 %changelog
+* Sun Dec 11 2011 Aron Parsons <aronparsons@gmail.com> 1.6.4-1
+- add support for Cobbler 2.2 in the installer (aronparsons@gmail.com)
+
 * Thu Dec 08 2011 Miroslav Suchý 1.6.3-1
 - code cleanup - rhn-load-ssl-cert and rhn-sudo-load-ssl-cert are not needed
   anymore
