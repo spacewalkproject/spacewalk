@@ -926,7 +926,7 @@ def help_activationkey_export(self):
 options:
     -f outfile.json : specify an output filename, defaults to <KEY>.json
                       if exporting a single key, akeys.json for multiple keys,
-                      or akey_all.json of no KEY specified (export ALL)
+                      or akey_all.json if no KEY specified (export ALL)
 
 Note : KEY list is optional, default is to export ALL keys '''
 
