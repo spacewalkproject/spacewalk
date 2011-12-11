@@ -832,4 +832,78 @@ def do_configchannel_export(self, args):
             filename)
         return
 
+####################
+
+def help_configchannel_import(self):
+    print 'configchannel_import: import config channel(s) from json file'
+    print '''usage: configchannel_import <JSONFILES...>'''
+
+def do_configchannel_import(self, args):
+    (args, options) = parse_arguments(args)
+
+    if len(args) == 0:
+        logging.error("Error, no filename passed")
+        self.help_configchannel_import()
+        return
+
+    for filename in args:
+        logging.debug("Passed filename do_configchannel_import %s" % filename)
+        ccdetails_list = json_read_from_file(filename)
+        if len(ccdetails_list) == 0:
+            logging.error("Error, could not read json data from %s" % filename)
+            return
+        for ccdetails in ccdetails_list:
+            if self.import_configchannel_fromdetails(ccdetails) != True:
+                logging.error("Error importing configchannel %s" % \
+                    ccdetails['name'])
+
+# create a new cc based on the dict from export_configchannel_getdetails
+def import_configchannel_fromdetails(self, ccdetails):
+
+    # First we check that an existing channel with the same name does not exist
+    existing_ccs = self.do_configchannel_list('', True)
+    if ccdetails['name'] in existing_ccs:
+        logging.error("ERROR : config channel %s already exists! Skipping!" % \
+            ccdetails['name'])
+        return False
+    else:
+        # create the cc, we need to drop the org prefix from the cc name
+        logging.info("Importing config channel  %s" % ccdetails['name'])
+
+        # Create the channel
+        self.client.configchannel.create(self.session,
+                                 ccdetails['label'],
+                                 ccdetails['name'],
+                                 ccdetails['description'])
+        for filedetails in ccdetails['files']:
+            path = filedetails['path']
+            del filedetails['path']
+            logging.info("Found %s %s for cc %s" % \
+                (filedetails['type'], path, ccdetails['name']))
+            ret = None
+            if filedetails['type'] == 'symlink':
+                del filedetails['type']
+                logging.debug("Adding symlink %s" % filedetails)
+                ret = self.client.configchannel.createOrUpdateSymlink(\
+                    self.session, ccdetails['label'], path, filedetails)
+            else:
+                if filedetails['type'] == 'directory':
+                    isdir = True
+                else:
+                    isdir = False
+                logging.debug("Creating %s %s" % \
+                    (filedetails['type'], filedetails))
+                del filedetails['type']
+                ret = self.client.configchannel.createOrUpdatePath(\
+                    self.session, ccdetails['label'], path, isdir, filedetails)
+            if ret != None:
+                logging.debug("Added file %s to %s" %\
+                    (ret['path'],ccdetails['name']))
+            else:
+                logging.error("Error adding file %s to %s" % \
+                    (filedetails['path'], ccdetails['label']))
+                continue
+
+    return True
+
 # vim:ts=4:expandtab:
