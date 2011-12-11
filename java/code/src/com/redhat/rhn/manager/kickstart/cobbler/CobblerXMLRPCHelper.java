@@ -24,6 +24,7 @@ import org.apache.log4j.Logger;
 import org.cobbler.CobblerConnection;
 
 import java.net.MalformedURLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import redstone.xmlrpc.XmlRpcClient;
@@ -110,5 +111,16 @@ public class CobblerXMLRPCHelper implements XMLRPCInvoker {
      */
     public static CobblerConnection getAutomatedConnection() {
         return getConnection(ConfigDefaults.get().getCobblerAutomatedUser());
+    }
+
+    /**
+     * Returns the cobbler version number
+     * @return the cobbler version number
+     */
+    public static Double getCobblerVersion() {
+        CobblerConnection connection =
+            getConnection(ConfigDefaults.get().getCobblerAutomatedUser());
+
+        return connection.getVersion();
     }
 }
