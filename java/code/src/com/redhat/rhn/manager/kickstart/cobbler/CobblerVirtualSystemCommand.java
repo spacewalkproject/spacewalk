@@ -98,7 +98,7 @@ public class CobblerVirtualSystemCommand extends CobblerSystemCreateCommand {
     protected void processNetworkInterfaces(SystemRecord rec, Server serverIn) {
         log.debug("processNetworkInterfaces called.");
         String newMac = (String) invokeXMLRPC("get_random_mac", Collections.EMPTY_LIST);
-        Network net = new Network("eth0");
+        Network net = new Network(getCobblerConnection(), "eth0");
         net.setMacAddress(newMac);
         List<Network> nics = new LinkedList<Network>();
         nics.add(net);

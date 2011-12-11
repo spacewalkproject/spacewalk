@@ -290,7 +290,7 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
         if (serverIn.getNetworkInterfaces() != null) {
             for (NetworkInterface n : serverIn.getNetworkInterfaces()) {
                 if (n.isPublic()) {
-                    Network net = new Network(n.getName());
+                    Network net = new Network(getCobblerConnection(), n.getName());
                     net.setIpAddress(n.getIpaddr());
                     net.setMacAddress(n.getHwaddr());
                     net.setNetmask(n.getNetmask());
