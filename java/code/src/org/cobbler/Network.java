@@ -25,23 +25,25 @@ import java.util.Map;
  * @version $Rev$
  */
 public class Network {
-    private static final String SUBNET = "subnet";
-    private static final String DNS_NAME = "dns_name";
-    private static final String IP_ADDRESS = "ip_address";
-    private static final String STATIC = "static";
-    private static final String MAC_ADDRESS = "mac_address";
-
     private String name;
-    private String subnet;
+    private String netmask;
     private String ipAddress;
     private boolean isStatic;
     private String macAddress;
+    private String netmaskVariableName;
     /**
      * Constructor to create a new network interface
      * @param nameIn the name of the network
      */
-    public Network(String nameIn) {
+    public Network(CobblerConnection connection, String nameIn) {
         name = nameIn;
+
+        // 'subnet' changed to 'netmask' in newer versions of Cobbler
+        if (connection.getVersion() >= 2.2) {
+            netmaskVariableName = "netmask";
+        } else {
+            netmaskVariableName = "subnet";
+        }
     }
 
     /**
@@ -53,7 +55,7 @@ public class Network {
     Map<String, Object> toMap() {
         Map<String, Object> inet = new HashMap<String, Object>();
         addToMap(inet, "macaddress-" + name, macAddress);
-        addToMap(inet, "subnet-" + name, subnet);
+        addToMap(inet, netmaskVariableName + "-" + name, netmask);
         addToMap(inet, "ipaddress-" + name, ipAddress);
         addToMap(inet, "macaddress-" + name, macAddress);
         addToMap(inet, "static-" + name, isStatic);
@@ -75,13 +77,20 @@ public class Network {
      * @param ifaceInfo the interface information
      * @return the netwrok object
      */
-    static Network load(String name, Map<String, Object> ifaceInfo) {
-        Network net = new Network(name);
-        net.setMacAddress((String)ifaceInfo.get(MAC_ADDRESS));
-        net.setNetmask((String)ifaceInfo.get(SUBNET));
-        net.setIpAddress((String)ifaceInfo.get(IP_ADDRESS));
-        net.setStaticNetwork(ifaceInfo.containsKey(STATIC) &&
-                                    Boolean.TRUE.equals(ifaceInfo.get(STATIC)));
+    static Network load(CobblerConnection connection, String name, Map<String, Object> ifaceInfo) {
+        Network net = new Network(connection, name);
+        net.setMacAddress((String)ifaceInfo.get("mac_address"));
+        net.setIpAddress((String)ifaceInfo.get("ip_address"));
+        net.setStaticNetwork(ifaceInfo.containsKey("static") &&
+                                    Boolean.TRUE.equals(ifaceInfo.get("static")));
+
+        // use the correct variable for the netmask/subnet
+        if (connection.getVersion() >= 2.2) {
+            net.setNetmask((String)ifaceInfo.get("netmask"));
+        } else {
+            net.setNetmask((String)ifaceInfo.get("subnet"));
+        }
+
         return net;
     }
 
@@ -93,17 +102,17 @@ public class Network {
     }
 
     /**
-     * @return Returns the subnet.
+     * @return Returns the netmask.
      */
-    public String getSubnet() {
-        return subnet;
+    public String getNetmask() {
+        return netmask;
     }
 
     /**
-     * @param subnetIn The subnet to set.
+     * @param netmaskIn The netmask to set.
      */
-    public void setNetmask(String subnetIn) {
-        subnet = subnetIn;
+    public void setNetmask(String netmaskIn) {
+        netmask = netmaskIn;
     }
 
     /**
