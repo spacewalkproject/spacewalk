@@ -906,4 +906,104 @@ def import_configchannel_fromdetails(self, ccdetails):
 
     return True
 
+####################
+
+def help_configchannel_clone(self):
+    print 'configchannel_clone: Clone config channel(s)'
+    print '''usage examples:
+                 configchannel_clone foo_label -c bar_label
+                 configchannel_clone foo_label1 foo_label2 -c prefix
+                 configchannel_clone foo_label -x "s/foo/bar"
+                 configchannel_clone foo_label1 foo_label2 -x "s/foo/bar"
+
+options:
+  -c CLONE_LABEL : name/label of the resulting cc (note does not update
+                   description, see -x option), treated as a prefix if
+                   multiple keys are passed
+  -x "s/foo/bar" : Optional regex replacement, replaces foo with bar in the
+                   clone name, label and description
+  Note : If no -c or -x option is specified, interactive is assumed'''
+
+def complete_configchannel_clone(self, text, line, beg, end):
+    return tab_completer(self.do_configchannel_list('', True), text)
+
+def do_configchannel_clone(self, args):
+    options = [ Option('-c', '--clonelabel', action='store'),
+                Option('-x', '--regex', action='store') ]
+
+    (args, options) = parse_arguments(args, options)
+    allccs = self.do_configchannel_list('', True)
+
+    if is_interactive(options):
+        print
+        print 'Config Channels'
+        print '------------------'
+        print '\n'.join(sorted(allccs))
+        print
+
+        if len(args) == 1:
+            print "Channel to clone: %s" % args[0]
+        else:
+            # Clear out any args as interactive doesn't handle multiple ccs
+            args = []
+            args.append(prompt_user('Channel to clone:', noblank = True))
+        options.clonelabel = prompt_user('Clone label:', noblank = True)
+    else:
+        if not options.clonelabel and not options.regex:
+            logging.error("Error - must specify either -c or -x options!")
+            self.help_configchannel_clone()
+        else:
+            logging.debug("%s : %s" % (options.clonelabel, options.regex))
+
+    if not len(args):
+        logging.error("Error no channel label passed!")
+        self.help_configchannel_clone()
+        return
+    logging.debug("Got args=%s %d" % (args, len(args)))
+    # allow globbing of configchannel channel names
+    ccs = filter_results(self.do_configchannel_list('', True), args)
+    logging.debug("Filtered ccs %s" % ccs)
+    for cc in ccs:
+        logging.debug("Cloning %s" % cc)
+        ccdetails = self.export_configchannel_getdetails(cc)
+
+        # If the -x/--regex option is passed, do a sed-style replacement over
+        # the name, label and description.  This makes it easier to clone when
+        # content is based on a known naming convention
+        if options.regex:
+            # Expect option to be formatted like a sed-replacement, s/foo/bar
+            findstr = options.regex.split("/")[1]
+            replacestr = options.regex.split("/")[2]
+            logging.debug("--regex selected with %s, replacing %s with %s" % \
+                (options.regex, findstr, replacestr))
+
+            newname = re.sub(findstr, replacestr, ccdetails['name'])
+            ccdetails['name'] = newname
+            newlabel = re.sub(findstr, replacestr, ccdetails['label'])
+            ccdetails['label'] = newlabel
+            newdesc = re.sub(findstr, replacestr, ccdetails['description'])
+            ccdetails['description'] = newdesc
+            logging.debug("regex mode : %s %s %s" % (ccdetails['name'], \
+                ccdetails['label'], ccdetails['description']))
+        elif options.clonelabel:
+            if len(args) > 1:
+                newlabel = options.clonelabel + ccdetails['label']
+                ccdetails['label'] = newlabel
+                newname = options.clonelabel + ccdetails['name']
+                ccdetails['name'] = newname
+                logging.debug("clonelabel mode with >1 channel : %s" % \
+                    ccdetails['label'])
+            else:
+                newlabel = options.clonelabel
+                ccdetails['label'] = newlabel
+                newname = options.clonelabel
+                ccdetails['name'] = newname
+                logging.debug("clonelabel mode with 1 channel : %s" % \
+                    ccdetails['label'])
+
+        # Finally : import the cc from the modified ccdetails
+        if self.import_configchannel_fromdetails(ccdetails) != True:
+            logging.error("Failed to clone %s to %s" % \
+             (options.name, options.clonelabel))
+
 # vim:ts=4:expandtab:
