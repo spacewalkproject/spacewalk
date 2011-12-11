@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.6.89
+Version: 1.6.90
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -557,6 +557,16 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Sun Dec 11 2011 Aron Parsons <aronparsons@gmail.com> 1.6.90-1
+- use a stanza/snippet accordingly for kickstart_{start,done}
+  (aronparsons@gmail.com)
+- add a static method to return the Cobbler version (aronparsons@gmail.com)
+- pass a CobblerConnection object to Network so it can determine the Cobbler
+  version (aronparsons@gmail.com)
+- account for the rename of the subnet variable to netmask in Cobbler 2.2
+  (aronparsons@gmail.com)
+- added getVersion method to CobblerConnection (aronparsons@gmail.com)
+
 * Fri Dec 09 2011 Jan Pazdziora 1.6.89-1
 - Checkstyle fixes.
 
