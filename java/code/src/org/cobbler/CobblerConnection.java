@@ -165,4 +165,12 @@ public class CobblerConnection {
     public String getUrl() {
         return actualUrl;
     }
+
+    /**
+     * Returns the cobbler server version
+     * @return the server version
+     */
+    public Double getVersion() {
+        return (Double) invokeMethod("version", new LinkedList());
+    }
 }
