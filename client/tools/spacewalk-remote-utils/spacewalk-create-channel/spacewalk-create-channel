@@ -45,7 +45,7 @@ client = None
 
 def get_args():
    global parser
-   parser = OptionParser(usage="""spacewalk-channel-update  -l USER  -s SERVER [-p PASSWORD]  -v VERSION -r RELEASE
+   parser = OptionParser(usage="""spacewalk-create-channel  -l USER  -s SERVER [-p PASSWORD]  -v VERSION -r RELEASE
                 -u UPDATE -a ARCH -e EXTRA  [ -D DATAFILE]  [-c SRCCHAN] -d DESTCHAN [-N DESTNAME]  [-P PARENT]
                 [-C | --clear] [-n | --nossl]""")
    parser.add_option("-n", "--nossl", action="store_false", dest="ssl", default=True, help="disables the use of SSL when connecting to the server")
@@ -433,16 +433,16 @@ Examples
 -------
 
 Create channel 'my-stable-channel' for RHEL 6 Server GOLD x86_64:
-spacewalk-channel-update  -l admin -s myserver.example.com -v 6 -u gold -r server -a x86_64 -d my-stable-channel
+spacewalk-create-channel  -l admin -s myserver.example.com -v 6 -u gold -r server -a x86_64 -d my-stable-channel
 
 or another way:
-spacewalk-channel-update  -l admin -s myserver.example.com  -D /usr/share/rhn/channel-data/6-gold-server-x86_64 -d my-stable-channel
+spacewalk-create-channel  -l admin -s myserver.example.com  -D /usr/share/rhn/channel-data/6-gold-server-x86_64 -d my-stable-channel
 
 Upgrade prevously created channel 'my-stable-channel' to RHEL 6 Server u1 x86_64:
-spacewalk-channel-update  -l admin -s myserver.example.com -v 6 -u u1 -r server -a x86_64 -d my-stable-channel
+spacewalk-create-channel  -l admin -s myserver.example.com -v 6 -u u1 -r server -a x86_64 -d my-stable-channel
 
 Add the Supplementary channel as a child channel of 'my-stable-channel':
-spacewalk-channel-update  -l admin -s myserver.example.com -v 6 -u u1 -r server -a x86_64 -e supplementary -p my-stable-channel
+spacewalk-create-channel  -l admin -s myserver.example.com -v 6 -u u1 -r server -a x86_64 -e supplementary -p my-stable-channel
 """
 
 def error(msg):
