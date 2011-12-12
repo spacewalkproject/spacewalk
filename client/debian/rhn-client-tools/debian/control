@@ -2,7 +2,7 @@ Source: python-rhn-client-tools
 Section: python
 Priority: extra
 Maintainer: Šimon Lukašík <xlukas08@stud.fit.vutbr.cz>
-Build-Depends: python, debhelper (>= 7.0.50~)
+Build-Depends: python, debhelper (>= 7.0.50~), intltool
 Build-Depends-Indep: python-support (>= 0.8)
 Standards-Version: 3.9.1
 Homepage: https://fedorahosted.org/spacewalk
