@@ -54,9 +54,14 @@ def startRhnsd():
         else:
             print _("Warning: unable to enable rhnsd with chkconfig")
 
-        rc = os.system("/sbin/service rhnsd status > /dev/null")
+        service_path = "/sbin/service"
+        if not os.access(service, os.R_OK|os.X_OK):
+            if os.access("/usr/sbin/service", os.R_OK|os.X_OK):
+                service_path = "/usr/sbin/service"
+
+        rc = os.system("%s rhnsd status > /dev/null" % service_path)
         if rc:
-            os.system("/sbin/service rhnsd start > /dev/null")
+            os.system("%s rhnsd start > /dev/null" % service_path)
 
 def getOemInfo():
     configFile = cfg["oemInfoFile"] or "/etc/sysconfig/rhn/oeminfo"
