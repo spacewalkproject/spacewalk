@@ -62,16 +62,19 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
     private String networkInterface;
     private boolean isDhcp;
     private boolean useIpv6Gateway;
+    private String ksDistro;
     /**
      * @param dhcp true if the network type is dhcp
      * @param networkInterfaceIn The name of the network interface
      * @param useIpv6GatewayIn whether to use ipv6 gateway
+     * @param ksDistroIn distro to be provisioned
      */
     public void setNetworkInfo(boolean dhcp, String networkInterfaceIn,
-        boolean useIpv6GatewayIn) {
+        boolean useIpv6GatewayIn, String ksDistroIn) {
         isDhcp = dhcp;
         networkInterface = networkInterfaceIn;
         useIpv6Gateway = useIpv6GatewayIn;
+        ksDistro = ksDistroIn;
     }
 
     /**
@@ -265,6 +268,7 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
         ksmeta.remove(KickstartFormatter.STATIC_NETWORK_VAR);
         ksmeta.put(KickstartFormatter.USE_IPV6_GATEWAY,
             this.useIpv6Gateway ? "true" : "false");
+        ksmeta.put(KickstartFormatter.KS_DISTRO, this.ksDistro);
         rec.setKsMeta(ksmeta);
         rec.setKernelOptions(kernelOptions);
         rec.setKernelPostOptions(postKernelOptions);

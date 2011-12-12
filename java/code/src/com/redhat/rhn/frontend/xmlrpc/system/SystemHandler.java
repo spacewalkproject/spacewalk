@@ -4519,9 +4519,10 @@ public class SystemHandler extends BaseHandler {
         if (ipv6GatewayMeta != null && ipv6GatewayMeta.equals("true")) {
             preferIpv6Gateway = true;
         }
+        String ksDistro = (String) meta.get(KickstartFormatter.KS_DISTRO);
 
         String command = KickstartFormatter.makeStaticNetworkCommand(device, hostName,
-            nameservers.get(0), ip4, nm4, gw4, ip6, nm6, gw6, preferIpv6Gateway);
+            nameservers.get(0), ip4, nm4, gw4, ip6, nm6, gw6, preferIpv6Gateway, ksDistro);
 
         rec.setHostName(hostName);
         rec.setGateway((preferIpv6Gateway) ? gw6 : gw4);

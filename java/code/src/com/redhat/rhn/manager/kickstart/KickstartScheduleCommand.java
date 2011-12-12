@@ -592,8 +592,8 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
             cmd.setKernelOptions(getExtraOptions());
             cmd.setPostKernelOptions(postKernelOptions);
             cmd.setScheduledAction(kickstartAction);
-            cmd.setNetworkInfo(isDhcp, networkInterface,
-                !ksdata.isRHEL5OrLess() && this.useIpv6Gateway());
+            cmd.setNetworkInfo(isDhcp, networkInterface, this.useIpv6Gateway(),
+                ksdata.getInstallType().getLabel());
             ValidatorError cobblerError = cmd.store();
             if (cobblerError != null) {
                 return cobblerError;
@@ -607,8 +607,8 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
             cmd.setKernelOptions(kernelOptions);
             cmd.setPostKernelOptions(postKernelOptions);
             cmd.setScheduledAction(kickstartAction);
-            cmd.setNetworkInfo(isDhcp, networkInterface,
-                !ksdata.isRHEL5OrLess() && this.useIpv6Gateway());
+            cmd.setNetworkInfo(isDhcp, networkInterface, this.useIpv6Gateway(),
+                ksdata.getInstallType().getLabel());
             ValidatorError cobblerError = cmd.store();
             if (cobblerError != null) {
                 return cobblerError;
