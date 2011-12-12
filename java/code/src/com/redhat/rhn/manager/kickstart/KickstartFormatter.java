@@ -429,6 +429,9 @@ public class KickstartFormatter {
         if (ip4 != null && ip4.length() > 0 && nm4 != null && nm4.length() > 0) {
             command += String.format(STATIC_NETWORK_COMMAND1, ip4, nm4);
         }
+        else {
+            command += " --noipv4";
+        }
 
         if (preferIpv6Gateway && ip6 != null && ip6.length() > 0) {
             if (nm6 == null || nm6.length() == 0) {
