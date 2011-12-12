@@ -24,7 +24,6 @@ import org.apache.log4j.Logger;
 import org.cobbler.CobblerConnection;
 
 import java.net.MalformedURLException;
-import java.util.ArrayList;
 import java.util.List;
 
 import redstone.xmlrpc.XmlRpcClient;
