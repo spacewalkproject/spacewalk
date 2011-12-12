@@ -28,7 +28,7 @@ if [ -x /etc/init.d/tomcat5 ]; then
    TOMCAT="tomcat5"
 fi
 
-if [ -x /etc/init.d/tomcat6 ]; then
+if [ -x /etc/init.d/tomcat6 -o -x /lib/systemd/system/tomcat6.service ]; then
    TOMCAT="tomcat6"
 fi
 
@@ -43,7 +43,7 @@ forward_services() {
     RET=0
     E_STAT=0
     for service in $SERVICES; do
-	if [ -e /etc/init.d/$service ]; then
+	if [ -e /etc/init.d/$service -o -e /lib/systemd/system/$service.service ]; then
 	    /sbin/service $service $ACTION
             E_STAT=$?
             if [ "$service" == "$TOMCAT" \
@@ -73,7 +73,7 @@ reverse_services() {
     RET=0
     E_STAT=0
     for service in $(echo $SERVICES | tac -s" "); do
-	if [ -e /etc/init.d/$service ]; then
+	if [ -e /etc/init.d/$service -o -e /lib/systemd/system/$service.service ]; then
 	    /sbin/service $service $ACTION
             E_STAT=$?
 	fi
@@ -88,7 +88,7 @@ chkconfig() {
     RET=0
     E_STAT=0
     for service in $SERVICES; do
-        if [ -e /etc/init.d/$service ]; then
+        if [ -e /etc/init.d/$service -o -e /lib/systemd/system/$service.service ]; then
             /sbin/chkconfig $service "$@"
             E_STAT=$?
         fi
