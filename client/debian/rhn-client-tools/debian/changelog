@@ -1,6 +1,6 @@
-python-rhn-client-tools (1.5.7-1) unstable; urgency=low
+python-rhn-client-tools (1.6.41-1) unstable; urgency=low
 
-  * Update to upstream version
-  * The Debian client on x86_64 should send amd64-debian-linux
+  * Rebase to upstream version
+  * 703833 - if /sbin/service is not available, try to use /usr/sbin/service
 
- -- Šimon Lukašík <xlukas08@stud.fit.vutbr.cz>  Thu, 28 Apr 2011 12:53:49 +0200
+ -- Šimon Lukašík <isimluk@fedoraproject.org>  Mon, 12 Dec 2011 12:53:49 +0200
