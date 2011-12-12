@@ -143,7 +143,7 @@ sub add_widget {
   unless (ref $widget and $widget->isa('RHN::Form::Widget')) {
     my $widget_class = RHN::Form::Widget->find_class($widget);
     my $data = shift;
-    $widget = eval "new $widget_class (\%{\$data})";
+    $widget = eval "use $widget_class; new $widget_class (\%{\$data})";
     if ($@) {
       throw $@;
     }
