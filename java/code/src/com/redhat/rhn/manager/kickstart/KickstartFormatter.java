@@ -428,7 +428,7 @@ public class KickstartFormatter {
             command += String.format(STATIC_NETWORK_COMMAND1, ip4, nm4);
         }
 
-        if (ip6 != null && ip6.length() > 0) {
+        if (preferIpv6Gateway && ip6 != null && ip6.length() > 0) {
             if (nm6 == null || nm6.length() == 0) {
                 command += String.format(STATIC_NETWORK_COMMAND2, ip6);
             }
