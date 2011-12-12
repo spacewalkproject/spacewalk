@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.6.90
+Version: 1.6.91
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -557,6 +557,12 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Dec 12 2011 Miroslav Suchý 1.6.91-1
+- fix checkstyle
+- IPv6: --ipv6 is not a valid ks option in RHEL-5 (mzazrivec@redhat.com)
+- introduce setSelectable(Integer) method for VisibleSystems
+  (pcasenove@gmail.com)
+
 * Sun Dec 11 2011 Aron Parsons <aronparsons@gmail.com> 1.6.90-1
 - use a stanza/snippet accordingly for kickstart_{start,done}
   (aronparsons@gmail.com)
