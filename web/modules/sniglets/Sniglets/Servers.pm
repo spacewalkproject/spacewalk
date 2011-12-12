@@ -33,8 +33,11 @@ use RHN::Exception;
 use RHN::Channel;
 use RHN::ServerActions;
 use RHN::Form;
-use RHN::Form::Widget::Select;
 use RHN::Form::Widget::CheckboxGroup;
+use RHN::Form::Widget::Hidden;
+use RHN::Form::Widget::Literal;
+use RHN::Form::Widget::Select;
+use RHN::Form::Widget::Submit;
 use RHN::SatelliteCert;
 use RHN::Kickstart::Session;
 
