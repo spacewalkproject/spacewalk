@@ -237,7 +237,8 @@ public class KickstartFormatter {
 
         if (CobblerXMLRPCHelper.getCobblerVersion() >= 2.2) {
             addCobblerSnippet(buf, "kickstart_start");
-        } else {
+        }
+        else {
             buf.append("$kickstart_start");
         }
 
@@ -279,7 +280,8 @@ public class KickstartFormatter {
 
         if (CobblerXMLRPCHelper.getCobblerVersion() >= 2.2) {
             addCobblerSnippet(buf, "kickstart_done");
-        } else {
+        }
+        else {
             buf.append("$kickstart_done");
         }
 
