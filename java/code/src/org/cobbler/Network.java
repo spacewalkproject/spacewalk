@@ -79,7 +79,8 @@ public class Network {
      * @param ifaceInfo the interface information
      * @return the netwrok object
      */
-    static Network load(CobblerConnection connection, String name, Map<String, Object> ifaceInfo) {
+    static Network load(CobblerConnection connection, String name,
+            Map<String, Object> ifaceInfo) {
         Network net = new Network(connection, name);
         net.setMacAddress((String)ifaceInfo.get("mac_address"));
         net.setIpAddress((String)ifaceInfo.get("ip_address"));
