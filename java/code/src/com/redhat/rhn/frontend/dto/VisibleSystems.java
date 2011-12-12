@@ -76,6 +76,16 @@ public class VisibleSystems extends BaseDto {
     }
 
     /**
+     * For compatibility reasons with PostgreSQL we accept also Integer.
+     *
+     * @param selectableIn Whether a server is selectable one if selectable,
+     * null if not selectable
+     */
+    public void setSelectable(Integer selectableIn) {
+       selectable = (selectableIn != null);
+    }
+
+    /**
      * @param selectableIn Whether a server is selectable
      * one if selectable, null if not selectable
      */
