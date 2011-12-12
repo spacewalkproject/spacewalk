@@ -672,32 +672,34 @@ sub obsoleting_packages {
 
   my $dbh = RHN::DB->connect;
   my $sth = $dbh->prepare(<<EOS);
-SELECT P2.id, PN.name || '-' || PE.evr.as_vre_simple() || '-' || PA.name, AC.channel_id, AC.channel_name, EP.errata_id, E.advisory
-  FROM rhnPackage P1,
-       rhnPackage P2,
-       rhnPackageArch PA,
-       rhnChannelPackage CP1,
-       rhnChannelPackage CP2,
-       rhnAvailableChannels AC,
-       rhnPackageName PN,
-       rhnPackageEVR PE,
-       rhnPackageEVR PE2,
-       rhnErrata E,
-       rhnErrataPackage EP
+SELECT P2.id, PN.name || '-' || evr_t_as_vre_simple(PE.evr) || '-' || PA.name,
+       AC.channel_id,
+       AC.channel_name,
+       EP.errata_id,
+       E.advisory
+  FROM rhnPackage P1
+  JOIN rhnChannelPackage CP1
+    ON CP1.package_id = P1.id
+  JOIN rhnChannelPackage CP2
+    ON CP1.channel_id = CP2.channel_id
+  JOIN rhnPackage P2
+    ON P2.id = CP2.package_id AND P2.name_id = P1.name_id
+  JOIN rhnAvailableChannels AC
+    ON AC.channel_id = CP2.channel_id
+  JOIN rhnPackageEVR PE
+    ON  PE.id = P2.evr_id
+  JOIN rhnPackageEVR PE2
+    ON PE2.id = P1.evr_id AND PE.evr >= PE2.evr
+  JOIN rhnPackageName PN
+    ON P2.name_id = PN.id
+  JOIN rhnPackageArch PA
+    ON PA.id = P2.package_arch_id
+  LEFT JOIN rhnErrataPackage EP
+    ON P2.id = EP.package_id
+  LEFT JOIN rhnErrata E
+    ON E.id = EP.errata_id
  WHERE P1.id = ?
-   AND CP1.package_id = P1.id
-   AND P2.id = CP2.package_id
-   AND P1.name_id = P2.name_id
-   AND CP1.channel_id = CP2.channel_id
-   AND CP2.channel_id = AC.channel_id
    AND AC.org_id = ?
-   AND P2.id = EP.package_id(+)
-   AND PE.id = P2.evr_id
-   AND PE2.id = P1.evr_id
-   AND PN.id = P2.name_id
-   AND E.id(+) = EP.errata_id
-   AND PE.evr >= PE2.evr
-   AND PA.id = P2.package_arch_id
 ORDER BY PE.evr DESC, AC.channel_name, E.issue_date
 EOS
 
