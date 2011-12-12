@@ -28,7 +28,6 @@ import types
 import exceptions
 import Queue
 import threading
-import itertools
 from optparse import Option, OptionParser
 from rhn.connections import idn_ascii_to_pune, idn_pune_to_unicode
 
@@ -1755,11 +1754,11 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
             t.start()
             all_threads.append(t)
 
-        while list(itertools.ifilter(lambda x: x.isAlive(), all_threads)) or out_queue.qsize() > 0:
+        while (filter(lambda x: x.isAlive(), all_threads)
+               and pkg_current < pkgs_total):
             try:
-                (rpmManip, package, is_done) = out_queue.get_nowait()
+                (rpmManip, package, is_done) = out_queue.get(False, 0.1)
             except Queue.Empty:
-                time.sleep(0.1)
                 continue
             pkg_current = pkg_current + 1
 
