@@ -42,7 +42,8 @@ public class Network {
         // 'subnet' changed to 'netmask' in newer versions of Cobbler
         if (connection.getVersion() >= 2.2) {
             netmaskVariableName = "netmask";
-        } else {
+        }
+        else {
             netmaskVariableName = "subnet";
         }
     }
@@ -88,7 +89,8 @@ public class Network {
         // use the correct variable for the netmask/subnet
         if (connection.getVersion() >= 2.2) {
             net.setNetmask((String)ifaceInfo.get("netmask"));
-        } else {
+        }
+        else {
             net.setNetmask((String)ifaceInfo.get("subnet"));
         }
 
