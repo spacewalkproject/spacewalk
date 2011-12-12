@@ -55,25 +55,25 @@ SELECT
        coalesce(CCon.file_size, 0),
        (SELECT CFt.latest_config_revision_id FROM rhnConfigFile CFt WHERE CFT.id = CR.config_file_id) LATEST_ID,
        CCon.is_binary,
-       CFT.name as filetype, 
-       CCon.delim_start,  
+       CFT.name as filetype,
+       CCon.delim_start,
        CCon.delim_end
-  FROM rhnConfigInfo CI,
-       rhnConfigFileName CFN,
-       rhnConfigContent CCon,
-       rhnConfigChannel CC,
-       rhnConfigFile CF,
-       rhnConfigRevision CR,
-       rhnConfigFileType CFT,
-       rhnChecksum Csum
+  FROM rhnConfigRevision CR
+  JOIN rhnConfigInfo CI
+    ON CI.id = CR.config_info_id
+  JOIN rhnConfigFile CF
+    ON CF.id = CR.config_file_id
+  JOIN rhnConfigFileName CFN
+    ON CFN.id = CF.config_file_name_id
+  JOIN rhnConfigChannel CC
+    ON CC.id = CF.config_channel_id
+  JOIN rhnConfigFileType CFT
+    ON CFT.id = CR.config_file_type_id
+  LEFT JOIN rhnConfigContent CCon
+    ON CR.config_content_id = CCon.id
+  LEFT JOIN rhnChecksum Csum
+    ON CCon.checksum_id = Csum.id
  WHERE CR.id = :id
-   AND CI.id = CR.config_info_id
-   AND CF.id = CR.config_file_id
-   AND CFN.id = CF.config_file_name_id
-   AND CCon.id = CR.config_content_id (+)
-   AND CC.id = CF.config_channel_id
-   AND CFT.id = CR.config_file_type_id
-   AND CCon.checksum_id = Csum.id (+)
 EOS
   my $sth = $dbh->prepare($query);
   $sth->execute_h(id => $params{id});
