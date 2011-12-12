@@ -34,6 +34,7 @@ public class Network {
     /**
      * Constructor to create a new network interface
      * @param nameIn the name of the network
+     * @param connection CobblerConnection object
      */
     public Network(CobblerConnection connection, String nameIn) {
         name = nameIn;
