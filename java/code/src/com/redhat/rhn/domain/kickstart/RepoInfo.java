@@ -134,7 +134,8 @@ public class RepoInfo {
     public static Map<String, RepoInfo> getStandardRepos(KickstartableTree  tree) {
         Map <String, RepoInfo> map = new LinkedHashMap<String, RepoInfo>();
         String[] repos = {"Cluster", "ClusterStorage", "HighAvailability",
-                        "LoadBalancer", "ResilientStorage", "VT", "Workstation"};
+                        "LoadBalancer", "ResilientStorage", "VT", "Workstation",
+                        "ScalableFileSystem"};
 
         for (String repo : repos) {
             File file = new File(StringUtil.addPath(tree.getAbsolutePath(), repo));
