@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.6.91
+Version: 1.6.92
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -559,6 +559,14 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Dec 13 2011 Tomas Lestach <tlestach@redhat.com> 1.6.92-1
+- prevent yum to update fedora spring with broken version numbering
+  (tlestach@redhat.com)
+- IPv6: fix static network line syntax for particular distros
+  (mzazrivec@redhat.com)
+- IPv6: add --noipv4 to ks.cfg in case interface does not have an IPv4 address
+  (mzazrivec@redhat.com)
+
 * Mon Dec 12 2011 Miroslav Suchý 1.6.91-1
 - fix checkstyle
 - IPv6: --ipv6 is not a valid ks option in RHEL-5 (mzazrivec@redhat.com)
