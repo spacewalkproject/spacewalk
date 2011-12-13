@@ -96,6 +96,7 @@
             <para>-t<replaceable>TOPDIR</replaceable>, --topdir=<replaceable>TOPDIR</replaceable> -- make all files relative to this string</para>
             <para>--delim-start=<replaceable>DELIM_START</replaceable> -- start delimiter for variable interpolation</para>
             <para>--delim-end=<replaceable>DELIM_END</replaceable> -- end delimiter for variable interpolation</para>
+            <para>--selinux-context=<replaceable>SELINUX_CONTEXT</replaceable> -- overwrite the SELinux context label to this string</para>
         </listitem>
     </varlistentry>
     <varlistentry>
@@ -209,6 +210,7 @@
             <para>-t<replaceable>TOPDIR</replaceable>, --topdir=<replaceable>TOPDIR</replaceable> -- make all files relative to this string</para>
             <para>--delim-start=<replaceable>DELIM_START</replaceable> -- start delimiter for variable interpolation</para>
             <para>--delim-end=<replaceable>DELIM_END</replaceable> -- end delimiter for variable interpolation</para>
+            <para>--selinux-context=<replaceable>SELINUX_CONTEXT</replaceable> -- overwrite the SELinux context label to this string</para>
         </listitem>
     </varlistentry>
     <varlistentry>

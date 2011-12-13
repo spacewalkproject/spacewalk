@@ -48,6 +48,10 @@ class Handler(handler_base.HandlerBase):
             '-i', '--ignore-missing',       action="store_true",
              help="Ignore missing local files",
          ),
+        handler_base.HandlerBase._option_class(
+            '--selinux-context',       action="store_true",
+             help="Overwrite the SELinux context",
+         ),
     ]
                                                     
     def run(self):
@@ -110,13 +114,18 @@ class Handler(handler_base.HandlerBase):
 
         delim_start = self.options.delim_start
         delim_end = self.options.delim_end
+
+        selinux_ctx = None
+        if type(self.options.selinux_context) != None:
+            selinux_ctx = self.options.selinux_context
         
         for (local_file, remote_file) in files_to_push:
             try:
                 r.put_file(channel, remote_file, local_file, 
                     is_first_revision=self.is_first_revision,
                     delim_start=delim_start,
-                    delim_end=delim_end)
+                    delim_end=delim_end,
+                    selinux_ctx=selinux_ctx)
             except cfg_exceptions.RepositoryFileExistsError, e:
                 log_error("Error: %s is already in channel %s" %
                           (remote_file, channel))

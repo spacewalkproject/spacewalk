@@ -135,7 +135,7 @@ class Repository(repository.RPC_Repository):
 
     def put_file(self, config_channel, repopath, localfile=None, 
             is_first_revision=None, old_revision=None, delim_start=None, 
-            delim_end=None):
+            delim_end=None, selinux_ctx=None):
         """
         Insert a given file into the repo, overwriting if necessary.
         localfile defaults to the repopath
@@ -150,6 +150,11 @@ class Repository(repository.RPC_Repository):
         if params['size'] > max_file_size:
             error_msg = "%s too large (%s bytes, %s bytes max allowed)"  
             raise cfg_exceptions.ConfigFileTooLargeError(error_msg % (localfile, params['size'], max_file_size))
+
+        if selinux_ctx is not None:
+            params.update({
+                'selinux_ctx'   : selinux_ctx,
+                )}
 
         params.update({
             'session'           : self.session,
