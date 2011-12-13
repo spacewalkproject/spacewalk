@@ -55,7 +55,7 @@ def startRhnsd():
             print _("Warning: unable to enable rhnsd with chkconfig")
 
         service_path = "/sbin/service"
-        if not os.access(service, os.R_OK|os.X_OK):
+        if not os.access(service_path, os.R_OK|os.X_OK):
             if os.access("/usr/sbin/service", os.R_OK|os.X_OK):
                 service_path = "/usr/sbin/service"
 
