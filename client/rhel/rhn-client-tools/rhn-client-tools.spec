@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 1.6.41
+Version: 1.6.42
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -334,6 +334,9 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Tue Dec 13 2011 Jan Pazdziora 1.6.42-1
+- Fixing typo.
+
 * Mon Dec 12 2011 Jan Pazdziora 1.6.41-1
 - 703833 - if /sbin/service is not available, try to use /usr/sbin/service.
 
