@@ -19,6 +19,7 @@
 package com.redhat.rhn.common.validator;
 
 import com.redhat.rhn.common.RhnRuntimeException;
+import com.redhat.rhn.common.localization.LocalizationService;
 
 /**
  * A RuntimeException indicating a fatal failure trying to use the ValidatorService
@@ -66,6 +67,15 @@ public class ValidatorException extends RhnRuntimeException  {
     public ValidatorException(ValidatorResult valResult) {
         super();
         result = valResult;
+    }
+
+    /**
+     * Constructor
+     * @param message localized message id
+     * @param msgArg message arguments
+     */
+    public ValidatorException(String message, String msgArg) {
+        super(LocalizationService.getInstance().getMessage(message, msgArg));
     }
 
     /**

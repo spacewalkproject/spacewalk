@@ -15,7 +15,9 @@
 
 package com.redhat.rhn.manager.kickstart.cobbler;
 
+import com.redhat.rhn.common.util.StringUtil;
 import com.redhat.rhn.common.validator.ValidatorError;
+import com.redhat.rhn.common.validator.ValidatorException;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.kickstart.KickstartableTree;
 import com.redhat.rhn.manager.kickstart.KickstartUrlHelper;
@@ -24,6 +26,7 @@ import org.apache.log4j.Logger;
 import org.cobbler.Distro;
 
 import java.io.File;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -184,7 +187,8 @@ public class CobblerDistroSyncCommand extends CobblerCommand {
 
 
     private String createDistro(KickstartableTree tree, boolean xen) {
-        log.debug("Trying to create: " + tree.getLabel() + " in cobbler over xmlrpc");
+        String treeLabel = tree.getLabel();
+        log.debug("Trying to create: " + treeLabel + " in cobbler over xmlrpc");
         Map ksmeta = new HashMap();
         KickstartUrlHelper helper = new KickstartUrlHelper(tree);
         ksmeta.put(KickstartUrlHelper.COBBLER_MEDIA_VARIABLE,
@@ -195,13 +199,28 @@ public class CobblerDistroSyncCommand extends CobblerCommand {
         if (!xen) {
 
             log.debug("tree in spacewalk but not in cobbler. " +
-                    "creating non-xenpv distro in cobbler : " + tree.getLabel());
+                    "creating non-xenpv distro in cobbler : " + treeLabel);
 
-            String error =
-                validateKernelInitrd(tree.getLabel(),
-                        tree.getKernelPath(), tree.getInitrdPath());
-            if (error != null) {
-                return error;
+            try {
+                tree.getKernelPath();
+            }
+            catch (ValidatorException e) {
+                return "ERROR: No kernel found in this path: [" +
+                        StringUtil.join(", ", Arrays.asList(tree.getDefaultInitrdPath())) +
+                        "] Spacewalk can't create the distro in cobbler which" +
+                        " makes this kickstart distribution: [" + treeLabel +
+                        "] unusable to Spacewalk.";
+            }
+
+            try {
+                tree.getInitrdPath();
+            }
+            catch (ValidatorException e) {
+                return "ERROR: No initrd found in this path: [" +
+                        StringUtil.join(", ", Arrays.asList(tree.getDefaultInitrdPath())) +
+                        "] Spacewalk can't create the distro in cobbler which" +
+                        " makes this kickstart distribution: [" + treeLabel +
+                        "] unusable to Spacewalk.";
             }
 
             Distro distro = Distro.create(
@@ -213,10 +232,10 @@ public class CobblerDistroSyncCommand extends CobblerCommand {
         }
         else if (tree.doesParaVirt() && xen) {
             log.debug("tree in spacewalk but not in cobbler. " +
-                    "creating xenpv distro in cobbler : " + tree.getLabel());
+                    "creating xenpv distro in cobbler : " + treeLabel);
 
             String error =
-                validateKernelInitrd(tree.getLabel(),
+                validateKernelInitrd(treeLabel,
                         tree.getKernelXenPath(), tree.getInitrdXenPath());
             if (error != null) {
                 return error;

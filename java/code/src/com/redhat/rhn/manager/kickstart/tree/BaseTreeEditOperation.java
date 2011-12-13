@@ -33,7 +33,6 @@ import com.redhat.rhn.manager.rhnpackage.PackageManager;
 import org.cobbler.Distro;
 import org.cobbler.XmlRpcException;
 
-import java.io.File;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -149,19 +148,14 @@ public abstract class BaseTreeEditOperation extends BasePersistOperation {
         return matcher.matches();
     }
 
-    private void validatePathExists(String path, String key) {
-        if (!(new File(path).exists())) {
-            ValidatorException.raiseException(key, path);
-        }
-    }
     /**
      * Ensures that the base path is correctly setup..
      * As in the initrd and kernel structures are setup correctly.
      * @throws ValidatorException if those paths don;t exist
      */
     public void validateBasePath() throws ValidatorException {
-        validatePathExists(getTree().getInitrdPath(), INVALID_INITRD);
-        validatePathExists(getTree().getKernelPath(), INVALID_KERNEL);
+        getTree().getInitrdPath();
+        getTree().getKernelPath();
     }
 
     /**
