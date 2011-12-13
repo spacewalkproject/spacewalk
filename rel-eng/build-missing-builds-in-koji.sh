@@ -21,7 +21,7 @@ for tag in $TAGS; do
     (
       echo Building package in path $package for $tag
       cd $package && \
-          ${TITO_PATH}tito release $tag && \
+          ONLY_TAGS=$tag ${TITO_PATH}tito release koji && \
           echo $package>$PACKAGES
     )
     done
