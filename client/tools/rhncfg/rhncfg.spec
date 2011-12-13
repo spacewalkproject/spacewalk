@@ -8,7 +8,7 @@ Group:   Applications/System
 License: GPLv2 and Python
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.10.21
+Version: 5.10.22
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -106,6 +106,10 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Tue Dec 13 2011 Miroslav Suchý 5.10.22-1
+- 765816 - Added the option --selinux-context to rhncfg-manager which allows to
+  overwrite the SELinux context from a file (mmello@redhat.com)
+
 * Wed Nov 30 2011 Miroslav Suchý 5.10.21-1
 - handle fs objects without selinux context correctly
 
