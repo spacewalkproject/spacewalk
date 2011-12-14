@@ -203,35 +203,40 @@ public class NetworkInterface extends BaseDomainHelper implements
     /**
      * findServerNetAddress6ByScope
      * @param scope Address scope to search for.
-     * @return Returns IPv6 address of the given scope for the given interface.
+     * @return Returns list of IPv6 addresses of the given scope for the given interface.
      */
-    private String findServerNetAddress6ByScope(String scope) {
+    private ArrayList<String> findServerNetAddress6ByScope(String scope) {
         Session session = HibernateFactory.getSession();
-        ServerNetAddress6 ad6 = (ServerNetAddress6)
+        ArrayList<ServerNetAddress6> ad6 = (ArrayList<ServerNetAddress6>)
             session.getNamedQuery("ServerNetAddress6.lookup_by_scope_and_id")
             .setParameter("interface_id", this.interfaceId)
             .setParameter("scope", scope)
-            .uniqueResult();
+            .list();
 
         if (ad6 == null) {
             return null;
         }
         else {
-            return ad6.getAddress();
+            ArrayList<String> addresses = new ArrayList<String>();
+
+            for (ServerNetAddress6 a : ad6) {
+                addresses.add(a.getAddress());
+            }
+            return addresses;
         }
     }
 
     /**
-     * @return If available, returns a global IPv6 address.
+     * @return If available, returns list of global IPv6 addresses for a given interface.
      */
-    public String getIp6Addr() {
-        String address = findServerNetAddress6ByScope("universe");
+    public ArrayList<String> getIp6Addresses() {
+        ArrayList<String> addresses = findServerNetAddress6ByScope("universe");
         // RHEL-5 registration may return "global" rather than "universe"
         // for global addresses (a libnl thing).
-        if (address == null) {
-            address = findServerNetAddress6ByScope("global");
+        if (addresses == null) {
+            addresses = findServerNetAddress6ByScope("global");
         }
-        return address;
+        return addresses;
     }
 
     /**
@@ -239,12 +244,18 @@ public class NetworkInterface extends BaseDomainHelper implements
      * @return if it's empty or not
      */
     public boolean isDisabled() {
-        return (this.getIpaddr() == null ||
-                this.getIpaddr().equals("0") ||
-                this.getIpaddr().equals("")) &&
-               (this.getIp6Addr() == null ||
-                this.getIp6Addr().equals("") ||
-                this.getIp6Addr().equals("0"));
+        boolean ipv6Available = false;
+
+        for (String a : getIp6Addresses()) {
+            if (a != null && !a.equals("")) {
+                ipv6Available = true;
+            }
+        }
+
+        return ((this.getIpaddr() == null ||
+            this.getIpaddr().equals("0") ||
+            this.getIpaddr().equals("")) &&
+            !ipv6Available);
     }
 
 
