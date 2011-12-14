@@ -100,6 +100,9 @@ EOF
 	die "The config file [$config_file] specifies unknown db_backend [$options{db_backend}] \n";
 }
 
+if ($select_direct) {
+	$| = 1;
+}
 my @out;
 while (<$rfh>) {
 	if ($select_direct) {
