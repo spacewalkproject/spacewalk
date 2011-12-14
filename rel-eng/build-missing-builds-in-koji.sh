@@ -21,8 +21,8 @@ for tag in $TAGS; do
     xargs -I replacestring awk '{print $2}' rel-eng/packages/replacestring \
     | \
     while read package ; do
-      echo $package>$PACKAGES && \
-      echo $package $tag>$PACKAGES_TAG
+      echo $package>>$PACKAGES && \
+      echo $package $tag>>$PACKAGES_TAG
       echo -n .
     done
 done
@@ -35,8 +35,8 @@ while read package tag; do
       echo Building package in path $package for $tag
       cd $package && \
           ONLY_TAGS=$tag ${TITO_PATH}tito release koji && \
-          echo $package>$PACKAGES && \
-          echo $package $tag>$PACKAGES_TAG
+          echo $package>>$PACKAGES && \
+          echo $package $tag>>$PACKAGES_TAG
   )
 done
 
