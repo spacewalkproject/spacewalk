@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.6.92
+Version: 1.6.93
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -557,6 +557,15 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Dec 14 2011 Tomas Lestach <tlestach@redhat.com> 1.6.93-1
+- remove spring-dedicated conflict of spacewalk-java (tlestach@redhat.com)
+- fix ksdevice cmd line argument for static intf. provisioning
+  (mzazrivec@redhat.com)
+- IPv6: fix static intf. provisioning using SSM (mzazrivec@redhat.com)
+- fix the spring issue (tlestach@redhat.com)
+- make ScalableFileSystem repository available for RHEL6 kickstarts
+  (tlestach@redhat.com)
+
 * Tue Dec 13 2011 Tomas Lestach <tlestach@redhat.com> 1.6.92-1
 - prevent yum to update fedora spring with broken version numbering
   (tlestach@redhat.com)
