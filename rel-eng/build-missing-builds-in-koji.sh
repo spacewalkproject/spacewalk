@@ -10,47 +10,29 @@ pushd `dirname $0`/.. >/dev/null
 # say python to be nice to pipe
 export PYTHONUNBUFFERED=1
 
-PACKAGES=$(mktemp)
-PACKAGES_TAG=$(mktemp)
-
-#gather data
-echo -n Gathering data:
+echo -n 'Gathering data ...'
 for tag in $TAGS; do
   rel-eng/koji-missing-builds.py $KOJI_MISSING_BUILD_BREW_ARG --no-extra $tag | \
-    perl -lne '/^\s+(.+)-.+-.+$/ and print $1' | \
-    xargs -I replacestring awk '{print $2}' rel-eng/packages/replacestring \
-    | \
-    while read package ; do
-      echo $package>>$PACKAGES && \
-      echo $package $tag>>$PACKAGES_TAG
-      echo -n .
-    done
-done
-echo
-
-#build packages
-cat $PACKAGES_TAG | sort | \
-while read package tag; do
-  (
-      echo Building package in path $package for $tag
-      cd $package && \
-          ONLY_TAGS=$tag ${TITO_PATH}tito release koji && \
-          echo $package>>$PACKAGES && \
-          echo $package $tag>>$PACKAGES_TAG
-  )
-done
-
-#upload tgz
-if [ "0$FEDORA_UPLOAD" -eq 1 ] ; then
-  for package in $(cat $PACKAGES | sort | uniq); do
-  (
-      echo Uploading tgz for path $package
-      cd $package && LC_ALL=C ${TITO_PATH}tito build --tgz | \
+    perl -lne '/^\s+(.+)-.+-.+$/ and print $1' \
+    | xargs -I replacestring awk '{print $2}' rel-eng/packages/replacestring \
+    | sed "s/$/ $tag/"
+done \
+    | perl -lane '$X{$F[0]} .= " $F[1]"; END { for (sort keys %X) { print "$_$X{$_}" } }' \
+    | while read package_dir tags ; do
+      (
+      echo Building package in path $package_dir for $tags
+      cd $package_dir && \
+          ONLY_TAGS="$tags" ${TITO_PATH}tito release koji
+      )
+    if [ "0$FEDORA_UPLOAD" -eq 1 ] ; then
+      (
+      echo Uploading tgz for path $package_dir
+      cd $package_dir && LC_ALL=C ${TITO_PATH}tito build --tgz | \
       awk '/Wrote:.*tar.gz/ {print $2}' | \
       xargs -I packagepath scp packagepath fedorahosted.org:spacewalk
-  )
-  done
-fi
-rm $PACKAGES
+      )
+    fi
+    done
 
 popd >/dev/null
+
