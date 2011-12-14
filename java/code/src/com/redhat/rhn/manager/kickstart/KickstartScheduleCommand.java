@@ -903,7 +903,7 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
         static:146.108.30.184, static:auto, static:eth0
          */
         if (!StringUtils.isBlank(networkInterface)) {
-            if (isDhcp && !LINK_NETWORK_TYPE.equals(networkInterface)) {
+            if (!LINK_NETWORK_TYPE.equals(networkInterface)) {
                 // Get rid of the dhcp:
                 String params = " ksdevice=" + networkInterface;
                 if (!kOptions.contains("ksdevice")) {
