@@ -11,7 +11,7 @@ use warnings FATAL => 'all';
 use Spacewalk::Setup ();
 
 my %dirs;
-@dirs{@ARGV} = @ARGV;
+@dirs{@ARGV} = ();
 
 my $apache_uid = getpwnam('apache');
 if (not defined $apache_uid) {
