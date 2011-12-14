@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.6.93
+Version: 1.6.94
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -557,6 +557,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Dec 14 2011 Milan Zazrivec <mzazrivec@redhat.com> 1.6.94-1
+- IPv6: allow multiple IPv6 addresses per net. interface
+
 * Wed Dec 14 2011 Tomas Lestach <tlestach@redhat.com> 1.6.93-1
 - remove spring-dedicated conflict of spacewalk-java (tlestach@redhat.com)
 - fix ksdevice cmd line argument for static intf. provisioning
