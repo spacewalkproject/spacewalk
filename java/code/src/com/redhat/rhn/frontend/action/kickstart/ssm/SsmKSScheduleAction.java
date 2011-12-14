@@ -58,6 +58,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class SsmKSScheduleAction extends RhnAction implements Listable {
     private static final String SCHEDULE_TYPE_IP = "isIP";
+    public static final String USE_IPV6_GATEWAY = "useIpv6Gateway";
 
     private boolean isIP(HttpServletRequest request) {
         return Boolean.TRUE.equals(request.getAttribute(SCHEDULE_TYPE_IP));
@@ -133,6 +134,9 @@ public class SsmKSScheduleAction extends RhnAction implements Listable {
             }
         }
 
+        if (dynaForm.getString(USE_IPV6_GATEWAY).equals("1")) {
+            com.setIpv6Gateway();
+        }
 
         String proxyId = (String) dynaForm.getString(
                 ScheduleKickstartWizardAction.PROXY_HOST);

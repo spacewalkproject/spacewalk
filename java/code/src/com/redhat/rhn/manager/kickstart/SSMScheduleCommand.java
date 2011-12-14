@@ -62,6 +62,8 @@ public class SSMScheduleCommand {
     private String postKernelParamType;
     private String customPostKernelParams;
 
+    private boolean useIpv6Gateway = false;
+
     private SSMScheduleCommand(User userIn, List<SystemOverview> systemsIn, Date dateIn) {
         user = userIn;
         systems = systemsIn;
@@ -148,6 +150,20 @@ public class SSMScheduleCommand {
         return scheduledActions;
     }
 
+    /**
+     * Sets to use IPv6 gateway.
+     */
+    public void setIpv6Gateway() {
+        useIpv6Gateway = true;
+    }
+
+    /**
+     * Indicate whether an IPv6 gateway is to be used for re-provisioning.
+     * @return true if IPv6 gateway is to be used, false otherwise.
+     */
+    public boolean useIpv6Gateway() {
+        return useIpv6Gateway;
+    }
 
     /**
      * Store the Command
@@ -194,6 +210,9 @@ public class SSMScheduleCommand {
         else {
             com =  new KickstartScheduleCommand(sid, uniqueKs, user, scheduleDate,
                     null);
+            if (useIpv6Gateway()) {
+                com.setIpv6Gateway();
+            }
 
             profileId = uniqueKs.getCobblerId();
         }
