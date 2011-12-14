@@ -51,5 +51,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Wed Dec 14 2011 Tomas Lestach <tlestach@redhat.com> 1.0.0-1
+- new package built with tito
+
 * Wed Dec 14 2011 Tomas Lestach <tlestach@redhat.com> 1.0.0-0
 - introducing spacewalk-jpp-workaround package
