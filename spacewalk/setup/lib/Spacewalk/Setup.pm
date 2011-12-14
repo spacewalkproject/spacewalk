@@ -66,7 +66,8 @@ use constant DB_INSTALL_LOG_FILE =>
 use constant DB_POP_LOG_FILE =>
   '/var/log/rhn/populate_db.log';
 
-use constant DB_POP_LOG_SIZE => 2500000;
+use constant PG_POP_LOG_SIZE => 156503;
+use constant ORA_POP_LOG_SIZE => 132243;
 
 use constant RHN_LOG_DIR =>
   '/var/log/rhn';
@@ -955,7 +956,7 @@ sub postgresql_populate_db {
 
     print_progress(-init_message => "*** Progress: #",
         -log_file_name => Spacewalk::Setup::DB_POP_LOG_FILE,
-        -log_file_size => Spacewalk::Setup::DB_POP_LOG_SIZE,
+        -log_file_size => Spacewalk::Setup::PG_POP_LOG_SIZE,
         -err_message => "Could not populate database.\n",
         -err_code => 23,
         -system_opts => [@opts]);
@@ -1403,7 +1404,7 @@ sub oracle_populate_db {
     }
     print_progress(-init_message => "*** Progress: #",
         -log_file_name => DB_POP_LOG_FILE,
-        -log_file_size => DB_POP_LOG_SIZE,
+        -log_file_size => ORA_POP_LOG_SIZE,
         -err_message => "Could not populate database.\n",
         -err_code => 23,
         -system_opts => [@opts]);
