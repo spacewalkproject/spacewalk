@@ -157,9 +157,6 @@ Provides: rhn-oracle-jdbc-tomcat5 = %{version}-%{release}
 %if 0%{?fedora} && 0%{?fedora} >= 15
 Requires: classpathx-jaf
 %endif
-# introduce conflict not to install spring (RTS game) included in fedora/updates repo
-# but spring (java application development framework) from jpackage repo)
-Conflicts: spring-dedicated
 
 %description
 This package contains the code for the Java version of the Spacewalk Web Site.
