@@ -154,7 +154,7 @@ class Repository(repository.RPC_Repository):
         if selinux_ctx is not None:
             params.update({
                 'selinux_ctx'   : selinux_ctx,
-                )}
+            })
 
         params.update({
             'session'           : self.session,
