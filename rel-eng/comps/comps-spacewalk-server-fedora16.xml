@@ -104,6 +104,7 @@
        <packagereq type="default">spacewalk-java-lib</packagereq>
        <packagereq type="default">spacewalk-java-oracle</packagereq>
        <packagereq type="default">spacewalk-java-postgresql</packagereq>
+       <packagereq type="default">spacewalk-jpp-workaround</packagereq>
        <packagereq type="default">spacewalk-monitoring</packagereq>
        <packagereq type="default">spacewalk-monitoring-selinux</packagereq>
        <packagereq type="default">spacewalk-oro-compat</packagereq>

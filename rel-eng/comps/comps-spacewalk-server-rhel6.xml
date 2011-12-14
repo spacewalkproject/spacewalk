@@ -23,7 +23,6 @@
        <packagereq type="default">eventReceivers</packagereq>
        <packagereq type="default">jpam</packagereq>
        <packagereq type="default">MessageQueue</packagereq>
-       <packagereq type="default">msv-workaround</packagereq>
        <packagereq type="default">nocpulse-common</packagereq>
        <packagereq type="default">nocpulse-db-perl</packagereq>
        <packagereq type="default">NOCpulsePlugins</packagereq>
@@ -107,6 +106,7 @@
        <packagereq type="default">spacewalk-java-lib</packagereq>
        <packagereq type="default">spacewalk-java-oracle</packagereq>
        <packagereq type="default">spacewalk-java-postgresql</packagereq>
+       <packagereq type="default">spacewalk-jpp-workaround</packagereq>
        <packagereq type="default">spacewalk-monitoring</packagereq>
        <packagereq type="default">spacewalk-monitoring-selinux</packagereq>
        <packagereq type="default">spacewalk-oracle</packagereq>
