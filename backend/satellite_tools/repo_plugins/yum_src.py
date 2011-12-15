@@ -126,12 +126,13 @@ class ContentSource(object):
         repo.mirrorlist = self.url
         repo.baseurl = [self.url]
         repo.basecachedir = CACHE_DIR
+        # base_persistdir have to be set before pkgdir
+        if hasattr(repo, 'base_persistdir'):
+            repo.base_persistdir = CACHE_DIR
         pkgdir = os.path.join(CFG.MOUNT_POINT, CFG.PREPENDED_DIR, '1', 'stage')
         if not os.path.isdir(pkgdir):
             fileutils.makedirs(pkgdir, user='apache', group='apache')
         repo.pkgdir = pkgdir
-        if hasattr(repo, 'base_persistdir'):
-            repo.base_persistdir = CACHE_DIR
 
         if self.proxy_url is not None:
             repo.proxy = self.proxy_url
