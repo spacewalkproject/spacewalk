@@ -4,7 +4,7 @@
 %endif
 
 Name:        spacewalk-remote-utils
-Version:     1.6.6
+Version:     1.6.7
 Release:     1%{?dist}
 Summary:     Utilities to interact with a RHN Satellite or Spacewalk server remotely.
 
@@ -59,6 +59,12 @@ docbook2man ./spacewalk-create-channel/doc/spacewalk-create-channel.sgml -o ./sp
 %doc %{_mandir}/man1/spacewalk-create-channel.1.gz
 
 %changelog
+* Thu Dec 15 2011 Miroslav Suchý 1.6.7-1
+- 767718 - add data for rhel add-on's -
+  Highavailability,Loadbalancer,Resilientstorage and Scalablefilesystem
+- 767718 - gather data for rhel add-on's
+- no need to handle Workstation for el6 specialy
+
 * Mon Dec 12 2011 Miroslav Suchý 1.6.6-1
 - 641936 - fix grammar in man page
 - 641936 - correct script name in --help output
