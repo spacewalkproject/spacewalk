@@ -84,12 +84,13 @@ def main():
     if not options.channel_label:
         systemExit(1, "--channel must be specified")
 
-    reposync.RepoSync(channel_label=options.channel_label,
+    sync = reposync.RepoSync(channel_label=options.channel_label,
                       repo_type=options.repo_type,
                       url=options.url,
                       fail=options.fail,
                       quiet=options.quiet,
                       filters=options.filters)
+    sync.sync()
     releaseLOCK()
     return 0
 
