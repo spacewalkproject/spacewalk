@@ -59,7 +59,6 @@ public class Network {
         addToMap(inet, "macaddress-" + name, macAddress);
         addToMap(inet, netmaskVariableName + "-" + name, netmask);
         addToMap(inet, "ipaddress-" + name, ipAddress);
-        addToMap(inet, "macaddress-" + name, macAddress);
         addToMap(inet, "static-" + name, isStatic);
         return inet;
     }
