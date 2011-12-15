@@ -124,7 +124,7 @@ class ContentSource(object):
         repo.mirrorlist = self.url
         repo.baseurl = [self.url]
         repo.basecachedir = CACHE_DIR
-        repo.pkgdir = os.path.join(CFG.MOUNT_POINT, CFG.PREPENDED_DIR, '1')
+        repo.pkgdir = os.path.join(CFG.MOUNT_POINT, CFG.PREPENDED_DIR, '1', 'stage')
         if hasattr(repo, 'base_persistdir'):
             repo.base_persistdir = CACHE_DIR
 

@@ -109,7 +109,8 @@ class PackagePush(basePackageUpload.BasePackageUpload):
             return ret
 
         temp_stream = rhnPackageUpload.write_temp_file(req, 16384,
-                        os.path.join(CFG.MOUNT_POINT, CFG.PREPENDED_DIR, str(self.org_id)),
+                        os.path.join(CFG.MOUNT_POINT, CFG.PREPENDED_DIR,
+                                     str(self.org_id), 'stage'),
                         '-'.join((self.package_name, self.package_version,
                                  self.package_release, self.package_arch)),
                         self.packaging)
