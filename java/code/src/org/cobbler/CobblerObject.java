@@ -337,7 +337,14 @@ public abstract class CobblerObject {
     private String convertOptionsMap(Map<String, Object> map) {
         StringBuilder string = new StringBuilder();
         for (String key : map.keySet()) {
-            List<String> keyList = (List)map.get(key);
+            List<String> keyList;
+            try {
+                 keyList = (List)map.get(key);
+            }
+            catch (ClassCastException e) {
+                keyList = new ArrayList<String>();
+                keyList.add((String) map.get(key));
+            }
             if (keyList.isEmpty()) {
                 string.append(key + " ");
             }
