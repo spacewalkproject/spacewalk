@@ -268,7 +268,9 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
         ksmeta.remove(KickstartFormatter.STATIC_NETWORK_VAR);
         ksmeta.put(KickstartFormatter.USE_IPV6_GATEWAY,
             this.useIpv6Gateway ? "true" : "false");
-        ksmeta.put(KickstartFormatter.KS_DISTRO, this.ksDistro);
+        if (this.ksDistro != null) {
+            ksmeta.put(KickstartFormatter.KS_DISTRO, this.ksDistro);
+        }
         rec.setKsMeta(ksmeta);
         rec.setKernelOptions(kernelOptions);
         rec.setKernelPostOptions(postKernelOptions);
