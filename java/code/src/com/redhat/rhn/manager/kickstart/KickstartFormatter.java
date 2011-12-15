@@ -82,17 +82,15 @@ public class KickstartFormatter {
         Config.get().getString("web.product_name") + " Config Management" +
         NEWLINE;
     private static final String COMMENT = "#" + NEWLINE;
-    private static final String BEGINRHN = "%post --logfile " +
-       "/root/ks-rhn-post.log" + NEWLINE +
-       "# --Begin " + Config.get().getString("web.product_name") +
-       " command section--\n";
+    private static final String RHN_LOG_FILE = "/root/ks-rhn-post.log";
+    private static final String BEGINRHN_LOG_APPEND = "# --Begin " +
+            Config.get().getString("web.product_name") + " command section--" + NEWLINE;
     private static final String SAVE_KS_CFG = "cp `awk '{ if ($1 ~ /%include/) " +
         "{print $2}}' /tmp/ks.cfg` /tmp/ks.cfg /mnt/sysimage/root";
 
-    private static final String  POST_LOG = " --logfile /root/ks-post.log";
-    private static final String  POST_LOG_NOCHROOT = " --logfile " +
-                    "/mnt/sysimage/root/ks-post.log";
-    private static final String  PRE_LOG = " --logfile /tmp/ks-pre.log";
+    private static final String  POST_LOG_FILE = "/root/ks-post.log";
+    private static final String  POST_LOG_NOCHROOT_FILE = "/mnt/sysimage/root/ks-post.log";
+    private static final String  PRE_LOG_FILE = "/tmp/ks-pre.log";
 
     private static final String KSTREE =
         "# now copy from the ks-tree we saved in the non-chroot checkout" + NEWLINE +
@@ -200,6 +198,24 @@ public class KickstartFormatter {
         this.session = sessionIn;
     }
 
+    private void addLogBegin(StringBuilder buff, String logFile) {
+        if (ksdata.isRhel5OrGreater()) {
+            buff.append(" --log " + logFile);
+        }
+        else {
+            buff.append(NEWLINE + "(");
+        }
+        buff.append(NEWLINE);
+    }
+
+    private void addLogEnd(StringBuilder buff, String logFile) {
+        if (ksdata.isRhel5OrGreater()) {
+            //nothing
+        }
+        else {
+            buff.append(") >> " + logFile + " 2>&1" + NEWLINE);
+        }
+    }
 
     /**
      * Everythign RHEL 5 and older should not use %end at the end of
@@ -270,12 +286,12 @@ public class KickstartFormatter {
             addEnd(buf);
         }
 
+        buf.append(NEWLINE);
         buf.append(getRhnPost());
         buf.append(NEWLINE);
         buf.append(getPrePost(KickstartScript.TYPE_POST));
         buf.append(NEWLINE);
-        buf.append("%post"); //new %post for last kernel stuff
-        buf.append(NEWLINE);
+        buf.append("%" + KickstartScript.TYPE_POST);    //new %post for last kernel stuff
         addCobblerSnippet(buf, "post_install_kernel_options");
         addCobblerSnippet(buf, "koan_environment");
         buf.append(NEWLINE);
@@ -565,16 +581,22 @@ public class KickstartFormatter {
                         }
                         if (typeIn.equals(KickstartScript.TYPE_POST) &&
                                 ksdata.getPostLog()) {
-
-                            retval.append(POST_LOG + "." + kss.getPosition());
+                            addLogBegin(retval, POST_LOG_FILE + "." + kss.getPosition());
                         }
                         else if (typeIn.equals(KickstartScript.TYPE_PRE) &&
                                 ksdata.getPreLog()) {
-                            retval.append(PRE_LOG + "." + kss.getPosition());
+                            addLogBegin(retval, PRE_LOG_FILE + "." + kss.getPosition());
                         }
-                        retval.append(NEWLINE);
-
                         retval.append(kss.getDataContents() + NEWLINE);
+
+                        if (typeIn.equals(KickstartScript.TYPE_POST) &&
+                                ksdata.getPostLog()) {
+                            addLogEnd(retval, POST_LOG_FILE + "." + kss.getPosition());
+                        }
+                        else if (typeIn.equals(KickstartScript.TYPE_PRE) &&
+                                ksdata.getPreLog()) {
+                            addLogEnd(retval, PRE_LOG_FILE + "." + kss.getPosition());
+                        }
                         if (kss.getRaw()) {
                             retval.append(RAW_END + NEWLINE);
                         }
@@ -617,11 +639,15 @@ public class KickstartFormatter {
                     }
 
                     if (ksdata.getNonChrootPost()) {
-                        retval.append(POST_LOG_NOCHROOT + "." + kss.getPosition() +
-                                NEWLINE + RHN_TRACE);
+                        addLogBegin(retval, POST_LOG_NOCHROOT_FILE + "." +
+                                kss.getPosition());
+                        retval.append(RHN_TRACE);
                     }
                     retval.append(NEWLINE);
                     retval.append(kss.getDataContents() + NEWLINE);
+                    if (ksdata.getNonChrootPost()) {
+                        addLogEnd(retval, POST_LOG_NOCHROOT_FILE + "." + kss.getPosition());
+                    }
                     addEnd(retval);
                 }
             } // end iterator
@@ -634,7 +660,9 @@ public class KickstartFormatter {
     private String getRhnPost() {
         log.debug("getRhnPost called.");
         StringBuilder retval = new StringBuilder();
-        retval.append(BEGINRHN);
+        retval.append("%" + KickstartScript.TYPE_POST);
+        addLogBegin(retval, RHN_LOG_FILE);
+        retval.append(BEGINRHN_LOG_APPEND);
 
         retval.append(renderKeys() + NEWLINE);
 
@@ -757,6 +785,7 @@ public class KickstartFormatter {
 
         retval.append(NEWLINE);
         retval.append(RHNCHECK + NEWLINE);
+        addLogEnd(retval, RHN_LOG_FILE);
 
         retval.append(NEWLINE);
         // Work around for bug #522251
