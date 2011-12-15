@@ -25,6 +25,8 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.hibernate.Session;
 
 import java.io.Serializable;
+import java.net.InetAddress;
+import java.net.Inet6Address;
 import java.util.ArrayList;
 
 /**
@@ -269,6 +271,21 @@ public class NetworkInterface extends BaseDomainHelper implements
         }
     }
 
+    private boolean isIpv6Valid() {
+        try {
+            for (ServerNetAddress6 addr6 : getIPv6Addresses()) {
+                InetAddress ia = InetAddress.getByName(addr6.getAddress());
+                if (!(ia instanceof Inet6Address)) {
+                    return false;
+                }
+            }
+        }
+        catch (Exception e) {
+            return false;
+        }
+        return true;
+    }
+
     private boolean isMacValid() {
         return !(StringUtils.isEmpty(this.getHwaddr()) ||
                 this.getHwaddr().equals("00:00:00:00:00:00") ||
@@ -280,7 +297,7 @@ public class NetworkInterface extends BaseDomainHelper implements
      * @return true if valid, else false
      */
     public boolean isValid() {
-        return isIpValid() && isMacValid();
+        return (isIpValid() || isIpv6Valid()) && isMacValid();
     }
 
     /**
@@ -290,8 +307,20 @@ public class NetworkInterface extends BaseDomainHelper implements
      * @return true if the NIC has a public ip address.
      */
     public boolean isPublic() {
-        return isValid() && !(getIpaddr().equals("127.0.0.1") ||
-                                        getIpaddr().equals("0.0.0.0"));
+        boolean isPub = isValid();
+        String addr4 = getIpaddr();
+
+        if (addr4 != null) {
+            isPub = isPub &&
+                !(addr4.equals("127.0.0.1") ||
+                  addr4.equals("0.0.0.0"));
+        }
+
+        for (ServerNetAddress6 addr6 : getIPv6Addresses()) {
+            isPub = isPub && !addr6.getAddress().equals("::1");
+        }
+
+        return isPub;
     }
 
     /**
