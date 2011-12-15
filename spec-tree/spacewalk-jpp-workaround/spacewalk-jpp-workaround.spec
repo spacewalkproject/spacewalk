@@ -11,8 +11,9 @@ BuildArch: noarch
 
 %if 0%{?rhel} > 5
 Requires:	relaxngDatatype
-Provides:	msv-msv = 1.0
-Obsoletes:  msv-workaround
+Provides:	msv-msv = 1.2.0
+Obsoletes:      msv-workaround
+Obsoletes:      msv
 %endif
 
 %if 0%{?fedora}
