@@ -1,5 +1,5 @@
 Name:		spacewalk-jpp-workaround
-Version:	1.0.0
+Version:	1.0.1
 Release:	1%{?dist}
 Summary:	Workaround package to fulfill jpackage broken dependencies
 
@@ -52,6 +52,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Thu Dec 15 2011 Michael Mraka <michael.mraka@redhat.com> 1.0.1-1
+- take msv out of yum transaction
+
 * Wed Dec 14 2011 Tomas Lestach <tlestach@redhat.com> 1.0.0-1
 - new package built with tito
 
