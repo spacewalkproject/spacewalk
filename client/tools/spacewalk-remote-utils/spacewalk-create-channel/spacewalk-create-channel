@@ -396,8 +396,6 @@ def gather(clear):
                       saveRpmList(fullDir +  release + "/Packages/", DATA_DIR + getFileName(version, update,release, arch))
                   #now lets handle the other repos:
                   for subrepo in subrepos:
-                     if subrepo == "Workstation":
-                       continue
                      saveRpmList(fullDir +  subrepo + "/Packages/", DATA_DIR + getFileName(version, update,release, arch, subrepo))
                   #do supplementary
                   suppl = extras[1]
