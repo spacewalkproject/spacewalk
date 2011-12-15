@@ -20,9 +20,11 @@ import gzip
 import os.path
 
 import yum
+from spacewalk.common import fileutils
 from yum.config import ConfigParser
 from yum.update_md import UpdateMetadata, UpdateNoticeException, UpdateNotice
 from yum.yumRepo import YumRepository
+
 try:
     from yum.misc import cElementTree_iterparse as iterparse
 except ImportError:
@@ -124,7 +126,10 @@ class ContentSource(object):
         repo.mirrorlist = self.url
         repo.baseurl = [self.url]
         repo.basecachedir = CACHE_DIR
-        repo.pkgdir = os.path.join(CFG.MOUNT_POINT, CFG.PREPENDED_DIR, '1', 'stage')
+        pkgdir = os.path.join(CFG.MOUNT_POINT, CFG.PREPENDED_DIR, '1', 'stage')
+        if not os.path.isdir(pkgdir):
+            fileutils.makedirs(pkgdir, user='apache', group='apache')
+        repo.pkgdir = pkgdir
         if hasattr(repo, 'base_persistdir'):
             repo.base_persistdir = CACHE_DIR
 
