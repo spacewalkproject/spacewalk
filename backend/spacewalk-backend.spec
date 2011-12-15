@@ -12,7 +12,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.6.61
+Version: 1.6.62
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -675,6 +675,10 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Thu Dec 15 2011 Michael Mraka <michael.mraka@redhat.com> 1.6.62-1
+- persistdir have to be set before pkgdir
+- call sync() which does the real work
+
 * Thu Dec 15 2011 Michael Mraka <michael.mraka@redhat.com> 1.6.61-1
 - 676369 - create pkgdir with appropriate user and group
 - 676369 - put downloaded packages into stage
