@@ -12,7 +12,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.6.63
+Version: 1.6.64
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -675,6 +675,10 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Fri Dec 16 2011 Jan Pazdziora 1.6.64-1
+- 756918 - cookie can be empty string, avoid having it as string "None" in the
+  dump.
+
 * Fri Dec 16 2011 Jan Pazdziora 1.6.63-1
 - Allow systemid to be unicode.
 - Revert "always return RPC data in plain string (utf-8 encoded)"
