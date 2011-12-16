@@ -16,7 +16,7 @@ Group:   System Environment/Daemons
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.10.29
+Version: 5.10.30
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -275,6 +275,9 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 %endif
 
 %changelog
+* Fri Dec 16 2011 Michael Mraka <michael.mraka@redhat.com> 5.10.30-1
+- 756761 - reconnect if jabber server returns error during handshake
+
 * Fri Dec 09 2011 Jan Pazdziora 5.10.29-1
 - 691847, 664491 - adding tcp_keepalive_timeout and tcp_keepalive_count options
   to osad.conf.
