@@ -557,22 +557,29 @@ class JabberClient(jabber.Client):
 
         log_debug(5, "Attempting to connect")
 
-        jabber.Client.connect(self)
+        for retry in range(0,3):
+            jabber.Client.connect(self)
 
-        log_debug(5, "Connected")
+            log_debug(5, "Connected")
 
-        # From the XMPP Core Internet Draft:
-        # server advertises <features><starttls /></features>
-        # client sends back <starttls />
-        # server responds with <proceed />
+            # From the XMPP Core Internet Draft:
+            # server advertises <features><starttls /></features>
+            # client sends back <starttls />
+            # server responds with <proceed />
 
-        # Wait for a stanza
-        stanza = self.get_one_stanza()
+            # Wait for a stanza
+            stanza = self.get_one_stanza()
 
-        log_debug(5, "Expecting features stanza, got:", stanza)
-        if stanza.getName() != 'features':
-            log_error("Server did not return a <features /> stanza")
-            self.disconnect()
+            log_debug(5, "Expecting features stanza, got:", stanza)
+            if stanza.getName() != 'features':
+                log_debug(1, "Server did not return a <features /> stanza,"
+                             " reconnecting")
+                self.disconnect()
+                time.sleep(1)
+            else:
+                break
+        else:
+            log_error("Not able to reconnect")
             raise SSLDisabledError
 
         starttls_node = stanza.getTag('starttls')
