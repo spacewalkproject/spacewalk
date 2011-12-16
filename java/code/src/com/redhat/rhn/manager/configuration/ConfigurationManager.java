@@ -676,7 +676,7 @@ public class ConfigurationManager extends BaseManager {
                 "ssm_channels_for_subscribe_in_set");
         Map params = new HashMap();
         params.put("user_id", user.getId());
-        params.put("channel_set_label", RhnSetDecl.CONFIG_CHANNELS_RANKING.getLabel());
+        params.put("channel_set_label", RhnSetDecl.CONFIG_CHANNELS.getLabel());
         Map elabParams = new HashMap();
         elabParams.put("user_id", user.getId());
         elabParams.put("system_set_label", RhnSetDecl.SYSTEMS.getLabel());

@@ -74,7 +74,7 @@ public class SubscribeSetup extends RhnListAction {
     }
 
     private RhnSetDecl getSetDecl() {
-        return RhnSetDecl.CONFIG_CHANNELS_RANKING;
+        return RhnSetDecl.CONFIG_CHANNELS;
     }
 
     private DataResult getDataResult(User user, PageControl pc) {

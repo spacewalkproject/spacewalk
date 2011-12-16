@@ -54,7 +54,7 @@ public class SubscribeSubmit extends BaseSetOperateOnSelectedItemsAction {
      * {@inheritDoc}
      */
     protected RhnSetDecl getSetDecl() {
-        return RhnSetDecl.CONFIG_CHANNELS_RANKING;
+        return RhnSetDecl.CONFIG_CHANNELS;
     }
 
     /**

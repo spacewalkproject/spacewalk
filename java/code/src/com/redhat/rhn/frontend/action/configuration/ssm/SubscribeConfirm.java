@@ -124,7 +124,7 @@ public class SubscribeConfirm extends RhnAction {
         checkPosition(request);
 
         List systems = ConfigurationManager.getInstance().ssmSystemsForSubscribe(user);
-        RhnSet channels = RhnSetDecl.CONFIG_CHANNELS_RANKING.get(user);
+        RhnSet channels = RhnSetDecl.CONFIG_CHANNELS.get(user);
 
         //visit every server and change their subscriptions
         //keep track of how many servers we have changed
