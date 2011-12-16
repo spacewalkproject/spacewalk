@@ -1875,15 +1875,15 @@ public class ChannelSoftwareHandler extends BaseHandler {
      * @param sessionKey session of the user
      * @param originalLabel the label of the channel to clone
      * @param channelDetails a map consisting of
-     *      <li>string name</li>
-     *      <li>string label</li>
-     *      <li>string summary</li>
-     *      <li>string parent_label (optional)</li>
-     *      <li>string arch_label (optional)<li>
-     *      <li>string gpg_url (optional)</li>
-     *      <li>string gpg_id (optional)</li>
-     *      <li>string gpg_fingerprint (optional)</li>
-     *      <li>string description (optional)</li>
+     *      string name
+     *      string label
+     *      string summary
+     *      string parent_label (optional)
+     *      string arch_label (optional)
+     *      string gpg_key_url (optional), gpg_url left for historical reasons
+     *      string gpg_key_id (optional), gpg_id left for historical reasons
+     *      string gpg_key_fp (optional), gpg_fingerprint left for historical reasons
+     *      string description (optional)
      * @param originalState if true, only the original packages of the channel to clone
      *          will be cloned.  Any updates will not be.
      * @return int id of clone channel
@@ -1900,9 +1900,12 @@ public class ChannelSoftwareHandler extends BaseHandler {
      *          #prop("string", "summary")
      *          #prop_desc("string", "parent_label", "(optional)")
      *          #prop_desc("string", "arch_label", "(optional)")
-     *          #prop_desc("string", "gpg_url", "(optional)")
-     *          #prop_desc("string", "gpg_id", "(optional)")
-     *          #prop_desc("string", "gpg_fingerprint", "(optional)")
+     *          #prop_desc("string", "gpg_key_url", "(optional),
+     *              gpg_url might be used as well")
+     *          #prop_desc("string", "gpg_key_id", "(optional),
+     *              gpg_id might be used as well")
+     *          #prop_desc("string", "gpg_key_fp", "(optional),
+     *              gpg_fingerprint might be used as well")
      *          #prop_desc("string", "description", "(optional)")
      *      #struct_end()
      * @xmlrpc.param #param("boolean", "original_state")
@@ -1918,9 +1921,12 @@ public class ChannelSoftwareHandler extends BaseHandler {
         validKeys.add("summary");
         validKeys.add("parent_label");
         validKeys.add("arch_label");
-        validKeys.add("gpg_url");
-        validKeys.add("gpg_id");
-        validKeys.add("gpg_fingerprint");
+        validKeys.add("gpg_url");           // deprecated, left for compatibility reasons
+        validKeys.add("gpg_id");            // deprecated, left for compatibility reasons
+        validKeys.add("gpg_fingerprint");   // deprecated, left for compatibility reasons
+        validKeys.add("gpg_key_url");
+        validKeys.add("gpg_key_id");
+        validKeys.add("gpg_key_fp");
         validKeys.add("description");
         validateMap(validKeys, channelDetails);
 
@@ -1932,10 +1938,29 @@ public class ChannelSoftwareHandler extends BaseHandler {
         String parentLabel = (String) channelDetails.get("parent_label");
         String archLabel = (String) channelDetails.get("arch_label");
         String summary = (String) channelDetails.get("summary");
-        String gpgUrl =  (String) channelDetails.get("gpg_url");
-        String gpgId =  (String) channelDetails.get("gpg_id");
-        String gpgFingerprint =  (String) channelDetails.get("gpg_fingerprint");
         String description =  (String) channelDetails.get("description");
+        String gpgUrl;
+        if (channelDetails.get("gpg_key_url") == null) {
+            gpgUrl = (String) channelDetails.get("gpg_url");
+        }
+        else {
+            gpgUrl = (String) channelDetails.get("gpg_key_url");
+        }
+        String gpgId;
+        if ((String) channelDetails.get("gpg_key_id") == null) {
+            gpgId = (String) channelDetails.get("gpg_id");
+        }
+        else {
+            gpgId = (String) channelDetails.get("gpg_key_id");
+        }
+        String gpgFingerprint;
+        if (channelDetails.get("gpg_key_fp") == null) {
+            gpgFingerprint = (String) channelDetails.get("gpg_fingerprint");
+        }
+        else {
+            gpgFingerprint = (String) channelDetails.get("gpg_key_fp");
+        }
+
 
         if (ChannelFactory.lookupByLabel(loggedInUser.getOrg(), label) != null) {
             throw new DuplicateChannelLabelException(label);
