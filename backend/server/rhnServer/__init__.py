@@ -30,7 +30,7 @@ def get(system_id, load_user = 1):
     """ retrieve the server with matching certificate from the database """
     log_debug(3, "load_user = %s" % load_user)
     # This has to be a string
-    if not type(system_id) == type(""):
+    if not isinstance(system_id, basestring):
         return None
     # Try to initialize the certificate object
     cert = Certificate()

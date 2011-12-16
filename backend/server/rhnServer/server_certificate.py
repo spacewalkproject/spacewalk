@@ -142,7 +142,10 @@ class Certificate:
             return -1
         # Now decode this certificate
         try:
-            sysid, junk = xmlrpclib.loads(text_id)
+            if isinstance(text_id, unicode):
+                sysid, junk = xmlrpclib.loads(text_id.encode('utf-8'))
+            else:
+                sysid, junk = xmlrpclib.loads(text_id)
         except:
             return -1
         else:
