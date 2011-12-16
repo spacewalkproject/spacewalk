@@ -4,7 +4,7 @@
 %endif
 
 Name:        spacecmd
-Version:     1.6.10
+Version:     1.6.11
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -61,6 +61,9 @@ touch %{buildroot}/%{python_sitelib}/spacecmd/__init__.py
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Fri Dec 16 2011 Aron Parsons <aparsons@redhat.com> 1.6.11-1
+- fix login for clear_caches to avoid error (shardy@redhat.com)
+
 * Sun Dec 11 2011 Aron Parsons <aronparsons@gmail.com> 1.6.10-1
 - spacecmd: fix typo in activationkey_export help (shardy@redhat.com)
 - spacecmd: add configchannel_clone command (shardy@redhat.com)
