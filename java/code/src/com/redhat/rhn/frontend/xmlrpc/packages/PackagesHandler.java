@@ -77,7 +77,8 @@ public class PackagesHandler extends BaseHandler {
      *       #prop("string", "version")
      *       #prop("string", "release")
      *       #prop("string", "arch_label")
-     *       #prop_array("string", "label", "Channel label providing this package.")
+     *       #prop_array("providing_channels", "string",
+     *          "Channel label providing this package.")
      *       #prop("string", "build_host")
      *       #prop("string", "description")
      *       #prop("string", "checksum")
