@@ -596,7 +596,7 @@ class JabberClient(jabber.Client):
         stanza = self.get_one_stanza()
         log_debug(5, "Expecting proceed stanza, got:", stanza)
         if stanza.getName() != 'proceed':
-            log_error("Server broke TLS negociation - <proceed /> not sent")
+            log_error("Server broke TLS negotiation - <proceed /> not sent")
             self.disconnect()
             raise SSLDisabledError
 
