@@ -668,11 +668,12 @@ class _PackageDumper(BaseRowDumper):
         attrs = ["name", "version", "release", "package_arch",
             "package_group", "rpm_version", "package_size", "payload_size", 
             "build_host", "source_rpm", "payload_format",
-            "compat", "cookie"]
+            "compat"]
         dict = {
             'id'            : "rhn-package-%s" % self._row['id'],
             'org_id'        : self._row['org_id'] or "",
             'epoch'         : self._row['epoch'] or "",
+            'cookie'        : self._row['cookie'] or "",
             'build-time'    : _dbtime2timestamp(self._row['build_time']),
             'last-modified' : _dbtime2timestamp(self._row['last_modified']),
         }
