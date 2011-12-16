@@ -106,7 +106,10 @@ class SpacewalkShell(Cmd):
 
         # don't attempt to login for some commands
         if re.match('help|login|logout|whoami|history|clear', line, re.I):
-            return line
+            # login required for clear_caches or it fails with:
+            # "SpacewalkShell instance has no attribute 'system_cache_file'"
+            if not re.match('clear_caches', line, re.I):
+                return line
 
         # login before attempting to run a command
         if not self.session:
