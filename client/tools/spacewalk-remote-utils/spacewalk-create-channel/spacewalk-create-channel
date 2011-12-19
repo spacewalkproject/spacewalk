@@ -344,8 +344,10 @@ def findSrcChan(version, release, arch, extra = None):
       return "rhel-%s-%s-%s" % (arch, low_release, version)
    else:  #else we do, so lets process that
       low_extra = extra.lower()
-      if low_extra == "clusterstorage":
-         low_extra = "cluster-storage"
+      extra_map = {"clusterstorage": "cluster-storage", "resilientstorage": "rs",
+              "scalablefilesystem": "sfs", "highavailability": "ha", "loadbalancer": "lb"}
+      if low_extra in extra_map:
+         low_extra = extra_map[low_extra]
       if low_extra == "extras":
           return  "rhel-%s-%s-%s-%s" % (arch, low_release, version, low_extra)
       else:
