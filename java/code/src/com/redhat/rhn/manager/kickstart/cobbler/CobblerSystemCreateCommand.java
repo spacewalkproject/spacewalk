@@ -237,6 +237,13 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
         processNetworkInterfaces(rec, server);
         rec.setProfile(profile);
 
+        if (isDhcp) {
+            rec.setIpv6Autoconfiguration(true);
+        }
+        else {
+            rec.setIpv6Autoconfiguration(false);
+        }
+
         if (this.activationKeys == null || this.activationKeys.length() == 0) {
             log.error("This cobbler profile does not " +
                 "have a redhat_management_key set ");
@@ -304,6 +311,16 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
                             n.getName().equals(networkInterface)) {
                         net.setStaticNetwork(!isDhcp);
                     }
+
+                    ArrayList<String> ipv6Addresses = n.getIp6Addresses();
+                    if (ipv6Addresses.size() > 0) {
+                        net.setIpv6Address(ipv6Addresses.get(0));
+                        ipv6Addresses.remove(0);
+                    }
+                    if (ipv6Addresses.size() > 0) {
+                        net.setIpv6Secondaries(ipv6Addresses);
+                    }
+
                     nics.add(net);
                 }
             }

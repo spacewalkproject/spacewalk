@@ -16,6 +16,7 @@ package org.cobbler;
 
 import org.apache.commons.lang.StringUtils;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -28,6 +29,8 @@ public class Network {
     private String name;
     private String netmask;
     private String ipAddress;
+    private String ipv6Address;
+    private ArrayList<String> ipv6Secondaries;
     private boolean isStatic;
     private String macAddress;
     private String netmaskVariableName;
@@ -60,6 +63,8 @@ public class Network {
         addToMap(inet, netmaskVariableName + "-" + name, netmask);
         addToMap(inet, "ipaddress-" + name, ipAddress);
         addToMap(inet, "static-" + name, isStatic);
+        addToMap(inet, "ipv6address-" + name, ipv6Address);
+        addToMap(inet, "ipv6secondaries-" + name, ipv6Secondaries);
         return inet;
     }
 
@@ -93,6 +98,9 @@ public class Network {
         else {
             net.setNetmask((String)ifaceInfo.get("subnet"));
         }
+
+        net.setIpv6Address((String) ifaceInfo.get("ipv6_address"));
+        net.setIpv6Secondaries((ArrayList<String>) ifaceInfo.get("ipv6_secondaries"));
 
         return net;
     }
@@ -130,6 +138,34 @@ public class Network {
      */
     public void setIpAddress(String ipAddressIn) {
         ipAddress = ipAddressIn;
+    }
+
+    /**
+     * @return Returns the IPv6 address of the interface.
+     */
+    public String getIpv6Address() {
+        return ipv6Address;
+    }
+
+    /**
+     * @param addressIn The IPv6 address to set.
+     */
+    public void setIpv6Address(String addressIn) {
+        this.ipv6Address = addressIn;
+    }
+
+    /**
+     * @return Returns secondary IPv6 addresses of the interface.
+     */
+    public ArrayList<String> getIpv6Secondaries() {
+        return ipv6Secondaries;
+    }
+
+    /**
+     * @param secondariesIn List of secondary IPv6 addresses to set.
+     */
+    public void setIpv6Secondaries(ArrayList<String> secondariesIn) {
+        this.ipv6Secondaries = secondariesIn;
     }
 
     /**

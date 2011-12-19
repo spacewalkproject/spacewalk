@@ -43,6 +43,7 @@ public class SystemRecord extends CobblerObject {
     public static final String REDHAT_MGMT_SERVER = "redhat_management_server";
     private static final String SET_INTERFACES = "modify_interface";
     private static final String GET_INTERFACES = "interface";
+    private static final String IPV6_AUTOCONF = "ipv6_autoconfiguration";
 
     private SystemRecord(CobblerConnection clientIn) {
         client = clientIn;
@@ -354,6 +355,14 @@ public class SystemRecord extends CobblerObject {
        */
       public void  setServer(String server) {
           modify(SERVER, server);
+      }
+
+      /**
+       * Sets IPv6 autoconfiguration on
+       * @param ipv6Autoconf boolean to indicate autoconf
+       */
+      public void setIpv6Autoconfiguration(boolean ipv6Autoconf) {
+          modify(IPV6_AUTOCONF, ipv6Autoconf);
       }
 
       /**
