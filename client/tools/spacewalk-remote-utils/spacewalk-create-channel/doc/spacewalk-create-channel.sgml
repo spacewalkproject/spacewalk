@@ -220,7 +220,7 @@ the Spacewalk or Satellite server.
         </para>
         <para>Add the Supplementary's channel as a child channel of 'my-stable-channel':
            <simplelist>
-	    <member><command>spacewalk-create-channel</command>  -l admin -s myserver.example.com -v 6 -u u1 -r Server -a x86_64 -e Supplementary  -p my-stable-channel -d my-stable-extras</member>
+	    <member><command>spacewalk-create-channel</command>  -l admin -s myserver.example.com -v 6 -u u1 -r Server -a x86_64 -e Supplementary  -P my-stable-channel -d my-stable-extras</member>
            </simplelist>
         </para>
 </RefSect1>

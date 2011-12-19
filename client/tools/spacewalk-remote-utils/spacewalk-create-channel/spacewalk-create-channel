@@ -442,7 +442,7 @@ Upgrade prevously created channel 'my-stable-channel' to RHEL 6 Server u1 x86_64
 spacewalk-create-channel  -l admin -s myserver.example.com -v 6 -u u1 -r server -a x86_64 -d my-stable-channel
 
 Add the Supplementary channel as a child channel of 'my-stable-channel':
-spacewalk-create-channel  -l admin -s myserver.example.com -v 6 -u u1 -r server -a x86_64 -e supplementary -p my-stable-channel
+spacewalk-create-channel  -l admin -s myserver.example.com -v 6 -u u1 -r server -a x86_64 -e supplementary -P my-stable-channel
 """
 
 def error(msg):
