@@ -312,7 +312,7 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
                         net.setStaticNetwork(!isDhcp);
                     }
 
-                    ArrayList<String> ipv6Addresses = n.getIp6Addresses();
+                    ArrayList<String> ipv6Addresses = n.getGlobalIpv6Addresses();
                     if (ipv6Addresses.size() > 0) {
                         net.setIpv6Address(ipv6Addresses.get(0));
                         ipv6Addresses.remove(0);

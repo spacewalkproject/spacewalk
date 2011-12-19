@@ -231,7 +231,7 @@ public class NetworkInterface extends BaseDomainHelper implements
     /**
      * @return If available, returns list of global IPv6 addresses for a given interface.
      */
-    public ArrayList<String> getIp6Addresses() {
+    public ArrayList<String> getGlobalIpv6Addresses() {
         ArrayList<String> addresses = findServerNetAddress6ByScope("universe");
         // RHEL-5 registration may return "global" rather than "universe"
         // for global addresses (a libnl thing).
@@ -248,7 +248,7 @@ public class NetworkInterface extends BaseDomainHelper implements
     public boolean isDisabled() {
         boolean ipv6Available = false;
 
-        for (String a : getIp6Addresses()) {
+        for (String a : getGlobalIpv6Addresses()) {
             if (a != null && !a.equals("")) {
                 ipv6Available = true;
             }
