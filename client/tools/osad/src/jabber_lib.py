@@ -19,7 +19,6 @@ import sys
 import time
 import select
 import socket
-import jabber
 import random
 import string
 import fnmatch
@@ -29,6 +28,11 @@ from cStringIO import StringIO
 from rhn import SSL
 
 from rhn_log import log_debug, log_error
+
+import warnings
+with warnings.catch_warnings():
+    warnings.filterwarnings("ignore",category=DeprecationWarning)
+    import jabber
 
 NS_RHN = "http://jabber.rhn.redhat.com/jabber"
 NS_RHN_SIGNED = "%s/signed" % NS_RHN
