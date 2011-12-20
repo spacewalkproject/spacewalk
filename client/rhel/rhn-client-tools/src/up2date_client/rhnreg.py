@@ -9,6 +9,7 @@
 
 import os
 import sys
+import dbus
 
 import up2dateUtils
 import up2dateErrors
@@ -137,6 +138,8 @@ def writeSystemId(systemId):
     # we need to remind the user to register, this removes it
     if res:
         removeSystemRegisterRemindFile()
+
+    updateRhsmStatus()
     
     return res
 
@@ -345,10 +348,28 @@ def registerSystem(username = None, password = None,
         ret = s.registration.new_system(auth_dict)
     else:
         ret = s.registration.new_system(auth_dict, packages)
-    
+
     return ret
 
+def updateRhsmStatus():
+    try:
+        bus = dbus.SystemBus()
+        validity_obj = bus.get_object('com.redhat.SubscriptionManager',
+              '/EntitlementStatus')
+        validity_iface = dbus.Interface(validity_obj,
+        dbus_interface='com.redhat.SubscriptionManager.EntitlementStatus')
+    except dbus.DBusException:
+        # we can't connect to dbus. it's not running, likely from a minimal
+        # install. we can't do anything here, so just ignore it.
+        return
 
+    try:
+        validity_iface.check_status()
+    except dbus.DBusException:
+        # the call timed out, or something similar. we don't really care
+        # about a timely reply or what the result might be, we just want
+        # the method to run. So we can safely ignore this.
+        pass
     
       
 def getAvailableChannels(username, password):
