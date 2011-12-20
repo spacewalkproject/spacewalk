@@ -58,17 +58,32 @@ class Runner(jabber_lib.Runner):
         return ret
 
     _query_get_dispatcher_password = """
-    select password
+    select id, password
       from rhnPushDispatcher
      where jabber_id like :jabber_id
     """
+
+    _update_dispatcher_password = """
+    update rhnPushDispatcher
+       set password = :password_in
+     where id = :id_in
+    """
+
     def get_dispatcher_password(self, username):
         h = rhnSQL.prepare(self._query_get_dispatcher_password)
         h.execute(jabber_id = username + "%")
         ret = h.fetchall_dict()
 
         if ret and len(ret) == 1:
-            return ret[0]['password']
+            if ret[0]['password']:
+                return ret[0]['password']
+            else:
+                # Upgrade Spacewalk 1.5 -> 1.6: the dispatcher row exists,
+                # we just need to generate and save the password.
+                self._password = self.create_dispatcher_password(32)
+                u = rhnSQL.prepare(self._update_dispatcher_password)
+                u.execute(password_in = self._password, id_in = ret[0]['id'])
+                return self._password
         else:
             return None
 
