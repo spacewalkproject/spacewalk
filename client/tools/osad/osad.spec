@@ -16,7 +16,7 @@ Group:   System Environment/Daemons
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.10.30
+Version: 5.10.31
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -275,6 +275,10 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 %endif
 
 %changelog
+* Tue Dec 20 2011 Michael Mraka <michael.mraka@redhat.com> 5.10.31-1
+- don't print double [OK] when restarting
+- turn off DeprecationWarning for jabber module
+
 * Fri Dec 16 2011 Michael Mraka <michael.mraka@redhat.com> 5.10.30-1
 - 756761 - reconnect if jabber server returns error during handshake
 
