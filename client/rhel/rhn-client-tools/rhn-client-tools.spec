@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 1.6.43
+Version: 1.6.44
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -334,6 +334,9 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Tue Dec 20 2011 Miroslav Suchý 1.6.44-1
+- 744111 - notify subscription-manager to recheck compliance status
+
 * Fri Dec 16 2011 Jan Pazdziora 1.6.43-1
 - Revert "always return RPC data in plain string (utf-8 encoded)"
 
