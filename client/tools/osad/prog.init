@@ -48,7 +48,6 @@ start() {
     fi
     daemon $script --pid-file /var/run/$prog.pid
     RETVAL=$?
-    if [ $RETVAL -eq 0 ]; then echo_success; else echo_failure; fi
     echo
     [ $RETVAL -eq 0 ] && touch /var/lock/subsys/$prog
     return $RETVAL
