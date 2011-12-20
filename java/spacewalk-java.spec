@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.6.98
+Version: 1.6.99
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -555,6 +555,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Dec 20 2011 Tomas Lestach <tlestach@redhat.com> 1.6.99-1
+- 702019 - enable ks logging for older clients as well (tlestach@redhat.com)
+
 * Tue Dec 20 2011 Michael Mraka <michael.mraka@redhat.com> 1.6.98-1
 - 753728 - test database connection prior running query
 
