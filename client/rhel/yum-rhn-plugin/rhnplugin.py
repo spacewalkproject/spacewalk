@@ -324,6 +324,8 @@ class RhnRepo(YumRepository):
             li = up2dateAuth.getLoginInfo()
         except up2dateErrors.RhnServerException, e:
             raise yum.Errors.RepoError(unicode(e)), None, sys.exc_info()[2]
+        except e:
+            raise yum.Errors.RepoError(unicode(e)), None, sys.exc_info()[2]
 
         # TODO:  do evalution on li auth times to see if we need to obtain a
         # new session...
