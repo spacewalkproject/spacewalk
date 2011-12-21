@@ -1,5 +1,5 @@
 Name:           spacewalk-setup-jabberd
-Version:        1.6.4
+Version:        1.6.5
 Release:        1%{?dist}
 Summary:        Tools to setup jabberd for Spacewalk
 Group:          Applications/System
@@ -59,6 +59,9 @@ rm -rf %{buildroot}
 %dir %{_sysconfdir}/pki/spacewalk/jabberd
 
 %changelog
+* Wed Dec 21 2011 Milan Zazrivec <mzazrivec@redhat.com> 1.6.5-1
+- update copyright info
+
 * Wed Oct 26 2011 Milan Zazrivec <mzazrivec@redhat.com> 1.6.4-1
 - s2s.xml: no need to setup /s2s/local/resolver
 
