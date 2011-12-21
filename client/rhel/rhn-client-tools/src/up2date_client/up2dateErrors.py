@@ -41,14 +41,14 @@ class Error(YumBaseError):
         self.log.log_me(self.value)
         return self.value
 
-    def __getattribute__(self, name):
+    def __getattr__(self, name):
         """ Spacewalk backend still use errmsg, let have errmsg as alias to value """
         if name == 'errmsg':
             return self.value
         else:
-            if hasattr(YumBaseError, '__getattribute__'):
+            if hasattr(YumBaseError, '__getattr__'):
                 # rhel5 has no __getattribute__()
-                return YumBaseError.__getattribute__(self, name)
+                return YumBaseError.__getattr__(self, name)
             else:
                 if name in self.__dict__:
                     return self.__dict__[name]
