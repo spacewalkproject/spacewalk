@@ -55,7 +55,33 @@
 <!-- ==================== CLASS DESCRIPTION ==================== -->
 <h1 class="epydoc">Class InvalidRegistrationNumberError</h1><p class="nomargin-top"><span class="codelink"><a href="up2date_client.up2dateErrors-pysrc.html#InvalidRegistrationNumberError">source&nbsp;code</a></span></p>
 <center>
-
+<center>  <map id="uml_class_diagram_for_up2date__26" name="uml_class_diagram_for_up2date__26">
+<area shape="rect" id="node1" href="up2date_client.up2dateErrors.InvalidRegistrationNumberError-class.html" title="up2date_client.up2dateErrors.InvalidRegistrationNumberError" alt="" coords="56,633,264,677"/>
+<area shape="rect" id="node2156" href="up2date_client.up2dateErrors.NoLogError-class.html#__init__" title="x.__init__(...) initializes x; see help(type(x)) for signature" alt="" coords="17,492,132,511"/>
+<area shape="rect" id="node2156" href="up2date_client.up2dateErrors.NoLogError-class.html#__repr__" title="repr(x)" alt="" coords="17,511,132,529"/>
+<area shape="rect" id="node2" href="up2date_client.up2dateErrors.NoLogError-class.html" title="up2date_client.up2dateErrors.NoLogError" alt="" coords="5,459,144,535"/>
+<area shape="rect" id="node2155" href="up2date_client.up2dateErrors.ValidationError-class.html#premsg" title="up2date_client.up2dateErrors.ValidationError.premsg" alt="" coords="116,580,203,599"/>
+<area shape="rect" id="node5" href="up2date_client.up2dateErrors.ValidationError-class.html" title="indicates an error during server input validation" alt="" coords="104,555,213,613"/>
+<area shape="rect" id="node2159" href="javascript:void(0);" title="str(x)" alt="" coords="83,300,237,319"/>
+<area shape="rect" id="node2159" href="javascript:void(0);" title="yum.Errors.YumBaseError.__unicode__" alt="" coords="83,319,237,337"/>
+<area shape="rect" id="node3" href="javascript:void(0);" title="Base Yum Error." alt="" coords="71,267,249,343"/>
+<area shape="rect" id="node2158" href="up2date_client.up2dateErrors.Error-class.html#__getattribute__" title="Spacewalk backend still use errmsg, let have errmsg as alias to value" alt="" coords="69,396,249,415"/>
+<area shape="rect" id="node2158" href="up2date_client.up2dateErrors.Error-class.html#__setattr__" title="Spacewalk backend still use errmsg, let have errmsg as alias to value" alt="" coords="69,415,249,433"/>
+<area shape="rect" id="node4" href="up2date_client.up2dateErrors.Error-class.html" title="base class for errors" alt="" coords="57,363,260,439"/>
+<area shape="rect" id="node7" href="up2date_client.up2dateErrors.RhnServerException-class.html" title="up2date_client.up2dateErrors.RhnServerException" alt="" coords="173,475,320,519"/>
+<area shape="rect" id="node2161" href="javascript:void(0);" title="exceptions.BaseException.args" alt="" coords="81,31,239,49"/>
+<area shape="rect" id="node2161" href="javascript:void(0);" title="exceptions.BaseException.message" alt="" coords="81,49,239,68"/>
+<area shape="rect" id="node2161" href="javascript:void(0);" title="x.__delattr__(&#39;name&#39;) &lt;==&gt; del x.name" alt="" coords="81,71,239,89"/>
+<area shape="rect" id="node2161" href="javascript:void(0);" title="x[y]" alt="" coords="81,89,239,108"/>
+<area shape="rect" id="node2161" href="javascript:void(0);" title="x[i:j]" alt="" coords="81,108,239,127"/>
+<area shape="rect" id="node2161" href="javascript:void(0);" title="helper for pickle" alt="" coords="81,127,239,145"/>
+<area shape="rect" id="node2161" href="javascript:void(0);" title="exceptions.BaseException.__setstate__" alt="" coords="81,145,239,164"/>
+<area shape="rect" id="node6" href="javascript:void(0);" title="Common base class for all exceptions" alt="" coords="69,6,251,170"/>
+<area shape="rect" id="node2160" href="javascript:void(0);" title="exceptions.Exception.__new__" alt="" coords="96,223,223,241"/>
+<area shape="rect" id="node8" href="javascript:void(0);" title="Common base class for all non&#45;exit exceptions." alt="" coords="84,190,233,247"/>
+</map>
+  <img src="uml_class_diagram_for_up2date__26.gif" alt='' usemap="#uml_class_diagram_for_up2date__26" ismap="ismap" class="graph-without-title" />
+</center>
 </center>
 <hr />
 <!-- ==================== INSTANCE METHODS ==================== -->
@@ -77,9 +103,88 @@
 </tr>
   <tr>
     <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="up2date_client.up2dateErrors.NoLogError-class.html">NoLogError</a></code></b>:
+      <code><a href="up2date_client.up2dateErrors.NoLogError-class.html#__init__">__init__</a></code>,
+      <code><a href="up2date_client.up2dateErrors.NoLogError-class.html#__repr__">__repr__</a></code>
+      </p>
+    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="up2date_client.up2dateErrors.Error-class.html">Error</a></code></b>:
+      <code><a href="up2date_client.up2dateErrors.Error-class.html#__getattribute__">__getattribute__</a></code>,
+      <code><a href="up2date_client.up2dateErrors.Error-class.html#__setattr__">__setattr__</a></code>
+      </p>
+    <p class="indent-wrapped-lines"><b>Inherited from <code>yum.Errors.YumBaseError</code></b>:
+      <code>__str__</code>,
+      <code>__unicode__</code>
+      </p>
+    <p class="indent-wrapped-lines"><b>Inherited from <code>exceptions.Exception</code></b>:
+      <code>__new__</code>
+      </p>
+    <p class="indent-wrapped-lines"><b>Inherited from <code>exceptions.BaseException</code></b>:
+      <code>__delattr__</code>,
+      <code>__getitem__</code>,
+      <code>__getslice__</code>,
+      <code>__reduce__</code>,
+      <code>__setstate__</code>
+      </p>
+    <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
+      <code>__format__</code>,
+      <code>__hash__</code>,
+      <code>__reduce_ex__</code>,
+      <code>__sizeof__</code>,
+      <code>__subclasshook__</code>
+      </p>
+    </td>
+  </tr>
+</table>
+<!-- ==================== CLASS VARIABLES ==================== -->
+<a name="section-ClassVariables"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Class Variables</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-ClassVariables"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+  <tr>
+    <td colspan="2" class="summary">
     <p class="indent-wrapped-lines"><b>Inherited from <code><a href="up2date_client.up2dateErrors.ValidationError-class.html">ValidationError</a></code></b>:
-      <code><a href="up2date_client.up2dateErrors.ValidationError-class.html#__init__">__init__</a></code>,
-      <code><a href="up2date_client.up2dateErrors.ValidationError-class.html#__repr__">__repr__</a></code>
+      <code><a href="up2date_client.up2dateErrors.ValidationError-class.html#premsg">premsg</a></code>
+      </p>
+    </td>
+  </tr>
+</table>
+<!-- ==================== PROPERTIES ==================== -->
+<a name="section-Properties"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Properties</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Properties"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code>exceptions.BaseException</code></b>:
+      <code>args</code>,
+      <code>message</code>
+      </p>
+    <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
+      <code>__class__</code>
       </p>
     </td>
   </tr>
@@ -107,7 +212,7 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Tue Jul 19 18:42:23 2011
+    Generated by Epydoc 3.0.1 on Wed Dec 21 14:26:29 2011
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

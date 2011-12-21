@@ -57,7 +57,18 @@
 <!-- ==================== CLASS DESCRIPTION ==================== -->
 <h1 class="epydoc">Class Device</h1><p class="nomargin-top"><span class="codelink"><a href="backend.server.rhnServer.server_hardware-pysrc.html#Device">source&nbsp;code</a></span></p>
 <center>
-
+<center>  <map id="uml_class_diagram_for_backend__451" name="uml_class_diagram_for_backend__451">
+<area shape="rect" id="node1405" href="backend.server.rhnServer.server_hardware.Device-class.html#__init__" title="backend.server.rhnServer.server_hardware.Device.__init__" alt="" coords="17,185,301,204"/>
+<area shape="rect" id="node1" href="backend.server.rhnServer.server_hardware.Device-class.html" title="This is the base Device class that supports instantiation from a dictionarry." alt="" coords="5,153,312,210"/>
+<area shape="rect" id="node1406" href="backend.server.rhnServer.server_hardware.GenericDevice-class.html#table" title="backend.server.rhnServer.server_hardware.GenericDevice.table" alt="" coords="104,31,215,49"/>
+<area shape="rect" id="node1406" href="backend.server.rhnServer.server_hardware.GenericDevice-class.html#getid" title="backend.server.rhnServer.server_hardware.GenericDevice.getid" alt="" coords="104,52,215,71"/>
+<area shape="rect" id="node1406" href="backend.server.rhnServer.server_hardware.GenericDevice-class.html#must_save" title="backend.server.rhnServer.server_hardware.GenericDevice.must_save" alt="" coords="104,71,215,89"/>
+<area shape="rect" id="node1406" href="backend.server.rhnServer.server_hardware.GenericDevice-class.html#save" title="save data in the rhnDevice table" alt="" coords="104,89,215,108"/>
+<area shape="rect" id="node1406" href="backend.server.rhnServer.server_hardware.GenericDevice-class.html#reload" title="reload from rhnDevice table based on devid" alt="" coords="104,108,215,127"/>
+<area shape="rect" id="node2" href="backend.server.rhnServer.server_hardware.GenericDevice-class.html" title="A generic device class" alt="" coords="92,6,225,133"/>
+</map>
+  <img src="uml_class_diagram_for_backend__451.gif" alt='' usemap="#uml_class_diagram_for_backend__451" ismap="ismap" class="graph-without-title" />
+</center>
 </center>
 <hr />
 <p>This is the base Device class that supports instantiation from a 
@@ -92,7 +103,6 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="backend.server.rhnServer.server_hardware.Device-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">table</span>,
         <span class="summary-sig-arg">fields</span>,
         <span class="summary-sig-arg">dict</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">mapping</span>=<span class="summary-sig-default">None</span>)</span></td>
@@ -111,12 +121,36 @@
       <code><a href="backend.server.rhnServer.server_hardware.GenericDevice-class.html#getid">getid</a></code>,
       <code><a href="backend.server.rhnServer.server_hardware.GenericDevice-class.html#must_save">must_save</a></code>,
       <code><a href="backend.server.rhnServer.server_hardware.GenericDevice-class.html#reload">reload</a></code>,
-      <code><a href="backend.server.rhnServer.server_hardware.GenericDevice-class.html#save">save</a></code>,
-      <code><a href="backend.server.rhnServer.server_hardware.GenericDevice-class.html#unsetEmptyFields">unsetEmptyFields</a></code>
+      <code><a href="backend.server.rhnServer.server_hardware.GenericDevice-class.html#save">save</a></code>
       </p>
     <div class="private">    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="backend.server.rhnServer.server_hardware.GenericDevice-class.html">GenericDevice</a></code></b> (private):
       <code><a href="backend.server.rhnServer.server_hardware.GenericDevice-class.html#_null_columns" onclick="show_private();">_null_columns</a></code>
       </p></div>
+    </td>
+  </tr>
+</table>
+<!-- ==================== CLASS VARIABLES ==================== -->
+<a name="section-ClassVariables"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Class Variables</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-ClassVariables"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="backend.server.rhnServer.server_hardware.GenericDevice-class.html">GenericDevice</a></code></b>:
+      <code><a href="backend.server.rhnServer.server_hardware.GenericDevice-class.html#table">table</a></code>
+      </p>
     </td>
   </tr>
 </table>
@@ -146,7 +180,6 @@
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>,
-        <span class="sig-arg">table</span>,
         <span class="sig-arg">fields</span>,
         <span class="sig-arg">dict</span>=<span class="sig-default">None</span>,
         <span class="sig-arg">mapping</span>=<span class="sig-default">None</span>)</span>
@@ -189,7 +222,7 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Tue Jul 19 18:42:16 2011
+    Generated by Epydoc 3.0.1 on Wed Dec 21 14:26:17 2011
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"
