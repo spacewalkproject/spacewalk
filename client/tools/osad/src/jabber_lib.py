@@ -30,9 +30,11 @@ from rhn import SSL
 from rhn_log import log_debug, log_error
 
 import warnings
-with warnings.catch_warnings():
-    warnings.filterwarnings("ignore",category=DeprecationWarning)
+try:
+    warnings.filterwarnings("ignore", category=DeprecationWarning)
     import jabber
+finally:
+    warnings.resetwarnings()
 
 NS_RHN = "http://jabber.rhn.redhat.com/jabber"
 NS_RHN_SIGNED = "%s/signed" % NS_RHN
