@@ -1,4 +1,4 @@
--- created by Oraschemadoc Tue Jul 19 17:31:31 2011
+-- created by Oraschemadoc Wed Dec 21 14:59:50 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE OR REPLACE FORCE VIEW "SPACEWALK"."RHNVISIBLESERVERGROUPMEMBERS" ("SERVER_ID", "SERVER_GROUP_ID", "CREATED", "MODIFIED") AS 

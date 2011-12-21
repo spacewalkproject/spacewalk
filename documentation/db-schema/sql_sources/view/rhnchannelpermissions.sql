@@ -1,4 +1,4 @@
--- created by Oraschemadoc Tue Jul 19 17:31:28 2011
+-- created by Oraschemadoc Wed Dec 21 14:59:45 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE OR REPLACE FORCE VIEW "SPACEWALK"."RHNCHANNELPERMISSIONS" ("ORG_ID", "CHANNEL_ID") AS 

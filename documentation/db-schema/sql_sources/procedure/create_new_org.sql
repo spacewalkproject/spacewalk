@@ -1,4 +1,4 @@
--- created by Oraschemadoc Tue Jul 19 17:31:34 2011
+-- created by Oraschemadoc Wed Dec 21 14:59:57 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE OR REPLACE PROCEDURE "SPACEWALK"."CREATE_NEW_ORG" 

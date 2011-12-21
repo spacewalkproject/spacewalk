@@ -589,21 +589,24 @@ create index fk_no_index_195 on RHN_SAT_NODE (RECID, TARGET_TYPE);
 --missed index on RHN_SERVER_MONITORING_INFO table for RHN_HOST_SERVER_NAME_FK constraint 
 create index fk_no_index_196 on RHN_SERVER_MONITORING_INFO (OS_ID);
 
+--missed index on RHN_SERVICE_PROBE_ORIGINS table for RHN_SRVPO_CHKPB_ORIG_PR_ID_FK constraint
+create index fk_no_index_197 on RHN_SERVICE_PROBE_ORIGINS (ORIGIN_PROBE_ID);
+
 --missed index on RHN_URL_PROBE table for RHN_URLPB_PROBE_PR_ID_PR_FK constraint 
-create index fk_no_index_197 on RHN_URL_PROBE (PROBE_ID, PROBE_TYPE);
+create index fk_no_index_198 on RHN_URL_PROBE (PROBE_ID, PROBE_TYPE);
 
 --missed index on VALID_COUNTRIES_TL table for VALID_COUNTRIES_TL_CODE constraint 
-create index fk_no_index_198 on VALID_COUNTRIES_TL (CODE);
+create index fk_no_index_199 on VALID_COUNTRIES_TL (CODE);
 
 --missed index on WEB_USER_CONTACT_PERMISSION table for CONTPERM_WBUSERID_FK constraint 
-create index fk_no_index_199 on WEB_USER_CONTACT_PERMISSION (WEB_USER_ID);
+create index fk_no_index_200 on WEB_USER_CONTACT_PERMISSION (WEB_USER_ID);
 
 --missed index on WEB_USER_PERSONAL_INFO table for PERSONAL_INFO_WEB_USER_ID_FK constraint 
-create index fk_no_index_200 on WEB_USER_PERSONAL_INFO (WEB_USER_ID);
+create index fk_no_index_201 on WEB_USER_PERSONAL_INFO (WEB_USER_ID);
 
 --missed index on WEB_USER_PERSONAL_INFO table for WUPI_PREFIX_FK constraint 
-create index fk_no_index_201 on WEB_USER_PERSONAL_INFO (PREFIX);
+create index fk_no_index_202 on WEB_USER_PERSONAL_INFO (PREFIX);
 
 --missed index on WEB_USER_SITE_INFO table for WUSI_TYPE_FK constraint 
-create index fk_no_index_202 on WEB_USER_SITE_INFO (TYPE);
+create index fk_no_index_203 on WEB_USER_SITE_INFO (TYPE);
 

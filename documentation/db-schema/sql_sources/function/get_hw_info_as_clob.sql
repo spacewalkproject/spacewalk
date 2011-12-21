@@ -1,4 +1,4 @@
--- created by Oraschemadoc Tue Jul 19 17:31:34 2011
+-- created by Oraschemadoc Wed Dec 21 14:59:57 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE OR REPLACE FUNCTION "SPACEWALK"."GET_HW_INFO_AS_CLOB" (
@@ -17,9 +17,11 @@ begin
 			select 1 n, sum(nrcpu) || ' CPUs' m
 			from rhncpu where rhncpu.server_id = sid
 			union all
-			select 2, name||' '||ip_addr||'/'||netmask||' '||hw_addr val
-			from rhnservernetinterface
-			where rhnservernetinterface.server_id = sid
+			select 2, ni.name||' '||na4.address||'/'||na4.netmask||' '||ni.hw_addr val
+			from rhnservernetinterface ni,
+			     rhnServerNetAddress4 na4
+			where ni.server_id = sid
+			  and ni.id = na4.interface_id
 			)
 		order by n, m
 		) loop

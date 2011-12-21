@@ -1,4 +1,4 @@
--- created by Oraschemadoc Tue Jul 19 17:31:33 2011
+-- created by Oraschemadoc Wed Dec 21 14:59:55 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE OR REPLACE TRIGGER "SPACEWALK"."RHN_PKG_PROVIDER_MOD_TRIG" 

@@ -1,4 +1,4 @@
--- created by Oraschemadoc Tue Jul 19 17:30:55 2011
+-- created by Oraschemadoc Wed Dec 21 14:58:43 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE TABLE "SPACEWALK"."RHNPACKAGEKEYASSOCIATION" 

@@ -1,4 +1,4 @@
--- created by Oraschemadoc Tue Jul 19 17:31:35 2011
+-- created by Oraschemadoc Wed Dec 21 14:59:58 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE OR REPLACE FUNCTION "SPACEWALK"."NAME_JOIN" (sep_in IN VARCHAR2, ugi_in IN user_group_name_t)

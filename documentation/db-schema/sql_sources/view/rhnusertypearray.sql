@@ -1,4 +1,4 @@
--- created by Oraschemadoc Tue Jul 19 17:31:30 2011
+-- created by Oraschemadoc Wed Dec 21 14:59:50 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE OR REPLACE FORCE VIEW "SPACEWALK"."RHNUSERTYPEARRAY" ("USER_ID", "TYPE_ID_T", "TYPE_LABEL_T", "TYPE_NAME_T") AS 

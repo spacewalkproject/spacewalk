@@ -1,4 +1,4 @@
--- created by Oraschemadoc Tue Jul 19 17:31:34 2011
+-- created by Oraschemadoc Wed Dec 21 14:59:58 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE OR REPLACE FUNCTION "SPACEWALK"."LOOKUP_EVR" (e_in IN VARCHAR2, v_in IN VARCHAR2, r_in IN VARCHAR2)

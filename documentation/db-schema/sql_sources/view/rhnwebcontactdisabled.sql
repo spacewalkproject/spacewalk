@@ -1,4 +1,4 @@
--- created by Oraschemadoc Tue Jul 19 17:31:31 2011
+-- created by Oraschemadoc Wed Dec 21 14:59:51 2011
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE OR REPLACE FORCE VIEW "SPACEWALK"."RHNWEBCONTACTDISABLED" ("ID", "ORG_ID", "LOGIN", "LOGIN_UC", "PASSWORD", "OLD_PASSWORD", "ORACLE_CONTACT_ID", "CREATED", "MODIFIED", "IGNORE_FLAG") AS 
