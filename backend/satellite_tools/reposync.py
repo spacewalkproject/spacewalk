@@ -216,18 +216,15 @@ class RepoSync(object):
 
                 if not cs:
                     if param_dict.has_key('epoch'):
-                        log_debug(1, "No cheksum found for %s-%s:%s-%s.%s. Skipping Package" % (param_dict['name'],
-                                                                                                param_dict['epoch'],
+                        epoch = param_dict['epoch'] + ":"
+                    else:
+                        epoch = ""
+                    log_debug(1, "No cheksum found for %s-%s%s-%s.%s. Skipping Package" % (param_dict['name'],
+                                                                                                epoch,
                                                                                                 param_dict['version'],
                                                                                                 param_dict['release'],
                                                                                                 param_dict['arch']
                                                                                                ))
-                    else:
-                        log_debug(1, "No cheksum found for %s-%s-%s.%s. Skipping Package" % (param_dict['name'],
-                                                                                             param_dict['version'],
-                                                                                             param_dict['release'],
-                                                                                             param_dict['arch'],
-                                                                                            ))
                     continue
 
                 newpkgs = []
