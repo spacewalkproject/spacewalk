@@ -15,7 +15,6 @@ neededCaps = {"caneatCheese": {'version':"21"},
               "registration.finish_message": {'version': "1"},
               "xmlrpc.packages.extended_profile": {'version':"1"},
               "registration.delta_packages": {'version':"1"},
-              "registration.remaining_subscriptions": {'version': '1'},
               "registration.update_contact_info": {'version': "1"},
               "registration.extended_update_support": {"version" : "1"},
               "registration.smbios": {"version" : "1"}}
@@ -130,7 +129,6 @@ class Capabilities(UserDict.UserDict):
 
         capsConfigMap = {'supportsAutoUp2dateOption': 'supportsAutoUp2dateOption',
                          'registration.finish_message': 'supportsFinishMessage',
-                         "registration.remaining_subscriptions" : 'supportsRemainingSubscriptions',
                          "registration.update_contact_info" : 'supportsUpdateContactInfo',
                          "registration.delta_packages" : 'supportsDeltaPackages',
                          "xmlrpc.packages.extended_profile" : 'supportsExtendedPackageProfile',

@@ -44,25 +44,6 @@ class Tests(unittest.TestCase):
     def tearDown(self):
         # Roll back any unsaved data
         rhnSQL.rollback()
-
-    def test_remaining_subscriptions_1(self):
-        "Test registration.remaining_subscriptions call, used by RHEL4+ clients"
-        org_id = misc_functions.create_new_org()
-        u = misc_functions.create_new_user(org_id=org_id)
-
-        quantity = 15
-        channel_family = self._channel_family
-        arch = 'i686'
-        release = '3AS'
-        misc_functions.grant_channel_family_entitlements(org_id,
-                                                         channel_family,
-                                                         quantity)
-
-        remaining = registration.Registration().remaining_subscriptions(u.contact['login'],
-                                                                        u.contact['password'],
-                                                                        arch,
-                                                                        release)
-        self.assertEqual(str(quantity), str(remaining))
         
     def test_new_server_1(self):
         "Test normal server registration, with username/password"
