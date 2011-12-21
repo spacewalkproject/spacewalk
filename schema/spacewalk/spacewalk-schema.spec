@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.6.39
+Version:        1.6.40
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -66,6 +66,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Wed Dec 21 2011 Milan Zazrivec <mzazrivec@redhat.com> 1.6.40-1
+- update sha1 sums
+- update copyright info
+
 * Wed Dec 14 2011 Jan Pazdziora 1.6.39-1
 - For select_direct, print out immediatelly.
 
