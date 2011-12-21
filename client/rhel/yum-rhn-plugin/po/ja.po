@@ -15,70 +15,83 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
-"Report-Msgid-Bugs-To: http://bugzilla.redhat.com/\n"
-"POT-Creation-Date: 2011-07-19 17:38+0200\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-12-21 12:25+0100\n"
 "PO-Revision-Date: 2011-07-20 00:39+0000\n"
 "Last-Translator: Miroslav Suchý <msuchy@redhat.com>\n"
 "Language-Team: Japanese <trans-ja@lists.fedoraproject.org>\n"
+"Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: ja\n"
 "Plural-Forms: nplurals=1; plural=0\n"
 
-#: ../rhnplugin.py:52
+#: ../rhnplugin.py:50
 msgid "There was an error communicating with RHN."
 msgstr "RHN との通信中にエラーが発生しました。"
 
-#: ../rhnplugin.py:101
+#: ../rhnplugin.py:65
 msgid "RHN Satellite or RHN Classic support will be disabled."
 msgstr ""
 
 #. If non-root notify user RHN repo not accessible
-#: ../rhnplugin.py:105
+#: ../rhnplugin.py:69
 msgid ""
 "*Note* Red Hat Network repositories are not listed below. You must run this "
 "command as root to access RHN repositories."
 msgstr ""
-"以下には Red Hat Network レポジトリは表示されませんので注意してください。 RHN のレポジトリにアクセスするには root "
-"でこのコマンドを実行する必要があります。"
+"以下には Red Hat Network レポジトリは表示されませんので注意してください。 "
+"RHN のレポジトリにアクセスするには root でこのコマンドを実行する必要がありま"
+"す。"
 
-#: ../rhnplugin.py:120
+#: ../rhnplugin.py:84
 msgid "There was an error parsing the RHN proxy settings."
 msgstr "RHN Proxy 設定の構文解析中にエラーが発生しました。"
 
-#: ../rhnplugin.py:134
+#: ../rhnplugin.py:96
+msgid "Either --version, --help or no commands entered"
+msgstr ""
+
+#: ../rhnplugin.py:101
+msgid "Cleaning"
+msgstr ""
+
+#: ../rhnplugin.py:110
+msgid "Using list of RHN repos from cache"
+msgstr ""
+
+#: ../rhnplugin.py:124
 msgid "This system is not registered with RHN."
 msgstr "このシステムは RHN に登録されていません。"
 
-#: ../rhnplugin.py:139
+#: ../rhnplugin.py:130
 msgid "RHN channel support will be disabled."
 msgstr "RHN チャンネルサポートは無効になります。"
 
-#: ../rhnplugin.py:143
+#: ../rhnplugin.py:134
 msgid "This system is not subscribed to any channels."
 msgstr "このシステムはいずれのチャンネルにもサブスクライブされていません。"
 
-#: ../rhnplugin.py:147
+#: ../rhnplugin.py:139
 msgid ""
-"This system may not be a registered to RHN. SystemId could not be "
-"acquired.\n"
-msgstr "このシステムは RHN に登録されていない可能性があります。 SystemID を取得できませんでした。\n"
+"This system may not be a registered to RHN. SystemId could not be acquired.\n"
+msgstr ""
+"このシステムは RHN に登録されていない可能性があります。 SystemID を取得できま"
+"せんでした。\n"
 
-#: ../rhnplugin.py:238
+#: ../rhnplugin.py:245
 msgid "Package profile information could not be sent."
 msgstr "パッケージプロファイル情報を送信できませんでした。"
 
-#: ../rhnplugin.py:246
+#: ../rhnplugin.py:253
 msgid "Error Message:"
 msgstr "エラーメッセージ:"
 
-#: ../rhnplugin.py:247
+#: ../rhnplugin.py:254
 msgid "Please run rhn_register as root on this client"
 msgstr "このクライアント上で root として rhn_register を実行してください"
 
-#: ../rhnplugin.py:326
+#: ../rhnplugin.py:333
 #, python-format
 msgid "Missing required login information for RHN: %s"
 msgstr "RHN に必要なログイン情報が見つかりません: %s"
-
