@@ -9,7 +9,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <id name="id" type="long" column="id">
             <meta attribute="scope-set">protected</meta>
             <generator class="sequence">
-                <param name="sequence">RHN_TASKO_TEMPLATE_ID_SEQ</param>
+                <param name="sequence">RHN_TASKO_RUN_ID_SEQ</param>
             </generator>
         </id>
 
