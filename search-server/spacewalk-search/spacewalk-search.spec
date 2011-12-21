@@ -4,7 +4,7 @@ Name: spacewalk-search
 Summary: Spacewalk Full Text Search Server
 Group: Applications/Internet
 License: GPLv2
-Version: 1.6.7
+Version: 1.6.8
 Release: 1%{?dist}
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
@@ -124,6 +124,9 @@ fi
 %{_sysconfdir}/logrotate.d/rhn-search
 
 %changelog
+* Wed Dec 21 2011 Milan Zazrivec <mzazrivec@redhat.com> 1.6.8-1
+- update copyright info
+
 * Mon Dec 05 2011 Milan Zazrivec <mzazrivec@redhat.com> 1.6.7-1
 - IPv6: create indexes for correct data
 
