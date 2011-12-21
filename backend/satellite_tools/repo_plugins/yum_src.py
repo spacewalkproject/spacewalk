@@ -36,8 +36,8 @@ except ImportError:
 from spacewalk.satellite_tools.reposync import ContentPackage
 from spacewalk.common.rhnConfig import CFG, initCFG
 
-CACHE_DIR = '/var/cache/rhn/reposync/'
-YUMSRC_CONF='/etc/rhn/spacewalk-repo-sync/yum.conf'
+CACHE_DIR   = '/var/cache/rhn/reposync/'
+YUMSRC_CONF = '/etc/rhn/spacewalk-repo-sync/yum.conf'
 
 class YumWarnings:
     def write(self, s):
@@ -88,9 +88,9 @@ class ContentSource(object):
         self.url = url
         self.name = name
         self.yumbase = yum.YumBase()
-        self.yumbase.preconf.fn=YUMSRC_CONF
+        self.yumbase.preconf.fn = YUMSRC_CONF
         if not os.path.exists(YUMSRC_CONF):
-            self.yumbase.preconf.fn='/dev/null'
+            self.yumbase.preconf.fn = '/dev/null'
         self.configparser = ConfigParser()
         self._clean_cache(CACHE_DIR + name)
 
@@ -212,14 +212,14 @@ class ContentSource(object):
     def _get_package_dependencies(self, sack, packages):
         self.yumbase.pkgSack = sack
         resolved_deps = self.yumbase.findDeps(packages)
-        for (pkg,deps) in resolved_deps.items():
-            for (dep,dep_packages) in deps.items():
+        for (pkg, deps) in resolved_deps.items():
+            for (dep, dep_packages) in deps.items():
                 packages.extend(dep_packages)
         return yum.misc.unique(packages)
 
     def get_package(self, package):
         """ get package """
-        check = (self.verify_pkg, (package.unique_id ,1), {})
+        check = (self.verify_pkg, (package.unique_id, 1), {})
         return self.repo.getPackage(package.unique_id, checkfunc=check)
 
     def verify_pkg(self, fo, pkg, fail):
