@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2010 Red Hat Inc.
+ * Copyright (c) 2008--2011 Red Hat, Inc.
  *
  * Arnaldo Carvalho de Melo <acme@redhat.com>
  * David Sommerseth <davids@redhat.com>

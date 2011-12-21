@@ -1,7 +1,7 @@
 -- -- oracle equivalent source sha1 ffec7477d36e781e5728b3b5c10e4010c58b4d2a
 -- one difference from Oracle (see TODO, delete from time_series missing)
 --
--- Copyright (c) 2008--2010 Red Hat, Inc.
+-- Copyright (c) 2008--2011 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or

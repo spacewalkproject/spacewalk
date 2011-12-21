@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2009-2010 Red Hat Inc.
+ * Copyright (c) 2009--2011 Red Hat, Inc.
  *
  * David Sommerseth <davids@redhat.com>
  *
