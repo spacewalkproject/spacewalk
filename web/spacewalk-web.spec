@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 1.6.35
+Version: 1.6.36
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -254,6 +254,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Wed Dec 21 2011 Milan Zazrivec <mzazrivec@redhat.com> 1.6.36-1
+- update copyright info
+
 * Mon Dec 12 2011 Tomas Lestach <tlestach@redhat.com> 1.6.35-1
 - add missing requires (tlestach@redhat.com)
 - fix 500 Error - ISE on network/systems/ssm/provisioning/remote_command.pxt
