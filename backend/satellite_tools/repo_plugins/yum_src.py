@@ -76,11 +76,11 @@ class YumUpdateMetadata(UpdateMetadata):
                 if not self._notices.has_key(key):
                     self._notices[key] = un
                     for pkg in un['pkglist']:
-                        for file in pkg['packages']:
-                            self._cache['%s-%s-%s' % (file['name'],
-                                                      file['version'],
-                                                      file['release'])] = un
-                            no = self._no_cache.setdefault(file['name'], set())
+                        for pkgfile in pkg['packages']:
+                            self._cache['%s-%s-%s' % (pkgfile['name'],
+                                                      pkgfile['version'],
+                                                      pkgfile['release'])] = un
+                            no = self._no_cache.setdefault(pkgfile['name'], set())
                             no.add(un)
 
 class ContentSource(object):
