@@ -1,6 +1,6 @@
 Summary: RHN support for yum
 Name: yum-rhn-plugin
-Version: 1.6.14
+Version: 1.6.15
 Release: 1%{?dist}
 License: GPLv2
 Group: System Environment/Base
@@ -72,6 +72,9 @@ fi
 %doc LICENSE
 
 %changelog
+* Wed Dec 21 2011 Milan Zazrivec <mzazrivec@redhat.com> 1.6.15-1
+- updated translations
+
 * Fri Oct 21 2011 Jan Pazdziora 1.6.14-1
 - When only package name is specified (like in Activation Key -> Packages),
   only search installed by package name.
