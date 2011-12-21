@@ -15,7 +15,6 @@
 # this module handles the token registration code for a server
 #
 
-import string
 import sys
 
 from spacewalk.common import rhnFlags
@@ -574,7 +573,7 @@ class ActivationTokens:
         token_names = map(lambda x: x[0], self.entitlements)
         if not token_names:
             return None
-        return string.join(token_names, ",")
+        return ",".join(token_names)
 
     def get_tokens(self):
         tokens = []
@@ -810,7 +809,7 @@ def fetch_token(token_string):
     log_debug(3, token_string)
     # A token should always be passed to this function
     assert token_string
-    tokens = string.split(token_string, ',')
+    tokens = token_string.split(',')
     h = rhnSQL.prepare(_query_token)
     result = []
     rereg_token_found = 0
