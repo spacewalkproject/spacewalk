@@ -18,8 +18,6 @@
 import string
 import sys
 
-from cStringIO import StringIO
-
 from spacewalk.common import rhnFlags
 from spacewalk.common.rhnLog import log_debug, log_error
 from spacewalk.common.rhnException import rhnFault, rhnException
@@ -1062,46 +1060,42 @@ def process_token(server, server_arch, tokens_obj, virt_type = None):
 
 def history_report(history):
     """ build a mildly html-ized version of the history as a report """
-    report = StringIO()
     # header information
-    report.write("Entitlement Information:\n")
-    report.write("<ul><li>%s</li></ul>" % history["entitlement"])
-    report.write("\n")
+    report = "Entitlement Information:\n"
+    report += "<ul><li>%s</li></ul>" % history["entitlement"]
+    report += "\n"
     # print out channels
-    history_subreport(report, history, "groups",
+    report += history_subreport(history, "groups",
               "Channel Subscription Information:",
               "The token does not include default Channel Subscriptions")
 
     # print out the groups
-    history_subreport(report, history, "groups",
+    report += history_subreport(history, "groups",
               "System Group Membership Information:",
               "The token does not include default System Group Membership")
 
     # auto-installed packages...
-    history_subreport(report, history, "packages",
+    report += history_subreport(history, "packages",
               "Packages Scheduled for Installation:",
               "No packages scheduled for automatic installation")
 
     # config channels...
-    history_subreport(report, history, 'config_channels',
+    report += history_subreport(history, 'config_channels',
               "Config Channel Subscription Information:",
               "The token does not include default configuration channels")
-    
-    ret = report.getvalue()
-    report.close()
-    del report
-    # return what we got
-    return ret
 
-def history_subreport(report, history, key, title, emptymsg):
+    return report
+
+def history_subreport(history, key, title, emptymsg):
     if history.has_key(key):
-        report.write(title + "\n")
-        report.write("<ul>\n")
+        subreport = title + "\n"
+        subreport += "<ul>\n"
 
         for c in history[key]:
-            report.write("<li>%s</li>\n" % c)
+            subreport += "<li>%s</li>\n" % c
 
         if len(history[key]) == 0:
-            report.write("<li>%s</li>\n" % emptymsg)
+            subreport += "<li>%s</li>\n" % emptymsg
 
-        report.write("</ul>\n")
+        subreport += "</ul>\n"
+    return subreport
