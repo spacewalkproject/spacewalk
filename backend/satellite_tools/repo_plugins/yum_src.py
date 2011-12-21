@@ -147,14 +147,14 @@ class ContentSource(object):
     def list_packages(self, filters):
         """ list packages"""
         self.sack.populate(self.repo, 'metadata', None, 0)
-        list = self.sack.returnPackages()
-        self.num_packages = len(list)
+        pkglist = self.sack.returnPackages()
+        self.num_packages = len(pkglist)
         if filters:
-            list = self._filter_packages(list, filters)
-            list = self._get_package_dependencies(self.sack, list)
-            self.num_excluded = self.num_packages - len(list)
+            pkglist = self._filter_packages(pkglist, filters)
+            pkglist = self._get_package_dependencies(self.sack, pkglist)
+            self.num_excluded = self.num_packages - len(pkglist)
         to_return = []
-        for pack in list:
+        for pack in pkglist:
             if pack.arch == 'src':
                 continue
             new_pack = ContentPackage()
