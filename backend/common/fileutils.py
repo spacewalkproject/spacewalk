@@ -291,7 +291,6 @@ def setPermsPath(path, user='apache', group='root', chmod=0750):
     """chown user.group and set permissions to chmod"""
     if not os.path.exists(path):
         raise OSError, "*** ERROR: Path doesn't exist (can't set permissions): %s" % path
-        sys.exit(-1)
 
     # If non-root, don't bother to change owners
     if os.getuid() != 0:
@@ -301,12 +300,10 @@ def setPermsPath(path, user='apache', group='root', chmod=0750):
     uid = gc.getuid(user)
     if uid is None:
         raise OSError, "*** ERROR: user '%s' doesn't exist. Cannot set permissions properly." % user
-        sys.exit(-1)
 
     gid = gc.getgid(group)
     if gid is None:
         raise OSError, "*** ERROR: group '%s' doesn't exist. Cannot set permissions properly." % group
-        sys.exit(-1)
 
     uid_, gid_ = os.stat(path)[4:6]
     if uid_ != uid or gid_ != gid:
