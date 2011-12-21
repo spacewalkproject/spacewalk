@@ -185,8 +185,8 @@ class ContentSource(object):
         else:
             excluded = packages
 
-        for filter in filters:
-            sense, pkg_list = filter
+        for filter_item in filters:
+            sense, pkg_list = filter_item
             if sense == '+':
                 # include
                 exactmatch, matched, unmatched = yum.packages.parsePackages(
