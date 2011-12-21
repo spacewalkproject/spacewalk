@@ -219,7 +219,7 @@ class RepoSync(object):
                         epoch = param_dict['epoch'] + ":"
                     else:
                         epoch = ""
-                    log_debug(1, "No cheksum found for %s-%s%s-%s.%s. Skipping Package" % (param_dict['name'],
+                    log_debug(1, "No checksum found for %s-%s%s-%s.%s. Skipping Package" % (param_dict['name'],
                                                                                                 epoch,
                                                                                                 param_dict['version'],
                                                                                                 param_dict['release'],
