@@ -2,23 +2,23 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 #
+# Translators:
 # Ankit Patel <ankit@redhat.com>, 2006, 2007.
 # Automatically generated, 2004.
-# Tyronne Wickramarathne <tywickra@redhat.com>, 2006, 2007.
 # Miroslav Suchý <msuchy@redhat.com>, 2011.
+# Tyronne Wickramarathne <tywickra@redhat.com>, 2006, 2007.
 msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: http://bugzilla.redhat.com/\n"
 "POT-Creation-Date: 2011-07-19 18:03+0200\n"
-"PO-Revision-Date: 2011-03-22 15:40+0000\n"
-"Last-Translator: msuchy <msuchy@redhat.com>\n"
-"Language-Team: Sinhala (http://www.transifex.net/projects/p/fedora/team/"
-"si/)\n"
-"Language: si\n"
+"PO-Revision-Date: 2011-07-20 00:39+0000\n"
+"Last-Translator: Miroslav Suchý <msuchy@redhat.com>\n"
+"Language-Team: Sinhala (http://www.transifex.net/projects/p/fedora/team/si/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: si\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
 #: ../src/up2date_client/rhnregGui.py:132
@@ -42,8 +42,8 @@ msgstr "ඔබ විසින් සපයා ඇත්තේ සාවද්�
 
 #: ../src/up2date_client/rhnregGui.py:310
 msgid ""
-"You will not be able to successfully register this system without contacting "
-"a Red Hat Network server."
+"You will not be able to successfully register this system without contacting"
+" a Red Hat Network server."
 msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:332
@@ -54,15 +54,16 @@ msgstr "අප හට Red Hat Network (%s) වෙත සම්බන්ධ ව�
 #: ../src/up2date_client/rhnregGui.py:334
 #: ../src/up2date_client/rhnregGui.py:347
 msgid "Make sure the network connection on this system is operational."
-msgstr "ඔබේ පරිගණකයේ ජාල සම්බන්ධතාවය නිසියාකාරව සිදුවෙන බව ප්‍රත්‍යක්‍ෂ කරගන්න"
+msgstr ""
+"ඔබේ පරිගණකයේ ජාල සම්බන්ධතාවය නිසියාකාරව සිදුවෙන බව ප්‍රත්‍යක්‍ෂ කරගන්න"
 
 #: ../src/up2date_client/rhnregGui.py:336
 msgid ""
-"Did you mean to register to a Red Hat Network Satellite or Proxy? If so, you "
-"can enter a Satellite or Proxy location instead."
+"Did you mean to register to a Red Hat Network Satellite or Proxy? If so, you"
+" can enter a Satellite or Proxy location instead."
 msgstr ""
-"ඔබ විසින් අදහස් කලේ Red Hat Network Satellite හෝ ප්‍රොක්සි සමඟ ලියාපදිංචි වීමටද ? එසේ "
-"අවශ්‍ය නම් Satellite හෝ ප්‍රොක්සි ස්ථානය ඇතුල් කරන්න."
+"ඔබ විසින් අදහස් කලේ Red Hat Network Satellite හෝ ප්‍රොක්සි සමඟ ලියාපදිංචි "
+"වීමටද ? එසේ අවශ්‍ය නම් Satellite හෝ ප්‍රොක්සි ස්ථානය ඇතුල් කරන්න."
 
 #: ../src/up2date_client/rhnregGui.py:342
 #, python-format
@@ -75,19 +76,24 @@ msgid ""
 "Double-check the location - is '%s' correct? If not, you can correct it and "
 "try again."
 msgstr ""
-"ස්ථානය - '%s' බව නැවත පරීක්‍ෂා කරගන්න. එස්ව නොමැති නම් එය නිවැරදි කර නැවත උත්සහ කරන්න"
+"ස්ථානය - '%s' බව නැවත පරීක්‍ෂා කරගන්න. එස්ව නොමැති නම් එය නිවැරදි කර නැවත "
+"උත්සහ කරන්න"
 
 #: ../src/up2date_client/rhnregGui.py:357
 msgid "There was an error communicating with Red Hat Network."
 msgstr "Red Hat Network සමඟ සන්නිවේදනය කිරීමේදී දෝශයක් ඇති විය"
 
 #: ../src/up2date_client/rhnregGui.py:358
-msgid "The server may be in outage mode. You may have to try connecting later."
-msgstr "සේවා දායකය ක්‍රියාවිරහිත ආකාරයෙන් පවතී. ඔබ හට පසුව සම්බන්ධ වීමට උත්සහ කල හැක"
+msgid ""
+"The server may be in outage mode. You may have to try connecting later."
+msgstr ""
+"සේවා දායකය ක්‍රියාවිරහිත ආකාරයෙන් පවතී. ඔබ හට පසුව සම්බන්ධ වීමට උත්සහ කල හැක"
 
 #: ../src/up2date_client/rhnregGui.py:360
 msgid "You may be running a client that is incompatible with the server."
-msgstr "ඇතැම්විට ඔබ විසින් සේවා දායකය සමඟ නොගැලපෙන සේවා ග්‍රාහකයක් ක්‍රියාත්මක කර ඇත."
+msgstr ""
+"ඇතැම්විට ඔබ විසින් සේවා දායකය සමඟ නොගැලපෙන සේවා ග්‍රාහකයක් ක්‍රියාත්මක කර "
+"ඇත."
 
 #: ../src/up2date_client/rhnregGui.py:399
 #, python-format
@@ -112,7 +118,8 @@ msgstr ""
 msgid ""
 "There was an error communicating with the registration server.  The message "
 "was:\n"
-msgstr "ලියාපදිංචිකරණ සේවා දායකය හා සම්බන්ධ වීමේදී දෝශයක් ඇතිවිය.  පණිවිඩය වනුයේ:\n"
+msgstr ""
+"ලියාපදිංචිකරණ සේවා දායකය හා සම්බන්ධ වීමේදී දෝශයක් ඇතිවිය.  පණිවිඩය වනුයේ:\n"
 
 #: ../src/up2date_client/rhnregGui.py:635
 msgid "There was an error while assembling information for the profile."
@@ -136,7 +143,8 @@ msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:729
 msgid "Sending your profile information to Red Hat Network.  Please wait."
-msgstr "ඔබේ පැතිකඩ තොරතුරු Red Hat Network වෙත යවමින් තිබේ.  කරුණාකර රැඳී සිටින්න."
+msgstr ""
+"ඔබේ පැතිකඩ තොරතුරු Red Hat Network වෙත යවමින් තිබේ.  කරුණාකර රැඳී සිටින්න."
 
 #: ../src/up2date_client/rhnregGui.py:748
 msgid "Registering System"
@@ -155,8 +163,8 @@ msgid ""
 "The installation number [ %s ] provided is not a valid installation number. "
 "Please go back to the previous screen and fix it."
 msgstr ""
-"ඔබ විසින් සපයා ඇති ග්‍රාහක අංකය [ %s ] වලංගු ග්‍රාහක අංකයක් නොවේ. කරුණාකර පෙර තිරය වෙත "
-"ගොස් මෙය නිවැරදි කරන්න."
+"ඔබ විසින් සපයා ඇති ග්‍රාහක අංකය [ %s ] වලංගු ග්‍රාහක අංකයක් නොවේ. කරුණාකර "
+"පෙර තිරය වෙත ගොස් මෙය නිවැරදි කරන්න."
 
 #: ../src/up2date_client/rhnregGui.py:783 ../src/up2date_client/tui.py:890
 msgid "Problem registering system."
@@ -228,8 +236,8 @@ msgid ""
 "There was an SSL error. This could be because the file you picked was not a "
 "certificate file."
 msgstr ""
-"මෙහි SSL දෝශයක් ඇති විය. ඇතැම් විට ඔබ විසින් තෝරාගනු ලැබූ ගොනුව සහතිකපත් ගොනුවක් නොවීම මීට හේතු "
-"විය හැක."
+"මෙහි SSL දෝශයක් ඇති විය. ඇතැම් විට ඔබ විසින් තෝරාගනු ලැබූ ගොනුව සහතිකපත් "
+"ගොනුවක් නොවීම මීට හේතු විය හැක."
 
 #. TODO Provide better messages
 #: ../src/up2date_client/rhnregGui.py:1020
@@ -269,8 +277,11 @@ msgid "Arch"
 msgstr "සබැඳියාව"
 
 #: ../src/up2date_client/rhnregGui.py:1253
-msgid "Building a list of RPM packages installed on your system.  Please wait."
-msgstr "ඔබේ පද්ධතිය තුල ස්ථාපනය කල යුතු RPM ලයිස්තුව සැකසෙමින් පවතී.  කරුණාකර රැඳී සිටින්න."
+msgid ""
+"Building a list of RPM packages installed on your system.  Please wait."
+msgstr ""
+"ඔබේ පද්ධතිය තුල ස්ථාපනය කල යුතු RPM ලයිස්තුව සැකසෙමින් පවතී.  කරුණාකර රැඳී "
+"සිටින්න."
 
 #: ../src/up2date_client/rhnregGui.py:1284
 msgid ""
@@ -296,9 +307,9 @@ msgid ""
 "program, please file a bug at bugzilla.redhat.com. Including the relevant "
 "parts of '%s' would be very helpful. Thanks!"
 msgstr ""
-"මෙය සිදුවිය හැකි දෝශයක් නොවේ. මෙම වැඩසටහන වැඩිදියුණු කිරීමට අප හට උදව් වීමට කැමති නම්, "
-"කරුණාකර  bugzilla.redhat.com හී දෝශය සටහන් කරන්න. '%s' හි කොටස් සමඟ වාර්තා කරන්නේ නම් "
-"එය වඩාත් ප්‍රයෝජනවත් වනු ඇත. ස්තූතියි!"
+"මෙය සිදුවිය හැකි දෝශයක් නොවේ. මෙම වැඩසටහන වැඩිදියුණු කිරීමට අප හට උදව් වීමට "
+"කැමති නම්, කරුණාකර  bugzilla.redhat.com හී දෝශය සටහන් කරන්න. '%s' හි කොටස් "
+"සමඟ වාර්තා කරන්නේ නම් එය වඩාත් ප්‍රයෝජනවත් වනු ඇත. ස්තූතියි!"
 
 #: ../src/up2date_client/rpcServer.py:45
 msgid "Error: Server Unavailable. Please try later."
@@ -425,7 +436,8 @@ msgstr ""
 
 #: ../src/up2date_client/tui.py:1260
 msgid "You must run the RHN registration program as root."
-msgstr "ඔබ විසින් RHN ලියාපදිංචි කිරීමේ වැඩසටහන root ලෙස ක්‍රියාත්මක කල යුතු වේ"
+msgstr ""
+"ඔබ විසින් RHN ලියාපදිංචි කිරීමේ වැඩසටහන root ලෙස ක්‍රියාත්මක කල යුතු වේ"
 
 #: ../src/up2date_client/rhnreg.py:55
 msgid "Warning: unable to enable rhnsd with chkconfig"
@@ -490,19 +502,14 @@ msgstr "මෘදුකාංග නවීකරණය සඳහා ලියා
 
 #: ../src/up2date_client/rhnreg_constants.py:24
 msgid ""
-"This assistant will guide you through connecting your system to Red Hat "
-"Network (RHN) to receive software updates, including security updates, to "
-"keep your system supported and compliant.  You will need the following at "
-"this time:\n"
+"This assistant will guide you through connecting your system to Red Hat Network (RHN) to receive software updates, including security updates, to keep your system supported and compliant.  You will need the following at this time:\n"
 "\n"
 " * A network connection\n"
 " * Your Red Hat Login & password\n"
 " * The location of a Red Hat Network Satellite or Proxy (optional)\n"
 "\n"
 msgstr ""
-"ඔබේ පද්ධතිය ආරක්‍ෂිතව තබාගැනීමට අවශ්‍ය ප්‍රගමනයන් ඇතුලත්ව මෘදුකාංග ප්‍රගමනයන් ලබාගැනීම හා "
-"නිසියාකාරව පද්ධතිය පවත්වාගැනීම සඳහා මෙම සහයක විසින් Red Hat Network (RHN) වෙත සම්බන්ධ "
-"වන අයුරු පෙන්වනු ලැබේ.  මේ සඳහා පහත සඳහන් සියල්ල ඔබහට අවශ්‍ය වේ:\n"
+"ඔබේ පද්ධතිය ආරක්‍ෂිතව තබාගැනීමට අවශ්‍ය ප්‍රගමනයන් ඇතුලත්ව මෘදුකාංග ප්‍රගමනයන් ලබාගැනීම හා නිසියාකාරව පද්ධතිය පවත්වාගැනීම සඳහා මෙම සහයක විසින් Red Hat Network (RHN) වෙත සම්බන්ධ වන අයුරු පෙන්වනු ලැබේ.  මේ සඳහා පහත සඳහන් සියල්ල ඔබහට අවශ්‍ය වේ:\n"
 "\n"
 " * අන්තර්ජාල සම්බන්ධතාවයක්\n"
 " * ඔබේ Red Hat පිවිසුම සහ රහස්පදය\n"
@@ -523,8 +530,8 @@ msgid ""
 "Connecting your system to Red Hat Network allows you to take full advantage "
 "of the benefits of a paid subscription, including:"
 msgstr ""
-"ඔබේ පද්ධතිය Red Hat Network වෙත සම්බන්ධ කිරීමෙන් ඔබ මුදල් ගෙවා ලබාගන්නා සාමාජිකත්වයට හිමි "
-"සියළු ප්‍රතිලාභ ලබාගත හැකි වේ, මීට පහත සඳහන් දෑ ඇතුලත්ය"
+"ඔබේ පද්ධතිය Red Hat Network වෙත සම්බන්ධ කිරීමෙන් ඔබ මුදල් ගෙවා ලබාගන්නා "
+"සාමාජිකත්වයට හිමි සියළු ප්‍රතිලාභ ලබාගත හැකි වේ, මීට පහත සඳහන් දෑ ඇතුලත්ය"
 
 #: ../src/up2date_client/rhnreg_constants.py:41
 msgid "Security & Updates:"
@@ -547,39 +554,40 @@ msgid ""
 "Receive the latest software updates, including security updates, keeping "
 "this Red Hat Enterprise Linux system updated and secure."
 msgstr ""
-"මෙම Red Hat Enterprise Linux පද්ධතිය නවීකරණයෙන් සහ ආරක්‍ෂිතව තබා ගැනීමට ආරක්‍ෂක "
-"නවීකරණයන් ඇතුළුව නවතම ඇසුරුම් ලබාගන්න."
+"මෙම Red Hat Enterprise Linux පද්ධතිය නවීකරණයෙන් සහ ආරක්‍ෂිතව තබා ගැනීමට "
+"ආරක්‍ෂක නවීකරණයන් ඇතුළුව නවතම ඇසුරුම් ලබාගන්න."
 
 #: ../src/up2date_client/rhnreg_constants.py:47
 msgid ""
 "Download installation images for Red Hat Enterprise Linux releases, "
 "including new releases."
 msgstr ""
-"නව නිකුතුවන්ද ඇතුලත්ව Red Hat Enterprise Linux නිකුතුවන් සඳහා වන ස්ථාපන පිළිඹුවන් බාගත කරන්න"
+"නව නිකුතුවන්ද ඇතුලත්ව Red Hat Enterprise Linux නිකුතුවන් සඳහා වන ස්ථාපන "
+"පිළිඹුවන් බාගත කරන්න"
 
 #: ../src/up2date_client/rhnreg_constants.py:49
 msgid ""
-"Access to the technical support experts at Red Hat or Red Hat's partners for "
-"help with any issues you might encounter with this system."
+"Access to the technical support experts at Red Hat or Red Hat's partners for"
+" help with any issues you might encounter with this system."
 msgstr ""
-"Red Hat හෝ Red Hat හී කොටස් කරුවන් සමඟ ඔබේ පද්ධතියේ තිබෙන ඕනෑම ගැටළුවක් සම්බන්ධයෙන් ඔබට "
-"ඔවුන් වෙත ලඟා විය හැක."
+"Red Hat හෝ Red Hat හී කොටස් කරුවන් සමඟ ඔබේ පද්ධතියේ තිබෙන ඕනෑම ගැටළුවක් "
+"සම්බන්ධයෙන් ඔබට ඔවුන් වෙත ලඟා විය හැක."
 
 #: ../src/up2date_client/rhnreg_constants.py:51
 msgid ""
-"Stay in compliance with your subscription agreement and manage subscriptions "
-"for systems connected to your account at http://rhn.redhat.com/."
+"Stay in compliance with your subscription agreement and manage subscriptions"
+" for systems connected to your account at http://rhn.redhat.com/."
 msgstr ""
-"ඔබේ එකඟතා ගිවිසුම සමඟ අනුකූලව ඔබේ ග්‍රහකත්වයන් කළමණාකරනය කර ගැනීම සඳහා http://rhn."
-"redhat.com සමඟ සම්බන්ධ වී සිටින්න"
+"ඔබේ එකඟතා ගිවිසුම සමඟ අනුකූලව ඔබේ ග්‍රහකත්වයන් කළමණාකරනය කර ගැනීම සඳහා "
+"http://rhn.redhat.com සමඟ සම්බන්ධ වී සිටින්න"
 
 #: ../src/up2date_client/rhnreg_constants.py:55
 msgid ""
-"Tip: Red Hat values your privacy: http://www.redhat.com/legal/"
-"privacy_statement.html"
+"Tip: Red Hat values your privacy: "
+"http://www.redhat.com/legal/privacy_statement.html"
 msgstr ""
-"Red Hat ඔබේ පෞද්ගලිකත්වය අගය කරනු ලබයි: http://www.redhat.com/legal/"
-"privacy_statement.html"
+"Red Hat ඔබේ පෞද්ගලිකත්වය අගය කරනු ලබයි: "
+"http://www.redhat.com/legal/privacy_statement.html"
 
 #: ../src/up2date_client/rhnreg_constants.py:57 ../data/rh_register.glade.h:42
 msgid "Take me back to the registration"
@@ -593,7 +601,8 @@ msgstr "මෘදුකාංග නවීකරණ සැකසුම අසා
 #: ../src/up2date_client/rhnreg_constants.py:61
 msgid ""
 "Are you sure you don't want to connect your system to Red Hat Network? "
-"You'll miss out on the benefits of a Red Hat Enterprise Linux subscription:\n"
+"You'll miss out on the benefits of a Red Hat Enterprise Linux "
+"subscription:\n"
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:63
@@ -637,8 +646,8 @@ msgid ""
 "Tip: Forgot your login or password?  Contact your Satellite's Organization "
 "Administrator."
 msgstr ""
-"ඉඟිය: ඔබේ පරිශීලක නාමය හෝ රහස්පදය අමතක වීද? ඔබේ චන්ද්‍රිකා සේවා දායකයේ ආයතන කළමණාකරු "
-"අමතන්න."
+"ඉඟිය: ඔබේ පරිශීලක නාමය හෝ රහස්පදය අමතක වීද? ඔබේ චන්ද්‍රිකා සේවා දායකයේ ආයතන "
+"කළමණාකරු අමතන්න."
 
 #: ../src/up2date_client/rhnreg_constants.py:77
 msgid "Please enter a desired login."
@@ -688,19 +697,21 @@ msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:93
 msgid ""
-"A Profile Name is a descriptive name that you choose to identify this System "
-"Profile on the Red Hat Network web pages. Optionally, include a computer "
+"A Profile Name is a descriptive name that you choose to identify this System"
+" Profile on the Red Hat Network web pages. Optionally, include a computer "
 "serial or identification number."
 msgstr ""
-"පැතිකඩ නාමයක් යනු මෙම පද්ධතියේ පැතිකඩ Red Hat Network හි වියුණු පිටු තුල ඇතුලත්වන මෙම පද්ධතිය "
-"හඳුනාගැනීම සඳහා වන නාමය වේ. මීට අමතරව පද්ධතියේ ජනන අංකය හෝ හඳුනාගැනීමේ අංකය ඇතුලත් "
-"කරන්න."
+"පැතිකඩ නාමයක් යනු මෙම පද්ධතියේ පැතිකඩ Red Hat Network හි වියුණු පිටු තුල "
+"ඇතුලත්වන මෙම පද්ධතිය හඳුනාගැනීම සඳහා වන නාමය වේ. මීට අමතරව පද්ධතියේ ජනන අංකය"
+" හෝ හඳුනාගැනීමේ අංකය ඇතුලත් කරන්න."
 
 #: ../src/up2date_client/rhnreg_constants.py:97
 msgid ""
 "Additional hardware information including PCI devices, disk sizes and mount "
 "points will be included in the profile."
-msgstr "PCI උපාංග, තැටි වල ප්‍රමාණයන්, සවිකරන ස්ථානයන් අදිය මෙම පැතිකඩ තුල ඇතුලත් වේ."
+msgstr ""
+"PCI උපාංග, තැටි වල ප්‍රමාණයන්, සවිකරන ස්ථානයන් අදිය මෙම පැතිකඩ තුල ඇතුලත් "
+"වේ."
 
 #: ../src/up2date_client/rhnreg_constants.py:100
 msgid "Include the following information about hardware and network:"
@@ -713,15 +724,17 @@ msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:105
 msgid ""
-"RPM information is important to determine what updated software packages are "
-"relevant to this system."
+"RPM information is important to determine what updated software packages are"
+" relevant to this system."
 msgstr ""
-"නවීකරණය කරන ලද ඇසුරුම් මෙම පද්ධතියට අවශ්‍ය වනෙනේදැයි දැන ගැනීම සඳහා RPM තොරතුරු ඉතා "
-"වැදගත් වේ"
+"නවීකරණය කරන ලද ඇසුරුම් මෙම පද්ධතියට අවශ්‍ය වනෙනේදැයි දැන ගැනීම සඳහා RPM "
+"තොරතුරු ඉතා වැදගත් වේ"
 
 #: ../src/up2date_client/rhnreg_constants.py:108
 msgid "Include RPM packages installed on this system in my System Profile"
-msgstr "මෙම පද්ධතිය තුල ස්ථාපනය කර ඇති RPM ඇසුරුම් මාගේ පද්ධතියේ පැතිකඩට ඇතුලත් කරන්න"
+msgstr ""
+"මෙම පද්ධතිය තුල ස්ථාපනය කර ඇති RPM ඇසුරුම් මාගේ පද්ධතියේ පැතිකඩට ඇතුලත් "
+"කරන්න"
 
 #: ../src/up2date_client/rhnreg_constants.py:110
 msgid "You may deselect individual packages by unchecking them below."
@@ -734,8 +747,7 @@ msgstr "ඇසුරුම් ලැයිස්තුව සකස් කරම
 #. Product Window
 #: ../src/up2date_client/rhnreg_constants.py:115
 msgid ""
-"Please enter your login information for Red Hat Network (http://rhn.redhat."
-"com/):\n"
+"Please enter your login information for Red Hat Network (http://rhn.redhat.com/):\n"
 "\n"
 msgstr ""
 "Red Hat Network (http://rhn.redhat.com) සඳහා ඔබේ ගිණුමේ තොරතුරු ඇතුල් කරන්න:\n"
@@ -743,8 +755,8 @@ msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:117
 msgid ""
-"Tip: Forgot your login or password? Visit: https://rhn.redhat.com/rhn/sales/"
-"LoginInfo.do"
+"Tip: Forgot your login or password? Visit: "
+"https://rhn.redhat.com/rhn/sales/LoginInfo.do"
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:119
@@ -758,7 +770,9 @@ msgstr "පද්ධතියේ මෘදුකාංග නවීකරණය 
 
 #: ../src/up2date_client/rhnreg_constants.py:122
 msgid "It appears this system has already been set up for software updates:"
-msgstr "ඔබේ පද්ධතිය මීට පෙර මෘදුකාංග නවීකරණයන් සිදුකර ගත හැකි ලෙස සකසා තිබෙන බව පෙනී යයි:"
+msgstr ""
+"ඔබේ පද්ධතිය මීට පෙර මෘදුකාංග නවීකරණයන් සිදුකර ගත හැකි ලෙස සකසා තිබෙන බව පෙනී"
+" යයි:"
 
 #: ../src/up2date_client/rhnreg_constants.py:123
 msgid "Are you sure you would like to continue?"
@@ -766,15 +780,11 @@ msgstr "නිශ්චිතවම ඔබට දිගටම කරගෙන �
 
 #: ../src/up2date_client/rhnreg_constants.py:125
 msgid ""
-"It appears this system has already been registered with RHN using RHN "
-"Certificate-Based Entitlement technology. This tool requires registration "
-"using RHN Classic technology.\n"
+"It appears this system has already been registered with RHN using RHN Certificate-Based Entitlement technology. This tool requires registration using RHN Classic technology.\n"
 "\n"
-"Except for a few cases, Red Hat recommends customers only register with RHN "
-"once.\n"
+"Except for a few cases, Red Hat recommends customers only register with RHN once.\n"
 "\n"
-"For more information, including alternate tools, consult this Knowledge Base "
-"Article: https://access.redhat.com/kb/docs/DOC-45563"
+"For more information, including alternate tools, consult this Knowledge Base Article: https://access.redhat.com/kb/docs/DOC-45563"
 msgstr ""
 
 #. Send Window
@@ -786,15 +796,11 @@ msgstr "පැතිකඩ තොරතුරු Red Hat Network වෙත ය�
 msgid ""
 "We are finished collecting information for the System Profile.\n"
 "\n"
-"Press \"Next\" to send this System Profile to Red Hat Network.  Click "
-"\"Cancel\" and no information will be sent.  You can run the registration "
-"program later by typing `rhn_register` at the command line."
+"Press \"Next\" to send this System Profile to Red Hat Network.  Click \"Cancel\" and no information will be sent.  You can run the registration program later by typing `rhn_register` at the command line."
 msgstr ""
 "පැතිකඩක් සාදාගැනීම සඳහා පද්ධතියේ තොරතුරු රැස් කරගෙන අවසන්.\n"
 "\n"
-"\"Next (මීලඟ)\"  ඔබන්න පද්ධතියේ පැතිකඩ Red Hat Network යැවීම සඳහා.  \"Cancel "
-"(අවලංගු කරන්න)\" ක්ලික් කරන්න එවිට කිසිදු තොරතුරක් යවනු නොලැබේ.  ඔබට පසුව `rhn_register` "
-"විධානය පාඨමය අයුරින් ක්‍රියාත්මක කරමින් ලියාපදිංචි කිරීමේ ක්‍රියාවලිය නැවත ආරම්භ කල හැක."
+"\"Next (මීලඟ)\"  ඔබන්න පද්ධතියේ පැතිකඩ Red Hat Network යැවීම සඳහා.  \"Cancel (අවලංගු කරන්න)\" ක්ලික් කරන්න එවිට කිසිදු තොරතුරක් යවනු නොලැබේ.  ඔබට පසුව `rhn_register` විධානය පාඨමය අයුරින් ක්‍රියාත්මක කරමින් ලියාපදිංචි කිරීමේ ක්‍රියාවලිය නැවත ආරම්භ කල හැක."
 
 #. Sending Window
 #: ../src/up2date_client/rhnreg_constants.py:142
@@ -814,15 +820,16 @@ msgid ""
 "periodically to get the latest updates. Alternatively, you may configure "
 "this system for automatic software updates (also known as 'auto errata "
 "update') via the Red Hat Network web interface.  (Instructions for this are "
-"in chapter 6 of the RHN Reference Guide, available from the 'Help' button in "
-"the main Red Hat Network web interface.)"
+"in chapter 6 of the RHN Reference Guide, available from the 'Help' button in"
+" the main Red Hat Network web interface.)"
 msgstr ""
-"Red Hat Network වෙතින් නව මෘදුකාංග ප්‍රගමනයන් ලබාගැනීම සඳහා විධාන රේඛාවේ සිට 'yum "
-"update' විධානය ක්‍රියාත්මක කරන්න. නව ප්‍රගමනයන් ලබාගැනීම සඳහා වරින්වර මෙම විධානය භාවිතා "
-"කලයුතු වේ. Red Hat Network වියුණු අතුරු මුහුණත භාවිතා කරම විකල්පයක් ලෙස මෙම පද්ධතිය ස්වයංක්‍රීය "
-"මෘදුකාංග ප්‍රගමණයන් ලබාගැනීම සඳහා මානකරන්න . (RHN Reference Guide හී 6 වන පරිච්ඡේදය "
-"තුල මේ සඳහා අවශ්‍ය උපදෙස් අන්තර්ගතව ඇත, මෙය Red Hat Network වියුණු අතුරු මුහුණත තුල තිබෙන "
-"'උදව්' සූචකය හරහා ලබාගත හැක.)"
+"Red Hat Network වෙතින් නව මෘදුකාංග ප්‍රගමනයන් ලබාගැනීම සඳහා විධාන රේඛාවේ සිට"
+" 'yum update' විධානය ක්‍රියාත්මක කරන්න. නව ප්‍රගමනයන් ලබාගැනීම සඳහා වරින්වර "
+"මෙම විධානය භාවිතා කලයුතු වේ. Red Hat Network වියුණු අතුරු මුහුණත භාවිතා කරම "
+"විකල්පයක් ලෙස මෙම පද්ධතිය ස්වයංක්‍රීය මෘදුකාංග ප්‍රගමණයන් ලබාගැනීම සඳහා "
+"මානකරන්න . (RHN Reference Guide හී 6 වන පරිච්ඡේදය තුල මේ සඳහා අවශ්‍ය උපදෙස් "
+"අන්තර්ගතව ඇත, මෙය Red Hat Network වියුණු අතුරු මුහුණත තුල තිබෙන 'උදව්' සූචකය"
+" හරහා ලබාගත හැක.)"
 
 #. Review Window
 #: ../src/up2date_client/rhnreg_constants.py:157 ../data/gui.glade.h:6
@@ -839,13 +846,15 @@ msgid ""
 "The installation number %s was activated during this system's initial "
 "connection to Red Hat Network."
 msgstr ""
-"Red Hat Network සමඟ මූලික සම්බන්ධතාවය ඇතිකර ගැනීමේදී ස්ථාාපන අංකය %s   සක්‍රීය කර ඇත."
+"Red Hat Network සමඟ මූලික සම්බන්ධතාවය ඇතිකර ගැනීමේදී ස්ථාාපන අංකය %s   "
+"සක්‍රීය කර ඇත."
 
 #: ../src/up2date_client/rhnreg_constants.py:161
 msgid ""
-"Subscriptions have been activated for the following Red Hat products/"
-"services:"
-msgstr "පහත දැක්වෙන Red Hat සේවාවන් සහ නිශ්පාදන සඳහා ග්‍රාහකත්වය සක්‍රීය කර ඇත:"
+"Subscriptions have been activated for the following Red Hat "
+"products/services:"
+msgstr ""
+"පහත දැක්වෙන Red Hat සේවාවන් සහ නිශ්පාදන සඳහා ග්‍රාහකත්වය සක්‍රීය කර ඇත:"
 
 #: ../src/up2date_client/rhnreg_constants.py:163
 msgid "Software channel subscriptions:"
@@ -853,10 +862,11 @@ msgstr "මෘදුකාග ඕඩයේ ග්‍රාහකත්වයන�
 
 #: ../src/up2date_client/rhnreg_constants.py:164
 msgid ""
-"This system will receive updates from the following Red Hat Network software "
-"channels:"
+"This system will receive updates from the following Red Hat Network software"
+" channels:"
 msgstr ""
-"මෙම පද්ධතිය විසින් පහත දැක්වෙන Red Hat Network මෘදුකාංග ඕඩයන් මඟින් නවීකරණයන් ලබාගත හැක:"
+"මෙම පද්ධතිය විසින් පහත දැක්වෙන Red Hat Network මෘදුකාංග ඕඩයන් මඟින් "
+"නවීකරණයන් ලබාගත හැක:"
 
 #: ../src/up2date_client/rhnreg_constants.py:166
 msgid ""
@@ -867,11 +877,12 @@ msgid ""
 "get updates for that product. See Kbase article 11313 for more details. "
 "(http://kbase.redhat.com/faq/docs/DOC-11313)"
 msgstr ""
-"අවවාදයයි: මෙම පද්ධතිය තුල ස්ථාපනය කර තිබෙන නිශ්පාදනයක් ඉහත සඳහන් නොවන්නේ නම් ඒ සඳහා "
-"නවීකරණයන් හෝ සහයන් ඔබ වෙත නොලැබෙනු ඇත. එම නිශ්පාදනයන් සඳහා සහය ලබාගැනීමට ඔබට අවශ්‍ය "
-"නම්, කරුණාකර ඔබේ චන්‍ද්‍රිකා වියුණු අතුරු මුහුණත භාවිතා කර පද්ධතිය තුලට පිවිස අදාල නිශ්පාදනයන් සඳහා "
-"අවශ්‍ය සහය ලබාගැනීමට යෝග්‍ය මෘදුකාංග ඕඩයන් වෙත ග්‍රාහකත්වය ලබාගන්න. වැඩි විස්තර සඳහා Kbase "
-"11313 ලිපිය කියවන්න. (http://kbase.redhat.com/faq/docs/DOC-11313)"
+"අවවාදයයි: මෙම පද්ධතිය තුල ස්ථාපනය කර තිබෙන නිශ්පාදනයක් ඉහත සඳහන් නොවන්නේ නම්"
+" ඒ සඳහා නවීකරණයන් හෝ සහයන් ඔබ වෙත නොලැබෙනු ඇත. එම නිශ්පාදනයන් සඳහා සහය "
+"ලබාගැනීමට ඔබට අවශ්‍ය නම්, කරුණාකර ඔබේ චන්‍ද්‍රිකා වියුණු අතුරු මුහුණත භාවිතා"
+" කර පද්ධතිය තුලට පිවිස අදාල නිශ්පාදනයන් සඳහා අවශ්‍ය සහය ලබාගැනීමට යෝග්‍ය "
+"මෘදුකාංග ඕඩයන් වෙත ග්‍රාහකත්වය ලබාගන්න. වැඩි විස්තර සඳහා Kbase 11313 ලිපිය "
+"කියවන්න. (http://kbase.redhat.com/faq/docs/DOC-11313)"
 
 #: ../src/up2date_client/rhnreg_constants.py:177
 msgid ""
@@ -879,14 +890,15 @@ msgid ""
 "will not receive updates or support for that product. If you would like to "
 "receive updates for that product, please visit http://rhn.redhat.com/ and "
 "subscribe this system to the appropriate software channels to get updates "
-"for that product. See Kbase article 11313 for more details. (http://kbase."
-"redhat.com/faq/docs/DOC-11313)"
+"for that product. See Kbase article 11313 for more details. "
+"(http://kbase.redhat.com/faq/docs/DOC-11313)"
 msgstr ""
-"අවවාදයයි: මෙම පද්ධතියේ ස්ථාපනය කරැති නිශ්පාදනයන් ඉහත සඳහන් නොවන්නේ නම්, එම නිශ්පාදනයන් "
-"සඳහා නවීකරණයන් හෝ සහයන් නොලැබෙනු ඇත. එම නිශ්පාදනය සඳහා අවශ්‍ය නවීකරණයන් ලබාගැනීමට ඔබට "
-"අවශ්‍ය නම් http://rhn.redhat.com/ වෙත පිවිස එම නිශ්පාදනයනට අදාල නවීකරණයන් ලබාගැනීම පිණිස "
-"අදාල ඕඩයන් සඳහා ග්‍රාහකත්වය ලබාගන්න. වැඩි විස්තර සඳහා Kbase 11313 ලිපිය බලන්න . (http://"
-"kbase.redhat.com/faq/docs/DOC-11313)"
+"අවවාදයයි: මෙම පද්ධතියේ ස්ථාපනය කරැති නිශ්පාදනයන් ඉහත සඳහන් නොවන්නේ නම්, එම "
+"නිශ්පාදනයන් සඳහා නවීකරණයන් හෝ සහයන් නොලැබෙනු ඇත. එම නිශ්පාදනය සඳහා අවශ්‍ය "
+"නවීකරණයන් ලබාගැනීමට ඔබට අවශ්‍ය නම් http://rhn.redhat.com/ වෙත පිවිස එම "
+"නිශ්පාදනයනට අදාල නවීකරණයන් ලබාගැනීම පිණිස අදාල ඕඩයන් සඳහා ග්‍රාහකත්වය "
+"ලබාගන්න. වැඩි විස්තර සඳහා Kbase 11313 ලිපිය බලන්න . "
+"(http://kbase.redhat.com/faq/docs/DOC-11313)"
 
 #: ../src/up2date_client/rhnreg_constants.py:188
 msgid ""
@@ -910,33 +922,20 @@ msgid ""
 "You were unable to be subscribed to the following software channels because "
 "there were insufficient subscriptions available in your account:"
 msgstr ""
-"ඔබේ ගිණුම තුල ප්‍රමාණවත් ග්‍රාහකත්වයන් නොමැති බැවින් පහත සඳහන් මෘදුකාංග ඕඩයන් හා සම්බන්ධ වීමට "
-"ඔබට නොහැකි වන බව මතකතබා ගන්න."
+"ඔබේ ගිණුම තුල ප්‍රමාණවත් ග්‍රාහකත්වයන් නොමැති බැවින් පහත සඳහන් මෘදුකාංග "
+"ඕඩයන් හා සම්බන්ධ වීමට ඔබට නොහැකි වන බව මතකතබා ගන්න."
 
 #: ../src/up2date_client/rhnreg_constants.py:198
 msgid ""
-"This system was unable to subscribe to any software channels. Your system "
-"will not receive any software updates to keep it secure and supported. There "
-"are a few things you can try to resolve this situation:\n"
-"(1) Log in to http://rhn.redhat.com/ and unentitle an inactive system at "
-"Your RHN > Subscription Management > System Entitlements.\n"
-"(2) Purchase an additional Red Hat Enterprise Linux subscription at http://"
-"www.redhat.com/store/.\n"
-"(3) Activate a new installation number at http://www.redhat.com/now/. Once "
-"you make the appropriate active subscriptions available in your account, you "
-"may browse to this system's profile in the RHN web interface and subscribe "
-"this system to software channels via the software > software channels tab."
+"This system was unable to subscribe to any software channels. Your system will not receive any software updates to keep it secure and supported. There are a few things you can try to resolve this situation:\n"
+"(1) Log in to http://rhn.redhat.com/ and unentitle an inactive system at Your RHN > Subscription Management > System Entitlements.\n"
+"(2) Purchase an additional Red Hat Enterprise Linux subscription at http://www.redhat.com/store/.\n"
+"(3) Activate a new installation number at http://www.redhat.com/now/. Once you make the appropriate active subscriptions available in your account, you may browse to this system's profile in the RHN web interface and subscribe this system to software channels via the software > software channels tab."
 msgstr ""
-"කිසිදු මෘදුකාංග ඕඩයක් සමඟ ග්‍රාහකත්වයක් ලබාගැනීමට මෙම පද්ධතියට නොහැකි විය. ඔබේ පද්ධතිය "
-"ආරක්‍ෂිතව හා සහයෝගය ඇතුව තබාගැනීමට අවශ්‍ය කිසිදු නවීකරණයන් ඔබහට නොලැබෙනු ඇත. මෙම තත්වය "
-"විසඳා ගැනීම සඳහා ඔබ හට කලහැකි කරුණු කිහිපයක් වෙයි:\n"
-"(1) http://rhn.redhat.com/ වෙත පිවිසෙන්න පසුව අක්‍රීය පද්ධතිය සකසන්න  ඔබේ RHN > "
-"ග්‍රාහකත්ව කළමණාකරනය > පද්ධතියේ සුදුසුකම.\n"
-"(2) http://www.redhat.com/store/ වෙතින් අතිරේක Red Hat Enterprise Linux "
-"ග්‍රාහකත්වයක් ලබාගන්න.\n"
-"(3) නව ස්ථාපන අංකය http://www.redhat.com/now/ වෙතින් සක්‍රීය කරගන්න. මේ ආකරයෙන් ඔබට "
-"සුදුසු ඔබේ ගිණුමට අදාල ග්‍රාහකත්වයක් ලබාගැනීමෙන් පසුව RHN වියුණු අතුරු මුහුණත භාවිතා කර මෙම "
-"පද්ධතිය මෘදුකාංග ඕඩයන් සඳහා ග්‍රාහකත්වයන් මෘදුකාංග > මෘදුකාංග ඕඩයන් වෙතින් ලබාගන්න."
+"කිසිදු මෘදුකාංග ඕඩයක් සමඟ ග්‍රාහකත්වයක් ලබාගැනීමට මෙම පද්ධතියට නොහැකි විය. ඔබේ පද්ධතිය ආරක්‍ෂිතව හා සහයෝගය ඇතුව තබාගැනීමට අවශ්‍ය කිසිදු නවීකරණයන් ඔබහට නොලැබෙනු ඇත. මෙම තත්වය විසඳා ගැනීම සඳහා ඔබ හට කලහැකි කරුණු කිහිපයක් වෙයි:\n"
+"(1) http://rhn.redhat.com/ වෙත පිවිසෙන්න පසුව අක්‍රීය පද්ධතිය සකසන්න  ඔබේ RHN > ග්‍රාහකත්ව කළමණාකරනය > පද්ධතියේ සුදුසුකම.\n"
+"(2) http://www.redhat.com/store/ වෙතින් අතිරේක Red Hat Enterprise Linux ග්‍රාහකත්වයක් ලබාගන්න.\n"
+"(3) නව ස්ථාපන අංකය http://www.redhat.com/now/ වෙතින් සක්‍රීය කරගන්න. මේ ආකරයෙන් ඔබට සුදුසු ඔබේ ගිණුමට අදාල ග්‍රාහකත්වයක් ලබාගැනීමෙන් පසුව RHN වියුණු අතුරු මුහුණත භාවිතා කර මෙම පද්ධතිය මෘදුකාංග ඕඩයන් සඳහා ග්‍රාහකත්වයන් මෘදුකාංග > මෘදුකාංග ඕඩයන් වෙතින් ලබාගන්න."
 
 #: ../src/up2date_client/rhnreg_constants.py:209
 msgid "RHN service level:"
@@ -948,55 +947,57 @@ msgid ""
 "different benefits of Red Hat Network. The following are the RHN modules "
 "associated with this system:"
 msgstr ""
-"පද්ධතිය තුල ඇතුලත්ව තිබෙන RHN මොඩියුල මත පදනම්ව, Red Hat Network හරහා ඔබට නොයෙකුත් "
-"වරප්‍රසාද හිමිවෙනු ඇත. පද්ධතිය තුල ඇතුලත්වන මොඩියුල පහත සඳහන් වේ:"
+"පද්ධතිය තුල ඇතුලත්ව තිබෙන RHN මොඩියුල මත පදනම්ව, Red Hat Network හරහා ඔබට "
+"නොයෙකුත් වරප්‍රසාද හිමිවෙනු ඇත. පද්ධතිය තුල ඇතුලත්වන මොඩියුල පහත සඳහන් වේ:"
 
 #: ../src/up2date_client/rhnreg_constants.py:214
 msgid ""
 "This system was unable to be associated with the following RHN module(s) "
 "because there were insufficient subscriptions available in your account:"
 msgstr ""
-"ඔබේ ගිණුම තුල ප්‍රමාණවත් ග්‍රාහකත්වයන් නොමැති හෙයින්, පහත සඳහන් RHN මොඩියුල සමඟ සම්බන්ධ වීමට "
-"පද්ධතියට හැකියාවක් නොමැත:"
+"ඔබේ ගිණුම තුල ප්‍රමාණවත් ග්‍රාහකත්වයන් නොමැති හෙයින්, පහත සඳහන් RHN මොඩියුල "
+"සමඟ සම්බන්ධ වීමට පද්ධතියට හැකියාවක් නොමැත:"
 
 #: ../src/up2date_client/rhnreg_constants.py:217
 msgid ""
 "Update module: per-system updates, email errata notifications, errata "
 "information"
 msgstr ""
-"මොඩියුල නවීකරණය පද්ධතියක් පාසා කෙරෙන නවීකරණයන්, විද්‍යුත් තැපෑල මඟින් ලබාදෙන නවීකරණ තොරතුරු සහ "
-"දැනුම්දීම"
+"මොඩියුල නවීකරණය පද්ධතියක් පාසා කෙරෙන නවීකරණයන්, විද්‍යුත් තැපෑල මඟින් ලබාදෙන"
+" නවීකරණ තොරතුරු සහ දැනුම්දීම"
 
 #: ../src/up2date_client/rhnreg_constants.py:219
 msgid ""
-"Management module: automatic updates, systems grouping, systems permissions, "
-"system package profiling"
+"Management module: automatic updates, systems grouping, systems permissions,"
+" system package profiling"
 msgstr ""
-"කළමණාකරන මොඩියුලය : ස්ව නවීකරණයන්, පද්ධති කණ්ඩායම් ගත කිරීම, පද්ධති අවසරයන්, පද්ධති ඇසුරුම් "
-"සඳහා පැතිකඩ සෑදීම"
+"කළමණාකරන මොඩියුලය : ස්ව නවීකරණයන්, පද්ධති කණ්ඩායම් ගත කිරීම, පද්ධති අවසරයන්,"
+" පද්ධති ඇසුරුම් සඳහා පැතිකඩ සෑදීම"
 
 #: ../src/up2date_client/rhnreg_constants.py:221
 msgid ""
 "Provisioning module: bare-metal provisioning, existing state provisioning, "
 "rollbacks, configuration management"
 msgstr ""
-"සැපයුම් මොඩියුලය: bare-metal සැපයුම, දැනට පවතින තත්වය සැපයීම,මාන කළමණාකරනය, ආපසු "
-"යථාතත්වයට පත්කිරීම"
+"සැපයුම් මොඩියුලය: bare-metal සැපයුම, දැනට පවතින තත්වය සැපයීම,මාන කළමණාකරනය, "
+"ආපසු යථාතත්වයට පත්කිරීම"
 
 #: ../src/up2date_client/rhnreg_constants.py:223
 msgid ""
 "Monitoring module: pre-defined and custom system performance probes, system "
 "performance email notifications, graphs of system performance"
 msgstr ""
-"මොඩියුල විමර්ශණය: කලින් තීරණය කර සහ රිසිකර තිබෙන පද්ධති කාර්යක්‍ෂමතා විමසීම, පද්ධති කාර්යක්‍ෂමතා "
-"විද්‍යුත් තැපෑල මඟින් දැනුම් දීම, පද්ධති කාර්යක්‍ෂමතා සඳහා වන විත්‍රක"
+"මොඩියුල විමර්ශණය: කලින් තීරණය කර සහ රිසිකර තිබෙන පද්ධති කාර්යක්‍ෂමතා විමසීම,"
+" පද්ධති කාර්යක්‍ෂමතා විද්‍යුත් තැපෑල මඟින් දැනුම් දීම, පද්ධති කාර්යක්‍ෂමතා "
+"සඳහා වන විත්‍රක"
 
 #: ../src/up2date_client/rhnreg_constants.py:227
 msgid ""
 "Virtualization module: software updates for a limited number of virtual "
 "guests on this system."
 msgstr ""
-"අථත්‍යකරණ මොඩියුලය: පද්ධතිය සඳහා වන සීමා සහිත ආගන්තුක ගිණුම් සඳහා වන මෘදුකාංග නවීකරණයන්."
+"අථත්‍යකරණ මොඩියුලය: පද්ධතිය සඳහා වන සීමා සහිත ආගන්තුක ගිණුම් සඳහා වන "
+"මෘදුකාංග නවීකරණයන්."
 
 #: ../src/up2date_client/rhnreg_constants.py:230
 msgid ""
@@ -1004,8 +1005,9 @@ msgid ""
 "virtual guests of this system, access to additional software channels for "
 "guests of this system."
 msgstr ""
-"අථත්‍යකරණ පාරසරික මොඩියුලය: පද්ධතිය මත වන සීමාරහිත අථත්‍ය ආගන්තුකයින් සඳහා වන මෘදුකාංග "
-"නවීකරණයන්, පද්ධතිය තුල වන ආගන්තුකයින් හට අතිරේක ඕඩයන් තුලින් ලබාගත හැක."
+"අථත්‍යකරණ පාරසරික මොඩියුලය: පද්ධතිය මත වන සීමාරහිත අථත්‍ය ආගන්තුකයින් සඳහා "
+"වන මෘදුකාංග නවීකරණයන්, පද්ධතිය තුල වන ආගන්තුකයින් හට අතිරේක ඕඩයන් තුලින් "
+"ලබාගත හැක."
 
 #: ../src/up2date_client/rhnreg_constants.py:234
 msgid ""
@@ -1016,57 +1018,34 @@ msgid ""
 "system entitlement to this system in RHN's web interface if you do not want "
 "virtual guests of this system to consume additional subscriptions."
 msgstr ""
-"<b>අවවාදයයි:</b> මෙම පද්ධතිය මත සාදන ආගන්තුක පද්ධති RHN සමඟ ලියාපදිංචි වූවහොත් මීට අදාල "
-"Red Hat Enterprise Linux ග්‍රහාකත්වයන් ඉක්මවා පරිභෝජනය කරනු ඇත. ඔබ විසින් සිදුකල යුත්තේ: "
-"(1) අථත්‍යකරණය සාදන්න නැතහොත් අථත්‍යකරණ පසුබිමේ පද්ධතියේ හිමි කම ලබාගන්න පසුව (2) RHN සතු "
-"අන්තර්ජාල අතුරු මුහුණත භාවිතා කරමින් පද්ධතියේ හිමිකම ලබාගන්න, ඔබට අථත්‍ය ආගන්තුකයන් පද්ධතියේ "
-"අතිරේක ග්‍රාහකත්වයන් භාවිතා කිරීම වැලැක්වීම සඳහා මෙලෙස ක්‍රියා කිරීමට පුළුවනි."
+"<b>අවවාදයයි:</b> මෙම පද්ධතිය මත සාදන ආගන්තුක පද්ධති RHN සමඟ ලියාපදිංචි "
+"වූවහොත් මීට අදාල Red Hat Enterprise Linux ග්‍රහාකත්වයන් ඉක්මවා පරිභෝජනය කරනු"
+" ඇත. ඔබ විසින් සිදුකල යුත්තේ: (1) අථත්‍යකරණය සාදන්න නැතහොත් අථත්‍යකරණ "
+"පසුබිමේ පද්ධතියේ හිමි කම ලබාගන්න පසුව (2) RHN සතු අන්තර්ජාල අතුරු මුහුණත "
+"භාවිතා කරමින් පද්ධතියේ හිමිකම ලබාගන්න, ඔබට අථත්‍ය ආගන්තුකයන් පද්ධතියේ අතිරේක"
+" ග්‍රාහකත්වයන් භාවිතා කිරීම වැලැක්වීම සඳහා මෙලෙස ක්‍රියා කිරීමට පුළුවනි."
 
 #: ../src/up2date_client/rhnreg_constants.py:242
 msgid ""
-"This system was unable to be associated with any RHN service level modules. "
-"This system will not receive any software updates to keep it secure and "
-"supported. There are a few things you can try to resolve this situation:\n"
-"(1) Log in to http://rhn.redhat.com/ and unentitle an inactive system at "
-"Your RHN > Subscription Management > System Entitlements.\n"
-"(2) Purchase an additional Red Hat Enterprise Linux subscription at http://"
-"www.redhat.com/store/.\n"
-"(3) Activate a new installation number at http://www.redhat.com/now/. Once "
-"you make the appropriate active subscriptions available in your account, you "
-"may browse to this system's profile in the RHN web interface, delete the "
-"profile, and re-connect this system to Red Hat Network."
+"This system was unable to be associated with any RHN service level modules. This system will not receive any software updates to keep it secure and supported. There are a few things you can try to resolve this situation:\n"
+"(1) Log in to http://rhn.redhat.com/ and unentitle an inactive system at Your RHN > Subscription Management > System Entitlements.\n"
+"(2) Purchase an additional Red Hat Enterprise Linux subscription at http://www.redhat.com/store/.\n"
+"(3) Activate a new installation number at http://www.redhat.com/now/. Once you make the appropriate active subscriptions available in your account, you may browse to this system's profile in the RHN web interface, delete the profile, and re-connect this system to Red Hat Network."
 msgstr ""
-"මෙම පද්ධතිය හට RHN සේවා මට්ටම් මොඩියුලයන් සමඟ සම්බන්ධ වීමට නොහැකි විය. මෙම පද්ධතිය ආරක්‍ෂිතව "
-"සහ නවීකරණයන්ගෙන් යුතුව තබා ගැනීමට අවශ්‍ය මෘදුකාංග නවීකරණයන් නොලැබෙනු ඇත. මෙම තත්වය මඟ "
-"හරවා ගැනීමට ඔබ විසින් පියවර කිහිපයක් ගතයුතු වේ:\n"
-"(1) http://rhn.redhat.com/ වෙත පිවිස ඔබේ අක්‍රීය පද්ධතිය සකසා ගන්න. ඔබේ RHN > "
-"ග්‍රාහකත්ව කළමණාකරනය > පද්ධති හිමිකම.\n"
-"(2) http://www.redhat.com/store/ වෙතින් අතිරේක Red Hat Enterprise Linux "
-"ග්‍රාහකත්වයක් ලබාගන්න .\n"
-"(3) නව ස්ථාපන අංකය http://www.redhat.com/now/ වෙතින් සක්‍රීය කරගන්න. මේ ආකරයෙන් ඔබට "
-"සුදුසු ඔබේ ගිණුමට අදාල ග්‍රාහකත්වයක් ලබාගැනීමෙන් පසුව RHN වියුණු අතුරු මුහුණත භාවිතා කර මෙම "
-"පද්ධතියේ පැතිකඩ දක්වා ගමන් කර එය මකා දමන්න, පසුව Red Hat Network වෙත නැවත සම්බන්ධ වන්න."
+"මෙම පද්ධතිය හට RHN සේවා මට්ටම් මොඩියුලයන් සමඟ සම්බන්ධ වීමට නොහැකි විය. මෙම පද්ධතිය ආරක්‍ෂිතව සහ නවීකරණයන්ගෙන් යුතුව තබා ගැනීමට අවශ්‍ය මෘදුකාංග නවීකරණයන් නොලැබෙනු ඇත. මෙම තත්වය මඟ හරවා ගැනීමට ඔබ විසින් පියවර කිහිපයක් ගතයුතු වේ:\n"
+"(1) http://rhn.redhat.com/ වෙත පිවිස ඔබේ අක්‍රීය පද්ධතිය සකසා ගන්න. ඔබේ RHN > ග්‍රාහකත්ව කළමණාකරනය > පද්ධති හිමිකම.\n"
+"(2) http://www.redhat.com/store/ වෙතින් අතිරේක Red Hat Enterprise Linux ග්‍රාහකත්වයක් ලබාගන්න .\n"
+"(3) නව ස්ථාපන අංකය http://www.redhat.com/now/ වෙතින් සක්‍රීය කරගන්න. මේ ආකරයෙන් ඔබට සුදුසු ඔබේ ගිණුමට අදාල ග්‍රාහකත්වයක් ලබාගැනීමෙන් පසුව RHN වියුණු අතුරු මුහුණත භාවිතා කර මෙම පද්ධතියේ පැතිකඩ දක්වා ගමන් කර එය මකා දමන්න, පසුව Red Hat Network වෙත නැවත සම්බන්ධ වන්න."
 
 #: ../src/up2date_client/rhnreg_constants.py:254
 #, python-format
 msgid ""
 "Universal default activation key detected\n"
-"A universal default activation key was detected in your RHN organization. "
-"What this means is that a set of properties (software channel subscriptions, "
-"Red Hat Network service, package installations, system group memberships, "
-"etc.) for your system's connection to Red Hat Network have been determined "
-"by the activation key rather than your installation number.  You may also "
-"refer to the RHN Reference Guide, section 6.4.6 for more details about "
-"activation keys (http://rhn.redhat.com/rhn/help/reference/)\n"
+"A universal default activation key was detected in your RHN organization. What this means is that a set of properties (software channel subscriptions, Red Hat Network service, package installations, system group memberships, etc.) for your system's connection to Red Hat Network have been determined by the activation key rather than your installation number.  You may also refer to the RHN Reference Guide, section 6.4.6 for more details about activation keys (http://rhn.redhat.com/rhn/help/reference/)\n"
 "Universal Default activation key: %s"
 msgstr ""
 "විශ්ව අතික්‍රම සක්‍රීයකරණ යතුරක් සොයාගනු ලැබීය\n"
-"ඔබේ RHN සංවිධානයේ තිබී විශ්ව අතික්‍රම සක්‍රීයකරණ යතුරක් සොයාගනු ලැබීය. මෙමඟින් අදහස් කරනුයේ Red "
-"Hat Network හා සම්බන්ධවී ඔබේ පද්ධතියට ලබාගත හැකි අංගයන් (මෘදුකාංග ඩ ග්‍රාහකත්වයන්, Red "
-"Hat Network service, ඇසුරුම් ස්ථාපනයන්, පද්ධති කණ්ඩායම් සාමාජිකත්වයන් යනාදිය වේ) ස්ථාපන "
-"අංකය වෙනුවට සක්‍රීයකරණ භාවිතයෙන් නිශ්චය කිරීම වේ. සක්‍රීයකරණ යතුරු ගැන වැඩි විස්තර දැන ගැනීම "
-"සඳහා RHN Reference Guide හි 6.4.6 කොටස කියවන්න (http://rhn.redhat.com/rhn/help/"
-"reference/)\n"
+"ඔබේ RHN සංවිධානයේ තිබී විශ්ව අතික්‍රම සක්‍රීයකරණ යතුරක් සොයාගනු ලැබීය. මෙමඟින් අදහස් කරනුයේ Red Hat Network හා සම්බන්ධවී ඔබේ පද්ධතියට ලබාගත හැකි අංගයන් (මෘදුකාංග ඩ ග්‍රාහකත්වයන්, Red Hat Network service, ඇසුරුම් ස්ථාපනයන්, පද්ධති කණ්ඩායම් සාමාජිකත්වයන් යනාදිය වේ) ස්ථාපන අංකය වෙනුවට සක්‍රීයකරණ භාවිතයෙන් නිශ්චය කිරීම වේ. සක්‍රීයකරණ යතුරු ගැන වැඩි විස්තර දැන ගැනීම සඳහා RHN Reference Guide හි 6.4.6 කොටස කියවන්න (http://rhn.redhat.com/rhn/help/reference/)\n"
 "විශ්ව අතික්‍රම සක්‍රීයකරණ යතුර: %s "
 
 #. Error Messages.
@@ -1084,8 +1063,7 @@ msgid ""
 "\n"
 "Make sure that the network connection on this system is operational.\n"
 "\n"
-"This system will not be able to successfully receive software updates from "
-"Red Hat without connecting to a Red Hat Network server"
+"This system will not be able to successfully receive software updates from Red Hat without connecting to a Red Hat Network server"
 msgstr ""
 "අප හට Red Hat Network Server හා සම්න්ධ විය නොහැක.\n"
 "\n"
@@ -1094,8 +1072,7 @@ msgstr ""
 "\n"
 "ඔබේ පද්ධතියේ ජාල සම්බන්ධතාවය නිසි ලෙස ක්‍රියාත්මක වන්නේද යන වග තහවුරු කරගන්න.\n"
 "\n"
-"මෙම පද්ධතිය Red Hat Network server වෙත සම්බන්ධ නොවී Red Hat වෙතින් සාර්ථක ලෙස "
-"මෘදුකාංග නවීකරණයන් ලබාගත නොහැකි වන බැව් සලකන්න "
+"මෙම පද්ධතිය Red Hat Network server වෙත සම්බන්ධ නොවී Red Hat වෙතින් සාර්ථක ලෙස මෘදුකාංග නවීකරණයන් ලබාගත නොහැකි වන බැව් සලකන්න "
 
 #: ../src/up2date_client/rhnreg_constants.py:275
 #, python-format
@@ -1107,18 +1084,16 @@ msgid ""
 "This server doesn't support functionality needed by this version of the "
 "software update setup client. Please try again with a newer server."
 msgstr ""
-"මෙම සේවාග්‍රාහක මෘදුකාංග ප්‍රගමන සකසන ක්‍රියාකාරීත්වය සඳහා අවශ්‍ය පහසුකම සේවාදායකය තුල "
-"තිබෙන මෙම වෙළුම මඟින් සපයනු නොලැබේ. කරුණාකර නව සේවාදායකය් භාවිතා කර නැවත උත්සහකර බලන්න."
+"මෙම සේවාග්‍රාහක මෘදුකාංග ප්‍රගමන සකසන ක්‍රියාකාරීත්වය සඳහා අවශ්‍ය පහසුකම "
+"සේවාදායකය තුල තිබෙන මෙම වෙළුම මඟින් සපයනු නොලැබේ. කරුණාකර නව සේවාදායකය් "
+"භාවිතා කර නැවත උත්සහකර බලන්න."
 
 #: ../src/up2date_client/rhnreg_constants.py:283
 #, python-format
 msgid ""
 "<b><span size=\"16000\">Incompatible Certificate File</span></b>\n"
 "\n"
-"The certificate you provided, <b>%s</b>, is not compatible with  the Red Hat "
-"Network server at <b>%s</b>. You may want to double-check that you have "
-"provided a valid certificate file. Are you sure you have provided the "
-"correct certificate, and that the certificate file has not been corrupted?\n"
+"The certificate you provided, <b>%s</b>, is not compatible with  the Red Hat Network server at <b>%s</b>. You may want to double-check that you have provided a valid certificate file. Are you sure you have provided the correct certificate, and that the certificate file has not been corrupted?\n"
 "\n"
 "Please try again with a different certificate file."
 msgstr ""
@@ -1127,8 +1102,7 @@ msgstr ""
 msgid ""
 "<b><span size=\"12000\">Incompatible Certificate File</span></b>\n"
 "\n"
-" The certificate is expired. Please ensure you have the correct  certificate "
-"and your system time is correct."
+" The certificate is expired. Please ensure you have the correct  certificate and your system time is correct."
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:295
@@ -1139,21 +1113,11 @@ msgstr "/etc/sysconfig/rhn/up2date තුල තිබෙන sslCACert හි �
 msgid ""
 "Problem registering system.\n"
 "\n"
-"A universal default activation key limits the number of systems which can "
-"connect to the RHN organization associated with your login. To allow this "
-"system to connect, please contact your RHN organization administrator to "
-"increase the number of systems allowed to connect or to disable this "
-"universal default activation key. More details can be found in Red Hat "
-"Knowledgebase Article #7924 at http://kbase.redhat.com/faq/FAQ_61_7924.shtm "
+"A universal default activation key limits the number of systems which can connect to the RHN organization associated with your login. To allow this system to connect, please contact your RHN organization administrator to increase the number of systems allowed to connect or to disable this universal default activation key. More details can be found in Red Hat Knowledgebase Article #7924 at http://kbase.redhat.com/faq/FAQ_61_7924.shtm "
 msgstr ""
 "පද්ධතිය ලියාපදිංචි කිරීමේදී ගැටළුවක් ඇතිවිය.\n"
 "\n"
-"විශ්ව අතික්‍රම සක්‍රීය කරන යතුර භාවිතා කර ඔබ ආයතනය හට RHN සමඟ සම්බන්ධ විය හැකි පද්ධති ගණන "
-"පාලනය කරනු ඇත. මෙම පද්ධතිය ඒ හා සම්බන්ධ කරගැනීම සඳහා RHN හි සිටින පද්ධතියේ පාලකවරයා "
-"මඟින්, ඔබේ ගිණුම මඟින් සම්බන්ධ විය හැකි පද්ධති ප්‍රමාණය ඉහල දැමීමෙන් සිදුකල හැක. නැතහොත් ඒ සඳහා "
-"විශ්ව අතික්‍රම සක්‍රීය කරන යතුර භාවිතය අක්‍රීය කිරීමෙන්ද සිදුකල හැක. මේ සඳහා වැඩි විස්තර පහත සඳහන් "
-"අන්තර්ජාල ලිපිනයේ තිබෙන ලේඛණය තුලින් ලබාගත හැකRed Hat Knowledgebase Article #7924 at "
-"http://kbase.redhat.com/faq/FAQ_61_7924.shtm "
+"විශ්ව අතික්‍රම සක්‍රීය කරන යතුර භාවිතා කර ඔබ ආයතනය හට RHN සමඟ සම්බන්ධ විය හැකි පද්ධති ගණන පාලනය කරනු ඇත. මෙම පද්ධතිය ඒ හා සම්බන්ධ කරගැනීම සඳහා RHN හි සිටින පද්ධතියේ පාලකවරයා මඟින්, ඔබේ ගිණුම මඟින් සම්බන්ධ විය හැකි පද්ධති ප්‍රමාණය ඉහල දැමීමෙන් සිදුකල හැක. නැතහොත් ඒ සඳහා විශ්ව අතික්‍රම සක්‍රීය කරන යතුර භාවිතය අක්‍රීය කිරීමෙන්ද සිදුකල හැක. මේ සඳහා වැඩි විස්තර පහත සඳහන් අන්තර්ජාල ලිපිනයේ තිබෙන ලේඛණය තුලින් ලබාගත හැකRed Hat Knowledgebase Article #7924 at http://kbase.redhat.com/faq/FAQ_61_7924.shtm "
 
 #: ../src/up2date_client/rhnreg_constants.py:311
 msgid ""
@@ -1243,22 +1207,16 @@ msgstr "oemInfo ගොනුව සැකසීමේදී දෝශයක් �
 #: ../src/up2date_client/up2dateErrors.py:282
 msgid ""
 "\n"
-"    Your organization does not have enough Management entitlements to "
-"register this\n"
-"    system to Red Hat Network. Please notify your organization administrator "
-"of this error. \n"
-"    You should be able to register this system after your organization frees "
-"existing \n"
-"    or purchases additional entitlements. Additional entitlements may be "
-"purchased by your\n"
+"    Your organization does not have enough Management entitlements to register this\n"
+"    system to Red Hat Network. Please notify your organization administrator of this error. \n"
+"    You should be able to register this system after your organization frees existing \n"
+"    or purchases additional entitlements. Additional entitlements may be purchased by your\n"
 "    organization administrator by logging into Red Hat Network and visiting\n"
 "    the 'Subscription Management' page in the 'Your RHN' section of RHN.\n"
 "    \n"
 "    A common cause of this error code is due to having mistakenly setup an\n"
-"    Activation Key which is set as the universal default.  If an activation "
-"key is set\n"
-"    on the account as a universal default, you can disable this key and "
-"retry to avoid\n"
+"    Activation Key which is set as the universal default.  If an activation key is set\n"
+"    on the account as a universal default, you can disable this key and retry to avoid\n"
 "    requiring a Management entitlement."
 msgstr ""
 
@@ -1272,11 +1230,14 @@ msgstr "භාවිත කල යුතු http ප්‍රොක්සිය 
 
 #: ../src/up2date_client/rhncli.py:52
 msgid "Specify a username to use with an authenticated http proxy"
-msgstr "අනන්‍යතාවය තහවුරුකරගත් http ප්‍රොක්සිය සමඟ භාවිත කිරීමට පරිශීලක නාමයක් ලබාදෙන්න "
+msgstr ""
+"අනන්‍යතාවය තහවුරුකරගත් http ප්‍රොක්සිය සමඟ භාවිත කිරීමට පරිශීලක නාමයක් "
+"ලබාදෙන්න "
 
 #: ../src/up2date_client/rhncli.py:54
 msgid "Specify a password to use with an authenticated http proxy"
-msgstr "අනන්‍යතාවය තහවුරුකරගත් http ප්‍රොක්සිය සමඟ භාවිත කිරීමට රහස්පදයක් ලබාදෙන්න "
+msgstr ""
+"අනන්‍යතාවය තහවුරුකරගත් http ප්‍රොක්සිය සමඟ භාවිත කිරීමට රහස්පදයක් ලබාදෙන්න "
 
 #: ../src/up2date_client/rhncli.py:76
 msgid ""
@@ -1312,11 +1273,11 @@ msgstr "SSL දෝශයක් ඇති විය: %s\n"
 
 #: ../src/up2date_client/rhncli.py:91
 msgid ""
-"A common cause of this error is the system time being incorrect. Verify that "
-"the time on this system is correct.\n"
+"A common cause of this error is the system time being incorrect. Verify that"
+" the time on this system is correct.\n"
 msgstr ""
-"මෙම දෝශයට බොහෝ දුරට හේතු විය හැක්කේ පද්ධතියේ වේලාව සාවද්‍ය ලෙස තිබීමයි. පද්ධතිය තුල සටහන් "
-"වන වේලාවේ නිරවද්‍ය භාවය තහවුරු කරගන්න.\n"
+"මෙම දෝශයට බොහෝ දුරට හේතු විය හැක්කේ පද්ධතියේ වේලාව සාවද්‍ය ලෙස තිබීමයි. "
+"පද්ධතිය තුල සටහන් වන වේලාවේ නිරවද්‍ය භාවය තහවුරු කරගන්න.\n"
 
 #: ../src/up2date_client/rhncli.py:98
 #, python-format
@@ -1356,10 +1317,11 @@ msgstr "වැඩි විස්තර සඳහා /var/log/up2date බලන�
 #: ../src/up2date_client/capabilities.py:89
 #, python-format
 msgid ""
-"This client requires the server to support %s, which the current server does "
-"not support"
+"This client requires the server to support %s, which the current server does"
+" not support"
 msgstr ""
-"මෙම සේවා දායකයට %s පහසුකම අවශ්‍යව ඇත, නමුත් වත්මන් සේවා දායකය එම පහසුකම සපයන්නේ නැත"
+"මෙම සේවා දායකයට %s පහසුකම අවශ්‍යව ඇත, නමුත් වත්මන් සේවා දායකය එම පහසුකම "
+"සපයන්නේ නැත"
 
 #: ../src/up2date_client/gui.py:313
 msgid "_Finish"
@@ -1498,7 +1460,8 @@ msgstr "පරිශීලක නාමය සහ රහස්පදය ලි�
 
 #: ../src/bin/rhnreg_ks.py:87
 msgid "This system is already registered. Use --force to override"
-msgstr "මෙම පද්ධතිය මේවන විට ලියාපදිංචි කර ඇත. එය අභිබවා යාමට --force බාවිත කරන්න"
+msgstr ""
+"මෙම පද්ධතිය මේවන විට ලියාපදිංචි කර ඇත. එය අභිබවා යාමට --force බාවිත කරන්න"
 
 #: ../src/bin/rhnreg_ks.py:121
 msgid ""
@@ -1531,8 +1494,8 @@ msgid ""
 "A profilename was not specified, and hostname and IP address could not be "
 "determined to use as a profilename, please specify one."
 msgstr ""
-"පැතිකඩ නාමය සපයා නොමැත, පැතිකඩ නාමයක් ලෙස භාවිත කිරීමට ධාරක නාමය සහ IP ලිපිනය නීර්ණය "
-"කල නොහැක. කරුණාකර පැතිකඩ නාමයක් සපයන්න."
+"පැතිකඩ නාමය සපයා නොමැත, පැතිකඩ නාමයක් ලෙස භාවිත කිරීමට ධාරක නාමය සහ IP "
+"ලිපිනය නීර්ණය කල නොහැක. කරුණාකර පැතිකඩ නාමයක් සපයන්න."
 
 #: ../src/bin/rhn_register.py:37
 msgid "Do not attempt to use X"
@@ -1624,11 +1587,11 @@ msgstr ""
 
 #: ../src/bin/rhn-profile-sync.py:35
 msgid ""
-"You need to register this system by running `rhn_register` before using this "
-"option"
+"You need to register this system by running `rhn_register` before using this"
+" option"
 msgstr ""
-"මෙම විකල්පය භාවිත කිරීමට ප්‍රථම `rhn_register` විධානය ක්‍රියාත්මක කර පද්ධතිය ලියාපදිංචි කර "
-"ගැනීමට අවශ්‍ය වේ"
+"මෙම විකල්පය භාවිත කිරීමට ප්‍රථම `rhn_register` විධානය ක්‍රියාත්මක කර පද්ධතිය"
+" ලියාපදිංචි කර ගැනීමට අවශ්‍ය වේ"
 
 #: ../src/bin/rhn-profile-sync.py:43
 msgid "Updating package profile..."
@@ -1685,8 +1648,8 @@ msgid ""
 "<b>The network connection on your system is not active. Your system cannot "
 "be set up for software updates at this time.</b>"
 msgstr ""
-"<b>ඔබේ පද්ධතියේ ජාල සම්බන්ධතාවය ක්‍රියාත්මක නොවේ. මෘදුකාංග නවීකරණයන් ලබාගැනීමට ඔබේ පද්ධතිය "
-"මෙම අවස්ථවේදී සැකසිය නොහැක.</b>"
+"<b>ඔබේ පද්ධතියේ ජාල සම්බන්ධතාවය ක්‍රියාත්මක නොවේ. මෘදුකාංග නවීකරණයන් "
+"ලබාගැනීමට ඔබේ පද්ධතිය මෙම අවස්ථවේදී සැකසිය නොහැක.</b>"
 
 #: ../data/rh_register.glade.h:5
 msgid ""
@@ -1707,8 +1670,9 @@ msgid ""
 "need to do one of the following to create an active subscription in your "
 "account before this system can be registered:"
 msgstr ""
-"<b>ඔබේ ගිණුම තුල සක්‍රීය ග්‍රාහකත්ව කිසිවක් නොමැත.</b> ඔබේ පද්ධතිය ලියාපදිංචි කිරීමට ප්‍රථම පහත "
-"සඳහන් කර ඇති ආකාරයන්ගෙන් එකක් තෝරාගෙන සක්‍රීය ග්‍රාහකත්වයක් සාදාගන්න:"
+"<b>ඔබේ ගිණුම තුල සක්‍රීය ග්‍රාහකත්ව කිසිවක් නොමැත.</b> ඔබේ පද්ධතිය "
+"ලියාපදිංචි කිරීමට ප්‍රථම පහත සඳහන් කර ඇති ආකාරයන්ගෙන් එකක් තෝරාගෙන සක්‍රීය "
+"ග්‍රාහකත්වයක් සාදාගන්න:"
 
 #: ../data/rh_register.glade.h:8
 msgid "<b>Your system was registered for updates during installation.</b>"
@@ -1716,8 +1680,8 @@ msgstr ""
 
 #: ../data/rh_register.glade.h:9
 msgid ""
-"<b>_All available updates</b> will be provided to this system.  This system, "
-"if kept updated, will always be equivalent to the latest available minor "
+"<b>_All available updates</b> will be provided to this system.  This system,"
+" if kept updated, will always be equivalent to the latest available minor "
 "release of Red Hat Enterprise Linux 6.  It will be registered to the main "
 "'Red Hat Enterprise Linux 6' software channel."
 msgstr ""
@@ -1787,7 +1751,9 @@ msgstr "දෘඪාංග තොරතුරු"
 
 #: ../data/rh_register.glade.h:27
 msgid "I would like to connect to Red Hat Network via an _HTTP proxy."
-msgstr "_HTTP ප්‍රොක්සියක් භාවිතා කරමින් Red Hat Network වෙත සම්බන්ධ වීමට කැමැත්තෙමි."
+msgstr ""
+"_HTTP ප්‍රොක්සියක් භාවිතා කරමින් Red Hat Network වෙත සම්බන්ධ වීමට "
+"කැමැත්තෙමි."
 
 #: ../data/rh_register.glade.h:28
 msgid "Limited updates"
@@ -1839,17 +1805,12 @@ msgstr "කවුළුව ආරම්භ කරන්න"
 
 #: ../data/rh_register.glade.h:44
 msgid ""
-"This system will <b>not</b> be able to successfully receive software "
-"updates, including security updates, from Red Hat without connecting to a "
-"Red Hat Network server.\n"
+"This system will <b>not</b> be able to successfully receive software updates, including security updates, from Red Hat without connecting to a Red Hat Network server.\n"
 "\n"
-"To keep your system updated, secure, and supported, please register this "
-"system at your earliest convenience.\n"
+"To keep your system updated, secure, and supported, please register this system at your earliest convenience.\n"
 "\n"
-"You may access the RHN registration tool by running <b>RHN Registration</b> "
-"in the <b>System > Administration</b> menu.\n"
-"You may access the software update tool by running <b>Software Update</b> in "
-"the <b>System > Administration</b> menu."
+"You may access the RHN registration tool by running <b>RHN Registration</b> in the <b>System > Administration</b> menu.\n"
+"You may access the software update tool by running <b>Software Update</b> in the <b>System > Administration</b> menu."
 msgstr ""
 
 #: ../data/rh_register.glade.h:50
@@ -1912,108 +1873,88 @@ msgid "system name"
 msgstr ""
 
 #: ../data/rh_register.glade.h:67
-#, fuzzy
 msgctxt "yes"
 msgid "<b>Compliance:</b>"
-msgstr "<b>අනුකූලතාවය:</b>"
+msgstr ""
 
 #: ../data/rh_register.glade.h:68
-#, fuzzy
 msgctxt "yes"
 msgid "<b>Downloads &amp; Upgrades:</b>"
-msgstr "<b>බාගතකරණයන් &amp; ප්‍රගමණයන්:</b>"
+msgstr ""
 
 #: ../data/rh_register.glade.h:69
-#, fuzzy
 msgctxt "yes"
 msgid "<b>HTTP Proxy</b>"
-msgstr "<b>HTTP ප්‍රොක්සිය</b>"
+msgstr ""
 
 #: ../data/rh_register.glade.h:70
-#, fuzzy
 msgctxt "yes"
 msgid "<b>Login:</b>"
-msgstr "<b>පිවිසුම:</b>"
+msgstr ""
 
 #: ../data/rh_register.glade.h:71
-#, fuzzy
 msgctxt "yes"
 msgid "<b>Red Hat Network Location:</b>"
-msgstr "<b>Red Hat Network ස්ථානය:</b>"
+msgstr ""
 
 #: ../data/rh_register.glade.h:72
-#, fuzzy
 msgctxt "yes"
 msgid "<b>Security &amp; Updates:</b>"
-msgstr "<b>ආරක්‍ෂාව &amp; නවීකරණයන්:</b>"
+msgstr ""
 
 #: ../data/rh_register.glade.h:73
-#, fuzzy
 msgctxt "yes"
 msgid "<b>Support:</b>"
-msgstr "<b>සහයෝගය:</b>"
+msgstr ""
 
 #: ../data/rh_register.glade.h:74
-#, fuzzy
 msgctxt "yes"
 msgid "<b>System ID:</b>"
-msgstr "<b>පද්ධතියේ හඳුනාගැනීමේ අංකය:</b>"
+msgstr ""
 
 #: ../data/rh_register.glade.h:75
-#, fuzzy
 msgctxt "yes"
 msgid "<b>Warning</b>"
-msgstr "අවවාදයයි"
+msgstr ""
 
 #: ../data/rh_register.glade.h:76
-#, fuzzy
 msgctxt "yes"
 msgid "<big><b>Profile Data</b></big>"
-msgstr "<big><b>පැතිකඩ දත්ත</b></big>"
+msgstr ""
 
 #: ../data/rh_register.glade.h:77
-#, fuzzy
 msgctxt "yes"
 msgid "<big><b>System Name</b></big>"
-msgstr "<big><b>පද්ධතියේ නම</b></big>"
+msgstr ""
 
 #: ../data/rh_register.glade.h:78
-#, fuzzy
 msgctxt "yes"
 msgid "<small><b>Example:</b> https://satellite.example.com</small>"
-msgstr "<small><b>උදාහරණය:</b> https://satellite.example.com</small>"
+msgstr ""
 
 #: ../data/rh_register.glade.h:79
-#, fuzzy
 msgctxt "yes"
 msgid "<small><b>Example:</b> squid.example.com:3128</small>"
-msgstr "<small><b>උදාහරණය:</b> squid.example.com:3128</small>"
+msgstr ""
 
 #: ../data/rh_register.glade.h:80
-#, fuzzy
 msgctxt "yes"
 msgid "<small><b>Example</b>: XXXX-XXXX-XXXX-XXXX</small>"
-msgstr "<small><b>උදාහරණය</b>: XXXX-XXXX-XXXX-XXXX</small>"
+msgstr ""
 
 #: ../data/rh_register.glade.h:81
-#, fuzzy
 msgctxt "yes"
 msgid ""
-"<small><b>Tip:</b> Red Hat values your privacy: http://www.redhat.com/legal/"
-"privacy_statement.html.</small>"
+"<small><b>Tip:</b> Red Hat values your privacy: "
+"http://www.redhat.com/legal/privacy_statement.html.</small>"
 msgstr ""
-"Red Hat ඔබේ පෞද්ගලිකත්වය අගය කරනු ලබයි: http://www.redhat.com/legal/"
-"privacy_statement.html"
 
 #: ../data/rh_register.glade.h:82
-#, fuzzy
 msgctxt "yes"
 msgid ""
 "<small>Tip: Forgot your login or password? Contact your Satellite's "
 "<i>Organization Administrator</i>.</small>"
 msgstr ""
-"<small>ඉඟිය: ඔබේ පරිශීලක නාමය හෝ රහස්පදය අමතක වීද? ඔබේ චන්ද්‍රිකා සේවා දායකයේ <i>ආයතන "
-"කළමණාකරු</i> අමතන්න.</small>"
 
 #: ../data/rh_register.glade.h:84
 #, no-c-format
@@ -2024,86 +1965,68 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:85
-#, fuzzy
 msgctxt "yes"
 msgid ""
-"Access to the technical support experts at Red Hat or Red Hat's partners for "
-"help with any issues you might encounter with this system."
+"Access to the technical support experts at Red Hat or Red Hat's partners for"
+" help with any issues you might encounter with this system."
 msgstr ""
-"Red Hat හෝ Red Hat හී කොටස් කරුවන් සමඟ ඔබේ පද්ධතියේ තිබෙන ඕනෑම ගැටළුවක් සම්බන්ධයෙන් ඔබට "
-"ඔවුන් වෙත ලඟා විය හැක."
 
 #: ../data/rh_register.glade.h:86
-#, fuzzy
 msgctxt "yes"
 msgid ""
 "Activate a previously purchased subscription you have not yet activated."
-msgstr "ඔබ විසින් සක්‍රීය කර නොමැති කලින් මිලදී ගනු ලැබූ ග්‍රාහකත්වය සක්‍රීය කරන්න."
+msgstr ""
 
 #: ../data/rh_register.glade.h:87
-#, fuzzy
 msgctxt "yes"
 msgid "Advanced _Network Configuration ..."
-msgstr "සංකීර්ණ ජාල මානකරණය(_N)..."
+msgstr ""
 
 #: ../data/rh_register.glade.h:88
-#, fuzzy
 msgctxt "yes"
 msgid ""
 "Are you sure you don't want to connect your system to Red Hat Network? "
 "You'll miss out on the benefits of a Red Hat Enterprise Linux subscription:"
 msgstr ""
-"ඔබේ පද්ධතිය Red Hat Network සමඟ සම්බන්ධ වීමට අනවශ්‍ය බව ඔබට හොඳටම විශ්වාසද? Red Hat "
-"Enterprise Linux ග්‍රාහකත්වය සමඟ ලැබෙන වරප්‍රසාදයන් ඔබට අහිමි වනු ඇත:"
 
 #: ../data/rh_register.glade.h:89
-#, fuzzy
 msgctxt "yes"
 msgid "Are you sure you would like to continue?"
-msgstr "නිශ්චිතවම ඔබට දිගටම කරගෙන යාමට අවශ්‍යද ?"
+msgstr ""
 
 #: ../data/rh_register.glade.h:90
-#, fuzzy
 msgctxt "yes"
 msgid "CPU Model:"
-msgstr "CPU මාදිලිය:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:91
-#, fuzzy
 msgctxt "yes"
 msgid "CPU Speed:"
-msgstr "CPU වේගය:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:92
-#, fuzzy
 msgctxt "yes"
 msgid "Certificate _Location:"
-msgstr "සහතික පත්‍රයේ ස්ථානය(_L):"
+msgstr ""
 
 #: ../data/rh_register.glade.h:93
-#, fuzzy
 msgctxt "yes"
 msgid ""
 "Connecting your system to Red Hat Network allows you to take full advantage "
 "of the benefits of a paid subscription, including:"
 msgstr ""
-"ඔබේ පද්ධතිය Red Hat Network වෙත සම්බන්ධ කිරීමෙන් ඔබ මුදල් ගෙවා ලබාගන්නා සාමාජිකත්වයට හිමි "
-"සියළු ප්‍රතිලාභ ලබාගත හැකි වේ, මීට පහත සඳහන් දෑ ඇතුලත්ය"
 
 #: ../data/rh_register.glade.h:94
-#, fuzzy
 msgctxt "yes"
 msgid ""
 "Download installation images for Red Hat Enterprise Linux releases, "
 "including new releases."
 msgstr ""
-"නව නිකුතුවන්ද ඇතුලත්ව Red Hat Enterprise Linux නිකුතුවන් සඳහා වන ස්ථාපන පිළිඹුවන් බාගත කරන්න"
 
 #: ../data/rh_register.glade.h:95
-#, fuzzy
 msgctxt "yes"
 msgid "ERROR"
-msgstr "දෝශයකි"
+msgstr ""
 
 #: ../data/rh_register.glade.h:96
 msgctxt "yes"
@@ -2115,78 +2038,62 @@ msgstr ""
 #: ../data/rh_register.glade.h:97
 msgctxt "yes"
 msgid ""
-"For more information, including alternate tools, consult this Knowledge Base "
-"Article: <a href=\"https://access.redhat.com/kb/docs/DOC-45563\">https://"
-"access.redhat.com/kb/docs/DOC-45563</a>"
+"For more information, including alternate tools, consult this Knowledge Base"
+" Article: <a "
+"href=\"https://access.redhat.com/kb/docs/DOC-45563\">https://access.redhat.com/kb/docs/DOC-45563</a>"
 msgstr ""
 
 #: ../data/rh_register.glade.h:98
-#, fuzzy
 msgctxt "yes"
 msgid "Hardware Profile"
-msgstr "දෘඪාංග පැතිකඩ"
+msgstr ""
 
 #: ../data/rh_register.glade.h:99
-#, fuzzy
 msgctxt "yes"
 msgid "Hostname:"
-msgstr "ධාරක නම:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:100
-#, fuzzy
 msgctxt "yes"
 msgid ""
 "I <b>_don't</b> have an SSL certificate. I will contact my system "
 "administrator for assistance and will register at a later time."
 msgstr ""
-"මම සතුව SSL සහතික පතක් <b>නොමැත(_d)</b> . මම පද්ධතියේ කළමණාකරු ගේ සහය ලබාගෙන පසුව "
-"ලියාපදිංචිය කිරීමට කැමැත්තෙමි"
 
 #: ../data/rh_register.glade.h:101
-#, fuzzy
 msgctxt "yes"
 msgid ""
 "I have access to a <b>Red Hat Network Satellite</b> or <b>Red Hat Network "
 "Proxy</b>. I'd like to receive software updates from the Satellite or Proxy "
 "below:"
 msgstr ""
-"මා හට <b>Red Hat Network Satellite</b> වෙත හෝ <b>Red Hat Network Proxy</b> "
-"වෙත ලඟා වීමේ පහසුකම ඇත.පහත සඳහන් චන්ද්‍රිකාවෙන් හෝ ප්‍රොක්සිය විසින් ලබාදෙන නවීකරණයන් ලබා "
-"ගැනීමට කැමැත්තෙමි."
 
 #: ../data/rh_register.glade.h:102
-#, fuzzy
 msgctxt "yes"
 msgid "I have an <b>_SSL certificate</b> to communicate with Red Hat Network:"
-msgstr "Red Hat Network සමඟ සම්බන්ධ වීම සඳහා මා සතුව <b>_SSL සහතික පත්‍රයක්</b> ඇත :"
+msgstr ""
 
 #: ../data/rh_register.glade.h:103
-#, fuzzy
 msgctxt "yes"
 msgid "I would like to connect to Red Hat Network via an _HTTP proxy."
-msgstr "_HTTP ප්‍රොක්සියක් භාවිතා කරමින් Red Hat Network වෙත සම්බන්ධ වීමට කැමැත්තෙමි."
+msgstr ""
 
 #: ../data/rh_register.glade.h:104
-#, fuzzy
 msgctxt "yes"
 msgid ""
 "I'd like to receive updates from <b>Red Hat Network</b>. (I don't have "
 "access to a Red Hat Network Satellite or Proxy.)"
 msgstr ""
-"<b>Red Hat Network</b> වෙතින් නවීකරණයන් ලබාගැනීමට කැමැත්තෙමි. (මා හට Red Hat "
-"Network Satellite වෙත හෝ Red Hat Network Proxy වෙත ලඟාවීමේ පහසුකම නොමැත.)"
 
 #: ../data/rh_register.glade.h:105
-#, fuzzy
 msgctxt "yes"
 msgid "IP Address:"
-msgstr "IP ලිපිනය:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:106
-#, fuzzy
 msgctxt "yes"
 msgid "Installation _Number:"
-msgstr "ස්ථාපනය අංකය(_N):"
+msgstr ""
 
 #: ../data/rh_register.glade.h:107
 msgctxt "yes"
@@ -2197,69 +2104,55 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:108
-#, fuzzy
 msgctxt "yes"
 msgid "It appears this system has already been set up for software updates:"
-msgstr "ඔබේ පද්ධතිය මීට පෙර මෘදුකාංග නවීකරණයන් සිදුකර ගත හැකි ලෙස සකසා තිබෙන බව පෙනී යයි:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:109
-#, fuzzy
 msgctxt "yes"
 msgid ""
 "Log in to http://rhn.redhat.com/ and unentitle an inactive system at Your "
 "RHN > Subscription Management > System Entitlements."
 msgstr ""
-"ඔබේ පද්ඩහතියට හිමි වරප්‍රසාද ලබා ගැනීමට http://rhn.redhat.com/  වෙත පිවිසෙන්න තවද එය "
-"සක්‍රීය කිරීමට RHN > Subscription Management > System Entitlements ලෙස කරන්න."
 
 #: ../data/rh_register.glade.h:110
-#, fuzzy
 msgctxt "yes"
 msgid "Memory:"
-msgstr "මතකය:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:111
-#, fuzzy
 msgctxt "yes"
 msgid "Package Information"
-msgstr "ඇසුරුම් තොරතුරු"
+msgstr ""
 
 #: ../data/rh_register.glade.h:112
-#, fuzzy
 msgctxt "yes"
 msgid ""
-"Please enter your account information for <b>Red Hat Network</b> (http://rhn."
-"redhat.com/)"
+"Please enter your account information for <b>Red Hat Network</b> "
+"(http://rhn.redhat.com/)"
 msgstr ""
-"<b>Red Hat Network</b> (http://rhn.redhat.com) සඳහා ඔබේ ගිණුමේ තොරතුරු ඇතුල් කරන්න"
 
 #: ../data/rh_register.glade.h:113
-#, fuzzy
 msgctxt "yes"
 msgid "Please review the subscription details below:"
-msgstr "කරුනාකර පහත දැක්වෙන ග්‍රාහක විස්තර සමාලෝචනය කරන්න:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:114
-#, fuzzy
 msgctxt "yes"
 msgid "Proxy P_assword:"
-msgstr "ප්‍රොක්සියේ රහස්පදය(_a):"
+msgstr ""
 
 #: ../data/rh_register.glade.h:115
-#, fuzzy
 msgctxt "yes"
 msgid "Proxy _Username:"
-msgstr "ප්‍රොක්සියේ පරිශීලක නම(_U):"
+msgstr ""
 
 #: ../data/rh_register.glade.h:116
-#, fuzzy
 msgctxt "yes"
 msgid ""
-"Purchase an additional Red Hat Enterprise Linux subscription at http://www."
-"redhat.com/store/."
+"Purchase an additional Red Hat Enterprise Linux subscription at "
+"http://www.redhat.com/store/."
 msgstr ""
-"http://www.redhat.com/store/. මගින් ඔබ හට අතිරේක Red Hat Enterprise Linux "
-"ග්‍රාහකත්වයක් ලබාගත හැක"
 
 #: ../data/rh_register.glade.h:117
 msgctxt "yes"
@@ -2267,288 +2160,224 @@ msgid "RHN Classic Mode"
 msgstr ""
 
 #: ../data/rh_register.glade.h:118
-#, fuzzy
 msgctxt "yes"
 msgid ""
 "Receive the latest software updates, including security updates, keeping "
 "this Red Hat Enterprise Linux system <b>updated</b> and <b>secure</b>."
 msgstr ""
-"Red Hat Enterprise Linux පද්ධතිය <b>නවීකරණයෙන්</b> සහ <b>ආරක්‍ෂිතව</b> යුතුව තබා "
-"ගැනීමට ආරක්‍ෂක නවීකරණයන් ඇතුළුව නවතම ඇසුරුම් ලබාගන්න."
 
 #: ../data/rh_register.glade.h:119
-#, fuzzy
 msgctxt "yes"
 msgid "Red Hat Linux Version:"
-msgstr "Red Hat Linux වෙළුම:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:120
-#, fuzzy
 msgctxt "yes"
 msgid "Red Hat Network _Location:"
-msgstr "Red Hat Network ස්ථානය(_L):"
+msgstr ""
 
 #: ../data/rh_register.glade.h:121
-#, fuzzy
 msgctxt "yes"
 msgid "Send _hardware profile"
-msgstr "දෘඪංග පැතිකඩ යවන්න(_h)"
+msgstr ""
 
 #: ../data/rh_register.glade.h:122
-#, fuzzy
 msgctxt "yes"
 msgid "Send _package profile"
-msgstr "ඇසුරුමේඑ පැතිකඩ යවන්න(_p)"
+msgstr ""
 
 #: ../data/rh_register.glade.h:123
-#, fuzzy
 msgctxt "yes"
 msgid "Software update setup has been completed for this system."
-msgstr "ඔබේ පද්ධතිය සඳහා වන මෘදුකාංග නවීකරණය සම්පූර්ණ කර ඇත."
+msgstr ""
 
 #: ../data/rh_register.glade.h:124
-#, fuzzy
 msgctxt "yes"
 msgid ""
-"Stay in compliance with your subscription agreement and manage subscriptions "
-"for systems connected to your account at http://rhn.redhat.com/."
+"Stay in compliance with your subscription agreement and manage subscriptions"
+" for systems connected to your account at http://rhn.redhat.com/."
 msgstr ""
-"ඔබේ එකඟතා ගිවිසුම සමඟ අනුකූලව ඔබේ ග්‍රහකත්වයන් කළමණාකරනය කර ගැනීම සඳහා http://rhn."
-"redhat.com සමඟ සම්බන්ධ වී සිටින්න"
 
 #: ../data/rh_register.glade.h:125
-#, fuzzy
 msgctxt "yes"
 msgid "System _Name:"
-msgstr "පද්ධතියේ නම(_N):"
+msgstr ""
 
 #: ../data/rh_register.glade.h:126
-#, fuzzy
 msgctxt "yes"
 msgid ""
 "This assistant will guide you through connecting your system  to Red Hat "
 "Network (RHN) for software updates, such as:"
 msgstr ""
-"මෘදුකාංග නවීකරණයන් ලබා ගැනීම සඳහා පද්ධතිය ලියාපදිංචි කිරීමට මෙම සහයක විසින් ඔබට මඟ පෙන්වනු "
-"ඇත.ඒ සදගහා පහත දැක්වෙන ආකාරයේ තොරතුරු අවශ්‍ය වේ:"
 
 #: ../data/rh_register.glade.h:127
-#, fuzzy
 msgctxt "yes"
 msgid "Use Au_thentication with HTTP Proxy:"
-msgstr "අනන්යතාවය තහවුරු කරගැනීමට HTTP ප්‍රොක්සියක් භාවිත  කරන්න(_t):"
+msgstr ""
 
 #: ../data/rh_register.glade.h:128
-#, fuzzy
 msgctxt "yes"
 msgid "V_iew Package Profile ..."
-msgstr "ඇසුරුමේ පැතිකඩ බලන්න(_i) ..."
+msgstr ""
 
 #: ../data/rh_register.glade.h:129
-#, fuzzy
 msgctxt "yes"
 msgid ""
 "Would you like to register your system at this time? <b>(Strongly "
 "recommended.)</b>"
 msgstr ""
-"මෙම අවස්ථාවේදී පද්ධතිය ලියාපදිංචි කිරීමට ඔබට අවශ්‍යද? <b>(තරයේ රෙකමදාරු කරනු ලැබේ)</b>"
 
 #: ../data/rh_register.glade.h:130
-#, fuzzy
 msgctxt "yes"
 msgid ""
-"You may connect your system to <b>Red Hat Network</b> (https://rhn.redhat."
-"com/) or to a <b>Red Hat Network Satellite</b> or <b>Red Hat Network Proxy</"
-"b> in order to receive software updates."
+"You may connect your system to <b>Red Hat Network</b> "
+"(https://rhn.redhat.com/) or to a <b>Red Hat Network Satellite</b> or <b>Red"
+" Hat Network Proxy</b> in order to receive software updates."
 msgstr ""
-"මෘදුකාංග නවීකරණයන් ලබා ගැනීම පිණිස ඔබ <b>Red Hat Network</b> (http://rhn.redhat."
-"com/), <b>Red Hat Network Satellite</b> හෝ <b>Red Hat Network Proxy</b> සමඟ "
-"ලියාපදිංචි විය යුතුය."
 
 #: ../data/rh_register.glade.h:131
-#, fuzzy
 msgctxt "yes"
 msgid ""
 "You will <b>not</b> be able to take advantage of these subscriptions "
 "privileges without connecting your system to Red Hat Network."
 msgstr ""
-"Red Hat Network වෙන සම්බන්ධ නොවී ඔබ සතුව තිබෙන ග්‍රාහකත්වයන් හී වරප්‍රසාද ලබා ගැනීමට "
-"<b>නොහැක</b>. එම වරප්‍රසාද   ලබාගැනීම සඳහා    Red Hat Network.  වෙත පිවිසීමට ඔබේ "
-"පද්ධතිය මානකරගත යුතුය"
 
 #: ../data/rh_register.glade.h:132
-#, fuzzy
 msgctxt "yes"
 msgid ""
 "You won't be able to receive software updates, including security updates, "
 "for this system."
 msgstr ""
-"මෙම Red Hat Enterprise Linux පද්ධතිය නවීකරණයෙන් සහ ආරක්‍ෂිතව තබා ගැනීමට ආරක්‍ෂක "
-"නවීකරණයන් ඇතුළුව නවතම ඇසුරුම් ලබාගන්න."
 
 #: ../data/rh_register.glade.h:133
-#, fuzzy
 msgctxt "yes"
 msgid ""
-"You'll need to send us a profile of what packages and hardware are installed "
-"on your system so we can determine what updates are available."
+"You'll need to send us a profile of what packages and hardware are installed"
+" on your system so we can determine what updates are available."
 msgstr ""
-"ඔබේ පද්ධතිය සඳහා යෝග්‍ය නවීකරණ ඇසුරුම් තීරණය කිරීම පහසු වන පිණිස ඔබේ පද්ධතිය තුල ස්ථාපනය කර "
-"තිබෙන දෘඪාංග සහ ඇසුරුම් ඇතුලත් පැතිකඩක් එවිය යුතු වේ."
 
 #: ../data/rh_register.glade.h:134
-#, fuzzy
 msgctxt "yes"
 msgid ""
 "You'll want to choose a name for this system so you'll be able to identify "
 "it in the Red Hat Network interface."
 msgstr ""
-"ඔබ විසින් මෙම පද්ධතියට නමක් තෝරාගෙන භාවිතා කරන්නේ නම් එය Red Hat Network තුල හඳුනා "
-"ගැනීමට පහසු වනු ඇත."
 
 #: ../data/rh_register.glade.h:135
-#, fuzzy
 msgctxt "yes"
 msgid "Your system is not setup for software updates."
-msgstr "ඔබේ පද්ධතිය මෘදුකාංග නවීකරණයන් ලබාගැනීමට හැකිවන ලෙස සකසා නොමැත."
+msgstr ""
 
 #: ../data/rh_register.glade.h:136
-#, fuzzy
 msgctxt "yes"
 msgid ""
 "Your system is now ready to receive the software updates that will keep it "
 "secure and supported."
 msgstr ""
-"ඔබේ පද්ධතිය ග්‍රාහකත්වයක් ලබාගත යුතුව ඇත. මෙය ඔබේ පද්ධතිය ප්‍රගමනයෙන් යුතුව, ආරක්‍ෂිතව සහ "
-"සහයෝගයෙන් යුතුව තබාගැනීමට ඉවහල් වනු ඇත."
 
 #: ../data/rh_register.glade.h:137
-#, fuzzy
 msgctxt "yes"
 msgid ""
 "Your system is ready to receive the software updates that will keep it "
 "secure and supported."
 msgstr ""
-"ඔබේ පද්ධතිය ග්‍රාහකත්වයක් ලබාගත යුතුව ඇත. මෙය ඔබේ පද්ධතිය ප්‍රගමනයෙන් යුතුව, ආරක්‍ෂිතව සහ "
-"සහයෝගයෙන් යුතුව තබාගැනීමට ඉවහල් වනු ඇත."
 
 #: ../data/rh_register.glade.h:138
-#, fuzzy
 msgctxt "yes"
 msgid ""
 "Your system will need to access a subscription. This will allow you to keep "
 "your system updated, secure, and supported."
 msgstr ""
-"ඔබේ පද්ධතිය ග්‍රාහකත්වයක් ලබාගත යුතුව ඇත. මෙය ඔබේ පද්ධතිය ප්‍රගමනයෙන් යුතුව, ආරක්‍ෂිතව සහ "
-"සහයෝගයෙන් යුතුව තබාගැනීමට ඉවහල් වනු ඇත."
 
 #: ../data/rh_register.glade.h:139
-#, fuzzy
 msgctxt "yes"
 msgid "_Close"
-msgstr "වසා දමන්න(_C)"
+msgstr ""
 
 #: ../data/rh_register.glade.h:140
-#, fuzzy
 msgctxt "yes"
 msgid "_Login:"
-msgstr "පිවිසුම(_L):"
+msgstr ""
 
 #: ../data/rh_register.glade.h:141
-#, fuzzy
 msgctxt "yes"
 msgid "_No thanks, I'll connect later."
-msgstr "නැත, ස්තූතියි  මම පසුව ලියාපදිංචි වෙන්නම්(_N):"
+msgstr ""
 
 #: ../data/rh_register.glade.h:142
-#, fuzzy
 msgctxt "yes"
 msgid "_No, Cancel"
-msgstr "නැත, අවලංගු කරන්න(_N)"
+msgstr ""
 
 #: ../data/rh_register.glade.h:143
-#, fuzzy
 msgctxt "yes"
 msgid "_No, I prefer to register at a later time."
-msgstr "නැත,පසුව ලියාපදිංචි වීමට කැමත්තෙමි(_N)."
+msgstr ""
 
 #: ../data/rh_register.glade.h:144
-#, fuzzy
 msgctxt "yes"
 msgid "_Password:"
-msgstr "රහස්පදය(_P):"
+msgstr ""
 
 #: ../data/rh_register.glade.h:145
-#, fuzzy
 msgctxt "yes"
 msgid "_Proxy Location:"
-msgstr "_Proxy ස්ථානය:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:146
-#, fuzzy
 msgctxt "yes"
 msgid "_Take me back to the registration"
-msgstr "මාව නැවතත් ලියාපදිංචි කිරීම වෙත රැගෙන යන්න(_T)"
+msgstr ""
 
 #: ../data/rh_register.glade.h:147
-#, fuzzy
 msgctxt "yes"
 msgid "_Take me back to the setup process."
-msgstr "මාව නැවතත් සකස් කිරීමේ ක්‍රියාවලිය වෙත රැගෙන යන්න(_T)"
+msgstr ""
 
 #: ../data/rh_register.glade.h:148
-#, fuzzy
 msgctxt "yes"
 msgid "_View Hardware Profile ..."
-msgstr "දෘඪාංග පැතිකඩ නරඹන්න(_V) ..."
+msgstr ""
 
 #: ../data/rh_register.glade.h:149
-#, fuzzy
 msgctxt "yes"
 msgid "_Why Should I Connect to RHN? ..."
-msgstr "මම RHNසමඟ සම්බන්ධ විය යුත්තේ මක් නිසාද? (_‌W) ..."
+msgstr ""
 
 #: ../data/rh_register.glade.h:150
-#, fuzzy
 msgctxt "yes"
 msgid "_Yes, Continue"
-msgstr "ඔව්, දිගටම කරගෙන යන්න(_Y)"
+msgstr ""
 
 #: ../data/rh_register.glade.h:151
-#, fuzzy
 msgctxt "yes"
 msgid "_Yes, I'd like to register now."
-msgstr "ඔව්,මම අවස්ථාවේදී ලියාපදිංචි වීමට කැමතියි(_Y)"
+msgstr ""
 
 #: ../data/rh_register.glade.h:152
-#, fuzzy
 msgctxt "yes"
 msgid "label"
-msgstr "ලේබලය"
+msgstr ""
 
 #: ../data/rh_register.glade.h:153
-#, fuzzy
 msgctxt "yes"
 msgid "•"
-msgstr "•"
+msgstr ""
 
 #: ../data/rh_register.glade.h:154
-#, fuzzy
 msgctxt "yes"
 msgid "• A name for your system's Red Hat Network profile"
-msgstr "• ඔබේ පද්ධතියේ Red Hat Network පැතිකඩ සඳහා නාමයක් යොදන්න"
+msgstr ""
 
 #: ../data/rh_register.glade.h:155
-#, fuzzy
 msgctxt "yes"
 msgid "• The address to your Red Hat Network Satellite (optional)"
-msgstr "• ඔබේ Red Hat Network Satellite සඳහා වන ලිපිනය(අත්‍යවශ්‍ය නොවේ)"
+msgstr ""
 
 #: ../data/rh_register.glade.h:156
-#, fuzzy
 msgctxt "yes"
 msgid "• Your Red Hat Network or Red Hat Network Satellite login "
-msgstr "• ඔබේ Red Hat Network හෝ Red Hat Network Satellite සඳහා වන පිවිසුම"
+msgstr ""
 
 #: ../rhn_register.desktop.in.h:1
 msgid "RHN Registration"
@@ -2562,31 +2391,3 @@ msgstr ""
 msgid "Register to Spacewalk/Satellite/Red Hat Network."
 msgstr ""
 
-#~ msgid ""
-#~ "A security certificate compatible with <b>%s</b> was not found on this "
-#~ "system.\n"
-#~ "\n"
-#~ "A security certificate, using SSL technology, is necessary to ensure that "
-#~ "data communicated between this system and Red Hat Network (including your "
-#~ "login and password) is secure."
-#~ msgstr ""
-#~ "<b>%s</b> සමඟ අනුකූල වන ආරක්ෂක සහතික පත්‍රයක්පද්ධතිය තුල සොයාගත නොහැකි විය.\n"
-#~ "\n"
-#~ "SSL තාක්ෂණය භාවිත කර සාදාගත් ආරක්ෂිත සහතික පත්‍රයක් ඔබේ පද්ධතිය හා Red Hat Network "
-#~ "(ඔබේ පරිශීලක නාමය සහ රහස්පදය ඇතුළුව) සමඟ සිදුකෙරෙන දත්ත හුවමාරුව සඳහා භාවිත කිරීමට "
-#~ "අවශ්‍ය වේ."
-
-#~ msgid ""
-#~ "Your system is now ready to receive the software updates that will keep "
-#~ "it secure and supported.\n"
-#~ "\n"
-#~ "You'll know when software updates are available when a package icon "
-#~ "appears in the notification area of your desktop (usually in the upper-"
-#~ "right corner, circled below.) Clicking on this icon, when available, will "
-#~ "guide you through applying any updates that are available:"
-#~ msgstr ""
-#~ "ඔබේ පද්ධතිය ආරක්‍ෂිතව සහ අවශ්‍ය සහය ලැබීමට සුදුසු ලෙස සකසා ඇත.\n"
-#~ "\n"
-#~ "ඔබේ පද්ධතිය සඳහා වන නව ඇසුරුම් නිකුත් කල විගස , ඔබේ පරිගණකය මත ඇසුරුම් සලකුණ දිස්වෙනු ඇත "
-#~ "(බොහෝ විට ඉහල දකුණු කෙලවරෙහී) ඒ මත ක්ලික් කිරීමෙන්, ඔබව එම ඇසුරුම් නිසි ලෙස ස්ථාපනය "
-#~ "කරගැනීමට අවශ්‍ය මඟ පෙන්වීම ලබා දෙනු ඇත:"
