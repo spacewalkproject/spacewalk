@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.6.40
+Version:        1.6.41
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -66,6 +66,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Wed Dec 21 2011 Tomas Lestach <tlestach@redhat.com> 1.6.41-1
+- update rhn_tasko_run_id_seq sequence number according to
+  rhn_tasko_template_id_seq (tlestach@redhat.com)
+
 * Wed Dec 21 2011 Milan Zazrivec <mzazrivec@redhat.com> 1.6.40-1
 - update sha1 sums
 - update copyright info
