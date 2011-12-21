@@ -1,4 +1,4 @@
--- oracle equivalent source sha1 625d2c9b448240a736f369e7b53a386ce9c1f28a
+-- oracle equivalent source sha1 73f50f46cf0e577703d2ebea5dfe7a9a7ab1df65
 
 --update pg_setting
 update pg_settings set setting = 'rpm,' || setting where name = 'search_path';
