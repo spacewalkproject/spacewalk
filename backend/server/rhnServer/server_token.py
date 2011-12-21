@@ -921,12 +921,12 @@ def fetch_token(token_string):
     if rereg_token_found and len(result) > 1:
         log_debug(4,"re-activation stacked with activationkeys")
         kwargs['remove_entitlements'] = entitlements_remove
-        return apply(ReRegistrationActivationToken, (result, ), kwargs)
+        return ReRegistrationActivationToken(result, **kwargs)
     elif rereg_token_found:
         log_debug(4,"simple re-activation")
-        return apply(ReRegistrationToken, ([ rereg_token_found ], ), kwargs)
+        return ReRegistrationToken([rereg_token_found], **kwargs)
 
-    return apply(ActivationTokens, (result, ), kwargs)
+    return ActivationTokens(result, **kwargs)
 
 # always be sure this query has matching columns as _query_token above...
 _query_org_default_token = rhnSQL.Statement("""
@@ -978,7 +978,7 @@ def fetch_org_token(org_id):
         }
         tokens.append(token_entry)
 
-    return apply(ActivationTokens, (tokens, ), kwargs)
+    return ActivationTokens(tokens, **kwargs)
 
 
 
