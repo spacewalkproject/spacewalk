@@ -8,7 +8,7 @@ Group:   Applications/System
 License: GPLv2 and Python
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.10.23
+Version: 5.10.24
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -106,6 +106,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Wed Dec 21 2011 Milan Zazrivec <mzazrivec@redhat.com> 5.10.24-1
+- update copyright info
+
 * Wed Dec 14 2011 Jan Pazdziora 5.10.23-1
 - Fixing SyntaxError: ('invalid syntax', ...
 
