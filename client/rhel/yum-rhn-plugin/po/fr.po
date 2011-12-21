@@ -2,27 +2,29 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 #
+# Translators:
 # Alain PORTAL <aportal@univ-montp2.fr>, 2006.
 # Audrey Simons <asimons@redhat.com>, 2004, 2005.
 # Bettina De Monti <bdemonti@redhat.it>, 2001.
 # Damien Durand <splinux@fedoraproject.org>, 2006.
 # Decroux Fabien <fdecroux@redhat.com>, 2006, 2007.
+#   <jfenal@gmail.com>, 2011.
+# jfenal <jfenal@gmail.com>, 2011.
+# Miroslav Suchý <msuchy@redhat.com>, 2011.
 # Myriam Malga <mmalga@redhat.com>, 2007.
 # Stephane Raimbault <stephane.raimbault@free.fr>, 2004.
-# Miroslav Suchý <msuchy@redhat.com>, 2011.
-# jfenal <jfenal@gmail.com>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: http://bugzilla.redhat.com/\n"
 "POT-Creation-Date: 2011-07-19 17:38+0200\n"
-"PO-Revision-Date: 2011-03-22 15:40+0000\n"
+"PO-Revision-Date: 2011-09-22 20:44+0000\n"
 "Last-Translator: jfenal <jfenal@gmail.com>\n"
 "Language-Team: French <trans-fr@lists.fedoraproject.org>\n"
-"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: fr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
 
 #: ../rhnplugin.py:52
@@ -30,9 +32,8 @@ msgid "There was an error communicating with RHN."
 msgstr "Il y a eu une erreur de communication avec RHN."
 
 #: ../rhnplugin.py:101
-#, fuzzy
 msgid "RHN Satellite or RHN Classic support will be disabled."
-msgstr "Le support des canaux RHN sera désactivé."
+msgstr "Le support de RHN Satellite et de RHN Classic sera désactivé."
 
 #. If non-root notify user RHN repo not accessible
 #: ../rhnplugin.py:105
@@ -62,10 +63,11 @@ msgstr "Ce système n'est abonné à aucun canal."
 
 #: ../rhnplugin.py:147
 msgid ""
-"This system may not be a registered to RHN. SystemId could not be acquired.\n"
+"This system may not be a registered to RHN. SystemId could not be "
+"acquired.\n"
 msgstr ""
-"Ce système n'est peut-être pas enregistré avec RHN. SystemId n'a pas pu être "
-"acquis.\n"
+"Ce système n'est peut-être pas enregistré avec RHN. SystemId n'a pas pu être"
+" acquis.\n"
 
 #: ../rhnplugin.py:238
 msgid "Package profile information could not be sent."
@@ -85,5 +87,3 @@ msgstr "Veuillez exécuter rhn_register en tant que root sur ce client"
 msgid "Missing required login information for RHN: %s"
 msgstr "Absence d'informations de connexion requises par RHN : %s"
 
-#~ msgid "RHN support will be disabled."
-#~ msgstr "L'utilisation de RHN sera désactivée."

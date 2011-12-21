@@ -2,23 +2,24 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 #
+# Translators:
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER, 2006.
-# Sree Ganesh <sthottem@redhat.com>, 2006, 2007.
-# Miroslav Suchý <msuchy@redhat.com>, 2011.
 # Krishna Babu K <kkrothap@redhat.com>, 2010.
 # Krishnababu Krothapalli <kkrothap@redhat.com>, 2011.
+# Miroslav Suchý <msuchy@redhat.com>, 2011.
+# Sree Ganesh <sthottem@redhat.com>, 2006, 2007.
 msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: http://bugzilla.redhat.com/\n"
 "POT-Creation-Date: 2011-07-19 17:38+0200\n"
-"PO-Revision-Date: 2011-03-22 15:40+0000\n"
-"Last-Translator: msuchy <msuchy@redhat.com>\n"
+"PO-Revision-Date: 2011-07-20 00:39+0000\n"
+"Last-Translator: Miroslav Suchý <msuchy@redhat.com>\n"
 "Language-Team: Telugu (http://www.transifex.net/projects/p/fedora/team/te/)\n"
-"Language: te\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: te\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
 #: ../rhnplugin.py:52
@@ -26,9 +27,8 @@ msgid "There was an error communicating with RHN."
 msgstr "RHNతో సంప్రదించటంలో దోషం ఉంది."
 
 #: ../rhnplugin.py:101
-#, fuzzy
 msgid "RHN Satellite or RHN Classic support will be disabled."
-msgstr "RHN చానల్ మద్దతు కుదరదు."
+msgstr ""
 
 #. If non-root notify user RHN repo not accessible
 #: ../rhnplugin.py:105
@@ -36,8 +36,8 @@ msgid ""
 "*Note* Red Hat Network repositories are not listed below. You must run this "
 "command as root to access RHN repositories."
 msgstr ""
-"*గమనిక* Red Hat నెట్వర్కు రిపోజిటరీలు కిందన జాబితా చేసిలేవు. RHN రిపోజిటరీలను వాడుకొనుటకు మీరు యీ "
-"ఆదేశమును root గా నడుపవలెను."
+"*గమనిక* Red Hat నెట్వర్కు రిపోజిటరీలు కిందన జాబితా చేసిలేవు. RHN "
+"రిపోజిటరీలను వాడుకొనుటకు మీరు యీ ఆదేశమును root గా నడుపవలెను."
 
 #: ../rhnplugin.py:120
 msgid "There was an error parsing the RHN proxy settings."
@@ -57,8 +57,10 @@ msgstr "ఈ కంప్యూటరు ఏ చానళ్లకీ అను�
 
 #: ../rhnplugin.py:147
 msgid ""
-"This system may not be a registered to RHN. SystemId could not be acquired.\n"
-msgstr "ఈ సిస్టమ్ RHN తో నమోదై వుండకపోవచ్చును. సిస్టమ్ఐడి పొందలేక పోవుచున్నది.\n"
+"This system may not be a registered to RHN. SystemId could not be "
+"acquired.\n"
+msgstr ""
+"ఈ సిస్టమ్ RHN తో నమోదై వుండకపోవచ్చును. సిస్టమ్ఐడి పొందలేక పోవుచున్నది.\n"
 
 #: ../rhnplugin.py:238
 msgid "Package profile information could not be sent."

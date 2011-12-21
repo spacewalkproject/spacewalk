@@ -2,36 +2,35 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 #
-# Vladimir Lazarenko <vlad@lazarenko.net>, 2004.
-# Yulia Poyarkova <ypoyarko@redhat.com>, 2006.
-# Leonid Kanter <leon@geon.donetsk.ua>, 2003.
-# Yulia <ypoyarko@redhat.com>, 2006, 2007, 2010.
-# Miroslav Suchý <msuchy@redhat.com>, 2011.
+# Translators:
 # Alexander Ivanov <hrafn@hrafn.me>, 2011.
 # Andrew Martynov <andrewm@inventa.ru>, 2004, 2005.
+# Leonid Kanter <leon@geon.donetsk.ua>, 2003.
+# Miroslav Suchý <msuchy@redhat.com>, 2011.
+# Vladimir Lazarenko <vlad@lazarenko.net>, 2004.
+# Yulia Poyarkova <ypoyarko@redhat.com>, 2006.
+# Yulia <ypoyarko@redhat.com>, 2006, 2007, 2010.
 msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: http://bugzilla.redhat.com/\n"
 "POT-Creation-Date: 2011-07-19 17:38+0200\n"
-"PO-Revision-Date: 2011-06-20 17:55+0000\n"
-"Last-Translator: hrafn <hrafn@hrafn.me>\n"
+"PO-Revision-Date: 2011-07-20 00:39+0000\n"
+"Last-Translator: Alexander Ivanov <hrafn@hrafn.me>\n"
 "Language-Team: Russian <trans-ru@lists.fedoraproject.org>\n"
-"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
+"Language: ru\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
 
 #: ../rhnplugin.py:52
 msgid "There was an error communicating with RHN."
 msgstr "Ошибка при обращении к RHN."
 
 #: ../rhnplugin.py:101
-#, fuzzy
 msgid "RHN Satellite or RHN Classic support will be disabled."
-msgstr "Поддержка каналов RHN будет отключена."
+msgstr ""
 
 #. If non-root notify user RHN repo not accessible
 #: ../rhnplugin.py:105
@@ -60,7 +59,8 @@ msgstr "Эта система не подписана на каналы"
 
 #: ../rhnplugin.py:147
 msgid ""
-"This system may not be a registered to RHN. SystemId could not be acquired.\n"
+"This system may not be a registered to RHN. SystemId could not be "
+"acquired.\n"
 msgstr ""
 "Возможно, эта система не зарегистрирована в RHN. Не удалось получить "
 "SystemID.\n"
@@ -82,5 +82,3 @@ msgstr "Выполните rhn_register в режиме root на этом кл�
 msgid "Missing required login information for RHN: %s"
 msgstr "Отсутствуют необходимые данные для входа в RHN: %s"
 
-#~ msgid "RHN support will be disabled."
-#~ msgstr "Поддержка RHN будет отключена"

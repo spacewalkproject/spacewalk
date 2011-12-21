@@ -2,28 +2,28 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 #
+# Translators:
 # Hirofumi Saito <hi_saito@yk.rim.or.jp>, 2004.
+# kiyoto james hashida <khashida@brisbane.redhat.com>, 2007.
+# Kiyoto James Hashida <khashida@redhat.com>, 2006.
+# Miroslav Suchý <msuchy@redhat.com>, 2011.
+# Noriko Mizumoto <noriko@fedoraproject.org>, 2011.
 # Noriko Mizumoto <noriko@redhat.com>, 2004, 2005, 2006, 2007.
+# noriko <noriko@fedoraproject.org>, 2011.
 # Tadashi Jokagi <fedora@elf.no-ip.org>, 2005.
 # Yukihiro Nakai <ynakai@redhat.com>, 2001.
-# kiyoto james hashida <khashida@brisbane.redhat.com>, 2007.
-# Miroslav Suchý <msuchy@redhat.com>, 2011.
-# Kiyoto James Hashida <khashida@redhat.com>, 2006.
-# Noriko Mizumoto <noriko@fedoraproject.org>, 2011.
-# noriko <noriko@fedoraproject.org>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: http://bugzilla.redhat.com/\n"
 "POT-Creation-Date: 2011-07-19 17:38+0200\n"
-"PO-Revision-Date: 2011-06-16 09:19+0000\n"
-"Last-Translator: msuchy <msuchy@redhat.com>\n"
-"Language-Team: Japanese (http://www.transifex.net/projects/p/fedora/team/"
-"ja/)\n"
-"Language: ja\n"
+"PO-Revision-Date: 2011-07-20 00:39+0000\n"
+"Last-Translator: Miroslav Suchý <msuchy@redhat.com>\n"
+"Language-Team: Japanese <trans-ja@lists.fedoraproject.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: ja\n"
 "Plural-Forms: nplurals=1; plural=0\n"
 
 #: ../rhnplugin.py:52
@@ -31,9 +31,8 @@ msgid "There was an error communicating with RHN."
 msgstr "RHN との通信中にエラーが発生しました。"
 
 #: ../rhnplugin.py:101
-#, fuzzy
 msgid "RHN Satellite or RHN Classic support will be disabled."
-msgstr "RHN チャンネルサポートは無効になります。"
+msgstr ""
 
 #. If non-root notify user RHN repo not accessible
 #: ../rhnplugin.py:105
@@ -41,9 +40,8 @@ msgid ""
 "*Note* Red Hat Network repositories are not listed below. You must run this "
 "command as root to access RHN repositories."
 msgstr ""
-"以下には Red Hat Network レポジトリは表示されませんので注意してください。 "
-"RHN のレポジトリにアクセスするには root でこのコマンドを実行する必要がありま"
-"す。"
+"以下には Red Hat Network レポジトリは表示されませんので注意してください。 RHN のレポジトリにアクセスするには root "
+"でこのコマンドを実行する必要があります。"
 
 #: ../rhnplugin.py:120
 msgid "There was an error parsing the RHN proxy settings."
@@ -63,10 +61,9 @@ msgstr "このシステムはいずれのチャンネルにもサブスクライ
 
 #: ../rhnplugin.py:147
 msgid ""
-"This system may not be a registered to RHN. SystemId could not be acquired.\n"
-msgstr ""
-"このシステムは RHN に登録されていない可能性があります。 SystemID を取得できま"
-"せんでした。\n"
+"This system may not be a registered to RHN. SystemId could not be "
+"acquired.\n"
+msgstr "このシステムは RHN に登録されていない可能性があります。 SystemID を取得できませんでした。\n"
 
 #: ../rhnplugin.py:238
 msgid "Package profile information could not be sent."
@@ -85,5 +82,3 @@ msgstr "このクライアント上で root として rhn_register を実行し�
 msgid "Missing required login information for RHN: %s"
 msgstr "RHN に必要なログイン情報が見つかりません: %s"
 
-#~ msgid "RHN support will be disabled."
-#~ msgstr "RHN サポートが無効になります。"

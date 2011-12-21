@@ -2,22 +2,22 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 #
+# Translators:
 # Amitakhya Phukan <amitakhya.phukan@gmail.com>, 2006.
 # Amitakhya Phukan <aphukan@redhat.com>, 2006, 2007.
 # Miroslav Suchý <msuchy@redhat.com>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: http://bugzilla.redhat.com/\n"
 "POT-Creation-Date: 2011-07-19 17:38+0200\n"
-"PO-Revision-Date: 2011-03-22 15:40+0000\n"
-"Last-Translator: msuchy <msuchy@redhat.com>\n"
-"Language-Team: Assamese (http://www.transifex.net/projects/p/fedora/team/"
-"as/)\n"
-"Language: as\n"
+"PO-Revision-Date: 2011-07-20 00:39+0000\n"
+"Last-Translator: Miroslav Suchý <msuchy@redhat.com>\n"
+"Language-Team: Assamese (http://www.transifex.net/projects/p/fedora/team/as/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: as\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
 #: ../rhnplugin.py:52
@@ -25,9 +25,8 @@ msgid "There was an error communicating with RHN."
 msgstr "RHN ৰ সৈতে সংযোগ কৰোঁতে ভুল হৈছে ।"
 
 #: ../rhnplugin.py:101
-#, fuzzy
 msgid "RHN Satellite or RHN Classic support will be disabled."
-msgstr "RHN প্ৰনালীৰ সমৰ্থন অক্ষম কৰা হ'ব ।"
+msgstr ""
 
 #. If non-root notify user RHN repo not accessible
 #: ../rhnplugin.py:105
@@ -54,7 +53,8 @@ msgstr "এই ব্যৱস্থাপ্ৰনালী কোনো সং
 
 #: ../rhnplugin.py:147
 msgid ""
-"This system may not be a registered to RHN. SystemId could not be acquired.\n"
+"This system may not be a registered to RHN. SystemId could not be "
+"acquired.\n"
 msgstr ""
 
 #: ../rhnplugin.py:238
@@ -74,5 +74,3 @@ msgstr ""
 msgid "Missing required login information for RHN: %s"
 msgstr "RHN ৰ বাবে আৱশ্যকীয় প্ৰৱেশৰ তথ্য পোৱা ন'গ'ল: %s"
 
-#~ msgid "RHN support will be disabled."
-#~ msgstr "RHN সমৰ্থন অক্ষম কৰা হ'ব ।"

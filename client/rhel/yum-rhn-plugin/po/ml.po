@@ -2,20 +2,21 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 #
-# Miroslav Suchý <msuchy@redhat.com>, 2011.
+# Translators:
 # Ani Peter <apeter@redhat.com>, 2006, 2007.
+# Miroslav Suchý <msuchy@redhat.com>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: http://bugzilla.redhat.com/\n"
 "POT-Creation-Date: 2011-07-19 17:38+0200\n"
-"PO-Revision-Date: 2011-03-22 15:40+0000\n"
-"Last-Translator: msuchy <msuchy@redhat.com>\n"
+"PO-Revision-Date: 2011-07-20 00:39+0000\n"
+"Last-Translator: Miroslav Suchý <msuchy@redhat.com>\n"
 "Language-Team: Malayalam <discuss@lists.smc.org.in>\n"
-"Language: ml\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: ml\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
 #: ../rhnplugin.py:52
@@ -23,9 +24,8 @@ msgid "There was an error communicating with RHN."
 msgstr "RHN-മായി ബന്ധപ്പെടുന്നതില്‍ ഒരു പിഴവ് ഉണ്ടായിരുന്നു."
 
 #: ../rhnplugin.py:101
-#, fuzzy
 msgid "RHN Satellite or RHN Classic support will be disabled."
-msgstr "RHN ചാനലിനുള്ള പിന്തുണ സജ്ജമായിരിക്കില്ല."
+msgstr ""
 
 #. If non-root notify user RHN repo not accessible
 #: ../rhnplugin.py:105
@@ -33,8 +33,9 @@ msgid ""
 "*Note* Red Hat Network repositories are not listed below. You must run this "
 "command as root to access RHN repositories."
 msgstr ""
-"*കുറിപ്പു്* Red Hat നെറ്റ്‌വര്‍ക്ക് റിപ്പോസിറ്ററികള്‍ താഴെ ലഭ്യമാക്കിയിട്ടില്ല. RHN "
-"റിപ്പോസിറ്ററികള്‍ ലഭ്യമാക്കുന്നതിനായി ഈ കമാന്‍ഡ് നിങ്ങള്‍ റൂട്ടായി പ്രവര്‍ത്തിപ്പിക്കണം."
+"*കുറിപ്പു്* Red Hat നെറ്റ്‌വര്‍ക്ക് റിപ്പോസിറ്ററികള്‍ താഴെ "
+"ലഭ്യമാക്കിയിട്ടില്ല. RHN റിപ്പോസിറ്ററികള്‍ ലഭ്യമാക്കുന്നതിനായി ഈ കമാന്‍ഡ് "
+"നിങ്ങള്‍ റൂട്ടായി പ്രവര്‍ത്തിപ്പിക്കണം."
 
 #: ../rhnplugin.py:120
 msgid "There was an error parsing the RHN proxy settings."
@@ -54,9 +55,11 @@ msgstr "ഈ സിസ്റ്റം ഒരു ചാനലിന്റെയു
 
 #: ../rhnplugin.py:147
 msgid ""
-"This system may not be a registered to RHN. SystemId could not be acquired.\n"
+"This system may not be a registered to RHN. SystemId could not be "
+"acquired.\n"
 msgstr ""
-"ഈ സിസ്റ്റം RHN-ലേക്കു് രജിസ്ടര്‍ ചെയ്തിട്ടില്ല. സിസ്റ്റം ഐഡി ലഭ്യമാക്കുവാന്‍ സാധ്യമായില്ല.\n"
+"ഈ സിസ്റ്റം RHN-ലേക്കു് രജിസ്ടര്‍ ചെയ്തിട്ടില്ല. സിസ്റ്റം ഐഡി ലഭ്യമാക്കുവാന്‍"
+" സാധ്യമായില്ല.\n"
 
 #: ../rhnplugin.py:238
 msgid "Package profile information could not be sent."

@@ -2,21 +2,21 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 #
+# Translators:
 # Ismail ASCI <ismail.asci@gmail.com>, 2006.
 # Miroslav Suchý <msuchy@redhat.com>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: http://bugzilla.redhat.com/\n"
 "POT-Creation-Date: 2011-07-19 17:38+0200\n"
-"PO-Revision-Date: 2011-03-22 15:40+0000\n"
-"Last-Translator: msuchy <msuchy@redhat.com>\n"
-"Language-Team: Turkish (http://www.transifex.net/projects/p/fedora/team/"
-"tr/)\n"
-"Language: tr\n"
+"PO-Revision-Date: 2011-07-20 00:39+0000\n"
+"Last-Translator: Miroslav Suchý <msuchy@redhat.com>\n"
+"Language-Team: Turkish (http://www.transifex.net/projects/p/fedora/team/tr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: tr\n"
 "Plural-Forms: nplurals=1; plural=0\n"
 
 #: ../rhnplugin.py:52
@@ -24,9 +24,8 @@ msgid "There was an error communicating with RHN."
 msgstr "RHN ile iletişim kurulurken bir hata oluştu."
 
 #: ../rhnplugin.py:101
-#, fuzzy
 msgid "RHN Satellite or RHN Classic support will be disabled."
-msgstr "RHN kanal desteği pasifleştirilecek."
+msgstr ""
 
 #. If non-root notify user RHN repo not accessible
 #: ../rhnplugin.py:105
@@ -53,7 +52,8 @@ msgstr "Bu sistem herhangi bir kanala üye değil."
 
 #: ../rhnplugin.py:147
 msgid ""
-"This system may not be a registered to RHN. SystemId could not be acquired.\n"
+"This system may not be a registered to RHN. SystemId could not be "
+"acquired.\n"
 msgstr ""
 
 #: ../rhnplugin.py:238
@@ -73,5 +73,3 @@ msgstr ""
 msgid "Missing required login information for RHN: %s"
 msgstr ""
 
-#~ msgid "RHN support will be disabled."
-#~ msgstr "RHN desteği pasifleştirilecek."

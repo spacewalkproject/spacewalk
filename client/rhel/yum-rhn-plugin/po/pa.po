@@ -2,6 +2,7 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 #
+# Translators:
 # Amanpreet Singh Alam <aalam@redhat.com>, 2004.
 # Amanpreet Singh Brar <amanpreetalam@yahoo.com>, 2005.
 # Automatically generated <punjablinux@netscape.net>, 2004.
@@ -11,15 +12,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: http://bugzilla.redhat.com/\n"
 "POT-Creation-Date: 2011-07-19 17:38+0200\n"
-"PO-Revision-Date: 2011-03-22 15:40+0000\n"
-"Last-Translator: msuchy <msuchy@redhat.com>\n"
+"PO-Revision-Date: 2011-07-20 00:39+0000\n"
+"Last-Translator: Miroslav Suchý <msuchy@redhat.com>\n"
 "Language-Team: Panjabi (Punjabi) <punjabi-users@lists.sf.net>\n"
-"Language: pa\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: pa\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
 #: ../rhnplugin.py:52
@@ -27,9 +28,8 @@ msgid "There was an error communicating with RHN."
 msgstr "RHN ਨਾਲ ਸੰਪਰਕ ਕਰਨ ਸਮੇਂ ਗਲਤੀ ਸੀ।"
 
 #: ../rhnplugin.py:101
-#, fuzzy
 msgid "RHN Satellite or RHN Classic support will be disabled."
-msgstr "RHN ਚੈਨਲ ਸਹਿਯੋਗ ਅਯੋਗ ਕੀਤਾ ਜਾਏਗਾ।"
+msgstr ""
 
 #. If non-root notify user RHN repo not accessible
 #: ../rhnplugin.py:105
@@ -37,8 +37,8 @@ msgid ""
 "*Note* Red Hat Network repositories are not listed below. You must run this "
 "command as root to access RHN repositories."
 msgstr ""
-"*ਸੂਚਨਾ* Red Hat Network ਰਿਪੋਜ਼ਟਰੀਆਂ ਹੇਠਾਂ ਨਹੀਂ ਵੇਖਾਈਆਂ ਹਨ। ਤੁਹਾਨੂੰ RHN ਰਿਪੋਜ਼ਟਰੀਆਂ ਵਰਤਣ ਲਈ "
-"ਪਰਬੰਧਕ ਦੇ ਤੌਰ ਤੇ ਇਹ ਕਮਾਂਡ ਚਲਾਉਣੀ ਪਵੇਗੀ।"
+"*ਸੂਚਨਾ* Red Hat Network ਰਿਪੋਜ਼ਟਰੀਆਂ ਹੇਠਾਂ ਨਹੀਂ ਵੇਖਾਈਆਂ ਹਨ। ਤੁਹਾਨੂੰ RHN "
+"ਰਿਪੋਜ਼ਟਰੀਆਂ ਵਰਤਣ ਲਈ ਪਰਬੰਧਕ ਦੇ ਤੌਰ ਤੇ ਇਹ ਕਮਾਂਡ ਚਲਾਉਣੀ ਪਵੇਗੀ।"
 
 #: ../rhnplugin.py:120
 msgid "There was an error parsing the RHN proxy settings."
@@ -58,8 +58,10 @@ msgstr "ਇਹ ਸਿਸਟਮ ਕਿਸੇ ਵੀ ਚੈਨਲ ਤੇ ਮੈਂ
 
 #: ../rhnplugin.py:147
 msgid ""
-"This system may not be a registered to RHN. SystemId could not be acquired.\n"
-msgstr "ਇਹ ਸਿਸਟਮ ਹੋ ਸਕਦਾ ਕਿ RHN ਨਾਲ ਰਜਿਸਟਰ ਨਾ ਹੋਵੇ। SystemId ਫੇਲ ਨਹੀਂ ਹੋ ਸਕਦਾ।\n"
+"This system may not be a registered to RHN. SystemId could not be "
+"acquired.\n"
+msgstr ""
+"ਇਹ ਸਿਸਟਮ ਹੋ ਸਕਦਾ ਕਿ RHN ਨਾਲ ਰਜਿਸਟਰ ਨਾ ਹੋਵੇ। SystemId ਫੇਲ ਨਹੀਂ ਹੋ ਸਕਦਾ।\n"
 
 #: ../rhnplugin.py:238
 msgid "Package profile information could not be sent."
