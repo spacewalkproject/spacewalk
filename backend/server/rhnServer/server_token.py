@@ -1068,50 +1068,24 @@ def history_report(history):
     report.write("<ul><li>%s</li></ul>" % history["entitlement"])
     report.write("\n")
     # print out channels
-    report.write("Channel Subscription Information:\n")
-    report.write("<ul>\n")
-    for c in history["channels"]:
-        report.write("<li>%s</li>\n" % c)        
-    if len(history["channels"]) == 0:
-        report.write("<li>The token does not include default "
-                     "Channel Subscriptions</li>\n")
-    report.write("</ul>\n")
+    history_subreport(report, history, "groups",
+              "Channel Subscription Information:",
+              "The token does not include default Channel Subscriptions")
+
     # print out the groups
-    if history.has_key("groups"):
-        report.write("System Group Membership Information:\n")
-        report.write("<ul>\n")
-        for g in history["groups"]:
-            report.write("<li>%s</li>\n" % g)
-        if len(history["groups"]) == 0:
-            report.write("<li>The token does not include default "\
-                         "System Group Membership</li>\n")
-        report.write("</ul>\n")
+    history_subreport(report, history, "groups",
+              "System Group Membership Information:",
+              "The token does not include default System Group Membership")
 
     # auto-installed packages...
-    if history.has_key("packages"):
-        report.write("Packages Scheduled for Installation:\n")
-        report.write("<ul>\n")
-
-        for p in history['packages']:
-            report.write("<li>%s</li>\n" % p)
-
-        if len(history['packages']) == 0:
-            report.write("<li>No packages scheduled for automatic installation</li>\n")
-        
-        report.write("</ul>\n")
+    history_subreport(report, history, "packages",
+              "Packages Scheduled for Installation:",
+              "No packages scheduled for automatic installation")
 
     # config channels...
-    if history.has_key('config_channels'):
-        report.write("Config Channel Subscription Information:\n")
-        report.write("<ul>\n")
-
-        for c in history['config_channels']:
-            report.write("<li>%s</li>\n" % c)
-
-        if len(history['config_channels']) == 0:
-            report.write("<li>The token does not include default configuration channels</li>\n")
-
-        report.write("</ul>\n")
+    history_subreport(report, history, 'config_channels',
+              "Config Channel Subscription Information:",
+              "The token does not include default configuration channels")
     
     ret = report.getvalue()
     report.close()
@@ -1119,3 +1093,15 @@ def history_report(history):
     # return what we got
     return ret
 
+def history_subreport(report, history, key, title, emptymsg):
+    if history.has_key(key):
+        report.write(title + "\n")
+        report.write("<ul>\n")
+
+        for c in history[key]:
+            report.write("<li>%s</li>\n" % c)
+
+        if len(history[key]) == 0:
+            report.write("<li>%s</li>\n" % emptymsg)
+
+        report.write("</ul>\n")
