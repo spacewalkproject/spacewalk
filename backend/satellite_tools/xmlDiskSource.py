@@ -62,7 +62,7 @@ class DiskSource:
         if not create:
             return dirname
         if not os.path.exists(dirname):
-            createPath(dirname, logging=0)
+            createPath(dirname)
         if not os.path.isdir(dirname):
             raise MissingXmlDiskSourceDirError("%s is not a directory" % dirname)
         return dirname
@@ -75,7 +75,7 @@ class ArchesDiskSource(DiskSource):
     def _getFile(self, create=0):
         dirname = self._getDir(create)
         if create and not os.path.isdir(dirname):
-            createPath(dirname, logging=0)
+            createPath(dirname)
         return os.path.join(dirname, self.filename)
 
 class ArchesExtraDiskSource(ArchesDiskSource):
@@ -87,7 +87,7 @@ class ProductnamesDiskSource(DiskSource):
     def _getFile(self, create=0):
         dirname = self._getDir(create)
         if create and not os.path.isdir(dirname):
-            createPath(dirname, logging=0)
+            createPath(dirname)
         return "%s/product_names.xml" % dirname
 
 
@@ -98,7 +98,7 @@ class ChannelFamilyDiskSource(DiskSource):
     def _getFile(self, create=0):
         dirname = self._getDir(create)
         if create and not os.path.isdir(dirname):
-            createPath(dirname, logging=0)
+            createPath(dirname)
         return "%s/channel_families.xml" % dirname
 
 
@@ -123,7 +123,7 @@ class ChannelDiskSource(DiskSource):
     def _getFile(self, create=0):
         dirname = "%s/%s" % (self._getDir(create), self.channel)
         if create and not os.path.isdir(dirname):
-            createPath(dirname, logging=0)
+            createPath(dirname)
         return os.path.join(dirname, self._file_name())
 
     def _file_name(self):
@@ -164,7 +164,7 @@ class ShortPackageDiskSource(DiskSource):
         dirname = "%s/%s" % (self._getDir(create), self._hashID())
         # Create the directoru if we have to
         if create and not os.path.exists(dirname):
-            createPath(dirname, logging=0)
+            createPath(dirname)
         return "%s/%s%s" % (dirname, self.id, self._file_suffix)
 
     def _hashID(self):
@@ -190,7 +190,7 @@ class BlacklistsDiskSource(DiskSource):
     def _getFile(self, create=0):
         dirname = self._getDir(create)
         if create and not os.path.isdir(dirname):
-            createPath(dirname, logging=0)
+            createPath(dirname)
         return "%s/blacklists.xml" % dirname
 
 class BinaryRPMDiskSource(ShortPackageDiskSource):
@@ -216,7 +216,7 @@ class KickstartDataDiskSource(DiskSource):
     def _getFile(self, create=0):
         dirname = self._getDir(create)
         if create and not os.path.isdir(dirname):
-            createPath(dirname, logging=0)
+            createPath(dirname)
         return os.path.join(dirname, self.id) + '.xml'
 
 class KickstartFileDiskSource(KickstartDataDiskSource):
@@ -236,7 +236,7 @@ class KickstartFileDiskSource(KickstartDataDiskSource):
             self.relative_path)
         dirname = os.path.dirname(path)
         if create and not os.path.isdir(dirname):
-            createPath(dirname, logging=0)
+            createPath(dirname)
         return path
 
 class MetadataDiskSource:
