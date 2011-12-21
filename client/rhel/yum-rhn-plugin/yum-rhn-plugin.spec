@@ -1,6 +1,6 @@
 Summary: RHN support for yum
 Name: yum-rhn-plugin
-Version: 1.6.15
+Version: 1.6.16
 Release: 1%{?dist}
 License: GPLv2
 Group: System Environment/Base
@@ -72,6 +72,9 @@ fi
 %doc LICENSE
 
 %changelog
+* Wed Dec 21 2011 Miroslav Suchý 1.6.16-1
+- 759786 - wrap SSL.SysCallError in yum error
+
 * Wed Dec 21 2011 Milan Zazrivec <mzazrivec@redhat.com> 1.6.15-1
 - updated translations
 
