@@ -11,7 +11,7 @@ Name: smartpm
 Source0: smartpm-%{version}.tar.gz
 Epoch:   1 
 Version: 0.2
-Release: 4
+Release: 5
 License: GPLv2
 Group: Applications/System
 URL: http://www.smartpm.org/
@@ -57,6 +57,9 @@ env %{__python} setup.py build
 %{python_sitearch}/rhn/actions/solarispkgs.py*
 
 %changelog
+* Wed Dec 21 2011 Milan Zazrivec <mzazrivec@redhat.com> 0.2-5
+- update copyright info
+
 * Fri Jul 15 2011 Michael Mraka <michael.mraka@redhat.com> 0.2-4
 - 559092 - fixed patchset installation on x86
 - 559092 - made patch cluster dir readable for nobody
