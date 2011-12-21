@@ -67,7 +67,7 @@ class YumUpdateMetadata(UpdateMetadata):
         else:   # obj is a file object
             infile = obj
 
-        for event, elem in iterparse(infile):
+        for _event, elem in iterparse(infile):
             if elem.tag == 'update':
                 un = UpdateNotice(elem)
                 key = un['update_id']
@@ -189,7 +189,7 @@ class ContentSource(object):
             sense, pkg_list = filter_item
             if sense == '+':
                 # include
-                exactmatch, matched, unmatched = yum.packages.parsePackages(
+                exactmatch, matched, _unmatched = yum.packages.parsePackages(
                                                         excluded, pkg_list)
                 allmatched = yum.misc.unique(exactmatch + matched)
                 selected = yum.misc.unique(selected + allmatched)
@@ -198,7 +198,7 @@ class ContentSource(object):
                         excluded.remove(pkg)
             elif sense == '-':
                 # exclude
-                exactmatch, matched, unmatched = yum.packages.parsePackages(
+                exactmatch, matched, _unmatched = yum.packages.parsePackages(
                                                         selected, pkg_list)
                 allmatched = yum.misc.unique(exactmatch + matched)
                 for pkg in allmatched:
@@ -212,8 +212,8 @@ class ContentSource(object):
     def _get_package_dependencies(self, sack, packages):
         self.yumbase.pkgSack = sack
         resolved_deps = self.yumbase.findDeps(packages)
-        for (pkg, deps) in resolved_deps.items():
-            for (dep, dep_packages) in deps.items():
+        for (_pkg, deps) in resolved_deps.items():
+            for (_dep, dep_packages) in deps.items():
                 packages.extend(dep_packages)
         return yum.misc.unique(packages)
 
