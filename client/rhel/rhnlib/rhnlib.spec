@@ -4,7 +4,7 @@ Summary: Python libraries for the RHN project
 Name: rhnlib
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 2.5.48
+Version: 2.5.49
 Release: 1%{?dist}
 
 Group: Development/Libraries
@@ -61,6 +61,9 @@ rm -rf $RPM_BUILD_ROOT
 %{python_sitelib}/*
 
 %changelog
+* Wed Dec 21 2011 Milan Zazrivec <mzazrivec@redhat.com> 2.5.49-1
+- update copyright info
+
 * Wed Nov 02 2011 Martin Minar <mminar@redhat.com> 2.5.48-1
 - Change PASS percentage after few attempts and print percentage in case of
   failure (jhutar@redhat.com)
