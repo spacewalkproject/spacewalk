@@ -46,7 +46,7 @@ for package in $PACKAGE_LIST; do
 			echo "Importing version: $NVR_GIT"
 			fedpkg import $SRC_RPM || exit $?
             fedpkg commit -m "Rebase to $BASENAME in rawhide."
-			git tag $BASENAME
+			fedpkg tag -c
 			echo "Review your changes and hit ENTER to continue or Ctrl+C to stop"
             read
 			git push || ( echo 'Error: could not push changes' && exit 1 )
