@@ -107,8 +107,9 @@ my @out;
 while (<$rfh>) {
 	if ($select_direct) {
 		print;
+	} else {
+		push @out, $_;
 	}
-	push @out, $_;
 }
 close $rfh;
 waitpid $pid, 0;
