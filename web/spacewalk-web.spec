@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 1.7.1
+Version: 1.7.2
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -254,6 +254,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Mon Jan 02 2012 Tomas Lestach <tlestach@redhat.com> 1.7.2-1
+- 771214 - add missing widget require (tlestach@redhat.com)
+
 * Thu Dec 22 2011 Milan Zazrivec <mzazrivec@redhat.com> 1.7.1-1
 - web.version: 1.7 nightly
 
