@@ -51,7 +51,12 @@ for package in $PACKAGE_LIST; do
             read
 			git push || ( echo 'Error: could not push changes' && exit 1 )
             git push --tags
-			fedpkg build --nowait
+            if [ $package == "spacewalk-backend" ]; then
+				echo "WARNING: please manualy comment out subpackage spacewalk-backend-sql-oracle in fedora dist-git and build the package. Hit ENTER to continue"
+                read
+            else
+				fedpkg build --nowait
+			fi
 		else
 			echo "$NVR_DISTGIT already imported - skipping."
 		fi
