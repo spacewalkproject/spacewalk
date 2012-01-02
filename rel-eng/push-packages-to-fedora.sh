@@ -46,15 +46,15 @@ for package in $PACKAGE_LIST; do
 			echo "Importing version: $NVR_GIT"
 			fedpkg import $SRC_RPM || exit $?
             fedpkg commit -m "Rebase to $BASENAME in rawhide."
-			fedpkg tag -c
 			echo "Review your changes and hit ENTER to continue or Ctrl+C to stop"
             read
 			git push || ( echo 'Error: could not push changes' && exit 1 )
-            git push --tags
             if [ $package == "spacewalk-backend" ]; then
 				echo "WARNING: please manualy comment out subpackage spacewalk-backend-sql-oracle in fedora dist-git and build the package. Hit ENTER to continue"
                 read
             else
+                fedpkg tag -c
+                git push --tags
 				fedpkg build --nowait
 			fi
 		else
