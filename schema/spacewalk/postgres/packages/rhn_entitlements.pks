@@ -1,6 +1,6 @@
--- oracle equivalent source sha1 b190abdd45d28c181dee9ef0a5f38c6e43bcf9ef
+-- oracle equivalent source sha1 001ac49ee3db5da4e52b15d0297137448f05899c
 --
--- Copyright (c) 2008--2010 Red Hat, Inc.
+-- Copyright (c) 2008--2011 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -234,19 +234,6 @@ $$ language plpgsql;
         channel_family_label_in in varchar,
         quantity_in in numeric,
         flex_in in numeric
-    ) returns void
-as $$
-BEGIN
-  RAISE EXCEPTION 'Stub called, must be replaced by .pkb';
-END;
-$$ language plpgsql;
-
-    create or replace function set_group_count (
-		customer_id_in in numeric,	-- customer_id
-		type_in in char,			-- 'U' or 'S'
-		group_type_in in numeric,	-- rhn[User|Server]GroupType.id
-		quantity_in in numeric,		-- quantity
-		update_family_countsYN in numeric default 1	-- call update_family_counts inside
     ) returns void
 as $$
 BEGIN

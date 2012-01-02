@@ -1,4 +1,4 @@
--- oracle equivalent source sha1 8fcbc1336a4b7f715fb1304875a38ebd0ae53565
+-- oracle equivalent source sha1 c887b0b88c4d0f81b815333b074d93d32106350d
 --
 -- Copyright (c) 2008--2011 Red Hat, Inc.
 --
@@ -997,45 +997,18 @@ language plpgsql;
     -- PROCEDURE: prune_group
     -- Unsubscribes servers consuming physical slots that over the org's
     --   limit.
-    -- Called by: set_group_count, repoll_virt_guest_entitlements
+    -- Called by: set_server_group_count, repoll_virt_guest_entitlements
     -- *******************************************************************
     create or replace function prune_group (
         group_id_in in numeric,
-        type_in in char,
         quantity_in in numeric,
         update_family_countsYN in numeric default 1
     ) returns void
 as $$
     declare
-        ugrecord record;
         sgrecord record;
       type_is_base char;
     begin
-        if type_in = 'U' then
-            update      rhnUserGroup
-                set     max_members = quantity_in
-                where   id = group_id_in;
-
-            for ugrecord in (
-		    select  user_id, user_group_id, ugt.label
-		    from    rhnUserGroupType    ugt,
-			    rhnUserGroup        ug,
-			    rhnUserGroupMembers ugm
-		    where   1=1
-			and ugm.user_group_id = group_id_in
-			and ugm.user_id in (
-				    select  user_id
-				    from    rhnUserGroupMembers
-				    where   user_group_id = group_id_in
-				    order by modified asc
-				    offset quantity_in
-				)
-			and ugm.user_group_id = ug.id
-			and ug.group_type = ugt.id
-	    ) loop
-                perform rhn_user.remove_from_usergroup(ugrecord.user_id, ugrecord.user_group_id);
-            end loop;
-        elsif type_in = 'S' then
             update      rhnServerGroup
                 set     max_members = quantity_in
                 where   id = group_id_in;
@@ -1073,7 +1046,6 @@ as $$
             end if;
 
             end loop;
-        end if;
     end$$
 language plpgsql;
 
@@ -1084,7 +1056,7 @@ language plpgsql;
     -- Can raise not_enough_entitlements_in_base_org if from_org_id_in
     -- does not have enough entitlements to cover the move.
     -- Takes care of unentitling systems if necessary by calling 
-    -- set_group_count
+    -- set_server_group_count
     -- *******************************************************************
     create or replace function assign_system_entitlement(
         group_label_in in varchar,
@@ -1148,13 +1120,11 @@ as $$
         end if;
 
 
-        perform rhn_entitlements.set_group_count(from_org_id_in,
-                                         'S',
+        perform rhn_entitlements.set_server_group_count(from_org_id_in,
                                          group_type,
                                          new_ent_count);
 
-        perform rhn_entitlements.set_group_count(to_org_id_in,
-                                         'S',
+        perform rhn_entitlements.set_server_group_count(to_org_id_in,
                                          group_type,
                                          new_quantity);
         
@@ -1316,7 +1286,7 @@ language plpgsql;
     --
     -- Sets the values in rhnServerGroup for a given rhnServerGroupType.
     -- 
-    -- Calls: set_group_count to update, prune, or create the group.
+    -- Calls: set_server_group_count to update, prune, or create the group.
     -- Called by: the code that activates a satellite cert. 
     --
     -- Raises not_enough_entitlements_in_base_org if all entitlements
@@ -1369,8 +1339,7 @@ as $$
         else
             -- don't update family counts after every server
             -- will do bulk update afterwards
-            perform rhn_entitlements.set_group_count(org_id_in,
-                                             'S',
+            perform rhn_entitlements.set_server_group_count(org_id_in,
                                              group_type,
                                              quantity_in,
                                              0);
@@ -1531,9 +1500,8 @@ as $$
     end$$
 language plpgsql;
 
-    create or replace function set_group_count (
+    create or replace function set_server_group_count (
         customer_id_in in numeric,  -- customer_id
-        type_in in char,            -- 'U' or 'S'
         group_type_in in numeric,   -- rhn[User|Server]GroupType.id
         quantity_in in numeric,      -- quantity
                 update_family_countsYN in numeric default 1
@@ -1549,21 +1517,12 @@ as $$
             quantity := 0;
         end if;
 
-        if type_in = 'U' then
-            select  rug.id
-            into    group_id
-            from    rhnUserGroup rug
-            where   1=1
-                and rug.org_id = customer_id_in
-                and rug.group_type = group_type_in;
-        elsif type_in = 'S' then
-            select  rsg.id
-            into    group_id
-            from    rhnServerGroup rsg
-            where   1=1
-                and rsg.org_id = customer_id_in
-                and rsg.group_type = group_type_in;
-        end if;
+        select  rsg.id
+        into    group_id
+        from    rhnServerGroup rsg
+        where   1=1
+            and rsg.org_id = customer_id_in
+            and rsg.group_type = group_type_in;
 
         -- preserve the not found status across the rhn_entitlements.prune_group invocation
         wasfound := true;
@@ -1573,35 +1532,21 @@ as $$
 
         perform rhn_entitlements.prune_group(
             group_id,
-            type_in,
             quantity,
                         update_family_countsYN
         );
 
         if not wasfound then
-            if type_in = 'U' then
-                insert into rhnUserGroup (
-                        id, name, description, max_members, current_members,
-                        group_type, org_id, created, modified
-                    ) (
-                        select  nextval('rhn_user_group_id_seq'), name, name,
-                                quantity, 0, id, customer_id_in,
-                                current_timestamp, current_timestamp
-                        from    rhnUserGroupType
-                        where    id = group_type_in
-                );
-            elsif type_in = 'S' then
-                insert into rhnServerGroup (
-                        id, name, description, max_members, current_members,
-                        group_type, org_id, created, modified
-                    ) (
-                        select  nextval('rhn_server_group_id_seq'), name, name,
-                                quantity, 0, id, customer_id_in,
-                                current_timestamp, current_timestamp
-                        from    rhnServerGroupType
-                        where   id = group_type_in
-                );
-            end if;
+            insert into rhnServerGroup (
+                    id, name, description, max_members, current_members,
+                    group_type, org_id, created, modified
+                ) (
+                    select  nextval('rhn_server_group_id_seq'), name, name,
+                            quantity, 0, id, customer_id_in,
+                            current_timestamp, current_timestamp
+                    from    rhnServerGroupType
+                    where   id = group_type_in
+            );
         end if;
 
     end$$
