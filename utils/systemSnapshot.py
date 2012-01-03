@@ -53,7 +53,7 @@ options_table = [
 
 def main():
 
-    global options_table, client, options
+    global client, options
 
     parser = OptionParser(option_list=options_table)
     (options, args) = parser.parse_args()

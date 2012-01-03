@@ -47,7 +47,7 @@ _csv_fields = [ 'systemId', 'to-org-id' ]
 
 
 def main():
-    global options_table, client, DEBUG
+    global client, DEBUG
     parser = OptionParser(option_list=options_table)
 
     (options, args) = parser.parse_args()
