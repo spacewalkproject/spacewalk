@@ -13,7 +13,6 @@ Author: Brad Buckingham <bbuckingham@redhat.com>
 
 import os
 import sys
-import string
 import getpass
 import xmlrpclib
 from time import strptime
@@ -352,7 +351,7 @@ def getUsernamePassword(cmdlineUsername, cmdlinePassword):
             # EOF
             tty.write("\n")
             sys.exit(0)
-        username = string.strip(username)
+        username = username.strip()
         if username:
             break
 
