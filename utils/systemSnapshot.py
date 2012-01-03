@@ -293,7 +293,7 @@ def deleteBySnapshotId(sessionKey, snapshotIds):
 
         try:
             if options.list:
-                print "snapshotId: ",snapshotId
+                print "snapshotId: ", snapshotId
 
             else:
                 client.system.provisioning.snapshot.deleteSnapshot(sessionKey, \
@@ -317,14 +317,14 @@ def listSnapshots(systemId, snapshots):
         # (e.g. 20090325T13:18:11); therefore, convert them to a
         # friendlier format (e.g. 2009-03-25 13:18:11) for output
 
-        newest=snapshots[0].get('created')
-        newest=datetime(*(strptime(newest.value, "%Y%m%dT%H:%M:%S")[0:6]))
+        newest = snapshots[0].get('created')
+        newest = datetime(*(strptime(newest.value, "%Y%m%dT%H:%M:%S")[0:6]))
 
-        oldest=snapshots[len(snapshots)-1].get('created')
-        oldest=datetime(*(strptime(oldest.value, "%Y%m%dT%H:%M:%S")[0:6]))
+        oldest = snapshots[len(snapshots)-1].get('created')
+        oldest = datetime(*(strptime(oldest.value, "%Y%m%dT%H:%M:%S")[0:6]))
 
         print "systemId: %d, snapshots: %d, oldest: %s, newest: %s"  \
-            %(systemId, len(snapshots), oldest, newest)
+            % (systemId, len(snapshots), oldest, newest)
 
 
 def getUsernamePassword(cmdlineUsername, cmdlinePassword):
@@ -388,12 +388,12 @@ def processCommandLine():
 
     # convert the start / end dates to a format that usable by the xmlrpc api
     if options.start_date:
-        options.start_date=datetime(*(strptime(options.start_date, "%Y%m%d%H%M%S")[0:6]))
-        options.start_date=xmlrpclib.DateTime(options.start_date.timetuple())
+        options.start_date = datetime(*(strptime(options.start_date, "%Y%m%d%H%M%S")[0:6]))
+        options.start_date = xmlrpclib.DateTime(options.start_date.timetuple())
 
     if options.end_date:
-        options.end_date=datetime(*(strptime(options.end_date, "%Y%m%d%H%M%S")[0:6]))
-        options.end_date=xmlrpclib.DateTime(options.end_date.timetuple())
+        options.end_date = datetime(*(strptime(options.end_date, "%Y%m%d%H%M%S")[0:6]))
+        options.end_date = xmlrpclib.DateTime(options.end_date.timetuple())
 
 if __name__ == '__main__':
     sys.exit(main() or 0)
