@@ -50,7 +50,7 @@ def main():
     global client, DEBUG
     parser = OptionParser(option_list=options_table)
 
-    (options, args) = parser.parse_args()
+    (options, _args) = parser.parse_args()
 
     if options.satellite:
         SATELLITE_HOST = options.satellite
@@ -100,9 +100,8 @@ def main():
             server_id = [int(server_id)]
         try:
             migrate_system(sessionKey, int(to_org_id), server_id)
-        except Exception, e:
+        except Exception:
             raise
-            #sys.stderr.write(e.msg)
     
     if DEBUG: print "Migration Completed successfully"
     logout(sessionKey)

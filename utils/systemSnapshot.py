@@ -56,7 +56,7 @@ def main():
     global client, options
 
     parser = OptionParser(option_list=options_table)
-    (options, args) = parser.parse_args()
+    (options, _args) = parser.parse_args()
     processCommandLine()
 
     SATELLITE_URL = "http://%s/rpc/api" % options.satellite
