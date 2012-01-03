@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.7.1
+Version:        1.7.2
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -66,6 +66,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Tue Jan 03 2012 Jan Pazdziora 1.7.2-1
+- Prevent output from being printed out for the second time to STDERR upon
+  error, for direct mode.
+
 * Mon Jan 02 2012 Jan Pazdziora 1.7.1-1
 - The rhn_entitlements.set_group_count is always called with type S in our
   code, removing the user group calls.
