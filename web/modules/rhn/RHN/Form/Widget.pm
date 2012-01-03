@@ -26,15 +26,13 @@ use RHN::Form::Require;
 my %valid_types = (literal => 'Literal',
 		   text => 'Text',
 		   textarea => 'TextArea',
-		   password => 'Password',
 		   select => 'Select',
 		   checkbox_group => 'CheckboxGroup',
 		   radio_group => 'RadiobuttonGroup',
 		   hidden => 'Hidden', submit => 'Submit',
 		   checkbox => 'Checkbox',
 		   file => 'File',
-		   spacer => 'Spacer',
-		   multiple => 'Multiple');
+		   );
 
 my %valid_fields = (name => 'Anonymous Widget',
 		    label => undef,
