@@ -346,8 +346,8 @@ def getUsernamePassword(cmdlineUsername, cmdlinePassword):
         try:
             username = tty.readline()
         except KeyboardInterrupt:
-                tty.write("\n")
-                sys.exit(0)
+            tty.write("\n")
+            sys.exit(0)
         if username is None:
             # EOF
             tty.write("\n")
