@@ -102,7 +102,8 @@ def main():
 
         deleteBySnapshotId(sessionKey, options.snapshot_id)
 
-    if options.verbose: print "Delete Snapshots Completed successfully"
+    if options.verbose:
+        print "Delete Snapshots Completed successfully"
 
     logout(sessionKey)
 

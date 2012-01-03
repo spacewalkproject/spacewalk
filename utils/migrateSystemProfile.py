@@ -103,7 +103,8 @@ def main():
         except Exception:
             raise
     
-    if DEBUG: print "Migration Completed successfully"
+    if DEBUG:
+        print "Migration Completed successfully"
     logout(sessionKey)
 
 def login(username, password):
@@ -128,7 +129,8 @@ def migrate_system(key, newOrgId, server_ids):
     """
     Call to migrate given system to new org
     """
-    if DEBUG: print "Migrating systemIds %s to Org %s" % (server_ids, newOrgId)
+    if DEBUG:
+        print "Migrating systemIds %s to Org %s" % (server_ids, newOrgId)
     try:
         client.org.migrateSystems(key, newOrgId, server_ids)
     except xmlrpclib.Fault, e:
