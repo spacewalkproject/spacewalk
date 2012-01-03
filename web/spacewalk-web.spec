@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 1.7.3
+Version: 1.7.4
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -253,6 +253,16 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Tue Jan 03 2012 Jan Pazdziora 1.7.4-1
+- The RHN::Form::Widget::Multiple, RHN::Form::Widget::Password, and
+  RHN::Form::Widget::Spacer seem not used, removing.
+- After removal of RHN::CryptoKey, RHN::DB::CryptoKey is no longer used,
+  removing.
+- After removal of RHN::AppInstall::Parser, RHN::Form::Parser is no longer
+  used, removing.
+- After removal of RHN::ProxyInstall, RHN::CryptoKey is no longer used,
+  removing.
+
 * Mon Jan 02 2012 Michael Mraka <michael.mraka@redhat.com> 1.7.3-1
 - fixed merging channels
 
