@@ -159,7 +159,6 @@ rm -rf $RPM_BUILD_ROOT
 %{perl_vendorlib}/RHN/ConfigRevision.pm
 %{perl_vendorlib}/RHN/ContactGroup.pm
 %{perl_vendorlib}/RHN/ContactMethod.pm
-%{perl_vendorlib}/RHN/CryptoKey.pm
 %{perl_vendorlib}/RHN/CustomInfoKey.pm
 %{perl_vendorlib}/RHN/DB/
 %{perl_vendorlib}/RHN/DataSource.pm
