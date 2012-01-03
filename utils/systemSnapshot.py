@@ -51,6 +51,8 @@ options_table = [
         help="Snapshot Id."),
 ]
 
+options = None
+
 def main():
 
     global client, options
