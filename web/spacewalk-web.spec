@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 1.7.4
+Version: 1.7.5
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -253,6 +253,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Wed Jan 04 2012 Tomas Lestach <tlestach@redhat.com> 1.7.5-1
+- 771634 - remove semi-colon at the end of queries (tlestach@redhat.com)
+
 * Tue Jan 03 2012 Jan Pazdziora 1.7.4-1
 - The RHN::Form::Widget::Multiple, RHN::Form::Widget::Password, and
   RHN::Form::Widget::Spacer seem not used, removing.
