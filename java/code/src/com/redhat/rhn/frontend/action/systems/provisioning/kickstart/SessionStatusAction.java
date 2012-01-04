@@ -53,12 +53,15 @@ public class SessionStatusAction extends RhnAction {
                                  HttpServletRequest request,
                                  HttpServletResponse response) {
         RequestContext ctx = new RequestContext(request);
-
-
-
         User currentUser = ctx.getCurrentUser();
-        Server s = ServerFactory.lookupByIdAndOrg(ctx.getRequiredParam(RequestContext.SID),
-                currentUser.getOrg());
+        Long serverId = ctx.getRequiredParam(RequestContext.SID);
+        Server s = ServerFactory.lookupByIdAndOrg(serverId, currentUser.getOrg());
+        if (s == null) {
+            createSuccessMessage(request, "message.serverdeleted.param",
+                    serverId.toString());
+            return mapping.findForward("systems");
+        }
+
         request.setAttribute(RequestContext.SYSTEM, s);
         KickstartSession kss = KickstartFactory.lookupKickstartSessionByServer(s.getId());
 
