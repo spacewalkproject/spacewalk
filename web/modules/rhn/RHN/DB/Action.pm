@@ -208,7 +208,7 @@ SELECT SA.server_id
    AND ST.label = :label
    AND ST.element = SA.server_id
    AND SA.action_id = :action_id
-   AND SA.status = 0;
+   AND SA.status = 0
 EOQ
 
   my $sth = $dbh->prepare($query);
@@ -234,7 +234,7 @@ SELECT SA.action_id
    AND ST.label = :label
    AND SA.server_id = :server_id
    AND ST.element = SA.action_id
-   AND SA.status = 0;
+   AND SA.status = 0
 EOQ
 
   my $sth = $dbh->prepare($query);
