@@ -228,18 +228,6 @@ class MPM_Package:
         self.stream_copy(header_stream, output_stream)
         self.stream_copy(payload_stream, output_stream)
 
-    def add_header_flag(self, flag):
-        self.header_flags = self.header_flags | flag
-
-    def add_payload_flag(self, flag):
-        self.payload_flags = self.payload_flags | flag
-
-    def reset_header_flags(self):
-        self.header_flags = 0
-
-    def reset_payload_flags(self):
-        self.payload_flags = 0
-
     def _encode_header(self):
         assert(self.header is not None)
         stream = tempfile.TemporaryFile()
