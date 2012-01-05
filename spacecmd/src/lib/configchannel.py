@@ -863,7 +863,7 @@ def import_configchannel_fromdetails(self, ccdetails):
     # First we check that an existing channel with the same name does not exist
     existing_ccs = self.do_configchannel_list('', True)
     if ccdetails['name'] in existing_ccs:
-        logging.error("ERROR : config channel %s already exists! Skipping!" % \
+        logging.warning("Config channel %s already exists! Skipping!" % \
             ccdetails['name'])
         return False
     else:
@@ -986,7 +986,7 @@ def do_configchannel_clone(self, args):
             logging.debug("regex mode : %s %s %s" % (ccdetails['name'], \
                 ccdetails['label'], ccdetails['description']))
         elif options.clonelabel:
-            if len(args) > 1:
+            if len(ccs) > 1:
                 newlabel = options.clonelabel + ccdetails['label']
                 ccdetails['label'] = newlabel
                 newname = options.clonelabel + ccdetails['name']
@@ -1004,6 +1004,6 @@ def do_configchannel_clone(self, args):
         # Finally : import the cc from the modified ccdetails
         if self.import_configchannel_fromdetails(ccdetails) != True:
             logging.error("Failed to clone %s to %s" % \
-             (options.name, options.clonelabel))
+             (cc, ccdetails['label']))
 
 # vim:ts=4:expandtab:
