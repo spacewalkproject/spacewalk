@@ -122,19 +122,28 @@ def do_softwarechannel_listbasechannels(self, args):
 def help_softwarechannel_listchildchannels(self):
     print 'softwarechannel_listchildchannels: List child software channels'
     print 'usage:'
+    print 'softwarechannel_listchildchannels [options]'
     print 'softwarechannel_listchildchannels : List all child channels'
     print 'softwarechannel_listchildchannels CHANNEL : List children for a \
 specific base channel'
+    print 'options:\n -v verbose (display label and summary)'
 
 def do_softwarechannel_listchildchannels(self, args):
-    (args, options) = parse_arguments(args)
+    options = [ Option('-v', '--verbose', action='store_true') ]
+    (args, options) = parse_arguments(args, options)
     if not len(args):
         channels = self.list_child_channels()
     else:
         channels = self.list_child_channels(parent=args[0])
 
     if len(channels):
-        print '\n'.join(sorted(channels))
+        if (options.verbose):
+            for c in sorted(channels):
+                details = \
+                    self.client.channel.software.getDetails(self.session, c)
+                print "%s : %s" % (c,details['summary'])
+        else:
+            print '\n'.join(sorted(channels))
 
 ####################
 
