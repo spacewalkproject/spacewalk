@@ -198,7 +198,7 @@ public class CobblerDistroSyncCommand extends CobblerCommand {
 
         if (!xen) {
 
-            log.debug("tree in spacewalk but not in cobbler. " +
+            log.debug("tree missing in cobbler. " +
                     "creating non-xenpv distro in cobbler : " + treeLabel);
 
             try {
@@ -207,9 +207,9 @@ public class CobblerDistroSyncCommand extends CobblerCommand {
             catch (ValidatorException e) {
                 return "ERROR: No kernel found in this path: [" +
                         StringUtil.join(", ", Arrays.asList(tree.getDefaultInitrdPath())) +
-                        "] Spacewalk can't create the distro in cobbler which" +
+                        "] Cannot create the distro in cobbler which" +
                         " makes this kickstart distribution: [" + treeLabel +
-                        "] unusable to Spacewalk.";
+                        "] unusable.";
             }
 
             try {
@@ -218,9 +218,9 @@ public class CobblerDistroSyncCommand extends CobblerCommand {
             catch (ValidatorException e) {
                 return "ERROR: No initrd found in this path: [" +
                         StringUtil.join(", ", Arrays.asList(tree.getDefaultInitrdPath())) +
-                        "] Spacewalk can't create the distro in cobbler which" +
+                        "] Cannot create the distro in cobbler which" +
                         " makes this kickstart distribution: [" + treeLabel +
-                        "] unusable to Spacewalk.";
+                        "] unusable.";
             }
 
             Distro distro = Distro.create(
@@ -231,7 +231,7 @@ public class CobblerDistroSyncCommand extends CobblerCommand {
             invokeCobblerUpdate();
         }
         else if (tree.doesParaVirt() && xen) {
-            log.debug("tree in spacewalk but not in cobbler. " +
+            log.debug("tree missing in cobbler. " +
                     "creating xenpv distro in cobbler : " + treeLabel);
 
             String error =
@@ -256,9 +256,9 @@ public class CobblerDistroSyncCommand extends CobblerCommand {
         File kernel = new File(kernelPath);
         if (!kernel.exists()) {
             String msg = "ERROR: No kernel found in this path: [" + kernelPath +
-                         "] Spacewalk cant create the distro in cobbler which" +
+                         "] Cannot create the distro in cobbler which" +
                          " makes this kickstart distribution: [" + label +
-                         "] unusable to Spacewalk.";
+                         "] unusable.";
 
             log.error(msg);
             return msg;
@@ -266,9 +266,9 @@ public class CobblerDistroSyncCommand extends CobblerCommand {
         File initrd = new File(initrdPath);
         if (!initrd.exists()) {
             String msg = "ERROR: No initrd found in this path: [" + initrdPath +
-                         "] Spacewalk cant create the distro in cobbler which" +
+                         "] Cannot create the distro in cobbler which" +
                          " makes this kickstart distribution: [" + label +
-                         "] unusable to Spacewalk.";
+                         "] unusable.";
             log.error(msg);
             return msg;
         }
