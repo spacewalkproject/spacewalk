@@ -47,7 +47,9 @@ Generic utilities that may be run against a Spacewalk server.
 make all
 
 # check coding style
-find -name '*.py' | xargs pylint -rn -iy --disable C0111,C0103,C0301,R0801,R0912,W0511,W0603
+find -name '*.py' \
+    | xargs pylint -rn -iy --bad-functions=apply,input \
+                   --disable C0111,C0103,C0301,R0801,R0912,W0511,W0603
 
 %install
 rm -rf $RPM_BUILD_ROOT
