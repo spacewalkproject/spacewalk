@@ -14,11 +14,11 @@
  */
 package com.redhat.rhn.frontend.action.kickstart;
 
-import com.redhat.rhn.common.conf.Config;
-import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.validator.ValidatorError;
+import com.redhat.rhn.common.validator.ValidatorResult;
 import com.redhat.rhn.domain.kickstart.KickstartScript;
 import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.frontend.struts.RhnValidationHelper;
 import com.redhat.rhn.manager.kickstart.BaseKickstartCommand;
 import com.redhat.rhn.manager.kickstart.BaseKickstartScriptCommand;
 
@@ -43,7 +43,6 @@ public abstract class BaseKickstartScriptAction extends BaseKickstartEditAction 
     public static final String NOCHROOT = "nochroot";
     public static final String TEMPLATE = "template";
 
-
     /**
      * {@inheritDoc}
      */
@@ -64,17 +63,14 @@ public abstract class BaseKickstartScriptAction extends BaseKickstartEditAction 
             chroot = "N";
         }
 
+        ValidatorResult result = RhnValidationHelper.validate(this.getClass(), form, null,
+                "validation/" + form.getDynaClass().getName() + ".xsd");
+
+        if (!result.isEmpty()) {
+            return result.getErrors().get(0);
+        }
+
         String scriptValue = getStrutsDelegate().getTextAreaValue(form, CONTENTS);
-        int maxLength = Config.get().getInt("web.kickstart_script_max_length", 150000);
-
-        if (scriptValue.length() == 0) {
-            return new ValidatorError("kickstart.script.required");
-        }
-        else if (scriptValue.length() > maxLength) {
-            return new ValidatorError("kickstart.script.toolarge",
-                    LocalizationService.getInstance().formatNumber(new Long(maxLength)));
-        }
-
         kssc.setScript(form.getString(LANGUAGE),
                 scriptValue,
                 form.getString(TYPE),

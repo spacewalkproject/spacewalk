@@ -6428,6 +6428,13 @@ Follow this url to see the full list of inactive systems:
         </context-group>
       </trans-unit>
 
+      <trans-unit id="script_name">
+        <source>Script Name</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/kickstart/KickstartScriptEdit.do</context>
+        </context-group>
+      </trans-unit>
+
       <trans-unit id="kickstart.script.pre">
         <source>Pre Script</source>
         <context-group name="ctx">
