@@ -109,11 +109,18 @@ def do_softwarechannel_listbasechannels(self, args):
 ####################
 
 def help_softwarechannel_listchildchannels(self):
-    print 'softwarechannel_listchildchannels: List all child software channels'
-    print 'usage: softwarechannel_listchildchannels'
+    print 'softwarechannel_listchildchannels: List child software channels'
+    print 'usage:'
+    print 'softwarechannel_listchildchannels : List all child channels'
+    print 'softwarechannel_listchildchannels CHANNEL : List children for a \
+specific base channel'
 
 def do_softwarechannel_listchildchannels(self, args):
-    channels = self.list_child_channels()
+    (args, options) = parse_arguments(args)
+    if not len(args):
+        channels = self.list_child_channels()
+    else:
+        channels = self.list_child_channels(parent=args[0])
 
     if len(channels):
         print '\n'.join(sorted(channels))
