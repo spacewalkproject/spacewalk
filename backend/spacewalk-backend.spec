@@ -12,7 +12,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.7.2
+Version: 1.7.3
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -675,6 +675,10 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Thu Jan 05 2012 Jan Pazdziora 1.7.3-1
+- Removing the debugging prints.
+- removed dead code (michael.mraka@redhat.com)
+
 * Tue Jan 03 2012 Michael Mraka <michael.mraka@redhat.com> 1.7.2-1
 - code cleanup
 - removed dead remaining_subscriptions()
