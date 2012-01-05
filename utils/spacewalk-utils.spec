@@ -15,6 +15,7 @@ BuildArch:      noarch
 BuildRequires:  /usr/bin/docbook2man
 BuildRequires:  docbook-utils
 BuildRequires:  python
+BuildRequires:  pylint
 
 Requires:       bash
 Requires:       cobbler
