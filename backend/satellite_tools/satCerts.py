@@ -249,9 +249,6 @@ def set_slots_from_cert(cert):
 							'virtual_count'
                                                  )]
 
-    print families['rhel-server-6']
-    print families['private-channel-family-1']
-
     for cf in cert.channel_families:
         if not families.has_key(cf.name):
             continue
@@ -264,10 +261,6 @@ def set_slots_from_cert(cert):
         if not quantity:
             quantity = 0
         quantity = int(quantity)
-
-        # print cf.name, quantity, flex
-        if cf.name == 'rhel-server-6':
-            print cf.name, quantity, flex
 
         existing_base = families[cf.name]['base'][4] + families[cf.name]['base'][5]
         allocated_other = families[cf.name]['other'][1] + families[cf.name]['other'][3]
