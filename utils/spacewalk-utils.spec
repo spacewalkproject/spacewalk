@@ -1,7 +1,7 @@
 %define rhnroot %{_prefix}/share/rhn
 
 Name:		spacewalk-utils
-Version:	1.7.2
+Version:	1.7.3
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -74,6 +74,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Thu Jan 05 2012 Michael Mraka <michael.mraka@redhat.com> 1.7.3-1
+- removed map and filter from bad-function list
+
 * Thu Jan 05 2012 Michael Mraka <michael.mraka@redhat.com> 1.7.2-1
 - pylint is required for coding style check
 
