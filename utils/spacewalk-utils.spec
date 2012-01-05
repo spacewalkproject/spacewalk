@@ -1,7 +1,7 @@
 %define rhnroot %{_prefix}/share/rhn
 
 Name:		spacewalk-utils
-Version:	1.7.1
+Version:	1.7.2
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -72,6 +72,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Thu Jan 05 2012 Michael Mraka <michael.mraka@redhat.com> 1.7.2-1
+- pylint is required for coding style check
+
 * Wed Jan 04 2012 Michael Mraka <michael.mraka@redhat.com> 1.7.1-1
 - fixed coding style and pylint warnings
 - added spacewalk-nightly-*-fedora16 definitions
