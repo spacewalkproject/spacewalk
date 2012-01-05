@@ -1066,7 +1066,7 @@ def import_activationkey_fromdetails(self, keydetails):
     else:
         # create the key, we need to drop the org prefix from the key name
         keyname = re.sub('^[0-9]-', '', keydetails['key'])
-        logging.info("Found key %s, importing as %s" % \
+        logging.debug("Found key %s, importing as %s" % \
             (keydetails['key'], keyname))
 
         if keydetails['usage_limit'] != 0:
@@ -1128,11 +1128,15 @@ def import_activationkey_fromdetails(self, keydetails):
 
 def help_activationkey_clone(self):
     print 'activationkey_clone: Clone an activation key'
-    print '''usage: activationkey_clone [options]
+    print '''usage examples:
+                 activationkey_clone foo_key -c bar_key
+                 activationkey_clone foo_key1 foo_key2 -c prefix
+                 activationkey_clone foo_key -x "s/foo/bar"
+                 activationkey_clone foo_key1 foo_key2 -x "s/foo/bar"
 
 options:
-  -n NAME        : Name of the key to be cloned
-  -c CLONE_NAME  : Name of the resulting key
+  -c CLONE_NAME  : Name of the resulting key, treated as a prefix for multiple
+                   keys
   -x "s/foo/bar" : Optional regex replacement, replaces foo with bar in the
                    clone description, base-channel label, child-channel
                    labels, config-channel names '''
@@ -1141,8 +1145,7 @@ def complete_activationkey_clone(self, text, line, beg, end):
     return tab_completer(self.do_activationkey_list('', True), text)
 
 def do_activationkey_clone(self, args):
-    options = [ Option('-n', '--name', action='store'),
-                Option('-c', '--clonename', action='store'),
+    options = [ Option('-c', '--clonename', action='store'),
                 Option('-x', '--regex', action='store') ]
 
     (args, options) = parse_arguments(args, options)
@@ -1155,103 +1158,129 @@ def do_activationkey_clone(self, args):
         print '\n'.join(sorted(allkeys))
         print
 
-        options.name = prompt_user('Original Key:', noblank = True)
+        if len(args) == 1:
+            print "Key to clone: %s" % args[0]
+        else:
+            # Clear out any args as interactive doesn't handle multiple keys
+            args = []
+            args.append(prompt_user('Original Key:', noblank = True))
 
         options.clonename = prompt_user('Cloned Key:', noblank = True)
     else:
-        if not options.name:
-            logging.error('The --name option is required')
+        if not options.clonename and not options.regex:
+            logging.error("Error - must specify either -c or -x options!")
+            self.help_activationkey_clone()
             return
-
-        if not options.clonename:
-            logging.error('The --clonename option is required')
-            return
-
-    if not options.name in allkeys:
-        logging.error("Key %s does not exist" % options.name)
-        return
 
     if options.clonename in allkeys:
         logging.error("Key %s already exists" % options.clonename)
         return
 
-    # Replace the key-name with the clonename specified by the user
-    keydetails = self.export_activationkey_getdetails(options.name)
-    keydetails['key'] = options.clonename
+    if not len(args):
+        logging.error("Error no activationkey to clone passed!")
+        self.help_activationkey_clone()
+        return
 
-    # If the -x/--regex option is passed, do a sed-style replacement over
-    # everything contained by the key.  This makes it easier to clone when 
-    # content is based on a known naming convention
-    if options.regex:
-        # Expect this option to be formatted like a sed-replacement, s/foo/bar
-        findstr = options.regex.split("/")[1]
-        replacestr = options.regex.split("/")[2]
-        logging.debug("Regex option selected with %s, replacing %s with %s" % \
-            (options.regex, findstr, replacestr))
+    logging.debug("Got args=%s %d" % (args, len(args)))
+    # allow globbing of configchannel channel names
+    akeys = filter_results(allkeys, args)
+    logging.debug("Filtered akeys %s" % akeys)
+    logging.debug("all akeys %s" % allkeys)
+    for ak in akeys:
+        logging.debug("Cloning %s" % ak)
+        # Replace the key-name with the clonename specified by the user
+        keydetails = self.export_activationkey_getdetails(ak)
 
-        # First we do the description
-        newdesc = re.sub(findstr, replacestr, keydetails['description'])
-        keydetails['description'] = newdesc
+        # If the -x/--regex option is passed, do a sed-style replacement over
+        # everything contained by the key.  This makes it easier to clone when
+        # content is based on a known naming convention
+        if options.regex:
+            # formatted like a sed-replacement, s/foo/bar
+            findstr = options.regex.split("/")[1]
+            replacestr = options.regex.split("/")[2]
+            logging.debug("Regex option with %s, replacing %s with %s" % \
+                (options.regex, findstr, replacestr))
 
-        # Then the base-channel label
-        newbasech = re.sub(findstr, replacestr, \
-            keydetails['base_channel_label'])
-        if newbasech in self.list_base_channels():
-            keydetails['base_channel_label'] = newbasech
-            # Now iterate over any child-channel labels
-            # Since we have the new base-channel, we can check if the new child
-            # label exists under the new base-channel:
-            # If it doesn't we can only skip it and print a warning
-            all_childch = self.list_child_channels(system=None,\
-                parent=newbasech, subscribed=False)
+            # First we do the key name
+            newkey = re.sub(findstr, replacestr, keydetails['key'])
+            keydetails['key'] = newkey
 
-            new_child_channel_labels = []
-            for c in keydetails['child_channel_labels']:
-                newc = re.sub(findstr, replacestr, c)
-                if newc in all_childch:
-                    logging.debug("Found child channel %s for key %s, " % \
-                         (c, keydetails['key']) + \
-                         "replacing with %s" % newc)
+            # Then the description
+            newdesc = re.sub(findstr, replacestr, keydetails['description'])
+            keydetails['description'] = newdesc
 
-                    new_child_channel_labels.append(newc)
-                else:
-                    logging.warning("Found child channel %s key %s, but %s" % \
-                         (c, keydetails['key'], newc) + \
-                         " does not exist, skipping!")
+            # Then the base-channel label
+            newbasech = re.sub(findstr, replacestr, \
+                keydetails['base_channel_label'])
+            if newbasech in self.list_base_channels():
+                keydetails['base_channel_label'] = newbasech
+                # Now iterate over any child-channel labels
+                # we have the new base-channel, we can check if the new child
+                # label exists under the new base-channel:
+                # If it doesn't we can only skip it and print a warning
+                all_childch = self.list_child_channels(system=None,\
+                    parent=newbasech, subscribed=False)
 
-            logging.debug("Processed all child channels, " + \
-                 "new_child_channel_labels=%s" % new_child_channel_labels)
+                new_child_channel_labels = []
+                for c in keydetails['child_channel_labels']:
+                    newc = re.sub(findstr, replacestr, c)
+                    if newc in all_childch:
+                        logging.debug("Found child channel %s for key %s, " % \
+                             (c, keydetails['key']) + \
+                             "replacing with %s" % newc)
 
-            keydetails['child_channel_labels'] = new_child_channel_labels
-        else:
-            logging.error("Regex-replacement results in new " + \
-                "base-channel %s which does not exist!" % newbasech)
+                        new_child_channel_labels.append(newc)
+                    else:
+                        logging.warning("Found child channel %s key %s, %s" % \
+                             (c, keydetails['key'], newc) + \
+                             " does not exist, skipping!")
 
-        # Finally, any config-channels 
-        new_config_channels = []
-        allccs =  self.do_configchannel_list('', True)
-        for cc in keydetails['config_channels']:
-            newcc = re.sub(findstr, replacestr, cc)
+                logging.debug("Processed all child channels, " + \
+                     "new_child_channel_labels=%s" % new_child_channel_labels)
 
-            if newcc in allccs:
-                logging.debug("Found config channel %s for key %s, " % \
-                    (cc, keydetails['key']) + \
-                    "replacing with %s" % newcc)
-
-                new_config_channels.append(newcc)
+                keydetails['child_channel_labels'] = new_child_channel_labels
             else:
-                logging.warning("Found config channel %s for key %s, but %s " % \
-                     (cc, keydetails['key'], newcc) + \
-                    "does not exist, skipping!")
+                logging.error("Regex-replacement results in new " + \
+                    "base-channel %s which does not exist!" % newbasech)
 
-        logging.debug("Processed all config channels, " + \
-            "new_config_channels = %s" % new_config_channels)
+            # Finally, any config-channels
+            new_config_channels = []
+            allccs =  self.do_configchannel_list('', True)
+            for cc in keydetails['config_channels']:
+                newcc = re.sub(findstr, replacestr, cc)
 
-        keydetails['config_channels'] = new_config_channels
+                if newcc in allccs:
+                    logging.debug("Found config channel %s for key %s, " % \
+                        (cc, keydetails['key']) + \
+                        "replacing with %s" % newcc)
 
-    # Finally : import the key from the modified keydetails dict
-    if self.import_activationkey_fromdetails(keydetails) != True:
-        logging.error("Failed to clone %s to %s" % \
-         (options.name, options.clonename))
+                    new_config_channels.append(newcc)
+                else:
+                    logging.warning("Found config channel %s for key %s, %s " \
+                         % (cc, keydetails['key'], newcc) + \
+                        "does not exist, skipping!")
+
+            logging.debug("Processed all config channels, " + \
+                "new_config_channels = %s" % new_config_channels)
+
+            keydetails['config_channels'] = new_config_channels
+
+        # Not regex mode
+        elif options.clonename:
+            if len(akeys) > 1:
+                # We treat the clonename as a prefix for multiple keys
+                # However we need to insert the prefix after the org-
+                newkey = re.sub(r'^([0-9]-)', r'\1' + options.clonename,
+                    keydetails['key'])
+                keydetails['key'] = newkey
+            else:
+                keydetails['key'] = options.clonename
+
+        logging.info("Cloning key %s as %s" % (ak, keydetails['key']))
+
+        # Finally : import the key from the modified keydetails dict
+        if self.import_activationkey_fromdetails(keydetails) != True:
+            logging.error("Failed to clone %s to %s" % \
+             (ak, keydetails['key']))
 
 # vim:ts=4:expandtab:
