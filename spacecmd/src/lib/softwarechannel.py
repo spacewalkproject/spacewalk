@@ -98,13 +98,24 @@ def do_softwarechannel_list(self, args, doreturn = False):
 
 def help_softwarechannel_listbasechannels(self):
     print 'softwarechannel_listbasechannels: List all base software channels'
-    print 'usage: softwarechannel_listbasechannels'
+    print '''usage: softwarechannel_listbasechannels [options]
+options:
+  -v verbose (display label and summary)'''
 
 def do_softwarechannel_listbasechannels(self, args):
+    options = [ Option('-v', '--verbose', action='store_true') ]
+    (args, options) = parse_arguments(args, options)
+
     channels = self.list_base_channels()
 
     if len(channels):
-        print '\n'.join(sorted(channels))
+        if (options.verbose):
+            for c in sorted(channels):
+                details = \
+                    self.client.channel.software.getDetails(self.session, c)
+                print "%s : %s" % (c,details['summary'])
+        else:
+            print '\n'.join(sorted(channels))
 
 ####################
 
