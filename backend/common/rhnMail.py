@@ -16,11 +16,9 @@
 #
 
 import os
-import sys
 import smtplib
 
 from rhnConfig import CFG
-from rhnLog import log_error
 from rhn.connections import idn_pune_to_unicode
 
 # check if the headers have the minimum required fields
