@@ -35,7 +35,7 @@ def __check_headers(h):
     else:
         to = h["To"]
     if not ("Content-Type" in h):
-	h["Content-Type"] = "text/plain; charset=utf-8"
+        h["Content-Type"] = "text/plain; charset=utf-8"
     if type(to) in [type([]), type(())]:
         toaddrs = to
         to = ', '.join(to)
