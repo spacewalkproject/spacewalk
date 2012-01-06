@@ -389,7 +389,7 @@ class UploadClass(uploadLib.UploadClass):
                     self.warn(2, "ERROR: %s: No such file or directory available" % pkg)
                     continue
                 
-                checksum = getFileChecksum(checksum_type, file=payload_stream)
+                checksum = getFileChecksum(checksum_type, file_obj=payload_stream)
                 f.close()
                 
             for t in range(0, tries):
@@ -495,7 +495,7 @@ class UploadClass(uploadLib.UploadClass):
                 self.warn(2, "ERROR: %s: No such file or directory available" % pkg)
                 continue
                         
-            checksum = getFileChecksum(checksum_type, file=payload_stream)
+            checksum = getFileChecksum(checksum_type, file_obj=payload_stream)
             digest_hash[pkg_key] =  (checksum_type, checksum)
             f.close()
             

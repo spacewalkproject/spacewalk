@@ -325,7 +325,7 @@ def process_sha256_packages():
         header, payload_stream, header_start, header_end = \
                 rhnPackageUpload.load_package(temp_file)
         checksum_type = header.checksum_type()
-        checksum = getFileChecksum(checksum_type, file=temp_file)
+        checksum = getFileChecksum(checksum_type, file_obj=temp_file)
 
         old_path = package['path'].split('/')
         nevra = parseRPMFilename(old_path[-1])

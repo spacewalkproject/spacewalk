@@ -511,7 +511,7 @@ class UploadClass:
         f.seek(0, 0)
         # Compute digest
         checksum_type = h.checksum_type()
-        checksum = getFileChecksum(checksum_type, file=f)
+        checksum = getFileChecksum(checksum_type, file_obj=f)
         f.close()
         if h is None:
             raise UploadError("%s is not a valid RPM file" % filename)
