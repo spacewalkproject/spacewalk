@@ -38,7 +38,6 @@ from spacewalk.server.importlib.packageImport import ChannelPackageSubscription
 from spacewalk.server.importlib.packageUpload import uploadPackages, listChannels, listChannelsSource
 from spacewalk.server.importlib.userAuth import UserAuth
 from spacewalk.server.importlib.errataCache import schedule_errata_cache_update
-from spacewalk.common.checksum import getFileChecksum
 
 #12/22/05 wregglej 173287
 #I made a decent number of changes to this file to implement session authentication.

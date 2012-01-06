@@ -24,7 +24,6 @@ from importLib import File, Dependency, ChangeLog, Channel, \
 from backendLib import gmtime, localtime
 from types import ListType, TupleType, IntType, LongType, StringType
 from spacewalk.common.rhnLog import log_debug
-from spacewalk.common.checksum import getFileChecksum
 
 class rpmPackage(IncompletePackage):
     # Various mappings
