@@ -164,8 +164,6 @@ def rhn_popen(cmd, progressCallback=None, bufferSize=16384, outputLog=None):
         outputLog --> optional log file file object write method
     """
 
-    subprocess._cleanup()
-
     cmd_is_list = type(cmd) in (types.ListType, types.TupleType)
     if cmd_is_list:
         cmd = map(str, cmd)
