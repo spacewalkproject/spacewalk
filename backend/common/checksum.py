@@ -20,7 +20,7 @@ except ImportError:
     import md5
     import sha
     from Crypto.Hash import SHA256 as sha256
-    class hashlib:
+    class hashlib(object):
         @staticmethod
         def new(checksum):
             if checksum == 'md5':
