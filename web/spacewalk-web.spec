@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 1.6.37
+Version: 1.6.38
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -254,6 +254,10 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Fri Jan 06 2012 Tomas Lestach <tlestach@redhat.com> 1.6.38-1
+- 771634 - remove semi-colon at the end of queries
+- 771214 - add missing widget require
+
 * Thu Dec 22 2011 Milan Zazrivec <mzazrivec@redhat.com> 1.6.37-1
 - update web version to 1.6
 
