@@ -357,7 +357,7 @@ def getUidGid(user=None, group=None):
     if uid != 0:
         # Don't bother to change the owner, it will fail anyway
         # group ownership may work though
-        user=None
+        user = None
     else:
         uid = gc.getuid(user)
 
