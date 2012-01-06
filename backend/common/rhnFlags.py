@@ -21,6 +21,7 @@ def set(name, value = 1):
     """
     set value
     """
+    # pylint: disable=W0622
     global __F
     if not name:
         return None
@@ -62,5 +63,6 @@ def all():
     """
     return all flags in a dict
     """
+    # pylint: disable=W0622
     global __F
     return __F
