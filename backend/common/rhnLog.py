@@ -112,7 +112,6 @@ def initLOG(log_file = "stderr", level = 0):
 # Convenient macro-type debugging function
 def log_debug(level, *args):
     # Please excuse the style inconsistencies.
-    global LOG   
     if LOG and LOG.level >= level:
         apply(LOG.logMessage, args)
 
@@ -126,7 +125,6 @@ def log_stderr(*args):
 
 # Convenient error logging function
 def log_error(*args):
-    global LOG
     if not args:
         return
     err_args = ["ERROR"]
@@ -139,14 +137,12 @@ def log_error(*args):
     
 # Log a string with no extra info.
 def log_clean(level, msg):
-    global LOG
     if LOG and LOG.level >= level:
         LOG.writeToLog(msg)
 
 # set the request object for the LOG so we don't have to expose the
 # LOG object externally
 def log_setreq(req):
-    global LOG
     if LOG:
         LOG.set_req(req)
 
