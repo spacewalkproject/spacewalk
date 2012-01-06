@@ -432,13 +432,17 @@ class payload:
     def tell(self):
         return self.fileobj.tell() - self.skip
 
-    def truncate(self, size=-1):
+    @staticmethod
+    def truncate(size=-1):
+        # pylint: disable=W0613
         raise AttributeError("'Payload' object do not implement this method")
 
-    def write(self, str):
+    @staticmethod
+    def write(_s):
         raise AttributeError("'Payload' object do not implement this method")
 
-    def writelines(self, seq):
+    @staticmethod
+    def writelines(_seq):
         raise AttributeError("'Payload' object do not implement this method")
 
     def __getattr__(self, x):
