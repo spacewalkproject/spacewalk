@@ -113,7 +113,7 @@ def initLOG(log_file = "stderr", level = 0):
 def log_debug(level, *args):
     # Please excuse the style inconsistencies.
     if LOG and LOG.level >= level:
-        apply(LOG.logMessage, args)
+        LOG.logMessage(*args)
 
 # Dump some information to stderr.
 def log_stderr(*args):
@@ -131,7 +131,7 @@ def log_error(*args):
     for a in args:
         err_args.append(a)
     if LOG:
-        apply(LOG.logMessage, err_args)
+        LOG.logMessage(*err_args)
     # log to stderr too
     log_stderr(str(args))
     
