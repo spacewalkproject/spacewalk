@@ -78,7 +78,7 @@
         </tr>
 
         <tr>
-          <th>Base Channel Architecture<span class="required-form-field">*</span>:</th>
+          <th>Architecture<span class="required-form-field">*</span>:</th>
           <td>{channel_arch}</td>
         </tr>
 <rhn-require acl_mixins="RHN::Access::Channel" acl="channel_exists()">

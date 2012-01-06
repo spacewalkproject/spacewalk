@@ -21981,12 +21981,6 @@ given channel.</source>
           <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
         </context-group>
       <target>ঊর্ধ্বতন চ্যানেল</target></trans-unit>
-      <trans-unit id="channel.edit.jsp.parentarch">
-        <source>Parent Channel Architecture</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
-        </context-group>
-      <target>ঊর্ধ্বস্থ চ্যানেলের আর্কিটেকচার</target></trans-unit>
       <trans-unit id="channel.edit.jsp.checksum">
         <source>Yum Repository Checksum Type</source>
         <context-group name="ctx">

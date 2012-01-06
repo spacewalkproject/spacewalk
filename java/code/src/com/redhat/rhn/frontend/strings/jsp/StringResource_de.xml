@@ -22127,12 +22127,6 @@ f&amp;uuml;r einen angegebenen Channel aufgelistet wird.</target></trans-unit>
           <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
         </context-group>
       <target>Parent-Channel</target></trans-unit>
-      <trans-unit id="channel.edit.jsp.parentarch">
-        <source>Parent Channel Architecture</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
-        </context-group>
-      <target>Parent-Channel-Architektur</target></trans-unit>
       <trans-unit id="channel.edit.jsp.checksum">
         <source>Yum Repository Checksum Type</source>
         <context-group name="ctx">

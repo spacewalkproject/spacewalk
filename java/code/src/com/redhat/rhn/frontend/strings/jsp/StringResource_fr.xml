@@ -22122,12 +22122,6 @@ fois pour un canal donné.</target></trans-unit>
           <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
         </context-group>
       <target>Canal parent</target></trans-unit>
-      <trans-unit id="channel.edit.jsp.parentarch">
-        <source>Parent Channel Architecture</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
-        </context-group>
-      <target>Architecture du canal parent</target></trans-unit>
       <trans-unit id="channel.edit.jsp.checksum">
         <source>Yum Repository Checksum Type</source>
         <context-group name="ctx">

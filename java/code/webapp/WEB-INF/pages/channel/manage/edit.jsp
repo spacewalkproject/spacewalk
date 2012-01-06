@@ -73,7 +73,7 @@
       </tr>
       <tr>
          <th nowrap="nowrap">
-            <label for="parentarch"><bean:message key="channel.edit.jsp.parentarch"/>:</label>
+            <label for="parentarch"><bean:message key="packagelist.jsp.packagearch"/>:</label>
          </th>
          <td class="small-form">
           <c:choose>
