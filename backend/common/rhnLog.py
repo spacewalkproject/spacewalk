@@ -127,11 +127,8 @@ def log_stderr(*args):
 def log_error(*args):
     if not args:
         return
-    err_args = ["ERROR"]
-    for a in args:
-        err_args.append(a)
     if LOG:
-        LOG.logMessage(*err_args)
+        LOG.logMessage("ERROR", *args)
     # log to stderr too
     log_stderr(str(args))
     
