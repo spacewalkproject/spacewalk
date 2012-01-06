@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.7.1
+Version: 1.7.2
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -555,6 +555,11 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Jan 06 2012 Tomas Lestach <tlestach@redhat.com> 1.7.2-1
+- removing hibernate not-null constraint (tlestach@redhat.com)
+- 756097 - remove 'Spacewalk' from log messages (tlestach@redhat.com)
+- introduce validator checks for kickstart scripts (tlestach@redhat.com)
+
 * Wed Jan 04 2012 Tomas Lestach <tlestach@redhat.com> 1.7.1-1
 - 700711 - redirect SessionStatus page page to systems overview after the
   system profile gets deleted (tlestach@redhat.com)
