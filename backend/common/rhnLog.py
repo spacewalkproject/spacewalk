@@ -65,6 +65,8 @@ def set_close_on_exec(fd):
     s = fcntl.fcntl(fd, fcntl.F_GETFD)
     fcntl.fcntl(fd, fcntl.F_SETFD, s | fcntl.FD_CLOEXEC)
 
+# pylint: disable=W0702
+
 # Init the log
 def initLOG(log_file = "stderr", level = 0):
     global LOG
