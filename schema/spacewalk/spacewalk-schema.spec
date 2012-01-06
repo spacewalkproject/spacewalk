@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.7.3
+Version:        1.7.4
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -66,6 +66,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Fri Jan 06 2012 Jan Pazdziora 1.7.4-1
+- Dropping the prune_group procedure with the old prototype.
+
 * Tue Jan 03 2012 Jan Pazdziora 1.7.3-1
 - Upon drop, the default must not be specified.
 
