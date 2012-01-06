@@ -33,6 +33,19 @@ def get_package_header(filename=None, file=None, fd=None):
     return rhn_pkg(filename=filename, file=file, fd=fd) \
         .get_package_header(filename=filename, file=file, fd=fd)
 
+def package_from_stream(stream, packaging):
+    if packaging == 'deb':
+        import rhn_deb
+        a_pkg = rhn_deb.DEB_Package(stream)
+    elif packaging == 'rpm':
+        import rhn_rpm
+        a_pkg = rhn_rpm.RPM_Package(stream)
+    elif packaging == 'mpm':
+        import rhn_mpm
+        a_pkg = rhn_mpm.MPM_Package(stream)
+    else:
+        a_pkg = None
+    return a_pkg
 
 BUFFER_SIZE = 16384
 DEFAULT_CHECKSUM_TYPE = 'md5'
