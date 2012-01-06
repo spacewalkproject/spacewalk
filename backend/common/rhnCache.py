@@ -367,9 +367,9 @@ class ObjectCache:
     def delete(self, name):
         self.cache.delete(name)
         
-    def get_file(self, name, modified = None):
-        """ Getting a file descriptor for an object makes no sense. """
-        raise NotImplementedError
+    @staticmethod
+    def get_file(*_args):
+        raise RuntimeError("Getting a file descriptor for an object makes no sense.")
 
 class NullCache:
     """ A cache that returns None rather than raises a KeyError. """
