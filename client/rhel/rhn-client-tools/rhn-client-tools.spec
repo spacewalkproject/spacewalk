@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 1.7.1
+Version: 1.7.2
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -334,6 +334,11 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Mon Jan 09 2012 Miroslav Suchý 1.7.2-1
+- 771167 - verify login/password just after user will file it in
+- do not print yum-rhn-plugin warning if zypp-plugin is used
+- removed dead remaining_subscriptions() (michael.mraka@redhat.com)
+
 * Fri Dec 30 2011 Aron Parsons <parsonsa@bit-sys.com> 1.7.1-1
 - continue to search for the hostname if IPv6 is disabled (parsonsa@bit-
   sys.com)
