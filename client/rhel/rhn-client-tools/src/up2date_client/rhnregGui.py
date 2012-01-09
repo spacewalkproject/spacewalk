@@ -454,6 +454,25 @@ class LoginPage:
             errorWindow(_("You must enter a password."))
             self.loginPw.grab_focus()
             return True
+
+        # this is hosted only and will test login/password as side effect
+        # we need it for chooseChannel page, but it set global variable
+        # so we can call it here and verify login to hosted
+        try:
+            try_to_activate_hardware()
+        except up2dateErrors.ValidationError, e:
+            setArrowCursor()
+            self.alreadyRegistered = 0
+            log.log_me("An exception was raised causing login to fail. This is "
+                       "usually correct. Exception information:")
+            log.log_exception(*sys.exc_info())
+            errorWindow(e.errmsg)
+            return True
+        except up2dateErrors.CommunicationError, e:
+            setArrowCursor()
+            print e.errmsg
+            self.fatalError(_("There was an error communicating with the registration server.  The message was:\n") + e.errmsg)
+            return True # fatalError in firstboot will return to here
         
         return False
 
@@ -597,11 +616,7 @@ class ChooseChannelPage:
         Returns True if the choose channel window should be shown, else
         returns False.
         '''
-
-        # First and foremost, we should try to activate hardware
-        try_to_activate_hardware()
-
-        # Second and foremost, does the server support eus?
+        # does the server support eus?
         if rhnreg.server_supports_eus():
 
             global username, password
