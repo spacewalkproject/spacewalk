@@ -10,7 +10,7 @@ autobuild_tags = dist-5E-sw-1.7-candidate dist-6E-sw-1.7-candidate dist-f15-sw-1
 
 [dist-5E-sw-1.7-candidate]
 disttag = .el5
-blacklist=oracle-server-admin oracle-server-scripts rhnclient smartpm python-ethtool spacewalk-jpp-workaround apt-spacewalk python-hwdata spacewalk-oro-compat
+blacklist=oracle-server-admin oracle-server-scripts rhnclient smartpm spacewalk-jpp-workaround apt-spacewalk python-hwdata spacewalk-oro-compat
 
 [dist-6E-sw-1.7-candidate]
 disttag = .el6
@@ -18,8 +18,8 @@ blacklist=oracle-server-admin oracle-server-scripts rhnclient smartpm heirloom-p
 
 [dist-f15-sw-1.7-candidate]
 disttag = .fc15
-blacklist=jabberd-selinux oracle-server-admin oracle-server-scripts rhnclient smartpm python-ethtool apt-spacewalk python-hwdata heirloom-pkgtools oracle-rhnsat-selinux spacewalk-oro-compat
+blacklist=jabberd-selinux oracle-server-admin oracle-server-scripts rhnclient smartpm apt-spacewalk python-hwdata heirloom-pkgtools oracle-rhnsat-selinux spacewalk-oro-compat
 
 [dist-f16-sw-1.7-candidate]
 disttag = .fc16
-blacklist=jabberd-selinux oracle-server-admin oracle-server-scripts rhnclient smartpm python-ethtool apt-spacewalk python-hwdata heirloom-pkgtools oracle-rhnsat-selinux
+blacklist=jabberd-selinux oracle-server-admin oracle-server-scripts rhnclient smartpm apt-spacewalk python-hwdata heirloom-pkgtools oracle-rhnsat-selinux
