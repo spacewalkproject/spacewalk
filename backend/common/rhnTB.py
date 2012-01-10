@@ -14,7 +14,6 @@
 #
 #
 
-import re
 import os
 import sys
 import time
@@ -81,10 +80,6 @@ def print_locals(fd = sys.stderr, tb = None):
                 s = "<ERROR WHILE PRINTING VALUE>"
             if len(s) > 100 * 1024:
                 s = "<ERROR WHILE PRINTING VALUE: string representation too large>"
-            if re.search(r'<methodName>registration.reserve_user</methodName>', s):
-                result = re.match(r'.*<methodName>registration.reserve_user</methodName>.*?<param>.*?<value>.*?<value><string>(.*?)</string></value>.*', s, re.DOTALL)
-                if result: # add password to censor list
-                    add_to_seclist(result.group(1))
             fd.write("%s %s\n" % (type(value), s))
         fd.write("\n")
 
