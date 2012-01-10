@@ -55,6 +55,8 @@ Defaults = {
                              'noReboot']),
 }
 
+FileOptions = ['systemIdPath', 'sslCACert', 'tmpDir', ]
+
 # a peristent configuration storage class
 class ConfigFile:
     "class for handling persistent config options for the client"
@@ -152,9 +154,11 @@ class ConfigFile:
         for key in self.dict.keys():
             (comment, value) = self.dict[key]
             f.write((u"%s[comment]=%s\n" % (key, comment)).encode('utf-8'))
-            if type(val[1]) == type([]):
-                value = ';'.join(map(str, value))
-            f.write((u"%s=%s\n" % (key, value)).encode('utf-8'))
+            if type(value) != type([]):
+                value = [ value ]
+            if key in FileOptions:
+                value = map(os.path.abspath, value)
+            f.write((u"%s=%s\n" % (key, ';'.join(map(str, value)))).encode('utf-8'))
             f.write("\n")
         f.close()
         os.rename(self.fileName+'.new', self.fileName)
