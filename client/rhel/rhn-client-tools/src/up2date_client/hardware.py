@@ -617,7 +617,7 @@ def read_dmi():
     vendor = get_dmi_data('/dmidecode/BIOSinfo/Vendor')
     if vendor:
         dmidict["bios_vendor"] = vendor
-    version = get_dmi_data('/dmidecode/BIOSIinfo/Version')
+    version = get_dmi_data('/dmidecode/BIOSinfo/Version')
     if version:
         dmidict["bios_version"] = version
     release = get_dmi_data('/dmidecode/BIOSinfo/ReleaseDate')
