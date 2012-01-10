@@ -29,6 +29,7 @@ from spacewalk.server.rhnMapping import real_version
 from spacewalk.server.rhnHandler import rhnHandler
 from spacewalk.server import rhnUser, rhnServer, rhnSQL, rhnCapability, \
         rhnChannel, rhnVirtualization
+from spacewalk.common.rhnTB import add_to_seclist
 
 
 def hash_validate(data, *keylist):
@@ -134,6 +135,9 @@ class Registration(rhnHandler):
 
         Returns true value if user is reserved, otherwise fault is raised.
         """
+
+        add_to_seclist(password)
+
         log_debug(1, username)
         # check user login/password and if not CFG.disallow_user_creation
         # then reserver the user
@@ -465,6 +469,9 @@ class Registration(rhnHandler):
         activate_registration_number
         """
 
+        if data.has_key("password"):
+            add_to_seclist(data["password"])
+
         # Validate we got the minimum necessary input.
         self.validate_system_input(data)
 
@@ -546,6 +553,9 @@ class Registration(rhnHandler):
             be raised:
             TODO
         """
+
+        add_to_seclist(password)
+
         log_debug(4,'in new_system_user_pass')
 
         # release_name wasn't required in the old call, so I'm just going to
