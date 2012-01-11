@@ -961,6 +961,9 @@ class SendingWindow:
         except up2dateErrors.InsuffMgmntEntsError, e:
             FatalErrorWindow(self.screen, e)
 
+        # Send virtualization information to the server.
+        rhnreg.sendVirtInfo(systemId)
+
         # enable yum-rhn-plugin
         try:
             self.tui.yum_plugin_present, self.tui.yum_plugin_conf_changed = rhnreg.pluginEnable()

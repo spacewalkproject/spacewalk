@@ -864,7 +864,10 @@ class CreateProfilePage:
                 pwin.setStatusLabel(_("Problem sending package information."))
                 import time
                 time.sleep(1)
-                        
+
+            # Send virtualization information to the server.
+            rhnreg.sendVirtInfo(self.systemId)
+
         li = None
         try:
             li = up2dateAuth.updateLoginInfo()
