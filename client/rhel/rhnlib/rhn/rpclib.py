@@ -41,9 +41,6 @@ def check_ipv6(n):
     except:
         return False
 
-#
-# Function used to split host information in an URL per RFC 2396
-# handle full hostname like user:passwd@host:port
 def split_host(hoststring):
     """ Function used to split host information in an URL per RFC 2396
         handle full hostname like user:passwd@host:port
