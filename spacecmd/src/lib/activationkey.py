@@ -886,6 +886,12 @@ def do_activationkey_setbasechannel(self, args):
                 'universal_default' : \
                 current_details.get('universal_default') }
 
+    # getDetails returns a usage_limit of 0 unlimited, which is then
+    # interpreted literally as zero when passed into setDetails, doh!
+    # Setting it to -1 seems to keep the usage limit unlimited
+    if details['usage_limit'] == 0:
+        details['usage_limit'] = -1
+
     self.client.activationkey.setDetails(self.session, key, details)
 
 ####################
