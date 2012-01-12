@@ -619,6 +619,168 @@ def do_softwarechannel_clone(self, args):
 
 ####################
 
+def help_softwarechannel_clonetree(self):
+    print 'softwarechannel_clonetree: Clone a software channel and its child channels'
+    print '''usage: softwarechannel_clonetree [options]A
+             e.g    softwarechannel_clonetree foobasechannel -p "my_"
+                    softwarechannel_clonetree foobasechannel -x "s/foo/bar"
+                    softwarechannel_clonetree foobasechannel -x "s/^/my_"
+
+options:
+  -s/--source-channel SOURCE_CHANNEL
+  -p/--prefix PREFIX (is prepended to the label and name of all channels)
+  --gpg-copy/-g (copy GPG details for correspondoing source channel))
+  --gpg-url GPG_URL (applied to all channels)
+  --gpg-id GPG_ID (applied to all channels)
+  --gpg-fingerprint GPG_FINGERPRINT (applied to all channels)
+  -o do not clone any errata
+  --regex/-x "s/foo/bar" : Optional regex replacement,
+        replaces foo with bar in the clone name, label and description'''
+
+def do_softwarechannel_clonetree(self, args):
+    options = [ Option('-s', '--source-channel', action='store'),
+                Option('-p', '--prefix', action='store'),
+                Option('-x', '--regex', action='store'),
+                Option('-o', '--original-state', action='store_true'),
+                Option('-g', '--gpg-copy', action='store_true'),
+                Option('', '--gpg-url', action='store'),
+                Option('', '--gpg-id', action='store'),
+                Option('', '--gpg-fingerprint', action='store') ]
+
+    (args, options) = parse_arguments(args, options)
+
+    if is_interactive(options):
+        print 'Source Channels:'
+        print '\n'.join(sorted(self.list_base_channels()))
+
+        options.source_channel =  prompt_user('Select source channel:',
+                                              noblank = True)
+
+        options.prefix = prompt_user('Prefix:', noblank = True)
+
+        options.gpg_copy = \
+            self.user_confirm('Copy source channel GPG details? [y/N]:',
+                              ignore_yes = True)
+        if not options.gpg_copy:
+            options.gpg_url = prompt_user('GPG URL:')
+            options.gpg_id = prompt_user('GPG ID:')
+            options.gpg_fingerprint = prompt_user('GPG Fingerprint:')
+
+        options.original_state = \
+            self.user_confirm('Original State (No Errata) [y/N]:',
+                              ignore_yes = True)
+    else:
+        if not options.source_channel:
+            logging.error('A source channel is required')
+            return
+
+        if not options.prefix and not options.regex:
+            logging.error('A prefix or regex is required')
+            return
+
+        if not options.original_state:
+            options.original_state = False
+
+    channels = [ options.source_channel ]
+    if not options.source_channel in self.list_base_channels():
+        logging.error("Can't call softwarechannel_clonetree on child channel!")
+        self.help_softwarechannel_clonetree()
+        return
+    logging.debug("--child mode specified, finding children of %s\n" %\
+        options.source_channel)
+    children = self.list_child_channels(parent=options.source_channel)
+    logging.debug("Found children %s\n" % children)
+    for c in children:
+        channels.append(c)
+
+    logging.debug("channels=%s" % channels)
+    parent_channel = None
+    for ch in channels:
+        logging.debug("Cloning %s" % ch)
+        # If the -x/--regex option is passed, do a sed-style replacement over
+        # the name, label and description. from the source channel to create
+        # the name, label and description for the clone channel.
+        # This makes it easier to clone based on a known naming convention
+        label=None
+        name=None
+        if options.regex:
+            # Expect option to be formatted like a sed-replacement, s/foo/bar
+            findstr = options.regex.split("/")[1]
+            replacestr = options.regex.split("/")[2]
+            logging.debug("--regex selected with %s, replacing %s with %s" % \
+                (options.regex, findstr, replacestr))
+
+            # regex the source channel name
+            srcdetails = self.client.channel.software.getDetails(\
+                self.session, ch)
+            name = re.sub(findstr, replacestr, srcdetails['name'])
+
+            label = re.sub(findstr, replacestr, ch)
+            logging.debug("regex mode : %s %s %s" % (ch,\
+                name, label))
+        elif options.prefix:
+            srcdetails = self.client.channel.software.getDetails(\
+                self.session, ch)
+            label = options.prefix + srcdetails['label']
+            name = options.prefix + srcdetails['name']
+        else:
+            # Shouldn't ever get here due to earlier checks
+            logging.error("called without prefix or regex option!")
+            return
+
+        details = { 'name' : name,
+                    'label' : label,
+                    'summary' : name }
+
+        if parent_channel:
+            details['parent_label'] = parent_channel
+
+        if options.gpg_copy:
+            srcdetails = self.client.channel.software.getDetails(self.session,\
+                ch)
+            if srcdetails['gpg_key_url']:
+                details['gpg_url'] = srcdetails['gpg_key_url']
+                logging.debug("copying gpg_key_url=%s" % srcdetails['gpg_key_url'])
+            if srcdetails['gpg_key_id']:
+                details['gpg_id'] = srcdetails['gpg_key_id']
+                logging.debug("copying gpg_key_id=%s" % srcdetails['gpg_key_id'])
+            if srcdetails['gpg_key_fp']:
+                details['gpg_fingerprint'] = srcdetails['gpg_key_fp']
+                logging.debug("copying gpg_key_fp=%s" % srcdetails['gpg_key_fp'])
+
+        if options.gpg_id:
+            details['gpg_id'] = options.gpg_id
+
+        if options.gpg_url:
+            details['gpg_url'] = options.gpg_url
+
+        if options.gpg_fingerprint:
+            details['gpg_fingerprint'] = options.gpg_fingerprint
+
+        # remove empty strings from the structure
+        to_remove = []
+        for key in details:
+            if details[key] == '':
+                to_remove.append(key)
+
+        for key in to_remove:
+            del details[key]
+
+        logging.info("Cloning %s as %s" % (ch, details['label']))
+        self.client.channel.software.clone(self.session,
+                                           ch,
+                                           details,
+                                           options.original_state)
+
+        # If this is the first call we are on the base-channel clone and we
+        # need to set parent_channel to the new cloned base-channel label
+        if not parent_channel:
+            parent_channel = details['label']
+
+
+
+####################
+
 def help_softwarechannel_addpackages(self):
     print 'softwarechannel_addpackages: Add packages to a software channel'
     print 'usage: softwarechannel_addpackages CHANNEL <PACKAGE ...>'
