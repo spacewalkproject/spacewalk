@@ -485,6 +485,7 @@ options:
   -n NAME
   -l LABEL
   -p PARENT_CHANNEL
+  --gpg-copy/-g (copy SOURCE_CHANNEL GPG details)
   --gpg-url GPG_URL
   --gpg-id GPG_ID
   --gpg-fingerprint GPG_FINGERPRINT
@@ -496,6 +497,7 @@ def do_softwarechannel_clone(self, args):
                 Option('-s', '--source-channel', action='store'),
                 Option('-p', '--parent-channel', action='store'),
                 Option('-o', '--original-state', action='store_true'),
+                Option('-g', '--gpg-copy', action='store_true'),
                 Option('', '--gpg-url', action='store'),
                 Option('', '--gpg-id', action='store'),
                 Option('', '--gpg-fingerprint', action='store') ]
@@ -520,9 +522,13 @@ def do_softwarechannel_clone(self, args):
         options.parent_channel = \
             prompt_user('Select Parent [blank to create a base channel]:')
 
-        options.gpg_url = prompt_user('GPG URL:')
-        options.gpg_id = prompt_user('GPG ID:')
-        options.gpg_fingerprint = prompt_user('GPG Fingerprint:')
+        options.gpg_copy = \
+            self.user_confirm('Copy source channel GPG details? [y/N]:',
+                              ignore_yes = True)
+        if not options.gpg_copy:
+            options.gpg_url = prompt_user('GPG URL:')
+            options.gpg_id = prompt_user('GPG ID:')
+            options.gpg_fingerprint = prompt_user('GPG Fingerprint:')
 
         options.original_state = \
             self.user_confirm('Original State (No Errata) [y/N]:',
@@ -549,6 +555,19 @@ def do_softwarechannel_clone(self, args):
 
     if options.parent_channel:
         details['parent_label'] = options.parent_channel
+
+    if options.gpg_copy:
+        srcdetails = self.client.channel.software.getDetails(self.session,\
+            options.source_channel)
+        if srcdetails['gpg_key_url']:
+            details['gpg_url'] = srcdetails['gpg_key_url']
+            logging.debug("copying gpg_key_url=%s" % srcdetails['gpg_key_url'])
+        if srcdetails['gpg_key_id']:
+            details['gpg_id'] = srcdetails['gpg_key_id']
+            logging.debug("copying gpg_key_id=%s" % srcdetails['gpg_key_id'])
+        if srcdetails['gpg_key_fp']:
+            details['gpg_fingerprint'] = srcdetails['gpg_key_fp']
+            logging.debug("copying gpg_key_fp=%s" % srcdetails['gpg_key_fp'])
 
     if options.gpg_id:
         details['gpg_id'] = options.gpg_id
