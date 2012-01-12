@@ -489,13 +489,16 @@ options:
   --gpg-url GPG_URL
   --gpg-id GPG_ID
   --gpg-fingerprint GPG_FINGERPRINT
-  -o do not clone any errata'''
+  -o do not clone any errata
+  --regex/-x "s/foo/bar" : Optional regex replacement,
+        replaces foo with bar in the clone name and label'''
 
 def do_softwarechannel_clone(self, args):
     options = [ Option('-n', '--name', action='store'),
                 Option('-l', '--label', action='store'),
                 Option('-s', '--source-channel', action='store'),
                 Option('-p', '--parent-channel', action='store'),
+                Option('-x', '--regex', action='store'),
                 Option('-o', '--original-state', action='store_true'),
                 Option('-g', '--gpg-copy', action='store_true'),
                 Option('', '--gpg-url', action='store'),
@@ -538,16 +541,38 @@ def do_softwarechannel_clone(self, args):
             logging.error('A source channel is required')
             return
 
-        if not options.name:
+        if not options.name and not options.regex:
             logging.error('A channel name is required')
             return
 
-        if not options.label:
+        if not options.label and not options.regex:
             logging.error('A channel label is required')
             return
 
         if not options.original_state:
             options.original_state = False
+
+        # If the -x/--regex option is passed, do a sed-style replacement over
+        # the name, label and description. from the source channel to create
+        # the name, label and description for the clone channel.
+        # This makes it easier to clone based on a known naming convention
+        if options.regex:
+            # Expect option to be formatted like a sed-replacement, s/foo/bar
+            findstr = options.regex.split("/")[1]
+            replacestr = options.regex.split("/")[2]
+            logging.debug("--regex selected with %s, replacing %s with %s" % \
+                (options.regex, findstr, replacestr))
+
+            # If no name is passed we try to regex the source channel name
+            if not options.name:
+                srcdetails = self.client.channel.software.getDetails(\
+                    self.session, options.source_channel)
+                options.name = re.sub(findstr, replacestr, srcdetails['name'])
+
+            options.label = re.sub(findstr, replacestr, options.source_channel)
+            logging.debug("regex mode : %s %s %s" % (options.source_channel,\
+                options.name, options.label))
+
 
     details = { 'name' : options.name,
                 'label' : options.label,
