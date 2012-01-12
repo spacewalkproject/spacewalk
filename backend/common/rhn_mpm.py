@@ -23,6 +23,7 @@ import sys
 import fileutils
 
 from types import ListType, TupleType
+from rhn_pkg import InvalidPackageError
 
 MPM_CHECKSUM_TYPE = 'md5'       # FIXME: this should be a configuration option
 
@@ -82,7 +83,7 @@ def load_rpm(stream):
 
     try:
         header = rhn_rpm.get_package_header(file=stream)
-    except rhn_rpm.InvalidPackageError, e:
+    except InvalidPackageError, e:
         raise InvalidPackageError(*e.args), None, sys.exc_info()[2]
     except rhn_rpm.error, e:
         raise InvalidPackageError(e), None, sys.exc_info()[2]
@@ -120,9 +121,6 @@ class MPM_Header:
 
     def unload(self):
         return None
-
-class InvalidPackageError(Exception):
-    pass
 
 MPM_HEADER_COMPRESSED_GZIP = 1
 MPM_PAYLOAD_COMPRESSED_GZIP = 1

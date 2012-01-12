@@ -24,6 +24,7 @@ import gzip
 import sys
 
 from debian import debfile
+from rhn_pkg import InvalidPackageError
 
 DEB_CHECKSUM_TYPE = 'md5'       # FIXME: this should be a configuration option
 
@@ -151,5 +152,3 @@ class deb_Header:
         return getattr(self.hdr, name)
 """
 
-class InvalidPackageError(Exception):
-    pass

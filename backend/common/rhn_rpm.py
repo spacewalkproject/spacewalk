@@ -20,7 +20,7 @@ import struct
 import tempfile
 
 import checksum
-from rhn_pkg import A_Package
+from rhn_pkg import A_Package, InvalidPackageError
 
 # Expose a bunch of useful constants from rpm
 error = rpm.error
@@ -55,9 +55,6 @@ PGPHASHALGO = {
  10: 'sha512',
 }
 
-
-class InvalidPackageError(Exception):
-    pass
 
 class RPM_Header:
     "Wrapper class for an rpm header - we need to store a flag is_source"

@@ -85,3 +85,6 @@ class A_Package:
             dest.write(buf)
             if hash:
                 hash.update(buf)
+
+class InvalidPackageError(Exception):
+    pass
