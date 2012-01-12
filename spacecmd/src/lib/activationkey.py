@@ -770,6 +770,7 @@ def do_activationkey_details(self, args):
         print 'Key:                    %s' % details.get('key')
         print 'Description:            %s' % details.get('description')
         print 'Universal Default:      %s' % details.get('universal_default')
+        print 'Usage Limit:            %s' % details.get('usage_limit')
         print 'Deploy Config Channels: %s' % config_channel_deploy
 
         print
