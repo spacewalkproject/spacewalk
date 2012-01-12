@@ -47,7 +47,7 @@ if _LIBPATH not in sys.path:
     sys.path.append(_LIBPATH)
 
 from up2date_client.rhnChannel import subscribeChannels, unsubscribeChannels, getChannels
-from up2date_client import up2dateAuth, config, up2dateErrors
+from up2date_client import up2dateAuth, config, up2dateErrors, rhncli
 
 def processCommandline():
     "process the commandline, setting the OPTIONS object"
@@ -151,6 +151,7 @@ def main():
         systemExit(3, _("ERROR: you may want to specify --add, --remove or --list"))
 
 try:
+    sys.excepthook = rhncli.exceptionHandler
     processCommandline()
     main()
 except KeyboardInterrupt:

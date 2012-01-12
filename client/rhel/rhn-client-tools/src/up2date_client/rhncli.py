@@ -68,7 +68,7 @@ class RhnCli(object):
 
     def run(self):
         # catch any uncaught exceptions and handle them nicely
-        sys.excepthook = RhnCli.__exceptionHandler
+        sys.excepthook = exceptionHandler
         # main loop call
         try:
             self.initialize()
@@ -201,15 +201,14 @@ class RhnCli(object):
         if cfg["debug"] > 2:
             pkgUtils.setDebugVerbosity()
 
-    @staticmethod
-    def __exceptionHandler(type, value, tb):
-        log = up2dateLog.initLog()
-        sys.stderr.write(_("An error has occurred:") + "\n")
-        if hasattr(value, "errmsg"):
-            sys.stderr.write(str(value.errmsg) + "\n")
-            log.log_exception(type, value, tb)
-        else:
-            sys.stderr.write(str(type) + "\n")
-            log.log_exception(type, value, tb)
+def exceptionHandler(type, value, tb):
+    log = up2dateLog.initLog()
+    sys.stderr.write(_("An error has occurred:") + "\n")
+    if hasattr(value, "errmsg"):
+        sys.stderr.write(str(value.errmsg) + "\n")
+        log.log_exception(type, value, tb)
+    else:
+        sys.stderr.write(str(type) + "\n")
+        log.log_exception(type, value, tb)
 
-        sys.stderr.write(_("See /var/log/up2date for more information") + "\n")
+    sys.stderr.write(_("See /var/log/up2date for more information") + "\n")
