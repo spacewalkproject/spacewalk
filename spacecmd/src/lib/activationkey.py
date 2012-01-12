@@ -896,6 +896,54 @@ def do_activationkey_setbasechannel(self, args):
 
 ####################
 
+def help_activationkey_setusagelimit(self):
+    print 'activationkey_setusagelimit: Set the usage limit of an ' + \
+          'activation key, can be a number or \"unlimited\"'
+    print 'usage: activationkey_setbasechannel KEY <usage limit>'
+    print 'usage: activationkey_setbasechannel KEY unlimited '
+
+def complete_activationkey_setusagelimit(self, text, line, beg, end):
+    parts = line.split(' ')
+
+    if len(parts) == 2:
+        return tab_completer(self.do_activationkey_list('', True), text)
+    elif len(parts) > 2:
+        return "unlimited"
+
+def do_activationkey_setusagelimit(self, args):
+    (args, options) = parse_arguments(args)
+
+    if not len(args) >= 2:
+        self.help_activationkey_setusagelimit()
+        return
+
+    key = args.pop(0)
+    usage_limit = -1
+    if args[0] == 'unlimited':
+        logging.debug("Setting usage for key %s unlimited" % key)
+    else:
+        try:
+            usage_limit = int(args[0])
+            logging.debug("Setting usage for key %s to %d" % (key, usage_limit))
+        except Exception, E:
+            logging.error("Couldn't convert argument %s to an integer" %\
+                args[0])
+            self.help_activationkey_setusagelimit()
+            return
+
+    current_details = self.client.activationkey.getDetails(self.session,
+                                                           key)
+    details = { 'description' : current_details.get('description'),
+                'base_channel_label' : \
+                current_details.get('base_channel_label'),\
+                'usage_limit' : usage_limit,\
+                'universal_default' : \
+                current_details.get('universal_default') }
+
+    self.client.activationkey.setDetails(self.session, key, details)
+
+####################
+
 def help_activationkey_setuniversaldefault(self):
     print 'activationkey_setuniversaldefault: Set this key as the ' \
           'universal default'
