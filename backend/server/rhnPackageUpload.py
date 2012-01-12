@@ -33,26 +33,6 @@ from spacewalk.server.rhnLib import get_package_path, \
 from spacewalk.server.rhnServer import server_packages
 
 
-def write_temp_file(req, buffer_size, dir, prefix, packaging=None):
-    """ Write request to temporary file (write max. buffer_size at once).
-        Returns the file object.
-    """ 
-    suffix = ''
-    if packaging == 'deb':
-        suffix = '.deb'
-    if not os.path.isdir(dir):
-        os.makedirs(dir)
-    t = tempfile.NamedTemporaryFile(
-                        dir=dir, prefix=prefix + '.',
-                        suffix=suffix)
-    while 1:
-        buf = req.read(buffer_size)
-        if not buf:
-            break
-        t.write(buf)
-    t.seek(0, 0)
-    return t
-
 def authenticate(username, password, channels=[], null_org=None, force=None):
     log_debug(4, username, force)
     authobj = userAuth.UserAuth()
