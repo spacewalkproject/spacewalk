@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 1.7.5
+Version: 1.7.6
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -253,6 +253,11 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Fri Jan 13 2012 Tomas Lestach <tlestach@redhat.com> 1.7.6-1
+- 773605 - bring back deleted system_list from the other side of Styx river
+  (tlestach@redhat.com)
+- 515653 - unify channel architecture label (mzazrivec@redhat.com)
+
 * Wed Jan 04 2012 Tomas Lestach <tlestach@redhat.com> 1.7.5-1
 - 771634 - remove semi-colon at the end of queries (tlestach@redhat.com)
 
