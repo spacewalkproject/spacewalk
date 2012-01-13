@@ -191,7 +191,7 @@ sub init_statements {
                                  destination_name, escalation_level, host_probe_id, host_state,
                                  service_probe_id, service_state, customer_id, netsaint_id,
                                  probe_type, last_update_date, event_timestamp)
-                               SELECT CURRENT_ALERTS_RECID_SEQ.NEXTVAL, sysdate, sysdate, NULL, 
+                               SELECT NULL, sysdate, sysdate, NULL, 
                                  ?, ?, ?, ?, ?, 
                                  ?, 0, ?, ?, 
                                  ?, ?, ?, ?, 
