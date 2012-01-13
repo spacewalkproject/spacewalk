@@ -265,7 +265,7 @@ declare
 begin
     begin
         insert into rhnChecksum values (
-            rhnChecksum_seq.nextval,
+            sequence_nextval('rhnChecksum_seq'),
             :ctype_id,
             :csum ) returning id into checksum_id;
     exception when dup_val_on_index then
