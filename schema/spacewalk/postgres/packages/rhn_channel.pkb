@@ -1,4 +1,4 @@
--- oracle equivalent source sha1 57ec75b0aacf78d2bba70e5ad4158bccacccf265
+-- oracle equivalent source sha1 28fc54071017edd8e57fcfa9705dc18bf4f8578b
 --
 -- Copyright (c) 2008--2011 Red Hat, Inc.
 --
@@ -831,7 +831,7 @@ update pg_settings set setting = 'rhn_channel,' || setting where name = 'search_
          where cfp.org_id = org_id_in
            and CFM.channel_family_id = CFP.channel_family_id
            and CFM.channel_id = channel_id_in
-           and (CFP.max_members > 0 or CFP.max_members is null or CFP.org_id = 1) )
+           and (CFP.max_members > 0 or CFP.max_members is null or CFP.fve_max_members > 0 or CFP.fve_max_members is null or CFP.org_id = 1) )
         then
           return 1;
         else
