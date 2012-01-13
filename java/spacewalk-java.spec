@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.7.2
+Version: 1.7.3
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -555,6 +555,13 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Jan 13 2012 Milan Zazrivec <mzazrivec@redhat.com> 1.7.3-1
+- 574975 - child channel arch defaults to parent's arch (mzazrivec@redhat.com)
+- 703273 - fix multiple server subscriptions to a channel (tlestach@redhat.com)
+- 770143 - pass checksum, when changing org sharing to private
+  (tlestach@redhat.com)
+- 515653 - unify channel architecture label (mzazrivec@redhat.com)
+
 * Fri Jan 06 2012 Tomas Lestach <tlestach@redhat.com> 1.7.2-1
 - removing hibernate not-null constraint (tlestach@redhat.com)
 - 756097 - remove 'Spacewalk' from log messages (tlestach@redhat.com)
