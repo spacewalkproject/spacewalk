@@ -76,20 +76,20 @@ public class TargetSystemsConfirmAction extends RhnAction implements Listable {
                 if (!SystemManager.canServerSubscribeToChannel(user.getOrg(), s, chan)) {
                     createErrorMessage(request, "api.channel.software.channelsubscription",
                             s.getHostname());
-                    // even if it's not success, the redirect is what we need
-                    return getStrutsDelegate().forwardParams(mapping.findForward("success"),
-                            request.getParameterMap());
                 }
-                servers.add(s);
-            }
-            for (Server s : servers) {
-                SystemManager.subscribeServerToChannel(user, s, chan);
+                else {
+                    SystemManager.subscribeServerToChannel(user, s, chan);
+                    servers.add(s);
+                }
             }
             Map params = new HashMap();
             params.put(RequestContext.CID, cid);
             ActionMessages msgs = new ActionMessages();
-            msgs.add(ActionMessages.GLOBAL_MESSAGE,
-                    new ActionMessage("channeltarget.success", set.size(), chan.getName()));
+            if (servers.size() > 0) {
+                msgs.add(ActionMessages.GLOBAL_MESSAGE,
+                        new ActionMessage("channeltarget.success", servers.size(),
+                                chan.getName()));
+            }
             getStrutsDelegate().saveMessages(request, msgs);
 
 
