@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.7.6
+Version:        1.7.7
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -66,6 +66,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Fri Jan 13 2012 Miroslav Suchý 1.7.7-1
+- Avoid using CURRENT_ALERTS_RECID_SEQ.NEXTVAL Oracle syntax.
+- Avoing rhnChecksum_seq.nextval Oracle syntax.
+
 * Fri Jan 13 2012 Tomas Lestach <tlestach@redhat.com> 1.7.6-1
 - 701767 - fixing sha1 of PG upgrade file (tlestach@redhat.com)
 
