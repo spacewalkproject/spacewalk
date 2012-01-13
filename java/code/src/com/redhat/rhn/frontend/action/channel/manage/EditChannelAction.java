@@ -630,6 +630,12 @@ public class EditChannelAction extends RhnAction implements Listable {
         }
         ctx.getRequest().setAttribute("parentChannels", baseChannels);
 
+        HashMap parentChannelArches = new HashMap();
+        for (Channel c : bases) {
+            parentChannelArches.put(c.getId(), c.getChannelArch().getLabel());
+        }
+        ctx.getRequest().setAttribute("parentChannelArches", parentChannelArches);
+
         // base channel arches
         List channelArches = new ArrayList();
         List<ChannelArch> arches = ChannelManager.getChannelArchitectures();

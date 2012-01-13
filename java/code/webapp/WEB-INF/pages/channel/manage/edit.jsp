@@ -5,6 +5,17 @@
 
 <html>
 <body>
+
+<script type="text/javascript">
+function setChildChannelArch() {
+var baseChannels = {};
+<c:forEach items="${parentChannelArches}" var="parentChannel">
+baseChannels["<c:out value="${parentChannel.key}" />"] = "<c:out value="${parentChannel.value}"/>";
+document.getElementById("parentarch").value = baseChannels[document.getElementById("parent").value];
+}
+</c:forEach>
+</script>
+
 <rhn:toolbar base="h1" img="/img/rhn-icon-channels.gif"
              deletionUrl="/rhn/channels/manage/Delete.do?cid=${param.cid}"
              deletionAcl="user_role(channel_admin); formvar_exists(cid)"
@@ -58,7 +69,8 @@
          <td class="small-form">
           <c:choose>
             <c:when test='${empty param.cid}'>
-                <html:select property="parent" styleId="parent">
+                <html:select property="parent" styleId="parent"
+                 onchange="setChildChannelArch()">
                     <html:options collection="parentChannels"
                                   property="value"
                                   labelProperty="label" />
