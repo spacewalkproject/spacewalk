@@ -137,8 +137,10 @@ def do_kickstart_create(self, args):
 ####################
 
 def help_kickstart_delete(self):
-    print 'kickstart_delete: Delete a Kickstart profile'
+    print 'kickstart_delete: Delete kickstart profile(s)'
     print 'usage: kickstart_delete PROFILE'
+    print 'usage: kickstart_delete PROFILE1 PROFILE2'
+    print 'usage: kickstart_delete \"PROF*\"'
 
 def complete_kickstart_delete(self, text, line, beg, end):
     if len(line.split(' ')) <= 2:
@@ -147,14 +149,27 @@ def complete_kickstart_delete(self, text, line, beg, end):
 def do_kickstart_delete(self, args):
     (args, options) = parse_arguments(args)
 
-    if len(args) != 1:
+    if len(args) < 1:
         self.help_kickstart_delete()
         return
 
-    label = args[0]
+    # allow globbing of kickstart labels
+    all_labels = self.do_kickstart_list('', True)
+    labels = filter_results(all_labels, args)
+    logging.debug("Got labels to delete of %s" % labels)
 
-    if self.user_confirm('Delete this profile [y/N]:'):
-        self.client.kickstart.deleteProfile(self.session, label)
+    if len(labels) == 0:
+        logging.error("No valid kickstart labels passed as arguments!")
+        self.help_kickstart_delete()
+        return
+
+    for label in labels:
+        if not label in all_labels:
+            logging.error("kickstart label %s doesn't exist!" % label)
+            continue
+
+        if self.user_confirm("Delete profile %s [y/N]:" % label):
+            self.client.kickstart.deleteProfile(self.session, label)
 
 ####################
 
