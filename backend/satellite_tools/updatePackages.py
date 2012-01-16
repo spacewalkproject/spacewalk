@@ -265,7 +265,7 @@ declare
 begin
     begin
         insert into rhnChecksum values (
-            null, -- the id is set by trigger on rhnChecksum
+            rhnChecksum_seq.nextval,
             :ctype_id,
             :csum ) returning id into checksum_id;
     exception when dup_val_on_index then
