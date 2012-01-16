@@ -4,7 +4,7 @@
 %endif
 
 Name:        spacecmd
-Version:     1.7.1
+Version:     1.7.2
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -61,6 +61,12 @@ touch %{buildroot}/%{python_sitelib}/spacecmd/__init__.py
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Mon Jan 16 2012 Aron Parsons <aronparsons@gmail.com> 1.7.2-1
+- spacecmd enhancement : multiple delete for kickstart_delete
+  (shardy@redhat.com)
+- spacecmd bugfix : filter_results don't match substrings without wildcard
+  (shardy@redhat.com)
+
 * Sun Jan 15 2012 Aron Parsons <aronparsons@gmail.com> 1.7.1-1
 - spacecmd enhancement : Add activationkey_setusagelimit (shardy@redhat.com)
 - spacecmd bugfix : activationkey_setuniversaldefault zeros unlimited usage
