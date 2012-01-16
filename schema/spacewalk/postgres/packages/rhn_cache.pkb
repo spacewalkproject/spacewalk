@@ -102,7 +102,7 @@ declare
 					);
 begin
 	for u in users loop
-		perform update_perms_for_user(u.id);
+		perform rhn_cache.update_perms_for_user(u.id);
 	end loop;
 end;
 $$ language plpgsql;
