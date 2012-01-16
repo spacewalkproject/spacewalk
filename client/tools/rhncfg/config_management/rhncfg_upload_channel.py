@@ -35,6 +35,12 @@ class Handler(handler_base.HandlerBase):
             default=None,
             help="List of channels the config info will be uploaded into. Channels delimited by ','.\nExample: --channel=foo,bar,baz",
         ),
+        handler_base.HandlerBase._option_class(
+            '', '--disable-selinux',
+            action='store_true',
+            default=None,
+            help="Don't upload SELinux contexts",
+        ),
     ]
 
     def run(self):
@@ -71,7 +77,7 @@ class Handler(handler_base.HandlerBase):
             #The name of the channel is assumed to be the same as the name of the directory.
             channels = self.args
             dirs = None
-        
+
         #If dirs isn't None, then each directory needs to be uploaded into each channel.
         if dirs: 
             for channel in channels:
@@ -85,6 +91,11 @@ class Handler(handler_base.HandlerBase):
     def upload_config_channel(self, topdir, channel, directory_name):
         if not self.r.config_channel_exists(channel):
             die(6, "Error: config channel %s does not exist" % channel)
+
+        if self.options.disable_selinux:
+            selinux_ctx = ''
+        else:
+            selinux_ctx = None
 
         print "Using config channel %s" % channel
 
@@ -105,7 +116,8 @@ class Handler(handler_base.HandlerBase):
                     
                 print "Uploading %s from %s" % (remote_file, local_file)
                 try:
-                    self.r.put_file(channel, remote_file, local_file, is_first_revision=0)
+                    self.r.put_file(channel, remote_file, local_file, is_first_revision=0,
+                                    selinux_ctx = selinux_ctx)
                 except cfg_exceptions.RepositoryFilePushError, e:
                     log_error(e)
 
