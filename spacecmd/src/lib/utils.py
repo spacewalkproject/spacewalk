@@ -110,7 +110,11 @@ def filter_results(items, patterns, search = False):
 
     compiled_patterns = []
     for pattern in patterns:
-        compiled_patterns.append(re.compile(pattern, re.I))
+        if search:
+            compiled_patterns.append(re.compile(pattern, re.I))
+        else:
+            # If in "match" mode, we don't want to match substrings
+            compiled_patterns.append(re.compile("^"+pattern+"$", re.I))
 
     for item in items:
         for pattern in compiled_patterns:
