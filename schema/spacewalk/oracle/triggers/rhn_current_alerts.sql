@@ -25,9 +25,6 @@ date_completed_is_null exception;
 date_completed_is_not_null exception;
 
 begin
-    if :new.id is null then
-        select rhn_current_alerts_recid_seq.nextval into :new.id from dual; 
-    end if; 
 
     if :new.in_progress=0 and :new.date_completed is null
     then
