@@ -2829,7 +2829,7 @@
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
         <set-property property="postRequiredIfSubmitted" value="true" />
           <set-property property="acls"
-               value="org_channel_family(rhn-proxy); user_role(org_admin)"/>
+               value="org_channel_family(rhn-proxy) or not is_satellite(); user_role(org_admin)"/>
         <forward name="default"
                  path="/WEB-INF/pages/systems/proxylist.jsp"/>
     </action>
