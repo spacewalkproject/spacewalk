@@ -446,7 +446,8 @@
            srcdir="code/internal/src"
            source="1.5"
            target="1.5"
-           classpathref="buildjars" >
+           classpathref="buildjars"
+           includeantruntime="false" >
     </javac>
   </target>
 
