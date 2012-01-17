@@ -1476,7 +1476,7 @@ sub wait_for_tomcat {
             PeerAddr => 'localhost',
             PeerPort => '8009',
             Proto    => 'tcp'
-        ) or last;
+        ) and last;
         sleep 5;
     }
 
