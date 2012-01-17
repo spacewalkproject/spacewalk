@@ -28,6 +28,7 @@ Requires:       cobbler >= 2.0.0
 Requires:       PyYAML
 Requires:       /usr/bin/gpg
 Requires:       spacewalk-setup-jabberd
+Requires:       perl(LWP::Protocol::https)
 
 %description
 A collection of post-installation scripts for managing Spacewalk's initial
