@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        1.7.0
+Version:        1.7.1
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -106,6 +106,13 @@ rm -rf %{buildroot}
 %{_mandir}/man8/spacewalk-make-mount-points*
 
 %changelog
+* Tue Jan 17 2012 Jan Pazdziora 1.7.1-1
+- Prevent LWP 6 from checking the hostname.
+- We need LWP::Protocol::https for HEAD to pass since it gets redirected to
+  https.
+- We want to exit the loop if we have managed to connect to the localhost
+  tomcat.
+
 * Wed Dec 14 2011 Jan Pazdziora 1.6.5-1
 - Update the target populate_db.log sizes.
 - We do not need any async progressbar code (which seems to break on perl
