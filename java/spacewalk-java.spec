@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.7.4
+Version: 1.7.5
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -555,6 +555,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Jan 17 2012 Tomas Lestach <tlestach@redhat.com> 1.7.5-1
+- set includeantruntime to true (tlestach@redhat.com)
+
 * Tue Jan 17 2012 Tomas Lestach <tlestach@redhat.com> 1.7.4-1
 - remove duplicate struts-config entry (tlestach@redhat.com)
 - define includeantruntime for javac build (tlestach@redhat.com)
