@@ -204,6 +204,15 @@ public class TaskoFactory extends HibernateFactory {
     }
 
     /**
+     * deletes specified tasko run
+     * @param run run to delete
+     */
+    public static void deleteRun(TaskoRun run) {
+        TaskoFactory.deleteLogFiles(run);
+        TaskoFactory.delete(run);
+    }
+
+    /**
      * delete log files associated with given run
      * @param run run to delete logs
      */
@@ -303,6 +312,20 @@ public class TaskoFactory extends HibernateFactory {
         params.put("timestamp", new Date());
         return singleton.listObjectsByNamedQuery(
                 "TaskoSchedule.listFuture", params);
+    }
+
+    /**
+     * list all schedule runs with (future) timestamps newer than limitTime
+     * @param scheduleId schedule id
+     * @param limitTime limit time
+     * @return list of runs
+     */
+    public static List<TaskoRun> listNewerRunsBySchedule(Long scheduleId, Date limitTime) {
+        Map params = new HashMap();
+        params.put("schedule_id", scheduleId);
+        params.put("limit_time", limitTime);
+        return singleton.listObjectsByNamedQuery(
+                "TaskoRun.listByScheduleNewerThan", params);
     }
 
     private static TaskoBunch lookupBunchByOrgAndName(Integer orgId, String bunchName)
@@ -496,6 +519,31 @@ public class TaskoFactory extends HibernateFactory {
         params.put("bunch_name", bunchName);
         return singleton.listObjectsByNamedQuery(
                 "TaskoRun.listByBunch", params);
+    }
+
+    /**
+     * Reinitializes schedule
+     * used, when quartz needs to be updated according to our tasko table entries
+     * @param schedule schedule to reinit
+     * @param now time to set
+     * @return schedule
+     */
+    public static TaskoSchedule reinitializeScheduleFromNow(TaskoSchedule schedule,
+            Date now) {
+        TaskoQuartzHelper.destroyJob(schedule.getOrgId(), schedule.getJobLabel());
+        schedule.setActiveFrom(now);
+        if (!schedule.isCronSchedule()) {
+            schedule.setActiveTill(now);
+        }
+        TaskoFactory.save(schedule);
+        try {
+            TaskoQuartzHelper.createJob(schedule);
+            return schedule;
+        }
+        catch (InvalidParamException e) {
+            // Pech gehabt()
+        }
+        return null;
     }
 
     private static boolean runBelongToOrg(Integer orgId, TaskoRun run) {

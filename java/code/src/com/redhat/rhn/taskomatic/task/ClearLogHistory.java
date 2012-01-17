@@ -75,8 +75,7 @@ public class ClearLogHistory extends RhnJavaJob {
         List<TaskoRun> runList = TaskoFactory.listRunsOlderThan(limitTime);
         for (TaskoRun run : runList) {
             // delete history of runs
-            TaskoFactory.deleteLogFiles(run);
-            TaskoFactory.delete(run);
+            TaskoFactory.deleteRun(run);
         }
 
         // delete outdated schedules

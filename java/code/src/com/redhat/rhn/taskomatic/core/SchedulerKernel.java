@@ -21,10 +21,12 @@ import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.common.messaging.MessageQueue;
 import com.redhat.rhn.taskomatic.TaskoFactory;
 import com.redhat.rhn.taskomatic.TaskoQuartzHelper;
+import com.redhat.rhn.taskomatic.TaskoRun;
 import com.redhat.rhn.taskomatic.TaskoSchedule;
 import com.redhat.rhn.taskomatic.TaskoXmlRpcServer;
 
 import org.apache.log4j.Logger;
+import org.hibernate.Transaction;
 import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
 import org.quartz.SchedulerFactory;
@@ -32,6 +34,7 @@ import org.quartz.impl.StdSchedulerFactory;
 
 import java.net.UnknownHostException;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 
@@ -218,13 +221,31 @@ public class SchedulerKernel {
      */
     public void initializeAllSatSchedules() {
         List jobNames;
+        Date now = new Date();
         try {
             jobNames = Arrays.asList(
                     this.scheduler.getJobNames(TaskoQuartzHelper.getGroupName(null)));
             for (TaskoSchedule schedule : TaskoFactory.listActiveSchedulesByOrg(null)) {
                 if (!jobNames.contains(schedule.getJobLabel())) {
                     schedule.sanityCheckForPredefinedSchedules();
+                    log.info("Initializing " + schedule.getJobLabel());
                     TaskoQuartzHelper.createJob(schedule);
+                }
+                else {
+                    List<TaskoRun> runList =
+                            TaskoFactory.listNewerRunsBySchedule(schedule.getId(), now);
+                    if (!runList.isEmpty()) {
+                        // there're runs in the future
+                        // reinit the schedule
+                        Transaction tx = TaskoFactory.getSession().beginTransaction();
+                        log.warn("Reinitializing " + schedule.getJobLabel() + ", found " +
+                        runList.size() + " runs in the future.");
+                        TaskoFactory.reinitializeScheduleFromNow(schedule, now);
+                        for (TaskoRun run : runList) {
+                            TaskoFactory.deleteRun(run);
+                        }
+                        tx.commit();
+                    }
                 }
             }
         }

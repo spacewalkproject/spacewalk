@@ -497,23 +497,14 @@ public class TaskoXmlRpcHandler {
      */
     public List<TaskoSchedule> reinitializeAllSchedulesFromNow() {
         List<TaskoSchedule> schedules = new ArrayList<TaskoSchedule>();
+        Date now = new Date();
         for (TaskoSchedule schedule : TaskoFactory.listFuture()) {
-            TaskoQuartzHelper.destroyJob(schedule.getOrgId(), schedule.getJobLabel());
-            Date now = new Date();
-            schedule.setActiveFrom(now);
-            if (!schedule.isCronSchedule()) {
-                schedule.setActiveTill(now);
-            }
-            TaskoFactory.save(schedule);
-            try {
-                TaskoQuartzHelper.createJob(schedule);
-                schedules.add(schedule);
-            }
-            catch (InvalidParamException e) {
-                // Pech gehabt()
+            TaskoSchedule reinited =
+                    TaskoFactory.reinitializeScheduleFromNow(schedule, now);
+            if (reinited != null) {
+                schedules.add(reinited);
             }
         }
         return schedules;
-
     }
 }
