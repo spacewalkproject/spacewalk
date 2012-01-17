@@ -4258,15 +4258,6 @@
                   path="/systems/details/probes/ProbeDetails.do" redirect="true"/>
     </action>
 
-    <action path="/systems/details/probes/ProbeDetails"
-         name="probeDetailsForm"
-         scope="request"
-         input="/WEB-INF/pages/systems/probes/details.jsp"
-         type="com.redhat.rhn.frontend.action.systems.monitoring.ProbeDetailsAction">
-         <forward name="default"
-                  path="/WEB-INF/pages/systems/probes/details.jsp"/>
-    </action>
-
     <action path="/systems/details/probes/ProbeGraph"
          scope="request"
          input="/WEB-INF/pages/systems/probes/details.jsp"
