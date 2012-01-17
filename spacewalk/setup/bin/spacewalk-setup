@@ -1481,7 +1481,7 @@ sub wait_for_tomcat {
     }
 
     for (my $i = 0; $i < 20; $i++) {
-        my $retval = system("HEAD http://$hostname/ 2>&1 > /dev/null");
+        my $retval = system("PERL_LWP_SSL_VERIFY_HOSTNAME=0 HEAD http://$hostname/ 2>&1 > /dev/null");
         if ($retval) {
             sleep 5;
         }
