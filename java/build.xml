@@ -447,7 +447,7 @@
            source="1.5"
            target="1.5"
            classpathref="buildjars"
-           includeantruntime="false" >
+           includeantruntime="true" >
     </javac>
   </target>
 
