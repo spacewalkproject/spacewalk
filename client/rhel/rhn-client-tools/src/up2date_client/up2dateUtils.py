@@ -11,7 +11,7 @@ import string
 import up2dateErrors
 import config
 import gettext
-from platform import getPlatform
+from pkgplatform import getPlatform
 t = gettext.translation('rhn-client-tools', fallback=True)
 _ = t.ugettext
 

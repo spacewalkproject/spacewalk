@@ -13,7 +13,7 @@ t = gettext.translation('rhn-client-tools', fallback=True)
 _ = t.ugettext
 import OpenSSL
 import config
-from platform import getPlatform
+from pkgplatform import getPlatform
 
 if getPlatform() == 'deb':
     RepoError = Error

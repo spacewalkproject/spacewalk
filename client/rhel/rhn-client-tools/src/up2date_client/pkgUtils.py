@@ -3,7 +3,7 @@
 #
 # Author: Simon Lukasik
 
-from platform import getPlatform
+from pkgplatform import getPlatform
 
 if getPlatform() == 'deb':
     from debUtils import *

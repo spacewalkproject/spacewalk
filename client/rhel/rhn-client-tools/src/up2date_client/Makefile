@@ -14,7 +14,7 @@ FILES		:= config gui hardware progress \
 		   rhnregGui rhnserver \
 		   messageWindow rhncli \
 		   rhnreg_constants \
-                   platform debUtils pkgUtils \
+                   pkgplatform debUtils pkgUtils \
                    yumPlugin
 
 PYFILES 	:= $(addsuffix .py, $(FILES))
@@ -47,7 +47,7 @@ install:: all
 	sed -i -e "s|\@VERSION\@|$(VERSION)|" \
 		$(RHNSHARE_DIR)/up2date_client/up2dateUtils.py
 	sed -i -e "s|\@PLATFORM\@|$(PLATFORM)|" \
-		$(RHNSHARE_DIR)/up2date_client/platform.py
+		$(RHNSHARE_DIR)/up2date_client/pkgplatform.py
 
 # OTHER targets for internal use
 pychecker:: 
