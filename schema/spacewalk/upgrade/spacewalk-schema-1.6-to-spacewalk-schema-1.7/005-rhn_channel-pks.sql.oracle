@@ -95,7 +95,9 @@ IS
 
     PROCEDURE delete_server_channels(server_id_in in number);
 
-    PROCEDURE refresh_newest_package(channel_id_in in number, caller_in in varchar2 := '(unknown)', package_name_id_in in number := null);
+    PROCEDURE refresh_newest_package(channel_id_in in number,
+                                     caller_in in varchar2 := '(unknown)',
+                                     package_name_id_in in number := null);
 
     FUNCTION get_org_id(channel_id_in in number) return number;
     PRAGMA RESTRICT_REFERENCES(get_org_id, WNDS, RNPS, WNPS);
