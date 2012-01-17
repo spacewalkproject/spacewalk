@@ -649,6 +649,8 @@ is
                 rhn_channel.channel_family_current_members(family.channel_family_id,
                                                            org_id_val); -- fixed transposed args
 
+            begin
+
             -- get the max members of the family
             select max_members
             into max_members_val
@@ -698,6 +700,9 @@ is
             -- what's the difference of doing this vs the unavoidable set_family_count above?
             rhn_channel.update_family_counts(family.channel_family_id,
                                              org_id_val);
+
+            exception when no_data_found then null;
+            end;
 
             -- It is possible that the guests belong  to a different org than the host
             -- so we are going to update the family counts in the guests orgs also
