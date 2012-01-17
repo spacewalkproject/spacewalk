@@ -175,9 +175,9 @@ class RegisterKsCli(rhncli.RhnCli):
         try:
             present, conf_changed = rhnreg.pluginEnable()
             if not present:
-                sys.stderr.write(_("Warning: yum-rhn-plugin is not present, could not enable it."))
+                sys.stderr.write(rhncli.utf8_encode(_("Warning: yum-rhn-plugin is not present, could not enable it.")))
         except IOError, e:
-            sys.stderr.write(_("Warning: Could not open /etc/yum/pluginconf.d/rhnplugin.conf\nyum-rhn-plugin is not enabled.\n") + e.errmsg)
+            sys.stderr.write(rhncli.utf8_encode(_("Warning: Could not open /etc/yum/pluginconf.d/rhnplugin.conf\nyum-rhn-plugin is not enabled.\n") + e.errmsg))
         RegisterKsCli.__runRhnCheck(self.options.verbose)
 
     @staticmethod

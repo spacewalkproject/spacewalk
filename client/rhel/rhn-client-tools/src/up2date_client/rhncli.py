@@ -44,6 +44,14 @@ from up2date_client import up2dateLog
 from up2date_client import up2dateUtils
 from up2date_client import pkgUtils
 
+def utf8_encode(msg):
+    """ python 2.6- (i.e. RHEL6 and older) could not write unicode to stderr,
+        encode it to utf-8.
+    """
+    if isinstance(msg, unicode):
+        msg = msg.encode('utf-8')
+    return(msg)
+
 _optionsTable = [
     Option("-v", "--verbose", action="count", default=0,
         help=_("Show additional output")),
@@ -74,39 +82,39 @@ class RhnCli(object):
             self.initialize()
             sys.exit(self.main() or 0)
         except KeyboardInterrupt:
-            sys.stderr.write(_("\nAborted.\n"))
+            sys.stderr.write(utf8_encode(_("\nAborted.\n")))
             sys.exit(1)
         except OSError, e:
-            sys.stderr.write(_("An unexpected OS error occurred: %s\n") % e)
+            sys.stderr.write(utf8_encode(_("An unexpected OS error occurred: %s\n") % e))
             sys.exit(1)
         except rpclib.MalformedURIError, e: # Subclass of IOError so must come 1st?
             if e is None or len(str(e)) == 0:
-                sys.stderr.write(_("A connection was attempted with a malformed URI.\n"))
+                sys.stderr.write(utf8_encode(_("A connection was attempted with a malformed URI.\n")))
             else:
-                sys.stderr.write(_("A connection was attempted with a malformed URI: %s.\n") % e)
+                sys.stderr.write(utf8_encode(_("A connection was attempted with a malformed URI: %s.\n") % e))
         except IOError, e:
-            sys.stderr.write(_("There was some sort of I/O error: %s\n") % e)
+            sys.stderr.write(utf8_encode(_("There was some sort of I/O error: %s\n") % e))
             sys.exit(1)
         except SSL.Error, e:
-            sys.stderr.write(_("There was an SSL error: %s\n") % e)
-            sys.stderr.write(_("A common cause of this error is the system time being incorrect. " \
-                               "Verify that the time on this system is correct.\n"))
+            sys.stderr.write(utf8_encode(_("There was an SSL error: %s\n") % e))
+            sys.stderr.write(utf8_encode(_("A common cause of this error is the system time being incorrect. " \
+                               "Verify that the time on this system is correct.\n")))
             sys.exit(1)
         except (SSL.SysCallError, socket.error), e:
-            sys.stderr.write("OpenSSL.SSL.SysCallError: %s\n" % str(e))
+            sys.stderr.write(utf8_encode("OpenSSL.SSL.SysCallError: %s\n" % str(e)))
             sys.exit(2)
         except crypto.Error, e:
-            sys.stderr.write(_("There was a SSL crypto error: %s\n") % e)
+            sys.stderr.write(utf8_encode(_("There was a SSL crypto error: %s\n") % e))
         except SystemExit, e:
             raise
         except up2dateErrors.AuthenticationError, e:
-            sys.stderr.write(_("There was an authentication error: %s\n") % e)
+            sys.stderr.write(utf8_encode(_("There was an authentication error: %s\n") % e))
             sys.exit(1)
         except up2dateErrors.RpmError, e:
-            sys.stderr.write("%s\n" % e)
+            sys.stderr.write(utf8_encode("%s\n" % e))
             sys.exit(1)
         except xmlrpclib.ProtocolError, e:
-            sys.stderr.write("XMLRPC ProtocolError: %s\n" % str(e))
+            sys.stderr.write(utf8_encode("XMLRPC ProtocolError: %s\n" % str(e)))
             sys.exit(3)
 
     def initialize(self):
@@ -203,12 +211,12 @@ class RhnCli(object):
 
 def exceptionHandler(type, value, tb):
     log = up2dateLog.initLog()
-    sys.stderr.write(_("An error has occurred:") + "\n")
+    sys.stderr.write(utf8_encode(_("An error has occurred:") + "\n"))
     if hasattr(value, "errmsg"):
-        sys.stderr.write(str(value.errmsg) + "\n")
+        sys.stderr.write(utf8_encode(str(value.errmsg) + "\n"))
         log.log_exception(type, value, tb)
     else:
-        sys.stderr.write(str(type) + "\n")
+        sys.stderr.write(utf8_encode(str(type) + "\n"))
         log.log_exception(type, value, tb)
 
-    sys.stderr.write(_("See /var/log/up2date for more information") + "\n")
+    sys.stderr.write(utf8_encode(_("See /var/log/up2date for more information") + "\n"))

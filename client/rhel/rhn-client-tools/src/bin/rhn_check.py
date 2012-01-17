@@ -364,7 +364,7 @@ class CheckCli(rhncli.RhnCli):
         try:
             lock = rhnLockfile.Lockfile('/var/run/rhn_check.pid')        
         except rhnLockfile.LockfileLockedException, e:
-            sys.stderr.write("Attempting to run more than one instance of rhn_check. Exiting.\n")
+            sys.stderr.write(rhncli.utf8_encode(_("Attempting to run more than one instance of rhn_check. Exiting.\n")))
             sys.exit(0)
 
 if __name__ == "__main__":

@@ -22,6 +22,8 @@ import gettext
 t = gettext.translation('rhn-virtualization', fallback=True)
 _ = t.ugettext
 
+from up2date_client import rhncli
+
 try:
     import libvirt
 except ImportError:
@@ -75,7 +77,7 @@ def poll_hypervisor():
         conn = libvirt.openReadOnly(None)
     except libvirt.libvirtError, lve:
         # virConnectOpen() failed
-        sys.stderr.write(_("Warning: Could not retrieve virtualization information!\n\tlibvirtd service needs to be running.\n"))
+        sys.stderr.write(rhncli.utf8_encode(_("Warning: Could not retrieve virtualization information!\n\tlibvirtd service needs to be running.\n")))
         conn = None
 
     if not conn:

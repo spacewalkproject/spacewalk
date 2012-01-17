@@ -16,6 +16,7 @@
 import sys
 sys.path.append("/usr/share/rhn/")
 
+from up2date_client import rhncli
 from virtualization import domain_control, poller, schedule_poller
 
 from virtualization.constants        import IdentityType,            \
@@ -186,7 +187,7 @@ def _is_host_domain():
     try:
         conn = libvirt.openReadOnly(None)
     except libvirt.libvirtError: # libvirtd is not running
-        sys.stderr.write(_("Warning: Could not retrieve virtualization information!\n\tlibvirtd service needs to be running.\n"))
+        sys.stderr.write(rhncli.utf8_encode(_("Warning: Could not retrieve virtualization information!\n\tlibvirtd service needs to be running.\n")))
         return False
     if conn and conn.getType() in ['Xen', 'QEMU']:
         return True

@@ -28,19 +28,6 @@ import gettext
 t = gettext.translation('rhn-client-tools', fallback=True)
 _ = t.ugettext
 
-def systemExit(code, msgs=None):
-     "Exit with a code and optional message(s). Saved a few lines of code."
-     if msgs:
-         if type(msgs) not in [type([]), type(())]:
-             msgs = (msgs, )
-         for msg in msgs:
-             sys.stderr.write(str(msg)+'\n')
-     sys.exit(code)
-
-# quick check to see if you are a super-user.
-if os.getuid() != 0:
-    systemExit(8, _('ERROR: must be root to execute\n'))
-
 _LIBPATH = "/usr/share/rhn"
 # add to the path if need be
 if _LIBPATH not in sys.path:
@@ -48,6 +35,20 @@ if _LIBPATH not in sys.path:
 
 from up2date_client.rhnChannel import subscribeChannels, unsubscribeChannels, getChannels
 from up2date_client import up2dateAuth, config, up2dateErrors, rhncli
+
+
+def systemExit(code, msgs=None):
+     "Exit with a code and optional message(s). Saved a few lines of code."
+     if msgs:
+         if type(msgs) not in [type([]), type(())]:
+             msgs = (msgs, )
+         for msg in msgs:
+             sys.stderr.write(rhncli.utf8_encode(str(msg)+'\n'))
+     sys.exit(code)
+
+# quick check to see if you are a super-user.
+if os.getuid() != 0:
+    systemExit(8, _('ERROR: must be root to execute\n'))
 
 def processCommandline():
     "process the commandline, setting the OPTIONS object"
@@ -121,7 +122,7 @@ def main():
             if result == 0:
                 print _("Channel(s): %s successfully added") % ', '.join(OPTIONS.channel)
             else:
-                sys.stderr.write(_("Error during adding channel(s) %s") % ', '.join(OPTIONS.channel))
+                sys.stderr.write(rhncli.utf8_encode(_("Error during adding channel(s) %s") % ', '.join(OPTIONS.channel)))
         if result != 0:
             sys.exit(result)
     elif OPTIONS.remove:
@@ -131,7 +132,7 @@ def main():
             if result == 0:
                 print _("Channel(s): %s successfully removed") % ', '.join(OPTIONS.channel)
             else:
-                sys.stderr.write(_("Error during removal of channel(s) %s") % ', '.join(OPTIONS.channel))
+                sys.stderr.write(rhncli.utf8_encode(_("Error during removal of channel(s) %s") % ', '.join(OPTIONS.channel)))
         if result != 0:
             sys.exit(result)
     elif OPTIONS.list:
