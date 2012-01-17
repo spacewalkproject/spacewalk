@@ -1096,10 +1096,15 @@ IS
     end;
 
         -- this could certainly be optimized to do updates if needs be
-        procedure refresh_newest_package(channel_id_in in number, caller_in in varchar2 := '(unknown)')
+        procedure refresh_newest_package(channel_id_in in number, caller_in in varchar2 := '(unknown)', package_name_id_in in number := null)
         is
+        -- procedure refreshes rows for name_id = package_name_id_in or
+        -- all rows if package_name_id_in is null
         begin
-                delete from rhnChannelNewestPackage where channel_id = channel_id_in;
+                delete from rhnChannelNewestPackage
+                      where channel_id = channel_id_in
+                        and (package_name_id_in is null
+                             or name_id = package_name_id_in);
                 insert into rhnChannelNewestPackage
                         ( channel_id, name_id, evr_id, package_id, package_arch_id ) 
                         (       select  channel_id,
@@ -1107,6 +1112,8 @@ IS
                                                 package_id, package_arch_id
                                 from    rhnChannelNewestPackageView
                                 where   channel_id = channel_id_in
+                                and     (package_name_id_in is null
+                                         or name_id = package_name_id_in)
                         );
                 insert into rhnChannelNewestPackageAudit (channel_id, caller)
                     values (channel_id_in, caller_in);
