@@ -4,7 +4,7 @@ Name: spacewalk-search
 Summary: Spacewalk Full Text Search Server
 Group: Applications/Internet
 License: GPLv2
-Version: 1.7.0
+Version: 1.7.1
 Release: 1%{?dist}
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
@@ -124,6 +124,9 @@ fi
 %{_sysconfdir}/logrotate.d/rhn-search
 
 %changelog
+* Wed Jan 18 2012 Michael Mraka <michael.mraka@redhat.com> 1.7.1-1
+- 747037 - disable connects to svn.terracotta.org from rhn-search
+
 * Wed Dec 21 2011 Milan Zazrivec <mzazrivec@redhat.com> 1.6.8-1
 - update copyright info
 
