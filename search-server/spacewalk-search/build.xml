@@ -164,6 +164,7 @@
             </fileset>
         </copy>
         <copy file="${config.src.dir}/log4j.properties" todir="${build.dir}" />
+        <copy file="${config.src.dir}/quartz.properties" todir="${build.dir}" />
     </target>
 
     <target name="package" depends="compile">
