@@ -420,7 +420,7 @@ class InfoWindow:
         try:
             self.tui.alreadyRegistered = rhnreg.reserveUser(self.userNameEntry.value(), self.passwordEntry.value())
         except up2dateErrors.ValidationError, e:
-            snack.ButtonChoiceWindow(self.screen, _("Error").encode('utf-8'), _("The server indicated an error:\n").encode('utf-8') + e.errmsg, buttons = [_("OK").encode('utf-8')])
+            snack.ButtonChoiceWindow(self.screen, _("Error").encode('utf-8'), _("The server indicated an error:\n").encode('utf-8') + e.errmsg.encode('utf-8'), buttons = [_("OK").encode('utf-8')])
             self.g.setCurrent(self.userNameEntry)
             return 0
         except up2dateErrors.CommunicationError,e:
