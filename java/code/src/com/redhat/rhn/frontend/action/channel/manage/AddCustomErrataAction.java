@@ -59,7 +59,6 @@ public class AddCustomErrataAction extends RhnListAction {
 
     private static final String CHANNEL_SUBMIT = "frontend.actions.channels.manager." +
             "add.viewErrata";
-    private static final String NULL = "null";
     private static final String CHECKED = "assoc_checked";
 
     private static final String SUBMITTED = "frontend.actions.channels.manager.add." +
@@ -104,9 +103,7 @@ public class AddCustomErrataAction extends RhnListAction {
         //If the channel submit button was clicked
         if (requestContext.wasDispatched(CHANNEL_SUBMIT)) {
           selectedChannelStr = request.getParameter(SELECTED_CHANNEL);
-          if (selectedChannelStr.equals(NULL)) {
-              selectedChannelStr = null;
-          }
+          // selectedChannelStr might be null
         }
 
         //If this is a clone, go ahead and pre-select the original Channel

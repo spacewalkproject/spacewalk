@@ -68,7 +68,6 @@ public class AddRedHatErrataAction extends RhnListAction {
             "add.viewChannels";
     private static final String CHANNEL_SUBMIT = "frontend.actions.channels.manager." +
             "add.viewErrata";
-    private static final String NULL = "null";
     private static final String CHECKED = "assoc_checked";
 
     private static final String SUBMITTED = "frontend.actions.channels.manager." +
@@ -119,16 +118,12 @@ public class AddRedHatErrataAction extends RhnListAction {
         //If the channel submit button was clicked
         if (requestContext.wasDispatched(CHANNEL_SUBMIT)) {
           selectedChannelStr = request.getParameter(SELECTED_CHANNEL);
-          if (selectedChannelStr.equals(NULL)) {
-              selectedChannelStr = null;
-          }
+          // selectedChannelStr might be null
         }
         //if the version submit button was clicked
         else if (requestContext.wasDispatched(VERSION_SUBMIT)) {
             selectedVersionStr = request.getParameter(SELECTED_VERSION);
-            if (selectedVersionStr.equals(NULL)) {
-                selectedVersionStr = null;
-            }
+         // selectedChannelStr might be null
             selectedChannelStr = null;
         }
 
