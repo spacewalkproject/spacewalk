@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.7.13
+Version:        1.7.14
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -66,6 +66,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Wed Jan 18 2012 Michael Mraka <michael.mraka@redhat.com> 1.7.14-1
+- drop old refresh_newest_package prototype
+
 * Tue Jan 17 2012 Michael Mraka <michael.mraka@redhat.com> 1.7.13-1
 - fixed checksums
 
