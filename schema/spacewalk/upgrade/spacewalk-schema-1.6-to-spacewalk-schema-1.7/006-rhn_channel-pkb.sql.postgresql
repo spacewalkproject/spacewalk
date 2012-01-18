@@ -4,6 +4,9 @@
 --update pg_setting
 update pg_settings set setting = 'rhn_channel,' || setting where name = 'search_path';
 
+    drop function refresh_newest_package(channel_id_in in numeric,
+                                      caller_in in varchar);
+
     -- this could certainly be optimized to do updates if needs be
     create or replace function refresh_newest_package(channel_id_in in numeric,
                                       caller_in in varchar default '(unknown)',
