@@ -587,6 +587,9 @@ public class KickstartFormatter {
                                 ksdata.getPreLog()) {
                             addLogBegin(retval, PRE_LOG_FILE + "." + kss.getPosition());
                         }
+                        else {
+                            retval.append(NEWLINE);
+                        }
                         retval.append(kss.getDataContents() + NEWLINE);
 
                         if (typeIn.equals(KickstartScript.TYPE_POST) &&
