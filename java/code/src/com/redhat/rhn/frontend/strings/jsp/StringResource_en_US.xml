@@ -963,6 +963,14 @@
         </context-group>
       </trans-unit>
 
+      <trans-unit id="login.jsp.schemaupgraderequired">
+<source>A schema upgrade is required. Please upgrade your schema at your earliest convenience to receive latest bugfixes and avoid potential problems.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/Login</context>
+          <context context-type="sourcefile">/rhn/ReLogin</context>
+        </context-group>
+      </trans-unit>
+
       <trans-unit id="login.jsp.welcomemessage">
 <source>Welcome to @@PRODUCT_NAME@@</source>
         <context-group name="ctx">

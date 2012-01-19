@@ -14,9 +14,13 @@
  */
 package com.redhat.rhn.frontend.action;
 
+import com.redhat.rhn.common.db.datasource.DataResult;
+import com.redhat.rhn.common.db.datasource.ModeFactory;
+import com.redhat.rhn.common.db.datasource.SelectMode;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.manager.acl.AclManager;
 import com.redhat.rhn.manager.satellite.CertificateManager;
+import com.redhat.rhn.manager.satellite.SystemCommandExecutor;
 import com.redhat.rhn.manager.user.UserManager;
 
 import org.apache.commons.lang.StringUtils;
@@ -25,6 +29,8 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.DynaActionForm;
+
+import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -42,6 +48,33 @@ public class LoginSetupAction extends RhnAction {
     public ActionForward execute(ActionMapping mapping,
         ActionForm form, HttpServletRequest request,
         HttpServletResponse response) {
+
+        String rpmSchemaVersion = getRpmSchemaVersion("satellite-schema");
+        if (rpmSchemaVersion == null) {
+            rpmSchemaVersion = getRpmSchemaVersion("spacewalk-schema");
+        }
+
+        SelectMode m = ModeFactory.getMode("General_queries", "installed_schema_version");
+        DataResult<HashMap> dr = m.execute();
+        String installedSchemaVersion = null;
+        if (dr.size() > 0) {
+            installedSchemaVersion = (String) dr.get(0).get("version");
+        }
+
+        if (log.isDebugEnabled()) {
+            log.debug("RPM version of schema: " +
+                (rpmSchemaVersion == null ? "null" : rpmSchemaVersion));
+            log.debug("Version of installed database schema: " +
+                (installedSchemaVersion == null ? "null" : installedSchemaVersion));
+        }
+
+        if (rpmSchemaVersion != null && installedSchemaVersion != null &&
+            !rpmSchemaVersion.equals(installedSchemaVersion)) {
+            request.setAttribute("schemaUpgradeRequired", "true");
+        }
+        else {
+            request.setAttribute("schemaUpgradeRequired", "false");
+        }
 
         CertificateManager man = CertificateManager.getInstance();
         if (man.isSatelliteCertExpired()) {
@@ -90,4 +123,14 @@ public class LoginSetupAction extends RhnAction {
         return mapping.findForward("default");
     }
 
+    private String getRpmSchemaVersion(String schemaName) {
+        String[] rpmCommand = new String[4];
+        rpmCommand[0] = "rpm";
+        rpmCommand[1] = "-q";
+        rpmCommand[2] = "--qf=%{VERSION}-%{RELEASE}";
+        rpmCommand[3] = schemaName;
+        SystemCommandExecutor ce = new SystemCommandExecutor();
+        return ce.execute(rpmCommand) == 0 ?
+            ce.getLastCommandOutput().replace("\n", "") : null;
+    }
 }

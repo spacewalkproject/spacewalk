@@ -9,6 +9,13 @@
     <meta name="decorator" content="layout_equals" />
 </head>
 <body onLoad="formFocus('loginForm', 'username')">
+
+<c:if test="${schemaUpgradeRequired == 'true'}">
+    <div class="site-alert">
+        <bean:message key="login.jsp.schemaupgraderequired" />
+    </div>
+</c:if>
+
 <c:if test="${requestScope.hasExpired != 'true'}">
 <div id="contentLeft">
   <div class="clearBox">

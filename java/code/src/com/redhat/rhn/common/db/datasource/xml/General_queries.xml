@@ -306,5 +306,15 @@ SELECT max_members, current_members FROM rhnServerGroup sg, rhnServerGroupType s
   </query>
 </write-mode>
 
+<mode name="installed_schema_version">
+  <query>
+    SELECT evr_t_as_vre_simple(PE.evr) as version
+      FROM rhnPackageEVR PE, rhnVersionInfo RVI, rhnPackageName PN
+     WHERE RVI.label = 'schema'
+       AND RVI.name_id = PN.id
+       AND RVI.evr_id = PE.id
+  </query>
+</mode>
+
 </datasource_modes>
 

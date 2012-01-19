@@ -9,6 +9,12 @@
 </head>
 <body onLoad="formFocus('loginForm', 'username')">
 
+<c:if test="${schemaUpgradeRequired == 'true'}">
+    <div class="site-alert">
+        <bean:message key="login.jsp.schemaupgraderequired" />
+    </div>
+</c:if>
+
 <rhn:require acl="not user_authenticated()">
 <c:if test="${requestScope.hasExpired != 'true'}">
      <h1><bean:message key="relogin.jsp.pleasesignin"/></h1>
