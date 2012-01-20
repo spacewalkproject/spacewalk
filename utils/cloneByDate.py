@@ -18,58 +18,236 @@
 #
 
 import pdb
-import json
-from optparse import OptionParser
+import sys
+import time
+import copy
+
+try:
+    import json
+except ImportError:
+    import simplejson as json
+
+import xmlrpclib
+
+try:
+    from spacewalk.common.rhnConfig import CFG, initCFG
+    from spacewalk.server import rhnSQL
+except:
+    _LIBPATH = "/usr/share/rhn"
+    if _LIBPATH not in sys.path:
+        sys.path.append(_LIBPATH)
+    from server import rhnSQL
+    from common import CFG, initCFG
 
 
-
-def main():    
-    options = merge_config(parse_args());
+def main(options):        
+    xmlrpc = RemoteApi(options.server, options.username, options.password)
+    db = DBApi()
     
-   
-def merge_config(options):
-    if not options.config:
-        options.channels = transform_arg_channels(options.channels)
-        return options
-    config = json.load(open(options.config))
-    
-    #if soemthing is in the config and not passed in as an argument
-    #   add it to options
-    overwrite = ["username", "password", "blacklist", "channels"]
-    for key in overwrite:
-        if config.has_key(key) and not getattr(options, key):
-            setattr(options, key, config[key])
+    cloners = []
+    for list in options.channels:
+        tree_cloner = ChannelTreeCloner(list, xmlrpc, db, options.to_date)
+        cloners.append(tree_cloner)
+        tree_cloner.prepare();
         
-    if type(options.channels) == dict:
-        options.channels =  [options.channels] 
-    return options
-   
-      
-# Using --channels as an argument only supports a single channel 'tree'
-#  So we need to convert a 2-tuple list of channel labels into an array with a hash
-#  ex:   [ ("rhel-i386-servr-5", "my-rhel-clone"), ('rhel-child', 'clone-child')]
-#    should become
-# [{
-#  "rhel-i386-servr-5" : "my-rhel-clone",
-#  'rhel-child': 'clone-child'
-#  }]
-def transform_arg_channels(chan_list):
-    to_ret = {}
-    for src, dest in chan_list:
-        to_ret[src] = dest
-    return [to_ret]   
+    print "\nBy continuing the following will be cloned:"
+    for cloner in cloners:                
+        cloner.pre_summary()
+        print "\n"
+    
+    if not options.assumeyes:
+        txt = "Continue with clone (y/n)?"
+        confirm = raw_input(txt)
+        while ['y', 'n'].count(confirm.lower()) == 0:
+            confirm = raw_input(txt)
+        if confirm.lower() == "n":
+            print "Cancelling"
+            sys.exit(0)
         
-def parse_args():
-    parser = OptionParser()
-    parser.add_option("-c", "--config", dest="config", help="Config file specifying options")
-    parser.add_option("-u", "--username", dest="username", help="Username")
-    parser.add_option("-p", "--password", dest="password", help="Password")
-    parser.add_option("-l", "--channels", dest="channels", nargs=2, action="append", help="Origianl channel and clone channel labels space seperated (e.g. --channels=rhel-i386-server-5 myclone)")
-    parser.add_option("-b", "--blacklist", dest="blacklist", nargs="*", help="Space seperated list of package names")
-    (options, args) = parser.parse_args()
+    for cloner in cloners:
+        cloner.clone()
+    
 
-    if options.config and options.channels:
-        raise Exception("Cannot specify both --channels and --config.")
+
+
+class ChannelTreeCloner:
+    def __init__(self, channels, remote_api, db_api, to_date):
+        self.remote_api = remote_api
+        self.db_api = db_api
+        self.channel_map = channels
+        self.to_date = to_date
+        self.cloners = []
+
+    def validate_channels(self):
+        self.channel_details = self.remote_api.list_channels(self.channel_map)
+        self.src_parent = self.find_parent(self.channel_map.keys())
+        self.validate_children(self.src_parent, self.channel_map.keys())
+        self.dest_parent = self.find_parent(self.channel_map.values())
+        self.validate_children(self.dest_parent, self.channel_map.values())         
+        return self.channel_details
     
-    return options
+    def validate_children(self, parent, label_list):
+        """ Make sure all children are children of the parent"""
+        for label in label_list:
+            if label != parent:
+                if self.channel_details[label]['parent_channel_label'] != parent:
+                    raise UserError("Child channel '%s' is not a child of parent channel '%s'" % (label, parent))
+                    
+    def find_parent(self, label_list):        
+        found_list = []
+        for label in label_list:
+            if self.channel_details[label]['parent_channel_label'] == '':
+                found_list.append(label)
+        if len(found_list) == 0:
+            UserError("Parent Channel not specified.")
+        if len(found_list) > 1:
+            UserError("Multiple parent channels specified within the same channel tree.")
+        return found_list[0]
+
+    def ordered_labels(self):
+        """Return list of labels with parent first"""
+        list = self.channel_map.keys()
+        list.remove(self.src_parent)
+        list.insert(0,self.src_parent)
+        return list
+        
+
+    def prepare(self):
+        self.validate_channels()
+        for from_label in self.ordered_labels():
+            to_label = self.channel_map[from_label]
+            cloner = ChannelCloner(from_label, to_label, self.to_date, self.remote_api, self.db_api)
+            self.cloners.append(cloner)
+            cloner.prepare()            
+
+    def pre_summary(self):
+        for cloner in self.cloners:
+            cloner.pre_summary();
+
+    def clone(self):
+        for cloner in self.cloners:
+            cloner.clone()
+            
+            
+            
+            
+
+
+class ChannelCloner:
+    def __init__(self, from_label, to_label, to_date, remote_api, db_api):
+        self.remote_api = remote_api
+        self.db_api = db_api
+        self.from_label = from_label
+        self.to_label = to_label
+        self.to_date = to_date
+        self.original_packages = None
+        
+    def prepare(self):
+        self.original_packages = self.remote_api.list_packages(self.to_label)
+        self.errata_to_clone, self.available_errata = self.get_errata()        
+        
+    def pre_summary(self):
+        print "%s -> %s  (%i/%i Errata)" %(self.from_label, self.to_label, len(self.errata_to_clone), len(self.available_errata))
     
+    def process(self):
+        self.clone();
+        self.new_packages = self.remote_api.list_packages(self.to_label)
+        print "%i, %i" % (len(self.original_packages), len(self.new_packages)) 
+        ### diff lists
+        ### dep solve on diff
+        ### added found deps
+        
+    
+    def clone(self):
+        errata_ids = self.collect(self.errata_to_clone, "advisory_name")
+        while(len(errata_ids) > 0):
+            set = errata_ids[:5]
+            del errata_ids[:5]
+            print "Cloning set:"
+            print set
+            self.remote_api.clone_errata(self.to_label, set)
+            
+    def collect(self, items, attribute):
+        to_ret = []
+        for item in items:
+            to_ret.append(item[attribute])
+        return to_ret
+    
+    def get_errata(self):
+        """ Returns tuple of all available for cloning, and what falls in teh date range"""
+        available_errata = self.db_api.applicable_errata(self.from_label, self.to_label)
+        to_clone = []
+        for err in available_errata:
+            if err['issue_date'] <= self.to_date:
+                to_clone.append(err)
+        
+        return (to_clone, available_errata)
+
+class RemoteApi:
+    """ Class for connecting to the XMLRPC spacewalk interface"""
+    
+    def __init__(self, server_url, username, password):
+        self.client = xmlrpclib.Server(server_url)
+        try:
+            self.auth_token = self.client.auth.login(username, password)
+        except xmlrpclib.Fault, e:
+            raise UserError(e.faultString)
+    
+    def list_channels(self, label_hash):
+        to_ret = {}
+        for src, dst in label_hash.items():            
+            to_ret[src] = self.get_details(src)
+            to_ret[dst] = self.get_details(dst)
+        return to_ret
+
+    def list_packages(self, label):
+        return self.client.channel.software.listAllPackages(self.auth_token, label)
+    
+    def clone_errata(self, to_label, errata_list):
+        self.client.errata.cloneAsOriginal(self.auth_token, to_label, errata_list)
+    
+    def get_details(self, label):
+        try:
+            return self.client.channel.software.getDetails(self.auth_token, label)
+        except xmlrpclib.Fault, e:
+            raise UserError(e.faultString + ": " + label)
+             
+
+class DBApi:
+    """Class for connecting to the spacewalk DB"""    
+
+   
+    def __init__(self):
+        initCFG('server')
+        db_string = CFG.DEFAULT_DB #"rhnsat/rhnsat@rhnsat"
+        rhnSQL.initDB(db_string)        
+        
+    def applicable_errata(self, from_label, to_label):
+        """list of errata that is applicable to be cloned, used db because we need to exclude cloned errata too"""
+        h = rhnSQL.prepare("""
+                select e.id, e.advisory_name, e.advisory_type, e.issue_date
+                from rhnErrata e  inner join               
+                     rhnChannelErrata ce on e.id = ce.errata_id inner join
+                     rhnChannel c on c.id = ce.channel_id 
+                where C.label = :from_label and
+                      e.id not in (select e2.id 
+                                   from rhnErrata e2 inner join 
+                                        rhnChannelErrata ce2 on ce2.errata_id = e2.id inner join                        
+                                        rhnChannel c2 on c2.id = ce2.channel_id
+                                   where c2.label = :to_label
+                                   UNION
+                                   select cloned.original_id
+                                   from rhnErrata e2 inner join
+                                        rhnErrataCloned cloned on cloned.id = e2.id inner join
+                                        rhnChannelErrata ce2 on ce2.errata_id = e2.id inner join                        
+                                        rhnChannel c2 on c2.id = ce2.channel_id
+                                   where c2.label = :to_label)
+                            """)
+        h.execute(from_label=from_label, to_label=to_label)
+        return h.fetchall_dict()
+
+class UserError(Exception):
+    def __init__(self, msg):
+        self.msg = msg
+    def __str__(self):
+        return self.msg    
