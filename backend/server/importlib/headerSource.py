@@ -135,6 +135,8 @@ class rpmBinaryPackage(Package, rpmPackage):
         rpmPackage.populate(self, header, size, checksum_type, checksum, path, org_id,
             header_start, header_end)
         
+        # workaround for bug in rpm-python <= 4.4.2.3-27.el5 (BZ# 783451)
+        self['package_group'] = self['package_group'].rstrip()
         # Populate file information
         self._populateFiles(header)
         # Populate dependency information
@@ -257,6 +259,8 @@ class rpmSourcePackage(SourcePackage, rpmPackage):
         rpmPackage.populate(self, header, size, checksum_type, checksum, path, org_id,
             header_start, header_end)
         nvr = []
+        # workaround for bug in rpm-python <= 4.4.2.3-27.el5 (BZ# 783451)
+        self['package_group'] = self['package_group'].rstrip()
         # Fill in source_rpm
         for tag in ['name', 'version', 'release']:
             nvr.append(header[tag])
