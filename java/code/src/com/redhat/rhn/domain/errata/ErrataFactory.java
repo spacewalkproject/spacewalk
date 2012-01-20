@@ -268,106 +268,125 @@ public class ErrataFactory extends HibernateFactory {
      * @param inheritPackages include only original channel packages
      * @return the publsihed errata
      */
-    public static Errata publishToChannel(Errata errata, Channel chan, User user,
+    public static List<Errata> publishToChannel(List<Errata> errataList, Channel chan, User user,
             boolean inheritPackages) {
-        if (!errata.isPublished()) {
-           errata = publish(errata);
-        }
-        errata.addChannel(chan);
-        errata.addChannelNotification(chan, new Date());
-
-        Set<Package> packagesToPush = new HashSet<Package>();
-        DataResult<PackageOverview> packs;
-        if (inheritPackages) {
-            if (!chan.isCloned()) {
-                throw new InvalidChannelException("Cloned channel expected: " +
-                       chan.getLabel());
-            }
-            Channel original = ((ClonedChannel) chan).getOriginal();
-            packs = ErrataManager.listErrataChannelPacks(original, errata, user);
-        }
-        else {
-            packs = ErrataManager.lookupPacksFromErrataForChannel(chan, errata, user);
-        }
-        for (PackageOverview packOver : packs) {
-            //lookup the Package object
-            Package pack = PackageFactory.lookupByIdAndUser(
-                    packOver.getId().longValue(), user);
-            packagesToPush.add(pack);
-        }
-        return publishErrataPackagesToChannel(errata, chan, user, packagesToPush);
+    	List<com.redhat.rhn.domain.errata.Errata> toReturn = new ArrayList<Errata>();
+    	for (Errata errata : errataList) {
+	        if (!errata.isPublished()) {
+	           errata = publish(errata);
+	        }
+	        errata.addChannel(chan);
+	        errata.addChannelNotification(chan, new Date());
+	
+	        Set<Package> packagesToPush = new HashSet<Package>();
+	        DataResult<PackageOverview> packs;
+	        if (inheritPackages) {
+	        	
+	            if (!chan.isCloned()) {
+	                throw new InvalidChannelException("Cloned channel expected: " +
+	                       chan.getLabel());
+	            }
+	            Channel original = ((ClonedChannel) chan).getOriginal();
+	            packs = ErrataManager.listErrataChannelPacks(original, errata, user);
+	        }
+	        else {
+	            packs = ErrataManager.lookupPacksFromErrataForChannel(chan, errata, user);
+	        }
+	
+	        for (PackageOverview packOver : packs) {
+	            //lookup the Package object
+	            Package pack = PackageFactory.lookupByIdAndUser(
+	                    packOver.getId().longValue(), user);
+	            packagesToPush.add(pack);
+	        }
+	
+	        Errata e = publishErrataPackagesToChannel(errata, chan, user, packagesToPush);
+	        toReturn.add(e);
+    	}
+        postPublishActions(chan, user);
+        return toReturn;
     }
 
-    /**
-     * Publish an errata to a channel but only push a small set of packages along with it
-     * @param errata errata to publish
-     * @param chan channel to publish it into.
-     * @param user the user doing the pushing
-     * @param packages the packages to push
-     * @return the published errata
-     */
-    public static Errata publishToChannel(Errata errata, Channel chan, User user,
-            Set<Package> packages) {
-        if (!errata.isPublished()) {
-            errata = publish(errata);
-         }
-        errata.addChannel(chan);
-         return publishErrataPackagesToChannel(errata, chan, user, packages);
-    }
+    
 
+	/**
+	 * Publish an errata to a channel but only push a small set of packages
+	 * along with it
+	 * 
+	 * @param errata   errata to publish
+	 * @param chan channel to publish it into.
+	 * @param user the user doing the pushing
+	 * @param packages the packages to push
+	 * @return the published errata
+	 */
+	public static Errata publishToChannel(Errata errata, Channel chan,
+			User user, Set<Package> packages) {
+		if (!errata.isPublished()) {
+			errata = publish(errata);
+		}
+		errata.addChannel(chan);
+		errata = publishErrataPackagesToChannel(errata, chan, user, packages);
+		postPublishActions(chan, user);
+		return errata;
+	}
 
+	
+	private static void postPublishActions(Channel chan, User user) {
+		ChannelManager.refreshWithNewestPackages(chan, "web.errata_push");
+		ChannelManager.queueChannelChange(chan.getLabel(),
+				"java::publishErrataPackagesToChannel", user.getLogin());
+	}    
+    
+    
     /**
      * Private helper method that pushes errata packages to a channel
      */
-    private static Errata publishErrataPackagesToChannel(Errata errata, Channel chan,
-            User user, Set<Package> packages) {
-        for (Package pack : packages) {
+	private static Errata publishErrataPackagesToChannel(Errata errata,
+			Channel chan, User user, Set<Package> packages) {
+		// Much quicker to push all packages at once
+		List<Long> pids = new ArrayList<Long>();
+		for (Package pack : packages) {
+			pids.add(pack.getId());
+		}
+		ChannelManager.addPackages(chan, pids, user);
 
-            //push the package to the approrpiate channel
-            chan.addPackage(pack);
+		for (Package pack : packages) {
+			List<ErrataFile> publishedFiles = ErrataFactory.lookupErrataFile(
+					errata, pack);
+			Map<String, ErrataFile> toAdd = new HashMap();
+			if (publishedFiles.size() == 0) {
+				// Now create the appropriate ErrataFile object
+				ErrataFile publishedFile = ErrataFactory
+						.createPublishedErrataFile(ErrataFactory
+								.lookupErrataFileType("RPM"), pack
+								.getChecksum().getChecksum(), pack
+								.getNameEvra());
+				publishedFile.addPackage(pack);
+				publishedFile.setErrata(errata);
+				publishedFile.setModified(new Date());
+				((PublishedErrataFile) publishedFile).addChannel(chan);
+				singleton.saveObject(publishedFile);
+			} else {
+				for (ErrataFile publishedFile : publishedFiles) {
+					String fileName = publishedFile.getFileName().substring(
+							publishedFile.getFileName().lastIndexOf("/") + 1);
+					if (!toAdd.containsKey(fileName)) {
+						toAdd.put(fileName, publishedFile);
+						((PublishedErrataFile) publishedFile).addChannel(chan);
+						singleton.saveObject(publishedFile);
+					}
+				}
+			}
 
-            List<ErrataFile> publishedFiles = ErrataFactory.lookupErrataFile(errata, pack);
-            Map<String, ErrataFile> toAdd = new HashMap();
-            if (publishedFiles.size() == 0) {
-                //Now create the appropriate ErrataFile object
-                ErrataFile publishedFile = ErrataFactory.createPublishedErrataFile(
-                        ErrataFactory.lookupErrataFileType("RPM"),
-                        pack.getChecksum().getChecksum(), pack.getNameEvra());
-                 publishedFile.addPackage(pack);
-                 publishedFile.setErrata(errata);
-                 publishedFile.setModified(new Date());
-                 ((PublishedErrataFile) publishedFile).addChannel(chan);
-                 singleton.saveObject(publishedFile);
-            }
-            else {
-                   for (ErrataFile publishedFile : publishedFiles) {
-                         String fileName = publishedFile.getFileName().substring(
-                                 publishedFile.getFileName().lastIndexOf("/") + 1);
-                         if (!toAdd.containsKey(fileName)) {
-                             toAdd.put(fileName, publishedFile);
-                             ((PublishedErrataFile) publishedFile).addChannel(chan);
-                             singleton.saveObject(publishedFile);
-                         }
-                       }
-            }
+		}
+		ChannelFactory.save(chan);
+		List chanList = new ArrayList();
+		chanList.add(chan.getId());
 
-        }
+		ErrataCacheManager.insertCacheForChannelErrataAsync(chanList, errata);
 
-        ChannelFactory.save(chan);
-
-        List chanList = new ArrayList();
-        chanList.add(chan.getId());
-        //ErrataCacheManager.updateErrataCacheForChannelsAsync(chanList, user.getOrg());
-        ErrataCacheManager.insertCacheForChannelErrataAsync(chanList, errata);
-        ChannelManager.refreshWithNewestPackages(chan, "web.errata_push");
-
-        // Mark the affected channel to have it's metadata evaluated, where necessary
-        // (RHEL5+, mostly)
-        ChannelManager.queueChannelChange(chan.getLabel(),
-            "java::publishErrataPackagesToChannel", user.getLogin());
-
-        return errata;
-    }
+		return errata;
+	}
 
     /**
      * @param org Org performing the cloning
