@@ -779,6 +779,17 @@ public class KickstartData {
     }
 
     /**
+     * @return if this kickstart profile is rhel 6 installer type or greater (for rhel7)
+     */
+    public boolean isRhel6OrGreater() {
+        if (getInstallType() != null) {
+            return (getInstallType().isRhel6OrGreater() ||
+                    getInstallType().isFedora());
+        }
+        return false;
+    }
+
+    /**
      * @return if this kickstart profile is rhel 5 installer type or greater (for rhel6)
      */
     public boolean isRhel5OrGreater() {

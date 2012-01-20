@@ -199,7 +199,7 @@ public class KickstartFormatter {
     }
 
     private void addLogBegin(StringBuilder buff, String logFile) {
-        if (ksdata.isRhel5OrGreater()) {
+        if (ksdata.isRhel6OrGreater()) {
             buff.append(" --log " + logFile);
         }
         else {
@@ -209,7 +209,7 @@ public class KickstartFormatter {
     }
 
     private void addLogEnd(StringBuilder buff, String logFile) {
-        if (ksdata.isRhel5OrGreater()) {
+        if (ksdata.isRhel6OrGreater()) {
             //nothing
         }
         else {
