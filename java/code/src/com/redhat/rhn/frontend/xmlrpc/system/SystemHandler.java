@@ -137,8 +137,6 @@ import org.xml.sax.SAXException;
 
 import java.io.IOException;
 import java.io.StringReader;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.Date;
@@ -2306,33 +2304,9 @@ public class SystemHandler extends BaseHandler {
                     "No Kickstart Profile found with label: " + profileName);
         }
 
-        String url = ksdata.getCommand("url").getArguments();
-        if (url == null) {
-            throw new FaultException(-1, "kickstartUrlNoHost",
-            "Kickstart profile requires a --url param.");
-        }
-        log.debug("url: " + url);
-        String[] split = StringUtils.split(url);
-        if (split.length < 2) {
-            throw new FaultException(-1, "kickstartUrlNoHost",
-                    "Kickstart --url requires a host.  Needs to be of the format: " +
-            "--url http://host.domain.com/rhn/kickstart/ks-rhel-i386-server-5");
-        }
-        try {
-            URI uri = new URI(split[1]);
-            // Convert to host
-            url = uri.getHost();
-            log.debug("host: " + url);
-        }
-        catch (URISyntaxException e) {
-            throw new FaultException(-1, "kickstartUrlNoHost",
-                    "Kickstart --url requires a host.  Needs to be of the format: " +
-            "--url http://host.domain.com/rhn/kickstart/ks-rhel-i386-server-5");
-        }
-
         ProvisionVirtualInstanceCommand cmd = new ProvisionVirtualInstanceCommand(
-                new Long(sid.longValue()),
-                ksdata.getId(), loggedInUser, new Date(), url);
+                new Long(sid.longValue()), ksdata.getId(), loggedInUser, new Date(),
+                ConfigDefaults.get().getCobblerHost());
 
         cmd.setGuestName(guestName);
         cmd.setMemoryAllocation(new Long(memoryMb));
