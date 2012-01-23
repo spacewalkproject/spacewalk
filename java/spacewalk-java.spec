@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.7.8
+Version: 1.7.9
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -555,6 +555,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Jan 23 2012 Tomas Lestach <tlestach@redhat.com> 1.7.9-1
+- include Base64 from gpache.commons.codec.binary (tlestach@redhat.com)
+
 * Mon Jan 23 2012 Tomas Lestach <tlestach@redhat.com> 1.7.8-1
 - enable requesting base64 encoded config file ervisions (tlestach@redhat.com)
 - 702019 - use --log option for anaconda script logging starting from rhel6
