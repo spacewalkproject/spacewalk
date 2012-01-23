@@ -59,7 +59,7 @@ sub update_monitoring_config {
     UPDATE rhn_config_macro
     SET    definition = :definition,
            last_update_user = 'installer',
-           last_update_date = sysdate
+           last_update_date = current_timestamp
     WHERE  name = :name
 EOQ
 
