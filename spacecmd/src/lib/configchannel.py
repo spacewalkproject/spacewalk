@@ -942,6 +942,17 @@ def import_configchannel_fromdetails(self, ccdetails):
                             " characters not valid in XML these can't be" +\
                             " exported correctly via the API")
                         continue
+                    # Now we check if the file needs base64 encoding
+                    # This will be because of trailing newlines (which get
+                    # eaten by the API), since as mentioned above, binary
+                    # and other problematic files can't be exported (there's
+                    # no option to export in base64 encoded format AFAICS)
+                    elif self.file_needs_b64_enc(filedetails['contents']):
+                        logging.debug("Detected file needs base64 encoding")
+                        filedetails['contents'] =\
+                            base64.b64encode(filedetails['contents'])
+                        filedetails['contents_enc64'] = True
+
                 logging.debug("Creating %s %s" % \
                     (filedetails['type'], filedetails))
                 if filedetails.has_key('type'):
