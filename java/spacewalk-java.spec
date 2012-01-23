@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.7.7
+Version: 1.7.8
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -555,6 +555,18 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Jan 23 2012 Tomas Lestach <tlestach@redhat.com> 1.7.8-1
+- enable requesting base64 encoded config file ervisions (tlestach@redhat.com)
+- 702019 - use --log option for anaconda script logging starting from rhel6
+  (tlestach@redhat.com)
+- 648483 - setting kickstart host for virtual guest provisioning
+  (tlestach@redhat.com)
+- 702019 - add extra newline to ks file (tlestach@redhat.com)
+- Error banner on (re)login page indicating schema upgrade is required.
+  (mzazrivec@redhat.com)
+- make sure a request url gets displayed in the traceback e-mail
+  (tlestach@redhat.com)
+
 * Wed Jan 18 2012 Tomas Lestach <tlestach@redhat.com> 1.7.7-1
 - 725889 - cannot compare an Object with null using equals
   (tlestach@redhat.com)
