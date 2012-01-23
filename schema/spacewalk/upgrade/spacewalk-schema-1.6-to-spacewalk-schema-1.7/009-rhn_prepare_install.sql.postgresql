@@ -48,4 +48,5 @@ begin
 end; $$
 language plpgsql;
 
-drop function rhn_prepare_install(username character varying, INOUT command_instance_id smallint, install_command smallint);
+drop function if exists rhn_prepare_install(username character varying, INOUT command_instance_id smallint, install_command smallint);
+drop function if exists rhn_prepare_install(username character varying, INOUT command_instance_id numeric, install_command numeric);
