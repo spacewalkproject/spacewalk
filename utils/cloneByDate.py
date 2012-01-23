@@ -194,17 +194,46 @@ class ChannelCloner:
     def process(self):
         self.clone();
         new_packages = self.remote_api.list_packages(self.to_label)               
-        pkg_idiff = self.diff_packages(self.original_packages, new_packages)
+        pkg_diff = self.diff_packages(self.original_packages, new_packages)
         
-        print "New packages added: %i" % len(pkg_idiff)
+        print "New packages added: %i" % len(pkg_diff)
+                
         repo_dir = self.repodata(self.from_label)
+                
+        print "Solving deps"
+        nvreas = [pkg['nvrea'] for pkg in pkg_diff]        
+        solver = DepSolver([{"id":self.from_label, "relative_path":repo_dir}], nvreas)
+        dep_results = solver.processResults(solver.getDependencylist())
         
-        deps = []### dep solve on diff
-        dep_package_ids = []
-        
-        #solver = DepSolver([{"id":self.from_label, "relative_path":repo_dir}])
-        
+        #import pdb; pdb.set_trace()
+        print "Processing"
+        self.process_deps(new_packages, dep_results)                                 
+
         #self.remote_api.add_packages()
+        
+    def process_deps(self, pkg_list, deps):
+        pkg_hash = {}
+        for pkg in pkg_list:            
+            pkg_hash[pkg['nvrea']] = pkg
+            
+        needed_list = []
+        for pkg in deps:
+            
+            for dep, solved_list in pkg.items():
+                if not self.pkg_exists(solved_list, pkg_hash):
+                    needed_list.append(solved_list)
+        print len(needed_list)
+            
+            
+    def pkg_exists(self, list, pkg_hash):
+        """Given a list of packages in [N, V, E, R, A] format, do any of them exist
+            in the pkg_hash with key of N-V-R.A  format"""        
+        for i in list:
+            key = "%s-%s-%s.%s" % (i[0], i[1], i[3], i[4])
+            if pkg_hash.has_key(key):
+                return True
+        return False
+        
         
         
     
@@ -240,8 +269,8 @@ class ChannelCloner:
 
     def repodata(self, label):
         repo_dir = "/var/cache/rhn/repodata/%s" % label
-        tmp_dir = tempfile.mkdtemp(suffix="clone-by-date") + "/repo/"
-        shutil.copytree(repo_dir, tmp_dir)
+        tmp_dir = tempfile.mkdtemp(suffix="clone-by-date") 
+        shutil.copytree(repo_dir, tmp_dir + "/repodata/")
         return tmp_dir
     
     def get_errata(self):
