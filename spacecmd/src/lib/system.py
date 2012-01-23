@@ -353,7 +353,10 @@ def do_system_runscript(self, args):
     else:
         if not options.user: options.user = 'root'
         if not options.group: options.group = 'root'
-        if not options.timeout: options.timeout = 600
+        if not options.timeout:
+            options.timeout = 600
+        else:
+            options.timeout = int(options.timeout)
         if not options.start_time: options.start_time = parse_time_input('now')
 
         if not options.file:
