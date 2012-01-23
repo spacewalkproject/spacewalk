@@ -2447,5 +2447,218 @@ def do_system_syncpackages(self, args):
                                                       source_id,
                                                       package_ids,
                                                       start_time)
+####################
+
+def filter_latest_packages(pkglist):
+    # Returns a dict, indexed by a compound (tuple) key based on
+    # arch and name, so we can store the latest version of each package
+    # for each arch.  This approach avoids nested loops :)
+    latest={}
+    for p in pkglist:
+        tuplekey = p['name'], p['arch_label']
+        if not latest.has_key(tuplekey):
+            latest[tuplekey] = p
+        else:
+            # Already have this package, is p newer?
+            if p == latest_pkg(p, latest[tuplekey]):
+                latest[tuplekey] = p
+
+    return latest
+
+def print_comparison_withchannel(self,channelnewer,systemnewer,\
+                                        channelmissing, channel_latest):
+
+    # Figure out correct indentation to allow pretty table output
+    results = channelnewer + systemnewer + channelmissing
+
+    tmp_names = []
+    tmp_system = []
+    tmp_channel = []
+    for item in results:
+        name_string = "%(name)s.%(arch)s" % item
+        tmp_names.append(name_string)
+        # Create two version-string lists, one for the version in the results
+        # list, and another with the version string from the channel_latest
+        # dict, if the channel contains a matching package
+        version_string = "%(version)s-%(release)s" % item
+        tmp_system.append(version_string)
+        key = item['name'], item['arch']
+        if channel_latest.has_key(key):
+            version_string = "%(version)s-%(release)s" % channel_latest[key]
+            tmp_channel.append(version_string)
+
+    max_name  = max_length(tmp_names, min=7)
+    max_system  = max_length(tmp_system, min=11)
+    max_channel = max_length(tmp_channel, min=15)
+    max_comparison = 25
+
+    # print headers
+    print '%s  %s  %s  %s' % (
+            'Package'.ljust(max_name),
+            'System Version'.ljust(max_system),
+            'Channel Version'.ljust(max_channel),
+            'Difference'.ljust(max_comparison))
+
+    print '%s  %s  %s  %s' % (
+            '-' * max_name,
+            '-' * max_system,
+            '-' * max_channel,
+            '-' * max_comparison)
+
+    # Then print the packages
+    for item in channelnewer:
+        name_string = "%(name)s.%(arch)s" % item
+        version_string = "%(version)s-%(release)s" % item
+        key = item['name'], item['arch']
+        if channel_latest.has_key(key):
+            channel_version = "%(version)s-%(release)s" % channel_latest[key]
+        else:
+            channel_version = '-'
+        print '%s  %s  %s  %s' % (
+              name_string.ljust(max_name),
+              version_string.ljust(max_system),
+              channel_version.ljust(max_channel),
+              "Channel_newer_than_system".ljust(max_comparison))
+    for item in systemnewer:
+        name_string = "%(name)s.%(arch)s" % item
+        version_string = "%(version)s-%(release)s" % item
+        key = item['name'], item['arch']
+        if channel_latest.has_key(key):
+            channel_version = "%(version)s-%(release)s" % channel_latest[key]
+        else:
+            channel_version = '-'
+        print '%s  %s  %s  %s' % (
+              name_string.ljust(max_name),
+              version_string.ljust(max_system),
+              channel_version.ljust(max_channel),
+              "System_newer_than_channel".ljust(max_comparison))
+    for item in channelmissing:
+        name_string = "%(name)s.%(arch)s" % item
+        version_string = "%(version)s-%(release)s" % item
+        channel_version = '-'
+        print '%s  %s  %s  %s' % (
+              name_string.ljust(max_name),
+              version_string.ljust(max_system),
+              channel_version.ljust(max_channel),
+              "Missing_in_channel".ljust(max_comparison))
+
+
+def help_system_comparewithchannel(self):
+    print 'system_comparewithchannel: Compare the installed packages on a'
+    print '                           system with those in the channels it is'
+    print '                           registerd to, or optionally some other'
+    print '                           channel'
+    print 'usage: system_comparewithchannel <SYSTEMS> [options]'
+    print 'options:'
+    print '         -c/--channel : Specific channel to compare against,'
+    print '                        default is those subscribed to, including'
+    print '                        child channels'
+    print
+    print self.HELP_SYSTEM_OPTS
+
+def complete_system_comparewithchannel(self, text, line, beg, end):
+    return self.tab_complete_systems(text)
+
+def do_system_comparewithchannel(self, args):
+
+    options = [ Option('-c', '--channel', action='store') ]
+
+    (args, options) = parse_arguments(args, options)
+
+    if not len(args):
+        self.help_system_comparewithchannel()
+        return
+
+    # use the systems listed in the SSM
+    if re.match('ssm', args[0], re.I):
+        systems = self.ssm.keys()
+    else:
+        systems = self.expand_systems(args)
+
+    channel_latest={}
+    for system in sorted(systems):
+        system_id = self.get_system_id(system)
+        if not system_id: return
+
+        packages = self.client.system.listPackages(self.session,\
+                                                        system_id)
+        logging.debug("Got %d packages installed in system %s" %\
+            (len(packages), system))
+
+        channels=[]
+        if options.channel:
+            # User specified a specific channel, check it exists
+            allch = self.client.channel.listSoftwareChannels(self.session)
+            allch_labels = [ c['label'] for c in allch ]
+            if not options.channel in allch_labels:
+                logging.error("Specified channel does not exist")
+                self.help_system_comparewithchannel()
+                return
+            channels = [ options.channel ]
+            logging.debug("User specified channel %s" % options.channel)
+        else:
+            # No specified channel, so we create a list of all channels the
+            # system is subscribed to
+            basech = self.client.system.getSubscribedBaseChannel(self.session,\
+                                                                    system_id)
+            if not basech:
+                logging.error("system %s is not subscribed to any channel!"\
+                                                                     % system)
+                logging.error("Please subscribe to a channel, or specify a" +\
+                    "channel to compare with")
+                return
+            logging.debug("base channel %s for %s" % (basech['name'], system))
+            childch = self.client.system.listSubscribedChildChannels(\
+                                                    self.session, system_id)
+            channels = [ basech['label'] ]
+            for c in childch:
+                channels.append(c['label'])
+
+        # Get the latest packages in each channel
+        latestpkgs = {}
+        for c in channels:
+            if not channel_latest.has_key(c):
+                logging.debug("Getting packages for channel %s" % c)
+                pkgs = self.client.channel.software.listAllPackages(
+                    self.session,c)
+                # filter_latest_packages Returns a dict of latest packages
+                # indexed by name,arch tuple, which we add to the dict-of-dict
+                # channel_latest, to avoid getting the same channel data
+                # multiple times when processing more than one system
+                channel_latest[c] = filter_latest_packages(pkgs)
+            # Merge the channel latest dicts into one latestpkgs dict
+            # We handle collisions and only store the latest version
+            # We do this for every channel of every system, since the mix of
+            # subscribed channels may be different
+            for key in channel_latest[c].keys():
+                if not latestpkgs.has_key(key):
+                    latestpkgs[key] = channel_latest[c][key]
+                else:
+                    p_newest = latest_pkg(channel_latest[c][key], latestpkgs[key])
+                    latestpkgs[key] = p_newest
+
+        if len(systems) > 1:
+            print '\nSystem: %s' % system
+
+        # Iterate over the installed packages
+        channelnewer=[]
+        systemnewer=[]
+        channelmissing=[]
+        for p in packages:
+            # Fixup arch==AMD64 which is returned for some reason
+            p['arch'] = re.sub('AMD64', 'x86_64', p['arch'])
+            key = p['name'],p['arch']
+            if latestpkgs.has_key(key):
+                basepkg = latestpkgs.get(key)
+                newest = latest_pkg(p,basepkg)
+                if p == newest:
+                    systemnewer.append(p)
+                elif basepkg == newest:
+                    channelnewer.append(p)
+            else:
+                channelmissing.append(p)
+        self.print_comparison_withchannel(channelnewer, systemnewer,\
+                                            channelmissing, latestpkgs)
+
 
 # vim:ts=4:expandtab:
