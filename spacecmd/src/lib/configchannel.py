@@ -24,6 +24,7 @@ from optparse import Option
 from datetime import datetime
 from time import strftime
 from spacecmd.utils import *
+import base64
 
 def help_configchannel_list(self):
     print 'configchannel_list: List all configuration channels'
@@ -378,8 +379,14 @@ options:
   -x SELINUX_CONTEXT
   -d path is a directory
   -s path is a symlink
+  -b path is a binary (or other file which needs base64 encoding)
   -t SYMLINK_TARGET
-  -f local path to file contents'''
+  -f local path to file contents
+
+  Note re binary/base64: Some text files, notably those containing blank lines
+  and those containing ASCII escape characters (or other charaters not allowed
+  or processed correctly as text via the XMLRPC API) need to be sent as binary
+'''
 
 def complete_configchannel_addfile(self, text, line, beg, end):
     return tab_completer(self.do_configchannel_list('', True), text)
@@ -395,6 +402,7 @@ def do_configchannel_addfile(self, args, update_path=''):
                 Option('-f', '--file', action='store'),
                 Option('-r', '--revision', action='store'),
                 Option('-s', '--symlink', action='store_true'),
+                Option('-b', '--binary', action='store_true'),
                 Option('-d', '--directory', action='store_true') ]
 
     (args, options) = parse_arguments(args, options)
@@ -527,6 +535,9 @@ def do_configchannel_addfile(self, args, update_path=''):
         if not options.symlink and not options.directory:
             if options.file:
                 contents = read_file(options.file)
+                if options.binary:
+                    logging.debug("Binary file, base64 encoding contents")
+                    contents = base64.b64encode(contents)
             else:
                 logging.error('You must provide the file contents')
                 return
@@ -565,6 +576,9 @@ def do_configchannel_addfile(self, args, update_path=''):
                       'selinux_ctx' : options.selinux_ctx,
                       'permissions' : options.mode }
 
+        if options.binary:
+            file_info['contents_enc64'] = True
+
         print 'Path:            %s' % options.path
         print 'Directory:       %s' % options.directory
         print 'Owner:           %s' % file_info['owner']
@@ -579,7 +593,10 @@ def do_configchannel_addfile(self, args, update_path=''):
 
         if not options.directory:
             print
-            print 'Contents'
+            if options.binary:
+                print 'Contents (base64 encoded)'
+            else:
+                print 'Contents'
             print '--------'
             print file_info['contents']
 
