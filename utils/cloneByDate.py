@@ -34,6 +34,7 @@ import xmlrpclib
 
 try:
     from spacewalk.common.rhnConfig import CFG, initCFG
+    from spacewalk.satellite_tools.progress_bar import ProgressBar
     from spacewalk.server import rhnSQL
 except:
     _LIBPATH = "/usr/share/rhn"
@@ -41,6 +42,7 @@ except:
         sys.path.append(_LIBPATH)
     from server import rhnSQL
     from common import CFG, initCFG
+    from satellite_tools.progress_bar import ProgressBar
 
 
 def confirm(txt, options):
@@ -253,13 +255,18 @@ class ChannelCloner:
         
     
     def clone(self):
+        bunch_size = 10
         errata_ids = self.collect(self.errata_to_clone, "advisory_name")
+        msg = 'Cloning Errata into %s (%i):    ' % (self.to_label, len(errata_ids))
+        pb = ProgressBar(prompt=msg, endTag=' - complete',
+                     finalSize=len(errata_ids), finalBarLength=40, stream=sys.stdout)
+        pb.printAll(1);
         while(len(errata_ids) > 0):
-            set = errata_ids[:10]
-            del errata_ids[:10]
-            print "Cloning set:"
-            print set
-            self.remote_api.clone_errata(self.to_label, set)
+            errata_set = errata_ids[:bunch_size]
+            del errata_ids[:bunch_size]            
+            self.remote_api.clone_errata(self.to_label, errata_set)
+            pb.addTo(bunch_size)
+        pb.printComplete()
             
     def collect(self, items, attribute):
         to_ret = []
