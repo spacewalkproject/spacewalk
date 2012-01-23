@@ -17,3 +17,4 @@ begin
     values (command_instance_id, satellite_id, 'cluster');
 end; $$ language plpgsql;
 
+drop function rhn_install_satellite(command_instance_id smallint, satellite_id numeric);

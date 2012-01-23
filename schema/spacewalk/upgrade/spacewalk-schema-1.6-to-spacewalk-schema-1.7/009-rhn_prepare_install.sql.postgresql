@@ -47,3 +47,5 @@ begin
     return command_instance_id;
 end; $$
 language plpgsql;
+
+drop function rhn_prepare_install(username character varying, INOUT command_instance_id smallint, install_command smallint);
