@@ -921,6 +921,11 @@ def load_config_section(self, section):
         else:
             self.config['nossl'] = False
 
-    logging.debug('Current Configuration: %s' % self.config)
+    # Obfuscate the password with asterisks
+    config_debug = self.config.copy()
+    if config_debug.has_key('password'):
+        config_debug['password'] = "*" * len(config_debug['password'])
+
+    logging.debug('Current Configuration: %s' % config_debug)
 
 # vim:ts=4:expandtab:
