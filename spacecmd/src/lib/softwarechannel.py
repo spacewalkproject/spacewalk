@@ -245,6 +245,62 @@ def do_softwarechannel_listallpackages(self, args, doreturn = False):
 
 ####################
 
+def filter_latest_packages(pkglist):
+    # This takes a list of package dicts, and returns a new list
+    # which contains only the latest version, for each arch
+
+    # First we generate a dict, indexed by a compound (tuple) key based on
+    # arch and name, so we can store the latest version of each package
+    # for each arch.  This approach avoids nested loops :)
+    latest={}
+    for p in pkglist:
+        tuplekey = p['name'], p['arch_label']
+        if not latest.has_key(tuplekey):
+            latest[tuplekey] = p
+        else:
+            # Already have this package, is p newer?
+            if p == latest_pkg(p, latest[tuplekey]):
+                latest[tuplekey] = p
+
+    # Then return the dict items as a list
+    return [ v for k, v in latest.items() ]
+
+def help_softwarechannel_listlatestpackages(self):
+    print 'softwarechannel_listlatestpackages: List the newest version of all\
+ packages in a channel'
+    print 'usage: softwarechannel_listlatestpackages CHANNEL'
+
+def complete_softwarechannel_listlatestpackages(self, text, line, beg, end):
+    if len(line.split(' ')) == 2:
+        return tab_completer(self.do_softwarechannel_list('', True),
+                                  text)
+    else:
+        return []
+
+def do_softwarechannel_listlatestpackages(self, args, doreturn = False):
+    (args, options) = parse_arguments(args)
+
+    if not len(args):
+        self.help_softwarechannel_listallpackages()
+        return
+
+    channel = args[0]
+
+    allpackages = self.client.channel.software.listAllPackages(self.session,
+                                                            channel)
+
+    latestpackages = filter_latest_packages(allpackages)
+
+    packages = build_package_names(latestpackages)
+
+    if doreturn:
+        return packages
+    else:
+        if len(packages):
+            print '\n'.join(sorted(packages))
+
+####################
+
 def help_softwarechannel_details(self):
     print 'softwarechannel_details: Show the details of a software channel'
     print 'usage: softwarechannel_details <CHANNEL ...>'

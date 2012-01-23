@@ -25,6 +25,7 @@ from datetime import datetime, timedelta
 from optparse import OptionParser
 from tempfile import mkstemp
 from textwrap import wrap
+import rpm
 
 try:
     import json
@@ -284,6 +285,22 @@ def parse_time_input(userinput = ''):
         logging.error('Invalid time provided')
         return
 
+
+# Compares 2 package objects (dicts) and returns the newest one.
+# If the objects are the same, we return None
+def latest_pkg(pkg1, pkg2):
+    # Sometimes empty epoch is a space, sometimes its an empty string, which
+    # breaks the comparison, strip it here to fix
+    t1 = (pkg1['epoch'].strip(), pkg1['version'], pkg1['release'])
+    t2 = (pkg2['epoch'].strip(), pkg2['version'], pkg2['release'])
+
+    result = rpm.labelCompare(t1, t2)
+    if result == 1:
+        return pkg1
+    elif result == -1:
+        return pkg2
+    else:
+        return None
 
 # build a proper RPM name from the various parts
 def build_package_names(packages):
