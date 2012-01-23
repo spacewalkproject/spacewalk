@@ -931,9 +931,23 @@ def import_configchannel_fromdetails(self, ccdetails):
                     isdir = True
                 else:
                     isdir = False
+                    # If binary files (or those containing characters which are
+                    # invalid in XML, e.g the ascii escape character) are
+                    # exported, you end up with a file with no "contents" key
+                    # I guess the best thing to do here flag an error and
+                    # import everything else
+                    if not filedetails.has_key('contents'):
+                        logging.error("Failed trying to import file %s" % path)
+                        logging.error("if it is a binary file, or contains" +
+                            " characters not valid in XML these can't be" +\
+                            " exported correctly via the API")
+                        continue
                 logging.debug("Creating %s %s" % \
                     (filedetails['type'], filedetails))
-                del filedetails['type']
+                if filedetails.has_key('type'):
+                    del filedetails['type']
+                if filedetails.has_key('binary'):
+                    del filedetails['binary']
                 ret = self.client.configchannel.createOrUpdatePath(\
                     self.session, ccdetails['label'], path, isdir, filedetails)
             if ret != None:
