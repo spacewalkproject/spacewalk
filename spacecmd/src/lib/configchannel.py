@@ -544,6 +544,12 @@ def do_configchannel_addfile(self, args, update_path=''):
 
                     contents = editor(template = template, delete = True)
     else:
+        # the channel name can be passed in without -c
+        if len(args):
+            options.channel = args[0]
+
+        logging.debug("Using channel %s" % options.channel)
+
         if not options.path:
             logging.error('The path is required')
             return
