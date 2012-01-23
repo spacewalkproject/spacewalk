@@ -365,6 +365,22 @@ def do_configchannel_delete(self, args):
 
 ####################
 
+def file_needs_b64_enc(self, contents):
+
+    # we try to catch files automatically which will not work
+    # correctly via the API so that they get uploaded correctly
+
+    # Files with trailing newlines, which the API strips from files
+    # uploaded as text, to avoid this we upload them as base64 encoded
+    if contents != contents.rstrip():
+        logging.info("trailing newlines detected, uploading as binary")
+        return True
+
+    # TODO : Add other exceptions here, e.g those containing characters which
+    # are valid ascii but not valid XML (e.g the escape character)
+
+    return False
+
 def help_configchannel_addfile(self):
     print 'configchannel_addfile: Create a configuration file'
     print '''usage: configchannel_addfile [CHANNEL] [options]
@@ -535,9 +551,16 @@ def do_configchannel_addfile(self, args, update_path=''):
         if not options.symlink and not options.directory:
             if options.file:
                 contents = read_file(options.file)
+                # If binary mode explicitly specified, we always base64 encode
+                # we also check the file contents to see if we detect a file
+                # which needs encoding
                 if options.binary:
-                    logging.debug("Binary file, base64 encoding contents")
+                    logging.debug("Binary selected, base64 encoding contents")
                     contents = base64.b64encode(contents)
+                elif self.file_needs_b64_enc(contents):
+                    logging.debug("Detected file needs base64 encoding")
+                    contents = base64.b64encode(contents)
+                    options.binary = True
             else:
                 logging.error('You must provide the file contents')
                 return
