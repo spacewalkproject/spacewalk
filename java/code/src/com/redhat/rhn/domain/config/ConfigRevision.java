@@ -25,14 +25,14 @@ import java.util.Date;
  */
 public class ConfigRevision extends BaseDomainHelper {
 
-    private Long id;
-    private Long revision;
-    private ConfigFile configFile;
-    private ConfigContent configContent;
-    private ConfigInfo configInfo;
-    private ConfigFileType configFileType;
+    protected Long id;
+    protected Long revision;
+    protected ConfigFile configFile;
+    protected ConfigContent configContent;
+    protected ConfigInfo configInfo;
+    protected ConfigFileType configFileType;
 
-    private Long changedById;
+    protected Long changedById;
 
     /**
      * Protected constructor

@@ -25,6 +25,7 @@ import com.redhat.rhn.domain.config.ConfigFile;
 import com.redhat.rhn.domain.config.ConfigFileType;
 import com.redhat.rhn.domain.config.ConfigRevision;
 import com.redhat.rhn.domain.config.ConfigurationFactory;
+import com.redhat.rhn.domain.config.EncodedConfigRevision;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.ConfigChannelDto;
@@ -201,7 +202,31 @@ public class ConfigChannelHandler extends BaseHandler {
 
         ConfigRevision cr = cm.lookupConfigRevisionByRevId(loggedInUser, cf,
             revision.longValue());
+
         return cr;
+    }
+
+    /**
+     * Get base64 encoded revision for specified config file
+     * @param sessionKey User's session key.
+     * @param configChannelLabel Config channel label.
+     * @param filePath The configuration file path.
+     * @param revision The configuration file revision.
+     * @return Revisions of the configuration file, errors out otherwise.
+     *
+     * @xmlrpc.doc Get revision of the specified config file
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("string", "configChannelLabel",
+     *                          "label of config channel to lookup on")
+     * @xmlrpc.param #param_desc("string", "filePath", "config file path to examine")
+     * @xmlrpc.param #param_desc("int", "revision", "config file revision to examine")
+     * @xmlrpc.returntype
+     * $ConfigRevisionSerializer
+     */
+    public EncodedConfigRevision getEncodedFileRevision(String sessionKey,
+            String configChannelLabel, String filePath, Integer revision) {
+         return new EncodedConfigRevision(getFileRevision(sessionKey, configChannelLabel,
+                 filePath, revision));
     }
 
     /**
