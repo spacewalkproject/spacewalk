@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.7.17
+Version:        1.7.18
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -66,6 +66,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Mon Jan 23 2012 Jan Pazdziora 1.7.18-1
+- Drop any three-parameter rhn_prepare_install.
+
 * Mon Jan 23 2012 Jan Pazdziora 1.7.17-1
 - 783223 - we need to drop the original smallint-ish functions.
 
