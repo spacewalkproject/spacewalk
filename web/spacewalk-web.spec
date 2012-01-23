@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 1.7.6
+Version: 1.7.7
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -253,6 +253,10 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Mon Jan 23 2012 Jan Pazdziora 1.7.7-1
+- 783223 - fixing sysdate issue in rhn-enable-monitoring.pl.
+- Show Proxy tabs on Spacewalk (msuchy@redhat.com)
+
 * Fri Jan 13 2012 Tomas Lestach <tlestach@redhat.com> 1.7.6-1
 - 773605 - bring back deleted system_list from the other side of Styx river
   (tlestach@redhat.com)
