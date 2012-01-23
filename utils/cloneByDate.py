@@ -21,6 +21,8 @@ import pdb
 import sys
 import time
 import copy
+import shutil
+import tempfile
 
 try:
     import json
@@ -78,8 +80,8 @@ class ChannelTreeCloner:
         self.to_date = to_date
         self.cloners = []
 
-    def validate_channels(self):
-        self.channel_details = self.remote_api.list_channels(self.channel_map)
+    def validate_channels(self):                
+        self.channel_details = self.remote_api.channel_details(self.channel_map)
         self.src_parent = self.find_parent(self.channel_map.keys())
         self.validate_children(self.src_parent, self.channel_map.keys())
         self.dest_parent = self.find_parent(self.channel_map.values())
@@ -126,7 +128,7 @@ class ChannelTreeCloner:
 
     def clone(self):
         for cloner in self.cloners:
-            cloner.clone()
+            cloner.process()
             
             
             
@@ -151,18 +153,38 @@ class ChannelCloner:
     
     def process(self):
         self.clone();
-        self.new_packages = self.remote_api.list_packages(self.to_label)
-        print "%i, %i" % (len(self.original_packages), len(self.new_packages)) 
-        ### diff lists
-        ### dep solve on diff
-        ### added found deps
+        new_packages = self.remote_api.list_packages(self.to_label)               
+        pkg_idiff = self.diff_packages(self.original_packages, new_packages)
+        
+        print "New packages added: %i" % len(pkg_idiff)
+        repo_dir = self.repodata(self.from_label)
+        
+        deps = []### dep solve on diff
+        dep_package_ids = []
+        #self.remote_api.add_packages()
+        
+        
+    
+    def diff_packages(self, old, new):
+        old_hash = {}
+        new_hash = {}
+        to_ret = []
+        
+        for pkg in old:
+            old_hash[pkg["id"]] = pkg
+        for pkg in new:
+            new_hash[pkg["id"]] = pkg        
+        id_diff = set(new_hash.keys()) - set(old_hash.keys())        
+        for id in id_diff:
+            to_ret.append(new_hash[id])
+        return to_ret
         
     
     def clone(self):
         errata_ids = self.collect(self.errata_to_clone, "advisory_name")
         while(len(errata_ids) > 0):
-            set = errata_ids[:5]
-            del errata_ids[:5]
+            set = errata_ids[:10]
+            del errata_ids[:10]
             print "Cloning set:"
             print set
             self.remote_api.clone_errata(self.to_label, set)
@@ -172,6 +194,12 @@ class ChannelCloner:
         for item in items:
             to_ret.append(item[attribute])
         return to_ret
+
+    def repodata(self, label):
+        repo_dir = "/var/cache/rhn/repodata/%s" % label
+        tmp_dir = tempfile.mkdtemp(suffix="clone-by-date") + "/repo/"
+        shutil.copytree(repo_dir, tmp_dir)
+        return tmp_dir
     
     def get_errata(self):
         """ Returns tuple of all available for cloning, and what falls in teh date range"""
@@ -193,7 +221,11 @@ class RemoteApi:
         except xmlrpclib.Fault, e:
             raise UserError(e.faultString)
     
-    def list_channels(self, label_hash):
+    
+    def list_channels(self):
+        ""
+    
+    def channel_details(self, label_hash):
         to_ret = {}
         for src, dst in label_hash.items():            
             to_ret[src] = self.get_details(src)
@@ -211,6 +243,12 @@ class RemoteApi:
             return self.client.channel.software.getDetails(self.auth_token, label)
         except xmlrpclib.Fault, e:
             raise UserError(e.faultString + ": " + label)
+        
+    def add_packages(self, label, package_ids):
+        while(len(package_ids) > 0):
+            set = package_ids[:20]
+            del package_ids[:20]        
+            self.client.channel.software.addPackages(self.auth_token, label, package_ids)
              
 
 class DBApi:
@@ -221,6 +259,8 @@ class DBApi:
         initCFG('server')
         db_string = CFG.DEFAULT_DB #"rhnsat/rhnsat@rhnsat"
         rhnSQL.initDB(db_string)        
+        
+    
         
     def applicable_errata(self, from_label, to_label):
         """list of errata that is applicable to be cloned, used db because we need to exclude cloned errata too"""
