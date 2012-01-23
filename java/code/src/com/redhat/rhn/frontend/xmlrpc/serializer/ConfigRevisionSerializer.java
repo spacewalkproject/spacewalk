@@ -14,14 +14,16 @@
  */
 package com.redhat.rhn.frontend.xmlrpc.serializer;
 
+import com.redhat.rhn.FaultException;
 import com.redhat.rhn.common.util.StringUtil;
 import com.redhat.rhn.domain.config.ConfigRevision;
 import com.redhat.rhn.domain.config.EncodedConfigRevision;
 import com.redhat.rhn.frontend.xmlrpc.serializer.util.SerializerHelper;
 
-import com.sun.org.apache.xml.internal.security.utils.Base64;
+import org.apache.commons.codec.binary.Base64;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.io.Writer;
 import java.text.DecimalFormat;
 
@@ -149,7 +151,15 @@ public class ConfigRevisionSerializer implements XmlRpcCustomSerializer {
 
     protected void addEncodedFileContent(ConfigRevision rev, SerializerHelper helper) {
         String content = rev.getConfigContent().getContentsString();
-        helper.add(CONTENTS, Base64.encode(content.getBytes()));
+        try {
+            helper.add(CONTENTS, new String(Base64.encodeBase64(content.getBytes("UTF-8")),
+                    "UTF-8"));
+        }
+         catch (UnsupportedEncodingException e) {
+             String msg = "Following errors were encountered " +
+                     "when creating the config file.\n" + e.getMessage();
+                 throw new FaultException(1023, "ConfgFileError", msg);
+        }
         helper.add(CONTENTS_ENC64, Boolean.TRUE);
         if (!rev.getConfigContent().isBinary()) {
             helper.add(MACRO_START, rev.getConfigContent().getDelimStart());
