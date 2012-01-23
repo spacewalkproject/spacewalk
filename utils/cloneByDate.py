@@ -23,6 +23,7 @@ import time
 import copy
 import shutil
 import tempfile
+from depsolver import DepSolver
 
 try:
     import json
@@ -42,29 +43,44 @@ except:
     from common import CFG, initCFG
 
 
+def confirm(txt, options):
+    if not options.assumeyes:
+        confirm = raw_input(txt)
+        while ['y', 'n'].count(confirm.lower()) == 0:
+            confirm = raw_input(txt)
+        if confirm.lower() == "n":
+            print "Cancelling"
+            sys.exit(0)        
+
+
 def main(options):        
     xmlrpc = RemoteApi(options.server, options.username, options.password)
     db = DBApi()
     
     cloners = []
+    needed_channels = []
     for list in options.channels:
         tree_cloner = ChannelTreeCloner(list, xmlrpc, db, options.to_date)
         cloners.append(tree_cloner)
+        needed_channels += tree_cloner.needing_create()
+        
+    if len(needed_channels) > 0:        
+        print "\nBy continuing the following channels will be created: "
+        print ", ".join(needed_channels)
+        confirm("\nContinue with channel creation (y/n)?", options)
+        for cloner in cloners:
+            cloner.create_channels()
+        
+        
+        
+    for tree_cloner in cloners:
         tree_cloner.prepare();
         
     print "\nBy continuing the following will be cloned:"
     for cloner in cloners:                
         cloner.pre_summary()
         print "\n"
-    
-    if not options.assumeyes:
-        txt = "Continue with clone (y/n)?"
-        confirm = raw_input(txt)
-        while ['y', 'n'].count(confirm.lower()) == 0:
-            confirm = raw_input(txt)
-        if confirm.lower() == "n":
-            print "Cancelling"
-            sys.exit(0)
+    confirm("Continue with clone (y/n)?", options)    
         
     for cloner in cloners:
         cloner.clone()
@@ -79,14 +95,39 @@ class ChannelTreeCloner:
         self.channel_map = channels
         self.to_date = to_date
         self.cloners = []
+        self.validate_source_channels()
 
-    def validate_channels(self):                
-        self.channel_details = self.remote_api.channel_details(self.channel_map)
+    def needing_create(self):
+        to_ret = []
+        existing = self.remote_api.list_channel_labels()
+        for label in self.channel_map.values():
+            if existing.count(label) == 0:
+                to_ret.append(label)
+        return to_ret
+    
+    
+    def create_channels(self):
+        to_create = self.needing_create()
+        if len(to_create) == 0:
+            return        
+        dest_parent = self.channel_map[self.src_parent]        
+        if to_create.count(dest_parent) > 0:
+            self.remote_api.clone_channel(self.src_parent, dest_parent, None)
+            to_create.remove(dest_parent)
+        for from_label, to_label in self.channel_map.items():
+            if to_create.count(to_label) > 0:
+                self.remote_api.clone_channel(from_label, to_label, dest_parent)
+
+                
+    def validate_source_channels(self):
+        self.channel_details = self.remote_api.channel_details(self.channel_map, values=False)   
         self.src_parent = self.find_parent(self.channel_map.keys())
-        self.validate_children(self.src_parent, self.channel_map.keys())
-        self.dest_parent = self.find_parent(self.channel_map.values())
-        self.validate_children(self.dest_parent, self.channel_map.values())         
-        return self.channel_details
+        self.validate_children(self.src_parent, self.channel_map.keys())        
+
+    def validate_dest_channels(self):       
+        self.channel_details = self.remote_api.channel_details(self.channel_map)         
+        self.dest_parent = self.find_parent(self.channel_map.values())        
+        self.validate_children(self.dest_parent, self.channel_map.values())                 
     
     def validate_children(self, parent, label_list):
         """ Make sure all children are children of the parent"""
@@ -113,11 +154,10 @@ class ChannelTreeCloner:
         list.insert(0,self.src_parent)
         return list
         
-
-    def prepare(self):
-        self.validate_channels()
+    def prepare(self):        
         for from_label in self.ordered_labels():
             to_label = self.channel_map[from_label]
+            self.validate_dest_channels()
             cloner = ChannelCloner(from_label, to_label, self.to_date, self.remote_api, self.db_api)
             self.cloners.append(cloner)
             cloner.prepare()            
@@ -161,6 +201,9 @@ class ChannelCloner:
         
         deps = []### dep solve on diff
         dep_package_ids = []
+        
+        #solver = DepSolver([{"id":self.from_label, "relative_path":repo_dir}])
+        
         #self.remote_api.add_packages()
         
         
@@ -214,6 +257,8 @@ class ChannelCloner:
 class RemoteApi:
     """ Class for connecting to the XMLRPC spacewalk interface"""
     
+    cache = {}
+    
     def __init__(self, server_url, username, password):
         self.client = xmlrpclib.Server(server_url)
         try:
@@ -222,18 +267,33 @@ class RemoteApi:
             raise UserError(e.faultString)
     
     
-    def list_channels(self):
-        ""
+    def list_channel_labels(self):
+        key = "chan_labels"
+        if self.cache.has_key(key):
+            return self.cache[key] 
+        
+        list = self.client.channel.listAllChannels(self.auth_token)
+        to_ret = []
+        for item in list:
+            to_ret.append(item["label"])
+        self.cache[key] = to_ret
+        return to_ret
     
-    def channel_details(self, label_hash):
+    def channel_details(self, label_hash, keys=True, values=True):
         to_ret = {}
-        for src, dst in label_hash.items():            
-            to_ret[src] = self.get_details(src)
-            to_ret[dst] = self.get_details(dst)
+        for src, dst in label_hash.items():          
+            if keys:  
+                to_ret[src] = self.get_details(src)
+            if values:
+                to_ret[dst] = self.get_details(dst)
         return to_ret
 
     def list_packages(self, label):
-        return self.client.channel.software.listAllPackages(self.auth_token, label)
+        list = self.client.channel.software.listAllPackages(self.auth_token, label)
+        #name-ver-rel.arch,
+        for pkg in list:
+            pkg['nvrea'] =  "%s-%s-%s.%s" % (pkg['name'], pkg['version'], pkg['release'], pkg['arch_label']) 
+        return list
     
     def clone_errata(self, to_label, errata_list):
         self.client.errata.cloneAsOriginal(self.auth_token, to_label, errata_list)
@@ -249,6 +309,14 @@ class RemoteApi:
             set = package_ids[:20]
             del package_ids[:20]        
             self.client.channel.software.addPackages(self.auth_token, label, package_ids)
+            
+    def clone_channel(self, original_label, new_label, parent):
+        details = {'name': new_label, 'label':new_label, 'summary': new_label}
+        if parent and parent != '':
+            details['parent_label'] = parent      
+        print "Cloning %s to %s with original package set." % (original_label, new_label)
+        self.client.channel.software.clone(self.auth_token, original_label, details, True)
+        
              
 
 class DBApi:
