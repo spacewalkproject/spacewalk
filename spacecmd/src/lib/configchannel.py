@@ -548,6 +548,10 @@ def do_configchannel_addfile(self, args, update_path=''):
         if len(args):
             options.channel = args[0]
 
+        if not options.channel:
+            logging.error("The channel name is required")
+            return
+
         logging.debug("Using channel %s" % options.channel)
 
         if not options.path:
