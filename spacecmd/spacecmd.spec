@@ -4,7 +4,7 @@
 %endif
 
 Name:        spacecmd
-Version:     1.7.2
+Version:     1.7.3
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -61,6 +61,23 @@ touch %{buildroot}/%{python_sitelib}/spacecmd/__init__.py
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Mon Jan 23 2012 Aron Parsons <aronparsons@gmail.com> 1.7.3-1
+- spacecmd bugfix: configchannel_addfile fail nicely when no channel arg
+  (shardy@redhat.com)
+- spacecmd enhancement: Align configchannel_addfile usage (shardy@redhat.com)
+- spacecmd enhancement: Add softwarechannel_listlatestpackages command
+  (shardy@redhat.com)
+- spacecmd bugfix: configchannel_import detect trailing newlines
+  (shardy@redhat.com)
+- spacecmd bugfix: configchannel_import flag error when binary file can't be
+  imported (shardy@redhat.com)
+- spacecmd bugfix: system_runscript fix type when passing timeout argument
+  (shardy@redhat.com)
+- spacecmd enhancement : configchannel_addfile automatically detect trailing
+  newlines (shardy@redhat.com)
+- spacecmd enhancement : make configchannel_addfile handle binary files
+  (shardy@redhat.com)
+
 * Mon Jan 16 2012 Aron Parsons <aronparsons@gmail.com> 1.7.2-1
 - spacecmd enhancement : multiple delete for kickstart_delete
   (shardy@redhat.com)
