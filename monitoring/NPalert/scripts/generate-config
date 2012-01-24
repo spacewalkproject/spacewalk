@@ -135,7 +135,6 @@ while (1) {
 
   unless ($generate or $redir) {
     $Log->log(3, "no config change...\n");
-    sleep(SLEEP_INTERVAL);
     next;
   }
 
@@ -167,7 +166,6 @@ while (1) {
 
   unless ($rv) {
     &notify("Preparation failed: $@");
-    sleep(SLEEP_INTERVAL);
     next;
   }
 
@@ -177,7 +175,6 @@ while (1) {
   $rv = &generate_config();
   unless ($rv) {
     &notify("Generation failed: $@");
-    sleep(SLEEP_INTERVAL);
     next;
     $@ = undef;
   }
@@ -189,7 +186,6 @@ while (1) {
     my $rv = &compile_config();
     if ($rv) {
       &notify("Compile failed: $@");
-      sleep(SLEEP_INTERVAL);
       next;
     }
   }
@@ -201,10 +197,11 @@ while (1) {
   } else {
     $Log->log(1, "Done.  Installed config.\n");
   }
-
-  # Don't kill the db or cpu
+}
+continue {
+  $ndb->rollback();
   sleep(SLEEP_INTERVAL);
-} ## end while (1)
+}
 
 #######################
 #     SUBROUTINES     #
