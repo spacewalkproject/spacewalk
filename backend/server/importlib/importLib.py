@@ -17,12 +17,14 @@
 #
 
 import os
+import shutil
 from types import IntType, StringType, InstanceType
 from UserDict import UserDict
 from UserList import UserList
 
 from spacewalk.common.checksum import getFileChecksum
 from spacewalk.common.fileutils import createPath, setPermsPath
+from spacewalk.common.rhnConfig import CFG
 
 # no-op class, used to define the type of an attribute
 class DateType:
@@ -808,7 +810,15 @@ def move_package(filename, basedir, relpath, checksum_type, checksum, force=None
     # Create the directory where the file will reside
     if not os.path.exists(dir):
         createPath(dir)
-    os.rename(filename, packagePath)
+
+    # Check if the RPM has been downloaded from a remote repository
+    # If so, it is stored in CFG.MOUNT_POINT and we have to move it
+    # If not, the repository is local to the server, so the rpm should be copied
+    if filename.startswith(CFG.MOUNT_POINT):
+       shutil.move(filename, packagePath)
+    else:
+       shutil.copy(filename, packagePath)
+
     # set the path perms readable by all users
     os.chmod(packagePath, 0644)
 
