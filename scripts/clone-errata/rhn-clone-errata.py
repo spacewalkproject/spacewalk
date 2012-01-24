@@ -758,7 +758,8 @@ def main():
                 tmpBugs = myRHN.getErrataBugs(rhnErrata['errata_advisory'],0)
 
                 for bug in tmpBugs:
-                    spwErrBugs.append({'id': int(bug), 'summary': tmpBugs[bug]})
+                    href = 'https://bugzilla.redhat.com/show_bug.cgi?id=%s' % bug
+                    spwErrBugs.append({'id': int(bug), 'summary': tmpBugs[bug], 'url' : href})
 
 	        if not options.quiet and not options.format:
 	            print "\t%s - %s" % (spwErrDetails['errata_issue_date'],spwErrDetails['errata_synopsis'])
