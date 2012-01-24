@@ -9,7 +9,7 @@ Name:         NPalert
 Summary:      NOCpulse notification system
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version:      1.126.27
+Version:      1.126.28
 Release:      1%{?dist}
 BuildArch:    noarch
 Requires:     perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
@@ -137,6 +137,9 @@ fi
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Tue Jan 24 2012 Jan Pazdziora 1.126.28-1
+- When we rollback before going to sleep, we won't keep transaction active.
+
 * Mon Jan 16 2012 Miroslav Suchý 1.126.27-1
 - Avoid using CURRENT_ALERTS_RECID_SEQ.NEXTVAL Oracle syntax.
 
