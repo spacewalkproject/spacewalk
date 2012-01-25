@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.7.9
+Version: 1.7.10
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -555,6 +555,11 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Jan 25 2012 Tomas Lestach <tlestach@redhat.com> 1.7.10-1
+- 749476 - return default (empty) string instead of omitting the attribute for
+  channel.software.getDetails API (tlestach@redhat.com)
+- close session after initial taskorun check (tlestach@redhat.com)
+
 * Mon Jan 23 2012 Tomas Lestach <tlestach@redhat.com> 1.7.9-1
 - include Base64 from gpache.commons.codec.binary (tlestach@redhat.com)
 
