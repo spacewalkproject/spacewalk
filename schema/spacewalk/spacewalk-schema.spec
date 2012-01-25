@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.7.19
+Version:        1.7.20
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -66,6 +66,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Wed Jan 25 2012 Michael Mraka <michael.mraka@redhat.com> 1.7.20-1
+- 756918 - fix data for package_group
+
 * Mon Jan 23 2012 Jan Pazdziora 1.7.19-1
 - Dropping rhn_bl_obs_mod_trig_fun which was not dropped when
   rhnBlacklistObsoletes was being removed.
