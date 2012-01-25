@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 1.7.7
+Version: 1.7.8
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -253,6 +253,10 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Wed Jan 25 2012 Jan Pazdziora 1.7.8-1
+- For DBD::Pg, just use its builtin ping, instead of doing SELECT.
+- Make it easier to subclass RHN::DB, use the $class which was passed in.
+
 * Mon Jan 23 2012 Jan Pazdziora 1.7.7-1
 - 783223 - fixing sysdate issue in rhn-enable-monitoring.pl.
 - Show Proxy tabs on Spacewalk (msuchy@redhat.com)
