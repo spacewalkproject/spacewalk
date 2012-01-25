@@ -246,6 +246,7 @@ public class SchedulerKernel {
                         }
                         tx.commit();
                     }
+                    TaskoFactory.closeSession();
                 }
             }
         }
