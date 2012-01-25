@@ -90,10 +90,14 @@ public class ChannelSerializer implements XmlRpcCustomSerializer {
                 StringUtils.defaultString(c.getDescription()));
         helper.add("checksum_label", c.getChecksumTypeLabel());
         helper.add("last_modified", c.getLastModified());
-        helper.add("maintainer_name", c.getMaintainerName());
-        helper.add("maintainer_email", c.getMaintainerEmail());
-        helper.add("maintainer_phone", c.getMaintainerPhone());
-        helper.add("support_policy", c.getSupportPolicy());
+        helper.add("maintainer_name",
+                StringUtils.defaultString(c.getMaintainerName()));
+        helper.add("maintainer_email",
+                StringUtils.defaultString(c.getMaintainerEmail()));
+        helper.add("maintainer_phone",
+                StringUtils.defaultString(c.getMaintainerPhone()));
+        helper.add("support_policy",
+                StringUtils.defaultString(c.getSupportPolicy()));
 
         helper.add("gpg_key_url",
                 StringUtils.defaultString(c.getGPGKeyUrl()));
