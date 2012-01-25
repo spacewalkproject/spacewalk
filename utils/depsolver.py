@@ -120,7 +120,10 @@ class DepSolver:
                     continue
                 satisfiers = []
                 for po in self.__whatProvides(r, f, v):
-                    satisfiers.append(po)
+                    # verify this po indeed provides the dep,
+                    # el5 version could give some false positives
+                    if po.checkPrco('provides', (r, f, v)):
+                        satisfiers.append(po)
                 pkgresults[req] = satisfiers
         return results
 
