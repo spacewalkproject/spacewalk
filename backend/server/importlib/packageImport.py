@@ -129,7 +129,12 @@ class ChannelPackageSubscription(GenericPackageImport):
             raise
         self.compute_affected_channels(affected_channels)
 
-        name_ids = [pkg['name_id'] for pkg in self.batch]
+        if len(self.batch) < 10:
+            # update small batch per package
+            name_ids = [pkg['name_id'] for pkg in self.batch]
+        else:
+            # update bigger batch at once
+            name_ids = []
         self.backend.update_newest_package_cache(caller=self.caller,
             affected_channels=self.affected_channel_packages, name_ids=name_ids)
         # Now that channel is updated, schedule the repo generation
