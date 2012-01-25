@@ -394,17 +394,12 @@ sub ping {
     $dbh = shift;
   }
 
-  eval {
-    my $ping_query;
+  my $ret = eval {
+    if ($dbh->{Driver}->{Name} eq 'Pg') {
+      return $dbh->SUPER::ping();
+    }
 
-    # again, we only do different if the db explicitly is Pg, not if
-    # it isn't just Oracle.  defensive.
-    if ($dbh->{Driver}->{Name} eq 'Pg' or $dbh->{Driver}->{Name} eq 'mysql' or $dbh->{Driver}->{Name} eq 'SQLite') {
-      $ping_query = "SELECT 1 + 2";
-    }
-    else {
-      $ping_query = "SELECT 1 + 2 FROM DUAL";
-    }
+    my $ping_query = "SELECT 1 + 2 FROM DUAL";
 
     my $sth = $dbh->prepare_cached($ping_query);
     return 0 unless $sth;
@@ -421,7 +416,7 @@ sub ping {
     return 0;
   }
   else {
-    return 1;
+    return $ret;
   }
 }
 
