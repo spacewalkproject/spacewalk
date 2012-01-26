@@ -24,6 +24,7 @@ sub get_scout_ips {
 ###################
   my $cf_db    = NOCpulse::CF_DB->new;
   my $node_ref = $cf_db->getNodes;
+  $cf_db->rollback;
   my @values   = values(%$node_ref);
   my @result   = map { $_->{ip} } @values;
   push(@result, '127.0.0.1');          #add local loop
