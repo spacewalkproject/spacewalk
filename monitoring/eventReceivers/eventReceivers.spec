@@ -1,6 +1,6 @@
 Name:         eventReceivers
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version:      2.20.15
+Version:      2.20.16
 Release:      1%{?dist}
 Summary:      Command Center Event Receivers
 URL:          https://fedorahosted.org/spacewalk
@@ -42,6 +42,10 @@ install -m644 *.pm $RPM_BUILD_ROOT%{perl_vendorlib}/NOCpulse
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Thu Jan 26 2012 Jan Pazdziora 2.20.16-1
+- Rollback the session to avoid IDLE in transaction in PerlAccessHandler
+  NOCpulse::MonitoringAccessHandler.
+
 * Wed Oct 13 2010 Jan Pazdziora 2.20.15-1
 - 484612 - correctly set From using Mail::Send (msuchy@redhat.com)
 
