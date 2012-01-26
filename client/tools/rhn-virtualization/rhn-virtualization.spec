@@ -10,7 +10,7 @@ License:        GPLv2
 URL:            https://fedorahosted.org/spacewalk
 Source0:        https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 
-Version:        5.4.31
+Version:        5.4.32
 Release:        1%{?dist}
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:      noarch
@@ -134,6 +134,10 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Thu Jan 26 2012 Jan Pazdziora 5.4.32-1
+- 781421 - sys.stderr.write could not handle decoded unicode
+  (msuchy@redhat.com)
+
 * Wed Dec 21 2011 Milan Zazrivec <mzazrivec@redhat.com> 5.4.31-1
 - update copyright info
 
