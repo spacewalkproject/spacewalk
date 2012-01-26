@@ -108,38 +108,22 @@ class PackagePush(basePackageUpload.BasePackageUpload):
         if ret != apache.OK:
             return ret
 
-        temp_stream = rhnPackageUpload.write_temp_file(req, 16384,
-                        os.path.join(CFG.MOUNT_POINT, CFG.PREPENDED_DIR,
-                                     str(self.org_id), 'stage'),
-                        '-'.join((self.package_name, self.package_version,
-                                 self.package_release, self.package_arch)),
-                        self.packaging)
+        a_pkg = rhnPackageUpload.save_uploaded_package(req,
+                        (self.package_name, None, self.package_version,
+                         self.package_release, self.package_arch),
+                        str(self.org_id),
+                        self.packaging,
+                        self.file_checksum_type, self.file_checksum)
 
-        header, payload_stream, header_start, header_end = \
-            rhnPackageUpload.load_package(temp_stream)
-
-        # Sanity check - removed, the package path can no longer be determined 
-        # without the header
-        checksum_type = header.checksum_type()
-        checksum = getFileChecksum(checksum_type, file=payload_stream)
         self.rel_package_path = rhnPackageUpload.relative_path_from_header(
-            header, org_id=self.org_id, checksum_type=checksum_type, checksum=checksum)
+            a_pkg.header, org_id=self.org_id,
+            checksum_type=a_pkg.checksum_type, checksum=a_pkg.checksum)
         self.package_path = os.path.join(CFG.MOUNT_POINT,
             self.rel_package_path)
-        # Verify the checksum of the bytes we downloaded against the checksum
-        # presented by rhnpush in the HTTP headers
-        if not (checksum_type == self.file_checksum_type
-                 and checksum == self.file_checksum):
-            log_debug(1, "Mismatching checksums: expected",
-                         self.file_checksum_type, self.file_checksum,
-                        "; got:", checksum_type, checksum)
-            raise rhnFault(104, "Mismatching information")
         
-        package_dict, diff_level = rhnPackageUpload.push_package(header,
-            temp_stream.name, payload_stream, checksum_type, checksum, force=self.force,
-            header_start=header_start, header_end=header_end,
+        package_dict, diff_level = rhnPackageUpload.push_package(a_pkg,
+            force=self.force,
             relative_path=self.rel_package_path, org_id=self.org_id)
-        temp_stream.delete=False
 
         if diff_level:
             return self._send_package_diff(req, diff_level, package_dict)
