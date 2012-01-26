@@ -194,6 +194,12 @@ def do_kickstart_import(self, args):
 
     (args, options) = parse_arguments(args, options)
 
+    for a in args:
+        if re.search("\.json$", a):
+            logging.warning("Argument %s looks like a JSON format " % a +\
+                "filename, use kickstart_importjson to import JSON files exported by " +\
+                "kickstart_export")
+
     if is_interactive(options):
         options.name = prompt_user('Name:', noblank = True)
         options.file = prompt_user('File:', noblank = True)
