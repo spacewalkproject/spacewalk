@@ -16,6 +16,7 @@
 import rhn_rpm
 import rhn_mpm
 import rhn_deb
+import checksum
 
 def rhn_pkg(filename=None, file=None, fd=None):
     if filename:
@@ -34,12 +35,16 @@ def get_package_header(filename=None, file=None, fd=None):
 
 
 BUFFER_SIZE = 16384
+DEFAULT_CHECKSUM_TYPE = 'md5'
 
 class A_Package:
     """virtual class that implements shared methods for RPM/MPM/DEB package object"""
     def __init__(self, input_stream = None):
         self.header = None
         self.input_stream = input_stream
+        self.checksum_type = DEFAULT_CHECKSUM_TYPE
+        self.checksum = None
+        self.payload_stream = None
 
     def read_header(self):
         """reads header from self.input_file"""
@@ -47,12 +52,17 @@ class A_Package:
 
     def save_payload(self, output_stream):
         """saves payload to output_stream"""
-        self._stream_copy(self.input_stream, output_stream)
+        hash = checksum.hashlib.new(self.checksum_type)
+        self._stream_copy(self.input_stream, output_stream, hash)
+        self.checksum = hash.hexdigest()
+        self.payload_stream = output_stream
 
-    def _stream_copy(self, source, dest):
+    def _stream_copy(self, source, dest, hash=None):
         """copies data from the source stream to the destination stream"""
         while True:
             buf = source.read(BUFFER_SIZE)
             if not buf:
                 break
             dest.write(buf)
+            if hash:
+                hash.update(buf)
