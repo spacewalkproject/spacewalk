@@ -55,6 +55,7 @@ sub handler
 
     my $sat_cluster_id = $sat_record->get_SAT_CLUSTER_ID;
     CFDBRecord->ReleaseAllInstances;
+    CFDBRecord->Rollback;
 	
     if ($sat_cluster_id) {
 	return &Return($request, $sat_cluster_id);
