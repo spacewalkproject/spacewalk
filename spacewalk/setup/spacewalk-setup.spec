@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        1.7.1
+Version:        1.7.2
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -106,6 +106,10 @@ rm -rf %{buildroot}
 %{_mandir}/man8/spacewalk-make-mount-points*
 
 %changelog
+* Thu Jan 26 2012 Jan Pazdziora 1.7.2-1
+- If you have for example NIS before passwd in nsswitch.conf, the usermod will
+  not modify what the system uses. Let's check.
+
 * Tue Jan 17 2012 Jan Pazdziora 1.7.1-1
 - Prevent LWP 6 from checking the hostname.
 - We need LWP::Protocol::https for HEAD to pass since it gets redirected to
