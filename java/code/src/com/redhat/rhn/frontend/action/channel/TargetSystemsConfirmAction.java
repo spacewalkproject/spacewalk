@@ -89,9 +89,8 @@ public class TargetSystemsConfirmAction extends RhnAction implements Listable {
                 msgs.add(ActionMessages.GLOBAL_MESSAGE,
                         new ActionMessage("channeltarget.success", servers.size(),
                                 chan.getName()));
+                getStrutsDelegate().saveMessages(request, msgs);
             }
-            getStrutsDelegate().saveMessages(request, msgs);
-
 
             return getStrutsDelegate().forwardParams(mapping.findForward("success"),
                     params);
