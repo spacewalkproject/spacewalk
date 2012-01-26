@@ -31,3 +31,28 @@ def rhn_pkg(filename=None, file=None, fd=None):
 def get_package_header(filename=None, file=None, fd=None):
     return rhn_pkg(filename=filename, file=file, fd=fd) \
         .get_package_header(filename=filename, file=file, fd=fd)
+
+
+BUFFER_SIZE = 16384
+
+class A_Package:
+    """virtual class that implements shared methods for RPM/MPM/DEB package object"""
+    def __init__(self, input_stream = None):
+        self.header = None
+        self.input_stream = input_stream
+
+    def read_header(self):
+        """reads header from self.input_file"""
+        pass
+
+    def save_payload(self, output_stream):
+        """saves payload to output_stream"""
+        self._stream_copy(self.input_stream, output_stream)
+
+    def _stream_copy(self, source, dest):
+        """copies data from the source stream to the destination stream"""
+        while True:
+            buf = source.read(BUFFER_SIZE)
+            if not buf:
+                break
+            dest.write(buf)
