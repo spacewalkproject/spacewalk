@@ -195,18 +195,17 @@ sub cleanse_sets {
 		     qw/remove_systems_list system_search system_search_prev target_systems target_systems_list/,
 		    );
   my $dbh = RHN::DB->connect();
+  my $label_inset = join(", ", map { ":$_" } @server_sets);
   my $query = <<EOQ;
 DELETE FROM rhnSet
  WHERE user_id = :user_id
-   AND label = :label
+   AND label in ($label_inset)
    AND NOT EXISTS (SELECT 1 FROM rhnUserServerPerms WHERE user_id = :user_id and server_id = element)
 EOQ
 
   my $sth = $dbh->prepare($query);
 
-  foreach my $set_label (@server_sets) {
-    $sth->execute_h(user_id => $self->id, label => $set_label);
-  }
+  $sth->execute_h(user_id => $self->id, map { ($_, $_) } @server_sets);
 
   $dbh->commit;
 }
