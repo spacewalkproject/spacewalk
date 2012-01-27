@@ -185,7 +185,7 @@ class NetworkError(Error):
     """ some generic network error occured, e.g. connection reset by peer """
     premsg = _("Network error: ")
 
-class SSLCertificateVerifyFailedError(RepoError):
+class SSLCertificateVerifyFailedError(RepoError, Error):
     def __init__(self):
         # Need to override __init__ because the base class requires a message arg
         # and this exception shouldn't.
@@ -200,6 +200,8 @@ class SSLCertificateVerifyFailedError(RepoError):
                            " certificate and your system time is correct." % certFile)
         else:
             RepoError.__init__(self, "The SSL certificate failed verification.")
+
+    __getattr__ = Error.__getattr__
 
 class SSLCertificateFileNotFound(Error):
     pass
