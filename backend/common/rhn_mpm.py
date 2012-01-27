@@ -174,16 +174,6 @@ class MPM_Package:
         self._read_header(header_data, header_flags)
         self._read_payload(payload_stream, payload_flags)
 
-    def _read_bytes(self, stream, amt):
-        ret = ""
-        while amt:
-            buf = stream.read(min(amt, self._buffer_size))
-            if not buf:
-                return ret
-            ret = ret + buf
-            amt = amt - len(buf)
-        return ret
-
     def _read_header(self, header_data, header_flags):
         if header_flags & MPM_HEADER_COMPRESSED_GZIP:
             t = cStringIO.StringIO(header_data)

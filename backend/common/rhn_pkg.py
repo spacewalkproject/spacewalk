@@ -86,5 +86,15 @@ class A_Package:
             if hash:
                 hash.update(buf)
 
+    def _read_bytes(self, stream, amt):
+        ret = ""
+        while amt:
+            buf = stream.read(min(amt, BUFFER_SIZE))
+            if not buf:
+                return ret
+            ret = ret + buf
+            amt = amt - len(buf)
+        return ret
+
 class InvalidPackageError(Exception):
     pass
