@@ -200,7 +200,7 @@ class MPM_Package(A_Package):
         if payload_flags & MPM_PAYLOAD_COMPRESSED_GZIP:
             g = gzip.GzipFile(None, "r", 0, payload_stream)
             t = tempfile.TemporaryFile()
-            self.stream_copy(g, t)
+            self._stream_copy(g, t)
             g.close()
             payload_stream = t
 
@@ -218,8 +218,8 @@ class MPM_Package(A_Package):
         # lead
         lead = apply(struct.pack, (self._lead_format, ) + lead_arr)
         output_stream.write(lead)
-        self.stream_copy(header_stream, output_stream)
-        self.stream_copy(payload_stream, output_stream)
+        self._stream_copy(header_stream, output_stream)
+        self._stream_copy(payload_stream, output_stream)
 
     def _encode_header(self):
         assert(self.header is not None)
@@ -242,7 +242,7 @@ class MPM_Package(A_Package):
         stream = tempfile.TemporaryFile()
         if self.payload_flags & MPM_PAYLOAD_COMPRESSED_GZIP:
             f = gzip.GzipFile(None, "wb", 9, stream)
-            self.stream_copy(self.payload_stream, f)
+            self._stream_copy(self.payload_stream, f)
             f.close()
         else:
             stream = self.payload_stream
@@ -251,14 +251,6 @@ class MPM_Package(A_Package):
         size = stream.tell()
         stream.seek(0, 0)
         return stream, size
-
-    def stream_copy(self, source, dest):
-        "Copies data from the source stream to the destination stream"
-        while 1:
-            buf = source.read(self._buffer_size)
-            if not buf:
-                break
-            dest.write(buf)
 
 
 def _replace_null(obj):
