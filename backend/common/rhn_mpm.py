@@ -23,6 +23,8 @@ import sys
 import fileutils
 
 from types import ListType, TupleType
+
+import checksum
 from rhn_pkg import A_Package, InvalidPackageError
 
 MPM_CHECKSUM_TYPE = 'md5'       # FIXME: this should be a configuration option
@@ -131,6 +133,7 @@ class MPM_Package(A_Package):
     def __init__(self, input_stream = None):
         A_Package.__init__(self, input_stream)
         self.header_flags = MPM_HEADER_COMPRESSED_GZIP
+        self.header_size = 0
         self.payload_flags = 0
         assert(len(self._magic) == 16)
         self._buffer_size = 16384
@@ -211,12 +214,12 @@ class MPM_Package(A_Package):
             raise Exception()
 
         output_stream.seek(128, 0)
-        header_size = self._encode_header(output_stream)
-        payload_size = self._encode_payload(output_stream)
+        self._encode_header(output_stream)
+        self._encode_payload(output_stream)
 
         # now we know header and payload size so rewind back and write lead
         lead_arr = (self._magic, 1, "\0" * 3, self.header_flags,
-            self.payload_flags, header_size, payload_size, '\0' * 92)
+            self.payload_flags, self.header_size, self.payload_size, '\0' * 92)
         # lead
         lead = apply(struct.pack, (self._lead_format, ) + lead_arr)
         output_stream.seek(0, 0)
@@ -234,20 +237,25 @@ class MPM_Package(A_Package):
         else:
             stream.write(data)
         stream.flush()
-        end = stream.tell()
-        return (end - start)
+        self.header_size = stream.tell() - start
 
-    def _encode_payload(self, stream):
+    def _encode_payload(self, stream, hash=None):
         assert(self.payload_stream is not None)
         start = stream.tell()
         if self.payload_flags & MPM_PAYLOAD_COMPRESSED_GZIP:
             f = gzip.GzipFile(None, "wb", 9, stream)
-            self._stream_copy(self.payload_stream, f)
+            self._stream_copy(self.payload_stream, f, hash)
             f.close()
         else:
-            self._stream_copy(self.payload_stream, stream)
-        end = stream.tell()
-        return (end - start)
+            self._stream_copy(self.payload_stream, stream, hash)
+        self.payload_size = stream.tell() - start
+
+    def save_payload(self, output_stream):
+        self.payload_stream = self.input_stream
+        hash = checksum.hashlib.new(self.header.checksum_type())
+        self._encode_payload(output_stream, hash)
+        self.checksum = hash.hexdigest()
+        self.payload_stream = output_stream
 
 
 def _replace_null(obj):
