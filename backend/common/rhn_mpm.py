@@ -210,21 +210,23 @@ class MPM_Package(A_Package):
         if self.header is None:
             raise Exception()
 
-        header_stream, header_size = self._encode_header()
-        payload_stream, payload_size = self._encode_payload()
+        output_stream.seek(128, 0)
+        header_size = self._encode_header(output_stream)
+        payload_size = self._encode_payload(output_stream)
 
+        # now we know header and payload size so rewind back and write lead
         lead_arr = (self._magic, 1, "\0" * 3, self.header_flags,
             self.payload_flags, header_size, payload_size, '\0' * 92)
         # lead
         lead = apply(struct.pack, (self._lead_format, ) + lead_arr)
+        output_stream.seek(0, 0)
         output_stream.write(lead)
-        self._stream_copy(header_stream, output_stream)
-        self._stream_copy(payload_stream, output_stream)
+        output_stream.seek(0, 2)
 
-    def _encode_header(self):
+    def _encode_header(self, stream):
         assert(self.header is not None)
-        stream = tempfile.TemporaryFile()
         data = xmlrpclib.dumps((_replace_null(self.header), ))
+        start = stream.tell()
         if self.header_flags & MPM_HEADER_COMPRESSED_GZIP:
             f = gzip.GzipFile(None, "wb", 9, stream)
             f.write(data)
@@ -232,25 +234,20 @@ class MPM_Package(A_Package):
         else:
             stream.write(data)
         stream.flush()
-        stream.seek(0, 2)
-        size = stream.tell()
-        stream.seek(0, 0)
-        return stream, size
+        end = stream.tell()
+        return (end - start)
 
-    def _encode_payload(self):
+    def _encode_payload(self, stream):
         assert(self.payload_stream is not None)
-        stream = tempfile.TemporaryFile()
+        start = stream.tell()
         if self.payload_flags & MPM_PAYLOAD_COMPRESSED_GZIP:
             f = gzip.GzipFile(None, "wb", 9, stream)
             self._stream_copy(self.payload_stream, f)
             f.close()
         else:
-            stream = self.payload_stream
-        stream.flush()
-        stream.seek(0, 2)
-        size = stream.tell()
-        stream.seek(0, 0)
-        return stream, size
+            self._stream_copy(self.payload_stream, stream)
+        end = stream.tell()
+        return (end - start)
 
 
 def _replace_null(obj):
