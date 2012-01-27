@@ -23,7 +23,7 @@ import sys
 import fileutils
 
 from types import ListType, TupleType
-from rhn_pkg import InvalidPackageError
+from rhn_pkg import A_Package, InvalidPackageError
 
 MPM_CHECKSUM_TYPE = 'md5'       # FIXME: this should be a configuration option
 
@@ -125,16 +125,28 @@ class MPM_Header:
 MPM_HEADER_COMPRESSED_GZIP = 1
 MPM_PAYLOAD_COMPRESSED_GZIP = 1
 
-class MPM_Package:
+class MPM_Package(A_Package):
     _lead_format = '!16sB3s4L92s'
     _magic = 'mpmpackage012345'
-    def __init__(self):
-        self.header = None
-        self.payload_stream = None
+    def __init__(self, input_stream = None):
+        A_Package.__init__(self, input_stream)
         self.header_flags = MPM_HEADER_COMPRESSED_GZIP
         self.payload_flags = 0
         assert(len(self._magic) == 16)
         self._buffer_size = 16384
+        self.file_size = 0
+
+    def read_header(self):
+        arr = self._read_lead(self.input_stream)
+        magic = arr[0]
+        if magic != self._magic:
+            raise InvalidPackageError()
+        header_len, payload_len = int(arr[5]), int(arr[6])
+        self.header_flags, self.payload_flags = arr[3], arr[4]
+        self.file_size = 128 + header_len + payload_len
+        header_data = self._read_bytes(self.input_stream, header_len)
+        self._read_header(header_data, self.header_flags)
+        self.checksum_type = self.header.checksum_type()
 
     def _read_lead(self, stream):
         # Lead has the following format:
@@ -156,23 +168,16 @@ class MPM_Package:
     def load(self, input_stream):
         # Clean up
         self.__init__()
-        arr = self._read_lead(input_stream)
-        magic = arr[0]
-        if magic != self._magic:
-            raise InvalidPackageError()
-        header_len, payload_len = int(arr[5]), int(arr[6])
-        header_flags, payload_flags = arr[3], arr[4]
-        file_size = 128 + header_len + payload_len
-        input_stream.seek(file_size)
-        if file_size != input_stream.tell():
-            raise InvalidPackageError()
+        self.input_stream = input_stream
         # Read the header
-        input_stream.seek(128, 0)
-        header_data = self._read_bytes(input_stream, header_len)
-        payload_stream = fileutils.payload(input_stream.name, input_stream.tell())
+        self.read_header()
 
-        self._read_header(header_data, header_flags)
-        self._read_payload(payload_stream, payload_flags)
+        payload_stream = fileutils.payload(input_stream.name, input_stream.tell())
+        input_stream.seek(self.file_size)
+        if self.file_size != input_stream.tell():
+            raise InvalidPackageError()
+
+        self._read_payload(payload_stream, self.payload_flags)
 
     def _read_header(self, header_data, header_flags):
         if header_flags & MPM_HEADER_COMPRESSED_GZIP:
