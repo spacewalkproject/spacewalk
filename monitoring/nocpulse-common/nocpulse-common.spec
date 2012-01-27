@@ -1,5 +1,5 @@
 Name:         nocpulse-common
-Version:      2.2.1
+Version:      2.2.2
 Release:      1%{?dist}
 Summary:      NOCpulse common
 License:      GPLv2
@@ -150,6 +150,10 @@ fi
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Fri Jan 27 2012 Jan Pazdziora 2.2.2-1
+- Loading NOCpulse::Config here makes the empty content cached, removing.
+- Fixing typo (%FILE_CONTENTS), fixing missing $self, adding use strict.
+
 * Tue Nov 22 2011 Miroslav Suchý 2.2.1-1
 - bump up version
 - 755963 - logrotate nocpulse even on Fedora 16
