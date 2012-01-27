@@ -73,7 +73,7 @@ public class MonitoringFactory extends HibernateFactory {
         WriteMode m = ModeFactory.getWriteMode("Monitoring_queries",
                     "delete_time_series_for_probe");
         Map params = new HashMap();
-        params.put("probe_id", probeIn.getId());
+        params.put("probe_id", probeIn.getId().toString());
         m.executeUpdate(params);
 
         singleton.removeObject(probeIn);
