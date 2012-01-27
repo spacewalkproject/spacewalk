@@ -141,14 +141,3 @@ class deb_Header:
             return self.deb.debcontrol().get_as_string(name)
 
         return None
-"""
-    def __setitem__(self, name, item):
-        self.hdr[name] = item
-
-    def __delitem__(self, name):
-        del self.hdr[name]
-
-    def __getattr__(self, name):
-        return getattr(self.hdr, name)
-"""
-
