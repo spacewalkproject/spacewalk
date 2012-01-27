@@ -18,7 +18,7 @@ import os
 import sys
 import tempfile
 
-from spacewalk.common import rhn_mpm, rhn_deb
+from spacewalk.common import rhn_mpm, rhn_deb, rhn_pkg
 from spacewalk.common.rhnLog import log_debug
 from spacewalk.common.rhnConfig import CFG
 from spacewalk.common.rhnException import rhnFault
@@ -155,17 +155,12 @@ def push_package(a_pkg, org_id=None, force=None, channels=[], relative_path=None
         orig_path = os.path.join(CFG.MOUNT_POINT, orig_path)
         log_debug(4, "Original package", orig_path)
 
-        # Determine the type of packaging that was used to create the package.
-        packaging = 'rpm'
-        if hasattr(a_pkg.header, 'packaging'):
-            packaging = a_pkg.header.packaging
-
         # MPMs do not store their headers on disk, so we must avoid performing
         # operations which rely on information only contained in the headers
         # (such as header signatures).
-        if os.path.exists(orig_path) and packaging != 'mpm':
-            oh = rhn_mpm.get_package_header(orig_path)
-            _diff_header_sigs(header, oh, pdict['diff']['diff'])
+        if os.path.exists(orig_path) and a_pkg.header.packaging != 'mpm':
+            oh = rhn_pkg.get_package_header(orig_path)
+            _diff_header_sigs(a_pkg.header, oh, pdict['diff']['diff'])
 
         return pdict, package.diff.level
 
