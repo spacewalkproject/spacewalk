@@ -13,25 +13,30 @@
 # in this software or its documentation.
 #
 
-import rhn_rpm
-import rhn_mpm
-import rhn_deb
 import checksum
 
-def rhn_pkg(filename=None, file=None, fd=None):
-    if filename:
-        if filename.endswith('.deb'):
-            return rhn_deb
-        elif filename.endswith('.rpm'):
-            return rhn_rpm
-        else:
-            return rhn_mpm
-    # XXX recognize backend also by file/fd
-    return rhn_rpm
-
 def get_package_header(filename=None, file=None, fd=None):
-    return rhn_pkg(filename=filename, file=file, fd=fd) \
-        .get_package_header(filename=filename, file=file, fd=fd)
+    if filename is not None:
+        stream = open(filename)
+        need_close = True
+    elif file is not None:
+        stream = file
+    else:
+        stream = os.fdopen(os.dup(fd), "r")
+        need_close = True
+
+    if stream.name.endswith('.deb'):
+        packaging = 'deb'
+    elif stream.name.endswith('.rpm'):
+        packaging = 'rpm'
+    else:
+        packaging = 'mpm'
+
+    a_pkg = package_from_stream(stream, packaging)
+    a_pkg.read_header()
+    if need_close:
+        stream.close()
+    return a_pkg.header
 
 def package_from_stream(stream, packaging):
     if packaging == 'deb':
