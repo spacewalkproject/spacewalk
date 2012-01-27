@@ -41,6 +41,8 @@ class A_Package:
     """virtual class that implements shared methods for RPM/MPM/DEB package object"""
     def __init__(self, input_stream = None):
         self.header = None
+        self.header_start = 0
+        self.header_end = 0
         self.input_stream = input_stream
         self.checksum_type = DEFAULT_CHECKSUM_TYPE
         self.checksum = None
