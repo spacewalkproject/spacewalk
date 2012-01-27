@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.7.10
+Version: 1.7.11
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -555,6 +555,13 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Jan 27 2012 Jan Pazdziora 1.7.11-1
+- 784013 - casting the probe id to string since that is what the substr
+  expression in the DELETE returns.
+- unify virtual guest defaults used in API and WebUI (tlestach@redhat.com)
+- 703273 - save information messages only if having messages to display
+  (tlestach@redhat.com)
+
 * Wed Jan 25 2012 Tomas Lestach <tlestach@redhat.com> 1.7.10-1
 - 749476 - return default (empty) string instead of omitting the attribute for
   channel.software.getDetails API (tlestach@redhat.com)
