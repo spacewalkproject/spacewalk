@@ -17,6 +17,10 @@ import os
 import sys
 import rpm
 import struct
+import tempfile
+
+import checksum
+from rhn_pkg import A_Package
 
 # Expose a bunch of useful constants from rpm
 error = rpm.error
@@ -127,6 +131,91 @@ class RPM_Header:
                 'key_id'            : key_id,
                 'signature'         : ret,
             })
+
+class RPM_Package(A_Package):
+    def __init__(self, input_stream = None):
+        A_Package.__init__(self, input_stream)
+        self.header_data = tempfile.SpooledTemporaryFile()
+
+    def read_header(self):
+        self._get_header_byte_range()
+        try:
+            self.header = get_package_header(file=self.header_data)
+        except InvalidPackageError, e:
+            raise InvalidPackageError(*e.args), None, sys.exc_info()[2]
+        except error, e:
+            raise InvalidPackageError(e), None, sys.exc_info()[2]
+        except:
+            raise InvalidPackageError, None, sys.exc_info()[2]
+        self.checksum_type = self.header.checksum_type()
+
+    def _get_header_byte_range(self):
+        """
+        Return the start and end bytes of the rpm header object.
+        Raw header data are then stored in self.header_data.
+
+        For details of the rpm file format, see:
+        http://www.rpm.org/max-rpm/s1-rpm-file-format-rpm-file-format.html
+        """
+
+        lead_size = 96
+        struct_lead_size = 16
+        # Move past the rpm lead
+        buf = self._read_bytes(self.input_stream, lead_size)
+        self.header_data.write(buf)
+
+        buf = self._read_bytes(self.input_stream, struct_lead_size)
+        self.header_data.write(buf)
+
+        sig_size = self._get_header_struct_size(buf)
+
+        # Now we can find the start of the actual header.
+        self.header_start = lead_size + sig_size
+
+        buf = self._read_bytes(self.input_stream, sig_size - struct_lead_size)
+        self.header_data.write(buf)
+
+        buf = self._read_bytes(self.input_stream, struct_lead_size)
+        self.header_data.write(buf)
+
+        header_size = self._get_header_struct_size(buf)
+        self.header_end = self.header_start + header_size
+
+        buf = self._read_bytes(self.input_stream, header_size - struct_lead_size)
+        self.header_data.write(buf)
+
+    def _get_header_struct_size(self, struct_lead):
+        """
+        Compute the size in bytes of the rpm header struct starting at the current
+        position in package_file.
+        """
+        # Read the number of index entries
+        header_index = struct_lead[8:12]
+        (header_index_value, ) = struct.unpack('>I', header_index)
+
+        # Read the the size of the header data store
+        header_store = struct_lead[12:16]
+        (header_store_value, ) = struct.unpack('>I', header_store)
+
+        # The total size of the header. Each index entry is 16 bytes long.
+        header_size = 8 + 4 + 4 + header_index_value * 16 + header_store_value
+
+        # Headers end on an 8-byte boundary. Round out the extra data.
+        round_out = header_size % 8
+        if round_out != 0:
+            header_size = header_size + (8 - round_out)
+
+        return header_size
+
+    def save_payload(self, output_stream):
+        hash = checksum.hashlib.new(self.checksum_type)
+        output_start = output_stream.tell()
+        self.header_data.seek(0,0)
+        self._stream_copy(self.header_data, output_stream, hash)
+        self._stream_copy(self.input_stream, output_stream, hash)
+        self.checksum = hash.hexdigest()
+        self.payload_stream = output_stream
+        self.payload_size = output_stream.tell() - output_start
 
 def get_header_byte_range(package_file):
     """
