@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 1.7.7
+Version: 1.7.8
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -334,6 +334,9 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Fri Jan 27 2012 Miroslav Suchý 1.7.8-1
+- 729342 - fix another TB with errmsg instance
+
 * Wed Jan 18 2012 Miroslav Suchý 1.7.7-1
 - 781421 - newt can not accept unicode
 - 781421 - sys.stderr.write could not handle decoded unicode
