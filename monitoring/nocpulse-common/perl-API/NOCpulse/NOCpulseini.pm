@@ -2,7 +2,6 @@ package NOCpulse::NOCpulseini;
 
 use strict;
 use DBI;
-use NOCpulse::Config;
 use IO::AtomicFile;
 use LWP::UserAgent;
 use RHN::DB;
@@ -10,7 +9,6 @@ use RHN::DB;
 use Class::MethodMaker
   get_set =>
   [qw(
-        cfg
         dbh
         filename
         macrodb
@@ -27,7 +25,6 @@ sub init {
   my $args = shift;
 
   $self->filename($nocpulseini_file);
-  $self->cfg(NOCpulse::Config->new($self->filename));
 }
 
 # Remove the NOCPulse.ini file - used when restarting the service to
