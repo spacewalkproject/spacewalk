@@ -1,6 +1,7 @@
 #!/usr/bin/perl
 
 package NOCpulse::Config;
+use strict;
 use Carp;
 
 use vars qw($VERSION);
@@ -10,7 +11,7 @@ $VERSION = (split(/\s+/,
 
 my $FILENAME   = "/etc/NOCpulse.ini";
 
-my $FILE_CONTENTS = ();
+my %FILE_CONTENTS = ();
 
 sub new {
   my($class, $filename) = @_;
@@ -24,6 +25,7 @@ sub new {
 
 
 sub filename {
+    my $self = shift;
     return $self->{filename};
 }
 
