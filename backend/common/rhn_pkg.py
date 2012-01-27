@@ -45,6 +45,7 @@ class A_Package:
         self.checksum_type = DEFAULT_CHECKSUM_TYPE
         self.checksum = None
         self.payload_stream = None
+        self.payload_size = None
 
     def read_header(self):
         """reads header from self.input_file"""
@@ -53,9 +54,12 @@ class A_Package:
     def save_payload(self, output_stream):
         """saves payload to output_stream"""
         hash = checksum.hashlib.new(self.checksum_type)
+        output_start = output_stream.tell()
         self._stream_copy(self.input_stream, output_stream, hash)
         self.checksum = hash.hexdigest()
         self.payload_stream = output_stream
+        self.payload_size = output_stream.tell() - output_start
+
 
     def _stream_copy(self, source, dest, hash=None):
         """copies data from the source stream to the destination stream"""
