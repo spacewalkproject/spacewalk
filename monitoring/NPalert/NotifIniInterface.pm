@@ -200,6 +200,11 @@ sub buildContactGroups {
 
 }    # End of buildContactGroups
 
+sub checkCustomersExist {
+  my $self = shift;
+  return (-f ($self->config_dir . "/customers.ini"));
+}
+
 ####################
 sub buildCustomers {
 ####################
