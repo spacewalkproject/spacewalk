@@ -24,6 +24,7 @@ import sys
 import yum
 from yum.misc import prco_tuple_to_string
 from yum.packageSack import ListPackageSack
+from yum.packages import parsePackages
 from yum.repos import RepoStorage
 
 log = logging.getLogger(__name__)
@@ -71,7 +72,7 @@ class DepSolver:
          name, name.arch, name-ver-rel.arch, name-ver, name-ver-rel,
          epoch:name-ver-rel.arch, name-epoch:ver-rel.arch
         """
-        ematch, match, unmatch = self._repostore.pkgSack.matchPackageNames(self.pkgs)
+        ematch, match, unmatch = parsePackages(self._repostore.pkgSack, self.pkgs)
         pkgs = []
         for po in ematch + match:
             pkgs.append(po)
