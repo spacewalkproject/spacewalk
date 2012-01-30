@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 1.7.10
+Version: 1.7.11
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -253,6 +253,11 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Mon Jan 30 2012 Jan Pazdziora 1.7.11-1
+- One sequence_nextval fix.
+- Refactored the evr_t(null, ...) and null and max.
+- The $rhn_class is always empty, removing.
+
 * Mon Jan 30 2012 Miroslav Suchý 1.7.10-1
 - In Spacewalk do not test presence of rhn-proxy family, if we want to display
   list of Proxies
