@@ -23,14 +23,10 @@ import time
 import copy
 import shutil
 import tempfile
-from depsolver import DepSolver
-
-try:
-    import json
-except ImportError:
-    import simplejson as json
-
 import xmlrpclib
+
+
+from depsolver import DepSolver
 
 try:
     from spacewalk.common.rhnConfig import CFG, initCFG
@@ -58,6 +54,8 @@ def confirm(txt, options):
 def main(options):        
     xmlrpc = RemoteApi(options.server, options.username, options.password)
     db = DBApi()
+    initCFG('server')
+    
     
     cloners = []
     needed_channels = []
@@ -96,7 +94,7 @@ def main(options):
 
 class ChannelTreeCloner:
     """Usage:
-          a = ChannelTreeCloner(channel_hash, xmlrpc, db, to_date)  
+          a = ChannelTreeCloner(channel_hash, xmlrpc, db, to_date, blacklist)  
           a.create_channels()
           a.prepare()
           a.clone()
@@ -107,14 +105,15 @@ class ChannelTreeCloner:
         self.channel_map = channels
         self.to_date = to_date
         self.cloners = []
-        self.blacklist = blacklist
+        self.blacklist = blacklist               
         
-        self.validate_source_channels()
-                
+        self.validate_source_channels()        
         for from_label in self.ordered_labels():
             to_label = self.channel_map[from_label]            
             cloner = ChannelCloner(from_label, to_label, self.to_date, self.remote_api, self.db_api)
-            self.cloners.append(cloner)        
+            self.cloners.append(cloner)
+            
+        
 
     #returns a trimmed down version of channel_map where the value needs creating
     def needing_create(self):
@@ -212,7 +211,6 @@ class ChannelTreeCloner:
         self.dep_solve([pkg['nvrea'] for pkg in added_pkgs])
             
 
-
     def dep_solve(self, nvrea_list, labels=None):             
         if not labels:
             labels = self.channel_map.keys()
@@ -264,14 +262,8 @@ class ChannelTreeCloner:
             cloner.remove_blacklisted(self.blacklist)
         
     def repodata(self, label):
-        repo_dir = "/var/cache/rhn/repodata/%s" % label
-        tmp_dir = tempfile.mkdtemp(suffix="clone-by-date") 
-        try:
-            shutil.copytree(repo_dir, tmp_dir + "/repodata/")
-        except:
-            raise UserError("Could not find repodata for %s in %s" % (label, repo_dir))
-        return tmp_dir            
-            
+        return "%s/rhn/repodata/%s" % ( CFG.REPOMD_CACHE_MOUNT_POINT, label)
+
             
 
 
@@ -340,10 +332,8 @@ class ChannelCloner:
         
                             
     def list_to_hash(self, pkg_list, key):
-        pkg_hash = {}
-        for pkg in pkg_list:            
-            pkg_hash[pkg[key]] = pkg
-        return pkg_hash        
+        return dict((pkg[key], pkg) for pkg in pkg_list)
+  
 
     def src_pkg_exist(self, needed_list):
         if not self.from_pkg_hash:
@@ -379,7 +369,7 @@ class ChannelCloner:
     
     def clone(self):
         bunch_size = 10
-        errata_ids = self.collect(self.errata_to_clone, "advisory_name")
+        errata_ids = [ e["advisory_name"] for e in self.errata_to_clone]
         if len(errata_ids) == 0:
             return
         
@@ -394,19 +384,7 @@ class ChannelCloner:
             pb.addTo(bunch_size)
             pb.printIncrement()
         pb.printComplete()
-            
-    def collect(self, items, attribute):
-        to_ret = []
-        for item in items:
-            to_ret.append(item[attribute])
-        return to_ret
-
-    def repodata(self, label):
-        repo_dir = "/var/cache/rhn/repodata/%s" % label
-        tmp_dir = tempfile.mkdtemp(suffix="clone-by-date") 
-        shutil.copytree(repo_dir, tmp_dir + "/repodata/")
-        return tmp_dir
-    
+                
     def get_errata(self):
         """ Returns tuple of all available for cloning, and what falls in the date range"""
         available_errata = self.db_api.applicable_errata(self.from_label, self.to_label)

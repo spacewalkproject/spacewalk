@@ -53,7 +53,10 @@ def merge_config(options):
     if not options.config:
         options.channels = transform_arg_channels(options.channels)
         return options
-    config = json.load(open(options.config))
+    try:
+        config = json.load(open(options.config))
+    except:
+        raise UserError("Configuration file is invalid, please check syntax.")
     
     #if soemthing is in the config and not passed in as an argument
     #   add it to options
