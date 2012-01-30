@@ -25,8 +25,8 @@
   <rhn-tab name="Subscribed Systems" on-click="Sniglets::Lists->navi_empty_set" node-id="systems_subscribed_to_channel">
     <rhn-tab-url>/rhn/channels/ChannelSubscribers.do</rhn-tab-url>
   </rhn-tab>
-  <rhn-tab name="Target Systems" on-click="Sniglets::Lists->navi_empty_set" node-id="target_systems_for_channel" acl="channel_subscribable()">
-    <rhn-tab-url>/network/software/channels/target_systems.pxt</rhn-tab-url>
+  <rhn-tab name="Target Systems" acl="channel_subscribable()">
+    <rhn-tab-url>/rhn/channels/TargetSystems.do</rhn-tab-url>
   </rhn-tab>
   <rhn-tab name="Downloads" acl="channel_has_downloads()" url="/rhn/software/channel/downloads/Download.do" />
 </rhn-navi-tree>
