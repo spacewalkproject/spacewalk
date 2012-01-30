@@ -64,7 +64,7 @@ def main(options):
     for channel_list in options.channels:
         tree_cloner = ChannelTreeCloner(channel_list, xmlrpc, db, options.to_date)
         cloners.append(tree_cloner)
-        needed_channels += tree_cloner.needing_create()
+        needed_channels += tree_cloner.needing_create().values()
         
     if len(needed_channels) > 0:        
         print "\nBy continuing the following channels will be created: "
@@ -113,13 +113,14 @@ class ChannelTreeCloner:
             cloner = ChannelCloner(from_label, to_label, self.to_date, self.remote_api, self.db_api)
             self.cloners.append(cloner)        
 
+    #returns a trimmed down version of channel_map where the value needs creating
     def needing_create(self):
-        to_ret = []
+        to_create = {}        
         existing = self.remote_api.list_channel_labels()
-        for label in self.channel_map.values():
-            if existing.count(label) == 0:
-                to_ret.append(label)
-        return to_ret
+        for src, dest in self.channel_map.items():
+            if dest not in existing:
+                to_create[src] = dest
+        return to_create
     
     def pending(self):
         total = 0
@@ -127,23 +128,33 @@ class ChannelTreeCloner:
             total += cloner.pending()
         return total
     
+    def find_cloner(self, src_label):
+        for cloner in self.cloners:
+            if cloner.src_label() == src_label:
+                return cloner
+    
     def create_channels(self):
         to_create = self.needing_create()
+                
         if len(to_create) == 0:
             return        
         dest_parent = self.channel_map[self.src_parent]        
         nvreas  = []
-        if to_create.count(dest_parent) > 0:
+                
+        #clone the destination parent if it doesn't exist
+        if dest_parent in to_create.values():
             self.remote_api.clone_channel(self.src_parent, dest_parent, None)
-            to_create.remove(dest_parent)
-            cloner = self.cloners[0]            
+            del to_create[self.src_parent]
+            cloner = self.find_cloner(self.src_parent)          
             nvreas += [ pkg['nvrea'] for pkg in  cloner.reset_new_pkgs().values()]
-                       
+        #clone the children
         for cloner in self.cloners:
-            if cloner.dest_label() in to_create:                                            
+            if cloner.dest_label() in to_create.values():                                            
                 self.remote_api.clone_channel(cloner.src_label(), cloner.dest_label(), dest_parent)
                 nvreas += [ pkg['nvrea'] for pkg in  cloner.reset_new_pkgs().values() ]
-        self.dep_solve(nvreas, labels=to_create)
+                        
+        #dep solve all added packages with the parent channel
+        self.dep_solve(nvreas, labels=(to_create.keys() + [self.src_parent]))
         
                 
     def validate_source_channels(self):
@@ -195,17 +206,17 @@ class ChannelTreeCloner:
         for cloner in self.cloners:            
             cloner.process()
             added_pkgs += cloner.pkg_diff()
-        self.dep_solve(added_pkgs)
+        self.dep_solve([pkg['nvrea'] for pkg in added_pkgs])
             
 
 
-    def dep_solve(self, nvrea_list, labels=None):            
+    def dep_solve(self, nvrea_list, labels=None):             
         if not labels:
             labels = self.channel_map.keys()
         repos = [{"id":label, "relative_path":self.repodata(label)} for label in labels]
 
         print "Solving deps"
-                
+
         solver = DepSolver(repos, nvrea_list)
         dep_results = solver.processResults(solver.getDependencylist())
         
@@ -222,13 +233,16 @@ class ChannelTreeCloner:
             for dep, solved_list in pkg.items():
                 found = False                
                 for cloner in self.cloners:
-                    if cloner.src_pkg_exist(solved_list) and not cloner.dest_pkg_exist(solved_list):                        
+                    exists_from = cloner.src_pkg_exist(solved_list)
+                    exists_to = cloner.dest_pkg_exist(solved_list) 
+                    if  exists_from and not exists_to:                        
                         needed_list[cloner.dest_label()].append(solved_list[0]) #grab oldest package 
-                        found = True
+                    elif exists_from:
+                        found = True                    
                 if not found:
                     unsolved_deps.append((pkg))
 
-        print "Unsolved deps: %i" % len(unsolved_deps)           
+        print "Unsolved deps: %i" % len(unsolved_deps)  
         print "Needed deps: "
         for label in needed_list.keys():
             print "%s: %i" % (label, len(needed_list[label]))      
@@ -243,7 +257,10 @@ class ChannelTreeCloner:
     def repodata(self, label):
         repo_dir = "/var/cache/rhn/repodata/%s" % label
         tmp_dir = tempfile.mkdtemp(suffix="clone-by-date") 
-        shutil.copytree(repo_dir, tmp_dir + "/repodata/")
+        try:
+            shutil.copytree(repo_dir, tmp_dir + "/repodata/")
+        except:
+            raise UserError("Could not find repodata for %s in %s" % (label, repo_dir))
         return tmp_dir            
             
             
@@ -299,7 +316,7 @@ class ChannelCloner:
     def process(self):
         self.clone();
         self.reset_new_pkgs()                                 
-        print "New packages added: %i" % len(len(self.new_pkg_hash) - len(self.old_pkg_hash))
+        print "New packages added: %i" % (len(self.new_pkg_hash) - len(self.old_pkg_hash))
                                    
     def process_deps(self, needed_pkgs):                                
         needed_ids = []
