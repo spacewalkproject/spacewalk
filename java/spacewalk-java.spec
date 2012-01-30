@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.7.11
+Version: 1.7.12
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -555,6 +555,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Jan 30 2012 Tomas Lestach <tlestach@redhat.com> 1.7.12-1
+- close session after the DB won't be accessed any more from this thread
+  (tlestach@redhat.com)
+
 * Fri Jan 27 2012 Jan Pazdziora 1.7.11-1
 - 784013 - casting the probe id to string since that is what the substr
   expression in the DELETE returns.
