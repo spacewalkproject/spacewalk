@@ -132,8 +132,6 @@ sub connect {
   my $username = shift;
   my $password = shift;
 
-  return if PXT::Config->get('debug_disable_database');
-
   # Store db handlers using an alias which is equal to their DBI
   # connection string. Note that this does not include username or
   # password information and thus we cannot have multiple connections
