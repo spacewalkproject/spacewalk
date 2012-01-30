@@ -78,7 +78,7 @@ my %FILES;                   # List of files being generated
 
 my $log_level = 3;
 my $Log = NOCpulse::Log::Logger->new(__PACKAGE__, $log_level, 0);
-my $stream = NOCpulse::Log::LogManager->instance->add_stream(
+my $stream = NOCpulse::Log::LogManager->instance->stream(
                                           FILE => "$LOGDIR/generate_config.log",
                                           LEVEL      => 4,
                                           APPEND     => 1,
