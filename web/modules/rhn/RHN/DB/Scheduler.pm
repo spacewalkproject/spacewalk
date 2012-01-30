@@ -634,8 +634,6 @@ sub schedule_package_install {
   my $query;
   my $sth;
 
-  my $rhn_class = '';
-
   if ($package_id and $server_set) {
     $query = <<EOQ;
 INSERT INTO rhnServerAction (server_id, action_id, status)
@@ -660,7 +658,7 @@ SELECT	S.id
                     FROM rhnServerPackage SP, rhnPackageEvr PE
                    WHERE SP.name_id = P.name_id
                      AND SP.server_id = S.id
-                     AND SP.evr_id = PE.id), ${rhn_class}EVR_T(NULL, 0, 0))
+                     AND SP.evr_id = PE.id), EVR_T(NULL, 0, 0))
              <
              (SELECT EVR FROM rhnPackageEVR PE WHERE PE.id = P.evr_id)
             )
