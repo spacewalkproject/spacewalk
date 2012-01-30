@@ -654,14 +654,15 @@ SELECT	S.id
    AND  CP.package_id = P.id
    AND  PA.id = P.package_arch_id
    AND  AT.id = PA.arch_type_id
-   AND  (   (NVL((SELECT MAX(PE.evr)
-                    FROM rhnServerPackage SP, rhnPackageEvr PE
-                   WHERE SP.name_id = P.name_id
-                     AND SP.server_id = S.id
-                     AND SP.evr_id = PE.id), EVR_T(NULL, 0, 0))
-             <
-             (SELECT EVR FROM rhnPackageEVR PE WHERE PE.id = P.evr_id)
-            )
+   AND  (not exists(
+         select 1
+	 from rhnServerPackage, rhnPackageEvr evr_installed, rhnPackageEvr evr_new
+	 where P.name_id = rhnServerPackage.name_id
+	       and S.id = rhnServerPackage.server_id
+	       and rhnServerPackage.evr_id = evr_installed.id
+	       and P.evr_id = evr_new.id
+	       and evr_installed.evr >= evr_new.evr
+         )
          OR AT.label = 'solaris-patch'
          OR AT.label = 'solaris-patch-cluster'
         )
