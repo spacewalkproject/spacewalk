@@ -246,9 +246,9 @@ public class SchedulerKernel {
                         }
                         tx.commit();
                     }
-                    TaskoFactory.closeSession();
                 }
             }
+            TaskoFactory.closeSession();
         }
         catch (Exception e) {
             e.printStackTrace();
