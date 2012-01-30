@@ -21,6 +21,7 @@
 import sys
 import datetime
 from optparse import OptionParser
+import simplejson as json
 
 #try:
 import cloneByDate
@@ -28,6 +29,24 @@ from cloneByDate import UserError
 #except:
 #    from utils import cloneByDate
 
+
+SAMPLE_CONFIG = """
+{
+ "username":"admin",
+ "password":"redhat",
+ "assumeyes":true,
+ "to_date": "2011-10-01",
+ "channels":[
+             {
+                "rhel-x86_64-server-5":"my-rhel5-x86_64-clone",
+                "rhn-tools-rhel-x86_64-server-5": "my-tools-5-x86_64-clone"
+             },
+            {
+                "rhel-i386-server-5": "my-rhel5-i386-clone"
+             }
+           ]
+}
+"""
 
 
 def merge_config(options):
@@ -38,7 +57,7 @@ def merge_config(options):
     
     #if soemthing is in the config and not passed in as an argument
     #   add it to options
-    overwrite = ["username", "password", "blacklist", "channels", "server", "assumeyes"]
+    overwrite = ["username", "password", "blacklist", "channels", "server", "assumeyes", "to_date"]
     for key in overwrite:
         if config.has_key(key) and not getattr(options, key):
             setattr(options, key, config[key])
@@ -72,12 +91,20 @@ def parse_args():
     parser.add_option("-b", "--blacklist", dest="blacklist", nargs="*", help="Space seperated list of package names")
     parser.add_option("-d", "--to_date", dest="to_date", help="Clone errata to the specified date (YYYY-MM-DD)")
     parser.add_option("-y", "--assumeyes", dest='assumeyes', action='store_true', help="Assume yes for any prompts (unattended).")
+    parser.add_option("-m", "--sample-config", dest='sample', action='store_true', help="Print a sample full configuration file and exit.")
         
     (options, args) = parser.parse_args()    
 
-    options.to_date = parse_time(options.to_date)
+    if options.sample:
+        print SAMPLE_CONFIG
+        sys.exit(0)
+
     if options.config and options.channels:
         raise UserError("Cannot specify both --channels and --config.")
+            
+    options = merge_config(options)
+    options.to_date = parse_time(options.to_date)
+
     if options.channels == None or len(options.channels) == 0:
         raise UserError("No channels specified.")
     return options
@@ -104,9 +131,8 @@ def systemExit(code, msgs=None):
     
 def main():    
     try:
-        args = parse_args();
-        options = merge_config(args)
-        return cloneByDate.main(options)
+        args = parse_args();        
+        return cloneByDate.main(args)
     except KeyboardInterrupt:
         systemExit(0, "\nUser interrupted process.")
     except UserError, error:
