@@ -52,7 +52,7 @@ public class ScoutConfigPushCommand extends BasePersistOperation {
             Map in = new HashMap();
             in.put("org_id", this.user.getOrg().getId());
             in.put("scout_id", sc.getId());
-            in.put("user_id", this.user.getId());
+            in.put("user_id", this.user.getId().toString());
 
             CallableMode m = ModeFactory.getCallableMode(
                     "Monitoring_queries", "push_scout_config");
