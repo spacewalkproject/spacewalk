@@ -708,7 +708,7 @@ EOQ
   elsif ($package_id) {
     $query = <<EOQ;
 INSERT INTO rhnActionPackage (id, action_id, name_id, evr_id)
-(SELECT rhn_act_p_id_seq.nextval, ?, P.name_id, P.evr_id FROM rhnPackage P WHERE P.id = ?)
+(SELECT sequence_nextval('rhn_act_p_id_seq'), ?, P.name_id, P.evr_id FROM rhnPackage P WHERE P.id = ?)
 EOQ
     $sth = $dbh->prepare($query);
     #  warn "ins query:  $query\n$id, $user_id, ".$packages->label;
