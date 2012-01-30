@@ -4,7 +4,7 @@ Name: spacewalk-search
 Summary: Spacewalk Full Text Search Server
 Group: Applications/Internet
 License: GPLv2
-Version: 1.7.1
+Version: 1.7.2
 Release: 1%{?dist}
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
@@ -124,6 +124,10 @@ fi
 %{_sysconfdir}/logrotate.d/rhn-search
 
 %changelog
+* Mon Jan 30 2012 Tomas Lestach <tlestach@redhat.com> 1.7.2-1
+- increase max clause count when getting BooleanQuery exception
+  (tlestach@redhat.com)
+
 * Wed Jan 18 2012 Michael Mraka <michael.mraka@redhat.com> 1.7.1-1
 - 747037 - disable connects to svn.terracotta.org from rhn-search
 
