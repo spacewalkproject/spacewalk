@@ -24,6 +24,7 @@ import com.redhat.satellite.search.index.QueryParseException;
 import com.redhat.satellite.search.scheduler.ScheduleManager;
 
 import org.apache.log4j.Logger;
+import org.apache.lucene.search.BooleanQuery;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -37,7 +38,7 @@ import redstone.xmlrpc.XmlRpcFault;
 
 /**
  * XML-RPC handler which handles calls for indexing
- * 
+ *
  * @version $Rev$
  */
 public class IndexHandler {
@@ -49,10 +50,10 @@ public class IndexHandler {
     public static final int INDEX_ERROR = 200;
     public static final int DB_ERROR = 300;
     public static final String DEFAULT_LANG = new Locale("EN", "US").toString();
-    
+
     /**
      * Constructor
-     * 
+     *
      * @param idxManager
      *            Search engine interface
      */
@@ -65,7 +66,7 @@ public class IndexHandler {
     /**
      * Search index -
      * assumes English language as default language
-     * 
+     *
      * @param sessionId
      *            user's application session id
      * @param indexName
@@ -73,7 +74,7 @@ public class IndexHandler {
      * @param query
      *            search query
      * @return list of document ids as results
-     * @throws XmlRpcFault something bad happened 
+     * @throws XmlRpcFault something bad happened
      */
     public List<Result> search(long sessionId, String indexName, String query)
             throws XmlRpcFault {
@@ -143,28 +144,51 @@ public class IndexHandler {
             log.debug("IndexHandler:: searching for: " + query + ", indexName = " +
                     indexName + ", lang = " + lang);
         }
-        try {
-            List<Result> hits = indexManager.search(indexName, query, lang,
-                    isFineGrained);
-            if (indexName.compareTo("package") == 0) {
-                return screenHits(sessionId, indexName, hits);
+        boolean retry = true;
+        while (retry) {
+            try {
+                retry = false;
+                List<Result> hits = indexManager.search(indexName, query, lang,
+                        isFineGrained);
+                if (indexName.compareTo("package") == 0) {
+                    return screenHits(sessionId, indexName, hits);
+                }
+                return hits;
             }
-            return hits;
+            catch (IndexingException e) {
+                log.error("Caught exception: ", e);
+                throw new XmlRpcFault(INDEX_ERROR, e.getMessage());
+            }
+            catch (QueryParseException e) {
+                log.error("Caught exception: ", e);
+                throw new XmlRpcFault(QUERY_ERROR, e.getMessage());
+            }
+            catch (SQLException e) {
+                log.error("Caught exception: ", e);
+                throw new XmlRpcFault(DB_ERROR, e.getMessage());
+            }
+            catch (BooleanQuery.TooManyClauses e) {
+                int oldQueries = BooleanQuery.getMaxClauseCount();
+                if (Integer.MAX_VALUE / 2 > oldQueries) {
+                    // increase number of max clause count
+                    // if there's no overflow danger
+                    int newQueries = oldQueries * 2;
+                    log.error("Too many hits for query: " + oldQueries +
+                            ".  Increasing max clause count to " + newQueries +
+                            "\nexception message: " + e.getMessage());
+                    BooleanQuery.setMaxClauseCount(newQueries);
+                    retry = true;
+                }
+                else {
+                    // there's no more help
+                    throw e;
+                }
+            }
         }
-        catch (IndexingException e) {
-            log.error("Caught exception: ", e);
-            throw new XmlRpcFault(INDEX_ERROR, e.getMessage());
-        }
-        catch (QueryParseException e) {
-            log.error("Caught exception: ", e);
-            throw new XmlRpcFault(QUERY_ERROR, e.getMessage());
-        }
-        catch (SQLException e) {
-            log.error("Caught exception: ", e);
-            throw new XmlRpcFault(DB_ERROR, e.getMessage());
-        }
+        // return just because of compiler
+        return null;
     }
-    
+
     private List<Result> screenHits(long sessionId, String indexName,
             List<Result> hits) throws SQLException {
 
@@ -178,7 +202,7 @@ public class IndexHandler {
         for (Result pr : hits) {
             ids.add(new Long(pr.getId()));
         }
-        
+
         Query<String> query = null;
         if ("package".equals(indexName)) {
             query = databaseManager.getQuery("verifyPackageVisibility");
@@ -202,9 +226,9 @@ public class IndexHandler {
         try {
            List<String> visible = query.loadList(params);
            if (log.isDebugEnabled()) {
-               log.debug("results: " + visible);    
+               log.debug("results: " + visible);
            }
-           
+
            // add the PackageResults that match the visible list
            List<Result> realResults = new ArrayList<Result>();
            for (Result pr : hits) {
