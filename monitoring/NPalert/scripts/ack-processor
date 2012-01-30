@@ -70,7 +70,7 @@ while (1) {
 
   # If a shutdown was requested, exit gracefully
   if ($bailout) {
-    $Log->log(1, "\n\nSystem shutdown requested\n\n");
+    $Log->log(1, "System shutdown requested\n");
     $smtp->quit() if $smtp;
     exit(0);
   }

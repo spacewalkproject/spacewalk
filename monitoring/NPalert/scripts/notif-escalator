@@ -86,7 +86,7 @@ $SIG{'PIPE'}  = sub { $Log->log(1,"SIGPIPE caught\n") };
 my $STATE_FILE   = "$tmp_dir/escalator.state";
 
 my $Escalator;
-     $Log->log(1,"\n\nSystem startup requested pid $$\n\n");
+     $Log->log(1,"System startup requested pid $$\n");
 if (-r $STATE_FILE) {
   $Log->log(3,"Opening escalator state file $STATE_FILE for system initialization...\n");
   $Escalator = NOCpulse::Notif::Escalator->from_file($STATE_FILE);
@@ -114,9 +114,9 @@ while (1) {
           $Log->log(3,"Removed stale locks\n");
           $Log->log(9,"@files\n");
         }
-        $Log->log(1,"\n\nSystem shutdown requested\n\n");
+        $Log->log(1,"System shutdown requested\n");
         $Escalator->shut_down();
-        $Log->log(1,"\n\nSystem shutdown completed\n\n");
+        $Log->log(1,"System shutdown completed\n");
         exit(0);
     }
 
