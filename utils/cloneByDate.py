@@ -93,14 +93,14 @@ def main(options):
     
 
 
-##
-#  Usage:
-#  a = ChannelTreeCloner(channel_hash, xmlrpc, db, to_date)  
-#  a.create_channels()
-#  a.prepare()
-#  a.clone()
-#
+
 class ChannelTreeCloner:
+    """Usage:
+          a = ChannelTreeCloner(channel_hash, xmlrpc, db, to_date)  
+          a.create_channels()
+          a.prepare()
+          a.clone()
+         """
     def __init__(self, channels, remote_api, db_api, to_date, blacklist):
         self.remote_api = remote_api
         self.db_api = db_api
@@ -218,20 +218,16 @@ class ChannelTreeCloner:
             labels = self.channel_map.keys()
         repos = [{"id":label, "relative_path":self.repodata(label)} for label in labels]
 
-        print "Solving deps"
-
         solver = DepSolver(repos, nvrea_list)
         dep_results = solver.processResults(solver.getDependencylist())
-        
-        print "Processing"
+            
         self.process_deps(dep_results)              
-
         
     def process_deps(self, deps):
         needed_list = dict((label, []) for label in self.channel_map.values())
         unsolved_deps = []
                 
-        pb = ProgressBar(prompt="Proccessing Depedencies: ", endTag=' - complete\n',
+        pb = ProgressBar(prompt="Processing Dependencies: ", endTag=' - complete',
                      finalSize=len(deps), finalBarLength=40, stream=sys.stdout)
         pb.printAll(1);        
         
@@ -251,20 +247,19 @@ class ChannelTreeCloner:
                         found = True                    
                 if not found:
                     unsolved_deps.append((pkg))
-        pb.complete()
+        pb.printComplete()
 
-        print "Unsolved deps: %i" % len(unsolved_deps)  
-        print "Needed deps: "
-        for label in needed_list.keys():
-            print "%s: %i" % (label, len(needed_list[label]))      
+#        print "Unsolved deps: %i" % len(unsolved_deps)  
+#        print "Needed deps: "
+#        for label in needed_list.keys():
+#            print "%s: %i" % (label, len(needed_list[label]))      
                             
         for cloner in self.cloners:
             needed = needed_list[cloner.dest_label()]
             if len(needed) > 0:
                 cloner.process_deps(needed)
                                   
-    def remove_blacklisted(self):
-        print self.blacklist
+    def remove_blacklisted(self):        
         for cloner in self.cloners:
             cloner.remove_blacklisted(self.blacklist)
         
@@ -323,12 +318,12 @@ class ChannelCloner:
         return len(self.errata_to_clone)
         
     def pre_summary(self):
-        print "%s -> %s  (%i/%i Errata)" %(self.from_label, self.to_label, len(self.errata_to_clone), len(self.available_errata))
+        print "  %s -> %s  (%i/%i Errata)" %(self.from_label, self.to_label, len(self.errata_to_clone), len(self.available_errata))
     
     def process(self):
         self.clone();
         self.reset_new_pkgs()                                 
-        print "New packages added: %i" % (len(self.new_pkg_hash) - len(self.old_pkg_hash))
+        #print "New packages added: %i" % (len(self.new_pkg_hash) - len(self.old_pkg_hash))
                                    
     def process_deps(self, needed_pkgs):                                
         needed_ids = []
@@ -340,8 +335,7 @@ class ChannelCloner:
             else:
                 unsolved_deps.append(pkg)
         
-        if len(needed_ids) > 0:
-            print "Adding dependencies: %i" % len(needed_ids)        
+        if len(needed_ids) > 0:                
             self.remote_api.add_packages(self.to_label, needed_ids)
         
                             
@@ -386,6 +380,9 @@ class ChannelCloner:
     def clone(self):
         bunch_size = 10
         errata_ids = self.collect(self.errata_to_clone, "advisory_name")
+        if len(errata_ids) == 0:
+            return
+        
         msg = 'Cloning Errata into %s (%i):    ' % (self.to_label, len(errata_ids))
         pb = ProgressBar(prompt=msg, endTag=' - complete',
                      finalSize=len(errata_ids), finalBarLength=40, stream=sys.stdout)
@@ -419,7 +416,8 @@ class ChannelCloner:
             if err['issue_date'] <= self.to_date:
                 to_clone.append(err)
         
-        return (to_clone, available_errata)
+        return (to_clone, available_errata)   
+        
     
     def remove_blacklisted(self, pkg_names):                
         found_ids  = []
