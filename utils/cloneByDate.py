@@ -62,7 +62,7 @@ def main(options):
     cloners = []
     needed_channels = []
     for channel_list in options.channels:
-        tree_cloner = ChannelTreeCloner(channel_list, xmlrpc, db, options.to_date)
+        tree_cloner = ChannelTreeCloner(channel_list, xmlrpc, db, options.to_date, options.blacklist)
         cloners.append(tree_cloner)
         needed_channels += tree_cloner.needing_create().values()
         
@@ -81,7 +81,7 @@ def main(options):
     for cloner in cloners:                
         cloner.pre_summary()
         total += cloner.pending()        
-        
+    
     if total == 0:
         print ("\nNothing to do.")
         sys.exit(0)
@@ -89,6 +89,7 @@ def main(options):
     confirm("\nContinue with clone (y/n)?", options)            
     for cloner in cloners:
         cloner.clone()
+        cloner.remove_blacklisted()
     
 
 
@@ -100,14 +101,16 @@ def main(options):
 #  a.clone()
 #
 class ChannelTreeCloner:
-    def __init__(self, channels, remote_api, db_api, to_date):
+    def __init__(self, channels, remote_api, db_api, to_date, blacklist):
         self.remote_api = remote_api
         self.db_api = db_api
         self.channel_map = channels
         self.to_date = to_date
         self.cloners = []
-        self.validate_source_channels()
+        self.blacklist = blacklist
         
+        self.validate_source_channels()
+                
         for from_label in self.ordered_labels():
             to_label = self.channel_map[from_label]            
             cloner = ChannelCloner(from_label, to_label, self.to_date, self.remote_api, self.db_api)
@@ -227,9 +230,16 @@ class ChannelTreeCloner:
     def process_deps(self, deps):
         needed_list = dict((label, []) for label in self.channel_map.values())
         unsolved_deps = []
+                
+        pb = ProgressBar(prompt="Proccessing Depedencies: ", endTag=' - complete\n',
+                     finalSize=len(deps), finalBarLength=40, stream=sys.stdout)
+        pb.printAll(1);        
+        
         #loop through all the deps and find any that don't exist in the
         #  destination channels
-        for pkg in deps:            
+        for pkg in deps:
+            pb.addTo(1)
+            pb.printIncrement()            
             for dep, solved_list in pkg.items():
                 found = False                
                 for cloner in self.cloners:
@@ -241,19 +251,23 @@ class ChannelTreeCloner:
                         found = True                    
                 if not found:
                     unsolved_deps.append((pkg))
+        pb.complete()
 
         print "Unsolved deps: %i" % len(unsolved_deps)  
         print "Needed deps: "
         for label in needed_list.keys():
             print "%s: %i" % (label, len(needed_list[label]))      
-                    
-        #import pdb; pdb.set_trace()
+                            
         for cloner in self.cloners:
             needed = needed_list[cloner.dest_label()]
             if len(needed) > 0:
                 cloner.process_deps(needed)
                                   
-            
+    def remove_blacklisted(self):
+        print self.blacklist
+        for cloner in self.cloners:
+            cloner.remove_blacklisted(self.blacklist)
+        
     def repodata(self, label):
         repo_dir = "/var/cache/rhn/repodata/%s" % label
         tmp_dir = tempfile.mkdtemp(suffix="clone-by-date") 
@@ -272,9 +286,7 @@ class ChannelCloner:
         self.db_api = db_api
         self.from_label = from_label
         self.to_label = to_label
-        self.to_date = to_date
-              
-        
+        self.to_date = to_date                    
         self.from_pkg_hash = None
                 
         self.new_pkg_hash = {}
@@ -331,11 +343,8 @@ class ChannelCloner:
         if len(needed_ids) > 0:
             print "Adding dependencies: %i" % len(needed_ids)        
             self.remote_api.add_packages(self.to_label, needed_ids)
-        if len(unsolved_deps) > 0:
-            print "Unresolved dependencies: %i" % len(unsolved_deps)
         
-        
-                    
+                            
     def list_to_hash(self, pkg_list, key):
         pkg_hash = {}
         for pkg in pkg_list:            
@@ -411,6 +420,18 @@ class ChannelCloner:
                 to_clone.append(err)
         
         return (to_clone, available_errata)
+    
+    def remove_blacklisted(self, pkg_names):                
+        found_ids  = []
+        for pkg in self.reset_new_pkgs().values():
+            if pkg['name'] in pkg_names:
+                found_ids.append(pkg['id'])        
+        if len(found_ids) > 0:
+            print "Removing %i packages from %s" % (len(found_ids), self.to_label)
+            self.remote_api.remove_packages(self.to_label, found_ids)
+            
+        
+            
 
 class RemoteApi:
     """ Class for connecting to the XMLRPC spacewalk interface"""
@@ -466,7 +487,13 @@ class RemoteApi:
             set = package_ids[:20]
             del package_ids[:20]        
             self.client.channel.software.addPackages(self.auth_token, label, set)
-            
+
+    def remove_packages(self, label, package_ids):        
+        while(len(package_ids) > 0):
+            set = package_ids[:20]
+            del package_ids[:20]        
+            self.client.channel.software.removePackages(self.auth_token, label, set)
+                        
     def clone_channel(self, original_label, new_label, parent):
         details = {'name': new_label, 'label':new_label, 'summary': new_label}
         if parent and parent != '':
