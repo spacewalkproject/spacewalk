@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 1.7.9
+Version: 1.7.10
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -253,6 +253,11 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Mon Jan 30 2012 Miroslav Suchý 1.7.10-1
+- In Spacewalk do not test presence of rhn-proxy family, if we want to display
+  list of Proxies
+- The target_systems.pxt was migrated to Java years ago.
+
 * Thu Jan 26 2012 Michael Mraka <michael.mraka@redhat.com> 1.7.9-1
 - delete server sets at once
 
