@@ -23,6 +23,7 @@ use File::Spec;
 use Data::Dumper;
 use Date::Parse;
 
+use PXT::Config ();
 use PXT::Utils;
 use PXT::HTML;
 
@@ -148,7 +149,7 @@ sub proxy_entitlement_form {
   my $block = $params{__block__};
 
   throw "User '" . $pxt->user->id . "' attempted to access proxy interface without permission."
-    unless $pxt->user->org->has_channel_family_entitlement('rhn-proxy');
+    unless ($pxt->user->org->has_channel_family_entitlement('rhn-proxy') or not PXT::Config->get('subscribe_proxy_channel'));
 
   my $sid = $pxt->param('sid');
   throw "no server id!" unless $sid;
