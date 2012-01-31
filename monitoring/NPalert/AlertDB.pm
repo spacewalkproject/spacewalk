@@ -10,7 +10,7 @@ use Class::MethodMaker
 use Data::Dumper;    # for debugging
 use DBI;
 use NOCpulse::Config;
-use RHN::DB;
+use RHN::DBI;
 
 use NOCpulse::Log::Logger;
 my $Log = NOCpulse::Log::Logger->new(__PACKAGE__);
@@ -36,7 +36,7 @@ sub connect {
   }
 
   # Open a connection to the DB
-  my $dbh = RHN::DB->connect;
+  my $dbh = RHN::DBI->connect;
 
   if ($dbh) {
 

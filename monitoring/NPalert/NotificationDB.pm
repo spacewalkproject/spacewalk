@@ -10,7 +10,7 @@ use NOCpulse::Config;
 use NOCpulse::Probe::DataSource::AbstractDatabase qw(:constants);
 use NOCpulse::Probe::Error;
 
-use RHN::DB;
+use RHN::DBI;
 
 use base qw(NOCpulse::Probe::DataSource::AbstractDatabase);
 use Class::MethodMaker
@@ -76,7 +76,7 @@ sub init {
 sub connect {
   my ($self, %paramHash) = @_;
   # Open a connection to the DB
-  $self->dbh(RHN::DB->connect);
+  $self->dbh(RHN::DBI->connect);
 
   return $self->dbh;
 }

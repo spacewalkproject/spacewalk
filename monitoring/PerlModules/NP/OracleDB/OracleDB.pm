@@ -9,7 +9,7 @@ use strict;
 use DBI;
 use NOCpulse::Debug;
 use NOCpulse::Config;
-use RHN::DB;
+use RHN::DBI;
 
 # Global defaults
 my $DEFAULTDATEFORMAT  = 'YYYY-MM-DD HH24:MI:SS';
@@ -128,7 +128,7 @@ sub connect {
   my $AutoCommit = $paramHash{AutoCommit} || 0;
 
   $self->dprint(2, "Connecting to DB\n");
-  my $dbh      = RHN::DB->connect;
+  my $dbh      = RHN::DBI->connect;
 
   if ($DBI::err) { $@ = $DBI::errstr ;  return undef }
 
