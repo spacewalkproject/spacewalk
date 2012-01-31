@@ -379,7 +379,7 @@ EOQ
 
       $query = <<EOQ;
 INSERT INTO rhnActionPackage (id, action_id, name_id, evr_id)
-SELECT  rhn_act_p_id_seq.nextval,
+SELECT  sequence_nextval('rhn_act_p_id_seq'),
         :action_id,
         P.name_id,
         P.evr_id
@@ -477,7 +477,7 @@ EOQ
     $query = <<EOQ;
 INSERT INTO rhnActionPackage (id, action_id, name_id, evr_id)
 (
-SELECT  rhn_act_p_id_seq.nextval, ?, SP.name_id, SP.evr_id
+SELECT  sequence_nextval('rhn_act_p_id_seq'), ?, SP.name_id, SP.evr_id
   FROM  rhnServerPackage SP, rhnSet PACKAGE_LIST
  WHERE  PACKAGE_LIST.user_id = ?
    AND  PACKAGE_LIST.label = '$label'
@@ -575,7 +575,7 @@ EOQ
     $sth = $dbh->prepare(<<EOQ);
 INSERT
   INTO rhnActionPackage (id, action_id, name_id, evr_id)
-VALUES (rhn_act_p_id_seq.nextval, :aid, :name_id, :evr_id)
+VALUES (sequence_nextval('rhn_act_p_id_seq'), :aid, :name_id, :evr_id)
 EOQ
 
     foreach my $package (@packages) {
@@ -699,7 +699,7 @@ EOQ
   if ($package_set) {
     $query = <<EOQ;
 INSERT INTO rhnActionPackage (id, action_id, name_id, evr_id)
-(SELECT rhn_act_p_id_seq.nextval, ?, element, element_two FROM rhnSet WHERE user_id = ? AND label = ?)
+(SELECT sequence_nextval('rhn_act_p_id_seq'), ?, element, element_two FROM rhnSet WHERE user_id = ? AND label = ?)
 EOQ
     $sth = $dbh->prepare($query);
     #  warn "ins query:  $query\n$id, $user_id, ".$packages->label;
@@ -717,7 +717,7 @@ EOQ
   elsif ($package_ids) {
     $query =<<EOQ;
 INSERT INTO rhnActionPackage (id, action_id, name_id, evr_id)
-(SELECT rhn_act_p_id_seq.nextval, ?, P.name_id, P.evr_id FROM rhnPackage P WHERE P.id = ?)
+(SELECT sequence_nextval('rhn_act_p_id_seq'), ?, P.name_id, P.evr_id FROM rhnPackage P WHERE P.id = ?)
 EOQ
     $sth = $dbh->prepare($query);
 
@@ -842,7 +842,7 @@ EOQ
       ($label eq 'patchset_installable_list')) {
     $query = <<EOQ;
 INSERT INTO rhnActionPackage (id, action_id, name_id, evr_id, package_arch_id)
-SELECT rhn_act_p_id_seq.nextval,
+SELECT sequence_nextval('rhn_act_p_id_seq'),
        :action_id,
        P.name_id,
        P.evr_id,
@@ -868,7 +868,7 @@ EOQ
   } else {
     $query = <<EOQ;
 INSERT INTO rhnActionPackage (id, action_id, name_id, evr_id, package_arch_id)
-SELECT rhn_act_p_id_seq.nextval,
+SELECT sequence_nextval('rhn_act_p_id_seq'),
        :action_id,
        P.name_id,
        P.evr_id,
@@ -952,7 +952,7 @@ EOQ
   if ($package_set) {
     $sth = $dbh->prepare(<<EOQ);
 INSERT INTO rhnActionPackage (id, action_id, name_id, evr_id)
-(SELECT rhn_act_p_id_seq.nextval, ?, element, element_two FROM rhnSet WHERE user_id = ? AND label = ?)
+(SELECT sequence_nextval('rhn_act_p_id_seq'), ?, element, element_two FROM rhnSet WHERE user_id = ? AND label = ?)
 EOQ
     $sth->execute($id, $user_id, $package_set->label);
   }
@@ -965,7 +965,7 @@ EOQ
 INSERT
   INTO rhnActionPackage
        (id, action_id, name_id, evr_id)
-VALUES (rhn_act_p_id_seq.nextval, ?, ?, ?)
+VALUES (sequence_nextval('rhn_act_p_id_seq'), ?, ?, ?)
 EOQ
 
     foreach my $pid_combo (@{$package_id_combos}) {
