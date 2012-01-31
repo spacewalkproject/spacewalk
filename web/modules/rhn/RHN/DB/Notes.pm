@@ -115,7 +115,7 @@ sub commit {
       if ($self->id == -1)
       {
          $mode = 'insert';
-         $query = "SELECT ". $self->sequence . ".nextval FROM DUAL";
+         $query = "SELECT sequence_nextval('". $self->sequence . "') FROM DUAL";
 
          $sth = $dbh->prepare($query);
          $sth->execute;
