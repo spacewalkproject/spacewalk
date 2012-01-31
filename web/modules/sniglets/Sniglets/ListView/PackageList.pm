@@ -1162,7 +1162,7 @@ sub delete_packages_cb {
 INSERT 
   INTO rhnRepoRegenQueue
         (id, channel_label, client, reason, force, bypass_filters, next_action, created, modified)
-VALUES (rhn_repo_regen_queue_id_seq.nextval,
+VALUES (sequence_nextval('rhn_repo_regen_queue_id_seq'),
         :label, 'perl-web::delete_packages_cb', NULL, 'N', 'N', sysdate, sysdate, sysdate)
 EOQ
 
