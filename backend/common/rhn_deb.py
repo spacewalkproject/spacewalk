@@ -20,9 +20,12 @@
 import os
 import gzip
 import sys
+import tempfile
 
 from debian import debfile
-from rhn_pkg import InvalidPackageError
+
+import checksum
+from rhn_pkg import A_Package, InvalidPackageError
 
 DEB_CHECKSUM_TYPE = 'md5'       # FIXME: this should be a configuration option
 
@@ -44,9 +47,9 @@ def load(filename=None, file=None, fd=None):
         f = os.fdopen(os.dup(fd), "r")
 
     f.seek(0, 0)
-    return load_deb(f, filename)
+    return load_deb(f)
 
-def load_deb(stream, filename):
+def load_deb(stream):
 
     # Dup the file descriptor, we don't want it to get closed before we read
     # the payload
@@ -59,7 +62,7 @@ def load_deb(stream, filename):
 
     try:
         #header = rhn_deb.get_package_header(file=stream)
-        header = deb_Header(filename)
+        header = deb_Header(stream)
     except:
         raise InvalidPackageError, None, sys.exc_info()[2]
     stream.seek(0, 0)
@@ -68,7 +71,7 @@ def load_deb(stream, filename):
 
 class deb_Header:
     "Wrapper class for an deb header - we need to store a flag is_source"
-    def __init__(self, name):
+    def __init__(self, stream):
         self.hdr = {}
         self.packaging = 'deb'
         self.signatures = []
@@ -80,7 +83,7 @@ class deb_Header:
         self.deb = None
 
         try:
-            self.deb = debfile.DebFile(name)
+            self.deb = debfile.DebFile(stream.name)
         except Exception, e:
             raise InvalidPackageError(e), None, sys.exc_info()[2]
 
@@ -139,3 +142,25 @@ class deb_Header:
             return self.deb.debcontrol().get_as_string(name)
 
         return None
+
+class DEB_Package(A_Package):
+    def __init__(self, input_stream = None):
+        A_Package.__init__(self, input_stream)
+        self.header_data = tempfile.NamedTemporaryFile()
+        self.checksum_type = DEB_CHECKSUM_TYPE
+
+    def read_header(self):
+        self._stream_copy(self.input_stream, self.header_data)
+        try:
+            self.header_data.seek(0,0)
+            self.header = deb_Header(self.header_data)
+        except:
+            raise InvalidPackageError, None, sys.exc_info()[2]
+
+    def save_payload(self, output_stream):
+        hash = checksum.hashlib.new(self.checksum_type)
+        output_start = output_stream.tell()
+        self._stream_copy(self.header_data, output_stream, hash)
+        self.checksum = hash.hexdigest()
+        self.payload_stream = output_stream
+        self.payload_size = output_stream.tell() - output_start
