@@ -109,7 +109,7 @@ sub create_tree {
 INSERT INTO rhnKickstartableTree
   (id, label, base_path, channel_id, boot_image, org_id, kstree_type, install_type)
 VALUES
-  (rhn_kstree_id_seq.nextval, :label, :path, :channel_id, :boot_image, :org_id,
+  (sequence_nextval('rhn_kstree_id_seq'), :label, :path, :channel_id, :boot_image, :org_id,
    (SELECT id FROM rhnKSTreeType WHERE label = :tree_type),
    (SELECT id FROM rhnKSInstallType WHERE label = :install_type_label)
   )
