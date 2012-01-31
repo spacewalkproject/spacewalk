@@ -1411,7 +1411,7 @@ sub schedule_config_action {
 INSERT
   INTO rhnActionConfigRevision
        (id, action_id, server_id, config_revision_id)
-VALUES (rhn_actioncr_id_seq.nextval, :aid, :server_id, :revision_id)
+VALUES (sequence_nextval('rhn_actioncr_id_seq'), :aid, :server_id, :revision_id)
 EOQ
 
     $sth = $dbh->prepare($query);
