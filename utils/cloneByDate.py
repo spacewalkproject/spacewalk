@@ -86,7 +86,7 @@ def main(options):
 
     confirm("\nContinue with clone (y/n)?", options)            
     for cloner in cloners:
-        cloner.clone()
+        cloner.clone()        
         cloner.remove_blacklisted()
     
 
@@ -257,9 +257,10 @@ class ChannelTreeCloner:
             if len(needed) > 0:
                 cloner.process_deps(needed)
                                   
-    def remove_blacklisted(self):        
-        for cloner in self.cloners:
-            cloner.remove_blacklisted(self.blacklist)
+    def remove_blacklisted(self):     
+        if self.blacklist:
+            for cloner in self.cloners:
+                cloner.remove_blacklisted(self.blacklist)
         
     def repodata(self, label):
         return "%s/rhn/repodata/%s" % ( CFG.REPOMD_CACHE_MOUNT_POINT, label)

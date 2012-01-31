@@ -36,6 +36,7 @@ SAMPLE_CONFIG = """
  "password":"redhat",
  "assumeyes":true,
  "to_date": "2011-10-01",
+ "blacklist": ["foo", "bar"],
  "channels":[
              {
                 "rhel-x86_64-server-5":"my-rhel5-x86_64-clone",
@@ -50,9 +51,12 @@ SAMPLE_CONFIG = """
 
 
 def merge_config(options):
-    if not options.config:
+    if options.channels:
         options.channels = transform_arg_channels(options.channels)
         return options
+    elif not options.config:
+        return options
+    
     try:
         config = json.load(open(options.config))
     except:
@@ -90,7 +94,7 @@ def parse_args():
     parser.add_option("-u", "--username", dest="username", help="Username")
     parser.add_option("-p", "--password", dest="password", help="Password")
     parser.add_option("-s", "--server", dest="server", help="Server URL to use for api connections (defaults to https://localhost/rpc/api)", default="https://localhost/rpc/api")
-    parser.add_option("-l", "--channels", dest="channels", nargs=2, action="append", help="Original channel and clone channel labels space seperated (e.g. --channels=rhel-i386-server-5 myclone)")
+    parser.add_option("-l", "--channels", dest="channels", nargs=2, action="append", help="Original channel and clone channel labels space seperated (e.g. --channels=rhel-i386-server-5 myclone).  Can be specified multiple times.")
     parser.add_option("-b", "--blacklist", dest="blacklist",  help="Comman separated list of package names")
     parser.add_option("-d", "--to_date", dest="to_date", help="Clone errata to the specified date (YYYY-MM-DD)")
     parser.add_option("-y", "--assumeyes", dest='assumeyes', action='store_true', help="Assume yes for any prompts (unattended).")
@@ -109,10 +113,12 @@ def parse_args():
         options.blacklist = options.blacklist.split(",")
     
     options = merge_config(options)
-    options.to_date = parse_time(options.to_date)
+    
 
     if options.channels == None or len(options.channels) == 0:
-        raise UserError("No channels specified.")
+        raise UserError("No channels specified. See --help for details.")
+    
+    options.to_date = parse_time(options.to_date)
     return options
 
 
