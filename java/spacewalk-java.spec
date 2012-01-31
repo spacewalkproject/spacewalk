@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.7.13
+Version: 1.7.14
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -555,6 +555,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Jan 31 2012 Jan Pazdziora 1.7.14-1
+- Removing the web.debug_disable_database option -- it is not supported beyond
+  RHN::DB anyway.
+
 * Mon Jan 30 2012 Jan Pazdziora 1.7.13-1
 - Casting the user id to string to make rhn_install_org_satellites happy.
 
