@@ -49,6 +49,7 @@ public class TaskoJob implements Job {
             locks.put(task.getName(), new Object());
             lastStatus.put(task.getName(), TaskoRun.STATUS_FINISHED);
         }
+        TaskoFactory.closeSession();
     }
 
     /**
