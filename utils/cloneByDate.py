@@ -24,12 +24,15 @@ import copy
 import shutil
 import tempfile
 import xmlrpclib
+import pprint
 
 
 from depsolver import DepSolver
 
 try:
     from spacewalk.common.rhnConfig import CFG, initCFG
+    from spacewalk.common import rhnLog
+    from spacewalk.common.rhnLog import log_debug, log_clean     
     from spacewalk.satellite_tools.progress_bar import ProgressBar
     from spacewalk.server import rhnSQL
 except:
@@ -37,9 +40,13 @@ except:
     if _LIBPATH not in sys.path:
         sys.path.append(_LIBPATH)
     from server import rhnSQL
-    from common import CFG, initCFG
+    from common import rhnLog
+    from common.rhnLog import log_debug, log_clean
+    from common.rhnConfig import CFG, initCFG
     from satellite_tools.progress_bar import ProgressBar
 
+
+LOG_LOCATION = '/var/log/rhn/errata-clone.log'
 
 def confirm(txt, options):
     if not options.assumeyes:
@@ -55,7 +62,12 @@ def main(options):
     xmlrpc = RemoteApi(options.server, options.username, options.password)
     db = DBApi()
     initCFG('server')
-    
+    rhnLog.initLOG(LOG_LOCATION)
+        
+    cleansed = vars(options)
+    cleansed["password"] = "*****"
+    log_debug(0, "Started spacewalk-clone-by-date")
+    log_clean(0, pprint.pformat(cleansed))
     
     cloners = []
     needed_channels = []
@@ -144,7 +156,7 @@ class ChannelTreeCloner:
         nvreas  = []
                 
         #clone the destination parent if it doesn't exist
-        if dest_parent in to_create.values():
+        if dest_parent in to_create.values():            
             self.remote_api.clone_channel(self.src_parent, dest_parent, None)
             del to_create[self.src_parent]
             cloner = self.find_cloner(self.src_parent)          
@@ -207,7 +219,11 @@ class ChannelTreeCloner:
         added_pkgs = []
         for cloner in self.cloners:            
             cloner.process()
-            added_pkgs += cloner.pkg_diff()
+            pkg_diff = cloner.pkg_diff()
+            added_pkgs += pkg_diff
+            log_clean(0, "")
+            log_clean(0, "%i packages were added to %s as a result of clone:" % (len(pkg_diff), cloner.dest_label()))
+            log_clean(0, "\n".join([pkg['nvrea'] for pkg in pkg_diff]))            
         self.dep_solve([pkg['nvrea'] for pkg in added_pkgs])
             
 
@@ -321,15 +337,21 @@ class ChannelCloner:
                                    
     def process_deps(self, needed_pkgs):                                
         needed_ids = []
+        needed_names = []
         unsolved_deps = []
         for pkg in needed_pkgs:
             found = self.src_pkg_exist([pkg])
             if found:
                 needed_ids.append(found['id'])
+                needed_names.append(found['nvrea'])
             else:
                 unsolved_deps.append(pkg)
         
-        if len(needed_ids) > 0:                
+        if len(needed_ids) > 0:    
+            log_clean(0, "")
+            log_clean(0, "Adding %i needed dependencies to %l" % (len(needed_ids), self.to_label))
+            for name in needed_names:
+                log_clean(0, name)         
             self.remote_api.add_packages(self.to_label, needed_ids)
         
                             
@@ -375,7 +397,13 @@ class ChannelCloner:
         if len(errata_ids) == 0:
             return
         
-        print 'Cloning Errata into %s (%i):' % (self.to_label, len(errata_ids))
+        msg = 'Cloning Errata into %s (%i):' % (self.to_label, len(errata_ids))                
+        print msg
+        log_clean(0, "")
+        log_clean(0, msg)        
+        for e in self.errata_to_clone:
+            log_clean(0, "%s - %s" % (e['advisory_name'], e['synopsis']))
+            
         pb = ProgressBar(prompt="", endTag=' - complete',
                      finalSize=len(errata_ids), finalBarLength=40, stream=sys.stdout)
         pb.printAll(1);
@@ -401,9 +429,16 @@ class ChannelCloner:
     
     def remove_blacklisted(self, pkg_names):                
         found_ids  = []
+        found_names = []
         for pkg in self.reset_new_pkgs().values():
             if pkg['name'] in pkg_names:
-                found_ids.append(pkg['id'])        
+                found_ids.append(pkg['id'])
+                found_names.append(pkg['nvrea'])      
+
+        log_clean(0, "")                  
+        log_clean(0, "Removing %i packages from %s." (len(found_ids), self.to_label))        
+        log_clean(0, "\n".join(found_names))
+                          
         if len(found_ids) > 0:
             print "Removing %i packages from %s" % (len(found_ids), self.to_label)
             self.remote_api.remove_packages(self.to_label, found_ids)
@@ -466,7 +501,7 @@ class RemoteApi:
             del package_ids[:20]        
             self.client.channel.software.addPackages(self.auth_token, label, set)
 
-    def remove_packages(self, label, package_ids):        
+    def remove_packages(self, label, package_ids):
         while(len(package_ids) > 0):
             set = package_ids[:20]
             del package_ids[:20]        
@@ -475,8 +510,12 @@ class RemoteApi:
     def clone_channel(self, original_label, new_label, parent):
         details = {'name': new_label, 'label':new_label, 'summary': new_label}
         if parent and parent != '':
-            details['parent_label'] = parent      
-        print "Cloning %s to %s with original package set." % (original_label, new_label)
+            details['parent_label'] = parent
+        
+        msg = "Cloning %s to %s with original package set." % (original_label, new_label)
+        log_clean(0, "")
+        log_clean(0, msg)
+        print(msg)
         self.client.channel.software.clone(self.auth_token, original_label, details, True)
         
              
@@ -496,7 +535,7 @@ class DBApi:
         """list of errata that is applicable to be cloned, used db because we 
             need to exclude cloned errata too"""
         h = rhnSQL.prepare("""
-                select e.id, e.advisory_name, e.advisory_type, e.issue_date
+                select e.id, e.advisory_name, e.advisory_type, e.issue_date, e.synopsis
                 from rhnErrata e  inner join               
                      rhnChannelErrata ce on e.id = ce.errata_id inner join
                      rhnChannel c on c.id = ce.channel_id 
