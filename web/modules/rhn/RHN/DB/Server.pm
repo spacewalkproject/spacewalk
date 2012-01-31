@@ -1215,7 +1215,7 @@ sub commit {
   if ($self->{__newly_created__}) {
     croak "$self->commit called on newly created object when id != -1\nid == $self->{__id__}" unless $self->{__id__} == -1;
 
-    $sth = $dbh->prepare("SELECT rhn_server_id_seq.nextval FROM DUAL");
+    $sth = $dbh->prepare("SELECT sequence_nextval('rhn_server_id_seq') FROM DUAL");
     $sth->execute;
     my ($id) = $sth->fetchrow;
     die "No new server id from seq rhn_server_id_seq (possible error: " . $sth->errstr . ")" unless $id;
