@@ -1224,7 +1224,7 @@ sub commit {
     $self->{":modified:"}->{id} = 1;
     $self->{__id__} = $id;
 
-    $sth = $dbh->prepare("SELECT rhn_server_loc_id_seq.nextval FROM DUAL");
+    $sth = $dbh->prepare("SELECT sequence_nextval('rhn_server_loc_id_seq') FROM DUAL");
     $sth->execute;
     my ($location_id) = $sth->fetchrow;
     die "No new location id from seq rhn_server_loc_id_seq (possible error: " . $sth->errstr . ")" unless $id;
@@ -1268,7 +1268,7 @@ sub commit {
       $sth->finish;
 
       if (not $exists) {
-	my $sth = $dbh->prepare('INSERT INTO rhnServerLocation (id, server_id) VALUES (rhn_server_loc_id_seq.nextval, ?)');
+	my $sth = $dbh->prepare('INSERT INTO rhnServerLocation (id, server_id) VALUES (sequence_nextval('rhn_server_loc_id_seq'), ?)');
 	$sth->execute($self->id);
       }
     }
