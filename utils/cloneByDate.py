@@ -224,8 +224,9 @@ class ChannelTreeCloner:
     def process_deps(self, deps):
         needed_list = dict((label, []) for label in self.channel_map.values())
         unsolved_deps = []
-                
-        pb = ProgressBar(prompt="Processing Dependencies: ", endTag=' - complete',
+        
+        print('Processing Dependencies:')
+        pb = ProgressBar(prompt="", endTag=' - complete',
                      finalSize=len(deps), finalBarLength=40, stream=sys.stdout)
         pb.printAll(1);        
         
@@ -374,8 +375,8 @@ class ChannelCloner:
         if len(errata_ids) == 0:
             return
         
-        msg = 'Cloning Errata into %s (%i):    ' % (self.to_label, len(errata_ids))
-        pb = ProgressBar(prompt=msg, endTag=' - complete',
+        print 'Cloning Errata into %s (%i):' % (self.to_label, len(errata_ids))
+        pb = ProgressBar(prompt="", endTag=' - complete',
                      finalSize=len(errata_ids), finalBarLength=40, stream=sys.stdout)
         pb.printAll(1);
         while(len(errata_ids) > 0):

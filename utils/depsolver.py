@@ -124,7 +124,8 @@ class DepSolver:
         results = {}
         regex_filename_match = re.compile('[/*?]|\[[^]]*/[^]]*\]').match
         
-        pb = ProgressBar(prompt="Solving Dependencies (%i): " % len(pkgs), endTag=' - complete',
+        print("Solving Dependencies (%i): " % len(pkgs))
+        pb = ProgressBar(prompt='', endTag=' - complete',
                      finalSize=len(pkgs), finalBarLength=40, stream=sys.stdout)
         pb.printAll(1);    
                 
