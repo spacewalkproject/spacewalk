@@ -1,6 +1,6 @@
 Name: spacewalk-config
 Summary: Spacewalk Configuration
-Version: 1.7.1
+Version: 1.7.2
 Release: 1%{?dist}
 URL: http://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -105,6 +105,10 @@ chgrp apache /etc/rhn /etc/rhn/rhn.conf /etc/rhn/cluster.ini 2> /dev/null || :
 chmod o-rwx /etc/rhn/rhn.conf* /etc/rhn/cluster.ini* /etc/sysconfig/rhn/backup-* /var/lib/rhn/rhn-satellite-prep/* 2> /dev/null || :
 
 %changelog
+* Tue Jan 31 2012 Jan Pazdziora 1.7.2-1
+- Removing the web.debug_disable_database option -- it is not supported beyond
+  RHN::DB anyway.
+
 * Mon Jan 23 2012 Tomas Lestach <tlestach@redhat.com> 1.7.1-1
 - increase ProxyTimeout because of long lasting API calls (tlestach@redhat.com)
 - Bumping package versions for 1.7. (mzazrivec@redhat.com)
