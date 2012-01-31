@@ -157,17 +157,7 @@ sub commit {
   my $mode = 'update';
 
   if ($self->id == -1) {
-    my $dbh = RHN::DB->connect;
-
-    my $sth = $dbh->prepare("SELECT rhn_org_id_seq.nextval FROM DUAL");
-    $sth->execute;
-    my ($id) = $sth->fetchrow;
-    die "No new org id from seq rhn_org_id_seq (possible error: " . $sth->errstr . ")" unless $id;
-    $sth->finish;
-
-    $self->{":modified:"}->{id} = 1;
-    $self->{__id__} = $id;
-    $mode = 'insert';
+    die "dead code - how did you get here?";
   }
 
   die "$self->commit called on org without valid id" unless $self->id and $self->id > 0;
