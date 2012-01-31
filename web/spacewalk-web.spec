@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 1.7.11
+Version: 1.7.12
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -254,6 +254,15 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Tue Jan 31 2012 Jan Pazdziora 1.7.12-1
+- code cleanup: users are not created in web any more (msuchy@redhat.com)
+- The RHN::DB::connect does not accept any arguments anymore.
+- Factor the connection parameters config read to RHN::DBI, start to use it in
+  RHN::DB, also support just one database connection.
+- Removing code which is long commented out.
+- Removing the web.debug_disable_database option -- it is not supported beyond
+  RHN::DB anyway.
+
 * Mon Jan 30 2012 Jan Pazdziora 1.7.11-1
 - One sequence_nextval fix.
 - Refactored the evr_t(null, ...) and null and max.
