@@ -312,17 +312,6 @@ sub initialize_pxt {
     PXT::Config->set(base_port => $base_port);
   }
 
-# NOTE: Commenting out as part of PostgreSQL effort, likely unused code.
-# Personalities once used to prepend a token to the cookie to avoid
-# conflicts with RHN cookies. Suspected to now be unused.
-#
-#if ($r->pnotes('hostname_personality')) {
-#    my $dsn = $r->pnotes('hostname_personality');
-#    if (RHN::DB->lookup_alias($dsn)) {
-#      RHN::DB->set_default_handle($dsn);
-#    }
-#  }
-
   if (PXT::Config->get('profile_queries')) {
     my $dbh = RHN::DB->connect;
     $dbh->enable_profile;
