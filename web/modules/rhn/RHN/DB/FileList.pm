@@ -98,7 +98,7 @@ sub commit {
   if ($self->id == -1) {
     my $dbh = RHN::DB->connect;
 
-    my $sth = $dbh->prepare("SELECT rhn_filelist_id_seq.nextval FROM DUAL");    
+    my $sth = $dbh->prepare("SELECT sequence_nextval('rhn_filelist_id_seq') FROM DUAL");
     $sth->execute;
     my ($id) = $sth->fetchrow;
     die "No new file list id from seq rhn_filelist_id_seq (possible error: " . $sth->errstr . ")" unless $id;
