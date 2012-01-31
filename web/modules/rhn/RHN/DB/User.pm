@@ -282,16 +282,6 @@ sub _blank_user {
   return $self;
 }
 
-sub create {
-  my $class = shift;
-
-  my $user = $class->_blank_user();
-  $user->{__id__} = -1;
-  $user->{__newly_created__} = 1;
-
-  return $user;
-}
-
 # build some accessors
 foreach my $field ($j->method_names) {
   my $sub = q {
@@ -526,22 +516,6 @@ sub commit {
   my @columns_to_use;
   my $mode = 'update';
 
-  if ($self->{__newly_created__}) {
-    croak "$self->commit called on newly created object when id != -1\nid == $self->{__id__}" unless $self->{__id__} == -1;
-    $sth = $dbh->prepare("SELECT rhn_user_id_seq.nextval FROM DUAL");
-    $sth->execute;
-    my ($id) = $sth->fetchrow;
-    die "No new user id from seq rhn_user_id_seq (possible error: " . $sth->errstr . ")" unless $id;
-    $sth->finish;
-    $self->{":modified:"}->{id} = 1;
-    $self->{__id__} = $id;
-    $self->{":modified:"}->{web_user_id} = 1;
-    $self->{__web_user_id__} = $id;
-    $self->{":modified:"}->{contact_web_user_id} = 1;
-    $self->{__contact_web_user_id__} = $id;
-
-    $mode = 'insert';
-  }
   die "$self->commit called on user without valid id" unless $self->id;
 
   my @modified = keys %{$self->{":modified:"}};
@@ -618,21 +592,6 @@ sub RHN::DB::UserSite::commit {
   my $dbh = RHN::DB->connect;
   my $sth;
   my $mode = 'update';
-
-  if ($self->{__newly_created__}) {
-    croak "$self->commit called on newly created object when id != -1\nid == $self->{__site_id__}" unless $self->{__site_id__} == -1;
-    $sth = $dbh->prepare("SELECT web_user_site_info_id_seq.nextval FROM DUAL");
-    $sth->execute;
-    my ($id) = $sth->fetchrow;
-    #warn "fetched id == ".$id;
-    die "No new usersite id from seq web_user_site_id_seq (possible error: " . $sth->errstr . ")" unless $id;
-    $sth->finish;
-    $self->{":modified:"}->{site_id} = 1;
-    $self->{__site_id__} = $id;
-
-    $mode = 'insert';
-  }
-  #RHN::DB->objectify_error("$self->commit called on user_site without valid id") unless $self->site_id;
 
   my @modified = keys %{$self->{":modified:"}};
   my %modified = map { $_ => 1 } @modified;
