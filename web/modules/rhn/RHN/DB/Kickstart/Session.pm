@@ -188,7 +188,7 @@ sub commit {
   my $mode = 'update';
 
   if ($self->id == -1) {
-    my $sth = $dbh->prepare("SELECT rhn_ks_session_id_seq.nextval FROM DUAL");
+    my $sth = $dbh->prepare("SELECT sequence_nextval('rhn_ks_session_id_seq') FROM DUAL");
     $sth->execute;
     my ($id) = $sth->fetchrow;
     die "No new kickstart session id from seq rhn_ks_session_id_seq (possible error: " . $sth->errstr . ")" unless $id;
