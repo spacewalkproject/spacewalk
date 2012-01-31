@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 1.7.12
+Version: 1.7.13
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -254,6 +254,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Tue Jan 31 2012 Miroslav Suchý 1.7.13-1
+- port usage of sequences to PostgreSQL
+
 * Tue Jan 31 2012 Jan Pazdziora 1.7.12-1
 - code cleanup: users are not created in web any more (msuchy@redhat.com)
 - The RHN::DB::connect does not accept any arguments anymore.
