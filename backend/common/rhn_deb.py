@@ -15,8 +15,6 @@
 #
 # Meta-package manager
 #
-# $Id$
-#
 # Author: Lukas Durfina <lukas.durfina@gmail.com>
 
 import os
