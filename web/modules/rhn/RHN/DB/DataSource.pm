@@ -67,7 +67,7 @@ sub run_query {
   throw "Empty query for mode " . $self->mode()
     unless $query_body;
 
-  my $dbh = $params{-transaction} || RHN::DB->connect($self->dsn);
+  my $dbh = $params{-transaction} || RHN::DB->connect();
   my $sth;
 
   $sth = $dbh->prepare_cached($query_body);
