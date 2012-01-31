@@ -109,7 +109,7 @@ sub create_config_contents {
 INSERT INTO rhnConfigContent
   (id, checksum_id, file_size, contents, delim_start, delim_end)
 VALUES
-  (rhn_confcontent_id_seq.nextval, lookup_checksum('md5', :md5sum), :file_size, :contents, :delim_start, :delim_end)
+  (sequence_nextval('rhn_confcontent_id_seq'), lookup_checksum('md5', :md5sum), :file_size, :contents, :delim_start, :delim_end)
 RETURNING id INTO :ccid
 EOS
 
