@@ -157,7 +157,7 @@ sub commit {
   my $mode = 'update';
 
   if ($self->id == -1) {
-    my $sth = $dbh->prepare("SELECT rhn_template_str_id_seq.nextval FROM DUAL");
+    my $sth = $dbh->prepare("SELECT sequence_nextval('rhn_template_str_id_seq') FROM DUAL");
     $sth->execute;
     my ($id) = $sth->fetchrow;
     die "No id from rhn_template_str_id_seq (possible error: " . $sth->errstr . ")" unless $id;
