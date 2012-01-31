@@ -9,7 +9,7 @@ Name:         NPalert
 Summary:      NOCpulse notification system
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version:      1.126.30
+Version:      1.126.31
 Release:      1%{?dist}
 BuildArch:    noarch
 Requires:     perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
@@ -137,6 +137,10 @@ fi
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Tue Jan 31 2012 Jan Pazdziora 1.126.31-1
+- In monitoring, use RHN::DBI instead of RHN::DB because we do not want to
+  reuse the connection.
+
 * Mon Jan 30 2012 Jan Pazdziora 1.126.30-1
 - Avoid having the messages on different lines than their timestamps.
 - Avoid having the output both in generate_config.log and GenerateNotifConfig-
