@@ -129,7 +129,7 @@ sub commit {
   my $dbh = $transaction || RHN::DB->connect;
 
   if ($self->id == -1) {
-    my $sth = $dbh->prepare("SELECT rhn_server_profile_id_seq.nextval FROM DUAL");
+    my $sth = $dbh->prepare("SELECT sequence_nextval('rhn_server_profile_id_seq') FROM DUAL");
     $sth->execute;
     my ($id) = $sth->fetchrow;
     $sth->finish;
