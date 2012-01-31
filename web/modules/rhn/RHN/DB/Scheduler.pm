@@ -1240,7 +1240,7 @@ sub schedule_package_sync {
 
   my $sth;
   $sth = $dbh->prepare(<<EOS);
-SELECT rhn_packagedelta_id_seq.nextval FROM DUAL
+SELECT sequence_nextval('rhn_packagedelta_id_seq') FROM DUAL
 EOS
   $sth->execute_h();
   my ($delta_id) = $sth->fetchrow;
