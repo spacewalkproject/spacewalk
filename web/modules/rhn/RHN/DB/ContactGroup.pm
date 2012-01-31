@@ -176,7 +176,7 @@ sub commit {
     my $dbh = RHN::DB->connect;
 
     # Get the next recid from the sequence and set it as the id for this instance.
-    my $sth = $dbh->prepare("SELECT " . $self->get_sequence . ".nextval FROM DUAL");
+    my $sth = $dbh->prepare("SELECT sequence_nextval('" . $self->get_sequence . "') FROM DUAL");
     $sth->execute;
     my ($pk_value) = $sth->fetchrow;
     die "No new $type $pk from seq " . $self->get_sequence . " (possible error: " . $sth->errstr . ")" unless $pk_value;
