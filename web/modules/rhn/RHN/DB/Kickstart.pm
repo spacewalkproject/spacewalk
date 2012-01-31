@@ -380,7 +380,7 @@ INSERT
         , script_type
         , interpreter
 		, data)
-  VALUES (rhn_ksscript_id_seq.nextval
+  VALUES (sequence_nextval('rhn_ksscript_id_seq')
           , :ksid
           , :position
           , :stype
