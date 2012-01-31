@@ -27,8 +27,6 @@ use PXT::Utils;
 sub register_callbacks {
   my $class = shift;
   my $pxt = shift;
-
-  $pxt->register_callback('rhn:sync_server_cb' => \&sync_server_cb);
 }
 
 sub sync_server_cb {
