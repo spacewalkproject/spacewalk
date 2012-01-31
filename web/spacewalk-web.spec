@@ -221,6 +221,7 @@ rm -rf $RPM_BUILD_ROOT
 %{perl_vendorlib}/RHN/SessionSwap.pm
 %{perl_vendorlib}/RHN/Exception.pm
 %{perl_vendorlib}/RHN/DB.pm
+%{perl_vendorlib}/RHN/DBI.pm
 %{perl_vendorlib}/PXT/Config.pm
 %attr(640,root,apache) %{_prefix}/share/rhn/config-defaults/rhn_web.conf
 %doc LICENSE

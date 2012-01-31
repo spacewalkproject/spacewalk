@@ -16,63 +16,11 @@
 package RHN::DB;
 
 use strict;
-use DBI;
+use RHN::DBI ();
 use Carp;
 use RHN::Exception;
-use PXT::Config;
 
 our @ISA = qw/DBI/;
-
-my %aliases;
-my %handles = ();
-
-# Add an alias, maps dbi connection string to an array of username, 
-# password, and params.
-sub add_alias {
-  my $class = shift;
-  my $dbi_connection_string = shift;
-
-  $aliases{$dbi_connection_string} = [ @_ ];
-}
-
-sub lookup_alias {
-  my $class = shift;
-  my $alias = shift;
-
-  return $aliases{$alias};
-}
-
-# Return a DBI connection string based on the given inputs. This is also
-# used as a key in our hash of established connections.
-sub get_dbi_connection_string {
-    my $class = shift;
-    my $backend = shift;
-    my $host = shift;
-    my $port = shift;
-    my $dbname = shift; # sid for oracle backend
-
-    if ($backend eq "oracle") {
-        return "dbi:Oracle:$dbname";
-    }
-    elsif ($backend eq "postgresql") {
-        my $q = "dbi:Pg:dbname=$dbname";
-        if (defined $host and $host ne '') {
-            $q .= ";host=$host";
-            if (defined $port and $port ne '') {
-                $q .= ";port=$port";
-            }
-        }
-        return $q;
-    }
-}
-
-$RHN::DB::default_connection = undef;
-
-sub set_default_connection {
-  my $class = shift;
-
-  $RHN::DB::default_connection = shift;
-}
 
 # this forces connection immediately after form, before first request
 # is served.  can cause a bit of a rush to the db as a bunch of
@@ -81,27 +29,21 @@ sub set_default_connection {
 
 sub apache_child_init_handler {
   my $class = shift;
-  my @aliases = @_ ? @_ : ($RHN::DB::default_handle);
-
-  for my $alias (@aliases) {
-    if ($class->lookup_alias($alias)) {
-      $class->connect($alias);
-    }
-  }
+  $class->connect();
 }
 
 
 # called after every request.  necessary to cleanup uncommitted
 # transactions and such
 
+my $dbh;
 sub connection_cleanup {
   my $class = shift;
 
-  for my $alias (keys %handles) {
-    my $dbh = $handles{$alias};
+  if (defined $dbh) {
 
     if ($dbh->{ActiveKids}) {
-      warn "Database handle '$alias' has active children after request completion.";
+      warn "Database handle has active children after request completion.";
     }
 
     while($dbh->in_nested_transaction) {
@@ -119,86 +61,39 @@ sub connection_cleanup {
 
 sub soft_connect {
   my $class = shift;
-  my $alias = shift;
 
-  my $ret = eval { $class->connect($alias) };
+  my $ret = eval { $class->connect(@_) };
 
   return $ret;
 }
 
 sub connect {
   my $class = shift;
-  my $alias = shift;
-  my $username = shift;
-  my $password = shift;
-
-  # Store db handlers using an alias which is equal to their DBI
-  # connection string. Note that this does not include username or
-  # password information and thus we cannot have multiple connections
-  # to one db as different users (currently). If this turns out to be
-  # a problem, suggest we prepend/append the username in the alias hash
-  # key.
-
-  # TODO: Once upon a time these aliases were just Oracle dsn's, if the incoming
-  # alias is in this format, convert it to an Oracle dbi string?
-
-  $alias ||= ($RHN::DB::default_connection ||= $class->get_dbi_connection_string(
-                                                    PXT::Config->get("db_backend"),
-                                                    PXT::Config->get("db_host"),
-                                                    PXT::Config->get("db_port"),
-                                                    PXT::Config->get("db_name")));
-
-  if ($handles{$alias} and $handles{$alias}->{Active}) {
-    my $dbh = $handles{$alias};
-
-    if (not $dbh->ping()) {
-      Carp::cluck("Cannot ping database handle for $alias: $DBI::errstr ($@)");
-    }
-    else {
-      return $handles{$alias};
-    }
+  if (@_) {
+    Carp::confess "The RHN::DB::connect does not accept any parameters.\n";
   }
 
-  # for bug #159720, set the NLS_LANG environment variable from the
-  # config option if it is set.
-  my $nls_lang = PXT::Config->get('server', 'nls_lang');
-  if ($nls_lang) {
-    $ENV{NLS_LANG} = $nls_lang;
+  if (defined $dbh and $dbh->ping()) {
+    return $dbh;
   }
 
-  $class->add_alias($alias, PXT::Config->get("db_user"),
-                     PXT::Config->get("db_password"), { });
+  my ($dsn, $login, $password, $attr) = RHN::DBI::_get_dbi_connect_parameters();
+  $attr->{HandleError} = \&RHN::DB::handle_error;
+  $attr->{private_rhndb_transaction_level} = 0;
 
-  my $alias_data = $class->lookup_alias($alias);
-  Carp::croak "RHN::DB->connect($alias): No such alias '$alias'" unless $alias_data;
-
-  my $params;
-  ($username, $password, $params) = @{ $alias_data };
-
-  my $dbh = $handles{$alias} = $class->direct_connect($alias, $username, $password,
-						      { %$params,
-						        HandleError => \&RHN::DB::handle_error,
-							RaiseError => 1,
-							PrintError => 0,
-							Taint => 0,
-							AutoCommit => 0,
-							private_rhndb_transaction_level => 0,
-							FetchHashKeyName => 'NAME_uc',
-							pg_enable_utf8 => 1,
-						      });
+  $dbh = $class->direct_connect($dsn, $login, $password, $attr);
 
   # this dbh is from a cache, which means disconnects fail
   $dbh->{private_from_cache} = 1;
-  Carp::croak "$class->connect($alias) failed: $DBI::errstr" unless $dbh;
+  Carp::croak "$class->connect() failed: $DBI::errstr" unless $dbh;
 
   $dbh->init_db_handle();
   $dbh->init_db_session();
 
   if (not $dbh->ping()) {
     $dbh->force_disconnect;
-    delete $handles{$alias};
 
-    Carp::croak("Cannot ping database handle for $alias: $DBI::errstr");
+    Carp::croak("Cannot ping database handle: $DBI::errstr");
   }
   return $dbh;
 }
