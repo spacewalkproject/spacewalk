@@ -1,5 +1,0 @@
-#!/opt/home/nocpulse/bin/perl
-use KudzuDevice;
-use Data::Dumper;
-KudzuDevice.Initialize;
-print Dumper(KudzuDevice->AllOfClass($ARGV[0]));
