@@ -20,6 +20,7 @@
 
 import sys
 import datetime
+import getpass
 from optparse import OptionParser
 import simplejson as json
 
@@ -114,9 +115,14 @@ def parse_args():
     
     options = merge_config(options)
     
+    if not options.username:
+        raise UserError("Username not specified")
 
     if options.channels == None or len(options.channels) == 0:
         raise UserError("No channels specified. See --help for details.")
+    
+    if not options.password:
+        options.password = getpass.getpass()
     
     options.to_date = parse_time(options.to_date)
     return options
