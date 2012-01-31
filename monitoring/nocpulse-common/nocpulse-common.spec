@@ -1,5 +1,5 @@
 Name:         nocpulse-common
-Version:      2.2.2
+Version:      2.2.3
 Release:      1%{?dist}
 Summary:      NOCpulse common
 License:      GPLv2
@@ -150,6 +150,10 @@ fi
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Tue Jan 31 2012 Jan Pazdziora 2.2.3-1
+- In monitoring, use RHN::DBI instead of RHN::DB because we do not want to
+  reuse the connection.
+
 * Fri Jan 27 2012 Jan Pazdziora 2.2.2-1
 - Loading NOCpulse::Config here makes the empty content cached, removing.
 - Fixing typo (%FILE_CONTENTS), fixing missing $self, adding use strict.
