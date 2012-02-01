@@ -159,8 +159,10 @@ class DEB_Package(A_Package):
 
     def save_payload(self, output_stream):
         hash = checksum.hashlib.new(self.checksum_type)
-        output_start = output_stream.tell()
+        if output_stream:
+            output_start = output_stream.tell()
         self._stream_copy(self.header_data, output_stream, hash)
         self.checksum = hash.hexdigest()
-        self.payload_stream = output_stream
-        self.payload_size = output_stream.tell() - output_start
+        if output_stream:
+            self.payload_stream = output_stream
+            self.payload_size = output_stream.tell() - output_start

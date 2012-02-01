@@ -206,13 +206,16 @@ class RPM_Package(A_Package):
 
     def save_payload(self, output_stream):
         hash = checksum.hashlib.new(self.checksum_type)
-        output_start = output_stream.tell()
+        if output_stream:
+            output_start = output_stream.tell()
         self.header_data.seek(0,0)
         self._stream_copy(self.header_data, output_stream, hash)
         self._stream_copy(self.input_stream, output_stream, hash)
         self.checksum = hash.hexdigest()
-        self.payload_stream = output_stream
-        self.payload_size = output_stream.tell() - output_start
+        self.header_data.close()
+        if output_stream:
+            self.payload_stream = output_stream
+            self.payload_size = output_stream.tell() - output_start
 
 def get_header_byte_range(package_file):
     """
