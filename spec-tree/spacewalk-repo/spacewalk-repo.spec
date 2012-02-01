@@ -40,7 +40,8 @@ mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/yum.repos.d
 cat >>$RPM_BUILD_ROOT%{_sysconfdir}/yum.repos.d/spacewalk.repo <<REPO
 [spacewalk]
 name=Spacewalk
-baseurl=http://spacewalk.redhat.com/yum/%{version}/%{reposubdir}/\$basearch/
+#baseurl=http://spacewalk.redhat.com/yum/%{version}/%{reposubdir}/\$basearch/
+baseurl=http://spacewalk.redhat.com/yum/nightly/%{reposubdir}/\$basearch/
 gpgkey=http://spacewalk.redhat.com/yum/RPM-GPG-KEY-spacewalk-2010
 enabled=1
 gpgcheck=1
@@ -49,7 +50,8 @@ REPO
 cat >>$RPM_BUILD_ROOT%{_sysconfdir}/yum.repos.d/spacewalk-client.repo <<REPO
 [spacewalk-client]
 name=Spacewalk Client Tools
-baseurl=http://spacewalk.redhat.com/yum/%{version}-client/%{reposubdir}/\$basearch/
+#baseurl=http://spacewalk.redhat.com/yum/%{version}-client/%{reposubdir}/\$basearch/
+baseurl=http://spacewalk.redhat.com/yum/nightly-client/%{reposubdir}/\$basearch/
 gpgkey=http://spacewalk.redhat.com/yum/RPM-GPG-KEY-spacewalk-2010
 enabled=1
 gpgcheck=1
