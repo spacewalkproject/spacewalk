@@ -17,6 +17,24 @@
  */
 package com.redhat.rhn.domain.errata;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.StringTokenizer;
+
+import org.apache.commons.collections.IteratorUtils;
+import org.apache.log4j.Logger;
+import org.hibernate.HibernateException;
+import org.hibernate.Query;
+import org.hibernate.Session;
+
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.SelectMode;
@@ -46,24 +64,6 @@ import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.errata.ErrataManager;
 import com.redhat.rhn.manager.errata.cache.ErrataCacheManager;
 
-import org.apache.commons.collections.IteratorUtils;
-import org.apache.log4j.Logger;
-import org.hibernate.HibernateException;
-import org.hibernate.Query;
-import org.hibernate.Session;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.StringTokenizer;
-
 /**
  * ErrataFactory - the singleton class used to fetch and store
  * com.redhat.rhn.domain.errata.Errata objects from the
@@ -92,7 +92,8 @@ public class ErrataFactory extends HibernateFactory {
      * Get the Logger for the derived class so log messages
      * show up on the correct class
      */
-    protected Logger getLogger() {
+    @Override
+	protected Logger getLogger() {
         return log;
     }
 
@@ -262,14 +263,14 @@ public class ErrataFactory extends HibernateFactory {
      *      all of the correct ErrataFile* entries.  This method does push packages to
      *      the appropriate channel. (Appropriate as defined as the channel previously
      *      having a package with the same name).
-     * @param errata errata to publish
+     * @param errata errataList list of errata to publish
      * @param chan channel to publish it into.
      * @param user the user doing the pushing
      * @param inheritPackages include only original channel packages
      * @return the publsihed errata
      */
-    public static List<Errata> publishToChannel(List<Errata> errataList, Channel chan, User user,
-            boolean inheritPackages) {
+    public static List<Errata> publishToChannel(List<Errata> errataList, Channel chan, 
+    		User user, boolean inheritPackages) {
     	List<com.redhat.rhn.domain.errata.Errata> toReturn = new ArrayList<Errata>();
     	for (Errata errata : errataList) {
 	        if (!errata.isPublished()) {
@@ -277,11 +278,11 @@ public class ErrataFactory extends HibernateFactory {
 	        }
 	        errata.addChannel(chan);
 	        errata.addChannelNotification(chan, new Date());
-	
+
 	        Set<Package> packagesToPush = new HashSet<Package>();
 	        DataResult<PackageOverview> packs;
 	        if (inheritPackages) {
-	        	
+
 	            if (!chan.isCloned()) {
 	                throw new InvalidChannelException("Cloned channel expected: " +
 	                       chan.getLabel());
@@ -292,14 +293,14 @@ public class ErrataFactory extends HibernateFactory {
 	        else {
 	            packs = ErrataManager.lookupPacksFromErrataForChannel(chan, errata, user);
 	        }
-	
+
 	        for (PackageOverview packOver : packs) {
 	            //lookup the Package object
 	            Package pack = PackageFactory.lookupByIdAndUser(
 	                    packOver.getId().longValue(), user);
 	            packagesToPush.add(pack);
 	        }
-	
+
 	        Errata e = publishErrataPackagesToChannel(errata, chan, user, packagesToPush);
 	        toReturn.add(e);
     	}
@@ -307,12 +308,12 @@ public class ErrataFactory extends HibernateFactory {
         return toReturn;
     }
 
-    
+
 
 	/**
 	 * Publish an errata to a channel but only push a small set of packages
 	 * along with it
-	 * 
+	 *
 	 * @param errata   errata to publish
 	 * @param chan channel to publish it into.
 	 * @param user the user doing the pushing
@@ -330,14 +331,14 @@ public class ErrataFactory extends HibernateFactory {
 		return errata;
 	}
 
-	
+
 	private static void postPublishActions(Channel chan, User user) {
 		ChannelManager.refreshWithNewestPackages(chan, "web.errata_push");
 		ChannelManager.queueChannelChange(chan.getLabel(),
 				"java::publishErrataPackagesToChannel", user.getLogin());
-	}    
-    
-    
+	}
+
+
     /**
      * Private helper method that pushes errata packages to a channel
      */
@@ -366,7 +367,8 @@ public class ErrataFactory extends HibernateFactory {
 				publishedFile.setModified(new Date());
 				((PublishedErrataFile) publishedFile).addChannel(chan);
 				singleton.saveObject(publishedFile);
-			} else {
+			} 
+			else {
 				for (ErrataFile publishedFile : publishedFiles) {
 					String fileName = publishedFile.getFileName().substring(
 							publishedFile.getFileName().lastIndexOf("/") + 1);

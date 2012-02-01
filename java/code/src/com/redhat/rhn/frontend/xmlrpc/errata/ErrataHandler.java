@@ -17,6 +17,19 @@
  */
 package com.redhat.rhn.frontend.xmlrpc.errata;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import org.apache.commons.collections.IteratorUtils;
+import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
+
 import com.redhat.rhn.FaultException;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
@@ -56,20 +69,6 @@ import com.redhat.rhn.manager.errata.ErrataManager;
 import com.redhat.rhn.manager.errata.cache.ErrataCacheManager;
 import com.redhat.rhn.manager.rhnpackage.PackageManager;
 import com.redhat.rhn.manager.user.UserManager;
-
-import org.apache.commons.collections.IteratorUtils;
-import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
-
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 
 /**
@@ -875,16 +874,16 @@ public class ErrataHandler extends BaseHandler {
      */
     public Object[] clone(String sessionKey, String channelLabel,
             List advisoryNames) throws InvalidChannelRoleException {
-    	return clone(sessionKey, channelLabel, advisoryNames, false);    	
+    	return clone(sessionKey, channelLabel, advisoryNames, false);
     }
 
-    
+
     private Object[] clone(String sessionKey, String channelLabel,
             List<String> advisoryNames, boolean inheritAllPackages){
         User loggedInUser = getLoggedInUser(sessionKey);
-        
+
         Logger log = Logger.getLogger(ErrataFactory.class);
-                
+
         Channel channel = ChannelFactory.lookupByLabelAndUser(channelLabel,
                             loggedInUser);
 
@@ -913,7 +912,7 @@ public class ErrataHandler extends BaseHandler {
         if (!UserManager.verifyChannelAdmin(loggedInUser, channel)) {
             throw new PermissionCheckFailureException();
         }
-        
+
         List<Errata> errataToClone = new ArrayList<Errata>();
         List<Errata> errataToPublish = new ArrayList<Errata>();
         List<Errata> toReturn = new ArrayList<Errata>();
@@ -923,30 +922,30 @@ public class ErrataHandler extends BaseHandler {
             Errata toClone = lookupErrata(advisory, loggedInUser.getOrg());
             errataToClone.add(toClone);
         }
-                
+
         //For each errata look up existing clones, or manually clone it
-        for (Errata toClone : errataToClone) {        	
+        for (Errata toClone : errataToClone) {
         	List<Errata> clones = ErrataManager.lookupPublishedByOriginal(
                     loggedInUser, toClone);
-        	if (clones.isEmpty()) {        	
-        		errataToPublish.add(PublishErrataHelper.cloneErrataFast(toClone, loggedInUser.getOrg()));        	
+        	if (clones.isEmpty()) {
+        		errataToPublish.add(PublishErrataHelper.cloneErrataFast(toClone, loggedInUser.getOrg()));
         	}
         	else {
-        		errataToPublish.add(clones.get(0));        		
-        	}                          
-        }        
-                       
+        		errataToPublish.add(clones.get(0));
+        	}
+        }
+
         //Now publish them all to the channel in a single shot
         List<Errata> published = ErrataFactory.publishToChannel(errataToPublish, channel,
                 loggedInUser, true);
         for (Errata e : published) {
         	ErrataFactory.save(e);
         }
-        
-        return toReturn.toArray();    	
+
+        return toReturn.toArray();
     }
-    
-    
+
+
     /**
      * Clones a list of errata into a specified cloned channel
      * according the original erratas
@@ -975,8 +974,8 @@ public class ErrataHandler extends BaseHandler {
     }
 
 
-    
-    
+
+
     private Object getRequiredAttribute(Map map, String attribute) {
         Object value = map.get(attribute);
         if (value == null || StringUtils.isEmpty(value.toString())) {
@@ -1326,7 +1325,7 @@ public class ErrataHandler extends BaseHandler {
             list.add(published);
         	published = ErrataFactory.publishToChannel(list, chan, user,
                     inheritPackages).get(0);
-            
+
         }
         return published;
     }
@@ -1348,7 +1347,8 @@ public class ErrataHandler extends BaseHandler {
      *              $ErrataSerializer
      *          #array_end()
      */
-    public List listByDate(String sessionKey, String channelLabel) {
+    @Deprecated
+	public List listByDate(String sessionKey, String channelLabel) {
         User loggedInUser = getLoggedInUser(sessionKey);
         Channel channel = ChannelFactory.lookupByLabel(loggedInUser.getOrg(),
                 channelLabel);
