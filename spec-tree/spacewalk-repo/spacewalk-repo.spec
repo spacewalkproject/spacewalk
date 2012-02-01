@@ -1,7 +1,7 @@
 Summary: Spacewalk packages yum repository configuration
 Name: spacewalk-repo
 Version: 1.7
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPLv2
 Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -75,6 +75,9 @@ rm -rf $RPM_BUILD_ROOT
 %config %{_sysconfdir}/yum.repos.d/spacewalk-client.repo
 
 %changelog
+* Wed Feb 01 2012 Miroslav Suchý 1.7-3
+- do not check gpg at nightly - it is not signed
+
 * Wed Feb 01 2012 Miroslav Suchý 1.7-2
 - add Source0
 - point spacewalk-repo to nightly
