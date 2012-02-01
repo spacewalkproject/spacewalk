@@ -23,11 +23,10 @@ end;
 $$ language plpgsql;
 
 
+drop trigger if exists rhn_cmeth_val_trig on rhn_contact_methods;
+
 create trigger
 rhn_cmeth_val_trig
 before insert or update on rhn_contact_methods
 for each row
 execute procedure rhn_cmeth_val_trig_fun();
-
-
-

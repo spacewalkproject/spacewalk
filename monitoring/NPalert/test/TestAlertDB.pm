@@ -81,20 +81,6 @@ sub test_alert {
   $self->assert($err==0,$err);
 }
 
-############################
-sub test_create_snmp_alert {
-############################
-  my $self=shift;
-  my ($err)=$self->{'blah'}->dbexecute('create_snmp_alert',10068, 'dave.pc.nocpulse.net', 
-                                       5050, '10-09-2002 20:46:23', '10-09-2002 20:46:23',
-                                       'Disk Space', 1, 'NOCpulse Lab', 'https://command.nocpulse.com/ocenter/?function=host&id=19231',
-                                       'Spacewalk','message: Filesystem /dev/hda2: Filesystem pct used 35% (above critical threshold of 20%); Space available 1,115 MB; Space used 591 MB 
-								  Notification #1413 for Filesystem pct used',
-                                       20080, '192.168.0.234',1, 
-				       17, 1, 'VMWare4');
-  $self->assert($err==0,$err);
-}
-
 #######################
 sub test_redirect_seq {
 #######################

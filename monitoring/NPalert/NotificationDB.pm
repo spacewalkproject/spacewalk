@@ -104,12 +104,6 @@ sub create_redirect_method_target {
   shift->_create('RHN_REDIRECT_METHOD_TARGETS', @_);
 }
 
-# Records requiring sequence
-sub create_snmp_alert {
-  shift->_create_with_seq('RECID', 'RHN_SNMP_ALERT_RECID_SEQ', 'SNMP_ALERT',
-                          @_);
-}
-
 sub create_current_alert {
   shift->_create_with_seq('RECID', 'RHN_CURRENT_ALERTS_RECID_SEQ',
                           'RHN_RHN_CURRENT_ALERTS', @_);

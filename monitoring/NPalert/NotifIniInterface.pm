@@ -13,7 +13,6 @@ use NOCpulse::Notif::PagerContactMethod;
 use NOCpulse::Notif::EmailContactMethod;
 use NOCpulse::Notif::SimpleEmailContactMethod;
 use NOCpulse::Notif::PhoneContactMethod;
-use NOCpulse::Notif::SNMPContactMethod;
 use NOCpulse::Notif::ContactGroup;
 use NOCpulse::Notif::BroadcastStrategy;
 use NOCpulse::Notif::EscalateStrategy;
@@ -100,12 +99,6 @@ sub buildContactMethods {
       $method = new NOCpulse::Notif::PhoneContactMethod;
 
       # phone
-    } elsif ($type == 5) {
-      $method = new NOCpulse::Notif::SNMPContactMethod;
-      $method->ip($hashptr->{'snmp_host'});
-      $method->port($hashptr->{'snmp_port'});
-
-      # snmp
     }
 
     if ($method) {

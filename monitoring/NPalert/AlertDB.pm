@@ -208,23 +208,6 @@ sub init_statements {
                   );
 
   $self->dbprepare(
-    'create_snmp_alert',
-    "INSERT INTO SNMP_ALERT ( 
-                                  RECID, SENDER_CLUSTER_ID, DEST_IP, 
-                                  DEST_PORT, DATE_GENERATED, DATE_SUBMITTED, 
-                                  COMMAND_NAME, NOTIF_TYPE, OP_CENTER, 
-                                  NOTIF_URL, OS_NAME, MESSAGE, 
-                                  PROBE_ID, HOST_IP, SEVERITY, 
-                                  COMMAND_ID, PROBE_CLASS, HOST_NAME) 
-                                SELECT SNMP_ALERT_RECID_SEQ.nextval, ?, ?,
-                                  ?, TO_DATE(?, 'MM-DD-YYYY HH24:MI:SS'), TO_DATE(?, 'MM-DD-YYYY HH24:MI:SS'),
-                                  ?, ?, ?,
-                                  ?, ?, ?,
-                                  ?, ?, ?,
-                                  ?, ?, ? 
-                                FROM dual"
-                  );
-  $self->dbprepare(
     'select_next_redirect_recid',
     "select REDIRECTS_RECID_SEQ.nextval
                                  from DUAL"
@@ -410,8 +393,6 @@ Create a new redirect criterion record with the specified bindvars.
 - create_redirect_email_target ( redirect_id, email_address )
 
 Create a new email address destination for a redirect.
-
-- create_snmp_alert (SENDER_CLUSTER_ID, DEST_IP, DEST_PORT, DATE_GENERATED, DATE_SUBMITTED, COMMAND_NAME, NOTIF_TYPE, OP_CENTER, NOTIF_URL, OS_NAME, MESSAGE, PROBE_ID, HOST_IP, SEVERITY, COMMAND_ID, PROBE_CLASS, HOST_NAME )
 
 Create an snmp type alert with the specified bindvars.
 

@@ -10,7 +10,6 @@ use Class::MethodMaker
 use Date::Format;
 use NOCpulse::Notif::ContactMethod;
 use NOCpulse::Notif::PagerContactMethod;
-use NOCpulse::Notif::SNMPContactMethod;
 use NOCpulse::Notif::SendInfo;
 use NOCpulse::Log::Logger;
 my $Log = NOCpulse::Log::Logger->new(__PACKAGE__);
