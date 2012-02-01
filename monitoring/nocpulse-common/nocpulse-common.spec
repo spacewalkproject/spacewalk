@@ -1,5 +1,5 @@
 Name:         nocpulse-common
-Version:      2.2.3
+Version:      2.2.4
 Release:      1%{?dist}
 Summary:      NOCpulse common
 License:      GPLv2
@@ -150,6 +150,10 @@ fi
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Wed Feb 01 2012 Jan Pazdziora 2.2.4-1
+- Now we use RHN::DBI, the database handle is brand new, let's disconnect as
+  well.
+
 * Tue Jan 31 2012 Jan Pazdziora 2.2.3-1
 - In monitoring, use RHN::DBI instead of RHN::DB because we do not want to
   reuse the connection.
