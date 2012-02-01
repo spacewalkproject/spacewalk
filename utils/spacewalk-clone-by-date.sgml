@@ -1,0 +1,162 @@
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook V3.1//EN" [
+<!ENTITY RHNSAT "RHN Management Satellite Server" >
+<!ENTITY RHNSAT "RHN Satellite system Migration Tool" >
+]>
+<refentry>
+
+<RefMeta>
+<RefEntryTitle>spacewalk-clone-by-date</RefEntryTitle><manvolnum>8</manvolnum>
+<RefMiscInfo>Version 1.0</RefMiscInfo>
+</RefMeta>
+
+<RefNameDiv>
+<RefName><command>spacewalk-clone-by-date</command></RefName>
+<RefPurpose>
+Script to clone software channels and errata up to specific dates ensuring any added packages have their 
+dependencies satisifed.  Any destination channels that do not exist will be created.
+
+By specifying channels on the command line, only a single channel tree (a base channel and its children) 
+can be cloned with a single command.  If you would like to specify multiple trees within a single command, 
+simply use a configuration file.  See --sample-config for a sample.
+
+All options can either be specified in the configuration file or via command line.  Any option specified via 
+command line will override a configuration file value with the exception of channels.  If a configuration file is 
+specified, --channels is not a valid command line argument.  
+
+</RefPurpose>
+</RefNameDiv>
+
+<RefSynopsisDiv>
+<Synopsis>
+    <cmdsynopsis>
+        <command>spacewalk-clone-by-date</command> 
+        <arg>options <replaceable>...</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg> -c <replaceable>CONFIGFILE</replaceable></arg>
+        <arg> --config=<replaceable>CONFIGFILE</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg> -m </arg><arg> --sample-config</arg>
+    </cmdsynopsis>    
+    <cmdsynopsis>
+        <arg>-u<replaceable>USERNAME</replaceable></arg>
+        <arg>--username=<replaceable>USERNAME</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>-p<replaceable>PASSWORD</replaceable></arg>
+        <arg>--password=<replaceable>PASSWORD</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>-c<replaceable>SRC DEST</replaceable></arg>
+        <arg>--channels=<replaceable>SRC DEST</replaceable></arg>
+    </cmdsynopsis>    
+    <cmdsynopsis>
+    	<arg> -d=<replaceable>YYYY-MM-DD</replaceable></arg>
+        <arg> --to_date=<replaceable>YYYY-MM-DD</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>-b<replaceable>PKG1,PKG2,PKG3</replaceable></arg>
+        <arg>--blacklist=<replaceable>PKG1,PKG2,PKG3</replaceable></arg>
+    </cmdsynopsis>    
+    <cmdsynopsis>
+        <arg>-y</arg><arg> --assumeyes </arg>
+    </cmdsynopsis>   
+    <cmdsynopsis>
+        <arg>-h</arg><arg>--help</arg>
+    </cmdsynopsis>
+</Synopsis>
+</RefSynopsisDiv>
+
+<RefSect1><Title>Description</Title>
+    <para>
+        <emphasis>spacewalk-clone-by-date</emphasis> clones a channel with errata to a specific date.
+    </para>
+</RefSect1>
+
+<RefSect1><Title>Options</Title>
+<variablelist>
+    <varlistentry>
+        <term>-h, --help</term>
+        <listitem>
+            <para>Display the help screen with a list of options.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-c <replaceable>FILE</replaceable>
+        	--config=<replaceable>FILE</replaceable></term>
+        <listitem>
+            <para>Configuration file holding parameters, see --sample-config for an example.
+                      Any commandline parameters override those in specified config file.</para>
+        </listitem>
+    </varlistentry>   
+    <varlistentry>
+        <term>-m  --sample-config</term>
+        <listitem>
+            <para>Generate a sample configuration file.</para>
+        </listitem>
+    </varlistentry>     
+    <varlistentry>
+        <term>-u<replaceable>USERNAME</replaceable>
+        --username=<replaceable>USERNAME</replaceable></term>
+        <listitem>
+            <para>username of user that has administrative access.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-p<replaceable>PASSWORD</replaceable>
+        --password=<replaceable>PASSWORD</replaceable></term>
+        <listitem>
+            <para>password of user that has administrative access.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term> -c <replaceable>SRC_LABEL DEST_LABEL</replaceable>
+        	--channels=<replaceable>SRC_LABEL DEST_LABEL</replaceable></term>
+        <listitem>
+            <para>Space seperated list of source channel and destination channel.  Can be 
+            		specified multiple times to provide base channel and child channel pairs of a 
+            		single channel tree.  To specify more than one channel tree, specify a config file.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term> -y  --assumeyes
+        <listitem>
+            <para>Instead of asking for confirmation before cloning a channel or errata, 
+            	continue uninterrupted.</para>
+        </listitem>
+    </varlistentry>    
+    <varlistentry>
+        <term> -b <replaceable>PKG1,PKG2,PKG3</replaceable>
+        	--blacklist=<replaceable>PKG1,PKG2,PKG3</replaceable> </term>
+        <listitem>
+            <para>Comma seperated list of package names to be removed after cloning.  
+            	Dependency resolution is not ensured on resulting repository.</para>
+        </listitem>
+    </varlistentry>
+</variablelist>
+</RefSect1>
+
+
+<RefSect1><Title>Examples</Title>
+<example>
+	<title>Clone a base channel and child channel to 2008-12-20 with a small blacklist.</title>
+	spacewalk-clone-by-date  --channel=rhel-x86_64-server-5 clone-rhel --channel=rhn-tools-rhel-x86_64-server-5 clone-tools --username admin --password redhat --to_date=2008-12-20 --blacklist=sendmail,squid
+</example>
+<example>
+	<title>Clone with options completely from a config file.</title>
+	spacewalk-clone-by-date  --config=/etc/clone.conf
+</example>
+<example>
+	<title>Clone while overriding some options from the commandline.</title>
+	spacewalk-clone-by-date  --config=/etc/clone.conf --username rocky --password squirrel --to_date=2010-10-09
+</example>
+</RefSect1>
+
+<RefSect1><Title>Authors</Title>
+<simplelist>
+    <member>Justin Sherrill <email>jsherrill@redhat.com</email></member>
+</simplelist>
+</RefSect1>
+</RefEntry>
+

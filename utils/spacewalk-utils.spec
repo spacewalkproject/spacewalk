@@ -34,6 +34,8 @@ Requires:       spacewalk-admin
 Requires:       spacewalk-certs-tools
 Requires:       spacewalk-config
 Requires:       spacewalk-setup
+Requires:       spacewalk-backend
+Requires:       yum-utils
 
 %description
 Generic utilities that may be run against a Spacewalk server.

@@ -1,0 +1,169 @@
+#!/usr/bin/python
+#
+# Clonse channels by a particular date
+#
+# Copyright (c) 2008 Red Hat, Inc.
+#
+#
+# This software is licensed to you under the GNU General Public License,
+# version 2 (GPLv2). There is NO WARRANTY for this software, express or
+# implied, including the implied warranties of MERCHANTABILITY or FITNESS
+# FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
+# along with this software; if not, see
+# http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
+#
+# Red Hat trademarks are not licensed under GPLv2. No permission is
+# granted to use or replicate Red Hat trademarks that are incorporated
+# in this software or its documentation.
+#
+
+
+import sys
+import datetime
+import getpass
+from optparse import OptionParser
+import simplejson as json
+
+#try:
+import cloneByDate
+from cloneByDate import UserError
+#except:
+#    from utils import cloneByDate
+
+
+SAMPLE_CONFIG = """
+{
+ "username":"admin",
+ "password":"redhat",
+ "assumeyes":true,
+ "to_date": "2011-10-01",
+ "blacklist": ["foo", "bar"],
+ "channels":[
+             {
+                "rhel-x86_64-server-5":"my-rhel5-x86_64-clone",
+                "rhn-tools-rhel-x86_64-server-5": "my-tools-5-x86_64-clone"
+             },
+            {
+                "rhel-i386-server-5": "my-rhel5-i386-clone"
+             }
+           ]
+}
+"""
+
+
+def merge_config(options):
+    if options.channels:
+        options.channels = transform_arg_channels(options.channels)
+        return options
+    elif not options.config:
+        return options
+    
+    try:
+        config = json.load(open(options.config))
+    except:
+        raise UserError("Configuration file is invalid, please check syntax.")
+    
+    #if soemthing is in the config and not passed in as an argument
+    #   add it to options
+    overwrite = ["username", "password", "blacklist", "channels", "server", "assumeyes", "to_date"]
+    for key in overwrite:
+        if config.has_key(key) and not getattr(options, key):
+            setattr(options, key, config[key])
+        
+    if type(options.channels) == dict:
+        options.channels =  [options.channels] 
+    return options
+   
+      
+# Using --channels as an argument only supports a single channel 'tree'
+#  So we need to convert a 2-tuple list of channel labels into an array with a hash
+#  ex:   [ ("rhel-i386-servr-5", "my-rhel-clone"), ('rhel-child', 'clone-child')]
+#    should become
+# [{
+#  "rhel-i386-servr-5" : "my-rhel-clone",
+#  'rhel-child': 'clone-child'
+#  }]
+def transform_arg_channels(chan_list):
+    to_ret = {}
+    for src, dest in chan_list:
+        to_ret[src] = dest
+    return [to_ret]   
+        
+def parse_args():
+    parser = OptionParser()
+    parser.add_option("-c", "--config", dest="config", help="Config file specifying options")
+    parser.add_option("-u", "--username", dest="username", help="Username")
+    parser.add_option("-p", "--password", dest="password", help="Password")
+    parser.add_option("-s", "--server", dest="server", help="Server URL to use for api connections (defaults to https://localhost/rpc/api)", default="https://localhost/rpc/api")
+    parser.add_option("-l", "--channels", dest="channels", nargs=2, action="append", help="Original channel and clone channel labels space seperated (e.g. --channels=rhel-i386-server-5 myclone).  Can be specified multiple times.")
+    parser.add_option("-b", "--blacklist", dest="blacklist",  help="Comman separated list of package names")
+    parser.add_option("-d", "--to_date", dest="to_date", help="Clone errata to the specified date (YYYY-MM-DD)")
+    parser.add_option("-y", "--assumeyes", dest='assumeyes', action='store_true', help="Assume yes for any prompts (unattended).")
+    parser.add_option("-m", "--sample-config", dest='sample', action='store_true', help="Print a sample full configuration file and exit.")
+    parser.add_option("-v", "--validate", dest='validate', action='store_true', help="Run repoclosure on the set of specified repositories.")
+        
+    (options, args) = parser.parse_args()    
+
+    if options.sample:
+        print SAMPLE_CONFIG
+        sys.exit(0)
+
+    if options.config and options.channels:
+        raise UserError("Cannot specify both --channels and --config.")
+    
+    if options.blacklist:
+        options.blacklist = options.blacklist.split(",")
+    
+    options = merge_config(options)
+    
+    if not options.username:
+        raise UserError("Username not specified")
+
+    if options.channels == None or len(options.channels) == 0:
+        raise UserError("No channels specified. See --help for details.")
+    
+
+    if not options.validate:
+        options.to_date = parse_time(options.to_date)
+    
+    if not options.password:
+        options.password = getpass.getpass()
+    
+    
+    return options
+
+
+def parse_time(time_str):
+    """We need to use datetime, but python 2.4 does not support strptime(), so we have to parse ourselves"""
+    try:
+        split = time_str.split("-")
+        return datetime.datetime(int(split[0]), int(split[1]), int(split[2]))
+    except:
+        raise UserError("Invalid date format (%s), expected YYYY-MM-DD" % time_str)
+
+def systemExit(code, msgs=None):
+    "Exit with a code and optional message(s). Saved a few lines of code."
+
+    if msgs:
+        if type(msgs) not in [type([]), type(())]:
+            msgs = (msgs, )
+        for msg in msgs:
+            sys.stderr.write(str(msg)+'\n')
+    sys.exit(code)
+    
+def main():    
+    try:
+        args = parse_args();        
+        return cloneByDate.main(args)
+    except KeyboardInterrupt:
+        systemExit(0, "\nUser interrupted process.")
+    except UserError, error:
+        systemExit(-1, "\n%s" % error)        
+    return 0
+
+
+if __name__ == '__main__':
+    try:
+        sys.exit(abs(main() or 0))
+    except KeyboardInterrupt:
+        systemExit(0, "\nUser interrupted process.")

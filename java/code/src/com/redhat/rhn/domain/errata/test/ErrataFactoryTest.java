@@ -42,6 +42,7 @@ import com.redhat.rhn.testing.ChannelTestUtils;
 import com.redhat.rhn.testing.TestUtils;
 import com.redhat.rhn.testing.UserTestUtils;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -138,7 +139,11 @@ public class ErrataFactoryTest extends BaseTestCaseWithUser {
         channel.addPackage(chanPack);
         e.addPackage(errataPack);
 
-        Errata published = ErrataFactory.publishToChannel(e, channel, user, false);
+        List<Errata> errataList = new ArrayList<Errata>();
+        errataList.add(e);
+        List<Errata> publishedList = ErrataFactory.publishToChannel(errataList,
+                channel, user, false);
+        Errata published = publishedList.get(0);
         assertTrue(channel.getPackages().contains(errataPack));
         List<PublishedErrataFile> errataFile =
             ErrataFactory.lookupErrataFilesByErrataAndFileType(published.getId(), "RPM");

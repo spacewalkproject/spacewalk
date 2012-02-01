@@ -100,10 +100,6 @@ public class ChannelEditor {
             longPackageIds.add(new Long(((Number)it.next()).longValue()));
         }
 
-        List<Long> existingPids = ChannelFactory.getPackageIds(channel.getId());
-        if (add) {
-            longPackageIds.removeAll(existingPids);
-        }
 
         PackageManager.verifyPackagesChannelArchCompatAndOrgAccess(user,
                 channel, longPackageIds, add);

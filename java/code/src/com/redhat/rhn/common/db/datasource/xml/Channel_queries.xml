@@ -20,7 +20,9 @@ DELETE
 <write-mode name="add_channel_packages">
   <query params="cid">
   INSERT INTO rhnChannelPackage (channel_id, package_id)
-      select :cid, P.id from rhnPackage P where P.id in (%s)
+      select :cid, P.id from rhnPackage P 
+      where P.id in (%s) and
+      		P.id not in (select package_id from rhnChannelPackage where channel_id = :cid)
   </query>
 </write-mode>
 
