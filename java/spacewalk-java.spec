@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.7.15
+Version: 1.7.16
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -555,6 +555,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Feb 01 2012 Tomas Lestach <tlestach@redhat.com> 1.7.16-1
+- convert boolean value when storing it to DB varchar(1) (tlestach@redhat.com)
+- do not store DB information into the rhn_config_macro (tlestach@redhat.com)
+
 * Tue Jan 31 2012 Tomas Lestach <tlestach@redhat.com> 1.7.15-1
 - prevent having unsued idle PG transaction/session (tlestach@redhat.com)
 
