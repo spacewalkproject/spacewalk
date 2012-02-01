@@ -162,7 +162,6 @@ Last update: $Date: 2005-02-10 22:45:14 $
 B<NOCpulse::Notif::Destination>
 B<NOCpulse::Notif::EmailContactMethod>
 B<NOCpulse::Notif::PagerContactMethod>
-B<NOCpulse::Notif::SNMPContactMethod>
 B<NOCpulse::Notif::ContactGroup>
 B<NOCpulse::Notif::Alert>
 B<NOCpulse::Notif::Escalator>

@@ -8,13 +8,13 @@
 -- FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 -- along with this software; if not, see
 -- http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
--- 
+--
 -- Red Hat trademarks are not licensed under GPLv2. No permission is
 -- granted to use or replicate Red Hat trademarks that are incorporated
--- in this software or its documentation. 
+-- in this software or its documentation.
 --
 
-create or replace trigger 
+create or replace trigger
 rhn_cmeth_val_trig
 before insert or update on rhn_contact_methods
 referencing new as new old as old
@@ -24,7 +24,7 @@ declare
     missing_data exception;
 begin
     msg :='missing or invalid data for contact_methods table';
-    
+
     if :new.method_type_id = 1
     then
 
@@ -39,14 +39,14 @@ begin
 
     if :new.method_type_id = 2
     then
-    
+
     --- the all email fields but email_reply_to should be not null
         if :new.email_address is null
         then
             raise missing_data;
         end if;
     end if;
-    
+
     exception
     when missing_data then
     raise_application_error (-20012,msg);

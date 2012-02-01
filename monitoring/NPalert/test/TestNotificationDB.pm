@@ -87,44 +87,6 @@ sub test__init_details {
   $self->assert($value eq 'EXPIRATION', 'dates details (redirects)');
 } ## end sub test__init_details
 
-##################
-sub x_test__create {
-##################
-  my $self    = shift;
-  my $records =
-    $self->{'blah'}
-    ->execute('select snmp_alert_recid_seq.nextval as recid from dual',
-              'dual', FETCH_ARRAYREF);
-  my $recid = $records->[0]->{'RECID'};
-  $Log->log(9, "\n\nrecid is $recid\n\n");
-  my $record = {
-                 RECID             => $recid,
-                 SENDER_CLUSTER_ID => 10068,
-                 DEST_IP           => 'davepc.nocpulse.net',
-                 DEST_PORT         => 5050,
-                 DATE_GENERATED    => time(),
-                 DATE_SUBMITTED    => 'sysdate',
-                 COMMAND_NAME      => 'Disk Space',
-                 NOTIF_TYPE        => '',
-                 OP_CENTER         => 'NOCpulse Lab',
-                 NOTIF_URL         => '',
-                 OS_NAME           => 'Spacewalk',
-                 MESSAGE           => 'blah diddy gorp',
-                 PROBE_ID          => 20080,
-                 HOST_IP           => '192.168.0.234',
-                 SEVERITY          => 5,
-                 COMMAND_ID        => 17,
-                 PROBE_CLASS       => 1,
-                 HOST_NAME         => 'VMWare4'
-               };
-  $self->{'blah'}->create_snmp_alert(%$record);
-
-  # Can't query an active table
-  #  my $result=$self->{'blah'}->select_snmp_alert(RECID => $recid);
-  #  $self->assert(defined($result),'got something back');
-  #  $self->assert($result->{'DEST_PORT'} == 5050,'is the correct value');
-} ## end sub x_test__create
-
 ########################
 sub test__selectphrase {
 ########################
