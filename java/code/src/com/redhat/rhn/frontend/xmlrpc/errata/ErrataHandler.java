@@ -17,6 +17,19 @@
  */
 package com.redhat.rhn.frontend.xmlrpc.errata;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import org.apache.commons.collections.IteratorUtils;
+import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
+
 import com.redhat.rhn.FaultException;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
@@ -56,20 +69,6 @@ import com.redhat.rhn.manager.errata.ErrataManager;
 import com.redhat.rhn.manager.errata.cache.ErrataCacheManager;
 import com.redhat.rhn.manager.rhnpackage.PackageManager;
 import com.redhat.rhn.manager.user.UserManager;
-
-import org.apache.commons.collections.IteratorUtils;
-import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
-
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 
 /**
@@ -181,7 +180,7 @@ public class ErrataHandler extends BaseHandler {
         }
         return retval;
     }
-    */
+     */
 
     /**
      * GetDetails - Retrieves the details for a given errata.
@@ -225,13 +224,13 @@ public class ErrataHandler extends BaseHandler {
 
         if (errata.getIssueDate() != null) {
             errataMap.put("issue_date",
-                          LocalizationService.getInstance()
-                              .formatShortDate(errata.getIssueDate()));
+                    LocalizationService.getInstance()
+                    .formatShortDate(errata.getIssueDate()));
         }
         if (errata.getUpdateDate() != null) {
             errataMap.put("update_date",
-                          LocalizationService.getInstance()
-                              .formatShortDate(errata.getUpdateDate()));
+                    LocalizationService.getInstance()
+                    .formatShortDate(errata.getUpdateDate()));
         }
         if (errata.getLastModified() != null) {
             errataMap.put("last_modified_date", errata.getLastModified().toString());
@@ -246,17 +245,17 @@ public class ErrataHandler extends BaseHandler {
         errataMap.put("solution",
                 StringUtils.defaultString(errata.getSolution()));
         errataMap.put("description",
-                      StringUtils.defaultString(errata.getDescription()));
+                StringUtils.defaultString(errata.getDescription()));
         errataMap.put("synopsis",
-                      StringUtils.defaultString(errata.getSynopsis()));
+                StringUtils.defaultString(errata.getSynopsis()));
         errataMap.put("topic",
-                      StringUtils.defaultString(errata.getTopic()));
+                StringUtils.defaultString(errata.getTopic()));
         errataMap.put("references",
-                      StringUtils.defaultString(errata.getRefersTo()));
+                StringUtils.defaultString(errata.getRefersTo()));
         errataMap.put("notes",
-                      StringUtils.defaultString(errata.getNotes()));
+                StringUtils.defaultString(errata.getNotes()));
         errataMap.put("type",
-                      StringUtils.defaultString(errata.getAdvisoryType()));
+                StringUtils.defaultString(errata.getAdvisoryType()));
 
 
         return errataMap;
@@ -334,7 +333,7 @@ public class ErrataHandler extends BaseHandler {
         validKeys.add("url");
         if (details.containsKey("bugs")) {
             for (Map<String, Object> bugMap :
-                 (ArrayList<Map<String, Object>>) details.get("bugs")) {
+                (ArrayList<Map<String, Object>>) details.get("bugs")) {
 
                 validateMap(validKeys, bugMap);
             }
@@ -394,12 +393,12 @@ public class ErrataHandler extends BaseHandler {
             }
 
             for (Map<String, Object> bugMap :
-                 (ArrayList<Map<String, Object>>) details.get("bugs")) {
+                (ArrayList<Map<String, Object>>) details.get("bugs")) {
 
                 if (bugMap.containsKey("id") && bugMap.containsKey("summary")) {
                     String url = "";
                     if (bugMap.containsKey("url")) {
-                      url = (String) bugMap.get("url");
+                        url = (String) bugMap.get("url");
                     }
 
                     Bug bug = ErrataFactory.createPublishedBug(
@@ -463,7 +462,7 @@ public class ErrataHandler extends BaseHandler {
      *      #array_end()
      */
     public Object[] listAffectedSystems(String sessionKey, String advisoryName)
-        throws FaultException {
+            throws FaultException {
 
         // Get the logged in user
         User loggedInUser = getLoggedInUser(sessionKey);
@@ -496,7 +495,7 @@ public class ErrataHandler extends BaseHandler {
      *      #struct_end()
      */
     public Map bugzillaFixes(String sessionKey, String advisoryName)
-        throws FaultException {
+            throws FaultException {
 
         // Get the logged in user
         User loggedInUser = getLoggedInUser(sessionKey);
@@ -534,7 +533,7 @@ public class ErrataHandler extends BaseHandler {
 
      */
     public Object[] listKeywords(String sessionKey, String advisoryName)
-        throws FaultException {
+            throws FaultException {
 
         // Get the logged in user
         User loggedInUser = getLoggedInUser(sessionKey);
@@ -575,14 +574,14 @@ public class ErrataHandler extends BaseHandler {
      *       #array_end()
      */
     public Object[] applicableToChannels(String sessionKey, String advisoryName)
-        throws FaultException {
+            throws FaultException {
 
         // Get the logged in user
         User loggedInUser = getLoggedInUser(sessionKey);
         Errata errata = lookupErrata(advisoryName, loggedInUser.getOrg());
 
         return ErrataManager.applicableChannels(errata.getId(),
-                         loggedInUser.getOrg().getId(), null, Map.class).toArray();
+                loggedInUser.getOrg().getId(), null, Map.class).toArray();
     }
 
     /**
@@ -697,7 +696,7 @@ public class ErrataHandler extends BaseHandler {
      *           #array_end()
      */
     public List<Map> listPackages(String sessionKey, String advisoryName)
-        throws FaultException {
+            throws FaultException {
         // Get the logged in user
         User loggedInUser = getLoggedInUser(sessionKey);
         Errata errata = lookupErrata(advisoryName, loggedInUser.getOrg());
@@ -755,7 +754,7 @@ public class ErrataHandler extends BaseHandler {
 
         //Update Errata Cache
         if ((packagesAdded > 0) && errata.isPublished() &&
-            (errata.getChannels() != null)) {
+                (errata.getChannels() != null)) {
             ErrataCacheManager.updateCacheForChannelsAsync(
                     errata.getChannels());
         }
@@ -839,7 +838,7 @@ public class ErrataHandler extends BaseHandler {
          */
         if (errata == null) {
             throw new FaultException(-208, "no_such_errata",
-                                     "The errata " + advisoryName + " cannot be found.");
+                    "The errata " + advisoryName + " cannot be found.");
         }
         /**
          * errata with org_id of null are public, but ones with an org id of !null are not
@@ -875,18 +874,18 @@ public class ErrataHandler extends BaseHandler {
      */
     public Object[] clone(String sessionKey, String channelLabel,
             List advisoryNames) throws InvalidChannelRoleException {
-    	return clone(sessionKey, channelLabel, advisoryNames, false);    	
+        return clone(sessionKey, channelLabel, advisoryNames, false);
     }
 
-    
+
     private Object[] clone(String sessionKey, String channelLabel,
-            List<String> advisoryNames, boolean inheritAllPackages){
+            List<String> advisoryNames, boolean inheritAllPackages) {
         User loggedInUser = getLoggedInUser(sessionKey);
-        
+
         Logger log = Logger.getLogger(ErrataFactory.class);
-                
+
         Channel channel = ChannelFactory.lookupByLabelAndUser(channelLabel,
-                            loggedInUser);
+                loggedInUser);
 
         if (channel == null) {
             throw new NoSuchChannelException();
@@ -894,26 +893,26 @@ public class ErrataHandler extends BaseHandler {
 
         if (!channel.isCloned()) {
             throw new InvalidChannelException("Cloned channel expected: " +
-                channel.getLabel());
+                    channel.getLabel());
         }
 
         Channel original = ChannelFactory.lookupOriginalChannel(channel);
 
         if (original == null) {
             throw new InvalidChannelException("Cannot access original " +
-                "of the channel: " + channel.getLabel());
+                    "of the channel: " + channel.getLabel());
         }
 
         // check access to the original
         if (ChannelFactory.lookupByIdAndUser(original.getId(), loggedInUser) == null) {
             throw new LookupException("User " + loggedInUser.getLogin() +
-                " does not have access to channel " + original.getLabel());
+                    " does not have access to channel " + original.getLabel());
         }
 
         if (!UserManager.verifyChannelAdmin(loggedInUser, channel)) {
             throw new PermissionCheckFailureException();
         }
-        
+
         List<Errata> errataToClone = new ArrayList<Errata>();
         List<Errata> errataToPublish = new ArrayList<Errata>();
         List<Errata> toReturn = new ArrayList<Errata>();
@@ -923,30 +922,31 @@ public class ErrataHandler extends BaseHandler {
             Errata toClone = lookupErrata(advisory, loggedInUser.getOrg());
             errataToClone.add(toClone);
         }
-                
+
         //For each errata look up existing clones, or manually clone it
-        for (Errata toClone : errataToClone) {        	
-        	List<Errata> clones = ErrataManager.lookupPublishedByOriginal(
+        for (Errata toClone : errataToClone) {
+            List<Errata> clones = ErrataManager.lookupPublishedByOriginal(
                     loggedInUser, toClone);
-        	if (clones.isEmpty()) {        	
-        		errataToPublish.add(PublishErrataHelper.cloneErrataFast(toClone, loggedInUser.getOrg()));        	
-        	}
-        	else {
-        		errataToPublish.add(clones.get(0));        		
-        	}                          
-        }        
-                       
+            if (clones.isEmpty()) {
+                errataToPublish.add(PublishErrataHelper.cloneErrataFast(toClone,
+                        loggedInUser.getOrg()));
+            }
+            else {
+                errataToPublish.add(clones.get(0));
+            }
+        }
+
         //Now publish them all to the channel in a single shot
         List<Errata> published = ErrataFactory.publishToChannel(errataToPublish, channel,
                 loggedInUser, true);
         for (Errata e : published) {
-        	ErrataFactory.save(e);
+            ErrataFactory.save(e);
         }
-        
-        return toReturn.toArray();    	
+
+        return toReturn.toArray();
     }
-    
-    
+
+
     /**
      * Clones a list of errata into a specified cloned channel
      * according the original erratas
@@ -971,12 +971,12 @@ public class ErrataHandler extends BaseHandler {
      */
     public Object[] cloneAsOriginal(String sessionKey, String channelLabel,
             List<String> advisoryNames) throws InvalidChannelRoleException {
-    	return clone(sessionKey, channelLabel, advisoryNames, true);
+        return clone(sessionKey, channelLabel, advisoryNames, true);
     }
 
 
-    
-    
+
+
     private Object getRequiredAttribute(Map map, String attribute) {
         Object value = map.get(attribute);
         if (value == null || StringUtils.isEmpty(value.toString())) {
@@ -1083,7 +1083,7 @@ public class ErrataHandler extends BaseHandler {
         //so check first before creating anything
         List channels = null;
         if (publish) {
-             channels = verifyChannelList(channelLabels, loggedInUser);
+            channels = verifyChannelList(channelLabels, loggedInUser);
         }
 
         String synopsis = (String) getRequiredAttribute(errataInfo, "synopsis");
@@ -1192,7 +1192,7 @@ public class ErrataHandler extends BaseHandler {
      * @xmlrpc.returntype #return_int_success()
      */
     public Integer delete(String sessionKey, String advisoryName)
-        throws FaultException {
+            throws FaultException {
         User loggedInUser = getLoggedInUser(sessionKey);
         Errata errata = lookupErrata(advisoryName, loggedInUser.getOrg());
 
@@ -1223,7 +1223,7 @@ public class ErrataHandler extends BaseHandler {
      *          $ErrataSerializer
      */
     public Errata publish(String sessionKey, String advisory, List channelLabels)
-                                                     throws InvalidChannelRoleException {
+            throws InvalidChannelRoleException {
         User loggedInUser = getLoggedInUser(sessionKey);
         List channels = verifyChannelList(channelLabels, loggedInUser);
         Errata toPublish = lookupErrata(advisory, loggedInUser.getOrg());
@@ -1324,9 +1324,9 @@ public class ErrataHandler extends BaseHandler {
         for (Channel chan : channels) {
             List<Errata> list = new ArrayList<Errata>();
             list.add(published);
-        	published = ErrataFactory.publishToChannel(list, chan, user,
+            published = ErrataFactory.publishToChannel(list, chan, user,
                     inheritPackages).get(0);
-            
+
         }
         return published;
     }
@@ -1348,6 +1348,7 @@ public class ErrataHandler extends BaseHandler {
      *              $ErrataSerializer
      *          #array_end()
      */
+    @Deprecated
     public List listByDate(String sessionKey, String channelLabel) {
         User loggedInUser = getLoggedInUser(sessionKey);
         Channel channel = ChannelFactory.lookupByLabel(loggedInUser.getOrg(),
