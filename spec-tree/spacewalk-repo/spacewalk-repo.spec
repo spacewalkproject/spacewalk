@@ -4,7 +4,11 @@ Version: 1.7
 Release: 3%{?dist}
 License: GPLv2
 Group: System Environment/Base
-Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
+# This src.rpm is cannonical upstream
+# You can obtain it using this set of commands
+# git clone git://git.fedorahosted.org/git/spacewalk.git/
+# cd spec-tree/spacewalk-repo
+# make test-srpm
 URL:          https://fedorahosted.org/spacewalk
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 BuildArch: noarch
