@@ -287,18 +287,6 @@ public class ConfigureSatelliteCommand extends BaseConfigureCommand
         ConfigMacro cmdom = MonitoringConfigFactory.
             lookupConfigMacroByName("MDOM");
         setConfigMacroDefault(cmdom, ConfigDefaults.get().getHostname());
-        ConfigMacro dbname = MonitoringConfigFactory.
-            lookupConfigMacroByName("RHN_DB_NAME");
-        setConfigMacroDefault(dbname, MonitoringConfigFactory.getDatabaseName());
-        ConfigMacro dbuname = MonitoringConfigFactory.
-            lookupConfigMacroByName("RHN_DB_USERNAME");
-        setConfigMacroDefault(dbuname, MonitoringConfigFactory.getDatabaseUsername());
-        ConfigMacro dbpass = MonitoringConfigFactory.
-            lookupConfigMacroByName("RHN_DB_PASSWD");
-        setConfigMacroDefault(dbpass, MonitoringConfigFactory.getDatabasePassword());
-        ConfigMacro dbowner = MonitoringConfigFactory.
-            lookupConfigMacroByName("RHN_DB_TABLE_OWNER");
-        setConfigMacroDefault(dbowner, MonitoringConfigFactory.getDatabaseUsername());
         ConfigMacro sathostname = MonitoringConfigFactory.
             lookupConfigMacroByName("RHN_SAT_HOSTNAME");
         setConfigMacroDefault(sathostname, ConfigDefaults.get().getHostname());
