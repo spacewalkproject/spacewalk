@@ -400,9 +400,9 @@ class SourcePackage(IncompletePackage):
 
 class Bug(Information):
     attributeTypes = {
-        'bug_id'            : StringType,
-        'bug_summary'       : StringType,
-        'bug_href'          : StringType,
+        'bug_id'        : StringType,
+        'summary'       : StringType,
+        'href'          : StringType,
     }
 
 
