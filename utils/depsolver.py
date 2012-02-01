@@ -29,7 +29,7 @@ from yum.repos import RepoStorage
 
 try:    
     from spacewalk.satellite_tools.progress_bar import ProgressBar
-except:
+except ImportError:
     _LIBPATH = "/usr/share/rhn"
     if _LIBPATH not in sys.path:
         sys.path.append(_LIBPATH)    
@@ -38,15 +38,16 @@ except:
 
 log = logging.getLogger(__name__)
 
-CACHE_DIR="/tmp/cache/yum"
+CACHE_DIR = "/tmp/cache/yum"
 
 class DepSolver:
-    def __init__(self, repos, pkgs=[]):
-        self.pkgs = pkgs
+    def __init__(self, repos, pkgs_in=[]):
+        self.pkgs = pkgs_in
         self.repos = repos
         self._repostore = RepoStorage(self)
         self.setup()
         self.loadPackages()
+        self.yrepo =  None
 
     def setup(self):
         """
@@ -70,7 +71,7 @@ class DepSolver:
          clean up the repo metadata cache from /tmp/cache/yum
         """
         for repo in self._repostore.repos:
-            cachedir = "%s/%s" % (constants.CACHE_DIR, repo)
+            cachedir = "%s/%s" % (CACHE_DIR, repo)
             shutil.rmtree(cachedir)
 
     def getDependencylist(self):
@@ -127,7 +128,7 @@ class DepSolver:
         print("Solving Dependencies (%i): " % len(pkgs))
         pb = ProgressBar(prompt='', endTag=' - complete',
                      finalSize=len(pkgs), finalBarLength=40, stream=sys.stdout)
-        pb.printAll(1);    
+        pb.printAll(1)    
                 
         for pkg in pkgs:
             pb.addTo(1)
@@ -201,12 +202,11 @@ class DepSolver:
 if __name__ == '__main__':
     if len(sys.argv) < 3:
         print "USAGE: python depsolver.py <repoid> <repodata_path> <pkgname1> <pkgname2> ....<pkgnameN>"
-        sys.exit(0)
-    import pprint
-    repo = {'id' : sys.argv[1],
+        sys.exit(0)    
+    arg_repo = {'id' : sys.argv[1],
             'relative_path' : sys.argv[2],} #path to where repodata is located
-    pkgs = sys.argv[3:]
-    dsolve = DepSolver([repo], pkgs)
+    arg_pkgs = sys.argv[3:]
+    dsolve = DepSolver([arg_repo], arg_pkgs)
     deplist = dsolve.getDependencylist()
     result_set = dsolve.processResults(deplist)
     print result_set
