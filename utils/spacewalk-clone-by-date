@@ -100,6 +100,7 @@ def parse_args():
     parser.add_option("-d", "--to_date", dest="to_date", help="Clone errata to the specified date (YYYY-MM-DD)")
     parser.add_option("-y", "--assumeyes", dest='assumeyes', action='store_true', help="Assume yes for any prompts (unattended).")
     parser.add_option("-m", "--sample-config", dest='sample', action='store_true', help="Print a sample full configuration file and exit.")
+    parser.add_option("-v", "--validate", dest='validate', action='store_true', help="Run repoclosure on the set of specified repositories.")
         
     (options, args) = parser.parse_args()    
 
@@ -121,12 +122,15 @@ def parse_args():
     if options.channels == None or len(options.channels) == 0:
         raise UserError("No channels specified. See --help for details.")
     
+
+    if not options.validate:
+        options.to_date = parse_time(options.to_date)
+    
     if not options.password:
         options.password = getpass.getpass()
     
-    options.to_date = parse_time(options.to_date)
+    
     return options
-
 
 
 def parse_time(time_str):
@@ -154,8 +158,7 @@ def main():
     except KeyboardInterrupt:
         systemExit(0, "\nUser interrupted process.")
     except UserError, error:
-        print error
-        return -1
+        systemExit(-1, "\n%s" % error)        
     return 0
 
 

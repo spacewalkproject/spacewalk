@@ -19,12 +19,11 @@
 
 
 import sys
-import time
-import copy
 import shutil
 import tempfile
 import xmlrpclib
 import pprint
+import subprocess
 
 
 from depsolver import DepSolver
@@ -58,6 +57,24 @@ def confirm(txt, options):
             sys.exit(0)        
 
 
+def validate(channel_labels):
+    tmp_dirs = {}
+    for label in channel_labels:        
+        dir = "%s/rhn/repodata/%s" % ( CFG.REPOMD_CACHE_MOUNT_POINT, label)        
+        tmp = tempfile.mkdtemp()        
+        tmp_dirs[label] = tmp
+        shutil.copytree(dir, "%s/repodata/" % tmp)
+
+    cmd = ["repoclosure"]
+    for label, path in tmp_dirs.items():
+        cmd.append("--repofrompath=%s,%s" %(label, path))        
+    subprocess.call(cmd)
+            
+    for tmp in tmp_dirs.values():
+        shutil.rmtree(tmp, True)
+        
+
+
 def main(options):        
     xmlrpc = RemoteApi(options.server, options.username, options.password)
     db = DBApi()
@@ -69,12 +86,25 @@ def main(options):
     log_debug(0, "Started spacewalk-clone-by-date")
     log_clean(0, pprint.pformat(cleansed))
     
+    
+
+    
+    
     cloners = []
     needed_channels = []
     for channel_list in options.channels:
         tree_cloner = ChannelTreeCloner(channel_list, xmlrpc, db, options.to_date, options.blacklist)
         cloners.append(tree_cloner)
         needed_channels += tree_cloner.needing_create().values()
+
+    
+    if options.validate:
+        if len(needed_channels) > 0:
+            raise UserError("Cannot validate channels that do not exist %s", str(needed_channels))
+        for channel_list in options.channels:
+            validate(channel_list)
+        return
+
         
     if len(needed_channels) > 0:        
         print "\nBy continuing the following channels will be created: "
@@ -444,6 +474,8 @@ class ChannelCloner:
             self.remote_api.remove_packages(self.to_label, found_ids)
             
         
+
+
             
 
 class RemoteApi:
