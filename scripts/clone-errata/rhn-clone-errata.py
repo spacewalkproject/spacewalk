@@ -792,6 +792,12 @@ def main():
 		        print "Errata Published"
 		    else:
 		        print "\tErrata Published!"
+
+                   # we must add the CVEs after publishing because the foreign key
+                   # constraint on 'rhnErrataCve' is for the 'rhnErrata' table, not
+                   # the 'rhnErrataTmp' table
+                   if len(spwErrCVEs):
+                       mySPW.setDetails(spwErrataName, { 'cves' : spwErrCVEs }, 0)
 	        else:
 		    if options.format:
 		        print "Errata Not Published"
