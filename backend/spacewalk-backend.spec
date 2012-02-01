@@ -12,7 +12,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.7.10
+Version: 1.7.11
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -675,6 +675,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Wed Feb 01 2012 Aron Parsons <parsonsa@bit-sys.com> 1.7.11-1
+- fix incorrect parsing of errata bug data on import (parsonsa@bit-sys.com)
+
 * Thu Jan 26 2012 Michael Mraka <michael.mraka@redhat.com> 1.7.10-1
 - fixed rhnpush ERROR: unhandled exception occurred: (timed out)
 
