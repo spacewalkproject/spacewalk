@@ -98,12 +98,7 @@ sub ProcessInput {
 
     if ($field eq 'date_executed') {
 
-      my($sec,$min,$hour,$mday,$mon,$year) = localtime($value);
-      my $timespec = "TO_DATE(?, ?)";
-      my $timestr  = sprintf("%s/%s/%s %s:%s:%s",
-	                      $mon+1, $mday, $year+1900, $hour, $min, $sec);
-      push(@values,   "$field = $timespec");
-      push(@bindvars, $timestr, 'MM/DD/YYYY HH24:MI:SS');
+      push(@values,   "$field = current_timestamp");
 
     } elsif ($field eq 'STDOUT' or $field eq 'STDERR') {
 
