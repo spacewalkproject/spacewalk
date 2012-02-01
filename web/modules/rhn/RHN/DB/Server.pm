@@ -1268,7 +1268,7 @@ sub commit {
       $sth->finish;
 
       if (not $exists) {
-	my $sth = $dbh->prepare('INSERT INTO rhnServerLocation (id, server_id) VALUES (sequence_nextval('rhn_server_loc_id_seq'), ?)');
+	my $sth = $dbh->prepare("INSERT INTO rhnServerLocation (id, server_id) VALUES (sequence_nextval('rhn_server_loc_id_seq'), ?)");
 	$sth->execute($self->id);
       }
     }
