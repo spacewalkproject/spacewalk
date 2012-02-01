@@ -23,7 +23,7 @@ sub store_probe_state
 
     my $update_probe = $cs_dbh->prepare(q{
       UPDATE RHN_PROBE_STATE
-      SET    LAST_CHECK = TO_DATE(?, 'YYYY-MM-DD HH24:MI:SS'),
+      SET    LAST_CHECK = to_timestamp(?, 'YYYY-MM-DD HH24:MI:SS'),
              STATE = ?,
              OUTPUT = ?
       WHERE  SCOUT_ID = ?
@@ -34,7 +34,7 @@ sub store_probe_state
       INSERT INTO RHN_PROBE_STATE
         (LAST_CHECK, STATE, OUTPUT, SCOUT_ID, PROBE_ID) 
       VALUES 
-        (TO_DATE(?, 'YYYY-MM-DD HH24:MI:SS'), ?, ?, ?, ?)
+        (to_timestamp(?, 'YYYY-MM-DD HH24:MI:SS'), ?, ?, ?, ?)
     });
     
     my @lines = split("\n", $probe_state);
