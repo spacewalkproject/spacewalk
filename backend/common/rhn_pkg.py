@@ -74,11 +74,20 @@ class A_Package:
     def save_payload(self, output_stream):
         """saves payload to output_stream"""
         hash = checksum.hashlib.new(self.checksum_type)
-        output_start = output_stream.tell()
+        if output_stream:
+            output_start = output_stream.tell()
         self._stream_copy(self.input_stream, output_stream, hash)
         self.checksum = hash.hexdigest()
-        self.payload_stream = output_stream
-        self.payload_size = output_stream.tell() - output_start
+        if output_stream:
+            self.payload_stream = output_stream
+            self.payload_size = output_stream.tell() - output_start
+
+    def payload_checksum(self):
+        # just read and compute checksum
+        start = self.input_stream.tell()
+        self.save_payload(None)
+        self.payload_size = self.input_stream.tell() - start
+        self.payload_stream = self.input_stream
 
 
     def _stream_copy(self, source, dest, hash=None):
@@ -87,7 +96,8 @@ class A_Package:
             buf = source.read(BUFFER_SIZE)
             if not buf:
                 break
-            dest.write(buf)
+            if dest:
+                dest.write(buf)
             if hash:
                 hash.update(buf)
 
