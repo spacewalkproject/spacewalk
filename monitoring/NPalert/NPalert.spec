@@ -9,7 +9,7 @@ Name:         NPalert
 Summary:      NOCpulse notification system
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version:      1.126.31
+Version:      1.126.32
 Release:      1%{?dist}
 BuildArch:    noarch
 Requires:     perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
@@ -137,6 +137,10 @@ fi
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Wed Feb 01 2012 Miroslav Suchý 1.126.32-1
+- get rid of PhoneContactMethod
+- rip off SNMP notification method
+
 * Tue Jan 31 2012 Jan Pazdziora 1.126.31-1
 - In monitoring, use RHN::DBI instead of RHN::DB because we do not want to
   reuse the connection.
