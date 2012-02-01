@@ -143,9 +143,6 @@ sub buildSchedules {
 PagerContactMethod.pm
 sub deliver {
 
--PhoneContactMethod.pm
--sub deliver {
-
 #Redirect.pm
 #sub redirect {
 #sub matches {
