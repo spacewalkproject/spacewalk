@@ -928,7 +928,7 @@ public class ErrataHandler extends BaseHandler {
             List<Errata> clones = ErrataManager.lookupPublishedByOriginal(
                     loggedInUser, toClone);
             if (clones.isEmpty()) {
-                errataToPublish.add(PublishErrataHelper.cloneErrataFast(toClone, 
+                errataToPublish.add(PublishErrataHelper.cloneErrataFast(toClone,
                         loggedInUser.getOrg()));
             }
             else {
