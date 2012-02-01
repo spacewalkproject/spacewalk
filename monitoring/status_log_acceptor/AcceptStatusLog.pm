@@ -22,7 +22,7 @@ sub store_probe_state
     # print "storing probe state...\n";
 
     my $update_probe = $cs_dbh->prepare(q{
-      UPDATE PROBE_STATE 
+      UPDATE RHN_PROBE_STATE
       SET    LAST_CHECK = TO_DATE(?, 'YYYY-MM-DD HH24:MI:SS'),
              STATE = ?,
              OUTPUT = ?
@@ -31,7 +31,7 @@ sub store_probe_state
     });
     
     my $insert_probe = $cs_dbh->prepare(q{
-      INSERT INTO PROBE_STATE 
+      INSERT INTO RHN_PROBE_STATE
         (LAST_CHECK, STATE, OUTPUT, SCOUT_ID, PROBE_ID) 
       VALUES 
         (TO_DATE(?, 'YYYY-MM-DD HH24:MI:SS'), ?, ?, ?, ?)
@@ -96,11 +96,11 @@ sub store_program
                      min_latency avg_latency );
 
     my $update_sql = 
-        "UPDATE SATELLITE_STATE SET LAST_CHECK = SYSDATE";
+        "UPDATE RHN_SATELLITE_STATE SET LAST_CHECK = CURRENT_TIMESTAMP";
 
     my $insert_sql = sprintf(
-       "INSERT INTO SATELLITE_STATE (SATELLITE_ID, LAST_CHECK, %s) " . 
-       "VALUES (?, SYSDATE", join(",\n", @params));
+       "INSERT INTO RHN_SATELLITE_STATE (SATELLITE_ID, LAST_CHECK, %s) " .
+       "VALUES (?, CURRENT_TIMESTAMP", join(",\n", @params));
 
     my @bindvars;
 
