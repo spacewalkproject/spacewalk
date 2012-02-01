@@ -13,13 +13,13 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <discriminator column="probe_type" type="java.lang.String" insert="false"/>
         <property name="description" column="description" not-null="true"
             type="string" length="255" access="field"/>
-        <property name="notifyCritical" column="notify_critical" type="boolean"
+        <property name="notifyCritical" column="notify_critical" type="character"
             length="1" access="field"/>
-        <property name="notifyWarning" column="notify_warning" type="boolean"
+        <property name="notifyWarning" column="notify_warning" type="character"
             length="1" access="field"/>
-        <property name="notifyUnknown" column="notify_unknown" type="boolean"
+        <property name="notifyUnknown" column="notify_unknown" type="character"
             length="1" access="field"/>
-        <property name="notifyRecovery" column="notify_recovery" type="boolean"
+        <property name="notifyRecovery" column="notify_recovery" type="character"
             length="1" access="field"/>
         <property name="notificationIntervalMinutes"
             column="notification_interval_minutes" not-null="true" type="long"

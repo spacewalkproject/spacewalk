@@ -98,7 +98,7 @@ public class ProbeSuiteProbeEditActionTest extends RhnBaseTestCase {
         assertEquals("success", af.getName());
 
         Probe edited = (Probe) reload(probe);
-        assertTrue(edited.getNotifyCritical().booleanValue());
+        assertTrue(edited.isNotifyCritical().booleanValue());
         MonitoringTestUtils.verifyParameters(edited, probe.getCommand());
         assertEquals(intv, edited.getCheckIntervalMinutes());
     }

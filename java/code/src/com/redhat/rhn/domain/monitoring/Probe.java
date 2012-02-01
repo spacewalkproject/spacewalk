@@ -23,6 +23,7 @@ import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.user.User;
 
 import org.apache.commons.collections.Transformer;
+import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
 import java.util.Date;
@@ -39,10 +40,10 @@ public abstract class Probe implements Identifiable, Comparable {
     private Long id;
 
     private String description;
-    private Boolean notifyCritical;
-    private Boolean notifyWarning;
-    private Boolean notifyUnknown;
-    private Boolean notifyRecovery;
+    private Character notifyCritical;
+    private Character notifyWarning;
+    private Character notifyUnknown;
+    private Character notifyRecovery;
     private Long notificationIntervalMinutes;
     private Long checkIntervalMinutes;
     private Long retryIntervalMinutes;
@@ -103,8 +104,8 @@ public abstract class Probe implements Identifiable, Comparable {
      * Getter for notifyCritical
      * @return Boolean to get
     */
-    public Boolean getNotifyCritical() {
-        return this.notifyCritical;
+    public Boolean isNotifyCritical() {
+        return this.notifyCritical != null;
     }
 
     /**
@@ -112,6 +113,14 @@ public abstract class Probe implements Identifiable, Comparable {
      * @param notifyCriticalIn to set
     */
     public void setNotifyCritical(Boolean notifyCriticalIn) {
+        setNotifyCritical(BooleanUtils.toBoolean(notifyCriticalIn) ? '1' : null);
+    }
+
+    /**
+     * Setter for notifyCritical
+     * @param notifyCriticalIn to set
+    */
+    public void setNotifyCritical(Character notifyCriticalIn) {
         this.notifyCritical = notifyCriticalIn;
     }
 
@@ -119,8 +128,8 @@ public abstract class Probe implements Identifiable, Comparable {
      * Getter for notifyWarning
      * @return Boolean to get
     */
-    public Boolean getNotifyWarning() {
-        return this.notifyWarning;
+    public Boolean isNotifyWarning() {
+        return this.notifyWarning != null;
     }
 
     /**
@@ -128,6 +137,14 @@ public abstract class Probe implements Identifiable, Comparable {
      * @param notifyWarningIn to set
     */
     public void setNotifyWarning(Boolean notifyWarningIn) {
+        setNotifyWarning(BooleanUtils.toBoolean(notifyWarningIn) ? '1' : null);
+    }
+
+    /**
+     * Setter for notifyWarning
+     * @param notifyWarningIn to set
+    */
+    public void setNotifyWarning(Character notifyWarningIn) {
         this.notifyWarning = notifyWarningIn;
     }
 
@@ -135,8 +152,8 @@ public abstract class Probe implements Identifiable, Comparable {
      * Getter for notifyUnknown
      * @return Boolean to get
     */
-    public Boolean getNotifyUnknown() {
-        return this.notifyUnknown;
+    public Boolean isNotifyUnknown() {
+        return this.notifyUnknown != null;
     }
 
     /**
@@ -144,6 +161,14 @@ public abstract class Probe implements Identifiable, Comparable {
      * @param notifyUnknownIn to set
     */
     public void setNotifyUnknown(Boolean notifyUnknownIn) {
+        setNotifyUnknown(BooleanUtils.toBoolean(notifyUnknownIn) ? '1' : null);
+    }
+
+    /**
+     * Setter for notifyUnknown
+     * @param notifyUnknownIn to set
+    */
+    public void setNotifyUnknown(Character notifyUnknownIn) {
         this.notifyUnknown = notifyUnknownIn;
     }
 
@@ -151,8 +176,8 @@ public abstract class Probe implements Identifiable, Comparable {
      * Getter for notifyRecovery
      * @return Boolean to get
     */
-    public Boolean getNotifyRecovery() {
-        return this.notifyRecovery;
+    public Boolean isNotifyRecovery() {
+        return this.notifyRecovery != null;
     }
 
     /**
@@ -160,6 +185,14 @@ public abstract class Probe implements Identifiable, Comparable {
      * @param notifyRecoveryIn to set
     */
     public void setNotifyRecovery(Boolean notifyRecoveryIn) {
+        setNotifyRecovery(BooleanUtils.toBoolean(notifyRecoveryIn) ? '1' : null);
+    }
+
+    /**
+     * Setter for notifyRecovery
+     * @param notifyRecoveryIn to set
+    */
+    public void setNotifyRecovery(Character notifyRecoveryIn) {
         this.notifyRecovery = notifyRecoveryIn;
     }
 
@@ -442,10 +475,10 @@ public abstract class Probe implements Identifiable, Comparable {
         copied.setDescription(this.getDescription());
         copied.setMaxAttempts(this.getMaxAttempts());
         copied.setNotificationIntervalMinutes(this.getNotificationIntervalMinutes());
-        copied.setNotifyCritical(this.getNotifyCritical());
-        copied.setNotifyRecovery(this.getNotifyRecovery());
-        copied.setNotifyUnknown(this.getNotifyUnknown());
-        copied.setNotifyWarning(this.getNotifyWarning());
+        copied.setNotifyCritical(this.isNotifyCritical());
+        copied.setNotifyRecovery(this.isNotifyRecovery());
+        copied.setNotifyUnknown(this.isNotifyUnknown());
+        copied.setNotifyWarning(this.isNotifyWarning());
         copied.setRetryIntervalMinutes(this.getRetryIntervalMinutes());
         copied.setId(null);
         copied.setLastUpdateDate(this.getLastUpdateDate());

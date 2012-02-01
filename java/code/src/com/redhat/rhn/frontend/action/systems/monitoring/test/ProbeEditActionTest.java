@@ -103,7 +103,7 @@ public class ProbeEditActionTest extends RhnBaseTestCase {
         ServerProbe edited = (ServerProbe) reload(probe);
         assertPropertyEquals("checkIntervalMinutes", probe, edited);
         assertPropertyEquals("description", probe, edited);
-        assertEquals(Boolean.TRUE, edited.getNotifyCritical());
+        assertEquals(Boolean.TRUE, edited.isNotifyCritical());
         MonitoringTestUtils.verifyParameters(edited, probe.getCommand());
     }
 

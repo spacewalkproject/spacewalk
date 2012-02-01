@@ -151,10 +151,10 @@ public class ProbeSuiteTest extends BaseTestCaseWithUser {
         tprobe.setLastUpdateUser("someUserChanged");
         tprobe.setMaxAttempts(new Long(7));
         tprobe.setNotificationIntervalMinutes(new Long(5150));
-        tprobe.setNotifyCritical(new Boolean(!tprobe.getNotifyCritical().booleanValue()));
-        tprobe.setNotifyRecovery(new Boolean(!tprobe.getNotifyRecovery().booleanValue()));
-        tprobe.setNotifyUnknown(new Boolean(!tprobe.getNotifyUnknown().booleanValue()));
-        tprobe.setNotifyWarning(new Boolean(!tprobe.getNotifyWarning().booleanValue()));
+        tprobe.setNotifyCritical(new Boolean(!tprobe.isNotifyCritical().booleanValue()));
+        tprobe.setNotifyRecovery(new Boolean(!tprobe.isNotifyRecovery().booleanValue()));
+        tprobe.setNotifyUnknown(new Boolean(!tprobe.isNotifyUnknown().booleanValue()));
+        tprobe.setNotifyWarning(new Boolean(!tprobe.isNotifyWarning().booleanValue()));
         tprobe.setRetryIntervalMinutes(new Long(42));
 
         ProbeParameterValue pval = (ProbeParameterValue)
@@ -223,10 +223,10 @@ public class ProbeSuiteTest extends BaseTestCaseWithUser {
         assertEquals(probeOne.getMaxAttempts(), probeTwo.getMaxAttempts());
         assertEquals(probeOne.getNotificationIntervalMinutes(),
                 probeTwo.getNotificationIntervalMinutes());
-        assertEquals(probeOne.getNotifyCritical(), probeTwo.getNotifyCritical());
-        assertEquals(probeOne.getNotifyRecovery(), probeTwo.getNotifyRecovery());
-        assertEquals(probeOne.getNotifyUnknown(), probeTwo.getNotifyUnknown());
-        assertEquals(probeOne.getNotifyWarning(), probeTwo.getNotifyWarning());
+        assertEquals(probeOne.isNotifyCritical(), probeTwo.isNotifyCritical());
+        assertEquals(probeOne.isNotifyRecovery(), probeTwo.isNotifyRecovery());
+        assertEquals(probeOne.isNotifyUnknown(), probeTwo.isNotifyUnknown());
+        assertEquals(probeOne.isNotifyWarning(), probeTwo.isNotifyWarning());
         assertEquals(probeOne.getOrg(), probeTwo.getOrg());
 
         // Create some temporary sets of just the actual

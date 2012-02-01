@@ -58,7 +58,7 @@ public abstract class BaseProbeEditAction extends BaseProbeAction {
         }
         else {
             // Initialize the form
-            form.set(NOTIFICATION, probe.getNotifyCritical());
+            form.set(NOTIFICATION, probe.isNotifyCritical());
             form.set(DESCR, probe.getDescription());
             form.set(NOTIFICATION_INTERVAL_MIN, probe.getNotificationIntervalMinutes());
             if (probe.getContactGroup() != null) {

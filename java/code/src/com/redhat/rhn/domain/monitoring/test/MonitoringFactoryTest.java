@@ -85,7 +85,7 @@ public class MonitoringFactoryTest extends RhnBaseTestCase {
         probe = MonitoringFactory.lookupProbeByIdAndOrg(probeId, user.getOrg());
         assertNotNull(probe.getState());
         assertNotNull(probe.getState().getProbe());
-        assertFalse(probe.getNotifyCritical().booleanValue());
+        assertFalse(probe.isNotifyCritical().booleanValue());
     }
 
     public void testProbeLastUpdate() throws Exception {
