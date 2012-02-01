@@ -2,7 +2,7 @@
 %define hb_res_dir     %{_sysconfdir}/ha.d/resource.d
 %define installed_dir  %sysv_dir/installed
 Name:         SatConfig-general
-Version:      1.216.25
+Version:      1.216.26
 Release:      1%{?dist}
 Summary:      Satellite Configuration System - general setup, used by many packages
 URL:          https://fedorahosted.org/spacewalk
@@ -65,6 +65,10 @@ install -D -p -m 755 NOCpulse-ini $RPM_BUILD_ROOT%{_sbindir}/NOCpulse-ini
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Wed Feb 01 2012 Jan Pazdziora 1.216.26-1
+- Now we use RHN::DBI, the database handle is brand new, let's disconnect as
+  well.
+
 * Fri Sep 09 2011 Michael Mraka <michael.mraka@redhat.com> 1.216.25-1
 - fixed start order of Monitoring services
 
