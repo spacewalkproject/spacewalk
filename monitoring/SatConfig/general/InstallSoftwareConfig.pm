@@ -22,6 +22,7 @@ sub startActions
 			$ini->connect();
 			$ini->fetch_nocpulseini('INTERNAL');
 			$ini->save();
+			$ini->disconnect();
 		};
 		if ($@) {
 			$self->addError($@);

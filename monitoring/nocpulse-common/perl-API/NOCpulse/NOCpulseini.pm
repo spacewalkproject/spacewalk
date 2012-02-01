@@ -49,6 +49,15 @@ sub connect {
   return $dbh;
 }
 
+sub disconnect {
+  my $self = shift;
+  my $dbh = $self->dbh;
+  if (defined $dbh) {
+    $dbh->disconnect;
+  }
+  $self->dbh(undef);
+}
+
 sub save {
   my $self     = shift;
   my $filename = shift || $self->filename;
