@@ -293,7 +293,7 @@ public class ChannelManagerTest extends BaseTestCaseWithUser {
         Channel c = ChannelFactoryTest.createTestChannel(user);
         Errata e = ErrataFactoryTest.createTestErrata(user.getOrg().getId());
         List<Errata> errataList = new ArrayList<Errata>();
-        errataList.add(e);                      
+        errataList.add(e);                     
         ErrataFactory.publishToChannel(errataList, c, user, false);
 
         e = (Errata) TestUtils.saveAndReload(e);

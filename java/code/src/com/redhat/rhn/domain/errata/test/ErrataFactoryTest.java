@@ -141,7 +141,8 @@ public class ErrataFactoryTest extends BaseTestCaseWithUser {
 
         List<Errata> errataList = new ArrayList<Errata>();
         errataList.add(e);
-        List<Errata> publishedList = ErrataFactory.publishToChannel(errataList, channel, user, false);
+        List<Errata> publishedList = ErrataFactory.publishToChannel(errataList, 
+                channel, user, false);
         Errata published = publishedList.get(0);
         assertTrue(channel.getPackages().contains(errataPack));
         List<PublishedErrataFile> errataFile =
