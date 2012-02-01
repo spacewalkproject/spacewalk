@@ -3,7 +3,7 @@ package NOCpulse::AcceptStatusLog;
 
 use strict;
 
-use DBI;
+use RHN::DBI;
 use CGI;
 use NOCpulse::Config;
 use LWP::UserAgent;
@@ -206,10 +206,7 @@ sub handler
 	{
 	    # print "connecting to current state database...\n";
 	    
-	    $cs_dbh = DBI->connect("DBI:$cs_dbd:$cs_dbname",
-				   $cs_dbuname,
-				   $cs_dbpass,
-				   { RaiseError => 1, AutoCommit => 0 });
+	    $cs_dbh = RHN::DBI->connect();
 	};
 	if( not defined $cs_dbh )
 	{
