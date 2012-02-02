@@ -120,7 +120,7 @@ def main(options):
             raise UserError("Cannot validate channels that do not exist %s", 
                             str(needed_channels))
         for channel_list in options.channels:
-            validate(channel_list)
+            validate(channel_list.values())
         return
 
         
@@ -368,8 +368,8 @@ class ChannelCloner:
         return diff_packages(self.old_pkg_hash.values(), self.new_pkg_hash.values()) 
 
         
-    def reset_original_pkgs(self):
-        self.old_pkg_hash =  dict((pkg['nvrea'], pkg) for pkg in self.remote_api.list_packages(self.to_label))         
+    def reset_original_pkgs(self):        
+        self.old_pkg_hash = dict((pkg['nvrea'], pkg) for pkg in self.remote_api.list_packages(self.to_label))         
         return self.old_pkg_hash
         
     def reset_new_pkgs(self):
@@ -530,7 +530,7 @@ class RemoteApi:
         #name-ver-rel.arch,
         for pkg in pkg_list:
             pkg['nvrea'] =  "%s-%s-%s.%s" % (pkg['name'], pkg['version'], pkg['release'], pkg['arch_label']) 
-        return list
+        return pkg_list
     
     def clone_errata(self, to_label, errata_list):
         self.client.errata.cloneAsOriginal(self.auth_token, to_label, errata_list)
