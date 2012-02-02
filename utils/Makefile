@@ -6,10 +6,10 @@ NAME := spacewalk-utils
 
 SUBDIR  = utils
 
-FILES	= __init__ systemSnapshot migrateSystemProfile
+FILES	= __init__ systemSnapshot migrateSystemProfile depsolver cloneByDate
 SCRIPTS = sw-system-snapshot migrate-system-profile spacewalk-api apply_errata \
 	  scr.cgi spacewalk-common-channels delete-old-systems-interactive spacewalk-hostname-rename \
-	  spacewalk-dump-schema
+	  spacewalk-dump-schema spacewalk-clone-by-date
 CONFIGS = spacewalk-common-channels.ini
 
 DOCBOOK = $(wildcard /usr/bin/docbook2man)

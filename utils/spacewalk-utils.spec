@@ -72,6 +72,8 @@ rm -rf $RPM_BUILD_ROOT
 %{rhnroot}/utils/__init__.py*
 %{rhnroot}/utils/systemSnapshot.py*
 %{rhnroot}/utils/migrateSystemProfile.py*
+%{rhnroot}/utils/cloneByDate.py*
+%{rhnroot}/utils/depsolver.py*
 %{_mandir}/man8/*
 
 
