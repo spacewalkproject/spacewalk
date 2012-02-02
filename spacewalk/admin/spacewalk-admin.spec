@@ -2,7 +2,7 @@
 Summary: Various utility scripts and data files for RHN Satellite installations
 Name: spacewalk-admin
 URL:     https://fedorahosted.org/spacewalk
-Version: 1.7.0
+Version: 1.7.1
 Release: 1%{?dist}
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 License: GPLv2
@@ -70,6 +70,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/rhn-config-satellite.pl.8*
 
 %changelog
+* Thu Feb 02 2012 Michael Mraka <michael.mraka@redhat.com> 1.7.1-1
+- fixed write error: Broken pipe
+
 * Mon Dec 12 2011 Martin Minar <mminar@redhat.com> 1.6.3-1
 - On F16 some services are run using systemd. Some remain in old fashion
   init.d. (mminar@redhat.com)
