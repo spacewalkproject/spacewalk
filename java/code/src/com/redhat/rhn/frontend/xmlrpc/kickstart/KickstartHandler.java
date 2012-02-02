@@ -479,14 +479,6 @@ public class KickstartHandler extends BaseHandler {
         cmd.setLabel(newLabel);
         cmd.store();
 
-        /*if (op.getTree() == null) {
-            throw new InvalidKickstartTreeException("api.kickstart.tree.notfound");
-        }
-        op.setLabel(newLabel);
-        ValidatorError ve = op.store();
-        if (ve != null) {
-            throw new InvalidKickstartTreeException(ve.getKey());
-        }*/
         return 1;
     }
 
