@@ -57,7 +57,7 @@ public class ApiHandler extends BaseHandler {
      * @return the api version.
      *
      * @xmlrpc.doc Returns the version of the API. Since Spacewalk 0.4
-     * (Satellie 5.3) it is no more related to server version.
+     * (Satellite 5.3) it is no more related to server version.
      * @xmlrpc.returntype string
      */
     public String getVersion() {
