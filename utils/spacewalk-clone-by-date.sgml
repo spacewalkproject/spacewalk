@@ -12,17 +12,18 @@
 <RefNameDiv>
 <RefName><command>spacewalk-clone-by-date</command></RefName>
 <RefPurpose>
+<para>
 Script to clone software channels and errata up to specific dates ensuring any added packages have their 
 dependencies satisifed.  Any destination channels that do not exist will be created.
-
+</para><para>
 By specifying channels on the command line, only a single channel tree (a base channel and its children) 
 can be cloned with a single command.  If you would like to specify multiple trees within a single command, 
 simply use a configuration file.  See --sample-config for a sample.
-
+</para><para>
 All options can either be specified in the configuration file or via command line.  Any option specified via 
 command line will override a configuration file value with the exception of channels.  If a configuration file is 
 specified, --channels is not a valid command line argument.  
-
+</para>
 </RefPurpose>
 </RefNameDiv>
 
@@ -59,6 +60,9 @@ specified, --channels is not a valid command line argument.
         <arg>-b<replaceable>PKG1,PKG2,PKG3</replaceable></arg>
         <arg>--blacklist=<replaceable>PKG1,PKG2,PKG3</replaceable></arg>
     </cmdsynopsis>    
+    <cmdsynopsis>
+        <arg>-v</arg><arg> --validate </arg>
+    </cmdsynopsis>   
     <cmdsynopsis>
         <arg>-y</arg><arg> --assumeyes </arg>
     </cmdsynopsis>   
@@ -126,6 +130,12 @@ specified, --channels is not a valid command line argument.
             	continue uninterrupted.</para>
         </listitem>
     </varlistentry>    
+    <varlistentry>
+        <term> -v  --validate
+        <listitem>
+            <para>Run repoclosure on all provided channels.  This overrides --to_date and will not perform any cloning.</para>
+        </listitem>
+    </varlistentry>   
     <varlistentry>
         <term> -b <replaceable>PKG1,PKG2,PKG3</replaceable>
         	--blacklist=<replaceable>PKG1,PKG2,PKG3</replaceable> </term>
