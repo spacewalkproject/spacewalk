@@ -451,15 +451,15 @@ public class KickstartHandler extends BaseHandler {
      * Rename a kickstart profile.
      *
      * @param sessionKey User's session key.
-     * @param originalLabel Label for tree we want to edit
-     * @param newLabel to assign to tree.
+     * @param originalLabel Label for profile we want to edit
+     * @param newLabel to assign to profile
      * @return 1 if successful, exception otherwise.
      *
-     * @xmlrpc.doc Rename a Kickstart Tree (Distribution) in Satellite
+     * @xmlrpc.doc Rename a Kickstart Profile in Satellite
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param_desc("string", "originalLabel" "Label for the
-     * kickstart tree you want to rename")
-     * @xmlrpc.param #param_desc("string", "newLabel" "new label to change too")
+     * kickstart profile you want to rename")
+     * @xmlrpc.param #param_desc("string", "newLabel" "new label to change to")
      * @xmlrpc.returntype #return_int_success()
      */
     public int renameProfile(String sessionKey, String originalLabel, String newLabel) {
