@@ -84,7 +84,7 @@ ORDER BY p.description
 SELECT recid, redirect_type, description, expiration
 FROM rhn_redirects
 WHERE customer_id = :org_id
-AND expiration >= sysdate
+AND expiration >= current_timestamp
 ]]>
   </query>
 </mode>
@@ -94,7 +94,7 @@ AND expiration >= sysdate
 SELECT recid, redirect_type, description, expiration
 FROM rhn_redirects
 WHERE customer_id = :org_id
-AND expiration <= sysdate
+AND expiration <= current_timestamp
 ]]>
   </query>
 </mode>
