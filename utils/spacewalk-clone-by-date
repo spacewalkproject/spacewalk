@@ -24,11 +24,12 @@ import getpass
 from optparse import OptionParser
 import simplejson as json
 
-#try:
-import cloneByDate
-from cloneByDate import UserError
-#except:
-#    from utils import cloneByDate
+_LIBPATH = "/usr/share/rhn"
+if _LIBPATH not in sys.path:
+    sys.path.append(_LIBPATH)
+
+from utils import cloneByDate
+from utils.cloneByDate import UserError
 
 
 SAMPLE_CONFIG = """
