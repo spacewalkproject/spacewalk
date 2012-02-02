@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.7.17
+Version: 1.7.18
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -555,6 +555,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Feb 02 2012 Jan Pazdziora 1.7.18-1
+- 785599 - No helpful NOTE if we are yet to create the kickstart profile.
+
 * Wed Feb 01 2012 Justin Sherrill <jsherril@redhat.com> 1.7.17-1
 - improving speed of errata cloning within the spacewalk api
   (jsherril@redhat.com)
