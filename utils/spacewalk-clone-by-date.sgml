@@ -17,7 +17,6 @@ Utility for cloning errata by date.
 </RefNameDiv>
 
 <refsection id="spacewalk-clone-by-date-description">
-  <title>Description</title>
   <para>
     Script to clone software channels and errata up to specific dates ensuring any added packages have their 
     dependencies satisifed.  Any destination channels that do not exist will be created.
