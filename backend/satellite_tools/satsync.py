@@ -563,6 +563,9 @@ Unable to import certificate:
 channel dump generation %s incompatible with cert generation %s.
 Please contact your RHN representative""") % (generation, sat_cert.generation))
 
+
+        satCerts.set_slots_from_cert(sat_cert, testonly=True)
+
         # push it into the database
         log2(1, 4, _("    - syncing to local database"))
 

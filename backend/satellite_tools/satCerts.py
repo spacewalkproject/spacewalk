@@ -168,7 +168,7 @@ group by org, label
 """)
 
 
-def set_slots_from_cert(cert):
+def set_slots_from_cert(cert, testonly=False):
     """ populates database with entitlements from an RHN certificate
         "cert" is a satellite_cert.SatelliteCert() object
         NOTE: should only be called by storeRhnCert()
@@ -328,6 +328,8 @@ def set_slots_from_cert(cert):
         sys.stderr.write("Activation failed, will now exit with no changes.\n")
         sys.exit(1)
 
+    if testonly:
+        return
 
 
     activate_system_entitlement = rhnSQL.Procedure(
