@@ -4,6 +4,7 @@ use strict;
 use CGI;
 use NOCpulse::NOCpulseini;
 use NOCpulse::NPRecords;
+use NOCpulse::Config ();
 use lib qw(/etc/rc.d/np.d);
 use PhysCluster;
 
