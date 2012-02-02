@@ -49,6 +49,7 @@ sub new
     $self->polling_interval($polling_interval);
 
     my $url = $cfg->get('queues', 'eventHandler');
+    die "Could not retrieve value queues -> eventHandler from config.\n" unless ($url);
     my $uri = new URI($url);
     my $smon_host = $uri->host();
     my $url_path = $uri->path();
