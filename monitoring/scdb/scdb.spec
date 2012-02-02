@@ -1,6 +1,6 @@
 Name:         scdb
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version:      1.15.6
+Version:      1.15.7
 Release:      1%{?dist}
 Summary:      State Change Database
 URL:          https://fedorahosted.org/spacewalk
@@ -43,6 +43,9 @@ install -m 644 SCDB.pm $RPM_BUILD_ROOT%{perl_vendorlib}/NOCpulse
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Thu Feb 02 2012 Jan Pazdziora 1.15.7-1
+- removing non-working debugging scripts (michael.mraka@redhat.com)
+
 * Wed Feb 11 2009 Miroslav Suchý <msuchy@redhat.com> 1.15.6-1
 - remove dead code (apachereg)
 
