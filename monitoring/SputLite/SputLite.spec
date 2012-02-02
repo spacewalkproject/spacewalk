@@ -5,7 +5,7 @@
 %define vardir         /var/lib/nocpulse
 Name:         SputLite
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version:      1.7.1
+Version:      1.7.2
 Release:      1%{?dist}
 Summary:      Command queue processor (Sputnik Lite)
 URL:          https://fedorahosted.org/spacewalk
@@ -98,6 +98,9 @@ fi
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Thu Feb 02 2012 Jan Pazdziora 1.7.2-1
+- import used module (msuchy@redhat.com)
+
 * Wed Feb 01 2012 Jan Pazdziora 1.7.1-1
 - Make the Completed value not truncated to day which makes the scout config
   push actually green.
