@@ -12,6 +12,7 @@
 <RefNameDiv>
 <RefName><command>spacewalk-clone-by-date</command></RefName>
 <RefPurpose>
+Utility for cloning errata by date.
 </RefPurpose>
 </RefNameDiv>
 
