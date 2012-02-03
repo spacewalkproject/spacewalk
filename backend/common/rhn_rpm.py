@@ -205,13 +205,13 @@ class RPM_Package(A_Package):
         return header_size
 
     def save_payload(self, output_stream):
-        hash = checksum.hashlib.new(self.checksum_type)
+        c_hash = checksum.hashlib.new(self.checksum_type)
         if output_stream:
             output_start = output_stream.tell()
         self.header_data.seek(0,0)
-        self._stream_copy(self.header_data, output_stream, hash)
-        self._stream_copy(self.input_stream, output_stream, hash)
-        self.checksum = hash.hexdigest()
+        self._stream_copy(self.header_data, output_stream, c_hash)
+        self._stream_copy(self.input_stream, output_stream, c_hash)
+        self.checksum = c_hash.hexdigest()
         self.header_data.close()
         if output_stream:
             self.payload_stream = output_stream

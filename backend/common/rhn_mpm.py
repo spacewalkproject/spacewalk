@@ -239,24 +239,24 @@ class MPM_Package(A_Package):
         stream.flush()
         self.header_size = stream.tell() - start
 
-    def _encode_payload(self, stream, hash=None):
+    def _encode_payload(self, stream, c_hash=None):
         assert(self.payload_stream is not None)
         if stream:
             start = stream.tell()
         if stream and self.payload_flags & MPM_PAYLOAD_COMPRESSED_GZIP:
             f = gzip.GzipFile(None, "wb", 9, stream)
-            self._stream_copy(self.payload_stream, f, hash)
+            self._stream_copy(self.payload_stream, f, c_hash)
             f.close()
         else:
-            self._stream_copy(self.payload_stream, stream, hash)
+            self._stream_copy(self.payload_stream, stream, c_hash)
         if stream:
             self.payload_size = stream.tell() - start
 
     def save_payload(self, output_stream):
         self.payload_stream = self.input_stream
-        hash = checksum.hashlib.new(self.header.checksum_type())
-        self._encode_payload(output_stream, hash)
-        self.checksum = hash.hexdigest()
+        c_hash = checksum.hashlib.new(self.header.checksum_type())
+        self._encode_payload(output_stream, c_hash)
+        self.checksum = c_hash.hexdigest()
         if output_stream:
             self.payload_stream = output_stream
 

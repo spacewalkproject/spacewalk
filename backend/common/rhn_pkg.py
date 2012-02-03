@@ -73,11 +73,11 @@ class A_Package:
 
     def save_payload(self, output_stream):
         """saves payload to output_stream"""
-        hash = checksum.hashlib.new(self.checksum_type)
+        c_hash = checksum.hashlib.new(self.checksum_type)
         if output_stream:
             output_start = output_stream.tell()
-        self._stream_copy(self.input_stream, output_stream, hash)
-        self.checksum = hash.hexdigest()
+        self._stream_copy(self.input_stream, output_stream, c_hash)
+        self.checksum = c_hash.hexdigest()
         if output_stream:
             self.payload_stream = output_stream
             self.payload_size = output_stream.tell() - output_start
@@ -90,7 +90,7 @@ class A_Package:
         self.payload_stream = self.input_stream
 
 
-    def _stream_copy(self, source, dest, hash=None):
+    def _stream_copy(self, source, dest, c_hash=None):
         """copies data from the source stream to the destination stream"""
         while True:
             buf = source.read(BUFFER_SIZE)
@@ -98,8 +98,8 @@ class A_Package:
                 break
             if dest:
                 dest.write(buf)
-            if hash:
-                hash.update(buf)
+            if c_hash:
+                c_hash.update(buf)
 
     def _read_bytes(self, stream, amt):
         ret = ""

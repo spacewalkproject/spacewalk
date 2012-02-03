@@ -104,11 +104,11 @@ class DEB_Package(A_Package):
             raise InvalidPackageError, None, sys.exc_info()[2]
 
     def save_payload(self, output_stream):
-        hash = checksum.hashlib.new(self.checksum_type)
+        c_hash = checksum.hashlib.new(self.checksum_type)
         if output_stream:
             output_start = output_stream.tell()
-        self._stream_copy(self.header_data, output_stream, hash)
-        self.checksum = hash.hexdigest()
+        self._stream_copy(self.header_data, output_stream, c_hash)
+        self.checksum = c_hash.hexdigest()
         if output_stream:
             self.payload_stream = output_stream
             self.payload_size = output_stream.tell() - output_start
