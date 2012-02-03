@@ -681,7 +681,6 @@ def initCFG(component=None, root=None, filename=None):
     Main entry point here
     """
     # NOTE: root: root directory location of config files.
-    global CFG
     CFG.init(component, root, filename)
     CFG.parse()
 
