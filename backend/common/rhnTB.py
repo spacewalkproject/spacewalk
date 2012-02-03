@@ -74,6 +74,7 @@ def print_locals(fd = sys.stderr, tb = None):
             # We have to be careful not to cause a new error in our error
             # printer! Calling str() on an unknown object could cause an
             # error we don't want.
+            # pylint: disable=W0702
             try:
                 s = str(value)
             except:
