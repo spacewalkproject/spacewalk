@@ -27,23 +27,16 @@ sub init {
        LINUX() => 
        {
         binary => '/usr/bin/iostat',
-        args   => '-d',
+        args   => '-dk',
         parse  =>
         sub {            
             my ($self, $line) = @_;
             # systat 2.0
-            # Disks:         tps    Kb_read/s    Kb_wrtn/s    Kb_read    Kb_wrtn
-            # hdisk0        1.72         0.28         2.28     777171    6336201
-            # hdisk1        0.00         0.00         0.00          0          0
+            # Device:       tps    Kb_read/s    Kb_wrtn/s    Kb_read    Kb_wrtn
+            # sda           1.72         0.28         2.28     777171    6336201
+            # sda1          0.00         0.00         0.00          0          0
 
-            # systat 4.0 block size is "indeterminate", but there seems to be
-            # no way to find out the physical block size for a disk, so we ignore
-            # this and pretend it's kbytes. The docs must indicate that on Linux
-            # systems with recent systat versions the values are blocks, not kbytes.
-            # Device:            tps   Blk_read/s   Blk_wrtn/s   Blk_read   Blk_wrtn
-            # hdisk0           11.28        20.92        69.32  133553176  442518208
-            # hdisk1           10.71        16.33        69.34  104241774  442697900
-            if (($line =~ /^\w*$for_disk/i) || ($line =~ /^\w*\-$for_disk/i))  {
+            if (($line =~ /^\w*$for_disk\s+/i) or ($line =~ /^\w*\-$for_disk\s+/i))  {
                 my ($in, $out) = (split(' ', $line))[4, 5];
                 $self->found_disk(1);
                 $self->kbytes_read($in);
@@ -62,7 +55,7 @@ sub init {
             # device       r/i    w/i   kr/i   kw/i wait actv  svc_t  %w  %b 
             # md10      474405.0 3045303.0 5471763.0 20576798.0  0.0  0.0   30.0   1   2 
             # md11      237203.0 3044285.0 2739555.0 20554596.5  0.0  0.0   17.2   0   1 
-            if ($line =~ /^\w*$for_disk/i) {
+            if ($line =~ /^\w*$for_disk\s+/i) {
                 $self->found_disk(1);
                 my ($in, $out) = (split(' ', $line))[3, 4];
                 $self->found_disk(1);
