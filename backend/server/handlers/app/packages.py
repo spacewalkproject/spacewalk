@@ -293,6 +293,15 @@ class Packages(RPC_Base):
             for k in package_keys:
                 if not package.has_key(k):
                     raise Exception("Missing key %s" % k)
+                if k == 'epoch':
+                    if package[k] is not None:
+                        if package[k] == '':
+                            package[k] = None
+                        else:
+                            package[k] = str(package[k])
+                else:
+                    package[k] = str(package[k])
+
             if package['arch'] == 'src' or package['arch'] == 'nosrc':
                 # Source package - no reason to continue
                 continue
@@ -309,13 +318,9 @@ class Packages(RPC_Base):
 
             h = rhnSQL.prepare(self._get_pkg_info_query % \
                                 _checksum_sql_filter)
-            pkg_epoch =  None
-            if package['epoch'] is not None and package['epoch'] != '':
-                pkg_epoch = str(package['epoch'])
-
             if checksum_exists:
                 h.execute(pkg_name=package['name'], \
-                pkg_epoch=pkg_epoch, \
+                pkg_epoch=package['epoch'], \
                 pkg_version=package['version'], \
                 pkg_rel=package['release'],pkg_arch=package['arch'], \
                 orgid = org_id, \
@@ -323,7 +328,7 @@ class Packages(RPC_Base):
                 checksum = package['checksum'])
             else:
                 h.execute(pkg_name=package['name'], \
-                pkg_epoch=pkg_epoch, \
+                pkg_epoch=package['epoch'], \
                 pkg_version=package['version'], \
                 pkg_rel=package['release'], \
                 pkg_arch=package['arch'], orgid = org_id )
