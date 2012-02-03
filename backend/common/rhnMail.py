@@ -43,7 +43,7 @@ def __check_headers(h):
     return [h, toaddrs]
 
 # check the headers for sanity cases and send the mail
-def send(headers, body, sender = None, lazy = 0):
+def send(headers, body, sender = None):
     (headers, toaddrs) = __check_headers(headers)
     if sender is None:
         sender = headers["From"]
