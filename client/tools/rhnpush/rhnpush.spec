@@ -4,7 +4,7 @@ Name:          rhnpush
 Group:         Applications/System
 License:       GPLv2
 URL:           http://fedorahosted.org/spacewalk
-Version:       5.5.36
+Version:       5.5.37
 Release:       1%{?dist}
 Source0:       https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 BuildRoot:     %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -56,6 +56,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/solaris2mpm.8*
 
 %changelog
+* Sat Feb 04 2012 Michael Mraka <michael.mraka@redhat.com> 5.5.37-1
+- fixed pylint errors / warnings
+
 * Wed Dec 21 2011 Milan Zazrivec <mzazrivec@redhat.com> 5.5.36-1
 - update copyright info
 
