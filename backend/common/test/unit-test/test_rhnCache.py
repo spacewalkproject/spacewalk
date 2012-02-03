@@ -21,6 +21,7 @@ import unittest
 from spacewalk.common import rhnCache
 
 class Tests(unittest.TestCase):
+    # pylint: disable=R0904
     key = "unit-test/test"
     content = ""
     for i in range(256):

@@ -33,6 +33,7 @@ if topdir not in sys.path:
 from spacewalk.common import rhnTranslate
 
 class Tests(unittest.TestCase):
+    # pylint: disable=R0904
     
     @staticmethod
     def _setup(lang):
