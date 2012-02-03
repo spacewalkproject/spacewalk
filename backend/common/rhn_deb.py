@@ -29,9 +29,6 @@ from rhn_pkg import A_Package, InvalidPackageError
 
 DEB_CHECKSUM_TYPE = 'md5'       # FIXME: this should be a configuration option
 
-def get_package_header(filename=None, file=None, fd=None):
-    return load(filename=filename, file=file, fd=fd)[0]
-
 def load(filename=None, file=None, fd=None):
     """ Loads DEB and returns its header and its payload """
     if (filename is None):
