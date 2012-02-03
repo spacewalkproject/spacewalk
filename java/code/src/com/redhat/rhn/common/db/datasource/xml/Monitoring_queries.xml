@@ -291,7 +291,7 @@ SELECT  S.id server_id,
         PS.last_check
   FROM  rhnServer S, rhn_probe P, rhn_probe_state PS, rhnUserServerPerms USP
  WHERE  P.recid = PS.probe_id
-   AND  S.id = (SELECT host_id from check_probe where probe_id = P.recid)
+   AND  S.id = (SELECT host_id from rhn_check_probe where probe_id = P.recid)
    AND  customer_id = :org_id
    AND  P.probe_type = 'check'
    AND  PS.state = :state
