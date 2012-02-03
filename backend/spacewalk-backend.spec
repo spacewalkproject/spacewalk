@@ -12,7 +12,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.7.12
+Version: 1.7.13
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -675,6 +675,21 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Fri Feb 03 2012 Michael Mraka <michael.mraka@redhat.com> 1.7.13-1
+- simplified checksum_exists condition
+- merged duplicated h.execute() call
+- version and release should be strings, epoch should be None or string
+- modified RPM/MPM/DEB package for payload_checksum
+- generic code to compute checksum of package
+- spacewalk-repo-sync updated to use new package object
+- created DEB_Package
+- moved InvalidPackageError to rhn_pkg
+- created RPM_Package
+- create proper package object
+- compute checksum while saving payload
+- rewritten package_push handler to use package object
+- created virtual class for RPM/MPM/DEB packages
+
 * Thu Feb 02 2012 Jan Pazdziora 1.7.12-1
 - Call the test entitlement count check for satellite-sync as well.
 
