@@ -7,7 +7,7 @@
 %define snmp_qdir      %queue_dir/snmp
 
 Name:         MessageQueue
-Version:      3.26.6
+Version:      3.26.7
 Release:      1%{?dist}
 Summary:      Message buffer/relay system
 URL:          https://fedorahosted.org/spacewalk
@@ -75,6 +75,9 @@ fi
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Fri Feb 03 2012 Miroslav Suchý 3.26.7-1
+- If $url is not set, fail with sane message. (msuchy@redhat.com)
+
 * Mon Dec 19 2011 Michael Mraka <michael.mraka@redhat.com> 3.26.6-1
 - 768188 - return mac address of the first available interface
 
