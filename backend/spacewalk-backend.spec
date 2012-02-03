@@ -28,6 +28,7 @@ Requires: %{name}-libs >= 1.1.16-1
 BuildRequires: /usr/bin/msgfmt
 BuildRequires: /usr/bin/docbook2man
 BuildRequires: docbook-utils
+BuildRequires: pylint
 Requires(pre): httpd
 Requires: httpd
 # we don't really want to require this redhat-release, so we protect
@@ -275,6 +276,12 @@ Libraries required by various exporting tools
 make -f Makefile.backend all
 export PYTHON_MODULE_NAME=%{name}
 export PYTHON_MODULE_VERSION=%{version}
+
+# check coding style
+# right now we check only common/*.py, others aren't clean yet
+find common -name '*.py' \
+    | xargs pylint -rn -iy --bad-functions=apply,input \
+                   --disable C0111,C0103,C0301,F0401,I0011,R0801,R0903,R0911,R0912,R0913,R0914,W0142,W0403,W0511,W0603
 
 %install
 rm -rf $RPM_BUILD_ROOT
