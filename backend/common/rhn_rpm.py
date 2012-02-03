@@ -403,9 +403,9 @@ def sortRPMs(rpms):
 def getInstalledHeader(rpmName):
     """ quieries the RPM DB for a header matching rpmName. """
 
-    mi = MatchIterator("name")
-    mi.pattern("name", rpm.RPMMIRE_STRCMP, rpmName)
-    return mi.next()
+    matchiter = MatchIterator("name")
+    matchiter.pattern("name", rpm.RPMMIRE_STRCMP, rpmName)
+    return matchiter.next()
 
 
 if __name__ == '__main__':
