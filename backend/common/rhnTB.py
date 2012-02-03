@@ -148,7 +148,6 @@ def Traceback(method = None, req = None, mail = 1, ostream = sys.stderr,
     if ostream:
         ostream.write("%s\n" % exc.getvalue().encode('utf-8'))
 
-    ret = 0                             # default return value
     if mail:
         # print the stack frames for the mail we send out
         print_locals(exc)
@@ -176,10 +175,10 @@ def Traceback(method = None, req = None, mail = 1, ostream = sys.stderr,
         #5/18/05 wregglej - 151158 Go through every string in the security list and censor it out of the debug information.
         outstring = censor_string(outstring)
  
-        ret = rhnMail.send(headers, outstring)
+        rhnMail.send(headers, outstring)
 
     exc.close()   
-    return ret
+    return
 
 
 def fetchTraceback(method=None, req=None, extra=None, with_locals=0):
