@@ -17,8 +17,6 @@
 #
 # Author: Lukas Durfina <lukas.durfina@gmail.com>
 
-import os
-import gzip
 import sys
 import tempfile
 
