@@ -29,7 +29,7 @@ def main():
         try:
             f = open(pkgfile)
 
-            header = rhn_rpm.get_package_header(file=f)
+            header = rhn_rpm.get_package_header(file_obj=f)
             p = rpm_to_mpm(header, f)
             dest_filename = _compute_filename(p.header)
             print "Writing out the package to %s" % dest_filename

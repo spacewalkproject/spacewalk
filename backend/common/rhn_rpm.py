@@ -139,7 +139,7 @@ class RPM_Package(A_Package):
     def read_header(self):
         self._get_header_byte_range()
         try:
-            self.header = get_package_header(file=self.header_data)
+            self.header = get_package_header(file_obj=self.header_data)
         except InvalidPackageError, e:
             raise InvalidPackageError(*e.args), None, sys.exc_info()[2]
         except error, e:
@@ -273,20 +273,20 @@ def get_header_struct_size(package_file):
     return header_size
 
 SHARED_TS = None
-def get_package_header(filename=None, file=None, fd=None):
+def get_package_header(filename=None, file_obj=None, fd=None):
     """ Loads the package header from a file / stream / file descriptor
         Raises rpm.error if an error is found, or InvalidPacageError if package is
         busted
     """
     global SHARED_TS
     # XXX Deal with exceptions better
-    if (filename is None and file is None and fd is None):
+    if (filename is None and file_obj is None and fd is None):
         raise ValueError, "No parameters passed"
 
     if filename is not None:
         f = open(filename)
-    elif file is not None:
-        f = file
+    elif file_obj is not None:
+        f = file_obj
         f.seek(0, 0)
     else: # fd is not None
         f = None

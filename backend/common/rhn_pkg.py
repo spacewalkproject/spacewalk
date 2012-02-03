@@ -16,12 +16,12 @@
 import os
 import checksum
 
-def get_package_header(filename=None, file=None, fd=None):
+def get_package_header(filename=None, file_obj=None, fd=None):
     if filename is not None:
         stream = open(filename)
         need_close = True
-    elif file is not None:
-        stream = file
+    elif file_obj is not None:
+        stream = file_obj
     else:
         stream = os.fdopen(os.dup(fd), "r")
         need_close = True

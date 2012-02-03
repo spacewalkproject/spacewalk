@@ -37,18 +37,18 @@ def labelCompare(l1, l2):
         return -1
     return rhn_rpm.labelCompare(l1, l2)
 
-def get_package_header(filename=None, file=None, fd=None):
-    return load(filename=filename, file=file, fd=fd)[0]
+def get_package_header(filename=None, file_obj=None, fd=None):
+    return load(filename=filename, file_obj=file_obj, fd=fd)[0]
 
-def load(filename=None, file=None, fd=None):
+def load(filename=None, file_obj=None, fd=None):
     """ Loads an MPM and returns its header and its payload """
-    if (filename is None and file is None and fd is None):
+    if (filename is None and file_obj is None and fd is None):
         raise ValueError, "No parameters passed"
 
     if filename is not None:
         f = open(filename)
-    elif file is not None:
-        f = file
+    elif file_obj is not None:
+        f = file_obj
     else: # fd is not None
         f = os.fdopen(os.dup(fd), "r")
 
@@ -84,7 +84,7 @@ def load_rpm(stream):
     stream.seek(0, 0)
 
     try:
-        header = rhn_rpm.get_package_header(file=stream)
+        header = rhn_rpm.get_package_header(file_obj=stream)
     except InvalidPackageError, e:
         raise InvalidPackageError(*e.args), None, sys.exc_info()[2]
     except rhn_rpm.error, e:
