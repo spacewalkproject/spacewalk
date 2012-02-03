@@ -272,8 +272,8 @@ def _replace_null(obj):
     if isinstance(obj, TupleType):
         return tuple(_replace_null(list(obj)))
     if hasattr(obj, 'items'):
-        dict = {}
+        obj_dict = {}
         for k, v in obj.items():
-            dict[_replace_null(k)] = _replace_null(v)
-        return dict
+            obj_dict[_replace_null(k)] = _replace_null(v)
+        return obj_dict
     return obj
