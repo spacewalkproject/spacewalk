@@ -24,6 +24,8 @@ from rhn_pkg import A_Package, InvalidPackageError
 
 # Expose a bunch of useful constants from rpm
 error = rpm.error
+
+sym, val = None, None
 for sym, val in rpm.__dict__.items():
     if sym[:3] == 'RPM':
         # A constant, probably - import it into our namespace
