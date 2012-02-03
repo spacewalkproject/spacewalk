@@ -29,26 +29,6 @@ from rhn_pkg import A_Package, InvalidPackageError
 
 DEB_CHECKSUM_TYPE = 'md5'       # FIXME: this should be a configuration option
 
-def load_deb(stream):
-
-    # Dup the file descriptor, we don't want it to get closed before we read
-    # the payload
-    newfd = os.dup(stream.fileno())
-    stream = os.fdopen(newfd, "r")
-
-    stream.flush()
-    stream.seek(0, 0)
-
-
-    try:
-        #header = rhn_deb.get_package_header(file=stream)
-        header = deb_Header(stream)
-    except:
-        raise InvalidPackageError, None, sys.exc_info()[2]
-    stream.seek(0, 0)
-
-    return header, stream
-
 class deb_Header:
     "Wrapper class for an deb header - we need to store a flag is_source"
     def __init__(self, stream):
