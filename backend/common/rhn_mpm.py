@@ -194,7 +194,7 @@ class MPM_Package(A_Package):
             t.close()
 
         try:
-            params, foo = xmlrpclib.loads(header_data)
+            params, _x = xmlrpclib.loads(header_data)
         except:
             # XXX
             raise
