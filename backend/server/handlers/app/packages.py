@@ -318,21 +318,18 @@ class Packages(RPC_Base):
 
             h = rhnSQL.prepare(self._get_pkg_info_query % \
                                 _checksum_sql_filter)
+            exec_args = {
+                'pkg_name':    package['name'],
+                'pkg_epoch':   package['epoch'],
+                'pkg_version': package['version'],
+                'pkg_rel':     package['release'],
+                'pkg_arch':    package['arch'],
+                'orgid':       org_id
+            }
             if checksum_exists:
-                h.execute(pkg_name=package['name'], \
-                pkg_epoch=package['epoch'], \
-                pkg_version=package['version'], \
-                pkg_rel=package['release'],pkg_arch=package['arch'], \
-                orgid = org_id, \
-                checksum_type = package['checksum_type'], \
-                checksum = package['checksum'])
-            else:
-                h.execute(pkg_name=package['name'], \
-                pkg_epoch=package['epoch'], \
-                pkg_version=package['version'], \
-                pkg_rel=package['release'], \
-                pkg_arch=package['arch'], orgid = org_id )
-
+                exec_args.update({'checksum_type': package['checksum_type'],
+                                  'checksum':      package['checksum']})
+            h.execute(**exec_args)
             row = h.fetchone_dict()
 
             package['checksum_type'] = row['checksum_type']
