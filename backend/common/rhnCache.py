@@ -255,7 +255,8 @@ class Cache:
         fd.write(value)
         fd.close()
 
-    def has_key(self, name, modified = None):
+    @staticmethod
+    def has_key(name, modified = None):
         fname = _fname(name)
         if modified is not None:
             modified = timestamp(modified)
@@ -267,7 +268,8 @@ class Cache:
             return False
         return True
 
-    def delete(self, name):
+    @staticmethod
+    def delete(name):
         fname = _fname(name)
         # test for valid entry
         if not os.access(fname, os.R_OK):
@@ -277,11 +279,13 @@ class Cache:
             raise OSError, "Read-Only access for cache entry: %s" % name
         os.unlink(fname)
 
-    def get_file(self, name, modified = None):
+    @staticmethod
+    def get_file(name, modified = None):
         fd = ReadLockedFile(name, modified)
         return fd
 
-    def set_file(self, name, modified = None, user='root', group='root', \
+    @staticmethod
+    def set_file(name, modified = None, user='root', group='root', \
                  mode=0755):
         fd = WriteLockedFile(name, modified, user, group, mode)
         return fd
