@@ -158,31 +158,6 @@ EOQ
   return $activated;
 }
 
-# get the config file list post position-resolution...
-sub get_resolved_files {
-  my $self = shift;
-
-  my $ds = new RHN::DataSource::Simple(-querybase => 'config_queries',
-				       -mode => 'configfiles_for_system',
-				      );
-
-  my $files = $ds->execute_query(-sid => $self->id);
-  my %by_path;
-
-  foreach my $revision (@{$files}) {
-    if (not exists $by_path{$revision->{PATH}}) {
-      $by_path{$revision->{PATH}} = $revision;
-    }
-  }
-
-  my @ret;
-  foreach my $path (sort keys %by_path) {
-    push @ret, $by_path{$path};
-  }
-
-  return @ret;
-}
-
 sub get_cpu_arch_name {
   my $self = shift;
 
