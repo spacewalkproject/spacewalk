@@ -90,8 +90,8 @@ class A_Package:
         self.payload_size = self.input_stream.tell() - start
         self.payload_stream = self.input_stream
 
-
-    def _stream_copy(self, source, dest, c_hash=None):
+    @staticmethod
+    def _stream_copy(source, dest, c_hash=None):
         """copies data from the source stream to the destination stream"""
         while True:
             buf = source.read(BUFFER_SIZE)
@@ -102,7 +102,8 @@ class A_Package:
             if c_hash:
                 c_hash.update(buf)
 
-    def _read_bytes(self, stream, amt):
+    @staticmethod
+    def _read_bytes(stream, amt):
         ret = ""
         while amt:
             buf = stream.read(min(amt, BUFFER_SIZE))
