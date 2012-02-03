@@ -131,6 +131,7 @@ MPM_HEADER_COMPRESSED_GZIP = 1
 MPM_PAYLOAD_COMPRESSED_GZIP = 1
 
 class MPM_Package(A_Package):
+    # pylint: disable=R0902
     _lead_format = '!16sB3s4L92s'
     _magic = 'mpmpackage012345'
     def __init__(self, input_stream = None):

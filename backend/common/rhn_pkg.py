@@ -58,6 +58,7 @@ DEFAULT_CHECKSUM_TYPE = 'md5'
 
 class A_Package:
     """virtual class that implements shared methods for RPM/MPM/DEB package object"""
+    # pylint: disable=R0902
     def __init__(self, input_stream = None):
         self.header = None
         self.header_start = 0

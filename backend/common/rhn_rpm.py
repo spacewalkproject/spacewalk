@@ -132,6 +132,7 @@ class RPM_Header:
             })
 
 class RPM_Package(A_Package):
+    # pylint: disable=R0902
     def __init__(self, input_stream = None):
         A_Package.__init__(self, input_stream)
         self.header_data = tempfile.SpooledTemporaryFile()
