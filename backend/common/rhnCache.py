@@ -198,7 +198,7 @@ class LockedFile(object):
 
 class ReadLockedFile(LockedFile):
 
-    def get_fd(self, name, user, group, mode):
+    def get_fd(self, name, _user, _group, _mode):
         if not os.access(self.fname, os.R_OK):
             raise KeyError(name)
         fd = open(self.fname, "r")
