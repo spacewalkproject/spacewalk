@@ -49,24 +49,25 @@ class deb_Header:
 
         try:
             # Fill info about package
+            debcontrol = self.deb.debcontrol()
             self.hdr = {
-                'name': self.deb.debcontrol().get_as_string('Package'),
-                'arch': self.deb.debcontrol().get_as_string('Architecture') + '-deb',
-                'summary': self.deb.debcontrol().get_as_string('Description').splitlines()[0],
-                'vendor': self.deb.debcontrol().get_as_string('Maintainer'),
-                'package_group': self.deb.debcontrol().get_as_string('Section'),
+                'name': debcontrol.get_as_string('Package'),
+                'arch': debcontrol.get_as_string('Architecture') + '-deb',
+                'summary': debcontrol.get_as_string('Description').splitlines()[0],
+                'vendor': debcontrol.get_as_string('Maintainer'),
+                'package_group': debcontrol.get_as_string('Section'),
             }
             for hdr_k, deb_k in [('requires', 'Depends'),
                                  ('provides', 'Provides'),
                                  ('conflicts', 'Conflicts'),
                                  ('obsoletes', 'Replaces')]:
-                if self.deb.debcontrol().has_key(deb_k):
-                    self.hdr[hdr_k] = self.deb.debcontrol().get_as_string(deb_k)
-            for k in self.deb.debcontrol().keys():
+                if debcontrol.has_key(deb_k):
+                    self.hdr[hdr_k] = debcontrol.get_as_string(deb_k)
+            for k in debcontrol.keys():
                 if not self.hdr[k]:
-                    self.hdr[k] = self.deb.debcontrol().get_as_string(k)
+                    self.hdr[k] = debcontrol.get_as_string(k)
 
-            version = self.deb.debcontrol().get_as_string('Version')
+            version = debcontrol.get_as_string('Version')
             version_tmpArr = version.split('-')
             if len(version_tmpArr) == 1:
                 self.hdr['version'] = version
