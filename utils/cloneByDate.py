@@ -99,11 +99,12 @@ def main(options):
         
     cleansed = vars(options)
     cleansed["password"] = "*****"
+    log_clean(0, "")
     log_debug(0, "Started spacewalk-clone-by-date")
     log_clean(0, pprint.pformat(cleansed))
     
     
-
+    print "Reading repository information."
     
     
     cloners = []

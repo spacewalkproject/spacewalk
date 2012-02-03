@@ -131,14 +131,14 @@ Utility for cloning errata by date.
         </listitem>
     </varlistentry>
     <varlistentry>
-        <term> -y  --assumeyes
+        <term> -y  --assumeyes</term>
         <listitem>
             <para>Instead of asking for confirmation before cloning a channel or errata, 
             	continue uninterrupted.</para>
         </listitem>
     </varlistentry>    
     <varlistentry>
-        <term> -v  --validate
+        <term> -v  --validate</term>
         <listitem>
             <para>Run repoclosure on all provided channels.  This overrides --to_date and will not perform any cloning.</para>
         </listitem>
