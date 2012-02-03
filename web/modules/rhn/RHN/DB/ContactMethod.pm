@@ -205,12 +205,12 @@ sub commit {
     $query = get_table->update_query(get_table->methods_to_columns(@modified));
     $query .= get_table_alias . ".$pk_upper = ?";
     # adjust the query to update last_update_date
-    $query =~ s/SET (.*) WHERE/SET $1, $table_alias\.last_update_date = SYSDATE WHERE/;
+    $query =~ s/SET (.*) WHERE/SET $1, $table_alias\.last_update_date = CURRENT_TIMESTAMP WHERE/;
   }
   else {
     $query = get_table->insert_query(get_table->methods_to_columns(@modified));
     # adjust the query to update last_update_date
-    $query =~ s/\((.*)\) VALUES \((.*)\)/\($1, last_update_date\) VALUES \($2, SYSDATE\)/;
+    $query =~ s/\((.*)\) VALUES \((.*)\)/\($1, last_update_date\) VALUES \($2, CURRENT_TIMESTAMP\)/;
   }
   
   my $sth = $dbh->prepare($query);

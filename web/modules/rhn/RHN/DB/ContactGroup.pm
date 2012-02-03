@@ -207,12 +207,12 @@ sub commit {
     $query = get_table->update_query(get_table->methods_to_columns(@modified));
     $query .= get_table_alias . ".$pk_upper = ?";
     # adjust the query to update last_update_date
-    $query =~ s/SET (.*) WHERE/SET $1, $table_alias\.last_update_date = SYSDATE WHERE/;
+    $query =~ s/SET (.*) WHERE/SET $1, $table_alias\.last_update_date = CURRENT_TIMESTAMP WHERE/;
   }
   else {
     $query = get_table->insert_query(get_table->methods_to_columns(@modified));
     # adjust the query to update last_update_date
-    $query =~ s/\((.*)\) VALUES \((.*)\)/\($1, last_update_date\) VALUES \($2, SYSDATE\)/;
+    $query =~ s/\((.*)\) VALUES \((.*)\)/\($1, last_update_date\) VALUES \($2, CURRENT_TIMESTAMP\)/;
   }
   
   my $sth = $dbh->prepare($query);
@@ -284,7 +284,7 @@ sub lookup {
 # member_contact_method_id - the recid of the associated rhn_contact_method record
 # member_contact_group_id - to allow groups of groups (always null)
 # last_updat_user - uid of the last person to update this record.
-# last_update_date - SYSDATE at the last update.
+# last_update_date - CURRENT_TIMESTAMP at the last update.
 
 #########################
 sub set_groups_methods {
@@ -320,8 +320,8 @@ INSERT INTO rhn_contact_group_members
    member_contact_group_id, last_update_user, last_update_date)
 VALUES
   (:group_id, 
-   (SELECT NVL(MAX(order_number)+1,0) FROM contact_group_members WHERE contact_group_id = :group_id),
-   :method_id, NULL, :user_id, SYSDATE)
+   (SELECT COALESCE(MAX(order_number)+1,0) FROM rhn_contact_group_members WHERE contact_group_id = :group_id),
+   :method_id, NULL, :user_id, CURRENT_TIMESTAMP)
 EOQ
 
   $sth->execute_h(group_id => $self->recid, method_id => $method_id, user_id => $user_id);
