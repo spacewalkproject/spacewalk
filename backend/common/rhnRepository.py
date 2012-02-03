@@ -59,19 +59,22 @@ class Repository(RPC_Base):
            OVERLOAD this in server and proxy rhnRepository.
            I.e.: they construct the path differently.
         """
+        # pylint: disable=R0201,W0613
         raise rhnException("This function should be overloaded.")
 
-    def getPackagePathNVRA(self, nvra):
+    @staticmethod
+    def getPackagePathNVRA(_nvra):
         """OVERLOAD this in server and proxy rhnRepository.
            I.e.: they construct the path differently.
         """
         raise rhnException("This function should be overloaded.")
 
-    def getSourcePackagePath(self, pkgFilename):
+    def getSourcePackagePath(self, _pkgFilename):
         """Returns the path to a package.
            OVERLOAD this in server and proxy rhnRepository.
            I.e.: they construct the path differently.
         """
+        # pylint: disable=R0201
         raise rhnException("This function should be overloaded.")
 
     def getPackage(self, pkgFilename, *args):
@@ -106,7 +109,8 @@ class Repository(RPC_Base):
         
         return self._getFile(filePath)
 
-    def i18n(self, translation, *args):
+    @staticmethod
+    def i18n(_translation, *_args):
         """ Translations files for Ubuntu. E.g. Translation-en_US.bz2
 
             We do not support it so just return 404. But do not fail with
@@ -207,7 +211,8 @@ class Repository(RPC_Base):
         rhnFlags.set("AlreadyEncoded", 1)
         return stringIO.getvalue()
 
-    def _set_last_modified(self, last_modified, extra_headers={}):
+    @staticmethod
+    def _set_last_modified(last_modified, extra_headers={}):
         log_debug(4, last_modified)
         if not last_modified:
             return None
@@ -222,7 +227,8 @@ class Repository(RPC_Base):
             transport[str(k)] = str(v)
         return transport
 
-    def _fileFeatures(self, filePath):
+    @staticmethod
+    def _fileFeatures(filePath):
         """ From a filepath, construct a dictionary of file features. """
         log_debug(3, filePath)
         if not filePath:
