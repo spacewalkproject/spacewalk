@@ -1,0 +1,4 @@
+# Customize list of services to be managed using the
+# spacewalk-service command here.
+# For example:
+# SERVICES="your-service $SERVICES"

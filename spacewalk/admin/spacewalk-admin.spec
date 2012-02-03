@@ -68,6 +68,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/spacewalk-service.8*
 %{_mandir}/man8/rhn-sat-restart-silent.8*
 %{_mandir}/man8/rhn-config-satellite.pl.8*
+%config(noreplace) %{_sysconfdir}/rhn/service-list
 
 %changelog
 * Fri Feb 03 2012 Jan Pazdziora 1.7.2-1

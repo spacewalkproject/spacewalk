@@ -34,6 +34,9 @@ fi
 
 
 SERVICES="jabberd $DB_SERVICE osa-dispatcher $TOMCAT httpd Monitoring MonitoringScout rhn-search cobblerd taskomatic"
+if [ -f /etc/rhn/service-list ] ; then
+   . /etc/rhn/service-list
+fi
 
 . /etc/init.d/functions
 

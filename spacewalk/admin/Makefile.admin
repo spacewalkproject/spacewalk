@@ -19,12 +19,14 @@
 
 BINDIR	  = /usr/bin
 SBINDIR   = /usr/sbin
+CONFDIR   = /etc/rhn
 GPGKEYDIR = /usr/share/rhn
 
 VERSION = $(shell echo `awk '{ print $$1 }' version`)
 
 PERL_DEST   = $(PREFIX)/$(BINDIR)
 SBIN_DEST   = $(PREFIX)/$(SBINDIR)
+CONF_DEST   = $(PREFIX)/$(CONFDIR)
 GPGKEY_DEST = $(PREFIX)/$(GPGKEYDIR)
 
 PERL_SCRIPTS = rhn-config-satellite.pl \
@@ -36,21 +38,28 @@ PERL_SCRIPTS = rhn-config-satellite.pl \
 
 SBIN_SCRIPTS = rhn-sat-restart-silent spacewalk-service
 
+CONF_FILES = service-list
+
 GPGKEY_FILES = RHN-GPG-KEY
 
 BIN_INSTALL    = install -m 755
+CONF_INSTALL   = install -m 644
 GPGKEY_INSTALL = install -m 644
 DIR_INSTALL    = install -d -m 755
 
 # install scripts
 all:
 
-install: $(PERL_SCRIPTS) $(PERL_DEST) $(GPGKEY_FILES) $(GPGKEY_DEST) $(SBIN_SCRIPTS) $(SBIN_DEST)
+install: $(PERL_SCRIPTS) $(PERL_DEST) $(CONF_FILES) $(CONF_DEST) $(GPGKEY_FILES) $(GPGKEY_DEST) $(SBIN_SCRIPTS) $(SBIN_DEST)
 	$(BIN_INSTALL) $(PERL_SCRIPTS) $(PERL_DEST)
+	$(CONF_INSTALL) $(CONF_FILES) $(CONF_DEST)
 	$(GPGKEY_INSTALL) $(GPGKEY_FILES) $(GPGKEY_DEST)
 	$(BIN_INSTALL) $(SBIN_SCRIPTS) $(SBIN_DEST)
 
 $(PERL_DEST):
+	$(DIR_INSTALL) $@
+
+$(CONF_DEST):
 	$(DIR_INSTALL) $@
 
 $(GPGKEY_DEST):
