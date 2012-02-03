@@ -210,7 +210,7 @@ class RPM_Package(A_Package):
         c_hash = checksum.hashlib.new(self.checksum_type)
         if output_stream:
             output_start = output_stream.tell()
-        self.header_data.seek(0,0)
+        self.header_data.seek(0, 0)
         self._stream_copy(self.header_data, output_stream, c_hash)
         self._stream_copy(self.input_stream, output_stream, c_hash)
         self.checksum = c_hash.hexdigest()
@@ -271,7 +271,7 @@ def get_header_struct_size(package_file):
 
     return header_size
 
-SHARED_TS=None
+SHARED_TS = None
 def get_package_header(filename=None, file=None, fd=None):
     """ Loads the package header from a file / stream / file descriptor
         Raises rpm.error if an error is found, or InvalidPacageError if package is
