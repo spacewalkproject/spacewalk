@@ -231,6 +231,7 @@ class Repository(RPC_Base):
     @staticmethod
     def _fileFeatures(filePath):
         """ From a filepath, construct a dictionary of file features. """
+        # pylint: disable=W0702
         log_debug(3, filePath)
         if not filePath:
             raise rhnFault(17, "While looking for file: `%s'"
