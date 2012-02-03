@@ -57,9 +57,9 @@ SELECT CG.recid,
        CG.last_update_user,
        CG.last_update_date,
        CG.notification_format_id
-  FROM contact_methods CM,
-       contact_group_members CGM,
-       contact_groups CG
+  FROM rhn_contact_methods CM,
+       rhn_contact_group_members CGM,
+       rhn_contact_groups CG
  WHERE CM.recid = CGM.member_contact_method_id
    AND CGM.contact_group_id = CG.recid
    AND CM.recid = :method_id
