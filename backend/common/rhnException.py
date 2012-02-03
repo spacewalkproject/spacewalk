@@ -364,6 +364,7 @@ class redirectException(Exception):
     """
 
     def __init__(self, redirectpath = ""):
+        Exception.__init__(self)
         self.path = redirectpath
 
     def __str__(self):
