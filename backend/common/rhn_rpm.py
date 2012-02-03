@@ -183,7 +183,8 @@ class RPM_Package(A_Package):
         buf = self._read_bytes(self.input_stream, header_size - struct_lead_size)
         self.header_data.write(buf)
 
-    def _get_header_struct_size(self, struct_lead):
+    @staticmethod
+    def _get_header_struct_size(struct_lead):
         """
         Compute the size in bytes of the rpm header struct starting at the current
         position in package_file.
