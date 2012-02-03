@@ -224,7 +224,7 @@ class MPM_Package(A_Package):
         lead_arr = (self._magic, 1, "\0" * 3, self.header_flags,
             self.payload_flags, self.header_size, self.payload_size, '\0' * 92)
         # lead
-        lead = apply(struct.pack, (self._lead_format, ) + lead_arr)
+        lead = struct.pack(self._lead_format, *lead_arr)
         output_stream.seek(0, 0)
         output_stream.write(lead)
         output_stream.seek(0, 2)
