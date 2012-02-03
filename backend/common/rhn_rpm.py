@@ -415,10 +415,10 @@ if __name__ == '__main__':
             break
         print h['name']
     sys.exit(1)
-    hdr = get_package_header(filename="/tmp/python-1.5.2-42.72.i386.rpm")
-    print dir(hdr)
+    hdrX = get_package_header(filename="/tmp/python-1.5.2-42.72.i386.rpm")
+    print dir(hdrX)
     # Sources
-    hdr = get_package_header(filename="/tmp/python-1.5.2-42.72.src.rpm")
-    hdr2 = headerLoad(hdr.unload())
-    print hdr2
-    print len(hdr2.keys())
+    hdrX = get_package_header(filename="/tmp/python-1.5.2-42.72.src.rpm")
+    hdrY = headerLoad(hdrX.unload())
+    print hdrY
+    print len(hdrY.keys())
