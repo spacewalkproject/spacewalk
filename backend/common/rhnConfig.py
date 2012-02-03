@@ -197,7 +197,7 @@ class RHNOptions:
         self.__configs[self.__component][key] = value
     __setitem__ = set
 
-    def writeConfig(self, userConfigDict, commentDict={}, stream=None):
+    def writeConfig(self, userConfigDict, commentDict=None, stream=None):
         """given dictionaries in these formats:
              config dictionary:
                { component.component.key: value, ...}
@@ -214,6 +214,8 @@ class RHNOptions:
         """
         if stream is None:
             stream = open(self.filename, 'wb')
+        if commentDict is None:
+            commentDict = {}
         _dict = {}
         # convert to a dict of the sort understood by the object if not
         # already converted
