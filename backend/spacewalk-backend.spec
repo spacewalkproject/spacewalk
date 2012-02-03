@@ -12,7 +12,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.7.13
+Version: 1.7.14
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -682,6 +682,11 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Sat Feb 04 2012 Michael Mraka <michael.mraka@redhat.com> 1.7.14-1
+- fixed macros in changelog
+- check common/* for pylint errors
+- fixed pylint errors and warnings in common/*.py
+
 * Fri Feb 03 2012 Michael Mraka <michael.mraka@redhat.com> 1.7.13-1
 - simplified checksum_exists condition
 - merged duplicated h.execute() call
