@@ -34,7 +34,8 @@ from spacewalk.common import rhnTranslate
 
 class Tests(unittest.TestCase):
     
-    def _setup(self, lang):
+    @staticmethod
+    def _setup(lang):
         domain = "unit-test"
         localedir = "%s/common/test/unit-test/translations" % topdir
         rhnTranslate.cat.set(domain=domain, localedir=localedir)
