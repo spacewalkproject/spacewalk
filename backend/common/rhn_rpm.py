@@ -330,6 +330,7 @@ class MatchIterator:
         m_args = (tag_name,)
         if value:
             m_args += (value,)
+        # pylint: disable=E1101
         self.mi = self.ts.dbMatch(*m_args)
 
     def pattern(self, tag_name, mode, pattern):
