@@ -38,8 +38,8 @@ SBIN_SCRIPTS = rhn-sat-restart-silent spacewalk-service
 
 GPGKEY_FILES = RHN-GPG-KEY
 
-BIN_INSTALL    = install -m 755 
-GPGKEY_INSTALL = install -m 644 
+BIN_INSTALL    = install -m 755
+GPGKEY_INSTALL = install -m 644
 DIR_INSTALL    = install -d -m 755
 
 # install scripts
@@ -48,12 +48,12 @@ all:
 install: $(PERL_SCRIPTS) $(PERL_DEST) $(GPGKEY_FILES) $(GPGKEY_DEST) $(SBIN_SCRIPTS) $(SBIN_DEST)
 	$(BIN_INSTALL) $(PERL_SCRIPTS) $(PERL_DEST)
 	$(GPGKEY_INSTALL) $(GPGKEY_FILES) $(GPGKEY_DEST)
-	$(BIN_INSTALL) $(SBIN_SCRIPTS) $(SBIN_DEST)	
+	$(BIN_INSTALL) $(SBIN_SCRIPTS) $(SBIN_DEST)
 
-$(PERL_DEST): 
+$(PERL_DEST):
 	$(DIR_INSTALL) $@
 
-$(GPGKEY_DEST): 
+$(GPGKEY_DEST):
 	$(DIR_INSTALL) $@
 
 $(SBIN_DEST):
