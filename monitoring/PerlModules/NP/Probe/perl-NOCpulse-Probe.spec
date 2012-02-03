@@ -2,7 +2,7 @@ Name:         perl-NOCpulse-Probe
 Summary:      Monitoring probes for Spacewalk
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version:      1.184.12
+Version:      1.184.13
 Release:      1%{?dist}
 BuildArch:    noarch
 Group:        Development/Libraries
@@ -145,6 +145,9 @@ rm -rf $RPM_BUILD_ROOT
 %{perl_vendorlib}/NOCpulse/Probe/DataSource/test/TestOracle.pm
 
 %changelog
+* Fri Feb 03 2012 Miroslav Suchý 1.184.13-1
+- 787212 - fix probe Linux - Disk I/O Throughput
+
 * Wed Sep 14 2011 Jan Pazdziora 1.184.12-1
 - The NOCpulse::Probe::Shell::SQLPlus needs to be in perl-NOCpulse-Probe, not
   in -Oracle.
