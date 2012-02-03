@@ -13,6 +13,7 @@
 # in this software or its documentation.
 #
 
+import os
 import checksum
 
 def get_package_header(filename=None, file=None, fd=None):
