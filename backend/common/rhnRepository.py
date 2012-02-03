@@ -212,7 +212,7 @@ class Repository(RPC_Base):
         return stringIO.getvalue()
 
     @staticmethod
-    def _set_last_modified(last_modified, extra_headers={}):
+    def _set_last_modified(last_modified, extra_headers=None):
         log_debug(4, last_modified)
         if not last_modified:
             return None
@@ -223,8 +223,9 @@ class Repository(RPC_Base):
             if type(last_modified) in (types.IntType, types.FloatType):
                 last_modified = rfc822time(last_modified)
             transport['Last-Modified'] = last_modified
-        for k, v in extra_headers.items():
-            transport[str(k)] = str(v)
+        if extra_headers:
+            for k, v in extra_headers.items():
+                transport[str(k)] = str(v)
         return transport
 
     @staticmethod
