@@ -29,23 +29,6 @@ from rhn_pkg import A_Package, InvalidPackageError
 
 DEB_CHECKSUM_TYPE = 'md5'       # FIXME: this should be a configuration option
 
-def load(filename=None, file=None, fd=None):
-    """ Loads DEB and returns its header and its payload """
-    if (filename is None):
-        raise ValueError, "filename has to be passed"
-    if (filename is None and file is None and fd is None):
-        raise ValueError, "No parameters passed"
-
-    if filename is not None:
-        f = open(filename)
-    elif file is not None:
-        f = file
-    else: # fd is not None
-        f = os.fdopen(os.dup(fd), "r")
-
-    f.seek(0, 0)
-    return load_deb(f)
-
 def load_deb(stream):
 
     # Dup the file descriptor, we don't want it to get closed before we read
