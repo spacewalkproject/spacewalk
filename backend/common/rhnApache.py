@@ -147,7 +147,8 @@ class rhnApache:
 
         return apache.OK
 
-    def _set_other(self, req):
+    @staticmethod
+    def _set_other(_req):
         return apache.OK
 
     def _init_request_processor(self, req):
@@ -170,7 +171,8 @@ class rhnApache:
         log_error("Unknown HTTP method", req.method)
         return apache.HTTP_METHOD_NOT_ALLOWED
 
-    def _cleanup_request_processor(self):
+    @staticmethod
+    def _cleanup_request_processor():
         return apache.OK
 
     def handler(self, req):
@@ -189,7 +191,7 @@ class rhnApache:
         log_debug(4, "HEADERS", req.headers_in)
         return apache.OK
 
-    def cleanupHandler(self, req):
+    def cleanupHandler(self, _req):
         """
         clean up this session
         """
@@ -201,7 +203,8 @@ class rhnApache:
         timer(self.start_time)
         return self._cleanup_request_processor()
 
-    def logHandler(self, req):
+    @staticmethod
+    def logHandler(_req):
         """
         A dummy log function
         """
@@ -221,14 +224,16 @@ class rhnApache:
         cat.setlangs(self.lang)
         log_debug(3, self.lang, self.domain)
 
-    def getlang(self):
+    @staticmethod
+    def getlang():
         """
         And another lang function to produce the list of languages we're
         handling
         """
         return "; ".join(cat.getlangs())
 
-    def _setSessionToken(self, headers):
+    @staticmethod
+    def _setSessionToken(headers):
         """ Pushes token into rhnFlags. If doesn't exist, returns None.
             Pull session token out of the headers and into rhnFlags.
         """
