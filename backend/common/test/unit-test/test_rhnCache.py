@@ -18,7 +18,6 @@
 
 import sys
 import unittest
-import tempfile
 from spacewalk.common import rhnCache
 
 class Tests(unittest.TestCase):
