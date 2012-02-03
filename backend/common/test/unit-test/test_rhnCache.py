@@ -51,9 +51,9 @@ class Tests(unittest.TestCase):
         # Blow it away
         rhnCache.CACHEDIR = '/tmp/rhn'
         self._cleanup(key)
-        apply(rhnCache.set, (key, content), modifiers)
+        rhnCache.set(key, content, **modifiers)
         self.failUnless(rhnCache.has_key(key))
-        content2 = apply(rhnCache.get, (key, ), modifiers)
+        content2 = rhnCache.get(key, **modifiers)
         self.assertEqual(content, content2)
 
         self._cleanup(key)
