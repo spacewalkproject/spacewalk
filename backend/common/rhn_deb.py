@@ -78,10 +78,12 @@ class deb_Header:
         except Exception, e:
             raise InvalidPackageError(e), None, sys.exc_info()[2]
 
-    def checksum_type(self):
+    @staticmethod
+    def checksum_type():
         return DEB_CHECKSUM_TYPE
 
-    def is_signed(self):
+    @staticmethod
+    def is_signed():
         return 0
 
     def __getitem__(self, name):
