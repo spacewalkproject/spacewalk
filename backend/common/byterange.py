@@ -21,6 +21,8 @@ import sys
 from spacewalk.common.rhnLog import log_debug
 from spacewalk.common.rhnException import rhnException
 
+# pylint: disable=W0710
+
 # Parses the HTTP header value and stores in the flags  a list of (start, end)
 # tuples that are more pythonic than the RFC semantics
 def parse_byteranges(byterange_header, file_size = None):
