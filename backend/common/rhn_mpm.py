@@ -115,13 +115,16 @@ class MPM_Header:
     def __getattr__(self, name):
         return getattr(self.hdr, name)
 
-    def is_signed(self):
+    @staticmethod
+    def is_signed():
         return 0
 
-    def checksum_type(self):
+    @staticmethod
+    def checksum_type():
         return MPM_CHECKSUM_TYPE
 
-    def unload(self):
+    @staticmethod
+    def unload():
         return None
 
 MPM_HEADER_COMPRESSED_GZIP = 1
