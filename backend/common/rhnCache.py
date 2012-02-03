@@ -79,6 +79,7 @@ def get(name, modified = None, raw = None, compressed=None, missing_is_null=1):
     
 def set(name, value, modified = None, raw = None, compressed=None, \
         user='root', group='root', mode=0755):
+    # pylint: disable=W0622
     cache = __get_cache(raw, compressed)
 
     cache.set(name, value, modified, user, group, mode)
