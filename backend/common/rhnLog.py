@@ -215,7 +215,7 @@ class rhnLog:
     # send a message to the log file.
     def writeToLog(self, msg):
         # this is for debugging in case of errors
-        fd = self.fd # no-op, but useful for dumping the current data
+        #fd = self.fd # no-op, but useful for dumping the current data
         self.fd.write("%s\n" % msg)
 
     # Reinitialize req info if req has changed.
