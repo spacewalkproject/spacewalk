@@ -119,7 +119,7 @@ def Traceback(method = None, req = None, mail = 1, ostream = sys.stderr,
         if QUIET_MAIL == 0: # make sure we don't mail
             mail = 0
         
-    e_type, e_value = sys.exc_info()[:2]
+    e_type = sys.exc_info()[:2][0]
     t = time.ctime(time.time())
     exc = StringIO()
 
