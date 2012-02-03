@@ -30,15 +30,17 @@ DEB_CHECKSUM_TYPE = 'md5'       # FIXME: this should be a configuration option
 class deb_Header:
     "Wrapper class for an deb header - we need to store a flag is_source"
     def __init__(self, stream):
-        self.hdr = {}
         self.packaging = 'deb'
         self.signatures = []
-        self.name = ''
-        self.version = 0
-        self.release = 0
-        self.arch = 'all'
         self.is_source = 0
         self.deb = None
+        self.hdr = {
+                'name':    '',
+                'epoch':   '',
+                'version': 0,
+                'release': 0,
+                'arch':    'all',
+                }
 
         try:
             self.deb = debfile.DebFile(stream.name)
@@ -47,16 +49,31 @@ class deb_Header:
 
         try:
             # Fill info about package
-            self.name = self.deb.debcontrol().get_as_string('Package')
-            self.arch = self.deb.debcontrol().get_as_string('Architecture') + '-deb'
+            self.hdr = {
+                'name': self.deb.debcontrol().get_as_string('Package'),
+                'arch': self.deb.debcontrol().get_as_string('Architecture') + '-deb',
+                'summary': self.deb.debcontrol().get_as_string('Description').splitlines()[0],
+                'vendor': self.deb.debcontrol().get_as_string('Maintainer'),
+                'package_group': self.deb.debcontrol().get_as_string('Section'),
+            }
+            for hdr_k, deb_k in [('requires', 'Depends'),
+                                 ('provides', 'Provides'),
+                                 ('conflicts', 'Conflicts'),
+                                 ('obsoletes', 'Replaces')]:
+                if self.deb.debcontrol().has_key(deb_k):
+                    self.hdr[hdr_k] = self.deb.debcontrol().get_as_string(deb_k)
+            for k in self.deb.debcontrol().keys():
+                if not self.hdr[k]:
+                    self.hdr[k] = self.deb.debcontrol().get_as_string(k)
+
             version = self.deb.debcontrol().get_as_string('Version')
             version_tmpArr = version.split('-')
             if len(version_tmpArr) == 1:
-                self.version = version
-                self.release = "X"
+                self.hdr['version'] = version
+                self.hdr['release'] = "X"
             else:
-                self.version = version_tmpArr[0]
-                self.release = version_tmpArr[1]
+                self.hdr['version'] = version_tmpArr[0]
+                self.hdr['release'] = version_tmpArr[1]
         except Exception, e:
             raise InvalidPackageError(e), None, sys.exc_info()[2]
 
@@ -67,39 +84,7 @@ class deb_Header:
         return 0
 
     def __getitem__(self, name):
-        name = str(name)
-        if name == 'name':
-            return self.name
-        elif name == 'arch':
-            return self.arch
-        elif name == 'release':
-            return self.release
-        elif name == 'version':
-            return self.version
-        elif name == 'epoch':
-            return ''
-        elif name == 'summary':
-            return self.deb.debcontrol().get_as_string('Description').splitlines()[0]
-        elif name == 'vendor':
-            return self.deb.debcontrol().get_as_string('Maintainer')
-        elif name == 'package_group':
-            return self.deb.debcontrol().get_as_string('Section')
-        elif name == 'requires':
-            if self.deb.debcontrol().has_key('Depends'):
-                return self.deb.debcontrol().get_as_string('Depends')
-        elif name == 'provides':
-            if self.deb.debcontrol().has_key('Provides'):
-                return self.deb.debcontrol().get_as_string('Provides')
-        elif name == 'conflicts':
-            if self.deb.debcontrol().has_key('Conflicts'):
-                return self.deb.debcontrol().get_as_string('Conflicts')
-        elif name == 'obsoletes':
-            if self.deb.debcontrol().has_key('Replaces'):
-                return self.deb.debcontrol().get_as_string('Replaces')
-        elif self.deb.debcontrol().has_key(name):
-            return self.deb.debcontrol().get_as_string(name)
-
-        return None
+        return self.hdr[str(name)]
 
 class DEB_Package(A_Package):
     def __init__(self, input_stream = None):
