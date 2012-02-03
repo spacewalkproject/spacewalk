@@ -306,18 +306,10 @@ class Packages(RPC_Base):
                 # Source package - no reason to continue
                 continue
             _checksum_sql_filter = ""
-            checksum_exists = 0
             if 'md5sum' in package: # for old rhnpush compatibility
                 package['checksum_type'] = 'md5'
                 package['checksum'] = package['md5sum']
 
-            if package.has_key('checksum') and CFG.ENABLE_NVREA:
-                checksum_exists = 1
-                _checksum_sql_filter = """and c.checksum = :checksum
-                                          and c.checksum_type = :checksum_type"""
-
-            h = rhnSQL.prepare(self._get_pkg_info_query % \
-                                _checksum_sql_filter)
             exec_args = {
                 'pkg_name':    package['name'],
                 'pkg_epoch':   package['epoch'],
@@ -326,9 +318,15 @@ class Packages(RPC_Base):
                 'pkg_arch':    package['arch'],
                 'orgid':       org_id
             }
-            if checksum_exists:
+
+            if package.has_key('checksum') and CFG.ENABLE_NVREA:
+                _checksum_sql_filter = """and c.checksum = :checksum
+                                          and c.checksum_type = :checksum_type"""
                 exec_args.update({'checksum_type': package['checksum_type'],
                                   'checksum':      package['checksum']})
+
+            h = rhnSQL.prepare(self._get_pkg_info_query % \
+                                _checksum_sql_filter)
             h.execute(**exec_args)
             row = h.fetchone_dict()
 
