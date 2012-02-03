@@ -410,9 +410,6 @@ class rhnFault(Exception):
                                                               self.text)
 
     def getxml(self):
-        global FaultArray
-        global Explain
-        global templateValues
 
         # see if there were any template strings loaded from the db,
         # {label:value}
