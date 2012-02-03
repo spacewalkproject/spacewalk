@@ -1,5 +1,5 @@
 Name:           oracle-lib-compat
-Version:        11.2.0.5
+Version:        11.2.0.6
 Release:        1%{?dist}
 Summary:        Compatibility package so that perl-DBD-Oracle will install
 Group:          Applications/Multimedia
@@ -115,6 +115,10 @@ find %{_prefix}/lib/oracle/%{icdir} \
         | xargs execstack -c
 
 %changelog
+* Fri Feb 03 2012 Jan Pazdziora 11.2.0.6-1
+- Avoid cat: write error: Broken pipe when calling tomcat service under trap ''
+  PIPE
+
 * Mon May 16 2011 Jan Pazdziora 11.2.0.5-1
 - Both tomcat5 and tomcat6 which needs the LD_PRELOAD set.
 
