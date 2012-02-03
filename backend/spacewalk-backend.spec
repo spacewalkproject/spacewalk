@@ -1084,7 +1084,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 - We need to specifically check for None when calling decode.
 
 * Fri May 20 2011 Jan Pazdziora 1.5.27-1
-- Removing %{pythonrhnroot}/common/UserDictCase.py* from %files.
+- Removing %%{pythonrhnroot}/common/UserDictCase.py* from %%files.
 
 * Fri May 20 2011 Michael Mraka <michael.mraka@redhat.com> 1.5.26-1
 - package path should contain epoch
@@ -1502,7 +1502,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 - fixed %%files for spacewalk-backend-libs
 
 * Thu Dec 16 2010 Jan Pazdziora 1.3.27-1
-- Dropping satellite_tools/exporter/exporter.py from the Makefile and %files.
+- Dropping satellite_tools/exporter/exporter.py from the Makefile and %%files.
 
 * Wed Dec 15 2010 Miroslav Suchý <msuchy@redhat.com> 1.3.26-1
 - 624092 - update package if pushing using --force and package with same NVREA
@@ -1537,7 +1537,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 - fixed column aliases (PG)
 
 * Wed Dec 01 2010 Jan Pazdziora 1.3.20-1
-- Ignore the %check results for now.
+- Ignore the %%check results for now.
 
 * Wed Dec 01 2010 Lukas Zapletal 1.3.19-1
 - 644985 - SELinux context cleared from RHEL4 rhncfg-client
