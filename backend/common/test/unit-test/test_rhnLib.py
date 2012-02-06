@@ -25,6 +25,7 @@ from spacewalk.common import rhnLib
 TIMEZONE_SHIFT = time.timezone / 3600
 
 class Tests(unittest.TestCase):
+    # pylint: disable=R0904
 
     ###########################################################################
     # Tests for rhnLib.rfc822time()
