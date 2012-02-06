@@ -274,8 +274,6 @@ Libraries required by various exporting tools
 
 %build
 make -f Makefile.backend all
-export PYTHON_MODULE_NAME=%{name}
-export PYTHON_MODULE_VERSION=%{version}
 
 # check coding style
 # right now we check only common/*.py, others aren't clean yet
