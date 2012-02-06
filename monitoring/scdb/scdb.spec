@@ -26,7 +26,7 @@ This package contains State Change Database.
 %install
 rm -rf $RPM_BUILD_ROOT
 # Make sure the 'bdb' directory exists
-mkdir -p  $RPM_BUILD_ROOT/nocpulse/scdb/bdb
+mkdir -p  $RPM_BUILD_ROOT/var/lib/nocpulse/scdb/bdb
 
 # Copy the module
 mkdir -p $RPM_BUILD_ROOT%{perl_vendorlib}/NOCpulse
@@ -36,7 +36,7 @@ install -m 644 SCDB.pm $RPM_BUILD_ROOT%{perl_vendorlib}/NOCpulse
 
 %files
 %defattr(-,root,root,-)
-%attr(755,apache,apache) %dir /nocpulse/scdb/bdb
+%attr(755,apache,apache) %dir /var/lib/nocpulse/scdb/bdb
 %{perl_vendorlib}/NOCpulse/*
 
 %clean

@@ -35,8 +35,8 @@ my $dbh   = &connect($cdata, $cargs);
 
 MAIN: {
 
-  my $SCDB    = '/nocpulse/scdb/bdb';
-  my $TSDB    = '/nocpulse/tsdb/bdb';
+  my $SCDB    = '/var/lib/nocpulse/scdb/bdb';
+  my $TSDB    = '/var/lib/nocpulse/tsdb/bdb';
 
 
   # Fetch required data
