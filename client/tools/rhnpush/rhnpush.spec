@@ -11,7 +11,7 @@ BuildRoot:     %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:     noarch
 Requires:      rpm-python
 Requires:      rhnlib >= 2.5.38
-Requires:      spacewalk-backend-libs >= 0.8.3
+Requires:      spacewalk-backend-libs >= 1.7.16
 Requires:      rhn-client-tools
 %if 0%{?suse_version}
 # provides rhn directories for filelist check in OBS
