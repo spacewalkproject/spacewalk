@@ -17,10 +17,15 @@ import os
 import sys
 import rpm
 import struct
-import tempfile
 
 import checksum
 from rhn_pkg import A_Package, InvalidPackageError
+
+try:
+    from tempfile import SpooledTemporaryFile
+except ImportError:
+    # RHEL5
+    from tempfile import NamedTemporaryFile as SpooledTemporaryFile
 
 # Expose a bunch of useful constants from rpm
 error = rpm.error
@@ -135,7 +140,7 @@ class RPM_Package(A_Package):
     # pylint: disable=R0902
     def __init__(self, input_stream = None):
         A_Package.__init__(self, input_stream)
-        self.header_data = tempfile.SpooledTemporaryFile()
+        self.header_data = SpooledTemporaryFile()
 
     def read_header(self):
         self._get_header_byte_range()
