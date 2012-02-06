@@ -1033,6 +1033,7 @@ def help_softwarechannel_adderratabydate(self):
     print 'softwarechannel_adderratabydate: Add errata from one channel ' + \
           'into another channel based on a date range'
     print 'usage: softwarechannel_adderratabydate SOURCE DEST BEGINDATE ENDDATE'
+    print 'Date format : YYYYMMDD'
 
 def complete_softwarechannel_adderratabydate(self, text, line, beg, end):
     parts = line.split(' ')
@@ -1055,10 +1056,12 @@ def do_softwarechannel_adderratabydate(self, args):
 
     if not re.match('\d{8}', begin_date):
         logging.error('%s is an invalid date' % begin_date)
+        self.help_softwarechannel_adderratabydate()
         return
 
     if not re.match('\d{8}', end_date):
         logging.error('%s is an invalid date' % end_date)
+        self.help_softwarechannel_adderratabydate()
         return
 
     # get the errata that are in the given date range
