@@ -1081,6 +1081,56 @@ def do_softwarechannel_adderratabydate(self, args):
 
 ####################
 
+def help_softwarechannel_listerratabydate(self):
+    print 'softwarechannel_listerratabydate: list errata from channel' + \
+          'based on a date range'
+    print 'usage: softwarechannel_listerratabydate CHANNEL BEGINDATE ENDDATE'
+    print 'Date format : YYYYMMDD'
+
+def complete_softwarechannel_listerratabydate(self, text, line, beg, end):
+    parts = line.split(' ')
+
+    if len(parts) <= 3:
+        return tab_completer(self.do_softwarechannel_list('', True),
+                                  text)
+
+def do_softwarechannel_listerratabydate(self, args):
+    (args, options) = parse_arguments(args)
+
+    if len(args) != 3:
+        self.help_softwarechannel_listerratabydate()
+        return
+
+    channel = args[0]
+    begin_date = args[1]
+    end_date = args[2]
+
+    if not re.match('\d{8}', begin_date):
+        logging.error('%s is an invalid date' % begin_date)
+        self.help_softwarechannel_listerratabydate()
+        return
+
+    if not re.match('\d{8}', end_date):
+        logging.error('%s is an invalid date' % end_date)
+        self.help_softwarechannel_listerratabydate()
+        return
+
+    # get the errata that are in the given date range
+    logging.debug('Retrieving list of errata from channel %s' % channel)
+    errata = \
+        self.client.channel.software.listErrata(self.session,
+                                                channel,
+                                                parse_time_input(begin_date),
+                                                parse_time_input(end_date))
+
+    if not len(errata):
+        logging.warning('No errata found between the given dates')
+        return
+
+    print_errata_list(errata)
+
+####################
+
 def help_softwarechannel_adderrata(self):
     print 'softwarechannel_adderrata: Add errata from one channel ' + \
           'into another channel'
