@@ -112,12 +112,12 @@ update pg_settings set setting = 'rhn_server,' || setting where name = 'search_p
         server record;
     begin
         i := 0;
-    	for server in
-    	   SELECT user_id, label, element, element_two
+        for server in (
+           SELECT user_id, label, element, element_two
 	     FROM rhnSet
 	    WHERE label = set_label_in
 	      AND user_id = set_uid_in
-	loop
+	) loop
 	    if rhn_server.system_service_level(server.element, 'provisioning') = 1 then
 	    	perform rhn_server.set_custom_value(server.element, set_uid_in, key_label_in, value_in);
             i := i + 1;
@@ -137,12 +137,12 @@ update pg_settings set setting = 'rhn_server,' || setting where name = 'search_p
         server record;
     	snapshot_id numeric;
     begin
-    	for server in
-    	   SELECT user_id, label, element, element_two
+        for server in (
+           SELECT user_id, label, element, element_two
 	     FROM rhnSet
 	    WHERE label = set_label_in
 	      AND user_id = set_uid_in
-	loop
+	    ) loop
 	    if rhn_server.system_service_level(server.element, 'provisioning') = 1 then
 	    	    select max(id) into snapshot_id
 	    	    from rhnSnapshot
@@ -220,12 +220,12 @@ update pg_settings set setting = 'rhn_server,' || setting where name = 'search_p
     declare
         server record;
     begin
-    	for server in
-    	   SELECT user_id, label, element, element_two
+        for server in (
+           SELECT user_id, label, element, element_two
 	     FROM rhnSet
 	    WHERE label = set_label_in
 	      AND user_id = set_uid_in
-	loop
+	    ) loop
     	    if rhn_server.system_service_level(server.element, 'provisioning') = 1 then
 	    	perform rhn_server.snapshot_server(server.element, reason_in);
 	    end if;
