@@ -22,6 +22,10 @@ import tempfile
 import checksum
 from rhn_pkg import A_Package, InvalidPackageError
 
+if not hasattr(tempfile, 'SpooledTemporaryFile'):
+    # RHEL5
+    tempfile.SpooledTemporaryFile = tempfile.NamedTemporaryFile
+
 # Expose a bunch of useful constants from rpm
 error = rpm.error
 
