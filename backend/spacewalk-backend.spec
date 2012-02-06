@@ -277,6 +277,8 @@ make -f Makefile.backend all
 
 # check coding style
 # right now we check only common/*.py, others aren't clean yet
+ln -s . spacewalk       # silly workaround - added 'spacewalk' into path
+                        # because we search for modules in spacewalk.common
 find common -name '*.py' \
     | xargs pylint -rn -iy --bad-functions=apply,input \
                    --disable C0111,C0103,C0301,F0401,I0011,R0801,R0903,R0911,R0912,R0913,R0914,W0142,W0403,W0511,W0603
