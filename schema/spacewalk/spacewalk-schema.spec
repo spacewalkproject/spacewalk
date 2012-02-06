@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.7.22
+Version:        1.7.23
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -66,6 +66,14 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Mon Feb 06 2012 Jan Pazdziora 1.7.23-1
+- PostgreSQL packages have the same dependencies as the Oracle ones.
+- Fixing typo.
+- Removing the last three occurrences of rhn_set.set_iterator, and the whole
+  package.
+- None of the files listed in the .gitignore exists or is produced, removing.
+- The header.txt file does not seem to be used anywhere, removing.
+
 * Wed Feb 01 2012 Jan Pazdziora 1.7.22-1
 - Fixing oracle equivalent source sha1.
 
