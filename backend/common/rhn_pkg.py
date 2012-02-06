@@ -17,6 +17,7 @@ import os
 import checksum
 
 def get_package_header(filename=None, file_obj=None, fd=None):
+    # pylint: disable=E1103
     if filename is not None:
         stream = open(filename)
         need_close = True
