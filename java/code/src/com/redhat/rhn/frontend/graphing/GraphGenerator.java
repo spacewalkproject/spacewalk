@@ -21,6 +21,8 @@ import org.apache.log4j.Logger;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartUtilities;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.axis.DateAxis;
+import org.jfree.chart.plot.XYPlot;
 import org.jfree.data.time.Minute;
 import org.jfree.data.time.TimeSeries;
 import org.jfree.data.time.TimeSeriesCollection;
@@ -121,19 +123,12 @@ public class GraphGenerator {
                 true, // generate tooltips?
                 false // generate URLs?
                 );
-        // TODO: If we need to force time formats
-        // this is how we do it.  Leaving out for now.
-        /*XYPlot plot = chart.getXYPlot();
-        DateAxis axis = (DateAxis) plot.getDomainAxis();
-        Context ctx = Context.getCurrentContext();
 
-        String graphDateFormat = "yyyy-MM-dd h:mm a";
-        SimpleDateFormat sdf = new SimpleDateFormat(
-                graphDateFormat, ctx.getLocale());
-        axis.setDateFormatOverride(sdf);*/
+        XYPlot plot = chart.getXYPlot();
+        DateAxis axis = (DateAxis) plot.getDomainAxis();
+        axis.setTimeZone(Context.getCurrentContext().getTimezone());
 
         return chart;
-
     }
 
     /**
@@ -146,8 +141,7 @@ public class GraphGenerator {
      * @return JFree object collection of data and time values
      */
     private static XYDataset createDataset(List dataIn, Map labelMap) {
-        TimeSeriesCollection dataset =
-            new TimeSeriesCollection(Context.getCurrentContext().getTimezone());
+        TimeSeriesCollection dataset = new TimeSeriesCollection();
 
         Iterator itr = dataIn.iterator();
         while (itr.hasNext()) {
