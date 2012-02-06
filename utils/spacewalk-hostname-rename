@@ -27,7 +27,6 @@ NOCPULSE_INI=/etc/NOCpulse.ini
 BOOTSTRAP_SH=/var/www/html/pub/bootstrap/bootstrap.sh
 BOOTSTRAP_CCO=/var/www/html/pub/bootstrap/client-config-overrides.txt
 SAT_LOCAL_RULES_CONF=/var/lib/rhn/rhn-satellite-prep/satellite-local-rules.conf
-COBBLER_SETTINGS_FILE="/etc/cobbler/settings"
 BACKUP_EXT=.rnmbck
 
 if [ -x /etc/init.d/oracle ]; then
