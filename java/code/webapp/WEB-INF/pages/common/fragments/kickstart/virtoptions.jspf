@@ -4,7 +4,7 @@
               <html:select property="virtualizationTypeLabel" onchange="this.form.submit();return true;">
                 <html:optionsCollection property="virtualizationTypes" label="formattedName" value="label"/>
               </html:select><br/>
-			<c:if test="${not ksdata.rawData and ksdata.id}">
+			<c:if test="${not ksdata.rawData and not empty ksdata.id}">
             	  <span class="small-text"><bean:message key="kickstartdetails.jsp.virtTypeChangeWarning" arg0="${ksdata.id}"/></span>
 			</c:if>
             </td>
