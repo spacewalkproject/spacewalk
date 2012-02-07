@@ -16,7 +16,7 @@
 --
 --
 
-create schema rhn_server;
+-- create schema rhn_server;
 
 --update pg_setting
 update pg_settings set setting = 'rhn_server,' || setting where name = 'search_path';

@@ -52,7 +52,7 @@ for my $c (sort keys %{ $files{common} }) {
 for my $c (sort keys %{ $files{oracle} }) {
 	next unless $c =~ /\.(sql|pks|pkb)$/;
 	if (not exists $files{postgres}{$c}) {
-		if ($c =~ /^upgrade/) {
+		if ($c =~ /^upgrade|^packages|^tables|^class|^data/) {
 			print "Oracle file [$c] is not in PostgreSQL variant\n";
 			$error = 1;
 		} else {

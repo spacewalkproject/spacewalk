@@ -17,7 +17,7 @@
 --
 --
 
-create schema rhn_channel;
+-- create schema rhn_channel;
 
 --update pg_setting
 update pg_settings set setting = 'rhn_channel,' || setting where name = 'search_path';
