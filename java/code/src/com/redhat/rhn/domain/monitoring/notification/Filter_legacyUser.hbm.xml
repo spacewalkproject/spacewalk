@@ -22,8 +22,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
             type="timestamp"/>
         <property name="startDate" column="start_date" not-null="true"
             type="timestamp"/>
-        <property name="recurring" column="recurring" not-null="true" type="boolean"
-            length="1"/>
+        <property name="recurring" column="recurring" not-null="true" type="long"/>
         <property name="recurringDuration" column="recurring_duration"
             type="long"/>
         <property name="recurringDurationType" column="recurring_dur_type"

@@ -56,7 +56,7 @@ public class ModifyFilterCommand {
         filter.setUser(user);
         filter.setOrg(user.getOrg());
         filter.setType(NotificationFactory.FILTER_TYPE_REDIR);
-        filter.setRecurring(Boolean.FALSE);
+        filter.setRecurringBool(Boolean.FALSE);
         now = new Date();
         Calendar sevenDays = Calendar.getInstance();
         sevenDays.add(Calendar.DAY_OF_YEAR, 7);
@@ -133,7 +133,7 @@ public class ModifyFilterCommand {
      */
     public void updateRecurring(Boolean recurring, int duration, int durationType,
             Long frequency) {
-        filter.setRecurring(recurring);
+        filter.setRecurringBool(recurring);
 
         if (recurring.booleanValue()) {
             // Calculate duration
@@ -180,7 +180,7 @@ public class ModifyFilterCommand {
      *
      */
     public void disableRecurring() {
-        filter.setRecurring(Boolean.FALSE);
+        filter.setRecurringBool(Boolean.FALSE);
         filter.setRecurringDuration(null);
         filter.setRecurringDurationType(null);
     }

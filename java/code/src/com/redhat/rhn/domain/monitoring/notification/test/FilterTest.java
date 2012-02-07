@@ -53,7 +53,7 @@ public class FilterTest extends BaseTestCaseWithUser {
     public void testRecurring() throws Exception {
         String desc = "recur333" + TestUtils.randomString();
         Filter testFilter = createTestFilter(user, desc);
-        testFilter.setRecurring(Boolean.TRUE);
+        testFilter.setRecurringBool(Boolean.TRUE);
         testFilter.setRecurringDuration(new Long(2));
         testFilter.setRecurringDurationType(new Long(Calendar.YEAR));
         testFilter.setRecurringFrequency(new Long(Calendar.WEEK_OF_YEAR));

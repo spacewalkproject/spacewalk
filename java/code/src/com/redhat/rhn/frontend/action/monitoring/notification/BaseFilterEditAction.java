@@ -127,7 +127,7 @@ public abstract class BaseFilterEditAction extends RhnAction {
         }
         else {
             // Fill out the form from the Filter itself
-            form.set(RECURRING, filter.getRecurring());
+            form.set(RECURRING, filter.isRecurring());
             // Since RECURRING_DURATION is a user inputable field
             // we have to convert it to a string and also protect against nulls
             if (filter.getRecurringDuration() != null) {

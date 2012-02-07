@@ -136,7 +136,7 @@ public class FilterActionTest extends RhnBaseTestCase {
         action = new FilterCreateAction();
         setUpAction(action, "success");
         executeSubmit();
-        assertFalse(filter.getRecurring().booleanValue());
+        assertFalse(filter.isRecurring().booleanValue());
         Calendar now = Calendar.getInstance();
         now.setTime(new Date());
         Calendar expires = Calendar.getInstance();
@@ -186,7 +186,7 @@ public class FilterActionTest extends RhnBaseTestCase {
         ah.getForm().set(FilterCreateAction.DURATION_TYPE,
                          new Long(Calendar.HOUR_OF_DAY));
         executeSubmit();
-        assertTrue(filter.getRecurring().booleanValue());
+        assertTrue(filter.isRecurring().booleanValue());
         assertEquals(new Long(Calendar.WEEK_OF_YEAR), filter.getRecurringFrequency());
         assertEquals(new Long(360), filter.getRecurringDuration());
         assertEquals(new Long(Calendar.HOUR_OF_DAY), filter.getRecurringDurationType());
@@ -248,11 +248,11 @@ public class FilterActionTest extends RhnBaseTestCase {
 
         action = new FilterEditAction();
         setUpAction(action, "success");
-        filter.setRecurring(Boolean.TRUE);
+        filter.setRecurringBool(Boolean.TRUE);
         MonitoringManager.getInstance().storeFilter(filter, user);
         ah.getForm().set(FilterCreateAction.RECURRING, Boolean.FALSE);
         executeSubmit();
-        assertFalse(filter.getRecurring().booleanValue());
+        assertFalse(filter.isRecurring().booleanValue());
         assertNull(filter.getRecurringDuration());
         assertNull(filter.getRecurringDurationType());
     }

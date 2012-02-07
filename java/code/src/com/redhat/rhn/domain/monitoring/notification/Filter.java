@@ -18,6 +18,8 @@ import com.redhat.rhn.common.util.Asserts;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.user.User;
 
+import org.apache.commons.lang.BooleanUtils;
+
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -35,7 +37,7 @@ public class Filter {
     private String lastUpdateUser;
     private Date lastUpdateDate;
     private Date startDate;
-    private Boolean recurring;
+    private Long recurring;
     private Long recurringFrequency;
     private Long recurringDuration;
     private Long recurringDurationType;
@@ -183,20 +185,30 @@ public class Filter {
     /**
      * @return Returns the recurring.
      */
-    public Boolean getRecurring() {
+    public Long getRecurring() {
         return recurring;
     }
 
-
+    /**
+     * @return Returns the recurring boolean
+     */
+    public Boolean isRecurring() {
+        return recurring != 0;
+    }
 
     /**
      * @param recurringIn The recurring to set.
      */
-    public void setRecurring(Boolean recurringIn) {
+    public void setRecurring(Long recurringIn) {
         this.recurring = recurringIn;
     }
 
-
+    /**
+     * @param recurringIn The recurring to set.
+     */
+    public void setRecurringBool(Boolean recurringIn) {
+        this.recurring = new Long(BooleanUtils.toBoolean(recurringIn) ? 1 : 0);
+    }
 
     /**
      * Get the number of minutes we want the recurring filter
