@@ -17,7 +17,7 @@
 # in this software or its documentation.
 #
 
-
+import os
 import sys
 import shutil
 import tempfile
@@ -72,9 +72,25 @@ def validate(channel_labels):
             
     for tmp in tmp_dirs.values():
         shutil.rmtree(tmp, True)
-        
+
 def repodata(label):
     return "%s/rhn/repodata/%s" % ( CFG.REPOMD_CACHE_MOUNT_POINT, label)
+
+        
+def create_repodata_link(src_path, dst_path):
+    if not os.path.exists(os.path.dirname(dst_path)):
+        # create a dir if missing
+        os.makedirs(os.path.dirname(dst_path))
+    if not os.path.exists(dst_path):
+        if os.path.lexists(dst_path):
+            # remove dead links
+            os.unlink(dst_path)
+        # create the link
+        os.symlink(src_path, dst_path)
+
+def remove_repodata_link(link_path):
+    if os.path.exists(link_path):
+        return os.unlink(link_path)
 
 def diff_packages(old, new):
     old_hash = {}
@@ -118,8 +134,7 @@ def main(options):
     
     if options.validate:
         if len(needed_channels) > 0:
-            raise UserError("Cannot validate channels that do not exist %s", 
-                            str(needed_channels))
+            raise UserError("Cannot validate channels that do not exist %s" % ','.join(map(str,needed_channels)))
         for channel_list in options.channels:
             validate(channel_list.values())
         return
@@ -151,8 +166,6 @@ def main(options):
         cloner.remove_blacklisted()
     
 
-
-
 class ChannelTreeCloner:
     """Usage:
         a = ChannelTreeCloner(channel_hash, xmlrpc, db, to_date, blacklist)
@@ -178,8 +191,6 @@ class ChannelTreeCloner:
                                    self.remote_api, self.db_api)
             self.cloners.append(cloner)
             
-        
-
     
     def needing_create(self):
         """
@@ -293,10 +304,22 @@ class ChannelTreeCloner:
             labels = self.channel_map.keys()
         repos = [{"id":label, "relative_path":repodata(label)} for label in labels]
 
+        # dep solver expects the metadata to be in /repodata directory;
+        # create temporary symlinks
+        temp_repo_links = []
+        for repo in repos:
+            yum_repodata_path = "%s/repodata" % (repo['relative_path'])
+            create_repodata_link(repo['relative_path'], yum_repodata_path)
+            temp_repo_links.append(yum_repodata_path)
+        
         solver = DepSolver(repos, nvrea_list)
         dep_results = solver.processResults(solver.getDependencylist())
             
-        self.process_deps(dep_results)              
+        self.process_deps(dep_results)
+
+        # clean up temporary symlinks
+        for link in temp_repo_links:
+            remove_repodata_link(link)
         
     def process_deps(self, deps):
         needed_list = dict((label, []) for label in self.channel_map.values())
@@ -340,10 +363,6 @@ class ChannelTreeCloner:
             for cloner in self.cloners:
                 cloner.remove_blacklisted(self.blacklist)
         
-
-
-            
-
 
 class ChannelCloner:
     def __init__(self, from_label, to_label, to_date, remote_api, db_api):
@@ -415,9 +434,6 @@ class ChannelCloner:
                 log_clean(0, name)         
             self.remote_api.add_packages(self.to_label, needed_ids)
         
-
-  
-
     def src_pkg_exist(self, needed_list):
         if not self.from_pkg_hash:
             self.reset_from_pkgs()
@@ -487,10 +503,6 @@ class ChannelCloner:
         if len(found_ids) > 0:
             print "Removing %i packages from %s" % (len(found_ids), self.to_label)
             self.remote_api.remove_packages(self.to_label, found_ids)
-            
-        
-
-
             
 
 class RemoteApi:
