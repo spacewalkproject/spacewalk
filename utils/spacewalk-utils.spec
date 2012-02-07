@@ -1,7 +1,7 @@
 %define rhnroot %{_prefix}/share/rhn
 
 Name:		spacewalk-utils
-Version:	1.7.8
+Version:	1.7.9
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -78,6 +78,14 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Tue Feb 07 2012 Jan Pazdziora 1.7.9-1
+- The COBBLER_SETTINGS_FILE is not used, we call cobbler-setup to do the work.
+- errata date clone - fixing a few more issues with man page and adding a bit
+  more user output (jsherril@redhat.com)
+- errata date clone - another man page fix (jsherril@redhat.com)
+- errata date clone - man page fix (jsherril@redhat.com)
+- errata date clone - fixing man page formatting (jsherril@redhat.com)
+
 * Thu Feb 02 2012 Justin Sherrill <jsherril@redhat.com> 1.7.8-1
 - errata date clone - fixing imports (jsherril@redhat.com)
 
