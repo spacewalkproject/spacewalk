@@ -23,7 +23,7 @@ create or replace function check_role(user_id_in in numeric, role_in in varchar)
 returns numeric
 as $$
 begin
-  raise exception 'Stub called, must be replace by .pkb';
+  raise exception 'Stub called, must be replaced by .pkb';
   return 0;
 end;
 $$ language plpgsql;
@@ -32,7 +32,7 @@ create or replace function check_role_implied(user_id_in in numeric, role_in in 
 returns numeric
 as $$
 begin
-  raise exception 'Stub called, must be replace by .pkb';
+  raise exception 'Stub called, must be replaced by .pkb';
   return 0;	
 end;
 $$ language plpgsql;
@@ -41,7 +41,7 @@ create or replace function get_org_id(user_id_in in numeric)
 returns numeric
 as $$
 begin
-  raise exception 'Stub called, must be replace by .pkb';
+  raise exception 'Stub called, must be replaced by .pkb';
   return 0;
 end;
 $$ language plpgsql;
@@ -50,7 +50,7 @@ create or replace function find_mailable_address(user_id_in in numeric)
 returns varchar
 as $$
 begin
-  raise exception 'Stub called, must be replace by .pkb';
+  raise exception 'Stub called, must be replaced by .pkb';
   return null;
 end;
 $$ language plpgsql;
@@ -63,7 +63,7 @@ create or replace function add_servergroup_perm
 returns void
 as $$
 begin
-  raise exception 'Stub called, must be replace by .pkb';
+  raise exception 'Stub called, must be replaced by .pkb';
 end;
 $$ language plpgsql;
 
@@ -75,7 +75,7 @@ create or replace function remove_servergroup_perm
 returns void
 as $$
 begin
-  raise exception 'Stub called, must be replace by .pkb';
+  raise exception 'Stub called, must be replaced by .pkb';
 end;
 $$ language plpgsql;
 
@@ -87,7 +87,7 @@ create or replace function add_to_usergroup
 returns void
 as $$
 begin
-  raise exception 'Stub called, must be replace by .pkb';
+  raise exception 'Stub called, must be replaced by .pkb';
 end;
 $$ language plpgsql;
 
@@ -95,7 +95,7 @@ create or replace function remove_from_usergroup(user_id_in in numeric, user_gro
 returns void
 as $$
 begin
-  raise exception 'Stub called, must be replace by .pkb';
+  raise exception 'Stub called, must be replaced by .pkb';
 end;
 $$ language plpgsql;
 

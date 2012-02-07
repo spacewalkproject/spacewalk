@@ -23,7 +23,7 @@ create or replace function recompute_org_quota_used(org_id_in in numeric)
 returns numeric
 as $$
 begin
-  raise exception 'Stub called, must be replace by .pkb';
+  raise exception 'Stub called, must be replaced by .pkb';
   return 0;
 end;
 $$ language plpgsql;
@@ -32,7 +32,7 @@ create or replace function update_org_quota(org_id_in in numeric)
 returns void
 as $$
 begin
-  raise exception 'Stub called, must be replace by .pkb';
+  raise exception 'Stub called, must be replaced by .pkb';
 end;
 $$ language plpgsql;
 

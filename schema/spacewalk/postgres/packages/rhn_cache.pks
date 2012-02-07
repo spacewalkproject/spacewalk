@@ -27,7 +27,7 @@ create or replace function update_perms_for_server
 returns void as
 $$
 begin
-  raise exception 'Stub called, must be replace by .pkb';
+  raise exception 'Stub called, must be replaced by .pkb';
 end;
 $$ language plpgsql;
 
@@ -39,7 +39,7 @@ create or replace function update_perms_for_user
 returns void
 as $$
 begin
-  raise exception 'Stub called, must be replace by .pkb';
+  raise exception 'Stub called, must be replaced by .pkb';
 end;
 $$ language plpgsql;
 
@@ -50,7 +50,7 @@ create or replace function update_perms_for_server_group
 returns void 
 as $$
 begin
-  raise exception 'Stub called, must be replace by .pkb';
+  raise exception 'Stub called, must be replaced by .pkb';
 end;
 $$ language plpgsql;
 
