@@ -83,7 +83,7 @@ class deb_Header:
         return 0
 
     def __getitem__(self, name):
-        return self.hdr[str(name)]
+        return self.hdr.get(str(name))
 
 class DEB_Package(A_Package):
     def __init__(self, input_stream = None):
