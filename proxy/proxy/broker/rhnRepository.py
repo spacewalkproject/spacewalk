@@ -178,7 +178,7 @@ class Repository(rhnRepository.Repository):
         if not params:
             stringObject = dataProducer()
         else:
-            stringObject = apply(dataProducer, params)
+            stringObject = dataProducer(*params)
         # Cache the thing
         cache(stringObject, fileDir, fileName, version)
         # Return the string
