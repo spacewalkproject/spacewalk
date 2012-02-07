@@ -24,7 +24,7 @@ from types import ListType, TupleType, IntType
 
 from rhn import connections, rpclib
 
-from spacewalk.common import rhn_mpm
+from spacewalk.common.rhn_pkg import InvalidPackageError, package_from_filename
 
 class ConnectionError(Exception):
     pass
@@ -181,25 +181,25 @@ class PackageUpload:
             self.package_release
             self.package_arch
         """
-        f = open(file)
         try:
-            header, payload_stream = rhn_mpm.load(file=f)
-        except rhn_mpm.InvalidPackageError:
+            a_pkg = package_from_filename(file)
+            a_pkg.read_header()
+        except InvalidPackageError:
             return -1, "Not an RPM: %s" % file
 
         # Set some package data members
-        self.package_name = header['name']
-        self.package_epoch = header['epoch']
-        self.package_version = header['version']
-        self.package_release = header['release']
-        if header.is_source:
-            if 1051 in header.keys():
+        self.package_name = a_pkg.header['name']
+        self.package_epoch = a_pkg.header['epoch']
+        self.package_version = a_pkg.header['version']
+        self.package_release = a_pkg.header['release']
+        if a_pkg.header.is_source:
+            if 1051 in a_pkg.header.keys():
                 self.package_arch = 'nosrc'
             else:
                 self.package_arch = 'src'
         else:
-            self.package_arch = header['arch']
-        self.packaging = header.packaging
+            self.package_arch = a_pkg.header['arch']
+        self.packaging = a_pkg.header.packaging
 
         nvra = [self.package_name, self.package_version, self.package_release,
             self.package_arch]
@@ -230,10 +230,9 @@ class PackageUpload:
             self.set_header("%s-%s" % (prefix, "File-Checksum-Type"), self.checksum_type)
             self.set_header("%s-%s" % (prefix, "File-Checksum"), self.checksum)
         
-        self._response = self.send_http('POST', stream_body=f)
-        f.close()
-
-        payload_stream.close()
+        a_pkg.input_stream.seek(0, 0)
+        self._response = self.send_http('POST', stream_body=a_pkg.input_stream)
+        a_pkg.input_stream.close()
 
         retval = self.process_response()
         self.connection.close()

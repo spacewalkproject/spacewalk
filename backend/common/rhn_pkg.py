@@ -54,6 +54,16 @@ def package_from_stream(stream, packaging):
         a_pkg = None
     return a_pkg
 
+def package_from_filename(filename):
+    if filename.endswith('.deb'):
+        packaging = 'deb'
+    elif filename.endswith('.rpm'):
+        packaging = 'rpm'
+    else:
+        packaging = 'mpm'
+    stream = open(filename)
+    return package_from_stream(stream, packaging)
+
 BUFFER_SIZE = 16384
 DEFAULT_CHECKSUM_TYPE = 'md5'
 

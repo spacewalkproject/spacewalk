@@ -40,9 +40,8 @@ from rhn.connections import idn_ascii_to_pune
 
 from optparse import Option, OptionParser
 from rhn import rpclib
-from spacewalk.common import rhn_mpm
 from spacewalk.common.checksum import getFileChecksum
-from spacewalk.common.rhn_pkg import InvalidPackageError
+from spacewalk.common.rhn_pkg import InvalidPackageError, package_from_filename
 import uploadLib
 import rhnpush_v2
 
@@ -458,9 +457,9 @@ class UploadClass(uploadLib.UploadClass):
                 self.warn(-1, "Could not read file %s" % pkg)
                 continue
             try:
-                f = open(pkg)
-                header, payload_stream = rhn_mpm.load(file=f)
-                checksum_type = header.checksum_type()
+                a_pkg = package_from_filename(pkg)
+                a_pkg.read_header()
+                a_pkg.payload_checksum()
             except InvalidPackageError, e:
                 if not self.options.tolerant:
                     self.die(-1, "ERROR: %s: This file doesn't appear to be a package" % pkg)
@@ -472,26 +471,25 @@ class UploadClass(uploadLib.UploadClass):
                 self.warn(2, "ERROR: %s: No such file or directory available" % pkg)
                 continue
                         
-            checksum = getFileChecksum(checksum_type, file_obj=payload_stream)
-            digest_hash[pkg_key] =  (checksum_type, checksum)
-            f.close()
+            digest_hash[pkg_key] =  (a_pkg.checksum_type, a_pkg.checksum)
+            a_pkg.input_stream.close()
             
             for tag in ('name', 'version', 'release', 'epoch', 'arch'):
-                val = header[tag]
+                val = a_pkg.header[tag]
                 if val is None:
                     val = ''
                 pkg_info[tag] = val
             #b195903:the arch for srpms should be obtained by is_source check
             #instead of checking arch in header
-            if header.is_source:
+            if a_pkg.header.is_source:
                 if not self.options.source:
                     self.die(-1, "ERROR: Trying to Push src rpm, Please re-try with --source.") 
-                if RPMTAG_NOSOURCE in header.keys():
+                if RPMTAG_NOSOURCE in a_pkg.header.keys():
                     pkg_info['arch'] = 'nosrc'
                 else:
                     pkg_info['arch'] = 'src'
-            pkg_info['checksum_type'] = checksum_type
-            pkg_info['checksum'] = checksum
+            pkg_info['checksum_type'] = a_pkg.checksum_type
+            pkg_info['checksum'] = a_pkg.checksum
             pkg_hash[pkg_key] = pkg_info
 
         if self.options.nullorg:
