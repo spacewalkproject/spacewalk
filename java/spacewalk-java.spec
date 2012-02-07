@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.7.20
+Version: 1.7.21
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -555,6 +555,11 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Feb 07 2012 Jan Pazdziora 1.7.21-1
+- Updating the oversight in license texts.
+- Removing unused package.htmls.
+- The create_package_doc.pl si not used, removing.
+
 * Mon Feb 06 2012 Tomas Lestach <tlestach@redhat.com> 1.7.20-1
 - fix monitoring probe graph time axis (tlestach@redhat.com)
 - 785599 - fix jsp condition (tlestach@redhat.com)
