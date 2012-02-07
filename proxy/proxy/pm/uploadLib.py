@@ -167,19 +167,3 @@ class UploadClass(uploadLib.UploadClass):
         checksum = getFileChecksum('md5', filename=filename)
         hash['md5sum'] = checksum
         return hash
-
-
-def get_header(file, fildes=None, source=None):
-    """ returns a header from a package file on disk """
-    # rhn_mpm.get_package_header will choose the right thing to do - open the
-    # file or use the provided open file descriptor)
-    try:
-        h = rhn_mpm.get_package_header(filename=file, fd=fildes)
-    except rhn_mpm.InvalidPackageError:
-        raise uploadLib.UploadError("Package is invalid"), None, sys.exc_info()[2]
-    # Verify that this is indeed a binary/source. xor magic
-    # xor doesn't work with None values, so compare the negated values - the
-    # results are identical
-    if (not source) ^ (not h.is_source):
-        raise uploadLib.UploadError("Unexpected RPM package type")
-    return h
