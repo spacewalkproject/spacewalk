@@ -105,3 +105,4 @@ rhnServerOverview                :: rhnUserServerPerms \
                                     rhnPackage rhnServerNeededPackageCache \
                                     rhnServerErrataTypeView \
                                     rhn_entitlements.pks
+time_series                      :: time_series_data

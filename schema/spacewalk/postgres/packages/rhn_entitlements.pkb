@@ -1,4 +1,4 @@
--- oracle equivalent source sha1 43929b2002afd5e2f471d79ef19d59317355db81
+-- oracle equivalent source sha1 6dc7be1caf6134e05d47ac8294735fd20973206a
 --
 -- Copyright (c) 2008--2011 Red Hat, Inc.
 --
@@ -433,20 +433,7 @@ as $$
 
          perform rhn_server.delete_from_servergroup(server_id_in, group_id);
 
-         -- special case: clean up related monitoring data
          if type_label_in = 'monitoring_entitled' then
-           DELETE
-             FROM state_change
-            WHERE o_id IN (SELECT probe_id::varchar
-                             FROM rhn_check_probe
-                            WHERE host_id = server_id_in);
-           DELETE
-             FROM time_series
-            WHERE substring(o_id FROM position('-' IN o_id) + 1
-                            FOR position('-' IN substring(o_id FROM position('-' IN o_id) + 1)) - 1)
-              IN (SELECT probe_id::text
-                    FROM rhn_check_probe
-                   WHERE host_id = server_id_in);
            DELETE
              FROM rhn_probe
             WHERE recid IN (SELECT probe_id

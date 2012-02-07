@@ -15,6 +15,7 @@
 
 path = tables procs packages
 
+rhn_probe                  :: time_series_purge
 rhnChannel                 :: rhnChannel lookup_functions rhnSnapshot rhnChannelTrust
 rhnChannelPackage          :: rhnChannelPackage rhnSnapshot rhnChannel \
                               lookup_functions rhnSnapshotChannel
@@ -31,4 +32,5 @@ rhnServerGroup             :: rhnUserGroup rhnUserGroupType rhn_exception \
                               rhnSnapshotServerGroup
 rhnSnapshotConfigChannel   :: rhnSnapshot rhnConfigChannel
 rhnUserInfo                :: rhnTimezone rhn_contact_methods
+time_series_purge          :: time_series_purge
 web_contact                :: web_contact

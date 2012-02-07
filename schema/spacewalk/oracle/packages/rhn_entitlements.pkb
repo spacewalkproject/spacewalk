@@ -413,20 +413,7 @@ is
 
          rhn_server.delete_from_servergroup(server_id_in, group_id);
 
-         -- special case: clean up related monitornig data
          if type_label_in = 'monitoring_entitled' then
-           DELETE
-             FROM state_change
-            WHERE o_id IN (SELECT probe_id
-                             FROM rhn_check_probe
-                            WHERE host_id = server_id_in);
-           DELETE /*+index(time_series time_series_probe_id_idx)*/
-             FROM time_series
-            WHERE SUBSTR(o_id, INSTR(o_id, '-') + 1, 
-                        (INSTR(o_id, '-', INSTR(o_id, '-') + 1) - INSTR(o_id, '-')) - 1)
-              IN (SELECT to_char(probe_id)
-                    FROM rhn_check_probe
-                   WHERE host_id = server_id_in);
            DELETE
              FROM rhn_probe
             WHERE recid IN (SELECT probe_id

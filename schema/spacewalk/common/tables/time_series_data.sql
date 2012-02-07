@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2012 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -7,29 +7,25 @@
 -- FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 -- along with this software; if not, see
 -- http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
--- 
+--
 -- Red Hat trademarks are not licensed under GPLv2. No permission is
 -- granted to use or replicate Red Hat trademarks that are incorporated
--- in this software or its documentation. 
+-- in this software or its documentation.
 --
 
-CREATE TABLE time_series
+create table time_series_data
 (
-    o_id        VARCHAR2(64) NOT NULL, 
-    entry_time  NUMBER NOT NULL, 
-    data        VARCHAR2(1024)
+    org_id      number not null,
+    probe_id    number not null
+                    constraint time_series_data_pid_fk references
+                    time_series_purge(id),
+    probe_desc  varchar2(64),
+    entry_time  number not null,
+    data        varchar2(1024)
 )
-ENABLE ROW MOVEMENT
+enable row movement
 ;
 
-CREATE INDEX time_series_probe_id_idx
-  ON time_series(SUBSTR(O_ID, INSTR(O_ID, '-') + 1,
-   (INSTR(O_ID, '-', INSTR(O_ID, '-') + 1) - INSTR(O_ID, '-')) - 1
-  ))
-  TABLESPACE [[64k_tbs]]
-  NOLOGGING;
-
-CREATE INDEX time_series_oid_entry_idx
-    ON time_series (o_id, entry_time)
-    TABLESPACE [[64k_tbs]];
-
+create index time_series_data_pid_time_idx on time_series_data(probe_id, entry_time)
+  tablespace [[64k_tbs]]
+  nologging;

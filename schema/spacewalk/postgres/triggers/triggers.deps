@@ -15,6 +15,7 @@
 
 path = tables procs packages
 
+rhn_probe                  :: time_series_purge
 rhnChannel                 :: rhnChannel lookup_functions rhnSnapshot rhnChannelTrust
 rhnChannelPackage          :: rhnChannelPackage rhnSnapshot rhnChannel \
                               lookup_functions rhnSnapshotChannel

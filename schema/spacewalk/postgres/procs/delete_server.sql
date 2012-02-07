@@ -1,5 +1,4 @@
 -- -- oracle equivalent source sha1 ffec7477d36e781e5728b3b5c10e4010c58b4d2a
--- one difference from Oracle (see TODO, delete from time_series missing)
 --
 -- Copyright (c) 2008--2011 Red Hat, Inc.
 --
@@ -225,8 +224,6 @@ begin
        FROM rhn_sat_node SN
       WHERE SN.server_id = server_id_in)
     );
-
-    -- delete from time_series TODO
 
         delete from rhn_check_probe where host_id = server_id_in;
         delete from rhn_host_probe where host_id = server_id_in;
