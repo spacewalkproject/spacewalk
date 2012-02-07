@@ -4,7 +4,7 @@ Group:   Applications/Internet
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 1.7.2
+Version: 1.7.3
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
 BuildRequires: python
@@ -320,6 +320,9 @@ fi
 
 
 %changelog
+* Tue Feb 07 2012 Miroslav Suchý 1.7.3-1
+- clean up code style
+
 * Tue Feb 07 2012 Michael Mraka <michael.mraka@redhat.com> 1.7.2-1
 - removed unused import
 - removed dead copy of get_header() from proxy
