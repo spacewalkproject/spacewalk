@@ -1,5 +1,6 @@
+-- oracle equivalent source sha1 82ad2287cb726f13fa01da60a48940d2eac9a369
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2012 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -11,7 +12,6 @@
 -- Red Hat trademarks are not licensed under GPLv2. No permission is
 -- granted to use or replicate Red Hat trademarks that are incorporated
 -- in this software or its documentation. 
---
 --
 
 create schema rhn_quota;
@@ -25,31 +25,6 @@ as $$
 begin
   raise exception 'Stub called, must be replace by .pkb';
   return 0;
-end;
-$$ language plpgsql;
-
-
-create or replace function get_org_for_config_content
-(
-  config_content_id_in in numeric
-)
-returns numeric
-as $$
-begin
-  raise exception 'Stub called, must be replace by .pkb';
-  return 0;
-end;
-$$ language plpgsql;
-        
-
-create or replace function set_org_quota_total 
-(
-  org_id_in in numeric,
-  total_in in numeric
-) returns void
-as $$
-begin
-  raise exception 'Stub called, must be replace by .pkb';
 end;
 $$ language plpgsql;
 

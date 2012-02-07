@@ -1,5 +1,6 @@
+-- oracle equivalent source sha1 4fb3a3e657d9f0440d4429b833e0bc5b2eb18b94
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2012 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -11,7 +12,6 @@
 -- Red Hat trademarks are not licensed under GPLv2. No permission is
 -- granted to use or replicate Red Hat trademarks that are incorporated
 -- in this software or its documentation. 
---
 --
 
 --create schema rhn_quota;
@@ -44,69 +44,6 @@ create or replace function recompute_org_quota_used (
 end;
 $$ language plpgsql;
 
-
-create or replace function get_org_for_config_content (
-                config_content_id_in in numeric
-        ) returns numeric as
-        $$
-        declare
-                org_id numeric;
-        begin
-
-                select  cc.org_id
-                into    org_id
-                from    rhnConfigChannel        cc,
-                                rhnConfigFile           cf,
-                                rhnConfigRevision       cr
-                where   cr.config_content_id = config_content_id_in
-                        and cr.config_file_id = cf.id
-                        and cf.config_channel_id = cc.id;
-
-                return org_id;
-end;
-$$
-language plpgsql;
-        
-
-create or replace function set_org_quota_total (
-                org_id_in in numeric,
-                total_in in numeric
-        ) returns void
-        as
-        $$
-        declare
-                available numeric;
-        begin
-                select  total_in + oq.bonus
-                into    available
-                from    rhnOrgQuota oq
-                where   oq.org_id = org_id_in;
-
-                if not found  then
-                        insert into rhnOrgQuota ( org_id, total )
-                                values (org_id_in, total_in);
-                        return;
-		end if;
-
-                perform rhn_config.prune_org_configs(org_id_in, available);
-
-                update          rhnOrgQuota
-                        set             total = total_in
-                        where   org_id = org_id_in;
-        
-                -- right now, we completely ignore failure in setting the total to a
-                -- lower number than is subscribed, because we have no prune.  prune
-                -- will be in the next version, sometime in the not too distant future,
-                -- on maple street.  So if the new total is smaller than used, it'll
-                -- just not get updated.  We'll be ok, but someday we'll need to prune
-                -- *everybody*, so we don't want to wait too long.
-                exception when others then
-                        null;
-end;
-$$
-language plpgsql;
-
-        
 
 create or replace function update_org_quota (
                 org_id_in in numeric
