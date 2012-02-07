@@ -25,6 +25,7 @@ import struct
 import xmlrpclib
 from spacewalk.common import rhn_mpm
 from spacewalk.common.checksum import getFileChecksum
+from spacewalk.common.rhn_pkg import package_from_filename, get_package_header
 from up2date_client import rhnserver
 
 try:
@@ -468,28 +469,23 @@ class UploadClass:
 
         # Size
         size = os.path.getsize(filename)
-        # Open the file
-        f = open(filename, "r")
-        # Read the header
-        h = get_header(None, f.fileno(), source)
-        (header_start, header_end) = get_header_byte_range(f);
-        # Rewind the file
-        f.seek(0, 0)
-        # Compute digest
-        checksum_type = h.checksum_type()
-        checksum = getFileChecksum(checksum_type, file_obj=f)
-        f.close()
-        if h is None:
-            raise UploadError("%s is not a valid RPM file" % filename)
 
-        if nosig is None and not h.is_signed():
+        try:
+            a_pkg = package_from_filename(filename)
+            a_pkg.read_header()
+            a_pkg.payload_checksum()
+            assert a_pkg.header
+        except:
+            raise UploadError("%s is not a valid package" % filename), None, sys.exc_info()[2]
+
+        if nosig is None and not a_pkg.header.is_signed():
             raise UploadError("ERROR: %s: unsigned rpm (use --nosig to force)"
                 % filename)
 
         # Get the name, version, release, epoch, arch
         lh = []
         for k in ['name', 'version', 'release', 'epoch']:
-            lh.append(h[k])
+            lh.append(a_pkg.header[k])
         # Fix the epoch
         if lh[3] is None:
             lh[3] = ""
@@ -502,12 +498,12 @@ class UploadClass:
             lh.append(h['arch'])
 
         # Build the header hash to be sent
-        hash = { 'header' : Binary(h.unload()),
-                'checksum_type' : checksum_type,
-                'checksum' : checksum,
+        hash = { 'header' : Binary(a_pkg.header.unload()),
+                'checksum_type' : a_pkg.checksum_type,
+                'checksum' : a_pkg.checksum,
                 'packageSize' : size,
-                'header_start' : header_start,
-                'header_end' : header_end}
+                'header_start' : a_pkg.header_start,
+                'header_end' : a_pkg.header_end}
         if relativeDir:
             # Append the relative dir too
             hash["relativePath"] = "%s/%s" % (relativeDir,
@@ -703,10 +699,8 @@ def packageCompare(pkg1, pkg2, is_mpm=None):
 
 # returns a header from a package file on disk.
 def get_header(file, fildes=None, source=None):
-    # rhn_mpm.get_package_header will choose the right thing to do - open the
-    # file or use the provided open file descriptor)
     try:
-        h = rhn_mpm.get_package_header(filename=file, fd=fildes)
+        h = get_package_header(filename=file, fd=fildes)
     except:
         raise UploadError("Package is invalid"), None, sys.exc_info()[2]
         
