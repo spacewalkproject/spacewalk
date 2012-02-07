@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 1.7.15
+Version: 1.7.16
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -254,6 +254,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Tue Feb 07 2012 Jan Pazdziora 1.7.16-1
+- Updating the oversight in license texts.
+
 * Tue Feb 07 2012 Jan Pazdziora 1.7.15-1
 - remove unused code (mzazrivec@redhat.com)
 - pgsql: fix notification method deletion (mzazrivec@redhat.com)
