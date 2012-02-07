@@ -6,7 +6,6 @@ build-jar-dir - builds jar directory for create-webapp-dir task
 cleantommy.sh - cleans out tomcat logs
 connwatch - watches connections and logs status to stdout
 create-api-test - creates python xmlrpc api testcase
-create_package_doc.pl - creates the package.html file for javadoc
 dumpnavtree.sh - dumps the nav tree given a nav*.xml file
 gen-eclipse.py - generates eclipse .classpath file (should be renamed)
 jarsearch.sh - searches a directory of jars for a specific class
