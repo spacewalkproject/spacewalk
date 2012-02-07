@@ -19,12 +19,4 @@
     </simpleType>
   </attribute>
 
-  <attribute name="recurring_duration">
-    <simpleType baseType="long">
-      <requiredIf field="recurring" value="true"/>
-      <minInclusive value="1" />
-      <maxInclusive value="99" />
-    </simpleType>
-  </attribute>
-
 </schema>
