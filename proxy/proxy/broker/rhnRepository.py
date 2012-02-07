@@ -225,7 +225,7 @@ class Repository(rhnRepository.Repository):
             filePath = computePackagePath(package, source=0, prepend=PREFIX)
             _hash[filename] = filePath
 
-        if CFG.DEBUG>4:
+        if CFG.DEBUG > 4:
             log_debug(5, "Mapping: %s[...snip snip...]%s" % (str(_hash)[:40], str(_hash)[-40:]))
         return cPickle.dumps(_hash, 1)
 
