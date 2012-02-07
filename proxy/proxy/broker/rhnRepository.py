@@ -49,6 +49,7 @@ class NotLocalError(Exception):
 
 
 class Repository(rhnRepository.Repository):
+    # pylint: disable=R0902
     """ Proxy local package repository lookup and manipulation code. """
 
     def __init__(self,
