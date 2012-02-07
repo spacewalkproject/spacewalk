@@ -64,7 +64,7 @@ class deb_Header:
                 if debcontrol.has_key(deb_k):
                     self.hdr[hdr_k] = debcontrol.get_as_string(deb_k)
             for k in debcontrol.keys():
-                if not self.hdr[k]:
+                if not self.hdr.has_key(k):
                     self.hdr[k] = debcontrol.get_as_string(k)
 
             version = debcontrol.get_as_string('Version')
