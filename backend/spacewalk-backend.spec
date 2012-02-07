@@ -12,7 +12,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.7.16
+Version: 1.7.17
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -682,6 +682,12 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Tue Feb 07 2012 Michael Mraka <michael.mraka@redhat.com> 1.7.17-1
+- fixed KeyError during deb package push
+- fixed ERROR: unhandled exception occurred: ('epoch').
+- fixed InvalidPackageErrorduring push of deb package
+- converted rhnpush to use A_Package interface
+
 * Mon Feb 06 2012 Michael Mraka <michael.mraka@redhat.com> 1.7.16-1
 - fixed rpmbuild on RHEL5
 
