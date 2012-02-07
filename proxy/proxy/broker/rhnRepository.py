@@ -175,10 +175,9 @@ class Repository(rhnRepository.Repository):
             return data
 
         # The file's not there; query the DB or whatever dataproducer used.
-        if not params:
-            stringObject = dataProducer()
-        else:
-            stringObject = dataProducer(*params)
+        if params is None:
+            params = ()
+        stringObject = dataProducer(*params)
         # Cache the thing
         cache(stringObject, fileDir, fileName, version)
         # Return the string

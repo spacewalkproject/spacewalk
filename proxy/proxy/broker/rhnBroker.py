@@ -435,11 +435,10 @@ class BrokerHandler(SharedHandler):
                 _("RHN Proxy configuration error: invalid function %s") % funct)
 
         log_debug(3, "Calling %s(%s)" % (funct, params))
+        if params is None:
+            params = ()
         try:
-            if params:
-                ret = apply(f, params)
-            else:
-                ret = f()
+            ret = f(*params)
         except rhnRepository.NotLocalError:
             # The package is not local
             return None

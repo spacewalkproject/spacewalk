@@ -96,7 +96,7 @@ class Shelf:
         wfile = sock.makefile("w")
 
         try:
-            apply(send, (wfile, methodname, None) + params)
+            send(wfile, methodname, None, *params)
         except CommunicationError:
             wfile.close()
             sock.close()

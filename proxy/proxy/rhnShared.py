@@ -168,7 +168,7 @@ class SharedHandler:
                 conn_class = connections.HTTPConnection
 
         log_debug(5, "Using connection class", conn_class, 'Params:', params)
-        return apply(conn_class, (), params)
+        return conn_class(**params)
 
     def _parse_url(self, url):
         """ Returns scheme, host, port, path. """

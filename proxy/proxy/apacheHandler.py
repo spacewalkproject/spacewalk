@@ -322,7 +322,7 @@ class apacheHandler(rhnApache):
         else:
             conn_class = connections.HTTPConnection
 
-        return apply(conn_class, (), params)
+        return conn_class(**params)
 
     def handler(self, req):
         """ Main handler to handle all requests pumped through this server. """
