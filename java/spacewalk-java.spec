@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.7.21
+Version: 1.7.22
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -555,6 +555,12 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Feb 07 2012 Tomas Lestach <tlestach@redhat.com> 1.7.22-1
+- validate also empty form strings (tlestach@redhat.com)
+- remove duplicate xsd entry (tlestach@redhat.com)
+- convert boolean when storing it to DB char(1) (tlestach@redhat.com)
+- store recurring boolean object as number (tlestach@redhat.com)
+
 * Tue Feb 07 2012 Jan Pazdziora 1.7.21-1
 - Updating the oversight in license texts.
 - Removing unused package.htmls.
