@@ -47,8 +47,6 @@ HEADERS_PER_CALL = 25
 class UploadError(Exception):
     pass
 
-InvalidPackageError = rhn_mpm.InvalidPackageError
-
 class ServerFault(Exception):
     def __init__(self, faultCode=None, faultString="", faultExplanation=""):
         Exception.__init__(self)
