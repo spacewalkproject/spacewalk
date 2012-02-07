@@ -34,13 +34,6 @@ class deb_Header:
         self.signatures = []
         self.is_source = 0
         self.deb = None
-        self.hdr = {
-                'name':    '',
-                'epoch':   '',
-                'version': 0,
-                'release': 0,
-                'arch':    'all',
-                }
 
         try:
             self.deb = debfile.DebFile(stream.name)
@@ -56,6 +49,9 @@ class deb_Header:
                 'summary': debcontrol.get_as_string('Description').splitlines()[0],
                 'vendor': debcontrol.get_as_string('Maintainer'),
                 'package_group': debcontrol.get_as_string('Section'),
+                'epoch':   '',
+                'version': 0,
+                'release': 0,
             }
             for hdr_k, deb_k in [('requires', 'Depends'),
                                  ('provides', 'Provides'),
