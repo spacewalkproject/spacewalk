@@ -739,7 +739,10 @@ def packageCompare(pkg1, pkg2, is_mpm=None):
 def get_header(file, fildes=None, source=None):
     # rhn_mpm.get_package_header will choose the right thing to do - open the
     # file or use the provided open file descriptor)
-    h = rhn_mpm.get_package_header(filename=file, fd=fildes)
+    try:
+        h = rhn_mpm.get_package_header(filename=file, fd=fildes)
+    except:
+        raise UploadError("Package is invalid"), None, sys.exc_info()[2]
         
     # Verify that this is indeed a binary/source. xor magic
     # xor doesn't work with None values, so compare the negated values - the
