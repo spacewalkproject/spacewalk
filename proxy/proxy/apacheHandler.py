@@ -83,9 +83,10 @@ class apacheHandler(rhnApache):
     def set_component(self, component):
         self._component = component
 
-    def _setSessionToken(self, req):
+    @staticmethod
+    def _setSessionToken(headers):
         # extended to always return a token, even if an empty one
-        ret = rhnApache._setSessionToken(self, req)
+        ret = rhnApache._setSessionToken(headers)
         if ret:
             log_debug(4, "Returning", ret)
             return ret
