@@ -7,7 +7,7 @@
 %define modulename spacewalk-monitoring
 
 Name:           spacewalk-monitoring-selinux
-Version:        1.7.0
+Version:        1.7.1
 Release:        1%{?dist}
 Summary:        SELinux policy module supporting Spacewalk monitoring
 
@@ -142,6 +142,10 @@ fi
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
+* Tue Feb 07 2012 Miroslav Suchý 1.7.1-1
+- allow monitoring to connect to PostgreSQL
+- Bumping package versions for 1.7. (mzazrivec@redhat.com)
+
 * Fri Aug 05 2011 Jan Pazdziora 1.6.2-1
 - 588923 - Allow sendmail to use Mail::Mailer (and send email).
 
