@@ -14,7 +14,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <property name="match" column="match_param" type="string" not-null="true" length="255"/>
         <property name="value" column="match_value" type="string" length="255"/>
         <property name="inverted" column="inverted" not-null="true"
-            type="boolean"/>
+            type="character" length="1" access="field"/>
         <many-to-one name="filter" class="com.redhat.rhn.domain.monitoring.notification.Filter"
             column="redirect_id" update="true" insert="true" cascade="none"/>
     </class>

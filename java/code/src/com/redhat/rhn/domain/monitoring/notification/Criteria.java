@@ -14,6 +14,8 @@
  */
 package com.redhat.rhn.domain.monitoring.notification;
 
+import org.apache.commons.lang.BooleanUtils;
+
 
 /**
  * A match criteria for notification filters, maps the table
@@ -25,14 +27,14 @@ public class Criteria {
     private Long   id;
     private String match;
     private String value;
-    private boolean inverted;
+    private Character inverted;
     private Filter filter;
 
     /**
      * Create a new object
      */
     Criteria() {
-        setInverted(false);
+        setInvertedBool(false);
     }
 
     /**
@@ -53,6 +55,13 @@ public class Criteria {
      * @return Returns the inverted.
      */
     private boolean isInverted() {
+        return !new Character('0').equals(inverted);
+    }
+
+    /**
+     * @return Returns the inverted.
+     */
+    private Character getInverted() {
         return inverted;
     }
 
@@ -94,8 +103,15 @@ public class Criteria {
     /**
      * @param inverted The inverted to set.
      */
-    private void setInverted(boolean inverted0) {
-        this.inverted = inverted0;
+    private void setInverted(Character inverted) {
+        this.inverted = inverted;
+    }
+
+    /**
+     * @param inverted The inverted boolean to set.
+     */
+    private void setInvertedBool(boolean inverted0) {
+        setInverted(BooleanUtils.toBoolean(inverted0) ? '1' : '0');
     }
 
     /**
