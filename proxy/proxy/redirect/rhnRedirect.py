@@ -16,7 +16,6 @@
 # $Id: rhnRedirect.py,v 1.59.2.2 2007/08/01 15:07:26 msuchy Exp $
 
 # language imports
-import string
 import socket
 import re
 from urlparse import urlparse, urlunparse
@@ -129,8 +128,8 @@ class RedirectHandler(SharedHandler):
                         if m:
                             # pull server name out of "t:o:k:e:n:hostname1,t:o:k:e:n:hostname2,..."
                             proxy_auth = self.req.headers_in['X-RHN-Proxy-Auth']
-                            last_auth = string.split(proxy_auth, ',')[-1]
-                            server_name = string.split(last_auth, ':')[-1]
+                            last_auth = proxy_auth.split(',')[-1]
+                            server_name = last_auth.split(':')[-1]
                             log_debug(1, "Redirecting to SSL version of login page")
                             rhnLib.setHeaderValue(self.req.headers_out, 'Location',
                                 "https://%s%s" % (server_name, m.group(1)))

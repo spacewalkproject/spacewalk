@@ -17,7 +17,6 @@
 
 ## language imports
 import urllib
-import string
 import socket
 import sys
 from types import ListType, TupleType
@@ -64,7 +63,7 @@ class SharedHandler:
         if not self.httpProxyUsername:
             self.httpProxyPassword = ''
         self.rhnParent = CFG.RHN_PARENT or ''
-        self.rhnParent = string.split(rhnLib.parseUrl(self.rhnParent)[1], ':')[0]
+        self.rhnParent = rhnLib.parseUrl(self.rhnParent)[1].split(':')[0]
         CFG.set('RHN_PARENT', self.rhnParent)
 
         # can we resolve self.rhnParent?
@@ -254,15 +253,15 @@ class SharedHandler:
             return headerObj.getheaders(k)
         # The pain of python 1.5.2
         headers = headerObj.getallmatchingheaders(k)
-        hname = string.lower(str(k)) + ':'
+        hname = str(k).lower() + ':'
         hlen = len(hname)
         ret = []
         for header in headers:
-            hn = string.lower(header[:hlen])
+            hn = header[:hlen].lower()
             if hn != hname:
                 log_debug(1, "Invalid header", header)
                 continue
-            ret.append(string.strip(header[hlen:]))
+            ret.append(header[hlen:].strip())
         return ret
             
 
@@ -328,11 +327,11 @@ class SharedHandler:
         # Put the headers into the output connection object
         http_connection = self.responseContext.getConnection()
         for (k, vals) in hdrs.items():
-            if string.lower(k) in ['content_length', 'content_type']:
+            if k.lower() in ['content_length', 'content_type']:
                # mod_wsgi modifies incoming headers so we have to transform them back
                k = k.replace('_','-')
-            if not (string.lower(k)[:2] == 'x-' or
-                    string.lower(k) in [ #all but 'host'
+            if not (k.lower()[:2] == 'x-' or
+                    k.lower() in [ #all but 'host'
                             'accept', 'accept-charset', 'accept-encoding', 'accept-language',
                             'accept-ranges', 'age', 'allow', 'authorization', 'cache-control',
                             'connection', 'content-encoding', 'content-language', 'content-length',

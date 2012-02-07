@@ -34,7 +34,6 @@ This script performs various management operations on the RHN proxy:
 # system imports
 import os
 import sys
-import string
 import shutil
 from operator import truth
 from rhnpush.uploadLib import UploadError, listChannel
@@ -137,7 +136,7 @@ class UploadClass(uploadLib.UploadClass):
             # i.e., --no-ssl overrides the USE_SSL config variable.
             scheme = 'https://'
         self.url = CFG.RHN_PARENT or ''
-        self.url = string.split(parseUrl(self.url)[1], ':')[0]
+        self.url = parseUrl(self.url)[1].split(':')[0]
         self.url = scheme + self.url + '/XP'
 
     def setProxyUsernamePassword(self):
@@ -248,7 +247,7 @@ def getPackagePath(nvrea, source=0, prepend=""):
         version = str(epoch) + ':' + version
     template = prepend + "/%s/%s-%s/%s/%s-%s-%s.%s.rpm"
     # Sanitize the path: remove duplicated /
-    template = string.join(filter(truth, string.split(template, '/')), '/')
+    template = '/'.join(filter(truth, template.split('/')))
     return template % (name, version, release, dirarch, name, nvrea[1],
         release, pkgarch)
 

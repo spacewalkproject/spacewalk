@@ -19,7 +19,6 @@
 ## system imports
 import os
 import time
-import string
 import socket
 import xmlrpclib
 import sys
@@ -239,7 +238,7 @@ problems, isn't running, or the token is somehow corrupt.
                 if CFG.HTTP_PROXY:
                     # socket error, check to see if your HTTP proxy is running...
                     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-                    httpProxy, httpProxyPort = string.split(CFG.HTTP_PROXY, ':')
+                    httpProxy, httpProxyPort = CFG.HTTP_PROXY.split(':')
                     try:
                         s.connect((httpProxy, int(httpProxyPort)))
                     except socket.error, e:
@@ -337,7 +336,7 @@ problems, isn't running, or the token is somehow corrupt.
 
         # build the URL
         url = CFG.RHN_PARENT or ''
-        url = string.split(parseUrl(url)[1], ':')[0]
+        url = parseUrl(url)[1].split(':')[0]
         if CFG.USE_SSL:
             url = 'https://' + url  + '/XMLRPC'
         else:
@@ -371,7 +370,7 @@ problems, isn't running, or the token is somehow corrupt.
 def get_auth_shelf():
     if CFG.USE_LOCAL_AUTH:
         return AuthLocalBackend()
-    server, port = string.split(CFG.AUTH_CACHE_SERVER, ':')
+    server, port = CFG.AUTH_CACHE_SERVER.split(':')
     port = int(port)
     return rhnAuthCacheClient.Shelf((server, port))
 
