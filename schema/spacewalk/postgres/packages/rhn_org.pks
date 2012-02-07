@@ -16,25 +16,3 @@
 
 create schema rhn_org;
 
--- setup search_path so that these functions are created in appropriate schema.
-update pg_settings set setting = 'rhn_org,' || setting where name = 'search_path';
-
-CREATE OR REPLACE FUNCTION delete_org (org_id_in in numeric)
-RETURNS VOID
-AS $$
-BEGIN
-  RAISE EXCEPTION 'Stub called, must be replaced by .pkb';
-END;
-$$ language plpgsql;
-
-
-CREATE OR REPLACE FUNCTION delete_user(user_id_in in numeric, deleting_org in numeric default 0)
-RETURNS VOID 
-AS $$
-BEGIN
-  RAISE EXCEPTION 'Stub called, must be replaced by .pkb';
-END;
-$$ language plpgsql;
-
--- restore the original setting
-update pg_settings set setting = overlay( setting placing '' from 1 for (length('rhn_org')+1) ) where name = 'search_path';
