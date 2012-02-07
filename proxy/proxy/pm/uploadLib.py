@@ -16,7 +16,6 @@
 
 import sys
 # RHN imports
-from spacewalk.common import rhn_mpm
 from spacewalk.common.checksum import getFileChecksum
 from rhnpush import uploadLib
 
