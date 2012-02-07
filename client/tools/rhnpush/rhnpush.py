@@ -42,7 +42,7 @@ from optparse import Option, OptionParser
 from rhn import rpclib
 from spacewalk.common import rhn_mpm
 from spacewalk.common.checksum import getFileChecksum
-
+from spacewalk.common.rhn_pkg import InvalidPackageError
 import uploadLib
 import rhnpush_v2
 
@@ -461,7 +461,7 @@ class UploadClass(uploadLib.UploadClass):
                 f = open(pkg)
                 header, payload_stream = rhn_mpm.load(file=f)
                 checksum_type = header.checksum_type()
-            except rhn_mpm.InvalidPackageError, e:
+            except InvalidPackageError, e:
                 if not self.options.tolerant:
                     self.die(-1, "ERROR: %s: This file doesn't appear to be a package" % pkg)
                 self.warn(2, "ERROR: %s: This file doesn't appear to be a package" % pkg)
