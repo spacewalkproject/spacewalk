@@ -325,14 +325,13 @@ class UploadClass(uploadLib.UploadClass):
 
         # a little fault tolarence is in order
         random.seed()
-        checkpkgflag = 0
         tries = 3
 
-        #pkilambi:check if the Sat version we are talking to has this capability.
-        #If not use the normal way to talk to older satellites(< 4.1.0).
-        if headerinfo.getheader('X-RHN-Check-Package-Exists'):
-            checkpkgflag = 1
-            (server_digest_hash, pkgs_info, digest_hash) = self.check_package_exists()
+        # satellites < 4.1.0 are no more supported
+        if not headerinfo.getheader('X-RHN-Check-Package-Exists'):
+            self.die(-1, "Pushing to Satellite < 4.1.0 is not supported.")
+
+        (server_digest_hash, pkgs_info, digest_hash) = self.check_package_exists()
             
         for pkg in self.files:
             ret = None #pkilambi:errors off as not initialized.this fixes it.
@@ -340,57 +339,35 @@ class UploadClass(uploadLib.UploadClass):
             #temporary fix for picking pkgs instead of full paths
             pkg_key = (pkg.strip()).split('/')[-1]
 
-            if checkpkgflag :
-                # it's newer satellite, compute checksum checks on client.
-                if not server_digest_hash.has_key(pkg_key):
-                    continue
-                
-                checksum_type, checksum = digest = digest_hash[pkg_key]
-                server_digest = tuple(server_digest_hash[pkg_key])
+            if not server_digest_hash.has_key(pkg_key):
+                continue
 
-                # compare checksums for existance check
-                if server_digest == digest and not self.options.force:
-                    channel_packages.append(pkgs_info[pkg_key])
-                    self.warn(1, "Package %s already exists on the RHN Server-- Skipping Upload...." % pkg)
-                    continue
+            checksum_type, checksum = digest = digest_hash[pkg_key]
+            server_digest = tuple(server_digest_hash[pkg_key])
 
-                elif server_digest == ():
-                    self.warn(1,"Package %s Not Found on RHN Server -- Uploading" % pkg)
+            # compare checksums for existance check
+            if server_digest == digest and not self.options.force:
+                channel_packages.append(pkgs_info[pkg_key])
+                self.warn(1, "Package %s already exists on the RHN Server-- Skipping Upload...." % pkg)
+                continue
 
-                elif server_digest == "on-disk" and not self.options.force:
-                    channel_packages.append(pkgs_info[pkg_key])
-                    self.warn(0,"Package on disk but not on db -- Skipping Upload "%pkg)
-                    continue
-                
-                elif server_digest != digest:
-                    if self.options.force:
-                        self.warn(1,"Package checksum %s mismatch  -- Forcing Upload"% pkg)
-                    else:
-                        msg = """Error: Package %s already exists on the server with a different checksum. Skipping upload to prevent overwriting existing package. (You may use rhnpush with the --force option to force this upload if the force_upload option is enabled on your server.)\n"""% pkg
-                        if not self.options.tolerant:
-                            self.die(-1, msg)
-                        self.warn(0, msg)
-                        continue
-            else:
-                # it's an older satellite(< 4.1.0). Just do the push the usual old way,
-                # without checksum pre-check.
-                try:
-                    f = open(pkg)
-                    header, payload_stream = rhn_mpm.load(file=f)
-                    checksum_type = header.checksum_type()
-                except rhn_mpm.InvalidPackageError, e:
+            elif server_digest == ():
+                self.warn(1,"Package %s Not Found on RHN Server -- Uploading" % pkg)
+
+            elif server_digest == "on-disk" and not self.options.force:
+                channel_packages.append(pkgs_info[pkg_key])
+                self.warn(0,"Package on disk but not on db -- Skipping Upload "%pkg)
+                continue
+
+            elif server_digest != digest:
+                if self.options.force:
+                    self.warn(1,"Package checksum %s mismatch  -- Forcing Upload"% pkg)
+                else:
+                    msg = """Error: Package %s already exists on the server with a different checksum. Skipping upload to prevent overwriting existing package. (You may use rhnpush with the --force option to force this upload if the force_upload option is enabled on your server.)\n"""% pkg
                     if not self.options.tolerant:
-                        self.die(-1, "ERROR: %s: This file doesn't appear to be a package" % pkg)
-                    self.warn(2, "ERROR: %s: This file doesn't appear to be a package" % pkg)
+                        self.die(-1, msg)
+                    self.warn(0, msg)
                     continue
-                except IOError:
-                    if not self.options.tolerant:
-                        self.die(-1, "ERROR: %s: No such file or directory available" % pkg)
-                    self.warn(2, "ERROR: %s: No such file or directory available" % pkg)
-                    continue
-                
-                checksum = getFileChecksum(checksum_type, file_obj=payload_stream)
-                f.close()
                 
             for t in range(0, tries):
                 try:
