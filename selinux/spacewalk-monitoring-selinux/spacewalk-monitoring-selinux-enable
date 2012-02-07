@@ -8,6 +8,7 @@ for selinuxvariant in mls strict targeted
         /usr/share/selinux/${selinuxvariant}/spacewalk-monitoring.pp || :
   done
 
+/sbin/restorecon -vi /etc/NOCpulse.ini
 /sbin/restorecon -rv /etc/rc.d/np.d /etc/notification /var/lib/nocpulse /var/lib/notification /var/log/nocpulse
 /sbin/restorecon -rvi /var/log/SysVStep.* /var/run/SysVStep.*
 
