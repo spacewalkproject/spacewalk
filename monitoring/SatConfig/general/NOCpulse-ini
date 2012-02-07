@@ -111,7 +111,7 @@ if ($set_macro) {
                 exit 2;
         }
         my $sql = qq|
-                UPDATE config_parameter
+                UPDATE rhn_config_parameter
                 SET value = ?
                 WHERE group_name = ?
                         AND name = ?
