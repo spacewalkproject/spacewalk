@@ -184,17 +184,11 @@ class UploadClass:
         self.authenticate()
 
         if self.options.source:
-            if self.new_sat_test():
-                list = listChannelSourceBySession(self.server, self.session.getSessionString(), self.channels)
-            else:
-                list = listChannelSource(self.server, self.username, self.password, self.channels)
+            list = listChannelSourceBySession(self.server, self.session.getSessionString(), self.channels)
             #self.die(1, "Listing source rpms not supported")
         else:
             # List the channel's contents
-            if self.new_sat_test():
-                list = listChannelBySession(self.server, self.session.getSessionString(), self.channels)
-            else:
-                list = listChannel(self.server, self.username, self.password, self.channels)
+            list = listChannelBySession(self.server, self.session.getSessionString(), self.channels)
 
         for p in list:
             print p[:6]
@@ -263,10 +257,7 @@ class UploadClass:
             same_names_hash[nvrea] = filename
 
         # Now get the list from the server
-        if self.new_sat_test():
-            pkglist = listChannelBySession(self.server, self.session.getSessionString(), self.channels)
-        else:
-            pkglist = listChannel(self.server, self.username, self.password, self.channels)
+        pkglist = listChannelBySession(self.server, self.session.getSessionString(), self.channels)
 
         for p in pkglist:
             name = p[0]
@@ -308,10 +299,7 @@ class UploadClass:
             localPackagesHash[os.path.basename(filename)] = filename
         
         # Now get the list from the server
-        if self.new_sat_test():
-            pkglist = listMissingSourcePackagesBySession(self.server, self.session.getSessionString(), self.channels)
-        else:
-            pkglist = listMissingSourcePackages(self.server, self.username, self.password, self.channels)
+        pkglist = listMissingSourcePackagesBySession(self.server, self.session.getSessionString(), self.channels)
 
         to_push = []
         for pkg in pkglist:
@@ -382,20 +370,11 @@ class UploadClass:
                     ReportError("\t\t%s" % p)
 
             if source:
-                if self.new_sat_test():
-                    method = self.server.packages.uploadSourcePackageInfoBySession
-                else:
-                    method = self.server.packages.uploadSourcePackageInfo
+                method = self.server.packages.uploadSourcePackageInfoBySession
             else:
-                if self.new_sat_test():
-                    method = self.server.packages.uploadPackageInfoBySession
-                else:
-                    method = self.server.packages.uploadPackageInfo
+                method = self.server.packages.uploadPackageInfoBySession
 
-            if self.new_sat_test():
-                ret = call(method, self.session.getSessionString(), hash)
-            else:
-                ret = call(method, self.username, self.password, hash)
+            ret = call(method, self.session.getSessionString(), hash)
 
             if ret is None:
                self.die(-1, "Upload attempt failed")
@@ -459,31 +438,18 @@ class UploadClass:
     # and generate new session
     def authenticate(self):
         #Only use the session token stuff if we're talking to a sat that supports session-token authentication.
-        if self.new_sat_test():
-            self.readSession()
-            if self.session and not self.options.new_cache and self.options.username == self.username:
-                chksession = self.checkSession(self.session.getSessionString())
-                if not chksession:
-                    self.setUsernamePassword()
-                    sessstr = call(self.server.packages.login, self.username, self.password)
-                    self.writeSession(sessstr)
-            else:
+        self.readSession()
+        if self.session and not self.options.new_cache and self.options.username == self.username:
+            chksession = self.checkSession(self.session.getSessionString())
+            if not chksession:
                 self.setUsernamePassword()
                 sessstr = call(self.server.packages.login, self.username, self.password)
                 self.writeSession(sessstr)
         else:
             self.setUsernamePassword()
+            sessstr = call(self.server.packages.login, self.username, self.password)
+            self.writeSession(sessstr)
 
-    def new_sat_test(self):
-        """ test if we can use session caching
-
-            Historically this function was used to test if rhnParent can handle session token authentication.
-            All curent satellites (4.0.6+) can do that. So it only return False, if we use --no-session-cachine.
-        """
-        if self.new_sat is None:
-            self.new_sat = not self.options.no_session_caching
-        return self.new_sat
- 
     def _processFile(self, filename, relativeDir=None, source=None, nosig=None):
         """ Processes a file
             Returns a hash containing:

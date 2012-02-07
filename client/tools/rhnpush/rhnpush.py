@@ -258,10 +258,7 @@ class UploadClass(uploadLib.UploadClass):
         print "Testing connection and authentication:   %s" % test_auth
 
     def _test_access(self):
-        if self.new_sat_test():
-            access_ret = callable(self.server.packages.channelPackageSubscriptionBySession)
-        else:
-            access_ret = callable(self.server.packages.channelPackageSubscription)
+        access_ret = callable(self.server.packages.channelPackageSubscriptionBySession)
 
         if access_ret == 1:
             test_access = "Passed"
@@ -431,14 +428,9 @@ class UploadClass(uploadLib.UploadClass):
     
         #2/3/06 wregglej 173287 Added check to see if we can use session tokens.
         if channel_packages:
-            if self.new_sat_test():
-                #12/22/05 wregglej 173287  Changed the XMLRPC function to the new session-based one.
-                self.authenticate()
-                uploadLib.call(self.server.packages.channelPackageSubscriptionBySession,
+            self.authenticate()
+            uploadLib.call(self.server.packages.channelPackageSubscriptionBySession,
                                 self.session.getSessionString(), info)
-            else:
-                uploadLib.call(self.server.packages.channelPackageSubscription, self.username,
-                                self.password, info)
         return 0
 
     # does an existance check of the packages to be uploaded and returns their checksum and other info
@@ -506,32 +498,24 @@ class UploadClass(uploadLib.UploadClass):
             }
         # rpc call to get checksum info for all the packages to be uploaded
         if not self.options.source:
-            if self.new_sat_test():
-                # computing checksum and other info is expensive process and session
-                # could have expired.Make sure its re-authenticated.
-                self.authenticate()
-                if uploadLib.exists_getPackageChecksumBySession(self.server):
-                    checksum_data = uploadLib.getPackageChecksumBySession(self.server, self.session.getSessionString(), info)
-                else:
-                    # old server only md5 capable
-                    checksum_data = uploadLib.getPackageMD5sumBySession(self.server, self.session.getSessionString(), info)
+            # computing checksum and other info is expensive process and session
+            # could have expired.Make sure its re-authenticated.
+            self.authenticate()
+            if uploadLib.exists_getPackageChecksumBySession(self.server):
+                checksum_data = uploadLib.getPackageChecksumBySession(self.server, self.session.getSessionString(), info)
             else:
-                # even older server without session authentication
-                checksum_data = uploadLib.getPackageMD5sum(self.server, self.username, self.password, info)
+                # old server only md5 capable
+                checksum_data = uploadLib.getPackageMD5sumBySession(self.server, self.session.getSessionString(), info)
         else:
-            if self.new_sat_test():
-                # computing checksum and other info is expensive process and session
-                # could have expired.Make sure its re-authenticated.
-                self.authenticate()
-                if uploadLib.exists_getPackageChecksumBySession(self.server):
-                    checksum_data = uploadLib.getSourcePackageChecksumBySession(self.server, self.session.getSessionString(), info)
-                else:
-                    # old server only md5 capable
-                    checksum_data = uploadLib.getSourcePackageMD5sumBySession(self.server, self.session.getSessionString(), info)
+            # computing checksum and other info is expensive process and session
+            # could have expired.Make sure its re-authenticated.
+            self.authenticate()
+            if uploadLib.exists_getPackageChecksumBySession(self.server):
+                checksum_data = uploadLib.getSourcePackageChecksumBySession(self.server, self.session.getSessionString(), info)
             else:
-                # even older server without session authentication
-                checksum_data = uploadLib.getSourcePackageMD5sum(self.server, self.username, self.password, info)
-                
+                # old server only md5 capable
+                checksum_data = uploadLib.getSourcePackageMD5sumBySession(self.server, self.session.getSessionString(), info)
+
         return (checksum_data, pkg_hash, digest_hash)
 
 
@@ -589,10 +573,7 @@ class UploadClass(uploadLib.UploadClass):
         self.warn(1, "Using POST request")
         pu = rhnpush_v2.PackageUpload(self.url_v2, self.options.proxy)
 
-        if self.new_sat_test():
-            pu.set_session(self.session.getSessionString())
-        else:
-            pu.set_auth(self.username, self.password)
+        pu.set_session(self.session.getSessionString())
         pu.set_force(self.options.force)
         pu.set_null_org(self.options.nullorg)
 
