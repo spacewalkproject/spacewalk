@@ -16,7 +16,7 @@ Group:   System Environment/Daemons
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.10.34
+Version: 5.10.35
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -275,6 +275,10 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 %endif
 
 %changelog
+* Tue Feb 07 2012 Jan Pazdziora 5.10.35-1
+- Make sure that in case only NETWORKING_IPV6 is set, we do not get bash 'unary
+  operator expected' error (jhutar@redhat.com)
+
 * Wed Dec 21 2011 Milan Zazrivec <mzazrivec@redhat.com> 5.10.34-1
 - update copyright info
 
