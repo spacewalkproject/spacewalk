@@ -140,6 +140,7 @@ class BrokerHandler(SharedHandler):
     def handler(self):
         """ Main handler to handle all requests pumped through this server. """
 
+        # pylint: disable=R0915
         log_debug(1)
         self._prepHandler()
 
