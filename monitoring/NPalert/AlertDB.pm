@@ -262,8 +262,8 @@ sub init_statements {
   $self->dbprepare(
     'select_command_by_probe_id',
     "select c.recid, c.name, c.description, c.group_name 
-      from command c,
-        probe p
+      from rhn_command c,
+        rhn_probe p
       where p.command_id = c.recid
         and p.recid = ?"
                   );
