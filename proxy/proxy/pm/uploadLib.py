@@ -137,7 +137,7 @@ class UploadClass(uploadLib.UploadClass):
 
             ret = uploadLib.call(method, self.username, self.password, hash)
             if ret is None:
-               self.die(-1, "Upload attempt failed")
+                self.die(-1, "Upload attempt failed")
 
             # Append the package information
             alreadyUploaded, newPackages = ret
