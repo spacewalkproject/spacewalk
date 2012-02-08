@@ -9,7 +9,7 @@
     <head>
         <meta name="page-decorator" content="none" />
     </head>
-<body onLoad="selectScope()">
+<body>
 <rhn:toolbar base="h1" img="/img/rhn-icon-system_group.gif"
 	           helpUrl="/rhn/help/reference/en-US/s1-sm-monitor.jsp#s2-sm-monitor-notif">
     <bean:message key="filteredit.jsp.header1" />
