@@ -92,7 +92,8 @@ class ResponseContext:
     def _isEmpty(self):
         return len(self._contextStack) <= 0
 
-    def _closeContext(self, context):
+    @staticmethod
+    def _closeContext(context):
         if context:
             if context[CXT_RESP_BODYFD]:
                 context[CXT_RESP_BODYFD].close()
@@ -102,9 +103,9 @@ class ResponseContext:
     def _getCurrentContext(self):
         return self._contextStack[-1]
 
-    def _createContext(self, 
-                       responseHeaders = None, 
-                       responseBodyFd  = None, 
+    @staticmethod
+    def _createContext(responseHeaders = None,
+                       responseBodyFd  = None,
                        connection      = None):
         return { CXT_RESP_HEADERS : responseHeaders,
                  CXT_RESP_BODYFD  : responseBodyFd,
