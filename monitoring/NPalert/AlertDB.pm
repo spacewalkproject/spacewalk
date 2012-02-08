@@ -209,7 +209,7 @@ sub init_statements {
 
   $self->dbprepare(
     'select_next_redirect_recid',
-    "select REDIRECTS_RECID_SEQ.nextval
+    "select sequence_nextval('rhn_redirects_recid_seq')
                                  from DUAL"
                   );
   $self->dbprepare(
