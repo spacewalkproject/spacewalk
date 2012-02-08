@@ -71,7 +71,8 @@ class HandlerWrap:
         else:
             return ret
 
-    def get_handler_factory(self, _req):
+    @staticmethod
+    def get_handler_factory(_req):
         """ Handler factory. Redefine in your subclasses if so choose """
         from apacheHandler import apacheHandler
         return apacheHandler
