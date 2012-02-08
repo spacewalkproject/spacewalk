@@ -21,6 +21,7 @@ from rhnpush import uploadLib
 class UploadClass(uploadLib.UploadClass):
     """ Functionality for an uploading tool """
 
+    # pylint: disable=R0904
     def list(self):
         # set the URL
         self.setURL()
