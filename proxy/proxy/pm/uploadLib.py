@@ -14,7 +14,6 @@
 # in this software or its documentation.
 #
 
-import sys
 # RHN imports
 from spacewalk.common.checksum import getFileChecksum
 from rhnpush import uploadLib
