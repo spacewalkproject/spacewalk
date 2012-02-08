@@ -126,6 +126,7 @@ def main():
 
 
 class UploadClass(uploadLib.UploadClass):
+    # pylint: disable=R0904
     def setURL(self):
         # overloaded for uploadlib.py
         if not CFG.RHN_PARENT:
