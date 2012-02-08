@@ -168,20 +168,20 @@ class UploadClass(uploadLib.UploadClass):
         self.setServer()
 
         # List the channel's contents
-        list = listChannel(self.server, self.username, self.password,
+        channel_list = listChannel(self.server, self.username, self.password,
                                      self.channels)
 
         # Convert it to a hash of hashes
         remotePackages = {}
         for channel in self.channels:
             remotePackages[channel] = {}
-        for p in list:
+        for p in channel_list:
             channelName = p[5]
             key = tuple(p[:5])
             remotePackages[channelName][key] = None
 
         missing = []
-        for package in list:
+        for package in channel_list:
             packagePath = getPackagePath(package, 0, PREFIX)
             packagePath = "%s/%s" % (CFG.PKG_DIR, packagePath)
             if not os.path.isfile(packagePath):
