@@ -237,7 +237,7 @@ sub init_statements {
                   );
   $self->dbprepare(
     'create_redirect_email_target',
-    "insert into REDIRECT_EMAIL_TARGETS (
+    "insert into rhn_redirect_email_targets (
                                    REDIRECT_ID, EMAIL_ADDRESS)
                                  values ( ?, ?)"
                   );
