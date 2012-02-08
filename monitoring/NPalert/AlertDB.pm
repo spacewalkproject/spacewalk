@@ -216,11 +216,15 @@ sub init_statements {
     'create_redirect',
     "insert into rhn_redirects (
                                    RECID, CUSTOMER_ID, CONTACT_ID, REDIRECT_TYPE,
-                                   DESCRIPTION, REASON, START_DATE, EXPIRATION,
+                                   DESCRIPTION, REASON,
+                                   START_DATE,
+                                   EXPIRATION,
                                    LAST_UPDATE_USER, LAST_UPDATE_DATE )
                                  values ( ?, ?, ?, ?,
-                                   ?, ?, TO_DATE(?, 'MM-DD-YYYY HH24:MI:SS'), TO_DATE(?, 'MM-DD-YYYY HH24:MI:SS'),
-                                   ?, sysdate)"
+                                   ?, ?,
+                                   TO_TIMESTAMP(?, 'MM-DD-YYYY HH24:MI:SS'),
+                                   TO_TIMESTAMP(?, 'MM-DD-YYYY HH24:MI:SS'),
+                                   ?, current_timestamp)"
                   );
   $self->dbprepare(
     'create_redirect_criterion',
