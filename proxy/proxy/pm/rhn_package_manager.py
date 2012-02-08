@@ -255,6 +255,6 @@ def getPackagePath(nvrea, source=0, prepend=""):
 if __name__ == '__main__':
     try:
         main()
-    except SystemExit, e:
-        sys.exit(e.code)
+    except SystemExit, se:
+        sys.exit(se.code)
 
