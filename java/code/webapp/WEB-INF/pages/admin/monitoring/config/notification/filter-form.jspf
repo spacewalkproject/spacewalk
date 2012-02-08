@@ -7,13 +7,11 @@ function selectScope() {
   rows['org'] = document.getElementById('scope-orgs');
   rows['scout'] = document.getElementById('scope-scouts');
   rows['probe'] = document.getElementById('scope-probes');
-  //alert('scope: ' + scope);
-  //var msg = 'display :';
   for (var s in rows) {
-    rows[s].style.display = (s==scope) ? "" : "none";
-    //msg = msg + s +'='+rows[s].style.display +' ';
+    if (rows.hasOwnProperty(s)) {
+        rows[s].style.display = (s==scope) ? "" : "none";
+    }
   }
-  //alert(msg);
   return true;
 }
 
