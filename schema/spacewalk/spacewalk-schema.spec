@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.7.24
+Version:        1.7.25
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -66,6 +66,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Wed Feb 08 2012 Jan Pazdziora 1.7.25-1
+- Use rhn_user.role_names instead of rhnUserTypeCommaView.
+
 * Tue Feb 07 2012 Jan Pazdziora 1.7.24-1
 - The delete_server proc is the last unverified source file.
 - PostgreSQL rhn_config_channel schema is equivalent to Oracle package body.
