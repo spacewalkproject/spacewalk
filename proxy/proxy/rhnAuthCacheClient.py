@@ -75,6 +75,7 @@ class Shelf:
         self.serverAddr = server_addr
 
     def __request(self, methodname, params):
+        # pylint: disable=R0915
         log_debug(6, methodname, params)
         # Init the socket
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
