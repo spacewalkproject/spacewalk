@@ -134,7 +134,7 @@ def main(options):
     
     if options.validate:
         if len(needed_channels) > 0:
-            raise UserError("Cannot validate channels that do not exist %s" % ','.join(map(str,needed_channels)))
+            raise UserError("Cannot validate channels that do not exist %s" % ', '.join(map(str, needed_channels)))
         for channel_list in options.channels:
             validate(channel_list.values())
         return
