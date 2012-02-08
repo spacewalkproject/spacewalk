@@ -77,7 +77,6 @@ class RedirectHandler(SharedHandler):
 
         log_debug(4, 'In redirect handler')
         self._prepHandler()
-        #self.__checkLegalRedirect()
 
         # Rebuild the X-Forwarded-For header so that it reflects the actual
         # path of the request.  We must do this because squid is unable to
@@ -171,17 +170,6 @@ class RedirectHandler(SharedHandler):
         else:
             # Otherwise, revert to default behavior.
             return SharedHandler._handleServerResponse(self, status)
-
-    def __checkLegalRedirect(self):
-        """ Check request to see if this coming from a RHN Proxy.
-        
-            THIS SHOULD NEVER FAIL!!!
-            Probably not necessary, but stymies the casual abuser.
-        """
-        if not rhnFlags.get('outputTransportOptions').has_key('X-RHN-Proxy-Version'):
-            log_debug(-1, 'THIS SHOULD NEVER HAPPEN!!!')
-            raise rhnFault(1000,
-                _("RHN Proxy Error: No SSL Redirect Request found!"))
 
     def __redirectToNextLocation(self, loopProtection = False):
         """ This function will perform a redirection to the next location, as 
