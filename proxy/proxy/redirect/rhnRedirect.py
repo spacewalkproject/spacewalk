@@ -52,6 +52,7 @@ class RedirectHandler(SharedHandler):
         SharedHandler.__init__(self, req)
         self.componentType = 'proxy.redirect'
         self._initConnectionVariables(req)
+        self.rhnParentXMLRPC = None
         
     def _initConnectionVariables(self, _req):
         """ set connection variables 
