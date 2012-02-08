@@ -492,9 +492,9 @@ class BrokerHandler(SharedHandler):
             raise rhnFault(35, _('Unauthorized channel access requested.'))
 
 
-def _dictEquals(d1, d2, exceptions=[]):
+def _dictEquals(d1, d2, exceptions=None):
     """ Function that compare two dictionaries, ignoring certain keys """
-    exceptions = map(lambda x: x.lower(), exceptions)
+    exceptions = [x.lower() for x in (exceptions or [])]
     for k, v in d1.items():
         if k.lower() in exceptions:
             continue
