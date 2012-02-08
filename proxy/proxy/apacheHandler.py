@@ -179,7 +179,8 @@ class apacheHandler(rhnApache):
 
         return apache.OK
 
-    def _transformKickstartRequestForRedirect(self, req):
+    @staticmethod
+    def _transformKickstartRequestForRedirect(req):
 
         # If we don't get the actual URI in the headers, we'll decline the 
         # request.
@@ -280,7 +281,8 @@ class apacheHandler(rhnApache):
 
         return (apache.OK, checksum)
 
-    def _generateCacheableKickstartURI(self, oldURI, checksum):
+    @staticmethod
+    def _generateCacheableKickstartURI(oldURI, checksum):
         """
         This routine computes a new cacheable URI based on the old URI and the
         checksum. For example, if the checksum is 1234ABCD and the oldURI was:
@@ -313,7 +315,8 @@ class apacheHandler(rhnApache):
 
         return newURI
 
-    def _createConnection(self, host, port, scheme):
+    @staticmethod
+    def _createConnection(host, port, scheme):
         params = { 'host' : host,
                    'port' : port }
 
@@ -358,7 +361,8 @@ class apacheHandler(rhnApache):
         log_debug(1, "Leaving with status code %s" % ret)
         return ret
 
-    def normalize(self, response):
+    @staticmethod
+    def normalize(response):
         """ convert a response to the right type for passing back to
             rpclib.xmlrpclib.dumps
         """
@@ -366,7 +370,8 @@ class apacheHandler(rhnApache):
             return response
         return (response,)
 
-    def response_file(self, req, response):
+    @staticmethod
+    def response_file(req, response):
         """ send a file out """
 
         log_debug(1, response.name)
@@ -526,7 +531,8 @@ class apacheHandler(rhnApache):
         del output
         return apache.OK
 
-    def _response_fault_get(self, req, response):
+    @staticmethod
+    def _response_fault_get(req, response):
         req.err_headers_out["X-RHN-Fault-Code"] = str(response.faultCode)
         faultString = base64.encodestring(response.faultString).strip()
         # Split the faultString into multiple lines
