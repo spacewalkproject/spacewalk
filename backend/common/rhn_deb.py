@@ -52,6 +52,7 @@ class deb_Header:
                 'epoch':   '',
                 'version': 0,
                 'release': 0,
+                'description': debcontrol.get_as_string('Description'),
             }
             for hdr_k, deb_k in [('requires', 'Depends'),
                                  ('provides', 'Provides'),
