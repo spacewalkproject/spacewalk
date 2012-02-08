@@ -1,6 +1,6 @@
--- oracle equivalent source sha1 933cd1f52ab0cff6e55450f5882a7efbfeddf870
+-- oracle equivalent source sha1 fb3e992f5ab0259f3302f4b267b2e71e20d15253
 --
--- Copyright (c) 2008--2010 Red Hat, Inc.
+-- Copyright (c) 2008--2012 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -265,6 +265,30 @@ create or replace
 				perform rhn_cache.update_perms_for_user(user_id_in);
 			end if;
 		end loop;
+	end;
+$$ language plpgsql;
+
+create function role_names (user_id_in in numeric)
+	returns varchar
+	as
+$$
+	declare
+		rec record;
+		tmp varchar(4000);
+	begin
+		for rec in (
+			select type_name
+			from rhnUserTypeBase
+			where user_id = user_id_in
+			order by type_id
+			) loop
+			if tmp is null then
+				tmp := rec.type_name;
+			else
+				tmp := tmp || ', ' || rec.type_name;
+			end if;
+		end loop;
+		return tmp;
 	end;
 $$ language plpgsql;
 

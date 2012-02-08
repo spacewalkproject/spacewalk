@@ -14,7 +14,8 @@
 --
 --
 --
-create or replace view rhnUsersInOrgOverview as
+drop view rhnUsersInOrgOverview;
+create view rhnUsersInOrgOverview as
 select    
 	u.org_id					as org_id,
 	u.id						as user_id,
