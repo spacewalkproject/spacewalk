@@ -259,7 +259,8 @@ class BrokerHandler(SharedHandler):
         """ prep handler and check PROXY_AUTH's expiration. """
         SharedHandler._prepHandler(self)
 
-    def _split_url(self, req):
+    @staticmethod
+    def _split_url(req):
         """ read url from incoming url and return (req_type, channel, action, params)
             URI should look something like:
             /GET-REQ/rhel-i386-server-5/getPackage/autofs-5.0.1-0.rc2.143.el5_5.6.i386.rpm
@@ -347,7 +348,8 @@ class BrokerHandler(SharedHandler):
 
         return result
 
-    def __getSessionToken(self):
+    @staticmethod
+    def __getSessionToken():
         """ Get/test-for session token in headers (rhnFlags) """
         log_debug(1)
         if not rhnFlags.test("AUTH_SESSION_TOKEN"):
