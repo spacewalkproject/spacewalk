@@ -24,6 +24,7 @@ from xmlrpclib import dumps, loads
 
 class CommunicationError(Exception):
     def __init__(self, faultCode, faultString, *params):
+        Exception.__init__(self)
         self.faultCode = faultCode
         self.faultString = faultString
         self.args = params
