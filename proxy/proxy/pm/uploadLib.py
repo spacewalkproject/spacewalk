@@ -78,8 +78,9 @@ class UploadClass(uploadLib.UploadClass):
         #self.setServer()
         
         for filename in self.files:
-            fileinfo = self._processFile(filename,\
-                                    relativeDir=self.relativeDir, source=self.options.source,\
+            fileinfo = self._processFile(filename,
+                                    relativeDir=self.relativeDir,
+                                    source=self.options.source,
                                     nosig=self.options.nosig)
             self.processPackage(fileinfo['nvrea'], filename) 
             
