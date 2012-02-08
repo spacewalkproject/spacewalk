@@ -10,6 +10,10 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires: python
 BuildArch: noarch
 Requires: httpd
+# pylint check
+BuildRequires: pylint
+BuildRequires: rhnpush >= 5.5.40
+BuildRequires: spacewalk-backend-libs >= 1.7.1
 
 %define rhnroot %{_usr}/share/rhn
 %define destdir %{rhnroot}/proxy
@@ -154,6 +158,19 @@ an Spacewalk Proxy Server's custom channel.
 
 %build
 make -f Makefile.proxy
+
+# check coding style
+export PYTHONPATH=/usr/share/rhn
+PYLINT_BADFUNC="apply,input"
+PYLINT_DISABLE="C0103,C0111,C0301"
+PYLINT_DISABLE+=",E1101"
+PYLINT_DISABLE+=",I0011"
+PYLINT_DISABLE+=",R0801,R0903,R0911,R0912,R0913,R0914"
+PYLINT_DISABLE+=",W0142,W0403,W0511,W0603"
+ln -s . proxy   # workaround - added 'proxy' into path so pylint can find modules
+find -name '*.py' \
+    | xargs pylint -rn -iy --bad-functions="$PYLINT_BADFUNC" \
+                   --disable "$PYLINT_DISABLE"
 
 %install
 rm -rf $RPM_BUILD_ROOT
