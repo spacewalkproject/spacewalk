@@ -53,7 +53,7 @@ class RedirectHandler(SharedHandler):
         self.componentType = 'proxy.redirect'
         self._initConnectionVariables(req)
         
-    def _initConnectionVariables(self, req):
+    def _initConnectionVariables(self, _req):
         """ set connection variables 
             NOTE: self.{caChain,rhnParent,httpProxy*} are initialized
                   in SharedHandler
@@ -295,7 +295,7 @@ class RedirectHandler(SharedHandler):
         # Tear apart the redirect URL.  We need the scheme, the host, the 
         # port (if not the default), and the URI.
 
-        scheme, host, port, uri = self._parse_url(redirectLocation)
+        _scheme, host, port, uri = self._parse_url(redirectLocation)
 
         # Add any params onto the URI since _parse_url doesn't include them.
         if redirectLocation.find('?') > -1:

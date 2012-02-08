@@ -202,7 +202,7 @@ class BrokerHandler(SharedHandler):
         #   o If no errors, the loop is broken and we move on.
         #   o If an error, either we get a new token and try again,
         #     or we get a critical error and we fault.
-        for i in range(2):
+        for _i in range(2):
             self._connectToParent()  # part 1
 
             log_debug(4, 'after _connectToParent')
@@ -325,7 +325,7 @@ class BrokerHandler(SharedHandler):
 
         # Is this channel local?
         for ch in self.authChannels:
-            channel, version, isBaseChannel, isLocalChannel = ch[:4]
+            channel, _version, _isBaseChannel, isLocalChannel = ch[:4]
             if channel == reqchannel and str(isLocalChannel) == '1':
                 # Local channel
                 break
@@ -373,9 +373,7 @@ class BrokerHandler(SharedHandler):
         # "x-rhn-auth"
         prefix = "x-rhn-auth"
         l = len(prefix)
-        tokenKeys = filter(
-            lambda x, p = prefix, l = l: x[:l].lower() == p,
-            headers.keys())
+        tokenKeys = [ x for x in headers.keys() if x[:l].lower() == prefix]
         for k in tokenKeys:
             if k.lower() == 'x-rhn-auth-channels':
                 # Multivalued header

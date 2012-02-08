@@ -141,7 +141,7 @@ class SharedHandler:
 
     def _create_connection(self):
         """ Returns a Connection object """
-        scheme, host, port, uri = self._parse_url(self.rhnParent)
+        scheme, host, port, _uri = self._parse_url(self.rhnParent)
         # Build the list of params
         params = {
             'host'  :   host,
@@ -171,7 +171,7 @@ class SharedHandler:
 
     def _parse_url(self, url):
         """ Returns scheme, host, port, path. """
-        scheme, netloc, path, params, query, frag = rhnLib.parseUrl(url)
+        scheme, netloc, path, _params, _query, _frag = rhnLib.parseUrl(url)
         host, port = urllib.splitnport(netloc)
         if (port <= 0):
             port = None
@@ -359,7 +359,7 @@ class SharedHandler:
         # We now wait for the response
         try:
             response = http_connection.getresponse() 
-        except TimeoutException, e:
+        except TimeoutException:
             log_error("Connection timed out")
             return apache.HTTP_GATEWAY_TIME_OUT, None, None     
         headers = response.msg

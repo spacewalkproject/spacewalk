@@ -102,7 +102,7 @@ class ProxyAuth:
                         "Please contact your system administrator.")), None, sys.exc_info()[2]
 
         # get serverid
-        sysid, cruft = xmlrpclib.loads(ProxyAuth.__systemid)
+        sysid, _cruft = xmlrpclib.loads(ProxyAuth.__systemid)
         ProxyAuth.__serverid = sysid[0]['system_id'][3:]
 
         log_debug(7, 'SystemId: "%s[...snip  snip...]%s"' \
@@ -231,7 +231,7 @@ problems, isn't running, or the token is somehow corrupt.
         # update the systemid/serverid if need be.
         self.__processSystemid()
         # Makes three attempts to login
-        for i in range(self.__nRetries):
+        for _i in range(self.__nRetries):
             try:
                 token = server.proxy.login(self.__systemid)
             except (socket.error, socket.sslerror), e:
