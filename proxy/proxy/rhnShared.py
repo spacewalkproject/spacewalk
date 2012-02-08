@@ -169,7 +169,8 @@ class SharedHandler:
         log_debug(5, "Using connection class", conn_class, 'Params:', params)
         return conn_class(**params)
 
-    def _parse_url(self, url):
+    @staticmethod
+    def _parse_url(url):
         """ Returns scheme, host, port, path. """
         scheme, netloc, path, _params, _query, _frag = rhnLib.parseUrl(url)
         host, port = urllib.splitnport(netloc)
@@ -286,7 +287,8 @@ class SharedHandler:
 
     # --- PROTECTED METHODS ---
 
-    def _getHeaders(self, req):
+    @staticmethod
+    def _getHeaders(req):
         """ Copy the incoming headers. """
 
         hdrs = UserDictCase()
@@ -375,7 +377,8 @@ class SharedHandler:
         else:
             return self.req.uri
 
-    def _determineHTTPBodySize(self, headers):
+    @staticmethod
+    def _determineHTTPBodySize(headers):
         """ This routine attempts to determine the size of an HTTP body by searching
             the headers for a "Content-Length" field.  The size is returned, if
             found, otherwise -1 is returned.
