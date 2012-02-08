@@ -23,10 +23,8 @@ from urlparse import urlparse, urlunparse
 # common module imports
 from spacewalk.common.rhnConfig import CFG
 from spacewalk.common.rhnLog import log_debug, log_error
-from spacewalk.common.rhnException import rhnFault
 from spacewalk.common.rhnTB import Traceback
 from spacewalk.common import rhnFlags, rhnLib, apache
-from spacewalk.common.rhnTranslate import _
 
 # local module imports
 from proxy.rhnShared import SharedHandler
