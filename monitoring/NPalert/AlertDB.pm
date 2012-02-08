@@ -214,7 +214,7 @@ sub init_statements {
                   );
   $self->dbprepare(
     'create_redirect',
-    "insert into REDIRECTS (
+    "insert into rhn_redirects (
                                    RECID, CUSTOMER_ID, CONTACT_ID, REDIRECT_TYPE,
                                    DESCRIPTION, REASON, START_DATE, EXPIRATION,
                                    LAST_UPDATE_USER, LAST_UPDATE_DATE )
