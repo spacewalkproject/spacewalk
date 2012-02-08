@@ -195,7 +195,7 @@ function showDestination() {
     <tr>
         <th><label for="recurring_frequency"><bean:message key="filter-form.jspf.recurring_frequency"/></label></th>
         <td>
-           <html:select disabled="true" property="recurring_frequency" styleId="recurring_frequency">
+           <html:select property="recurring_frequency" styleId="recurring_frequency">
                <html:options collection="frequency_types"
                property="value"
                labelProperty="label" />
