@@ -326,7 +326,8 @@ problems, isn't running, or the token is somehow corrupt.
 
     # __private methods__
 
-    def __getXmlrpcServer(self):
+    @staticmethod
+    def __getXmlrpcServer():
         """ get an xmlrpc server object
         
             WARNING: if CFG.USE_SSL is off, we are sending info
