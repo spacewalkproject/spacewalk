@@ -183,7 +183,8 @@ class Repository(rhnRepository.Repository):
         # Return the string
         return stringObject
 
-    def _getPkgListDir(self):
+    @staticmethod
+    def _getPkgListDir():
         """ Creates and returns the directory for cached lists of packages.
             Used by _cacheObj.
 
