@@ -328,8 +328,8 @@ class SharedHandler:
         http_connection = self.responseContext.getConnection()
         for (k, vals) in hdrs.items():
             if k.lower() in ['content_length', 'content_type']:
-               # mod_wsgi modifies incoming headers so we have to transform them back
-               k = k.replace('_','-')
+                # mod_wsgi modifies incoming headers so we have to transform them back
+                k = k.replace('_','-')
             if not (k.lower()[:2] == 'x-' or
                     k.lower() in [ #all but 'host'
                             'accept', 'accept-charset', 'accept-encoding', 'accept-language',
