@@ -46,8 +46,8 @@ class _Method:
         Supports "nested" methods (e.g. examples.getStateName).
     """
 
-    def __init__(self, send, name):
-        self.__send = send
+    def __init__(self, msend, name):
+        self.__send = msend
         self.__name = name
 
     def __getattr__(self, name):
