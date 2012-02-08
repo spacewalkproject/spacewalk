@@ -223,6 +223,7 @@ problems, isn't running, or the token is somehow corrupt.
             rightmost token was the last token hit by a client request.
            
         """
+        # pylint: disable=R0915
 
         log_debug(3)
         server = self.__getXmlrpcServer()
