@@ -43,6 +43,7 @@ class SharedHandler:
         *** only inherited ***
     """
 
+    # pylint: disable=R0902
     def __init__(self, req):
         """ init with http request object """
         
