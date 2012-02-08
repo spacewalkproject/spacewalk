@@ -103,8 +103,8 @@ public class Criteria {
     /**
      * @param inverted The inverted to set.
      */
-    private void setInverted(Character inverted) {
-        this.inverted = inverted;
+    private void setInverted(Character invertedIn) {
+        this.inverted = invertedIn;
     }
 
     /**
