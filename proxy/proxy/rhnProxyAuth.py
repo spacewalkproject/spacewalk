@@ -53,7 +53,7 @@ class ProxyAuth:
 
     __serverid = None
     __systemid = None
-    __systemid_mtime= None
+    __systemid_mtime = None
     __systemid_filename = '/etc/sysconfig/rhn/systemid'
 
     __nRetries = 3 # number of login retries
