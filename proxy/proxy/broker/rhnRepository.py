@@ -70,7 +70,7 @@ class Repository(rhnRepository.Repository):
         self.httpProxyPassword = httpProxyPassword
         self.caChain = caChain
 
-    def getPackagePath(self, pkgFilename):
+    def getPackagePath(self, pkgFilename, redirect=0):
         """ OVERLOADS getPackagePath in common/rhnRepository.
             Returns complete path to an RPM file.
         """
