@@ -351,7 +351,7 @@ class RedirectHandler(SharedHandler):
 
             for hdr in self.req.headers_in.keys():
                 if hdr.lower().startswith("x-rhn"):
-            	    connection.putheader(hdr, self.req.headers_in[hdr])
+                    connection.putheader(hdr, self.req.headers_in[hdr])
                     log_debug(4, "Passing request header: ",
                                  hdr,
                                  self.req.headers_in[hdr])
