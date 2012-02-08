@@ -377,6 +377,8 @@ def get_auth_shelf():
 
 class AuthLocalBackend:
     _cache_prefix = "proxy-auth"
+    def __init__(self):
+        pass
 
     def has_key(self, key):
         rkey = self._compute_key(key)
