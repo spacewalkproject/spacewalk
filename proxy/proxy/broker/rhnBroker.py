@@ -54,6 +54,7 @@ class BrokerHandler(SharedHandler):
         This way we got all request cached localy by squid.
     """
 
+    # pylint: disable=R0902
     def __init__(self, req):
         SharedHandler.__init__(self, req)
 
