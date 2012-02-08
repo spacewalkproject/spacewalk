@@ -228,7 +228,7 @@ sub init_statements {
                   );
   $self->dbprepare(
     'create_redirect_criterion',
-    "insert into REDIRECT_CRITERIA (
+    "insert into rhn_redirect_criteria (
                                    RECID, REDIRECT_ID, MATCH_PARAM, MATCH_VALUE)
                                  select REDIRECT_CRITERIA_RECID_SEQ.nextval, ?, ?, ?
                                  from DUAL"
