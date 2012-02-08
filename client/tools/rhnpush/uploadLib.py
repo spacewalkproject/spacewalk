@@ -69,6 +69,8 @@ class UploadClass:
         self.force = None
         self.files = files or []
         self.new_sat = None
+        self.url = None
+        self.channels = None
 
     def warn(self, verbose, *args):
         if self.options.verbose >= verbose:
