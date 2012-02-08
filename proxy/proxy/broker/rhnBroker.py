@@ -62,6 +62,7 @@ class BrokerHandler(SharedHandler):
         self.cachedClientInfo = None # headers - session token
         self.authChannels = None
         self.clientServerId = None
+        self.rhnParentXMLRPC = None
         hostname = ''
         if req.headers_in.has_key('Host'):
             hostname = req.headers_in['Host'] or ''
