@@ -144,7 +144,7 @@ public class Validator {
         log.debug("Constraint: " + constraint);
 
         // Validate data type
-        if (value != null) {
+        if (value != null && !value.equals("")) {
             validationMessage = correctDataType(data, constraint);
             if (validationMessage != null) {
                 log.debug("Not the right datatype.. " + validationMessage);

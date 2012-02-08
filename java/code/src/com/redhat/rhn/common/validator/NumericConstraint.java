@@ -16,7 +16,6 @@ package com.redhat.rhn.common.validator;
 
 import com.redhat.rhn.common.localization.LocalizationService;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 /**
@@ -63,33 +62,31 @@ public class NumericConstraint extends RequiredIfConstraint {
 
         // Validate against range specifications
         try {
-            if (!StringUtils.isBlank(value.toString())) {
-                double doubleValue = new Double(value.toString()).doubleValue();
-                // Now we know its a valid number, lets check for a decimal value
-                if (value.toString().indexOf(".") > -1) {
+            double doubleValue = new Double(value.toString()).doubleValue();
+            // Now we know its a valid number, lets check for a decimal value
+            if (value.toString().indexOf(".") > -1) {
+                Object[] args = new Object[2];
+                args[0] = localizedIdentifier;
+                args[1] = getMinInclusive();
+                return new ValidatorError("errors.decimalvalue", args);
+            }
+
+            if (hasMinInclusive()) {
+                if (doubleValue < getMinInclusive().doubleValue()) {
+                    log.debug("Under min size ...");
                     Object[] args = new Object[2];
                     args[0] = localizedIdentifier;
                     args[1] = getMinInclusive();
-                    return new ValidatorError("errors.decimalvalue", args);
+                    return new ValidatorError("errors.minsize", args);
                 }
-
-                if (hasMinInclusive()) {
-                    if (doubleValue < getMinInclusive().doubleValue()) {
-                        log.debug("Under min size ...");
-                        Object[] args = new Object[2];
-                        args[0] = localizedIdentifier;
-                        args[1] = getMinInclusive();
-                        return new ValidatorError("errors.minsize", args);
-                    }
-                }
-                if (hasMaxInclusive()) {
-                    if (doubleValue > getMaxInclusive().doubleValue()) {
-                        log.debug("Over max size 2 ...");
-                        Object[] args = new Object[2];
-                        args[0] = localizedIdentifier;
-                        args[1] = getMaxInclusive();
-                        return new ValidatorError("errors.maxsize", args);
-                    }
+            }
+            if (hasMaxInclusive()) {
+                if (doubleValue > getMaxInclusive().doubleValue()) {
+                    log.debug("Over max size 2 ...");
+                    Object[] args = new Object[2];
+                    args[0] = localizedIdentifier;
+                    args[1] = getMaxInclusive();
+                    return new ValidatorError("errors.maxsize", args);
                 }
             }
         }
