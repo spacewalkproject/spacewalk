@@ -308,19 +308,22 @@ public class NetworkInterface extends BaseDomainHelper implements
      */
     public boolean isPublic() {
         boolean isPub = isValid();
+        boolean hasAddress = false;
         String addr4 = getIpaddr();
 
         if (addr4 != null) {
+            hasAddress = true;
             isPub = isPub &&
                 !(addr4.equals("127.0.0.1") ||
                   addr4.equals("0.0.0.0"));
         }
 
         for (ServerNetAddress6 addr6 : getIPv6Addresses()) {
+            hasAddress = true;
             isPub = isPub && !addr6.getAddress().equals("::1");
         }
 
-        return isPub;
+        return (isPub && hasAddress);
     }
 
     /**
