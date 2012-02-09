@@ -26,7 +26,6 @@ import shutil
 import tempfile
 from timeLib import DAY, now, secs2days, secs2years, secs2str, \
                     str2secs
-from spacewalk.common.fileutils import cleanupAbsPath, rhn_popen
 
 class RhnSslToolException(Exception):
     """ general exception class for the tool """
