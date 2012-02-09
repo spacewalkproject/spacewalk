@@ -47,7 +47,7 @@ from sslToolCli import processCommandline, CertExpTooShortException, \
         CertExpTooLongException, InvalidCountryCodeException
 
 from sslToolLib import RhnSslToolException, \
-        gendir, chdir, getMachineName, fixSerial, TempDir, parseRPMFilename, \
+        gendir, chdir, getMachineName, fixSerial, TempDir, \
         errnoGeneralError, errnoSuccess
 
 from spacewalk.common.fileutils import rotateFile, rhn_popen, cleanupAbsPath
@@ -157,7 +157,8 @@ WARNING: %s
         movedYN = 0
         for old_rpm in old_server_rpms:
             targetDir = unknown
-            if parseRPMFilename(old_rpm)[0] == server_rpm_name and serverKeyPairDir:
+            old_hdr = get_package_header(old_rpm)
+            if old_hdr and old_hdr['name'] == server_rpm_name and serverKeyPairDir:
                 targetDir = serverKeyPairDir
             gendir(targetDir)
             # move the files to the targetDir directory
