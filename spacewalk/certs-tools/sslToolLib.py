@@ -150,51 +150,5 @@ class TempDir:
     close = __del__
         
 
-# next two functions orgininally stolen/adapted from backend/server/rhnLib.py
-
-# reg exp for splitting package names.
-re_rpmName = re.compile("^(.*)-([^-]*)-([^-]*)$")
-def parseRPMName(pkgName):
-    """ 'n-n-n-v.v.v-r.r_r' --> (name, release, version, epoch) """
-
-    reg = re_rpmName.match(pkgName)
-    if reg == None:
-        return None, None, None, None
-    n, v, r = reg.group(1,2,3)
-    e = ""
-    ind = string.find(r, ':')
-    if ind < 0: # no epoch
-        return str(n), str(v), str(r), str(e)
-    e = r[ind+1:]
-    r = r[0:ind]
-    return str(n), str(v), str(r), str(e)
-
-
-def parseRPMFilename(pkgFilename):
-    """ 'n_n-n-v.v.v-r_r.r:e.ARCH.rpm' --> [n,v,r,e,a]
-        IN: Package Name: xxx-yyy-ver.ver.ver-rel.rel_rel:e.ARCH.rpm (string)
-        Understood rules:
-           o Name can have nearly any char, but end in a - (well seperated by).
-             Any character; may include - as well.
-           o Version cannot have a -, but ends in one.
-           o Release should be an actual number, and can't have any -'s.
-           o Release can include the Epoch, e.g.: 2:4 (4 is the epoch)
-           o Epoch: Can include anything except a - and the : seperator???
-             XXX: Is epoch info above correct?
-        OUT: [n,v,r,e, arch].
-    """
-
-    pkgFilename = os.path.basename(pkgFilename)
-    pkg = string.split(pkgFilename, '.')
-    if string.lower(pkg[-1]) != 'rpm':
-	raise ValueError('not an rpm package name: %s' % pkgFilename)
-    _arch = pkg[-2]
-    pkg = string.join(pkg[:-2], '.')
-    ret = list(parseRPMName(pkg))
-    if ret:
-        ret.append(_arch)
-    return  ret
-
-
 #===============================================================================
 
