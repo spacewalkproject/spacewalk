@@ -38,26 +38,6 @@ from optparse import Option, OptionParser
 
 DEFAULT_WEBRPC_HANDLER_v3_x = '/rpc/api'
 
-## from rhns-3.6.*+ server code
-# reg exp for splitting package names.
-re_rpmName = re.compile("^(.*)-([^-]*)-([^-]*)$")
-def parseRPMName(pkgName):
-    """ IN:  Package string in, n-n-n-v.v.v-r.r_r, format.
-        OUT: Four strings (in a tuple): name, version, release, epoch.
-    """
-    reg = re_rpmName.match(pkgName)
-    if reg == None:
-        return None, None, None, None
-    n, v, r = reg.group(1,2,3)
-    e = ""
-    ind = string.find(r, ':')
-    if ind < 0: # no epoch
-        return str(n), str(v), str(r), str(e)
-    e = r[ind+1:]
-    r = r[0:ind]
-    return str(n), str(v), str(r), str(e)
-
-
 def getSystemId():
     """ returns content of systemid file """
 
