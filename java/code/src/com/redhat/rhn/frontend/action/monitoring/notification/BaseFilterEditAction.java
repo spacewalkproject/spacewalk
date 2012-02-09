@@ -24,6 +24,7 @@ import com.redhat.rhn.domain.monitoring.satcluster.SatCluster;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.frontend.action.common.DateRangePicker;
 import com.redhat.rhn.frontend.action.common.DateRangePicker.DatePickerResults;
+import com.redhat.rhn.frontend.dto.monitoring.CheckProbeDto;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnValidationHelper;
@@ -180,6 +181,10 @@ public abstract class BaseFilterEditAction extends RhnAction {
         req.setAttribute(SCOUT, scouts);
         DataResult probes = MonitoringManager.getInstance().
                 listProbes(rctx.getCurrentUser());
+        if (form.getStrings(PROBE) == null || form.getStrings(PROBE).length == 0) {
+            CheckProbeDto probeDto = (CheckProbeDto) probes.iterator().next();
+            form.set(PROBE, new String[] {probeDto.getId().toString()});
+        }
         req.setAttribute(PROBE, probes);
         DataResult groups = MonitoringManager.getInstance().
             listContactGroups(rctx.getCurrentUser());
