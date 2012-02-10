@@ -2,7 +2,7 @@ Name: spacewalk-proxy-installer
 Summary: Spacewalk Proxy Server Installer
 Group:   Applications/Internet
 License: GPLv2
-Version: 1.7.0
+Version: 1.7.1
 Release: 1%{?dist}
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -84,6 +84,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE answers.txt
 
 %changelog
+* Fri Feb 10 2012 Michael Mraka <michael.mraka@redhat.com> 1.7.1-1
+- code cleanup
+
 * Wed Oct 26 2011 Miroslav Suchý 1.6.7-1
 - there is no rhn-proxy-debug for some time
 
