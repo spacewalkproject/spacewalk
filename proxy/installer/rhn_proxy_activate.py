@@ -408,7 +408,7 @@ def createMonitoringScout(options):
             sys.stdout.write("Monitoring Scout successfully created.\n")
     return (errorCode, errorString)
 
-def activateProxy(options, apiVersion):
+def activateProxy(options):
     """ Activate proxy. Decide how to do it upon apiVersion. Currently we 
         support only API v.3.1+. Support for 3.0 and older has been removed.
     """
@@ -590,7 +590,7 @@ def main():
         _deactivateProxy_api_v3_x(options)
     else:
         # ACTIVATE!!!!!!!!
-        activateProxy(options, apiVersion)
+        activateProxy(options)
 
     return 0
 
