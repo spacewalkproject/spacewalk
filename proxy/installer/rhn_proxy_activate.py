@@ -277,7 +277,7 @@ def getAPIVersion(options):
     return version.split('.')
 
 
-def activateProxy_api_v3_x(options, apiVersion):
+def activateProxy_api_v3_x(options):
     """ API version 3.*, 4.* - deactivate, then activate
     """
 
@@ -413,7 +413,7 @@ def activateProxy(options, apiVersion):
         support only API v.3.1+. Support for 3.0 and older has been removed.
     """
     # errorCode == 0 means activated!
-    errorCode, errorString = activateProxy_api_v3_x(options, apiVersion)
+    errorCode, errorString = activateProxy_api_v3_x(options)
         
     if errorCode != 0:
         if not errorString:
