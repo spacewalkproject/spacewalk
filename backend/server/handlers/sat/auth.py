@@ -46,9 +46,10 @@ class Authentication(rhnHandler):
 
         if CFG.ALLOWED_ISS_SLAVES:
             if not isinstance(CFG.ALLOWED_ISS_SLAVES, list):
-                allowed_iss_slaves = map(lambda x: idn_ascii_to_pune(x), [CFG.ALLOWED_ISS_SLAVES])
+                allowed_iss_slaves = [CFG.ALLOWED_ISS_SLAVES]
             else:
-                allowed_iss_slaves = idn_ascii_to_pune(CFG.ALLOWED_ISS_SLAVES)
+                allowed_iss_slaves = CFG.ALLOWED_ISS_SLAVES
+            allowed_iss_slaves = [idn_ascii_to_pune(x) for x in allowed_iss_slaves]
         else:
             allowed_iss_slaves = []
 
