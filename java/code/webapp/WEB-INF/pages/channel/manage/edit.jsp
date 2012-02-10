@@ -11,9 +11,9 @@ function setChildChannelArch() {
 var baseChannels = {};
 <c:forEach items="${parentChannelArches}" var="parentChannel">
 baseChannels["<c:out value="${parentChannel.key}" />"] = "<c:out value="${parentChannel.value}"/>";
+</c:forEach>
 document.getElementById("parentarch").value = baseChannels[document.getElementById("parent").value];
 }
-</c:forEach>
 </script>
 
 <rhn:toolbar base="h1" img="/img/rhn-icon-channels.gif"
