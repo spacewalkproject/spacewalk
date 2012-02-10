@@ -28,16 +28,8 @@ sub assign_set_to_group {
   my $sgid = shift;
   die "Invalid format for sgid $sgid" if $sgid =~ /\D/;	# contain nondigit? die
 
-  my $query = <<EOQ;
-  select rhn_server.insert_set_into_servergroup(:server_group_id,:user_id,:label) from dual
-EOQ
-  my $label = $set->label;
-  my $uid = $set->uid;
-
   my $dbh = RHN::DB->connect();
-  my $sth = $dbh->prepare($query);
-
-  $sth->execute_h(server_group_id => $sgid, label => $set->label, user_id => $set->uid);
+  $dbh->call_procedure('rhn_server.insert_set_into_servergroup', $sgid, $set->uid, $set->label);
 
   $dbh->commit;
 }
