@@ -27,7 +27,6 @@
 import os
 import re
 import sys
-import string
 import socket
 import urlparse
 import xmlrpclib
@@ -119,38 +118,38 @@ def _getActivationError(e):
     errorString = ''
     errorCode = 1
 
-    if string.find(e.faultString, 'proxy_invalid_systemid') != -1:
+    if e.faultString.find('proxy_invalid_systemid') != -1:
         errorString = ("this server does not seem to be registered or "
                        "/etc/sysconfig/rhn/systemid is corrupt.")
         errorCode = 2
-    elif string.find(e.faultString, 'proxy_no_provisioning_entitlements') != -1:
+    elif e.faultString.find('proxy_no_provisioning_entitlements') != -1:
         # possible future error message?
         errorString = ("no Provisioning entitlements available. There must "
                        "be at least one free Management/Provisioning slot "
                        "available in your RHN account.")
         errorCode = 3
-    elif string.find(e.faultString, 'proxy_no_management_entitlements') != -1:
+    elif e.faultString.find('proxy_no_management_entitlements') != -1:
         errorString = ("no Management entitlements available. There must be "
                        "at least one free Management/Provisioning slot "
                        "available in your RHN account.")
         errorCode = 4
-    elif string.find(e.faultString, 'proxy_no_enterprise_entitlements') != -1:
+    elif e.faultString.find('proxy_no_enterprise_entitlements') != -1:
         # legacy error message
         errorString = ("no Management entitlements available. There must be "
                        "at least one free Management/Provisioning slot "
                        "available in your RHN account.")
         errorCode = 5
-    elif string.find(e.faultString, 'proxy_no_channel_entitlements') != -1:
+    elif e.faultString.find('proxy_no_channel_entitlements') != -1:
         errorString = ("no RHN Proxy entitlements available. There must be "
                        "at least one free RHN Proxy entitlement "
                        "available in your RHN account.")
         errorCode = 6
-    elif string.find(e.faultString, 'proxy_no_proxy_child_channel') != -1:
+    elif e.faultString.find('proxy_no_proxy_child_channel') != -1:
         errorString = ("no RHN Proxy entitlements available for this "
                        "server's version (or requested version) of Red Hat "
                        "Enterprise Linux.")
         errorCode = 7
-    elif string.find(e.faultString, 'proxy_not_activated') != -1:
+    elif e.faultString.find('proxy_not_activated') != -1:
         errorString = "this server not an activated RHN Proxy yet."
         errorCode = 8
     else:
@@ -217,7 +216,7 @@ def _errorHandler(pre='', post=''):
 def resolveHostnamePort(hostnamePort=''):
     """ hostname:port sanity check """
 
-    hostname = string.split(urlparse.urlparse(hostnamePort)[1],':')
+    hostname = urlparse.urlparse(hostnamePort)[1].split(':')
     port = ''
     if len(hostname) > 1:
         hostname, port = hostname[:2]
@@ -274,7 +273,7 @@ def getAPIVersion(options):
 
     if not options.quiet:
         print "API version: %s" % version
-    return string.split(version, '.')
+    return version.split('.')
 
 
 def activateProxy_api_v3_x(options, apiVersion):
@@ -487,13 +486,13 @@ def processCommandline():
 
     if not options.http_proxy_username:
         options.http_proxy_password = ''
-    exploded_version = string.split(options.version, '.')
+    exploded_version = options.version.split('.')
     # Pad it to be at least 2 components
     if len(exploded_version) == 1:
         exploded_version.append('0')
     
     # Make it a string
-    options.version = string.join(exploded_version[:2], '.')
+    options.version = '.'.join(exploded_version[:2])
 
     if options.quiet:
         options.non_interactive = 1
@@ -505,9 +504,9 @@ def yn(prompt):
     _yn = ''
     while _yn == '':
         _yn = raw_input(prompt)
-        if _yn and string.lower(_yn[0]) not in ('y', 'n'):
+        if _yn and _yn[0].lower() not in ('y', 'n'):
             _yn = ''
-    return string.lower(_yn[0]) == 'y'
+    return _yn[0].lower() == 'y'
 
 
 def main():
