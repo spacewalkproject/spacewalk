@@ -25,7 +25,6 @@
 
 ## core lang imports
 import os
-import re
 import sys
 import socket
 import urlparse
