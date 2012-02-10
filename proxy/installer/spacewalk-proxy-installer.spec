@@ -2,7 +2,7 @@ Name: spacewalk-proxy-installer
 Summary: Spacewalk Proxy Server Installer
 Group:   Applications/Internet
 License: GPLv2
-Version: 1.7.1
+Version: 1.7.2
 Release: 1%{?dist}
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -99,6 +99,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE answers.txt
 
 %changelog
+* Fri Feb 10 2012 Michael Mraka <michael.mraka@redhat.com> 1.7.2-1
+- added pylint check to specfile
+- fixed pylint errors/warnings
 * Fri Feb 10 2012 Michael Mraka <michael.mraka@redhat.com> 1.7.1-1
 - code cleanup
 
