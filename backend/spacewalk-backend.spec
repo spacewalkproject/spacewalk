@@ -12,7 +12,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.7.18
+Version: 1.7.19
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -682,6 +682,12 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Fri Feb 10 2012 Michael Mraka <michael.mraka@redhat.com> 1.7.19-1
+- empty epoch have to be None
+- compute payload_size including its header
+- idn_ascii_to_pune() expects string not list
+- made mod_wsgi configuration consistent with mod_python
+
 * Wed Feb 08 2012 Michael Mraka <michael.mraka@redhat.com> 1.7.18-1
 - added description to pushed debian packages
 
