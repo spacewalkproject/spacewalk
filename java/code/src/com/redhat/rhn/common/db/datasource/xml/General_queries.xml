@@ -64,7 +64,7 @@ ORDER BY KS.label, KS.id
 
 <mode name="scripts_for_kickstart" class="com.redhat.rhn.frontend.dto.kickstart.ScriptDto">
   <query params="kickstart_id">
-  SELECT KS.id, KS.script_type, KS.chroot, KS.interpreter, KS.script_name
+  SELECT KS.id, KS.script_type, KS.chroot, KS.interpreter, KS.script_name, KS.position
     FROM rhnKickstartScript KS
   WHERE KS.kickstart_id = :kickstart_id
   </query>

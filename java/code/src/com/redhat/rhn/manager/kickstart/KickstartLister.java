@@ -24,7 +24,6 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.ActivationKeyDto;
 import com.redhat.rhn.frontend.dto.kickstart.CobblerProfileDto;
 import com.redhat.rhn.frontend.dto.kickstart.KickstartDto;
-import com.redhat.rhn.frontend.dto.kickstart.ScriptDto;
 import com.redhat.rhn.frontend.listview.PageControl;
 import com.redhat.rhn.manager.BaseManager;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerXMLRPCHelper;
@@ -141,11 +140,6 @@ public class KickstartLister extends BaseManager {
         if (logger.isDebugEnabled()) {
             logger.debug("scriptsInKickstart(KS, PageControl) - end - return value=" +
                     returnDataResult);
-        }
-        int i = 1;
-        for (Iterator itr = returnDataResult.iterator(); itr.hasNext();) {
-            ScriptDto script = (ScriptDto)itr.next();
-            script.setPosition(i++);
         }
         return returnDataResult;
     }
