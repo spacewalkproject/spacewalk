@@ -241,42 +241,6 @@ def resolveHostnamePort(hostnamePort=''):
             sys.stderr.write(errorString + '\n')
             sys.exit(errorCode)
 
-
-def getAPIVersion(options):
-    """ get's the API version, if fails, default back to 3.2
-        returns [x,y,z]
-    """
-
-    version = '3.2'
-
-    s = getServer(options, DEFAULT_WEBRPC_HANDLER_v3_x)
-
-    try:
-        version = s.api.system_version()    # 3.1+ API
-    except (SystemExit, KeyboardInterrupt):
-        raise
-    except xmlrpclib.Fault:
-        sys.stderr.write("warning: can't check API version. Assuming at least API version 3.0.0\n")
-        version = '3.0.0'
-    except SSL.SSL.Error:
-        errorCode, errorString = _errorHandler()
-        sys.stderr.write(errorString + '\n')
-        sys.exit(errorCode)
-    except (xmlrpclib.ProtocolError, socket.error):
-        errorCode, errorString = _errorHandler()
-        sys.stderr.write(errorString + '\n')
-        sys.exit(errorCode)
-    except:
-        errorCode, errorString = _errorHandler('Exception raised, assuming the 3.2 API\n')
-        sys.stderr.write('%s\n' % errorString)
-        # not sure... punting
-        version = '3.2'
-
-    if not options.quiet:
-        print "API version: %s" % version
-    return version.split('.')
-
-
 def activateProxy_api_v3_x(options):
     """ API version 3.*, 4.* - deactivate, then activate
     """
@@ -582,9 +546,6 @@ def main():
     resolveHostnamePort(options.http_proxy)
     if not options.http_proxy:
         resolveHostnamePort(options.server)
-
-    # snag the apiVersion
-    apiVersion = getAPIVersion(options)
 
     if options.deactivate:
         _deactivateProxy_api_v3_x(options)
