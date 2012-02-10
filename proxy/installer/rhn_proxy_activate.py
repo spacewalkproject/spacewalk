@@ -439,7 +439,7 @@ def processCommandline():
         Option('-q', '--quiet',     action='store_true', help='quiet non-interactive mode.'),
     ]
     parser = OptionParser(option_list=optionsTable)
-    options, args = parser.parse_args()
+    options, _args = parser.parse_args()
 
     if options.server:
         if options.server.find('http') != 0:
