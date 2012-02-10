@@ -4,7 +4,7 @@ Group:   Applications/Internet
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 1.7.3
+Version: 1.7.4
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
 BuildRequires: python
@@ -337,6 +337,9 @@ fi
 
 
 %changelog
+* Fri Feb 10 2012 Michael Mraka <michael.mraka@redhat.com> 1.7.4-1
+- check proxy for pylint errors in rpm build time
+- fixed pylint errors/warnings
 * Tue Feb 07 2012 Miroslav Suchý 1.7.3-1
 - clean up code style
 
