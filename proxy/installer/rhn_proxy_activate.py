@@ -236,6 +236,7 @@ def resolveHostnamePort(hostnamePort=''):
         try:
             socket.getaddrinfo(hostname, None)
         except:
+            # pylint: disable=W0702
             errorCode, errorString = _errorHandler()
             sys.stderr.write(errorString + '\n')
             sys.exit(errorCode)
@@ -300,10 +301,12 @@ def _deactivateProxy_api_v3_x(options, apiVersion):
     except:
         # api do not have proxy.is_proxy is implemented or it is hosted
         # ignore error and try to deactivate
+        # pylint: disable=W0702
         pass
     try:
         s.proxy.deactivate_proxy(systemid)       # proxy 3.0+ API
     except:
+        # pylint: disable=W0702
         errorCode, errorString = _errorHandler()
         try:
             raise
@@ -345,6 +348,7 @@ def _activateProxy_api_v3_x(options, apiVersion):
         if options.enable_monitoring:
             s.proxy.create_monitoring_scout(systemid)
     except:
+        # pylint: disable=W0702
         errorCode, errorString = _errorHandler()
         try:
             raise
@@ -381,6 +385,7 @@ def createMonitoringScout(options):
         ssk = s.proxy.create_monitoring_scout(systemid)
         print "Scout shared key: %s" % ssk
     except:
+        # pylint: disable=W0702
         errorCode, errorString = _errorHandler()
         try:
             raise
@@ -427,6 +432,7 @@ def listAvailableProxyChannels(options):
     try:
         list=server.proxy.list_available_proxy_channels(systemid)
     except:
+        # pylint: disable=W0702
         errorCode, errorString = _errorHandler()
         try:
             raise
