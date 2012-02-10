@@ -389,12 +389,12 @@ def listAvailableProxyChannels(options):
     """ return list of version available to this system """
 
     server = getServer(options, DEFAULT_WEBRPC_HANDLER_v3_x)
-    systemid=getSystemId()
+    systemid = getSystemId()
 
     errorCode, errorString = 0, ''
     list = []
     try:
-        list=server.proxy.list_available_proxy_channels(systemid)
+        list = server.proxy.list_available_proxy_channels(systemid)
     except:
         # pylint: disable=W0702
         errorCode, errorString = _errorHandler()
@@ -420,7 +420,7 @@ def processCommandline():
     if not httpProxyUsername:
         httpProxyPassword = ''
     ca_cert = ''
-    defaultVersion='5.2'
+    defaultVersion = '5.2'
 
     # parse options
     optionsTable = [
