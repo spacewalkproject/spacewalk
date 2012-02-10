@@ -281,12 +281,12 @@ def activateProxy_api_v3_x(options, apiVersion):
     """ API version 3.*, 4.* - deactivate, then activate
     """
 
-    (errorCode, errorString) = _deactivateProxy_api_v3_x(options, apiVersion)
+    (errorCode, errorString) = _deactivateProxy_api_v3_x(options)
     if errorCode == 0:
-        (errorCode, errorString) = _activateProxy_api_v3_x(options, apiVersion)
+        (errorCode, errorString) = _activateProxy_api_v3_x(options)
     return (errorCode, errorString)
 
-def _deactivateProxy_api_v3_x(options, apiVersion):
+def _deactivateProxy_api_v3_x(options):
     """ Deactivate this machine as Proxy """
     
     s = getServer(options, DEFAULT_WEBRPC_HANDLER_v3_x)
@@ -333,7 +333,7 @@ def _deactivateProxy_api_v3_x(options, apiVersion):
             sys.stdout.write("RHN Proxy successfully deactivated.\n")
     return (errorCode, errorString)
 
-def _activateProxy_api_v3_x(options, apiVersion):
+def _activateProxy_api_v3_x(options):
     """ Activate this machine as Proxy.
         Do not check if has been already activated. For such case
         use activateProxy_api_v3_x method instead.
@@ -587,7 +587,7 @@ def main():
     apiVersion = getAPIVersion(options)
 
     if options.deactivate:
-        _deactivateProxy_api_v3_x(options, apiVersion)
+        _deactivateProxy_api_v3_x(options)
     else:
         # ACTIVATE!!!!!!!!
         activateProxy(options, apiVersion)
