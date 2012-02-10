@@ -182,8 +182,10 @@ public abstract class BaseFilterEditAction extends RhnAction {
         DataResult probes = MonitoringManager.getInstance().
                 listProbes(rctx.getCurrentUser());
         if (form.getStrings(PROBE) == null || form.getStrings(PROBE).length == 0) {
-            CheckProbeDto probeDto = (CheckProbeDto) probes.iterator().next();
-            form.set(PROBE, new String[] {probeDto.getId().toString()});
+            if (probes.iterator().hasNext()) {
+                CheckProbeDto probeDto = (CheckProbeDto) probes.iterator().next();
+                form.set(PROBE, new String[] {probeDto.getId().toString()});
+            }
         }
         req.setAttribute(PROBE, probes);
         DataResult groups = MonitoringManager.getInstance().
