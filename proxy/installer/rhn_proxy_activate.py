@@ -392,9 +392,9 @@ def listAvailableProxyChannels(options):
     systemid = getSystemId()
 
     errorCode, errorString = 0, ''
-    list = []
+    channel_list = []
     try:
-        list = server.proxy.list_available_proxy_channels(systemid)
+        channel_list = server.proxy.list_available_proxy_channels(systemid)
     except:
         # pylint: disable=W0702
         errorCode, errorString = _errorHandler()
@@ -406,8 +406,8 @@ def listAvailableProxyChannels(options):
             sys.exit(errorCode)
     else:
         errorCode = 0
-        if not options.quiet and list:
-            sys.stdout.write("\n".join(list)+"\n")
+        if not options.quiet and channel_list:
+            sys.stdout.write("\n".join(channel_list)+"\n")
 
 def processCommandline():
     # FIXME: we should populate this keys from /etc/sysconfig/rhn/up2date
