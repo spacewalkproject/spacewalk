@@ -44,12 +44,12 @@ def parseRPMName(pkgName):
     if reg == None:
         return None, None, None, None
     n, v, r = reg.group(1,2,3)
-    e = ""
+    e = None
     ind = string.find(r, ':')
     if ind >= 0: # epoch found
         e = r[ind+1:]
         r = r[0:ind]
-    return str(n), str(e), str(v), str(r)
+    return str(n), e, str(v), str(r)
 
 
 # 'n_n-n-v.v.v-r_r.r:e.ARCH.rpm' ---> [n,v,r,e,a]
