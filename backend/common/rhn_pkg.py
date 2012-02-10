@@ -99,7 +99,7 @@ class A_Package:
         # just read and compute checksum
         start = self.input_stream.tell()
         self.save_payload(None)
-        self.payload_size = self.input_stream.tell() - start
+        self.payload_size = self.input_stream.tell() - start + self.header_end
         self.payload_stream = self.input_stream
 
     @staticmethod
