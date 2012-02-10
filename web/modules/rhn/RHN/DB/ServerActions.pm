@@ -29,9 +29,7 @@ sub assign_set_to_group {
   die "Invalid format for sgid $sgid" if $sgid =~ /\D/;	# contain nondigit? die
 
   my $query = <<EOQ;
-BEGIN
-  rhn_server.insert_set_into_servergroup(:server_group_id,:user_id,:label);
-END;
+  select rhn_server.insert_set_into_servergroup(:server_group_id,:user_id,:label) from dual
 EOQ
   my $label = $set->label;
   my $uid = $set->uid;
