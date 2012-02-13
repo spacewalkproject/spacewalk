@@ -22,6 +22,7 @@ Requires: spacewalk-certs-tools >= 1.6.4
 BuildRequires: /usr/bin/docbook2man
 # pylint check
 BuildRequires: pylint
+BuildRequires: rhnlib
 
 Obsoletes: proxy-installer < 5.3.0
 Provides: proxy-installer = 5.3.0
