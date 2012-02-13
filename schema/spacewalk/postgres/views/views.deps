@@ -35,7 +35,6 @@ rhnServerOverview                :: rhnUserServerPerms \
                                     rhn_entitlements.pks
 rhnUserChannelFamilyPerms        :: rhnPrivateChannelFamily \
                                     rhnPublicChannelFamily web_contact
-rhnUserTypeCommaView             :: web_contact rhnUserTypeBase
 rhnVisServerGroupOverviewLite    :: rhnVisibleServerGroup rhnServerGroupMembers \
                                     rhnUserManagedServerGroups \
                                     rhnServerGroupOVLiteHelper
