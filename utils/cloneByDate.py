@@ -25,6 +25,7 @@ import xmlrpclib
 import pprint
 import subprocess
 import datetime
+import re
 
 
 from depsolver import DepSolver
@@ -498,11 +499,14 @@ class ChannelCloner:
             name   - name of removal  'blacklist' or 'removelist', for display
         """
         found_ids  = []
-        found_names = []
+        found_names = []        
         if not pkg_names:
             return 
+        
+        #add dollar signs to each one, other wise  foo would match foobar
+        reg_ex = re.compile("$|".join(pkg_names) + '$')
         for pkg in pkg_list:
-            if pkg['name'] in pkg_names:
+            if reg_ex.match(pkg['name']):
                 found_ids.append(pkg['id'])
                 found_names.append(pkg['nvrea'])      
 
