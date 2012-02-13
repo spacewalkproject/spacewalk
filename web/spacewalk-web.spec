@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 1.7.16
+Version: 1.7.17
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -254,6 +254,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Mon Feb 13 2012 Michael Mraka <michael.mraka@redhat.com> 1.7.17-1
+- PostgreSQL: Fix adding systems to a system group
+
 * Tue Feb 07 2012 Jan Pazdziora 1.7.16-1
 - Updating the oversight in license texts.
 
