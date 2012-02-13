@@ -100,7 +100,6 @@ lookup_transaction_package      :: rhnTransactionOperation lookup_package_name \
                                    lookup_evr lookup_package_arch \
                                    rhnTransactionPackage rhn_exception.pks
 lookup_virt_sub_level           :: rhnVirtSubLevel                                
-name_join                       :: user_group_name_t
 new_user_postop                 :: web_contact rhnUserGroupType rhnUserGroup \
                                    rhnUserGroupMembers
 pxt_session_cleanup             :: PXTSessions
