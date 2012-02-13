@@ -122,7 +122,7 @@ public class Validator {
             return null;
         }
 
-        Constraint constraint = (Constraint) o;
+        ParsedConstraint constraint = (ParsedConstraint) o;
         // Get the field we want to check
         Object value = null;
         try {
@@ -143,35 +143,30 @@ public class Validator {
         log.debug("Data: " + data);
         log.debug("Constraint: " + constraint);
 
-        // Validate data type
-        if (value != null && !value.equals("")) {
+        boolean required = !constraint.getOptional() ||
+                (value != null && !value.equals(""));
+        if (required) {
+            // Validate data type
             validationMessage = correctDataType(data, constraint);
             if (validationMessage != null) {
                 log.debug("Not the right datatype.. " + validationMessage);
                 return validationMessage;
             }
+            boolean checkConstraint = true;
+            if (constraint instanceof RequiredIfConstraint) {
+                checkConstraint = ((RequiredIfConstraint) constraint).
+                        isRequired(data, objToValidate);
+                log.debug("RequiredIf indicates:" + required);
+            }
+            if (checkConstraint) {
+                validationMessage = constraint.checkConstraint(data);
+                if (validationMessage != null) {
+                    log.debug("Failed: " + validationMessage);
+                    return validationMessage;
+            }
+            }
         }
 
-        // Execute the actual Constraint logic
-        boolean required = true;
-        // First we have to check to see if this is a RequiredIfConstraint
-        // since it has a different method signature.  Not so pretty but its
-        // got a completely different way of checking constraints (references
-        // multiple fields) so it has to be separate.
-        if (constraint instanceof RequiredIfConstraint) {
-            required = ((RequiredIfConstraint) constraint).
-                isRequired(data, objToValidate);
-        }
-        log.debug("RequiredIf indicates:" + required);
-
-        if (required) {
-            validationMessage = constraint.checkConstraint(data);
-        }
-
-        if (validationMessage != null) {
-            log.debug("Failed: " + validationMessage);
-            return validationMessage;
-        }
         log.debug("All is OK, returning true ...");
         return null;
     }

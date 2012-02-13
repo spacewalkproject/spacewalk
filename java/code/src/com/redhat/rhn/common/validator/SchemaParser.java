@@ -175,9 +175,9 @@ public class SchemaParser {
 
         if (schemaType.equals("long")) {
             NumericConstraint nc = new NumericConstraint(name);
+            nc.setOptional(parseOptional(simpleType));
 
             processRequiredIfConstraint(simpleType, nc);
-
             // Handle ranges
             child = simpleType.getChild("minInclusive", schemaNamespace);
             if (child != null) {
@@ -193,8 +193,10 @@ public class SchemaParser {
         }
         else if (schemaType.equals("string")) {
             StringConstraint lc = new StringConstraint(name);
+            lc.setOptional(parseOptional(simpleType));
 
             processRequiredIfConstraint(simpleType, lc);
+
             child = simpleType.getChild("ascii", schemaNamespace);
             if (child != null) {
                 lc.setASCII(true);
@@ -229,7 +231,7 @@ public class SchemaParser {
             constraint = lc;
         }
         else {
-            constraint = new RequiredConstraint(name);
+            constraint = new ParsedConstraint(name);
         }
 
         constraint.setDataType(DataConverter.getInstance().getJavaType(schemaType));
@@ -238,6 +240,23 @@ public class SchemaParser {
         log.debug("Adding: constraint name: " + name +
                 " datatype: " + constraint.getDataType());
         constraints.put(name, constraint);
+    }
+
+    private Boolean parseOptional(Element simpleType) {
+        Element child;
+        Boolean optional = Boolean.FALSE;
+        child = simpleType.getChild("optional", schemaNamespace);
+        if (child != null) {
+            String value = child.getAttributeValue("value");
+            if (value == null) {
+                // <optional/> consider as true
+                optional = Boolean.TRUE;
+            }
+            else {
+                optional = new Boolean(value);
+            }
+        }
+        return optional;
     }
 
     private void processRequiredIfConstraint(Element simpleType, RequiredIfConstraint lc) {

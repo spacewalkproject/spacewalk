@@ -18,7 +18,7 @@ import com.redhat.rhn.common.conf.UserDefaults;
 import com.redhat.rhn.common.hibernate.LookupException;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.messaging.MessageQueue;
-import com.redhat.rhn.common.validator.RequiredConstraint;
+import com.redhat.rhn.common.validator.ParsedConstraint;
 import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.role.RoleFactory;
@@ -201,7 +201,7 @@ public class CreateUserCommand {
         // is a stupid place for hiding username validation.  But nevertheless
         // I will continue to propogate this crap until we want to revisit
         // validation.
-        RequiredConstraint rc = new RequiredConstraint("CreateUserCommand");
+        ParsedConstraint rc = new ParsedConstraint("CreateUserCommand");
         if (!rc.isValidUserName(login)) {
             errors.add(new ValidatorError("errors.username", login));
             return;

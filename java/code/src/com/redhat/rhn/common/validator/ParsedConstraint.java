@@ -25,7 +25,7 @@ import java.util.regex.Pattern;
  * </p>
  * @version $Rev$
  */
-public class RequiredConstraint implements Constraint {
+public class ParsedConstraint implements Constraint {
 
     /** The identifier for this constraint */
     private String identifier;
@@ -42,6 +42,9 @@ public class RequiredConstraint implements Constraint {
     /** flag for posix property */
     private boolean posix;
 
+    /** flag for optional property **/
+    private boolean optional;
+
     /**
      * <p>
      *  This will create a new <code></code> with the specified
@@ -50,7 +53,7 @@ public class RequiredConstraint implements Constraint {
      *
      * @param identifierIn <code>String</code> identifier for <code>Constraint</code>.
      */
-    public RequiredConstraint(String identifierIn) {
+    public ParsedConstraint(String identifierIn) {
         this.identifier = identifierIn;
     }
 
@@ -198,4 +201,19 @@ public class RequiredConstraint implements Constraint {
         return posix;
     }
 
+    /**
+     * Sets the optional property
+     * @param optionalValue optional flag
+     */
+    public void setOptional(Boolean optionalValue) {
+        this.optional = optionalValue;
+    }
+
+    /**
+     * Returns whether the constraint is optional
+     * @return true if optional
+     */
+    public Boolean getOptional() {
+        return this.optional;
+    }
 }

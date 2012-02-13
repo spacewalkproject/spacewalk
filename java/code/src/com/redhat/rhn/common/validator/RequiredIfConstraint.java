@@ -33,7 +33,7 @@ import java.util.Map;
  *
  * @version $Rev$
  */
-public class RequiredIfConstraint extends RequiredConstraint {
+public class RequiredIfConstraint extends ParsedConstraint {
 
     private static Logger log = Logger.getLogger(RequiredIfConstraint.class);
 
