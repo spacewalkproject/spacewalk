@@ -73,7 +73,7 @@ def add_channels(channels, section, arch):
     optional  = ['activationkey', 'base_channel_activationkey', 'gpgkey_url',
                  'gpgkey_id', 'gpgkey_fingerprint', 'yumrepo_url',
                  'yum_repo_label']
-    mandatory = ['label', 'name', 'summary', 'checksum', 'arch']
+    mandatory = ['label', 'name', 'summary', 'checksum', 'arch', 'section']
 
     if config.has_option(section, 'base_channels'):
         base_channels = re.split(SPLIT_PATTERN,
@@ -188,7 +188,9 @@ Create everything as well as unlimited activation key for every channel:
     child_channels = {}
     # filter out non-matching channels
     for pattern in args:
-        for name in fnmatch.filter(channels.keys(), pattern):
+        matching_channels = [n for n in channels.keys()
+                               if fnmatch.fnmatch(channels[n]['section'], pattern)]
+        for name in matching_channels:
             attr = channels[name]
             if attr['base_channel']:
                 if attr['base_channel'] not in base_channels:
