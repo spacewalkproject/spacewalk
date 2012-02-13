@@ -58,7 +58,7 @@ use constant DEFAULT_BACKUP_DIR =>
    '/etc/sysconfig/rhn/backup-' . `date +%F-%R`;
 
 use constant INSTALL_LOG_FILE =>
-  '/var/log/rhn/rhn-installation.log';
+  '/var/log/rhn/rhn_installation.log';
 
 use constant DB_INSTALL_LOG_FILE =>
   '/var/log/rhn/install_db.log';

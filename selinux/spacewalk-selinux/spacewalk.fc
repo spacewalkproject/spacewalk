@@ -1,7 +1,7 @@
 
 /var/log/rhn(/.*)? gen_context(system_u:object_r:spacewalk_log_t,s0)
 /var/log/rhn/populate_db\.log gen_context(system_u:object_r:spacewalk_install_log_t,s0)
-/var/log/rhn/rhn-installation\.log gen_context(system_u:object_r:spacewalk_install_log_t,s0)
+/var/log/rhn/rhn_installation\.log gen_context(system_u:object_r:spacewalk_install_log_t,s0)
 /var/log/rhn/install_db\.log gen_context(system_u:object_r:spacewalk_install_log_t,s0)
 /var/log/rhn/rhn_server_app\.log gen_context(system_u:object_r:spacewalk_httpd_log_t,s0)
 /var/log/rhn/rhn_upload_package_push\.log gen_context(system_u:object_r:spacewalk_httpd_log_t,s0)

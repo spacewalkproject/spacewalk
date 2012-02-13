@@ -58,7 +58,7 @@ installation logs. The installer stores information about installation in the
 following log files:
 
 /var/log/rhn_satellite_install.log
-/var/log/rhn/rhn-installation.log
+/var/log/rhn/rhn_installation.log
 /var/log/rhn/install_db.log
 /var/log/rhn/populate_db.log
 /var/log/rhn/rhn_database.log
