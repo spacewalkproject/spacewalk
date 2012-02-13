@@ -24,6 +24,7 @@ import tempfile
 import xmlrpclib
 import pprint
 import subprocess
+import datetime
 
 
 from depsolver import DepSolver
@@ -315,9 +316,9 @@ class ChannelTreeCloner:
         
         solver = DepSolver(repos, nvrea_list)
         dep_results = solver.processResults(solver.getDependencylist())
-            
+        solver.cleanup()
         self.process_deps(dep_results)
-
+        
         # clean up temporary symlinks
         for link in temp_repo_links:
             remove_repodata_link(link)
@@ -528,12 +529,28 @@ class RemoteApi:
     
     def __init__(self, server_url, username, password):
         self.client = xmlrpclib.Server(server_url)
+        self.auth_time = None
         try:
-            self.auth_token = self.client.auth.login(username, password)
+            self.username = username
+            self.password = password            
+            self.__login()            
         except xmlrpclib.Fault, e:
             raise UserError(e.faultString)
+
+    def auth_check(self):
+        """ makes sure that more than an hour hasn't passed since we 
+             logged in and will relogin if it has
+        """        
+        if not self.auth_time or (datetime.datetime.now() - self.auth_time).seconds > 60*15: #15 minutes
+            self.__login() 
+         
+        
+    def __login(self):                
+        self.auth_token = self.client.auth.login(self.username, self.password)
+        self.auth_time = datetime.datetime.now()
         
     def list_channel_labels(self):
+        self.auth_check()
         key = "chan_labels"
         if self.cache.has_key(key):
             return self.cache[key] 
@@ -546,6 +563,7 @@ class RemoteApi:
         return to_ret
     
     def channel_details(self, label_hash, keys=True, values=True):
+        self.auth_check()
         to_ret = {}
         for src, dst in label_hash.items():          
             if keys:  
@@ -555,6 +573,7 @@ class RemoteApi:
         return to_ret
 
     def list_packages(self, label):
+        self.auth_check()
         pkg_list = self.client.channel.software.listAllPackages(self.auth_token, label)
         #name-ver-rel.arch,
         for pkg in pkg_list:
@@ -562,27 +581,32 @@ class RemoteApi:
         return pkg_list
     
     def clone_errata(self, to_label, errata_list):
+        self.auth_check()
         self.client.errata.cloneAsOriginal(self.auth_token, to_label, errata_list)
     
     def get_details(self, label):
+        self.auth_check()
         try:
             return self.client.channel.software.getDetails(self.auth_token, label)
         except xmlrpclib.Fault, e:
             raise UserError(e.faultString + ": " + label)
         
-    def add_packages(self, label, package_ids):        
+    def add_packages(self, label, package_ids):
+        self.auth_check()        
         while(len(package_ids) > 0):
             pkg_set = package_ids[:20]
             del package_ids[:20]        
             self.client.channel.software.addPackages(self.auth_token, label, pkg_set)
 
     def remove_packages(self, label, package_ids):
+        self.auth_check()
         while(len(package_ids) > 0):
             pkg_set = package_ids[:20]
             del package_ids[:20]        
             self.client.channel.software.removePackages(self.auth_token, label, pkg_set)
                         
     def clone_channel(self, original_label, new_label, parent):
+        self.auth_check()
         details = {'name': new_label, 'label':new_label, 'summary': new_label}
         if parent and parent != '':
             details['parent_label'] = parent
