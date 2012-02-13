@@ -68,6 +68,10 @@ Utility for cloning errata by date.
         <arg>--blacklist=<replaceable>PKG1,PKG2,PKG3</replaceable></arg>
     </cmdsynopsis>    
     <cmdsynopsis>
+        <arg>-r<replaceable>PKG1,PKG2,PKG3</replaceable></arg>
+        <arg>--removelist=<replaceable>PKG1,PKG2,PKG3</replaceable></arg>
+    </cmdsynopsis>       
+    <cmdsynopsis>
         <arg>-v</arg><arg> --validate </arg>
     </cmdsynopsis>   
     <cmdsynopsis>
@@ -147,10 +151,20 @@ Utility for cloning errata by date.
         <term> -b <replaceable>PKG1,PKG2,PKG3</replaceable>
         	--blacklist=<replaceable>PKG1,PKG2,PKG3</replaceable> </term>
         <listitem>
-            <para>Comma separated list of package names to be removed after cloning.  
+            <para>Comma separated list of package names to be removed after cloning.
+            	Only newly added packages will removed if they are on the blacklist.   
             	Dependency resolution is not ensured on resulting repository.</para>
         </listitem>
     </varlistentry>
+    <varlistentry>
+        <term> -r <replaceable>PKG1,PKG2,PKG3</replaceable>
+        	--removelist=<replaceable>PKG1,PKG2,PKG3</replaceable> </term>
+        <listitem>
+            <para>Comma separated list of package names to be removed after cloning.
+            	All packages are considered for removal, even those not added by errata/channel cloning.
+            	Dependency resolution is not ensured on resulting repository.</para>
+        </listitem>
+    </varlistentry>    
 </variablelist>
 </RefSect1>
 

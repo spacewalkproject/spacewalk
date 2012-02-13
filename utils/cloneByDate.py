@@ -127,7 +127,7 @@ def main(options):
     needed_channels = []
     for channel_list in options.channels:
         tree_cloner = ChannelTreeCloner(channel_list, xmlrpc, db, 
-                                        options.to_date, options.blacklist)
+                                        options.to_date, options.blacklist, options.removelist)
         cloners.append(tree_cloner)
         needed_channels += tree_cloner.needing_create().values()
 
@@ -163,7 +163,7 @@ def main(options):
     confirm("\nContinue with clone (y/n)?", options)            
     for cloner in cloners:
         cloner.clone()        
-        cloner.remove_blacklisted()
+        cloner.remove_packages()
     
 
 class ChannelTreeCloner:
@@ -173,13 +173,14 @@ class ChannelTreeCloner:
         a.prepare()
         a.clone()
          """
-    def __init__(self, channels, remote_api, db_api, to_date, blacklist):
+    def __init__(self, channels, remote_api, db_api, to_date, blacklist, removelist):
         self.remote_api = remote_api
         self.db_api = db_api
         self.channel_map = channels
         self.to_date = to_date
         self.cloners = []
-        self.blacklist = blacklist      
+        self.blacklist = blacklist
+        self.removelist = removelist
         self.dest_parent = None
         self.src_parent = None
         self.channel_details = None
@@ -358,10 +359,11 @@ class ChannelTreeCloner:
             if len(needed) > 0:
                 cloner.process_deps(needed)
                                   
-    def remove_blacklisted(self):     
+    def remove_packages(self):     
         if self.blacklist:
             for cloner in self.cloners:
-                cloner.remove_blacklisted(self.blacklist)
+                cloner.remove_removelist(self.removelist)
+                cloner.remove_blacklisted(self.blacklist)               
         
 
 class ChannelCloner:
@@ -487,22 +489,36 @@ class ChannelCloner:
         
         return (to_clone, available_errata)   
         
-    
-    def remove_blacklisted(self, pkg_names):                
+        
+    def __remove_packages(self, pkg_names, pkg_list, name):
+        """Base removal of packages
+            pkg_names  - list of package names to be removed
+            pkg_list  -  list of package dicts to consider
+            name   - name of removal  'blacklist' or 'removelist', for display
+        """
         found_ids  = []
         found_names = []
-        for pkg in self.reset_new_pkgs().values():
+        if not pkg_names:
+            return 
+        for pkg in pkg_list:
             if pkg['name'] in pkg_names:
                 found_ids.append(pkg['id'])
                 found_names.append(pkg['nvrea'])      
 
         log_clean(0, "")                  
-        log_clean(0, "Removing %i packages from %s." % (len(found_ids), self.to_label))        
+        log_clean(0, "%s: Removing %i packages from %s." % (name, len(found_ids), self.to_label))        
         log_clean(0, "\n".join(found_names))
                           
         if len(found_ids) > 0:
-            print "Removing %i packages from %s" % (len(found_ids), self.to_label)
+            print "%s: Removing %i packages from %s" % (name, len(found_ids), self.to_label)
             self.remote_api.remove_packages(self.to_label, found_ids)
+    
+    def remove_removelist(self, pkg_names):                
+        self.__remove_packages(pkg_names, self.reset_new_pkgs().values(), "Removelist")
+                            
+    def remove_blacklisted(self, pkg_names):
+        self.reset_new_pkgs()                        
+        self.__remove_packages(pkg_names, self.pkg_diff(), "Blacklist")
             
 
 class RemoteApi:
