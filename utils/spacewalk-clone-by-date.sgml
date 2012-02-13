@@ -19,7 +19,7 @@ Utility for cloning errata by date.
 <refsection id="spacewalk-clone-by-date-description">
   <para>
     Script to clone software channels and errata up to specific dates ensuring any added packages have their 
-    dependencies satisifed.  Any destination channels that do not exist will be created.
+    dependencies satisfied.  Any destination channels that do not exist will be created.
   </para>
   <para>
      By specifying channels on the command line, only a single channel tree (a base channel and its children) 
@@ -98,7 +98,7 @@ Utility for cloning errata by date.
         	--config=<replaceable>FILE</replaceable></term>
         <listitem>
             <para>Configuration file holding parameters, see --sample-config for an example.
-                      Any commandline parameters override those in specified config file.</para>
+                      Any command-line parameters override those in specified config file.</para>
         </listitem>
     </varlistentry>   
     <varlistentry>
@@ -125,7 +125,7 @@ Utility for cloning errata by date.
         <term> -c <replaceable>SRC_LABEL DEST_LABEL</replaceable>
         	--channels=<replaceable>SRC_LABEL DEST_LABEL</replaceable></term>
         <listitem>
-            <para>Space seperated list of source channel and destination channel.  Can be 
+            <para>Space separated list of source channel and destination channel.  Can be 
             		specified multiple times to provide base channel and child channel pairs of a 
             		single channel tree.  To specify more than one channel tree, specify a config file.</para>
         </listitem>
@@ -147,7 +147,7 @@ Utility for cloning errata by date.
         <term> -b <replaceable>PKG1,PKG2,PKG3</replaceable>
         	--blacklist=<replaceable>PKG1,PKG2,PKG3</replaceable> </term>
         <listitem>
-            <para>Comma seperated list of package names to be removed after cloning.  
+            <para>Comma separated list of package names to be removed after cloning.  
             	Dependency resolution is not ensured on resulting repository.</para>
         </listitem>
     </varlistentry>
@@ -165,7 +165,7 @@ Utility for cloning errata by date.
 	spacewalk-clone-by-date  --config=/etc/clone.conf
 </example>
 <example>
-	<title>Clone while overriding some options from the commandline.</title>
+	<title>Clone while overriding some options from the command line.</title>
 	spacewalk-clone-by-date  --config=/etc/clone.conf --username rocky --password squirrel --to_date=2010-10-09
 </example>
 </RefSect1>
