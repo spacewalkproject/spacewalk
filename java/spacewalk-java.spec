@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.7.26
+Version: 1.7.27
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -555,6 +555,15 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Feb 13 2012 Tomas Lestach <tlestach@redhat.com> 1.7.27-1
+- 574975 - fix setChildChannelArch js function (tlestach@redhat.com)
+- 786829 - use ks script position as it is stored in the DB
+  (tlestach@redhat.com)
+- prevent ISE, when creating notification filter wihout having any probe
+  defined (tlestach@redhat.com)
+- 788988 - check whether interface has an address assigned
+  (mzazrivec@redhat.com)
+
 * Thu Feb 09 2012 Tomas Lestach <tlestach@redhat.com> 1.7.26-1
 - select first probe by deafult, when creating new notification filter in
   probes scope (tlestach@redhat.com)
