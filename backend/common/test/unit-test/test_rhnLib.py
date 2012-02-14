@@ -31,21 +31,21 @@ class Tests(unittest.TestCase):
     # Tests for rhnLib.rfc822time()
     ###########################################################################
 
-    def test_rfc822time_normal_tuple_arg(self):
+    def test_rfc822time_normal_tuple(self):
         "rfc822time: Simple call using a valid tuple argument."
         test_arg = (2006, 1, 27, (14 - TIMEZONE_SHIFT), 12, 5, 4, 27, -1)
         target = "Fri, 27 Jan 2006 14:12:05 GMT"
         result = rhnLib.rfc822time(test_arg)
         self.assertEqual(result, target, result + " != " + target)
         
-    def test_rfc822time_normal_list_arg(self):
+    def test_rfc822time_normal_list(self):
         "rfc822time: Simple call using a valid list argument."
         test_arg = [2006, 1, 27, (14 - TIMEZONE_SHIFT), 12, 5, 4, 27, -1]
         target = "Fri, 27 Jan 2006 14:12:05 GMT"
         result = rhnLib.rfc822time(test_arg)
         self.assertEqual(result, target, result + " != " + target)
         
-    def test_rfc822time_normal_float_arg(self):
+    def test_rfc822time_normal_float(self):
         "rfc822time: Simple call using a valid float argument."
         test_arg = 1138371125
         target = "Fri, 27 Jan 2006 14:12:05 GMT"
