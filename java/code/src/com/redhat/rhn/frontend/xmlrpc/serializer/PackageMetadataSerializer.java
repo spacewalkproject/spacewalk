@@ -61,6 +61,7 @@ public class PackageMetadataSerializer implements XmlRpcCustomSerializer {
         SerializerHelper helper = new SerializerHelper(builtInSerializer);
         helper.add("package_name_id", pkg.getId());
         helper.add("package_name", pkg.getName());
+        helper.add("package_arch", pkg.getArch());
         helper.add("this_system", pkg.getSystemEvr());
         helper.add("other_system", pkg.getOtherEvr());
         helper.add("comparison", pkg.getComparisonAsInt());
