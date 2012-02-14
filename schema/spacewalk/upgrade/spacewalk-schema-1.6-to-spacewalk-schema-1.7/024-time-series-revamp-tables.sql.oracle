@@ -77,7 +77,7 @@ begin
      where id = :old.recid;
 
     update time_series_purge
-       set deleted = 0
+       set deleted = 1
      where id = :old.recid;
 end;
 /
