@@ -84,6 +84,7 @@ EOF
                 }
         }
         $ENV{PGPASSWORD} = $options{db_password};
+        $ENV{PGOPTIONS} = '--client-min-messages=error';
 	if ($verbose) {
 		print STDERR "Running: @command\n";
 	}
