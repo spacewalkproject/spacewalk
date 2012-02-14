@@ -64,7 +64,7 @@ if ($delete_unmatched) {
                  where probe_id in (
                        select id
                          from time_series_purge
-                        where probe_id is null
+                        where deleted = 1
                  )|;
         $sth = $ini->dbh->prepare($sql);
         $sth->execute();
