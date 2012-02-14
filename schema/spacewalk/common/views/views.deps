@@ -99,3 +99,9 @@ rhnServerNeededView              :: rhnPackage rhnChannelNewestPackage \
 rhnPackageChangeLog              :: rhnPackageChangeLogData rhnPackageChangeLogRec
 rhnUserReceiveNotifications      :: rhnUserServerPerms rhnWebContactDisabled web_contact \
                                     rhnUserInfo web_user_personal_info rhnUserServerPrefs
+rhnServerOverview                :: rhnUserServerPerms \
+                                    rhnChannel rhnVisibleServerGroupMembers \
+                                    rhnServerChannel rhnServerHistory \
+                                    rhnPackage rhnServerNeededPackageCache \
+                                    rhnServerErrataTypeView \
+                                    rhn_entitlements.pks
