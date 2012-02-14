@@ -50,8 +50,14 @@ public class TaskConstants {
     public static final String TASK_QUERY_SESSION_CLEANUP =
         "taskomatic_session_cleanup";
 
-    public static final String TASK_QUERY_TIME_SERIES_CLEANUP =
-        "taskomatic_time_series_cleanup";
+    public static final String TASK_QUERY_TIME_SERIES_DATA_CLEANUP =
+        "taskomatic_time_series_data_cleanup";
+
+    public static final String TASK_QUERY_STATE_CHANGE_CLEANUP =
+        "taskomatic_state_change_cleanup";
+
+    public static final String TASK_QUERY_PROBE_STATE_CLEANUP =
+        "taskomatic_probe_state_cleanup";
 
     public static final String TASK_QUERY_PACKAGE_CHANGELOG_CLEANUP =
         "taskomatic_package_changelog_cleanup";

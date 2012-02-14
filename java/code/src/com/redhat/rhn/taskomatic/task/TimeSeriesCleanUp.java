@@ -25,7 +25,8 @@ import java.util.HashMap;
 
 /**
  * TimeSeriesCleanUp
- * Cleans up orphaned monitoring data from the time_series table
+ * Cleans up orphaned monitoring data from the following tables:
+ * time_series_data, state_change, rhn_probe_state
  * @version $Rev$
  */
 public class TimeSeriesCleanUp extends RhnJavaJob {
@@ -36,15 +37,40 @@ public class TimeSeriesCleanUp extends RhnJavaJob {
     public void execute(JobExecutionContext arg0In)
         throws JobExecutionException {
         // TODO Auto-generated method stub
-        int rowsDeleted = deleteOrphanedData();
+        int rowsDeleted = deleteOrphanedTimeSeriesData();
         if (rowsDeleted > 0) {
-            log.info("Deleted " + rowsDeleted + " row(s) of orphaned monitoring data.");
+            log.info("Deleted " + rowsDeleted +
+                " row(s) of orphaned data in time_series_data.");
+        }
+
+        int rowsDeleted = deleteOrphanedStateChange();
+        if (rowsDeleted > 0) {
+            log.info("Deleted " + rowsDeleted +
+                " row(s) of orphaned data in state_change.");
+        }
+
+        int rowsDeleted = deleteOrphanedProbeState();
+        if (rowsDeleted > 0) {
+            log.info("Deleted " + rowsDeleted +
+                " row(s) of orphaned data in probe_state.");
         }
     }
 
-    private int deleteOrphanedData() {
+    private int deleteOrphanedTimeSeriesData() {
         WriteMode m = ModeFactory.getWriteMode(TaskConstants.MODE_NAME,
-                TaskConstants.TASK_QUERY_TIME_SERIES_CLEANUP);
+                TaskConstants.TASK_QUERY_TIME_SERIES_DATA_CLEANUP);
+        return m.executeUpdate(new HashMap());
+    }
+
+    private int deleteOrphanedStateChange() {
+        WriteMode m = ModeFactory.getWriteMode(TaskConstants.MODE_NAME,
+                TaskConstants.TASK_QUERY_STATE_CHANGE_CLEANUP);
+        return m.executeUpdate(new HashMap());
+    }
+
+    private int deleteOrphanedProbeState() {
+        WriteMode m = ModeFactory.getWriteMode(TaskConstants.MODE_NAME,
+                TaskConstants.TASK_QUERY_PROBE_STATE_CLEANUP);
         return m.executeUpdate(new HashMap());
     }
 }
