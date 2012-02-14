@@ -186,10 +186,9 @@ public class MonitoringManagerTest extends RhnBaseTestCase {
         WriteMode m = ModeFactory.getWriteMode("test_queries",
                 "insert_into_time_series");
         Map params = new HashMap();
-        // oid, entry_time, data
-        // 1-3-pctfree
-        String oid = orgId + "-" + probeId + "-" + metric;
-        params.put("oid", oid);
+        params.put("org_id", orgId);
+        params.put("probe_id", probeId);
+        params.put("probe_desc", metric);
         // Divide by 1000 to convert to minutes
         params.put("entry_time", new Long(entryTime.getTime() / 1000));
         params.put("data", data);
