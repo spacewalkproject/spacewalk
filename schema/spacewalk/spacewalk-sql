@@ -76,15 +76,15 @@ EOF
 	}
 	close $wfh;
 } elsif ($options{db_backend} eq 'postgresql') {
-        my @command = ( 'psql', '-U', $options{db_user}, '-d', $options{db_name}, '-v', 'ON_ERROR_STOP=ON', '-f', $filename );
-        if (defined $options{db_host}) {
-                push @command, '-h', $options{db_host};
-                if (defined $options{db_port}) {
-                        push @command, '-p', $options{db_port};
-                }
-        }
-        $ENV{PGPASSWORD} = $options{db_password};
-        $ENV{PGOPTIONS} = '--client-min-messages=error';
+	my @command = ( 'psql', '-U', $options{db_user}, '-d', $options{db_name}, '-v', 'ON_ERROR_STOP=ON', '-f', $filename );
+	if (defined $options{db_host}) {
+		push @command, '-h', $options{db_host};
+		if (defined $options{db_port}) {
+			push @command, '-p', $options{db_port};
+		}
+	}
+	$ENV{PGPASSWORD} = $options{db_password};
+	$ENV{PGOPTIONS} = '--client-min-messages=error';
 	if ($verbose) {
 		print STDERR "Running: @command\n";
 	}
