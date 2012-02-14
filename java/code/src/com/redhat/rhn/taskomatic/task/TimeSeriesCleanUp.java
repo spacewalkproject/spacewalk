@@ -52,7 +52,7 @@ public class TimeSeriesCleanUp extends RhnJavaJob {
         rowsDeleted = deleteOrphanedProbeState();
         if (rowsDeleted > 0) {
             log.info("Deleted " + rowsDeleted +
-                " row(s) of orphaned data in probe_state.");
+                " row(s) of orphaned data in rhn_probe_state.");
         }
     }
 
