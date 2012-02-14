@@ -193,6 +193,12 @@ class LockedFile(object):
             self.fd.close()
             self.closed = True
 
+    def get_fd(self, name, user, group, mode):
+        raise NotImplementedError
+
+    def close_fd(self):
+        raise NotImplementedError
+
     def __getattr__(self, x):
         return getattr(self.fd, x)
 
