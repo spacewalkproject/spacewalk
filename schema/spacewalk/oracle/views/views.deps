@@ -13,7 +13,7 @@
 # No TABS, PLEASE!
 #
 
-path = . tables procs packages types
+path = . tables procs packages
 
 rhn_customer_monitoring          :: web_customer
 rhnHistoryView                   :: rhnServerHistory rhnPackageArch \

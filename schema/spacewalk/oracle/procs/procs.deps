@@ -15,7 +15,7 @@
 # No TABS, PLEASE!
 #
 
-path = . tables views packages class types
+path = . tables views packages class
 
 create_first_org                :: rhnUserGroupType rhnUserGroup
 create_new_org                  :: web_customer rhnUserGroupType rhnUserGroup

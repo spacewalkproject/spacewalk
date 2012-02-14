@@ -13,7 +13,7 @@
 # No TABS, PLEASE!
 #
 
-path = . class types
+path = . class
 
 PXTSessions                    :: web_contact
 rhnAction                      :: rhnActionType web_customer web_contact

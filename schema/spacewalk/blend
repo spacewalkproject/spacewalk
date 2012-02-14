@@ -26,7 +26,7 @@ DEPENDENCY FILES (.deps)
 
 Terms:
   namespace - A root directory.
-              May be: (.|class|types|tables|views|procs|packages)
+              May be: (.|class|tables|views|procs|packages)
               where (.) represents the current namesapce.
 
   qname     - A qualified name.

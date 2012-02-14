@@ -13,7 +13,6 @@ ORACLE:
 
 /schema/spacewalk/oracle                - Oracle specific DDL
 /schema/spacewalk/oracle/class          - Oracle specific class DDL
-/schema/spacewalk/oracle/types          - Oracle specific types DDL
 /schema/spacewalk/oracle/tables         - Oracle specific table DDL
 /schema/spacewalk/oracle/tables/common  - Generated from common/tables
 /schema/spacewalk/oracle/views          - Oracle specific view DDL
@@ -28,7 +27,6 @@ POSTGRES:
 
 /schema/spacewalk/postgres                - Postgres specific DDL
 /schema/spacewalk/postgres/class          - Postgres specific class DDL
-/schema/spacewalk/postgres/types          - Postgres specific types DDL
 /schema/spacewalk/postgres/tables         - Postgres specific table DDL
 /schema/spacewalk/postgres/tables/common  - Generated from common/tables
 /schema/spacewalk/postgres/views          - Postgres specific view DDL
@@ -54,7 +52,7 @@ DEPENDENCY FILES (.deps)
 
 Terms:
   namespace - A root directory.
-              May be: (.|class|types|tables|views|procs|packages)
+              May be: (.|class|tables|views|procs|packages)
               where (.) represents the current namesapce.
 
   qname     - A qualified name.
