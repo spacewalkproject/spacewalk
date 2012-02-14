@@ -455,7 +455,8 @@ SELECT name FROM web_customer WHERE id IN (%s) AND name = :name
 
 <write-mode name="insert_time_series">
   <query params="entry_time, data">
-    INSERT INTO time_series (o_id, entry_time, data) VALUES ('test_oid', :entry_time, :data)
+    INSERT INTO time_series_data (org_id, probe_id, probe_desc, entry_time, data)
+                          VALUES (1, 1, 'test_desc', :entry_time, :data)
   </query>
 </write-mode>
 
