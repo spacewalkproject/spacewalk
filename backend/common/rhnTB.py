@@ -173,7 +173,8 @@ def Traceback(method = None, req = None, mail = 1, ostream = sys.stderr,
         
         outstring = exc.getvalue()
         
-        #5/18/05 wregglej - 151158 Go through every string in the security list and censor it out of the debug information.
+        #5/18/05 wregglej - 151158 Go through every string in the security list
+        # and censor it out of the debug information.
         outstring = censor_string(outstring)
  
         rhnMail.send(headers, outstring)
