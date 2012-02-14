@@ -60,24 +60,29 @@ if (%$localConfig) {
 if ($delete_unmatched) {
         print "Deleting data from already deleted probes...\n";
         $sql = qq|
-                delete from time_series
-                where not exists (
-                        select 1 from rhn_probe
-                                where substr(time_series.o_id,
-                                        instr(time_series.o_id,'-')+1,
-                                        (instr(time_series.o_id,'-',instr(time_series.o_id,'-')+1)-instr(time_series.o_id,'-'))-1
-                                        ) = rhn_probe.recid
-                        )
-                |;
+                delete from time_series_data
+                 where probe_id in (
+                       select id
+                         from time_series_purge
+                        where probe_id is null
+                 )|;
         $sth = $ini->dbh->prepare($sql);
         $sth->execute();
-        print "\t", $sth->rows, " record deleted.\n";
+        print "\t", $sth->rows, " records deleted from time_series_data.\n";
+        $sql = qq|
+                  delete
+                    from time_series_purge
+                   where probe_id is null
+               )|;
+        $sth = $ini->dbh->prepare($sql);
+        $sth->execute();
+        print "\t", $sth->rows, " records deleted from time_series_purge.\n";
         $dry_run ? $ini->dbh->rollback : $ini->dbh->commit;
 }
 
 if ($interval && $delta) {
         #Lookup oldest monitoring data
-        $sql = qq|select min(entry_time) as earliest from time_series|;
+        $sql = qq|select min(entry_time) as earliest from time_series_data|;
 
 	$sth = $ini->dbh->prepare($sql);
 	$sth->execute;
@@ -104,7 +109,7 @@ if ($interval && $delta) {
 
 	push(@date_list,$date);
 
-	$sql = qq|delete from time_series where entry_time < ?|;
+	$sql = qq|delete from time_series_data where entry_time < ?|;
 	$sth = $ini->dbh->prepare($sql);
 
 	foreach my $delete_date (@date_list) {
@@ -122,7 +127,7 @@ if ($interval && $delta) {
                 exit 1;
         }
         print UnixDate($date,"Deleting probes data older than %T %b %e, %Y...\n");
-        $sql = qq|delete from time_series where entry_time < ?|;
+        $sql = qq|delete from time_series_data where entry_time < ?|;
         $sth = $ini->dbh->prepare($sql);
         $sth->execute(UnixDate($date,"%s"));
         print "\t", $sth->rows, " record deleted.\n";
