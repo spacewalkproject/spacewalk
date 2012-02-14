@@ -148,7 +148,7 @@ Utility for cloning errata by date.
         <term> -b <replaceable>PKG1,PKG2,PKG3</replaceable>
         	--blacklist=<replaceable>PKG1,PKG2,PKG3</replaceable> </term>
         <listitem>
-            <para>Comma separated list of package names to be removed after cloning. Regular expressions also supported.  Only newly added packages will removed if they are on the blacklist.  Dependency resolution is not ensured on resulting repository.
+            <para>Comma separated list of package names to be removed after cloning. Perl-style regular expressions also supported.  Only newly added packages will removed if they are on the blacklist.  Dependency resolution is not ensured on resulting repository.
             </para>
             <para>
             	Note:  This option is global across all destination channels.  To specify per channel blacklists, you must use a configuration file.  See --sample-config for an example.
@@ -159,7 +159,7 @@ Utility for cloning errata by date.
         <term> -r <replaceable>PKG1,PKG2,PKG3</replaceable>
         	--removelist=<replaceable>PKG1,PKG2,PKG3</replaceable> </term>
         <listitem>
-            <para>Comma separated list of package names to be removed after cloning.  Regular expressions are also supported.  All packages are considered for removal, even those not added by errata/channel cloning.  Dependency resolution is not ensured on resulting repository.
+            <para>Comma separated list of package names to be removed after cloning.  Perl-style regular expressions are also supported.  All packages are considered for removal, even those not added by errata/channel cloning.  Dependency resolution is not ensured on resulting repository.
         	</para>
             <para>
             	Note:  This option is global across all destination channels. To specify per channel removelists, you must use a configuration file.  See --sample-config for an example.
@@ -172,8 +172,8 @@ Utility for cloning errata by date.
 
 <RefSect1><Title>Examples</Title>
 <example>
-	<title>Clone a base channel and child channel to 2008-12-20 with a small blacklist.</title>
-	<para>spacewalk-clone-by-date  --channel=rhel-x86_64-server-5 clone-rhel --channel=rhn-tools-rhel-x86_64-server-5 clone-tools --username admin --password redhat --to_date=2008-12-20 --blacklist=sendmail,squid</para>
+	<title>Clone a base channel and child channel to 2008-12-20 with a blacklist excluding all versions of squid, and all versions of any package that starts with 'sendmail'.</title>
+	<para>spacewalk-clone-by-date  --channel=rhel-x86_64-server-5 clone-rhel --channel=rhn-tools-rhel-x86_64-server-5 clone-tools --username admin --password redhat --to_date=2008-12-20 --blacklist=sendmail.*,squid</para>
 </example>
 <example>
 	<title>Clone with options completely from a config file.</title>
