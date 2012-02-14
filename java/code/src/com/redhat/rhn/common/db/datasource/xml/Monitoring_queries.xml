@@ -357,13 +357,4 @@ SELECT count(ps.state) AS state_count, PS.state
   </query>
 </callable-mode>
 
-<write-mode name="delete_time_series_for_probe">
-  <query params="probe_id">
-  DELETE /*+index(time_series time_series_probe_id_idx)*/
-  FROM time_series
-  WHERE substr(o_id, instr(o_id, '-') + 1,
-        (instr(o_id, '-', instr(o_id, '-') + 1) - instr(o_id, '-'))    - 1) = :probe_id
-   </query>
-</write-mode>
-
 </datasource_modes>

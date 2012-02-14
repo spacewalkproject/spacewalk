@@ -69,13 +69,6 @@ public class MonitoringFactory extends HibernateFactory {
             t.getProbeSuite().removeProbe(t);
         }
 
-        // remove relevant entries for probe from time_series table
-        WriteMode m = ModeFactory.getWriteMode("Monitoring_queries",
-                    "delete_time_series_for_probe");
-        Map params = new HashMap();
-        params.put("probe_id", probeIn.getId().toString());
-        m.executeUpdate(params);
-
         singleton.removeObject(probeIn);
     }
 
