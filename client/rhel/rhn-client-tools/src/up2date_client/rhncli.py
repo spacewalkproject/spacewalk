@@ -213,7 +213,7 @@ def exceptionHandler(type, value, tb):
     log = up2dateLog.initLog()
     sys.stderr.write(utf8_encode(_("An error has occurred:") + "\n"))
     if hasattr(value, "errmsg"):
-        sys.stderr.write(utf8_encode(str(value.errmsg) + "\n"))
+        sys.stderr.write(utf8_encode(value.errmsg) + "\n")
         log.log_exception(type, value, tb)
     else:
         sys.stderr.write(utf8_encode(str(type) + "\n"))
