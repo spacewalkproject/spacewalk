@@ -98,8 +98,8 @@ execute procedure time_series_purge_mod_trig_fun();
 insert into time_series_data (org_id, probe_id, probe_desc, entry_time, data) (
     select t_ts.*
       from (
-            select split_part(ts.o_id, '-', 1),
-                   split_part(ts.o_id, '-', 2) as probe_id,
+            select split_part(ts.o_id, '-', 1) :: numeric,
+                   split_part(ts.o_id, '-', 2) :: numeric as probe_id,
                    split_part(ts.o_id, '-', 3),
                    ts.entry_time,
                    ts.data
