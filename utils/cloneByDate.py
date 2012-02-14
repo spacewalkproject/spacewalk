@@ -319,6 +319,7 @@ class ChannelTreeCloner:
             temp_repo_links.append(yum_repodata_path)
         
         solver = DepSolver(repos, nvrea_list)
+        solver.cleanup() #call cleanup before and after, to ensure no stale metadata
         dep_results = solver.processResults(solver.getDependencylist())
         solver.cleanup()
         self.process_deps(dep_results)
