@@ -1,0 +1,6 @@
+#!/bin/sh
+
+PYLINTRC='/etc/spacewalk-pylint.rc'
+
+find "$@" -type f -name '*.py' \
+    | xargs pylint --rcfile "$PYLINTRC"

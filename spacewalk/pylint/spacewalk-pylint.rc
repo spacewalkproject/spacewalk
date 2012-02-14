@@ -1,0 +1,134 @@
+# spacewalk pylint configuration
+
+[MASTER]
+
+# Profiled execution.
+profile=no
+
+# Pickle collected data for later comparisons.
+persistent=no
+
+
+[MESSAGES CONTROL]
+
+# Disable the message(s) with the given id(s).
+disable=I0011,C0111,R0801,W0142,W0403,W0603
+
+# list of disabled messages:
+#I0011: 62: Locally disabling R0201
+#C0111:  1: Missing docstring
+#W0142:228:MPM_Package.write: Used * or ** magic
+#W0403: 28: Relative import 'rhnLog', should be 'backend.common.rhnLog'
+#W0603: 72:initLOG: Using the global statement
+
+
+[REPORTS]
+
+# Set the output format. Available formats are text, parseable, colorized, msvs
+# (visual studio) and html
+output-format=text
+
+# Include message's id in output
+include-ids=yes
+
+# Tells whether to display a full report or only the messages
+reports=no
+
+
+[VARIABLES]
+
+# A regular expression matching names used for dummy variables (i.e. not used).
+dummy-variables-rgx=_|dummy
+
+
+[BASIC]
+
+# Regular expression which should only match correct module names
+#module-rgx=(([a-z_][a-z0-9_]*)|([A-Z][a-zA-Z0-9]+))$
+module-rgx=([a-zA-Z_][a-zA-Z0-9_]+)$
+
+# Regular expression which should only match correct module level names
+const-rgx=(([a-zA-Z_][a-zA-Z0-9_]*)|(__.*__))$
+
+# Regular expression which should only match correct class names
+class-rgx=[a-zA-Z_][a-zA-Z0-9_]+$
+
+# Regular expression which should only match correct function names
+function-rgx=[a-z_][a-zA-Z0-9_]{,30}$
+
+# Regular expression which should only match correct method names
+method-rgx=[a-z_][a-zA-Z0-9_]{,30}$
+
+# Regular expression which should only match correct instance attribute names
+attr-rgx=[a-z_][a-zA-Z0-9_]{,30}$
+
+# Regular expression which should only match correct argument names
+argument-rgx=[a-z_][a-zA-Z0-9_]{,30}$
+
+# Regular expression which should only match correct variable names
+variable-rgx=[a-z_][a-zA-Z0-9_]{,30}$
+
+# Regular expression which should only match correct list comprehension /
+# generator expression variable names
+inlinevar-rgx=[A-Za-z_][A-Za-z0-9_]*$
+
+# Good variable names which should always be accepted, separated by a comma
+good-names=i,j,k,ex,Run,_
+
+# Bad variable names which should always be refused, separated by a comma
+bad-names=foo,bar,baz,toto,tutu,tata
+
+# List of builtins function names that should not be used, separated by a comma
+bad-functions=apply,input
+
+
+[DESIGN]
+
+# Maximum number of arguments for function / method
+max-args=10
+
+# Maximum number of locals for function / method body
+max-locals=20
+
+# Maximum number of return / yield for function / method body
+max-returns=6
+
+# Maximum number of branch for function / method body
+max-branchs=20
+
+# Maximum number of statements in function / method body
+max-statements=50
+
+# Maximum number of parents for a class (see R0901).
+max-parents=7
+
+# Maximum number of attributes for a class (see R0902).
+max-attributes=7
+
+# Minimum number of public methods for a class (see R0903).
+min-public-methods=1
+
+# Maximum number of public methods for a class (see R0904).
+max-public-methods=20
+
+
+[CLASSES]
+
+
+[FORMAT]
+
+# Maximum number of characters on a single line.
+max-line-length=120
+
+# Maximum number of lines in a module
+max-module-lines=1000
+
+# String used as indentation unit. This is usually " " (4 spaces) or "\t" (1
+# tab).
+indent-string='    '
+
+
+[MISCELLANEOUS]
+
+# List of note tags to take in consideration, separated by a comma.
+notes=
