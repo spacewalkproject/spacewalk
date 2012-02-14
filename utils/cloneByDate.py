@@ -299,8 +299,9 @@ class ChannelTreeCloner:
             added_pkgs += pkg_diff
             log_clean(0, "")
             log_clean(0, "%i packages were added to %s as a result of clone:" % (len(pkg_diff), cloner.dest_label()))
-            log_clean(0, "\n".join([pkg['nvrea'] for pkg in pkg_diff]))            
-        self.dep_solve([pkg['nvrea'] for pkg in added_pkgs])
+            log_clean(0, "\n".join([pkg['nvrea'] for pkg in pkg_diff]))  
+        if len(added_pkgs) > 0:          
+            self.dep_solve([pkg['nvrea'] for pkg in added_pkgs])
             
 
     def dep_solve(self, nvrea_list, labels=None):             
