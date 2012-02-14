@@ -69,14 +69,6 @@ if ($delete_unmatched) {
         $sth = $ini->dbh->prepare($sql);
         $sth->execute();
         print "\t", $sth->rows, " records deleted from time_series_data.\n";
-        $sql = qq|
-                  delete
-                    from time_series_purge
-                   where probe_id is null
-               )|;
-        $sth = $ini->dbh->prepare($sql);
-        $sth->execute();
-        print "\t", $sth->rows, " records deleted from time_series_purge.\n";
         $dry_run ? $ini->dbh->rollback : $ini->dbh->commit;
 }
 
