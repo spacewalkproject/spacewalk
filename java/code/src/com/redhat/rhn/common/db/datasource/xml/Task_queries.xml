@@ -285,7 +285,7 @@ SELECT id, channel_label, client, reason, force, bypass_filters, next_action
         DELETE
           FROM time_series_data tsd
          WHERE tsd.probe_id in (
-               SELECT tsp.id
+               SELECT tsp.id || ''
                  FROM time_series_purge tsp
                 WHERE tsp.deleted = 1
          )
@@ -297,7 +297,7 @@ SELECT id, channel_label, client, reason, force, bypass_filters, next_action
         DELETE
           FROM state_change sc
          WHERE sc.o_id in (
-               SELECT tsp.id
+               SELECT tsp.id || ''
                  FROM time_series_purge tsp
                 WHERE tsp.deleted = 1
          )
@@ -309,7 +309,7 @@ SELECT id, channel_label, client, reason, force, bypass_filters, next_action
         DELETE
           FROM rhn_probe_state rps
          WHERE rps.probe_id in (
-               SELECT tsp.id
+               SELECT tsp.id || ''
                  FROM time_series_purge tsp
                 WHERE tsp.deleted = 1
          )
