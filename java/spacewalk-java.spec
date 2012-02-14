@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.7.27
+Version: 1.7.28
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -555,6 +555,12 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Feb 14 2012 Tomas Lestach <tlestach@redhat.com> 1.7.28-1
+- introduce optional tag for xsd parameter validation (tlestach@redhat.com)
+- Revert "790120: improve system overview query performance"
+  (jpazdziora@redhat.com)
+- 790120: improve system overview query performance (shughes@redhat.com)
+
 * Mon Feb 13 2012 Tomas Lestach <tlestach@redhat.com> 1.7.27-1
 - 574975 - fix setChildChannelArch js function (tlestach@redhat.com)
 - 786829 - use ks script position as it is stored in the DB
