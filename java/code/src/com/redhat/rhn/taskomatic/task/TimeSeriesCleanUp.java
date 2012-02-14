@@ -43,13 +43,13 @@ public class TimeSeriesCleanUp extends RhnJavaJob {
                 " row(s) of orphaned data in time_series_data.");
         }
 
-        int rowsDeleted = deleteOrphanedStateChange();
+        rowsDeleted = deleteOrphanedStateChange();
         if (rowsDeleted > 0) {
             log.info("Deleted " + rowsDeleted +
                 " row(s) of orphaned data in state_change.");
         }
 
-        int rowsDeleted = deleteOrphanedProbeState();
+        rowsDeleted = deleteOrphanedProbeState();
         if (rowsDeleted > 0) {
             log.info("Deleted " + rowsDeleted +
                 " row(s) of orphaned data in probe_state.");
