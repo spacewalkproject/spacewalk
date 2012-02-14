@@ -56,7 +56,8 @@ def confirm(txt, options):
             response = raw_input(txt)
         if response.lower() == "n":
             print "Cancelling"
-            sys.exit(0)        
+            sys.exit(0)
+        print ""
 
 
 def validate(channel_labels):
@@ -162,7 +163,7 @@ def main(options):
         print ("\nNothing to do.")
         sys.exit(0)
 
-    confirm("\nContinue with clone (y/n)?", options)            
+    confirm("\nContinue with clone (y/n)?", options)
     for cloner in cloners:
         cloner.clone()        
         cloner.remove_packages()
@@ -307,6 +308,8 @@ class ChannelTreeCloner:
             labels = self.channel_map.keys()
         repos = [{"id":label, "relative_path":repodata(label)} for label in labels]
 
+        print "Copying repodata, please wait."
+
         # dep solver expects the metadata to be in /repodata directory;
         # create temporary symlinks
         temp_repo_links = []
@@ -416,7 +419,6 @@ class ChannelCloner:
     
     def process(self):
         self.clone()
-        self.reset_new_pkgs()                                 
         #print "New packages added: %i" % (len(self.new_pkg_hash) - len(self.old_pkg_hash))
                                    
     def process_deps(self, needed_pkgs):                                
@@ -478,6 +480,8 @@ class ChannelCloner:
             self.remote_api.clone_errata(self.to_label, errata_set)
             pb.addTo(bunch_size)
             pb.printIncrement()
+            
+        self.reset_new_pkgs()
         pb.printComplete()
                 
     def get_errata(self):
@@ -518,12 +522,14 @@ class ChannelCloner:
             print "%s: Removing %i packages from %s" % (name, len(found_ids), self.to_label)
             self.remote_api.remove_packages(self.to_label, found_ids)
     
-    def remove_removelist(self, pkg_names):                
-        self.__remove_packages(pkg_names, self.reset_new_pkgs().values(), "Removelist")
+    def remove_removelist(self, pkg_names):
+        if pkg_names:
+            self.__remove_packages(pkg_names, self.reset_new_pkgs().values(), "Removelist")
                             
     def remove_blacklisted(self, pkg_names):
-        self.reset_new_pkgs()                        
-        self.__remove_packages(pkg_names, self.pkg_diff(), "Blacklist")
+        if pkg_names:
+            self.reset_new_pkgs()
+            self.__remove_packages(pkg_names, self.pkg_diff(), "Blacklist")
             
 
 class RemoteApi:
