@@ -45,6 +45,7 @@ class DepSolver:
         self.pkgs = pkgs_in
         self.repos = repos
         self._repostore = RepoStorage(self)
+        self.cleanup() #call cleanup before and after, to ensure no stale metadata
         self.setup()
         self.loadPackages()
         self.yrepo =  None
@@ -72,7 +73,10 @@ class DepSolver:
         """
         for repo in self._repostore.repos:
             cachedir = "%s/%s" % (CACHE_DIR, repo)
-            shutil.rmtree(cachedir)
+            try:
+                shutil.rmtree(cachedir)
+            except IOError:
+                pass
 
     def getDependencylist(self):
         """

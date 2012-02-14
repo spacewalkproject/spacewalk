@@ -319,7 +319,6 @@ class ChannelTreeCloner:
             temp_repo_links.append(yum_repodata_path)
         
         solver = DepSolver(repos, nvrea_list)
-        solver.cleanup() #call cleanup before and after, to ensure no stale metadata
         dep_results = solver.processResults(solver.getDependencylist())
         solver.cleanup()
         self.process_deps(dep_results)
@@ -365,12 +364,12 @@ class ChannelTreeCloner:
             if len(needed) > 0:
                 cloner.process_deps(needed)
                                   
-    def remove_packages(self):     
-        if self.blacklist:
-            for cloner in self.cloners:
+    def remove_packages(self):
+        for cloner in self.cloners:
+            if self.removelist:
                 cloner.remove_removelist(self.removelist)
-                cloner.remove_blacklisted(self.blacklist)               
-        
+            if self.blacklist:
+                cloner.remove_blacklisted(self.blacklist)
 
 class ChannelCloner:
     def __init__(self, from_label, to_label, to_date, remote_api, db_api):
@@ -497,19 +496,25 @@ class ChannelCloner:
         return (to_clone, available_errata)   
         
         
-    def __remove_packages(self, pkg_names, pkg_list, name):
+    def __remove_packages(self, names_dict, pkg_list, name):
         """Base removal of packages
-            pkg_names  - list of package names to be removed
+            names_dict  - dict containing  list of package names, with channel lables as keys
             pkg_list  -  list of package dicts to consider
             name   - name of removal  'blacklist' or 'removelist', for display
         """
         found_ids  = []
         found_names = []        
-        if not pkg_names:
+        if not names_dict:
             return 
         
+        full_pkgs = []
+        if names_dict.has_key("ALL"):
+            full_pkgs += names_dict["ALL"]
+        if names_dict.has_key(self.dest_label()):
+            full_pkgs += names_dict[self.dest_label()]
+
         #add dollar signs to each one, other wise  foo would match foobar
-        reg_ex = re.compile("$|".join(pkg_names) + '$')
+        reg_ex = re.compile("$|".join(full_pkgs) + '$')
         for pkg in pkg_list:
             if reg_ex.match(pkg['name']):
                 found_ids.append(pkg['id'])
@@ -524,13 +529,11 @@ class ChannelCloner:
             self.remote_api.remove_packages(self.to_label, found_ids)
     
     def remove_removelist(self, pkg_names):
-        if pkg_names:
-            self.__remove_packages(pkg_names, self.reset_new_pkgs().values(), "Removelist")
+        self.__remove_packages(pkg_names, self.reset_new_pkgs().values(), "Removelist")
                             
     def remove_blacklisted(self, pkg_names):
-        if pkg_names:
-            self.reset_new_pkgs()
-            self.__remove_packages(pkg_names, self.pkg_diff(), "Blacklist")
+        self.reset_new_pkgs()
+        self.__remove_packages(pkg_names, self.pkg_diff(), "Blacklist")
             
 
 class RemoteApi:

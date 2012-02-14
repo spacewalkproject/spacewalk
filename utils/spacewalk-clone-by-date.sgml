@@ -129,16 +129,13 @@ Utility for cloning errata by date.
         <term> -c <replaceable>SRC_LABEL DEST_LABEL</replaceable>
         	--channels=<replaceable>SRC_LABEL DEST_LABEL</replaceable></term>
         <listitem>
-            <para>Space separated list of source channel and destination channel.  Can be 
-            		specified multiple times to provide base channel and child channel pairs of a 
-            		single channel tree.  To specify more than one channel tree, specify a config file.</para>
+            <para>Space separated list of source channel and destination channel.  Can be specified multiple times to provide base channel and child channel pairs of a single channel tree.  To specify more than one channel tree, specify a config file.</para>
         </listitem>
     </varlistentry>
     <varlistentry>
         <term> -y  --assumeyes</term>
         <listitem>
-            <para>Instead of asking for confirmation before cloning a channel or errata, 
-            	continue uninterrupted.</para>
+            <para>Instead of asking for confirmation before cloning a channel or errata, continue uninterrupted.</para>
         </listitem>
     </varlistentry>    
     <varlistentry>
@@ -151,18 +148,22 @@ Utility for cloning errata by date.
         <term> -b <replaceable>PKG1,PKG2,PKG3</replaceable>
         	--blacklist=<replaceable>PKG1,PKG2,PKG3</replaceable> </term>
         <listitem>
-            <para>Comma separated list of package names to be removed after cloning. Regular expressions also supported.
-            	Only newly added packages will removed if they are on the blacklist.   
-            	Dependency resolution is not ensured on resulting repository.</para>
+            <para>Comma separated list of package names to be removed after cloning. Regular expressions also supported.  Only newly added packages will removed if they are on the blacklist.  Dependency resolution is not ensured on resulting repository.
+            </para>
+            <para>
+            	Note:  This option is global across all destination channels.  To specify per channel blacklists, you must use a configuration file.  See --sample-config for an example.
+        	</para>
         </listitem>
     </varlistentry>
     <varlistentry>
         <term> -r <replaceable>PKG1,PKG2,PKG3</replaceable>
         	--removelist=<replaceable>PKG1,PKG2,PKG3</replaceable> </term>
         <listitem>
-            <para>Comma separated list of package names to be removed after cloning.  Regular expressions are also supported.
-            	All packages are considered for removal, even those not added by errata/channel cloning.
-            	Dependency resolution is not ensured on resulting repository.</para>
+            <para>Comma separated list of package names to be removed after cloning.  Regular expressions are also supported.  All packages are considered for removal, even those not added by errata/channel cloning.  Dependency resolution is not ensured on resulting repository.
+        	</para>
+            <para>
+            	Note:  This option is global across all destination channels. To specify per channel removelists, you must use a configuration file.  See --sample-config for an example.
+        	</para>        	            	
         </listitem>
     </varlistentry>    
 </variablelist>
@@ -172,15 +173,15 @@ Utility for cloning errata by date.
 <RefSect1><Title>Examples</Title>
 <example>
 	<title>Clone a base channel and child channel to 2008-12-20 with a small blacklist.</title>
-	spacewalk-clone-by-date  --channel=rhel-x86_64-server-5 clone-rhel --channel=rhn-tools-rhel-x86_64-server-5 clone-tools --username admin --password redhat --to_date=2008-12-20 --blacklist=sendmail,squid
+	<para>spacewalk-clone-by-date  --channel=rhel-x86_64-server-5 clone-rhel --channel=rhn-tools-rhel-x86_64-server-5 clone-tools --username admin --password redhat --to_date=2008-12-20 --blacklist=sendmail,squid</para>
 </example>
 <example>
 	<title>Clone with options completely from a config file.</title>
-	spacewalk-clone-by-date  --config=/etc/clone.conf
+	<para>spacewalk-clone-by-date  --config=/etc/clone.conf</para>
 </example>
 <example>
 	<title>Clone while overriding some options from the command line.</title>
-	spacewalk-clone-by-date  --config=/etc/clone.conf --username rocky --password squirrel --to_date=2010-10-09
+	<para>spacewalk-clone-by-date  --config=/etc/clone.conf --username rocky --password squirrel --to_date=2010-10-09</para>
 </example>
 </RefSect1>
 

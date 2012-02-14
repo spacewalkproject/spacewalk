@@ -38,8 +38,15 @@ SAMPLE_CONFIG = """
  "password":"redhat",
  "assumeyes":true,
  "to_date": "2011-10-01",
- "blacklist": ["foo", "bar"],
- "removelist": ["apple", "pear"],
+ "blacklist": {
+                 "ALL":["sendmail"],
+                 "my-rhel5-x86_64-clone":["emacs"],
+                 "my-rhel5-i386-clone":["vi", "postfix.*"]
+              },
+ "removelist": {
+                 "ALL":["compiz", "compiz-gnome"],
+                 "my-rhel5-x86_64-clone":["boost.*"]
+              },
  "channels":[
              {
                 "rhel-x86_64-server-5":"my-rhel5-x86_64-clone",
@@ -67,15 +74,31 @@ def merge_config(options):
     
     #if soemthing is in the config and not passed in as an argument
     #   add it to options
-    overwrite = ["username", "password", "blacklist", "channels", "server", "assumeyes", "to_date"]
+    overwrite = ["username", "password", "blacklist", "removelist", "channels", 
+                 "server", "assumeyes", "to_date"]
     for key in overwrite:
         if config.has_key(key) and not getattr(options, key):
             setattr(options, key, config[key])
         
     if type(options.channels) == dict:
         options.channels =  [options.channels] 
+    
+    validate_list_dict("blacklist", options.blacklist)
+    validate_list_dict("removelist", options.removelist)
+    
     return options
    
+
+    
+def validate_list_dict(name, pkg_dict):
+    """
+        Validates a removelist or blacklist to be map with lists as values    
+    """
+    if type(pkg_dict) != type({}):
+        raise UserError("%s  is not formatted correctly" % name)
+    for key, value in pkg_dict.items():
+        if type(value) != type([]):
+            raise UserError("Channel %s in %s packages not formatted correctly" % (key, name))
       
 # Using --channels as an argument only supports a single channel 'tree'
 #  So we need to convert a 2-tuple list of channel labels into an array with a hash
@@ -115,10 +138,10 @@ def parse_args():
         raise UserError("Cannot specify both --channels and --config.")
     
     if options.blacklist:
-        options.blacklist = options.blacklist.split(",")
+        options.blacklist = {"ALL":options.blacklist.split(",")}
         
     if options.removelist:
-        options.removelist = options.removelist.split(",")        
+        options.removelist = {"ALL":options.removelist.split(",")}        
     
     options = merge_config(options)
     
