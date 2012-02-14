@@ -7,7 +7,7 @@
 %define modulename spacewalk
 
 Name:           spacewalk-selinux
-Version:        1.7.0
+Version:        1.7.1
 Release:        1%{?dist}
 Summary:        SELinux policy module supporting Spacewalk Server
 
@@ -113,6 +113,10 @@ fi
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
+* Tue Feb 14 2012 Tomas Lestach <tlestach@redhat.com> 1.7.1-1
+- rename rhn-installation.log to rhn_installation.log (tlestach@redhat.com)
+- Bumping package versions for 1.7. (mzazrivec@redhat.com)
+
 * Thu Dec 08 2011 Miroslav Suchý 1.6.2-1
 - code cleanup - rhn-load-ssl-cert and rhn-sudo-load-ssl-cert are not needed
   anymore
