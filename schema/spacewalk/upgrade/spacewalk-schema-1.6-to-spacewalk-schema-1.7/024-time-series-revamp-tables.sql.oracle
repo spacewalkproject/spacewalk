@@ -33,6 +33,14 @@ alter table time_series_purge
 create index time_series_purge_id_del_idx
           on time_series_purge(id, deleted);
 
+create or replace trigger time_series_purge_mod_trig
+before insert or update on time_series_purge
+for each row
+begin
+    :new.modified := sysdate;
+end;
+/
+
 -- populate time_series_purge with values from rhn_probe
 insert into time_series_purge (id, probe_id, deleted) (select rp.recid, rp.recid, 0 from rhn_probe rp);
 commit;
