@@ -57,8 +57,7 @@ fi
 # 682820 - re-enable yum-rhn-plugin after package upgrade if the system is already registered
 export pluginconf='/etc/yum/pluginconf.d/rhnplugin.conf'
 if [ $1 -gt 1 ] && [ -f "$pluginconf" ] && [ -f "/var/tmp/enable-yum-rhn-plugin" ]; then
-    sed -i 's/^\([[:space:]]*enabled[[:space:]]*=[[:space:]]*\)0\([[:space:]]*\)$/\11\2/'  \
-        "$pluginconf"
+    sed -i '/\[main]/,/^$/{/enabled/s/0/1/}' "$pluginconf"
     rm -f /var/tmp/enable-yum-rhn-plugin
 fi
 
