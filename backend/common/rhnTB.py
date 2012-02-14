@@ -107,6 +107,7 @@ def Traceback(method = None, req = None, mail = 1, ostream = sys.stderr,
     """ Reports an traceback error and optionally sends mail about it.
         NOTE: extra = extra text information.
     """
+    # pylint: disable=C0103
 
     global QUIET_MAIL
 
