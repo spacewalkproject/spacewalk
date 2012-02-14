@@ -329,7 +329,7 @@ sub handler
 
     if( defined $code )
     {
-	my $odb = NOCpulse::Database->new(type => "time_series");
+	my $odb = NOCpulse::Database->new(type => "time_series_data");
 	$content = eval { &{$code}($q, $odb); };
 	$err = $@ || undef; # the || undef is because $@ is empty string if no error
     }

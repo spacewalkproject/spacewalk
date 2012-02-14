@@ -47,7 +47,7 @@ my $FAILED_POINTS_FILE;
 my ($Log, $ErrorOut) = setup_logging();
 
 my $queue_manager = NOCpulse::TSDB::LocalQueue::FileManager->new(directory => $QUEUE_DIR);
-my $odb = NOCpulse::Database->new(type => "time_series");
+my $odb = NOCpulse::Database->new(type => "time_series_data");
 
 print_startup_message();
 
