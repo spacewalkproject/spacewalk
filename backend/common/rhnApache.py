@@ -56,6 +56,7 @@ class rhnApache:
         after a request has been received, first thing we do is to create the
         input object
         """
+        # pylint: disable=R0911
 
         log_setreq(req)
         log_debug(3)
