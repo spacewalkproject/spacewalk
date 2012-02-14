@@ -130,13 +130,13 @@ class DepSolver:
         regex_filename_match = re.compile('[/*?]|\[[^]]*/[^]]*\]').match
                 
         print("Solving Dependencies (%i): " % len(pkgs))
-        self.pb = ProgressBar(prompt='', endTag=' - complete',
+        pb = ProgressBar(prompt='', endTag=' - complete',
                      finalSize=len(pkgs), finalBarLength=40, stream=sys.stdout)
-        self.pb.printAll(1)
+        pb.printAll(1)
                 
         for pkg in pkgs:
-            self.pb.addTo(1)
-            self.pb.printIncrement()
+            pb.addTo(1)
+            pb.printIncrement()
             results[pkg] = {}
             reqs = pkg.requires
             reqs.sort()
@@ -153,7 +153,7 @@ class DepSolver:
                        po.checkPrco('provides', (r, f, v)):
                         satisfiers.append(po)
                 pkgresults[req] = satisfiers
-        self.pb.printComplete()
+        pb.printComplete()
         return results
 
     def __whatProvides(self, name, flags, version):

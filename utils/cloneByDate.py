@@ -545,6 +545,7 @@ class RemoteApi:
     def __init__(self, server_url, username, password):
         self.client = xmlrpclib.Server(server_url)
         self.auth_time = None
+        self.auth_token = None
         try:
             self.username = username
             self.password = password            
