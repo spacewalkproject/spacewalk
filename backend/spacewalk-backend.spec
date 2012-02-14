@@ -28,7 +28,13 @@ Requires: %{name}-libs >= 1.1.16-1
 BuildRequires: /usr/bin/msgfmt
 BuildRequires: /usr/bin/docbook2man
 BuildRequires: docbook-utils
-BuildRequires: pylint
+%if 0%{?fedora} > 15 || 0%{?rhel} > 5
+BuildRequires: spacewalk-pylint
+BuildRequires: rhnlib >= 2.5.38
+BuildRequires: rpm-python
+BuildRequires: python-crypto
+BuildRequires: python-debian
+%endif
 Requires(pre): httpd
 Requires: httpd
 # we don't really want to require this redhat-release, so we protect
@@ -275,14 +281,6 @@ Libraries required by various exporting tools
 %build
 make -f Makefile.backend all
 
-# check coding style
-# right now we check only common/*.py, others aren't clean yet
-ln -s . spacewalk       # silly workaround - added 'spacewalk' into path
-                        # because we search for modules in spacewalk.common
-find common -name '*.py' \
-    | xargs pylint -rn -iy --bad-functions=apply,input \
-                   --disable C0111,C0103,C0301,F0401,I0011,R0801,R0903,R0911,R0912,R0913,R0914,W0142,W0403,W0511,W0603
-
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT/%{rhnroot}
@@ -306,6 +304,12 @@ rm -rf $RPM_BUILD_ROOT
 
 %check
 make -f Makefile.backend PYTHONPATH=$RPM_BUILD_ROOT/%{python_sitelib} test || :
+
+%if 0%{?fedora} > 15 || 0%{?rhel} > 5
+# check coding style
+export PYTHONPATH=$RPM_BUILD_ROOT/%{python_sitelib}:/usr/lib/rhn
+spacewalk-pylint $RPM_BUILD_ROOT%{pythonrhnroot}/common
+%endif
 
 %pre server
 OLD_SECRET_FILE=%{_var}/www/rhns/server/secret/rhnSecret.py
