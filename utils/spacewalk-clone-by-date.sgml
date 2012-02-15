@@ -143,7 +143,15 @@ Utility for cloning errata by date.
         <listitem>
             <para>Run repoclosure on all provided channels.  This overrides --to_date and will not perform any cloning.</para>
         </listitem>
-    </varlistentry>   
+    </varlistentry>
+    <varlistentry>
+        <term> -d <replaceable>YYYY-MM-DD</replaceable>
+        	--to_date=<replaceable>YYYY-MM-DD</replaceable> </term>
+        <listitem>
+            <para>All errata on or before the specified date will be cloned if it does not already exist in the destination channel(s).
+            </para>
+        </listitem>
+    </varlistentry>       
     <varlistentry>
         <term> -b <replaceable>PKG1,PKG2,PKG3</replaceable>
         	--blacklist=<replaceable>PKG1,PKG2,PKG3</replaceable> </term>

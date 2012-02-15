@@ -21,6 +21,7 @@ import re
 import sys
 import datetime
 import getpass
+import os
 from optparse import OptionParser
 import simplejson as json
 
@@ -66,6 +67,9 @@ def merge_config(options):
         return options
     elif not options.config:
         return options
+    
+    if not os.path.isfile(options.config):
+        raise UserError("%s does not exist." % options.config) 
     
     try:
         config = json.load(open(options.config))
