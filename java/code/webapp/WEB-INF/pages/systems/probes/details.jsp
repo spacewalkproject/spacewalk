@@ -74,6 +74,7 @@
             </jsp:include></td>
       </tr>
     </c:if>
+    <c:if test="${not empty metrics}">
     <tr>
       <th > <bean:message key="probedetails.jsp.metrics" /></th>
       <td >
@@ -88,6 +89,7 @@
       <th><bean:message key="probedetails.jsp.show_graph" /></th>
       <td><html:checkbox property="show_graph" /></td>
     </tr>
+    </c:if>
     <tr>
       <th><bean:message key="probedetails.jsp.show_event_log" /></th>
       <td><html:checkbox property="show_log" /></td>
