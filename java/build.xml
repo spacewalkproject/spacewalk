@@ -721,6 +721,7 @@ delete from rhnChannel where label like 'ChannelLabel%';
       </classes>
       <lib dir="${run.lib.dir}">
         <include name="rhn.jar"/>
+        <include name="rhn-test.jar"/>
       </lib>
       <lib dir="${run-external.lib.dir}">
         <!-- Don't want the Oracle drivers which use JNI in the war. -->

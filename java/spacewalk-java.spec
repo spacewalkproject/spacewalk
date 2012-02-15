@@ -219,6 +219,9 @@ Group:  Applications/Internet
 Requires: jmock
 Requires: gsbase
 
+%description tests
+This package contains testing files of spacewalk-java.  
+
 
 %package -n spacewalk-taskomatic
 Summary: Java version of taskomatic
@@ -357,6 +360,7 @@ install -m 644 conf/default/rhn_org_quartz.conf $RPM_BUILD_ROOT%{_prefix}/share/
 install -m 755 conf/logrotate/rhn_web_api $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/rhn_web_api
 install -m 755 scripts/taskomatic $RPM_BUILD_ROOT%{_initrddir}
 install -m 644 build/webapp/rhnjava/WEB-INF/lib/rhn.jar $RPM_BUILD_ROOT%{_datadir}/rhn/lib
+install -m 644 build/webapp/rhnjava/WEB-INF/lib/rhn-test.jar $RPM_BUILD_ROOT%{_datadir}/rhn/lib
 install -m 644 conf/log4j.properties.taskomatic $RPM_BUILD_ROOT%{_datadir}/rhn/classes/log4j.properties
 
 install -m 644 conf/cobbler/snippets/default_motd  $RPM_BUILD_ROOT%{cobdirsnippets}/default_motd
@@ -548,6 +552,9 @@ fi
 %{_prefix}/share/rhn/config-defaults/rhn_taskomatic_daemon.conf
 %{_prefix}/share/rhn/config-defaults/rhn_org_quartz.conf
 %config %{_sysconfdir}/logrotate.d/rhn_web_api
+
+%files tests
+%{_datadir}/rhn/lib/rhn-test.jar
 
 
 %files lib
