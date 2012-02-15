@@ -26,7 +26,6 @@ public class SystemGroupOverview extends BaseDto {
     private String name;
     private Long groupAdmins;
     private Long serverCount;
-    private Long noteCount;
     private Date modified;
     private Long maxMembers;
     private String monitoringStatus;
@@ -116,18 +115,6 @@ public class SystemGroupOverview extends BaseDto {
      */
     public void setName(String nameIn) {
         this.name = nameIn;
-    }
-    /**
-     * @return Returns the noteCount.
-     */
-    public Long getNoteCount() {
-        return noteCount;
-    }
-    /**
-     * @param noteCountIn The noteCount to set.
-     */
-    public void setNoteCount(Long noteCountIn) {
-        this.noteCount = noteCountIn;
     }
     /**
      * @return Returns the serverCount.

@@ -43,7 +43,6 @@ public class SystemOverview extends BaseDto implements Serializable  {
     private String serverName;
     private Long serverAdmins;
     private Long groupCount;
-    private Long noteCount;
     private Date modified;
     private String channelLabels;
     private Long historyCount;
@@ -288,27 +287,6 @@ public class SystemOverview extends BaseDto implements Serializable  {
      */
     public void setModified(Date modifiedIn) {
         this.modified = modifiedIn;
-    }
-    /**
-     * @return Returns the noteCount.
-     */
-    public Long getNoteCount() {
-        return noteCount;
-    }
-
-    /**
-     * This overloaded method is for PostgreSQL compatibility reasons.
-     * @param noteCountIn The noteCount to set.
-     */
-    public void setNoteCount(Integer noteCountIn) {
-        setNoteCount(new Long(noteCountIn));
-    }
-
-    /**
-     * @param noteCountIn The noteCount to set.
-     */
-    public void setNoteCount(Long noteCountIn) {
-        this.noteCount = noteCountIn;
     }
     /**
      * @return Returns the os.
