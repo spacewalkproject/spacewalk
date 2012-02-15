@@ -4,7 +4,7 @@ Group:   Applications/Internet
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 1.7.4
+Version: 1.7.5
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
 BuildRequires: python
@@ -334,6 +334,12 @@ fi
 
 
 %changelog
+* Wed Feb 15 2012 Michael Mraka <michael.mraka@redhat.com> 1.7.5-1
+- skip pylint checks on RHEL5
+- pylint needs python modules from spacewalk-backend
+- fixed pylint errors
+- pylint check has been moved to spacewalk-pylint package
+
 * Fri Feb 10 2012 Michael Mraka <michael.mraka@redhat.com> 1.7.4-1
 - check proxy for pylint errors in rpm build time
 - fixed pylint errors/warnings
