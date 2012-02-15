@@ -1155,8 +1155,7 @@ SELECT  P.id AS id,
         (full_list.evr).version VERSION,
         (full_list.evr).release RELEASE,
         E.advisory_type ERRATA_ADVISORY_TYPE
-  FROM  rhnErrata E,
-        rhnPackage P,
+  FROM  rhnPackage P,
         rhnPackageName PN,
         rhnPackageEVR PE,
         rhnPackageEVR SPE,
@@ -1169,11 +1168,10 @@ SELECT  P.id AS id,
           WHERE  SOP.server_id = :sid
             AND  SOP.package_evr_id = PED.id
        GROUP BY  SOP.package_name_id, SOP.server_id, SOP.errata_id, SOP.errata_advisory
-         ) full_list
+         ) full_list LEFT OUTER JOIN rhnErrata E on full_list.errata_id = E.id
  WHERE  P.id IN (%s)
    AND  P.name_id = PN.id
    AND  PN.id = full_list.name_id
-   AND  full_list.errata_id = E.id (+)
    AND  PE.id = lookup_evr((full_list.evr).epoch, (full_list.evr).version, (full_list.evr).release)
    AND  SP.name_id = PN.id
    AND  SP.server_id = :sid
