@@ -27,6 +27,8 @@ import subprocess
 import datetime
 import re
 
+from yum.Errors import RepoError
+
 
 from depsolver import DepSolver
 
@@ -318,11 +320,15 @@ class ChannelTreeCloner:
             yum_repodata_path = "%s/repodata" % (repo['relative_path'])
             create_repodata_link(repo['relative_path'], yum_repodata_path)
             temp_repo_links.append(yum_repodata_path)
-        
-        solver = DepSolver(repos, nvrea_list)
-        dep_results = solver.processResults(solver.getDependencylist())
-        solver.cleanup()
-        self.process_deps(dep_results)
+        try:
+            solver = DepSolver(repos, nvrea_list)
+            dep_results = solver.processResults(solver.getDependencylist())
+            solver.cleanup()
+            self.process_deps(dep_results)
+        except RepoError, e:
+            raise UserError("""Unable to read repository information.
+                Please verify repodata has been generated in /var/cache/rhn/repodata/LABEL.
+                Error from yum: %s""" % e.value)
         
         # clean up temporary symlinks
         for link in temp_repo_links:
@@ -354,11 +360,7 @@ class ChannelTreeCloner:
                 if not found:
                     unsolved_deps.append((pkg))
         pb.printComplete()
-
-#        print "Unsolved deps: %i" % len(unsolved_deps)  
-#        print "Needed deps: "
-#        for label in needed_list.keys():
-#            print "%s: %i" % (label, len(needed_list[label]))      
+   
                             
         for cloner in self.cloners:
             needed = needed_list[cloner.dest_label()]
