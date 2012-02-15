@@ -31,7 +31,7 @@ SELECT  SG.id,
   <query name="visible_to_user_overview_fast" params="org_id, user_id">
 SELECT   SECURITY_ERRATA, BUG_ERRATA, ENHANCEMENT_ERRATA,
          GO.GROUP_ID AS ID, GROUP_NAME, GROUP_ADMINS, SERVER_COUNT,
-         NOTE_COUNT, GO.MODIFIED, GO.MAX_MEMBERS,
+         GO.MODIFIED, GO.MAX_MEMBERS,
          'unknown' AS ALL_ERRATA,
          (SELECT  CASE MAX(CASE PS.state
                            WHEN 'OK' THEN  1
@@ -79,7 +79,7 @@ ORDER BY UPPER(NAME)
   <query params="org_id, user_id">
 SELECT   SECURITY_ERRATA, BUG_ERRATA, ENHANCEMENT_ERRATA,
          GO.GROUP_ID AS ID, GROUP_NAME, GROUP_ADMINS, SERVER_COUNT,
-         NOTE_COUNT, GO.MODIFIED, GO.MAX_MEMBERS,
+         GO.MODIFIED, GO.MAX_MEMBERS,
          (SELECT  CASE MAX(CASE PS.state
                            WHEN 'OK' THEN  1
                            WHEN 'PENDING' THEN 2
