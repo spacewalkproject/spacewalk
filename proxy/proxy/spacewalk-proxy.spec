@@ -10,11 +10,13 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires: python
 BuildArch: noarch
 Requires: httpd
+%if !( 0%{?rhel} && 0%{?rhel} < 6)
 # pylint check
 BuildRequires: spacewalk-pylint
 BuildRequires: rhnpush >= 5.5.40
 BuildRequires: spacewalk-backend-libs >= 1.7.1
 BuildRequires: spacewalk-backend >= 1.7.1
+%endif
 
 %define rhnroot %{_usr}/share/rhn
 %define destdir %{rhnroot}/proxy
@@ -180,9 +182,11 @@ rm -fv $RPM_BUILD_ROOT%{httpdconf}/spacewalk-proxy-python.conf
 rm -rf $RPM_BUILD_ROOT
 
 %check
+%if !( 0%{?rhel} && 0%{?rhel} < 6)
 # check coding style
 export PYTHONPATH=$RPM_BUILD_ROOT/usr/share/rhn:$RPM_BUILD_ROOT%{python_sitelib}:/usr/share/rhn
 spacewalk-pylint $RPM_BUILD_ROOT/usr/share/rhn
+%endif
 
 %post broker
 if [ -f %{_sysconfdir}/sysconfig/rhn/systemid ]; then
