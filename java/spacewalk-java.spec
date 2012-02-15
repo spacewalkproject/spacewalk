@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.7.28
+Version: 1.7.29
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -555,6 +555,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Feb 15 2012 Milan Zazrivec <mzazrivec@redhat.com> 1.7.29-1
+- time_series revamped: fully async deletion of monitoring data
+- 784911 - add package_arch to PackageMetadataSerializer
+
 * Tue Feb 14 2012 Tomas Lestach <tlestach@redhat.com> 1.7.28-1
 - introduce optional tag for xsd parameter validation (tlestach@redhat.com)
 - Revert "790120: improve system overview query performance"
