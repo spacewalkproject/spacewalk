@@ -211,6 +211,15 @@ Provides: spacewalk-java-jdbc = %{version}-%{release}
 %description postgresql
 This package contains PostgreSQL database backend files for the Spacewalk Java.
 
+
+%package tests
+Summary: Test Classes for testing spacewalk-java
+Group:  Applications/Internet
+
+Requires: jmock
+Requires: gsbase
+
+
 %package -n spacewalk-taskomatic
 Summary: Java version of taskomatic
 Group: Applications/Internet
