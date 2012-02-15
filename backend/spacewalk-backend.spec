@@ -12,7 +12,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.7.19
+Version: 1.7.20
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -686,6 +686,11 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Wed Feb 15 2012 Michael Mraka <michael.mraka@redhat.com> 1.7.20-1
+- use spacewalk-pylint for coding style check
+- fixed pylint errors
+- removed unused function
+
 * Fri Feb 10 2012 Michael Mraka <michael.mraka@redhat.com> 1.7.19-1
 - empty epoch have to be None
 - compute payload_size including its header
