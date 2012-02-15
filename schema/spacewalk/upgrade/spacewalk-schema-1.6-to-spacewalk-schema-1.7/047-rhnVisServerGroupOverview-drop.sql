@@ -1,0 +1,3 @@
+
+drop view rhnVisServerGroupOverview;
+

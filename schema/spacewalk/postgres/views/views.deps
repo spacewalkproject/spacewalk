@@ -27,8 +27,4 @@ rhnUserChannelFamilyPerms        :: rhnPrivateChannelFamily \
 rhnVisServerGroupOverviewLite    :: rhnVisibleServerGroup rhnServerGroupMembers \
                                     rhnUserManagedServerGroups \
                                     rhnServerGroupOVLiteHelper
-rhnVisServerGroupOverview        :: rhnErrata rhnServerNeededPackageCache \
-                                    rhnServerGroupMembers \
-                                    rhnUserManagedServerGroups \
-                                    rhnServerGroupMembers rhnVisibleServerGroup
 rhnWebContactEnabled             :: rhnWebContactDisabled
