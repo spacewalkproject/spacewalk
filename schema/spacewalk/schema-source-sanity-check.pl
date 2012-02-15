@@ -39,6 +39,23 @@ for my $dir (qw( common oracle postgres upgrade )) {
 }
 
 my $error = 0;
+sub get_first_line_sha1 {
+	my $filename = shift;
+	local *FILE;
+	open FILE, '<', $filename or do {
+		die "Error reading [$filename]: $!\n";
+	};
+	my $first_line = <FILE>;
+	close FILE;
+	if (not defined $first_line or not $first_line =~ /^-- oracle equivalent source (?:(none)|sha1 ([0-9a-f]{40}))$/) {
+		return;
+	}
+	if (defined $1) {
+		return $1;
+	}
+	return $2;
+}
+
 for my $c (sort keys %{ $files{common} }) {
 	next unless $c =~ /\.(sql|pks|pkb)$/;
 	for my $o (qw( oracle postgres )) {
@@ -46,6 +63,13 @@ for my $c (sort keys %{ $files{common} }) {
 			print "Common file [$c] is also in $o\n";
 			$error = 1;
 		}
+	}
+	my $oracle_sha1 = eval { get_first_line_sha1($files{common}{$c}) };
+	if ($@) {
+		print $@;
+	} elsif (defined $oracle_sha1) {
+		print "Common file [$c] specifies SHA1 of Oracle source but it should not\n";
+		$error = 1;
 	}
 }
 
@@ -60,25 +84,29 @@ for my $c (sort keys %{ $files{oracle} }) {
 			# $error = 1;
 		}
 	}
+	my $oracle_sha1 = eval { get_first_line_sha1($files{oracle}{$c}) };
+	if ($@) {
+		print $@;
+	} elsif (defined $oracle_sha1) {
+		print "Oracle file [$c] specifies SHA1 of Oracle source but it should not\n";
+		$error = 1;
+	}
 }
 
 for my $c (sort keys %{ $files{postgres} }) {
 	next unless $c =~ /\.(sql|pks|pkb)$/;
-	local *FILE;
-	open FILE, '<', $files{postgres}{$c} or do {
-		print "Error reading [$files{postgres}{$c}]: $!\n";
+	my $oracle_sha1 = eval { get_first_line_sha1($files{postgres}{$c}) };
+	if ($@) {
+		print $@;
 		$error = 1;
 		next;
-	};
-	my $first_line = <FILE>;
-	close FILE;
-	if (not defined $first_line or not $first_line =~ /^-- oracle equivalent source (?:(none)|sha1 ([0-9a-f]{40}))$/) {
+	}
+	if (not defined $oracle_sha1) {
 		print "PostgreSQL file [$c] does not specify SHA1 of Oracle source nor none\n" if $show_ignored or $c !~ /^procs/;
 		$error = 1 if $c !~ /^procs/;
 		next;
 	}
-	my $oracle_sha1 = $2;
-	if (defined $1 and $1 eq 'none') {
+	if ($oracle_sha1 eq 'none') {
 		# the PostgreSQL source says there is no Oracle equivalent
 		if (exists $files{oracle}{$c}) {
 			print "PostgreSQL file [$c] claims it has no Oracle equivalent, but it exists\n";
