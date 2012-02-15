@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.7.27
+Version:        1.7.28
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -66,6 +66,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Wed Feb 15 2012 Jan Pazdziora 1.7.28-1
+- When upgrading from 1.6, the (smallint, numeric) variant is no longer there.
+
 * Tue Feb 14 2012 Jan Pazdziora 1.7.27-1
 - Regenerate rhn_contact_monitoring.
 - Regenerate rhnWebContactDisabled.
