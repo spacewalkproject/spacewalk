@@ -1,5 +1,5 @@
 Name:		spacewalk-pylint
-Version:	0.1
+Version:	0.2
 Release:	1%{?dist}
 Summary:	pylint configuration for spacewalk python packages
 
@@ -40,6 +40,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Wed Feb 15 2012 Michael Mraka <michael.mraka@redhat.com> 0.2-1
+- made it noarch package
+
 * Wed Feb 15 2012 Michael Mraka <michael.mraka@redhat.com> 0.1-1
 - new package built with tito
 
