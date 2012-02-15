@@ -16,9 +16,6 @@
 path = . tables procs packages
 
 rhn_customer_monitoring          :: web_customer
-rhnHistoryView                   :: rhnServerHistory rhnPackageArch \
-                                    rhnPackageName rhnPackageEVR \
-                                    rhnActionPackage
 rhnOrgChannelFamilyPermissions   :: rhnPublicChannelFamily web_contact \
                                     rhnPrivateChannelFamily
 rhnServerGroupOverview           :: rhnErrata rhnUserManagedServerGroups \
