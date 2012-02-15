@@ -39,3 +39,6 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Wed Feb 15 2012 Michael Mraka <michael.mraka@redhat.com> 0.1-1
+- new package built with tito
+
