@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.7.29
+Version: 1.7.30
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -555,6 +555,12 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Feb 15 2012 Jan Pazdziora 1.7.30-1
+- The noteCount attribute is not used anywhere, removing.
+- Removing unused imports.
+- The note_count value is nowhere used in the application code, removing from
+  selects.
+
 * Wed Feb 15 2012 Milan Zazrivec <mzazrivec@redhat.com> 1.7.29-1
 - time_series revamped: fully async deletion of monitoring data
 - 784911 - add package_arch to PackageMetadataSerializer
