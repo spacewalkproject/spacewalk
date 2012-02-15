@@ -14,8 +14,6 @@
  */
 package com.redhat.rhn.domain.monitoring;
 
-import com.redhat.rhn.common.db.datasource.ModeFactory;
-import com.redhat.rhn.common.db.datasource.WriteMode;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.domain.monitoring.command.Command;
 import com.redhat.rhn.domain.monitoring.command.CommandGroup;
