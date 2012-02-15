@@ -15,7 +15,7 @@ BuildArch:      noarch
 BuildRequires:  /usr/bin/docbook2man
 BuildRequires:  docbook-utils
 BuildRequires:  python
-BuildRequires:  pylint
+BuildRequires:  spacewalk-pylint
 
 Requires:       bash
 Requires:       cobbler
@@ -48,11 +48,6 @@ Generic utilities that may be run against a Spacewalk server.
 %build
 make all
 
-# check coding style
-find -name '*.py' \
-    | xargs pylint -rn -iy --bad-functions=apply,input \
-                   --disable C0111,C0103,C0301,R0801,R0912,W0511,W0603,F0401,R0913,R0902,R0201,R0903,W0702,W0102,W0612
-
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT/%{rhnroot}
@@ -63,6 +58,9 @@ make install PREFIX=$RPM_BUILD_ROOT ROOT=%{rhnroot} \
 %clean
 rm -rf $RPM_BUILD_ROOT
 
+%check
+# check coding style
+spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 %files
 %defattr(-,root,root)
