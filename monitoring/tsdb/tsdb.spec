@@ -8,7 +8,7 @@
 %define npbin       %{_bindir}
 Name:         tsdb
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version:      1.27.26
+Version:      1.27.27
 Release:      1%{?dist}
 Summary:      Time Series Database
 URL:          https://fedorahosted.org/spacewalk
@@ -90,6 +90,9 @@ fi
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Wed Feb 15 2012 Milan Zazrivec <mzazrivec@redhat.com> 1.27.27-1
+- time_series revamped: tsdb to use new table names
+
 * Tue Feb 07 2012 Jan Pazdziora 1.27.26-1
 - scdb: use /var/lib/nocpulse directory (mzazrivec@redhat.com)
 
