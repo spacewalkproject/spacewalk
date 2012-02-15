@@ -21,7 +21,7 @@ Requires: libxslt
 Requires: spacewalk-certs-tools >= 1.6.4
 BuildRequires: /usr/bin/docbook2man
 # pylint check
-BuildRequires: pylint
+BuildRequires: spacewalk-pylint
 BuildRequires: rhnlib
 
 Obsoletes: proxy-installer < 5.3.0
@@ -47,18 +47,6 @@ Run configure-proxy.sh after installation to configure proxy.
 /usr/bin/docbook2man configure-proxy.sh.sgml
 /usr/bin/gzip configure-proxy.sh.8
 
-# check coding style
-export PYTHONPATH=/usr/share/rhn
-PYLINT_BADFUNC="apply,input"
-PYLINT_DISABLE="C0103,C0111,C0301"
-PYLINT_DISABLE+=",E1101"
-PYLINT_DISABLE+=",I0011"
-PYLINT_DISABLE+=",R0801,R0903,R0911,R0912,R0913,R0914"
-PYLINT_DISABLE+=",W0142,W0403,W0511,W0603"
-find -name '*.py' \
-    | xargs pylint -rn -iy --bad-functions="$PYLINT_BADFUNC" \
-                       --disable "$PYLINT_DISABLE"
-
 %install
 rm -rf $RPM_BUILD_ROOT
 mkdir -p $RPM_BUILD_ROOT/%{_bindir}
@@ -81,6 +69,11 @@ install -m 640 jabberd/sm.xml jabberd/c2s.xml $RPM_BUILD_ROOT%{_usr}/share/rhn/i
 
 %clean
 rm -rf $RPM_BUILD_ROOT
+
+%check
+# check coding style
+export PYTHONPATH=$RPM_BUILD_ROOT/usr/share/rhn:/usr/share/rhn
+spacewalk-pylint $RPM_BUILD_ROOT/usr/share/rhn
 
 %files
 %defattr(-,root,root,-)
