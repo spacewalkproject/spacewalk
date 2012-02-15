@@ -4,7 +4,7 @@
 %endif
 
 Name:        spacecmd
-Version:     1.7.3
+Version:     1.7.4
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -61,6 +61,10 @@ touch %{buildroot}/%{python_sitelib}/spacecmd/__init__.py
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Tue Feb 14 2012 Aron Parsons <aronparsons@gmail.com> 1.7.4-1
+- spacecmd: handle server connection failures more gracefully
+  (aronparsons@gmail.com)
+
 * Mon Jan 23 2012 Aron Parsons <aronparsons@gmail.com> 1.7.3-1
 - spacecmd bugfix: configchannel_addfile fail nicely when no channel arg
   (shardy@redhat.com)
