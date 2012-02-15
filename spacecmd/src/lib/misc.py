@@ -235,8 +235,12 @@ def do_login(self, args):
         self.api_version = self.client.api.getVersion()
         logging.debug('Server API Version = %s' % self.api_version)
     except Exception, e:
+        if self.options.debug > 0:
+            logging.exception(e)
+
+        logging.error('Failed to connect to %s' % server_url)
         self.client = None
-        raise
+        return False
 
     # ensure the server is recent enough
     if self.api_version < self.MINIMUM_API_VERSION:
