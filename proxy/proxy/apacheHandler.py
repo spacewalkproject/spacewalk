@@ -142,15 +142,15 @@ class apacheHandler(rhnApache):
         if self._component == COMPONENT_BROKER:
             if req.uri.startswith(URI_PREFIX_KS):
                 log_debug(3, "Found a kickstart URI: %s" % req.uri)
-                return self._transformKickstartRequestForBroker(req)
+                return self._transformKsRequestForBroker(req)
         elif self._component == COMPONENT_REDIRECT:
             if req.uri.startswith(URI_PREFIX_KS_CHECKSUM):
                 log_debug(3, "Found a kickstart checksum URI: %s" % req.uri)
-                return self._transformKickstartRequestForRedirect(req)
+                return self._transformKsRequestForRedirect(req)
 
         return apache.OK
 
-    def _transformKickstartRequestForBroker(self, req):
+    def _transformKsRequestForBroker(self, req):
 
         # Get the checksum for the requested resource from the satellite.
 
@@ -181,7 +181,7 @@ class apacheHandler(rhnApache):
         return apache.OK
 
     @staticmethod
-    def _transformKickstartRequestForRedirect(req):
+    def _transformKsRequestForRedirect(req):
 
         # If we don't get the actual URI in the headers, we'll decline the 
         # request.
