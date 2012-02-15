@@ -102,6 +102,15 @@
 #        or more packages on the system.  However, I've added an option to allow the script
 #        to ignore missing packages so that the old behaviour remains.
 #
+# 0.9.1
+#
+#        Whitspace cleanup and additon of CVE handling.
+#
+# 0.9.2 - 2012-02-14 - Andy Speagle
+#
+#        Rewrite of package searching and handling.
+#        Fix some problems with CVE handling.
+#
 
 import xmlrpclib, httplib
 from optparse import OptionParser
@@ -528,13 +537,13 @@ class SPWServer(RHNServer):
     def setDetails(self,advisory,details,retry):
         out=[]
         try:
-            new_errata = self.server.errata.setDetails(self.rhnSession,advisory,details)
+            out = self.server.errata.setDetails(self.rhnSession,advisory,details)
         except xmlrpclib.Fault, f:
             if options.verbose:
                 print "Fault Code: %d - %s" % (f.faultCode,f.faultString)
             if f.faultCode == -20 or f.faultCode == -1:
                 self.rhnLogin(self.login,self.password,0)
-                return self.server.errata.create(self.rhnSession,info,bugs,keywords,packages,publish,channels)
+                return self.server.errata.setDetails(self.rhnSession,advisory,details)
             else:
                 print "Can't Update Errata Details!"
                 raise
@@ -545,6 +554,28 @@ class SPWServer(RHNServer):
                 raise
             else:
                 return self.setDetails(advisory,details, (retry + 1))
+        return out
+
+    def getPkgDetails(self,id,retry):
+        out=[]
+        try:
+            out = self.server.packages.getDetails(self.rhnSession,id)
+        except xmlrpclib.Fault, f:
+            if options.verbose:
+                print "Fault Code: %d - %s" % (f.faultCode,f.faultString)
+            if f.faultCode == -20 or f.faultCode == -1:
+                self.rhnLogin(self.login,self.password,0)
+                return self.server.packages.getDetails(self.rhnSession,id)
+            else:
+                print "Can't Get Package Details!"
+                raise
+        except xmlrpclib.ProtocolError, err:
+            if options.verbose:
+                print "ProtocolError: %d - %s" % (err.errcode,err.errmsg)
+            if retry > 3:
+                raise
+            else:
+                return self.getPkgDetails(id, (retry + 1))
         return out
 
 def parse_args():
@@ -708,29 +739,39 @@ def main():
                 missingcheck = 0
 
                 for pkg in myRHN.getErrataPackages(rhnErrata['errata_advisory'],0):
-                    pkgFind = mySPW.searchNVREA(pkg['package_name'],\
+                    if chan not in pkg['providing_channels']:
+                        continue
+
+                    pkgList = mySPW.searchNVREA(pkg['package_name'],\
                                                 pkg['package_version'],\
                                                 pkg['package_release'],\
                                                 '',\
                                                 pkg['package_arch_label'],\
                                                 0)
 
-                    for pkgChan in pkg['providing_channels']:
-                        if pkgChan != chan:
-                            continue
+                    if not pkgList:
+                        missingcheck += 1
+                        continue
+
+                    innercheck = 1
+
+                    for pkgFound in pkgList:
+                        pkgFoundDetails = mySPW.getPkgDetails(pkgFound['id'],0)
+
+                        if chanMap[chan] in pkgFoundDetails['providing_channels']:
+                            spwErrPackages.append(pkgFound['id'])
+                            innercheck = 0
+
+                            break
+
+                    if innercheck:
+                        missingcheck += 1
+
+                        if options.format:
+                            print >>sys.stderr, "%s:%s:Hmmm... "+\
+                                "Package Missing: %s" % (dateToday, rhnErrata['errata_advisory'], pkg['package_name'])
                         else:
-                            if not pkgFind:
-                                missingcheck += 1
-
-                                if options.format:
-                                    print >>sys.stderr, "%s:%s:Hmmm... "+\
-                                        "Package Missing: %s" % (dateToday, rhnErrata['errata_advisory'], pkg['package_name'])
-                                else:
-                                    print "Hmmm... Package Missing: %s" % pkg['package_name']
-
-                            else:
-                                spwErrPackages.append(pkgFind[0]['id'])
-                                break
+                            print "Hmmm... Package Missing: %s" % pkg['package_name']
 
                 if missingcheck:
                     if options.ignoremissing:
