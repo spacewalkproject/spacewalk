@@ -45,6 +45,7 @@ class _Method:
         Some magic to bind an XML-RPC method to an RPC server.
         Supports "nested" methods (e.g. examples.getStateName).
     """
+    # pylint: disable=R0903
 
     def __init__(self, msend, name):
         self.__send = msend
@@ -69,6 +70,7 @@ class Shelf:
         Main class that the client side (client to the caching daemon) has to
         instantiate to expose the proper API. Basically, the API is a dictionary.
     """
+    # pylint: disable=R0903
 
     def __init__(self, server_addr):
         log_debug(6, server_addr)
