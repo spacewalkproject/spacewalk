@@ -14,6 +14,7 @@ Requires: httpd
 BuildRequires: spacewalk-pylint
 BuildRequires: rhnpush >= 5.5.40
 BuildRequires: spacewalk-backend-libs >= 1.7.1
+BuildRequires: spacewalk-backend >= 1.7.1
 
 %define rhnroot %{_usr}/share/rhn
 %define destdir %{rhnroot}/proxy
