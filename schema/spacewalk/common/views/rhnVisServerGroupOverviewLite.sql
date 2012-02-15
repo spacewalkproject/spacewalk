@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2012 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -19,7 +19,7 @@
 
 create or replace view
 rhnVisServerGroupOverviewLite as
-select	sg.org_id					org_id,
+select	sg.org_id					as org_id,
 		case when exists (
 			select	1
 			from	rhnServerGroupOVLiteHelper
@@ -28,7 +28,7 @@ select	sg.org_id					org_id,
 			)
 			then 1
 			else 0
-			end						security_errata,
+			end						as security_errata,
 		case when exists (
 			select	1
 			from	rhnServerGroupOVLiteHelper
@@ -37,7 +37,7 @@ select	sg.org_id					org_id,
 			)
 			then 1
 			else 0
-			end						bug_errata,
+			end						as bug_errata,
 		case when exists (
 			select	1
 			from	rhnServerGroupOVLiteHelper
@@ -46,24 +46,19 @@ select	sg.org_id					org_id,
 			)
 			then 1
 			else 0
-			end						enhancement_errata,
-		sg.id						group_id,
-		sg.name						group_name,
+			end						as enhancement_errata,
+		sg.id						as group_id,
+		sg.name						as group_name,
 		(	select	count(*)
 			from	rhnUserManagedServerGroups	umsg
 			where	umsg.server_group_id = sg.id
-		)							group_admins,
+		)							as group_admins,
 		(	select	count(*)
 			from	rhnServerGroupMembers		sgm
 			where	sgm.server_group_id = sg.id
-		)							server_count,
-		0							note_count,
-		sysdate						modified,
-		max_members					max_members
+		)							as server_count,
+		current_timestamp					as modified,
+		max_members					as max_members
 from	rhnVisibleServerGroup		sg
-/
+;
 
---
--- Revision 1.1  2002/11/11 23:37:43  pjones
--- add a Vis varient
---	

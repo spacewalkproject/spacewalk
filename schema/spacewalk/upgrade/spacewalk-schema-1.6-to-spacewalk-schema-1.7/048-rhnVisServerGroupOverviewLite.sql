@@ -1,7 +1,5 @@
--- oracle equivalent source sha1 f75540f3150f65644c8cdfb5fc875f0c74f3ddde
--- retrieved from ./1235117057/2510d6bed246794de798c9c9b00e8cd21d99a4dc/schema/spacewalk/rhnsat/views/rhnVisServerGroupOverviewLite.sql
 --
--- Copyright (c) 2008--2010 Red Hat, Inc.
+-- Copyright (c) 2008--2012 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -59,7 +57,6 @@ select	sg.org_id					as org_id,
 			from	rhnServerGroupMembers		sgm
 			where	sgm.server_group_id = sg.id
 		)							as server_count,
-		0							as note_count,
 		current_timestamp					as modified,
 		max_members					as max_members
 from	rhnVisibleServerGroup		sg

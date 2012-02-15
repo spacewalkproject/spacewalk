@@ -24,7 +24,4 @@ rhnServerNeededPackageView       :: rhnPackage rhnPackageEVR rhnErrataPackage \
                                     rhnServer rhnChannelErrata
 rhnUserChannelFamilyPerms        :: rhnPrivateChannelFamily \
                                     rhnPublicChannelFamily web_contact
-rhnVisServerGroupOverviewLite    :: rhnVisibleServerGroup rhnServerGroupMembers \
-                                    rhnUserManagedServerGroups \
-                                    rhnServerGroupOVLiteHelper
 rhnWebContactEnabled             :: rhnWebContactDisabled

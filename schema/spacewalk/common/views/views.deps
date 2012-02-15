@@ -108,3 +108,6 @@ rhnServerOverview                :: rhnUserServerPerms \
 time_series                      :: time_series_data
 rhnServerGroupOverview           :: rhnErrata rhnUserManagedServerGroups \
                                     rhnServerGroupMembers rhnServerGroup rhnServerFeaturesView
+rhnVisServerGroupOverviewLite    :: rhnVisibleServerGroup rhnServerGroupMembers \
+                                    rhnUserManagedServerGroups \
+                                    rhnServerGroupOVLiteHelper
