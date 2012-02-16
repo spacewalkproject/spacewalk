@@ -188,14 +188,14 @@ public class EditAction extends LookupDispatchAction {
         List bugs = new ArrayList();
         ActionErrors errors = validateForm(form, request, e, bugs);
 
+        //set l10n-ed advisoryTypeLabels list for select drop down
+        form.set("advisoryTypeLabels", ErrataManager.advisoryTypeLabels());
+
         if (!errors.isEmpty()) { //Something is wrong. Forward to failure mapping.
             addErrors(request, errors);
             //return to the same page with the errors
             return setupPage(request, mapping, e);
         }
-
-        //set l10n-ed advisoryTypeLabels list for select drop down
-        form.set("advisoryTypeLabels", ErrataManager.advisoryTypeLabels());
 
         //Fill out errata
         e.setSynopsis(form.getString("synopsis"));
