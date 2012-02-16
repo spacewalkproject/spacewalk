@@ -14,7 +14,8 @@
 --
 --
 --
-create or replace view
+drop view rhnServerOverview;
+create view
 rhnServerOverview
 (
     org_id, 
