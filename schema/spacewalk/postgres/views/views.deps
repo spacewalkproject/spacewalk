@@ -15,5 +15,3 @@
 
 path = . tables procs packages
 
-rhnOrgChannelFamilyPermissions   :: rhnPublicChannelFamily web_contact \
-                                    rhnPrivateChannelFamily
