@@ -274,9 +274,9 @@ class ChannelTreeCloner:
             if self.channel_details[label]['parent_channel_label'] == '':
                 found_list.append(label)
         if len(found_list) == 0:
-            UserError("Parent Channel not specified.")
+            raise UserError("Parent Channel not specified.")
         if len(found_list) > 1:
-            UserError("Multiple parent channels specified within the same channel tree.")
+            raise UserError("Multiple parent channels specified within the same channel tree.")
         return found_list[0]
 
     def ordered_labels(self):
