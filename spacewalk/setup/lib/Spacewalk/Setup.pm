@@ -1002,6 +1002,13 @@ EOS
 sub postgresql_clear_db {
 	my $answers = shift;
 
+	print loc("** Database: Shutting down spacewalk services that may be using DB.\n");
+
+	# The --exclude=oracle is needed for embedded database Satellites.
+	system_debug('/usr/sbin/spacewalk-service', '--exclude=oracle', 'stop');
+
+	print loc("** Database: Services stopped.  Clearing DB.\n");
+
 	my $dbh = get_dbh($answers);
 	local $dbh->{RaiseError} = 0;
 	local $dbh->{PrintError} = 1;
