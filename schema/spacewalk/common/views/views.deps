@@ -113,3 +113,4 @@ rhnVisServerGroupOverviewLite    :: rhnVisibleServerGroup rhnServerGroupMembers 
                                     rhnServerGroupOVLiteHelper
 rhnUserChannelFamilyPerms        :: rhnPrivateChannelFamily \
                                     rhnPublicChannelFamily web_contact
+rhnWebContactEnabled             :: web_contact rhnWebContactDisabled
