@@ -1583,21 +1583,6 @@ EOQ
 }
 
 
-sub has_incomplete_info {
-  my $self = shift;
-
-  my ($site) = $self->sites('M');
-
-  if ($self->first_names eq 'Valued' or $self->last_name eq 'Customer') {
-    return "details";
-  }
-  elsif ($site and ($site->site_city eq '.' or $site->site_address1 eq '.')) {
-    return "address";
-  }
-
-  return 0;
-}
-
 sub grant_servergroup_permission {
   my $self = shift;
   my $uid;
