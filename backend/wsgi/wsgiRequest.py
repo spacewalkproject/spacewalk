@@ -52,8 +52,8 @@ class WsgiRequest:
     def get_config(self):
         return ""  #FIXME
 
-    def write(self, str):
-        self.output.append(str)
+    def write(self, msg):
+        self.output.append(msg)
 
     def send_http_header(self, status=None):
         self.sent_header = 1
@@ -85,8 +85,8 @@ class WsgiRequest:
             pass
         return host
 
-    def read(self, buffer=-1):
-        return self.headers_in['wsgi.input'].read(buffer)
+    def read(self, buf=-1):
+        return self.headers_in['wsgi.input'].read(buf)
 
 
 class WsgiServer:
@@ -133,11 +133,11 @@ class WsgiMPtable:
         self.dict[key] = [str(value)]
 
     def items(self):
-        list = []
+        ilist = []
         for k, v in self.dict.items():
             for vi in v:
-                list.append((k, vi))
-        return list
+                ilist.append((k, vi))
+        return ilist
 
     def has_key(self, key):
         return self.dict.has_key(key)
