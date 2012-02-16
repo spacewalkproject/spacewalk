@@ -162,7 +162,9 @@ def main(options):
         total += cloner.pending()        
     
     if total == 0:
-        print ("\nNothing to do.")
+        print ("\nNo errata to clone, checking removelist.")
+        for cloner in cloners:
+            cloner.remove_packages()
         sys.exit(0)
 
     confirm("\nContinue with clone (y/n)?", options)
