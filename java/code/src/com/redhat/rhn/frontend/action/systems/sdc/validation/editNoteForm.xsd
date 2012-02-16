@@ -6,7 +6,6 @@
                                   <simpleType baseType="string">
                                     <minLength value="1"/>
                                     <maxLength value="80"/>
-                                    <isRequired value="true"/>
                                   </simpleType>
                  </attribute>
                  <attribute name="note">

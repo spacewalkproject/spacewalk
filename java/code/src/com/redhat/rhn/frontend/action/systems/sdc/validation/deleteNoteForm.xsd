@@ -6,21 +6,18 @@
                                   <simpleType baseType="long">
                                     <minLength value="10"/>
                                     <maxLength value="10"/>
-                                    <isRequired value="true"/>
                                   </simpleType>
                  </attribute>
                  <attribute name="subject">
                                   <simpleType baseType="string">
                                     <minLength value="1"/>
                                     <maxLength value="80"/>
-                                    <isRequired value="true"/>
                                   </simpleType>
                  </attribute>
                  <attribute name="note">
                                   <simpleType baseType="string">
                                     <minLength value="0"/>
                                     <maxLength value="4000"/>
-                                    <isRequired value="true"/>
                                   </simpleType>
                  </attribute>
 </schema>

@@ -6,12 +6,10 @@
                                   <simpleType baseType="long">
                                     <minLength value="10"/>
                                     <maxLength value="10"/>
-                                    <isRequired value="true"/>
                                   </simpleType>
                  </attribute>
                  <attribute name="to_org">
                                   <simpleType baseType="string">
-                                    <isRequired value="true"/>
                                   </simpleType>
                  </attribute>
 </schema>

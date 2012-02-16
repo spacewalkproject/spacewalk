@@ -11,55 +11,46 @@
 	<attribute name="description">
 		<simpleType baseType="string">
 		  <maxLength value="256"/>
-		  <isRequired value="false"/>
 		</simpleType>
 	</attribute>
 	<attribute name="address1">
 		<simpleType baseType="string">
 		  <maxLength value="128"/>
-		  <isRequired value="false"/>
 		</simpleType>
 	</attribute>
 	<attribute name="address2">
 		<simpleType baseType="string">
 		  <maxLength value="128"/>
-		  <isRequired value="false"/>
 		</simpleType>
 	</attribute>
 	<attribute name="city">
 		<simpleType baseType="string">
 		  <maxLength value="128"/>
-		  <isRequired value="false"/>
 		</simpleType>
 	</attribute>
 	<attribute name="state">
 		<simpleType baseType="string">
 		  <maxLength value="60"/>
-		  <isRequired value="false"/>
 		</simpleType>
 	</attribute>
 	<attribute name="country">
 		<simpleType baseType="string">
 		  <maxLength value="2"/>
-		  <isRequired value="false"/>
 		</simpleType>
 	</attribute>
 	<attribute name="building">
 		<simpleType baseType="string">
 		  <maxLength value="128"/>
-		  <isRequired value="false"/>
 		</simpleType>
 	</attribute>
 	<attribute name="room">
 		<simpleType baseType="string">
 		  <maxLength value="32"/>
-		  <isRequired value="false"/>
 		</simpleType>
 	</attribute>
 	<attribute name="rack">
 		<simpleType baseType="string">
 		  <maxLength value="64"/>
-		  <isRequired value="false"/>
 		</simpleType>
 	</attribute>
 </schema>
