@@ -182,8 +182,6 @@ sub rhn_login_form {
     }
   }
 
-  $pxt->session->set('cookie_test' => 1);
-
   return $body;
 }
 
