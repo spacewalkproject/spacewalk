@@ -1674,26 +1674,5 @@ EOQ
     return 0; #user is active
 }
 
-sub verify_file_access {
-  my $self = shift;
-  my $file_path = shift;
-
-  my $dbh = RHN::DB->connect();
-  my $sth = $dbh->prepare(<<EOQ);
-SELECT 1
-  FROM rhnUserChannelFamilyPerms UCFP, rhnDownloads D
- WHERE UCFP.user_id = :user_id
-   AND D.channel_family_id = UCFP.channel_family_id
-   AND D.file_id = (SELECT id FROM rhnFile WHERE path = :file_path)
-EOQ
-  $sth->execute_h(user_id => $self->id, file_path => $file_path);
-  my ($file_access) = $sth->fetchrow;
-  $sth->finish;
-
-  return 1 if defined  $file_access;
-
-  return 0;
-}
-
 1;
 

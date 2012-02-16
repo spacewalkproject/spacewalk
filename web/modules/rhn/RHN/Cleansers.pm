@@ -104,9 +104,6 @@ register_cleanser(-var => 'support_hid', -name => 'supported history event', -te
 register_cleanser(-var => 'fid', -name => 'customer feedback', -test => \&verify_support_var_access);
 register_cleanser(-var => 'flid', -name => 'file list', -accessmethod => 'verify_filelist_access');
 
-#pkg/iso redirect
-register_cleanser(-var => 'iso_path', -name => 'akamai file path', -accessmethod => 'verify_file_access');
-
 sub register_cleanser {
   my %attr = validate_with(params => \@_,
 			   spec => { var => { type => SCALAR },
