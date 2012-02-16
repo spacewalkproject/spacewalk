@@ -146,12 +146,6 @@ public class Validator {
         boolean required = !constraint.getOptional() ||
                 (value != null && !value.equals(""));
         if (required) {
-            // Validate data type
-            validationMessage = correctDataType(data, constraint);
-            if (validationMessage != null) {
-                log.debug("Not the right datatype.. " + validationMessage);
-                return validationMessage;
-            }
             boolean checkConstraint = true;
             if (constraint instanceof RequiredIfConstraint) {
                 checkConstraint = ((RequiredIfConstraint) constraint).
@@ -159,6 +153,12 @@ public class Validator {
                 log.debug("RequiredIf indicates:" + required);
             }
             if (checkConstraint) {
+                // Validate data type
+                validationMessage = correctDataType(data, constraint);
+                if (validationMessage != null) {
+                    log.debug("Not the right datatype.. " + validationMessage);
+                    return validationMessage;
+                }
                 validationMessage = constraint.checkConstraint(data);
                 if (validationMessage != null) {
                     log.debug("Failed: " + validationMessage);
