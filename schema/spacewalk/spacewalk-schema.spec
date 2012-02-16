@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.7.30
+Version:        1.7.31
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -66,6 +66,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Thu Feb 16 2012 Jan Pazdziora 1.7.31-1
+- View rhnServerNeededPackageView no longer used after update_cache_for_server
+  was removed.
+
 * Thu Feb 16 2012 Jan Pazdziora 1.7.30-1
 - Removing note_count column from rhnVisServerGroupOverviewLite.
 - View rhnVisServerGroupOverview not used, removing.
