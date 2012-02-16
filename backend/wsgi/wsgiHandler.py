@@ -21,11 +21,11 @@ def handle(environ, start_response, server, component_type, type="spacewalk.serv
     # so we strip out the first 5 letters, and transform it into what we want.
     replacements = {'_':'-', 'Rhn':'RHN', 'Md5Sum':'MD5sum', 'Xml':'XML', 'Actualuri': 'ActualURI'}
     for key in environ.keys():
-         if key[:5] == "HTTP_":
-             new_key = key[5:].title()
-             for k,v in replacements.iteritems():
-                 new_key = new_key.replace(k,v)
-             environ[new_key] = environ[key]
+        if key[:5] == "HTTP_":
+            new_key = key[5:].title()
+            for k,v in replacements.iteritems():
+                new_key = new_key.replace(k,v)
+            environ[new_key] = environ[key]
 
 
 
@@ -45,7 +45,7 @@ def handle(environ, start_response, server, component_type, type="spacewalk.serv
     ret = appServ(req)
 
     if not ret:
-       ret = None
+        ret = None
 
     if not req.sent_header:
         req.send_http_header(status=ret)

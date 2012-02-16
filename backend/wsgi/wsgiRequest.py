@@ -69,7 +69,7 @@ class WsgiRequest:
         self.status = self.status + " " +  httplib.responses[int(self.status)]
 
         if len(self.content_type) > 0:
-           self.headers_out['Content-Type'] = self.content_type
+            self.headers_out['Content-Type'] = self.content_type
         #default to text/xml
         if not self.headers_out.has_key('Content-Type'):
             self.headers_out['Content-Type'] = 'text/xml'
@@ -126,7 +126,7 @@ class WsgiMPtable:
 
     def __getitem__(self, key):
         if len(self.dict[key]) == 1:
-           return self.dict[key][0]
+            return self.dict[key][0]
         return self.dict[key]
 
     def __setitem__(self, key, value):
