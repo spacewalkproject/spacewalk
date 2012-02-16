@@ -111,3 +111,5 @@ rhnServerGroupOverview           :: rhnErrata rhnUserManagedServerGroups \
 rhnVisServerGroupOverviewLite    :: rhnVisibleServerGroup rhnServerGroupMembers \
                                     rhnUserManagedServerGroups \
                                     rhnServerGroupOVLiteHelper
+rhnUserChannelFamilyPerms        :: rhnPrivateChannelFamily \
+                                    rhnPublicChannelFamily web_contact
