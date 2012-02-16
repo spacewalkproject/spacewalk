@@ -351,44 +351,6 @@ sub owns_server_groups {
   return 1;
 }
 
-sub update_errata_cache {
-  my $self = shift;
-  my $threshold = shift || 20;
-
-  my $dbh = RHN::DB->connect;
-
-  my $sth;
-  $sth = $dbh->prepare("SELECT server_count FROM rhnOrgErrataCacheQueue WHERE org_id = ? AND processed = 0");
-  $sth->execute($self->id);
-  my ($server_count) = $sth->fetchrow;
-  $sth->finish;
-
-  # has the org been flagged as needing an EC update?  if not, bail
-
-  return unless defined $server_count;
-
-  # is the org small enough to work realtime?  if so, let's do it now,
-  # otherwise an external process will do it (or already has).
-  # typically this external process is the Errata Cache script in
-  # rhn/sql/scripts
-
-  if ($server_count < $threshold) {
-    PXT::Debug->log(2, "Small org, using direct EC update");
-
-    $sth = $dbh->prepare("SELECT id FROM rhnServer WHERE org_id = ?");
-    $sth->execute($self->id);
-
-    while (my ($sid) = $sth->fetchrow) {
-      RHN::DB::Server->update_cache_for_server($dbh, $sid);
-    }
-
-    $sth = $dbh->prepare("DELETE FROM rhnOrgErrataCacheQueue WHERE org_id = ?");
-    $sth->execute($self->id);
-    $dbh->commit;
-  }
-
-}
-
 sub has_channel_permission {
   my $self = shift;
   my $channel_id = shift;
