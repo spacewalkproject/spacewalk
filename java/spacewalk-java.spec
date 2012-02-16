@@ -557,7 +557,7 @@ fi
 %files tests
 %{_datadir}/rhn/lib/rhn-test.jar
 %{_datadir}/rhn/unittest.xml
-
+%{jardir}/mockobjects*.jar
 
 %files lib
 %defattr(644, root, root)

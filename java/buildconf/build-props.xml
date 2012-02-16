@@ -66,17 +66,17 @@
              log4j oro redstone-xmlrpc-client redstone-xmlrpc ${struts-jars} ${tomcat-jars}
              bcprov bcpg jcommon stringtree-json postgresql-jdbc
              ${jfreechart} taglibs-core logdriver quartz dwr slf4j-api slf4j-log4j12
-             concurrent velocity simple-core" />
+             concurrent velocity simple-core  mockobjects mockobjects-core mockobjects-jdk1.4-j2ee1.3" />
 
   <!-- deps needed for testing, but required to build -->
   <property name="test.build.jar.dependencies"
       value="junit
-             log4j mockobjects mockobjects-core mockobjects-jdk1.4-j2ee1.3
+             log4j
              regexp jmock jmock-cglib strutstest gsbase postgresql-jdbc" />
 
   <property name="test.jar.dependencies"
       value="antlr checkstyle dom4j emma emma_ant jdom jta junit
-             log4j mockobjects mockobjects-core mockobjects-jdk1.4-j2ee1.3
+             log4j 
              regexp jmock jmock-cglib strutstest gsbase ${jfreechart}
              postgresql-jdbc" />
 
