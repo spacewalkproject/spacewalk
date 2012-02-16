@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 1.7.18
+Version: 1.7.19
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -254,6 +254,33 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Thu Feb 16 2012 Jan Pazdziora 1.7.19-1
+- With update_errata_cache removed, update_cache_for_server is not called
+  either, removing.
+- With log_user_in removed, removing mark_log_in as well.
+- With log_user_in removed, removing clear_selections as well.
+- With validate_password_pam gone, Authen::PAM and pam_conversation_func are no
+  longer called.
+- With check_login gone, validate_password (and validate_password_pam) are not
+  longer used.
+- With validate_cert gone and no longer calling str2time, use Date::Parse is
+  not needed.
+- Method has_incomplete_info no longer used, removing.
+- With rhn_login_cb gone, update_errata_cache is not longer used.
+- With rhn_login_cb gone, log_user_in is not longer used.
+- The check_login no longer invoked, removing.
+- With the if test for validate_cert gone, /errors/cert-expired.pxt is no
+  longer used.
+- The validate_cert is no longer called, removing.
+- The clear_user method no longer invoked, removing.
+- We no longer check cookie_test.
+- With rhn_login_cb gone, /errors/cookies.pxt is no longer used, removing.
+- The rhn:login_cb and rhn_login_cb are no longer used, removing.
+- The [login_form_hidden] is not longer used, removing.
+- login_form.pxi no longer used, removing.
+- In the /errors/permission.pxt, redirect to the main page to log in again.
+- The $package_name_ids parameter never passed.
+
 * Wed Feb 15 2012 Jan Pazdziora 1.7.18-1
 - The note_count value is nowhere used in the application code, removing from
   selects.
