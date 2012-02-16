@@ -359,6 +359,7 @@ install -m 644 conf/default/rhn_taskomatic_daemon.conf $RPM_BUILD_ROOT%{_prefix}
 install -m 644 conf/default/rhn_org_quartz.conf $RPM_BUILD_ROOT%{_prefix}/share/rhn/config-defaults/rhn_org_quartz.conf
 install -m 755 conf/logrotate/rhn_web_api $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/rhn_web_api
 install -m 755 scripts/taskomatic $RPM_BUILD_ROOT%{_initrddir}
+install -m 755 scripts/unittest.xml $RPM_BUILD_ROOT/%{_datadir}/rhn/
 install -m 644 build/webapp/rhnjava/WEB-INF/lib/rhn.jar $RPM_BUILD_ROOT%{_datadir}/rhn/lib
 install -m 644 build/webapp/rhnjava/WEB-INF/lib/rhn-test.jar $RPM_BUILD_ROOT%{_datadir}/rhn/lib
 install -m 644 conf/log4j.properties.taskomatic $RPM_BUILD_ROOT%{_datadir}/rhn/classes/log4j.properties
@@ -555,6 +556,7 @@ fi
 
 %files tests
 %{_datadir}/rhn/lib/rhn-test.jar
+%{_datadir}/rhn/unittest.xml
 
 
 %files lib
