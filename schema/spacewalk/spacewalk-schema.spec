@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.7.32
+Version:        1.7.33
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -66,6 +66,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Thu Feb 16 2012 Jan Pazdziora 1.7.33-1
+- Need to re-create the view.
+
 * Thu Feb 16 2012 Jan Pazdziora 1.7.32-1
 - Both oracle/views/views.deps and postgres/views/views.deps are noops by now,
   removing.
