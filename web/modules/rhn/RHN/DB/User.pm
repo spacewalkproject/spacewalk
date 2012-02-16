@@ -574,26 +574,6 @@ sub selection_details {
   return @ret;
 }
 
-sub clear_selections {
-  my $self = shift;
-  my @sets_to_skip = @_;
-
-  my $to_skip = join(',', map { "'" . $_ . "'" } @sets_to_skip);
-
-  my $dbh = RHN::DB->connect;
-  my $sth;
-
-  if ($to_skip eq '') {
-    $sth = $dbh->prepare("DELETE FROM rhnSet WHERE user_id = ?");
-  }
-  else {
-    $sth = $dbh->prepare("DELETE FROM rhnSet WHERE user_id = ? AND label NOT IN ($to_skip)");
-  }
-  $sth->execute($self->id);
-
-  $dbh->commit;
-}
-
 sub verify_probe_access {
   my $self = shift;
   my @probe_ids = @_;
