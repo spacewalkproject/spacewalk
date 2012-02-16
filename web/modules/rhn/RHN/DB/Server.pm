@@ -1899,7 +1899,6 @@ sub update_cache_for_server {
   my $class = shift;
   my $dbh = shift;
   my $server = shift;
-  my $package_name_ids = shift || [];
 
   my $p_old_query = <<EOS;
 select snpc.server_id, snpc.org_id, snpc.errata_id, snpc.package_id
@@ -1909,9 +1908,6 @@ select snpc.server_id, snpc.org_id, snpc.errata_id, snpc.package_id
     and p.id = package_id
 EOS
 
-  $p_old_query .= " and P.name_id IN (" . join(", ", @$package_name_ids) . ")"
-    if @$package_name_ids;
-
   my $p_old_sth = $dbh->prepare($p_old_query);
 
   my $e_old_sth = $dbh->prepare(<<EOS);
@@ -1919,8 +1915,6 @@ select server_id, org_id, errata_id from rhnServerNeededErrataCache where server
 EOS
 
   my $p_new_query = "select server_id, org_id, errata_id, package_id from rhnServerNeededPackageView where server_id = :server_id";
-  $p_new_query .= " and name_id IN (" . join(", ", @$package_name_ids) . ")"
-    if @$package_name_ids;
 
   my $p_new_sth = $dbh->prepare($p_new_query);
 
