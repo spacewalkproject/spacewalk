@@ -183,8 +183,6 @@ sub rhn_login_form {
     }
   }
 
-  $body =~ s(\[login_form_hidden\])(<input type="hidden" name="pxt_trap" value="rhn:login_cb" />\n<input type="hidden" name="cookie_test" value="1" />\n$hidden)gmsi;
-
   $pxt->session->set('cookie_test' => 1);
 
   return $body;
