@@ -733,34 +733,4 @@ sub channel_entitlements {
   return $channels;
 }
 
-sub validate_cert {
-  my $self = shift;
-
-  my $dbh = RHN::DB->connect;
-  my $sth = $dbh->prepare(<<EOQ);
-SELECT MAX(SC.expires) as expires
-  FROM rhnSatelliteCert SC
- WHERE SC.label = 'rhn-satellite-cert'
-   AND version = (SELECT MAX(version) from rhnSatelliteCert
-                   WHERE label = 'rhn-satellite-cert')
- GROUP BY SC.label
-EOQ
-
-  $sth->execute_h();
-  my $data = $sth->fetchrow_hashref;
-
-  $sth->finish;
-
-  my $expDate = Date::Parse::str2time($data->{EXPIRES});
-  my $currDate = time();
-
-  if ($currDate < $expDate) {
-      return 1;
-  }
-  else {
-      return 0;
-  }
-}
-
-
 1;
