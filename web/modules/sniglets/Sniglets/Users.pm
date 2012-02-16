@@ -56,7 +56,6 @@ sub register_callbacks {
   my $class = shift;
   my $pxt = shift;
 
-  $pxt->register_callback('rhn:login_cb', \&rhn_login_cb);
   $pxt->register_callback('rhn:forgot_password_cb', \&forgot_password_cb);
   $pxt->register_callback('rhn:forgot_accounts_cb', \&forgot_accounts_cb);
 
@@ -266,70 +265,6 @@ sub forgot_accounts_cb {
 
   $letter->send;
 }
-
-sub rhn_login_cb {
-  my $pxt = shift;
-  my $username = $pxt->dirty_param('username');
-  my $password = $pxt->dirty_param('password');
-
-  if ($pxt->dirty_param('cookie_test') and not $pxt->session->get('cookie_test')) {
-#    warn "User does not have cookies enabled.";
-    $pxt->redirect('/errors/cookies.pxt');
-  }
-
-  # log them out
-  $pxt->clear_user;
-  $pxt->session->uid(undef);
-
-  if (not RHN::Org->validate_cert() ) {
-    warn "Certificate is expired.";
-    $pxt->redirect('/errors/cert-expired.pxt');
-  }
-
-  my $user = RHN::User->check_login($username, $password);
-  
-  if ($user) {
- 
-    #If user is disabled, don't log them in. Display error msg and return.
-    if ($user->is_disabled()) {
-      $pxt->push_message(local_alert => 'Account ' . $user->login . ' has been disabled.');
-      return;
-    }
-
-    $pxt->log_user_in($user, 'system_list');
-    $user->org->update_errata_cache(PXT::Config->get("errata_cache_compute_threshold"));
-
-    my $incomplete = $user->has_incomplete_info;
-
-    if ($incomplete and $incomplete eq 'details') {
-      $pxt->redirect('/rhn/account/UserDetails.do');
-    }
-    else {
-      if ($pxt->dirty_param('url_bounce')) {
-	my $url = $pxt->dirty_param('url_bounce');
-
-	if ($url =~ /\?/) {
-	  $url .= "&r=" . int rand(1000000);
-	}
-
-	$pxt->redirect($url);
-      }
-      else {
-        $pxt->redirect('/rhn/YourRhn.do');
-      }
-    }
-  }
-  else {
-    my $baduser = RHN::User->lookup(-username => $username);
-    if ($baduser and $baduser->is('org_applicant')) {
-      $pxt->push_message(local_alert => 'Your account has not yet been approved.  When it is, you will be notified via email.');
-      return;
-    }
-    $pxt->push_message(local_alert => 'Either the password or username is incorrect.');
-  }
-
-}
-
 
 sub user_prefs_edit_cb {
   my $pxt = shift;
