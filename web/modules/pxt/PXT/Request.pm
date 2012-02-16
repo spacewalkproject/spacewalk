@@ -499,23 +499,6 @@ sub clear_session {
   $self->session($session);
 }
 
-sub log_user_in {
-  my $self = shift;
-  my $user = shift;
-  my @sets_to_skip = @_;
-
-  PXT::Debug->log(2, sprintf("Logging in user: '%s'.",
-			     $user->id(),
-			    ));
-
-  $self->session->uid($user->id);
-  $self->cleanse_params();
-  $self->session->unset('last_nav_location');
-  $user->clear_selections(@sets_to_skip);
-  $user->mark_log_in;
-#  $user->org->join_rhn;
-}
-
 sub user {
   my $self = shift;
 
