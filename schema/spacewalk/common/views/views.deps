@@ -114,3 +114,4 @@ rhnVisServerGroupOverviewLite    :: rhnVisibleServerGroup rhnServerGroupMembers 
 rhnUserChannelFamilyPerms        :: rhnPrivateChannelFamily \
                                     rhnPublicChannelFamily web_contact
 rhnWebContactEnabled             :: web_contact rhnWebContactDisabled
+rhn_customer_monitoring          :: web_customer
