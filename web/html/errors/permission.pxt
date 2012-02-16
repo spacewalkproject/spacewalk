@@ -2,6 +2,7 @@
 <pxt-passthrough>
   <pxt-use class="Grail::Frame" />
   <pxt-use class="Sniglets::Users" />
+  <pxt-use class="Sniglets::Utils" />
 
   <grail-canvas-template base="/templates/c.pxt" mode="main_canvas">
 
@@ -28,7 +29,11 @@
 <rhn-require acl="not user_authenticated()">
 <h1>Please Sign In</h1>
 
-<pxt-include-late file="/network/components/login_form.pxi" url_passthrough="1" />
+<p>
+To sign in, click <a href="/">here</a>.
+</p>
+
+<rhn-redirect url="/" />
 
 </rhn-require>
 
