@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.7.30
+Version: 1.7.31
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -555,6 +555,22 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Feb 16 2012 Tomas Lestach <tlestach@redhat.com> 1.7.31-1
+- remove <isRequired> from xsd, as it is completelly ignored
+  (tlestach@redhat.com)
+- several tokens may by associated with one server (tlestach@redhat.com)
+- advisoryTypeLabels must be pre-filled, when there're form validation errors
+  on the errata/manage/Edit page (tlestach@redhat.com)
+- current value does not matter by checking RequiredIf (tlestach@redhat.com)
+- check date type only if attribute's requiredIf is fulfilled
+  (tlestach@redhat.com)
+- validate int attributes in the same way as long attributes
+  (tlestach@redhat.com)
+- 787223 - do not offer to display graph for probes without metrics
+  (tlestach@redhat.com)
+- correct column aliasing (mzazrivec@redhat.com)
+- use ansi outer join syntax (mzazrivec@redhat.com)
+
 * Wed Feb 15 2012 Jan Pazdziora 1.7.30-1
 - The noteCount attribute is not used anywhere, removing.
 - Removing unused imports.
