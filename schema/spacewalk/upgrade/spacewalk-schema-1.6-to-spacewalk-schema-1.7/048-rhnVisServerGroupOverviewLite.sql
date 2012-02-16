@@ -17,7 +17,8 @@
 --
 -- This is much more readable with tabsize as 4.  You've been warned ;)
 
-create or replace view
+drop view rhnVisServerGroupOverviewLite;
+create view
 rhnVisServerGroupOverviewLite as
 select	sg.org_id					as org_id,
 		case when exists (
