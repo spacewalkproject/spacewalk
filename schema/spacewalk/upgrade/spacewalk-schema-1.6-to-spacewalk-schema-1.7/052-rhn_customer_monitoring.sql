@@ -13,7 +13,8 @@
 -- in this software or its documentation. 
 --
 
-create or replace view rhn_customer_monitoring as
+drop view rhn_customer_monitoring;
+create view rhn_customer_monitoring as
 select	org.id			as recid,
 	org.name		as description,
 	1			as schedule_id,	--24 x 7
