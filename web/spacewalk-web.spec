@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 1.7.19
+Version: 1.7.20
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -254,6 +254,10 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Thu Feb 16 2012 Jan Pazdziora 1.7.20-1
+- The iso_path parameter is not used anywere, removing the verify_file_access
+  cleanser.
+
 * Thu Feb 16 2012 Jan Pazdziora 1.7.19-1
 - With update_errata_cache removed, update_cache_for_server is not called
   either, removing.
