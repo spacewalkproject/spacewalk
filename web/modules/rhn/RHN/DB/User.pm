@@ -17,7 +17,6 @@ use strict;
 
 package RHN::DB::User;
 
-use Authen::PAM;
 use Carp;
 use Date::Parse;
 use POSIX;
@@ -356,36 +355,6 @@ sub set_password {
 }
 
 # closures would be a pain; simply store it in a global
-
-our $global_pam_pw = undef;
-
-sub pam_conversation_func {
-  my @ret;
-
-  die "gruesome death: global_pam_pw is not defined in pam_conversation_func"
-    unless defined $global_pam_pw;
-
-  while(@_) {
-    my $msg_type = shift;
-    my $msg = shift;
-
-    if ($msg_type == Authen::PAM::PAM_ERROR_MSG()) {
-      warn "PAM error: $msg";
-    }
-
-    if ($msg_type == Authen::PAM::PAM_PROMPT_ECHO_ON() or
-	$msg_type == Authen::PAM::PAM_PROMPT_ECHO_OFF()) {
-      push @ret, Authen::PAM::PAM_SUCCESS(), $global_pam_pw;
-    }
-    else {
-      push @ret, Authen::PAM::PAM_SUCCESS(), "";
-    }
-  }
-
-  push @ret, Authen::PAM::PAM_SUCCESS();
-
-  return @ret;
-}
 
 sub org {
   my $self = shift;
