@@ -143,10 +143,10 @@ public class MigrationManager extends BaseManager {
             server.getConfigChannels().clear();
         }
 
-        // If the server has a reactivation key, remove it... It will not be valid once the
-        // server is in the new org.
-        Token token = TokenFactory.lookupByServer(server);
-        if (token != null) {
+        // If the server has a reactivation keys, remove them...
+        // They will not be valid once the server is in the new org.
+        List<Token> tokenList = TokenFactory.listByServer(server);
+        for (Token token : tokenList) {
             TokenFactory.removeToken(token);
         }
 

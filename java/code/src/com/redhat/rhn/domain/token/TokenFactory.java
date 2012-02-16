@@ -24,6 +24,9 @@ import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * TokenFactory
  * @version $Rev$
@@ -115,20 +118,20 @@ public class TokenFactory extends HibernateFactory {
      * @param server to lookup the Token for
      * @return Token if found.  Null if not
      */
-    public static Token lookupByServer(Server server) {
+    public static List<Token> listByServer(Server server) {
         if (server == null) {
-            return null;
+            return new ArrayList<Token>();
         }
 
         Session session = null;
         try {
             session = HibernateFactory.getSession();
-            return (Token) session.getNamedQuery("Token.findByServerAndOrg")
+            return session.getNamedQuery("Token.findByServerAndOrg")
                 .setEntity("server", server)
                 .setEntity("org", server.getOrg())
                 //Retrieve from cache if there
                 .setCacheable(true)
-                .uniqueResult();
+                .list();
         }
         catch (HibernateException e) {
             log.error("Hibernate exception: " + e.toString());

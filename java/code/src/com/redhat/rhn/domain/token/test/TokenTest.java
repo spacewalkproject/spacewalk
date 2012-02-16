@@ -70,7 +70,7 @@ public class TokenTest extends RhnBaseTestCase {
         Token t = createTestToken();
         Server s = t.getServer();
         flushAndEvict(t);
-        assertNotNull(TokenFactory.lookupByServer(s));
+        assertNotNull(TokenFactory.listByServer(s));
     }
 
     public void testRemoveToken() throws Exception {
