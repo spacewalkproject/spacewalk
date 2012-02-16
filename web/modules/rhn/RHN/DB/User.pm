@@ -1396,16 +1396,6 @@ sub last_logged_in {
   return $val;
 }
 
-sub mark_log_in {
-  my $self = shift;
-
-  delete $self->{__pref_cache__}->{last_logged_in};
-  my $dbh = RHN::DB->connect;
-  my $sth = $dbh->prepare("UPDATE rhnUserInfo SET last_logged_in = sysdate WHERE user_id = ?");
-  $sth->execute($self->id);
-  $dbh->commit;
-}
-
 sub get_pref {
   my $self = shift;
   my $pref = shift;
