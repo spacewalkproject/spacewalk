@@ -134,9 +134,9 @@ class WsgiMPtable:
 
     def items(self):
         list = []
-        for k,v in self.dict.items():
+        for k, v in self.dict.items():
             for vi in v:
-                list.append((k,vi))
+                list.append((k, vi))
         return list
 
     def has_key(self, key):
