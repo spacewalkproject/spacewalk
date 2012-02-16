@@ -18,10 +18,6 @@ path = . tables procs packages
 rhn_customer_monitoring          :: web_customer
 rhnOrgChannelFamilyPermissions   :: rhnPublicChannelFamily web_contact \
                                     rhnPrivateChannelFamily
-rhnServerNeededPackageView       :: rhnPackage rhnPackageEVR rhnErrataPackage \
-                                    rhnServerPackage rhnServerPackageArchCompat \
-                                    rhnChannelPackage rhnServerChannel \
-                                    rhnServer rhnChannelErrata
 rhnUserChannelFamilyPerms        :: rhnPrivateChannelFamily \
                                     rhnPublicChannelFamily web_contact
 rhnWebContactEnabled             :: rhnWebContactDisabled

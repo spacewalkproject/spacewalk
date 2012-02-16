@@ -103,7 +103,7 @@ new_user_postop                 :: web_contact rhnUserGroupType rhnUserGroup \
                                    rhnUserGroupMembers
 pxt_session_cleanup             :: PXTSessions
 queue_server                    :: rhnServerNeededPackageCache rhnTaskQueue \
-                                   rhnServerNeededPackageView rhnServer \
+                                   rhnServer \
                                    rhnServerNeededErrataCache rhnServerNeededView
 
 rhn_install_org_satellites      :: rhn_command_queue_instances rhn_ll_netsaint \
