@@ -16,7 +16,7 @@
 
 from wsgi import wsgiRequest
 
-def handle(environ, start_response, server, component_type, type="spacewalk.server.apacheServer"):
+def handle(environ, start_response, server, component_type, servertype="spacewalk.server.apacheServer"):
     #wsgi seems to capitalize incoming headers and add HTTP- to the front :/
     # so we strip out the first 5 letters, and transform it into what we want.
     replacements = {'_':'-', 'Rhn':'RHN', 'Md5Sum':'MD5sum', 'Xml':'XML', 'Actualuri': 'ActualURI'}
@@ -33,7 +33,7 @@ def handle(environ, start_response, server, component_type, type="spacewalk.serv
     req.set_option("SERVER", server)
     req.set_option("RHNComponentType", component_type)
 
-    parseServ = get_handle(type, "HeaderParserHandler", init=1)
+    parseServ = get_handle(servertype, "HeaderParserHandler", init=1)
     ret = parseServ(req)
 
     if len(req.output) > 0:
@@ -41,7 +41,7 @@ def handle(environ, start_response, server, component_type, type="spacewalk.serv
             req.send_http_header(status=ret)
         return req.output
 
-    appServ = get_handle(type, "Handler")
+    appServ = get_handle(servertype, "Handler")
     ret = appServ(req)
 
     if not ret:
@@ -51,15 +51,15 @@ def handle(environ, start_response, server, component_type, type="spacewalk.serv
         req.send_http_header(status=ret)
 
     #exporter doesn't have a logHandler
-    if type != 'spacewalk.satellite_exporter.satexport':
-        logServ = get_handle(type, "LogHandler")
+    if servertype != 'spacewalk.satellite_exporter.satexport':
+        logServ = get_handle(servertype, "LogHandler")
         logServ(req)
-    cleanServ = get_handle(type, "CleanupHandler")
+    cleanServ = get_handle(servertype, "CleanupHandler")
     cleanServ(req)
 
     return req.output
 
-def get_handle(type, name, init=0):
-    handler_module = __import__(type, globals(), locals(), [type.split('.')[-1]])
+def get_handle(servertype, name, init=0):
+    handler_module = __import__(servertype, globals(), locals(), [servertype.split('.')[-1]])
     return getattr(handler_module, name)
 
