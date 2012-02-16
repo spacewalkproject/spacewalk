@@ -29,7 +29,6 @@ use PXT::Config ();
 use PXT::Debug ();
 use RHN::DB::Server ();
 
-use Date::Parse;
 use Params::Validate qw/:all/;
 Params::Validate::validation_options(strip_leading => "-");
 
