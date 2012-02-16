@@ -33,7 +33,7 @@ def handle(environ, start_response, server, component_type, servertype="spacewal
     req.set_option("SERVER", server)
     req.set_option("RHNComponentType", component_type)
 
-    parseServ = get_handle(servertype, "HeaderParserHandler", init=1)
+    parseServ = get_handle(servertype, "HeaderParserHandler")
     ret = parseServ(req)
 
     if len(req.output) > 0:
@@ -59,7 +59,7 @@ def handle(environ, start_response, server, component_type, servertype="spacewal
 
     return req.output
 
-def get_handle(servertype, name, init=0):
+def get_handle(servertype, name):
     handler_module = __import__(servertype, globals(), locals(), [servertype.split('.')[-1]])
     return getattr(handler_module, name)
 
