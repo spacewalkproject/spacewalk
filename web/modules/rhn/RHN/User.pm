@@ -38,16 +38,4 @@ sub lookup {
   }
 }
 
-sub check_login {
-  my $class = shift;
-  my $username = shift;
-  my $password = shift;
-
-  my $user = RHN::User->lookup(-username => $username);
-
-  return $user if $user and $user->validate_password($password);
-
-  return undef;
-}
-
 1;
