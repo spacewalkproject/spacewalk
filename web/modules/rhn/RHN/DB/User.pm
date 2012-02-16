@@ -355,24 +355,6 @@ sub set_password {
   }
 }
 
-sub validate_password {
-  my $self = shift;
-  my $pw = shift;
-
-  # first; pam and user has pam enabled?
-  if (PXT::Config->get('pam_auth_service') and $self->get_pref('use_pam_authentication') eq 'Y') {
-    return $self->validate_password_pam($pw);
-  }
-
-  # no pam, okay, auth against the db, encrypted or otherwise
-  if (PXT::Config->get('encrypted_passwords')) {
-    return crypt($pw, $self->password) eq $self->password;
-  }
-  else {
-    return $pw eq $self->password;
-  }
-}
-
 # closures would be a pain; simply store it in a global
 
 our $global_pam_pw = undef;
@@ -403,28 +385,6 @@ sub pam_conversation_func {
   push @ret, Authen::PAM::PAM_SUCCESS();
 
   return @ret;
-}
-
-sub validate_password_pam {
-  my $self = shift;
-  my $pw = shift;
-
-  $global_pam_pw = undef;
-  local $global_pam_pw = $pw;
-
-  my $service = PXT::Config->get('pam_auth_service');
-  my $pam = new Authen::PAM($service, $self->login, \&pam_conversation_func);
-
-  my $ret = $pam->pam_authenticate;
-
-  if ($ret != Authen::PAM::PAM_SUCCESS) {
-    warn "PAM auth failure: " . $pam->pam_strerror($ret);
-    return 0;
-  }
-  else {
-    return 1;
-  }
-
 }
 
 sub org {
