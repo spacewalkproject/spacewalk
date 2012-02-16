@@ -173,7 +173,7 @@ public class SchemaParser {
 
         Element child;
 
-        if (schemaType.equals("long")) {
+        if (schemaType.equals("long") || schemaType.equals("int")) {
             NumericConstraint nc = new NumericConstraint(name);
             nc.setOptional(parseOptional(simpleType));
 
