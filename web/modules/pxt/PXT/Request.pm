@@ -486,12 +486,6 @@ sub session {
   return $self->{session};
 }
 
-sub clear_user {
-  my $self = shift;
-
-  delete $self->{__user__};
-}
-
 sub clear_session {
   my $self = shift;
 
