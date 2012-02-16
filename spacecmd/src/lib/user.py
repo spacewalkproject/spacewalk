@@ -85,11 +85,18 @@ def do_user_create(self, args):
             logging.error('An email address is required')
             return
 
-        if not options.password:
+        if not options.password and not options.pam:
             logging.error('A password is required')
             return
 
-        if not options.pam:
+        if options.pam:
+            options.pam = 1
+            # API requires a non-None password even though it's not used
+            # when PAM is enabled
+            if options.password:
+                logging.warning("Note password field is ignored for PAM mode")
+            options.password=""
+        else:
             options.pam = 0
 
     self.client.user.create(self.session,
