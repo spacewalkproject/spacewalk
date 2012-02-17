@@ -40,6 +40,7 @@
   <!-- END IVY Properties -->
   <property name="rhn.war" value="${build.dir}/webapp/rhnjava.war"/>
   <property name="megajar.jar" value="${run.lib.dir}/rhn.jar" />
+  <property name="testjar.jar" value="${run.lib.dir}/rhn-test.jar" />
 
   <property name="build.rhn.conf" value="${basedir}/conf/rhn/rhn.conf"/>
   <property name="build.webapp.conf" value="${basedir}/conf/httpd/webapp.conf"/>
@@ -61,16 +62,22 @@
       value="bcel cglib commons-beanutils commons-cli commons-codec
              commons-collections commons-digester commons-discovery
              commons-el commons-fileupload commons-io commons-lang commons-logging commons-validator hibernate3
-             mailapi smtp jdom jpam 
+             mailapi smtp jdom jpam  jmock jmock-cglib
              log4j oro redstone-xmlrpc-client redstone-xmlrpc ${struts-jars} ${tomcat-jars}
              bcprov bcpg jcommon stringtree-json postgresql-jdbc
              ${jfreechart} taglibs-core logdriver quartz dwr slf4j-api slf4j-log4j12
-             concurrent velocity simple-core" />
+             concurrent velocity simple-core  mockobjects mockobjects-core mockobjects-jdk1.4-j2ee1.3 strutstest" />
+
+  <!-- deps needed for testing, but required to build -->
+  <property name="test.build.jar.dependencies"
+      value="junit
+             log4j
+             regexp jmock jmock-cglib gsbase postgresql-jdbc" />
 
   <property name="test.jar.dependencies"
       value="antlr checkstyle dom4j emma emma_ant jdom jta junit
-             log4j mockobjects mockobjects-core mockobjects-jdk1.4-j2ee1.3
-             regexp tyrex jmock jmock-cglib strutstest gsbase ${jfreechart} jmap
+             log4j 
+             regexp jmock jmock-cglib gsbase ${jfreechart}
              postgresql-jdbc" />
 
   <condition property="ant-contrib.path" value="ant/ant-contrib" else="ant-contrib">
@@ -78,7 +85,7 @@
   </condition>
 
   <property name="build.jar.dependencies"
-      value="ant ant-junit ${ant-contrib.path} antlr
+      value="ant ant-junit ${ant-contrib.path} antlr  ${test.build.jar.dependenciess}
       ${common.jar.dependencies} tanukiwrapper ${tomcat-jars} ${jasper-jars}
        concurrent xalan-j2" />
 
@@ -91,10 +98,10 @@
   <!-- property name="install.test.jar.dependencies"
       value="antlr checkstyle dom4j emma emma_ant jdom jta junit
              log4j mockobjects mockobjects-core mockobjects-jdk1.4-j2ee1.3
-             regexp tyrex jmock jmock-cglib strutstest gsbase" / -->
+             regexp jmock jmock-cglib strutstest gsbase" / -->
 
   <property name="install.build.jar.dependencies"
-      value="ant ant/ant-junit ${ant-contrib.path} antlr ${jasper-jars}
+      value="ant ant/ant-junit ${ant-contrib.path} antlr ${jasper-jars} ${test.build.jar.dependencies}
       ${install.common.jar.dependencies} tanukiwrapper" />
 
   <property name="install.run.jar.dependencies"
@@ -103,7 +110,7 @@
              xml-commons-apis ${install.common.jar.dependencies}" />
 
   <property name="install.common.jar.dependencies"
-      value="bcel cglib commons-beanutils commons-cli commons-codec
+      value="bcel cglib commons-beanutils commons-cli commons-codec 
              commons-collections commons-digester commons-discovery
              commons-el commons-fileupload commons-io commons-lang commons-logging commons-validator hibernate3
              ${tomcat-jars} javamail jdom jpam

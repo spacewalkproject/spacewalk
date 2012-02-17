@@ -1,0 +1,82 @@
+<!-- ant build file for running unit tests on a live satellite/spacewalk server-->
+
+<project name="RHN" default="all" basedir=".">
+
+<property name="reports.tests" location="/tmp/reports" />
+<property name="test-jar" location="/usr/share/rhn/lib/rhn-test.jar"/>
+
+<property name="tmpdir" value="${java.io.tmpdir}/spacewalk-test" />
+
+
+<condition property="tomcat5.exists">
+  <available file="/var/lib/tomcat5/" type="dir" />
+</condition>
+<condition property="tomcat6.exists">
+  <available file="/var/lib/tomcat6/" type="dir" />
+</condition>
+
+
+
+<target name="tomcat5-path" if="${tomcat5-exists}">
+  <path id="class.path" >
+    <fileset dir="/var/lib/tomcat5/">
+      <include name="webapps/rhn/WEB-INF/lib/*.jar" />
+    </fileset>
+
+     <fileset dir="/var/lib/tomcat5/">
+        <include name="webapps/rhn/WEB-INF/lib/*.jar" />
+        <include name="common/lib/*.jar" />
+        <include name="server/lib/*.jar" />
+      </fileset>
+
+      <pathelement location="${test-jar}" />
+  </path>
+</target>
+
+<target name="tomcat6-path" if="${tomcat6-exists}">
+  <path id="class.path" >
+
+    <fileset dir="/var/lib/tomcat6/">
+      <include name="webapps/rhn/WEB-INF/lib/*.jar" />
+    </fileset>
+
+    <fileset dir="/usr/share/tomcat6/">
+      <include name="lib/*.jar" />
+    </fileset>
+  
+    <pathelement location="${test-jar}" />
+  </path>
+</target>
+
+
+
+<target name="all" depends="test" />
+
+<target name="test" >
+
+    <antcall target="tomcat5-path" />
+    <antcall target="tomcat6-path" />
+
+    <delete dir="${reports.tests}" />
+    <mkdir dir="${reports.tests}"/>
+    <mkdir dir="${tmpdir}"/>
+    <unzip src="${test-jar}" dest="${tmpdir}" />
+
+    <junit forkmode="once" fork="yes" printsummary="yes" haltonfailure="no">
+      <classpath refid="class.path" />
+      <formatter type="plain"/>
+      <formatter type="xml"/>
+
+      <batchtest fork="yes" todir="${reports.tests}">
+        <fileset dir="${tmpdir}">
+          <include name="**/*Test*.class"/>
+        </fileset>
+      </batchtest>
+
+    </junit>
+
+    <delete dir="${tmpdir}" /> 
+
+</target>
+
+</project>
