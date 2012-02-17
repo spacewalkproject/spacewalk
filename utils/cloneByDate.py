@@ -72,7 +72,8 @@ def validate(channel_labels):
 
     cmd = ["repoclosure"]
     for label, path in tmp_dirs.items():
-        cmd.append("--repofrompath=%s,%s" %(label, path))        
+        cmd.append("--repofrompath=%s,%s" %(label, path))
+        cmd.append("--repoid=%s" % (label)) 
     subprocess.call(cmd)
             
     for tmp in tmp_dirs.values():
