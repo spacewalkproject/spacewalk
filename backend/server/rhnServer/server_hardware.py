@@ -271,6 +271,8 @@ class Device(GenericDevice):
                             dict, mapping)
         # make sure we have a platform       
         for k in dict.keys():                        
+            if dict[k] == '':
+                dict[k] = None
             if self.data.has_key(k):
                 self.data[k] = dict[k]
                 continue
