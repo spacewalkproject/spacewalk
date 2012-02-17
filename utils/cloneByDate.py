@@ -151,7 +151,7 @@ def main(options):
         print ", ".join(needed_channels)
         confirm("\nContinue with channel creation (y/n)?", options)
         for cloner in cloners:
-            cloner.create_channels()
+            cloner.create_channels(options.skip_depsolve)
         
     for tree_cloner in cloners:
         tree_cloner.prepare()
@@ -170,7 +170,7 @@ def main(options):
 
     confirm("\nContinue with clone (y/n)?", options)
     for cloner in cloners:
-        cloner.clone()        
+        cloner.clone(options.skip_depsolve)        
         cloner.remove_packages()
     
 
@@ -181,7 +181,8 @@ class ChannelTreeCloner:
         a.prepare()
         a.clone()
          """
-    def __init__(self, channels, remote_api, db_api, to_date, blacklist, removelist):
+    def __init__(self, channels, remote_api, db_api, to_date, blacklist, 
+                                            removelist):
         self.remote_api = remote_api
         self.db_api = db_api
         self.channel_map = channels
@@ -191,7 +192,7 @@ class ChannelTreeCloner:
         self.removelist = removelist
         self.dest_parent = None
         self.src_parent = None
-        self.channel_details = None
+        self.channel_details = None        
         
         self.validate_source_channels()        
         for from_label in self.ordered_labels():
@@ -224,7 +225,7 @@ class ChannelTreeCloner:
             if cloner.src_label() == src_label:
                 return cloner
     
-    def create_channels(self):
+    def create_channels(self, skip_depsolve=False):
         to_create = self.needing_create()
                 
         if len(to_create) == 0:
@@ -248,7 +249,8 @@ class ChannelTreeCloner:
                            cloner.reset_new_pkgs().values()]
                         
         #dep solve all added packages with the parent channel
-        self.dep_solve(nvreas, labels=(to_create.keys() + [self.src_parent]))
+        if not skip_depsolve:
+            self.dep_solve(nvreas, labels=(to_create.keys() + [self.src_parent]))
         
                 
     def validate_source_channels(self):
@@ -296,7 +298,7 @@ class ChannelTreeCloner:
         for cloner in self.cloners:
             cloner.pre_summary()
 
-    def clone(self):
+    def clone(self, skip_depsolve=False):
         added_pkgs = []
         for cloner in self.cloners:            
             cloner.process()
@@ -305,7 +307,7 @@ class ChannelTreeCloner:
             log_clean(0, "")
             log_clean(0, "%i packages were added to %s as a result of clone:" % (len(pkg_diff), cloner.dest_label()))
             log_clean(0, "\n".join([pkg['nvrea'] for pkg in pkg_diff]))  
-        if len(added_pkgs) > 0:          
+        if len(added_pkgs) > 0 and not skip_depsolve:          
             self.dep_solve([pkg['nvrea'] for pkg in added_pkgs])
             
 

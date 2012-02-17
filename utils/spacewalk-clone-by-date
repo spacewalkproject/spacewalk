@@ -39,6 +39,7 @@ SAMPLE_CONFIG = """
  "password":"redhat",
  "assumeyes":true,
  "to_date": "2011-10-01",
+ "skip_depsolve":false,
  "blacklist": {
                  "ALL":["sendmail"],
                  "my-rhel5-x86_64-clone":["emacs"],
@@ -79,7 +80,7 @@ def merge_config(options):
     #if soemthing is in the config and not passed in as an argument
     #   add it to options
     overwrite = ["username", "password", "blacklist", "removelist", "channels", 
-                 "server", "assumeyes", "to_date"]
+                 "server", "assumeyes", "to_date", "skip_depsolve"]
     for key in overwrite:
         if config.has_key(key) and not getattr(options, key):
             setattr(options, key, config[key])
@@ -130,6 +131,7 @@ def parse_args():
     parser.add_option("-d", "--to_date", dest="to_date", help="Clone errata to the specified date (YYYY-MM-DD)")
     parser.add_option("-y", "--assumeyes", dest='assumeyes', action='store_true', help="Assume yes for any prompts (unattended).")
     parser.add_option("-m", "--sample-config", dest='sample', action='store_true', help="Print a sample full configuration file and exit.")
+    parser.add_option("-k", "--skip_depsolve", dest='skip_depsolve', action='store_true', help="Skip all dependency solving (Not recommended).")
     parser.add_option("-v", "--validate", dest='validate', action='store_true', help="Run repoclosure on the set of specified repositories.")
         
     (options, args) = parser.parse_args()    
