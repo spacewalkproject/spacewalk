@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.7.32
+Version: 1.7.33
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -576,6 +576,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Feb 16 2012 Justin Sherrill <jsherril@redhat.com> 1.7.33-1
+- adding jmock and gsbase as build requires (jsherril@redhat.com)
+
 * Thu Feb 16 2012 Justin Sherrill <jsherril@redhat.com> 1.7.32-1
 - moving strutstest to tempjars (jsherril@redhat.com)
 - adding mockobjects to tempjars (jsherril@redhat.com)
