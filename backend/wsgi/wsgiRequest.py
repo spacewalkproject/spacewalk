@@ -50,7 +50,7 @@ class WsgiRequest:
         return self.options
 
     def get_config(self):
-        return ""  #FIXME
+        return repr(self.__dict__)
 
     def write(self, msg):
         self.output.append(msg)
