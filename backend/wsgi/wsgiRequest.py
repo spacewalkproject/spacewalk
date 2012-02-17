@@ -92,11 +92,13 @@ class WsgiRequest:
 
 
 class WsgiServer:
+    # pylint: disable=R0903
     def __init__(self, hostname, port):
         self.server_hostname = hostname
         self.port = int(port)
 
 class WsgiConnection:
+    # pylint: disable=R0903
     def __init__(self, env):
         self.remote_ip = env['REMOTE_ADDR']
         self.local_addr = (env['SERVER_NAME'], env['SERVER_PORT'])
