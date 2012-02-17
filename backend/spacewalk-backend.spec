@@ -308,7 +308,8 @@ make -f Makefile.backend PYTHONPATH=$RPM_BUILD_ROOT/%{python_sitelib} test || :
 %if 0%{?fedora} > 15 || 0%{?rhel} > 5
 # check coding style
 export PYTHONPATH=$RPM_BUILD_ROOT/%{python_sitelib}:/usr/lib/rhn
-spacewalk-pylint $RPM_BUILD_ROOT%{pythonrhnroot}/common
+spacewalk-pylint $RPM_BUILD_ROOT%{pythonrhnroot}/common \
+                 $RPM_BUILD_ROOT%{pythonrhnroot}/wsgi
 %endif
 
 %pre server
