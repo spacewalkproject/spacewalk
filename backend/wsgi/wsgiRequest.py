@@ -78,7 +78,7 @@ class WsgiRequest:
         self.start_response(self.status, self.headers_out.items())
         return
 
-    def get_remote_host(self, rev=""):
+    def get_remote_host(self, _rev=""):
         host = self.headers_in['REMOTE_ADDR']
         try:
             host = socket.gethostbyaddr(host)[0]
