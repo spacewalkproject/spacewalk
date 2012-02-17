@@ -21,6 +21,7 @@ import httplib
 
 
 class WsgiRequest:
+    # pylint: disable=R0902
 
     def __init__(self, env, start_response):
         self.method = env['REQUEST_METHOD']
