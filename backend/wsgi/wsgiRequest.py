@@ -83,6 +83,7 @@ class WsgiRequest:
         try:
             host = socket.gethostbyaddr(host)[0]
         except:
+            # pylint: disable=W0702
             pass
         return host
 
