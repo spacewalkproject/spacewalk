@@ -100,8 +100,8 @@ BuildRequires: tanukiwrapper
 Requires: classpathx-mail
 BuildRequires: classpathx-mail
 BuildRequires: checkstyle
-BuildRequires  gsbase
-BuildRequires  jmock
+BuildRequires:  gsbase
+BuildRequires:  jmock
 
 # Sadly I need these to symlink the jars properly.
 BuildRequires: asm
