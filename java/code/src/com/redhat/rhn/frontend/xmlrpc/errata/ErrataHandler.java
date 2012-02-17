@@ -925,14 +925,19 @@ public class ErrataHandler extends BaseHandler {
 
         //For each errata look up existing clones, or manually clone it
         for (Errata toClone : errataToClone) {
-            List<Errata> clones = ErrataManager.lookupPublishedByOriginal(
-                    loggedInUser, toClone);
-            if (clones.isEmpty()) {
-                errataToPublish.add(PublishErrataHelper.cloneErrataFast(toClone,
-                        loggedInUser.getOrg()));
+            if (toClone.isCloned()){
+                errataToPublish.add(toClone);
             }
             else {
-                errataToPublish.add(clones.get(0));
+                List<Errata> clones = ErrataManager.lookupPublishedByOriginal(
+                        loggedInUser, toClone);
+                if (clones.isEmpty()) {
+                    errataToPublish.add(PublishErrataHelper.cloneErrataFast(toClone,
+                            loggedInUser.getOrg()));
+                }
+                else {
+                    errataToPublish.add(clones.get(0));
+                }
             }
         }
 
