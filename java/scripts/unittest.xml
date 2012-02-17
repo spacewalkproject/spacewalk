@@ -36,7 +36,7 @@
 <target name="tomcat6-path" if="${tomcat6-exists}">
   <path id="class.path" >
 
-    <fileset dir="/var/lib/tomcat5/">
+    <fileset dir="/var/lib/tomcat6/">
       <include name="webapps/rhn/WEB-INF/lib/*.jar" />
     </fileset>
 
