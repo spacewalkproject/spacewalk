@@ -4,7 +4,7 @@
 %endif
 
 Name:        spacecmd
-Version:     1.7.4
+Version:     1.7.5
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -61,6 +61,24 @@ touch %{buildroot}/%{python_sitelib}/spacecmd/__init__.py
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Sun Feb 19 2012 Steven Hardy <shardy@redhat.com> 1.7.5-1
+- spacecmd bugfix : bz766887 - user_create fix broken --pam option
+  (shardy@redhat.com)
+- spacecmd bugfix: recover when partial cache files occur (shardy@redhat.com)
+- spacecmd enhancement : softwarechannel_adderratabydate add publish option
+  (shardy@redhat.com)
+- spacecmd : Add usage help on date format for softwarechannel_adderratabydate
+  (shardy@redhat.com)
+- spacecmd enhancement : Add softwarechanel_listerratabydate command
+  (shardy@redhat.com)
+- spacecmd : Add warning to kickstart_import if JSON filename is passed
+  (shardy@redhat.com)
+- spacecmd enhancement: Add kickstart_importjson (shardy@redhat.com)
+- spacecmd enhancement: Add kickstart_export command (shardy@redhat.com)
+- spacecmd enhancement: Add system_comparewithchannel command
+  (shardy@redhat.com)
+- spacecmd bugfix: Don't display password in debug mode (shardy@redhat.com)
+
 * Tue Feb 14 2012 Aron Parsons <aronparsons@gmail.com> 1.7.4-1
 - spacecmd: handle server connection failures more gracefully
   (aronparsons@gmail.com)
