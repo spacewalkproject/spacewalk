@@ -52,16 +52,6 @@ class UploadClass(uploadLib.UploadClass):
         self.setRelativeDir()
         # Set the count
         self.setCount()
-        # set the org
-        #self.setOrg()
-        # set the URL
-        #self.setURL()
-        # set the channels
-        #self.setNoChannels()
-        # set the username and password
-        #self.setUsernamePassword()
-        # set the server
-        #self.setServer()
         
         for filename in self.files:
             fileinfo = self._processFile(filename,
