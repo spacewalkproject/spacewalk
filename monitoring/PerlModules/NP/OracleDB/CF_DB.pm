@@ -141,7 +141,7 @@ sub CQ_Instances {
   my $orderby       = shift || [];
 
   my $table  = "RHN_COMMAND_QUEUE_INSTANCES";
-  my $idseq  = "COMMAND_Q_INSTANCE_RECID_SEQ.NEXTVAL";
+  my $idseq  = "rhn_command_q_inst_recid_seq.NEXTVAL";
   my $keycol = 'RECID';
   my @cols   = qw(RECID            COMMAND_ID          NOTES            
                   EXPIRATION_DATE  NOTIFY_EMAIL        TIMEOUT
