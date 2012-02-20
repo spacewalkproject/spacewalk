@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 1.7.21
+Version: 1.7.22
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -254,6 +254,10 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Mon Feb 20 2012 Miroslav Suchý 1.7.22-1
+- call procedure compatible way (Pg) (msuchy@redhat.com)
+- check if error is RHN::Exception (msuchy@redhat.com)
+
 * Mon Feb 20 2012 Michael Mraka <michael.mraka@redhat.com> 1.7.21-1
 - fixed list of patches in solaris package
 
