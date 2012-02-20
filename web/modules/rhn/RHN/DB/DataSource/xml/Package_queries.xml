@@ -1874,7 +1874,7 @@ ORDER BY 10, 11, 12
   <query params="pid">
 SELECT PATCH.id,
        PATCH.summary,
-       PATCH_N.name || '-' || PATCH_E.evr.as_vre_simple() AS NVRE
+       PATCH_N.name || '-' || evr_t_as_vre_simple(PATCH_E.evr) AS NVRE
   FROM rhnPackageEVR PATCH_E,
        rhnPackageName PATCH_N,
        rhnPackage PATCH,
@@ -1888,7 +1888,7 @@ SELECT PATCH.id,
    AND PATCH.id = SPP.patch_id
    AND PATCH_N.id = PATCH.name_id
    AND PATCH_E.id = PATCH.evr_id
-ORDER BY PATCH_N.name, PATCH_E.evr.as_vre_simple()
+ORDER BY PATCH_N.name, evr_t_as_vre_simple(PATCH_E.evr)
   </query>
   <elaborator multiple="t">
 SELECT SPSM.patch_id AS ID,
