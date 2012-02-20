@@ -101,7 +101,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     <sql-query name="Org.numOfActiveUsers">
         <return-scalar type="long" column="users"/>
         SELECT count(u.id) as users
-        FROM   rhnUser u
+        FROM   web_contact u
         WHERE  1=1
         AND    u.org_id = :org_id
     </sql-query>

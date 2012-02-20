@@ -10,7 +10,7 @@ SELECT SA.action_id AS ID,
   FROM rhnActionType AType,
        rhnActionStatus AStat,
        rhnAction A
-  LEFT JOIN rhnUser U
+  LEFT JOIN web_contact U
     ON A.scheduler = U.id,
        rhnServerAction SA,
        rhnSet ST
@@ -58,7 +58,7 @@ SELECT EVENT_ID,
           FROM rhnActionType AType,
                rhnActionStatus AStat,
                rhnAction A
-     LEFT JOIN rhnUser U
+     LEFT JOIN web_contact U
             ON U.id = A.scheduler,
                rhnServerAction SA
          WHERE SA.server_id = :sid
@@ -83,7 +83,7 @@ SELECT SA.action_id AS ID,
           FROM rhnActionType AType,
                rhnActionStatus AStat,
                rhnAction A LEFT OUTER JOIN
-               rhnUser U
+               web_contact U
             ON U.id = A.scheduler,
                rhnServerAction SA
          WHERE SA.server_id = :sid
@@ -113,7 +113,7 @@ SELECT EVENT_ID, TO_CHAR(CREATED, 'YYYY-MM-DD HH24:MI:SS') CREATED, SUMMARY
           FROM rhnActionType AType,
                rhnActionStatus AStat,
                rhnAction A
-          LEFT JOIN rhnUser U
+          LEFT JOIN web_contact U
 	    ON U.id = A.scheduler,
                rhnServerAction SA
          WHERE SA.server_id = :support_sid

@@ -35,7 +35,7 @@ SELECT EVENT_ID as ID,
           FROM rhnActionType AType,
                rhnActionStatus AStat,
                rhnAction A
-          LEFT JOIN rhnUser U
+          LEFT JOIN web_contact U
             ON A.scheduler = U.id,
                rhnServerAction SA
          WHERE SA.server_id = :sid
