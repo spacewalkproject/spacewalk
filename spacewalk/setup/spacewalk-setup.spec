@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        1.7.4
+Version:        1.7.5
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -106,6 +106,9 @@ rm -rf %{buildroot}
 %{_mandir}/man8/spacewalk-make-mount-points*
 
 %changelog
+* Mon Feb 20 2012 Jan Pazdziora 1.7.5-1
+- Add stopping of Spacewalk services to postgresql_clear_db as well.
+
 * Tue Feb 14 2012 Tomas Lestach <tlestach@redhat.com> 1.7.4-1
 - rename rhn-installation.log to rhn_installation.log (tlestach@redhat.com)
 
