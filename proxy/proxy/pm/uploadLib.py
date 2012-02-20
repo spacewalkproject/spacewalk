@@ -54,7 +54,7 @@ class UploadClass(uploadLib.UploadClass):
         return uploadLib.call(self.server.packages.uploadSourcePackageInfo,
                               self.username, self.password, info)
 
-    def _uploadPackageInfo(self):
+    def _uploadPackageInfo(self, info):
         return uploadLib.call(self.server.packages.uploadPackageInfo,
                               self.username, self.password, info)
 
