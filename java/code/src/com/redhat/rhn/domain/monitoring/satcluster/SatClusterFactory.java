@@ -22,8 +22,10 @@ import org.apache.commons.lang.RandomStringUtils;
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
 
+import java.net.Inet4Address;
 import java.net.InetAddress;
-import java.net.UnknownHostException;
+import java.net.InterfaceAddress;
+import java.net.NetworkInterface;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -104,18 +106,29 @@ public class SatClusterFactory extends HibernateFactory {
         retval.setLastUpdateUser(user.getLogin());
         retval.setLastUpdateDate(new Date());
         try {
-            InetAddress localAddress = InetAddress.getLocalHost();
-            byte[] ip = localAddress.getAddress();
-            StringBuffer ipbuff = new StringBuffer();
-            for (int i = 0; i < ip.length; i++) {
-                ipbuff.append(ip[i] & 0xFF);
-                if (i < ip.length - 1) {
-                    ipbuff.append(".");
+            InetAddress ip = InetAddress.getLocalHost();
+            boolean haveIpv4 = ip instanceof Inet4Address;
+            if (haveIpv4) {
+                retval.setVip(ip.getHostAddress());
+            }
+            else {
+                retval.setVip6(ip.getHostAddress());
+            }
+            NetworkInterface ni = NetworkInterface.getByInetAddress(ip);
+            for (InterfaceAddress ifa : ni.getInterfaceAddresses()) {
+                InetAddress ia = ifa.getAddress();
+                if ((ia instanceof Inet4Address) != haveIpv4) {
+                    if (haveIpv4) {
+                        retval.setVip6(ia.getHostAddress());
+                    }
+                    else {
+                        retval.setVip(ia.getHostAddress());
+                    }
+                    break;
                 }
             }
-            retval.setVip(ipbuff.toString());
         }
-        catch (UnknownHostException e) {
+        catch (Exception e) {
             throw new RuntimeException("Couldn't lookup localhost!  " +
                     "Something is very wrong.");
         }
