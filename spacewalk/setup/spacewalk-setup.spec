@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        1.7.5
+Version:        1.7.6
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -106,6 +106,10 @@ rm -rf %{buildroot}
 %{_mandir}/man8/spacewalk-make-mount-points*
 
 %changelog
+* Mon Feb 20 2012 Jan Pazdziora 1.7.6-1
+- The valid_countries_tl has no en records and its columns are not used in the
+  select anyway.
+
 * Mon Feb 20 2012 Jan Pazdziora 1.7.5-1
 - Add stopping of Spacewalk services to postgresql_clear_db as well.
 
