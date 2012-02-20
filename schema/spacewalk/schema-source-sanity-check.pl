@@ -67,6 +67,7 @@ for my $c (sort keys %{ $files{common} }) {
 	my $oracle_sha1 = eval { get_first_line_sha1($files{common}{$c}) };
 	if ($@) {
 		print $@;
+		$error = 1;
 	} elsif (defined $oracle_sha1) {
 		print "Common file [$c] specifies SHA1 of Oracle source but it should not\n";
 		$error = 1;
@@ -76,7 +77,7 @@ for my $c (sort keys %{ $files{common} }) {
 for my $c (sort keys %{ $files{oracle} }) {
 	next unless $c =~ /\.(sql|pks|pkb)$/;
 	if (not exists $files{postgres}{$c}) {
-		if ($c =~ /^upgrade|^packages|^tables|^class|^data/) {
+		if (not $c =~ /^synonyms|^triggers/) {
 			print "Oracle file [$c] is not in PostgreSQL variant\n";
 			$error = 1;
 		} else {
@@ -87,6 +88,7 @@ for my $c (sort keys %{ $files{oracle} }) {
 	my $oracle_sha1 = eval { get_first_line_sha1($files{oracle}{$c}) };
 	if ($@) {
 		print $@;
+		$error = 1;
 	} elsif (defined $oracle_sha1) {
 		print "Oracle file [$c] specifies SHA1 of Oracle source but it should not\n";
 		$error = 1;
@@ -102,8 +104,8 @@ for my $c (sort keys %{ $files{postgres} }) {
 		next;
 	}
 	if (not defined $oracle_sha1) {
-		print "PostgreSQL file [$c] does not specify SHA1 of Oracle source nor none\n" if $show_ignored or $c !~ /^procs/;
-		$error = 1 if $c !~ /^procs/;
+		print "PostgreSQL file [$c] does not specify SHA1 of Oracle source nor none\n";
+		$error = 1;
 		next;
 	}
 	if ($oracle_sha1 eq 'none') {
