@@ -83,31 +83,4 @@ sub get_satellite_org_id {
   return $org_id;
 }
 
-sub valid_cert_countries {
-  my $class = shift;
-
-  my $dbh = RHN::DB->connect;
-  my $sth = $dbh->prepare(<<EOQ);
-  SELECT VC.code AS VALUE,
-         nvl(TL.short_name_tl, VC.short_name) AS LABEL
-    FROM valid_countries VC,
-         valid_countries_tl TL
-   WHERE TL.lang (+) = 'en'
-     AND TL.code (+)= VC.code
-ORDER BY VC.short_name
-EOQ
-
-  $sth->execute;
-
-  my @rows;
-
-  while (my $row = $sth->fetchrow_hashref()) {
-    my $conv;
-    $conv->{$_} = $row->{uc($_)} foreach qw/value label/;
-    push @rows, $conv;
-  }
-
-  return @rows;
-}
-
 1;
