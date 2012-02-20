@@ -1,0 +1,3 @@
+-- oracle equivalent source sha1 015007915e81a3e9acacf0b881b63e0a3ce0edfa
+
+ALTER TABLE rhn_sat_cluster ADD COLUMN vip6 VARCHAR(45);

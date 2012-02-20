@@ -31,6 +31,7 @@ public class SatCluster {
     private Date lastUpdateDate;
     private String publicKey;
     private String vip;
+    private String vip6;
     private String deployed;
     private String pemPublicKey;
     private String pemPublicKeyHash;
@@ -149,6 +150,22 @@ public class SatCluster {
     */
     public void setVip(String vipIn) {
         this.vip = vipIn;
+    }
+
+    /**
+     * Getter for vip6
+     * @return String to get
+    */
+    public String getVip6() {
+        return this.vip6;
+    }
+
+    /**
+     * Setter for vip6
+     * @param vip6In to set
+    */
+    public void setVip6(String vip6In) {
+        this.vip6 = vip6In;
     }
 
     /**

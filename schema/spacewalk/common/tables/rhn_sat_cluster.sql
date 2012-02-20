@@ -30,6 +30,7 @@ CREATE TABLE rhn_sat_cluster
     physical_location_id  NUMBER(12) NOT NULL,
     public_key            VARCHAR2(2000),
     vip                   VARCHAR2(15),
+    vip6                  VARCHAR2(45),
     deployed              CHAR(1)
                               DEFAULT ('0') NOT NULL
                               CONSTRAINT rhn_satcl_deployed_ck

@@ -22,6 +22,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 		<property name="publicKey" column="public_key" type="string"
 			length="2000" />
 		<property name="vip" column="vip" type="string" length="15" />
+		<property name="vip6" column="vip6" type="string" length="45" />
 		<property name="deployed" column="deployed" not-null="true"
 			type="string" length="1" />
 		<property name="pemPublicKey" column="pem_public_key" type="string"
