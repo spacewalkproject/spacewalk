@@ -1054,12 +1054,7 @@ sub unsubscribe_from_channel {
 
   $dbh = RHN::DB->connect unless ($dbh);
 
-  my $sth = $dbh->prepare(<<EOH);
-BEGIN
-  rhn_channel.unsubscribe_server(?, ?);
-END;
-EOH
-  $sth->execute($self->id, $channel_id);
+  $dbh->call_procedure('rhn_channel.unsubscribe_server', $self->id, $channel_id);
 
   if ($commit) {
     $dbh->commit;
