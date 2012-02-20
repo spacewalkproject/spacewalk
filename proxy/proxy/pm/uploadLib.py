@@ -22,13 +22,16 @@ class UploadClass(uploadLib.UploadClass):
     """ Functionality for an uploading tool """
 
     # pylint: disable=R0904
+    def authenticate(self):
+        self.setUsernamePassword()
+
     def list(self):
         # set the URL
         self.setURL()
         # set the channels
         self.setChannels()
         # set the username and password
-        self.setUsernamePassword()
+        self.authenticate()
         # set the server
         self.setServer()
 
@@ -48,7 +51,7 @@ class UploadClass(uploadLib.UploadClass):
         # set the channels
         self.setChannels()
         # set the username and password
-        self.setUsernamePassword()
+        self.authenticate()
         # set the server
         self.setServer()
         
@@ -98,7 +101,7 @@ class UploadClass(uploadLib.UploadClass):
         # set the channels
         self.setNoChannels()
         # set the username and password
-        self.setUsernamePassword()
+        self.authenticate()
         # set the server
         self.setServer()
 
