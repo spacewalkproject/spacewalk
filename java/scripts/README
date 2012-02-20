@@ -20,7 +20,6 @@ refreshi18n.sh -  ???
 refreshRHNdocs.sh -  ???
 sat-scrub.pl - scrubs a satellite test db
 slocc.sh - counts lines of code, comments, and prints their ratios
-switchenv.py - switch to different databases
 taskomatic - 
 unnecessaryElse.pl - removes unnecessary else blocks from java files.
 unreadField.pl - removes unused private member varialbes from java files.
