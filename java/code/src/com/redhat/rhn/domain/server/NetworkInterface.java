@@ -25,8 +25,6 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.hibernate.Session;
 
 import java.io.Serializable;
-import java.net.InetAddress;
-import java.net.Inet6Address;
 import java.util.ArrayList;
 
 /**
@@ -43,6 +41,10 @@ public class NetworkInterface extends BaseDomainHelper implements
     private String module;
     private ServerNetAddress4 sa4 = null;
     private ArrayList<ServerNetAddress6> sa6 = null;
+    private static final String IPV6_REGEX = "^(((?=(?>.*?::)(?!.*::)))(::)?" +
+        "([0-9A-F]{1,4}::?){0,5}|([0-9A-F]{1,4}:){6})(\\2([0-9A-F]{1,4}(::?|$)){0,2}" +
+        "|((25[0-5]|(2[0-4]|1\\d|[1-9])?\\d)(\\.|$)){4}|[0-9A-F]{1,4}:[0-9A-F]{1,4})" +
+        "(?<![^:]:|\\.)\\z";
 
     /**
      * @return Returns the interfaceid.
@@ -274,8 +276,7 @@ public class NetworkInterface extends BaseDomainHelper implements
     private boolean isIpv6Valid() {
         try {
             for (ServerNetAddress6 addr6 : getIPv6Addresses()) {
-                InetAddress ia = InetAddress.getByName(addr6.getAddress());
-                if (!(ia instanceof Inet6Address)) {
+                if (!addr6.getAddress().toUpperCase().matches(IPV6_REGEX)) {
                     return false;
                 }
             }
