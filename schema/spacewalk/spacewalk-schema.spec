@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.7.36
+Version:        1.7.37
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -66,6 +66,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Mon Feb 20 2012 Tomas Lestach <tlestach@redhat.com> 1.7.37-1
+- 790803 - add ip6 to rhn_sat_node (tlestach@redhat.com)
+- 790803 - add vip6 to rhn_sat_cluster (tlestach@redhat.com)
+
 * Mon Feb 20 2012 Jan Pazdziora 1.7.36-1
 - Removing synonyms notification_formats and ntfmt_recid_seq which are not used
   at all.
