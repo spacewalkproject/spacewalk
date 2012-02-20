@@ -309,7 +309,7 @@ sub system_snapshot_rollback_cb {
   if ($@) {
     $trans->nested_rollback;
     my $E = $@;
-    if ($E->is_rhn_exception('channel_family_no_subscriptions')) {
+    if ($E->isa('RHN::Exception') and $E->is_rhn_exception('channel_family_no_subscriptions')) {
       $pxt->push_message(local_alert => "Insufficient channel subscriptions to complete rollback; aborted.");
     }
     else {

@@ -275,7 +275,7 @@ sub delete_server_group_cb {
     if ($@ and catchable($@)) {
       my $E = $@;
 
-      if ($E->is_rhn_exception('sg_delete_typed')) {
+      if ($E->isa('RHN::Exception') and $E->is_rhn_exception('sg_delete_typed')) {
 	$pxt->push_message(local_alert => 'You cannot delete groups which have special functionality.');
 	return;
       }

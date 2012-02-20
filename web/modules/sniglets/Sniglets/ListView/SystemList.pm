@@ -992,7 +992,7 @@ sub in_set_cb {
 
       PXT::Debug->log(7, "caught an exception");
       #  What could go here?  What exceptions might we run into?  Not enough entitlements?
-      if ($E->is_rhn_exception('channel_family_no_subscriptions')) {
+      if ($E->isa('RHN::Exception') and $E->is_rhn_exception('channel_family_no_subscriptions')) {
 	PXT::Debug->log(7, "caught an exception, ran out of slots");
         $pxt->push_message(local_alert => "Channel subscriptions would be exceeded, no systems subscribed.  Please contact Red Hat for more channel entitlements (1-866-2-REDHAT).");
 	$transaction->rollback;
@@ -1157,7 +1157,7 @@ sub system_entitlement_list_cb {
       $system_transaction->nested_rollback();
 
       if (ref $E and catchable($E)) {
-	if ($E->is_rhn_exception('servergroup_max_members')) {
+	if ($E->isa('RHN::Exception') and $E->is_rhn_exception('servergroup_max_members')) {
 	  push @failed, $sid;
 	}
 	else {
