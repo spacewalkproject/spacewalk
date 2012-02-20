@@ -1096,7 +1096,7 @@ def list_all_packages_complete_sql(channel_id):
     g = rhnSQL.prepare("""
     select
        pp.package_id,
-       'provides',
+       'provides' as capability_type,
        pp.capability_id,
        pp.sense,
        pc.name,
@@ -1110,7 +1110,7 @@ def list_all_packages_complete_sql(channel_id):
     union all
     select
        pr.package_id,
-       'requires',
+       'requires' as capability_type,
        pr.capability_id,
        pr.sense,
        pc.name,
@@ -1124,7 +1124,7 @@ def list_all_packages_complete_sql(channel_id):
     union all
     select
        prec.package_id,
-       'recommends',
+       'recommends' as capability_type,
        prec.capability_id,
        prec.sense,
        pc.name,
@@ -1138,7 +1138,7 @@ def list_all_packages_complete_sql(channel_id):
     union all
     select
        sugg.package_id,
-       'suggests',
+       'suggests' as capability_type,
        sugg.capability_id,
        sugg.sense,
        pc.name,
@@ -1152,7 +1152,7 @@ def list_all_packages_complete_sql(channel_id):
     union all
     select
        supp.package_id,
-       'supplements',
+       'supplements' as capability_type,
        supp.capability_id,
        supp.sense,
        pc.name,
@@ -1166,7 +1166,7 @@ def list_all_packages_complete_sql(channel_id):
     union all
     select
        pcon.package_id,
-       'conflicts',
+       'conflicts' as capability_type,
        pcon.capability_id,
        pcon.sense,
        pc.name,
@@ -1180,7 +1180,7 @@ def list_all_packages_complete_sql(channel_id):
     union all
     select
        po.package_id,
-       'obsoletes',
+       'obsoletes' as capability_type,
        po.capability_id,
        po.sense,
        pc.name,
@@ -1222,7 +1222,7 @@ def list_all_packages_complete_sql(channel_id):
                 if relation: relation = " " + relation
                 if version: version = " " + version
             dep = item['name'] + relation + version
-            pkgi[item["'provides'"]].append(dep)
+            pkgi[item['capability_type']].append(dep)
     # process the results
     ret = map(lambda a: (a["name"], a["version"], a["release"], a["epoch"],
                          a["arch"], a["package_size"], a['provides'], 
