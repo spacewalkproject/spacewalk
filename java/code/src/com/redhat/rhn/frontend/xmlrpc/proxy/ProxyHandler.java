@@ -100,6 +100,7 @@ public class ProxyHandler extends BaseHandler {
                         server.getHostname() +
                         " (" + server.getId() + ")");
             scout.setVip(server.getIpAddress());
+            scout.setVip6(server.getIp6Address());
 
             SatNode node =  SatClusterFactory.createSatNode(owner, scout);
             node.setServer(server);

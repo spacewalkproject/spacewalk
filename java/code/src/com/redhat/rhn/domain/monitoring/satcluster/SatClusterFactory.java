@@ -149,6 +149,7 @@ public class SatClusterFactory extends HibernateFactory {
         sn.setCommandTarget(ct);
         sn.setSatCluster(clusterIn);
         sn.setIp(clusterIn.getVip());
+        sn.setIp6(clusterIn.getVip6());
         sn.setSchedLogLevel(DEFAULT_LOG_LEVEL);
         sn.setDqLogLevel(DEFAULT_LOG_LEVEL);
         sn.setSputLogLevel(DEFAULT_LOG_LEVEL);
