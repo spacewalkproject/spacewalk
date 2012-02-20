@@ -25,25 +25,12 @@ class UploadClass(uploadLib.UploadClass):
     def authenticate(self):
         self.setUsernamePassword()
 
-    def list(self):
-        # set the URL
-        self.setURL()
-        # set the channels
-        self.setChannels()
-        # set the username and password
-        self.authenticate()
-        # set the server
-        self.setServer()
+    def _listChannelSource(self):
+        self.die(1, "Listing source rpms not supported")
 
-        if self.options.source:
-            self.die(1, "Listing source rpms not supported")
-        else:
-            # List the channel's contents
-            channel_list = uploadLib.listChannel(self.server,
-                self.username, self.password,
-                self.channels)
-        for p in channel_list:
-            print p[:6]
+    def _listChannel(self):
+        return uploadLib.listChannel(self.server, self.username, self.password,
+                                     self.channels)
 
     def copyonly(self):
         # Set the forcing factor

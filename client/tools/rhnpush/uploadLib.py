@@ -170,6 +170,12 @@ class UploadClass:
         self.warn(1, "Reading package names from stdin")
         self.files = self.files + readStdin()
 
+    def _listChannelSource(self):
+        return listChannelSourceBySession(self.server, self.session.getSessionString(), self.channels)
+
+    def _listChannel(self):
+        return listChannelBySession(self.server, self.session.getSessionString(), self.channels)
+
     def list(self):
         # set the URL
         self.setURL()
@@ -184,11 +190,10 @@ class UploadClass:
         self.authenticate()
 
         if self.options.source:
-            list = listChannelSourceBySession(self.server, self.session.getSessionString(), self.channels)
-            #self.die(1, "Listing source rpms not supported")
+            list = self._listChannelSource()
         else:
             # List the channel's contents
-            list = listChannelBySession(self.server, self.session.getSessionString(), self.channels)
+            list = self._listChannel()
 
         for p in list:
             print p[:6]
