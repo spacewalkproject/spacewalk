@@ -60,83 +60,16 @@ class UploadClass(uploadLib.UploadClass):
                                     nosig=self.options.nosig)
             self.processPackage(fileinfo['nvrea'], filename) 
             
-    def uploadHeaders(self):
-        # Set the forcing factor
-        self.setForce()
-        # Relative directory
-        self.setRelativeDir()
-        # Set the count
-        self.setCount()
-        # set the org
-        self.setOrg()
-        # set the URL
-        self.setURL()
-        # set the channels
-        self.setNoChannels()
-        # set the username and password
-        self.authenticate()
-        # set the server
-        self.setServer()
+    def _get_files(self):
+        return self.files
 
-        source = self.options.source
+    def _uploadSourcePackageInfo(self, info):
+        return uploadLib.call(self.server.packages.uploadSourcePackageInfo,
+                              self.username, self.password, info)
 
-        while self.files:
-            chunk = self.files[:self.count]
-            del self.files[:self.count]
-            uploadedPackages, headersList = self._processBatch(chunk,
-                relativeDir=self.relativeDir, source=self.options.source, 
-                verbose=self.options.verbose, nosig=self.options.nosig)
-
-            if not headersList:
-                # Nothing to do here...
-                continue
-
-            # Send the big hash
-            info = {'packages' : headersList}
-            if self.orgId > 0 or self.orgId == '':
-                info['orgId'] = self.orgId
-
-            if self.force:
-                info['force'] = self.force
-
-            if self.channels:
-                info['channels'] = self.channels
-
-            # Some feedback
-            if self.options.verbose:
-                uploadLib.ReportError("Uploading batch:")
-                for p in uploadedPackages.values():
-                    uploadLib.ReportError("\t\t%s" % p)
-
-            if source:
-                method = self.server.packages.uploadSourcePackageInfo
-            else:
-                method = self.server.packages.uploadPackageInfo
-
-            ret = uploadLib.call(method, self.username, self.password, info)
-            if ret is None:
-                self.die(-1, "Upload attempt failed")
-
-            # Append the package information
-            alreadyUploaded, newPackages = ret
-            pkglists = (alreadyUploaded, newPackages)
-
-            for idx in range(len(pkglists)):
-                for p in pkglists[idx]:
-                    key = tuple(p[:5])
-                    if not uploadedPackages.has_key(key):
-                        # XXX Hmm
-                        self.warn("XXX XXX %s" % str(p))
-                    filename = uploadedPackages[key]
-                    # Some debugging
-                    if self.options.verbose:
-                        if idx == 0:
-                            pattern = "Already uploaded: %s"
-                        else:
-                            pattern = "Uploaded: %s"
-                        print pattern % filename
-                    # Per-package post actions
-                    self.processPackage(p, filename)
+    def _uploadPackageInfo(self):
+        return uploadLib.call(self.server.packages.uploadPackageInfo,
+                              self.username, self.password, info)
 
     def _processFile(self, filename, relativeDir=None, source=None, nosig=None):
         """ call parent _processFile and add to returned has md5sum """

@@ -315,6 +315,15 @@ class UploadClass:
         for p in self.files:
             print p
 
+    def _get_files(self):
+        return self.files[:]
+
+    def _uploadSourcePackageInfo(self, info):
+        return call(self.server.packages.uploadSourcePackageInfoBySession, self.session.getSessionString(), info)
+
+    def _uploadPackageInfo(self, info):
+        return call(self.server.packages.uploadPackageInfoBySession, self.session.getSessionString(), info)
+
     def uploadHeaders(self):
         # Set the forcing factor
         self.setForce()
@@ -336,7 +345,7 @@ class UploadClass:
         self.authenticate()
         
         source = self.options.source
-        file_list = self.files[:]        
+        file_list = self._get_files()
 
         while file_list:
             chunk = file_list[:self.count]
@@ -367,11 +376,9 @@ class UploadClass:
                     ReportError("\t\t%s" % p)
 
             if source:
-                method = self.server.packages.uploadSourcePackageInfoBySession
+                ret = self._uploadSourcePackageInfo(hash)
             else:
-                method = self.server.packages.uploadPackageInfoBySession
-
-            ret = call(method, self.session.getSessionString(), hash)
+                ret = self._uploadPackageInfo(hash)
 
             if ret is None:
                self.die(-1, "Upload attempt failed")
