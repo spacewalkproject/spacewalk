@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.7.33
+Version:        1.7.34
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -66,6 +66,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Mon Feb 20 2012 Jan Pazdziora 1.7.34-1
+- Harden the schema-source-sanity-check.pl.
+- Fix the postgres/procs/delete_server.sql oracle equivalent source sha1.
+
 * Thu Feb 16 2012 Jan Pazdziora 1.7.33-1
 - Need to re-create the view.
 
