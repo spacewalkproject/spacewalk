@@ -198,12 +198,9 @@ class UploadClass:
         self.setURL()
         # set the channels
         self.setChannels()
-        # set the username and password
-        #self.setUsernamePassword()
         # set the server
         self.setServer()
 
-        #XXX
         self.authenticate()
         
         sources = self.options.source

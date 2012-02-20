@@ -45,23 +45,6 @@ class UploadClass(uploadLib.UploadClass):
         for p in channel_list:
             print p[:6]
 
-    def newest(self):
-        # set the URL
-        self.setURL()
-        # set the channels
-        self.setChannels()
-        # set the username and password
-        self.authenticate()
-        # set the server
-        self.setServer()
-        
-        sources = self.options.source
-
-        if sources:
-            return self.get_missing_source_packages()
-
-        return self.get_newest_binary_packages()
-
     def copyonly(self):
         # Set the forcing factor
         self.setForce()
