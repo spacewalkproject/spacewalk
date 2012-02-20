@@ -1,5 +1,5 @@
 Name:         perl-NOCpulse-OracleDB
-Version: 	  1.28.25
+Version: 	  1.28.26
 Release:      1%{?dist}
 Summary:      Perl modules for NOCpulse Oracle database access
 URL:          https://fedorahosted.org/spacewalk
@@ -48,6 +48,12 @@ rm -rf $RPM_BUILD_ROOT
 %{perl_vendorlib}/NOCpulse/*
 
 %changelog
+* Mon Feb 20 2012 Jan Pazdziora 1.28.26-1
+- Use rhn_command_q_inst_recid_seq instead of the synonym, also drop
+  command_queue_instances which is not used at all.
+- Use rhn_command_q_comm_recid_seq instead of the synonym, also drop
+  command_queue_commands which is not used at all.
+
 * Tue Jan 31 2012 Jan Pazdziora 1.28.25-1
 - In monitoring, use RHN::DBI instead of RHN::DB because we do not want to
   reuse the connection.
