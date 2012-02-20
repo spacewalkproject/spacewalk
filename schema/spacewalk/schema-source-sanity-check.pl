@@ -56,8 +56,94 @@ sub get_first_line_sha1 {
 	return $2;
 }
 
+sub check_file_content {
+	my $filename = shift;
+	return if $filename =~ /^upgrade/;
+	return if $filename =~ /qrtz\.sql$/;
+	return if $filename =~ /dual\.sql$/;
+	my ($type, $name) = ($filename =~ m!.*/(.+)/(.+?)(_foreignkeys)?\.(sql|pks|pkb)$!);
+	return if not defined $type;
+	return if $type eq 'class';
+	return if $type eq 'packages';
+
+	local *FILE;
+	open FILE, '<', $filename or do {
+		die "Error reading [$filename]: $!\n";
+	};
+	my $content;
+	{
+		local $/ = undef;
+		$content = <FILE>;
+	}
+	# print "[$filename] [$type] [$name]\n";
+	if ($type eq 'tables') {
+		if (not $content =~ /^(--.*\n
+					|\s*\n
+					|(create|alter|comment\s+on)\s+table\s+$name\b[^;]+;
+					|create\s+(unique\s+)?index\s+\w+\s+on\s+$name[^;]+;
+					|create\s+sequence[^;]+;
+					|comment\s+on\s+column\s+$name\.[^;]+;
+					)+$/ix) {
+			print "Bad $type content [$filename]\n";
+			$error = 1;
+		}
+	} elsif ($type eq 'views') {
+		if (not $content =~ /^(--.*\n
+					|\s*\n
+					|create(\s+or\s+replace)?\s+view\s+$name\b[^;]+;
+					)+$/ix) {
+			print "Bad $type content [$filename]\n";
+			$error = 1;
+		}
+	} elsif ($type eq 'data') {
+		if (not $content =~ /^(--.*\n
+					|\s*\n
+					|insert\s+into\s+$name\b[^;]+(values|select)('[^;]+(;[^;]*)?'|[^';])+;
+					|commit;
+					)+$/ix) {
+			print "Bad $type content [$filename]\n";
+			$error = 1;
+		}
+	} elsif ($type eq 'procs') {
+		if (not $content =~ m!^(--.*\n
+					|\s*\n
+					|create(\s+or\s+replace)?\s+(procedure|function)\s+$name\b
+						((?s:.+?);\n/\n
+						|[^\$]+\$\$(?s:.+?)\s\$\$
+							\s+language\s+(plpgsql|sql)(\s+(strict\s+)?immutable|\s+stable)?;)
+					|show\s+errors;?\n
+					)+$!ix) {
+			print "Bad $type content [$filename]\n";
+			$error = 1;
+		}
+	} elsif ($type eq 'synonyms') {
+		if (not $content =~ m!^(--.*\n
+					|\s*\n
+					|create(\s+or\s+replace)?\s+synonym\s+$name\b\s+for[^;]+;
+					|create(\s+or\s+replace)?\s+synonym\s+${name}s?_recid_seq\s+for[^;]+;
+					)+$!ix) {
+			print "Bad $type content [$filename]\n";
+			$error = 1;
+		}
+	} elsif ($type eq 'triggers') {
+		if (not $content =~ m!^(?:--.*\n
+					|\s*\n
+					|create(?:\s+or\s+replace)?\s+function\s+(\w+)(?s:.+?)\s+language\s+plpgsql;
+						\s+create(\s+or\s+replace)?\s+trigger[^;]+\s+on\s+$name\b[^;]+execute\s+procedure\s+\1\(\);
+					|create(\s+or\s+replace)?\s+trigger[^;]+\s+on\s+$name\b(?s:.+?);\n/\n
+					|show\s+errors;?\n
+					)+$!ix) {
+			print "Bad $type content [$filename]\n";
+			$error = 1;
+		}
+	} else {
+		print "Unknown type [$type] for [$filename]\n";
+	}
+}
+
 for my $c (sort keys %{ $files{common} }) {
 	next unless $c =~ /\.(sql|pks|pkb)$/;
+	check_file_content($files{common}{$c});
 	for my $o (qw( oracle postgres )) {
 		if (exists $files{$o}{$c}) {
 			print "Common file [$c] is also in $o\n";
@@ -76,6 +162,7 @@ for my $c (sort keys %{ $files{common} }) {
 
 for my $c (sort keys %{ $files{oracle} }) {
 	next unless $c =~ /\.(sql|pks|pkb)$/;
+	check_file_content($files{oracle}{$c});
 	if (not exists $files{postgres}{$c}) {
 		if (not $c =~ /^synonyms|^triggers/) {
 			print "Oracle file [$c] is not in PostgreSQL variant\n";
@@ -97,6 +184,7 @@ for my $c (sort keys %{ $files{oracle} }) {
 
 for my $c (sort keys %{ $files{postgres} }) {
 	next unless $c =~ /\.(sql|pks|pkb)$/;
+	check_file_content($files{postgres}{$c});
 	my $oracle_sha1 = eval { get_first_line_sha1($files{postgres}{$c}) };
 	if ($@) {
 		print $@;
