@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.7.34
+Version: 1.7.35
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -576,6 +576,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Feb 20 2012 Jan Pazdziora 1.7.35-1
+- Removing rhnUser synonym and just using the base web_contact.
+- The switchenv.py is not useful externally.
+
 * Mon Feb 20 2012 Tomas Lestach <tlestach@redhat.com> 1.7.34-1
 - fix checkstyle issue (tlestach@redhat.com)
 - making errata clone api calls re-use cloned errata, if the given adivsory is
