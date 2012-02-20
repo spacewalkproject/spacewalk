@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.7.35
+Version:        1.7.36
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -66,6 +66,15 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Mon Feb 20 2012 Jan Pazdziora 1.7.36-1
+- Removing synonyms notification_formats and ntfmt_recid_seq which are not used
+  at all.
+- Use rhn_command_q_inst_recid_seq instead of the synonym, also drop
+  command_queue_instances which is not used at all.
+- Use rhn_command_q_comm_recid_seq instead of the synonym, also drop
+  command_queue_commands which is not used at all.
+- Synonym command_parameter_threshold not used, removing.
+
 * Mon Feb 20 2012 Jan Pazdziora 1.7.35-1
 - Removing rhnUser synonym and just using the base web_contact.
 - Dropping valid_countries_tl as it is not used in the application.
