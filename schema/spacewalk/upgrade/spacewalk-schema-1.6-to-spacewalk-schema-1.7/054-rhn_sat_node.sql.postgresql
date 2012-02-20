@@ -1,0 +1,3 @@
+-- oracle equivalent source sha1 15cc1a96adba0f042d068ab976ef1d30e676944d
+
+ALTER TABLE rhn_sat_node ADD COLUMN ip6 VARCHAR(45);

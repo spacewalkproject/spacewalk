@@ -31,6 +31,7 @@ public class SatNode {
     private String macAddress;
     private Long maxConcurrentChecks;
     private String ip;
+    private String ip6;
     private Long schedLogLevel;
     private Long sputLogLevel;
     private Long dqLogLevel;
@@ -149,6 +150,22 @@ public class SatNode {
     */
     public void setIp(String ipIn) {
         this.ip = ipIn;
+    }
+
+    /**
+     * Getter for ip6
+     * @return String to get
+    */
+    public String getIp6() {
+        return this.ip6;
+    }
+
+    /**
+     * Setter for ip6
+     * @param ipIn to set
+    */
+    public void setIp6(String ip6In) {
+        this.ip6 = ip6In;
     }
 
     /**

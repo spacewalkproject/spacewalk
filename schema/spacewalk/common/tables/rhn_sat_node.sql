@@ -32,6 +32,7 @@ CREATE TABLE rhn_sat_node
     max_concurrent_checks  NUMBER(4),
     sat_cluster_id         NUMBER(12) NOT NULL,
     ip                     VARCHAR2(15),
+    ip6                    VARCHAR2(45),
     sched_log_level        NUMBER(4)
                                DEFAULT (0) NOT NULL,
     sput_log_level         NUMBER(4)

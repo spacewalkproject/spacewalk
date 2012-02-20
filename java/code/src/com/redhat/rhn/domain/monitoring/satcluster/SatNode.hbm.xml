@@ -22,6 +22,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <property name="maxConcurrentChecks" column="max_concurrent_checks"
             type="long" />
         <property name="ip" column="ip" type="string" length="15" />
+        <property name="ip6" column="ip6" type="string" length="45" />
         <property name="schedLogLevel" column="sched_log_level" not-null="true"
             type="long" />
         <property name="sputLogLevel" column="sput_log_level" not-null="true"
