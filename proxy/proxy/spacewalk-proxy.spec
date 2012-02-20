@@ -4,7 +4,7 @@ Group:   Applications/Internet
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 1.7.7
+Version: 1.7.8
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
 BuildRequires: python
@@ -334,6 +334,9 @@ fi
 
 
 %changelog
+* Mon Feb 20 2012 Michael Mraka <michael.mraka@redhat.com> 1.7.8-1
+- fixing  Undefined variable 'info'
+
 * Mon Feb 20 2012 Michael Mraka <michael.mraka@redhat.com> 1.7.7-1
 - merged list() with parent class
 - merged uploadHeaders() with parent class
