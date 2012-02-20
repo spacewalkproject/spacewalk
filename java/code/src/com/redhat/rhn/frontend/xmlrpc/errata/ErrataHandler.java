@@ -925,7 +925,7 @@ public class ErrataHandler extends BaseHandler {
 
         //For each errata look up existing clones, or manually clone it
         for (Errata toClone : errataToClone) {
-            if (toClone.isCloned()){
+            if (toClone.isCloned()) {
                 errataToPublish.add(toClone);
             }
             else {
