@@ -24,14 +24,3 @@ CREATE TABLE valid_countries
 ENABLE ROW MOVEMENT
 ;
 
-CREATE TABLE valid_countries_tl (
-    lang          CHAR(2) NOT NULL,
-    code          VARCHAR2(2) NOT NULL
-                      CONSTRAINT valid_countries_tl_code
-                          REFERENCES valid_countries(code),
-    short_name_tl VARCHAR2(80) NOT NULL,
-                      CONSTRAINT valid_countries_tl_unq
-                          UNIQUE (lang, code)
-)
-ENABLE ROW MOVEMENT
-;
