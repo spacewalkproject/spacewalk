@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 1.7.22
+Version: 1.7.23
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -254,6 +254,13 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Mon Feb 20 2012 Jan Pazdziora 1.7.23-1
+- Removing rhnUser synonym and just using the base web_contact.
+- Methods users_in_org and users_in_org_overview do not seem to be used,
+  removing.
+- The valid_cert_countries in RHN::DB::SatInstall is not used, spacewalk-setup
+  has its own version.
+
 * Mon Feb 20 2012 Miroslav Suchý 1.7.22-1
 - call procedure compatible way (Pg) (msuchy@redhat.com)
 - check if error is RHN::Exception (msuchy@redhat.com)
