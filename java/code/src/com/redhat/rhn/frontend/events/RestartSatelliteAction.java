@@ -24,7 +24,7 @@ import com.redhat.rhn.manager.satellite.RestartCommand;
 import org.apache.log4j.Logger;
 
 /**
- * UpdateErrataCacheAction
+ * RestartSatelliteAction
  * @version $Rev: 74533 $
  */
 public class RestartSatelliteAction implements MessageAction {
