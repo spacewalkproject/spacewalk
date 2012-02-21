@@ -119,6 +119,7 @@
        <packagereq type="default">spacewalk-proxy-redirect</packagereq>
        <packagereq type="default">spacewalk-proxy-selinux</packagereq>
        <packagereq type="default">spacewalk-pxt</packagereq>
+       <packagereq type="default">spacewalk-pylint</packagereq>
        <packagereq type="default">spacewalk-repo</packagereq>
        <packagereq type="default">spacewalk-reports</packagereq>
        <packagereq type="default">spacewalk-schema</packagereq>
@@ -157,6 +158,7 @@
     <uservisible>false</uservisible>
     <packagelist>
        <packagereq type="optional">perl-DBD-Oracle-explain</packagereq>
+       <packagereq type="optional">spacewalk-java-tests</packagereq>
     </packagelist>
   </group>
 </comps>
