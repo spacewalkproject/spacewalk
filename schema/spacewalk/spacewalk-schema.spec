@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.7.38
+Version:        1.7.39
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -66,6 +66,19 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Tue Feb 21 2012 Jan Pazdziora 1.7.39-1
+- Adding checks for schema sources content (table names and such).
+- Create the trigger rhn_ksscript_mod_trig correctly on the rhnKickstartScript
+  table.
+- Create the trigger rhn_conffiletype_mod_trig correctly on the
+  rhnConfigFileType table.
+- Create the trigger rhn_enqueue_mod_trig correctly on the
+  rhnErrataNotificationQueue table.
+- Create the trigger rhn_channel_package_mod_trig correctly on the
+  rhnChannelPackage table.
+- Consolidate both rhnChannelCloned triggers to one, add the new.modified
+  initialization to the PostgreSQL variant.
+
 * Tue Feb 21 2012 Jan Pazdziora 1.7.38-1
 - Table rhnAppInstallInstance no longer used, dropping.
 - Table rhnAppInstallSession no longer used, dropping.
