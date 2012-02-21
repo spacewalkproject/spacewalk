@@ -29,6 +29,13 @@ end;
 $$
 language plpgsql;
 
+create trigger
+web_contact_ins_trig
+before insert on web_contact
+for each row
+execute procedure web_contact_ins_trig_fun();
+
+
 create or replace function web_contact_upd_trig_fun() returns trigger
 as
 $$
@@ -43,13 +50,6 @@ begin
 end;
 $$
 language plpgsql;
-
-
-create trigger
-web_contact_ins_trig
-before insert on web_contact
-for each row
-execute procedure web_contact_ins_trig_fun();
 
 create trigger
 web_contact_upd_trig

@@ -32,6 +32,13 @@ begin
 end;
 $$ language plpgsql;
 
+create trigger
+rhn_errata_ins_trig
+before insert on rhnErrata
+for each row
+execute procedure rhn_errata_ins_trig_fun();
+
+
 create or replace function rhn_errata_upd_trig_fun() returns trigger
 as
 $$
@@ -46,13 +53,6 @@ begin
      return new;
 end;
 $$ language plpgsql;
-
-
-create trigger
-rhn_errata_ins_trig
-before insert on rhnErrata
-for each row
-execute procedure rhn_errata_ins_trig_fun();
 
 create trigger
 rhn_errata_upd_trig
