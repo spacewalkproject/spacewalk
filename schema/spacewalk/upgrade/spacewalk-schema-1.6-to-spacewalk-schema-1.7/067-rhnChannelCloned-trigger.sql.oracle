@@ -13,6 +13,8 @@
 -- in this software or its documentation. 
 --
 
+drop trigger rhn_channelclone_mod_trig;
+
 create or replace trigger
 rhn_channel_cloned_comps_trig
 before insert or update on rhnChannelCloned

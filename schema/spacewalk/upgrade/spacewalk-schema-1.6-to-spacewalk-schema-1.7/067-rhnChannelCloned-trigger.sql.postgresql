@@ -1,3 +1,4 @@
+-- oracle equivalent source sha1 a1ede433726aac1e44f259d52fddeb6db6f53c4c
 --
 -- Copyright (c) 2008--2012 Red Hat, Inc.
 --
@@ -13,30 +14,38 @@
 -- in this software or its documentation. 
 --
 
-create or replace trigger
-rhn_channel_cloned_comps_trig
-before insert or update on rhnChannelCloned
-for each row
+create or replace function rhn_channel_cloned_comps_trig_fun() returns trigger
+as
+$$
 begin
-	:new.modified := sysdate;
+	new.modified := current_timestamp;
 
-	if inserting then
+	if tg_op = 'INSERT' then
 		-- if there are not comps in the cloned channel by now,
 		-- we shall clone comps from the original channel
 		insert into rhnChannelComps
 			( id, channel_id, relative_filename,
 				last_modified, created, modified )
-		select rhn_channelcomps_id_seq.nextval, :new.id, relative_filename,
-				sysdate, sysdate, sysdate
+		select nextval('rhn_channelcomps_id_seq'), new.id, relative_filename,
+				current_timestamp, current_timestamp, current_timestamp
 		from rhnChannelComps
-		where channel_id = :new.original_id
+		where channel_id = new.original_id
 			and not exists (
 				select 1
 				from rhnChannelComps x
-				where x.channel_id = :new.id
+				where x.channel_id = new.id
 			);
 	end if;
+        return new;
 end;
-/
-show errors
+$$
+language plpgsql;
 
+
+drop trigger rhn_channel_cloned_comps_trig on rhnChannelCloned;;
+
+create trigger
+rhn_channel_cloned_comps_trig
+before insert or update on rhnChannelCloned
+for each row
+execute procedure rhn_channel_cloned_comps_trig_fun();
