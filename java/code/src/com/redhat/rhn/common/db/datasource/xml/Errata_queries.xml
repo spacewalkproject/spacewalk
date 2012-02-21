@@ -299,8 +299,8 @@ SELECT DISTINCT E.id
        rhnChannelErrata CE
  WHERE CE.channel_id = :cid
    AND CE.errata_id = E.id
-   AND E.last_modified &gt;= :start_date
-   AND E.last_modified &lt;= :end_date
+   AND E.issue_date &gt;= :start_date
+   AND E.issue_date &lt;= :end_date
   </query>
     <elaborator name="errata_overview" />
 </mode>
@@ -312,7 +312,7 @@ SELECT DISTINCT E.id
        rhnChannelErrata CE
  WHERE CE.channel_id = :cid
    AND CE.errata_id = E.id
-   AND E.last_modified &gt;= :start_date
+   AND E.issue_date &gt;= :start_date
   </query>
       <elaborator name="errata_overview" />
 </mode>
@@ -349,9 +349,9 @@ SELECT DISTINCT E.id,
        rhnChannelErrata CE
  WHERE CE.channel_id = :cid
    AND CE.errata_id = E.id
-   AND E.last_modified &gt;= TO_DATE(:start_date_str, 'YYYY-MM-DD HH24:MI:SS')
-   AND E.last_modified &lt;= TO_DATE(:end_date_str, 'YYYY-MM-DD HH24:MI:SS')
-ORDER BY last_modified_date DESC
+   AND E.issue_date &gt;= TO_DATE(:start_date_str, 'YYYY-MM-DD HH24:MI:SS')
+   AND E.issue_date &lt;= TO_DATE(:end_date_str, 'YYYY-MM-DD HH24:MI:SS')
+ORDER BY issue_date DESC
   </query>
 </mode>
 
@@ -368,8 +368,8 @@ SELECT DISTINCT
        rhnChannelErrata CE
  WHERE CE.channel_id = :cid
    AND CE.errata_id = E.id
-   AND E.last_modified &gt;= TO_DATE(:start_date_str, 'YYYY-MM-DD HH24:MI:SS')
-ORDER BY last_modified_date DESC
+   AND E.issue_date &gt;= TO_DATE(:start_date_str, 'YYYY-MM-DD HH24:MI:SS')
+ORDER BY issue_date DESC
   </query>
 </mode>
 
@@ -389,7 +389,7 @@ SELECT DISTINCT E.id as id,
        rhnChannelErrata CE
  WHERE CE.channel_id = :cid
    AND CE.errata_id = E.id
-ORDER BY update_date DESC
+ORDER BY issue_date DESC
   </query>
 </mode>
 
@@ -407,7 +407,7 @@ SELECT DISTINCT
  WHERE CE.channel_id = :cid
    AND CE.errata_id = E.id
    AND E.advisory_type = :type
-ORDER BY last_modified_date DESC
+ORDER BY issue_date DESC
   </query>
 </mode>
 
