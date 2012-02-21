@@ -1,4 +1,4 @@
--- oracle equivalent source sha1 08e0d2bf03a82ceaaf8c86c3826b30c9e5ac1c39
+-- oracle equivalent source sha1 507a18269ffae291c85ce2c61cdcc3d2fdc73399
 
 create or replace function rhn_ksscript_mod_trig_fun() returns trigger as
 $$
@@ -7,6 +7,8 @@ begin
 	return new;
 end;
 $$ language plpgsql;
+
+drop trigger rhn_ksscript_mod_trig on rhnKickstartSession;
 
 create trigger
 rhn_ksscript_mod_trig
