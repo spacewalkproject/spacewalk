@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.7.36
+Version: 1.7.37
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -576,6 +576,11 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Feb 21 2012 Tomas Lestach <tlestach@redhat.com> 1.7.37-1
+- 790803 - fix javadoc of ip6In (tlestach@redhat.com)
+- The dbchange is not used anywhere, removing. (jpazdziora@redhat.com)
+- More replaces of rhnuser synonym with web_contact. (jpazdziora@redhat.com)
+
 * Mon Feb 20 2012 Tomas Lestach <tlestach@redhat.com> 1.7.36-1
 - 790803 - use sat_node (tlestach@redhat.com)
 - 790803 - add ip6 to rhn_sat_node (tlestach@redhat.com)
