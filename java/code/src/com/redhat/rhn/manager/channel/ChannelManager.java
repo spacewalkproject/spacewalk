@@ -1284,13 +1284,12 @@ public class ChannelManager extends BaseManager {
         if (start != null) {
             params.put("start_date", new Timestamp(start.getTime()));
             mode = "in_channel_after";
-        }
 
-        if (end != null) {
-            params.put("end_date", new Timestamp(end.getTime()));
-            mode = "in_channel_between";
+            if (end != null) {
+                params.put("end_date", new Timestamp(end.getTime()));
+                mode = "in_channel_between";
+            }
         }
-
         SelectMode m = ModeFactory.getMode(
                 "Errata_queries", mode);
 
@@ -1319,11 +1318,11 @@ public class ChannelManager extends BaseManager {
         if (!StringUtils.isEmpty(start)) {
             params.put("start_date_str", start);
             mode = "relevant_to_channel_after_deprecated";
-        }
 
-        if (!StringUtils.isEmpty(end)) {
-            params.put("end_date_str", end);
-            mode = "relevant_to_channel_between_deprecated";
+            if (!StringUtils.isEmpty(end)) {
+                params.put("end_date_str", end);
+                mode = "relevant_to_channel_between_deprecated";
+            }
         }
 
         SelectMode m = ModeFactory.getMode(
