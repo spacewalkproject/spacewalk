@@ -1,4 +1,4 @@
--- oracle equivalent source sha1 edb9fe7f5401df4a253b201522fb8c187a8181c9
+-- oracle equivalent source sha1 b14267384bc104605623a41b755e68e0103b5aa8
 --
 -- Copyright (c) 2008--2012 Red Hat, Inc.
 --
@@ -15,13 +15,7 @@
 --
 -- triggers for rhnChannelPackage
 
-create or replace function rhn_channel_package_mod_trig_fun() returns trigger as
-$$
-begin
-	new.modified := current_timestamp;
-	return new;
-end;
-$$ language plpgsql;
+drop trigger rhn_channel_package_mod_trig on rhnChannelCloned;
 
 create trigger
 rhn_channel_package_mod_trig
