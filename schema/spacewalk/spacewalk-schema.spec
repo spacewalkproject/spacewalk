@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.7.37
+Version:        1.7.38
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -66,6 +66,17 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Tue Feb 21 2012 Jan Pazdziora 1.7.38-1
+- Table rhnAppInstallInstance no longer used, dropping.
+- Table rhnAppInstallSession no longer used, dropping.
+- Prepare for dropping rhnAppInstallSession -- no more delete from it in
+  rhn_org.
+- Prepare for dropping rhnAppInstallSession -- no more delete from it in
+  delete_server.
+- Table rhnAppInstallSessionData no longer used, dropping.
+- Define PostgreSQL triggers in the function - trigger - function - trigger
+  order to make checks easier.
+
 * Mon Feb 20 2012 Tomas Lestach <tlestach@redhat.com> 1.7.37-1
 - 790803 - add ip6 to rhn_sat_node (tlestach@redhat.com)
 - 790803 - add vip6 to rhn_sat_cluster (tlestach@redhat.com)
