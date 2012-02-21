@@ -12,7 +12,6 @@
     <template name="System_queries" filename="xml/System_queries.xml" />
     <template name="Errata_queries" filename="xml/Errata_queries.xml" />
     <template name="errata_search_elaborators" filename="xml/errata_search_elaborators.xml" />
-    <template name="system_search" filename="xml/system_search.xml" />
     <template name="errata_search_setbuilder" filename="xml/errata_search_setbuilder.xml" />
     <template name="Task_queries" filename="xml/Task_queries.xml" />
     <template name="General_queries" filename="xml/General_queries.xml" />
