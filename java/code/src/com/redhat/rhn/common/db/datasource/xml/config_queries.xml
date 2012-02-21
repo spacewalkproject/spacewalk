@@ -452,32 +452,6 @@ ORDER BY  S.name
   </query>
 </mode>
 
-
-
-
-	<!-- TODO what is this? -->
-<elaborator>
-  SELECT  S.id,
-          NVL2( (SELECT  1
-                   FROM  rhnClientCapability CC, rhnClientCapabilityName CCN
-                  WHERE  S.id = CC.server_id
-                    AND  CC.capability_name_id = CCN.id
-                    AND  CCN.name LIKE 'configfiles%') , 'Y', 'N') AS capable
-          NVL2( (SELECT  1
-                   FROM  rhnServerGroup SG, rhnServerGroupMembers SGM, rhnServerGroupType SGT
-                  WHERE  S.id = SGM.server_id
-                    AND  SGM.server_group_id = SG.id
-                    AND  SG.group_type = SGT.id
-                    AND  SGT.label = 'provisioning_entitled'), 'Y', 'N') AS provisioning
-    FROM  rhnServer S
-   WHERE  S.id IN (%s)
-
-<!--  Does the system have rhncfg packages? -->
-<!--  Subscribed to RHN Tools? -->
-</elaborator>
-
-
-
 <mode name="system_config_enabled_check">
   <query params="user_id, sid">
   SELECT  count(CC.server_id) as count
