@@ -162,7 +162,7 @@ public class SatNode {
 
     /**
      * Setter for ip6
-     * @param ipIn to set
+     * @param ip6In to set
     */
     public void setIp6(String ip6In) {
         this.ip6 = ip6In;
