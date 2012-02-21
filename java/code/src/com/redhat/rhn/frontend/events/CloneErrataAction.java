@@ -34,7 +34,7 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * UpdateErrataCacheAction
+ * CloneErrataAction
  * @version $Rev$
  */
 public class CloneErrataAction
