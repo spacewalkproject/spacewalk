@@ -39,7 +39,7 @@ SELECT 1
 SELECT
    wc.id,
    wc.name,
-   (SELECT COUNT(ru.id) FROM rhnuser ru WHERE ru.org_id = wc.id) users,
+   (SELECT COUNT(ru.id) FROM web_contact ru WHERE ru.org_id = wc.id) users,
    (SELECT COUNT(s.id) FROM rhnServer s WHERE s.org_id = wc.id) systems,
    (SELECT COUNT(*) FROM rhnTrustedOrgs t WHERE t.org_id = wc.id) trusts,
    (SELECT COUNT(*) FROM rhnServerGroup g WHERE g.org_id = wc.id AND g.group_type IS NULL) server_groups

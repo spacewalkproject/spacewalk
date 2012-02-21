@@ -257,7 +257,7 @@ DELETE
    AND S.user_id = :user_id
    AND S.label = :label
    AND NOT EXISTS(SELECT 1
-                    FROM rhnkickstartscript KS, rhnuser U, rhnksdata KD
+                    FROM rhnkickstartscript KS, web_contact U, rhnksdata KD
                    WHERE 1=1
                      AND KS.id = S.element
                      AND KS.kickstart_id = KD.id
