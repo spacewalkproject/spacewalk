@@ -30,6 +30,7 @@ from operator import truth
 import xmlrpclib
 
 ## common imports
+from spacewalk.common.rhnLib import parseRPMName
 from spacewalk.common.rhnLog import log_debug, log_error
 from spacewalk.common.rhnException import rhnFault
 from spacewalk.common.rhnConfig import CFG
@@ -137,12 +138,12 @@ class Repository(rhnRepository.Repository):
 
         if pkgFilename[-8:] != '.src.rpm':
             # We already know the filename ends in .src.rpm
-            nvrea = parseRPMName(pkgFilename[:-8])
+            nvrea = list(parseRPMName(pkgFilename[:-8]))
             nvrea.append("src")
         else:
             # We already know the filename ends in .nosrc.rpm
             # otherwise we did not pass first if in this func
-            nvrea = parseRPMName(pkgFilename[:-10])
+            nvrea = list(parseRPMName(pkgFilename[:-10]))
             nvrea.append("nosrc")
 
         filePath = computePackagePath(nvrea, source=1, prepend=PREFIX)
@@ -270,28 +271,6 @@ def computePackagePath(nvrea, source=0, prepend=""):
     template = '/'.join(filter(truth, template.split('/')))
     return template % (name, version, release, dirarch, name, nvrea[1],
         release, pkgarch, extension)
-
-
-
-# reg exp for splitting package names.
-re_rpmName = re.compile("^(.*)-([^-]*)-([^-]*)$")
-def parseRPMName(pkgName):
-    """ IN:  Package string in, n-n-n-v.v.v-r.r_r, format.
-        OUT: Four strings (in a list): name, release, version, epoch.
-    """
-
-    reg = re_rpmName.match(pkgName)
-    if reg == None:
-        return [None, None, None, None]
-    n, v, r = reg.group(1, 2, 3)
-    e = ""
-    ind = r.find(':')
-    if ind < 0: # no epoch
-        return [str(n), str(v), str(r), str(e)]
-    e = r[ind+1:]
-    r = r[0:ind]
-    return [str(n), str(v), str(r), str(e)]
-
 
 def cache(stringObject, directory, filename, version):
     """ Caches stringObject into a file and removes older files """
