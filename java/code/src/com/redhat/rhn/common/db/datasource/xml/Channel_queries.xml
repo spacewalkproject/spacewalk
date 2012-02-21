@@ -505,7 +505,7 @@ SELECT CFO.id, CFO.org_id, CFO.name, CFO.label, CFO.current_members, CFO.max_mem
 <mode name="protected_trust_channel" class="com.redhat.rhn.frontend.dto.OrgChannelDto">
      <query params="org_id, cid">
 SELECT wc.id, wc.name,
-       NVL((SELECT 1
+       COALESCE((SELECT 1
         FROM rhnchanneltrust rct
         WHERE 1=1
         AND wc.id = rct.org_trust_id
