@@ -1,0 +1,1 @@
+-- This file is intentionally left empty, Oracle does not have separate trigger functions.
