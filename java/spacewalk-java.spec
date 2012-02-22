@@ -100,8 +100,6 @@ BuildRequires: tanukiwrapper
 Requires: classpathx-mail
 BuildRequires: classpathx-mail
 BuildRequires: checkstyle
-BuildRequires:  gsbase
-BuildRequires:  jmock
 
 # Sadly I need these to symlink the jars properly.
 BuildRequires: asm
@@ -214,16 +212,25 @@ Provides: spacewalk-java-jdbc = %{version}-%{release}
 This package contains PostgreSQL database backend files for the Spacewalk Java.
 
 
+%if ! 0%{?omit_tests} > 0
 %package tests
 Summary: Test Classes for testing spacewalk-java
 Group:  Applications/Internet
 
+BuildRequires:  gsbase
+BuildRequires:  jmock
 Requires: jmock
 Requires: gsbase
 
 %description tests
 This package contains testing files of spacewalk-java.  
 
+%files tests
+%{_datadir}/rhn/lib/rhn-test.jar
+%{_datadir}/rhn/unittest.xml
+%{jardir}/mockobjects*.jar
+%{jardir}/strutstest*.jar
+%endif
 
 %package -n spacewalk-taskomatic
 Summary: Java version of taskomatic
@@ -363,7 +370,9 @@ install -m 755 conf/logrotate/rhn_web_api $RPM_BUILD_ROOT%{_sysconfdir}/logrotat
 install -m 755 scripts/taskomatic $RPM_BUILD_ROOT%{_initrddir}
 install -m 755 scripts/unittest.xml $RPM_BUILD_ROOT/%{_datadir}/rhn/
 install -m 644 build/webapp/rhnjava/WEB-INF/lib/rhn.jar $RPM_BUILD_ROOT%{_datadir}/rhn/lib
+%if ! 0%{?omit_tests} > 0
 install -m 644 build/webapp/rhnjava/WEB-INF/lib/rhn-test.jar $RPM_BUILD_ROOT%{_datadir}/rhn/lib
+%endif
 install -m 644 conf/log4j.properties.taskomatic $RPM_BUILD_ROOT%{_datadir}/rhn/classes/log4j.properties
 
 install -m 644 conf/cobbler/snippets/default_motd  $RPM_BUILD_ROOT%{cobdirsnippets}/default_motd
@@ -398,6 +407,12 @@ rm -rf $RPM_BUILD_ROOT%{jardir}/jspapi.jar
 rm -rf $RPM_BUILD_ROOT%{jardir}/jasper5-compiler.jar
 rm -rf $RPM_BUILD_ROOT%{jardir}/jasper5-runtime.jar
 rm -rf $RPM_BUILD_ROOT%{jardir}/tomcat6*.jar
+%if 0%{?omit_tests} > 0
+rm -rf $RPM_BUILD_ROOT%{_datadir}/rhn/lib/rhn-test.jar
+rm -rf $RPM_BUILD_ROOT%{_datadir}/rhn/unittest.xml
+rm -rf $RPM_BUILD_ROOT%{jardir}/mockobjects*.jar
+rm -rf $RPM_BUILD_ROOT%{jardir}/strutstest*.jar
+%endif
 
 # show all JAR symlinks
 echo "#### SYMLINKS START ####"
@@ -555,12 +570,6 @@ fi
 %{_prefix}/share/rhn/config-defaults/rhn_taskomatic_daemon.conf
 %{_prefix}/share/rhn/config-defaults/rhn_org_quartz.conf
 %config %{_sysconfdir}/logrotate.d/rhn_web_api
-
-%files tests
-%{_datadir}/rhn/lib/rhn-test.jar
-%{_datadir}/rhn/unittest.xml
-%{jardir}/mockobjects*.jar
-%{jardir}/strutstest*.jar
 
 %files lib
 %defattr(644, root, root)
