@@ -772,42 +772,6 @@ sub update_redirect      { shift->_update_record('RHN_REDIRECTS',      @_) }
 # # COMPLEX OPERATIONS #
 # ######################
 
-#######################################
-sub update_current_alert_by_ticket_id {
-#######################################
-  my ($self, %args) = @_;
-
-  my $ticket_id = $args{TICKET_ID};
-  unless ($ticket_id) {
-    throw NOCpulse::Probe::DataSource::ConfigError(
-                                          "ticket_id not defined as parameter");
-  }
-
-  my $escalate;
-  if ($args{'escalate'}) {
-    $escalate = $args{'escalate'};
-    delete($args{'escalate'});
-  }
-
-  my $record = $self->select_current_alert_by_ticket_id($ticket_id);
-  unless ($record) {
-    throw NOCpulse::Probe::DataSource::ConfigError(
-                  "current alerts record for ticket_id $ticket_id not found\n");
-  }
-
-  delete($args{TICKET_ID});
-  $args{RECID} = $record->{RECID};
-
-  if ($escalate) {
-    my $hashptr = $args{set};
-    $hashptr = {} unless $hashptr;
-    $hashptr->{ESCALATION_LEVEL} = $record->{ESCALATION_LEVEL} + $escalate;
-    $args{set} = $hashptr;
-  }
-
-  $self->update_current_alert(%args);
-} ## end sub update_current_alert_by_ticket_id
-
 sub select_max_last_update_date {
   my ($self, $table) = @_;
 
@@ -1699,10 +1663,6 @@ Given a timestamp, return a string containing the date and time reprsented by th
 =item update_current_alert ( %args )
 
 Update the database record, specified by the given arguments, in the current_alerts table with information specified in the 'set' portion of the argument hash.
-
-=item update_current_alert_by_ticket_id {
-
-Update the database record, specified by the given arguments, in the current_alerts table with information specified in the 'TICKET_ID' portion of the argument hash.
 
 =item update_redirect ( %args )
 
