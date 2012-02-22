@@ -887,13 +887,20 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
     _query_compare_packages = """
         select p.id, c.checksum_type, c.checksum, p.path, p.package_size,
                TO_CHAR(p.last_modified, 'YYYYMMDDHH24MISS') last_modified
-          from rhnPackage p, rhnChecksumView c
-         where p.name_id = lookup_package_name(:name)
-           and p.evr_id = lookup_evr(:epoch, :version, :release)
-           and p.package_arch_id = lookup_package_arch(:arch)
+          from rhnPackage p
+          join rhnChecksumView c
+            on p.checksum_id = c.id
+          join rhnPackageName pn
+            on pn.id = p.name_id
+          join rhnPackageEvr pe
+            on p.evr_id = pe.id
+          join rhnPackageArch pa
+            on pa.id = p.package_arch_id
+         where pn.name = :name
+           and pe.epoch = :epoch and pe.version = :version and pe.release = :release
+           and pa.name = :arch
            and (p.org_id = :org_id or
                (p.org_id is null and :org_id is null))
-           and p.checksum_id = c.id
     """
 
     def _diff_packages_process(self, chunk, channel_label):
