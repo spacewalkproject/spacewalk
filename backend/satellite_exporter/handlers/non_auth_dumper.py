@@ -22,10 +22,9 @@ import gzip
 import sys
 
 from rhn.UserDictCase import UserDictCase
-from spacewalk.common.rhnLib import parseRPMFilename
 from spacewalk.common.rhnLog import log_debug, log_error
 from spacewalk.common.rhnConfig import CFG
-from spacewalk.server import rhnSQL
+from spacewalk.server import rhnSQL, rhnLib
 from spacewalk.server.rhnHandler import rhnHandler
 from spacewalk.server.importlib.backendLib import localtime
 from spacewalk.common.rhnException import rhnFault
@@ -411,7 +410,7 @@ class NonAuthenticatedDumper(rhnHandler, dumper.XML_Dumper):
     def get_package_path_by_filename(self, fileName, channel):
         log_debug(3, fileName, channel)
         fileName = str(fileName)
-        n, e, v, r, a = parseRPMFilename(fileName)
+        n, e, v, r, a = rhnLib.parseRPMFilename(fileName)
 
         h = rhnSQL.prepare(self._query_get_package_path_by_nvra)
         h.execute(name=n, version=v, release=r, epoch=e, arch=a, channel=channel)
