@@ -33,7 +33,7 @@ import java.util.Map;
 public class CleanCurrentAlertsTest extends RhnBaseTestCase {
 
     public void testExecute() throws Exception {
-        //insert some test data into current_alerts
+        //insert some test data into rhn_current_alerts
         Long id = new Long(System.currentTimeMillis() / 100);
         User user = UserTestUtils.findNewUser("testuser", "testorg");
         WriteMode m = ModeFactory.getWriteMode("test_queries", "create_test_alert");

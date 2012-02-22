@@ -1403,7 +1403,7 @@ The C<NotificationDB> object is provides an interface to query, create, update, 
 
 =item create_current_alert ( %args )
 
-Create a row in the database in the current_alerts table, where the keys of %args represent the column names and the values of %args represent the respective values for that column.  Automatically generates a recid without having to pass one as a parameter in %args.
+Create a row in the database in the rhn_current_alerts table, where the keys of %args represent the column names and the values of %args represent the respective values for that column.  Automatically generates a recid without having to pass one as a parameter in %args.
 
 =item create_redirect ( %args )
 

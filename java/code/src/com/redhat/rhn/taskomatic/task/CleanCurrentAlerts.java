@@ -54,10 +54,10 @@ public class CleanCurrentAlerts extends RhnJavaJob {
         }
 
         /*
-         * Next, delete old CURRENT_ALERTS records.
+         * Next, delete old RHN_CURRENT_ALERTS records.
          */
         if  (log.isDebugEnabled()) {
-            log.debug("Deleting old CURRENT_ALERTS records");
+            log.debug("Deleting old RHN_CURRENT_ALERTS records");
         }
 
         int rowsDeleted = deleteOldAlerts();
