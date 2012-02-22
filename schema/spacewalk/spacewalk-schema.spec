@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.7.39
+Version:        1.7.40
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -66,6 +66,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Wed Feb 22 2012 Jan Pazdziora 1.7.40-1
+- Closing filehandles keeps world tidy.
+- Avoid segfault on RHEL 5.
+
 * Tue Feb 21 2012 Jan Pazdziora 1.7.39-1
 - Adding checks for schema sources content (table names and such).
 - Create the trigger rhn_ksscript_mod_trig correctly on the rhnKickstartScript
