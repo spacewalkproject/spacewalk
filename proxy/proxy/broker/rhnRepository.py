@@ -19,7 +19,6 @@
 # $Id: rhnRepository.py,v 1.92 2007/01/25 21:44:29 pvetere Exp $
 
 ## language imports
-import re
 import os
 import time
 import glob
