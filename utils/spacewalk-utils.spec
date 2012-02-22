@@ -1,7 +1,7 @@
 %define rhnroot %{_prefix}/share/rhn
 
 Name:		spacewalk-utils
-Version:	1.7.11
+Version:	1.7.12
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -78,6 +78,40 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Wed Feb 22 2012 Miroslav Suchý 1.7.12-1
+- 788083 - IPv6 support in spacewalk-hostname-rename (mzazrivec@redhat.com)
+- errata date clone - adding --skip-depsolve option, and fixing some man page
+  errors (jsherril@redhat.com)
+- errata date clone - fixing issue where repoclosure was not being passed all
+  needed arguments (jsherril@redhat.com)
+- errata date clone - fixing issue where raise was not called on an exception
+  (jsherril@redhat.com)
+- errata date clone - removing packages from remove list even if no errata are
+  cloned (jsherril@redhat.com)
+- errata date clone - better error message when repodata is missing
+  (jsherril@redhat.com)
+- errata date clone - man page fix, and catching if config file does not exist
+  (jsherril@redhat.com)
+- errata date clone - making regular expression syntax more apparent in docs
+  (jsherril@redhat.com)
+- errata date clone - pylint fixes (jsherril@redhat.com)
+- errata date clone - do not dep solve if no packages were added
+  (jsherril@redhat.com)
+- errata date clone - adding ability to specify per-channel blacklists
+  (jsherril@redhat.com)
+- errata date clone - fixing issue where old metadata could be reused if the
+  previous run did not complete (jsherril@redhat.com)
+- errata date clone - improving user feedback in some cases
+  (jsherril@redhat.com)
+- errata date clone - adding regular expression support for package exclusion
+  lists (jsherril@redhat.com)
+- errata date clone - adding auth check to make sure that login is refreshed
+  before session timeout (jsherril@redhat.com)
+- errata date clone - changing meaning of blacklist to only remove packages
+  based on delta, and adding removelist to remove packages based on full
+  channel contents (jsherril@redhat.com)
+- fixing some man page spelling errors (jsherril@redhat.com)
+
 * Mon Feb 13 2012 Michael Mraka <michael.mraka@redhat.com> 1.7.11-1
 - fixed spacewalk-common-channel glob matching
 
