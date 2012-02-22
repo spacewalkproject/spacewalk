@@ -18,7 +18,6 @@ import com.redhat.rhn.common.client.ClientCertificate;
 import com.redhat.rhn.common.client.InvalidCertificateException;
 import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.conf.ConfigDefaults;
-import com.redhat.rhn.common.db.datasource.CachedStatement;
 import com.redhat.rhn.common.db.datasource.CallableMode;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
@@ -60,7 +59,6 @@ import com.redhat.rhn.frontend.dto.NetworkDto;
 import com.redhat.rhn.frontend.dto.OrgProxyServer;
 import com.redhat.rhn.frontend.dto.SystemOverview;
 import com.redhat.rhn.frontend.dto.kickstart.KickstartSessionDto;
-import com.redhat.rhn.frontend.listview.ListControl;
 import com.redhat.rhn.frontend.listview.PageControl;
 import com.redhat.rhn.frontend.xmlrpc.InvalidProxyVersionException;
 import com.redhat.rhn.frontend.xmlrpc.ProxySystemIsSatelliteException;
@@ -74,7 +72,6 @@ import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.user.UserManager;
 
 import org.apache.commons.lang.BooleanUtils;
-import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
 
@@ -1897,65 +1894,6 @@ public class SystemManager extends BaseManager {
         params.put("sid", server.getId());
         SelectMode m = ModeFactory.getMode("Channel_queries", "system_channels", Map.class);
         return m.execute(params);
-    }
-
-    /**
-     * Returns a DataResult of SystemSearchResults which are based on the user's search
-     * criteria
-     * @param user user performing the search
-     * @param searchString string to search on
-     * @param viewMode what field to search
-     * @param invertResults whether the results should be inverted
-     * @param whereToSearch whether to search through all user visible systems or the
-     *        systems selected in the SSM
-     * @param pc PageControl
-     * @return DataResult of SystemSearchResults based on user's search criteria
-     */
-    public static DataResult systemSearch(User user,
-                                          String searchString,
-                                          String viewMode,
-                                          Boolean invertResults,
-                                          String whereToSearch,
-                                          PageControl pc) {
-        Map queryParams = new HashMap();
-        queryParams.put("user_id", user.getId());
-        queryParams.put("search_string", StringUtils.trimToEmpty(searchString));
-        SelectMode mode = ModeFactory.getMode("system_search", viewMode);
-        CachedStatement query = mode.getQuery();
-
-        /* The reason we change the queries in the Java code is to save us from having
-         * a mode for every single combination of inversion, base search query, and
-         * set of systems to search.
-         */
-
-        if (invertResults != null && invertResults.booleanValue()) {
-            query.setQuery("SELECT  USP.server_id AS ID FROM  rhnUserServerPerms USP " +
-                           "WHERE USP.user_id = :user_id MINUS(" +
-                           query.getOrigQuery() + ")");
-        }
-
-        if (whereToSearch.equals("system_list")) {
-            query.setQuery(query.getOrigQuery() + " INTERSECT SELECT element FROM rhnSet " +
-                           "WHERE label = 'system_list' AND user_id = :user_id");
-        }
-
-        /* We use the ListControl makeDataResult as this allows us to use elaborated queries
-         * without all the overhead of paging. We need elaboration for the selectable field
-         * to be retrieved from all the queries correctly
-         */
-        DataResult dr;
-        if (pc != null) {
-            dr =  makeDataResult(queryParams, queryParams, pc, mode);
-        }
-        else {
-            dr =  makeDataResult(queryParams, queryParams, (ListControl) null, mode);
-            // only elaborate when passing in null, and make sure
-            // we pass in the query params so that subsequent
-            // elaborators have access to the original params.
-            dr.elaborate(queryParams);
-        }
-
-        return dr;
     }
 
     /**

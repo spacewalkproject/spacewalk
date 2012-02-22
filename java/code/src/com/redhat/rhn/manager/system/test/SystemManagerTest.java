@@ -34,7 +34,6 @@ import com.redhat.rhn.domain.errata.ErrataFactory;
 import com.redhat.rhn.domain.errata.test.ErrataFactoryTest;
 import com.redhat.rhn.domain.org.CustomDataKey;
 import com.redhat.rhn.domain.org.Org;
-import com.redhat.rhn.domain.org.test.CustomDataKeyTest;
 import com.redhat.rhn.domain.rhnpackage.Package;
 import com.redhat.rhn.domain.rhnpackage.PackageEvr;
 import com.redhat.rhn.domain.rhnpackage.PackageEvrFactory;
@@ -45,14 +44,9 @@ import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.rhnset.SetCleanup;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.server.CPU;
-import com.redhat.rhn.domain.server.CustomDataValue;
-import com.redhat.rhn.domain.server.Device;
-import com.redhat.rhn.domain.server.Dmi;
 import com.redhat.rhn.domain.server.EntitlementServerGroup;
 import com.redhat.rhn.domain.server.InstalledPackage;
-import com.redhat.rhn.domain.server.Location;
 import com.redhat.rhn.domain.server.ManagedServerGroup;
-import com.redhat.rhn.domain.server.Network;
 import com.redhat.rhn.domain.server.Note;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.ServerConstants;
@@ -61,14 +55,8 @@ import com.redhat.rhn.domain.server.ServerGroup;
 import com.redhat.rhn.domain.server.ServerGroupFactory;
 import com.redhat.rhn.domain.server.VirtualInstance;
 import com.redhat.rhn.domain.server.test.CPUTest;
-import com.redhat.rhn.domain.server.test.CustomDataValueTest;
-import com.redhat.rhn.domain.server.test.DeviceTest;
-import com.redhat.rhn.domain.server.test.DmiTest;
-import com.redhat.rhn.domain.server.test.LocationTest;
-import com.redhat.rhn.domain.server.test.NetworkTest;
 import com.redhat.rhn.domain.server.test.ServerFactoryTest;
 import com.redhat.rhn.domain.server.test.ServerGroupTest;
-import com.redhat.rhn.domain.server.test.VirtualInstanceManufacturer;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.user.UserFactory;
 import com.redhat.rhn.frontend.dto.CustomDataKeyOverview;
@@ -655,164 +643,6 @@ public class SystemManagerTest extends RhnBaseTestCase {
             }
         }
         assertTrue("Didn't get back the expected values", found);
-
-    }
-
-    public void testSubscribeServerToChannel() throws Exception {
-        User user = UserTestUtils.findNewUser("testUser", "testOrg");
-        user.addRole(RoleFactory.ORG_ADMIN);
-        UserFactory.save(user);
-
-        Server server = ServerFactoryTest.createTestServer(user, true);
-        Channel channel = ChannelFactoryTest.createTestChannel(user);
-
-        int before = server.getChannels().size();
-        SystemManager.subscribeServerToChannel(user, server, channel);
-
-        server = (Server) reload(server);
-
-        int after = server.getChannels().size();
-        assertTrue(after > before);
-    }
-    public void testSystemSearch() throws Exception {
-
-        User user = UserTestUtils.findNewUser("testUser", "testOrg");
-
-        Server s = ServerFactoryTest.createTestServer(user, true,
-                ServerConstants.getServerGroupTypeEnterpriseEntitled());
-
-        /* setup needed for needed package query */
-        Errata e = ErrataFactoryTest.createTestErrata(user.getOrg().getId());
-        e.setAdvisoryType(ErrataFactory.ERRATA_TYPE_SECURITY);
-
-        Package p = PackageManagerTest.addPackageToSystemAndChannel(
-                "test-package-name" + TestUtils.randomString(), s,
-                ChannelFactoryTest.createTestChannel(user));
-
-
-        /*ServerGroup group = ServerGroupTestUtils.createEntitled(org);
-        SystemManager.addServerToServerGroup(s, group);
-        UserFactory.save(user);
-        OrgFactory.save(org);*/
-        int rows = ErrataCacheManager.insertNeededPackageCache(
-                s.getId(), e.getId(), p.getId());
-        assertEquals(1, rows);
-
-        /* CPU query setup */
-        CPU cpu = CPUTest.createTestCpu();
-        cpu.setServer(s);
-        s.setCpu(CPUTest.createTestCpu());
-
-        /* Network setup */
-        Network network = NetworkTest.createTestNetwork();
-        network.setServer(s);
-        s.addNetwork(network);
-
-        /* Dmi setup */
-        Dmi dmi = DmiTest.createTestDmi();
-        dmi.setServer(s);
-        s.setDmi(dmi);
-
-        /* fake device setup */
-        Device device = DeviceTest.createTestDevice();
-        device.setServer(s);
-        s.addDevice(device);
-
-        /* Location setup */
-        Location loc = LocationTest.createTestLocation();
-        loc.setServer(s);
-        s.setLocation(loc);
-
-        /* UUID setup */
-        VirtualInstanceManufacturer vim = new VirtualInstanceManufacturer(user);
-        VirtualInstance vi = vim.newUnregisteredGuest();
-        vi.setGuestSystem(s);
-
-        /* custom data value */
-        CustomDataValue value = CustomDataValueTest.createTestCustomDataValue(user,
-                                CustomDataKeyTest.createTestCustomDataKey(user),
-                                s);
-        s.addCustomDataValue(value);
-
-        TestUtils.saveAndFlush(s);
-        s = (Server) reload(s);
-
-        /* Here we create a hashmap with the name of each query as the key
-         * and the value being a search string that WILL return a result, namely
-         * our test system we created above
-         */
-        Map map = new HashMap();
-        map.put("systemsearch_name_and_description", s.getName());
-        map.put("systemsearch_id", s.getId().toString());
-        // map.put("systemsearch_checkin", "-1");
-        // map.put("systemsearch_registered", "0");
-        map.put("systemsearch_cpu_model", cpu.getModel());
-        map.put("systemsearch_cpu_mhz_lt", new Long(CPUTest.MHZ_NUMERIC + 50).toString());
-        map.put("systemsearch_cpu_mhz_gt", new Long(CPUTest.MHZ_NUMERIC - 50).toString());
-        map.put("systemsearch_ram_lt", new Long(s.getRam() + 50).toString());
-        map.put("systemsearch_ram_gt", new Long(s.getRam() - 50).toString());
-        map.put("systemsearch_hwdevice_description", device.getDescription());
-        map.put("systemsearch_hwdevice_driver", device.getDriver());
-        map.put("systemsearch_hwdevice_device_id", device.getProp2());
-        map.put("systemsearch_hwdevice_vendor_id", device.getProp1());
-        map.put("systemsearch_dmi_system", dmi.getSystem());
-        map.put("systemsearch_dmi_bios", dmi.getBios().getVendor());
-        map.put("systemsearch_dmi_asset", dmi.getAsset());
-        map.put("systemsearch_hostname", network.getHostname());
-        map.put("systemsearch_ip", network.getIpaddr());
-        map.put("systemsearch_ipv6", network.getIp6addr());
-        map.put("systemsearch_needed_packages", p.getPackageName().getName());
-        map.put("systemsearch_installed_packages", p.getPackageName().getName());
-        map.put("systemsearch_custom_info", value.getValue());
-        map.put("systemsearch_location_address", loc.getAddress1());
-        map.put("systemsearch_location_building", loc.getBuilding());
-        map.put("systemsearch_location_room", loc.getRoom());
-        map.put("systemsearch_location_rack", loc.getRack());
-        map.put("systemsearch_uuid", s.getVirtualInstance().getUuid());
-
-        Iterator i = map.keySet().iterator();
-
-        clearSession();
-
-        /* Loop through the set of keys which is our queries
-         * For each query we check that if we search on it,
-         * we find our system. Then we check the other possible
-         * combinations of search options which should all return nothing.
-         */
-        while (i.hasNext()) {
-            String viewMode = (String) i.next();
-            String searchValue = (String) map.get(viewMode);
-
-            DataResult dr = SystemManager.systemSearch(user,
-                                                       searchValue,
-                                                       viewMode,
-                                                       Boolean.FALSE,
-                                                       "all",
-                                                       null);
-
-            assertFalse(viewMode + " is empty with value: " + searchValue,
-                    dr.isEmpty());
-
-            dr = SystemManager.systemSearch(user,
-                                            searchValue,
-                                            viewMode,
-                                            Boolean.FALSE,
-                                            "system_list",
-                                            null);
-
-            assertTrue(viewMode + " has items with value: " + searchValue,
-                    dr.isEmpty());
-
-            dr = SystemManager.systemSearch(user,
-                                            searchValue,
-                                            viewMode,
-                                            Boolean.TRUE,
-                                            "system_list",
-                                            null);
-
-            assertTrue(viewMode + " has items with value: " + searchValue,
-                    dr.isEmpty());
-        }
 
     }
 
