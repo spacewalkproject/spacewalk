@@ -162,7 +162,7 @@ def parseRPMName(pkgName):
         return None, None, None, None
     n, v, r = reg.group(1, 2, 3)
     e = None
-    ind = string.find(r, ':')
+    ind = r.find(':')
     if ind >= 0: # epoch found
         e = r[ind+1:]
         r = r[0:ind]
