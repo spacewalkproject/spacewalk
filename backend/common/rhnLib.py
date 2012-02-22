@@ -13,6 +13,7 @@
 # in this software or its documentation.
 #
 
+import re
 import time
 import types
 import urlparse
