@@ -9,7 +9,7 @@ Name:         NPalert
 Summary:      NOCpulse notification system
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version:      1.127.3
+Version:      1.127.4
 Release:      1%{?dist}
 BuildArch:    noarch
 Requires:     perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
@@ -137,6 +137,14 @@ fi
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Wed Feb 22 2012 Jan Pazdziora 1.127.4-1
+- Method select_current_alert not used, removing.
+- Removal of update_current_alert_by_ticket_id makes update_current_alert not
+  used, removing.
+- Removal of update_current_alert_by_ticket_id makes
+  select_current_alert_by_ticket_id not used, removing.
+- Method update_current_alert_by_ticket_id not used in our product, removing.
+
 * Wed Feb 08 2012 Michael Mraka <michael.mraka@redhat.com> 1.127.3-1
 - fixed synonyms and sequences for postgresql in notification filters
 
