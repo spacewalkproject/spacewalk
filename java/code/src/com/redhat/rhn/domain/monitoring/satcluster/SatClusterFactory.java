@@ -19,6 +19,7 @@ import com.redhat.rhn.common.util.MD5Crypt;
 import com.redhat.rhn.domain.user.User;
 
 import org.apache.commons.lang.RandomStringUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
 
@@ -26,6 +27,7 @@ import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.InterfaceAddress;
 import java.net.NetworkInterface;
+import java.net.SocketException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -129,8 +131,28 @@ public class SatClusterFactory extends HibernateFactory {
             }
         }
         catch (Exception e) {
-            throw new RuntimeException("Couldn't lookup localhost!  " +
-                    "Something is very wrong.");
+            log.warn("Failed to find out IP host addresses. " +
+                    "Setting loopback IPs instead.");
+            try {
+                NetworkInterface ni = NetworkInterface.getByName("lo");
+                for (InterfaceAddress ifa : ni.getInterfaceAddresses()) {
+                    InetAddress ia = ifa.getAddress();
+                    if (ia instanceof Inet4Address) {
+                        if (StringUtils.isEmpty(retval.getVip())) {
+                            retval.setVip(ia.getHostAddress());
+                        }
+                    }
+                    else { //IPv6
+                        if (StringUtils.isEmpty(retval.getVip6())) {
+                            retval.setVip6(ia.getHostAddress());
+                        }
+                    }
+                }
+            }
+            catch (SocketException se) {
+                log.fatal("Failed to find out loopback IPs.");
+                se.printStackTrace();
+            }
         }
         return retval;
     }
