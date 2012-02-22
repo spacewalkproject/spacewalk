@@ -14,8 +14,8 @@ Requires: httpd
 # pylint check
 BuildRequires: spacewalk-pylint
 BuildRequires: rhnpush >= 5.5.40
-BuildRequires: spacewalk-backend-libs >= 1.7.1
-BuildRequires: spacewalk-backend >= 1.7.1
+BuildRequires: spacewalk-backend-libs >= 1.7.24
+BuildRequires: spacewalk-backend >= 1.7.24
 %endif
 
 %define rhnroot %{_usr}/share/rhn
@@ -30,7 +30,7 @@ This package is never built.
 Summary: Packages required by the SpacewalkManagement Proxy
 Group:   Applications/Internet
 Requires: squid
-Requires: spacewalk-backend >= 1.2.32
+Requires: spacewalk-backend >= 1.7.24
 # python-hashlib is optional for spacewalk-backend-libs
 # but we need made it mandatory here
 Requires: python-hashlib
@@ -122,7 +122,7 @@ Requires: mod_python
 Requires: mod_wsgi
 %endif
 Requires: %{name}-broker >= %{version}
-Requires: spacewalk-backend >= 1.2.32
+Requires: spacewalk-backend >= 1.7.24
 Requires: policycoreutils
 Obsoletes: rhns-proxy-common < 5.3.0
 
@@ -138,7 +138,7 @@ Spacewalk Proxy components.
 %package package-manager
 Summary: Custom Channel Package Manager for the Spacewalk Proxy Server
 Group:   Applications/Internet
-Requires: spacewalk-backend >= 1.2.32
+Requires: spacewalk-backend >= 1.7.24
 Requires: rhnlib
 Requires: python
 Requires: rhnpush
