@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.7.37
+Version: 1.7.38
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -576,6 +576,24 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Feb 22 2012 Miroslav Suchý 1.7.38-1
+- automatically focus search form (msuchy@redhat.com)
+- typo fix (mzazrivec@redhat.com)
+- deleting commented unused code (tlestach@redhat.com)
+- fix rhn/multiorg/channels/OrgList.do?cid=<cid> on PG (tlestach@redhat.com)
+- removing dead code (tlestach@redhat.com)
+- prevent calling listErrata APIs with empty startDate and non-empty endDate
+  (tlestach@redhat.com)
+- remove duplicate information (tlestach@redhat.com)
+- no need to select other columns, when the elaborator fetches them anyway
+  (tlestach@redhat.com)
+- 795565 - list errata according to issue_date, not last_modified
+  (tlestach@redhat.com)
+- We update stock tomcat server.xml with spacewalk-setup.
+  (jpazdziora@redhat.com)
+- We do not use subversion for some time. (jpazdziora@redhat.com)
+- The java/conf/rhn/rhn.conf is not packaged, nor used. (jpazdziora@redhat.com)
+
 * Tue Feb 21 2012 Tomas Lestach <tlestach@redhat.com> 1.7.37-1
 - 790803 - fix javadoc of ip6In (tlestach@redhat.com)
 - The dbchange is not used anywhere, removing. (jpazdziora@redhat.com)
