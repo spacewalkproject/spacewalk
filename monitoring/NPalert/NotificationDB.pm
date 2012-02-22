@@ -744,7 +744,6 @@ sub delete_redirect_method_targets {
 #          );
 #
 # # Single record update
-sub update_current_alert { shift->_update_record('RHN_CURRENT_ALERTS', @_) }
 sub update_redirect      { shift->_update_record('RHN_REDIRECTS',      @_) }
 
 # # Multiple record update
@@ -1638,10 +1637,6 @@ Given a date string, return the corresponding UNIX timestamp.
 =item timestamp_to_string ( $timestamp )
 
 Given a timestamp, return a string containing the date and time reprsented by the timestamp.
-
-=item update_current_alert ( %args )
-
-Update the database record, specified by the given arguments, in the current_alerts table with information specified in the 'set' portion of the argument hash.
 
 =item update_redirect ( %args )
 
