@@ -75,6 +75,7 @@ sub check_file_content {
 		local $/ = undef;
 		$content = <FILE>;
 	}
+	close FILE;
 	# print "[$filename] [$type] [$name]\n";
 	if ($type eq 'tables') {
 		if (not $content =~ /^(--.*\n
