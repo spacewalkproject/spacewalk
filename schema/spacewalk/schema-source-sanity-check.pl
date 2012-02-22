@@ -98,7 +98,7 @@ sub check_file_content {
 	} elsif ($type eq 'data') {
 		if (not $content =~ /^(--.*\n
 					|\s*\n
-					|insert\s+into\s+$name\b[^;]+(values|select)('[^;]+(;[^;]*)?'|[^';])+;
+					|insert\s+into\s+$name\b[^;]+(values|select)('[^;]+(;[^;]*)*'|[^';])+;
 					|commit;
 					)+$/ix) {
 			print "Bad $type content [$filename]\n";
