@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 1.7.23
+Version: 1.7.24
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -254,6 +254,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Wed Feb 22 2012 Miroslav Suchý 1.7.24-1
+- automatically focus search form (msuchy@redhat.com)
+
 * Mon Feb 20 2012 Jan Pazdziora 1.7.23-1
 - Removing rhnUser synonym and just using the base web_contact.
 - Methods users_in_org and users_in_org_overview do not seem to be used,
