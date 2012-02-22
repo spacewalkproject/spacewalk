@@ -662,23 +662,6 @@ EOSQL
   return $self->execute($sql, $table, FETCH_ARRAYREF, $id);
 } ## end sub select_redirect_criteria_by_redirect_id
 
-#######################################
-sub select_current_alert_by_ticket_id {
-#######################################
-  my $self  = shift;
-  my $id    = shift;
-  my $table = 'RHN_CURRENT_ALERTS';
-
-  my $sql = <<EOSQL;
-    SELECT *
-    FROM   $table
-    WHERE  ticket_id = ?
-EOSQL
-
-  my $records = $self->execute($sql, $table, FETCH_ARRAYREF, $id);
-  return $records->[0];
-} ## end sub select_current_alert_by_ticket_id
-
 ###########################################
 sub select_contact_methods_by_customer_id {
 ###########################################
@@ -1523,10 +1506,6 @@ Return a reference to an array of hashes containing the contacts specified by th
 =item select_current_alert ( %args )
 
 Return a reference to a hash containing the contact group specified by the given arguments.
-
-=item select_current_alert_by_ticket_id ( $ticket_id )
-
-Return a reference to a hash containing the current alert information with the given ticket id.
 
 =item select_customer ( %args )
 
