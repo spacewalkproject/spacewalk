@@ -128,7 +128,6 @@ sub create_redirect_criteria {
 
 # # Single record selection
 sub select_contact_group { shift->_select_record('RHN_CONTACT_GROUPS', @_) }
-sub select_current_alert { shift->_select_record('RHN_CURRENT_ALERTS', @_) }
 sub select_customer    { shift->_select_record('RHN_CUSTOMER_MONITORING', @_) }
 sub select_host        { shift->_select_record('RHN_HOST_MONITORING',     @_) }
 sub select_probe       { shift->_select_record('RHN_PROBE',               @_) }
@@ -1501,10 +1500,6 @@ Return a reference to an array of hashes containing the contact methods that bel
 =item select_contacts ( %args )
 
 Return a reference to an array of hashes containing the contacts specified by the given arguments.
-
-=item select_current_alert ( %args )
-
-Return a reference to a hash containing the contact group specified by the given arguments.
 
 =item select_customer ( %args )
 
