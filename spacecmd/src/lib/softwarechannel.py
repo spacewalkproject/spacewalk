@@ -857,7 +857,12 @@ def do_softwarechannel_addpackages(self, args):
         self.help_softwarechannel_addpackages()
         return
 
+    # Take the first argument as the channel and validate it
     channel = args.pop(0)
+    if not channel in self.do_softwarechannel_list('', True):
+        logging.error("%s is not a valid channel" % channel)
+        self.help_softwarechannel_addpackages()
+        return
 
     # expand the arguments to search for packages
     package_names = []
