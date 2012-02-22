@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.7.38
+Version: 1.7.39
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -576,6 +576,13 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Feb 22 2012 Tomas Lestach <tlestach@redhat.com> 1.7.39-1
+- remove unused method (tlestach@redhat.com)
+- remove unused action (tlestach@redhat.com)
+- drop system_search (tlestach@redhat.com)
+- 790803 - use loopback IPs in case the host has no DNS entry
+  (tlestach@redhat.com)
+
 * Wed Feb 22 2012 Miroslav Suchý 1.7.38-1
 - automatically focus search form (msuchy@redhat.com)
 - typo fix (mzazrivec@redhat.com)
