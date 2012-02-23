@@ -16,7 +16,7 @@ Group:   System Environment/Daemons
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.10.37
+Version: 5.10.38
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -252,7 +252,6 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 %attr(770,root,%{apache_group}) %dir %{_var}/log/rhn/oracle
 %attr(770,root,root) %dir %{_var}/log/rhn/oracle/osa-dispatcher
 %doc LICENSE
-%doc PYTHON-LICENSES.txt
 %if 0%{?suse_version}
 %dir %{_sysconfdir}/rhn
 %dir %{rhnroot}/config-defaults
@@ -269,12 +268,11 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 %{_datadir}/selinux/*/%{modulename}.pp
 %{_datadir}/selinux/devel/include/%{moduletype}/%{modulename}.if
 %doc LICENSE
-%doc PYTHON-LICENSES.txt
 %attr(0755,root,root) %{_sbindir}/osa-dispatcher-selinux-enable
 %endif
 
 %changelog
-* Thu Feb 23 2012 Michael Mraka <michael.mraka@redhat.com> 5.10.37-1
+* Thu Feb 23 2012 Michael Mraka <michael.mraka@redhat.com> 5.10.38-1
 - we are now just GPL
 
 * Tue Feb 07 2012 Jan Pazdziora 5.10.35-1
