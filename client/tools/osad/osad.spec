@@ -16,7 +16,7 @@ Group:   System Environment/Daemons
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.10.36
+Version: 5.10.37
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -227,7 +227,6 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 %config(noreplace) %{client_caps_dir}/*
 %attr(755,root,root) %{_initrddir}/osad
 %doc LICENSE
-%doc PYTHON-LICENSES.txt
 %if 0%{?suse_version}
 # provide directories not owned by any package during build
 %dir %{rhnroot}
@@ -275,7 +274,7 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 %endif
 
 %changelog
-* Thu Feb 23 2012 Michael Mraka <michael.mraka@redhat.com> 5.10.36-1
+* Thu Feb 23 2012 Michael Mraka <michael.mraka@redhat.com> 5.10.37-1
 - we are now just GPL
 
 * Tue Feb 07 2012 Jan Pazdziora 5.10.35-1
