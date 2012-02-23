@@ -62,25 +62,6 @@ sub test_general {
   }
 }
 
-sub test_dbexecute {
-  # See test_alert
-}
-
-################
-sub test_alert {
-################
-  my $self=shift;
-  $Log->log(1,"create\n");
-  my ($err)=$self->{'blah'}->dbexecute('create_current_alert',  3, undef, 'message', '01_1031071399_011923_006', 'destination_name',0, 1, 'down', '2', 'up', 30, 10, 'service_probe', '28/10/2000 10:00:00');
-  $self->assert($err==0,$err);
-  $Log->log(1,"escalate\n");
-  ($err)=$self->{'blah'}->dbexecute('escalate_current_alert','03_1031071399_011923_006','03_1031071399_011923_006');
-  $self->assert($err==0,$err);
-  $Log->log(1,"clear\n");
-  ($err)=$self->{'blah'}->dbexecute('clear_alert','03_1031071399_011923_006');
-  $self->assert($err==0,$err);
-}
-
 #######################
 sub test_redirect_seq {
 #######################
