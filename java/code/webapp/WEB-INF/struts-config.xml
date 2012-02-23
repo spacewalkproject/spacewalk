@@ -1586,18 +1586,6 @@
 	  <forward name="enable" path="/users/EnableConfirm.do" redirect="true" />
     </action>
 
-     <action path="/users/DisabledListSubmit"
-         scope="request"
-         input="/WEB-INF/pages/admin/users/disabledlist.jsp"
-         type="com.redhat.rhn.frontend.action.user.DisabledListSetupAction"
-         className="com.redhat.rhn.frontend.struts.RhnActionMapping"
-         parameter="dispatch">
-       <set-property property="acls"
-                    value="user_role(org_admin)"/>
-       <forward name="default" path="/users/DisabledList.do" redirect="true" />
-       <forward name="enable" path="/users/EnableConfirm.do" redirect="true" />
-     </action>
-
     <action path="/users/EnableConfirm"
         scope="request"
         input="/WEB-INF/pages/admin/users/userconfirm.jsp"
