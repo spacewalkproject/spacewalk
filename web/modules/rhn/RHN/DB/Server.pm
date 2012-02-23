@@ -598,14 +598,7 @@ sub delete_server {
   my $sth;
 
   eval {
-    $query = <<EOQ;
-BEGIN
-  delete_server(?);
-END;
-EOQ
-    $sth = $dbh->prepare($query);
-    $sth->execute($self->id);
-
+    $dbh->call_procedure('delete_server', $self->id);
     $dbh->commit;
   };
 
@@ -1088,12 +1081,7 @@ sub subscribe_to_channel {
   # pass the dbh to make it one transaction
   $dbh = $self->unsubscribe_from_channel($label, $dbh);
 
-  $sth = $dbh->prepare(<<EOH);
-BEGIN
-  rhn_channel.subscribe_server(?, ?);
-END;
-EOH
-  $sth->execute($self->id, $channel_id);
+  $dbh->call_procedure('rhn_channel.subscribe_server', $self->id, $channel_id);
 
   if ($commit) {
     $dbh->commit;
@@ -1494,12 +1482,7 @@ sub entitle_server {
   }
 
   my $dbh = RHN::DB->connect;
-  my $sth = $dbh->prepare(<<EOH);
-BEGIN
-  rhn_entitlements.entitle_server(:sid, :entitlement);
-END;
-EOH
-  $sth->execute_h(sid => $sid, entitlement => $label);
+  $dbh->call_function('rhn_entitlements.entitle_server', $sid, $label);
 
   return;
 }
@@ -1520,12 +1503,7 @@ sub unentitle_server {
   }
 
   my $dbh = RHN::DB->connect;
-  my $sth = $dbh->prepare(<<EOH);
-BEGIN
-  rhn_entitlements.unentitle_server(:sid);
-END;
-EOH
-  $sth->execute_h(sid => $sid);
+  $dbh->call_function('rhn_entitlements.unentitle_server', $sid);
 
   if ($monitoring) {
     RHN::Server->cleanup_monitoring_for_system($sid);
@@ -1715,21 +1693,9 @@ sub add_servers_to_groups {
   }
   my $dbh = $transaction || RHN::DB->connect;
 
-  my $query = <<EOQ;
-BEGIN
-  :retval := rhn_server.insert_into_servergroup_maybe(:server_id, :server_group_id);
-END;
-EOQ
-  my $sth = $dbh->prepare($query);
-
   for my $server (@servers) {
     for my $group (@groups) {
-
-      # what, exactly, do we need to do w/ retval?  check it for errors?
-      my $retval;
-      $sth->execute_h(retval => \$retval,
-                      server_id => $server,
-		      server_group_id => $group);
+      $dbh->call_procedure('rhn_server.insert_into_servergroup_maybe', $server, $group);
     }
   }
 
@@ -1758,17 +1724,10 @@ sub remove_servers_from_groups {
   }
 
   my $dbh = $transaction || RHN::DB->connect;
-  my $query = <<EOQ;
-BEGIN
-  rhn_server.delete_from_servergroup(:server_id, :server_group_id);
-END;
-EOQ
-
-  my $sth = $dbh->prepare($query);
 
   for my $server (@servers) {
     for my $group (@groups) {
-      $sth->execute_h(server_id => $server, server_group_id => $group);
+      $dbh->call_procedure('rhn_server.delete_from_servergroup', $server, $group);
     }
   }
       
