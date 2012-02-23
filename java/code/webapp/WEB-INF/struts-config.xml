@@ -4267,19 +4267,6 @@
         <forward name="error" path="/systems/details/packages/profiles/CompareSystems.do" redirect="true" />
     </action>
 
-    <action path="/systems/details/packages/profiles/CompareSystemsSubmit"
-        scope="request"
-        input="/WEB-INF/pages/systems/details/packages/profiles/comparesystems.jsp"
-        type="com.redhat.rhn.frontend.action.rhnpackage.profile.CompareSystemAction"
-        parameter="dispatch">
-        <forward name="default"
-                 path="/systems/details/packages/profiles/CompareSystems.do"
-                 redirect="true" />
-        <forward name="sync"
-                 path="/systems/details/packages/profiles/SyncSystems.do"
-                 redirect="true" />
-    </action>
-
     <action path="/systems/details/packages/profiles/SyncProfiles"
         scope="request"
         name="datePickerForm"
