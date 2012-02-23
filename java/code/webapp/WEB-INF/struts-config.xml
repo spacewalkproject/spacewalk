@@ -2704,16 +2704,6 @@
                  path="/WEB-INF/pages/systems/ungroupedlist.jsp"/>
     </action>
 
-     <action path="/systems/UngroupedSubmit"
-         scope="request"
-         input="/WEB-INF/pages/systems/ungroupedlist.jsp"
-         type="com.redhat.rhn.frontend.action.systems.UngroupedAction"
-         parameter="dispatch">
-         <forward name="default"
-                  path="/systems/Ungrouped.do"
-                  redirect="true"/>
-     </action>
-
     <action path="/systems/Inactive"
         scope="request"
         input="/WEB-INF/pages/systems/inactivelist.jsp"
