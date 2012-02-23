@@ -53,18 +53,18 @@ def main():
     (options, _args) = parser.parse_args()
 
     if options.satellite:
-        SATELLITE_HOST = options.satellite
+        satellite_host = options.satellite
     else:
-        SATELLITE_HOST = os.uname()[1]
+        satellite_host = os.uname()[1]
 
     if options.verbose:
         DEBUG = 1
 
-    SATELLITE_URL = "http://%s/rpc/api" % SATELLITE_HOST
+    satellite_url = "http://%s/rpc/api" % satellite_host
     if DEBUG:
-        print "Connecting to %s" % SATELLITE_URL
+        print "Connecting to %s" % satellite_url
 
-    client = xmlrpclib.Server(SATELLITE_URL, verbose=0)
+    client = xmlrpclib.Server(satellite_url, verbose=0)
 
     if options.csv:
         migrate_data = read_csv_file(options.csv)
