@@ -12,7 +12,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 1.7.26
+Version: 1.7.27
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -687,6 +687,10 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Thu Feb 23 2012 Michael Mraka <michael.mraka@redhat.com> 1.7.27-1
+- removed unused pygettext.py
+- we are now just GPL
+
 * Wed Feb 22 2012 Michael Mraka <michael.mraka@redhat.com> 1.7.26-1
 - diffing packages speedup on postgresql
 
