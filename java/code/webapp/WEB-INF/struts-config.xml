@@ -2793,16 +2793,6 @@
                  path="/WEB-INF/pages/systems/grouplist.jsp"/>
     </action>
 
-     <action path="/systems/SystemGroupListSubmit"
-         scope="request"
-         input="/WEB-INF/pages/systems/grouplist.jsp"
-         type="com.redhat.rhn.frontend.action.systems.SystemGroupListAction"
-         parameter="dispatch">
-         <forward name="default"
-                  path="/systems/SystemGroupList.do"
-                  redirect="true"/>
-     </action>
-
     <action path="/systems/SystemEntitlements"
 	name="systemEntitlementsForm"
         scope="request"
