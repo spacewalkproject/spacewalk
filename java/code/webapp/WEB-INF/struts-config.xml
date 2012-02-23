@@ -2591,16 +2591,6 @@
                  path="/WEB-INF/pages/systems/systemlist.jsp"/>
     </action>
 
-     <action path="/systems/SystemListSubmit"
-         scope="request"
-         input="/WEB-INF/pages/systems/systemlist.jsp"
-         type="com.redhat.rhn.frontend.action.systems.SystemListAction"
-         parameter="dispatch">
-         <forward name="default"
-                  path="/systems/SystemList.do"
-                  redirect="true"/>
-     </action>
-
     <action path="/systems/DuplicateIPList"
         scope="request"
         input="/WEB-INF/pages/systems/duplicate/duplicatesystems.jsp"
