@@ -2714,16 +2714,6 @@
                  path="/WEB-INF/pages/systems/inactivelist.jsp"/>
     </action>
 
-     <action path="/systems/InactiveSubmit"
-         scope="request"
-         input="/WEB-INF/pages/systems/inactivelist.jsp"
-         type="com.redhat.rhn.frontend.action.systems.InactiveAction"
-         parameter="dispatch">
-         <forward name="default"
-                  path="/systems/Inactive.do"
-                  redirect="true"/>
-     </action>
-
     <action path="/systems/Registered"
         scope="request"
         name="recentlyRegisteredSystemsForm"
