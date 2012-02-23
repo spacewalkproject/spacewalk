@@ -2692,16 +2692,6 @@
                  path="/WEB-INF/pages/systems/unentitledlist.jsp"/>
     </action>
 
-     <action path="/systems/UnentitledSubmit"
-         scope="request"
-         input="/WEB-INF/pages/systems/unentitledlist.jsp"
-         type="com.redhat.rhn.frontend.action.systems.UnentitledAction"
-         parameter="dispatch">
-         <forward name="default"
-                  path="/systems/Unentitled.do"
-                  redirect="true"/>
-     </action>
-
     <action path="/systems/Ungrouped"
         scope="request"
         input="/WEB-INF/pages/systems/ungroupedlist.jsp"
