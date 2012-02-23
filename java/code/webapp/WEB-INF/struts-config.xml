@@ -4254,20 +4254,6 @@
         <forward name="error" path="/systems/details/packages/profiles/CompareProfiles.do" redirect="true" />
     </action>
 
-    <action path="/systems/details/packages/profiles/CompareProfilesSubmit"
-        scope="request"
-        input="/WEB-INF/pages/systems/details/packages/profiles/compareprofiles.jsp"
-        type="com.redhat.rhn.frontend.action.rhnpackage.profile.CompareProfileAction"
-        parameter="dispatch">
-        <forward name="default"
-                 path="/systems/details/packages/profiles/CompareProfiles.do"
-                 redirect="true" />
-        <forward name="sync"
-                 path="/systems/details/packages/profiles/SyncProfiles.do"
-                 redirect="true" />
-
-    </action>
-
     <action path="/systems/details/packages/profiles/CompareSystems"
         scope="request"
         input="/WEB-INF/pages/systems/details/packages/profiles/comparesystems.jsp"
