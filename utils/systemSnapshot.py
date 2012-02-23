@@ -61,14 +61,14 @@ def main():
     (options, _args) = parser.parse_args()
     processCommandLine()
 
-    SATELLITE_URL = "http://%s/rpc/api" % options.satellite
+    satellite_url = "http://%s/rpc/api" % options.satellite
 
     if options.verbose:
         print "start date=", options.start_date
         print "end date=", options.end_date
-        print "connecting to %s" % SATELLITE_URL
+        print "connecting to %s" % satellite_url
 
-    client = xmlrpclib.Server(SATELLITE_URL, verbose=0)
+    client = xmlrpclib.Server(satellite_url, verbose=0)
 
     username, password = getUsernamePassword(options.username, \
                             options.password)
