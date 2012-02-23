@@ -14,8 +14,6 @@ POTFILE		= $(NLSPACKAGE).pot
 
 # PO catalog handling
 MSGMERGE	= msgmerge -v
-PYGETTEXT	= ./pygettext.py --default-domain=$(NLSPACKAGE) \
-		  --verbose --output-file=$(NLSPACKAGE).po 
 XGETTEXT	= xgettext --default-domain=$(NLSPACKAGE) --from-code utf-8 \
 		  --add-comments		  
 MSGFMT		= msgfmt --statistics --verbose
