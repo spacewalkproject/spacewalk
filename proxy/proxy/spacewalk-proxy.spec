@@ -4,7 +4,7 @@ Group:   Applications/Internet
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 1.7.10
+Version: 1.7.11
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
 BuildRequires: python
@@ -334,6 +334,9 @@ fi
 
 
 %changelog
+* Thu Feb 23 2012 Michael Mraka <michael.mraka@redhat.com> 1.7.11-1
+- we are now just GPL
+
 * Wed Feb 22 2012 Michael Mraka <michael.mraka@redhat.com> 1.7.10-1
 - fixed pylint error during rpm check
 
