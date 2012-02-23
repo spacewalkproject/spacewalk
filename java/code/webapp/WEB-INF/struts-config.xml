@@ -6594,17 +6594,6 @@
 	  		path="/configuration/channel/DeployConfirm.do"/>
 	</action>
 
-	<action path="/configuration/DeleteChannelSubmit"
-        scope="request"
-        input="/WEB-INF/pages/configuration/channel/deleteChannel.jsp"
-        type="com.redhat.rhn.frontend.action.configuration.DeleteChannelSubmitAction"
-		name="submittedForm"
-		className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-        <set-property property="acls" value="user_role(config_admin);"/>
-        <forward name="default" redirect="true"
-			path="/configuration/GlobalConfigChannelList.do"/>
-    </action>
-
     <action path="/configuration/ChannelUploadFiles"
         scope="request"
 		name="configFileForm"
