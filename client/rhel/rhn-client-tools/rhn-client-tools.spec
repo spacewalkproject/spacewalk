@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 1.7.9
+Version: 1.7.10
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -334,6 +334,9 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Thu Feb 23 2012 Jan Pazdziora 1.7.10-1
+- removed unused file (michael.mraka@redhat.com)
+
 * Tue Feb 14 2012 Miroslav Suchý 1.7.9-1
 - 781421 - avoid TB if error is in unicode
 
