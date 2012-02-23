@@ -184,21 +184,6 @@ sub init_statements {
                   );
 
   $self->dbprepare(
-    'create_current_alert',
-    "INSERT INTO rhn_current_alerts
-                                 (recid, date_submitted, last_server_change, date_completed,
-                                 original_server, current_server, tel_args, message, ticket_id,
-                                 destination_name, escalation_level, host_probe_id, host_state,
-                                 service_probe_id, service_state, customer_id, netsaint_id,
-                                 probe_type, last_update_date, event_timestamp)
-                               SELECT sequence_nextval('RHN_CURRENT_ALERTS_RECID_SEQ'), sysdate, sysdate, NULL,
-                                 ?, ?, ?, ?, ?,
-                                 ?, 0, ?, ?,
-                                 ?, ?, ?, ?,
-                                 ?, sysdate, TO_DATE(?, 'MM-DD-YYYY HH24:MI:SS') FROM dual"
-                  );
-
-  $self->dbprepare(
     'escalate_current_alert',
     "UPDATE rhn_current_alerts
                                SET escalation_level =(select NVL(max(escalation_level),0) + 1 
@@ -383,10 +368,6 @@ Prepare a set of predefined frequently used sql statements.  These are noted bel
 - clear_alert ( ticket_id )
 
 Completed the alert specified by ticket_id.
-
-- create_current_alert (original_server, current_server, tel_args, message, ticket_id, destination_name,  host_probe_id, host_state, service_probe_id, service_state, customer_id, netsaint_id, probe_type, event_timestamp )
-
-Create a new current alert record with the specified bindvars.
 
 - create_redirect ( recid, customer_id, contact_id, redirect_type, description, reason, start_date, expiration, last_update_user )
 
