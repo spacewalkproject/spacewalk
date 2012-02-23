@@ -5436,16 +5436,6 @@
                  path="/WEB-INF/pages/kickstart/kickstartoverview.jsp"/>
     </action>
 
-    <action path="/kickstart/KickstartsSubmit"
-        scope="request"
-        input="/WEB-INF/pages/kickstart/kickstarts.jsp"
-        type="com.redhat.rhn.frontend.action.kickstart.KickstartsSubmitAction"
-        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-        <set-property property="postRequiredIfSubmitted" value="true" />
-        <forward name="default"
-                 path="/WEB-INF/pages/kickstart/kickstarts.jsp"/>
-    </action>
-
   <action path="/kickstart/KickstartDetailsEdit"
         scope="request"
         name="kickstartDetailsForm"
