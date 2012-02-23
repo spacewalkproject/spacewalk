@@ -412,7 +412,7 @@ class ChannelCloner:
         return self.new_pkg_hash
         
     def reset_from_pkgs(self):
-        self.from_pkg_hash = dict((pkg['nvrea'], pkg) for pkg in self.remote_api.list_packages(self.from_label))         
+        self.from_pkg_hash = dict((pkg['nvrea'], pkg) for pkg in self.remote_api.list_packages(self.from_label))
             
     def prepare(self):        
         self.reset_original_pkgs()
@@ -423,7 +423,8 @@ class ChannelCloner:
         return len(self.errata_to_clone)
         
     def pre_summary(self):
-        print "  %s -> %s  (%i/%i Errata)" % (self.from_label, self.to_label, len(self.errata_to_clone), len(self.available_errata))
+        print "  %s -> %s  (%i/%i Errata)" % (self.from_label, self.to_label,
+                                 len(self.errata_to_clone), len(self.available_errata))
     
     def process(self):
         self.clone()
