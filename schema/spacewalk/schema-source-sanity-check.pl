@@ -165,7 +165,7 @@ for my $c (sort keys %{ $files{oracle} }) {
 	next unless $c =~ /\.(sql|pks|pkb)$/;
 	check_file_content($files{oracle}{$c});
 	if (not exists $files{postgres}{$c}) {
-		if (not $c =~ /^synonyms|^triggers/) {
+		if (not $c =~ /^synonyms/) {
 			print "Oracle file [$c] is not in PostgreSQL variant\n";
 			$error = 1;
 		} else {
