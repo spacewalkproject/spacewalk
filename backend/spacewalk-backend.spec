@@ -12,7 +12,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 1.7.28
+Version: 1.7.29
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -377,7 +377,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 %files sql
 %defattr(-,root,root)
-%doc PYTHON-LICENSES.txt LICENSE
+%doc LICENSE
 # Need __init__ = share it with rhns-server
 %dir %{pythonrhnroot}/server
 %{pythonrhnroot}/server/__init__.py*
@@ -390,17 +390,17 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 %files sql-oracle
 %defattr(-,root,root,-)
-%doc PYTHON-LICENSES.txt LICENSE
+%doc LICENSE
 %{pythonrhnroot}/server/rhnSQL/driver_cx_Oracle.py*
 
 %files sql-postgresql
 %defattr(-,root,root,-)
-%doc PYTHON-LICENSES.txt LICENSE
+%doc LICENSE
 %{pythonrhnroot}/server/rhnSQL/driver_postgresql.py*
 
 %files server -f %{name}-server.lang
 %defattr(-,root,root)
-%doc PYTHON-LICENSES.txt LICENSE
+%doc LICENSE
 # modules
 %{pythonrhnroot}/server/apacheAuth.py*
 %{pythonrhnroot}/server/apacheHandler.py*
@@ -483,7 +483,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 %files xmlrpc
 %defattr(-,root,root) 
-%doc PYTHON-LICENSES.txt LICENSE
+%doc LICENSE
 %dir %{rhnroot}/server/handlers/xmlrpc
 %{rhnroot}/server/handlers/xmlrpc/*
 %dir %{pythonrhnroot}/server/action
@@ -497,7 +497,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 %files applet
 %defattr(-,root,root)
-%doc PYTHON-LICENSES.txt LICENSE
+%doc LICENSE
 %dir %{rhnroot}/server/handlers/applet
 %{rhnroot}/server/handlers/applet/*
 # config files
@@ -507,7 +507,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 %files app
 %defattr(-,root,root)
-%doc PYTHON-LICENSES.txt LICENSE
+%doc LICENSE
 %dir %{rhnroot}/server/handlers/app
 %{rhnroot}/server/handlers/app/*
 # config files
@@ -517,7 +517,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 %files xp
 %defattr(-,root,root)
-%doc PYTHON-LICENSES.txt LICENSE
+%doc LICENSE
 %dir %{rhnroot}/server/handlers/xp
 %{rhnroot}/server/handlers/xp/*
 # config files
@@ -527,7 +527,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 %files iss
 %defattr(-,root,root)
-%doc PYTHON-LICENSES.txt LICENSE
+%doc LICENSE
 %dir %{rhnroot}/server/handlers/sat
 %{rhnroot}/server/handlers/sat/*
 %config(noreplace) %{_sysconfdir}/logrotate.d/spacewalk-backend-iss
@@ -535,7 +535,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 %files iss-export
 %defattr(-,root,root)
-%doc PYTHON-LICENSES.txt LICENSE
+%doc LICENSE
 %dir %{pythonrhnroot}/satellite_exporter
 %{pythonrhnroot}/satellite_exporter/__init__.py*
 %{pythonrhnroot}/satellite_exporter/satexport.py*
@@ -552,7 +552,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 %files libs
 %defattr(-,root,root)
-%doc PYTHON-LICENSES.txt LICENSE
+%doc LICENSE
 %{pythonrhnroot}/__init__.py*
 %dir %{pythonrhnroot}/common
 %{pythonrhnroot}/common/__init__.py*
@@ -565,14 +565,14 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 %files config-files-common
 %defattr(-,root,root)
-%doc PYTHON-LICENSES.txt LICENSE
+%doc LICENSE
 %{pythonrhnroot}/server/configFilesHandler.py*
 %dir %{pythonrhnroot}/server/config_common
 %{pythonrhnroot}/server/config_common/*
 
 %files config-files
 %defattr(-,root,root)
-%doc PYTHON-LICENSES.txt LICENSE
+%doc LICENSE
 %dir %{rhnroot}/server/handlers/config
 %{rhnroot}/server/handlers/config/*
 %attr(644,root,apache) %{rhnconfigdefaults}/rhn_server_config-management.conf
@@ -581,7 +581,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 %files config-files-tool
 %defattr(-,root,root)
-%doc PYTHON-LICENSES.txt LICENSE
+%doc LICENSE
 %dir %{rhnroot}/server/handlers/config_mgmt
 %{rhnroot}/server/handlers/config_mgmt/*
 %attr(644,root,apache) %{rhnconfigdefaults}/rhn_server_config-management-tool.conf
@@ -590,7 +590,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 %files package-push-server
 %defattr(-,root,root)
-%doc PYTHON-LICENSES.txt LICENSE
+%doc LICENSE
 %dir %{rhnroot}/upload_server
 %{rhnroot}/upload_server/__init__.py*
 %dir %{rhnroot}/upload_server/handlers
@@ -603,7 +603,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 %files tools
 %defattr(-,root,root)
-%doc PYTHON-LICENSES.txt LICENSE
+%doc LICENSE
 %attr(644,root,apache) %{rhnconfigdefaults}/rhn_server_satellite.conf
 %config(noreplace) %{_sysconfdir}/logrotate.d/spacewalk-backend-tools
 %attr(755,root,root) %{_bindir}/rhn-charsets
@@ -670,7 +670,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 %files xml-export-libs
 %defattr(-,root,root)
-%doc PYTHON-LICENSES.txt LICENSE
+%doc LICENSE
 %dir %{pythonrhnroot}/satellite_tools
 %{pythonrhnroot}/satellite_tools/__init__.py*
 %{pythonrhnroot}/satellite_tools/geniso.py*
@@ -687,7 +687,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
-* Thu Feb 23 2012 Michael Mraka <michael.mraka@redhat.com> 1.7.28-1
+* Thu Feb 23 2012 Michael Mraka <michael.mraka@redhat.com> 1.7.29-1
 - removed unused pygettext.py
 - we are now just GPL
 
