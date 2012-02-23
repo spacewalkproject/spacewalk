@@ -1,7 +1,7 @@
 %define rhnroot %{_prefix}/share/rhn
 
 Name:		spacewalk-utils
-Version:	1.7.12
+Version:	1.7.13
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -78,6 +78,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Thu Feb 23 2012 Michael Mraka <michael.mraka@redhat.com> 1.7.13-1
+- we are now just GPL
+
 * Wed Feb 22 2012 Miroslav Suchý 1.7.12-1
 - 788083 - IPv6 support in spacewalk-hostname-rename (mzazrivec@redhat.com)
 - errata date clone - adding --skip-depsolve option, and fixing some man page
