@@ -200,10 +200,6 @@ while (1) {
 
         $Log->log(1,'Registered ', $alert->printString,"\n");
 
-        #update current alerts, it is level 0 before any sends
-#        $Log->log(9,"Updating current alerts\n");
-#        &create_current_alert($db,$alert);
-    
         #schedule initial sends with the escalator
         $Log->log(9,"Registering initial sends with the escalator:\n");
         my @sends = $alert->create_initial_sends;
@@ -371,37 +367,3 @@ sub setup_logging {
     return ($Log,$stream);
 }
 
-##########################
-sub create_current_alert {
-##########################
-  # There's got to be a better home for this.  Will make it live here for now
-  # until a better place is found.
-
-  my ($db,$alert) = @_;
-
-  my @dest_names=map { $_->printString() } @{$alert->destinations};
-  my $dest_names=join(',',@dest_names);
-  $dest_names=substr($dest_names,0,50);
-
-  #Patch the old probe schema to the new, bug NP4121
-  my $probe_type=$probe_type_map{$alert->type};
-
-  if ($alert->type eq 'host') {
-    $alert->hoststate($alert->state)
-  } else {
-    $alert->servicestate($alert->state)
-  }
-
-  my ($errno,$err)=$db->dbexecute('create_current_alert',
-     $alert->server_id, $alert->server_id, '', substr($alert->message,0,1999), substr($alert->ticket_id,0,80),
-     $dest_names,$alert->hostProbeId, substr($alert->hoststate,0,255),
-     $alert->probeId, substr($alert->servicestate,0,255), $alert->customerId, $alert->clusterId,
-     substr($probe_type,0,20), time2str(DEF_UNIX_DATE_FMT,time()));
-  if ($errno) {
-    $Log->log(1,"ERROR: create_current_alert ",$alert->ticket_id,": $err\n");
-  }
-  ($errno,$err)=$db->commit;
-  if ($errno) {
-    $Log->log(1,"ERROR: create_current_alert (commit) ",$alert->ticket_id,": $err\n");
-  }
-}
