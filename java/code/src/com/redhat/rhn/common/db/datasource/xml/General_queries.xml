@@ -275,22 +275,6 @@ ORDER BY KTZ.name
   </query>
 </mode>
 
-<write-mode name="update_current_alerts_date_completed">
-  <query>
-    UPDATE rhn_current_alerts
-       SET date_completed = current_timestamp, in_progress = '0'
-     WHERE date_completed is null
-       AND date_diff_in_days(date_submitted, current_timestamp) > 1
-  </query>
-</write-mode>
-
-<write-mode name="delete_old_current_alerts">
-  <query>
-    DELETE from rhn_current_alerts
-     WHERE date_diff_in_days(date_completed, current_timestamp) > 1
-  </query>
-</write-mode>
-
 <mode name="server_group_membership">
     <query params="org_id, label">
 SELECT max_members, current_members FROM rhnServerGroup sg, rhnServerGroupType sgt

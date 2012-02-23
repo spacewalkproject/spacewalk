@@ -340,22 +340,6 @@ VALUES (:org_id, :server_count, :processed)
   </query>
 </write-mode>
 
-<write-mode name="create_test_alert">
-  <query params="recid, user_id">
-INSERT
-  INTO rhn_current_alerts (recid, customer_id, date_completed, in_progress, date_submitted)
-VALUES (:recid, :user_id, null, '1', '23-january-04')
-  </query>
-</write-mode>
-
-<mode name="get_alert">
-  <query params="recid">
-SELECT *
-  FROM rhn_current_alerts
- WHERE recid = :recid
-  </query>
-</mode>
-
 <mode name="get_daily_summary_queue">
     <query params="">
 SELECT * FROM rhnSummaryQueue
