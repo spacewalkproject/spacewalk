@@ -2682,16 +2682,6 @@
                  path="/WEB-INF/pages/systems/outofdatelist.jsp"/>
     </action>
 
-     <action path="/systems/OutOfDateSubmit"
-         scope="request"
-         input="/WEB-INF/pages/systems/outofdatelist.jsp"
-         type="com.redhat.rhn.frontend.action.systems.OutOfDateAction"
-         parameter="dispatch">
-         <forward name="default"
-                  path="/systems/OutOfDate.do"
-                  redirect="true"/>
-     </action>
-
     <action path="/systems/Unentitled"
         scope="request"
         input="/WEB-INF/pages/systems/unentitledlist.jsp"
