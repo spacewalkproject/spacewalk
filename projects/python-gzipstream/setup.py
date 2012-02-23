@@ -17,5 +17,5 @@ to allow the processing of streaming data.
       author_email = 'taw@redhat.com',
       url = 'http://rhn.redhat.com',
       py_modules = ["gzipstream"],
-      license = "Python and GPLv2",
+      license = "GPLv2",
       )

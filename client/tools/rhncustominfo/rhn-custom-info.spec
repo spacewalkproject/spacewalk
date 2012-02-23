@@ -1,7 +1,7 @@
 Name: rhn-custom-info
 Summary: Set and list custom values for RHN-enabled machines
 Group: Applications/System
-License: GPLv2 and Python
+License: GPLv2
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Version: 5.4.13
@@ -49,7 +49,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/rhn-custom-info
 %dir %{_datadir}/rhn/custominfo
 %{_datadir}/rhn/custominfo/rhn-custom-info.py*
-%doc LICENSE PYTHON-LICENSES.txt
+%doc LICENSE
 %{_mandir}/man8/rhn-custom-info.*
 
 %changelog
