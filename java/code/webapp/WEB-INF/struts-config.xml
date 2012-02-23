@@ -6946,13 +6946,6 @@
 	<!-- ===== END CONFIGURATION ===== -->
 	
 	<!-- ===== START ISO DOWNLOAD ===== -->
-	<action path="/software/downloads/Help"
-        scope="request"
-        input="/WEB-INF/pages/software/downloads/isohelp.jsp"
-		type="com.redhat.rhn.frontend.action.channel.ISOTreeAction"
-        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-        <forward name="default" path="/WEB-INF/pages/software/downloads/isohelp.jsp"/>
-    </action>
 	<action path="/software/channel/downloads/Download"
         scope="request"
         input="/WEB-INF/pages/software/downloads/download.jsp"
