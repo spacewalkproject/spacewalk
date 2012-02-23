@@ -2761,16 +2761,6 @@
                  path="/WEB-INF/pages/systems/proxylist.jsp"/>
     </action>
 
-     <action path="/systems/ProxyListSubmit"
-         scope="request"
-         input="/WEB-INF/pages/systems/proxylist.jsp"
-         type="com.redhat.rhn.frontend.action.systems.ProxyListAction"
-         parameter="dispatch">
-         <forward name="default"
-                  path="/systems/ProxyList.do"
-                  redirect="true"/>
-     </action>
-
     <action path="/systems/VirtualSystemsList"
         scope="request"
         input="/WEB-INF/pages/systems/virtuallist.jsp"
