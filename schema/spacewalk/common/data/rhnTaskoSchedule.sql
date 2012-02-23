@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2010 Red Hat, Inc.
+-- Copyright (c) 2010--2012 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -69,13 +69,6 @@ INSERT INTO rhnTaskoSchedule (id, job_label, bunch_id, active_from, cron_expr)
     VALUES(sequence_nextval('rhn_tasko_schedule_id_seq'), 'sandbox-cleanup-default',
         (SELECT id FROM rhnTaskoBunch WHERE name='sandbox-cleanup-bunch'),
         current_timestamp, '0 5 4 ? * *');
-
--- Once a day at 4:35:00 AM (beware of 2AM cronjobs)
-
-INSERT INTO rhnTaskoSchedule (id, job_label, bunch_id, active_from, cron_expr)
-    VALUES(sequence_nextval('rhn_tasko_schedule_id_seq'), 'clean-alerts-default',
-        (SELECT id FROM rhnTaskoBunch WHERE name='clean-alerts-bunch'),
-        current_timestamp, '0 35 4 ? * *');
 
 -- Once a day at 11:00 PM
 

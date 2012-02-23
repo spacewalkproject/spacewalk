@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2010 Red Hat, Inc.
+-- Copyright (c) 2010--2012 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -58,9 +58,6 @@ INSERT INTO rhnTaskoTask (id, name, class)
 
 INSERT INTO rhnTaskoTask (id, name, class)
          VALUES (sequence_nextval('rhn_tasko_task_id_seq'), 'compare-config-files', 'com.redhat.rhn.taskomatic.task.CompareConfigFilesTask');
-
-INSERT INTO rhnTaskoTask (id, name, class)
-         VALUES (sequence_nextval('rhn_tasko_task_id_seq'), 'clean-current-alerts', 'com.redhat.rhn.taskomatic.task.CleanCurrentAlerts');
 
 INSERT INTO rhnTaskoTask (id, name, class)
          VALUES (sequence_nextval('rhn_tasko_task_id_seq'), 'sync-probe-state', 'com.redhat.rhn.taskomatic.task.SynchProbeState');

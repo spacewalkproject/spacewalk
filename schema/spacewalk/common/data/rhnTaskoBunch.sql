@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2010 Red Hat, Inc.
+-- Copyright (c) 2010--2012 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -35,9 +35,6 @@ INSERT INTO rhnTaskoBunch (id, name, description, org_bunch)
 
 INSERT INTO rhnTaskoBunch (id, name, description, org_bunch)
              VALUES (sequence_nextval('rhn_tasko_bunch_id_seq'), 'compare-configs-bunch', 'Schedules a comparison of config files on all systems', null);
-
-INSERT INTO rhnTaskoBunch (id, name, description, org_bunch)
-             VALUES (sequence_nextval('rhn_tasko_bunch_id_seq'), 'clean-alerts-bunch', 'Clears current monitoring alerts', null);
 
 INSERT INTO rhnTaskoBunch (id, name, description, org_bunch)
              VALUES (sequence_nextval('rhn_tasko_bunch_id_seq'), 'sync-probe-bunch', 'Calls the synch probe state proc', null);
