@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.7.39
+Version: 1.7.40
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -585,6 +585,12 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Feb 23 2012 Jan Pazdziora 1.7.40-1
+- The com.redhat.rhn.taskomatic.task.CleanCurrentAlerts is not longer needed
+  because nothing inserts to rhn_current_alerts, removing.
+- optionaly omit building spacewalk-java-tests subpackage (tlestach@redhat.com)
+- Use table RHN_CURRENT_ALERTS directly instead of the synonym.
+
 * Wed Feb 22 2012 Tomas Lestach <tlestach@redhat.com> 1.7.39-1
 - remove unused method (tlestach@redhat.com)
 - remove unused action (tlestach@redhat.com)
