@@ -199,21 +199,6 @@ public class ConfigurationManager extends BaseManager {
     }
 
     /**
-     * Lists all of the configuration files in RHN for a single org.
-     * @param user The user requesting to view configuration files.
-     * @param pc A page control for this user.
-     * @return A list of configuration files in DTO format.
-     */
-    public DataResult listAllFilesWithTotalSize(User user, PageControl pc) {
-        SelectMode m = ModeFactory.getMode("config_queries",
-                                           "org_configfile_size_totals");
-        Map params = new HashMap();
-        params.put("user_id", user.getId());
-        params.put("org_id", user.getOrg().getId());
-        return makeDataResult(params, new HashMap(), pc, m);
-    }
-
-    /**
      * Lists all configuration managed systems along with counts for how many
      * files and channels they are managed by.
      * @param user The user requesting to view managed systems

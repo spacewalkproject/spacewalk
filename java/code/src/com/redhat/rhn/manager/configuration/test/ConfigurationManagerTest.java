@@ -455,38 +455,6 @@ public class ConfigurationManagerTest extends RhnBaseTestCase {
         return false;
     }
 
-    public void testListAllFiles() throws Exception {
-
-        //Only Config Admins can use this manager function.
-        //Making the user a config admin will also automatically
-        //give him access to the file and channel we are about to create.
-        UserTestUtils.addUserRole(user, RoleFactory.CONFIG_ADMIN);
-        UserTestUtils.addProvisioning(user.getOrg());
-
-        //find the current state of things
-        int current = cm.listAllFilesWithTotalSize(user, pc).getTotalSize();
-
-        // Create a config revision, config content, config info, config file,
-        // and config channel.
-        ConfigRevision cr = ConfigTestUtils.createConfigRevision(user.getOrg());
-        ConfigurationFactory.commit(cr);
-
-        //Make sure that everything was created and committed correctly.
-        assertTrue(cr.getId().longValue() > 0);
-        assertNotNull(cr.getConfigFile());
-        assertNotNull(cr.getConfigContent());
-        assertNotNull(cr.getConfigInfo());
-        assertTrue(cr.getConfigFile().getId().longValue() > 0);
-        assertNotNull(cr.getConfigFile().getConfigChannel());
-        assertTrue(cr.getConfigFile().getConfigChannel().getId().longValue() > 0);
-
-        //Call the function we are testing
-        DataResult dr = cm.listAllFilesWithTotalSize(user, pc);
-        //the number before the test plus the one we added.
-        assertEquals(current + 1, dr.getTotalSize());
-        assertTrue(dr.get(0) instanceof ConfigFileDto);
-    }
-
     public void testListManagedSystemsAndFiles() throws Exception {
         //Create a config file, along with a config channel
         ConfigFile cf = ConfigTestUtils.createConfigFile(user.getOrg());
