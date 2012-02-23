@@ -87,7 +87,7 @@ class DepSolver:
          epoch:name-ver-rel.arch, name-epoch:ver-rel.arch
         """                    
         
-        ematch, match, unmatch = parsePackages(self._repostore.pkgSack, self.pkgs)
+        ematch, match, _unmatch = parsePackages(self._repostore.pkgSack, self.pkgs)
         pkgs = []
         for po in ematch + match:
             pkgs.append(po)
@@ -115,9 +115,9 @@ class DepSolver:
             found = self.processResults(results)[0]
             solved += to_solve
             to_solve = []
-            for dep, pkgs in found.items():
+            for _dep, pkgs in found.items():
                 for pkg in pkgs:
-                    name, version, epoch, release, arch = pkg
+                    name, version, _epoch, release, arch = pkg
                     ndep = "%s-%s-%s.%s" % (name, version, release, arch)
                     solved = list(set(solved))
                     if ndep not in solved:
