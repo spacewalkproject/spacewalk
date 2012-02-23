@@ -8,7 +8,7 @@ Group:   Applications/System
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.10.25
+Version: 5.10.26
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -106,6 +106,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Thu Feb 23 2012 Michael Mraka <michael.mraka@redhat.com> 5.10.26-1
+- we are now just GPL
+
 * Sun Jan 15 2012 Aron Parsons <aronparsons@gmail.com> 5.10.25-1
 - add a --disable-selinux option to 'rhncfg-manager upload-channel'
   (aronparsons@gmail.com)
