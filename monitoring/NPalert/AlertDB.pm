@@ -176,23 +176,6 @@ sub init_statements {
   my $self = shift;
 
   $self->dbprepare(
-    'clear_alert',
-    "UPDATE rhn_current_alerts
-                              SET  date_completed   = sysdate,
-                                   last_update_date = sysdate
-                              WHERE ticket_id  = ?"
-                  );
-
-  $self->dbprepare(
-    'escalate_current_alert',
-    "UPDATE rhn_current_alerts
-                               SET escalation_level =(select NVL(max(escalation_level),0) + 1 
-                                                     from rhn_current_alerts where ticket_id = ?),
-	                           last_update_date = sysdate
-                               WHERE TICKET_ID = ?"
-                  );
-
-  $self->dbprepare(
     'select_next_redirect_recid',
     "select sequence_nextval('rhn_redirects_recid_seq')
                                  from DUAL"
@@ -365,10 +348,6 @@ Disconnect the connection from the database.
 
 Prepare a set of predefined frequently used sql statements.  These are noted below with required bindvars.
 
-- clear_alert ( ticket_id )
-
-Completed the alert specified by ticket_id.
-
 - create_redirect ( recid, customer_id, contact_id, redirect_type, description, reason, start_date, expiration, last_update_user )
 
 Create a new redirect record with the specified bindvars.
@@ -398,10 +377,6 @@ Delete the redirect email targets for the specified redirect id.
 - dual
 
 blah blah 
-
-- escalate_current_alert ( ticket_id )
-
-Increase the escalation level for the alert denoted by the specified ticket_id.
 
 - select_next_redirect_recid ( )
 
