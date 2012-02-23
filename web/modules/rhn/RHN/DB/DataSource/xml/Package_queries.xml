@@ -73,9 +73,9 @@ ORDER BY 8
 SELECT PN.id AS NAME_ID,
        PE.id AS EVR_ID,
        PN.name AS NAME,
-       PE.evr.version AS VERSION,
-       PE.evr.release AS RELEASE,
-       PE.evr.epoch AS EPOCH,
+       (PE.evr).version AS VERSION,
+       (PE.evr).release AS RELEASE,
+       (PE.evr).epoch AS EPOCH,
        PA.label as ARCH,
        PN.name || '-' || evr_t_as_vre_simple(PE.evr) AS NVRE
   FROM rhnPackageName PN,
