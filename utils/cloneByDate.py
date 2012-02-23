@@ -181,6 +181,7 @@ class ChannelTreeCloner:
         a.prepare()
         a.clone()
          """
+    # pylint: disable=R0902
     def __init__(self, channels, remote_api, db_api, to_date, blacklist, 
                                             removelist):
         self.remote_api = remote_api
@@ -380,6 +381,7 @@ class ChannelTreeCloner:
                 cloner.remove_blacklisted(self.blacklist)
 
 class ChannelCloner:
+    # pylint: disable=R0902
     def __init__(self, from_label, to_label, to_date, remote_api, db_api):
         self.remote_api = remote_api
         self.db_api = db_api
