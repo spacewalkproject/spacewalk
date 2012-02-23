@@ -10,6 +10,7 @@
   <template name="system.config" classname="com.redhat.rhn.frontend.xmlrpc.system.config.ServerConfigHandler"/>
   <template name="system.custominfo" classname="com.redhat.rhn.frontend.xmlrpc.system.custominfo.CustomInfoHandler"/>
   <template name="system.provisioning.snapshot" classname="com.redhat.rhn.frontend.xmlrpc.system.provisioning.snapshot.SnapshotHandler"/>
+  <template name="system.scap" classname="com.redhat.rhn.frontend.xmlrpc.system.scap.SystemScapHandler"/>
   <template name="system.search" classname="com.redhat.rhn.frontend.xmlrpc.system.search.SystemSearchHandler"/>
   <template name="systemgroup" classname="com.redhat.rhn.frontend.xmlrpc.systemgroup.ServerGroupHandler" />
   <template name="proxy" classname="com.redhat.rhn.frontend.xmlrpc.proxy.ProxyHandler"/>

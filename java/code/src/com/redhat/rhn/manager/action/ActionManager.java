@@ -34,6 +34,8 @@ import com.redhat.rhn.domain.action.kickstart.KickstartGuestActionDetails;
 import com.redhat.rhn.domain.action.rhnpackage.PackageAction;
 import com.redhat.rhn.domain.action.script.ScriptActionDetails;
 import com.redhat.rhn.domain.action.script.ScriptRunAction;
+import com.redhat.rhn.domain.action.scap.ScapAction;
+import com.redhat.rhn.domain.action.scap.ScapActionDetails;
 import com.redhat.rhn.domain.action.server.ServerAction;
 import com.redhat.rhn.domain.action.solaris.SolarisPackagePatchClusterInstallAction;
 import com.redhat.rhn.domain.action.solaris.SolarisPackagePatchInstallAction;
@@ -1808,5 +1810,33 @@ public class ActionManager extends BaseManager {
         );
     }
 
+    /**
+     * Schedules Xccdf evaluation.
+     * @param scheduler User scheduling the action.
+     * @param srvr Server for which the action affects.
+     * @param path Path for the Xccdf content.
+     * @param parameters Additional parameters for oscap tool.
+     * @param earliestAction Date of earliest action to be executed.
+     * @return scheduled Scap Action
+     */
+    public static ScapAction scheduleXccdfEval(User scheduler, Server srvr, String path,
+            String parameters, Date earliestAction) {
+        if (!SystemManager.hasEntitlement(srvr.getId(),
+                    EntitlementManager.MANAGEMENT)) {
+            throw new MissingEntitlementException(
+                    EntitlementManager.MANAGEMENT.getHumanReadableLabel());
+        }
+
+        Set<Long> serverIds = new HashSet<Long>();
+        serverIds.add(srvr.getId());
+        ScapActionDetails scapDetails = new ScapActionDetails(path, parameters);
+        ScapAction action = (ScapAction) scheduleAction(scheduler,
+            ActionFactory.TYPE_SCAP_XCCDF_EVAL,
+            ActionFactory.TYPE_SCAP_XCCDF_EVAL.getName(),
+            earliestAction, serverIds);
+        action.setScapActionDetails(scapDetails);
+        ActionFactory.save(action);
+        return action;
+    }
 
 }

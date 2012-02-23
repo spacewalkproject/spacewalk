@@ -226,6 +226,15 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 				discriminator-value="197542" lazy="true">
 		</subclass>
 
+	<!-- ScapActions: 50 -->
+	<subclass name="com.redhat.rhn.domain.action.scap.ScapAction"
+		discriminator-value="50" lazy="true">
+		<one-to-one name="scapActionDetails"
+			class="com.redhat.rhn.domain.action.scap.ScapActionDetails"
+			outer-join="false" cascade="all" constrained="false"
+			property-ref="parentAction"/>
+	</subclass>
+
         <!-- ScriptActions: 30 -->
         <subclass
             name="com.redhat.rhn.domain.action.script.ScriptRunAction"

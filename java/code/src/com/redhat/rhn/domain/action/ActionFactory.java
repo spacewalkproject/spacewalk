@@ -32,6 +32,7 @@ import com.redhat.rhn.domain.action.kickstart.KickstartInitiateGuestAction;
 import com.redhat.rhn.domain.action.kickstart.KickstartScheduleSyncAction;
 import com.redhat.rhn.domain.action.rhnpackage.PackageAction;
 import com.redhat.rhn.domain.action.rhnpackage.PackageActionDetails;
+import com.redhat.rhn.domain.action.scap.ScapAction;
 import com.redhat.rhn.domain.action.script.ScriptActionDetails;
 import com.redhat.rhn.domain.action.script.ScriptRunAction;
 import com.redhat.rhn.domain.action.server.ServerAction;
@@ -362,6 +363,9 @@ public class ActionFactory extends HibernateFactory {
         }
         else if (typeIn.equals(TYPE_VIRTUALIZATION_GUEST_SUBSCRIBE_TO_TOOLS_CHANNEL)) {
             retval = new KickstartGuestToolsChannelSubscriptionAction();
+        }
+        else if (typeIn.equals(TYPE_SCAP_XCCDF_EVAL)) {
+            retval = new ScapAction();
         }
 
         else {
@@ -997,6 +1001,9 @@ public class ActionFactory extends HibernateFactory {
      */
     public static final ActionType TYPE_VIRTUALIZATION_GUEST_SUBSCRIBE_TO_TOOLS_CHANNEL =
             lookupActionTypeByLabel("kickstart_guest.add_tools_channel");
+
+    public static final ActionType TYPE_SCAP_XCCDF_EVAL =
+            lookupActionTypeByLabel("scap.xccdf_eval");
 
     public static final String TXN_OPERATION_INSERT = "insert";
     public static final String TXN_OPERATION_DELETE = "delete";
