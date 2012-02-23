@@ -9,7 +9,7 @@ Name:         NPalert
 Summary:      NOCpulse notification system
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version:      1.127.4
+Version:      1.127.5
 Release:      1%{?dist}
 BuildArch:    noarch
 Requires:     perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
@@ -137,6 +137,9 @@ fi
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Thu Feb 23 2012 Jan Pazdziora 1.127.5-1
+- Removing usage of rhn_current_alerts as it's never inserted to.
+
 * Wed Feb 22 2012 Jan Pazdziora 1.127.4-1
 - Method select_current_alert not used, removing.
 - Removal of update_current_alert_by_ticket_id makes update_current_alert not
