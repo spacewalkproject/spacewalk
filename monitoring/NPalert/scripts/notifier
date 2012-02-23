@@ -192,12 +192,6 @@ while (1) {
         $Log->log(1, "ERROR: EscalatorInterface update_send error: $@\n");
       }
 
-     # Update current alerts
-     #            if ($send->is_escalation) {
-     #                $db->dbexecute('escalate_current_alert',$alert->ticket_id,
-     #                        $alert->ticket_id);
-     #            }
-
     }    # end foreach $sendid
 
     # Save the send to disk so others may see

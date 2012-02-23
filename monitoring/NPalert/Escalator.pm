@@ -359,19 +359,6 @@ sub _register_send {
   $send_history{$send->send_id}=$info->store_string;
   $Log->log(1,"Registered ", $send->printString, "\n");
 
-#  if ($is_escalation) {
-#    $self->log_size('pre-exec');
-#    my ($errno,$err)=$self->db->dbexecute('escalate_current_alert',$alert->ticket_id,$alert->ticket_id);
-#    if ($errno) {
-#      $Log->log(1,"ERROR: escalate_current_alert ",$alert->ticket_id,": $err\n");
-#    }
-##    $self->log_size('pre-commit');
-#    ($errno,$err)=$self->db->commit;
-#    if ($errno) {
-#      $Log->log(1,"ERROR: escalate_current_alert (commit) ",$alert->ticket_id,": $err\n");
-#    }
-##    $self->log_size('post-commit');
-#  }
   $self->save_state;
 }
 
