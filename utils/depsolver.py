@@ -163,7 +163,8 @@ class DepSolver:
             #perhaps we're on older version of yum try old style
             return ListPackageSack(self._repostore.pkgSack.searchProvides(name))
 
-    def processResults(self, results):
+    @staticmethod
+    def processResults(results):
         reqlist = {}
         notfound = {}
         for pkg in results:
@@ -185,7 +186,8 @@ class DepSolver:
                     found[req].append(dep)
         return found, notfound
 
-    def printable_result(self, results):
+    @staticmethod
+    def printable_result(results):
         print_doc_str = ""
         for pkg in results:
             if len(results[pkg]) == 0:
