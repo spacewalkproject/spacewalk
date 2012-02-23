@@ -104,11 +104,6 @@ sub create_redirect_method_target {
   shift->_create('RHN_REDIRECT_METHOD_TARGETS', @_);
 }
 
-sub create_current_alert {
-  shift->_create_with_seq('RECID', 'RHN_CURRENT_ALERTS_RECID_SEQ',
-                          'RHN_RHN_CURRENT_ALERTS', @_);
-}
-
 sub create_redirect {
   shift->_create_with_seq('RECID', 'RHN_REDIRECTS_RECID_SEQ', 'RHN_REDIRECTS',
                           @_);
@@ -1400,10 +1395,6 @@ The C<NotificationDB> object is provides an interface to query, create, update, 
 =head1 METHODS
 
 =over 4
-
-=item create_current_alert ( %args )
-
-Create a row in the database in the rhn_current_alerts table, where the keys of %args represent the column names and the values of %args represent the respective values for that column.  Automatically generates a recid without having to pass one as a parameter in %args.
 
 =item create_redirect ( %args )
 
