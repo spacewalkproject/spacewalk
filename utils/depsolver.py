@@ -41,8 +41,8 @@ log = logging.getLogger(__name__)
 CACHE_DIR = "/tmp/cache/yum"
 
 class DepSolver:
-    def __init__(self, repos, pkgs_in=[]):
-        self.pkgs = pkgs_in
+    def __init__(self, repos, pkgs_in=None):
+        self.pkgs = pkgs_in or []
         self.repos = repos
         self._repostore = RepoStorage(self)
         self.cleanup() #call cleanup before and after, to ensure no stale metadata
