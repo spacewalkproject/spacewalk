@@ -457,7 +457,8 @@ class ChannelCloner:
     def dest_pkg_exist(self, needed_list):
         return self.pkg_exists(needed_list, self.new_pkg_hash)
             
-    def pkg_exists(self, needed_list, pkg_list):
+    @staticmethod
+    def pkg_exists(needed_list, pkg_list):
         """Given a list of packages in [N, V, E, R, A] format, do any of them exist
             in the pkg_hash with key of N-V-R.A  format"""            
         for i in needed_list:
@@ -650,8 +651,9 @@ class DBApi:
         initCFG('server')
         db_string = CFG.DEFAULT_DB #"rhnsat/rhnsat@rhnsat"
         rhnSQL.initDB(db_string)        
-                
-    def applicable_errata(self, from_label, to_label):
+
+    @staticmethod
+    def applicable_errata(from_label, to_label):
         """list of errata that is applicable to be cloned, used db because we 
             need to exclude cloned errata too"""
         h = rhnSQL.prepare("""
