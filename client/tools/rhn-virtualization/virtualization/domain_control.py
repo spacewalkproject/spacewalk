@@ -110,7 +110,7 @@ def _get_domain(uuid):
     """
     Lookup the domain by its UUID.  If not found, raise an exception.
     """
-    conn = libvirt.openReadOnly(None)
+    conn = libvirt.open(None)
     domain = None
     hyphenized_uuid = hyphenize_uuid(uuid)
     try:
