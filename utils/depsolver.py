@@ -30,6 +30,7 @@ from yum.repos import RepoStorage
 try:    
     from spacewalk.satellite_tools.progress_bar import ProgressBar
 except ImportError:
+    # pylint: disable=F0401
     _LIBPATH = "/usr/share/rhn"
     if _LIBPATH not in sys.path:
         sys.path.append(_LIBPATH)    

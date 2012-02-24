@@ -39,6 +39,7 @@ try:
     from spacewalk.satellite_tools.progress_bar import ProgressBar
     from spacewalk.server import rhnSQL
 except ImportError:
+    # pylint: disable=F0401
     _LIBPATH = "/usr/share/rhn"
     if _LIBPATH not in sys.path:
         sys.path.append(_LIBPATH)
