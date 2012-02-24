@@ -163,15 +163,7 @@ def listChannels(channelList):
 def _listChannels(channelList, is_source):
     # Lists the packages from these channels
     # Uniquify the channels
-    channelHash = {}
-    channels = []
-    for channel in channelList:
-        if channelHash.has_key(channel):
-            # Already seen
-            continue
-        channels.append(channel)
-        channelHash[channel] = None
-    # channels is the unique list of channels now
+    channels = set(channelList)
     rez = []
     for channel in channels:
         c_info = rhnChannel.channel_info(channel)
