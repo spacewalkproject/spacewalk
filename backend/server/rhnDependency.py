@@ -331,10 +331,7 @@ def solve_dependencies_with_limits(server_id, deps, version, all = 0, limit_oper
     nvre = ['name','version','release','epoch','arch']
 
     #Make sure there are no duplicate dependencies.
-    deplist = []
-    for dep in deps:
-        if dep not in deplist:
-            deplist.append(dep)
+    deplist = set(deps)
 
     statement = "%s UNION ALL %s UNION ALL %s" % (__packages_all_sql, __provides_all_sql, __files_all_sql)
     h = rhnSQL.prepare(statement)
@@ -484,10 +481,7 @@ def solve_dependencies(server_id, deps, version, nvre=None):
         nvre = ['name', 'version', 'release', 'epoch']
 
     # first, uniquify deps
-    deplist = []
-    for dep in deps:
-        if dep not in deplist:
-            deplist.append(dep)
+    deplist = set(deps)
 
     # SQL statement.  It is a union of 3 statements:
     #  - Lookup by package name
