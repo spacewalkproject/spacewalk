@@ -155,34 +155,12 @@ def _dump(object):
 
  
 def listChannelsSource(channelList):
-    # Lists the packages from these channels
-    # Uniquify the channels
-    channelHash = {}
-    channels = []
-    for channel in channelList:
-        if channelHash.has_key(channel):
-            # Already seen
-            continue
-        channels.append(channel)
-        channelHash[channel] = None
-    # channels is the unique list of channels now
-    rez = []
-    for channel in channels:
-        c_info = rhnChannel.channel_info(channel)
-        if not c_info:
-            # No packages in this channel
-            continue
-
-        packageList = rhnChannel.list_packages_source(c_info['id'])
-        for p in packageList:
-            for pkg in range(len(p)):
-                if p[pkg] is None:
-                    p[pkg] = ""
-            print p
-            rez.append([p[0], p[1], p[2], p[3], channel])
-    return rez
+    return _listChannels(channelList, True)
 
 def listChannels(channelList):
+    return _listChannels(channelList, False)
+
+def _listChannels(channelList, is_source):
     # Lists the packages from these channels
     # Uniquify the channels
     channelHash = {}
@@ -201,9 +179,19 @@ def listChannels(channelList):
             # No packages in this channel
             continue
 
-        packageList = rhnChannel.list_packages_sql(c_info['id'])
+        if is_source:
+            packageList = rhnChannel.list_packages_source(c_info['id'])
+        else:
+            packageList = rhnChannel.list_packages_sql(c_info['id'])
         for p in packageList:
-            # We don't care about the size for now, even if we all know size
-            # matters :-)
-            rez.append([p[0], p[1], p[2], p[3], p[4], channel])
+            if is_source:
+                for pkg in range(len(p)):
+                    if p[pkg] is None:
+                        p[pkg] = ""
+                print p
+                rez.append([p[0], p[1], p[2], p[3], channel])
+            else:
+                # We don't care about the size for now, even if we all know size
+                # matters :-)
+                rez.append([p[0], p[1], p[2], p[3], p[4], channel])
     return rez
