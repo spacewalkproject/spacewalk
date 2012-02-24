@@ -457,83 +457,17 @@ def _v2packages_to_v1list(packages, deplist, all=0):
 
 def solve_dependencies_arch(server_id, deps, version):
     """ Does the same thing as solve_dependencies, but also returns the architecture label with the package info.
-        IN:
-           server_id := id info of the server
-           deps := list of filenames that are needed by the caller
-           version := version of the client
-
+        E.g.
         OUT:
            Dictionary with key values being the filnames in deps and the values being a list of lists of package info.
            Example :=  {'filename1'    :   [['name', 'version', 'release', 'epoch', 'architecture'],
                                             ['name2', 'version2', 'release2', 'epoch2', 'architecture2']]}
-
-        Indexes for the tuple stored as the value in dict
-        entry_index = 0
-        preference_index = 1
-
-        indexes for the list nvre
-        name_index = 0
-        version_index = 1
-        release_index = 2
-        epoch_index = 3
     """
     #list of the keys to the values in each row of the recordset.
     nvre = ['name', 'version', 'release', 'epoch', 'arch']
+    return solve_dependencies(server_id, deps, version, nvre)
 
-    # first, uniquify deps
-    deplist = []
-    for dep in deps:
-        if dep not in deplist:
-            deplist.append(dep)
-    
-    # SQL statement.  It is a union of 3 statements: 
-    #  - Lookup by package name
-    #  - Lookup by provides
-    #  - Lookup by file name
-    statement = "%s UNION ALL %s UNION ALL %s" % (
-        __packages_sql, __provides_sql, __files_sql)
-    h = rhnSQL.prepare(statement)
-
-    # prepare return value
-    packages = {}
-
-    # Iterate through the dependency problems
-    for dep in deplist:
-        dict = {}               #Each value will be a tuple like (list, preference)
-        h.execute(server_id = server_id, dep = dep)
-        rs = h.fetchall_dict() or []
-
-        if not rs: # test shortcut
-            log_error("Unable to solve dependency", server_id, dep)
-            packages[dep] = []
-            continue
-        
-        for p in rs:
-            if p['epoch'] == None:
-                p['epoch'] = ""
-
-            entry = []
-
-            map(lambda f, e = entry, p = p: e.append(p[f]), nvre)
-
-            #Exists for readability
-            name_key = entry[0]
-
-            if dict.has_key(name_key) and dict[name_key][1] < p['preference']:
-                # Already have it with a lower preference
-                continue            
-            # The first time we see this package.
-            dict[name_key] = (entry, p['preference'])
-
-        packages[dep] = _avoid_compat_packages(dict)
-        
-    # v2 clients are done
-    if version > 1:
-        return packages
-    else:
-        return _v2packages_to_v1list(packages, deplist)
-
-def solve_dependencies(server_id, deps, version):
+def solve_dependencies(server_id, deps, version, nvre=None):
     """ The unchanged version of solve_dependencies. 
         IN: 
            server_id := id info of the server
@@ -545,6 +479,10 @@ def solve_dependencies(server_id, deps, version):
            Example :=  {'filename1'    :   [['name', 'version', 'release', 'epoch'], 
                                             ['name2', 'version2', 'release2', 'epoch2']]}    
     """
+    if not nvre:
+        #list of the keys to the values in each row of the recordset.
+        nvre = ['name', 'version', 'release', 'epoch']
+
     # first, uniquify deps
     deplist = []
     for dep in deps:
@@ -576,13 +514,14 @@ def solve_dependencies(server_id, deps, version):
             if p['epoch'] == None:
                 p['epoch'] = ""
             entry = []
-            map(lambda f, e = entry, p = p: e.append(p[f]),
-                ['name', 'version', 'release', 'epoch'])
-            if dict.has_key(entry[0]) and dict[entry[0]][1] < p['preference']:
+            map(lambda f, e = entry, p = p: e.append(p[f]), nvre)
+
+            name_key = entry[0]
+            if dict.has_key(name_key) and dict[name_key][1] < p['preference']:
                 # Already have it with a lower preference
                 continue
             # The first time we see this package.
-            dict[entry[0]] = (entry, p['preference'])
+            dict[name_key] = (entry, p['preference'])
 
         packages[dep] = _avoid_compat_packages(dict)
 
