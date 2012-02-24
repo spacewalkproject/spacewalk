@@ -15,7 +15,14 @@ BuildArch:      noarch
 BuildRequires:  /usr/bin/docbook2man
 BuildRequires:  docbook-utils
 BuildRequires:  python
+%if 0%{?fedora} > 15 || 0%{?rhel} > 5
+# pylint check
 BuildRequires:  spacewalk-pylint
+BuildRequires:  yum
+BuildRequires:  spacewalk-backend >= 1.7.24
+BuildRequires:  spacewalk-backend-libs >= 1.7.24
+BuildRequires:  spacewalk-backend-tools >= 1.7.24
+%endif
 
 Requires:       bash
 Requires:       cobbler
@@ -35,6 +42,8 @@ Requires:       spacewalk-certs-tools
 Requires:       spacewalk-config
 Requires:       spacewalk-setup
 Requires:       spacewalk-backend
+Requires:       spacewalk-backend-libs
+Requires:       spacewalk-backend-tools
 Requires:       yum-utils
 
 %description
@@ -59,8 +68,10 @@ make install PREFIX=$RPM_BUILD_ROOT ROOT=%{rhnroot} \
 rm -rf $RPM_BUILD_ROOT
 
 %check
+%if 0%{?fedora} > 15 || 0%{?rhel} > 5
 # check coding style
 spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
+%endif
 
 %files
 %defattr(-,root,root)
