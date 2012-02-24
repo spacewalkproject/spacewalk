@@ -358,7 +358,17 @@ def do_configchannel_delete(self, args):
         self.help_configchannel_delete()
         return
 
-    channels = args
+    # allow globbing of configchannel channel names
+    channels = filter_results(self.do_configchannel_list('', True), args)
+    logging.debug("configchannel_delete called with args %s, channels=%s" % \
+        (args, channels))
+
+    if not len(channels):
+        logging.error("No channels matched argument %s" % args)
+        return
+
+    # Print the channels prior to the confimation
+    print '\n'.join(sorted(channels))
 
     if self.user_confirm('Delete these channels [y/N]:'):
         self.client.configchannel.deleteChannels(self.session, channels)
