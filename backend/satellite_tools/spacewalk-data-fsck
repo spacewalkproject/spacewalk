@@ -147,8 +147,9 @@ def check_disk_nevrao(abs_path, row):
     else:
         row['evr'] = ''
     row['evr'] += row['version'] + '-' + row['release']
-    row['basename'] = "%s-%s-%s.%s.rpm" % (
-                row['name'], row['version'], row['release'], row['arch'])
+    row['basename'] = "%s-%s-%s.%s.%s" % (
+                row['name'], row['version'], row['release'],
+                row['arch'], row['path'][-3:])
     ret = 0
     for key in ('org_id', 'checksum_prefix', 'name', 'evr', 'arch', 'checksum',
             'basename'):
@@ -180,9 +181,6 @@ def check_disk_vs_db(disk_content=None, db_content=None):
     for root, dirs, files in os.walk(os.path.join(CFG.MOUNT_POINT, 'redhat')):
       rel_root = root[len(CFG.MOUNT_POINT)+1:]
       for f in files:
-          if f[:-4] == '.rpm':
-              continue
-
           abs_path = os.path.join(root, f)
           rel_path = os.path.join(rel_root, f)
           log(3,abs_path)
