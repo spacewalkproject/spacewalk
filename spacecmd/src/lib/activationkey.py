@@ -1063,7 +1063,7 @@ def do_activationkey_export(self, args):
         logging.info("Exporting ALL activation keys to %s" % filename)
         keys = self.do_activationkey_list('', True)
     else:
-        # allow globbing of activationkey channel names
+        # allow globbing of activationkey names
         keys = filter_results(self.do_activationkey_list('', True), args)
         logging.debug("activationkey_export called with args %s, keys=%s" % \
             (args, keys))
