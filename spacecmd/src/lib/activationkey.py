@@ -654,11 +654,23 @@ def do_activationkey_delete(self, args):
         self.help_activationkey_delete()
         return
 
-    key = args[0]
+    # allow globbing of activationkey names
+    keys = filter_results(self.do_activationkey_list('', True), args)
+    logging.debug("activationkey_delete called with args %s, keys=%s" % \
+        (args,keys))
 
-    if not self.user_confirm('Delete this activation key [y/N]:'): return
+    if not len(keys):
+        logging.error("No keys matched argument %s" % args)
+        return
 
-    self.client.activationkey.delete(self.session, key)
+    # Print the keys prior to the confimation
+    print '\n'.join(sorted(keys))
+
+    if not self.user_confirm('Delete activation key(s) [y/N]:'): return
+
+    for key in keys:
+        logging.debug("Deleting key %s" % key)
+        self.client.activationkey.delete(self.session, key)
 
 ####################
 
