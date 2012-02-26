@@ -1,0 +1,26 @@
+-- oracle equivalent source sha1 1865b4640fb444ac71304968fbc34e8d03454d44
+
+CREATE OR REPLACE FUNCTION
+lookup_xccdf_profile(identifier_in IN VARCHAR, title_in IN VARCHAR)
+RETURNS NUMERIC
+AS
+$$
+DECLARE
+    profile_id NUMERIC;
+BEGIN
+    SELECT id
+        INTO profile_id
+        FROM rhnXccdfProfile
+        WHERE identifier = identifier_in
+            AND title = title_in;
+
+    IF NOT FOUND THEN
+        INSERT INTO rhnXccdfProfile (id, identifier, title)
+            VALUES (nextval('rhn_xccdf_profile_id_seq'),
+                identifier_in, title_in)
+            RETURNING id INTO profile_id;
+    END IF;
+
+    RETURN profile_id;
+END;
+$$ LANGUAGE PLPGSQL;

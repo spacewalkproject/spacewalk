@@ -1,0 +1,14 @@
+-- oracle equivalent source sha1 b02413a644b20ae1f8125c2cc952b3aa2629b915
+
+CREATE TABLE rhnXccdfProfile
+(
+    id            NUMERIC NOT NULL
+                      CONSTRAINT rhn_xccdf_profile_id_pk PRIMARY KEY,
+    identifier    VARCHAR(120) NOT NULL,
+    title         VARCHAR(120) NOT NULL
+);
+
+CREATE UNIQUE INDEX rhn_xccdf_profile_it_uq
+    ON rhnXccdfProfile (identifier, title);
+
+CREATE SEQUENCE rhn_xccdf_profile_id_seq;
