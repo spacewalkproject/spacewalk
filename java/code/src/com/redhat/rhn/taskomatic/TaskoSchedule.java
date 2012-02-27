@@ -126,12 +126,9 @@ public class TaskoSchedule {
         try {
             if (blob != null) {
                 InputStream binaryInput = new ByteArrayInputStream(blob);
-
-                if (null != binaryInput) {
-                    ObjectInputStream in = new ObjectInputStream(binaryInput);
-                    obj = in.readObject();
-                    in.close();
-                }
+                ObjectInputStream in = new ObjectInputStream(binaryInput);
+                obj = in.readObject();
+                in.close();
             }
         }
         catch (Exception e) {
