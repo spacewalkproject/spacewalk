@@ -16,9 +16,6 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <property name="modified" type="date" column="modified" />
     </class>
 
-    <query name="KickstartTreeType.loadAll">
-        <![CDATA[from com.redhat.rhn.domain.kickstart.KickstartTreeType]]>
-    </query>
     <query name="KickstartTreeType.findById">
         <![CDATA[from com.redhat.rhn.domain.kickstart.KickstartTreeType as t where t.id = :id]]>
     </query>
