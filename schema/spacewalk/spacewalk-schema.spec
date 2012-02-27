@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.7.44
+Version:        1.7.45
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -66,6 +66,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Mon Feb 27 2012 Simon Lukasik <slukasik@redhat.com> 1.7.45-1
+- Correct sha1sum of oracle equivalents (slukasik@redhat.com)
+
 * Mon Feb 27 2012 Simon Lukasik <slukasik@redhat.com> 1.7.44-1
 - OpenSCAP integration -- Database schema upgrade. (slukasik@redhat.com)
 - OpenSCAP integration -- Database schema. (slukasik@redhat.com)
