@@ -25,7 +25,4 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     <query name="KickstartInstallType.findByLabel">
         <![CDATA[from com.redhat.rhn.domain.kickstart.KickstartInstallType as t where t.label = :label]]>
     </query>
-    <query name="KickstartInstallType.findByName">
-        <![CDATA[from com.redhat.rhn.domain.kickstart.KickstartInstallType as t where t.name = :name]]>
-    </query>
 </hibernate-mapping>
