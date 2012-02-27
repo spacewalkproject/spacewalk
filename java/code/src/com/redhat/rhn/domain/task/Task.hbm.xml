@@ -27,12 +27,6 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 		        where t.org = :org and t.name = :name]]>
 	</query>
 
-    <query name="Task.deleteTaskQueue">
-		<![CDATA[delete from com.redhat.rhn.domain.task.Task
-            where org_id = :org_id and task_name = :name
-            and task_data = :data and earliest = :earliest]]>
-	</query>
-	
     <query name="Task.listTasksByName">
         <![CDATA[from com.redhat.rhn.domain.task.Task as t
                 where t.name = :name]]>
