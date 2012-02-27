@@ -74,10 +74,6 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                 class="com.redhat.rhn.domain.errata.impl.PublishedErrata" />
         </joined-subclass>
     </class>
-    <query name="UnpublishedErrata.findByAdvisoryType">
-        <![CDATA[from com.redhat.rhn.domain.errata.impl.UnpublishedErrata as e
-                where e.advisoryType = :type]]>
-    </query>
     <query name="UnpublishedErrata.findByAdvisoryName">
         <![CDATA[from com.redhat.rhn.domain.errata.impl.UnpublishedErrata as e
                  where e.advisoryName = :advisory]]>
