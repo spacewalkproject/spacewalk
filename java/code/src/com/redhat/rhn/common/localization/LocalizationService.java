@@ -146,14 +146,12 @@ public class LocalizationService {
             LocaleInfo li = new LocaleInfo(locale);
             this.supportedLocales.put(locale, li);
         }
-        if (compoundLocales != null) {
-            for (Iterator iter = compoundLocales.iterator(); iter.hasNext();) {
-                String cl = (String) iter.next();
-                String[] parts = cl.split("_");
-                LocaleInfo li = new LocaleInfo(parts[0], cl);
-                if (this.supportedLocales.get(parts[0]) == null) {
-                    this.supportedLocales.put(parts[0], li);
-                }
+        for (Iterator iter = compoundLocales.iterator(); iter.hasNext();) {
+            String cl = (String) iter.next();
+            String[] parts = cl.split("_");
+            LocaleInfo li = new LocaleInfo(parts[0], cl);
+            if (this.supportedLocales.get(parts[0]) == null) {
+                this.supportedLocales.put(parts[0], li);
             }
         }
     }
