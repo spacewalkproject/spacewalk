@@ -16,9 +16,6 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <property name="modified" type="date" column="modified" />
     </class>
 
-    <query name="ArchType.loadAll">
-        <![CDATA[from com.redhat.rhn.domain.common.ArchType]]>
-    </query>
     <query name="ArchType.findById">
         <![CDATA[from com.redhat.rhn.domain.common.ArchType as t where t.id = :id]]>
     </query>
