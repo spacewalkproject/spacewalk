@@ -16,9 +16,4 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 		<property name="modified" column="modified" type="timestamp" />
 	</class>
 
-    <query name="ConfigFileName.findByPath">
-        <![CDATA[from com.redhat.rhn.domain.config.ConfigFileName as c
-                where c.path = :path]]>
-    </query>
-
 </hibernate-mapping>
