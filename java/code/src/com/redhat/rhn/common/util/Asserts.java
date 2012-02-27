@@ -75,9 +75,7 @@ public final class Asserts {
      */
     public static void assertNotNull(Object o, String label)
         throws IllegalStateException {
-        if (o == null) {
             assertTrue(o != null, "Value of " + label + " is null.");
-        }
     }
 
     /**
