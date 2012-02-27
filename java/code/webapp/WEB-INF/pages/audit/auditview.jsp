@@ -248,6 +248,7 @@
     <input type="hidden" name="machine" value="${machine}" />
     <input type="hidden" name="startMilli" value="${startMilli}" />
     <input type="hidden" name="endMilli" value="${endMilli}" />
+    <input type="hidden" name="seqno" value="${seqno}" />
 
     <c:forEach var="saved_type" items="${autypes}">
         <input type="hidden" name="autypes" value="${saved_type}" />

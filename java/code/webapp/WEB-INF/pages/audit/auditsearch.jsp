@@ -168,7 +168,6 @@
                             </li>
                         </c:forEach>
                     </ul>
-                    <input type="hidden" name="seqno" value="${seqno}" />
                 </td>
             </tr>
             <tr>

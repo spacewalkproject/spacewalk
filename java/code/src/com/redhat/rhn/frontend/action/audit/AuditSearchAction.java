@@ -44,6 +44,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * AuditSearchAction
@@ -164,9 +165,10 @@ public class AuditSearchAction extends RhnAction {
         DateRangePicker.DatePickerResults dpresults;
         DynaActionForm dform = (DynaActionForm)form;
         Enumeration paramNames;
+        HttpSession session = request.getSession(true);
         JSONWriter jsonwr = new JSONWriter();
         List result = null;
-        Long start, end;
+        Long start, end, seqno, cacheSeqno;
         Map forwardParams = makeParamMap(request);
         Map<String, String[]> typemap;
         RequestContext requestContext = new RequestContext(request);
@@ -186,6 +188,14 @@ public class AuditSearchAction extends RhnAction {
         submitted = (autypes != null && autypes.length > 0);
         // can we mark this section reviewed?
         unrev = (Boolean)dform.get("unreviewable") != null;
+        // get the "page creation time" to determine cache usage
+        seqno = (Long)dform.get("seqno");
+
+        if (seqno == null) {
+            log.debug("(re-)initializing cache");
+            session.removeAttribute("auditCacheSeqno");
+            session.removeAttribute("auditResultCache");
+        }
 
         // handle search times & make displayable versions
         dpresults = processTimeArgs(dform, request, parseDates);
@@ -214,8 +224,22 @@ public class AuditSearchAction extends RhnAction {
             start = dpresults.getStart().getDate().getTime();
             end = dpresults.getEnd().getDate().getTime();
 
-            // search!
-            result = AuditManager.getAuditLogs(autypes, machine, start, end);
+            cacheSeqno = (Long)session.getAttribute("auditCacheSeqno");
+
+            // if the cached seqno is greater or equal to the seqno the browser
+            //  sent, we've seen it before; do a new search
+            if (cacheSeqno == null || seqno == null ||
+                    cacheSeqno.compareTo(seqno) >= 0) {
+                log.debug("actual search");
+                result = AuditManager.getAuditLogs(autypes, machine, start, end);
+                session.setAttribute("auditCacheSeqno", (new Date()).getTime());
+                session.setAttribute("auditResultCache", result);
+            }
+            else {
+                log.debug("using cached result");
+                // may be null (indicates the cached result was null)
+                result = (List)session.getAttribute("auditResultCache");
+            }
 
             if (result == null) {
                 if (!unrev) {
@@ -244,6 +268,10 @@ public class AuditSearchAction extends RhnAction {
             request.setAttribute("machine", machine);
             request.setAttribute("result", result);
         }
+
+        // set the page creation time
+        // + 1 so that it's greater than the auditCacheSeqno above
+        request.setAttribute("seqno", (new Date()).getTime() + 1);
 
         // add any accumulated messages to be displayed
         addMessages(request, amsgs);
