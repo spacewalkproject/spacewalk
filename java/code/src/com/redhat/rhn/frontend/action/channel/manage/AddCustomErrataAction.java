@@ -108,8 +108,7 @@ public class AddCustomErrataAction extends RhnListAction {
 
         //If this is a clone, go ahead and pre-select the original Channel
         Channel original = ChannelFactory.lookupOriginalChannel(currentChan);
-        if (!requestContext.isSubmitted() && selectedChannel == null &&
-                original != null) {
+        if (!requestContext.isSubmitted() && original != null) {
             selectedChannel = original;
             selectedChannelStr = selectedChannel.getId().toString();
         }
