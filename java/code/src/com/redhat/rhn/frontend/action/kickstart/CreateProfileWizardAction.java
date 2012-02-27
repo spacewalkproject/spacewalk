@@ -306,18 +306,11 @@ public class CreateProfileWizardAction extends RhnWizardAction {
             }
             else {
                 form.set(KSTREES_PARAM, trees);
-                if (trees != null && trees.size() > 0) {
-                    if (!currentChanId.equals(prevChanId)) {
-                        form.set(PREV_CHAN_ID, currentChanId);
-                        if (trees == null || trees.size() == 0) {
-                            form.set(KSTREE_ID_PARAM, null);
-                        }
-                        else {
-                            KickstartableTree tree = (KickstartableTree)
-                                trees.get(trees.size() - 1);
-                            form.set(KSTREE_ID_PARAM, tree.getId());
-                        }
-                    }
+                if (!currentChanId.equals(prevChanId)) {
+                    form.set(PREV_CHAN_ID, currentChanId);
+                    KickstartableTree tree = (KickstartableTree)
+                        trees.get(trees.size() - 1);
+                    form.set(KSTREE_ID_PARAM, tree.getId());
                 }
             }
         }
