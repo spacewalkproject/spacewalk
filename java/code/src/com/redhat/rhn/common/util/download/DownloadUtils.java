@@ -45,7 +45,6 @@ public class DownloadUtils {
      */
     public static String downloadUrl(String url) {
         URL u;
-        InputStream is = null;
         StringBuilder toReturn = new StringBuilder();
         try {
            u = new URL(url);
@@ -62,16 +61,6 @@ public class DownloadUtils {
         }
         catch (IOException ioe) {
             toReturn.append(ioe.getLocalizedMessage());
-        }
-        finally {
-           try {
-              if (is != null) {
-                  is.close();
-              }
-           }
-           catch (IOException ioe) {
-               toReturn.append(ioe.getLocalizedMessage());
-           }
         }
         return toReturn.toString();
     }
