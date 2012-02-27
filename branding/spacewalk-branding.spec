@@ -1,5 +1,5 @@
 Name:       spacewalk-branding
-Version:    1.7.0
+Version:    1.7.1
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -83,6 +83,9 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Mon Feb 27 2012 Jan Pazdziora 1.7.1-1
+- automatically focus search form (msuchy@redhat.com)
+
 * Fri Sep 30 2011 Jan Pazdziora 1.6.4-1
 - 621531 - move /etc/rhn/default to /usr/share/rhn/config-defaults (branding).
 
