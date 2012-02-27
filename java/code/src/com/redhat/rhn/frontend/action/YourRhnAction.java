@@ -93,7 +93,7 @@ public class YourRhnAction extends RhnAction {
             else if (key.equals(Pane.TASKS)) {
                 renderer = new TasksRenderer();
             }
-            if (key != null && renderer != null) {
+            if (renderer != null) {
                 renderers.put(key, renderer);
             }
         }
