@@ -1,4 +1,4 @@
--- oracle equivalent source sha1 2411a415744c30a0b341effb0585f3191e40de49
+-- oracle equivalent source sha1 a17226713acda7266553d4804868c5f2aad72867
 -- retrieved from ./1241042199/53fa26df463811901487b608eecc3f77ca7783a1/schema/spacewalk/oracle/procs/lookup_config_filename.sql
 --
 -- Copyright (c) 2008--2010 Red Hat, Inc.
