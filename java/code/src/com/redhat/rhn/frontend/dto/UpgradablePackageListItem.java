@@ -30,7 +30,7 @@ public class UpgradablePackageListItem extends PackageListItem {
     private Long serverId;
     private List errataId = new ArrayList();
     private List errataAdvisory = new ArrayList();
-    private List errataAdvisoryType = new ArrayList();;
+    private List errataAdvisoryType = new ArrayList();
     private Set installed;
     private String installedPackage = new String();
 

@@ -28,7 +28,7 @@ public class ApiCall implements Comparable<ApiCall> {
 
     private String name;
     private String doc;
-    private List<String> params = new ArrayList<String>();;
+    private List<String> params = new ArrayList<String>();
     private String returnDoc;
     private boolean deprecated = false;
     private String deprecatedVersion;

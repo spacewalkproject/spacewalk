@@ -99,7 +99,7 @@ public class SystemSearchHelper {
     public static final String SERVER_CUSTOM_INFO_INDEX = "serverCustomInfo";
     public static final Double PACKAGE_SCORE_THRESHOLD = 0.5;
 
-    protected SystemSearchHelper() { };
+    protected SystemSearchHelper() { }
 
     /**
      * Returns a DataResult of SystemSearchResults which are based on the user's search
