@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.7.40
+Version: 1.7.41
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -585,6 +585,40 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Feb 27 2012 Tomas Lestach <tlestach@redhat.com> 1.7.41-1
+- remove unreferenced do page together with appropriate action and jsp -
+  /software/downloads/Help (tlestach@redhat.com)
+- remove unreferenced do page - /configuration/DeleteChannelSubmit
+  (tlestach@redhat.com)
+- remove unreferenced do page together with appropriate action -
+  /kickstart/KickstartsSubmit (tlestach@redhat.com)
+- remove unreferenced do page together with appropriate action -
+  /systems/details/packages/profiles/CompareSystemsSubmit (tlestach@redhat.com)
+- remove unreferenced do page together with appropriate action -
+  /systems/details/packages/profiles/CompareProfilesSubmit
+  (tlestach@redhat.com)
+- remove unreferenced do page - /systems/SystemGroupListSubmit
+  (tlestach@redhat.com)
+- remove unreferenced do page together with appropriate action and test -
+  /systems/ProxyListSubmit (tlestach@redhat.com)
+- remove unreferenced do page together with appropriate action and test -
+  /systems/InactiveSubmit (tlestach@redhat.com)
+- remove unreferenced do page together with appropriate action and test -
+  /systems/UngroupedSubmit (tlestach@redhat.com)
+- remove unreferenced do page together with appropriate action and test -
+  /systems/UnentitledSubmit (tlestach@redhat.com)
+- remove unreferenced do page together with appropriate action and test -
+  /systems/OutOfDateSubmit (tlestach@redhat.com)
+- remove unreferenced do page - /systems/SystemListSubmit (tlestach@redhat.com)
+- remove unreferenced do page - /users/DisabledListSubmit (tlestach@redhat.com)
+- delete unused do page and appropriate action - /users/UserListSubmit
+  (tlestach@redhat.com)
+- remove unused action - BaseFilterAction (tlestach@redhat.com)
+- remove unused method - listAllFilesWithTotalSize (tlestach@redhat.com)
+- remove unused action - QuotaAction (tlestach@redhat.com)
+- removing unused action VirtualSystemsListAction (tlestach@redhat.com)
+- removing unused action - ConfigDateAction (tlestach@redhat.com)
+
 * Thu Feb 23 2012 Jan Pazdziora 1.7.40-1
 - The com.redhat.rhn.taskomatic.task.CleanCurrentAlerts is not longer needed
   because nothing inserts to rhn_current_alerts, removing.
