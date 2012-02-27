@@ -63,7 +63,7 @@ is_user_applicant               :: rhnUserGroupType web_contact rhnUserGroup \
 lookup_arch_type                :: data/rhnArchType rhn_exception.pks
 lookup_channel_arch             :: rhn_exception.pks data/rhnException rhnChannelArch \
                                    data/rhnChannelArch
-lookup_client_capability        :: rhnClientCapabilityName
+lookup_client_capability        :: rhnClientCapabilityName pg_dblink_exec
 lookup_cf_state                 :: rhnConfigFileState
 lookup_cve                      :: rhnCVE
 lookup_erratafile_type          :: rhnErrataFileType data/rhnErrataFileType
