@@ -146,7 +146,7 @@ public class UpdateOrgSoftwareEntitlementsCommand {
             avail = satMax - satCurrent + orgMax;
         }
 
-        if (proposed == null || proposed < 0 || avail < proposed) {
+        if (proposed < 0 || avail < proposed) {
             String key = isFlex ? "org.entitlements.software.not_in_range.flex" :
                             "org.entitlements.software.not_in_range";
 
