@@ -19,9 +19,6 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <property name="modified" column="modified" type="timestamp" insert="false" update="false" />
     </class>
 
-    <query name="Role.loadRoles">
-        from com.redhat.rhn.domain.role.RoleImpl
-    </query>
     <query name="Role.findById">
         <![CDATA[from com.redhat.rhn.domain.role.RoleImpl as r where r.id = :id]]>
     </query>
