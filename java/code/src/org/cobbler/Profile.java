@@ -359,7 +359,7 @@ public class Profile extends CobblerObject {
       * @param virtRamIn the VirtRam
       */
       public void  setVirtRam(int virtRamIn) {
-          modify(VIRT_RAM, (int) virtRamIn);
+          modify(VIRT_RAM, virtRamIn);
       }
 
       /**

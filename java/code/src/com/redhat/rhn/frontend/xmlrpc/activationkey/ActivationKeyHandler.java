@@ -739,10 +739,10 @@ public class ActivationKeyHandler extends BaseHandler {
         String name = null;
         String arch = null;
         for (Map<String, String> pkg : packages) {
-            name = (String) pkg.get("name");
+            name = pkg.get("name");
             PackageName packageName = PackageFactory.lookupOrCreatePackageByName(name);
 
-            arch = (String) pkg.get("arch");
+            arch = pkg.get("arch");
             PackageArch packageArch = PackageFactory.lookupPackageArchByLabel(arch);
 
             manager.addPackage(activationKey, packageName, packageArch);
@@ -790,10 +790,10 @@ public class ActivationKeyHandler extends BaseHandler {
         String name = null;
         String arch = null;
         for (Map<String, String> pkg : packages) {
-            name = (String) pkg.get("name");
+            name = pkg.get("name");
             PackageName packageName = PackageFactory.lookupOrCreatePackageByName(name);
 
-            arch = (String) pkg.get("arch");
+            arch = pkg.get("arch");
             PackageArch packageArch = PackageFactory.lookupPackageArchByLabel(arch);
 
             manager.removePackage(activationKey, packageName, packageArch);

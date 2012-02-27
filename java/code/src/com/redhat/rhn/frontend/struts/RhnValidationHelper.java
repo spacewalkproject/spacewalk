@@ -207,9 +207,8 @@ public class RhnValidationHelper {
         ValidatorResult result = validate(base, form, fieldNames, xsdName);
 
         if (!result.isEmpty()) {
-            return validatorErrorToActionErrors((ValidatorError[])
-                                            result.getErrors().toArray(new
-                                            ValidatorError[0]));
+            return validatorErrorToActionErrors(result.getErrors().toArray(new
+            ValidatorError[0]));
         }
         return new ActionErrors();
     }

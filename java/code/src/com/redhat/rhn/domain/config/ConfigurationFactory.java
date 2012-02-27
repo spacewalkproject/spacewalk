@@ -432,7 +432,7 @@ public class ConfigurationFactory extends HibernateFactory {
         Session session = HibernateFactory.getSession();
         Query q = session.getNamedQuery("ConfigRevision.findByConfigFile");
         q.setEntity("cf", cf);
-        return (List<ConfigRevision>) q.list();
+        return q.list();
     }
 
     /**

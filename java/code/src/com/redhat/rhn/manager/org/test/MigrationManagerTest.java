@@ -248,7 +248,7 @@ public class MigrationManagerTest extends RhnBaseTestCase {
         assertNotNull(server.getHistory());
         assertTrue(server.getHistory().size() > 0);
         boolean migrationRecorded = false;
-        for (ServerHistoryEvent event : (Set<ServerHistoryEvent>) server.getHistory()) {
+        for (ServerHistoryEvent event : server.getHistory()) {
             if (event.getSummary().equals("System migration") &&
                 event.getDetails().contains("From organization: " + origOrg.getName()) &&
                 event.getDetails().contains("To organization: " + destOrg.getName()) &&

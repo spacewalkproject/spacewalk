@@ -74,7 +74,7 @@ public class BaseSetHelper {
             List filterList = null;
 
             String uniqueName = TagHelper.generateUniqueName(listName);
-            String filterClass = (String) request.getParameter(
+            String filterClass = request.getParameter(
                     ListTagUtil.makeFilterClassLabel(uniqueName));
             if (filterClass != null) {
 
@@ -271,7 +271,7 @@ public class BaseSetHelper {
                 }
                 else if (obj instanceof Map) {
                     Map next = (Map) obj;
-                    set.add((String)next.get(SessionSetHelper.KEY));
+                    set.add(next.get(SessionSetHelper.KEY));
                 }
                 else {
                    Identifiable next = (Identifiable) obj;

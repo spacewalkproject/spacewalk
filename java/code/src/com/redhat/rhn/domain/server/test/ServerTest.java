@@ -75,7 +75,7 @@ public class ServerTest extends BaseTestCaseWithUser {
         UserTestUtils.addVirtualizationPlatform(user.getOrg());
         Server host = ServerTestUtils.createVirtHostWithGuests(user, 1);
         Server guest =
-            ((VirtualInstance) host.getGuests().iterator().next()).getGuestSystem();
+            host.getGuests().iterator().next().getGuestSystem();
         guest.setBaseEntitlement(EntitlementManager.MANAGEMENT);
 
         assertFalse(guest.isEntitlementAllowed(EntitlementManager.VIRTUALIZATION));

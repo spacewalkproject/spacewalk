@@ -80,7 +80,7 @@ public class CreateUserCommand {
         validateLogin();
         validatePrefix();
 
-        return (ValidatorError[]) errors.toArray(new ValidatorError[0]);
+        return errors.toArray(new ValidatorError[0]);
     }
 
     /**

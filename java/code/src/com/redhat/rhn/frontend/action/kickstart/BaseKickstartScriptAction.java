@@ -59,7 +59,7 @@ public abstract class BaseKickstartScriptAction extends BaseKickstartEditAction 
 
         BaseKickstartScriptCommand kssc = (BaseKickstartScriptCommand) cmd;
 
-        if (b.equals((Boolean)form.get(NOCHROOT))) {
+        if (b.equals(form.get(NOCHROOT))) {
             chroot = "N";
         }
 

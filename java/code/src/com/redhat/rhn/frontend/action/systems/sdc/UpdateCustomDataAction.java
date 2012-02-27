@@ -120,7 +120,7 @@ public class UpdateCustomDataAction extends RhnAction {
             cdv.setCreated(new Date());
             cdv.setCreator(user);
             cdv.setLastModifier(user);
-            request.setAttribute(VAL_PARAM, (String)form.get(VAL_PARAM));
+            request.setAttribute(VAL_PARAM, form.get(VAL_PARAM));
             return getStrutsDelegate().forwardParams(mapping.findForward("updated"),
                     params);
         }

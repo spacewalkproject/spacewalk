@@ -82,7 +82,7 @@ public class DataSourceParserTest extends RhnBaseTestCase {
             String name = (String)hm.get("username");
 
             if (name.equals("SYS")) {
-                dr = (DataResult)dr.subList(pos, pos + 1);
+                dr = dr.subList(pos, pos + 1);
             }
             pos++;
         }
@@ -114,7 +114,7 @@ public class DataSourceParserTest extends RhnBaseTestCase {
             String name = (String)hm.get("username");
 
             if (name.equals("SYS")) {
-                dr = (DataResult)dr.subList(pos, pos + 1);
+                dr = dr.subList(pos, pos + 1);
             }
             pos++;
         }
@@ -190,7 +190,7 @@ public class DataSourceParserTest extends RhnBaseTestCase {
         Iterator i = dr.iterator();
         // Pick the first three tables, just so that we aren't elaborating
         // all of the tables.
-        dr = (DataResult)dr.subList(0, 3);
+        dr = dr.subList(0, 3);
 
         dr.elaborate(new HashMap());
         assertNotNull(dr);
@@ -379,7 +379,7 @@ public class DataSourceParserTest extends RhnBaseTestCase {
         DataResult dr = m.execute(new HashMap(), "owner", "DESC");
         assertNotNull(dr);
         assertTrue(dr.size() > 0);
-        dr = (DataResult)dr.subList(0, 1);
+        dr = dr.subList(0, 1);
         dr.elaborate(new HashMap());
 
         Iterator i = dr.iterator();

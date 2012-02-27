@@ -26,7 +26,7 @@ import com.redhat.rhn.frontend.struts.RequestContext;
 public class KickstartScriptDeleteActionTest extends BaseKickstartEditTestCase {
 
     public void testExecute() throws Exception {
-        KickstartScript kss = (KickstartScript) ksdata.getScripts().iterator().next();
+        KickstartScript kss = ksdata.getScripts().iterator().next();
         assertEquals(5, ksdata.getScripts().size());
         addRequestParameter(RequestContext.KICKSTART_SCRIPT_ID, kss.getId().toString());
         addRequestParameter(KickstartScriptDeleteAction.SUBMITTED,
@@ -39,7 +39,7 @@ public class KickstartScriptDeleteActionTest extends BaseKickstartEditTestCase {
 
 
     public void testExecuteSubmit() throws Exception {
-        KickstartScript kss = (KickstartScript) ksdata.getScripts().iterator().next();
+        KickstartScript kss = ksdata.getScripts().iterator().next();
         assertEquals(5, ksdata.getScripts().size());
         addRequestParameter(RequestContext.KICKSTART_SCRIPT_ID, kss.getId().toString());
         addRequestParameter(KickstartScriptCreateAction.SUBMITTED,

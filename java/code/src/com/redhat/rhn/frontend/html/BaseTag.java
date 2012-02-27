@@ -115,7 +115,7 @@ public abstract class BaseTag {
             ret.append(" ");
             ret.append(key);
             ret.append("=\"");
-            ret.append((String)attribs.get(key));
+            ret.append(attribs.get(key));
             ret.append("\"");
         }
         ret.append(">");

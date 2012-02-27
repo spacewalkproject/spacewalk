@@ -55,7 +55,7 @@ public class SoftwareHandlerTest extends BaseHandlerTestCase {
         boolean pkgFound = false;
         for (Iterator<KickstartPackage> itr = ksProfile.getKsPackages().iterator();
              itr.hasNext();) {
-              KickstartPackage pkg = (KickstartPackage) itr.next();
+              KickstartPackage pkg = itr.next();
               if (pkg.getPackageName().getName().equals("gcc")) {
                   pkgFound = true;
 

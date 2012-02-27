@@ -222,7 +222,7 @@ public class ActivationKeyHandlerTest extends BaseHandlerTestCase {
                                                         lookupByKey(key, admin);
 
         assertEquals(1, activationKey.getChannels().size());
-        assertEquals(baseChannel2, (Channel)activationKey.getChannels().iterator().next());
+        assertEquals(baseChannel2, activationKey.getChannels().iterator().next());
         assertEquals(new Long(15), activationKey.getUsageLimit());
         assertFalse(activationKey.isUniversalDefault());
     }
@@ -264,7 +264,7 @@ public class ActivationKeyHandlerTest extends BaseHandlerTestCase {
         PackageName newName3 = PackageNameTest.createTestPackageName();
         keyHandler.addPackageNames(adminKey, newKey, buildList(newName3.getName()));
 
-        ActivationKey key = (ActivationKey)keyHandler.getDetails(adminKey, newKey);
+        ActivationKey key = keyHandler.getDetails(adminKey, newKey);
         Writer output = new StringWriter();
         ActivationKeySerializer serializer = new ActivationKeySerializer();
         serializer.serialize(key, output, new XmlRpcSerializer());

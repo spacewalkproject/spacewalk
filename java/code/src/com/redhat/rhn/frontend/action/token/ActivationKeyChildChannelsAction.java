@@ -125,7 +125,7 @@ public class ActivationKeyChildChannelsAction extends RhnAction {
                     key.getBaseChannel().getName());
         }
         else {
-            finalList = (ArrayList)channelList;
+            finalList = channelList;
         }
         context.getRequest().setAttribute(CHANNELS, finalList);
         form.set(CHANNELS, finalList);

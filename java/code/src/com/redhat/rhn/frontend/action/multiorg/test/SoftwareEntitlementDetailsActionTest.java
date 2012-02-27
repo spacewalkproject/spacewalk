@@ -34,7 +34,7 @@ public class SoftwareEntitlementDetailsActionTest extends RhnMockStrutsTestCase 
         TestUtils.saveAndFlush(user);
 
         Server s = ServerTestUtils.createTestSystem(user);
-        Channel chan = (Channel)s.getChannels().iterator().next();
+        Channel chan = s.getChannels().iterator().next();
         ChannelFamily family = chan.getChannelFamily();
 
         setRequestPathInfo("/admin/multiorg/SoftwareEntitlementDetails");

@@ -284,7 +284,7 @@ public class ChannelSoftwareHandlerTest extends BaseHandlerTestCase {
         server = (Server) reload(server);
 
         assertEquals(1, result);
-        Channel subscribed = (Channel) server.getChannels().iterator().next();
+        Channel subscribed = server.getChannels().iterator().next();
         assertTrue(server.getChannels().contains(c2));
 
         //try to make it break
@@ -302,7 +302,7 @@ public class ChannelSoftwareHandlerTest extends BaseHandlerTestCase {
         server = (Server) reload(server);
         //make sure servers channel subscriptions weren't changed
         assertEquals(1, result);
-        subscribed = (Channel) server.getChannels().iterator().next();
+        subscribed = server.getChannels().iterator().next();
         assertEquals(c2.getLabel(), subscribed.getLabel());
 
         // try setting the base channel of an s390 server to
@@ -828,7 +828,7 @@ public class ChannelSoftwareHandlerTest extends BaseHandlerTestCase {
                 mergeTo.getLabel());
 
         assertEquals(1, list.length);
-        assertEquals(packTwo, (Package) list[0]);
+        assertEquals(packTwo, list[0]);
     }
 
     public void testMergeErrata() throws Exception {

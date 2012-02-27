@@ -70,7 +70,7 @@ public class ServerGroupTestUtils {
      */
     public static ManagedServerGroup createManaged(User user) throws Exception {
         ServerGroupTest.checkSysGroupAdminRole(user);
-        return (ManagedServerGroup) ServerGroupManager.getInstance().
+        return ServerGroupManager.getInstance().
                                         create(user, NAME + TestUtils.randomString(),
                                                     DESCRIPTION);
     }

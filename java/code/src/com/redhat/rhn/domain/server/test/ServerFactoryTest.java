@@ -269,7 +269,7 @@ public class ServerFactoryTest extends RhnBaseTestCase {
 
         Server server2 = ServerFactory.lookupByIdAndOrg(id, usr.getOrg());
         assertTrue(server2.getManagedGroups().size() == 1);
-        sg1 = (ManagedServerGroup) server2.getManagedGroups().iterator().next();
+        sg1 = server2.getManagedGroups().iterator().next();
 
         assertEquals(changedName, sg1.getName());
 
@@ -283,9 +283,8 @@ public class ServerFactoryTest extends RhnBaseTestCase {
         Server testServer = createTestServer(user);
         Org org = user.getOrg();
 
-        ManagedServerGroup group = (ManagedServerGroup)
-                                                    org.getManagedServerGroups().
-                                                        iterator().next();
+        ManagedServerGroup group = org.getManagedServerGroups().
+            iterator().next();
 
         assertNotNull(group);
         ServerGroupFactory.save(group);

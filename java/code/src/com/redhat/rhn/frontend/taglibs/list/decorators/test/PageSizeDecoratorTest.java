@@ -53,7 +53,7 @@ public class PageSizeDecoratorTest extends RhnBaseTestCase {
         Config.get().setString(ConfigDefaults.DEFAULT_PAGE_SIZE,
                                 String.valueOf(custom.get(4) - 5));
         assertTrue(custom.contains(PageSizeDecorator.getDefaultPageSize()));
-        assertEquals((Integer)custom.get(3),
+        assertEquals(custom.get(3),
                 (Integer)PageSizeDecorator.getDefaultPageSize());
     }
 }

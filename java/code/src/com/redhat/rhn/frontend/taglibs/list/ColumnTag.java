@@ -145,8 +145,7 @@ public class ColumnTag extends BodyTagSupport {
      * ${@inheritDoc}
      */
     public int doStartTag() throws JspException {
-        ListCommand command = (ListCommand)
-            ListTagUtil.getCurrentCommand(this, pageContext);
+        ListCommand command = ListTagUtil.getCurrentCommand(this, pageContext);
         ListTag parent = (ListTag) BodyTagSupport.findAncestorWithClass(this,
                 ListTag.class);
         int retval = BodyTagSupport.SKIP_BODY;
@@ -182,8 +181,7 @@ public class ColumnTag extends BodyTagSupport {
             throw new JspException("Sortable columns must use either attr or sortAttr");
         }
         checkForBoundsAndAttrs();
-        ListCommand command = (ListCommand)
-                           ListTagUtil.getCurrentCommand(this, pageContext);
+        ListCommand command = ListTagUtil.getCurrentCommand(this, pageContext);
         if (command.equals(ListCommand.RENDER)) {
             ListTagUtil.write(pageContext, "</td>");
         }
@@ -365,8 +363,7 @@ public class ColumnTag extends BodyTagSupport {
     protected void writeStartingTd() throws JspException {
         ListTagUtil.write(pageContext, "<td");
 
-        ListCommand command = (ListCommand)
-                ListTagUtil.getCurrentCommand(this, pageContext);
+        ListCommand command = ListTagUtil.getCurrentCommand(this, pageContext);
 
         if (styleClass != null ||
                 (isCurrColumnSorted() && command != ListCommand.COL_HEADER)) {

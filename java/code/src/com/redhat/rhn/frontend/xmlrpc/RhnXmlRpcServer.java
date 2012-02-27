@@ -59,7 +59,7 @@ public class RhnXmlRpcServer extends XmlRpcServer {
      * @return the server name
      */
     public static String getServerName() {
-        return (String) server.get();
+        return server.get();
     }
 
     /**
@@ -67,7 +67,7 @@ public class RhnXmlRpcServer extends XmlRpcServer {
      * @return the protocol
      */
     public static String getProtocol() {
-        return (String) proto.get();
+        return proto.get();
     }
 
     /**
@@ -75,6 +75,6 @@ public class RhnXmlRpcServer extends XmlRpcServer {
      * @return the IP of the caller
      */
     public static String getCallerIp() {
-        return (String) caller.get();
+        return caller.get();
     }
 }

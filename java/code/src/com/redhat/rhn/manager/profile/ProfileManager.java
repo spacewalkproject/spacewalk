@@ -1118,7 +1118,7 @@ public class ProfileManager extends BaseManager {
             boolean foundMatch = false;
             if (pkgsInChannel != null) {
                 for (int i = 0; i < pkgsInChannel.size(); i++) {
-                    PackageListItem pkgInChannel = (PackageListItem) pkgsInChannel.get(i);
+                    PackageListItem pkgInChannel = pkgsInChannel.get(i);
                     if (pkgInChannel.getVersion().equals(pm.getVersion()) &&
                         pkgInChannel.getRelease().equals(pm.getRelease()) &&
                         (epochcmp(pkgInChannel.getEpoch(), pm.getEpoch()) == 0)) {
@@ -1156,7 +1156,7 @@ public class ProfileManager extends BaseManager {
 
             // now use the PageControl to limit the list to the
             // selected region.
-            dr = (DataResult)dr.subList(pc.getStart() - 1, pc.getEnd());
+            dr = dr.subList(pc.getStart() - 1, pc.getEnd());
         }
 
         return dr;

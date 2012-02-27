@@ -207,7 +207,7 @@ public class KickstartScheduleCommandTest extends BaseKickstartCommandTestCase {
         ksdata.addPreserveFileList(list1);
         KickstartFactory.saveKickstartData(ksdata);
 
-        KickstartAction kickstartAction = (KickstartAction) ActionManager.
+        KickstartAction kickstartAction = ActionManager.
             scheduleKickstartAction(this.ksdata, this.user,
             server, new Date(), "extraoptions", "localhost");
         ActionFactory.save(kickstartAction);

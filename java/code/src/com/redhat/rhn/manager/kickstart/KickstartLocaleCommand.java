@@ -101,7 +101,7 @@ public class KickstartLocaleCommand extends BaseKickstartCommand {
                 tokens = (LinkedList) StringUtil.stringToList(args);
                 Iterator iter = tokens.iterator();
                 while (iter.hasNext()) {
-                    if (current.equals((String) iter.next())) {
+                    if (current.equals(iter.next())) {
                         iter.remove();
                     }
                 }

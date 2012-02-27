@@ -50,7 +50,7 @@ public class ManagedServerGroupSerializerTest extends MockObjectTestCase {
         mockMethod(mock, "getName", name);
         mockMethod(mock, "getDescription", description);
         mockMethod(mock, "getCurrentMembers", currentMembers);
-        mockMethod(mock, "getOrg", (Org) mockOrg.proxy());
+        mockMethod(mock, "getOrg", mockOrg.proxy());
         ManagedServerGroup sg = (ManagedServerGroup) mock.proxy();
 
         sgs.serialize(sg, output, serializer);

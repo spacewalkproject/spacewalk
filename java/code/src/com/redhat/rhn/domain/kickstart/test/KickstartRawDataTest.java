@@ -57,7 +57,7 @@ public class KickstartRawDataTest extends BaseTestCaseWithUser {
 
     public void testLookupAndSaveKickstartRawData() throws Exception {
 
-        ((KickstartRawData) ksdata).setData(fileContents);
+        ksdata.setData(fileContents);
         CobblerProfileCreateCommand cmd = new CobblerProfileCreateCommand(ksdata);
         cmd.store();
 
@@ -79,7 +79,7 @@ public class KickstartRawDataTest extends BaseTestCaseWithUser {
     }
 
     public void testDeepCopy() throws Exception {
-        ((KickstartRawData) ksdata).setData(fileContents);
+        ksdata.setData(fileContents);
         CobblerProfileCreateCommand cmd = new CobblerProfileCreateCommand(ksdata);
         cmd.store();
 

@@ -94,8 +94,7 @@ public class RadioColumnTag extends TagSupport {
     @Override
     public int doStartTag() throws JspException {
 
-        ListCommand command = (ListCommand)
-            ListTagUtil.getCurrentCommand(this, pageContext);
+        ListCommand command = ListTagUtil.getCurrentCommand(this, pageContext);
         ListTag parent = (ListTag) BodyTagSupport.findAncestorWithClass(this,
                 ListTag.class);
         listName = parent.getUniqueName();
@@ -121,7 +120,7 @@ public class RadioColumnTag extends TagSupport {
      */
     @Override
     public int doEndTag() throws JspException {
-        ListCommand command = (ListCommand) ListTagUtil.
+        ListCommand command = ListTagUtil.
                                             getCurrentCommand(this, pageContext);
         if (command.equals(ListCommand.RENDER)) {
             ListTagUtil.write(pageContext, "</td>");

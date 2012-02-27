@@ -662,7 +662,7 @@ public class ConfigurationManagerTest extends RhnBaseTestCase {
 
         assertEquals(EXPECTED_COUNT, actual);
 
-        final ConfigChannel c = (ConfigChannel) s.getConfigChannels().get(0);
+        final ConfigChannel c = s.getConfigChannels().get(0);
 
         SortedSet files = c.getConfigFiles();
         assertEquals(files.size(), EXPECTED_COUNT.getFiles() +
@@ -732,9 +732,8 @@ public class ConfigurationManagerTest extends RhnBaseTestCase {
                                 ConfigChannelType.local());
 
 
-        ConfigChannel c = (ConfigChannel) s.getConfigChannels().get(0);
-        String path = ((ConfigFile)c.getConfigFiles().first()).
-                                        getConfigFileName().getPath();
+        ConfigChannel c = s.getConfigChannels().get(0);
+        String path = c.getConfigFiles().first().getConfigFileName().getPath();
         ConfigFile fl = local.createConfigFile(
                                 ConfigFileState.normal(),
                                 path);
@@ -1396,7 +1395,7 @@ public class ConfigurationManagerTest extends RhnBaseTestCase {
             assertNotNull(gcc2);
             assertNotNull(gcc2.getConfigFiles());
             assertEquals(1, gcc2.getConfigFiles().size());
-            ConfigFile fl = (ConfigFile)gcc2.getConfigFiles().first();
+            ConfigFile fl = gcc2.getConfigFiles().first();
             assertEquals(g1f1.getConfigFileName(), fl.getConfigFileName());
             assertEquals(g1f1.getLatestConfigRevision().getConfigFileType(),
                                fl.getLatestConfigRevision().getConfigFileType());

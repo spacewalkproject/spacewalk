@@ -368,7 +368,7 @@ public class UserManager extends BaseManager {
         Iterator i = dr.iterator();
         while (i.hasNext()) {
             Map row = (Map)i.next();
-            groupSet.add((Long)row.get("system_group_id"));
+            groupSet.add(row.get("system_group_id"));
         }
         return groupSet;
     }
@@ -849,7 +849,7 @@ public class UserManager extends BaseManager {
         DataResult dr = m.execute(params);
         dr.setTotalSize(dr.size());
         if (pc != null && dr.size() > 0) {
-                dr = (DataResult)dr.subList(pc.getStart() - 1, pc.getEnd());
+                dr = dr.subList(pc.getStart() - 1, pc.getEnd());
                 dr.elaborate(new HashMap());
         }
         return dr;

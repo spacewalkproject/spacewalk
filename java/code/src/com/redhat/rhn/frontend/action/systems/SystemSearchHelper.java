@@ -162,8 +162,8 @@ public class SystemSearchHelper {
          * Determine what index to search and form the query
          */
         Map<String, String> params = preprocessSearchString(searchString, viewMode);
-        String query = (String)params.get("query");
-        String index = (String)params.get("index");
+        String query = params.get("query");
+        String index = params.get("index");
         /**
          * Contact the XMLRPC search server and get back the results
          */
@@ -517,7 +517,7 @@ public class SystemSearchHelper {
                 matchingField = "id";
             }
             serverItem.put("matchingField", matchingField);
-            serverItem.put("matchingFieldValue", (String)result.get("matchingFieldValue"));
+            serverItem.put("matchingFieldValue", result.get("matchingFieldValue"));
             if (log.isDebugEnabled()) {
                 log.debug("creating new map for system id: " + result.get("id") +
                         " new map = " + serverItem);
@@ -555,7 +555,7 @@ public class SystemSearchHelper {
                 matchingField = (String)result.get("name");
             }
             serverItem.put("matchingField", matchingField);
-            serverItem.put("matchingFieldValue", (String)result.get("matchingFieldValue"));
+            serverItem.put("matchingFieldValue", result.get("matchingFieldValue"));
             if (log.isDebugEnabled()) {
                 log.debug("creating new map for serverId = " + result.get("serverId") +
                         ", hwdevice id: " + result.get("id") + " new map = " +
@@ -583,7 +583,7 @@ public class SystemSearchHelper {
                 matchingField = (String)result.get("name");
             }
             serverItem.put("matchingField", matchingField);
-            serverItem.put("matchingFieldValue", (String)result.get("matchingFieldValue"));
+            serverItem.put("matchingFieldValue", result.get("matchingFieldValue"));
             if (log.isDebugEnabled()) {
                 log.debug("creating new map for serverId = " + result.get("serverId") +
                         ", snapshotID: " + result.get("snapshotId") + " new map = " +

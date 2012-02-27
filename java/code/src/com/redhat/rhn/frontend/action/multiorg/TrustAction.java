@@ -270,7 +270,7 @@ public class TrustAction extends FormDispatcher {
                             .getAccessibleChildrenFor(orgUser);
                     Iterator<Channel> i = children.iterator();
                     while (i.hasNext()) {
-                        Channel child = (Channel) i.next();
+                        Channel child = i.next();
                         if (s.isSubscribed(child)) {
                             // unsubscribe server from child channel
                             child.getTrustedOrgs().remove(theOrg);

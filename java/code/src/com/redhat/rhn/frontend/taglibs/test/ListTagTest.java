@@ -81,7 +81,7 @@ public class ListTagTest extends RhnBaseTestCase {
         // This is a hack, but I just need an empty list, and this works.
         SelectMode m = ModeFactory.getMode("test_queries", "user_tables");
         DataResult dr = m.execute(new HashMap());
-        dr = (DataResult)dr.subList(0, 0);
+        dr = dr.subList(0, 0);
 
         lt.setPageList(dr);
         lt.setNoDataText("cant have spaces");
@@ -106,7 +106,7 @@ public class ListTagTest extends RhnBaseTestCase {
         // This is a hack, but I just need an empty list, and this works.
         SelectMode m = ModeFactory.getMode("test_queries", "user_tables");
         DataResult dr = m.execute(new HashMap());
-        dr = (DataResult)dr.subList(0, 1);
+        dr = dr.subList(0, 1);
 
         lt.setPageList(dr);
         lt.setNoDataText("No Data.");

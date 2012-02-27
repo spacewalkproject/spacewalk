@@ -109,7 +109,7 @@ public class VirtualGuestsActionTest extends RhnMockStrutsTestCase {
     public void testDeleteGuestConfirm() throws Exception {
         Server host = ServerTestUtils.createVirtHostWithGuests(user, 1);
         Server guest =
-            ((VirtualInstance) host.getGuests().iterator().next()).getGuestSystem();
+            host.getGuests().iterator().next().getGuestSystem();
 
         VirtualInstance virtualInstance = new VirtualInstance();
         virtualInstance.setUuid("1234");
@@ -157,7 +157,7 @@ public class VirtualGuestsActionTest extends RhnMockStrutsTestCase {
         addRequestParameter(RequestContext.SID, host.getId().toString());
         addDispatchCall("virtualguests_confirm.jsp.confirm");
         RhnSet set = RhnSetDecl.VIRTUAL_SYSTEMS.get(user);
-        VirtualInstance vi = ((VirtualInstance) host.getGuests().iterator().next());
+        VirtualInstance vi = host.getGuests().iterator().next();
         vi.setState(VirtualInstanceFactory.getInstance().getRunningState());
         TestUtils.saveAndFlush(vi);
         set.addElement(vi.getId());

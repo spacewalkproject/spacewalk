@@ -612,7 +612,7 @@ public class ErrataSearchAction extends RhnAction {
     }
 
     private Boolean getOptionIssueDateSearch(HttpServletRequest request) {
-        String strDateSearch = (String)request.getParameter("optionIssueDateSearch");
+        String strDateSearch = request.getParameter("optionIssueDateSearch");
         if ("on".equals(strDateSearch)) {
             return true;
         }

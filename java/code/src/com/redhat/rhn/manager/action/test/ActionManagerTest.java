@@ -318,7 +318,7 @@ public class ActionManagerTest extends RhnBaseTestCase {
         UserFactory.save(user);
 
         Action parentAction = createActionWithServerActions(user, 1);
-        Server server = ((ServerAction)parentAction.getServerActions().iterator().next())
+        Server server = parentAction.getServerActions().iterator().next()
             .getServer();
         ActionFactory.save(parentAction);
 
@@ -629,14 +629,14 @@ public class ActionManagerTest extends RhnBaseTestCase {
         TestUtils.saveAndFlush(ka);
         assertNotNull(ka.getId());
         KickstartGuestActionDetails kad =
-            (KickstartGuestActionDetails) ka.getKickstartGuestActionDetails();
+            ka.getKickstartGuestActionDetails();
         KickstartGuestAction ka2 = (KickstartGuestAction)
             ActionManager.lookupAction(user, ka.getId());
         assertNotNull(ka2);
         assertNotNull(kad.getCobblerSystemName());
         assertEquals(ka, ka2);
         KickstartGuestActionDetails kad2 =
-            (KickstartGuestActionDetails) ka2.getKickstartGuestActionDetails();
+            ka2.getKickstartGuestActionDetails();
         assertNotNull(kad);
         assertEquals(kad, kad2);
 

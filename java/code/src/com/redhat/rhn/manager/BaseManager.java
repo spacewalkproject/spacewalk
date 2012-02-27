@@ -139,7 +139,7 @@ public abstract class BaseManager {
 
             // now use the PageControl to limit the list to the
             // selected region.
-            dr = (DataResult)dr.subList(pc.getStart() - 1, pc.getEnd());
+            dr = dr.subList(pc.getStart() - 1, pc.getEnd());
 
             //elaborate the data result to get the detailed information.
             if (elabParams != null) {

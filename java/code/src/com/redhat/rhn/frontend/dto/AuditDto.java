@@ -42,7 +42,7 @@ public class AuditDto extends BaseDto {
      */
     public AuditDto(int serialIn, Date timeIn, int milliIn, String nodeIn,
                 LinkedHashMap<String, String> kvmapIn) {
-        this.id = new Long((long)serialIn);
+        this.id = new Long(serialIn);
         this.serial = serialIn;
         this.time = timeIn;
         this.milli = milliIn;

@@ -91,7 +91,7 @@ public class CobblerDistroCreateCommand extends CobblerDistroCommand {
                 tree.getCobblerDistroName(), tree.getKernelPath(),
                 tree.getInitrdPath(), ksmeta);
         // Setup the kickstart metadata so the URLs and activation key are setup
-        tree.setCobblerId((String) distro.getUid());
+        tree.setCobblerId(distro.getUid());
         invokeCobblerUpdate();
 
         if (tree.doesParaVirt()) {

@@ -185,13 +185,13 @@ public class ProvisionVirtualInstanceCommand extends KickstartScheduleCommand {
         //TODO -- It feels a little dirty to pass in this & this.getExtraOptions,
         //but I don't know that I understand the implications of making getExtraOptions
         //a public method.
-        KickstartGuestAction ksAction = (KickstartGuestAction)
-            ActionManager.scheduleKickstartGuestAction(this, sessionId);
+        KickstartGuestAction ksAction = ActionManager.scheduleKickstartGuestAction(this,
+                sessionId);
         ksSession.setAction(ksAction);
         ksAction.setPrerequisite(prereqAction);
         ActionFactory.save(ksAction);
 
-        return (Action) ksAction;
+        return ksAction;
     }
 
     /**

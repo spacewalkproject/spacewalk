@@ -128,7 +128,7 @@ public class ErrataSetupAction extends RhnAction implements Listable {
 
     private List<Map<String, Object>> getComboList(HttpServletRequest request) {
 
-        String selected = (String) request.getParameter(SELECTOR);
+        String selected = request.getParameter(SELECTOR);
 
         List<Map<String, Object>> combo = new ArrayList<Map<String, Object>>();
 

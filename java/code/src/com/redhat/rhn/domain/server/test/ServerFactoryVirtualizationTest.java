@@ -59,8 +59,7 @@ public class ServerFactoryVirtualizationTest extends RhnBaseTestCase {
 
         assertTrue(retrievedHost.getGuests().contains(virtualInstance));
 
-        VirtualInstance retInstance = (VirtualInstance)
-            retrievedHost.getGuests().iterator().next();
+        VirtualInstance retInstance = retrievedHost.getGuests().iterator().next();
 
         assertEquals(retInstance.getHostSystem(), retrievedHost);
     }

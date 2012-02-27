@@ -72,19 +72,19 @@ public class ActivationKeyTest extends BaseTestCaseWithUser {
         assertEquals(1, server.getEntitlements().size());
         assertEquals(1, k2.getEntitlements().size());
 
-        Entitlement e = (Entitlement) server.getEntitlements().iterator().next();
-        ServerGroupType t2 = (ServerGroupType) k2.getEntitlements().iterator().next();
+        Entitlement e = server.getEntitlements().iterator().next();
+        ServerGroupType t2 = k2.getEntitlements().iterator().next();
         assertEquals(e.getLabel(), t2.getLabel());
 
         // test out ActivationKeyManager.findByServer while we're here...
-        ActivationKey k4 = (ActivationKey) ActivationKeyManager.
+        ActivationKey k4 = ActivationKeyManager.
             getInstance().findByServer(server, user).iterator().next();
         assertNotNull(k4);
         assertEquals(key, k4.getKey());
 
 
         try {
-            k3 = (ActivationKey) ActivationKeyManager.getInstance().
+            k3 = ActivationKeyManager.getInstance().
                 findByServer(null, user).iterator().next();
             String msg = "Permission check failed :(.." +
                             " Activation key should not have existed" +
@@ -99,7 +99,7 @@ public class ActivationKeyTest extends BaseTestCaseWithUser {
         User user1 = UserTestUtils.findNewUser("testuser", "testorg");
         Server server2 = ServerFactoryTest.createTestServer(user1);
         try {
-            k3 = (ActivationKey) ActivationKeyManager.getInstance().
+            k3 = ActivationKeyManager.getInstance().
                 findByServer(server2, user1).iterator().next();
             String msg = "Permission check failed :(.." +
                             " Activation key should not have existed" +

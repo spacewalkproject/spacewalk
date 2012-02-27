@@ -257,8 +257,7 @@ public class ServerGroupFactory extends HibernateFactory {
      *                      the server.
      */
     public static List<EntitlementServerGroup> listEntitlementGroups(Server s) {
-        return (List<EntitlementServerGroup>)
-                    listServerGroups(s, "ServerGroup.lookupEntitlementGroupsByServer");
+        return listServerGroups(s, "ServerGroup.lookupEntitlementGroupsByServer");
     }
 
     /**
@@ -268,7 +267,7 @@ public class ServerGroupFactory extends HibernateFactory {
      *                      the server.
      */
     public static List<ManagedServerGroup> listManagedGroups(Server s) {
-        return (List<ManagedServerGroup>)listServerGroups(s,
+        return listServerGroups(s,
                 "ServerGroup.lookupManagedGroupsByServer");
     }
 

@@ -138,7 +138,7 @@ public class SsmKSScheduleAction extends RhnAction implements Listable {
             com.setIpv6Gateway();
         }
 
-        String proxyId = (String) dynaForm.getString(
+        String proxyId = dynaForm.getString(
                 ScheduleKickstartWizardAction.PROXY_HOST);
         if (!StringUtils.isEmpty(proxyId)) {
             Server proxy = ServerFactory.lookupById(Long.parseLong(proxyId));

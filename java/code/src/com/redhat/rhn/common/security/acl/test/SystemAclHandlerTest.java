@@ -22,7 +22,6 @@ import com.redhat.rhn.domain.kickstart.test.KickstartDataTest;
 import com.redhat.rhn.domain.kickstart.test.KickstartSessionTest;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.server.Server;
-import com.redhat.rhn.domain.server.VirtualInstance;
 import com.redhat.rhn.domain.server.test.ServerFactoryTest;
 import com.redhat.rhn.manager.system.SystemManager;
 import com.redhat.rhn.manager.system.test.SystemManagerTest;
@@ -84,7 +83,7 @@ public class SystemAclHandlerTest extends BaseTestCaseWithUser {
 
     public void testIsVirtual() throws Exception {
         Server host = ServerTestUtils.createVirtHostWithGuests(user, 1);
-        Server guest = ((VirtualInstance) host.getGuests().iterator().next()).
+        Server guest = host.getGuests().iterator().next().
             getGuestSystem();
 
         SystemAclHandler sah = new SystemAclHandler();

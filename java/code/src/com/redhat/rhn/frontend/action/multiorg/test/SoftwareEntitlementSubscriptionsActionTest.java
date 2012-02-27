@@ -38,7 +38,7 @@ public class SoftwareEntitlementSubscriptionsActionTest extends RhnMockStrutsTes
         TestUtils.saveAndFlush(user);
 
         Server s = ServerTestUtils.createTestSystem(user);
-        Channel chan = (Channel)s.getChannels().iterator().next();
+        Channel chan = s.getChannels().iterator().next();
         family = chan.getChannelFamily();
         testOrg = s.getOrg();
 

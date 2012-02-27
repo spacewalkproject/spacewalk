@@ -744,7 +744,7 @@ public class UserHandler extends BaseHandler {
         // now for the real reason we're in this method.
         Set defaults = target.getDefaultSystemGroupIds();
         for (Iterator itr = sgNames.iterator(); itr.hasNext();) {
-            ServerGroup sg = (ServerGroup) groupMap.get((String)itr.next());
+            ServerGroup sg = (ServerGroup) groupMap.get(itr.next());
             if (sg != null) {
                 // not a simple add to the groups.  Needs to call
                 // UserManager as DataSource is being used.
@@ -834,7 +834,7 @@ public class UserHandler extends BaseHandler {
         // now for the real reason we're in this method.
         Set defaults = target.getDefaultSystemGroupIds();
         for (Iterator itr = sgNames.iterator(); itr.hasNext();) {
-            ServerGroup sg = (ServerGroup) groupMap.get((String) itr.next());
+            ServerGroup sg = (ServerGroup) groupMap.get(itr.next());
             if (sg != null) {
                 // not a simple remove to the groups.  Needs to call
                 // UserManager as DataSource is being used.

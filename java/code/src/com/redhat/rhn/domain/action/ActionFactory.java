@@ -643,7 +643,7 @@ public class ActionFactory extends HibernateFactory {
         Map params = new HashMap();
         params.put("orgId", user.getOrg().getId());
         params.put("server", serverIn);
-        return (List) singleton.listObjectsByNamedQuery(
+        return singleton.listObjectsByNamedQuery(
                                         "Action.findByServerAndOrgId", params);
     }
 
@@ -655,7 +655,7 @@ public class ActionFactory extends HibernateFactory {
     public static List listServerActionsForServer(Server serverIn) {
         Map params = new HashMap();
         params.put("server", serverIn);
-        return (List) singleton.listObjectsByNamedQuery(
+        return singleton.listObjectsByNamedQuery(
                                         "ServerAction.findByServer", params);
     }
 

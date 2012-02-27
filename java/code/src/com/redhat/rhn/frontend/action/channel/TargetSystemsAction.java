@@ -80,7 +80,7 @@ public class TargetSystemsAction extends RhnAction implements Listable {
      */
     public List getResult(RequestContext context) {
         User user =  context.getLoggedInUser();
-        Long cid = (Long) context.getRequiredParam(RequestContext.CID);
+        Long cid = context.getRequiredParam(RequestContext.CID);
         Channel chan = ChannelManager.lookupByIdAndUser(cid, user);
         return SystemManager.listTargetSystemForChannel(user, chan);
     }

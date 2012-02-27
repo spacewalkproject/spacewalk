@@ -367,7 +367,7 @@ public class SystemDetailsHandlerTest  extends BaseHandlerTestCase {
         assertNotNull(foundLists);
         assertEquals(1, foundLists.size());
 
-        FileList foundList = (FileList)foundLists.iterator().next();
+        FileList foundList = foundLists.iterator().next();
         assertEquals(fileList.getLabel(), foundList.getLabel());
         assertEquals(fileList.getFileNames(), foundList.getFileNames());
     }

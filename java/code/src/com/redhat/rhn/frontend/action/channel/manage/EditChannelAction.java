@@ -116,7 +116,7 @@ public class EditChannelAction extends RhnAction implements Listable {
                 helper.setListName(getListName());
                 // ignore the return
                 helper.execute();
-                request.setAttribute("channel_name", (String) form.getString("name"));
+                request.setAttribute("channel_name", form.getString("name"));
                 return getStrutsDelegate().forwardParams(
                         mapping.findForward(sharing), params);
             }
@@ -269,7 +269,7 @@ public class EditChannelAction extends RhnAction implements Listable {
                                 .getAccessibleChildrenFor(user);
                         Iterator<Channel> i = children.iterator();
                         while (i.hasNext()) {
-                            Channel child = (Channel) i.next();
+                            Channel child = i.next();
                             if (s.isSubscribed(child)) {
                                 // unsubscribe server from child channel
 

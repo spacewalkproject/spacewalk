@@ -61,7 +61,7 @@ public class KickstartScriptCommandTest extends BaseKickstartCommandTestCase {
     }
 
     public void testPreEdit() throws Exception {
-        KickstartScript kss = (KickstartScript) ksdata.getScripts().iterator().next();
+        KickstartScript kss = ksdata.getScripts().iterator().next();
         String language = "/usr/bin/perl";
         String contents = "print \"some string\";\n";
         String chroot = "Y";
@@ -77,7 +77,7 @@ public class KickstartScriptCommandTest extends BaseKickstartCommandTestCase {
 
     public void testScriptDelete() throws Exception {
 
-        KickstartScript kss = (KickstartScript) ksdata.getScripts().iterator().next();
+        KickstartScript kss = ksdata.getScripts().iterator().next();
         assertEquals(5, ksdata.getScripts().size());
         KickstartScriptDeleteCommand cmd = new KickstartScriptDeleteCommand(ksdata.getId(),
                 kss.getId(), user);

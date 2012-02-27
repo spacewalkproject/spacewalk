@@ -82,7 +82,7 @@ public class BaseSetListActionTest extends RhnBaseTestCase {
             }
             DataResult dr = new DataResult(values);
             if (pc != null) {
-                dr = (DataResult) dr.subList(pc.getStart(), pc.getEnd());
+                dr = dr.subList(pc.getStart(), pc.getEnd());
             }
             return dr;
         }

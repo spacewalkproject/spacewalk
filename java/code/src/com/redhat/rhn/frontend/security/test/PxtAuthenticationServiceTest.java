@@ -24,7 +24,6 @@ import java.util.Vector;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 /**
  * PxtAuthenticationServiceTest
@@ -124,7 +123,7 @@ public class PxtAuthenticationServiceTest extends AuthenticationServiceTest {
 
     private void runRedirectToLoginTest() throws Exception {
         mockRequest.expects(atLeastOnce()).method("getRequestDispatcher").will(
-                returnValue((RequestDispatcher)mockDispatcher.proxy()));
+                returnValue(mockDispatcher.proxy()));
 
         service.redirectToLogin(getRequest(), getResponse());
     }
@@ -143,7 +142,7 @@ public class PxtAuthenticationServiceTest extends AuthenticationServiceTest {
 
         mockDispatcher.expects(once()).method("forward").with(
                 new Constraint[] {eq(getRequest()),
-                        eq((HttpServletResponse)mockResponse.proxy())});
+                        eq(mockResponse.proxy())});
 
         mockRequest.stubs().method("getParameterNames").will(
                 returnValue(new Vector().elements()));

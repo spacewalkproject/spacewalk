@@ -50,7 +50,7 @@ public class TokenPackageFactory extends HibernateFactory {
         try {
             session = HibernateFactory.getSession();
 
-            retval = (List<TokenPackage>) session.getNamedQuery(
+            retval = session.getNamedQuery(
                 "TokenPackage.lookupByToken")
                 .setEntity("token", tokenIn)
                 //Retrieve from cache if there
@@ -81,7 +81,7 @@ public class TokenPackageFactory extends HibernateFactory {
         try {
             session = HibernateFactory.getSession();
 
-            retval = (List<TokenPackage>) session.getNamedQuery("TokenPackage.lookupByName")
+            retval = session.getNamedQuery("TokenPackage.lookupByName")
                 .setEntity("token", tokenIn)
                 .setEntity("name", nameIn)
                 //Retrieve from cache if there

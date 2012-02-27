@@ -695,7 +695,7 @@ public  class UserFactory extends HibernateFactory {
         Session session = HibernateFactory.getSession();
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("org_id", inOrg.getId());
-        return (List<User>)listObjectsByNamedQuery("User.findAllUsersByOrg", params);
+        return listObjectsByNamedQuery("User.findAllUsersByOrg", params);
     }
 
     /**
@@ -708,7 +708,7 @@ public  class UserFactory extends HibernateFactory {
         Session session = HibernateFactory.getSession();
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("org_id", inOrg.getId());
-        return (List<User>)listObjectsByNamedQuery("User.findAllOrgAdmins", params);
+        return listObjectsByNamedQuery("User.findAllOrgAdmins", params);
     }
 
     /**

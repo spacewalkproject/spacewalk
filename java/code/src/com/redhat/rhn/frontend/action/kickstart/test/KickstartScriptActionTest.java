@@ -91,7 +91,7 @@ public class KickstartScriptActionTest extends BaseKickstartEditTestCase {
         String[] keys = {"kickstart.script.success"};
         verifyActionMessages(keys);
         assertNotNull(ksdata.getScripts());
-        KickstartScript ks = (KickstartScript) ksdata.getScripts().iterator().next();
+        KickstartScript ks = ksdata.getScripts().iterator().next();
         assertEquals(contents, ks.getDataContents());
         assertEquals(language, ks.getInterpreter());
         assertEquals(KickstartScript.TYPE_POST, ks.getScriptType());
@@ -102,7 +102,7 @@ public class KickstartScriptActionTest extends BaseKickstartEditTestCase {
         assertEquals(5, ksdata.getScripts().size());
         addRequestParameter(KickstartScriptCreateAction.SUBMITTED,
                 Boolean.FALSE.toString());
-        KickstartScript kss = (KickstartScript) ksdata.getScripts().iterator().next();
+        KickstartScript kss = ksdata.getScripts().iterator().next();
         addRequestParameter(RequestContext.KICKSTART_SCRIPT_ID, kss.getId().toString());
         setRequestPathInfo("/kickstart/KickstartScriptEdit");
         actionPerform();
@@ -124,14 +124,14 @@ public class KickstartScriptActionTest extends BaseKickstartEditTestCase {
                 KickstartScript.TYPE_POST);
         addRequestParameter(KickstartScriptCreateAction.SUBMITTED,
                 Boolean.TRUE.toString());
-        KickstartScript kss = (KickstartScript) ksdata.getScripts().iterator().next();
+        KickstartScript kss = ksdata.getScripts().iterator().next();
         addRequestParameter(RequestContext.KICKSTART_SCRIPT_ID, kss.getId().toString());
         setRequestPathInfo("/kickstart/KickstartScriptEdit");
         actionPerform();
         String[] keys = {"kickstart.script.success"};
         verifyActionMessages(keys);
         assertNotNull(ksdata.getScripts());
-        KickstartScript ks = (KickstartScript) ksdata.getScripts().iterator().next();
+        KickstartScript ks = ksdata.getScripts().iterator().next();
         assertEquals(contents, ks.getDataContents());
         assertEquals(language, ks.getInterpreter());
         assertEquals(KickstartScript.TYPE_POST, ks.getScriptType());

@@ -74,9 +74,9 @@ public class CreateGroupAction extends RhnAction {
                 return mapping.findForward("success");
             }
             else {
-                request.setAttribute("name", (String) daForm.getString("name"));
+                request.setAttribute("name", daForm.getString("name"));
                 request.setAttribute("description",
-                       (String) daForm.getString("description"));
+                       daForm.getString("description"));
 
                 return mapping.findForward("error");
             }

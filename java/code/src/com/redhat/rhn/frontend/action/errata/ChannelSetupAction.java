@@ -155,7 +155,7 @@ public class ChannelSetupAction extends RhnListAction {
     }
 
     private boolean errataInChannel(Errata e, Long id) {
-        for (Channel chan : (Set<Channel>) e.getChannels()) {
+        for (Channel chan : e.getChannels()) {
             if (chan.getId().equals(id)) {
                 return true;
             }

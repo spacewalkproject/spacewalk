@@ -41,7 +41,7 @@ public class SatelliteExceptionHandler extends ExceptionHandler {
     protected void logException(Exception ex) {
         Logger log = Logger.getLogger(LookupExceptionHandler.class);
         log.error(ex);
-        exception = (Exception) ex;
+        exception = ex;
     }
 
     protected void storeException(HttpServletRequest request, String property,

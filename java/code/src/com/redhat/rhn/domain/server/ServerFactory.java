@@ -113,7 +113,7 @@ public class ServerFactory extends HibernateFactory {
     public static List<CustomDataValue> lookupCustomDataValues(CustomDataKey key) {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("key", key);
-        return (List<CustomDataValue>) singleton.listObjectsByNamedQuery(
+        return singleton.listObjectsByNamedQuery(
                 "CustomDataValue.findByKey", params);
     }
 
@@ -142,7 +142,7 @@ public class ServerFactory extends HibernateFactory {
     public static List<Device> lookupStorageDevicesByServer(Server s) {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("server", s);
-        return (List<Device>) singleton.listObjectsByNamedQuery(
+        return singleton.listObjectsByNamedQuery(
                 "Device.findStorageByServer", params);
     }
 
@@ -559,7 +559,7 @@ public class ServerFactory extends HibernateFactory {
                 "Server.listProxies", params);
         List<Server> servers = new ArrayList(ids.size());
         for (Number id : ids) {
-            servers.add((Server) lookupById(id.longValue()));
+            servers.add(lookupById(id.longValue()));
         }
         return servers;
     }
@@ -604,7 +604,7 @@ public class ServerFactory extends HibernateFactory {
      * @return a list of config enabled systems
      */
     public static List<Server> listConfigEnabledSystems() {
-        return (List<Server>) singleton.listObjectsByNamedQuery(
+        return singleton.listObjectsByNamedQuery(
                         "Server.listConfigEnabledSystems", Collections.EMPTY_MAP);
     }
 
@@ -615,7 +615,7 @@ public class ServerFactory extends HibernateFactory {
      * @return a list of config-diff enabled systems
      */
     public static List<Server> listConfigDiffEnabledSystems() {
-        return (List<Server>) singleton.listObjectsByNamedQuery(
+        return singleton.listObjectsByNamedQuery(
                         "Server.listConfigDiffEnabledSystems", Collections.EMPTY_MAP);
     }
 

@@ -52,8 +52,7 @@ public class RowRendererTag extends BodyTagSupport {
      * {@inheritDoc}
      */
     public int doEndTag() throws JspException {
-        ListCommand command = (ListCommand)
-                    ListTagUtil.getCurrentCommand(this, pageContext);
+        ListCommand command = ListTagUtil.getCurrentCommand(this, pageContext);
         if (command.equals(ListCommand.ENUMERATE)) {
             if (!StringUtils.isBlank(name)) {
                 ListTag parent = (ListTag) BodyTagSupport.findAncestorWithClass(this,

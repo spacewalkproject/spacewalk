@@ -190,7 +190,7 @@ public class ScheduleDetailAction extends RhnAction {
                 form.set("schedulename", scheduleName);
                 request.setAttribute("bunch", bunchName);
                 Map bunch = tapi.lookupBunchByName(loggedInUser, bunchName);
-                request.setAttribute("bunchdescription", (String)bunch.get("description"));
+                request.setAttribute("bunchdescription", bunch.get("description"));
                 RecurringEventPicker.prepopulatePicker(request, "date",
                         (String) schedule.get(("cron_expr")));
             }
