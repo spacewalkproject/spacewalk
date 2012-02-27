@@ -50,9 +50,6 @@ class ActionExecutor implements Runnable {
         for (Iterator iter = actionHandlers.iterator(); iter.hasNext();) {
             MessageAction action = (MessageAction) iter.next();
             LOG.debug("run() - got action: " + action.getClass().getName());
-            if (action == null) {
-                continue;
-            }
             try {
                 if (msg instanceof EventDatabaseMessage) {
                     EventDatabaseMessage evtdb = (EventDatabaseMessage) msg;
