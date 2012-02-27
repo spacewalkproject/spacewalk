@@ -128,7 +128,7 @@ public class SessionStatusAction extends RhnAction {
         }
         // Check for downgrading base channel, example RHEL5 to RHEL4
         request.setAttribute("kswarning", null);
-        if ((kss != null) && (kss.getHostServer() != null)) {
+        if (kss.getHostServer() != null) {
             if ((kss.getHostServer().getBaseChannel().compareTo(
                 kss.getKstree().getChannel()) < 0)) {
                 String warning = LocalizationService.getInstance().getMessage(
