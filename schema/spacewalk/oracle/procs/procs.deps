@@ -58,6 +58,7 @@ delete_server                   :: rhn_channel.pks rhn_config.pks \
                                    rhnServerEntitlementView
 delete_server_bulk              :: delete_server
 does_user_have_role             :: rhnUserGroup rhnUserGroupMembers rhnUserGroupType
+insert_client_capability        :: rhnClientCapabilityName
 insert_checksum                 :: rhnChecksum rhnChecksumType
 is_user_applicant               :: rhnUserGroupType web_contact rhnUserGroup \
                                    rhnUserGroupMembers
@@ -65,7 +66,7 @@ lookup_arch_type                :: data/rhnArchType rhn_exception.pks
 lookup_channel_arch             :: rhn_exception.pks data/rhnException rhnChannelArch \
                                    data/rhnChannelArch
 lookup_checksum                 :: rhnChecksumView insert_checksum
-lookup_client_capability        :: rhnClientCapabilityName
+lookup_client_capability        :: insert_client_capability rhnClientCapabilityName
 lookup_cf_state                 :: rhnConfigFileState
 lookup_cve                      :: rhnCVE
 lookup_erratafile_type          :: rhnErrataFileType data/rhnErrataFileType
