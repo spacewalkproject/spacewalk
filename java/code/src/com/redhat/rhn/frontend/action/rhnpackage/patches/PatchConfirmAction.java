@@ -71,48 +71,40 @@ public class PatchConfirmAction extends LookupDispatchAction {
 
         int numPatches = set.size();
 
-        if (set != null) {
-             Action remove = ActionManager.createPatchRemoveAction(user, server, set);
+         Action remove = ActionManager.createPatchRemoveAction(user, server, set);
 
-             ActionManager.storeAction(remove); //commit action
-             RhnSetDecl.PATCH_REMOVE.clear(user);
+         ActionManager.storeAction(remove); //commit action
+         RhnSetDecl.PATCH_REMOVE.clear(user);
 
-             ActionMessages msgs = new ActionMessages();
+         ActionMessages msgs = new ActionMessages();
 
-             /**
-              * If there was only one action archived, display the "action" archived
-              * message, else display the "actions" archived message.
-              */
-             if (numPatches == 1) {
-                 msgs.add(ActionMessages.GLOBAL_MESSAGE,
-                          new ActionMessage("message.patchremoval",
-                                  LocalizationService.getInstance()
-                                      .formatNumber(new Integer(numPatches)),
-                                  remove.getId().toString(),
-                                  sid.toString(),
-                                  server.getName()));
-             }
-             else {
-                 msgs.add(ActionMessages.GLOBAL_MESSAGE,
-                          new ActionMessage("message.patchremovals",
-                                  LocalizationService.getInstance()
+         /**
+          * If there was only one action archived, display the "action" archived
+          * message, else display the "actions" archived message.
+          */
+         if (numPatches == 1) {
+             msgs.add(ActionMessages.GLOBAL_MESSAGE,
+                      new ActionMessage("message.patchremoval",
+                              LocalizationService.getInstance()
                                   .formatNumber(new Integer(numPatches)),
                               remove.getId().toString(),
                               sid.toString(),
                               server.getName()));
-             }
+         }
+         else {
+             msgs.add(ActionMessages.GLOBAL_MESSAGE,
+                      new ActionMessage("message.patchremovals",
+                              LocalizationService.getInstance()
+                              .formatNumber(new Integer(numPatches)),
+                          remove.getId().toString(),
+                          sid.toString(),
+                          server.getName()));
+         }
 
-             strutsDelegate.saveMessages(request, msgs);
+         strutsDelegate.saveMessages(request, msgs);
 
-             Map params = makeParamMap(request);
-             return strutsDelegate.forwardParams(mapping.findForward("confirmed"), params);
-        }
-        /*
-         * Everything is not ok.
-         * TODO: error msg
-         */
-        Map params = makeParamMap(request);
-        return strutsDelegate.forwardParams(mapping.findForward("default"), params);
+         Map params = makeParamMap(request);
+         return strutsDelegate.forwardParams(mapping.findForward("confirmed"), params);
     }
 
     /**
