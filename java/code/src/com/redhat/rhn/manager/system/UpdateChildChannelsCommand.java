@@ -143,7 +143,7 @@ public class UpdateChildChannelsCommand extends BaseUpdateChannelCommand {
                 throw new InvalidChannelException();
             }
 
-            if (channel != null && log.isDebugEnabled()) {
+            if (log.isDebugEnabled()) {
                 log.debug("checking to see if we can sub: " + channel.getLabel());
             }
             if (!SystemManager.canServerSubscribeToChannel(loggedInUser.getOrg(),
