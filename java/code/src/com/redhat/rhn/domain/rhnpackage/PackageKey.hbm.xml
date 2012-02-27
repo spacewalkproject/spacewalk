@@ -30,11 +30,6 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
             column="provider_id" cascade="save-update"/>
     </class>
 
-    <query name="PackageKey.findById">
-        <![CDATA[from com.redhat.rhn.domain.rhnpackage.PackageKey as p
-        		where p.id = :id]]>
-    </query>
-
     <query name="PackageKey.findByKey">
         <![CDATA[from com.redhat.rhn.domain.rhnpackage.PackageKey as p
         		where p.key = :key]]>
