@@ -27,11 +27,6 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 
     </class>
 
-    <query name="PackageProvider.findById">
-        <![CDATA[from com.redhat.rhn.domain.rhnpackage.PackageProvider as p
-        		where p.id = :id]]>
-    </query>
-
     <query name="PackageProvider.findByName">
         <![CDATA[from com.redhat.rhn.domain.rhnpackage.PackageProvider as p
         		where p.name = :name]]>
