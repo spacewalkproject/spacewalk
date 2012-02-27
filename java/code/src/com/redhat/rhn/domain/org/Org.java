@@ -603,9 +603,8 @@ public class Org extends BaseDomainHelper {
      */
     public void addTrust(Org org) {
         trustedOrgs.add(org);
-        if (org instanceof Org) {
-            Org impl = org;
-            impl.trustedOrgs.add(this);
+        if (org != null) {
+            org.trustedOrgs.add(this);
         }
     }
 
@@ -616,9 +615,8 @@ public class Org extends BaseDomainHelper {
      */
     public void removeTrust(Org org) {
         trustedOrgs.remove(org);
-        if (org instanceof Org) {
-            Org impl = org;
-            impl.trustedOrgs.remove(this);
+        if (org != null) {
+            org.trustedOrgs.remove(this);
         }
     }
 
