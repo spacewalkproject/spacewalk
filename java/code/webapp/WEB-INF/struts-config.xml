@@ -6002,10 +6002,6 @@
                  path="/kickstart/KickstartPackageProfileEdit.do" redirect="true"/>
     </action>
 
-    <action path="/kickstart/DownloadLog"
-        scope="request"
-        type="com.redhat.rhn.frontend.action.kickstart.RenderKickstartLogAction" />
-
     <!-- This action should not be called directly by the client.
          Instead, this url should be invoked via a mod_rewrite RewriteRule.
          See webapp.conf for the appropriate rule. -->
