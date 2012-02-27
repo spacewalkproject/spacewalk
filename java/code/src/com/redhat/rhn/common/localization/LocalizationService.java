@@ -275,17 +275,13 @@ public class LocalizationService {
             if (!keyToBundleMap.containsKey(messageId)) {
                 return getMissingMessageString(messageId);
             }
-            else {
-                if (mess == null) {
-                    z = Class.forName((String) keyToBundleMap.get(messageId));
-                    // If we already determined that there aren't an bundles
-                    // for this Locale then we shouldn't repeatedly fail
-                    // attempts to parse the bundle. Instead just force a
-                    // call to the default Locale.
-                    mess = XmlMessages.getInstance().format(z, locale,
-                            messageId, args);
-                }
-            }
+            z = Class.forName((String) keyToBundleMap.get(messageId));
+            // If we already determined that there aren't an bundles
+            // for this Locale then we shouldn't repeatedly fail
+            // attempts to parse the bundle. Instead just force a
+            // call to the default Locale.
+            mess = XmlMessages.getInstance().format(z, locale,
+                    messageId, args);
         }
         catch (MissingResourceException e) {
             // Try again with DEFAULT_LOCALE
