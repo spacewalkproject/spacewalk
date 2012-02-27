@@ -16,9 +16,6 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <property name="unlockedonly" type="char" column="unlocked_only" />
     </class>
 
-    <query name="ActionType.loadAll">
-        <![CDATA[from com.redhat.rhn.domain.action.ActionType]]>
-    </query>
     <query name="ActionType.findByLabel">
         <![CDATA[from com.redhat.rhn.domain.action.ActionType as t where t.label = :label]]>
     </query>
