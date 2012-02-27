@@ -25,8 +25,5 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 		<property name="privType" column="type" type="string" length="1" />
 
     </class>
-    <query name="Address.findById">
-        <![CDATA[from com.redhat.rhn.domain.user.AddressImpl as a where a.id = :id]]>
-    </query>
 
 </hibernate-mapping>
