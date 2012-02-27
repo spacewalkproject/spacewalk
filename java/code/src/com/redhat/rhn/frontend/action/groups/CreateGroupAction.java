@@ -22,6 +22,7 @@ import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.manager.system.ServerGroupManager;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
@@ -52,7 +53,7 @@ public class CreateGroupAction extends RhnAction {
             String name = daForm.getString("name");
             String desc = daForm.getString("description");
 
-            if (name.equals("") || name == null || desc.equals("") || desc == null) {
+            if (name.equals("") || name == null || StringUtils.isEmpty(desc)) {
                 request.setAttribute("emptynameordesc", "1");
                 errors = true;
             }
