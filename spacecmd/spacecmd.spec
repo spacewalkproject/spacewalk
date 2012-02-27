@@ -4,7 +4,7 @@
 %endif
 
 Name:        spacecmd
-Version:     1.7.5
+Version:     1.7.6
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -61,6 +61,9 @@ touch %{buildroot}/%{python_sitelib}/spacecmd/__init__.py
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Mon Feb 27 2012 Jan Pazdziora 1.7.6-1
+- 769430 - avoid using the quoted string, parse it first.
+
 * Sun Feb 19 2012 Steven Hardy <shardy@redhat.com> 1.7.5-1
 - spacecmd bugfix : bz766887 - user_create fix broken --pam option
   (shardy@redhat.com)
