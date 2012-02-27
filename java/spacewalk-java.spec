@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.7.41
+Version: 1.7.42
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -585,6 +585,26 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Feb 27 2012 Tomas Lestach <tlestach@redhat.com> 1.7.42-1
+- remove unused jsp - pages/user/create/createaccount.jsp (tlestach@redhat.com)
+- remove unused jsp - pages/software/downloads/isotree.jsp
+  (tlestach@redhat.com)
+- remove unused jsp - pages/configuration/channel/addfiles.jsp
+  (tlestach@redhat.com)
+- remove unused jsp - pages/kickstart/pre.jsp (tlestach@redhat.com)
+- remove unused jsp - pages/kickstart/post.jsp (tlestach@redhat.com)
+- remove unused jsp - pages/channel/relevant.jsp (tlestach@redhat.com)
+- remove unused jsp - pages/common/errors/service.jsp (tlestach@redhat.com)
+- remove unreferenced do page and appropriate jsp - /users/RPCPlaceholder
+  (tlestach@redhat.com)
+- remove unused jsp - /common/email_sent.jsp (tlestach@redhat.com)
+- remove unreferenced do page - /users/VerificationSent (tlestach@redhat.com)
+- remove unreferenced do page - /account/VerificationSent (tlestach@redhat.com)
+- remove unused KickstartGuestInstallLog class and appropriate hbm.xml file
+  (tlestach@redhat.com)
+- remove unreferenced do page together with appropriate action -
+  /kickstart/DownloadLog (tlestach@redhat.com)
+
 * Mon Feb 27 2012 Tomas Lestach <tlestach@redhat.com> 1.7.41-1
 - remove unreferenced do page together with appropriate action and jsp -
   /software/downloads/Help (tlestach@redhat.com)
