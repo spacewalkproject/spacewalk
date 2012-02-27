@@ -793,7 +793,7 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
         rebootAction.setEarliestAction(this.getScheduleDate());
         rebootAction.setOrg(this.getUser().getOrg());
         rebootAction.setName(rebootAction.getActionType().getName());
-        log.debug("** saving reboot action: " + (rebootAction == null));
+        log.debug("** saving reboot action: " + rebootAction.getName());
         ActionFactory.save(rebootAction);
         log.debug("** Saved rebootAction: " + rebootAction.getId());
 
