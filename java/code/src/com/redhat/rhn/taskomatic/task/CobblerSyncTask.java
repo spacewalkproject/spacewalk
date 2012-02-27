@@ -81,7 +81,7 @@ public class CobblerSyncTask extends RhnJavaJob {
                 LAST_UPDATED.get());
             //If we got an mtime from cobbler and that mtime is before our last update
             // Then don't update anything
-            if (mtime != null && mtime.longValue() < CobblerSyncTask.LAST_UPDATED.get()) {
+            if (mtime.longValue() < CobblerSyncTask.LAST_UPDATED.get()) {
                 log.debug("Cobbler mtime is less than last change, skipping");
                 return;
             }
