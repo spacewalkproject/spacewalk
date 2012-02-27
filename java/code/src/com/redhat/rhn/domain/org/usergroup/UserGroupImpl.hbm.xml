@@ -27,12 +27,6 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     <query name="UserGroup.findById">
         <![CDATA[from com.redhat.rhn.domain.org.usergroup.UserGroupImpl as ug where ug.id = :id]]>
     </query>
-    <query name="UserGroup.findByRole">
-    	<![CDATA[ select ug
-		from com.redhat.rhn.domain.org.usergroup.UserGroupImpl as ug
-    		where ug.role = :role ]]>
-    </query>
-
 
 </hibernate-mapping>
 
