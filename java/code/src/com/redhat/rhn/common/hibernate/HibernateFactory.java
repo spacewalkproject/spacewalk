@@ -432,13 +432,11 @@ public abstract class HibernateFactory {
             throw new DatabaseException(e.toString());
         }
         finally {
-            if (baos != null) {
-                try {
-                    baos.close();
-                }
-                catch (IOException ex) {
-                    throw new DatabaseException(ex.toString());
-                }
+            try {
+                baos.close();
+            }
+            catch (IOException ex) {
+                throw new DatabaseException(ex.toString());
             }
         }
     }
