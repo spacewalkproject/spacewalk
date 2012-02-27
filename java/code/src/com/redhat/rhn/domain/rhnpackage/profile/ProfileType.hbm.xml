@@ -20,7 +20,4 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     <query name="ProfileType.findByLabel">
         <![CDATA[from com.redhat.rhn.domain.rhnpackage.profile.ProfileType as t where t.label = :label]]>
     </query>
-    <query name="ProfileType.loadAll">
-        <![CDATA[from com.redhat.rhn.domain.rhnpackage.profile.ProfileType]]>
-    </query>
 </hibernate-mapping>
