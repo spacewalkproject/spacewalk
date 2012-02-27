@@ -13,9 +13,6 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <property name="name" type="string" column="name" />
     </class>
 
-    <query name="ActionStatus.loadAll">
-        <![CDATA[from com.redhat.rhn.domain.action.ActionType]]>
-    </query>
     <query name="ActionStatus.findByName">
         <![CDATA[from com.redhat.rhn.domain.action.ActionStatus as s where s.name = :name]]>
     </query>
