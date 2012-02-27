@@ -10,7 +10,7 @@ License:        GPLv2
 URL:            https://fedorahosted.org/spacewalk
 Source0:        https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 
-Version:        5.4.32
+Version:        5.4.33
 Release:        1%{?dist}
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:      noarch
@@ -134,6 +134,10 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Mon Feb 27 2012 Jan Pazdziora 5.4.33-1
+- 796658 - we need R/W connection to do domain operations
+  (mzazrivec@redhat.com)
+
 * Thu Jan 26 2012 Jan Pazdziora 5.4.32-1
 - 781421 - sys.stderr.write could not handle decoded unicode
   (msuchy@redhat.com)
