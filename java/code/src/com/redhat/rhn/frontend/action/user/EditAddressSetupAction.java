@@ -56,8 +56,7 @@ public class EditAddressSetupAction extends RhnAction {
         User user = UserManager.lookupUser(requestContext.getLoggedInUser(), uid);
         request.setAttribute(RhnHelper.TARGET_USER, user);
         form.set("uid", user.getId());
-        if (!RhnValidationHelper.getFailedValidation(request) &&
-                user != null) {
+        if (!RhnValidationHelper.getFailedValidation(request)) {
             form.set("address1", user.getAddress1());
             form.set("address2", user.getAddress2());
             form.set("phone", user.getPhone());
