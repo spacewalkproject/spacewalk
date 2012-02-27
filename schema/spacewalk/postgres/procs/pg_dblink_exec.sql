@@ -26,4 +26,4 @@ begin
     perform dblink_disconnect('at_conn');
 end;
 $$
-language 'plpgsql';
+language plpgsql;
