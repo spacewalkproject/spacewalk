@@ -18,10 +18,6 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <property name="modified" column="modified" not-null="true" type="timestamp" insert="false" update="false"/>
     </class>
 
-    <query name="KickstartSessionState.findById">
-        <![CDATA[from com.redhat.rhn.domain.kickstart.KickstartSessionState as t where t.id = :id]]>
-    </query>
-
     <query name="KickstartSessionState.findByLabel">
         <![CDATA[from com.redhat.rhn.domain.kickstart.KickstartSessionState as t where t.label = :label]]>
     </query>
