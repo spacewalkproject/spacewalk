@@ -87,12 +87,10 @@ public class ListFilterHelper {
             filterBy = tmp;
         }
         catch (UnsupportedEncodingException e) {
-            // This makes checkstyle happy
-            tmp = null;
+            // nothing
         }
         catch (IllegalArgumentException e) {
             // an illegal sequence was detected
-            tmp = null;
         }
 
         try {
@@ -100,12 +98,10 @@ public class ListFilterHelper {
             filterValue = tmp;
         }
         catch (UnsupportedEncodingException e) {
-            // This makes checkstyle happy
-            tmp = null;
+            // nothing
         }
         catch (IllegalArgumentException e) {
             // an illegal sequence was detected
-            tmp = null;
         }
 
         List filteredData = new ArrayList();
