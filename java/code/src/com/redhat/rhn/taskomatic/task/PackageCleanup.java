@@ -105,7 +105,7 @@ public class PackageCleanup extends RhnJavaJob {
                 }
                 parent = new File(pkgDir, pathFile.getPath());
             }
-            while (parent != null && parent.delete());
+            while (parent.delete());
         }
         else {
             log.error(f.getAbsoluteFile() + " not found");
