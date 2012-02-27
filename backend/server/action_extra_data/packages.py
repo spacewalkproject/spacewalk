@@ -224,7 +224,7 @@ def _parse_response_line(response, tests):
         raise InvalidResponseLine    
     
     dict = { 
-        'attrib' : attr, 
+        'attrib' : attr or None, # convert empty attribute to None
         'filename' : filename,
     }
     # Add the tests
