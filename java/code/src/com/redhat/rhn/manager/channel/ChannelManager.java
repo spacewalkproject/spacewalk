@@ -195,10 +195,8 @@ public class ChannelManager extends BaseManager {
     public static void cloneNewestPackages(Long fromChannelId, Channel toChannel,
                                                                     String label) {
         ChannelFactory.cloneNewestPackageCache(fromChannelId, toChannel.getId());
-         if (toChannel != null) {
-             ChannelManager.queueChannelChange(
-                     toChannel.getLabel(), label, "clone channel");
-         }
+        ChannelManager.queueChannelChange(
+                toChannel.getLabel(), label, "clone channel");
     }
 
     /**
