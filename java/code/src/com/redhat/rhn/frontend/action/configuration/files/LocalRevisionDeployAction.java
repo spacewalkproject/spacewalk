@@ -76,19 +76,17 @@ public class LocalRevisionDeployAction extends RhnAction {
                     params);
         }
 
-        if (cr != null) {
-            Server srv = findServer(request, cr);
-            if (ConfigurationManager.getInstance().isConfigEnabled(srv, usr)) {
-                request.setAttribute(DEPLOYABLE, Boolean.TRUE);
-            }
-            if (isSubmitted(dForm)) {
-                submitDeploy(dForm, cr, srv, usr);
-                success(request);
-                return getStrutsDelegate().forwardParams(mapping.findForward("success"),
-                        params);
-            }
-            updateRequest(request, cr, srv);
+        Server srv = findServer(request, cr);
+        if (ConfigurationManager.getInstance().isConfigEnabled(srv, usr)) {
+            request.setAttribute(DEPLOYABLE, Boolean.TRUE);
         }
+        if (isSubmitted(dForm)) {
+            submitDeploy(dForm, cr, srv, usr);
+            success(request);
+            return getStrutsDelegate().forwardParams(mapping.findForward("success"),
+                    params);
+        }
+        updateRequest(request, cr, srv);
 
         DatePicker d = getStrutsDelegate().prepopulateDatePicker(request, dForm, "date",
                 DatePicker.YEAR_RANGE_POSITIVE);
