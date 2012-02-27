@@ -17,10 +17,6 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <property name="modified" column="modified" not-null="true" type="timestamp" insert="false" update="false"/>
     </class>
 
-    <query name="KickstartVirtualizationType.findById">
-        <![CDATA[from com.redhat.rhn.domain.kickstart.KickstartVirtualizationType as t where t.id = :id]]>
-    </query>
-
     <query name="KickstartVirtualizationType.findByLabel">
         <![CDATA[from com.redhat.rhn.domain.kickstart.KickstartVirtualizationType as t where t.label = :label]]>
     </query>
