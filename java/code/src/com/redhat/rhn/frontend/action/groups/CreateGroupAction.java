@@ -53,7 +53,7 @@ public class CreateGroupAction extends RhnAction {
             String name = daForm.getString("name");
             String desc = daForm.getString("description");
 
-            if (name.equals("") || name == null || StringUtils.isEmpty(desc)) {
+            if (StringUtils.isEmpty(name) || StringUtils.isEmpty(desc)) {
                 request.setAttribute("emptynameordesc", "1");
                 errors = true;
             }
