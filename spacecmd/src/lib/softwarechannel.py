@@ -1241,13 +1241,17 @@ def do_softwarechannel_adderrata(self, args):
         # lead to timeouts on the server
         for erratum in errata:
             logging.debug('Cloning %s' % erratum)
-            self.client.errata.clone(self.session, dest_channel, [erratum])
-
-    # add the affected packages to the channel
-    logging.info('Adding required packages to %s' % dest_channel)
-    self.client.channel.software.addPackages(self.session,
-                                             dest_channel,
-                                             package_ids)
+            if self.check_api_version('10.11'):
+                # This call is poorly documented, but it stops errata.clone
+                # pushing EL6 packages into EL5 channels when the errata 
+                # package list contains both versions, ref bz678721
+                self.client.errata.cloneAsOriginal(self.session, dest_channel,\
+                    [erratum])
+            else:
+                logging.warning("Using the old errata.clone function")
+                logging.warning("If you have base channels for multiple OS" +\
+                    " versions, check no unexpected packages have been added")
+                self.client.errata.clone(self.session, dest_channel, [erratum])
 
     # regenerate the errata cache since we just cloned errata
     self.generate_errata_cache(True)
