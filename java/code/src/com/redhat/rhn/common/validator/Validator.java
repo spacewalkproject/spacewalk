@@ -197,11 +197,14 @@ public class Validator {
         String identifier =
             LocalizationService.getInstance().getMessage(constraint.getIdentifier());
 
+        /* code does not change anything, leaving just for demonstration
         if ((dataType.equals("String")) || (dataType.equals("java.lang.String"))) {
             validationMessage = null;
         }
+        else
+        */
 
-        else if ((dataType.equals("int")) || (dataType.equals("java.lang.Integer"))) {
+        if ((dataType.equals("int")) || (dataType.equals("java.lang.Integer"))) {
             try {
                 Integer.parseInt(data);
             }
@@ -239,7 +242,8 @@ public class Validator {
                 (data.equalsIgnoreCase("false")) ||
                 (data.equalsIgnoreCase("yes")) ||
                 (data.equalsIgnoreCase("no"))) {
-                validationMessage = null;
+                // empty
+                // validationMessage = null;
             }
             else {
                 validationMessage = new ValidatorError("errors.invalid", identifier);
