@@ -11,7 +11,7 @@ Package: python-rhn-client-tools
 Architecture: all
 Depends: ${python:Depends}, ${misc:Depends}, python-rhnlib (>= 2.5.40),
  python-ethtool, python-dbus, python-apt (>= 0.7.100), python-newt,
- python-dmidecode, python-libxml2, lsb-release, gnupg, hal
+ python-dmidecode, lsb-release, gnupg, hal
 Provides: ${python:Provides}, rhn-client-tools, rhn-check, rhn-setup,
  rhn-setup-gnome
 Recommends: apt-spacewalk

@@ -35,7 +35,6 @@ Requires: python-newt
 Requires: newt
 %endif
 Requires: python-dmidecode
-Requires: libxml2-python
 %if 0%{?suse_version}
 Requires: zypper
 %else
