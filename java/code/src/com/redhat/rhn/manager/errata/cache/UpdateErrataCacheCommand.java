@@ -216,7 +216,6 @@ public class UpdateErrataCacheCommand extends BaseTransactionCommand {
             log.debug("Packages: " + pkgs);
         }
 
-        new ArrayList();
         List pAdded = new ArrayList();
 
 
