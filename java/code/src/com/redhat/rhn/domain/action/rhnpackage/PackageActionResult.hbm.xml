@@ -23,10 +23,4 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <property name="modified" type="date" column="modified"/>
 
 	</class>
-    <query name="PackageActionResult.findByKey">
-        <![CDATA[from com.redhat.rhn.domain.action.rhnpackage.PackageActionResult
-        		   as p
-                where p.server = :server
-                  and p.details = :packageActionDetails]]>
-    </query>
 </hibernate-mapping>
