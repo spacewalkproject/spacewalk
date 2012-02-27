@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.7.42
+Version: 1.7.43
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -585,6 +585,67 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Feb 27 2012 Tomas Lestach <tlestach@redhat.com> 1.7.43-1
+- remove unused hbm query - TaskoBunch.lookupById (tlestach@redhat.com)
+- remove unused hbm query - TaskoTask.lookupByName (tlestach@redhat.com)
+- remove unused hbm query - TaskoTask.lookupById (tlestach@redhat.com)
+- remove unused hbm query - TaskoRun.listRunsWithStatus (tlestach@redhat.com)
+- remove unused hbm query - UserState.lookupById (tlestach@redhat.com)
+- remove unused hbm query - User.findAllUsers (tlestach@redhat.com)
+- remove unused hbm query - Address.findById (tlestach@redhat.com)
+- remove unused hbm query - VirtualInstance.findAllUnregisteredGuests
+  (tlestach@redhat.com)
+- remove unused hbm query - VirtualInstance.findAllRegisteredGuests
+  (tlestach@redhat.com)
+- remove unused hbm query - PushClientState.findByLabel (tlestach@redhat.com)
+- remove unused hbm sql-query - ServerGroup.lookupByTypeLabelAndOrg2
+  (tlestach@redhat.com)
+- remove unused hbm query - PackageProvider.findById (tlestach@redhat.com)
+- remove unused hbm query - PackageDelta.findById (tlestach@redhat.com)
+- remove unused hbm query - PackageKey.findById (tlestach@redhat.com)
+- remove unused hbm query - PackageCapability.findById (tlestach@redhat.com)
+- remove unused hbm query - PackageName.findById (tlestach@redhat.com)
+- remove unused hbm query - ProfileType.loadAll (tlestach@redhat.com)
+- remove unused hbm query - Role.loadRoles (tlestach@redhat.com)
+- remove unused hbm query - UserGroup.findByRole (tlestach@redhat.com)
+- remove unused hbm query - OrgEntitlementType.findAll (tlestach@redhat.com)
+- remove unused hbm query - Task.deleteTaskQueue (tlestach@redhat.com)
+- remove unused hbm query - PackageActionResult.findByKey (tlestach@redhat.com)
+- remove unused hbm query - ActionStatus.loadAll (tlestach@redhat.com)
+- remove unused hbm query - ActionType.findByName (tlestach@redhat.com)
+- remove unused hbm query - ActionType.loadAll (tlestach@redhat.com)
+- remove unused hbm query - ConfigFileName.findByPath (tlestach@redhat.com)
+- remove unused hbm query - Severity.findByLabel (tlestach@redhat.com)
+- remove unused hbm query - PublishedErrataFile.listByErrata
+  (tlestach@redhat.com)
+- remove unused hbm query - UnpublishedBug.findById (tlestach@redhat.com)
+- remove unused hbm query - UnpublishedErrata.findByAdvisoryType
+  (tlestach@redhat.com)
+- remove unused hbm query - UnpublishedErrataFile.listByErrata
+  (tlestach@redhat.com)
+- remove unused hbm query - PublishedBug.findById (tlestach@redhat.com)
+- remove unused hbm query - KickstartSessionHistory.findById
+  (tlestach@redhat.com)
+- remove unused hbm query - KickstartTreeType.findByName (tlestach@redhat.com)
+- remove unused hbm query - KickstartTreeType.loadAll (tlestach@redhat.com)
+- remove unused hbm query - KickstartInstallType.findByName
+  (tlestach@redhat.com)
+- remove unused hbm query - KickstartSession.findById (tlestach@redhat.com)
+- remove unused hbm query - KickstartIpRange.findById (tlestach@redhat.com)
+- remove unused hbm query - KickstartSessionState.findById
+  (tlestach@redhat.com)
+- remove unused hbm query - KickstartVirtualizationType.findById
+  (tlestach@redhat.com)
+- remove unused hbm query - Channel.findById (tlestach@redhat.com)
+- remove unused hbm query - ProvisionState.findById (tlestach@redhat.com)
+- remove unused hbm query - ArchType.findByName (tlestach@redhat.com)
+- remove unused hbm query - ArchType.loadAll (tlestach@redhat.com)
+- remove unused hbm query - ChecksumType.loadAll (tlestach@redhat.com)
+- remove unused hbm query - FileList.findById (tlestach@redhat.com)
+- remove unused hbm query - Probe.listForOrg (tlestach@redhat.com)
+- remove unused KickstartFactory public static methods (tlestach@redhat.com)
+- audit: cache search results (Joshua.Roys@gtri.gatech.edu)
+
 * Mon Feb 27 2012 Tomas Lestach <tlestach@redhat.com> 1.7.42-1
 - remove unused jsp - pages/user/create/createaccount.jsp (tlestach@redhat.com)
 - remove unused jsp - pages/software/downloads/isotree.jsp
