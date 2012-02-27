@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.7.43
+Version: 1.7.44
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -585,6 +585,55 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Feb 27 2012 Tomas Lestach <tlestach@redhat.com> 1.7.44-1
+- remove redundant interfaces (tlestach@redhat.com)
+- remove redundant assignments (tlestach@redhat.com)
+- binaryInput cannot be null at this location (tlestach@redhat.com)
+- baos cannot be null at this location (tlestach@redhat.com)
+- remove redundant assignements (tlestach@redhat.com)
+- toChannel cannot be null at this location (tlestach@redhat.com)
+- user cannot be null at this location (tlestach@redhat.com)
+- selectedChannel can only be null at this location (tlestach@redhat.com)
+- regCount cannot be null at this location (tlestach@redhat.com)
+- pkgs cannot be null at this location (tlestach@redhat.com)
+- parent cannot be null at this location (tlestach@redhat.com)
+- pAdded cannot be null at this location (tlestach@redhat.com)
+- mtime cannot be null at this location (tlestach@redhat.com)
+- mess can only be null at this location (tlestach@redhat.com)
+- kss cannot be null at this location (tlestach@redhat.com)
+- key cannot be null at this location (tlestach@redhat.com)
+- info cannot be null at this location (tlestach@redhat.com)
+- currentErrata cannot be null at this location (tlestach@redhat.com)
+- cr cannot be null at this location (tlestach@redhat.com)
+- cr cannot be null at this location (tlestach@redhat.com)
+- count cannot be null at this location (tlestach@redhat.com)
+- compoundLocales cannot be null at this location (tlestach@redhat.com)
+- channel cannot be null at this location (tlestach@redhat.com)
+- updates cannot be null at this location (tlestach@redhat.com)
+- optimize code based on null and non-empty conditions (tlestach@redhat.com)
+- rebootAction cannot be null at this location (tlestach@redhat.com)
+- proposed cannot be null at this location (tlestach@redhat.com)
+- o can only be null at this location (tlestach@redhat.com)
+- is can only be null at this location (tlestach@redhat.com)
+- name cannot be null at this location (tlestach@redhat.com)
+- hostDir cannot be null at this location (tlestach@redhat.com)
+- epoch cannot be null at this location (tlestach@redhat.com)
+- desc cannot be null at this location (tlestach@redhat.com)
+- do not allocate object that will never be used in UpdateErrataCacheCommand
+  (tlestach@redhat.com)
+- do not allocate object that will never be used in SystemHandler
+  (tlestach@redhat.com)
+- remove dead code in DeleteFileAction (tlestach@redhat.com)
+- remove dead code in PatchConfirmInstallAction (tlestach@redhat.com)
+- remove dead code in PatchConfirmAction (tlestach@redhat.com)
+- remove dead code in KickstartFormatter (tlestach@redhat.com)
+- remove dead code in ErrataQueueWorker (tlestach@redhat.com)
+- remove dead code in ActionExecutor (tlestach@redhat.com)
+- remove unnecessary semicolons (tlestach@redhat.com)
+- remove unnecessary casts (tlestach@redhat.com)
+- do not check whether Org expression is an instance of Org
+  (tlestach@redhat.com)
+
 * Mon Feb 27 2012 Tomas Lestach <tlestach@redhat.com> 1.7.43-1
 - remove unused hbm query - TaskoBunch.lookupById (tlestach@redhat.com)
 - remove unused hbm query - TaskoTask.lookupByName (tlestach@redhat.com)
