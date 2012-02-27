@@ -21,7 +21,4 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                   insert="false" update="false"/>
     </class>
 
-    <query name="ProvisionState.findById">
-        <![CDATA[from com.redhat.rhn.domain.common.ProvisionState as p where p.id = :id]]>
-    </query>
 </hibernate-mapping>
