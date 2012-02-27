@@ -16,8 +16,4 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <property name="created" column="CREATED" not-null="true" type="timestamp" insert="false" update="false"/>
         <property name="modified" column="MODIFIED" not-null="true" type="timestamp" insert="false" update="false"/>
     </class>
-    <query name="PushClientState.findByLabel">
-        <![CDATA[from com.redhat.rhn.domain.server.PushClientState as s
-                 where s.label = :label]]>
-    </query>
 </hibernate-mapping>
