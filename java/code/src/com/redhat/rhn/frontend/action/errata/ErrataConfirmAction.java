@@ -92,7 +92,7 @@ public class ErrataConfirmAction extends RhnListDispatchAction {
         DataResult systems = ErrataManager.relevantSystemsInSet(user,
                 SetLabels.AFFECTED_SYSTEMS_LIST, currentErrata.getId(), null);
 
-        if (currentErrata != null && !systems.isEmpty()) {
+        if (!systems.isEmpty()) {
              Action update = ActionManager.createErrataAction(user, currentErrata);
              for (int i = 0; i < systems.size(); i++) {
                  ActionManager.addServerToAction(new Long(((SystemOverview)systems.get(i))
