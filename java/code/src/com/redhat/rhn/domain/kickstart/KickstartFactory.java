@@ -32,7 +32,6 @@ import org.cobbler.Profile;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
-import org.hibernate.criterion.Restrictions;
 
 import java.io.File;
 import java.util.Collections;
@@ -292,18 +291,6 @@ public class KickstartFactory extends HibernateFactory {
         retval.setModified(new Date());
         ksdata.addCommand(retval);
         return retval;
-    }
-
-    /**
-     * Looks up a specific KickstartCommand
-     * @param id id of the KickstartCommand
-     * @return found instance, if any
-     */
-    public static KickstartCommand lookupKickstartCommandById(Long id) {
-        Session session = getSession();
-        Criteria criteria = session.createCriteria(KickstartCommand.class);
-        criteria.add(Restrictions.eq("id", id));
-        return (KickstartCommand) criteria.uniqueResult();
     }
 
     /**
@@ -1014,26 +1001,6 @@ public class KickstartFactory extends HibernateFactory {
         String query = "KickstartableTree.getUnsyncedKickstartTrees";
         Session session = HibernateFactory.getSession();
         return session.getNamedQuery(query).list();
-    }
-
-    /**
-     * Create the custom_partition command name if it doesn't exist.
-     *  This will be created in the schema for 5.4 (or later), but for the
-     *  5.3.1 release we have to create it if it's not there
-     * @return the KickstartCommandName
-     */
-    public static KickstartCommandName createCustomPartCommandName() {
-        final String customPartition = "custom_partition";
-        KickstartCommandName custom = lookupKickstartCommandName(customPartition);
-        if (custom == null) {
-            custom = new KickstartCommandName();
-            custom.setRequired(false);
-            custom.setName(customPartition);
-            custom.setOrder(53L);
-            custom.setArgs(true);
-            getSession().save(custom);
-        }
-        return custom;
     }
 
     /**
