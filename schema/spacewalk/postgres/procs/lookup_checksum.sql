@@ -1,7 +1,6 @@
--- oracle equivalent source sha1 06adc1fe05d935d97f85b2a98610d6919b4b364e
--- retrieved from ./1281711291/45292f62e808379159bb85d5e9671e6093c966b7/schema/spacewalk/oracle/procs/lookup_checksum.sql
+-- oracle equivalent source sha1 b6d4a193914ddf50f627abc6f7928aa721c8561a
 --
--- Copyright (c) 2010 Red Hat, Inc.
+-- Copyright (c) 2010 - 2012 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -15,33 +14,42 @@
 -- in this software or its documentation.
 --
 
-CREATE OR REPLACE FUNCTION
-LOOKUP_CHECKSUM(checksum_type_in IN VARCHAR, checksum_in IN VARCHAR)
-RETURNS NUMERIC
-AS
+create or replace function
+lookup_checksum(checksum_type_in in varchar, checksum_in in varchar)
+returns numeric
+as
 $$
-DECLARE
-        checksum_id     NUMERIC;
-BEGIN
-        if checksum_in is null then
-                return null;
-        end if;
+declare
+    checksum_id     numeric;
+begin
+    if checksum_in is null then
+        return null;
+    end if;
 
-        SELECT c.id
-          INTO checksum_id
-          FROM rhnChecksumView c
-         WHERE c.checksum = checksum_in
-           AND c.checksum_type = checksum_type_in;
+    select c.id
+      into checksum_id
+      from rhnChecksumView c
+     where c.checksum = checksum_in and
+           c.checksum_type = checksum_type_in;
 
-        IF NOT FOUND THEN
-            INSERT INTO rhnChecksum (id, checksum_type_id, checksum)
-                 VALUES (nextval('rhnchecksum_seq'),
-                        (select id from rhnChecksumType where label = checksum_type_in),
-                        checksum_in)
-                RETURNING id INTO checksum_id;
-        END IF;
+    if not found then
+        checksum_id := nextval('rhnchecksum_seq');
+        begin
+            perform pg_dblink_exec(
+                'insert into rhnChecksum (id, checksum_type_id, checksum) values (' ||
+                checksum_id || ', (select id from rhnChecksumType where label = ' ||
+                coalesce(quote_literal(checksum_type_in), 'NULL') || '), ' ||
+                coalesce(quote_literal(checksum_in), 'NULL') || ')');
+        exception when unique_violation then
+            select c.id
+              into checksum_id
+              from rhnChecksumView c
+             where c.checksum = checksum_in and
+                   c.checksum_type = checksum_type_in;
+        end;
+    end if;
 
-        RETURN checksum_id;
-END;
+    return checksum_id;
+end;
 $$
-language plpgsql;
+language plpgsql immutable;

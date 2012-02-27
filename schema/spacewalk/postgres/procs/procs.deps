@@ -81,6 +81,7 @@ lookup_functions                :: lookup_evr lookup_package_name \
                                    lookup_snapshot_invalid_reason \
                                    lookup_tag_name lookup_sg_type \
                                    lookup_tag lookup_arch_type
+lookup_checksum                 :: pg_dblink_exec
 lookup_package_arch             :: rhn_exception.pks data/rhnException rhnPackageArch \
                                    data/rhnPackageArch
 lookup_package_capability       :: rhnPackageCapability
