@@ -21,10 +21,6 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 
     </class>
 
-    <query name="KickstartIpRange.findById">
-        <![CDATA[from com.redhat.rhn.domain.kickstart.KickstartIpRange as t where t.id = :id]]>
-    </query>
-
     <query name="KickstartIpRange.lookupByOrg">
 		<![CDATA[from com.redhat.rhn.domain.kickstart.KickstartIpRange as t
 		        where t.org = :org ]]>
