@@ -4,7 +4,7 @@
 %endif
 
 Name:        spacecmd
-Version:     1.7.6
+Version:     1.7.7
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -61,6 +61,20 @@ touch %{buildroot}/%{python_sitelib}/spacecmd/__init__.py
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Mon Feb 27 2012 Steven Hardy <shardy@redhat.com> 1.7.7-1
+- spacecmd : activationkey_details print child channels and packages sorted
+  (joerg.steffens@dass-it.de)
+- spacecmd bugfix : softwarechannel_adderrata use cloneAsOriginal
+  (shardy@redhat.com)
+- spacecmd enhancement : Add errata_findbycve function (shardy@redhat.com)
+- spacecmd enhancement : configchannel_delete add support for globbing
+  (shardy@redhat.com)
+- spacecmd : Fix error in do_activationkey_export comment (shardy@redhat.com)
+- spacecmd enhancement : activationkey_delete add support for globbing
+  (shardy@redhat.com)
+- spacecmd bugfix : softwarechannel_addpackages validate channel arg
+  (shardy@redhat.com)
+
 * Mon Feb 27 2012 Jan Pazdziora 1.7.6-1
 - 769430 - avoid using the quoted string, parse it first.
 
