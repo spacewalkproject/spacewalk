@@ -102,7 +102,7 @@ public class OrgSystemSubscriptionsAction extends RhnAction {
                         "orgsystemsubs.invalid", ent.getHumanReadableLabel());
                 return (RhnValidationHelper.validatorErrorToActionErrors(error));
             }
-            if (count != null && !StringUtils.isEmpty(count)) {
+            if (StringUtils.isNotEmpty(count)) {
                 UpdateOrgSystemEntitlementsCommand cmd =
                     new UpdateOrgSystemEntitlementsCommand(ent, org, newCount);
                 ValidatorError ve = cmd.store();
