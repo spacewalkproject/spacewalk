@@ -1,4 +1,4 @@
--- oracle equivalent source sha1 none
+-- oracle equivalent source none
 --
 -- Copyright (c) 2012 Red Hat, Inc.
 --
