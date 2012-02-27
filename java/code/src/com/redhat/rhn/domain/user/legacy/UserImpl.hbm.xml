@@ -90,9 +90,6 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     <query name="User.findByIds">
         <![CDATA[from com.redhat.rhn.domain.user.legacy.UserImpl as u where u.id in (:userIds)]]>
     </query>
-    <query name="User.findAllUsers">
-        <![CDATA[from com.redhat.rhn.domain.user.legacy.UserImpl]]>
-    </query>
 
     <query name="User.findAllUsersByOrg">
         <![CDATA[from com.redhat.rhn.domain.user.legacy.UserImpl as u where org_id = :org_id]]>
