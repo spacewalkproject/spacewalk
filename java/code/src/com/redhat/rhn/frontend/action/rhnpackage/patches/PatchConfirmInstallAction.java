@@ -71,48 +71,40 @@ public class PatchConfirmInstallAction extends LookupDispatchAction {
 
         int numPatches = set.size();
 
-        if (set != null) {
-             Action install = ActionManager.createPatchInstallAction(user, server, set);
+         Action install = ActionManager.createPatchInstallAction(user, server, set);
 
-             ActionManager.storeAction(install); //commit action
-             RhnSetDecl.PATCH_INSTALL.clear(user);
+         ActionManager.storeAction(install); //commit action
+         RhnSetDecl.PATCH_INSTALL.clear(user);
 
-             ActionMessages msgs = new ActionMessages();
+         ActionMessages msgs = new ActionMessages();
 
-             /**
-              * If there was only one action archived, display the "action" archived
-              * message, else display the "actions" archived message.
-              */
-             if (numPatches == 1) {
-                 msgs.add(ActionMessages.GLOBAL_MESSAGE,
-                          new ActionMessage("message.patchinstall",
-                                  LocalizationService.getInstance()
-                                      .formatNumber(new Integer(numPatches)),
-                                  install.getId().toString(),
-                                  sid.toString(),
-                                  server.getName()));
-             }
-             else {
-                 msgs.add(ActionMessages.GLOBAL_MESSAGE,
-                          new ActionMessage("message.patchinstalls",
-                                  LocalizationService.getInstance()
+         /**
+          * If there was only one action archived, display the "action" archived
+          * message, else display the "actions" archived message.
+          */
+         if (numPatches == 1) {
+             msgs.add(ActionMessages.GLOBAL_MESSAGE,
+                      new ActionMessage("message.patchinstall",
+                              LocalizationService.getInstance()
                                   .formatNumber(new Integer(numPatches)),
                               install.getId().toString(),
                               sid.toString(),
                               server.getName()));
-             }
+         }
+         else {
+             msgs.add(ActionMessages.GLOBAL_MESSAGE,
+                      new ActionMessage("message.patchinstalls",
+                              LocalizationService.getInstance()
+                              .formatNumber(new Integer(numPatches)),
+                          install.getId().toString(),
+                          sid.toString(),
+                          server.getName()));
+         }
 
-             strutsDelegate.saveMessages(request, msgs);
+         strutsDelegate.saveMessages(request, msgs);
 
-             Map params = makeParamMap(request);
-             return strutsDelegate.forwardParams(mapping.findForward("installed"), params);
-        }
-        /*
-         * Everything is not ok.
-         * TODO: error msg
-         */
-        Map params = makeParamMap(request);
-        return strutsDelegate.forwardParams(mapping.findForward("default"), params);
+         Map params = makeParamMap(request);
+         return strutsDelegate.forwardParams(mapping.findForward("installed"), params);
     }
 
     /**
