@@ -16,9 +16,6 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <property name="modified" type="date" column="modified" />
     </class>
 
-    <query name="ChecksumType.loadAll">
-        <![CDATA[from com.redhat.rhn.domain.common.ChecksumType]]>
-    </query>
     <query name="ChecksumType.loadAllForYum">
         <![CDATA[from com.redhat.rhn.domain.common.ChecksumType as t
                                where t.label like 'sha%']]>
