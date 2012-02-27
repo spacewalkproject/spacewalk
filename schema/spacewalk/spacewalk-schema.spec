@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.7.43
+Version:        1.7.44
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -66,6 +66,33 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Mon Feb 27 2012 Simon Lukasik <slukasik@redhat.com> 1.7.44-1
+- OpenSCAP integration -- Database schema upgrade. (slukasik@redhat.com)
+- OpenSCAP integration -- Database schema. (slukasik@redhat.com)
+- update postgresql procs dependencies (mzazrivec@redhat.com)
+- use coalesce and proper quoting (mzazrivec@redhat.com)
+- lookup_config_filename: postgresql schema upgrade script
+  (mzazrivec@redhat.com)
+- use pg_dblink_exec to execute insert inside lookup_config_filename
+  (mzazrivec@redhat.com)
+- lookup_config_filename: schema upgrade script (mzazrivec@redhat.com)
+- restrict autonomous_transaction to insert only (mzazrivec@redhat.com)
+- use 'select into strict' (mzazrivec@redhat.com)
+- lookup_client_capability: schema upgrade script (mzazrivec@redhat.com)
+- use pg_dblink_exec to execute insert inside lookup_client_capability
+  (mzazrivec@redhat.com)
+- lookup_client_capability: oracle schema upgrade script (mzazrivec@redhat.com)
+- restrict autonomous_transaction to insert only (mzazrivec@redhat.com)
+- lookup_checksum: schema upgrade files (mzazrivec@redhat.com)
+- use pg_dblink_exec to execute insert inside lookup_checksum
+  (mzazrivec@redhat.com)
+- restrict autonomous_transaction to insert only (mzazrivec@redhat.com)
+- pg_dblink_exec: schema upgrade script (mzazrivec@redhat.com)
+- weird schema-source-sanity-check.pl checks (mzazrivec@redhat.com)
+- fix checksum header (mzazrivec@redhat.com)
+- Introduce pg_dblink_exec for executing SQL queries in a separate db
+  connection (mzazrivec@redhat.com)
+
 * Mon Feb 27 2012 Jan Pazdziora 1.7.43-1
 - All Oracle triggers now have their PostgreSQL counterparts.
 
