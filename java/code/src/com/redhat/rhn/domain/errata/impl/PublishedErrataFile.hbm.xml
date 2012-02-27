@@ -34,10 +34,6 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                 column="package_id"/>
         </set>
     </class>
-    <query name="PublishedErrataFile.listByErrata">
-        <![CDATA[from com.redhat.rhn.domain.errata.impl.PublishedErrataFile as pef
-                 where pef.errata.id = :errata_id]]>
-    </query>
     <query name="PublishedErrataFile.listByErrataAndFileType">
         <![CDATA[from com.redhat.rhn.domain.errata.impl.PublishedErrataFile as pef
                  where pef.errata.id = :errata_id and pef.fileType.label = :file_type]]>
