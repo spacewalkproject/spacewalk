@@ -45,10 +45,6 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
             <![CDATA[FROM com.redhat.rhn.taskomatic.TaskoRun WHERE template.bunch.name = :bunch_name ORDER BY startTime DESC, id DESC]]>
         </query>
 
-        <query name="TaskoRun.listRunsWithStatus">
-            <![CDATA[FROM com.redhat.rhn.taskomatic.TaskoRun WHERE template.task.id = :task_id AND (status = :status1 OR status = :status2)]]>
-        </query>
-
         <query name="TaskoRun.listOlderThan">
             <![CDATA[FROM com.redhat.rhn.taskomatic.TaskoRun WHERE endTime < :limit_time]]>
         </query>
