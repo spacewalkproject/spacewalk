@@ -1,7 +1,6 @@
 -- oracle equivalent source sha1 a17226713acda7266553d4804868c5f2aad72867
--- retrieved from ./1241042199/53fa26df463811901487b608eecc3f77ca7783a1/schema/spacewalk/oracle/procs/lookup_config_filename.sql
 --
--- Copyright (c) 2008--2010 Red Hat, Inc.
+-- Copyright (c) 2008--2012 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -13,28 +12,34 @@
 -- Red Hat trademarks are not licensed under GPLv2. No permission is
 -- granted to use or replicate Red Hat trademarks that are incorporated
 -- in this software or its documentation.
---
---
---
---
 
-CREATE OR REPLACE FUNCTION
-LOOKUP_CONFIG_FILENAME(name_in IN VARCHAR)
-RETURNS NUMERIC
-AS $$
-DECLARE
-        name_id         NUMERIC;
-BEGIN
-        SELECT id
-          INTO name_id
-          FROM rhnConfigFileName
-         WHERE path = name_in;
+create or replace function
+lookup_config_filename(name_in in varchar)
+returns numeric as
+$$
+declare
+    name_id     numeric;
+begin
+    select id
+      into name_id
+      from rhnconfigfilename
+     where path = name_in;
 
-	IF NOT FOUND THEN
-		INSERT INTO rhnConfigFileName (id, path) VALUES (nextval('rhn_cfname_id_seq'), name_in);
-                name_id := currval('rhn_cfname_id_seq');
-        END IF;
+    if not found then
+        name_id := nextval('rhn_cfname_id_seq');
+        begin
+            perform pg_dblink_exec(
+                'insert into rhnConfigFileName (id, path) values (' ||
+                name_id || ', ' ||
+                coalesce(quote_literal(name_in), 'NULL') || ')');
+        exception when unique_violation then
+            select id
+              into strict name_id
+              from rhnconfigfilename
+             where path = name_in;
+        end;
+    end if;
 
-	RETURN name_id;
-END; $$
-LANGUAGE plpgsql;
+    return name_id;
+end; $$
+language plpgsql;
