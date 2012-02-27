@@ -313,7 +313,7 @@ class RepoSync(object):
         for pack in packages:
             db_pack = rhnPackage.get_info_for_package(
                    [pack.name, pack.version, pack.release, pack.epoch, pack.arch],
-                   self.channel_label)
+                   self.channel['id'])
 
             to_download = True
             to_link     = True
@@ -323,10 +323,10 @@ class RepoSync(object):
                                 pack.checksum_type, pack.checksum):
                     # package is already on disk
                     to_download = False
-                    if db_pack['channel_label'] == self.channel_label:
+                    if db_pack['channel_id'] == self.channel['id']:
                         # package is already in the channel
                         to_link = False
-                elif db_pack['channel_label'] == self.channel_label:
+                elif db_pack['channel_id'] == self.channel['id']:
 		    # different package with SAME NVREA
                     self.disassociate_package(db_pack)
 

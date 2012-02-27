@@ -296,7 +296,7 @@ def get_source_package_path_by_name(server_id, packageName):
     rhnFlags.set("Download-Accelerator-Path", rs['path'])
     return filePath
 
-def get_info_for_package(pkg, channel_label):
+def get_info_for_package(pkg, channel_id):
     log_debug(3, pkg)
     pkg = map(str, pkg)
     params = {'name': pkg[0],
@@ -304,14 +304,14 @@ def get_info_for_package(pkg, channel_label):
               'rel': pkg[2],
               'epoch': pkg[3],
               'arch': pkg[4],
-              'label': channel_label}
+              'channel_id': channel_id}
     # yum repo has epoch="0" not only when epoch is "0" but also if it's NULL
     if pkg[3] == '0' or pkg[3] == '':
         epochStatement = "(epoch is null or epoch = :epoch)"
     else:
         epochStatement = "epoch = :epoch"
     statement = """
-    select p.path, c.label as channel_label,
+    select p.path, cp.channel_id,
            cv.checksum_type, cv.checksum
       from rhnPackage p
       join rhnPackageName pn
@@ -322,10 +322,7 @@ def get_info_for_package(pkg, channel_label):
         on p.package_arch_id = pa.id
       left join rhnChannelPackage cp
         on p.id = cp.package_id
-      left join rhnChannel c
-        on cp.channel_id = c.id
-       and p.org_id = c.org_id
-       and c.label = :label
+       and cp.channel_id = :channel_id
       join rhnChecksumView cv
         on p.checksum_id = cv.id
      where pn.name = :name
@@ -341,7 +338,7 @@ def get_info_for_package(pkg, channel_label):
     ret = h.fetchone_dict()
     if not ret:
         return {'path':          None,
-                'channel_label': None,
+                'channel_id': None,
                 'checksum_type': None,
                 'checksum':      None,
                }
