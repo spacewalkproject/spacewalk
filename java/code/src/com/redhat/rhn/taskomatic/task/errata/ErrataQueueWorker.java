@@ -147,65 +147,58 @@ class ErrataQueueWorker implements QueueWorker {
                 ActionStatus queuedStatus, Channel chan) throws Exception {
         logger.debug("Scheduling auto updates for " + errata.getAdvisoryName() + "(" +
                 errata.getId() + ")");
-        String desc = errata.getAdvisory() + " - " + errata.getSynopsis();
         HibernateFactory.getSession();
-        if (desc != null) {
-            SelectMode select = ModeFactory.getMode(TaskConstants.MODE_NAME,
-                    TaskConstants.TASK_QUERY_ERRATA_QUEUE_FIND_AUTOUPDATE_SERVERS);
-            Map params = new HashMap();
-            params.put("channel_id", chan.getId());
-            params.put("errata_id", errata.getId());
-            List results = select.execute(params);
-            if (results == null || results.size() == 0) {
-                if (logger.isDebugEnabled()) {
-                    logger.debug("No autoupdate servers found for errata " +
-                            errata.getId());
-                }
-                return;
+        SelectMode select = ModeFactory.getMode(TaskConstants.MODE_NAME,
+                TaskConstants.TASK_QUERY_ERRATA_QUEUE_FIND_AUTOUPDATE_SERVERS);
+        Map params = new HashMap();
+        params.put("channel_id", chan.getId());
+        params.put("errata_id", errata.getId());
+        List results = select.execute(params);
+        if (results == null || results.size() == 0) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("No autoupdate servers found for errata " +
+                        errata.getId());
             }
-            else if (logger.isDebugEnabled()) {
-                logger.debug("Found " + results.size() + " autoupdate servers for " +
-                        "errata " + errata.getId());
-            }
+            return;
+        }
+        else if (logger.isDebugEnabled()) {
+            logger.debug("Found " + results.size() + " autoupdate servers for " +
+                    "errata " + errata.getId());
+        }
 
-            // I think this nifty little loop accurately models what the perl
-            // code is doing
+        // I think this nifty little loop accurately models what the perl
+        // code is doing
 
-            Org org = null;
-            for (Iterator iter = results.iterator(); iter.hasNext();) {
-                Map row = (Map) iter.next();
-                Long serverId = (Long) row.get("server_id");
-                Long tmp = (Long) row.get("org_id");
-                Long convertedOrgId = new Long(tmp.longValue());
-                if (orgId == null) {
-                    org = OrgFactory.lookupById(convertedOrgId);
-                }
-                else {
-                    org = OrgFactory.lookupById(orgId);
-                }
-                Long convertedServerId = new Long(serverId.longValue());
-                // Only schedule an Auto Update if the server supports the
-                // feature.  We originally calculated this in the driving
-                // query but it wasn't performant.
-                if (logger.isDebugEnabled()) {
-                    logger.debug("Scheduling auto update for Errata: " +
-                            errata.getId() + ", Server: " + convertedServerId +
-                            ", Org: " + convertedOrgId);
-                }
-                ErrataAction errataAction = ActionManager.
-                    createErrataAction(org, errata);
-                ActionManager.addServerToAction(convertedServerId, errataAction);
-                ActionManager.storeAction(errataAction);
-                HibernateFactory.commitTransaction();
-                HibernateFactory.closeSession();
+        Org org = null;
+        for (Iterator iter = results.iterator(); iter.hasNext();) {
+            Map row = (Map) iter.next();
+            Long serverId = (Long) row.get("server_id");
+            Long tmp = (Long) row.get("org_id");
+            Long convertedOrgId = new Long(tmp.longValue());
+            if (orgId == null) {
+                org = OrgFactory.lookupById(convertedOrgId);
             }
+            else {
+                org = OrgFactory.lookupById(orgId);
+            }
+            Long convertedServerId = new Long(serverId.longValue());
+            // Only schedule an Auto Update if the server supports the
+            // feature.  We originally calculated this in the driving
+            // query but it wasn't performant.
+            if (logger.isDebugEnabled()) {
+                logger.debug("Scheduling auto update for Errata: " +
+                        errata.getId() + ", Server: " + convertedServerId +
+                        ", Org: " + convertedOrgId);
+            }
+            ErrataAction errataAction = ActionManager.
+                createErrataAction(org, errata);
+            ActionManager.addServerToAction(convertedServerId, errataAction);
+            ActionManager.storeAction(errataAction);
             HibernateFactory.commitTransaction();
             HibernateFactory.closeSession();
         }
-        else {
-            logger.error("No advisory or synopsis found for errata " +
-                    errata.getId());
-        }
+        HibernateFactory.commitTransaction();
+        HibernateFactory.closeSession();
 
     }
 
