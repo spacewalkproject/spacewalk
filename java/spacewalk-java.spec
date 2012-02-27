@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.7.44
+Version: 1.7.45
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -585,6 +585,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Feb 27 2012 Simon Lukasik <slukasik@redhat.com> 1.7.45-1
+- OpenSCAP integration -- Frontend API for scan schedule. (slukasik@redhat.com)
+- checkstyle: allow Copyright 2012. (slukasik@redhat.com)
+
 * Mon Feb 27 2012 Tomas Lestach <tlestach@redhat.com> 1.7.44-1
 - remove redundant interfaces (tlestach@redhat.com)
 - remove redundant assignments (tlestach@redhat.com)
