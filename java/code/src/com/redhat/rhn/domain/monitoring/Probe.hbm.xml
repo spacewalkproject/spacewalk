@@ -101,7 +101,4 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     <query name="Probe.findByIdandOrgId">
         <![CDATA[from com.redhat.rhn.domain.monitoring.Probe as p where p.id = :pid and CUSTOMER_ID = :orgId]]>
     </query>
-    <query name="Probe.listForOrg">
-        <![CDATA[from com.redhat.rhn.domain.monitoring.Probe as p where CUSTOMER_ID = :orgId]]>
-    </query>
 </hibernate-mapping>
