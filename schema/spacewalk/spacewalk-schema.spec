@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.7.42
+Version:        1.7.43
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -66,6 +66,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Mon Feb 27 2012 Jan Pazdziora 1.7.43-1
+- All Oracle triggers now have their PostgreSQL counterparts.
+
 * Thu Feb 23 2012 Jan Pazdziora 1.7.42-1
 - Since the table rhn_current_alerts is gone, do not attempt to create trigger
   on it.
