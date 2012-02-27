@@ -60,33 +60,25 @@ public class DeleteFileAction extends RhnAction {
         // If we have no file, tell the user "no can do" and go back to
         //   channel details
         try {
-            if (cf != null) {
-                if (isSubmitted(cff)) {
-                    ConfigurationManager.getInstance().deleteConfigFile(usr, cf);
-                    ConfigActionHelper.processParamMap(cc, params);
-                    createSuccessMessage(req, "deletefile.jsp.success", filename);
-                    return getStrutsDelegate().forwardParams(
-                            map.findForward("success"), params);
-                }
-                else {
-                    int storage = ConfigurationManager.getInstance().
-                        getFileStorage(usr, cf);
-                    ConfigActionHelper.processParamMap(req, params);
-                    params.put("storage", new Integer(storage));
-                    ConfigActionHelper.setupRequestAttributes(ctx, cf,
-                                cf.getLatestConfigRevision());
-                    req.setAttribute("storage", StringUtil.displayFileSize(storage));
-                    req.setAttribute("deleting", Boolean.TRUE);
-
-                    return getStrutsDelegate().forwardParams(
-                            map.findForward("default"), params);
-                }
-            }
-            else { // Can't find the revision?!?
-                createErrorMessage(req, "deletefile.jsp.unknown", null);
-                ConfigActionHelper.processParamMap(req, params);
+            if (isSubmitted(cff)) {
+                ConfigurationManager.getInstance().deleteConfigFile(usr, cf);
+                ConfigActionHelper.processParamMap(cc, params);
+                createSuccessMessage(req, "deletefile.jsp.success", filename);
                 return getStrutsDelegate().forwardParams(
-                        map.findForward("failure"), params);
+                        map.findForward("success"), params);
+            }
+            else {
+                int storage = ConfigurationManager.getInstance().
+                    getFileStorage(usr, cf);
+                ConfigActionHelper.processParamMap(req, params);
+                params.put("storage", new Integer(storage));
+                ConfigActionHelper.setupRequestAttributes(ctx, cf,
+                            cf.getLatestConfigRevision());
+                req.setAttribute("storage", StringUtil.displayFileSize(storage));
+                req.setAttribute("deleting", Boolean.TRUE);
+
+                return getStrutsDelegate().forwardParams(
+                        map.findForward("default"), params);
             }
         }
         catch (IllegalArgumentException e) {
