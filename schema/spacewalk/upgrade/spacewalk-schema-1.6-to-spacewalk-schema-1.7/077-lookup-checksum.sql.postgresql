@@ -42,7 +42,7 @@ begin
                 coalesce(quote_literal(checksum_in), 'NULL') || ')');
         exception when unique_violation then
             select c.id
-              into checksum_id
+              into strict checksum_id
               from rhnChecksumView c
              where c.checksum = checksum_in and
                    c.checksum_type = checksum_type_in;
