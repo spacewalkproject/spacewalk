@@ -74,27 +74,26 @@ public class FileDetailsAction extends RhnAction {
         cff.set(ConfigFileForm.REV_PATH, cr.getConfigFile().getConfigFileName().getPath());
         Map params = makeParamMap(request);
 
-        if (cr != null) {
-            if (isSubmitted(cff)) {
-                ConfigFileBuilder builder = ConfigFileBuilder.getInstance();
-                try {
-                    cr = builder.update(cff.toRevisedData(cr),
-                            context.getLoggedInUser(), cr.getConfigFile());
-                    params.put("crid", cr.getId().toString());
-                }
-                catch (ValidatorException ve) {
-                    getStrutsDelegate().saveMessages(request, ve.getResult());
-                    RhnValidationHelper.setFailedValidation(request);
-                    cff.updateFromRevision(request, cr);
-                    setupRequestParams(context, cr);
-                    return getStrutsDelegate().forwardParams(
-                            mapping.findForward("error"), params);
-                }
+        if (isSubmitted(cff)) {
+            ConfigFileBuilder builder = ConfigFileBuilder.getInstance();
+            try {
+                cr = builder.update(cff.toRevisedData(cr),
+                        context.getLoggedInUser(), cr.getConfigFile());
+                params.put("crid", cr.getId().toString());
             }
-            cff.updateFromRevision(request, cr);
-            setupRequestParams(context, cr);
-            request.setAttribute("form", cff);
+            catch (ValidatorException ve) {
+                getStrutsDelegate().saveMessages(request, ve.getResult());
+                RhnValidationHelper.setFailedValidation(request);
+                cff.updateFromRevision(request, cr);
+                setupRequestParams(context, cr);
+                return getStrutsDelegate().forwardParams(
+                        mapping.findForward("error"), params);
+            }
         }
+        cff.updateFromRevision(request, cr);
+        setupRequestParams(context, cr);
+        request.setAttribute("form", cff);
+
         return getStrutsDelegate().forwardParams(mapping.findForward("default"), params);
     }
 
