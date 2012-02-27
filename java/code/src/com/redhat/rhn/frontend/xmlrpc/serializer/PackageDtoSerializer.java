@@ -67,7 +67,7 @@ public class PackageDtoSerializer implements XmlRpcCustomSerializer {
         if (epoch == null || epoch.equals(" ")) {
             epoch = "";
         }
-        helper.add("epoch", epoch == null ? "" : epoch);
+        helper.add("epoch", epoch);
         helper.add("checksum", pack.getChecksum());
         helper.add("checksum_type", pack.getChecksumType());
         helper.add("id", pack.getId());
