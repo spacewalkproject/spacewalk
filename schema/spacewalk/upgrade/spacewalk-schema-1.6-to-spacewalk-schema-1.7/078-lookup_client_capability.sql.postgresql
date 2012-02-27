@@ -30,7 +30,8 @@ begin
         begin
             perform pg_dblink_exec(
                 'insert into rhnClientCapabilityName(id, name) values (' ||
-                cap_name_id  || ' ,' || name_in || ')');
+                cap_name_id  || ' ,' ||
+                coalesce(quote_literal(name_in), 'NULL') || ')');
         exception when unique_violation then
             select id
               into strict cap_name_id
