@@ -849,16 +849,14 @@ public class KickstartFormatter {
             log.debug("Session isn't null.  Lets use the profile's activation key.");
             //ActivationKey oneTimeKey = ActivationKeyFactory.
             //    lookupByKickstartSession(this.session);
-            if (defaultKey != null) {
                 tokens.add(defaultKey);
                 if (log.isDebugEnabled()) {
                     log.debug("Found one time activation key: " + defaultKey.getKey());
                 }
-            }
-            else {
-                log.error("We should have gotten an activation key with this session: " +
-                        ksession.getId());
-            }
+        }
+        else {
+            log.error("We should have gotten an activation key with this session: " +
+                    ksession.getId());
         }
         log.debug("tokens size: " + tokens.size());
         //add the activation keys associated with the kickstart profile
