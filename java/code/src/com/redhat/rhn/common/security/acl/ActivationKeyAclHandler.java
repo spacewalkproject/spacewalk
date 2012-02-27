@@ -28,7 +28,7 @@ import java.util.Map;
  * ActivationKeyAclHandler
  * @version $Rev$
  */
-public class ActivationKeyAclHandler extends BaseHandler implements AclHandler {
+public class ActivationKeyAclHandler extends BaseHandler {
     /**
      * Returns true if the Token whose id matches the given tid,
      * has the requested entitlement given by entitlement label in param 0

@@ -34,7 +34,7 @@ import java.util.Set;
  * ActivationKeyAclHandler
  * @version $Rev$
  */
-public class PackageAclHandler extends BaseHandler implements AclHandler {
+public class PackageAclHandler extends BaseHandler {
 
     private final Log log = LogFactory.getLog(this.getClass());
 

@@ -17,8 +17,6 @@ package com.redhat.rhn.taskomatic.task.repomd;
 import com.redhat.rhn.common.util.StringUtil;
 
 import java.io.BufferedOutputStream;
-import java.io.Closeable;
-import java.io.Flushable;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.security.DigestOutputStream;
@@ -31,8 +29,7 @@ import java.util.zip.GZIPOutputStream;
  * @version $Rev $
  *
  */
-public class CompressingDigestOutputWriter extends OutputStream implements
-        Closeable, Flushable {
+public class CompressingDigestOutputWriter extends OutputStream {
 
     private DigestOutputStream uncompressedDigestStream;
     private DigestOutputStream compressedDigestStream;

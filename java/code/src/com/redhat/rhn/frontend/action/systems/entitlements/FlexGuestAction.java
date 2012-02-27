@@ -18,7 +18,6 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.ChannelFamilySystemGroup;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.taglibs.list.helper.ListHelper;
-import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
 import com.redhat.rhn.manager.system.VirtualizationEntitlementsManager;
 
 import org.apache.struts.action.ActionForm;
@@ -35,7 +34,7 @@ import javax.servlet.http.HttpServletResponse;
  * FloatingVirtualizationAction
  * @version $Rev$
  */
-public class FlexGuestAction  extends EligibleFlexGuestAction implements Listable  {
+public class FlexGuestAction  extends EligibleFlexGuestAction  {
 
     private static final String SELECTABLE = "selectable";
     private static final String SELECTED_FAMILY = "channel_family";

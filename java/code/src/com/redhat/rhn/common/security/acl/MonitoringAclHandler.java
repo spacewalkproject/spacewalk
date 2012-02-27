@@ -25,7 +25,7 @@ import java.util.Map;
  * SystemAclHandler
  * @version $Rev: 54296 $
  */
-public class MonitoringAclHandler extends BaseHandler implements AclHandler {
+public class MonitoringAclHandler extends BaseHandler {
 
     /**
      *

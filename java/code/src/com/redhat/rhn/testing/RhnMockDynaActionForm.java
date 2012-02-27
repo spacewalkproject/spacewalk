@@ -15,7 +15,6 @@
 package com.redhat.rhn.testing;
 
 import com.mockobjects.Expectation;
-import com.mockobjects.Verifiable;
 
 import org.apache.struts.action.DynaActionForm;
 import org.apache.struts.action.DynaActionFormClass;
@@ -36,7 +35,7 @@ import junit.framework.AssertionFailedError;
  * @version $Rev$
  */
 public class RhnMockDynaActionForm extends DynaActionForm
-                                   implements Verifiable, Expectation {
+                                   implements Expectation {
 
     /** Name of FormBean */
     private String formName;

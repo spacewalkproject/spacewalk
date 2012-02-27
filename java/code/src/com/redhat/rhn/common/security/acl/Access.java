@@ -48,7 +48,7 @@ import java.util.Map;
  * when evaluating {@link Acl Acls}.
  * @version $Rev$
  */
-public class Access extends BaseHandler implements AclHandler {
+public class Access extends BaseHandler {
 
     protected static Logger log = Logger.getLogger(Access.class);
 

@@ -27,7 +27,7 @@ import java.util.Map;
  * @param <T> the type of the objects to be used in this list.
  * @version $Rev$
  */
-public class DataResult<T> extends ArrayList<T> implements List<T> {
+public class DataResult<T> extends ArrayList<T> {
 
     /**
      * Comment for <code>serialVersionUID</code>

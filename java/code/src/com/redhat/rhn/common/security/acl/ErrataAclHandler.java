@@ -25,7 +25,7 @@ import java.util.Map;
  * ErrataAclHandler
  * @version $Rev$
  */
-public class ErrataAclHandler extends BaseHandler implements AclHandler {
+public class ErrataAclHandler extends BaseHandler {
 
     /**
      * Constructor

@@ -31,7 +31,7 @@ import java.util.Map;
  * Some acl implementation for configuration management
  * @version $Rev$
  */
-public class ConfigAclHandler extends BaseHandler implements AclHandler {
+public class ConfigAclHandler extends BaseHandler {
 
     /**
      * Tell whether a file is a directory.

@@ -28,7 +28,6 @@ import java.util.Hashtable;
 
 import junit.framework.AssertionFailedError;
 import junit.framework.Test;
-import junit.framework.TestListener;
 
 /**
  * A more spartan custom ant results logger, shamelessly hacked out
@@ -38,7 +37,7 @@ import junit.framework.TestListener;
  *
  * @version $Rev$
  */
-public class RhnCustomFormatter implements JUnitResultFormatter, TestListener {
+public class RhnCustomFormatter implements JUnitResultFormatter {
 
     private static final double MS_PER_S = 1000.0;
 

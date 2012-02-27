@@ -36,7 +36,7 @@ import java.util.Map;
  * SystemAclHandler
  * @version $Rev$
  */
-public class SystemAclHandler extends BaseHandler implements AclHandler {
+public class SystemAclHandler extends BaseHandler {
 
     /**
      * Logger for this class

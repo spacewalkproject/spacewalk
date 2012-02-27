@@ -19,14 +19,13 @@ import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.kickstart.KickstartSession;
 import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.manager.PersistOperation;
 
 /**
  * DeleteSystemFromActionOperation - deletes a system from an action
  * @version $Rev$
  */
 public class CancelKickstartSessionOperation
-    extends BaseSystemOperation implements PersistOperation {
+    extends BaseSystemOperation {
 
     /**
      * Construct the Operation
