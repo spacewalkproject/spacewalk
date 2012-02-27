@@ -34,13 +34,6 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     	            cascade="all"/>
     </class>
 
-    <query name="VirtualInstance.findAllUnregisteredGuests">
-    	<![CDATA[
-	  from VirtualInstance guest
-    	  where guest.guestSystem is null and guest.hostSystem.org = :org
-    	]]>
-    </query>
-
     <query name="VirtualInstance.lookupGuestBySid">
     	<![CDATA[
 	  from VirtualInstance guest
