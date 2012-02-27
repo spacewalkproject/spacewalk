@@ -238,6 +238,39 @@ def do_errata_listcves(self, args):
 
 ####################
 
+def help_errata_findbycve(self):
+    print 'errata_findbycve: List errata addressing a CVE'
+    print 'usage: errata_findbycve CVE-YYYY-NNNN ...'
+
+def complete_errata_findbycve(self, text, line, beg, end):
+    return self.tab_complete_errata(text)
+
+def do_errata_findbycve(self, args):
+    (args, options) = parse_arguments(args)
+
+    if not len(args):
+        self.help_errata_findbycve()
+        return
+
+    # More than one CVE may be specified
+    cve_list = args
+    logging.debug("Got CVE list %s" % cve_list)
+
+    add_separator = False
+
+    # Then iterate over the requested CVEs and dump the errata which match
+    for c in cve_list:
+        if add_separator: print self.SEPARATOR
+        add_separator = True
+
+        print "%s:" %c
+        errata = self.client.errata.findByCve(self.session, c)
+        if len(errata):
+            for e in errata:
+                print "%s" % e.get('advisory_name')
+
+####################
+
 def help_errata_details(self):
     print 'errata_details: Show the details of an erratum'
     print 'usage: errata_details ERRATA|search:XXX ...'
