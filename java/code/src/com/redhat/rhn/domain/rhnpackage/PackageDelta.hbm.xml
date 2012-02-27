@@ -18,7 +18,4 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <property name="modified" column="modified" type="timestamp" insert="false" update="false" />
     </class>
 
-    <query name="PackageDelta.findById">
-        <![CDATA[from com.redhat.rhn.domain.rhnpackage.PackageDelta as p where p.id = :id]]>
-    </query>
 </hibernate-mapping>
