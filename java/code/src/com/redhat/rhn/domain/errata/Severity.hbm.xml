@@ -9,8 +9,4 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <property name="rank" column="rank" type="int" />
         <property name="label" column="label" type="string" />
     </class>
-    <query name="Severity.findByLabel">
-        <![CDATA[from com.redhat.rhn.domain.errata.Severity as sev
-                 where sev.label = :label]]>
-    </query>
 </hibernate-mapping>
