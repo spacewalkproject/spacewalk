@@ -354,8 +354,8 @@ def registerSystem(username = None, password = None,
 def updateRhsmStatus():
     try:
         bus = dbus.SystemBus()
-        validity_obj = bus.get_object('com.redhat.SubscriptionManager',
-              '/EntitlementStatus')
+        validity_obj = bus.ProxyObjectClass(bus, 'com.redhat.SubscriptionManager',
+              '/EntitlementStatus', introspect=False)
         validity_iface = dbus.Interface(validity_obj,
               dbus_interface='com.redhat.SubscriptionManager.EntitlementStatus')
     except dbus.DBusException:
