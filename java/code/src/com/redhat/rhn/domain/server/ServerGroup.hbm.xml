@@ -67,14 +67,6 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                  and s.org = :org]]>
     </query>
 
-    <sql-query name="ServerGroup.lookupByTypeLabelAndOrg2">
-        <![CDATA[ select {sg.*}
-					from rhnServerGroup SG
-					 where SG.group_type = (select id from rhnServerGroupType where label = :label)
-					 AND SG.org_id = :org_id]]>
-	        <return alias="sg" class="com.redhat.rhn.domain.server.ServerGroup"/>
-    </sql-query>
-
     <query name="ServerGroup.lookupByTypeLabelAndOrg">
         <![CDATA[ from com.redhat.rhn.domain.server.ServerGroup as s where
                  s.groupType.label = :label
