@@ -7388,8 +7388,6 @@
 
     <action path="/admin/config/Orgs"
             forward="/WEB-INF/pages/admin/config/multiorg.jsp" />
-    <action path="/account/VerificationSent"
-            forward="/WEB-INF/pages/common/email_sent.jsp" />
     <action path="/users/VerificationSent"
             forward="/WEB-INF/pages/common/email_sent.jsp" />
     <action path="/users/RPCPlaceholder"
