@@ -335,7 +335,7 @@ public class AuditManager /* extends BaseManager */ {
         // otherwise, just look up this one machine
         hostDir = new File(logDirStr + "/" + machineName + "/audit");
 
-        if (hostDir == null || !hostDir.exists()) {
+        if (!hostDir.exists()) {
             return new DataResult(new LinkedList());
         }
 
