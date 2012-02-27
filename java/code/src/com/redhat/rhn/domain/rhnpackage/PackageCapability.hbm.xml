@@ -21,8 +21,4 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
             insert="false" update="false"/>
     </class>
 
-    <query name="PackageCapability.findById">
-        <![CDATA[from com.redhat.rhn.domain.rhnpackage.PackageCapability as p
-        		where p.id = :id]]>
-    </query>
 </hibernate-mapping>
