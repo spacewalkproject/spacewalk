@@ -2,7 +2,7 @@ Name: spacewalk-reports
 Summary: Script based reporting
 Group: Applications/Internet
 License: GPLv2
-Version: 1.7.0
+Version: 1.7.1
 Release: 1%{?dist}
 URL: https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -42,6 +42,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/spacewalk-report.8*
 
 %changelog
+* Mon Feb 27 2012 Simon Lukasik <slukasik@redhat.com> 1.7.1-1
+- OpenSCAP integration -- Spacewalk reports. (slukasik@redhat.com)
+- Bumping package versions for 1.7. (mzazrivec@redhat.com)
+
 * Tue Nov 29 2011 Miroslav Suchý 1.6.3-1
 - IPv6: reporting - make inventory report IPv6 aware
 - IPv6: reporting - make errata-systems report IPv6 aware
