@@ -234,7 +234,7 @@ public class UpdateErrataCacheCommand extends BaseTransactionCommand {
         }
 
         Map retval = new HashMap();
-        if (pAdded != null && !pAdded.isEmpty()) {
+        if (!pAdded.isEmpty()) {
             retval.put("packages", new LinkedList(pAdded));
         }
 
