@@ -2246,11 +2246,13 @@ def complete_system_deletepackageprofile(self, text, line, beg, end):
                    self.do_system_listpackageprofiles('', True), text)
 
 def do_system_deletepackageprofile(self, args):
+    (args, options) = parse_arguments(args)
+
     if not len(args):
         self.help_system_deletepackageprofile()
         return
 
-    label = args
+    label = args[0]
 
     if not self.user_confirm('Delete this profile [y/N]:'): return
 
