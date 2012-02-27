@@ -30,10 +30,6 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 
     </class>
 
-    <query name="TaskoBunch.lookupById">
-        <![CDATA[FROM com.redhat.rhn.taskomatic.TaskoBunch WHERE id = :id]]>
-    </query>
-
     <query name="TaskoBunch.lookupByName">
         <![CDATA[FROM com.redhat.rhn.taskomatic.TaskoBunch WHERE name = :name]]>
     </query>
