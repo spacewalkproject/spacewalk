@@ -12,7 +12,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 1.7.31
+Version: 1.7.32
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -687,6 +687,10 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Mon Feb 27 2012 Michael Mraka <michael.mraka@redhat.com> 1.7.32-1
+- use already known channel id
+- speeded up searching whether package is already synced
+
 * Mon Feb 27 2012 Michael Mraka <michael.mraka@redhat.com> 1.7.31-1
 - merged solve_dependencies_arch() and solve_dependencies()
 - merged listChannelsSource() and listChannels()
