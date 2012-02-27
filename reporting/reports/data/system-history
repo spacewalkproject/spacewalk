@@ -43,6 +43,12 @@ sql:
 						and rhnkickstartsessionhistory.kickstart_session_id = rhnkickstartsession.id
 						and rhnkickstartsession.kickstart_id = rhnksdata.id
 					)
+				when rhnactiontype.label = 'scap.xccdf_eval' then (
+					select rhnxccdftestresult.identifier
+					from rhnxccdftestresult, rhnactionscap
+					where rhnaction.id = rhnactionscap.action_id
+						and rhnxccdftestresult.action_scap_id = rhnactionscap.id
+					)
 				end as event_data
 		from rhnserveraction left outer join rhnactionerrataupdate
 			on rhnserveraction.action_id = rhnactionerrataupdate.action_id

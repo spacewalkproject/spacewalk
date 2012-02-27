@@ -1,0 +1,33 @@
+
+synopsis:
+
+	Results of OpenSCAP xccdf eval
+
+description:
+
+	For each scan, list identifiers and results of xccdf rules.
+
+columns:
+
+	testresult_id:i		Testresult identifier
+	system			Naming scheme for the identifier
+	ident			Identifier of the xccdf rule
+	result			Result of the check
+
+multival_columns:
+
+sql:
+
+	select testresult_id, system, ident, result from (
+	select rhnxccdftestresult.id as testresult_id,
+		rhnxccdfidentsystem.system as system,
+		rhnxccdfident.identifier as ident,
+		rhnxccdfruleresulttype.label as result
+	from rhnxccdftestresult, rhnxccdfruleresult, rhnxccdfruleresulttype, rhnxccdfident, rhnxccdfidentsystem
+	where rhnxccdftestresult.id = rhnxccdfruleresult.testresult_id
+		and rhnxccdfruleresult.result_id = rhnxccdfruleresulttype.id
+		and rhnxccdfruleresult.ident_id = rhnxccdfident.id
+		and rhnxccdfident.identsystem_id = rhnxccdfidentsystem.id
+	) X
+	-- where placeholder
+	order by testresult_id, system, ident

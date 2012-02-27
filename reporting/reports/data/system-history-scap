@@ -1,0 +1,44 @@
+
+synopsis:
+
+	OpenSCAP event history
+
+description:
+
+	OpenSCAP event history.
+
+columns:
+
+	server_id:i	System identifier
+	event_id:i	Event id
+	created_date	Date created
+	earliest_action	Earliest date this action will occur
+	pickup_date	The date/time the action was picked up
+	completed_date	The date/time the event was completed
+	status		Status of the event
+	event		Type of the event
+	event_data	Identifier of xccdf testresult
+
+multival_columns:
+
+sql:
+	select server_id, event_id, created_date, earliest_action, pickup_date, completed_date, status, event, event_data from (
+	select rhnserveraction.server_id,
+		rhnserveraction.action_id as event_id,
+		to_char(rhnaction.created, 'YYYY-MM-DD HH24:MI:SS') as created_date,
+		rhnaction.created as created_raw_date,
+		to_char(rhnaction.earliest_action, 'YYYY-MM-DD HH24:MI:SS') as earliest_action,
+		to_char(rhnserveraction.pickup_time, 'YYYY-MM-DD HH24:MI:SS') as pickup_date,
+		to_char(rhnserveraction.completion_time, 'YYYY-MM-DD HH24:MI:SS') as completed_date,
+		rhnactionstatus.name as status,
+		rhnactiontype.name as event,
+		rhnxccdftestresult.identifier as event_data
+	from rhnserveraction, rhnaction, rhnactiontype, rhnactionstatus, rhnactionscap, rhnxccdftestresult
+	where rhnserveraction.action_id = rhnaction.id
+		and rhnaction.action_type = rhnactiontype.id
+		and rhnserveraction.status = rhnactionstatus.id
+		and rhnactionscap.action_id = rhnaction.id
+		and rhnxccdftestresult.action_scap_id = rhnactionscap.id
+	) X
+	-- where placeholder
+	order by server_id, created_raw_date, event_id

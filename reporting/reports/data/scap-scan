@@ -1,0 +1,43 @@
+
+synopsis:
+
+	Results of OpenSCAP xccdf eval
+
+description:
+
+	For each system, list xccdf scans performed.
+
+columns:
+
+	system_id:i		System identifier
+	event_id:i		Event id
+	testresult_id:i		Testresult identifier
+	name			Identifier of xccdf testresult
+	benchmark		Name of the xccdf benchmark
+	benchmark_version	Version of xccdf benchmark
+	profile			Name of the xccdf profile
+	profile_title		Title of the xccdf profile
+	end_time		System time of finished scan
+
+multival_columns:
+
+sql:
+
+	select system_id, event_id, testresult_id, name, benchmark, benchmark_version,
+		profile, profile_title, end_time from (
+	select rhnxccdftestresult.server_id as system_id,
+		rhnactionscap.action_id as event_id,
+		rhnxccdftestresult.id as testresult_id,
+		rhnxccdftestresult.identifier as name,
+		rhnxccdfbenchmark.identifier as benchmark,
+		rhnxccdfbenchmark.version as benchmark_version,
+		rhnxccdfprofile.identifier as profile,
+		rhnxccdfprofile.title as profile_title,
+		to_char(rhnxccdftestresult.end_time, 'YYYY-MM-DD HH24:MI:SS') as end_time
+	from rhnxccdftestresult, rhnactionscap, rhnxccdfbenchmark, rhnxccdfprofile
+	where rhnxccdftestresult.action_scap_id = rhnactionscap.id
+		and rhnxccdftestresult.benchmark_id = rhnxccdfbenchmark.id
+		and rhnxccdftestresult.profile_id = rhnxccdfprofile.id
+	) X
+	-- where placeholder
+	order by system_id, event_id
