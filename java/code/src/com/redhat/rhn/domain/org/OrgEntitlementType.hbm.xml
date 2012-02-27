@@ -19,9 +19,6 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 		<property name="modified" column="modified" type="timestamp" insert="false" update="false" />
 
     </class>
-    <query name="OrgEntitlementType.findAll">
-        <![CDATA[from com.redhat.rhn.domain.org.OrgEntitlementType]]>
-    </query>
     <query name="OrgEntitlementType.findByLabel">
         <![CDATA[from com.redhat.rhn.domain.org.OrgEntitlementType as o where o.label = :label]]>
     </query>
