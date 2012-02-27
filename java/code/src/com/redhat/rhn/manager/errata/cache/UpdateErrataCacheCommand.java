@@ -262,7 +262,7 @@ public class UpdateErrataCacheCommand extends BaseTransactionCommand {
     private void scheduleAutoUpdates(Long sid, Org org, Map updates) {
         log.debug("Scheduling auto updates");
         List errataAdded = (List) updates.get("errata");
-        if (updates == null || errataAdded == null) {
+        if (errataAdded == null) {
             return;
         }
         log.debug("Have errata - scheduling");
