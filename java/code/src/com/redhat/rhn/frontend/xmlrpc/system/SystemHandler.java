@@ -1948,7 +1948,6 @@ public class SystemHandler extends BaseHandler {
      */
     public List listSystemEvents(String sessionKey, Integer sid) {
 
-        new LinkedList();
         // Get the logged in user and server
         User loggedInUser = getLoggedInUser(sessionKey);
         Server server = lookupServer(loggedInUser, sid);
