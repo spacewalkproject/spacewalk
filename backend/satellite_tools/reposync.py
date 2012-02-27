@@ -67,16 +67,20 @@ class RepoSync(object):
         self.log_msg("\nSync started: %s" % (time.asctime(time.localtime())))
         self.log_msg(str(sys.argv))
 
+        self.channel_label = channel_label
+        self.channel = self.load_channel()
+        if not self.channel or not rhnChannel.isCustomChannel(self.channel['id']):
+            self.print_msg("Channel does not exist or is not custom.")
+            sys.exit(1)
+
         if not url:
             # TODO:need to look at user security across orgs
             h = rhnSQL.prepare("""select s.id, s.source_url
                                   from rhnContentSource s,
-                                       rhnChannelContentSource cs,
-                                       rhnChannel c
+                                       rhnChannelContentSource cs
                                  where s.id = cs.source_id
-                                   and cs.channel_id = c.id
-                                   and c.label = :label""")
-            h.execute(label=channel_label)
+                                   and cs.channel_id = :channel_id""")
+            h.execute(channel_id=self.channel['id'])
             source_data = h.fetchall_dict()
             if source_data:
                 self.urls = [(row['id'], row['source_url']) for row in source_data]
@@ -87,12 +91,6 @@ class RepoSync(object):
             self.urls = [(None, url)]
 
         self.repo_plugin = self.load_plugin(repo_type)
-        self.channel_label = channel_label
-
-        self.channel = self.load_channel()
-        if not self.channel or not rhnChannel.isCustomChannel(self.channel['id']):
-            self.print_msg("Channel does not exist or is not custom.")
-            sys.exit(1)
 
     def sync(self):
         """Trigger a reposync"""
@@ -178,7 +176,7 @@ class RepoSync(object):
                              'version'       : pkg['version'],
                              'release'       : pkg['release'],
                              'arch'          : pkg['arch'],
-                             'channel_label' : self.channel_label
+                             'channel_id'    : self.channel['id'],
                              }
                 if pkg['epoch'] is None or pkg['epoch'] == '':
                     epochStatement = "is NULL"
@@ -200,7 +198,6 @@ class RepoSync(object):
                       join rhnArchType at on pa.arch_type_id = at.id
                       join rhnChecksumView c on p.checksum_id = c.id
                       join rhnChannelPackage cp on p.id = cp.package_id
-                      join rhnChannel ch on cp.channel_id = ch.id
                      where pn.name = :name
                        and p.org_id %s
                        and pevr.version = :version
@@ -208,7 +205,7 @@ class RepoSync(object):
                        and pa.label = :arch
                        and pevr.epoch %s
                        and at.label = 'rpm'
-                       and ch.label = :channel_label
+                       and cp.channel_id = :channel_id
                 """ % (orgStatement, epochStatement))
                 h.execute(**param_dict)
                 cs = h.fetchone_dict() or None
