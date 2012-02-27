@@ -12,7 +12,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 1.7.32
+Version: 1.7.33
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -687,6 +687,10 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Mon Feb 27 2012 Simon Lukasik <slukasik@redhat.com> 1.7.33-1
+- OpenSCAP integration -- Backend API interface. (slukasik@redhat.com)
+- convert empty string to NULL for postgresql (michael.mraka@redhat.com)
+
 * Mon Feb 27 2012 Michael Mraka <michael.mraka@redhat.com> 1.7.32-1
 - use already known channel id
 - speeded up searching whether package is already synced
