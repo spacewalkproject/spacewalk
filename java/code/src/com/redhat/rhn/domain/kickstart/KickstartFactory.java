@@ -840,42 +840,6 @@ public class KickstartFactory extends HibernateFactory {
     }
 
     /**
-     * Return the guest install log as an ordered list of String objects.  This
-     * method requires a kickstart session ID as input.
-     * @param ksSessionId The id of the kickstart session to lookup.
-     * @return The guest install log as an ordered list of String objects.
-     */
-    public static List lookupGuestKickstartInstallLog(Long ksSessionId) {
-        Session session = HibernateFactory.getSession();
-        List result =
-            session.getNamedQuery(
-                "KickstartGuestInstallLog.findLogMessagesBySessionId")
-                   .setLong("sessionId", ksSessionId.longValue())
-                   .list();
-        return result;
-    }
-
-    /**
-     * Returns the latest guest install log entry.  This method requires a
-     * kickstart session ID as input.
-     * @param ksSessionId The id of the kickstart session to lookup.
-     * @return The latest guest install log entry for the given ks session id.
-     */
-    public static KickstartGuestInstallLog lookupLatestGuestKickstartInstallLog(
-        Long ksSessionId) {
-
-        Session session = HibernateFactory.getSession();
-        KickstartGuestInstallLog result = (KickstartGuestInstallLog)
-            session.getNamedQuery(
-                "KickstartGuestInstallLog.findNewestLogEntriesBySessionId")
-                   .setLong("sessionId", ksSessionId.longValue())
-                   .setMaxResults(1)
-                   .uniqueResult();
-
-        return result;
-    }
-
-    /**
      * Save the KickstartableTree to the DB.
      * @param tree to save
      */
