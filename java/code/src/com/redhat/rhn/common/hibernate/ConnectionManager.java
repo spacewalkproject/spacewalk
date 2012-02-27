@@ -289,8 +289,7 @@ class ConnectionManager {
 
     private Session getInternalSession() {
         SessionInfo info = threadSessionInfo();
-        if (info == null ||
-                (info != null && info.getSession() == null)) {
+        if (info == null || info.getSession() == null) {
             try {
                 if (LOG.isDebugEnabled()) {
                     LOG.debug("YYY Opening Hibernate Session");
