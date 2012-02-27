@@ -148,7 +148,7 @@ public class OrgSoftwareSubscriptionsAction extends RhnAction implements Listabl
                     Long flex = subsMap.containsKey(flexCountKey) ?
                             processCount(subsMap.get(flexCountKey), errors, cfm) : 0;
 
-                    if (flex != null && regCount != null) {
+                    if (flex != null) {
                         UpdateOrgSoftwareEntitlementsCommand cmd =
                             new UpdateOrgSoftwareEntitlementsCommand(cfm.getLabel(), org,
                                     regCount, flex);
