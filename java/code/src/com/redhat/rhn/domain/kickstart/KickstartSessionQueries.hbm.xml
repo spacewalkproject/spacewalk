@@ -4,10 +4,6 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
 
-   <query name="KickstartSession.findById">
-        <![CDATA[from com.redhat.rhn.domain.kickstart.KickstartSession as t where t.id = :id]]>
-   </query>
-
     <query name="KickstartSession.findByServer">
         <![CDATA[from com.redhat.rhn.domain.kickstart.KickstartSession as t where
             t.newServer = :server or t.oldServer = :server or t.hostServer = :server order by created desc ]]>
