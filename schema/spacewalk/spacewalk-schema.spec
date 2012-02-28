@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.7.45
+Version:        1.7.46
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -66,6 +66,30 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Tue Feb 28 2012 Jan Pazdziora 1.7.46-1
+- fix insert_evr's return (mzazrivec@redhat.com)
+- lookup_evr: schema upgrade (mzazrivec@redhat.com)
+- use pg_dblink_exec to execute insert inside lookup_evr (mzazrivec@redhat.com)
+- lookup_evr: use autonomous_transaction for insert only (mzazrivec@redhat.com)
+- no need for autonomous_transaction in lookup_erratafile_type
+  (mzazrivec@redhat.com)
+- lookup_cve: postgresql schema upgrade (mzazrivec@redhat.com)
+- use pg_dblink_exec to execute insert inside lookup_cve (mzazrivec@redhat.com)
+- lookup_cve: oracle schema upgrade (mzazrivec@redhat.com)
+- use autonomous_transaction for insert only (mzazrivec@redhat.com)
+- we don't need the autonomous_transaction pragma in lookup_config_info anymore
+  (mzazrivec@redhat.com)
+- update postgresql procs dependencies (mzazrivec@redhat.com)
+- lookup_config_info: postgresql schema ugprade (mzazrivec@redhat.com)
+- use pg_dblink_exec to execute insert inside lookup_config_info
+  (mzazrivec@redhat.com)
+- lookup_config_info: correct proc dependencies (mzazrivec@redhat.com)
+- lookup_config_info: schema upgrade (mzazrivec@redhat.com)
+- restrict autonomous_transaction to insert only (mzazrivec@redhat.com)
+- create equivalent (empty) files for postgresql (mzazrivec@redhat.com)
+- fixing oracle equivalent source sha1s for upgrade scripts 081-092
+  (tlestach@redhat.com)
+
 * Mon Feb 27 2012 Simon Lukasik <slukasik@redhat.com> 1.7.45-1
 - Correct sha1sum of oracle equivalents (slukasik@redhat.com)
 
