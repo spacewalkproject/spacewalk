@@ -117,19 +117,7 @@ class PCI:
                 elif len(l) == 0:
                     continue
                 elif line.startswith('\t\t'):
-                    subvendor = l[0].lower()
-                    if len(l) > 2:
-                        subdevice = l[1].lower()
-                    else:
-                        subdevice = ''
-                    if len(l) > 3:
-                        subsystem_name = ' '.join(l[2:])
-                    else:
-                        subsystem_name = ''
-                    if not subvendor in list(PCI.devices.keys()):
-                        PCI.devices[subvendor] = [vendor_name, {subdevice: subsystem_name}]
-                    else: # this should not happen
-                            PCI.devices[subvendor][1][subdevice] = subsystem_name
+                    continue
                 elif line.startswith('\t'):
                     device = l[0].lower()
                     device_name = ' '.join(l[1:])
