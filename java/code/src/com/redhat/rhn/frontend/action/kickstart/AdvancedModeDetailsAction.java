@@ -316,8 +316,4 @@ public class AdvancedModeDetailsAction extends RhnAction {
         map.put(KICKSTART_LABEL_PARAM, form.get(KICKSTART_LABEL_PARAM));
         return map;
     }
-
-    private String getSuccessKey() {
-        return "kickstart.details.success";
-    }
 }
