@@ -320,7 +320,7 @@ public class ServerGroupHandlerTest extends BaseHandlerTestCase {
 
 
         Calendar cal = Calendar.getInstance();
-        cal.add(cal.HOUR, -442);
+        cal.add(Calendar.HOUR, -442);
         server.getServerInfo().setCheckin(cal.getTime());
         TestUtils.saveAndFlush(server);
         TestUtils.saveAndFlush(group);
@@ -340,7 +340,7 @@ public class ServerGroupHandlerTest extends BaseHandlerTestCase {
         test.add(server2);
 
         Calendar cal = Calendar.getInstance();
-        cal.add(cal.HOUR, -442);
+        cal.add(Calendar.HOUR, -442);
         server2.getServerInfo().setCheckin(cal.getTime());
 
         ServerGroupManager.getInstance().addServers(group, test, admin);
