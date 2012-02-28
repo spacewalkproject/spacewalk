@@ -44,7 +44,6 @@ public class PackageCapabilityIterator {
     private static final String PACKAGE_ID = "package_id";
 
     private String queryName;
-    private SelectMode mode;
     private ResultSet rs;
     private ResultSetMetaData rsmd;
     private Map row;
