@@ -26,7 +26,6 @@ import com.redhat.rhn.frontend.xmlrpc.InvalidPackageProviderException;
 import com.redhat.rhn.frontend.xmlrpc.PermissionCheckFailureException;
 
 import org.apache.commons.lang.StringEscapeUtils;
-import org.apache.log4j.Logger;
 
 import java.util.List;
 import java.util.Set;
@@ -39,9 +38,6 @@ import java.util.Set;
  *      packages.
  */
 public class PackagesProviderHandler extends BaseHandler {
-
-    private static Logger logger = Logger.getLogger(PackagesProviderHandler.class);
-
 
     /**
      * list the package providers
