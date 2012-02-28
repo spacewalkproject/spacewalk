@@ -4,7 +4,7 @@ from Cheetah.Template import Template
 from socket import gethostbyname, gethostname
 import shutil
 from os.path import exists, join, dirname, basename, isdir, isfile
-from os import system
+from os import system, chmod
 import sys
 import re
 
@@ -62,7 +62,9 @@ def main():
     gen_template(SETTINGS_TEMPLATE, answers, TEMP_SETTINGS)
     gen_template(MODULES_TEMPLATE, answers, TEMP_MODULES)
     copy(TEMP_SETTINGS, SETTINGS)
+    chmod(SETTINGS, 0644)
     copy(TEMP_MODULES, MODULES)
+    chmod(MODULES, 0644)
     m = re.compile(r"^cobbler\.host\s*=\s*", re.MULTILINE)
 
     conf_lines = open(rhnConfig._CONFIG_FILE).read()
