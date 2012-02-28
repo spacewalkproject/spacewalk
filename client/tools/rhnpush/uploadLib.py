@@ -721,29 +721,3 @@ def get_header(file, fildes=None, source=None):
 
 def ReportError(*args):
     sys.stderr.write(string.join(map(str, args)) + "\n")
-
-def get_header_struct_size(package_file):
-    """
-    Compute the size in bytes of the rpm header struct starting at the current
-    position in package_file.
-    """
-    # Move past the header preamble
-    package_file.seek(8, 1)
-
-    # Read the number of index entries
-    header_index = package_file.read(4)
-    (header_index_value, ) = struct.unpack('>I', header_index)
-
-    # Read the the size of the header data store
-    header_store = package_file.read(4)
-    (header_store_value, ) = struct.unpack('>I', header_store)
-
-    # The total size of the header. Each index entry is 16 bytes long.
-    header_size = 8 + 4 + 4 + header_index_value * 16 + header_store_value
-
-    # Headers end on an 8-byte boundary. Round out the extra data.
-    round_out = header_size % 8
-    if round_out != 0:
-        header_size = header_size + (8 - round_out)
-
-    return header_size
