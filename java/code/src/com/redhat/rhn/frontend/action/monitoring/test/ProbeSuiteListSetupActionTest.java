@@ -19,16 +19,11 @@ import com.redhat.rhn.domain.monitoring.suite.test.ProbeSuiteTest;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.testing.RhnMockStrutsTestCase;
 
-import org.apache.struts.action.Action;
-
 /**
  * ProbeSuiteListSetupActionTest
  * @version $Rev: 55327 $
  */
 public class ProbeSuiteListSetupActionTest extends RhnMockStrutsTestCase {
-    private Action action = null;
-
-
     public void testExecute() throws Exception {
         ProbeSuite suite = ProbeSuiteTest.createTestProbeSuite(user);
         String[] suites = new String[1];
