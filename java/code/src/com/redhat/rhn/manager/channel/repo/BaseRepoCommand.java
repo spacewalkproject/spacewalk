@@ -14,9 +14,6 @@
  */
 package com.redhat.rhn.manager.channel.repo;
 
-import java.util.List;
-
-import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.domain.channel.ContentSource;
 import com.redhat.rhn.domain.org.Org;
@@ -34,8 +31,6 @@ public class BaseRepoCommand {
     private String label;
     private String url;
     private Org org;
-    private List<ValidatorError> errors;
-
     /**
      * Constructor
      */
