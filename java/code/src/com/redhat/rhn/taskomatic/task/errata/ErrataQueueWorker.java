@@ -207,10 +207,8 @@ class ErrataQueueWorker implements QueueWorker {
         if (queuedStatus != null) {
             return queuedStatus;
         }
-        else {
-            logger.error("Couldn't locate \"queued\" action status");
-            return null;
-        }
+        logger.error("Couldn't locate \"queued\" action status");
+        return null;
 
     }
 

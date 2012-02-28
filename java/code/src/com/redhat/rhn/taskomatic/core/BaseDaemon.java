@@ -75,9 +75,7 @@ public abstract class BaseDaemon implements WrapperListener {
         if (retval == BaseDaemon.SUCCESS) {
             return 0;
         }
-        else {
-            return retval;
-        }
+        return retval;
     }
 
     /**

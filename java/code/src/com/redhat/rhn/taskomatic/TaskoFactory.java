@@ -249,11 +249,9 @@ public class TaskoFactory extends HibernateFactory {
             return singleton.listObjectsByNamedQuery(
                     "TaskoSchedule.listActiveInSat", params);
         }
-        else {
-            params.put("org_id", orgId);
-            return singleton.listObjectsByNamedQuery(
-                   "TaskoSchedule.listActiveByOrg", params);
-        }
+        params.put("org_id", orgId);
+        return singleton.listObjectsByNamedQuery(
+               "TaskoSchedule.listActiveByOrg", params);
     }
 
     /**
@@ -271,11 +269,9 @@ public class TaskoFactory extends HibernateFactory {
             return singleton.listObjectsByNamedQuery(
                     "TaskoSchedule.listActiveInSatByLabel", params);
         }
-        else {
-            params.put("org_id", orgId);
-            return singleton.listObjectsByNamedQuery(
-                       "TaskoSchedule.listActiveByOrgAndLabel", params);
-        }
+        params.put("org_id", orgId);
+        return singleton.listObjectsByNamedQuery(
+                   "TaskoSchedule.listActiveByOrgAndLabel", params);
     }
 
     /**
@@ -295,11 +291,9 @@ public class TaskoFactory extends HibernateFactory {
             return singleton.listObjectsByNamedQuery(
                     "TaskoSchedule.listActiveInSatByBunch", params);
         }
-        else {
-            params.put("org_id", orgId);
-            return singleton.listObjectsByNamedQuery(
-                       "TaskoSchedule.listActiveByOrgAndBunch", params);
-        }
+        params.put("org_id", orgId);
+        return singleton.listObjectsByNamedQuery(
+                   "TaskoSchedule.listActiveByOrgAndBunch", params);
     }
 
 
@@ -390,11 +384,9 @@ public class TaskoFactory extends HibernateFactory {
             return singleton.listObjectsByNamedQuery(
                                        "TaskoSchedule.listInSat", params);
         }
-        else {
-            params.put("org_id", orgId);
-            return singleton.listObjectsByNamedQuery(
-                                       "TaskoSchedule.listByOrg", params);
-        }
+        params.put("org_id", orgId);
+        return singleton.listObjectsByNamedQuery(
+                                   "TaskoSchedule.listByOrg", params);
     }
 
     /**
@@ -435,11 +427,9 @@ public class TaskoFactory extends HibernateFactory {
             return singleton.listObjectsByNamedQuery(
                                        "TaskoSchedule.listInSatByBunch", params);
         }
-        else {
-            params.put("org_id", orgId);
-            return singleton.listObjectsByNamedQuery(
-                                       "TaskoSchedule.listByOrgAndBunch", params);
-        }
+        params.put("org_id", orgId);
+        return singleton.listObjectsByNamedQuery(
+                                   "TaskoSchedule.listByOrgAndBunch", params);
     }
 
     /**
@@ -456,11 +446,9 @@ public class TaskoFactory extends HibernateFactory {
             return singleton.listObjectsByNamedQuery(
                                        "TaskoSchedule.listInSatByLabel", params);
         }
-        else {
-            params.put("org_id", orgId);
-            return singleton.listObjectsByNamedQuery(
-                                       "TaskoSchedule.listByOrgAndLabel", params);
-        }
+        params.put("org_id", orgId);
+        return singleton.listObjectsByNamedQuery(
+                                   "TaskoSchedule.listByOrgAndLabel", params);
     }
 
     /**

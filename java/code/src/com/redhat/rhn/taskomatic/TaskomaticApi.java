@@ -260,9 +260,7 @@ public class TaskomaticApi {
         if (task == null) {
             return null;
         }
-        else {
-            return (String) task.get("cron_expr");
-        }
+        return (String) task.get("cron_expr");
     }
 
     /**

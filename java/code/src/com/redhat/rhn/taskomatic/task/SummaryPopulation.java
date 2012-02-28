@@ -116,10 +116,8 @@ public class SummaryPopulation extends RhnJavaJob {
             if (count.intValue() == 0) {
                 return m.executeUpdate(params);
             }
-            else {
-                log.warn("Skipping " + orgId + " because it's already queued");
-                return 0;
-            }
+            log.warn("Skipping " + orgId + " because it's already queued");
+            return 0;
         }
         catch (RuntimeException e) {
             log.warn(e.getMessage(), e);
