@@ -13,7 +13,6 @@ Author: Brad Buckingham <bbuckingham@redhat.com>
 
 import os
 import sys
-import getpass
 import xmlrpclib
 from time import strptime
 from datetime import datetime
@@ -23,6 +22,7 @@ if _topdir not in sys.path:
     sys.path.append(_topdir)
 
 from optparse import OptionParser, Option
+from spacewalk.common.cli import getUsernamePassword
 
 client = None
 
@@ -328,45 +328,6 @@ def listSnapshots(systemId, snapshots):
 
         print "systemId: %d, snapshots: %d, oldest: %s, newest: %s"  \
             % (systemId, len(snapshots), oldest, newest)
-
-
-def getUsernamePassword(cmdlineUsername, cmdlinePassword):
-    """
-     Returns a username and password (either by returning the ones passed as
-     args, or the user's input
-    """
-    if cmdlineUsername and cmdlinePassword:
-        return cmdlineUsername, cmdlinePassword
-
-    username = cmdlineUsername
-    password = cmdlinePassword
-
-    # Read the username, if not already specified
-    tty = open("/dev/tty", "r+")
-    while not username:
-        tty.write("Red Hat Network username: ")
-        try:
-            username = tty.readline()
-        except KeyboardInterrupt:
-            tty.write("\n")
-            sys.exit(0)
-        if username is None:
-            # EOF
-            tty.write("\n")
-            sys.exit(0)
-        username = username.strip()
-        if username:
-            break
-
-    # Now read the password
-    while not password:
-        try:
-            password = getpass.getpass("Red Hat Network password: ")
-        except KeyboardInterrupt:
-            tty.write("\n")
-            sys.exit(0)
-        tty.close()
-    return username, password
 
 def processCommandLine():
 
