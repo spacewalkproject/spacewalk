@@ -14,20 +14,6 @@
  */
 package com.redhat.rhn.frontend.action.multiorg;
 
-import java.util.Iterator;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
-import org.apache.struts.action.ActionErrors;
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionForward;
-import org.apache.struts.action.ActionMapping;
-import org.apache.struts.action.DynaActionForm;
-
 import com.redhat.rhn.common.db.datasource.DataList;
 import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.domain.entitlement.Entitlement;
@@ -41,12 +27,23 @@ import com.redhat.rhn.manager.entitlement.EntitlementManager;
 import com.redhat.rhn.manager.org.OrgManager;
 import com.redhat.rhn.manager.org.UpdateOrgSystemEntitlementsCommand;
 
+import org.apache.commons.lang.StringUtils;
+import org.apache.struts.action.ActionErrors;
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.DynaActionForm;
+
+import java.util.Iterator;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 /**
  * SystemEntitlementOrgsAction
  */
 public class SystemEntitlementOrgsAction extends RhnAction {
-
-    private Logger log = Logger.getLogger(this.getClass());
 
     /** ${@inheritDoc} */
     public ActionForward execute(ActionMapping mapping,
