@@ -107,8 +107,6 @@ public class KickstartFormatter {
     private static final String UPDATE_OPT_PATH = "/tmp/rhn_rpms/optional/";
     private static final String UPDATE_CMD = "rpm -Uvh --replacepkgs --replacefiles ";
     private static final String FRESH_CMD = "rpm -Fvh /tmp/rhn_rpms/*rpm";
-    private static final String IMPORT_RHN_KEY5 =
-        "rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release";
     private static final String IMPORT_RHN_KEY34 =
         "rpm --import /usr/share/rhn/RPM-GPG-KEY";
     private static final String IMPORT_RHN_KEY2 =
@@ -125,7 +123,6 @@ public class KickstartFormatter {
         "mkdir -p /etc/sysconfig/rhn/allowed-actions/configfiles" + NEWLINE +
         "touch /etc/sysconfig/rhn/allowed-actions/configfiles/all";
     private static final String RHNCHECK = "rhn_check";
-    private static final String ACT_KEY_CMD = "rhnreg_ks --activationkey=";
     private static final String RHN_NOCHROOT =
         "mkdir /mnt/sysimage/tmp/ks-tree-copy" + NEWLINE +
         "if [ -d /oldtmp/ks-tree-shadow ]; then" + NEWLINE +
@@ -168,7 +165,6 @@ public class KickstartFormatter {
                                         "%s" + NEWLINE +
                                    "#end if" + NEWLINE;
 
-    private final boolean seenNoChroot = false;
     private final KickstartData ksdata;
     private final String ksHost;
     private final User user;
