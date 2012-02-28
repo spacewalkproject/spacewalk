@@ -1,4 +1,4 @@
--- oracle equivalent source sha1 f4a1877eeefcbdfd668fc2863fddedc7ae727fbb
+-- oracle equivalent source sha1 c37ec2fbd380eb992f2064563a80abb3a0d8f9ce
 -- retrieved from ./1241042199/53fa26df463811901487b608eecc3f77ca7783a1/schema/spacewalk/oracle/procs/lookup_erratafile_type.sql
 --
 -- Copyright (c) 2008--2010 Red Hat, Inc.

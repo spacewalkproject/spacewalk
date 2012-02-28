@@ -20,7 +20,6 @@ create or replace function
 lookup_erratafile_type (
 	label_in in varchar2
 ) return number deterministic is
-	pragma autonomous_transaction;
 	erratafile_type_id number;
 begin
 	select	id
