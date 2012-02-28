@@ -42,7 +42,6 @@ import java.util.Map;
  * @version $Rev$
  */
 public abstract class ConfigFileData {
-    private static long serialVersionUID = -2162768922109257186L;
     private static final String VALIDATION_XSD =
         "/com/redhat/rhn/frontend/action/configuration/validation/configFileForm.xsd";
 
