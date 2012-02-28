@@ -22,7 +22,6 @@ import com.redhat.rhn.manager.task.TaskManager;
 import com.redhat.rhn.taskomatic.task.TaskConstants;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
 import org.xml.sax.SAXException;
 
 import java.io.ByteArrayOutputStream;
@@ -37,8 +36,6 @@ import java.io.Writer;
 public class OtherXmlWriter extends RepomdWriter {
 
     private PackageCapabilityIterator changeLogIterator;
-    private Logger log = Logger.getLogger(OtherXmlWriter.class);
-
     /**
      *
      * @param writer The writer object for other.xml
