@@ -580,8 +580,7 @@ def _packages_from_cursor(cursor):
             # We ignore GPG public keys since they are too weird to schedule
             # as a package delta
             continue
-        result.append((p_name, row['version'], row['release'],
-            row['epoch'] or ''))
+        result.append((p_name, row['version'], row['release'], row['epoch']))
     return result
 
 _query_lookup_pending_kickstart_sessions = rhnSQL.Statement("""
