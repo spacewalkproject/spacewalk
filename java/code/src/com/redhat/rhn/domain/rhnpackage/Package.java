@@ -55,7 +55,6 @@ public class Package extends BaseDomainHelper {
     private String copyright;
     private String cookie;
     private Date lastModified;
-    private String sourcePath;
     private Set<PublishedErrata> publishedErrata = new HashSet<PublishedErrata>();
     private Set<UnpublishedErrata> unpublishedErrata = new HashSet<UnpublishedErrata>();
     private Set<Channel> channels = new HashSet<Channel>();
