@@ -1,4 +1,4 @@
--- oracle equivalent source sha1 72b90c220b6786603547c31360870fcfeadeed9a
+-- oracle equivalent source sha1 741172a1f8f23e20540fd2b5dd50a5b193e6cab3
 -- retrieved from ./1241042199/53fa26df463811901487b608eecc3f77ca7783a1/schema/spacewalk/oracle/procs/lookup_evr.sql
 --
 -- Copyright (c) 2008--2010 Red Hat, Inc.

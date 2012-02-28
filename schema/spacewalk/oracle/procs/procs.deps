@@ -62,6 +62,7 @@ insert_client_capability        :: rhnClientCapabilityName
 insert_checksum                 :: rhnChecksum rhnChecksumType
 insert_config_filename          :: rhnConfigFileName
 insert_config_info              :: rhnConfigInfo
+insert_evr                      :: rhnPackageEVR
 is_user_applicant               :: rhnUserGroupType web_contact rhnUserGroup \
                                    rhnUserGroupMembers
 lookup_arch_type                :: data/rhnArchType rhn_exception.pks
@@ -74,7 +75,7 @@ lookup_config_filename          :: insert_config_filename
 lookup_config_info              :: insert_config_info
 lookup_cve                      :: rhnCVE insert_cve
 lookup_erratafile_type          :: rhnErrataFileType data/rhnErrataFileType
-lookup_evr                      :: rhnPackageEVR
+lookup_evr                      :: rhnPackageEVR insert_evr
 lookup_feature_type             :: rhnFeature
 lookup_first_matching_cf        :: rhnConfigFile rhnConfigChannel \
                                    rhnServerConfigChannel lookup_cf_state \
