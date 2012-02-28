@@ -15,16 +15,12 @@
 package com.redhat.rhn.frontend.action.user.test;
 
 import com.redhat.rhn.common.messaging.MessageQueue;
-import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.user.CreateUserAction;
 import com.redhat.rhn.frontend.action.user.UserActionHelper;
-import com.redhat.rhn.manager.user.CreateUserCommand;
 import com.redhat.rhn.testing.RhnMockDynaActionForm;
 import com.redhat.rhn.testing.RhnMockStrutsTestCase;
 import com.redhat.rhn.testing.TestUtils;
 import com.redhat.rhn.webapp.RhnServletListener;
-
-import java.util.List;
 
 /**
  * CreateUserActionTest - Test the CreateUserAction
@@ -105,21 +101,5 @@ public class CreateUserActionTest extends RhnMockStrutsTestCase {
         f.set("timezone", new Integer(7010));
         f.set("preferredLocale", "en_US");
         return f;
-    }
-
-    private TestCreateUserCommand cmd = new TestCreateUserCommand();
-
-    public class TestCreateUserCommand extends CreateUserCommand {
-
-        private int publishCount = 0;
-
-        /**
-         * {@inheritDoc}
-         */
-        public void publishNewUserEvent(User accountCreator, List admins,
-                String domain, String password) {
-            publishCount++;
-        }
-
     }
 }
