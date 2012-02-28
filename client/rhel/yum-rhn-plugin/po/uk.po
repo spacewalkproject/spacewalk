@@ -1,23 +1,24 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Maxim Dziumanenko <dziumanenko@gmail.com>, 2003.
 # Yuri Chornoivan <yurchor@ukr.net>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
-"Report-Msgid-Bugs-To: http://bugzilla.redhat.com/\n"
+"Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-12-21 12:25+0100\n"
 "PO-Revision-Date: 2012-02-28 14:38+0000\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
+"Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: uk\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
 
 #: ../rhnplugin.py:50
 msgid "There was an error communicating with RHN."
@@ -32,7 +33,10 @@ msgstr "Підтримку RHN Satellite або RHN Classic буде вимкн�
 msgid ""
 "*Note* Red Hat Network repositories are not listed below. You must run this "
 "command as root to access RHN repositories."
-msgstr "*Зауваження* Нижче не показано списку сховищ Red Hat Network. Щоб отримати доступ до сховища RHN, вам слід віддати цю команду від імені адміністратора (root)."
+msgstr ""
+"*Зауваження* Нижче не показано списку сховищ Red Hat Network. Щоб отримати "
+"доступ до сховища RHN, вам слід віддати цю команду від імені адміністратора "
+"(root)."
 
 #: ../rhnplugin.py:84
 msgid "There was an error parsing the RHN proxy settings."
@@ -64,9 +68,9 @@ msgstr "Цю систему не підписано на жоден канал."
 
 #: ../rhnplugin.py:139
 msgid ""
-"This system may not be a registered to RHN. SystemId could not be "
-"acquired.\n"
-msgstr "Можливо, цю систему не зареєстровано на RHN. Не вдалося визначити SystemId.\n"
+"This system may not be a registered to RHN. SystemId could not be acquired.\n"
+msgstr ""
+"Можливо, цю систему не зареєстровано на RHN. Не вдалося визначити SystemId.\n"
 
 #: ../rhnplugin.py:245
 msgid "Package profile information could not be sent."
@@ -78,7 +82,9 @@ msgstr "Повідомлення про помилку:"
 
 #: ../rhnplugin.py:254
 msgid "Please run rhn_register as root on this client"
-msgstr "Будь ласка, запустіть для цієї клієнтської системи rhn_register від імені адміністратора (root)"
+msgstr ""
+"Будь ласка, запустіть для цієї клієнтської системи rhn_register від імені "
+"адміністратора (root)"
 
 #: ../rhnplugin.py:333
 #, python-format
