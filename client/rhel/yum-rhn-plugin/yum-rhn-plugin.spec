@@ -1,6 +1,6 @@
 Summary: RHN support for yum
 Name: yum-rhn-plugin
-Version: 1.7.1
+Version: 1.7.2
 Release: 1%{?dist}
 License: GPLv2
 Group: System Environment/Base
@@ -71,6 +71,10 @@ fi
 %doc LICENSE
 
 %changelog
+* Tue Feb 28 2012 Jan Pazdziora 1.7.2-1
+- Update .po and .pot files for yum-rhn-plugin.
+- Download translations from Transifex for yum-rhn-plugin.
+
 * Tue Feb 14 2012 Miroslav Suchý 1.7.1-1
 - 788903 - do not change "enable" outside of [main]
 - Bumping package versions for 1.7.
