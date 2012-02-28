@@ -471,9 +471,7 @@ public class PackageListItem extends IdComboDto {
         if (getNvrea() != null) {
             return getIdCombo() + "~*~" + getNvrea();
         }
-        else {
-            return getIdCombo() + "~*~" + getNvre();
-        }
+        return getIdCombo() + "~*~" + getNvre();
     }
 
     /**

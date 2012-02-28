@@ -175,9 +175,7 @@ public class ChannelTreeNode extends BaseDto implements BaseListDto,
         if (parentId == null) {
             return 1L;
         } //if it's a child the depth is 2
-        else {
-            return 2L;
-        }
+        return 2L;
     }
 
     /**
@@ -262,9 +260,7 @@ public class ChannelTreeNode extends BaseDto implements BaseListDto,
         if (parentId != null) {
             return "c" + id;
         }
-        else {
-            return "p" + id;
-        }
+        return "p" + id;
 
     }
     /**
@@ -288,9 +284,7 @@ public class ChannelTreeNode extends BaseDto implements BaseListDto,
         if (isParent()) {
             return id;
         }
-        else {
-            return parentId;
-        }
+        return parentId;
     }
 
 
@@ -395,12 +389,9 @@ public class ChannelTreeNode extends BaseDto implements BaseListDto,
             if (this.getParentOrSelfId().equals(arg0.getParentOrSelfId())) {
                 return this.getUpperName().compareTo(arg0.getUpperName());
             }
-            //if they don't have the same parent
-            else {
-                Channel one = ChannelFactory.lookupById(this.getParentOrSelfId());
-                Channel two = ChannelFactory.lookupById(arg0.getParentOrSelfId());
-                return one.getName().toUpperCase().compareTo(two.getName().toUpperCase());
-            }
+            Channel one = ChannelFactory.lookupById(this.getParentOrSelfId());
+            Channel two = ChannelFactory.lookupById(arg0.getParentOrSelfId());
+            return one.getName().toUpperCase().compareTo(two.getName().toUpperCase());
         }
         //If the first one is a parent, but the 2nd one isn't
         if (this.isParent() && !arg0.isParent()) {
@@ -408,10 +399,8 @@ public class ChannelTreeNode extends BaseDto implements BaseListDto,
             if (this.getId().equals(arg0.getParentOrSelfId())) {
                 return -1;
             }
-            else { //compare a's name to b's parent's name
-                Channel two = ChannelFactory.lookupById(arg0.getParentOrSelfId());
-                return this.getUpperName().compareTo(two.getName().toUpperCase());
-            }
+            Channel two = ChannelFactory.lookupById(arg0.getParentOrSelfId());
+            return this.getUpperName().compareTo(two.getName().toUpperCase());
         }
 
         if (!this.isParent() && arg0.isParent()) {
@@ -419,10 +408,8 @@ public class ChannelTreeNode extends BaseDto implements BaseListDto,
             if (this.getParentOrSelfId().equals(arg0.getId())) {
                 return 1;
             } //else if this is just some random child
-            else {
-                Channel two = ChannelFactory.lookupById(parentId);
-                return two.getName().toUpperCase().compareTo(arg0.getUpperName());
-            }
+            Channel two = ChannelFactory.lookupById(parentId);
+            return two.getName().toUpperCase().compareTo(arg0.getUpperName());
         }
         return 0;
     }

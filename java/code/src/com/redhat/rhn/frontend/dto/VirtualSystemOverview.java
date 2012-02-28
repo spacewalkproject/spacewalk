@@ -278,9 +278,7 @@ public class VirtualSystemOverview extends SystemOverview
         if (getIsVirtualHost()) {
             return 0;
         }
-        else {
-            return 1;
-        }
+        return 1;
     }
 
     /**

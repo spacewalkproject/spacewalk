@@ -52,9 +52,7 @@ public class OrgEntitlementDto extends EntitlementDto {
         if (count == null) {
             return new Long(0);
         }
-        else {
-            return count;
-        }
+        return count;
     }
 
     /**
@@ -66,9 +64,7 @@ public class OrgEntitlementDto extends EntitlementDto {
         if (count == null) {
             return new Long(0);
         }
-        else {
-            return count;
-        }
+        return count;
     }
 
     /**
@@ -80,9 +76,7 @@ public class OrgEntitlementDto extends EntitlementDto {
         if (count == null) {
             return new Long(0);
         }
-        else {
-            return count;
-        }
+        return count;
     }
 
     /**

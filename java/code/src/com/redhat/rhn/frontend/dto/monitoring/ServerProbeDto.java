@@ -84,9 +84,7 @@ public class ServerProbeDto extends CheckProbeDto {
         if (output != null) {
             return StringUtil.htmlifyText(output);
         }
-        else {
-            return null;
-        }
+        return null;
     }
 
     /**
@@ -130,9 +128,7 @@ public class ServerProbeDto extends CheckProbeDto {
         if (state == null) {
             return MonitoringConstants.PROBE_STATE_PENDING;
         }
-        else {
-            return state;
-        }
+        return state;
     }
 
     /**

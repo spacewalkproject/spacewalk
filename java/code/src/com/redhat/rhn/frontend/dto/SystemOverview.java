@@ -497,9 +497,7 @@ public class SystemOverview extends BaseDto implements Serializable  {
             // Save the list as entitlementLevel
             return retval.toString();
         }
-        else { //unentitled
-            return ls.getMessage("unentitled");
-        }
+        return ls.getMessage("unentitled");
     }
     /**
      * Display only..

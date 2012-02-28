@@ -99,9 +99,7 @@ public class SoftwareEntitlementDto {
         if (allocated == null) {
             return ls.getMessage("softwareEntitlements.unlimited");
         }
-        else {
-            return allocated.toString();
-        }
+        return allocated.toString();
     }
 
     /**
@@ -144,9 +142,7 @@ public class SoftwareEntitlementDto {
         if (notInUse == null) {
             return ls.getMessage("softwareEntitlements.notApplicable");
         }
-        else {
-            return notInUse.toString();
-        }
+        return notInUse.toString();
     }
 
 }

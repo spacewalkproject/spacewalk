@@ -112,13 +112,9 @@ public class ScriptDto extends BaseDto {
             if (this.chroot.toLowerCase().equals("n")) {
                 return CHROOTPOST;
             }
-            else {
-                return POST;
-            }
+            return POST;
         }
-        else {
-            return PRE;
-        }
+        return PRE;
     }
 
     /**

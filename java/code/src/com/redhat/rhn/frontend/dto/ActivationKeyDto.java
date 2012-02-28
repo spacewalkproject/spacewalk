@@ -156,9 +156,7 @@ public class ActivationKeyDto extends BaseDto {
         if (isOrgDefault()) {
             return ls.getMessage("yes");
         }
-        else {
-            return ls.getMessage("no");
-        }
+        return ls.getMessage("no");
     }
 
     /**

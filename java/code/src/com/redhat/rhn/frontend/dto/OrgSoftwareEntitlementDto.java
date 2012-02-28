@@ -94,9 +94,7 @@ public class OrgSoftwareEntitlementDto {
         if (maxMembers == null) {
             return ls.getMessage("softwareEntitlements.unlimited");
         }
-        else {
-            return maxMembers.toString();
-        }
+        return maxMembers.toString();
     }
 
 

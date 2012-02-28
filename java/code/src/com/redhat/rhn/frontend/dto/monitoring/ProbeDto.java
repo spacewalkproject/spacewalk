@@ -86,9 +86,7 @@ public class ProbeDto implements Comparable {
         if (getProbe().getState().getOutput() != null) {
             return StringUtil.htmlifyText(getProbe().getState().getOutput());
         }
-        else {
-            return null;
-        }
+        return null;
     }
 
     /**

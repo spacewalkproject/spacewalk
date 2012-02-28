@@ -138,9 +138,7 @@ public class PackageOverview extends BaseDto {
                 throw new RuntimeException(e);
             }
         }
-        else {
-            return null;
-        }
+        return null;
     }
 
     /**

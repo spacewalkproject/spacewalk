@@ -62,9 +62,7 @@ public class OperationDetailsDto {
         if (ls.hasMessage(getDescription())) {
             return ls.getMessage(getDescription());
         }
-        else {
-            return description;
-        }
+        return description;
     }
 
 

@@ -336,9 +336,7 @@ public class PackageMetadata extends BaseDto implements Comparable {
         if (comparison == KEY_THIS_ONLY) {
             return system.getNevra();
         }
-        else {
-            return other.getNevra();
-        }
+        return other.getNevra();
     }
 
     /**

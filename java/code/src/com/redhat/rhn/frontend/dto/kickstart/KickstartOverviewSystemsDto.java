@@ -128,9 +128,7 @@ public class KickstartOverviewSystemsDto extends BaseDto {
         if (!getIsBareMetal()) {
             return getNewServerId() == null ? getOldServerId() : getNewServerId();
         }
-        else {
-            return null;    //this should never happen
-        }
+        return null;    //this should never happen
     }
 
     /**
