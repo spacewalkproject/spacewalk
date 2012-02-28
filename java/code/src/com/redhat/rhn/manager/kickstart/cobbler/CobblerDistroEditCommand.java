@@ -18,7 +18,6 @@ import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.domain.kickstart.KickstartableTree;
 import com.redhat.rhn.domain.user.User;
 
-import org.apache.log4j.Logger;
 import org.cobbler.Distro;
 
 /**
@@ -37,8 +36,6 @@ public class CobblerDistroEditCommand extends CobblerDistroCommand {
             User userIn) {
         super(ksTreeIn, userIn);
     }
-
-    private static Logger log = Logger.getLogger(CobblerDistroEditCommand.class);
 
     /**
      * {@inheritDoc}
