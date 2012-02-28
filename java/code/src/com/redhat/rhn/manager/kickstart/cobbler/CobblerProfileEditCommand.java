@@ -20,7 +20,6 @@ import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.user.User;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
 import org.cobbler.Profile;
 
 /**
@@ -28,8 +27,6 @@ import org.cobbler.Profile;
  * @version $Rev$
  */
 public class CobblerProfileEditCommand extends CobblerProfileCommand {
-    private static Logger log = Logger.getLogger(CobblerProfileEditCommand.class);
-
     /**
      * Constructor
      * @param ksDataIn to sync
