@@ -1,7 +1,6 @@
 -- oracle equivalent source sha1 a234e21a0def0d24de24d91a12fcbc9bca9ac22a
--- retrieved from ./1241042199/53fa26df463811901487b608eecc3f77ca7783a1/schema/spacewalk/oracle/procs/lookup_package_capability.sql
 --
--- Copyright (c) 2008--2010 Red Hat, Inc.
+-- Copyright (c) 2008--2012 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -13,41 +12,54 @@
 -- Red Hat trademarks are not licensed under GPLv2. No permission is
 -- granted to use or replicate Red Hat trademarks that are incorporated
 -- in this software or its documentation. 
---
---
---
---
 
-
-CREATE OR REPLACE FUNCTION
-LOOKUP_PACKAGE_CAPABILITY(name_in IN VARCHAR,
-    version_in IN VARCHAR DEFAULT NULL)
-RETURNS NUMERIC
-AS
+create or replace function lookup_package_capability(name_in in varchar, version_in in varchar default null)
+returns numeric
+as
 $$
-DECLARE
-      name_id         NUMERIC;
-BEGIN
-        IF version_in IS NULL THEN
-                SELECT id
-                  INTO name_id
-                  FROM rhnPackageCapability
-                 WHERE name = name_in
-                   AND version IS NULL;
-        ELSE
-                SELECT id
-                  INTO name_id
-                  FROM rhnPackageCapability
-                 WHERE name = name_in
-                   AND version = version_in;
-        END IF;
+declare
+    name_id numeric;
+begin
+    if version_in is null then
+        select id
+          into name_id
+          from rhnpackagecapability
+         where name = name_in and
+               version is null;
+    else
+        select id
+          into name_id
+          from rhnpackagecapability
+         where name = name_in and
+               version = version_in;
+    end if;
 
-        IF NOT FOUND THEN
-		INSERT INTO rhnPackageCapability (id, name, version) VALUES (nextval('rhn_pkg_capability_id_seq'), name_in, version_in);
-		name_id := currval('rhn_pkg_capability_id_seq');
-        END IF;
-        
-        RETURN name_id;
-END;
+    if not found then
+        name_id = nextval('rhn_pkg_capability_id_seq');
+        begin
+            perform pg_dblink_exec(
+                'insert into rhnPackageCapability(id, name, version) values (' ||
+                name_id || ', ' ||
+                coalesce(quote_literal(name_in), 'NULL') || ', ' ||
+                coalesce(quote_literal(version_in), 'NULL') || ')');
+        exception when unique_violation then
+            if version_in is null then
+                select id
+                  into strict name_id
+                  from rhnpackagecapability
+                 where name = name_in and
+                       version is null;
+            else
+                select id
+                  into strict name_id
+                  from rhnpackagecapability
+                 where name = name_in and
+                       version = version_in;
+            end if;
+        end;
+    end if;
+
+    return name_id;
+end;
 $$
-LANGUAGE PLPGSQL;
+language plpgsql immutable;
