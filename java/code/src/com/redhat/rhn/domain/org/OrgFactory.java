@@ -212,7 +212,7 @@ public class OrgFactory extends HibernateFactory {
         singleton.saveObject(quota);
         // Save the object since we may have in memory items to write\
         singleton.saveInternal(retval);
-        retval = (Org) singleton.reload(retval);
+        retval = (Org) HibernateFactory.reload(retval);
         return retval;
     }
 
