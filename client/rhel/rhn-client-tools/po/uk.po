@@ -1,24 +1,23 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Maxim Dziumanenko <dziumanenko@gmail.com>, 2003.
 # Miroslav Suchý <msuchy@redhat.com>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: http://bugzilla.redhat.com/\n"
 "POT-Creation-Date: 2011-12-21 13:07+0100\n"
-"PO-Revision-Date: 2011-07-20 00:39+0000\n"
+"PO-Revision-Date: 2012-02-14 13:00+0000\n"
 "Last-Translator: Miroslav Suchý <msuchy@redhat.com>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
-"Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
+"Language: uk\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
 
 #: ../src/up2date_client/rhnregGui.py:132
 #: ../src/up2date_client/rhnregGui.py:149
@@ -41,8 +40,8 @@ msgstr "Вказаний неправильний протокол. Можна �
 
 #: ../src/up2date_client/rhnregGui.py:310
 msgid ""
-"You will not be able to successfully register this system without contacting "
-"a Red Hat Network server."
+"You will not be able to successfully register this system without contacting"
+" a Red Hat Network server."
 msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:332
@@ -57,11 +56,9 @@ msgstr "Перевірте підключення до мережі."
 
 #: ../src/up2date_client/rhnregGui.py:336
 msgid ""
-"Did you mean to register to a Red Hat Network Satellite or Proxy? If so, you "
-"can enter a Satellite or Proxy location instead."
-msgstr ""
-"Якщо ви хочете зареєструвати Red Hat Network Satellite чи Proxy, введіть "
-"розташування відповідного сервера."
+"Did you mean to register to a Red Hat Network Satellite or Proxy? If so, you"
+" can enter a Satellite or Proxy location instead."
+msgstr "Якщо ви хочете зареєструвати Red Hat Network Satellite чи Proxy, введіть розташування відповідного сервера."
 
 #: ../src/up2date_client/rhnregGui.py:342
 #, python-format
@@ -73,16 +70,15 @@ msgstr "Не вдається зв'язатися з Satellite чи Proxy на '
 msgid ""
 "Double-check the location - is '%s' correct? If not, you can correct it and "
 "try again."
-msgstr ""
-"Перевірте правильність введеного шляху - '%s'. Якщо неправильний, виправте "
-"та спробуйте знову."
+msgstr "Перевірте правильність введеного шляху - '%s'. Якщо неправильний, виправте та спробуйте знову."
 
 #: ../src/up2date_client/rhnregGui.py:357
 msgid "There was an error communicating with Red Hat Network."
 msgstr "Помилка при підключенні до Red Hat Network."
 
 #: ../src/up2date_client/rhnregGui.py:358
-msgid "The server may be in outage mode. You may have to try connecting later."
+msgid ""
+"The server may be in outage mode. You may have to try connecting later."
 msgstr "Можливо, сервер недоступний. Спробуйте підключитись пізніше."
 
 #: ../src/up2date_client/rhnregGui.py:360
@@ -136,8 +132,7 @@ msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:732
 msgid "Sending your profile information to Red Hat Network.  Please wait."
-msgstr ""
-"Надсилання інформації про профіль до Red Hat Network. Будь ласка, зачекайте."
+msgstr "Надсилання інформації про профіль до Red Hat Network. Будь ласка, зачекайте."
 
 #: ../src/up2date_client/rhnregGui.py:751
 msgid "Registering System"
@@ -155,9 +150,7 @@ msgstr "Помилка реєстрацій системи:\n"
 msgid ""
 "The installation number [ %s ] provided is not a valid installation number. "
 "Please go back to the previous screen and fix it."
-msgstr ""
-"Вказаний номер встановлення [ %s ] не є коректним. Поверніться до "
-"попереднього екрану та виправте номер."
+msgstr "Вказаний номер встановлення [ %s ] не є коректним. Поверніться до попереднього екрану та виправте номер."
 
 #: ../src/up2date_client/rhnregGui.py:786 ../src/up2date_client/tui.py:893
 msgid "Problem registering system."
@@ -268,27 +261,22 @@ msgid "Arch"
 msgstr "Архітектура"
 
 #: ../src/up2date_client/rhnregGui.py:1256
-msgid "Building a list of RPM packages installed on your system.  Please wait."
-msgstr ""
-"Складається список встановлених на вашій системі пакетів. Будь ласка, "
-"зачекайте."
+msgid ""
+"Building a list of RPM packages installed on your system.  Please wait."
+msgstr "Складається список встановлених на вашій системі пакетів. Будь ласка, зачекайте."
 
 #: ../src/up2date_client/rhnregGui.py:1287
 msgid ""
 "There was an error loading your configuration.  Make sure that\n"
 "you have read access to /etc/sysconfig/rhn."
-msgstr ""
-"Помилка завантаження конфігурації. Перевірте, що ви маєте\n"
-"права читання /etc/sysconfig/rhn."
+msgstr "Помилка завантаження конфігурації. Перевірте, що ви маєте\nправа читання /etc/sysconfig/rhn."
 
 #: ../src/up2date_client/rhnregGui.py:1329
 #, python-format
 msgid ""
 "There was an error saving your configuration. Make sure that\n"
 "you own %s."
-msgstr ""
-"Помилка збереження конфігурації. Перевірте, що ви є\n"
-"власником %s."
+msgstr "Помилка збереження конфігурації. Перевірте, що ви є\nвласником %s."
 
 #: ../src/up2date_client/rhnregGui.py:1359
 #, python-format
@@ -296,10 +284,7 @@ msgid ""
 "This error shouldn't have happened. If you'd like to help us improve this "
 "program, please file a bug at bugzilla.redhat.com. Including the relevant "
 "parts of '%s' would be very helpful. Thanks!"
-msgstr ""
-"Непередбачена помилка. Якщо ви хочете допомогти вдосконалити цю програму, "
-"надішліть звіт про помилку через bugzilla.redhat.com. Якщо можливо, включіть "
-"відповідні сегменти '%s'. дякуємо!"
+msgstr "Непередбачена помилка. Якщо ви хочете допомогти вдосконалити цю програму, надішліть звіт про помилку через bugzilla.redhat.com. Якщо можливо, включіть відповідні сегменти '%s'. дякуємо!"
 
 #: ../src/up2date_client/config.py:142
 #, python-format
@@ -328,8 +313,7 @@ msgstr ""
 
 #: ../src/up2date_client/rhnChannel.py:113
 msgid "This system may not be updated until it is associated with a channel."
-msgstr ""
-"Цю систему не можливо оновити, доки вона не буде пов'язана з певним каналом."
+msgstr "Цю систему не можливо оновити, доки вона не буде пов'язана з певним каналом."
 
 #: ../src/up2date_client/rpmUtils.py:112 ../src/up2date_client/debUtils.py:53
 msgid "Getting list of packages installed on the system"
@@ -459,8 +443,7 @@ msgstr "Вказаний неправильний протокол."
 #: ../src/up2date_client/tui.py:1166
 msgid ""
 "  <Tab>/<Alt-Tab> between elements  |  <Space> selects  |  <F12> next screen"
-msgstr ""
-"  <Tab>/<Alt-Tab> між елементами  |  <Space> вибір  |  <F12> наступний екран"
+msgstr "  <Tab>/<Alt-Tab> між елементами  |  <Space> вибір  |  <F12> наступний екран"
 
 #: ../src/up2date_client/tui.py:1263
 msgid "You must run the RHN registration program as root."
@@ -492,24 +475,13 @@ msgstr "Реєстрація для оновлень ПЗ"
 
 #: ../src/up2date_client/rhnreg_constants.py:24
 msgid ""
-"This assistant will guide you through connecting your system to Red Hat "
-"Network (RHN) to receive software updates, including security updates, to "
-"keep your system supported and compliant.  You will need the following at "
-"this time:\n"
+"This assistant will guide you through connecting your system to Red Hat Network (RHN) to receive software updates, including security updates, to keep your system supported and compliant.  You will need the following at this time:\n"
 "\n"
 " * A network connection\n"
 " * Your Red Hat Login & password\n"
 " * The location of a Red Hat Network Satellite or Proxy (optional)\n"
 "\n"
-msgstr ""
-"Помічник допоможе підключити вашу систему до Red Hat Network (RHN) для "
-"отримання оновлення ПЗ, включно з оновленням безпеки для підтримки захисту "
-"системи. Для цього необхідно:\n"
-"\n"
-" * Мережне з'єднання\n"
-" * Реєстраційне ім'я та пароль Red Hat\n"
-" * Розташування Red Hat Network Satellite чи Proxy (необов'язково)\n"
-"\n"
+msgstr "Помічник допоможе підключити вашу систему до Red Hat Network (RHN) для отримання оновлення ПЗ, включно з оновленням безпеки для підтримки захисту системи. Для цього необхідно:\n\n * Мережне з'єднання\n * Реєстраційне ім'я та пароль Red Hat\n * Розташування Red Hat Network Satellite чи Proxy (необов'язково)\n\n"
 
 #. Why Register Window
 #: ../src/up2date_client/rhnreg_constants.py:37 ../data/rh_register.glade.h:54
@@ -524,9 +496,7 @@ msgstr "Навіщо реєструватись"
 msgid ""
 "Connecting your system to Red Hat Network allows you to take full advantage "
 "of the benefits of a paid subscription, including:"
-msgstr ""
-"Підключення системи до Red Hat Network дозволяє скористатись усіма "
-"перевагами передплати, включаючи:"
+msgstr "Підключення системи до Red Hat Network дозволяє скористатись усіма перевагами передплати, включаючи:"
 
 #: ../src/up2date_client/rhnreg_constants.py:41
 msgid "Security & Updates:"
@@ -548,42 +518,31 @@ msgstr "Відповідність стандартам:"
 msgid ""
 "Receive the latest software updates, including security updates, keeping "
 "this Red Hat Enterprise Linux system updated and secure."
-msgstr ""
-"Отримуйте останні оновлення оновлення ПЗ, включно з оновленнями безпеки, "
-"підтримуючи системи Red Hat Enterprise Linux у оновленому та захищеному "
-"стані."
+msgstr "Отримуйте останні оновлення оновлення ПЗ, включно з оновленнями безпеки, підтримуючи системи Red Hat Enterprise Linux у оновленому та захищеному стані."
 
 #: ../src/up2date_client/rhnreg_constants.py:47
 msgid ""
 "Download installation images for Red Hat Enterprise Linux releases, "
 "including new releases."
-msgstr ""
-"Завантаження образів встановлення для Red Hat Enterprise Linux, включаючи "
-"останні випуски."
+msgstr "Завантаження образів встановлення для Red Hat Enterprise Linux, включаючи останні випуски."
 
 #: ../src/up2date_client/rhnreg_constants.py:49
 msgid ""
-"Access to the technical support experts at Red Hat or Red Hat's partners for "
-"help with any issues you might encounter with this system."
-msgstr ""
-"Доступ до технічної підтримки Red Hat та партнерів за допомогою у вирішенні "
-"потенційних проблем у системі."
+"Access to the technical support experts at Red Hat or Red Hat's partners for"
+" help with any issues you might encounter with this system."
+msgstr "Доступ до технічної підтримки Red Hat та партнерів за допомогою у вирішенні потенційних проблем у системі."
 
 #: ../src/up2date_client/rhnreg_constants.py:51
 msgid ""
-"Stay in compliance with your subscription agreement and manage subscriptions "
-"for systems connected to your account at http://rhn.redhat.com/."
-msgstr ""
-"Дійте відповідно до умов передплати та керуйте передплатою ваших систем с "
-"http://rhn.redhat.com/."
+"Stay in compliance with your subscription agreement and manage subscriptions"
+" for systems connected to your account at http://rhn.redhat.com/."
+msgstr "Дійте відповідно до умов передплати та керуйте передплатою ваших систем с http://rhn.redhat.com/."
 
 #: ../src/up2date_client/rhnreg_constants.py:55
 msgid ""
-"Tip: Red Hat values your privacy: http://www.redhat.com/legal/"
-"privacy_statement.html"
-msgstr ""
-"Примітка: Red Hat поважає вашу конфіденційність: http://www.redhat.com/legal/"
-"privacy_statement.html"
+"Tip: Red Hat values your privacy: "
+"http://www.redhat.com/legal/privacy_statement.html"
+msgstr "Примітка: Red Hat поважає вашу конфіденційність: http://www.redhat.com/legal/privacy_statement.html"
 
 #: ../src/up2date_client/rhnreg_constants.py:57 ../data/rh_register.glade.h:42
 msgid "Take me back to the registration"
@@ -597,7 +556,8 @@ msgstr "Помилка при налаштовуванні оновлення П
 #: ../src/up2date_client/rhnreg_constants.py:61
 msgid ""
 "Are you sure you don't want to connect your system to Red Hat Network? "
-"You'll miss out on the benefits of a Red Hat Enterprise Linux subscription:\n"
+"You'll miss out on the benefits of a Red Hat Enterprise Linux "
+"subscription:\n"
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:63
@@ -624,9 +584,7 @@ msgstr ""
 msgid ""
 "Please enter your login information for the %s Red Hat Network Satellite:\n"
 "\n"
-msgstr ""
-"Введіть інформацію про ваш обліковий запис для %s Red Hat Network "
-"Satellite:\n"
+msgstr "Введіть інформацію про ваш обліковий запис для %s Red Hat Network Satellite:\n"
 
 #: ../src/up2date_client/rhnreg_constants.py:72
 msgid "Red Hat Login:"
@@ -640,9 +598,7 @@ msgstr "Пароль:"
 msgid ""
 "Tip: Forgot your login or password?  Contact your Satellite's Organization "
 "Administrator."
-msgstr ""
-"Зауваження: Забули ім'я користувача чи пароль? Зверніться до вашого "
-"Адміністратору організації Satellite."
+msgstr "Зауваження: Забули ім'я користувача чи пароль? Зверніться до вашого Адміністратору організації Satellite."
 
 #: ../src/up2date_client/rhnreg_constants.py:77
 msgid "Please enter a desired login."
@@ -692,21 +648,16 @@ msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:93
 msgid ""
-"A Profile Name is a descriptive name that you choose to identify this System "
-"Profile on the Red Hat Network web pages. Optionally, include a computer "
+"A Profile Name is a descriptive name that you choose to identify this System"
+" Profile on the Red Hat Network web pages. Optionally, include a computer "
 "serial or identification number."
-msgstr ""
-"Назва профілю є описовою назвою, яку ви вибираєте для ідентифікації профілю "
-"системи на веб-сторінках Red Hat Network. Назва може включати в себе "
-"серійний чи ідентифікаційний номер комп'ютера."
+msgstr "Назва профілю є описовою назвою, яку ви вибираєте для ідентифікації профілю системи на веб-сторінках Red Hat Network. Назва може включати в себе серійний чи ідентифікаційний номер комп'ютера."
 
 #: ../src/up2date_client/rhnreg_constants.py:97
 msgid ""
 "Additional hardware information including PCI devices, disk sizes and mount "
 "points will be included in the profile."
-msgstr ""
-"В профіль включається додаткова інформація про пристрої PCI, розміри дисків "
-"та точки монтування."
+msgstr "В профіль включається додаткова інформація про пристрої PCI, розміри дисків та точки монтування."
 
 #: ../src/up2date_client/rhnreg_constants.py:100
 msgid "Include the following information about hardware and network:"
@@ -719,11 +670,9 @@ msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:105
 msgid ""
-"RPM information is important to determine what updated software packages are "
-"relevant to this system."
-msgstr ""
-"RPM інформація важлива для визначення які пакети оновлення доречні для цієї "
-"системи"
+"RPM information is important to determine what updated software packages are"
+" relevant to this system."
+msgstr "RPM інформація важлива для визначення які пакети оновлення доречні для цієї системи"
 
 #: ../src/up2date_client/rhnreg_constants.py:108
 msgid "Include RPM packages installed on this system in my System Profile"
@@ -740,17 +689,14 @@ msgstr "Складається перелік пакетів"
 #. Product Window
 #: ../src/up2date_client/rhnreg_constants.py:115
 msgid ""
-"Please enter your login information for Red Hat Network (http://rhn.redhat."
-"com/):\n"
+"Please enter your login information for Red Hat Network (http://rhn.redhat.com/):\n"
 "\n"
-msgstr ""
-"Введіть дані облікового запису Red Hat Network (http://rhn.redhat.com):\n"
-"\n"
+msgstr "Введіть дані облікового запису Red Hat Network (http://rhn.redhat.com):\n\n"
 
 #: ../src/up2date_client/rhnreg_constants.py:117
 msgid ""
-"Tip: Forgot your login or password? Visit: https://rhn.redhat.com/rhn/sales/"
-"LoginInfo.do"
+"Tip: Forgot your login or password? Visit: "
+"https://rhn.redhat.com/rhn/sales/LoginInfo.do"
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:119
@@ -759,9 +705,8 @@ msgstr "*Ел.адреса:"
 
 #: ../src/up2date_client/rhnreg_constants.py:121
 #: ../data/rh_register.glade.h:41
-#, fuzzy
 msgid "System already registered"
-msgstr "Зареєструвати систему, навіть якщо вона вже зареєстрована"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:122
 msgid "It appears this system has already been set up for software updates:"
@@ -773,15 +718,11 @@ msgstr "Ви дійсно бажаєте продовжити?"
 
 #: ../src/up2date_client/rhnreg_constants.py:125
 msgid ""
-"This system has already been registered with RHN using RHN certficate-based "
-"technology.\n"
+"This system has already been registered with RHN using RHN certficate-based technology.\n"
 "\n"
-"The tool you are using is attempting to re-register using RHN Classic "
-"technology. Red Hat recommends (except in a few cases) that customers only "
-"register with RHN once.\n"
+"The tool you are using is attempting to re-register using RHN Classic technology. Red Hat recommends (except in a few cases) that customers only register with RHN once.\n"
 "\n"
-"To learn more about RHN registration and technologies please consult this "
-"Knowledge Base Article: https://access.redhat.com/kb/docs/DOC-45563"
+"To learn more about RHN registration and technologies please consult this Knowledge Base Article: https://access.redhat.com/kb/docs/DOC-45563"
 msgstr ""
 
 #. Send Window
@@ -793,16 +734,8 @@ msgstr "Надсилання інформації про профіль сист
 msgid ""
 "We are finished collecting information for the System Profile.\n"
 "\n"
-"Press \"Next\" to send this System Profile to Red Hat Network.  Click "
-"\"Cancel\" and no information will be sent.  You can run the registration "
-"program later by typing `rhn_register` at the command line."
-msgstr ""
-"Збирання інформації для профілю системи завершено.\n"
-"\n"
-"Натисніть \"Вперед\" щоб надіслати профіль системи до Red Hat Network.  Щоб "
-"відмінити надсилання інформації - натисніть \"Скасувати\". Ви можете "
-"запустити програму реєстрації пізніше, для цього наберіть у командному рядку "
-"rhn_register."
+"Press \"Next\" to send this System Profile to Red Hat Network.  Click \"Cancel\" and no information will be sent.  You can run the registration program later by typing `rhn_register` at the command line."
+msgstr "Збирання інформації для профілю системи завершено.\n\nНатисніть \"Вперед\" щоб надіслати профіль системи до Red Hat Network.  Щоб відмінити надсилання інформації - натисніть \"Скасувати\". Ви можете запустити програму реєстрації пізніше, для цього наберіть у командному рядку rhn_register."
 
 #. Sending Window
 #: ../src/up2date_client/rhnreg_constants.py:142
@@ -822,15 +755,9 @@ msgid ""
 "periodically to get the latest updates. Alternatively, you may configure "
 "this system for automatic software updates (also known as 'auto errata "
 "update') via the Red Hat Network web interface.  (Instructions for this are "
-"in chapter 6 of the RHN Reference Guide, available from the 'Help' button in "
-"the main Red Hat Network web interface.)"
-msgstr ""
-"Ви можете виконати 'yum update' у командному рядку для отримання останніх "
-"оновлень ПЗ з Red Hat Network. Виконуйте команду регулярно для підтримки "
-"системи у оновленому стані. Також можна налаштувати автоматичне виконання "
-"оновлення ('auto errata update') через інтерфейс Red Hat Network (інструкції "
-"у главі 6 Довідника з RHN, що доступний через меню довідки основного "
-"інтерфейсу Red Hat Network)."
+"in chapter 6 of the RHN Reference Guide, available from the 'Help' button in"
+" the main Red Hat Network web interface.)"
+msgstr "Ви можете виконати 'yum update' у командному рядку для отримання останніх оновлень ПЗ з Red Hat Network. Виконуйте команду регулярно для підтримки системи у оновленому стані. Також можна налаштувати автоматичне виконання оновлення ('auto errata update') через інтерфейс Red Hat Network (інструкції у главі 6 Довідника з RHN, що доступний через меню довідки основного інтерфейсу Red Hat Network)."
 
 #. Review Window
 #: ../src/up2date_client/rhnreg_constants.py:157 ../data/gui.glade.h:6
@@ -846,14 +773,12 @@ msgstr "Нижче перегляньте подробиці системної 
 msgid ""
 "The installation number %s was activated during this system's initial "
 "connection to Red Hat Network."
-msgstr ""
-"Код встановлення %s був активований у процесі початкового підключення цієї "
-"системи до Red Hat Network."
+msgstr "Код встановлення %s був активований у процесі початкового підключення цієї системи до Red Hat Network."
 
 #: ../src/up2date_client/rhnreg_constants.py:161
 msgid ""
-"Subscriptions have been activated for the following Red Hat products/"
-"services:"
+"Subscriptions have been activated for the following Red Hat "
+"products/services:"
 msgstr "Активні передплати для наступних продуктів/сервісів Red Hat:"
 
 #: ../src/up2date_client/rhnreg_constants.py:163
@@ -862,10 +787,9 @@ msgstr "Передплати каналу ПЗ:"
 
 #: ../src/up2date_client/rhnreg_constants.py:164
 msgid ""
-"This system will receive updates from the following Red Hat Network software "
-"channels:"
-msgstr ""
-"Система буде отримувати оновлення через наступні канали ПЗ Red Hat Network:"
+"This system will receive updates from the following Red Hat Network software"
+" channels:"
+msgstr "Система буде отримувати оновлення через наступні канали ПЗ Red Hat Network:"
 
 #: ../src/up2date_client/rhnreg_constants.py:166
 msgid ""
@@ -875,12 +799,7 @@ msgid ""
 "interface and subscribe this system to the appropriate software channels to "
 "get updates for that product. See Kbase article 11313 for more details. "
 "(http://kbase.redhat.com/faq/docs/DOC-11313)"
-msgstr ""
-"Попередження: Якщо встановлений продукт відсутній у списку, ви не будете "
-"отримувати його оновлення. Якщо ви хочете отримувати оновлення для цього "
-"продукту, виконайте вхід у веб-інтерфейс вашого satellite та підключіть "
-"необхідні канали ПЗ для систем, для отримання оновлень продукту. Подробиці у "
-"статті 11313 Kbase (http://kbase.redhat.com/faq/docs/DOC-11313)"
+msgstr "Попередження: Якщо встановлений продукт відсутній у списку, ви не будете отримувати його оновлення. Якщо ви хочете отримувати оновлення для цього продукту, виконайте вхід у веб-інтерфейс вашого satellite та підключіть необхідні канали ПЗ для систем, для отримання оновлень продукту. Подробиці у статті 11313 Kbase (http://kbase.redhat.com/faq/docs/DOC-11313)"
 
 #: ../src/up2date_client/rhnreg_constants.py:177
 msgid ""
@@ -888,14 +807,9 @@ msgid ""
 "will not receive updates or support for that product. If you would like to "
 "receive updates for that product, please visit http://rhn.redhat.com/ and "
 "subscribe this system to the appropriate software channels to get updates "
-"for that product. See Kbase article 11313 for more details. (http://kbase."
-"redhat.com/faq/docs/DOC-11313)"
-msgstr ""
-"Попередження: Якщо встановлений продукт відсутній у списку, ви не будете "
-"підключати його оновлення. Якщо ви хочете отримувати оновлення для цього "
-"продукту, перейдіть до http://rhn.redhat.com/ та підключіть систему до "
-"необхідних каналів ПЗ для отримання оновлень продукту. Подробиці у статті "
-"11313 Kbase (http://kbase.redhat.com/faq/docs/DOC-11313)"
+"for that product. See Kbase article 11313 for more details. "
+"(http://kbase.redhat.com/faq/docs/DOC-11313)"
+msgstr "Попередження: Якщо встановлений продукт відсутній у списку, ви не будете підключати його оновлення. Якщо ви хочете отримувати оновлення для цього продукту, перейдіть до http://rhn.redhat.com/ та підключіть систему до необхідних каналів ПЗ для отримання оновлень продукту. Подробиці у статті 11313 Kbase (http://kbase.redhat.com/faq/docs/DOC-11313)"
 
 #: ../src/up2date_client/rhnreg_constants.py:188
 msgid ""
@@ -918,36 +832,15 @@ msgstr ""
 msgid ""
 "You were unable to be subscribed to the following software channels because "
 "there were insufficient subscriptions available in your account:"
-msgstr ""
-"Ви не були підключені до наступних каналів внаслідок недостатньої кількості "
-"передплат, що доступні вашому обліковому запису:"
+msgstr "Ви не були підключені до наступних каналів внаслідок недостатньої кількості передплат, що доступні вашому обліковому запису:"
 
 #: ../src/up2date_client/rhnreg_constants.py:198
 msgid ""
-"This system was unable to subscribe to any software channels. Your system "
-"will not receive any software updates to keep it secure and supported. There "
-"are a few things you can try to resolve this situation:\n"
-"(1) Log in to http://rhn.redhat.com/ and unentitle an inactive system at "
-"Your RHN > Subscription Management > System Entitlements.\n"
-"(2) Purchase an additional Red Hat Enterprise Linux subscription at http://"
-"www.redhat.com/store/.\n"
-"(3) Activate a new installation number at http://www.redhat.com/now/. Once "
-"you make the appropriate active subscriptions available in your account, you "
-"may browse to this system's profile in the RHN web interface and subscribe "
-"this system to software channels via the software > software channels tab."
-msgstr ""
-"Система не змогла підключити якісь канали ПЗ. Вона не може підтримуватись у "
-"оновленому та захищеному стані. Наступні кроки можуть допомогти вирішити цю "
-"проблему:\n"
-"(1) Виконайте вхід у http://rhn.redhat.com/ та скасуйте всі повноваження для "
-"неактивної системи через Ваш RHN > Керування передплатою > Повноваження "
-"системи.\n"
-"(2) Придбайте додаткову передплату Red Hat Enterprise Linux на http://www."
-"redhat.com/store/.\n"
-"(3) Активуйте новий код встановлення на http://www.redhat.com/now/. Щойно "
-"нові передплати будуть доступні вашому обліковому запису, ви можете перейти "
-"до перегляду системного профілю у інтерфейсі RHN та підключити систему до "
-"каналів ПЗ на вкладці ПЗ > Канали ПЗ."
+"This system was unable to subscribe to any software channels. Your system will not receive any software updates to keep it secure and supported. There are a few things you can try to resolve this situation:\n"
+"(1) Log in to http://rhn.redhat.com/ and unentitle an inactive system at Your RHN > Subscription Management > System Entitlements.\n"
+"(2) Purchase an additional Red Hat Enterprise Linux subscription at http://www.redhat.com/store/.\n"
+"(3) Activate a new installation number at http://www.redhat.com/now/. Once you make the appropriate active subscriptions available in your account, you may browse to this system's profile in the RHN web interface and subscribe this system to software channels via the software > software channels tab."
+msgstr "Система не змогла підключити якісь канали ПЗ. Вона не може підтримуватись у оновленому та захищеному стані. Наступні кроки можуть допомогти вирішити цю проблему:\n(1) Виконайте вхід у http://rhn.redhat.com/ та скасуйте всі повноваження для неактивної системи через Ваш RHN > Керування передплатою > Повноваження системи.\n(2) Придбайте додаткову передплату Red Hat Enterprise Linux на http://www.redhat.com/store/.\n(3) Активуйте новий код встановлення на http://www.redhat.com/now/. Щойно нові передплати будуть доступні вашому обліковому запису, ви можете перейти до перегляду системного профілю у інтерфейсі RHN та підключити систему до каналів ПЗ на вкладці ПЗ > Канали ПЗ."
 
 #: ../src/up2date_client/rhnreg_constants.py:209
 msgid "RHN service level:"
@@ -958,68 +851,50 @@ msgid ""
 "Depending on what RHN modules are associated with a system, you'll enjoy "
 "different benefits of Red Hat Network. The following are the RHN modules "
 "associated with this system:"
-msgstr ""
-"Залежно від того, які модулі RHN пов'язані із системою, ви зможете отримати "
-"доступ до різних служб Red Hat Network. Модулі RHN, що пов'язані з вашою "
-"системою:"
+msgstr "Залежно від того, які модулі RHN пов'язані із системою, ви зможете отримати доступ до різних служб Red Hat Network. Модулі RHN, що пов'язані з вашою системою:"
 
 #: ../src/up2date_client/rhnreg_constants.py:214
 msgid ""
 "This system was unable to be associated with the following RHN module(s) "
 "because there were insufficient subscriptions available in your account:"
-msgstr ""
-"Ця система не може бути пов'язана з наступними модулями RHN через "
-"відсутність достатньої передплати:"
+msgstr "Ця система не може бути пов'язана з наступними модулями RHN через відсутність достатньої передплати:"
 
 #: ../src/up2date_client/rhnreg_constants.py:217
 msgid ""
 "Update module: per-system updates, email errata notifications, errata "
 "information"
-msgstr ""
-"Модуль оновлення: оновлення ПЗ для окремих систем, виправлення сповіщення ел."
-"пошти, інформація про виправлення"
+msgstr "Модуль оновлення: оновлення ПЗ для окремих систем, виправлення сповіщення ел.пошти, інформація про виправлення"
 
 #: ../src/up2date_client/rhnreg_constants.py:219
 msgid ""
-"Management module: automatic updates, systems grouping, systems permissions, "
-"system package profiling"
-msgstr ""
-"Модуль керування: автоматичні оновлення, групування систем, права систем, "
-"профілі системних пакетів"
+"Management module: automatic updates, systems grouping, systems permissions,"
+" system package profiling"
+msgstr "Модуль керування: автоматичні оновлення, групування систем, права систем, профілі системних пакетів"
 
 #: ../src/up2date_client/rhnreg_constants.py:221
 msgid ""
 "Provisioning module: bare-metal provisioning, existing state provisioning, "
 "rollbacks, configuration management"
-msgstr ""
-"Модуль забезпечення: забезпечення на рівні обладнання, забезпечення "
-"існуючого стану, відткати, керування конфігурацією"
+msgstr "Модуль забезпечення: забезпечення на рівні обладнання, забезпечення існуючого стану, відткати, керування конфігурацією"
 
 #: ../src/up2date_client/rhnreg_constants.py:223
 msgid ""
 "Monitoring module: pre-defined and custom system performance probes, system "
 "performance email notifications, graphs of system performance"
-msgstr ""
-"Модуль моніторингу: перевизначення та індивідуальні зонди для перевірки "
-"швидкодії системи, ел. сповіщення про швидкодію системи, діаграми швидкодії"
+msgstr "Модуль моніторингу: перевизначення та індивідуальні зонди для перевірки швидкодії системи, ел. сповіщення про швидкодію системи, діаграми швидкодії"
 
 #: ../src/up2date_client/rhnreg_constants.py:227
 msgid ""
 "Virtualization module: software updates for a limited number of virtual "
 "guests on this system."
-msgstr ""
-"Модуль віртуалізації: оновлення ПЗ для обмеженого числа віртуальних гостей "
-"системи."
+msgstr "Модуль віртуалізації: оновлення ПЗ для обмеженого числа віртуальних гостей системи."
 
 #: ../src/up2date_client/rhnreg_constants.py:230
 msgid ""
 "Virtualization Platform module: software updates for an unlimited number "
 "virtual guests of this system, access to additional software channels for "
 "guests of this system."
-msgstr ""
-"Модуль платформи віртуалізації: оновлення ПЗ для необмеженого числа "
-"віртуальних гостей вказаної системи, доступ до додаткових каналів ПЗ для "
-"гостей."
+msgstr "Модуль платформи віртуалізації: оновлення ПЗ для необмеженого числа віртуальних гостей вказаної системи, доступ до додаткових каналів ПЗ для гостей."
 
 #: ../src/up2date_client/rhnreg_constants.py:234
 msgid ""
@@ -1029,63 +904,23 @@ msgid ""
 "virtualization platform system entitlement available and (2) apply that "
 "system entitlement to this system in RHN's web interface if you do not want "
 "virtual guests of this system to consume additional subscriptions."
-msgstr ""
-"<b>Попередження:</b> Будь-які гостьові системи, які ви створите та "
-"зареєструєте у RHN, будуть використані додаткові передплати Red Hat "
-"Enterprise Linux. Потрібно:\n"
-"1) створити системне повноваження віртуалізації або платформи "
-"віртуалізації;\n"
-"2) застосувати це повноваження до системи через веб-інтерфейс RHN, якщо не "
-"бажаєте, щоб віртуальні гості використовували додаткові передплати."
+msgstr "<b>Попередження:</b> Будь-які гостьові системи, які ви створите та зареєструєте у RHN, будуть використані додаткові передплати Red Hat Enterprise Linux. Потрібно:\n1) створити системне повноваження віртуалізації або платформи віртуалізації;\n2) застосувати це повноваження до системи через веб-інтерфейс RHN, якщо не бажаєте, щоб віртуальні гості використовували додаткові передплати."
 
 #: ../src/up2date_client/rhnreg_constants.py:242
 msgid ""
-"This system was unable to be associated with any RHN service level modules. "
-"This system will not receive any software updates to keep it secure and "
-"supported. There are a few things you can try to resolve this situation:\n"
-"(1) Log in to http://rhn.redhat.com/ and unentitle an inactive system at "
-"Your RHN > Subscription Management > System Entitlements.\n"
-"(2) Purchase an additional Red Hat Enterprise Linux subscription at http://"
-"www.redhat.com/store/.\n"
-"(3) Activate a new installation number at http://www.redhat.com/now/. Once "
-"you make the appropriate active subscriptions available in your account, you "
-"may browse to this system's profile in the RHN web interface, delete the "
-"profile, and re-connect this system to Red Hat Network."
-msgstr ""
-"Ця система не може бути пов'язана з модулями обслуговування RHN. Вона не "
-"буде отримувати оновлення ПЗ для забезпечення її підтримки та безпеки. "
-"Наступні кроки можуть допомогти у вирішенні цієї проблеми:\n"
-"(1) Виконайте вхід у http://rhn.redhat.com/ та скасуйте усі повноваження для "
-"неактивної системи через Ваша RHN > Керування передплатою > Повноваження "
-"системи.\n"
-"(2) Придбайте додаткову передплату Red Hat Enterprise Linux на http://www."
-"redhat.com/store/.\n"
-"(3) Активуйте новий код встановлення на http://www.redhat.com/now/. Щойно "
-"нова передплата буде доступна вашому обліковому запису, ви можете перейти до "
-"перегляду системного профілю у інтерфейсі RHN, видалити профіль та "
-"підключити систему до Red Hat Network."
+"This system was unable to be associated with any RHN service level modules. This system will not receive any software updates to keep it secure and supported. There are a few things you can try to resolve this situation:\n"
+"(1) Log in to http://rhn.redhat.com/ and unentitle an inactive system at Your RHN > Subscription Management > System Entitlements.\n"
+"(2) Purchase an additional Red Hat Enterprise Linux subscription at http://www.redhat.com/store/.\n"
+"(3) Activate a new installation number at http://www.redhat.com/now/. Once you make the appropriate active subscriptions available in your account, you may browse to this system's profile in the RHN web interface, delete the profile, and re-connect this system to Red Hat Network."
+msgstr "Ця система не може бути пов'язана з модулями обслуговування RHN. Вона не буде отримувати оновлення ПЗ для забезпечення її підтримки та безпеки. Наступні кроки можуть допомогти у вирішенні цієї проблеми:\n(1) Виконайте вхід у http://rhn.redhat.com/ та скасуйте усі повноваження для неактивної системи через Ваша RHN > Керування передплатою > Повноваження системи.\n(2) Придбайте додаткову передплату Red Hat Enterprise Linux на http://www.redhat.com/store/.\n(3) Активуйте новий код встановлення на http://www.redhat.com/now/. Щойно нова передплата буде доступна вашому обліковому запису, ви можете перейти до перегляду системного профілю у інтерфейсі RHN, видалити профіль та підключити систему до Red Hat Network."
 
 #: ../src/up2date_client/rhnreg_constants.py:254
 #, python-format
 msgid ""
 "Universal default activation key detected\n"
-"A universal default activation key was detected in your RHN organization. "
-"What this means is that a set of properties (software channel subscriptions, "
-"Red Hat Network service, package installations, system group memberships, "
-"etc.) for your system's connection to Red Hat Network have been determined "
-"by the activation key rather than your installation number.  You may also "
-"refer to the RHN Reference Guide, section 6.4.6 for more details about "
-"activation keys (http://rhn.redhat.com/rhn/help/reference/)\n"
+"A universal default activation key was detected in your RHN organization. What this means is that a set of properties (software channel subscriptions, Red Hat Network service, package installations, system group memberships, etc.) for your system's connection to Red Hat Network have been determined by the activation key rather than your installation number.  You may also refer to the RHN Reference Guide, section 6.4.6 for more details about activation keys (http://rhn.redhat.com/rhn/help/reference/)\n"
 "Universal Default activation key: %s"
-msgstr ""
-"Виявлений універсальний ключ активації\n"
-"Для вашої організації RHN існує універсальний ключ активації. Це означає, що "
-"набір характеристик підключення системи до RHN (передплата каналів ПЗ, Red "
-"Hat Network, встановлення пакетів, приналежність системним групам та т.і.) "
-"визначається ключем активації, а не кодом встановлення. Подальшу інформацію "
-"про ключі активації можна знайти у розділі 6.4.6 довідки з RHN (http://rhn."
-"redhat.com/rhn/help/reference/)\n"
-"Універсальний ключ активації: %s"
+msgstr "Виявлений універсальний ключ активації\nДля вашої організації RHN існує універсальний ключ активації. Це означає, що набір характеристик підключення системи до RHN (передплата каналів ПЗ, Red Hat Network, встановлення пакетів, приналежність системним групам та т.і.) визначається ключем активації, а не кодом встановлення. Подальшу інформацію про ключі активації можна знайти у розділі 6.4.6 довідки з RHN (http://rhn.redhat.com/rhn/help/reference/)\nУніверсальний ключ активації: %s"
 
 #. Error Messages.
 #: ../src/up2date_client/rhnreg_constants.py:266
@@ -1102,18 +937,8 @@ msgid ""
 "\n"
 "Make sure that the network connection on this system is operational.\n"
 "\n"
-"This system will not be able to successfully receive software updates from "
-"Red Hat without connecting to a Red Hat Network server"
-msgstr ""
-"Неможливо зв'язатись з сервером Red Hat Network.\n"
-"\n"
-"Перевірте правильність введеного шлюзу - '%s'.\n"
-"Якщо він неправильний, виправте його та спробуйте ще раз.\n"
-"\n"
-"Перевірте підключення до мережі.\n"
-"\n"
-"Ця система не може отримувати оновлення ПЗ Red Hat без підключення до "
-"сервера Red Hat Network"
+"This system will not be able to successfully receive software updates from Red Hat without connecting to a Red Hat Network server"
+msgstr "Неможливо зв'язатись з сервером Red Hat Network.\n\nПеревірте правильність введеного шлюзу - '%s'.\nЯкщо він неправильний, виправте його та спробуйте ще раз.\n\nПеревірте підключення до мережі.\n\nЦя система не може отримувати оновлення ПЗ Red Hat без підключення до сервера Red Hat Network"
 
 #: ../src/up2date_client/rhnreg_constants.py:275
 #, python-format
@@ -1124,19 +949,14 @@ msgstr "Архітектура: %s, Випуск ОС: %s, Версія ОС: %s
 msgid ""
 "This server doesn't support functionality needed by this version of the "
 "software update setup client. Please try again with a newer server."
-msgstr ""
-"Сервер не підтримує функціональність, необхідні для цієї версії клієнта "
-"параметри оновлення ПЗ. Повторіть спробу з більш старшою версією сервера."
+msgstr "Сервер не підтримує функціональність, необхідні для цієї версії клієнта параметри оновлення ПЗ. Повторіть спробу з більш старшою версією сервера."
 
 #: ../src/up2date_client/rhnreg_constants.py:283
 #, python-format
 msgid ""
 "<b><span size=\"16000\">Incompatible Certificate File</span></b>\n"
 "\n"
-"The certificate you provided, <b>%s</b>, is not compatible with  the Red Hat "
-"Network server at <b>%s</b>. You may want to double-check that you have "
-"provided a valid certificate file. Are you sure you have provided the "
-"correct certificate, and that the certificate file has not been corrupted?\n"
+"The certificate you provided, <b>%s</b>, is not compatible with  the Red Hat Network server at <b>%s</b>. You may want to double-check that you have provided a valid certificate file. Are you sure you have provided the correct certificate, and that the certificate file has not been corrupted?\n"
 "\n"
 "Please try again with a different certificate file."
 msgstr ""
@@ -1145,8 +965,7 @@ msgstr ""
 msgid ""
 "<b><span size=\"12000\">Incompatible Certificate File</span></b>\n"
 "\n"
-" The certificate is expired. Please ensure you have the correct  certificate "
-"and your system time is correct."
+" The certificate is expired. Please ensure you have the correct  certificate and your system time is correct."
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:295
@@ -1157,22 +976,8 @@ msgstr "Перевірте значення sslCACert у /etc/sysconfig/rhn/up2d
 msgid ""
 "Problem registering system.\n"
 "\n"
-"A universal default activation key limits the number of systems which can "
-"connect to the RHN organization associated with your login. To allow this "
-"system to connect, please contact your RHN organization administrator to "
-"increase the number of systems allowed to connect or to disable this "
-"universal default activation key. More details can be found in Red Hat "
-"Knowledgebase Article #7924 at http://kbase.redhat.com/faq/FAQ_61_7924.shtm "
-msgstr ""
-"Проблема з реєстрацією системи:\n"
-"\n"
-"Універсальний ключ активації обмежує кількість систем, що підключаються до "
-"організації RHN, що пов'язана з вашим обліковим записом. Щоб дозволити "
-"підключення цієї системи зверніться до адміністратора організації RHN та "
-"попросіть, або збільшити кількість систем, яким дозволено підключення, або "
-"деактивувати універсальний ключ. Докладнішу інформацію можна знайти можна "
-"знайти у статті #7924 Бази знань за адресою http://kbase.redhat.com/faq/"
-"FAQ_61_7924.shtm (англійською)."
+"A universal default activation key limits the number of systems which can connect to the RHN organization associated with your login. To allow this system to connect, please contact your RHN organization administrator to increase the number of systems allowed to connect or to disable this universal default activation key. More details can be found in Red Hat Knowledgebase Article #7924 at http://kbase.redhat.com/faq/FAQ_61_7924.shtm "
+msgstr "Проблема з реєстрацією системи:\n\nУніверсальний ключ активації обмежує кількість систем, що підключаються до організації RHN, що пов'язана з вашим обліковим записом. Щоб дозволити підключення цієї системи зверніться до адміністратора організації RHN та попросіть, або збільшити кількість систем, яким дозволено підключення, або деактивувати універсальний ключ. Докладнішу інформацію можна знайти можна знайти у статті #7924 Бази знань за адресою http://kbase.redhat.com/faq/FAQ_61_7924.shtm (англійською)."
 
 #: ../src/up2date_client/rhnreg_constants.py:311
 msgid ""
@@ -1273,22 +1078,16 @@ msgstr ""
 #: ../src/up2date_client/up2dateErrors.py:247
 msgid ""
 "\n"
-"    Your organization does not have enough Management entitlements to "
-"register this\n"
-"    system to Red Hat Network. Please notify your organization administrator "
-"of this error. \n"
-"    You should be able to register this system after your organization frees "
-"existing \n"
-"    or purchases additional entitlements. Additional entitlements may be "
-"purchased by your\n"
+"    Your organization does not have enough Management entitlements to register this\n"
+"    system to Red Hat Network. Please notify your organization administrator of this error. \n"
+"    You should be able to register this system after your organization frees existing \n"
+"    or purchases additional entitlements. Additional entitlements may be purchased by your\n"
 "    organization administrator by logging into Red Hat Network and visiting\n"
 "    the 'Subscription Management' page in the 'Your RHN' section of RHN.\n"
 "    \n"
 "    A common cause of this error code is due to having mistakenly setup an\n"
-"    Activation Key which is set as the universal default.  If an activation "
-"key is set\n"
-"    on the account as a universal default, you can disable this key and "
-"retry to avoid\n"
+"    Activation Key which is set as the universal default.  If an activation key is set\n"
+"    on the account as a universal default, you can disable this key and retry to avoid\n"
 "    requiring a Management entitlement."
 msgstr ""
 
@@ -1312,9 +1111,7 @@ msgstr "Вказати пароль для автентифікації з http 
 msgid ""
 "\n"
 "Aborted.\n"
-msgstr ""
-"\n"
-"Перервано.\n"
+msgstr "\nПерервано.\n"
 
 #: ../src/up2date_client/rhncli.py:80
 #, python-format
@@ -1342,11 +1139,9 @@ msgstr "Помилка SSL: %s\n"
 
 #: ../src/up2date_client/rhncli.py:92
 msgid ""
-"A common cause of this error is the system time being incorrect. Verify that "
-"the time on this system is correct.\n"
-msgstr ""
-"Типова причина цієї помилки - неправильний системний час. Перевірте годинник "
-"системи.\n"
+"A common cause of this error is the system time being incorrect. Verify that"
+" the time on this system is correct.\n"
+msgstr "Типова причина цієї помилки - неправильний системний час. Перевірте годинник системи.\n"
 
 #: ../src/up2date_client/rhncli.py:99
 #, python-format
@@ -1386,11 +1181,9 @@ msgstr "Додаткову інформацію можна знайти у /var/
 #: ../src/up2date_client/capabilities.py:89
 #, python-format
 msgid ""
-"This client requires the server to support %s, which the current server does "
-"not support"
-msgstr ""
-"Цей клієнт вимагає, щоб сервер підтримував %s, але поточний сервер не "
-"підтримує цю функцію"
+"This client requires the server to support %s, which the current server does"
+" not support"
+msgstr "Цей клієнт вимагає, щоб сервер підтримував %s, але поточний сервер не підтримує цю функцію"
 
 #: ../src/up2date_client/gui.py:313
 msgid "_Finish"
@@ -1527,8 +1320,7 @@ msgstr "Ім'я користувача та пароль є обов'язков�
 
 #: ../src/bin/rhnreg_ks.py:87
 msgid "This system is already registered. Use --force to override"
-msgstr ""
-"Система вже зареєстрована. Використовуйте --force для примусової реєстрації."
+msgstr "Система вже зареєстрована. Використовуйте --force для примусової реєстрації."
 
 #: ../src/bin/rhnreg_ks.py:121
 msgid ""
@@ -1560,9 +1352,7 @@ msgstr ""
 msgid ""
 "A profilename was not specified, and hostname and IP address could not be "
 "determined to use as a profilename, please specify one."
-msgstr ""
-"Не вказано назву профілю. Назва вузла чи IP адреса не можуть "
-"використовуватись у якості назви профілю. Вкажіть назву профілю."
+msgstr "Не вказано назву профілю. Назва вузла чи IP адреса не можуть використовуватись у якості назви профілю. Вкажіть назву профілю."
 
 #: ../src/bin/rhn_register.py:37
 msgid "Do not attempt to use X"
@@ -1654,11 +1444,9 @@ msgstr ""
 
 #: ../src/bin/rhn-profile-sync.py:35
 msgid ""
-"You need to register this system by running `rhn_register` before using this "
-"option"
-msgstr ""
-"Перед використанням цього параметра необхідно зареєструвати цю систему "
-"виконавши `rhn_register`"
+"You need to register this system by running `rhn_register` before using this"
+" option"
+msgstr "Перед використанням цього параметра необхідно зареєструвати цю систему виконавши `rhn_register`"
 
 #: ../src/bin/rhn-profile-sync.py:43
 msgid "Updating package profile..."
@@ -1714,9 +1502,7 @@ msgstr ""
 msgid ""
 "<b>The network connection on your system is not active. Your system cannot "
 "be set up for software updates at this time.</b>"
-msgstr ""
-"<b>В системі немає активного мережного з'єднання. Вона не може бути "
-"налаштована на отримання оновлень ПЗ.</b>"
+msgstr "<b>В системі немає активного мережного з'єднання. Вона не може бути налаштована на отримання оновлень ПЗ.</b>"
 
 #: ../data/rh_register.glade.h:5
 msgid ""
@@ -1736,10 +1522,7 @@ msgid ""
 "<b>You have no active subscriptions available in your account.</b> You will "
 "need to do one of the following to create an active subscription in your "
 "account before this system can be registered:"
-msgstr ""
-"<b>Вашому обліковому запису не доступні активні передплати.</b> Виконайте "
-"наступні дії для створення активної передплати, щоб ваша система могла "
-"підключитися до Red Hat Network:"
+msgstr "<b>Вашому обліковому запису не доступні активні передплати.</b> Виконайте наступні дії для створення активної передплати, щоб ваша система могла підключитися до Red Hat Network:"
 
 #: ../data/rh_register.glade.h:8
 msgid "<b>Your system was registered for updates during installation.</b>"
@@ -1747,8 +1530,8 @@ msgstr ""
 
 #: ../data/rh_register.glade.h:9
 msgid ""
-"<b>_All available updates</b> will be provided to this system.  This system, "
-"if kept updated, will always be equivalent to the latest available minor "
+"<b>_All available updates</b> will be provided to this system.  This system,"
+" if kept updated, will always be equivalent to the latest available minor "
 "release of Red Hat Enterprise Linux 6.  It will be registered to the main "
 "'Red Hat Enterprise Linux 6' software channel."
 msgstr ""
@@ -1768,10 +1551,7 @@ msgstr ""
 msgid ""
 "<small>Tip: Forgot your login or password? Look it up at \n"
 "https://www.redhat.com/wapps/sso/rhn/lostPassword.html</small>"
-msgstr ""
-"<small>Підказка: Забули назву вашого облікового запису Red Hat чи пароль? "
-"Знайдіть їх у\n"
-"https://www.redhat.com/wapps/sso/rhn/lostPassword.html</small> "
+msgstr "<small>Підказка: Забули назву вашого облікового запису Red Hat чи пароль? Знайдіть їх у\nhttps://www.redhat.com/wapps/sso/rhn/lostPassword.html</small> "
 
 #: ../data/rh_register.glade.h:14
 msgid "Advanced Network Configuration"
@@ -1871,17 +1651,12 @@ msgstr "Початкове вікно"
 
 #: ../data/rh_register.glade.h:44
 msgid ""
-"This system will <b>not</b> be able to successfully receive software "
-"updates, including security updates, from Red Hat without connecting to a "
-"Red Hat Network server.\n"
+"This system will <b>not</b> be able to successfully receive software updates, including security updates, from Red Hat without connecting to a Red Hat Network server.\n"
 "\n"
-"To keep your system updated, secure, and supported, please register this "
-"system at your earliest convenience.\n"
+"To keep your system updated, secure, and supported, please register this system at your earliest convenience.\n"
 "\n"
-"You may access the RHN registration tool by running <b>RHN Registration</b> "
-"in the <b>System > Administration</b> menu.\n"
-"You may access the software update tool by running <b>Software Update</b> in "
-"the <b>System > Administration</b> menu."
+"You may access the RHN registration tool by running <b>RHN Registration</b> in the <b>System > Administration</b> menu.\n"
+"You may access the software update tool by running <b>Software Update</b> in the <b>System > Administration</b> menu."
 msgstr ""
 
 #: ../data/rh_register.glade.h:50
@@ -2016,8 +1791,8 @@ msgstr ""
 #: ../data/rh_register.glade.h:81
 msgctxt "yes"
 msgid ""
-"<small><b>Tip:</b> Red Hat values your privacy: http://www.redhat.com/legal/"
-"privacy_statement.html.</small>"
+"<small><b>Tip:</b> Red Hat values your privacy: "
+"http://www.redhat.com/legal/privacy_statement.html.</small>"
 msgstr ""
 
 #: ../data/rh_register.glade.h:82
@@ -2038,8 +1813,8 @@ msgstr ""
 #: ../data/rh_register.glade.h:85
 msgctxt "yes"
 msgid ""
-"Access to the technical support experts at Red Hat or Red Hat's partners for "
-"help with any issues you might encounter with this system."
+"Access to the technical support experts at Red Hat or Red Hat's partners for"
+" help with any issues you might encounter with this system."
 msgstr ""
 
 #: ../data/rh_register.glade.h:86
@@ -2176,8 +1951,8 @@ msgstr ""
 #: ../data/rh_register.glade.h:109
 msgctxt "yes"
 msgid ""
-"Please enter your account information for <b>Red Hat Network</b> (http://rhn."
-"redhat.com/)"
+"Please enter your account information for <b>Red Hat Network</b> "
+"(http://rhn.redhat.com/)"
 msgstr ""
 
 #: ../data/rh_register.glade.h:110
@@ -2198,8 +1973,8 @@ msgstr ""
 #: ../data/rh_register.glade.h:113
 msgctxt "yes"
 msgid ""
-"Purchase an additional Red Hat Enterprise Linux subscription at http://www."
-"redhat.com/store/."
+"Purchase an additional Red Hat Enterprise Linux subscription at "
+"http://www.redhat.com/store/."
 msgstr ""
 
 #: ../data/rh_register.glade.h:114
@@ -2242,8 +2017,8 @@ msgstr ""
 #: ../data/rh_register.glade.h:121
 msgctxt "yes"
 msgid ""
-"Stay in compliance with your subscription agreement and manage subscriptions "
-"for systems connected to your account at http://rhn.redhat.com/."
+"Stay in compliance with your subscription agreement and manage subscriptions"
+" for systems connected to your account at http://rhn.redhat.com/."
 msgstr ""
 
 #: ../data/rh_register.glade.h:122
@@ -2260,7 +2035,6 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:124
-#, fuzzy
 msgctxt "yes"
 msgid ""
 "This assistant will guide you through connecting your system to Red Hat "
@@ -2268,28 +2042,20 @@ msgid ""
 "keep your system supported and compliant. You will need the following at "
 "this time:"
 msgstr ""
-"Помічник допоможе підключити вашу систему до Red Hat Network (RHN) для "
-"отримання оновлення ПЗ, включно з оновленням безпеки для підтримки захисту "
-"системи. Для цього необхідно:\n"
-"\n"
-" * Мережне з'єднання\n"
-" * Реєстраційне ім'я та пароль Red Hat\n"
-" * Розташування Red Hat Network Satellite чи Proxy (необов'язково)\n"
-"\n"
 
 #: ../data/rh_register.glade.h:125
 msgctxt "yes"
 msgid ""
-"This system has already been registered with RHN using RHN certificate-based "
-"technology."
+"This system has already been registered with RHN using RHN certificate-based"
+" technology."
 msgstr ""
 
 #: ../data/rh_register.glade.h:126
 msgctxt "yes"
 msgid ""
 "To learn more about RHN registration and technologies please consult this "
-"Knowledge Base Article: <a href=\"https://access.redhat.com/kb/docs/"
-"DOC-45563\">https://access.redhat.com/kb/docs/DOC-45563</a>"
+"Knowledge Base Article: <a "
+"href=\"https://access.redhat.com/kb/docs/DOC-45563\">https://access.redhat.com/kb/docs/DOC-45563</a>"
 msgstr ""
 
 #: ../data/rh_register.glade.h:127
@@ -2312,9 +2078,9 @@ msgstr ""
 #: ../data/rh_register.glade.h:130
 msgctxt "yes"
 msgid ""
-"You may connect your system to <b>Red Hat Network</b> (https://rhn.redhat."
-"com/) or to a <b>Red Hat Network Satellite</b> or <b>Red Hat Network Proxy</"
-"b> in order to receive software updates."
+"You may connect your system to <b>Red Hat Network</b> "
+"(https://rhn.redhat.com/) or to a <b>Red Hat Network Satellite</b> or <b>Red"
+" Hat Network Proxy</b> in order to receive software updates."
 msgstr ""
 
 #: ../data/rh_register.glade.h:131
@@ -2334,8 +2100,8 @@ msgstr ""
 #: ../data/rh_register.glade.h:133
 msgctxt "yes"
 msgid ""
-"You'll need to send us a profile of what packages and hardware are installed "
-"on your system so we can determine what updates are available."
+"You'll need to send us a profile of what packages and hardware are installed"
+" on your system so we can determine what updates are available."
 msgstr ""
 
 #: ../data/rh_register.glade.h:134
@@ -2472,6 +2238,3 @@ msgstr ""
 #: ../rhn_register.desktop.in.h:3
 msgid "Register to Spacewalk/Satellite/Red Hat Network."
 msgstr ""
-
-#~ msgid "System software updates already set up"
-#~ msgstr "Оновлення ПЗ системи вже налаштовано"
