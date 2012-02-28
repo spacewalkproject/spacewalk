@@ -210,8 +210,6 @@ public class ApiDoclet {
         if (tags.length > 0) {
             return tags[0];
         }
-        else {
-            return null;
-        }
+        return null;
     }
 }

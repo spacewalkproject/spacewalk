@@ -103,9 +103,7 @@ public class EnforcementDoclet {
         if (exceptions.get(clazz) == null) {
             return false;
         }
-        else {
-            return exceptions.get(clazz).contains(field);
-        }
+        return exceptions.get(clazz).contains(field);
 
     }
     private static void setException(String clazz, String field) {
