@@ -20,6 +20,7 @@ import fnmatch
 import ConfigParser
 from optparse import OptionParser, Option
 import re
+from spacewalk.common.cli import getUsernamePassword, xmlrpc_login, xmlrpc_logout
 
 DEFAULT_SERVER = "localhost"
 DEFAULT_USER = "spacewalk"
@@ -65,7 +66,8 @@ def connect(user, password, server):
     if options.verbose:
         sys.stdout.write("Connecting to %s\n" % server_url)
     client   = xmlrpclib.Server(server_url, verbose=client_verbose)
-    key      = client.auth.login(user, password)
+    user, password = getUsernamePassword(user, password)
+    key      = xmlrpc_login(client, user, password)
     return client, key
 
 def add_channels(channels, section, arch):
@@ -126,8 +128,8 @@ Create everything as well as unlimited activation key for every channel:
     option_list = [
         Option("-c", "--config", help="configuration file",
                                  default=DEFAULT_CONFIG),
-        Option("-u", "--user", help="username", default=DEFAULT_USER),
-        Option("-p", "--password", help="password", default=DEFAULT_PASSWORD),
+        Option("-u", "--user", help="username"),
+        Option("-p", "--password", help="password"),
         Option("-s", "--server", help="your spacewalk server",
                                  default=DEFAULT_SERVER),
         Option("-k", "--keys", help="activation key usage limit -"
@@ -343,5 +345,5 @@ Create everything as well as unlimited activation key for every channel:
 
     if client is not None:
         # logout
-        client.auth.logout(key)
+        xmlrpc_logout(client, key)
 
