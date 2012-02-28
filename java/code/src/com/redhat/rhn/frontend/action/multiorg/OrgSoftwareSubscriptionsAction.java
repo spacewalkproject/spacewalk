@@ -30,7 +30,6 @@ import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.org.UpdateOrgSoftwareEntitlementsCommand;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -50,8 +49,6 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class OrgSoftwareSubscriptionsAction extends RhnAction implements Listable {
     private static final String SUBSCRIPTIONS = "subscriptions";
-    private static Logger log = Logger.getLogger(OrgSoftwareSubscriptionsAction.class);
-
     private static String makeLabel(HttpServletRequest request) {
         RequestContext ctx = new RequestContext(request);
         Long oid = ctx.getParamAsLong(RequestContext.ORG_ID);
