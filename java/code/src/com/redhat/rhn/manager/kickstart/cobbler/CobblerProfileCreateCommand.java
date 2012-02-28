@@ -20,7 +20,6 @@ import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.user.User;
 
-import org.apache.log4j.Logger;
 import org.cobbler.CobblerConnection;
 import org.cobbler.Distro;
 import org.cobbler.Profile;
@@ -33,9 +32,6 @@ import java.util.Map;
  * @version $Rev$
  */
 public class CobblerProfileCreateCommand extends CobblerProfileCommand {
-
-    private static Logger log = Logger.getLogger(CobblerProfileCreateCommand.class);
-
 
     /**
      * Constructor
