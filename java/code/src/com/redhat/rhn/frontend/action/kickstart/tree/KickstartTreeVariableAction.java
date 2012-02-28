@@ -33,8 +33,7 @@ public class KickstartTreeVariableAction extends KickstartVariableAction {
 
     @Override
     protected CobblerObject getCobblerObject(String cobblerId, User user) {
-        CobblerXMLRPCHelper helper = new CobblerXMLRPCHelper();
-        return Distro.lookupById(helper.getConnection(user), cobblerId);
+        return Distro.lookupById(CobblerXMLRPCHelper.getConnection(user), cobblerId);
     }
 
     @Override

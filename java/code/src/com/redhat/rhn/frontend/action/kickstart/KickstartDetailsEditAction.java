@@ -143,9 +143,8 @@ public class KickstartDetailsEditAction extends BaseKickstartEditAction {
      */
     public static void setupCobblerFormValues(RequestContext ctx,
             DynaActionForm form, KickstartData data) {
-        CobblerXMLRPCHelper helper = new CobblerXMLRPCHelper();
-        Profile prof = Profile.lookupById(helper.getConnection(ctx.getLoggedInUser()),
-                data.getCobblerId());
+        Profile prof = Profile.lookupById(CobblerXMLRPCHelper.getConnection(
+                    ctx.getLoggedInUser()), data.getCobblerId());
         if (prof != null) {
             form.set(KERNEL_OPTIONS, prof.getKernelOptionsString());
             form.set(POST_KERNEL_OPTIONS, prof.getKernelPostOptionsString());
@@ -297,8 +296,7 @@ public class KickstartDetailsEditAction extends BaseKickstartEditAction {
                             form.getString(POST_KERNEL_OPTIONS)));
         cmd.store();
 
-        CobblerXMLRPCHelper helper = new CobblerXMLRPCHelper();
-        Profile prof = Profile.lookupById(helper.getConnection(user),
+        Profile prof = Profile.lookupById(CobblerXMLRPCHelper.getConnection(user),
                 ksdata.getCobblerId());
         if (prof == null) {
             return;

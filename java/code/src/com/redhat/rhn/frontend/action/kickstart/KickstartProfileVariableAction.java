@@ -33,8 +33,7 @@ public class KickstartProfileVariableAction extends KickstartVariableAction {
 
     @Override
     protected CobblerObject getCobblerObject(String cobblerId, User user) {
-        CobblerXMLRPCHelper helper = new CobblerXMLRPCHelper();
-        return Profile.lookupById(helper.getConnection(user), cobblerId);
+        return Profile.lookupById(CobblerXMLRPCHelper.getConnection(user), cobblerId);
     }
 
     @Override
