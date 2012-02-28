@@ -162,7 +162,7 @@ public class SchedulerKernel {
         MessageQueue.startMessaging();
         MessageQueue.configureDefaultActions();
         try {
-            this.scheduler.start();
+            SchedulerKernel.scheduler.start();
             initializeAllSatSchedules();
             synchronized (this.shutdownLock) {
                 try {
@@ -198,8 +198,8 @@ public class SchedulerKernel {
      */
     protected void shutdown() {
         try {
-            this.scheduler.standby();
-            this.scheduler.shutdown();
+            SchedulerKernel.scheduler.standby();
+            SchedulerKernel.scheduler.shutdown();
         }
         catch (SchedulerException e) {
             // TODO Figure out what to do with this guy
@@ -224,7 +224,8 @@ public class SchedulerKernel {
         Date now = new Date();
         try {
             jobNames = Arrays.asList(
-                    this.scheduler.getJobNames(TaskoQuartzHelper.getGroupName(null)));
+                    SchedulerKernel.scheduler.getJobNames(
+                        TaskoQuartzHelper.getGroupName(null)));
             for (TaskoSchedule schedule : TaskoFactory.listActiveSchedulesByOrg(null)) {
                 if (!jobNames.contains(schedule.getJobLabel())) {
                     schedule.sanityCheckForPredefinedSchedules();
