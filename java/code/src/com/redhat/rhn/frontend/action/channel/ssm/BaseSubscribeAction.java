@@ -201,9 +201,7 @@ public class BaseSubscribeAction extends RhnLookupDispatchAction {
                     return strutsDelegate.forwardParams(mapping.findForward("success"),
                             new HashMap());
                 }
-                else {
-                    newBase = ChannelManager.lookupByIdAndUser(newBaseChannelId, user);
-                }
+                newBase = ChannelManager.lookupByIdAndUser(newBaseChannelId, user);
             }
 
             if (oldBase != null) {

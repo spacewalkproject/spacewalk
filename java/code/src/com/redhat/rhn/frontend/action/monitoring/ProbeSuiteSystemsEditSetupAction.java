@@ -41,9 +41,7 @@ public class ProbeSuiteSystemsEditSetupAction extends BaseSetListAction {
             rctx.getRequest().setAttribute("probeSuite", suite);
             return "probesuitesystemsedit.jsp.addprobesfirst";
         }
-        else {
-            return null;
-        }
+        return null;
     }
 
     /**

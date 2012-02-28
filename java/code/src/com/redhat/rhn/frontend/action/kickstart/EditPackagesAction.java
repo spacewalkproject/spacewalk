@@ -67,9 +67,7 @@ public class EditPackagesAction extends RhnAction {
             addMessage(request, "kickstart.edit.pkgs.updated");
             return returnForward;
         }
-        else {
-            return display(mapping, dynaForm, request, response, ctx, ksdata);
-        }
+        return display(mapping, dynaForm, request, response, ctx, ksdata);
     }
 
     /**

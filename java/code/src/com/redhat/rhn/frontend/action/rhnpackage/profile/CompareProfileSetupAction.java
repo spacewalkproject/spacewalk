@@ -78,14 +78,12 @@ public class CompareProfileSetupAction extends RhnAction {
             if (!sessionSet.isEmpty()) {
                 return handleDispatchAction(mapping, requestContext);
             }
-            else {
-                RhnHelper.handleEmptySelection(request);
-                Map params = new HashMap();
-                params.put(RequestContext.SID, sid.toString());
-                params.put(RequestContext.PRID, prid.toString());
-                return getStrutsDelegate().forwardParams(
-                        mapping.findForward("error"), params);
-            }
+            RhnHelper.handleEmptySelection(request);
+            Map params = new HashMap();
+            params.put(RequestContext.SID, sid.toString());
+            params.put(RequestContext.PRID, prid.toString());
+            return getStrutsDelegate().forwardParams(
+                    mapping.findForward("error"), params);
         }
         DataResult dataSet = getDataResult(requestContext);
         // if its a list action update the set and the selections

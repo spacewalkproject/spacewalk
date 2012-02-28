@@ -139,9 +139,7 @@ public class SearchAction extends RhnAction {
                 return mapping.findForward("error");
             }
         }
-        else {
-            return mapping.findForward("error");
-        }
+        return mapping.findForward("error");
     }
 
     protected void performRedirect(String url,

@@ -74,10 +74,7 @@ public class ChildChannelAction extends RhnAction {
             processList(user, request);
             return mapping.findForward("success");
         }
-        // Otherwise let the JSP display the list
-        else {
-            return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
-        }
+        return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
 
     // Get the list of child-channels available to the System Set

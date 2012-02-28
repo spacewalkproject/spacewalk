@@ -105,9 +105,7 @@ public class SystemDetailsEditAction extends RhnAction {
                             "sid",
                             s.getId().toString());
                 }
-                else {
-                    forwardName = "error";
-                }
+                forwardName = "error";
             }
             else {
                 forwardName = "error";

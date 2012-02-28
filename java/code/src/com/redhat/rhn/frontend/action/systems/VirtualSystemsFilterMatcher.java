@@ -36,23 +36,20 @@ public class VirtualSystemsFilterMatcher implements Matcher {
                 StringUtils.isBlank(filterColumn)) {
             return true; ///show all if I entered a blank value
         }
-        else {
-            VirtualSystemOverview current = (VirtualSystemOverview) obj;
-            String value = "";
-            if (current.getIsVirtualHost()) {
-                value = current.getServerName();
-            }
-            else if (current.getVirtualSystemId() == null) {
-                value = current.getName();
-            }
-            else {
-                value = current.getServerName();
-            }
-            if (!StringUtils.isBlank(value)) {
-                return value.toUpperCase().indexOf(filterData.toUpperCase()) >= 0;
-            }
-            return false;
-
+        VirtualSystemOverview current = (VirtualSystemOverview) obj;
+        String value = "";
+        if (current.getIsVirtualHost()) {
+            value = current.getServerName();
         }
+        else if (current.getVirtualSystemId() == null) {
+            value = current.getName();
+        }
+        else {
+            value = current.getServerName();
+        }
+        if (!StringUtils.isBlank(value)) {
+            return value.toUpperCase().indexOf(filterData.toUpperCase()) >= 0;
+        }
+        return false;
     }
 }

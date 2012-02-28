@@ -74,9 +74,7 @@ public class ErrataConfirmSetupAction extends RhnAction implements Listable {
             if (!set.isEmpty()) {
                 return confirmErrata(mapping, formIn, request, response);
             }
-            else {
-                RhnHelper.handleEmptySelection(request);
-            }
+            RhnHelper.handleEmptySelection(request);
         }
         //Setup the datepicker widget
         DatePicker picker = getStrutsDelegate().prepopulateDatePicker(request,

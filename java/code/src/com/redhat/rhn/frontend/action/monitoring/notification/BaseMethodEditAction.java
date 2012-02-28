@@ -98,12 +98,10 @@ public abstract class BaseMethodEditAction extends RhnAction {
                     }
                     return returnActionForward;
                 }
-                else {
-                    ValidatorError[] verrors = new ValidatorError[1];
-                    verrors[0] = e;
-                    errors.add(RhnValidationHelper.validatorErrorToActionErrors(verrors));
-                    strutsDelegate.saveMessages(request, errors);
-                }
+                ValidatorError[] verrors = new ValidatorError[1];
+                verrors[0] = e;
+                errors.add(RhnValidationHelper.validatorErrorToActionErrors(verrors));
+                strutsDelegate.saveMessages(request, errors);
             }
         }
 

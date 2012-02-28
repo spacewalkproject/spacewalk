@@ -153,8 +153,6 @@ public class CreateAction extends RhnAction {
             String url = form.getString("buglistUrl");
             return ErrataManager.createNewUnpublishedBug(id, summary, url);
         }
-        else {
-            return null;
-        }
+        return null;
     }
 }

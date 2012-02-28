@@ -83,14 +83,10 @@ public class EligibleFlexGuestAction extends RhnAction implements Listable {
             if (requestContext.getRequest().getParameter("show") == null) {
                return requestContext.getRequest().getParameter("selected_family");
             }
-            else {
-                String selected = requestContext.getRequest().getParameter(SELECTED_FAMILY);
-                return  selected == null ? "" : selected;
-            }
+            String selected = requestContext.getRequest().getParameter(SELECTED_FAMILY);
+            return  selected == null ? "" : selected;
         }
-        else {
-            return ALL;
-        }
+        return ALL;
     }
 
 
@@ -167,12 +163,9 @@ public class EligibleFlexGuestAction extends RhnAction implements Listable {
             }
             return new ArrayList(sysMap.values());
         }
-        else {
-
-            for (ChannelFamilySystemGroup grp : list) {
-                if (grp.getId().toString().equals(famId)) {
-                    return grp.expand();
-                }
+        for (ChannelFamilySystemGroup grp : list) {
+            if (grp.getId().toString().equals(famId)) {
+                return grp.expand();
             }
         }
 

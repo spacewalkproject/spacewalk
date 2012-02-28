@@ -127,9 +127,7 @@ public class SystemMigrateAction extends RhnAction {
 
                     return mapping.findForward(forwardName);
                 }
-                else {
-                    forwardName = "error";
-                }
+                forwardName = "error";
 
             }
             else {

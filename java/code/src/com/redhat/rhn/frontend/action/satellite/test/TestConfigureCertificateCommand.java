@@ -37,9 +37,7 @@ public class TestConfigureCertificateCommand extends ConfigureCertificateCommand
             retval[0] = new ValidatorError("some.error.key");
             return retval;
         }
-        else {
-            return null;
-        }
+        return null;
     }
 
 }

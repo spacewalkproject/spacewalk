@@ -87,21 +87,19 @@ public class RepoDetailsAction extends RhnAction {
                                 mapping.findForward("default"),
                                 new HashMap());
                     }
+                    if (isCreateMode(request)) {
+                        createSuccessMessage(request,
+                                "repos.jsp.create.success", repo.getLabel());
+                    }
                     else {
-                        if (isCreateMode(request)) {
-                            createSuccessMessage(request,
-                                    "repos.jsp.create.success", repo.getLabel());
-                        }
-                        else {
-                            createSuccessMessage(request,
-                                    "repos.jsp.update.success", repo.getLabel());
-                        }
-                        request.removeAttribute(CREATE_MODE);
-                        setupRepo(request, form, repo);
-                        return getStrutsDelegate().forwardParam(
-                                mapping.findForward("success"), "id",
-                                repo.getId().toString());
-                   }
+                        createSuccessMessage(request,
+                                "repos.jsp.update.success", repo.getLabel());
+                    }
+                    request.removeAttribute(CREATE_MODE);
+                    setupRepo(request, form, repo);
+                    return getStrutsDelegate().forwardParam(
+                            mapping.findForward("success"), "id",
+                            repo.getId().toString());
                 }
                 catch (ValidatorException ve) {
                     getStrutsDelegate().saveMessages(request, ve.getResult());

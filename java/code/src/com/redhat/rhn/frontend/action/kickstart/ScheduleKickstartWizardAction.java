@@ -706,9 +706,7 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
         if (!isPost) {
             return ret.getKernelOptionsString();
         }
-        else {
-            return ret.getKernelPostOptionsString();
-        }
+        return ret.getKernelPostOptionsString();
 
     }
 }

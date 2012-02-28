@@ -54,9 +54,7 @@ public class KickstartCryptoKeysSetupAction extends BaseKickstartListSetupAction
         if (ksdata.getCryptoKeys() != null) {
             return ksdata.getCryptoKeys().iterator();
         }
-        else {
-            return Collections.EMPTY_LIST.iterator();
-        }
+        return Collections.EMPTY_LIST.iterator();
     }
 
 }

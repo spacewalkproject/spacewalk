@@ -68,9 +68,7 @@ public abstract class BaseProbeSuiteEditAction extends RhnAction {
             return strutsDelegate.forwardParam(mapping.findForward(forwardName),
                     RequestContext.SUITE_ID, suite.getId().toString());
         }
-        else {
-            return mapping.findForward(forwardName);
-        }
+        return mapping.findForward(forwardName);
     }
 
     /**

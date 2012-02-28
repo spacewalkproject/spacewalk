@@ -280,9 +280,7 @@ public class KickstartHelper {
             log.debug("Kickstart host from proxy header: " + firstProxy);
             return firstProxy;
         }
-        else {
-            return ConfigDefaults.get().getCobblerHost();
-        }
+        return ConfigDefaults.get().getCobblerHost();
     }
 
     /**
@@ -405,9 +403,7 @@ public class KickstartHelper {
         if (ksdata.isRhel4() || ksdata.isRhel3() || ksdata.isRhel2()) {
             return hasPackages(ksdata.getChannel(), KickstartFormatter.UPDATE_PKG_NAMES);
         }
-        else {
-            return true;
-        }
+        return true;
     }
 
     private boolean hasFresh(KickstartData ksdata) {
@@ -425,9 +421,7 @@ public class KickstartHelper {
             return hasPackages(ksdata.getChannel(),
                     KickstartFormatter.FRESH_PKG_NAMES_RHEL34);
         }
-        else {
-            return true;
-        }
+        return true;
     }
 
     private boolean hasPackages(Channel c, String[] packageNames) {

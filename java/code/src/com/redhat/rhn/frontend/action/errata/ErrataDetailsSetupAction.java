@@ -95,16 +95,14 @@ public class ErrataDetailsSetupAction extends RhnAction {
         if (files == null || files.size() == 0) {
             return null;
         }
-        else {
-            ErrataFile ef = (ErrataFile) files.get(0);
-            StringBuffer buf = new StringBuffer();
-            buf.append("<a href=\"/rhn/oval?errata=").append(errataId).append("\">");
-            String name = ef.getErrata().getAdvisoryName().toLowerCase();
-            name = name.replaceAll(":", "");
-            buf.append("com.redhat.").append(name).append(".xml");
-            buf.append("</a>");
-            retval = buf.toString();
-        }
+        ErrataFile ef = (ErrataFile) files.get(0);
+        StringBuffer buf = new StringBuffer();
+        buf.append("<a href=\"/rhn/oval?errata=").append(errataId).append("\">");
+        String name = ef.getErrata().getAdvisoryName().toLowerCase();
+        name = name.replaceAll(":", "");
+        buf.append("com.redhat.").append(name).append(".xml");
+        buf.append("</a>");
+        retval = buf.toString();
         return retval;
     }
 }

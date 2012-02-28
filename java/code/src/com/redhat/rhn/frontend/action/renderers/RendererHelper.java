@@ -67,9 +67,7 @@ public class RendererHelper {
             Arrays.sort(overviews, new SystemOverviewComparator());
             return new DataResult(Arrays.asList(overviews));
         }
-        else {
-            return dr;
-        }
+        return dr;
     }
 
     /**

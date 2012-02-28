@@ -231,9 +231,7 @@ public abstract class BaseProbeCreateAction extends BaseProbeAction {
                    ls.getMessage("punctuation.colonwithspace") +
                    ls.getMessage(command.getDescription());
         }
-        else {
-            return ls.getMessage(command.getDescription());
-        }
+        return ls.getMessage(command.getDescription());
     }
 
     private ArrayList toLabelValue(CommandGroup group, List commands) {

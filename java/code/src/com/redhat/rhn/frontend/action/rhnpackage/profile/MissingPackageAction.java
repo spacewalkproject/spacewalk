@@ -222,8 +222,6 @@ public class MissingPackageAction extends BaseProfilesAction {
         if (isSystemSync(context)) {
             return DECL_SYSTEM_ACTION.getDecl(sid);
         }
-        else {
-            return DECL_PROFILE_ACTION.getDecl(sid);
-        }
+        return DECL_PROFILE_ACTION.getDecl(sid);
     }
 }

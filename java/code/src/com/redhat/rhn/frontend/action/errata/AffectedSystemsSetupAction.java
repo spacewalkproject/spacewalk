@@ -77,9 +77,7 @@ public class AffectedSystemsSetupAction extends RhnListAction {
                 return strutsDelegate.forwardParams(mapping.findForward("confirm"),
                         request.getParameterMap());
             }
-            else {
-                RhnHelper.handleEmptySelection(request);
-            }
+            RhnHelper.handleEmptySelection(request);
         }
 
         if (ListTagHelper.getListAction(LIST_NAME, request) != null) {

@@ -129,16 +129,14 @@ public class YourRhnAction extends RhnAction {
         if (parts.length < 2) {
             return key;
         }
-        else {
-            StringBuffer buf = new StringBuffer();
-            buf.append(parts[0].toLowerCase());
-            for (int x = 1; x < parts.length; x++) {
-                String s = parts[x].substring(0, 1);
-                String r = parts[x].substring(1);
-                buf.append(s.toUpperCase()).append(r.toLowerCase());
-            }
-            return buf.toString();
+        StringBuffer buf = new StringBuffer();
+        buf.append(parts[0].toLowerCase());
+        for (int x = 1; x < parts.length; x++) {
+            String s = parts[x].substring(0, 1);
+            String r = parts[x].substring(1);
+            buf.append(s.toUpperCase()).append(r.toLowerCase());
         }
+        return buf.toString();
     }
 
     private Map getDisplayPanes(User user) {

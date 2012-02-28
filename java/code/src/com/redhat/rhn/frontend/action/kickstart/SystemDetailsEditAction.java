@@ -79,9 +79,7 @@ public class SystemDetailsEditAction extends RhnAction {
         if (isSubmitted(dynaForm)) {
             return updateSystemDetails(mapping, dynaForm, request, response);
         }
-        else {
-            return viewSystemDetails(mapping, dynaForm, request, response);
-        }
+        return viewSystemDetails(mapping, dynaForm, request, response);
     }
 
     /**

@@ -78,9 +78,7 @@ public abstract class BaseSystemPackagesAction extends RhnAction {
             if (!sessionSet.isEmpty()) {
                 return handleDispatchAction(mapping, requestContext);
             }
-            else {
-                RhnHelper.handleEmptySelection(request);
-            }
+            RhnHelper.handleEmptySelection(request);
         }
         DataResult dataSet = getDataResult(server);
         // if its a list action update the set and the selections

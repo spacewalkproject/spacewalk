@@ -80,9 +80,7 @@ public class UserLocalePrefAction extends BaseUserSetupAction {
             fwd.setRedirect(true);
             return fwd;
         }
-        else {
-            return mapping.findForward("display");
-        }
+        return mapping.findForward("display");
     }
 
     private ActionForward display(ActionMapping mapping, RequestContext ctx,

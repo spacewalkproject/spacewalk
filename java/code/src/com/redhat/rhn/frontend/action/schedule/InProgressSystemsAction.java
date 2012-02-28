@@ -111,9 +111,7 @@ public class InProgressSystemsAction extends RhnSetAction {
         if (remainingSystems > 0) {
             return strutsDelegate.forwardParams(mapping.findForward("default"), params);
         }
-        else {
-            return mapping.findForward("noSystemsLeft");
-        }
+        return mapping.findForward("noSystemsLeft");
     }
 
     /**

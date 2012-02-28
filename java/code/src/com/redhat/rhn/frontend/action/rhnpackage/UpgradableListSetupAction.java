@@ -29,9 +29,7 @@ public class UpgradableListSetupAction extends BaseSystemPackagesAction {
         if (!server.isSolaris()) {
             return PackageManager.upgradable(server.getId(), null);
         }
-        else {
-            return SolarisManager.systemUpgradablePackageList(server.getId(), null);
-        }
+        return SolarisManager.systemUpgradablePackageList(server.getId(), null);
     }
 
 }

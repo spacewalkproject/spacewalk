@@ -241,9 +241,7 @@ public class KickstartSoftwareEditAction extends BaseKickstartEditAction {
         if (ve != null) {
             return ve;
         }
-        else {
-            return null;
-        }
+        return null;
     }
 
     private void setupRepos(RequestContext context,

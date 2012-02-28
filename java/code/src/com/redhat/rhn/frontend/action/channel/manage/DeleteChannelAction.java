@@ -90,10 +90,8 @@ public class DeleteChannelAction extends RhnAction {
                 createSuccessMessage(request, "message.channeldeleted", channel.getName());
                 return actionMapping.findForward("success");
             }
-            else {
-                addMessage(request, "message.channel.delete.systemssubscribed");
-                return actionMapping.findForward("default");
-            }
+            addMessage(request, "message.channel.delete.systemssubscribed");
+            return actionMapping.findForward("default");
         }
         else if (channel.containsDistributions()) {
             createErrorMessage(request,

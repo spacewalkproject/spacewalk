@@ -253,15 +253,13 @@ public class DownloadFile extends DownloadAction {
                 response.sendError(HttpServletResponse.SC_NOT_FOUND);
                 return mapping.findForward("error");
             }
-            else {
-                HashMap params = new HashMap();
-                params.put(TYPE, DownloadManager.DOWNLOAD_TYPE_KICKSTART);
-                params.put(TREE, tree);
-                params.put(CHILD, child);
-                params.put(FILENAME, path);
-                request.setAttribute(PARAMS, params);
-                return null;
-            }
+            HashMap params = new HashMap();
+            params.put(TYPE, DownloadManager.DOWNLOAD_TYPE_KICKSTART);
+            params.put(TREE, tree);
+            params.put(CHILD, child);
+            params.put(FILENAME, path);
+            request.setAttribute(PARAMS, params);
+            return null;
 
         }
 

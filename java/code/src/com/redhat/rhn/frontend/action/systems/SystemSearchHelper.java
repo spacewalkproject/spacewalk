@@ -952,9 +952,7 @@ public class SystemSearchHelper {
                 if (sortLowToHigh) {
                     return lng1.compareTo(lng2);
                 }
-                else {
-                    return lng2.compareTo(lng1);
-                }
+                return lng2.compareTo(lng1);
             }
             catch (NumberFormatException e) {
                 // String isn't a Long so continue;
@@ -965,9 +963,7 @@ public class SystemSearchHelper {
                 if (sortLowToHigh) {
                     return doub1.compareTo(doub2);
                 }
-                else {
-                    return doub2.compareTo(doub1);
-                }
+                return doub2.compareTo(doub1);
             }
             catch (NumberFormatException e) {
                 // String isn't a Double so continue;
@@ -976,9 +972,7 @@ public class SystemSearchHelper {
             if (sortLowToHigh) {
                 return val1.compareTo(val2);
             }
-            else {
-                return val2.compareTo(val1);
-            }
+            return val2.compareTo(val1);
         }
     }
 }

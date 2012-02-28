@@ -77,9 +77,7 @@ public class DisabledListSetupAction extends RhnAction {
             if (!set.isEmpty()) {
                 return handleDispatchAction(mapping, context);
             }
-            else {
-                RhnHelper.handleEmptySelection(request);
-            }
+            RhnHelper.handleEmptySelection(request);
         }
 
         DataResult dr = UserManager.disabledInOrg(user, pc);

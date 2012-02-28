@@ -180,9 +180,7 @@ public class SystemOverviewAction extends RhnAction {
             Arrays.sort(probes, new ServerProbeComparator());
             return new DataResult(Arrays.asList(probes));
         }
-        else {
-            return dr;
-        }
+        return dr;
     }
 
     /**

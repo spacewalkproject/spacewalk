@@ -82,9 +82,7 @@ public class EnableConfirmSetupAction extends RhnListAction {
             if (!set.isEmpty()) {
                 return handleDispatchAction(mapping, requestContext);
             }
-            else {
-                RhnHelper.handleEmptySelection(request);
-            }
+            RhnHelper.handleEmptySelection(request);
         }
 
 

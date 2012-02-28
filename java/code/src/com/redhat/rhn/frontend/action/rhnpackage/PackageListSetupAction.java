@@ -33,8 +33,6 @@ public class PackageListSetupAction extends BaseSystemPackagesAction {
         if (!server.isSolaris()) {
             return PackageManager.systemPackageList(server.getId(), null);
         }
-        else {
-            return SolarisManager.systemPackageList(server.getId(), null);
-        }
+        return SolarisManager.systemPackageList(server.getId(), null);
     }
 }

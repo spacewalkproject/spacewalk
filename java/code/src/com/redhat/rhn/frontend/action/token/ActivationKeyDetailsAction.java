@@ -123,16 +123,14 @@ public class ActivationKeyDetailsAction extends RhnAction {
                 return handleFailure(mapping, context);
             }
         }
-        else {
-            setupPossibleChannels(context);
-            setupEntitlements(context);
-            if (EDIT_MODE.equals(mapping.getParameter())) {
-                ActivationKey key = context.lookupAndBindActivationKey();
+        setupPossibleChannels(context);
+        setupEntitlements(context);
+        if (EDIT_MODE.equals(mapping.getParameter())) {
+            ActivationKey key = context.lookupAndBindActivationKey();
 
-                populateForm(form, key, context);
-            }
-            return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
+            populateForm(form, key, context);
         }
+        return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
 
     }
 
