@@ -159,10 +159,8 @@ public class IntegrationService {
             log.debug("encodedRandom found. valid!");
             return true;
         }
-        else {
-            log.debug("encodedRandom not found.  invalid!");
-            return false;
-        }
+        log.debug("encodedRandom not found.  invalid!");
+        return false;
     }
 
 }

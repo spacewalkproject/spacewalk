@@ -102,9 +102,7 @@ public abstract class RhnWizardAction extends RhnAction {
         if (wizardStep != null) {
             return wizardStep.invoke(mapping, form, ctx, response, this);
         }
-        else {
-            return null;
-        }
+        return null;
     }
 
     protected List findMethods(String methodPrefix) {

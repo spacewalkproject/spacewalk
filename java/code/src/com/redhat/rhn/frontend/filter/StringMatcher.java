@@ -34,14 +34,12 @@ class StringMatcher implements Matcher {
                     StringUtils.isBlank(filterColumn)) {
             return true; ///show all if I entered a blank value
         }
-        else {
-            String value = ((String)MethodUtil.callMethod(obj,
-                    StringUtil.beanify("get " +
-                                        filterColumn),
-                                    new Object[0]));
-            if (!StringUtils.isBlank(value)) {
-                return  value.toUpperCase().indexOf(filterData.toUpperCase()) >= 0;
-            }
+        String value = ((String)MethodUtil.callMethod(obj,
+                StringUtil.beanify("get " +
+                                    filterColumn),
+                                new Object[0]));
+        if (!StringUtils.isBlank(value)) {
+            return  value.toUpperCase().indexOf(filterData.toUpperCase()) >= 0;
         }
         return false;
     }

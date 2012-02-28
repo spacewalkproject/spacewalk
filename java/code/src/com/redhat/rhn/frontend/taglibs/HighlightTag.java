@@ -130,9 +130,7 @@ public class HighlightTag extends BodyTagSupport {
                 throw new JspException("Tag error: must define tag " +
                                        "or both startTag and endTag");
             }
-            else {
-                return;
-            }
+            return;
         }
 
         /*

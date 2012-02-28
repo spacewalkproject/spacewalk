@@ -80,19 +80,17 @@ public class DWRItemSelector {
             }
             return set.size();
         }
-        else {
-            RhnSetDecl decl = RhnSetDecl.find(setLabel);
-            if (decl != null) {
-                RhnSet set = decl.get(new RequestContext(req).getLoggedInUser());
-                if (isOn) {
-                    set.addElements(which);
-                }
-                else {
-                    set.removeElements(which);
-                }
-                RhnSetManager.store(set);
-                return set.size();
+        RhnSetDecl decl = RhnSetDecl.find(setLabel);
+        if (decl != null) {
+            RhnSet set = decl.get(new RequestContext(req).getLoggedInUser());
+            if (isOn) {
+                set.addElements(which);
             }
+            else {
+                set.removeElements(which);
+            }
+            RhnSetManager.store(set);
+            return set.size();
         }
         return null;
     }

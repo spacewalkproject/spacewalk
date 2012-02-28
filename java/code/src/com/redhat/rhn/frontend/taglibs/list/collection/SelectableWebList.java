@@ -76,11 +76,8 @@ abstract class SelectableWebList extends WebList {
             if (size() > 0) {
                 return;
             }
-            else {
-                if (!ignoreEmptySelection) {
-                    RhnHelper.handleEmptySelection(request);
-                }
-
+            if (!ignoreEmptySelection) {
+                RhnHelper.handleEmptySelection(request);
             }
         }
         setupDataSet();

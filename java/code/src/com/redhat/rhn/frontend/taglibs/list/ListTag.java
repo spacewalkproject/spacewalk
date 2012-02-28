@@ -553,31 +553,29 @@ public class ListTag extends BodyTagSupport {
                 renderEmptyList();
                 return BodyTagSupport.SKIP_BODY;
             }
+            ListTagUtil.setCurrentCommand(pageContext, getUniqueName(),
+                    ListCommand.RENDER);
+            if (iterator.hasNext()) {
+                Object obj = iterator.next();
+                if (RhnListTagFunctions.isExpandable(obj)) {
+                    parentObject = obj;
+                }
+                currentObject = obj;
+            }
             else {
+                currentObject = null;
+            }
+            if (currentObject == null) {
+                ListTagUtil.write(pageContext, "</tbody>");
                 ListTagUtil.setCurrentCommand(pageContext, getUniqueName(),
-                        ListCommand.RENDER);
-                if (iterator.hasNext()) {
-                    Object obj = iterator.next();
-                    if (RhnListTagFunctions.isExpandable(obj)) {
-                        parentObject = obj;
-                    }
-                    currentObject = obj;
-                }
-                else {
-                    currentObject = null;
-                }
-                if (currentObject == null) {
-                    ListTagUtil.write(pageContext, "</tbody>");
-                    ListTagUtil.setCurrentCommand(pageContext, getUniqueName(),
-                            ListCommand.TBL_FOOTER);
-                }
-                else {
-                    ListTagUtil.write(pageContext, "<tr");
-                    renderRowClassAndId();
+                        ListCommand.TBL_FOOTER);
+            }
+            else {
+                ListTagUtil.write(pageContext, "<tr");
+                renderRowClassAndId();
 
-                    ListTagUtil.write(pageContext, ">");
-                    pageContext.setAttribute(rowName, currentObject);
-                }
+                ListTagUtil.write(pageContext, ">");
+                pageContext.setAttribute(rowName, currentObject);
             }
         }
         else if (haveTblFootersRendered) {
@@ -897,9 +895,7 @@ public class ListTag extends BodyTagSupport {
             if (size < 1 || size > pageSizes.get(pageSizes.size() - 1)) {
                 return;
             }
-            else {
-                pageSize = size;
-            }
+            pageSize = size;
 
         }
     }

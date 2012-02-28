@@ -397,18 +397,16 @@ public class DataSetManipulator {
                 filterValue == null || filterValue.length() == 0) {
             return;
         }
-        else {
-            filter = f;
-            HtmlTag filterClass = new HtmlTag("input");
-            filterClass.setAttribute("type", "hidden");
-            filterClass.setAttribute("name", ListTagUtil.makeFilterClassLabel(uniqueName));
-            filterClass.setAttribute("value", f.getClass().getCanonicalName());
-            ListTagUtil.write(context, filterClass.render());
+        filter = f;
+        HtmlTag filterClass = new HtmlTag("input");
+        filterClass.setAttribute("type", "hidden");
+        filterClass.setAttribute("name", ListTagUtil.makeFilterClassLabel(uniqueName));
+        filterClass.setAttribute("value", f.getClass().getCanonicalName());
+        ListTagUtil.write(context, filterClass.render());
 
-            dataset = ListFilterHelper.filter(dataset, f, filterBy, filterValue,
-                                                        searchParent, searchChild);
-            totalDataSetSize = dataset.size();
-        }
+        dataset = ListFilterHelper.filter(dataset, f, filterBy, filterValue,
+                                                    searchParent, searchChild);
+        totalDataSetSize = dataset.size();
     }
 
     /**

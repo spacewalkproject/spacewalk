@@ -113,9 +113,7 @@ public class ListTagHelper {
         if (page == null) {
             return 0;
         }
-        else {
-            return Integer.parseInt(page);
-        }
+        return Integer.parseInt(page);
     }
 
     /**
@@ -218,13 +216,9 @@ public class ListTagHelper {
             if (oldValue  != null && !oldValue.equals("null")) {
                 return oldValue;
             }
-            else {
-                return "";
-            }
+            return "";
         }
-        else {
-            return newValue;
-        }
+        return newValue;
     }
 
     /**

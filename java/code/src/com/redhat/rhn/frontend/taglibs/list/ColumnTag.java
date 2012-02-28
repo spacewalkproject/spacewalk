@@ -433,9 +433,7 @@ public class ColumnTag extends BodyTagSupport {
         if (sortAttribute != null) {
            return sortAttribute;
         }
-        else {
-            return attributeName;
-        }
+        return attributeName;
     }
 
 

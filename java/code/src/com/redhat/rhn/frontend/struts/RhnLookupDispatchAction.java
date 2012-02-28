@@ -116,9 +116,7 @@ public abstract class RhnLookupDispatchAction extends LookupDispatchAction {
                         SUBMITTED + "'");
             }
         }
-        else {
-            return false;
-        }
+        return false;
     }
 
     /**

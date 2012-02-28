@@ -55,22 +55,20 @@ public abstract class BaseListAction extends RhnListAction {
             return strutsDelegate.forwardParams(mapping.findForward("preconditionfailed"),
                     request.getParameterMap());
         }
-        else {
-            User user = requestContext.getCurrentUser();
-            PageControl pc = getNewPageControl(requestContext);
-            processPageControl(pc);
+        User user = requestContext.getCurrentUser();
+        PageControl pc = getNewPageControl(requestContext);
+        processPageControl(pc);
 
-            if (pc != null) {
-                clampListBounds(pc, request, user);
-            }
-            DataResult dr = getDataResult(requestContext, pc);
-
-            request.setAttribute(RequestContext.PAGE_LIST, dr);
-            processRequestAttributes(requestContext);
-            processForm(requestContext, formIn);
-            return strutsDelegate.forwardParams(mapping.findForward("default"),
-                    request.getParameterMap());
+        if (pc != null) {
+            clampListBounds(pc, request, user);
         }
+        DataResult dr = getDataResult(requestContext, pc);
+
+        request.setAttribute(RequestContext.PAGE_LIST, dr);
+        processRequestAttributes(requestContext);
+        processForm(requestContext, formIn);
+        return strutsDelegate.forwardParams(mapping.findForward("default"),
+                request.getParameterMap());
     }
 
     /**
@@ -82,11 +80,9 @@ public abstract class BaseListAction extends RhnListAction {
         if (rctx.isRequestedExport()) {
             return null;
         }
-        else {
-            PageControl pc =  new PageControl();
-            pc.setPageSize(rctx.getLoggedInUser().getPageSize());
-            return pc;
-        }
+        PageControl pc =  new PageControl();
+        pc.setPageSize(rctx.getLoggedInUser().getPageSize());
+        return pc;
     }
 
     /**

@@ -118,9 +118,7 @@ public class ListTagUtil {
         if (parent != null) {
             return (ListCommand) ctx.getAttribute(parent.getUniqueName() + "_cmd");
         }
-        else {
-            return null;
-        }
+        return null;
     }
 
     /**
@@ -723,13 +721,11 @@ public class ListTagUtil {
                 if (token.indexOf(listName) > -1 && token.indexOf("_page=") > -1) {
                     continue;
                 }
+                if (url.endsWith("?")) {
+                    url += token;
+                }
                 else {
-                    if (url.endsWith("?")) {
-                        url += token;
-                    }
-                    else {
-                        url = url + "&" + token;
-                    }
+                    url = url + "&" + token;
                 }
             }
         }

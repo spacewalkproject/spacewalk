@@ -52,14 +52,12 @@ public abstract class BaseMailAction {
         if (clazz == null) {
             return new SmtpMail();
         }
-        else {
-            try {
-                Class cobj = Class.forName(clazz);
-                return (Mail) cobj.newInstance();
-            }
-            catch (Exception e) {
-                return new SmtpMail();
-            }
+        try {
+            Class cobj = Class.forName(clazz);
+            return (Mail) cobj.newInstance();
+        }
+        catch (Exception e) {
+            return new SmtpMail();
         }
     }
 

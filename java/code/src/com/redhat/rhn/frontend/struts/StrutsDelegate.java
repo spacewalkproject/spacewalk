@@ -297,9 +297,7 @@ public class StrutsDelegate {
             p.readForm(form);
             return p.getDate();
         }
-        else {
-            return new Date();
-        }
+        return new Date();
     }
 
     /**
@@ -368,9 +366,7 @@ public class StrutsDelegate {
             return new DatePicker(name, TimeZone.getDefault(), Locale.getDefault(),
                     yearDirection);
         }
-        else {
-            return new DatePicker(name, ctx.getTimezone(), ctx.getLocale(), yearDirection);
-        }
+        return new DatePicker(name, ctx.getTimezone(), ctx.getLocale(), yearDirection);
     }
 
 

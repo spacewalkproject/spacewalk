@@ -203,9 +203,7 @@ public class RhnHttpServletRequest extends HttpServletRequestWrapper {
         if (ACTIVE_LANG_ATTR.equals(name)) {
             return Context.getCurrentContext().getActiveLocaleLabel();
         }
-        else {
-            return super.getAttribute(name);
-        }
+        return super.getAttribute(name);
     }
     /**
      * {@inheritDoc}
@@ -225,9 +223,7 @@ public class RhnHttpServletRequest extends HttpServletRequestWrapper {
         if (ACTIVE_LANG_ATTR.equals(name)) {
             return;
         }
-        else {
-            super.removeAttribute(name);
-        }
+        super.removeAttribute(name);
     }
     /**
      * {@inheritDoc}
@@ -236,9 +232,7 @@ public class RhnHttpServletRequest extends HttpServletRequestWrapper {
         if (ACTIVE_LANG_ATTR.equals(name)) {
             return;
         }
-        else {
-            super.setAttribute(name, value);
-        }
+        super.setAttribute(name, value);
     }
 
     void configureLocale() {

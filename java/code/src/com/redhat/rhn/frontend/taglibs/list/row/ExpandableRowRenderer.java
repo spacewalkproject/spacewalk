@@ -43,9 +43,7 @@ public class ExpandableRowRenderer extends RowRenderer {
             rowNum++;
             return rowClasses[rowNum % rowClasses.length];
         }
-        else {
-            return rowClasses[rowNum % rowClasses.length];
-        }
+        return rowClasses[rowNum % rowClasses.length];
     }
 
     /**

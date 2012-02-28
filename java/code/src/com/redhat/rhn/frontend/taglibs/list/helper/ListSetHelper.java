@@ -160,11 +160,8 @@ abstract class ListSetHelper extends ListHelper {
                 dispatched = true;
                 return;
             }
-            else {
-                if (!ignoreEmptySelection) {
-                    RhnHelper.handleEmptySelection(request);
-                }
-
+            if (!ignoreEmptySelection) {
+                RhnHelper.handleEmptySelection(request);
             }
         }
 

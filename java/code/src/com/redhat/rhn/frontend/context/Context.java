@@ -78,9 +78,7 @@ public class Context {
         if (this.locale == null) {
             return LocalizationService.DEFAULT_LOCALE;
         }
-        else {
-            return this.locale;
-        }
+        return this.locale;
     }
 
     /**

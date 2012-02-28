@@ -170,9 +170,7 @@ public class PageSizeDecorator extends BaseListDecorator {
                 if (prev == 0) {
                     return sz;
                 }
-                else {
-                    return prev;
-                }
+                return prev;
             }
             prev = sz;
         }
