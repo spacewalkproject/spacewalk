@@ -21,7 +21,6 @@ lookup_config_info (
 ) return number
 deterministic
 is
-    pragma autonomous_transaction;
     v_id    number;
     cursor lookup_cursor is
         select id
