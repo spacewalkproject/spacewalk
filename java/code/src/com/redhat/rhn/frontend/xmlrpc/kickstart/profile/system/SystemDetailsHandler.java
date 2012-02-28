@@ -632,9 +632,7 @@ public class SystemDetailsHandler extends BaseHandler {
             if (fileList == null) {
                 throw new FileListNotFoundException(name);
             }
-            else {
-                fileLists.add(fileList);
-            }
+            fileLists.add(fileList);
         }
         // Cycle through the list of file list objects retrieved and add
         // them to the profile.  We do this on a second pass because, we
@@ -698,9 +696,7 @@ public class SystemDetailsHandler extends BaseHandler {
             if (fileList == null) {
                 throw new FileListNotFoundException(name);
             }
-            else {
-                fileLists.add(fileList);
-            }
+            fileLists.add(fileList);
         }
         // Cycle through the list of file list objects retrieved and remove
         // them from the profile.  We do this on a second pass because, we

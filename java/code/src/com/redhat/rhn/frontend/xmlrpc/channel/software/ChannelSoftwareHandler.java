@@ -618,9 +618,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
         if (cnt == null) {
             return 0;
         }
-        else {
-            return cnt.intValue();
-        }
+        return cnt.intValue();
     }
 
     /**

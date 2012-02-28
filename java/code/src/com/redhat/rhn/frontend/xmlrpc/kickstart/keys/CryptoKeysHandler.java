@@ -106,9 +106,7 @@ public class CryptoKeysHandler extends BaseHandler {
         if (errors == null) {
             return 1;
         }
-        else {
-            throw new KickstartKeyAlreadyExistsException();
-        }
+        throw new KickstartKeyAlreadyExistsException();
     }
 
     /**
@@ -138,9 +136,7 @@ public class CryptoKeysHandler extends BaseHandler {
         if (errors == null) {
             return 1;
         }
-        else {
-            throw new KickstartKeyDeleteException();
-        }
+        throw new KickstartKeyDeleteException();
     }
 
     /**

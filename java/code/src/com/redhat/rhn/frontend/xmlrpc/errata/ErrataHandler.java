@@ -987,9 +987,7 @@ public class ErrataHandler extends BaseHandler {
         if (value == null || StringUtils.isEmpty(value.toString())) {
             throw new MissingErrataAttributeException(attribute);
         }
-        else {
-            return value;
-        }
+        return value;
     }
 
     /**
@@ -1178,9 +1176,7 @@ public class ErrataHandler extends BaseHandler {
         if (publish) {
             return publish(newErrata, channels, loggedInUser, false);
         }
-        else {
-            return newErrata;
-        }
+        return newErrata;
     }
 
     /**

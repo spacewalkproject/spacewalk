@@ -89,16 +89,14 @@ public class ServerConfigHandler extends BaseHandler {
             dtos.elaborate();
             return dtos;
         }
-        else {
-            List<ConfigFileNameDto> files = new LinkedList<ConfigFileNameDto>();
-            List <ConfigFileDto> currentFiles = cm.listCurrentFiles(loggedInUser,
-                                                    server.getSandboxOverride(), null);
-            for (ConfigFileDto dto : currentFiles) {
-                files.add(ConfigFileNameDtoSerializer.toNameDto(dto,
-                                            ConfigChannelType.SANDBOX, null));
-            }
-            return files;
+        List<ConfigFileNameDto> files = new LinkedList<ConfigFileNameDto>();
+        List <ConfigFileDto> currentFiles = cm.listCurrentFiles(loggedInUser,
+                                                server.getSandboxOverride(), null);
+        for (ConfigFileDto dto : currentFiles) {
+            files.add(ConfigFileNameDtoSerializer.toNameDto(dto,
+                                        ConfigChannelType.SANDBOX, null));
         }
+        return files;
     }
 
     /**

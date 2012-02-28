@@ -112,9 +112,7 @@ public class ProxyHandler extends BaseHandler {
 
             return node.getScoutSharedKey();
         }
-        else {
-            return "";
-        }
+        return "";
     }
 
     /**

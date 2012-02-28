@@ -941,9 +941,7 @@ public class UserHandler extends BaseHandler {
         if (d != null) {
             return d;
         }
-        else {
-            throw new UserNeverLoggedInException();
-        }
+        throw new UserNeverLoggedInException();
     }
 
 
