@@ -1,7 +1,6 @@
 -- oracle equivalent source sha1 741172a1f8f23e20540fd2b5dd50a5b193e6cab3
--- retrieved from ./1241042199/53fa26df463811901487b608eecc3f77ca7783a1/schema/spacewalk/oracle/procs/lookup_evr.sql
 --
--- Copyright (c) 2008--2010 Red Hat, Inc.
+-- Copyright (c) 2008--2012 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -13,28 +12,45 @@
 -- Red Hat trademarks are not licensed under GPLv2. No permission is
 -- granted to use or replicate Red Hat trademarks that are incorporated
 -- in this software or its documentation.
---
 
-CREATE OR REPLACE FUNCTION
-LOOKUP_EVR(e_in IN VARCHAR, v_in IN VARCHAR, r_in IN VARCHAR)
-RETURNS NUMERIC
-AS
+create or replace function
+lookup_evr(e_in in varchar, v_in in varchar, r_in in varchar)
+returns numeric
+as
 $$
-DECLARE
-       evr_id          NUMERIC;
-BEGIN
-        SELECT id INTO evr_id
-          FROM rhnPackageEvr
-         WHERE ((epoch IS NULL and e_in IS NULL) OR (epoch = e_in))
-           AND version = v_in AND release = r_in;
+declare
+    evr_id  numeric;
+begin
+    select id
+      into evr_id
+      from rhnPackageEVR
+     where ((epoch is null and e_in is null) or (epoch = e_in)) and
+           version = v_in and
+           release = r_in;
             
-        IF NOT FOUND THEN
-		INSERT INTO rhnPackageEvr (id, epoch, version, release, evr)
-            VALUES (nextval('rhn_pkg_evr_seq'), e_in, v_in, r_in,EVR_T(e_in, v_in, r_in));
+    if not found then
+        evr_id := nextval('rhn_pkg_evr_seq');
+        begin
+            perform pg_dblink_exec(
+                'insert into rhnPackageEVR(id, epoch, version, release, evr) values (' ||
+                evr_id || ', ' ||
+                coalesce(quote_literal(e_in), 'NULL') || ', ' ||
+                coalesce(quote_literal(v_in), 'NULL') || ', ' ||
+                coalesce(quote_literal(r_in), 'NULL') || ', ' ||
+                evr_t(coalesce(quote_literal(e_in), 'NULL'),
+                      coalesce(quote_literal(v_in), 'NULL'),
+                      coalesce(quote_literal(r_in), 'NULL')) || ')'
+            );
+        exception when unique_violation then
+            select id
+              into strict evr_id
+              from rhnPackageEVR
+             where ((epoch is null and e_in is null) or (epoch = e_in)) and
+                   version = v_in and
+                   release = r_in;
+        end;
+    end if;
 
-            evr_id := currval('rhn_pkg_evr_seq');
-        END IF;
-
-        RETURN evr_id;
-END;
-$$ LANGUAGE PLPGSQL;
+    return evr_id;
+end;
+$$ language plpgsql immutable;
