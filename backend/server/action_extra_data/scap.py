@@ -75,9 +75,6 @@ def _process_ruleresults(testresult_id, tr):
             inserts['system'].append(ident.getAttribute('system'))
             inserts['ident'].append(_get_text(ident))
             inserts['type'].append(rule_result.nodeName)
-    log_error(inserts)
-    for i in ['tr_id', 'system', 'ident', 'type']:
-        log_error(i, len(inserts[i]))
     _store_ruleresults(inserts)
 
 def _store_ruleresults(data):
