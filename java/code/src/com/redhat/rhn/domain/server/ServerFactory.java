@@ -711,7 +711,7 @@ public class ServerFactory extends HibernateFactory {
     public static void deleteSnapshots(Org org, Date startDate, Date endDate) {
 
         if ((startDate != null) && (endDate != null)) {
-            singleton.getSession()
+            HibernateFactory.getSession()
                 .getNamedQuery("ServerSnapshot.deleteBetweenDates")
                 .setParameter("org", org)
                 .setParameter("start_date", startDate)
@@ -719,14 +719,14 @@ public class ServerFactory extends HibernateFactory {
                 .executeUpdate();
         }
         else if (startDate != null) {
-            singleton.getSession()
+            HibernateFactory.getSession()
                 .getNamedQuery("ServerSnapshot.deleteAfterDate")
                 .setParameter("org", org)
                 .setParameter("start_date", startDate)
                 .executeUpdate();
         }
         else {
-            singleton.getSession()
+            HibernateFactory.getSession()
                 .getNamedQuery("ServerSnapshot.delete")
                 .setParameter("org", org)
                 .executeUpdate();
@@ -754,7 +754,7 @@ public class ServerFactory extends HibernateFactory {
             Date startDate, Date endDate) {
 
         if ((startDate != null) && (endDate != null)) {
-            singleton.getSession()
+            HibernateFactory.getSession()
                 .getNamedQuery("ServerSnapshot.deleteForServerBetweenDates")
                 .setParameter("org", org)
                 .setParameter("server", server)
@@ -763,7 +763,7 @@ public class ServerFactory extends HibernateFactory {
                 .executeUpdate();
         }
         else if (startDate != null) {
-            singleton.getSession()
+            HibernateFactory.getSession()
                 .getNamedQuery("ServerSnapshot.deleteForServerAfterDate")
                 .setParameter("org", org)
                 .setParameter("server", server)
@@ -771,7 +771,7 @@ public class ServerFactory extends HibernateFactory {
                 .executeUpdate();
         }
         else {
-            singleton.getSession()
+            HibernateFactory.getSession()
                 .getNamedQuery("ServerSnapshot.deleteForServer")
                 .setParameter("org", org)
                 .setParameter("server", server)

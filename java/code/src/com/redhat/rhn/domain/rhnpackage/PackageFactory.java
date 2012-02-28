@@ -479,7 +479,7 @@ public class PackageFactory extends HibernateFactory {
      * @param key the key to delete
      */
     public static void deletePackageKey(PackageKey key) {
-        singleton.getSession().delete(key);
+        HibernateFactory.getSession().delete(key);
     }
 
     /**

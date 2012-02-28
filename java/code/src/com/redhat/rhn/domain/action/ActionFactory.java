@@ -669,7 +669,7 @@ public class ActionFactory extends HibernateFactory {
      * @param tries the number of tries to set (should be set to 5)
      */
     public static void rescheduleFailedServerActions(Action action, Long tries) {
-        singleton.getSession().getNamedQuery("Action.rescheduleFailedActions")
+        HibernateFactory.getSession().getNamedQuery("Action.rescheduleFailedActions")
                 .setParameter("action", action)
                 .setParameter("tries", tries)
                 .setParameter("failed", ActionFactory.STATUS_FAILED)
@@ -682,7 +682,7 @@ public class ActionFactory extends HibernateFactory {
      * @param tries the number of tries to set (should be set to 5)
      */
     public static void rescheduleAllServerActions(Action action, Long tries) {
-        singleton.getSession().getNamedQuery("Action.rescheduleAllActions")
+        HibernateFactory.getSession().getNamedQuery("Action.rescheduleAllActions")
                 .setParameter("action", action)
                 .setParameter("tries", tries)
                 .setParameter("queued", ActionFactory.STATUS_QUEUED).executeUpdate();
