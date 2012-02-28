@@ -147,9 +147,7 @@ public class KickstartPrePostCommand extends BaseKickstartCommand {
         if (kss != null) {
             return kss.getInterpreter();
         }
-        else {
-            return null;
-        }
+        return null;
     }
 
     /**
@@ -161,10 +159,8 @@ public class KickstartPrePostCommand extends BaseKickstartCommand {
         if (kss != null) {
             return kss.getDataContents();
         }
-        else {
-            // return ksdata.getPreContents();
-            return null;
-        }
+        // return ksdata.getPreContents();
+        return null;
     }
 
     /**
@@ -176,10 +172,8 @@ public class KickstartPrePostCommand extends BaseKickstartCommand {
         if (kss != null) {
             return kss.getDataContents();
         }
-        else {
-            // return ksdata.getPostContents();
-            return null;
-        }
+        // return ksdata.getPostContents();
+        return null;
     }
 
     /**
@@ -191,9 +185,7 @@ public class KickstartPrePostCommand extends BaseKickstartCommand {
         if (kss != null) {
             return kss.getInterpreter();
         }
-        else {
-            return null;
-        }
+        return null;
     }
 
 }

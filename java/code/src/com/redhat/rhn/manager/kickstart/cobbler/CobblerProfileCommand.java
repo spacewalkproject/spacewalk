@@ -173,13 +173,9 @@ public abstract class CobblerProfileCommand extends CobblerCommand {
             if (tree.getCobblerXenId() == null) {
                 return null;
             }
-            else {
-                return Distro.lookupById(con, tree.getCobblerXenId());
-            }
+            return Distro.lookupById(con, tree.getCobblerXenId());
         }
-        else {
-            return Distro.lookupById(con, tree.getCobblerId());
-        }
+        return Distro.lookupById(con, tree.getCobblerId());
     }
 
 }

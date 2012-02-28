@@ -137,9 +137,7 @@ public class BaseKickstartScriptCommand extends BaseKickstartCommand {
         if (this.script.getScriptType() != null) {
             return this.script.getScriptType();
         }
-        else {
-            return KickstartScript.TYPE_PRE;
-        }
+        return KickstartScript.TYPE_PRE;
     }
 
     /**
@@ -150,9 +148,7 @@ public class BaseKickstartScriptCommand extends BaseKickstartCommand {
         if (this.script != null) {
             return this.script.getRaw();
         }
-        else {
-            return true;
-        }
+        return true;
     }
 
     /**

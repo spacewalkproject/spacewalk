@@ -84,9 +84,7 @@ public class FilePreservationListsCommand extends BaseKickstartCommand {
         if (ksdata.getPreserveFileLists() != null) {
             return ksdata.getPreserveFileLists();
         }
-        else {
-            return Collections.EMPTY_SET;
-        }
+        return Collections.EMPTY_SET;
     }
 
 }

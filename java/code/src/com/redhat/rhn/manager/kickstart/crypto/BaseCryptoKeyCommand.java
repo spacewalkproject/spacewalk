@@ -77,9 +77,7 @@ public abstract class BaseCryptoKeyCommand {
         if (this.key != null && this.key.getCryptoKeyType() != null) {
             return this.key.getCryptoKeyType().getLabel();
         }
-        else {
-            return null;
-        }
+        return null;
     }
 
     /**

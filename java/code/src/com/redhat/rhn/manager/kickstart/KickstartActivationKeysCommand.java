@@ -104,9 +104,7 @@ public class KickstartActivationKeysCommand extends BaseKickstartCommand {
         if (this.ksdata.getDefaultRegTokens() != null) {
             return this.ksdata.getDefaultRegTokens();
         }
-        else {
-            return Collections.EMPTY_SET;
-        }
+        return Collections.EMPTY_SET;
     }
 
 }

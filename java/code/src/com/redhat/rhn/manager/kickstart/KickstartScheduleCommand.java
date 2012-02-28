@@ -995,13 +995,11 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
             log.debug("  ** getToolsChannel() returning ksdata's channel");
             return ksdata.getChannel();
         }
-        else {
-            log.debug("  ** getToolsChannel() looking for tools channel as a child");
-            Channel kschannel = ksdata.getChannel();
-            Channel toolsChannel = ChannelManager.getToolsChannel(kschannel, user);
-            if (toolsChannel != null) {
-                return toolsChannel;
-            }
+        log.debug("  ** getToolsChannel() looking for tools channel as a child");
+        Channel kschannel = ksdata.getChannel();
+        Channel toolsChannel = ChannelManager.getToolsChannel(kschannel, user);
+        if (toolsChannel != null) {
+            return toolsChannel;
         }
         log.error("Tools channel not found!  " +
                 "This means we can't find the rhn-kickstart package.");

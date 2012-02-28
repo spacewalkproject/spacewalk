@@ -83,9 +83,7 @@ public class KickstartIpCommand extends BaseKickstartCommand {
             store();
             return true;
         }
-        else {
-            return false;
-        }
+        return false;
     }
 
     /**

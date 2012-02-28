@@ -120,9 +120,7 @@ public class CobblerDistroSyncCommand extends CobblerCommand {
         if (messages.length() == 0) {
             return null;
         }
-        else {
-            return new ValidatorError("kickstart.cobbler.distro.syncfail", messages);
-        }
+        return new ValidatorError("kickstart.cobbler.distro.syncfail", messages);
     }
 
 
@@ -180,9 +178,7 @@ public class CobblerDistroSyncCommand extends CobblerCommand {
         if (messages.length() == 0) {
             return null;
         }
-        else {
-            return new ValidatorError("kickstart.cobbler.distro.syncfail", messages);
-        }
+        return new ValidatorError("kickstart.cobbler.distro.syncfail", messages);
     }
 
 

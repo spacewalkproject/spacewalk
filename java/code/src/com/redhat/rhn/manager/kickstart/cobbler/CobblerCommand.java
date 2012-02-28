@@ -188,8 +188,6 @@ public abstract class CobblerCommand {
         if (user == null) {
             return CobblerXMLRPCHelper.getAutomatedConnection();
         }
-        else {
-            return CobblerXMLRPCHelper.getConnection(user);
-        }
+        return CobblerXMLRPCHelper.getConnection(user);
     }
 }
