@@ -20,8 +20,6 @@ import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.manager.BaseManager;
 
-import org.apache.log4j.Logger;
-
 import java.io.File;
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -33,10 +31,6 @@ import java.util.List;
  */
 public class CobblerSnippetLister extends BaseManager {
 
-    /**
-     * Logger for this class
-     */
-    private static final Logger LOG = Logger.getLogger(CobblerSnippetLister.class);
     private static final CobblerSnippetLister INSTANCE = new CobblerSnippetLister();
     /**
      * Default constructor
