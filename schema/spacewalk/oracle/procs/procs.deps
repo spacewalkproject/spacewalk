@@ -72,7 +72,7 @@ lookup_client_capability        :: insert_client_capability rhnClientCapabilityN
 lookup_cf_state                 :: rhnConfigFileState
 lookup_config_filename          :: insert_config_filename
 lookup_config_info              :: insert_config_info
-lookup_cve                      :: rhnCVE
+lookup_cve                      :: rhnCVE insert_cve
 lookup_erratafile_type          :: rhnErrataFileType data/rhnErrataFileType
 lookup_evr                      :: rhnPackageEVR
 lookup_feature_type             :: rhnFeature
