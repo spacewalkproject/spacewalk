@@ -368,10 +368,8 @@ public class VirtualInstance extends BaseDomainHelper {
             return new GuestAndNonVirtHostView(guest.getId(), guest.getOrg().getId(),
                     guest.getName());
         }
-        else {
-            return new GuestAndNonVirtHostView(guest.getId(), guest.getOrg().getId(),
-                    guest.getName(), host.getOrg().getId(), host.getId(), host.getName());
-        }
+        return new GuestAndNonVirtHostView(guest.getId(), guest.getOrg().getId(),
+                guest.getName(), host.getOrg().getId(), host.getId(), host.getName());
     }
 
 }

@@ -75,9 +75,7 @@ public class PackageKeyType extends BaseDomainHelper implements Comparable<Packa
             return new EqualsBuilder().append(this.label, type.getLabel()).append(getId(),
                     type.getId()).isEquals();
         }
-        else {
-            return false;
-        }
+        return false;
     }
 
     /**

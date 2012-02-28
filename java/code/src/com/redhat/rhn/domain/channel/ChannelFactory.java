@@ -638,9 +638,7 @@ public class ChannelFactory extends HibernateFactory {
         if (retval.size() > 0) {
             return (Package)retval.get(0);
         }
-        else {
-            return null;
-        }
+        return null;
     }
 
     /**
@@ -1025,9 +1023,7 @@ public class ChannelFactory extends HibernateFactory {
         if (pkgs.isEmpty()) {
             return null;
         }
-        else {
-            return pkgs.get(0);
-        }
+        return pkgs.get(0);
     }
 
     /**

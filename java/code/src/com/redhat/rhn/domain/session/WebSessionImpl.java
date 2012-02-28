@@ -67,9 +67,7 @@ public class WebSessionImpl implements WebSession {
         if (webUserId != null) {
             return UserFactory.lookupById(webUserId);
         }
-        else {
-            return null;
-        }
+        return null;
     }
 
     /** {@inheritDoc} */

@@ -476,9 +476,7 @@ public class Package extends BaseDomainHelper {
                     otherPack.getPackageArch()).append(this.getPackageEvr(),
                     this.getPackageEvr()).isEquals();
         }
-        else {
-            return false;
-        }
+        return false;
     }
 
     /**

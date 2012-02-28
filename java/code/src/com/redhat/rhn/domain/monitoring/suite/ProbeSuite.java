@@ -142,9 +142,7 @@ public class ProbeSuite {
         if (this.probes == null) {
             return Collections.EMPTY_SET;
         }
-        else {
-            return probes;
-        }
+        return probes;
     }
 
     /**

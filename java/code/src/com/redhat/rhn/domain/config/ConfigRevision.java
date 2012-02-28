@@ -136,9 +136,7 @@ public class ConfigRevision extends BaseDomainHelper {
         if (getChangedById() != null && getChangedById().longValue() > 0) {
             return UserFactory.lookupById(getChangedById());
         }
-        else {
-            return null;
-        }
+        return null;
     }
 
     /**

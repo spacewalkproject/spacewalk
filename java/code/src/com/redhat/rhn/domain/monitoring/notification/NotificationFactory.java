@@ -218,9 +218,7 @@ public class NotificationFactory extends HibernateFactory {
         if (retval != null && retval.getUser().getOrg().equals(currentUser.getOrg())) {
             return retval;
         }
-        else {
-            return null;
-        }
+        return null;
     }
 
     /**

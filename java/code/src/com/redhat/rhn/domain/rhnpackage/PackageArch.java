@@ -122,9 +122,7 @@ public class PackageArch extends BaseDomainHelper implements Comparable<PackageA
                     arch.getLabel()).append(getId(), arch.getId()).append(getArchType(),
                     arch.getArchType()).isEquals();
         }
-        else {
-            return false;
-        }
+        return false;
     }
 
     /**

@@ -102,9 +102,7 @@ public class PackageProvider extends BaseDomainHelper implements
             return new EqualsBuilder().append(this.name, arch.getName()).append(getId(),
                     arch.getId()).isEquals();
         }
-        else {
-            return false;
-        }
+        return false;
     }
 
     /**

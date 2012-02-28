@@ -220,14 +220,12 @@ public class NetworkInterface extends BaseDomainHelper implements
         if (ad6 == null) {
             return null;
         }
-        else {
-            ArrayList<String> addresses = new ArrayList<String>();
+        ArrayList<String> addresses = new ArrayList<String>();
 
-            for (ServerNetAddress6 a : ad6) {
-                addresses.add(a.getAddress());
-            }
-            return addresses;
+        for (ServerNetAddress6 a : ad6) {
+            addresses.add(a.getAddress());
         }
+        return addresses;
     }
 
     /**

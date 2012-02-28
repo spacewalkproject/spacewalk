@@ -304,9 +304,7 @@ public  class UserFactory extends HibernateFactory {
         if (dr != null && dr.size() != 0) {
             return getLongValue(dr, USER_ID);
         }
-        else {
-            return -1;
-        }
+        return -1;
     }
 
     /**

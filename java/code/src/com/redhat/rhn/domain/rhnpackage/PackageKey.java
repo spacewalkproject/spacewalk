@@ -91,9 +91,7 @@ public class PackageKey extends BaseDomainHelper implements Comparable<PackageKe
             return new EqualsBuilder().append(this.key, arch.getKey()).append(getId(),
                     arch.getId()).isEquals();
         }
-        else {
-            return false;
-        }
+        return false;
     }
 
     /**

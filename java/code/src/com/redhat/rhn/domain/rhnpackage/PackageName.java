@@ -73,9 +73,7 @@ public class PackageName implements Comparable<PackageName> {
             return new EqualsBuilder().append(this.getName(), otherPack.getName()).append(
                     this.getId(), otherPack.getId()).isEquals();
         }
-        else {
-            return false;
-        }
+        return false;
     }
 
     /**

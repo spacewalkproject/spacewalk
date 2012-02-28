@@ -1693,9 +1693,7 @@ public class Server extends BaseDomainHelper implements Identifiable {
             if (retval.size() == 0) {
                 return Collections.EMPTY_SET;
             }
-            else {
-                return retval;
-            }
+            return retval;
         }
         return Collections.EMPTY_SET;
     }

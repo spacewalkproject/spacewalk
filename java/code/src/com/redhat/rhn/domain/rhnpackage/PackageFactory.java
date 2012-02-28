@@ -199,9 +199,7 @@ public class PackageFactory extends HibernateFactory {
             singleton.saveObject(newName);
             return newName;
         }
-        else {
-            return returned;
-        }
+        return returned;
     }
 
     /**
@@ -250,13 +248,10 @@ public class PackageFactory extends HibernateFactory {
         if (epoch == null || packages.size() < 2) {
             return packages;
         }
-        else {
-            for (Package pack : packages) {
-                if (!epoch.equals(pack.getPackageEvr().getEpoch())) {
-                    packages.remove(pack);
-                }
+        for (Package pack : packages) {
+            if (!epoch.equals(pack.getPackageEvr().getEpoch())) {
+                packages.remove(pack);
             }
-
         }
         return packages;
     }

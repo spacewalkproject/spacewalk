@@ -118,9 +118,7 @@ public class ProfileEntry implements Serializable {
             }
             return builder.isEquals();
         }
-        else {
-            return false;
-        }
+        return false;
     }
 
     /**

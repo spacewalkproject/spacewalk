@@ -183,10 +183,8 @@ public class ServerProbe extends Probe {
                 getTemplateProbes().size() == 0) {
             return null;
         }
-        else {
-            return (TemplateProbe)
-                getTemplateProbes().iterator().next();
-        }
+        return (TemplateProbe)
+            getTemplateProbes().iterator().next();
     }
 
     /**

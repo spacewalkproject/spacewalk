@@ -79,19 +79,17 @@ public class ServerGroupTest extends RhnBaseTestCase {
             if (existingGroup != null) {
                 return existingGroup;
             }
-            else {
-                assertNull(new UpdateOrgSystemEntitlementsCommand(
-                        typeIn.getAssociatedEntitlement(), org,
-                        DEFAULT_MAX_MEMBERS).store());
-                EntitlementServerGroup group = ServerGroupFactory.lookupEntitled(
-                                            typeIn.getAssociatedEntitlement(), org);
-                assertNotNull(group);
-                assertNotNull(group.getMaxMembers());
-                assertTrue(group.getMaxMembers() > 0);
-                assertTrue(group.getMaxMembers() - group.getCurrentMembers() > 0);
-                assertNotNull(group.getGroupType().getAssociatedEntitlement());
-                return group;
-            }
+            assertNull(new UpdateOrgSystemEntitlementsCommand(
+                    typeIn.getAssociatedEntitlement(), org,
+                    DEFAULT_MAX_MEMBERS).store());
+            EntitlementServerGroup group = ServerGroupFactory.lookupEntitled(
+                                        typeIn.getAssociatedEntitlement(), org);
+            assertNotNull(group);
+            assertNotNull(group.getMaxMembers());
+            assertTrue(group.getMaxMembers() > 0);
+            assertTrue(group.getMaxMembers() - group.getCurrentMembers() > 0);
+            assertNotNull(group.getGroupType().getAssociatedEntitlement());
+            return group;
 
         }
         ManagedServerGroup sg = ServerGroupFactory.create("NewGroup" +
