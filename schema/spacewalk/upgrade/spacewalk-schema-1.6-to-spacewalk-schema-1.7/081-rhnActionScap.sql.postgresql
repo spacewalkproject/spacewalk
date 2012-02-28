@@ -1,4 +1,4 @@
--- oracle equivalent source sha1 04aaac23861d5f56b412b080009e8b47addbc70d
+-- oracle equivalent source sha1 1f53d7b156e1e935fa6d333343cb7bc4d2d54ee3
 
 CREATE TABLE rhnActionScap
 (

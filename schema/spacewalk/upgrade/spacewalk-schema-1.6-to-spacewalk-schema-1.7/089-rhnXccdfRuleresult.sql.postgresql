@@ -1,4 +1,4 @@
--- oracle equivalent source sha1 43c723fb63e07b88898d873e018edcb9b69a3223
+-- oracle equivalent source sha1 4914e7f1dc6e3c13928d0b0b7514cacab2f0c70a
 
 CREATE TABLE rhnXccdfRuleresult
 (

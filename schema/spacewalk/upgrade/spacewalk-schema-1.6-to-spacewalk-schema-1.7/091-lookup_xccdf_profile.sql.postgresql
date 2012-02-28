@@ -1,4 +1,4 @@
--- oracle equivalent source sha1 1865b4640fb444ac71304968fbc34e8d03454d44
+-- oracle equivalent source sha1 5d0f21052fcc2d1b6ba7c5697989ae60fe0a73a0
 
 CREATE OR REPLACE FUNCTION
 lookup_xccdf_profile(identifier_in IN VARCHAR, title_in IN VARCHAR)

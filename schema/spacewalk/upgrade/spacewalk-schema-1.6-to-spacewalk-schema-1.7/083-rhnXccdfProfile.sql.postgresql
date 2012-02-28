@@ -1,4 +1,4 @@
--- oracle equivalent source sha1 b02413a644b20ae1f8125c2cc952b3aa2629b915
+-- oracle equivalent source sha1 09965fbf1cdc6ee6351b0c6d62758f55c248b633
 
 CREATE TABLE rhnXccdfProfile
 (
