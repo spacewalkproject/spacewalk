@@ -24,9 +24,6 @@ import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.rhnset.RhnSetManager;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
@@ -44,8 +41,6 @@ import java.util.Set;
  * @version $Revision$
  */
 public class SsmManager {
-
-    private static Log log = LogFactory.getLog(SsmManager.class);
 
     /** Private constructor to enforce the stateless nature of this class. */
     private SsmManager() {
