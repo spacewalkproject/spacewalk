@@ -53,13 +53,6 @@ public class RecurringEventPicker {
      */
     public static final String USE_DATE = "use_date";
 
-
-
-    private static final String MONTH = "month";
-    private static final String DAY = "day";
-    private static final String HOUR = "hour";
-    private static final String MINUTE = "minute";
-
     private static final String STATUS_DISABLED = "disabled";
 
 
