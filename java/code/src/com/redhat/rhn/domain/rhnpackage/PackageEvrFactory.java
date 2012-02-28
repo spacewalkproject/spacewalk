@@ -18,7 +18,6 @@ import com.redhat.rhn.common.db.datasource.CallableMode;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 
-import org.apache.log4j.Logger;
 import org.hibernate.Session;
 
 import java.sql.Types;
@@ -30,8 +29,6 @@ import java.util.Map;
  * @version $Rev$
  */
 public class PackageEvrFactory {
-
-    private static Logger log = Logger.getLogger(PackageEvrFactory.class);
 
     /**
      * Private Constructor
