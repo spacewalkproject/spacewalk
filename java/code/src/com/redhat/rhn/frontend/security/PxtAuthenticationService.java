@@ -21,7 +21,6 @@ import com.redhat.rhn.frontend.servlets.PxtSessionDelegate;
 
 import org.apache.commons.collections.set.UnmodifiableSet;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
 
 import java.io.IOException;
 import java.util.Set;
@@ -39,8 +38,6 @@ import javax.servlet.http.HttpServletResponse;
 public class PxtAuthenticationService extends BaseAuthenticationService {
 
     public static final long MAX_URL_LENGTH = 2048;
-
-    private static final Logger LOG = Logger.getLogger(PxtAuthenticationService.class);
 
     private static final Set UNPROTECTED_URIS;
 
