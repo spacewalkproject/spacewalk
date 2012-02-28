@@ -77,9 +77,7 @@ public abstract class BaseCopyToAction extends RhnAction {
 
             return doCopy(mapping, req, user);
         }
-        else { // not dispatched
-            return doDisplay(mapping, req, user);
-        }
+        return doDisplay(mapping, req, user);
     }
 
     protected ActionForward doDisplay(ActionMapping mapping,

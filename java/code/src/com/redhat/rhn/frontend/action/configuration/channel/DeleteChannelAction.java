@@ -60,9 +60,7 @@ public class DeleteChannelAction extends RhnAction {
                 return getStrutsDelegate().forwardParams(mapping.findForward("submit"),
                         params);
             }
-            else {
-                rctx.getRequest().setAttribute("currChannel", cc);
-            }
+            rctx.getRequest().setAttribute("currChannel", cc);
             ConfigActionHelper.setupRequestAttributes(rctx, cc);
         }
 

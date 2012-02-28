@@ -69,13 +69,9 @@ public class ChannelDeployConfirmAction extends RhnAction {
                 ConfigActionHelper.clearRhnSets(user);
                 return prepareToLeave(mapping, request, cc, dForm, "success");
             }
-            else {
-                return prepareToLeave(mapping, request, cc, dForm, "failure");
-            }
+            return prepareToLeave(mapping, request, cc, dForm, "failure");
         }
-        else {
-            return prepareToLeave(mapping, request, cc, dForm, "default");
-       }
+        return prepareToLeave(mapping, request, cc, dForm, "default");
     }
 
     private ActionForward prepareToLeave(ActionMapping mapping, HttpServletRequest req,

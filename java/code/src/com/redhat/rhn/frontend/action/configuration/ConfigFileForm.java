@@ -224,9 +224,7 @@ public class ConfigFileForm extends ScrubbingDynaActionForm {
         if (cc.isGlobalChannel()) {
             return (user.hasRole(RoleFactory.CONFIG_ADMIN));
         }
-        else {
-            return (mgr.accessToChannel(user.getId(), cc.getId()));
-        }
+        return (mgr.accessToChannel(user.getId(), cc.getId()));
     }
 
     private boolean isUpload() {

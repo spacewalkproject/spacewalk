@@ -67,19 +67,17 @@ public class DeleteFileAction extends RhnAction {
                 return getStrutsDelegate().forwardParams(
                         map.findForward("success"), params);
             }
-            else {
-                int storage = ConfigurationManager.getInstance().
-                    getFileStorage(usr, cf);
-                ConfigActionHelper.processParamMap(req, params);
-                params.put("storage", new Integer(storage));
-                ConfigActionHelper.setupRequestAttributes(ctx, cf,
-                            cf.getLatestConfigRevision());
-                req.setAttribute("storage", StringUtil.displayFileSize(storage));
-                req.setAttribute("deleting", Boolean.TRUE);
+            int storage = ConfigurationManager.getInstance().
+                getFileStorage(usr, cf);
+            ConfigActionHelper.processParamMap(req, params);
+            params.put("storage", new Integer(storage));
+            ConfigActionHelper.setupRequestAttributes(ctx, cf,
+                        cf.getLatestConfigRevision());
+            req.setAttribute("storage", StringUtil.displayFileSize(storage));
+            req.setAttribute("deleting", Boolean.TRUE);
 
-                return getStrutsDelegate().forwardParams(
-                        map.findForward("default"), params);
-            }
+            return getStrutsDelegate().forwardParams(
+                    map.findForward("default"), params);
         }
         catch (IllegalArgumentException e) {
             //Log the error and go on with life.

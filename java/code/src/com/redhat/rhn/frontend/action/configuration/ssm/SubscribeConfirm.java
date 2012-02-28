@@ -80,9 +80,7 @@ public class SubscribeConfirm extends RhnAction {
                 .getInstance().getMessage("ssm.config.subscribeconfirm.jsp.confirm"))) {
             return confirm(mapping, request, user);
         }
-        else {
-            return setup(mapping, request, user);
-        }
+        return setup(mapping, request, user);
 
     }
 

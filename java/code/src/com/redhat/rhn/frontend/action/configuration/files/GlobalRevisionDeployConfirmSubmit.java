@@ -121,12 +121,10 @@ public class GlobalRevisionDeployConfirmSubmit extends RhnListDispatchAction {
             return getStrutsDelegate().forwardParams(
                     mapping.findForward("success"), params);
         }
-        else {
-            createFailureMessage(request, "deployconfirm.jsp");
-            Map params = makeParamMap(form, request);
-            return getStrutsDelegate().forwardParams(
-                    mapping.findForward("failure"), params);
-        }
+        createFailureMessage(request, "deployconfirm.jsp");
+        Map params = makeParamMap(form, request);
+        return getStrutsDelegate().forwardParams(
+                mapping.findForward("failure"), params);
     }
 
     private Date getEarliestAction(ActionForm formIn) {

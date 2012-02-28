@@ -115,14 +115,12 @@ public class ImportFileSubmitAction extends RhnSetAction {
             return getStrutsDelegate().forwardParams(
                     mapping.findForward("success"), params);
         }
-        else {
-            ActionErrors errors = new ActionErrors();
-            errors.add(ActionMessages.GLOBAL_MESSAGE,
-                    new ActionMessage("sdcimportfile.jsp.noSelected"));
-            addErrors(request, errors);
-            return getStrutsDelegate().forwardParams(
-                    mapping.findForward(RhnHelper.DEFAULT_FORWARD), params);
-        }
+        ActionErrors errors = new ActionErrors();
+        errors.add(ActionMessages.GLOBAL_MESSAGE,
+                new ActionMessage("sdcimportfile.jsp.noSelected"));
+        addErrors(request, errors);
+        return getStrutsDelegate().forwardParams(
+                mapping.findForward(RhnHelper.DEFAULT_FORWARD), params);
     }
 
     /**

@@ -230,17 +230,15 @@ public class ManageRevisionSubmit extends RhnSetAction {
             return getStrutsDelegate().forwardParam(mapping.findForward("deletedfile"),
                     "ccid", file.getConfigChannel().getId().toString());
         }
-        else {
-            //create messages
-            ActionMessages msg = new ActionMessages();
-            addIntMessage(successCount, "config_revisions.success", msg);
-            addIntMessage(failureCount, "config_revisions.failure", msg);
-            //save messages
-            strutsDelegate.saveMessages(request, msg);
-            //go to the next page
-            return strutsDelegate.forwardParams(
-                    mapping.findForward(RhnHelper.DEFAULT_FORWARD), params);
-        }
+        //create messages
+        ActionMessages msg = new ActionMessages();
+        addIntMessage(successCount, "config_revisions.success", msg);
+        addIntMessage(failureCount, "config_revisions.failure", msg);
+        //save messages
+        strutsDelegate.saveMessages(request, msg);
+        //go to the next page
+        return strutsDelegate.forwardParams(
+                mapping.findForward(RhnHelper.DEFAULT_FORWARD), params);
     }
 
     private void addIntMessage(int number, String key, ActionMessages msgs) {

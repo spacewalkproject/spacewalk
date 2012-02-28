@@ -82,28 +82,22 @@ public class DeleteRevisionAction extends RhnAction {
                         return getStrutsDelegate().forwardParams(
                                 mapping.findForward("success"), params);
                     }
-                    else {
-                        ActionMessage am = new ActionMessage("deleterev.jsp.deletedfile",
-                                cr.getConfigFile().getConfigFileName().getPath());
-                        msgs.add(ActionMessages.GLOBAL_MESSAGE, am);
-                        ConfigActionHelper.processParamMap(cf.getConfigChannel(), params);
-                        return getStrutsDelegate().forwardParams(
-                                mapping.findForward("deletedfile"), params);
-                    }
-                }
-                else {
-                    cff.updateFromRevision(request, cr);
-                    request.setAttribute("deleting", Boolean.TRUE);
+                    ActionMessage am = new ActionMessage("deleterev.jsp.deletedfile",
+                            cr.getConfigFile().getConfigFileName().getPath());
+                    msgs.add(ActionMessages.GLOBAL_MESSAGE, am);
+                    ConfigActionHelper.processParamMap(cf.getConfigChannel(), params);
                     return getStrutsDelegate().forwardParams(
-                            mapping.findForward("default"), params);
+                            mapping.findForward("deletedfile"), params);
                 }
-            }
-            else { // Can't find the revision?!?
-                ActionMessage am = new ActionMessage("deleterev.jsp.unknown");
-                msgs.add(ActionMessages.GLOBAL_MESSAGE, am);
+                cff.updateFromRevision(request, cr);
+                request.setAttribute("deleting", Boolean.TRUE);
                 return getStrutsDelegate().forwardParams(
                         mapping.findForward("default"), params);
             }
+            ActionMessage am = new ActionMessage("deleterev.jsp.unknown");
+            msgs.add(ActionMessages.GLOBAL_MESSAGE, am);
+            return getStrutsDelegate().forwardParams(
+                    mapping.findForward("default"), params);
         }
         finally {
             if (!msgs.isEmpty()) {

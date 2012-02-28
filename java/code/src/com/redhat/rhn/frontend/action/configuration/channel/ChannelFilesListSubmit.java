@@ -119,10 +119,8 @@ public class ChannelFilesListSubmit extends BaseSetOperateOnSelectedItemsAction 
             return getStrutsDelegate().forwardParams(mapping.findForward(
                     RhnHelper.DEFAULT_FORWARD), makeParamMap(formIn, request));
         }
-        else {
-            return getStrutsDelegate().forwardParams(mapping.findForward(forward),
-                    makeParamMap(formIn, request));
-        }
+        return getStrutsDelegate().forwardParams(mapping.findForward(forward),
+                makeParamMap(formIn, request));
     }
     /**
      * Copy selected files to systems - forward to a system-selection-page

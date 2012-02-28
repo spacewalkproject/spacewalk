@@ -172,17 +172,13 @@ public abstract class ConfigActionHelper {
         if (cfid != null) {
             return ConfigurationManager.getInstance().lookupConfigFile(user, cfid);
         }
-        else {
-            Long crid = requestContext.getParamAsLong(REVISION_ID);
-            if (crid != null) {
-                ConfigRevision cr = ConfigurationManager.getInstance().
-                    lookupConfigRevision(user, crid);
-                return cr.getConfigFile();
-            }
-            else {
-                return null;
-            }
+        Long crid = requestContext.getParamAsLong(REVISION_ID);
+        if (crid != null) {
+            ConfigRevision cr = ConfigurationManager.getInstance().
+                lookupConfigRevision(user, crid);
+            return cr.getConfigFile();
         }
+        return null;
     }
 
     /**
@@ -200,9 +196,7 @@ public abstract class ConfigActionHelper {
         if (crid != null) {
             return ConfigurationManager.getInstance().lookupConfigRevision(user, crid);
         }
-        else {
-            return file.getLatestConfigRevision();
-        }
+        return file.getLatestConfigRevision();
     }
 
     /**

@@ -78,9 +78,7 @@ public class FileDownloadAction extends RhnAction {
         if (cr.getConfigContent().isBinary()) {
             return "application/octet-stream";
         }
-        else {
-            return "text/plain";
-        }
+        return "text/plain";
     }
 
     protected String getDownloadFilename(ConfigRevision cr) {
