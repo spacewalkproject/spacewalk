@@ -253,9 +253,7 @@ public class KickstartScript implements Comparable<KickstartScript> {
         if (scriptIn.getPosition() < this.getPosition()) {
             return after;
         }
-        else {
-            return before;
-        }
+        return before;
     }
 
 

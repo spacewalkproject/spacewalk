@@ -773,9 +773,7 @@ public class KickstartData {
         if (getInstallType() != null) {
             return getInstallType().isRhel5();
         }
-        else {
-            return false;
-        }
+        return false;
     }
 
     /**
@@ -797,9 +795,7 @@ public class KickstartData {
             return (getInstallType().isRhel5OrGreater() ||
                     getInstallType().isFedora());
         }
-        else {
-            return false;
-        }
+        return false;
     }
 
     /**
@@ -811,9 +807,7 @@ public class KickstartData {
             return (getInstallType().isRhel5() ||
                     !this.isRhel5OrGreater());
         }
-        else {
-            return false;
-        }
+        return false;
     }
 
     /**
@@ -824,9 +818,7 @@ public class KickstartData {
         if (getInstallType() != null) {
             return getInstallType().isFedora();
         }
-        else {
-            return false;
-        }
+        return false;
     }
 
     /**
@@ -838,9 +830,7 @@ public class KickstartData {
         if (getInstallType() != null) {
             return getInstallType().isGeneric();
         }
-        else {
-            return false;
-        }
+        return false;
     }
 
     /**
@@ -850,9 +840,7 @@ public class KickstartData {
         if (getInstallType() != null) {
             return getInstallType().isRhel4();
         }
-        else {
-            return false;
-        }
+        return false;
     }
 
     /**
@@ -862,9 +850,7 @@ public class KickstartData {
         if (getInstallType() != null) {
             return getInstallType().isRhel3();
         }
-        else {
-            return false;
-        }
+        return false;
     }
 
     /**
@@ -875,9 +861,7 @@ public class KickstartData {
         if (getInstallType() != null) {
             return getInstallType().isRhel2();
         }
-        else {
-            return false;
-        }
+        return false;
     }
 
     /**
@@ -997,9 +981,7 @@ public class KickstartData {
         if (matcher.matches()) {
             return "lilo";
         }
-        else {
-            return "grub";
-        }
+        return "grub";
     }
 
     /**
@@ -1213,9 +1195,7 @@ public class KickstartData {
             return (installType.equals(KickstartInstallType.RHEL_21) ||
                     installType.equals(KickstartInstallType.RHEL_3));
         }
-        else {
-            return false;
-        }
+        return false;
     }
 
     /**
@@ -1468,9 +1448,7 @@ public class KickstartData {
                 .equals(KickstartVirtualizationType.KVM_FULLYVIRT)) {
             return ConfigDefaults.get().getDefaultKVMVirtBridge();
         }
-        else {
-            return ConfigDefaults.get().getDefaultXenVirtBridge();
-        }
+        return ConfigDefaults.get().getDefaultXenVirtBridge();
     }
 
     /**

@@ -533,9 +533,7 @@ public class KickstartSession {
                 (KickstartSessionHistory) sorted.get(sorted.lastKey());
             return hist.getMessage();
         }
-        else {
-            return null;
-        }
+        return null;
 
     }
 

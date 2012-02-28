@@ -144,9 +144,7 @@ public class CobblerSnippet implements Comparable {
         if (f.exists()) {
             return loadEditable(nameIn, orgIn);
         }
-        else {
-            return null;
-        }
+        return null;
     }
 
     /**

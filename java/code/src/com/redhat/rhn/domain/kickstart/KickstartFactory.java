@@ -668,9 +668,7 @@ public class KickstartFactory extends HibernateFactory {
         if (ksessions.size() > 0) {
             return (KickstartSession) ksessions.iterator().next();
         }
-        else {
-            return null;
-        }
+        return null;
     }
 
     /**
@@ -692,9 +690,7 @@ public class KickstartFactory extends HibernateFactory {
         if (ksessions.size() > 0) {
             return (KickstartSession) ksessions.iterator().next();
         }
-        else {
-            return null;
-        }
+        return null;
     }
 
 

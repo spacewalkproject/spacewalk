@@ -207,18 +207,14 @@ public class KickstartableTree extends BaseDomainHelper {
             if (basePathIsUrl()) {
                 return this.getBasePath();
             }
-            else {
-                StringBuilder buf = new StringBuilder();
-                if (!defaultLocation.startsWith("/")) {
-                    buf.append("/");
-                }
-                buf.append(defaultLocation);
-                return buf.toString();
+            StringBuilder buf = new StringBuilder();
+            if (!defaultLocation.startsWith("/")) {
+                buf.append("/");
             }
+            buf.append(defaultLocation);
+            return buf.toString();
         }
-        else {
-            return "";
-        }
+        return "";
 
     }
 
