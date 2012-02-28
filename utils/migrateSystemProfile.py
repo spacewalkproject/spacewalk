@@ -20,7 +20,7 @@ if _topdir not in sys.path:
     sys.path.append(_topdir)
 
 from optparse import OptionParser, Option
-from spacewalk.common.cli import getUsernamePassword
+from spacewalk.common.cli import getUsernamePassword, xmlrpc_login, xmlrpc_logout
 
 client = None
 DEBUG = 0
@@ -86,7 +86,7 @@ def main():
     username, password = getUsernamePassword(options.username, \
                             options.password)
     
-    sessionKey = login(username, password)
+    sessionKey = xmlrpc_login(client, username, password)
     
     if not migrate_data:
         sys.stderr.write("Nothing to migrate. Exiting.. \n")
@@ -104,25 +104,7 @@ def main():
     
     if DEBUG:
         print "Migration Completed successfully"
-    logout(sessionKey)
-
-def login(username, password):
-    """
-     Authenticate Session call
-    """ 
-    try:
-        sessionkey = client.auth.login(username, password)
-    except xmlrpclib.Fault, e:
-        sys.stderr.write("Error: %s\n" % e.faultString)
-        sys.exit(-1)
-    return sessionkey
-
-def logout(session_key):
-    """
-     End Authentication call
-    """
-    client.auth.logout(session_key)
-
+    xmlrpc_logout(client, sessionKey)
 
 def migrate_system(key, newOrgId, server_ids):
     """

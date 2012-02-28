@@ -22,7 +22,7 @@ if _topdir not in sys.path:
     sys.path.append(_topdir)
 
 from optparse import OptionParser, Option
-from spacewalk.common.cli import getUsernamePassword
+from spacewalk.common.cli import getUsernamePassword, xmlrpc_login, xmlrpc_logout
 
 client = None
 
@@ -73,7 +73,7 @@ def main():
     username, password = getUsernamePassword(options.username, \
                             options.password)
 
-    sessionKey = login(username, password)
+    sessionKey = xmlrpc_login(client, username, password, options.verbose)
 
     if options.all:
 
@@ -107,31 +107,7 @@ def main():
     if options.verbose:
         print "Delete Snapshots Completed successfully"
 
-    logout(sessionKey)
-
-def login(username, password):
-    """
-     Authenticate Session call
-    """
-    if options.verbose:
-        print "...logging in to server..."
-
-    try:
-        sessionkey = client.auth.login(username, password)
-    except xmlrpclib.Fault, e:
-        sys.stderr.write("Error: %s\n" % e.faultString)
-        sys.exit(-1)
-
-    return sessionkey
-
-def logout(session_key):
-    """
-     End Authentication call
-    """
-    if options.verbose:
-        print "...logging out of server..."
-
-    client.auth.logout(session_key)
+    xmlrpc_logout(client, sessionKey, options.verbose)
 
 def deleteAllBetweenDates(sessionKey, startDate, endDate):
     """

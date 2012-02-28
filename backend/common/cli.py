@@ -15,6 +15,7 @@
 
 import sys
 import getpass
+import xmlrpclib
 
 def getUsernamePassword(cmdlineUsername, cmdlinePassword):
     """
@@ -53,3 +54,27 @@ def getUsernamePassword(cmdlineUsername, cmdlinePassword):
             sys.exit(0)
         tty.close()
     return username, password
+
+def xmlrpc_login(client, username, password, verbose=0):
+    """
+     Authenticate Session call
+    """
+    if verbose:
+        print "...logging in to server..."
+
+    try:
+        sessionkey = client.auth.login(username, password)
+    except xmlrpclib.Fault, e:
+        sys.stderr.write("Error: %s\n" % e.faultString)
+        sys.exit(-1)
+
+    return sessionkey
+
+def xmlrpc_logout(client, session_key, verbose=0):
+    """
+     End Authentication call
+    """
+    if verbose:
+        print "...logging out of server..."
+
+    client.auth.logout(session_key)
