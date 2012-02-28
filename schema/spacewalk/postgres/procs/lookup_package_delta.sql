@@ -1,4 +1,4 @@
--- oracle equivalent source sha1 71a7553a3c473b6262ea6845d638ed420d4983e4
+-- oracle equivalent source sha1 942483729cc7d9263a99c6605ee35e14afd1e526
 -- retrieved from ./1241042199/53fa26df463811901487b608eecc3f77ca7783a1/schema/spacewalk/oracle/procs/lookup_package_delta.sql
 --
 -- Copyright (c) 2008--2010 Red Hat, Inc.
