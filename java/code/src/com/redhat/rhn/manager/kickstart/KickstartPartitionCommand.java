@@ -17,15 +17,12 @@ package com.redhat.rhn.manager.kickstart;
 import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.domain.user.User;
 
-import org.apache.log4j.Logger;
-
 /**
  * KickstartPrePostCommand - for editing the pre and post steps
  * in a kickstart.
  * @version $Rev$
  */
 public class KickstartPartitionCommand extends BaseKickstartCommand {
-    private static Logger log = Logger.getLogger(KickstartPartitionCommand.class);
     /**
      * Constructor
      * @param ksidIn id of the Kickstart to lookup
