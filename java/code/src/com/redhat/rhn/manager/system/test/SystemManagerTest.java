@@ -883,41 +883,6 @@ public class SystemManagerTest extends RhnBaseTestCase {
         assertEquals(1, nonCriticalCount);
     }
 
-    /**
-     * Creates two packages and errata agains the specified server. An installed package
-     * with the default EVR is created and installed to the server. The newer package
-     * is created with the given EVR and is the package associated with the errata.
-     *
-     * @param org
-     * @param server
-     * @param upgradedPackageEvr
-     * @param errataType
-     * @throws Exception
-     */
-    private void populateServerErrataPackages(Org org, Server server,
-                                              PackageEvr upgradedPackageEvr,
-                                              String errataType)
-        throws Exception {
-
-        Errata errata = ErrataFactoryTest.createTestErrata(org.getId());
-        errata.setAdvisoryType(errataType);
-        TestUtils.saveAndFlush(errata);
-
-        Package installedPackage = PackageTest.createTestPackage(org);
-        TestUtils.saveAndFlush(installedPackage);
-
-        Session session = HibernateFactory.getSession();
-        session.flush();
-
-        Package upgradedPackage = PackageTest.createTestPackage(org);
-        upgradedPackage.setPackageName(installedPackage.getPackageName());
-        upgradedPackage.setPackageEvr(upgradedPackageEvr);
-        TestUtils.saveAndFlush(upgradedPackage);
-
-        ErrataCacheManager.insertNeededPackageCache(
-                server.getId(), errata.getId(), installedPackage.getId());
-    }
-
     public void testSsmSystemPackagesToRemove() throws Exception {
 
         // Setup
