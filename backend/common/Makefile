@@ -24,6 +24,7 @@ SPACEWALK_FILES	=   __init__ \
             rhnTranslate \
             RPC_Base \
 	    checksum \
+	    cli \
 	    fileutils \
 	    rhn_deb \
 	    rhn_mpm \
