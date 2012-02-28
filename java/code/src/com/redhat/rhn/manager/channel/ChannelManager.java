@@ -440,9 +440,7 @@ public class ChannelManager extends BaseManager {
         if (dr != null && !dr.isEmpty()) {
             return (ChannelOverview) dr.get(0);
         }
-        else {
-            return null;
-        }
+        return null;
     }
 
     /**
@@ -1743,9 +1741,7 @@ public class ChannelManager extends BaseManager {
                             foundChannel = dcm.getChannel();
                             break;
                         }
-                        else {
-                            log.debug("no subscriptions available.");
-                        }
+                        log.debug("no subscriptions available.");
                     }
                 }
             }
@@ -1818,9 +1814,7 @@ public class ChannelManager extends BaseManager {
             if (tokens.length <= 1) {
                 return originalRelease;
             }
-            else {
-                return tokens[0];
-            }
+            return tokens[0];
         }
 
         if (tokens.length <= 3) {
@@ -1852,9 +1846,7 @@ public class ChannelManager extends BaseManager {
         if (dr.size() == 0) {
             return null;
         }
-        else {
-            return dr;
-        }
+        return dr;
     }
     /**
      * Return the list of ISO channels with SUPPORTED distributions
@@ -1872,9 +1864,7 @@ public class ChannelManager extends BaseManager {
         if (dr.size() == 0) {
             return null;
         }
-        else {
-            return dr;
-        }
+        return dr;
     }
     /**
      * Return the list of ISO channels for RETIRED distributions
@@ -1892,9 +1882,7 @@ public class ChannelManager extends BaseManager {
         if (dr.size() == 0) {
             return null;
         }
-        else {
-            return dr;
-        }
+        return dr;
     }
 
     /**
@@ -1929,9 +1917,7 @@ public class ChannelManager extends BaseManager {
         if (dr.size() == 0) {
             return null;
         }
-        else {
-            return dr;
-        }
+        return dr;
     }
 
     /**
@@ -2788,9 +2774,7 @@ public class ChannelManager extends BaseManager {
                                         "list_errata_needing_sync");
             return m.execute(params);
         }
-        else {
-            return Collections.EMPTY_LIST;
-        }
+        return Collections.EMPTY_LIST;
     }
 
     /**
@@ -2815,9 +2799,7 @@ public class ChannelManager extends BaseManager {
                     "list_packages_needing_sync_from_set");
             return m.execute(params);
         }
-        else {
-            return Collections.EMPTY_LIST;
-        }
+        return Collections.EMPTY_LIST;
     }
 
     /**
