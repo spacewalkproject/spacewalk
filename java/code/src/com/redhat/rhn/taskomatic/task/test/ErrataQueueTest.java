@@ -14,7 +14,6 @@
  */
 package com.redhat.rhn.taskomatic.task.test;
 
-import com.redhat.rhn.domain.errata.test.ErrataFactoryTest;
 import com.redhat.rhn.domain.task.TaskFactory;
 import com.redhat.rhn.taskomatic.TaskoBunch;
 import com.redhat.rhn.taskomatic.TaskoFactory;
@@ -26,33 +25,12 @@ import com.redhat.rhn.testing.BaseTestCaseWithUser;
 
 import org.apache.commons.lang.RandomStringUtils;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-
 public class ErrataQueueTest extends BaseTestCaseWithUser {
 
     // We can run this now that mmccune made ErrataQueue perform OK.
     public void testErrataQueue() throws Exception {
 
-        ErrataQueue eq = new ErrataQueue() {
-
-            // Override this so we only process one errata.
-            protected List findCandidates() throws Exception {
-                Long eid = ErrataFactoryTest.
-                    createTestErrata(user.getOrg().getId()).getId();
-                List retval = new LinkedList();
-                Map row = new HashMap();
-                row.put("errata_id", eid);
-                row.put("org_id", user.getOrg().getId());
-                retval.add(row);
-                System.out.println("Returning one test errata.");
-                return retval;
-            }
-
-        };
-
+        ErrataQueue eq = new ErrataQueue();
         String suffix = RandomStringUtils.randomAlphanumeric(5);
         TaskoBunch bunch = new TaskoBunch();
         TaskoTemplate template = new TaskoTemplate();
