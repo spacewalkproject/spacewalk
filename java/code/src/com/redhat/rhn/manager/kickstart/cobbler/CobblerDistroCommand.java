@@ -19,7 +19,6 @@ import com.redhat.rhn.domain.kickstart.KickstartableTree;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.manager.kickstart.KickstartUrlHelper;
 
-import org.apache.log4j.Logger;
 import org.cobbler.CobblerConnection;
 import org.cobbler.Distro;
 
@@ -27,14 +26,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-
 /**
  * CobblerProfileComand - class to contain logic to communicate with cobbler
  * @version $Rev$
  */
 public class CobblerDistroCommand extends CobblerCommand {
-
-    private static Logger log = Logger.getLogger(CobblerDistroCommand.class);
 
     protected KickstartableTree tree;
 
