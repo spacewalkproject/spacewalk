@@ -297,9 +297,7 @@ public class RecurringEventPicker {
         if (StringUtils.isNumeric(st)) {
             return Long.parseLong(st);
         }
-        else {
-            return -1L;
-        }
+        return -1L;
     }
 
 
@@ -313,9 +311,7 @@ public class RecurringEventPicker {
                 Integer.parseInt(num) < 1) {
             return null;
         }
-        else {
-            return getDayNames()[Integer.parseInt(num) - 1];
-        }
+        return getDayNames()[Integer.parseInt(num) - 1];
     }
 
 
@@ -336,9 +332,7 @@ public class RecurringEventPicker {
         if (StringUtils.isNumeric(st)) {
             return Long.parseLong(st);
         }
-        else {
-            return -1L;
-        }
+        return -1L;
     }
 
 
@@ -359,9 +353,7 @@ public class RecurringEventPicker {
         if (StringUtils.isNumeric(st)) {
             return Long.parseLong(st);
         }
-        else {
-            return -1L;
-        }
+        return -1L;
     }
 
 
@@ -373,9 +365,7 @@ public class RecurringEventPicker {
         if (slot >= array.length) {
             return null;
         }
-        else {
-            return array[slot];
-        }
+        return array[slot];
     }
 
     /**

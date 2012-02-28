@@ -462,9 +462,7 @@ public class DatePicker {
             if (isLatin() && field.equals(HOUR) && result == 0) {
                 return new Integer(12);
             }
-            else {
-               return new Integer(result);
-            }
+            return new Integer(result);
         }
         catch (IllegalArgumentException e) {
             // Ignore and return null to indicate invalid date

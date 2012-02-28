@@ -180,14 +180,10 @@ public class OvalFileAggregator {
             if (key == null) {
                 continue;
             }
-            else {
-                if (container.containsKey(key)) {
-                    continue;
-                }
-                else {
-                    container.put(key, child.clone());
-                }
+            if (container.containsKey(key)) {
+                continue;
             }
+            container.put(key, child.clone());
         }
     }
 

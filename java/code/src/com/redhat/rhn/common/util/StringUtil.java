@@ -579,51 +579,37 @@ public class StringUtil {
             if (val == 1) {
                 return ls.getMessage("timetag.second");
             }
-            else {
-                return ls.getMessage("timetag.seconds");
-            }
+            return ls.getMessage("timetag.seconds");
         case MINUTES_UNITS:
             if (val == 1) {
                 return ls.getMessage("timetag.minute");
             }
-            else {
-                return ls.getMessage("timetag.minutes");
-            }
+            return ls.getMessage("timetag.minutes");
         case HOURS_UNITS:
             if (val == 1) {
                 return ls.getMessage("timetag.hour");
             }
-            else {
-                return ls.getMessage("timetag.hours");
-            }
+            return ls.getMessage("timetag.hours");
         case DAYS_UNITS:
             if (val == 1) {
                 return ls.getMessage("timetag.day");
             }
-            else {
-                return ls.getMessage("timetag.days");
-            }
+            return ls.getMessage("timetag.days");
         case WEEKS_UNITS:
             if (val == 1) {
                 return ls.getMessage("timetag.week");
             }
-            else {
-                return ls.getMessage("timetag.weeks");
-            }
+            return ls.getMessage("timetag.weeks");
         case MONTHS_UNITS:
             if (val == 1) {
                 return ls.getMessage("timetag.month");
             }
-            else {
-                return ls.getMessage("timetag.months");
-            }
+            return ls.getMessage("timetag.months");
         case YEARS_UNITS:
             if (val == 1) {
                 return ls.getMessage("timetag.year");
             }
-            else {
-                return ls.getMessage("timetag.years");
-            }
+            return ls.getMessage("timetag.years");
 
         default:
             return ls.getMessage("timetag.unknown");
@@ -636,9 +622,7 @@ public class StringUtil {
         if (now < target) {
             return ls.getMessage("timetag.futuretense");
         }
-        else {
-            return ls.getMessage("timetag.pasttense");
-        }
+        return ls.getMessage("timetag.pasttense");
     }
 
     /**

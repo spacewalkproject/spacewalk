@@ -112,9 +112,7 @@ public class RpmVersionComparator implements Comparator {
         if (b1 == str1.length()) {
             return -1;
         }
-        else {
-            return 1;
-        }
+        return 1;
     }
 
     private int skipZeros(String s, int b, int e) {

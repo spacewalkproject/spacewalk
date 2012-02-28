@@ -72,9 +72,7 @@ public class XPathLite {
         if (current != null) {
             return current.getChildren();
         }
-        else {
-            return Collections.EMPTY_LIST;
-        }
+        return Collections.EMPTY_LIST;
     }
 
     private Element findChild(Element current, String name) {
@@ -85,9 +83,7 @@ public class XPathLite {
                 current = child;
                 break;
             }
-            else {
-                current = null;
-            }
+            current = null;
         }
         return current;
     }
