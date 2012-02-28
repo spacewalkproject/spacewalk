@@ -37,12 +37,6 @@ public class TestTranslations extends Translations {
         return new Date(d.longValue());
     }
 
-    // This is here to test that we can't access a private method and that
-    // when we try, we get a consistent error.
-    private static Long int2Long(Integer i) {
-        return new Long(i.intValue());
-    }
-
     public static String list2String(List l) {
         return l.toString();
     }
