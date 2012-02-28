@@ -28,10 +28,6 @@ public class OrgSystemEntitlementDto {
     private String orgname;
     private OrgEntitlementDto orgEntDto;
     private String entname;
-    private Long availableEntitlements;
-    private Long currentEntitlements;
-    private Long satelliteTotal;
-
     /**
      * Constructor ..
      */
