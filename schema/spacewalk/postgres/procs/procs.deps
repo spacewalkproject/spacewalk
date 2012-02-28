@@ -67,7 +67,7 @@ lookup_client_capability        :: rhnClientCapabilityName pg_dblink_exec
 lookup_cf_state                 :: rhnConfigFileState
 lookup_config_filename          :: pg_dblink_exec
 lookup_config_info              :: pg_dblink_exec
-lookup_cve                      :: rhnCVE
+lookup_cve                      :: rhnCVE pg_dblink_exec
 lookup_erratafile_type          :: rhnErrataFileType data/rhnErrataFileType
 lookup_evr                      :: rhnPackageEVR
 lookup_feature_type             :: rhnFeature

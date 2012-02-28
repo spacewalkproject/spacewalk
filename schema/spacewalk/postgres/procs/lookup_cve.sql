@@ -1,7 +1,6 @@
--- oracle equivalent source sha1 f8ec6c07d6f4276d821e52bcacf61f2e930a8ba9
--- retrieved from ./1241042199/53fa26df463811901487b608eecc3f77ca7783a1/schema/spacewalk/oracle/procs/lookup_cve.sql
+-- oracle equivalent source sha1 bd0ee90dd89cf387d15632b5c37158ddcdbc3817
 --
--- Copyright (c) 2008--2010 Red Hat, Inc.
+-- Copyright (c) 2008--2012 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -13,29 +12,32 @@
 -- Red Hat trademarks are not licensed under GPLv2. No permission is
 -- granted to use or replicate Red Hat trademarks that are incorporated
 -- in this software or its documentation.
---
---
---
---
 
-CREATE OR REPLACE FUNCTION
-LOOKUP_CVE(name_in IN VARCHAR)
-RETURNS NUMERIC
-AS $$
-DECLARE
-        name_id         NUMERIC;
-BEGIN
-        SELECT id
-          INTO name_id
-          FROM rhnCve
-         WHERE name = name_in;
-		
-        IF NOT FOUND THEN
-		            INSERT INTO rhnCve (id, name) VALUES (nextval('rhn_cve_id_seq'), name_in);
-		            name_id := currval('rhn_cve_id_seq');
+create or replace function
+lookup_cve(name_in in varchar)
+returns numeric
+as $$
+declare
+    name_id     numeric;
+begin
+    select id
+      into name_id
+      from rhnCVE
+     where name = name_in;
 
-        END IF;
+    if not found then
+        name_id := nextval('rhn_cve_id_seq');
+        begin
+            perform pg_dblink_exec(
+                'insert into rhnCVE (id, name) values (' || name_id || ', ' ||
+                coalesce(quote_literal(name_in), 'NULL') || ')');
+        exception when unique_violation then
+            select id
+              into strict name_id
+              from rhnCVE
+             where name = name_in;
+        end;
+    end if;
 
-        RETURN name_id;
-END; $$ language plpgsql;
-
+    return name_id;
+end; $$ language plpgsql immutable;
