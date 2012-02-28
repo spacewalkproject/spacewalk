@@ -24,6 +24,7 @@ begin
             r_in,
             evr_t(e_in, v_in, r_in)) returning id into evr_id;
     commit;
+    return evr_id;
 end;
 /
 show errors
