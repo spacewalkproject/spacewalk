@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.7.47
+Version: 1.7.48
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -585,6 +585,44 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Feb 28 2012 Tomas Lestach <tlestach@redhat.com> 1.7.48-1
+- remove unnecessary else statements in
+  java/code/src/com/redhat/rhn/testing/TestUtils.java (tlestach@redhat.com)
+- remove unnecessary else statements in java/code/src/com/redhat/rhn/manager/
+  (tlestach@redhat.com)
+- remove unnecessary else statements in
+  java/code/src/com/redhat/rhn/manager/system/ (tlestach@redhat.com)
+- remove unnecessary else statements in
+  java/code/src/com/redhat/rhn/manager/kickstart/ (tlestach@redhat.com)
+- remove unnecessary else statements in
+  java/code/src/com/redhat/rhn/manager/channel/ChannelManager.java
+  (tlestach@redhat.com)
+- remove unnecessary else statements in
+  java/code/src/com/redhat/rhn/taskomatic/ (tlestach@redhat.com)
+- remove unnecessary else statements in rest of
+  java/code/src/com/redhat/rhn/frontend/ (tlestach@redhat.com)
+- remove unnecessary else statements in
+  java/code/src/com/redhat/rhn/frontend/xmlrpc/ (tlestach@redhat.com)
+- remove unnecessary else statements in
+  java/code/src/com/redhat/rhn/frontend/action/ (tlestach@redhat.com)
+- remove unnecessary else statements in
+  java/code/src/com/redhat/rhn/frontend/dto/ (tlestach@redhat.com)
+- remove unnecessary else statements in
+  java/code/src/com/redhat/rhn/frontend/action/configuration/
+  (tlestach@redhat.com)
+- remove unnecessary else statements in java/code/src/com/redhat/rhn/domain/
+  (tlestach@redhat.com)
+- remove unnecessary else statements in
+  java/code/src/com/redhat/rhn/domain/kickstart/ (tlestach@redhat.com)
+- remove unnecessary else statements in rest of
+  java/code/src/com/redhat/rhn/common/ (tlestach@redhat.com)
+- remove unnecessary else statements in
+  java/code/src/com/redhat/rhn/common/validator/ (tlestach@redhat.com)
+- remove unnecessary else statements in
+  java/code/src/com/redhat/rhn/common/util/ (tlestach@redhat.com)
+- remove unnecessary else statements in
+  java/code/internal/src/com/redhat/rhn/internal/doclet (tlestach@redhat.com)
+
 * Tue Feb 28 2012 Tomas Lestach <tlestach@redhat.com> 1.7.47-1
 - access static fields in a static way (tlestach@redhat.com)
 - access static fields in a static way (tlestach@redhat.com)
