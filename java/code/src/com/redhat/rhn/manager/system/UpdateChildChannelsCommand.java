@@ -92,9 +92,7 @@ public class UpdateChildChannelsCommand extends BaseUpdateChannelCommand {
                     if (channel == null) {
                         throw new InvalidChannelException();
                     }
-                    else {
-                        throw new ChannelSubscriptionException(channel.getLabel());
-                    }
+                    throw new ChannelSubscriptionException(channel.getLabel());
                 }
             }
         }
@@ -112,9 +110,7 @@ public class UpdateChildChannelsCommand extends BaseUpdateChannelCommand {
         if (failedChannels) {
             return new ValidatorError("sdc.channels.edit.failed_channels");
         }
-        else {
-            return null;
-        }
+        return null;
     }
 
     private static boolean subscribeToNewChannels(User loggedInUser,

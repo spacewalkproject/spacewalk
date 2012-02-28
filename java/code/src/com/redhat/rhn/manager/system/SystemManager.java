@@ -1194,10 +1194,8 @@ public class SystemManager extends BaseManager {
         if (flush) {
             return (Server) HibernateFactory.reload(server);
         }
-        else {
-            HibernateFactory.getSession().refresh(server);
-            return server;
-        }
+        HibernateFactory.getSession().refresh(server);
+        return server;
     }
 
     /**
@@ -1326,10 +1324,8 @@ public class SystemManager extends BaseManager {
             if (flush) {
                 return (Server)HibernateFactory.reload(server);
             }
-            else {
-                HibernateFactory.getSession().refresh(server);
-                return server;
-            }
+            HibernateFactory.getSession().refresh(server);
+            return server;
 
     }
 
@@ -1601,9 +1597,7 @@ public class SystemManager extends BaseManager {
                     ChannelManager.RHN_VIRT_HOST_PACKAGE_NAME + " installed.");
             return result;
         }
-        else {
-            scheduleVirtualizationHostPackageInstall(server, user, result);
-        }
+        scheduleVirtualizationHostPackageInstall(server, user, result);
 
         return result;
     }
@@ -1912,10 +1906,8 @@ public class SystemManager extends BaseManager {
             e.setLocalizedReason2(ls.getMessage("lookup.jsp.reason2.system"));
             throw e;
         }
-        else {
-            HibernateFactory.getSession().delete(server.getLock());
-            server.setLock(null);
-        }
+        HibernateFactory.getSession().delete(server.getLock());
+        server.setLock(null);
     }
 
     /**
@@ -1935,13 +1927,11 @@ public class SystemManager extends BaseManager {
             e.setLocalizedReason2(ls.getMessage("lookup.jsp.reason2.system"));
             throw e;
         }
-        else {
-            ServerLock sl = new ServerLock(locker,
-                                           server,
-                                           reason);
+        ServerLock sl = new ServerLock(locker,
+                                       server,
+                                       reason);
 
-            server.setLock(sl);
-        }
+        server.setLock(sl);
     }
 
 
