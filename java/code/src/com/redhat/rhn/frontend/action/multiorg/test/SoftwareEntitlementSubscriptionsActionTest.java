@@ -16,7 +16,6 @@ package com.redhat.rhn.frontend.action.multiorg.test;
 
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelFamily;
-import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.testing.RhnMockStrutsTestCase;
@@ -28,7 +27,6 @@ import com.redhat.rhn.testing.TestUtils;
  * @version $Rev: 1 $
  */
 public class SoftwareEntitlementSubscriptionsActionTest extends RhnMockStrutsTestCase {
-    private Org testOrg;
     private ChannelFamily family;
 
     public void setUp() throws Exception {
@@ -40,7 +38,7 @@ public class SoftwareEntitlementSubscriptionsActionTest extends RhnMockStrutsTes
         Server s = ServerTestUtils.createTestSystem(user);
         Channel chan = s.getChannels().iterator().next();
         family = chan.getChannelFamily();
-        testOrg = s.getOrg();
+        s.getOrg();
 
 
         setRequestPathInfo("/admin/multiorg/SoftwareEntitlementSubscriptions");
