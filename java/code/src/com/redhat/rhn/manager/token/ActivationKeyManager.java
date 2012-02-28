@@ -560,32 +560,6 @@ public class ActivationKeyManager {
         return !channels.isEmpty();
     }
 
-    // called dynamically by subscribeToChildChannelWithPackageName
-    private Channel removeCloned(List<Channel> channels) {
-        Channel lastRemoved = null;
-        for (Iterator<Channel> i = channels.iterator(); i.hasNext();) {
-            Channel c = i.next();
-            if (c.isCloned()) {
-                lastRemoved = c;
-                i.remove();
-            }
-        }
-        return lastRemoved;
-    }
-
-    // called dynamically by subscribeToChildChannelWithPackageName
-    private Channel removeCustom(List<Channel> channels) {
-        Channel lastRemoved = null;
-        for (Iterator<Channel> i = channels.iterator(); i.hasNext();) {
-            Channel c = i.next();
-            if (c.isCustom()) {
-                lastRemoved = c;
-                i.remove();
-            }
-        }
-        return lastRemoved;
-    }
-
     private void addConfigMgmtPackages(ActivationKey key) {
         String [] names = { PackageManager.RHNCFG,
                             PackageManager.RHNCFG_CLIENT,
