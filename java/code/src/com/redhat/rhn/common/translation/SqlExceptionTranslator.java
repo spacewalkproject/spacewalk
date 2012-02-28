@@ -41,9 +41,7 @@ public class SqlExceptionTranslator extends Translations {
         if (ConfigDefaults.get().isOracle()) {
             return oracleSQLException(e);
         }
-        else {
-            return postgreSqlException(e);
-        }
+        return postgreSqlException(e);
     }
 
     /**

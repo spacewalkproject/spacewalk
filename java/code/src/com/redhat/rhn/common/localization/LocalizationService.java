@@ -174,10 +174,8 @@ public class LocalizationService {
             initService();
             return true;
         }
-        else {
-            log.error("Tried to reload XML StringResource files but " +
-                    "we aren't in web.development_environment mode");
-        }
+        log.error("Tried to reload XML StringResource files but " +
+                "we aren't in web.development_environment mode");
         return false;
     }
 
@@ -673,8 +671,6 @@ public class LocalizationService {
         if (context != null && context.getLocale() != null) {
             return Collator.getInstance(context.getLocale());
         }
-        else {
-            return Collator.getInstance();
-        }
+        return Collator.getInstance();
     }
 }

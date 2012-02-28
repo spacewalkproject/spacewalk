@@ -66,9 +66,7 @@ public class ChannelAclHandler extends BaseHandler {
             Channel chan = ChannelManager.lookupByIdAndUser(cid, usr);
             return chan;
         }
-        else {
-            return null;
-        }
+        return null;
     }
 
     /**
@@ -84,9 +82,7 @@ public class ChannelAclHandler extends BaseHandler {
         if (chan != null) {
             return UserManager.verifyChannelAdmin(usr, chan);
         }
-        else {
-            return false;
-        }
+        return false;
     }
 
     /**
@@ -106,13 +102,9 @@ public class ChannelAclHandler extends BaseHandler {
             if (NOT_GLOBAL_SUBSCRIBE.equals(p0)) {
                 return !subscribable;
             }
-            else {
-                return subscribable;
-            }
+            return subscribable;
         }
-        else {
-            return false;
-        }
+        return false;
     }
 
     /**
@@ -178,9 +170,7 @@ public class ChannelAclHandler extends BaseHandler {
                     !chan.isProxy() &&
                     ChannelManager.verifyChannelSubscribe(usr, chan.getId());
         }
-        else {
-            return false;
-        }
+        return false;
     }
 
     /**
@@ -198,9 +188,7 @@ public class ChannelAclHandler extends BaseHandler {
                 listDownloadImages(usr, chan.getLabel(), "iso", null, chan.isSatellite());
             return (dr == null ? false : (dr.size() > 0));
         }
-        else {
-            return false;
-        }
+        return false;
     }
 
     /**
@@ -217,9 +205,7 @@ public class ChannelAclHandler extends BaseHandler {
             Set vers = ChannelManager.getChannelVersions(chan);
             return (vers != null && vers.contains(ChannelVersion.RHEL5));
         }
-        else {
-            return false;
-        }
+        return false;
 
     }
 

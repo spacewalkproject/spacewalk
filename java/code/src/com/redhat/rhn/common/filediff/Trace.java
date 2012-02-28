@@ -156,21 +156,17 @@ public class Trace {
             //likely the correct trace
             return step(oldFile, newFile);
         }
-        else {
-            //in order to avoid two equal traces (and therefore explode the
-            //possible traces and thus memory used), once we start deleting,
-            //we keep deleting. Since all traces that delete and then add
-            //can be represented by ones that add and then delete, this is
-            //computationally sound.
-            if (edit != null && edit.getType() == Edit.DELETE) {
-                makeDelete();
-                return false;
-            }
-            else {
-                fork();
-                return true;
-            }
+        //in order to avoid two equal traces (and therefore explode the
+        //possible traces and thus memory used), once we start deleting,
+        //we keep deleting. Since all traces that delete and then add
+        //can be represented by ones that add and then delete, this is
+        //computationally sound.
+        if (edit != null && edit.getType() == Edit.DELETE) {
+            makeDelete();
+            return false;
         }
+        fork();
+        return true;
     }
 
     private void makeAdd() {

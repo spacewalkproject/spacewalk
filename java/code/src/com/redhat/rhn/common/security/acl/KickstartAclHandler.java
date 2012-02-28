@@ -46,9 +46,7 @@ public class KickstartAclHandler extends BaseHandler {
                     usr.getOrg(), id);
             return ks;
         }
-        else {
-            return null;
-        }
+        return null;
     }
 
     /**
@@ -64,9 +62,7 @@ public class KickstartAclHandler extends BaseHandler {
         if (ks != null) {
             return ks.isRawData();
         }
-        else {
-            return false;
-        }
+        return false;
     }
 
     /**

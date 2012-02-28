@@ -741,16 +741,14 @@ public class CachedStatement {
                 MethodUtil.callMethod(obj, setName, c);
                 continue;
             }
-            else {
-                /*
-                 * Just call the set method.  This will call the same
-                 * set method multiple times.  If the result set should
-                 * be a list, but has a non-Collection set method, the
-                 * attribute corresponding to this column will ultimately
-                 * contain the last item found for this column.
-                 */
-                MethodUtil.callMethod(obj, setName, getObject(rs, columnName));
-            }
+            /*
+             * Just call the set method.  This will call the same
+             * set method multiple times.  If the result set should
+             * be a list, but has a non-Collection set method, the
+             * attribute corresponding to this column will ultimately
+             * contain the last item found for this column.
+             */
+            MethodUtil.callMethod(obj, setName, getObject(rs, columnName));
         } //while
     }
 

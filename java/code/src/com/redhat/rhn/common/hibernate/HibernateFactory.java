@@ -518,14 +518,10 @@ public abstract class HibernateFactory {
         if (data == null) {
             return null;
         }
-        else {
-            if (data.length == 0) {
-                return null;
-            }
-            else {
-                return Hibernate.createBlob(data);
-            }
+        if (data.length == 0) {
+            return null;
         }
+        return Hibernate.createBlob(data);
 
     }
 
