@@ -27,7 +27,6 @@ import com.redhat.rhn.frontend.action.systems.sdc.SdcHelper;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 
-import org.apache.log4j.Logger;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
@@ -44,7 +43,6 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class SessionStatusAction extends RhnAction {
 
-    private static Logger log = Logger.getLogger(SessionStatusAction.class);
     private static final int GUEST_TIME_OUT_MINUTES = 15;
 
     /** {@inheritDoc} */
