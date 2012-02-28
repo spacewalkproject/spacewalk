@@ -61,6 +61,7 @@ does_user_have_role             :: rhnUserGroup rhnUserGroupMembers rhnUserGroup
 insert_client_capability        :: rhnClientCapabilityName
 insert_checksum                 :: rhnChecksum rhnChecksumType
 insert_config_filename          :: rhnConfigFileName
+insert_config_info              :: rhnConfigInfo
 is_user_applicant               :: rhnUserGroupType web_contact rhnUserGroup \
                                    rhnUserGroupMembers
 lookup_arch_type                :: data/rhnArchType rhn_exception.pks
@@ -70,6 +71,7 @@ lookup_checksum                 :: rhnChecksumView insert_checksum
 lookup_client_capability        :: insert_client_capability rhnClientCapabilityName
 lookup_cf_state                 :: rhnConfigFileState
 lookup_config_filename          :: insert_config_filename
+lookup_config_info              :: insert_config_info
 lookup_cve                      :: rhnCVE
 lookup_erratafile_type          :: rhnErrataFileType data/rhnErrataFileType
 lookup_evr                      :: rhnPackageEVR
