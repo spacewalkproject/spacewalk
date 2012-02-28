@@ -330,7 +330,7 @@ def get_info_for_package(pkg, channel_id):
        and pe.release = :rel
        and %s
        and pa.label = :arch
-     order by c.label nulls last
+     order by cp.channel_id nulls last
     """ % epochStatement
     h = rhnSQL.prepare(statement)
     h.execute(**params)
