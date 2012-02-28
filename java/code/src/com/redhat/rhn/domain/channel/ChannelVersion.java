@@ -40,9 +40,6 @@ public class ChannelVersion {
     public static final ChannelVersion RHEL6 = new ChannelVersion(
             "Red Hat Enterprise Linux 6", "6");
 
-    // Map kickstart install type labels to channel version constants.
-    private static final Map KICKSTART_INSTALL_TYPE_TO_CHANNEL_VERSION = new HashMap();
-
     // Map releases to channel version constants. Anything not in this map
     // will be assumed to be legacy.
     public static final Map DIST_CHANNEL_MAP_TO_CHANNEL_VERSION = new HashMap();
