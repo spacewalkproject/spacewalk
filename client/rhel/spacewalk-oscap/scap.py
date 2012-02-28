@@ -56,12 +56,15 @@ def _popen(args):
         stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=False)
 
 def _assert_xml(filename):
-    with open(filename, 'rb') as f:
+    f = open(filename, 'rb')
+    try:
         try:
             xml.sax.parse(f, xml.sax.ContentHandler())
             return True
         except:
             return False
+    finally:
+        f.close()
 
 if __name__ == "__main__":
     print xccdf_eval({
