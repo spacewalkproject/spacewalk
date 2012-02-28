@@ -143,9 +143,7 @@ public class TestUtils {
         if (url == null) {
             return null;
         }
-        else {
-            return readAll(url.openStream());
-        }
+        return readAll(url.openStream());
     }
 
     /**
