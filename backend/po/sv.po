@@ -1,243 +1,178 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Christian Rose <menthos@menthos.com>, 2002, 2003, 2004, 2005.
+# Göran Uddeborg <goeran@uddeborg.se>, 2012.
 # Magnus Larsson <fedoratrans@gmail.com>, 2006, 2007.
 # Miroslav Suchý <msuchy@redhat.com>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-12-21 12:18+0100\n"
-"PO-Revision-Date: 2011-03-22 15:47+0000\n"
-"Last-Translator: Miroslav Suchý <msuchy@redhat.com>\n"
-"Language-Team: Swedish (http://www.transifex.net/projects/p/fedora/team/"
-"sv/)\n"
-"Language: sv\n"
+"Report-Msgid-Bugs-To: http://bugzilla.redhat.com/\n"
+"POT-Creation-Date: 2010-11-02 11:19+0100\n"
+"PO-Revision-Date: 2012-02-19 18:39+0000\n"
+"Last-Translator: Göran Uddeborg <goeran@uddeborg.se>\n"
+"Language-Team: Swedish (http://www.transifex.net/projects/p/fedora/language/sv/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: sv\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
-#: ../server/rhnPackage.py:45 ../server/rhnPackage.py:80
-#: ../server/rhnPackage.py:99 ../server/rhnPackage.py:181
-#: ../server/rhnPackage.py:205 ../server/rhnPackage.py:287
+#: ../server/handlers/xmlrpc/queue.py:400
 #, python-format
-msgid "Invalid RPM package %s requested"
-msgstr "Ogiltigt RPM-paket %s begärt"
+msgid "Invalid action value type %s (%s)"
+msgstr "Otiltig typ på åtgärsvärde %s (%s)"
 
-#: ../server/rhnPackage.py:104 ../server/rhnPackage.py:293
-msgid "Package not found"
-msgstr "Paketet finns inte"
-
-#: ../server/apacheAuth.py:58
+#: ../server/handlers/xmlrpc/queue.py:425
 #, python-format
-msgid "incomplete proxy authentication token: %s"
-msgstr "ofullständig proxy-autenticeringsnyckel: %s"
+msgid "Action %s does not belong to server %s"
+msgstr "Åtgärd %s hör inte till server %s"
 
-#: ../server/apacheAuth.py:74
+#: ../server/handlers/xmlrpc/proxy.py:56
 #, python-format
-msgid "Sent proxy signature %s does not match ours %s."
-msgstr "Skickad proxy-signatur %s stämmer inte med våran %s."
+msgid "RHN Proxy service not enabled for server profile: \"%s\""
+msgstr "RHN-proxy-tjänst inte aktiverat för serverprofilen: \"%s\""
 
-#: ../server/apacheAuth.py:105
-msgid "declined proxy authentication"
-msgstr "nekad proxy-autenticering"
+#: ../server/handlers/xmlrpc/proxy.py:76
+msgid "Invalid session key"
+msgstr "Ogiltig sessionsnyckel"
 
-#: ../server/apacheRequest.py:50
+#: ../server/handlers/xmlrpc/proxy.py:84
+msgid "This server ID no longer exists"
+msgstr "Denna server-ID finns inte längre"
+
+#: ../server/handlers/xmlrpc/errata.py:56
 #, python-format
-msgid "Invalid request received (%s)."
-msgstr "Ogiltig begäran mottagen (%s)."
+msgid "Expected a package name, not: %s"
+msgstr "Ett paketnamn förväntades, inte: %s"
 
-#: ../server/apacheRequest.py:107
+#: ../server/handlers/xmlrpc/errata.py:116
+#, python-format
+msgid "Expected a package, not: %s"
+msgstr "Ett paket förväntades, inte: %s"
+
+#: ../server/handlers/xmlrpc/up2date.py:230
+#, python-format
+msgid "Invalid value %s (type %s)"
+msgstr "Ogiltigt värde %s (typ %s)"
+
+#: ../server/handlers/xmlrpc/up2date.py:258
+#, python-format
+msgid "Unable to retrieve package header %s"
+msgstr "Kan inte hämta pakethuvud %s"
+
+#: ../server/handlers/xmlrpc/up2date.py:405
+#, python-format
+msgid "Invalid value %s (%s)"
+msgstr "Ogiltigt värde %s (%s)"
+
+#: ../server/handlers/xmlrpc/up2date.py:477
+#, python-format
+msgid "Invalid value for %s in package tuple: %s (%s)"
+msgstr "Ogiltigt värde för %s i pakettupel: %s (%s)"
+
+#: ../server/handlers/xmlrpc/up2date.py:489
+#, python-format
+msgid "Invalid package parameter %s (%s)"
+msgstr "Ogiltig paketparameter %s (%s)"
+
+#: ../server/handlers/xmlrpc/registration.py:200
+msgid "Required data missing"
+msgstr "Nödvändiga data saknas"
+
+#: ../server/handlers/xmlrpc/registration.py:204
+msgid "Required members missing"
+msgstr "Nödvändiga medlemmar saknas"
+
+#: ../server/handlers/xmlrpc/registration.py:213
+msgid "Attempt to register a system to an invalid username"
+msgstr "Försök att registrera ett system med ett ogiltigt användarnamn"
+
+#: ../server/handlers/xmlrpc/registration.py:221
 #, python-format
 msgid ""
-"IMPORTANT MESSAGE FOLLOWS:\n"
-"%s"
-msgstr ""
-"VIKTIGT MEDDELANDE FÖLJER:\n"
-"%s"
+"\n"
+"                   %s Account has been deactivated on this server.\n"
+"                   Please contact your Org administrator for more help."
+msgstr "\n                   %s-kontot har avaktiverats på denna server.\n                   Kontakta din organisationsadministratör för mer hjälp."
 
-#: ../server/apacheRequest.py:132
+#: ../server/handlers/xmlrpc/registration.py:875
+msgid "Invalid system release version requested"
+msgstr "Ogiltig systemutgåveversion begärd"
+
+#: ../server/handlers/xmlrpc/registration.py:1063
+msgid "Red Hat Network Welcome Message"
+msgstr "Red Hat Network välkomstmeddelande"
+
+#: ../server/handlers/xmlrpc/registration.py:1073
+msgid "Red Hat Network Privacy Statement"
+msgstr "Red Hat Network integritetspolicy"
+
+#: ../server/handlers/xmlrpc/registration.py:1094
+msgid "Expected a dictionary as a product argument"
+msgstr "Förväntade ett lexikon som ett produktargument"
+
+#: ../server/handlers/xmlrpc/registration.py:1126
+#: ../server/handlers/xmlrpc/registration.py:1184
 #, python-format
-msgid ""
-"While running '%s': caught\n"
-"%s : %s\n"
-msgstr ""
-"När \"%s\" kördes: fångade\n"
-"%s : %s\n"
+msgid "Not a valid Country: %s"
+msgstr "Inte ett giltigt land: %s"
 
-#: ../server/apacheRequest.py:558
+#: ../server/handlers/xmlrpc/registration.py:1407
 #, python-format
-msgid "Invalid URI %s"
-msgstr "Ogiltig URI %s"
+msgid "Insufficient subscription permissions for release, arch (%s, %s)"
+msgstr "Otillräckliga prenumerationsrättigheter för utgåva, arkitektur (%s, %s)"
 
-#: ../server/rhnServer/server_token.py:80
+#: ../server/handlers/xmlrpc/registration.py:1424
 #, python-format
-msgid "Token `%s' has more than one base channel assigned"
-msgstr "Nyckeln \"%s\" har mer än en baskanal tilldelad"
+msgid "Invalid value '%s' for %s (%s)"
+msgstr "Ogiltigt värde \"%s\" på %s (%s)"
 
-#: ../server/rhnServer/server_token.py:82
-msgid "Conflicting base channels"
-msgstr "Baskanaler i konflikt"
+#: ../server/handlers/sat/auth.py:42
+msgid "ISS is disabled on this satellite."
+msgstr "ISS är inaktiverat på denna satellit."
 
-#: ../server/rhnServer/server_token.py:206
+#: ../server/handlers/sat/auth.py:54
 #, python-format
-msgid "Failed to add server to group %s"
-msgstr "Kunde inte lägga till en server till gruppen %s"
+msgid "Server \"%s\" is not enabled for ISS."
+msgstr "Servern \"%s\" har inte ISS aktiverat."
 
-#: ../server/rhnServer/server_token.py:513
-#, python-format
-msgid "Maximum usage count of %s reached"
-msgstr "Maximalt antal användingar på %s uppnått"
+#: ../server/handlers/applet/applet.py:65
+msgid "Your system was not found in the RHN database"
+msgstr "Ditt system fanns inte i RHN-databasen"
 
-#: ../server/rhnServer/server_token.py:645
-#, fuzzy, python-format
-msgid "Registration failed: RHN Software service entitlements exhausted: %s"
-msgstr ""
-"Registrering misslyckades: RHN Software Management-servicerättigheter uttömda"
-
-#: ../server/rhnServer/server_token.py:761
-msgid ""
-"Stacking of re-registration tokens with different base entitlements is not "
-"supported"
-msgstr ""
-"Att lägga samman omregistreringsnycklar med olika baskanalrättigheter stöds "
-"inte"
-
-#: ../server/rhnServer/server_token.py:839
-#, python-format
-msgid "Could not find token '%s'"
-msgstr "Nyckeln \"%s\" finns inte"
-
-#. Cannot use activation keys from different orgs
-#: ../server/rhnServer/server_token.py:871
-msgid "Tokens from mismatching orgs"
-msgstr "Nycklar från organisationer som inte stämmer överens"
-
-#. Two tokens with different kickstart sessions
-#: ../server/rhnServer/server_token.py:881
-msgid "Kickstart session mismatch"
-msgstr "Kickstart-sessioner stämmer inte överens"
-
-#: ../server/rhnServer/server_token.py:901
-msgid "Stacking of re-registration tokens is not supported"
-msgstr "Att lägga samman omregistreringsnycklar stöds inte"
-
-#: ../server/rhnServer/server_class.py:95
-#, python-format
-msgid "Architecture `%s' is not supported"
-msgstr "Arkitekturen \"%s\" stöds inte"
-
-#: ../server/rhnUser.py:383 ../server/rhnUser.py:386
-msgid "Invalid username/password combination"
-msgstr "Ogiltigt användarnamn/lösenords-kombination"
-
-#. nope, not reserved either
-#: ../server/rhnUser.py:539
-#, python-format
-msgid "Username `%s' has not been reserved"
-msgstr "Användarnamnet \"%s\" har inte reserverats"
-
-#. New accounts have to specify an e-mail address
-#: ../server/rhnUser.py:545
-msgid "E-mail address not specified"
-msgstr "E-postadress inte angiven"
-
-#. wrong organization
-#. Invalid org password
-#: ../server/rhnUser.py:600 ../server/rhnUser.py:604
-msgid "Invalid Organization Credentials"
-msgstr "Ogiltiga organisationsrättigheter"
-
-#: ../server/rhnUser.py:610
-#, python-format
-msgid "User `%s' not a member of organization %s"
-msgstr "Användaren \"%s\" är inte en medlem i organisationen %s"
-
-#: ../server/rhnUser.py:638
-#, python-format
-msgid "username should be at least %d characters"
-msgstr "användarnamn skall vara åtminstone %d tecken"
-
-#: ../server/rhnUser.py:641
-#, python-format
-msgid "username should be less than %d characters"
-msgstr "användarman skall vara mindre än %d tecken"
-
-#: ../server/rhnUser.py:652
-#, python-format
-msgid "username = `%s', invalid character `%s'"
-msgstr "användarnamn = \"%s\", otiltigt tecken \"%s\""
-
-#: ../server/rhnUser.py:670
-#, python-format
-msgid "Please limit your e-mail address to %s chars"
-msgstr "Begränsa din e-postadress till %s tecken"
-
-#: ../server/rhnUser.py:743
-#, python-format
-msgid "password must be at least %d characters"
-msgstr "lösenord måste vara åtminstone %d tecken"
-
-#: ../server/rhnUser.py:746
-#, python-format
-msgid "Password must be shorter than %d characters"
-msgstr "Lösenord måste vara kortare än %d tecken"
-
-#: ../server/rhnUser.py:764
-#, python-format
-msgid "password contains character `%s'"
-msgstr "lösenordet innehåller tecknet \"%s\""
-
-#: ../server/rhnUser.py:771
-#, python-format
-msgid "username should be at least %d characters long"
-msgstr "användarnamn skall vara åtminstone %d tecken långa"
-
-#: ../server/rhnUser.py:782
-#, python-format
-msgid "Cannot register usernames ending with %s"
-msgstr "Det går inte att registrera användarnamn som slutar med %s"
-
-#: ../server/rhnChannel.py:1707
+#: ../server/rhnChannel.py:1781
 #, python-format
 msgid ""
 "Your account does not have access to any channels matching "
 "(release='%(release)s', arch='%(arch)s')%(www_activation)s"
-msgstr ""
-"Ditt konto har inte tillgång till några kanaler som stämmer "
-"(utgåva='%(release)s', ark='%(arch)s')%(www_activation)s"
+msgstr "Ditt konto har inte tillgång till några kanaler som stämmer (utgåva='%(release)s', ark='%(arch)s')%(www_activation)s"
 
-#: ../server/rhnChannel.py:1717
+#: ../server/rhnChannel.py:1791
 msgid ""
 "\n"
-"If you have a registration number, please register with it first at http://"
-"www.redhat.com/apps/activate/ and then try again.\n"
+"If you have a registration number, please register with it first at http://www.redhat.com/apps/activate/ and then try again.\n"
 "\n"
-msgstr ""
-"\n"
-"Om du har ett registreringsnummer, registrera det först på http://www.redhat."
-"com/apps/activate/ och försök sedan igen.\n"
-"\n"
+msgstr "\nOm du har ett registreringsnummer, registrera det först på http://www.redhat.com/apps/activate/ och försök sedan igen.\n\n"
 
-#: ../server/rhnChannel.py:1727
+#: ../server/rhnChannel.py:1801
 #, python-format
 msgid "Insufficient subscription permissions for release (%s, %s"
 msgstr "Ofullständiga prenumerationsrättigheter för utgåvan (%s, %s"
 
 #. Various messages that can be reused
-#.
+#. 
 #. bretm 02/07/2007 -- when we have better old-client documentation, probably
 #. will be safe to get rid of all this crap
-#: ../server/rhnChannel.py:1974 ../server/rhnChannel.py:1985
-#: ../server/rhnChannel.py:2000 ../server/rhnChannel.py:2008
+#: ../server/rhnChannel.py:2073 ../server/rhnChannel.py:2084
+#: ../server/rhnChannel.py:2099 ../server/rhnChannel.py:2107
 msgid "System Registered but Inactive"
 msgstr "Systemet registrerat men inaktivt"
 
-#: ../server/rhnChannel.py:1975
+#: ../server/rhnChannel.py:2074
 #, python-format
 msgid ""
 "\n"
@@ -249,18 +184,9 @@ msgid ""
 "     http://www.redhat.com/apps/activate/\n"
 "\n"
 "...to activate your product."
-msgstr ""
-"\n"
-"Ogiltig kombination av arkitektur och OS-utgåva (%s, %s).\n"
-"Ditt system har registrerats, men kommer inte få några uppdateringar\n"
-"eftersom det inte prenumererar på någon kanal.  Om du ännu inte\n"
-"aktiverat din produkt för drift, besök vår webbsida på:\n"
-"  \n"
-"     http://www.redhat.com/apps/activate/\n"
-"\n"
-"… för att aktivera din produkt."
+msgstr "\nOgiltig kombination av arkitektur och OS-utgåva (%s, %s).\nDitt system har registrerats, men kommer inte få några uppdateringar\neftersom det inte prenumererar på någon kanal.  Om du ännu inte\naktiverat din produkt för drift, besök vår webbsida på:\n  \n     http://www.redhat.com/apps/activate/\n\n… för att aktivera din produkt."
 
-#: ../server/rhnChannel.py:1986
+#: ../server/rhnChannel.py:2085
 #, python-format
 msgid ""
 "\n"
@@ -268,14 +194,9 @@ msgid ""
 "Your system has been registered, but will not receive updates\n"
 "because it could not be subscribed to a base channel.\n"
 "Please contact your organization administrator for assistance.\n"
-msgstr ""
-"\n"
-"Ogiltig kombination av arkitektur och OS-utgåva (%s, %s).\n"
-"Ditt system har registrerats, men kommer inte få några uppdateringar\n"
-"eftersom det inte kunde prenumerera på någon baskanal.\n"
-"Kontakta din organisationsadministratör för assistans.\n"
+msgstr "\nOgiltig kombination av arkitektur och OS-utgåva (%s, %s).\nDitt system har registrerats, men kommer inte få några uppdateringar\neftersom det inte kunde prenumerera på någon baskanal.\nKontakta din organisationsadministratör för assistans.\n"
 
-#: ../server/rhnChannel.py:1993
+#: ../server/rhnChannel.py:2092
 #, python-format
 msgid ""
 "\n"
@@ -283,480 +204,455 @@ msgid ""
 "  to service.  To entitle this system to service, login to the web site at:\n"
 "\n"
 "  %(entitlement_url)s\n"
-msgstr ""
-"\n"
-"  Detta system har nu kunnat registreras, men har ännu inte rättigheter för\n"
-"  drift.  För att ge detta system driftsrättigheter, logga in på webbsajten "
-"på:\n"
-"\n"
-"  %(entitlement_url)s\n"
+msgstr "\n  Detta system har nu kunnat registreras, men har ännu inte rättigheter för\n  drift.  För att ge detta system driftsrättigheter, logga in på webbsajten på:\n\n  %(entitlement_url)s\n"
 
-#: ../server/rhnChannel.py:2001
+#: ../server/rhnChannel.py:2100
 #, python-format
 msgid ""
 "\n"
 "  This system has been successfully registered, but no service entitlements\n"
-"  were available.  To entitle this system to service, login to the web site "
-"at:\n"
+"  were available.  To entitle this system to service, login to the web site at:\n"
 "\n"
 "  %(entitlement_url)s\n"
-msgstr ""
-"\n"
-"  Detta system har nu kunnat registreras, men inga driftsrättigheter fanns\n"
-"  tillgängliga.  För att ge detta system driftsrättigheter, logga in på\n"
-"  webbsajten på:\n"
-"\n"
-"  %(entitlement_url)s\n"
+msgstr "\n  Detta system har nu kunnat registreras, men inga driftsrättigheter fanns\n  tillgängliga.  För att ge detta system driftsrättigheter, logga in på\n  webbsajten på:\n\n  %(entitlement_url)s\n"
 
-#: ../server/rhnChannel.py:2009
+#: ../server/rhnChannel.py:2108
 msgid ""
 "\n"
-"  This system has been successfully registered, but the channel "
-"subscriptions\n"
+"  This system has been successfully registered, but the channel subscriptions\n"
 "  were exhausted\n"
-msgstr ""
-"\n"
-"  Detta system har nu kunnat registreras, men kanalprenumerationerna\n"
-"  var slut\n"
+msgstr "\n  Detta system har nu kunnat registreras, men kanalprenumerationerna\n  var slut\n"
 
-#: ../server/rhnHandler.py:61
-msgid "Please run rhn_register as root on this client"
-msgstr ""
-
-#: ../server/rhnHandler.py:78
-#, python-format
-msgid "Service not enabled for system profile: \"%s\""
-msgstr "Drift ej aktiverat för systemprofilen: \"%s\""
-
-#: ../server/handlers/applet/applet.py:68
-msgid "Your system was not found in the RHN database"
-msgstr "Ditt system fanns inte i RHN-databasen"
-
-#: ../server/handlers/sat/auth.py:45
-msgid "ISS is disabled on this satellite."
-msgstr "ISS är inaktiverat på denna satellit."
-
-#: ../server/handlers/sat/auth.py:57
-#, python-format
-msgid "Server \"%s\" is not enabled for ISS."
-msgstr "Servern \"%s\" har inte ISS aktiverat."
-
-#: ../server/handlers/xmlrpc/proxy.py:60
-#, python-format
-msgid "RHN Proxy service not enabled for server profile: \"%s\""
-msgstr "RHN-proxy-tjänst inte aktiverat för serverprofilen: \"%s\""
-
-#: ../server/handlers/xmlrpc/proxy.py:80
-msgid "Invalid session key"
-msgstr "Ogiltig sessionsnyckel"
-
-#: ../server/handlers/xmlrpc/proxy.py:88
-msgid "This server ID no longer exists"
-msgstr "Denna server-ID finns inte längre"
-
-#: ../server/handlers/xmlrpc/registration.py:183
-msgid "Required data missing"
-msgstr "Nödvändiga data saknas"
-
-#: ../server/handlers/xmlrpc/registration.py:187
-msgid "Required members missing"
-msgstr "Nödvändiga medlemmar saknas"
-
-#: ../server/handlers/xmlrpc/registration.py:196
-msgid "Attempt to register a system to an invalid username"
-msgstr "Försök att registrera ett system med ett ogiltigt användarnamn"
-
-#: ../server/handlers/xmlrpc/registration.py:204
-#, python-format
-msgid ""
-"\n"
-"                   %s Account has been deactivated on this server.\n"
-"                   Please contact your Org administrator for more help."
-msgstr ""
-"\n"
-"                   %s-kontot har avaktiverats på denna server.\n"
-"                   Kontakta din organisationsadministratör för mer hjälp."
-
-#: ../server/handlers/xmlrpc/registration.py:819
-msgid "Invalid system release version requested"
-msgstr "Ogiltig systemutgåveversion begärd"
-
-#: ../server/handlers/xmlrpc/registration.py:1005
-msgid "Red Hat Network Welcome Message"
-msgstr "Red Hat Network välkomstmeddelande"
-
-#: ../server/handlers/xmlrpc/registration.py:1015
-msgid "Red Hat Network Privacy Statement"
-msgstr "Red Hat Network integritetspolicy"
-
-#: ../server/handlers/xmlrpc/registration.py:1036
-msgid "Expected a dictionary as a product argument"
-msgstr "Förväntade ett lexikon som ett produktargument"
-
-#: ../server/handlers/xmlrpc/registration.py:1068
-#: ../server/handlers/xmlrpc/registration.py:1126
-#, python-format
-msgid "Not a valid Country: %s"
-msgstr "Inte ett giltigt land: %s"
-
-#: ../server/handlers/xmlrpc/registration.py:1349
-#, python-format
-msgid "Insufficient subscription permissions for release, arch (%s, %s)"
-msgstr ""
-"Otillräckliga prenumerationsrättigheter för utgåva, arkitektur (%s, %s)"
-
-#: ../server/handlers/xmlrpc/registration.py:1366
-#, python-format
-msgid "Invalid value '%s' for %s (%s)"
-msgstr "Ogiltigt värde \"%s\" på %s (%s)"
-
-#: ../server/handlers/xmlrpc/errata.py:59
-#, python-format
-msgid "Expected a package name, not: %s"
-msgstr "Ett paketnamn förväntades, inte: %s"
-
-#: ../server/handlers/xmlrpc/errata.py:109
-#, python-format
-msgid "Expected a package, not: %s"
-msgstr "Ett paket förväntades, inte: %s"
-
-#: ../server/handlers/xmlrpc/queue.py:399
-#, python-format
-msgid "Invalid action value type %s (%s)"
-msgstr "Otiltig typ på åtgärsvärde %s (%s)"
-
-#: ../server/handlers/xmlrpc/queue.py:424
-#, python-format
-msgid "Action %s does not belong to server %s"
-msgstr "Åtgärd %s hör inte till server %s"
-
-#: ../server/handlers/xmlrpc/up2date.py:232
-#, python-format
-msgid "Invalid value %s (type %s)"
-msgstr "Ogiltigt värde %s (typ %s)"
-
-#: ../server/handlers/xmlrpc/up2date.py:260
-#, python-format
-msgid "Unable to retrieve package header %s"
-msgstr "Kan inte hämta pakethuvud %s"
-
-#: ../server/handlers/xmlrpc/up2date.py:407
-#, python-format
-msgid "Invalid value %s (%s)"
-msgstr "Ogiltigt värde %s (%s)"
-
-#: ../server/handlers/xmlrpc/up2date.py:479
-#, python-format
-msgid "Invalid value for %s in package tuple: %s (%s)"
-msgstr "Ogiltigt värde för %s i pakettupel: %s (%s)"
-
-#: ../server/handlers/xmlrpc/up2date.py:491
-#, python-format
-msgid "Invalid package parameter %s (%s)"
-msgstr "Ogiltig paketparameter %s (%s)"
-
-#: ../server/importlib/userAuth.py:108 ../server/importlib/userAuth.py:112
+#: ../server/importlib/userAuth.py:89 ../server/importlib/userAuth.py:93
 msgid "You are not authorized to manage packages in the null org"
 msgstr "Du har inte rättigheter att hantera paket i den tomma organisationen"
 
-#: ../server/importlib/userAuth.py:119
+#: ../server/importlib/userAuth.py:100
 #, python-format
 msgid "You are not allowed to manage packages in the %s org"
 msgstr "Du har inte tillåtelse att hantera paket i organisationen %s"
 
-#: ../server/importlib/userAuth.py:137
+#: ../server/importlib/userAuth.py:118
 msgid "You are not allowed to perform administrative tasks"
 msgstr "Du har inte tillåtelse att utföra administrativa uppgifter"
 
-#: ../server/importlib/userAuth.py:164
+#: ../server/importlib/userAuth.py:145
 #, python-format
 msgid ""
 "You are not allowed to manage channel %s, or that channel does not exist"
-msgstr ""
-"Du har inte tillåtelse att hantera kanal %s, eller så finns inte kanalen"
+msgstr "Du har inte tillåtelse att hantera kanal %s, eller så finns inte kanalen"
 
-#: ../common/rhnTB.py:199
+#: ../server/apacheAuth.py:55
 #, python-format
-msgid "ERROR: %s %s: %s"
-msgstr ""
+msgid "incomplete proxy authentication token: %s"
+msgstr "ofullständig proxy-autenticeringsnyckel: %s"
 
-#: ../common/rhnTB.py:201
+#: ../server/apacheAuth.py:71
 #, python-format
-msgid "TRACEBACK: %s"
-msgstr ""
+msgid "Sent proxy signature %s does not match ours %s."
+msgstr "Skickad proxy-signatur %s stämmer inte med våran %s."
 
-#: ../common/rhnException.py:42
+#: ../server/apacheAuth.py:102
+msgid "declined proxy authentication"
+msgstr "nekad proxy-autenticering"
+
+#: ../server/rhnServer/server_token.py:78
+#, python-format
+msgid "Token `%s' has more than one base channel assigned"
+msgstr "Nyckeln \"%s\" har mer än en baskanal tilldelad"
+
+#: ../server/rhnServer/server_token.py:80
+msgid "Conflicting base channels"
+msgstr "Baskanaler i konflikt"
+
+#: ../server/rhnServer/server_token.py:204
+#, python-format
+msgid "Failed to add server to group %s"
+msgstr "Kunde inte lägga till en server till gruppen %s"
+
+#: ../server/rhnServer/server_token.py:511
+#, python-format
+msgid "Maximum usage count of %s reached"
+msgstr "Maximalt antal användingar på %s uppnått"
+
+#: ../server/rhnServer/server_token.py:642
+msgid ""
+"Registration failed: RHN Software Management service entitlements exhausted"
+msgstr "Registrering misslyckades: RHN Software Management-servicerättigheter uttömda"
+
+#: ../server/rhnServer/server_token.py:756
+msgid ""
+"Stacking of re-registration tokens with different base entitlements is not "
+"supported"
+msgstr "Att lägga samman omregistreringsnycklar med olika baskanalrättigheter stöds inte"
+
+#: ../server/rhnServer/server_token.py:834
+#, python-format
+msgid "Could not find token '%s'"
+msgstr "Nyckeln \"%s\" finns inte"
+
+#. Cannot use activation keys from different orgs
+#: ../server/rhnServer/server_token.py:866
+msgid "Tokens from mismatching orgs"
+msgstr "Nycklar från organisationer som inte stämmer överens"
+
+#. Two tokens with different kickstart sessions
+#: ../server/rhnServer/server_token.py:876
+msgid "Kickstart session mismatch"
+msgstr "Kickstart-sessioner stämmer inte överens"
+
+#: ../server/rhnServer/server_token.py:896
+msgid "Stacking of re-registration tokens is not supported"
+msgstr "Att lägga samman omregistreringsnycklar stöds inte"
+
+#: ../server/rhnServer/server_class.py:93
+#, python-format
+msgid "Architecture `%s' is not supported"
+msgstr "Arkitekturen \"%s\" stöds inte"
+
+#: ../server/rhnPackage.py:42 ../server/rhnPackage.py:77
+#: ../server/rhnPackage.py:91 ../server/rhnPackage.py:160
+#: ../server/rhnPackage.py:164 ../server/rhnPackage.py:193
+#: ../server/rhnPackage.py:198 ../server/rhnPackage.py:286
+#, python-format
+msgid "Invalid RPM package %s requested"
+msgstr "Ogiltigt RPM-paket %s begärt"
+
+#: ../server/rhnPackage.py:96 ../server/rhnPackage.py:170
+#: ../server/rhnPackage.py:204 ../server/rhnPackage.py:292
+msgid "Package not found"
+msgstr "Paketet finns inte"
+
+#: ../server/apacheRequest.py:46
+#, python-format
+msgid "Invalid request received (%s)."
+msgstr "Ogiltig begäran mottagen (%s)."
+
+#: ../server/apacheRequest.py:104
+#, python-format
+msgid ""
+"IMPORTANT MESSAGE FOLLOWS:\n"
+"%s"
+msgstr "VIKTIGT MEDDELANDE FÖLJER:\n%s"
+
+#: ../server/apacheRequest.py:129
+#, python-format
+msgid ""
+"While running '%s': caught\n"
+"%s : %s\n"
+msgstr "När \"%s\" kördes: fångade\n%s : %s\n"
+
+#: ../server/apacheRequest.py:555
+#, python-format
+msgid "Invalid URI %s"
+msgstr "Ogiltig URI %s"
+
+#: ../server/rhnHandler.py:58
+msgid ""
+"Please run rhn_register (or up2date --register on Red Hat Enterprise Linux 3 or later)\n"
+"as root on this client"
+msgstr "Kör rhn_register (eller up2date --register på Red Hat Enterprise Linux 3 eller senare)\nsom root på denna klient"
+
+#: ../server/rhnHandler.py:77
+#, python-format
+msgid "Service not enabled for system profile: \"%s\""
+msgstr "Drift ej aktiverat för systemprofilen: \"%s\""
+
+#: ../server/rhnUser.py:381 ../server/rhnUser.py:384
+msgid "Invalid username/password combination"
+msgstr "Ogiltigt användarnamn/lösenords-kombination"
+
+#. nope, not reserved either
+#: ../server/rhnUser.py:536
+#, python-format
+msgid "Username `%s' has not been reserved"
+msgstr "Användarnamnet \"%s\" har inte reserverats"
+
+#. New accounts have to specify an e-mail address
+#: ../server/rhnUser.py:542
+msgid "E-mail address not specified"
+msgstr "E-postadress inte angiven"
+
+#. wrong organization
+#. Invalid org password
+#: ../server/rhnUser.py:597 ../server/rhnUser.py:601
+msgid "Invalid Organization Credentials"
+msgstr "Ogiltiga organisationsrättigheter"
+
+#: ../server/rhnUser.py:607
+#, python-format
+msgid "User `%s' not a member of organization %s"
+msgstr "Användaren \"%s\" är inte en medlem i organisationen %s"
+
+#: ../server/rhnUser.py:635
+#, python-format
+msgid "username should be at least %d characters"
+msgstr "användarnamn skall vara åtminstone %d tecken"
+
+#: ../server/rhnUser.py:638
+#, python-format
+msgid "username should be less than %d characters"
+msgstr "användarman skall vara mindre än %d tecken"
+
+#: ../server/rhnUser.py:649
+#, python-format
+msgid "username = `%s', invalid character `%s'"
+msgstr "användarnamn = \"%s\", otiltigt tecken \"%s\""
+
+#: ../server/rhnUser.py:667
+#, python-format
+msgid "Please limit your e-mail address to %s chars"
+msgstr "Begränsa din e-postadress till %s tecken"
+
+#: ../server/rhnUser.py:738
+#, python-format
+msgid "password must be at least %d characters"
+msgstr "lösenord måste vara åtminstone %d tecken"
+
+#: ../server/rhnUser.py:741
+#, python-format
+msgid "Password must be shorter than %d characters"
+msgstr "Lösenord måste vara kortare än %d tecken"
+
+#: ../server/rhnUser.py:759
+#, python-format
+msgid "password contains character `%s'"
+msgstr "lösenordet innehåller tecknet \"%s\""
+
+#: ../server/rhnUser.py:766
+#, python-format
+msgid "username should be at least %d characters long"
+msgstr "användarnamn skall vara åtminstone %d tecken långa"
+
+#: ../server/rhnUser.py:777
+#, python-format
+msgid "Cannot register usernames ending with %s"
+msgstr "Det går inte att registrera användarnamn som slutar med %s"
+
+#: ../common/rhnException.py:43
 msgid "Outage mode"
 msgstr "Avstängt läge"
 
 #. 0-999: RHN client/client-like interaction errors:
-#: ../common/rhnException.py:44
+#: ../common/rhnException.py:45
 msgid "This does not appear to be a valid username."
 msgstr "Detta tycks inte vara ett giltigt användarnamn."
 
-#: ../common/rhnException.py:45
+#: ../common/rhnException.py:46
 msgid "Invalid username and password combination."
 msgstr "Ogiltig kombination av användarnamn och lösenord."
 
-#: ../common/rhnException.py:46
+#: ../common/rhnException.py:47
 msgid "This login is already taken, or the password is incorrect."
 msgstr "Denna inloggning är redan tagen, eller så är lösenordet felaktigt."
 
-#: ../common/rhnException.py:47
+#: ../common/rhnException.py:48
 msgid "Permission denied."
 msgstr "Åtkomst nekas."
 
-#: ../common/rhnException.py:48
+#: ../common/rhnException.py:49
 msgid "Can not create new entry."
 msgstr "Det går inte att skapa ny post."
 
-#: ../common/rhnException.py:49
+#: ../common/rhnException.py:50
 msgid "Object not found."
 msgstr "Objektet finns inte."
 
-#: ../common/rhnException.py:50
+#: ../common/rhnException.py:51
 msgid "Account limits exceeded."
 msgstr "Kontobegränsning överskriden."
 
-#: ../common/rhnException.py:51
+#: ../common/rhnException.py:52
 msgid "Invalid System Digital ID."
 msgstr "Ogiltig digital ID för system."
 
-#: ../common/rhnException.py:52
+#: ../common/rhnException.py:53
 msgid "Invalid System Credentials."
 msgstr "Ogiltiga systemrättigheter."
 
-#: ../common/rhnException.py:53
+#: ../common/rhnException.py:54
 msgid "Could not retrieve user data from database."
 msgstr "Det gick inte att hämta användardata från databasen."
 
-#: ../common/rhnException.py:54
+#: ../common/rhnException.py:55
 msgid "Valid username required."
 msgstr "Giltigt användarnamn krävs."
 
-#: ../common/rhnException.py:55
+#: ../common/rhnException.py:56
 msgid "Valid password required."
 msgstr "Giltigt lösenord krävs."
 
-#: ../common/rhnException.py:56
+#: ../common/rhnException.py:57
 msgid "Minimum username length violation."
 msgstr "Minimigränsen på användarnamn bruten."
 
-#: ../common/rhnException.py:57
+#: ../common/rhnException.py:58
 msgid "Minimum password length violation."
 msgstr "Minimigränsen på lösenordslängt bruten."
 
-#: ../common/rhnException.py:58
+#: ../common/rhnException.py:59
 msgid "The username contains invalid characters."
 msgstr "Användarnamnet innehåller otillåtna tecken."
 
-#: ../common/rhnException.py:59
+#: ../common/rhnException.py:60
 msgid "Invalid product registration code."
 msgstr "Ogiltig produktregistreringskod."
 
-#: ../common/rhnException.py:60
+#: ../common/rhnException.py:61
 msgid "File not found."
 msgstr "Filen finns inte."
 
-#: ../common/rhnException.py:61
+#: ../common/rhnException.py:62
 msgid "Invalid Architecture and OS release combination."
 msgstr "Ogiltig kombination av arkitektur och OS-utgåva."
 
-#: ../common/rhnException.py:62
+#: ../common/rhnException.py:63
 msgid "Architecture and OS version combination is not supported."
 msgstr "Kombinationen av arkitektur och OS-utgåva stöds inte."
 
-#: ../common/rhnException.py:63
+#: ../common/rhnException.py:64
 msgid "Could not retrieve system data from database."
 msgstr "Det gick inte att hämta systemdata från databasen."
 
-#: ../common/rhnException.py:64
+#: ../common/rhnException.py:65
 msgid "Invalid arguments passed to function."
 msgstr "Ogiltigt argument skickad till funktionen."
 
-#: ../common/rhnException.py:65
+#: ../common/rhnException.py:66
 msgid "Unable to retrieve requested entry."
 msgstr "Det går inte att hämta den begärda posten."
 
-#: ../common/rhnException.py:66
+#: ../common/rhnException.py:67
 msgid "Could not update database entry."
 msgstr "Det gick inte att uppdatera databasposten."
 
-#: ../common/rhnException.py:67
+#: ../common/rhnException.py:68
 msgid "Unsupported server architecture."
 msgstr "Ej stödd serverarkitektur."
 
-#: ../common/rhnException.py:68
+#: ../common/rhnException.py:69
 msgid "LDAP operation failed."
 msgstr "LDAP-operation misslyckades."
 
-#: ../common/rhnException.py:69
+#: ../common/rhnException.py:70
 msgid "Backend RPM database failure: can not retrieve requested information."
-msgstr ""
-"Fel i RPM:s bakändesdatabas: det går inte att hämta begärd information."
+msgstr "Fel i RPM:s bakändesdatabas: det går inte att hämta begärd information."
 
-#: ../common/rhnException.py:71
+#: ../common/rhnException.py:72
 msgid "Server Entry is busy."
 msgstr "Serverpost är upptagen."
 
-#: ../common/rhnException.py:72
-#, fuzzy, python-format
+#: ../common/rhnException.py:73
+#, python-format
 msgid ""
 "\n"
 "     The anonymous server functionality is no longer available.\n"
 "\n"
 "     Please re-register this system by running rhn_register\n"
-"     as root.\n"
+"     (or up2date --register on Red Hat Enterprise Linux 3+) as root.\n"
 "     Please visit https://%(hostname)s/rhn/systems/SystemEntitlements.do\n"
 "     or login at https://%(hostname)s, and from the \"Overview\" tab,\n"
-"     select \"Subscription Management\" to enable RHN service for this "
-"system.\n"
+"     select \"Subscription Management\" to enable RHN service for this system.\n"
 "     "
-msgstr ""
-"\n"
-"     Den anonyma serverfunktionen är inte tillgänglig längre.\n"
-"\n"
-"     Registrera om detta system genom att köra rhn_register (eller\n"
-"     up2date --register på Red Hat Enterprise Linux 3+) som root.\n"
-"     Besök https://%(hostname)s/rhn/systems/SystemEntitlements.do eller\n"
-"     logga in på https://%(hostname)s, och från fliken \"Overview\", välj\n"
-"     \"Subscription Management\" för att aktivera RHN-tjänsten för detta "
-"system.\n"
-"     "
+msgstr "\n     Den anonyma serverfunktionen är inte tillgänglig längre.\n\n     Registrera om detta system genom att köra rhn_register (eller\n     up2date --register på Red Hat Enterprise Linux 3+) som root.\n     Besök https://%(hostname)s/rhn/systems/SystemEntitlements.do eller\n     logga in på https://%(hostname)s, och från fliken \"Overview\", välj\n     \"Subscription Management\" för att aktivera RHN-tjänsten för detta system.\n     "
 
-#: ../common/rhnException.py:81
+#: ../common/rhnException.py:82
 msgid "Record not available in the database."
 msgstr "Posten inte tillgänglig i databasen."
 
-#: ../common/rhnException.py:82
+#: ../common/rhnException.py:83
 msgid "Invalid value for entry."
 msgstr "Ogiltigt värde på post."
 
-#: ../common/rhnException.py:83
+#: ../common/rhnException.py:84
 #, python-format
 msgid ""
 "\n"
 "     This system does not have a valid entitlement for Red Hat Network.\n"
 "     Please visit https://%(hostname)s/rhn/systems/SystemEntitlements.do\n"
 "     or login at https://%(hostname)s, and from the \"Overview\" tab,\n"
-"     select \"Subscription Management\" to enable RHN service for this "
-"system.\n"
+"     select \"Subscription Management\" to enable RHN service for this system.\n"
 "     "
-msgstr ""
-"\n"
-"     Detta system har inte en giltiga driftsrättigheter för Red Hat "
-"Network.\n"
-"     Besök https://%(hostname)s/rhn/systems/SystemEntitlements.do eller\n"
-"     logga in på https://%(hostname)s, och från fliken \"Overview\", välj\n"
-"     \"Subscription Management\" för att aktivera RHN-tjänsten för detta "
-"system.\n"
-"     "
+msgstr "\n     Detta system har inte en giltiga driftsrättigheter för Red Hat Network.\n     Besök https://%(hostname)s/rhn/systems/SystemEntitlements.do eller\n     logga in på https://%(hostname)s, och från fliken \"Overview\", välj\n     \"Subscription Management\" för att aktivera RHN-tjänsten för detta system.\n     "
 
-#: ../common/rhnException.py:89
+#: ../common/rhnException.py:90
 msgid "Channel error"
 msgstr "Kanalfel"
 
-#: ../common/rhnException.py:90
+#: ../common/rhnException.py:91
 msgid "Client session token is invalid."
 msgstr "Klientsessionsnyckeln är ogiltig."
 
-#: ../common/rhnException.py:91
+#: ../common/rhnException.py:92
 msgid "Client session token has expired."
 msgstr "Klientsessionsnyckeln har gått ut."
 
-#: ../common/rhnException.py:92
+#: ../common/rhnException.py:93
 msgid "You are not authorized to retrieve the requested object."
 msgstr "Du har inte rättigheter att hämta det begärda objektet."
 
-#: ../common/rhnException.py:93
+#: ../common/rhnException.py:94
 msgid "Invalid action"
 msgstr "Ogiltig åtgärd"
 
-#: ../common/rhnException.py:94
+#: ../common/rhnException.py:95
 msgid "You are not allowed to perform administrative tasks on this system."
 msgstr "Du har inte rätt att utföra administrativa åtgärder på detta system."
 
-#: ../common/rhnException.py:96
+#: ../common/rhnException.py:97
 msgid "The system is already subscribed to the specified channel."
 msgstr "Systemet prenumererar redan på den angivna kanalen."
 
-#: ../common/rhnException.py:97
+#: ../common/rhnException.py:98
 msgid "The system is not currently subscribed to the specified channel."
 msgstr "Systemet prenumererar för närvarande inte på den angivna kanalen."
 
-#: ../common/rhnException.py:98
+#: ../common/rhnException.py:99
 msgid "The specified channel does not exist."
 msgstr "Den angivna kanalen finns inte."
 
-#: ../common/rhnException.py:99
+#: ../common/rhnException.py:100
 msgid "Invalid channel version."
 msgstr "Ogiltig kanalversion."
 
-#: ../common/rhnException.py:100
+#: ../common/rhnException.py:101
 msgid "Invalid ORG_ID requested"
 msgstr "Ogiltig ORG_ID begärd"
 
-#: ../common/rhnException.py:101
+#: ../common/rhnException.py:102
 msgid ""
 "\n"
 "     User group membership limits exceeded.\n"
 "\n"
 "     The current settings for your account do not allow you to add another\n"
-"     user account. Please check with the organization administrator for "
-"your\n"
-"     account if the maximum number of users allowed to subscribe to RHN "
-"needs\n"
+"     user account. Please check with the organization administrator for your\n"
+"     account if the maximum number of users allowed to subscribe to RHN needs\n"
 "     to be changed.\n"
 "     "
-msgstr ""
-"\n"
-"     Begränsningen på medlemskap i användargrupper överskriden.\n"
-"\n"
-"     De nuvarande inställningarna för ditt konto tillåter inte att du "
-"lägger\n"
-"     till ett ytterligare användarkonto.  Kontrollera med organisationens\n"
-"     administratör för ditt konto om det maximala antalet användare som får\n"
-"     prenumerera på RHN behöver ändras.\n"
-"     "
+msgstr "\n     Begränsningen på medlemskap i användargrupper överskriden.\n\n     De nuvarande inställningarna för ditt konto tillåter inte att du lägger\n     till ett ytterligare användarkonto.  Kontrollera med organisationens\n     administratör för ditt konto om det maximala antalet användare som får\n     prenumerera på RHN behöver ändras.\n     "
 
-#: ../common/rhnException.py:109
+#: ../common/rhnException.py:110
 msgid ""
 "\n"
 "     System group membership limits exceeded.\n"
 "\n"
 "     The current settings for your account do not allow you to add another\n"
-"     system profile. Please check with the organization administrator for "
-"your\n"
-"     account for modifying the maximum number of system profiles that can "
-"be\n"
+"     system profile. Please check with the organization administrator for your\n"
+"     account for modifying the maximum number of system profiles that can be\n"
 "     subscribed to your RHN account.\n"
 "     "
-msgstr ""
-"\n"
-"     Begränsningen på medlemskap i sysmgrupper överskriden.\n"
-"\n"
-"     De nuvarande inställningarna för ditt konto tillåter inte att du "
-"lägger\n"
-"     till en ytterligare systemprofil.  Kontrollera med organisationens\n"
-"     administratör för ditt konto för att ändra det maximala antalet\n"
-"     systemprofiler som kan prenumerera på ditt RHN-konto.\n"
-"     "
+msgstr "\n     Begränsningen på medlemskap i sysmgrupper överskriden.\n\n     De nuvarande inställningarna för ditt konto tillåter inte att du lägger\n     till en ytterligare systemprofil.  Kontrollera med organisationens\n     administratör för ditt konto för att ändra det maximala antalet\n     systemprofiler som kan prenumerera på ditt RHN-konto.\n     "
 
-#: ../common/rhnException.py:117
+#: ../common/rhnException.py:118
 msgid ""
 "\n"
 "     Invalid architecture.\n"
 "\n"
 "     The architecture of the package is not supported by Red Hat Network\n"
 "     "
-msgstr ""
-"\n"
-"     Ogiltig arkitektur.\n"
-"\n"
-"     Paketets arkitektur stöds inte av Red Hat Network\n"
-"     "
+msgstr "\n     Ogiltig arkitektur.\n\n     Paketets arkitektur stöds inte av Red Hat Network\n     "
 
-#: ../common/rhnException.py:122
+#: ../common/rhnException.py:123
 msgid ""
 "\n"
 "     Incompatible architectures.\n"
@@ -764,33 +660,22 @@ msgid ""
 "     The architecture of the package you are trying to upload is not\n"
 "     compatible with the channel architecture.\n"
 "     "
-msgstr ""
-"\n"
-"     Inkompatibla arkitekturer.\n"
-"\n"
-"     Arkitekturen hos det paket du försöker skicka upp är inte kompatibel\n"
-"     med kanalarkitekturen.\n"
-"     "
+msgstr "\n     Inkompatibla arkitekturer.\n\n     Arkitekturen hos det paket du försöker skicka upp är inte kompatibel\n     med kanalarkitekturen.\n     "
 
-#: ../common/rhnException.py:128
+#: ../common/rhnException.py:129
 msgid "Invalid RPM header"
 msgstr "Ogiltigt RPM-huvud"
 
-#: ../common/rhnException.py:129
+#: ../common/rhnException.py:130
 msgid ""
 "\n"
 "     Invalid channel.\n"
 "\n"
 "     The channel you have specified does not exist.\n"
 "     "
-msgstr ""
-"\n"
-"     Ogiltig kanal.\n"
-"\n"
-"     Kanalen du har angivit finns inte.\n"
-"     "
+msgstr "\n     Ogiltig kanal.\n\n     Kanalen du har angivit finns inte.\n     "
 
-#: ../common/rhnException.py:134
+#: ../common/rhnException.py:135
 #, python-format
 msgid ""
 "\n"
@@ -808,31 +693,14 @@ msgid ""
 "     to contact technical support if you think you have received this\n"
 "     message in error.\n"
 "     "
-msgstr ""
-"\n"
-"     Du får dett fel för att RHN har upptäckt missbruk av tjänster från\n"
-"     detta system och konto.  Detta fel utlöses när ditt system gör för\n"
-"     många anslutningar till Red Hat Network.  Detta fel kan inte utlösas\n"
-"     under normal användning av Red Hat Network-tjänster som de "
-"konfigureras\n"
-"     som standard på Red Hat Linux.\n"
-"\n"
-"     Red Hat Network-tjänsterna för detta system kommer forstsätta vara\n"
-"     avstängda tills d reducerat RHN-nätverkstrafiken från ditt system till\n"
-"     acceptabla nivåer.\n"
-"\n"
-"     Logga in på RHN och besök https://%(hostname)s/help/contact.pxt\n"
-"     för att ta kontakt med teknisk support om du tror du felaktigt har "
-"fått\n"
-"     detta meddelande.\n"
-"     "
+msgstr "\n     Du får dett fel för att RHN har upptäckt missbruk av tjänster från\n     detta system och konto.  Detta fel utlöses när ditt system gör för\n     många anslutningar till Red Hat Network.  Detta fel kan inte utlösas\n     under normal användning av Red Hat Network-tjänster som de konfigureras\n     som standard på Red Hat Linux.\n\n     Red Hat Network-tjänsterna för detta system kommer forstsätta vara\n     avstängda tills d reducerat RHN-nätverkstrafiken från ditt system till\n     acceptabla nivåer.\n\n     Logga in på RHN och besök https://%(hostname)s/help/contact.pxt\n     för att ta kontakt med teknisk support om du tror du felaktigt har fått\n     detta meddelande.\n     "
 
 #. For the uploading tools
-#: ../common/rhnException.py:150
+#: ../common/rhnException.py:151
 msgid "Invalid information uploaded to the server"
 msgstr "Ogiltig information skickad till servern"
 
-#: ../common/rhnException.py:151
+#: ../common/rhnException.py:152
 #, python-format
 msgid ""
 "\n"
@@ -841,257 +709,210 @@ msgid ""
 "     purchase a subscription service and receive priority download access,\n"
 "     please go to http://%(hostname)s/preview/index.pxt\n"
 "     "
-msgstr ""
-"\n"
-"     Demonstrationstjänst är för närvarande avstängd på grund av för hög "
-"last.\n"
-"     Om du vill se Red Hats policy för demonstrationstjänst, eller ta reda "
-"på\n"
-"     hur du kan köpa en prenumeratsionstjänst och få prioriterad åtkomst "
-"för\n"
-"     att hämta, gå till http://%(hostname)s/preview/index.pxt\n"
-"     "
+msgstr "\n     Demonstrationstjänst är för närvarande avstängd på grund av för hög last.\n     Om du vill se Red Hats policy för demonstrationstjänst, eller ta reda på\n     hur du kan köpa en prenumeratsionstjänst och få prioriterad åtkomst för\n     att hämta, gå till http://%(hostname)s/preview/index.pxt\n     "
 
-#: ../common/rhnException.py:157
+#: ../common/rhnException.py:158
 #, python-format
 msgid ""
 "\n"
-"     Access to Red Hat Network is currently limited to subscription "
-"customers.\n"
+"     Access to Red Hat Network is currently limited to subscription customers.\n"
 "     Please try again later.  If you would like to become a subscription\n"
 "     customer, go to https://%(hostname)s/preview/priority_service.pxt for\n"
 "     more information.\n"
 "     "
-msgstr ""
-"\n"
-"     Åtkomst till Red Hat Network är för närvarande begränsad till\n"
-"     prenumerationskunder.  Försök igen senare.  Om du vill bli en\n"
-"     prenumerationskund, gå till\n"
-"     https://%(hostname)s/preview/priority_service.pxt för mer information.\n"
-"     "
+msgstr "\n     Åtkomst till Red Hat Network är för närvarande begränsad till\n     prenumerationskunder.  Försök igen senare.  Om du vill bli en\n     prenumerationskund, gå till\n     https://%(hostname)s/preview/priority_service.pxt för mer information.\n     "
 
-#: ../common/rhnException.py:163
+#: ../common/rhnException.py:164
 msgid "Error uploading network interfaces configuration."
 msgstr "Fel när konfiguration av nätverksgränssnitt skickades."
 
-#: ../common/rhnException.py:164
+#: ../common/rhnException.py:165
 msgid ""
 "\n"
 "     Package Upload Failed due to uniqueness constraint violation.\n"
 "     Make sure the package does not have any duplicate dependencies or\n"
 "     does not already exists on the server\n"
 "     "
-msgstr ""
-"\n"
-"     Det gick inte att skicka paket för att regeln om unika paket bröts.\n"
-"     Se till att paketet inte har några dubblerade beroenden eller redan\n"
-"     rinns på servern\n"
-"     "
+msgstr "\n     Det gick inte att skicka paket för att regeln om unika paket bröts.\n     Se till att paketet inte har några dubblerade beroenden eller redan\n     rinns på servern\n     "
 
-#: ../common/rhnException.py:169
+#: ../common/rhnException.py:170
 msgid ""
 "\n"
 "     The --force rhnpush option is disabled on this server. \n"
 "     Please contact your Satellite administrator for more help.\n"
 "     "
-msgstr ""
-"\n"
-"     Flaggan --force till rhnpush är avstängt på denna server.\n"
-"     Kontakta din satellitadministratör för mer hjälp.\n"
-"     "
+msgstr "\n     Flaggan --force till rhnpush är avstängt på denna server.\n     Kontakta din satellitadministratör för mer hjälp.\n     "
 
 #. 60-70: token errors
-#: ../common/rhnException.py:175
+#: ../common/rhnException.py:176
 msgid ""
 "\n"
 "     The activation token specified could not be found on the server.\n"
 "     Please retry with a valid key.\n"
 "     "
-msgstr ""
-"\n"
-"     Den angivna aktiveringsnyckeln fanns inte på servern.  Försök igen med\n"
-"     en giltig nyckel.\n"
-"     "
+msgstr "\n     Den angivna aktiveringsnyckeln fanns inte på servern.  Försök igen med\n     en giltig nyckel.\n     "
 
-#: ../common/rhnException.py:179
+#: ../common/rhnException.py:180
 msgid "Too many systems registered using this registration token"
 msgstr "För många system registrerade med denna registreringsnyckel"
 
-#: ../common/rhnException.py:180
-msgid "Token contains invalid, obsoleted or insufficient settings"
-msgstr ""
-"Nyckeln innehåller ogiltiga, föråldrade eller ofullständiga inställningar"
-
 #: ../common/rhnException.py:181
+msgid "Token contains invalid, obsoleted or insufficient settings"
+msgstr "Nyckeln innehåller ogiltiga, föråldrade eller ofullständiga inställningar"
+
+#: ../common/rhnException.py:182
 msgid "Conflicting activation tokens"
 msgstr "Konflikt mellan aktiveringsnycklar"
 
 #. 70-80: channel subscription errors
-#: ../common/rhnException.py:184
+#: ../common/rhnException.py:185
 msgid ""
 "\n"
-"     All available subscriptions for the requested channel have been "
-"exhausted.\n"
+"     All available subscriptions for the requested channel have been exhausted.\n"
 "     Please contact a Red Hat Network Sales associate.\n"
 "     "
-msgstr ""
-"\n"
-"     Alla tillgängliga prenumerationer för den begärda kanalen är använda.\n"
-"     Kontakta en Red Hat Network-säljare.\n"
-"     "
+msgstr "\n     Alla tillgängliga prenumerationer för den begärda kanalen är använda.\n     Kontakta en Red Hat Network-säljare.\n     "
 
-#: ../common/rhnException.py:188
+#: ../common/rhnException.py:189
 msgid ""
 "\n"
 "     You do not have subscription permission to the designated channel.\n"
 "     Please refer to your organization's channel or organization\n"
 "     administrators for further details.\n"
 "     "
-msgstr ""
-"\n"
-"     Du har inte rättigheter att prenumerera på den angivna kanalen.\n"
-"     Kontakta din organisations kanal- eller organisationsadministratörer\n"
-"     för ytterligare detaljer.\n"
-"     "
+msgstr "\n     Du har inte rättigheter att prenumerera på den angivna kanalen.\n     Kontakta din organisations kanal- eller organisationsadministratörer\n     för ytterligare detaljer.\n     "
 
-#: ../common/rhnException.py:193
+#: ../common/rhnException.py:194
 msgid "You can not unsubscribe from base channel."
 msgstr "Du kan inte avsluta prenumererationen på baskanalen."
 
 #. 80-90: server group errors
-#: ../common/rhnException.py:196
+#: ../common/rhnException.py:197
 msgid "There was an error while trying to join the system to its groups"
 msgstr "Ett fel uppstod vid försök att lägga till systemet till dess grupper"
 
 #. 90-100: entitlement errors
-#: ../common/rhnException.py:199
+#: ../common/rhnException.py:200
 msgid "Unable to entitle system"
 msgstr "Kan inte ge systemet driftsrättigheter"
 
-#: ../common/rhnException.py:200
+#: ../common/rhnException.py:201
 msgid ""
 "Registration token unable to entitle system: maximum membership exceeded"
-msgstr ""
-"Registreringsnyckeln kan inte ge systemet driftsrättigheter: maximala "
-"medlemsantalet överskridet"
+msgstr "Registreringsnyckeln kan inte ge systemet driftsrättigheter: maximala medlemsantalet överskridet"
 
 #. 100-109: e-mail and uuid related faults
-#: ../common/rhnException.py:204
+#: ../common/rhnException.py:205
 msgid "Maximum e-mail length violation."
 msgstr "Maximal längd på e-post överskriden."
 
-#: ../common/rhnException.py:205
+#: ../common/rhnException.py:206
 msgid "Changing e-mail address is not supported."
 msgstr "Att ändra e-postadress stöds inte."
 
-#: ../common/rhnException.py:206
+#: ../common/rhnException.py:207
 msgid "This system has been previously registered."
 msgstr "Detta system har registrerats tidigare."
 
-#: ../common/rhnException.py:207
+#: ../common/rhnException.py:208
 msgid "Invalid username"
 msgstr "Ogiltigt användarnamn"
 
 #. 110-129: disabled org errors
-#: ../common/rhnException.py:210
+#: ../common/rhnException.py:211
 msgid "Service for your account has been disabled."
 msgstr "Tjänsten för ditt konto har stängts av."
 
-#: ../common/rhnException.py:211
+#: ../common/rhnException.py:212
 msgid "Email address not validated; service disabled"
 msgstr "Epostadressen är inte validerad, tjänsten avstängd"
 
-#: ../common/rhnException.py:212
+#: ../common/rhnException.py:213
 msgid "Survey not filled out; service disabled"
 msgstr "Enkäten inte ifylld, tjänsten avstängd"
 
 #. 130-140: bugzilla errata import errors
-#: ../common/rhnException.py:215
+#: ../common/rhnException.py:216
 msgid "Bugzilla erratum import error"
 msgstr "Importfel av bugzillaerrata"
 
 #. 140-159 applet errors
-#: ../common/rhnException.py:218
+#: ../common/rhnException.py:219
 msgid "Unable to look up server"
 msgstr "Kan inte slå upp servern"
 
 #. 160-179: OSAD errors
-#: ../common/rhnException.py:221
+#: ../common/rhnException.py:222
 msgid "Required argument is missing"
 msgstr "Nödvändigt argument saknas"
 
 #. 500-599: Package Uploader errors
-#: ../common/rhnException.py:224
+#: ../common/rhnException.py:225
 msgid "Missing HTTP header information"
 msgstr "Information i HTTP-huvud saknas"
 
-#: ../common/rhnException.py:225
+#: ../common/rhnException.py:226
 msgid "The package's checksum signature does not match the header one"
 msgstr "Paketets kontrollsummesignatur stämmer inte med huvudets"
 
-#: ../common/rhnException.py:226
+#: ../common/rhnException.py:227
 msgid "Header information does not match package metainformation"
 msgstr "Huvudinformationen stämmer inte med paketets metainformation"
 
-#: ../common/rhnException.py:227
+#: ../common/rhnException.py:228
 msgid "Package with a different signature already uploaded"
 msgstr "Ett paket med en annan signatur är redan skickat"
 
-#: ../common/rhnException.py:228
+#: ../common/rhnException.py:229
 msgid "Not an RPM package"
 msgstr "Inte ett RPM-paket"
 
-#: ../common/rhnException.py:229
+#: ../common/rhnException.py:230
 msgid "Unsigned RPM package"
 msgstr "Osignerat RPM-paket"
 
-#: ../common/rhnException.py:230
+#: ../common/rhnException.py:231
 msgid "Incompatible package and channel architectures"
 msgstr "Inkompatibla paket- och kanalarkitekturer"
 
-#: ../common/rhnException.py:231
+#: ../common/rhnException.py:232
 msgid "Incompatible checksum type"
 msgstr "Inkompatibel kontrollsummetyp"
 
 #. 600-699: RHEL5+ EN errors
-#: ../common/rhnException.py:234
+#: ../common/rhnException.py:235
 msgid "Invalid Entitlement Number"
 msgstr "Ogiltigt driftsrättighetsnummer"
 
-#: ../common/rhnException.py:235
+#: ../common/rhnException.py:236
 msgid "No entitlement information tied to hardware"
 msgstr "Ingen driftsrättighetsinformation bunden till hårdvaran"
 
-#: ../common/rhnException.py:236
+#: ../common/rhnException.py:237
 msgid "Installation number is not entitling"
 msgstr "Installationsnumret ger inte driftsrättigheter"
 
 #. 700-799: Additional user input verification errors.
-#: ../common/rhnException.py:239
+#: ../common/rhnException.py:240
 msgid "Maximum username length violation"
 msgstr "Maximal längd på användarnamn överskriden"
 
-#: ../common/rhnException.py:240
+#: ../common/rhnException.py:241
 msgid "Maximum password length violation"
 msgstr "Maximal längd på lösenord överskriden"
 
-#: ../common/rhnException.py:242
-#, fuzzy
-msgid "System Name cannot be less than 3 characters"
-msgstr "användarman skall vara mindre än %d tecken"
-
 #. 1000-1999: RHN Proxy specific errors:
 #. issued by an RHN Proxy to the client
-#: ../common/rhnException.py:246
+#: ../common/rhnException.py:245
 msgid "RHN Proxy error."
 msgstr "RHN-proxyfel."
 
-#: ../common/rhnException.py:247
+#: ../common/rhnException.py:246
 msgid "RHN Proxy unable to login."
 msgstr "Kan inte logga in på RHN-proxy."
 
 #. issued by an RHN Server/Satellite to the proxy
-#: ../common/rhnException.py:249
+#: ../common/rhnException.py:248
 msgid ""
 "\n"
 "     RHN Proxy system ID does not match an RHN Proxy Server\n"
@@ -1100,38 +921,25 @@ msgid ""
 "     experiencing difficulties with the process of enabling or continued\n"
 "     enablement of this RHN Proxy Server.\n"
 "     "
-msgstr ""
-"\n"
-"     RHN-proxyns system-ID stämmer inte med någon RHN-proxyserver i\n"
-"     databasen.  Kontakta din utsedda Red Hat-representant eller\n"
-"     besök https://rhn.redhat.com/help/contact.pxt omedelbart om du\n"
-"     har svårigherer med processen att aktivera eller fortsatt\n"
-"     aktivering av denna RHN-proxyserver.\n"
-"     "
+msgstr "\n     RHN-proxyns system-ID stämmer inte med någon RHN-proxyserver i\n     databasen.  Kontakta din utsedda Red Hat-representant eller\n     besök https://rhn.redhat.com/help/contact.pxt omedelbart om du\n     har svårigherer med processen att aktivera eller fortsatt\n     aktivering av denna RHN-proxyserver.\n     "
 
-#: ../common/rhnException.py:256
+#: ../common/rhnException.py:255
 msgid "RHN Proxy session token is invalid."
 msgstr "RHN-proxysessionsnyckeln är ogiltig."
 
-#: ../common/rhnException.py:257
+#: ../common/rhnException.py:256
 msgid "RHN Proxy session token has expired."
 msgstr "RHN-proxysessionsnyckeln har gått ut."
 
 #. 2000-2999: RHN Satellite specific errors:
-#: ../common/rhnException.py:261
-#, fuzzy
+#: ../common/rhnException.py:260
 msgid ""
 "\n"
-"     RHN Satellite user creation is not allowed via rhn_register;\n"
+"     RHN Satellite user creation is not allowed via rhn_register\n"
+"     (or up2date --register on Red Hat Enterprise Linux 3 or later);\n"
 "     please contact your sysadmin to have your account created.\n"
 "     "
-msgstr ""
-"\n"
-"     Att skapa användare på RHN-satelliten är inte tillåtet via "
-"rhn_register\n"
-"     (eller up2date --register på Red Hat Enterprise Linux 3 och senare);\n"
-"     kontakta din systemadministratör för att få ditt konto skapat.\n"
-"     "
+msgstr "\n     Att skapa användare på RHN-satelliten är inte tillåtet via rhn_register\n     (eller up2date --register på Red Hat Enterprise Linux 3 och senare);\n     kontakta din systemadministratör för att få ditt konto skapat.\n     "
 
 #: ../common/rhnException.py:265
 msgid ""
@@ -1142,46 +950,28 @@ msgid ""
 "     experiencing difficulties with the process of enabling or continued\n"
 "     enablement of this RHN Satellite Server.\n"
 "     "
-msgstr ""
-"\n"
-"     RHN-satellitens system-ID stämmer inte med någon RHN-satelliteserver i\n"
-"     databasen.   Kontakta din utsedda Red Hat representant eller\n"
-"     besök https://rhn.redhat.com/help/contact.pxt omedelbart om du\n"
-"     har svårigheter med processen att aktivera eller fortsatt\n"
-"     aktivering av denna RHN-satelliteserver.\n"
-"     "
+msgstr "\n     RHN-satellitens system-ID stämmer inte med någon RHN-satelliteserver i\n     databasen.   Kontakta din utsedda Red Hat representant eller\n     besök https://rhn.redhat.com/help/contact.pxt omedelbart om du\n     har svårigheter med processen att aktivera eller fortsatt\n     aktivering av denna RHN-satelliteserver.\n     "
 
 #: ../common/rhnException.py:272
 msgid ""
 "\n"
 "     This satellite server is not allowed to access the specified channel\n"
 "     "
-msgstr ""
-"\n"
-"     Denna satellitserver har inte tillgång till den angivna kanalen\n"
-"     "
+msgstr "\n     Denna satellitserver har inte tillgång till den angivna kanalen\n     "
 
 #: ../common/rhnException.py:275
 msgid ""
 "\n"
-"     This satellite server is not allowed to use Inter Satellite Sync on "
-"this satellite\n"
+"     This satellite server is not allowed to use Inter Satellite Sync on this satellite\n"
 "     "
-msgstr ""
-"\n"
-"     Denna satellitserver får inte använda Inter Satellite Sync på denna "
-"satellit\n"
-"     "
+msgstr "\n     Denna satellitserver får inte använda Inter Satellite Sync på denna satellit\n     "
 
 #: ../common/rhnException.py:278
 msgid ""
 "\n"
 "     Inter Satellite Sync is disabled on this satellite.\n"
 "     "
-msgstr ""
-"\n"
-"     Inter Satellite Sync är avslaged på dena satellit.\n"
-"     "
+msgstr "\n     Inter Satellite Sync är avslaged på dena satellit.\n     "
 
 #. Kickstart errors
 #: ../common/rhnException.py:283
@@ -1198,11 +988,7 @@ msgid ""
 "     Kickstart tree would not lint, there are packages\n"
 "     missing in the channel\n"
 "     "
-msgstr ""
-"\n"
-"     Kickstart-trädet är inte rent, det finns paket som saknas\n"
-"     i kanalen\n"
-"     "
+msgstr "\n     Kickstart-trädet är inte rent, det finns paket som saknas\n     i kanalen\n     "
 
 #. 3000-3999: XML dumper errors:
 #: ../common/rhnException.py:291
@@ -1332,11 +1118,11 @@ msgstr "Fullständig sökväg till filen måste anges"
 
 #: ../common/rhnException.py:324
 msgid "Invalid revision number"
-msgstr ""
+msgstr "Ogiltigt revisionsnummer"
 
 #: ../common/rhnException.py:325
 msgid "Cannot compare files of different file type"
-msgstr ""
+msgstr "Kan inte jämföra filer med olika filtyp"
 
 #. 5000 - 5099: entitlement mapper errors
 #: ../common/rhnException.py:328
@@ -1367,31 +1153,21 @@ msgid ""
 "     If you choose to submit the bug report, please be sure to include\n"
 "     details of what you were trying to do when this error occurred and\n"
 "     details on how to reproduce this problem.\n"
-msgstr ""
-"\n"
-"     Ett fel uppstod när din begäran behandlades.  Om detta problem "
-"kvarstår,\n"
-"     fyll då i en felrapport på bugzilla.redhat.com.  Om du väljer att "
-"skicka\n"
-"     felrapporten, se då till att ta med detaljer om vad du försökte göra "
-"när\n"
-"     detta fel uppstod och detaljer om hur man återupprepar problemet.\n"
+msgstr "\n     Ett fel uppstod när din begäran behandlades.  Om detta problem kvarstår,\n     fyll då i en felrapport på bugzilla.redhat.com.  Om du väljer att skicka\n     felrapporten, se då till att ta med detaljer om vad du försökte göra när\n     detta fel uppstod och detaljer om hur man återupprepar problemet.\n"
 
 #: ../common/rhnException.py:430
 #, python-format
 msgid ""
 "Error Message:\n"
 "    %s\n"
-msgstr ""
-"Felmeddelande:\n"
-"    %s\n"
+msgstr "Felmeddelande:\n    %s\n"
 
 #: ../common/rhnException.py:432
 #, python-format
 msgid "Error Class Code: %s\n"
 msgstr "Felklasskod: %s\n"
 
-#: ../common/rhnException.py:435
+#: ../common/rhnException.py:434
 #, python-format
 msgid "Error Class Info: %s\n"
 msgstr "Felklassinformation: %s\n"
@@ -1400,12 +1176,3 @@ msgstr "Felklassinformation: %s\n"
 #, python-format
 msgid "Explanation: %s"
 msgstr "Förklaring: %s"
-
-#~ msgid ""
-#~ "Please run rhn_register (or up2date --register on Red Hat Enterprise "
-#~ "Linux 3 or later)\n"
-#~ "as root on this client"
-#~ msgstr ""
-#~ "Kör rhn_register (eller up2date --register på Red Hat Enterprise Linux 3 "
-#~ "eller senare)\n"
-#~ "som root på denna klient"
