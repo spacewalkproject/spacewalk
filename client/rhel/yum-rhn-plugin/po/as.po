@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Amitakhya Phukan <amitakhya.phukan@gmail.com>, 2006.
 # Amitakhya Phukan <aphukan@redhat.com>, 2006, 2007.
@@ -9,16 +9,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: http://bugzilla.redhat.com/\n"
 "POT-Creation-Date: 2011-12-21 12:25+0100\n"
-"PO-Revision-Date: 2011-07-20 00:39+0000\n"
+"PO-Revision-Date: 2012-02-14 13:00+0000\n"
 "Last-Translator: Miroslav Suchý <msuchy@redhat.com>\n"
-"Language-Team: Assamese (http://www.transifex.net/projects/p/fedora/team/"
-"as/)\n"
-"Language: as\n"
+"Language-Team: Assamese (http://www.transifex.net/projects/p/fedora/language/as/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: as\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
 #: ../rhnplugin.py:50
@@ -66,7 +65,8 @@ msgstr "এই ব্যৱস্থাপ্ৰনালী কোনো সং
 
 #: ../rhnplugin.py:139
 msgid ""
-"This system may not be a registered to RHN. SystemId could not be acquired.\n"
+"This system may not be a registered to RHN. SystemId could not be "
+"acquired.\n"
 msgstr ""
 
 #: ../rhnplugin.py:245

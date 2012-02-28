@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Miroslav Suchý <msuchy@redhat.com>, 2011.
 # Progga <progga@BengaLinux.Org>, 2004.
@@ -10,15 +10,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: http://bugzilla.redhat.com/\n"
 "POT-Creation-Date: 2011-12-21 12:25+0100\n"
-"PO-Revision-Date: 2011-07-20 00:39+0000\n"
+"PO-Revision-Date: 2012-02-14 13:00+0000\n"
 "Last-Translator: Miroslav Suchý <msuchy@redhat.com>\n"
 "Language-Team: Bengali (India) <anubad@lists.ankur.org.in>\n"
-"Language: bn_IN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: bn_IN\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
 #: ../rhnplugin.py:50
@@ -34,9 +34,7 @@ msgstr ""
 msgid ""
 "*Note* Red Hat Network repositories are not listed below. You must run this "
 "command as root to access RHN repositories."
-msgstr ""
-"*উল্লেখ্য* Red Hat Network-র সংগ্রহস্থলগুলি নীচে তালিকাভুক্ত করা হয়নি। RHN "
-"সংগ্রহস্থলগুলি প্রাপ্ত করার জন্য root ব্যবহারকারী রূপে এই কমান্ডটি প্রয়োগ করুন।"
+msgstr "*উল্লেখ্য* Red Hat Network-র সংগ্রহস্থলগুলি নীচে তালিকাভুক্ত করা হয়নি। RHN সংগ্রহস্থলগুলি প্রাপ্ত করার জন্য root ব্যবহারকারী রূপে এই কমান্ডটি প্রয়োগ করুন।"
 
 #: ../rhnplugin.py:84
 msgid "There was an error parsing the RHN proxy settings."
@@ -68,7 +66,8 @@ msgstr "সিস্টেমটি কোনো চ্যানেলে সা
 
 #: ../rhnplugin.py:139
 msgid ""
-"This system may not be a registered to RHN. SystemId could not be acquired.\n"
+"This system may not be a registered to RHN. SystemId could not be "
+"acquired.\n"
 msgstr "এই সিস্টেমটি সম্ভবত RHN-র সাথে নিবন্ধিত হয়নি। SystemId প্রাপ্ত করা যায়নি।\n"
 
 #: ../rhnplugin.py:245

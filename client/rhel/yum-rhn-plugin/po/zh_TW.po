@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Ben Wu <hpwu@redhat.com>, 2002, 2003.
 # Chester Cheng <ccheng@brisbane.redhat.com>, 2006.
@@ -14,15 +14,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: http://bugzilla.redhat.com/\n"
 "POT-Creation-Date: 2011-12-21 12:25+0100\n"
-"PO-Revision-Date: 2011-07-20 00:39+0000\n"
+"PO-Revision-Date: 2012-02-14 13:00+0000\n"
 "Last-Translator: Miroslav Suchý <msuchy@redhat.com>\n"
 "Language-Team: Chinese (Taiwan) <trans-zh_TW@lists.fedoraproject.org>\n"
-"Language: zh_TW\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: zh_TW\n"
 "Plural-Forms: nplurals=1; plural=0\n"
 
 #: ../rhnplugin.py:50
@@ -38,9 +38,7 @@ msgstr ""
 msgid ""
 "*Note* Red Hat Network repositories are not listed below. You must run this "
 "command as root to access RHN repositories."
-msgstr ""
-"*請注意* Red Hat Network 軟體庫並未列在以下。您必須以 root 身份執行這項指令，"
-"以存取 RHN 軟體庫。"
+msgstr "*請注意* Red Hat Network 軟體庫並未列在以下。您必須以 root 身份執行這項指令，以存取 RHN 軟體庫。"
 
 #: ../rhnplugin.py:84
 msgid "There was an error parsing the RHN proxy settings."
@@ -72,7 +70,8 @@ msgstr "這台系統尚未訂閱任何頻道。"
 
 #: ../rhnplugin.py:139
 msgid ""
-"This system may not be a registered to RHN. SystemId could not be acquired.\n"
+"This system may not be a registered to RHN. SystemId could not be "
+"acquired.\n"
 msgstr "這台系統可能尚未向 RHN 註冊。無法取得 SystemId。\n"
 
 #: ../rhnplugin.py:245

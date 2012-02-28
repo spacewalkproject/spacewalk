@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Miroslav Suchý <msuchy@redhat.com>, 2011.
 # Rahul Bhalerao <b.rahul.pm@gmail.com>, 2006.
@@ -10,16 +10,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: http://bugzilla.redhat.com/\n"
 "POT-Creation-Date: 2011-12-21 12:25+0100\n"
-"PO-Revision-Date: 2011-07-20 00:39+0000\n"
+"PO-Revision-Date: 2012-02-14 13:00+0000\n"
 "Last-Translator: Miroslav Suchý <msuchy@redhat.com>\n"
-"Language-Team: Marathi (http://www.transifex.net/projects/p/fedora/team/"
-"mr/)\n"
-"Language: mr\n"
+"Language-Team: Marathi (http://www.transifex.net/projects/p/fedora/language/mr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: mr\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
 #: ../rhnplugin.py:50
@@ -35,9 +34,7 @@ msgstr ""
 msgid ""
 "*Note* Red Hat Network repositories are not listed below. You must run this "
 "command as root to access RHN repositories."
-msgstr ""
-"*टिप* Red Hat Network रेपॉजिटरीज् सूचीत दाखवले नाही. RHN रेपॉजिटरीजकरीता प्रवेशसाठी "
-"या आदेशला रूट म्हणून चालवा."
+msgstr "*टिप* Red Hat Network रेपॉजिटरीज् सूचीत दाखवले नाही. RHN रेपॉजिटरीजकरीता प्रवेशसाठी या आदेशला रूट म्हणून चालवा."
 
 #: ../rhnplugin.py:84
 msgid "There was an error parsing the RHN proxy settings."
@@ -69,7 +66,8 @@ msgstr "ही प्रणालीचे कोणत्याही वाह
 
 #: ../rhnplugin.py:139
 msgid ""
-"This system may not be a registered to RHN. SystemId could not be acquired.\n"
+"This system may not be a registered to RHN. SystemId could not be "
+"acquired.\n"
 msgstr "ही प्रणालीची RHN सह नोंदणी नाही. SystemId प्राप्त करणे अशक्य.\n"
 
 #: ../rhnplugin.py:245
