@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.7.45
+Version: 1.7.46
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -585,6 +585,59 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Feb 28 2012 Tomas Lestach <tlestach@redhat.com> 1.7.46-1
+- remove unused class (tlestach@redhat.com)
+- remove unused private attribute (tlestach@redhat.com)
+- removing unused method (tlestach@redhat.com)
+- remove unused private static log (tlestach@redhat.com)
+- remove unused private static log (tlestach@redhat.com)
+- remove unused private static log (tlestach@redhat.com)
+- remove unused private static log (tlestach@redhat.com)
+- remove unused private static log (tlestach@redhat.com)
+- remove unused private static log (tlestach@redhat.com)
+- remove unused private log (tlestach@redhat.com)
+- remove unused private final log (tlestach@redhat.com)
+- remove unused private static log (tlestach@redhat.com)
+- remove unused private static array (tlestach@redhat.com)
+- remove unused private static log (tlestach@redhat.com)
+- remove unused private attribute (tlestach@redhat.com)
+- remove unused private static final attributes (tlestach@redhat.com)
+- remove unused static final LOG (tlestach@redhat.com)
+- remove unused private attribute (tlestach@redhat.com)
+- remove empty test (tlestach@redhat.com)
+- remove unused private static log (tlestach@redhat.com)
+- remove unused private static log (tlestach@redhat.com)
+- remove unused private static log (tlestach@redhat.com)
+- remove unused private attribute (tlestach@redhat.com)
+- remove unused private final log (tlestach@redhat.com)
+- remove unused private attribute (tlestach@redhat.com)
+- remove unused private log (tlestach@redhat.com)
+- remove unused private attributes (tlestach@redhat.com)
+- remove unused private static log (tlestach@redhat.com)
+- remove unused private static log (tlestach@redhat.com)
+- remove unused private final attributes (tlestach@redhat.com)
+- remove unused private static final attribute (tlestach@redhat.com)
+- remove unused private static final attributes (tlestach@redhat.com)
+- remove unused test part (tlestach@redhat.com)
+- remove unused private static sttribute (tlestach@redhat.com)
+- remove unused private logger (tlestach@redhat.com)
+- remove unused private logger (tlestach@redhat.com)
+- remove unused private logger (tlestach@redhat.com)
+- remove unused private logger (tlestach@redhat.com)
+- remove unused private logger (tlestach@redhat.com)
+- remove unused private static final attribute (tlestach@redhat.com)
+- remove unused private attribute (tlestach@redhat.com)
+- remove unused logger (tlestach@redhat.com)
+- remove unused private static final attribute (tlestach@redhat.com)
+- remove unused private static attribute (tlestach@redhat.com)
+- remove unused private static attributes (tlestach@redhat.com)
+- remove unused method (tlestach@redhat.com)
+- remove unused method (tlestach@redhat.com)
+- remove unused private methods (tlestach@redhat.com)
+- remove unused private method (tlestach@redhat.com)
+- removing unused private method from SystemEntitlementsSubmitAction
+  (tlestach@redhat.com)
+
 * Mon Feb 27 2012 Simon Lukasik <slukasik@redhat.com> 1.7.45-1
 - OpenSCAP integration -- Frontend API for scan schedule. (slukasik@redhat.com)
 - checkstyle: allow Copyright 2012. (slukasik@redhat.com)
