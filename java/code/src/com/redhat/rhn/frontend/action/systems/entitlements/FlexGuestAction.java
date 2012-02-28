@@ -36,10 +36,6 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class FlexGuestAction  extends EligibleFlexGuestAction  {
 
-    private static final String SELECTABLE = "selectable";
-    private static final String SELECTED_FAMILY = "channel_family";
-    private static final String ALL = "all";
-
     /**
      *
      * {@inheritDoc}
