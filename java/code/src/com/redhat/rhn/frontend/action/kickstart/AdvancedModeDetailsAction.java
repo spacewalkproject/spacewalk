@@ -34,7 +34,6 @@ import com.redhat.rhn.manager.kickstart.KickstartFileDownloadCommand;
 import com.redhat.rhn.manager.kickstart.KickstartWizardHelper;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerProfileCommand;
 
-import org.apache.log4j.Logger;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
@@ -69,7 +68,6 @@ public class AdvancedModeDetailsAction extends RhnAction {
 
     private static final String CREATE_MODE = "create";
 
-    private static Logger log = Logger.getLogger(AdvancedModeDetailsAction.class);
     private static final String UPLOAD_KEY = "manage.jsp.uploadbutton";
     private static final String UPLOAD_KEY_LABEL = "uploadKey";
     private static final String VALIDATION_XSD =
