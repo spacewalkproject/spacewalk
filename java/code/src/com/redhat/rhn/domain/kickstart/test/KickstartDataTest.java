@@ -83,7 +83,6 @@ import java.util.TreeSet;
  */
 public class KickstartDataTest extends BaseTestCaseWithUser {
 
-    private static final String STATIC_DEV = "dhcp:eth0";
     private static final String KERNEL_PARAMS = "ide0=ata66";
 
 
