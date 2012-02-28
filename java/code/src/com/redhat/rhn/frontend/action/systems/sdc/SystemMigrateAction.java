@@ -14,21 +14,6 @@
  */
 package com.redhat.rhn.frontend.action.systems.sdc;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.log4j.Logger;
-import org.apache.struts.action.ActionErrors;
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionForward;
-import org.apache.struts.action.ActionMapping;
-import org.apache.struts.action.DynaActionForm;
-
 import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.org.OrgFactory;
@@ -41,13 +26,25 @@ import com.redhat.rhn.frontend.struts.RhnValidationHelper;
 import com.redhat.rhn.manager.org.MigrationManager;
 import com.redhat.rhn.manager.system.SystemManager;
 
+import org.apache.struts.action.ActionErrors;
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.DynaActionForm;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 /**
  * SystemDetailsEditAction
  * @version $Rev$
  */
 public class SystemMigrateAction extends RhnAction {
-
-    private static Logger log = Logger.getLogger(SystemMigrateAction.class);
 
     public static final String SID = "sid";
     public static final String ORG = "to_org";
