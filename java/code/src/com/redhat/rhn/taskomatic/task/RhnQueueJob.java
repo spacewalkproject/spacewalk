@@ -40,8 +40,6 @@ import java.io.IOException;
 public abstract class RhnQueueJob implements RhnJob {
 
     private TaskoRun jobRun = null;
-    private boolean queueEmpty = true;
-
     protected abstract Logger getLogger();
 
     /**
