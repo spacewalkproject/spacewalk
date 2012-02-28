@@ -26,8 +26,6 @@ import com.redhat.rhn.domain.server.EntitlementServerGroup;
 import com.redhat.rhn.domain.server.ServerGroupFactory;
 import com.redhat.rhn.manager.entitlement.EntitlementManager;
 
-import org.apache.log4j.Logger;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -39,8 +37,6 @@ import java.util.Map;
  * @version $Rev$
  */
 public class UpdateOrgSystemEntitlementsCommand {
-
-    private static Logger log = Logger.getLogger(UpdateOrgSystemEntitlementsCommand.class);
 
     private Org org;
     private long newTotal;
