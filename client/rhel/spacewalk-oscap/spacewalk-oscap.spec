@@ -1,5 +1,5 @@
 Name:		spacewalk-oscap
-Version:	0.0.2
+Version:	0.0.3
 Release:	1%{?dist}
 Summary:	OpenSCAP plug-in for rhn-check
 
@@ -42,6 +42,14 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Tue Feb 28 2012 Simon Lukasik <slukasik@redhat.com> 0.0.3-1
+- Do not unlink file, tempfile will do that automatically.
+  (slukasik@redhat.com)
+- This module is not supposed to be used as a stand-alone script.
+  (slukasik@redhat.com)
+- Do submit empty dict, when something goes wrong (slukasik@redhat.com)
+- Fix syntax for python 2.4 (slukasik@redhat.com)
+
 * Mon Feb 27 2012 Simon Lukasik <slukasik@redhat.com> 0.0.2-1
 - new package built with tito
 
