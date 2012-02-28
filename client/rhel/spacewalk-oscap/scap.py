@@ -66,8 +66,3 @@ def _assert_xml(filename):
     finally:
         f.close()
 
-if __name__ == "__main__":
-    print xccdf_eval({
-        'params': '--profile united_states_government_configuration_baseline',
-        'path': 'usgcb-rhel5desktop-xccdf.xml'
-        })
