@@ -249,57 +249,55 @@ public class ProfileManager extends BaseManager {
                                 // therefore, it may be skipped
                                 continue;
                             }
+                            log.debug("Checking on : " + profpkgitem.getEvr());
+
+                            if (compareArch(syspkgitem.getArch(),
+                                profpkgitem.getArch()) != 0) {
+                                // if the arch of the packages doesn't match, we don't
+                                // need to compare the EVR; therefore, if at end of the
+                                // list, add both packages to the result
+                                if ((j + 1) == plist.size()) {
+                                    PackageMetadata pm = createPackageMetadata(
+                                            syspkgitem, null,
+                                            PackageMetadata.KEY_THIS_ONLY, param);
+                                    skipPkg.add(syspkgitem.getNevra());
+                                    result.add(pm);
+
+                                    pm = createPackageMetadata(null, profpkgitem,
+                                            PackageMetadata.KEY_OTHER_ONLY, param);
+                                    skipPkg.add(profpkgitem.getNevra());
+                                    result.add(pm);
+                                }
+                            }
                             else {
-                                log.debug("Checking on : " + profpkgitem.getEvr());
+                                PackageMetadata pm = compareAndCreatePackageMetaData(
+                                        syspkgitem, profpkgitem, param);
+                                String evrKey = pm.getSystemEvr() + "|" +
+                                        pm.getOtherEvr();
+                                // If the package exists on one but not the other we
+                                // need to add it to the compare map
+                                if (pm.getComparisonAsInt() !=
+                                    PackageMetadata.KEY_NO_DIFF) {
 
-                                if (compareArch(syspkgitem.getArch(),
-                                    profpkgitem.getArch()) != 0) {
-                                    // if the arch of the packages doesn't match, we don't
-                                    // need to compare the EVR; therefore, if at end of the
-                                    // list, add both packages to the result
                                     if ((j + 1) == plist.size()) {
-                                        PackageMetadata pm = createPackageMetadata(
-                                                syspkgitem, null,
-                                                PackageMetadata.KEY_THIS_ONLY, param);
+                                        // this is the last entry in plist; therefore,
+                                        // this must be a difference between pkgs
+                                        log.debug("Adding to cm: " + evrKey +
+                                                " comp: " + pm.getComparison());
+                                        pm.setComparison(
+                                                PackageMetadata.KEY_OTHER_ONLY);
+                                        compareMap.put(evrKey, pm);
                                         skipPkg.add(syspkgitem.getNevra());
-                                        result.add(pm);
-
-                                        pm = createPackageMetadata(null, profpkgitem,
-                                                PackageMetadata.KEY_OTHER_ONLY, param);
                                         skipPkg.add(profpkgitem.getNevra());
-                                        result.add(pm);
                                     }
                                 }
                                 else {
-                                    PackageMetadata pm = compareAndCreatePackageMetaData(
-                                            syspkgitem, profpkgitem, param);
-                                    String evrKey = pm.getSystemEvr() + "|" +
-                                            pm.getOtherEvr();
-                                    // If the package exists on one but not the other we
-                                    // need to add it to the compare map
-                                    if (pm.getComparisonAsInt() !=
-                                        PackageMetadata.KEY_NO_DIFF) {
-
-                                        if ((j + 1) == plist.size()) {
-                                            // this is the last entry in plist; therefore,
-                                            // this must be a difference between pkgs
-                                            log.debug("Adding to cm: " + evrKey +
-                                                    " comp: " + pm.getComparison());
-                                            pm.setComparison(
-                                                    PackageMetadata.KEY_OTHER_ONLY);
-                                            compareMap.put(evrKey, pm);
-                                            skipPkg.add(syspkgitem.getNevra());
-                                            skipPkg.add(profpkgitem.getNevra());
-                                        }
-                                    }
-                                    else {
-                                        log.debug("Removing from cm: " + evrKey);
-                                        compareMap.remove(evrKey);
-                                        skipPkg.add(profpkgitem.getNevra());
-                                        // pkg found in both plist & syslist, skip to next
-                                        // syslist entry
-                                        break;
-                                    }
+                                    log.debug("Removing from cm: " + evrKey);
+                                    compareMap.remove(evrKey);
+                                    skipPkg.add(profpkgitem.getNevra());
+                                    // pkg found in both plist & syslist, skip to next
+                                    // syslist entry
+                                    break;
                                 }
                             }
                         }
@@ -436,9 +434,7 @@ public class ProfileManager extends BaseManager {
         if (((a1 == null) && (a2 == null)) || (a1.equals(a2))) {
             return 0;
         }
-        else {
-            return 1;
-        }
+        return 1;
     }
 
     private static PackageMetadata compareAndCreatePackageMetaData(

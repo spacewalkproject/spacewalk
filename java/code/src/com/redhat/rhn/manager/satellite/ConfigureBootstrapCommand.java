@@ -101,9 +101,7 @@ public class ConfigureBootstrapCommand extends BaseConfigureCommand
             errors[0] = new ValidatorError(errorKey);
             return errors;
         }
-        else {
-            return null;
-        }
+        return null;
 
     }
 

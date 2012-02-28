@@ -964,9 +964,7 @@ public class UserManager extends BaseManager {
         if (pref == null) {
             return true;
         }
-        else {
-            return !pref.getValue().equals("0");
-        }
+        return !pref.getValue().equals("0");
     }
 
     /**

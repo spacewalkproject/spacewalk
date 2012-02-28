@@ -1155,10 +1155,8 @@ public class ActionManager extends BaseManager {
             return (PackageAction) schedulePackageAction(scheduler, pkgs,
                 ActionFactory.TYPE_PACKAGES_REMOVE, earliestAction, srvr);
         }
-        else {
-            return (PackageAction) schedulePackageAction(scheduler, pkgs,
-                ActionFactory.TYPE_SOLARISPKGS_REMOVE, earliestAction, srvr);
-        }
+        return (PackageAction) schedulePackageAction(scheduler, pkgs,
+            ActionFactory.TYPE_SOLARISPKGS_REMOVE, earliestAction, srvr);
     }
 
     /**
@@ -1239,10 +1237,8 @@ public class ActionManager extends BaseManager {
             return (PackageAction) schedulePackageAction(scheduler, pkgs,
                 ActionFactory.TYPE_PACKAGES_UPDATE, earliestAction, srvr);
         }
-        else {
-            return (PackageAction) schedulePackageAction(scheduler, pkgs,
-                ActionFactory.TYPE_SOLARISPKGS_INSTALL, earliestAction, srvr);
-        }
+        return (PackageAction) schedulePackageAction(scheduler, pkgs,
+            ActionFactory.TYPE_SOLARISPKGS_INSTALL, earliestAction, srvr);
     }
 
     /**
@@ -1290,10 +1286,8 @@ public class ActionManager extends BaseManager {
             return (PackageAction) schedulePackageAction(scheduler, srvr, pkgs,
                     ActionFactory.TYPE_PACKAGES_UPDATE, earliestAction);
         }
-        else {
-            return (PackageAction) schedulePackageAction(scheduler, srvr, pkgs,
-                    ActionFactory.TYPE_SOLARISPKGS_INSTALL, earliestAction);
-        }
+        return (PackageAction) schedulePackageAction(scheduler, srvr, pkgs,
+                ActionFactory.TYPE_SOLARISPKGS_INSTALL, earliestAction);
     }
 
     /**

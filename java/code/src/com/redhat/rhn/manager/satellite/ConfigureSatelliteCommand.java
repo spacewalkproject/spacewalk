@@ -180,14 +180,12 @@ public class ConfigureSatelliteCommand extends BaseConfigureCommand
             }
             return retval;
         }
-        else {
-            this.keysToBeUpdated.clear();
+        this.keysToBeUpdated.clear();
 
-            if (logger.isDebugEnabled()) {
-                logger.debug("storeConfiguration() - end - return value="  + null);
-            }
-            return null;
+        if (logger.isDebugEnabled()) {
+            logger.debug("storeConfiguration() - end - return value="  + null);
         }
+        return null;
 
     }
 

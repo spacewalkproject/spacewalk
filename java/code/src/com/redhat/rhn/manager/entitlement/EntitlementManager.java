@@ -182,9 +182,7 @@ public class EntitlementManager extends BaseManager {
         if (sg != null) {
             return sg.getCurrentMembers();
         }
-        else {
-            return null;
-        }
+        return null;
     }
 
     /**
@@ -198,8 +196,6 @@ public class EntitlementManager extends BaseManager {
         if (sg != null) {
             return sg.getMaxMembers();
         }
-        else {
-            return null;
-        }
+        return null;
     }
 }

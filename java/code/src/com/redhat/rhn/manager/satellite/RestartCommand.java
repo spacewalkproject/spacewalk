@@ -51,9 +51,7 @@ public class RestartCommand extends BaseConfigureCommand
             errors[0] = new ValidatorError("restart.config.error");
             return errors;
         }
-        else {
-            return null;
-        }
+        return null;
     }
 
 }

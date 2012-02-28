@@ -495,9 +495,7 @@ public class MonitoringManager extends BaseManager {
         if (CommandGroup.ALL_GROUP_NAME.equals(group.getGroupName())) {
             return MonitoringFactory.loadAllCommands();
         }
-        else {
-            return new ArrayList(group.getCommands());
-        }
+        return new ArrayList(group.getCommands());
     }
 
     /**

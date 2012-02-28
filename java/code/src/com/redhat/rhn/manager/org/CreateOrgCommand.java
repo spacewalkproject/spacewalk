@@ -140,39 +140,37 @@ public class CreateOrgCommand {
         if (errors != null && errors.length > 0) {
             return errors;
         }
-        else {
-            createdOrg = OrgFactory.save(createdOrg);
-            cmd.setOrg(createdOrg);
-            cmd.storeNewUser();
-            this.newOrg = createdOrg;
+        createdOrg = OrgFactory.save(createdOrg);
+        cmd.setOrg(createdOrg);
+        cmd.storeNewUser();
+        this.newOrg = createdOrg;
 
-            // Lookup the SSL crypto key for the default org and copy it to the new:
-            Org defaultOrg = OrgFactory.getSatelliteOrg();
-            List<CryptoKey> defaultOrgKeys = KickstartFactory.lookupCryptoKeys(defaultOrg);
-            CryptoKey ssl = null;
-            // Search for the first key of type ssl:
-            for (CryptoKey key : defaultOrgKeys) {
-                if (key.getCryptoKeyType().equals(KickstartFactory.KEY_TYPE_SSL)) {
-                    ssl = key;
-                    break;
-                }
+        // Lookup the SSL crypto key for the default org and copy it to the new:
+        Org defaultOrg = OrgFactory.getSatelliteOrg();
+        List<CryptoKey> defaultOrgKeys = KickstartFactory.lookupCryptoKeys(defaultOrg);
+        CryptoKey ssl = null;
+        // Search for the first key of type ssl:
+        for (CryptoKey key : defaultOrgKeys) {
+            if (key.getCryptoKeyType().equals(KickstartFactory.KEY_TYPE_SSL)) {
+                ssl = key;
+                break;
             }
-            if (ssl != null) {
-                // TODO
-                log.debug("Found a SSL key for the default org to copy: " +
-                        ssl.getId());
-                CreateCryptoKeyCommand createCryptoKey =
-                    new CreateCryptoKeyCommand(createdOrg);
-                createCryptoKey.setContents(ssl.getKeyString());
-                createCryptoKey.setDescription(ssl.getDescription());
-                createCryptoKey.setType("SSL");
-                createCryptoKey.store();
-            }
-
-            ChannelFamilyFactory.lookupOrCreatePrivateFamily(createdOrg);
-
-            return null;
         }
+        if (ssl != null) {
+            // TODO
+            log.debug("Found a SSL key for the default org to copy: " +
+                    ssl.getId());
+            CreateCryptoKeyCommand createCryptoKey =
+                new CreateCryptoKeyCommand(createdOrg);
+            createCryptoKey.setContents(ssl.getKeyString());
+            createCryptoKey.setDescription(ssl.getDescription());
+            createCryptoKey.setType("SSL");
+            createCryptoKey.store();
+        }
+
+        ChannelFamilyFactory.lookupOrCreatePrivateFamily(createdOrg);
+
+        return null;
     }
 
     /**

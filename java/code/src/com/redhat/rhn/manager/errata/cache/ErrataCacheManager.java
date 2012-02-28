@@ -67,11 +67,9 @@ public class ErrataCacheManager extends HibernateFactory {
         if (dr.isEmpty()) {
             return 0;
         }
-        else {
-            Map record = (Map) dr.get(0);
-            Long cnt = (Long) record.get("num_items");
-            return (cnt != null) ? cnt.intValue() : 0;
-        }
+        Map record = (Map) dr.get(0);
+        Long cnt = (Long) record.get("num_items");
+        return (cnt != null) ? cnt.intValue() : 0;
     }
 
     /**
@@ -152,14 +150,12 @@ public class ErrataCacheManager extends HibernateFactory {
             params.put("package_id", packageId);
             return m.executeUpdate(params);
         }
-        else {
-            WriteMode m = ModeFactory.getWriteMode("ErrataCache_queries",
-                    "delete_needed_package_cache_null_errata");
-            Map params = new HashMap();
-            params.put("server_id", sid);
-            params.put("package_id", packageId);
-            return m.executeUpdate(params);
-        }
+        WriteMode m = ModeFactory.getWriteMode("ErrataCache_queries",
+                "delete_needed_package_cache_null_errata");
+        Map params = new HashMap();
+        params.put("server_id", sid);
+        params.put("package_id", packageId);
+        return m.executeUpdate(params);
     }
 
     /**
@@ -208,13 +204,11 @@ public class ErrataCacheManager extends HibernateFactory {
             params.put("errata_id", eid);
             return m.executeUpdate(params);
         }
-        else {
-            WriteMode m = ModeFactory.getWriteMode("ErrataCache_queries",
-                    "delete_needed_errata_cache_null_errata");
-            Map params = new HashMap();
-            params.put("server_id", sid);
-            return m.executeUpdate(params);
-        }
+        WriteMode m = ModeFactory.getWriteMode("ErrataCache_queries",
+                "delete_needed_errata_cache_null_errata");
+        Map params = new HashMap();
+        params.put("server_id", sid);
+        return m.executeUpdate(params);
     }
 
     /**

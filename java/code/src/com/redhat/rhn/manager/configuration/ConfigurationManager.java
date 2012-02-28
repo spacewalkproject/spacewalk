@@ -2196,15 +2196,11 @@ public class ConfigurationManager extends BaseManager {
             if (dr == null || dr.size() == 0) {
                 return null;
             }
-            else {
-                ConfigSystemDto csd = (ConfigSystemDto)dr.get(0);
-                sid = csd.getId().longValue();
-            }
+            ConfigSystemDto csd = (ConfigSystemDto)dr.get(0);
+            sid = csd.getId().longValue();
             return sid;
         }
-        else {
-            return null;
-        }
+        return null;
     }
 
     /**

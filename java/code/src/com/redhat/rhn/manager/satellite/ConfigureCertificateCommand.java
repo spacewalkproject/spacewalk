@@ -95,9 +95,7 @@ public class ConfigureCertificateCommand
             errors[0] = new ValidatorError(errorKey);
             return errors;
         }
-        else {
-            return null;
-        }
+        return null;
     }
 
     protected void writeStringToFile() throws FileNotFoundException {

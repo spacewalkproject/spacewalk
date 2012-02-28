@@ -47,9 +47,7 @@ public class CreateFileListCommand extends BaseFileListEditCommand {
             CommonFactory.saveFileList(this.list);
             return null;
         }
-        else {
-            return new ValidatorError("preservation.key.labelexists");
-        }
+        return new ValidatorError("preservation.key.labelexists");
     }
 
 }

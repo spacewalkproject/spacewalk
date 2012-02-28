@@ -473,9 +473,7 @@ public class PackageManager extends BaseManager {
             Long id = (Long) ((Map) dr.get(0)).get("id");
             return new Long(id.longValue());
         }
-        else {
-            return null;
-        }
+        return null;
     }
 
     /**
@@ -496,9 +494,7 @@ public class PackageManager extends BaseManager {
         if (dr.size() > 0) {
             return (Map) dr.get(0);
         }
-        else {
-            return null;
-        }
+        return null;
     }
 
     /**
@@ -813,11 +809,9 @@ public class PackageManager extends BaseManager {
                     "Package_queries", "packages_by_name_smart");
             return m.execute(params);
         }
-        else {
-            SelectMode m = ModeFactory.getMode(
-                    "Package_queries", "packages_by_name_clabel");
-            return m.execute(params);
-        }
+        SelectMode m = ModeFactory.getMode(
+                "Package_queries", "packages_by_name_clabel");
+        return m.execute(params);
     }
 
     /**
@@ -1281,9 +1275,7 @@ public class PackageManager extends BaseManager {
         if (list.isEmpty()) {
             return null;
         }
-        else {
-            return list.get(0);
-        }
+        return list.get(0);
     }
 
 
