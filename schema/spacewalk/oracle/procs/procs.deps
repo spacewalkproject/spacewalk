@@ -63,6 +63,7 @@ insert_checksum                 :: rhnChecksum rhnChecksumType
 insert_config_filename          :: rhnConfigFileName
 insert_config_info              :: rhnConfigInfo
 insert_evr                      :: rhnPackageEVR
+insert_package_nevra            :: rhnPackageNEVRA
 is_user_applicant               :: rhnUserGroupType web_contact rhnUserGroup \
                                    rhnUserGroupMembers
 lookup_arch_type                :: data/rhnArchType rhn_exception.pks
@@ -95,7 +96,7 @@ lookup_package_capability       :: rhnPackageCapability
 lookup_package_name             :: rhnPackageName
 lookup_package_provider         :: rhnPackageProvider
 lookup_package_key_type         :: rhnPackageKeyType
-lookup_package_nevra            :: rhnPackageNEVRA
+lookup_package_nevra            :: rhnPackageNEVRA insert_package_nevra
 lookup_server_arch              :: rhn_exception.pks data/rhnException rhnServerArch \
                                    data/rhnServerArch
 lookup_sg_type                  :: rhnServerGroupType
