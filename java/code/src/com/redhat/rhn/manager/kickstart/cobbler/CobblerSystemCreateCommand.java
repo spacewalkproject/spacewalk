@@ -116,7 +116,7 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
         this.profileName = cobblerProfileName;
         String note = "Reactivation key for " + server.getName() + ".";
         ActivationKey key = ActivationKeyManager.getInstance().
-              createNewReActivationKey(UserFactory.getInstance().findRandomOrgAdmin(
+              createNewReActivationKey(UserFactory.findRandomOrgAdmin(
                       server.getOrg()), server, note);
         log.debug("created reactivation key: " + key.getKey());
         String keys = key.getKey();

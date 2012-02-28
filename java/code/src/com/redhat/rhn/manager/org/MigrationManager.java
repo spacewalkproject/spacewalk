@@ -85,7 +85,7 @@ public class MigrationManager extends BaseManager {
                 server.setCreator(user);
             }
             else {
-                server.setCreator(UserFactory.getInstance().findRandomOrgAdmin(toOrg));
+                server.setCreator(UserFactory.findRandomOrgAdmin(toOrg));
             }
 
 
