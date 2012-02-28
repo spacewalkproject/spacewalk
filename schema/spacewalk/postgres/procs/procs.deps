@@ -91,7 +91,7 @@ lookup_package_delta            :: rhnPackageDelta
 lookup_package_name             :: rhnPackageName pg_dblink_exec
 lookup_package_provider         :: rhnPackageProvider
 lookup_package_key_type         :: rhnPackageKeyType
-lookup_package_nevra            :: rhnPackageNEVRA
+lookup_package_nevra            :: rhnPackageNEVRA pg_dblink_exec
 lookup_server_arch              :: rhn_exception.pks data/rhnException rhnServerArch \
                                    data/rhnServerArch
 lookup_sg_type                  :: rhnServerGroupType
