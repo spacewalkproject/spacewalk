@@ -537,12 +537,4 @@ public class SystemEntitlementsSubmitAction extends
     protected ActionMessage getEmptySelectionMessage() {
         return new ActionMessage("system_entitlements.emptyselectionerror");
     }
-
-    private void addToMessage(ActionMessages msgs, String key, Object[] args) {
-        ActionMessage temp =  new ActionMessage(key, args);
-        msgs.add(ActionMessages.GLOBAL_MESSAGE, temp);
-    }
-
-
-
 }
