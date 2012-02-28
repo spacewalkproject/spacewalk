@@ -171,7 +171,7 @@ sub load_answer_file {
 
   for my $file (@files) {
 
-    next unless -r $file;
+    next unless (-r $file or $file eq $options->{'answer-file'});
 
     if ($options->{'answer-file'} and $file eq $options->{'answer-file'}) {
       print loc("* Loading answer file: %s.\n", $file);
