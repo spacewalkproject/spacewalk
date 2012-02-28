@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        1.7.7
+Version:        1.7.8
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -106,6 +106,9 @@ rm -rf %{buildroot}
 %{_mandir}/man8/spacewalk-make-mount-points*
 
 %changelog
+* Tue Feb 28 2012 Miroslav Suchý 1.7.8-1
+- do not ignore missing answer-file (msuchy@redhat.com)
+
 * Tue Feb 28 2012 Jan Pazdziora 1.7.7-1
 - Make sure /etc/cobbler/settings has 644.
 
