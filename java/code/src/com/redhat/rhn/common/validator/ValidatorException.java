@@ -97,9 +97,7 @@ public class ValidatorException extends RhnRuntimeException  {
         if (result == null) {
             return super.getMessage();
         }
-        else {
-            return result.getMessage();
-        }
+        return result.getMessage();
     }
 
     /**

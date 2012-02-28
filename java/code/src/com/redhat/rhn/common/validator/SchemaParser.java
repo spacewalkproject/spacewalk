@@ -98,9 +98,7 @@ public class SchemaParser {
         if (o != null) {
             return (Constraint)o;
         }
-        else {
-            return null;
-        }
+        return null;
     }
 
     /**
