@@ -28,9 +28,6 @@ public class SinglePageWriter extends DocWriter {
     private static final String JSP_OUTPUT = "./build/reports/apidocs/singlepage/";
     private static final String JSP_TEMPLATES = "./buildconf/apidoc/singlepage/";
 
-
-    private static final String[] OTHER_FILES = {"faqs", "scripts"};
-
     /**
      *
      * {@inheritDoc}
