@@ -1,5 +1,4 @@
 
-import os
 import sys
 import subprocess
 import xml.sax
@@ -23,7 +22,7 @@ def xccdf_eval(args, cache_only=None):
         return (1, 'oscap tool did not produce valid xml.', {})
 
     ret, resume, xslt_err = _xccdf_resume(results_file.name)
-    os.unlink(results_file.name)
+    del(results_file)
     if ret != 0 or resume == '':
         return (1, 'Problems with extracting resume:\n' + xslt_err, {})
     return (0, 'openscap scan completed', {
