@@ -1,7 +1,6 @@
--- oracle equivalent source sha1 791c0067198055114ca9fdf61f4a6a6d66f95b7d
--- retrieved from ./1241042199/53fa26df463811901487b608eecc3f77ca7783a1/schema/spacewalk/oracle/procs/lookup_package_name.sql
+-- oracle equivalent source sha1 3d574cd26eebe3152eb20bcb57fbbc4d264dfc12
 --
--- Copyright (c) 2008--2010 Red Hat, Inc.
+-- Copyright (c) 2008--2012 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -13,35 +12,38 @@
 -- Red Hat trademarks are not licensed under GPLv2. No permission is
 -- granted to use or replicate Red Hat trademarks that are incorporated
 -- in this software or its documentation. 
---
---
---
---
 
-
-CREATE OR REPLACE FUNCTION
-LOOKUP_PACKAGE_NAME(name_in IN VARCHAR, ignore_null in NUMERIC DEFAULT 0)
-RETURNS NUMERIC
-AS
+create or replace function
+lookup_package_name(name_in in varchar, ignore_null in numeric default 0)
+returns numeric
+as
 $$
-DECLARE
-        name_id         NUMERIC;
-BEGIN
-        if ignore_null = 1 and name_in is null then
-                return null;
-        end if;
+declare
+    name_id     numeric;
+begin
+    if ignore_null = 1 and name_in is null then
+        return null;
+    end if;
 
-        SELECT id
-          INTO name_id
-          FROM rhnPackageName
-         WHERE name = name_in;
+    select id
+      into name_id
+      from rhnPackageName
+     where name = name_in;
 
-         IF NOT FOUND THEN
-		INSERT INTO rhnPackageName (id, name) VALUES (nextval('rhn_pkg_name_seq'), name_in);
-		name_id := currval('rhn_pkg_name_seq');
-         
-         END IF;
+    if not found then
+        name_id := nextval('rhn_pkg_name_seq');
+        begin
+            perform pg_dblink_exec(
+                'insert into rhnPackageName(id, name) values (' || name_id || ', ' ||
+                coalesce(quote_literal(name_in), 'NULL') || ')');
+        exception when unique_violation then
+            select id
+              into strict name_id
+              from rhnPackageName
+             where name = name_in;
+        end;
+    end if;
 
-        RETURN name_id;
-END;
-$$ LANGUAGE PLPGSQL;
+    return name_id;
+end;
+$$ language plpgsql immutable;
