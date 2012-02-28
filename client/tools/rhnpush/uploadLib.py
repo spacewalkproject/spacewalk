@@ -722,32 +722,6 @@ def get_header(file, fildes=None, source=None):
 def ReportError(*args):
     sys.stderr.write(string.join(map(str, args)) + "\n")
 
-def get_header_byte_range(package_file):
-    """
-    Return the start and end bytes of the rpm header object.
-
-    For details of the rpm file format, see:
-    http://www.rpm.org/max-rpm/s1-rpm-file-format-rpm-file-format.html
-    """
-
-    lead_size = 96
-
-    # Move past the rpm lead
-    package_file.seek(lead_size)
-
-    sig_size = get_header_struct_size(package_file)
-
-    # Now we can find the start of the actual header.
-    header_start = lead_size + sig_size
-
-    package_file.seek(header_start)
-
-    header_size = get_header_struct_size(package_file)
-
-    header_end = header_start + header_size
-
-    return (header_start, header_end)
-
 def get_header_struct_size(package_file):
     """
     Compute the size in bytes of the rpm header struct starting at the current
