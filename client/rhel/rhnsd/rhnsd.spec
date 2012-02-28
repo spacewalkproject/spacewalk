@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhnsd
-Version: 4.9.14
+Version: 4.9.15
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
@@ -74,6 +74,10 @@ rm -fr $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Tue Feb 28 2012 Jan Pazdziora 4.9.15-1
+- Update .po and .pot files for rhnsd.
+- Download translations from Transifex for rhnsd.
+
 * Wed Dec 21 2011 Milan Zazrivec <mzazrivec@redhat.com> 4.9.14-1
 - updated translations
 
