@@ -22,9 +22,6 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.OperationDetailsDto;
 import com.redhat.rhn.manager.BaseManager;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,8 +33,6 @@ import java.util.Map;
  * @version $Revision$
  */
 public class SsmOperationManager extends BaseManager {
-
-    private final Log log = LogFactory.getLog(this.getClass());
 
     /**
      * Private constructor to enforce static nature of the class.
