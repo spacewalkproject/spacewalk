@@ -87,6 +87,7 @@ lookup_checksum                 :: pg_dblink_exec
 lookup_package_arch             :: rhn_exception.pks data/rhnException rhnPackageArch \
                                    data/rhnPackageArch
 lookup_package_capability       :: rhnPackageCapability
+lookup_package_delta            :: rhnPackageDelta
 lookup_package_name             :: rhnPackageName
 lookup_package_provider         :: rhnPackageProvider
 lookup_package_key_type         :: rhnPackageKeyType
