@@ -23,8 +23,6 @@ import com.redhat.rhn.domain.channel.ChannelFamilyFactory;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.org.OrgFactory;
 
-import org.apache.log4j.Logger;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -36,9 +34,6 @@ import java.util.Map;
  * @version $Rev$
  */
 public class UpdateOrgSoftwareEntitlementsCommand {
-
-    private static Logger log =
-        Logger.getLogger(UpdateOrgSoftwareEntitlementsCommand.class);
 
     private Org org;
     private Long newTotal;
