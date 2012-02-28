@@ -1,5 +1,4 @@
---
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008-2012 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -11,45 +10,47 @@
 -- Red Hat trademarks are not licensed under GPLv2. No permission is
 -- granted to use or replicate Red Hat trademarks that are incorporated
 -- in this software or its documentation. 
---
---
---
---
 
-CREATE OR REPLACE FUNCTION
-LOOKUP_PACKAGE_CAPABILITY(name_in IN VARCHAR2, 
-    version_in IN VARCHAR2 DEFAULT NULL)
-RETURN NUMBER
-IS
-	PRAGMA AUTONOMOUS_TRANSACTION;
-	name_id		NUMBER;
-BEGIN
-	IF version_in IS NULL THEN
-		SELECT id
-		  INTO name_id
-		  FROM rhnPackageCapability
-		 WHERE name = name_in
-		   AND version IS NULL;
-	ELSE
-		SELECT id
-		  INTO name_id
-		  FROM rhnPackageCapability
-		 WHERE name = name_in
-		   AND version = version_in;
-	END IF;
-	RETURN name_id;
-EXCEPTION
-        WHEN NO_DATA_FOUND THEN
-            INSERT INTO rhnPackageCapability (id, name, version) 
-                VALUES (rhn_pkg_capability_id_seq.nextval, name_in, version_in)
-                RETURNING id INTO name_id;
-            COMMIT;
-	RETURN name_id;
-END;
+create or replace function
+lookup_package_capability(name_in in varchar2, version_in in varchar2 default null)
+return number
+is
+    name_id		number;
+begin
+    if version_in is null then
+        select id
+          into name_id
+          from rhnPackageCapability
+         where name = name_in and
+               version is null;
+    else
+        select id
+          into name_id
+          from rhnPackageCapability
+         where name = name_in and
+               version = version_in;
+	end if;
+	return name_id;
+exception when no_data_found then
+    begin
+        name_id := insert_package_capability(name_in, version_in);
+    exception when dup_val_on_index then
+        if version_in is null then
+            select id
+              into name_id
+              from rhnPackageCapability
+             where name = name_in and
+                   version is null;
+        else
+            select id
+              into name_id
+              from rhnPackageCapability
+             where name = name_in and
+                   version = version_in;
+	end if;
+
+    end;
+	return name_id;
+end;
 /
-SHOW ERRORS
-
---
--- Revision 1.1  2003/03/03 16:46:51  misa
--- bugzilla: 83674  Reworked the schema for package removal
---
+show errors
