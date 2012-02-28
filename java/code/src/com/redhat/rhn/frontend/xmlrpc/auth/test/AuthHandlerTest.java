@@ -76,11 +76,11 @@ public class AuthHandlerTest extends RhnBaseTestCase {
          * Since we're here and we have a sessionkey and a logged in user,
          * let's test BaseHandler.getLoggedInUser.
          */
-        User user2 = handler.getLoggedInUser(key1);
+        User user2 = AuthHandler.getLoggedInUser(key1);
         assertEquals(user, user2);
 
         try {
-            user2 = handler.getLoggedInUser("foo");
+            user2 = AuthHandler.getLoggedInUser("foo");
             fail("BaseHandler.getLoggedInUser() took in an invalid session key");
         }
         catch (InvalidSessionIdException e) {
