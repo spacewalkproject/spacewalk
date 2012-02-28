@@ -38,11 +38,6 @@ public class AlphaBarHelper {
     private static final AlphaBarHelper INSTANCE = new AlphaBarHelper();
 
     /**
-     * Comment for <code>serialVersionUID</code>
-     */
-    private static final long serialVersionUID = -4344327713489384983L;
-
-    /**
      * provides the alpha bar key
      * @param listName the list name
      * @return the url key for the alpha bar
