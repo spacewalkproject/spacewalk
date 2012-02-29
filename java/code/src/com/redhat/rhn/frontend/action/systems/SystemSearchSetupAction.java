@@ -420,11 +420,6 @@ public class SystemSearchSetupAction extends RhnAction implements Listable {
     }
 
     /** {@inheritDoc} */
-    public  String getDecl(RequestContext context) {
-        return RhnSetDecl.SYSTEMS.getLabel();
-    }
-
-    /** {@inheritDoc} */
     public List getResult(RequestContext context) {
         String searchString = context.getParam(SEARCH_STRING, false);
 
@@ -435,10 +430,4 @@ public class SystemSearchSetupAction extends RhnAction implements Listable {
         log.info("SystemSearchSetupAction.getResult() returning Collections.EMPTY_LIST");
         return Collections.EMPTY_LIST;
     }
-
-    /** {@inheritDoc} */
-    public String getParentUrl(RequestContext context) {
-        return context.getRequest().getRequestURI();
-    }
-
 }
