@@ -50,7 +50,7 @@ public abstract class BaseRankChannels extends RhnLookupDispatchAction {
 
     protected static final String POSSIBLE_CHANNELS = "possibleChannels";
     protected static final String SELECTED_CHANNEL = "selectedChannel";
-    protected static final String NO_SCRIPT = "noScript";
+
     protected static final String RANKED_VALUES = "rankedValues";
 
     /**
