@@ -259,6 +259,6 @@ web_user_contact_permission    :: web_contact
 web_user_site_info             :: web_contact web_user_site_type
 web_user_personal_info         :: web_contact web_user_prefix
 rhnActionScap                  :: rhnAction
-rhnXccdfIdent                  :: rhnXccdfIdentsystem
+rhnXccdfIdent                  :: rhnXccdfIdentSystem
 rhnXccdfRuleresult             :: rhnXccdfTestresult rhnXccdfIdent rhnXccdfRuleresultType
 rhnXccdfTestresult             :: rhnServer rhnActionScap rhnXccdfBenchmark rhnXccdfProfile

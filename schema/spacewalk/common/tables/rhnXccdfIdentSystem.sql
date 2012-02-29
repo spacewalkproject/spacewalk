@@ -13,7 +13,7 @@
 -- in this software or its documentation.
 --
 
-CREATE TABLE rhnXccdfIdentsystem
+CREATE TABLE rhnXccdfIdentSystem
 (
     id      NUMBER NOT NULL
                 CONSTRAINT rhn_xccdf_identsytem_id_pk PRIMARY KEY
