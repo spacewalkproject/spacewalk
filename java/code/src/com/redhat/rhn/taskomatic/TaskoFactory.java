@@ -71,20 +71,6 @@ public class TaskoFactory extends HibernateFactory {
     }
 
     /**
-     * lookup template by bunch id and position
-     * @param bunchId id of the bunch
-     * @param order position
-     * @return template
-     */
-    public static TaskoTemplate lookupTemplateByBunchAndOrder(Long bunchId, Long order) {
-        Map params = new HashMap();
-        params.put("bunch_id", bunchId);
-        params.put("order", order);
-        return (TaskoTemplate) singleton.lookupObjectByNamedQuery(
-                                       "TaskoTemplate.lookupByBunchAndOrder", params);
-    }
-
-    /**
      * list all available organizational bunches
      * @return list of bunches
      */
@@ -411,25 +397,6 @@ public class TaskoFactory extends HibernateFactory {
         params.put("limit_time", limitTime);
         return singleton.listObjectsByNamedQuery(
                                        "TaskoSchedule.listOlderThan", params);
-    }
-
-    /**
-     * lists organizational schedules by bunch
-     * @param orgId organization id
-     * @param bunch type of schedules
-     * @return list of schedules
-     */
-    public static List<TaskoSchedule> listSchedulesByOrgAndBunch(Integer orgId,
-            TaskoBunch bunch) {
-        Map params = new HashMap();
-        params.put("bunch_id", bunch.getId());
-        if (orgId == null) {
-            return singleton.listObjectsByNamedQuery(
-                                       "TaskoSchedule.listInSatByBunch", params);
-        }
-        params.put("org_id", orgId);
-        return singleton.listObjectsByNamedQuery(
-                                   "TaskoSchedule.listByOrgAndBunch", params);
     }
 
     /**
