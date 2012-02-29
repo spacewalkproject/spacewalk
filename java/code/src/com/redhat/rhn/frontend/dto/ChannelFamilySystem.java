@@ -115,22 +115,4 @@ public class ChannelFamilySystem extends SelectableAdapter {
     public String getSelectionKey() {
         return id + "";
     }
-
-    /**
-     * Returns the channel family Id
-     * @param selectionKey the selection key used for this
-     * @return the channel family id
-     */
-    public static Long parseChannelFamilyId(String selectionKey) {
-        return Long.valueOf(selectionKey.split("\\|")[0]);
-    }
-
-    /**
-     * Returns the system Id
-     * @param selectionKey the selection key used for this
-     * @return the system id
-     */
-    public static Long parseServerId(String selectionKey) {
-        return Long.valueOf(selectionKey.split("\\|")[1]);
-    }
 }
