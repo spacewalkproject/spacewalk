@@ -1,5 +1,4 @@
---
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008-2012 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -11,73 +10,62 @@
 -- Red Hat trademarks are not licensed under GPLv2. No permission is
 -- granted to use or replicate Red Hat trademarks that are incorporated
 -- in this software or its documentation. 
---
---
---
---
 
-CREATE OR REPLACE FUNCTION
-LOOKUP_TRANSACTION_PACKAGE(o_in IN VARCHAR2, n_in IN VARCHAR2, 
-    e_in IN VARCHAR2, v_in IN VARCHAR2, r_in IN VARCHAR2, a_in IN VARCHAR2)
-RETURN NUMBER
-IS
-	PRAGMA AUTONOMOUS_TRANSACTION;
-        o_id        NUMBER;
-        n_id        NUMBER;
-	e_id	    NUMBER;
-        p_arch_id   NUMBER;
-        tp_id       NUMBER;
-BEGIN
-	BEGIN
-	    SELECT id
-	      INTO o_id
-	      FROM rhnTransactionOperation
-	     WHERE label = o_in;
-	EXCEPTION
-	    WHEN NO_DATA_FOUND THEN
-		rhn_exception.raise_exception('invalid_transaction_operation');
-	END;
+create or replace function
+lookup_transaction_package(
+    o_in in varchar2,
+    n_in in varchar2,
+    e_in in varchar2,
+    v_in in varchar2,
+    r_in in varchar2,
+    a_in in varchar2)
+return number
+is
+    pragma autonomous_transaction;
+    o_id        number;
+    n_id        number;
+    e_id        number;
+    p_arch_id   number;
+    tp_id       number;
+begin
+    begin
+        select id
+          into o_id
+          from rhnTransactionOperation
+         where label = o_in;
+    exception when no_data_found then
+        rhn_exception.raise_exception('invalid_transaction_operation');
+    end;
 
-	SELECT LOOKUP_PACKAGE_NAME(n_in)
-	  INTO n_id
-	  FROM dual;
+    n_id := lookup_package_name(n_in);
+    e_id := lookup_evr(e_in, v_in, r_in);
+    p_arch_id := null;
 
-	SELECT LOOKUP_EVR(e_in, v_in, r_in)
-	  INTO e_id
-	  FROM dual;
+    if a_in is not null then
+        p_arch_id := lookup_package_arch(a_in);
+	end if;
 
-	p_arch_id := NULL;
-	IF a_in IS NOT NULL
-	THEN
-		SELECT LOOKUP_PACKAGE_ARCH(a_in)
-		  INTO p_arch_id
-		  FROM dual;
-	END IF;
-
-	SELECT id
-	  INTO tp_id
-	  FROM rhnTransactionPackage
-	 WHERE operation = o_id
-	   AND name_id = n_id
-	   AND evr_id = e_id
-	   AND (package_arch_id = p_arch_id OR (p_arch_id IS NULL AND package_arch_id IS NULL));
-	RETURN tp_id;
-EXCEPTION
-        WHEN NO_DATA_FOUND THEN
-	    INSERT INTO rhnTransactionPackage 
-		(id, operation, name_id, evr_id, package_arch_id)
-	    VALUES (rhn_transpack_id_seq.nextval, o_id, n_id, e_id, p_arch_id)
-	    RETURNING id INTO tp_id;
-	    COMMIT;
-	    RETURN tp_id;
-END;
+    select id
+      into tp_id
+      from rhnTransactionPackage
+     where operation = o_id and
+           name_id = n_id and
+           evr_id = e_id and
+           (package_arch_id = p_arch_id or (p_arch_id is null and package_arch_id is null));
+    return tp_id;
+exception when no_data_found then
+    begin
+        tp_id := insert_transaction_package(o_id, n_id, e_id, p_arch_id);
+    exception when dup_val_on_index then
+        select id
+          into tp_id
+          from rhnTransactionPackage
+         where operation = o_id and
+               name_id = n_id and
+               evr_id = e_id and
+               (package_arch_id = p_arch_id or (p_arch_id is null and package_arch_id is null));       
+    end;
+    return tp_id;
+end;
 /
-SHOW ERRORS
-
---
--- Revision 1.2  2003/07/09 16:29:33  cturner
--- update some strings and change lookup_transaction_package to throw an exception instead of SILENTLY RETURNING NULL
---
--- Revision 1.1  2003/07/01 14:52:35  misa
--- bugzilla: 90376  Need function to add transactions in the DB
---
+show errors

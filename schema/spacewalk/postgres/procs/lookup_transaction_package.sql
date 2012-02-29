@@ -1,4 +1,4 @@
--- oracle equivalent source sha1 ab85631a39989d1c81a089955d8a10f3b266bc98
+-- oracle equivalent source sha1 5507c4bf3760c813f3f8ffb461a73f5e2903473e
 -- retrieved from ./1241042199/53fa26df463811901487b608eecc3f77ca7783a1/schema/spacewalk/oracle/procs/lookup_transaction_package.sql
 --
 -- Copyright (c) 2008--2010 Red Hat, Inc.
