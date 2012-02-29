@@ -327,21 +327,6 @@ public class ChannelTreeNode extends BaseDto implements BaseListDto,
     }
 
     /**
-     * Returns <code>true</code> if this node is a child node of the specified <code>parent
-     * </code>.
-     *
-     * @param parent The parent to compare against
-     *
-     * @return <code>true</code> if this node is a child of <code>parent</code>, or return
-     * <code>false</code> if <code>parent</code> is not a parent node or not the parent of
-     * this node.
-     */
-    public boolean isChildOf(ChannelTreeNode parent) {
-        return parent != null && parent.isParent() && getParentOrSelfId().equals(
-                parent.getId());
-    }
-
-    /**
      *
      * {@inheritDoc}
      */
