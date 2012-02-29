@@ -32,8 +32,6 @@ import org.quartz.JobExecutionException;
  */
 public class SatelliteCertificateCheck extends RhnJavaJob {
 
-    public static final String DISPLAY_NAME = "satcert_check";
-
     /**
      * {@inheritDoc}
      */
