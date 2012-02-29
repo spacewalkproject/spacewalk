@@ -335,22 +335,6 @@ public class ActivationKey extends BaseDomainHelper {
     }
 
     /**
-     * Add a package to this ActivationKey
-     * @param packageNameIn TokenPackage to add
-     */
-    public void addPackage(TokenPackage packageNameIn) {
-       this.getToken().addPackage(packageNameIn);
-    }
-
-    /**
-     * Remove a package from this ActivationKey
-     * @param packageNameIn Package name to remove
-     */
-    public void removePackage(TokenPackage packageNameIn) {
-       this.getToken().removePackage(packageNameIn);
-    }
-
-    /**
      * Get the Set of TokenPackage objects associated with this ActivationKey
      * @return Set of TokenPackage objects.
      */
