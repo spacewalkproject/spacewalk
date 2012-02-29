@@ -16,7 +16,7 @@ Group:   System Environment/Daemons
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.10.38
+Version: 5.10.39
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -278,6 +278,14 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 %endif
 
 %changelog
+* Wed Feb 29 2012 Miroslav Suchý 5.10.39-1
+- log file may contain password, set chmod to 600
+- by default log to /var/log/osad
+- /etc/rhn/tns_admin/osa-dispatcher is directory, not config file
+- fix typo in description
+- mark log file osa-dispatcher.log as ghost owned
+- add logrotate for /var/log/osad and own this file (as ghost)
+
 * Thu Feb 23 2012 Michael Mraka <michael.mraka@redhat.com> 5.10.38-1
 - we are now just GPL
 
