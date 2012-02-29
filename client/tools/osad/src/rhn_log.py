@@ -21,7 +21,7 @@ import traceback
 
 class Logger:
     debug_level = 1
-    logfile = "/var/log/messages"
+    logfile = "/var/log/osad"
 
     def set_logfile( self, logfile ):
         Logger.logfile = logfile    
