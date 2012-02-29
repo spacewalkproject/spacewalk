@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.7.48
+Version:        1.7.49
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -66,6 +66,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Wed Feb 29 2012 Jan Pazdziora 1.7.49-1
+- Need to stop blend from attempting to expanding the \i dblink.sql in build
+  time.
+
 * Wed Feb 29 2012 Jan Pazdziora 1.7.48-1
 - Creating the dblink function(s) upon schema population, in schema public.
 - lookup_transaction_package: schema upgrade (mzazrivec@redhat.com)
