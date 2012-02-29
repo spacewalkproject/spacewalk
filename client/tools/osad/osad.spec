@@ -52,7 +52,7 @@ BuildRequires: sysconfig syslog
 OSAD agent receives commands over jabber protocol from Spacewalk Server and
 commands are instantly executed.
 
-This package effectively replaces the behaviour of rhnsd/rhn_check that
+This package effectively replaces the behavior of rhnsd/rhn_check that
 only poll the Spacewalk Server from time to time.
 
 %package -n osa-dispatcher
