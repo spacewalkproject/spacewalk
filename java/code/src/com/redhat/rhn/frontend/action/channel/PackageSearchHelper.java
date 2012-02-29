@@ -57,26 +57,6 @@ public class PackageSearchHelper {
      * @param searchString search string
      * @param mode mode as in name only, name description, name and summary, free form
      * @param selectedArches list of archs
-     * @param fineGrained fine grained search
-     * @return List of PackageOverview objects
-     * @throws XmlRpcFault bad communication with search server
-     * @throws MalformedURLException possibly bad configuration for search server address
-     * @throws SearchServerIndexException error executing query
-     */
-    public static List<PackageOverview> performSearch(Long sessionId, String searchString,
-                               String mode, String[] selectedArches, Boolean fineGrained)
-        throws XmlRpcFault, MalformedURLException, SearchServerIndexException {
-        return performSearch(sessionId, searchString, mode, selectedArches, true,
-                fineGrained);
-    }
-
-    /**
-     * Will form a search request and send message to search server
-     *
-     * @param sessionId session id
-     * @param searchString search string
-     * @param mode mode as in name only, name description, name and summary, free form
-     * @param selectedArches list of archs
      * @param relevantFlag if set will force packages returned to be relevant to
      *  subscribed channels
      * @param fineGrained fine grained search
