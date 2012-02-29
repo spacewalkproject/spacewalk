@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.7.49
+Version:        1.7.50
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -66,6 +66,16 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Wed Feb 29 2012 Milan Zazrivec <mzazrivec@redhat.com> 1.7.50-1
+- lookup_xccdf_ident: schema upgrade (mzazrivec@redhat.com)
+- use pg_dblink_exec to execute inserts inside lookup_xccdf_ident
+  (mzazrivec@redhat.com)
+- use autonomous_transaction for insert only (mzazrivec@redhat.com)
+- lookup_xccdf_benchmark: schema upgrade (mzazrivec@redhat.com)
+- use pg_dblink_exec to execute insert inside lookup_xccdf_benchmark
+  (mzazrivec@redhat.com)
+- use autonomous_transaction for insert only (mzazrivec@redhat.com)
+
 * Wed Feb 29 2012 Jan Pazdziora 1.7.49-1
 - Need to stop blend from attempting to expanding the \i dblink.sql in build
   time.
