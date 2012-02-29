@@ -35,10 +35,6 @@ public class ConfigDefaults {
 
     public static final String SSL_AVAILABLE = "ssl_available";
 
-    //TODO: was private.  Made public for AccessTest
-    public static final String WEB_SATELLITE = "web.satellite";
-
-    public static final String ENABLE_OAI_SYNC = "enable_oai_sync";
     public static final String SYSTEM_CHECKIN_THRESHOLD = "web.system_checkin_threshold";
     public static final String WEB_ALLOW_PXT_PERSONALITIES = "web.allow_pxt_personalities";
     public static final String WEB_DEFAULT_MAIL_FROM = "web.default_mail_from";
@@ -59,8 +55,6 @@ public class ConfigDefaults {
     public static final String WEB_SESSION_SWAP_SECRET_4 = "web.session_swap_secret_4";
 
     public static final String WEB_SMTP_SERVER = "web.smtp_server";
-    public static final String TASKOMATIC_TASKS = "taskomatic.tasks";
-    public static final String TASKOMATIC_DEFAULT_TASKS = "taskomatic.default_tasks";
     public static final String ERRATA_CACHE_COMPUTE_THRESHOLD
                             = "errata_cache_compute_threshold";
 
@@ -78,10 +72,6 @@ public class ConfigDefaults {
 
     public static final String WEB_SCOUT_SHARED_KEY = "monitoring.scout_shared_key";
 
-    public static final String GPG_KEYRING = "web.gpg_keyring";
-
-    public static final String OVAL_MOUNT_POINT = "web.oval_mount_point";
-
     public static final String KICKSTART_HOST = "kickstart_host";
 
     public static final String CONFIG_REVISION_MAX_SIZE = "web.maximum_config_file_size";
@@ -91,8 +81,6 @@ public class ConfigDefaults {
     public static final String DISCONNECTED = "disconnected";
 
     public static final String DEFAULT_SAT_PARENT = "satellite.rhn.redhat.com";
-
-    public static final String TINY_URL_TIMEOUT = "server.satellite.tiny_url_timeout";
 
     public static final String FORCE_UNENTITLEMENT = "web.force_unentitlement";
 
