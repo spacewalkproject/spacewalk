@@ -103,23 +103,14 @@ public class SystemManager extends BaseManager {
 
     private static Logger log = Logger.getLogger(SystemManager.class);
 
-    public static final String CAP_PACKAGES_RUNTXN = "packages.runTransaction";
-    public static final String CAP_PACKAGES_ROLLBACK = "packages.rollBack";
-    public static final String CAP_REBOOT = "reboot.reboot";
     public static final String CAP_CONFIGFILES_UPLOAD = "configfiles.upload";
     public static final String CAP_CONFIGFILES_DIFF = "configfiles.diff";
     public static final String CAP_CONFIGFILES_MTIME_UPLOAD =
         "configfiles.mtime_upload";
     public static final String CAP_CONFIGFILES_DEPLOY = "configfiles.deploy";
-    public static final String CAP_KICKSTART_INITIATE = "kickstart.initiate";
-    public static final String CAP_SCRIPT_RUN = "script.run";
-    public static final String CAP_RHNAPPLET_USE_SAT =
-        "rhn_applet.use_satellite";
     public static final String CAP_PACKAGES_VERIFY = "packages.verify";
     public static final String CAP_CONFIGFILES_BASE64_ENC =
         "configfiles.base64_enc";
-    public static final String CAP_OSAD_RHNCHECK = "osad.rhn_check";
-    public static final String CAP_OSAD_PING = "osad.ping";
 
     public static final String[] INFO_PATTERNS = {
         "Registered by username = '(\\w+)' using rhn_register client",
