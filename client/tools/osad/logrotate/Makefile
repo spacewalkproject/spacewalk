@@ -5,7 +5,7 @@
 # what is the backend top dir
 TOP	= ..
 
-INSTALL_FILES	= $(wildcard osa-*)
+INSTALL_FILES	= $(wildcard osa*)
 INSTALL_DEST	= /etc/logrotate.d
 
 include $(TOP)/Makefile.defs

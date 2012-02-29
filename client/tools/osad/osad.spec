@@ -126,6 +126,8 @@ do
     make -C osa-dispatcher-selinux NAME=${selinuxvariant} -f /usr/share/selinux/devel/Makefile clean
 done
 %endif
+mkdir -p %{buildroot}%{_var}/log/
+touch %{buildroot}%{_var}/log/osad
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -227,6 +229,8 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 %config(noreplace) %{client_caps_dir}/*
 %attr(755,root,root) %{_initrddir}/osad
 %doc LICENSE
+%config(noreplace) %{_sysconfdir}/logrotate.d/osad
+%ghost %attr(644,root,root) %{_var}/log/osad
 %if 0%{?suse_version}
 # provide directories not owned by any package during build
 %dir %{rhnroot}

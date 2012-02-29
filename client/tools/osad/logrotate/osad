@@ -1,0 +1,9 @@
+/var/log/osad {
+    weekly
+    rotate 5
+    copytruncate
+    compress
+    notifempty
+    missingok
+    size 100M
+}
