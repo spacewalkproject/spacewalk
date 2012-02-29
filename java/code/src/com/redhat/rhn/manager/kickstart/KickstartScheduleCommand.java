@@ -982,32 +982,6 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
     }
 
     /**
-     * Get the tools Channel for a KickstartData object and server
-     * @param ksdata to fetch tools channel for
-     * @param user who is looking up the channel
-     * @param server to check against
-     * @return Channel if found
-     */
-    public static Channel getToolsChannel(KickstartData ksdata, User user, Server server) {
-
-        if (server != null && ksdata.getChannel().getId().
-                equals(server.getBaseChannel().getId())) {
-            log.debug("  ** getToolsChannel() returning ksdata's channel");
-            return ksdata.getChannel();
-        }
-        log.debug("  ** getToolsChannel() looking for tools channel as a child");
-        Channel kschannel = ksdata.getChannel();
-        Channel toolsChannel = ChannelManager.getToolsChannel(kschannel, user);
-        if (toolsChannel != null) {
-            return toolsChannel;
-        }
-        log.error("Tools channel not found!  " +
-                "This means we can't find the rhn-kickstart package.");
-        return null;
-
-    }
-
-    /**
      * Cancel existing kickstart sessions on the host server for the system to be
      * kickstarted (the target server).
      */
