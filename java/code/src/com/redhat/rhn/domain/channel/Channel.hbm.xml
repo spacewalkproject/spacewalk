@@ -341,12 +341,6 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     <return alias="p" class="com.redhat.rhn.domain.rhnpackage.Package" />
     </sql-query>
 
-    <sql-query name="Channel.getServerIds">
-        <return-scalar type="long" column="server_id"/>
-        <![CDATA[select server_id from rhnServerChannel where channel_id = :cid]]>
-    </sql-query>
-
-
     <sql-query name="Channel.getPackageCount">
         <return-scalar type="int" column="package_count"/>
         <![CDATA[select count(*) as package_count from rhnChannelPackage cp where cp.channel_id = :cid]]>

@@ -743,21 +743,6 @@ public class ChannelFactory extends HibernateFactory {
     }
 
     /**
-     * Lookup list of server ids associated with this channel.
-     * @param cid Channel id
-     * @return List of server ids associated with this channel.
-     */
-    public static List getServerIds(Long cid) {
-        if (cid == null) {
-            return Collections.EMPTY_LIST;
-        }
-        Map params = new HashMap();
-        params.put("cid", cid);
-        return singleton.listObjectsByNamedQuery("Channel.getServerIds", params);
-    }
-
-
-    /**
      * Get package ids for a channel
      * @param cid the channel id
      * @return List of package ids
