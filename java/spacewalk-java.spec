@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.7.48
+Version: 1.7.49
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -585,6 +585,78 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Feb 29 2012 Tomas Lestach <tlestach@redhat.com> 1.7.49-1
+- remove unused method and appropriate query (tlestach@redhat.com)
+- remove unused method and appropriate query (tlestach@redhat.com)
+- remove unused method and appropriate query (tlestach@redhat.com)
+- remove unused methods (tlestach@redhat.com)
+- remove unused methods (tlestach@redhat.com)
+- remove unused methods (tlestach@redhat.com)
+- remove unused method (tlestach@redhat.com)
+- remove unused methods and appropriate hbm queries (tlestach@redhat.com)
+- remove unused methods (tlestach@redhat.com)
+- remove unused method (tlestach@redhat.com)
+- remove unused method (tlestach@redhat.com)
+- remove unused method (tlestach@redhat.com)
+- deleting rhnDownloads and rhnChannelDownloads related java code
+  (tlestach@redhat.com)
+- remove unused methods and appropriate queries (tlestach@redhat.com)
+- remove unused methods (tlestach@redhat.com)
+- remove unused method (tlestach@redhat.com)
+- remove unused methods and appropriate hbm query (tlestach@redhat.com)
+- remove unused method (tlestach@redhat.com)
+- remove unused methods with appropriate queries (tlestach@redhat.com)
+- remove unused methods (tlestach@redhat.com)
+- remove unused method and appropriate sql-query (tlestach@redhat.com)
+- remove unused method (tlestach@redhat.com)
+- remove unused method and appropriate sql-query (tlestach@redhat.com)
+- remove unused method (tlestach@redhat.com)
+- remove unused method (tlestach@redhat.com)
+- remove unused methods (tlestach@redhat.com)
+- remove unused methods (tlestach@redhat.com)
+- remove unused method (tlestach@redhat.com)
+- remove unused method (tlestach@redhat.com)
+- remove unused public static final attributes (tlestach@redhat.com)
+- remove unused public static final attribute and appropriate queries
+  (tlestach@redhat.com)
+- remove unused public static final attribute (tlestach@redhat.com)
+- remove unused public static final attribute (tlestach@redhat.com)
+- remove unused public static final attributes (tlestach@redhat.com)
+- remove unused public static final attribute (tlestach@redhat.com)
+- remove unused public static final attribute (tlestach@redhat.com)
+- remove unused public static final attribute (tlestach@redhat.com)
+- remove unused public static final attribute (tlestach@redhat.com)
+- remove unused public static final attribute (tlestach@redhat.com)
+- remove unused public static final attribute (tlestach@redhat.com)
+- remove unused public static final attribute (tlestach@redhat.com)
+- remove whole KickstartQueries (tlestach@redhat.com)
+- remove unused public static final attributes (tlestach@redhat.com)
+- remove unused public static final attributes (tlestach@redhat.com)
+- remove unused public static final attributes (tlestach@redhat.com)
+- remove unused public static final attributes (tlestach@redhat.com)
+- remove unused protected static final attribute (tlestach@redhat.com)
+- remove unused public static final attribute (tlestach@redhat.com)
+- remove unused protected static final attribute (tlestach@redhat.com)
+- remove unused protected static final attributes (tlestach@redhat.com)
+- removing dead code (tlestach@redhat.com)
+- removing dead code (tlestach@redhat.com)
+- removing dead code (tlestach@redhat.com)
+- removing dead code (tlestach@redhat.com)
+- removing dead code (tlestach@redhat.com)
+- removing dead code (tlestach@redhat.com)
+- removing dead code (tlestach@redhat.com)
+- removing dead code (tlestach@redhat.com)
+- removing dead code (tlestach@redhat.com)
+- removing dead code (tlestach@redhat.com)
+- removing dead code (tlestach@redhat.com)
+- removing dead code (tlestach@redhat.com)
+- removing dead code (tlestach@redhat.com)
+- removing dead code (tlestach@redhat.com)
+- removing dead code (tlestach@redhat.com)
+- removing dead code (tlestach@redhat.com)
+- removing dead code (tlestach@redhat.com)
+- removing dead code (tlestach@redhat.com)
+
 * Tue Feb 28 2012 Tomas Lestach <tlestach@redhat.com> 1.7.48-1
 - remove unnecessary else statements in
   java/code/src/com/redhat/rhn/testing/TestUtils.java (tlestach@redhat.com)
