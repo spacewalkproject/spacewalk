@@ -679,20 +679,6 @@ public class ChannelFactory extends HibernateFactory {
                 "Channel.findCustomBaseChannels", params);
     }
 
-
-
-    /**
-     * Find all trees using a given channel
-     * @param channel channel
-     * @return List of KickstartableTrees instances
-     */
-    public static List getTreesForChannel(Channel channel) {
-        Map params = new HashMap();
-        params.put("channel_id", channel.getId());
-        return singleton.listObjectsByNamedQuery(
-                "KickstartableTree.findTreesForChannel", params);
-    }
-
     /**
      * Find yum supported checksum types
      * @return List of ChecksumTypes instances
