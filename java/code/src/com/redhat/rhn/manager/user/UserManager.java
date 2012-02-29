@@ -787,38 +787,6 @@ public class UserManager extends BaseManager {
     }
 
     /**
-     * Returns visible System as a DataResult<SystemSearchResult> Object
-     * @param user the user we want
-     * @param id the system id to flesh out
-     * @return DataResult
-     */
-    public static DataResult visibleSystemAsDtoFromId(User user,
-            Long id) {
-
-        SelectMode m = ModeFactory.getMode("System_queries",
-                "visible_to_user_from_sysid");
-        Map params = new HashMap();
-        params.put("user_id", user.getId());
-        params.put("sysid", id);
-        DataResult system = m.execute(params);
-        system.elaborate();
-        return system;
-    }
-
-    /**
-     * Gets a list of systems visible to a user as maps
-     * @param user The user in question
-     * @return Returns a DataResult containing the results from
-     * System_queries.xmlrpc_visible_to_user.
-     */
-    public static DataResult visibleSystemsAsMaps(User user) {
-        SelectMode m = ModeFactory.getMode("System_queries", "xmlrpc_visible_to_user");
-        Map params = new HashMap();
-        params.put("user_id", user.getId());
-        return m.execute(params);
-    }
-
-    /**
      * Returns the users in the given set
      * @param user The user
      * @param label The name of the set

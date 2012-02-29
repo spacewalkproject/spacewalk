@@ -434,14 +434,6 @@ ORDER BY  UPPER(COALESCE(X.name, '(none)')), X.id
   <elaborator name="system_search_results" />
 </mode>
 
-<mode name="visible_to_user_from_sysid" class="com.redhat.rhn.frontend.dto.SystemSearchResult">
-  <query name="available_to_user_from_sysid" />
-  <elaborator name="system_overview" />
-  <elaborator name="entitlements"/>
-  <elaborator name="is_virtual_guest" />
-  <elaborator name="is_virtual_host" />
-</mode>
-
 <mode name="visible_to_user" class="com.redhat.rhn.frontend.dto.SystemOverview">
   <query name="available_to_user" />
   <elaborator name="system_overview" />
@@ -1052,17 +1044,6 @@ SELECT  DISTINCT ST.element AS ID
                       AND SFV.label = 'ftr_system_grouping') AS selectable
     FROM  rhnServer S inner join  rhnUserServerPerms USP on S.id = USP.server_id
    WHERE  USP.user_id = :user_id AND S.id IN (%s)
-</query>
-
-<query name="available_to_user_from_sysid" params="user_id, sysid">
-  SELECT  DISTINCT S.id,
-                   S.name,
-                  (SELECT 1
-                     FROM rhnServerFeaturesView SFV
-                    WHERE SFV.server_id = S.id
-                      AND SFV.label = 'ftr_system_grouping') AS selectable
-    FROM  rhnServer S inner join  rhnUserServerPerms USP on S.id = USP.server_id
-   WHERE  USP.user_id = :user_id AND S.id = :sysid
 </query>
 
 <query name="available_to_user" params="user_id">
