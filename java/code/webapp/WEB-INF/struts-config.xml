@@ -6941,17 +6941,6 @@
     </action>
 	<!-- ===== END CONFIGURATION ===== -->
 	
-	<!-- ===== START ISO DOWNLOAD ===== -->
-	<action path="/software/channel/downloads/Download"
-        scope="request"
-        input="/WEB-INF/pages/software/downloads/download.jsp"
-		type="com.redhat.rhn.frontend.action.channel.ISODownloadAction"
-        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-        <forward name="default" path="/WEB-INF/pages/software/downloads/download.jsp"/>
-    </action>
-
-	<!-- ===== END ISO DOWNLOAD ===== -->
-
      <action path="/systems/entitlements/GuestLimitedHosts"
              scope="request"
              type="com.redhat.rhn.frontend.action.systems.entitlements.VirtualizationEntitlementsAction"

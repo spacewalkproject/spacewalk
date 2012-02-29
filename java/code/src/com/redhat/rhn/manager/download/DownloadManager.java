@@ -14,11 +14,6 @@
  */
 package com.redhat.rhn.manager.download;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-
 import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.security.SessionSwap;
@@ -28,8 +23,12 @@ import com.redhat.rhn.domain.rhnpackage.PackageSource;
 import com.redhat.rhn.domain.rhnpackage.Patch;
 import com.redhat.rhn.domain.rhnpackage.PatchSet;
 import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.frontend.dto.ISOImage;
 import com.redhat.rhn.manager.BaseManager;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
 
 /**
  * Provides methods for downloading packages and files and getting urls
@@ -42,7 +41,6 @@ public class DownloadManager extends BaseManager {
     public static final String DOWNLOAD_TYPE_COBBLER = "cobbler";
     public static final String DOWNLOAD_TYPE_PACKAGE = "package";
     public static final String DOWNLOAD_TYPE_SOURCE = "srpm";
-    public static final String DOWNLOAD_TYPE_ISO = "iso";
     public static final String DOWNLOAD_TYPE_PATCH_README = "patchreadme";
     public static final String DOWNLOAD_TYPE_PATCH_SET_README = "patchsetreadme";
     public static final String DOWNLOAD_TYPE_REPO_LOG = "repolog";
@@ -109,19 +107,6 @@ public class DownloadManager extends BaseManager {
                                         User user) {
         return getNonExpiringDownloadPath(c.getId(), c.getLabel(), user,
                 DownloadManager.DOWNLOAD_TYPE_REPO_LOG);
-    }
-
-
-
-    /**
-     * Get the an ISO download Path
-     * @param image the Iso Image
-     * @param user the user
-     * @return the path to be used to download the iso
-     */
-    public static String getISODownloadPath(ISOImage image, User user) {
-        return getDownloadPath(image.getFileId(), image.getDownloadName(), user,
-                DownloadManager.DOWNLOAD_TYPE_PACKAGE);
     }
 
     /**

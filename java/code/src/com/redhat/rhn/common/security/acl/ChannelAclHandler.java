@@ -14,7 +14,6 @@
  */
 package com.redhat.rhn.common.security.acl;
 
-import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.domain.channel.ChannelVersion;
@@ -169,24 +168,6 @@ public class ChannelAclHandler extends BaseHandler {
                     !chan.isSatellite() &&
                     !chan.isProxy() &&
                     ChannelManager.verifyChannelSubscribe(usr, chan.getId());
-        }
-        return false;
-    }
-
-    /**
-     * Does the channel have anything to download?
-     * @param ctx request context (user,cid)
-     * @param params check parameters
-     * @return true if allowed, false else
-     */
-    public boolean aclChannelHasDownloads(Object ctx, String[] params) {
-        HashMap ctxMap = (HashMap)ctx;
-        User usr = (User)ctxMap.get(USER);
-        Channel chan = getChannel(usr, ctxMap);
-        if (chan != null) {
-            DataResult dr = ChannelManager.
-                listDownloadImages(usr, chan.getLabel(), "iso", null, chan.isSatellite());
-            return (dr == null ? false : (dr.size() > 0));
         }
         return false;
     }
