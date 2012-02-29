@@ -14,5 +14,7 @@
 -- in this software or its documentation.
 --
 
-\i /usr/share/pgsql/contrib/dblink.sql
+-- The spaces in front of \i are needed to stop blend from expanding
+-- in build time.
+   \i /usr/share/pgsql/contrib/dblink.sql
 
