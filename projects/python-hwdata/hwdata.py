@@ -121,7 +121,7 @@ class PCI:
                     if len(l) > 2:
                         subdevice = l[1].lower()
                     else:
-                            subdevice = ''
+                        subdevice = ''
                     if len(l) > 3:
                         subsystem_name = ' '.join(l[2:])
                     else:
