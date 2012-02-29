@@ -42,7 +42,6 @@ import redstone.xmlrpc.XmlRpcSerializer;
  */
 public class ManagedServerGroupSerializer implements XmlRpcCustomSerializer {
 
-    public static final String MAX_MEMBERS = "max_system_count";
     public static final String CURRENT_MEMBERS = "system_count";
 
     /** {@inheritDoc} */
