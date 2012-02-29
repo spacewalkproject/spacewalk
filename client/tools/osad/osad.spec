@@ -126,8 +126,9 @@ do
     make -C osa-dispatcher-selinux NAME=${selinuxvariant} -f /usr/share/selinux/devel/Makefile clean
 done
 %endif
-mkdir -p %{buildroot}%{_var}/log/
+mkdir -p %{buildroot}%{_var}/log/rhn
 touch %{buildroot}%{_var}/log/osad
+touch %{buildroot}%{_var}/log/rhn/osa-dispatcher.log
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -256,6 +257,7 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 %attr(770,root,%{apache_group}) %dir %{_var}/log/rhn/oracle
 %attr(770,root,root) %dir %{_var}/log/rhn/oracle/osa-dispatcher
 %doc LICENSE
+%ghost %attr(640,apache,root) %{_var}/log/rhn/osa-dispatcher.log
 %if 0%{?suse_version}
 %dir %{_sysconfdir}/rhn
 %dir %{rhnroot}/config-defaults
