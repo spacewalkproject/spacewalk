@@ -1273,24 +1273,6 @@ public class ActionManager extends BaseManager {
     }
 
     /**
-     * Schedules one or more package installation actions for the given server.
-     * @param scheduler User scheduling the action.
-     * @param srvr Server for which the action affects.
-     * @param pkgs The set of packages to be removed.
-     * @param earliestAction Date of earliest action to be executed
-     * @return Currently scheduled PackageAction
-     */
-    public static PackageAction schedulePackageInstall(User scheduler,
-            Server srvr, RhnSet pkgs, Date earliestAction) {
-        if (!srvr.isSolaris()) {
-            return (PackageAction) schedulePackageAction(scheduler, srvr, pkgs,
-                    ActionFactory.TYPE_PACKAGES_UPDATE, earliestAction);
-        }
-        return (PackageAction) schedulePackageAction(scheduler, srvr, pkgs,
-                ActionFactory.TYPE_SOLARISPKGS_INSTALL, earliestAction);
-    }
-
-    /**
      * Schedules one or more package verification actions for the given server.
      * @param scheduler User scheduling the action.
      * @param srvr Server for which the action affects.
