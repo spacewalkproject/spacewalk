@@ -79,11 +79,6 @@ public class ErrataFactory extends HibernateFactory {
     public static final String ERRATA_TYPE_ENHANCEMENT = "Product Enhancement Advisory";
     public static final String ERRATA_TYPE_SECURITY = "Security Advisory";
 
-    public static final String ERRATA_TYPE_SECURITY_CRIT = "Security Advisory (Critical)";
-    public static final String ERRATA_TYPE_SECURITY_IMP = "Security Advisory (Important)";
-    public static final String ERRATA_TYPE_SECURITY_MOD = "Security Advisory (Moderate)";
-    public static final String ERRATA_TYPE_SECURITY_LOW = "Security Advisory (Low)";
-
     private ErrataFactory() {
         super();
     }
