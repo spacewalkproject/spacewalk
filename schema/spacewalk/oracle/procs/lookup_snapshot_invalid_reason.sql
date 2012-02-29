@@ -1,5 +1,4 @@
---
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008-2012 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -11,35 +10,21 @@
 -- Red Hat trademarks are not licensed under GPLv2. No permission is
 -- granted to use or replicate Red Hat trademarks that are incorporated
 -- in this software or its documentation. 
---
---
---
---
 
-CREATE OR REPLACE FUNCTION
-lookup_snapshot_invalid_reason(label_in IN VARCHAR2)
-RETURN NUMBER
-IS
-	PRAGMA AUTONOMOUS_TRANSACTION;
+create or replace function
+lookup_snapshot_invalid_reason(label_in in varchar2)
+return number
+is
 	snapshot_invalid_reason_id number;
-BEGIN
-	SELECT id
-          INTO snapshot_invalid_reason_id
-          FROM rhnSnapshotInvalidReason
-         WHERE label = label_in;
+begin
+    select id
+      into snapshot_invalid_reason_id
+      from rhnsnapshotinvalidreason
+     where label = label_in;
 
-	RETURN snapshot_invalid_reason_id;
-EXCEPTION
-        WHEN NO_DATA_FOUND THEN
-            rhn_exception.raise_exception('invalid_snapshot_invalid_reason');
-END;
+    return snapshot_invalid_reason_id;
+exception when no_data_found then
+    rhn_exception.raise_exception('invalid_snapshot_invalid_reason');
+end;
 /
-SHOW ERRORS
-
---
---
--- Revision 1.1  2003/10/07 20:49:18  pjones
--- bugzilla: 106188
---
--- snapshot invalidation
---
+show errors
