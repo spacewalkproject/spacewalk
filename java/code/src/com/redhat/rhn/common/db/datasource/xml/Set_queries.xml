@@ -128,18 +128,6 @@ SELECT  user_id, label, element, element_two, element_three
   </query>
 </write-mode>
 
-<write-mode name="remove_unowned_probes">
-  <query params="user_id, label">
-    DELETE FROM rhnSet S
-     WHERE S.user_id = :user_id
-       AND S.label = :label
-       AND NOT EXISTS (SELECT 1 FROM rhn_check_probe CP, rhnUserServerPerms USP
-                               WHERE CP.probe_id = S.element
-                                 AND USP.user_id = S.user_id
-                                 AND CP.host_id = USP.server_id)
-  </query>
-</write-mode>
-
 <write-mode name="remove_unowned_actions">
   <query params="user_id, label">
     DELETE FROM rhnSet S
@@ -213,18 +201,6 @@ DELETE
                                                     AND ET.org_id = WC.org_id
                                                 )
                )
-  </query>
-</write-mode>
-
-<write-mode name="remove_unowned_system_profiles">
-  <query params="user_id, label">
-    DELETE FROM rhnSet S
-     WHERE S.user_id = :user_id
-       AND S.label = :label
-       AND NOT EXISTS (SELECT 1 FROM rhnServerProfile SP, web_contact WC
-                        WHERE SP.org_id = WC.org_id
-                          AND WC.user_id = S.user_id
-                          AND SP.id = S.element)
   </query>
 </write-mode>
 

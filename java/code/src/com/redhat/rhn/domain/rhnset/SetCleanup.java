@@ -52,16 +52,12 @@ public class SetCleanup {
         new SetCleanup("remove_nonrhn_unowned_errata");
     public static final SetCleanup UNOWNED_PACKAGES =
         new SetCleanup("remove_unowned_packages");
-    public static final SetCleanup UNOWNED_PROBES =
-        new SetCleanup("remove_unowned_probes");
     public static final SetCleanup UNOWNED_SERVERS =
         new SetCleanup("remove_unowned_servers");
     public static final SetCleanup UNOWNED_VIRTUAL_SERVERS =
         new SetCleanup("remove_unowned_virtual_servers");
     public static final SetCleanup UNOWNED_SYSTEM_GROUPS =
         new SetCleanup("remove_unowned_system_groups");
-    public static final SetCleanup UNOWNED_SYSTEM_PROFILES =
-        new SetCleanup("remove_unowned_system_profiles");
     public static final SetCleanup UNOWNED_USERS =
         new SetCleanup("remove_unowned_users");
     public static final SetCleanup UNOWNED_FILTERS =
