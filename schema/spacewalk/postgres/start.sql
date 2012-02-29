@@ -1,6 +1,6 @@
 -- oracle equivalent source sha1 604ef37f8a2e6483e9592bed94937378d2189dc6
 --
--- Copyright (c) 2010 Red Hat, Inc.
+-- Copyright (c) 2010--2012 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -14,5 +14,5 @@
 -- in this software or its documentation.
 --
 
--- This file is currently intentionally left blank.
+\i /usr/share/pgsql/contrib/dblink.sql
 
