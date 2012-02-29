@@ -288,25 +288,6 @@ public  class UserFactory extends HibernateFactory {
         return returnedUser;
     }
 
-
-    /**
-     * Lookup an user id by their login - This is added as
-     * the UserService API doesn't return an user id upon user creation
-     * @param login the login to search by
-     * @return the user id found
-     */
-    public static long getUserId(String login) {
-        SelectMode m = ModeFactory.getMode("User_queries", "get_user_id");
-        Map params = new HashMap();
-        params.put(LOGIN_UC, login.toUpperCase());
-        DataResult dr = m.execute(params);
-
-        if (dr != null && dr.size() != 0) {
-            return getLongValue(dr, USER_ID);
-        }
-        return -1;
-    }
-
     /**
      * Gets a long value from the dataresult
      * @param dr The DataResult object containing the output

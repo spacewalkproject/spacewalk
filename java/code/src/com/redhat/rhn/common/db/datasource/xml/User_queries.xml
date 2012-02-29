@@ -306,13 +306,4 @@ SELECT count(id) as user_count
   </query>
 </mode>
 	
-<mode name="get_user_id">
-  <query params="loginUc">
-SELECT id as user_id
-  FROM web_contact
-	  WHERE login_uc = :loginUc
-  </query>
-</mode>
-	
-
 </datasource_modes>
