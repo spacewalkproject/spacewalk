@@ -84,14 +84,6 @@ public class EntitlementManager extends BaseManager {
         BASE_ENTITLEMENTS.add(MANAGEMENT);
     }
 
-
-    // SERVICES
-    public static final String SVC_UPDATES = "updates";
-    public static final String SVC_MANAGEMENT = "management";
-    public static final String SVC_PROVISIONING = "provisioning";
-    public static final String SVC_MONITORING = "monitoring";
-    public static final String SVC_NONLINUX = "nonlinux";
-
     /**
      * Returns the entitlement whose name matches the given <code>name</code>
      * @param name Name of Entitlement.
