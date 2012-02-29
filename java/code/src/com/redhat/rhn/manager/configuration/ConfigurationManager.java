@@ -81,12 +81,6 @@ public class ConfigurationManager extends BaseManager {
 
     private static final ConfigurationManager INSTANCE = new ConfigurationManager();
 
-    // Used as keys into the Map returned by a file-content-validation error
-    // see validateContent()
-    public static final String KEY = "key";
-    public static final String ARG0 = "arg0";
-    public static final String ARG1 = "arg1";
-
     //These are used when enabling a system for configuration management
     //through our helpful user interface
     public static final int ENABLE_SUCCESS = 0;
@@ -94,9 +88,6 @@ public class ConfigurationManager extends BaseManager {
     public static final int ENABLE_ERROR_RHNTOOLS = 2;
     public static final int ENABLE_ERROR_PACKAGES = 3;
     public static final int ENABLE_NEED_ORG_ADMIN = 4;
-
-    public static final int FILES = 0;
-    public static final int DIRECTORIES = 1;
 
     public static final String FEATURE_CONFIG = "ftr_config";
     /**
