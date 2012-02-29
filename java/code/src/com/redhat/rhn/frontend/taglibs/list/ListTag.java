@@ -47,7 +47,6 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  */
 public class ListTag extends BodyTagSupport {
 
-    public static final String RENDER_CMD = "__renderCmd";
     private static final long serialVersionUID = 8581790371344355223L;
     private static final String[] PAGINATION_NAMES = { "allBackward",
             "backward", "forward", "allForward" };
