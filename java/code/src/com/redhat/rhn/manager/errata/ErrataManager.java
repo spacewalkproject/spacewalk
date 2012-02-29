@@ -35,7 +35,6 @@ import com.redhat.rhn.domain.errata.Bug;
 import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.domain.errata.ErrataFactory;
 import com.redhat.rhn.domain.errata.ErrataFile;
-import com.redhat.rhn.domain.errata.impl.PublishedClonedErrata;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.role.RoleFactory;
@@ -44,7 +43,6 @@ import com.redhat.rhn.frontend.dto.ChannelOverview;
 import com.redhat.rhn.frontend.dto.ErrataOverview;
 import com.redhat.rhn.frontend.dto.OwnedErrata;
 import com.redhat.rhn.frontend.dto.PackageOverview;
-import com.redhat.rhn.frontend.events.CloneErrataAction;
 import com.redhat.rhn.frontend.events.CloneErrataEvent;
 import com.redhat.rhn.frontend.listview.PageControl;
 import com.redhat.rhn.frontend.xmlrpc.InvalidErrataException;
@@ -60,7 +58,6 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 import java.io.File;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -844,24 +841,7 @@ public class ErrataManager extends BaseManager {
         return advTypes;
     }
 
-    /**
-     * Returns a list of advisory types available for an errata
-     * (exclusive to System Currency page)
-     * @return advisory types
-     */
-    public static List<String> currencyAdvisoryTypes() {
-        List<String> advTypes = new ArrayList<String>();
-        LocalizationService ls = LocalizationService.getInstance();
-        advTypes.add(ls.getMessage("errata.create.securityadvisory.crit",
-                     LocalizationService.DEFAULT_LOCALE));
-        advTypes.add(ls.getMessage("errata.create.securityadvisory.imp",
-                     LocalizationService.DEFAULT_LOCALE));
-        advTypes.add(ls.getMessage("errata.create.securityadvisory.mod",
-                     LocalizationService.DEFAULT_LOCALE));
-        advTypes.add(ls.getMessage("errata.create.securityadvisory.low",
-                     LocalizationService.DEFAULT_LOCALE));
-        return advTypes;
-    }
+
 
     /**
      * Returns a list of l10n-ed advisory types available for an errata
@@ -957,16 +937,7 @@ public class ErrataManager extends BaseManager {
         return makeDataResult(params, params, null, m);
     }
 
-    /**
-     * Get a list of channels applicable to the erratum
-     * @param eid The id of the erratum
-     * @param orgid The id for the org we want to lookup against
-     * @param pc The page control for the user
-     * @return List of applicable channels for the erratum (that the org has access to)
-     */
-    public static DataResult applicableChannels(Long eid, Long orgid, PageControl pc) {
-        return applicableChannels(eid, orgid, pc, null);
-    }
+
 
     /**
      * Get a list of channels applicable to the erratum
@@ -1179,16 +1150,7 @@ public class ErrataManager extends BaseManager {
 
    }
 
-   /**
-    * Finds the errata ids issued between start and end dates
-    * @param start  start date
-    * @param end  end date
-    * @return errata ids issued between start -> end
-    */
-   public static List<Long> listErrataIdsIssuedBetween(Date start, Date end) {
-       SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT_PARSE_STRING);
-       return listErrataIdsIssuedBetween(sdf.format(start), sdf.format(end));
-   }
+
 
    /**
     * remove an erratum for a channel and updates the errata cache accordingly
@@ -1258,20 +1220,7 @@ public class ErrataManager extends BaseManager {
    }
 
 
-   /**
-    * Publish errata to a channel asynchronisly (cloning as necessary),
-    *   does not do any package push
-    * @param chan the channel
-    * @param errataIds list of errata ids
-    * @param user the user doing the push
-    */
-   public static void publishErrataToChannel(Channel chan,
-           Collection<Long> errataIds, User user) {
-       Logger.getLogger(ErrataManager.class).debug("Publishing");
-       CloneErrataEvent eve = new CloneErrataEvent(chan, errataIds, user);
-       CloneErrataAction event = new CloneErrataAction();
-       event.doExecute(eve);
-   }
+
 
    /**
     * Send errata notifications for a particular errata and channel
@@ -1360,33 +1309,6 @@ public class ErrataManager extends BaseManager {
        }
 
        return flag;
-   }
-
-    /**
-     * resync an errata, including all it's details
-     *  doesn't actually push any packages to a channel
-     * @param cloned the cloned errata needing resyncing
-     * @param user the user doign the syncing
-     */
-   public static void reSyncErrata(PublishedClonedErrata cloned, User user) {
-       if (!user.hasRole(RoleFactory.CHANNEL_ADMIN)) {
-           throw new PermissionException(RoleFactory.CHANNEL_ADMIN);
-       }
-       ErrataFactory.syncErrataDetails(cloned);
-   }
-
-   /**
-    * Apply errata updates to a system at a specified time.
-    * @param loggedInUser The logged in user
-    * @param sid ID of the server
-    * @param errataIds List of errata IDs to apply (as Integers)
-    * @param earliestOccurrence Earliest occurrence of the errata update
-    */
-   public static void applyErrataHelper(User loggedInUser, Long sid, List errataIds,
-           Date earliestOccurrence) {
-       List<Long> systemIds = new ArrayList();
-       systemIds.add(sid);
-       applyErrataHelper(loggedInUser, systemIds, errataIds, earliestOccurrence);
    }
 
    /**
