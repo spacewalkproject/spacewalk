@@ -22,7 +22,6 @@ import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.domain.channel.ChannelFamily;
 import com.redhat.rhn.domain.role.RoleFactory;
-import com.redhat.rhn.domain.server.ServerGroup;
 
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
@@ -94,21 +93,6 @@ public class OrgFactory extends HibernateFactory {
         Session session = HibernateFactory.getSession();
         return  (Org) session.getNamedQuery("Org.findByName")
         .setString("name", name)
-        .uniqueResult();
-    }
-
-    /**
-     * Retrieves a specific group from the server groups for this org
-     * @param id The id of the group we're looking for
-     * @param org The org in which the server group belongs
-     * @return Returns the server group if found, null otherwise
-     */
-    protected static ServerGroup getServerGroup(Long id, Org org) {
-        Session session = null;
-        session = HibernateFactory.getSession();
-        return (ServerGroup) session.getNamedQuery("ServerGroup.lookupByIdAndOrg")
-        .setLong("id", id.longValue())
-        .setEntity("org", org)
         .uniqueResult();
     }
 
@@ -485,19 +469,6 @@ public class OrgFactory extends HibernateFactory {
                 "Org.getSharedSubscribedSys", params);
         return systems;
     }
-
-    /**
-     * @param orgIn Org to caclulate system migrations to
-     * @return number of systems migrated to orgIn
-     */
-    public static Long getSysMigrationsTo(Long orgIn) {
-        Map<String, Object> params = new HashMap<String, Object>();
-        params.put("org_id", orgIn);
-        Long systems  = (Long)singleton.lookupObjectByNamedQuery(
-                "Org.getSysMigrationTo", params);
-        return systems;
-    }
-
 
     /**
      * Lookup all orgs on the satellite.
