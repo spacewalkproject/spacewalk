@@ -221,7 +221,7 @@ def schedule_kickstart_sync(server_id, kickstart_session_id):
 
 def _get_ks_virt_type(type_id):
     _query_kickstart_virt_type = rhnSQL.Statement("""
-        select  kvt.label label
+        select  label
         from    rhnKickstartVirtualizationType kvt
         where   kvt.id = :id
     """)
