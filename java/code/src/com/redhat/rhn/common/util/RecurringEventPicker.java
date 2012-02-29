@@ -47,14 +47,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 public class RecurringEventPicker {
 
-    /**
-     * Typical form field when dealing with a date picker.
-     * @see com.redhat.rhn.frontend.struts.StrutsDelegate
-     */
-    public static final String USE_DATE = "use_date";
-
     private static final String STATUS_DISABLED = "disabled";
-
 
     //Daily defines
     // 0 %d %d * * *
@@ -62,7 +55,6 @@ public class RecurringEventPicker {
     private static final String DAILY_REGEX = "0 +\\d+ +\\d+ +\\? +\\* +\\*";
     private static final String DAILY_HOUR = "_daily_hour";
     private static final String DAILY_MINUTE = "_daily_minute";
-
 
     //Weekly defines
     // 0 %d %d * * %d
@@ -80,10 +72,8 @@ public class RecurringEventPicker {
     private static final String MONTHLY_MINUTE = "_monthly_minute";
     private static final String MONTHLY_DAY_OF_MONTH = "_day_month";
 
-
     private static final String STATUS_CRON = "cron";
     private static final String CRON_ENTRY = "_cron";
-
 
     private static final String WHITE_SPACE = "\\s+";
 
@@ -91,7 +81,6 @@ public class RecurringEventPicker {
                                                 Calendar.TUESDAY, Calendar.WEDNESDAY,
                                                 Calendar.THURSDAY, Calendar.FRIDAY,
                                                 Calendar.SATURDAY};
-
 
     /**
 .------------------- Second (0-59)
@@ -104,12 +93,9 @@ public class RecurringEventPicker {
 *  *  *  *  *  *  command to be executed
      */
 
-
     private String name;
     private String status;
     private String cronEntry;
-
-
 
     /**
      * Constructor
