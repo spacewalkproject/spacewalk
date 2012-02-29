@@ -56,9 +56,6 @@ public class AuthenticationServiceFactory {
      * Returns an AuthenticationService object. The implementation uses PXT authentication.
      *
      * @return An {@link AuthenticationService} object.
-     *
-     * @throws AuthenticationServiceInitializationException if an error occurs initializing
-     * the AuthenticationService instance.
      */
     public AuthenticationService getAuthenticationService() {
         return getPxtService();
