@@ -102,21 +102,6 @@ public class RoleFactory extends HibernateFactory {
     public static final Role RHN_SUPERUSER = lookupByLabel("rhn_superuser");
 
     /**
-     * The constant representing coma_admin
-     */
-    public static final Role COMA_ADMIN = lookupByLabel("coma_admin");
-
-    /**
-     * The constant representing coma_author
-     */
-    public static final Role COMA_AUTHOR = lookupByLabel("coma_author");
-
-    /**
-     * The constant representing coma_publisher
-     */
-    public static final Role COMA_PUBLISHER = lookupByLabel("coma_publisher");
-
-    /**
      * The constant representing rhn_support
      */
     public static final Role RHN_SUPPORT = lookupByLabel("rhn_support");
