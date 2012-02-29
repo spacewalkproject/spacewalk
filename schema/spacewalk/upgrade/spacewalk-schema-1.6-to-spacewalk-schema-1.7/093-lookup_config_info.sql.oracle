@@ -51,11 +51,11 @@ begin
             filemode_in,
             selinux_ctx_in,
             symlink_target_id);
+    return v_id;
 exception when dup_val_on_index then
     for r in lookup_cursor loop
         return r.id;
     end loop;
-    return v_id;
 end lookup_config_info;
 /
 show errors
