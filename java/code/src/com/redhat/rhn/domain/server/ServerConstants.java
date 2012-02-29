@@ -25,8 +25,6 @@ public class ServerConstants {
      */
     public static final String FEATURE_PROBES = "ftr_probes";
 
-    public static final String FEATURE_SYSTEM_GROUPING = "ftr_system_grouping";
-
     private ServerConstants() {
 
     }
