@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.7.46
+Version:        1.7.47
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -66,6 +66,30 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Wed Feb 29 2012 Jan Pazdziora 1.7.47-1
+- fix lookup_config_info return (mzazrivec@redhat.com)
+- no need for autonomous_transaction in lookup_snapshot_invalid_reason
+  (mzazrivec@redhat.com)
+- fix sha1 sum (mzazrivec@redhat.com)
+- lookup_package_nevra: schema upgrade (mzazrivec@redhat.com)
+- use pg_dblink_exec to execute insert inside lookup_package_nevra
+  (mzazrivec@redhat.com)
+- use autonomous_transaction for insert only (mzazrivec@redhat.com)
+- lookup_package_name: schema upgrade (mzazrivec@redhat.com)
+- use pg_dblink_exec to exec insert inside lookup_package_name
+  (mzazrivec@redhat.com)
+- use autonomous_transaction for insert only (mzazrivec@redhat.com)
+- fix sha1 sums (mzazrivec@redhat.com)
+- lookup_package_delta: schema upgrade (mzazrivec@redhat.com)
+- use pg_dblink_exec to execute insert inside lookup_package_delta
+  (mzazrivec@redhat.com)
+- fix sha1 sums (mzazrivec@redhat.com)
+- use autonomous_transaction for insert_only (mzazrivec@redhat.com)
+- lookup_package_capability: schema upgrade (mzazrivec@redhat.com)
+- use pg_dblink_exec to exec insert inside lookup_package_capability
+  (mzazrivec@redhat.com)
+- use autonomous_transaction for insert only (mzazrivec@redhat.com)
+
 * Tue Feb 28 2012 Jan Pazdziora 1.7.46-1
 - fix insert_evr's return (mzazrivec@redhat.com)
 - lookup_evr: schema upgrade (mzazrivec@redhat.com)
