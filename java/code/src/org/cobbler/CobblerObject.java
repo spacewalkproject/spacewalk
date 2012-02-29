@@ -53,7 +53,7 @@ public abstract class CobblerObject {
     protected static final String MGMT_CLASSES = "mgmt_classes";
     protected static final String TEMPLATE_FILES = "template_files";
     protected static final String UID = "uid";
-    protected static final String PROFILE = "profile";
+
     private static final String REDHAT_KEY = "redhat_management_key";
     public static final String INHERIT_KEY = "<<inherit>>";
 
