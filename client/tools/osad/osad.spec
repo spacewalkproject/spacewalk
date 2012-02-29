@@ -251,7 +251,8 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 %config(noreplace) %{_sysconfdir}/sysconfig/osa-dispatcher
 %config(noreplace) %{_sysconfdir}/logrotate.d/osa-dispatcher
 %{rhnroot}/config-defaults/rhn_osa-dispatcher.conf
-%config %{_sysconfdir}/rhn/tns_admin/osa-dispatcher
+%dir %{_sysconfdir}/rhn/tns_admin
+%dir %{_sysconfdir}/rhn/tns_admin/osa-dispatcher
 %config(noreplace) %{_sysconfdir}/rhn/tns_admin/osa-dispatcher/sqlnet.ora
 %attr(755,root,root) %{_initrddir}/osa-dispatcher
 %attr(770,root,%{apache_group}) %dir %{_var}/log/rhn/oracle
@@ -261,7 +262,6 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 %if 0%{?suse_version}
 %dir %{_sysconfdir}/rhn
 %dir %{rhnroot}/config-defaults
-%dir %{_sysconfdir}/rhn/tns_admin
 %dir %{_var}/log/rhn
 %endif
 
