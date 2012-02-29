@@ -327,33 +327,6 @@ public class KickstartHelper {
     }
 
     /**
-     * Generates a URL suitable for downloading things related to a specific
-     * kickstart session.
-     * @param org The Org to generate the ks url for.
-     * @param function The function that will be appended to the returned
-     *        kickstart url.
-     * @return A string suitable for downloading kickstart-related things.
-     */
-    public String generateKickstartUrl(Org org, String function) {
-        String protocol = getKickstartProtocol();
-        String hostname = getKickstartHost();
-
-        String orgToken = generateOrgToken(org);
-
-        String url =
-            protocol                            +
-            "://"                               +
-            hostname                            +
-            "/kickstart/ks/org/"                +
-            orgToken                            +
-            "/"                                 +
-            function                            +
-            "/";
-
-        return url;
-    }
-
-    /**
      * Verify that the kickstart channel is valid.
      * Valid kickstart channels must have a set list of packages described
      * by KickstartFormatter.UPDATE_PKG_NAMES and KickstartFormatter.FRESH_PKG_NAMES_RHEL34
