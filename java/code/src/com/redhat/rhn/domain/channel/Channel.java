@@ -483,21 +483,6 @@ public class Channel extends BaseDomainHelper implements Comparable {
     }
 
     /**
-     * Adds a single package to the channel
-     * @param packageIn The package to add
-     * @param user the user doign the add
-     */
-    public void addPackage(Package packageIn, User user) {
-        if (!getChannelArch().isCompatible(packageIn.getPackageArch())) {
-            throw new IncompatibleArchException(packageIn.getPackageArch(),
-                    getChannelArch());
-        }
-        List<Long> list = new ArrayList<Long>();
-        list.add(packageIn.getId());
-        ChannelManager.addPackages(this, list, user);
-    }
-
-    /**
      * Removes a single package from the channel
      * @param user the user doing the remove
      * @param packageIn The package to remove
