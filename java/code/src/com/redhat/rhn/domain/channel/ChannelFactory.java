@@ -20,7 +20,6 @@ import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.SelectMode;
 import com.redhat.rhn.common.db.datasource.WriteMode;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
-import com.redhat.rhn.common.hibernate.HibernateRuntimeException;
 import com.redhat.rhn.domain.common.ChecksumType;
 import com.redhat.rhn.domain.kickstart.KickstartableTree;
 import com.redhat.rhn.domain.org.Org;
@@ -29,7 +28,6 @@ import com.redhat.rhn.domain.user.User;
 
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
-import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.Projections;
@@ -609,36 +607,6 @@ public class ChannelFactory extends HibernateFactory {
         Object o = singleton.lookupObjectByNamedQuery(
                 "Channel.verifyLabel", params, false);
         return (o != null);
-    }
-
-    /**
-     *
-     * @param cIn Channel coming in
-     * @param userIn User coming in
-     * @param pkgIn Package Name coming in
-     * @return Package object for latest in channel
-     */
-    public static Package lookupLatestPackage(Channel cIn, User userIn, String pkgIn) {
-        Session session = null;
-        List retval;
-        try {
-            session = HibernateFactory.getSession();
-            retval =  session.getNamedQuery("Channel.latestPackage")
-                                          .setString("package_name", pkgIn)
-                                          .setLong("user_id", userIn.getId().longValue())
-                                          .setLong("channel_id", cIn.getId().longValue())
-                                          .list();
-        }
-        catch (HibernateException e) {
-            log.error(e);
-            throw new
-                HibernateRuntimeException("Error looking up latest package in channel");
-        }
-
-        if (retval.size() > 0) {
-            return (Package)retval.get(0);
-        }
-        return null;
     }
 
     /**

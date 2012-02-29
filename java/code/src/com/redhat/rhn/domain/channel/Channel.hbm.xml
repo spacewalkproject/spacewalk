@@ -303,29 +303,6 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <return alias="c" class="com.redhat.rhn.domain.channel.Channel" />
     </sql-query>
 
-    <sql-query name="Channel.latestPackage">
-      <![CDATA[SELECT {p.*}
-          FROM rhnPackage {p},
-               rhnPackageName PN,
-               rhnPackageEVR PE,
-               rhnChannelPackage CP,
-               rhnChannel C,
-               rhnUserAvailableChannels UAC
-          WHERE UAC.user_id = :user_id
-            AND UAC.channel_id = C.id
-            AND (C.id = :channel_id OR C.parent_channel = :channel_id)
-            AND CP.channel_id = C.id
-            AND CP.package_id = p.id
-            AND p.evr_id = PE.id
-            AND p.name_id = PN.id
-            AND PN.name = :package_name
-            AND UPPER(UAC.channel_label) NOT LIKE '%BETA%'
-            AND UPPER(UAC.channel_name) NOT LIKE '%BETA%'
-            ORDER BY PE.evr DESC
-        ]]>
-  <return alias="p" class="com.redhat.rhn.domain.rhnpackage.Package" />
-  </sql-query>
-
     <sql-query name="Channel.packageByFileName">
       <![CDATA[SELECT {p.*}
           FROM rhnPackage {p}
