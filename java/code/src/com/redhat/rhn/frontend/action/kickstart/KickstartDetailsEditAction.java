@@ -75,7 +75,6 @@ public class KickstartDetailsEditAction extends BaseKickstartEditAction {
     public static final String VIRT_DISK_SIZE = "virt_disk_size";
     public static final String VIRT_MEMORY = "virt_mem_mb";
     public static final String VIRT_BRIDGE = "virt_bridge";
-    public static final String VIRT_PATH = "virt_disk_path";
 
     public static final String INVALID = "invalid";
 
