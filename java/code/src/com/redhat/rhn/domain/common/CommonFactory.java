@@ -18,19 +18,14 @@ import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.domain.org.Org;
 
-import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 
-import java.security.Key;
 import java.util.Calendar;
 import java.util.Date;
-
-import javax.crypto.Mac;
-import javax.crypto.spec.SecretKeySpec;
 
 /**
  * KickstartFactory
@@ -174,31 +169,4 @@ public class CommonFactory extends HibernateFactory {
         criteria.add(Restrictions.eq("label", label));
         return (VirtSubscriptionLevel) criteria.uniqueResult();
     }
-
-    /**
-     * generates a hmac sha1 digest using the provided keys and data
-     * @param keys the keys to generate the digest
-     * @param data the data to generate the digest
-     * @return the digest in hex format
-     */
-    public static String generateHmacSha1(String keys, String data) {
-        final String hmacSha1 = "HmacSHA1";
-        Mac digest;
-        try {
-            digest = Mac.getInstance(hmacSha1);
-            Key key = new SecretKeySpec(keys.getBytes(), hmacSha1);
-            digest.init(key);
-            digest.update(data.getBytes(), 0, data.length());
-
-            byte[] hexBytes = new Hex().encode(digest.doFinal());
-
-            return String.valueOf(new String(hexBytes, "ISO-8859-1"));
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-        return "";
-    }
-
-
 }
