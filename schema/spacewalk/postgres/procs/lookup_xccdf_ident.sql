@@ -12,37 +12,52 @@
 -- Red Hat trademarks are not licensed under GPLv2. No permission is
 -- granted to use or replicate Red Hat trademarks that are incorporated
 -- in this software or its documentation.
---
 
-CREATE OR REPLACE FUNCTION
-lookup_xccdf_ident(system_in IN VARCHAR, identifier_in IN VARCHAR)
-RETURNS NUMERIC
-AS
+create or replace function
+lookup_xccdf_ident(system_in in varchar, identifier_in in varchar)
+returns numeric
+as
 $$
-DECLARE
-    xccdf_ident_id NUMERIC;
-    ident_sys_id NUMERIC;
-BEGIN
-    SELECT id
-        INTO ident_sys_id
-        FROM rhnXccdfIdentsystem
-        WHERE system = system_in;
-    IF NOT FOUND THEN
-        INSERT INTO rhnXccdfIdentsystem (id, system)
-            VALUES (nextval('rhn_xccdf_identsytem_id_seq'), system_in)
-            RETURNING id INTO ident_sys_id;
-    END IF;
+declare
+    xccdf_ident_id numeric;
+    ident_sys_id numeric;
+begin
+    select id
+      into ident_sys_id
+      from rhnXccdfIdentSystem
+     where system = system_in;
+    if not found then
+        ident_sys_id := nextval('rhn_xccdf_identsytem_id_seq');
+        begin
+            perform pg_dblink_exec(
+                'insert into rhnXccdfIdentSystem (id, system) values (' ||
+                ident_sys_id || ', ' || coalesce(quote_literal(system_in)) || ')');
+        exception when unique_violation then
+            select id
+              into strict ident_sys_id
+              from rhnXccdfIdentSystem
+             where system = system_in;
+        end;
+    end if;
 
-    SELECT id
-        INTO xccdf_ident_id
-        FROM rhnXccdfIdent
-        WHERE identsystem_id = ident_sys_id
-            AND identifier = identifier_in;
-    IF NOT FOUND THEN
-        INSERT INTO rhnXccdfIdent (id, identsystem_id, identifier)
-            VALUES (nextval('rhn_xccdf_ident_id_seq'), ident_sys_id, identifier_in)
-            RETURNING id INTO xccdf_ident_id;
-    END IF;
-    RETURN xccdf_ident_id;
-END;
-$$ LANGUAGE PLPGSQL;
+    select id
+      into xccdf_ident_id
+      from rhnXccdfIdent
+     where identsystem_id = ident_sys_id and identifier = identifier_in;
+    if not found then
+        xccdf_ident_id := nextval('rhn_xccdf_ident_id_seq');
+        begin
+            perform pg_dblink_exec(
+                'insert into rhnXccdfIdent (id, identsystem_id, identifier) values (' ||
+                xccdf_ident_id || ', ' || ident_sys_id || ', ' ||
+                coalesce(quote_literal( identifier_in)) || ')');
+        exception when unique_violation then
+            select id
+              into strict xccdf_ident_id
+              from rhnXccdfIdent
+             where identsystem_id = ident_sys_id and identifier = identifier_in;
+        end;
+    end if;
+    return xccdf_ident_id;
+end;
+$$ language plpgsql immutable;

@@ -105,6 +105,9 @@ lookup_transaction_package      :: rhnTransactionOperation lookup_package_name \
                                    pg_dblink_exec
 lookup_virt_sub_level           :: rhnVirtSubLevel                                
 lookup_xccdf_benchmark          :: rhnXccdfBenchmark pg_dblink_exec
+lookup_xccdf_ident              :: rhnXccdfIdentSystem \
+                                   rhnXccdfIdent \
+                                   pg_dblink_exec
 pxt_session_cleanup             :: PXTSessions
 queue_server                    :: rhnServerNeededPackageCache rhnTaskQueue \
                                    rhnServer \
