@@ -21,9 +21,6 @@ import com.redhat.rhn.domain.role.Role;
 
 import org.apache.log4j.Logger;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * UserGroupFactory - the singleton class used to fetch and store
  * com.redhat.rhn.domain.org.usergroup.UserGroup objects from the
@@ -74,17 +71,5 @@ public class UserGroupFactory extends HibernateFactory {
         retval.setRole(role);
         return retval;
     }
-
-    /**
-     * Lookup a UserGroup by their id
-     * @param id the id to search for
-     * @return the UserGroup found
-     */
-    public static UserGroup lookupById(Long id) {
-        Map params = new HashMap();
-        params.put("id", id);
-        return (UserGroup) singleton.lookupObjectByNamedQuery("UserGroup.findById", params);
-    }
-
 }
 
