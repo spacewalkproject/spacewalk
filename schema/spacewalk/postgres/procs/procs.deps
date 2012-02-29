@@ -97,8 +97,8 @@ lookup_server_arch              :: rhn_exception.pks data/rhnException rhnServer
 lookup_sg_type                  :: rhnServerGroupType
 lookup_snapshot_invalid_reason  :: rhnSnapshotInvalidReason
 lookup_source_name              :: rhnSourceRPM pg_dblink_exec
-lookup_tag                      :: rhnTag lookup_tag_name
-lookup_tag_name                 :: rhnTagName
+lookup_tag                      :: rhnTag lookup_tag_name pg_dblink_exec
+lookup_tag_name                 :: rhnTagName pg_dblink_exec
 lookup_transaction_package      :: rhnTransactionOperation lookup_package_name \
                                    lookup_evr lookup_package_arch \
                                    rhnTransactionPackage rhn_exception.pks
