@@ -64,6 +64,7 @@ insert_config_filename          :: rhnConfigFileName
 insert_config_info              :: rhnConfigInfo
 insert_evr                      :: rhnPackageEVR
 insert_package_nevra            :: rhnPackageNEVRA
+insert_source_name              :: rhnSourceRPM
 is_user_applicant               :: rhnUserGroupType web_contact rhnUserGroup \
                                    rhnUserGroupMembers
 lookup_arch_type                :: data/rhnArchType rhn_exception.pks
@@ -101,7 +102,7 @@ lookup_server_arch              :: rhn_exception.pks data/rhnException rhnServer
                                    data/rhnServerArch
 lookup_sg_type                  :: rhnServerGroupType
 lookup_snapshot_invalid_reason  :: rhnSnapshotInvalidReason
-lookup_source_name              :: rhnSourceRPM
+lookup_source_name              :: insert_source_name rhnSourceRPM
 lookup_tag                      :: rhnTag lookup_tag_name
 lookup_tag_name                 :: rhnTagName
 lookup_transaction_package      :: rhnTransactionOperation lookup_package_name \
