@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.7.50
+Version:        1.7.51
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -66,6 +66,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Wed Feb 29 2012 Jan Pazdziora 1.7.51-1
+- Blend is case sensitive, let's try to play by its rules.
+- remove unused data from the rhnUserGroupType table (tlestach@redhat.com)
+
 * Wed Feb 29 2012 Milan Zazrivec <mzazrivec@redhat.com> 1.7.50-1
 - lookup_xccdf_ident: schema upgrade (mzazrivec@redhat.com)
 - use pg_dblink_exec to execute inserts inside lookup_xccdf_ident
