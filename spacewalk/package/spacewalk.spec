@@ -1,7 +1,7 @@
 %define release_name Smile
 
 Name:           spacewalk
-Version:        1.7.0
+Version:        1.7.1
 Release:        1%{?dist}
 Summary:        Spacewalk Systems Management Application
 URL:            https://fedorahosted.org/spacewalk
@@ -174,6 +174,9 @@ rm -rf %{buildroot}
 %{_datadir}/spacewalk/setup/defaults.d/postgresql-backend.conf
 
 %changelog
+* Wed Feb 29 2012 Jan Pazdziora 1.7.1-1
+- Creating the dblink function(s) upon schema population, in schema public.
+
 * Fri Jun 17 2011 Jan Pazdziora 1.5.1-1
 - No longer require jabberd-selinux-workaround now that RHEL 6.1 has been
   released.
