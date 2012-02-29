@@ -49,27 +49,6 @@ public abstract class BaseListAction extends RhnAction {
     }
 
     /**
-     * Returns the parent URL
-     * @param context the request context
-     * @return the parent url
-     */
-    public String getParentUrl(RequestContext context) {
-        String uri = context.getRequest().getRequestURI();
-        return uri + "?" + RequestContext.SID + "=" +
-                context.getRequiredParam(RequestContext.SID);
-    }
-
-    /**
-     * Returns the declaration
-     * @param context the request context
-     * @return the declaration
-     */
-    public String getDecl(RequestContext context) {
-        return getClass().getName() +
-            context.getRequiredParam(RequestContext.SID);
-    }
-
-    /**
      * Adds server info
      * @param request the servlet request.
      */

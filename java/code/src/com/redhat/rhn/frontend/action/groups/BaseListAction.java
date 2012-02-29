@@ -15,7 +15,6 @@
 
 package com.redhat.rhn.frontend.action.groups;
 
-import com.redhat.rhn.domain.server.ManagedServerGroup;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnHelper;
@@ -43,13 +42,6 @@ public abstract class BaseListAction extends RhnAction implements Listable {
         RequestContext context = new RequestContext(request);
         context.lookupAndBindServerGroup();
     }
-
-    /** {@inheritDoc} */
-    public String getDecl(RequestContext context) {
-        ManagedServerGroup sg = context.lookupAndBindServerGroup();
-        return getClass().getName() + sg.getId();
-    }
-
 
     /** {@inheritDoc} */
     public String getDataSetName() {
