@@ -50,7 +50,7 @@ public abstract class BaseTreeAction extends BaseEditAction {
     public static final String LABEL = "label";
     public static final String NOCHANNELS = "nochannels";
     public static final String NOINSTALLTYPES = "noinstalltypes";
-    public static final String RHN_KICKSTART = "rhnkickstart";
+
     public static final String HIDE_SUBMIT = "hidesubmit";
     public static final String KERNEL_OPTS = "kernelopts";
     public static final String POST_KERNEL_OPTS = "postkernelopts";
