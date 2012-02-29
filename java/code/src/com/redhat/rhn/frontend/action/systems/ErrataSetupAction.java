@@ -50,7 +50,6 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class ErrataSetupAction extends RhnAction implements Listable {
 
-    public static final String DISPATCH = "dispatch";
     public static final String LIST_NAME = "errataList";
 
     public static final String ALL = "All";
