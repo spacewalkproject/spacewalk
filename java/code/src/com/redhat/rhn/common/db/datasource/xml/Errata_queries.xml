@@ -1111,18 +1111,6 @@ ORDER BY UPPER(EK.keyword)
   </query>
 </mode>
 
-<mode name="packageids_associated_to_errata"
-    class="com.redhat.rhn.frontend.dto.ErrataPackageFile">
-    <query params="channel_id">
-    SELECT ep.package_id
-    FROM rhnErrataPackage ep,
-        rhnChannelPackage cp
-    WHERE ep.package_id = cp.package_id
-    AND cp.channel_id = :channel_id
-    AND ep.errata_id in (%s)
-    </query>
-</mode>
-
 <mode name="available_to_org">
   <query params="eid, org_id">
 SELECT  1

@@ -112,27 +112,7 @@ public class ErrataFactory extends HibernateFactory {
         return toReturn;
     }
 
-    /**
-     * List the package ids that are associated with an errata
-     * associated with given channel
-     * @param channelId channel of interest
-     * @param errataIds list of errata ids
-     * @return List of package ids
-     */
-    public static List<Long> listErrataChannelPackages(Long channelId,
-            Set<Long> errataIds) {
-        SelectMode m = ModeFactory.getMode("Errata_queries",
-                "packageids_associated_to_errata");
-        Map params = new HashMap();
-        params.put("channel_id", channelId);
-        DataResult<ErrataPackageFile> dr = m.execute(params, new ArrayList(errataIds));
-        // make the final list unique
-        Set toReturn = new HashSet<Long>();
-        for (ErrataPackageFile file : dr) {
-            toReturn.add(file.getPackageId());
-        }
-        return new ArrayList(toReturn);
-    }
+
 
     /**
      * Tries to locate errata based on either the errataum's id or the
@@ -546,18 +526,7 @@ public class ErrataFactory extends HibernateFactory {
         return bug;
     }
 
-    /**
-     * Creates a new Unpublished Errata file with given ErrataFileType, checksum, and name
-     * @param ft ErrataFileType for the new ErrataFile
-     * @param cs MD5 Checksum for the new Errata File
-     * @param name name for the file
-     * @return new Unpublished Errata File
-     */
-    public static ErrataFile createUnpublishedErrataFile(ErrataFileType ft,
-            String cs,
-            String name) {
-        return createUnpublishedErrataFile(ft, cs, name, new HashSet());
-    }
+
 
     /**
      * Creates a new Unpublished Errata file with given ErrataFileType, checksum, and name
@@ -693,30 +662,6 @@ public class ErrataFactory extends HibernateFactory {
             session = HibernateFactory.getSession();
             retval = session.getNamedQuery("PublishedErrata.findByAdvisoryType")
                     .setString("type", advisoryType)
-                    //Retrieve from cache if there
-                    .setCacheable(true).list();
-        }
-        catch (HibernateException he) {
-            log.error("Error loading ActionArchTypes from DB", he);
-            throw new
-            HibernateRuntimeException("Error loading ActionArchTypes from db");
-        }
-        return retval;
-    }
-
-    /**
-     * Lookup a Security Errata by the synopsis string
-     * @param synopsis to search for
-     * @return the Errata found
-     */
-    public static List lookupErratasBySynopsis(String synopsis) {
-        Session session = null;
-        List retval = null;
-        try {
-            session = HibernateFactory.getSession();
-            retval = session.getNamedQuery("PublishedErrata.findSecurityBySynopsis")
-                    .setString("type", ERRATA_TYPE_SECURITY)
-                    .setString("synopsis", synopsis)
                     //Retrieve from cache if there
                     .setCacheable(true).list();
         }
@@ -1030,20 +975,7 @@ public class ErrataFactory extends HibernateFactory {
                 .list();
     }
 
-    /**
-     * Lookup errata that are in the set "errata_list"
-     * @param user the user to search the set for
-     * @param set the set to look in
-     * @return List of Errata
-     */
-    public static List<Errata> lookupErrataInSet(User user, String set) {
 
-        Map params = new HashMap();
-        params.put("uid", user.getId());
-        params.put("set", set);
-        return  singleton.listObjectsByNamedQuery(
-                "PublishedErrata.lookupFromSet", params);
-    }
 
 
 
