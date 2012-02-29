@@ -113,7 +113,7 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
     private static Logger log = Logger.getLogger(KickstartScheduleCommand.class);
     public  static final String DHCP_NETWORK_TYPE = "dhcp";
     public  static final String LINK_NETWORK_TYPE = "link";
-    public static final String STATIC_NETWORK_TYPE = "static";
+
     // up2date is required to be 2.9.0
     public static final String UP2DATE_VERSION = "2.9.0";
     public static final String TARGET_PROFILE_TYPE_EXISTING = "existing";
