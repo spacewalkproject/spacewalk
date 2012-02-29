@@ -1831,61 +1831,6 @@ public class ChannelManager extends BaseManager {
     }
 
     /**
-     * Return the list of ALL ISO channels
-     * @param u Currently-logged-in user
-     * @param lc ListControl (if there is one)
-     * @return DataResult of ChannelTreeNodes
-     */
-    public static DataResult allDownloadsTree(User u, ListControl lc) {
-        SelectMode m = ModeFactory.getMode("Channel_queries",
-                "channels_with_downloads_tree_full");
-        Map params = new HashMap();
-        params.put("user_id", u.getId());
-
-        DataResult dr = makeDataResult(params, params, lc, m);
-        if (dr.size() == 0) {
-            return null;
-        }
-        return dr;
-    }
-    /**
-     * Return the list of ISO channels with SUPPORTED distributions
-     * @param u Currently-logged-in user
-     * @param lc ListControl (if there is one)
-     * @return DataResult of ChannelTreeNodes
-     */
-    public static DataResult supportedDownloadsTree(User u, ListControl lc) {
-        SelectMode m = ModeFactory.getMode("Channel_queries",
-                "channels_with_downloads_tree_supported");
-        Map params = new HashMap();
-        params.put("user_id", u.getId());
-
-        DataResult dr = makeDataResult(params, params, lc, m);
-        if (dr.size() == 0) {
-            return null;
-        }
-        return dr;
-    }
-    /**
-     * Return the list of ISO channels for RETIRED distributions
-     * @param u Currently-logged-in user
-     * @param lc ListControl (if there is one)
-     * @return DataResult of ChannelTreeNodes
-     */
-    public static DataResult retiredDownloadsTree(User u, ListControl lc) {
-        SelectMode m = ModeFactory.getMode("Channel_queries",
-                "channels_with_downloads_tree_retired");
-        Map params = new HashMap();
-        params.put("user_id", u.getId());
-
-        DataResult dr = makeDataResult(params, params, lc, m);
-        if (dr.size() == 0) {
-            return null;
-        }
-        return dr;
-    }
-
-    /**
      * Return a list of all downlaods available for download from the specified channel
      * @param u User making the request
      * @param channelLabel label of channel of interest
