@@ -40,6 +40,7 @@ class Logger:
             if not Logger.logfile is None:
                 try:
                     file = open( Logger.logfile, 'a' )
+                    os.chmod(Logger.logfile, 0600)
                     file.write( outstring )
                     file.close()
                 except IOError:

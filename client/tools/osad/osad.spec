@@ -231,7 +231,7 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 %attr(755,root,root) %{_initrddir}/osad
 %doc LICENSE
 %config(noreplace) %{_sysconfdir}/logrotate.d/osad
-%ghost %attr(644,root,root) %{_var}/log/osad
+%ghost %attr(600,root,root) %{_var}/log/osad
 %if 0%{?suse_version}
 # provide directories not owned by any package during build
 %dir %{rhnroot}
