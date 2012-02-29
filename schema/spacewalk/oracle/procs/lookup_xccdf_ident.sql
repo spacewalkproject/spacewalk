@@ -1,4 +1,3 @@
---
 -- Copyright (c) 2012 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
@@ -11,41 +10,46 @@
 -- Red Hat trademarks are not licensed under GPLv2. No permission is
 -- granted to use or replicate Red Hat trademarks that are incorporated
 -- in this software or its documentation.
---
 
-CREATE OR REPLACE FUNCTION
-lookup_xccdf_ident(system_in IN VARCHAR2, identifier_in IN VARCHAR2)
-RETURN NUMBER
-IS
-    PRAGMA AUTONOMOUS_TRANSACTION;
-    xccdf_ident_id NUMBER;
-    ident_sys_id NUMBER;
-BEGIN
-    BEGIN
-        SELECT id
-            INTO ident_sys_id
-            FROM rhnXccdfIdentsystem
-            WHERE system = system_in;
-    EXCEPTION
-        WHEN NO_DATA_FOUND THEN
-            INSERT INTO rhnXccdfIdentsystem (id, system)
-                VALUES (rhn_xccdf_identsytem_id_seq.nextval, system_in)
-                RETURNING id INTO ident_sys_id;
-    END;
+create or replace function
+lookup_xccdf_ident(system_in in varchar2, identifier_in in varchar2)
+return number
+is
+    pragma autonomous_transaction;
+    xccdf_ident_id number;
+    ident_sys_id number;
+begin
+    begin
+        select id
+          into ident_sys_id
+          from rhnXccdfIdentSystem
+         where system = system_in;
+    exception when no_data_found then
+        begin
+            ident_sys_id := insert_xccdf_ident_system(system_in);
+        exception when dup_val_on_index then
+            select id
+              into ident_sys_id
+              from rhnXccdfIdentSystem
+             where system = system_in;
+        end;
+    end;
 
-    SELECT id
-        INTO xccdf_ident_id
-        FROM rhnXccdfIdent
-        WHERE identsystem_id = ident_sys_id
-            AND identifier = identifier_in;
-    RETURN xccdf_ident_id;
-EXCEPTION
-    WHEN NO_DATA_FOUND THEN
-        INSERT INTO rhnXccdfIdent (id, identsystem_id, identifier)
-            VALUES (rhn_xccdf_ident_id_seq.nextval, ident_sys_id, identifier_in)
-            RETURNING id INTO xccdf_ident_id;
-        COMMIT;
-    RETURN xccdf_ident_id;
-END lookup_xccdf_ident;
+    select id
+      into xccdf_ident_id
+      from rhnXccdfIdent
+     where identsystem_id = ident_sys_id and identifier = identifier_in;
+    return xccdf_ident_id;
+exception when no_data_found then
+    begin
+        xccdf_ident_id := insert_xccdf_ident(ident_sys_id, identifier_in);
+    exception when dup_val_on_index then
+        select id
+          into xccdf_ident_id
+          from rhnXccdfIdent
+         where identsystem_id = ident_sys_id and identifier = identifier_in;
+    end;
+    return xccdf_ident_id;
+end lookup_xccdf_ident;
 /
-SHOW ERRORS
+show errors

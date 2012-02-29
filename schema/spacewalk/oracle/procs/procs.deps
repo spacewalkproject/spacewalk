@@ -69,6 +69,7 @@ insert_tag                      :: rhnTag
 insert_tag_name                 :: rhnTagName
 insert_transaction_package      :: rhnTransactionPackage
 insert_xccdf_benchmark          :: rhnXccdfBenchmark
+insert_xccdf_ident_system       :: rhnXccdfIdentSystem
 is_user_applicant               :: rhnUserGroupType web_contact rhnUserGroup \
                                    rhnUserGroupMembers
 lookup_arch_type                :: data/rhnArchType rhn_exception.pks
@@ -115,6 +116,10 @@ lookup_transaction_package      :: rhnTransactionOperation lookup_package_name \
                                    insert_transaction_package
 lookup_virt_sub_level           :: rhnVirtSubLevel                                
 lookup_xccdf_benchmark          :: insert_xccdf_benchmark rhnXccdfBenchmark
+lookup_xccdf_ident              :: insert_xccdf_ident \
+                                   insert_xccdf_ident_system \
+                                   rhnXccdfIdentSystem \
+                                   rhnXccdfIdent
 pxt_session_cleanup             :: PXTSessions
 queue_server                    :: rhnServerNeededPackageCache rhnTaskQueue \
                                    rhnServer \
