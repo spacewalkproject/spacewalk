@@ -128,11 +128,6 @@ public abstract class KickstartVariableAction extends RhnAction {
         }
     }
 
-    protected String getSuccessKey() {
-        return "kickstart.details.success";
-    }
-
-
     /**
      *
      * @param context
