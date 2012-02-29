@@ -1,7 +1,6 @@
 -- oracle equivalent source sha1 5507c4bf3760c813f3f8ffb461a73f5e2903473e
--- retrieved from ./1241042199/53fa26df463811901487b608eecc3f77ca7783a1/schema/spacewalk/oracle/procs/lookup_transaction_package.sql
 --
--- Copyright (c) 2008--2010 Red Hat, Inc.
+-- Copyright (c) 2008--2012 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -13,61 +12,69 @@
 -- Red Hat trademarks are not licensed under GPLv2. No permission is
 -- granted to use or replicate Red Hat trademarks that are incorporated
 -- in this software or its documentation. 
---
---
---
---
 
-CREATE OR REPLACE FUNCTION
-LOOKUP_TRANSACTION_PACKAGE(o_in IN VARCHAR, n_in IN VARCHAR,
-    e_in IN VARCHAR, v_in IN VARCHAR, r_in IN VARCHAR, a_in IN VARCHAR)
-RETURNS NUMERIC
-AS
+create or replace function
+lookup_transaction_package(
+    o_in in varchar,
+    n_in in varchar,
+    e_in in varchar,
+    v_in in varchar,
+    r_in in varchar,
+    a_in in varchar)
+returns numeric
+as
 $$
-DECLARE
-        o_id        NUMERIC;
-        n_id        NUMERIC;
-        e_id        NUMERIC;
-        p_arch_id   NUMERIC;
-        tp_id       NUMERIC;
-BEGIN
-        SELECT id
-          INTO o_id
-          FROM rhnTransactionOperation
-          WHERE label = o_in;
+declare
+    o_id        numeric;
+    n_id        numeric;
+    e_id        numeric;
+    p_arch_id   numeric;
+    tp_id       numeric;
+begin
+    select id
+      into o_id
+      from rhnTransactionOperation
+     where label = o_in;
 
-        IF NOT FOUND THEN
-		PERFORM rhn_exception.raise_exception('invalid_transaction_operation');
-	END IF;
+    if not found then
+        perform rhn_exception.raise_exception('invalid_transaction_operation');
+    end if;
 
-        SELECT LOOKUP_PACKAGE_NAME(n_in)
-          INTO n_id;
+    n_id := lookup_package_name(n_in);
+    e_id := lookup_evr(e_in, v_in, r_in);
+    p_arch_id := null;
 
-        SELECT LOOKUP_EVR(e_in, v_in, r_in)
-          INTO e_id;
+    if a_in is not null then
+        p_arch_id := lookup_package_arch(a_in);
+    end if;
 
-        p_arch_id := NULL;
-        IF a_in IS NOT NULL
-        THEN
-                SELECT LOOKUP_PACKAGE_ARCH(a_in)
-                  INTO p_arch_id;
-        END IF;
+    select id
+      into tp_id
+      from rhnTransactionPackage
+     where operation = o_id and
+           name_id = n_id and
+           evr_id = e_id and
+           (package_arch_id = p_arch_id or (p_arch_id is null and package_arch_id is null));
 
-        SELECT id
-          INTO tp_id
-          FROM rhnTransactionPackage
-         WHERE operation = o_id
-           AND name_id = n_id
-           AND evr_id = e_id
-           AND (package_arch_id = p_arch_id OR (p_arch_id IS NULL AND package_arch_id IS NULL));
+    if not found then
+        tp_id := nextval('rhn_transpack_id_seq');
+        begin
+            perform pg_dblink_exec(
+                'insert into rhnTransactionPackage (id, operation, name_id, evr_id, package_arch_id)' ||
+                ' values (' || tp_id || ', ' || o_id || ', ' || n_id || ', ' || e_id ||
+                ', ' || ', ' || p_arch_id  || ')');
+        exception when unique_violation then
+            select id
+              into strict tp_id
+              from rhnTransactionPackage
+             where operation = o_id and
+                   name_id = n_id and
+                   evr_id = e_id and
+                   (package_arch_id = p_arch_id or (p_arch_id is null and package_arch_id is null));
+        end;
+    end if;
 
-        IF NOT FOUND THEN
-		INSERT INTO rhnTransactionPackage
-                (id, operation, name_id, evr_id, package_arch_id) VALUES (nextval('rhn_transpack_id_seq'), o_id, n_id, e_id, p_arch_id);
-                tp_id := currval('rhn_transpack_id_seq');
-        END IF;
-
-        RETURN tp_id;
-END;
+    return tp_id;
+end;
 $$
-LANGUAGE PLPGSQL;
+language plpgsql immutable;

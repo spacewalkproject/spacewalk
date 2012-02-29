@@ -101,7 +101,8 @@ lookup_tag                      :: rhnTag lookup_tag_name pg_dblink_exec
 lookup_tag_name                 :: rhnTagName pg_dblink_exec
 lookup_transaction_package      :: rhnTransactionOperation lookup_package_name \
                                    lookup_evr lookup_package_arch \
-                                   rhnTransactionPackage rhn_exception.pks
+                                   rhnTransactionPackage rhn_exception.pks \
+                                   pg_dblink_exec
 lookup_virt_sub_level           :: rhnVirtSubLevel                                
 pxt_session_cleanup             :: PXTSessions
 queue_server                    :: rhnServerNeededPackageCache rhnTaskQueue \
