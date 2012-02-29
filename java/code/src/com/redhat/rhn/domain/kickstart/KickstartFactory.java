@@ -263,7 +263,7 @@ public class KickstartFactory extends HibernateFactory {
         KickstartCommandName retval = null;
         session = HibernateFactory.getSession();
         Query query =
-            session.getNamedQuery(KickstartQueries.KICKSTART_CMD_FIND_BY_LABEL);
+            session.getNamedQuery("KickstartCommandName.findByLabel");
         //Retrieve from cache if there
         query.setCacheable(true);
         query.setParameter("name", commandName);
