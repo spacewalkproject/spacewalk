@@ -401,22 +401,6 @@ public class ActionFactory extends HibernateFactory {
                                         "Action.findByIdandOrgId", params);
     }
 
-
-    /**
-     * Lookup the total server action count for an action
-     * @param org the org to look
-     * @param action the action id
-     * @return the count
-     */
-    public static Integer getServerActionCount(Org org, Action action) {
-        Map params = new HashMap();
-        params.put("aid", action.getId());
-        params.put("orgId", org.getId());
-        return (Integer)singleton.lookupObjectByNamedQuery(
-                                        "Action.getServerActionCount", params);
-    }
-
-
     /**
      * Lookup the number of server actions for a particular action that have
      *      a certain status

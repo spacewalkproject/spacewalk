@@ -406,12 +406,6 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <![CDATA[from com.redhat.rhn.domain.action.Action as a where a.id = :aid and org_id = :orgId]]>
     </query>
 
-    <query name="Action.getServerActionCount">
-        <![CDATA[
-			select a.serverActions.size
-        	from com.redhat.rhn.domain.action.Action as a where a.id = :aid and org_id = :orgId]]>
-    </query>
-
     <sql-query name="Action.getServerActionCountByStatus">
         <return-scalar type="int" column="count"/>
         <![CDATA[select count(sa.server_id) as count from rhnServerAction sa where sa.action_id = :aid and
