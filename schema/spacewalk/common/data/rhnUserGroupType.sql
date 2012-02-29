@@ -55,24 +55,6 @@ insert into rhnUserGroupType (id, label, name) values (
 
 insert into rhnUserGroupType (id, label, name) values (
 	sequence_nextval('rhn_usergroup_type_seq'),
-	'coma_admin',
-	'Coma CMS Administrator'
-);
-
-insert into rhnUserGroupType (id, label, name) values (
-	sequence_nextval('rhn_usergroup_type_seq'),
-	'coma_author',
-	'Coma CMS Author'
-);
-
-insert into rhnUserGroupType (id, label, name) values (
-	sequence_nextval('rhn_usergroup_type_seq'),
-	'coma_publisher',
-	'Coma CMS Publisher'
-);
-
-insert into rhnUserGroupType (id, label, name) values (
-	sequence_nextval('rhn_usergroup_type_seq'),
 	'config_admin',
 	'Configuration Administrator'
 );
