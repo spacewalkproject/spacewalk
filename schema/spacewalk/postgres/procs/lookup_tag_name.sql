@@ -1,7 +1,6 @@
 -- oracle equivalent source sha1 a0ac36c5fc0ed1f1a7a62a4799b4170612d78614
--- retrieved from ./1241042199/53fa26df463811901487b608eecc3f77ca7783a1/schema/spacewalk/oracle/procs/lookup_tag_name.sql
 --
--- Copyright (c) 2008--2010 Red Hat, Inc.
+-- Copyright (c) 2008--2012 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -13,29 +12,34 @@
 -- Red Hat trademarks are not licensed under GPLv2. No permission is
 -- granted to use or replicate Red Hat trademarks that are incorporated
 -- in this software or its documentation. 
---
---
---
---
 
-
-CREATE OR REPLACE FUNCTION
-LOOKUP_TAG_NAME(name_in IN VARCHAR)
-RETURNS NUMERIC
-AS
+create or replace function
+lookup_tag_name(name_in in varchar)
+returns numeric
+as
 $$
-DECLARE
-        name_id     NUMERIC;
-BEGIN
-        select id into name_id
-          from rhnTagName
-         where name = name_in;
+declare
+    name_id numeric;
+begin
+    select id
+      into name_id
+      from rhnTagName
+     where name = name_in;
 
-         IF NOT FOUND THEN
-		insert into rhnTagName(id, name) values (nextval('rhn_tagname_id_seq'), name_in);
-		name_id := currval('rhn_tagname_id_seq');
-         END IF;
+    if not found then
+        name_id := nextval('rhn_tagname_id_seq');
+        begin
+            perform pg_dblink_exec(
+                'insert into rhnTagName(id, name) values (' ||
+                name_id || ', ' || coalesce(quote_literal(name_in), 'NULL') || ')');
+        exception when unique_violation then
+            select id
+              into strict name_id
+              from rhnTagName
+             where name = name_in;
+        end;
+    end if;
 
-        RETURN name_id;
-END;
-$$ LANGUAGE PLPGSQL;
+    return name_id;
+end;
+$$ language plpgsql immutable;
