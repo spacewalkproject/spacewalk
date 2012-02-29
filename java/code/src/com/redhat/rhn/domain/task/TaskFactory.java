@@ -18,13 +18,8 @@ import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.domain.org.Org;
 
 import org.apache.log4j.Logger;
-import org.hibernate.Criteria;
-import org.hibernate.HibernateException;
 import org.hibernate.Session;
-import org.hibernate.criterion.CriteriaSpecification;
-import org.hibernate.criterion.Order;
 
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -66,33 +61,6 @@ public class TaskFactory extends HibernateFactory {
         save(t); //store the task to the db
         return t;
     }
-
-    /**
-     * list All tasks with the given name
-     * @param name the name of the task
-     * @return List of tasks
-     */
-    public static List<Task> listTasks(String name) {
-        Session session = null;
-        try {
-            session = HibernateFactory.getSession();
-            return session.getNamedQuery("Task.listTasksByName")
-                                     .setString("name", name).list();
-        }
-        catch (HibernateException he) {
-            log.error("Hibernate exception: " + he.toString());
-        }
-        return Collections.EMPTY_LIST;
-    }
-
-    /**
-     * Remove a task from teh database
-     * @param task the task to remove
-     */
-    public static void removeTask(Task task) {
-        TaskFactory.getSession().delete(task);
-    }
-
 
     /**
      * Saves the object to the db
@@ -141,30 +109,7 @@ public class TaskFactory extends HibernateFactory {
                       .list();
     }
 
-    /**
-     * Returns a list of tasks ordered by earliest date.  This could return
-     * many records use cautiously.
-     * @param distinct return distinct records.
-     * @param maxresults Number of rows to return or TaskFactory.NO_MAXIMUM
-     * @return list of tasks ordered by earliest date.
-     */
-    public static List getTaskList(boolean distinct, int maxresults) {
-        Session session = HibernateFactory.getSession();
 
-        Criteria c = session.createCriteria(Task.class);
-        c.setCacheable(false); // don't want to cache all this
-        c.addOrder(Order.asc("earliest"));
-
-        if (maxresults != TaskFactory.NO_MAXIMUM) {
-            c.setMaxResults(maxresults);
-        }
-
-        if (distinct) {
-            c.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY);
-        }
-
-        return c.list();
-    }
 
     /**
      * Lookup a list of Tasks who's name start with passed in param
