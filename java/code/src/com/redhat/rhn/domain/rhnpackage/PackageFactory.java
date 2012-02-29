@@ -18,7 +18,6 @@ import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.SelectMode;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
-import com.redhat.rhn.domain.common.ArchType;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.server.InstalledPackage;
 import com.redhat.rhn.domain.server.Server;
@@ -148,18 +147,6 @@ public class PackageFactory extends HibernateFactory {
     }
 
     /**
-     * Lookup a PackageArchType by its label.
-     * @param label arch type label sought.
-     * @return the ArchType whose label matches the given label.
-     */
-    public static ArchType lookupArchTypeByLabel(String label) {
-        Map params = new HashMap();
-        params.put("label", label);
-        return (ArchType) singleton.lookupObjectByNamedQuery("ArchType.findByLabel",
-                params, true);
-    }
-
-    /**
      * Lookup a PackageArch by its label.
      * @param label package arch label sought.
      * @return the PackageArch whose label matches the given label.
@@ -285,18 +272,6 @@ public class PackageFactory extends HibernateFactory {
         return packs.get(packs.size() - 1);
     }
 
-    /**
-     * Lookup packages that are located in the set 'packages_to_add'
-     * @param user the user to lookup for
-     * @return List of Package objects
-     */
-    public static List<Package> lookupPackagesFromSet(User user) {
-
-        Map params = new HashMap();
-        params.put("uid", user.getId());
-        return singleton.listObjectsByNamedQuery("Package.lookupFromSet", params);
-
-    }
     /**
      * Returns PackageOverviews from a search.
      * @param pids List of package ids returned from search server.

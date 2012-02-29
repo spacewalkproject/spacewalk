@@ -19,7 +19,4 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     <query name="ArchType.findById">
         <![CDATA[from com.redhat.rhn.domain.common.ArchType as t where t.id = :id]]>
     </query>
-    <query name="ArchType.findByLabel">
-        <![CDATA[from com.redhat.rhn.domain.common.ArchType as t where t.label = :label]]>
-    </query>
 </hibernate-mapping>

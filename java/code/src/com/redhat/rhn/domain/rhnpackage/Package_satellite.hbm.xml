@@ -240,17 +240,4 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     	]]>
     </query>
 
-    <sql-query name="Package.lookupFromSet">
-        <![CDATA[SELECT {p.*}
-			from rhnPackage p
-			     left join rhnSolarisPatchSet P_2_ on p.id = P_2_.package_id
-                 left join rhnSolarisPatch P_1_ on p.id = P_1_.package_id
-                 inner join rhnSet S on p.id = s.element
-           where S.label = 'packages_to_add'
-             and S.user_id = :uid					
-         ]]>
-        <return alias="p" class="com.redhat.rhn.domain.rhnpackage.Package" />
-    </sql-query>
-
-
 </hibernate-mapping>
