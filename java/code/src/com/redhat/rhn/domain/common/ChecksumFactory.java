@@ -57,58 +57,6 @@ public class ChecksumFactory extends HibernateFactory {
         return c;
     }
 
-    /**
-     * Lookup a checksum by its hash
-     * @param hash the checksum to search for
-     * @return the Checksum or null if none match
-     */
-    public static Checksum lookupByChecksum(String hash) {
-        if (hash == null) {
-            return null;
-        }
-        Session session = null;
-        Checksum c = null;
-        try {
-            session = HibernateFactory.getSession();
-            c = (Checksum) session.getNamedQuery("Checksum.findByChecksum")
-                .setParameter("checksum", hash)
-                //Retrieve from cache if there
-                .setCacheable(true)
-                .uniqueResult();
-        }
-        catch (HibernateException e) {
-            log.error("Hibernate exception: " + e.toString());
-            throw e;
-        }
-        return c;
-    }
-
-    /**
-     * Lookup a checksum type by its label
-     * @param label the checksum type to search for
-     * @return the ChecksumType or null if none match
-     */
-    public static ChecksumType lookupChecksumTypeByLabel(String label) {
-        if (label == null) {
-            return null;
-        }
-        Session session = null;
-        ChecksumType ct = null;
-        try {
-            session = HibernateFactory.getSession();
-            ct = (ChecksumType) session.getNamedQuery("ChecksumType.findByLabel")
-                .setParameter("label", label)
-                //Retrieve from cache if there
-                .setCacheable(true)
-                .uniqueResult();
-        }
-        catch (HibernateException e) {
-            log.error("Hibernate exception: " + e.toString());
-            throw e;
-        }
-        return ct;
-    }
-
    /**
      * Lookup a checksum and if not exists, it is created.
      * @param hash to lookup Checksum for
@@ -139,27 +87,12 @@ public class ChecksumFactory extends HibernateFactory {
     }
 
     /**
-     * Saves a checksum to the database
-     * @param checksumIn The Checksum to save.
-     */
-    public static void save(Checksum checksumIn) {
-        safeCreate(checksumIn.getChecksum(), checksumIn.getChecksumType().getLabel());
-    }
-
-    /**
      * {@inheritDoc}
      */
     protected Logger getLogger() {
         return log;
     }
 
-    /**
-     * Delete a checksum
-     * @param checksum to delete
-     */
-    public static void removeChecksum(Checksum checksum) {
-        singleton.removeObject(checksum);
 
-    }
 
 }

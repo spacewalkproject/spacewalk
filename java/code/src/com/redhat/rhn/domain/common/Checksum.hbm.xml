@@ -22,7 +22,5 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     <query name="Checksum.findById">
         <![CDATA[from com.redhat.rhn.domain.common.Checksum as t where t.id = :id]]>
     </query>
-    <query name="Checksum.findByChecksum">
-        <![CDATA[from com.redhat.rhn.domain.common.Checksum as t where t.checksum = :checksum]]>
-    </query>
+
 </hibernate-mapping>
