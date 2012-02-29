@@ -1,7 +1,6 @@
 -- oracle equivalent source sha1 007c497a31ad8fe3716d393fd154ad753dcdb41a
--- retrieved from ./1241057068/d2f16725f65bddae85cd4782cd82e0c84c0a776d/schema/spacewalk/oracle/procs/lookup_source_name.sql
 --
--- Copyright (c) 2008--2010 Red Hat, Inc.
+-- Copyright (c) 2008--2012 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -13,29 +12,35 @@
 -- Red Hat trademarks are not licensed under GPLv2. No permission is
 -- granted to use or replicate Red Hat trademarks that are incorporated
 -- in this software or its documentation. 
---
---
---
---
 
-CREATE OR REPLACE FUNCTION
-LOOKUP_SOURCE_NAME(name_in IN VARCHAR)
-RETURNS NUMERIC
-AS
+create or replace function
+lookup_source_name(name_in in varchar)
+returns numeric
+as
 $$
-DECLARE
-        source_id       NUMERIC;
-BEGIN
-        select  id into source_id
-        from    rhnSourceRPM
-        where   name = name_in;
+declare
+    source_id   numeric;
+begin
+    select id
+      into source_id
+      from rhnSourceRPM
+     where name = name_in;
 
-	IF NOT FOUND THEN
-		insert into rhnSourceRPM(id, name) values (nextval('rhn_sourcerpm_id_seq'), name_in);
-		source_id := currval('rhn_sourcerpm_id_seq');
-	END IF;
-        
-        RETURN source_id;
-END;
+    if not found then
+        source_id := nextval('rhn_sourcerpm_id_seq');
+        begin
+            perform pg_dblink_exec(
+                'insert into rhnSourceRPM(id, name) values (' ||
+                source_id || ', ' || coalesce(quote_literal(name_in), 'NULL') || ')');
+        exception when unique_violation then
+            select id
+              into strict source_id
+              from rhnSourceRPM
+             where name = name_in;
+        end;
+    end if;
+
+    return source_id;
+end;
 $$
-LANGUAGE PLPGSQL;
+language plpgsql immutable;
