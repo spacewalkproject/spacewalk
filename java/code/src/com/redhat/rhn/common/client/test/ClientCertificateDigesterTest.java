@@ -23,16 +23,6 @@ import java.io.StringReader;
 
 public class ClientCertificateDigesterTest extends RhnBaseTestCase {
 
-    public void testBuildSystemId() throws Exception {
-        ClientCertificate cert = ClientCertificateDigester.buildCertificate(
-                    TestUtils.findTestData("systemid.xml"));
-
-        assertNotNull("SystemId is null", cert);
-
-        // hardcoded key from test system
-        cert.validate("3050cf46ac0417297e2dd964fdaac1ae");
-    }
-
     public void testBuildSystemIdStream() throws Exception {
         ClientCertificate cert = ClientCertificateDigester.buildCertificate(
                     TestUtils.findTestData("systemid.xml").openStream());
@@ -57,7 +47,7 @@ public class ClientCertificateDigesterTest extends RhnBaseTestCase {
 
     public void testGetValueByName() throws Exception {
         ClientCertificate cert = ClientCertificateDigester.buildCertificate(
-                TestUtils.findTestData("systemid.xml"));
+                TestUtils.findTestData("systemid.xml").openStream());
 
         assertEquals("4AS", cert.getValueByName("os_release"));
         assertEquals("8c9a5c69ea45c9fc850058e9fd457e59",
@@ -81,7 +71,7 @@ public class ClientCertificateDigesterTest extends RhnBaseTestCase {
 
     public void testGetValuesByName() throws Exception {
         ClientCertificate cert = ClientCertificateDigester.buildCertificate(
-                TestUtils.findTestData("systemid.xml"));
+                TestUtils.findTestData("systemid.xml").openStream());
 
         assertEquals("4AS", cert.getValuesByName("os_release")[0]);
         assertEquals("8c9a5c69ea45c9fc850058e9fd457e59",

@@ -20,7 +20,6 @@ import org.xml.sax.SAXException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
-import java.net.URL;
 import java.util.ArrayList;
 
 /**
@@ -48,24 +47,6 @@ public class ClientCertificateDigester {
         digester.addSetNext("*/param/value/struct/member/value/array",
                 "setValues");
         digester.addSetNext("*/param/value/struct/member", "addMember");
-    }
-
-    /**
-     * Creates a ClientCertificate from the given URL.
-     * @param url to client certificate
-     * @return a ClientCertificate
-     * @throws IOException thrown if there is a problem reading the certificate.
-     * @throws SAXException thrown if there is a problem reading the certificate.
-     */
-    public static ClientCertificate buildCertificate(URL url)
-        throws IOException, SAXException {
-
-        if (url == null) {
-            throw new IllegalArgumentException("URL is null, your definition " +
-                    "tag probably points to a non existing file.");
-        }
-
-        return ClientCertificateDigester.buildCertificate(url.openStream());
     }
 
     /**
