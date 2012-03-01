@@ -1,0 +1,77 @@
+<rl:listset name="groupSet" legend="xccdf">
+	<rhn:csrf />
+
+	<rl:list emptykey="system.audit.listscap.jsp.noscans">
+
+		<rl:column headerkey="system.audit.listscap.jsp.testresult">
+			${current.testResult}
+		</rl:column>
+		<rl:column headerkey="system.audit.listscap.jsp.percentage">
+			<fmt:formatNumber maxFractionDigits="0"
+				value="${current.pass * 100 / (current.sum - current.notselected - current.informational)}"/>
+			%
+		</rl:column>
+		<rl:column headerkey="system.audit.listscap.jsp.pass.abb">
+			<c:choose>
+				<c:when test="${empty current.pass}">0</c:when>
+				<c:otherwise>${current.pass}</c:otherwise>
+			</c:choose>
+		</rl:column>
+		<rl:column headerkey="system.audit.listscap.jsp.fail.abb">
+			<c:choose>
+				<c:when test="${empty current.fail}">0</c:when>
+				<c:otherwise>${current.fail}</c:otherwise>
+			</c:choose>
+		</rl:column>
+		<rl:column headerkey="system.audit.listscap.jsp.error.abb">
+			<c:choose>
+				<c:when test="${empty current.error}">0</c:when>
+				<c:otherwise>${current.error}</c:otherwise>
+			</c:choose>
+		</rl:column>
+		<rl:column headerkey="system.audit.listscap.jsp.unknown.abb">
+			<c:choose>
+				<c:when test="${empty current.unknown}">0</c:when>
+				<c:otherwise>${current.unknown}</c:otherwise>
+			</c:choose>
+		</rl:column>
+		<rl:column headerkey="system.audit.listscap.jsp.notapplicable.abb">
+			<c:choose>
+				<c:when test="${empty current.notapplicable}">0</c:when>
+				<c:otherwise>${current.notapplicable}</c:otherwise>
+			</c:choose>
+		</rl:column>
+		<rl:column headerkey="system.audit.listscap.jsp.notchecked.abb">
+			<c:choose>
+				<c:when test="${empty current.notchecked}">0</c:when>
+				<c:otherwise>${current.notchecked}</c:otherwise>
+			</c:choose>
+		</rl:column>
+		<rl:column headerkey="system.audit.listscap.jsp.notselected.abb">
+			<c:choose>
+				<c:when test="${empty current.notselected}">0</c:when>
+				<c:otherwise>${current.notselected}</c:otherwise>
+			</c:choose>
+		</rl:column>
+		<rl:column headerkey="system.audit.listscap.jsp.informational.abb">
+			<c:choose>
+				<c:when test="${empty current.informational}">0</c:when>
+				<c:otherwise>${current.informational}</c:otherwise>
+			</c:choose>
+		</rl:column>
+		<rl:column headerkey="system.audit.listscap.jsp.fixed.abb">
+			<c:choose>
+				<c:when test="${empty current.fixed}">0</c:when>
+				<c:otherwise>${current.fixed}</c:otherwise>
+			</c:choose>
+		</rl:column>
+		<rl:column headerkey="system.audit.listscap.jsp.total">
+			<c:choose>
+				<c:when test="${empty current.sum}">0</c:when>
+				<c:otherwise>${current.sum}</c:otherwise>
+			</c:choose>
+		</rl:column>
+	</rl:list>
+</rl:listset>
+
+<rhn:tooltip><bean:message key="system.audit.listscap.jsp.tooltip"/></rhn:tooltip>

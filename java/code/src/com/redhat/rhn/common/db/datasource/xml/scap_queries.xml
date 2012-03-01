@@ -1,0 +1,28 @@
+<datasource_modes>
+
+<mode name="system_scap_enabled_check">
+  <query params="user_id, sid">
+  SELECT count(cc.server_id) as count
+      FROM rhnClientCapability CC
+          INNER JOIN rhnClientCapabilityName ccn on cc.capability_name_id = ccn.id
+          INNER JOIN rhnUserServerPerms usp on cc.server_id = usp.server_id
+      WHERE usp.user_id = :user_id
+          AND cc.server_id = :sid
+          AND ccn.name LIKE 'scap%'
+  </query>
+</mode>
+
+<mode name="show_system_scans">
+  <query params="sid">
+  SELECT tr.id, tr.identifier as test_result, rrt.label, count(rr.*)
+      FROM rhnXccdfTestresult tr, rhnXccdfRuleresult rr,
+          rhnXccdfRuleresultType rrt
+      WHERE tr.server_id = :sid
+          AND tr.id = rr.testresult_id
+          AND rr.result_id = rrt.id
+      GROUP BY tr.id, tr.identifier, rrt.label
+      ORDER BY tr.id DESC
+  </query>
+</mode>
+
+</datasource_modes>

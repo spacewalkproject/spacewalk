@@ -180,6 +180,13 @@
     <rhn-tab name="Provisioning" url="/rhn/systems/details/virtualization/ProvisionVirtualizationWizard.do"/>
   </rhn-tab>
 
+  <rhn-tab name="Audit">
+    <rhn-tab-url>/rhn/systems/details/audit/ListScap.do</rhn-tab-url>
+    <rhn-tab name="nav.system.audit.list_scans">
+      <rhn-tab-url>/rhn/systems/details/audit/ListScap.do</rhn-tab-url>
+    </rhn-tab>
+  </rhn-tab>
+
   <rhn-tab name="Events">
     <rhn-tab-url>/network/systems/details/history/pending.pxt</rhn-tab-url>
     <rhn-tab name="Pending">
