@@ -22,7 +22,8 @@ create_new_org                  :: web_customer rhnUserGroupType rhnUserGroup
 create_new_user                 :: web_contact web_user_contact_permission \
                                    web_user_personal_info web_user_site_info \
                                    rhnUserInfo
-create_pxt_session              :: PXTSessions
+create_pxt_session              :: pg_dblink_exec \
+                                   PXTSessions
 delete_server                   :: rhn_channel.pks rhn_config.pks \
                                    rhn_config.pks rhn_server.pks rhn_entitlements.pks \
                                    rhn_server.pks \

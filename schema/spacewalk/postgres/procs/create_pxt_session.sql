@@ -24,10 +24,12 @@ returns numeric as $$
 declare
 	l_id numeric;
 begin
-	select nextval( 'pxt_id_seq' ) into l_id;
+    l_id := nextval( 'pxt_id_seq' );
 
-	insert into PXTSessions (id, value, expires, web_user_id)
-	values (l_id, p_value, p_expires, p_web_user_id);
+    perform pg_dblink_exec(
+        'insert into PXTSessions (id, value, expires, web_user_id) values (' ||
+        l_id || ', ' || ', ' || coalesce(quote_literal(p_value), 'NULL') ||
+        ', ' || ', ' || p_expires || ', ' || p_web_user_id || '); commit');
 
 	return l_id;
 end;
