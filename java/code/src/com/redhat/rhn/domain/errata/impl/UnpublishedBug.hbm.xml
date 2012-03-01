@@ -12,8 +12,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
             <key-property name="id" column="bug_id" type="long"/>
         </composite-id>
 
-        <property name="summary" column="summary" type="string" length="4000"
-            not-null="true"/>
+        <property name="summary" column="summary" type="string" length="4000"/>
         <property name="url" column="href" type="string" length="255" />
         <property name="created" column="created" type="timestamp"
             insert="false" update="false"/>
