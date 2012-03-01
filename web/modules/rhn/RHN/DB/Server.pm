@@ -598,7 +598,7 @@ sub delete_server {
   my $sth;
 
   eval {
-    $dbh->call_procedure('delete_server', $self->id);
+    $dbh->call_function('delete_server', $self->id);
     $dbh->commit;
   };
 
@@ -1452,7 +1452,7 @@ sub can_entitle_server {
   my $can = 0;
 
   eval {
-    $can = $dbh->call_function('rhn_entitlements.can_entitle_server', $sid, $entitlement);
+    $can = $dbh->call_procedure('rhn_entitlements.can_entitle_server', $sid, $entitlement);
   };
 
   if ($@) {
@@ -1482,7 +1482,7 @@ sub entitle_server {
   }
 
   my $dbh = RHN::DB->connect;
-  $dbh->call_function('rhn_entitlements.entitle_server', $sid, $label);
+  $dbh->call_procedure('rhn_entitlements.entitle_server', $sid, $label);
 
   return;
 }
@@ -1695,7 +1695,7 @@ sub add_servers_to_groups {
 
   for my $server (@servers) {
     for my $group (@groups) {
-      $dbh->call_procedure('rhn_server.insert_into_servergroup_maybe', $server, $group);
+      $dbh->call_function('rhn_server.insert_into_servergroup_maybe', $server, $group);
     }
   }
 
@@ -1727,7 +1727,7 @@ sub remove_servers_from_groups {
 
   for my $server (@servers) {
     for my $group (@groups) {
-      $dbh->call_procedure('rhn_server.delete_from_servergroup', $server, $group);
+      $dbh->call_function('rhn_server.delete_from_servergroup', $server, $group);
     }
   }
       
