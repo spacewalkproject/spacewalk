@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.7.53
+Version:        1.7.54
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -69,6 +69,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Thu Mar 01 2012 Milan Zazrivec <mzazrivec@redhat.com> 1.7.54-1
+- use pg_dblink_exec to execute insert inside create_pxt_session
+
 * Thu Mar 01 2012 Jan Pazdziora 1.7.53-1
 - On Fedora 16, we need to CREATE EXTENSION dblink.
 
