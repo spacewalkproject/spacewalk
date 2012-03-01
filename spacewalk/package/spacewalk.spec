@@ -132,7 +132,7 @@ Requires: spacewalk-java-postgresql
 Requires: perl(DBD::Pg)
 Requires: spacewalk-backend-sql-postgresql
 Requires: /usr/bin/psql
-Requires: /usr/share/pgsql/contrib/dblink.sql
+Requires: postgresql-contrib
 
 %description postgresql
 Spacewalk is a systems management application that will 
