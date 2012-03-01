@@ -126,14 +126,14 @@ do
     make -C osa-dispatcher-selinux NAME=${selinuxvariant} -f /usr/share/selinux/devel/Makefile clean
 done
 %endif
-mkdir -p %{buildroot}%{_var}/log/rhn
-touch %{buildroot}%{_var}/log/osad
-touch %{buildroot}%{_var}/log/rhn/osa-dispatcher.log
 
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{rhnroot}
 make -f Makefile.osad install PREFIX=$RPM_BUILD_ROOT ROOT=%{rhnroot} INITDIR=%{_initrddir}
+mkdir -p %{buildroot}%{_var}/log/rhn
+touch %{buildroot}%{_var}/log/osad
+touch %{buildroot}%{_var}/log/rhn/osa-dispatcher.log
 
 %if 0%{?include_selinux_package}
 for selinuxvariant in %{selinux_variants}
