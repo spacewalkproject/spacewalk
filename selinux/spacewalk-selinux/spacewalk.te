@@ -94,3 +94,11 @@ optional_policy(`
 # rpm_dontaudit_search_db(httpd_t) is not available on RHELs
 dontaudit httpd_t rpm_var_lib_t:dir list_dir_perms;
 dontaudit httpd_t rpm_var_lib_t:file read_file_perms;
+
+# Allow PostgreSQL to use dblink
+optional_policy(`
+        gen_require(`
+                type postgresql_t;
+        ')
+        allow postgresql_t self:unix_stream_socket { connectto };
+')
