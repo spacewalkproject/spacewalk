@@ -14,27 +14,35 @@
 -- in this software or its documentation.
 --
 
-CREATE OR REPLACE FUNCTION
-lookup_xccdf_profile(identifier_in IN VARCHAR, title_in IN VARCHAR)
-RETURNS NUMERIC
-AS
+create or replace function
+lookup_xccdf_profile(identifier_in in varchar, title_in in varchar)
+returns numeric
+as
 $$
-DECLARE
-    profile_id NUMERIC;
-BEGIN
-    SELECT id
-        INTO profile_id
-        FROM rhnXccdfProfile
-        WHERE identifier = identifier_in
-            AND title = title_in;
+declare
+    profile_id numeric;
+begin
+    select id
+      into profile_id
+      from rhnXccdfProfile
+     where identifier = identifier_in and title = title_in;
 
-    IF NOT FOUND THEN
-        INSERT INTO rhnXccdfProfile (id, identifier, title)
-            VALUES (nextval('rhn_xccdf_profile_id_seq'),
-                identifier_in, title_in)
-            RETURNING id INTO profile_id;
-    END IF;
+    if not found then
+        profile_id := nextval('rhn_xccdf_profile_id_seq');
+        begin
+            perform pg_dblink_exec(
+                'insert into rhnXccdfProfile (id, identifier, title) values (' ||
+                profile_id || ', ' ||
+                coalesce(quote_literal(identifier_in), 'NULL') || ', ' ||
+                coalesce(quote_literal(title_in), 'NULL') || ')' );
+        exception when unique_violation then
+            select id
+              into profile_id
+              from rhnXccdfProfile
+             where identifier = identifier_in and title = title_in;
+        end;
+    end if;
 
-    RETURN profile_id;
-END;
-$$ LANGUAGE PLPGSQL;
+    return profile_id;
+end;
+$$ language plpgsql;

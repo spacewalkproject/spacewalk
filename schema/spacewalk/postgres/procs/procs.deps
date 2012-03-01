@@ -108,6 +108,8 @@ lookup_xccdf_benchmark          :: rhnXccdfBenchmark pg_dblink_exec
 lookup_xccdf_ident              :: rhnXccdfIdentSystem \
                                    rhnXccdfIdent \
                                    pg_dblink_exec
+lookup_xccdf_profile            :: rhnXccdfProfile \
+                                   pg_dblink_exec
 pxt_session_cleanup             :: PXTSessions
 queue_server                    :: rhnServerNeededPackageCache rhnTaskQueue \
                                    rhnServer \
