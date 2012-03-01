@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.7.49
+Version: 1.7.50
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -585,6 +585,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Mar 01 2012 Tomas Lestach <tlestach@redhat.com> 1.7.50-1
+- do not check removed acl (tlestach@redhat.com)
+- remove hibernate not-null constraint on bug.summary (tlestach@redhat.com)
+
 * Wed Feb 29 2012 Tomas Lestach <tlestach@redhat.com> 1.7.49-1
 - remove unused method and appropriate query (tlestach@redhat.com)
 - remove unused method and appropriate query (tlestach@redhat.com)
