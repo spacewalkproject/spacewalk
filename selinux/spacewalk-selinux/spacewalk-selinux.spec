@@ -7,7 +7,7 @@
 %define modulename spacewalk
 
 Name:           spacewalk-selinux
-Version:        1.7.1
+Version:        1.7.2
 Release:        1%{?dist}
 Summary:        SELinux policy module supporting Spacewalk Server
 
@@ -113,6 +113,9 @@ fi
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
+* Thu Mar 01 2012 Jan Pazdziora 1.7.2-1
+- Allow PostgreSQL to use dblink.
+
 * Tue Feb 14 2012 Tomas Lestach <tlestach@redhat.com> 1.7.1-1
 - rename rhn-installation.log to rhn_installation.log (tlestach@redhat.com)
 - Bumping package versions for 1.7. (mzazrivec@redhat.com)
