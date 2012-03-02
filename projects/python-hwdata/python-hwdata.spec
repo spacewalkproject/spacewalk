@@ -25,12 +25,11 @@ It allows you to get human readable description of USB and PCI devices.
 
 
 %build
-#nothing to do here
+%{__python} setup.py build
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT/%{python_sitelib}
-install -p -m 644 hwdata.py $RPM_BUILD_ROOT/%{python_sitelib}
+%{__python} setup.py install --prefix=%{_prefix} --root=%{buildroot}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
