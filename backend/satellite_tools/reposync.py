@@ -80,7 +80,7 @@ class RepoSync(object):
                                        rhnChannelContentSource cs
                                  where s.id = cs.source_id
                                    and cs.channel_id = :channel_id""")
-            h.execute(channel_id=self.channel['id'])
+            h.execute(channel_id=int(self.channel['id']))
             source_data = h.fetchall_dict()
             if source_data:
                 self.urls = [(row['id'], row['source_url']) for row in source_data]
@@ -176,7 +176,7 @@ class RepoSync(object):
                              'version'       : pkg['version'],
                              'release'       : pkg['release'],
                              'arch'          : pkg['arch'],
-                             'channel_id'    : self.channel['id'],
+                             'channel_id'    : int(self.channel['id']),
                              }
                 if pkg['epoch'] is None or pkg['epoch'] == '':
                     epochStatement = "is NULL"
@@ -307,10 +307,11 @@ class RepoSync(object):
         self.print_msg("Packages in repo:             %5d" % plug.num_packages)
         if plug.num_excluded:
             self.print_msg("Packages passed filter rules: %5d" % num_passed)
+        channel_id = int(self.channel['id'])
         for pack in packages:
             db_pack = rhnPackage.get_info_for_package(
                    [pack.name, pack.version, pack.release, pack.epoch, pack.arch],
-                   self.channel['id'])
+                   channel_id)
 
             to_download = True
             to_link     = True
@@ -320,10 +321,10 @@ class RepoSync(object):
                                 pack.checksum_type, pack.checksum):
                     # package is already on disk
                     to_download = False
-                    if db_pack['channel_id'] == self.channel['id']:
+                    if db_pack['channel_id'] == channel_id:
                         # package is already in the channel
                         to_link = False
-                elif db_pack['channel_id'] == self.channel['id']:
+                elif db_pack['channel_id'] == channel_id:
 		    # different package with SAME NVREA
                     self.disassociate_package(db_pack)
 
