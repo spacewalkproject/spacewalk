@@ -7,7 +7,7 @@
 %define modulename spacewalk-monitoring
 
 Name:           spacewalk-monitoring-selinux
-Version:        1.7.2
+Version:        1.8.0
 Release:        1%{?dist}
 Summary:        SELinux policy module supporting Spacewalk monitoring
 
