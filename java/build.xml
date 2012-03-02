@@ -700,7 +700,7 @@ delete from rhnChannel where label like 'ChannelLabel%';
       <fileset dir="${build.dir}/classes">
         <!-- internal is not for publication; tlds go in META-INF;
              html go as javadoc elsewhere -->
-        <include name="**/test/*" />
+        <include name="**/test/**" />
         <include name="**/*/testing/**" />
       </fileset>
 
