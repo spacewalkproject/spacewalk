@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2011 Red Hat, Inc.
+# Copyright (c) 2008--2012 Red Hat, Inc.
 # Copyright (c) 2010--2011 SUSE LINUX Products GmbH, Nuernberg, Germany.
 #
 # This software is licensed to you under the GNU General Public License,

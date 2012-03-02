@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2006--2011 Red Hat, Inc.  Distributed under GPL.
+# Copyright (c) 2006--2012 Red Hat, Inc.  Distributed under GPL.
 #
 # Author: Peter Vetere <pvetere@redhat.com>
 #

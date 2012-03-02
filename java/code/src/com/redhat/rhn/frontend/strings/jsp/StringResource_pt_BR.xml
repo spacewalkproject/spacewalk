@@ -1436,11 +1436,11 @@
       <target>{0} sistemas selecionados</target></trans-unit>
       <!-- footer.jsp -->
       <trans-unit id="footer.jsp.copyright">
-<source>Copyright &amp;#169; 2002-11 Red Hat, Inc. All rights reserved.</source>
+<source>Copyright &amp;#169; 2002--12 Red Hat, Inc. All rights reserved.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">./includes/footer.jsp</context>
         </context-group>
-      <target>Direitos Autorais &amp;#169; 2002-11 Red Hat, Inc. Todos os direitos reservados.</target></trans-unit>
+      <target>Direitos Autorais &amp;#169; 2002--12 Red Hat, Inc. Todos os direitos reservados.</target></trans-unit>
       <trans-unit id="footer.jsp.legalStatement">
 <source>Legal statement</source>
         <context-group name="ctx">

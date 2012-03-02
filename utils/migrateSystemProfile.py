@@ -5,7 +5,7 @@ Multi-Org: Script to migrate server from one org to another
 Script that connects to a given satellite db and migrates the
 server and its history from source org to the destination org.
 
-Copyright (c) 2008 Red Hat, Inc.  Distributed under GPL.
+Copyright (c) 2008--2012 Red Hat, Inc.  Distributed under GPL.
 Author: Pradeep Kilambi <pkilambi@redhat.com>
 
 # $Id: migrateSystemProfile.py 

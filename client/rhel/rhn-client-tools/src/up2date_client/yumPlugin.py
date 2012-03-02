@@ -1,5 +1,5 @@
 # Client code for enabling yum-rhn-plugin
-# Copyright (c) 2000--2011 Red Hat, Inc.
+# Copyright (c) 2000--2012 Red Hat, Inc.
 
 import os
 import re

@@ -1,6 +1,6 @@
 #
 # Common cli related functions for RHN Client Tools
-# Copyright (c) 1999--2010 Red Hat, Inc.
+# Copyright (c) 1999--2012 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -197,7 +197,7 @@ class RhnCli(object):
     @staticmethod
     def __versionString():
         versionString = _("%%prog (Red Hat Network Client Tools) %s\n"
-        "Copyright (C) 1999--2010 Red Hat, Inc.\n"
+        "Copyright (C) 1999--2012 Red Hat, Inc.\n"
         "Licensed under the terms of the GPLv2.") % up2dateUtils.version()
         return versionString
 

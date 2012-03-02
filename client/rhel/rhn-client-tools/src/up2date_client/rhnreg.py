@@ -1,6 +1,6 @@
 #
 # RHN Registration Client
-# Copyright (c) 2000--2011 Red Hat, Inc.
+# Copyright (c) 2000--2012 Red Hat, Inc.
 #
 # Authors:
 #     Adrian Likins <alikins@redhat.com>

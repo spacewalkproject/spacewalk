@@ -1,6 +1,6 @@
 -- oracle equivalent source sha1 559e892f7a81020c12bea5852dd563f43ddc2135
 --
--- Copyright (c) 2011 Red Hat, Inc.
+-- Copyright (c) 2011--2012 Red Hat, Inc.
 
 -- setup search_path so that these functions are created in appropriate schema.
 update pg_settings set setting = 'rhn_org,' || setting where name = 'search_path';

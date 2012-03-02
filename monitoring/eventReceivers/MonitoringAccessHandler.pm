@@ -1,6 +1,4 @@
-# (c) 2005, Red Hat, Inc
-# All rights reserved
-#
+# Copyright (c) 2005--2012 Red Hat, Inc.
 
 package NOCpulse::MonitoringAccessHandler;
 

@@ -2,7 +2,7 @@
 #
 # Clonse channels by a particular date
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2012 Red Hat, Inc.
 #
 #
 # This software is licensed to you under the GNU General Public License,

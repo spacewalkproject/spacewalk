@@ -5,7 +5,7 @@ Delete Snapshots: Script to delete system snapshots.
 This script using the XMLRPC APIs will connect to the Satellite and
 list or delete system snapshots based on the parameters given by the user.
 
-Copyright (c) 2009 Red Hat, Inc.  Distributed under GPL.
+Copyright (c) 2009--2012 Red Hat, Inc.  Distributed under GPL.
 Author: Brad Buckingham <bbuckingham@redhat.com>
 
 # $Id: systemSnapshot.py

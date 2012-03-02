@@ -1,6 +1,6 @@
 -- oracle equivalent source sha1 65d5cf349f96759bbaddc9b52807d2216a6c6b91
 --
--- Copyright (c) 2011 Red Hat, Inc.
+-- Copyright (c) 2011--2012 Red Hat, Inc.
 
 --update pg_setting
 update pg_settings set setting = 'rhn_channel,' || setting where name = 'search_path';

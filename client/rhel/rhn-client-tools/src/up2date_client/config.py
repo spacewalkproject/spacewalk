@@ -1,5 +1,5 @@
 # This file is a portion of the Red Hat Update Agent
-# Copyright (c) 1999 - 2002 Red Hat, Inc.  Distributed under GPL
+# Copyright (c) 1999--2012 Red Hat, Inc.  Distributed under GPL
 #
 # Authors:
 #       Cristian Gafton <gafton@redhat.com>

@@ -1436,11 +1436,11 @@
       <target>{0} கணினிகள் தேர்வு செய்யப்பட்டன</target></trans-unit>
       <!-- footer.jsp -->
       <trans-unit id="footer.jsp.copyright">
-<source>Copyright &amp;#169; 2002-11 Red Hat, Inc. All rights reserved.</source>
+<source>Copyright &amp;#169; 2002--12 Red Hat, Inc. All rights reserved.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">./includes/footer.jsp</context>
         </context-group>
-      <target>பதிப்புரிமை &amp;#169; 2002-11 Red Hat, Inc. அனைத்து உரிமைகளும் உள்ளடக்கியது.</target></trans-unit>
+      <target>பதிப்புரிமை &amp;#169; 2002--12 Red Hat, Inc. அனைத்து உரிமைகளும் உள்ளடக்கியது.</target></trans-unit>
       <trans-unit id="footer.jsp.legalStatement">
 <source>Legal statement</source>
         <context-group name="ctx">
