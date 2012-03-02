@@ -6,20 +6,20 @@ changelog_do_not_remove_cherrypick = 0
 lib_dir = rel-eng/lib
 
 [koji]
-autobuild_tags = dist-5E-sw-1.7-candidate dist-6E-sw-1.7-candidate dist-f15-sw-1.7-candidate dist-f16-sw-1.7-candidate
+autobuild_tags = dist-5E-sw-1.8-candidate dist-6E-sw-1.8-candidate dist-f15-sw-1.8-candidate dist-f16-sw-1.8-candidate
 
-[dist-5E-sw-1.7-candidate]
+[dist-5E-sw-1.8-candidate]
 disttag = .el5
 blacklist=oracle-server-admin oracle-server-scripts rhnclient smartpm spacewalk-jpp-workaround apt-spacewalk python-hwdata spacewalk-oro-compat
 
-[dist-6E-sw-1.7-candidate]
+[dist-6E-sw-1.8-candidate]
 disttag = .el6
 blacklist=oracle-server-admin oracle-server-scripts rhnclient smartpm heirloom-pkgtools jabberd-selinux apt-spacewalk python-hwdata spacewalk-oro-compat
 
-[dist-f15-sw-1.7-candidate]
+[dist-f15-sw-1.8-candidate]
 disttag = .fc15
 blacklist=jabberd-selinux oracle-server-admin oracle-server-scripts rhnclient smartpm apt-spacewalk python-hwdata heirloom-pkgtools oracle-rhnsat-selinux spacewalk-oro-compat
 
-[dist-f16-sw-1.7-candidate]
+[dist-f16-sw-1.8-candidate]
 disttag = .fc16
 blacklist=jabberd-selinux oracle-server-admin oracle-server-scripts rhnclient smartpm apt-spacewalk python-hwdata heirloom-pkgtools oracle-rhnsat-selinux
