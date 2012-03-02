@@ -98,6 +98,9 @@ rm -rf $RPM_BUILD_ROOT
 %config %{_sysconfdir}/yum.repos.d/spacewalk-client-nightly.repo
 
 %changelog
+* Fri Mar 02 2012 Jan Pazdziora 1.8-1
+- Bumping package versions for 1.8.
+
 * Fri Mar 02 2012 Jan Pazdziora 1.7-5
 - Start signing with new gpg key.
 - Add separate -nightly.repo definitions for nightly Spacewalk repos.
