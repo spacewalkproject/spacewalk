@@ -68,17 +68,18 @@ public class KickstartableTreeTest extends BaseTestCaseWithUser {
     }
 
     public static void createKickstartTreeItems(KickstartableTree tree) throws Exception {
-        createDirIfNotExists(new File(tree.getKernelPath()).getParentFile());
+        createDirIfNotExists(new File(tree.getDefaultKernelPath()).getParentFile());
         createDirIfNotExists(new File(tree.getKernelXenPath()).getParentFile());
 
-        FileUtils.writeStringToFile("kernel", tree.getKernelPath());
+        FileUtils.writeStringToFile("kernel", tree.getDefaultKernelPath());
         FileUtils.writeStringToFile("kernel-xen", tree.getKernelXenPath());
 
-        createDirIfNotExists(new File(tree.getInitrdPath()).getParentFile());
+
+        createDirIfNotExists(new File(tree.getDefaultInitrdPath()[0]).getParentFile());
         createDirIfNotExists(new File(tree.getInitrdXenPath()).getParentFile());
 
-        FileUtils.writeStringToFile("initrd", tree.getInitrdPath());
         FileUtils.writeStringToFile("initrd-xen", tree.getInitrdXenPath());
+        FileUtils.writeStringToFile("initrd", tree.getDefaultInitrdPath()[0]);
     }
 
     public void testKickstartableTree() throws Exception {
@@ -202,9 +203,11 @@ public class KickstartableTreeTest extends BaseTestCaseWithUser {
         createKickstartTreeItems(k);
 
         Distro d = Distro.create(CobblerXMLRPCHelper.getConnection("test"),
-                k.getLabel(), k.getKernelPath(), k.getInitrdPath(), new HashMap());
+                k.getLabel(), k.getDefaultKernelPath(), k.getDefaultInitrdPath()[0],
+                new HashMap());
         Distro xend = Distro.create(CobblerXMLRPCHelper.getConnection("test"),
-                k.getLabel(), k.getKernelPath(), k.getInitrdPath(), new HashMap());
+                k.getLabel(), k.getDefaultKernelPath(), k.getDefaultInitrdPath()[0],
+                new HashMap());
 
         k.setCobblerId(d.getUid());
         k.setCobblerXenId(xend.getUid());
