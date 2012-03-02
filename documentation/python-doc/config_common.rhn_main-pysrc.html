@@ -54,7 +54,7 @@
 <h1 class="epydoc">Source Code for <a href="config_common.rhn_main-module.html">Module config_common.rhn_main</a></h1>
 <pre class="py-src">
 <a name="L1"></a><tt class="py-lineno">  1</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
-<a name="L2"></a><tt class="py-lineno">  2</tt>  <tt class="py-line"><tt class="py-comment"># Copyright (c) 2008--2010 Red Hat, Inc.</tt> </tt>
+<a name="L2"></a><tt class="py-lineno">  2</tt>  <tt class="py-line"><tt class="py-comment"># Copyright (c) 2008--2011 Red Hat, Inc.</tt> </tt>
 <a name="L3"></a><tt class="py-lineno">  3</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
 <a name="L4"></a><tt class="py-lineno">  4</tt>  <tt class="py-line"><tt class="py-comment"># This software is licensed to you under the GNU General Public License,</tt> </tt>
 <a name="L5"></a><tt class="py-lineno">  5</tt>  <tt class="py-line"><tt class="py-comment"># version 2 (GPLv2). There is NO WARRANTY for this software, express or</tt> </tt>
@@ -159,23 +159,20 @@ src.rhn_log.Logger.debug_level" class="py-name" href="#" onclick="return doclink
 <a name="L83"></a><tt class="py-lineno"> 83</tt>  <tt class="py-line">                <tt class="py-name">mode</tt> <tt class="py-op">=</tt> <tt class="py-name">arg</tt> </tt>
 <a name="L84"></a><tt class="py-lineno"> 84</tt>  <tt class="py-line">                <tt class="py-keyword">if</tt> <tt class="py-name">mode</tt> <tt class="py-op">==</tt> <tt class="py-string">''</tt><tt class="py-op">:</tt> </tt>
 <a name="L85"></a><tt class="py-lineno"> 85</tt>  <tt class="py-line">                    <tt class="py-comment"># Bad</tt> </tt>
-<a name="L86"></a><tt class="py-lineno"> 86</tt>  <tt class="py-line">                    <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-18" class="py-name" targets="Method config_common.handler_base.HandlerBase.usage()=config_common.handler_base.HandlerBase-class.html#usage,Method config_common.rhn_main.BaseMain.usage()=config_common.rhn_main.BaseMain-class.html#usage,Function pygettext.usage()=pygettext-module.html#usage"><a title="config_common.handler_base.HandlerBase.usage
-config_common.rhn_main.BaseMain.usage
-pygettext.usage" class="py-name" href="#" onclick="return doclink('link-18', 'usage', 'link-18');">usage</a></tt><tt class="py-op">(</tt><tt class="py-number">1</tt><tt class="py-op">)</tt> </tt>
+<a name="L86"></a><tt class="py-lineno"> 86</tt>  <tt class="py-line">                    <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-18" class="py-name" targets="Method config_common.handler_base.HandlerBase.usage()=config_common.handler_base.HandlerBase-class.html#usage,Method config_common.rhn_main.BaseMain.usage()=config_common.rhn_main.BaseMain-class.html#usage"><a title="config_common.handler_base.HandlerBase.usage
+config_common.rhn_main.BaseMain.usage" class="py-name" href="#" onclick="return doclink('link-18', 'usage', 'link-18');">usage</a></tt><tt class="py-op">(</tt><tt class="py-number">1</tt><tt class="py-op">)</tt> </tt>
 <a name="L87"></a><tt class="py-lineno"> 87</tt>  <tt class="py-line"> </tt>
 <a name="L88"></a><tt class="py-lineno"> 88</tt>  <tt class="py-line">                <tt class="py-keyword">if</tt> <tt class="py-name">mode</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">]</tt> <tt class="py-op">==</tt> <tt class="py-string">'-'</tt><tt class="py-op">:</tt> </tt>
 <a name="L89"></a><tt class="py-lineno"> 89</tt>  <tt class="py-line">                    <tt class="py-comment"># Mode can't be an option</tt> </tt>
 <a name="L90"></a><tt class="py-lineno"> 90</tt>  <tt class="py-line">                    <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-19" class="py-name"><a title="config_common.handler_base.HandlerBase.usage
-config_common.rhn_main.BaseMain.usage
-pygettext.usage" class="py-name" href="#" onclick="return doclink('link-19', 'usage', 'link-18');">usage</a></tt><tt class="py-op">(</tt><tt class="py-number">1</tt><tt class="py-op">)</tt> </tt>
+config_common.rhn_main.BaseMain.usage" class="py-name" href="#" onclick="return doclink('link-19', 'usage', 'link-18');">usage</a></tt><tt class="py-op">(</tt><tt class="py-number">1</tt><tt class="py-op">)</tt> </tt>
 <a name="L91"></a><tt class="py-lineno"> 91</tt>  <tt class="py-line"> </tt>
 <a name="L92"></a><tt class="py-lineno"> 92</tt>  <tt class="py-line">                <tt class="py-keyword">if</tt> <tt class="py-name">mode</tt> <tt class="py-keyword">not</tt> <tt class="py-keyword">in</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-20" class="py-name"><a title="config_common.rhn_main.BaseMain.modes
 script-rhncfg_client_py.Main.modes
 script-rhncfg_manager_py.Main.modes" class="py-name" href="#" onclick="return doclink('link-20', 'modes', 'link-11');">modes</a></tt><tt class="py-op">:</tt> </tt>
 <a name="L93"></a><tt class="py-lineno"> 93</tt>  <tt class="py-line">                    <tt class="py-keyword">print</tt> <tt class="py-string">"Unknown mode %s"</tt> <tt class="py-op">%</tt> <tt class="py-name">mode</tt> </tt>
 <a name="L94"></a><tt class="py-lineno"> 94</tt>  <tt class="py-line">                    <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-21" class="py-name"><a title="config_common.handler_base.HandlerBase.usage
-config_common.rhn_main.BaseMain.usage
-pygettext.usage" class="py-name" href="#" onclick="return doclink('link-21', 'usage', 'link-18');">usage</a></tt><tt class="py-op">(</tt><tt class="py-number">1</tt><tt class="py-op">)</tt> </tt>
+config_common.rhn_main.BaseMain.usage" class="py-name" href="#" onclick="return doclink('link-21', 'usage', 'link-18');">usage</a></tt><tt class="py-op">(</tt><tt class="py-number">1</tt><tt class="py-op">)</tt> </tt>
 <a name="L95"></a><tt class="py-lineno"> 95</tt>  <tt class="py-line"> </tt>
 <a name="L96"></a><tt class="py-lineno"> 96</tt>  <tt class="py-line">                <tt class="py-keyword">continue</tt> </tt>
 <a name="L97"></a><tt class="py-lineno"> 97</tt>  <tt class="py-line"> </tt>
@@ -197,8 +194,7 @@ src.rhn_log.Logger.debug_level" class="py-name" href="#" onclick="return doclink
 <a name="L106"></a><tt class="py-lineno">106</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">mode</tt> <tt class="py-keyword">is</tt> <tt class="py-name">None</tt><tt class="py-op">:</tt> </tt>
 <a name="L107"></a><tt class="py-lineno">107</tt>  <tt class="py-line">            <tt class="py-comment"># No args were specified</tt> </tt>
 <a name="L108"></a><tt class="py-lineno">108</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-26" class="py-name"><a title="config_common.handler_base.HandlerBase.usage
-config_common.rhn_main.BaseMain.usage
-pygettext.usage" class="py-name" href="#" onclick="return doclink('link-26', 'usage', 'link-18');">usage</a></tt><tt class="py-op">(</tt><tt class="py-number">0</tt><tt class="py-op">)</tt> </tt>
+config_common.rhn_main.BaseMain.usage" class="py-name" href="#" onclick="return doclink('link-26', 'usage', 'link-18');">usage</a></tt><tt class="py-op">(</tt><tt class="py-number">0</tt><tt class="py-op">)</tt> </tt>
 <a name="L109"></a><tt class="py-lineno">109</tt>  <tt class="py-line"> </tt>
 <a name="L110"></a><tt class="py-lineno">110</tt>  <tt class="py-line">        <tt class="py-name">execname</tt> <tt class="py-op">=</tt> <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">path</tt><tt class="py-op">.</tt><tt class="py-name">basename</tt><tt class="py-op">(</tt><tt class="py-name">sys</tt><tt class="py-op">.</tt><tt class="py-name">argv</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> </tt>
 <a name="L111"></a><tt class="py-lineno">111</tt>  <tt class="py-line">        <tt class="py-comment"># Class names cannot have dot in them, so strip the extension</tt> </tt>
@@ -268,14 +264,14 @@ backend.upload_server.handlers.package_push.package_push.PackagePush.handler
 proxy.apacheHandler.apacheHandler.handler
 proxy.broker.rhnBroker.BrokerHandler.handler
 proxy.redirect.rhnRedirect.RedirectHandler.handler" class="py-name" href="#" onclick="return doclink('link-33', 'handler', 'link-31');">handler</a></tt><tt class="py-op">.</tt><tt id="link-34" class="py-name"><a title="config_common.handler_base.HandlerBase.usage
-config_common.rhn_main.BaseMain.usage
-pygettext.usage" class="py-name" href="#" onclick="return doclink('link-34', 'usage', 'link-18');">usage</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+config_common.rhn_main.BaseMain.usage" class="py-name" href="#" onclick="return doclink('link-34', 'usage', 'link-18');">usage</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
 <a name="L129"></a><tt class="py-lineno">129</tt>  <tt class="py-line">            <tt class="py-keyword">return</tt> <tt class="py-number">0</tt> </tt>
 <a name="L130"></a><tt class="py-lineno">130</tt>  <tt class="py-line"> </tt>
-<a name="L131"></a><tt class="py-lineno">131</tt>  <tt class="py-line">        <tt id="link-35" class="py-name" targets="Variable actions.reboot.cfg=actions.reboot-module.html#cfg,Variable actions.up2date_config.cfg=actions.up2date_config-module.html#cfg,Variable rhn_applet.cfg=rhn_applet-module.html#cfg,Variable rhn_check.cfg=rhn_check-module.html#cfg,Variable up2date_client.rhnreg.cfg=up2date_client.rhnreg-module.html#cfg,Variable up2date_client.rhnregGui.cfg=up2date_client.rhnregGui-module.html#cfg,Variable up2date_client.tui.cfg=up2date_client.tui-module.html#cfg"><a title="actions.reboot.cfg
+<a name="L131"></a><tt class="py-lineno">131</tt>  <tt class="py-line">        <tt id="link-35" class="py-name" targets="Variable actions.reboot.cfg=actions.reboot-module.html#cfg,Variable actions.up2date_config.cfg=actions.up2date_config-module.html#cfg,Variable rhn_applet.cfg=rhn_applet-module.html#cfg,Variable rhn_check.cfg=rhn_check-module.html#cfg,Variable up2date_client.config.cfg=up2date_client.config-module.html#cfg,Variable up2date_client.rhnreg.cfg=up2date_client.rhnreg-module.html#cfg,Variable up2date_client.rhnregGui.cfg=up2date_client.rhnregGui-module.html#cfg,Variable up2date_client.tui.cfg=up2date_client.tui-module.html#cfg"><a title="actions.reboot.cfg
 actions.up2date_config.cfg
 rhn_applet.cfg
 rhn_check.cfg
+up2date_client.config.cfg
 up2date_client.rhnreg.cfg
 up2date_client.rhnregGui.cfg
 up2date_client.tui.cfg" class="py-name" href="#" onclick="return doclink('link-35', 'cfg', 'link-35');">cfg</a></tt> <tt class="py-op">=</tt> <tt id="link-36" class="py-name"><a title="backend.server.action.rollback.config
@@ -284,17 +280,16 @@ backend.server.handlers.config
 backend.wsgi.config
 rhnkickstart.config
 up2date_client.config" class="py-name" href="#" onclick="return doclink('link-36', 'config', 'link-10');">config</a></tt><tt class="py-op">.</tt><tt id="link-37" class="py-name" targets="Function up2date_client.config.initUp2dateConfig()=up2date_client.config-module.html#initUp2dateConfig"><a title="up2date_client.config.initUp2dateConfig" class="py-name" href="#" onclick="return doclink('link-37', 'initUp2dateConfig', 'link-37');">initUp2dateConfig</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
-<a name="L132"></a><tt class="py-lineno">132</tt>  <tt class="py-line">        <tt class="py-name">up2date_cfg</tt> <tt class="py-op">=</tt> <tt id="link-38" class="py-name" targets="Method rhn.UserDictCase.UserDictCase.dict()=rhn.UserDictCase.UserDictCase-class.html#dict,Method rhn.UserDictCase.UserDictCase.dict()=rhn.UserDictCase.UserDictCase-class.html#dict,Method rhnkickstart.lilo.UserDictCase.dict()=rhnkickstart.lilo.UserDictCase-class.html#dict"><a title="rhn.UserDictCase.UserDictCase.dict
-rhn.UserDictCase.UserDictCase.dict
+<a name="L132"></a><tt class="py-lineno">132</tt>  <tt class="py-line">        <tt class="py-name">up2date_cfg</tt> <tt class="py-op">=</tt> <tt id="link-38" class="py-name" targets="Method rhn.UserDictCase.UserDictCase.dict()=rhn.UserDictCase.UserDictCase-class.html#dict,Method rhnkickstart.lilo.UserDictCase.dict()=rhnkickstart.lilo.UserDictCase-class.html#dict"><a title="rhn.UserDictCase.UserDictCase.dict
 rhnkickstart.lilo.UserDictCase.dict" class="py-name" href="#" onclick="return doclink('link-38', 'dict', 'link-38');">dict</a></tt><tt class="py-op">(</tt><tt id="link-39" class="py-name"><a title="actions.reboot.cfg
 actions.up2date_config.cfg
 rhn_applet.cfg
 rhn_check.cfg
+up2date_client.config.cfg
 up2date_client.rhnreg.cfg
 up2date_client.rhnregGui.cfg
-up2date_client.tui.cfg" class="py-name" href="#" onclick="return doclink('link-39', 'cfg', 'link-35');">cfg</a></tt><tt class="py-op">.</tt><tt id="link-40" class="py-name" targets="Method backend.common.rhnConfig.RHNOptions.items()=backend.common.rhnConfig.RHNOptions-class.html#items,Method backend.wsgi.wsgiRequest.WsgiMPtable.items()=backend.wsgi.wsgiRequest.WsgiMPtable-class.html#items,Method rhn.UserDictCase.UserDictCase.items()=rhn.UserDictCase.UserDictCase-class.html#items,Method rhn.UserDictCase.UserDictCase.items()=rhn.UserDictCase.UserDictCase-class.html#items,Method up2date_client.config.Config.items()=up2date_client.config.Config-class.html#items,Method up2date_client.rhnChannel.rhnChannel.items()=up2date_client.rhnChannel.rhnChannel-class.html#items"><a title="backend.common.rhnConfig.RHNOptions.items
+up2date_client.tui.cfg" class="py-name" href="#" onclick="return doclink('link-39', 'cfg', 'link-35');">cfg</a></tt><tt class="py-op">.</tt><tt id="link-40" class="py-name" targets="Method backend.common.rhnConfig.RHNOptions.items()=backend.common.rhnConfig.RHNOptions-class.html#items,Method backend.wsgi.wsgiRequest.WsgiMPtable.items()=backend.wsgi.wsgiRequest.WsgiMPtable-class.html#items,Method rhn.UserDictCase.UserDictCase.items()=rhn.UserDictCase.UserDictCase-class.html#items,Method up2date_client.config.Config.items()=up2date_client.config.Config-class.html#items,Method up2date_client.rhnChannel.rhnChannel.items()=up2date_client.rhnChannel.rhnChannel-class.html#items"><a title="backend.common.rhnConfig.RHNOptions.items
 backend.wsgi.wsgiRequest.WsgiMPtable.items
-rhn.UserDictCase.UserDictCase.items
 rhn.UserDictCase.UserDictCase.items
 up2date_client.config.Config.items
 up2date_client.rhnChannel.rhnChannel.items" class="py-name" href="#" onclick="return doclink('link-40', 'items', 'link-40');">items</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
@@ -500,8 +495,9 @@ backend.server.basePackageUpload.BasePackageUpload.handler
 backend.upload_server.handlers.package_push.package_push.PackagePush.handler
 proxy.apacheHandler.apacheHandler.handler
 proxy.broker.rhnBroker.BrokerHandler.handler
-proxy.redirect.rhnRedirect.RedirectHandler.handler" class="py-name" href="#" onclick="return doclink('link-81', 'handler', 'link-31');">handler</a></tt><tt class="py-op">.</tt><tt id="link-82" class="py-name" targets="Function backend.server.rhnPackageUpload.authenticate()=backend.server.rhnPackageUpload-module.html#authenticate,Method config_common.handler_base.HandlerBase.authenticate()=config_common.handler_base.HandlerBase-class.html#authenticate,Method rhnpush.uploadLib.UploadClass.authenticate()=rhnpush.uploadLib.UploadClass-class.html#authenticate"><a title="backend.server.rhnPackageUpload.authenticate
+proxy.redirect.rhnRedirect.RedirectHandler.handler" class="py-name" href="#" onclick="return doclink('link-81', 'handler', 'link-31');">handler</a></tt><tt class="py-op">.</tt><tt id="link-82" class="py-name" targets="Function backend.server.rhnPackageUpload.authenticate()=backend.server.rhnPackageUpload-module.html#authenticate,Method config_common.handler_base.HandlerBase.authenticate()=config_common.handler_base.HandlerBase-class.html#authenticate,Method proxy.pm.uploadLib.UploadClass.authenticate()=proxy.pm.uploadLib.UploadClass-class.html#authenticate,Method rhnpush.uploadLib.UploadClass.authenticate()=rhnpush.uploadLib.UploadClass-class.html#authenticate"><a title="backend.server.rhnPackageUpload.authenticate
 config_common.handler_base.HandlerBase.authenticate
+proxy.pm.uploadLib.UploadClass.authenticate
 rhnpush.uploadLib.UploadClass.authenticate" class="py-name" href="#" onclick="return doclink('link-82', 'authenticate', 'link-82');">authenticate</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
 <a name="L187"></a><tt class="py-lineno">187</tt>  <tt class="py-line">            <tt id="link-83" class="py-name"><a title="backend.common.rhnApache.rhnApache.handler
 backend.satellite_exporter.satexport.BaseApacheServer.handler
@@ -596,7 +592,7 @@ expandto(location.href);
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Wed Dec 21 14:31:00 2011
+    Generated by Epydoc 3.0.1 on Fri Mar  2 11:40:24 2012
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

@@ -55,7 +55,7 @@
 <pre class="py-src">
 <a name="L1"></a><tt class="py-lineno">  1</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
 <a name="L2"></a><tt class="py-lineno">  2</tt>  <tt class="py-line"><tt class="py-comment"># RHN Registration Client</tt> </tt>
-<a name="L3"></a><tt class="py-lineno">  3</tt>  <tt class="py-line"><tt class="py-comment"># Copyright (c) 2000--2011 Red Hat, Inc.</tt> </tt>
+<a name="L3"></a><tt class="py-lineno">  3</tt>  <tt class="py-line"><tt class="py-comment"># Copyright (c) 2000--2012 Red Hat, Inc.</tt> </tt>
 <a name="L4"></a><tt class="py-lineno">  4</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
 <a name="L5"></a><tt class="py-lineno">  5</tt>  <tt class="py-line"><tt class="py-comment"># Authors:</tt> </tt>
 <a name="L6"></a><tt class="py-lineno">  6</tt>  <tt class="py-line"><tt class="py-comment">#     Adrian Likins &lt;alikins@redhat.com&gt;</tt> </tt>
@@ -79,7 +79,7 @@ backend.server.action_extra_data.hardware
 up2date_client.hardware" class="py-name" href="#" onclick="return doclink('link-6', 'hardware', 'link-6');">hardware</a></tt> </tt>
 <a name="L22"></a><tt class="py-lineno"> 22</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-7" class="py-name" targets="Module up2date_client.rhnPackageInfo=up2date_client.rhnPackageInfo-module.html"><a title="up2date_client.rhnPackageInfo" class="py-name" href="#" onclick="return doclink('link-7', 'rhnPackageInfo', 'link-7');">rhnPackageInfo</a></tt> <tt class="py-keyword">import</tt> <tt id="link-8" class="py-name" targets="Function up2date_client.rhnPackageInfo.convertPackagesFromHashToList()=up2date_client.rhnPackageInfo-module.html#convertPackagesFromHashToList"><a title="up2date_client.rhnPackageInfo.convertPackagesFromHashToList" class="py-name" href="#" onclick="return doclink('link-8', 'convertPackagesFromHashToList', 'link-8');">convertPackagesFromHashToList</a></tt> </tt>
 <a name="L23"></a><tt class="py-lineno"> 23</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-9" class="py-name" targets="Variable backend.server.rhnSQL.types=backend.server.rhnSQL-module.html#types"><a title="backend.server.rhnSQL.types" class="py-name" href="#" onclick="return doclink('link-9', 'types', 'link-9');">types</a></tt> <tt class="py-keyword">import</tt> <tt class="py-name">ListType</tt><tt class="py-op">,</tt> <tt class="py-name">TupleType</tt><tt class="py-op">,</tt> <tt class="py-name">StringType</tt><tt class="py-op">,</tt> <tt class="py-name">UnicodeType</tt><tt class="py-op">,</tt> <tt class="py-name">DictType</tt><tt class="py-op">,</tt> <tt class="py-name">DictionaryType</tt> </tt>
-<a name="L24"></a><tt class="py-lineno"> 24</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-10" class="py-name" targets="Module up2date_client.platform=up2date_client.platform-module.html"><a title="up2date_client.platform" class="py-name" href="#" onclick="return doclink('link-10', 'platform', 'link-10');">platform</a></tt> <tt class="py-keyword">import</tt> <tt id="link-11" class="py-name" targets="Function up2date_client.platform.getPlatform()=up2date_client.platform-module.html#getPlatform"><a title="up2date_client.platform.getPlatform" class="py-name" href="#" onclick="return doclink('link-11', 'getPlatform', 'link-11');">getPlatform</a></tt> </tt>
+<a name="L24"></a><tt class="py-lineno"> 24</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-10" class="py-name" targets="Module up2date_client.pkgplatform=up2date_client.pkgplatform-module.html"><a title="up2date_client.pkgplatform" class="py-name" href="#" onclick="return doclink('link-10', 'pkgplatform', 'link-10');">pkgplatform</a></tt> <tt class="py-keyword">import</tt> <tt id="link-11" class="py-name" targets="Function up2date_client.pkgplatform.getPlatform()=up2date_client.pkgplatform-module.html#getPlatform"><a title="up2date_client.pkgplatform.getPlatform" class="py-name" href="#" onclick="return doclink('link-11', 'getPlatform', 'link-11');">getPlatform</a></tt> </tt>
 <a name="L25"></a><tt class="py-lineno"> 25</tt>  <tt class="py-line"> </tt>
 <a name="L26"></a><tt class="py-lineno"> 26</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">xmlrpclib</tt> </tt>
 <a name="L27"></a><tt class="py-lineno"> 27</tt>  <tt class="py-line"> </tt>
@@ -93,17 +93,10 @@ up2date_client.rhnreg.support
 virtualization.support" class="py-name" href="#" onclick="return doclink('link-14', 'support', 'link-13');">support</a></tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt>     </tt>
 <a name="L32"></a><tt class="py-lineno"> 32</tt>  <tt class="py-line"> </tt>
 <a name="L33"></a><tt class="py-lineno"> 33</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt id="link-15" class="py-name" targets="Method backend.common.rhnTranslate.i18n.gettext()=backend.common.rhnTranslate.i18n-class.html#gettext"><a title="backend.common.rhnTranslate.i18n.gettext" class="py-name" href="#" onclick="return doclink('link-15', 'gettext', 'link-15');">gettext</a></tt> </tt>
-<a name="L34"></a><tt class="py-lineno"> 34</tt>  <tt class="py-line"><tt id="link-16" class="py-name" targets="Variable backend.satellite_tools.disk_dumper.iss.t=backend.satellite_tools.disk_dumper.iss-module.html#t,Variable backend.satellite_tools.messages.t=backend.satellite_tools.messages-module.html#t,Variable backend.satellite_tools.satsync.t=backend.satellite_tools.satsync-module.html#t,Variable rhn_choose_server_gui.t=rhn_choose_server_gui-module.html#t,Variable rhn_create_profile_gui.t=rhn_create_profile_gui-module.html#t,Variable rhn_finish_gui.t=rhn_finish_gui-module.html#t,Variable rhn_login_gui.t=rhn_login_gui-module.html#t,Variable rhn_provide_certificate_gui.t=rhn_provide_certificate_gui-module.html#t,Variable rhn_register.t=rhn_register-module.html#t,Variable rhn_review_gui.t=rhn_review_gui-module.html#t,Variable rhn_start_gui.t=rhn_start_gui-module.html#t,Variable rhnreg_ks.t=rhnreg_ks-module.html#t,Variable script-rhn_profile_sync_py.t=script-rhn_profile_sync_py-module.html#t,Variable script-spacewalk_channel_py.t=script-spacewalk_channel_py-module.html#t,Variable up2date_client.capabilities.t=up2date_client.capabilities-module.html#t,Variable up2date_client.config.t=up2date_client.config-module.html#t,Variable up2date_client.debUtils.t=up2date_client.debUtils-module.html#t,Variable up2date_client.gui.t=up2date_client.gui-module.html#t,Variable up2date_client.hardware.t=up2date_client.hardware-module.html#t,Variable up2date_client.messageWindow.t=up2date_client.messageWindow-module.html#t,Variable up2date_client.pkgUtils.t=up2date_client.pkgUtils-module.html#t,Variable up2date_client.rhnChannel.t=up2date_client.rhnChannel-module.html#t,Variable up2date_client.rhncli.t=up2date_client.rhncli-module.html#t,Variable up2date_client.rhnreg.t=up2date_client.rhnreg-module.html#t,Variable up2date_client.rhnregGui.t=up2date_client.rhnregGui-module.html#t,Variable up2date_client.rhnreg_constants.t=up2date_client.rhnreg_constants-module.html#t,Variable up2date_client.rpcServer.t=up2date_client.rpcServer-module.html#t,Variable up2date_client.rpmUtils.t=up2date_client.rpmUtils-module.html#t,Variable up2date_client.tui.t=up2date_client.tui-module.html#t,Variable up2date_client.up2dateErrors.t=up2date_client.up2dateErrors-module.html#t,Variable up2date_client.up2dateUtils.t=up2date_client.up2dateUtils-module.html#t,Variable virtualization.poller.t=virtualization.poller-module.html#t,Variable virtualization.support.t=virtualization.support-module.html#t"><a title="backend.satellite_tools.disk_dumper.iss.t
+<a name="L34"></a><tt class="py-lineno"> 34</tt>  <tt class="py-line"><tt id="link-16" class="py-name" targets="Variable backend.satellite_tools.disk_dumper.iss.t=backend.satellite_tools.disk_dumper.iss-module.html#t,Variable backend.satellite_tools.messages.t=backend.satellite_tools.messages-module.html#t,Variable backend.satellite_tools.satsync.t=backend.satellite_tools.satsync-module.html#t,Variable rhn_register.t=rhn_register-module.html#t,Variable rhnreg_ks.t=rhnreg_ks-module.html#t,Variable script-rhn_profile_sync_py.t=script-rhn_profile_sync_py-module.html#t,Variable script-spacewalk_channel_py.t=script-spacewalk_channel_py-module.html#t,Variable up2date_client.capabilities.t=up2date_client.capabilities-module.html#t,Variable up2date_client.config.t=up2date_client.config-module.html#t,Variable up2date_client.debUtils.t=up2date_client.debUtils-module.html#t,Variable up2date_client.gui.t=up2date_client.gui-module.html#t,Variable up2date_client.hardware.t=up2date_client.hardware-module.html#t,Variable up2date_client.messageWindow.t=up2date_client.messageWindow-module.html#t,Variable up2date_client.pkgUtils.t=up2date_client.pkgUtils-module.html#t,Variable up2date_client.rhnChannel.t=up2date_client.rhnChannel-module.html#t,Variable up2date_client.rhncli.t=up2date_client.rhncli-module.html#t,Variable up2date_client.rhnreg.t=up2date_client.rhnreg-module.html#t,Variable up2date_client.rhnregGui.t=up2date_client.rhnregGui-module.html#t,Variable up2date_client.rhnreg_constants.t=up2date_client.rhnreg_constants-module.html#t,Variable up2date_client.rpcServer.t=up2date_client.rpcServer-module.html#t,Variable up2date_client.rpmUtils.t=up2date_client.rpmUtils-module.html#t,Variable up2date_client.tui.t=up2date_client.tui-module.html#t,Variable up2date_client.up2dateErrors.t=up2date_client.up2dateErrors-module.html#t,Variable up2date_client.up2dateUtils.t=up2date_client.up2dateUtils-module.html#t,Variable virtualization.poller.t=virtualization.poller-module.html#t,Variable virtualization.support.t=virtualization.support-module.html#t"><a title="backend.satellite_tools.disk_dumper.iss.t
 backend.satellite_tools.messages.t
 backend.satellite_tools.satsync.t
-rhn_choose_server_gui.t
-rhn_create_profile_gui.t
-rhn_finish_gui.t
-rhn_login_gui.t
-rhn_provide_certificate_gui.t
 rhn_register.t
-rhn_review_gui.t
-rhn_start_gui.t
 rhnreg_ks.t
 script-rhn_profile_sync_py.t
 script-spacewalk_channel_py.t
@@ -126,7 +119,7 @@ up2date_client.up2dateErrors.t
 up2date_client.up2dateUtils.t
 virtualization.poller.t
 virtualization.support.t" class="py-name" href="#" onclick="return doclink('link-16', 't', 'link-16');">t</a></tt> <tt class="py-op">=</tt> <tt id="link-17" class="py-name"><a title="backend.common.rhnTranslate.i18n.gettext" class="py-name" href="#" onclick="return doclink('link-17', 'gettext', 'link-15');">gettext</a></tt><tt class="py-op">.</tt><tt class="py-name">translation</tt><tt class="py-op">(</tt><tt class="py-string">'rhn-client-tools'</tt><tt class="py-op">,</tt> <tt class="py-name">fallback</tt><tt class="py-op">=</tt><tt class="py-name">True</tt><tt class="py-op">)</tt> </tt>
-<a name="L35"></a><tt class="py-lineno"> 35</tt>  <tt class="py-line"><tt id="link-18" class="py-name" targets="Function backend.common.rhnTranslate._()=backend.common.rhnTranslate-module.html#_,Variable backend.satellite_tools.disk_dumper.iss._=backend.satellite_tools.disk_dumper.iss-module.html#_,Variable backend.satellite_tools.satsync._=backend.satellite_tools.satsync-module.html#_,Variable rhn_choose_channel._=rhn_choose_channel-module.html#_,Variable rhn_choose_server_gui._=rhn_choose_server_gui-module.html#_,Variable rhn_create_profile_gui._=rhn_create_profile_gui-module.html#_,Variable rhn_finish_gui._=rhn_finish_gui-module.html#_,Variable rhn_login_gui._=rhn_login_gui-module.html#_,Variable rhn_provide_certificate_gui._=rhn_provide_certificate_gui-module.html#_,Variable rhn_register._=rhn_register-module.html#_,Variable rhn_review_gui._=rhn_review_gui-module.html#_,Variable rhn_start_gui._=rhn_start_gui-module.html#_,Variable rhnreg_ks._=rhnreg_ks-module.html#_,Variable script-rhn_profile_sync_py._=script-rhn_profile_sync_py-module.html#_,Variable script-spacewalk_channel_py._=script-spacewalk_channel_py-module.html#_,Variable up2date_client.gui._=up2date_client.gui-module.html#_,Variable up2date_client.hardware._=up2date_client.hardware-module.html#_,Variable up2date_client.rhnreg._=up2date_client.rhnreg-module.html#_,Variable up2date_client.rhnregGui._=up2date_client.rhnregGui-module.html#_,Variable up2date_client.tui._=up2date_client.tui-module.html#_"><a title="backend.common.rhnTranslate._
+<a name="L35"></a><tt class="py-lineno"> 35</tt>  <tt class="py-line"><tt id="link-18" class="py-name" targets="Function backend.common.rhnTranslate._()=backend.common.rhnTranslate-module.html#_,Variable backend.satellite_tools.disk_dumper.iss._=backend.satellite_tools.disk_dumper.iss-module.html#_,Variable backend.satellite_tools.satsync._=backend.satellite_tools.satsync-module.html#_,Variable rhn_choose_channel._=rhn_choose_channel-module.html#_,Variable rhn_choose_server_gui._=rhn_choose_server_gui-module.html#_,Variable rhn_create_profile_gui._=rhn_create_profile_gui-module.html#_,Variable rhn_finish_gui._=rhn_finish_gui-module.html#_,Variable rhn_login_gui._=rhn_login_gui-module.html#_,Variable rhn_provide_certificate_gui._=rhn_provide_certificate_gui-module.html#_,Variable rhn_register._=rhn_register-module.html#_,Variable rhn_review_gui._=rhn_review_gui-module.html#_,Variable rhn_start_gui._=rhn_start_gui-module.html#_,Variable rhnreg_ks._=rhnreg_ks-module.html#_,Variable script-rhn_profile_sync_py._=script-rhn_profile_sync_py-module.html#_,Variable script-spacewalk_channel_py._=script-spacewalk_channel_py-module.html#_,Variable up2date_client.debUtils._=up2date_client.debUtils-module.html#_,Variable up2date_client.gui._=up2date_client.gui-module.html#_,Variable up2date_client.hardware._=up2date_client.hardware-module.html#_,Variable up2date_client.rhnreg._=up2date_client.rhnreg-module.html#_,Variable up2date_client.rhnregGui._=up2date_client.rhnregGui-module.html#_,Variable up2date_client.tui._=up2date_client.tui-module.html#_"><a title="backend.common.rhnTranslate._
 backend.satellite_tools.disk_dumper.iss._
 backend.satellite_tools.satsync._
 rhn_choose_channel._
@@ -141,6 +134,7 @@ rhn_start_gui._
 rhnreg_ks._
 script-rhn_profile_sync_py._
 script-spacewalk_channel_py._
+up2date_client.debUtils._
 up2date_client.gui._
 up2date_client.hardware._
 up2date_client.rhnreg._
@@ -148,14 +142,7 @@ up2date_client.rhnregGui._
 up2date_client.tui._" class="py-name" href="#" onclick="return doclink('link-18', '_', 'link-18');">_</a></tt> <tt class="py-op">=</tt> <tt id="link-19" class="py-name"><a title="backend.satellite_tools.disk_dumper.iss.t
 backend.satellite_tools.messages.t
 backend.satellite_tools.satsync.t
-rhn_choose_server_gui.t
-rhn_create_profile_gui.t
-rhn_finish_gui.t
-rhn_login_gui.t
-rhn_provide_certificate_gui.t
 rhn_register.t
-rhn_review_gui.t
-rhn_start_gui.t
 rhnreg_ks.t
 script-rhn_profile_sync_py.t
 script-spacewalk_channel_py.t
@@ -193,10 +180,11 @@ backend.server.handlers.config
 backend.wsgi.config
 rhnkickstart.config
 up2date_client.config" class="py-name" href="#" onclick="return doclink('link-26', 'config', 'link-26');">config</a></tt> </tt>
-<a name="L46"></a><tt class="py-lineno"> 46</tt>  <tt class="py-line"><tt id="link-27" class="py-name" targets="Variable actions.reboot.cfg=actions.reboot-module.html#cfg,Variable actions.up2date_config.cfg=actions.up2date_config-module.html#cfg,Variable rhn_applet.cfg=rhn_applet-module.html#cfg,Variable rhn_check.cfg=rhn_check-module.html#cfg,Variable up2date_client.rhnreg.cfg=up2date_client.rhnreg-module.html#cfg,Variable up2date_client.rhnregGui.cfg=up2date_client.rhnregGui-module.html#cfg,Variable up2date_client.tui.cfg=up2date_client.tui-module.html#cfg"><a title="actions.reboot.cfg
+<a name="L46"></a><tt class="py-lineno"> 46</tt>  <tt class="py-line"><tt id="link-27" class="py-name" targets="Variable actions.reboot.cfg=actions.reboot-module.html#cfg,Variable actions.up2date_config.cfg=actions.up2date_config-module.html#cfg,Variable rhn_applet.cfg=rhn_applet-module.html#cfg,Variable rhn_check.cfg=rhn_check-module.html#cfg,Variable up2date_client.config.cfg=up2date_client.config-module.html#cfg,Variable up2date_client.rhnreg.cfg=up2date_client.rhnreg-module.html#cfg,Variable up2date_client.rhnregGui.cfg=up2date_client.rhnregGui-module.html#cfg,Variable up2date_client.tui.cfg=up2date_client.tui-module.html#cfg"><a title="actions.reboot.cfg
 actions.up2date_config.cfg
 rhn_applet.cfg
 rhn_check.cfg
+up2date_client.config.cfg
 up2date_client.rhnreg.cfg
 up2date_client.rhnregGui.cfg
 up2date_client.tui.cfg" class="py-name" href="#" onclick="return doclink('link-27', 'cfg', 'link-27');">cfg</a></tt> <tt class="py-op">=</tt> <tt id="link-28" class="py-name"><a title="backend.server.action.rollback.config
@@ -205,13 +193,14 @@ backend.server.handlers.config
 backend.wsgi.config
 rhnkickstart.config
 up2date_client.config" class="py-name" href="#" onclick="return doclink('link-28', 'config', 'link-26');">config</a></tt><tt class="py-op">.</tt><tt id="link-29" class="py-name" targets="Function up2date_client.config.initUp2dateConfig()=up2date_client.config-module.html#initUp2dateConfig"><a title="up2date_client.config.initUp2dateConfig" class="py-name" href="#" onclick="return doclink('link-29', 'initUp2dateConfig', 'link-29');">initUp2dateConfig</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
-<a name="L47"></a><tt class="py-lineno"> 47</tt>  <tt class="py-line"><tt id="link-30" class="py-name" targets="Variable actions.reboot.log=actions.reboot-module.html#log,Function backend.satellite_tools.syncLib.log()=backend.satellite_tools.syncLib-module.html#log,Variable rhn_check.log=rhn_check-module.html#log,Variable up2date_client.hardware.log=up2date_client.hardware-module.html#log,Variable up2date_client.rhnreg.log=up2date_client.rhnreg-module.html#log,Variable up2date_client.rhnregGui.log=up2date_client.rhnregGui-module.html#log,Variable up2date_client.tui.log=up2date_client.tui-module.html#log,Variable virtualization.notification.log=virtualization.notification-module.html#log"><a title="actions.reboot.log
+<a name="L47"></a><tt class="py-lineno"> 47</tt>  <tt class="py-line"><tt id="link-30" class="py-name" targets="Variable actions.reboot.log=actions.reboot-module.html#log,Function backend.satellite_tools.syncLib.log()=backend.satellite_tools.syncLib-module.html#log,Variable rhn_check.log=rhn_check-module.html#log,Variable up2date_client.hardware.log=up2date_client.hardware-module.html#log,Variable up2date_client.rhnreg.log=up2date_client.rhnreg-module.html#log,Variable up2date_client.rhnregGui.log=up2date_client.rhnregGui-module.html#log,Variable up2date_client.tui.log=up2date_client.tui-module.html#log,Variable up2date_client.up2dateLog.log=up2date_client.up2dateLog-module.html#log,Variable virtualization.notification.log=virtualization.notification-module.html#log"><a title="actions.reboot.log
 backend.satellite_tools.syncLib.log
 rhn_check.log
 up2date_client.hardware.log
 up2date_client.rhnreg.log
 up2date_client.rhnregGui.log
 up2date_client.tui.log
+up2date_client.up2dateLog.log
 virtualization.notification.log" class="py-name" href="#" onclick="return doclink('link-30', 'log', 'link-30');">log</a></tt> <tt class="py-op">=</tt> <tt id="link-31" class="py-name"><a title="up2date_client.up2dateLog" class="py-name" href="#" onclick="return doclink('link-31', 'up2dateLog', 'link-4');">up2dateLog</a></tt><tt class="py-op">.</tt><tt id="link-32" class="py-name" targets="Function up2date_client.up2dateLog.initLog()=up2date_client.up2dateLog-module.html#initLog"><a title="up2date_client.up2dateLog.initLog" class="py-name" href="#" onclick="return doclink('link-32', 'initLog', 'link-32');">initLog</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
 <a name="L48"></a><tt class="py-lineno"> 48</tt>  <tt class="py-line"> </tt>
 <a name="L49"></a><tt class="py-lineno"> 49</tt>  <tt class="py-line"> </tt>
@@ -236,6 +225,7 @@ rhn_start_gui._
 rhnreg_ks._
 script-rhn_profile_sync_py._
 script-spacewalk_channel_py._
+up2date_client.debUtils._
 up2date_client.gui._
 up2date_client.hardware._
 up2date_client.rhnreg._
@@ -256,6 +246,7 @@ up2date_client.tui._" class="py-name" href="#" onclick="return doclink('link-33'
 actions.up2date_config.cfg
 rhn_applet.cfg
 rhn_check.cfg
+up2date_client.config.cfg
 up2date_client.rhnreg.cfg
 up2date_client.rhnregGui.cfg
 up2date_client.tui.cfg" class="py-name" href="#" onclick="return doclink('link-34', 'cfg', 'link-27');">cfg</a></tt><tt class="py-op">[</tt><tt class="py-string">"oemInfoFile"</tt><tt class="py-op">]</tt> <tt class="py-keyword">or</tt> <tt class="py-string">"/etc/sysconfig/rhn/oeminfo"</tt> </tt>
@@ -296,6 +287,7 @@ up2date_client.config.ConfigFile.info" class="py-name" href="#" onclick="return 
 actions.up2date_config.cfg
 rhn_applet.cfg
 rhn_check.cfg
+up2date_client.config.cfg
 up2date_client.rhnreg.cfg
 up2date_client.rhnregGui.cfg
 up2date_client.tui.cfg" class="py-name" href="#" onclick="return doclink('link-45', 'cfg', 'link-27');">cfg</a></tt><tt class="py-op">[</tt><tt class="py-string">'systemIdPath'</tt><tt class="py-op">]</tt><tt class="py-op">,</tt> <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">R_OK</tt><tt class="py-op">)</tt> </tt>
@@ -305,7 +297,7 @@ up2date_client.tui.cfg" class="py-name" href="#" onclick="return doclink('link-4
 <a name="L103"></a><tt class="py-lineno">103</tt>  <tt class="py-line">        <tt class="py-comment"># touch the file to tell the applet it needs to remind</tt> </tt>
 <a name="L104"></a><tt class="py-lineno">104</tt>  <tt class="py-line">        <tt class="py-comment"># the user to register</tt> </tt>
 <a name="L105"></a><tt class="py-lineno">105</tt>  <tt class="py-line">        <tt class="py-name">fd</tt> <tt class="py-op">=</tt> <tt class="py-name">open</tt><tt class="py-op">(</tt><tt id="link-47" class="py-name"><a title="up2date_client.rhnreg.REMIND_FILE" class="py-name" href="#" onclick="return doclink('link-47', 'REMIND_FILE', 'link-21');">REMIND_FILE</a></tt><tt class="py-op">,</tt> <tt class="py-string">"w+"</tt><tt class="py-op">)</tt> </tt>
-<a name="L106"></a><tt class="py-lineno">106</tt>  <tt class="py-line">        <tt class="py-name">fd</tt><tt class="py-op">.</tt><tt id="link-48" class="py-name" targets="Method backend.common.rhnCache.ClosingZipFile.close()=backend.common.rhnCache.ClosingZipFile-class.html#close,Method backend.common.rhnCache.LockedFile.close()=backend.common.rhnCache.LockedFile-class.html#close,Method backend.satellite_exporter.handlers.non_auth_dumper.NonAuthenticatedDumper.close()=backend.satellite_exporter.handlers.non_auth_dumper.NonAuthenticatedDumper-class.html#close,Method backend.satellite_tools.connection.CompressedStream.close()=backend.satellite_tools.connection.CompressedStream-class.html#close,Method backend.satellite_tools.disk_dumper.dumper.CachedQueryIterator.close()=backend.satellite_tools.disk_dumper.dumper.CachedQueryIterator-class.html#close,Method backend.satellite_tools.disk_dumper.dumper.XML_Dumper.close()=backend.satellite_tools.disk_dumper.dumper.XML_Dumper-class.html#close,Method backend.satellite_tools.disk_dumper.iss.Dumper.close()=backend.satellite_tools.disk_dumper.iss.Dumper-class.html#close,Method backend.satellite_tools.disk_dumper.string_buffer.StringBuffer.close()=backend.satellite_tools.disk_dumper.string_buffer.StringBuffer-class.html#close,Method backend.satellite_tools.satsync.StreamProducer.close()=backend.satellite_tools.satsync.StreamProducer-class.html#close,Method backend.satellite_tools.sync_handlers.ContainerHandler.close()=backend.satellite_tools.sync_handlers.ContainerHandler-class.html#close,Method backend.satellite_tools.xmlSource.BaseDispatchHandler.close()=backend.satellite_tools.xmlSource.BaseDispatchHandler-class.html#close,Method backend.server.rhnSQL.driver_cx_Oracle.Database.close()=backend.server.rhnSQL.driver_cx_Oracle.Database-class.html#close,Method backend.server.rhnSQL.driver_postgresql.Cursor.close()=backend.server.rhnSQL.driver_postgresql.Cursor-class.html#close,Method backend.server.rhnSQL.sql_base.Database.close()=backend.server.rhnSQL.sql_base.Database-class.html#close,Method config_common.rpc_wrapper.Server.close()=config_common.rpc_wrapper.Server-class.html#close,Method proxy.responseContext.ResponseContext.close()=proxy.responseContext.ResponseContext-class.html#close,Method rhn.SSL.SSLSocket.close()=rhn.SSL.SSLSocket-class.html#close,Method rhn.SSL.SSLSocket.close()=rhn.SSL.SSLSocket-class.html#close,Method rhn.rpclib.Server.close()=rhn.rpclib.Server-class.html#close,Method rhn.transports.BaseOutput.close()=rhn.transports.BaseOutput-class.html#close,Method up2date_client.rhnregGui.NetworkConfigDialog.close()=up2date_client.rhnregGui.NetworkConfigDialog-class.html#close"><a title="backend.common.rhnCache.ClosingZipFile.close
+<a name="L106"></a><tt class="py-lineno">106</tt>  <tt class="py-line">        <tt class="py-name">fd</tt><tt class="py-op">.</tt><tt id="link-48" class="py-name" targets="Method backend.common.rhnCache.ClosingZipFile.close()=backend.common.rhnCache.ClosingZipFile-class.html#close,Method backend.common.rhnCache.LockedFile.close()=backend.common.rhnCache.LockedFile-class.html#close,Method backend.satellite_exporter.handlers.non_auth_dumper.NonAuthenticatedDumper.close()=backend.satellite_exporter.handlers.non_auth_dumper.NonAuthenticatedDumper-class.html#close,Method backend.satellite_tools.connection.CompressedStream.close()=backend.satellite_tools.connection.CompressedStream-class.html#close,Method backend.satellite_tools.disk_dumper.dumper.CachedQueryIterator.close()=backend.satellite_tools.disk_dumper.dumper.CachedQueryIterator-class.html#close,Method backend.satellite_tools.disk_dumper.dumper.XML_Dumper.close()=backend.satellite_tools.disk_dumper.dumper.XML_Dumper-class.html#close,Method backend.satellite_tools.disk_dumper.iss.Dumper.close()=backend.satellite_tools.disk_dumper.iss.Dumper-class.html#close,Method backend.satellite_tools.disk_dumper.string_buffer.StringBuffer.close()=backend.satellite_tools.disk_dumper.string_buffer.StringBuffer-class.html#close,Method backend.satellite_tools.satsync.StreamProducer.close()=backend.satellite_tools.satsync.StreamProducer-class.html#close,Method backend.satellite_tools.sync_handlers.ContainerHandler.close()=backend.satellite_tools.sync_handlers.ContainerHandler-class.html#close,Method backend.satellite_tools.xmlSource.BaseDispatchHandler.close()=backend.satellite_tools.xmlSource.BaseDispatchHandler-class.html#close,Method backend.server.rhnSQL.driver_cx_Oracle.Database.close()=backend.server.rhnSQL.driver_cx_Oracle.Database-class.html#close,Method backend.server.rhnSQL.driver_postgresql.Cursor.close()=backend.server.rhnSQL.driver_postgresql.Cursor-class.html#close,Method backend.server.rhnSQL.sql_base.Database.close()=backend.server.rhnSQL.sql_base.Database-class.html#close,Method config_common.rpc_wrapper.Server.close()=config_common.rpc_wrapper.Server-class.html#close,Method proxy.responseContext.ResponseContext.close()=proxy.responseContext.ResponseContext-class.html#close,Method rhn.SSL.SSLSocket.close()=rhn.SSL.SSLSocket-class.html#close,Method rhn.rpclib.Server.close()=rhn.rpclib.Server-class.html#close,Method rhn.transports.BaseOutput.close()=rhn.transports.BaseOutput-class.html#close,Method up2date_client.rhnregGui.NetworkConfigDialog.close()=up2date_client.rhnregGui.NetworkConfigDialog-class.html#close"><a title="backend.common.rhnCache.ClosingZipFile.close
 backend.common.rhnCache.LockedFile.close
 backend.satellite_exporter.handlers.non_auth_dumper.NonAuthenticatedDumper.close
 backend.satellite_tools.connection.CompressedStream.close
@@ -321,7 +313,6 @@ backend.server.rhnSQL.driver_postgresql.Cursor.close
 backend.server.rhnSQL.sql_base.Database.close
 config_common.rpc_wrapper.Server.close
 proxy.responseContext.ResponseContext.close
-rhn.SSL.SSLSocket.close
 rhn.SSL.SSLSocket.close
 rhn.rpclib.Server.close
 rhn.transports.BaseOutput.close
@@ -347,14 +338,12 @@ up2date_client.rhnregGui.NetworkConfigDialog.close" class="py-name" href="#" onc
 <a name="L125"></a><tt class="py-lineno">125</tt>  <tt class="py-line">    <tt class="py-name">fd</tt> <tt class="py-op">=</tt> <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">open</tt><tt class="py-op">(</tt><tt class="py-name">secure_file</tt><tt class="py-op">,</tt> <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">O_WRONLY</tt> <tt class="py-op">|</tt> <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">O_CREAT</tt><tt class="py-op">,</tt> <tt class="py-number">0600</tt><tt class="py-op">)</tt> </tt>
 <a name="L126"></a><tt class="py-lineno">126</tt>  <tt class="py-line">    <tt class="py-name">fd_file</tt> <tt class="py-op">=</tt> <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">fdopen</tt><tt class="py-op">(</tt><tt class="py-name">fd</tt><tt class="py-op">,</tt> <tt class="py-string">'w'</tt><tt class="py-op">)</tt> </tt>
 <a name="L127"></a><tt class="py-lineno">127</tt>  <tt class="py-line">    <tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
-<a name="L128"></a><tt class="py-lineno">128</tt>  <tt class="py-line">        <tt class="py-name">fd_file</tt><tt class="py-op">.</tt><tt id="link-51" class="py-name" targets="Method backend.common.fileutils.payload.write()=backend.common.fileutils.payload-class.html#write,Method backend.common.rhn_mpm.MPM_Package.write()=backend.common.rhn_mpm.MPM_Package-class.html#write,Method backend.satellite_tools.disk_dumper.dumper.TeeStream.write()=backend.satellite_tools.disk_dumper.dumper.TeeStream-class.html#write,Method backend.satellite_tools.disk_dumper.string_buffer.StringBuffer.write()=backend.satellite_tools.disk_dumper.string_buffer.StringBuffer-class.html#write,Method backend.satellite_tools.repo_plugins.yum_src.YumWarnings.write()=backend.satellite_tools.repo_plugins.yum_src.YumWarnings-class.html#write,Method backend.wsgi.wsgiRequest.WsgiRequest.write()=backend.wsgi.wsgiRequest.WsgiRequest-class.html#write,Method pygettext.TokenEater.write()=pygettext.TokenEater-class.html#write,Method rhn.SSL.SSLSocket.write()=rhn.SSL.SSLSocket-class.html#write,Method rhn.SSL.SSLSocket.write()=rhn.SSL.SSLSocket-class.html#write,Method rhn.SmartIO.SmartIO.write()=rhn.SmartIO.SmartIO-class.html#write,Method rhn.nonblocking.NonBlockingFile.write()=rhn.nonblocking.NonBlockingFile-class.html#write,Method rhnkickstart.lilo.LiloConfigFile.write()=rhnkickstart.lilo.LiloConfigFile-class.html#write,Method rhnpush.rhnpush_config.rhnpushConfigParser.write()=rhnpush.rhnpush_config.rhnpushConfigParser-class.html#write,Method src._ConfigParser.ConfigParser.write()=src._ConfigParser.ConfigParser-class.html#write"><a title="backend.common.fileutils.payload.write
+<a name="L128"></a><tt class="py-lineno">128</tt>  <tt class="py-line">        <tt class="py-name">fd_file</tt><tt class="py-op">.</tt><tt id="link-51" class="py-name" targets="Static Method backend.common.fileutils.payload.write()=backend.common.fileutils.payload-class.html#write,Method backend.common.rhn_mpm.MPM_Package.write()=backend.common.rhn_mpm.MPM_Package-class.html#write,Method backend.satellite_tools.disk_dumper.dumper.TeeStream.write()=backend.satellite_tools.disk_dumper.dumper.TeeStream-class.html#write,Method backend.satellite_tools.disk_dumper.string_buffer.StringBuffer.write()=backend.satellite_tools.disk_dumper.string_buffer.StringBuffer-class.html#write,Method backend.satellite_tools.repo_plugins.yum_src.YumWarnings.write()=backend.satellite_tools.repo_plugins.yum_src.YumWarnings-class.html#write,Method backend.wsgi.wsgiRequest.WsgiRequest.write()=backend.wsgi.wsgiRequest.WsgiRequest-class.html#write,Method rhn.SSL.SSLSocket.write()=rhn.SSL.SSLSocket-class.html#write,Method rhn.SmartIO.SmartIO.write()=rhn.SmartIO.SmartIO-class.html#write,Method rhn.nonblocking.NonBlockingFile.write()=rhn.nonblocking.NonBlockingFile-class.html#write,Method rhnkickstart.lilo.LiloConfigFile.write()=rhnkickstart.lilo.LiloConfigFile-class.html#write,Method rhnpush.rhnpush_config.rhnpushConfigParser.write()=rhnpush.rhnpush_config.rhnpushConfigParser-class.html#write,Method src._ConfigParser.ConfigParser.write()=src._ConfigParser.ConfigParser-class.html#write"><a title="backend.common.fileutils.payload.write
 backend.common.rhn_mpm.MPM_Package.write
 backend.satellite_tools.disk_dumper.dumper.TeeStream.write
 backend.satellite_tools.disk_dumper.string_buffer.StringBuffer.write
 backend.satellite_tools.repo_plugins.yum_src.YumWarnings.write
 backend.wsgi.wsgiRequest.WsgiRequest.write
-pygettext.TokenEater.write
-rhn.SSL.SSLSocket.write
 rhn.SSL.SSLSocket.write
 rhn.SmartIO.SmartIO.write
 rhn.nonblocking.NonBlockingFile.write
@@ -379,7 +368,6 @@ backend.server.rhnSQL.sql_base.Database.close
 config_common.rpc_wrapper.Server.close
 proxy.responseContext.ResponseContext.close
 rhn.SSL.SSLSocket.close
-rhn.SSL.SSLSocket.close
 rhn.rpclib.Server.close
 rhn.transports.BaseOutput.close
 up2date_client.rhnregGui.NetworkConfigDialog.close" class="py-name" href="#" onclick="return doclink('link-52', 'close', 'link-48');">close</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
@@ -391,6 +379,7 @@ up2date_client.rhnregGui.NetworkConfigDialog.close" class="py-name" href="#" onc
 actions.up2date_config.cfg
 rhn_applet.cfg
 rhn_check.cfg
+up2date_client.config.cfg
 up2date_client.rhnreg.cfg
 up2date_client.rhnregGui.cfg
 up2date_client.tui.cfg" class="py-name" href="#" onclick="return doclink('link-54', 'cfg', 'link-27');">cfg</a></tt><tt class="py-op">[</tt><tt class="py-string">'systemIdPath'</tt><tt class="py-op">]</tt><tt class="py-op">,</tt> <tt class="py-name">systemId</tt><tt class="py-op">)</tt> </tt>
@@ -460,8 +449,7 @@ backend.server.rhnChannel.BaseChannelObject.exists" class="py-name" href="#" onc
 <a name="L198"></a><tt class="py-lineno">198</tt>  <tt class="py-line"><tt class="py-docstring">    """</tt> </tt>
 <a name="L199"></a><tt class="py-lineno">199</tt>  <tt class="py-line">    <tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
 <a name="L200"></a><tt class="py-lineno">200</tt>  <tt class="py-line">        <tt class="py-name">uuid_file</tt> <tt class="py-op">=</tt> <tt class="py-name">open</tt><tt class="py-op">(</tt><tt class="py-string">'/sys/hypervisor/uuid'</tt><tt class="py-op">,</tt> <tt class="py-string">'r'</tt><tt class="py-op">)</tt> </tt>
-<a name="L201"></a><tt class="py-lineno">201</tt>  <tt class="py-line">        <tt id="link-72" class="py-name"><a title="virtualization.init_action.uuid" class="py-name" href="#" onclick="return doclink('link-72', 'uuid', 'link-61');">uuid</a></tt> <tt class="py-op">=</tt> <tt class="py-name">uuid_file</tt><tt class="py-op">.</tt><tt id="link-73" class="py-name" targets="Method backend.wsgi.wsgiRequest.WsgiRequest.read()=backend.wsgi.wsgiRequest.WsgiRequest-class.html#read,Method rhn.SSL.SSLSocket.read()=rhn.SSL.SSLSocket-class.html#read,Method rhn.SSL.SSLSocket.read()=rhn.SSL.SSLSocket-class.html#read,Method rhn.nonblocking.NonBlockingFile.read()=rhn.nonblocking.NonBlockingFile-class.html#read,Method rhn.transports.File.read()=rhn.transports.File-class.html#read,Method rhn.transports.Input.read()=rhn.transports.Input-class.html#read,Method rhnkickstart.lilo.LiloConfigFile.read()=rhnkickstart.lilo.LiloConfigFile-class.html#read,Method rhnpush.archive.ArchiveParser.read()=rhnpush.archive.ArchiveParser-class.html#read,Method src._ConfigParser.ConfigParser.read()=src._ConfigParser.ConfigParser-class.html#read,Method src.jabber_lib.JabberClient.read()=src.jabber_lib.JabberClient-class.html#read"><a title="backend.wsgi.wsgiRequest.WsgiRequest.read
-rhn.SSL.SSLSocket.read
+<a name="L201"></a><tt class="py-lineno">201</tt>  <tt class="py-line">        <tt id="link-72" class="py-name"><a title="virtualization.init_action.uuid" class="py-name" href="#" onclick="return doclink('link-72', 'uuid', 'link-61');">uuid</a></tt> <tt class="py-op">=</tt> <tt class="py-name">uuid_file</tt><tt class="py-op">.</tt><tt id="link-73" class="py-name" targets="Method backend.wsgi.wsgiRequest.WsgiRequest.read()=backend.wsgi.wsgiRequest.WsgiRequest-class.html#read,Method rhn.SSL.SSLSocket.read()=rhn.SSL.SSLSocket-class.html#read,Method rhn.nonblocking.NonBlockingFile.read()=rhn.nonblocking.NonBlockingFile-class.html#read,Method rhn.transports.File.read()=rhn.transports.File-class.html#read,Method rhn.transports.Input.read()=rhn.transports.Input-class.html#read,Method rhnkickstart.lilo.LiloConfigFile.read()=rhnkickstart.lilo.LiloConfigFile-class.html#read,Method rhnpush.archive.ArchiveParser.read()=rhnpush.archive.ArchiveParser-class.html#read,Method src._ConfigParser.ConfigParser.read()=src._ConfigParser.ConfigParser-class.html#read,Method src.jabber_lib.JabberClient.read()=src.jabber_lib.JabberClient-class.html#read"><a title="backend.wsgi.wsgiRequest.WsgiRequest.read
 rhn.SSL.SSLSocket.read
 rhn.nonblocking.NonBlockingFile.read
 rhn.transports.File.read
@@ -486,7 +474,6 @@ backend.server.rhnSQL.driver_postgresql.Cursor.close
 backend.server.rhnSQL.sql_base.Database.close
 config_common.rpc_wrapper.Server.close
 proxy.responseContext.ResponseContext.close
-rhn.SSL.SSLSocket.close
 rhn.SSL.SSLSocket.close
 rhn.rpclib.Server.close
 rhn.transports.BaseOutput.close
@@ -635,9 +622,8 @@ up2date_client.rhnregGui.ReviewLog.channels" class="py-name" href="#" onclick="r
 up2date_client.up2dateUtils.getArch" class="py-name" href="#" onclick="return doclink('link-135', 'getArch', 'link-135');">getArch</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> <tt class="py-op">}</tt> </tt>
 <a name="L333"></a><tt class="py-lineno">333</tt>  <tt class="py-line">    <tt class="py-comment"># dict of other bits to send </tt> </tt>
 <a name="L334"></a><tt class="py-lineno">334</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-name">other</tt><tt class="py-op">:</tt> </tt>
-<a name="L335"></a><tt class="py-lineno">335</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt class="py-op">(</tt><tt class="py-name">key</tt><tt class="py-op">,</tt> <tt class="py-name">item</tt><tt class="py-op">)</tt> <tt class="py-keyword">in</tt> <tt class="py-name">other</tt><tt class="py-op">.</tt><tt id="link-136" class="py-name" targets="Method backend.common.rhnConfig.RHNOptions.items()=backend.common.rhnConfig.RHNOptions-class.html#items,Method backend.wsgi.wsgiRequest.WsgiMPtable.items()=backend.wsgi.wsgiRequest.WsgiMPtable-class.html#items,Method rhn.UserDictCase.UserDictCase.items()=rhn.UserDictCase.UserDictCase-class.html#items,Method rhn.UserDictCase.UserDictCase.items()=rhn.UserDictCase.UserDictCase-class.html#items,Method up2date_client.config.Config.items()=up2date_client.config.Config-class.html#items,Method up2date_client.rhnChannel.rhnChannel.items()=up2date_client.rhnChannel.rhnChannel-class.html#items"><a title="backend.common.rhnConfig.RHNOptions.items
+<a name="L335"></a><tt class="py-lineno">335</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt class="py-op">(</tt><tt class="py-name">key</tt><tt class="py-op">,</tt> <tt class="py-name">item</tt><tt class="py-op">)</tt> <tt class="py-keyword">in</tt> <tt class="py-name">other</tt><tt class="py-op">.</tt><tt id="link-136" class="py-name" targets="Method backend.common.rhnConfig.RHNOptions.items()=backend.common.rhnConfig.RHNOptions-class.html#items,Method backend.wsgi.wsgiRequest.WsgiMPtable.items()=backend.wsgi.wsgiRequest.WsgiMPtable-class.html#items,Method rhn.UserDictCase.UserDictCase.items()=rhn.UserDictCase.UserDictCase-class.html#items,Method up2date_client.config.Config.items()=up2date_client.config.Config-class.html#items,Method up2date_client.rhnChannel.rhnChannel.items()=up2date_client.rhnChannel.rhnChannel-class.html#items"><a title="backend.common.rhnConfig.RHNOptions.items
 backend.wsgi.wsgiRequest.WsgiMPtable.items
-rhn.UserDictCase.UserDictCase.items
 rhn.UserDictCase.UserDictCase.items
 up2date_client.config.Config.items
 up2date_client.rhnChannel.rhnChannel.items" class="py-name" href="#" onclick="return doclink('link-136', 'items', 'link-136');">items</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
@@ -652,6 +638,7 @@ up2date_client.rhnChannel.rhnChannel.items" class="py-name" href="#" onclick="re
 actions.up2date_config.cfg
 rhn_applet.cfg
 rhn_check.cfg
+up2date_client.config.cfg
 up2date_client.rhnreg.cfg
 up2date_client.rhnregGui.cfg
 up2date_client.tui.cfg" class="py-name" href="#" onclick="return doclink('link-139', 'cfg', 'link-27');">cfg</a></tt><tt class="py-op">[</tt><tt class="py-string">'supportsSMBIOS'</tt><tt class="py-op">]</tt><tt class="py-op">:</tt> </tt>
@@ -681,10 +668,10 @@ rhnpush.rhnpush.UploadClass.packages" class="py-name" href="#" onclick="return d
 <a name="updateRhsmStatus"></a><div id="updateRhsmStatus-def"><a name="L354"></a><tt class="py-lineno">354</tt> <a class="py-toggle" href="#" id="updateRhsmStatus-toggle" onclick="return toggle('updateRhsmStatus');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="up2date_client.rhnreg-module.html#updateRhsmStatus">updateRhsmStatus</a><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
 </div><div id="updateRhsmStatus-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="updateRhsmStatus-expanded"><a name="L355"></a><tt class="py-lineno">355</tt>  <tt class="py-line">    <tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
 <a name="L356"></a><tt class="py-lineno">356</tt>  <tt class="py-line">        <tt class="py-name">bus</tt> <tt class="py-op">=</tt> <tt class="py-name">dbus</tt><tt class="py-op">.</tt><tt class="py-name">SystemBus</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
-<a name="L357"></a><tt class="py-lineno">357</tt>  <tt class="py-line">        <tt class="py-name">validity_obj</tt> <tt class="py-op">=</tt> <tt class="py-name">bus</tt><tt class="py-op">.</tt><tt class="py-name">get_object</tt><tt class="py-op">(</tt><tt class="py-string">'com.redhat.SubscriptionManager'</tt><tt class="py-op">,</tt> </tt>
-<a name="L358"></a><tt class="py-lineno">358</tt>  <tt class="py-line">              <tt class="py-string">'/EntitlementStatus'</tt><tt class="py-op">)</tt> </tt>
+<a name="L357"></a><tt class="py-lineno">357</tt>  <tt class="py-line">        <tt class="py-name">validity_obj</tt> <tt class="py-op">=</tt> <tt class="py-name">bus</tt><tt class="py-op">.</tt><tt class="py-name">ProxyObjectClass</tt><tt class="py-op">(</tt><tt class="py-name">bus</tt><tt class="py-op">,</tt> <tt class="py-string">'com.redhat.SubscriptionManager'</tt><tt class="py-op">,</tt> </tt>
+<a name="L358"></a><tt class="py-lineno">358</tt>  <tt class="py-line">              <tt class="py-string">'/EntitlementStatus'</tt><tt class="py-op">,</tt> <tt class="py-name">introspect</tt><tt class="py-op">=</tt><tt class="py-name">False</tt><tt class="py-op">)</tt> </tt>
 <a name="L359"></a><tt class="py-lineno">359</tt>  <tt class="py-line">        <tt class="py-name">validity_iface</tt> <tt class="py-op">=</tt> <tt class="py-name">dbus</tt><tt class="py-op">.</tt><tt class="py-name">Interface</tt><tt class="py-op">(</tt><tt class="py-name">validity_obj</tt><tt class="py-op">,</tt> </tt>
-<a name="L360"></a><tt class="py-lineno">360</tt>  <tt class="py-line">        <tt class="py-name">dbus_interface</tt><tt class="py-op">=</tt><tt class="py-string">'com.redhat.SubscriptionManager.EntitlementStatus'</tt><tt class="py-op">)</tt> </tt>
+<a name="L360"></a><tt class="py-lineno">360</tt>  <tt class="py-line">              <tt class="py-name">dbus_interface</tt><tt class="py-op">=</tt><tt class="py-string">'com.redhat.SubscriptionManager.EntitlementStatus'</tt><tt class="py-op">)</tt> </tt>
 <a name="L361"></a><tt class="py-lineno">361</tt>  <tt class="py-line">    <tt class="py-keyword">except</tt> <tt class="py-name">dbus</tt><tt class="py-op">.</tt><tt class="py-name">DBusException</tt><tt class="py-op">:</tt> </tt>
 <a name="L362"></a><tt class="py-lineno">362</tt>  <tt class="py-line">        <tt class="py-comment"># we can't connect to dbus. it's not running, likely from a minimal</tt> </tt>
 <a name="L363"></a><tt class="py-lineno">363</tt>  <tt class="py-line">        <tt class="py-comment"># install. we can't do anything here, so just ignore it.</tt> </tt>
@@ -750,12 +737,11 @@ up2date_client.up2dateUtils.getArch" class="py-name" href="#" onclick="return do
 <a name="L422"></a><tt class="py-lineno">422</tt>  <tt class="py-line">        <tt class="py-keyword">assert</tt> <tt id="link-167" class="py-name"><a title="up2date_client.rhnregGui.username" class="py-name" href="#" onclick="return doclink('link-167', 'username', 'link-101');">username</a></tt> <tt class="py-keyword">is</tt> <tt class="py-keyword">not</tt> <tt class="py-name">None</tt> </tt>
 <a name="L423"></a><tt class="py-lineno">423</tt>  <tt class="py-line">        <tt class="py-keyword">assert</tt> <tt id="link-168" class="py-name"><a title="up2date_client.rhnregGui.password" class="py-name" href="#" onclick="return doclink('link-168', 'password', 'link-102');">password</a></tt> <tt class="py-keyword">is</tt> <tt class="py-keyword">not</tt> <tt class="py-name">None</tt> </tt>
 <a name="L424"></a><tt class="py-lineno">424</tt>  <tt class="py-line">        <tt class="py-keyword">assert</tt> <tt class="py-name">activationKey</tt> <tt class="py-keyword">is</tt> <tt class="py-name">None</tt> </tt>
-<a name="L425"></a><tt class="py-lineno">425</tt>  <tt class="py-line">    <tt class="py-keyword">for</tt> <tt class="py-name">key</tt> <tt class="py-keyword">in</tt> <tt class="py-name">other</tt><tt class="py-op">.</tt><tt id="link-169" class="py-name" targets="Method backend.common.rhnConfig.RHNOptions.keys()=backend.common.rhnConfig.RHNOptions-class.html#keys,Method backend.server.rhnSQL.sql_table.Table.keys()=backend.server.rhnSQL.sql_table.Table-class.html#keys,Method backend.wsgi.wsgiRequest.WsgiMPtable.keys()=backend.wsgi.wsgiRequest.WsgiMPtable-class.html#keys,Function config_common.local_config.keys()=config_common.local_config-module.html#keys,Method config_common.local_config.rhncfgConfigParser.keys()=config_common.local_config.rhncfgConfigParser-class.html#keys,Method rhn.UserDictCase.UserDictCase.keys()=rhn.UserDictCase.UserDictCase-class.html#keys,Method rhn.UserDictCase.UserDictCase.keys()=rhn.UserDictCase.UserDictCase-class.html#keys,Method rhnpush.rhnpush_config.rhnpushConfigParser.keys()=rhnpush.rhnpush_config.rhnpushConfigParser-class.html#keys,Method src.osad_config.ClientConfigParser.keys()=src.osad_config.ClientConfigParser-class.html#keys,Function src.osad_config.keys()=src.osad_config-module.html#keys,Method up2date_client.config.Config.keys()=up2date_client.config.Config-class.html#keys,Method up2date_client.config.ConfigFile.keys()=up2date_client.config.ConfigFile-class.html#keys,Method up2date_client.rhnChannel.rhnChannel.keys()=up2date_client.rhnChannel.rhnChannel-class.html#keys"><a title="backend.common.rhnConfig.RHNOptions.keys
+<a name="L425"></a><tt class="py-lineno">425</tt>  <tt class="py-line">    <tt class="py-keyword">for</tt> <tt class="py-name">key</tt> <tt class="py-keyword">in</tt> <tt class="py-name">other</tt><tt class="py-op">.</tt><tt id="link-169" class="py-name" targets="Method backend.common.rhnConfig.RHNOptions.keys()=backend.common.rhnConfig.RHNOptions-class.html#keys,Method backend.server.rhnSQL.sql_table.Table.keys()=backend.server.rhnSQL.sql_table.Table-class.html#keys,Method backend.wsgi.wsgiRequest.WsgiMPtable.keys()=backend.wsgi.wsgiRequest.WsgiMPtable-class.html#keys,Function config_common.local_config.keys()=config_common.local_config-module.html#keys,Method config_common.local_config.rhncfgConfigParser.keys()=config_common.local_config.rhncfgConfigParser-class.html#keys,Method rhn.UserDictCase.UserDictCase.keys()=rhn.UserDictCase.UserDictCase-class.html#keys,Method rhnpush.rhnpush_config.rhnpushConfigParser.keys()=rhnpush.rhnpush_config.rhnpushConfigParser-class.html#keys,Method src.osad_config.ClientConfigParser.keys()=src.osad_config.ClientConfigParser-class.html#keys,Function src.osad_config.keys()=src.osad_config-module.html#keys,Method up2date_client.config.Config.keys()=up2date_client.config.Config-class.html#keys,Method up2date_client.config.ConfigFile.keys()=up2date_client.config.ConfigFile-class.html#keys,Method up2date_client.rhnChannel.rhnChannel.keys()=up2date_client.rhnChannel.rhnChannel-class.html#keys"><a title="backend.common.rhnConfig.RHNOptions.keys
 backend.server.rhnSQL.sql_table.Table.keys
 backend.wsgi.wsgiRequest.WsgiMPtable.keys
 config_common.local_config.keys
 config_common.local_config.rhncfgConfigParser.keys
-rhn.UserDictCase.UserDictCase.keys
 rhn.UserDictCase.UserDictCase.keys
 rhnpush.rhnpush_config.rhnpushConfigParser.keys
 src.osad_config.ClientConfigParser.keys
@@ -773,6 +759,7 @@ up2date_client.rhnChannel.rhnChannel.keys" class="py-name" href="#" onclick="ret
 actions.up2date_config.cfg
 rhn_applet.cfg
 rhn_check.cfg
+up2date_client.config.cfg
 up2date_client.rhnreg.cfg
 up2date_client.rhnregGui.cfg
 up2date_client.tui.cfg" class="py-name" href="#" onclick="return doclink('link-170', 'cfg', 'link-27');">cfg</a></tt><tt class="py-op">[</tt><tt class="py-string">'supportsSMBIOS'</tt><tt class="py-op">]</tt><tt class="py-op">:</tt> </tt>
@@ -809,6 +796,7 @@ up2date_client.hardware.log
 up2date_client.rhnreg.log
 up2date_client.rhnregGui.log
 up2date_client.tui.log
+up2date_client.up2dateLog.log
 virtualization.notification.log" class="py-name" href="#" onclick="return doclink('link-195', 'log', 'link-30');">log</a></tt><tt class="py-op">.</tt><tt id="link-196" class="py-name" targets="Function backend.common.rhnLog.log_debug()=backend.common.rhnLog-module.html#log_debug,Method config_common.rhn_log.Logger.log_debug()=config_common.rhn_log.Logger-class.html#log_debug,Function config_common.rhn_log.log_debug()=config_common.rhn_log-module.html#log_debug,Method src.rhn_log.Logger.log_debug()=src.rhn_log.Logger-class.html#log_debug,Function src.rhn_log.log_debug()=src.rhn_log-module.html#log_debug,Method up2date_client.up2dateLog.Log.log_debug()=up2date_client.up2dateLog.Log-class.html#log_debug"><a title="backend.common.rhnLog.log_debug
 config_common.rhn_log.Logger.log_debug
 config_common.rhn_log.log_debug
@@ -844,6 +832,7 @@ up2date_client.config.ConfigFile.info" class="py-name" href="#" onclick="return 
 actions.up2date_config.cfg
 rhn_applet.cfg
 rhn_check.cfg
+up2date_client.config.cfg
 up2date_client.rhnreg.cfg
 up2date_client.rhnregGui.cfg
 up2date_client.tui.cfg" class="py-name" href="#" onclick="return doclink('link-220', 'cfg', 'link-27');">cfg</a></tt><tt class="py-op">[</tt><tt class="py-string">"supportsEUS"</tt><tt class="py-op">]</tt> </tt>
@@ -945,6 +934,7 @@ backend.server.importlib.backendLib.TableUpdate.query" class="py-name" href="#" 
 actions.up2date_config.cfg
 rhn_applet.cfg
 rhn_check.cfg
+up2date_client.config.cfg
 up2date_client.rhnreg.cfg
 up2date_client.rhnregGui.cfg
 up2date_client.tui.cfg" class="py-name" href="#" onclick="return doclink('link-257', 'cfg', 'link-27');">cfg</a></tt><tt class="py-op">[</tt><tt class="py-string">'hostedWhitelist'</tt><tt class="py-op">]</tt> </tt>
@@ -1008,8 +998,7 @@ up2date_client.rhnregGui.ReviewLog.channels" class="py-name" href="#" onclick="r
 <a name="L586"></a><tt class="py-lineno">586</tt>  <tt class="py-line">            <tt class="py-keyword">elif</tt> <tt class="py-name">item_type</tt> <tt class="py-op">==</tt> <tt class="py-name">ListType</tt><tt class="py-op">:</tt> </tt>
 <a name="L587"></a><tt class="py-lineno">587</tt>  <tt class="py-line">                <tt class="py-name">item</tt> <tt class="py-op">=</tt> <tt class="py-name">map</tt><tt class="py-op">(</tt><tt id="link-271" class="py-name"><a title="up2date_client.rhnreg._encode_characters" class="py-name" href="#" onclick="return doclink('link-271', '_encode_characters', 'link-140');">_encode_characters</a></tt><tt class="py-op">,</tt> <tt class="py-name">item</tt><tt class="py-op">)</tt> </tt>
 <a name="L588"></a><tt class="py-lineno">588</tt>  <tt class="py-line">            <tt class="py-keyword">elif</tt> <tt class="py-name">item_type</tt> <tt class="py-op">==</tt> <tt class="py-name">DictType</tt> <tt class="py-keyword">or</tt> <tt class="py-name">item_type</tt> <tt class="py-op">==</tt> <tt class="py-name">DictionaryType</tt><tt class="py-op">:</tt> </tt>
-<a name="L589"></a><tt class="py-lineno">589</tt>  <tt class="py-line">                <tt class="py-name">item</tt> <tt class="py-op">=</tt> <tt id="link-272" class="py-name" targets="Method rhn.UserDictCase.UserDictCase.dict()=rhn.UserDictCase.UserDictCase-class.html#dict,Method rhn.UserDictCase.UserDictCase.dict()=rhn.UserDictCase.UserDictCase-class.html#dict,Method rhnkickstart.lilo.UserDictCase.dict()=rhnkickstart.lilo.UserDictCase-class.html#dict"><a title="rhn.UserDictCase.UserDictCase.dict
-rhn.UserDictCase.UserDictCase.dict
+<a name="L589"></a><tt class="py-lineno">589</tt>  <tt class="py-line">                <tt class="py-name">item</tt> <tt class="py-op">=</tt> <tt id="link-272" class="py-name" targets="Method rhn.UserDictCase.UserDictCase.dict()=rhn.UserDictCase.UserDictCase-class.html#dict,Method rhnkickstart.lilo.UserDictCase.dict()=rhnkickstart.lilo.UserDictCase-class.html#dict"><a title="rhn.UserDictCase.UserDictCase.dict
 rhnkickstart.lilo.UserDictCase.dict" class="py-name" href="#" onclick="return doclink('link-272', 'dict', 'link-272');">dict</a></tt><tt class="py-op">(</tt><tt class="py-op">[</tt><tt class="py-op">(</tt><tt id="link-273" class="py-name"><a title="up2date_client.rhnreg._encode_characters" class="py-name" href="#" onclick="return doclink('link-273', '_encode_characters', 'link-140');">_encode_characters</a></tt><tt class="py-op">(</tt><tt class="py-name">name</tt><tt class="py-op">,</tt> <tt class="py-name">val</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> <tt class="py-keyword">for</tt> <tt class="py-name">name</tt><tt class="py-op">,</tt> <tt class="py-name">val</tt> <tt class="py-keyword">in</tt> <tt class="py-name">item</tt><tt class="py-op">.</tt><tt class="py-name">iteritems</tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> </tt>
 <a name="L590"></a><tt class="py-lineno">590</tt>  <tt class="py-line">            <tt class="py-comment"># else: numbers or UnicodeType - are safe</tt> </tt>
 <a name="L591"></a><tt class="py-lineno">591</tt>  <tt class="py-line">            <tt id="link-274" class="py-name"><a title="virtualization.get_config_value.result" class="py-name" href="#" onclick="return doclink('link-274', 'result', 'link-198');">result</a></tt><tt class="py-op">.</tt><tt id="link-275" class="py-name" targets="Method backend.server.importlib.importLib.Collection.append()=backend.server.importlib.importLib.Collection-class.html#append,Method src._ConfigParser.ParsingError.append()=src._ConfigParser.ParsingError-class.html#append"><a title="backend.server.importlib.importLib.Collection.append
@@ -1039,6 +1028,7 @@ up2date_client.hardware.log
 up2date_client.rhnreg.log
 up2date_client.rhnregGui.log
 up2date_client.tui.log
+up2date_client.up2dateLog.log
 virtualization.notification.log" class="py-name" href="#" onclick="return doclink('link-283', 'log', 'link-30');">log</a></tt><tt class="py-op">.</tt><tt id="link-284" class="py-name" targets="Method up2date_client.up2dateLog.Log.log_me()=up2date_client.up2dateLog.Log-class.html#log_me"><a title="up2date_client.up2dateLog.Log.log_me" class="py-name" href="#" onclick="return doclink('link-284', 'log_me', 'link-284');">log_me</a></tt><tt class="py-op">(</tt><tt class="py-string">"There was an error while reading the hardware "</tt> </tt>
 <a name="L608"></a><tt class="py-lineno">608</tt>  <tt class="py-line">                   <tt class="py-string">"info from the bios. Traceback:\n"</tt><tt class="py-op">)</tt> </tt>
 <a name="L609"></a><tt class="py-lineno">609</tt>  <tt class="py-line">        <tt id="link-285" class="py-name"><a title="actions.reboot.log
@@ -1048,6 +1038,7 @@ up2date_client.hardware.log
 up2date_client.rhnreg.log
 up2date_client.rhnregGui.log
 up2date_client.tui.log
+up2date_client.up2dateLog.log
 virtualization.notification.log" class="py-name" href="#" onclick="return doclink('link-285', 'log', 'link-30');">log</a></tt><tt class="py-op">.</tt><tt id="link-286" class="py-name" targets="Method up2date_client.up2dateLog.Log.log_exception()=up2date_client.up2dateLog.Log-class.html#log_exception"><a title="up2date_client.up2dateLog.Log.log_exception" class="py-name" href="#" onclick="return doclink('link-286', 'log_exception', 'link-286');">log_exception</a></tt><tt class="py-op">(</tt><tt class="py-op">*</tt><tt class="py-name">sys</tt><tt class="py-op">.</tt><tt class="py-name">exc_info</tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
 <a name="L610"></a><tt class="py-lineno">610</tt>  <tt class="py-line"> </tt>
 <a name="L611"></a><tt class="py-lineno">611</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-name">hardwareInfo</tt> <tt class="py-keyword">is</tt> <tt class="py-keyword">not</tt> <tt class="py-name">None</tt><tt class="py-op">:</tt> </tt>
@@ -1074,6 +1065,7 @@ up2date_client.hardware.log
 up2date_client.rhnreg.log
 up2date_client.rhnregGui.log
 up2date_client.tui.log
+up2date_client.up2dateLog.log
 virtualization.notification.log" class="py-name" href="#" onclick="return doclink('link-299', 'log', 'link-30');">log</a></tt><tt class="py-op">.</tt><tt id="link-300" class="py-name"><a title="backend.common.rhnLog.log_debug
 config_common.rhn_log.Logger.log_debug
 config_common.rhn_log.log_debug
@@ -1089,6 +1081,7 @@ up2date_client.hardware.log
 up2date_client.rhnreg.log
 up2date_client.rhnregGui.log
 up2date_client.tui.log
+up2date_client.up2dateLog.log
 virtualization.notification.log" class="py-name" href="#" onclick="return doclink('link-303', 'log', 'link-30');">log</a></tt><tt class="py-op">.</tt><tt id="link-304" class="py-name"><a title="backend.common.rhnLog.log_debug
 config_common.rhn_log.Logger.log_debug
 config_common.rhn_log.log_debug
@@ -1129,6 +1122,7 @@ up2date_client.hardware.log
 up2date_client.rhnreg.log
 up2date_client.rhnregGui.log
 up2date_client.tui.log
+up2date_client.up2dateLog.log
 virtualization.notification.log" class="py-name" href="#" onclick="return doclink('link-317', 'log', 'link-30');">log</a></tt><tt class="py-op">.</tt><tt id="link-318" class="py-name"><a title="backend.common.rhnLog.log_debug
 config_common.rhn_log.Logger.log_debug
 config_common.rhn_log.log_debug
@@ -1158,6 +1152,7 @@ up2date_client.hardware.log
 up2date_client.rhnreg.log
 up2date_client.rhnregGui.log
 up2date_client.tui.log
+up2date_client.up2dateLog.log
 virtualization.notification.log" class="py-name" href="#" onclick="return doclink('link-327', 'log', 'link-30');">log</a></tt><tt class="py-op">.</tt><tt id="link-328" class="py-name"><a title="up2date_client.up2dateLog.Log.log_me" class="py-name" href="#" onclick="return doclink('link-328', 'log_me', 'link-284');">log_me</a></tt><tt class="py-op">(</tt><tt class="py-name">x</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> <tt class="py-name">p</tt><tt class="py-op">.</tt><tt class="py-name">stdout</tt><tt class="py-op">.</tt><tt class="py-name">readlines</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> <tt class="py-op">+</tt> \ </tt>
 <a name="L665"></a><tt class="py-lineno">665</tt>  <tt class="py-line">                  <tt class="py-name">p</tt><tt class="py-op">.</tt><tt class="py-name">stderr</tt><tt class="py-op">.</tt><tt class="py-name">readlines</tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
 <a name="L666"></a><tt class="py-lineno">666</tt>  <tt class="py-line">    <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
@@ -1168,9 +1163,10 @@ up2date_client.hardware.log
 up2date_client.rhnreg.log
 up2date_client.rhnregGui.log
 up2date_client.tui.log
+up2date_client.up2dateLog.log
 virtualization.notification.log" class="py-name" href="#" onclick="return doclink('link-329', 'log', 'link-30');">log</a></tt><tt class="py-op">.</tt><tt id="link-330" class="py-name"><a title="up2date_client.up2dateLog.Log.log_me" class="py-name" href="#" onclick="return doclink('link-330', 'log_me', 'link-284');">log_me</a></tt><tt class="py-op">(</tt><tt class="py-string">"Warning: unable to run rhn_check"</tt><tt class="py-op">)</tt> </tt>
 </div><a name="L668"></a><tt class="py-lineno">668</tt>  <tt class="py-line"> </tt>
-<a name="L669"></a><tt class="py-lineno">669</tt>  <tt class="py-line"><tt class="py-keyword">if</tt> <tt id="link-331" class="py-name"><a title="up2date_client.platform.getPlatform" class="py-name" href="#" onclick="return doclink('link-331', 'getPlatform', 'link-11');">getPlatform</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> <tt class="py-op">==</tt> <tt class="py-string">'deb'</tt><tt class="py-op">:</tt> </tt>
+<a name="L669"></a><tt class="py-lineno">669</tt>  <tt class="py-line"><tt class="py-keyword">if</tt> <tt id="link-331" class="py-name"><a title="up2date_client.pkgplatform.getPlatform" class="py-name" href="#" onclick="return doclink('link-331', 'getPlatform', 'link-11');">getPlatform</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> <tt class="py-op">==</tt> <tt class="py-string">'deb'</tt><tt class="py-op">:</tt> </tt>
 <a name="pluginEnable"></a><div id="pluginEnable-def"><a name="L670"></a><tt class="py-lineno">670</tt> <a class="py-toggle" href="#" id="pluginEnable-toggle" onclick="return toggle('pluginEnable');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="up2date_client.rhnreg-module.html#pluginEnable">pluginEnable</a><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
 </div><div id="pluginEnable-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="pluginEnable-expanded"><a name="L671"></a><tt class="py-lineno">671</tt>  <tt class="py-line">        <tt class="py-docstring">"""On Debian no extra action for plugin is needed"""</tt> </tt>
 <a name="L672"></a><tt class="py-lineno">672</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-number">1</tt><tt class="py-op">,</tt> <tt class="py-number">0</tt> </tt>
@@ -1206,7 +1202,7 @@ expandto(location.href);
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Wed Dec 21 14:30:43 2011
+    Generated by Epydoc 3.0.1 on Fri Mar  2 11:40:24 2012
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

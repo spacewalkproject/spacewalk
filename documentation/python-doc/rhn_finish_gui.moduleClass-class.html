@@ -1,0 +1,485 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>rhn_finish_gui.moduleClass</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="rhn_finish_gui-module.html">Module&nbsp;rhn_finish_gui</a> ::
+        Class&nbsp;moduleClass
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="rhn_finish_gui.moduleClass-class.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<!-- ==================== CLASS DESCRIPTION ==================== -->
+<h1 class="epydoc">Class moduleClass</h1><p class="nomargin-top"><span class="codelink"><a href="rhn_finish_gui-pysrc.html#moduleClass">source&nbsp;code</a></span></p>
+<center>
+<center>  <map id="uml_class_diagram_for_rhn_fini" name="uml_class_diagram_for_rhn_fini">
+<area shape="rect" id="node1_10" href="javascript:void(0);" title="Focus some initial UI element on the page." alt="" coords="37,39,209,57"/>
+<area shape="rect" id="node1_11" href="javascript:void(0);" title="Does whatever action happened in this module&#39;s apply() method require &#160;rebooting the computer? &#160;By default, no modules require rebooting." alt="" coords="37,57,209,76"/>
+<area shape="rect" id="node1_12" href="javascript:void(0);" title="Wrap the module&#39;s top&#45;level UI element in the other elements required to &#160;make sure all modules have the same common look." alt="" coords="37,76,209,95"/>
+<area shape="rect" id="node1_13" href="javascript:void(0);" title="firstboot.module.Module.reconfig" alt="" coords="37,95,209,113"/>
+<area shape="rect" id="node1" href="javascript:void(0);" title="The base class for all firstboot modules." alt="" coords="25,6,221,119"/>
+<area shape="rect" id="node2_14" href="rhn_finish_gui.moduleClass-class.html#__init__" title="Create a new Module instance." alt="" coords="17,172,229,191"/>
+<area shape="rect" id="node2_15" href="rhn_finish_gui.moduleClass-class.html#needsNetwork" title="Does this module require the network to be active in order to run? By &#160;default, no modules need networking." alt="" coords="17,191,229,209"/>
+<area shape="rect" id="node2_16" href="rhn_finish_gui.moduleClass-class.html#apply" title="Called when the Next button is clicked on the interface." alt="" coords="17,209,229,228"/>
+<area shape="rect" id="node2_17" href="rhn_finish_gui.moduleClass-class.html#createScreen" title="Create a new instance of gtk.VBox, the UI elements required for this &#160;module, and pack them into self.vbox." alt="" coords="17,228,229,247"/>
+<area shape="rect" id="node2_18" href="rhn_finish_gui.moduleClass-class.html#initializeUI" title="Synchronize the state of the UI with whatever&#39;s present on disk or wherever else the module looks for its default values." alt="" coords="17,247,229,265"/>
+<area shape="rect" id="node2_19" href="rhn_finish_gui.moduleClass-class.html#shouldAppear" title="Should this module appear in firstboot? &#160;This method will be called after &#160;the module is loaded, but before any UI work is performed." alt="" coords="17,265,229,284"/>
+<area shape="rect" id="node2" href="rhn_finish_gui.moduleClass-class.html" title="rhn_finish_gui.moduleClass" alt="" coords="5,139,241,290"/>
+</map>
+  <img src="uml_class_diagram_for_rhn_fini.png" alt='' usemap="#uml_class_diagram_for_rhn_fini" ismap="ismap" class="graph-without-title" />
+</center>
+</center>
+<hr />
+<!-- ==================== INSTANCE METHODS ==================== -->
+<a name="section-InstanceMethods"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Instance Methods</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-InstanceMethods"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="rhn_finish_gui.moduleClass-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      Create a new Module instance.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="rhn_finish_gui-pysrc.html#moduleClass.__init__">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="rhn_finish_gui.moduleClass-class.html#needsNetwork" class="summary-sig-name">needsNetwork</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      Does this module require the network to be active in order to run? By
+      default, no modules need networking.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="rhn_finish_gui-pysrc.html#moduleClass.needsNetwork">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="rhn_finish_gui.moduleClass-class.html#apply" class="summary-sig-name">apply</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">interface</span>,
+        <span class="summary-sig-arg">testing</span>=<span class="summary-sig-default">False</span>)</span><br />
+      Called when the Next button is clicked on the interface.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="rhn_finish_gui-pysrc.html#moduleClass.apply">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="rhn_finish_gui.moduleClass-class.html#createScreen" class="summary-sig-name">createScreen</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      Create a new instance of gtk.VBox, the UI elements required for this 
+      module, and pack them into self.vbox.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="rhn_finish_gui-pysrc.html#moduleClass.createScreen">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="rhn_finish_gui.moduleClass-class.html#initializeUI" class="summary-sig-name">initializeUI</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      Synchronize the state of the UI with whatever's present on disk or 
+      wherever else the module looks for its default values.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="rhn_finish_gui-pysrc.html#moduleClass.initializeUI">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="rhn_finish_gui.moduleClass-class.html#shouldAppear" class="summary-sig-name">shouldAppear</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      Should this module appear in firstboot?  This method will be called 
+      after the module is loaded, but before any UI work is performed.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="rhn_finish_gui-pysrc.html#moduleClass.shouldAppear">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code>firstboot.module.Module</code></b>:
+      <code>focus</code>,
+      <code>needsReboot</code>,
+      <code>reconfig</code>,
+      <code>renderModule</code>
+      </p>
+    </td>
+  </tr>
+</table>
+<!-- ==================== METHOD DETAILS ==================== -->
+<a name="section-MethodDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Method Details</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-MethodDetails"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<a name="__init__"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>)</span>
+    <br /><em class="fname">(Constructor)</em>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="rhn_finish_gui-pysrc.html#moduleClass.__init__">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+Create a new Module instance.  This method must be provided by
+all subclasses.  Of the following instance attributes, only icon
+is not required.  The module loader will check that all required
+attributes are present and defined.  Instance attributes;
+
+icon         -- No longer used.
+mode         -- The mode of firstboot operation that this module
+                should appear in.  MODE_REGULAR means the module
+                will appear only in the regular running mode.
+                MODE_RECONFIG means the module will appear in both
+                regular mode and reconfig mode.
+priority     -- An integer specifying the order in which this module
+                should be loaded and appear in firstboot.  The lower
+                the priority number, the earlier this module will
+                be loaded and run.  All modules with the same
+                priority will then be ordered alphabetically by
+                title.
+sidebarTitle -- A brief word or phrase that will appear on the
+                firstboot sidebar on the left side of the screen.
+title        -- The title of the module that will appear on the
+                right side of the screen above the module when it
+                is displayed.  The title is shown in large bold
+                letters.
+vbox         -- A gtk.VBox that contains all the widgets for this
+                module.  The vbox will be wrapped in various other
+                widgets to present a consistent look and placed
+                on the right side of the screen when the module is
+                displayed.
+
+</pre>
+  <dl class="fields">
+    <dt>Overrides:
+        firstboot.module.Module.__init__
+        <dd><em class="note">(inherited documentation)</em></dd>
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="needsNetwork"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">needsNetwork</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="rhn_finish_gui-pysrc.html#moduleClass.needsNetwork">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Does this module require the network to be active in order to run? By 
+  default, no modules need networking.  If the module requires networking 
+  which is not available, the module will not be presented. Modules that 
+  require networking should override this method.</p>
+  <dl class="fields">
+    <dt>Overrides:
+        firstboot.module.Module.needsNetwork
+        <dd><em class="note">(inherited documentation)</em></dd>
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="apply"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">apply</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">interface</span>,
+        <span class="sig-arg">testing</span>=<span class="sig-default">False</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="rhn_finish_gui-pysrc.html#moduleClass.apply">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+Called when the Next button is clicked on the interface.  This
+method takes whatever action is appropriate based on the state
+of the UI.  This can include writing things to disk or running
+programs.  apply should return one of the following values:
+
+RESULT_FAILURE -- Return this value if firstboot should not move
+                  to the next screen.  This is commonly used when
+                  a module displays a yes/no question, and the user
+                  selects no so the module must present its screen
+                  again.
+RESULT_SUCCESS -- Return this value if everything worked.  This
+                  tells firstboot that it should advance to the
+                  next module.
+RESULT_JUMP    -- Return this value if the module called
+                  interface.moveToPage.  This tells firstboot to
+                  not automatically advance to the next module.
+                  Otherwise, the page your module advanced to will
+                  be skipped.
+
+This method must be provided by all subclasses.  Arguments:
+
+interface -- A reference to the running Interface class.
+testing   -- If True, this method must not make any permanent
+             changes to disk.
+
+</pre>
+  <dl class="fields">
+    <dt>Overrides:
+        firstboot.module.Module.apply
+        <dd><em class="note">(inherited documentation)</em></dd>
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="createScreen"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">createScreen</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="rhn_finish_gui-pysrc.html#moduleClass.createScreen">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Create a new instance of gtk.VBox, the UI elements required for this 
+  module, and pack them into self.vbox.  Do not take any action to 
+  initialize the UI elements or write anything to disk.  This method does 
+  not return any value, and is the first method called on a module after it
+  is loaded.  This method must be provided by all subclasses.</p>
+  <dl class="fields">
+    <dt>Overrides:
+        firstboot.module.Module.createScreen
+        <dd><em class="note">(inherited documentation)</em></dd>
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="initializeUI"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">initializeUI</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="rhn_finish_gui-pysrc.html#moduleClass.initializeUI">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Synchronize the state of the UI with whatever's present on disk or 
+  wherever else the module looks for its default values.  This method will 
+  be called immediately before the module is displayed, both when moving 
+  forwards and backwards through the module list. It should be designed to 
+  be called multiple times.  This method must be provided by all 
+  subclasses.</p>
+  <dl class="fields">
+    <dt>Overrides:
+        firstboot.module.Module.initializeUI
+        <dd><em class="note">(inherited documentation)</em></dd>
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="shouldAppear"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">shouldAppear</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="rhn_finish_gui-pysrc.html#moduleClass.shouldAppear">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Should this module appear in firstboot?  This method will be called 
+  after the module is loaded, but before any UI work is performed. If 
+  False, the screen will not be created and the module will not be 
+  displayed.  By default, all modules will be displayed.  Modules that need
+  other behavior should override this method.</p>
+  <dl class="fields">
+    <dt>Overrides:
+        firstboot.module.Module.shouldAppear
+        <dd><em class="note">(inherited documentation)</em></dd>
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Fri Mar  2 11:40:10 2012
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

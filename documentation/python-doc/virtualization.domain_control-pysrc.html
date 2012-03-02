@@ -54,7 +54,7 @@
 <h1 class="epydoc">Source Code for <a href="virtualization.domain_control-module.html">Module virtualization.domain_control</a></h1>
 <pre class="py-src">
 <a name="L1"></a><tt class="py-lineno">  1</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
-<a name="L2"></a><tt class="py-lineno">  2</tt>  <tt class="py-line"><tt class="py-comment"># Copyright (c) 2006--2010 Red Hat, Inc.  Distributed under GPL.</tt> </tt>
+<a name="L2"></a><tt class="py-lineno">  2</tt>  <tt class="py-line"><tt class="py-comment"># Copyright (c) 2006--2012 Red Hat, Inc.  Distributed under GPL.</tt> </tt>
 <a name="L3"></a><tt class="py-lineno">  3</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
 <a name="L4"></a><tt class="py-lineno">  4</tt>  <tt class="py-line"><tt class="py-comment"># Author: Peter Vetere &lt;pvetere@redhat.com&gt;</tt> </tt>
 <a name="L5"></a><tt class="py-lineno">  5</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
@@ -231,7 +231,7 @@ virtualization.support.start" class="py-name" href="#" onclick="return doclink('
 </div><div id="_get_domain-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="_get_domain-expanded"><a name="L110"></a><tt class="py-lineno">110</tt>  <tt class="py-line">    <tt class="py-docstring">"""</tt> </tt>
 <a name="L111"></a><tt class="py-lineno">111</tt>  <tt class="py-line"><tt class="py-docstring">    Lookup the domain by its UUID.  If not found, raise an exception.</tt> </tt>
 <a name="L112"></a><tt class="py-lineno">112</tt>  <tt class="py-line"><tt class="py-docstring">    """</tt> </tt>
-<a name="L113"></a><tt class="py-lineno">113</tt>  <tt class="py-line">    <tt class="py-name">conn</tt> <tt class="py-op">=</tt> <tt class="py-name">libvirt</tt><tt class="py-op">.</tt><tt class="py-name">openReadOnly</tt><tt class="py-op">(</tt><tt class="py-name">None</tt><tt class="py-op">)</tt> </tt>
+<a name="L113"></a><tt class="py-lineno">113</tt>  <tt class="py-line">    <tt class="py-name">conn</tt> <tt class="py-op">=</tt> <tt class="py-name">libvirt</tt><tt class="py-op">.</tt><tt class="py-name">open</tt><tt class="py-op">(</tt><tt class="py-name">None</tt><tt class="py-op">)</tt> </tt>
 <a name="L114"></a><tt class="py-lineno">114</tt>  <tt class="py-line">    <tt id="link-75" class="py-name" targets="Module backend.server.repomd.domain=backend.server.repomd.domain-module.html"><a title="backend.server.repomd.domain" class="py-name" href="#" onclick="return doclink('link-75', 'domain', 'link-75');">domain</a></tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt> </tt>
 <a name="L115"></a><tt class="py-lineno">115</tt>  <tt class="py-line">    <tt class="py-name">hyphenized_uuid</tt> <tt class="py-op">=</tt> <tt id="link-76" class="py-name"><a title="virtualization.util.hyphenize_uuid" class="py-name" href="#" onclick="return doclink('link-76', 'hyphenize_uuid', 'link-9');">hyphenize_uuid</a></tt><tt class="py-op">(</tt><tt id="link-77" class="py-name"><a title="virtualization.init_action.uuid" class="py-name" href="#" onclick="return doclink('link-77', 'uuid', 'link-13');">uuid</a></tt><tt class="py-op">)</tt> </tt>
 <a name="L116"></a><tt class="py-lineno">116</tt>  <tt class="py-line">    <tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
@@ -261,14 +261,14 @@ virtualization.support.start" class="py-name" href="#" onclick="return doclink('
 <a name="L140"></a><tt class="py-lineno">140</tt>  <tt class="py-line"> </tt>
 <a name="L141"></a><tt class="py-lineno">141</tt>  <tt class="py-line">    <tt id="link-86" class="py-name" targets="Variable virtualization.get_config_value.result=virtualization.get_config_value-module.html#result"><a title="virtualization.get_config_value.result" class="py-name" href="#" onclick="return doclink('link-86', 'result', 'link-86');">result</a></tt> <tt class="py-op">=</tt> <tt class="py-number">0</tt> </tt>
 <a name="L142"></a><tt class="py-lineno">142</tt>  <tt class="py-line">    <tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
-<a name="L143"></a><tt class="py-lineno">143</tt>  <tt class="py-line">        <tt id="link-87" class="py-name"><a title="virtualization.get_config_value.result" class="py-name" href="#" onclick="return doclink('link-87', 'result', 'link-86');">result</a></tt> <tt class="py-op">=</tt> <tt id="link-88" class="py-name" targets="Method rhn_choose_channel.moduleClass.apply()=rhn_choose_channel.moduleClass-class.html#apply,Method rhn_choose_server_gui.RhnChooseServerWindow.apply()=rhn_choose_server_gui.RhnChooseServerWindow-class.html#apply,Method rhn_create_profile_gui.RhnCreateProfileWindow.apply()=rhn_create_profile_gui.RhnCreateProfileWindow-class.html#apply,Method rhn_finish_gui.RhnFinishWindow.apply()=rhn_finish_gui.RhnFinishWindow-class.html#apply,Method rhn_login_gui.RhnLoginWindow.apply()=rhn_login_gui.RhnLoginWindow-class.html#apply,Method rhn_provide_certificate_gui.RhnProvideCertificateWindow.apply()=rhn_provide_certificate_gui.RhnProvideCertificateWindow-class.html#apply,Method rhn_review_gui.RhnReviewWindow.apply()=rhn_review_gui.RhnReviewWindow-class.html#apply,Method rhn_start_gui.RhnStartWindow.apply()=rhn_start_gui.RhnStartWindow-class.html#apply"><a title="rhn_choose_channel.moduleClass.apply
-rhn_choose_server_gui.RhnChooseServerWindow.apply
-rhn_create_profile_gui.RhnCreateProfileWindow.apply
-rhn_finish_gui.RhnFinishWindow.apply
-rhn_login_gui.RhnLoginWindow.apply
-rhn_provide_certificate_gui.RhnProvideCertificateWindow.apply
-rhn_review_gui.RhnReviewWindow.apply
-rhn_start_gui.RhnStartWindow.apply" class="py-name" href="#" onclick="return doclink('link-88', 'apply', 'link-88');">apply</a></tt><tt class="py-op">(</tt><tt class="py-name">ctrl_func</tt><tt class="py-op">,</tt> <tt class="py-name">args</tt><tt class="py-op">)</tt> </tt>
+<a name="L143"></a><tt class="py-lineno">143</tt>  <tt class="py-line">        <tt id="link-87" class="py-name"><a title="virtualization.get_config_value.result" class="py-name" href="#" onclick="return doclink('link-87', 'result', 'link-86');">result</a></tt> <tt class="py-op">=</tt> <tt id="link-88" class="py-name" targets="Method rhn_choose_channel.moduleClass.apply()=rhn_choose_channel.moduleClass-class.html#apply,Method rhn_choose_server_gui.moduleClass.apply()=rhn_choose_server_gui.moduleClass-class.html#apply,Method rhn_create_profile_gui.moduleClass.apply()=rhn_create_profile_gui.moduleClass-class.html#apply,Method rhn_finish_gui.moduleClass.apply()=rhn_finish_gui.moduleClass-class.html#apply,Method rhn_login_gui.moduleClass.apply()=rhn_login_gui.moduleClass-class.html#apply,Method rhn_provide_certificate_gui.moduleClass.apply()=rhn_provide_certificate_gui.moduleClass-class.html#apply,Method rhn_review_gui.moduleClass.apply()=rhn_review_gui.moduleClass-class.html#apply,Method rhn_start_gui.moduleClass.apply()=rhn_start_gui.moduleClass-class.html#apply"><a title="rhn_choose_channel.moduleClass.apply
+rhn_choose_server_gui.moduleClass.apply
+rhn_create_profile_gui.moduleClass.apply
+rhn_finish_gui.moduleClass.apply
+rhn_login_gui.moduleClass.apply
+rhn_provide_certificate_gui.moduleClass.apply
+rhn_review_gui.moduleClass.apply
+rhn_start_gui.moduleClass.apply" class="py-name" href="#" onclick="return doclink('link-88', 'apply', 'link-88');">apply</a></tt><tt class="py-op">(</tt><tt class="py-name">ctrl_func</tt><tt class="py-op">,</tt> <tt class="py-name">args</tt><tt class="py-op">)</tt> </tt>
 <a name="L144"></a><tt class="py-lineno">144</tt>  <tt class="py-line">    <tt class="py-keyword">except</tt> <tt class="py-name">TypeError</tt><tt class="py-op">,</tt> <tt class="py-name">te</tt><tt class="py-op">:</tt> </tt>
 <a name="L145"></a><tt class="py-lineno">145</tt>  <tt class="py-line">        <tt class="py-keyword">raise</tt> <tt id="link-89" class="py-name"><a title="virtualization.errors.VirtualizationException" class="py-name" href="#" onclick="return doclink('link-89', 'VirtualizationException', 'link-6');">VirtualizationException</a></tt><tt class="py-op">,</tt> \ </tt>
 <a name="L146"></a><tt class="py-lineno">146</tt>  <tt class="py-line">              <tt class="py-string">"Invalid arguments (%s) to %s: %s"</tt> <tt class="py-op">%</tt> \ </tt>
@@ -309,7 +309,7 @@ expandto(location.href);
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Wed Dec 21 14:31:00 2011
+    Generated by Epydoc 3.0.1 on Fri Mar  2 11:40:32 2012
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

@@ -54,7 +54,7 @@
 </table>
 <h1 class="epydoc">Source Code for <a href="backend.common.rhnFlags-module.html">Module backend.common.rhnFlags</a></h1>
 <pre class="py-src">
-<a name="L1"></a><tt class="py-lineno"> 1</tt>  <tt class="py-line"><tt class="py-comment"># Copyright (c) 2008--2010 Red Hat, Inc.</tt> </tt>
+<a name="L1"></a><tt class="py-lineno"> 1</tt>  <tt class="py-line"><tt class="py-comment"># Copyright (c) 2008--2012 Red Hat, Inc.</tt> </tt>
 <a name="L2"></a><tt class="py-lineno"> 2</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
 <a name="L3"></a><tt class="py-lineno"> 3</tt>  <tt class="py-line"><tt class="py-comment"># This software is licensed to you under the GNU General Public License,</tt> </tt>
 <a name="L4"></a><tt class="py-lineno"> 4</tt>  <tt class="py-line"><tt class="py-comment"># version 2 (GPLv2). There is NO WARRANTY for this software, express or</tt> </tt>
@@ -71,33 +71,28 @@
 <a name="L15"></a><tt class="py-lineno">15</tt>  <tt class="py-line"><tt class="py-comment"># used to hold the flags gets initialized on demand</tt> </tt>
 <a name="L16"></a><tt class="py-lineno">16</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
 <a name="L17"></a><tt class="py-lineno">17</tt>  <tt class="py-line"> </tt>
-<a name="L18"></a><tt class="py-lineno">18</tt>  <tt class="py-line"> </tt>
-<a name="set"></a><div id="set-def"><a name="L19"></a><tt class="py-lineno">19</tt> <a class="py-toggle" href="#" id="set-toggle" onclick="return toggle('set');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="backend.common.rhnFlags-module.html#set">set</a><tt class="py-op">(</tt><tt class="py-param">name</tt><tt class="py-op">,</tt> <tt class="py-param">value</tt> <tt class="py-op">=</tt> <tt class="py-number">1</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
-</div><div id="set-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="set-expanded"><a name="L20"></a><tt class="py-lineno">20</tt>  <tt class="py-line">    <tt class="py-docstring">"""</tt> </tt>
-<a name="L21"></a><tt class="py-lineno">21</tt>  <tt class="py-line"><tt class="py-docstring">    set value</tt> </tt>
-<a name="L22"></a><tt class="py-lineno">22</tt>  <tt class="py-line"><tt class="py-docstring">    """</tt> </tt>
-<a name="L23"></a><tt class="py-lineno">23</tt>  <tt class="py-line"> </tt>
-<a name="L24"></a><tt class="py-lineno">24</tt>  <tt class="py-line">    <tt class="py-keyword">global</tt> <tt class="py-name">__F</tt> </tt>
-<a name="L25"></a><tt class="py-lineno">25</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">name</tt><tt class="py-op">:</tt> </tt>
-<a name="L26"></a><tt class="py-lineno">26</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">None</tt> </tt>
-<a name="L27"></a><tt class="py-lineno">27</tt>  <tt class="py-line">    <tt class="py-name">name</tt> <tt class="py-op">=</tt> <tt class="py-name">name</tt><tt class="py-op">.</tt><tt class="py-name">lower</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
-<a name="L28"></a><tt class="py-lineno">28</tt>  <tt class="py-line">    <tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
-<a name="L29"></a><tt class="py-lineno">29</tt>  <tt class="py-line">        <tt class="py-name">__F</tt><tt class="py-op">[</tt><tt class="py-name">name</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-name">value</tt> </tt>
-<a name="L30"></a><tt class="py-lineno">30</tt>  <tt class="py-line">    <tt class="py-keyword">except</tt> <tt class="py-name">NameError</tt><tt class="py-op">:</tt> </tt>
-<a name="L31"></a><tt class="py-lineno">31</tt>  <tt class="py-line">        <tt class="py-name">__F</tt> <tt class="py-op">=</tt> <tt class="py-op">{</tt><tt class="py-name">name</tt><tt class="py-op">:</tt> <tt class="py-name">value</tt><tt class="py-op">}</tt> </tt>
-<a name="L32"></a><tt class="py-lineno">32</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt class="py-name">None</tt> </tt>
-</div><a name="L33"></a><tt class="py-lineno">33</tt>  <tt class="py-line"> </tt>
-<a name="L34"></a><tt class="py-lineno">34</tt>  <tt class="py-line"> </tt>
-<a name="get"></a><div id="get-def"><a name="L35"></a><tt class="py-lineno">35</tt> <a class="py-toggle" href="#" id="get-toggle" onclick="return toggle('get');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="backend.common.rhnFlags-module.html#get">get</a><tt class="py-op">(</tt><tt class="py-param">name</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
-</div><div id="get-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="get-expanded"><a name="L36"></a><tt class="py-lineno">36</tt>  <tt class="py-line">    <tt class="py-docstring">"""</tt> </tt>
-<a name="L37"></a><tt class="py-lineno">37</tt>  <tt class="py-line"><tt class="py-docstring">    get value</tt> </tt>
-<a name="L38"></a><tt class="py-lineno">38</tt>  <tt class="py-line"><tt class="py-docstring">    """</tt> </tt>
-<a name="L39"></a><tt class="py-lineno">39</tt>  <tt class="py-line">    <tt class="py-keyword">global</tt> <tt class="py-name">__F</tt> </tt>
-<a name="L40"></a><tt class="py-lineno">40</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">name</tt><tt class="py-op">:</tt> </tt>
-<a name="L41"></a><tt class="py-lineno">41</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">None</tt> </tt>
-<a name="L42"></a><tt class="py-lineno">42</tt>  <tt class="py-line">    <tt class="py-name">name</tt> <tt class="py-op">=</tt> <tt class="py-name">name</tt><tt class="py-op">.</tt><tt class="py-name">lower</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
-<a name="L43"></a><tt class="py-lineno">43</tt>  <tt class="py-line">    <tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
-<a name="L44"></a><tt class="py-lineno">44</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">__F</tt><tt class="py-op">.</tt><tt id="link-0" class="py-name" targets="Function actions.up2date_config.get()=actions.up2date_config-module.html#get,Method backend.common.rhnCache.Cache.get()=backend.common.rhnCache.Cache-class.html#get,Method backend.common.rhnCache.CompressedCache.get()=backend.common.rhnCache.CompressedCache-class.html#get,Method backend.common.rhnCache.NullCache.get()=backend.common.rhnCache.NullCache-class.html#get,Method backend.common.rhnCache.ObjectCache.get()=backend.common.rhnCache.ObjectCache-class.html#get,Function backend.common.rhnCache.get()=backend.common.rhnCache-module.html#get,Method backend.common.rhnConfig.RHNOptions.get()=backend.common.rhnConfig.RHNOptions-class.html#get,Function backend.common.rhnFlags.get()=backend.common.rhnFlags-module.html#get,Function backend.server.action_extra_data.up2date_config.get()=backend.server.action_extra_data.up2date_config-module.html#get,Method backend.server.handlers.xmlrpc.queue.Queue.get()=backend.server.handlers.xmlrpc.queue.Queue-class.html#get,Method backend.server.handlers.xmlrpc.up2date.Servers.get()=backend.server.handlers.xmlrpc.up2date.Servers-class.html#get,Method backend.server.rhnSQL.sql_row.Row.get()=backend.server.rhnSQL.sql_row.Row-class.html#get,Method backend.server.rhnSQL.sql_table.Table.get()=backend.server.rhnSQL.sql_table.Table-class.html#get,Function backend.server.rhnServer.get()=backend.server.rhnServer-module.html#get,Function config_common.local_config.get()=config_common.local_config-module.html#get,Method src._ConfigParser.ConfigParser.get()=src._ConfigParser.ConfigParser-class.html#get,Function src.osad_config.get()=src.osad_config-module.html#get"><a title="actions.up2date_config.get
+<a name="L18"></a><tt class="py-lineno">18</tt>  <tt class="py-line"><tt id="link-0" class="py-name" targets="Variable backend.common.rhnFlags.__F=backend.common.rhnFlags-module.html#__F"><a title="backend.common.rhnFlags.__F" class="py-name" href="#" onclick="return doclink('link-0', '__F', 'link-0');">__F</a></tt> <tt class="py-op">=</tt> <tt class="py-op">{</tt><tt class="py-op">}</tt> </tt>
+<a name="L19"></a><tt class="py-lineno">19</tt>  <tt class="py-line"> </tt>
+<a name="set"></a><div id="set-def"><a name="L20"></a><tt class="py-lineno">20</tt> <a class="py-toggle" href="#" id="set-toggle" onclick="return toggle('set');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="backend.common.rhnFlags-module.html#set">set</a><tt class="py-op">(</tt><tt class="py-param">name</tt><tt class="py-op">,</tt> <tt class="py-param">value</tt> <tt class="py-op">=</tt> <tt class="py-number">1</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="set-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="set-expanded"><a name="L21"></a><tt class="py-lineno">21</tt>  <tt class="py-line">    <tt class="py-docstring">"""</tt> </tt>
+<a name="L22"></a><tt class="py-lineno">22</tt>  <tt class="py-line"><tt class="py-docstring">    set value</tt> </tt>
+<a name="L23"></a><tt class="py-lineno">23</tt>  <tt class="py-line"><tt class="py-docstring">    """</tt> </tt>
+<a name="L24"></a><tt class="py-lineno">24</tt>  <tt class="py-line">    <tt class="py-comment"># pylint: disable=W0622,W0602</tt> </tt>
+<a name="L25"></a><tt class="py-lineno">25</tt>  <tt class="py-line">    <tt class="py-keyword">global</tt> <tt id="link-1" class="py-name"><a title="backend.common.rhnFlags.__F" class="py-name" href="#" onclick="return doclink('link-1', '__F', 'link-0');">__F</a></tt> </tt>
+<a name="L26"></a><tt class="py-lineno">26</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">name</tt><tt class="py-op">:</tt> </tt>
+<a name="L27"></a><tt class="py-lineno">27</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">None</tt> </tt>
+<a name="L28"></a><tt class="py-lineno">28</tt>  <tt class="py-line">    <tt class="py-name">name</tt> <tt class="py-op">=</tt> <tt class="py-name">name</tt><tt class="py-op">.</tt><tt class="py-name">lower</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L29"></a><tt class="py-lineno">29</tt>  <tt class="py-line">    <tt id="link-2" class="py-name"><a title="backend.common.rhnFlags.__F" class="py-name" href="#" onclick="return doclink('link-2', '__F', 'link-0');">__F</a></tt><tt class="py-op">[</tt><tt class="py-name">name</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-name">value</tt> </tt>
+<a name="L30"></a><tt class="py-lineno">30</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt class="py-name">None</tt> </tt>
+</div><a name="L31"></a><tt class="py-lineno">31</tt>  <tt class="py-line"> </tt>
+<a name="get"></a><div id="get-def"><a name="L32"></a><tt class="py-lineno">32</tt> <a class="py-toggle" href="#" id="get-toggle" onclick="return toggle('get');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="backend.common.rhnFlags-module.html#get">get</a><tt class="py-op">(</tt><tt class="py-param">name</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="get-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="get-expanded"><a name="L33"></a><tt class="py-lineno">33</tt>  <tt class="py-line">    <tt class="py-docstring">"""</tt> </tt>
+<a name="L34"></a><tt class="py-lineno">34</tt>  <tt class="py-line"><tt class="py-docstring">    get value</tt> </tt>
+<a name="L35"></a><tt class="py-lineno">35</tt>  <tt class="py-line"><tt class="py-docstring">    """</tt> </tt>
+<a name="L36"></a><tt class="py-lineno">36</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">name</tt><tt class="py-op">:</tt> </tt>
+<a name="L37"></a><tt class="py-lineno">37</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">None</tt> </tt>
+<a name="L38"></a><tt class="py-lineno">38</tt>  <tt class="py-line">    <tt class="py-name">name</tt> <tt class="py-op">=</tt> <tt class="py-name">name</tt><tt class="py-op">.</tt><tt class="py-name">lower</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L39"></a><tt class="py-lineno">39</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt id="link-3" class="py-name"><a title="backend.common.rhnFlags.__F" class="py-name" href="#" onclick="return doclink('link-3', '__F', 'link-0');">__F</a></tt><tt class="py-op">.</tt><tt id="link-4" class="py-name" targets="Function actions.up2date_config.get()=actions.up2date_config-module.html#get,Method backend.common.rhnCache.Cache.get()=backend.common.rhnCache.Cache-class.html#get,Method backend.common.rhnCache.CompressedCache.get()=backend.common.rhnCache.CompressedCache-class.html#get,Method backend.common.rhnCache.NullCache.get()=backend.common.rhnCache.NullCache-class.html#get,Method backend.common.rhnCache.ObjectCache.get()=backend.common.rhnCache.ObjectCache-class.html#get,Function backend.common.rhnCache.get()=backend.common.rhnCache-module.html#get,Method backend.common.rhnConfig.RHNOptions.get()=backend.common.rhnConfig.RHNOptions-class.html#get,Function backend.common.rhnFlags.get()=backend.common.rhnFlags-module.html#get,Function backend.server.action_extra_data.up2date_config.get()=backend.server.action_extra_data.up2date_config-module.html#get,Method backend.server.handlers.xmlrpc.queue.Queue.get()=backend.server.handlers.xmlrpc.queue.Queue-class.html#get,Method backend.server.handlers.xmlrpc.up2date.Servers.get()=backend.server.handlers.xmlrpc.up2date.Servers-class.html#get,Method backend.server.rhnSQL.sql_row.Row.get()=backend.server.rhnSQL.sql_row.Row-class.html#get,Method backend.server.rhnSQL.sql_table.Table.get()=backend.server.rhnSQL.sql_table.Table-class.html#get,Function backend.server.rhnServer.get()=backend.server.rhnServer-module.html#get,Function config_common.local_config.get()=config_common.local_config-module.html#get,Method src._ConfigParser.ConfigParser.get()=src._ConfigParser.ConfigParser-class.html#get,Function src.osad_config.get()=src.osad_config-module.html#get"><a title="actions.up2date_config.get
 backend.common.rhnCache.Cache.get
 backend.common.rhnCache.CompressedCache.get
 backend.common.rhnCache.NullCache.get
@@ -113,22 +108,17 @@ backend.server.rhnSQL.sql_table.Table.get
 backend.server.rhnServer.get
 config_common.local_config.get
 src._ConfigParser.ConfigParser.get
-src.osad_config.get" class="py-name" href="#" onclick="return doclink('link-0', 'get', 'link-0');">get</a></tt><tt class="py-op">(</tt><tt class="py-name">name</tt><tt class="py-op">)</tt> </tt>
-<a name="L45"></a><tt class="py-lineno">45</tt>  <tt class="py-line">    <tt class="py-keyword">except</tt> <tt class="py-name">NameError</tt><tt class="py-op">:</tt> </tt>
-<a name="L46"></a><tt class="py-lineno">46</tt>  <tt class="py-line">        <tt class="py-name">__F</tt> <tt class="py-op">=</tt> <tt class="py-op">{</tt><tt class="py-op">}</tt> </tt>
-<a name="L47"></a><tt class="py-lineno">47</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt class="py-name">None</tt> </tt>
-</div><a name="L48"></a><tt class="py-lineno">48</tt>  <tt class="py-line"> </tt>
-<a name="L49"></a><tt class="py-lineno">49</tt>  <tt class="py-line"> </tt>
-<a name="test"></a><div id="test-def"><a name="L50"></a><tt class="py-lineno">50</tt> <a class="py-toggle" href="#" id="test-toggle" onclick="return toggle('test');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="backend.common.rhnFlags-module.html#test">test</a><tt class="py-op">(</tt><tt class="py-param">name</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
-</div><div id="test-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="test-expanded"><a name="L51"></a><tt class="py-lineno">51</tt>  <tt class="py-line">    <tt class="py-docstring">"""</tt> </tt>
-<a name="L52"></a><tt class="py-lineno">52</tt>  <tt class="py-line"><tt class="py-docstring">    test value</tt> </tt>
-<a name="L53"></a><tt class="py-lineno">53</tt>  <tt class="py-line"><tt class="py-docstring">    """</tt> </tt>
-<a name="L54"></a><tt class="py-lineno">54</tt>  <tt class="py-line">    <tt class="py-keyword">global</tt> <tt class="py-name">__F</tt> </tt>
-<a name="L55"></a><tt class="py-lineno">55</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">name</tt><tt class="py-op">:</tt> </tt>
-<a name="L56"></a><tt class="py-lineno">56</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-number">0</tt> </tt>
-<a name="L57"></a><tt class="py-lineno">57</tt>  <tt class="py-line">    <tt class="py-name">name</tt> <tt class="py-op">=</tt> <tt class="py-name">name</tt><tt class="py-op">.</tt><tt class="py-name">lower</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
-<a name="L58"></a><tt class="py-lineno">58</tt>  <tt class="py-line">    <tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
-<a name="L59"></a><tt class="py-lineno">59</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">__F</tt><tt class="py-op">.</tt><tt id="link-1" class="py-name" targets="Method backend.common.rhnCache.Cache.has_key()=backend.common.rhnCache.Cache-class.html#has_key,Method backend.common.rhnCache.CompressedCache.has_key()=backend.common.rhnCache.CompressedCache-class.html#has_key,Method backend.common.rhnCache.NullCache.has_key()=backend.common.rhnCache.NullCache-class.html#has_key,Method backend.common.rhnCache.ObjectCache.has_key()=backend.common.rhnCache.ObjectCache-class.html#has_key,Function backend.common.rhnCache.has_key()=backend.common.rhnCache-module.html#has_key,Method backend.common.rhnConfig.RHNOptions.has_key()=backend.common.rhnConfig.RHNOptions-class.html#has_key,Method backend.satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key()=backend.satellite_tools.xmlDiskSource.ShortPackageDiskSource-class.html#has_key,Method backend.server.rhnSQL.sql_table.Table.has_key()=backend.server.rhnSQL.sql_table.Table-class.html#has_key,Method backend.wsgi.wsgiRequest.WsgiMPtable.has_key()=backend.wsgi.wsgiRequest.WsgiMPtable-class.html#has_key,Method proxy.rhnProxyAuth.AuthLocalBackend.has_key()=proxy.rhnProxyAuth.AuthLocalBackend-class.html#has_key,Method rhn.UserDictCase.UserDictCase.has_key()=rhn.UserDictCase.UserDictCase-class.html#has_key,Method rhn.UserDictCase.UserDictCase.has_key()=rhn.UserDictCase.UserDictCase-class.html#has_key,Method rhnkickstart.lilo.UserDictCase.has_key()=rhnkickstart.lilo.UserDictCase-class.html#has_key,Method src.osad_config.ClientConfigParser.has_key()=src.osad_config.ClientConfigParser-class.html#has_key,Method up2date_client.config.Config.has_key()=up2date_client.config.Config-class.html#has_key,Method up2date_client.config.ConfigFile.has_key()=up2date_client.config.ConfigFile-class.html#has_key"><a title="backend.common.rhnCache.Cache.has_key
+src.osad_config.get" class="py-name" href="#" onclick="return doclink('link-4', 'get', 'link-4');">get</a></tt><tt class="py-op">(</tt><tt class="py-name">name</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L40"></a><tt class="py-lineno">40</tt>  <tt class="py-line"> </tt>
+<a name="L41"></a><tt class="py-lineno">41</tt>  <tt class="py-line"> </tt>
+<a name="test"></a><div id="test-def"><a name="L42"></a><tt class="py-lineno">42</tt> <a class="py-toggle" href="#" id="test-toggle" onclick="return toggle('test');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="backend.common.rhnFlags-module.html#test">test</a><tt class="py-op">(</tt><tt class="py-param">name</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="test-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="test-expanded"><a name="L43"></a><tt class="py-lineno">43</tt>  <tt class="py-line">    <tt class="py-docstring">"""</tt> </tt>
+<a name="L44"></a><tt class="py-lineno">44</tt>  <tt class="py-line"><tt class="py-docstring">    test value</tt> </tt>
+<a name="L45"></a><tt class="py-lineno">45</tt>  <tt class="py-line"><tt class="py-docstring">    """</tt> </tt>
+<a name="L46"></a><tt class="py-lineno">46</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">name</tt><tt class="py-op">:</tt> </tt>
+<a name="L47"></a><tt class="py-lineno">47</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-number">0</tt> </tt>
+<a name="L48"></a><tt class="py-lineno">48</tt>  <tt class="py-line">    <tt class="py-name">name</tt> <tt class="py-op">=</tt> <tt class="py-name">name</tt><tt class="py-op">.</tt><tt class="py-name">lower</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L49"></a><tt class="py-lineno">49</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt id="link-5" class="py-name"><a title="backend.common.rhnFlags.__F" class="py-name" href="#" onclick="return doclink('link-5', '__F', 'link-0');">__F</a></tt><tt class="py-op">.</tt><tt id="link-6" class="py-name" targets="Static Method backend.common.rhnCache.Cache.has_key()=backend.common.rhnCache.Cache-class.html#has_key,Method backend.common.rhnCache.CompressedCache.has_key()=backend.common.rhnCache.CompressedCache-class.html#has_key,Method backend.common.rhnCache.NullCache.has_key()=backend.common.rhnCache.NullCache-class.html#has_key,Method backend.common.rhnCache.ObjectCache.has_key()=backend.common.rhnCache.ObjectCache-class.html#has_key,Function backend.common.rhnCache.has_key()=backend.common.rhnCache-module.html#has_key,Method backend.common.rhnConfig.RHNOptions.has_key()=backend.common.rhnConfig.RHNOptions-class.html#has_key,Method backend.satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key()=backend.satellite_tools.xmlDiskSource.ShortPackageDiskSource-class.html#has_key,Method backend.server.rhnSQL.sql_table.Table.has_key()=backend.server.rhnSQL.sql_table.Table-class.html#has_key,Method backend.wsgi.wsgiRequest.WsgiMPtable.has_key()=backend.wsgi.wsgiRequest.WsgiMPtable-class.html#has_key,Method proxy.rhnProxyAuth.AuthLocalBackend.has_key()=proxy.rhnProxyAuth.AuthLocalBackend-class.html#has_key,Method rhn.UserDictCase.UserDictCase.has_key()=rhn.UserDictCase.UserDictCase-class.html#has_key,Method rhnkickstart.lilo.UserDictCase.has_key()=rhnkickstart.lilo.UserDictCase-class.html#has_key,Method src.osad_config.ClientConfigParser.has_key()=src.osad_config.ClientConfigParser-class.html#has_key,Method up2date_client.config.Config.has_key()=up2date_client.config.Config-class.html#has_key,Method up2date_client.config.ConfigFile.has_key()=up2date_client.config.ConfigFile-class.html#has_key"><a title="backend.common.rhnCache.Cache.has_key
 backend.common.rhnCache.CompressedCache.has_key
 backend.common.rhnCache.NullCache.has_key
 backend.common.rhnCache.ObjectCache.has_key
@@ -139,44 +129,30 @@ backend.server.rhnSQL.sql_table.Table.has_key
 backend.wsgi.wsgiRequest.WsgiMPtable.has_key
 proxy.rhnProxyAuth.AuthLocalBackend.has_key
 rhn.UserDictCase.UserDictCase.has_key
-rhn.UserDictCase.UserDictCase.has_key
 rhnkickstart.lilo.UserDictCase.has_key
 src.osad_config.ClientConfigParser.has_key
 up2date_client.config.Config.has_key
-up2date_client.config.ConfigFile.has_key" class="py-name" href="#" onclick="return doclink('link-1', 'has_key', 'link-1');">has_key</a></tt><tt class="py-op">(</tt><tt class="py-name">name</tt><tt class="py-op">)</tt> <tt class="py-keyword">and</tt> <tt class="py-name">__F</tt><tt class="py-op">[</tt><tt class="py-name">name</tt><tt class="py-op">]</tt> </tt>
-<a name="L60"></a><tt class="py-lineno">60</tt>  <tt class="py-line">    <tt class="py-keyword">except</tt> <tt class="py-name">NameError</tt><tt class="py-op">:</tt> </tt>
-<a name="L61"></a><tt class="py-lineno">61</tt>  <tt class="py-line">        <tt class="py-name">__F</tt> <tt class="py-op">=</tt> <tt class="py-op">{</tt><tt class="py-op">}</tt> </tt>
-<a name="L62"></a><tt class="py-lineno">62</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt class="py-number">0</tt> </tt>
-</div><a name="L63"></a><tt class="py-lineno">63</tt>  <tt class="py-line"> </tt>
-<a name="L64"></a><tt class="py-lineno">64</tt>  <tt class="py-line"> </tt>
-<a name="reset"></a><div id="reset-def"><a name="L65"></a><tt class="py-lineno">65</tt> <a class="py-toggle" href="#" id="reset-toggle" onclick="return toggle('reset');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="backend.common.rhnFlags-module.html#reset">reset</a><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
-</div><div id="reset-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="reset-expanded"><a name="L66"></a><tt class="py-lineno">66</tt>  <tt class="py-line">    <tt class="py-docstring">"""</tt> </tt>
-<a name="L67"></a><tt class="py-lineno">67</tt>  <tt class="py-line"><tt class="py-docstring">    reset all</tt> </tt>
-<a name="L68"></a><tt class="py-lineno">68</tt>  <tt class="py-line"><tt class="py-docstring">    """</tt> </tt>
-<a name="L69"></a><tt class="py-lineno">69</tt>  <tt class="py-line">    <tt class="py-keyword">global</tt> <tt class="py-name">__F</tt> </tt>
-<a name="L70"></a><tt class="py-lineno">70</tt>  <tt class="py-line">    <tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
-<a name="L71"></a><tt class="py-lineno">71</tt>  <tt class="py-line">        <tt class="py-name">__F</tt><tt class="py-op">.</tt><tt id="link-2" class="py-name" targets="Method backend.satellite_tools.sync_handlers.ContainerHandler.clear()=backend.satellite_tools.sync_handlers.ContainerHandler-class.html#clear,Method backend.satellite_tools.xmlSource.BaseDispatchHandler.clear()=backend.satellite_tools.xmlSource.BaseDispatchHandler-class.html#clear,Method proxy.responseContext.ResponseContext.clear()=proxy.responseContext.ResponseContext-class.html#clear,Method rhn.UserDictCase.UserDictCase.clear()=rhn.UserDictCase.UserDictCase-class.html#clear,Method rhn.UserDictCase.UserDictCase.clear()=rhn.UserDictCase.UserDictCase-class.html#clear,Method src.jabber_lib.Roster.clear()=src.jabber_lib.Roster-class.html#clear"><a title="backend.satellite_tools.sync_handlers.ContainerHandler.clear
+up2date_client.config.ConfigFile.has_key" class="py-name" href="#" onclick="return doclink('link-6', 'has_key', 'link-6');">has_key</a></tt><tt class="py-op">(</tt><tt class="py-name">name</tt><tt class="py-op">)</tt> <tt class="py-keyword">and</tt> <tt id="link-7" class="py-name"><a title="backend.common.rhnFlags.__F" class="py-name" href="#" onclick="return doclink('link-7', '__F', 'link-0');">__F</a></tt><tt class="py-op">[</tt><tt class="py-name">name</tt><tt class="py-op">]</tt> </tt>
+</div><a name="L50"></a><tt class="py-lineno">50</tt>  <tt class="py-line"> </tt>
+<a name="L51"></a><tt class="py-lineno">51</tt>  <tt class="py-line"> </tt>
+<a name="reset"></a><div id="reset-def"><a name="L52"></a><tt class="py-lineno">52</tt> <a class="py-toggle" href="#" id="reset-toggle" onclick="return toggle('reset');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="backend.common.rhnFlags-module.html#reset">reset</a><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="reset-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="reset-expanded"><a name="L53"></a><tt class="py-lineno">53</tt>  <tt class="py-line">    <tt class="py-docstring">"""</tt> </tt>
+<a name="L54"></a><tt class="py-lineno">54</tt>  <tt class="py-line"><tt class="py-docstring">    reset all</tt> </tt>
+<a name="L55"></a><tt class="py-lineno">55</tt>  <tt class="py-line"><tt class="py-docstring">    """</tt> </tt>
+<a name="L56"></a><tt class="py-lineno">56</tt>  <tt class="py-line">    <tt id="link-8" class="py-name"><a title="backend.common.rhnFlags.__F" class="py-name" href="#" onclick="return doclink('link-8', '__F', 'link-0');">__F</a></tt><tt class="py-op">.</tt><tt id="link-9" class="py-name" targets="Method backend.satellite_tools.sync_handlers.ContainerHandler.clear()=backend.satellite_tools.sync_handlers.ContainerHandler-class.html#clear,Method backend.satellite_tools.xmlSource.BaseDispatchHandler.clear()=backend.satellite_tools.xmlSource.BaseDispatchHandler-class.html#clear,Method proxy.responseContext.ResponseContext.clear()=proxy.responseContext.ResponseContext-class.html#clear,Method rhn.UserDictCase.UserDictCase.clear()=rhn.UserDictCase.UserDictCase-class.html#clear,Method src.jabber_lib.Roster.clear()=src.jabber_lib.Roster-class.html#clear"><a title="backend.satellite_tools.sync_handlers.ContainerHandler.clear
 backend.satellite_tools.xmlSource.BaseDispatchHandler.clear
 proxy.responseContext.ResponseContext.clear
 rhn.UserDictCase.UserDictCase.clear
-rhn.UserDictCase.UserDictCase.clear
-src.jabber_lib.Roster.clear" class="py-name" href="#" onclick="return doclink('link-2', 'clear', 'link-2');">clear</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
-<a name="L72"></a><tt class="py-lineno">72</tt>  <tt class="py-line">    <tt class="py-keyword">except</tt> <tt class="py-name">NameError</tt><tt class="py-op">:</tt> </tt>
-<a name="L73"></a><tt class="py-lineno">73</tt>  <tt class="py-line">        <tt class="py-name">__F</tt> <tt class="py-op">=</tt> <tt class="py-op">{</tt><tt class="py-op">}</tt> </tt>
-<a name="L74"></a><tt class="py-lineno">74</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> </tt>
-</div><a name="L75"></a><tt class="py-lineno">75</tt>  <tt class="py-line"> </tt>
-<a name="L76"></a><tt class="py-lineno">76</tt>  <tt class="py-line"> </tt>
-<a name="all"></a><div id="all-def"><a name="L77"></a><tt class="py-lineno">77</tt> <a class="py-toggle" href="#" id="all-toggle" onclick="return toggle('all');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="backend.common.rhnFlags-module.html#all">all</a><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
-</div><div id="all-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="all-expanded"><a name="L78"></a><tt class="py-lineno">78</tt>  <tt class="py-line">    <tt class="py-docstring">"""</tt> </tt>
-<a name="L79"></a><tt class="py-lineno">79</tt>  <tt class="py-line"><tt class="py-docstring">    return all flags in a dict</tt> </tt>
-<a name="L80"></a><tt class="py-lineno">80</tt>  <tt class="py-line"><tt class="py-docstring">    """</tt> </tt>
-<a name="L81"></a><tt class="py-lineno">81</tt>  <tt class="py-line">    <tt class="py-keyword">global</tt> <tt class="py-name">__F</tt> </tt>
-<a name="L82"></a><tt class="py-lineno">82</tt>  <tt class="py-line">    <tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
-<a name="L83"></a><tt class="py-lineno">83</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">__F</tt> </tt>
-<a name="L84"></a><tt class="py-lineno">84</tt>  <tt class="py-line">    <tt class="py-keyword">except</tt> <tt class="py-name">NameError</tt><tt class="py-op">:</tt> </tt>
-<a name="L85"></a><tt class="py-lineno">85</tt>  <tt class="py-line">        <tt class="py-name">__F</tt> <tt class="py-op">=</tt> <tt class="py-op">{</tt><tt class="py-op">}</tt> </tt>
-<a name="L86"></a><tt class="py-lineno">86</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt class="py-name">__F</tt> </tt>
-</div><a name="L87"></a><tt class="py-lineno">87</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+src.jabber_lib.Roster.clear" class="py-name" href="#" onclick="return doclink('link-9', 'clear', 'link-9');">clear</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L57"></a><tt class="py-lineno">57</tt>  <tt class="py-line"> </tt>
+<a name="L58"></a><tt class="py-lineno">58</tt>  <tt class="py-line"> </tt>
+<a name="all"></a><div id="all-def"><a name="L59"></a><tt class="py-lineno">59</tt> <a class="py-toggle" href="#" id="all-toggle" onclick="return toggle('all');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="backend.common.rhnFlags-module.html#all">all</a><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="all-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="all-expanded"><a name="L60"></a><tt class="py-lineno">60</tt>  <tt class="py-line">    <tt class="py-docstring">"""</tt> </tt>
+<a name="L61"></a><tt class="py-lineno">61</tt>  <tt class="py-line"><tt class="py-docstring">    return all flags in a dict</tt> </tt>
+<a name="L62"></a><tt class="py-lineno">62</tt>  <tt class="py-line"><tt class="py-docstring">    """</tt> </tt>
+<a name="L63"></a><tt class="py-lineno">63</tt>  <tt class="py-line">    <tt class="py-comment"># pylint: disable=W0622</tt> </tt>
+<a name="L64"></a><tt class="py-lineno">64</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt id="link-10" class="py-name"><a title="backend.common.rhnFlags.__F" class="py-name" href="#" onclick="return doclink('link-10', '__F', 'link-0');">__F</a></tt> </tt>
+</div><a name="L65"></a><tt class="py-lineno">65</tt>  <tt class="py-line"> </tt><script type="text/javascript">
 <!--
 expandto(location.href);
 // -->
@@ -206,7 +182,7 @@ expandto(location.href);
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Wed Dec 21 14:30:53 2011
+    Generated by Epydoc 3.0.1 on Fri Mar  2 11:40:39 2012
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

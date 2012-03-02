@@ -10,6 +10,7 @@ Documentation for java:
 
 Documentation of python:
     # epydoc needs to be installed, it needs texlive, ouch :-(
+    # graphviz needs to be installed.
     # In the Spacewalk git repo checkout, in documentation/ directory:
     git rm -rf python-doc
     make python

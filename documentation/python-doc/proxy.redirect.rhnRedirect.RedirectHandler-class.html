@@ -57,12 +57,12 @@
 <h1 class="epydoc">Class RedirectHandler</h1><p class="nomargin-top"><span class="codelink"><a href="proxy.redirect.rhnRedirect-pysrc.html#RedirectHandler">source&nbsp;code</a></span></p>
 <center>
 <center>  <map id="uml_class_diagram_for_proxy_re" name="uml_class_diagram_for_proxy_re">
-<area shape="rect" id="node1672" href="proxy.redirect.rhnRedirect.RedirectHandler-class.html#__init__" title="init with http request object" alt="" coords="39,103,147,121"/>
-<area shape="rect" id="node1672" href="proxy.redirect.rhnRedirect.RedirectHandler-class.html#handler" title="Main handler for all requests pumped through this server." alt="" coords="39,121,147,140"/>
-<area shape="rect" id="node1" href="proxy.redirect.rhnRedirect.RedirectHandler-class.html" title="RHN Proxy SSL Redirect specific handler code called by rhnApache." alt="" coords="27,70,157,146"/>
-<area shape="rect" id="node2" href="proxy.rhnShared.SharedHandler-class.html" title="Shared handler class (between rhnBroker and rhnRedirect." alt="" coords="5,6,179,50"/>
+<area shape="rect" id="node1" href="proxy.rhnShared.SharedHandler-class.html" title="Shared handler class (between rhnBroker and rhnRedirect." alt="" coords="5,6,179,50"/>
+<area shape="rect" id="node2_2" href="proxy.redirect.rhnRedirect.RedirectHandler-class.html#__init__" title="init with http request object" alt="" coords="39,103,147,121"/>
+<area shape="rect" id="node2_3" href="proxy.redirect.rhnRedirect.RedirectHandler-class.html#handler" title="Main handler for all requests pumped through this server." alt="" coords="39,121,147,140"/>
+<area shape="rect" id="node2" href="proxy.redirect.rhnRedirect.RedirectHandler-class.html" title="RHN Proxy SSL Redirect specific handler code called by rhnApache." alt="" coords="26,70,158,146"/>
 </map>
-  <img src="uml_class_diagram_for_proxy_re.gif" alt='' usemap="#uml_class_diagram_for_proxy_re" ismap="ismap" class="graph-without-title" />
+  <img src="uml_class_diagram_for_proxy_re.png" alt='' usemap="#uml_class_diagram_for_proxy_re" ismap="ismap" class="graph-without-title" />
 </center>
 </center>
 <hr />
@@ -116,7 +116,7 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="proxy.redirect.rhnRedirect.RedirectHandler-class.html#_initConnectionVariables" class="summary-sig-name" onclick="show_private();">_initConnectionVariables</a>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">req</span>)</span><br />
+        <span class="summary-sig-arg">_req</span>)</span><br />
       set connection variables ...</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="proxy.redirect.rhnRedirect-pysrc.html#RedirectHandler._initConnectionVariables">source&nbsp;code</a></span>
@@ -156,23 +156,6 @@
       responses so that we can adequately handle 302's.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="proxy.redirect.rhnRedirect-pysrc.html#RedirectHandler._handleServerResponse">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr class="private">
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a href="proxy.redirect.rhnRedirect.RedirectHandler-class.html#__checkLegalRedirect" class="summary-sig-name" onclick="show_private();">__checkLegalRedirect</a>(<span class="summary-sig-arg">self</span>)</span><br />
-      Check request to see if this coming from a RHN Proxy.</td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="proxy.redirect.rhnRedirect-pysrc.html#RedirectHandler.__checkLegalRedirect">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -242,17 +225,41 @@ specified in the last response's &quot;Location&quot; header.</td>
       <code><a href="proxy.rhnShared.SharedHandler-class.html#_clientCommo" onclick="show_private();">_clientCommo</a></code>,
       <code><a href="proxy.rhnShared.SharedHandler-class.html#_connectToParent" onclick="show_private();">_connectToParent</a></code>,
       <code><a href="proxy.rhnShared.SharedHandler-class.html#_create_connection" onclick="show_private();">_create_connection</a></code>,
-      <code><a href="proxy.rhnShared.SharedHandler-class.html#_determineHTTPBodySize" onclick="show_private();">_determineHTTPBodySize</a></code>,
       <code><a href="proxy.rhnShared.SharedHandler-class.html#_forwardHTTPBody" onclick="show_private();">_forwardHTTPBody</a></code>,
       <code><a href="proxy.rhnShared.SharedHandler-class.html#_forwardHTTPHeaders" onclick="show_private();">_forwardHTTPHeaders</a></code>,
       <code><a href="proxy.rhnShared.SharedHandler-class.html#_forwardServer2Client" onclick="show_private();">_forwardServer2Client</a></code>,
       <code><a href="proxy.rhnShared.SharedHandler-class.html#_getEffectiveURI" onclick="show_private();">_getEffectiveURI</a></code>,
-      <code><a href="proxy.rhnShared.SharedHandler-class.html#_getHeaders" onclick="show_private();">_getHeaders</a></code>,
       <code><a href="proxy.rhnShared.SharedHandler-class.html#_get_header" onclick="show_private();">_get_header</a></code>,
-      <code><a href="proxy.rhnShared.SharedHandler-class.html#_parse_url" onclick="show_private();">_parse_url</a></code>,
       <code><a href="proxy.rhnShared.SharedHandler-class.html#_prepHandler" onclick="show_private();">_prepHandler</a></code>,
       <code><a href="proxy.rhnShared.SharedHandler-class.html#_proxy2server" onclick="show_private();">_proxy2server</a></code>,
       <code><a href="proxy.rhnShared.SharedHandler-class.html#_serverCommo" onclick="show_private();">_serverCommo</a></code>
+      </p></div>
+    </td>
+  </tr>
+</table>
+<!-- ==================== STATIC METHODS ==================== -->
+<a name="section-StaticMethods"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Static Methods</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-StaticMethods"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <div class="private">    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="proxy.rhnShared.SharedHandler-class.html">rhnShared.SharedHandler</a></code></b> (private):
+      <code><a href="proxy.rhnShared.SharedHandler-class.html#_determineHTTPBodySize" onclick="show_private();">_determineHTTPBodySize</a></code>,
+      <code><a href="proxy.rhnShared.SharedHandler-class.html#_getHeaders" onclick="show_private();">_getHeaders</a></code>,
+      <code><a href="proxy.rhnShared.SharedHandler-class.html#_parse_url" onclick="show_private();">_parse_url</a></code>
       </p></div>
     </td>
   </tr>
@@ -308,7 +315,7 @@ specified in the last response's &quot;Location&quot; header.</td>
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">_initConnectionVariables</span>(<span class="sig-arg">self</span>,
-        <span class="sig-arg">req</span>)</span>
+        <span class="sig-arg">_req</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="proxy.redirect.rhnRedirect-pysrc.html#RedirectHandler._initConnectionVariables">source&nbsp;code</a></span>&nbsp;
@@ -348,27 +355,6 @@ NOTE: self.{caChain,rhnParent,httpProxy*} are initialized
     <dt>Overrides:
         <a href="proxy.rhnShared.SharedHandler-class.html#_handleServerResponse" onclick="show_private();">rhnShared.SharedHandler._handleServerResponse</a>
     </dt>
-  </dl>
-</td></tr></table>
-</div>
-<a name="__checkLegalRedirect"></a>
-<div class="private">
-<table class="details" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr><td>
-  <table width="100%" cellpadding="0" cellspacing="0" border="0">
-  <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">__checkLegalRedirect</span>(<span class="sig-arg">self</span>)</span>
-  </h3>
-  </td><td align="right" valign="top"
-    ><span class="codelink"><a href="proxy.redirect.rhnRedirect-pysrc.html#RedirectHandler.__checkLegalRedirect">source&nbsp;code</a></span>&nbsp;
-    </td>
-  </tr></table>
-  
-  <p>Check request to see if this coming from a RHN Proxy.</p>
-  <p>THIS SHOULD NEVER FAIL!!! Probably not necessary, but stymies the 
-  casual abuser.</p>
-  <dl class="fields">
   </dl>
 </td></tr></table>
 </div>
@@ -508,7 +494,7 @@ will be created and pushed onto the stack.
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Wed Dec 21 14:26:21 2011
+    Generated by Epydoc 3.0.1 on Fri Mar  2 11:40:08 2012
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

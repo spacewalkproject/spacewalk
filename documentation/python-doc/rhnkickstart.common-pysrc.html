@@ -54,7 +54,7 @@
 <h1 class="epydoc">Source Code for <a href="rhnkickstart.common-module.html">Module rhnkickstart.common</a></h1>
 <pre class="py-src">
 <a name="L1"></a><tt class="py-lineno">  1</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
-<a name="L2"></a><tt class="py-lineno">  2</tt>  <tt class="py-line"><tt class="py-comment"># Copyright (c) 2008 Red Hat, Inc.</tt> </tt>
+<a name="L2"></a><tt class="py-lineno">  2</tt>  <tt class="py-line"><tt class="py-comment"># Copyright (c) 2008--2011 Red Hat, Inc.</tt> </tt>
 <a name="L3"></a><tt class="py-lineno">  3</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
 <a name="L4"></a><tt class="py-lineno">  4</tt>  <tt class="py-line"><tt class="py-comment"># This software is licensed to you under the GNU General Public License,</tt> </tt>
 <a name="L5"></a><tt class="py-lineno">  5</tt>  <tt class="py-line"><tt class="py-comment"># version 2 (GPLv2). There is NO WARRANTY for this software, express or</tt> </tt>
@@ -116,8 +116,7 @@ backend.server.rhnUser.search" class="py-name" href="#" onclick="return doclink(
 <a name="L60"></a><tt class="py-lineno"> 60</tt>  <tt class="py-line">    <tt class="py-name">match</tt> <tt class="py-op">=</tt> <tt id="link-10" class="py-name" targets="Function rhnkickstart.common.extract_kickstart_url()=rhnkickstart.common-module.html#extract_kickstart_url"><a title="rhnkickstart.common.extract_kickstart_url" class="py-name" href="#" onclick="return doclink('link-10', 'extract_kickstart_url', 'link-10');">extract_kickstart_url</a></tt><tt class="py-op">(</tt><tt class="py-name">extra_append</tt><tt class="py-op">)</tt> </tt>
 <a name="L61"></a><tt class="py-lineno"> 61</tt>  <tt class="py-line">    <tt class="py-name">ks_url</tt> <tt class="py-op">=</tt> <tt class="py-name">match</tt><tt class="py-op">.</tt><tt class="py-name">group</tt><tt class="py-op">(</tt><tt class="py-number">2</tt><tt class="py-op">)</tt> </tt>
 <a name="L62"></a><tt class="py-lineno"> 62</tt>  <tt class="py-line">    <tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
-<a name="L63"></a><tt class="py-lineno"> 63</tt>  <tt class="py-line">        <tt class="py-name">ks_data</tt> <tt class="py-op">=</tt> <tt class="py-name">urllib</tt><tt class="py-op">.</tt><tt class="py-name">urlopen</tt><tt class="py-op">(</tt><tt class="py-name">ks_url</tt><tt class="py-op">)</tt><tt class="py-op">.</tt><tt id="link-11" class="py-name" targets="Method backend.wsgi.wsgiRequest.WsgiRequest.read()=backend.wsgi.wsgiRequest.WsgiRequest-class.html#read,Method rhn.SSL.SSLSocket.read()=rhn.SSL.SSLSocket-class.html#read,Method rhn.SSL.SSLSocket.read()=rhn.SSL.SSLSocket-class.html#read,Method rhn.nonblocking.NonBlockingFile.read()=rhn.nonblocking.NonBlockingFile-class.html#read,Method rhn.transports.File.read()=rhn.transports.File-class.html#read,Method rhn.transports.Input.read()=rhn.transports.Input-class.html#read,Method rhnkickstart.lilo.LiloConfigFile.read()=rhnkickstart.lilo.LiloConfigFile-class.html#read,Method rhnpush.archive.ArchiveParser.read()=rhnpush.archive.ArchiveParser-class.html#read,Method src._ConfigParser.ConfigParser.read()=src._ConfigParser.ConfigParser-class.html#read,Method src.jabber_lib.JabberClient.read()=src.jabber_lib.JabberClient-class.html#read"><a title="backend.wsgi.wsgiRequest.WsgiRequest.read
-rhn.SSL.SSLSocket.read
+<a name="L63"></a><tt class="py-lineno"> 63</tt>  <tt class="py-line">        <tt class="py-name">ks_data</tt> <tt class="py-op">=</tt> <tt class="py-name">urllib</tt><tt class="py-op">.</tt><tt class="py-name">urlopen</tt><tt class="py-op">(</tt><tt class="py-name">ks_url</tt><tt class="py-op">)</tt><tt class="py-op">.</tt><tt id="link-11" class="py-name" targets="Method backend.wsgi.wsgiRequest.WsgiRequest.read()=backend.wsgi.wsgiRequest.WsgiRequest-class.html#read,Method rhn.SSL.SSLSocket.read()=rhn.SSL.SSLSocket-class.html#read,Method rhn.nonblocking.NonBlockingFile.read()=rhn.nonblocking.NonBlockingFile-class.html#read,Method rhn.transports.File.read()=rhn.transports.File-class.html#read,Method rhn.transports.Input.read()=rhn.transports.Input-class.html#read,Method rhnkickstart.lilo.LiloConfigFile.read()=rhnkickstart.lilo.LiloConfigFile-class.html#read,Method rhnpush.archive.ArchiveParser.read()=rhnpush.archive.ArchiveParser-class.html#read,Method src._ConfigParser.ConfigParser.read()=src._ConfigParser.ConfigParser-class.html#read,Method src.jabber_lib.JabberClient.read()=src.jabber_lib.JabberClient-class.html#read"><a title="backend.wsgi.wsgiRequest.WsgiRequest.read
 rhn.SSL.SSLSocket.read
 rhn.nonblocking.NonBlockingFile.read
 rhn.transports.File.read
@@ -201,7 +200,6 @@ backend.server.rhnUser.search" class="py-name" href="#" onclick="return doclink(
 <a name="L135"></a><tt class="py-lineno">135</tt>  <tt class="py-line"> </tt>
 <a name="L136"></a><tt class="py-lineno">136</tt>  <tt class="py-line">    <tt class="py-name">buffer</tt> <tt class="py-op">=</tt> <tt class="py-name">kernel</tt><tt class="py-op">.</tt><tt id="link-20" class="py-name"><a title="backend.wsgi.wsgiRequest.WsgiRequest.read
 rhn.SSL.SSLSocket.read
-rhn.SSL.SSLSocket.read
 rhn.nonblocking.NonBlockingFile.read
 rhn.transports.File.read
 rhn.transports.Input.read
@@ -210,14 +208,12 @@ rhnpush.archive.ArchiveParser.read
 src._ConfigParser.ConfigParser.read
 src.jabber_lib.JabberClient.read" class="py-name" href="#" onclick="return doclink('link-20', 'read', 'link-11');">read</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
 <a name="L137"></a><tt class="py-lineno">137</tt>  <tt class="py-line">    <tt class="py-keyword">while</tt> <tt class="py-name">buffer</tt> <tt class="py-op">!=</tt> <tt class="py-string">""</tt><tt class="py-op">:</tt> </tt>
-<a name="L138"></a><tt class="py-lineno">138</tt>  <tt class="py-line">        <tt class="py-name">os</tt><tt class="py-op">.</tt><tt id="link-21" class="py-name" targets="Method backend.common.fileutils.payload.write()=backend.common.fileutils.payload-class.html#write,Method backend.common.rhn_mpm.MPM_Package.write()=backend.common.rhn_mpm.MPM_Package-class.html#write,Method backend.satellite_tools.disk_dumper.dumper.TeeStream.write()=backend.satellite_tools.disk_dumper.dumper.TeeStream-class.html#write,Method backend.satellite_tools.disk_dumper.string_buffer.StringBuffer.write()=backend.satellite_tools.disk_dumper.string_buffer.StringBuffer-class.html#write,Method backend.satellite_tools.repo_plugins.yum_src.YumWarnings.write()=backend.satellite_tools.repo_plugins.yum_src.YumWarnings-class.html#write,Method backend.wsgi.wsgiRequest.WsgiRequest.write()=backend.wsgi.wsgiRequest.WsgiRequest-class.html#write,Method pygettext.TokenEater.write()=pygettext.TokenEater-class.html#write,Method rhn.SSL.SSLSocket.write()=rhn.SSL.SSLSocket-class.html#write,Method rhn.SSL.SSLSocket.write()=rhn.SSL.SSLSocket-class.html#write,Method rhn.SmartIO.SmartIO.write()=rhn.SmartIO.SmartIO-class.html#write,Method rhn.nonblocking.NonBlockingFile.write()=rhn.nonblocking.NonBlockingFile-class.html#write,Method rhnkickstart.lilo.LiloConfigFile.write()=rhnkickstart.lilo.LiloConfigFile-class.html#write,Method rhnpush.rhnpush_config.rhnpushConfigParser.write()=rhnpush.rhnpush_config.rhnpushConfigParser-class.html#write,Method src._ConfigParser.ConfigParser.write()=src._ConfigParser.ConfigParser-class.html#write"><a title="backend.common.fileutils.payload.write
+<a name="L138"></a><tt class="py-lineno">138</tt>  <tt class="py-line">        <tt class="py-name">os</tt><tt class="py-op">.</tt><tt id="link-21" class="py-name" targets="Static Method backend.common.fileutils.payload.write()=backend.common.fileutils.payload-class.html#write,Method backend.common.rhn_mpm.MPM_Package.write()=backend.common.rhn_mpm.MPM_Package-class.html#write,Method backend.satellite_tools.disk_dumper.dumper.TeeStream.write()=backend.satellite_tools.disk_dumper.dumper.TeeStream-class.html#write,Method backend.satellite_tools.disk_dumper.string_buffer.StringBuffer.write()=backend.satellite_tools.disk_dumper.string_buffer.StringBuffer-class.html#write,Method backend.satellite_tools.repo_plugins.yum_src.YumWarnings.write()=backend.satellite_tools.repo_plugins.yum_src.YumWarnings-class.html#write,Method backend.wsgi.wsgiRequest.WsgiRequest.write()=backend.wsgi.wsgiRequest.WsgiRequest-class.html#write,Method rhn.SSL.SSLSocket.write()=rhn.SSL.SSLSocket-class.html#write,Method rhn.SmartIO.SmartIO.write()=rhn.SmartIO.SmartIO-class.html#write,Method rhn.nonblocking.NonBlockingFile.write()=rhn.nonblocking.NonBlockingFile-class.html#write,Method rhnkickstart.lilo.LiloConfigFile.write()=rhnkickstart.lilo.LiloConfigFile-class.html#write,Method rhnpush.rhnpush_config.rhnpushConfigParser.write()=rhnpush.rhnpush_config.rhnpushConfigParser-class.html#write,Method src._ConfigParser.ConfigParser.write()=src._ConfigParser.ConfigParser-class.html#write"><a title="backend.common.fileutils.payload.write
 backend.common.rhn_mpm.MPM_Package.write
 backend.satellite_tools.disk_dumper.dumper.TeeStream.write
 backend.satellite_tools.disk_dumper.string_buffer.StringBuffer.write
 backend.satellite_tools.repo_plugins.yum_src.YumWarnings.write
 backend.wsgi.wsgiRequest.WsgiRequest.write
-pygettext.TokenEater.write
-rhn.SSL.SSLSocket.write
 rhn.SSL.SSLSocket.write
 rhn.SmartIO.SmartIO.write
 rhn.nonblocking.NonBlockingFile.write
@@ -226,7 +222,6 @@ rhnpush.rhnpush_config.rhnpushConfigParser.write
 src._ConfigParser.ConfigParser.write" class="py-name" href="#" onclick="return doclink('link-21', 'write', 'link-21');">write</a></tt><tt class="py-op">(</tt><tt class="py-name">kfd</tt><tt class="py-op">,</tt> <tt class="py-name">buffer</tt><tt class="py-op">)</tt> </tt>
 <a name="L139"></a><tt class="py-lineno">139</tt>  <tt class="py-line">        <tt class="py-name">buffer</tt> <tt class="py-op">=</tt> <tt class="py-name">kernel</tt><tt class="py-op">.</tt><tt id="link-22" class="py-name"><a title="backend.wsgi.wsgiRequest.WsgiRequest.read
 rhn.SSL.SSLSocket.read
-rhn.SSL.SSLSocket.read
 rhn.nonblocking.NonBlockingFile.read
 rhn.transports.File.read
 rhn.transports.Input.read
@@ -234,7 +229,7 @@ rhnkickstart.lilo.LiloConfigFile.read
 rhnpush.archive.ArchiveParser.read
 src._ConfigParser.ConfigParser.read
 src.jabber_lib.JabberClient.read" class="py-name" href="#" onclick="return doclink('link-22', 'read', 'link-11');">read</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
-<a name="L140"></a><tt class="py-lineno">140</tt>  <tt class="py-line">    <tt class="py-name">kernel</tt><tt class="py-op">.</tt><tt id="link-23" class="py-name" targets="Method backend.common.rhnCache.ClosingZipFile.close()=backend.common.rhnCache.ClosingZipFile-class.html#close,Method backend.common.rhnCache.LockedFile.close()=backend.common.rhnCache.LockedFile-class.html#close,Method backend.satellite_exporter.handlers.non_auth_dumper.NonAuthenticatedDumper.close()=backend.satellite_exporter.handlers.non_auth_dumper.NonAuthenticatedDumper-class.html#close,Method backend.satellite_tools.connection.CompressedStream.close()=backend.satellite_tools.connection.CompressedStream-class.html#close,Method backend.satellite_tools.disk_dumper.dumper.CachedQueryIterator.close()=backend.satellite_tools.disk_dumper.dumper.CachedQueryIterator-class.html#close,Method backend.satellite_tools.disk_dumper.dumper.XML_Dumper.close()=backend.satellite_tools.disk_dumper.dumper.XML_Dumper-class.html#close,Method backend.satellite_tools.disk_dumper.iss.Dumper.close()=backend.satellite_tools.disk_dumper.iss.Dumper-class.html#close,Method backend.satellite_tools.disk_dumper.string_buffer.StringBuffer.close()=backend.satellite_tools.disk_dumper.string_buffer.StringBuffer-class.html#close,Method backend.satellite_tools.satsync.StreamProducer.close()=backend.satellite_tools.satsync.StreamProducer-class.html#close,Method backend.satellite_tools.sync_handlers.ContainerHandler.close()=backend.satellite_tools.sync_handlers.ContainerHandler-class.html#close,Method backend.satellite_tools.xmlSource.BaseDispatchHandler.close()=backend.satellite_tools.xmlSource.BaseDispatchHandler-class.html#close,Method backend.server.rhnSQL.driver_cx_Oracle.Database.close()=backend.server.rhnSQL.driver_cx_Oracle.Database-class.html#close,Method backend.server.rhnSQL.driver_postgresql.Cursor.close()=backend.server.rhnSQL.driver_postgresql.Cursor-class.html#close,Method backend.server.rhnSQL.sql_base.Database.close()=backend.server.rhnSQL.sql_base.Database-class.html#close,Method config_common.rpc_wrapper.Server.close()=config_common.rpc_wrapper.Server-class.html#close,Method proxy.responseContext.ResponseContext.close()=proxy.responseContext.ResponseContext-class.html#close,Method rhn.SSL.SSLSocket.close()=rhn.SSL.SSLSocket-class.html#close,Method rhn.SSL.SSLSocket.close()=rhn.SSL.SSLSocket-class.html#close,Method rhn.rpclib.Server.close()=rhn.rpclib.Server-class.html#close,Method rhn.transports.BaseOutput.close()=rhn.transports.BaseOutput-class.html#close,Method up2date_client.rhnregGui.NetworkConfigDialog.close()=up2date_client.rhnregGui.NetworkConfigDialog-class.html#close"><a title="backend.common.rhnCache.ClosingZipFile.close
+<a name="L140"></a><tt class="py-lineno">140</tt>  <tt class="py-line">    <tt class="py-name">kernel</tt><tt class="py-op">.</tt><tt id="link-23" class="py-name" targets="Method backend.common.rhnCache.ClosingZipFile.close()=backend.common.rhnCache.ClosingZipFile-class.html#close,Method backend.common.rhnCache.LockedFile.close()=backend.common.rhnCache.LockedFile-class.html#close,Method backend.satellite_exporter.handlers.non_auth_dumper.NonAuthenticatedDumper.close()=backend.satellite_exporter.handlers.non_auth_dumper.NonAuthenticatedDumper-class.html#close,Method backend.satellite_tools.connection.CompressedStream.close()=backend.satellite_tools.connection.CompressedStream-class.html#close,Method backend.satellite_tools.disk_dumper.dumper.CachedQueryIterator.close()=backend.satellite_tools.disk_dumper.dumper.CachedQueryIterator-class.html#close,Method backend.satellite_tools.disk_dumper.dumper.XML_Dumper.close()=backend.satellite_tools.disk_dumper.dumper.XML_Dumper-class.html#close,Method backend.satellite_tools.disk_dumper.iss.Dumper.close()=backend.satellite_tools.disk_dumper.iss.Dumper-class.html#close,Method backend.satellite_tools.disk_dumper.string_buffer.StringBuffer.close()=backend.satellite_tools.disk_dumper.string_buffer.StringBuffer-class.html#close,Method backend.satellite_tools.satsync.StreamProducer.close()=backend.satellite_tools.satsync.StreamProducer-class.html#close,Method backend.satellite_tools.sync_handlers.ContainerHandler.close()=backend.satellite_tools.sync_handlers.ContainerHandler-class.html#close,Method backend.satellite_tools.xmlSource.BaseDispatchHandler.close()=backend.satellite_tools.xmlSource.BaseDispatchHandler-class.html#close,Method backend.server.rhnSQL.driver_cx_Oracle.Database.close()=backend.server.rhnSQL.driver_cx_Oracle.Database-class.html#close,Method backend.server.rhnSQL.driver_postgresql.Cursor.close()=backend.server.rhnSQL.driver_postgresql.Cursor-class.html#close,Method backend.server.rhnSQL.sql_base.Database.close()=backend.server.rhnSQL.sql_base.Database-class.html#close,Method config_common.rpc_wrapper.Server.close()=config_common.rpc_wrapper.Server-class.html#close,Method proxy.responseContext.ResponseContext.close()=proxy.responseContext.ResponseContext-class.html#close,Method rhn.SSL.SSLSocket.close()=rhn.SSL.SSLSocket-class.html#close,Method rhn.rpclib.Server.close()=rhn.rpclib.Server-class.html#close,Method rhn.transports.BaseOutput.close()=rhn.transports.BaseOutput-class.html#close,Method up2date_client.rhnregGui.NetworkConfigDialog.close()=up2date_client.rhnregGui.NetworkConfigDialog-class.html#close"><a title="backend.common.rhnCache.ClosingZipFile.close
 backend.common.rhnCache.LockedFile.close
 backend.satellite_exporter.handlers.non_auth_dumper.NonAuthenticatedDumper.close
 backend.satellite_tools.connection.CompressedStream.close
@@ -250,7 +245,6 @@ backend.server.rhnSQL.driver_postgresql.Cursor.close
 backend.server.rhnSQL.sql_base.Database.close
 config_common.rpc_wrapper.Server.close
 proxy.responseContext.ResponseContext.close
-rhn.SSL.SSLSocket.close
 rhn.SSL.SSLSocket.close
 rhn.rpclib.Server.close
 rhn.transports.BaseOutput.close
@@ -271,7 +265,6 @@ backend.server.rhnSQL.driver_postgresql.Cursor.close
 backend.server.rhnSQL.sql_base.Database.close
 config_common.rpc_wrapper.Server.close
 proxy.responseContext.ResponseContext.close
-rhn.SSL.SSLSocket.close
 rhn.SSL.SSLSocket.close
 rhn.rpclib.Server.close
 rhn.transports.BaseOutput.close
@@ -294,7 +287,6 @@ up2date_client.rhnregGui.NetworkConfigDialog.close" class="py-name" href="#" onc
 <a name="L157"></a><tt class="py-lineno">157</tt>  <tt class="py-line"> </tt>
 <a name="L158"></a><tt class="py-lineno">158</tt>  <tt class="py-line">    <tt class="py-name">buffer</tt> <tt class="py-op">=</tt> <tt class="py-name">initrd</tt><tt class="py-op">.</tt><tt id="link-27" class="py-name"><a title="backend.wsgi.wsgiRequest.WsgiRequest.read
 rhn.SSL.SSLSocket.read
-rhn.SSL.SSLSocket.read
 rhn.nonblocking.NonBlockingFile.read
 rhn.transports.File.read
 rhn.transports.Input.read
@@ -309,8 +301,6 @@ backend.satellite_tools.disk_dumper.dumper.TeeStream.write
 backend.satellite_tools.disk_dumper.string_buffer.StringBuffer.write
 backend.satellite_tools.repo_plugins.yum_src.YumWarnings.write
 backend.wsgi.wsgiRequest.WsgiRequest.write
-pygettext.TokenEater.write
-rhn.SSL.SSLSocket.write
 rhn.SSL.SSLSocket.write
 rhn.SmartIO.SmartIO.write
 rhn.nonblocking.NonBlockingFile.write
@@ -318,7 +308,6 @@ rhnkickstart.lilo.LiloConfigFile.write
 rhnpush.rhnpush_config.rhnpushConfigParser.write
 src._ConfigParser.ConfigParser.write" class="py-name" href="#" onclick="return doclink('link-28', 'write', 'link-21');">write</a></tt><tt class="py-op">(</tt><tt class="py-name">ifd</tt><tt class="py-op">,</tt> <tt class="py-name">buffer</tt><tt class="py-op">)</tt> </tt>
 <a name="L161"></a><tt class="py-lineno">161</tt>  <tt class="py-line">        <tt class="py-name">buffer</tt> <tt class="py-op">=</tt> <tt class="py-name">initrd</tt><tt class="py-op">.</tt><tt id="link-29" class="py-name"><a title="backend.wsgi.wsgiRequest.WsgiRequest.read
-rhn.SSL.SSLSocket.read
 rhn.SSL.SSLSocket.read
 rhn.nonblocking.NonBlockingFile.read
 rhn.transports.File.read
@@ -344,7 +333,6 @@ backend.server.rhnSQL.sql_base.Database.close
 config_common.rpc_wrapper.Server.close
 proxy.responseContext.ResponseContext.close
 rhn.SSL.SSLSocket.close
-rhn.SSL.SSLSocket.close
 rhn.rpclib.Server.close
 rhn.transports.BaseOutput.close
 up2date_client.rhnregGui.NetworkConfigDialog.close" class="py-name" href="#" onclick="return doclink('link-30', 'close', 'link-23');">close</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
@@ -364,7 +352,6 @@ backend.server.rhnSQL.driver_postgresql.Cursor.close
 backend.server.rhnSQL.sql_base.Database.close
 config_common.rpc_wrapper.Server.close
 proxy.responseContext.ResponseContext.close
-rhn.SSL.SSLSocket.close
 rhn.SSL.SSLSocket.close
 rhn.rpclib.Server.close
 rhn.transports.BaseOutput.close
@@ -394,7 +381,6 @@ up2date_client.rhnregGui.NetworkConfigDialog.close" class="py-name" href="#" onc
 </div><div id="_is_valid_gzip_file-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="_is_valid_gzip_file-expanded"><a name="L186"></a><tt class="py-lineno">186</tt>  <tt class="py-line">    <tt class="py-name">f</tt> <tt class="py-op">=</tt> <tt class="py-name">open</tt><tt class="py-op">(</tt><tt class="py-name">file_name</tt><tt class="py-op">)</tt> </tt>
 <a name="L187"></a><tt class="py-lineno">187</tt>  <tt class="py-line">    <tt class="py-name">first_two_bytes</tt> <tt class="py-op">=</tt> <tt class="py-name">f</tt><tt class="py-op">.</tt><tt id="link-36" class="py-name"><a title="backend.wsgi.wsgiRequest.WsgiRequest.read
 rhn.SSL.SSLSocket.read
-rhn.SSL.SSLSocket.read
 rhn.nonblocking.NonBlockingFile.read
 rhn.transports.File.read
 rhn.transports.Input.read
@@ -418,7 +404,6 @@ backend.server.rhnSQL.driver_postgresql.Cursor.close
 backend.server.rhnSQL.sql_base.Database.close
 config_common.rpc_wrapper.Server.close
 proxy.responseContext.ResponseContext.close
-rhn.SSL.SSLSocket.close
 rhn.SSL.SSLSocket.close
 rhn.rpclib.Server.close
 rhn.transports.BaseOutput.close
@@ -455,7 +440,7 @@ expandto(location.href);
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Wed Dec 21 14:30:59 2011
+    Generated by Epydoc 3.0.1 on Fri Mar  2 11:40:34 2012
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"
