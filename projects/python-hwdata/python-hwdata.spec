@@ -3,7 +3,7 @@
 %endif
 
 Name:		python-hwdata
-Version:	1.7.2
+Version:	1.7.3
 Release:	1%{?dist}
 Summary:	Python bindings to hwdata package
 BuildArch:  noarch
@@ -43,6 +43,10 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Fri Mar 02 2012 Miroslav Suchý 1.7.3-1
+- 798375 - fix PCI device name translation (Joshua.Roys@gtri.gatech.edu)
+- use setup from distutils
+
 * Fri Mar 02 2012 Jan Pazdziora 1.7.2-1
 - Update the copyright year info.
 
