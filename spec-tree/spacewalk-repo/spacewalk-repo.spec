@@ -1,7 +1,7 @@
 Summary: Spacewalk packages yum repository configuration
 Name: spacewalk-repo
 Version: 1.7
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: GPLv2
 Group: System Environment/Base
 # This src.rpm is cannonical upstream
@@ -98,6 +98,10 @@ rm -rf $RPM_BUILD_ROOT
 %config %{_sysconfdir}/yum.repos.d/spacewalk-client-nightly.repo
 
 %changelog
+* Fri Mar 02 2012 Jan Pazdziora 1.7-5
+- Start signing with new gpg key.
+- Add separate -nightly.repo definitions for nightly Spacewalk repos.
+
 * Wed Feb 01 2012 Jan Pazdziora 1.7-4
 - Revert "add Source0"
 
