@@ -2,7 +2,7 @@
 Summary: Various utility scripts and data files for RHN Satellite installations
 Name: spacewalk-admin
 URL:     https://fedorahosted.org/spacewalk
-Version: 1.7.3
+Version: 1.7.4
 Release: 1%{?dist}
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 License: GPLv2
@@ -71,6 +71,9 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) %{_sysconfdir}/rhn/service-list
 
 %changelog
+* Fri Mar 02 2012 Jan Pazdziora 1.7.4-1
+- Update the copyright year info.
+
 * Fri Feb 03 2012 Jan Pazdziora 1.7.3-1
 - 784158 - make it possible to customize list of services managed by the
   spacewalk-service command.
