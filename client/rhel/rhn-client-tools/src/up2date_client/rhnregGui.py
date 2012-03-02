@@ -327,7 +327,7 @@ class ChooseServerPage:
             setArrowCursor()
             log.log_exception(*sys.exc_info())
             protocol, host, path, parameters, query, fragmentIdentifier = urlparse.urlparse(config.getServerlURL()[0])
-            dialog = messageWindow.BulletedOkDialog()
+            dialog = messageWindow.BulletedOkDialog(_("Cannot contact selected server"))
             if serverType == 'hosted':
                 dialog.add_text(_("We could not contact Red Hat Network (%s).")
                                   % host)
