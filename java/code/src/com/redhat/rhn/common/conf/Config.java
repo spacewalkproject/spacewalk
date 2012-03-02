@@ -431,7 +431,10 @@ public class Config {
         }
 
         ns = ns.replaceFirst("rhn_", "");
-        ns = ns.substring(0, ns.lastIndexOf('.'));
+        int lastDotindex = ns.lastIndexOf('.');
+        if (lastDotindex != -1) {
+            ns = ns.substring(0, ns.lastIndexOf('.'));
+        }
         ns = ns.replaceAll("_", ".");
         return ns;
     }
