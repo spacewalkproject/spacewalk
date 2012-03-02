@@ -1,7 +1,7 @@
 %define release_name Smile
 
 Name:           spacewalk
-Version:        1.7.2
+Version:        1.7.3
 Release:        1%{?dist}
 Summary:        Spacewalk Systems Management Application
 URL:            https://fedorahosted.org/spacewalk
@@ -178,6 +178,9 @@ rm -rf %{buildroot}
 %{_datadir}/spacewalk/setup/defaults.d/postgresql-backend.conf
 
 %changelog
+* Fri Mar 02 2012 Jan Pazdziora 1.7.3-1
+- On RHEL 5, we need to explicitly name postgresql84-contrib.
+
 * Thu Mar 01 2012 Jan Pazdziora 1.7.2-1
 - The path is different on PostgreSQL 9.1/Fedora 16, luckily the postgresql-
   contrib package name is the same.
