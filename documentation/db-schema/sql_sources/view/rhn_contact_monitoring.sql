@@ -1,4 +1,4 @@
--- created by Oraschemadoc Wed Dec 21 14:59:51 2011
+-- created by Oraschemadoc Fri Mar  2 05:58:03 2012
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE OR REPLACE FORCE VIEW "SPACEWALK"."RHN_CONTACT_MONITORING" ("RECID", "CUSTOMER_ID", "CONTACT_LAST_NAME", "CONTACT_FIRST_NAME", "EMAIL_ADDRESS", "USERNAME", "PASSWORD", "SCHEDULE_ID", "PREFERRED_TIME_ZONE") AS 

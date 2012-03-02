@@ -35,7 +35,7 @@
                         <p>The sql file which will
                         generate these indexes is <a href="fk-indexes.sql">created for you</a></p><h3>"Unindexed" foreign keys</h3>
 <table>
-<tr><th>Table Name</th><th>Constraint name</th><th>Columns</th></tr><tr><td><a href="table-QRTZ_TRIGGERS.html"> QRTZ_TRIGGERS </a></td><td><a href="table-QRTZ_TRIGGERS.html#cs-SYS_C006579">SYS_C006579 </a>
+<tr><th>Table Name</th><th>Constraint name</th><th>Columns</th></tr><tr><td><a href="table-QRTZ_TRIGGERS.html"> QRTZ_TRIGGERS </a></td><td><a href="table-QRTZ_TRIGGERS.html#cs-SYS_C006612">SYS_C006612 </a>
 </td><td>JOB_NAME, JOB_GROUP</td></tr>
 <tr><td><a href="table-RHNACTION.html"> RHNACTION </a></td><td><a href="table-RHNACTION.html#cs-RHN_ACTION_AT_FK">RHN_ACTION_AT_FK </a>
 </td><td>ACTION_TYPE</td></tr>
@@ -67,8 +67,6 @@
 </td><td>NAME_ID</td></tr>
 <tr><td><a href="table-RHNACTIONPACKAGEREMOVALFAILURE.html"> RHNACTIONPACKAGEREMOVALFAILURE </a></td><td><a href="table-RHNACTIONPACKAGEREMOVALFAILURE.html#cs-RHN_APR_FAILURE_SUGGESTED_FK">RHN_APR_FAILURE_SUGGESTED_FK </a>
 </td><td>SUGGESTED</td></tr>
-<tr><td><a href="table-RHNAPPINSTALLSESSION.html"> RHNAPPINSTALLSESSION </a></td><td><a href="table-RHNAPPINSTALLSESSION.html#cs-RHN_APPINST_SESSION_CHSUM_FK">RHN_APPINST_SESSION_CHSUM_FK </a>
-</td><td>CHECKSUM_ID</td></tr>
 <tr><td><a href="table-RHNARCHTYPEACTIONS.html"> RHNARCHTYPEACTIONS </a></td><td><a href="table-RHNARCHTYPEACTIONS.html#cs-RHN_ARCHTYPEACTS_ACTID_FK">RHN_ARCHTYPEACTS_ACTID_FK </a>
 </td><td>ACTION_TYPE_ID</td></tr>
 <tr><td><a href="table-RHNCHANNEL.html"> RHNCHANNEL </a></td><td><a href="table-RHNCHANNEL.html#cs-RHN_CHANNEL_CAID_FK">RHN_CHANNEL_CAID_FK </a>
@@ -253,7 +251,7 @@
 </td><td>PACKAGE_UPGRADE_ARCH_ID</td></tr>
 <tr><td><a href="table-RHNPROXYINFO.html"> RHNPROXYINFO </a></td><td><a href="table-RHNPROXYINFO.html#cs-RHN_PROXY_INFO_PEID_FK">RHN_PROXY_INFO_PEID_FK </a>
 </td><td>PROXY_EVR_ID</td></tr>
-<tr><td><a href="table-RHNPUSHCLIENT.html"> RHNPUSHCLIENT </a></td><td><a href="table-RHNPUSHCLIENT.html#cs-SYS_C005447">SYS_C005447 </a>
+<tr><td><a href="table-RHNPUSHCLIENT.html"> RHNPUSHCLIENT </a></td><td><a href="table-RHNPUSHCLIENT.html#cs-SYS_C005434">SYS_C005434 </a>
 </td><td>STATE_ID</td></tr>
 <tr><td><a href="table-RHNREGTOKENCHANNELS.html"> RHNREGTOKENCHANNELS </a></td><td><a href="table-RHNREGTOKENCHANNELS.html#cs-RHN_REG_TOK_CHN_SGS_FK">RHN_REG_TOK_CHN_SGS_FK </a>
 </td><td>CHANNEL_ID</td></tr>
@@ -307,11 +305,11 @@
 </td><td>LAST_MODIFIED_BY</td></tr>
 <tr><td><a href="table-RHNSERVERGROUPTYPEFEATURE.html"> RHNSERVERGROUPTYPEFEATURE </a></td><td><a href="table-RHNSERVERGROUPTYPEFEATURE.html#cs-RHN_SGT_FID_FK">RHN_SGT_FID_FK </a>
 </td><td>FEATURE_ID</td></tr>
-<tr><td><a href="table-RHNSERVERPACKAGE.html"> RHNSERVERPACKAGE </a></td><td><a href="table-RHNSERVERPACKAGE.html#cs-SYS_C005721">SYS_C005721 </a>
+<tr><td><a href="table-RHNSERVERPACKAGE.html"> RHNSERVERPACKAGE </a></td><td><a href="table-RHNSERVERPACKAGE.html#cs-SYS_C005720">SYS_C005720 </a>
 </td><td>NAME_ID</td></tr>
-<tr><td><a href="table-RHNSERVERPACKAGE.html"> RHNSERVERPACKAGE </a></td><td><a href="table-RHNSERVERPACKAGE.html#cs-SYS_C005722">SYS_C005722 </a>
+<tr><td><a href="table-RHNSERVERPACKAGE.html"> RHNSERVERPACKAGE </a></td><td><a href="table-RHNSERVERPACKAGE.html#cs-SYS_C005721">SYS_C005721 </a>
 </td><td>EVR_ID</td></tr>
-<tr><td><a href="table-RHNSERVERPACKAGE.html"> RHNSERVERPACKAGE </a></td><td><a href="table-RHNSERVERPACKAGE.html#cs-SYS_C005723">SYS_C005723 </a>
+<tr><td><a href="table-RHNSERVERPACKAGE.html"> RHNSERVERPACKAGE </a></td><td><a href="table-RHNSERVERPACKAGE.html#cs-SYS_C005722">SYS_C005722 </a>
 </td><td>PACKAGE_ARCH_ID</td></tr>
 <tr><td><a href="table-RHNSERVERPROFILE.html"> RHNSERVERPROFILE </a></td><td><a href="table-RHNSERVERPROFILE.html#cs-RHN_SERVER_PROFILE_PTYPE_FK">RHN_SERVER_PROFILE_PTYPE_FK </a>
 </td><td>PROFILE_TYPE_ID</td></tr>
@@ -383,6 +381,16 @@
 </td><td>CHANGE_STATE_ID</td></tr>
 <tr><td><a href="table-RHNWEBCONTACTCHANGELOG.html"> RHNWEBCONTACTCHANGELOG </a></td><td><a href="table-RHNWEBCONTACTCHANGELOG.html#cs-RHN_WCON_CL_WCON_FROM_ID_FK">RHN_WCON_CL_WCON_FROM_ID_FK </a>
 </td><td>WEB_CONTACT_FROM_ID</td></tr>
+<tr><td><a href="table-RHNXCCDFRULERESULT.html"> RHNXCCDFRULERESULT </a></td><td><a href="table-RHNXCCDFRULERESULT.html#cs-RHN_XCCDF_RRESULT_IDENT_FK">RHN_XCCDF_RRESULT_IDENT_FK </a>
+</td><td>IDENT_ID</td></tr>
+<tr><td><a href="table-RHNXCCDFRULERESULT.html"> RHNXCCDFRULERESULT </a></td><td><a href="table-RHNXCCDFRULERESULT.html#cs-RHN_XCCDF_RRESULT_RESULT_FK">RHN_XCCDF_RRESULT_RESULT_FK </a>
+</td><td>RESULT_ID</td></tr>
+<tr><td><a href="table-RHNXCCDFTESTRESULT.html"> RHNXCCDFTESTRESULT </a></td><td><a href="table-RHNXCCDFTESTRESULT.html#cs-RHN_XCCDF_TRESULT_ACT_FK">RHN_XCCDF_TRESULT_ACT_FK </a>
+</td><td>ACTION_SCAP_ID</td></tr>
+<tr><td><a href="table-RHNXCCDFTESTRESULT.html"> RHNXCCDFTESTRESULT </a></td><td><a href="table-RHNXCCDFTESTRESULT.html#cs-RHN_XCCDF_TRESULT_BENCH_FK">RHN_XCCDF_TRESULT_BENCH_FK </a>
+</td><td>BENCHMARK_ID</td></tr>
+<tr><td><a href="table-RHNXCCDFTESTRESULT.html"> RHNXCCDFTESTRESULT </a></td><td><a href="table-RHNXCCDFTESTRESULT.html#cs-RHN_XCCDF_TRESULT_PROFILE_FK">RHN_XCCDF_TRESULT_PROFILE_FK </a>
+</td><td>PROFILE_ID</td></tr>
 <tr><td><a href="table-RHN_CHECK_PROBE.html"> RHN_CHECK_PROBE </a></td><td><a href="table-RHN_CHECK_PROBE.html#cs-RHN_CHKPB_RECID_PROBE_TYP_FK">RHN_CHKPB_RECID_PROBE_TYP_FK </a>
 </td><td>PROBE_ID, PROBE_TYPE</td></tr>
 <tr><td><a href="table-RHN_COMMAND.html"> RHN_COMMAND </a></td><td><a href="table-RHN_COMMAND.html#cs-RHN_CMMND_CMDGR_GROUP_NAME_FK">RHN_CMMND_CMDGR_GROUP_NAME_FK </a>
@@ -433,8 +441,8 @@
 </td><td>ORIGIN_PROBE_ID</td></tr>
 <tr><td><a href="table-RHN_URL_PROBE.html"> RHN_URL_PROBE </a></td><td><a href="table-RHN_URL_PROBE.html#cs-RHN_URLPB_PROBE_PR_ID_PR_FK">RHN_URLPB_PROBE_PR_ID_PR_FK </a>
 </td><td>PROBE_ID, PROBE_TYPE</td></tr>
-<tr><td><a href="table-VALID_COUNTRIES_TL.html"> VALID_COUNTRIES_TL </a></td><td><a href="table-VALID_COUNTRIES_TL.html#cs-VALID_COUNTRIES_TL_CODE">VALID_COUNTRIES_TL_CODE </a>
-</td><td>CODE</td></tr>
+<tr><td><a href="table-TIME_SERIES_PURGE.html"> TIME_SERIES_PURGE </a></td><td><a href="table-TIME_SERIES_PURGE.html#cs-TIME_SERIES_PURGE_PID_FK">TIME_SERIES_PURGE_PID_FK </a>
+</td><td>PROBE_ID</td></tr>
 <tr><td><a href="table-WEB_USER_CONTACT_PERMISSION.html"> WEB_USER_CONTACT_PERMISSION </a></td><td><a href="table-WEB_USER_CONTACT_PERMISSION.html#cs-CONTPERM_WBUSERID_FK">CONTPERM_WBUSERID_FK </a>
 </td><td>WEB_USER_ID</td></tr>
 <tr><td><a href="table-WEB_USER_PERSONAL_INFO.html"> WEB_USER_PERSONAL_INFO </a></td><td><a href="table-WEB_USER_PERSONAL_INFO.html#cs-PERSONAL_INFO_WEB_USER_ID_FK">PERSONAL_INFO_WEB_USER_ID_FK </a>
@@ -445,5 +453,5 @@
 </td><td>TYPE</td></tr>
 </table><div class="footer">
         Generated by  <a href="http://www.yarpen.cz/oraschemadoc">OraSchemaDoc</a>,
-        (c) Petr Vanek, 2005; Aram Kananov, 2002, on Wed Dec 21 15:00:03 2011</div>
+        (c) Petr Vanek, 2005; Aram Kananov, 2002, on Fri Mar  2 05:58:19 2012</div>
 </body></html>

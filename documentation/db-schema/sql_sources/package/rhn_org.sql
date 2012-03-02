@@ -1,4 +1,4 @@
--- created by Oraschemadoc Wed Dec 21 14:59:59 2011
+-- created by Oraschemadoc Fri Mar  2 05:58:13 2012
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE OR REPLACE PACKAGE "SPACEWALK"."RHN_ORG" 
@@ -199,7 +199,6 @@ IS
         delete from rhn_contact_methods where contact_id = user_id_in;
         delete from rhn_redirects where contact_id = user_id_in;
         delete from rhnUserServerPerms where user_id = user_id_in;
-        delete from rhnAppInstallSession where user_id = user_id_in;
         update rhnConfigRevision
            set changed_by_id = NULL
          where changed_by_id = user_id_in;

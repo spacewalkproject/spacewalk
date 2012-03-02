@@ -1,29 +1,31 @@
--- created by Oraschemadoc Wed Dec 21 14:59:58 2011
+-- created by Oraschemadoc Fri Mar  2 05:58:12 2012
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE OR REPLACE FUNCTION "SPACEWALK"."LOOKUP_PACKAGE_NAME" (name_in IN VARCHAR2, ignore_null in number := 0)
-RETURN NUMBER
-IS
-	PRAGMA AUTONOMOUS_TRANSACTION;
-	name_id		NUMBER;
-BEGIN
-	if ignore_null = 1 and name_in is null then
-		return null;
-	end if;
+  CREATE OR REPLACE FUNCTION "SPACEWALK"."LOOKUP_PACKAGE_NAME" (name_in in varchar2, ignore_null in number := 0)
+return number
+is
+    name_id		number;
+begin
+    if ignore_null = 1 and name_in is null then
+        return null;
+    end if;
 
-	SELECT id
-          INTO name_id
-          FROM rhnPackageName
-         WHERE name = name_in;
+    select id
+      into name_id
+      from rhnPackageName
+     where name = name_in;
 
-	RETURN name_id;
-EXCEPTION
-        WHEN NO_DATA_FOUND THEN
-            INSERT INTO rhnPackageName (id, name)
-                VALUES (rhn_pkg_name_seq.nextval, name_in)
-                RETURNING id INTO name_id;
-            COMMIT;
-	RETURN name_id;
-END;
+    return name_id;
+exception when no_data_found then
+    begin
+        name_id := insert_package_name(name_in);
+    exception when dup_val_on_index then
+        select id
+          into name_id
+          from rhnPackageName
+         where name = name_in;
+    end;
+    return name_id;
+end;
  
 /

@@ -1,8 +1,8 @@
--- created by Oraschemadoc Wed Dec 21 14:59:51 2011
+-- created by Oraschemadoc Fri Mar  2 05:58:03 2012
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE OR REPLACE FORCE VIEW "SPACEWALK"."RHNVISSERVERGROUPOVERVIEWLITE" ("ORG_ID", "SECURITY_ERRATA", "BUG_ERRATA", "ENHANCEMENT_ERRATA", "GROUP_ID", "GROUP_NAME", "GROUP_ADMINS", "SERVER_COUNT", "NOTE_COUNT", "MODIFIED", "MAX_MEMBERS") AS 
-  select	sg.org_id					org_id,
+  CREATE OR REPLACE FORCE VIEW "SPACEWALK"."RHNVISSERVERGROUPOVERVIEWLITE" ("ORG_ID", "SECURITY_ERRATA", "BUG_ERRATA", "ENHANCEMENT_ERRATA", "GROUP_ID", "GROUP_NAME", "GROUP_ADMINS", "SERVER_COUNT", "MODIFIED", "MAX_MEMBERS") AS 
+  select	sg.org_id					as org_id,
 		case when exists (
 			select	1
 			from	rhnServerGroupOVLiteHelper
@@ -11,7 +11,7 @@
 			)
 			then 1
 			else 0
-			end						security_errata,
+			end						as security_errata,
 		case when exists (
 			select	1
 			from	rhnServerGroupOVLiteHelper
@@ -20,7 +20,7 @@
 			)
 			then 1
 			else 0
-			end						bug_errata,
+			end						as bug_errata,
 		case when exists (
 			select	1
 			from	rhnServerGroupOVLiteHelper
@@ -29,20 +29,20 @@
 			)
 			then 1
 			else 0
-			end						enhancement_errata,
-		sg.id						group_id,
-		sg.name						group_name,
+			end						as enhancement_errata,
+		sg.id						as group_id,
+		sg.name						as group_name,
 		(	select	count(*)
 			from	rhnUserManagedServerGroups	umsg
 			where	umsg.server_group_id = sg.id
-		)							group_admins,
+		)							as group_admins,
 		(	select	count(*)
 			from	rhnServerGroupMembers		sgm
 			where	sgm.server_group_id = sg.id
-		)							server_count,
-		0							note_count,
-		sysdate						modified,
-		max_members					max_members
+		)							as server_count,
+		current_timestamp					as modified,
+		max_members					as max_members
 from	rhnVisibleServerGroup		sg
+
  
 /

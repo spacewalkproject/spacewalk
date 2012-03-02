@@ -216,60 +216,54 @@ Legend: <span class="comment">comment</span> <span class="string">string</span> 
    181<span class="operator">:</span> 	<span class="reserved">delete</span> <span class="reserved">from</span> rhnServerNetInterface <span class="reserved">where</span> server_id <span class="operator">=</span> server_id_in;
    182<span class="operator">:</span> 	<span class="reserved">delete</span> <span class="reserved">from</span> rhn_server_monitoring_info <span class="reserved">where</span> recid <span class="operator">=</span> server_id_in;
    183<span class="operator">:</span> 
-   184<span class="operator">:</span> 	<span class="reserved">delete</span> <span class="reserved">from</span> rhnAppInstallSession <span class="reserved">where</span> server_id <span class="operator">=</span> server_id_in;
-   185<span class="operator">:</span> 	<span class="reserved">delete</span> <span class="reserved">from</span> rhnServerUuid <span class="reserved">where</span> server_id <span class="operator">=</span> server_id_in;
-   186<span class="operator">:</span>     <span class="comment">-- We delete all the probes running directly against this system</span>
-   187<span class="operator">:</span>     <span class="comment">-- and any probes that were using this Server as a Proxy Scout.</span>
-   188<span class="operator">:</span>      <span class="reserved">SELECT</span> CP<span class="operator">.</span>probe_id <span class="keyword">bulk</span> <span class="keyword">collect</span> <span class="reserved">into</span> probesid_c
-   189<span class="operator">:</span>        <span class="reserved">FROM</span> rhn_check_probe CP
-   190<span class="operator">:</span>       <span class="reserved">WHERE</span> CP<span class="operator">.</span>host_id <span class="operator">=</span> server_id_in
-   191<span class="operator">:</span>          <span class="reserved">OR</span> CP<span class="operator">.</span>sat_cluster_id <span class="reserved">in</span>
-   192<span class="operator">:</span>     <span class="operator">(</span><span class="reserved">SELECT</span> SN<span class="operator">.</span>sat_cluster_id
-   193<span class="operator">:</span>        <span class="reserved">FROM</span> rhn_sat_node SN
-   194<span class="operator">:</span>       <span class="reserved">WHERE</span> SN<span class="operator">.</span>server_id <span class="operator">=</span> server_id_in<span class="operator">)</span>;
-   195<span class="operator">:</span> 
-   196<span class="operator">:</span>     <span class="reserved">if</span> probesid_c<span class="operator">.</span>first <span class="reserved">is</span> <span class="reserved">not</span> <span class="reserved">null</span> <span class="reserved">then</span>
-   197<span class="operator">:</span>         <span class="keyword">FORALL</span> i <span class="reserved">IN</span> probesid_c<span class="operator">.</span>first<span class="operator">.</span><span class="operator">.</span>probesid_c<span class="operator">.</span>last
-   198<span class="operator">:</span>             <span class="reserved">DELETE</span> <span class="reserved">FROM</span> rhn_probe_state PS <span class="reserved">WHERE</span> PS<span class="operator">.</span>probe_id <span class="operator">=</span> probesid_c<span class="operator">(</span>i<span class="operator">)</span>;
-   199<span class="operator">:</span>         <span class="keyword">FORALL</span> i <span class="reserved">IN</span> probesid_c<span class="operator">.</span>first<span class="operator">.</span><span class="operator">.</span>probesid_c<span class="operator">.</span>last
-   200<span class="operator">:</span>             <span class="reserved">DELETE</span> <span class="reserved">FROM</span> rhn_probe P  <span class="reserved">WHERE</span> P<span class="operator">.</span>recid <span class="operator">=</span> probesid_c<span class="operator">(</span>i<span class="operator">)</span>;
-   201<span class="operator">:</span>         <span class="keyword">FORALL</span> i <span class="reserved">IN</span> probesid_c<span class="operator">.</span>first<span class="operator">.</span><span class="operator">.</span>probesid_c<span class="operator">.</span>last
-   202<span class="operator">:</span>             <span class="reserved">DELETE</span> <span class="comment">/*+index(time_series time_series_probe_id_idx)*/</span>
-   203<span class="operator">:</span>             <span class="reserved">FROM</span> time_series
-   204<span class="operator">:</span>             <span class="reserved">WHERE</span> substr<span class="operator">(</span>o_id<span class="operator">,</span> instr<span class="operator">(</span>o_id<span class="operator">,</span> <span class="string">'-'</span><span class="operator">)</span> <span class="operator">+</span> 1<span class="operator">,</span>
-   205<span class="operator">:</span>                 <span class="operator">(</span>instr<span class="operator">(</span>o_id<span class="operator">,</span> <span class="string">'-'</span><span class="operator">,</span> instr<span class="operator">(</span>o_id<span class="operator">,</span> <span class="string">'-'</span><span class="operator">)</span> <span class="operator">+</span> 1<span class="operator">)</span> <span class="operator">-</span> instr<span class="operator">(</span>o_id<span class="operator">,</span> <span class="string">'-'</span><span class="operator">)</span><span class="operator">)</span>	<span class="operator">-</span> 1<span class="operator">)</span> <span class="operator">=</span> probesid_c<span class="operator">(</span>i<span class="operator">)</span>;
-   206<span class="operator">:</span>     <span class="reserved">end</span> <span class="reserved">if</span>;
+   184<span class="operator">:</span> 	<span class="reserved">delete</span> <span class="reserved">from</span> rhnServerUuid <span class="reserved">where</span> server_id <span class="operator">=</span> server_id_in;
+   185<span class="operator">:</span>     <span class="comment">-- We delete all the probes running directly against this system</span>
+   186<span class="operator">:</span>     <span class="comment">-- and any probes that were using this Server as a Proxy Scout.</span>
+   187<span class="operator">:</span>      <span class="reserved">SELECT</span> CP<span class="operator">.</span>probe_id <span class="keyword">bulk</span> <span class="keyword">collect</span> <span class="reserved">into</span> probesid_c
+   188<span class="operator">:</span>        <span class="reserved">FROM</span> rhn_check_probe CP
+   189<span class="operator">:</span>       <span class="reserved">WHERE</span> CP<span class="operator">.</span>host_id <span class="operator">=</span> server_id_in
+   190<span class="operator">:</span>          <span class="reserved">OR</span> CP<span class="operator">.</span>sat_cluster_id <span class="reserved">in</span>
+   191<span class="operator">:</span>     <span class="operator">(</span><span class="reserved">SELECT</span> SN<span class="operator">.</span>sat_cluster_id
+   192<span class="operator">:</span>        <span class="reserved">FROM</span> rhn_sat_node SN
+   193<span class="operator">:</span>       <span class="reserved">WHERE</span> SN<span class="operator">.</span>server_id <span class="operator">=</span> server_id_in<span class="operator">)</span>;
+   194<span class="operator">:</span> 
+   195<span class="operator">:</span>     <span class="reserved">if</span> probesid_c<span class="operator">.</span>first <span class="reserved">is</span> <span class="reserved">not</span> <span class="reserved">null</span> <span class="reserved">then</span>
+   196<span class="operator">:</span>         <span class="keyword">FORALL</span> i <span class="reserved">IN</span> probesid_c<span class="operator">.</span>first<span class="operator">.</span><span class="operator">.</span>probesid_c<span class="operator">.</span>last
+   197<span class="operator">:</span>             <span class="reserved">DELETE</span> <span class="reserved">FROM</span> rhn_probe_state PS <span class="reserved">WHERE</span> PS<span class="operator">.</span>probe_id <span class="operator">=</span> probesid_c<span class="operator">(</span>i<span class="operator">)</span>;
+   198<span class="operator">:</span>         <span class="keyword">FORALL</span> i <span class="reserved">IN</span> probesid_c<span class="operator">.</span>first<span class="operator">.</span><span class="operator">.</span>probesid_c<span class="operator">.</span>last
+   199<span class="operator">:</span>             <span class="reserved">DELETE</span> <span class="reserved">FROM</span> rhn_probe P  <span class="reserved">WHERE</span> P<span class="operator">.</span>recid <span class="operator">=</span> probesid_c<span class="operator">(</span>i<span class="operator">)</span>;
+   200<span class="operator">:</span>     <span class="reserved">end</span> <span class="reserved">if</span>;
+   201<span class="operator">:</span> 
+   202<span class="operator">:</span> 	<span class="reserved">delete</span> <span class="reserved">from</span> rhn_check_probe <span class="reserved">where</span> host_id <span class="operator">=</span> server_id_in;
+   203<span class="operator">:</span> 	<span class="reserved">delete</span> <span class="reserved">from</span> rhn_host_probe <span class="reserved">where</span> host_id <span class="operator">=</span> server_id_in;
+   204<span class="operator">:</span> 
+   205<span class="operator">:</span>     <span class="reserved">delete</span> <span class="reserved">from</span> rhn_sat_cluster <span class="reserved">where</span> recid <span class="reserved">in</span>
+   206<span class="operator">:</span>       <span class="operator">(</span> <span class="reserved">select</span> sat_cluster_id <span class="reserved">from</span> rhn_sat_node <span class="reserved">where</span> server_id <span class="operator">=</span> server_id_in <span class="operator">)</span>;
    207<span class="operator">:</span> 
-   208<span class="operator">:</span> 	<span class="reserved">delete</span> <span class="reserved">from</span> rhn_check_probe <span class="reserved">where</span> host_id <span class="operator">=</span> server_id_in;
-   209<span class="operator">:</span> 	<span class="reserved">delete</span> <span class="reserved">from</span> rhn_host_probe <span class="reserved">where</span> host_id <span class="operator">=</span> server_id_in;
-   210<span class="operator">:</span> 
-   211<span class="operator">:</span>     <span class="reserved">delete</span> <span class="reserved">from</span> rhn_sat_cluster <span class="reserved">where</span> recid <span class="reserved">in</span>
-   212<span class="operator">:</span>       <span class="operator">(</span> <span class="reserved">select</span> sat_cluster_id <span class="reserved">from</span> rhn_sat_node <span class="reserved">where</span> server_id <span class="operator">=</span> server_id_in <span class="operator">)</span>;
-   213<span class="operator">:</span> 
-   214<span class="operator">:</span> 	<span class="reserved">delete</span> <span class="reserved">from</span> rhn_sat_node <span class="reserved">where</span> server_id <span class="operator">=</span> server_id_in;
-   215<span class="operator">:</span> 
-   216<span class="operator">:</span>     <span class="reserved">delete</span> <span class="reserved">from</span> rhnPushClient <span class="reserved">where</span> server_id <span class="operator">=</span> server_id_in;
-   217<span class="operator">:</span> 
-   218<span class="operator">:</span> 	<span class="comment">-- now get rhnServer itself.</span>
-   219<span class="operator">:</span> 	<span class="reserved">delete</span>
-   220<span class="operator">:</span> 	<span class="reserved">from</span>	rhnServer
-   221<span class="operator">:</span> 		<span class="reserved">where</span> id <span class="operator">=</span> server_id_in;
-   222<span class="operator">:</span> 
-   223<span class="operator">:</span> 	<span class="reserved">delete</span>
-   224<span class="operator">:</span> 	<span class="reserved">from</span>	rhnSet
-   225<span class="operator">:</span> 	<span class="reserved">where</span>	1<span class="operator">=</span>1
-   226<span class="operator">:</span> 		<span class="reserved">and</span> user_id <span class="reserved">in</span> <span class="operator">(</span>
-   227<span class="operator">:</span> 			<span class="reserved">select</span>	wc<span class="operator">.</span>id
-   228<span class="operator">:</span> 			<span class="reserved">from</span>	rhnServer rs<span class="operator">,</span>
-   229<span class="operator">:</span> 				web_contact wc
-   230<span class="operator">:</span> 			<span class="reserved">where</span>	rs<span class="operator">.</span>id <span class="operator">=</span> server_id_in
-   231<span class="operator">:</span> 				<span class="reserved">and</span> rs<span class="operator">.</span>org_id <span class="operator">=</span> wc<span class="operator">.</span>org_id
-   232<span class="operator">:</span> 		<span class="operator">)</span>
-   233<span class="operator">:</span> 		<span class="reserved">and</span> label <span class="operator">=</span> <span class="string">'system_list'</span>
-   234<span class="operator">:</span> 		<span class="reserved">and</span> <span class="keyword">element</span> <span class="operator">=</span> server_id_in;
-   235<span class="operator">:</span> <span class="reserved">end</span> delete_server;
+   208<span class="operator">:</span> 	<span class="reserved">delete</span> <span class="reserved">from</span> rhn_sat_node <span class="reserved">where</span> server_id <span class="operator">=</span> server_id_in;
+   209<span class="operator">:</span> 
+   210<span class="operator">:</span>     <span class="reserved">delete</span> <span class="reserved">from</span> rhnPushClient <span class="reserved">where</span> server_id <span class="operator">=</span> server_id_in;
+   211<span class="operator">:</span> 
+   212<span class="operator">:</span> 	<span class="comment">-- now get rhnServer itself.</span>
+   213<span class="operator">:</span> 	<span class="reserved">delete</span>
+   214<span class="operator">:</span> 	<span class="reserved">from</span>	rhnServer
+   215<span class="operator">:</span> 		<span class="reserved">where</span> id <span class="operator">=</span> server_id_in;
+   216<span class="operator">:</span> 
+   217<span class="operator">:</span> 	<span class="reserved">delete</span>
+   218<span class="operator">:</span> 	<span class="reserved">from</span>	rhnSet
+   219<span class="operator">:</span> 	<span class="reserved">where</span>	1<span class="operator">=</span>1
+   220<span class="operator">:</span> 		<span class="reserved">and</span> user_id <span class="reserved">in</span> <span class="operator">(</span>
+   221<span class="operator">:</span> 			<span class="reserved">select</span>	wc<span class="operator">.</span>id
+   222<span class="operator">:</span> 			<span class="reserved">from</span>	rhnServer rs<span class="operator">,</span>
+   223<span class="operator">:</span> 				web_contact wc
+   224<span class="operator">:</span> 			<span class="reserved">where</span>	rs<span class="operator">.</span>id <span class="operator">=</span> server_id_in
+   225<span class="operator">:</span> 				<span class="reserved">and</span> rs<span class="operator">.</span>org_id <span class="operator">=</span> wc<span class="operator">.</span>org_id
+   226<span class="operator">:</span> 		<span class="operator">)</span>
+   227<span class="operator">:</span> 		<span class="reserved">and</span> label <span class="operator">=</span> <span class="string">'system_list'</span>
+   228<span class="operator">:</span> 		<span class="reserved">and</span> <span class="keyword">element</span> <span class="operator">=</span> server_id_in;
+   229<span class="operator">:</span> <span class="reserved">end</span> delete_server;
 </pre>
 <div class="footer">
         Generated by  <a href="http://www.yarpen.cz/oraschemadoc">OraSchemaDoc</a>,
-        (c) Petr Vanek, 2005; Aram Kananov, 2002, on Wed Dec 21 15:00:40 2011</div>
+        (c) Petr Vanek, 2005; Aram Kananov, 2002, on Fri Mar  2 05:59:14 2012</div>
 </body></html>

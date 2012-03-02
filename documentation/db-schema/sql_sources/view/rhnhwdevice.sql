@@ -1,4 +1,4 @@
--- created by Oraschemadoc Wed Dec 21 14:59:46 2011
+-- created by Oraschemadoc Fri Mar  2 05:57:59 2012
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE OR REPLACE FORCE VIEW "SPACEWALK"."RHNHWDEVICE" ("ID", "SERVER_ID", "CLASS", "BUS", "DETACHED", "DEVICE", "DRIVER", "DESCRIPTION", "VENDOR_ID", "DEVICE_ID", "SUBVENDOR_ID", "SUBDEVICE_ID", "PCITYPE") AS 

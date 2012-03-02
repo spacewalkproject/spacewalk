@@ -1,4 +1,4 @@
--- created by Oraschemadoc Wed Dec 21 14:58:25 2011
+-- created by Oraschemadoc Fri Mar  2 05:56:31 2012
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE TABLE "SPACEWALK"."RHNACTIONCONFIGREVISIONRESULT" 

@@ -1,4 +1,4 @@
--- created by Oraschemadoc Wed Dec 21 14:59:57 2011
+-- created by Oraschemadoc Fri Mar  2 05:58:10 2012
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE OR REPLACE PROCEDURE "SPACEWALK"."DELETE_SERVER" (
@@ -184,7 +184,6 @@ begin
 	delete from rhnServerNetInterface where server_id = server_id_in;
 	delete from rhn_server_monitoring_info where recid = server_id_in;
 
-	delete from rhnAppInstallSession where server_id = server_id_in;
 	delete from rhnServerUuid where server_id = server_id_in;
     -- We delete all the probes running directly against this system
     -- and any probes that were using this Server as a Proxy Scout.
@@ -201,11 +200,6 @@ begin
             DELETE FROM rhn_probe_state PS WHERE PS.probe_id = probesid_c(i);
         FORALL i IN probesid_c.first..probesid_c.last
             DELETE FROM rhn_probe P  WHERE P.recid = probesid_c(i);
-        FORALL i IN probesid_c.first..probesid_c.last
-            DELETE /*+index(time_series time_series_probe_id_idx)*/
-            FROM time_series
-            WHERE substr(o_id, instr(o_id, '-') + 1,
-                (instr(o_id, '-', instr(o_id, '-') + 1) - instr(o_id, '-'))	- 1) = probesid_c(i);
     end if;
 
 	delete from rhn_check_probe where host_id = server_id_in;

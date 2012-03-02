@@ -1,4 +1,4 @@
--- created by Oraschemadoc Wed Dec 21 14:59:53 2011
+-- created by Oraschemadoc Fri Mar  2 05:58:05 2012
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE OR REPLACE TRIGGER "SPACEWALK"."RHN_CMETH_VAL_TRIG" 
@@ -28,17 +28,6 @@ begin
 
     --- the all email fields but email_reply_to should be not null
         if :new.email_address is null
-        then
-            raise missing_data;
-        end if;
-    end if;
-
-    if :new.method_type_id = 5
-    then
-
-    --- the all sntp fields be not null
-        if (:new.snmp_host is null   or
-           :new.snmp_port is null)
         then
             raise missing_data;
         end if;

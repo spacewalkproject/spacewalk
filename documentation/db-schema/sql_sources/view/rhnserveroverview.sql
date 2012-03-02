@@ -1,9 +1,9 @@
--- created by Oraschemadoc Wed Dec 21 14:59:49 2011
+-- created by Oraschemadoc Fri Mar  2 05:58:01 2012
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE OR REPLACE FORCE VIEW "SPACEWALK"."RHNSERVEROVERVIEW" ("ORG_ID", "SERVER_ID", "SERVER_NAME", "NOTE_COUNT", "MODIFIED", "SERVER_ADMINS", "GROUP_COUNT", "CHANNEL_ID", "CHANNEL_LABELS", "HISTORY_COUNT", "SECURITY_ERRATA", "BUG_ERRATA", "ENHANCEMENT_ERRATA", "OUTDATED_PACKAGES", "CONFIG_FILES_WITH_DIFFERENCES", "LAST_CHECKIN_DAYS_AGO", "LAST_CHECKIN", "PENDING_UPDATES", "OS", "RELEASE", "SERVER_ARCH_NAME", "LOCKED") AS 
+  CREATE OR REPLACE FORCE VIEW "SPACEWALK"."RHNSERVEROVERVIEW" ("ORG_ID", "SERVER_ID", "SERVER_NAME", "MODIFIED", "SERVER_ADMINS", "GROUP_COUNT", "CHANNEL_ID", "CHANNEL_LABELS", "HISTORY_COUNT", "SECURITY_ERRATA", "BUG_ERRATA", "ENHANCEMENT_ERRATA", "OUTDATED_PACKAGES", "CONFIG_FILES_WITH_DIFFERENCES", "LAST_CHECKIN_DAYS_AGO", "LAST_CHECKIN", "PENDING_UPDATES", "OS", "RELEASE", "SERVER_ARCH_NAME", "LOCKED") AS 
   select
-    s.org_id, s.id, s.name, 0, s.modified,
+    s.org_id, s.id, s.name, s.modified,
     ( select count(user_id) from rhnUserServerPerms ap
       where server_id = s.id ),
     ( select count(server_group_id) from rhnVisibleServerGroupMembers
@@ -14,7 +14,7 @@
        where SC.server_id = S.id
          and SC.channel_id = C.id
 	 and C.parent_channel IS NULL),
-    NVL(( select C.name
+    coalesce(( select C.name
         from rhnChannel C,
 	     rhnServerChannel SC
        where SC.server_id = S.id
@@ -57,7 +57,7 @@
          and ACR.failure_id is null
          and ACRR.result is not null
         ),
-    ( select sysdate - checkin from rhnServerInfo where server_id = S.id ),
+    ( select date_diff_in_days(checkin, current_timestamp) from rhnServerInfo where server_id = S.id ),
     ( select TO_CHAR(checkin, 'YYYY-MM-DD HH24:MI:SS') from rhnServerInfo where server_id = S.id ),
     ( select count(1)
         from rhnServerAction
@@ -66,8 +66,9 @@
     os,
     release,
     ( select name from rhnServerArch where id = s.server_arch_id),
-    NVL((select 1 from rhnServerLock SL WHERE SL.server_id = S.id), 0)
+    coalesce((select 1 from rhnServerLock SL WHERE SL.server_id = S.id), 0)
 from
     rhnServer S
+
  
 /

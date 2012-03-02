@@ -1,4 +1,4 @@
--- created by Oraschemadoc Wed Dec 21 14:59:50 2011
+-- created by Oraschemadoc Fri Mar  2 05:58:03 2012
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE OR REPLACE FORCE VIEW "SPACEWALK"."RHNUSERSINORGOVERVIEW" ("ORG_ID", "USER_ID", "USER_LOGIN", "USER_FIRST_NAME", "USER_LAST_NAME", "USER_MODIFIED", "SERVER_COUNT", "SERVER_GROUP_COUNT", "ROLE_NAMES") AS 
@@ -20,10 +20,7 @@
 			from	rhnVisibleServerGroup sg
 			where	sg.id = umsg.server_group_id))
 							as server_group_count,
-	(	select	coalesce(utcv.names, '(normal user)')
-		from	rhnUserTypeCommaView utcv
-		where	utcv.user_id = u.id)
-							as role_names
+	coalesce(rhn_user.role_names(u.id), '(normal user)') as role_names
 from	web_user_personal_info pi,
 	web_contact u
 where

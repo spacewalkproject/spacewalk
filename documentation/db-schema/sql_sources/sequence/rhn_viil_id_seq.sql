@@ -1,4 +1,4 @@
--- created by Oraschemadoc Wed Dec 21 15:00:02 2011
+-- created by Oraschemadoc Fri Mar  2 05:58:18 2012
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
    CREATE SEQUENCE  "SPACEWALK"."RHN_VIIL_ID_SEQ"  MINVALUE 1 MAXVALUE 999999999999999999999999999 INCREMENT BY 1 START WITH 1 CACHE 20 NOORDER  NOCYCLE 

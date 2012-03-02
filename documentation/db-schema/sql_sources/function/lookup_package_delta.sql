@@ -1,24 +1,27 @@
--- created by Oraschemadoc Wed Dec 21 14:59:58 2011
+-- created by Oraschemadoc Fri Mar  2 05:58:12 2012
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE OR REPLACE FUNCTION "SPACEWALK"."LOOKUP_PACKAGE_DELTA" (n_in IN VARCHAR2)
-RETURN NUMBER
-IS
-	PRAGMA AUTONOMOUS_TRANSACTION;
-	name_id         NUMBER;
-BEGIN
-	SELECT id INTO name_id
-	  FROM rhnPackageDelta
-	 WHERE label = n_in;
+  CREATE OR REPLACE FUNCTION "SPACEWALK"."LOOKUP_PACKAGE_DELTA" (n_in in varchar2)
+return number
+is
+	name_id         number;
+begin
+    select id
+      into name_id
+      from rhnpackagedelta
+     where label = n_in;
 
-	RETURN name_id;
-EXCEPTION
-	WHEN NO_DATA_FOUND THEN
-	    INSERT INTO rhnPackageDelta (id, label)
-	    VALUES (rhn_packagedelta_id_seq.nextval, n_in)
-	    RETURNING id INTO name_id;
-	COMMIT;
-	RETURN name_id;
-END;
+	return name_id;
+exception when no_data_found then
+    begin
+        name_id := insert_package_delta(n_in);
+    exception when dup_val_on_index then
+        select id
+          into name_id
+          from rhnPackageDelta
+         where label = n_in;
+    end;
+	return name_id;
+end;
  
 /

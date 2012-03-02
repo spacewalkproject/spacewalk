@@ -48,33 +48,36 @@ Legend: <span class="comment">comment</span> <span class="string">string</span> 
      8<span class="operator">:</span> <span class="operator">)</span> <span class="keyword">return</span> number
      9<span class="operator">:</span> <span class="keyword">deterministic</span>
     10<span class="operator">:</span> <span class="reserved">is</span>
-    11<span class="operator">:</span>     <span class="keyword">pragma</span> autonomous_transaction;
-    12<span class="operator">:</span>     v_id    number;
-    13<span class="operator">:</span>     <span class="keyword">cursor</span> lookup_cursor <span class="reserved">is</span>
-    14<span class="operator">:</span>         <span class="reserved">select</span> id
-    15<span class="operator">:</span>           <span class="reserved">from</span> rhnConfigInfo
-    16<span class="operator">:</span>          <span class="reserved">where</span> 1<span class="operator">=</span>1
-    17<span class="operator">:</span>            <span class="reserved">and</span> nvl<span class="operator">(</span>username<span class="operator">,</span> <span class="string">' '</span><span class="operator">)</span> <span class="operator">=</span> nvl<span class="operator">(</span>username_in<span class="operator">,</span> <span class="string">' '</span><span class="operator">)</span>
-    18<span class="operator">:</span>            <span class="reserved">and</span> nvl<span class="operator">(</span>groupname<span class="operator">,</span><span class="string">' '</span><span class="operator">)</span> <span class="operator">=</span> nvl<span class="operator">(</span>groupname_in<span class="operator">,</span> <span class="string">' '</span><span class="operator">)</span>
-    19<span class="operator">:</span>            <span class="reserved">and</span> nvl<span class="operator">(</span>filemode<span class="operator">,</span> <span class="operator">-</span>1<span class="operator">)</span> <span class="operator">=</span> nvl<span class="operator">(</span>filemode_in<span class="operator">,</span> <span class="operator">-</span>1<span class="operator">)</span>
-    20<span class="operator">:</span>            <span class="reserved">and</span> nvl<span class="operator">(</span>selinux_ctx<span class="operator">,</span> <span class="string">' '</span><span class="operator">)</span> <span class="operator">=</span> nvl<span class="operator">(</span>selinux_ctx_in<span class="operator">,</span> <span class="string">' '</span><span class="operator">)</span>
-    21<span class="operator">:</span>            <span class="reserved">and</span> nvl<span class="operator">(</span>symlink_target_filename_id<span class="operator">,</span> <span class="operator">-</span>1<span class="operator">)</span> <span class="operator">=</span> nvl<span class="operator">(</span>symlink_target_id<span class="operator">,</span> <span class="operator">-</span>1<span class="operator">)</span>
-    22<span class="operator">:</span>         ;
-    23<span class="operator">:</span> <span class="reserved">begin</span>
-    24<span class="operator">:</span>     <span class="reserved">for</span> r <span class="reserved">in</span> lookup_cursor <span class="keyword">loop</span>
-    25<span class="operator">:</span>         <span class="keyword">return</span> r<span class="operator">.</span>id;
-    26<span class="operator">:</span>     <span class="reserved">end</span> <span class="keyword">loop</span>;
-    27<span class="operator">:</span>     <span class="comment">-- If we got here, we don't have the id</span>
-    28<span class="operator">:</span>     <span class="reserved">select</span> rhn_confinfo_id_seq<span class="operator">.</span>nextval
-    29<span class="operator">:</span>       <span class="reserved">into</span> v_id
-    30<span class="operator">:</span>       <span class="reserved">from</span> dual;
-    31<span class="operator">:</span>     <span class="reserved">insert</span> <span class="reserved">into</span> rhnConfigInfo <span class="operator">(</span>id<span class="operator">,</span> username<span class="operator">,</span> groupname<span class="operator">,</span> filemode<span class="operator">,</span> selinux_ctx<span class="operator">,</span> symlink_target_filename_id<span class="operator">)</span>
-    32<span class="operator">:</span>     <span class="reserved">values</span> <span class="operator">(</span>v_id<span class="operator">,</span> username_in<span class="operator">,</span> groupname_in<span class="operator">,</span> filemode_in<span class="operator">,</span> selinux_ctx_in<span class="operator">,</span> symlink_target_id<span class="operator">)</span>;
-    33<span class="operator">:</span>     <span class="keyword">commit</span>;
-    34<span class="operator">:</span>     <span class="keyword">return</span> v_id;
-    35<span class="operator">:</span> <span class="reserved">end</span> lookup_config_info;
+    11<span class="operator">:</span>     v_id    number;
+    12<span class="operator">:</span>     <span class="keyword">cursor</span> lookup_cursor <span class="reserved">is</span>
+    13<span class="operator">:</span>         <span class="reserved">select</span> id
+    14<span class="operator">:</span>           <span class="reserved">from</span> rhnConfigInfo
+    15<span class="operator">:</span>          <span class="reserved">where</span> 1<span class="operator">=</span>1
+    16<span class="operator">:</span>            <span class="reserved">and</span> nvl<span class="operator">(</span>username<span class="operator">,</span> <span class="string">' '</span><span class="operator">)</span> <span class="operator">=</span> nvl<span class="operator">(</span>username_in<span class="operator">,</span> <span class="string">' '</span><span class="operator">)</span>
+    17<span class="operator">:</span>            <span class="reserved">and</span> nvl<span class="operator">(</span>groupname<span class="operator">,</span><span class="string">' '</span><span class="operator">)</span> <span class="operator">=</span> nvl<span class="operator">(</span>groupname_in<span class="operator">,</span> <span class="string">' '</span><span class="operator">)</span>
+    18<span class="operator">:</span>            <span class="reserved">and</span> nvl<span class="operator">(</span>filemode<span class="operator">,</span> <span class="operator">-</span>1<span class="operator">)</span> <span class="operator">=</span> nvl<span class="operator">(</span>filemode_in<span class="operator">,</span> <span class="operator">-</span>1<span class="operator">)</span>
+    19<span class="operator">:</span>            <span class="reserved">and</span> nvl<span class="operator">(</span>selinux_ctx<span class="operator">,</span> <span class="string">' '</span><span class="operator">)</span> <span class="operator">=</span> nvl<span class="operator">(</span>selinux_ctx_in<span class="operator">,</span> <span class="string">' '</span><span class="operator">)</span>
+    20<span class="operator">:</span>            <span class="reserved">and</span> nvl<span class="operator">(</span>symlink_target_filename_id<span class="operator">,</span> <span class="operator">-</span>1<span class="operator">)</span> <span class="operator">=</span> nvl<span class="operator">(</span>symlink_target_id<span class="operator">,</span> <span class="operator">-</span>1<span class="operator">)</span>
+    21<span class="operator">:</span>         ;
+    22<span class="operator">:</span> <span class="reserved">begin</span>
+    23<span class="operator">:</span>     <span class="reserved">for</span> r <span class="reserved">in</span> lookup_cursor <span class="keyword">loop</span>
+    24<span class="operator">:</span>         <span class="keyword">return</span> r<span class="operator">.</span>id;
+    25<span class="operator">:</span>     <span class="reserved">end</span> <span class="keyword">loop</span>;
+    26<span class="operator">:</span>     <span class="comment">-- If we got here, we don't have the id</span>
+    27<span class="operator">:</span>     v_id <span class="operator">:</span><span class="operator">=</span> insert_config_info<span class="operator">(</span>
+    28<span class="operator">:</span>             username_in<span class="operator">,</span>
+    29<span class="operator">:</span>             groupname_in<span class="operator">,</span>
+    30<span class="operator">:</span>             filemode_in<span class="operator">,</span>
+    31<span class="operator">:</span>             selinux_ctx_in<span class="operator">,</span>
+    32<span class="operator">:</span>             symlink_target_id<span class="operator">)</span>;
+    33<span class="operator">:</span>     <span class="keyword">return</span> v_id;
+    34<span class="operator">:</span> <span class="reserved">exception</span> <span class="reserved">when</span> dup_val_on_index <span class="reserved">then</span>
+    35<span class="operator">:</span>     <span class="reserved">for</span> r <span class="reserved">in</span> lookup_cursor <span class="keyword">loop</span>
+    36<span class="operator">:</span>         <span class="keyword">return</span> r<span class="operator">.</span>id;
+    37<span class="operator">:</span>     <span class="reserved">end</span> <span class="keyword">loop</span>;
+    38<span class="operator">:</span> <span class="reserved">end</span> lookup_config_info;
 </pre>
 <div class="footer">
         Generated by  <a href="http://www.yarpen.cz/oraschemadoc">OraSchemaDoc</a>,
-        (c) Petr Vanek, 2005; Aram Kananov, 2002, on Wed Dec 21 15:00:40 2011</div>
+        (c) Petr Vanek, 2005; Aram Kananov, 2002, on Fri Mar  2 05:59:13 2012</div>
 </body></html>

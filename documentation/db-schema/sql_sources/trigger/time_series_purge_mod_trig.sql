@@ -1,0 +1,12 @@
+-- created by Oraschemadoc Fri Mar  2 05:58:10 2012
+-- visit http://www.yarpen.cz/oraschemadoc/ for more info
+
+  CREATE OR REPLACE TRIGGER "SPACEWALK"."TIME_SERIES_PURGE_MOD_TRIG" 
+before insert or update on time_series_purge
+for each row
+begin
+    :new.modified := sysdate;
+end;
+ALTER TRIGGER "SPACEWALK"."TIME_SERIES_PURGE_MOD_TRIG" ENABLE
+ 
+/

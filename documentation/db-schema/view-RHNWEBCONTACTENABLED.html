@@ -28,16 +28,16 @@
             </div><div class="subcontextbar"><a href="#v-descr">Description</a> <a href="#v-cols">Columns</a> <a href="#v-query">Query</a> <a href="#v-cc">Constraints</a> <a href="#v-trgs">Triggers</a> </div><h2>RHNWEBCONTACTENABLED</h2>
 <a href="sql_sources/view/rhnwebcontactenabled.sql">DDL script</a><h3>Columns<a name="v-cols"></a></h3>
 <table>
-<tr><th>Name</th><th>Type</th><th>Nullable</th><th>Insertable</th><th>Updatable</th><th>Deletable</th><th>Comment</th></tr><tr><td>ID<a name="col-ID"></a></td><td>NUMBER(38)</td><td>Y</td><td>NO</td><td>NO</td><td>NO</td><td>&nbsp;</td></tr>
-<tr><td>ORG_ID<a name="col-ORG_ID"></a></td><td>NUMBER(38)</td><td>Y</td><td>NO</td><td>NO</td><td>NO</td><td>&nbsp;</td></tr>
-<tr><td>LOGIN<a name="col-LOGIN"></a></td><td>VARCHAR2(64)</td><td>Y</td><td>NO</td><td>NO</td><td>NO</td><td>&nbsp;</td></tr>
-<tr><td>LOGIN_UC<a name="col-LOGIN_UC"></a></td><td>VARCHAR2(64)</td><td>Y</td><td>NO</td><td>NO</td><td>NO</td><td>&nbsp;</td></tr>
-<tr><td>PASSWORD<a name="col-PASSWORD"></a></td><td>VARCHAR2(38)</td><td>Y</td><td>NO</td><td>NO</td><td>NO</td><td>&nbsp;</td></tr>
-<tr><td>OLD_PASSWORD<a name="col-OLD_PASSWORD"></a></td><td>VARCHAR2(38)</td><td>Y</td><td>NO</td><td>NO</td><td>NO</td><td>&nbsp;</td></tr>
-<tr><td>ORACLE_CONTACT_ID<a name="col-ORACLE_CONTACT_ID"></a></td><td>NUMBER(38)</td><td>Y</td><td>NO</td><td>NO</td><td>NO</td><td>&nbsp;</td></tr>
-<tr><td>CREATED<a name="col-CREATED"></a></td><td>DATE</td><td>Y</td><td>NO</td><td>NO</td><td>NO</td><td>&nbsp;</td></tr>
-<tr><td>MODIFIED<a name="col-MODIFIED"></a></td><td>DATE</td><td>Y</td><td>NO</td><td>NO</td><td>NO</td><td>&nbsp;</td></tr>
-<tr><td>IGNORE_FLAG<a name="col-IGNORE_FLAG"></a></td><td>CHAR(1)</td><td>Y</td><td>NO</td><td>NO</td><td>NO</td><td>&nbsp;</td></tr>
+<tr><th>Name</th><th>Type</th><th>Nullable</th><th>Insertable</th><th>Updatable</th><th>Deletable</th><th>Comment</th></tr><tr><td>ID<a name="col-ID"></a></td><td>NUMBER(38)</td><td>N</td><td>YES</td><td>YES</td><td>YES</td><td>&nbsp;</td></tr>
+<tr><td>ORG_ID<a name="col-ORG_ID"></a></td><td>NUMBER(38)</td><td>N</td><td>YES</td><td>YES</td><td>YES</td><td>&nbsp;</td></tr>
+<tr><td>LOGIN<a name="col-LOGIN"></a></td><td>VARCHAR2(64)</td><td>N</td><td>YES</td><td>YES</td><td>YES</td><td>&nbsp;</td></tr>
+<tr><td>LOGIN_UC<a name="col-LOGIN_UC"></a></td><td>VARCHAR2(64)</td><td>N</td><td>YES</td><td>YES</td><td>YES</td><td>&nbsp;</td></tr>
+<tr><td>PASSWORD<a name="col-PASSWORD"></a></td><td>VARCHAR2(38)</td><td>N</td><td>YES</td><td>YES</td><td>YES</td><td>&nbsp;</td></tr>
+<tr><td>OLD_PASSWORD<a name="col-OLD_PASSWORD"></a></td><td>VARCHAR2(38)</td><td>Y</td><td>YES</td><td>YES</td><td>YES</td><td>&nbsp;</td></tr>
+<tr><td>ORACLE_CONTACT_ID<a name="col-ORACLE_CONTACT_ID"></a></td><td>NUMBER(38)</td><td>Y</td><td>YES</td><td>YES</td><td>YES</td><td>&nbsp;</td></tr>
+<tr><td>CREATED<a name="col-CREATED"></a></td><td>DATE</td><td>N</td><td>YES</td><td>YES</td><td>YES</td><td>&nbsp;</td></tr>
+<tr><td>MODIFIED<a name="col-MODIFIED"></a></td><td>DATE</td><td>N</td><td>YES</td><td>YES</td><td>YES</td><td>&nbsp;</td></tr>
+<tr><td>IGNORE_FLAG<a name="col-IGNORE_FLAG"></a></td><td>CHAR(1)</td><td>N</td><td>YES</td><td>YES</td><td>YES</td><td>&nbsp;</td></tr>
 </table><h3>Query:</h3>
 <a name="v-query"></a><pre>
 Legend: <span class="comment">comment</span> <span class="string">string</span> <span class="keyword">keyword</span> <span class="reserved">reserved word</span> <span class="operator">operator</span></pre>
@@ -55,22 +55,12 @@ Legend: <span class="comment">comment</span> <span class="string">string</span> 
    wcon<span class="operator">.</span>ignore_flag
 <span class="reserved">from</span>
    web_contact wcon
-<span class="reserved">minus</span>
-<span class="reserved">select</span>
-   wcd<span class="operator">.</span>id<span class="operator">,</span>
-   wcd<span class="operator">.</span>org_id<span class="operator">,</span>
-   wcd<span class="operator">.</span>login<span class="operator">,</span>
-   wcd<span class="operator">.</span>login_uc<span class="operator">,</span>
-   wcd<span class="operator">.</span>password<span class="operator">,</span>
-   wcd<span class="operator">.</span>old_password<span class="operator">,</span>
-   wcd<span class="operator">.</span>oracle_contact_id<span class="operator">,</span>
-   wcd<span class="operator">.</span>created<span class="operator">,</span>
-   wcd<span class="operator">.</span>modified<span class="operator">,</span>
-   wcd<span class="operator">.</span>ignore_flag
-<span class="reserved">from</span>
-   rhnWebContactDisabled wcd
+<span class="reserved">where</span> <span class="reserved">not</span> exists <span class="operator">(</span>
+     <span class="reserved">select</span> 1 <span class="reserved">from</span> rhnWebContactDisabled
+     <span class="reserved">where</span> wcon<span class="operator">.</span>id <span class="operator">=</span> rhnWebContactDisabled<span class="operator">.</span>id
+   <span class="operator">)</span>
 </pre>
 <div class="footer">
         Generated by  <a href="http://www.yarpen.cz/oraschemadoc">OraSchemaDoc</a>,
-        (c) Petr Vanek, 2005; Aram Kananov, 2002, on Wed Dec 21 15:00:40 2011</div>
+        (c) Petr Vanek, 2005; Aram Kananov, 2002, on Fri Mar  2 05:59:13 2012</div>
 </body></html>

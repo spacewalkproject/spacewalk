@@ -1,4 +1,4 @@
--- created by Oraschemadoc Wed Dec 21 14:59:58 2011
+-- created by Oraschemadoc Fri Mar  2 05:58:13 2012
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE OR REPLACE PACKAGE "SPACEWALK"."RHN_CHANNEL" 
@@ -82,7 +82,9 @@ IS
 
     PROCEDURE delete_server_channels(server_id_in in number);
 
-    PROCEDURE refresh_newest_package(channel_id_in in number, caller_in in varchar2 := '(unknown)');
+    PROCEDURE refresh_newest_package(channel_id_in in number,
+                                     caller_in in varchar2 := '(unknown)',
+                                     package_name_id_in in number := null);
 
     FUNCTION get_org_id(channel_id_in in number) return number;
     PRAGMA RESTRICT_REFERENCES(get_org_id, WNDS, RNPS, WNPS);
@@ -929,7 +931,7 @@ IS
          where cfp.org_id = org_id_in
            and CFM.channel_family_id = CFP.channel_family_id
            and CFM.channel_id = channel_id_in
-           and (CFP.max_members > 0 or CFP.max_members is null or CFP.org_id = 1);
+           and (CFP.max_members > 0 or CFP.max_members is null or CFP.fve_max_members > 0 or CFP.fve_max_members is null or CFP.org_id = 1);
 
         return 1;
         exception
@@ -1210,25 +1212,34 @@ IS
                 );
     end;
 
-        -- this could certainly be optimized to do updates if needs be
-        procedure refresh_newest_package(channel_id_in in number, caller_in in varchar2 := '(unknown)')
-        is
-        begin
-                delete from rhnChannelNewestPackage where channel_id = channel_id_in;
-                insert into rhnChannelNewestPackage
-                        ( channel_id, name_id, evr_id, package_id, package_arch_id )
-                        (       select  channel_id,
-                                                name_id, evr_id,
-                                                package_id, package_arch_id
-                                from    rhnChannelNewestPackageView
-                                where   channel_id = channel_id_in
-                        );
-                insert into rhnChannelNewestPackageAudit (channel_id, caller)
-                    values (channel_id_in, caller_in);
-                update rhnChannel
-                    set last_modified = greatest(sysdate, last_modified + 1/86400)
-                    where id = channel_id_in;
-        end;
+    -- this could certainly be optimized to do updates if needs be
+    procedure refresh_newest_package(channel_id_in in number,
+                                     caller_in in varchar2 := '(unknown)',
+                                     package_name_id_in in number := null)
+    is
+    -- procedure refreshes rows for name_id = package_name_id_in or
+    -- all rows if package_name_id_in is null
+    begin
+        delete from rhnChannelNewestPackage
+              where channel_id = channel_id_in
+                and (package_name_id_in is null
+                     or name_id = package_name_id_in);
+        insert into rhnChannelNewestPackage
+                (channel_id, name_id, evr_id, package_id, package_arch_id)
+                (select channel_id,
+                        name_id, evr_id,
+                        package_id, package_arch_id
+                   from rhnChannelNewestPackageView
+                  where channel_id = channel_id_in
+                    and (package_name_id_in is null
+                         or name_id = package_name_id_in)
+                );
+        insert into rhnChannelNewestPackageAudit (channel_id, caller)
+             values (channel_id_in, caller_in);
+        update rhnChannel
+           set last_modified = greatest(sysdate, last_modified + 1/86400)
+         where id = channel_id_in;
+    end;
 
    procedure update_channel ( channel_id_in in number, invalidate_ss in number := 0,
                               date_to_use in date := sysdate )

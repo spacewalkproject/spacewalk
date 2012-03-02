@@ -1,4 +1,4 @@
--- created by Oraschemadoc Wed Dec 21 14:59:48 2011
+-- created by Oraschemadoc Fri Mar  2 05:58:00 2012
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE OR REPLACE FORCE VIEW "SPACEWALK"."RHNSERVERGROUPMEMBERSHIP" ("ORG_ID", "SERVER_ID", "GROUP_ID", "GROUP_NAME", "GROUP_TYPE", "CURRENT_MEMBERS", "MAX_MEMBERS") AS 

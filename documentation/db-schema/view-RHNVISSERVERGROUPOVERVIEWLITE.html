@@ -36,14 +36,13 @@
 <tr><td>GROUP_NAME<a name="col-GROUP_NAME"></a></td><td>VARCHAR2(64)</td><td>N</td><td>YES</td><td>YES</td><td>YES</td><td>&nbsp;</td></tr>
 <tr><td>GROUP_ADMINS<a name="col-GROUP_ADMINS"></a></td><td>NUMBER(38)</td><td>Y</td><td>NO</td><td>NO</td><td>NO</td><td>&nbsp;</td></tr>
 <tr><td>SERVER_COUNT<a name="col-SERVER_COUNT"></a></td><td>NUMBER(38)</td><td>Y</td><td>NO</td><td>NO</td><td>NO</td><td>&nbsp;</td></tr>
-<tr><td>NOTE_COUNT<a name="col-NOTE_COUNT"></a></td><td>NUMBER(38)</td><td>Y</td><td>NO</td><td>NO</td><td>NO</td><td>&nbsp;</td></tr>
-<tr><td>MODIFIED<a name="col-MODIFIED"></a></td><td>DATE</td><td>Y</td><td>NO</td><td>NO</td><td>NO</td><td>&nbsp;</td></tr>
+<tr><td>MODIFIED<a name="col-MODIFIED"></a></td><td>TIMESTAMP(6) WITH TIME ZONE</td><td>Y</td><td>NO</td><td>NO</td><td>NO</td><td>&nbsp;</td></tr>
 <tr><td>MAX_MEMBERS<a name="col-MAX_MEMBERS"></a></td><td>NUMBER(38)</td><td>Y</td><td>YES</td><td>YES</td><td>YES</td><td>&nbsp;</td></tr>
 </table><h3>Query:</h3>
 <a name="v-query"></a><pre>
 Legend: <span class="comment">comment</span> <span class="string">string</span> <span class="keyword">keyword</span> <span class="reserved">reserved word</span> <span class="operator">operator</span></pre>
 <pre>
-<span class="reserved">select</span>	sg<span class="operator">.</span>org_id					org_id<span class="operator">,</span>
+<span class="reserved">select</span>	sg<span class="operator">.</span>org_id					<span class="reserved">as</span> org_id<span class="operator">,</span>
 		<span class="reserved">case</span> <span class="reserved">when</span> exists <span class="operator">(</span>
 			<span class="reserved">select</span>	1
 			<span class="reserved">from</span>	rhnServerGroupOVLiteHelper
@@ -52,7 +51,7 @@ Legend: <span class="comment">comment</span> <span class="string">string</span> 
 			<span class="operator">)</span>
 			<span class="reserved">then</span> 1
 			<span class="reserved">else</span> 0
-			<span class="reserved">end</span>						security_errata<span class="operator">,</span>
+			<span class="reserved">end</span>						<span class="reserved">as</span> security_errata<span class="operator">,</span>
 		<span class="reserved">case</span> <span class="reserved">when</span> exists <span class="operator">(</span>
 			<span class="reserved">select</span>	1
 			<span class="reserved">from</span>	rhnServerGroupOVLiteHelper
@@ -61,7 +60,7 @@ Legend: <span class="comment">comment</span> <span class="string">string</span> 
 			<span class="operator">)</span>
 			<span class="reserved">then</span> 1
 			<span class="reserved">else</span> 0
-			<span class="reserved">end</span>						bug_errata<span class="operator">,</span>
+			<span class="reserved">end</span>						<span class="reserved">as</span> bug_errata<span class="operator">,</span>
 		<span class="reserved">case</span> <span class="reserved">when</span> exists <span class="operator">(</span>
 			<span class="reserved">select</span>	1
 			<span class="reserved">from</span>	rhnServerGroupOVLiteHelper
@@ -70,23 +69,23 @@ Legend: <span class="comment">comment</span> <span class="string">string</span> 
 			<span class="operator">)</span>
 			<span class="reserved">then</span> 1
 			<span class="reserved">else</span> 0
-			<span class="reserved">end</span>						enhancement_errata<span class="operator">,</span>
-		sg<span class="operator">.</span>id						group_id<span class="operator">,</span>
-		sg<span class="operator">.</span><span class="keyword">name</span>						group_name<span class="operator">,</span>
+			<span class="reserved">end</span>						<span class="reserved">as</span> enhancement_errata<span class="operator">,</span>
+		sg<span class="operator">.</span>id						<span class="reserved">as</span> group_id<span class="operator">,</span>
+		sg<span class="operator">.</span><span class="keyword">name</span>						<span class="reserved">as</span> group_name<span class="operator">,</span>
 		<span class="operator">(</span>	<span class="reserved">select</span>	<span class="keyword">count</span><span class="operator">(</span><span class="operator">*</span><span class="operator">)</span>
 			<span class="reserved">from</span>	rhnUserManagedServerGroups	umsg
 			<span class="reserved">where</span>	umsg<span class="operator">.</span>server_group_id <span class="operator">=</span> sg<span class="operator">.</span>id
-		<span class="operator">)</span>							group_admins<span class="operator">,</span>
+		<span class="operator">)</span>							<span class="reserved">as</span> group_admins<span class="operator">,</span>
 		<span class="operator">(</span>	<span class="reserved">select</span>	<span class="keyword">count</span><span class="operator">(</span><span class="operator">*</span><span class="operator">)</span>
 			<span class="reserved">from</span>	rhnServerGroupMembers		sgm
 			<span class="reserved">where</span>	sgm<span class="operator">.</span>server_group_id <span class="operator">=</span> sg<span class="operator">.</span>id
-		<span class="operator">)</span>							server_count<span class="operator">,</span>
-		0							note_count<span class="operator">,</span>
-		sysdate						modified<span class="operator">,</span>
-		max_members					max_members
+		<span class="operator">)</span>							<span class="reserved">as</span> server_count<span class="operator">,</span>
+		current_timestamp					<span class="reserved">as</span> modified<span class="operator">,</span>
+		max_members					<span class="reserved">as</span> max_members
 <span class="reserved">from</span>	rhnVisibleServerGroup		sg
+
 </pre>
 <div class="footer">
         Generated by  <a href="http://www.yarpen.cz/oraschemadoc">OraSchemaDoc</a>,
-        (c) Petr Vanek, 2005; Aram Kananov, 2002, on Wed Dec 21 15:00:40 2011</div>
+        (c) Petr Vanek, 2005; Aram Kananov, 2002, on Fri Mar  2 05:59:13 2012</div>
 </body></html>

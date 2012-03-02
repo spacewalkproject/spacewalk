@@ -1,4 +1,4 @@
--- created by Oraschemadoc Wed Dec 21 14:59:44 2011
+-- created by Oraschemadoc Fri Mar  2 05:57:57 2012
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE OR REPLACE FORCE VIEW "SPACEWALK"."RHNACTIONOVERVIEW" ("ORG_ID", "ACTION_ID", "TYPE_ID", "TYPE_NAME", "NAME", "SCHEDULER", "SCHEDULER_LOGIN", "EARLIEST_ACTION", "TOTAL_COUNT", "SUCCESSFUL_COUNT", "FAILED_COUNT", "IN_PROGRESS_COUNT", "ARCHIVED") AS 

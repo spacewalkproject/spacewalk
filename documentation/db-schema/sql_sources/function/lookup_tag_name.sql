@@ -1,24 +1,28 @@
--- created by Oraschemadoc Wed Dec 21 14:59:58 2011
+-- created by Oraschemadoc Fri Mar  2 05:58:12 2012
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE OR REPLACE FUNCTION "SPACEWALK"."LOOKUP_TAG_NAME" (name_in IN VARCHAR2)
-RETURN NUMBER
-IS
-	PRAGMA AUTONOMOUS_TRANSACTION;
-	name_id     NUMBER;
-BEGIN
-        select id into name_id
+  CREATE OR REPLACE FUNCTION "SPACEWALK"."LOOKUP_TAG_NAME" (name_in in varchar2)
+return number
+is
+	pragma autonomous_transaction;
+	name_id     number;
+begin
+    select id
+      into name_id
 	  from rhnTagName
 	 where name = name_in;
 
-        RETURN name_id;
-EXCEPTION
-        WHEN NO_DATA_FOUND THEN
-            insert into rhnTagName(id, name)
-                    values (rhn_tagname_id_seq.nextval, name_in)
-                    returning id into name_id;
-            COMMIT;
-            RETURN name_id;
-END;
+    return name_id;
+exception when no_data_found then
+    begin
+        name_id := insert_tag_name(name_in);
+    exception when dup_val_on_index then
+        select id
+          into name_id
+    	  from rhnTagName
+    	 where name = name_in;
+    end;
+    return name_id;
+end;
  
 /

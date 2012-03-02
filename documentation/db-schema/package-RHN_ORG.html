@@ -233,29 +233,28 @@ Legend: <span class="comment">comment</span> <span class="string">string</span> 
    190<span class="operator">:</span>         <span class="reserved">delete</span> <span class="reserved">from</span> rhn_contact_methods <span class="reserved">where</span> contact_id <span class="operator">=</span> user_id_in;
    191<span class="operator">:</span>         <span class="reserved">delete</span> <span class="reserved">from</span> rhn_redirects <span class="reserved">where</span> contact_id <span class="operator">=</span> user_id_in;
    192<span class="operator">:</span>         <span class="reserved">delete</span> <span class="reserved">from</span> rhnUserServerPerms <span class="reserved">where</span> user_id <span class="operator">=</span> user_id_in;
-   193<span class="operator">:</span>         <span class="reserved">delete</span> <span class="reserved">from</span> rhnAppInstallSession <span class="reserved">where</span> user_id <span class="operator">=</span> user_id_in;
-   194<span class="operator">:</span>         <span class="reserved">update</span> rhnConfigRevision
-   195<span class="operator">:</span>            <span class="keyword">set</span> changed_by_id <span class="operator">=</span> <span class="reserved">NULL</span>
-   196<span class="operator">:</span>          <span class="reserved">where</span> changed_by_id <span class="operator">=</span> user_id_in;
-   197<span class="operator">:</span>         <span class="reserved">if</span> other_users <span class="operator">!</span><span class="operator">=</span> 0 <span class="reserved">then</span>
-   198<span class="operator">:</span>             <span class="reserved">update</span>        rhnRegToken
-   199<span class="operator">:</span>                 <span class="keyword">set</span>        user_id <span class="operator">=</span> nvl<span class="operator">(</span>other_org_admin<span class="operator">,</span> other_user_id<span class="operator">)</span>
-   200<span class="operator">:</span>                 <span class="reserved">where</span>    org_id <span class="operator">=</span> our_org_id
-   201<span class="operator">:</span>                     <span class="reserved">and</span> user_id <span class="operator">=</span> user_id_in;
-   202<span class="operator">:</span>         <span class="reserved">end</span> <span class="reserved">if</span>;
-   203<span class="operator">:</span> 
-   204<span class="operator">:</span>         <span class="reserved">begin</span>
-   205<span class="operator">:</span>             <span class="reserved">delete</span> <span class="reserved">from</span> web_contact <span class="reserved">where</span> id <span class="operator">=</span> user_id_in;
-   206<span class="operator">:</span>         <span class="reserved">exception</span>
-   207<span class="operator">:</span>             <span class="reserved">when</span> <span class="keyword">others</span> <span class="reserved">then</span>
-   208<span class="operator">:</span>                 rhn_exception<span class="operator">.</span>raise_exception<span class="operator">(</span><span class="string">'cannot_delete_user'</span><span class="operator">)</span>;
-   209<span class="operator">:</span>         <span class="reserved">end</span>;
-   210<span class="operator">:</span>         <span class="keyword">return</span>;
-   211<span class="operator">:</span>     <span class="reserved">end</span> delete_user;
-   212<span class="operator">:</span> 
-   213<span class="operator">:</span> <span class="reserved">END</span> rhn_org;
+   193<span class="operator">:</span>         <span class="reserved">update</span> rhnConfigRevision
+   194<span class="operator">:</span>            <span class="keyword">set</span> changed_by_id <span class="operator">=</span> <span class="reserved">NULL</span>
+   195<span class="operator">:</span>          <span class="reserved">where</span> changed_by_id <span class="operator">=</span> user_id_in;
+   196<span class="operator">:</span>         <span class="reserved">if</span> other_users <span class="operator">!</span><span class="operator">=</span> 0 <span class="reserved">then</span>
+   197<span class="operator">:</span>             <span class="reserved">update</span>        rhnRegToken
+   198<span class="operator">:</span>                 <span class="keyword">set</span>        user_id <span class="operator">=</span> nvl<span class="operator">(</span>other_org_admin<span class="operator">,</span> other_user_id<span class="operator">)</span>
+   199<span class="operator">:</span>                 <span class="reserved">where</span>    org_id <span class="operator">=</span> our_org_id
+   200<span class="operator">:</span>                     <span class="reserved">and</span> user_id <span class="operator">=</span> user_id_in;
+   201<span class="operator">:</span>         <span class="reserved">end</span> <span class="reserved">if</span>;
+   202<span class="operator">:</span> 
+   203<span class="operator">:</span>         <span class="reserved">begin</span>
+   204<span class="operator">:</span>             <span class="reserved">delete</span> <span class="reserved">from</span> web_contact <span class="reserved">where</span> id <span class="operator">=</span> user_id_in;
+   205<span class="operator">:</span>         <span class="reserved">exception</span>
+   206<span class="operator">:</span>             <span class="reserved">when</span> <span class="keyword">others</span> <span class="reserved">then</span>
+   207<span class="operator">:</span>                 rhn_exception<span class="operator">.</span>raise_exception<span class="operator">(</span><span class="string">'cannot_delete_user'</span><span class="operator">)</span>;
+   208<span class="operator">:</span>         <span class="reserved">end</span>;
+   209<span class="operator">:</span>         <span class="keyword">return</span>;
+   210<span class="operator">:</span>     <span class="reserved">end</span> delete_user;
+   211<span class="operator">:</span> 
+   212<span class="operator">:</span> <span class="reserved">END</span> rhn_org;
 </pre>
 <div class="footer">
         Generated by  <a href="http://www.yarpen.cz/oraschemadoc">OraSchemaDoc</a>,
-        (c) Petr Vanek, 2005; Aram Kananov, 2002, on Wed Dec 21 15:00:41 2011</div>
+        (c) Petr Vanek, 2005; Aram Kananov, 2002, on Fri Mar  2 05:59:14 2012</div>
 </body></html>

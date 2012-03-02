@@ -1,4 +1,4 @@
--- created by Oraschemadoc Wed Dec 21 14:59:45 2011
+-- created by Oraschemadoc Fri Mar  2 05:57:58 2012
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE OR REPLACE FORCE VIEW "SPACEWALK"."RHNCHANNELFAMILYSERVERFVE" ("CUSTOMER_ID", "CHANNEL_FAMILY_ID", "SERVER_ID", "CREATED", "MODIFIED") AS 

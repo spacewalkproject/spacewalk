@@ -1,4 +1,4 @@
--- created by Oraschemadoc Wed Dec 21 14:59:59 2011
+-- created by Oraschemadoc Fri Mar  2 05:58:13 2012
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE OR REPLACE PACKAGE "SPACEWALK"."RHN_ENTITLEMENTS" 
@@ -117,14 +117,6 @@ is
         channel_family_label_in in varchar2,
         quantity_in in number,
         flex_in in number
-    );
-
-    procedure set_group_count (
-		customer_id_in in number,	-- customer_id
-		type_in in char,			-- 'U' or 'S'
-		group_type_in in number,	-- rhn[User|Server]GroupType.id
-		quantity_in in number,		-- quantity
-                update_family_countsYN in number := 1 -- call update_family_counts inside
     );
 
     procedure set_family_count (
@@ -543,20 +535,7 @@ is
 
          rhn_server.delete_from_servergroup(server_id_in, group_id);
 
-         -- special case: clean up related monitornig data
          if type_label_in = 'monitoring_entitled' then
-           DELETE
-             FROM state_change
-            WHERE o_id IN (SELECT probe_id
-                             FROM rhn_check_probe
-                            WHERE host_id = server_id_in);
-           DELETE /*+index(time_series time_series_probe_id_idx)*/
-             FROM time_series
-            WHERE SUBSTR(o_id, INSTR(o_id, '-') + 1,
-                        (INSTR(o_id, '-', INSTR(o_id, '-') + 1) - INSTR(o_id, '-')) - 1)
-              IN (SELECT to_char(probe_id)
-                    FROM rhn_check_probe
-                   WHERE host_id = server_id_in);
            DELETE
              FROM rhn_probe
             WHERE recid IN (SELECT probe_id
@@ -779,6 +758,8 @@ is
                 rhn_channel.channel_family_current_members(family.channel_family_id,
                                                            org_id_val); -- fixed transposed args
 
+            begin
+
             -- get the max members of the family
             select max_members
             into max_members_val
@@ -828,6 +809,9 @@ is
             -- what's the difference of doing this vs the unavoidable set_family_count above?
             rhn_channel.update_family_counts(family.channel_family_id,
                                              org_id_val);
+
+            exception when no_data_found then null;
+            end;
 
             -- It is possible that the guests belong  to a different org than the host
             -- so we are going to update the family counts in the guests orgs also
@@ -1117,39 +1101,13 @@ is
     -- PROCEDURE: prune_group
     -- Unsubscribes servers consuming physical slots that over the org's
     --   limit.
-    -- Called by: set_group_count, repoll_virt_guest_entitlements
+    -- Called by: set_server_group_count, repoll_virt_guest_entitlements
     -- *******************************************************************
     procedure prune_group (
         group_id_in in number,
-        type_in in char,
         quantity_in in number,
                 update_family_countsYN in number := 1
     ) is
-        cursor usergroups is
-            select    user_id, user_group_id, ugt.label
-            from    rhnUserGroupType    ugt,
-                    rhnUserGroup        ug,
-                    rhnUserGroupMembers    ugm
-            where    1=1
-                and ugm.user_group_id = group_id_in
-                and ugm.user_id in (
-                    select    user_id
-                    from    (
-                        select    rownum row_number,
-                                user_id,
-                                time
-                        from    (
-                            select    user_id,
-                                    modified time
-                            from    rhnUserGroupMembers
-                            where    user_group_id = group_id_in
-                            order by time asc
-                        )
-                    )
-                    where    row_number > quantity_in
-                )
-                and ugm.user_group_id = ug.id
-                and ug.group_type = ugt.id;
         cursor servergroups is
            select  server_id, server_group_id, sgt.id as group_type_id, sgt.label
             from    rhnServerGroupType              sgt,
@@ -1179,21 +1137,12 @@ is
                     and sg.group_type = sgt.id;
       type_is_base char;
     begin
-        if type_in = 'U' then
-            update        rhnUserGroup
-                set        max_members = quantity_in
-                where    id = group_id_in;
+        update        rhnServerGroup
+            set        max_members = quantity_in
+            where    id = group_id_in;
 
-            for ug in usergroups loop
-                rhn_user.remove_from_usergroup(ug.user_id, ug.user_group_id);
-            end loop;
-        elsif type_in = 'S' then
-            update        rhnServerGroup
-                set        max_members = quantity_in
-                where    id = group_id_in;
-
-            for sg in servergroups loop
-                remove_server_entitlement(sg.server_id, sg.label);
+        for sg in servergroups loop
+            remove_server_entitlement(sg.server_id, sg.label);
 
             select is_base
             into type_is_base
@@ -1207,9 +1156,48 @@ is
                                         update_family_countsYN => update_family_countsYN);
             end if;
 
-            end loop;
-        end if;
+        end loop;
     end prune_group;
+
+    procedure set_server_group_count (
+        customer_id_in in number,
+        group_type_in in number,
+        quantity_in in number,
+                update_family_countsYN in number := 1
+    ) is
+        group_id number;
+        quantity number;
+    begin
+        quantity := quantity_in;
+        if quantity is not null and quantity < 0 then
+            quantity := 0;
+        end if;
+
+        select    rsg.id
+        into    group_id
+        from    rhnServerGroup rsg
+        where    1=1
+            and rsg.org_id = customer_id_in
+            and rsg.group_type = group_type_in;
+
+        rhn_entitlements.prune_group(
+            group_id,
+            quantity,
+                        update_family_countsYN
+        );
+    exception
+        when no_data_found then
+            insert into rhnServerGroup (
+                    id, name, description, max_members, current_members,
+                    group_type, org_id, created, modified
+                ) (
+                    select    rhn_server_group_id_seq.nextval, name, name,
+                            quantity, 0, id, customer_id_in,
+                            sysdate, sysdate
+                    from    rhnServerGroupType
+                    where    id = group_type_in
+            );
+    end set_server_group_count;
 
     -- *******************************************************************
     -- PROCEDURE: assign_system_entitlement
@@ -1218,7 +1206,7 @@ is
     -- Can raise not_enough_entitlements_in_base_org if from_org_id_in
     -- does not have enough entitlements to cover the move.
     -- Takes care of unentitling systems if necessary by calling
-    -- set_group_count
+    -- set_server_group_count
     -- *******************************************************************
     procedure assign_system_entitlement(
         group_label_in in varchar2,
@@ -1284,13 +1272,11 @@ is
         end if;
 
 
-        rhn_entitlements.set_group_count(from_org_id_in,
-                                         'S',
+        set_server_group_count(from_org_id_in,
                                          group_type,
                                          new_ent_count);
 
-        rhn_entitlements.set_group_count(to_org_id_in,
-                                         'S',
+        set_server_group_count(to_org_id_in,
                                          group_type,
                                          new_quantity);
 
@@ -1452,7 +1438,7 @@ is
     --
     -- Sets the values in rhnServerGroup for a given rhnServerGroupType.
     --
-    -- Calls: set_group_count to update, prune, or create the group.
+    -- Calls: set_server_group_count to update, prune, or create the group.
     -- Called by: the code that activates a satellite cert.
     --
     -- Raises not_enough_entitlements_in_base_org if all entitlements
@@ -1505,8 +1491,7 @@ is
         else
             -- don't update family counts after every server
             -- will do bulk update afterwards
-            rhn_entitlements.set_group_count(org_id_in,
-                                             'S',
+            set_server_group_count(org_id_in,
                                              group_type,
                                              quantity_in,
                                              update_family_countsYN => 0);
@@ -1674,70 +1659,6 @@ is
 
     end activate_channel_entitlement;
 
-
-    procedure set_group_count (
-        customer_id_in in number,
-        type_in in char,
-        group_type_in in number,
-        quantity_in in number,
-                update_family_countsYN in number := 1
-    ) is
-        group_id number;
-        quantity number;
-    begin
-        quantity := quantity_in;
-        if quantity is not null and quantity < 0 then
-            quantity := 0;
-        end if;
-
-        if type_in = 'U' then
-            select    rug.id
-            into    group_id
-            from    rhnUserGroup rug
-            where    1=1
-                and rug.org_id = customer_id_in
-                and rug.group_type = group_type_in;
-        elsif type_in = 'S' then
-            select    rsg.id
-            into    group_id
-            from    rhnServerGroup rsg
-            where    1=1
-                and rsg.org_id = customer_id_in
-                and rsg.group_type = group_type_in;
-        end if;
-
-        rhn_entitlements.prune_group(
-            group_id,
-            type_in,
-            quantity,
-                        update_family_countsYN
-        );
-    exception
-        when no_data_found then
-            if type_in = 'U' then
-                insert into rhnUserGroup (
-                        id, name, description, max_members, current_members,
-                        group_type, org_id, created, modified
-                    ) (
-                        select    rhn_user_group_id_seq.nextval, name, name,
-                                quantity, 0, id, customer_id_in,
-                                sysdate, sysdate
-                        from    rhnUserGroupType
-                        where    id = group_type_in
-                );
-            elsif type_in = 'S' then
-                insert into rhnServerGroup (
-                        id, name, description, max_members, current_members,
-                        group_type, org_id, created, modified
-                    ) (
-                        select    rhn_server_group_id_seq.nextval, name, name,
-                                quantity, 0, id, customer_id_in,
-                                sysdate, sysdate
-                        from    rhnServerGroupType
-                        where    id = group_type_in
-                );
-            end if;
-    end set_group_count;
 
     -- *******************************************************************
     -- PROCEDURE: prune_family

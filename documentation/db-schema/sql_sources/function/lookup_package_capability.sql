@@ -1,34 +1,45 @@
--- created by Oraschemadoc Wed Dec 21 14:59:58 2011
+-- created by Oraschemadoc Fri Mar  2 05:58:12 2012
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE OR REPLACE FUNCTION "SPACEWALK"."LOOKUP_PACKAGE_CAPABILITY" (name_in IN VARCHAR2,
-    version_in IN VARCHAR2 DEFAULT NULL)
-RETURN NUMBER
-IS
-	PRAGMA AUTONOMOUS_TRANSACTION;
-	name_id		NUMBER;
-BEGIN
-	IF version_in IS NULL THEN
-		SELECT id
-		  INTO name_id
-		  FROM rhnPackageCapability
-		 WHERE name = name_in
-		   AND version IS NULL;
-	ELSE
-		SELECT id
-		  INTO name_id
-		  FROM rhnPackageCapability
-		 WHERE name = name_in
-		   AND version = version_in;
-	END IF;
-	RETURN name_id;
-EXCEPTION
-        WHEN NO_DATA_FOUND THEN
-            INSERT INTO rhnPackageCapability (id, name, version)
-                VALUES (rhn_pkg_capability_id_seq.nextval, name_in, version_in)
-                RETURNING id INTO name_id;
-            COMMIT;
-	RETURN name_id;
-END;
+  CREATE OR REPLACE FUNCTION "SPACEWALK"."LOOKUP_PACKAGE_CAPABILITY" (name_in in varchar2, version_in in varchar2 default null)
+return number
+is
+    name_id		number;
+begin
+    if version_in is null then
+        select id
+          into name_id
+          from rhnPackageCapability
+         where name = name_in and
+               version is null;
+    else
+        select id
+          into name_id
+          from rhnPackageCapability
+         where name = name_in and
+               version = version_in;
+	end if;
+	return name_id;
+exception when no_data_found then
+    begin
+        name_id := insert_package_capability(name_in, version_in);
+    exception when dup_val_on_index then
+        if version_in is null then
+            select id
+              into name_id
+              from rhnPackageCapability
+             where name = name_in and
+                   version is null;
+        else
+            select id
+              into name_id
+              from rhnPackageCapability
+             where name = name_in and
+                   version = version_in;
+	end if;
+
+    end;
+	return name_id;
+end;
  
 /

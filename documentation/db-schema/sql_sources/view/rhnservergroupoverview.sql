@@ -1,7 +1,7 @@
--- created by Oraschemadoc Wed Dec 21 14:59:48 2011
+-- created by Oraschemadoc Fri Mar  2 05:58:00 2012
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE OR REPLACE FORCE VIEW "SPACEWALK"."RHNSERVERGROUPOVERVIEW" ("ORG_ID", "SECURITY_ERRATA", "BUG_ERRATA", "ENHANCEMENT_ERRATA", "GROUP_ID", "GROUP_NAME", "GROUP_ADMINS", "SERVER_COUNT", "NOTE_COUNT", "MODIFIED", "MAX_MEMBERS") AS 
+  CREATE OR REPLACE FORCE VIEW "SPACEWALK"."RHNSERVERGROUPOVERVIEW" ("ORG_ID", "SECURITY_ERRATA", "BUG_ERRATA", "ENHANCEMENT_ERRATA", "GROUP_ID", "GROUP_NAME", "GROUP_ADMINS", "SERVER_COUNT", "MODIFIED", "MAX_MEMBERS") AS 
   SELECT SG.org_id,
          (SELECT COUNT(distinct E.id)
             FROM rhnErrata E,
@@ -46,7 +46,7 @@
                               FROM rhnServerFeaturesView SFV
                               WHERE SFV.server_id = SGM.server_id
                                     AND SFV.label = 'ftr_system_grouping')),
-         0, SYSDATE, MAX_MEMBERS
+         CURRENT_TIMESTAMP, MAX_MEMBERS
     FROM rhnServerGroup SG
  
 /

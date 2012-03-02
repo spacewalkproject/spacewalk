@@ -1,32 +1,33 @@
--- created by Oraschemadoc Wed Dec 21 14:59:57 2011
+-- created by Oraschemadoc Fri Mar  2 05:58:12 2012
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE OR REPLACE FUNCTION "SPACEWALK"."LOOKUP_CHECKSUM" (checksum_type_in IN VARCHAR2, checksum_in IN VARCHAR2)
-RETURN NUMBER
-IS
-        PRAGMA AUTONOMOUS_TRANSACTION;
-        checksum_id     NUMBER;
-BEGIN
+  CREATE OR REPLACE FUNCTION "SPACEWALK"."LOOKUP_CHECKSUM" (checksum_type_in in varchar2, checksum_in in varchar2)
+return number
+is
+        checksum_id     number;
+begin
         if checksum_in is null then
                 return null;
         end if;
 
-        SELECT c.id
-          INTO checksum_id
-          FROM rhnChecksumView c
-         WHERE c.checksum = checksum_in
-           AND c.checksum_type = checksum_type_in;
+        select c.id
+          into checksum_id
+          from rhnChecksumView c
+         where c.checksum = checksum_in
+           and c.checksum_type = checksum_type_in;
 
-        RETURN checksum_id;
-EXCEPTION
-        WHEN NO_DATA_FOUND THEN
-            INSERT INTO rhnChecksum (id, checksum_type_id, checksum)
-                 VALUES (rhnChecksum_seq.nextval,
-                        (select id from rhnChecksumType where label = checksum_type_in),
-                        checksum_in)
-                RETURNING id INTO checksum_id;
-            COMMIT;
-        RETURN checksum_id;
-END;
+        return checksum_id;
+exception when no_data_found then
+    begin
+        select insert_checksum(checksum_in, checksum_type_in) into checksum_id from dual;
+    exception when dup_val_on_index then
+        select c.id
+          into checksum_id
+          from rhnChecksumView c
+         where c.checksum = checksum_in
+          and c.checksum_type = checksum_type_in;
+    end;
+    return checksum_id;
+end;
  
 /

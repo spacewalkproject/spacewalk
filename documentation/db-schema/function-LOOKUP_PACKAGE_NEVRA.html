@@ -46,37 +46,39 @@ Legend: <span class="comment">comment</span> <span class="string">string</span> 
      7<span class="operator">:</span> <span class="operator">)</span> <span class="keyword">return</span> number
      8<span class="operator">:</span> <span class="keyword">deterministic</span>
      9<span class="operator">:</span> <span class="reserved">is</span>
-    10<span class="operator">:</span> 	<span class="keyword">pragma</span> autonomous_transaction;
-    11<span class="operator">:</span> 	nevra_id number;
-    12<span class="operator">:</span> <span class="reserved">BEGIN</span>
-    13<span class="operator">:</span> 	<span class="reserved">if</span> ignore_null_name <span class="operator">=</span> 1 <span class="reserved">and</span> name_id_in <span class="reserved">is</span> <span class="reserved">null</span> <span class="reserved">then</span>
-    14<span class="operator">:</span> 		<span class="keyword">return</span> <span class="reserved">null</span>;
-    15<span class="operator">:</span> 	<span class="reserved">end</span> <span class="reserved">if</span>;
-    16<span class="operator">:</span> 
-    17<span class="operator">:</span> 	<span class="reserved">select</span>	id
-    18<span class="operator">:</span> 	<span class="reserved">into</span>	nevra_id
-    19<span class="operator">:</span> 	<span class="reserved">from</span>	rhnPackageNEVRA
-    20<span class="operator">:</span> 	<span class="reserved">where</span>	1<span class="operator">=</span>1
-    21<span class="operator">:</span> 		<span class="reserved">and</span> name_id <span class="operator">=</span> name_id_in
-    22<span class="operator">:</span> 		<span class="reserved">and</span> evr_id <span class="operator">=</span> evr_id_in
-    23<span class="operator">:</span> 		<span class="reserved">and</span> <span class="operator">(</span>package_arch_id <span class="operator">=</span> package_arch_id_in <span class="reserved">or</span>
-    24<span class="operator">:</span> 			<span class="operator">(</span>package_arch_id <span class="reserved">is</span> <span class="reserved">null</span>
-    25<span class="operator">:</span> 			 <span class="reserved">and</span> package_arch_id_in <span class="reserved">is</span> <span class="reserved">null</span><span class="operator">)</span><span class="operator">)</span>;
-    26<span class="operator">:</span> 
-    27<span class="operator">:</span> 	<span class="keyword">return</span> nevra_id;
-    28<span class="operator">:</span> <span class="reserved">exception</span>
-    29<span class="operator">:</span> 	<span class="reserved">when</span> no_data_found <span class="reserved">then</span>
-    30<span class="operator">:</span> 		<span class="reserved">insert</span> <span class="reserved">into</span> rhnPackageNEVRA
-    31<span class="operator">:</span> 			<span class="operator">(</span>id<span class="operator">,</span> name_id<span class="operator">,</span> evr_id<span class="operator">,</span> package_arch_id<span class="operator">)</span>
-    32<span class="operator">:</span> 			<span class="reserved">values</span>
-    33<span class="operator">:</span> 			<span class="operator">(</span>	rhn_pkgnevra_id_seq<span class="operator">.</span>nextval<span class="operator">,</span>
-    34<span class="operator">:</span> 				name_id_in<span class="operator">,</span> evr_id_in<span class="operator">,</span> package_arch_id_in
-    35<span class="operator">:</span> 			<span class="operator">)</span> <span class="keyword">returning</span> id <span class="reserved">into</span> nevra_id;
-    36<span class="operator">:</span> 		<span class="keyword">commit</span>;
-    37<span class="operator">:</span> 		<span class="keyword">return</span> nevra_id;
-    38<span class="operator">:</span> <span class="reserved">end</span>;
+    10<span class="operator">:</span> 	nevra_id number;
+    11<span class="operator">:</span> <span class="reserved">begin</span>
+    12<span class="operator">:</span>     <span class="reserved">if</span> ignore_null_name <span class="operator">=</span> 1 <span class="reserved">and</span> name_id_in <span class="reserved">is</span> <span class="reserved">null</span> <span class="reserved">then</span>
+    13<span class="operator">:</span>         <span class="keyword">return</span> <span class="reserved">null</span>;
+    14<span class="operator">:</span>     <span class="reserved">end</span> <span class="reserved">if</span>;
+    15<span class="operator">:</span> 
+    16<span class="operator">:</span>     <span class="reserved">select</span> id
+    17<span class="operator">:</span>       <span class="reserved">into</span> nevra_id
+    18<span class="operator">:</span>       <span class="reserved">from</span> rhnPackageNEVRA
+    19<span class="operator">:</span>      <span class="reserved">where</span> 1<span class="operator">=</span>1 <span class="reserved">and</span>
+    20<span class="operator">:</span>            name_id <span class="operator">=</span> name_id_in <span class="reserved">and</span>
+    21<span class="operator">:</span>            evr_id <span class="operator">=</span> evr_id_in <span class="reserved">and</span>
+    22<span class="operator">:</span>            <span class="operator">(</span>package_arch_id <span class="operator">=</span> package_arch_id_in <span class="reserved">or</span>
+    23<span class="operator">:</span>             <span class="operator">(</span>package_arch_id <span class="reserved">is</span> <span class="reserved">null</span> <span class="reserved">and</span> package_arch_id_in <span class="reserved">is</span> <span class="reserved">null</span><span class="operator">)</span><span class="operator">)</span>;
+    24<span class="operator">:</span> 
+    25<span class="operator">:</span>     <span class="keyword">return</span> nevra_id;
+    26<span class="operator">:</span> <span class="reserved">exception</span> <span class="reserved">when</span> no_data_found <span class="reserved">then</span>
+    27<span class="operator">:</span>     <span class="reserved">begin</span>
+    28<span class="operator">:</span>         nevra_id <span class="operator">:</span><span class="operator">=</span> insert_package_nevra<span class="operator">(</span>name_id_in<span class="operator">,</span> evr_id_in<span class="operator">,</span> package_arch_id_in<span class="operator">)</span>;
+    29<span class="operator">:</span>     <span class="reserved">exception</span> <span class="reserved">when</span> dup_val_on_index <span class="reserved">then</span>
+    30<span class="operator">:</span>         <span class="reserved">select</span> id
+    31<span class="operator">:</span>           <span class="reserved">into</span> nevra_id
+    32<span class="operator">:</span>           <span class="reserved">from</span> rhnPackageNEVRA
+    33<span class="operator">:</span>          <span class="reserved">where</span> 1<span class="operator">=</span>1 <span class="reserved">and</span>
+    34<span class="operator">:</span>                name_id <span class="operator">=</span> name_id_in <span class="reserved">and</span>
+    35<span class="operator">:</span>                evr_id <span class="operator">=</span> evr_id_in <span class="reserved">and</span>
+    36<span class="operator">:</span>                <span class="operator">(</span>package_arch_id <span class="operator">=</span> package_arch_id_in <span class="reserved">or</span>
+    37<span class="operator">:</span>                 <span class="operator">(</span>package_arch_id <span class="reserved">is</span> <span class="reserved">null</span> <span class="reserved">and</span> package_arch_id_in <span class="reserved">is</span> <span class="reserved">null</span><span class="operator">)</span><span class="operator">)</span>;
+    38<span class="operator">:</span>     <span class="reserved">end</span>;
+    39<span class="operator">:</span>     <span class="keyword">return</span> nevra_id;
+    40<span class="operator">:</span> <span class="reserved">end</span>;
 </pre>
 <div class="footer">
         Generated by  <a href="http://www.yarpen.cz/oraschemadoc">OraSchemaDoc</a>,
-        (c) Petr Vanek, 2005; Aram Kananov, 2002, on Wed Dec 21 15:00:40 2011</div>
+        (c) Petr Vanek, 2005; Aram Kananov, 2002, on Fri Mar  2 05:59:14 2012</div>
 </body></html>

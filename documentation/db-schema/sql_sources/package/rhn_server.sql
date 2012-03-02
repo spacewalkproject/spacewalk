@@ -1,4 +1,4 @@
--- created by Oraschemadoc Wed Dec 21 14:59:59 2011
+-- created by Oraschemadoc Fri Mar  2 05:58:14 2012
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE OR REPLACE PACKAGE "SPACEWALK"."RHN_SERVER" 
@@ -117,7 +117,7 @@ end rhn_server;
 CREATE OR REPLACE PACKAGE BODY "SPACEWALK"."RHN_SERVER" 
 is
     function system_service_level(
-	server_id_in in number,
+    	server_id_in in number,
 	service_level_in in varchar2
     ) return number is
 
@@ -143,9 +143,9 @@ is
     function can_change_base_channel(server_id_in IN NUMBER)
     return number
     is
-	throwaway number;
+    	throwaway number;
     begin
-	-- the idea: if we get past this query, the server is
+    	-- the idea: if we get past this query, the server is
 	-- neither sat nor proxy, so base channel is changeable
 
 	select 1 into throwaway
@@ -156,20 +156,20 @@ is
 
 	return 1;
     exception
-	when no_data_found
+    	when no_data_found
 	    then
 	    return 0;
     end can_change_base_channel;
 
     procedure set_custom_value(
-	server_id_in in number,
+    	server_id_in in number,
 	user_id_in in number,
 	key_label_in in varchar2,
 	value_in in varchar2
     ) is
-	key_id_val number;
+    	key_id_val number;
     begin
-	select CDK.id into key_id_val
+    	select CDK.id into key_id_val
 	  from rhnCustomDataKey CDK,
 	       rhnServer S
 	 where S.id = server_id_in
@@ -181,7 +181,7 @@ is
 	    values (server_id_in, key_id_val, value_in, user_id_in, user_id_in);
 	exception
 	    when DUP_VAL_ON_INDEX
-		then
+	    	then
 		update rhnServerCustomDataValue
 		   set value = value_in,
 		       last_modified_by = user_id_in
@@ -192,7 +192,7 @@ is
     end set_custom_value;
 
     function bulk_set_custom_value(
-	key_label_in in varchar2,
+    	key_label_in in varchar2,
 	value_in in varchar2,
 	set_label_in in varchar2,
 	set_uid_in in number
@@ -202,10 +202,14 @@ is
     i integer := 0;
     begin
         i := 0;
-	for server in rhn_set.set_iterator(set_label_in, set_uid_in)
-	loop
+        for server in (
+           SELECT user_id, label, element, element_two
+	     FROM rhnSet
+	    WHERE label = set_label_in
+	      AND user_id = set_uid_in
+	) loop
 	    if rhn_server.system_service_level(server.element, 'provisioning') = 1 then
-		rhn_server.set_custom_value(server.element, set_uid_in, key_label_in, value_in);
+	    	rhn_server.set_custom_value(server.element, set_uid_in, key_label_in, value_in);
             i := i + 1;
 	    end if;
 	end loop server;
@@ -213,23 +217,27 @@ is
     end bulk_set_custom_value;
 
     procedure bulk_snapshot_tag(
-	org_id_in in number,
+    	org_id_in in number,
         tagname_in in varchar2,
 	set_label_in in varchar2,
 	set_uid_in in number
     ) is
-	snapshot_id number;
+    	snapshot_id number;
     begin
-	for server in rhn_set.set_iterator(set_label_in, set_uid_in)
-	loop
+        for server in (
+           SELECT user_id, label, element, element_two
+	     FROM rhnSet
+	    WHERE label = set_label_in
+	      AND user_id = set_uid_in
+	    ) loop
 	    if rhn_server.system_service_level(server.element, 'provisioning') = 1 then
-		begin
-		    select max(id) into snapshot_id
-		    from rhnSnapshot
-		    where server_id = server.element;
-		exception
-		    when NO_DATA_FOUND then
-			rhn_server.snapshot_server(server.element, 'tagging system:  ' || tagname_in);
+	    	begin
+	    	    select max(id) into snapshot_id
+	    	    from rhnSnapshot
+	    	    where server_id = server.element;
+	    	exception
+	    	    when NO_DATA_FOUND then
+		    	rhn_server.snapshot_server(server.element, 'tagging system:  ' || tagname_in);
 
 			select max(id) into snapshot_id
 			from rhnSnapshot
@@ -241,7 +249,7 @@ is
 		    rhn_server.tag_snapshot(snapshot_id, org_id_in, tagname_in);
 		exception
 		    when DUP_VAL_ON_INDEX
-			then
+		    	then
 			-- do nothing, be forgiving...
 			null;
 		end;
@@ -250,16 +258,16 @@ is
     end bulk_snapshot_tag;
 
     procedure tag_delete(
-	server_id_in in number,
+    	server_id_in in number,
 	tag_id_in in number
     ) is
-	cursor snapshots is
+    	cursor snapshots is
 		select	snapshot_id
 		from	rhnSnapshotTag
 		where	tag_id = tag_id_in;
 	tag_id_tmp number;
     begin
-	select	id into tag_id_tmp
+    	select	id into tag_id_tmp
 	from	rhnTag
 	where	id = tag_id_in
 	for update;
@@ -282,31 +290,35 @@ is
 	tagname_in in varchar2
     ) is
     begin
-	insert into rhnSnapshotTag (snapshot_id, server_id, tag_id)
+    	insert into rhnSnapshotTag (snapshot_id, server_id, tag_id)
 	select snapshot_id_in, server_id, lookup_tag(org_id_in, tagname_in)
 	from rhnSnapshot
 	where id = snapshot_id_in;
     end tag_snapshot;
 
     procedure bulk_snapshot(
-	reason_in in varchar2,
+    	reason_in in varchar2,
 	set_label_in in varchar2,
 	set_uid_in in number
     ) is
     begin
-	for server in rhn_set.set_iterator(set_label_in, set_uid_in)
-	loop
-	    if rhn_server.system_service_level(server.element, 'provisioning') = 1 then
-		rhn_server.snapshot_server(server.element, reason_in);
+        for server in (
+           SELECT user_id, label, element, element_two
+	     FROM rhnSet
+	    WHERE label = set_label_in
+	      AND user_id = set_uid_in
+	    ) loop
+    	    if rhn_server.system_service_level(server.element, 'provisioning') = 1 then
+	    	rhn_server.snapshot_server(server.element, reason_in);
 	    end if;
 	end loop server;
     end bulk_snapshot;
 
     procedure snapshot_server(
-	server_id_in in number,
+    	server_id_in in number,
 	reason_in in varchar2
     ) is
-	snapshot_id number;
+    	snapshot_id number;
 	cursor revisions is
 		select distinct
 			cr.id
@@ -325,7 +337,7 @@ is
 			and cf.id = lookup_first_matching_cf(scc.server_id, cfn.path);
 	locked integer;
     begin
-	select rhn_snapshot_id_seq.nextval into snapshot_id from dual;
+    	select rhn_snapshot_id_seq.nextval into snapshot_id from dual;
 
 	insert into rhnSnapshot (id, org_id, server_id, reason) (
 		select	snapshot_id,
@@ -397,15 +409,15 @@ is
     end snapshot_server;
 
     procedure remove_action(
-	server_id_in in number,
+    	server_id_in in number,
 	action_id_in in number
     ) is
-	-- this really wants "nulls last", but 8.1.7.3.0 sucks ass.
+    	-- this really wants "nulls last", but 8.1.7.3.0 sucks ass.
 	-- instead, we make a local table that holds our
 	-- list of ids with null prereqs.  There's surely a better way
 	-- (an array instead of a table maybe?  who knows...)
 	-- but I've got code to do this handy that I can look at ;)
-	cursor chained_actions is
+    	cursor chained_actions is
 		select	id, prerequisite
 		from	rhnAction
 		start with id = action_id_in
@@ -470,9 +482,9 @@ is
     function check_user_access(server_id_in in number, user_id_in in number)
     return number
     is
-	has_access number;
+    	has_access number;
     begin
-	-- first check; if this returns no rows, then the server/user are in different orgs, and we bail
+    	-- first check; if this returns no rows, then the server/user are in different orgs, and we bail
         select 1 into has_access
 	  from rhnServer S,
 	       web_contact wc
@@ -481,12 +493,12 @@ is
 	   and wc.id = user_id_in;
 
 	-- okay, so they're in the same org.  if we have an org admin, they get a free pass
-	if rhn_user.check_role(user_id_in, 'org_admin') = 1
+    	if rhn_user.check_role(user_id_in, 'org_admin') = 1
 	then
 	    return 1;
 	end if;
 
-	select 1 into has_access
+    	select 1 into has_access
 	  from rhnServerGroupMembers SGM,
 	       rhnUserServerGroupPerms USG
 	 where SGM.server_group_id = USG.server_group_id
@@ -496,7 +508,7 @@ is
 
 	return 1;
     exception
-	when no_data_found
+    	when no_data_found
 	    then
 	    return 0;
     end check_user_access;
@@ -679,7 +691,7 @@ is
 	end insert_set_into_servergroup;
 
     procedure delete_from_servergroup (
-	server_id_in in number,
+    	server_id_in in number,
 		server_group_id_in in number
     ) is
         cursor server_virt_groups is

@@ -111,53 +111,55 @@ Legend: <span class="comment">comment</span> <span class="string">string</span> 
     79<span class="operator">:</span> 
     80<span class="operator">:</span>     <span class="reserved">PROCEDURE</span> delete_server_channels<span class="operator">(</span>server_id_in <span class="reserved">in</span> number<span class="operator">)</span>;
     81<span class="operator">:</span> 
-    82<span class="operator">:</span>     <span class="reserved">PROCEDURE</span> refresh_newest_package<span class="operator">(</span>channel_id_in <span class="reserved">in</span> number<span class="operator">,</span> caller_in <span class="reserved">in</span> varchar2 <span class="operator">:</span><span class="operator">=</span> <span class="string">'(unknown)'</span><span class="operator">)</span>;
-    83<span class="operator">:</span> 
-    84<span class="operator">:</span>     <span class="keyword">FUNCTION</span> get_org_id<span class="operator">(</span>channel_id_in <span class="reserved">in</span> number<span class="operator">)</span> <span class="keyword">return</span> number;
-    85<span class="operator">:</span>     <span class="keyword">PRAGMA</span> RESTRICT_REFERENCES<span class="operator">(</span>get_org_id<span class="operator">,</span> WNDS<span class="operator">,</span> RNPS<span class="operator">,</span> WNPS<span class="operator">)</span>;
-    86<span class="operator">:</span> 
-    87<span class="operator">:</span>     <span class="keyword">function</span> get_org_access<span class="operator">(</span>channel_id_in <span class="reserved">in</span> number<span class="operator">,</span> org_id_in <span class="reserved">in</span> number<span class="operator">)</span> <span class="keyword">return</span> number;
-    88<span class="operator">:</span>     <span class="keyword">PRAGMA</span> RESTRICT_REFERENCES<span class="operator">(</span>get_org_access<span class="operator">,</span> WNDS<span class="operator">,</span> RNPS<span class="operator">,</span> WNPS<span class="operator">)</span>;
-    89<span class="operator">:</span> 
-    90<span class="operator">:</span>     <span class="keyword">function</span> get_cfam_org_access<span class="operator">(</span>cfam_id_in <span class="reserved">in</span> number<span class="operator">,</span> org_id_in <span class="reserved">in</span> number<span class="operator">)</span> <span class="keyword">return</span> number;
+    82<span class="operator">:</span>     <span class="reserved">PROCEDURE</span> refresh_newest_package<span class="operator">(</span>channel_id_in <span class="reserved">in</span> number<span class="operator">,</span>
+    83<span class="operator">:</span>                                      caller_in <span class="reserved">in</span> varchar2 <span class="operator">:</span><span class="operator">=</span> <span class="string">'(unknown)'</span><span class="operator">,</span>
+    84<span class="operator">:</span>                                      package_name_id_in <span class="reserved">in</span> number <span class="operator">:</span><span class="operator">=</span> <span class="reserved">null</span><span class="operator">)</span>;
+    85<span class="operator">:</span> 
+    86<span class="operator">:</span>     <span class="keyword">FUNCTION</span> get_org_id<span class="operator">(</span>channel_id_in <span class="reserved">in</span> number<span class="operator">)</span> <span class="keyword">return</span> number;
+    87<span class="operator">:</span>     <span class="keyword">PRAGMA</span> RESTRICT_REFERENCES<span class="operator">(</span>get_org_id<span class="operator">,</span> WNDS<span class="operator">,</span> RNPS<span class="operator">,</span> WNPS<span class="operator">)</span>;
+    88<span class="operator">:</span> 
+    89<span class="operator">:</span>     <span class="keyword">function</span> get_org_access<span class="operator">(</span>channel_id_in <span class="reserved">in</span> number<span class="operator">,</span> org_id_in <span class="reserved">in</span> number<span class="operator">)</span> <span class="keyword">return</span> number;
+    90<span class="operator">:</span>     <span class="keyword">PRAGMA</span> RESTRICT_REFERENCES<span class="operator">(</span>get_org_access<span class="operator">,</span> WNDS<span class="operator">,</span> RNPS<span class="operator">,</span> WNPS<span class="operator">)</span>;
     91<span class="operator">:</span> 
-    92<span class="operator">:</span>     <span class="keyword">function</span> user_role_check_debug<span class="operator">(</span>channel_id_in <span class="reserved">in</span> number<span class="operator">,</span> user_id_in <span class="reserved">in</span> number<span class="operator">,</span> role_in <span class="reserved">in</span> varchar2<span class="operator">,</span> reason_out <span class="keyword">out</span> varchar2<span class="operator">)</span>
-    93<span class="operator">:</span>     	<span class="keyword">RETURN</span> NUMBER;
-    94<span class="operator">:</span>     <span class="keyword">PRAGMA</span> RESTRICT_REFERENCES<span class="operator">(</span>user_role_check_debug<span class="operator">,</span> WNDS<span class="operator">,</span> RNPS<span class="operator">,</span> WNPS<span class="operator">)</span>;
-    95<span class="operator">:</span> 
-    96<span class="operator">:</span>     <span class="keyword">function</span> user_role_check<span class="operator">(</span>channel_id_in <span class="reserved">in</span> number<span class="operator">,</span> user_id_in <span class="reserved">in</span> number<span class="operator">,</span> role_in <span class="reserved">in</span> varchar2<span class="operator">)</span>
-    97<span class="operator">:</span>     	<span class="keyword">RETURN</span> NUMBER;
-    98<span class="operator">:</span>     <span class="keyword">PRAGMA</span> RESTRICT_REFERENCES<span class="operator">(</span>user_role_check<span class="operator">,</span> WNDS<span class="operator">,</span> RNPS<span class="operator">,</span> WNPS<span class="operator">)</span>;
-    99<span class="operator">:</span> 
-   100<span class="operator">:</span>     <span class="keyword">function</span> loose_user_role_check<span class="operator">(</span>channel_id_in <span class="reserved">in</span> number<span class="operator">,</span> user_id_in <span class="reserved">in</span> number<span class="operator">,</span> role_in <span class="reserved">in</span> varchar2<span class="operator">)</span>
-   101<span class="operator">:</span>     	<span class="keyword">RETURN</span> NUMBER;
-   102<span class="operator">:</span>     <span class="keyword">PRAGMA</span> RESTRICT_REFERENCES<span class="operator">(</span>loose_user_role_check<span class="operator">,</span> WNDS<span class="operator">,</span> RNPS<span class="operator">,</span> WNPS<span class="operator">)</span>;
-   103<span class="operator">:</span> 
-   104<span class="operator">:</span>     <span class="keyword">function</span> direct_user_role_check<span class="operator">(</span>channel_id_in <span class="reserved">in</span> number<span class="operator">,</span> user_id_in <span class="reserved">in</span> number<span class="operator">,</span> role_in <span class="reserved">in</span> varchar2<span class="operator">)</span>
-   105<span class="operator">:</span>     	<span class="keyword">RETURN</span> NUMBER;
-   106<span class="operator">:</span>     <span class="keyword">PRAGMA</span> RESTRICT_REFERENCES<span class="operator">(</span>direct_user_role_check<span class="operator">,</span> WNDS<span class="operator">,</span> RNPS<span class="operator">,</span> WNPS<span class="operator">)</span>;
-   107<span class="operator">:</span> 
-   108<span class="operator">:</span>     <span class="keyword">function</span> shared_user_role_check<span class="operator">(</span>channel_id <span class="reserved">in</span> number<span class="operator">,</span> user_id <span class="reserved">in</span> number<span class="operator">,</span> role <span class="reserved">in</span> varchar2<span class="operator">)</span>
-   109<span class="operator">:</span>     	<span class="keyword">RETURN</span> NUMBER;
-   110<span class="operator">:</span>     <span class="keyword">PRAGMA</span> RESTRICT_REFERENCES<span class="operator">(</span>shared_user_role_check<span class="operator">,</span> WNDS<span class="operator">,</span> RNPS<span class="operator">,</span> WNPS<span class="operator">)</span>;
-   111<span class="operator">:</span> 
-   112<span class="operator">:</span>     <span class="keyword">function</span> org_channel_setting<span class="operator">(</span>channel_id_in <span class="reserved">in</span> number<span class="operator">,</span> org_id_in <span class="reserved">in</span> number<span class="operator">,</span> setting_in <span class="reserved">in</span> varchar2<span class="operator">)</span>
-   113<span class="operator">:</span>     	<span class="keyword">RETURN</span> NUMBER;
-   114<span class="operator">:</span> 
-   115<span class="operator">:</span>     <span class="reserved">PROCEDURE</span> update_channel <span class="operator">(</span> channel_id_in <span class="reserved">in</span> number<span class="operator">,</span> invalidate_ss <span class="reserved">in</span> number <span class="operator">:</span><span class="operator">=</span> 0<span class="operator">,</span>
-   116<span class="operator">:</span>                                date_to_use <span class="reserved">in</span> <span class="keyword">date</span> <span class="operator">:</span><span class="operator">=</span> sysdate <span class="operator">)</span>;
-   117<span class="operator">:</span> 
-   118<span class="operator">:</span>     <span class="reserved">PROCEDURE</span>  update_channels_by_package <span class="operator">(</span> package_id_in <span class="reserved">in</span> number<span class="operator">,</span> date_to_use <span class="reserved">in</span> <span class="keyword">date</span> <span class="operator">:</span><span class="operator">=</span> sysdate <span class="operator">)</span>;
+    92<span class="operator">:</span>     <span class="keyword">function</span> get_cfam_org_access<span class="operator">(</span>cfam_id_in <span class="reserved">in</span> number<span class="operator">,</span> org_id_in <span class="reserved">in</span> number<span class="operator">)</span> <span class="keyword">return</span> number;
+    93<span class="operator">:</span> 
+    94<span class="operator">:</span>     <span class="keyword">function</span> user_role_check_debug<span class="operator">(</span>channel_id_in <span class="reserved">in</span> number<span class="operator">,</span> user_id_in <span class="reserved">in</span> number<span class="operator">,</span> role_in <span class="reserved">in</span> varchar2<span class="operator">,</span> reason_out <span class="keyword">out</span> varchar2<span class="operator">)</span>
+    95<span class="operator">:</span>     	<span class="keyword">RETURN</span> NUMBER;
+    96<span class="operator">:</span>     <span class="keyword">PRAGMA</span> RESTRICT_REFERENCES<span class="operator">(</span>user_role_check_debug<span class="operator">,</span> WNDS<span class="operator">,</span> RNPS<span class="operator">,</span> WNPS<span class="operator">)</span>;
+    97<span class="operator">:</span> 
+    98<span class="operator">:</span>     <span class="keyword">function</span> user_role_check<span class="operator">(</span>channel_id_in <span class="reserved">in</span> number<span class="operator">,</span> user_id_in <span class="reserved">in</span> number<span class="operator">,</span> role_in <span class="reserved">in</span> varchar2<span class="operator">)</span>
+    99<span class="operator">:</span>     	<span class="keyword">RETURN</span> NUMBER;
+   100<span class="operator">:</span>     <span class="keyword">PRAGMA</span> RESTRICT_REFERENCES<span class="operator">(</span>user_role_check<span class="operator">,</span> WNDS<span class="operator">,</span> RNPS<span class="operator">,</span> WNPS<span class="operator">)</span>;
+   101<span class="operator">:</span> 
+   102<span class="operator">:</span>     <span class="keyword">function</span> loose_user_role_check<span class="operator">(</span>channel_id_in <span class="reserved">in</span> number<span class="operator">,</span> user_id_in <span class="reserved">in</span> number<span class="operator">,</span> role_in <span class="reserved">in</span> varchar2<span class="operator">)</span>
+   103<span class="operator">:</span>     	<span class="keyword">RETURN</span> NUMBER;
+   104<span class="operator">:</span>     <span class="keyword">PRAGMA</span> RESTRICT_REFERENCES<span class="operator">(</span>loose_user_role_check<span class="operator">,</span> WNDS<span class="operator">,</span> RNPS<span class="operator">,</span> WNPS<span class="operator">)</span>;
+   105<span class="operator">:</span> 
+   106<span class="operator">:</span>     <span class="keyword">function</span> direct_user_role_check<span class="operator">(</span>channel_id_in <span class="reserved">in</span> number<span class="operator">,</span> user_id_in <span class="reserved">in</span> number<span class="operator">,</span> role_in <span class="reserved">in</span> varchar2<span class="operator">)</span>
+   107<span class="operator">:</span>     	<span class="keyword">RETURN</span> NUMBER;
+   108<span class="operator">:</span>     <span class="keyword">PRAGMA</span> RESTRICT_REFERENCES<span class="operator">(</span>direct_user_role_check<span class="operator">,</span> WNDS<span class="operator">,</span> RNPS<span class="operator">,</span> WNPS<span class="operator">)</span>;
+   109<span class="operator">:</span> 
+   110<span class="operator">:</span>     <span class="keyword">function</span> shared_user_role_check<span class="operator">(</span>channel_id <span class="reserved">in</span> number<span class="operator">,</span> user_id <span class="reserved">in</span> number<span class="operator">,</span> role <span class="reserved">in</span> varchar2<span class="operator">)</span>
+   111<span class="operator">:</span>     	<span class="keyword">RETURN</span> NUMBER;
+   112<span class="operator">:</span>     <span class="keyword">PRAGMA</span> RESTRICT_REFERENCES<span class="operator">(</span>shared_user_role_check<span class="operator">,</span> WNDS<span class="operator">,</span> RNPS<span class="operator">,</span> WNPS<span class="operator">)</span>;
+   113<span class="operator">:</span> 
+   114<span class="operator">:</span>     <span class="keyword">function</span> org_channel_setting<span class="operator">(</span>channel_id_in <span class="reserved">in</span> number<span class="operator">,</span> org_id_in <span class="reserved">in</span> number<span class="operator">,</span> setting_in <span class="reserved">in</span> varchar2<span class="operator">)</span>
+   115<span class="operator">:</span>     	<span class="keyword">RETURN</span> NUMBER;
+   116<span class="operator">:</span> 
+   117<span class="operator">:</span>     <span class="reserved">PROCEDURE</span> update_channel <span class="operator">(</span> channel_id_in <span class="reserved">in</span> number<span class="operator">,</span> invalidate_ss <span class="reserved">in</span> number <span class="operator">:</span><span class="operator">=</span> 0<span class="operator">,</span>
+   118<span class="operator">:</span>                                date_to_use <span class="reserved">in</span> <span class="keyword">date</span> <span class="operator">:</span><span class="operator">=</span> sysdate <span class="operator">)</span>;
    119<span class="operator">:</span> 
-   120<span class="operator">:</span>      <span class="reserved">PROCEDURE</span> update_channels_by_errata <span class="operator">(</span> errata_id_in number<span class="operator">,</span> date_to_use <span class="reserved">in</span> <span class="keyword">date</span> <span class="operator">:</span><span class="operator">=</span> sysdate <span class="operator">)</span>;
+   120<span class="operator">:</span>     <span class="reserved">PROCEDURE</span>  update_channels_by_package <span class="operator">(</span> package_id_in <span class="reserved">in</span> number<span class="operator">,</span> date_to_use <span class="reserved">in</span> <span class="keyword">date</span> <span class="operator">:</span><span class="operator">=</span> sysdate <span class="operator">)</span>;
    121<span class="operator">:</span> 
-   122<span class="operator">:</span> 
-   123<span class="operator">:</span>     <span class="keyword">PRAGMA</span> RESTRICT_REFERENCES<span class="operator">(</span>org_channel_setting<span class="operator">,</span> WNDS<span class="operator">,</span> RNPS<span class="operator">,</span> WNPS<span class="operator">)</span>;
+   122<span class="operator">:</span>      <span class="reserved">PROCEDURE</span> update_channels_by_errata <span class="operator">(</span> errata_id_in number<span class="operator">,</span> date_to_use <span class="reserved">in</span> <span class="keyword">date</span> <span class="operator">:</span><span class="operator">=</span> sysdate <span class="operator">)</span>;
+   123<span class="operator">:</span> 
    124<span class="operator">:</span> 
-   125<span class="operator">:</span>     <span class="reserved">PROCEDURE</span> update_needed_cache<span class="operator">(</span>channel_id_in <span class="reserved">in</span> number<span class="operator">)</span>;
+   125<span class="operator">:</span>     <span class="keyword">PRAGMA</span> RESTRICT_REFERENCES<span class="operator">(</span>org_channel_setting<span class="operator">,</span> WNDS<span class="operator">,</span> RNPS<span class="operator">,</span> WNPS<span class="operator">)</span>;
    126<span class="operator">:</span> 
-   127<span class="operator">:</span> 
-   128<span class="operator">:</span> <span class="reserved">END</span> rhn_channel;
+   127<span class="operator">:</span>     <span class="reserved">PROCEDURE</span> update_needed_cache<span class="operator">(</span>channel_id_in <span class="reserved">in</span> number<span class="operator">)</span>;
+   128<span class="operator">:</span> 
+   129<span class="operator">:</span> 
+   130<span class="operator">:</span> <span class="reserved">END</span> rhn_channel;
 </pre>
 <h2>Package body source</h2>
 <a name="p-bsrc"></a><pre>
@@ -963,7 +965,7 @@ Legend: <span class="comment">comment</span> <span class="string">string</span> 
    798<span class="operator">:</span>          <span class="reserved">where</span> cfp<span class="operator">.</span>org_id <span class="operator">=</span> org_id_in
    799<span class="operator">:</span>            <span class="reserved">and</span> CFM<span class="operator">.</span>channel_family_id <span class="operator">=</span> CFP<span class="operator">.</span>channel_family_id
    800<span class="operator">:</span>            <span class="reserved">and</span> CFM<span class="operator">.</span>channel_id <span class="operator">=</span> channel_id_in
-   801<span class="operator">:</span>            <span class="reserved">and</span> <span class="operator">(</span>CFP<span class="operator">.</span>max_members <span class="operator">&gt;</span> 0 <span class="reserved">or</span> CFP<span class="operator">.</span>max_members <span class="reserved">is</span> <span class="reserved">null</span> <span class="reserved">or</span> CFP<span class="operator">.</span>org_id <span class="operator">=</span> 1<span class="operator">)</span>;
+   801<span class="operator">:</span>            <span class="reserved">and</span> <span class="operator">(</span>CFP<span class="operator">.</span>max_members <span class="operator">&gt;</span> 0 <span class="reserved">or</span> CFP<span class="operator">.</span>max_members <span class="reserved">is</span> <span class="reserved">null</span> <span class="reserved">or</span> CFP<span class="operator">.</span>fve_max_members <span class="operator">&gt;</span> 0 <span class="reserved">or</span> CFP<span class="operator">.</span>fve_max_members <span class="reserved">is</span> <span class="reserved">null</span> <span class="reserved">or</span> CFP<span class="operator">.</span>org_id <span class="operator">=</span> 1<span class="operator">)</span>;
    802<span class="operator">:</span> 
    803<span class="operator">:</span>         <span class="keyword">return</span> 1;
    804<span class="operator">:</span>         <span class="reserved">exception</span>
@@ -1244,121 +1246,130 @@ Legend: <span class="comment">comment</span> <span class="string">string</span> 
   1079<span class="operator">:</span>                 <span class="operator">)</span>;
   1080<span class="operator">:</span>     <span class="reserved">end</span>;
   1081<span class="operator">:</span> 
-  1082<span class="operator">:</span>         <span class="comment">-- this could certainly be optimized to do updates if needs be</span>
-  1083<span class="operator">:</span>         <span class="reserved">procedure</span> refresh_newest_package<span class="operator">(</span>channel_id_in <span class="reserved">in</span> number<span class="operator">,</span> caller_in <span class="reserved">in</span> varchar2 <span class="operator">:</span><span class="operator">=</span> <span class="string">'(unknown)'</span><span class="operator">)</span>
-  1084<span class="operator">:</span>         <span class="reserved">is</span>
-  1085<span class="operator">:</span>         <span class="reserved">begin</span>
-  1086<span class="operator">:</span>                 <span class="reserved">delete</span> <span class="reserved">from</span> rhnChannelNewestPackage <span class="reserved">where</span> channel_id <span class="operator">=</span> channel_id_in;
-  1087<span class="operator">:</span>                 <span class="reserved">insert</span> <span class="reserved">into</span> rhnChannelNewestPackage
-  1088<span class="operator">:</span>                         <span class="operator">(</span> channel_id<span class="operator">,</span> name_id<span class="operator">,</span> evr_id<span class="operator">,</span> package_id<span class="operator">,</span> package_arch_id <span class="operator">)</span>
-  1089<span class="operator">:</span>                         <span class="operator">(</span>       <span class="reserved">select</span>  channel_id<span class="operator">,</span>
-  1090<span class="operator">:</span>                                                 name_id<span class="operator">,</span> evr_id<span class="operator">,</span>
-  1091<span class="operator">:</span>                                                 package_id<span class="operator">,</span> package_arch_id
-  1092<span class="operator">:</span>                                 <span class="reserved">from</span>    rhnChannelNewestPackageView
-  1093<span class="operator">:</span>                                 <span class="reserved">where</span>   channel_id <span class="operator">=</span> channel_id_in
-  1094<span class="operator">:</span>                         <span class="operator">)</span>;
-  1095<span class="operator">:</span>                 <span class="reserved">insert</span> <span class="reserved">into</span> rhnChannelNewestPackageAudit <span class="operator">(</span>channel_id<span class="operator">,</span> caller<span class="operator">)</span>
-  1096<span class="operator">:</span>                     <span class="reserved">values</span> <span class="operator">(</span>channel_id_in<span class="operator">,</span> caller_in<span class="operator">)</span>;
-  1097<span class="operator">:</span>                 <span class="reserved">update</span> rhnChannel
-  1098<span class="operator">:</span>                     <span class="keyword">set</span> last_modified <span class="operator">=</span> greatest<span class="operator">(</span>sysdate<span class="operator">,</span> last_modified <span class="operator">+</span> 1<span class="operator">/</span>86400<span class="operator">)</span>
-  1099<span class="operator">:</span>                     <span class="reserved">where</span> id <span class="operator">=</span> channel_id_in;
-  1100<span class="operator">:</span>         <span class="reserved">end</span>;
-  1101<span class="operator">:</span> 
-  1102<span class="operator">:</span>    <span class="reserved">procedure</span> update_channel <span class="operator">(</span> channel_id_in <span class="reserved">in</span> number<span class="operator">,</span> invalidate_ss <span class="reserved">in</span> number <span class="operator">:</span><span class="operator">=</span> 0<span class="operator">,</span>
-  1103<span class="operator">:</span>                               date_to_use <span class="reserved">in</span> <span class="keyword">date</span> <span class="operator">:</span><span class="operator">=</span> sysdate <span class="operator">)</span>
-  1104<span class="operator">:</span>    <span class="reserved">is</span>
-  1105<span class="operator">:</span> 
-  1106<span class="operator">:</span>    channel_last_modified <span class="keyword">date</span>;
-  1107<span class="operator">:</span>    last_modified_value <span class="keyword">date</span>;
-  1108<span class="operator">:</span> 
-  1109<span class="operator">:</span>    <span class="keyword">cursor</span> snapshots <span class="reserved">is</span>
-  1110<span class="operator">:</span>    <span class="reserved">select</span>  snapshot_id id
-  1111<span class="operator">:</span>    <span class="reserved">from</span>    rhnSnapshotChannel
-  1112<span class="operator">:</span>    <span class="reserved">where</span>   channel_id <span class="operator">=</span> channel_id_in;
-  1113<span class="operator">:</span> 
-  1114<span class="operator">:</span>    <span class="reserved">begin</span>
-  1115<span class="operator">:</span> 
-  1116<span class="operator">:</span>       <span class="reserved">select</span> last_modified
-  1117<span class="operator">:</span>       <span class="reserved">into</span> channel_last_modified
-  1118<span class="operator">:</span>       <span class="reserved">from</span> rhnChannel
-  1119<span class="operator">:</span>       <span class="reserved">where</span> id <span class="operator">=</span> channel_id_in;
-  1120<span class="operator">:</span> 
-  1121<span class="operator">:</span>       last_modified_value <span class="operator">:</span><span class="operator">=</span> date_to_use;
+  1082<span class="operator">:</span>     <span class="comment">-- this could certainly be optimized to do updates if needs be</span>
+  1083<span class="operator">:</span>     <span class="reserved">procedure</span> refresh_newest_package<span class="operator">(</span>channel_id_in <span class="reserved">in</span> number<span class="operator">,</span>
+  1084<span class="operator">:</span>                                      caller_in <span class="reserved">in</span> varchar2 <span class="operator">:</span><span class="operator">=</span> <span class="string">'(unknown)'</span><span class="operator">,</span>
+  1085<span class="operator">:</span>                                      package_name_id_in <span class="reserved">in</span> number <span class="operator">:</span><span class="operator">=</span> <span class="reserved">null</span><span class="operator">)</span>
+  1086<span class="operator">:</span>     <span class="reserved">is</span>
+  1087<span class="operator">:</span>     <span class="comment">-- procedure refreshes rows for name_id = package_name_id_in or</span>
+  1088<span class="operator">:</span>     <span class="comment">-- all rows if package_name_id_in is null</span>
+  1089<span class="operator">:</span>     <span class="reserved">begin</span>
+  1090<span class="operator">:</span>         <span class="reserved">delete</span> <span class="reserved">from</span> rhnChannelNewestPackage
+  1091<span class="operator">:</span>               <span class="reserved">where</span> channel_id <span class="operator">=</span> channel_id_in
+  1092<span class="operator">:</span>                 <span class="reserved">and</span> <span class="operator">(</span>package_name_id_in <span class="reserved">is</span> <span class="reserved">null</span>
+  1093<span class="operator">:</span>                      <span class="reserved">or</span> name_id <span class="operator">=</span> package_name_id_in<span class="operator">)</span>;
+  1094<span class="operator">:</span>         <span class="reserved">insert</span> <span class="reserved">into</span> rhnChannelNewestPackage
+  1095<span class="operator">:</span>                 <span class="operator">(</span>channel_id<span class="operator">,</span> name_id<span class="operator">,</span> evr_id<span class="operator">,</span> package_id<span class="operator">,</span> package_arch_id<span class="operator">)</span>
+  1096<span class="operator">:</span>                 <span class="operator">(</span><span class="reserved">select</span> channel_id<span class="operator">,</span>
+  1097<span class="operator">:</span>                         name_id<span class="operator">,</span> evr_id<span class="operator">,</span>
+  1098<span class="operator">:</span>                         package_id<span class="operator">,</span> package_arch_id
+  1099<span class="operator">:</span>                    <span class="reserved">from</span> rhnChannelNewestPackageView
+  1100<span class="operator">:</span>                   <span class="reserved">where</span> channel_id <span class="operator">=</span> channel_id_in
+  1101<span class="operator">:</span>                     <span class="reserved">and</span> <span class="operator">(</span>package_name_id_in <span class="reserved">is</span> <span class="reserved">null</span>
+  1102<span class="operator">:</span>                          <span class="reserved">or</span> name_id <span class="operator">=</span> package_name_id_in<span class="operator">)</span>
+  1103<span class="operator">:</span>                 <span class="operator">)</span>;
+  1104<span class="operator">:</span>         <span class="reserved">insert</span> <span class="reserved">into</span> rhnChannelNewestPackageAudit <span class="operator">(</span>channel_id<span class="operator">,</span> caller<span class="operator">)</span>
+  1105<span class="operator">:</span>              <span class="reserved">values</span> <span class="operator">(</span>channel_id_in<span class="operator">,</span> caller_in<span class="operator">)</span>;
+  1106<span class="operator">:</span>         <span class="reserved">update</span> rhnChannel
+  1107<span class="operator">:</span>            <span class="keyword">set</span> last_modified <span class="operator">=</span> greatest<span class="operator">(</span>sysdate<span class="operator">,</span> last_modified <span class="operator">+</span> 1<span class="operator">/</span>86400<span class="operator">)</span>
+  1108<span class="operator">:</span>          <span class="reserved">where</span> id <span class="operator">=</span> channel_id_in;
+  1109<span class="operator">:</span>     <span class="reserved">end</span>;
+  1110<span class="operator">:</span> 
+  1111<span class="operator">:</span>    <span class="reserved">procedure</span> update_channel <span class="operator">(</span> channel_id_in <span class="reserved">in</span> number<span class="operator">,</span> invalidate_ss <span class="reserved">in</span> number <span class="operator">:</span><span class="operator">=</span> 0<span class="operator">,</span>
+  1112<span class="operator">:</span>                               date_to_use <span class="reserved">in</span> <span class="keyword">date</span> <span class="operator">:</span><span class="operator">=</span> sysdate <span class="operator">)</span>
+  1113<span class="operator">:</span>    <span class="reserved">is</span>
+  1114<span class="operator">:</span> 
+  1115<span class="operator">:</span>    channel_last_modified <span class="keyword">date</span>;
+  1116<span class="operator">:</span>    last_modified_value <span class="keyword">date</span>;
+  1117<span class="operator">:</span> 
+  1118<span class="operator">:</span>    <span class="keyword">cursor</span> snapshots <span class="reserved">is</span>
+  1119<span class="operator">:</span>    <span class="reserved">select</span>  snapshot_id id
+  1120<span class="operator">:</span>    <span class="reserved">from</span>    rhnSnapshotChannel
+  1121<span class="operator">:</span>    <span class="reserved">where</span>   channel_id <span class="operator">=</span> channel_id_in;
   1122<span class="operator">:</span> 
-  1123<span class="operator">:</span>       <span class="reserved">if</span> last_modified_value <span class="operator">&lt;</span><span class="operator">=</span> channel_last_modified <span class="reserved">then</span>
-  1124<span class="operator">:</span>           last_modified_value <span class="operator">:</span><span class="operator">=</span> last_modified_value <span class="operator">+</span> 1<span class="operator">/</span>86400;
-  1125<span class="operator">:</span>       <span class="reserved">end</span> <span class="reserved">if</span>;
-  1126<span class="operator">:</span> 
-  1127<span class="operator">:</span>       <span class="reserved">update</span> rhnChannel <span class="keyword">set</span> last_modified <span class="operator">=</span> last_modified_value
+  1123<span class="operator">:</span>    <span class="reserved">begin</span>
+  1124<span class="operator">:</span> 
+  1125<span class="operator">:</span>       <span class="reserved">select</span> last_modified
+  1126<span class="operator">:</span>       <span class="reserved">into</span> channel_last_modified
+  1127<span class="operator">:</span>       <span class="reserved">from</span> rhnChannel
   1128<span class="operator">:</span>       <span class="reserved">where</span> id <span class="operator">=</span> channel_id_in;
   1129<span class="operator">:</span> 
-  1130<span class="operator">:</span>       <span class="reserved">if</span> invalidate_ss <span class="operator">=</span> 1 <span class="reserved">then</span>
-  1131<span class="operator">:</span>         <span class="reserved">for</span> snapshot <span class="reserved">in</span> snapshots <span class="keyword">loop</span>
-  1132<span class="operator">:</span>             <span class="reserved">update</span> rhnSnapshot
-  1133<span class="operator">:</span>             <span class="keyword">set</span> invalid <span class="operator">=</span> lookup_snapshot_invalid_reason<span class="operator">(</span><span class="string">'channel_modified'</span><span class="operator">)</span>
-  1134<span class="operator">:</span>             <span class="reserved">where</span> id <span class="operator">=</span> snapshot<span class="operator">.</span>id;
-  1135<span class="operator">:</span>         <span class="reserved">end</span> <span class="keyword">loop</span>;
-  1136<span class="operator">:</span>       <span class="reserved">end</span> <span class="reserved">if</span>;
-  1137<span class="operator">:</span> 
-  1138<span class="operator">:</span>    <span class="reserved">end</span> update_channel;
-  1139<span class="operator">:</span> 
-  1140<span class="operator">:</span>    <span class="reserved">procedure</span> update_channels_by_package <span class="operator">(</span> package_id_in <span class="reserved">in</span> number<span class="operator">,</span> date_to_use <span class="reserved">in</span> <span class="keyword">date</span> <span class="operator">:</span><span class="operator">=</span> sysdate <span class="operator">)</span>
-  1141<span class="operator">:</span>    <span class="reserved">is</span>
-  1142<span class="operator">:</span> 
-  1143<span class="operator">:</span>    <span class="keyword">cursor</span> channels <span class="reserved">is</span>
-  1144<span class="operator">:</span>    <span class="reserved">select</span> channel_id
-  1145<span class="operator">:</span>    <span class="reserved">from</span> rhnChannelPackage
-  1146<span class="operator">:</span>    <span class="reserved">where</span> package_id <span class="operator">=</span> package_id_in
-  1147<span class="operator">:</span>    <span class="reserved">order</span> <span class="reserved">by</span> channel_id;
+  1130<span class="operator">:</span>       last_modified_value <span class="operator">:</span><span class="operator">=</span> date_to_use;
+  1131<span class="operator">:</span> 
+  1132<span class="operator">:</span>       <span class="reserved">if</span> last_modified_value <span class="operator">&lt;</span><span class="operator">=</span> channel_last_modified <span class="reserved">then</span>
+  1133<span class="operator">:</span>           last_modified_value <span class="operator">:</span><span class="operator">=</span> last_modified_value <span class="operator">+</span> 1<span class="operator">/</span>86400;
+  1134<span class="operator">:</span>       <span class="reserved">end</span> <span class="reserved">if</span>;
+  1135<span class="operator">:</span> 
+  1136<span class="operator">:</span>       <span class="reserved">update</span> rhnChannel <span class="keyword">set</span> last_modified <span class="operator">=</span> last_modified_value
+  1137<span class="operator">:</span>       <span class="reserved">where</span> id <span class="operator">=</span> channel_id_in;
+  1138<span class="operator">:</span> 
+  1139<span class="operator">:</span>       <span class="reserved">if</span> invalidate_ss <span class="operator">=</span> 1 <span class="reserved">then</span>
+  1140<span class="operator">:</span>         <span class="reserved">for</span> snapshot <span class="reserved">in</span> snapshots <span class="keyword">loop</span>
+  1141<span class="operator">:</span>             <span class="reserved">update</span> rhnSnapshot
+  1142<span class="operator">:</span>             <span class="keyword">set</span> invalid <span class="operator">=</span> lookup_snapshot_invalid_reason<span class="operator">(</span><span class="string">'channel_modified'</span><span class="operator">)</span>
+  1143<span class="operator">:</span>             <span class="reserved">where</span> id <span class="operator">=</span> snapshot<span class="operator">.</span>id;
+  1144<span class="operator">:</span>         <span class="reserved">end</span> <span class="keyword">loop</span>;
+  1145<span class="operator">:</span>       <span class="reserved">end</span> <span class="reserved">if</span>;
+  1146<span class="operator">:</span> 
+  1147<span class="operator">:</span>    <span class="reserved">end</span> update_channel;
   1148<span class="operator">:</span> 
-  1149<span class="operator">:</span>    <span class="reserved">begin</span>
-  1150<span class="operator">:</span>       <span class="reserved">for</span> channel <span class="reserved">in</span> channels <span class="keyword">loop</span>
-  1151<span class="operator">:</span>          <span class="comment">-- we want to invalidate the snapshot assocated with the channel when we</span>
-  1152<span class="operator">:</span>          <span class="comment">-- do this b/c we know we've added or removed or packages</span>
-  1153<span class="operator">:</span>          rhn_channel<span class="operator">.</span>update_channel <span class="operator">(</span> channel<span class="operator">.</span>channel_id<span class="operator">,</span> 1<span class="operator">,</span> date_to_use <span class="operator">)</span>;
-  1154<span class="operator">:</span>       <span class="reserved">end</span> <span class="keyword">loop</span>;
-  1155<span class="operator">:</span>    <span class="reserved">end</span> update_channels_by_package;
-  1156<span class="operator">:</span> 
+  1149<span class="operator">:</span>    <span class="reserved">procedure</span> update_channels_by_package <span class="operator">(</span> package_id_in <span class="reserved">in</span> number<span class="operator">,</span> date_to_use <span class="reserved">in</span> <span class="keyword">date</span> <span class="operator">:</span><span class="operator">=</span> sysdate <span class="operator">)</span>
+  1150<span class="operator">:</span>    <span class="reserved">is</span>
+  1151<span class="operator">:</span> 
+  1152<span class="operator">:</span>    <span class="keyword">cursor</span> channels <span class="reserved">is</span>
+  1153<span class="operator">:</span>    <span class="reserved">select</span> channel_id
+  1154<span class="operator">:</span>    <span class="reserved">from</span> rhnChannelPackage
+  1155<span class="operator">:</span>    <span class="reserved">where</span> package_id <span class="operator">=</span> package_id_in
+  1156<span class="operator">:</span>    <span class="reserved">order</span> <span class="reserved">by</span> channel_id;
   1157<span class="operator">:</span> 
-  1158<span class="operator">:</span>    <span class="reserved">procedure</span> update_channels_by_errata <span class="operator">(</span> errata_id_in number<span class="operator">,</span> date_to_use <span class="reserved">in</span> <span class="keyword">date</span> <span class="operator">:</span><span class="operator">=</span> sysdate <span class="operator">)</span>
-  1159<span class="operator">:</span>    <span class="reserved">is</span>
-  1160<span class="operator">:</span> 
-  1161<span class="operator">:</span>    <span class="keyword">cursor</span> channels <span class="reserved">is</span>
-  1162<span class="operator">:</span>    <span class="reserved">select</span> channel_id
-  1163<span class="operator">:</span>    <span class="reserved">from</span> rhnChannelErrata
-  1164<span class="operator">:</span>    <span class="reserved">where</span> errata_id <span class="operator">=</span> errata_id_in
-  1165<span class="operator">:</span>    <span class="reserved">order</span> <span class="reserved">by</span> channel_id;
+  1158<span class="operator">:</span>    <span class="reserved">begin</span>
+  1159<span class="operator">:</span>       <span class="reserved">for</span> channel <span class="reserved">in</span> channels <span class="keyword">loop</span>
+  1160<span class="operator">:</span>          <span class="comment">-- we want to invalidate the snapshot assocated with the channel when we</span>
+  1161<span class="operator">:</span>          <span class="comment">-- do this b/c we know we've added or removed or packages</span>
+  1162<span class="operator">:</span>          rhn_channel<span class="operator">.</span>update_channel <span class="operator">(</span> channel<span class="operator">.</span>channel_id<span class="operator">,</span> 1<span class="operator">,</span> date_to_use <span class="operator">)</span>;
+  1163<span class="operator">:</span>       <span class="reserved">end</span> <span class="keyword">loop</span>;
+  1164<span class="operator">:</span>    <span class="reserved">end</span> update_channels_by_package;
+  1165<span class="operator">:</span> 
   1166<span class="operator">:</span> 
-  1167<span class="operator">:</span>    <span class="reserved">begin</span>
-  1168<span class="operator">:</span>       <span class="reserved">for</span> channel <span class="reserved">in</span> channels <span class="keyword">loop</span>
-  1169<span class="operator">:</span>          <span class="comment">-- we won't invalidate snapshots, b/c just changing the errata associated with</span>
-  1170<span class="operator">:</span>          <span class="comment">-- a channel shouldn't invalidate snapshots</span>
-  1171<span class="operator">:</span>          rhn_channel<span class="operator">.</span>update_channel <span class="operator">(</span> channel<span class="operator">.</span>channel_id<span class="operator">,</span> 0<span class="operator">,</span> date_to_use <span class="operator">)</span>;
-  1172<span class="operator">:</span>       <span class="reserved">end</span> <span class="keyword">loop</span>;
-  1173<span class="operator">:</span>    <span class="reserved">end</span> update_channels_by_errata;
-  1174<span class="operator">:</span> 
-  1175<span class="operator">:</span>    <span class="reserved">procedure</span> update_needed_cache<span class="operator">(</span>channel_id_in <span class="reserved">in</span> number<span class="operator">)</span>
-  1176<span class="operator">:</span>    <span class="reserved">is</span>
-  1177<span class="operator">:</span>        <span class="keyword">pragma</span> autonomous_transaction;
-  1178<span class="operator">:</span>                 <span class="comment">-- update of needed cache ican be commited on a per server basis</span>
-  1179<span class="operator">:</span>                 <span class="comment">-- b/c failure of update for a server means nothing for the other servers</span>
-  1180<span class="operator">:</span>    <span class="reserved">begin</span>
-  1181<span class="operator">:</span>       <span class="comment">-- we intentionaly do a loop here instead of one huge select</span>
-  1182<span class="operator">:</span>       <span class="comment">-- b/c we want to break update into smaller transaction to unblock other sessions</span>
-  1183<span class="operator">:</span>       <span class="comment">-- querying rhnServerNeededCache</span>
-  1184<span class="operator">:</span>       <span class="reserved">for</span> server <span class="reserved">in</span> <span class="operator">(</span>
-  1185<span class="operator">:</span>                 <span class="reserved">select</span> sc<span class="operator">.</span>server_id <span class="reserved">as</span> id
-  1186<span class="operator">:</span>                   <span class="reserved">from</span> rhnServerChannel sc
-  1187<span class="operator">:</span>                  <span class="reserved">where</span> sc<span class="operator">.</span>channel_id <span class="operator">=</span> channel_id_in
-  1188<span class="operator">:</span>       <span class="operator">)</span> <span class="keyword">loop</span>
-  1189<span class="operator">:</span>          rhn_server<span class="operator">.</span>update_needed_cache<span class="operator">(</span>server<span class="operator">.</span>id<span class="operator">)</span>;
-  1190<span class="operator">:</span>          <span class="keyword">commit</span>;
-  1191<span class="operator">:</span>       <span class="reserved">end</span> <span class="keyword">loop</span>;
-  1192<span class="operator">:</span>    <span class="reserved">end</span> update_needed_cache;
-  1193<span class="operator">:</span> 
-  1194<span class="operator">:</span> <span class="reserved">END</span> rhn_channel;
+  1167<span class="operator">:</span>    <span class="reserved">procedure</span> update_channels_by_errata <span class="operator">(</span> errata_id_in number<span class="operator">,</span> date_to_use <span class="reserved">in</span> <span class="keyword">date</span> <span class="operator">:</span><span class="operator">=</span> sysdate <span class="operator">)</span>
+  1168<span class="operator">:</span>    <span class="reserved">is</span>
+  1169<span class="operator">:</span> 
+  1170<span class="operator">:</span>    <span class="keyword">cursor</span> channels <span class="reserved">is</span>
+  1171<span class="operator">:</span>    <span class="reserved">select</span> channel_id
+  1172<span class="operator">:</span>    <span class="reserved">from</span> rhnChannelErrata
+  1173<span class="operator">:</span>    <span class="reserved">where</span> errata_id <span class="operator">=</span> errata_id_in
+  1174<span class="operator">:</span>    <span class="reserved">order</span> <span class="reserved">by</span> channel_id;
+  1175<span class="operator">:</span> 
+  1176<span class="operator">:</span>    <span class="reserved">begin</span>
+  1177<span class="operator">:</span>       <span class="reserved">for</span> channel <span class="reserved">in</span> channels <span class="keyword">loop</span>
+  1178<span class="operator">:</span>          <span class="comment">-- we won't invalidate snapshots, b/c just changing the errata associated with</span>
+  1179<span class="operator">:</span>          <span class="comment">-- a channel shouldn't invalidate snapshots</span>
+  1180<span class="operator">:</span>          rhn_channel<span class="operator">.</span>update_channel <span class="operator">(</span> channel<span class="operator">.</span>channel_id<span class="operator">,</span> 0<span class="operator">,</span> date_to_use <span class="operator">)</span>;
+  1181<span class="operator">:</span>       <span class="reserved">end</span> <span class="keyword">loop</span>;
+  1182<span class="operator">:</span>    <span class="reserved">end</span> update_channels_by_errata;
+  1183<span class="operator">:</span> 
+  1184<span class="operator">:</span>    <span class="reserved">procedure</span> update_needed_cache<span class="operator">(</span>channel_id_in <span class="reserved">in</span> number<span class="operator">)</span>
+  1185<span class="operator">:</span>    <span class="reserved">is</span>
+  1186<span class="operator">:</span>        <span class="keyword">pragma</span> autonomous_transaction;
+  1187<span class="operator">:</span>                 <span class="comment">-- update of needed cache ican be commited on a per server basis</span>
+  1188<span class="operator">:</span>                 <span class="comment">-- b/c failure of update for a server means nothing for the other servers</span>
+  1189<span class="operator">:</span>    <span class="reserved">begin</span>
+  1190<span class="operator">:</span>       <span class="comment">-- we intentionaly do a loop here instead of one huge select</span>
+  1191<span class="operator">:</span>       <span class="comment">-- b/c we want to break update into smaller transaction to unblock other sessions</span>
+  1192<span class="operator">:</span>       <span class="comment">-- querying rhnServerNeededCache</span>
+  1193<span class="operator">:</span>       <span class="reserved">for</span> server <span class="reserved">in</span> <span class="operator">(</span>
+  1194<span class="operator">:</span>                 <span class="reserved">select</span> sc<span class="operator">.</span>server_id <span class="reserved">as</span> id
+  1195<span class="operator">:</span>                   <span class="reserved">from</span> rhnServerChannel sc
+  1196<span class="operator">:</span>                  <span class="reserved">where</span> sc<span class="operator">.</span>channel_id <span class="operator">=</span> channel_id_in
+  1197<span class="operator">:</span>       <span class="operator">)</span> <span class="keyword">loop</span>
+  1198<span class="operator">:</span>          rhn_server<span class="operator">.</span>update_needed_cache<span class="operator">(</span>server<span class="operator">.</span>id<span class="operator">)</span>;
+  1199<span class="operator">:</span>          <span class="keyword">commit</span>;
+  1200<span class="operator">:</span>       <span class="reserved">end</span> <span class="keyword">loop</span>;
+  1201<span class="operator">:</span>    <span class="reserved">end</span> update_needed_cache;
+  1202<span class="operator">:</span> 
+  1203<span class="operator">:</span> <span class="reserved">END</span> rhn_channel;
 </pre>
 <div class="footer">
         Generated by  <a href="http://www.yarpen.cz/oraschemadoc">OraSchemaDoc</a>,
-        (c) Petr Vanek, 2005; Aram Kananov, 2002, on Wed Dec 21 15:00:40 2011</div>
+        (c) Petr Vanek, 2005; Aram Kananov, 2002, on Fri Mar  2 05:59:14 2012</div>
 </body></html>

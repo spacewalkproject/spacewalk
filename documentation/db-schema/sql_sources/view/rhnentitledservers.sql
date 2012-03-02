@@ -1,4 +1,4 @@
--- created by Oraschemadoc Wed Dec 21 14:59:46 2011
+-- created by Oraschemadoc Fri Mar  2 05:57:59 2012
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE OR REPLACE FORCE VIEW "SPACEWALK"."RHNENTITLEDSERVERS" ("ID", "ORG_ID", "DIGITAL_SERVER_ID", "SERVER_ARCH_ID", "OS", "RELEASE", "NAME", "DESCRIPTION", "INFO", "SECRET") AS 

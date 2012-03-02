@@ -1,4 +1,4 @@
--- created by Oraschemadoc Wed Dec 21 14:59:49 2011
+-- created by Oraschemadoc Fri Mar  2 05:58:02 2012
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE OR REPLACE FORCE VIEW "SPACEWALK"."RHNUSERACTIONOVERVIEW" ("ORG_ID", "USER_ID", "ID", "TYPE_NAME", "SCHEDULER", "EARLIEST_ACTION", "ACTION_NAME", "ACTION_STATUS_ID", "ACTION_STATUS", "TALLY", "ARCHIVED") AS 

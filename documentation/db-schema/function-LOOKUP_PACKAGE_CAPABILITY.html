@@ -35,38 +35,49 @@ NUMBER(38)<h2>Source</h2>
 <a name="f-src"></a><pre>
 Legend: <span class="comment">comment</span> <span class="string">string</span> <span class="keyword">keyword</span> <span class="reserved">reserved word</span> <span class="operator">operator</span></pre>
 <pre>
-     1<span class="operator">:</span> <span class="keyword">FUNCTION</span>
-     2<span class="operator">:</span> LOOKUP_PACKAGE_CAPABILITY<span class="operator">(</span>name_in <span class="reserved">IN</span> VARCHAR2<span class="operator">,</span>
-     3<span class="operator">:</span>     version_in <span class="reserved">IN</span> VARCHAR2 <span class="reserved">DEFAULT</span> <span class="reserved">NULL</span><span class="operator">)</span>
-     4<span class="operator">:</span> <span class="keyword">RETURN</span> NUMBER
-     5<span class="operator">:</span> <span class="reserved">IS</span>
-     6<span class="operator">:</span> 	<span class="keyword">PRAGMA</span> AUTONOMOUS_TRANSACTION;
-     7<span class="operator">:</span> 	name_id		NUMBER;
-     8<span class="operator">:</span> <span class="reserved">BEGIN</span>
-     9<span class="operator">:</span> 	<span class="reserved">IF</span> version_in <span class="reserved">IS</span> <span class="reserved">NULL</span> <span class="reserved">THEN</span>
-    10<span class="operator">:</span> 		<span class="reserved">SELECT</span> id
-    11<span class="operator">:</span> 		  <span class="reserved">INTO</span> name_id
-    12<span class="operator">:</span> 		  <span class="reserved">FROM</span> rhnPackageCapability
-    13<span class="operator">:</span> 		 <span class="reserved">WHERE</span> <span class="keyword">name</span> <span class="operator">=</span> name_in
-    14<span class="operator">:</span> 		   <span class="reserved">AND</span> version <span class="reserved">IS</span> <span class="reserved">NULL</span>;
-    15<span class="operator">:</span> 	<span class="reserved">ELSE</span>
-    16<span class="operator">:</span> 		<span class="reserved">SELECT</span> id
-    17<span class="operator">:</span> 		  <span class="reserved">INTO</span> name_id
-    18<span class="operator">:</span> 		  <span class="reserved">FROM</span> rhnPackageCapability
-    19<span class="operator">:</span> 		 <span class="reserved">WHERE</span> <span class="keyword">name</span> <span class="operator">=</span> name_in
-    20<span class="operator">:</span> 		   <span class="reserved">AND</span> version <span class="operator">=</span> version_in;
-    21<span class="operator">:</span> 	<span class="reserved">END</span> <span class="reserved">IF</span>;
-    22<span class="operator">:</span> 	<span class="keyword">RETURN</span> name_id;
-    23<span class="operator">:</span> <span class="reserved">EXCEPTION</span>
-    24<span class="operator">:</span>         <span class="reserved">WHEN</span> NO_DATA_FOUND <span class="reserved">THEN</span>
-    25<span class="operator">:</span>             <span class="reserved">INSERT</span> <span class="reserved">INTO</span> rhnPackageCapability <span class="operator">(</span>id<span class="operator">,</span> <span class="keyword">name</span><span class="operator">,</span> version<span class="operator">)</span>
-    26<span class="operator">:</span>                 <span class="reserved">VALUES</span> <span class="operator">(</span>rhn_pkg_capability_id_seq<span class="operator">.</span>nextval<span class="operator">,</span> name_in<span class="operator">,</span> version_in<span class="operator">)</span>
-    27<span class="operator">:</span>                 <span class="keyword">RETURNING</span> id <span class="reserved">INTO</span> name_id;
-    28<span class="operator">:</span>             <span class="keyword">COMMIT</span>;
-    29<span class="operator">:</span> 	<span class="keyword">RETURN</span> name_id;
-    30<span class="operator">:</span> <span class="reserved">END</span>;
+     1<span class="operator">:</span> <span class="keyword">function</span>
+     2<span class="operator">:</span> lookup_package_capability<span class="operator">(</span>name_in <span class="reserved">in</span> varchar2<span class="operator">,</span> version_in <span class="reserved">in</span> varchar2 <span class="reserved">default</span> <span class="reserved">null</span><span class="operator">)</span>
+     3<span class="operator">:</span> <span class="keyword">return</span> number
+     4<span class="operator">:</span> <span class="reserved">is</span>
+     5<span class="operator">:</span>     name_id		number;
+     6<span class="operator">:</span> <span class="reserved">begin</span>
+     7<span class="operator">:</span>     <span class="reserved">if</span> version_in <span class="reserved">is</span> <span class="reserved">null</span> <span class="reserved">then</span>
+     8<span class="operator">:</span>         <span class="reserved">select</span> id
+     9<span class="operator">:</span>           <span class="reserved">into</span> name_id
+    10<span class="operator">:</span>           <span class="reserved">from</span> rhnPackageCapability
+    11<span class="operator">:</span>          <span class="reserved">where</span> <span class="keyword">name</span> <span class="operator">=</span> name_in <span class="reserved">and</span>
+    12<span class="operator">:</span>                version <span class="reserved">is</span> <span class="reserved">null</span>;
+    13<span class="operator">:</span>     <span class="reserved">else</span>
+    14<span class="operator">:</span>         <span class="reserved">select</span> id
+    15<span class="operator">:</span>           <span class="reserved">into</span> name_id
+    16<span class="operator">:</span>           <span class="reserved">from</span> rhnPackageCapability
+    17<span class="operator">:</span>          <span class="reserved">where</span> <span class="keyword">name</span> <span class="operator">=</span> name_in <span class="reserved">and</span>
+    18<span class="operator">:</span>                version <span class="operator">=</span> version_in;
+    19<span class="operator">:</span> 	<span class="reserved">end</span> <span class="reserved">if</span>;
+    20<span class="operator">:</span> 	<span class="keyword">return</span> name_id;
+    21<span class="operator">:</span> <span class="reserved">exception</span> <span class="reserved">when</span> no_data_found <span class="reserved">then</span>
+    22<span class="operator">:</span>     <span class="reserved">begin</span>
+    23<span class="operator">:</span>         name_id <span class="operator">:</span><span class="operator">=</span> insert_package_capability<span class="operator">(</span>name_in<span class="operator">,</span> version_in<span class="operator">)</span>;
+    24<span class="operator">:</span>     <span class="reserved">exception</span> <span class="reserved">when</span> dup_val_on_index <span class="reserved">then</span>
+    25<span class="operator">:</span>         <span class="reserved">if</span> version_in <span class="reserved">is</span> <span class="reserved">null</span> <span class="reserved">then</span>
+    26<span class="operator">:</span>             <span class="reserved">select</span> id
+    27<span class="operator">:</span>               <span class="reserved">into</span> name_id
+    28<span class="operator">:</span>               <span class="reserved">from</span> rhnPackageCapability
+    29<span class="operator">:</span>              <span class="reserved">where</span> <span class="keyword">name</span> <span class="operator">=</span> name_in <span class="reserved">and</span>
+    30<span class="operator">:</span>                    version <span class="reserved">is</span> <span class="reserved">null</span>;
+    31<span class="operator">:</span>         <span class="reserved">else</span>
+    32<span class="operator">:</span>             <span class="reserved">select</span> id
+    33<span class="operator">:</span>               <span class="reserved">into</span> name_id
+    34<span class="operator">:</span>               <span class="reserved">from</span> rhnPackageCapability
+    35<span class="operator">:</span>              <span class="reserved">where</span> <span class="keyword">name</span> <span class="operator">=</span> name_in <span class="reserved">and</span>
+    36<span class="operator">:</span>                    version <span class="operator">=</span> version_in;
+    37<span class="operator">:</span> 	<span class="reserved">end</span> <span class="reserved">if</span>;
+    38<span class="operator">:</span> 
+    39<span class="operator">:</span>     <span class="reserved">end</span>;
+    40<span class="operator">:</span> 	<span class="keyword">return</span> name_id;
+    41<span class="operator">:</span> <span class="reserved">end</span>;
 </pre>
 <div class="footer">
         Generated by  <a href="http://www.yarpen.cz/oraschemadoc">OraSchemaDoc</a>,
-        (c) Petr Vanek, 2005; Aram Kananov, 2002, on Wed Dec 21 15:00:40 2011</div>
+        (c) Petr Vanek, 2005; Aram Kananov, 2002, on Fri Mar  2 05:59:14 2012</div>
 </body></html>

@@ -1,4 +1,4 @@
--- created by Oraschemadoc Wed Dec 21 14:59:53 2011
+-- created by Oraschemadoc Fri Mar  2 05:58:05 2012
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE OR REPLACE TRIGGER "SPACEWALK"."RHN_CHANNEL_MOD_TRIG" 

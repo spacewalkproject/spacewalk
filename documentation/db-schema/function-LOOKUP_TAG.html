@@ -35,29 +35,34 @@ NUMBER(38)<h2>Source</h2>
 <a name="f-src"></a><pre>
 Legend: <span class="comment">comment</span> <span class="string">string</span> <span class="keyword">keyword</span> <span class="reserved">reserved word</span> <span class="operator">operator</span></pre>
 <pre>
-     1<span class="operator">:</span> <span class="keyword">FUNCTION</span>
-     2<span class="operator">:</span> LOOKUP_TAG<span class="operator">(</span>org_id_in <span class="reserved">IN</span> NUMBER<span class="operator">,</span> name_in <span class="reserved">IN</span> VARCHAR2<span class="operator">)</span>
-     3<span class="operator">:</span> <span class="keyword">RETURN</span> NUMBER
-     4<span class="operator">:</span> <span class="reserved">IS</span>
-     5<span class="operator">:</span> 	<span class="keyword">PRAGMA</span> AUTONOMOUS_TRANSACTION;
-     6<span class="operator">:</span> 	tag_id     NUMBER;
-     7<span class="operator">:</span> <span class="reserved">BEGIN</span>
-     8<span class="operator">:</span>         <span class="reserved">select</span> id <span class="reserved">into</span> tag_id
-     9<span class="operator">:</span> 	  <span class="reserved">from</span> rhnTag
-    10<span class="operator">:</span> 	 <span class="reserved">where</span> org_id <span class="operator">=</span> org_id_in
-    11<span class="operator">:</span> 	   <span class="reserved">and</span> name_id <span class="operator">=</span> lookup_tag_name<span class="operator">(</span>name_in<span class="operator">)</span>;
-    12<span class="operator">:</span> 
-    13<span class="operator">:</span>         <span class="keyword">RETURN</span> tag_id;
-    14<span class="operator">:</span> <span class="reserved">EXCEPTION</span>
-    15<span class="operator">:</span>         <span class="reserved">WHEN</span> NO_DATA_FOUND <span class="reserved">THEN</span>
-    16<span class="operator">:</span>             <span class="reserved">insert</span> <span class="reserved">into</span> rhnTag<span class="operator">(</span>id<span class="operator">,</span> org_id<span class="operator">,</span> name_id<span class="operator">)</span>
-    17<span class="operator">:</span>                     <span class="reserved">values</span> <span class="operator">(</span>rhn_tag_id_seq<span class="operator">.</span>nextval<span class="operator">,</span> org_id_in<span class="operator">,</span> lookup_tag_name<span class="operator">(</span>name_in<span class="operator">)</span><span class="operator">)</span>
-    18<span class="operator">:</span>                     <span class="keyword">returning</span> id <span class="reserved">into</span> tag_id;
-    19<span class="operator">:</span>             <span class="keyword">COMMIT</span>;
-    20<span class="operator">:</span>             <span class="keyword">RETURN</span> tag_id;
-    21<span class="operator">:</span> <span class="reserved">END</span>;
+     1<span class="operator">:</span> <span class="keyword">function</span>
+     2<span class="operator">:</span> lookup_tag<span class="operator">(</span>org_id_in <span class="reserved">in</span> number<span class="operator">,</span> name_in <span class="reserved">in</span> varchar2<span class="operator">)</span>
+     3<span class="operator">:</span> <span class="keyword">return</span> number
+     4<span class="operator">:</span> <span class="reserved">is</span>
+     5<span class="operator">:</span>     <span class="keyword">pragma</span> autonomous_transaction;
+     6<span class="operator">:</span>     tag_id  number;
+     7<span class="operator">:</span> <span class="reserved">begin</span>
+     8<span class="operator">:</span>     <span class="reserved">select</span> id
+     9<span class="operator">:</span>       <span class="reserved">into</span> tag_id
+    10<span class="operator">:</span>       <span class="reserved">from</span> rhnTag
+    11<span class="operator">:</span>      <span class="reserved">where</span> org_id <span class="operator">=</span> org_id_in <span class="reserved">and</span>
+    12<span class="operator">:</span>            name_id <span class="operator">=</span> lookup_tag_name<span class="operator">(</span>name_in<span class="operator">)</span>;
+    13<span class="operator">:</span> 
+    14<span class="operator">:</span>     <span class="keyword">return</span> tag_id;
+    15<span class="operator">:</span> <span class="reserved">exception</span> <span class="reserved">when</span> no_data_found <span class="reserved">then</span>
+    16<span class="operator">:</span>     <span class="reserved">begin</span>
+    17<span class="operator">:</span>         tag_id <span class="operator">:</span><span class="operator">=</span> insert_tag<span class="operator">(</span>org_id_in<span class="operator">,</span> name_in<span class="operator">)</span>;
+    18<span class="operator">:</span>     <span class="reserved">exception</span> <span class="reserved">when</span> dup_val_on_index <span class="reserved">then</span>
+    19<span class="operator">:</span>         <span class="reserved">select</span> id
+    20<span class="operator">:</span>           <span class="reserved">into</span> tag_id
+    21<span class="operator">:</span>           <span class="reserved">from</span> rhnTag
+    22<span class="operator">:</span>          <span class="reserved">where</span> org_id <span class="operator">=</span> org_id_in <span class="reserved">and</span>
+    23<span class="operator">:</span>                name_id <span class="operator">=</span> lookup_tag_name<span class="operator">(</span>name_in<span class="operator">)</span>;
+    24<span class="operator">:</span>     <span class="reserved">end</span>;
+    25<span class="operator">:</span>     <span class="keyword">return</span> tag_id;
+    26<span class="operator">:</span> <span class="reserved">end</span>;
 </pre>
 <div class="footer">
         Generated by  <a href="http://www.yarpen.cz/oraschemadoc">OraSchemaDoc</a>,
-        (c) Petr Vanek, 2005; Aram Kananov, 2002, on Wed Dec 21 15:00:40 2011</div>
+        (c) Petr Vanek, 2005; Aram Kananov, 2002, on Fri Mar  2 05:59:14 2012</div>
 </body></html>

@@ -1,4 +1,4 @@
--- created by Oraschemadoc Wed Dec 21 14:59:59 2011
+-- created by Oraschemadoc Fri Mar  2 05:58:14 2012
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE OR REPLACE PACKAGE "SPACEWALK"."RHN_USER" 
@@ -35,6 +35,8 @@ is
 		user_id_in in number,
 		user_group_id_in in number
 	);
+
+	function role_names (user_id_in in number) return varchar2;
 
 end rhn_user;
 CREATE OR REPLACE PACKAGE BODY "SPACEWALK"."RHN_USER" 
@@ -266,6 +268,26 @@ is
 			end if;
 		end loop;
 	end remove_from_usergroup;
+
+	function role_names (user_id_in in number)
+	return varchar2
+	is
+		tmp varchar2(4000);
+	begin
+		for rec in (
+			select type_name
+			from rhnUserTypeBase
+			where user_id = user_id_in
+			order by type_id
+			) loop
+			if tmp is null then
+				tmp := rec.type_name;
+			else
+				tmp := tmp || ', ' || rec.type_name;
+			end if;
+		end loop;
+		return tmp;
+	end;
 
 end rhn_user;
  

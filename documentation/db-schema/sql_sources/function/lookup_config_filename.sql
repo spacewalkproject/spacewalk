@@ -1,25 +1,29 @@
--- created by Oraschemadoc Wed Dec 21 14:59:57 2011
+-- created by Oraschemadoc Fri Mar  2 05:58:12 2012
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE OR REPLACE FUNCTION "SPACEWALK"."LOOKUP_CONFIG_FILENAME" (name_in IN VARCHAR2)
-RETURN NUMBER
-IS
-	PRAGMA AUTONOMOUS_TRANSACTION;
-	name_id		NUMBER;
-BEGIN
-	SELECT id
-          INTO name_id
-          FROM rhnConfigFileName
-         WHERE path = name_in;
+  CREATE OR REPLACE FUNCTION "SPACEWALK"."LOOKUP_CONFIG_FILENAME" (name_in in varchar2)
+return number
+is
+    pragma autonomous_transaction;
+    name_id		number;
+begin
+    select id
+      into name_id
+      from rhnConfigFileName
+     where path = name_in;
 
-	RETURN name_id;
-EXCEPTION
-        WHEN NO_DATA_FOUND THEN
-            INSERT INTO rhnConfigFileName (id, path)
-                VALUES (rhn_cfname_id_seq.nextval, name_in)
-                RETURNING id INTO name_id;
-            COMMIT;
-	RETURN name_id;
-END;
+    return name_id;
+exception when no_data_found then
+    begin
+        select insert_config_filename(name_in) into name_id from dual;
+    exception when dup_val_on_index then
+        select id
+          into name_id
+          from rhnConfigFileName
+         where path = name_in;
+    end;
+
+	return name_id;
+end;
  
 /

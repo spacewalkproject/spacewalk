@@ -1,25 +1,27 @@
--- created by Oraschemadoc Wed Dec 21 14:59:58 2011
+-- created by Oraschemadoc Fri Mar  2 05:58:12 2012
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE OR REPLACE FUNCTION "SPACEWALK"."LOOKUP_CVE" (name_in IN VARCHAR2)
-RETURN NUMBER
-IS
-	PRAGMA AUTONOMOUS_TRANSACTION;
-	name_id		NUMBER;
-BEGIN
-	SELECT id
-          INTO name_id
-          FROM rhnCve
-         WHERE name = name_in;
+  CREATE OR REPLACE FUNCTION "SPACEWALK"."LOOKUP_CVE" (name_in in varchar2)
+return number
+is
+    name_id		number;
+begin
+    select id
+      into name_id
+      from rhnCVE
+     where name = name_in;
 
-	RETURN name_id;
-EXCEPTION
-        WHEN NO_DATA_FOUND THEN
-            INSERT INTO rhnCve (id, name)
-                VALUES (rhn_cve_id_seq.nextval, name_in)
-                RETURNING id INTO name_id;
-            COMMIT;
-	RETURN name_id;
-END LOOKUP_CVE;
+    return name_id;
+exception when no_data_found then
+    begin
+        name_id := insert_cve(name_in);
+    exception when dup_val_on_index then
+        select id
+          into name_id
+          from rhnCVE
+         where name = name_in;
+    end;
+    return name_id;
+end;
  
 /

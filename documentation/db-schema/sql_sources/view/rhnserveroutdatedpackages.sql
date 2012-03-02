@@ -1,4 +1,4 @@
--- created by Oraschemadoc Wed Dec 21 14:59:48 2011
+-- created by Oraschemadoc Fri Mar  2 05:58:01 2012
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE OR REPLACE FORCE VIEW "SPACEWALK"."RHNSERVEROUTDATEDPACKAGES" ("SERVER_ID", "PACKAGE_NAME_ID", "PACKAGE_EVR_ID", "PACKAGE_NVRE", "ERRATA_ID", "ERRATA_ADVISORY") AS 

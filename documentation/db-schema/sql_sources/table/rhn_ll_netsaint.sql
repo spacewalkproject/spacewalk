@@ -1,4 +1,4 @@
--- created by Oraschemadoc Wed Dec 21 14:59:03 2011
+-- created by Oraschemadoc Fri Mar  2 05:57:10 2012
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE TABLE "SPACEWALK"."RHN_LL_NETSAINT" 

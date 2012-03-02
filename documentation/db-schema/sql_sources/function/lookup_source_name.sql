@@ -1,24 +1,27 @@
--- created by Oraschemadoc Wed Dec 21 14:59:58 2011
+-- created by Oraschemadoc Fri Mar  2 05:58:12 2012
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE OR REPLACE FUNCTION "SPACEWALK"."LOOKUP_SOURCE_NAME" (name_in IN VARCHAR2)
-RETURN NUMBER
-IS
-	PRAGMA AUTONOMOUS_TRANSACTION;
-	source_id	NUMBER;
-BEGIN
-        select	id into source_id
-        from	rhnSourceRPM
-        where	name = name_in;
+  CREATE OR REPLACE FUNCTION "SPACEWALK"."LOOKUP_SOURCE_NAME" (name_in in varchar2)
+return number
+is
+    source_id   number;
+begin
+    select id
+      into source_id
+      from rhnSourceRPM
+     where name = name_in;
 
-        RETURN source_id;
-EXCEPTION
-        WHEN NO_DATA_FOUND THEN
-            insert into rhnSourceRPM(id, name)
-                    values (rhn_sourcerpm_id_seq.nextval, name_in)
-                    returning id into source_id;
-            COMMIT;
-            RETURN source_id;
-END;
+    return source_id;
+exception when no_data_found then
+    begin
+        source_id := insert_source_name(name_in);
+    exception when dup_val_on_index then
+        select id
+          into source_id
+          from rhnSourceRPM
+         where name = name_in;
+    end;
+    return source_id;
+end;
  
 /

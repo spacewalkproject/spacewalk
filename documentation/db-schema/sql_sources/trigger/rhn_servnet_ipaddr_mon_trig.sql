@@ -1,7 +1,7 @@
--- created by Oraschemadoc Wed Dec 21 14:59:56 2011
+-- created by Oraschemadoc Fri Mar  2 05:58:09 2012
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE OR REPLACE TRIGGER "SPACEWALK"."RHN_SERVNET_IPADDR_MON_TRIG"
+  CREATE OR REPLACE TRIGGER "SPACEWALK"."RHN_SERVNET_IPADDR_MON_TRIG" 
 after insert or update on rhnServerNetwork
 for each row
 begin
@@ -23,5 +23,5 @@ begin
 	end if;
 end;
 ALTER TRIGGER "SPACEWALK"."RHN_SERVNET_IPADDR_MON_TRIG" ENABLE
-
+ 
 /

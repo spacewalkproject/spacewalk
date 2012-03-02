@@ -31,7 +31,6 @@
 <tr><th>Name</th><th>Type</th><th>Nullable</th><th>Insertable</th><th>Updatable</th><th>Deletable</th><th>Comment</th></tr><tr><td>ORG_ID<a name="col-ORG_ID"></a></td><td>NUMBER(38)</td><td>N</td><td>YES</td><td>YES</td><td>YES</td><td>&nbsp;</td></tr>
 <tr><td>SERVER_ID<a name="col-SERVER_ID"></a></td><td>NUMBER(38)</td><td>N</td><td>YES</td><td>YES</td><td>YES</td><td>&nbsp;</td></tr>
 <tr><td>SERVER_NAME<a name="col-SERVER_NAME"></a></td><td>VARCHAR2(128)</td><td>Y</td><td>YES</td><td>YES</td><td>YES</td><td>&nbsp;</td></tr>
-<tr><td>NOTE_COUNT<a name="col-NOTE_COUNT"></a></td><td>NUMBER(38)</td><td>Y</td><td>NO</td><td>NO</td><td>NO</td><td>&nbsp;</td></tr>
 <tr><td>MODIFIED<a name="col-MODIFIED"></a></td><td>DATE</td><td>N</td><td>YES</td><td>YES</td><td>YES</td><td>&nbsp;</td></tr>
 <tr><td>SERVER_ADMINS<a name="col-SERVER_ADMINS"></a></td><td>NUMBER(38)</td><td>Y</td><td>NO</td><td>NO</td><td>NO</td><td>&nbsp;</td></tr>
 <tr><td>GROUP_COUNT<a name="col-GROUP_COUNT"></a></td><td>NUMBER(38)</td><td>Y</td><td>NO</td><td>NO</td><td>NO</td><td>&nbsp;</td></tr>
@@ -55,7 +54,7 @@
 Legend: <span class="comment">comment</span> <span class="string">string</span> <span class="keyword">keyword</span> <span class="reserved">reserved word</span> <span class="operator">operator</span></pre>
 <pre>
 <span class="reserved">select</span>
-    s<span class="operator">.</span>org_id<span class="operator">,</span> s<span class="operator">.</span>id<span class="operator">,</span> s<span class="operator">.</span><span class="keyword">name</span><span class="operator">,</span> 0<span class="operator">,</span> s<span class="operator">.</span>modified<span class="operator">,</span>
+    s<span class="operator">.</span>org_id<span class="operator">,</span> s<span class="operator">.</span>id<span class="operator">,</span> s<span class="operator">.</span><span class="keyword">name</span><span class="operator">,</span> s<span class="operator">.</span>modified<span class="operator">,</span>
     <span class="operator">(</span> <span class="reserved">select</span> <span class="keyword">count</span><span class="operator">(</span>user_id<span class="operator">)</span> <span class="reserved">from</span> rhnUserServerPerms ap
       <span class="reserved">where</span> server_id <span class="operator">=</span> s<span class="operator">.</span>id <span class="operator">)</span><span class="operator">,</span>
     <span class="operator">(</span> <span class="reserved">select</span> <span class="keyword">count</span><span class="operator">(</span>server_group_id<span class="operator">)</span> <span class="reserved">from</span> rhnVisibleServerGroupMembers
@@ -66,7 +65,7 @@ Legend: <span class="comment">comment</span> <span class="string">string</span> 
        <span class="reserved">where</span> SC<span class="operator">.</span>server_id <span class="operator">=</span> S<span class="operator">.</span>id
          <span class="reserved">and</span> SC<span class="operator">.</span>channel_id <span class="operator">=</span> <span class="keyword">C</span><span class="operator">.</span>id
 	 <span class="reserved">and</span> <span class="keyword">C</span><span class="operator">.</span>parent_channel <span class="reserved">IS</span> <span class="reserved">NULL</span><span class="operator">)</span><span class="operator">,</span>
-    NVL<span class="operator">(</span><span class="operator">(</span> <span class="reserved">select</span> <span class="keyword">C</span><span class="operator">.</span><span class="keyword">name</span>
+    coalesce<span class="operator">(</span><span class="operator">(</span> <span class="reserved">select</span> <span class="keyword">C</span><span class="operator">.</span><span class="keyword">name</span>
         <span class="reserved">from</span> rhnChannel <span class="keyword">C</span><span class="operator">,</span>
 	     rhnServerChannel SC
        <span class="reserved">where</span> SC<span class="operator">.</span>server_id <span class="operator">=</span> S<span class="operator">.</span>id
@@ -109,7 +108,7 @@ Legend: <span class="comment">comment</span> <span class="string">string</span> 
          <span class="reserved">and</span> ACR<span class="operator">.</span>failure_id <span class="reserved">is</span> <span class="reserved">null</span>
          <span class="reserved">and</span> ACRR<span class="operator">.</span><span class="keyword">result</span> <span class="reserved">is</span> <span class="reserved">not</span> <span class="reserved">null</span>
         <span class="operator">)</span><span class="operator">,</span>
-    <span class="operator">(</span> <span class="reserved">select</span> sysdate <span class="operator">-</span> checkin <span class="reserved">from</span> rhnServerInfo <span class="reserved">where</span> server_id <span class="operator">=</span> S<span class="operator">.</span>id <span class="operator">)</span><span class="operator">,</span>
+    <span class="operator">(</span> <span class="reserved">select</span> date_diff_in_days<span class="operator">(</span>checkin<span class="operator">,</span> current_timestamp<span class="operator">)</span> <span class="reserved">from</span> rhnServerInfo <span class="reserved">where</span> server_id <span class="operator">=</span> S<span class="operator">.</span>id <span class="operator">)</span><span class="operator">,</span>
     <span class="operator">(</span> <span class="reserved">select</span> TO_CHAR<span class="operator">(</span>checkin<span class="operator">,</span> <span class="string">'YYYY-MM-DD HH24:MI:SS'</span><span class="operator">)</span> <span class="reserved">from</span> rhnServerInfo <span class="reserved">where</span> server_id <span class="operator">=</span> S<span class="operator">.</span>id <span class="operator">)</span><span class="operator">,</span>
     <span class="operator">(</span> <span class="reserved">select</span> <span class="keyword">count</span><span class="operator">(</span>1<span class="operator">)</span>
         <span class="reserved">from</span> rhnServerAction
@@ -118,11 +117,12 @@ Legend: <span class="comment">comment</span> <span class="string">string</span> 
     os<span class="operator">,</span>
     release<span class="operator">,</span>
     <span class="operator">(</span> <span class="reserved">select</span> <span class="keyword">name</span> <span class="reserved">from</span> rhnServerArch <span class="reserved">where</span> id <span class="operator">=</span> s<span class="operator">.</span>server_arch_id<span class="operator">)</span><span class="operator">,</span>
-    NVL<span class="operator">(</span><span class="operator">(</span><span class="reserved">select</span> 1 <span class="reserved">from</span> rhnServerLock SL <span class="reserved">WHERE</span> SL<span class="operator">.</span>server_id <span class="operator">=</span> S<span class="operator">.</span>id<span class="operator">)</span><span class="operator">,</span> 0<span class="operator">)</span>
+    coalesce<span class="operator">(</span><span class="operator">(</span><span class="reserved">select</span> 1 <span class="reserved">from</span> rhnServerLock SL <span class="reserved">WHERE</span> SL<span class="operator">.</span>server_id <span class="operator">=</span> S<span class="operator">.</span>id<span class="operator">)</span><span class="operator">,</span> 0<span class="operator">)</span>
 <span class="reserved">from</span>
     rhnServer S
+
 </pre>
 <div class="footer">
         Generated by  <a href="http://www.yarpen.cz/oraschemadoc">OraSchemaDoc</a>,
-        (c) Petr Vanek, 2005; Aram Kananov, 2002, on Wed Dec 21 15:00:39 2011</div>
+        (c) Petr Vanek, 2005; Aram Kananov, 2002, on Fri Mar  2 05:59:13 2012</div>
 </body></html>

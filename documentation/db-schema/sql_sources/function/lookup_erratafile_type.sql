@@ -1,10 +1,9 @@
--- created by Oraschemadoc Wed Dec 21 14:59:58 2011
+-- created by Oraschemadoc Fri Mar  2 05:58:12 2012
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE OR REPLACE FUNCTION "SPACEWALK"."LOOKUP_ERRATAFILE_TYPE" (
 	label_in in varchar2
 ) return number deterministic is
-	pragma autonomous_transaction;
 	erratafile_type_id number;
 begin
 	select	id

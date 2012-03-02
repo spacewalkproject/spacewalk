@@ -1,4 +1,4 @@
--- created by Oraschemadoc Wed Dec 21 14:59:51 2011
+-- created by Oraschemadoc Fri Mar  2 05:58:03 2012
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
   CREATE OR REPLACE FORCE VIEW "SPACEWALK"."RHNWEBCONTACTENABLED" ("ID", "ORG_ID", "LOGIN", "LOGIN_UC", "PASSWORD", "OLD_PASSWORD", "ORACLE_CONTACT_ID", "CREATED", "MODIFIED", "IGNORE_FLAG") AS 
@@ -15,19 +15,9 @@
    wcon.ignore_flag
 from
    web_contact wcon
-minus
-select
-   wcd.id,
-   wcd.org_id,
-   wcd.login,
-   wcd.login_uc,
-   wcd.password,
-   wcd.old_password,
-   wcd.oracle_contact_id,
-   wcd.created,
-   wcd.modified,
-   wcd.ignore_flag
-from
-   rhnWebContactDisabled wcd
+where not exists (
+     select 1 from rhnWebContactDisabled
+     where wcon.id = rhnWebContactDisabled.id
+   )
  
 /

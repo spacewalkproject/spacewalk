@@ -1,26 +1,32 @@
--- created by Oraschemadoc Wed Dec 21 14:59:58 2011
+-- created by Oraschemadoc Fri Mar  2 05:58:12 2012
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE OR REPLACE FUNCTION "SPACEWALK"."LOOKUP_EVR" (e_in IN VARCHAR2, v_in IN VARCHAR2, r_in IN VARCHAR2)
-RETURN NUMBER
-IS
-	PRAGMA AUTONOMOUS_TRANSACTION;
-	evr_id		NUMBER;
-BEGIN
-	SELECT id INTO evr_id
-          FROM rhnPackageEvr
-         WHERE ((epoch IS NULL and e_in IS NULL) OR (epoch = e_in))
-           AND version = v_in AND release = r_in;
+  CREATE OR REPLACE FUNCTION "SPACEWALK"."LOOKUP_EVR" (e_in in varchar2, v_in in varchar2, r_in in varchar2)
+return number
+is
+    evr_id  number;
+begin
+    select id
+      into evr_id
+      from rhnPackageEVR
+    where ((epoch is null and e_in is null) or (epoch = e_in)) and
+          version = v_in and
+          release = r_in;
 
-	RETURN evr_id;
-EXCEPTION
-        WHEN NO_DATA_FOUND THEN
-            INSERT INTO rhnPackageEvr (id, epoch, version, release, evr)
-            VALUES (rhn_pkg_evr_seq.nextval, e_in, v_in, r_in,
-                EVR_T(e_in, v_in, r_in))
-            RETURNING id INTO evr_id;
-        COMMIT;
-	RETURN evr_id;
-END;
+    return evr_id;
+exception when no_data_found then
+    begin
+        evr_id := insert_evr(e_in, v_in, r_in);
+    exception when dup_val_on_index then
+        select id
+          into evr_id
+          from rhnPackageEVR
+        where ((epoch is null and e_in is null) or (epoch = e_in)) and
+              version = v_in and
+              release = r_in;
+    end;
+
+	return evr_id;
+end;
  
 /
