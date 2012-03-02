@@ -3,7 +3,7 @@
 %endif
 
 Name:		python-hwdata
-Version:	1.7.1
+Version:	1.7.2
 Release:	1%{?dist}
 Summary:	Python bindings to hwdata package
 BuildArch:  noarch
@@ -44,6 +44,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Fri Mar 02 2012 Jan Pazdziora 1.7.2-1
+- Update the copyright year info.
+
 * Fri Mar 02 2012 Jan Pazdziora 1.7.1-1
 - correct indentation (mzazrivec@redhat.com)
 
