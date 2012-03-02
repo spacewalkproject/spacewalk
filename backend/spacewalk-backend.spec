@@ -12,7 +12,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 1.7.36
+Version: 1.7.37
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -687,6 +687,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Fri Mar 02 2012 Jan Pazdziora 1.7.37-1
+- Update the copyright year info.
+
 * Tue Feb 28 2012 Jan Pazdziora 1.7.36-1
 - Update .po and .pot files for spacewalk-backend.
 - Download translations from Transifex for spacewalk-backend.
