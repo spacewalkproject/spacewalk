@@ -46,7 +46,7 @@ while (1 == 1) {
 sub loop_pages {
     my $cnt = 0;
     while ($cnt < 100) {
-        my $output = hit_page("https://$server/rhn/errata/Overview.do", $cookie);
+        my $output = hit_page("https://$server/rhn/errata/RelevantErrata.do", $cookie);
         $output = hit_page("https://$server/rhn/errata/AllErrata.do", $cookie);
         $output = hit_page("https://$server/rhn/schedule/PendingActions.do", $cookie);
         $output = hit_page("https://$server/rhn/systems/Unentitled.do", $cookie);

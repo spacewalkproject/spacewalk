@@ -109,8 +109,8 @@
       </rhn-tab>
     </rhn-tab>
   </rhn-tab>
-  <rhn-tab name="Errata" url="/rhn/errata/Overview.do" active-image="tab-errata-selected.gif" inactive-image="tab-errata.gif" on-click="Sniglets::Lists->navi_empty_set" node-id="target_systems_list">
-    <rhn-tab name="Errata" url="/rhn/errata/Overview.do" on-click="Sniglets::Lists->navi_empty_set" node-id="target_systems_list">
+  <rhn-tab name="Errata" url="/rhn/errata/RelevantErrata.do" active-image="tab-errata-selected.gif" inactive-image="tab-errata.gif" on-click="Sniglets::Lists->navi_empty_set" node-id="target_systems_list">
+    <rhn-tab name="Errata" url="/rhn/errata/RelevantErrata.do" on-click="Sniglets::Lists->navi_empty_set" node-id="target_systems_list">
       <rhn-tab-directory>/rhn/errata</rhn-tab-directory>
       <rhn-tab name="Relevant" on-click="Sniglets::Lists->navi_empty_set" node-id="target_systems_list">
         <rhn-tab-url>/rhn/errata/RelevantErrata.do</rhn-tab-url>
