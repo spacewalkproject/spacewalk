@@ -46,6 +46,7 @@ com.redhat.rhn.domain.action.kickstart
 com.redhat.rhn.domain.action.kickstart.test
 com.redhat.rhn.domain.action.rhnpackage
 com.redhat.rhn.domain.action.rhnpackage.test
+com.redhat.rhn.domain.action.scap
 com.redhat.rhn.domain.action.script
 com.redhat.rhn.domain.action.script.test
 com.redhat.rhn.domain.action.server
@@ -306,6 +307,7 @@ com.redhat.rhn.frontend.xmlrpc.system.custominfo
 com.redhat.rhn.frontend.xmlrpc.system.custominfo.test
 com.redhat.rhn.frontend.xmlrpc.system.provisioning.snapshot
 com.redhat.rhn.frontend.xmlrpc.system.provisioning.snapshot.test
+com.redhat.rhn.frontend.xmlrpc.system.scap
 com.redhat.rhn.frontend.xmlrpc.system.search
 com.redhat.rhn.frontend.xmlrpc.system.search.test
 com.redhat.rhn.frontend.xmlrpc.system.test
