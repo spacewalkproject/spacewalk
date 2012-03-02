@@ -40,21 +40,19 @@ mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/yum.repos.d
 cat >>$RPM_BUILD_ROOT%{_sysconfdir}/yum.repos.d/spacewalk.repo <<REPO
 [spacewalk]
 name=Spacewalk
-#baseurl=http://spacewalk.redhat.com/yum/%{version}/%{reposubdir}/\$basearch/
-baseurl=http://spacewalk.redhat.com/yum/nightly/%{reposubdir}/\$basearch/
+baseurl=http://spacewalk.redhat.com/yum/%{version}/%{reposubdir}/\$basearch/
 gpgkey=http://spacewalk.redhat.com/yum/RPM-GPG-KEY-spacewalk-2010
 enabled=1
-gpgcheck=0
+gpgcheck=1
 REPO
 
 cat >>$RPM_BUILD_ROOT%{_sysconfdir}/yum.repos.d/spacewalk-client.repo <<REPO
 [spacewalk-client]
 name=Spacewalk Client Tools
-#baseurl=http://spacewalk.redhat.com/yum/%{version}-client/%{reposubdir}/\$basearch/
-baseurl=http://spacewalk.redhat.com/yum/nightly-client/%{reposubdir}/\$basearch/
+baseurl=http://spacewalk.redhat.com/yum/%{version}-client/%{reposubdir}/\$basearch/
 gpgkey=http://spacewalk.redhat.com/yum/RPM-GPG-KEY-spacewalk-2010
 enabled=1
-gpgcheck=0
+gpgcheck=1
 REPO
 
 cat >>$RPM_BUILD_ROOT%{_sysconfdir}/yum.repos.d/spacewalk-source.repo <<REPO
@@ -66,6 +64,24 @@ enabled=0
 gpgcheck=1
 REPO
 
+cat >>$RPM_BUILD_ROOT%{_sysconfdir}/yum.repos.d/spacewalk-nightly.repo <<REPO
+[spacewalk-nightly]
+name=Spacewalk nightly
+baseurl=http://spacewalk.redhat.com/yum/nightly/%{reposubdir}/\$basearch/
+gpgkey=http://spacewalk.redhat.com/yum/RPM-GPG-KEY-spacewalk-2010
+enabled=0
+gpgcheck=0
+REPO
+
+cat >>$RPM_BUILD_ROOT%{_sysconfdir}/yum.repos.d/spacewalk-client-nightly.repo <<REPO
+[spacewalk-client-nightly]
+name=Spacewalk Client Tools nightly
+baseurl=http://spacewalk.redhat.com/yum/nightly-client/%{reposubdir}/\$basearch/
+gpgkey=http://spacewalk.redhat.com/yum/RPM-GPG-KEY-spacewalk-2010
+enabled=0
+gpgcheck=0
+REPO
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -73,10 +89,13 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root,-)
 %config %{_sysconfdir}/yum.repos.d/spacewalk.repo
 %config %{_sysconfdir}/yum.repos.d/spacewalk-source.repo
+%config %{_sysconfdir}/yum.repos.d/spacewalk-nightly.repo
+%config %{_sysconfdir}/yum.repos.d/spacewalk-source.repo
 
 %files -n spacewalk-client-repo
 %defattr(-,root,root,-)
 %config %{_sysconfdir}/yum.repos.d/spacewalk-client.repo
+%config %{_sysconfdir}/yum.repos.d/spacewalk-client-nightly.repo
 
 %changelog
 * Wed Feb 01 2012 Jan Pazdziora 1.7-4
