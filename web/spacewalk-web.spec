@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 1.7.27
+Version: 1.7.28
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -254,6 +254,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Fri Mar 02 2012 Jan Pazdziora 1.7.28-1
+- Going for release 1.7, removing the nightly part.
+
 * Fri Mar 02 2012 Jan Pazdziora 1.7.27-1
 - Update the copyright year info.
 
