@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.0
+Version: 1.8.1
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -585,6 +585,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Sat Mar 03 2012 Jan Pazdziora 1.8.1-1
+- Removing the Downloads tab, in points to nonexisting
+  /rhn/software/channel/downloads/Download.do page.
+
 * Fri Mar 02 2012 Jan Pazdziora 1.7.52-1
 - Allow copyright line 2011--2012.
 
