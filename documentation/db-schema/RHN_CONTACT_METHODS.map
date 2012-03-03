@@ -1,7 +1,0 @@
-<area shape="rect" id="node1" href="table-RHN_CONTACT_METHODS.html#t-fk" title="RHN_CONTACT_METHODS" alt="" coords="281,175,479,204">
-<area shape="rect" id="node2" href="table-RHN_SCHEDULES.html#t-fk" title="RHN_SCHEDULES" alt="" coords="48,41,189,71">
-<area shape="rect" id="node3" href="table-RHN_PAGER_TYPES.html#t-fk" title="RHN_PAGER_TYPES" alt="" coords="40,95,197,124">
-<area shape="rect" id="node4" href="table-RHN_METHOD_TYPES.html#t-fk" title="RHN_METHOD_TYPES" alt="" coords="35,148,203,177">
-<area shape="rect" id="node5" href="table-WEB_CONTACT.html#t-fk" title="WEB_CONTACT" alt="" coords="56,201,181,231">
-<area shape="rect" id="node6" href="table-RHN_NOTIFICATION_FORMATS.html#t-fk" title="RHN_NOTIFICATION_FORMATS" alt="" coords="5,255,232,284">
-<area shape="rect" id="node7" href="table-RHN_SAT_CLUSTER.html#t-fk" title="RHN_SAT_CLUSTER" alt="" coords="41,308,196,337">

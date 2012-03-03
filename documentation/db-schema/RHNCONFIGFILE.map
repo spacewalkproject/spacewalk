@@ -1,5 +1,0 @@
-<area shape="rect" id="node1" href="table-RHNCONFIGREVISION.html#t-fk" title="RHNCONFIGREVISION" alt="" coords="9,41,177,71">
-<area shape="rect" id="node4" href="table-RHNCONFIGFILE.html#t-fk" title="RHNCONFIGFILE" alt="" coords="231,121,361,151">
-<area shape="rect" id="node2" href="table-RHNCONFIGFILESTATE.html#t-fk" title="RHNCONFIGFILESTATE" alt="" coords="7,95,180,124">
-<area shape="rect" id="node3" href="table-RHNCONFIGFILENAME.html#t-fk" title="RHNCONFIGFILENAME" alt="" coords="8,148,179,177">
-<area shape="rect" id="node5" href="table-RHNCONFIGCHANNEL.html#t-fk" title="RHNCONFIGCHANNEL" alt="" coords="9,201,177,231">

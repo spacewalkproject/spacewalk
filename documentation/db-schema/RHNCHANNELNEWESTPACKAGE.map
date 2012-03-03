@@ -1,6 +1,0 @@
-<area shape="rect" id="node1" href="table-RHNPACKAGEEVR.html#t-fk" title="RHNPACKAGEEVR" alt="" coords="12,41,156,71">
-<area shape="rect" id="node5" href="table-RHNCHANNELNEWESTPACKAGE.html#t-fk" title="RHNCHANNELNEWESTPACKAGE" alt="" coords="211,148,451,177">
-<area shape="rect" id="node2" href="table-RHNPACKAGE.html#t-fk" title="RHNPACKAGE" alt="" coords="25,95,143,124">
-<area shape="rect" id="node3" href="table-RHNPACKAGEARCH.html#t-fk" title="RHNPACKAGEARCH" alt="" coords="7,148,161,177">
-<area shape="rect" id="node4" href="table-RHNPACKAGENAME.html#t-fk" title="RHNPACKAGENAME" alt="" coords="7,201,161,231">
-<area shape="rect" id="node6" href="table-RHNCHANNEL.html#t-fk" title="RHNCHANNEL" alt="" coords="25,255,143,284">
