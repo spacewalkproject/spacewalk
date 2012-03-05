@@ -17879,9 +17879,6 @@ einen Kickstart durchführen oder eine neue Kickstart-Distribution erzeugen.&lt;
         <trans-unit id="exportcolumn.updateDate">
             <source>Updated</source>
         <target>Aktualisiert</target></trans-unit>
-        <trans-unit id="exportcolumn.systemCount">
-            <source>System Count</source>
-        <target>System-Anzahl</target></trans-unit>
 
 
 

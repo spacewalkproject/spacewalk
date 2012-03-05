@@ -17823,9 +17823,6 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;
         <trans-unit id="exportcolumn.updateDate">
             <source>Updated</source>
         <target>સુધારાયેલ</target></trans-unit>
-        <trans-unit id="exportcolumn.systemCount">
-            <source>System Count</source>
-        <target>સિસ્ટમ ગણક</target></trans-unit>
 
 
 
