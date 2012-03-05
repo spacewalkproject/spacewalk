@@ -19453,15 +19453,6 @@ Emergency Maintenance windows.&lt;a href="{0}"&gt;Register for the Email Outage 
 		  <context context-type="paramnotes">Click the name of the desired software channel to be presented with your download options, or _view the complete list of software channels with ISO downloads._ </context>
         </context-group>
       <target>உங்கள் பதிவிறக்க விருப்பங்களில் வேண்டிய மென்பொருள் தடத்தின் பெயரை சொடுக்கவும், அல்லது &lt;a href="{0}"&gt;மென்பொருள் தடங்களின் முழுப் பட்டியலை ISO பதிவிறக்கங்களுடன் பார்க்கவும்.&lt;/a&gt;</target></trans-unit>
-      <trans-unit id="common.download.not-sure">
-<source>
-(&lt;a href="http://www.redhat.com/download/howto_download.html"&gt;&lt;strong&gt;Not sure what an ISO is?&lt;/strong&gt;&lt;/a&gt;)
-</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/software/downloads/AllISOs.do</context>
-		  <context context-type="paramnotes">(_Not sure what an ISO is?_)</context>
-        </context-group>
-      <target></target></trans-unit>
 
 		<!-- Supported ISOs -->
       <trans-unit id="download.isotree.jsp.supported-instructions">
