@@ -18941,13 +18941,6 @@ per l'organizzazione (ad esclusione dell'organizzazione satellite predefinita) s
           <context context-type="paramnotes">4 systems subscribed</context>
         </context-group>
       <target>{0}  sistemi sottoscritti</target></trans-unit>
-	  <trans-unit id="ssmchildsubs.jsp.failedUnsubscribe">
-        <source>Failed to unsubscribe systems from channel '{0}'</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channel/ssm/ChildSubscriptions.do</context>
-          <context context-type="paramnotes">Failed to unsubscribe systems from channel 'Red Hat Cluster Suite (for ES x86)'</context>
-        </context-group>
-      <target>Impossibile rimuovere sottoscrizione dei sistemi dal canale '{0}'</target></trans-unit>
 	  <trans-unit id="ssmchildsubs.jsp.successfulSubs">
         <source>There were {0} successful channel-subscribe actions.</source>
         <context-group name="ctx">

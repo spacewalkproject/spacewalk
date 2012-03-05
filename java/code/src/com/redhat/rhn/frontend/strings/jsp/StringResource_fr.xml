@@ -19013,13 +19013,6 @@ disponibles pour les organisations (à l'exception de l'organisation @@PRODUCT_N
           <context context-type="paramnotes">4 systems subscribed</context>
         </context-group>
       <target>{0} systèmes abonnés</target></trans-unit>
-	  <trans-unit id="ssmchildsubs.jsp.failedUnsubscribe">
-        <source>Failed to unsubscribe systems from channel '{0}'</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channel/ssm/ChildSubscriptions.do</context>
-          <context context-type="paramnotes">Failed to unsubscribe systems from channel 'Red Hat Cluster Suite (for ES x86)'</context>
-        </context-group>
-      <target>Échec du désabonnement des systèmes à partir du canal "{0}"</target></trans-unit>
 	  <trans-unit id="ssmchildsubs.jsp.successfulSubs">
         <source>There were {0} successful channel-subscribe actions.</source>
         <context-group name="ctx">
