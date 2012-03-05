@@ -15248,9 +15248,6 @@ any of these revisions.  Are you sure you want to do this?</source>
             <context context-type="paramnotes">You may copy Revision 3 of this file into centrally-managed config channels.  When you copy this file into another channel, it will become the newest revision for the file in that channel.</context>
           </context-group>
         <target>நீங்கள் இந்த கோப்பின் &lt;a href="{0}"&gt;மறுபார்வை {1}&lt;/a&gt;ஐ &lt;strong&gt;மையமாக-மேலாண்மை செய்யப்பட்ட கட்டமைப்பு தடங்களுக்கு&lt;/strong&gt; நகலெடுக்கலாம். இந்த கோப்பினை வேறு தடத்திற்கு நகலெடுக்கும் போது, இது அந்த தடத்தில் கோப்பின் புதிய மறுபார்வையாக இருக்கும்.</target></trans-unit>
-        <trans-unit id="copycentral.jsp.note">
-          <source>&lt;strong&gt;Note:&lt;/strong&gt; copying files will use configuration file quota.</source>
-        <target>&lt;strong&gt;குறிப்பு:&lt;/strong&gt; நகலெடுக்கும் கோப்புகள் கட்டமைப்பு கோப்பு ஒதுக்கீட்டை பயன்படுத்தும்.</target></trans-unit>
         <trans-unit id="copycentral.jsp.select">
           <source>Please select destination channels below.</source>
         <target>கீழே இலக்கு தடங்களை தேர்ந்தெடுக்கவும்.</target></trans-unit>

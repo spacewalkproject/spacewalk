@@ -15281,9 +15281,6 @@ pour ces versions seront également supprimées, ainsi que tous les historiques 
             <context context-type="paramnotes">You may copy Revision 3 of this file into centrally-managed config channels.  When you copy this file into another channel, it will become the newest revision for the file in that channel.</context>
           </context-group>
         <target>Vous pouvez copier la &lt;a href="{0}"&gt;Version {1}&lt;/a&gt; de ce fichier dans les &lt;strong&gt;canaux de configuration gérés centralement&lt;/strong&gt;.  Lorsque vous copiez ce fichier dans un autre canal, la version copiée deviendra la version la plus récente du canal.</target></trans-unit>
-        <trans-unit id="copycentral.jsp.note">
-          <source>&lt;strong&gt;Note:&lt;/strong&gt; copying files will use configuration file quota.</source>
-        <target>&lt;strong&gt;Remarque&amp;nbsp;:&lt;/strong&gt; la copie de fichiers utilisera le quota des fichiers de configuration.</target></trans-unit>
         <trans-unit id="copycentral.jsp.select">
           <source>Please select destination channels below.</source>
         <target>Veuillez sélectionner les canaux de destination ci-dessous.</target></trans-unit>

@@ -15262,9 +15262,6 @@ any of these revisions.  Are you sure you want to do this?</source>
             <context context-type="paramnotes">You may copy Revision 3 of this file into centrally-managed config channels.  When you copy this file into another channel, it will become the newest revision for the file in that channel.</context>
           </context-group>
         <target>このファイルの &lt;a href="{0}"&gt;リビジョン {1}&lt;/a&gt; を &lt;strong&gt;中央管理の設定チャンネル&lt;/strong&gt; にコピーできます。 このファイルを別のチャンネルにコピーする場合は、 そのチャンネル内のファイルに対して最新のリビジョンになります。</target></trans-unit>
-        <trans-unit id="copycentral.jsp.note">
-          <source>&lt;strong&gt;Note:&lt;/strong&gt; copying files will use configuration file quota.</source>
-        <target>&lt;strong&gt;注記:&lt;/strong&gt; ファイルのコピーは設定ファイル割り当て制限数を使用します。</target></trans-unit>
         <trans-unit id="copycentral.jsp.select">
           <source>Please select destination channels below.</source>
         <target>以下で目的チャンネルを選択してください。</target></trans-unit>

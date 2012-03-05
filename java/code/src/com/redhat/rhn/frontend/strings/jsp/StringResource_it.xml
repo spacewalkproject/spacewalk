@@ -15245,9 +15245,6 @@ Siete sicuri di voler fare questo?</target></trans-unit>
             <context context-type="paramnotes">You may copy Revision 3 of this file into centrally-managed config channels.  When you copy this file into another channel, it will become the newest revision for the file in that channel.</context>
           </context-group>
         <target>È possibile copiare la &lt;a href="{0}"&gt;Revisione {1}&lt;/a&gt; di questo file sui &lt;strong&gt;canali di configurazione gestiti centralmente&lt;/strong&gt;.  Quando copiate questo file in un altro canale, lo stesso diverrà l'ultimissima revisione per il file nel canale in questione.</target></trans-unit>
-        <trans-unit id="copycentral.jsp.note">
-          <source>&lt;strong&gt;Note:&lt;/strong&gt; copying files will use configuration file quota.</source>
-        <target>&lt;strong&gt;Nota Bene:&lt;/strong&gt; la copiatura dei file userà il quota del file di configurazione.</target></trans-unit>
         <trans-unit id="copycentral.jsp.select">
           <source>Please select destination channels below.</source>
         <target>Si prega di selezionare i canali di destinazione.</target></trans-unit>

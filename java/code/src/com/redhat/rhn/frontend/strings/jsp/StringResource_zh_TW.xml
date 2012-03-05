@@ -15244,9 +15244,6 @@ any of these revisions.  Are you sure you want to do this?</source>
             <context context-type="paramnotes">You may copy Revision 3 of this file into centrally-managed config channels.  When you copy this file into another channel, it will become the newest revision for the file in that channel.</context>
           </context-group>
         <target>您能夠將此檔案的 &lt;a href="{0}"&gt;修訂版 {1}&lt;/a&gt; 複製入&lt;strong&gt;中央管理的配置頻道&lt;/strong&gt;。當您將此檔案複製在另一個頻道中時，它就會變成此檔案在這個頻道中的最新修訂版。</target></trans-unit>
-        <trans-unit id="copycentral.jsp.note">
-          <source>&lt;strong&gt;Note:&lt;/strong&gt; copying files will use configuration file quota.</source>
-        <target>&lt;strong&gt;註：&lt;/strong&gt;複製檔案會使用到配置檔配額。</target></trans-unit>
         <trans-unit id="copycentral.jsp.select">
           <source>Please select destination channels below.</source>
         <target>請在下方選擇目標頻道。</target></trans-unit>

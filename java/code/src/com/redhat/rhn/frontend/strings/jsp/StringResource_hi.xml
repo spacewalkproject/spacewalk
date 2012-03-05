@@ -15248,9 +15248,6 @@ any of these revisions.  Are you sure you want to do this?</source>
             <context context-type="paramnotes">You may copy Revision 3 of this file into centrally-managed config channels.  When you copy this file into another channel, it will become the newest revision for the file in that channel.</context>
           </context-group>
         <target>आप इस फाइल के &lt;a href="{0}"&gt;पुनरीक्षण {1}&lt;/a&gt; की कॉपी कर सकते हैं &lt;strong&gt;केंद्रीय रूप से प्रबंधित विन्यास चैनल&lt;/strong&gt; में.  जब इस फाइल को आप कॉपी करते हैं अन्य चैनल में, यह उस चैनल में नवीनतम पुनरीक्षण है.</target></trans-unit>
-        <trans-unit id="copycentral.jsp.note">
-          <source>&lt;strong&gt;Note:&lt;/strong&gt; copying files will use configuration file quota.</source>
-        <target>&lt;strong&gt;नोट:&lt;/strong&gt; फाइल का कॉपी किया जाना विन्यास फाइल आरक्षण का प्रयोग करेगा.</target></trans-unit>
         <trans-unit id="copycentral.jsp.select">
           <source>Please select destination channels below.</source>
         <target>कृपया गंतव्य चैनल को नीचे दें.</target></trans-unit>

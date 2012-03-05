@@ -15242,9 +15242,6 @@ any of these revisions.  Are you sure you want to do this?</source>
             <context context-type="paramnotes">You may copy Revision 3 of this file into centrally-managed config channels.  When you copy this file into another channel, it will become the newest revision for the file in that channel.</context>
           </context-group>
         <target>이 파일의 &lt;a href="{0}"&gt;버전 {1}&lt;/a&gt;을 &lt;strong&gt;중앙 관리 설정 채널&lt;/strong&gt;에 복사하실 수 있습니다. 이 파일을 다른 채널에 복사하시면 채널에 해당 파일의 가장 최근 버전이 됩니다.</target></trans-unit>
-        <trans-unit id="copycentral.jsp.note">
-          <source>&lt;strong&gt;Note:&lt;/strong&gt; copying files will use configuration file quota.</source>
-        <target>&lt;strong&gt;알림:&lt;/strong&gt; 복사 중인 파일은 설정 파일 쿼터를 사용하게 됩니다.</target></trans-unit>
         <trans-unit id="copycentral.jsp.select">
           <source>Please select destination channels below.</source>
         <target>아래에 채널 수신지를 선택해 주십시오.</target></trans-unit>
