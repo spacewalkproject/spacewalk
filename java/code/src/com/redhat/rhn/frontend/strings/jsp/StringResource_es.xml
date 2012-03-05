@@ -19486,12 +19486,6 @@ Opcionalmente descargue los &lt;strong&gt;ISOs de contenido de canal de incremen
         </context-group>
       <target>huéspedes</target></trans-unit>
 
-      <trans-unit id="guestslimited.jsp.guests">
-<source>guest(s)</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
-        </context-group>
-      <target>huésped(es)</target></trans-unit>
 
       <trans-unit id="guestslimited.jsp.hostsystem">
 <source>Host System</source>

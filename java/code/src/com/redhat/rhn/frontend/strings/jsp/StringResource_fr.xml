@@ -19485,12 +19485,6 @@ Sinon, vous téléchargerez &lt;strong&gt;Incremental Channel Content ISO&lt;/st
         </context-group>
       <target>invité(s)</target></trans-unit>
 
-      <trans-unit id="guestslimited.jsp.guests">
-<source>guest(s)</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
-        </context-group>
-      <target>invité(s)</target></trans-unit>
 
       <trans-unit id="guestslimited.jsp.hostsystem">
 <source>Host System</source>

@@ -19489,12 +19489,6 @@ Alternativ sollten Sie &lt;strong&gt;Inkrementelle Channel-Inhalt-ISOs&lt;/stron
         </context-group>
       <target>G&amp;auml;ste</target></trans-unit>
 
-      <trans-unit id="guestslimited.jsp.guests">
-<source>guest(s)</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
-        </context-group>
-      <target>Gast(s)</target></trans-unit>
 
       <trans-unit id="guestslimited.jsp.hostsystem">
 <source>Host System</source>

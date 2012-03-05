@@ -19461,12 +19461,6 @@ Alternatively, you will want to download &lt;strong&gt;Incremental Channel Conte
         </context-group>
       <target>ゲスト</target></trans-unit>
 
-      <trans-unit id="guestslimited.jsp.guests">
-<source>guest(s)</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
-        </context-group>
-      <target>ゲスト</target></trans-unit>
 
       <trans-unit id="guestslimited.jsp.hostsystem">
 <source>Host System</source>
