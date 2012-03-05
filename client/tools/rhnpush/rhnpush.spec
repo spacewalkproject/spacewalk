@@ -4,7 +4,7 @@ Name:          rhnpush
 Group:         Applications/System
 License:       GPLv2
 URL:           http://fedorahosted.org/spacewalk
-Version:       5.5.42
+Version:       5.5.43
 Release:       1%{?dist}
 Source0:       https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 BuildRoot:     %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -56,6 +56,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/solaris2mpm.8*
 
 %changelog
+* Mon Mar 05 2012 Michael Mraka <michael.mraka@redhat.com> 5.5.43-1
+- removed unused get_header_struct_size()
+- removed unused function get_header_byte_range()
+
 * Fri Mar 02 2012 Jan Pazdziora 5.5.42-1
 - Update the copyright year info.
 
