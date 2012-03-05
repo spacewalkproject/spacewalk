@@ -18525,12 +18525,6 @@ comme défini dans le certificat de ce @@PRODUCT_NAME@@.</target></trans-unit>
         </context-group>
       <target>Non utilisé</target></trans-unit>
 
-      <trans-unit id="sys_entitlements.enterprise_entitled">
-        <source> Management (Base)</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
-        </context-group>
-      <target> Gestion (Base)</target></trans-unit>
 
       <trans-unit id="sys_entitlements.provisioning_entitled">
         <source> Provisioning (Add-On)</source>

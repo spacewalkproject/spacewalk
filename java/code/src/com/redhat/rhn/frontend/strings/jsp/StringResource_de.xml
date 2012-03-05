@@ -18528,12 +18528,6 @@ stehende Gesamte, wie in diesem Zertifikat des @@PRODUCT_NAME@@s wiedergegeben.<
         </context-group>
       <target>Wird nicht verwendet</target></trans-unit>
 
-      <trans-unit id="sys_entitlements.enterprise_entitled">
-        <source> Management (Base)</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
-        </context-group>
-      <target> Management (Basis)</target></trans-unit>
 
       <trans-unit id="sys_entitlements.provisioning_entitled">
         <source> Provisioning (Add-On)</source>

@@ -18518,12 +18518,6 @@ como refletido neste certificado do @@PRODUCT_NAME@@. </target></trans-unit>
         </context-group>
       <target>Não está em Uso</target></trans-unit>
 
-      <trans-unit id="sys_entitlements.enterprise_entitled">
-        <source> Management (Base)</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
-        </context-group>
-      <target>Gerenciamento (Base)</target></trans-unit>
 
       <trans-unit id="sys_entitlements.provisioning_entitled">
         <source> Provisioning (Add-On)</source>
