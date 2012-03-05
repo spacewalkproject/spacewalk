@@ -799,12 +799,6 @@
           <context context-type="sourcefile">/rhn/users/UserDetails</context>
         </context-group>
       <target>Эл.адрес:</target></trans-unit>
-      <trans-unit id="company.displayname">
-<source>Company:</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/UserDetails</context>
-        </context-group>
-      <target>Компания:</target></trans-unit>
       <trans-unit id="state.displayname">
 <source>State/Province</source>
         <context-group name="ctx">

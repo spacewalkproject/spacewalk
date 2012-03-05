@@ -807,12 +807,6 @@
           <context context-type="sourcefile">/rhn/users/UserDetails</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="company.displayname">
-<source>Company:</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/UserDetails</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="state.displayname">
 <source>State/Province</source>
         <context-group name="ctx">
