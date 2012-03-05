@@ -1608,12 +1608,6 @@
 
 
 
-      <trans-unit id="Warn if number of stopped processes exceeds">
-        <source>Warn if number of stopped processes exceeds</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-      <target>警告，如果停止的程序數量超過的話</target></trans-unit>
 
       <trans-unit id="Warn if number of swapped processes exceeds">
         <source>Warn if number of swapped processes exceeds</source>
