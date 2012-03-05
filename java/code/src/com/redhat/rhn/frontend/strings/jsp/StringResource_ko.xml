@@ -1702,14 +1702,6 @@ to log into @@PRODUCT_NAME@@.&lt;/b&gt;</source>
       <target>@@PRODUCT_NAME@@ 계정을 비활성화하실 수 있습니다.&lt;b&gt;계정을 비활성화하시면,
 @@PRODUCT_NAME@@에 로그인할 수 없게됩니다.&lt;/b&gt; </target></trans-unit>
 
-      <trans-unit id="disableself.jsp.message2">
-<source>Once your account is deactivated, you will need to contact your organization's
-@@PRODUCT_NAME@@ Organization Administrator to reactivate your account.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/account/AccountDeactivation</context>
-        </context-group>
-      <target>계정이 비활성화된 후, 이를 다시 활성화시키려면
-조직의 @@PRODUCT_NAME@@ 조직 관리자에게 문의하시기 바랍니다.   </target></trans-unit>
 
       <trans-unit id="disableselfconfirm.jsp.warning">
 <source>You will be logged out immediately after pressing the 'Deactivate Account'

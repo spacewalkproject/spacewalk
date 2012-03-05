@@ -1702,14 +1702,6 @@ to log into @@PRODUCT_NAME@@.&lt;/b&gt;</source>
       <target>Вы можете отключить свою учетную запись @@PRODUCT_NAME@@.
 &lt;b&gt;Это лишит вас доступа к @@PRODUCT_NAME@@.&lt;/b&gt;</target></trans-unit>
 
-      <trans-unit id="disableself.jsp.message2">
-<source>Once your account is deactivated, you will need to contact your organization's
-@@PRODUCT_NAME@@ Organization Administrator to reactivate your account.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/account/AccountDeactivation</context>
-        </context-group>
-      <target>Если ваша учетная запись отключена, для ее повторной активации обратитесь к
-администратору организации @@PRODUCT_NAME@@.</target></trans-unit>
 
       <trans-unit id="disableselfconfirm.jsp.warning">
 <source>You will be logged out immediately after pressing the 'Deactivate Account'

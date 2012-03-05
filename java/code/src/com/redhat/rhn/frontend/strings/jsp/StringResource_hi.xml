@@ -1702,14 +1702,6 @@ to log into @@PRODUCT_NAME@@.&lt;/b&gt;</source>
       <target>आप अपना @@PRODUCT_NAME@@ खाता नीचे निष्क्रिय कर सकते हैं. &lt;b&gt;यह आपकी @@PRODUCT_NAME@@ में लॉगिन की
 क्षमता हटा देगा.&lt;/b&gt;</target></trans-unit>
 
-      <trans-unit id="disableself.jsp.message2">
-<source>Once your account is deactivated, you will need to contact your organization's
-@@PRODUCT_NAME@@ Organization Administrator to reactivate your account.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/account/AccountDeactivation</context>
-        </context-group>
-      <target>आपके खाता के निष्क्रिय होने पर, आपको अपने संगठन के
-@@PRODUCT_NAME@@ संगठन प्रशासक को अपने खाता को फिर सक्रिय करने के लिये संपर्क करने की जरूरत होगी.</target></trans-unit>
 
       <trans-unit id="disableselfconfirm.jsp.warning">
 <source>You will be logged out immediately after pressing the 'Deactivate Account'

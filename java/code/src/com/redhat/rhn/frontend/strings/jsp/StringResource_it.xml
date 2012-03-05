@@ -1702,14 +1702,6 @@ to log into @@PRODUCT_NAME@@.&lt;/b&gt;</source>
       <target>È possibile disattivare qui il vostro @@PRODUCT_NAME@@ account. &lt;b&gt;Tale operazione non vi permetterà
 più di eseguire un login su @@PRODUCT_NAME@@.&lt;/b&gt;</target></trans-unit>
 
-      <trans-unit id="disableself.jsp.message2">
-<source>Once your account is deactivated, you will need to contact your organization's
-@@PRODUCT_NAME@@ Organization Administrator to reactivate your account.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/account/AccountDeactivation</context>
-        </context-group>
-      <target>Una volta disabilitato il vostro account, è necessario contattare il
-@@PRODUCT_NAME@@ Organization Administrator della vostra organizzazione per poterlo riattivare.</target></trans-unit>
 
       <trans-unit id="disableselfconfirm.jsp.warning">
 <source>You will be logged out immediately after pressing the 'Deactivate Account'

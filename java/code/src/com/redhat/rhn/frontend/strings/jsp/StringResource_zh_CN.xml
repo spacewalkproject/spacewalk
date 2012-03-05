@@ -1702,14 +1702,6 @@ to log into @@PRODUCT_NAME@@.&lt;/b&gt;</source>
       <target>您可以取消激活以下您的 @@PRODUCT_NAME@@ 帐户。&lt;b&gt;这将使您无法登录到
 @@PRODUCT_NAME@@。&lt;/b&gt; </target></trans-unit>
 
-      <trans-unit id="disableself.jsp.message2">
-<source>Once your account is deactivated, you will need to contact your organization's
-@@PRODUCT_NAME@@ Organization Administrator to reactivate your account.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/account/AccountDeactivation</context>
-        </context-group>
-      <target>一旦您的帐户被取消激活，您需要联系您
-机构的 @@PRODUCT_NAME@@ 机构管理员重新激活您的帐户。</target></trans-unit>
 
       <trans-unit id="disableselfconfirm.jsp.warning">
 <source>You will be logged out immediately after pressing the 'Deactivate Account'
