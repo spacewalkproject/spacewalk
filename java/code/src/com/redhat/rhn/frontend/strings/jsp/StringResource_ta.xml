@@ -1482,12 +1482,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/users/CreateUser</context>
         </context-group>
       <target>தேவைப்படும் புலம்</target></trans-unit>
-      <trans-unit id="usercreate.personalSummary">
-<source> A home user login will enable you to manage systems you own for personal use and make personal purchases of Red Hat products and services. &lt;strong&gt;(You should not create a home user login if you will use a Red Hat login for managing systems owned by a business or for making business purchases - for business needs, &lt;a href="/rhn/newlogin/CreateCorporate.do?account_type=create_corporate"&gt;create a business login&lt;/a&gt; instead.)&lt;/strong&gt; </source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/newlogin/CreatePersonal</context>
-        </context-group>
-      <target>வீட்டு பயனர் பதிவு உங்கள் சொந்த தேவைக்காக நீங்கள் Red Hat தயாரிப்புகள் மற்றும் சேவைகளை வாங்கும் போது செயல்படுத்தப்படும். &lt;strong&gt;(நீங்கள் தொழில் சார்ந்த விஷயங்களுக்காக வாங்கியிருந்தால் அதில் நீங்கள் வீட்டு பதிவை உருவாக்கக் கூடாது, அதற்குப் பதிலாக நீங்கள்  &lt;a href="/rhn/newlogin/CreateCorporate.do?account_type=create_corporate"&gt; தொழில் பதிவை உருவாக்கவும்&lt;/a&gt; .)&lt;/strong&gt; </target></trans-unit>
 
       <trans-unit id="usercreate.jsp.createlogin">
 <source>Create Login</source>

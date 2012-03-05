@@ -1482,12 +1482,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/users/CreateUser</context>
         </context-group>
       <target>必填项目</target></trans-unit>
-      <trans-unit id="usercreate.personalSummary">
-<source> A home user login will enable you to manage systems you own for personal use and make personal purchases of Red Hat products and services. &lt;strong&gt;(You should not create a home user login if you will use a Red Hat login for managing systems owned by a business or for making business purchases - for business needs, &lt;a href="/rhn/newlogin/CreateCorporate.do?account_type=create_corporate"&gt;create a business login&lt;/a&gt; instead.)&lt;/strong&gt; </source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/newlogin/CreatePersonal</context>
-        </context-group>
-      <target>个人登录将允许您管理一个您所拥有的、个人使用的系统并以个人身份购买红帽的产品和服务。&lt;strong&gt;（如果您使用红帽登录来管理企业所拥有的系统或以企业身份购买红帽的产品和服务，您不应该创建个人登录，您需要 &lt;a href="/rhn/newlogin/CreateCorporate.do?account_type=create_corporate"&gt;创建企业登录&lt;/a&gt;。）&lt;/strong&gt; </target></trans-unit>
 
       <trans-unit id="usercreate.jsp.createlogin">
 <source>Create Login</source>
