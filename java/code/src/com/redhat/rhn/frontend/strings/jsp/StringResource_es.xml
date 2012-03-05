@@ -2880,12 +2880,6 @@ del rol de Administrador de la organización.</target></trans-unit>
           <context context-type="sourcefile">/rhn/schedule/ArchivedActions</context>
         </context-group>
       <target>Confirmar</target></trans-unit>
-      <trans-unit id="actions.jsp.scheduledaction">
-<source>Scheduled Action</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/schedule/PackageList</context>
-        </context-group>
-      <target>Acciones programadas</target></trans-unit>
       <trans-unit id="actions.jsp.system">
 <source>System</source>
         <context-group name="ctx">

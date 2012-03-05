@@ -2880,12 +2880,6 @@ abaixo e &lt;b&gt;não poderá mais se autenticar&lt;/b&gt;.</target></trans-uni
           <context context-type="sourcefile">/rhn/schedule/ArchivedActions</context>
         </context-group>
       <target>Confirmar</target></trans-unit>
-      <trans-unit id="actions.jsp.scheduledaction">
-<source>Scheduled Action</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/schedule/PackageList</context>
-        </context-group>
-      <target>Ação Agendada</target></trans-unit>
       <trans-unit id="actions.jsp.system">
 <source>System</source>
         <context-group name="ctx">

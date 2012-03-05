@@ -2880,12 +2880,6 @@ dr&amp;uuml;cken und &lt;b&gt;k&amp;ouml;nnen sich nicht wieder einloggen&lt;/b&
           <context context-type="sourcefile">/rhn/schedule/ArchivedActions</context>
         </context-group>
       <target>Best&amp;auml;tigen</target></trans-unit>
-      <trans-unit id="actions.jsp.scheduledaction">
-<source>Scheduled Action</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/schedule/PackageList</context>
-        </context-group>
-      <target>Geplante Aktion</target></trans-unit>
       <trans-unit id="actions.jsp.system">
 <source>System</source>
         <context-group name="ctx">

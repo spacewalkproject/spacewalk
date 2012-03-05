@@ -2880,12 +2880,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/schedule/ArchivedActions</context>
         </context-group>
       <target>Подтвердить</target></trans-unit>
-      <trans-unit id="actions.jsp.scheduledaction">
-<source>Scheduled Action</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/schedule/PackageList</context>
-        </context-group>
-      <target>Запланированное действие</target></trans-unit>
       <trans-unit id="actions.jsp.system">
 <source>System</source>
         <context-group name="ctx">
