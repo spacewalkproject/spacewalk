@@ -215,13 +215,6 @@
           <context context-type="paramnotes">Email is invalid</context>
         </context-group>
       <target>{0} ist ung&amp;uuml;ltig.</target></trans-unit>
-      <trans-unit id="errors.byte">
-<source>{0} must be a byte.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Any page that has required format fields</context>
-          <context context-type="paramnotes">Upload file must be a byte.</context>
-        </context-group>
-      <target>{0} muss der Datentyp Byte sein.</target></trans-unit>
       <trans-unit id="errors.short">
 <source>{0} must be a short.</source>
         <context-group name="ctx">
