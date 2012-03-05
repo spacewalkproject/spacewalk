@@ -2235,12 +2235,6 @@ available for this kickstart profile to function properly.
       <target>새 킥스타트 파일 업로드  </target></trans-unit>
 
 
-      <trans-unit id="toolbar.create.kickstartdata">
-<source>create new kickstart</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/UserList</context>
-        </context-group>
-      <target>새 킥스타트 생성</target></trans-unit>
 
 
       <trans-unit id="toolbar.delete.CryptoKeyDelete">

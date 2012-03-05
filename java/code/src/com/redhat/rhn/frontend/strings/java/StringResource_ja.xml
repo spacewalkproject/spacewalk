@@ -2259,12 +2259,6 @@ rhn-kickstart* パッケージが利用可能であることを確認します�
       <target>新規のキックスタートプロフィールをアップロード　</target></trans-unit>
 
 
-      <trans-unit id="toolbar.create.kickstartdata">
-<source>create new kickstart</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/UserList</context>
-        </context-group>
-      <target>新規のキックスタートを作成</target></trans-unit>
 
 
       <trans-unit id="toolbar.delete.CryptoKeyDelete">
