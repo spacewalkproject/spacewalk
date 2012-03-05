@@ -12947,12 +12947,6 @@ centrally-managed configuration channel, {2}; below is a list of systems you may
           <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
         </context-group>
      <target>최신 버전 다운로드</target></trans-unit>
-	<trans-unit id="toolbar.delete.configfile">
-<source>delete this file revision</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
-        </context-group>
-     <target>파일 버전 삭제</target></trans-unit>
 	<trans-unit id="toolbar.delete.org">
 <source>delete organization</source>
         <context-group name="ctx">
