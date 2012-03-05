@@ -1613,12 +1613,6 @@
         </context-group>
       <target>ਸਾਵਧਾਨ, ਜੇਕਰ ਕਿਸੇ ਕਾਰਜ ਦੇ ਅਧੀਨ ਕਾਰਜਾਂ (ਚਾਇਲਡ) ਦੀ ਗਿਣਤੀ ਵੱਧ ਜਾਵੇ</target></trans-unit>
 
-      <trans-unit id="Warn if number of defunct processes exceeds">
-        <source>Warn if number of defunct processes exceeds</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-      <target>ਸਾਵਧਾਨ, ਜੇਕਰ ਡੀ-ਫੰਕਸ਼ ਕਾਰਜਾਂ ਦੀ ਗਿਣਤੀ ਵੱਧ ਜਾਵੇ</target></trans-unit>
 
       <trans-unit id="Warn if number of stopped processes exceeds">
         <source>Warn if number of stopped processes exceeds</source>

@@ -1633,12 +1633,6 @@ http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd"
         </context-group>
       </trans-unit>
 
-      <trans-unit id="Warn if number of defunct processes exceeds">
-        <source>Warn if number of defunct processes exceeds</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-      </trans-unit>
 
       <trans-unit id="Warn if number of stopped processes exceeds">
         <source>Warn if number of stopped processes exceeds</source>

@@ -1613,12 +1613,6 @@
         </context-group>
       <target>Warn: если число дочерних процессов превышает</target></trans-unit>
 
-      <trans-unit id="Warn if number of defunct processes exceeds">
-        <source>Warn if number of defunct processes exceeds</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-      <target>Warn: если число процессов-зомби превышает</target></trans-unit>
 
       <trans-unit id="Warn if number of stopped processes exceeds">
         <source>Warn if number of stopped processes exceeds</source>
