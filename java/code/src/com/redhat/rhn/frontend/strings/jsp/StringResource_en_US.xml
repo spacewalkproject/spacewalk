@@ -693,12 +693,6 @@
           <context context-type="sourcefile">/rhn/users/UserDetails</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="zip.displayname">
-<source>Zip / Postal Code</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">NOT USED</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="prefix.displayname">
 <source>Prefix:</source>
         <context-group name="ctx">

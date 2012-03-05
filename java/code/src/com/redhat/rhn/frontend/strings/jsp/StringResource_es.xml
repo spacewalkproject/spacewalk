@@ -685,12 +685,6 @@
           <context context-type="sourcefile">/rhn/users/UserDetails</context>
         </context-group>
       <target>Correo-e:</target></trans-unit>
-      <trans-unit id="zip.displayname">
-<source>Zip / Postal Code</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">NOT USED</context>
-        </context-group>
-      <target>Código postal</target></trans-unit>
       <trans-unit id="prefix.displayname">
 <source>Prefix:</source>
         <context-group name="ctx">
