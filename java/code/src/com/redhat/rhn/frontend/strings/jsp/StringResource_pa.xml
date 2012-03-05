@@ -1582,12 +1582,6 @@
       <target>ਮੁਕੰਮਲ ਕਾਰਵਾਈਆਂ</target></trans-unit>
 
       <!-- email_sent.jsp -->
-      <trans-unit id="email_sent.jsp.title">
-<source>Email Change Verification Sent</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/account/VerificationSent</context>
-        </context-group>
-      <target>ਈ-ਮੇਲ ਤਬਦੀਲੀ ਜਾਂਚ ਭੇਜੀ ਗਈ</target></trans-unit>
       <!-- yourchangeemail.jsp -->
       <trans-unit id="yourchangeemail.jsp.title">
 <source>Change Email Address</source>

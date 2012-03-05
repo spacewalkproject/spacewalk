@@ -1582,12 +1582,6 @@
       <target>पूर्ण क्रिया</target></trans-unit>
 
       <!-- email_sent.jsp -->
-      <trans-unit id="email_sent.jsp.title">
-<source>Email Change Verification Sent</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/account/VerificationSent</context>
-        </context-group>
-      <target>ईमेल बदलाव सत्यापन भेजा गया</target></trans-unit>
       <!-- yourchangeemail.jsp -->
       <trans-unit id="yourchangeemail.jsp.title">
 <source>Change Email Address</source>
