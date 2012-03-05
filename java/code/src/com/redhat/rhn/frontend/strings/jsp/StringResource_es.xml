@@ -15969,12 +15969,6 @@ La ruta del ábol, el RPM Kickstart, el canal base y la generación del instalad
 	</context-group>
       <target>Utilice un montaje NFS:</target></trans-unit>
 
-      <trans-unit id="virtualization.provision.first.jsp.storage.nfs.hostname.message1">
-        <source>NFS Server Hostname:</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/virtualization/ProvisionVirtualizationWizard.do</context>
-	</context-group>
-      <target>Nombre de host del servidor NFS:</target></trans-unit>
 
       <trans-unit id="virtualization.provision.first.jsp.storage.nfs.hostname.tip1">
         <source>&lt;strong&gt;Example:&lt;/strong&gt; mynfshost.example.com</source>

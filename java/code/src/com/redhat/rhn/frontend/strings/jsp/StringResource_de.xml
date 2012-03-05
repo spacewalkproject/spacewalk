@@ -15973,12 +15973,6 @@ Baumpfad, Kickstart-RPM, Basis-Channel und Installer-Generation sollten immer ü
 	</context-group>
       <target>Einen NFS-Mount verwenden:</target></trans-unit>
 
-      <trans-unit id="virtualization.provision.first.jsp.storage.nfs.hostname.message1">
-        <source>NFS Server Hostname:</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/virtualization/ProvisionVirtualizationWizard.do</context>
-	</context-group>
-      <target>NFS-Server Hostname:</target></trans-unit>
 
       <trans-unit id="virtualization.provision.first.jsp.storage.nfs.hostname.tip1">
         <source>&lt;strong&gt;Example:&lt;/strong&gt; mynfshost.example.com</source>
