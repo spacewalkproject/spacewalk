@@ -7259,9 +7259,6 @@ Follow this url to see the full list of inactive systems:
 			<source>No files, directories or symlinks. &lt;a href="{0}"&gt; Add&lt;/a&gt;</source>
 	     <target>ファイル、ディレクトリ、またはシンボリックリンクがありません。&lt;a href="{0}"&gt;追加&lt;/a&gt;</target></trans-unit>
 
-	     <trans-unit id="config.files_0_dirs_0_symlinks_0">
-			<source>No files, directories or symlinks.</source>
-	     <target>ファイル、ディレクトリ、またはシンボリックリンクがありません。</target></trans-unit>
 	     <trans-unit id="config.files_0_dirs_0_symlinks_1">
 			<source>{2} symlink</source>
 	     <target>{2} シンボリックリンク</target></trans-unit>

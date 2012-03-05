@@ -7262,9 +7262,6 @@ Suivez cet url pour obtenir la liste complète des systèmes inactifs :
 			<source>No files, directories or symlinks. &lt;a href="{0}"&gt; Add&lt;/a&gt;</source>
 	     <target>Pas de fichiers, de répertoires ou de liens symboliques. &lt;a href="{0}"&gt; Add&lt;/a&gt;</target></trans-unit>
 
-	     <trans-unit id="config.files_0_dirs_0_symlinks_0">
-			<source>No files, directories or symlinks.</source>
-	     <target>Pas de fichiers, de répertoires ou de liens symboliques. </target></trans-unit>
 	     <trans-unit id="config.files_0_dirs_0_symlinks_1">
 			<source>{2} symlink</source>
 	     <target>{2} liens symboliques</target></trans-unit>
