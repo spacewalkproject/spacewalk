@@ -6743,13 +6743,6 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
       <target>{0} sistema(s) suscrito(s) con éxito.</target></trans-unit>
 
 
-      <trans-unit id="config_channels.success">
-        <source>Successfully copied file to {0} channels.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/file/CopyFilesCentral.do</context>
-          <context context-type="paramnotes">Successfully copied file to 7 channels.</context>
-        </context-group>
-      <target>Archivo copiado con éxito a {0} canales.</target></trans-unit>
 
       <trans-unit id="config_channel_name.local">
         <source>local override for {0}</source>

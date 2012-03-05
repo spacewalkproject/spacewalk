@@ -6718,13 +6718,6 @@ Follow this url to see the full list of inactive systems:
       <target>Успешно подписано систем: {0}.</target></trans-unit>
 
 
-      <trans-unit id="config_channels.success">
-        <source>Successfully copied file to {0} channels.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/file/CopyFilesCentral.do</context>
-          <context context-type="paramnotes">Successfully copied file to 7 channels.</context>
-        </context-group>
-      <target>Файл успешно скопирован в {0} канал(а)(ов).</target></trans-unit>
 
       <trans-unit id="config_channel_name.local">
         <source>local override for {0}</source>

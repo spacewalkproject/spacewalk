@@ -6718,13 +6718,6 @@ url பின்பற்றி செயலிழக்கப்பட்ட �
       <target>வெற்றிகரமாக {0} கணினிகள் சந்தாப்படுத்தப்பட்டன.</target></trans-unit>
 
 
-      <trans-unit id="config_channels.success">
-        <source>Successfully copied file to {0} channels.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/file/CopyFilesCentral.do</context>
-          <context context-type="paramnotes">Successfully copied file to 7 channels.</context>
-        </context-group>
-      <target>{0} தடங்களுக்கு வெற்றிகரமாக கோப்பு நகலெடுக்கப்பட்டது.</target></trans-unit>
 
       <trans-unit id="config_channel_name.local">
         <source>local override for {0}</source>
