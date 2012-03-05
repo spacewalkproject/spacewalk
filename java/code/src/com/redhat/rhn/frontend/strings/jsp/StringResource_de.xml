@@ -18964,12 +18964,6 @@ Notfall-Wartungsfenstern f&amp;uuml;r Benachrichtigungen verwendet.
 
 	<!-- downloads.jsp -->
 	<group>
-      <trans-unit id="isodownload.header">
-<source>ISO Image Downloads</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/software/channel/downloads/Download.do</context>
-        </context-group>
-      <target>ISO-Image-Downloads</target></trans-unit>
       <trans-unit id="isodownload.hosted-only.warn">
 <source>Downloading of ISO images is not supported on @@PRODUCT_NAME@@.</source>
         <context-group name="ctx">

@@ -18905,12 +18905,6 @@ Red Hat vi terrà informati sui periodi di Gestione di Emergenza e non programma
 
 	<!-- downloads.jsp -->
 	<group>
-      <trans-unit id="isodownload.header">
-<source>ISO Image Downloads</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/software/channel/downloads/Download.do</context>
-        </context-group>
-      <target>Download Immagine ISO</target></trans-unit>
       <trans-unit id="isodownload.hosted-only.warn">
 <source>Downloading of ISO images is not supported on @@PRODUCT_NAME@@.</source>
         <context-group name="ctx">
