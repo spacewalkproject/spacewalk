@@ -18955,12 +18955,6 @@ per l'organizzazione (ad esclusione dell'organizzazione satellite predefinita) s
           <context context-type="paramnotes">There were 42 successful unsubscribe actions.</context>
         </context-group>
       <target>Presenti {0} azioni di rimozione della sottoscrizione che hanno avuto successo.</target></trans-unit>
-	  <trans-unit id="ssmchildsubs.jsp.nochanges">
-        <source>No changes were requested.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channel/ssm/ChildSubscriptions.do</context>
-        </context-group>
-      <target>Nessuna modifica è stata richiesta.</target></trans-unit>
 	  <trans-unit id="ssmchildsubs.jsp.header">
         <source>Channel Subscriptions</source>
         <context-group name="ctx">

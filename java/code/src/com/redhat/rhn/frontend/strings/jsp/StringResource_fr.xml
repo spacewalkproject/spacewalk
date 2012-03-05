@@ -19027,12 +19027,6 @@ disponibles pour les organisations (à l'exception de l'organisation @@PRODUCT_N
           <context context-type="paramnotes">There were 42 successful unsubscribe actions.</context>
         </context-group>
       <target>{0} actions de désabonnement ont réussi.</target></trans-unit>
-	  <trans-unit id="ssmchildsubs.jsp.nochanges">
-        <source>No changes were requested.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channel/ssm/ChildSubscriptions.do</context>
-        </context-group>
-      <target>Aucun changement n'a été demandé.</target></trans-unit>
 	  <trans-unit id="ssmchildsubs.jsp.header">
         <source>Channel Subscriptions</source>
         <context-group name="ctx">

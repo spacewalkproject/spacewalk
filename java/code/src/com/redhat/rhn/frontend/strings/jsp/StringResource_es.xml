@@ -19028,12 +19028,6 @@ en este  @@PRODUCT_NAME@@. No es igual al total disponible en el certificado del
           <context context-type="paramnotes">There were 42 successful unsubscribe actions.</context>
         </context-group>
       <target>Hubo {0} acciones de eliminación de suscripción satisfactorias.</target></trans-unit>
-	  <trans-unit id="ssmchildsubs.jsp.nochanges">
-        <source>No changes were requested.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channel/ssm/ChildSubscriptions.do</context>
-        </context-group>
-      <target>Ningún cambio fue solicitado.</target></trans-unit>
 	  <trans-unit id="ssmchildsubs.jsp.header">
         <source>Channel Subscriptions</source>
         <context-group name="ctx">

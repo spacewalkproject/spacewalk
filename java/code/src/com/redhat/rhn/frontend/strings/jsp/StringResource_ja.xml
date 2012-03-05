@@ -19007,12 +19007,6 @@ the organizations (excluding the default @@PRODUCT_NAME@@ organization) on this 
           <context context-type="paramnotes">There were 42 successful unsubscribe actions.</context>
         </context-group>
       <target>{0} のサブスクライブアクションが正常に中止されました。</target></trans-unit>
-	  <trans-unit id="ssmchildsubs.jsp.nochanges">
-        <source>No changes were requested.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channel/ssm/ChildSubscriptions.do</context>
-        </context-group>
-      <target>変更は要求されていません。</target></trans-unit>
 	  <trans-unit id="ssmchildsubs.jsp.header">
         <source>Channel Subscriptions</source>
         <context-group name="ctx">

@@ -18958,12 +18958,6 @@ the organizations (excluding the default @@PRODUCT_NAME@@ organization) on this 
           <context context-type="paramnotes">There were 42 successful unsubscribe actions.</context>
         </context-group>
       <target>{0} செயல்கள் வெற்றிகரமாக சந்தா நீக்கப்பட்டன.</target></trans-unit>
-	  <trans-unit id="ssmchildsubs.jsp.nochanges">
-        <source>No changes were requested.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channel/ssm/ChildSubscriptions.do</context>
-        </context-group>
-      <target>மாற்றங்கள் ஒன்றும் கோரப்படவில்லை.</target></trans-unit>
 	  <trans-unit id="ssmchildsubs.jsp.header">
         <source>Channel Subscriptions</source>
         <context-group name="ctx">
