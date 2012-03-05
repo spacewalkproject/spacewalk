@@ -940,12 +940,6 @@
 		 </context-group>
 	<target>查看最新的、适用于您系统的勘误。</target></trans-unit>
 
-	<trans-unit id="preferences.entitlements-widget.name">
-         <source>Entitlements Widget</source>
-		 <context-group name="ctx">
-		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
-		 </context-group>
-	<target>权利 Widget</target></trans-unit>
 
 
 	<trans-unit id="preferences.inactive-systems.name">

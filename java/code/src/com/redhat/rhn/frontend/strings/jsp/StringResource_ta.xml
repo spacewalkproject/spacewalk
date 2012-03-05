@@ -940,12 +940,6 @@
 		 </context-group>
 	<target>உங்கள் கணினிக்கு பொருந்தும் மிக சமீபத்திய பாதுகாப்பு பிழைத்திருத்தங்களை பார்க்கவும்</target></trans-unit>
 
-	<trans-unit id="preferences.entitlements-widget.name">
-         <source>Entitlements Widget</source>
-		 <context-group name="ctx">
-		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
-		 </context-group>
-	<target>உரிமங்கள் சாளரம்</target></trans-unit>
 
 
 	<trans-unit id="preferences.inactive-systems.name">

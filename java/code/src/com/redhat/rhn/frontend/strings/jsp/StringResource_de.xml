@@ -940,12 +940,6 @@
 		 </context-group>
 	<target> Schauen Sie sich die neuesten Errata an, die auf Ihre Systeme anwendbar sind.</target></trans-unit>
 
-	<trans-unit id="preferences.entitlements-widget.name">
-         <source>Entitlements Widget</source>
-		 <context-group name="ctx">
-		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
-		 </context-group>
-	<target>Berechtigungs-Widget</target></trans-unit>
 
 
 	<trans-unit id="preferences.inactive-systems.name">

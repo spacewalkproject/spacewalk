@@ -940,12 +940,6 @@
 		 </context-group>
 	<target>Visualizza le security errata più recenti applicabili ai vostri sistemi.</target></trans-unit>
 
-	<trans-unit id="preferences.entitlements-widget.name">
-         <source>Entitlements Widget</source>
-		 <context-group name="ctx">
-		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
-		 </context-group>
-	<target>Widget degli Entitlement</target></trans-unit>
 
 
 	<trans-unit id="preferences.inactive-systems.name">

@@ -940,12 +940,6 @@
 		 </context-group>
 	<target> अपने सिस्टम में लागू सर्वाधिक अद्यतन इरेटा को देखें.</target></trans-unit>
 
-	<trans-unit id="preferences.entitlements-widget.name">
-         <source>Entitlements Widget</source>
-		 <context-group name="ctx">
-		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
-		 </context-group>
-	<target>लाभार्थी विजेट</target></trans-unit>
 
 
 	<trans-unit id="preferences.inactive-systems.name">
