@@ -4075,12 +4075,6 @@ deducted from the default organization.</source>
           <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
         </context-group>
       <target>Имя организации</target></trans-unit>
-      <trans-unit id="softwareEntitlementSubs.column.currentMembers">
-<source>Usage</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-      <target>Использование</target></trans-unit>
       <trans-unit id="softwareEntitlementSubs.column.total">
 <source>Total*</source>
         <context-group name="ctx">

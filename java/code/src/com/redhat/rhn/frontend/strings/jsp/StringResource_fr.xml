@@ -4078,12 +4078,6 @@ que celle par défaut, ces droits d'accès seront déduits de l'organisation
           <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
         </context-group>
       <target>Nom de l'organisation</target></trans-unit>
-      <trans-unit id="softwareEntitlementSubs.column.currentMembers">
-<source>Usage</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-      <target>Utilisation</target></trans-unit>
       <trans-unit id="softwareEntitlementSubs.column.total">
 <source>Total*</source>
         <context-group name="ctx">

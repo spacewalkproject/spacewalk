@@ -4078,12 +4078,6 @@ presi dall'organizzazione predefinita.</target></trans-unit>
           <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
         </context-group>
       <target>Nome dell'organizzazione</target></trans-unit>
-      <trans-unit id="softwareEntitlementSubs.column.currentMembers">
-<source>Usage</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-      <target>Utilizzo</target></trans-unit>
       <trans-unit id="softwareEntitlementSubs.column.total">
 <source>Total*</source>
         <context-group name="ctx">
