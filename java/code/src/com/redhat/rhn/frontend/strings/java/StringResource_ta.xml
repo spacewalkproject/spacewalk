@@ -6676,12 +6676,6 @@ url பின்பற்றி செயலிழக்கப்பட்ட �
 
 
 
-      <trans-unit id="systems.details.virt.guest.virt.suspend">
-        <source>Suspend</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
-        </context-group>
-      <target>இடைநிறுத்தம்</target></trans-unit>
 
 
 
