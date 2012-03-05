@@ -9780,12 +9780,6 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
     <target>মুছে ফেলার উদ্দেশ্যে ফাইল নির্বাচন করা হয়নি</target></trans-unit>
 
-    <trans-unit id="toolbar.create.filelist">
-        <source>create new file preservation list</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/provisioning/preservation/PreservationList.do</context>
-        </context-group>
-    <target>নতুন ফাইল সংরক্ষণের তালিকা নির্মাণ করুন</target></trans-unit>
 
     <trans-unit id="toolbar.create.kickstartscript">
         <source>add new kickstart script</source>

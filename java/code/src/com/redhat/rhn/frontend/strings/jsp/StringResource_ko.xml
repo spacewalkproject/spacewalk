@@ -9778,12 +9778,6 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
     <target>삭제를 위해 선택된 파일이 없습니다</target></trans-unit>
 
-    <trans-unit id="toolbar.create.filelist">
-        <source>create new file preservation list</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/provisioning/preservation/PreservationList.do</context>
-        </context-group>
-    <target>새 파일 보관 목록 생성 </target></trans-unit>
 
     <trans-unit id="toolbar.create.kickstartscript">
         <source>add new kickstart script</source>

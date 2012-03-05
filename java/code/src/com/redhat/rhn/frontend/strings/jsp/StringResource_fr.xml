@@ -9793,12 +9793,6 @@ Veuillez noter qu'une configuration manuelle de ces scripts peut toujours être 
         </context-group>
     <target>Aucun fichier n'est sélectionné à supprimer</target></trans-unit>
 
-    <trans-unit id="toolbar.create.filelist">
-        <source>create new file preservation list</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/provisioning/preservation/PreservationList.do</context>
-        </context-group>
-    <target>créer une nouvelle liste de conservation de fichiers</target></trans-unit>
 
     <trans-unit id="toolbar.create.kickstartscript">
         <source>add new kickstart script</source>

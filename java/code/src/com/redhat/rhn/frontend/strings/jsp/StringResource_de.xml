@@ -9795,12 +9795,6 @@ Bitte beachten Sie, dass m&amp;ouml;glicherweise noch einige manuelle Konfigurat
         </context-group>
     <target>Es wurden keine Dateien zur L&amp;ouml;schung ausgew&amp;auml;hlt</target></trans-unit>
 
-    <trans-unit id="toolbar.create.filelist">
-        <source>create new file preservation list</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/provisioning/preservation/PreservationList.do</context>
-        </context-group>
-    <target>Neue Dateierhaltungsliste erstellen</target></trans-unit>
 
     <trans-unit id="toolbar.create.kickstartscript">
         <source>add new kickstart script</source>
