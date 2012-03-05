@@ -5901,12 +5901,6 @@ de este usuario antes de intentar desactivar esta cuenta.</target></trans-unit>
       <target>El certificado ha sido cargado. @@PRODUCT_NAME@@ ha sido reactivado.</target></trans-unit>
 
 
-    <trans-unit id="certificate.config.error.11">
-        <source>Certificate expired</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-      <target>Certificado vencido</target></trans-unit>
 
     <trans-unit id="certificate.config.error.12">
         <source>Unknown @@PRODUCT_NAME@@ version, see log file for more details.</source>

@@ -5907,12 +5907,6 @@ Benutzers vor dem Versuch, den Account zu deaktivieren.</target></trans-unit>
       <target>Das Zertifikat wurde hochgeladen.  Der @@PRODUCT_NAME@@ wurde reaktiviert.</target></trans-unit>
 
 
-    <trans-unit id="certificate.config.error.11">
-        <source>Certificate expired</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-      <target>Zertifikat ist abgelaufen</target></trans-unit>
 
     <trans-unit id="certificate.config.error.12">
         <source>Unknown @@PRODUCT_NAME@@ version, see log file for more details.</source>

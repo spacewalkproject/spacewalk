@@ -5901,12 +5901,6 @@ user before attempting to deactivate their account.</source>
       <target>证书已被上传。已重新激活 @@PRODUCT_NAME@@。</target></trans-unit>
 
 
-    <trans-unit id="certificate.config.error.11">
-        <source>Certificate expired</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-      <target>证书过期</target></trans-unit>
 
     <trans-unit id="certificate.config.error.12">
         <source>Unknown @@PRODUCT_NAME@@ version, see log file for more details.</source>

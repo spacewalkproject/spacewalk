@@ -5876,12 +5876,6 @@ user before attempting to deactivate their account.</source>
       <target>인증서를 업로드하였습니다.  @@PRODUCT_NAME@@가 다시 활성화되었습니다.  </target></trans-unit>
 
 
-    <trans-unit id="certificate.config.error.11">
-        <source>Certificate expired</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-      <target>만료된 인증서</target></trans-unit>
 
     <trans-unit id="certificate.config.error.12">
         <source>Unknown @@PRODUCT_NAME@@ version, see log file for more details.</source>

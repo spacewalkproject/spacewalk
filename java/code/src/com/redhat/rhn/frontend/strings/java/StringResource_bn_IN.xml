@@ -5882,12 +5882,6 @@ user before attempting to deactivate their account.</source>
       <target>সার্টিফিকেট আপলোড করা হয়েছে।  @@PRODUCT_NAME@@ পুনরায় সক্রিয় করা হয়েছে।</target></trans-unit>
 
 
-    <trans-unit id="certificate.config.error.11">
-        <source>Certificate expired</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-      <target>সার্টিফকেটের মেয়াদ পূর্ণ হয়ে গেছে</target></trans-unit>
 
     <trans-unit id="certificate.config.error.12">
         <source>Unknown @@PRODUCT_NAME@@ version, see log file for more details.</source>

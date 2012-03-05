@@ -5900,12 +5900,6 @@ utente prima di disabilitare l'account in questione.</target></trans-unit>
       <target>Certificato caricato.  @@PRODUCT_NAME@@ è stato riattivato.</target></trans-unit>
 
 
-    <trans-unit id="certificate.config.error.11">
-        <source>Certificate expired</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-      <target>Certificato scaduto</target></trans-unit>
 
     <trans-unit id="certificate.config.error.12">
         <source>Unknown @@PRODUCT_NAME@@ version, see log file for more details.</source>

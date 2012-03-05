@@ -5876,12 +5876,6 @@ user before attempting to deactivate their account.</source>
       <target>Сертификат загружен. Произведена реактивация @@PRODUCT_NAME@@.</target></trans-unit>
 
 
-    <trans-unit id="certificate.config.error.11">
-        <source>Certificate expired</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-      <target>Устаревший сертификат</target></trans-unit>
 
     <trans-unit id="certificate.config.error.12">
         <source>Unknown @@PRODUCT_NAME@@ version, see log file for more details.</source>

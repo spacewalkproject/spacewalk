@@ -5903,12 +5903,6 @@ utilisateur avant de désactiver son compte.</target></trans-unit>
       <target>Certificat téléchargé. @@PRODUCT_NAME@@ a été réactivé.</target></trans-unit>
 
 
-    <trans-unit id="certificate.config.error.11">
-        <source>Certificate expired</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-      <target>Certificat expiré</target></trans-unit>
 
     <trans-unit id="certificate.config.error.12">
         <source>Unknown @@PRODUCT_NAME@@ version, see log file for more details.</source>
