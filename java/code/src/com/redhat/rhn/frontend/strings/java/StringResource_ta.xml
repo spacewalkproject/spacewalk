@@ -7746,9 +7746,6 @@ url பின்பற்றி செயலிழக்கப்பட்ட �
      <trans-unit id="ssm.package.verify.operationname">
         <source>Schedule Package Verifications</source>
      <target></target></trans-unit>
-     <trans-unit id="ssm.package.delete.operationname">
-        <source>Server Delete</source>
-     <target></target></trans-unit>
      <trans-unit id="channel.manage.merge.finished">
         <source>{0} Package(s) have been added and {1} Package(s) have been removed from the channel.</source>
      <target></target></trans-unit>

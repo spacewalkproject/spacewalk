@@ -7771,9 +7771,6 @@ Follow this url to see the full list of inactive systems:
      <trans-unit id="ssm.package.verify.operationname">
         <source>Schedule Package Verifications</source>
      <target>调度软件包的验证</target></trans-unit>
-     <trans-unit id="ssm.package.delete.operationname">
-        <source>Server Delete</source>
-     <target>删除服务器</target></trans-unit>
      <trans-unit id="channel.manage.merge.finished">
         <source>{0} Package(s) have been added and {1} Package(s) have been removed from the channel.</source>
      <target>这个频道里已经添加了 {0} 个软件包，且删除了 {1} 个软件包。</target></trans-unit>

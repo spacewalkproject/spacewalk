@@ -7771,9 +7771,6 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
      <trans-unit id="ssm.package.verify.operationname">
         <source>Schedule Package Verifications</source>
      <target>Programar verificaciones de paquetes</target></trans-unit>
-     <trans-unit id="ssm.package.delete.operationname">
-        <source>Server Delete</source>
-     <target>Borrar servidor</target></trans-unit>
      <trans-unit id="channel.manage.merge.finished">
         <source>{0} Package(s) have been added and {1} Package(s) have been removed from the channel.</source>
      <target>{0} paquete(s) han sido añadidos y {1} paquete(s) han sido removidos del canal.</target></trans-unit>
