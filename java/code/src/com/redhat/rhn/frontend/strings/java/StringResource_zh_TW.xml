@@ -2747,14 +2747,6 @@ user before attempting to deactivate their account.</source>
         </context-group>
       <target>只有已經停用的使用者可以被重新啟用。</target></trans-unit>
 
-      <trans-unit id="userenable.error.usernotdisabled.param">
-<source>{0}: Only deactivated users can be reactivated.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/users/EnableConfirm</context>
-            <context context-type="paramnotes">kjohnny4: Only deactivated users can
-                                               be reactivated.</context>
-        </context-group>
-      <target>{0}：只有已經停用的使用者可以被重新啟動。</target></trans-unit>
 
       <trans-unit id="userenable.error.sameorg">
 <source>User to reactivate must be in the same organization.</source>

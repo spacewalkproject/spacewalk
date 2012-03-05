@@ -2748,14 +2748,6 @@ user before attempting to deactivate their account.</source>
         </context-group>
       <target>सिर्फ निष्क्रिय किया गया उपयोक्ता फिर सक्रिय किया जा सकता है.</target></trans-unit>
 
-      <trans-unit id="userenable.error.usernotdisabled.param">
-<source>{0}: Only deactivated users can be reactivated.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/users/EnableConfirm</context>
-            <context context-type="paramnotes">kjohnny4: Only deactivated users can
-                                               be reactivated.</context>
-        </context-group>
-      <target>{0}: सिर्फ निष्क्रिय हुआ उपयोक्ता फिर सक्रिय किया जायेगा.</target></trans-unit>
 
       <trans-unit id="userenable.error.sameorg">
 <source>User to reactivate must be in the same organization.</source>

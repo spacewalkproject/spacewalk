@@ -2779,14 +2779,6 @@ Benutzers vor dem Versuch, den Account zu deaktivieren.</target></trans-unit>
         </context-group>
       <target>Nur deaktivierte Benutzer k&amp;ouml;nnen reaktiviert werden.</target></trans-unit>
 
-      <trans-unit id="userenable.error.usernotdisabled.param">
-<source>{0}: Only deactivated users can be reactivated.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/users/EnableConfirm</context>
-            <context context-type="paramnotes">kjohnny4: Only deactivated users can
-                                               be reactivated.</context>
-        </context-group>
-      <target>{0}: Es k&amp;ouml;nnen nur deaktivierte Benutzer reaktiviert werden.</target></trans-unit>
 
       <trans-unit id="userenable.error.sameorg">
 <source>User to reactivate must be in the same organization.</source>
