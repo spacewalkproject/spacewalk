@@ -3537,9 +3537,6 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/kickstart/SessionStatus.do</context>
         </context-group>
-        <trans-unit id="kickstart.state.injected">
-          <source>The system configuration has been modified to begin kickstart upon next boot.</source>
-        <target>La configurazione del sistema è stata modificata in modo da iniziare kickstart al prossimo avvio.</target></trans-unit>
         <trans-unit id="kickstart.state.restarted">
           <source>The system has been restarted in order to begin the kickstart process.</source>
         <target>Il sistema è stato riavviato per poter iniziare il processo kickstart.</target></trans-unit>
