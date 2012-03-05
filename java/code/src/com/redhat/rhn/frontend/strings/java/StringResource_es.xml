@@ -7258,9 +7258,6 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
 
 
 
-	     <trans-unit id="config.files_1_dirs_0_symlinks_2">
-			<source>{0} file and {2} symlinks</source>
-	     <target>{0} archivo y {2} enlaces simbólicos</target></trans-unit>
 	     <trans-unit id="config.files_1_dirs_1_symlinks_0">
 			<source>{0} file and {1} directory</source>
 	     <target>{0} archivo y {1} directorio</target></trans-unit>
