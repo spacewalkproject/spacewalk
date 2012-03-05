@@ -10316,12 +10316,6 @@ Bitte beachten Sie, dass m&amp;ouml;glicherweise noch einige manuelle Konfigurat
         </context-group>
     <target>&lt;strong&gt;Tipp:&lt;/strong&gt; Das &amp;Auml;ndern des Basis-Channels hat zur Folge, dass Sie jegliche Sub-Channels neu ausw&amp;auml;hlen m&amp;uuml;ssen, die ggf. mit diesem Profil verkn&amp;uuml;pft sind.</target></trans-unit>
 
-    <trans-unit id="softwareedit.jsp.release">
-        <source>OS Release</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart/KickstartSoftwareEdit</context>
-        </context-group>
-    <target>OS Release</target></trans-unit>
 
     <trans-unit id="softwareedit.jsp.child_channels">
         <source>Child Channels</source>

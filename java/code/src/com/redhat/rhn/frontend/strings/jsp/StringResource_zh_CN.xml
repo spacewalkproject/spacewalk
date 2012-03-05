@@ -10309,12 +10309,6 @@ Kickstart 侧写的引导装载程序和分区选项，有可能覆盖用户定�
         </context-group>
     <target>&lt;strong&gt;提示：&lt;/strong&gt;对基本频道的修改将要求您重新选择和此配置文件相关联的子频道。</target></trans-unit>
 
-    <trans-unit id="softwareedit.jsp.release">
-        <source>OS Release</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart/KickstartSoftwareEdit</context>
-        </context-group>
-    <target>操作系统发行本</target></trans-unit>
 
     <trans-unit id="softwareedit.jsp.child_channels">
         <source>Child Channels</source>

@@ -10295,12 +10295,6 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
     <target>&lt;strong&gt;Совет:&lt;/strong&gt; Обратите внимание, что при изменении базового канала вам придется повторить выбор дочерних каналов, которые сопоставлены данному профилю.</target></trans-unit>
 
-    <trans-unit id="softwareedit.jsp.release">
-        <source>OS Release</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart/KickstartSoftwareEdit</context>
-        </context-group>
-    <target>Выпуск ОС</target></trans-unit>
 
     <trans-unit id="softwareedit.jsp.child_channels">
         <source>Child Channels</source>

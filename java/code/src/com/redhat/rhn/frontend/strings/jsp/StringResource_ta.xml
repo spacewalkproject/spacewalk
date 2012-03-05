@@ -10301,12 +10301,6 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
     <target>&lt;strong&gt;துணுக்கு:&lt;/strong&gt; அடிப்படை தடத்தை மாற்றுவதற்கு உங்களுக்கு இந்த விவரக்குறிப்புடன் தொடர்புடைய ஏதாவது சேய் தடங்களை மீண்டும் தேர்ந்தெடுக்க வேண்டும்.</target></trans-unit>
 
-    <trans-unit id="softwareedit.jsp.release">
-        <source>OS Release</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart/KickstartSoftwareEdit</context>
-        </context-group>
-    <target>OS வெளியீடு</target></trans-unit>
 
     <trans-unit id="softwareedit.jsp.child_channels">
         <source>Child Channels</source>

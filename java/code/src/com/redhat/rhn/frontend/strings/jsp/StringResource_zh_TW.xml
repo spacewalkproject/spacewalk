@@ -10297,12 +10297,6 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
     <target>&lt;strong&gt;提示：&lt;/strong&gt;您需要重新選擇與此設定檔相關的任何子頻道才能改變基礎頻道。</target></trans-unit>
 
-    <trans-unit id="softwareedit.jsp.release">
-        <source>OS Release</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart/KickstartSoftwareEdit</context>
-        </context-group>
-    <target>作業系統版本</target></trans-unit>
 
     <trans-unit id="softwareedit.jsp.child_channels">
         <source>Child Channels</source>

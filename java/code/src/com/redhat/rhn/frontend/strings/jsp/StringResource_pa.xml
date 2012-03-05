@@ -10300,12 +10300,6 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
     <target>&lt;strong&gt;ਟਿੱਪਣੀ:&lt;/strong&gt; ਅਧਾਰ ਚੈਨਲ ਤਬਦੀਲ ਕਰਨ ਲਈ ਤੁਹਾਨੂੰ ਕੋਈ ਅਧੀਨ ਚੈਨਲ ਚੁਣਨਾ ਪਵੇਗਾ ਜੋ ਇਸ ਪਰੋਫਾਈਲ ਨਾਲ ਸੰਬੰਧਿਤ ਹੈ।</target></trans-unit>
 
-    <trans-unit id="softwareedit.jsp.release">
-        <source>OS Release</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart/KickstartSoftwareEdit</context>
-        </context-group>
-    <target>OS ਰੀਲਿਜ਼</target></trans-unit>
 
     <trans-unit id="softwareedit.jsp.child_channels">
         <source>Child Channels</source>

@@ -10298,12 +10298,6 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
     <target>&lt;strong&gt;힌트:&lt;/strong&gt; 기본 채널을 변경하셨을 경우 프로파일과 관련된 모든 자식 채널을 다시 선택하셔야 합니다.</target></trans-unit>
 
-    <trans-unit id="softwareedit.jsp.release">
-        <source>OS Release</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart/KickstartSoftwareEdit</context>
-        </context-group>
-    <target>OS 릴리즈</target></trans-unit>
 
     <trans-unit id="softwareedit.jsp.child_channels">
         <source>Child Channels</source>
