@@ -15758,16 +15758,6 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
         </context-group>
       <target>킥스타트가능한 채널을 찾을 수 없습니다.</target></trans-unit>
 
-     <trans-unit id="tree-form.jspf.noautoks">
-<source> &lt;strong&gt; Could not find any Kickstart RPMs.  These RPMs are located in
-the @@PRODUCT_NAME@@ Tools channels for each supported parent channel.  You may
-need to perform a satellite sync of the @@PRODUCT_NAME@@ Tools channels before
-performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;
-</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart/TreeCreate.do</context>
-        </context-group>
-      <target></target></trans-unit>
 
      <trans-unit id="tree-form.jspf.noinstalltypes">
 <source>

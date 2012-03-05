@@ -15812,19 +15812,6 @@ Le chemin d'arborescence, le RPM Kickstart, le canal de base, et la génération
         </context-group>
       <target>Aucun canal kickstart trouvé.</target></trans-unit>
 
-     <trans-unit id="tree-form.jspf.noautoks">
-<source> &lt;strong&gt; Could not find any Kickstart RPMs.  These RPMs are located in
-the @@PRODUCT_NAME@@ Tools channels for each supported parent channel.  You may
-need to perform a satellite sync of the @@PRODUCT_NAME@@ Tools channels before
-performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;
-</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart/TreeCreate.do</context>
-        </context-group>
-      <target>&lt;strong&gt;N'a pas pu trouver les RPM de Kickstart.  Ces fichiers RPM est situés dans
-les canaux de logiciels de @@PRODUCT_NAME@@pour chaque canal parent pris en charge.  Vous
- vous devrez sans doute effectuer une synchronisation par satellite des canaux de logiels d'outils @@ PRODUCT_NAME @@ avant tout kickstart ou avant de créer une nouvelle distribution kickstart.&lt;/strong&gt;
-</target></trans-unit>
 
      <trans-unit id="tree-form.jspf.noinstalltypes">
 <source>

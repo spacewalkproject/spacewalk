@@ -15814,20 +15814,6 @@ Baumpfad, Kickstart-RPM, Basis-Channel und Installer-Generation sollten immer ü
         </context-group>
       <target>Keine kickstartbaren Channels gefunden.</target></trans-unit>
 
-     <trans-unit id="tree-form.jspf.noautoks">
-<source> &lt;strong&gt; Could not find any Kickstart RPMs.  These RPMs are located in
-the @@PRODUCT_NAME@@ Tools channels for each supported parent channel.  You may
-need to perform a satellite sync of the @@PRODUCT_NAME@@ Tools channels before
-performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;
-</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart/TreeCreate.do</context>
-        </context-group>
-      <target> &lt;strong&gt; Es konnten keine Kickstart RPMs gefunden werden. Diese RPMs befinden sich in den
-@@PRODUCT_NAME@@ Tools-Channels für jeden unterstützten Parent-Channel. Sie müssen ggf.
-einen Satellite-Sync auf den @@PRODUCT_NAME@@ Tools-Channels durchführen, bevor Sie
-einen Kickstart durchführen oder eine neue Kickstart-Distribution erzeugen.&lt;/strong&gt;
-</target></trans-unit>
 
      <trans-unit id="tree-form.jspf.noinstalltypes">
 <source>

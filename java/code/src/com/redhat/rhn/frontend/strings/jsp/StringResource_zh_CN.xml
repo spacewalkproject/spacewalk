@@ -15806,19 +15806,6 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
         </context-group>
       <target>没有找到可 Kickstart 的频道。</target></trans-unit>
 
-     <trans-unit id="tree-form.jspf.noautoks">
-<source> &lt;strong&gt; Could not find any Kickstart RPMs.  These RPMs are located in
-the @@PRODUCT_NAME@@ Tools channels for each supported parent channel.  You may
-need to perform a satellite sync of the @@PRODUCT_NAME@@ Tools channels before
-performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;
-</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart/TreeCreate.do</context>
-        </context-group>
-      <target> &lt;strong&gt; 无法找到任何 Kickstart RPM。这些 RPM 针对每个支持的父频道载入到了
-@@PRODUCT_NAME@@ 工具频道。在执行 Kickstart 或创建新的 Kickstart  发布版本之前，
-您可能需要执行一个 @@PRODUCT_NAME@@ 工具频道的 Satellite 同步。&lt;/strong&gt;
-</target></trans-unit>
 
      <trans-unit id="tree-form.jspf.noinstalltypes">
 <source>

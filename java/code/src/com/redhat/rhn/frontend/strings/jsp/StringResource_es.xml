@@ -15810,20 +15810,6 @@ La ruta del ábol, el RPM Kickstart, el canal base y la generación del instalad
         </context-group>
       <target>No se encontraron canales desde los cuales Kickstart es posible.</target></trans-unit>
 
-     <trans-unit id="tree-form.jspf.noautoks">
-<source> &lt;strong&gt; Could not find any Kickstart RPMs.  These RPMs are located in
-the @@PRODUCT_NAME@@ Tools channels for each supported parent channel.  You may
-need to perform a satellite sync of the @@PRODUCT_NAME@@ Tools channels before
-performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;
-</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart/TreeCreate.do</context>
-        </context-group>
-      <target> &lt;strong&gt; No pudo encontrar ningún RPM Kickstart.  Estos RPMs se encuentran en
-los canales de herramientas @@PRODUCT_NAME@@ para cada canal padre soportado.
-Puede que necesite realizar una sincronización del satélite de los canales de herramientas @@PRODUCT_NAME@@ antes
-de realizar un kickstart o antes de crear una nueva distribución kickstart.&lt;/strong&gt;
-</target></trans-unit>
 
      <trans-unit id="tree-form.jspf.noinstalltypes">
 <source>
