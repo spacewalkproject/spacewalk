@@ -1112,12 +1112,6 @@
       </trans-unit>
 
 
-	<trans-unit id="sidebar.ads.buynowalt">
-<source>Buy Now Image</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">./includes/footer.jsp</context>
-        </context-group>
-      </trans-unit>
 
 	<trans-unit id="sidebar.ads.downloadnowalt">
 <source>Software Downloads Image</source>

@@ -1096,12 +1096,6 @@
       <target>@@PRODUCT_NAME@@ ਰੀਲੀਜ਼ &lt;a href="{0}"&gt;{1}&lt;/a&gt;</target></trans-unit>
 
 
-	<trans-unit id="sidebar.ads.buynowalt">
-<source>Buy Now Image</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">./includes/footer.jsp</context>
-        </context-group>
-      <target>ਹੁਣ ਪ੍ਰਤੀਬਿੰਬ ਖਰੀਦੋ</target></trans-unit>
 
 	<trans-unit id="sidebar.ads.downloadnowalt">
 <source>Software Downloads Image</source>
