@@ -2259,12 +2259,6 @@ asegurarse de que estén disponibles para que este perfil kickstart funcione apr
         </context-group>
       <target>subir un nuevo perfil kickstart</target></trans-unit>
 
-     <trans-unit id="toolbar.create.kickstart">
-<source>create new kickstart profile</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/UserList</context>
-        </context-group>
-      <target>crear un nuevo perfil kickstart</target></trans-unit>
 
       <trans-unit id="toolbar.create.kickstartdata">
 <source>create new kickstart</source>

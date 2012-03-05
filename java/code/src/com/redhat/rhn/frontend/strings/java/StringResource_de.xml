@@ -2265,12 +2265,6 @@ verfügbar machen, damit dieses Kickstart-Profil einwandfrei funktionieren kann.
         </context-group>
       <target>Neues Kickstart-Profil hochladen</target></trans-unit>
 
-     <trans-unit id="toolbar.create.kickstart">
-<source>create new kickstart profile</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/UserList</context>
-        </context-group>
-      <target>Neues Kickstart-Profil erstellen</target></trans-unit>
 
       <trans-unit id="toolbar.create.kickstartdata">
 <source>create new kickstart</source>

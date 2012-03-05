@@ -2258,12 +2258,6 @@ rhn-kickstart* パッケージが利用可能であることを確認します�
         </context-group>
       <target>新規のキックスタートプロフィールをアップロード　</target></trans-unit>
 
-     <trans-unit id="toolbar.create.kickstart">
-<source>create new kickstart profile</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/UserList</context>
-        </context-group>
-      <target>新規のキックスタートプロフィールを作成</target></trans-unit>
 
       <trans-unit id="toolbar.create.kickstartdata">
 <source>create new kickstart</source>

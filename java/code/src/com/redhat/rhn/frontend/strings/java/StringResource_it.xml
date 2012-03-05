@@ -2258,12 +2258,6 @@ disponibili per un corretto funzionamento di questo profilo kickstart.
         </context-group>
       <target>carica un nuovo file di kickstart</target></trans-unit>
 
-     <trans-unit id="toolbar.create.kickstart">
-<source>create new kickstart profile</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/UserList</context>
-        </context-group>
-      <target>crea un nuovo profilo kickstart</target></trans-unit>
 
       <trans-unit id="toolbar.create.kickstartdata">
 <source>create new kickstart</source>

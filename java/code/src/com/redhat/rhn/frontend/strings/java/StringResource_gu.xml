@@ -2234,12 +2234,6 @@ available for this kickstart profile to function properly.
         </context-group>
       <target>નવી કિકસ્ટાર્ટ ફાઇલને અપલોડ કરો</target></trans-unit>
 
-     <trans-unit id="toolbar.create.kickstart">
-<source>create new kickstart profile</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/UserList</context>
-        </context-group>
-      <target>નવી કિકસ્ટાર્ટ રૂપરેખા બનાવો</target></trans-unit>
 
       <trans-unit id="toolbar.create.kickstartdata">
 <source>create new kickstart</source>

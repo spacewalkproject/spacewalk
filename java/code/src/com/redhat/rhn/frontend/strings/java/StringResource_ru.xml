@@ -2234,12 +2234,6 @@ available for this kickstart profile to function properly.
         </context-group>
       <target>загрузить новый файл кикстарта</target></trans-unit>
 
-     <trans-unit id="toolbar.create.kickstart">
-<source>create new kickstart profile</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/UserList</context>
-        </context-group>
-      <target>создать новый профиль кикстарта</target></trans-unit>
 
       <trans-unit id="toolbar.create.kickstartdata">
 <source>create new kickstart</source>
