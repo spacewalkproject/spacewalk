@@ -807,12 +807,6 @@
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
       <target>Mostrar los registros de Tomcat</target></trans-unit>
-      <trans-unit id="Terms &amp; Conditions">
-<source>Terms &amp; Conditions</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-      <target>Términos y condiciones</target></trans-unit>
       <trans-unit id="testMessage">
 <source>this is a test of the emergency broadcast</source>
         <context-group name="ctx">

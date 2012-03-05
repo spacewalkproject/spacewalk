@@ -819,12 +819,6 @@ http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd"
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="Terms &amp; Conditions">
-<source>Terms &amp; Conditions</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="testMessage">
 <source>this is a test of the emergency broadcast</source>
         <context-group name="ctx">
