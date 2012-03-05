@@ -16877,12 +16877,6 @@ the &lt;a href=&quot;/rhn/kickstart/ActivationKeysList.do?ksid={0}&quot;&gt;Acti
         </context-group>
     </trans-unit>
 
- 	<trans-unit id="kickstarts.profile.is-valid.tooltip">
-        <source>Kickstart profiles may be associated to an invalid kickstart distribution. To make a kickstart profile valid please select the profile and modify its distribution appropriately.</source>
-       <context-group name="ctx">
-           <context context-type="sourcefile">/rhn/kickstart/Kickstarts.do</context>
-       </context-group>
-    </trans-unit>
     <!--KS schedule pages -->
 	<group>
 	    <context-group name="ctx">

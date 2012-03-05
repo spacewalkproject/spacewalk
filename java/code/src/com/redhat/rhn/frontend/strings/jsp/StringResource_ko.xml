@@ -16470,12 +16470,6 @@ the &lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;Activation Key
         </context-group>
     <target>배포판  </target></trans-unit>
 
-	<trans-unit id="kickstarts.profile.is-valid.tooltip">
-        <source>Kickstart profiles may be associated to an invalid kickstart distribution. To make a kickstart profile valid please select the profile and modify its distribution appropriately.</source>
-       <context-group name="ctx">
-           <context context-type="sourcefile">/rhn/kickstart/Kickstarts.do</context>
-       </context-group>
-    <target></target></trans-unit>
     <!--KS schedule pages -->
 	<group>
 	    <context-group name="ctx">

@@ -16474,12 +16474,6 @@ per sottoscrivere i sistemi ai canali software durante un kickstart.&lt;/span&gt
         </context-group>
     <target>Distribuzione</target></trans-unit>
 
-	<trans-unit id="kickstarts.profile.is-valid.tooltip">
-        <source>Kickstart profiles may be associated to an invalid kickstart distribution. To make a kickstart profile valid please select the profile and modify its distribution appropriately.</source>
-       <context-group name="ctx">
-           <context context-type="sourcefile">/rhn/kickstart/Kickstarts.do</context>
-       </context-group>
-    <target></target></trans-unit>
     <!--KS schedule pages -->
 	<group>
 	    <context-group name="ctx">

@@ -16516,12 +16516,6 @@ para suscribir los sistemas a los canales de software durante el inicio de insta
         </context-group>
     <target>Distribución</target></trans-unit>
 
-	<trans-unit id="kickstarts.profile.is-valid.tooltip">
-        <source>Kickstart profiles may be associated to an invalid kickstart distribution. To make a kickstart profile valid please select the profile and modify its distribution appropriately.</source>
-       <context-group name="ctx">
-           <context context-type="sourcefile">/rhn/kickstart/Kickstarts.do</context>
-       </context-group>
-    <target>Puede que los perfiles kickstart estén asociados con una distribución kickstart inválida. Para hacer un perfil kickstart válido seleccione el perfil y modifique su distribución de manera apropiada. </target></trans-unit>
     <!--KS schedule pages -->
 	<group>
 	    <context-group name="ctx">
