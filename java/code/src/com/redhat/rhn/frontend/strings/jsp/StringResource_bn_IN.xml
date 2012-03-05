@@ -886,12 +886,6 @@
         </context-group>
       <target>প্রভিশনিং: সিস্টেমের স্ন্যাপশট, পূর্ণাঙ্গ kickstart, কনফিগারেশন পরিচালনা প্রভৃতি।</target></trans-unit>
 
-      <trans-unit id="login.jsp.learnmore">
-<source>Learn more about RHN now</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/Login</context>
-        </context-group>
-      <target>RHN সম্পর্কে অধিক জ্ঞান লাভ করুন</target></trans-unit>
 
       <trans-unit id="login.jsp.note">
 <source>&lt;strong&gt;Note:&lt;/strong&gt; If you are having SSL connection issues when connecting to @@PRODUCT_NAME@@, ensure that you are using &lt;a href="/help/latest-up2date.pxt"&gt;the latest versions&lt;/a&gt; of up2date (Enterprise Linux 4 and below) or yum (Enterprise Linux 5 and higher) and rhn_register.</source>

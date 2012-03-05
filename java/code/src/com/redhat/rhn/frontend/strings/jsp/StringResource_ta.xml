@@ -886,12 +886,6 @@
         </context-group>
       <target>வாய்ப்பளித்தல்: கணினி நொடிப்புகள், இணைக்கப்பட்ட கிக்ஸ்டார்ட்கள், கட்டமைப்பு மேலாண்மை மற்றும் பல.</target></trans-unit>
 
-      <trans-unit id="login.jsp.learnmore">
-<source>Learn more about RHN now</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/Login</context>
-        </context-group>
-      <target>RHN ஐ பற்றி இப்போது இன்னும் கற்கவும்</target></trans-unit>
 
       <trans-unit id="login.jsp.note">
 <source>&lt;strong&gt;Note:&lt;/strong&gt; If you are having SSL connection issues when connecting to @@PRODUCT_NAME@@, ensure that you are using &lt;a href="/help/latest-up2date.pxt"&gt;the latest versions&lt;/a&gt; of up2date (Enterprise Linux 4 and below) or yum (Enterprise Linux 5 and higher) and rhn_register.</source>

@@ -886,12 +886,6 @@
         </context-group>
       <target>프로비저닝(Provisioning): 시스템 스냅샷, 통합 킥스타트, 설정 관리 등과 같은 많은 기능을 관리합니다.</target></trans-unit>
 
-      <trans-unit id="login.jsp.learnmore">
-<source>Learn more about RHN now</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/Login</context>
-        </context-group>
-      <target>RHN 추가 정보 보기</target></trans-unit>
 
       <trans-unit id="login.jsp.note">
 <source>&lt;strong&gt;Note:&lt;/strong&gt; If you are having SSL connection issues when connecting to @@PRODUCT_NAME@@, ensure that you are using &lt;a href="/help/latest-up2date.pxt"&gt;the latest versions&lt;/a&gt; of up2date (Enterprise Linux 4 and below) or yum (Enterprise Linux 5 and higher) and rhn_register.</source>
