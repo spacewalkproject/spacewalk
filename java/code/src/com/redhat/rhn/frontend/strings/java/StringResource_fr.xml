@@ -5919,12 +5919,6 @@ utilisateur avant de désactiver son compte.</target></trans-unit>
 
 
 
-    <trans-unit id="certificate.config.error.86">
-        <source>@@PRODUCT_NAME@@ has no base channel on parent server</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-      <target>@@PRODUCT_NAME@@ n'a pas de canal de base sur le serveur parent</target></trans-unit>
 
     <trans-unit id="certificate.config.error.87">
         <source>No @@PRODUCT_NAME@@ channel available for this version</source>
