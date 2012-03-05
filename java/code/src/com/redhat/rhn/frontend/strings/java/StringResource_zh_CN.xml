@@ -2339,12 +2339,6 @@ available for this kickstart profile to function properly.
         </context-group>
       <target>删除发布</target></trans-unit>
 
-      <trans-unit id="toolbar.create.probesuite">
-<source>create new probe suite</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuites.do</context>
-        </context-group>
-      <target>创建新探测套件</target></trans-unit>
 
       <trans-unit id="toolbar.create.probesuitesystem">
 <source>add systems to probe suite</source>

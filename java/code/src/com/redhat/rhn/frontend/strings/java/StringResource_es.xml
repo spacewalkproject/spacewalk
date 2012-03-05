@@ -2339,12 +2339,6 @@ asegurarse de que estén disponibles para que este perfil kickstart funcione apr
         </context-group>
       <target>borrar distribución</target></trans-unit>
 
-      <trans-unit id="toolbar.create.probesuite">
-<source>create new probe suite</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuites.do</context>
-        </context-group>
-      <target>crear nuevo conjunto de sondeos</target></trans-unit>
 
       <trans-unit id="toolbar.create.probesuitesystem">
 <source>add systems to probe suite</source>

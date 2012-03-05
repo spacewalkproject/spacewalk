@@ -2314,12 +2314,6 @@ available for this kickstart profile to function properly.
         </context-group>
       <target>பகிர்தலை அழிக்கவும்</target></trans-unit>
 
-      <trans-unit id="toolbar.create.probesuite">
-<source>create new probe suite</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuites.do</context>
-        </context-group>
-      <target>புதிய ஆய்வு தொகுப்பை உருவாக்கவும்</target></trans-unit>
 
       <trans-unit id="toolbar.create.probesuitesystem">
 <source>add systems to probe suite</source>

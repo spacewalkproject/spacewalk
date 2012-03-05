@@ -2338,12 +2338,6 @@ rhn-kickstart* パッケージが利用可能であることを確認します�
         </context-group>
       <target>ディストリビューションの削除</target></trans-unit>
 
-      <trans-unit id="toolbar.create.probesuite">
-<source>create new probe suite</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuites.do</context>
-        </context-group>
-      <target>新規のプローブセットを作成</target></trans-unit>
 
       <trans-unit id="toolbar.create.probesuitesystem">
 <source>add systems to probe suite</source>

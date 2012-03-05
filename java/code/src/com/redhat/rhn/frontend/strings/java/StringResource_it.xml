@@ -2338,12 +2338,6 @@ disponibili per un corretto funzionamento di questo profilo kickstart.
         </context-group>
       <target>cancella distribuzione</target></trans-unit>
 
-      <trans-unit id="toolbar.create.probesuite">
-<source>create new probe suite</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuites.do</context>
-        </context-group>
-      <target>crea nuova suite di probe</target></trans-unit>
 
       <trans-unit id="toolbar.create.probesuitesystem">
 <source>add systems to probe suite</source>
