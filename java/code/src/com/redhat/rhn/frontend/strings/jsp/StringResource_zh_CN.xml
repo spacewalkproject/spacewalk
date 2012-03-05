@@ -18985,25 +18985,6 @@ Emergency Maintenance windows.&lt;a href="{0}"&gt;Register for the Email Outage 
 &lt;strong&gt;注意：&lt;/strong&gt;通过下载这个软件，您同意相关的许可证协议的条款(&lt;a href="{0}"&gt;{1}&lt;/a&gt;）。
 </target></trans-unit>
 
-      <trans-unit id="isodownload.latest.description">
-<source>
-	Below please find the complete set of ISO images for the &lt;strong&gt;latest release&lt;/strong&gt; of {0}.
-	Depending on the variant of {0} you'd like to install, you may only need a subset of these discs.
-    (&lt;a href="{1}"&gt;more information&lt;/a&gt;)
-</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/software/channel/downloads/Download.do</context>
-		  <context context-type="paramnotes">
-	Below please find the complete set of ISO images for the latest release of Red Hat Enterprise Linux (v.5 for 32-bit x86).
-	Depending on the variant of Red Hat Linux 5 you'd like to install, you may only need a subset of these discs.
-    (_more information_)
-		  </context>
-        </context-group>
-      <target>
-	下面是用于 {0} 的&lt;strong&gt;最新版本&lt;/strong&gt;的 ISO 映像的完整集合。
-	根据您想安装的 {0} 的版本，您可能需要这些映像的一个子集。
-    (&lt;a href="{1}"&gt;更多信息&lt;/a&gt;)
-</target></trans-unit>
       <trans-unit id="isodownload.viewsource">
 <source>View Source ISO Images</source>
         <context-group name="ctx">

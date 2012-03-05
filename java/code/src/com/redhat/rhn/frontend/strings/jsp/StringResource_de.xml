@@ -18994,25 +18994,6 @@ Notfall-Wartungsfenstern f&amp;uuml;r Benachrichtigungen verwendet.
 &lt;strong&gt;HINWEIS:&lt;/strong&gt; Mit dem Herunterladen dieser Software erklären Sie sich mit den Nutzungsbedingungen der entsprechenden Lizenzvereinbarung (hier &lt;a href="{0}"&gt;{1}&lt;/a&gt; erhältlich) einverstanden.
 </target></trans-unit>
 
-      <trans-unit id="isodownload.latest.description">
-<source>
-	Below please find the complete set of ISO images for the &lt;strong&gt;latest release&lt;/strong&gt; of {0}.
-	Depending on the variant of {0} you'd like to install, you may only need a subset of these discs.
-    (&lt;a href="{1}"&gt;more information&lt;/a&gt;)
-</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/software/channel/downloads/Download.do</context>
-		  <context context-type="paramnotes">
-	Below please find the complete set of ISO images for the latest release of Red Hat Enterprise Linux (v.5 for 32-bit x86).
-	Depending on the variant of Red Hat Linux 5 you'd like to install, you may only need a subset of these discs.
-    (_more information_)
-		  </context>
-        </context-group>
-      <target>
-	Nachfolgend finden Sie die vollständige Reihe von ISO-Images für die &lt;strong&gt;neueste Release&lt;/strong&gt; von {0}.
-	Abhängig von der {0} Variante, die Sie installieren möchten, benötigen Sie ggf. nur eine Untergruppe dieser Discs.
-    (&lt;a href="{1}"&gt;Weitere Informationen&lt;/a&gt;)
-</target></trans-unit>
       <trans-unit id="isodownload.viewsource">
 <source>View Source ISO Images</source>
         <context-group name="ctx">
