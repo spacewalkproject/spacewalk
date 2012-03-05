@@ -7260,12 +7260,6 @@ organization management tools if you choose to remove this role from your login.
         </context-group>
       <target>Di seguito viene riportato un confronto dei profili del pacchetto di questo sistema, ed il sistema selezionato per in confronto.</target></trans-unit>
 
-      <trans-unit id="systemcompare.jsp.syncpackagesto">
-<source>Sync Packages To {0}</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">NOTFILLEDOUT</context>
-        </context-group>
-      <target>Sincronizza pacchetti a {0}</target></trans-unit>
 
       <trans-unit id="systemcompare.jsp.thissystem">
 <source>This System</source>

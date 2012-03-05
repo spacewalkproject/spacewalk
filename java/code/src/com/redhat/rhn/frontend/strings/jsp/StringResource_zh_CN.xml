@@ -7264,12 +7264,6 @@ organization management tools if you choose to remove this role from your login.
         </context-group>
       <target>以下是这个系统和被选为与其进行比较系统的软件包侧写的比较结果。</target></trans-unit>
 
-      <trans-unit id="systemcompare.jsp.syncpackagesto">
-<source>Sync Packages To {0}</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">NOTFILLEDOUT</context>
-        </context-group>
-      <target>与 {0} 同步软件包</target></trans-unit>
 
       <trans-unit id="systemcompare.jsp.thissystem">
 <source>This System</source>

@@ -7260,12 +7260,6 @@ organization management tools if you choose to remove this role from your login.
         </context-group>
       <target>கீழே உள்ளது இந்த கணினியின் தொகுப்பு விவரக்குறிப்பு ஒப்பீடாகும் மற்றும் விவரக்குறிப்பு ஒப்பீடுக்கு தேர்ந்தெடுக்கப்பட்டுள்ளது. </target></trans-unit>
 
-      <trans-unit id="systemcompare.jsp.syncpackagesto">
-<source>Sync Packages To {0}</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">NOTFILLEDOUT</context>
-        </context-group>
-      <target>{0} க்கு தொகுப்புகளை ஒருங்கிணைக்கவும்</target></trans-unit>
 
       <trans-unit id="systemcompare.jsp.thissystem">
 <source>This System</source>

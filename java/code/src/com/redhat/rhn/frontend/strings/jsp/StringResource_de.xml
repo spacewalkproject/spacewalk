@@ -7267,12 +7267,6 @@ und Organisationsmanagement-Tools haben, sollten Sie diese Rolle aus Ihrem Login
         </context-group>
       <target>Unten finden Sie einen Vergleich der Paketprofile dieses Systems und dem System, das zum Vergleich ausgew&amp;auml;hlt wurde. </target></trans-unit>
 
-      <trans-unit id="systemcompare.jsp.syncpackagesto">
-<source>Sync Packages To {0}</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">NOTFILLEDOUT</context>
-        </context-group>
-      <target>Sync Pakete nach {0}</target></trans-unit>
 
       <trans-unit id="systemcompare.jsp.thissystem">
 <source>This System</source>

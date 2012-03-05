@@ -7265,12 +7265,6 @@ organización si decide borrar este rol de su inicio de sesión.
         </context-group>
       <target>A continuación se listan los perfiles de paquetes de este sistema y el sistema seleccionado para comparación.</target></trans-unit>
 
-      <trans-unit id="systemcompare.jsp.syncpackagesto">
-<source>Sync Packages To {0}</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">NOTFILLEDOUT</context>
-        </context-group>
-      <target>Sincronizar paquetes a {0}</target></trans-unit>
 
       <trans-unit id="systemcompare.jsp.thissystem">
 <source>This System</source>

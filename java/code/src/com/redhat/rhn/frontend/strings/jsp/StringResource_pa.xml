@@ -7260,12 +7260,6 @@ organization management tools if you choose to remove this role from your login.
         </context-group>
       <target>ਹੇਠਾਂ ਇਸ ਸਿਸਟਮ ਅਤੇ ਤੁਲਨਾ ਲਈ ਚੁਣੇ ਸਿਸਟਮ ਦੇ ਪਰੋਫਾਈਲ ਪੈਕੇਜਾਂ ਵਿੱਚ ਅੰਤਰ ਦਿੱਤੇ ਗਏ ਹਨ।</target></trans-unit>
 
-      <trans-unit id="systemcompare.jsp.syncpackagesto">
-<source>Sync Packages To {0}</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">NOTFILLEDOUT</context>
-        </context-group>
-      <target>{0} ਨਾਲ ਪੈਕੇਜ ਸਮਕਾਲੀ</target></trans-unit>
 
       <trans-unit id="systemcompare.jsp.thissystem">
 <source>This System</source>

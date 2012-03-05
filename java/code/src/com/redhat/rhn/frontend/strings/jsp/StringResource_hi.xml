@@ -7260,12 +7260,6 @@ organization management tools if you choose to remove this role from your login.
         </context-group>
       <target>इस सिस्टम के संकुल प्रोफाइल और तुलना के लिये चयनित सिस्टम का नीचे तुलना किया गया है. </target></trans-unit>
 
-      <trans-unit id="systemcompare.jsp.syncpackagesto">
-<source>Sync Packages To {0}</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">NOTFILLEDOUT</context>
-        </context-group>
-      <target>संकुल {0} में तुल्यकालित करें</target></trans-unit>
 
       <trans-unit id="systemcompare.jsp.thissystem">
 <source>This System</source>

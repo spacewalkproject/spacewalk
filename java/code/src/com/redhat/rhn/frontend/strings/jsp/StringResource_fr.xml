@@ -7266,12 +7266,6 @@ ni aux outils de gestion d'organisation si vous choisissez de supprimer ce rôle
         </context-group>
       <target>Ci-dessous figure une comparaison des profils de paquetages de ce système et le système sélectionné pour la comparaison.</target></trans-unit>
 
-      <trans-unit id="systemcompare.jsp.syncpackagesto">
-<source>Sync Packages To {0}</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">NOTFILLEDOUT</context>
-        </context-group>
-      <target>Synchroniser les paquetages à {0}</target></trans-unit>
 
       <trans-unit id="systemcompare.jsp.thissystem">
 <source>This System</source>

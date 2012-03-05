@@ -7256,12 +7256,6 @@ organization management tools if you choose to remove this role from your login.
         </context-group>
       <target>以下是本系統套件設定檔與所選系統的比較。</target></trans-unit>
 
-      <trans-unit id="systemcompare.jsp.syncpackagesto">
-<source>Sync Packages To {0}</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">NOTFILLEDOUT</context>
-        </context-group>
-      <target>將套件同步至 {0}</target></trans-unit>
 
       <trans-unit id="systemcompare.jsp.thissystem">
 <source>This System</source>
