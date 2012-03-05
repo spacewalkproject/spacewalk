@@ -489,12 +489,6 @@ http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd"
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="Global Config">
-<source>Global Config</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">NOT USED</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="Go">
 <source>Go</source>
         <context-group name="ctx">

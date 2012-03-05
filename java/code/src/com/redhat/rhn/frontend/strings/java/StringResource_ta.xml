@@ -483,12 +483,6 @@
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
       <target>கோப்பு பாதுகாத்தல்</target></trans-unit>
-      <trans-unit id="Global Config">
-<source>Global Config</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">NOT USED</context>
-        </context-group>
-      <target>முழுமையான கட்டமைப்பு</target></trans-unit>
       <trans-unit id="Go">
 <source>Go</source>
         <context-group name="ctx">

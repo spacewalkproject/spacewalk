@@ -483,12 +483,6 @@
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
       <target>파일 보관 </target></trans-unit>
-      <trans-unit id="Global Config">
-<source>Global Config</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">NOT USED</context>
-        </context-group>
-      <target>전역 설정</target></trans-unit>
       <trans-unit id="Go">
 <source>Go</source>
         <context-group name="ctx">
