@@ -7255,12 +7255,6 @@ organización si decide borrar este rol de su inicio de sesión.
       <target>Programar sincronización</target></trans-unit>
 
 
-      <trans-unit id="systemcompare.jsp.difference">
-<source>Difference</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">NOTFILLEDOUT</context>
-        </context-group>
-      <target>Diferenciar</target></trans-unit>
 
       <trans-unit id="systemcompare.jsp.nodifference">
 <source>No differences.</source>

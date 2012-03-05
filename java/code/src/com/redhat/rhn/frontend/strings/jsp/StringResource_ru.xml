@@ -7247,12 +7247,6 @@ organization management tools if you choose to remove this role from your login.
       <target>Назначить синхронизацию</target></trans-unit>
 
 
-      <trans-unit id="systemcompare.jsp.difference">
-<source>Difference</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">NOTFILLEDOUT</context>
-        </context-group>
-      <target>Различия</target></trans-unit>
 
       <trans-unit id="systemcompare.jsp.nodifference">
 <source>No differences.</source>

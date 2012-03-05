@@ -7250,12 +7250,6 @@ organization management tools if you choose to remove this role from your login.
       <target>সিঙ্ক কর্ম নির্ধারণ</target></trans-unit>
 
 
-      <trans-unit id="systemcompare.jsp.difference">
-<source>Difference</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">NOTFILLEDOUT</context>
-        </context-group>
-      <target>পার্থক্য</target></trans-unit>
 
       <trans-unit id="systemcompare.jsp.nodifference">
 <source>No differences.</source>
