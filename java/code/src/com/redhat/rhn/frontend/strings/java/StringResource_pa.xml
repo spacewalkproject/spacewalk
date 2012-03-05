@@ -1289,15 +1289,6 @@
           <context context-type="sourcefile">com.redhat.rhn.frontend.action.monitoring.notification.AbstractFilterEditAction</context>
         </context-group>
       <target>ਦਿੱਤਾ ਗਿਆ ਈ-ਮੇਲ ਸਿਰਨਾਵਾਂ ਠੀਕ ਨਹੀਂ ਹੈ</target></trans-unit>
-		<trans-unit id="error.addr_exists">
-<source>Email address "{0}" already exists</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/ChangeEmail</context>
-          <context context-type="sourcefile">/rhn/admin/config/GeneralConfig</context>
-          <context context-type="sourcefile">com.redhat.rhn.frontend.action.monitoring.notification.AbstractFilterEditAction</context>
-		  <context context-type="sourcefile">/users/CreateUser</context>
-        </context-group>
-      <target>ਈਮੇਲ ਸਿਰਨਾਵਾਂ "{0}" ਠੀਕ ਪਹਿਲਾਂ ਹੀ ਮੌਜੂਦ ਹੈ</target></trans-unit>
       <trans-unit id="/rhn/">
 <source>That username is already taken; please choose another.</source>
         <context-group name="ctx">
