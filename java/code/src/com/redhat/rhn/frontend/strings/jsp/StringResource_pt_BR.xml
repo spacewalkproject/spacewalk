@@ -17360,12 +17360,6 @@ de executar um kickstart ou criar uma nova distribuição kickstart.&lt;/strong&
          </trans-unit>
 
 
-         <trans-unit id="toolbar.delete.note">
-            <source>delete note</source>
-            <context-group name="ctx">
-            <context context-type="sourcefile">/systems/details/Note.do</context>
-            </context-group>
-         </trans-unit>
 
          <trans-unit id="edit_note.jsp.update">
            <source>Update</source>
