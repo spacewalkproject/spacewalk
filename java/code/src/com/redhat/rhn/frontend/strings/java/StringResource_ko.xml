@@ -2674,12 +2674,6 @@ available for this kickstart profile to function properly.
         </context-group>
       <target></target></trans-unit>
 
-      <trans-unit id="errata.search.could_not_execute_query">
-<source>Could not execute query: {0}</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/errata/Search.do</context>
-        </context-group>
-      <target>질의를 실행할 수 없습니다: {0}  </target></trans-unit>
 
       <trans-unit id="packages.search.both">
 <source>Name and Summary</source>

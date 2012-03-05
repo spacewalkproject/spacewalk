@@ -2699,12 +2699,6 @@ available for this kickstart profile to function properly.
         </context-group>
       <target>安全建议（不重要的）</target></trans-unit>
 
-      <trans-unit id="errata.search.could_not_execute_query">
-<source>Could not execute query: {0}</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/errata/Search.do</context>
-        </context-group>
-      <target>不能执行查询：{0}</target></trans-unit>
 
       <trans-unit id="packages.search.both">
 <source>Name and Summary</source>

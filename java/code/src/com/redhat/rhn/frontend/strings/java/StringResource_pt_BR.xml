@@ -2688,12 +2688,6 @@ disponíveis para seu perfil kickstart funcionar corretamente./n&lt;/li&gt;
         </context-group>
       <target>Informativo de Segurança (Baixo)</target></trans-unit>
 
-      <trans-unit id="errata.search.could_not_execute_query">
-<source>Could not execute query: {0}</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/errata/Search.do</context>
-        </context-group>
-      <target>Não foi possível executar a consulta: {0}.</target></trans-unit>
 
       <trans-unit id="packages.search.both">
 <source>Name and Summary</source>

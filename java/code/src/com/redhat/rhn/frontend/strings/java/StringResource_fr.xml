@@ -2701,12 +2701,6 @@ disponibles pour que ce profil kickstart puisse fonctionner correctement.
         </context-group>
       <target>Avis de sécurité (moindre)</target></trans-unit>
 
-      <trans-unit id="errata.search.could_not_execute_query">
-<source>Could not execute query: {0}</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/errata/Search.do</context>
-        </context-group>
-      <target>Impossible d'analyser la requête : {0}</target></trans-unit>
 
       <trans-unit id="packages.search.both">
 <source>Name and Summary</source>

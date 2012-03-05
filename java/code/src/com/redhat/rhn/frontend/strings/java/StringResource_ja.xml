@@ -2698,12 +2698,6 @@ rhn-kickstart* パッケージが利用可能であることを確認します�
         </context-group>
       <target>セキュリティアドバイザリ (低)</target></trans-unit>
 
-      <trans-unit id="errata.search.could_not_execute_query">
-<source>Could not execute query: {0}</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/errata/Search.do</context>
-        </context-group>
-      <target>クエリを実行できませんでした: {0}　</target></trans-unit>
 
       <trans-unit id="packages.search.both">
 <source>Name and Summary</source>

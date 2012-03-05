@@ -2699,12 +2699,6 @@ asegurarse de que estén disponibles para que este perfil kickstart funcione apr
         </context-group>
       <target>Asesor de seguridad (Bajo)</target></trans-unit>
 
-      <trans-unit id="errata.search.could_not_execute_query">
-<source>Could not execute query: {0}</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/errata/Search.do</context>
-        </context-group>
-      <target>No se pudo ejecutar la solicitud '{0}'.</target></trans-unit>
 
       <trans-unit id="packages.search.both">
 <source>Name and Summary</source>

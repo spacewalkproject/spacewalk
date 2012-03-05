@@ -2705,12 +2705,6 @@ verfügbar machen, damit dieses Kickstart-Profil einwandfrei funktionieren kann.
         </context-group>
       <target>Sicherheitshinweis (niedrig)</target></trans-unit>
 
-      <trans-unit id="errata.search.could_not_execute_query">
-<source>Could not execute query: {0}</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/errata/Search.do</context>
-        </context-group>
-      <target>Konnte Anfrage {0} nicht ausführen.</target></trans-unit>
 
       <trans-unit id="packages.search.both">
 <source>Name and Summary</source>
