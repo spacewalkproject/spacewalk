@@ -197,13 +197,6 @@
           <context context-type="paramnotes">Email is invalid</context>
         </context-group>
       <target>{0} 是无效的。</target></trans-unit>
-      <trans-unit id="errors.short">
-<source>{0} must be a short.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Any page that has required format fields</context>
-          <context context-type="paramnotes">Count must be a short.</context>
-        </context-group>
-      <target>{0} 必须是一个短整数。</target></trans-unit>
       <trans-unit id="errors.integer">
 <source>{0} must be an integer.</source>
         <context-group name="ctx">
