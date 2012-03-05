@@ -11132,9 +11132,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
        <trans-unit id="activation-keys.jsp.header">
          <source>Activation Keys</source>
        <target>સક્રિયકરણ કીઓ</target></trans-unit>
-       <trans-unit id="toolbar.create.activationkeys">
-         <source>create new key</source>
-     <target>નવી કી બનાવો</target></trans-unit>
        <trans-unit id="toolbar.delete.activationkeys">
          <source>delete key</source>
      <target>કી કાઢી નાંખો</target></trans-unit>

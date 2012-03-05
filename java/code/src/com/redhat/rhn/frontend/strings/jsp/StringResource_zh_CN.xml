@@ -11141,9 +11141,6 @@ kickstart 前脚本的内容可以在 &lt;strong&gt;《红帽企业版 Linux 系
        <trans-unit id="activation-keys.jsp.header">
          <source>Activation Keys</source>
        <target>激活码</target></trans-unit>
-       <trans-unit id="toolbar.create.activationkeys">
-         <source>create new key</source>
-     <target>生成新密钥</target></trans-unit>
        <trans-unit id="toolbar.delete.activationkeys">
          <source>delete key</source>
      <target>删除密钥</target></trans-unit>

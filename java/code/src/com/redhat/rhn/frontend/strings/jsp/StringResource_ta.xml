@@ -11132,9 +11132,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
        <trans-unit id="activation-keys.jsp.header">
          <source>Activation Keys</source>
        <target>செயல்படுத்தல் விசைகள்</target></trans-unit>
-       <trans-unit id="toolbar.create.activationkeys">
-         <source>create new key</source>
-     <target>புதிய விசையை உருவாக்கவும்</target></trans-unit>
        <trans-unit id="toolbar.delete.activationkeys">
          <source>delete key</source>
      <target>அழித்தல் விசை</target></trans-unit>

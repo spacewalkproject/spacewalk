@@ -11128,9 +11128,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
        <trans-unit id="activation-keys.jsp.header">
          <source>Activation Keys</source>
        <target>啟動金鑰</target></trans-unit>
-       <trans-unit id="toolbar.create.activationkeys">
-         <source>create new key</source>
-     <target>建立新的金鑰</target></trans-unit>
        <trans-unit id="toolbar.delete.activationkeys">
          <source>delete key</source>
      <target>刪除金鑰</target></trans-unit>
