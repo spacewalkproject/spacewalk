@@ -16738,12 +16738,6 @@ den Reiter &lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;Aktivie
     <target>System neustarten</target></trans-unit>
 
 
-    <trans-unit id="kickstart.session_status.jsp.status_kickstart">
-        <source>Kickstart System</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/kickstart/SessionStatus.do</context>
-        </context-group>
-    <target>System Kickstarten</target></trans-unit>
 
     <trans-unit id="kickstart.session_status.jsp.status_register">
         <source>Register system to @@PRODUCT_NAME@@</source>

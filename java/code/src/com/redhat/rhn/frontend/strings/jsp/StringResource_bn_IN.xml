@@ -16693,12 +16693,6 @@ Kickstart করার সময় অনুগ্রহ করে সিস্ট
     <target>সিস্টেম রি-বুট করুন</target></trans-unit>
 
 
-    <trans-unit id="kickstart.session_status.jsp.status_kickstart">
-        <source>Kickstart System</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/kickstart/SessionStatus.do</context>
-        </context-group>
-    <target>সিস্টেম kickstart করুন</target></trans-unit>
 
     <trans-unit id="kickstart.session_status.jsp.status_register">
         <source>Register system to @@PRODUCT_NAME@@</source>

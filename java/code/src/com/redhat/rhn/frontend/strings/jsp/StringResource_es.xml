@@ -16734,12 +16734,6 @@ para suscribir los sistemas a los canales de software durante el inicio de insta
     <target>Reiniciar sistema</target></trans-unit>
 
 
-    <trans-unit id="kickstart.session_status.jsp.status_kickstart">
-        <source>Kickstart System</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/kickstart/SessionStatus.do</context>
-        </context-group>
-    <target>Kickstart sistema</target></trans-unit>
 
     <trans-unit id="kickstart.session_status.jsp.status_register">
         <source>Register system to @@PRODUCT_NAME@@</source>

@@ -16692,12 +16692,6 @@ per sottoscrivere i sistemi ai canali software durante un kickstart.&lt;/span&gt
     <target>Riavvia sistema</target></trans-unit>
 
 
-    <trans-unit id="kickstart.session_status.jsp.status_kickstart">
-        <source>Kickstart System</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/kickstart/SessionStatus.do</context>
-        </context-group>
-    <target>Kickstar del sistema</target></trans-unit>
 
     <trans-unit id="kickstart.session_status.jsp.status_register">
         <source>Register system to @@PRODUCT_NAME@@</source>
