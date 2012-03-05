@@ -471,12 +471,6 @@
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
       <target>ਸਵਾਲ-ਜਵਾਬ(FAQ)</target></trans-unit>
-      <trans-unit id="FAQ Management">
-<source>FAQ Management</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-      <target>ਸਵਾਲ ਜਵਾਬ ਪਰਬੰਧਨ</target></trans-unit>
       <trans-unit id="fax">
 <source>Fax</source>
         <context-group name="ctx">

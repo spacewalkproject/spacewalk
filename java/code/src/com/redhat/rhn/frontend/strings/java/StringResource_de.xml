@@ -471,12 +471,6 @@
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
       <target>FAQ (h&amp;auml;ufig gestellte Fragen)</target></trans-unit>
-      <trans-unit id="FAQ Management">
-<source>FAQ Management</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-      <target>FAQ-Management</target></trans-unit>
       <trans-unit id="fax">
 <source>Fax</source>
         <context-group name="ctx">
