@@ -7258,12 +7258,6 @@ ni aux outils de gestion d'organisation si vous choisissez de supprimer ce rôle
 
 
 
-      <trans-unit id="systemcompare.jsp.package">
-<source>Package</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">NOTFILLEDOUT</context>
-        </context-group>
-      <target>Paquetage</target></trans-unit>
 
       <trans-unit id="systemcompare.jsp.pagesummary">
 <source>Below is a comparison of the package profiles of this system and the system selected for comparison. </source>

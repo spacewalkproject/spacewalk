@@ -7259,12 +7259,6 @@ und Organisationsmanagement-Tools haben, sollten Sie diese Rolle aus Ihrem Login
 
 
 
-      <trans-unit id="systemcompare.jsp.package">
-<source>Package</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">NOTFILLEDOUT</context>
-        </context-group>
-      <target>Paket</target></trans-unit>
 
       <trans-unit id="systemcompare.jsp.pagesummary">
 <source>Below is a comparison of the package profiles of this system and the system selected for comparison. </source>
