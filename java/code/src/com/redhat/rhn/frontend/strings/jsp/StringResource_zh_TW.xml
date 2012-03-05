@@ -12911,12 +12911,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
           <context context-type="sourcefile">/rhn/configuration/ChannelOverview.do</context>
         </context-group>
      <target>最近期訂閱的系統</target></trans-unit>
-      <trans-unit id="channelOverview.jsp.recentdeploy-header">
-<source>Most-Recent File Deploy</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/ChannelOverview.do</context>
-        </context-group>
-     <target>最近期的檔案建置</target></trans-unit>
 
       <trans-unit id="channelOverview.jsp.numfiles">
 <source>{0} files, {1} directories, {2} symlinks</source>

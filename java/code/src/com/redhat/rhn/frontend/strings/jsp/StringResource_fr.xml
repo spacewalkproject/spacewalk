@@ -12930,12 +12930,6 @@ Le script post non-chroot sera ensuite exécuté et le script post sera enfin ex
           <context context-type="sourcefile">/rhn/configuration/ChannelOverview.do</context>
         </context-group>
      <target>Système abonné le plus récemment</target></trans-unit>
-      <trans-unit id="channelOverview.jsp.recentdeploy-header">
-<source>Most-Recent File Deploy</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/ChannelOverview.do</context>
-        </context-group>
-     <target>Déploiement de fichiers le plus récent</target></trans-unit>
 
       <trans-unit id="channelOverview.jsp.numfiles">
 <source>{0} files, {1} directories, {2} symlinks</source>

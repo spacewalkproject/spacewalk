@@ -12915,12 +12915,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
           <context context-type="sourcefile">/rhn/configuration/ChannelOverview.do</context>
         </context-group>
      <target>એકદમ-છેલ્લે ઉમેદવારી નોંધાયેલ સિસ્ટમ</target></trans-unit>
-      <trans-unit id="channelOverview.jsp.recentdeploy-header">
-<source>Most-Recent File Deploy</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/ChannelOverview.do</context>
-        </context-group>
-     <target>એકદમ-છેલ્લી જમાવેલ ફાઈલ</target></trans-unit>
 
       <trans-unit id="channelOverview.jsp.numfiles">
 <source>{0} files, {1} directories, {2} symlinks</source>

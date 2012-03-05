@@ -12925,12 +12925,6 @@ kickstart 前脚本的内容可以在 &lt;strong&gt;《红帽企业版 Linux 系
           <context context-type="sourcefile">/rhn/configuration/ChannelOverview.do</context>
         </context-group>
      <target>最近订阅的系统</target></trans-unit>
-      <trans-unit id="channelOverview.jsp.recentdeploy-header">
-<source>Most-Recent File Deploy</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/ChannelOverview.do</context>
-        </context-group>
-     <target>最近的文件部署</target></trans-unit>
 
       <trans-unit id="channelOverview.jsp.numfiles">
 <source>{0} files, {1} directories, {2} symlinks</source>

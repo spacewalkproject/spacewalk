@@ -12928,12 +12928,6 @@ el &lt;strong&gt;Manual de administración del sistema Red Hat Enterprise Linux.
           <context context-type="sourcefile">/rhn/configuration/ChannelOverview.do</context>
         </context-group>
      <target>Sistema recientemente suscrito</target></trans-unit>
-      <trans-unit id="channelOverview.jsp.recentdeploy-header">
-<source>Most-Recent File Deploy</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/ChannelOverview.do</context>
-        </context-group>
-     <target>Archivo recientemente implementado</target></trans-unit>
 
       <trans-unit id="channelOverview.jsp.numfiles">
 <source>{0} files, {1} directories, {2} symlinks</source>
