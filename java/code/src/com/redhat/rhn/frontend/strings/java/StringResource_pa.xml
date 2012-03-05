@@ -3795,13 +3795,6 @@ user before attempting to deactivate their account.</source>
         </context-group>
       <target>ਸਿਸਟਮ ਪਰੋਫਾਈਲ ਹਟਾਇਆ ਗਿਆ ਹੈ।</target></trans-unit>
 
-      <trans-unit id="message.ssm.serverdeleted">
-<source>Deleted &lt;strong&gt;{0}&lt;/strong&gt; system from the System Set Manager.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/Overview</context>
-          <context context-type="paramnotes">Deleted 1 system from the System Set Manager.</context>
-        </context-group>
-      <target>ਸਿਸਟਮ ਸੈੱਟ ਪਰਬੰਧਕ ਵਿੱਚੋਂ &lt;strong&gt;{0}&lt;/strong&gt; ਸਿਸਟਮ ਹਟਾਇਆ ਗਿਆ ਹੈ।</target></trans-unit>
 
       <trans-unit id="message.ssm.serversdeleted">
 <source>Deleted &lt;strong&gt;{0}&lt;/strong&gt; systems from the System Set Manager.</source>

@@ -3817,13 +3817,6 @@ utente prima di disabilitare l'account in questione.</target></trans-unit>
         </context-group>
       <target>Profilo del sistema rimosso.</target></trans-unit>
 
-      <trans-unit id="message.ssm.serverdeleted">
-<source>Deleted &lt;strong&gt;{0}&lt;/strong&gt; system from the System Set Manager.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/Overview</context>
-          <context context-type="paramnotes">Deleted 1 system from the System Set Manager.</context>
-        </context-group>
-      <target>Sistema &lt;strong&gt;{0}&lt;/strong&gt; rimosso dal System Set Manager.</target></trans-unit>
 
       <trans-unit id="message.ssm.serversdeleted">
 <source>Deleted &lt;strong&gt;{0}&lt;/strong&gt; systems from the System Set Manager.</source>

@@ -3824,13 +3824,6 @@ Benutzers vor dem Versuch, den Account zu deaktivieren.</target></trans-unit>
         </context-group>
       <target>Systemprofil gel&amp;ouml;scht.</target></trans-unit>
 
-      <trans-unit id="message.ssm.serverdeleted">
-<source>Deleted &lt;strong&gt;{0}&lt;/strong&gt; system from the System Set Manager.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/Overview</context>
-          <context context-type="paramnotes">Deleted 1 system from the System Set Manager.</context>
-        </context-group>
-      <target>&lt;strong&gt;{0}&lt;/strong&gt; System vom System Set Manager gel&amp;ouml;scht.</target></trans-unit>
 
       <trans-unit id="message.ssm.serversdeleted">
 <source>Deleted &lt;strong&gt;{0}&lt;/strong&gt; systems from the System Set Manager.</source>

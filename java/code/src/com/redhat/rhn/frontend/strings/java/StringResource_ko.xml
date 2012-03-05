@@ -3793,13 +3793,6 @@ user before attempting to deactivate their account.</source>
         </context-group>
       <target>시스템 프로파일 삭제됨.</target></trans-unit>
 
-      <trans-unit id="message.ssm.serverdeleted">
-<source>Deleted &lt;strong&gt;{0}&lt;/strong&gt; system from the System Set Manager.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/Overview</context>
-          <context context-type="paramnotes">Deleted 1 system from the System Set Manager.</context>
-        </context-group>
-      <target>시스템 세트 관리자에서 &lt;strong&gt;{0}&lt;/strong&gt; 개의 시스템을 삭제했습니다.</target></trans-unit>
 
       <trans-unit id="message.ssm.serversdeleted">
 <source>Deleted &lt;strong&gt;{0}&lt;/strong&gt; systems from the System Set Manager.</source>
