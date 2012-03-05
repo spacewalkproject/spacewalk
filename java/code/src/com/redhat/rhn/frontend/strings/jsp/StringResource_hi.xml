@@ -912,12 +912,6 @@
 		 </context-group>
 	<target> जांच का पूर्वावलोकन जो कि चेतावनी स्थिति में है.</target></trans-unit>
 
-	<trans-unit id="preferences.system-groups-widget.name">
-         <source>System Groups</source>
-		 <context-group name="ctx">
-		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
-		 </context-group>
-	<target>सिस्टम समूह</target></trans-unit>
 
 
 

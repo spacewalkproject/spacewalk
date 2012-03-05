@@ -912,12 +912,6 @@
 		 </context-group>
 	<target> 處於警告狀態中的偵測一覽。</target></trans-unit>
 
-	<trans-unit id="preferences.system-groups-widget.name">
-         <source>System Groups</source>
-		 <context-group name="ctx">
-		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
-		 </context-group>
-	<target>系統群組</target></trans-unit>
 
 
 

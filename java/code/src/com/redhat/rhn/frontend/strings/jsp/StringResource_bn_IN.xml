@@ -912,12 +912,6 @@
 		 </context-group>
 	<target> সতর্কতামূলক অবস্থার প্রোবগুলির পূর্বরূপ।</target></trans-unit>
 
-	<trans-unit id="preferences.system-groups-widget.name">
-         <source>System Groups</source>
-		 <context-group name="ctx">
-		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
-		 </context-group>
-	<target>সিস্টেম দল</target></trans-unit>
 
 
 

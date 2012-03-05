@@ -912,12 +912,6 @@
 		 </context-group>
 	<target>警告レベルにあるプローブのプレビューです。</target></trans-unit>
 
-	<trans-unit id="preferences.system-groups-widget.name">
-         <source>System Groups</source>
-		 <context-group name="ctx">
-		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
-		 </context-group>
-	<target>システムグループ</target></trans-unit>
 
 
 

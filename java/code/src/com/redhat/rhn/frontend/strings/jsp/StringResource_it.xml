@@ -912,12 +912,6 @@
 		 </context-group>
 	<target>Anteprima dei Probe con uno stato di avvertimento 'warning'.</target></trans-unit>
 
-	<trans-unit id="preferences.system-groups-widget.name">
-         <source>System Groups</source>
-		 <context-group name="ctx">
-		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
-		 </context-group>
-	<target>Gruppi di sistemi</target></trans-unit>
 
 
 

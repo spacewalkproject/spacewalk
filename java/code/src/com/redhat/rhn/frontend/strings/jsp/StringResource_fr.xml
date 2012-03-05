@@ -912,12 +912,6 @@
 		 </context-group>
 	<target> Un aperçu des sondes en état d'avertissement.</target></trans-unit>
 
-	<trans-unit id="preferences.system-groups-widget.name">
-         <source>System Groups</source>
-		 <context-group name="ctx">
-		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
-		 </context-group>
-	<target>Groupes de systèmes</target></trans-unit>
 
 
 

@@ -912,12 +912,6 @@
 		 </context-group>
 	<target> ચકાસણીઓનું પૂર્વદર્શન કે જેઓ ચકાસણી સ્થિતિમાં છે.</target></trans-unit>
 
-	<trans-unit id="preferences.system-groups-widget.name">
-         <source>System Groups</source>
-		 <context-group name="ctx">
-		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
-		 </context-group>
-	<target>સિસ્ટમ જૂથો</target></trans-unit>
 
 
 

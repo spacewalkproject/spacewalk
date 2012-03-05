@@ -912,12 +912,6 @@
 		 </context-group>
 	<target>경고 상태인 프로브 미리 보기 </target></trans-unit>
 
-	<trans-unit id="preferences.system-groups-widget.name">
-         <source>System Groups</source>
-		 <context-group name="ctx">
-		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
-		 </context-group>
-	<target>시스템 그룹</target></trans-unit>
 
 
 

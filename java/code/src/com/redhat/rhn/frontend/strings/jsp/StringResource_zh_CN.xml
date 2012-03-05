@@ -912,12 +912,6 @@
 		 </context-group>
 	<target>处于 warning 状态的探测的预览。</target></trans-unit>
 
-	<trans-unit id="preferences.system-groups-widget.name">
-         <source>System Groups</source>
-		 <context-group name="ctx">
-		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
-		 </context-group>
-	<target>系统组群</target></trans-unit>
 
 
 

@@ -912,12 +912,6 @@
 		 </context-group>
 	<target> Uma prévia das detecções que estejam em um estado de alerta.</target></trans-unit>
 
-	<trans-unit id="preferences.system-groups-widget.name">
-         <source>System Groups</source>
-		 <context-group name="ctx">
-		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
-		 </context-group>
-	<target>Grupos de Sistemas</target></trans-unit>
 
 
 

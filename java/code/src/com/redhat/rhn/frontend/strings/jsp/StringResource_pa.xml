@@ -912,12 +912,6 @@
 		 </context-group>
 	<target> ਪੜਤਾਲਾਂ ਜੋ ਚੇਤਾਵਨੀ ਹਾਲਤ ਵਿੱਚ ਹਨ ਬਾਰੇ ਸੰਖੇਪ ਜਾਣਕਾਰੀ।</target></trans-unit>
 
-	<trans-unit id="preferences.system-groups-widget.name">
-         <source>System Groups</source>
-		 <context-group name="ctx">
-		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
-		 </context-group>
-	<target>ਸਿਸਟਮ ਗਰੁੱਪ</target></trans-unit>
 
 
 
