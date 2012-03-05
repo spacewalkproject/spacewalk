@@ -17355,12 +17355,6 @@ de executar um kickstart ou criar uma nova distribuição kickstart.&lt;/strong&
 		</context-group>
 	     <target>Local:</target></trans-unit>
 
-	     <trans-unit id="sdc.details.overview.yes">
-		<source>Yes</source>
-		<context-group name="ctx">
-		<context context-type="sourcefile">/systems/details/Overview.do</context>
-		</context-group>
-	     <target>Sim</target></trans-unit>
 
 	     <trans-unit id="sdc.details.overview.no">
 		<source>No</source>

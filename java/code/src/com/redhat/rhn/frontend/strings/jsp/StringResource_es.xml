@@ -17361,12 +17361,6 @@ de realizar un kickstart o antes de crear una nueva distribución kickstart.&lt;
 		</context-group>
 	     <target>Ubicación:</target></trans-unit>
 
-	     <trans-unit id="sdc.details.overview.yes">
-		<source>Yes</source>
-		<context-group name="ctx">
-		<context context-type="sourcefile">/systems/details/Overview.do</context>
-		</context-group>
-	     <target>Si</target></trans-unit>
 
 	     <trans-unit id="sdc.details.overview.no">
 		<source>No</source>

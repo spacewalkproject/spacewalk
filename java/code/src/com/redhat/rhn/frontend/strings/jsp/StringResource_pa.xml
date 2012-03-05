@@ -17308,12 +17308,6 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;
 		</context-group>
 	     <target>ਟਿਕਾਣਾ:</target></trans-unit>
 
-	     <trans-unit id="sdc.details.overview.yes">
-		<source>Yes</source>
-		<context-group name="ctx">
-		<context context-type="sourcefile">/systems/details/Overview.do</context>
-		</context-group>
-	     <target>ਹਾਂ</target></trans-unit>
 
 	     <trans-unit id="sdc.details.overview.no">
 		<source>No</source>

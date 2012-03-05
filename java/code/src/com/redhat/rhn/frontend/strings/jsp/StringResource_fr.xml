@@ -17362,12 +17362,6 @@ les canaux de logiciels de @@PRODUCT_NAME@@pour chaque canal parent pris en char
 		</context-group>
 	     <target>Emplacement&amp;nbsp;:</target></trans-unit>
 
-	     <trans-unit id="sdc.details.overview.yes">
-		<source>Yes</source>
-		<context-group name="ctx">
-		<context context-type="sourcefile">/systems/details/Overview.do</context>
-		</context-group>
-	     <target>Oui</target></trans-unit>
 
 	     <trans-unit id="sdc.details.overview.no">
 		<source>No</source>

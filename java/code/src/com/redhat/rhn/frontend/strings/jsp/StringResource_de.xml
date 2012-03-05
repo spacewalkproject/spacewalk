@@ -17365,12 +17365,6 @@ einen Kickstart durchführen oder eine neue Kickstart-Distribution erzeugen.&lt;
 		</context-group>
 	     <target>Ort:</target></trans-unit>
 
-	     <trans-unit id="sdc.details.overview.yes">
-		<source>Yes</source>
-		<context-group name="ctx">
-		<context context-type="sourcefile">/systems/details/Overview.do</context>
-		</context-group>
-	     <target>Ja</target></trans-unit>
 
 	     <trans-unit id="sdc.details.overview.no">
 		<source>No</source>
