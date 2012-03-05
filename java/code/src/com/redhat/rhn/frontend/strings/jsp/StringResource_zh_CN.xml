@@ -18495,12 +18495,6 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;
         </context-group>
       <target>类型</target></trans-unit>
 
-      <trans-unit id="system_entitlement_details.usage">
-        <source>Entitlement Usage</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementDetails</context>
-        </context-group>
-      <target>权利使用</target></trans-unit>
 
 
 

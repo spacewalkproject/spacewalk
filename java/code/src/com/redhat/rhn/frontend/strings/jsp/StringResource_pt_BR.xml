@@ -18494,12 +18494,6 @@ como refletido neste certificado do @@PRODUCT_NAME@@. </target></trans-unit>
         </context-group>
       <target>Tipo</target></trans-unit>
 
-      <trans-unit id="system_entitlement_details.usage">
-        <source>Entitlement Usage</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementDetails</context>
-        </context-group>
-      <target>Uso dos Serviços:</target></trans-unit>
 
 
 

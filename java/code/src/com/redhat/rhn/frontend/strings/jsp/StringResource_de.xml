@@ -18504,12 +18504,6 @@ stehende Gesamte, wie in diesem Zertifikat des @@PRODUCT_NAME@@s wiedergegeben.<
         </context-group>
       <target>Typ</target></trans-unit>
 
-      <trans-unit id="system_entitlement_details.usage">
-        <source>Entitlement Usage</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementDetails</context>
-        </context-group>
-      <target>Berechtigungsverwendung</target></trans-unit>
 
 
 
