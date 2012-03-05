@@ -8453,9 +8453,6 @@ Seguite l'url sotto riportato per visualizzare l'elenco completo di sistemi inat
         <source>The Ip Range specified, {0}, conflicts with an existing Ip Range.</source>
       <target>L'intervallo ip specificato, {0}, è in conflitto con l'intervallo ip esistente.</target></trans-unit>
 
-      <trans-unit id="api.kickstart.iprange.invalid">
-        <source>The Ip Range specified, {0}, is not a valid Ip Range.</source>
-      <target>L'intervallo ip specificato, {0}, non è un Intervallo ip valido.</target></trans-unit>
 
       <trans-unit id="api.kickstart.ip.invalid">
         <source>The Ip Address specified, {0}, is not valid..</source>

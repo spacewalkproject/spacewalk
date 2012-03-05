@@ -8441,9 +8441,6 @@ Follow this url to see the full list of inactive systems:
         <source>The Ip Range specified, {0}, conflicts with an existing Ip Range.</source>
       <target>A Classe de IP especificada, {0}, entrou em conflito com uma Classe de Ip existente.</target></trans-unit>
 
-      <trans-unit id="api.kickstart.iprange.invalid">
-        <source>The Ip Range specified, {0}, is not a valid Ip Range.</source>
-      <target>A Classe de Ip especificada {0}não é uma Classe de Ip válida.</target></trans-unit>
 
       <trans-unit id="api.kickstart.ip.invalid">
         <source>The Ip Address specified, {0}, is not valid..</source>

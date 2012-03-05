@@ -8460,9 +8460,6 @@ Folgen Sie dieser URL f&amp;uuml;r die vollst&amp;auml;ndige Liste inaktiver Sys
         <source>The Ip Range specified, {0}, conflicts with an existing Ip Range.</source>
       <target>Der angegebene IP-Bereich, {0}, steht im Widerspruch zu einem bestehenden IP-Bereich.</target></trans-unit>
 
-      <trans-unit id="api.kickstart.iprange.invalid">
-        <source>The Ip Range specified, {0}, is not a valid Ip Range.</source>
-      <target>Der angegebene IP-Bereich, {0}, ist kein gültiger IP-Bereich.</target></trans-unit>
 
       <trans-unit id="api.kickstart.ip.invalid">
         <source>The Ip Address specified, {0}, is not valid..</source>

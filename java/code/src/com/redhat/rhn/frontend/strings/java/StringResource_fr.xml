@@ -8456,9 +8456,6 @@ Suivez cet url pour obtenir la liste complète des systèmes inactifs :
         <source>The Ip Range specified, {0}, conflicts with an existing Ip Range.</source>
       <target>L'étendue Ip spécifiée {0} est en conflit avec une étendue Ip existante.</target></trans-unit>
 
-      <trans-unit id="api.kickstart.iprange.invalid">
-        <source>The Ip Range specified, {0}, is not a valid Ip Range.</source>
-      <target>L'étendue Ip spécifiée {0} n'est pas une étendue Ip valide.</target></trans-unit>
 
       <trans-unit id="api.kickstart.ip.invalid">
         <source>The Ip Address specified, {0}, is not valid..</source>

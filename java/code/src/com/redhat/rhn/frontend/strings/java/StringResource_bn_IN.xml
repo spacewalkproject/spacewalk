@@ -8435,9 +8435,6 @@ Follow this url to see the full list of inactive systems:
         <source>The Ip Range specified, {0}, conflicts with an existing Ip Range.</source>
       <target>উল্লিখিত Ip সীমা {0} ও বর্তমানে উপস্থিত Ip সীমার মধ্যে দ্বন্দ্ব সৃষ্টি হয়েছে।</target></trans-unit>
 
-      <trans-unit id="api.kickstart.iprange.invalid">
-        <source>The Ip Range specified, {0}, is not a valid Ip Range.</source>
-      <target>উল্লিখিত Ip-র সীমা, {0},বৈধ নয়।</target></trans-unit>
 
       <trans-unit id="api.kickstart.ip.invalid">
         <source>The Ip Address specified, {0}, is not valid..</source>

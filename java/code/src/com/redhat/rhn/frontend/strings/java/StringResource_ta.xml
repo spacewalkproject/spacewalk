@@ -8429,9 +8429,6 @@ url பின்பற்றி செயலிழக்கப்பட்ட �
         <source>The Ip Range specified, {0}, conflicts with an existing Ip Range.</source>
       <target>இந்த Ip வரம்பு குறிப்பிட்டது, {0}, இருக்கும் ஒரு வரம்புடன் முரண்படுகிறது.</target></trans-unit>
 
-      <trans-unit id="api.kickstart.iprange.invalid">
-        <source>The Ip Range specified, {0}, is not a valid Ip Range.</source>
-      <target>எஉறிப்பிடப்பட்ட Ip வரம்பு, {0}, சரியான Ip வரம்பு இல்லை.</target></trans-unit>
 
       <trans-unit id="api.kickstart.ip.invalid">
         <source>The Ip Address specified, {0}, is not valid..</source>

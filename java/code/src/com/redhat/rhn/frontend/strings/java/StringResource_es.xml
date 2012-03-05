@@ -8454,9 +8454,6 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
         <source>The Ip Range specified, {0}, conflicts with an existing Ip Range.</source>
       <target>El rango IP especificado, {0}, está en conflicto con un rango IP existente.</target></trans-unit>
 
-      <trans-unit id="api.kickstart.iprange.invalid">
-        <source>The Ip Range specified, {0}, is not a valid Ip Range.</source>
-      <target>El rango Ip especificado, ({0}) no es un rango IP válido.</target></trans-unit>
 
       <trans-unit id="api.kickstart.ip.invalid">
         <source>The Ip Address specified, {0}, is not valid..</source>
