@@ -12848,12 +12848,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
           <context context-type="sourcefile">/rhn/configuration/ChannelOverview.do</context>
         </context-group>
      <target>आपको जरूर विन्यास चैनल विवरण नीचे दाखिल करना चाहिए.</target></trans-unit>
-      <trans-unit id="channelOverview.jsp.bad-label">
-<source>Label contains invalid characters. In addition to alphanumeric characters, '-', '_', and '.' are allowed.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/configuration/ChannelOverview.do</context>
-        </context-group>
-      <target>लेबल में अवैध संप्रतीक शामिल है. अक्षरसांख्यिक संप्रतीक के अलावे, '-', '_', और '.' को अनुमति प्राप्त है.</target></trans-unit>
       <trans-unit id="channelOverview.jsp.empty-label">
 <source>Label is required.</source>
         <context-group name="ctx">

@@ -12848,12 +12848,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
           <context context-type="sourcefile">/rhn/configuration/ChannelOverview.do</context>
         </context-group>
      <target>நீங்கள் கீழே கட்டமைப்பு தட விவரங்களை உள்ளிட வேண்டும்.</target></trans-unit>
-      <trans-unit id="channelOverview.jsp.bad-label">
-<source>Label contains invalid characters. In addition to alphanumeric characters, '-', '_', and '.' are allowed.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/configuration/ChannelOverview.do</context>
-        </context-group>
-      <target>பெயர் அடையாளம் முறையற்ற எழுத்துக்களை கொண்டிருக்கும். மேலும் எண் எழுத்துக்கள், '-', '_', '.', மற்றும் '@' போன்ற எழுத்துக்களையும் அனுமதிக்கிறது.</target></trans-unit>
       <trans-unit id="channelOverview.jsp.empty-label">
 <source>Label is required.</source>
         <context-group name="ctx">

@@ -12843,12 +12843,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
           <context context-type="sourcefile">/rhn/configuration/ChannelOverview.do</context>
         </context-group>
      <target>설정 채널 정보를 입력하셔야 합니다.</target></trans-unit>
-      <trans-unit id="channelOverview.jsp.bad-label">
-<source>Label contains invalid characters. In addition to alphanumeric characters, '-', '_', and '.' are allowed.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/configuration/ChannelOverview.do</context>
-        </context-group>
-      <target>레이블에 올바르지 않은 문자가 포함되어 있습니다. 영문자와 숫자 이외에, '-', '_', '.'기호만 사용 가능합니다.</target></trans-unit>
       <trans-unit id="channelOverview.jsp.empty-label">
 <source>Label is required.</source>
         <context-group name="ctx">

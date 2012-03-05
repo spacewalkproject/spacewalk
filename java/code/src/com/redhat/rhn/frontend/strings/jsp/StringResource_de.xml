@@ -12865,12 +12865,6 @@ Anschlie&amp;szlig;end wird das nicht-chroot Post-Skript ausgef&amp;uuml;hrt, un
           <context context-type="sourcefile">/rhn/configuration/ChannelOverview.do</context>
         </context-group>
      <target>Sie m&amp;uuml;ssen die Konfigurations-Channel-Details unten eingeben.</target></trans-unit>
-      <trans-unit id="channelOverview.jsp.bad-label">
-<source>Label contains invalid characters. In addition to alphanumeric characters, '-', '_', and '.' are allowed.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/configuration/ChannelOverview.do</context>
-        </context-group>
-      <target>Label enth&amp;auml;lt ung&amp;uuml;ltige Zeichen. Neben alphanumerischen Zeichen sind '-', '_', und '.' erlaubt.</target></trans-unit>
       <trans-unit id="channelOverview.jsp.empty-label">
 <source>Label is required.</source>
         <context-group name="ctx">

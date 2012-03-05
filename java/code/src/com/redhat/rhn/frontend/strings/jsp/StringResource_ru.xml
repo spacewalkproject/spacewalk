@@ -12842,12 +12842,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
           <context context-type="sourcefile">/rhn/configuration/ChannelOverview.do</context>
         </context-group>
      <target>Необходимо ввести данные канала конфигурации.</target></trans-unit>
-      <trans-unit id="channelOverview.jsp.bad-label">
-<source>Label contains invalid characters. In addition to alphanumeric characters, '-', '_', and '.' are allowed.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/configuration/ChannelOverview.do</context>
-        </context-group>
-      <target>Метка содержит недопустимые символы. Значение может содержать буквы, цифры и символы «_», «-», «.»</target></trans-unit>
       <trans-unit id="channelOverview.jsp.empty-label">
 <source>Label is required.</source>
         <context-group name="ctx">

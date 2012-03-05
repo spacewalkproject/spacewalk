@@ -12863,12 +12863,6 @@ Le script post non-chroot sera ensuite exécuté et le script post sera enfin ex
           <context context-type="sourcefile">/rhn/configuration/ChannelOverview.do</context>
         </context-group>
      <target>Vous devez saisir les détails du canal de configuration ci-dessous.</target></trans-unit>
-      <trans-unit id="channelOverview.jsp.bad-label">
-<source>Label contains invalid characters. In addition to alphanumeric characters, '-', '_', and '.' are allowed.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/configuration/ChannelOverview.do</context>
-        </context-group>
-      <target>L'étiquette contient des caractères invalides. Outre les caractères alphanumériques, "-", "_" et "." sont autorisés.</target></trans-unit>
       <trans-unit id="channelOverview.jsp.empty-label">
 <source>Label is required.</source>
         <context-group name="ctx">

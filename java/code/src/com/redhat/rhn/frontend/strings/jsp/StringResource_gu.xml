@@ -12848,12 +12848,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
           <context context-type="sourcefile">/rhn/configuration/ChannelOverview.do</context>
         </context-group>
      <target>તમારે રૂપરેખાંકન ચેનલ વિગતો નીચે દાખલ કરવી જ પડશે.</target></trans-unit>
-      <trans-unit id="channelOverview.jsp.bad-label">
-<source>Label contains invalid characters. In addition to alphanumeric characters, '-', '_', and '.' are allowed.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/configuration/ChannelOverview.do</context>
-        </context-group>
-      <target>લેબલ અયોગ્ય અક્ષરો સમાવે છે. આલ્ફાન્યૂમેરિક અક્ષરો સાથે વધુમાં, '-', '_', '.', અને '@' પણ માન્ય છે.</target></trans-unit>
       <trans-unit id="channelOverview.jsp.empty-label">
 <source>Label is required.</source>
         <context-group name="ctx">

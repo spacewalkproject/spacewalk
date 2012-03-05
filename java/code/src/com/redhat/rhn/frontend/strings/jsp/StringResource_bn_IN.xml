@@ -12847,12 +12847,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
           <context context-type="sourcefile">/rhn/configuration/ChannelOverview.do</context>
         </context-group>
      <target>কনফিগারেশন চ্যানেলের বিবরণ নীচে লেখা আবশ্যক।</target></trans-unit>
-      <trans-unit id="channelOverview.jsp.bad-label">
-<source>Label contains invalid characters. In addition to alphanumeric characters, '-', '_', and '.' are allowed.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/configuration/ChannelOverview.do</context>
-        </context-group>
-      <target>লেবেলের মধ্যে অবৈধ অক্ষর ব্যবহার করা হয়েছে। আল্ফানিউমেরিক অক্ষর ছাড়াও '-', '_', ও '.' চিহ্নগুলি ব্যবহার করা সম্ভব।</target></trans-unit>
       <trans-unit id="channelOverview.jsp.empty-label">
 <source>Label is required.</source>
         <context-group name="ctx">
