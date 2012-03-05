@@ -10801,12 +10801,6 @@ el &lt;strong&gt;Manual de administración del sistema Red Hat Enterprise Linux.
 
 
 
-      <trans-unit id="post.jsp.nonchrootsummary">
-        <source>"Non-chroot" post-kickstart scripts are run outside of the chroot environment.  You can use them to perform tasks that aren't allowed in chroot environments, such as copying scripts or RPMs from installation media.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/kickstart/KickstartPostEdit.do</context>
-        </context-group>
-      <target>Los scripts "Non-chroot" post-kickstart son ejecutados fuera del entorno chroot. Puede utilizarlos para ejecutar tareas que no están permitidas en entornos chroot, tales como la copia de scripts o RPM desde el medio de instalación.</target></trans-unit>
 
     <trans-unit id="kickstart.edit.pkgs.jsp.main1">
       <source>Specify below the packages and package groups you'd like to install on systems during kickstart. Please list packages and groups one per line. For more information please see &lt;em&gt;The Red Hat Enterprise Linux System Administration Guide.&lt;/em&gt; If you would prefer to specify packages to be installed by package profile sync, please visit the &lt;em&gt; Package Profiles &lt;/em&gt; tab to change the kickstart software installation method.
