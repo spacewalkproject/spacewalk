@@ -2790,12 +2790,6 @@ dr&amp;uuml;cken und &lt;b&gt;k&amp;ouml;nnen sich nicht wieder einloggen&lt;/b&
         </context-group>
       <target>Paketname</target></trans-unit>
 
-      <trans-unit id="packagelist.jsp.name.patches">
-<source>Patch Name</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/schedule/PackageList</context>
-        </context-group>
-      <target>Patch-Name</target></trans-unit>
 
       <trans-unit id="packagelist.jsp.name.patchsets">
 <source>Patch Cluster Name</source>

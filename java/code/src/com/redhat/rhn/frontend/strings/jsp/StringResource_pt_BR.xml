@@ -2790,12 +2790,6 @@ abaixo e &lt;b&gt;não poderá mais se autenticar&lt;/b&gt;.</target></trans-uni
         </context-group>
       <target>Nome do Pacote </target></trans-unit>
 
-      <trans-unit id="packagelist.jsp.name.patches">
-<source>Patch Name</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/schedule/PackageList</context>
-        </context-group>
-      <target>Nome do Patch</target></trans-unit>
 
       <trans-unit id="packagelist.jsp.name.patchsets">
 <source>Patch Cluster Name</source>
