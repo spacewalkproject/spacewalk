@@ -537,12 +537,6 @@
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
       <target>Gérer les errata</target></trans-unit>
-      <trans-unit id="Manage Files">
-<source>Manage Files</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-      <target>Gérer les fichiers</target></trans-unit>
       <trans-unit id="Management">
 <source>Management</source>
         <context-group name="ctx">

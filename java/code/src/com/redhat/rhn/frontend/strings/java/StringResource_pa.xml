@@ -537,12 +537,6 @@
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
       <target>ਇੱਰਟਾ ਪਰਬੰਧ</target></trans-unit>
-      <trans-unit id="Manage Files">
-<source>Manage Files</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-      <target>ਫਾਇਲ ਪਰਬੰਧ</target></trans-unit>
       <trans-unit id="Management">
 <source>Management</source>
         <context-group name="ctx">

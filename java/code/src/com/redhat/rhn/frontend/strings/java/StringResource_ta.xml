@@ -537,12 +537,6 @@
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
       <target>பிழைத்திருத்தத்தை மேலாண்மை செய்யவும்</target></trans-unit>
-      <trans-unit id="Manage Files">
-<source>Manage Files</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-      <target>கோப்புகளை மேலாண்மை செய்யவும்</target></trans-unit>
       <trans-unit id="Management">
 <source>Management</source>
         <context-group name="ctx">

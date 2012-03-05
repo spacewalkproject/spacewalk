@@ -537,12 +537,6 @@
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
       <target>ত্রুটি-বিচ্যুতির ব্যবস্থাপনা</target></trans-unit>
-      <trans-unit id="Manage Files">
-<source>Manage Files</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-      <target>ফাইল ব্যবস্থাপনা</target></trans-unit>
       <trans-unit id="Management">
 <source>Management</source>
         <context-group name="ctx">

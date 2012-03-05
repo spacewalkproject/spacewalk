@@ -537,12 +537,6 @@
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
       <target>Управление исправлениями</target></trans-unit>
-      <trans-unit id="Manage Files">
-<source>Manage Files</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-      <target>Управление файлами</target></trans-unit>
       <trans-unit id="Management">
 <source>Management</source>
         <context-group name="ctx">
