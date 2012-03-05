@@ -2264,12 +2264,6 @@ available for this kickstart profile to function properly.
       <target>建立新使用者</target></trans-unit>
 
 
-      <trans-unit id="toolbar.create.group">
-<source>create new group</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/SystemGroupList</context>
-        </context-group>
-      <target>建立新群組</target></trans-unit>
 
       <trans-unit id="toolbar.create.probe">
 <source>create new probe</source>

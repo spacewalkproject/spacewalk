@@ -2291,12 +2291,6 @@ disponibles pour que ce profil kickstart puisse fonctionner correctement.
       <target>créer un nouvel utilisateur</target></trans-unit>
 
 
-      <trans-unit id="toolbar.create.group">
-<source>create new group</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/SystemGroupList</context>
-        </context-group>
-      <target>créer un nouveau groupe</target></trans-unit>
 
       <trans-unit id="toolbar.create.probe">
 <source>create new probe</source>

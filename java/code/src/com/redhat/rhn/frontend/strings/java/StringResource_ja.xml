@@ -2288,12 +2288,6 @@ rhn-kickstart* パッケージが利用可能であることを確認します�
       <target>新規ユーザーの作成</target></trans-unit>
 
 
-      <trans-unit id="toolbar.create.group">
-<source>create new group</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/SystemGroupList</context>
-        </context-group>
-      <target>新規グループの作成</target></trans-unit>
 
       <trans-unit id="toolbar.create.probe">
 <source>create new probe</source>
