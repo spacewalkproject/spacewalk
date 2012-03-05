@@ -1496,12 +1496,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/users/CreateUser</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="usercreate.contactSummary">
-<source> I would like to receive information from Red Hat in the following ways. (Please note: you may receive email from all of Red Hat, not just regarding @@PRODUCT_NAME@@.) </source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/CreateUser</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="usercreate.mail">
 <source> Regular Mail</source>
         <context-group name="ctx">

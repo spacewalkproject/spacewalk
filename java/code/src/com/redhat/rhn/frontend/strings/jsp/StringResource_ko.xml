@@ -1482,12 +1482,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/users/CreateUser</context>
         </context-group>
       <target>필수 입력 항목</target></trans-unit>
-      <trans-unit id="usercreate.contactSummary">
-<source> I would like to receive information from Red Hat in the following ways. (Please note: you may receive email from all of Red Hat, not just regarding @@PRODUCT_NAME@@.) </source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/CreateUser</context>
-        </context-group>
-      <target> Red Hat에서 다음과 같은 방법을 이용하여 연락을 받고 싶습니다. (@@PRODUCT_NAME@@ 뿐만 아니라 모든 Red Hat 관련 이메일을 받게된다는 사실을 염두해두시기 바랍니다.) </target></trans-unit>
       <trans-unit id="usercreate.mail">
 <source> Regular Mail</source>
         <context-group name="ctx">

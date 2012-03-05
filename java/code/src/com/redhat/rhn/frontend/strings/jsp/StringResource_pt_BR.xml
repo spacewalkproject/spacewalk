@@ -1482,12 +1482,6 @@ abaixo e &lt;b&gt;não poderá mais se autenticar&lt;/b&gt;.</target></trans-uni
           <context context-type="sourcefile">/rhn/users/CreateUser</context>
         </context-group>
       <target>Campo Requisitado</target></trans-unit>
-      <trans-unit id="usercreate.contactSummary">
-<source> I would like to receive information from Red Hat in the following ways. (Please note: you may receive email from all of Red Hat, not just regarding @@PRODUCT_NAME@@.) </source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/CreateUser</context>
-        </context-group>
-      <target> Gostaria de receber informações da Red Hat das seguintes formas. (Nota: você pode receber e-mails diversos da Red Hat; não somente relacionados à @@PRODUCT_NAME@@.)</target></trans-unit>
       <trans-unit id="usercreate.mail">
 <source> Regular Mail</source>
         <context-group name="ctx">

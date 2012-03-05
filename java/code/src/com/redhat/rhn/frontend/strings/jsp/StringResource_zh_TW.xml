@@ -1482,12 +1482,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/users/CreateUser</context>
         </context-group>
       <target>所需欄位</target></trans-unit>
-      <trans-unit id="usercreate.contactSummary">
-<source> I would like to receive information from Red Hat in the following ways. (Please note: you may receive email from all of Red Hat, not just regarding @@PRODUCT_NAME@@.) </source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/CreateUser</context>
-        </context-group>
-      <target> 我打算透過下列方式來由 Red Hat 取得資訊。（請注意：您可能會收到來自於 Red Hat 的所有電子郵件，而不是只侷限於有關於 @@PRODUCT_NAME@@ 的相關電子郵件。）</target></trans-unit>
       <trans-unit id="usercreate.mail">
 <source> Regular Mail</source>
         <context-group name="ctx">

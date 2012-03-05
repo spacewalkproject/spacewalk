@@ -1482,12 +1482,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/users/CreateUser</context>
         </context-group>
       <target>আবশ্যক মান</target></trans-unit>
-      <trans-unit id="usercreate.contactSummary">
-<source> I would like to receive information from Red Hat in the following ways. (Please note: you may receive email from all of Red Hat, not just regarding @@PRODUCT_NAME@@.) </source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/CreateUser</context>
-        </context-group>
-      <target> আমি নিম্নলিখিত উপায়গুলির সাহায্যে Red Hat থেকে সূচনা প্রাপ্ত করতে ইচ্ছুক। (উল্লেখ্য: আপনি শুধুমাত্র @@PRODUCT_NAME@@-র পরিবর্তে Red Hat সংক্রান্ত সমগ্র তথ্য প্রাপ্ত করবেন।)</target></trans-unit>
       <trans-unit id="usercreate.mail">
 <source> Regular Mail</source>
         <context-group name="ctx">
