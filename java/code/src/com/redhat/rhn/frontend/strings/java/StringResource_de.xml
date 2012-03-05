@@ -7263,9 +7263,6 @@ Folgen Sie dieser URL f&amp;uuml;r die vollst&amp;auml;ndige Liste inaktiver Sys
             </context-group>
 
 
-	     <trans-unit id="config.files_0_dirs_1_symlinks_0">
-			<source>{1} directory</source>
-	     <target>{1} Verzeichnis</target></trans-unit>
 	     <trans-unit id="config.files_0_dirs_1_symlinks_1">
 			<source>{1} directory and {2} symlink</source>
 	     <target>{1} Verzeichnis und {2} symbolischer Link</target></trans-unit>
