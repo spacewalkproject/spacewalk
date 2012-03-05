@@ -403,12 +403,6 @@
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
       <target>રૂપરેખા ચેનલો</target></trans-unit>
-      <trans-unit id="Contact Spacewalk">
-<source>Contact @@PRODUCT_NAME@@</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-      <target>@@PRODUCT_NAME@@ નો સંપર્ક કરો</target></trans-unit>
       <trans-unit id="Create Account">
 <source>Create Account</source>
         <context-group name="ctx">
