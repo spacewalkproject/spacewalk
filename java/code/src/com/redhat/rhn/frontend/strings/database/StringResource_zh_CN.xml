@@ -3543,9 +3543,6 @@
         <trans-unit id="kickstart.state.started">
           <source>The initial files required for anaconda have been downloaded.</source>
         <target>anaconda 需要的初始文件已经被下载。</target></trans-unit>
-        <trans-unit id="kickstart.state.registered">
-          <source>The system has successfully registered with @@PRODUCT_NAME@@ after kickstarting.</source>
-        <target>在 kickstart 后系统已经成功在 @@PRODUCT_NAME@@ 注册。</target></trans-unit>
     </group>
 
 

@@ -3543,9 +3543,6 @@
         <trans-unit id="kickstart.state.started">
           <source>The initial files required for anaconda have been downloaded.</source>
         <target>அனோகோன்டாவிற்கு தேவையான ஆரம்ப கோப்புகள் பதிவிறக்கம் செய்யப்பட்டுள்ளன.</target></trans-unit>
-        <trans-unit id="kickstart.state.registered">
-          <source>The system has successfully registered with @@PRODUCT_NAME@@ after kickstarting.</source>
-        <target>கிக்ஸ்டார்ட்டிற்கு பின் கணினி வெற்றிகரமாக @@PRODUCT_NAME@@ னுடன் பதிவு செய்தது .</target></trans-unit>
     </group>
 
 

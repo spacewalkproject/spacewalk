@@ -3543,9 +3543,6 @@
         <trans-unit id="kickstart.state.started">
           <source>The initial files required for anaconda have been downloaded.</source>
         <target>anaconda-র জন্য প্রারম্ভিক ফাই; ডাউনলোড করা হয়েছে।</target></trans-unit>
-        <trans-unit id="kickstart.state.registered">
-          <source>The system has successfully registered with @@PRODUCT_NAME@@ after kickstarting.</source>
-        <target>Kickstart করার পরে সিস্টেম সাফল্যের সাথে @@PRODUCT_NAME@@-র সাথে নিবন্ধিত হয়েছে।</target></trans-unit>
     </group>
 
 

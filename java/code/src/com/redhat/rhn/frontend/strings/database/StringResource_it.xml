@@ -3543,9 +3543,6 @@
         <trans-unit id="kickstart.state.started">
           <source>The initial files required for anaconda have been downloaded.</source>
         <target>I file iniziali necessari per anaconda sono stati scaricati.</target></trans-unit>
-        <trans-unit id="kickstart.state.registered">
-          <source>The system has successfully registered with @@PRODUCT_NAME@@ after kickstarting.</source>
-        <target>Il sistema ha eseguito con successo la registrazione con @@PRODUCT_NAME@@ dopo aver eseguito un kickstart.</target></trans-unit>
     </group>
 
 
