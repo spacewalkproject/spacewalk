@@ -5911,9 +5911,6 @@ für diese Berechtigung, mit Ausnahme des Verbrauchs der Standardorganisation.</
     <target>Diesen Probe bearbeiten</target></trans-unit>
 
 
-    <trans-unit id="probedetails.jsp.probe_details">
-<source>Probe details</source>
-    <target>Probe-Details</target></trans-unit>
 
     <trans-unit id="probedetails.jsp.currentstate">
 <source>Probe Current State</source>

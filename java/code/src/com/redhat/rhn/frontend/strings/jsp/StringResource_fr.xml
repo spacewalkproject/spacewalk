@@ -5910,9 +5910,6 @@ pour ce droit d'accès, moins la consommation par défaut de l'organisation.</ta
     <target>éditer cette sonde</target></trans-unit>
 
 
-    <trans-unit id="probedetails.jsp.probe_details">
-<source>Probe details</source>
-    <target>Détails sur la sonde</target></trans-unit>
 
     <trans-unit id="probedetails.jsp.currentstate">
 <source>Probe Current State</source>

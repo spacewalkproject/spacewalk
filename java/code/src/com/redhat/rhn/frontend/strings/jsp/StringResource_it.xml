@@ -5908,9 +5908,6 @@ value for this entitlement, excluding the default organization's consumption.</s
     <target>modifica questo probe</target></trans-unit>
 
 
-    <trans-unit id="probedetails.jsp.probe_details">
-<source>Probe details</source>
-    <target>Informazioni su probe</target></trans-unit>
 
     <trans-unit id="probedetails.jsp.currentstate">
 <source>Probe Current State</source>
