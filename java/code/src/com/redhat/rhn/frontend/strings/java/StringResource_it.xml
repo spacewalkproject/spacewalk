@@ -6715,13 +6715,6 @@ Seguite l'url sotto riportato per visualizzare l'elenco completo di sistemi inat
         </context-group>
      <target>Cancellati con successo {0} file di configurazione.</target></trans-unit>
 
-     <trans-unit id="config_files.setFilesToRemove.failure">
-<source>{0} file deletion(s) failed.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/ChannelFiles.do</context>
-          <context context-type="paramnotes">7 file deletions failed.</context>
-        </context-group>
-     <target>Cancellazione di {0} file fallita.</target></trans-unit>
 
      <trans-unit id="config_subscribed_systems.unsubscribeSystems.failure">
         <source>Failed to unsubscribe {0} system(s).</source>

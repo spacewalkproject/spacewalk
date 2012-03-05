@@ -6691,13 +6691,6 @@ url பின்பற்றி செயலிழக்கப்பட்ட �
         </context-group>
      <target>{0} கட்டமைப்பு கோப்பு(கள்) வெற்றிகரமாக அழிக்கப்பட்டன.</target></trans-unit>
 
-     <trans-unit id="config_files.setFilesToRemove.failure">
-<source>{0} file deletion(s) failed.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/ChannelFiles.do</context>
-          <context context-type="paramnotes">7 file deletions failed.</context>
-        </context-group>
-     <target>{0} கோப்பு அழிக்க முடியவில்லை.</target></trans-unit>
 
      <trans-unit id="config_subscribed_systems.unsubscribeSystems.failure">
         <source>Failed to unsubscribe {0} system(s).</source>

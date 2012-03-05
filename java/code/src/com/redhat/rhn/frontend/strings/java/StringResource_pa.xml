@@ -6693,13 +6693,6 @@ Follow this url to see the full list of inactive systems:
         </context-group>
      <target>{0} ਸੰਰਚਨਾ ਫਾਇਲ ਸਫ਼ਲਤਾਪੂਰਕ ਹਟਾਈ ਗਈ ਹੈ।</target></trans-unit>
 
-     <trans-unit id="config_files.setFilesToRemove.failure">
-<source>{0} file deletion(s) failed.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/ChannelFiles.do</context>
-          <context context-type="paramnotes">7 file deletions failed.</context>
-        </context-group>
-     <target>{0} ਫਾਇਲ ਹਟਾਉਣ ਵਿੱਚ ਫੇਲ।</target></trans-unit>
 
      <trans-unit id="config_subscribed_systems.unsubscribeSystems.failure">
         <source>Failed to unsubscribe {0} system(s).</source>
