@@ -1087,12 +1087,6 @@
           <context context-type="sourcefile">/rhn/users/UserDetails</context>
         </context-group>
       <target>@@PRODUCT_NAME@@ ਪਰਬੰਧਕ</target></trans-unit>
-      <trans-unit id="Spacewalk Super Users">
-<source>@@PRODUCT_NAME@@ Super Users</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/UserDetails</context>
-        </context-group>
-      <target>@@PRODUCT_NAME@@ ਸੁਪਰ-ਯੂਜ਼ਰ</target></trans-unit>
       <trans-unit id="System Group Administrators">
 <source>System Group Administrators</source>
         <context-group name="ctx">
