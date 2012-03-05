@@ -6025,12 +6025,6 @@ de este usuario antes de intentar desactivar esta cuenta.</target></trans-unit>
 
 
 
-    <trans-unit id="bootstrap.config.error.17">
-        <source>Could not find GPG key</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-      <target>No se pudo encontrar la llave GPG</target></trans-unit>
 
     <trans-unit id="bootstrap.config.error.127">
         <source>Unhandled error</source>
