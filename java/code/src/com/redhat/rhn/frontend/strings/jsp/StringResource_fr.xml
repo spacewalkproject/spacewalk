@@ -14436,12 +14436,6 @@ Vous pouvez déployer la dernière version de ce fichier (&lt;a href="{1}"&gt;Re
 	</context-group>
 	<target>&lt;strong&gt;Conseil :&lt;/strong&gt; Saisir la cible du lien symbolic comme contenu de fichier</target></trans-unit>
 		<!-- form error messages -->
-	<trans-unit id="config-file-form.error.user-invalid">
-<source>User must be a valid Linux user name or user id, of 32 characters or less.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
-        </context-group>
-     <target>L'utilisateur doit être un nom d'utilisateur Linux valide ou un id d'utilisateur, de 32 caractères ou moins.</target></trans-unit>
 	<trans-unit id="config-file-form.error.selinux-invalid">
 <source>Invalid values set for SElinux Context.</source>
         <context-group name="ctx">

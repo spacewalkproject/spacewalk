@@ -14433,12 +14433,6 @@ centralmente de este archivo, {2}; a continuación encontrará una lista de sist
 	</context-group>
 	<target>&lt;strong&gt;Consejo:&lt;/strong&gt; Introduzca el destino del enlace simbólico como el contenido del archivo</target></trans-unit>
 		<!-- form error messages -->
-	<trans-unit id="config-file-form.error.user-invalid">
-<source>User must be a valid Linux user name or user id, of 32 characters or less.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
-        </context-group>
-     <target>El usuario debe ser un nombre de usuario o id de usuario válido en Linux, de 32 caracteres como máximo.</target></trans-unit>
 	<trans-unit id="config-file-form.error.selinux-invalid">
 <source>Invalid values set for SElinux Context.</source>
         <context-group name="ctx">

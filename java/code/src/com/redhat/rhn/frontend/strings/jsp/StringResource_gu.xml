@@ -14416,12 +14416,6 @@ centrally-managed configuration channel, {2}; below is a list of systems you may
 	</context-group>
 	<target></target></trans-unit>
 		<!-- form error messages -->
-	<trans-unit id="config-file-form.error.user-invalid">
-<source>User must be a valid Linux user name or user id, of 32 characters or less.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
-        </context-group>
-     <target>વપરાશકર્તા માન્ય Linux વપરાશકર્તા નામ અથવા વપરાશકર્તા id, ૩૨ અથવા ઓછા અક્ષરોનું જ હોવું જોઈએ.</target></trans-unit>
 	<trans-unit id="config-file-form.error.selinux-invalid">
 <source>Invalid values set for SElinux Context.</source>
         <context-group name="ctx">

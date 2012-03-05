@@ -14420,12 +14420,6 @@ centrally-managed configuration channel, {2}; below is a list of systems you may
 	</context-group>
 	<target>&lt;strong&gt;ヒント:&lt;/strong&gt; ファイルコンテンツとしてシンボリックリンクのターゲットを入力します</target></trans-unit>
 		<!-- form error messages -->
-	<trans-unit id="config-file-form.error.user-invalid">
-<source>User must be a valid Linux user name or user id, of 32 characters or less.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
-        </context-group>
-     <target>ユーザーは 32 文字またはそれ以下の有効な Linux ユーザー名またはユーザー ID でなければなりません。</target></trans-unit>
 	<trans-unit id="config-file-form.error.selinux-invalid">
 <source>Invalid values set for SElinux Context.</source>
         <context-group name="ctx">

@@ -14427,12 +14427,6 @@ de configuração centralmente gerenciado pelo arquivo, {2}; segue abaixo uma li
 	</context-group>
 	<target>&lt;strong&gt;Dica:&lt;/strong&gt; Insira a destinação do symlink como conteúdos de arquivo</target></trans-unit>
 		<!-- form error messages -->
-	<trans-unit id="config-file-form.error.user-invalid">
-<source>User must be a valid Linux user name or user id, of 32 characters or less.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
-        </context-group>
-     <target>O Usuário deve ser um nome de usuário do Linux válido ou uma id de usuário, com menos de 32 caractéres.</target></trans-unit>
 	<trans-unit id="config-file-form.error.selinux-invalid">
 <source>Invalid values set for SElinux Context.</source>
         <context-group name="ctx">
