@@ -136,12 +136,6 @@
 
 
 
-      <trans-unit id="system.nav.unentitled">
-<source>Unentitled</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Systems Navigation Menu</context>
-        </context-group>
-      <target>এনটাইটেলমেন্টবিহীন</target></trans-unit>
 
       <trans-unit id="system.nav.ungrouped">
 <source>Ungrouped</source>
