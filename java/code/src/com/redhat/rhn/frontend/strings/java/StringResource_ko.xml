@@ -2005,12 +2005,6 @@ available for this kickstart profile to function properly.
       <target>킥스타트 설치를 위해 커널 변수에 &lt;code&gt;{0}&lt;/code&gt;를 첨가하시면 새로운 시스템의 IP 주소에 기반하여 킥스타트를 실행할 수 있습니다. </target></trans-unit>
 
 
-      <trans-unit id="kickstart.partition.invalid">
-        <source>Invalid partition value removed: &lt;strong&gt;{0}&lt;/strong&gt;. Please verify the input values and resubmit.</source>
-        <context-group name="ctx">
-        <context context-type="sourcefile">/rhn/kickstart/KickstartPartitionEdit</context>
-        </context-group>
-      <target>잘못된 파티션 값을 삭제했습니다: &lt;strong&gt;{0}&lt;/strong&gt; 입력값을 확인하신 후 다시 입력하시기 바랍니다.</target></trans-unit>
 
       <trans-unit id="kickstart.partition.success">
         <source>Kickstart profile options updated successfully.</source>

@@ -2005,12 +2005,6 @@ available for this kickstart profile to function properly.
       <target>您可以根據新系統的 IP 位址來 kickstart，方法是在使用 kickstart 安裝時，將 &lt;code&gt;{0}&lt;/code&gt; 加入核心參數。</target></trans-unit>
 
 
-      <trans-unit id="kickstart.partition.invalid">
-        <source>Invalid partition value removed: &lt;strong&gt;{0}&lt;/strong&gt;. Please verify the input values and resubmit.</source>
-        <context-group name="ctx">
-        <context context-type="sourcefile">/rhn/kickstart/KickstartPartitionEdit</context>
-        </context-group>
-      <target>已經移除了無效的分割區數值：&lt;strong&gt;{0}&lt;/strong&gt;。請檢查輸入值，並重新提交一次。</target></trans-unit>
 
       <trans-unit id="kickstart.partition.success">
         <source>Kickstart profile options updated successfully.</source>

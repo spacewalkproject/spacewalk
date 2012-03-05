@@ -2005,12 +2005,6 @@ available for this kickstart profile to function properly.
       <target>கிக்ஸ்டார்ட் நிறுவலில் கர்னல் மதிப்பான&lt;code&gt;{0}&lt;/code&gt;ஐ சேர்ப்பதன் மூலம் ஐபி முகவரி அடிப்படையில் புதிய கணினிகளை கிக்ஸ்டார்ட் செய்யப்பட்டன.</target></trans-unit>
 
 
-      <trans-unit id="kickstart.partition.invalid">
-        <source>Invalid partition value removed: &lt;strong&gt;{0}&lt;/strong&gt;. Please verify the input values and resubmit.</source>
-        <context-group name="ctx">
-        <context context-type="sourcefile">/rhn/kickstart/KickstartPartitionEdit</context>
-        </context-group>
-      <target>தவறான பகிர்வு மதிப்பு நீக்கப்பட்டது: &lt;strong&gt;{0}&lt;/strong&gt;. உள்ளீடு மதிப்புகளை சரி பார்த்து மீண்டும் சமர்ப்பிக்கவும்.</target></trans-unit>
 
       <trans-unit id="kickstart.partition.success">
         <source>Kickstart profile options updated successfully.</source>

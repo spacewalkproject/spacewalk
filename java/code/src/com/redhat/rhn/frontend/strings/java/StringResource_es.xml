@@ -2030,12 +2030,6 @@ asegurarse de que estén disponibles para que este perfil kickstart funcione apr
       <target>Nuevos sistemas pueden iniciar una instalación a través de kickstart basados en su dirección IP, añadiendo &lt;code&gt;{0}&lt;/code&gt; a los parámetros del kernel.</target></trans-unit>
 
 
-      <trans-unit id="kickstart.partition.invalid">
-        <source>Invalid partition value removed: &lt;strong&gt;{0}&lt;/strong&gt;. Please verify the input values and resubmit.</source>
-        <context-group name="ctx">
-        <context context-type="sourcefile">/rhn/kickstart/KickstartPartitionEdit</context>
-        </context-group>
-      <target>Valor de partición inválido eliminado: &lt;strong&gt;{0}&lt;/strong&gt; Por favor verifique el valor de entrada y envíelo nuevamente.</target></trans-unit>
 
       <trans-unit id="kickstart.partition.success">
         <source>Kickstart profile options updated successfully.</source>
