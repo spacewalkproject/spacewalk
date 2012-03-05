@@ -9616,12 +9616,6 @@ Please note that some manual configuration of these scripts may still be require
             <context context-type="sourcefile">/rhn/kickstart/KickstartOverview</context>
         </context-group>
     <target>ஒரு புதிய கிக்ஸ்டார்ட் கோப்பினை பதிவேற்றவும்</target></trans-unit>
-    <trans-unit id="kickstartoverview.jsp.cloneksprofile">
-           <source>Clone a Kickstart Profile</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart/KickstartOverview</context>
-        </context-group>
-    <target>கிக்ஸ்டார்ட் விவரக்குறிப்பினை க்ளோன் செய்யவும்</target></trans-unit>
 
     <trans-unit id="kickstart.jsp.summary">
            <source>The following kickstart profiles have been created for use by your organization:</source>

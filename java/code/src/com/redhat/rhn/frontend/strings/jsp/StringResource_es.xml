@@ -9628,12 +9628,6 @@ Por favor tenga en cuenta que podría ser necesario configurar manualmente estos
             <context context-type="sourcefile">/rhn/kickstart/KickstartOverview</context>
         </context-group>
     <target>Cargar un nuevo archivo kickstart</target></trans-unit>
-    <trans-unit id="kickstartoverview.jsp.cloneksprofile">
-           <source>Clone a Kickstart Profile</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart/KickstartOverview</context>
-        </context-group>
-    <target>Clonar un perfil kickstart</target></trans-unit>
 
     <trans-unit id="kickstart.jsp.summary">
            <source>The following kickstart profiles have been created for use by your organization:</source>
