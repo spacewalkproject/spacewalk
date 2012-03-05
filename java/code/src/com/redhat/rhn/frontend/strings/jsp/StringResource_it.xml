@@ -20418,9 +20418,6 @@ stesso pacchetto in un singolo canale, ciò potrebbe causare però il
 			<source>Rpm Version</source>
       <target>Versione rpm</target></trans-unit>
 
-      <trans-unit id="package.jsp.md5sum">
-			<source>MD5Sum</source>
-      <target>MD5Sum</target></trans-unit>
 
       <trans-unit id="package.jsp.path">
 			<source>File System Path</source>

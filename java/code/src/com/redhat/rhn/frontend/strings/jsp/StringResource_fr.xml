@@ -20506,9 +20506,6 @@ fois pour un canal donné.</target></trans-unit>
 			<source>Rpm Version</source>
       <target>Version Rpm</target></trans-unit>
 
-      <trans-unit id="package.jsp.md5sum">
-			<source>MD5Sum</source>
-      <target>Somme MD5</target></trans-unit>
 
       <trans-unit id="package.jsp.path">
 			<source>File System Path</source>

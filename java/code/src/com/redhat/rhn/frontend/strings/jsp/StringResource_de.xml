@@ -20510,9 +20510,6 @@ f&amp;uuml;r einen angegebenen Channel aufgelistet wird.</target></trans-unit>
 			<source>Rpm Version</source>
       <target>RPM-Version</target></trans-unit>
 
-      <trans-unit id="package.jsp.md5sum">
-			<source>MD5Sum</source>
-      <target>MD5 Summe</target></trans-unit>
 
       <trans-unit id="package.jsp.path">
 			<source>File System Path</source>

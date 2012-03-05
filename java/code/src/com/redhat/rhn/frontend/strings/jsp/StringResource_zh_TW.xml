@@ -20413,9 +20413,6 @@ given channel.</source>
 			<source>Rpm Version</source>
       <target>Rpm 版本</target></trans-unit>
 
-      <trans-unit id="package.jsp.md5sum">
-			<source>MD5Sum</source>
-      <target>MD5Sum</target></trans-unit>
 
       <trans-unit id="package.jsp.path">
 			<source>File System Path</source>
