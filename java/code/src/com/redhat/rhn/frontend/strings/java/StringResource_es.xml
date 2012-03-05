@@ -5909,12 +5909,6 @@ de este usuario antes de intentar desactivar esta cuenta.</target></trans-unit>
         </context-group>
       <target>Versión de @@PRODUCT_NAME@@ desconocida</target></trans-unit>
 
-    <trans-unit id="certificate.config.error.20">
-        <source>Remote activation failure, see log file for more details.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-      <target>Activación remota fallida</target></trans-unit>
 
     <trans-unit id="certificate.config.error.30">
         <source>Local activation failure, see log file for more details.</source>

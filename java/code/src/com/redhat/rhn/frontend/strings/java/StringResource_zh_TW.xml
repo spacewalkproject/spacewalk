@@ -5883,12 +5883,6 @@ user before attempting to deactivate their account.</source>
         </context-group>
       <target>不明的 @@PRODUCT_NAME@@ 版本</target></trans-unit>
 
-    <trans-unit id="certificate.config.error.20">
-        <source>Remote activation failure, see log file for more details.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-      <target>遠端啟動失敗</target></trans-unit>
 
     <trans-unit id="certificate.config.error.30">
         <source>Local activation failure, see log file for more details.</source>
