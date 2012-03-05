@@ -5,8 +5,6 @@
     <trans-unit id="bad-signature"><source>Bad ACL handler method [{0}]. ACL handler methods must have the following signature (may be static or non-static), with no declared exceptions: public aclXXXX(Object, String[])</source></trans-unit>
     <trans-unit id="bad-syntax"><source>Could not parse ACL statement: "{0}"</source></trans-unit>
     <trans-unit id="bad-handler"><source>Could not find ACL handler {0} in statement: "{1}". Available ACL handlers: {2}</source></trans-unit>
-    <trans-unit id="illegal-access-exception"><source>IllegalAccessException calling {0} ("{1}"): {2}</source></trans-unit>
-    <trans-unit id="invocation-target-exception"><source>IllegalInvocationException calling {0} ("{1}"): {2}</source></trans-unit>
     </body>
   </file>
 </xliff>

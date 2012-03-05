@@ -1669,12 +1669,6 @@
           <context context-type="sourcefile">Logfile error message</context>
         </context-group>
       <target>ਬਿਆਨ 'ਚ ACL ਹੈਂਡਲਰ {0} ਮਿਲਿਆ ਨਹੀਂ: "{1}"। ਉਪਲੱਬਧ ACL ਹੈਂਡਲਰ: {2}</target></trans-unit>
-      <trans-unit id="illegal-access-exception">
-<source>IllegalAccessException calling {0} ("{1}"): {2}</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">NOT USED</context>
-        </context-group>
-      <target>IllegalAccessException ਕਾਲ {0} ("{1}"): {2}</target></trans-unit>
       <trans-unit id="invocation-target-exception">
 <source>IllegalInvocationException calling {0} ("{1}"): {2}</source>
         <context-group name="ctx">

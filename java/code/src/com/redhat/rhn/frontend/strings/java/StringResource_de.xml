@@ -1673,12 +1673,6 @@
           <context context-type="sourcefile">Logfile error message</context>
         </context-group>
       <target>Konnte ACL-Handler {0} in folgendem Statement nicht finden: "{1}". Verf&amp;uuml;gbare ACL-Handler: {2}</target></trans-unit>
-      <trans-unit id="illegal-access-exception">
-<source>IllegalAccessException calling {0} ("{1}"): {2}</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">NOT USED</context>
-        </context-group>
-      <target>IllegalAccessException ruft {0} ("{1}") auf: {2}</target></trans-unit>
       <trans-unit id="invocation-target-exception">
 <source>IllegalInvocationException calling {0} ("{1}"): {2}</source>
         <context-group name="ctx">
