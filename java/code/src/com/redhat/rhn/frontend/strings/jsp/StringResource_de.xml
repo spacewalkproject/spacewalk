@@ -10076,12 +10076,6 @@ Anschlie&amp;szlig;end wird das nicht-chroot Post-Skript ausgef&amp;uuml;hrt, un
         </context-group>
      <target>&lt;strong&gt;Sie haben keine Systemgruppen. &lt;/strong&gt;&lt;p&gt;Sie k&amp;ouml;nnen hier eine Systemgruppe erstellen &lt;a href="/network/systems/ssm/groups/create.pxt"&gt;&lt;strong&gt;Systeme &gt; System Set Manager &gt; Gruppen &gt; Neue Gruppe erstellen&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;</target></trans-unit>
 
-     <trans-unit id="yourrhn.jsp.systemgroups.description">
-        <source>system groups</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/YourRhn.do</context>
-        </context-group>
-     <target>Systemgruppen</target></trans-unit>
 
     <trans-unit id="yourrhn.jsp.scheduledactions">
 <source>Recently Scheduled Actions</source>

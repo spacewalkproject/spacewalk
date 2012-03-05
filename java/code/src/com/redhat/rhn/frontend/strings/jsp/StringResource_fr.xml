@@ -10074,12 +10074,6 @@ Le script post non-chroot sera ensuite exécuté et le script post sera enfin ex
         </context-group>
      <target>&lt;strong&gt;Vous n'avez aucun groupe de systèmes.&lt;/strong&gt;&lt;p&gt;Vous pouvez créer un groupe de systèmes via &lt;a href="/network/systems/ssm/groups/create.pxt"&gt;&lt;strong&gt;Systèmes &gt; Gestionnaire d'ensembles de systèmes &gt; Groupes &gt; créer un nouveau groupe&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;</target></trans-unit>
 
-     <trans-unit id="yourrhn.jsp.systemgroups.description">
-        <source>system groups</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/YourRhn.do</context>
-        </context-group>
-     <target>groupes de systèmes</target></trans-unit>
 
     <trans-unit id="yourrhn.jsp.scheduledactions">
 <source>Recently Scheduled Actions</source>

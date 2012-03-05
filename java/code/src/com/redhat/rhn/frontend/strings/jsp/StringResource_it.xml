@@ -10057,12 +10057,6 @@ la &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stron
         </context-group>
      <target>&lt;strong&gt;Non è presente alcun gruppo del sistema.&lt;/strong&gt;&lt;p&gt;Potete crearne uno su &lt;a href="/network/systems/ssm/groups/create.pxt"&gt;&lt;strong&gt;Sistemi &gt; System Set Manager &gt; Gruppi &gt; crea nuovo gruppo&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;</target></trans-unit>
 
-     <trans-unit id="yourrhn.jsp.systemgroups.description">
-        <source>system groups</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/YourRhn.do</context>
-        </context-group>
-     <target>gruppi di sistemi</target></trans-unit>
 
     <trans-unit id="yourrhn.jsp.scheduledactions">
 <source>Recently Scheduled Actions</source>

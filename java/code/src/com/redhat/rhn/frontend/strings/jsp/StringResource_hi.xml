@@ -10060,12 +10060,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         </context-group>
      <target>&lt;strong&gt; आपका कोई सिस्टम समूह नहीं है.&lt;/strong&gt;&lt;p&gt; आप सिस्टम समूह &lt;a href="/network/systems/ssm/groups/create.pxt"&gt;&lt;strong&gt; सिस्टम &gt; सिस्टम सेट प्रबंधक &gt; समूह &gt; नया समूह बनाएं &lt;/strong&gt;&lt;/a&gt;&lt;/p&gt; पर बना सकते हैं.</target></trans-unit>
 
-     <trans-unit id="yourrhn.jsp.systemgroups.description">
-        <source>system groups</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/YourRhn.do</context>
-        </context-group>
-     <target>सिस्टम समूह</target></trans-unit>
 
     <trans-unit id="yourrhn.jsp.scheduledactions">
 <source>Recently Scheduled Actions</source>

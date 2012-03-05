@@ -10055,12 +10055,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         </context-group>
      <target>&lt;strong&gt;시스템 그룹이 없습니다.&lt;/strong&gt;&lt;p&gt;&lt;a href="/network/systems/ssm/groups/create.pxt"&gt;&lt;strong&gt; 시스템 &gt; 시스템 모음 관리자 &gt; 그룹 &gt; 새로운 그룹 생성 &lt;/strong&gt;&lt;/a&gt; 에서 시스템 그룹을 생성하실 수 있습니다.&lt;/p&gt;</target></trans-unit>
 
-     <trans-unit id="yourrhn.jsp.systemgroups.description">
-        <source>system groups</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/YourRhn.do</context>
-        </context-group>
-     <target>시스템 그룹</target></trans-unit>
 
     <trans-unit id="yourrhn.jsp.scheduledactions">
 <source>Recently Scheduled Actions</source>

@@ -10054,12 +10054,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         </context-group>
      <target>&lt;strong&gt;У вас нет системных групп.&lt;/strong&gt;&lt;p&gt; Системные группы могут быть созданы через &lt;a href="/network/systems/ssm/groups/create.pxt"&gt;&lt;strong&gt;Системы &gt; Менеджер наборов систем &gt; Группы &gt; Создать группу&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;</target></trans-unit>
 
-     <trans-unit id="yourrhn.jsp.systemgroups.description">
-        <source>system groups</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/YourRhn.do</context>
-        </context-group>
-     <target>системные группы</target></trans-unit>
 
     <trans-unit id="yourrhn.jsp.scheduledactions">
 <source>Recently Scheduled Actions</source>
