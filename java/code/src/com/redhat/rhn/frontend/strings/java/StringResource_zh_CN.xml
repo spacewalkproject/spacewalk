@@ -6660,9 +6660,6 @@ Follow this url to see the full list of inactive systems:
 
 
 
-	<trans-unit id="sdc.config.diff.files_0_dirs_0_symlinks_2">
-		<source>{4} of {5} symlinks on the system were successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href="{6}"&gt;View Details&lt;/a&gt;]</source>
-	<target>系统里 {5} 个 symlink 中的 {4} 个成功和 @@PRODUCT_NAME@@ 管理的文件进行了比较。[&lt;a href="{6}"&gt;查看详情&lt;/a&gt;]</target></trans-unit>
 
 	<trans-unit id="sdc.config.diff.files_0_dirs_1_symlinks_0">
 		<source>{2} of 1 directory on the system was successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href="{6}"&gt;View Details&lt;/a&gt;]</source>
