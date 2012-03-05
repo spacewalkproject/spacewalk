@@ -17894,9 +17894,6 @@ de realizar un kickstart o antes de crear una nueva distribución kickstart.&lt;
         <trans-unit id="exportcolumn.message">
             <source>Message</source>
         <target>Mensaje</target></trans-unit>
-        <trans-unit id="exportcolumn.issueDate">
-            <source>Issue Date</source>
-        <target>Fecha de expedición</target></trans-unit>
      </group>
 
     <trans-unit id="virtualization.provision.first.jsp.no.profiles">
