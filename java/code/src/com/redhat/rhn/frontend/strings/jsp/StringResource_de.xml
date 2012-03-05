@@ -11788,14 +11788,6 @@ Anschlie&amp;szlig;end wird das nicht-chroot Post-Skript ausgef&amp;uuml;hrt, un
         </context-group>
       <target>Software-Icon</target></trans-unit>
 
-      <trans-unit id="channels.overview.cd.alt">
-        <source>CD Icon</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/software/channels/All.do</context>
-          <context context-type="sourcefile">/rhn/software/channels/Retired.do</context>
-          <context context-type="sourcefile">/rhn/software/channels/ChannelFamilyTree.do</context>
-        </context-group>
-      <target>CD-Icon</target></trans-unit>
 
       <trans-unit id="channels.overview.filterby">
         <source>Channel Name</source>

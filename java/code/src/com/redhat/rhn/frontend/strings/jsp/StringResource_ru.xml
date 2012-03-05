@@ -11765,14 +11765,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         </context-group>
       <target>Значок ПО</target></trans-unit>
 
-      <trans-unit id="channels.overview.cd.alt">
-        <source>CD Icon</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/software/channels/All.do</context>
-          <context context-type="sourcefile">/rhn/software/channels/Retired.do</context>
-          <context context-type="sourcefile">/rhn/software/channels/ChannelFamilyTree.do</context>
-        </context-group>
-      <target>Значок CD</target></trans-unit>
 
       <trans-unit id="channels.overview.filterby">
         <source>Channel Name</source>
