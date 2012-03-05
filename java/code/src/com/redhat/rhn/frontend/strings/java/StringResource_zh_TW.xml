@@ -6168,9 +6168,6 @@ Follow this url to see the full list of inactive systems:
          <source>You may ensure that configuration deployment capability will be enabled on this system by selecting this system in the  &lt;a href={0}&gt;{1}&lt;/a&gt; screen and then clicking "{2}"</source>
      <target>您可透過在 &lt;a href={0}&gt;{1}&lt;/a&gt; 畫面中點選「{2}」來選擇系統並確認配置建置功能可在此系統上啟用。</target></trans-unit>
 
-     <trans-unit id="system.sdc.config_enablement.client">
-         <source>Also be certain that configuration management is enabled on this system by running the following commands:.</source>
-     <target>還有請藉由執行下列指令來確認配置管理在此系統上已被啟用：</target></trans-unit>
 
      <trans-unit id="system.sdc.addtossm">
          <source>System added to the System Set Manager.</source>

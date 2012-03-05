@@ -6193,9 +6193,6 @@ Seguite l'url sotto riportato per visualizzare l'elenco completo di sistemi inat
          <source>You may ensure that configuration deployment capability will be enabled on this system by selecting this system in the  &lt;a href={0}&gt;{1}&lt;/a&gt; screen and then clicking "{2}"</source>
      <target>È possibile assicurare l'abilitazione della funzionalità d'implementazione della configurazione su questo sistema, selezionando il sistema stesso nella schermata &lt;a href={0}&gt;{1}&lt;/a&gt; e selezionando successivamente "{2}"</target></trans-unit>
 
-     <trans-unit id="system.sdc.config_enablement.client">
-         <source>Also be certain that configuration management is enabled on this system by running the following commands:.</source>
-     <target>Assicuratevi altresì che la gestione della configurazione sia abilitata sul sistema, tramite l'esecuzione dei seguenti comandi:</target></trans-unit>
 
      <trans-unit id="system.sdc.addtossm">
          <source>System added to the System Set Manager.</source>

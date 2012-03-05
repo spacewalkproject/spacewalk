@@ -6200,9 +6200,6 @@ Folgen Sie dieser URL f&amp;uuml;r die vollst&amp;auml;ndige Liste inaktiver Sys
          <source>You may ensure that configuration deployment capability will be enabled on this system by selecting this system in the  &lt;a href={0}&gt;{1}&lt;/a&gt; screen and then clicking "{2}"</source>
      <target>Sie können sicherstellen, dass die Fähigkeit zum Einsatz von Konfigurationen auf diesem System aktiviert wird, indem Sie das System in dem  &lt;a href={0}&gt;{1}&lt;/a&gt; Bildschirm auswählen, und anschließend "{2}" klicken</target></trans-unit>
 
-     <trans-unit id="system.sdc.config_enablement.client">
-         <source>Also be certain that configuration management is enabled on this system by running the following commands:.</source>
-     <target>Stellen Sie zudem sicher, dass Konfigurations-Management auf diesem System aktiviert ist, indem Sie folgenden Befehle ausführen:</target></trans-unit>
 
      <trans-unit id="system.sdc.addtossm">
          <source>System added to the System Set Manager.</source>

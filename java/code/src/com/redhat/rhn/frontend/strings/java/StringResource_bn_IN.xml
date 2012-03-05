@@ -6175,9 +6175,6 @@ Follow this url to see the full list of inactive systems:
          <source>You may ensure that configuration deployment capability will be enabled on this system by selecting this system in the  &lt;a href={0}&gt;{1}&lt;/a&gt; screen and then clicking "{2}"</source>
      <target>&lt;a href={0}&gt;{1}&lt;/a&gt; পর্দায় এই সিস্টেমটিকে নির্বাচন করে "{2}" ক্লিক করে সংশ্লিষ্ট সিস্টেমের জন্য কনফিগারেশনে স্থাপনার ক্ষমতা সক্রিয় করা যাবে।</target></trans-unit>
 
-     <trans-unit id="system.sdc.config_enablement.client">
-         <source>Also be certain that configuration management is enabled on this system by running the following commands:.</source>
-     <target>উপরন্তু, নিম্নলিখিত কমান্ডগুলি প্রয়োগ করে নিশ্চিত করুন যে সংশ্লিষ্ট সিস্টেমে কনফিগারেশন পরিচালন ব্যবস্থা সক্রিয় করা হয়েছে কি না:</target></trans-unit>
 
      <trans-unit id="system.sdc.addtossm">
          <source>System added to the System Set Manager.</source>
