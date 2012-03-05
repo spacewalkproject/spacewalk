@@ -1077,12 +1077,6 @@
 
 
 
-      <trans-unit id="Critical if number of swapped processes exceeds">
-        <source>Critical if number of swapped processes exceeds</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-      <target>गंभीर अगर स्वेप प्रक्रिया की संख्या ज्यादा होती है</target></trans-unit>
 
       <trans-unit id="Database">
         <source>Database</source>
