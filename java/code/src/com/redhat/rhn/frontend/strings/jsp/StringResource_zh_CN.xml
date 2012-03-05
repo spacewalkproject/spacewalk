@@ -14262,12 +14262,6 @@ centrally-managed configuration channel, {2}; below is a list of systems you may
 	      <context context-type="paramnotes">File-deploy successfully scheduled for 5 systems</context>
         </context-group>
      <target>覆盖了 {0} 修订部署。</target></trans-unit>
-	<trans-unit id="deployconfirm.jsp.failure">
-<source>File-deploy attempt failed.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/file/GlobalRevisionDeployConfirm.do</context>
-        </context-group>
-     <target>文件部署尝试失败。</target></trans-unit>
 
 	<!-- deleterevision.jsp -->
 	<trans-unit id="deleterev.jsp.header2">

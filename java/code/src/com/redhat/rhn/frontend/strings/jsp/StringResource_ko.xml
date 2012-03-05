@@ -14242,12 +14242,6 @@ centrally-managed configuration channel, {2}; below is a list of systems you may
 	      <context context-type="paramnotes">File-deploy successfully scheduled for 5 systems</context>
         </context-group>
      <target>{0} 버전-디플로이 작업을 우위로 합니다.</target></trans-unit>
-	<trans-unit id="deployconfirm.jsp.failure">
-<source>File-deploy attempt failed.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/file/GlobalRevisionDeployConfirm.do</context>
-        </context-group>
-     <target>파일 디플로이하기 실패함.</target></trans-unit>
 
 	<!-- deleterevision.jsp -->
 	<trans-unit id="deleterev.jsp.header2">

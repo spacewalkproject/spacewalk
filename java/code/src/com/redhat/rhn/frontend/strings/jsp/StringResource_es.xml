@@ -14264,12 +14264,6 @@ centralmente de este archivo, {2}; a continuación encontrará una lista de sist
 	      <context context-type="paramnotes">File-deploy successfully scheduled for 5 systems</context>
         </context-group>
      <target>implementación de {0} revisiones sobrescritas.</target></trans-unit>
-	<trans-unit id="deployconfirm.jsp.failure">
-<source>File-deploy attempt failed.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/file/GlobalRevisionDeployConfirm.do</context>
-        </context-group>
-     <target>Intento de implementación de archivo fallido.</target></trans-unit>
 
 	<!-- deleterevision.jsp -->
 	<trans-unit id="deleterev.jsp.header2">

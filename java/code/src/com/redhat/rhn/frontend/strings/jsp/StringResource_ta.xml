@@ -14247,12 +14247,6 @@ centrally-managed configuration channel, {2}; below is a list of systems you may
 	      <context context-type="paramnotes">File-deploy successfully scheduled for 5 systems</context>
         </context-group>
      <target>{0} மறுபார்வை-வரிசைப்படுத்தல் மேலாணை செய்கிறது.</target></trans-unit>
-	<trans-unit id="deployconfirm.jsp.failure">
-<source>File-deploy attempt failed.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/file/GlobalRevisionDeployConfirm.do</context>
-        </context-group>
-     <target>கோப்பு வரிசைப்படுத்தல் செய்ய முடியவில்லை.</target></trans-unit>
 
 	<!-- deleterevision.jsp -->
 	<trans-unit id="deleterev.jsp.header2">
