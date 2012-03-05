@@ -5852,12 +5852,6 @@ para este derecho, excluyendo el consumo de la organización predeterminada.</ta
       </context-group>
    <target>Puede programar esta actualización de paquetes para que se realice tan pronto como sea posible o no antes de un tiempo determinado.</target></trans-unit>
 
-    <trans-unit id="upgrade.jsp.confirm">
-<source>Confirm Upgrade</source>
-      <context-group name="ctx">
-        <context context-type="sourcefile">/rhn/systems/details/packages/UpgradeConfirm.do</context>
-      </context-group>
-    <target>Confirmar actualización</target></trans-unit>
 
     <trans-unit id="upgrade.jsp.none">
 <source>No upgradable packages.</source>
