@@ -6752,12 +6752,6 @@ Follow this url to see the full list of inactive systems:
       <target>{0} ਲਈ ਸੈਂਡ-ਬਕਸਾ</target></trans-unit>
 
 
-      <trans-unit id="config_channel.normal">
-        <source>Centrally-Managed</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/file/CompareCopy.do</context>
-        </context-group>
-      <target>ਕੇਂਦਰੀ-ਪਰਬੰਧਿਤ</target></trans-unit>
 
       <trans-unit id="config_channel.server_import">
         <source>Sandbox</source>

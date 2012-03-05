@@ -6777,12 +6777,6 @@ Suivez cet url pour obtenir la liste complète des systèmes inactifs :
       <target>sandbox pour {0}</target></trans-unit>
 
 
-      <trans-unit id="config_channel.normal">
-        <source>Centrally-Managed</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/file/CompareCopy.do</context>
-        </context-group>
-      <target>Géré centralement</target></trans-unit>
 
       <trans-unit id="config_channel.server_import">
         <source>Sandbox</source>

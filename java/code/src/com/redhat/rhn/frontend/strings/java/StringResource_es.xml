@@ -6775,12 +6775,6 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
       <target>entorno de prueba para {0}</target></trans-unit>
 
 
-      <trans-unit id="config_channel.normal">
-        <source>Centrally-Managed</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/file/CompareCopy.do</context>
-        </context-group>
-      <target>Administrado centralmente</target></trans-unit>
 
       <trans-unit id="config_channel.server_import">
         <source>Sandbox</source>

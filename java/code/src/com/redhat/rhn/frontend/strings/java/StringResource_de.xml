@@ -6781,12 +6781,6 @@ Folgen Sie dieser URL f&amp;uuml;r die vollst&amp;auml;ndige Liste inaktiver Sys
       <target>Sandbox f&amp;uuml;r {0}</target></trans-unit>
 
 
-      <trans-unit id="config_channel.normal">
-        <source>Centrally-Managed</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/file/CompareCopy.do</context>
-        </context-group>
-      <target>Zentral verwaltet</target></trans-unit>
 
       <trans-unit id="config_channel.server_import">
         <source>Sandbox</source>

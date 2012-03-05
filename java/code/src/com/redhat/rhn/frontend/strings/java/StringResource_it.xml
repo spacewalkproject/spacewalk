@@ -6774,12 +6774,6 @@ Seguite l'url sotto riportato per visualizzare l'elenco completo di sistemi inat
       <target>sandbox per {0}</target></trans-unit>
 
 
-      <trans-unit id="config_channel.normal">
-        <source>Centrally-Managed</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/file/CompareCopy.do</context>
-        </context-group>
-      <target>Gestito-centralmente</target></trans-unit>
 
       <trans-unit id="config_channel.server_import">
         <source>Sandbox</source>
