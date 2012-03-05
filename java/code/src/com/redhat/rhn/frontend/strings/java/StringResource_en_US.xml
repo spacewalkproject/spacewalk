@@ -1522,12 +1522,6 @@ http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd"
           <context context-type="sourcefile">/rhn/users/UserDetails</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="message.TnCAcknowledged">
-<source>Thank you for acknowledging the Terms &amp; Conditions</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/UserDetails</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="no user loggedin">
 <source>No User logged in.</source>
         <context-group name="ctx">

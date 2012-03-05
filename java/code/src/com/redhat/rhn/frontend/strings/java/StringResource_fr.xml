@@ -1506,12 +1506,6 @@ utilisateur avant de supprimer son compte.</target></trans-unit>
           <context context-type="sourcefile">/rhn/users/UserDetails</context>
         </context-group>
       <target>Informations de l'utilisateur mises à jour</target></trans-unit>
-      <trans-unit id="message.TnCAcknowledged">
-<source>Thank you for acknowledging the Terms &amp; Conditions</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/UserDetails</context>
-        </context-group>
-      <target>Merci d'avoir accepté les Termes et conditions</target></trans-unit>
       <trans-unit id="no user loggedin">
 <source>No User logged in.</source>
         <context-group name="ctx">

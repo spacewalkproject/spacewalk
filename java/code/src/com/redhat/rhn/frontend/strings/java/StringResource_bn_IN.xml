@@ -1510,12 +1510,6 @@
           <context context-type="sourcefile">/rhn/users/UserDetails</context>
         </context-group>
       <target>ব্যবহারকারী সংক্রান্ত তথ্য আপডেট করা হয়েছে</target></trans-unit>
-      <trans-unit id="message.TnCAcknowledged">
-<source>Thank you for acknowledging the Terms &amp; Conditions</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/UserDetails</context>
-        </context-group>
-      <target>শর্তাবলী অনুযায়ী সম্মতি জ্ঞাপনের জন্য ধন্যবাদ</target></trans-unit>
       <trans-unit id="no user loggedin">
 <source>No User logged in.</source>
         <context-group name="ctx">

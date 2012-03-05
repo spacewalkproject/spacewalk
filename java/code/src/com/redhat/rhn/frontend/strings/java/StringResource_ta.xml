@@ -1504,12 +1504,6 @@
           <context context-type="sourcefile">/rhn/users/UserDetails</context>
         </context-group>
       <target>பயனர் தகவல் மேம்படுத்தப்பட்டது</target></trans-unit>
-      <trans-unit id="message.TnCAcknowledged">
-<source>Thank you for acknowledging the Terms &amp; Conditions</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/UserDetails</context>
-        </context-group>
-      <target>நீங்கள் விதிமுறைகள் மற்றும் நிபந்தனைகளை ஏற்றுக்கொண்டதற்கு நன்றி</target></trans-unit>
       <trans-unit id="no user loggedin">
 <source>No User logged in.</source>
         <context-group name="ctx">
