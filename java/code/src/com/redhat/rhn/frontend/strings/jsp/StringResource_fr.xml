@@ -15797,12 +15797,6 @@ Le chemin d'arborescence, le RPM Kickstart, le canal de base, et la génération
         </context-group>
       <target>Chemin d'accès de l'arborescence</target></trans-unit>
 
-     <trans-unit id="tree-form.jspf.bootimage">
-<source>Kickstart rpm</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart/TreeCreate.do</context>
-        </context-group>
-      <target>rpm kickstart</target></trans-unit>
 
      <trans-unit id="tree-form.jspf.installer">
 <source>Installer Generation</source>

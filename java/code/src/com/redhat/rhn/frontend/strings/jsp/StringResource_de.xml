@@ -15799,12 +15799,6 @@ Baumpfad, Kickstart-RPM, Basis-Channel und Installer-Generation sollten immer ü
         </context-group>
       <target>Baumpfad</target></trans-unit>
 
-     <trans-unit id="tree-form.jspf.bootimage">
-<source>Kickstart rpm</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart/TreeCreate.do</context>
-        </context-group>
-      <target>Kickstart-RPM</target></trans-unit>
 
      <trans-unit id="tree-form.jspf.installer">
 <source>Installer Generation</source>

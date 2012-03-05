@@ -15789,12 +15789,6 @@ O Caminho de Árvore, Kickstart RPM, Canal de Base e a Geração do Instalador d
         </context-group>
       <target>Caminho da árvore</target></trans-unit>
 
-     <trans-unit id="tree-form.jspf.bootimage">
-<source>Kickstart rpm</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart/TreeCreate.do</context>
-        </context-group>
-      <target>RPM  de Kickstart</target></trans-unit>
 
      <trans-unit id="tree-form.jspf.installer">
 <source>Installer Generation</source>

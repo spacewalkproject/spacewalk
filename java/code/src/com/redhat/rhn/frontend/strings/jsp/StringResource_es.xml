@@ -15795,12 +15795,6 @@ La ruta del ábol, el RPM Kickstart, el canal base y la generación del instalad
         </context-group>
       <target>Ruta de árbol</target></trans-unit>
 
-     <trans-unit id="tree-form.jspf.bootimage">
-<source>Kickstart rpm</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart/TreeCreate.do</context>
-        </context-group>
-      <target>rpm Kickstart </target></trans-unit>
 
      <trans-unit id="tree-form.jspf.installer">
 <source>Installer Generation</source>

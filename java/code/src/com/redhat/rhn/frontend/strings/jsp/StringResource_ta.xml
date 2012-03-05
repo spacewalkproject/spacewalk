@@ -15750,12 +15750,6 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
         </context-group>
       <target></target></trans-unit>
 
-     <trans-unit id="tree-form.jspf.bootimage">
-<source>Kickstart rpm</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart/TreeCreate.do</context>
-        </context-group>
-      <target>கிக்ஸ்டார்ட் rpm</target></trans-unit>
 
      <trans-unit id="tree-form.jspf.installer">
 <source>Installer Generation</source>
