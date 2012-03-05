@@ -7256,12 +7256,6 @@ und Organisationsmanagement-Tools haben, sollten Sie diese Rolle aus Ihrem Login
         </context-group>
       <target>Sync einplanen</target></trans-unit>
 
-      <trans-unit id="systemcompare.jsp.compareto">
-<source>Compare to {0}</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">NOTFILLEDOUT</context>
-        </context-group>
-      <target>Mit {0} vergleichen</target></trans-unit>
 
       <trans-unit id="systemcompare.jsp.difference">
 <source>Difference</source>

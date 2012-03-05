@@ -7255,12 +7255,6 @@ ni aux outils de gestion d'organisation si vous choisissez de supprimer ce rôle
         </context-group>
       <target>Programmer la synchronisation</target></trans-unit>
 
-      <trans-unit id="systemcompare.jsp.compareto">
-<source>Compare to {0}</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">NOTFILLEDOUT</context>
-        </context-group>
-      <target>Comparer à {0}</target></trans-unit>
 
       <trans-unit id="systemcompare.jsp.difference">
 <source>Difference</source>
