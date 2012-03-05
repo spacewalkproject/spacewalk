@@ -799,12 +799,6 @@
           <context context-type="sourcefile">NOT USED</context>
         </context-group>
       <target>राज्य/प्रदेश</target></trans-unit>
-      <trans-unit id="country.displayname">
-<source>Country</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">NOT USED</context>
-        </context-group>
-      <target>देश</target></trans-unit>
       <trans-unit id="zip.displayname">
 <source>Zip / Postal Code</source>
         <context-group name="ctx">

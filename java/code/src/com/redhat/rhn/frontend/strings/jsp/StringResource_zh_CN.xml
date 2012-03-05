@@ -799,12 +799,6 @@
           <context context-type="sourcefile">NOT USED</context>
         </context-group>
       <target>省/自治区/直辖市</target></trans-unit>
-      <trans-unit id="country.displayname">
-<source>Country</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">NOT USED</context>
-        </context-group>
-      <target>国家</target></trans-unit>
       <trans-unit id="zip.displayname">
 <source>Zip / Postal Code</source>
         <context-group name="ctx">
