@@ -1512,12 +1512,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/newlogin/CreateCorporate</context>
         </context-group>
       <target>Un Red Hat Login vi permetterà di</target></trans-unit>
-      <trans-unit id="usercreate.enables1a">
-<source>purchase capabilities and faster checkout on the </source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/newlogin/CreateCorporate</context>
-        </context-group>
-      <target>ottenere maggiori capacità di acquisto ed un checkout più veloce su</target></trans-unit>
       <trans-unit id="usercreate.enables1b">
 <source>www.redhat.com store</source>
         <context-group name="ctx">

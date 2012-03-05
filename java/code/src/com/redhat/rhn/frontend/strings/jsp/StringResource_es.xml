@@ -1512,12 +1512,6 @@ inmediatamente y usted &lt;b&gt;no podrá iniciar una sesión nuevamente&lt;/b&g
           <context context-type="sourcefile">/rhn/newlogin/CreateCorporate</context>
         </context-group>
       <target>Un login de Red Hat permite</target></trans-unit>
-      <trans-unit id="usercreate.enables1a">
-<source>purchase capabilities and faster checkout on the </source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/newlogin/CreateCorporate</context>
-        </context-group>
-      <target>capacidades de adquisición y pago más rápido del</target></trans-unit>
       <trans-unit id="usercreate.enables1b">
 <source>www.redhat.com store</source>
         <context-group name="ctx">

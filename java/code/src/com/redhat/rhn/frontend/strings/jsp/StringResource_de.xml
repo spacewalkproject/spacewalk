@@ -1512,12 +1512,6 @@ dr&amp;uuml;cken und &lt;b&gt;k&amp;ouml;nnen sich nicht wieder einloggen&lt;/b&
           <context context-type="sourcefile">/rhn/newlogin/CreateCorporate</context>
         </context-group>
       <target>Ein Red Hat Login erm&amp;ouml;glicht</target></trans-unit>
-      <trans-unit id="usercreate.enables1a">
-<source>purchase capabilities and faster checkout on the </source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/newlogin/CreateCorporate</context>
-        </context-group>
-      <target>Einkaufsm&amp;ouml;glichkeiten und einen schnelleren Checkout im </target></trans-unit>
       <trans-unit id="usercreate.enables1b">
 <source>www.redhat.com store</source>
         <context-group name="ctx">

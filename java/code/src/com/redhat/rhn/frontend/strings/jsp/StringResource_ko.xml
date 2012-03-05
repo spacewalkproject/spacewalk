@@ -1512,12 +1512,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/newlogin/CreateCorporate</context>
         </context-group>
       <target>Red Hat 로그인 사용 혜택은 다음과 같습니다:</target></trans-unit>
-      <trans-unit id="usercreate.enables1a">
-<source>purchase capabilities and faster checkout on the </source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/newlogin/CreateCorporate</context>
-        </context-group>
-      <target>www.redhat.com store에서 보다 신속하게 </target></trans-unit>
       <trans-unit id="usercreate.enables1b">
 <source>www.redhat.com store</source>
         <context-group name="ctx">
