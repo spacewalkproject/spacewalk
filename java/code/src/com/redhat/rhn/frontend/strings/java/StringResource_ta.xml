@@ -5997,12 +5997,6 @@ user before attempting to deactivate their account.</source>
       <target>முறையற்ற மதிப்பு</target></trans-unit>
 
 
-    <trans-unit id="bootstrap.config.error.14">
-        <source>Cannot find pub tree</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-      <target>pub treeஐ காணவில்லை</target></trans-unit>
 
     <trans-unit id="bootstrap.config.error.15">
         <source>The hostname was not valid</source>

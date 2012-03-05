@@ -6021,12 +6021,6 @@ utente prima di disabilitare l'account in questione.</target></trans-unit>
       <target>Argomenti invalidi</target></trans-unit>
 
 
-    <trans-unit id="bootstrap.config.error.14">
-        <source>Cannot find pub tree</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-      <target>Impossibile trovare l'albero pub</target></trans-unit>
 
     <trans-unit id="bootstrap.config.error.15">
         <source>The hostname was not valid</source>

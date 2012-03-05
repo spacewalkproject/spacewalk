@@ -6022,12 +6022,6 @@ de este usuario antes de intentar desactivar esta cuenta.</target></trans-unit>
       <target>Argumentos inválidos</target></trans-unit>
 
 
-    <trans-unit id="bootstrap.config.error.14">
-        <source>Cannot find pub tree</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-      <target>No se puede encontrar el árbol pub</target></trans-unit>
 
     <trans-unit id="bootstrap.config.error.15">
         <source>The hostname was not valid</source>

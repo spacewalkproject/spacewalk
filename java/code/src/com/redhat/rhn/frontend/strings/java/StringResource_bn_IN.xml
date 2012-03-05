@@ -6003,12 +6003,6 @@ user before attempting to deactivate their account.</source>
       <target>আর্গুমেন্ট বৈধ নয়</target></trans-unit>
 
 
-    <trans-unit id="bootstrap.config.error.14">
-        <source>Cannot find pub tree</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-      <target>pub ট্রি পাওয়া যায়নি</target></trans-unit>
 
     <trans-unit id="bootstrap.config.error.15">
         <source>The hostname was not valid</source>

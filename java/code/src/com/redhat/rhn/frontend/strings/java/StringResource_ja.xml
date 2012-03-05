@@ -6021,12 +6021,6 @@ user before attempting to deactivate their account.</source>
       <target>無効な引数です</target></trans-unit>
 
 
-    <trans-unit id="bootstrap.config.error.14">
-        <source>Cannot find pub tree</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-      <target>pub ツリーが見つかりません</target></trans-unit>
 
     <trans-unit id="bootstrap.config.error.15">
         <source>The hostname was not valid</source>
