@@ -20247,12 +20247,6 @@ Alternatively, you will want to download &lt;strong&gt;Incremental Channel Conte
           <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementOrgs</context>
         </context-group>
       <target>மேம்படுத்தல்</target></trans-unit>
-      <trans-unit id="entitlementorgs.cancel">
-<source>Cancel Changes</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementOrgs</context>
-        </context-group>
-      <target>மாற்றங்களை ரத்துசெய்</target></trans-unit>
       <trans-unit id="entitlementorgs.usage">
 <source>@@PRODUCT_NAME@@-Wide Entitlement Usage</source>
         <context-group name="ctx">

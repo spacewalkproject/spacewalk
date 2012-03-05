@@ -20318,12 +20318,6 @@ como refletido neste certificado do @@PRODUCT_NAME@@. </target></trans-unit>
           <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementOrgs</context>
         </context-group>
       <target>Atualizar</target></trans-unit>
-      <trans-unit id="entitlementorgs.cancel">
-<source>Cancel Changes</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementOrgs</context>
-        </context-group>
-      <target>Cancelar Mudanças</target></trans-unit>
       <trans-unit id="entitlementorgs.usage">
 <source>@@PRODUCT_NAME@@-Wide Entitlement Usage</source>
         <context-group name="ctx">

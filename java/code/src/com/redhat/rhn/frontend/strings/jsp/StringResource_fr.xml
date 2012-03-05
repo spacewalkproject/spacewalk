@@ -20322,12 +20322,6 @@ comme défini dans le certificat de ce @@PRODUCT_NAME@@.</target></trans-unit>
           <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementOrgs</context>
         </context-group>
       <target>Mettre à jour</target></trans-unit>
-      <trans-unit id="entitlementorgs.cancel">
-<source>Cancel Changes</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementOrgs</context>
-        </context-group>
-      <target>Annuler les changements</target></trans-unit>
       <trans-unit id="entitlementorgs.usage">
 <source>@@PRODUCT_NAME@@-Wide Entitlement Usage</source>
         <context-group name="ctx">
