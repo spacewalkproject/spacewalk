@@ -6263,12 +6263,6 @@ value for this entitlement, excluding the default organization's consumption.</s
         <context context-type="sourcefile">/rhn/systems/details/packages/VerifyConfirm.do</context>
       </context-group>
    <target>તમે આ પેકેજ ચકાસણીઓને શક્ય એટલું જલદી કરવા માટે સુનિશ્ચિત કરશે, અથવા ચોક્કસ સમય કરતાં વહેલું નહિં એમ:</target></trans-unit>
-    <trans-unit id="verifyconfirm.jsp.confirm">
-<source>Confirm</source>
-      <context-group name="ctx">
-        <context context-type="sourcefile">/rhn/systems/details/packages/VerifyConfirm.do</context>
-      </context-group>
-    <target>ખાતરી</target></trans-unit>
     <trans-unit id="verifypkgs.jsp.verifiablepackages">
 <source>Verifiable Packages</source>
       <context-group name="ctx">

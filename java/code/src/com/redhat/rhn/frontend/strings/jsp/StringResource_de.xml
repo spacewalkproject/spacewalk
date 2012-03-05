@@ -6265,12 +6265,6 @@ für diese Berechtigung, mit Ausnahme des Verbrauchs der Standardorganisation.</
         <context context-type="sourcefile">/rhn/systems/details/packages/VerifyConfirm.do</context>
       </context-group>
    <target>Sie k&amp;ouml;nnen die Paketverifizierung f&amp;uuml;r sobald wie m&amp;ouml;glich planen oder auch f&amp;uuml;r nicht fr&amp;uuml;her als zu einem bestimmten Zeitpunkt:</target></trans-unit>
-    <trans-unit id="verifyconfirm.jsp.confirm">
-<source>Confirm</source>
-      <context-group name="ctx">
-        <context context-type="sourcefile">/rhn/systems/details/packages/VerifyConfirm.do</context>
-      </context-group>
-    <target>Best&amp;auml;tigen</target></trans-unit>
     <trans-unit id="verifypkgs.jsp.verifiablepackages">
 <source>Verifiable Packages</source>
       <context-group name="ctx">
