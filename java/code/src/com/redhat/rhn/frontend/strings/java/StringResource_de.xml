@@ -6018,12 +6018,6 @@ Benutzers vor dem Versuch, den Account zu deaktivieren.</target></trans-unit>
       <target>@@PRODUCT_NAME@@ Server Hostname</target></trans-unit>
 
 
-    <trans-unit id="bootstrap.config.error.10">
-        <source>A script with that name already exists</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-      <target>Ein Skript mit diesem Namen existiert bereits</target></trans-unit>
 
     <trans-unit id="bootstrap.config.error.11">
         <source>Invalid script name</source>

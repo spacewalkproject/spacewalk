@@ -6012,12 +6012,6 @@ de este usuario antes de intentar desactivar esta cuenta.</target></trans-unit>
       <target>Nombre de host de servidor de @@PRODUCT_NAME@@</target></trans-unit>
 
 
-    <trans-unit id="bootstrap.config.error.10">
-        <source>A script with that name already exists</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-      <target>Ya existe un script con este nombre</target></trans-unit>
 
     <trans-unit id="bootstrap.config.error.11">
         <source>Invalid script name</source>
