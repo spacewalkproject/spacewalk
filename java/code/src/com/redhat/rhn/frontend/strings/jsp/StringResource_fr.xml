@@ -6388,12 +6388,6 @@ pour ce droit d'accès, moins la consommation par défaut de l'organisation.</ta
       </context-group>
     <target>Mettre à jour la configuration</target></trans-unit>
 
-    <trans-unit id="generalconfig.jsp.silence">
-<source>Silence All Notifications</source>
-      <context-group name="ctx">
-        <context context-type="sourcefile">/rhn/monitoring/config/GeneralConfig.do</context>
-      </context-group>
-    <target>Annuler toutes les notifications</target></trans-unit>
 
     <trans-unit id="removeconfirm.jsp.confirmpackageremoval">
 <source>Confirm Package Removal</source>

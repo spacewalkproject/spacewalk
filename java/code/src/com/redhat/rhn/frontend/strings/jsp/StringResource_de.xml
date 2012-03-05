@@ -6389,12 +6389,6 @@ für diese Berechtigung, mit Ausnahme des Verbrauchs der Standardorganisation.</
       </context-group>
     <target>Konfig aktualisieren</target></trans-unit>
 
-    <trans-unit id="generalconfig.jsp.silence">
-<source>Silence All Notifications</source>
-      <context-group name="ctx">
-        <context context-type="sourcefile">/rhn/monitoring/config/GeneralConfig.do</context>
-      </context-group>
-    <target>Alle Benachrichtigungen anhalten</target></trans-unit>
 
     <trans-unit id="removeconfirm.jsp.confirmpackageremoval">
 <source>Confirm Package Removal</source>
