@@ -11868,9 +11868,6 @@ Le script post non-chroot sera ensuite exécuté et le script post sera enfin ex
         </context-group>
       <target>Canal enfant</target></trans-unit>
 
-      <trans-unit id="channels.relevant.jsp.toolbar">
-        <source>Software Channels Overview</source>
-      <target>Aperçu des canaux logiciels</target></trans-unit>
 
 
       <trans-unit id="channels.all.jsp.toolbar">

@@ -11853,9 +11853,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         </context-group>
       <target>બાળ ચેનલ</target></trans-unit>
 
-      <trans-unit id="channels.relevant.jsp.toolbar">
-        <source>Software Channels Overview</source>
-      <target>સોફ્ટવેર ચેનલ ઝાંખી</target></trans-unit>
 
 
       <trans-unit id="channels.all.jsp.toolbar">

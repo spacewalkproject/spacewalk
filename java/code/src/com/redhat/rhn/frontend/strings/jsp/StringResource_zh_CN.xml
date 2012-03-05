@@ -11863,9 +11863,6 @@ kickstart 前脚本的内容可以在 &lt;strong&gt;《红帽企业版 Linux 系
         </context-group>
       <target>子频道</target></trans-unit>
 
-      <trans-unit id="channels.relevant.jsp.toolbar">
-        <source>Software Channels Overview</source>
-      <target>软件频道概述</target></trans-unit>
 
 
       <trans-unit id="channels.all.jsp.toolbar">

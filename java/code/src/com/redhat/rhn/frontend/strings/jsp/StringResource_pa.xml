@@ -11852,9 +11852,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         </context-group>
       <target>ਅਧੀਨ ਚੈਨਲ</target></trans-unit>
 
-      <trans-unit id="channels.relevant.jsp.toolbar">
-        <source>Software Channels Overview</source>
-      <target>ਸਾਫਟਵੇਅਰ ਚੈਨਲ ਜਾਣਕਾਰੀ</target></trans-unit>
 
 
       <trans-unit id="channels.all.jsp.toolbar">

@@ -11866,9 +11866,6 @@ el &lt;strong&gt;Manual de administración del sistema Red Hat Enterprise Linux.
         </context-group>
       <target>Canal hijo</target></trans-unit>
 
-      <trans-unit id="channels.relevant.jsp.toolbar">
-        <source>Software Channels Overview</source>
-      <target>Visión general de canales de software</target></trans-unit>
 
 
       <trans-unit id="channels.all.jsp.toolbar">

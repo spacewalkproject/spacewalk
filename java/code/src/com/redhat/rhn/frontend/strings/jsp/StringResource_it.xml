@@ -11850,9 +11850,6 @@ la &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stron
         </context-group>
       <target>Canale figlio</target></trans-unit>
 
-      <trans-unit id="channels.relevant.jsp.toolbar">
-        <source>Software Channels Overview</source>
-      <target>Panoramica canali software</target></trans-unit>
 
 
       <trans-unit id="channels.all.jsp.toolbar">

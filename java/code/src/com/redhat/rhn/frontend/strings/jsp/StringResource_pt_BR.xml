@@ -11859,9 +11859,6 @@ o &lt;strong&gt;Guia de Administração de Sistemas Red Hat Enterprise Li
         </context-group>
       <target>Canal Filho</target></trans-unit>
 
-      <trans-unit id="channels.relevant.jsp.toolbar">
-        <source>Software Channels Overview</source>
-      <target>Visão Geral dos Canais de Software</target></trans-unit>
 
 
       <trans-unit id="channels.all.jsp.toolbar">
