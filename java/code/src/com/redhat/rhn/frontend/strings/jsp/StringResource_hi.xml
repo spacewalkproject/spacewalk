@@ -21171,12 +21171,6 @@ given channel.</source>
           <context context-type="sourcefile">/rhn/help/Search</context>
         </context-group>
       <target>कोई पृष्ठ नहीं मिला.</target></trans-unit>
-      <trans-unit id="docsearch.jsp.pagelink">
-        <source>Page Link</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/help/Search</context>
-        </context-group>
-      <target>पृष्ठ लिंक</target></trans-unit>
 	 <trans-unit id="docsearch.jsp.pagetitle">
         <source>Page Title</source>
         <context-group name="ctx">

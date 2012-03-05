@@ -21293,12 +21293,6 @@ given channel.</source>
           <context context-type="sourcefile">/rhn/help/Search</context>
         </context-group>
       <target>没有找到页面。</target></trans-unit>
-      <trans-unit id="docsearch.jsp.pagelink">
-        <source>Page Link</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/help/Search</context>
-        </context-group>
-      <target>页面链接</target></trans-unit>
 	 <trans-unit id="docsearch.jsp.pagetitle">
         <source>Page Title</source>
         <context-group name="ctx">

@@ -21296,12 +21296,6 @@ given channel.</source>
           <context context-type="sourcefile">/rhn/help/Search</context>
         </context-group>
       <target>Nenhuma página encontrada.</target></trans-unit>
-      <trans-unit id="docsearch.jsp.pagelink">
-        <source>Page Link</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/help/Search</context>
-        </context-group>
-      <target>Link de Página</target></trans-unit>
 	 <trans-unit id="docsearch.jsp.pagetitle">
         <source>Page Title</source>
         <context-group name="ctx">

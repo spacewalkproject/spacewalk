@@ -21304,12 +21304,6 @@ f&amp;uuml;r einen angegebenen Channel aufgelistet wird.</target></trans-unit>
           <context context-type="sourcefile">/rhn/help/Search</context>
         </context-group>
       <target>Keine Seiten gefunden.</target></trans-unit>
-      <trans-unit id="docsearch.jsp.pagelink">
-        <source>Page Link</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/help/Search</context>
-        </context-group>
-      <target>Seiten-Link</target></trans-unit>
 	 <trans-unit id="docsearch.jsp.pagetitle">
         <source>Page Title</source>
         <context-group name="ctx">

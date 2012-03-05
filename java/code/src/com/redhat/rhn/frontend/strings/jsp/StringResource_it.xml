@@ -21168,12 +21168,6 @@ stesso pacchetto in un singolo canale, ciò potrebbe causare però il
           <context context-type="sourcefile">/rhn/help/Search</context>
         </context-group>
       <target>Nessuna pagina trovata.</target></trans-unit>
-      <trans-unit id="docsearch.jsp.pagelink">
-        <source>Page Link</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/help/Search</context>
-        </context-group>
-      <target>Link della pagina</target></trans-unit>
 	 <trans-unit id="docsearch.jsp.pagetitle">
         <source>Page Title</source>
         <context-group name="ctx">
