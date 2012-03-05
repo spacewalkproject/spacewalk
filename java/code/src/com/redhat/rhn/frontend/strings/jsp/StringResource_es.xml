@@ -19486,12 +19486,6 @@ para anunciar periodos de mantenimiento de Emergencia y no programados.
           <context context-type="sourcefile">/rhn/software/channel/downloads/Download.do</context>
         </context-group>
       <target>Canal de software</target></trans-unit>
-      <trans-unit id="common.download.channel-name">
-<source>Download Software</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/software/downloads/AllISOs.do</context>
-        </context-group>
-      <target>Descargar software</target></trans-unit>
       <trans-unit id="common.download.select">
 <source>Click the name of the desired software channel to be presented with your download options</source>
         <context-group name="ctx">
