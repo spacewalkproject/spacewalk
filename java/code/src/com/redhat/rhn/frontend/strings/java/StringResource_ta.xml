@@ -6673,13 +6673,6 @@ url பின்பற்றி செயலிழக்கப்பட்ட �
 
 
 
-     <trans-unit id="config_subscribed_systems.unsubscribeSystems.failure">
-        <source>Failed to unsubscribe {0} system(s).</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/file/CopyFilesCentral.do</context>
-          <context context-type="paramnotes">7 revision deletions failed.</context>
-        </context-group>
-      <target>{0} கணினிகளை சந்தா நீக்க முடியவில்லை.</target></trans-unit>
 
       <trans-unit id="config_subscribed_systems.unsubscribeSystems.success">
         <source>Successfully unsubscribed {0} system(s).</source>
