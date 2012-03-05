@@ -1512,12 +1512,6 @@ dr&amp;uuml;cken und &lt;b&gt;k&amp;ouml;nnen sich nicht wieder einloggen&lt;/b&
           <context context-type="sourcefile">/rhn/newlogin/CreateCorporate</context>
         </context-group>
       <target>Ein Red Hat Login erm&amp;ouml;glicht</target></trans-unit>
-      <trans-unit id="usercreate.enables2">
-<source>access to whitepapers, webcasts, and product information on redhat.com</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/newlogin/CreateCorporate</context>
-        </context-group>
-      <target>Zugang zu Whitepapers, Webcasts und Produktinformation auf redhat.com</target></trans-unit>
       <trans-unit id="usercreate.enables3">
 <source>access software updates, Errata, and maintenance from @@PRODUCT_NAME@@</source>
         <context-group name="ctx">
