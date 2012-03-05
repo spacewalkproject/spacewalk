@@ -10248,12 +10248,6 @@ Veuillez noter qu'une configuration manuelle de ces scripts peut toujours être 
   </group>
 
 
-  <trans-unit id="kickstart.sysarch.jsp.label">
-    <source>System &lt;br /&gt;Architecture</source>
-    <context-group name="ctx">
-      <context context-type="sourcefile">/rhn/kickstart/KickstartSystemDetailsEdit</context>
-    </context-group>
-  <target>Système &lt;br /&gt;Architecture</target></trans-unit>
 
   <trans-unit id="kickstart.netconn.jsp.label">
     <source>Network Connection</source>

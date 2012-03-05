@@ -10243,12 +10243,6 @@ Kickstart 侧写的引导装载程序和分区选项，有可能覆盖用户定�
   </group>
 
 
-  <trans-unit id="kickstart.sysarch.jsp.label">
-    <source>System &lt;br /&gt;Architecture</source>
-    <context-group name="ctx">
-      <context context-type="sourcefile">/rhn/kickstart/KickstartSystemDetailsEdit</context>
-    </context-group>
-  <target>系统&lt;br /&gt;体系构架</target></trans-unit>
 
   <trans-unit id="kickstart.netconn.jsp.label">
     <source>Network Connection</source>
