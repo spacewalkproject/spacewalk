@@ -12960,12 +12960,6 @@ centrally-managed configuration channel, {2}; below is a list of systems you may
           <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
         </context-group>
      <target>下载最新的修订</target></trans-unit>
-	<trans-unit id="toolbar.delete.org">
-<source>delete organization</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
-        </context-group>
-     <target>删除机构</target></trans-unit>
 	<trans-unit id="filedetails.jsp.download">
 <source>download file revision</source>
         <context-group name="ctx">

@@ -12956,12 +12956,6 @@ de configuração centralmente gerenciado pelo arquivo, {2}; segue abaixo uma li
           <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
         </context-group>
      <target>baixar revisão mais recente</target></trans-unit>
-	<trans-unit id="toolbar.delete.org">
-<source>delete organization</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
-        </context-group>
-     <target>remover organização</target></trans-unit>
 	<trans-unit id="filedetails.jsp.download">
 <source>download file revision</source>
         <context-group name="ctx">

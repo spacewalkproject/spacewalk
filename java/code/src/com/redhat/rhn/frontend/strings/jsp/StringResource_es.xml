@@ -12963,12 +12963,6 @@ centralmente de este archivo, {2}; a continuación encontrará una lista de sist
           <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
         </context-group>
      <target>descargar última revisión</target></trans-unit>
-	<trans-unit id="toolbar.delete.org">
-<source>delete organization</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
-        </context-group>
-     <target>borrar organización</target></trans-unit>
 	<trans-unit id="filedetails.jsp.download">
 <source>download file revision</source>
         <context-group name="ctx">

@@ -12965,12 +12965,6 @@ Vous pouvez déployer la dernière version de ce fichier (&lt;a href="{1}"&gt;Re
           <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
         </context-group>
      <target>télécharger la dernière version</target></trans-unit>
-	<trans-unit id="toolbar.delete.org">
-<source>delete organization</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
-        </context-group>
-     <target>supprimer l'organisation</target></trans-unit>
 	<trans-unit id="filedetails.jsp.download">
 <source>download file revision</source>
         <context-group name="ctx">
