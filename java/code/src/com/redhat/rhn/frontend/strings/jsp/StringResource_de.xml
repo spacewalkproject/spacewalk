@@ -11118,9 +11118,6 @@ Anschlie&amp;szlig;end wird das nicht-chroot Post-Skript ausgef&amp;uuml;hrt, un
        <trans-unit id="activation-keys.jsp.header">
          <source>Activation Keys</source>
        <target>Aktivierungsschl&amp;uuml;ssel</target></trans-unit>
-       <trans-unit id="toolbar.delete.activationkeys">
-         <source>delete key</source>
-     <target>Schl&amp;uuml;ssel l&amp;ouml;schen</target></trans-unit>
        <trans-unit id="activation-keys.common.alt">
          <source>Activation Key icon</source>
        <target>Aktivierungsschl&amp;uuml;ssel-Icon</target></trans-unit>

@@ -11114,9 +11114,6 @@ el &lt;strong&gt;Manual de administración del sistema Red Hat Enterprise Linux.
        <trans-unit id="activation-keys.jsp.header">
          <source>Activation Keys</source>
        <target>Llaves de activación</target></trans-unit>
-       <trans-unit id="toolbar.delete.activationkeys">
-         <source>delete key</source>
-     <target>borrar llave</target></trans-unit>
        <trans-unit id="activation-keys.common.alt">
          <source>Activation Key icon</source>
        <target>Icono de llave de activación</target></trans-unit>

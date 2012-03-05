@@ -11102,9 +11102,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
        <trans-unit id="activation-keys.jsp.header">
          <source>Activation Keys</source>
        <target>सक्रियकरण कुंजी</target></trans-unit>
-       <trans-unit id="toolbar.delete.activationkeys">
-         <source>delete key</source>
-     <target>कुंजी मिटाएँ</target></trans-unit>
        <trans-unit id="activation-keys.common.alt">
          <source>Activation Key icon</source>
        <target>कुंजी प्रतीक सक्रियकरण</target></trans-unit>

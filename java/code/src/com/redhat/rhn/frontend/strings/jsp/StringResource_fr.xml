@@ -11116,9 +11116,6 @@ Le script post non-chroot sera ensuite exécuté et le script post sera enfin ex
        <trans-unit id="activation-keys.jsp.header">
          <source>Activation Keys</source>
        <target>Clés d'activation</target></trans-unit>
-       <trans-unit id="toolbar.delete.activationkeys">
-         <source>delete key</source>
-     <target>supprimer la clé</target></trans-unit>
        <trans-unit id="activation-keys.common.alt">
          <source>Activation Key icon</source>
        <target>Icône de clé d'activation</target></trans-unit>

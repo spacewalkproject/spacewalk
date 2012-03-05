@@ -11107,9 +11107,6 @@ o &lt;strong&gt;Guia de Administração de Sistemas Red Hat Enterprise Li
        <trans-unit id="activation-keys.jsp.header">
          <source>Activation Keys</source>
        <target>Chaves de Ativação</target></trans-unit>
-       <trans-unit id="toolbar.delete.activationkeys">
-         <source>delete key</source>
-     <target>remover chave </target></trans-unit>
        <trans-unit id="activation-keys.common.alt">
          <source>Activation Key icon</source>
        <target>Ícone de Chave de Ativação</target></trans-unit>
