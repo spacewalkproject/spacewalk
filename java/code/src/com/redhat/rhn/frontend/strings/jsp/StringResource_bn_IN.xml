@@ -19910,9 +19910,6 @@ given channel.</source>
          If you are requesting an organizational default kickstart, ensure that a kickstart has been selected as the "Organization Default".</source>
      <target>অনুরোধ করা kickstart ফাইলটি পাওয়া যায়নি।
          প্রতিষ্ঠানের কোনো ডিফল্ট kickstart-র অনুরোধ জানানো হলে অনুগ্রহ করে নিশ্চিত করুন যে সংশ্লিষ্ট kickstart-টি "প্রতিষ্ঠানের ডিফল্ট" রূপে ধার্য করা হয়েছে।</target></trans-unit>
-     <trans-unit id="task.status.current.db.time">
-         <source>Current DB Time</source>
-     <target>বর্তমান-কি</target></trans-unit>
      <trans-unit id="task.status.last.execution">
          <source>Last Execution Times</source>
      <target>স্ক্রিপ্ট সঞ্চালনের সময়কাল</target></trans-unit>

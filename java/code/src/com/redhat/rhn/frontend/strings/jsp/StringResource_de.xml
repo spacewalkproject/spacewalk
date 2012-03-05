@@ -20031,9 +20031,6 @@ f&amp;uuml;r einen angegebenen Channel aufgelistet wird.</target></trans-unit>
          If you are requesting an organizational default kickstart, ensure that a kickstart has been selected as the "Organization Default".</source>
      <target>Die angeforderte Kickstart-Datei konnte nicht gefunden werden.
          Falls Sie einen Standard-Kickstart für eine Organisation anfordern, stellen Sie sicher, dass ein Kickstart als "Organisationsstandard" ausgewählt wurde.</target></trans-unit>
-     <trans-unit id="task.status.current.db.time">
-         <source>Current DB Time</source>
-     <target>Momentaner Schl&amp;uuml;ssel</target></trans-unit>
      <trans-unit id="task.status.last.execution">
          <source>Last Execution Times</source>
      <target>Skript-Ausf&amp;uuml;hrungszeit</target></trans-unit>

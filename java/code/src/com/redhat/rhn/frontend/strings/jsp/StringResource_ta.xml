@@ -19910,9 +19910,6 @@ given channel.</source>
          If you are requesting an organizational default kickstart, ensure that a kickstart has been selected as the "Organization Default".</source>
      <target>கோரப்பட்ட கிக்ஸ்டாரட் கோப்பு காணப்படவில்லை.
         நீங்கள் ஒரு நிறுவன முன்னிருப்பு கிக்ஸ்டார்ட்டை கோரினால், ஒரு கிக்ஸ்டார்ட் "நிறுவன முன்னிருப்பாக" ஒரு கிக்ஸ்டார்ட தேர்ந்தெடுக்கப்பட்டிருக்கும்.</target></trans-unit>
-     <trans-unit id="task.status.current.db.time">
-         <source>Current DB Time</source>
-     <target>நடப்பு விசை</target></trans-unit>
      <trans-unit id="task.status.last.execution">
          <source>Last Execution Times</source>
      <target>உரை இயங்கும் நேரம்</target></trans-unit>

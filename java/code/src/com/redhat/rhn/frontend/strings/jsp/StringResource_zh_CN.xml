@@ -20011,9 +20011,6 @@ given channel.</source>
          If you are requesting an organizational default kickstart, ensure that a kickstart has been selected as the "Organization Default".</source>
      <target>没有找到要求的 kickstart 文件。
          如果您要求的是一个机构默认 kickstart，请确定将一个 kickstart 选定为"机构默认"。</target></trans-unit>
-     <trans-unit id="task.status.current.db.time">
-         <source>Current DB Time</source>
-     <target>当前密钥</target></trans-unit>
      <trans-unit id="task.status.last.execution">
          <source>Last Execution Times</source>
      <target>脚本执行时间</target></trans-unit>

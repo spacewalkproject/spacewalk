@@ -19904,9 +19904,6 @@ given channel.</source>
          If you are requesting an organizational default kickstart, ensure that a kickstart has been selected as the "Organization Default".</source>
      <target>找不到您請求的 kickstart 檔案。
          若您正在請求一個組織的預設 kickstart，請確認有個 kickstart 已被選擇來作為「組織預設值」。</target></trans-unit>
-     <trans-unit id="task.status.current.db.time">
-         <source>Current DB Time</source>
-     <target>目前的金鑰</target></trans-unit>
      <trans-unit id="task.status.last.execution">
          <source>Last Execution Times</source>
      <target>Script 的執行時間</target></trans-unit>

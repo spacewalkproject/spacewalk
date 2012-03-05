@@ -19911,9 +19911,6 @@ given channel.</source>
          If you are requesting an organizational default kickstart, ensure that a kickstart has been selected as the "Organization Default".</source>
      <target>સુચિત કિકસ્ટાર્ટ ફાઇલને શોધી શક્યા નહિં.
          જો તમે સંસ્થાકીય મૂળભૂત કિકસ્ટાર્ટને સૂચન કરી રહ્યા હોય તો, ખાતરી કરો કે જે કિકસ્ટાર્ટ એ "મૂળભૂત સંસ્થા" તરીકે પસંદ કરી દેવામાં આવી છે.</target></trans-unit>
-     <trans-unit id="task.status.current.db.time">
-         <source>Current DB Time</source>
-     <target>વર્તમાન કી</target></trans-unit>
      <trans-unit id="task.status.last.execution">
          <source>Last Execution Times</source>
      <target>સ્ક્રિપ્ટ એક્ઝેક્યુશન સમય</target></trans-unit>

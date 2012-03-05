@@ -19901,9 +19901,6 @@ given channel.</source>
          If you are requesting an organizational default kickstart, ensure that a kickstart has been selected as the "Organization Default".</source>
      <target>요청하신 킥스타트 파일을 찾을 수 없습니다.
           조직의 기본값 킥스타트를 요청하신 경우, 킥스타트가 "조직 기본값"으로 선택되었는지를 확인합니다.  </target></trans-unit>
-     <trans-unit id="task.status.current.db.time">
-         <source>Current DB Time</source>
-     <target>현재키</target></trans-unit>
      <trans-unit id="task.status.last.execution">
          <source>Last Execution Times</source>
      <target>스크립트 실행 시간</target></trans-unit>

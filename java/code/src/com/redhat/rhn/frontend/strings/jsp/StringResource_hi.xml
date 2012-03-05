@@ -19912,9 +19912,6 @@ given channel.</source>
          If you are requesting an organizational default kickstart, ensure that a kickstart has been selected as the "Organization Default".</source>
      <target>निवेदित फाइल नहीं मिला.
          यदि आप किसी संगठन के मूलभूत किकस्टार्ट के लिए निवेदन कर रहे हैं, सुनिश्चित करें कि कोई किकस्टार्ट को "संगठन मूलभूत" के रूप में चुना गया है.</target></trans-unit>
-     <trans-unit id="task.status.current.db.time">
-         <source>Current DB Time</source>
-     <target>मौजूदा कुंजी</target></trans-unit>
      <trans-unit id="task.status.last.execution">
          <source>Last Execution Times</source>
      <target>स्क्रिप्ट निष्पादन समय</target></trans-unit>

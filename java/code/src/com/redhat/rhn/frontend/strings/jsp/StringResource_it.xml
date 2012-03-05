@@ -19909,9 +19909,6 @@ stesso pacchetto in un singolo canale, ciò potrebbe causare però il
          If you are requesting an organizational default kickstart, ensure that a kickstart has been selected as the "Organization Default".</source>
      <target>Il file kickstart richiesto non è stato trovato.
          Se state richiedendo un kickstart predefinito dell'organizzazione, assicuratevi di aver selezionato un tipo di kickstart come "Default dell'organizzazione".</target></trans-unit>
-     <trans-unit id="task.status.current.db.time">
-         <source>Current DB Time</source>
-     <target>Chiave corrente</target></trans-unit>
      <trans-unit id="task.status.last.execution">
          <source>Last Execution Times</source>
      <target>Tempo di Esecuzione dello Script</target></trans-unit>
