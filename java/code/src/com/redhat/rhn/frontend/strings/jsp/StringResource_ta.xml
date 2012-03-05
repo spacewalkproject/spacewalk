@@ -9559,12 +9559,6 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
     <target>கிக்ஸ்டார்ட் செய்ய கணினிகள் திட்டமிடப்பட்டது</target></trans-unit>
 
-    <trans-unit id="kickstart.jsp.updateprofiles">
-           <source>Update Profiles</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart</context>
-        </context-group>
-    <target>விவரக்குறிப்புகளை மேம்படுத்தவும்</target></trans-unit>
 
     <trans-unit id="kickstart.jsp.label">
            <source>Label</source>

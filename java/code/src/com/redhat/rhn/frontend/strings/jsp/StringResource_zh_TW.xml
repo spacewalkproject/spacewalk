@@ -9555,12 +9555,6 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
     <target>已排程即將進行 kickstart 的系統</target></trans-unit>
 
-    <trans-unit id="kickstart.jsp.updateprofiles">
-           <source>Update Profiles</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart</context>
-        </context-group>
-    <target>升級設定檔</target></trans-unit>
 
     <trans-unit id="kickstart.jsp.label">
            <source>Label</source>

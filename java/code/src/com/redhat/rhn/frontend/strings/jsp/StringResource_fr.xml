@@ -9572,12 +9572,6 @@ Veuillez noter qu'une configuration manuelle de ces scripts peut toujours être 
         </context-group>
     <target>Systèmes programmés pour une installation via kickstart</target></trans-unit>
 
-    <trans-unit id="kickstart.jsp.updateprofiles">
-           <source>Update Profiles</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart</context>
-        </context-group>
-    <target>Mettre à jour les profils</target></trans-unit>
 
     <trans-unit id="kickstart.jsp.label">
            <source>Label</source>

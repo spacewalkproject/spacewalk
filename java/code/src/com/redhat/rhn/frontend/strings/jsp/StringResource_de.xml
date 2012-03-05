@@ -9574,12 +9574,6 @@ Bitte beachten Sie, dass m&amp;ouml;glicherweise noch einige manuelle Konfigurat
         </context-group>
     <target>Für Kickstart eingeplante Systeme</target></trans-unit>
 
-    <trans-unit id="kickstart.jsp.updateprofiles">
-           <source>Update Profiles</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart</context>
-        </context-group>
-    <target>Profile aktualisieren</target></trans-unit>
 
     <trans-unit id="kickstart.jsp.label">
            <source>Label</source>

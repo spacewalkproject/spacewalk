@@ -9556,12 +9556,6 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
     <target>킥스타트 예정된 시스템</target></trans-unit>
 
-    <trans-unit id="kickstart.jsp.updateprofiles">
-           <source>Update Profiles</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart</context>
-        </context-group>
-    <target>프로파일 업데이트</target></trans-unit>
 
     <trans-unit id="kickstart.jsp.label">
            <source>Label</source>

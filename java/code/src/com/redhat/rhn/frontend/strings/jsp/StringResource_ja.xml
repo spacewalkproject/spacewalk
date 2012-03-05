@@ -9557,12 +9557,6 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
     <target>キックスタートがスケジュールされたシステム</target></trans-unit>
 
-    <trans-unit id="kickstart.jsp.updateprofiles">
-           <source>Update Profiles</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart</context>
-        </context-group>
-    <target>プロフィールの更新</target></trans-unit>
 
     <trans-unit id="kickstart.jsp.label">
            <source>Label</source>

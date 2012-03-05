@@ -9559,12 +9559,6 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
     <target>किकस्टार्ट किये जाने के लिये सिस्टम अनुसूचित</target></trans-unit>
 
-    <trans-unit id="kickstart.jsp.updateprofiles">
-           <source>Update Profiles</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart</context>
-        </context-group>
-    <target>प्रोफाइल अद्यतन करें</target></trans-unit>
 
     <trans-unit id="kickstart.jsp.label">
            <source>Label</source>

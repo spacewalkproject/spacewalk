@@ -9559,12 +9559,6 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
     <target>સિસ્ટમો કિકસ્ટાર્ટ થવા માટે સુનિશ્ચિત થઈ ગઈ છે</target></trans-unit>
 
-    <trans-unit id="kickstart.jsp.updateprofiles">
-           <source>Update Profiles</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart</context>
-        </context-group>
-    <target>રૂપરેખાઓ સુધારો</target></trans-unit>
 
     <trans-unit id="kickstart.jsp.label">
            <source>Label</source>

@@ -9558,12 +9558,6 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
     <target>Kickstart করার উদ্দেশ্যে চিহ্নিত সিস্টেম</target></trans-unit>
 
-    <trans-unit id="kickstart.jsp.updateprofiles">
-           <source>Update Profiles</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart</context>
-        </context-group>
-    <target>আপডেট সংক্রান্ত প্রোফাইল</target></trans-unit>
 
     <trans-unit id="kickstart.jsp.label">
            <source>Label</source>
