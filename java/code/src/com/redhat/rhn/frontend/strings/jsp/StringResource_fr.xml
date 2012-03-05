@@ -15968,12 +15968,6 @@ Le chemin d'arborescence, le RPM Kickstart, le canal de base, et la génération
 
 
 
-      <trans-unit id="virtualization.provision.first.jsp.storage.nfs.server_directory.tip1">
-        <source>&lt;strong&gt;Example:&lt;/strong&gt; /mnt/foobar</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/virtualization/ProvisionVirtualizationWizard.do</context>
-	</context-group>
-      <target>&lt;strong&gt;Exemple&amp;nbsp;:&lt;/strong&gt; /mnt/foobar</target></trans-unit>
 
       <trans-unit id="kickstart.systemdetails.update.confirm">
         <source>Kickstart profile options updated successfully.</source>

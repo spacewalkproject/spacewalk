@@ -16310,12 +16310,6 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
 
 
 
-      <trans-unit id="virtualization.provision.first.jsp.storage.nfs.server_directory.tip1">
-        <source>&lt;strong&gt;Example:&lt;/strong&gt; /mnt/foobar</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/virtualization/ProvisionVirtualizationWizard.do</context>
-	</context-group>
-      </trans-unit>
 
       <trans-unit id="kickstart.systemdetails.update.confirm">
         <source>Kickstart profile options updated successfully.</source>
