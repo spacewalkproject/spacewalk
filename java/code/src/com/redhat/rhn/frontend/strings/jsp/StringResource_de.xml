@@ -4698,12 +4698,6 @@ für diese Berechtigung, mit Ausnahme des Verbrauchs der Standardorganisation.</
           <context context-type="sourcefile">/rhn/errata/Search</context>
         </context-group>
       <target>Übersicht</target></trans-unit>
-      <trans-unit id="errata_search_by_synopsis">
-<source>Synopsis</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/errata/Search</context>
-        </context-group>
-      <target>Übersicht</target></trans-unit>
       <trans-unit id="errata_search_by_advisory">
 <source>Erratum Advisory (ex: RHBA-2007:0113)</source>
         <context-group name="ctx">

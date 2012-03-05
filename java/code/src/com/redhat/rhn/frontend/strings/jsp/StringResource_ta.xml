@@ -4696,12 +4696,6 @@ value for this entitlement, excluding the default organization's consumption.</s
           <context context-type="sourcefile">/rhn/errata/Search</context>
         </context-group>
       <target>சுருக்கம்</target></trans-unit>
-      <trans-unit id="errata_search_by_synopsis">
-<source>Synopsis</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/errata/Search</context>
-        </context-group>
-      <target>சுருக்கம்</target></trans-unit>
       <trans-unit id="errata_search_by_advisory">
 <source>Erratum Advisory (ex: RHBA-2007:0113)</source>
         <context-group name="ctx">
