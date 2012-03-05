@@ -6717,13 +6717,6 @@ Follow this url to see the full list of inactive systems:
         </context-group>
       <target>{0} સિસ્ટમ(ઓ)ની સફળતાપૂર્વક ઉમેદવારી કરાઈ.</target></trans-unit>
 
-     <trans-unit id="config_channels.failure">
-        <source>Failed to copy file to {0} channels.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/file/CopyFilesCentral.do</context>
-          <context context-type="paramnotes">7 revision deletions failed.</context>
-        </context-group>
-      <target>{0} ચેનલોમાં ફાઈલની નકલ કરવામાં નિષ્ફળ.</target></trans-unit>
 
       <trans-unit id="config_channels.success">
         <source>Successfully copied file to {0} channels.</source>

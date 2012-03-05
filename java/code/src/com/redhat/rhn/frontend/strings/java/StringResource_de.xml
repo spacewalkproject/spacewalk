@@ -6748,13 +6748,6 @@ Folgen Sie dieser URL f&amp;uuml;r die vollst&amp;auml;ndige Liste inaktiver Sys
         </context-group>
       <target>{0} System(e) erfolgreich angemeldet.</target></trans-unit>
 
-     <trans-unit id="config_channels.failure">
-        <source>Failed to copy file to {0} channels.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/file/CopyFilesCentral.do</context>
-          <context context-type="paramnotes">7 revision deletions failed.</context>
-        </context-group>
-      <target>Kopieren der Datei zu {0} Channels gescheitert.</target></trans-unit>
 
       <trans-unit id="config_channels.success">
         <source>Successfully copied file to {0} channels.</source>

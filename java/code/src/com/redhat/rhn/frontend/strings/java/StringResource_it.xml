@@ -6741,13 +6741,6 @@ Seguite l'url sotto riportato per visualizzare l'elenco completo di sistemi inat
         </context-group>
       <target>Sottoscrizione {0} sistema(i) completata.</target></trans-unit>
 
-     <trans-unit id="config_channels.failure">
-        <source>Failed to copy file to {0} channels.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/file/CopyFilesCentral.do</context>
-          <context context-type="paramnotes">7 revision deletions failed.</context>
-        </context-group>
-      <target>Impossibile copiare file su {0} canali.</target></trans-unit>
 
       <trans-unit id="config_channels.success">
         <source>Successfully copied file to {0} channels.</source>

@@ -6742,13 +6742,6 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
         </context-group>
       <target>{0} sistema(s) suscrito(s) con éxito.</target></trans-unit>
 
-     <trans-unit id="config_channels.failure">
-        <source>Failed to copy file to {0} channels.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/file/CopyFilesCentral.do</context>
-          <context context-type="paramnotes">7 revision deletions failed.</context>
-        </context-group>
-      <target>Copiado de archivo a {0} canales falló.</target></trans-unit>
 
       <trans-unit id="config_channels.success">
         <source>Successfully copied file to {0} channels.</source>

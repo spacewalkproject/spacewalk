@@ -6723,13 +6723,6 @@ Follow this url to see the full list of inactive systems:
         </context-group>
       <target>সাফল্যের সাথে {0} সিস্টেম সাবস্ক্রাইব করা হয়েছে।</target></trans-unit>
 
-     <trans-unit id="config_channels.failure">
-        <source>Failed to copy file to {0} channels.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/file/CopyFilesCentral.do</context>
-          <context context-type="paramnotes">7 revision deletions failed.</context>
-        </context-group>
-      <target>{0} চ্যানেলে ফাইল কপি করতে ব্যর্থ।</target></trans-unit>
 
       <trans-unit id="config_channels.success">
         <source>Successfully copied file to {0} channels.</source>
