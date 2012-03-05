@@ -864,12 +864,6 @@
       <target></target></trans-unit>
 
 
-      <trans-unit id="login.jsp.hostbody2">
-<source>Red Hat currently features three @@PRODUCT_NAME@@ modules:</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/Login</context>
-        </context-group>
-      <target>Red Hat தற்போது சிறப்பம்சமாக மூன்று @@PRODUCT_NAME@@ தொகுதியை கொண்டுள்ளது:</target></trans-unit>
 
       <trans-unit id="login.jsp.list1">
 <source>Update: Easy software updates to your Red Hat systems.</source>
