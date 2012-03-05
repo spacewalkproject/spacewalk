@@ -2089,12 +2089,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/account/SubscriptionManagement</context>
         </context-group>
       <target>உங்கள்&lt;strong&gt;Red Hat Enterprise Linux சந்தாக்கள்&lt;/strong&gt; மற்றும் &lt;strong&gt; @@PRODUCT_NAME@@ உரிமங்களை&lt;/strong&gt;&lt;strong&gt;&lt;a href="https://www.redhat.com/rhel/renew"&gt;&lt;img src="/img/external-link.gif" alt="External Link"/&gt; Red Hat புதுப்பிக்கும் மையத்தில்&lt;/a&gt;&lt;/strong&gt;&lt;strong&gt;&lt;a href="https://www.redhat.com/rhel/renew"&gt;புதுப்பிக்கவும்&lt;/a&gt;&lt;/strong&gt;.</target></trans-unit>
-      <trans-unit id="subscriptionmanagement.jsp.purchase.description3">
-<source>&lt;strong&gt;&lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;Purchase&lt;/a&gt;&lt;/strong&gt; additional &lt;strong&gt;@@PRODUCT_NAME@@ management and provisioning entitlements&lt;/strong&gt; at the &lt;strong&gt;&lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;img src="/img/external-link.gif" alt="External Link" /&gt;Red Hat Store&lt;/a&gt;&lt;/strong&gt;.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/account/SubscriptionManagement</context>
-        </context-group>
-      <target>கூடுதல் &lt;strong&gt;@@PRODUCT_NAME@@ மேலாண்மை மற்றும் வாய்ப்பளிக்கும் உரிமம்&lt;/strong&gt;&lt;strong&gt;&lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;img src="/img/external-link.gif" alt="External Link" /&gt;Red Hat ஸ்டோரில்&lt;/a&gt;&lt;/strong&gt;&lt;strong&gt;&lt;a href="https://www.redhat.com/apps/commerce/"&gt; வாங்கவும்.&lt;/a&gt;&lt;/strong&gt;.</target></trans-unit>
 <!-- edit_address.jsp -->
       <trans-unit id="edit_address.jsp.address">
 <source> Address</source>
