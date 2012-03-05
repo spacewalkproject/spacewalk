@@ -883,12 +883,6 @@
 
 
 
-      <trans-unit id="login.jsp.list3">
-<source>Provisioning: System snapshots, integrated kickstarts, configuration management and more.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/Login</context>
-        </context-group>
-      </trans-unit>
 
 
       <trans-unit id="login.jsp.note">

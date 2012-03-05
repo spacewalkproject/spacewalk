@@ -867,12 +867,6 @@
 
 
 
-      <trans-unit id="login.jsp.list3">
-<source>Provisioning: System snapshots, integrated kickstarts, configuration management and more.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/Login</context>
-        </context-group>
-      <target>प्रोविजनिंग: सिस्टम स्नैपशॉट, एकीकृत किकस्टार्ट, विन्यास प्रबंधन और बहुत कुछ.</target></trans-unit>
 
 
       <trans-unit id="login.jsp.note">
