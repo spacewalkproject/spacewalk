@@ -8468,12 +8468,6 @@ Please note that some manual configuration of these scripts may still be require
 
 
 
-  <trans-unit id="tnc.jsp.return-login">
-    <source>Link to Log in to @@PRODUCT_NAME@@</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/tnc/</context>
-        </context-group>
-    <target>Collega per registrarti al @@PRODUCT_NAME@@</target></trans-unit>
 
 
 

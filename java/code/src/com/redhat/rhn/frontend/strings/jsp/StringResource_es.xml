@@ -8482,12 +8482,6 @@ Por favor tenga en cuenta que podría ser necesario configurar manualmente estos
 
 
 
-  <trans-unit id="tnc.jsp.return-login">
-    <source>Link to Log in to @@PRODUCT_NAME@@</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/tnc/</context>
-        </context-group>
-    <target>Enlace para conectarse a @@PRODUCT_NAME@@</target></trans-unit>
 
 
 

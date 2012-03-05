@@ -8483,12 +8483,6 @@ Veuillez noter qu'une configuration manuelle de ces scripts peut toujours être 
 
 
 
-  <trans-unit id="tnc.jsp.return-login">
-    <source>Link to Log in to @@PRODUCT_NAME@@</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/tnc/</context>
-        </context-group>
-    <target>Lien pour vous connecter à @@PRODUCT_NAME@@</target></trans-unit>
 
 
 

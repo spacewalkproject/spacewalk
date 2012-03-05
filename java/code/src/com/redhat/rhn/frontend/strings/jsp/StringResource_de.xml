@@ -8485,12 +8485,6 @@ Bitte beachten Sie, dass m&amp;ouml;glicherweise noch einige manuelle Konfigurat
 
 
 
-  <trans-unit id="tnc.jsp.return-login">
-    <source>Link to Log in to @@PRODUCT_NAME@@</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/tnc/</context>
-        </context-group>
-    <target>Link zum Einloggen im @@PRODUCT_NAME@@</target></trans-unit>
 
 
 
