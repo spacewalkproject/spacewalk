@@ -19483,12 +19483,6 @@ Note that only one set of ISO images is necessary to install any particular rele
           <context context-type="sourcefile">/rhn/software/channel/downloads/Download.do</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="isodownload.channel-dumps.view-incr">
-<source>View Incremental Channel Content ISOs for @@PRODUCT_NAME@@</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/software/channel/downloads/Download.do</context>
-        </context-group>
-      </trans-unit>
 	</group>
 
       <trans-unit id="sdc.channels.edit.available">

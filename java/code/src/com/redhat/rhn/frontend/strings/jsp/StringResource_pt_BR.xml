@@ -19090,12 +19090,6 @@ Perceba que apenas um conjunto de imagens ISO é necessário para instalação d
           <context context-type="sourcefile">/rhn/software/channel/downloads/Download.do</context>
         </context-group>
       <target>O canal que você tentou acessar não existe ou você não possui permissão de acesso. Por favor, verifique novamente o link que o trouxe à esta página.</target></trans-unit>
-      <trans-unit id="isodownload.channel-dumps.view-incr">
-<source>View Incremental Channel Content ISOs for @@PRODUCT_NAME@@</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/software/channel/downloads/Download.do</context>
-        </context-group>
-      <target>Visualizar o ISOs de Conteúdo de Canal Incremental para @@PRODUCT_NAME@@. </target></trans-unit>
 	</group>
 
       <trans-unit id="sdc.channels.edit.available">

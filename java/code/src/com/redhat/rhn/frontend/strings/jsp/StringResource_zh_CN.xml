@@ -19089,12 +19089,6 @@ Note that only one set of ISO images is necessary to install any particular rele
           <context context-type="sourcefile">/rhn/software/channel/downloads/Download.do</context>
         </context-group>
       <target>您试图访问的频道或者是不存在，也或者是您没有权限。请重新检查把您带入此页面的链接。</target></trans-unit>
-      <trans-unit id="isodownload.channel-dumps.view-incr">
-<source>View Incremental Channel Content ISOs for @@PRODUCT_NAME@@</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/software/channel/downloads/Download.do</context>
-        </context-group>
-      <target>查看 @@PRODUCT_NAME@@ 的增量频道内容 ISO</target></trans-unit>
 	</group>
 
       <trans-unit id="sdc.channels.edit.available">
