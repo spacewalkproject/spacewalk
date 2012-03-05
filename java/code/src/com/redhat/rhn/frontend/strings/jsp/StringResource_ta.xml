@@ -19298,9 +19298,6 @@ given channel.</source>
       <trans-unit id="system.jsp.customkey.createmsg">
          <source>Define infomation about this key below.</source>
        <target>இந்த விசை பற்றிய தகவலை விவரி.</target></trans-unit>
-      <trans-unit id="system.jsp.customkey.createbutton">
-         <source>Create Key</source>
-       <target>விசையை உருவாக்கவும்</target></trans-unit>
       <trans-unit id="lastModified">
          <source>Last Modified</source>
        <target>கடைசி மாற்றம்</target></trans-unit>

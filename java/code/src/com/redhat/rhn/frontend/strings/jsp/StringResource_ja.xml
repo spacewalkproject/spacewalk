@@ -19363,9 +19363,6 @@ given channel.</source>
       <trans-unit id="system.jsp.customkey.createmsg">
          <source>Define infomation about this key below.</source>
        <target>このキーに関する情報を以下で定義します。</target></trans-unit>
-      <trans-unit id="system.jsp.customkey.createbutton">
-         <source>Create Key</source>
-       <target>キーの作成</target></trans-unit>
       <trans-unit id="lastModified">
          <source>Last Modified</source>
        <target>前回の変更</target></trans-unit>

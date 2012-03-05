@@ -19300,9 +19300,6 @@ given channel.</source>
       <trans-unit id="system.jsp.customkey.createmsg">
          <source>Define infomation about this key below.</source>
        <target>इस कुंजी के बारे में नीचे सूचना परिभाषित करें</target></trans-unit>
-      <trans-unit id="system.jsp.customkey.createbutton">
-         <source>Create Key</source>
-       <target>कुंजी बनाएं</target></trans-unit>
       <trans-unit id="lastModified">
          <source>Last Modified</source>
        <target>अंतिम रूपांतरित</target></trans-unit>

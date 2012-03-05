@@ -19388,9 +19388,6 @@ f&amp;uuml;r einen angegebenen Channel aufgelistet wird.</target></trans-unit>
       <trans-unit id="system.jsp.customkey.createmsg">
          <source>Define infomation about this key below.</source>
        <target>Legen Sie Informationen über diesen Schlüssel unten fest.</target></trans-unit>
-      <trans-unit id="system.jsp.customkey.createbutton">
-         <source>Create Key</source>
-       <target>Schl&amp;uuml;ssel erstellen</target></trans-unit>
       <trans-unit id="lastModified">
          <source>Last Modified</source>
        <target>Zuletzt aktualisiert</target></trans-unit>

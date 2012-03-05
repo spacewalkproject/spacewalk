@@ -19775,9 +19775,6 @@ given channel.</source>
       <trans-unit id="system.jsp.customkey.createmsg">
          <source>Define information about this key below.</source>
        </trans-unit>
-      <trans-unit id="system.jsp.customkey.createbutton">
-         <source>Create Key</source>
-       </trans-unit>
       <trans-unit id="system.jsp.customkey.updatebutton">
          <source>Update Key</source>
        </trans-unit>

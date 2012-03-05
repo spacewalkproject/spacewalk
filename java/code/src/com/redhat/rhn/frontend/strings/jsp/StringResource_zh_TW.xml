@@ -19292,9 +19292,6 @@ given channel.</source>
       <trans-unit id="system.jsp.customkey.createmsg">
          <source>Define infomation about this key below.</source>
        <target>在下方定義有關於此金鑰的資訊。</target></trans-unit>
-      <trans-unit id="system.jsp.customkey.createbutton">
-         <source>Create Key</source>
-       <target>建立金鑰</target></trans-unit>
       <trans-unit id="lastModified">
          <source>Last Modified</source>
        <target>最後修改</target></trans-unit>

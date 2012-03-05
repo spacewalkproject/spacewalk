@@ -19384,9 +19384,6 @@ given channel.</source>
       <trans-unit id="system.jsp.customkey.createmsg">
          <source>Define infomation about this key below.</source>
        <target>Definir información sobre la llave de abajo.</target></trans-unit>
-      <trans-unit id="system.jsp.customkey.createbutton">
-         <source>Create Key</source>
-       <target>Crear llave</target></trans-unit>
       <trans-unit id="lastModified">
          <source>Last Modified</source>
        <target>Último modificado</target></trans-unit>

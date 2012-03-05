@@ -19375,9 +19375,6 @@ given channel.</source>
       <trans-unit id="system.jsp.customkey.createmsg">
          <source>Define infomation about this key below.</source>
        <target>定义有关此密钥信息如下。</target></trans-unit>
-      <trans-unit id="system.jsp.customkey.createbutton">
-         <source>Create Key</source>
-       <target>创建密钥</target></trans-unit>
       <trans-unit id="lastModified">
          <source>Last Modified</source>
        <target>最后修改</target></trans-unit>

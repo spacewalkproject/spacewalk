@@ -19293,9 +19293,6 @@ given channel.</source>
       <trans-unit id="system.jsp.customkey.createmsg">
          <source>Define infomation about this key below.</source>
        <target>Ниже введите информацию об этом ключе.</target></trans-unit>
-      <trans-unit id="system.jsp.customkey.createbutton">
-         <source>Create Key</source>
-       <target>Создать ключ</target></trans-unit>
       <trans-unit id="lastModified">
          <source>Last Modified</source>
        <target>Обновлен</target></trans-unit>

@@ -19297,9 +19297,6 @@ stesso pacchetto in un singolo canale, ciò potrebbe causare però il
       <trans-unit id="system.jsp.customkey.createmsg">
          <source>Define infomation about this key below.</source>
        <target>Definire le informazioni su questa chiave.</target></trans-unit>
-      <trans-unit id="system.jsp.customkey.createbutton">
-         <source>Create Key</source>
-       <target>Crea Chiave</target></trans-unit>
       <trans-unit id="lastModified">
          <source>Last Modified</source>
        <target>Ultima modifica</target></trans-unit>
