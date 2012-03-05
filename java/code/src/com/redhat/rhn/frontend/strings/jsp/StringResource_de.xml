@@ -1548,12 +1548,6 @@ dr&amp;uuml;cken und &lt;b&gt;k&amp;ouml;nnen sich nicht wieder einloggen&lt;/b&
           <context context-type="sourcefile">/rhn/users/UserDetails</context>
         </context-group>
       <target>Diese Benutzerinformation kann bearbeitet werden, indem Sie das unten zur Verf&amp;uuml;gung gestellte Formular verwenden.  Eintr&amp;auml;ge, die mit einem Sternchen (&lt;span class="required-form-field"&gt;*&lt;/span&gt;) versehen sind, sind &lt;strong&gt;Pflichtfelder&lt;/strong&gt;. </target></trans-unit>
-      <trans-unit id="userdetails.jsp.usertype">
-<source>User Type</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/UserDetails</context>
-        </context-group>
-      <target>Benutzertyp</target></trans-unit>
       <trans-unit id="userdetails.jsp.roles">
 <source>Roles</source>
         <context-group name="ctx">

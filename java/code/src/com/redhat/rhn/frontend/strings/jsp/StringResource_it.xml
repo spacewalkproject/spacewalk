@@ -1548,12 +1548,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/users/UserDetails</context>
         </context-group>
       <target> È possibile modificare le informazioni di questo utente utilizzando la modalità di seguito riportata. Le voci contrassegnate da un asterisco (&lt;span class="required-form-field"&gt;*&lt;/span&gt;) sono &lt;strong&gt;obbligatorie&lt;/strong&gt;.</target></trans-unit>
-      <trans-unit id="userdetails.jsp.usertype">
-<source>User Type</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/UserDetails</context>
-        </context-group>
-      <target>Tipo utente</target></trans-unit>
       <trans-unit id="userdetails.jsp.roles">
 <source>Roles</source>
         <context-group name="ctx">

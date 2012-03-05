@@ -1548,12 +1548,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/users/UserDetails</context>
         </context-group>
       <target> இந்தப் பயனருடைய தகவல் கீழே கொடுக்கப்பட்டுள்ள படிவத்தைப் பயன்படுத்தி மாற்றப்படலாம்.  நட்சத்திர குறியிடப்பட்ட உள்ளீடுகள் (&lt;span class="required-form-field"&gt;*&lt;/span&gt;)&lt;strong&gt;தேவையானது&lt;/strong&gt;. </target></trans-unit>
-      <trans-unit id="userdetails.jsp.usertype">
-<source>User Type</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/UserDetails</context>
-        </context-group>
-      <target>பயனர் வகை</target></trans-unit>
       <trans-unit id="userdetails.jsp.roles">
 <source>Roles</source>
         <context-group name="ctx">

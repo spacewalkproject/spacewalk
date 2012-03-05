@@ -1548,12 +1548,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/users/UserDetails</context>
         </context-group>
       <target>可以通过以下提供的表格编辑这个用户的信息。以星号（&lt;span class="required-form-field"&gt;*&lt;/span&gt;）标注的项是&lt;strong&gt;必填的&lt;/strong&gt;。</target></trans-unit>
-      <trans-unit id="userdetails.jsp.usertype">
-<source>User Type</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/UserDetails</context>
-        </context-group>
-      <target>用户类型</target></trans-unit>
       <trans-unit id="userdetails.jsp.roles">
 <source>Roles</source>
         <context-group name="ctx">

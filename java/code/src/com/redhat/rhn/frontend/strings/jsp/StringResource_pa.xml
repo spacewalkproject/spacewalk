@@ -1548,12 +1548,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/users/UserDetails</context>
         </context-group>
       <target> ਉਪਭੋਗੀ ਦੀ ਜਾਣਕਾਰੀ ਨੂੰ ਹੇਠਾਂ ਦਿੱਤੇ ਫਾਰਮ ਰਾਹੀਂ ਵੀ ਸੋਧੀ ਜਾ ਸਕਦੀ ਹੈ। ਤਾਰੇ (&lt;span class="required-form-field"&gt;*&lt;/span&gt;) ਰਾਹੀਂ ਵਿਖਾਏ ਗਏ ਖੇਤਰ &lt;strong&gt;ਲਾਜ਼ਮੀ&lt;/strong&gt; ਹਨ।</target></trans-unit>
-      <trans-unit id="userdetails.jsp.usertype">
-<source>User Type</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/UserDetails</context>
-        </context-group>
-      <target>ਉਪਭੋਗੀ ਕਿਸਮ</target></trans-unit>
       <trans-unit id="userdetails.jsp.roles">
 <source>Roles</source>
         <context-group name="ctx">

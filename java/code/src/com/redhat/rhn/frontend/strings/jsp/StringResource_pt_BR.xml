@@ -1548,12 +1548,6 @@ abaixo e &lt;b&gt;não poderá mais se autenticar&lt;/b&gt;.</target></trans-uni
           <context context-type="sourcefile">/rhn/users/UserDetails</context>
         </context-group>
       <target> As informações deste usuário podem ser editadas usando o formulário provido abaixo. Os campos marcados com um asterisco (&lt;span class="required-form-field"&gt;*&lt;/span&gt;) são &lt;strong&gt;obrigatórios&lt;/strong&gt;.</target></trans-unit>
-      <trans-unit id="userdetails.jsp.usertype">
-<source>User Type</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/UserDetails</context>
-        </context-group>
-      <target>Tipo de Usuário</target></trans-unit>
       <trans-unit id="userdetails.jsp.roles">
 <source>Roles</source>
         <context-group name="ctx">
