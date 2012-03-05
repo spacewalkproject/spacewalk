@@ -5139,12 +5139,6 @@ value for this entitlement, excluding the default organization's consumption.</s
         </context-group>
       <target>ஒன்றலுடன் பணி செய்யவும்</target></trans-unit>
 
-      <trans-unit id="systemgroups.jsp.security">
-<source>Security Advisories: </source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/frontend/dto/SystemGroupOverview</context>
-        </context-group>
-      <target>பாதுகாப்பு அறிவிப்பிகள்:</target></trans-unit>
 
 
 

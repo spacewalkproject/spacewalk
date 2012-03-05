@@ -5138,12 +5138,6 @@ value for this entitlement, excluding the default organization's consumption.</s
         </context-group>
       <target>합집합 작업 (두 집합의 원소들을 합쳐서 만들어진 집합)</target></trans-unit>
 
-      <trans-unit id="systemgroups.jsp.security">
-<source>Security Advisories: </source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/frontend/dto/SystemGroupOverview</context>
-        </context-group>
-      <target>보안 권고: </target></trans-unit>
 
 
 

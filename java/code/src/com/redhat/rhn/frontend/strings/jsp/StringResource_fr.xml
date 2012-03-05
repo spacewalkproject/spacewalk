@@ -5140,12 +5140,6 @@ pour ce droit d'accès, moins la consommation par défaut de l'organisation.</ta
         </context-group>
       <target>Travailler avec des unions</target></trans-unit>
 
-      <trans-unit id="systemgroups.jsp.security">
-<source>Security Advisories: </source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/frontend/dto/SystemGroupOverview</context>
-        </context-group>
-      <target>Alerte de sécurité&amp;nbsp;:</target></trans-unit>
 
 
 
