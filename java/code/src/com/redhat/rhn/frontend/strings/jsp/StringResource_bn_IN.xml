@@ -6008,12 +6008,6 @@ value for this entitlement, excluding the default organization's consumption.</s
         <context context-type="sourcefile">https://wopr.skavenlabs/rhn/ssm/PackageRemove.do</context>
       </context-group>
     <target>প্যাকেজ অপসারণ কর্ম নিশ্চিত করুন</target></trans-unit>
-    <trans-unit id="removeconfirm.jsp.confirmorgremoval">
-<source>Confirm Organization Removal</source>
-      <context-group name="ctx">
-        <context context-type="sourcefile">/rhn/admin/multiorg/OrgDelete.do</context>
-      </context-group>
-    <target>প্রতিষ্ঠান অপসারণ কর্ম নিশ্চিত করুন</target></trans-unit>
 
     <trans-unit id="removeconfirm.jsp.widgetsummary">
 <source>You may schedule the package removals to take place as soon as possible, or no sooner than a specified time:</source>

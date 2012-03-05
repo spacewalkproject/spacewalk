@@ -6009,12 +6009,6 @@ para este derecho, excluyendo el consumo de la organización predeterminada.</ta
         <context context-type="sourcefile">https://wopr.skavenlabs/rhn/ssm/PackageRemove.do</context>
       </context-group>
     <target>Confirmar remoción de paquetes</target></trans-unit>
-    <trans-unit id="removeconfirm.jsp.confirmorgremoval">
-<source>Confirm Organization Removal</source>
-      <context-group name="ctx">
-        <context context-type="sourcefile">/rhn/admin/multiorg/OrgDelete.do</context>
-      </context-group>
-    <target>Confirmar remoción de la organización</target></trans-unit>
 
     <trans-unit id="removeconfirm.jsp.widgetsummary">
 <source>You may schedule the package removals to take place as soon as possible, or no sooner than a specified time:</source>

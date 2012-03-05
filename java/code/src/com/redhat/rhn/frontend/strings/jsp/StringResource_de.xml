@@ -6011,12 +6011,6 @@ für diese Berechtigung, mit Ausnahme des Verbrauchs der Standardorganisation.</
         <context context-type="sourcefile">https://wopr.skavenlabs/rhn/ssm/PackageRemove.do</context>
       </context-group>
     <target>Paketentfernung best&amp;auml;tigen</target></trans-unit>
-    <trans-unit id="removeconfirm.jsp.confirmorgremoval">
-<source>Confirm Organization Removal</source>
-      <context-group name="ctx">
-        <context context-type="sourcefile">/rhn/admin/multiorg/OrgDelete.do</context>
-      </context-group>
-    <target>Entfernung der Organisation best&amp;auml;tigen</target></trans-unit>
 
     <trans-unit id="removeconfirm.jsp.widgetsummary">
 <source>You may schedule the package removals to take place as soon as possible, or no sooner than a specified time:</source>
