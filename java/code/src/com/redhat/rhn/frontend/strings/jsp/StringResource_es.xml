@@ -2753,13 +2753,6 @@ del rol de Administrador de la organización.</target></trans-unit>
         </context-group>
       <target>Paquetes</target></trans-unit>
 
-      <trans-unit id="packagelist.jsp.header.patches">
-<source>Patches</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/schedule/PackageList</context>
-          <context context-type="sourcefile">/rhn/errata/details/Packages</context>
-        </context-group>
-      <target>Parches</target></trans-unit>
 
       <trans-unit id="packagelist.jsp.header.patchsets">
 <source>Patch Clusters</source>
