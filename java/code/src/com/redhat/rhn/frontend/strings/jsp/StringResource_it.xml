@@ -1506,12 +1506,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/newlogin/CreatePersonal</context>
         </context-group>
       <target>Un login personale vi permetterà di gestire i sistemi da voi posseduti a solo scopo personale, rendendo possibile l'acquisto, a titolo personale, di prodotti e servizi di Red Hat. &lt;strong&gt; (È sconsigliato creare un login personale se utilizzerete il suddetto login di Red Hat per la gestione dei sistemi posseduti da una azienda, oppure per eseguire degli acquisti relativi all'azienda stessa - per qualsiasi necessità aziendale &lt;a href="/rhn/newlogin/CreateCorporate.do?account_type=create_corporate"&gt;create un login aziendale&lt;/a&gt;.) &lt;/strong&gt;</target></trans-unit>
-      <trans-unit id="usercreate.loginEnables">
-<source>A Red Hat Login enables</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/newlogin/CreateCorporate</context>
-        </context-group>
-      <target>Un Red Hat Login vi permetterà di</target></trans-unit>
 
       <trans-unit id="usercreate.jsp.createlogin">
 <source>Create Login</source>

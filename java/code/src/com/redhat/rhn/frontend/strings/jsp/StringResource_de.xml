@@ -1506,12 +1506,6 @@ dr&amp;uuml;cken und &lt;b&gt;k&amp;ouml;nnen sich nicht wieder einloggen&lt;/b&
           <context context-type="sourcefile">/rhn/newlogin/CreatePersonal</context>
         </context-group>
       <target>Ein privates Login ermöglicht Ihnen die Verwaltung Ihrer eigenen Systeme für Ihren persönlichen Gebrauch und den privaten Erwerb von Red Hat Produkten und Dienstleistungen. &lt;strong&gt;(Sie sollten kein Privat-Login erstellen, wenn Sie ein Red Hat Login dazu verwenden, Systeme zu verwalten, die sich im Besitz eines Unternehmens befinden oder Firmeneink&amp;auml;ufe zu t&amp;auml;tigen – stattdessen sollten Sie f&amp;uuml;r gesch&amp;auml;ftliche Zwecke &lt;a href="/rhn/newlogin/CreateCorporate.do?account_type=create_corporate"&gt;ein Firmen-Login erstellen&lt;/a&gt;)&lt;/strong&gt; </target></trans-unit>
-      <trans-unit id="usercreate.loginEnables">
-<source>A Red Hat Login enables</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/newlogin/CreateCorporate</context>
-        </context-group>
-      <target>Ein Red Hat Login erm&amp;ouml;glicht</target></trans-unit>
 
       <trans-unit id="usercreate.jsp.createlogin">
 <source>Create Login</source>

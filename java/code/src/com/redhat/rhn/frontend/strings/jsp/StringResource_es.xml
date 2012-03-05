@@ -1506,12 +1506,6 @@ inmediatamente y usted &lt;b&gt;no podrá iniciar una sesión nuevamente&lt;/b&g
           <context context-type="sourcefile">/rhn/newlogin/CreatePersonal</context>
         </context-group>
       <target>Una login personal le permitirá administrar sus sistemas de uso personal y realizar adquisiciones personales de los productos y servicios de Red Hat. &lt;strong&gt;(Usted no debería crear un login personal si va a usar el login  de Red Hat para administrar sistemas que son parte de una empresa o para realizar adquisiciones empresariales - para necesidades empresariales, &lt;a href="/rhn/newlogin/CreateCorporate.do?account_type=create_corporate"&gt;cree un login de negocios&lt;/a&gt;.)&lt;/strong&gt; </target></trans-unit>
-      <trans-unit id="usercreate.loginEnables">
-<source>A Red Hat Login enables</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/newlogin/CreateCorporate</context>
-        </context-group>
-      <target>Un login de Red Hat permite</target></trans-unit>
 
       <trans-unit id="usercreate.jsp.createlogin">
 <source>Create Login</source>

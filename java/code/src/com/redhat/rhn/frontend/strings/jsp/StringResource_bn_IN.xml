@@ -1506,12 +1506,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/newlogin/CreatePersonal</context>
         </context-group>
       <target> ব্যক্তিগত লগ-ইনের সাহায্যে আপনি আপনার দ্বারা ব্যবহৃত ব্যক্তিগত সিস্টেম পরিচালনা ও Red Hat-র বিভিন্ন উৎপাদন ও পরিসেবা ক্রয় করতে পারবেন। &lt;strong&gt;(বাণিজ্যিক কর্মে নিযুক্ত সিস্টেম পরিচালনা ও ক্রয় করার উদ্দেশ্যে ব্যক্তিগত Red Hat লগ-ইন ব্যবহার করা উচিত নয়, বাণিজ্যিক কর্মের জন্য &lt;a href="/rhn/newlogin/CreateCorporate.do?account_type=create_corporate"&gt;বাণিজ্যিক লগ-ইন নির্মাণ করুন&lt;/a&gt;।)&lt;/strong&gt; </target></trans-unit>
-      <trans-unit id="usercreate.loginEnables">
-<source>A Red Hat Login enables</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/newlogin/CreateCorporate</context>
-        </context-group>
-      <target>একটি Red Hat লগ-ইনের সাহায্যে</target></trans-unit>
 
       <trans-unit id="usercreate.jsp.createlogin">
 <source>Create Login</source>

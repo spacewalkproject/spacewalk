@@ -1506,12 +1506,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/newlogin/CreatePersonal</context>
         </context-group>
       <target> Персональное имя входа даст вам возможность управлять принадлежащими вам системами и осуществлять персональные приобретения продуктов и услуг Red Hat. &lt;strong&gt;Вам не надо создавать персональное имя входа в случае, если вы планируете управлять системами, принадлежащим бизнесу, или для осуществления бизнес-приобретений. Для этих целей &lt;a href="/rhn/newlogin/CreateCorporate.do?account_type=create_corporate"&gt;создайте бизнес-имя&lt;/a&gt;.&lt;/strong&gt; </target></trans-unit>
-      <trans-unit id="usercreate.loginEnables">
-<source>A Red Hat Login enables</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/newlogin/CreateCorporate</context>
-        </context-group>
-      <target>Имя входа Red Hat активирует</target></trans-unit>
 
       <trans-unit id="usercreate.jsp.createlogin">
 <source>Create Login</source>

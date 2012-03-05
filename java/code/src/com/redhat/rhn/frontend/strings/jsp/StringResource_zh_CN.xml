@@ -1506,12 +1506,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/newlogin/CreatePersonal</context>
         </context-group>
       <target>个人登录将允许您管理一个您所拥有的、个人使用的系统并以个人身份购买红帽的产品和服务。&lt;strong&gt;（如果您使用红帽登录来管理企业所拥有的系统或以企业身份购买红帽的产品和服务，您不应该创建个人登录，您需要 &lt;a href="/rhn/newlogin/CreateCorporate.do?account_type=create_corporate"&gt;创建企业登录&lt;/a&gt;。）&lt;/strong&gt; </target></trans-unit>
-      <trans-unit id="usercreate.loginEnables">
-<source>A Red Hat Login enables</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/newlogin/CreateCorporate</context>
-        </context-group>
-      <target>启用红帽登录</target></trans-unit>
 
       <trans-unit id="usercreate.jsp.createlogin">
 <source>Create Login</source>

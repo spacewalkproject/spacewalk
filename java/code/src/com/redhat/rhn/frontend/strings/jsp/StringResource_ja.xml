@@ -1506,12 +1506,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/newlogin/CreatePersonal</context>
         </context-group>
       <target> ホームユーザーログインでは、 個人で所有するシステムを管理し、 Red Hat 製品及びサービスを個人使用の目的で購入することができるようになります。 &lt;strong&gt;(企業または組織団体によって所有されるシステムの管理、 またはビジネス使用を目的とした購入に Red Hat ログインを使用する場合は、 ホームユーザーログインを作成しないでください。 この場合は、 &lt;a href="/rhn/newlogin/CreateCorporate.do?account_type=create_corporate"&gt;ビジネスログインの作成&lt;/a&gt; を行ってください。)&lt;/strong&gt;</target></trans-unit>
-      <trans-unit id="usercreate.loginEnables">
-<source>A Red Hat Login enables</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/newlogin/CreateCorporate</context>
-        </context-group>
-      <target>Red Hat ログインを使用すると、 </target></trans-unit>
 
       <trans-unit id="usercreate.jsp.createlogin">
 <source>Create Login</source>

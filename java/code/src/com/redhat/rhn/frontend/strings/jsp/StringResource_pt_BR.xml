@@ -1506,12 +1506,6 @@ abaixo e &lt;b&gt;não poderá mais se autenticar&lt;/b&gt;.</target></trans-uni
           <context context-type="sourcefile">/rhn/newlogin/CreatePersonal</context>
         </context-group>
       <target> Um login de usuário home possibilita a você administrar sistemas de seu uso pessoal e adquirir produtos e serviços Red Hat para seu usufruto. &lt;strong&gt;(Você não deve criar um login de usuário home se utilizará um login da Red Hat para administrar sistemas de propriedade corporativa ou efetuar compras corporativas. Para suprir as necessidades corporativas, &lt;a href="/rhn/newlogin/CreateCorporate.do?account_type=create_corporate"&gt;crie um login corporativo&lt;/a&gt;.)&lt;/strong&gt; </target></trans-unit>
-      <trans-unit id="usercreate.loginEnables">
-<source>A Red Hat Login enables</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/newlogin/CreateCorporate</context>
-        </context-group>
-      <target>Um login Red Hat possibilita</target></trans-unit>
 
       <trans-unit id="usercreate.jsp.createlogin">
 <source>Create Login</source>

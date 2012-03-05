@@ -1506,12 +1506,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/newlogin/CreatePersonal</context>
         </context-group>
       <target>개인용 로그인은 개인이 소유한 시스템을 관리하고 개인적으로 Red Hat 제품과 서비스를 구입하는데 이용 가능합니다. &lt;strong&gt;(기업 소유의 시스템을 관리하거나 기업 명의로 구매하기 위해 Red Hat 로그인을 사용하실 경우엔 절대로 개인용 로그인을 생성하셔서는 안됩니다 - 기업용으로 사용하시려면, &lt;a href="/rhn/newlogin/CreateCorporate.do?account_type=create_corporate"&gt;비지니스 로그인을 생성하시기 바랍니다&lt;/a&gt;.)&lt;/strong&gt; </target></trans-unit>
-      <trans-unit id="usercreate.loginEnables">
-<source>A Red Hat Login enables</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/newlogin/CreateCorporate</context>
-        </context-group>
-      <target>Red Hat 로그인 사용 혜택은 다음과 같습니다:</target></trans-unit>
 
       <trans-unit id="usercreate.jsp.createlogin">
 <source>Create Login</source>
