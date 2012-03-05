@@ -933,12 +933,6 @@
 		 </context-group>
 	<target>보안 관련 에라타</target></trans-unit>
 
-	<trans-unit id="preferences.latest-errata.description">
-         <source> View the most recent security errata applicable to your systems.</source>
-		 <context-group name="ctx">
-		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
-		 </context-group>
-	<target> 시스템에 적용 가능한 최신 보안 에라타 보기 </target></trans-unit>
 
 
 

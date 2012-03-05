@@ -933,12 +933,6 @@
 		 </context-group>
 	<target>தொடர்புடைய பாதுகாப்பு பிழைத்திருத்தங்கள்</target></trans-unit>
 
-	<trans-unit id="preferences.latest-errata.description">
-         <source> View the most recent security errata applicable to your systems.</source>
-		 <context-group name="ctx">
-		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
-		 </context-group>
-	<target>உங்கள் கணினிக்கு பொருந்தும் மிக சமீபத்திய பாதுகாப்பு பிழைத்திருத்தங்களை பார்க்கவும்</target></trans-unit>
 
 
 

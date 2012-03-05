@@ -933,12 +933,6 @@
 		 </context-group>
 	<target>Errata de seguridad relevante</target></trans-unit>
 
-	<trans-unit id="preferences.latest-errata.description">
-         <source> View the most recent security errata applicable to your systems.</source>
-		 <context-group name="ctx">
-		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
-		 </context-group>
-	<target>Vea errata de seguridad más reciente aplicable a sus sistemas.</target></trans-unit>
 
 
 

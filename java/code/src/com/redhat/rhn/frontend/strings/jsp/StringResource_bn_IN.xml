@@ -933,12 +933,6 @@
 		 </context-group>
 	<target>প্রযোজ্য ত্রুটি-বিচ্যুতির তথ্য</target></trans-unit>
 
-	<trans-unit id="preferences.latest-errata.description">
-         <source> View the most recent security errata applicable to your systems.</source>
-		 <context-group name="ctx">
-		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
-		 </context-group>
-	<target> আপনার সিস্টেমের জন্য প্রযোজ্য সামপ্রতিক ত্রুটি-বিচ্যুতির তথ্য দেখুন।</target></trans-unit>
 
 
 

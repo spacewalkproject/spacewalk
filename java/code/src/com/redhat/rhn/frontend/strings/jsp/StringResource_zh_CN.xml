@@ -933,12 +933,6 @@
 		 </context-group>
 	<target>相关的安全性勘误</target></trans-unit>
 
-	<trans-unit id="preferences.latest-errata.description">
-         <source> View the most recent security errata applicable to your systems.</source>
-		 <context-group name="ctx">
-		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
-		 </context-group>
-	<target>查看最新的、适用于您系统的勘误。</target></trans-unit>
 
 
 
