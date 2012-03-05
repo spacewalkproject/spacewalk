@@ -20986,9 +20986,6 @@ given channel.</source>
       <trans-unit id="channel.jsp.label">
         <source>Label</source>
       <target>Etiqueta</target></trans-unit>
-      <trans-unit id="channel.jsp.gpgtitle">
-        <source>GPG Public Key</source>
-      <target>Llave pública GPG</target></trans-unit>
       <trans-unit id="channel.jsp.gpgunknown">
         <source>Unknown</source>
       <target>Desconocido</target></trans-unit>

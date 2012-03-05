@@ -20989,9 +20989,6 @@ f&amp;uuml;r einen angegebenen Channel aufgelistet wird.</target></trans-unit>
       <trans-unit id="channel.jsp.label">
         <source>Label</source>
       <target>Label</target></trans-unit>
-      <trans-unit id="channel.jsp.gpgtitle">
-        <source>GPG Public Key</source>
-      <target>GPG öffentlicher Schlüssel</target></trans-unit>
       <trans-unit id="channel.jsp.gpgunknown">
         <source>Unknown</source>
       <target>Unbekannt</target></trans-unit>

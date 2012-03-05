@@ -20879,9 +20879,6 @@ stesso pacchetto in un singolo canale, ciò potrebbe causare però il
       <trans-unit id="channel.jsp.label">
         <source>Label</source>
       <target>Etichetta</target></trans-unit>
-      <trans-unit id="channel.jsp.gpgtitle">
-        <source>GPG Public Key</source>
-      <target>Chiave pubblica GPG</target></trans-unit>
       <trans-unit id="channel.jsp.gpgunknown">
         <source>Unknown</source>
       <target>Sconosciuto</target></trans-unit>

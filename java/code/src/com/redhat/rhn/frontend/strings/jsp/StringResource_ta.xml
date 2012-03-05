@@ -20880,9 +20880,6 @@ given channel.</source>
       <trans-unit id="channel.jsp.label">
         <source>Label</source>
       <target>பெயர் அடையாளம்</target></trans-unit>
-      <trans-unit id="channel.jsp.gpgtitle">
-        <source>GPG Public Key</source>
-      <target>GPG பொது விசை</target></trans-unit>
       <trans-unit id="channel.jsp.gpgunknown">
         <source>Unknown</source>
       <target>தெரியாதது</target></trans-unit>
