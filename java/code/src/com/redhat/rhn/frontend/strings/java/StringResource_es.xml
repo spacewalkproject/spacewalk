@@ -2278,12 +2278,6 @@ asegurarse de que estén disponibles para que este perfil kickstart funcione apr
 
 
 
-      <trans-unit id="toolbar.create.probe">
-<source>create new probe</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails</context>
-        </context-group>
-      <target>crear nuevo sondeo</target></trans-unit>
 
         <trans-unit id="toolbar.delete.probe">
 <source>delete probe</source>

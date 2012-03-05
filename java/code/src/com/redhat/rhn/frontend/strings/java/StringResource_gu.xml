@@ -2253,12 +2253,6 @@ available for this kickstart profile to function properly.
 
 
 
-      <trans-unit id="toolbar.create.probe">
-<source>create new probe</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails</context>
-        </context-group>
-      <target>નવી ચકાસણી બનાવો</target></trans-unit>
 
         <trans-unit id="toolbar.delete.probe">
 <source>delete probe</source>

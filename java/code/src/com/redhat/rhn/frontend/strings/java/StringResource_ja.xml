@@ -2277,12 +2277,6 @@ rhn-kickstart* パッケージが利用可能であることを確認します�
 
 
 
-      <trans-unit id="toolbar.create.probe">
-<source>create new probe</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails</context>
-        </context-group>
-      <target>新規プローブの作成</target></trans-unit>
 
         <trans-unit id="toolbar.delete.probe">
 <source>delete probe</source>
