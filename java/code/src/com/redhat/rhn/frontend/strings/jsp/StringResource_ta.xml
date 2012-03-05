@@ -13808,12 +13808,6 @@ but are not subscribed to _@@PRODUCT_NAME@@Config_.</context>
         </context-group>
      <target>இந்த தடத்தில் "{0}" எனப் பெயரிடப்பட்ட கோப்பு ஏற்கனவே உள்ளது.</target></trans-unit>
 
-	<trans-unit id="addfiles.jsp.header2">
-<source>Add Configuration Files</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/ChannelAddFiles.do</context>
-        </context-group>
-     <target>கட்டமைப்பு கோப்புகளை சேர்த்தல்</target></trans-unit>
 	<trans-unit id="addfiles.jsp.upload-link">
 <source>Upload New Configuration File</source>
         <context-group name="ctx">

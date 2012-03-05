@@ -14228,12 +14228,6 @@ but are not subscribed to _@@PRODUCT_NAME@@Config_.</context>
         </context-group>
      </trans-unit>
 		
-	<trans-unit id="addfiles.jsp.header2">
-<source>Add Configuration Files</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/ChannelAddFiles.do</context>
-        </context-group>
-     </trans-unit>
 	<trans-unit id="addfiles.jsp.upload-link">
 <source>Upload New Configuration File</source>
         <context-group name="ctx">

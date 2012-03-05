@@ -13805,12 +13805,6 @@ ma non sono sottoscritti a {0}.</target></trans-unit>
         </context-group>
      <target>Un file chiamato "{0}" è già esistente all'interno di questo canale.</target></trans-unit>
 
-	<trans-unit id="addfiles.jsp.header2">
-<source>Add Configuration Files</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/ChannelAddFiles.do</context>
-        </context-group>
-     <target>Aggiungi i file di configurazione</target></trans-unit>
 	<trans-unit id="addfiles.jsp.upload-link">
 <source>Upload New Configuration File</source>
         <context-group name="ctx">
