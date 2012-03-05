@@ -12952,12 +12952,6 @@ centrally-managed configuration channel, {2}; below is a list of systems you may
           <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
         </context-group>
      <target>நிறுவனத்தை அழித்தல்</target></trans-unit>
-	<trans-unit id="toolbar.delete.deletefile">
-<source>delete this file</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
-        </context-group>
-     <target>இந்த கோப்பினை அழிக்கவும்</target></trans-unit>
 	<trans-unit id="filedetails.jsp.download">
 <source>download file revision</source>
         <context-group name="ctx">
