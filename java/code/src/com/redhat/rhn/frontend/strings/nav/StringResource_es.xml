@@ -295,12 +295,6 @@
         </context-group>
       <target>Canales retirados</target></trans-unit>
 
-      <trans-unit id="audit.nav.audit">
-<source>Audit</source>
-          <context-group name="ctx">
-          <context context-type="sourcefile">Audit Navigation Menu</context>
-        </context-group>
-      <target>Auditoría</target></trans-unit>
 
       <trans-unit id="config.nav.managed">
 <source>Managed Systems</source>
