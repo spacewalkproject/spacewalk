@@ -19036,12 +19036,6 @@ Nicht sicher, wie diese Images heruntergeladen und verwendet werden? &lt;a href=
           <context context-type="sourcefile">/rhn/software/channel/downloads/Download.do</context>
         </context-group>
       <target>Gr&amp;ouml;&amp;szlig;e</target></trans-unit>
-      <trans-unit id="isodownload.header.md5">
-<source>MD5 Checksum</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/software/channel/downloads/Download.do</context>
-        </context-group>
-      <target>MD5 Pr&amp;uuml;fsumme</target></trans-unit>
       <trans-unit id="isodownload.viewsource">
 <source>View Source ISO Images</source>
         <context-group name="ctx">

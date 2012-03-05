@@ -18961,12 +18961,6 @@ Not sure how to download and use these images? &lt;a href="{0}"&gt;Check out our
           <context context-type="sourcefile">/rhn/software/channel/downloads/Download.do</context>
         </context-group>
       <target>Размер</target></trans-unit>
-      <trans-unit id="isodownload.header.md5">
-<source>MD5 Checksum</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/software/channel/downloads/Download.do</context>
-        </context-group>
-      <target>MD5</target></trans-unit>
       <trans-unit id="isodownload.viewsource">
 <source>View Source ISO Images</source>
         <context-group name="ctx">
