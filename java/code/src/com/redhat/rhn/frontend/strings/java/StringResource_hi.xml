@@ -1868,12 +1868,6 @@ available for this kickstart profile to function properly.
            <context context-type="sourcefile">/rhn/schedule/ActionDetails.do</context>
          </context-group>
        <target>किकस्टार्ट के लिये संकुल तुल्यकालन अनुसूचित करें</target></trans-unit>
-       <trans-unit id="kickstart.error.nolabel">
-         <source>Please enter a label for this kickstart profile below.</source>
-         <context-group name="ctx">
-         <context context-type="sourcefile">/rhn/kickstart/KickstartDetailsEdit</context>
-         </context-group>
-       <target>इस किकस्टार्ट प्रोफाइल के लिये नीचे एक लेबल डालें.</target></trans-unit>
        <trans-unit id="kickstart.error.invalidlabel">
          <source>Your selected kickstart label is invalid, it must be at least {0} characters and only contain the following characters : A-Z, a-z, 0-9, _, - </source>
          <context-group name="ctx">

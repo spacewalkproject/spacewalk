@@ -1874,12 +1874,6 @@ available for this kickstart profile to function properly.
            <context context-type="sourcefile">/rhn/schedule/ActionDetails.do</context>
          </context-group>
        <target>kickstart-র জন্য প্যাকেজ সুসংগতি কর্মের সময় নির্ধারণ করুন</target></trans-unit>
-       <trans-unit id="kickstart.error.nolabel">
-         <source>Please enter a label for this kickstart profile below.</source>
-         <context-group name="ctx">
-         <context context-type="sourcefile">/rhn/kickstart/KickstartDetailsEdit</context>
-         </context-group>
-       <target>নিম্নলিখিত kickstart প্রোফাইলের জন্য অনুগ্রহ করে একটি লেবেল উল্লেখ করুন।</target></trans-unit>
        <trans-unit id="kickstart.error.invalidlabel">
          <source>Your selected kickstart label is invalid, it must be at least {0} characters and only contain the following characters : A-Z, a-z, 0-9, _, - </source>
          <context-group name="ctx">

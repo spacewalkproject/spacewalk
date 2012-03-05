@@ -1899,12 +1899,6 @@ verfügbar machen, damit dieses Kickstart-Profil einwandfrei funktionieren kann.
            <context context-type="sourcefile">/rhn/schedule/ActionDetails.do</context>
          </context-group>
        <target>Paket-Synchronisierung f&amp;uuml;r Kickstarts einplanen</target></trans-unit>
-       <trans-unit id="kickstart.error.nolabel">
-         <source>Please enter a label for this kickstart profile below.</source>
-         <context-group name="ctx">
-         <context context-type="sourcefile">/rhn/kickstart/KickstartDetailsEdit</context>
-         </context-group>
-       <target>Bitte geben Sie unten ein Label f&amp;uuml;r dieses Kickstart-Profil ein.</target></trans-unit>
        <trans-unit id="kickstart.error.invalidlabel">
          <source>Your selected kickstart label is invalid, it must be at least {0} characters and only contain the following characters : A-Z, a-z, 0-9, _, - </source>
          <context-group name="ctx">
