@@ -2275,13 +2275,6 @@ available for this kickstart profile to function properly.
         </context-group>
       <target>নতুন ব্যবহারকারী নির্মাণ</target></trans-unit>
 
-      <trans-unit id="toolbar.create.erratum">
-<source>create new erratum</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/errata/UnpublishedErrata</context>
-          <context context-type="sourcefile">/rhn/errata/PublishedErrata</context>
-        </context-group>
-      <target>নতুন ত্রুটি-বিচ্যুতি নির্মাণ</target></trans-unit>
 
       <trans-unit id="toolbar.create.group">
 <source>create new group</source>

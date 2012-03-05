@@ -2300,13 +2300,6 @@ verfügbar machen, damit dieses Kickstart-Profil einwandfrei funktionieren kann.
         </context-group>
       <target>Neuen Benutzer anlegen</target></trans-unit>
 
-      <trans-unit id="toolbar.create.erratum">
-<source>create new erratum</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/errata/UnpublishedErrata</context>
-          <context context-type="sourcefile">/rhn/errata/PublishedErrata</context>
-        </context-group>
-      <target>Neues Erratum erstellen</target></trans-unit>
 
       <trans-unit id="toolbar.create.group">
 <source>create new group</source>

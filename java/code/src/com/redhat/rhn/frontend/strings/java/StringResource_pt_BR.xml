@@ -2283,13 +2283,6 @@ disponíveis para seu perfil kickstart funcionar corretamente./n&lt;/li&gt;
         </context-group>
       <target>criar novo usuário</target></trans-unit>
 
-      <trans-unit id="toolbar.create.erratum">
-<source>create new erratum</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/errata/UnpublishedErrata</context>
-          <context context-type="sourcefile">/rhn/errata/PublishedErrata</context>
-        </context-group>
-      <target>criar nova errata</target></trans-unit>
 
       <trans-unit id="toolbar.create.group">
 <source>create new group</source>

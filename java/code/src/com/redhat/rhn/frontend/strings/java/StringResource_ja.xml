@@ -2293,13 +2293,6 @@ rhn-kickstart* パッケージが利用可能であることを確認します�
         </context-group>
       <target>新規ユーザーの作成</target></trans-unit>
 
-      <trans-unit id="toolbar.create.erratum">
-<source>create new erratum</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/errata/UnpublishedErrata</context>
-          <context context-type="sourcefile">/rhn/errata/PublishedErrata</context>
-        </context-group>
-      <target>新規エラータの作成</target></trans-unit>
 
       <trans-unit id="toolbar.create.group">
 <source>create new group</source>

@@ -2293,13 +2293,6 @@ disponibili per un corretto funzionamento di questo profilo kickstart.
         </context-group>
       <target>crea un nuovo utente</target></trans-unit>
 
-      <trans-unit id="toolbar.create.erratum">
-<source>create new erratum</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/errata/UnpublishedErrata</context>
-          <context context-type="sourcefile">/rhn/errata/PublishedErrata</context>
-        </context-group>
-      <target>crea un nuovo erratum</target></trans-unit>
 
       <trans-unit id="toolbar.create.group">
 <source>create new group</source>

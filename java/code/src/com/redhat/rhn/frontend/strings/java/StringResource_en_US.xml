@@ -2292,13 +2292,6 @@ available for this kickstart profile to function properly.
         </context-group>
       </trans-unit>
 
-      <trans-unit id="toolbar.create.erratum">
-<source>create new erratum</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/errata/UnpublishedErrata</context>
-          <context context-type="sourcefile">/rhn/errata/PublishedErrata</context>
-        </context-group>
-      </trans-unit>
 
       <trans-unit id="toolbar.create.group">
 <source>create new group</source>
