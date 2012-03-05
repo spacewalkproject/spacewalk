@@ -5149,12 +5149,6 @@ für diese Berechtigung, mit Ausnahme des Verbrauchs der Standardorganisation.</
       <target>Sicherheitshinweise:</target></trans-unit>
 
 
-      <trans-unit id="systemgroups.jsp.bugfixes">
-<source>Bug Fix Advisories: </source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/frontend/dto/SystemGroupOverview</context>
-        </context-group>
-      <target>Bugfix-Hinweise: </target></trans-unit>
 
       <trans-unit id="systemgroups.jsp.enhancements">
 <source>Product Enhancements: </source>

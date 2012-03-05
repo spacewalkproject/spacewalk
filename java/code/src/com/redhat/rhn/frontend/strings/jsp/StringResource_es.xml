@@ -5147,12 +5147,6 @@ para este derecho, excluyendo el consumo de la organización predeterminada.</ta
       <target>Recomendaciones de seguridad:</target></trans-unit>
 
 
-      <trans-unit id="systemgroups.jsp.bugfixes">
-<source>Bug Fix Advisories: </source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/frontend/dto/SystemGroupOverview</context>
-        </context-group>
-      <target>Recomendaciones de correcciones de errores:</target></trans-unit>
 
       <trans-unit id="systemgroups.jsp.enhancements">
 <source>Product Enhancements: </source>

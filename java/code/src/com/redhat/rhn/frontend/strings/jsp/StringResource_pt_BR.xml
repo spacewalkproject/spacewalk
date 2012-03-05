@@ -5145,12 +5145,6 @@ value for this entitlement, excluding the default organization's consumption.</s
       <target>Relatórios de Segurança: </target></trans-unit>
 
 
-      <trans-unit id="systemgroups.jsp.bugfixes">
-<source>Bug Fix Advisories: </source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/frontend/dto/SystemGroupOverview</context>
-        </context-group>
-      <target>Relatórios de Conserto de Bugs: </target></trans-unit>
 
       <trans-unit id="systemgroups.jsp.enhancements">
 <source>Product Enhancements: </source>

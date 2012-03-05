@@ -5148,12 +5148,6 @@ pour ce droit d'accès, moins la consommation par défaut de l'organisation.</ta
       <target>Alerte de sécurité&amp;nbsp;:</target></trans-unit>
 
 
-      <trans-unit id="systemgroups.jsp.bugfixes">
-<source>Bug Fix Advisories: </source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/frontend/dto/SystemGroupOverview</context>
-        </context-group>
-      <target>Alerte de correction de bogue&amp;nbsp;:</target></trans-unit>
 
       <trans-unit id="systemgroups.jsp.enhancements">
 <source>Product Enhancements: </source>
