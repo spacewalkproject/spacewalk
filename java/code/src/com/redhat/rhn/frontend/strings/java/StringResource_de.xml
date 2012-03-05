@@ -6664,9 +6664,6 @@ Folgen Sie dieser URL f&amp;uuml;r die vollst&amp;auml;ndige Liste inaktiver Sys
 			<source>No system comparisons completed. [&lt;a href="{0}"&gt;Schedule System Comparison&lt;/a&gt;]</source>
         <target>Keine Systemabgleiche abgeschlossen. [&lt;a href="{0}"&gt;Systemabgleich planen&lt;/a&gt;]</target></trans-unit>
 
-	<trans-unit id="sdc.config.diff.files_0_dirs_0_symlinks_0">
-		<source>No files, directories or symlinks were selected for comparison. [&lt;a href="{6}"&gt;View Details&lt;/a&gt;]</source>
-	<target>Es wurden keine Dateien, Verzeichnisse oder symbolische Links zum Vergleich ausgewählt. [&lt;a href="{6}"&gt;Details anzeigen&lt;/a&gt;]</target></trans-unit>
 
 	<trans-unit id="sdc.config.diff.files_0_dirs_0_symlinks_1">
 		<source>{4} of 1 symlink on the system was successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href="{6}"&gt;View Details&lt;/a&gt;]</source>

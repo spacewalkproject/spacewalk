@@ -6660,9 +6660,6 @@ Suivez cet url pour obtenir la liste complète des systèmes inactifs :
 			<source>No system comparisons completed. [&lt;a href="{0}"&gt;Schedule System Comparison&lt;/a&gt;]</source>
         <target>Aucune comparaison de systèmes n'est terminée. [&lt;a href="{0}"&gt;Programmer la comparaison de systèmes&lt;/a&gt;]</target></trans-unit>
 
-	<trans-unit id="sdc.config.diff.files_0_dirs_0_symlinks_0">
-		<source>No files, directories or symlinks were selected for comparison. [&lt;a href="{6}"&gt;View Details&lt;/a&gt;]</source>
-	<target>Aucun fichier, répertoire ou lien symbolique n'a été sélectionné en comparaison. [&lt;a href="{6}"&gt;Voir détails&lt;/a&gt;]</target></trans-unit>
 
 	<trans-unit id="sdc.config.diff.files_0_dirs_0_symlinks_1">
 		<source>{4} of 1 symlink on the system was successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href="{6}"&gt;View Details&lt;/a&gt;]</source>
