@@ -12830,9 +12830,6 @@ o &lt;strong&gt;Guia de Administração de Sistemas Red Hat Enterprise Li
           <source>system configuration</source>
         <target>configuração de sistema</target></trans-unit>
 
-        <trans-unit id="config.common.quotaAlt">
-          <source>configuration quota</source>
-        <target>cota de configuração</target></trans-unit>
 
         <trans-unit id="config.common.configChannel">
           <source>Configuration Channel</source>

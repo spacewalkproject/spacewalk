@@ -12841,9 +12841,6 @@ Anschlie&amp;szlig;end wird das nicht-chroot Post-Skript ausgef&amp;uuml;hrt, un
           <source>system configuration</source>
         <target>Systemkonfiguration</target></trans-unit>
 
-        <trans-unit id="config.common.quotaAlt">
-          <source>configuration quota</source>
-        <target>Konfigurationsquota</target></trans-unit>
 
         <trans-unit id="config.common.configChannel">
           <source>Configuration Channel</source>

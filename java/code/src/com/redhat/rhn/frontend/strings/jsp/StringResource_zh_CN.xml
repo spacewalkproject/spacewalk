@@ -12834,9 +12834,6 @@ kickstart 前脚本的内容可以在 &lt;strong&gt;《红帽企业版 Linux 系
           <source>system configuration</source>
         <target>系统配置</target></trans-unit>
 
-        <trans-unit id="config.common.quotaAlt">
-          <source>configuration quota</source>
-        <target>配置配额</target></trans-unit>
 
         <trans-unit id="config.common.configChannel">
           <source>Configuration Channel</source>

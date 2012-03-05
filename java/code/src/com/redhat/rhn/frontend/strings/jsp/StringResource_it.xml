@@ -12821,9 +12821,6 @@ la &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stron
           <source>system configuration</source>
         <target>sistema di configurazione</target></trans-unit>
 
-        <trans-unit id="config.common.quotaAlt">
-          <source>configuration quota</source>
-        <target>quota di configurazione</target></trans-unit>
 
         <trans-unit id="config.common.configChannel">
           <source>Configuration Channel</source>

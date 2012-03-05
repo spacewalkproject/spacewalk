@@ -12839,9 +12839,6 @@ Le script post non-chroot sera ensuite exécuté et le script post sera enfin ex
           <source>system configuration</source>
         <target>configuration système</target></trans-unit>
 
-        <trans-unit id="config.common.quotaAlt">
-          <source>configuration quota</source>
-        <target>quota de configuration</target></trans-unit>
 
         <trans-unit id="config.common.configChannel">
           <source>Configuration Channel</source>

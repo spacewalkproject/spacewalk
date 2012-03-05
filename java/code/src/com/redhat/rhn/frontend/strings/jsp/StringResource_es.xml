@@ -12836,9 +12836,6 @@ el &lt;strong&gt;Manual de administración del sistema Red Hat Enterprise Linux.
           <source>system configuration</source>
         <target>configuración de sistema</target></trans-unit>
 
-        <trans-unit id="config.common.quotaAlt">
-          <source>configuration quota</source>
-        <target>configuración de cuota</target></trans-unit>
 
         <trans-unit id="config.common.configChannel">
           <source>Configuration Channel</source>
