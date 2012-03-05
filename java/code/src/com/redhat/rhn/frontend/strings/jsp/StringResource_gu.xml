@@ -18476,12 +18476,6 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;
         </context-group>
       <target>આ ઉમેદવારી દ્વારા વપરાશ મંજૂર થયો:</target></trans-unit>
 
-      <trans-unit id="system_entitlement_details.access_grant_desc.enterprise_entitled">
-        <source>A single Management (Base) entitlement is required for all systems registered to satellite</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementDetails</context>
-        </context-group>
-      <target>એક વ્યવસ્થાપન (આધાર) ઉમેદવારી સેટેલાઈટમાં રજીસ્ટર થયેલ બધી સિસ્ટમો માટે જરૂરી છે</target></trans-unit>
 
       <trans-unit id="system_entitlement_details.access_grant_desc.provisioning_entitled">
         <source>A single Provisioning (Add-On) entitlement allows various advanced functionality such as kickstart and configuration file provisioning. </source>

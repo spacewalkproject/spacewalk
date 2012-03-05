@@ -18473,12 +18473,6 @@ come riportato in questo certificato @@PRODUCT_NAME@@.</target></trans-unit>
         </context-group>
       <target>Accesso conferito da questo entitlement:</target></trans-unit>
 
-      <trans-unit id="system_entitlement_details.access_grant_desc.enterprise_entitled">
-        <source>A single Management (Base) entitlement is required for all systems registered to satellite</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementDetails</context>
-        </context-group>
-      <target>È necessario un entitlement (di base) di Management singolo per tutti i sistemi registrati al satellite</target></trans-unit>
 
       <trans-unit id="system_entitlement_details.access_grant_desc.provisioning_entitled">
         <source>A single Provisioning (Add-On) entitlement allows various advanced functionality such as kickstart and configuration file provisioning. </source>

@@ -18476,12 +18476,6 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;
         </context-group>
       <target>இந்த உரிமத்தால் அணுகல் வழங்கப்பட்டது:</target></trans-unit>
 
-      <trans-unit id="system_entitlement_details.access_grant_desc.enterprise_entitled">
-        <source>A single Management (Base) entitlement is required for all systems registered to satellite</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementDetails</context>
-        </context-group>
-      <target>சேட்டிலைட்டில் பதிவு செய்யப்பட்ட அனைத்து கணினிகளுக்கும் ஒரு ஒற்றை மேலாண்மை (அடிப்படை) உரிமம் தேவைப்படுகிறது</target></trans-unit>
 
       <trans-unit id="system_entitlement_details.access_grant_desc.provisioning_entitled">
         <source>A single Provisioning (Add-On) entitlement allows various advanced functionality such as kickstart and configuration file provisioning. </source>
