@@ -225,21 +225,6 @@ Merci de contacter Red Hat.
         </context-group>
       <target>Demande de création d'un login Red Hat</target></trans-unit>
 
-      <trans-unit id="email.newuser.bala.footer">
-<source>
-For additional information in German language, please visit our Website:
-{0}
-</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Taskomatic</context>
-          <context context-type="paramnotes">
-          {0} - URL to German website
-          </context>
-        </context-group>
-      <target>
-Pour obtenir des informations supplémentaires en allemand, veuillez consulter notre site Web :
-{0}
-</target></trans-unit>
 
       <trans-unit id="email.newuser.bala.footer2">
 <source>

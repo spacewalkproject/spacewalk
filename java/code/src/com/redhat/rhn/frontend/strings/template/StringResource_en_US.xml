@@ -173,18 +173,6 @@ Thank you for contacting Red Hat.
         </context-group>
       </trans-unit>
 
-      <trans-unit id="email.newuser.bala.footer">
-<source>
-For additional information in German language, please visit our Website:
-{0}
-</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Taskomatic</context>
-          <context context-type="paramnotes">
-          {0} - URL to German website
-          </context>
-        </context-group>
-      </trans-unit>
 
       <trans-unit id="email.newuser.bala.footer2">
 <source>

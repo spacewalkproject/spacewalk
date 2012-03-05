@@ -225,21 +225,6 @@ Thank you for contacting Red Hat.
         </context-group>
       <target>红帽登录创建请求</target></trans-unit>
 
-      <trans-unit id="email.newuser.bala.footer">
-<source>
-For additional information in German language, please visit our Website:
-{0}
-</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Taskomatic</context>
-          <context context-type="paramnotes">
-          {0} - URL to German website
-          </context>
-        </context-group>
-      <target>
-关于德语的更多信息，请访问我们的网站：
-{0}
-</target></trans-unit>
 
       <trans-unit id="email.newuser.bala.footer2">
 <source>
