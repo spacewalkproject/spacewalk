@@ -14281,13 +14281,6 @@ any of these revisions.  Are you sure you want to do this?</source>
         </context-group>
     </trans-unit>
 
-    <trans-unit id="quota.jsp.numrevisions">
-        <source>{0} revisions</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/Quota.do</context>
-          <context context-type="paramnotes">4 revisions</context>
-        </context-group>
-    </trans-unit>
 
     <trans-unit id="quota.jsp.onerevision">
         <source>1 revision</source>

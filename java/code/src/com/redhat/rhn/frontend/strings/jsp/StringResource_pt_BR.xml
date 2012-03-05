@@ -13895,13 +13895,6 @@ para qualquer uma das revisões, assim como todo o histórico de implementação
         </context-group>
     <target>Revisões</target></trans-unit>
 
-    <trans-unit id="quota.jsp.numrevisions">
-        <source>{0} revisions</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/Quota.do</context>
-          <context context-type="paramnotes">4 revisions</context>
-        </context-group>
-    <target>{0} revisões</target></trans-unit>
 
     <trans-unit id="quota.jsp.onerevision">
         <source>1 revision</source>

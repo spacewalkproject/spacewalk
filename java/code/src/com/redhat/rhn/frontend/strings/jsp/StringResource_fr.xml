@@ -13905,13 +13905,6 @@ pour ces versions seront également supprimées, ainsi que tous les historiques 
         </context-group>
     <target>Versions</target></trans-unit>
 
-    <trans-unit id="quota.jsp.numrevisions">
-        <source>{0} revisions</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/Quota.do</context>
-          <context context-type="paramnotes">4 revisions</context>
-        </context-group>
-    <target>{0} versions</target></trans-unit>
 
     <trans-unit id="quota.jsp.onerevision">
         <source>1 revision</source>

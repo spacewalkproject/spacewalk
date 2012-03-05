@@ -13869,13 +13869,6 @@ Siete sicuri di voler fare questo?</target></trans-unit>
         </context-group>
     <target>Revisioni</target></trans-unit>
 
-    <trans-unit id="quota.jsp.numrevisions">
-        <source>{0} revisions</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/Quota.do</context>
-          <context context-type="paramnotes">4 revisions</context>
-        </context-group>
-    <target>{0} revisioni</target></trans-unit>
 
     <trans-unit id="quota.jsp.onerevision">
         <source>1 revision</source>
