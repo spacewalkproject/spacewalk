@@ -18254,9 +18254,6 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;
         <trans-unit id="exportcolumn.serverName">
             <source>System</source>
         </trans-unit>
-        <trans-unit id="exportcolumn.critical">
-            <source>Security (Critical)</source>
-        </trans-unit>
         <trans-unit id="exportcolumn.important">
             <source>Security (Important)</source>
         </trans-unit>
