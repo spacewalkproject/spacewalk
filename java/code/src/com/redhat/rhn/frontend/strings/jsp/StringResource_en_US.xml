@@ -8849,9 +8849,6 @@ organization management tools if you choose to remove this role from your login.
             <context context-type="sourcefile">/rhn/monitoring/config/notification/MethodCreate.do</context>
         </context-group>
         <!-- method-form.jsp.header2 -->
-        <trans-unit id="method-create.jsp.toolbar">
-<source>Create Notification Method</source>
-        </trans-unit>
         <trans-unit id="method-create.jsp.header2">
 <source>Create new Notification Method</source>
         </trans-unit>

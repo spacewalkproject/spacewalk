@@ -8497,9 +8497,6 @@ und Organisationsmanagement-Tools haben, sollten Sie diese Rolle aus Ihrem Login
             <context context-type="sourcefile">/rhn/monitoring/config/notification/MethodCreate.do</context>
         </context-group>
         <!-- method-form.jsp.header2 -->
-        <trans-unit id="method-create.jsp.toolbar">
-<source>Create Notification Method</source>
-        <target>Benachrichtigungsmethode erstellen</target></trans-unit>
         <trans-unit id="method-create.jsp.header2">
 <source>Create new Notification Method</source>
         <target>Neue Benachrichtigungsmethode erstellen</target></trans-unit>

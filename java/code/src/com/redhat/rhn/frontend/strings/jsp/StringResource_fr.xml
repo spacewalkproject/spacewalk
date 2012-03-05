@@ -8496,9 +8496,6 @@ ni aux outils de gestion d'organisation si vous choisissez de supprimer ce rôle
             <context context-type="sourcefile">/rhn/monitoring/config/notification/MethodCreate.do</context>
         </context-group>
         <!-- method-form.jsp.header2 -->
-        <trans-unit id="method-create.jsp.toolbar">
-<source>Create Notification Method</source>
-        <target>Créer une méthode de notification</target></trans-unit>
         <trans-unit id="method-create.jsp.header2">
 <source>Create new Notification Method</source>
         <target>Créer une nouvelle méthode de notification</target></trans-unit>

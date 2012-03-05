@@ -8495,9 +8495,6 @@ organización si decide borrar este rol de su inicio de sesión.
             <context context-type="sourcefile">/rhn/monitoring/config/notification/MethodCreate.do</context>
         </context-group>
         <!-- method-form.jsp.header2 -->
-        <trans-unit id="method-create.jsp.toolbar">
-<source>Create Notification Method</source>
-        <target>Crear método de notificación</target></trans-unit>
         <trans-unit id="method-create.jsp.header2">
 <source>Create new Notification Method</source>
         <target>Crear un nuevo método de notificación</target></trans-unit>
