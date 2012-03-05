@@ -9540,12 +9540,6 @@ Please note that some manual configuration of these scripts may still be require
     <target>등록되지 않은 시스템</target></trans-unit>
 
 
-    <trans-unit id="kickstart.jsp.overviewsummary">
-        <source>Kickstart Summary</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart</context>
-        </context-group>
-    <target>킥스타트 내용 요약</target></trans-unit>
 
 
     <trans-unit id="kickstart.jsp.current">

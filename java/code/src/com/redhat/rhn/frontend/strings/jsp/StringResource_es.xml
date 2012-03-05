@@ -9555,12 +9555,6 @@ Por favor tenga en cuenta que podría ser necesario configurar manualmente estos
     <target>Sistema no registrado</target></trans-unit>
 
 
-    <trans-unit id="kickstart.jsp.overviewsummary">
-        <source>Kickstart Summary</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart</context>
-        </context-group>
-    <target>Resumen del proceso Kickstart </target></trans-unit>
 
 
     <trans-unit id="kickstart.jsp.current">

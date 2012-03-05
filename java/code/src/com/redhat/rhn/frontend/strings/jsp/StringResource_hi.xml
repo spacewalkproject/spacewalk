@@ -9543,12 +9543,6 @@ Please note that some manual configuration of these scripts may still be require
     <target>गैरपंजीकृत सिस्टम</target></trans-unit>
 
 
-    <trans-unit id="kickstart.jsp.overviewsummary">
-        <source>Kickstart Summary</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart</context>
-        </context-group>
-    <target>किकस्टार्ट सारांश</target></trans-unit>
 
 
     <trans-unit id="kickstart.jsp.current">

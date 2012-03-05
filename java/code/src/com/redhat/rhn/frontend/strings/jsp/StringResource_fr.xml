@@ -9556,12 +9556,6 @@ Veuillez noter qu'une configuration manuelle de ces scripts peut toujours être 
     <target>Systèmes non enregistrés</target></trans-unit>
 
 
-    <trans-unit id="kickstart.jsp.overviewsummary">
-        <source>Kickstart Summary</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart</context>
-        </context-group>
-    <target>Résumé kickstart</target></trans-unit>
 
 
     <trans-unit id="kickstart.jsp.current">

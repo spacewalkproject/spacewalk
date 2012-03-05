@@ -9542,12 +9542,6 @@ Please note that some manual configuration of these scripts may still be require
     <target>ਨਾ-ਇੰਟਾਈਟਲ ਸਿਸਟਮ</target></trans-unit>
 
 
-    <trans-unit id="kickstart.jsp.overviewsummary">
-        <source>Kickstart Summary</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart</context>
-        </context-group>
-    <target>ਕਿੱਕਸਟਾਰਟ ਜਾਣਕਾਰੀ</target></trans-unit>
 
 
     <trans-unit id="kickstart.jsp.current">

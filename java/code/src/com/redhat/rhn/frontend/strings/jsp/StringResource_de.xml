@@ -9558,12 +9558,6 @@ Bitte beachten Sie, dass m&amp;ouml;glicherweise noch einige manuelle Konfigurat
     <target>Nicht registriertes System</target></trans-unit>
 
 
-    <trans-unit id="kickstart.jsp.overviewsummary">
-        <source>Kickstart Summary</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart</context>
-        </context-group>
-    <target>Kickstart-Zusammenfassung</target></trans-unit>
 
 
     <trans-unit id="kickstart.jsp.current">
