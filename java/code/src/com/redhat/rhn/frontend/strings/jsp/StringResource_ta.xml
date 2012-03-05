@@ -16398,12 +16398,6 @@ the &lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;Activation Key
             <context context-type="sourcefile">/rhn/systems/details/kickstart/ScheduleWizard.do</context>
         </context-group>
     <target>Cobbler கணினி பதிவை உருவாக்கு</target></trans-unit>
-    <trans-unit id="kickstart.schedule.button0.tooltip.jsp">
-        <source>Creating a cobbler system record will allow this system to be provisioned from the command line on the system itself with the 'koan' command.  This also allows you to assign Variables specific to this system's kickstart using the Variables page.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/kickstart/ScheduleWizard.do</context>
-        </context-group>
-    <target>ஒரு cobbler கணினி பதிவை உருவாக்குவது இந்த கணினியை 'koan' கட்டளையை கொண்டு கட்டளைவரியில் வாய்ப்பளிக்க அனுமதிக்கிறது. இது மாறிகளை மாறிகள் பக்கத்தைப் பயன்படுத்தி இந்த கணினியின் கிக்ஸ்டார்ட்டை ஒதுக்க அனுமதிக்கிறது.</target></trans-unit>
     <trans-unit id="kickstart.schedule.button1.jsp">
         <source>Advanced Configuration</source>
         <context-group name="ctx">

@@ -16396,12 +16396,6 @@ Kickstart করার সময় অনুগ্রহ করে সিস্ট
             <context context-type="sourcefile">/rhn/systems/details/kickstart/ScheduleWizard.do</context>
         </context-group>
     <target>Cobbler সিস্টেম রেকর্ড নির্মাণ করুন</target></trans-unit>
-    <trans-unit id="kickstart.schedule.button0.tooltip.jsp">
-        <source>Creating a cobbler system record will allow this system to be provisioned from the command line on the system itself with the 'koan' command.  This also allows you to assign Variables specific to this system's kickstart using the Variables page.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/kickstart/ScheduleWizard.do</context>
-        </context-group>
-    <target>cobbler সিস্টেম রেকর্ড নির্মাণের ফলে, সংশ্লিষ্ট সিস্টেমের কমান্ড-লাইন থেকে 'koan' কমান্ড সহযোগে সিস্টেমটি প্রভিশন করা সম্ভব হবে।  উপরন্তু, এর ফলে ভেরিয়েবল শীর্ষক পৃষ্ঠার মাধ্যমে সিস্টেমের kickstart-র জন্য প্রযোজ্য ভেরিয়েবল ধার্য করা যাবে।</target></trans-unit>
     <trans-unit id="kickstart.schedule.button1.jsp">
         <source>Advanced Configuration</source>
         <context-group name="ctx">
