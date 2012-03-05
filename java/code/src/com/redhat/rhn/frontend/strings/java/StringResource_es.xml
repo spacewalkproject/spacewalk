@@ -6774,12 +6774,6 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
         </context-group>
       <target>entorno de prueba para {0}</target></trans-unit>
 
-      <trans-unit id="config_channel.local_override">
-        <source>Locally-Managed</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/file/CompareCopy.do</context>
-        </context-group>
-      <target>Administrado localmente</target></trans-unit>
 
       <trans-unit id="config_channel.normal">
         <source>Centrally-Managed</source>

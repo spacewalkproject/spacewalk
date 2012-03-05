@@ -6773,12 +6773,6 @@ Seguite l'url sotto riportato per visualizzare l'elenco completo di sistemi inat
         </context-group>
       <target>sandbox per {0}</target></trans-unit>
 
-      <trans-unit id="config_channel.local_override">
-        <source>Locally-Managed</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/file/CompareCopy.do</context>
-        </context-group>
-      <target>Gestito-localmente</target></trans-unit>
 
       <trans-unit id="config_channel.normal">
         <source>Centrally-Managed</source>

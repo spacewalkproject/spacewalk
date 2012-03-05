@@ -6780,12 +6780,6 @@ Folgen Sie dieser URL f&amp;uuml;r die vollst&amp;auml;ndige Liste inaktiver Sys
         </context-group>
       <target>Sandbox f&amp;uuml;r {0}</target></trans-unit>
 
-      <trans-unit id="config_channel.local_override">
-        <source>Locally-Managed</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/file/CompareCopy.do</context>
-        </context-group>
-      <target>Lokal verwaltet</target></trans-unit>
 
       <trans-unit id="config_channel.normal">
         <source>Centrally-Managed</source>

@@ -6748,12 +6748,6 @@ Follow this url to see the full list of inactive systems:
         </context-group>
       <target>{0} 的隔離區</target></trans-unit>
 
-      <trans-unit id="config_channel.local_override">
-        <source>Locally-Managed</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/file/CompareCopy.do</context>
-        </context-group>
-      <target>本地管理的</target></trans-unit>
 
       <trans-unit id="config_channel.normal">
         <source>Centrally-Managed</source>

@@ -6776,12 +6776,6 @@ Suivez cet url pour obtenir la liste complète des systèmes inactifs :
         </context-group>
       <target>sandbox pour {0}</target></trans-unit>
 
-      <trans-unit id="config_channel.local_override">
-        <source>Locally-Managed</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/file/CompareCopy.do</context>
-        </context-group>
-      <target>Géré localement</target></trans-unit>
 
       <trans-unit id="config_channel.normal">
         <source>Centrally-Managed</source>

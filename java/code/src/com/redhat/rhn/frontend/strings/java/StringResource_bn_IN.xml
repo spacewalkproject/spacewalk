@@ -6755,12 +6755,6 @@ Follow this url to see the full list of inactive systems:
         </context-group>
       <target>{0}-র জন্য স্যান্ডবক্স</target></trans-unit>
 
-      <trans-unit id="config_channel.local_override">
-        <source>Locally-Managed</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/file/CompareCopy.do</context>
-        </context-group>
-      <target>স্থানীয়-রূপে পরিচালিত</target></trans-unit>
 
       <trans-unit id="config_channel.normal">
         <source>Centrally-Managed</source>

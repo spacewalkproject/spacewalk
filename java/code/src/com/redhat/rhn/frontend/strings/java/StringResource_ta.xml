@@ -6749,12 +6749,6 @@ url பின்பற்றி செயலிழக்கப்பட்ட �
         </context-group>
       <target>{0} க்கு சான்ட்பாக்ஸ்</target></trans-unit>
 
-      <trans-unit id="config_channel.local_override">
-        <source>Locally-Managed</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/file/CompareCopy.do</context>
-        </context-group>
-      <target>உள்ளமைவாக-மேலாண்மை செய்யப்பட்டது</target></trans-unit>
 
       <trans-unit id="config_channel.normal">
         <source>Centrally-Managed</source>
