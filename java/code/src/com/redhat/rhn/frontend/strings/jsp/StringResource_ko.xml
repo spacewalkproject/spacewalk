@@ -14631,9 +14631,6 @@ any of these revisions.  Are you sure you want to do this?</source>
          <trans-unit id="ssm.config.subscribe.jsp.noChannels">
            <source>No configuration channels.</source>
          <target>설정 채널 없음.</target></trans-unit>
-         <trans-unit id="ssm.config.subscribe.jsp.noSelected">
-           <source>You must select at least one configuration channel in order to continue.</source>
-         <target>계속 진행하시려면 최소 1개의 설정 채널을 선택하셔야 합니다.</target></trans-unit>
          <trans-unit id="ssm.config.subscribe.jsp.continue">
            <source>Continue</source>
          <target>계속 </target></trans-unit>

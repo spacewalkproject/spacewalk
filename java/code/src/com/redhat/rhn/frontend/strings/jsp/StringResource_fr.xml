@@ -14670,9 +14670,6 @@ pour ces versions seront également supprimées, ainsi que tous les historiques 
          <trans-unit id="ssm.config.subscribe.jsp.noChannels">
            <source>No configuration channels.</source>
          <target>Aucun canal de configuration.</target></trans-unit>
-         <trans-unit id="ssm.config.subscribe.jsp.noSelected">
-           <source>You must select at least one configuration channel in order to continue.</source>
-         <target>Vous devez sélectionner au moins un canal de configuration afin de continuer.</target></trans-unit>
          <trans-unit id="ssm.config.subscribe.jsp.continue">
            <source>Continue</source>
          <target>Continuer</target></trans-unit>

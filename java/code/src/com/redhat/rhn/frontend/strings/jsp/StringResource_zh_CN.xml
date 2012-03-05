@@ -14665,9 +14665,6 @@ any of these revisions.  Are you sure you want to do this?</source>
          <trans-unit id="ssm.config.subscribe.jsp.noChannels">
            <source>No configuration channels.</source>
          <target>没有配置频道。</target></trans-unit>
-         <trans-unit id="ssm.config.subscribe.jsp.noSelected">
-           <source>You must select at least one configuration channel in order to continue.</source>
-         <target>您必须选择至少一个配置频道来继续。</target></trans-unit>
          <trans-unit id="ssm.config.subscribe.jsp.continue">
            <source>Continue</source>
          <target>继续</target></trans-unit>

@@ -14637,9 +14637,6 @@ any of these revisions.  Are you sure you want to do this?</source>
          <trans-unit id="ssm.config.subscribe.jsp.noChannels">
            <source>No configuration channels.</source>
          <target>કોઈ રૂપરેખાંકન ચેનલો નથી.</target></trans-unit>
-         <trans-unit id="ssm.config.subscribe.jsp.noSelected">
-           <source>You must select at least one configuration channel in order to continue.</source>
-         <target>ચાલુ રાખવા માટે તમારે ઓછામાં ઓછી એક રૂપરેખાંકન ચેનલ પસંદ કરવી જ પડશે.</target></trans-unit>
          <trans-unit id="ssm.config.subscribe.jsp.continue">
            <source>Continue</source>
          <target>ચાલુ રાખો</target></trans-unit>

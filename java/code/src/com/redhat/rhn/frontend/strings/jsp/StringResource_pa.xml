@@ -14636,9 +14636,6 @@ any of these revisions.  Are you sure you want to do this?</source>
          <trans-unit id="ssm.config.subscribe.jsp.noChannels">
            <source>No configuration channels.</source>
          <target>ਕੋਈ ਸੰਰਚਨਾ ਚੈਨਲ ਨਹੀਂ ਹੈ।</target></trans-unit>
-         <trans-unit id="ssm.config.subscribe.jsp.noSelected">
-           <source>You must select at least one configuration channel in order to continue.</source>
-         <target>ਤੁਹਾਨੂੰ ਜਾਰੀ ਰਹਿਣ ਲਈ ਘੱਟੋ-ਘੱਟ ਇੱਕ ਸੰਰਚਨਾ ਚੈਨਲ ਚੁਣਨਾ ਜਰੂਰੀ ਹੈ।</target></trans-unit>
          <trans-unit id="ssm.config.subscribe.jsp.continue">
            <source>Continue</source>
          <target>ਜਾਰੀ</target></trans-unit>

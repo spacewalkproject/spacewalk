@@ -14636,9 +14636,6 @@ any of these revisions.  Are you sure you want to do this?</source>
          <trans-unit id="ssm.config.subscribe.jsp.noChannels">
            <source>No configuration channels.</source>
          <target>কোনো কনফিগারেশন চ্যানেল উপস্থিত নেই।</target></trans-unit>
-         <trans-unit id="ssm.config.subscribe.jsp.noSelected">
-           <source>You must select at least one configuration channel in order to continue.</source>
-         <target>এগিয়ে চলার জন্য অন্তত একটি কনফিগারেশন চ্যানেল নির্বাচন করা আবশ্যক।</target></trans-unit>
          <trans-unit id="ssm.config.subscribe.jsp.continue">
            <source>Continue</source>
          <target>এগিয়ে চলুন</target></trans-unit>
