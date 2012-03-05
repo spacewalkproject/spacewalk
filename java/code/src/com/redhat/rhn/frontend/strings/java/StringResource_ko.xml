@@ -1259,12 +1259,6 @@
           <context context-type="sourcefile">/users/CreateUser</context>
         </context-group>
       <target>다른 이용자가 이미 사용하고 있습니다. 다른 사용자명을 선택해주십시오.</target></trans-unit>
-      <trans-unit id="error.link_problem">
-<source>There is a problem with the link you have been sent. Please contact customer support.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/users/CreateUser</context>
-        </context-group>
-      <target>보낸주신 링크에 문제가 있습니다. 고객 지원팀에 문의하시기 바랍니다.</target></trans-unit>
       <trans-unit id="error.same_email">
 <source>You must specify a different email</source>
         <context-group name="ctx">

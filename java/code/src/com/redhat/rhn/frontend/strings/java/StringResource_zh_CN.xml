@@ -1259,12 +1259,6 @@
           <context context-type="sourcefile">/users/CreateUser</context>
         </context-group>
       <target>该用户名已经被使用；请选择另外一个。</target></trans-unit>
-      <trans-unit id="error.link_problem">
-<source>There is a problem with the link you have been sent. Please contact customer support.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/users/CreateUser</context>
-        </context-group>
-      <target>您发送的链接有问题。请联系客户支持部门。</target></trans-unit>
       <trans-unit id="error.same_email">
 <source>You must specify a different email</source>
         <context-group name="ctx">

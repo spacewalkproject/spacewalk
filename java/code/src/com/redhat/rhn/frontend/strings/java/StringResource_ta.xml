@@ -1259,12 +1259,6 @@
           <context context-type="sourcefile">/users/CreateUser</context>
         </context-group>
       <target>அந்த பயனர் பெயர் ஏற்கனவே எடுக்கப்பட்டது; வேறொன்றை தேர்ந்தெடுக்கவும்.</target></trans-unit>
-      <trans-unit id="error.link_problem">
-<source>There is a problem with the link you have been sent. Please contact customer support.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/users/CreateUser</context>
-        </context-group>
-      <target>நீங்கள் அனுப்பிய இணைப்பில் சிக்கல் உள்ளது. எனவே வாடிக்கையாளர் சேவை மையத்தை அணுகவும்.</target></trans-unit>
       <trans-unit id="error.same_email">
 <source>You must specify a different email</source>
         <context-group name="ctx">

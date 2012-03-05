@@ -1259,12 +1259,6 @@
           <context context-type="sourcefile">/users/CreateUser</context>
         </context-group>
       <target>Este usuário já está sendo usado, por favor escolha outro.</target></trans-unit>
-      <trans-unit id="error.link_problem">
-<source>There is a problem with the link you have been sent. Please contact customer support.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/users/CreateUser</context>
-        </context-group>
-      <target>Ocorreu um problema com o link enviado a você. Por favor contate o suporte ao cliente.</target></trans-unit>
       <trans-unit id="error.same_email">
 <source>You must specify a different email</source>
         <context-group name="ctx">

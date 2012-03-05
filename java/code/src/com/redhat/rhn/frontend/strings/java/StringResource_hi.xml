@@ -1259,12 +1259,6 @@
           <context context-type="sourcefile">/users/CreateUser</context>
         </context-group>
       <target>उपयोक्तानाम पहले से लिया है; कृपया दूसरा चुनें.</target></trans-unit>
-      <trans-unit id="error.link_problem">
-<source>There is a problem with the link you have been sent. Please contact customer support.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/users/CreateUser</context>
-        </context-group>
-      <target>एक समस्या है उस लिंक के साथ जो आपने भेजी है. कृपया उपभोक्ता समर्थन को संपर्क करें.</target></trans-unit>
       <trans-unit id="error.same_email">
 <source>You must specify a different email</source>
         <context-group name="ctx">

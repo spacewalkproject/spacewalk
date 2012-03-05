@@ -1261,12 +1261,6 @@ utilisateur avant de supprimer son compte.</target></trans-unit>
           <context context-type="sourcefile">/users/CreateUser</context>
         </context-group>
       <target>Ce nom d'utilisateur est déjà utilisé&amp;nbsp;; veuillez en choisir un autre.</target></trans-unit>
-      <trans-unit id="error.link_problem">
-<source>There is a problem with the link you have been sent. Please contact customer support.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/users/CreateUser</context>
-        </context-group>
-      <target>Le lien qui vous a été envoyé pose problème. Veuillez contacter l'assistance clientèle.</target></trans-unit>
       <trans-unit id="error.same_email">
 <source>You must specify a different email</source>
         <context-group name="ctx">

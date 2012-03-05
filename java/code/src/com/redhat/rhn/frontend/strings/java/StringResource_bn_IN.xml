@@ -1265,12 +1265,6 @@
           <context context-type="sourcefile">/users/CreateUser</context>
         </context-group>
       <target>প্রদত্ত ব্যবহারকারীর নাম বর্তমানে উপস্থিত; অনুগ্রহ করে একটি পৃথক নাম নির্বাচন করুন।</target></trans-unit>
-      <trans-unit id="error.link_problem">
-<source>There is a problem with the link you have been sent. Please contact customer support.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/users/CreateUser</context>
-        </context-group>
-      <target>আপনাকে প্রেরিত লিঙ্কের মধ্যে কিছু গোলযোগ রয়েছে। অনুগ্রহ করে গ্রাহক পরিসেবা ব্যবস্থায় যোগাযোগ করুন।</target></trans-unit>
       <trans-unit id="error.same_email">
 <source>You must specify a different email</source>
         <context-group name="ctx">
