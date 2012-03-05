@@ -4039,12 +4039,6 @@ del rol de Administrador de la organización.</target></trans-unit>
         </context-group>
       <target>Visión general de errata</target></trans-unit>
 
-      <trans-unit id="errata.overview.jsp.alt">
-<source>Errata Icon</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/errata/Overview.do</context>
-        </context-group>
-      <target>Icono de Errata</target></trans-unit>
 
       <trans-unit id="errata.overview.jsp.summary">
 <source>The following errata apply to at least one system to which you have administrative access.</source>

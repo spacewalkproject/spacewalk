@@ -4038,12 +4038,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
         </context-group>
       <target>ত্রুটি-বিচ্যুতির সংক্ষিপ্ত তথ্য</target></trans-unit>
 
-      <trans-unit id="errata.overview.jsp.alt">
-<source>Errata Icon</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/errata/Overview.do</context>
-        </context-group>
-      <target>ত্রুটি-বিচ্যুতির আইকন</target></trans-unit>
 
       <trans-unit id="errata.overview.jsp.summary">
 <source>The following errata apply to at least one system to which you have administrative access.</source>

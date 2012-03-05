@@ -4038,12 +4038,6 @@ abaixo e &lt;b&gt;não poderá mais se autenticar&lt;/b&gt;.</target></trans-uni
         </context-group>
       <target>Visão Geral da Errata</target></trans-unit>
 
-      <trans-unit id="errata.overview.jsp.alt">
-<source>Errata Icon</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/errata/Overview.do</context>
-        </context-group>
-      <target>Ícone Errata</target></trans-unit>
 
       <trans-unit id="errata.overview.jsp.summary">
 <source>The following errata apply to at least one system to which you have administrative access.</source>

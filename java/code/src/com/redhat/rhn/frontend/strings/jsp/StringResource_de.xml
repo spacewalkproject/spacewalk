@@ -4038,12 +4038,6 @@ dr&amp;uuml;cken und &lt;b&gt;k&amp;ouml;nnen sich nicht wieder einloggen&lt;/b&
         </context-group>
       <target>Errata-&amp;Uuml;berblick</target></trans-unit>
 
-      <trans-unit id="errata.overview.jsp.alt">
-<source>Errata Icon</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/errata/Overview.do</context>
-        </context-group>
-      <target>Errata-Icon</target></trans-unit>
 
       <trans-unit id="errata.overview.jsp.summary">
 <source>The following errata apply to at least one system to which you have administrative access.</source>
