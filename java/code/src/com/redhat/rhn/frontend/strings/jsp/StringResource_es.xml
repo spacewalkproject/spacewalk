@@ -13872,13 +13872,6 @@ concerniente con esas revisiones. ¿Está seguro que es ésto lo que desea hacer
     <!-- quota.jsp -->
 
 
-    <trans-unit id="quota.jsp.total">
-        <source>Your organization is allowed &lt;strong&gt;{0}&lt;/strong&gt; of space to store configuration files.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/Quota.do</context>
-          <context context-type="paramnotes">Your organization is allowed 40 KB of space to store configuration files.</context>
-        </context-group>
-    <target>Su organización tiene &lt;strong&gt;{0}&lt;/strong&gt; de espacio disponible para almacenar archivos de configuración.</target></trans-unit>
 
     <trans-unit id="quota.jsp.used">
         <source>Your organization is currently using &lt;strong&gt;{0}&lt;/strong&gt; of space, leaving &lt;strong&gt;{1}&lt;/strong&gt; free.</source>
