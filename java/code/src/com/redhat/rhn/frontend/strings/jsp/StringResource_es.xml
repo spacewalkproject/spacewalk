@@ -10516,12 +10516,6 @@ Por favor tenga en cuenta que podría ser necesario configurar manualmente estos
         </context-group>
     <target>Descripción</target></trans-unit>
 
-    <trans-unit id="keys.jsp.type">
-        <source>Type</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/keys/CryptoKeysList.do</context>
-        </context-group>
-    <target>Tipo</target></trans-unit>
 
     <trans-unit id="toolbar.create.keys">
         <source>create new stored key/cert</source>

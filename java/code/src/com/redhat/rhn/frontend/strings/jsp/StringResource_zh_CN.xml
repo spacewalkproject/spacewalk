@@ -10512,12 +10512,6 @@ Kickstart 侧写的引导装载程序和分区选项，有可能覆盖用户定�
         </context-group>
     <target>描述</target></trans-unit>
 
-    <trans-unit id="keys.jsp.type">
-        <source>Type</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/keys/CryptoKeysList.do</context>
-        </context-group>
-    <target>类型</target></trans-unit>
 
     <trans-unit id="toolbar.create.keys">
         <source>create new stored key/cert</source>

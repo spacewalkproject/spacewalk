@@ -10517,12 +10517,6 @@ Veuillez noter qu'une configuration manuelle de ces scripts peut toujours être 
         </context-group>
     <target>Description</target></trans-unit>
 
-    <trans-unit id="keys.jsp.type">
-        <source>Type</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/keys/CryptoKeysList.do</context>
-        </context-group>
-    <target>Type</target></trans-unit>
 
     <trans-unit id="toolbar.create.keys">
         <source>create new stored key/cert</source>

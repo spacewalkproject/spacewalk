@@ -10504,12 +10504,6 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
     <target>વર્ણન</target></trans-unit>
 
-    <trans-unit id="keys.jsp.type">
-        <source>Type</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/keys/CryptoKeysList.do</context>
-        </context-group>
-    <target>પ્રકાર</target></trans-unit>
 
     <trans-unit id="toolbar.create.keys">
         <source>create new stored key/cert</source>
