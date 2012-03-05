@@ -15097,9 +15097,6 @@ concerniente con esas revisiones. ¿Está seguro que es ésto lo que desea hacer
         <trans-unit id="sdc.config.file_list.overridden_none">
             <source>None [&lt;a href="{0}"&gt;Override this file&lt;/a&gt;]</source>
         <target>Ninguno [&lt;a href="{0}"&gt;Sobrescribir este archivo&lt;/a&gt;]</target></trans-unit>
-        <trans-unit id="sdc.config.file_list.system">
-            <source>System</source>
-        <target>Sistema</target></trans-unit>
         <trans-unit id="sdc.config.file_list.current_revision">
             <source>Current Revision</source>
         <target>Revisión actual</target></trans-unit>

@@ -15064,9 +15064,6 @@ any of these revisions.  Are you sure you want to do this?</source>
         <trans-unit id="sdc.config.file_list.overridden_none">
             <source>None [&lt;a href="{0}"&gt;Override this file&lt;/a&gt;]</source>
         <target>শূণ্য [&lt;a href="{0}"&gt;এই ফাইলটি উপেক্ষা করা হবে&lt;/a&gt;]</target></trans-unit>
-        <trans-unit id="sdc.config.file_list.system">
-            <source>System</source>
-        <target>সিস্টেম</target></trans-unit>
         <trans-unit id="sdc.config.file_list.current_revision">
             <source>Current Revision</source>
         <target>বর্তমান পরিমার্জিত সংস্করণ</target></trans-unit>

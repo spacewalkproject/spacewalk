@@ -15088,9 +15088,6 @@ para qualquer uma das revisões, assim como todo o histórico de implementação
         <trans-unit id="sdc.config.file_list.overridden_none">
             <source>None [&lt;a href="{0}"&gt;Override this file&lt;/a&gt;]</source>
         <target>Nenhum [&lt;a href="{0}"&gt;Sobrescreve este arquivo&lt;/a&gt;]</target></trans-unit>
-        <trans-unit id="sdc.config.file_list.system">
-            <source>System</source>
-        <target>Sistemas</target></trans-unit>
         <trans-unit id="sdc.config.file_list.current_revision">
             <source>Current Revision</source>
         <target>Revisão Atual</target></trans-unit>

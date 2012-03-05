@@ -15098,9 +15098,6 @@ pour ces versions seront également supprimées, ainsi que tous les historiques 
         <trans-unit id="sdc.config.file_list.overridden_none">
             <source>None [&lt;a href="{0}"&gt;Override this file&lt;/a&gt;]</source>
         <target>Aucune [&lt;a href="{0}"&gt;Surcharger ce fichier&lt;/a&gt;]</target></trans-unit>
-        <trans-unit id="sdc.config.file_list.system">
-            <source>System</source>
-        <target>Système</target></trans-unit>
         <trans-unit id="sdc.config.file_list.current_revision">
             <source>Current Revision</source>
         <target>Version courante</target></trans-unit>

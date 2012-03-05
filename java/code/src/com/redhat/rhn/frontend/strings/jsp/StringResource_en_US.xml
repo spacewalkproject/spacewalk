@@ -15474,9 +15474,6 @@ any of these revisions.  Are you sure you want to do this?</source>
         <trans-unit id="sdc.config.file_list.overridden_none">
             <source>None [&lt;a href=&quot;{0}&quot;&gt;Override this file&lt;/a&gt;]</source>
         </trans-unit>
-        <trans-unit id="sdc.config.file_list.system">
-            <source>System</source>
-        </trans-unit>
         <trans-unit id="sdc.config.file_list.current_revision">
             <source>Current Revision</source>
         </trans-unit>

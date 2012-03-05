@@ -15062,9 +15062,6 @@ Siete sicuri di voler fare questo?</target></trans-unit>
         <trans-unit id="sdc.config.file_list.overridden_none">
             <source>None [&lt;a href="{0}"&gt;Override this file&lt;/a&gt;]</source>
         <target>Nessuno [&lt;a href="{0}"&gt;Sovrascrivi questo file&lt;/a&gt;]</target></trans-unit>
-        <trans-unit id="sdc.config.file_list.system">
-            <source>System</source>
-        <target>Sistema</target></trans-unit>
         <trans-unit id="sdc.config.file_list.current_revision">
             <source>Current Revision</source>
         <target>Revisione attuale</target></trans-unit>
