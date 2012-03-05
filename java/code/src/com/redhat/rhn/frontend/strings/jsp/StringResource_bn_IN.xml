@@ -8469,12 +8469,6 @@ Please note that some manual configuration of these scripts may still be require
 
 
 
-  <trans-unit id="tnc.jsp.refused-desc">
-    <source>You have refused to acknowledge the Terms and Conditions associated with the use of Red Hat products and services. You must accept these Terms and Conditions in order to access @@PRODUCT_NAME@@ and your Red Hat subscriptions. Please click on the link below to log back in to @@PRODUCT_NAME@@ and accept the Terms and Conditions of use.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/tnc/</context>
-        </context-group>
-    <target>Red Hat-র বিভিন্ন উৎপাদন ও পরিসেবার ব্যবহারের জন্য প্রযোজ্য শর্তাবলী আপনি প্রত্যাখ্যান করেছেন। @@PRODUCT_NAME@@ ও Red Hat-র সাবস্ক্রিপশন ব্যবহারের জন্য এই শর্তাবলী গ্রহণ করা আবশ্যক। অনুগ্রহ করে নিম্নলিখিত লিঙ্ক ক্লিক করে @@PRODUCT_NAME@@-এ পুনরায় লগ-ইন করে শর্তাবলী গ্রহণ করুন।</target></trans-unit>
 
   <trans-unit id="tnc.jsp.return-login">
     <source>Link to Log in to @@PRODUCT_NAME@@</source>

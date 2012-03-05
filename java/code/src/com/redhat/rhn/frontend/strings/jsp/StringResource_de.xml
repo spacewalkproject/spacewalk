@@ -8484,12 +8484,6 @@ Bitte beachten Sie, dass m&amp;ouml;glicherweise noch einige manuelle Konfigurat
 
 
 
-  <trans-unit id="tnc.jsp.refused-desc">
-    <source>You have refused to acknowledge the Terms and Conditions associated with the use of Red Hat products and services. You must accept these Terms and Conditions in order to access @@PRODUCT_NAME@@ and your Red Hat subscriptions. Please click on the link below to log back in to @@PRODUCT_NAME@@ and accept the Terms and Conditions of use.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/tnc/</context>
-        </context-group>
-    <target>Sie haben es abgelehnt, die Gesch&amp;auml;ftsbedingungen zur Verwendung der Red Hat Produkte und Dienstleistungen anzuerkennen. Sie m&amp;uuml;ssen die Gesch&amp;auml;ftsbedingungen akzeptieren, um Zugang zum @@PRODUCT_NAME@@ und Ihren Abonnements zu bekommen. Bitte klicken Sie auf den sich unten befindenden Link, um sich wieder ins @@PRODUCT_NAME@@ einzuloggen und akzeptieren Sie die Gesch&amp;auml;ftsbedingungen.</target></trans-unit>
 
   <trans-unit id="tnc.jsp.return-login">
     <source>Link to Log in to @@PRODUCT_NAME@@</source>
