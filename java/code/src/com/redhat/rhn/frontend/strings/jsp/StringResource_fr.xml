@@ -18516,12 +18516,6 @@ comme défini dans le certificat de ce @@PRODUCT_NAME@@.</target></trans-unit>
 
 
 
-      <trans-unit id="sys_entitlements.virtualization_host">
-        <source> Virtualization (Add-On)</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
-        </context-group>
-      <target> Virtualisation (Supplémentaire)</target></trans-unit>
 
       <trans-unit id="sys_entitlements.virtualization_host_platform">
         <source> Virtualization Platform (Add-On)</source>
