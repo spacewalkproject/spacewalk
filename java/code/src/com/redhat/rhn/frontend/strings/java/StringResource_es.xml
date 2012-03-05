@@ -6727,12 +6727,6 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
         </context-group>
       <target>Reanudar</target></trans-unit>
 
-      <trans-unit id="systems.details.virt.guest.virt.reboot">
-        <source>Restart</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
-        </context-group>
-      <target>Reiniciar</target></trans-unit>
 
 
       <trans-unit id="systems.details.virt.guest.virt.delete">
