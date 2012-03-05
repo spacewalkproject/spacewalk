@@ -12826,9 +12826,6 @@ o &lt;strong&gt;Guia de Administração de Sistemas Red Hat Enterprise Li
           <source>configuration channels</source>
         <target>canais de configuração</target></trans-unit>
 
-        <trans-unit id="config.common.sysconfigAlt">
-          <source>system configuration</source>
-        <target>configuração de sistema</target></trans-unit>
 
 
         <trans-unit id="config.common.configChannel">

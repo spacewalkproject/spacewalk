@@ -12835,9 +12835,6 @@ Le script post non-chroot sera ensuite exécuté et le script post sera enfin ex
           <source>configuration channels</source>
         <target>canaux de configuration</target></trans-unit>
 
-        <trans-unit id="config.common.sysconfigAlt">
-          <source>system configuration</source>
-        <target>configuration système</target></trans-unit>
 
 
         <trans-unit id="config.common.configChannel">

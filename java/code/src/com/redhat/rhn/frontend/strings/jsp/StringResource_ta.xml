@@ -12820,9 +12820,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
           <source>configuration channels</source>
         <target>கட்டமைப்பு தடங்கள்</target></trans-unit>
 
-        <trans-unit id="config.common.sysconfigAlt">
-          <source>system configuration</source>
-        <target>கணினி கட்டமைப்பு</target></trans-unit>
 
 
         <trans-unit id="config.common.configChannel">

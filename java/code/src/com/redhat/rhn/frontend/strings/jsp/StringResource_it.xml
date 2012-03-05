@@ -12817,9 +12817,6 @@ la &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stron
           <source>configuration channels</source>
         <target>canali di configurazione</target></trans-unit>
 
-        <trans-unit id="config.common.sysconfigAlt">
-          <source>system configuration</source>
-        <target>sistema di configurazione</target></trans-unit>
 
 
         <trans-unit id="config.common.configChannel">

@@ -12830,9 +12830,6 @@ kickstart 前脚本的内容可以在 &lt;strong&gt;《红帽企业版 Linux 系
           <source>configuration channels</source>
         <target>配置频道</target></trans-unit>
 
-        <trans-unit id="config.common.sysconfigAlt">
-          <source>system configuration</source>
-        <target>系统配置</target></trans-unit>
 
 
         <trans-unit id="config.common.configChannel">

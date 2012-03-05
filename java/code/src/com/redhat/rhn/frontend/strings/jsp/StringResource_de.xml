@@ -12837,9 +12837,6 @@ Anschlie&amp;szlig;end wird das nicht-chroot Post-Skript ausgef&amp;uuml;hrt, un
           <source>configuration channels</source>
         <target>Konfigurations-Channels</target></trans-unit>
 
-        <trans-unit id="config.common.sysconfigAlt">
-          <source>system configuration</source>
-        <target>Systemkonfiguration</target></trans-unit>
 
 
         <trans-unit id="config.common.configChannel">
