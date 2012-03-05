@@ -6705,12 +6705,6 @@ Follow this url to see the full list of inactive systems:
         </context-group>
       <target>Удалить</target></trans-unit>
 
-      <trans-unit id="systems.details.virt.guest.virt.setMemory">
-          <source>Set Memory ({0} MB)</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
-        </context-group>
-      <target>Выделить память ({0} Мб)</target></trans-unit>
 
       <trans-unit id="systems.details.virt.guest.virt.setVCPUs">
           <source>Set Virtual CPUs ({0})</source>
