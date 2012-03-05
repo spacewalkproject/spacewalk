@@ -5888,12 +5888,6 @@ user before attempting to deactivate their account.</source>
 
 
 
-    <trans-unit id="certificate.config.error.82">
-        <source>@@PRODUCT_NAME@@ channel not found</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-      <target>@@PRODUCT_NAME@@ 채널을 찾을 수 없음  </target></trans-unit>
 
     <trans-unit id="certificate.config.error.83">
         <source>No @@PRODUCT_NAME@@ channel entitlements remaining</source>

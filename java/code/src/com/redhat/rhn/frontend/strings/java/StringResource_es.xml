@@ -5913,12 +5913,6 @@ de este usuario antes de intentar desactivar esta cuenta.</target></trans-unit>
 
 
 
-    <trans-unit id="certificate.config.error.82">
-        <source>@@PRODUCT_NAME@@ channel not found</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-      <target>Canal de @@PRODUCT_NAME@@ no encontrado</target></trans-unit>
 
     <trans-unit id="certificate.config.error.83">
         <source>No @@PRODUCT_NAME@@ channel entitlements remaining</source>
