@@ -20601,9 +20601,6 @@ given channel.</source>
      <trans-unit id="task.status.kickstart-cleanup">
          <source>Kickstart Cleanup</source>
      </trans-unit>
-     <trans-unit id="task.status.errata-cache">
-         <source>Errata Cache</source>
-     </trans-unit>
      <trans-unit id="task.status.channel-repodata">
          <source>Channel Repodata</source>
      </trans-unit>
