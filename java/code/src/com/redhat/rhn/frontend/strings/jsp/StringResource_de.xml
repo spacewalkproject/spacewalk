@@ -19520,12 +19520,6 @@ Notfall-Wartungsfenstern f&amp;uuml;r Benachrichtigungen verwendet.
       <target>
 (&lt;a href="http://www.redhat.com/download/howto_download.html"&gt;&lt;strong&gt;Nicht sicher, was ein ISO ist?&lt;/strong&gt;&lt;/a&gt;)
 </target></trans-unit>
-      <trans-unit id="common.download.no-isos">
-<source>No images were found matching your criteria.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/software/downloads/AllISOs.do</context>
-        </context-group>
-      <target>Es wurden keine Images gefunden, die Ihren Suchkriterien entsprechen.</target></trans-unit>
 
 		<!-- Supported ISOs -->
       <trans-unit id="download.isotree.jsp.supported-instructions">

@@ -19517,12 +19517,6 @@ et Red Hat l'utilisera en cas de fenêtres de maintenance d'urgence et non progr
       <target>
 (&lt;a href="http://www.redhat.com/download/howto_download.html"&gt;&lt;strong&gt;Vous vous demandez ce qu'est un ISO ?&lt;/strong&gt;&lt;/a&gt;)
 </target></trans-unit>
-      <trans-unit id="common.download.no-isos">
-<source>No images were found matching your criteria.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/software/downloads/AllISOs.do</context>
-        </context-group>
-      <target>Aucune image correspondant à votre critère n'a été trouvée.</target></trans-unit>
 
 		<!-- Supported ISOs -->
       <trans-unit id="download.isotree.jsp.supported-instructions">

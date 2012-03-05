@@ -19516,12 +19516,6 @@ para anunciar periodos de mantenimiento de Emergencia y no programados.
       <target>
 (&lt;a href="http://www.redhat.com/download/howto_download.html"&gt;&lt;strong&gt;¿No está seguro de lo que es un ISO?&lt;/strong&gt;&lt;/a&gt;)
 </target></trans-unit>
-      <trans-unit id="common.download.no-isos">
-<source>No images were found matching your criteria.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/software/downloads/AllISOs.do</context>
-        </context-group>
-      <target>No se encontró ninguna imagen que coincida con su criterio.</target></trans-unit>
 
 		<!-- Supported ISOs -->
       <trans-unit id="download.isotree.jsp.supported-instructions">

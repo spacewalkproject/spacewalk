@@ -19511,12 +19511,6 @@ Emergency Maintenance windows.&lt;a href="{0}"&gt;Register for the Email Outage 
       <target>
 (&lt;a href="http://www.redhat.com/download/howto_download.html"&gt;&lt;strong&gt;不确定什么是 ISO？&lt;/strong&gt;&lt;/a&gt;)
 </target></trans-unit>
-      <trans-unit id="common.download.no-isos">
-<source>No images were found matching your criteria.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/software/downloads/AllISOs.do</context>
-        </context-group>
-      <target>没有找到符合您的标准的映像文件。</target></trans-unit>
 
 		<!-- Supported ISOs -->
       <trans-unit id="download.isotree.jsp.supported-instructions">

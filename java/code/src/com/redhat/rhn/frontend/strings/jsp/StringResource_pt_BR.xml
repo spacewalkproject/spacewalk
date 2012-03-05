@@ -19512,12 +19512,6 @@ pela Red Hat no caso de Períodos de Manutenção Não Programados ou
       <target>
 (&lt;a href="http://www.redhat.com/download/howto_download.html"&gt;&lt;strong&gt;Não tem certeza do que é um ISO?&lt;/strong&gt;&lt;/a&gt;)
 </target></trans-unit>
-      <trans-unit id="common.download.no-isos">
-<source>No images were found matching your criteria.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/software/downloads/AllISOs.do</context>
-        </context-group>
-      <target>Nenhuma imagem próxima ao seu critério foi encontrada.</target></trans-unit>
 
 		<!-- Supported ISOs -->
       <trans-unit id="download.isotree.jsp.supported-instructions">

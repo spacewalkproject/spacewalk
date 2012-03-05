@@ -19462,12 +19462,6 @@ Emergency Maintenance windows.&lt;a href="{0}"&gt;Register for the Email Outage 
 		  <context context-type="paramnotes">(_Not sure what an ISO is?_)</context>
         </context-group>
       <target></target></trans-unit>
-      <trans-unit id="common.download.no-isos">
-<source>No images were found matching your criteria.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/software/downloads/AllISOs.do</context>
-        </context-group>
-      <target>તમારા વિચારધારાને બંધબેસતી કોઈ ઈમેજો મળી નહિં.</target></trans-unit>
 
 		<!-- Supported ISOs -->
       <trans-unit id="download.isotree.jsp.supported-instructions">
