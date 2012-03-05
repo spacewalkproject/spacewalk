@@ -2072,12 +2072,6 @@ del rol de Administrador de la organización.</target></trans-unit>
         </context-group>
       <target>Nombre</target></trans-unit>
 <!-- subscription_management.jsp" -->
-      <trans-unit id="subscriptionmanagement.jsp.subscriptionmanagement">
-<source> Purchase or Renew </source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/account/SubscriptionManagement</context>
-        </context-group>
-      <target> Adquirir o renovar</target></trans-unit>
 <!-- edit_address.jsp -->
       <trans-unit id="edit_address.jsp.address">
 <source> Address</source>

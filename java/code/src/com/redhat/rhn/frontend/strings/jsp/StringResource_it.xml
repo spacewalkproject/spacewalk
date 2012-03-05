@@ -2071,12 +2071,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
         </context-group>
       <target>Nome</target></trans-unit>
 <!-- subscription_management.jsp" -->
-      <trans-unit id="subscriptionmanagement.jsp.subscriptionmanagement">
-<source> Purchase or Renew </source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/account/SubscriptionManagement</context>
-        </context-group>
-      <target> Acquisto o Rinnovo</target></trans-unit>
 <!-- edit_address.jsp -->
       <trans-unit id="edit_address.jsp.address">
 <source> Address</source>

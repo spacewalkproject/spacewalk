@@ -2071,12 +2071,6 @@ dr&amp;uuml;cken und &lt;b&gt;k&amp;ouml;nnen sich nicht wieder einloggen&lt;/b&
         </context-group>
       <target>Name</target></trans-unit>
 <!-- subscription_management.jsp" -->
-      <trans-unit id="subscriptionmanagement.jsp.subscriptionmanagement">
-<source> Purchase or Renew </source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/account/SubscriptionManagement</context>
-        </context-group>
-      <target> Erwerben oder Erneuern</target></trans-unit>
 <!-- edit_address.jsp -->
       <trans-unit id="edit_address.jsp.address">
 <source> Address</source>
