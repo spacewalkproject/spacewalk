@@ -12892,12 +12892,6 @@ Le script post non-chroot sera ensuite exécuté et le script post sera enfin ex
           </context-group>
 	<target>Comparer</target></trans-unit>
 
-		<trans-unit id="config.common.edit">
-		  <source>Edit</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">Used anywhere we give the user the opportunity to make changes to a config-file</context>
-          </context-group>
-	<target>Éditer</target></trans-unit>
      </group>
 
      <!-- User common -->

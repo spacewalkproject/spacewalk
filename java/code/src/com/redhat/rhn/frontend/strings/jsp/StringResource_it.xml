@@ -12874,12 +12874,6 @@ la &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stron
           </context-group>
 	<target>Confronta</target></trans-unit>
 
-		<trans-unit id="config.common.edit">
-		  <source>Edit</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">Used anywhere we give the user the opportunity to make changes to a config-file</context>
-          </context-group>
-	<target>Modifica</target></trans-unit>
      </group>
 
      <!-- User common -->

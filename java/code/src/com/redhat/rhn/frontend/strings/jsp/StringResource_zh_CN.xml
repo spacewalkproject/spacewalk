@@ -12887,12 +12887,6 @@ kickstart 前脚本的内容可以在 &lt;strong&gt;《红帽企业版 Linux 系
           </context-group>
 	<target>比较</target></trans-unit>
 
-		<trans-unit id="config.common.edit">
-		  <source>Edit</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">Used anywhere we give the user the opportunity to make changes to a config-file</context>
-          </context-group>
-	<target>编辑</target></trans-unit>
      </group>
 
      <!-- User common -->

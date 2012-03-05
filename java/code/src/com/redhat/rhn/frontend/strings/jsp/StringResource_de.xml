@@ -12894,12 +12894,6 @@ Anschlie&amp;szlig;end wird das nicht-chroot Post-Skript ausgef&amp;uuml;hrt, un
           </context-group>
 	<target>Abgleichen</target></trans-unit>
 
-		<trans-unit id="config.common.edit">
-		  <source>Edit</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">Used anywhere we give the user the opportunity to make changes to a config-file</context>
-          </context-group>
-	<target>Bearbeiten</target></trans-unit>
      </group>
 
      <!-- User common -->

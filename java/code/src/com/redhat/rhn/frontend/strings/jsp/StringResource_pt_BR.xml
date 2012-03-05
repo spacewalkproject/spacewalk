@@ -12883,12 +12883,6 @@ o &lt;strong&gt;Guia de Administração de Sistemas Red Hat Enterprise Li
           </context-group>
 	<target>Comparar</target></trans-unit>
 
-		<trans-unit id="config.common.edit">
-		  <source>Edit</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">Used anywhere we give the user the opportunity to make changes to a config-file</context>
-          </context-group>
-	<target>Editar </target></trans-unit>
      </group>
 
      <!-- User common -->
