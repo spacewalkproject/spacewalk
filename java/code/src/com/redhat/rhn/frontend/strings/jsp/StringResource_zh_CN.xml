@@ -257,13 +257,6 @@
           <context context-type="paramnotes">Count is not in the range 10 through 20.</context>
         </context-group>
       <target>{0} 不在 {1} 到 {2} 的范围内。</target></trans-unit>
-      <trans-unit id="errors.email">
-<source>{0} is an invalid e-mail address.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Any page that has required format fields</context>
-          <context context-type="paramnotes">zzz$zz.com is an invalid e-mail address.</context>
-        </context-group>
-      <target>{0} 是一个无效的电子邮件地址。</target></trans-unit>
       <trans-unit id="toolbar.jsp.helpicon.alt">
 <source>Help Icon</source>
         <context-group name="ctx">

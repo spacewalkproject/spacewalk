@@ -257,13 +257,6 @@
           <context context-type="paramnotes">Count is not in the range 10 through 20.</context>
         </context-group>
       <target>{0} {1} க்கும் {2}க்கும் இடையேயான வரையறையில் இல்லை.</target></trans-unit>
-      <trans-unit id="errors.email">
-<source>{0} is an invalid e-mail address.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Any page that has required format fields</context>
-          <context context-type="paramnotes">zzz$zz.com is an invalid e-mail address.</context>
-        </context-group>
-      <target>{0} ஒரு முறையற்ற மின்னஞ்சல் முகவரியாகும்.</target></trans-unit>
       <trans-unit id="toolbar.jsp.helpicon.alt">
 <source>Help Icon</source>
         <context-group name="ctx">
