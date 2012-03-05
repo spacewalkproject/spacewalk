@@ -5907,12 +5907,6 @@ Benutzers vor dem Versuch, den Account zu deaktivieren.</target></trans-unit>
 
 
 
-            <trans-unit id="package_profiles.added">
-<source>{0} Package Profile(s) added.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart/KickstartPackageProfileEditSubmit.do</context>
-        </context-group>
-      <target>{0} Paketprofil(e) hinzugef&amp;uuml;gt.</target></trans-unit>
 
             <trans-unit id="package_profiles.removed">
 <source>{0} Package Profile(s) removed.</source>
