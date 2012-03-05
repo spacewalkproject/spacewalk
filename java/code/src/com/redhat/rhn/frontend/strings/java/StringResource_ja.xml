@@ -2319,12 +2319,6 @@ rhn-kickstart* パッケージが利用可能であることを確認します�
         </context-group>
       <target>キックスタートの削除</target></trans-unit>
 
-      <trans-unit id="toolbar.delete.deleteTree">
-        <source>delete distribution</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">rhn/Kickstart/TreeEdit.do</context>
-        </context-group>
-      <target>ディストリビューションの削除</target></trans-unit>
 
 
 

@@ -2309,12 +2309,6 @@ disponíveis para seu perfil kickstart funcionar corretamente./n&lt;/li&gt;
         </context-group>
       <target>remover kickstart</target></trans-unit>
 
-      <trans-unit id="toolbar.delete.deleteTree">
-        <source>delete distribution</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">rhn/Kickstart/TreeEdit.do</context>
-        </context-group>
-      <target>remover distribuição</target></trans-unit>
 
 
 

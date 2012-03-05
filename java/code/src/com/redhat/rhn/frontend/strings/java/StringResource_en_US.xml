@@ -2318,12 +2318,6 @@ available for this kickstart profile to function properly.
         </context-group>
       </trans-unit>
 
-      <trans-unit id="toolbar.delete.deleteTree">
-        <source>delete distribution</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">rhn/Kickstart/TreeEdit.do</context>
-        </context-group>
-      </trans-unit>
 
 
 

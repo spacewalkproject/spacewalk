@@ -2295,12 +2295,6 @@ available for this kickstart profile to function properly.
         </context-group>
       <target>удалить кикстарт</target></trans-unit>
 
-      <trans-unit id="toolbar.delete.deleteTree">
-        <source>delete distribution</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">rhn/Kickstart/TreeEdit.do</context>
-        </context-group>
-      <target>удалить дистрибутив</target></trans-unit>
 
 
 

@@ -2326,12 +2326,6 @@ verfügbar machen, damit dieses Kickstart-Profil einwandfrei funktionieren kann.
         </context-group>
       <target>Kickstart l&amp;ouml;schen</target></trans-unit>
 
-      <trans-unit id="toolbar.delete.deleteTree">
-        <source>delete distribution</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">rhn/Kickstart/TreeEdit.do</context>
-        </context-group>
-      <target>Distribution l&amp;ouml;schen</target></trans-unit>
 
 
 
