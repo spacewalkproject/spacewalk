@@ -5902,12 +5902,6 @@ utilisateur avant de désactiver son compte.</target></trans-unit>
         </context-group>
       <target>Certificat téléchargé. @@PRODUCT_NAME@@ a été réactivé.</target></trans-unit>
 
-    <trans-unit id="certificate.config.error.10">
-        <source>Could not parse certificate file, see log file for more details.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-      <target>Impossible d'analyser le fichier de certificat</target></trans-unit>
 
     <trans-unit id="certificate.config.error.11">
         <source>Certificate expired</source>

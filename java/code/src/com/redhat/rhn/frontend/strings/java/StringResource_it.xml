@@ -5899,12 +5899,6 @@ utente prima di disabilitare l'account in questione.</target></trans-unit>
         </context-group>
       <target>Certificato caricato.  @@PRODUCT_NAME@@ è stato riattivato.</target></trans-unit>
 
-    <trans-unit id="certificate.config.error.10">
-        <source>Could not parse certificate file, see log file for more details.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-      <target>Impossibile analizzare il file del certificato</target></trans-unit>
 
     <trans-unit id="certificate.config.error.11">
         <source>Certificate expired</source>
