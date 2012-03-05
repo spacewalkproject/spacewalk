@@ -3566,9 +3566,6 @@ http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd"
         <trans-unit id="kickstart.state.registered">
           <source>The system has successfully registered with @@PRODUCT_NAME@@ after kickstarting.</source>
         </trans-unit>
-        <trans-unit id="kickstart.state.package_synch_scheduled">
-          <source>Package synchronization scheduled.</source>
-        </trans-unit>
     </group>
 
 
