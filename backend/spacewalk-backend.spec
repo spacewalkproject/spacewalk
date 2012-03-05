@@ -12,7 +12,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.0
+Version: 1.8.1
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -688,6 +688,11 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Mon Mar 05 2012 Michael Mraka <michael.mraka@redhat.com> 1.8.1-1
+- login(), logout() moved to spacewalk.common.cli
+- added cli module to rpm
+- created module for usefull cli functions
+
 * Fri Mar 02 2012 Michael Mraka <michael.mraka@redhat.com> 1.7.38-1
 - channel id have to be number
 
