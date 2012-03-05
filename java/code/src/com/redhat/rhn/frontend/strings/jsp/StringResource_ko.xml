@@ -1347,12 +1347,6 @@
           </context>
         </context-group>
       <target>@@PRODUCT_NAME@@ 릴리즈 &lt;a href="{0}"&gt;{1}&lt;/a&gt; </target></trans-unit>
-      <trans-unit id="footer.jsp.submitbugalt">
-<source>Submit Bug Report</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">./includes/footer.jsp</context>
-        </context-group>
-      <target>버그 리포트 보내기</target></trans-unit>
 
 
 	<trans-unit id="sidebar.ads.buynowalt">
