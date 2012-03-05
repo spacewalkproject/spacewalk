@@ -3283,9 +3283,6 @@ http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd"
         <trans-unit id="BEA Weblogic">
           <source>BEA Weblogic</source>
         </trans-unit>
-        <trans-unit id="Red Hat Application Server">
-          <source>Red Hat Application Server</source>
-        </trans-unit>
         <trans-unit id="General">
           <source>General</source>
         </trans-unit>

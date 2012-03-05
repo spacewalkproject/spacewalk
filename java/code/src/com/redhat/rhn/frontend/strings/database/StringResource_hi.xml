@@ -3263,9 +3263,6 @@
         <trans-unit id="BEA Weblogic">
           <source>BEA Weblogic</source>
         <target>BEA Weblogic</target></trans-unit>
-        <trans-unit id="Red Hat Application Server">
-          <source>Red Hat Application Server</source>
-        <target>Red Hat अनुप्रयोग सर्वर</target></trans-unit>
         <trans-unit id="General">
           <source>General</source>
         <target>सामान्य</target></trans-unit>
