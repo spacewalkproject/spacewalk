@@ -10369,12 +10369,6 @@ Veuillez noter qu'une configuration manuelle de ces scripts peut toujours être 
     </context-group>
   <target>Un mot de passe root doit être saisi</target></trans-unit>
 
-  <trans-unit id="kickstart.systemdetails.missing.netdevice.jsp.error">
-    <source>Network interface was not specified</source>
-    <context-group name="ctx">
-      <context context-type="sourcefile">/rhn/kickstart/KickstartSystemDetailsEdit</context>
-    </context-group>
-  <target>L'interface réseau n'est pas spécifiée</target></trans-unit>
 
     <trans-unit id="kickstart.partition.jsp.header">
         <source>Edit Hard Drive Partitions</source>

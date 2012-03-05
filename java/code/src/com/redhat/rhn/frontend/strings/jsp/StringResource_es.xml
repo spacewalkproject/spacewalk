@@ -10368,12 +10368,6 @@ Por favor tenga en cuenta que podría ser necesario configurar manualmente estos
     </context-group>
   <target>Se debe introducir una contraseña de root</target></trans-unit>
 
-  <trans-unit id="kickstart.systemdetails.missing.netdevice.jsp.error">
-    <source>Network interface was not specified</source>
-    <context-group name="ctx">
-      <context context-type="sourcefile">/rhn/kickstart/KickstartSystemDetailsEdit</context>
-    </context-group>
-  <target>La interfaz de red no se especificó</target></trans-unit>
 
     <trans-unit id="kickstart.partition.jsp.header">
         <source>Edit Hard Drive Partitions</source>

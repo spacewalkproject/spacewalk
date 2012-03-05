@@ -10360,12 +10360,6 @@ Please note that some manual configuration of these scripts may still be require
     </context-group>
   <target>Uma senha root deve ser fornecida</target></trans-unit>
 
-  <trans-unit id="kickstart.systemdetails.missing.netdevice.jsp.error">
-    <source>Network interface was not specified</source>
-    <context-group name="ctx">
-      <context context-type="sourcefile">/rhn/kickstart/KickstartSystemDetailsEdit</context>
-    </context-group>
-  <target>Interface de rede não especificada</target></trans-unit>
 
     <trans-unit id="kickstart.partition.jsp.header">
         <source>Edit Hard Drive Partitions</source>

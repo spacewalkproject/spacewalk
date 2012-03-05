@@ -10364,12 +10364,6 @@ Kickstart 侧写的引导装载程序和分区选项，有可能覆盖用户定�
     </context-group>
   <target>必须输入根密码</target></trans-unit>
 
-  <trans-unit id="kickstart.systemdetails.missing.netdevice.jsp.error">
-    <source>Network interface was not specified</source>
-    <context-group name="ctx">
-      <context context-type="sourcefile">/rhn/kickstart/KickstartSystemDetailsEdit</context>
-    </context-group>
-  <target>没有指定网络接口</target></trans-unit>
 
     <trans-unit id="kickstart.partition.jsp.header">
         <source>Edit Hard Drive Partitions</source>
