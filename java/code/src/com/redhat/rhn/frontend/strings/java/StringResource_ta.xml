@@ -2550,12 +2550,6 @@ available for this kickstart profile to function properly.
         </context-group>
       <target>ஃபிரீ ஃபார்ம்</target></trans-unit>
 
-      <trans-unit id="packages.search.chooseone">
-<source>You must choose to search relevant channels or at least one architecture</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/Search</context>
-        </context-group>
-      <target>நீங்கள் தொடர்புடைய தடங்கள் அல்லது ஒரே ஒரு வடிவமைப்பினை தேட தேர்ந்தெடுக்கவும்</target></trans-unit>
 
       <trans-unit id="packages.search.onlyone">
 <source>Either search relevant channels or architectures, not both.</source>

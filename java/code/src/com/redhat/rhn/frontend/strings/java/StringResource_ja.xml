@@ -2574,12 +2574,6 @@ rhn-kickstart* パッケージが利用可能であることを確認します�
         </context-group>
       <target>自由形式</target></trans-unit>
 
-      <trans-unit id="packages.search.chooseone">
-<source>You must choose to search relevant channels or at least one architecture</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/Search</context>
-        </context-group>
-      <target>検索を行なうには、関連するチャンネルまたは最低でも 1つのアーキテクチャを選択する必要があります</target></trans-unit>
 
       <trans-unit id="packages.search.onlyone">
 <source>Either search relevant channels or architectures, not both.</source>

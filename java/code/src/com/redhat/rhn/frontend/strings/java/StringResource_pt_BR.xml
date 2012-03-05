@@ -2564,12 +2564,6 @@ disponíveis para seu perfil kickstart funcionar corretamente./n&lt;/li&gt;
         </context-group>
       <target>Relatório Simples</target></trans-unit>
 
-      <trans-unit id="packages.search.chooseone">
-<source>You must choose to search relevant channels or at least one architecture</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/Search</context>
-        </context-group>
-      <target>Você deve escolher procurar nos canais relevantes ou, no mínimo, em uma arquitetura</target></trans-unit>
 
       <trans-unit id="packages.search.onlyone">
 <source>Either search relevant channels or architectures, not both.</source>

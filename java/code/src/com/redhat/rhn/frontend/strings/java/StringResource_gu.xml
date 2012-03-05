@@ -2550,12 +2550,6 @@ available for this kickstart profile to function properly.
         </context-group>
       <target>મુક્ત ફોર્મ</target></trans-unit>
 
-      <trans-unit id="packages.search.chooseone">
-<source>You must choose to search relevant channels or at least one architecture</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/Search</context>
-        </context-group>
-      <target>તમારે સંબંધિત ચેનલો અથવા ઓછામાં ઓછું એક આર્કીટેક્ચર પસંદ કરવું જ પડશે</target></trans-unit>
 
       <trans-unit id="packages.search.onlyone">
 <source>Either search relevant channels or architectures, not both.</source>

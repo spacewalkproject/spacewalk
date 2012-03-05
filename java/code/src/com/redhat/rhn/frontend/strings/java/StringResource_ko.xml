@@ -2550,12 +2550,6 @@ available for this kickstart profile to function properly.
         </context-group>
       <target>자유 형식 </target></trans-unit>
 
-      <trans-unit id="packages.search.chooseone">
-<source>You must choose to search relevant channels or at least one architecture</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/Search</context>
-        </context-group>
-      <target>관련 채널 또는 최소한 한개의 아키텍쳐를 검색하셔야 합니다</target></trans-unit>
 
       <trans-unit id="packages.search.onlyone">
 <source>Either search relevant channels or architectures, not both.</source>

@@ -2577,12 +2577,6 @@ disponibles pour que ce profil kickstart puisse fonctionner correctement.
         </context-group>
       <target>Formulaire libre</target></trans-unit>
 
-      <trans-unit id="packages.search.chooseone">
-<source>You must choose to search relevant channels or at least one architecture</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/Search</context>
-        </context-group>
-      <target>Vous devez choisir de rechercher les canaux appropriés ou au moins une architecture</target></trans-unit>
 
       <trans-unit id="packages.search.onlyone">
 <source>Either search relevant channels or architectures, not both.</source>

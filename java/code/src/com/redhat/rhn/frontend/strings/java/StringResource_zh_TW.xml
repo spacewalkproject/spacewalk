@@ -2550,12 +2550,6 @@ available for this kickstart profile to function properly.
         </context-group>
       <target>自由格式</target></trans-unit>
 
-      <trans-unit id="packages.search.chooseone">
-<source>You must choose to search relevant channels or at least one architecture</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/Search</context>
-        </context-group>
-      <target>您必須選擇搜尋有關的頻道，或至少一種架構</target></trans-unit>
 
       <trans-unit id="packages.search.onlyone">
 <source>Either search relevant channels or architectures, not both.</source>

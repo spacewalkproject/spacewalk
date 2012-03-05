@@ -2552,12 +2552,6 @@ available for this kickstart profile to function properly.
         </context-group>
       <target>ਮੁਕਤ ਰੂਪ</target></trans-unit>
 
-      <trans-unit id="packages.search.chooseone">
-<source>You must choose to search relevant channels or at least one architecture</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/Search</context>
-        </context-group>
-      <target>ਤੁਹਾਨੂੰ ਘੱਟੋ-ਘੱਟ ਅਨੁਸਾਰੀ ਚੈਨਲ ਦੀ ਖੋਜ ਜਾਂ ਇੱਕ ਢਾਂਚੇ ਦੀ ਚੋਣ ਕਰਨੀ ਚਾਹੀਦੀ ਹੈ</target></trans-unit>
 
       <trans-unit id="packages.search.onlyone">
 <source>Either search relevant channels or architectures, not both.</source>
