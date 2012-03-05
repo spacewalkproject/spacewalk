@@ -7128,12 +7128,6 @@ para este derecho, excluyendo el consumo de la organización predeterminada.</ta
       </context-group>
     <target>Ningún sistema añadido al conjunto</target></trans-unit>
 
-    <trans-unit id="message.remotecommandbefore.remove">
-<source>The remote command action was scheduled to run &lt;strong&gt;before&lt;/strong&gt; the package remove action.</source>
-      <context-group name="ctx">
-        <context context-type="sourcefile">/rhn/systems/details/packages/PackageList.do</context>
-      </context-group>
-    <target>La acción del comando remoto fue programada para ejecutarse &lt;strong&gt;antes&lt;/strong&gt; de la eliminación del paquete.</target></trans-unit>
     <trans-unit id="message.remotecommandbefore.upgrade">
 <source>The remote command action was scheduled to run &lt;strong&gt;before&lt;/strong&gt; the package upgrade action.</source>
       <context-group name="ctx">
