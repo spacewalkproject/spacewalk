@@ -18994,12 +18994,6 @@ Notfall-Wartungsfenstern f&amp;uuml;r Benachrichtigungen verwendet.
 &lt;strong&gt;HINWEIS:&lt;/strong&gt; Mit dem Herunterladen dieser Software erklären Sie sich mit den Nutzungsbedingungen der entsprechenden Lizenzvereinbarung (hier &lt;a href="{0}"&gt;{1}&lt;/a&gt; erhältlich) einverstanden.
 </target></trans-unit>
 
-      <trans-unit id="isodownload.latest">
-<source>Latest Release</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/software/channel/downloads/Download.do</context>
-        </context-group>
-      <target>Letztes Release</target></trans-unit>
       <trans-unit id="isodownload.latest.description">
 <source>
 	Below please find the complete set of ISO images for the &lt;strong&gt;latest release&lt;/strong&gt; of {0}.

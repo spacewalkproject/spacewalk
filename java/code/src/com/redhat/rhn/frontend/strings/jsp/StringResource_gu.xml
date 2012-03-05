@@ -18936,12 +18936,6 @@ Emergency Maintenance windows.&lt;a href="{0}"&gt;Register for the Email Outage 
         </context-group>
       <target></target></trans-unit>
 
-      <trans-unit id="isodownload.latest">
-<source>Latest Release</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/software/channel/downloads/Download.do</context>
-        </context-group>
-      <target>તાજેતરનું પ્રકાશન</target></trans-unit>
       <trans-unit id="isodownload.latest.description">
 <source>
 	Below please find the complete set of ISO images for the &lt;strong&gt;latest release&lt;/strong&gt; of {0}.

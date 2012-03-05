@@ -18966,12 +18966,6 @@ Emergency Maintenance windows.&lt;a href="{0}"&gt;Register for the Email Outage 
 &lt;strong&gt;注記:&lt;/strong&gt; このソフトウェアをダウンロードすることにより、該当するライセンス契約 (&lt;a href="{0}"&gt;{1}&lt;/a&gt; で入手可能) の条件に同意したものと見なされます。
 </target></trans-unit>
 
-      <trans-unit id="isodownload.latest">
-<source>Latest Release</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/software/channel/downloads/Download.do</context>
-        </context-group>
-      <target>最新のリリース</target></trans-unit>
       <trans-unit id="isodownload.latest.description">
 <source>
 	Below please find the complete set of ISO images for the &lt;strong&gt;latest release&lt;/strong&gt; of {0}.
