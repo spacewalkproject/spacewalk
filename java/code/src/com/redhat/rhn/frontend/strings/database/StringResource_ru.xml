@@ -1073,12 +1073,6 @@
         </context-group>
       <target>Critical: скорость записи</target></trans-unit>
 
-      <trans-unit id="Critical if number of blocked processes exceeds">
-        <source>Critical if number of blocked processes exceeds</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-      <target>Critical: если число заблокированных процессов превышает</target></trans-unit>
 
       <trans-unit id="Critical if number of children for any process exceeds">
         <source>Critical if number of children for any process exceeds</source>

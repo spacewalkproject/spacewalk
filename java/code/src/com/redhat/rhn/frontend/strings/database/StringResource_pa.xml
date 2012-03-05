@@ -1073,12 +1073,6 @@
         </context-group>
       <target>ਨਾਜ਼ੁਕ ਲਿਖਣ ਦਰ</target></trans-unit>
 
-      <trans-unit id="Critical if number of blocked processes exceeds">
-        <source>Critical if number of blocked processes exceeds</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-      <target>ਨਾਜ਼ੁਕ, ਜੇਕਰ ਪਾਬੰਦੀਸ਼ੁਦਾ ਕਾਰਜਾਂ ਦੀ ਗਿਣਤੀ ਵੱਧ ਜਾਵੇ</target></trans-unit>
 
       <trans-unit id="Critical if number of children for any process exceeds">
         <source>Critical if number of children for any process exceeds</source>

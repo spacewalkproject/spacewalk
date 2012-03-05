@@ -1073,12 +1073,6 @@
         </context-group>
       <target>Taux d'écriture pour le statut critique</target></trans-unit>
 
-      <trans-unit id="Critical if number of blocked processes exceeds">
-        <source>Critical if number of blocked processes exceeds</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-      <target>Statut critique si le nombre de processus bloqués est dépassé</target></trans-unit>
 
       <trans-unit id="Critical if number of children for any process exceeds">
         <source>Critical if number of children for any process exceeds</source>
