@@ -1482,12 +1482,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/users/CreateUser</context>
         </context-group>
       <target>필수 입력 항목</target></trans-unit>
-      <trans-unit id="usercreate.mail">
-<source> Regular Mail</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/CreateUser</context>
-        </context-group>
-      <target> 일반 우편</target></trans-unit>
       <trans-unit id="usercreate.partners1">
 <source> Red Hat has close relationships with many industry leaders. From time to time, our partners have special news and offerings to share with you. If you'd like, we will pass this information on to you. </source>
         <context-group name="ctx">
