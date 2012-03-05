@@ -941,12 +941,6 @@
 		 </context-group>
 	<target>최근 등록된 시스템 </target></trans-unit>
 
-	<trans-unit id="preferences.recently-registered-systems.description">
-         <source> A listing of the most recently registered systems within the past 30 days.</source>
-		 <context-group name="ctx">
-		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
-		 </context-group>
-	<target> 30일 이내에서 가장 최근에 등록된 시스템 목록 </target></trans-unit>
 
 
 

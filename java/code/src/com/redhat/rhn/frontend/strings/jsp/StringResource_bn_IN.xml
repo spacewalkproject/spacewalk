@@ -941,12 +941,6 @@
 		 </context-group>
 	<target>সম্প্রতি নিবন্ধিত সিস্টেম</target></trans-unit>
 
-	<trans-unit id="preferences.recently-registered-systems.description">
-         <source> A listing of the most recently registered systems within the past 30 days.</source>
-		 <context-group name="ctx">
-		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
-		 </context-group>
-	<target> গত ৩০ দিনে সর্বশেষ নিবন্ধিত সিস্টেমগুলির তালিকা।</target></trans-unit>
 
 
 

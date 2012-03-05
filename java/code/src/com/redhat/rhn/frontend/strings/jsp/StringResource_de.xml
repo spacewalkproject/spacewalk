@@ -941,12 +941,6 @@
 		 </context-group>
 	<target>K&amp;uuml;rzlich registrierte Systeme</target></trans-unit>
 
-	<trans-unit id="preferences.recently-registered-systems.description">
-         <source> A listing of the most recently registered systems within the past 30 days.</source>
-		 <context-group name="ctx">
-		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
-		 </context-group>
-	<target> Eine Auflistung der zuletzt registrierten Systeme innerhalb der vergangenen 30 Tage.</target></trans-unit>
 
 
 

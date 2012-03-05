@@ -941,12 +941,6 @@
 		 </context-group>
 	<target>சமீபத்தில் பதிவு செய்யப்பட்ட கணினிகள்</target></trans-unit>
 
-	<trans-unit id="preferences.recently-registered-systems.description">
-         <source> A listing of the most recently registered systems within the past 30 days.</source>
-		 <context-group name="ctx">
-		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
-		 </context-group>
-	<target>கடைசி 30 நாட்களுக்குள் மிகச் சமீபமாக பதிவு செய்யப்பட்ட கணினிகளின் பட்டியல்.</target></trans-unit>
 
 
 
