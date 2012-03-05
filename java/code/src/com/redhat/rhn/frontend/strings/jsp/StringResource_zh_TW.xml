@@ -1506,12 +1506,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/newlogin/CreateCorporate</context>
         </context-group>
       <target>建立 Red Hat 登入帳號</target></trans-unit>
-      <trans-unit id="usercreate.createCorp">
-<source>Create a Business Login</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/newlogin/CreateCorporate</context>
-        </context-group>
-      <target>建立企業登入帳號</target></trans-unit>
       <trans-unit id="usercreate.createPersonal">
 <source>Create a Home User Login</source>
         <context-group name="ctx">
