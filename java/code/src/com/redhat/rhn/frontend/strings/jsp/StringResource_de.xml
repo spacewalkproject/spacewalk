@@ -18008,12 +18008,6 @@ einen Kickstart durchführen oder eine neue Kickstart-Distribution erzeugen.&lt;
          <target>Keine Benachrichtigungs-Methoden konfiguriert.</target></trans-unit>
 
     <!-- new accounts page replacing create login link  -->
-      <trans-unit id="service.jsp.summary">
-<source>The server was unable to connect to the service, which prevented your request from being filled out.  It may not be possible to execute this action at this time.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">service error page</context>
-        </context-group>
-      <target>Der Server konnte sich nicht mit dem Dienst verbinden, weswegen Ihre Anfrage nicht eingetragen wurde.  Daher kann es sein, dass diese Aktion zu diesem Zeitpunkt nicht ausgef&amp;uuml;hrt werden kann.</target></trans-unit>
 
 
       <trans-unit id="login.jsp.error.header">

@@ -17987,12 +17987,6 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;
          <target>通知メソッドが設定されていません。</target></trans-unit>
 
     <!-- new accounts page replacing create login link  -->
-      <trans-unit id="service.jsp.summary">
-<source>The server was unable to connect to the service, which prevented your request from being filled out.  It may not be possible to execute this action at this time.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">service error page</context>
-        </context-group>
-      <target>サーバーがサービスに接続できていませんでした。この為要求の達成が阻止されていました。今回はこのアクションを実行できないかも知れません。</target></trans-unit>
 
 
       <trans-unit id="login.jsp.error.header">

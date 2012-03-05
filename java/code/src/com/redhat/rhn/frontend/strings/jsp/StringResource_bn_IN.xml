@@ -17950,12 +17950,6 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;
          <target>সূচনপ্রদানের পদ্ধতি কনফিগার করা হয়নি</target></trans-unit>
 
     <!-- new accounts page replacing create login link  -->
-      <trans-unit id="service.jsp.summary">
-<source>The server was unable to connect to the service, which prevented your request from being filled out.  It may not be possible to execute this action at this time.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">service error page</context>
-        </context-group>
-      <target>সার্ভারের দ্বারা পরিসেবার সাথে সংযোগ স্থাপিত না হওয়ায় আপনার অনুরোধ পুরণ করা সম্ভব হয়নি। এই মুহূর্তে সম্ভবত উল্লিখিত কর্মটি পালন করা সম্ভব হবে না।</target></trans-unit>
 
 
       <trans-unit id="login.jsp.error.header">

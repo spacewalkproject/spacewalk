@@ -17945,12 +17945,6 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;
          <target>통지 방식이 설정되지 않았습니다.</target></trans-unit>
 
     <!-- new accounts page replacing create login link  -->
-      <trans-unit id="service.jsp.summary">
-<source>The server was unable to connect to the service, which prevented your request from being filled out.  It may not be possible to execute this action at this time.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">service error page</context>
-        </context-group>
-      <target>서버가 서비스에 연결되지 않아 요청하신 정보를 기입할 수가 없습니다. 현재 이 작업을 실행하실 수 없습니다.</target></trans-unit>
 
 
       <trans-unit id="login.jsp.error.header">

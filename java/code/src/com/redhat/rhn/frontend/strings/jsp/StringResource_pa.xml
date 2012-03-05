@@ -17951,12 +17951,6 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;
          <target>ਕੋਈ ਸੂਚਨਾ ਢੰਗ ਸੰਰਚਿਤ ਨਹੀਂ</target></trans-unit>
 
     <!-- new accounts page replacing create login link  -->
-      <trans-unit id="service.jsp.summary">
-<source>The server was unable to connect to the service, which prevented your request from being filled out.  It may not be possible to execute this action at this time.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">service error page</context>
-        </context-group>
-      <target>ਸਰਵਰ ਸਰਵਿਸ ਨਾਲ ਜੁੜਨ ਲਈ ਅਸਮਰਥ ਹੈ, ਜਿਸ ਕਰਕੇ ਤੁਹਾਡੀ ਮੰਗ ਨੂੰ ਪੂਰੀ ਕਰਨ ਲਈ ਰੋਕਿਆ ਗਿਆ ਹੈ। ਇਸ ਸਮੇਂ ਇਹ ਕਾਰਵਾਈ ਪੂਰੀ ਨਹੀਂ ਕੀਤੀ ਸਕਦੀ ਹੈ।</target></trans-unit>
 
 
       <trans-unit id="login.jsp.error.header">

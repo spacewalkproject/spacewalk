@@ -17952,12 +17952,6 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;
          <target>அறிவிப்பு முறைகள் எதுவும் கட்டமைக்கப்படவில்லை.</target></trans-unit>
 
     <!-- new accounts page replacing create login link  -->
-      <trans-unit id="service.jsp.summary">
-<source>The server was unable to connect to the service, which prevented your request from being filled out.  It may not be possible to execute this action at this time.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">service error page</context>
-        </context-group>
-      <target>சேவையகம் நீங்கள் நிரப்பிய கோரிக்கையை தடுக்கும் வகையில் சிக்கலில் உள்ளது.  இந்த நேரத்தில் இந்த செயலை செய்வதற்கு வாய்ப்பில்லை.</target></trans-unit>
 
 
       <trans-unit id="login.jsp.error.header">

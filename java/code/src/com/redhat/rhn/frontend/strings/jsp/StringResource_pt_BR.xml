@@ -17998,12 +17998,6 @@ de executar um kickstart ou criar uma nova distribuição kickstart.&lt;/strong&
          <target>Nenhum método de notificação configurado.</target></trans-unit>
 
     <!-- new accounts page replacing create login link  -->
-      <trans-unit id="service.jsp.summary">
-<source>The server was unable to connect to the service, which prevented your request from being filled out.  It may not be possible to execute this action at this time.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">service error page</context>
-        </context-group>
-      <target>O servidor não pôde conectar ao serviço, o que impediu que o seu pedido fosse atendido.  Talvez não seja possível executar esta ação no momento.</target></trans-unit>
 
 
       <trans-unit id="login.jsp.error.header">
