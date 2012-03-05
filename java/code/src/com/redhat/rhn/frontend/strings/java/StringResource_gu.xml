@@ -2273,12 +2273,6 @@ available for this kickstart profile to function properly.
           <context context-type="sourcefile">/rhn/errata/details/ErrataConfirm.do</context>
         </context-group>
       <target>તમારે ઓછામાં ઓછી એક સિસ્ટમ પસંદ કરવી જ પડશે.</target></trans-unit>
-      <trans-unit id="erratasearch.error.parse.startdate">
-<source>Unable to parse start date, please re-enter in format yyyy-mm-dd.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/errata/Search.do</context>
-        </context-group>
-      <target>શરૂ થતી તારીખને પદચ્છેદન કરવામાં અસમર્થ, મહેરબાની કરીને બંધારણ yyyy-mm-dd માં પુન:પ્રવેશ કરો.</target></trans-unit>
       <trans-unit id="patchremoveconfirm.schedule">
 <source>Patch removal has been scheduled for &lt;strong&gt;{1}&lt;/strong&gt; system</source>
         <context-group name="ctx">
