@@ -16593,12 +16593,6 @@ the &lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;Activation Key
         </context-group>
     <target>ਕਿੱਕਸਟਾਰਟ ਦਾ ਕਲੋਨ ਬਣਾਓ: {0}</target></trans-unit>
 
-    <trans-unit id="kickstart.session_status.jsp.hosted_packages">
-        <source>Packages hosted externally.  No count available.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/kickstart/SessionStatus.do</context>
-        </context-group>
-    <target>ਪੈਕੇਜ ਬਾਹਰ ਰੱਖੇ ਹਨ। ਕੋਈ ਗਿਣਤੀ ਉਪਲੱਬਧ ਨਹੀਂ।</target></trans-unit>
 
     <trans-unit id="kickstart.session_status.jsp.summary2">
         <source>This is current status of this system's Kickstart progress.  &lt;strong&gt;NOTE:&lt;/strong&gt;  This page refreshes every 15 seconds</source>

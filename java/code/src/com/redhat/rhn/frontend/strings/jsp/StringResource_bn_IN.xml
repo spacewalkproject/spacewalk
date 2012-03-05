@@ -16592,12 +16592,6 @@ Kickstart করার সময় অনুগ্রহ করে সিস্ট
         </context-group>
     <target>Kickstart-র ক্লোন নির্মাণ করুন: {0}</target></trans-unit>
 
-    <trans-unit id="kickstart.session_status.jsp.hosted_packages">
-        <source>Packages hosted externally.  No count available.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/kickstart/SessionStatus.do</context>
-        </context-group>
-    <target>বহিস্থিত অবস্থানে হোস্ট করা প্যাকেজ।  গণনা উপলব্ধ নেই।</target></trans-unit>
 
     <trans-unit id="kickstart.session_status.jsp.summary2">
         <source>This is current status of this system's Kickstart progress.  &lt;strong&gt;NOTE:&lt;/strong&gt;  This page refreshes every 15 seconds</source>
