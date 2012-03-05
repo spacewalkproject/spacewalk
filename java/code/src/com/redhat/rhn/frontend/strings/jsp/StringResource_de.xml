@@ -2753,12 +2753,6 @@ dr&amp;uuml;cken und &lt;b&gt;k&amp;ouml;nnen sich nicht wieder einloggen&lt;/b&
       <target>Pakete</target></trans-unit>
 
 
-      <trans-unit id="packagelist.jsp.header.patchsets">
-<source>Patch Clusters</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/schedule/PackageList</context>
-        </context-group>
-      <target>Patch-Cluster</target></trans-unit>
 
       <trans-unit id="packagelist.jsp.summary.packages">
 <source>The following packages are associated with this action:</source>

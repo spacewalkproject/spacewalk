@@ -2753,12 +2753,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
       <target>软件包</target></trans-unit>
 
 
-      <trans-unit id="packagelist.jsp.header.patchsets">
-<source>Patch Clusters</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/schedule/PackageList</context>
-        </context-group>
-      <target>补丁群集</target></trans-unit>
 
       <trans-unit id="packagelist.jsp.summary.packages">
 <source>The following packages are associated with this action:</source>

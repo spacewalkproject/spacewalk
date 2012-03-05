@@ -2753,12 +2753,6 @@ abaixo e &lt;b&gt;não poderá mais se autenticar&lt;/b&gt;.</target></trans-uni
       <target>Pacotes</target></trans-unit>
 
 
-      <trans-unit id="packagelist.jsp.header.patchsets">
-<source>Patch Clusters</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/schedule/PackageList</context>
-        </context-group>
-      <target>Cluster de Patches</target></trans-unit>
 
       <trans-unit id="packagelist.jsp.summary.packages">
 <source>The following packages are associated with this action:</source>
