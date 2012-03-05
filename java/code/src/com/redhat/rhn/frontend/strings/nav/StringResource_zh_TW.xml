@@ -494,9 +494,6 @@
         <target>檢視 / 修改檔案</target></trans-unit>
 
 
-        <trans-unit id="nav.sdc.config.deploy_files">
-            <source>Deploy Files</source>
-        <target>檔案建置</target></trans-unit>
         <trans-unit id="nav.sdc.config.compare_files">
             <source>Compare Files</source>
         <target>檔案比較</target></trans-unit>

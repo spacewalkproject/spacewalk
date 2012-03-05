@@ -494,9 +494,6 @@
         <target>Afficher/Modifier des fichiers</target></trans-unit>
 
 
-        <trans-unit id="nav.sdc.config.deploy_files">
-            <source>Deploy Files</source>
-        <target>Déployer les fichiers</target></trans-unit>
         <trans-unit id="nav.sdc.config.compare_files">
             <source>Compare Files</source>
         <target>Comparer les fichiers</target></trans-unit>

@@ -494,9 +494,6 @@
         <target>ਫਾਇਲਾਂ ਵੇਖਾਓ/ਸੋਧੋ</target></trans-unit>
 
 
-        <trans-unit id="nav.sdc.config.deploy_files">
-            <source>Deploy Files</source>
-        <target>ਫਾਇਲਾਂ ਸ਼ਾਮਿਲ ਕਰੋ</target></trans-unit>
         <trans-unit id="nav.sdc.config.compare_files">
             <source>Compare Files</source>
         <target>ਫਾਇਲਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ</target></trans-unit>

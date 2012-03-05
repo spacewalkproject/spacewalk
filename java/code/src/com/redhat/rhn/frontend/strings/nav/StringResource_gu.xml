@@ -494,9 +494,6 @@
         <target>ફાઈલો જુઓ/સુધારો</target></trans-unit>
 
 
-        <trans-unit id="nav.sdc.config.deploy_files">
-            <source>Deploy Files</source>
-        <target>ફાઈલો જમાવો</target></trans-unit>
         <trans-unit id="nav.sdc.config.compare_files">
             <source>Compare Files</source>
         <target>ફાઈલો સરખાવો</target></trans-unit>
