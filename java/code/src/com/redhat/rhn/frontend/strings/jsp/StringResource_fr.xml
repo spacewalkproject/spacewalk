@@ -13895,12 +13895,6 @@ pour ces versions seront également supprimées, ainsi que tous les historiques 
         </context-group>
     <target>Votre organisation utilise actuellement &lt;strong&gt;{0}&lt;/strong&gt; d'espace, vous bénéficiez ainsi de &lt;strong&gt;{1}&lt;/strong&gt; d'espace libre.</target></trans-unit>
 
-    <trans-unit id="quota.jsp.buybonus">
-        <source>Need more space?</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/Quota.do</context>
-        </context-group>
-    <target>Vous avez besoin de plus de place&amp;nbsp;?</target></trans-unit>
 
     <trans-unit id="quota.jsp.noFiles">
         <source>No configuration files.</source>

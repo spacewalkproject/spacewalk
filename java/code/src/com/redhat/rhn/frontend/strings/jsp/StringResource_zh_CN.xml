@@ -13890,12 +13890,6 @@ any of these revisions.  Are you sure you want to do this?</source>
         </context-group>
     <target>您的机构正在使用 &lt;strong&gt;{0}&lt;/strong&gt; 空间，空闲空间有 &lt;strong&gt;{1}&lt;/strong&gt;。</target></trans-unit>
 
-    <trans-unit id="quota.jsp.buybonus">
-        <source>Need more space?</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/Quota.do</context>
-        </context-group>
-    <target>需要更多的空间吗？</target></trans-unit>
 
     <trans-unit id="quota.jsp.noFiles">
         <source>No configuration files.</source>

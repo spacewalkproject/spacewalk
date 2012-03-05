@@ -13862,12 +13862,6 @@ any of these revisions.  Are you sure you want to do this?</source>
         </context-group>
     <target>आपका संगठन अभी स्थान का &lt;strong&gt;{0}&lt;/strong&gt; प्रयोग कर रहा है, &lt;strong&gt;{1}&lt;/strong&gt; को स्वतंत्र छोड़ते हुए.</target></trans-unit>
 
-    <trans-unit id="quota.jsp.buybonus">
-        <source>Need more space?</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/Quota.do</context>
-        </context-group>
-    <target>अधिक स्थान चाहिए?</target></trans-unit>
 
     <trans-unit id="quota.jsp.noFiles">
         <source>No configuration files.</source>

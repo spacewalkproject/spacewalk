@@ -13897,12 +13897,6 @@ dieser Revisionen.  M&amp;ouml;chten Sie dies wirklich tun?</target></trans-unit
         </context-group>
     <target>Ihre Organisation belegt derzeit &lt;strong&gt;{0}&lt;/strong&gt; Speicherplatz, mit &lt;strong&gt;{1}&lt;/strong&gt; frei.</target></trans-unit>
 
-    <trans-unit id="quota.jsp.buybonus">
-        <source>Need more space?</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/Quota.do</context>
-        </context-group>
-    <target>Brauchen Sie mehr Platz?</target></trans-unit>
 
     <trans-unit id="quota.jsp.noFiles">
         <source>No configuration files.</source>
