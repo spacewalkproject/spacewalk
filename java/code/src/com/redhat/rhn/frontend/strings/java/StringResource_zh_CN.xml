@@ -531,12 +531,6 @@
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
       <target>查询登录／密码</target></trans-unit>
-      <trans-unit id="Magic Entitler">
-<source>Magic Entitler</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-      <target>Magic Entitler</target></trans-unit>
       <trans-unit id="Manage Config Channels">
 <source>Manage Config Channels</source>
         <context-group name="ctx">
