@@ -1560,12 +1560,6 @@ dr&amp;uuml;cken und &lt;b&gt;k&amp;ouml;nnen sich nicht wieder einloggen&lt;/b&
           <context context-type="sourcefile">/rhn/users/UserDetails</context>
         </context-group>
       <target>Benutzername</target></trans-unit>
-      <trans-unit id="userdetails.jsp.company">
-<source>Company Name</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/CreateUser</context>
-        </context-group>
-      <target>Firmenname</target></trans-unit>
       <trans-unit id="userdetails.jsp.prefix">
 <source>Prefix</source>
         <context-group name="ctx">

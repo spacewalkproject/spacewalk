@@ -1560,12 +1560,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/users/UserDetails</context>
         </context-group>
       <target>用户名</target></trans-unit>
-      <trans-unit id="userdetails.jsp.company">
-<source>Company Name</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/CreateUser</context>
-        </context-group>
-      <target>公司名称</target></trans-unit>
       <trans-unit id="userdetails.jsp.prefix">
 <source>Prefix</source>
         <context-group name="ctx">

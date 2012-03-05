@@ -1560,12 +1560,6 @@ inmediatamente y usted &lt;b&gt;no podrá iniciar una sesión nuevamente&lt;/b&g
           <context context-type="sourcefile">/rhn/users/UserDetails</context>
         </context-group>
       <target>Nombre de usuario</target></trans-unit>
-      <trans-unit id="userdetails.jsp.company">
-<source>Company Name</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/CreateUser</context>
-        </context-group>
-      <target>Nombre de la compañía</target></trans-unit>
       <trans-unit id="userdetails.jsp.prefix">
 <source>Prefix</source>
         <context-group name="ctx">
