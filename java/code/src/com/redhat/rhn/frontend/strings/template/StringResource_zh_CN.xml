@@ -443,12 +443,6 @@ https://{4}/rhn/help/reference/en-US/s1-sm-your-rhn.jsp
 
 
 
-      <trans-unit id="email.verification.warning.subject">
-<source>Red Hat Login Email Verification, Final Notice</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Taskomatic</context>
-        </context-group>
-      <target>红帽登录电子邮件验证，最后一次通知</target></trans-unit>
 
       <trans-unit id="email.satellitecert.graceperiod.subject">
 <source>Red Hat @@PRODUCT_NAME@@ Server Certificate expiration warning</source>

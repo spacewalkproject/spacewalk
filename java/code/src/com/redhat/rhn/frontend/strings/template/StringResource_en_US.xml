@@ -318,12 +318,6 @@ Thank you for using @@PRODUCT_NAME@@.
 
 
 
-      <trans-unit id="email.verification.warning.subject">
-<source>Red Hat Login Email Verification, Final Notice</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Taskomatic</context>
-        </context-group>
-      </trans-unit>
 
       <trans-unit id="email.satellitecert.graceperiod.subject">
 <source>@@PRODUCT_NAME@@ Certificate expiration warning</source>
