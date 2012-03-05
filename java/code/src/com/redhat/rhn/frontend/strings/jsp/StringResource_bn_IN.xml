@@ -1500,12 +1500,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/users/CreateUser</context>
         </context-group>
       <target> হ্যাঁ, আমি Red Hat-র সহযোগীদের কাছ থেকে বিশেষ সুযোগসুবিধা প্রাপ্ত করতে ইচ্ছুক।</target></trans-unit>
-      <trans-unit id="usercreate.createPersonal">
-<source>Create a Home User Login</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/newlogin/CreatePersonal</context>
-        </context-group>
-      <target>ব্যক্তিগত ব্যবহারকারীর লগ-ইন অ্যাকাউন্ট নির্মাণ করুন</target></trans-unit>
       <trans-unit id="usercreate.personalSummary">
 <source> A home user login will enable you to manage systems you own for personal use and make personal purchases of Red Hat products and services. &lt;strong&gt;(You should not create a home user login if you will use a Red Hat login for managing systems owned by a business or for making business purchases - for business needs, &lt;a href="/rhn/newlogin/CreateCorporate.do?account_type=create_corporate"&gt;create a business login&lt;/a&gt; instead.)&lt;/strong&gt; </source>
         <context-group name="ctx">
