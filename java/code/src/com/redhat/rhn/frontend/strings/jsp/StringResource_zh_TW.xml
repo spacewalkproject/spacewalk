@@ -11677,9 +11677,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <trans-unit id="targetsystems.jsp.subscribetools">
           <source>Subscribe to @@PRODUCT_NAME@@ Tools channel</source>
         <target>訂閱 @@PRODUCT_NAME@@ 工具的頻道</target></trans-unit>
-        <trans-unit id="targetsystems.jsp.installcfgactions">
-          <source>Schedule rhncfg-actions package install</source>
-        <target>排程 rhncfg 動作的套件安裝</target></trans-unit>
         <trans-unit id="targetsystems.jsp.installcfgclient">
           <source>Schedule rhncfg-client package install</source>
         <target>排程 rhncfg 客戶端的套件安裝</target></trans-unit>

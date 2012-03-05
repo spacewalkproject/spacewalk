@@ -11680,9 +11680,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <trans-unit id="targetsystems.jsp.subscribetools">
           <source>Subscribe to @@PRODUCT_NAME@@ Tools channel</source>
         <target>@@PRODUCT_NAME@@ ਜੰਤਰ ਚੈਨਲ ਤੇ ਮੈਂਬਰ ਬਣੋ</target></trans-unit>
-        <trans-unit id="targetsystems.jsp.installcfgactions">
-          <source>Schedule rhncfg-actions package install</source>
-        <target>rhncfg-actions ਪੈਕੇਜ ਇੰਸਟਾਲ ਕਰਨ ਲਈ ਤਹਿ ਕਰੋ</target></trans-unit>
         <trans-unit id="targetsystems.jsp.installcfgclient">
           <source>Schedule rhncfg-client package install</source>
         <target>rhncfg-client ਪੈਕੇਜ ਇੰਸਟਾਲ ਕਰਨ ਲਈ ਤਹਿ ਕਰੋ</target></trans-unit>

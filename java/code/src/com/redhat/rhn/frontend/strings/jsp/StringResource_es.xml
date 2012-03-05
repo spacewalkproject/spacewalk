@@ -11693,9 +11693,6 @@ el &lt;strong&gt;Manual de administración del sistema Red Hat Enterprise Linux.
         <trans-unit id="targetsystems.jsp.subscribetools">
           <source>Subscribe to @@PRODUCT_NAME@@ Tools channel</source>
         <target>Suscribirse al canal de herramientas de @@PRODUCT_NAME@@</target></trans-unit>
-        <trans-unit id="targetsystems.jsp.installcfgactions">
-          <source>Schedule rhncfg-actions package install</source>
-        <target>Programar instalación de paquete rhncfg-actions</target></trans-unit>
         <trans-unit id="targetsystems.jsp.installcfgclient">
           <source>Schedule rhncfg-client package install</source>
         <target>Programar instalación de paquete rhncfg-client</target></trans-unit>

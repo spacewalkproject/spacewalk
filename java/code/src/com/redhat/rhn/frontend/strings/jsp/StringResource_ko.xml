@@ -11676,9 +11676,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <trans-unit id="targetsystems.jsp.subscribetools">
           <source>Subscribe to @@PRODUCT_NAME@@ Tools channel</source>
         <target>@@PRODUCT_NAME@@ 도구 채널에 등록 </target></trans-unit>
-        <trans-unit id="targetsystems.jsp.installcfgactions">
-          <source>Schedule rhncfg-actions package install</source>
-        <target>rhncfg-actions 패키지 설치 스케줄하기</target></trans-unit>
         <trans-unit id="targetsystems.jsp.installcfgclient">
           <source>Schedule rhncfg-client package install</source>
         <target>rhncfg-client 패키지 설치 스케줄하기</target></trans-unit>
