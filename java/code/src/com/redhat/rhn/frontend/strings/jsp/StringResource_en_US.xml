@@ -9907,12 +9907,6 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
     </trans-unit>
 
-    <trans-unit id="kickstart.jsp.actions">
-        <source>Kickstart Actions</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart</context>
-        </context-group>
-    </trans-unit>
 
     <trans-unit id="kickstart.jsp.current">
         <source>Systems Currently Kickstarting</source>

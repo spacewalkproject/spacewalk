@@ -9571,12 +9571,6 @@ Bitte beachten Sie, dass m&amp;ouml;glicherweise noch einige manuelle Konfigurat
         </context-group>
     <target>Kickstart-Zusammenfassung</target></trans-unit>
 
-    <trans-unit id="kickstart.jsp.actions">
-        <source>Kickstart Actions</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart</context>
-        </context-group>
-    <target>Kickstart-Aktionen</target></trans-unit>
 
     <trans-unit id="kickstart.jsp.current">
         <source>Systems Currently Kickstarting</source>

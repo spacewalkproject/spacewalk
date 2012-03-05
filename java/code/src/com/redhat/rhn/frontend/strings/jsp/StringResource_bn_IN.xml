@@ -9555,12 +9555,6 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
     <target>Kickstart-র সারসংক্ষেপ</target></trans-unit>
 
-    <trans-unit id="kickstart.jsp.actions">
-        <source>Kickstart Actions</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart</context>
-        </context-group>
-    <target>Kickstart সংক্রান্ত কর্ম</target></trans-unit>
 
     <trans-unit id="kickstart.jsp.current">
         <source>Systems Currently Kickstarting</source>
