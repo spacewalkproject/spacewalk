@@ -865,12 +865,6 @@
 
 
 
-      <trans-unit id="login.jsp.list1">
-<source>Update: Easy software updates to your Red Hat systems.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/Login</context>
-        </context-group>
-      <target>আপডেট: আপনার Red Hat সিস্টেমে সহজে সফ্টওয়্যার আপডেট করুন।</target></trans-unit>
 
       <trans-unit id="login.jsp.list2">
 <source>Management: Increased management capabilities and scalability of your Linux deployment.</source>
