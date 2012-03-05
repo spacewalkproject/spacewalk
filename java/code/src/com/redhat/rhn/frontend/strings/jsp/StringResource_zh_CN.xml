@@ -405,9 +405,6 @@
         <trans-unit id="permission.jsp.title.lookupuser">
           <source>Cannot view user information.</source>
         <target>无法查看用户信息。</target></trans-unit>
-        <trans-unit id="permission.jsp.title.createrev">
-          <source>Cannot create configuration file revision.</source>
-        <target>无法创建配置文件修订。</target></trans-unit>
         <trans-unit id="permission.jsp.title.acl">
           <source>Permission Error.</source>
         <target>权限错误。</target></trans-unit>

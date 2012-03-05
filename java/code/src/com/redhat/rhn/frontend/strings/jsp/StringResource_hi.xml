@@ -405,9 +405,6 @@
         <trans-unit id="permission.jsp.title.lookupuser">
           <source>Cannot view user information.</source>
         <target>उपयोक्ता सूचना नहीं देख सकता है.</target></trans-unit>
-        <trans-unit id="permission.jsp.title.createrev">
-          <source>Cannot create configuration file revision.</source>
-        <target>विन्यास फाइल पुनरीक्षण बना नहीं सकता है.</target></trans-unit>
         <trans-unit id="permission.jsp.title.acl">
           <source>Permission Error.</source>
         <target>अनुमति त्रुटि.</target></trans-unit>
