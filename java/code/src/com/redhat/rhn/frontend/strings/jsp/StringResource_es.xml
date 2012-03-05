@@ -2104,12 +2104,6 @@ del rol de Administrador de la organización.</target></trans-unit>
           <context context-type="sourcefile">/rhn/account/EditAddress</context>
         </context-group>
       <target>Por favor introduzca su información en el formulario proporcionado a continuación. Las entradas señaladas con un asterisco (&lt;span class="required-form-field"&gt;*&lt;/span&gt;) son &lt;strong&gt;obligatorias&lt;/strong&gt;.</target></trans-unit>
-     <trans-unit id="usercreate.do_you_need_corp_1">
-<source>You will need a &lt;strong&gt;business&lt;/strong&gt; login to administer systems owned by your business, or to make business purchases of Red Hat products and services. </source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/newlogin</context>
-        </context-group>
-      <target>Usted necesita un login de &lt;strong&gt;negocios&lt;/strong&gt; para administrar los sistemas pertenecientes a su empresa, o para realizar adquisiciones empresariales de productos y servicios de Red Hat.</target></trans-unit>
       <trans-unit id="usercreate.do_you_need_corp_2">
 <source>If your organization has an existing @@PRODUCT_NAME@@ business login, you will need to contact your @@PRODUCT_NAME@@ Organization Administrator to create your account so you are registered with your organization. </source>
         <context-group name="ctx">

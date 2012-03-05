@@ -2103,12 +2103,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/account/EditAddress</context>
         </context-group>
       <target>下記のフォームに情報を入力してください。 アスタリスク (&lt;span class="required-form-field"&gt;*&lt;/span&gt;) の付いた事項は&lt;strong&gt;入力必須&lt;/strong&gt;事項となります。</target></trans-unit>
-     <trans-unit id="usercreate.do_you_need_corp_1">
-<source>You will need a &lt;strong&gt;business&lt;/strong&gt; login to administer systems owned by your business, or to make business purchases of Red Hat products and services. </source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/newlogin</context>
-        </context-group>
-      <target>ビジネス目的で所有されているシステムを管理する場合や、 ビジネス使用を目的として Red Hat 製品及びサービスを購入する場合には、 &lt;strong&gt;ビジネス&lt;/strong&gt; ログインが必要になります。</target></trans-unit>
       <trans-unit id="usercreate.do_you_need_corp_2">
 <source>If your organization has an existing @@PRODUCT_NAME@@ business login, you will need to contact your @@PRODUCT_NAME@@ Organization Administrator to create your account so you are registered with your organization. </source>
         <context-group name="ctx">

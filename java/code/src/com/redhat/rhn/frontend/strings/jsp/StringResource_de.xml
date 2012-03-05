@@ -2103,12 +2103,6 @@ dr&amp;uuml;cken und &lt;b&gt;k&amp;ouml;nnen sich nicht wieder einloggen&lt;/b&
           <context context-type="sourcefile">/rhn/account/EditAddress</context>
         </context-group>
       <target>Bitte geben Sie Ihre Informationen im unten zur Verf&amp;uuml;gung gestellten Formular ein.  Eintr&amp;auml;ge, die mit einem Sternchen (&lt;span class="required-form-field"&gt;*&lt;/span&gt;) versehen sind, sind &lt;strong&gt;Pflichtfelder&lt;/strong&gt;.</target></trans-unit>
-     <trans-unit id="usercreate.do_you_need_corp_1">
-<source>You will need a &lt;strong&gt;business&lt;/strong&gt; login to administer systems owned by your business, or to make business purchases of Red Hat products and services. </source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/newlogin</context>
-        </context-group>
-      <target>Sie ben&amp;ouml;tigen ein &lt;strong&gt;Firmen&lt;/strong&gt;-Login, um Systeme Ihres Unternehmens zuverwalten und um Red Hat Produkte und Dienstleistungen geschäftlich zu erwerben.</target></trans-unit>
       <trans-unit id="usercreate.do_you_need_corp_2">
 <source>If your organization has an existing @@PRODUCT_NAME@@ business login, you will need to contact your @@PRODUCT_NAME@@ Organization Administrator to create your account so you are registered with your organization. </source>
         <context-group name="ctx">

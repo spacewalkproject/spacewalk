@@ -2103,12 +2103,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/account/EditAddress</context>
         </context-group>
       <target>아래의 양식에 해당 정보를 입력해주십시오.  별표 (&lt;span class="required-form-field"&gt;*&lt;/span&gt;) 로 표시된 항목은 &lt;strong&gt;필수 입력란&lt;/strong&gt;입니다.</target></trans-unit>
-     <trans-unit id="usercreate.do_you_need_corp_1">
-<source>You will need a &lt;strong&gt;business&lt;/strong&gt; login to administer systems owned by your business, or to make business purchases of Red Hat products and services. </source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/newlogin</context>
-        </context-group>
-      <target>기업이 소유한 시스템을 관리하기 위해 로그인하시거나 기업 명의로 Red Hat 제품이나 서비스를 구입하시려면 &lt;strong&gt;비지니스&lt;/strong&gt; 로그인을 용하셔야 합니다. </target></trans-unit>
       <trans-unit id="usercreate.do_you_need_corp_2">
 <source>If your organization has an existing @@PRODUCT_NAME@@ business login, you will need to contact your @@PRODUCT_NAME@@ Organization Administrator to create your account so you are registered with your organization. </source>
         <context-group name="ctx">
