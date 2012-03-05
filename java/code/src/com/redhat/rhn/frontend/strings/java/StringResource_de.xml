@@ -6700,12 +6700,6 @@ Folgen Sie dieser URL f&amp;uuml;r die vollst&amp;auml;ndige Liste inaktiver Sys
         </context-group>
       <target>{0} Revisionen wurden erfolgreich gel&amp;ouml;scht.</target></trans-unit>
 
-      <trans-unit id="config_revisions.failure.singular">
-        <source>1 revision deletion failed.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/file/ManageConfigRevision.do</context>
-        </context-group>
-      <target>L&amp;ouml;schen von 1 Revision scheiterte.</target></trans-unit>
 
       <trans-unit id="config_revisions.success.singular">
         <source>1 revision was deleted successfully.</source>

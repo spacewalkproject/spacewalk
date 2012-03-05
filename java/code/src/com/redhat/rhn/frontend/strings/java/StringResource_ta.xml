@@ -6669,12 +6669,6 @@ url பின்பற்றி செயலிழக்கப்பட்ட �
         </context-group>
       <target>{0} மறுபார்வைகள் வெற்றிகரமாக அழிக்கப்பட்டன.</target></trans-unit>
 
-      <trans-unit id="config_revisions.failure.singular">
-        <source>1 revision deletion failed.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/file/ManageConfigRevision.do</context>
-        </context-group>
-      <target>1 மறுபார்வையை அழிக்க முடியவில்லை.</target></trans-unit>
 
       <trans-unit id="config_revisions.success.singular">
         <source>1 revision was deleted successfully.</source>

@@ -6675,12 +6675,6 @@ Follow this url to see the full list of inactive systems:
         </context-group>
       <target>সাফল্যের সাথে {0} আপডেট মুছে ফেলা হয়েছে।</target></trans-unit>
 
-      <trans-unit id="config_revisions.failure.singular">
-        <source>1 revision deletion failed.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/file/ManageConfigRevision.do</context>
-        </context-group>
-      <target>1 পরিমার্জিত সংস্করণ মুছে ফেলতে ব্যর্থ।</target></trans-unit>
 
       <trans-unit id="config_revisions.success.singular">
         <source>1 revision was deleted successfully.</source>

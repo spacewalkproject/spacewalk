@@ -6668,12 +6668,6 @@ Follow this url to see the full list of inactive systems:
         </context-group>
       <target>{0} 個修訂版已被成功刪除。</target></trans-unit>
 
-      <trans-unit id="config_revisions.failure.singular">
-        <source>1 revision deletion failed.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/file/ManageConfigRevision.do</context>
-        </context-group>
-      <target>1 個修訂版的刪除作業失敗了。</target></trans-unit>
 
       <trans-unit id="config_revisions.success.singular">
         <source>1 revision was deleted successfully.</source>
