@@ -1482,12 +1482,6 @@ dr&amp;uuml;cken und &lt;b&gt;k&amp;ouml;nnen sich nicht wieder einloggen&lt;/b&
           <context context-type="sourcefile">/rhn/users/CreateUser</context>
         </context-group>
       <target>Pflichtfeld</target></trans-unit>
-      <trans-unit id="usercreate.partners2">
-<source> Yes, I would like to hear about special offers from Red Hat's partners. </source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/CreateUser</context>
-        </context-group>
-      <target> Ja, ich w&amp;uuml;rde gerne &amp;uuml;ber spezielle Angebote von Red Hat's Partnern informiert werden.</target></trans-unit>
       <trans-unit id="usercreate.personalSummary">
 <source> A home user login will enable you to manage systems you own for personal use and make personal purchases of Red Hat products and services. &lt;strong&gt;(You should not create a home user login if you will use a Red Hat login for managing systems owned by a business or for making business purchases - for business needs, &lt;a href="/rhn/newlogin/CreateCorporate.do?account_type=create_corporate"&gt;create a business login&lt;/a&gt; instead.)&lt;/strong&gt; </source>
         <context-group name="ctx">
