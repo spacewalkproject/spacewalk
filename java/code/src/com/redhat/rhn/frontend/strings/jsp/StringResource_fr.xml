@@ -18967,16 +18967,6 @@ et Red Hat l'utilisera en cas de fenêtres de maintenance d'urgence et non progr
           <context context-type="sourcefile">/rhn/software/channel/downloads/Download.do</context>
         </context-group>
       <target>Le téléchargement d'images ISO n'est pas supporté sur @@PRODUCT_NAME@@.</target></trans-unit>
-      <trans-unit id="isodownload.tna">
-<source>
-&lt;strong&gt;NOTE:&lt;/strong&gt; By downloading this software, you agree to the terms and conditions of the applicable License Agreement (available at &lt;a href="{0}"&gt;{1}&lt;/a&gt;)
-</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/software/channel/downloads/Download.do</context>
-		  <context context-type="paramnotes">NOTE: By downloading this software, you agree to the terms and conditions of the applicable License Agreement (available at _http://www.redhat.com/licenses/_)</context>
-        </context-group>
-      <target>
- &lt;strong&gt;Remarque :&lt;/strong&gt; En téléchargeant ce logiciel, vous acceptez les termes et conditions de la convention de droits d'utilisation (Licence Agreement disponible à &lt;a href="{0}"&gt;{1}&lt;/a&gt;)</target></trans-unit>
 
       <trans-unit id="isodownload.viewsource">
 <source>View Source ISO Images</source>
