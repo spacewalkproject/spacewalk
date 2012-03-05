@@ -16473,12 +16473,6 @@ den Reiter &lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;Aktivie
             <context context-type="sourcefile">/rhn/account/LocalePreferences.do</context>
         </context-group>
     <target>Traditionelles Chinesisch</target></trans-unit>
-    <trans-unit id="preferences.jsp.lang.zh_CN">
-        <source>Simplified Chinese</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/account/LocalePreferences.do</context>
-        </context-group>
-    <target>Vereinfachtes Chinesisch</target></trans-unit>
     <trans-unit id="preferences.jsp.lang.none">
         <source>Use Browser Settings</source>
         <context-group name="ctx">

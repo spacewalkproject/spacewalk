@@ -16465,12 +16465,6 @@ the &lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;Activation Key
             <context context-type="sourcefile">/rhn/account/LocalePreferences.do</context>
         </context-group>
     <target>繁体中文</target></trans-unit>
-    <trans-unit id="preferences.jsp.lang.zh_CN">
-        <source>Simplified Chinese</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/account/LocalePreferences.do</context>
-        </context-group>
-    <target>简体中文</target></trans-unit>
     <trans-unit id="preferences.jsp.lang.none">
         <source>Use Browser Settings</source>
         <context-group name="ctx">
