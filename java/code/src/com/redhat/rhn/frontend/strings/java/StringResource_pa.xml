@@ -6697,12 +6697,6 @@ Follow this url to see the full list of inactive systems:
         </context-group>
       <target>ਮੁਅੱਤਲ</target></trans-unit>
 
-      <trans-unit id="systems.details.virt.guest.virt.resume">
-        <source>Resume</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
-        </context-group>
-      <target>ਮੁੜ-ਪ੍ਰਾਪਤ</target></trans-unit>
 
 
 
