@@ -10771,12 +10771,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         </context-group>
       <target>તમે આ કિકસ્ટાર્ટ માટે નીચેની પોસ્ટ સ્ક્રિપ્ટમાં ફેરફાર કરી શકો છો.  પ્રથમ, @@PRODUCT_NAME@@ સંબંધિત આદેશો આપોઆપ થઈ જશે (ઉદાહરણ તરીકે, @@PRODUCT_NAME@@ માં સિસ્ટમ રજીસ્ટ્રેશન).  આગળ, બિન-chroot પોસ્ટ સ્ક્રિપ્ટ ચલાવાશે, અને છેલ્લે પોસ્ટ સ્ક્રિપ્ટ ચલાવવામાં આવશે.  પોસ્ટ સ્ક્રિપ્ટો પર વધુ જાણકારી મેળવવા માટે, મહેરબાની કરીને &lt;strong&gt;Red Hat Enterprise Linux સિસ્ટમ સંચાલન માર્ગદર્શન&lt;/strong&gt; નો સંદર્ભ લો</target></trans-unit>
 
-      <trans-unit id="post.jsp.tip1">
-        <source>&lt;span class="small-text"&gt;&lt;strong&gt;Tip:&lt;/strong&gt; This script is run in the chroot environment.&lt;/span&gt;</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/kickstart/KickstartScriptEdit.do</context>
-        </context-group>
-      <target>&lt;span class="small-text"&gt;&lt;strong&gt;મદદ:&lt;/strong&gt; આ સ્ક્રિપ્ટ એ chroot પર્યાવરણમાં ચાલે છે.&lt;/span&gt;</target></trans-unit>
 
 
 

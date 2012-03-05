@@ -10766,12 +10766,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         </context-group>
       <target>이 킥스타트의 사후 설치 스크립트를 아래에서 수정하실 수 있습니다.  먼저 @@PRODUCT_NAME@@과 관련된 명령이 자동으로 수행됩니다 (예, @@PRODUCT_NAME@@ 시스템 등록).  다음으로, 비-chroot 사후 설치 스크립트가 실행되며, 마지막으로 사후 설치 스크립트가 실행됩니다.  킥스타트 사후 설치 스크립트에 대한 보다 상세한 정보는 &lt;strong&gt;Red Hat Enterprise Linux 시스템 관리 가이드&lt;/strong&gt;에서 참조하시기 바랍니다.   </target></trans-unit>
 
-      <trans-unit id="post.jsp.tip1">
-        <source>&lt;span class="small-text"&gt;&lt;strong&gt;Tip:&lt;/strong&gt; This script is run in the chroot environment.&lt;/span&gt;</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/kickstart/KickstartScriptEdit.do</context>
-        </context-group>
-      <target>&lt;span class="small-text"&gt;&lt;strong&gt;힌트:&lt;/strong&gt; 이 스크립트는 chroot 환경에서 실행됩니다.&lt;/span&gt;</target></trans-unit>
 
 
 

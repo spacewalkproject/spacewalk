@@ -10779,12 +10779,6 @@ kickstart 前脚本的内容可以在 &lt;strong&gt;《红帽企业版 Linux 系
         </context-group>
       <target>您可以为下面的这个 kickstart 编辑后脚本。首先，将自动执行与 @@PRODUCT_NAME@@ 有关的命令（例如，在 @@PRODUCT_NAME@@ 中注册系统）。接下来，将执行 non-chroot 后脚本。最后，执行后脚本。如需了解更多与 kickstart 后脚本相关的信息，请参阅&lt;strong&gt;《红帽企业版 Linux 系统管理指南》。&lt;/strong&gt;</target></trans-unit>
 
-      <trans-unit id="post.jsp.tip1">
-        <source>&lt;span class="small-text"&gt;&lt;strong&gt;Tip:&lt;/strong&gt; This script is run in the chroot environment.&lt;/span&gt;</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/kickstart/KickstartScriptEdit.do</context>
-        </context-group>
-      <target>&lt;span class="small-text"&gt;&lt;strong&gt;窍门：&lt;/strong&gt; 这个脚本在 chroot 环境中运行。&lt;/span&gt;</target></trans-unit>
 
 
 

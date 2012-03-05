@@ -10784,12 +10784,6 @@ Le script post non-chroot sera ensuite exécuté et le script post sera enfin ex
         </context-group>
       <target>Vous pouvez éditer le script post de ce kickstart ci-dessous. Tout d'abord les commandes associées à @@PRODUCT_NAME@@ seront automatiquement exécutées (par exemple, l'enregistrement d'un esystem à @@PRODUCT_NAME@@). Ensuite, Le script post non-chroot sera exécuté et, finalement, le script post sera exécuté. Pour davantage d'informations sur ces scripts, consultez le &lt;strong&gt;Guide d'administration système de Red Hat Enterprise Linux.&lt;/strong&gt;</target></trans-unit>
 
-      <trans-unit id="post.jsp.tip1">
-        <source>&lt;span class="small-text"&gt;&lt;strong&gt;Tip:&lt;/strong&gt; This script is run in the chroot environment.&lt;/span&gt;</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/kickstart/KickstartScriptEdit.do</context>
-        </context-group>
-      <target>&lt;span class="small-text"&gt;&lt;strong&gt;Astuce&amp;nbsp;:&lt;/strong&gt; ce script est exécuté dans l'environnement chroot.&lt;/span&gt;</target></trans-unit>
 
 
 

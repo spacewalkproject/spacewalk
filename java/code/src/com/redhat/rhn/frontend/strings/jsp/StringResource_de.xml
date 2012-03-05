@@ -10786,12 +10786,6 @@ Anschlie&amp;szlig;end wird das nicht-chroot Post-Skript ausgef&amp;uuml;hrt, un
         </context-group>
       <target>Sie k&amp;ouml;nnen das Post-Skript f&amp;uuml;r den sich unten befindenden Kickstart bearbeiten. Zuerst werden automatisch Befehle, die sich auf das RHN beziehen ausgef&amp;uuml;hrt (zum Beispiel die Systemregistrierung beim RHN).  Als n&amp;auml;chstes, wird das nicht-chroot Post-Skript ausgef&amp;uuml;hrt, und zuletzt das Post-Skript. F&amp;uuml;r ausf&amp;uuml;hrlichere Informationen zu Kickstart Post-Skripten lesen Sie bitte das &lt;strong&gt;Red Hat Enterprise Linux System Administration Handbuch.&lt;/strong&gt;</target></trans-unit>
 
-      <trans-unit id="post.jsp.tip1">
-        <source>&lt;span class="small-text"&gt;&lt;strong&gt;Tip:&lt;/strong&gt; This script is run in the chroot environment.&lt;/span&gt;</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/kickstart/KickstartScriptEdit.do</context>
-        </context-group>
-      <target>&lt;span class="small-text"&gt;&lt;strong&gt;Tipp:&lt;/strong&gt; Dieses Skript l&amp;auml;uft in einem chroot Umfeld ab.&lt;/span&gt;</target></trans-unit>
 
 
 

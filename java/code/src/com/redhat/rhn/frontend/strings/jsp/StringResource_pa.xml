@@ -10770,12 +10770,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         </context-group>
       <target>ਤੁਸੀਂ ਹੇਠਾਂ ਇਸ ਕਿੱਕਸਟਾਰਟ ਫਾਇਲ ਲਈ ਪੋਸਟ ਸਕਰਿਪਟ ਨੂੰ ਸੋਧ ਸਕਦੇ ਹੋ। @@PRODUCT_NAME@@ ਨਾਲ ਸੰਬੰਧਿਤ ਪਹਿਲੀ ਕਮਾਂਡ ਸਵੈ ਹੀ ਚੱਲੇਗੀ (ਉਦਾਹਰਨ ਲਈ, esystem ਰਜਿਸਟਰੇਸ਼ਨ @@PRODUCT_NAME@@ ਵਿੱਚ). ਅੱਗੇ, non-chroot ਪੋਸਟ ਸਕਰਿਪਟ ਚੱਲੇਗੀ, ਅਤੇ ਅੰਤ ਵਿੱਚ ਪੋਸਟ ਸਕਰਿਪਟ ਚੱਲੇਗੀ। ਕਿੱਕਸਟਾਰਟ ਪੋਸਟ ਸਕਰਿਪਟ ਬਾਰੇ ਵਧੇਰੇ ਜਾਣਕਾਰੀ ਲਈ, ਕਿਰਪਾ ਕਰਕੇ &lt;strong&gt;ਰੈੱਡ ਹੈਡ ਇੰਟਰਪਰਾਈਜ਼ ਲੀਨਕਸ ਸਿਸਟਮ ਪਰਬੰਧਕ ਗਾਈਡ.&lt;/strong&gt; ਵੇਖੋ।</target></trans-unit>
 
-      <trans-unit id="post.jsp.tip1">
-        <source>&lt;span class="small-text"&gt;&lt;strong&gt;Tip:&lt;/strong&gt; This script is run in the chroot environment.&lt;/span&gt;</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/kickstart/KickstartScriptEdit.do</context>
-        </context-group>
-      <target>&lt;span class="small-text"&gt;&lt;strong&gt;ਟਿੱਪਣੀ:&lt;/strong&gt; ਇਸ ਸਕਰਿਪਟ chroot ਵਾਤਾਵਰਨ ਵਿੱਚ ਚੱਲਦਾ ਹੈ।&lt;/span&gt;</target></trans-unit>
 
 
 

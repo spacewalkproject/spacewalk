@@ -10771,12 +10771,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         </context-group>
       <target>நீங்கள் கீழே இந்த கிக்ஸ்டார்ட்டின் பின் உரையை மாற்றலாம்.  முதலில், RHN க்கு தொடர்புடைய கட்டளைகள் தானாக இயக்கப்படும் (எடுத்துக்காட்டு, @@PRODUCT_NAME@@க்கு esystem பதிவு).  அடுத்து chrootயில்லா முன் உரைகள் செயல்படுத்தப்படும், மற்றும் கடைசியாக முன் உரை இயக்கப்படும்.  மேலும் கிக்ஸ்டார்ட் முன் உரை பற்றிய கூடுதல் விவரங்களுக்கு &lt;strong&gt;Red Hat Enterprise Linux கணினி நிர்வாக கையேட்டினை&lt;/strong&gt; பார்க்கவும்</target></trans-unit>
 
-      <trans-unit id="post.jsp.tip1">
-        <source>&lt;span class="small-text"&gt;&lt;strong&gt;Tip:&lt;/strong&gt; This script is run in the chroot environment.&lt;/span&gt;</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/kickstart/KickstartScriptEdit.do</context>
-        </context-group>
-      <target>&lt;span class="small-text"&gt;&lt;strong&gt;துணுக்கு:&lt;/strong&gt; இந்த உரை chroot சூழலில் இயங்குகிறது.&lt;/span&gt;</target></trans-unit>
 
 
 

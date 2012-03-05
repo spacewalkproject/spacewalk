@@ -10782,12 +10782,6 @@ el &lt;strong&gt;Manual de administración del sistema Red Hat Enterprise Linux.
         </context-group>
       <target>Puede editar el post script para su Kickstart abajo. Primero, los comandos relacionados con @@PRODUCT_NAME@@ serán automáticamente ejecutados (por ejemplo, el registro de esystem con @@PRODUCT_NAME@@ ). Luego, el post script de non-chroot será ejecutado y por último el post script será ejecutado. Para mayor información sobre post script de kickstart, consulte el &lt;strong&gt;Manual de administración de sistemas Red Hat Enterprise Linux&lt;/strong&gt;</target></trans-unit>
 
-      <trans-unit id="post.jsp.tip1">
-        <source>&lt;span class="small-text"&gt;&lt;strong&gt;Tip:&lt;/strong&gt; This script is run in the chroot environment.&lt;/span&gt;</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/kickstart/KickstartScriptEdit.do</context>
-        </context-group>
-      <target>&lt;span class="small-text"&gt;&lt;strong&gt;Nota:&lt;/strong&gt; Este script es ejecutado en el entorno chroot&lt;/span&gt;</target></trans-unit>
 
 
 

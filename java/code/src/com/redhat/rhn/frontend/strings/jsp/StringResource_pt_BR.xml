@@ -10775,12 +10775,6 @@ o &lt;strong&gt;Guia de Administração de Sistemas Red Hat Enterprise Li
         </context-group>
       <target>Você pode editar o pós script do kickstart abaixo.  Primeiro, os comandos relacionados ao @@PRODUCT_NAME@@ serão executados automaticamente (ex.: registro do sistema junto ao @@PRODUCT_NAME@@).  Em seguida, o pós script não-chroot será executado, e finalmente o pós script será executado.  Para mais detalhes dos pós scripts do kickstart, por favor consulte o &lt;strong&gt;Guia de Administração de Sistemas Red Hat Enterprise Linux.&lt;/strong&gt; </target></trans-unit>
 
-      <trans-unit id="post.jsp.tip1">
-        <source>&lt;span class="small-text"&gt;&lt;strong&gt;Tip:&lt;/strong&gt; This script is run in the chroot environment.&lt;/span&gt;</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/kickstart/KickstartScriptEdit.do</context>
-        </context-group>
-      <target>&lt;span class="small-text"&gt;&lt;strong&gt;Dica:&lt;/strong&gt; Este script é executado no ambiente chroot.&lt;/span&gt;</target></trans-unit>
 
 
 

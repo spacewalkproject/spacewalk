@@ -10765,12 +10765,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         </context-group>
       <target>Ниже можно редактировать сценарий post данного кикстарта. Сначала будут выполняться команды @@PRODUCT_NAME@@ (например, регистрация системы в @@PRODUCT_NAME@@). Затем будет запущен сценарий post (не chroot), и наконец, сценарий post. За подробной информацией о сценариях post обратитесь к &lt;strong&gt;Руководству системного администратора Red Hat Enterprise Linux.&lt;/strong&gt;</target></trans-unit>
 
-      <trans-unit id="post.jsp.tip1">
-        <source>&lt;span class="small-text"&gt;&lt;strong&gt;Tip:&lt;/strong&gt; This script is run in the chroot environment.&lt;/span&gt;</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/kickstart/KickstartScriptEdit.do</context>
-        </context-group>
-      <target>&lt;span class="small-text"&gt;&lt;strong&gt;Замечание:&lt;/strong&gt; Данный сценарий выполняется в окружении chroot.&lt;/span&gt;</target></trans-unit>
 
 
 
