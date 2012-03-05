@@ -21007,11 +21007,6 @@ f&amp;uuml;r einen angegebenen Channel aufgelistet wird.</target></trans-unit>
       <trans-unit id="channel.jsp.gpgunknown">
         <source>Unknown</source>
       <target>Unbekannt</target></trans-unit>
-      <trans-unit id="channel.jsp.gpgfooter">
-        <source>Once you have downloaded the key file, you must import it to your RPM keyring using the command "rpm --import /path/to/gpg_key.txt".
-		</source>
-      <target>Sobald Sie die Schlüsseldatei heruntergeladen haben, müssen Sie diese mit Hilfe des Befehls "rpm --import /path/to/gpg_key.txt" in Ihr RPM-Schlüsselbund importieren.
-		</target></trans-unit>
        <trans-unit id="channel.jsp.package.remove">
          <source>Below is the list of packages which you have selected to remove from this channel. Removing a package from this channel does not affect the systems which are subscribed to it, or the errata which are applicable to it.
 		</source>

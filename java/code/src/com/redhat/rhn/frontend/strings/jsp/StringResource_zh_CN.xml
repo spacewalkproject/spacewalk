@@ -20996,11 +20996,6 @@ given channel.</source>
       <trans-unit id="channel.jsp.gpgunknown">
         <source>Unknown</source>
       <target>未知的</target></trans-unit>
-      <trans-unit id="channel.jsp.gpgfooter">
-        <source>Once you have downloaded the key file, you must import it to your RPM keyring using the command "rpm --import /path/to/gpg_key.txt".
-		</source>
-      <target>一旦你下载了密钥文件，你必须用 "rpm --import /path/to/gpg_key.txt" 命令将其导入到 PRM Keyring 里。
-		</target></trans-unit>
        <trans-unit id="channel.jsp.package.remove">
          <source>Below is the list of packages which you have selected to remove from this channel. Removing a package from this channel does not affect the systems which are subscribed to it, or the errata which are applicable to it.
 		</source>

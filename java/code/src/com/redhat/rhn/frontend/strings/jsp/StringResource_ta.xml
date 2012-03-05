@@ -20898,10 +20898,6 @@ given channel.</source>
       <trans-unit id="channel.jsp.gpgunknown">
         <source>Unknown</source>
       <target>தெரியாதது</target></trans-unit>
-      <trans-unit id="channel.jsp.gpgfooter">
-        <source>Once you have downloaded the key file, you must import it to your RPM keyring using the command "rpm --import /path/to/gpg_key.txt".
-		</source>
-      <target></target></trans-unit>
        <trans-unit id="channel.jsp.package.remove">
          <source>Below is the list of packages which you have selected to remove from this channel. Removing a package from this channel does not affect the systems which are subscribed to it, or the errata which are applicable to it.
 		</source>
