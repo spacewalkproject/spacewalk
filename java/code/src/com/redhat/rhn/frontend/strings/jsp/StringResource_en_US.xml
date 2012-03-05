@@ -5038,9 +5038,6 @@ value for this entitlement, excluding the default organization's consumption.</s
        <trans-unit id="ssm.misc.index.syspref.no">
          <source>No</source>
        </trans-unit>
-       <trans-unit id="ssm.misc.index.syspref.nochange">
-         <source>No&#160;Change</source>
-       </trans-unit>
      </group>
 
 <!-- == Systems == -->
