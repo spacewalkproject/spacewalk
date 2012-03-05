@@ -4199,12 +4199,6 @@ dr&amp;uuml;cken und &lt;b&gt;k&amp;ouml;nnen sich nicht wieder einloggen&lt;/b&
           <context context-type="sourcefile">/rhn/errata/details/SystemsAffected</context>
         </context-group>
       <target>Keine</target></trans-unit>
-      <trans-unit id="affectedsystems.jsp.management">
-<source>Management</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/errata/details/SystemsAffected</context>
-        </context-group>
-      <target>Management</target></trans-unit>
       <trans-unit id="affectedsystems.jsp.provisioning">
 <source>Provisioning</source>
         <context-group name="ctx">
