@@ -681,12 +681,6 @@
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
       <target>Доверенные организации</target></trans-unit>
-      <trans-unit id="Quick Start Guide">
-<source>Quick Start Guide</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-      <target>Краткое руководство</target></trans-unit>
       <trans-unit id="Quota">
 <source>Quota</source>
         <context-group name="ctx">
