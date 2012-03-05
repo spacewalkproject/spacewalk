@@ -2755,12 +2755,6 @@ del rol de Administrador de la organización.</target></trans-unit>
 
 
 
-      <trans-unit id="packagelist.jsp.summary.packages">
-<source>The following packages are associated with this action:</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/schedule/PackageList</context>
-        </context-group>
-      <target>Los siguientes paquetes están asociados con esta acción:</target></trans-unit>
 
       <trans-unit id="packagelist.jsp.summary.patches">
 <source>The following patches are associated with this action:</source>
