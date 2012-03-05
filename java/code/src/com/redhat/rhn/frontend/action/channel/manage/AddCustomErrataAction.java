@@ -29,6 +29,7 @@ import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.rhnset.RhnSetManager;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
@@ -103,6 +104,9 @@ public class AddCustomErrataAction extends RhnListAction {
         //If the channel submit button was clicked
         if (requestContext.wasDispatched(CHANNEL_SUBMIT)) {
           selectedChannelStr = request.getParameter(SELECTED_CHANNEL);
+          if (StringUtils.isEmpty(selectedChannelStr)) {
+              selectedChannelStr = null;
+          }
           // selectedChannelStr might be null
         }
 
