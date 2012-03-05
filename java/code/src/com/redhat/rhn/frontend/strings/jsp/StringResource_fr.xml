@@ -6766,12 +6766,6 @@ pour ce droit d'accès, moins la consommation par défaut de l'organisation.</ta
       </context-group>
     <target>Ajouter des systèmes à la suite de sondes&amp;nbsp;: {0}</target></trans-unit>
 
-    <trans-unit id="probesuitesystemsedit.jsp.header2">
-<source>Add systems to be assigned to the suite.</source>
-      <context-group name="ctx">
-        <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuiteSystems.do</context>
-      </context-group>
-    <target>Ajouter des systèmes à assigner à la suite</target></trans-unit>
 
     <trans-unit id="probesuitesystemsedit.jsp.summary">
 <source>This list displays Monitoring entitled systems that have not yet been added to the Suite.</source>

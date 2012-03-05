@@ -6764,12 +6764,6 @@ value for this entitlement, excluding the default organization's consumption.</s
       </context-group>
     <target>ચકાસણી સેવામાં સિસ્ટમો ઉમેરો: {0}</target></trans-unit>
 
-    <trans-unit id="probesuitesystemsedit.jsp.header2">
-<source>Add systems to be assigned to the suite.</source>
-      <context-group name="ctx">
-        <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuiteSystems.do</context>
-      </context-group>
-    <target>સેવા સાથે સંકળાયેલ સિસ્ટમો ઉમેરો.</target></trans-unit>
 
     <trans-unit id="probesuitesystemsedit.jsp.summary">
 <source>This list displays Monitoring entitled systems that have not yet been added to the Suite.</source>

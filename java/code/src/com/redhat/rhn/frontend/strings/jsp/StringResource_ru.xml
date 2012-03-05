@@ -6761,12 +6761,6 @@ value for this entitlement, excluding the default organization's consumption.</s
       </context-group>
     <target>Добавить системы к комплекту зондов: {0}</target></trans-unit>
 
-    <trans-unit id="probesuitesystemsedit.jsp.header2">
-<source>Add systems to be assigned to the suite.</source>
-      <context-group name="ctx">
-        <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuiteSystems.do</context>
-      </context-group>
-    <target>Добавить системы для назначения этому комплекту</target></trans-unit>
 
     <trans-unit id="probesuitesystemsedit.jsp.summary">
 <source>This list displays Monitoring entitled systems that have not yet been added to the Suite.</source>

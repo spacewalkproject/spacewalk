@@ -6765,12 +6765,6 @@ para este derecho, excluyendo el consumo de la organización predeterminada.</ta
       </context-group>
     <target>Añadir sistemas al conjunto de sondeos: {0}</target></trans-unit>
 
-    <trans-unit id="probesuitesystemsedit.jsp.header2">
-<source>Add systems to be assigned to the suite.</source>
-      <context-group name="ctx">
-        <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuiteSystems.do</context>
-      </context-group>
-    <target>Añadir sistemas para ser asignados al conjunto.</target></trans-unit>
 
     <trans-unit id="probesuitesystemsedit.jsp.summary">
 <source>This list displays Monitoring entitled systems that have not yet been added to the Suite.</source>
