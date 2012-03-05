@@ -2299,12 +2299,6 @@ asegurarse de que estén disponibles para que este perfil kickstart funcione apr
 
 
 
-      <trans-unit id="toolbar.delete.profile">
-<source>delete profile</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/packages/profiles/CompareProfiles.do</context>
-        </context-group>
-      <target>borrar perfil</target></trans-unit>
 
       <trans-unit id="message.unscheduled.system">
 <source>&lt;strong&gt;{0}&lt;/strong&gt; unscheduled for &lt;strong&gt;{1}&lt;/strong&gt; system.</source>
