@@ -1606,12 +1606,6 @@
       <target>Warn Users</target></trans-unit>
 
 
-      <trans-unit id="Warn if number of children for any process exceeds">
-        <source>Warn if number of children for any process exceeds</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-      <target>경고 (Warn): 자식 프로세스 수가 초과된 경우</target></trans-unit>
 
 
       <trans-unit id="Warn if number of stopped processes exceeds">
