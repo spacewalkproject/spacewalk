@@ -18548,12 +18548,6 @@ einen Kickstart durchführen oder eine neue Kickstart-Distribution erzeugen.&lt;
 
   <!-- outage-policy.jsp -->
 	<group>
-      <trans-unit id="outage-policy.jsp.header">
-<source>@@PRODUCT_NAME@@ Outage Policy</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">outage-policy.jsp</context>
-        </context-group>
-      <target>@@PRODUCT_NAME@@ Ausfallrichtlinie</target></trans-unit>
       <trans-unit id="outage-policy.jsp.intro">
 <source>Our highest priority is your access to @@PRODUCT_NAME@@ and the
 advantages of a registered account. We strive to maintain 100% uptime
