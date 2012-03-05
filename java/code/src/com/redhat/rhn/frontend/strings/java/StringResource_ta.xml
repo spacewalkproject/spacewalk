@@ -7040,9 +7040,6 @@ url பின்பற்றி செயலிழக்கப்பட்ட �
 <source>Invalid system</source>
       <target>தவறான கணினி</target></trans-unit>
 
-	  <trans-unit id="system.runningkernel.unknown">
-          <source>Unkown</source>
-      <target>தெரியாத</target></trans-unit>
 
 	  <trans-unit id="api.invalidargs">
           <source>Invalid argument(s): {0}</source>

@@ -7064,9 +7064,6 @@ Seguite l'url sotto riportato per visualizzare l'elenco completo di sistemi inat
 <source>Invalid system</source>
       <target>Sistema invalido</target></trans-unit>
 
-	  <trans-unit id="system.runningkernel.unknown">
-          <source>Unkown</source>
-      <target>Sconosciuto</target></trans-unit>
 
 	  <trans-unit id="api.invalidargs">
           <source>Invalid argument(s): {0}</source>

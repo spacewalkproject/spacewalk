@@ -7046,9 +7046,6 @@ Follow this url to see the full list of inactive systems:
 <source>Invalid system</source>
       <target>সিস্টেম বৈধ নয়</target></trans-unit>
 
-	  <trans-unit id="system.runningkernel.unknown">
-          <source>Unkown</source>
-      <target>অজানা</target></trans-unit>
 
 	  <trans-unit id="api.invalidargs">
           <source>Invalid argument(s): {0}</source>

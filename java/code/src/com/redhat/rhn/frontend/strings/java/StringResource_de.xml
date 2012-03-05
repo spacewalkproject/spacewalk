@@ -7071,9 +7071,6 @@ Folgen Sie dieser URL f&amp;uuml;r die vollst&amp;auml;ndige Liste inaktiver Sys
 <source>Invalid system</source>
       <target>Ung&amp;uuml;ltiges System</target></trans-unit>
 
-	  <trans-unit id="system.runningkernel.unknown">
-          <source>Unkown</source>
-      <target>Unbekannt</target></trans-unit>
 
 	  <trans-unit id="api.invalidargs">
           <source>Invalid argument(s): {0}</source>

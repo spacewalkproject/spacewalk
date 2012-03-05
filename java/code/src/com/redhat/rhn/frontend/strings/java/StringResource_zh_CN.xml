@@ -7065,9 +7065,6 @@ Follow this url to see the full list of inactive systems:
 <source>Invalid system</source>
       <target>无效系统</target></trans-unit>
 
-	  <trans-unit id="system.runningkernel.unknown">
-          <source>Unkown</source>
-      <target>未知</target></trans-unit>
 
 	  <trans-unit id="api.invalidargs">
           <source>Invalid argument(s): {0}</source>

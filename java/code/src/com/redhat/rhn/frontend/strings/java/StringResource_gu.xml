@@ -7040,9 +7040,6 @@ Follow this url to see the full list of inactive systems:
 <source>Invalid system</source>
       <target>અયોગ્ય સિસ્ટમ</target></trans-unit>
 
-	  <trans-unit id="system.runningkernel.unknown">
-          <source>Unkown</source>
-      <target>અજ્ઞાત</target></trans-unit>
 
 	  <trans-unit id="api.invalidargs">
           <source>Invalid argument(s): {0}</source>
