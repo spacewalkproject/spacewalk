@@ -1620,12 +1620,6 @@ abaixo e &lt;b&gt;não poderá mais se autenticar&lt;/b&gt;.</target></trans-uni
           <context context-type="sourcefile">/rhn/users/UserDetails</context>
         </context-group>
       <target>Último Acesso</target></trans-unit>
-      <trans-unit id="userdetails.jsp.change">
-<source>Change</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/UserDetails</context>
-        </context-group>
-      <target>Modificar</target></trans-unit>
 
       <trans-unit id="userdetails.jsp.error.lastorgadmin">
 <source>This user is the last Organization Administrator and cannot be removed from the Organization Administrator role.</source>

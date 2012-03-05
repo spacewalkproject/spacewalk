@@ -1620,12 +1620,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/users/UserDetails</context>
         </context-group>
       <target>마지막 로그인 날짜</target></trans-unit>
-      <trans-unit id="userdetails.jsp.change">
-<source>Change</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/UserDetails</context>
-        </context-group>
-      <target>변경</target></trans-unit>
 
       <trans-unit id="userdetails.jsp.error.lastorgadmin">
 <source>This user is the last Organization Administrator and cannot be removed from the Organization Administrator role.</source>

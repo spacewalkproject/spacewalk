@@ -1634,12 +1634,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/users/UserDetails</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="userdetails.jsp.change">
-<source>Change</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/UserDetails</context>
-        </context-group>
-      </trans-unit>
 
       <trans-unit id="userdetails.jsp.error.lastorgadmin">
 <source>This user is the last Organization Administrator and cannot be removed from the Organization Administrator role.</source>
