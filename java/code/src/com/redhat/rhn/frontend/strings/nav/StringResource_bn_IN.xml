@@ -931,12 +931,6 @@
   <target>প্যাকেজ প্রোফাইল</target></trans-unit>
 
 
-  <trans-unit id="Purchase or Renew">
-    <source>Purchase or Renew</source>
-    <context-group name="ctx">
-      <context context-type="sourcefile">Overview left nav menu</context>
-    </context-group>
-  <target>ক্রয় অথবা নবীকরণ</target></trans-unit>
 
   <trans-unit id="Critical">
     <source>Critical</source>

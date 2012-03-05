@@ -931,12 +931,6 @@
   <target>套件設定檔</target></trans-unit>
 
 
-  <trans-unit id="Purchase or Renew">
-    <source>Purchase or Renew</source>
-    <context-group name="ctx">
-      <context context-type="sourcefile">Overview left nav menu</context>
-    </context-group>
-  <target>購買或更新</target></trans-unit>
 
   <trans-unit id="Critical">
     <source>Critical</source>

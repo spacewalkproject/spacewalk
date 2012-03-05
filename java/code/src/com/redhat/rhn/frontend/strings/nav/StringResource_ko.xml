@@ -931,12 +931,6 @@
   <target>패키지 프로파일</target></trans-unit>
 
 
-  <trans-unit id="Purchase or Renew">
-    <source>Purchase or Renew</source>
-    <context-group name="ctx">
-      <context context-type="sourcefile">Overview left nav menu</context>
-    </context-group>
-  <target>구매 혹은 갱신</target></trans-unit>
 
   <trans-unit id="Critical">
     <source>Critical</source>
