@@ -20883,9 +20883,6 @@ given channel.</source>
       <trans-unit id="channel.jsp.gpgtitle">
         <source>GPG Public Key</source>
       <target>GPG সার্বজনীন-কি</target></trans-unit>
-      <trans-unit id="channel.jsp.gpgheader">
-        <source>This channel has a GnuPG key associated with it. For a system to be able to download and install packages from this channel, you must import the key into a particular keyring. </source>
-      <target>এই চ্যানেলের সাথে একটি GnuPG-কি যুক্ত রয়েছে। এই চ্যানেল থেকে প্যাকেজ ডাউনলোড করে সিস্টেমে ইনস্টল করার জন্য একটি সুনির্দিষ্ট কি-রিংয়ের মধ্যে এই কি ইম্পোর্ট করা আবশ্যক।</target></trans-unit>
       <trans-unit id="channel.jsp.gpglocation">
         <source>Key Location</source>
       <target>কি-র অবস্থান</target></trans-unit>

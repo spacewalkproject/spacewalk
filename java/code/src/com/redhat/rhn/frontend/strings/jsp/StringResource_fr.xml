@@ -20988,9 +20988,6 @@ fois pour un canal donné.</target></trans-unit>
       <trans-unit id="channel.jsp.gpgtitle">
         <source>GPG Public Key</source>
       <target>Clé publique GPG</target></trans-unit>
-      <trans-unit id="channel.jsp.gpgheader">
-        <source>This channel has a GnuPG key associated with it. For a system to be able to download and install packages from this channel, you must import the key into a particular keyring. </source>
-      <target>Ce canal possède une clé GnuPG qui lui est associée. Pour qu'un système puisse télécharger et installer des paquetages depuis celui-ci, vous devrez importer la clé dans un porte-clé particulier.</target></trans-unit>
       <trans-unit id="channel.jsp.gpglocation">
         <source>Key Location</source>
       <target>Emplacement de la clé</target></trans-unit>

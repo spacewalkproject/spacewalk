@@ -20883,9 +20883,6 @@ given channel.</source>
       <trans-unit id="channel.jsp.gpgtitle">
         <source>GPG Public Key</source>
       <target>GPG பொது விசை</target></trans-unit>
-      <trans-unit id="channel.jsp.gpgheader">
-        <source>This channel has a GnuPG key associated with it. For a system to be able to download and install packages from this channel, you must import the key into a particular keyring. </source>
-      <target>இந்த சேனல் ஒரு GnuPG விசையை கொண்டுள்ளது. ஒரு கணினிக்கு இந்த சேனலிலிருந்து தொகுப்புகளை பதிவிறக்கி நிறுவ, நீங்கள் ஒரு குறிப்பிட்ட கீரிங்கில் இந்த விசையை ஏற்ற வேண்டும். </target></trans-unit>
       <trans-unit id="channel.jsp.gpglocation">
         <source>Key Location</source>
       <target>விசை இடம்</target></trans-unit>

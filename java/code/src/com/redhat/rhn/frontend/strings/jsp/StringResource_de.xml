@@ -20992,9 +20992,6 @@ f&amp;uuml;r einen angegebenen Channel aufgelistet wird.</target></trans-unit>
       <trans-unit id="channel.jsp.gpgtitle">
         <source>GPG Public Key</source>
       <target>GPG öffentlicher Schlüssel</target></trans-unit>
-      <trans-unit id="channel.jsp.gpgheader">
-        <source>This channel has a GnuPG key associated with it. For a system to be able to download and install packages from this channel, you must import the key into a particular keyring. </source>
-      <target>Mit diesem Channel steht ein GnuPG-Schlüssel in Verbindung. Damit Systeme von diesem Channel Pakete herunterladen und installieren können, müssen Sie den Schlüssel in ein bestimmtes Schlüsselbund (Key Ring) importieren.</target></trans-unit>
       <trans-unit id="channel.jsp.gpglocation">
         <source>Key Location</source>
       <target>Schlüssel-Speicherort</target></trans-unit>

@@ -20882,9 +20882,6 @@ stesso pacchetto in un singolo canale, ciò potrebbe causare però il
       <trans-unit id="channel.jsp.gpgtitle">
         <source>GPG Public Key</source>
       <target>Chiave pubblica GPG</target></trans-unit>
-      <trans-unit id="channel.jsp.gpgheader">
-        <source>This channel has a GnuPG key associated with it. For a system to be able to download and install packages from this channel, you must import the key into a particular keyring. </source>
-      <target>È stata associata a questo canale una chiave GnuPG. Per poter eseguire il download e l'installazione dei pacchetti da questo canale da parte di un sistema, è necessario importare la chiave all'interno di un keyring particolare.</target></trans-unit>
       <trans-unit id="channel.jsp.gpglocation">
         <source>Key Location</source>
       <target>Posizione chiave</target></trans-unit>

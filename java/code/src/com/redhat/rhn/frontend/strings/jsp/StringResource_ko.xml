@@ -20875,9 +20875,6 @@ given channel.</source>
       <trans-unit id="channel.jsp.gpgtitle">
         <source>GPG Public Key</source>
       <target>GPG 공개 키 </target></trans-unit>
-      <trans-unit id="channel.jsp.gpgheader">
-        <source>This channel has a GnuPG key associated with it. For a system to be able to download and install packages from this channel, you must import the key into a particular keyring. </source>
-      <target>이 채널에는 채널과 관련된 GnuPG 키가 있습니다. 채널에서 패키지를 설치 및 다운로드하려면, 특정 키링으로 키를 가져와야 합니다.  </target></trans-unit>
       <trans-unit id="channel.jsp.gpglocation">
         <source>Key Location</source>
       <target>키 위치  </target></trans-unit>

@@ -21344,9 +21344,6 @@ given channel.</source>
       <trans-unit id="channel.jsp.gpgtitle">
         <source>GPG Public Key</source>
       </trans-unit>
-      <trans-unit id="channel.jsp.gpgheader">
-        <source>This channel has a GnuPG key associated with it. For a system to be able to download and install packages from this channel, you must import the key into a particular keyring. </source>
-      </trans-unit>
       <trans-unit id="channel.jsp.gpglocation">
         <source>Key Location</source>
       </trans-unit>

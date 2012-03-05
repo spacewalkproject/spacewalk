@@ -20989,9 +20989,6 @@ given channel.</source>
       <trans-unit id="channel.jsp.gpgtitle">
         <source>GPG Public Key</source>
       <target>Llave pública GPG</target></trans-unit>
-      <trans-unit id="channel.jsp.gpgheader">
-        <source>This channel has a GnuPG key associated with it. For a system to be able to download and install packages from this channel, you must import the key into a particular keyring. </source>
-      <target>Este canal tiene una llave GnuPG asociada a él. Para que un sistema pueda descargar e instalar paquetes desde este canal, se debe importar la llave a un llavero particular.</target></trans-unit>
       <trans-unit id="channel.jsp.gpglocation">
         <source>Key Location</source>
       <target>Ubicación de llave</target></trans-unit>
