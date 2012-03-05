@@ -493,9 +493,6 @@
             <source>View/Modify Files</source>
         <target>ファイルの表示/変更</target></trans-unit>
 
-        <trans-unit id="nav.sdc.config.add_files">
-            <source>Add File</source>
-        <target>ファイルの追加</target></trans-unit>
 
         <trans-unit id="nav.sdc.config.deploy_files">
             <source>Deploy Files</source>

@@ -493,9 +493,6 @@
             <source>View/Modify Files</source>
         <target>ফাইল প্রদর্শন/পরিবর্তন</target></trans-unit>
 
-        <trans-unit id="nav.sdc.config.add_files">
-            <source>Add File</source>
-        <target>ফাইল যোগ করুন</target></trans-unit>
 
         <trans-unit id="nav.sdc.config.deploy_files">
             <source>Deploy Files</source>
