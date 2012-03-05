@@ -20589,9 +20589,6 @@ given channel.</source>
      <trans-unit id="task.status.package-cleanup">
          <source>Package Cleanup</source>
      </trans-unit>
-     <trans-unit id="task.status.kickstartfile-sync">
-         <source>Kickstart Sync</source>
-     </trans-unit>
      <trans-unit id="task.status.sat-cert-check">
          <source>Certificate Check</source>
      </trans-unit>
