@@ -10360,12 +10360,6 @@ Kickstart 侧写的引导装载程序和分区选项，有可能覆盖用户定�
         </context-group>
     <target>选择的在 kickstart 文件 &lt;strong&gt;%packages &lt;/strong&gt; 部分中可用的程序库。</target></trans-unit>
 
-    <trans-unit id="softwareedit.jsp.tip1">
-        <source>&lt;span class="small-text"&gt;&lt;strong&gt;Tip:&lt;/strong&gt; New file location must be the root of an install tree (for the operating system version above) on either an http or ftp server.&lt;/span&gt;</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart/KickstartSoftwareEdit</context>
-        </context-group>
-    <target>&lt;span class="small-text"&gt;&lt;strong&gt;技巧：&lt;/strong&gt; 新文件必须位于一个 http 或 ftp 服务器中的安装树（对于以上的操作系统版本）的根目录中。&lt;/span&gt;</target></trans-unit>
 
     <trans-unit id="softwareedit.jsp.warning">
         <source>&lt;span class="small-text"&gt;&lt;strong&gt;Warning:&lt;/strong&gt; If any activation keys are associated with this kickstart profile(under the &lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;activation keys tab&lt;/a&gt;). the child channel subscriptions above will be overridden. In that situation please use an activation key to specify child channel subscriptions.&lt;/span&gt;</source>

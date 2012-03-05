@@ -10346,12 +10346,6 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
     <target>Выбранные репозитории будут доступны  в секции &lt;strong&gt;%packages &lt;/strong&gt; файла кикстарта.</target></trans-unit>
 
-    <trans-unit id="softwareedit.jsp.tip1">
-        <source>&lt;span class="small-text"&gt;&lt;strong&gt;Tip:&lt;/strong&gt; New file location must be the root of an install tree (for the operating system version above) on either an http or ftp server.&lt;/span&gt;</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart/KickstartSoftwareEdit</context>
-        </context-group>
-    <target>&lt;span class="small-text"&gt;&lt;strong&gt;Замечание:&lt;/strong&gt; Новое положение должно быть корневым элементом дерева установки (для ОС вышеуказанных версий) на сервере http или ftp.&lt;/span&gt;</target></trans-unit>
 
     <trans-unit id="softwareedit.jsp.warning">
         <source>&lt;span class="small-text"&gt;&lt;strong&gt;Warning:&lt;/strong&gt; If any activation keys are associated with this kickstart profile(under the &lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;activation keys tab&lt;/a&gt;). the child channel subscriptions above will be overridden. In that situation please use an activation key to specify child channel subscriptions.&lt;/span&gt;</source>

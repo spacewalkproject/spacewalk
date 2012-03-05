@@ -10365,12 +10365,6 @@ Veuillez noter qu'une configuration manuelle de ces scripts peut toujours être 
         </context-group>
     <target>Les référentiels sélectionnés seront disponibles dans la section &lt;strong&gt;%packages &lt;/strong&gt; du fichier kickstart.</target></trans-unit>
 
-    <trans-unit id="softwareedit.jsp.tip1">
-        <source>&lt;span class="small-text"&gt;&lt;strong&gt;Tip:&lt;/strong&gt; New file location must be the root of an install tree (for the operating system version above) on either an http or ftp server.&lt;/span&gt;</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart/KickstartSoftwareEdit</context>
-        </context-group>
-    <target>&lt;span class="small-text"&gt;&lt;strong&gt;Astuce&amp;nbsp;:&lt;/strong&gt; le nouvel emplacement du fichier doit être la racine d'une arborescence d'installation (pour la version du système d'exploitation ci-dessus) sur un serveur http ou ftp.&lt;/span&gt;</target></trans-unit>
 
     <trans-unit id="softwareedit.jsp.warning">
         <source>&lt;span class="small-text"&gt;&lt;strong&gt;Warning:&lt;/strong&gt; If any activation keys are associated with this kickstart profile(under the &lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;activation keys tab&lt;/a&gt;). the child channel subscriptions above will be overridden. In that situation please use an activation key to specify child channel subscriptions.&lt;/span&gt;</source>
