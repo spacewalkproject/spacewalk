@@ -20924,12 +20924,6 @@ given channel.</source>
           <context context-type="sourcefile">/rhn/admin/ScheduleDetail.do</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="schedule.edit.jsp.bunchdescription">
-        <source>Bunch Description</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/ScheduleDetail.do</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="schedule.edit.jsp.activefrom">
         <source>Active From</source>
         <context-group name="ctx">
