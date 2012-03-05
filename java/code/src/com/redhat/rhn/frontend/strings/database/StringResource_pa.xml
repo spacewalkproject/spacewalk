@@ -3537,9 +3537,6 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/kickstart/SessionStatus.do</context>
         </context-group>
-        <trans-unit id="kickstart.state.deployed">
-          <source>Files required for kickstart action have been installed.</source>
-        <target>ਕਿੱਕਸਟਾਰਟ ਲਈ ਲੋੜੀਂਦੀਆਂ ਫਾਇਲਾਂ ਇੰਸਟਾਲ ਹੋ ਗਈਆਂ।</target></trans-unit>
         <trans-unit id="kickstart.state.injected">
           <source>The system configuration has been modified to begin kickstart upon next boot.</source>
         <target>ਸਿਸਟਮ ਸੰਰਚਨਾ ਤਬਦੀਲ ਹੋ ਗਈ ਹੈ ਤਾਂ ਕਿ ਅਗਲੀ ਵਾਰ ਬੂਟ ਕਰਲ ਤੇ ਕਿੱਕਸਟਾਰਟ ਸ਼ੁਰੂ ਹੋ ਸਕੇ।</target></trans-unit>
