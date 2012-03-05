@@ -19333,12 +19333,6 @@ Les canaux de logiciels listés ci-dessous on des images ISO disponibles pour le
 
 		<!-- download -->
 		<!-- instructions -->
-      <trans-unit id="download.isohelp.header">
-<source>Downloading and Using ISO Images</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/software/downloads/Help.do</context>
-        </context-group>
-      <target>Téléchargement et utilisation d'images ISO</target></trans-unit>
 	</group>
 
 	<!-- downloads.jsp -->

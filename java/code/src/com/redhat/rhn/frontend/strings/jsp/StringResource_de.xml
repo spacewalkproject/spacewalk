@@ -19336,12 +19336,6 @@ Die unten aufgeführten Software-Channels stellen ISO-Images für nicht länger 
 
 		<!-- download -->
 		<!-- instructions -->
-      <trans-unit id="download.isohelp.header">
-<source>Downloading and Using ISO Images</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/software/downloads/Help.do</context>
-        </context-group>
-      <target>Herunterladen und Verwenden von ISO-Images</target></trans-unit>
 	</group>
 
 	<!-- downloads.jsp -->

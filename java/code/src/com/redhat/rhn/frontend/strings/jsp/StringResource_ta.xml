@@ -19274,12 +19274,6 @@ The software channels listed below have ISO images available for products which 
 
 		<!-- download -->
 		<!-- instructions -->
-      <trans-unit id="download.isohelp.header">
-<source>Downloading and Using ISO Images</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/software/downloads/Help.do</context>
-        </context-group>
-      <target>பதிவிறக்கம் செய்து ISO உருக்களை பயன்படுத்துகிறது</target></trans-unit>
 	</group>
 
 	<!-- downloads.jsp -->
