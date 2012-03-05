@@ -19000,22 +19000,6 @@ Notfall-Wartungsfenstern f&amp;uuml;r Benachrichtigungen verwendet.
           <context context-type="sourcefile">/rhn/software/channel/downloads/Download.do</context>
         </context-group>
       <target>&amp;Auml;ltere Releases ansehen</target></trans-unit>
-      <trans-unit id="isodownload.rest.description">
-<source>
-Below please find complete sets of ISO images for the &lt;strong&gt;older releases&lt;/strong&gt; of {0}.
-Note that only one set of ISO images is necessary to install any particular release of {0}.
-</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/software/channel/downloads/Download.do</context>
-		  <context context-type="paramnotes">
-Below please find complete sets of ISO images for the older releases of Red Hat Enterprise Linux (v.5 for 32-bit x86).
-Note that only one set of ISO images is necessary to install any particular release of Red Hat Enterprise Linux (v.5 for 32-bit x86).
-		  </context>
-        </context-group>
-      <target>
-Nachfolgend finden Sie eine umfassende Sammlung von ISO-Images für die &lt;strong&gt;älteren Releases&lt;/strong&gt; von {0}.
-Beachten Sie, dass nur eine Gruppe von ISO-Images nötig ist, um eine bestimmte Release von {0} zu installieren.
-</target></trans-unit>
       <trans-unit id="isodownload.viewprevious">
 <source>View ISO Images for Older Releases</source>
         <context-group name="ctx">

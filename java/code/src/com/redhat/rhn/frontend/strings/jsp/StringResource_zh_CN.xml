@@ -18991,22 +18991,6 @@ Emergency Maintenance windows.&lt;a href="{0}"&gt;Register for the Email Outage 
           <context context-type="sourcefile">/rhn/software/channel/downloads/Download.do</context>
         </context-group>
       <target>查看旧的发行本</target></trans-unit>
-      <trans-unit id="isodownload.rest.description">
-<source>
-Below please find complete sets of ISO images for the &lt;strong&gt;older releases&lt;/strong&gt; of {0}.
-Note that only one set of ISO images is necessary to install any particular release of {0}.
-</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/software/channel/downloads/Download.do</context>
-		  <context context-type="paramnotes">
-Below please find complete sets of ISO images for the older releases of Red Hat Enterprise Linux (v.5 for 32-bit x86).
-Note that only one set of ISO images is necessary to install any particular release of Red Hat Enterprise Linux (v.5 for 32-bit x86).
-		  </context>
-        </context-group>
-      <target>
-下面是 {0} 的&lt;strong&gt;老版本&lt;/strong&gt;的 ISO 映像集。
-请注意，安装任何 {0} 的特定版本，您只需要一套 ISO 映像。
-</target></trans-unit>
       <trans-unit id="isodownload.viewprevious">
 <source>View ISO Images for Older Releases</source>
         <context-group name="ctx">
