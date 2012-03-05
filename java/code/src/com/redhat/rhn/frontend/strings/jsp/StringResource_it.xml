@@ -9986,12 +9986,6 @@ la &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stron
         </context-group>
      <target>Icona Home</target></trans-unit>
 
-     <trans-unit id="yourrhn.jsp.summary">
-        <source>System Summary</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/YourRhn.do</context>
-        </context-group>
-     <target>Sommario del sistema</target></trans-unit>
 
      <trans-unit id="yourrhn.jsp.criticalprobes">
         <source>Critical Probes</source>

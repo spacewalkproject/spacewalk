@@ -10005,12 +10005,6 @@ Anschlie&amp;szlig;end wird das nicht-chroot Post-Skript ausgef&amp;uuml;hrt, un
         </context-group>
      <target>Home Icon</target></trans-unit>
 
-     <trans-unit id="yourrhn.jsp.summary">
-        <source>System Summary</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/YourRhn.do</context>
-        </context-group>
-     <target>Systemzusammenfassung</target></trans-unit>
 
      <trans-unit id="yourrhn.jsp.criticalprobes">
         <source>Critical Probes</source>

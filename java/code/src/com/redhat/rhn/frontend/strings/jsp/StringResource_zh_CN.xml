@@ -9998,12 +9998,6 @@ kickstart 前脚本的内容可以在 &lt;strong&gt;《红帽企业版 Linux 系
         </context-group>
      <target>主页图标</target></trans-unit>
 
-     <trans-unit id="yourrhn.jsp.summary">
-        <source>System Summary</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/YourRhn.do</context>
-        </context-group>
-     <target>系统概况</target></trans-unit>
 
      <trans-unit id="yourrhn.jsp.criticalprobes">
         <source>Critical Probes</source>

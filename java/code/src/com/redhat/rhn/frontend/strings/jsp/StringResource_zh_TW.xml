@@ -9985,12 +9985,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         </context-group>
      <target>首頁圖示</target></trans-unit>
 
-     <trans-unit id="yourrhn.jsp.summary">
-        <source>System Summary</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/YourRhn.do</context>
-        </context-group>
-     <target>系統摘要</target></trans-unit>
 
      <trans-unit id="yourrhn.jsp.criticalprobes">
         <source>Critical Probes</source>

@@ -9994,12 +9994,6 @@ o &lt;strong&gt;Guia de Administração de Sistemas Red Hat Enterprise Li
         </context-group>
      <target>Ícone Home</target></trans-unit>
 
-     <trans-unit id="yourrhn.jsp.summary">
-        <source>System Summary</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/YourRhn.do</context>
-        </context-group>
-     <target>Resumo do Sistema</target></trans-unit>
 
      <trans-unit id="yourrhn.jsp.criticalprobes">
         <source>Critical Probes</source>
