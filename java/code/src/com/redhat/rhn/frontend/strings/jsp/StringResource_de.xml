@@ -697,12 +697,6 @@
           <context context-type="sourcefile">NOT USED</context>
         </context-group>
       <target>PLZ</target></trans-unit>
-      <trans-unit id="phone.displayname">
-<source>Phone</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">NOT USED</context>
-        </context-group>
-      <target>Telefon</target></trans-unit>
       <trans-unit id="prefix.displayname">
 <source>Prefix:</source>
         <context-group name="ctx">

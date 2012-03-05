@@ -697,12 +697,6 @@
           <context context-type="sourcefile">NOT USED</context>
         </context-group>
       <target>ਜ਼ਿਪ / ਡਾਕ ਕੋਡ</target></trans-unit>
-      <trans-unit id="phone.displayname">
-<source>Phone</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">NOT USED</context>
-        </context-group>
-      <target>ਫੋਨ</target></trans-unit>
       <trans-unit id="prefix.displayname">
 <source>Prefix:</source>
         <context-group name="ctx">

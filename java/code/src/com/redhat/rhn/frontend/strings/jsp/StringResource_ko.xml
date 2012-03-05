@@ -697,12 +697,6 @@
           <context context-type="sourcefile">NOT USED</context>
         </context-group>
       <target>우편번호</target></trans-unit>
-      <trans-unit id="phone.displayname">
-<source>Phone</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">NOT USED</context>
-        </context-group>
-      <target>전화 번호</target></trans-unit>
       <trans-unit id="prefix.displayname">
 <source>Prefix:</source>
         <context-group name="ctx">
