@@ -7262,9 +7262,6 @@ Folgen Sie dieser URL f&amp;uuml;r die vollst&amp;auml;ndige Liste inaktiver Sys
                 <context context-type="sourcefile">Every Caller of ConfigActionHelper.makeFileCountsMessage</context>
             </context-group>
 
-	     <trans-unit id="config.files_0_dirs_0_symlinks_0_url">
-			<source>No files, directories or symlinks. &lt;a href="{0}"&gt; Add&lt;/a&gt;</source>
-	     <target>Keine Dateien, Verzeichnisse oder symbolischen Links. &lt;a href="{0}"&gt; Hinzufügen&lt;/a&gt;</target></trans-unit>
 
 	     <trans-unit id="config.files_0_dirs_0_symlinks_1">
 			<source>{2} symlink</source>

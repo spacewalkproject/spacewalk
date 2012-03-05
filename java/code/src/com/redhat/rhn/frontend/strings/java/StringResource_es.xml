@@ -7256,9 +7256,6 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
                 <context context-type="sourcefile">Every Caller of ConfigActionHelper.makeFileCountsMessage</context>
             </context-group>
 
-	     <trans-unit id="config.files_0_dirs_0_symlinks_0_url">
-			<source>No files, directories or symlinks. &lt;a href="{0}"&gt; Add&lt;/a&gt;</source>
-	     <target>No hay archivos, directorios o enlaces simbólicos. &lt;a href="{0}"&gt; Añadir&lt;/a&gt;</target></trans-unit>
 
 	     <trans-unit id="config.files_0_dirs_0_symlinks_1">
 			<source>{2} symlink</source>
