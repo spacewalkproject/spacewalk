@@ -5443,9 +5443,6 @@ value for this entitlement, excluding the default organization's consumption.</s
                 <source>Unable to  &lt;strong&gt;Unentitle {0}&lt;/strong&gt; system(s).</source>
         <target>ਸਿਸਟਮ &lt;strong&gt;ਅਨ-ਇੰਟਾਈਟਲ {0}&lt;/strong&gt; ਕਰਨ ਵਿੱਚ ਅਸਫਲ।</target></trans-unit>
 
-        <trans-unit id="system_entitlements.provisioning.success">
-                <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) set to &lt;strong&gt;Provisioning&lt;/strong&gt;.</source>
-        <target>&lt;strong&gt;{0}&lt;/strong&gt; ਸਿਸਟਮ ਨੂੰ &lt;strong&gt;ਮਨਜੂਰੀ&lt;/strong&gt; ਲਈ ਦਰਸਾਇਆ ਹੈ।</target></trans-unit>
 
 
 

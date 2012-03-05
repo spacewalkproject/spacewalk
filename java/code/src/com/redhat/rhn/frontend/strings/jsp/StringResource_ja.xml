@@ -5438,9 +5438,6 @@ value for this entitlement, excluding the default organization's consumption.</s
                 <source>Unable to  &lt;strong&gt;Unentitle {0}&lt;/strong&gt; system(s).</source>
         <target>&lt;strong&gt;{0} システムからエンタイトルメントを外す&lt;/strong&gt;ことができません</target></trans-unit>
 
-        <trans-unit id="system_entitlements.provisioning.success">
-                <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) set to &lt;strong&gt;Provisioning&lt;/strong&gt;.</source>
-        <target>&lt;strong&gt;{0}&lt;/strong&gt; システムが &lt;strong&gt;Provisioning&lt;/strong&gt; に設定されています。</target></trans-unit>
 
 
 

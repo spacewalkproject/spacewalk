@@ -5440,9 +5440,6 @@ value for this entitlement, excluding the default organization's consumption.</s
                 <source>Unable to  &lt;strong&gt;Unentitle {0}&lt;/strong&gt; system(s).</source>
         <target>Невозможно &lt;strong&gt;снять полномочия с {0}&lt;/strong&gt; систем(ы).</target></trans-unit>
 
-        <trans-unit id="system_entitlements.provisioning.success">
-                <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) set to &lt;strong&gt;Provisioning&lt;/strong&gt;.</source>
-        <target>Полномочия &lt;strong&gt;{0}&lt;/strong&gt; систем(ы) установлены в &lt;strong&gt;Обеспечение&lt;/strong&gt;.</target></trans-unit>
 
 
 

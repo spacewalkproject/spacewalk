@@ -5442,9 +5442,6 @@ value for this entitlement, excluding the default organization's consumption.</s
                 <source>Unable to  &lt;strong&gt;Unentitle {0}&lt;/strong&gt; system(s).</source>
         <target>시스템을 &lt;strong&gt;인타이틀먼트 없음 {0}&lt;/strong&gt; 하는 것이 불가능함.</target></trans-unit>
 
-        <trans-unit id="system_entitlements.provisioning.success">
-                <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) set to &lt;strong&gt;Provisioning&lt;/strong&gt;.</source>
-        <target>&lt;strong&gt;{0}&lt;/strong&gt; 시스템이 &lt;strong&gt;프로비저닝 (Provisioning)&lt;/strong&gt;으로 설정되어졌습니다.</target></trans-unit>
 
 
 

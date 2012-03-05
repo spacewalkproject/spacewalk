@@ -5443,9 +5443,6 @@ value for this entitlement, excluding the default organization's consumption.</s
                 <source>Unable to  &lt;strong&gt;Unentitle {0}&lt;/strong&gt; system(s).</source>
         <target>सिस्टम &lt;strong&gt;गैर एंटाइटेल {0}&lt;/strong&gt; करने में असमर्थ.</target></trans-unit>
 
-        <trans-unit id="system_entitlements.provisioning.success">
-                <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) set to &lt;strong&gt;Provisioning&lt;/strong&gt;.</source>
-        <target>&lt;strong&gt;{0}&lt;/strong&gt; सिस्टम &lt;strong&gt;प्रोविजनिंग&lt;/strong&gt; में सेट.</target></trans-unit>
 
 
 

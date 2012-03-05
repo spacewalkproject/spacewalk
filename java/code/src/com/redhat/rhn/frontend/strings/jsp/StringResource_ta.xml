@@ -5443,9 +5443,6 @@ value for this entitlement, excluding the default organization's consumption.</s
                 <source>Unable to  &lt;strong&gt;Unentitle {0}&lt;/strong&gt; system(s).</source>
         <target>கணினி(களை)&lt;strong&gt;உரிமம் நீக்க{0}&lt;/strong&gt; முடியவில்லை.</target></trans-unit>
 
-        <trans-unit id="system_entitlements.provisioning.success">
-                <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) set to &lt;strong&gt;Provisioning&lt;/strong&gt;.</source>
-        <target>&lt;strong&gt;{0}&lt;/strong&gt;கணினி(கள்) &lt;strong&gt;வாய்ப்பளிக்க&lt;/strong&gt;அமைக்கப்பட்டுள்ளது.</target></trans-unit>
 
 
 
