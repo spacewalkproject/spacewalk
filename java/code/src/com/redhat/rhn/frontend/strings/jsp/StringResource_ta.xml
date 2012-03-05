@@ -123,12 +123,6 @@
           <context context-type="sourcefile">All pages</context>
         </context-group>
       <target></target></trans-unit>
-      <trans-unit id="errors.footer">
-<source>&lt;/ul&gt;&lt;/div&gt;</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">All pages</context>
-        </context-group>
-      <target></target></trans-unit>
       <trans-unit id="errors.prefix">
 <source>&lt;li&gt;</source>
         <context-group name="ctx">
