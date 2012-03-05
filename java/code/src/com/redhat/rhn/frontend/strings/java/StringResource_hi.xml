@@ -7649,9 +7649,6 @@ Follow this url to see the full list of inactive systems:
           <source>Note:</source>
       <target>नोट:</target></trans-unit>
 
-      <trans-unit id="listtag.listfiltered">
-          <source> This list is filtered.  </source>
-      <target> यह फाइल फिल्टर किया है.  </target></trans-unit>
 
       <trans-unit id="listtag.clearfilter">
           <source>Clear filter </source>

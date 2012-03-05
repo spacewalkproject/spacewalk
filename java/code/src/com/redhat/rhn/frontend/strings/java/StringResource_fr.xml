@@ -7676,9 +7676,6 @@ Suivez cet url pour obtenir la liste complète des systèmes inactifs :
           <source>Note:</source>
       <target>Remarque&amp;nbsp;:</target></trans-unit>
 
-      <trans-unit id="listtag.listfiltered">
-          <source> This list is filtered.  </source>
-      <target> Cette liste est filtrée.  </target></trans-unit>
 
       <trans-unit id="listtag.clearfilter">
           <source>Clear filter </source>

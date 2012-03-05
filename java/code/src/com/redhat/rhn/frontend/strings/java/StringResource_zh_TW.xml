@@ -7648,9 +7648,6 @@ Follow this url to see the full list of inactive systems:
           <source>Note:</source>
       <target>注意：</target></trans-unit>
 
-      <trans-unit id="listtag.listfiltered">
-          <source> This list is filtered.  </source>
-      <target> 本清單已經過濾。  </target></trans-unit>
 
       <trans-unit id="listtag.clearfilter">
           <source>Clear filter </source>

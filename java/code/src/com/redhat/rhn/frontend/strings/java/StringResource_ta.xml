@@ -7649,9 +7649,6 @@ url பின்பற்றி செயலிழக்கப்பட்ட �
           <source>Note:</source>
       <target>குறிப்பு:</target></trans-unit>
 
-      <trans-unit id="listtag.listfiltered">
-          <source> This list is filtered.  </source>
-      <target>இந்தப் பட்டியல் வடிக்கப்பட்டுள்ளது.</target></trans-unit>
 
       <trans-unit id="listtag.clearfilter">
           <source>Clear filter </source>

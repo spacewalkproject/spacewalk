@@ -7680,9 +7680,6 @@ Folgen Sie dieser URL f&amp;uuml;r die vollst&amp;auml;ndige Liste inaktiver Sys
           <source>Note:</source>
       <target>Anmerkung:</target></trans-unit>
 
-      <trans-unit id="listtag.listfiltered">
-          <source> This list is filtered.  </source>
-      <target> Diese Liste ist gefiltert.  </target></trans-unit>
 
       <trans-unit id="listtag.clearfilter">
           <source>Clear filter </source>
