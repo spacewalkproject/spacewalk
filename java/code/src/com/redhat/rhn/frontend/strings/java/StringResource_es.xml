@@ -6776,12 +6776,6 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
         </context-group>
       <target>Este sistema ya está detenido.</target></trans-unit>
 
-      <trans-unit id="systems.details.virt.guest.already.paused">
-        <source>This system is already paused.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
-        </context-group>
-      <target>Este sistema ya está en pausa.</target></trans-unit>
 
 
       <trans-unit id="systems.details.virt.vcpu.limit.msg">

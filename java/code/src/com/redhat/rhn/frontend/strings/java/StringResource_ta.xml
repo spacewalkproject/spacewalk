@@ -6751,12 +6751,6 @@ url பின்பற்றி செயலிழக்கப்பட்ட �
         </context-group>
       <target>இந்த கணினி ஏற்கனவே நிறுத்தப்பட்டது.</target></trans-unit>
 
-      <trans-unit id="systems.details.virt.guest.already.paused">
-        <source>This system is already paused.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
-        </context-group>
-      <target>இந்த கணினி ஏற்கனவே இடைநிறுத்தப்பட்டது.</target></trans-unit>
 
 
       <trans-unit id="systems.details.virt.vcpu.limit.msg">

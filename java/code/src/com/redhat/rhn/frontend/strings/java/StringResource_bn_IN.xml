@@ -6757,12 +6757,6 @@ Follow this url to see the full list of inactive systems:
         </context-group>
       <target>সিস্টেম বর্তমানে বন্ধ অবস্থায় রয়েছে।</target></trans-unit>
 
-      <trans-unit id="systems.details.virt.guest.already.paused">
-        <source>This system is already paused.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
-        </context-group>
-      <target>সিস্টেম বর্তমানে স্থগিত অবস্থায় রয়েছে।</target></trans-unit>
 
 
       <trans-unit id="systems.details.virt.vcpu.limit.msg">

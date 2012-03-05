@@ -6782,12 +6782,6 @@ Folgen Sie dieser URL f&amp;uuml;r die vollst&amp;auml;ndige Liste inaktiver Sys
         </context-group>
       <target>Dieses System wurde bereits angehalten.</target></trans-unit>
 
-      <trans-unit id="systems.details.virt.guest.already.paused">
-        <source>This system is already paused.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
-        </context-group>
-      <target>Dieses System wurde bereits unterbrochen.</target></trans-unit>
 
 
       <trans-unit id="systems.details.virt.vcpu.limit.msg">
