@@ -18527,12 +18527,6 @@ como refletido neste certificado do @@PRODUCT_NAME@@. </target></trans-unit>
 
 
 
-      <trans-unit id="system_entitlement_details.org_msg">
-       <source>&lt;strong&gt;{0}&lt;/strong&gt; of &lt;strong&gt;{1}&lt;/strong&gt; organizations on this satellite have at least one registered system using this entitlement.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementDetails</context>
-        </context-group>
-      <target>&lt;strong&gt;{0}&lt;/strong&gt; of &lt;strong&gt;{1}&lt;/strong&gt; organizações neste satellite possuem ao menos um sistema registrado usando este serviço.</target></trans-unit>
 
 
       <trans-unit id="entitlementorgs.orgname">

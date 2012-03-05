@@ -18479,12 +18479,6 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;
 
 
 
-      <trans-unit id="system_entitlement_details.org_msg">
-       <source>&lt;strong&gt;{0}&lt;/strong&gt; of &lt;strong&gt;{1}&lt;/strong&gt; organizations on this satellite have at least one registered system using this entitlement.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementDetails</context>
-        </context-group>
-      <target>বর্তমান Satellite-র মধ্যে উপস্থিত &lt;strong&gt;{1}&lt;/strong&gt; প্রতিষ্ঠানের মধ্যে &lt;strong&gt;{0}&lt;/strong&gt; প্রতিষ্ঠানে উপস্থিত অন্তত একটি সিস্টেমে চিহ্নিত এনটাইটেলমেন্ট ব্যবহৃত হচ্ছে।</target></trans-unit>
 
 
       <trans-unit id="entitlementorgs.orgname">

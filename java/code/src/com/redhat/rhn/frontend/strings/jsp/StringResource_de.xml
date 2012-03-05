@@ -18537,12 +18537,6 @@ stehende Gesamte, wie in diesem Zertifikat des @@PRODUCT_NAME@@s wiedergegeben.<
 
 
 
-      <trans-unit id="system_entitlement_details.org_msg">
-       <source>&lt;strong&gt;{0}&lt;/strong&gt; of &lt;strong&gt;{1}&lt;/strong&gt; organizations on this satellite have at least one registered system using this entitlement.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementDetails</context>
-        </context-group>
-      <target>&lt;strong&gt;{0}&lt;/strong&gt; von &lt;strong&gt;{1}&lt;/strong&gt; Organisationen auf diesem Satellite besitzen mindestens ein registriertes System, das diese Berechtigung verwendet.</target></trans-unit>
 
 
       <trans-unit id="entitlementorgs.orgname">

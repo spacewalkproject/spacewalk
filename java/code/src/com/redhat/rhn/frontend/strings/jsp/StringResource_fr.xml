@@ -18534,12 +18534,6 @@ comme défini dans le certificat de ce @@PRODUCT_NAME@@.</target></trans-unit>
 
 
 
-      <trans-unit id="system_entitlement_details.org_msg">
-       <source>&lt;strong&gt;{0}&lt;/strong&gt; of &lt;strong&gt;{1}&lt;/strong&gt; organizations on this satellite have at least one registered system using this entitlement.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementDetails</context>
-        </context-group>
-      <target>&lt;strong&gt;{0}&lt;/strong&gt; des &lt;strong&gt;{1}&lt;/strong&gt; organisations sur ce Satellite ont au moins un système enregistré utilisant ce droit d'accès.</target></trans-unit>
 
 
       <trans-unit id="entitlementorgs.orgname">
