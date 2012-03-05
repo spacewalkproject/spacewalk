@@ -76,14 +76,14 @@ class moduleClass(Module):
         if rhnreg.registered():
             return True
         try:
-            _rhsm_path = "/usr/share/rhsm"
+            _rhsm_path = "/usr/share/rhsm/subscription_manager"
             _rhsm_path_added = False
             if _rhsm_path not in sys.path:
                 sys.path.append(_rhsm_path)
                 _rhsm_path_added = True
             import certlib
             if _rhsm_path_added:
-                sys.path.remove("/usr/share/rhsm")
+                sys.path.remove(_rhsm_path)
             return certlib.ConsumerIdentity.existsAndValid()
         except:
             return False
