@@ -8669,12 +8669,6 @@ ni aux outils de gestion d'organisation si vous choisissez de supprimer ce rôle
         </context-group>
       <target>Non</target></trans-unit>
 
-      <trans-unit id="confirmerrata.jsp.confirm">
-<source>Confirm</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/errata/manage/CloneErrata.do</context>
-        </context-group>
-      <target>Confirmer</target></trans-unit>
 
       <trans-unit id="confirmerrata.jsp.pagesummary">
 <source>The errata listed below will be cloned.  XXX</source>

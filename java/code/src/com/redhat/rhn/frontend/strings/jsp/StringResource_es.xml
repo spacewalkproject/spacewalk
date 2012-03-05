@@ -8667,12 +8667,6 @@ organización si decide borrar este rol de su inicio de sesión.
         </context-group>
       <target>No</target></trans-unit>
 
-      <trans-unit id="confirmerrata.jsp.confirm">
-<source>Confirm</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/errata/manage/CloneErrata.do</context>
-        </context-group>
-      <target>Confirmar</target></trans-unit>
 
       <trans-unit id="confirmerrata.jsp.pagesummary">
 <source>The errata listed below will be cloned.  XXX</source>
