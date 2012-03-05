@@ -13735,12 +13735,6 @@ but are not subscribed to _@@PRODUCT_NAME@@Config_.</context>
           <context context-type="sourcefile">/rhn/configuration/ChannelAddFiles.do</context>
         </context-group>
      <target>கட்டமைப்பு கோப்பு(களை) ஏற்றுதல்</target></trans-unit>
-	<trans-unit id="config_files.setFilesToImport.success">
-<source>Successfully imported file(s).</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/ChannelImportFiles.do</context>
-        </context-group>
-	<target>வெற்றிகரமாக கோப்பு(கள்) இறக்கப்பட்டன.</target></trans-unit>
 	<trans-unit id="config_files.unsubscribeSystems.success">
 <source>Successfully unsubscribed system(s).</source>
         <context-group name="ctx">

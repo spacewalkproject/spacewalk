@@ -13741,12 +13741,6 @@ but are not subscribed to _@@PRODUCT_NAME@@Config_.</context>
           <context context-type="sourcefile">/rhn/configuration/ChannelAddFiles.do</context>
         </context-group>
      <target>Importar Arquivo(s) de Configuração</target></trans-unit>
-	<trans-unit id="config_files.setFilesToImport.success">
-<source>Successfully imported file(s).</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/ChannelImportFiles.do</context>
-        </context-group>
-	<target>Arquivos importados com sucesso.</target></trans-unit>
 	<trans-unit id="config_files.unsubscribeSystems.success">
 <source>Successfully unsubscribed system(s).</source>
         <context-group name="ctx">

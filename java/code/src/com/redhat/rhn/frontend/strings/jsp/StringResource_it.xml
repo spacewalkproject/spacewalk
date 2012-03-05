@@ -13732,12 +13732,6 @@ ma non sono sottoscritti a {0}.</target></trans-unit>
           <context context-type="sourcefile">/rhn/configuration/ChannelAddFiles.do</context>
         </context-group>
      <target>Importa i file di configurazione</target></trans-unit>
-	<trans-unit id="config_files.setFilesToImport.success">
-<source>Successfully imported file(s).</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/ChannelImportFiles.do</context>
-        </context-group>
-	<target>File importati con successo.</target></trans-unit>
 	<trans-unit id="config_files.unsubscribeSystems.success">
 <source>Successfully unsubscribed system(s).</source>
         <context-group name="ctx">
