@@ -3546,9 +3546,6 @@
         <trans-unit id="kickstart.state.registered">
           <source>The system has successfully registered with @@PRODUCT_NAME@@ after kickstarting.</source>
         <target>시스템은 킥스타트 후에 @@PRODUCT_NAME@@에 성공적으로 등록되었습니다.  </target></trans-unit>
-        <trans-unit id="kickstart.state.package_synch">
-          <source>Package synchronization in progress.</source>
-        <target>패키지 동기화가 진행중입니다.</target></trans-unit>
         <trans-unit id="kickstart.state.package_synch_scheduled">
           <source>Package synchronization scheduled.</source>
         <target>패키지 동기화가 예정되어 있습니다.</target></trans-unit>

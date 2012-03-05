@@ -3546,9 +3546,6 @@
         <trans-unit id="kickstart.state.registered">
           <source>The system has successfully registered with @@PRODUCT_NAME@@ after kickstarting.</source>
         <target>Kickstart করার পরে সিস্টেম সাফল্যের সাথে @@PRODUCT_NAME@@-র সাথে নিবন্ধিত হয়েছে।</target></trans-unit>
-        <trans-unit id="kickstart.state.package_synch">
-          <source>Package synchronization in progress.</source>
-        <target>প্যাকেজ সুসংগতি করা হচ্ছে।</target></trans-unit>
         <trans-unit id="kickstart.state.package_synch_scheduled">
           <source>Package synchronization scheduled.</source>
         <target>প্যাকেজ সুসংগতি কর্ম নির্ধারিত হয়েছে।</target></trans-unit>

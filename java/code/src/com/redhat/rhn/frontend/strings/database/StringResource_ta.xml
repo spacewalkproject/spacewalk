@@ -3546,9 +3546,6 @@
         <trans-unit id="kickstart.state.registered">
           <source>The system has successfully registered with @@PRODUCT_NAME@@ after kickstarting.</source>
         <target>கிக்ஸ்டார்ட்டிற்கு பின் கணினி வெற்றிகரமாக @@PRODUCT_NAME@@ னுடன் பதிவு செய்தது .</target></trans-unit>
-        <trans-unit id="kickstart.state.package_synch">
-          <source>Package synchronization in progress.</source>
-        <target>தொகுப்பு ஒருங்கிணைப்பு நடைபெறுகிறது.</target></trans-unit>
         <trans-unit id="kickstart.state.package_synch_scheduled">
           <source>Package synchronization scheduled.</source>
         <target>தொகுப்பு ஒருங்கிணைப்பு திட்டமிடப்பட்டது.</target></trans-unit>

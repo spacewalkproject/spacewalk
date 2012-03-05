@@ -3546,9 +3546,6 @@
         <trans-unit id="kickstart.state.registered">
           <source>The system has successfully registered with @@PRODUCT_NAME@@ after kickstarting.</source>
         <target>सिस्टम ने @@PRODUCT_NAME@@ के साथ सफलतापूर्वक पंजीयन किकस्टार्ट करने के बाद किया है.</target></trans-unit>
-        <trans-unit id="kickstart.state.package_synch">
-          <source>Package synchronization in progress.</source>
-        <target>संकुल तुल्यकालन प्रगति में है.</target></trans-unit>
         <trans-unit id="kickstart.state.package_synch_scheduled">
           <source>Package synchronization scheduled.</source>
         <target>संकुल तुल्यकालन अनुसूचित किया गया है.</target></trans-unit>

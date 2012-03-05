@@ -3546,9 +3546,6 @@
         <trans-unit id="kickstart.state.registered">
           <source>The system has successfully registered with @@PRODUCT_NAME@@ after kickstarting.</source>
         <target>在 kickstart 之後，系統已經成功地向 @@PRODUCT_NAME@@ 註冊。</target></trans-unit>
-        <trans-unit id="kickstart.state.package_synch">
-          <source>Package synchronization in progress.</source>
-        <target>正在同步套件檔。</target></trans-unit>
         <trans-unit id="kickstart.state.package_synch_scheduled">
           <source>Package synchronization scheduled.</source>
         <target>已排程套件同步。</target></trans-unit>
