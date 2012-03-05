@@ -18931,12 +18931,6 @@ Emergency Maintenance windows.&lt;a href="{0}"&gt;Register for the Email Outage 
           <context context-type="sourcefile">/rhn/software/channel/downloads/Download.do</context>
         </context-group>
       <target>Просмотр предыдущих выпусков</target></trans-unit>
-      <trans-unit id="isodownload.rest">
-<source>Older Releases</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/software/channel/downloads/Download.do</context>
-        </context-group>
-      <target>Предыдущие выпуски</target></trans-unit>
       <trans-unit id="isodownload.rest.description">
 <source>
 Below please find complete sets of ISO images for the &lt;strong&gt;older releases&lt;/strong&gt; of {0}.

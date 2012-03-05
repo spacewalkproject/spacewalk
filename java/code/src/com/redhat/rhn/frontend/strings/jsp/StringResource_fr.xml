@@ -18996,12 +18996,6 @@ et Red Hat l'utilisera en cas de fenêtres de maintenance d'urgence et non progr
           <context context-type="sourcefile">/rhn/software/channel/downloads/Download.do</context>
         </context-group>
       <target>Afficher les anciennes versions</target></trans-unit>
-      <trans-unit id="isodownload.rest">
-<source>Older Releases</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/software/channel/downloads/Download.do</context>
-        </context-group>
-      <target>Anciennes versions</target></trans-unit>
       <trans-unit id="isodownload.rest.description">
 <source>
 Below please find complete sets of ISO images for the &lt;strong&gt;older releases&lt;/strong&gt; of {0}.

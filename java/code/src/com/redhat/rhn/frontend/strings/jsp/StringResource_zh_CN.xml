@@ -18991,12 +18991,6 @@ Emergency Maintenance windows.&lt;a href="{0}"&gt;Register for the Email Outage 
           <context context-type="sourcefile">/rhn/software/channel/downloads/Download.do</context>
         </context-group>
       <target>查看旧的发行本</target></trans-unit>
-      <trans-unit id="isodownload.rest">
-<source>Older Releases</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/software/channel/downloads/Download.do</context>
-        </context-group>
-      <target>旧的发行版本</target></trans-unit>
       <trans-unit id="isodownload.rest.description">
 <source>
 Below please find complete sets of ISO images for the &lt;strong&gt;older releases&lt;/strong&gt; of {0}.

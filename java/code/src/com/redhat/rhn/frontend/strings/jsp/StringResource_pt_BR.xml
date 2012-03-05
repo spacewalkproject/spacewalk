@@ -18992,12 +18992,6 @@ pela Red Hat no caso de Períodos de Manutenção Não Programados ou
           <context context-type="sourcefile">/rhn/software/channel/downloads/Download.do</context>
         </context-group>
       <target>Visualizar Antigas Versões</target></trans-unit>
-      <trans-unit id="isodownload.rest">
-<source>Older Releases</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/software/channel/downloads/Download.do</context>
-        </context-group>
-      <target>Versão Antigas</target></trans-unit>
       <trans-unit id="isodownload.rest.description">
 <source>
 Below please find complete sets of ISO images for the &lt;strong&gt;older releases&lt;/strong&gt; of {0}.
