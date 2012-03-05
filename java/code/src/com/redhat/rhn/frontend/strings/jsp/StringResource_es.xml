@@ -20992,9 +20992,6 @@ given channel.</source>
       <trans-unit id="channel.jsp.gpglocation">
         <source>Key Location</source>
       <target>Ubicación de llave</target></trans-unit>
-      <trans-unit id="channel.jsp.gpgid">
-        <source>Key Id</source>
-      <target>ID de llave</target></trans-unit>
       <trans-unit id="channel.jsp.gpgunknown">
         <source>Unknown</source>
       <target>Desconocido</target></trans-unit>

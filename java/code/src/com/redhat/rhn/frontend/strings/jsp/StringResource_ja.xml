@@ -20963,9 +20963,6 @@ given channel.</source>
       <trans-unit id="channel.jsp.gpglocation">
         <source>Key Location</source>
       <target>キーの場所</target></trans-unit>
-      <trans-unit id="channel.jsp.gpgid">
-        <source>Key Id</source>
-      <target>キー ID</target></trans-unit>
       <trans-unit id="channel.jsp.gpgunknown">
         <source>Unknown</source>
       <target>不明</target></trans-unit>

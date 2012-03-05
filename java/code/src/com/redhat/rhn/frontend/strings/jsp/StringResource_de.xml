@@ -20995,9 +20995,6 @@ f&amp;uuml;r einen angegebenen Channel aufgelistet wird.</target></trans-unit>
       <trans-unit id="channel.jsp.gpglocation">
         <source>Key Location</source>
       <target>Schlüssel-Speicherort</target></trans-unit>
-      <trans-unit id="channel.jsp.gpgid">
-        <source>Key Id</source>
-      <target>Schlüssel-ID</target></trans-unit>
       <trans-unit id="channel.jsp.gpgunknown">
         <source>Unknown</source>
       <target>Unbekannt</target></trans-unit>

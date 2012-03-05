@@ -20984,9 +20984,6 @@ given channel.</source>
       <trans-unit id="channel.jsp.gpglocation">
         <source>Key Location</source>
       <target>密钥位置</target></trans-unit>
-      <trans-unit id="channel.jsp.gpgid">
-        <source>Key Id</source>
-      <target>密钥 Id</target></trans-unit>
       <trans-unit id="channel.jsp.gpgunknown">
         <source>Unknown</source>
       <target>未知的</target></trans-unit>
