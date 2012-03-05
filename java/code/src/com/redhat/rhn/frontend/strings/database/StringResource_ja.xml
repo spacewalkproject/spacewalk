@@ -1076,12 +1076,6 @@
 
 
 
-      <trans-unit id="Critical if number of stopped processes exceeds">
-        <source>Critical if number of stopped processes exceeds</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-      <target>停止プロセスの数が超過の場合、重大</target></trans-unit>
 
       <trans-unit id="Critical if number of swapped processes exceeds">
         <source>Critical if number of swapped processes exceeds</source>
