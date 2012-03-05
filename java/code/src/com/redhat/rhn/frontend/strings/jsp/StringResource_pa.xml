@@ -685,12 +685,6 @@
           <context context-type="sourcefile">/rhn/users/UserDetails</context>
         </context-group>
       <target>ਈ-ਮੇਲ:</target></trans-unit>
-      <trans-unit id="state.displayname">
-<source>State/Province</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">NOT USED</context>
-        </context-group>
-      <target>ਸੂਬਾ/ਖੇਤਰ</target></trans-unit>
       <trans-unit id="zip.displayname">
 <source>Zip / Postal Code</source>
         <context-group name="ctx">

@@ -685,12 +685,6 @@
           <context context-type="sourcefile">/rhn/users/UserDetails</context>
         </context-group>
       <target>E-mail:</target></trans-unit>
-      <trans-unit id="state.displayname">
-<source>State/Province</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">NOT USED</context>
-        </context-group>
-      <target>Estado/Província</target></trans-unit>
       <trans-unit id="zip.displayname">
 <source>Zip / Postal Code</source>
         <context-group name="ctx">
