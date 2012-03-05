@@ -483,12 +483,6 @@
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
       <target>文件保留</target></trans-unit>
-      <trans-unit id="Get Spacewalk Software">
-<source>Get @@PRODUCT_NAME@@ Software</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-      <target>获得 @@PRODUCT_NAME@@ 软件</target></trans-unit>
       <trans-unit id="Global Config">
 <source>Global Config</source>
         <context-group name="ctx">

@@ -483,12 +483,6 @@
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
       <target>ফাইল রক্ষণাবেক্ষণ</target></trans-unit>
-      <trans-unit id="Get Spacewalk Software">
-<source>Get @@PRODUCT_NAME@@ Software</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-      <target>@@PRODUCT_NAME@@ সফ্টওয়্যার প্রাপ্ত করুন</target></trans-unit>
       <trans-unit id="Global Config">
 <source>Global Config</source>
         <context-group name="ctx">

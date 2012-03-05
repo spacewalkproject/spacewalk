@@ -483,12 +483,6 @@
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
       <target>ਫਾਇਲ ਸੁਰੱਖਿਆ</target></trans-unit>
-      <trans-unit id="Get Spacewalk Software">
-<source>Get @@PRODUCT_NAME@@ Software</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-      <target>@@PRODUCT_NAME@@ ਸਾਫਟਵੇਅਰ ਲਵੋ</target></trans-unit>
       <trans-unit id="Global Config">
 <source>Global Config</source>
         <context-group name="ctx">

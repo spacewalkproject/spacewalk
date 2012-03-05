@@ -483,12 +483,6 @@
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
       <target>Conservazione dei file</target></trans-unit>
-      <trans-unit id="Get Spacewalk Software">
-<source>Get @@PRODUCT_NAME@@ Software</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-      <target>Ottenere software @@PRODUCT_NAME@@</target></trans-unit>
       <trans-unit id="Global Config">
 <source>Global Config</source>
         <context-group name="ctx">
