@@ -1266,12 +1266,6 @@
           </context>
         </context-group>
       <target> In conformità con {0}, è necessario avere un indirizzo email valido per poter ricevere il servizio. Attualmente il vostro indirizzo email non è stato ancora verificato. Se desiderate modificare il vostro indirizzo, oppure se desiderate ricevere nuovamente la verifica email, vi preghiamo di inserire il vostro indirizzo email qui di seguito, facendo poi clic su 'Invia Verifica'.</target></trans-unit>
-      <trans-unit id="yourchangeemail.TermsAndConditions">
-<source>@@PRODUCT_NAME@@ Terms and Conditions</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/account/ChangeEmail</context>
-        </context-group>
-      <target>Termini e Condizioni di @@PRODUCT_NAME@@</target></trans-unit>
 
       <trans-unit id="yourchangeemail.instructions">
 <source>Please enter your new email address below.</source>

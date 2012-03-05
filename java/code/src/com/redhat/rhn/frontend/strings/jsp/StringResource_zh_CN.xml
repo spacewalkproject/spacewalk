@@ -1266,12 +1266,6 @@
           </context>
         </context-group>
       <target>根据 {0}，您必须要有一个经过验证的电子邮件地址来接收服务。目前您的电子邮件地址还没有被验证。如果您希望更改您的地址，或需要重新发送您的电子邮件验证，请在下面输入您的电子邮件地址并点“发送验证”。</target></trans-unit>
-      <trans-unit id="yourchangeemail.TermsAndConditions">
-<source>@@PRODUCT_NAME@@ Terms and Conditions</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/account/ChangeEmail</context>
-        </context-group>
-      <target>@@PRODUCT_NAME@@ 条款</target></trans-unit>
 
       <trans-unit id="yourchangeemail.instructions">
 <source>Please enter your new email address below.</source>

@@ -1266,12 +1266,6 @@
           </context>
         </context-group>
       <target> {0} অনুসারে, পরিসেবা প্রাপ্ত করার জন্য একটি পরীক্ষিত ই-মেইল ঠিকানা উপস্থিত থাকা আবশ্যক। আপনার ই-মেইল ঠিকানা বর্তমানে পরীক্ষা করা হয়নি। আপনি যদি এই ঠিকানা পরিবর্তন করতে অথবা অনুমোদনের উদ্দেশ্যে প্রেরিত ই-মেইল বার্তা পুনরায় প্রাপ্ত করতে ইচ্ছুক থাকেন, তাহলে অনুগ্রহ করে ই-মেইল ঠিকানা পুনরায় উল্লেখ করে 'Send Verification'-এ ক্লিক করুন।</target></trans-unit>
-      <trans-unit id="yourchangeemail.TermsAndConditions">
-<source>@@PRODUCT_NAME@@ Terms and Conditions</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/account/ChangeEmail</context>
-        </context-group>
-      <target>@@PRODUCT_NAME@@-র শর্তাবলী</target></trans-unit>
 
       <trans-unit id="yourchangeemail.instructions">
 <source>Please enter your new email address below.</source>

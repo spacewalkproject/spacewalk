@@ -1266,12 +1266,6 @@
           </context>
         </context-group>
       <target> {0} સાથે, સેવા મેળવવા માટે તમારી પાસે માન્ય થયેલ ઈમેઈલ સરનામું હોવું જ જોઈએ. વર્તમાનમાં તમારા સરનામાની ખાતરી હજુ સુધી થયેલ નથી. જો તમે તમારું સરનામું બદલવા માંગો, અથવા તમારી ઈમેઈલ ખાતરી પુનઃ-મોકલવા માંગો, તો મહેરબાની કરીને તમારું ઈમેઈલ સરનામું નીચે ઈનપુટ કરો અને 'ખાતરી મોકલો' ક્લિક કરો.' </target></trans-unit>
-      <trans-unit id="yourchangeemail.TermsAndConditions">
-<source>@@PRODUCT_NAME@@ Terms and Conditions</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/account/ChangeEmail</context>
-        </context-group>
-      <target>@@PRODUCT_NAME@@ બાબતો અને શરતો</target></trans-unit>
 
       <trans-unit id="yourchangeemail.instructions">
 <source>Please enter your new email address below.</source>

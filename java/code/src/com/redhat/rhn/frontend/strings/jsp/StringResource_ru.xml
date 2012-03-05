@@ -1266,12 +1266,6 @@
           </context>
         </context-group>
       <target> В соответствии с {0}, у вас должен быть корректный эл.адрес чтобы иметь возможность пользоваться службой. В настоящее время ваш адрес не подтвержден. Если вы хотите его изменить или желаете, чтобы подтверждение адреса было отправлено повторно, введите свой эл.адрес ниже и нажмите «Отправить уведомление».</target></trans-unit>
-      <trans-unit id="yourchangeemail.TermsAndConditions">
-<source>@@PRODUCT_NAME@@ Terms and Conditions</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/account/ChangeEmail</context>
-        </context-group>
-      <target>Условия и соглашения @@PRODUCT_NAME@@</target></trans-unit>
 
       <trans-unit id="yourchangeemail.instructions">
 <source>Please enter your new email address below.</source>

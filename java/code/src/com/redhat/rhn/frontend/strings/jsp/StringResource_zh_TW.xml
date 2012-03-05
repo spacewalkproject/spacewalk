@@ -1266,12 +1266,6 @@
           </context>
         </context-group>
       <target> 為了與 {0} 一致，您必須擁有驗證過的電子郵件地址，以接收服務。目前您的電子郵件地址尚未通過認證。如果您想要改變您的地址，或想要再次收到電子郵件驗證，請在下方輸入您的電子郵件地址，按下「發送驗證」。</target></trans-unit>
-      <trans-unit id="yourchangeemail.TermsAndConditions">
-<source>@@PRODUCT_NAME@@ Terms and Conditions</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/account/ChangeEmail</context>
-        </context-group>
-      <target>@@PRODUCT_NAME@@ 使用條款</target></trans-unit>
 
       <trans-unit id="yourchangeemail.instructions">
 <source>Please enter your new email address below.</source>

@@ -1266,12 +1266,6 @@
           </context>
         </context-group>
       <target> De acordo com {0}, você deve ter um endereço de e-mail verificado para receber serviços e, no momento, o seu endereço ainda não foi verificado. Se você deseja alterá-lo ou receber o e-mail de verificação novamente, por favor indique seu endereço de e-mail abaixo e clique em 'Enviar Verificação'.</target></trans-unit>
-      <trans-unit id="yourchangeemail.TermsAndConditions">
-<source>@@PRODUCT_NAME@@ Terms and Conditions</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/account/ChangeEmail</context>
-        </context-group>
-      <target>Termos e Condições do @@PRODUCT_NAME@@ </target></trans-unit>
 
       <trans-unit id="yourchangeemail.instructions">
 <source>Please enter your new email address below.</source>

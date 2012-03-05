@@ -1266,12 +1266,6 @@
           </context>
         </context-group>
       <target> {0} के संगत में, आपको ईमेल पता सेवा प्राप्त करने के लिये जरूर जांचना चाहिए. मौजूदा रूप से आपका ईमेल पता अबतक जांचा नहीं गया है. अगर आप अपना पता बदलना चाहते हैं, या अपना ईमेल सत्यापन फिर भेजना चाहते हैं, कृपया अपना ईमेल पता नीचे डालें और 'सत्यापन भेजें' पर क्लिक करें.</target></trans-unit>
-      <trans-unit id="yourchangeemail.TermsAndConditions">
-<source>@@PRODUCT_NAME@@ Terms and Conditions</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/account/ChangeEmail</context>
-        </context-group>
-      <target>@@PRODUCT_NAME@@ नियम व शर्त</target></trans-unit>
 
       <trans-unit id="yourchangeemail.instructions">
 <source>Please enter your new email address below.</source>

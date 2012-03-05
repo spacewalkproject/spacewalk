@@ -1266,12 +1266,6 @@
           </context>
         </context-group>
       <target>서비스를 받으시려면, {0}에 동의하시고 또한 이메일 주소를 확인하셔야 합니다. 현재 사용 고객님의 이메일 주소가 확인되지 않았습니다. 주소를 변경하거나 이메일 주소 확인 메일을 다시 받으시려면, 아래쪽에 이메일 주소를 입력하신 후 '확인 이메일 보내기'를 클릭하시면 됩니다.      </target></trans-unit>
-      <trans-unit id="yourchangeemail.TermsAndConditions">
-<source>@@PRODUCT_NAME@@ Terms and Conditions</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/account/ChangeEmail</context>
-        </context-group>
-      <target>@@PRODUCT_NAME@@ 이용 약관 </target></trans-unit>
 
       <trans-unit id="yourchangeemail.instructions">
 <source>Please enter your new email address below.</source>

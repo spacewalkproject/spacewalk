@@ -1266,12 +1266,6 @@
           </context>
         </context-group>
       <target> {0} に定められている通り、 サービスをお受け取りになるためには確認されている Email アドレスがなければなりません。 現在、 ユーザー Email アドレスは未だ確認されていません。 ご使用のアドレスを変更する、 または Email の確認の再送をお受け取りになられたい場合には、 ご使用の Email アドレスを以下に入力してから「確認を送信」をクリックしてください。</target></trans-unit>
-      <trans-unit id="yourchangeemail.TermsAndConditions">
-<source>@@PRODUCT_NAME@@ Terms and Conditions</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/account/ChangeEmail</context>
-        </context-group>
-      <target>@@PRODUCT_NAME@@ 使用に関する条件</target></trans-unit>
 
       <trans-unit id="yourchangeemail.instructions">
 <source>Please enter your new email address below.</source>

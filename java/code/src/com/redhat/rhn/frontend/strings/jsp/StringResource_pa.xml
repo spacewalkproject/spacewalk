@@ -1266,12 +1266,6 @@
           </context>
         </context-group>
       <target> {0} ਦੇ ਅਨੁਸਾਰ, ਤੁਹਾਨੂੰ ਸੇਵਾ ਪਰਾਪਤ ਕਰਨ ਲਈ ਇੱਕ ਜਾਂਚਿਆ ਈ-ਮੇਲ ਐਡਰੈੱਸ ਚਾਹੀਦਾ ਹੈ। ਇਸ ਸਮੇਂ, ਤੁਹਾਡਾ ਈ-ਮੇਲ ਐਡਰੈੱਸ ਜਾਂਚਿਆ ਨਹੀਂ ਗਿਆ ਹੈ। ਜੇਕਰ ਤੁਸੀਂ ਆਪਣਾ ਐਡਰੈੱਸ ਬਦਲਣਾ ਚਾਹੁੰਦੇ ਹੋ ਜਾਂ ਆਪਣੀ ਈ-ਮੇਲ ਜਾਂਚ ਮੁੜ-ਭੇਜਣੀ ਚਾਹੁੰਦੇ ਹੋ ਤਾਂ ਕਿਰਪਾ ਕਰਕੇ ਹੇਠਾਂ ਈ-ਮੇਲ ਐਡਰੈੱਸ ਦਿਓ ਅਤੇ 'ਜਾਂਚ ਭੇਜੋ' ਨੂੰ ਦਬਾਓ।</target></trans-unit>
-      <trans-unit id="yourchangeemail.TermsAndConditions">
-<source>@@PRODUCT_NAME@@ Terms and Conditions</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/account/ChangeEmail</context>
-        </context-group>
-      <target>@@PRODUCT_NAME@@ ਇਕਰਾਰ ਅਤੇ ਸ਼ਰਤਾਂ</target></trans-unit>
 
       <trans-unit id="yourchangeemail.instructions">
 <source>Please enter your new email address below.</source>
