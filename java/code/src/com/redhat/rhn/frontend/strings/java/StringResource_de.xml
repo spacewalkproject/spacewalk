@@ -1935,12 +1935,6 @@ verfügbar machen, damit dieses Kickstart-Profil einwandfrei funktionieren kann.
         <context context-type="sourcefile">/rhn/kickstart/KickstartDeleteSubmit</context>
         </context-group>
       <target>Kickstart wurde erfolgreich gel&amp;ouml;scht.</target></trans-unit>
-        <trans-unit id="kickstart.delete.failure">
-        <source>Kickstart {0} could not be deleted, try again on your next login.</source>
-        <context-group name="ctx">
-        <context context-type="sourcefile">/rhn/kickstart/KickstartDeleteSubmit</context>
-        </context-group>
-      <target>Kickstart {0} konnte nicht gel&amp;ouml;scht werden, versuchen Sie es noch einmal bei Ihrer n&amp;auml;chsten Anmeldung.</target></trans-unit>
       <trans-unit id="kickstart.options.success">
         <source>Kickstart advanced options successfully updated.</source>
         <context-group name="ctx">

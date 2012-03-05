@@ -1918,12 +1918,6 @@ disponíveis para seu perfil kickstart funcionar corretamente./n&lt;/li&gt;
         <context context-type="sourcefile">/rhn/kickstart/KickstartDeleteSubmit</context>
         </context-group>
       <target>Kickstart foi removido com sucesso.</target></trans-unit>
-        <trans-unit id="kickstart.delete.failure">
-        <source>Kickstart {0} could not be deleted, try again on your next login.</source>
-        <context-group name="ctx">
-        <context context-type="sourcefile">/rhn/kickstart/KickstartDeleteSubmit</context>
-        </context-group>
-      <target>Kickstart {0} não pode ser removido; tente novamente no próximo login.</target></trans-unit>
       <trans-unit id="kickstart.options.success">
         <source>Kickstart advanced options successfully updated.</source>
         <context-group name="ctx">

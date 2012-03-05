@@ -1904,12 +1904,6 @@ available for this kickstart profile to function properly.
         <context context-type="sourcefile">/rhn/kickstart/KickstartDeleteSubmit</context>
         </context-group>
       <target>கிக்ஸ்டார்ட் வெற்றிகரமாக அழிக்கப்பட்டது.</target></trans-unit>
-        <trans-unit id="kickstart.delete.failure">
-        <source>Kickstart {0} could not be deleted, try again on your next login.</source>
-        <context-group name="ctx">
-        <context context-type="sourcefile">/rhn/kickstart/KickstartDeleteSubmit</context>
-        </context-group>
-      <target>கிக்ஸ்டார்ட் {0} வை அழிக்க முடியாது, நீங்கள் அடுத்த பதிவில் முயற்சி செய்யவும்.</target></trans-unit>
       <trans-unit id="kickstart.options.success">
         <source>Kickstart advanced options successfully updated.</source>
         <context-group name="ctx">
