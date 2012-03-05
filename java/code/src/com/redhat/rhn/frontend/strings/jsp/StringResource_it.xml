@@ -8899,12 +8899,6 @@ assegnare o rimuovere i privilegi di amministratore di satellite di un amministr
             <context context-type="sourcefile">/rhn/admin/config/GeneralConfig.do</context>
         </context-group>
       <target>Default su SSL</target></trans-unit>
-      <trans-unit id="general.jsp.defaultTo_ssl_explanation">
-<source>&lt;strong&gt;Tip:&lt;/strong&gt;This will only set the default protocol of the site to https or not. If you desire to disable https entirely please contact support</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/admin/config/GeneralConfig.do</context>
-        </context-group>
-      <target>&lt;strong&gt;Suggerimento:&lt;/strong&gt;Ciò selezionerà o deselezionerà l'impostazione del protocollo di default del sito su https. Se desiderate disabilitare totalmente https vi preghiamo di contattare il supporto tecnico</target></trans-unit>
       <trans-unit id="general.jsp.solaris">
 <source>Enable Solaris Support</source>
         <context-group name="ctx">

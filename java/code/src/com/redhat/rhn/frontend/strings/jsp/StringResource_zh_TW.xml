@@ -8897,12 +8897,6 @@ administrator privileges.</source>
             <context context-type="sourcefile">/rhn/admin/config/GeneralConfig.do</context>
         </context-group>
       <target>SSL 的預設值</target></trans-unit>
-      <trans-unit id="general.jsp.defaultTo_ssl_explanation">
-<source>&lt;strong&gt;Tip:&lt;/strong&gt;This will only set the default protocol of the site to https or not. If you desire to disable https entirely please contact support</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/admin/config/GeneralConfig.do</context>
-        </context-group>
-      <target>&lt;strong&gt;提示：&lt;/strong&gt;這只會將這網站的預設通訊協定設定為 https 與否。如果您想要完全停用 https，請聯絡支援服務</target></trans-unit>
       <trans-unit id="general.jsp.solaris">
 <source>Enable Solaris Support</source>
         <context-group name="ctx">

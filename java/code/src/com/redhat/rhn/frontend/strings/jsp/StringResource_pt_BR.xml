@@ -8905,12 +8905,6 @@ também pode atribuir ou tomar os privilégios do administrador de uma organiza�
             <context context-type="sourcefile">/rhn/admin/config/GeneralConfig.do</context>
         </context-group>
       <target>SSL como Padrão</target></trans-unit>
-      <trans-unit id="general.jsp.defaultTo_ssl_explanation">
-<source>&lt;strong&gt;Tip:&lt;/strong&gt;This will only set the default protocol of the site to https or not. If you desire to disable https entirely please contact support</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/admin/config/GeneralConfig.do</context>
-        </context-group>
-      <target>&lt;strong&gt;Dica:&lt;/strong&gt;Isto apenas configurará o protocolo padrão do site para https ou não. Se você quiser desabilitar o https totalmente por favor contate o suporte</target></trans-unit>
       <trans-unit id="general.jsp.solaris">
 <source>Enable Solaris Support</source>
         <context-group name="ctx">

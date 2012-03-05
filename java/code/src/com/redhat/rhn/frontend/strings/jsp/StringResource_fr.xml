@@ -8914,12 +8914,6 @@ administrateur d'organisation.</target></trans-unit>
             <context context-type="sourcefile">/rhn/admin/config/GeneralConfig.do</context>
         </context-group>
       <target>SSL par défaut</target></trans-unit>
-      <trans-unit id="general.jsp.defaultTo_ssl_explanation">
-<source>&lt;strong&gt;Tip:&lt;/strong&gt;This will only set the default protocol of the site to https or not. If you desire to disable https entirely please contact support</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/admin/config/GeneralConfig.do</context>
-        </context-group>
-      <target>&lt;strong&gt;Astuce&amp;nbsp;:&lt;/strong&gt; cette option ne définira que le protocole par défaut du site comme https ou non. Si vous souhaitez désactiver entièrement https, contactez l'équipe d'assistance.</target></trans-unit>
       <trans-unit id="general.jsp.solaris">
 <source>Enable Solaris Support</source>
         <context-group name="ctx">

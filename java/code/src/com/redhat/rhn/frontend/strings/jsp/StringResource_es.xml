@@ -8913,12 +8913,6 @@ y puede asignar o eliminar privilegios de administrador de satélite
             <context context-type="sourcefile">/rhn/admin/config/GeneralConfig.do</context>
         </context-group>
       <target>Predeterminado para SSL</target></trans-unit>
-      <trans-unit id="general.jsp.defaultTo_ssl_explanation">
-<source>&lt;strong&gt;Tip:&lt;/strong&gt;This will only set the default protocol of the site to https or not. If you desire to disable https entirely please contact support</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/admin/config/GeneralConfig.do</context>
-        </context-group>
-      <target>&lt;strong&gt;Consejo:&lt;/strong&gt; Esto solo establecerá el protocolo predeterminado del sitio a https o no. Si desea desactivar https en su totalidad, por favor contacte al equipo de asistencia.</target></trans-unit>
       <trans-unit id="general.jsp.solaris">
 <source>Enable Solaris Support</source>
         <context-group name="ctx">

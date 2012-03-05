@@ -8901,12 +8901,6 @@ administrator privileges.</source>
             <context context-type="sourcefile">/rhn/admin/config/GeneralConfig.do</context>
         </context-group>
       <target>SSLக்கு முன்னிருப்பு</target></trans-unit>
-      <trans-unit id="general.jsp.defaultTo_ssl_explanation">
-<source>&lt;strong&gt;Tip:&lt;/strong&gt;This will only set the default protocol of the site to https or not. If you desire to disable https entirely please contact support</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/admin/config/GeneralConfig.do</context>
-        </context-group>
-      <target>&lt;strong&gt;துணுக்கு:&lt;/strong&gt;இது httpகளுக்கு முன்னிருப்பு நெறிமுறைகளை அமைக்கும் அல்லது அமைக்காது. நீங்கள் முழு httpகளையும் செயலிழக்க விரும்பினால், உதவியை நாடவும்.</target></trans-unit>
       <trans-unit id="general.jsp.solaris">
 <source>Enable Solaris Support</source>
         <context-group name="ctx">

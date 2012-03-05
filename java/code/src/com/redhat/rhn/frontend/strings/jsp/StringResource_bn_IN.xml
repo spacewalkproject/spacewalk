@@ -8901,12 +8901,6 @@ administrator privileges.</source>
             <context context-type="sourcefile">/rhn/admin/config/GeneralConfig.do</context>
         </context-group>
       <target>ডিফল্টরূপে SSL</target></trans-unit>
-      <trans-unit id="general.jsp.defaultTo_ssl_explanation">
-<source>&lt;strong&gt;Tip:&lt;/strong&gt;This will only set the default protocol of the site to https or not. If you desire to disable https entirely please contact support</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/admin/config/GeneralConfig.do</context>
-        </context-group>
-      <target>&lt;strong&gt;উপদেশ:&lt;/strong&gt;এর দ্বারা উল্লিখিত হবে সাইটের জন্য ডিফল্ট প্রোটোকল রূপে https ব্যবহৃত হবে কি না। https সম্পূর্ণ রূপে নিষ্ক্রিয় করতে অনুগ্রহ করে আমাদের সহায়তা কেন্দ্রে যোগাযোগ করুন।</target></trans-unit>
       <trans-unit id="general.jsp.solaris">
 <source>Enable Solaris Support</source>
         <context-group name="ctx">
