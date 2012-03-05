@@ -13534,12 +13534,6 @@ file desiderati, copiare l'ultimissima versione all'interno di un set di overrid
           <context context-type="sourcefile">/rhn/configuration/channel/Copy2Channels.do</context>
         </context-group>
      <target>Selezionate i canali di configurazione centrali all'interno dei quali desiderate copiare i file selezionati:</target></trans-unit>
-	<trans-unit id="copy2channels.jsp.name">
-<source>Channel Name</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/channel/Copy2Channels.do</context>
-        </context-group>
-     <target>Nome del canale</target></trans-unit>
 	<trans-unit id="copy2channels.jsp.doCopy">
 <source>Copy To Central Channels</source>
         <context-group name="ctx">

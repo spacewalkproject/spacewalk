@@ -13536,12 +13536,6 @@ a file or files, or copy the latest version into a set of local overrides or int
           <context context-type="sourcefile">/rhn/configuration/channel/Copy2Channels.do</context>
         </context-group>
      <target>নির্বাচিত ফাইলগুলি যে কেন্দ্রিয় কনফিগারেশন চ্যানেলের মধ্যে কপি করা হবে সেগুলি নির্বাচন করুন:</target></trans-unit>
-	<trans-unit id="copy2channels.jsp.name">
-<source>Channel Name</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/channel/Copy2Channels.do</context>
-        </context-group>
-     <target>চ্যানেলের নাম</target></trans-unit>
 	<trans-unit id="copy2channels.jsp.doCopy">
 <source>Copy To Central Channels</source>
         <context-group name="ctx">

@@ -13552,12 +13552,6 @@ un ou plusieurs fichiers, ou copier la dernière version dans un ensemble de sur
           <context context-type="sourcefile">/rhn/configuration/channel/Copy2Channels.do</context>
         </context-group>
      <target>Choisir les canaux de configuration centraux dans lesquels copier les fichiers que vous avez sélectionnés&amp;nbsp;:</target></trans-unit>
-	<trans-unit id="copy2channels.jsp.name">
-<source>Channel Name</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/channel/Copy2Channels.do</context>
-        </context-group>
-     <target>Nom du canal</target></trans-unit>
 	<trans-unit id="copy2channels.jsp.doCopy">
 <source>Copy To Central Channels</source>
         <context-group name="ctx">

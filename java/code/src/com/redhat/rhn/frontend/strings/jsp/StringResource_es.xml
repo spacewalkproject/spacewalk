@@ -13549,12 +13549,6 @@ uno o varios archivos, copiar la última versión en un grupo de sobrescritura l
           <context context-type="sourcefile">/rhn/configuration/channel/Copy2Channels.do</context>
         </context-group>
      <target>Escoja los canales de configuración centrales a los cuales le gustaría copiar los archivos de configuración seleccionados:</target></trans-unit>
-	<trans-unit id="copy2channels.jsp.name">
-<source>Channel Name</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/channel/Copy2Channels.do</context>
-        </context-group>
-     <target>Nombre del canal</target></trans-unit>
 	<trans-unit id="copy2channels.jsp.doCopy">
 <source>Copy To Central Channels</source>
         <context-group name="ctx">

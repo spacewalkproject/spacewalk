@@ -13554,12 +13554,6 @@ oder alle Dateien entfernen, oder die neueste Version in ein lokales Ersatz-Set 
           <context context-type="sourcefile">/rhn/configuration/channel/Copy2Channels.do</context>
         </context-group>
      <target>W&amp;auml;hlen Sie die zentralen Konfigurations-Channels, in die Sie die von Ihnen ausgew&amp;auml;hlten Dateien kopieren m&amp;ouml;chten:</target></trans-unit>
-	<trans-unit id="copy2channels.jsp.name">
-<source>Channel Name</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/channel/Copy2Channels.do</context>
-        </context-group>
-     <target>Channel-Name</target></trans-unit>
 	<trans-unit id="copy2channels.jsp.doCopy">
 <source>Copy To Central Channels</source>
         <context-group name="ctx">
