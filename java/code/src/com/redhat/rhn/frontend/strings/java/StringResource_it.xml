@@ -5913,12 +5913,6 @@ utente prima di disabilitare l'account in questione.</target></trans-unit>
 
 
 
-    <trans-unit id="certificate.config.error.83">
-        <source>No @@PRODUCT_NAME@@ channel entitlements remaining</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-      <target>Nessun entitlement del canale @@PRODUCT_NAME@@ presente</target></trans-unit>
 
     <trans-unit id="certificate.config.error.84">
         <source>Invalid @@PRODUCT_NAME@@ certificate</source>

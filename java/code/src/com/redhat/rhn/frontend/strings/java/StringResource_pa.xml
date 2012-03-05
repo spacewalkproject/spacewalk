@@ -5891,12 +5891,6 @@ user before attempting to deactivate their account.</source>
 
 
 
-    <trans-unit id="certificate.config.error.83">
-        <source>No @@PRODUCT_NAME@@ channel entitlements remaining</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-      <target>ਕੋਈ @@PRODUCT_NAME@@ ਚੈਨਲ ਇੰਟਾਈਟਲਮੈਂਟ ਬਾਕੀ ਨਹੀਂ ਬਚੀ</target></trans-unit>
 
     <trans-unit id="certificate.config.error.84">
         <source>Invalid @@PRODUCT_NAME@@ certificate</source>
