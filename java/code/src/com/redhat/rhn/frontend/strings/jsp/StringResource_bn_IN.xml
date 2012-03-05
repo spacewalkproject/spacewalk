@@ -250,13 +250,6 @@
           <context context-type="paramnotes">Count must be a double.</context>
         </context-group>
       <target>{0}-র জন্য double ব্যবহার করা আবশ্যক।</target></trans-unit>
-      <trans-unit id="errors.date">
-<source>{0} is not a date.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Any page that has required format fields</context>
-          <context context-type="paramnotes">Start Time is not a date.</context>
-        </context-group>
-      <target>{0} date নয়।</target></trans-unit>
       <trans-unit id="errors.range">
 <source>{0} is not in the range {1} through {2}.</source>
         <context-group name="ctx">
