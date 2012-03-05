@@ -1074,12 +1074,6 @@
       <target>Crítico: Tasa de escritura</target></trans-unit>
 
 
-      <trans-unit id="Critical if number of children for any process exceeds">
-        <source>Critical if number of children for any process exceeds</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-      <target>Estado crítico si el número de hijos por cada proceso excede</target></trans-unit>
 
 
       <trans-unit id="Critical if number of stopped processes exceeds">

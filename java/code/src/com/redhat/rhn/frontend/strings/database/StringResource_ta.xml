@@ -1074,12 +1074,6 @@
       <target>சிக்கலான எழுதும் விகிதம்</target></trans-unit>
 
 
-      <trans-unit id="Critical if number of children for any process exceeds">
-        <source>Critical if number of children for any process exceeds</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-      <target>எந்த ஒரு பணியின் சேய்களின் எண்ணிக்கை கூடும் போது சிக்கல்</target></trans-unit>
 
 
       <trans-unit id="Critical if number of stopped processes exceeds">

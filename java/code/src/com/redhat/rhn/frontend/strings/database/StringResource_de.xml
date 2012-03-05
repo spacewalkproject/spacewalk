@@ -1074,12 +1074,6 @@
       <target>Kritische Schreibrate</target></trans-unit>
 
 
-      <trans-unit id="Critical if number of children for any process exceeds">
-        <source>Critical if number of children for any process exceeds</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-      <target>Kritisch, wenn Anzahl von Kindern für jeglichen Prozess darüber hinausgeht</target></trans-unit>
 
 
       <trans-unit id="Critical if number of stopped processes exceeds">
