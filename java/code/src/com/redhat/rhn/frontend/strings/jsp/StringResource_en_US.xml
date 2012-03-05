@@ -958,12 +958,6 @@
 
 
 
-	<trans-unit id="preferences.inactive-systems.name">
-         <source>Inactive Systems</source>
-		 <context-group name="ctx">
-        	<context context-type="sourcefile">/rhn/users/UserPreferences</context>
-		 </context-group>
-	</trans-unit>
 
 
 	<trans-unit id="preferences.pending-actions.name">
