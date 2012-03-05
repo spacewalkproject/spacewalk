@@ -6769,12 +6769,6 @@ Folgen Sie dieser URL f&amp;uuml;r die vollst&amp;auml;ndige Liste inaktiver Sys
       <target>Virtuelle CPUs setzen ({0})</target></trans-unit>
 
 
-      <trans-unit id="systems.details.virt.guest.already.stopped">
-        <source>This system is already stopped.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
-        </context-group>
-      <target>Dieses System wurde bereits angehalten.</target></trans-unit>
 
 
 

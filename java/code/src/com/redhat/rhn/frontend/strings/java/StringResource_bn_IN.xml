@@ -6744,12 +6744,6 @@ Follow this url to see the full list of inactive systems:
       <target>ভার্চুয়াল CPU নির্ধারণ করুন ({0})</target></trans-unit>
 
 
-      <trans-unit id="systems.details.virt.guest.already.stopped">
-        <source>This system is already stopped.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
-        </context-group>
-      <target>সিস্টেম বর্তমানে বন্ধ অবস্থায় রয়েছে।</target></trans-unit>
 
 
 

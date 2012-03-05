@@ -6763,12 +6763,6 @@ Follow this url to see the full list of inactive systems:
       <target>设置虚拟 CPU（{0}）</target></trans-unit>
 
 
-      <trans-unit id="systems.details.virt.guest.already.stopped">
-        <source>This system is already stopped.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
-        </context-group>
-      <target>系统已经被停止。</target></trans-unit>
 
 
 
