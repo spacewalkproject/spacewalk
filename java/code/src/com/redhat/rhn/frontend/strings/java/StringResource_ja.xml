@@ -2301,12 +2301,6 @@ rhn-kickstart* パッケージが利用可能であることを確認します�
           <context context-type="sourcefile">/rhn/account/UserDetails</context>
         </context-group>
       <target>アクティベーションキーの管理者</target></trans-unit>
-      <trans-unit id="normal_user">
-<source>(normal user)</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/account/UserDetails</context>
-        </context-group>
-      <target>(通常のユーザー)</target></trans-unit>
       <trans-unit id="Admin Access">
 <source>Admin Access</source>
         <context-group name="ctx">

@@ -2301,12 +2301,6 @@ disponibili per un corretto funzionamento di questo profilo kickstart.
           <context context-type="sourcefile">/rhn/account/UserDetails</context>
         </context-group>
       <target>Amministratore chiave di attivazione</target></trans-unit>
-      <trans-unit id="normal_user">
-<source>(normal user)</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/account/UserDetails</context>
-        </context-group>
-      <target>(utente normale)</target></trans-unit>
       <trans-unit id="Admin Access">
 <source>Admin Access</source>
         <context-group name="ctx">

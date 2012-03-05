@@ -2308,12 +2308,6 @@ verfügbar machen, damit dieses Kickstart-Profil einwandfrei funktionieren kann.
           <context context-type="sourcefile">/rhn/account/UserDetails</context>
         </context-group>
       <target>Aktivierungsschl&amp;uuml;ssel-Administrator</target></trans-unit>
-      <trans-unit id="normal_user">
-<source>(normal user)</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/account/UserDetails</context>
-        </context-group>
-      <target>(normaler Benutzer)</target></trans-unit>
       <trans-unit id="Admin Access">
 <source>Admin Access</source>
         <context-group name="ctx">

@@ -2277,12 +2277,6 @@ available for this kickstart profile to function properly.
           <context context-type="sourcefile">/rhn/account/UserDetails</context>
         </context-group>
       <target>啟動金鑰管理員</target></trans-unit>
-      <trans-unit id="normal_user">
-<source>(normal user)</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/account/UserDetails</context>
-        </context-group>
-      <target>（一般使用者）</target></trans-unit>
       <trans-unit id="Admin Access">
 <source>Admin Access</source>
         <context-group name="ctx">

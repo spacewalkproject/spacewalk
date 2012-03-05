@@ -2277,12 +2277,6 @@ available for this kickstart profile to function properly.
           <context context-type="sourcefile">/rhn/account/UserDetails</context>
         </context-group>
       <target>Администратор ключа активации</target></trans-unit>
-      <trans-unit id="normal_user">
-<source>(normal user)</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/account/UserDetails</context>
-        </context-group>
-      <target>(обычный пользователь)</target></trans-unit>
       <trans-unit id="Admin Access">
 <source>Admin Access</source>
         <context-group name="ctx">
