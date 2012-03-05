@@ -7814,9 +7814,6 @@ url பின்பற்றி செயலிழக்கப்பட்ட �
           <source>Succesfully added {1} package(s) and scheduled {0} errata to be cloned to channel {2}.  The cloned Errata should appear in the channel and applicable to systems within a few minutes.</source>
      <target>{1} தொகுப்பு(களை) வெற்றிகரமாக சேர்த்து {0} பிழைத்திருத்தங்களை சேனல் {2}க்கு க்ளோன் செய்ய திட்டமிடப்பட்டது.  இந்த க்ளோன் செய்யப்பட்ட பிழைத்திருத்தம் சேனலில் தோன்றி சில நிமிடங்களுக்குள் செயல்படுத்தப்பட வேண்டும்.</target></trans-unit>
 
-       <trans-unit id="frontend.actions.channels.manager.add.clone">
-          <source>"Clone"</source>
-     <target>"Clone"</target></trans-unit>
 
        <trans-unit id="frontend.actions.channels.manager.add.permsfailure">
           <source>You do not have sufficient permissions to perform this action.</source>

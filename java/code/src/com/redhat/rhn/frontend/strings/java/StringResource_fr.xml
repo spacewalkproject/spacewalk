@@ -7841,9 +7841,6 @@ Suivez cet url pour obtenir la liste complète des systèmes inactifs :
           <source>Succesfully added {1} package(s) and scheduled {0} errata to be cloned to channel {2}.  The cloned Errata should appear in the channel and applicable to systems within a few minutes.</source>
      <target>Paquetage(s) {1} correctement ajouté(s) et les Errata planifiés dupliqués sur le canal {2}. Les Errata dupliqués devraient apparaître dans le canal et être applicables aux systèmes en quelques minutes.</target></trans-unit>
 
-       <trans-unit id="frontend.actions.channels.manager.add.clone">
-          <source>"Clone"</source>
-     <target>"Clone"</target></trans-unit>
 
        <trans-unit id="frontend.actions.channels.manager.add.permsfailure">
           <source>You do not have sufficient permissions to perform this action.</source>

@@ -7813,9 +7813,6 @@ Follow this url to see the full list of inactive systems:
           <source>Succesfully added {1} package(s) and scheduled {0} errata to be cloned to channel {2}.  The cloned Errata should appear in the channel and applicable to systems within a few minutes.</source>
      <target>成功地新增了 {1} 個套件並排程了 {0} 個勘誤來被複製至頻道 {2}。被複製的勘誤應在幾分鐘之內出現在頻道中並且可供系統使用。</target></trans-unit>
 
-       <trans-unit id="frontend.actions.channels.manager.add.clone">
-          <source>"Clone"</source>
-     <target>「複製」</target></trans-unit>
 
        <trans-unit id="frontend.actions.channels.manager.add.permsfailure">
           <source>You do not have sufficient permissions to perform this action.</source>

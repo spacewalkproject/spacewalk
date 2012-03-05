@@ -7838,9 +7838,6 @@ Follow this url to see the full list of inactive systems:
           <source>Succesfully added {1} package(s) and scheduled {0} errata to be cloned to channel {2}.  The cloned Errata should appear in the channel and applicable to systems within a few minutes.</source>
      <target>チャンネル {2} にクローンするための {1} パッケージとスケジュールされた {0} エラータが正しく追加されました。クローンされたエラータは数分でチャンネルに表示され、システムに適応できるようになるはずです。</target></trans-unit>
 
-       <trans-unit id="frontend.actions.channels.manager.add.clone">
-          <source>"Clone"</source>
-     <target>"クローン"</target></trans-unit>
 
        <trans-unit id="frontend.actions.channels.manager.add.permsfailure">
           <source>You do not have sufficient permissions to perform this action.</source>

@@ -7820,9 +7820,6 @@ Follow this url to see the full list of inactive systems:
           <source>Succesfully added {1} package(s) and scheduled {0} errata to be cloned to channel {2}.  The cloned Errata should appear in the channel and applicable to systems within a few minutes.</source>
      <target>{2} চ্যানেলের মধ্যে {1} প্যাকেজ সাফল্যের সাথে যোগ করা হয়েছে ও {0} ত্রুটি-বিচ্যুতির প্রতিলিপ নির্মাণের কর্ম নির্ধারিত হয়েছে। ত্রুটি-বিচ্যুতির প্রতিলিপ নির্মাণ করা হলে সেগুলি চ্যানেলের মধ্যে প্রদর্শিত হবে ও কয়েক মিনিটের মধ্যে সিস্টেমে প্রয়োগ করা হবে।</target></trans-unit>
 
-       <trans-unit id="frontend.actions.channels.manager.add.clone">
-          <source>"Clone"</source>
-     <target>"ক্লোন করুন"</target></trans-unit>
 
        <trans-unit id="frontend.actions.channels.manager.add.permsfailure">
           <source>You do not have sufficient permissions to perform this action.</source>

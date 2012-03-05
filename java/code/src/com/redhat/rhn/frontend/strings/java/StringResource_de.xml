@@ -7845,9 +7845,6 @@ Folgen Sie dieser URL f&amp;uuml;r die vollst&amp;auml;ndige Liste inaktiver Sys
           <source>Succesfully added {1} package(s) and scheduled {0} errata to be cloned to channel {2}.  The cloned Errata should appear in the channel and applicable to systems within a few minutes.</source>
      <target>Erfolgreich {1} Paket(e) hinzugefügt und {0} Errata eingeplant für das Klonen zum Channel {2}.  Die geklonten Errata sollten innerhalb weniger Minuten im Channel erscheinen und auf Systeme anwendbar sein.</target></trans-unit>
 
-       <trans-unit id="frontend.actions.channels.manager.add.clone">
-          <source>"Clone"</source>
-     <target>"Klonen"</target></trans-unit>
 
        <trans-unit id="frontend.actions.channels.manager.add.permsfailure">
           <source>You do not have sufficient permissions to perform this action.</source>

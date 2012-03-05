@@ -7838,9 +7838,6 @@ Seguite l'url sotto riportato per visualizzare l'elenco completo di sistemi inat
           <source>Succesfully added {1} package(s) and scheduled {0} errata to be cloned to channel {2}.  The cloned Errata should appear in the channel and applicable to systems within a few minutes.</source>
      <target>Aggiunto con successo {1} pacchetto/i e programmato {0} errata da clonare per il canale {2}. L'errata clonata dovrebbe apparire nel canale e sarà applicabile ai sistemi tra pochi minuti.</target></trans-unit>
 
-       <trans-unit id="frontend.actions.channels.manager.add.clone">
-          <source>"Clone"</source>
-     <target>"Clona"</target></trans-unit>
 
        <trans-unit id="frontend.actions.channels.manager.add.permsfailure">
           <source>You do not have sufficient permissions to perform this action.</source>
