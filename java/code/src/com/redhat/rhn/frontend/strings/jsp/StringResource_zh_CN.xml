@@ -19487,16 +19487,6 @@ Emergency Maintenance windows.&lt;a href="{0}"&gt;Register for the Email Outage 
           <context context-type="sourcefile">/rhn/software/downloads/AllISOs.do</context>
         </context-group>
       <target>下载软件</target></trans-unit>
-      <trans-unit id="common.download.alert">
-<source>
-We have received reports of Internet Explorer having problems downloading ISOs. If you are experiencing problems, we recommend using a download manager program or another browser.
-</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/software/downloads/AllISOs.do</context>
-        </context-group>
-      <target>
-我们已经接收到关于 Internet Explorer 不能下载 ISO 的报告。如果你遇到任何问题，我们推荐使用下载管理程序或其它浏览器。
-</target></trans-unit>
       <trans-unit id="common.download.channel-name">
 <source>Download Software</source>
         <context-group name="ctx">

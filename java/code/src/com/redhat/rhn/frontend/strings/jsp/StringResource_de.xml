@@ -19496,16 +19496,6 @@ Notfall-Wartungsfenstern f&amp;uuml;r Benachrichtigungen verwendet.
           <context context-type="sourcefile">/rhn/software/downloads/AllISOs.do</context>
         </context-group>
       <target>Download Software</target></trans-unit>
-      <trans-unit id="common.download.alert">
-<source>
-We have received reports of Internet Explorer having problems downloading ISOs. If you are experiencing problems, we recommend using a download manager program or another browser.
-</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/software/downloads/AllISOs.do</context>
-        </context-group>
-      <target>
-Wie uns berichtet wurde, hat der Internet Explorer Probleme beim Herunterladen von ISOs. Sollten Sie Schwierigkeiten haben, empfehlen wir den Einsatz eines Download-Manager-Programms oder eines anderen Browsers.
-</target></trans-unit>
       <trans-unit id="common.download.channel-name">
 <source>Download Software</source>
         <context-group name="ctx">

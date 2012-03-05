@@ -19493,16 +19493,6 @@ et Red Hat l'utilisera en cas de fenêtres de maintenance d'urgence et non progr
           <context context-type="sourcefile">/rhn/software/downloads/AllISOs.do</context>
         </context-group>
       <target>Télécharger le logiciel</target></trans-unit>
-      <trans-unit id="common.download.alert">
-<source>
-We have received reports of Internet Explorer having problems downloading ISOs. If you are experiencing problems, we recommend using a download manager program or another browser.
-</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/software/downloads/AllISOs.do</context>
-        </context-group>
-      <target>
-Nous avons reçu des rapports sur des problèmes de téléchargement d'ISO avec Internet Explorer. Si vous rencontrez des problèmes, nous vous recommandons d'utiliser un programme de gestion de téléchargement ou un autre navigateur.
-</target></trans-unit>
       <trans-unit id="common.download.channel-name">
 <source>Download Software</source>
         <context-group name="ctx">

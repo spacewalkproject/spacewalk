@@ -19488,16 +19488,6 @@ pela Red Hat no caso de Períodos de Manutenção Não Programados ou
           <context context-type="sourcefile">/rhn/software/downloads/AllISOs.do</context>
         </context-group>
       <target>Baixar Software</target></trans-unit>
-      <trans-unit id="common.download.alert">
-<source>
-We have received reports of Internet Explorer having problems downloading ISOs. If you are experiencing problems, we recommend using a download manager program or another browser.
-</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/software/downloads/AllISOs.do</context>
-        </context-group>
-      <target>
-Nós recebemos relatórios informando de que o Internet Explorer experienciou problemas na realização do download dos ISOs. Caso você tenha enfrentado dificuldades, recomendamos o uso do programa gerenciador do download ou outro navegador.
-</target></trans-unit>
       <trans-unit id="common.download.channel-name">
 <source>Download Software</source>
         <context-group name="ctx">

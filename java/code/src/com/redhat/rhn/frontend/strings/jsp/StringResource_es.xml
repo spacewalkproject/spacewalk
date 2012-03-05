@@ -19492,16 +19492,6 @@ para anunciar periodos de mantenimiento de Emergencia y no programados.
           <context context-type="sourcefile">/rhn/software/downloads/AllISOs.do</context>
         </context-group>
       <target>Descargar software</target></trans-unit>
-      <trans-unit id="common.download.alert">
-<source>
-We have received reports of Internet Explorer having problems downloading ISOs. If you are experiencing problems, we recommend using a download manager program or another browser.
-</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/software/downloads/AllISOs.do</context>
-        </context-group>
-      <target>
-Hemos recibido reportes de que Internet Explorer tiene problemas al descargar los ISOs. Si está teniendo problemas, le recomendamos el utilizar un programa administrador de descargas u otro navegador.
-</target></trans-unit>
       <trans-unit id="common.download.channel-name">
 <source>Download Software</source>
         <context-group name="ctx">
