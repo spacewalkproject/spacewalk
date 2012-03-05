@@ -4684,12 +4684,6 @@ value for this entitlement, excluding the default organization's consumption.</s
           <context context-type="sourcefile">/rhn/errata/Search</context>
         </context-group>
       <target>பிழைத்திருத்த அறிவிப்பி</target></trans-unit>
-<trans-unit id="erratasearch.jsp.package_name">
-<source>Package Name</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/errata/Search</context>
-        </context-group>
-      <target>தொகுப்பு பெயர்</target></trans-unit>
       <trans-unit id="simple_errata_search">
 <source>Synopsis</source>
         <context-group name="ctx">
