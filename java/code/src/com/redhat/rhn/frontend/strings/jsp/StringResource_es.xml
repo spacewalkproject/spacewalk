@@ -12867,12 +12867,6 @@ el &lt;strong&gt;Manual de administración del sistema Red Hat Enterprise Linux.
           <context context-type="sourcefile">Any page with required posix name fields</context>
         </context-group>
       <target>El nombre es obligatorio.</target></trans-unit>
-      <trans-unit id="channelOverview.jsp.empty-descr">
-<source>Description is required.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Any page with required posix name fields</context>
-        </context-group>
-      <target>La descripción es obligatoria.</target></trans-unit>
      <trans-unit id="toolbar.delete.configchannel">
 <source>delete channel</source>
         <context-group name="ctx">

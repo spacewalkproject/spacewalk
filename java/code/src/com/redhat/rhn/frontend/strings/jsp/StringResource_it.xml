@@ -12851,12 +12851,6 @@ la &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stron
           <context context-type="sourcefile">Any page with required posix name fields</context>
         </context-group>
       <target>È necessario il nome.</target></trans-unit>
-      <trans-unit id="channelOverview.jsp.empty-descr">
-<source>Description is required.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Any page with required posix name fields</context>
-        </context-group>
-      <target>È richiesta una descrizione.</target></trans-unit>
      <trans-unit id="toolbar.delete.configchannel">
 <source>delete channel</source>
         <context-group name="ctx">

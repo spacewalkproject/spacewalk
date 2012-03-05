@@ -12849,12 +12849,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
           <context context-type="sourcefile">Any page with required posix name fields</context>
         </context-group>
       <target>성명은 필수 입력 항목입니다.</target></trans-unit>
-      <trans-unit id="channelOverview.jsp.empty-descr">
-<source>Description is required.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Any page with required posix name fields</context>
-        </context-group>
-      <target>설명은 필수 입력 항목입니다.</target></trans-unit>
      <trans-unit id="toolbar.delete.configchannel">
 <source>delete channel</source>
         <context-group name="ctx">
