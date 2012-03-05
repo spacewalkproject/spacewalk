@@ -18957,12 +18957,6 @@ Not sure how to download and use these images? &lt;a href="{0}"&gt;Check out our
 		  </context>
         </context-group>
       <target></target></trans-unit>
-      <trans-unit id="isodownload.header.iso">
-<source>ISO</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/software/channel/downloads/Download.do</context>
-        </context-group>
-      <target>ISO</target></trans-unit>
       <trans-unit id="isodownload.header.size">
 <source>Size</source>
         <context-group name="ctx">
