@@ -3455,12 +3455,6 @@ user before attempting to deactivate their account.</source>
         </context-group>
       <target>ਘੱਟੋ-ਘੱਟ ਇੱਕ ਪੈਕੇਜ ਨੂੰ ਅੱਪਗਰੇਡ ਕਰਨ ਲਈ ਚੁਣੋ।</target></trans-unit>
 
-      <trans-unit id="download.none">
-<source>Choose at least one package to download.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/packages/UpgradableList</context>
-        </context-group>
-      <target>ਡਾਊਨਲੋਡ ਕਰਨ ਲਈ ਘੱਟੋ-ਘੱਟ ਇੱਕ ਪੈਕੇਜ ਦੀ ਚੋਣ ਕਰੋ।</target></trans-unit>
 
       <trans-unit id="download.toomany">
 <source>At most {0} packages may be downloaded as a tarball at one time; please reduce your selection size.</source>

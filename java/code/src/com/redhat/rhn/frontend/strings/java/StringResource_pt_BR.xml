@@ -3465,12 +3465,6 @@ user before attempting to deactivate their account.</source>
         </context-group>
       <target>Selecione no mínimo um pacote a atualizar.</target></trans-unit>
 
-      <trans-unit id="download.none">
-<source>Choose at least one package to download.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/packages/UpgradableList</context>
-        </context-group>
-      <target>Selecione no mínimo um pacote para download.</target></trans-unit>
 
       <trans-unit id="download.toomany">
 <source>At most {0} packages may be downloaded as a tarball at one time; please reduce your selection size.</source>
