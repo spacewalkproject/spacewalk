@@ -15779,12 +15779,6 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
         </context-group>
       <target>작업</target></trans-unit>
 
-     <trans-unit id="virtualguests_confirm.jsp.schedule">
-<source>Schedule</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/virtualization/VirtualGuestsConfirm.do</context>
-        </context-group>
-      <target>스케줄</target></trans-unit>
 
       <trans-unit id="distro-delete.jsp.profilesusing">
         <source>&lt;strong&gt;NOTE:&lt;/strong&gt; The Kickstart Distribution you have chosen to delete is in use by the following Kickstart Profiles.  You must change the Distribution used in the profiles below before deleting this Distribution.  Click the label in the link to edit the profile's Distribution.</source>
