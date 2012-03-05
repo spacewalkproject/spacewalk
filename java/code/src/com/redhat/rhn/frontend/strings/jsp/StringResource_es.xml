@@ -19495,12 +19495,6 @@ Opcionalmente descargue los &lt;strong&gt;ISOs de contenido de canal de incremen
       <target>Sistema huésped</target></trans-unit>
 
 
-      <trans-unit id="guestslimited.jsp.total_active">
-<source>Total Active Guests</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
-        </context-group>
-      <target>Huéspedes activos en total</target></trans-unit>
 
 
       <trans-unit id="physicalhosts.jsp.guestsystem">

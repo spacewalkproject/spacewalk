@@ -19490,12 +19490,6 @@ Do contrário, você deverá baixar os  &lt;strong&gt;ISOs de Conteúdo do Canal
       <target>Sistema da Máquina</target></trans-unit>
 
 
-      <trans-unit id="guestslimited.jsp.total_active">
-<source>Total Active Guests</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
-        </context-group>
-      <target>Total de Convidados Ativos</target></trans-unit>
 
 
       <trans-unit id="physicalhosts.jsp.guestsystem">

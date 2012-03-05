@@ -19419,12 +19419,6 @@ Alternatively, you will want to download &lt;strong&gt;Incremental Channel Conte
       <target>मेजबानित सिस्टम</target></trans-unit>
 
 
-      <trans-unit id="guestslimited.jsp.total_active">
-<source>Total Active Guests</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
-        </context-group>
-      <target>कुल सक्रिय अतिथि.</target></trans-unit>
 
 
       <trans-unit id="physicalhosts.jsp.guestsystem">

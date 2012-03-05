@@ -19470,12 +19470,6 @@ Alternatively, you will want to download &lt;strong&gt;Incremental Channel Conte
       <target>ホストシステム</target></trans-unit>
 
 
-      <trans-unit id="guestslimited.jsp.total_active">
-<source>Total Active Guests</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
-        </context-group>
-      <target>アクティブなゲストの合計</target></trans-unit>
 
 
       <trans-unit id="physicalhosts.jsp.guestsystem">
