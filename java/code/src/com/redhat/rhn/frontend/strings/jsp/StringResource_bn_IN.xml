@@ -4005,12 +4005,6 @@ deducted from the default organization.</source>
           <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementDetails</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="softwareEntitlementDetails.header.entitlementUsage.organizationUsage.counts">
-          <source>&lt;strong&gt;{0}&lt;/strong&gt; of the &lt;strong&gt;{1}&lt;/strong&gt; organizations on this @@PRODUCT_NAME@@ have at least one registered system using this entitlement.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementDetails</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="softwareEntitlementDetails.header.accessGranted">
 <source>Access Granted by this Entitlement</source>
         <context-group name="ctx">

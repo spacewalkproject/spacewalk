@@ -4003,12 +4003,6 @@ serviços de uma organização não-padrão, eles serão deduzidos da organizaç
           <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementDetails</context>
         </context-group>
       <target>Total: &lt;strong&gt;{0}&lt;/strong&gt;, Usado: &lt;strong&gt;{1}&lt;/strong&gt;, Livre: &lt;strong&gt;{2}&lt;/strong&gt;</target></trans-unit>
-      <trans-unit id="softwareEntitlementDetails.header.entitlementUsage.organizationUsage.counts">
-          <source>&lt;strong&gt;{0}&lt;/strong&gt; of the &lt;strong&gt;{1}&lt;/strong&gt; organizations on this @@PRODUCT_NAME@@ have at least one registered system using this entitlement.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementDetails</context>
-        </context-group>
-      <target>&lt;strong&gt;{0}&lt;/strong&gt; das organizações &lt;strong&gt;{1}&lt;/strong&gt; neste @@PRODUCT_NAME@@, possuem ao menos um sistema registrado usando este serviço.</target></trans-unit>
       <trans-unit id="softwareEntitlementDetails.header.accessGranted">
 <source>Access Granted by this Entitlement</source>
         <context-group name="ctx">

@@ -3998,12 +3998,6 @@ deducted from the default organization.</source>
           <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementDetails</context>
         </context-group>
       <target>合計: &lt;strong&gt;{0} システム&lt;/strong&gt;、使用中: &lt;strong&gt;{1}&lt;/strong&gt;、 空き: &lt;strong&gt;{2}&lt;/strong&gt;</target></trans-unit>
-      <trans-unit id="softwareEntitlementDetails.header.entitlementUsage.organizationUsage.counts">
-          <source>&lt;strong&gt;{0}&lt;/strong&gt; of the &lt;strong&gt;{1}&lt;/strong&gt; organizations on this @@PRODUCT_NAME@@ have at least one registered system using this entitlement.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementDetails</context>
-        </context-group>
-      <target>この @@PRODUCT_NAME@@ 上の &lt;strong&gt;{1}&lt;/strong&gt; 組織の内、&lt;strong&gt;{0}&lt;/strong&gt; は このエンタイトルメントを使用して 1 つ以上の登録済みシステムを持っています。</target></trans-unit>
       <trans-unit id="softwareEntitlementDetails.header.accessGranted">
 <source>Access Granted by this Entitlement</source>
         <context-group name="ctx">
