@@ -1253,19 +1253,6 @@
         </context-group>
       <target>તમારા વર્તમાન ઈમેઈલ સરનામાની ખાતરી થઈ ગયેલ છે. જો તમે તેને બદલવા ઈચ્છો, તો મહેરબાની કરીને નવું સરનામું નીચે દાખલ કરો અને 'સુધારો' ક્લિક કરો.'</target></trans-unit>
 
-      <trans-unit id="yourchangeemail.unverified">
-<source> In accordance with the {0}, you must have a verified email address in order to receive service. Currently your email address has not yet been verified. If you wish to change your address, or would like to have your email verification re-sent, please input your email address below and click 'Send Verification.' </source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/account/ChangeEmail</context>
-          <context context-type="paramnotes">
-    In accordance with the @@PRODUCT_NAME@@ Terms and Conditions, you must
-    have a verified email address in order to receive service. Currently your
-    email address has not yet been verified. If you wish to change your
-    address, or would like to have your email verification re-sent, please
-    input your email address below and click 'Send Verification.'
-          </context>
-        </context-group>
-      <target> {0} સાથે, સેવા મેળવવા માટે તમારી પાસે માન્ય થયેલ ઈમેઈલ સરનામું હોવું જ જોઈએ. વર્તમાનમાં તમારા સરનામાની ખાતરી હજુ સુધી થયેલ નથી. જો તમે તમારું સરનામું બદલવા માંગો, અથવા તમારી ઈમેઈલ ખાતરી પુનઃ-મોકલવા માંગો, તો મહેરબાની કરીને તમારું ઈમેઈલ સરનામું નીચે ઈનપુટ કરો અને 'ખાતરી મોકલો' ક્લિક કરો.' </target></trans-unit>
 
       <trans-unit id="yourchangeemail.instructions">
 <source>Please enter your new email address below.</source>

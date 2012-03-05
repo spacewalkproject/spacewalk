@@ -1253,19 +1253,6 @@
         </context-group>
       <target>現在の Email アドレスは確認されています。 これを変更する場合は、 新しいアドレスを以下に入力してから「更新」をクリックしてください。</target></trans-unit>
 
-      <trans-unit id="yourchangeemail.unverified">
-<source> In accordance with the {0}, you must have a verified email address in order to receive service. Currently your email address has not yet been verified. If you wish to change your address, or would like to have your email verification re-sent, please input your email address below and click 'Send Verification.' </source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/account/ChangeEmail</context>
-          <context context-type="paramnotes">
-    In accordance with the @@PRODUCT_NAME@@ Terms and Conditions, you must
-    have a verified email address in order to receive service. Currently your
-    email address has not yet been verified. If you wish to change your
-    address, or would like to have your email verification re-sent, please
-    input your email address below and click 'Send Verification.'
-          </context>
-        </context-group>
-      <target> {0} に定められている通り、 サービスをお受け取りになるためには確認されている Email アドレスがなければなりません。 現在、 ユーザー Email アドレスは未だ確認されていません。 ご使用のアドレスを変更する、 または Email の確認の再送をお受け取りになられたい場合には、 ご使用の Email アドレスを以下に入力してから「確認を送信」をクリックしてください。</target></trans-unit>
 
       <trans-unit id="yourchangeemail.instructions">
 <source>Please enter your new email address below.</source>

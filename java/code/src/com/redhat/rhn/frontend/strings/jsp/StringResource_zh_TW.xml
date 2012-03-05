@@ -1253,19 +1253,6 @@
         </context-group>
       <target>您目前的電子郵件已經驗證。如果您想要改變電子郵件，請在以下輸入您的新地址後按下「更新」。</target></trans-unit>
 
-      <trans-unit id="yourchangeemail.unverified">
-<source> In accordance with the {0}, you must have a verified email address in order to receive service. Currently your email address has not yet been verified. If you wish to change your address, or would like to have your email verification re-sent, please input your email address below and click 'Send Verification.' </source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/account/ChangeEmail</context>
-          <context context-type="paramnotes">
-    In accordance with the @@PRODUCT_NAME@@ Terms and Conditions, you must
-    have a verified email address in order to receive service. Currently your
-    email address has not yet been verified. If you wish to change your
-    address, or would like to have your email verification re-sent, please
-    input your email address below and click 'Send Verification.'
-          </context>
-        </context-group>
-      <target> 為了與 {0} 一致，您必須擁有驗證過的電子郵件地址，以接收服務。目前您的電子郵件地址尚未通過認證。如果您想要改變您的地址，或想要再次收到電子郵件驗證，請在下方輸入您的電子郵件地址，按下「發送驗證」。</target></trans-unit>
 
       <trans-unit id="yourchangeemail.instructions">
 <source>Please enter your new email address below.</source>

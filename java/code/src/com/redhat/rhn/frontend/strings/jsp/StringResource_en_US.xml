@@ -1269,19 +1269,6 @@
         </context-group>
       </trans-unit>
 
-      <trans-unit id="yourchangeemail.unverified">
-<source> In accordance with the {0}, you must have a verified email address in order to receive service. Currently your email address has not yet been verified. If you wish to change your address, or would like to have your email verification re-sent, please input your email address below and click 'Send Verification.' </source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/account/ChangeEmail</context>
-          <context context-type="paramnotes">
-    In accordance with the @@PRODUCT_NAME@@ Terms and Conditions, you must
-    have a verified email address in order to receive service. Currently your
-    email address has not yet been verified. If you wish to change your
-    address, or would like to have your email verification re-sent, please
-    input your email address below and click 'Send Verification.'
-          </context>
-        </context-group>
-      </trans-unit>
 
       <trans-unit id="yourchangeemail.instructions">
 <source>Please enter your new email address below.</source>

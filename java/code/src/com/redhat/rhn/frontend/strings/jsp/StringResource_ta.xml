@@ -1253,19 +1253,6 @@
         </context-group>
       <target>உங்கள் நடப்பு மின்னஞ்சல் முகவரி சரிபார்க்கப்பட்டது. நீங்கள் அதனை மாற்ற வேண்டுமென்று நினைத்தால் புதிய முகவரியை கீழே உள்ளிட்டு 'மேம்படுத்தல்' என்பதை சொடுக்கவும். ஒரு மின்னஞ்சல் அந்த முகவரிக்கு அனுப்பப்படும், அதில் ஒரு இணைப்பு இருக்கும் அதனை சொடுக்கி மாற்றத்தை சரிபார்க்க வேண்டும்.</target></trans-unit>
 
-      <trans-unit id="yourchangeemail.unverified">
-<source> In accordance with the {0}, you must have a verified email address in order to receive service. Currently your email address has not yet been verified. If you wish to change your address, or would like to have your email verification re-sent, please input your email address below and click 'Send Verification.' </source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/account/ChangeEmail</context>
-          <context context-type="paramnotes">
-    In accordance with the @@PRODUCT_NAME@@ Terms and Conditions, you must
-    have a verified email address in order to receive service. Currently your
-    email address has not yet been verified. If you wish to change your
-    address, or would like to have your email verification re-sent, please
-    input your email address below and click 'Send Verification.'
-          </context>
-        </context-group>
-      <target>{0} வின் படி சேவைகளை பெற உங்கள் மின்னஞ்சல் முகவரி சரிபார்க்கப்பட்டதாக இருக்க வேண்டும். தற்போது உங்கள் மின்னஞ்சல் முகவரி சரிபார்க்கப்படவில்லை. உங்கள் முகவரியை மாற்ற வேண்டும் அல்லது மின்னஞ்சலை சரிபார்க்க வேண்டுமென்றால் மீண்டும் அனுப்பவும், உங்கள் மின்னஞ்சல் முகவரியை கீழே உள்ளிட்டு 'சரிபார்த்ததை அனுப்பவும்' என்பதை சொடுக்கவும்.</target></trans-unit>
 
       <trans-unit id="yourchangeemail.instructions">
 <source>Please enter your new email address below.</source>

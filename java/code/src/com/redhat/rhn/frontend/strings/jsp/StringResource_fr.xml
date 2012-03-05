@@ -1253,19 +1253,6 @@
         </context-group>
       <target>Votre adresse électronique courante a été vérifiée. Si vous souhaitez la changer, saisissez votre nouvelle adresse ci-dessous et cliquez sur "Mettre à jour".</target></trans-unit>
 
-      <trans-unit id="yourchangeemail.unverified">
-<source> In accordance with the {0}, you must have a verified email address in order to receive service. Currently your email address has not yet been verified. If you wish to change your address, or would like to have your email verification re-sent, please input your email address below and click 'Send Verification.' </source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/account/ChangeEmail</context>
-          <context context-type="paramnotes">
-    In accordance with the @@PRODUCT_NAME@@ Terms and Conditions, you must
-    have a verified email address in order to receive service. Currently your
-    email address has not yet been verified. If you wish to change your
-    address, or would like to have your email verification re-sent, please
-    input your email address below and click 'Send Verification.'
-          </context>
-        </context-group>
-      <target>Selon les {0}, vous devez avoir une adresse électronique vérifiée pour recevoir le service. Actuellement, votre adresse électronique n'a pas encore été vérifiée. Si vous souhaitez changer votre adresse ou si vous souhaitez que la vérification de votre adresse électronique vous soit de nouveau envoyée, saisissez votre adresse électronique ci-dessous et cliquez sur "Envoyer la vérification".</target></trans-unit>
 
       <trans-unit id="yourchangeemail.instructions">
 <source>Please enter your new email address below.</source>
