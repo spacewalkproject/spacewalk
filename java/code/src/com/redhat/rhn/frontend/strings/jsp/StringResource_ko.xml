@@ -19653,12 +19653,6 @@ given channel.</source>
           <context context-type="sourcefile">/rhn/channels/software/Search.do</context>
         </context-group>
       <target>검색 </target></trans-unit>
-       <trans-unit id="toolbar.delete.channel">
-         <source>delete software channel</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/manage/errata//Add.do</context>
-        </context-group>
-     <target>소프트웨어 채널 삭제 </target></trans-unit>
        <trans-unit id="header.jsp.errata.add">
          <source>Add Errata</source>
         <context-group name="ctx">

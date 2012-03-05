@@ -19783,12 +19783,6 @@ f&amp;uuml;r einen angegebenen Channel aufgelistet wird.</target></trans-unit>
           <context context-type="sourcefile">/rhn/channels/software/Search.do</context>
         </context-group>
       <target>Suche</target></trans-unit>
-       <trans-unit id="toolbar.delete.channel">
-         <source>delete software channel</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/manage/errata//Add.do</context>
-        </context-group>
-     <target>Software-Channel l&amp;ouml;schen</target></trans-unit>
        <trans-unit id="header.jsp.errata.add">
          <source>Add Errata</source>
         <context-group name="ctx">

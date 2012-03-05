@@ -19661,12 +19661,6 @@ stesso pacchetto in un singolo canale, ciò potrebbe causare però il
           <context context-type="sourcefile">/rhn/channels/software/Search.do</context>
         </context-group>
       <target>Cerca</target></trans-unit>
-       <trans-unit id="toolbar.delete.channel">
-         <source>delete software channel</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/manage/errata//Add.do</context>
-        </context-group>
-     <target>cancella canale software</target></trans-unit>
        <trans-unit id="header.jsp.errata.add">
          <source>Add Errata</source>
         <context-group name="ctx">
