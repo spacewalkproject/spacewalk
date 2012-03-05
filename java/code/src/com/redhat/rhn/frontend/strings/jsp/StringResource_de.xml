@@ -3456,9 +3456,6 @@ dr&amp;uuml;cken und &lt;b&gt;k&amp;ouml;nnen sich nicht wieder einloggen&lt;/b&
           <context context-type="sourcefile">/rhn/errata/AllErrata</context>
         </context-group>
       <target>Typ</target></trans-unit>
-      <trans-unit id="erratalist.jsp.severity">
-<source>Severity</source>
-      <target>Schweregrad</target></trans-unit>
       <trans-unit id="erratalist.jsp.oval">
 <source>OVAL</source>
         <context-group name="ctx">

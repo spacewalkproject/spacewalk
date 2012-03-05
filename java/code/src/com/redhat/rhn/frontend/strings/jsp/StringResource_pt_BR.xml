@@ -3456,9 +3456,6 @@ abaixo e &lt;b&gt;não poderá mais se autenticar&lt;/b&gt;.</target></trans-uni
           <context context-type="sourcefile">/rhn/errata/AllErrata</context>
         </context-group>
       <target>Tipo</target></trans-unit>
-      <trans-unit id="erratalist.jsp.severity">
-<source>Severity</source>
-      <target>Gravidade</target></trans-unit>
       <trans-unit id="erratalist.jsp.oval">
 <source>OVAL</source>
         <context-group name="ctx">

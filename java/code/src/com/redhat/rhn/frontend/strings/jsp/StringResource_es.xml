@@ -3457,9 +3457,6 @@ del rol de Administrador de la organización.</target></trans-unit>
           <context context-type="sourcefile">/rhn/errata/AllErrata</context>
         </context-group>
       <target>Tipo</target></trans-unit>
-      <trans-unit id="erratalist.jsp.severity">
-<source>Severity</source>
-      <target>Intensidad</target></trans-unit>
       <trans-unit id="erratalist.jsp.oval">
 <source>OVAL</source>
         <context-group name="ctx">
