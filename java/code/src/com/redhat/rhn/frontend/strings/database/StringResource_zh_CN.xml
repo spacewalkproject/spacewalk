@@ -3558,9 +3558,6 @@
         <trans-unit id="kickstart.state.package_synch_scheduled">
           <source>Package synchronization scheduled.</source>
         <target>软件包同步被调度。</target></trans-unit>
-        <trans-unit id="kickstart.state.failed">
-          <source>Kickstart failed.</source>
-        <target>Kickstart 失败。</target></trans-unit>
     </group>
 
 

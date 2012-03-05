@@ -3558,9 +3558,6 @@
         <trans-unit id="kickstart.state.package_synch_scheduled">
           <source>Package synchronization scheduled.</source>
         <target>Sincronización de paquetes programada</target></trans-unit>
-        <trans-unit id="kickstart.state.failed">
-          <source>Kickstart failed.</source>
-        <target>Falló la instalación kickstart.</target></trans-unit>
     </group>
 
 

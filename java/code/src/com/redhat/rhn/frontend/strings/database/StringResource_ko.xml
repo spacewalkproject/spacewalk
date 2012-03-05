@@ -3558,9 +3558,6 @@
         <trans-unit id="kickstart.state.package_synch_scheduled">
           <source>Package synchronization scheduled.</source>
         <target>패키지 동기화가 예정되어 있습니다.</target></trans-unit>
-        <trans-unit id="kickstart.state.failed">
-          <source>Kickstart failed.</source>
-        <target>킥스타트가 실패하였습니다.</target></trans-unit>
     </group>
 
 

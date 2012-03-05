@@ -3558,9 +3558,6 @@
         <trans-unit id="kickstart.state.package_synch_scheduled">
           <source>Package synchronization scheduled.</source>
         <target>પેકેજ સુમેળ સુનિશ્ચિત થઈ ગયેલ છે.</target></trans-unit>
-        <trans-unit id="kickstart.state.failed">
-          <source>Kickstart failed.</source>
-        <target>કિકસ્ટાર્ટ નિષ્ફળ.</target></trans-unit>
     </group>
 
 
