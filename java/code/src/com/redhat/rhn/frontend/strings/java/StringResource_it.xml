@@ -6020,12 +6020,6 @@ utente prima di disabilitare l'account in questione.</target></trans-unit>
         </context-group>
       <target>Argomenti invalidi</target></trans-unit>
 
-    <trans-unit id="bootstrap.config.error.13">
-        <source>Could not parse httpd proxy URL</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-      <target>Impossibile analizzare l'URL httpd proxy</target></trans-unit>
 
     <trans-unit id="bootstrap.config.error.14">
         <source>Cannot find pub tree</source>

@@ -6021,12 +6021,6 @@ user before attempting to deactivate their account.</source>
         </context-group>
       <target>无效的参数</target></trans-unit>
 
-    <trans-unit id="bootstrap.config.error.13">
-        <source>Could not parse httpd proxy URL</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-      <target>不能解释 httpd 代理 URL</target></trans-unit>
 
     <trans-unit id="bootstrap.config.error.14">
         <source>Cannot find pub tree</source>

@@ -6002,12 +6002,6 @@ user before attempting to deactivate their account.</source>
         </context-group>
       <target>আর্গুমেন্ট বৈধ নয়</target></trans-unit>
 
-    <trans-unit id="bootstrap.config.error.13">
-        <source>Could not parse httpd proxy URL</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-      <target>httpd প্রক্সি-র URL পার্স করা যায়নি</target></trans-unit>
 
     <trans-unit id="bootstrap.config.error.14">
         <source>Cannot find pub tree</source>

@@ -6021,12 +6021,6 @@ de este usuario antes de intentar desactivar esta cuenta.</target></trans-unit>
         </context-group>
       <target>Argumentos inválidos</target></trans-unit>
 
-    <trans-unit id="bootstrap.config.error.13">
-        <source>Could not parse httpd proxy URL</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-      <target>No se pudo analizar la URL del proxy httpd</target></trans-unit>
 
     <trans-unit id="bootstrap.config.error.14">
         <source>Cannot find pub tree</source>
