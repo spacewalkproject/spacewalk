@@ -717,12 +717,6 @@
           <context context-type="sourcefile">Traceback Email Notifications</context>
         </context-group>
       <target>请求</target></trans-unit>
-      <trans-unit id="Spacewalk Support Tools">
-<source>@@PRODUCT_NAME@@ Support Tools</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-      <target>@@PRODUCT_NAME@@ 支持工具</target></trans-unit>
       <trans-unit id="Schedule">
 <source>Schedule</source>
         <context-group name="ctx">
