@@ -6036,12 +6036,6 @@ utilisateur avant de désactiver son compte.</target></trans-unit>
       <target>{0} clé(s) d'activation supprimée(s)</target></trans-unit>
 
 
-      <trans-unit id="file_lists.removed">
-<source>{0} File Preservation List(s) removed.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart/FilePreservationLists.do</context>
-        </context-group>
-      <target>{0} liste(s) de conservation de fichiers supprimée(s).</target></trans-unit>
 
             <trans-unit id="package_profiles.added">
 <source>{0} Package Profile(s) added.</source>

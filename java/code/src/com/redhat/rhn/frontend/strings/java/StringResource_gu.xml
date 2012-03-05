@@ -6009,12 +6009,6 @@ user before attempting to deactivate their account.</source>
       <target>{0} સક્રિયકરણ કીઓ દૂર થઈ.</target></trans-unit>
 
 
-      <trans-unit id="file_lists.removed">
-<source>{0} File Preservation List(s) removed.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart/FilePreservationLists.do</context>
-        </context-group>
-      <target>{0} ફાઈલ બચાવ યાદી(ઓ) દૂર કરી દેવાઈ.</target></trans-unit>
 
             <trans-unit id="package_profiles.added">
 <source>{0} Package Profile(s) added.</source>

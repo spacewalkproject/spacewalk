@@ -6034,12 +6034,6 @@ de este usuario antes de intentar desactivar esta cuenta.</target></trans-unit>
       <target>{0} Llave(s) de activación eliminada(s).</target></trans-unit>
 
 
-      <trans-unit id="file_lists.removed">
-<source>{0} File Preservation List(s) removed.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart/FilePreservationLists.do</context>
-        </context-group>
-      <target>{0} Lista(s) de preservación de archivos eliminada(s).</target></trans-unit>
 
             <trans-unit id="package_profiles.added">
 <source>{0} Package Profile(s) added.</source>
