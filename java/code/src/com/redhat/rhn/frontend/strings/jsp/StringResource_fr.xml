@@ -5424,9 +5424,6 @@ pour ce droit d'accès, moins la consommation par défaut de l'organisation.</ta
                 <source>No Systems selected. Please select a system before executing an action.</source>
         <target>Aucun système sélectionné. Sélectionnez un système avant d'exécuter une action.</target></trans-unit>
 
-        <trans-unit id="system_entitlements.setToUpdateEntitled.success">
-                <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) set to &lt;strong&gt;Update&lt;/strong&gt;.</source>
-        <target>&lt;strong&gt;{0}&lt;/strong&gt; système(s) ayant droit à &lt;strong&gt;Update&lt;/strong&gt;.</target></trans-unit>
         <trans-unit id="system_entitlements.unentitle.success">
                 <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s)  &lt;strong&gt;Unentitled&lt;/strong&gt;.</source>
         <target>&lt;strong&gt;{0}&lt;/strong&gt; système(s)  &lt;strong&gt;sans droits&lt;/strong&gt;.</target></trans-unit>

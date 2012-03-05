@@ -5422,9 +5422,6 @@ value for this entitlement, excluding the default organization's consumption.</s
                 <source>No Systems selected. Please select a system before executing an action.</source>
         <target>시스템이 선택되지 않았습니다. 작업을 실행하기전에 시스템을 선택하여 주십시오.</target></trans-unit>
 
-        <trans-unit id="system_entitlements.setToUpdateEntitled.success">
-                <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) set to &lt;strong&gt;Update&lt;/strong&gt;.</source>
-        <target>&lt;strong&gt;{0}&lt;/strong&gt; 시스템이 &lt;strong&gt;업데이트&lt;/strong&gt;로 설정되었습니다.</target></trans-unit>
         <trans-unit id="system_entitlements.unentitle.success">
                 <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s)  &lt;strong&gt;Unentitled&lt;/strong&gt;.</source>
         <target>&lt;strong&gt;{0}&lt;/strong&gt; 시스템이 &lt;strong&gt;인타이틀먼트 없음&lt;/strong&gt;으로 설정되었습니다.</target></trans-unit>

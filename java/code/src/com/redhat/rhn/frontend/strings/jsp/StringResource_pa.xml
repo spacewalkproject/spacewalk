@@ -5423,9 +5423,6 @@ value for this entitlement, excluding the default organization's consumption.</s
                 <source>No Systems selected. Please select a system before executing an action.</source>
         <target>ਕੋਈ ਸਿਸਟਮ ਨਹੀਂ ਚੁਣਿਆ। ਕਿਰਪਾ ਕਰਕੇ ਕਾਰਵਾਈ ਸ਼ੁਰੂ ਕਰਨ ਤੋਂ ਪਹਿਲਾਂ ਸਿਸਟਮ ਚੁਣੋ।</target></trans-unit>
 
-        <trans-unit id="system_entitlements.setToUpdateEntitled.success">
-                <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) set to &lt;strong&gt;Update&lt;/strong&gt;.</source>
-        <target>&lt;strong&gt;{0}&lt;/strong&gt; ਸਿਸਟਮ ਨੂੰ &lt;strong&gt;ਅੱਪਡੇਟ&lt;/strong&gt; ਦਰਸਾਇਆ ਗਿਆ ਹੈ।</target></trans-unit>
         <trans-unit id="system_entitlements.unentitle.success">
                 <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s)  &lt;strong&gt;Unentitled&lt;/strong&gt;.</source>
         <target>&lt;strong&gt;{0}&lt;/strong&gt;ਸਿਸਟਮ &lt;strong&gt;ਅਨ-ਇੰਟਾਈਟਲ&lt;/strong&gt; ਹੈ।</target></trans-unit>

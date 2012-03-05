@@ -5419,9 +5419,6 @@ value for this entitlement, excluding the default organization's consumption.</s
                 <source>No Systems selected. Please select a system before executing an action.</source>
         <target>您並未選擇任何系統。請在執行任何動作前，選擇一台系統。</target></trans-unit>
 
-        <trans-unit id="system_entitlements.setToUpdateEntitled.success">
-                <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) set to &lt;strong&gt;Update&lt;/strong&gt;.</source>
-        <target>&lt;strong&gt;{0}&lt;/strong&gt; 台系統已經設定為&lt;strong&gt;更新&lt;/strong&gt;。</target></trans-unit>
         <trans-unit id="system_entitlements.unentitle.success">
                 <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s)  &lt;strong&gt;Unentitled&lt;/strong&gt;.</source>
         <target>&lt;strong&gt;{0}&lt;/strong&gt; 台系統已不再&lt;strong&gt;享有權利&lt;/strong&gt;。</target></trans-unit>

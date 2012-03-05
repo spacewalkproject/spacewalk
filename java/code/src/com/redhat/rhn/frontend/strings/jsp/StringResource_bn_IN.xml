@@ -5423,9 +5423,6 @@ value for this entitlement, excluding the default organization's consumption.</s
                 <source>No Systems selected. Please select a system before executing an action.</source>
         <target>কোনো সিস্টেম নির্বাচন করা হয়নি। কোনো কর্ম সঞ্চালনের পূর্বে অনুগ্রহ করে সিস্টেম নির্বাচন করুন।</target></trans-unit>
 
-        <trans-unit id="system_entitlements.setToUpdateEntitled.success">
-                <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) set to &lt;strong&gt;Update&lt;/strong&gt;.</source>
-        <target>&lt;strong&gt;{0}&lt;/strong&gt; সিস্টেম &lt;strong&gt;Update&lt;/strong&gt; হিসাবে নির্ধারণ করা হয়েছে।</target></trans-unit>
         <trans-unit id="system_entitlements.unentitle.success">
                 <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s)  &lt;strong&gt;Unentitled&lt;/strong&gt;.</source>
         <target>&lt;strong&gt;{0}&lt;/strong&gt;-টি সিস্টেম &lt;strong&gt;এনটাইটেলমেন্টবিহীন&lt;/strong&gt; অবস্থায় রয়েছে।</target></trans-unit>
