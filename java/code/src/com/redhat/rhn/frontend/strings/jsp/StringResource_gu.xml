@@ -13946,13 +13946,6 @@ Note that if a given system overrides a given file, or has it in that system's l
         </context-group>
       <target>&lt;strong&gt;ચેતવણી:&lt;/strong&gt; મહેરબાની કરીને નોંધ કરો કે જો તમે {0} રૂપરેખાંકન ચેનલમાંથી ફાઈલોમાંની કોઈપણ જમાવવાનો પ્રયાસ કરો તો તે ફરીથી લખાઈ જશે કે એજ નામવાળી ઊંચા-ક્રમની ચેનલ પરની ફાઈલથી ક્રમ નીચે લવાઈ જશે કે જેમાં વ્યક્તિગત સિસ્ટમ ઉમેદવારી થયેલ હોય, પછી ફરીથી લખવાનું / ઊંચા-ક્રમવાળી ફાઈલની આવૃત્તિ તે સિસ્ટમ પર જમાવવામાં આવશે, {0} રૂપરેખાંકન ચેનલમાંથી આવૃત્તિની જગ્યાએ.</target></trans-unit>
 
-      <trans-unit id="deploysystems.jsp.override-header">
-<source>Overridden Files</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/</context>
-          <context context-type="paramnotes"/>
-        </context-group>
-      <target>ઓવરરાઈડ થયેલ ફાઈલો</target></trans-unit>
 
 
 

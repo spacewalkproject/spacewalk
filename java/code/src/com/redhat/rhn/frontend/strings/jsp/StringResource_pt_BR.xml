@@ -13952,13 +13952,6 @@ Note que se um sistema específico sobrescrever um dado arquivo, ou existir em u
         </context-group>
       <target>&lt;strong&gt;Aviso:&lt;/strong&gt; Observe que caso qualquer um dos arquivos, que você esteja tentando implementar a partir do canal de configuração {0}, for sobrescrito ou desclassificado por um arquivo que tenha o mesmo nome e esteja em um canal com classificação mais alta onde qualquer sistema seja inscrito, a versão sobrescrita/classificação mais alta do arquivo será implementada neste sistema, e não na versão do canal de configuração {0}.</target></trans-unit>
 
-      <trans-unit id="deploysystems.jsp.override-header">
-<source>Overridden Files</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/</context>
-          <context context-type="paramnotes"/>
-        </context-group>
-      <target>Arquivos Sobrescritos</target></trans-unit>
 
 
 

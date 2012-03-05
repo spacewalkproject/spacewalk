@@ -13963,13 +13963,6 @@ Beachten Sie bitte, dass wenn eine bestimmtes System eine bestimmte Datei au&amp
         </context-group>
       <target>&lt;strong&gt;Warnung:&lt;/strong&gt; Bitte beachten Sie, dass falls irgendeine Datei, die Sie versuchen aus dem {0} Konfigurations-Channel, einzusetzen, au&amp;szlig;er Kraft gesetzt wird oder von einer Datei mit demselben Namen auf einem &amp;uuml;bergeordneten Channel, den ein bestimmtes abonniert hat, &amp;uuml;bertroffen wird, dass dann die Datei, die &amp;uuml;berschreibt (au&amp;szlig;er Kraft setzt), bzw. die Dateiversion mit dem h&amp;ouml;chsten Rang auf dem System eingesetzt wird und nicht die Version des {0} Konfigurations-Channels.</target></trans-unit>
 
-      <trans-unit id="deploysystems.jsp.override-header">
-<source>Overridden Files</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/</context>
-          <context context-type="paramnotes"/>
-        </context-group>
-      <target>Ersetzte Dateien</target></trans-unit>
 
 
 

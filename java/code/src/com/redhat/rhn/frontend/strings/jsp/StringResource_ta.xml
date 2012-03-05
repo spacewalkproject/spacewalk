@@ -13946,13 +13946,6 @@ Note that if a given system overrides a given file, or has it in that system's l
         </context-group>
       <target>&lt;strong&gt;எச்சரிக்கை:&lt;/strong&gt; நீங்கள் {0} கட்டமைப்பு தடத்திலிருந்து எந்த கோப்பினையாவது வரிசைப்படுத்த முயற்சித்தால் அவை குறிப்பிட்ட கணினியில் சந்தாப்படுத்தப்பட்ட ஒரு உயர்ந்த மதிப்பிடப்பட்ட தடத்தின் அதே பெயரில் ஒரு கோப்பினால் மேலாணை செய்யும், பின் {0} கட்டமைப்பு தடத்தின் பதிப்பிலிருந்து இல்லாமல், அந்த கோப்பு உயர்ந்த மதிப்பிடப்பட்ட / மேலாணை செய்த கோப்பின் பதிப்பிற்கு வரிசைப்படுத்தப்படும்.</target></trans-unit>
 
-      <trans-unit id="deploysystems.jsp.override-header">
-<source>Overridden Files</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/</context>
-          <context context-type="paramnotes"/>
-        </context-group>
-      <target>மேலாணை கோப்புகள்</target></trans-unit>
 
 
 

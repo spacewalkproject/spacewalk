@@ -13940,13 +13940,6 @@ Note that if a given system overrides a given file, or has it in that system's l
         </context-group>
       <target>&lt;strong&gt;Предупреждение:&lt;/strong&gt; Обратите внимание, что если применяемые файлы из канала конфигурации {0} переопределяются одноименным файлом канала с более высоким приоритетом, к которому подписана система, то будет применена переопределяющая версия (или версия с более высоким приоритетом), а не версия из канала конфигурации {0}.</target></trans-unit>
 
-      <trans-unit id="deploysystems.jsp.override-header">
-<source>Overridden Files</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/</context>
-          <context context-type="paramnotes"/>
-        </context-group>
-      <target>Переопределенные файлы</target></trans-unit>
 
 
 

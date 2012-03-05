@@ -13958,13 +13958,6 @@ Observe que si un sistema dado sobrescribe un archivo, o tiene el archivo en un 
         </context-group>
       <target>&lt;strong&gt;Advertencia:&lt;/strong&gt; tenga en cuenta que si alguno de los archivos que está tratando de implementar desde el canal de configuración {0} tiene un rango o precedencia más baja que un archivo con el mismo nombre en un canal de más alto rango en el cual cualquier sistema particular está suscrito, la versión del archivo de más alta precedencia y rango será implementada a ese sistema, en vez de la versión del canal de configuración {0}.</target></trans-unit>
 
-      <trans-unit id="deploysystems.jsp.override-header">
-<source>Overridden Files</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/</context>
-          <context context-type="paramnotes"/>
-        </context-group>
-      <target>Archivos sobrescritos</target></trans-unit>
 
 
 

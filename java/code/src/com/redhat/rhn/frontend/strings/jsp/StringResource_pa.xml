@@ -13945,13 +13945,6 @@ Note that if a given system overrides a given file, or has it in that system's l
         </context-group>
       <target>&lt;strong&gt;ਚੇਤਾਵਨੀ:&lt;/strong&gt; ਕਿਰਪਾ ਕਰਕੇ ਇਹ ਧਿਆਨ ਰੱਖੋ ਕਿ ਜੇ ਕੋਈ ਵੀ ਫਾਇਲ ਜੋ ਤੁਸੀਂ {0} ਸੰਰਚਨਾ ਚੈਨਲ ਤੋਂ ਸ਼ਾਮਿਲ ਕਰਨੀ ਹੈ ਜਾਂ ਕਿਸੇ ਫਾਇਲ ਦੁਆਰਾ ਉੱਚੇ ਰੈਂਕ ਵਾਲੇ ਚੈਨਲ ਜਿਸ ਉੱਪਰ ਮੈਂਬਰ ਹੈ, ਉੱਪਰ ਓਵਰਰੈਂਕ ਕੀਤੀ ਹੈ, ਫਿਰ ਫਾਇਲ ਦਾ ਓਵਰਰਾਈਡਿੰਗ / ਉੱਚਾ-ਰੈੱਕ ਵਰਜਨ ਇਸ ਸਿਸਟਮ ਉੱਪਰ ਸ਼ਾਮਿਲ ਕੀਤਾ ਜਾਏਗਾ, ਭਾਵੇਂ ਇਹ ਵਰਜਨ {0} ਸੰਰਚਨਾ ਚੈਨਲ ਤੋਂ ਹੋਵੇ।</target></trans-unit>
 
-      <trans-unit id="deploysystems.jsp.override-header">
-<source>Overridden Files</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/</context>
-          <context context-type="paramnotes"/>
-        </context-group>
-      <target>ਮੁੜ-ਲਿਖੀ ਫਾਇਲਾਂ</target></trans-unit>
 
 
 

@@ -13946,13 +13946,6 @@ Note that if a given system overrides a given file, or has it in that system's l
         </context-group>
       <target>&lt;strong&gt;चेतावनी:&lt;/strong&gt; कृपया नोट करें कि कोई फाइल जिसे आप {0} विन्यास चैनल से तैनाती की सोच रहे हैं वह समान नाम के साथ अध्यारोहित है या उच्च रैंक चैनल के साथ जिसमें कोई खास सिस्टम सदस्यता लिया है, चब फाइल का अध्यारोहित / उच्चतम क्रम के संस्करण जो उस सिस्टम में तैनात है, बजाए {0} विन्यास चैनल के संस्करण के.</target></trans-unit>
 
-      <trans-unit id="deploysystems.jsp.override-header">
-<source>Overridden Files</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/</context>
-          <context context-type="paramnotes"/>
-        </context-group>
-      <target>अध्यारोहण फाइल</target></trans-unit>
 
 
 

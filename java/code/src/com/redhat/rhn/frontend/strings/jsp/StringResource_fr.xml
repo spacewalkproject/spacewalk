@@ -13962,13 +13962,6 @@ Notez que si un système donné surcharge un ficher donné ou qu'il a ce fichier
         </context-group>
       <target>&lt;strong&gt;Avertissement&amp;nbsp;:&lt;/strong&gt; veuillez noter que si l'un des fichiers que vous essayez de déployer à partir du canal de configuration {0} est surchargé ou déclassé par un fichier avec le même nom provenant d'un canal ayant un rang supérieur auquel tout système particulier est abonné, alors la version de ce fichier sera déployée dans ce système plutôt que la version provenant du canal de configuration {0}.</target></trans-unit>
 
-      <trans-unit id="deploysystems.jsp.override-header">
-<source>Overridden Files</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/</context>
-          <context context-type="paramnotes"/>
-        </context-group>
-      <target>Fichiers surchargés</target></trans-unit>
 
 
 

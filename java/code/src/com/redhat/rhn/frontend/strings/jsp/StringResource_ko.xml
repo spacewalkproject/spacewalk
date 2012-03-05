@@ -13941,13 +13941,6 @@ Note that if a given system overrides a given file, or has it in that system's l
         </context-group>
       <target>&lt;strong&gt;경고:&lt;/strong&gt; {0} 설정 채널에서 디플로이하시려는 파일이 보다 높은 순위의 채널에 있는 같은 이름을 가진 파일에 의해 덮어쓰이거나 순위가 앞서게 되었을 경우, 특정 시스템이 등록되어 {0} 설정 채널에 있는 파일 버전이 아닌 덮어쓰여진/ 가장 높은 순위에 있는 파일 버전이 이 시스템에 디플로이됩니다.</target></trans-unit>
 
-      <trans-unit id="deploysystems.jsp.override-header">
-<source>Overridden Files</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/</context>
-          <context context-type="paramnotes"/>
-        </context-group>
-      <target>덮어쓴 파일</target></trans-unit>
 
 
 

@@ -13956,13 +13956,6 @@ Note that if a given system overrides a given file, or has it in that system's l
         </context-group>
       <target>&lt;strong&gt;警告：&lt;/strong&gt;请注意，如果您试图从 {0} 配置频道部署的任何文件被更高级别的频道里具有相同名字的文件覆盖或级别比之要低，该文件的覆盖/高级别版本而不是 {0} 配置频道里的版本将被部署至这个系统。</target></trans-unit>
 
-      <trans-unit id="deploysystems.jsp.override-header">
-<source>Overridden Files</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/</context>
-          <context context-type="paramnotes"/>
-        </context-group>
-      <target>被覆盖的文件</target></trans-unit>
 
 
 

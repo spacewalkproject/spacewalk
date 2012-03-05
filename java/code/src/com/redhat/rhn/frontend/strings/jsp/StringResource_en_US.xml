@@ -14361,13 +14361,6 @@ Note that if a given system overrides a given file, or has it in that system's l
         </context-group>
       </trans-unit>
 
-      <trans-unit id="deploysystems.jsp.override-header">
-<source>Overridden Files</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/</context>
-          <context context-type="paramnotes"></context>
-        </context-group>
-      </trans-unit>
 
 
 

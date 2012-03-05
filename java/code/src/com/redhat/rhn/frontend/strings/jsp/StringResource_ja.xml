@@ -13945,13 +13945,6 @@ Note that if a given system overrides a given file, or has it in that system's l
         </context-group>
       <target>&lt;strong&gt;警告:&lt;/strong&gt; {0} 設定チャンネルから配備しようとしているファイルが、 特定システムがサブスクライブされている上位チャンネルにある同じファイル名のファイルによって上書きまたはアウトランクされる場合、 この上書き/最上位ランクのファイルバージョンがそのシステムに配備されることになり、 {0} 設定チャンネルからのバージョンは配備されなくなりますので注意してください。</target></trans-unit>
 
-      <trans-unit id="deploysystems.jsp.override-header">
-<source>Overridden Files</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/</context>
-          <context context-type="paramnotes"/>
-        </context-group>
-      <target>上書きされるファイル</target></trans-unit>
 
 
 

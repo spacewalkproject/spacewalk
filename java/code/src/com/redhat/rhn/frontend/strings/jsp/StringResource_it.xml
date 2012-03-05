@@ -13943,13 +13943,6 @@ Da notare che se un dato sistema sovrascrive un determinato file, oppure se il f
         </context-group>
       <target>&lt;strong&gt;Avvertenza:&lt;/strong&gt; Si prega di notare che se qualsiasi file da implementare proveniente dal canale di configurazione {0}, viene sovrascritto o sostituito da un file con lo stesso nome presente su di un canale più importante, nei confronti del quale viene sottoscritto un sistema, allora la versione del file più importante o che esegue l'override verrà implementata sul sistema in questione. Ciò significa che la versione del file presente all'interno del canale di configurazione {0} non verrà implementata.</target></trans-unit>
 
-      <trans-unit id="deploysystems.jsp.override-header">
-<source>Overridden Files</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/</context>
-          <context context-type="paramnotes"/>
-        </context-group>
-      <target>File sovrascritti</target></trans-unit>
 
 
 

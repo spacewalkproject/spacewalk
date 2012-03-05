@@ -13942,13 +13942,6 @@ Note that if a given system overrides a given file, or has it in that system's l
         </context-group>
       <target>&lt;strong&gt;警告：&lt;/strong&gt;請注意假如任何您所嚐試由 {0} 配置頻道來建置的檔案被置換，或者是等級低於一個相同名稱、位於等級較高（任何特定系統都能訂閱至）的頻道中的一個檔案時，此檔案的置換 / 最高等級版本（而並非 {0} 配置頻道中的版本）就會被建置至這個系統。</target></trans-unit>
 
-      <trans-unit id="deploysystems.jsp.override-header">
-<source>Overridden Files</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/</context>
-          <context context-type="paramnotes"/>
-        </context-group>
-      <target>被置換的檔案</target></trans-unit>
 
 
 

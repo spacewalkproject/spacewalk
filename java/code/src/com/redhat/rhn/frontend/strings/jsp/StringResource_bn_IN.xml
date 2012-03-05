@@ -13945,13 +13945,6 @@ Note that if a given system overrides a given file, or has it in that system's l
         </context-group>
       <target>&lt;strong&gt;সতর্কবাণী:&lt;/strong&gt; উল্লেখ্য, {0} কনফিগারেশন চ্যানেল থেকে কোনো ফাইল স্থাপনার প্রচেষ্টার সময়, চিহ্নিত ফাইলটি যদি উপেক্ষা করা হয় অথবা সিস্টেমটির সাবস্ক্রিপশনের চ্যানেলের তুলনায় উচ্চ ক্রমের চ্যানেলে উপস্থিত একই নামের পৃথক ফাইল দ্বারা উপেক্ষিত হলে সিস্টেমে {0} কনফিগারেশন চ্যানেলের ফাইলটির পরিবর্তে অন্য ফাইলটি স্থাপন করা হবে।</target></trans-unit>
 
-      <trans-unit id="deploysystems.jsp.override-header">
-<source>Overridden Files</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/</context>
-          <context context-type="paramnotes"/>
-        </context-group>
-      <target>উপেক্ষিত ফাইল</target></trans-unit>
 
 
 
