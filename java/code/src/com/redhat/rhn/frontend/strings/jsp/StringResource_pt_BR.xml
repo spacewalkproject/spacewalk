@@ -20022,9 +20022,6 @@ given channel.</source>
      <trans-unit id="task.status.last.execution">
          <source>Last Execution Times</source>
      <target>Tempo de Execução do Script</target></trans-unit>
-     <trans-unit id="task.status.sync-probe-state">
-         <source>Sync Probe State</source>
-     <target>Estado das Detecções</target></trans-unit>
      <trans-unit id="task.status.message">
          <source>The following is a status report for the various tasks run by the @@PRODUCT_NAME@@ task engine:</source>
      <target>Segue abaixo o relatório de status para as diversas tarefas pelo mecanismo da tarefa @@PRODUCT_NAME@@:</target></trans-unit>

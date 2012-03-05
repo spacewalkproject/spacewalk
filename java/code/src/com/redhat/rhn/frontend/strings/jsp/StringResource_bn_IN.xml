@@ -19913,9 +19913,6 @@ given channel.</source>
      <trans-unit id="task.status.last.execution">
          <source>Last Execution Times</source>
      <target>স্ক্রিপ্ট সঞ্চালনের সময়কাল</target></trans-unit>
-     <trans-unit id="task.status.sync-probe-state">
-         <source>Sync Probe State</source>
-     <target>অনুসন্ধানের অবস্থা</target></trans-unit>
      <trans-unit id="task.status.message">
          <source>The following is a status report for the various tasks run by the @@PRODUCT_NAME@@ task engine:</source>
      <target></target></trans-unit>
