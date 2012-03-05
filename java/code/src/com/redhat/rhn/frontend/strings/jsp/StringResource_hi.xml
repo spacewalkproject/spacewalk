@@ -1588,12 +1588,6 @@
           <context context-type="sourcefile">/rhn/account/VerificationSent</context>
         </context-group>
       <target>ईमेल बदलाव सत्यापन भेजा गया</target></trans-unit>
-      <trans-unit id="email_sent.jsp.message">
-<source>A request to verify this email change has been sent to the user's new email address. When the user responds to this email, the change will be confirmed, and the email address will be fully updated.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/account/VerificationSent</context>
-        </context-group>
-      <target>इस ईमेल बदलाव के निवेदन को उपयोक्ता के नये ईमेल पते पर भेजा गया है. जब उपयोक्ता इस ईमेल पर जबाव देता है, बदलाव सुनिश्चित हो जायेगा, और ईमेल पता पूरी तरह से अद्यतन हो जायेगा.</target></trans-unit>
       <!-- yourchangeemail.jsp -->
       <trans-unit id="yourchangeemail.jsp.title">
 <source>Change Email Address</source>

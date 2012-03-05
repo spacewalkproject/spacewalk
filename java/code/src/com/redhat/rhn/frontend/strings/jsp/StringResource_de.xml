@@ -1588,12 +1588,6 @@
           <context context-type="sourcefile">/rhn/account/VerificationSent</context>
         </context-group>
       <target>E-Mail-&amp;Auml;nderungsbest&amp;auml;tigung gesendet</target></trans-unit>
-      <trans-unit id="email_sent.jsp.message">
-<source>A request to verify this email change has been sent to the user's new email address. When the user responds to this email, the change will be confirmed, and the email address will be fully updated.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/account/VerificationSent</context>
-        </context-group>
-      <target>Eine Anfrage, um zu best&amp;auml;tigen, dass diese E-Mail-&amp;Auml;nderung zur neuen E-Mail-Adresse des Benutzers gesendet wurde. Wenn der Benutzer auf diese E-Mail antwortet, wird gleichzeitig die &amp;Auml;nderung best&amp;auml;tigt und die E-Mail-Adresse vollst&amp;auml;ndig aktualisiert.</target></trans-unit>
       <!-- yourchangeemail.jsp -->
       <trans-unit id="yourchangeemail.jsp.title">
 <source>Change Email Address</source>
