@@ -3549,9 +3549,6 @@
         <trans-unit id="kickstart.state.restarted">
           <source>The system has been restarted in order to begin the kickstart process.</source>
         <target>Le système a été redémarré pour commencer le kickstart.</target></trans-unit>
-        <trans-unit id="kickstart.state.configuration_accessed">
-          <source>The system has downloaded the kickstart configuration file from @@PRODUCT_NAME@@.</source>
-        <target>Le système a téléchargé le fichier de configuration du kickstart de @@PRODUCT_NAME@@.</target></trans-unit>
         <trans-unit id="kickstart.state.started">
           <source>The initial files required for anaconda have been downloaded.</source>
         <target>Les fichiers initiaux requis pour anaconda ont été téléchargés.</target></trans-unit>

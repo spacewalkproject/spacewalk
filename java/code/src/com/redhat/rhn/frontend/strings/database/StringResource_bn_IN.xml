@@ -3549,9 +3549,6 @@
         <trans-unit id="kickstart.state.restarted">
           <source>The system has been restarted in order to begin the kickstart process.</source>
         <target>kickstart কর্ম আরম্ভ করার জন্য সিস্টেম পুনরায় আরম্ভ করা হয়েছে।</target></trans-unit>
-        <trans-unit id="kickstart.state.configuration_accessed">
-          <source>The system has downloaded the kickstart configuration file from @@PRODUCT_NAME@@.</source>
-        <target>সিস্টেমের দ্বারা @@PRODUCT_NAME@@ থেকে kickstart কনফিগারেশন ফাইল ডাউনলোড করা হয়েছে।</target></trans-unit>
         <trans-unit id="kickstart.state.started">
           <source>The initial files required for anaconda have been downloaded.</source>
         <target>anaconda-র জন্য প্রারম্ভিক ফাই; ডাউনলোড করা হয়েছে।</target></trans-unit>
