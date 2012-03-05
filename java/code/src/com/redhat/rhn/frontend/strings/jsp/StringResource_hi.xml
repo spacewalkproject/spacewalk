@@ -18464,12 +18464,6 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;
 
 
 
-      <trans-unit id="sys_entitlements.virtualization_host_platform">
-        <source> Virtualization Platform (Add-On)</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
-        </context-group>
-      <target> वर्चुअलाइजेशन प्लेटफॉर्म (एड आन)</target></trans-unit>
 
 
       <trans-unit id="sys_entitlements.noentitlements">
