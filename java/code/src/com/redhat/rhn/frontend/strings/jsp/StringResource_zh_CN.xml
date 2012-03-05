@@ -19333,52 +19333,6 @@ The software channels listed below have ISO images available for products which 
           <context context-type="sourcefile">/rhn/software/downloads/Help.do</context>
         </context-group>
       <target>下载并使用 ISO 映像</target></trans-unit>
-      <trans-unit id="download.isohelp.body">
-<source>
-&lt;p&gt;It is recommended that you use &lt;strong&gt;curl&lt;/strong&gt; to download the ISO images. If you use @@PRODUCT_NAME@@ and don't currently have curl, you may install it by running the command "up2date curl" (Enterprise Linux 4 and below) or "yum curl" (Enterprise Linux 5 and above) from a shell prompt.&lt;/p&gt;
-
-&lt;p&gt;Once curl is installed, at a shell prompt, cut and paste the URL for the ISO into the curl command as follows:&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;[user@localhost home]$ &lt;strong&gt;curl -C - -O 'very_long_url'&lt;/strong&gt;&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;Use the following curl command to save the ISO as 'myfilename.iso':&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;[user@localhost home]$ &lt;strong&gt;curl -C - -o 'myfilename.iso' 'very_long_url'&lt;/strong&gt;&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;The URL is very long because it contains session authentication information. Be sure to include the single quotation marks. The '&lt;strong&gt;&lt;code&gt;-C -&lt;/code&gt;&lt;/strong&gt;' option allows you to continue the download if it is interrupted (for example, in case you lose the connection).  The '&lt;strong&gt;&lt;code&gt;-O&lt;/code&gt;&lt;/strong&gt;' (the letter 'O', not a zero) option will save the file with same name as on the @@PRODUCT_NAME@@ servers.&lt;/p&gt;
-
-&lt;p&gt;You may also use wget to obtain the ISO files.  If you use @@PRODUCT_NAME@@ and don't currently have wget, you may install it by running "up2date wget" (Enterprise Linux 4 and below) or "yum wget" (Enterprise Linux 5 and above) from your command line.&lt;/p&gt;
-
-&lt;p&gt;Once wget is installed, at a shell prompt, cut and paste the URL for the ISO into the wget command as follows:&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;[user@localhost home]$ &lt;strong&gt;wget -c 'very_long_url'&lt;/strong&gt;&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;For more information on how to use Red Hat ISOs, check the &lt;a href="http://www.redhat.com/download/howto_download.html" target="new"&gt;How To Download&lt;/a&gt; page.&lt;/p&gt;
-
-</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/software/downloads/Help.do</context>
-        </context-group>
-      <target>
-&lt;p&gt;我们推荐您使用 &lt;strong&gt;curl&lt;/strong&gt; 来下载 ISO 映像。如果您使用 @@PRODUCT_NAME@@ 且没有 curl，您可以通过 "up2date curl" 命令（企业级 Linux 4 及以下版本）或 "yum curl"（企业级 Linux 5 及更高版本）来安装它。&lt;/p&gt;
-
-&lt;p&gt;一旦安装了 curl，剪切并粘贴 ISO 的 URL 到 curl 命令行：&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;[user@localhost home]$ &lt;strong&gt;curl -C - -O 'very_long_url'&lt;/strong&gt;&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;使用下列 curl 命令保存 ISO 为 'myfilename.iso':&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;[user@localhost home]$ &lt;strong&gt;curl -C - -o 'myfilename.iso' 'very_long_url'&lt;/strong&gt;&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;这个 URL 很长，这因为它包含会话验证信息。请确保它包含单引号。'&lt;strong&gt;&lt;code&gt;-C -&lt;/code&gt;&lt;/strong&gt;' 选择允许您在下载中断后继续下载（例如，连接断开后）。'&lt;strong&gt;&lt;code&gt;-O&lt;/code&gt;&lt;/strong&gt;'（这是字母 'O'，不是数字‘0’）选择将以和 @@PRODUCT_NAME@@ 服务器上相同名称保存这个文件。&lt;/p&gt;
-
-&lt;p&gt;您可能也需要使用 wget 来获取 ISO 文件。如果您使用 @@PRODUCT_NAME@@ 且没有 wget，您可以用 "up2date wget"（企业级 Linux 4 或更低版本）或 "yum wget"（企业级 Linux 5 或更高版本）来安装它。&lt;/p&gt;
-
-&lt;p&gt;一旦安装了 wget，剪切并粘贴 ISO 的 URL 到 wget 命令行：&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;[user@localhost home]$ &lt;strong&gt;wget -c 'very_long_url'&lt;/strong&gt;&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;关于使用 Red Hat ISO 的更多信息，请访问&lt;a href="http://www.redhat.com/download/howto_download.html" target="new"&gt;如何下载&lt;/a&gt;页面。&lt;/p&gt;
-
-</target></trans-unit>
 	</group>
 
 	<!-- downloads.jsp -->

@@ -19280,32 +19280,6 @@ The software channels listed below have ISO images available for products which 
           <context context-type="sourcefile">/rhn/software/downloads/Help.do</context>
         </context-group>
       <target>डाउनलोड और ISO चित्र का प्रयोग कर रहा है</target></trans-unit>
-      <trans-unit id="download.isohelp.body">
-<source>
-&lt;p&gt;It is recommended that you use &lt;strong&gt;curl&lt;/strong&gt; to download the ISO images. If you use @@PRODUCT_NAME@@ and don't currently have curl, you may install it by running the command "up2date curl" (Enterprise Linux 4 and below) or "yum curl" (Enterprise Linux 5 and above) from a shell prompt.&lt;/p&gt;
-
-&lt;p&gt;Once curl is installed, at a shell prompt, cut and paste the URL for the ISO into the curl command as follows:&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;[user@localhost home]$ &lt;strong&gt;curl -C - -O 'very_long_url'&lt;/strong&gt;&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;Use the following curl command to save the ISO as 'myfilename.iso':&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;[user@localhost home]$ &lt;strong&gt;curl -C - -o 'myfilename.iso' 'very_long_url'&lt;/strong&gt;&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;The URL is very long because it contains session authentication information. Be sure to include the single quotation marks. The '&lt;strong&gt;&lt;code&gt;-C -&lt;/code&gt;&lt;/strong&gt;' option allows you to continue the download if it is interrupted (for example, in case you lose the connection).  The '&lt;strong&gt;&lt;code&gt;-O&lt;/code&gt;&lt;/strong&gt;' (the letter 'O', not a zero) option will save the file with same name as on the @@PRODUCT_NAME@@ servers.&lt;/p&gt;
-
-&lt;p&gt;You may also use wget to obtain the ISO files.  If you use @@PRODUCT_NAME@@ and don't currently have wget, you may install it by running "up2date wget" (Enterprise Linux 4 and below) or "yum wget" (Enterprise Linux 5 and above) from your command line.&lt;/p&gt;
-
-&lt;p&gt;Once wget is installed, at a shell prompt, cut and paste the URL for the ISO into the wget command as follows:&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;[user@localhost home]$ &lt;strong&gt;wget -c 'very_long_url'&lt;/strong&gt;&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;For more information on how to use Red Hat ISOs, check the &lt;a href="http://www.redhat.com/download/howto_download.html" target="new"&gt;How To Download&lt;/a&gt; page.&lt;/p&gt;
-
-</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/software/downloads/Help.do</context>
-        </context-group>
-      <target></target></trans-unit>
 	</group>
 
 	<!-- downloads.jsp -->

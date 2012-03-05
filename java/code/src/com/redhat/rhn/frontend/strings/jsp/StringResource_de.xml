@@ -19342,52 +19342,6 @@ Die unten aufgeführten Software-Channels stellen ISO-Images für nicht länger 
           <context context-type="sourcefile">/rhn/software/downloads/Help.do</context>
         </context-group>
       <target>Herunterladen und Verwenden von ISO-Images</target></trans-unit>
-      <trans-unit id="download.isohelp.body">
-<source>
-&lt;p&gt;It is recommended that you use &lt;strong&gt;curl&lt;/strong&gt; to download the ISO images. If you use @@PRODUCT_NAME@@ and don't currently have curl, you may install it by running the command "up2date curl" (Enterprise Linux 4 and below) or "yum curl" (Enterprise Linux 5 and above) from a shell prompt.&lt;/p&gt;
-
-&lt;p&gt;Once curl is installed, at a shell prompt, cut and paste the URL for the ISO into the curl command as follows:&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;[user@localhost home]$ &lt;strong&gt;curl -C - -O 'very_long_url'&lt;/strong&gt;&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;Use the following curl command to save the ISO as 'myfilename.iso':&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;[user@localhost home]$ &lt;strong&gt;curl -C - -o 'myfilename.iso' 'very_long_url'&lt;/strong&gt;&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;The URL is very long because it contains session authentication information. Be sure to include the single quotation marks. The '&lt;strong&gt;&lt;code&gt;-C -&lt;/code&gt;&lt;/strong&gt;' option allows you to continue the download if it is interrupted (for example, in case you lose the connection).  The '&lt;strong&gt;&lt;code&gt;-O&lt;/code&gt;&lt;/strong&gt;' (the letter 'O', not a zero) option will save the file with same name as on the @@PRODUCT_NAME@@ servers.&lt;/p&gt;
-
-&lt;p&gt;You may also use wget to obtain the ISO files.  If you use @@PRODUCT_NAME@@ and don't currently have wget, you may install it by running "up2date wget" (Enterprise Linux 4 and below) or "yum wget" (Enterprise Linux 5 and above) from your command line.&lt;/p&gt;
-
-&lt;p&gt;Once wget is installed, at a shell prompt, cut and paste the URL for the ISO into the wget command as follows:&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;[user@localhost home]$ &lt;strong&gt;wget -c 'very_long_url'&lt;/strong&gt;&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;For more information on how to use Red Hat ISOs, check the &lt;a href="http://www.redhat.com/download/howto_download.html" target="new"&gt;How To Download&lt;/a&gt; page.&lt;/p&gt;
-
-</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/software/downloads/Help.do</context>
-        </context-group>
-      <target>
-&lt;p&gt;Es wird empfohlen, zum Download der ISO-Images &lt;strong&gt;curl&lt;/strong&gt; zu verwenden. Falls Sie @@PRODUCT_NAME@@ einsetzen und noch kein curl haben, können Sie dies mit dem Befehl "up2date curl" (Enterprise Linux 4 und älter) oder "yum curl" (Enterprise Linux 5 und neuer) vom Shell-Prompt aus installieren.&lt;/p&gt;
-
-&lt;p&gt;Sobald curl installiert ist, kopieren Sie die URL des ISOs und fügen diese an einem Shell-Prompt folgendermaßen in den curl-Befehl ein:&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;[user@localhost home]$ &lt;strong&gt;curl -C - -O 'very_long_url'&lt;/strong&gt;&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;Führen Sie den folgenden curl-Befehl aus, um das ISO als 'myfilename.iso' zu speichern:&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;[user@localhost home]$ &lt;strong&gt;curl -C - -o 'myfilename.iso' 'very_long_url'&lt;/strong&gt;&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;Die URL ist in der Tat sehr lang, da sie Informationen zur Session-Authentifizierung enthält. Vergessen Sie nicht die einfachen Anführungszeichen. Die '&lt;strong&gt;&lt;code&gt;-C -&lt;/code&gt;&lt;/strong&gt;'-Option ermöglicht Ihnen das Fortsetzen des Downloads, falls dieser unterbrochen wurde (falls z.B. die Verbindung unterbrochen wurde).  Die '&lt;strong&gt;&lt;code&gt;-O&lt;/code&gt;&lt;/strong&gt;' (der Buchstabe 'O', keine Null) Option speichert die Datei unter demselben Namen wie auf den  @@PRODUCT_NAME@@-Servern.&lt;/p&gt;
-
-&lt;p&gt;Sie können auch wget zum Herunterladen der ISO-Dateien nutzen. Falls Sie @@PRODUCT_NAME@@ einsetzen und noch kein wget haben, können Sie dies mit dem Befehl "up2date wget" (Enterprise Linux 4 und älter) oder "yum wget" (Enterprise Linux 5 und neuer) von der Befehlszeile aus installieren.&lt;/p&gt;
-
-&lt;p&gt;Sobald wget installiert ist, kopieren Sie die URL des ISOs und fügen diese an einem Shell-Prompt folgendermaßen in den wget-Befehl ein:&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;[user@localhost home]$ &lt;strong&gt;wget -c 'very_long_url'&lt;/strong&gt;&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;Weitere Informationen über die Verwendung von Red Hat ISOs finden Sie unter &lt;a href="http://www.redhat.com/download/howto_download.html" target="new"&gt;How To Download&lt;/a&gt; page.&lt;/p&gt;
-
-</target></trans-unit>
 	</group>
 
 	<!-- downloads.jsp -->
