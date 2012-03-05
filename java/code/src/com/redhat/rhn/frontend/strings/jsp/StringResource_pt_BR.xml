@@ -9589,12 +9589,6 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
     <target>Etiqueta</target></trans-unit>
 
-    <trans-unit id="kickstart.jsp.bootimage">
-           <source>Boot Image</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart</context>
-        </context-group>
-    <target>Imagem de Inicialização</target></trans-unit>
 
     <trans-unit id="kickstart.jsp.lastchange">
            <source>Last Change</source>

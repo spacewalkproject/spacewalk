@@ -9582,12 +9582,6 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
     <target>레이블</target></trans-unit>
 
-    <trans-unit id="kickstart.jsp.bootimage">
-           <source>Boot Image</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart</context>
-        </context-group>
-    <target>부트 이미지</target></trans-unit>
 
     <trans-unit id="kickstart.jsp.lastchange">
            <source>Last Change</source>

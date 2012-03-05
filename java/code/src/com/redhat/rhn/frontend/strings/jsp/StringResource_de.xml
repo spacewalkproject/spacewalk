@@ -9600,12 +9600,6 @@ Bitte beachten Sie, dass m&amp;ouml;glicherweise noch einige manuelle Konfigurat
         </context-group>
     <target>Label</target></trans-unit>
 
-    <trans-unit id="kickstart.jsp.bootimage">
-           <source>Boot Image</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart</context>
-        </context-group>
-    <target>Boot Image</target></trans-unit>
 
     <trans-unit id="kickstart.jsp.lastchange">
            <source>Last Change</source>
