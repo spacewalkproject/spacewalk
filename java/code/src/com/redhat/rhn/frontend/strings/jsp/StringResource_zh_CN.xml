@@ -18006,12 +18006,6 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;
         </context-group>
       <target>服务器无法连接到这个服务，您无法填写您的请求。现在可能无法执行这个动作。</target></trans-unit>
 
-      <trans-unit id="service.jsp.message">
-<source>Please help us correct this problem by contacting us with details of how you received this message.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">service error page</context>
-        </context-group>
-      <target>请告诉我们你是如何接受此消息的细节，以帮助我们纠正这个问题。</target></trans-unit>
 
       <trans-unit id="login.jsp.error.header">
 <source>Login Error</source>

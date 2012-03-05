@@ -17958,12 +17958,6 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;
         </context-group>
       <target>ਸਰਵਰ ਸਰਵਿਸ ਨਾਲ ਜੁੜਨ ਲਈ ਅਸਮਰਥ ਹੈ, ਜਿਸ ਕਰਕੇ ਤੁਹਾਡੀ ਮੰਗ ਨੂੰ ਪੂਰੀ ਕਰਨ ਲਈ ਰੋਕਿਆ ਗਿਆ ਹੈ। ਇਸ ਸਮੇਂ ਇਹ ਕਾਰਵਾਈ ਪੂਰੀ ਨਹੀਂ ਕੀਤੀ ਸਕਦੀ ਹੈ।</target></trans-unit>
 
-      <trans-unit id="service.jsp.message">
-<source>Please help us correct this problem by contacting us with details of how you received this message.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">service error page</context>
-        </context-group>
-      <target></target></trans-unit>
 
       <trans-unit id="login.jsp.error.header">
 <source>Login Error</source>

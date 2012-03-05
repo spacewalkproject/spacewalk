@@ -18005,12 +18005,6 @@ de executar um kickstart ou criar uma nova distribuição kickstart.&lt;/strong&
         </context-group>
       <target>O servidor não pôde conectar ao serviço, o que impediu que o seu pedido fosse atendido.  Talvez não seja possível executar esta ação no momento.</target></trans-unit>
 
-      <trans-unit id="service.jsp.message">
-<source>Please help us correct this problem by contacting us with details of how you received this message.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">service error page</context>
-        </context-group>
-      <target>Por favor nos ajude a corrigir este problema, contactando-nos com detalhes de como você recebeu esta mensagem.</target></trans-unit>
 
       <trans-unit id="login.jsp.error.header">
 <source>Login Error</source>

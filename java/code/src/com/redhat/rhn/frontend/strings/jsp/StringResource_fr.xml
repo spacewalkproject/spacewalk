@@ -18012,12 +18012,6 @@ les canaux de logiciels de @@PRODUCT_NAME@@pour chaque canal parent pris en char
         </context-group>
       <target>Le serveur a rencontré un problème pour se connecter au service qui a empêché votre requête d'être complétée. Cette action ne peut pas être exécutée à ce stade.</target></trans-unit>
 
-      <trans-unit id="service.jsp.message">
-<source>Please help us correct this problem by contacting us with details of how you received this message.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">service error page</context>
-        </context-group>
-      <target>Veuillez nous aider à corriger ce problème en nous contactant avec les détails sur la façon dont vous avez reçu ce message.</target></trans-unit>
 
       <trans-unit id="login.jsp.error.header">
 <source>Login Error</source>
