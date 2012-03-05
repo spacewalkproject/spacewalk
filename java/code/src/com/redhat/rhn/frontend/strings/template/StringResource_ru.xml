@@ -226,54 +226,6 @@ Thank you for contacting Red Hat.
         </context-group>
       <target>Ваша система Red Hat не может получить службу</target></trans-unit>
 
-      <trans-unit id="email.unchanneledsystem.body">
-<source>
-Dear Red Hat Customer,
-
-The following system has been associated with your Red Hat login and
-account in the past day, but could not be entitled to @@PRODUCT_NAME@@
-services.
-
-{0}
-
-There are several reasons why this may have occurred:
-
-1) You recently reinstalled a system and are attempting to associate
-   the system with an existing, active subscription. Please ensure you
-   delete your existing system profile on @@PRODUCT_NAME@@.
-
-2) The number of systems you have connected to @@PRODUCT_NAME@@ exceeds
-   the number of active Red Hat subscriptions associated with your
-   account.  This may be because your subscriptions have expired or
-   you need to purchase a Red Hat subscription.
-
-   To check the expiration dates of your existing Red Hat
-   subscriptions, please visit:
-
-   https://www.redhat.com/apps/support/
-
-   Log in and click on View and manage your subscriptions link.
-
-3) You recently installed a Red Hat product and your subscription
-   number was not successfully activated. If you would like to try and
-   activate your subscription again, please visit:
-
-   https://www.redhat.com/activate
-
-For additional questions, please contact a Red Hat Customer Service
-representative at:
-
-http://www.redhat.com/about/contact/directory.html#custservice
-
-Thank you for using @@PRODUCT_NAME@@.
-</source>
-        <context-group name="ctx">
-         <context context-type="sourcefile">Taskomatic task: NoChannelCheck.java</context>
-                 <context context-type="paramnotes">
-                     {0} - Server name Name - Server.name - highwind
-          </context>
-        </context-group>
-      <target></target></trans-unit>
 
 <group>
   <context-group name="ctx">
