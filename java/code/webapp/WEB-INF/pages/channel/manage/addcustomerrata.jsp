@@ -47,8 +47,7 @@
 
 			  <tr> <th width="10%">Channel:</th><td width="40%">
 			  <select name="selected_channel">
-			  		<option value="null" >All Custom Channels</option>
-			 		<option value="null" ></option>			  		
+				    <option value="" >All Custom Channels</option>
 				    <optgroup>
 			   		<c:forEach var="option" items="${channel_list}">
 			   			<c:choose>
