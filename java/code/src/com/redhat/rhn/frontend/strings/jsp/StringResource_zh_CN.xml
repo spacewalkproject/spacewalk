@@ -21917,9 +21917,6 @@ given channel.</source>
       <trans-unit id="channel.edit.jsp.repourl">
 		<source>Repository URL</source>
       <target>库 URL</target></trans-unit>
-      <trans-unit id="channel.edit.jsp.repolabel">
-		<source>Label</source>
-      <target>标签</target></trans-unit>
       <trans-unit id="channel.edit.jsp.lastsynced">
 		<source>Last Sync Time</source>
       <target>最后同步的时间</target></trans-unit>

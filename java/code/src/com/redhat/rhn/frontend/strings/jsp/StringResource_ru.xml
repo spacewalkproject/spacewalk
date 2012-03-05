@@ -21773,9 +21773,6 @@ given channel.</source>
       <trans-unit id="channel.edit.jsp.repourl">
 		<source>Repository URL</source>
       <target></target></trans-unit>
-      <trans-unit id="channel.edit.jsp.repolabel">
-		<source>Label</source>
-      <target></target></trans-unit>
       <trans-unit id="channel.edit.jsp.lastsynced">
 		<source>Last Sync Time</source>
       <target></target></trans-unit>

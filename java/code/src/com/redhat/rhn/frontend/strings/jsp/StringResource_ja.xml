@@ -21902,9 +21902,6 @@ given channel.</source>
       <trans-unit id="channel.edit.jsp.repourl">
 		<source>Repository URL</source>
       <target>リポジトリ URL</target></trans-unit>
-      <trans-unit id="channel.edit.jsp.repolabel">
-		<source>Label</source>
-      <target>ラベル</target></trans-unit>
       <trans-unit id="channel.edit.jsp.lastsynced">
 		<source>Last Sync Time</source>
       <target>最終同期時間</target></trans-unit>

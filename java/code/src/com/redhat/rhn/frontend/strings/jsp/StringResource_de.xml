@@ -21937,9 +21937,6 @@ f&amp;uuml;r einen angegebenen Channel aufgelistet wird.</target></trans-unit>
       <trans-unit id="channel.edit.jsp.repourl">
 		<source>Repository URL</source>
       <target>Repository-URL</target></trans-unit>
-      <trans-unit id="channel.edit.jsp.repolabel">
-		<source>Label</source>
-      <target>Label</target></trans-unit>
       <trans-unit id="channel.edit.jsp.lastsynced">
 		<source>Last Sync Time</source>
       <target>Zeit der letzten Synchonisation</target></trans-unit>
