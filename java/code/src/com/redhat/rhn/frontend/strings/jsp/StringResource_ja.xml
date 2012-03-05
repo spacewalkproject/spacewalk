@@ -19070,20 +19070,6 @@ Note that only one set of ISO images is necessary to install any particular rele
           <context context-type="sourcefile">/rhn/software/channel/downloads/Download.do</context>
         </context-group>
       <target>@@PRODUCT_NAME@@ チャンネルコンテント ISO</target></trans-unit>
-      <trans-unit id="isodownload.channel-dump-descr2">
-<source>
-There are two types of channel content ISOs: Base Channel Content ISOs and Incremental Channel Content ISOs.
-You will want to download &lt;strong&gt;Base Channel Content ISOs&lt;/strong&gt; if you need to initially populate a new @@PRODUCT_NAME@@ with channel content.
-Alternatively, you will want to download &lt;strong&gt;Incremental Channel Content ISOs&lt;/strong&gt; if you want to update channels that you have already imported into your @@PRODUCT_NAME@@.
-</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/software/channel/downloads/Download.do</context>
-        </context-group>
-      <target>
-チャンネルコンテンツ ISO には、ベースチャンネルコンテンツ ISO とインクリメンタルチャンネルコンテンツ ISO の 2 つの種類があります。
-最初に新しい @@PRODUCT_NAME@@ にチャンネルコンテンツを含める必要がある場合は、&lt;strong&gt;ベースチャンネルコンテンツ ISO&lt;/strong&gt; をダウンロードします。
-または、@@PRODUCT_NAME@@ にすでにインポートしたチャンネルを更新する場合は、&lt;strong&gt;インクリメンタルチャンネルコンテンツ ISO&lt;/strong&gt; をダウンロードします。
-</target></trans-unit>
       <trans-unit id="isodownload.channel-dump-note">
 <source>
 &lt;strong&gt;Note:&lt;/strong&gt; Additional documentation on using @@PRODUCT_NAME@@ Channel Content ISOs is available in the &lt;em&gt;@@PRODUCT_NAME@@ Installation Guide&lt;/em&gt;, section 6.2.2.
