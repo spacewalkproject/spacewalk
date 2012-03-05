@@ -5921,12 +5921,6 @@ Benutzers vor dem Versuch, den Account zu deaktivieren.</target></trans-unit>
 
 
 
-    <trans-unit id="certificate.config.error.84">
-        <source>Invalid @@PRODUCT_NAME@@ certificate</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-      <target>Ung&amp;uuml;ltiges @@PRODUCT_NAME@@-Zertifikat</target></trans-unit>
 
     <trans-unit id="certificate.config.error.85">
         <source>Unknown activation error, see log file for more details.</source>

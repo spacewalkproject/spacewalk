@@ -5890,12 +5890,6 @@ user before attempting to deactivate their account.</source>
 
 
 
-    <trans-unit id="certificate.config.error.84">
-        <source>Invalid @@PRODUCT_NAME@@ certificate</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-      <target>தவறான @@PRODUCT_NAME@@ சான்றிதழ்</target></trans-unit>
 
     <trans-unit id="certificate.config.error.85">
         <source>Unknown activation error, see log file for more details.</source>

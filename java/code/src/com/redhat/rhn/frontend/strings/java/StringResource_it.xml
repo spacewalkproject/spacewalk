@@ -5914,12 +5914,6 @@ utente prima di disabilitare l'account in questione.</target></trans-unit>
 
 
 
-    <trans-unit id="certificate.config.error.84">
-        <source>Invalid @@PRODUCT_NAME@@ certificate</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-      <target>Certificato @@PRODUCT_NAME@@ invalido</target></trans-unit>
 
     <trans-unit id="certificate.config.error.85">
         <source>Unknown activation error, see log file for more details.</source>
