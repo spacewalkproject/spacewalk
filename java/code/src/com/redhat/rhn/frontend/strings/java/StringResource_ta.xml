@@ -6099,12 +6099,6 @@ url பின்பற்றி செயலிழக்கப்பட்ட �
         </context-group>
       <target></target></trans-unit>
 
-      <trans-unit id="kickstart.troubleshooting.validation.kernelparams.too_long">
-        <source>Extra kernel parameters can be no longer than 128 characters.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/kickstart/Troubleshooting.do</context>
-        </context-group>
-      <target>கூடுதல் கர்னல் மதிப்புருக்கள் 128 எழுத்துக்களுக்கு மேல் இருக்க முடியாது.</target></trans-unit>
 
       <trans-unit id="kickstart.locale.success">
         <source>Kickstart locale options updated.</source>

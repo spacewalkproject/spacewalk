@@ -6124,12 +6124,6 @@ Follow this url to see the full list of inactive systems:
         </context-group>
       <target>由于指向内核或 initrd 映像的基础路径是错误的或不存在的，所以 Kickstart 是无效的。要使你自定义版本有效，请选择一个版本并相应地修改其基础路径。</target></trans-unit>
 
-      <trans-unit id="kickstart.troubleshooting.validation.kernelparams.too_long">
-        <source>Extra kernel parameters can be no longer than 128 characters.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/kickstart/Troubleshooting.do</context>
-        </context-group>
-      <target>外部的内核参数不能多于128个字符。</target></trans-unit>
 
       <trans-unit id="kickstart.locale.success">
         <source>Kickstart locale options updated.</source>

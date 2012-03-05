@@ -6126,12 +6126,6 @@ Suivez cet url pour obtenir la liste complète des systèmes inactifs :
         </context-group>
       <target>Distribution Kickstart non valide à cause d'un chemin d'accès de base erroné ou non existant vers le noyau ou vers l'image initrd. Pour rendre la distribution personnalisée valide, veuillez sélectionner la distribution et modifier le chemin d'accès de base comme il convient.</target></trans-unit>
 
-      <trans-unit id="kickstart.troubleshooting.validation.kernelparams.too_long">
-        <source>Extra kernel parameters can be no longer than 128 characters.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/kickstart/Troubleshooting.do</context>
-        </context-group>
-      <target>Les paramètres supplémentaires du noyau ne peuvent pas contenir plus de 128 caractères.</target></trans-unit>
 
       <trans-unit id="kickstart.locale.success">
         <source>Kickstart locale options updated.</source>

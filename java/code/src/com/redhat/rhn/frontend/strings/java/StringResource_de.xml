@@ -6130,12 +6130,6 @@ Folgen Sie dieser URL f&amp;uuml;r die vollst&amp;auml;ndige Liste inaktiver Sys
         </context-group>
       <target>Kickstart-Distribution ist ungültig aufgrund eines falschen oder nicht vorhandenen Basispfads zum Kernel oder initrd-Image. Um Ihre angepasste Distribution gültig zu machen, wählen Sie die Distribution aus und ändern den Basispfad entsprechend.</target></trans-unit>
 
-      <trans-unit id="kickstart.troubleshooting.validation.kernelparams.too_long">
-        <source>Extra kernel parameters can be no longer than 128 characters.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/kickstart/Troubleshooting.do</context>
-        </context-group>
-      <target>Zus&amp;auml;tzliche Kernelparameter d&amp;uuml;rfen nicht l&amp;auml;nger als 128 Zeichen sein.</target></trans-unit>
 
       <trans-unit id="kickstart.locale.success">
         <source>Kickstart locale options updated.</source>

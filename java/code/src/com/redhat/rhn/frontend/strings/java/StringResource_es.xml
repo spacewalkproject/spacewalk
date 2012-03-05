@@ -6124,12 +6124,6 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
         </context-group>
       <target>La distribución kickstart no es válida debido a un error en la ruta base del kernel o la imagen initrd. Para hacer que su distribución personalizada sea válida, por favor seleccione la distribución y modifique su ruta base apropiadamente.</target></trans-unit>
 
-      <trans-unit id="kickstart.troubleshooting.validation.kernelparams.too_long">
-        <source>Extra kernel parameters can be no longer than 128 characters.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/kickstart/Troubleshooting.do</context>
-        </context-group>
-      <target>Los parámetros adicionales del kernel no pueden tener más de 128 caracteres.</target></trans-unit>
 
       <trans-unit id="kickstart.locale.success">
         <source>Kickstart locale options updated.</source>

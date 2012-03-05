@@ -6101,12 +6101,6 @@ Follow this url to see the full list of inactive systems:
         </context-group>
       <target></target></trans-unit>
 
-      <trans-unit id="kickstart.troubleshooting.validation.kernelparams.too_long">
-        <source>Extra kernel parameters can be no longer than 128 characters.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/kickstart/Troubleshooting.do</context>
-        </context-group>
-      <target>ਵਾਧੂ ਕਰਨਲ ਪੈਰਾਮੀਟਰ 128 ਅੱਖਰਾਂ ਤੋਂ ਜਿਆਦਾ ਨਹੀਂ ਹੋ ਸਕਦਾ।ਹੋਣੀ ਚਾਹੀਦੀ ਹੈ।</target></trans-unit>
 
       <trans-unit id="kickstart.locale.success">
         <source>Kickstart locale options updated.</source>
