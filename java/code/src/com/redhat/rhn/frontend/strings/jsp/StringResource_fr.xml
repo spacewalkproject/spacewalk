@@ -14442,12 +14442,6 @@ Vous pouvez déployer la dernière version de ce fichier (&lt;a href="{1}"&gt;Re
           <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
         </context-group>
      <target>L'utilisateur doit être un nom d'utilisateur Linux valide ou un id d'utilisateur, de 32 caractères ou moins.</target></trans-unit>
-	<trans-unit id="config-file-form.error.group-invalid">
-<source>Group must be a valid Linux group name or group id, of 32 characters or less.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
-        </context-group>
-     <target>Le groupe doit être un nom de groupe Linux valide ou un id de groupe, de 32 caractères ou moins.</target></trans-unit>
 	<trans-unit id="config-file-form.error.mode-invalid">
 <source>Permissions must be a valid Linux permissions set (4 octal digits)</source>
         <context-group name="ctx">

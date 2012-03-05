@@ -14433,12 +14433,6 @@ de configuração centralmente gerenciado pelo arquivo, {2}; segue abaixo uma li
           <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
         </context-group>
      <target>O Usuário deve ser um nome de usuário do Linux válido ou uma id de usuário, com menos de 32 caractéres.</target></trans-unit>
-	<trans-unit id="config-file-form.error.group-invalid">
-<source>Group must be a valid Linux group name or group id, of 32 characters or less.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
-        </context-group>
-     <target>Um Grupo deve ser um nome de grupo Linux válido ou uma id de grupo, com menos de  32 caractéres.</target></trans-unit>
 	<trans-unit id="config-file-form.error.mode-invalid">
 <source>Permissions must be a valid Linux permissions set (4 octal digits)</source>
         <context-group name="ctx">

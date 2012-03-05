@@ -14421,12 +14421,6 @@ centrally-managed configuration channel, {2}; below is a list of systems you may
           <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
         </context-group>
      <target>ব্যবহারকারীর ক্ষেত্রে ৩২ অথবা কম সংখ্যক অক্ষর বিশিষ্ট বৈধ Linux ব্যবহারকারীর নাম অথবা ব্যবহারকারীর id প্রয়োগ করা আবশ্যক।</target></trans-unit>
-	<trans-unit id="config-file-form.error.group-invalid">
-<source>Group must be a valid Linux group name or group id, of 32 characters or less.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
-        </context-group>
-     <target>দলের ক্ষেত্রে ৩২ অথবা কম সংখ্যক অক্ষর বিশিষ্ট বৈধ Linux দেল নাম অথবা দলের id প্রয়োগ করা আবশ্যক।</target></trans-unit>
 	<trans-unit id="config-file-form.error.mode-invalid">
 <source>Permissions must be a valid Linux permissions set (4 octal digits)</source>
         <context-group name="ctx">

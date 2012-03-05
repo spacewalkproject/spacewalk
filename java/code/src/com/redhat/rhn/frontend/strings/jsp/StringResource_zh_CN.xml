@@ -14437,12 +14437,6 @@ centrally-managed configuration channel, {2}; below is a list of systems you may
           <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
         </context-group>
      <target>User 必须是有效的 Linux 用户名或用户 id，且不多于 32 个字符。</target></trans-unit>
-	<trans-unit id="config-file-form.error.group-invalid">
-<source>Group must be a valid Linux group name or group id, of 32 characters or less.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
-        </context-group>
-     <target>Group 必须是有效的 Linux 组群名或组群 id，且不多于 32 个字符。</target></trans-unit>
 	<trans-unit id="config-file-form.error.mode-invalid">
 <source>Permissions must be a valid Linux permissions set (4 octal digits)</source>
         <context-group name="ctx">

@@ -14417,12 +14417,6 @@ centrally-managed configuration channel, {2}; below is a list of systems you may
           <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
         </context-group>
      <target>사용자는 32자 보다 적게 Linux 사용자명 또는 사용자 ID를 가지고 있어야 합니다.</target></trans-unit>
-	<trans-unit id="config-file-form.error.group-invalid">
-<source>Group must be a valid Linux group name or group id, of 32 characters or less.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
-        </context-group>
-     <target>그룹은 32자 보다 적게 Linux 그룹명 또는 그룹 ID를 가지고 있어야 합니다.</target></trans-unit>
 	<trans-unit id="config-file-form.error.mode-invalid">
 <source>Permissions must be a valid Linux permissions set (4 octal digits)</source>
         <context-group name="ctx">

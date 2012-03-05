@@ -14439,12 +14439,6 @@ centralmente de este archivo, {2}; a continuación encontrará una lista de sist
           <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
         </context-group>
      <target>El usuario debe ser un nombre de usuario o id de usuario válido en Linux, de 32 caracteres como máximo.</target></trans-unit>
-	<trans-unit id="config-file-form.error.group-invalid">
-<source>Group must be a valid Linux group name or group id, of 32 characters or less.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
-        </context-group>
-     <target>El grupo debe ser un nombre de grupo o id de grupo válido en Linux, de 32 caracteres como máximo.</target></trans-unit>
 	<trans-unit id="config-file-form.error.mode-invalid">
 <source>Permissions must be a valid Linux permissions set (4 octal digits)</source>
         <context-group name="ctx">
