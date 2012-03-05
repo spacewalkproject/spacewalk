@@ -1470,12 +1470,6 @@ inmediatamente y usted &lt;b&gt;no podrá iniciar una sesión nuevamente&lt;/b&g
           <context context-type="sourcefile">/rhn/users/CreateUser</context>
         </context-group>
       <target>Nombre, Apellido</target></trans-unit>
-      <trans-unit id="usercreate.stateRequired">
-<source>(required for US or Canada)</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/CreateUser</context>
-        </context-group>
-      <target>(obligatorios para USA o Canadá)</target></trans-unit>
       <trans-unit id="usercreate.requiredField">
 <source>Required Field</source>
         <context-group name="ctx">

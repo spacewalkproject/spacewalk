@@ -1470,12 +1470,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/users/CreateUser</context>
         </context-group>
       <target>முதல், கடைசி பெயர்</target></trans-unit>
-      <trans-unit id="usercreate.stateRequired">
-<source>(required for US or Canada)</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/CreateUser</context>
-        </context-group>
-      <target>(யுஎஸ் அல்லது கனடாவுக்கு தேவை)</target></trans-unit>
       <trans-unit id="usercreate.requiredField">
 <source>Required Field</source>
         <context-group name="ctx">

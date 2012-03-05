@@ -1470,12 +1470,6 @@ abaixo e &lt;b&gt;não poderá mais se autenticar&lt;/b&gt;.</target></trans-uni
           <context context-type="sourcefile">/rhn/users/CreateUser</context>
         </context-group>
       <target>Primeiro nome, Sobrenome</target></trans-unit>
-      <trans-unit id="usercreate.stateRequired">
-<source>(required for US or Canada)</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/CreateUser</context>
-        </context-group>
-      <target>(requerido para EUA ou Canadá)</target></trans-unit>
       <trans-unit id="usercreate.requiredField">
 <source>Required Field</source>
         <context-group name="ctx">
