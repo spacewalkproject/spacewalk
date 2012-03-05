@@ -819,12 +819,6 @@
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
           <target>Connexion @@PRODUCT_NAME@@</target></trans-unit>
-          <trans-unit id="Create Login">
-<source>Create Login</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-          <target>Créer le login</target></trans-unit>
       <trans-unit id="Spacewalk Support Tools">
 <source>@@PRODUCT_NAME@@ Support Tools</source>
         <context-group name="ctx">

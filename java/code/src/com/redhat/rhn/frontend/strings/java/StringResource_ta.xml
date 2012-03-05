@@ -819,12 +819,6 @@
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
           <target>@@PRODUCT_NAME@@ உட்புகுதல்</target></trans-unit>
-          <trans-unit id="Create Login">
-<source>Create Login</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-          <target>புகுபதிவை உருவாக்கவும்</target></trans-unit>
       <trans-unit id="Spacewalk Support Tools">
 <source>@@PRODUCT_NAME@@ Support Tools</source>
         <context-group name="ctx">
