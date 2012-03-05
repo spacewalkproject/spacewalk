@@ -10720,9 +10720,6 @@ Le script post non-chroot sera ensuite exécuté et le script post sera enfin ex
         <source>Update Snippet</source>
     <target>Mettre à jour le snippet</target></trans-unit>
 
-   <trans-unit id="snippetdelete.jsp.toolbar">
-        <source>Delete Snippet Confirmation</source>
-    <target>Confirmation de suppression du snippet</target></trans-unit>
 
 
      <trans-unit id="snippetdelete.jsp.summary">

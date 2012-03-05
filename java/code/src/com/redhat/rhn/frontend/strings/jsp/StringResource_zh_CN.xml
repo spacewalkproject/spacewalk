@@ -10715,9 +10715,6 @@ kickstart 前脚本的内容可以在 &lt;strong&gt;《红帽企业版 Linux 系
         <source>Update Snippet</source>
     <target>更新 Snippet </target></trans-unit>
 
-   <trans-unit id="snippetdelete.jsp.toolbar">
-        <source>Delete Snippet Confirmation</source>
-    <target>删除 Snippet 确认</target></trans-unit>
 
 
      <trans-unit id="snippetdelete.jsp.summary">

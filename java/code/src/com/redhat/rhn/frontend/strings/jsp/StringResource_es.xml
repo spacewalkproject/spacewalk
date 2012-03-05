@@ -10718,9 +10718,6 @@ el &lt;strong&gt;Manual de administración del sistema Red Hat Enterprise Linux.
         <source>Update Snippet</source>
     <target>Actualizar fragmento</target></trans-unit>
 
-   <trans-unit id="snippetdelete.jsp.toolbar">
-        <source>Delete Snippet Confirmation</source>
-    <target>Confirmación del borrado de fragmento</target></trans-unit>
 
 
      <trans-unit id="snippetdelete.jsp.summary">

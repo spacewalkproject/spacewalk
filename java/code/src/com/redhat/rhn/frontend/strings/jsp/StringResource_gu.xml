@@ -10705,9 +10705,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <source>Update Snippet</source>
     <target>સ્નીપેટને સુધારો</target></trans-unit>
 
-   <trans-unit id="snippetdelete.jsp.toolbar">
-        <source>Delete Snippet Confirmation</source>
-    <target>સ્નીપેટ ખાતરી કાઢી નાંખો</target></trans-unit>
 
 
      <trans-unit id="snippetdelete.jsp.summary">

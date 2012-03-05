@@ -11082,9 +11082,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <source>Update Snippet</source>
     </trans-unit>
 
-   <trans-unit id="snippetdelete.jsp.toolbar">
-        <source>Delete Snippet Confirmation</source>
-    </trans-unit>
 
 
      <trans-unit id="snippetdelete.jsp.summary">

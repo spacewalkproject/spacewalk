@@ -10700,9 +10700,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <source>Update Snippet</source>
     <target>Snippet 업데이트   </target></trans-unit>
 
-   <trans-unit id="snippetdelete.jsp.toolbar">
-        <source>Delete Snippet Confirmation</source>
-    <target>Snippet 확인 삭제  </target></trans-unit>
 
 
      <trans-unit id="snippetdelete.jsp.summary">

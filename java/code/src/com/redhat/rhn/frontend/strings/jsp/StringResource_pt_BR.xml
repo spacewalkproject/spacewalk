@@ -10711,9 +10711,6 @@ o &lt;strong&gt;Guia de Administração de Sistemas Red Hat Enterprise Li
         <source>Update Snippet</source>
     <target>Atualizar Snippet</target></trans-unit>
 
-   <trans-unit id="snippetdelete.jsp.toolbar">
-        <source>Delete Snippet Confirmation</source>
-    <target>Remover Confirmação de Snippet</target></trans-unit>
 
 
      <trans-unit id="snippetdelete.jsp.summary">

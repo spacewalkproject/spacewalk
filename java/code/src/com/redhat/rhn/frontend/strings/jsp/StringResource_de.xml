@@ -10722,9 +10722,6 @@ Anschlie&amp;szlig;end wird das nicht-chroot Post-Skript ausgef&amp;uuml;hrt, un
         <source>Update Snippet</source>
     <target>Snippet aktualisieren</target></trans-unit>
 
-   <trans-unit id="snippetdelete.jsp.toolbar">
-        <source>Delete Snippet Confirmation</source>
-    <target>Snippet-Best&amp;auml;tigung l&amp;ouml;schen</target></trans-unit>
 
 
      <trans-unit id="snippetdelete.jsp.summary">
