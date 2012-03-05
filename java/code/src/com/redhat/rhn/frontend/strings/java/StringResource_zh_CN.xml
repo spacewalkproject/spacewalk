@@ -6011,12 +6011,6 @@ user before attempting to deactivate their account.</source>
         </context-group>
       <target>{0} 个文件列表被删除。</target></trans-unit>
 
-      <trans-unit id="file_lists.failure">
-<source>{0} File List(s) could not be deleted.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/provisioning/preservation/PreservationListDelete.do</context>
-        </context-group>
-      <target>{0} 个文件列表不能被删除。</target></trans-unit>
 
       <trans-unit id="filelists.jsp.selectafilelist">
   <source>No File List(s) selected.</source>

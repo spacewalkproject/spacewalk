@@ -6011,12 +6011,6 @@ de este usuario antes de intentar desactivar esta cuenta.</target></trans-unit>
         </context-group>
       <target>{0} Lista(s) de archivos borrada(s).</target></trans-unit>
 
-      <trans-unit id="file_lists.failure">
-<source>{0} File List(s) could not be deleted.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/provisioning/preservation/PreservationListDelete.do</context>
-        </context-group>
-      <target>No se pudo borrar {0} Lista(s) de archivos.</target></trans-unit>
 
       <trans-unit id="filelists.jsp.selectafilelist">
   <source>No File List(s) selected.</source>

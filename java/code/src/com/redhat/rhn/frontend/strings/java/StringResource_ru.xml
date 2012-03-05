@@ -5986,12 +5986,6 @@ user before attempting to deactivate their account.</source>
         </context-group>
       <target>Удалено списков файлов: {0}</target></trans-unit>
 
-      <trans-unit id="file_lists.failure">
-<source>{0} File List(s) could not be deleted.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/provisioning/preservation/PreservationListDelete.do</context>
-        </context-group>
-      <target>Невозможно удалить списки файлов: {0} </target></trans-unit>
 
       <trans-unit id="filelists.jsp.selectafilelist">
   <source>No File List(s) selected.</source>

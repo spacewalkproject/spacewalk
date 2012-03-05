@@ -6013,12 +6013,6 @@ utilisateur avant de désactiver son compte.</target></trans-unit>
         </context-group>
       <target>{0} liste(s) de fichiers supprimée(s).</target></trans-unit>
 
-      <trans-unit id="file_lists.failure">
-<source>{0} File List(s) could not be deleted.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/provisioning/preservation/PreservationListDelete.do</context>
-        </context-group>
-      <target>Impossible de supprimer {0} liste(s) de fichiers.</target></trans-unit>
 
       <trans-unit id="filelists.jsp.selectafilelist">
   <source>No File List(s) selected.</source>
