@@ -1807,12 +1807,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/account/UserDetails</context>
         </context-group>
       <target> 개인 신상 정보</target></trans-unit>
-      <trans-unit id="addresses.SendVerification">
-<source>Send Verification</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/ChangeEmail</context>
-        </context-group>
-      <target>확인 이메일 보내기</target></trans-unit>
       <!-- channelperms.jsp -->
       <trans-unit id="channelperms.jsp.title">
 <source>Channel Subscription Permissions</source>

@@ -1806,12 +1806,6 @@ inmediatamente y usted &lt;b&gt;no podrá iniciar una sesión nuevamente&lt;/b&g
           <context context-type="sourcefile">/rhn/account/UserDetails</context>
         </context-group>
       <target>Información personal</target></trans-unit>
-      <trans-unit id="addresses.SendVerification">
-<source>Send Verification</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/ChangeEmail</context>
-        </context-group>
-      <target>Enviar Verificación</target></trans-unit>
       <!-- channelperms.jsp -->
       <trans-unit id="channelperms.jsp.title">
 <source>Channel Subscription Permissions</source>

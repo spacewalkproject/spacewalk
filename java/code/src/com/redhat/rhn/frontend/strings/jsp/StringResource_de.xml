@@ -1807,12 +1807,6 @@ dr&amp;uuml;cken und &lt;b&gt;k&amp;ouml;nnen sich nicht wieder einloggen&lt;/b&
           <context context-type="sourcefile">/rhn/account/UserDetails</context>
         </context-group>
       <target> Pers&amp;ouml;nliche Info </target></trans-unit>
-      <trans-unit id="addresses.SendVerification">
-<source>Send Verification</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/ChangeEmail</context>
-        </context-group>
-      <target>Verifizierung senden</target></trans-unit>
       <!-- channelperms.jsp -->
       <trans-unit id="channelperms.jsp.title">
 <source>Channel Subscription Permissions</source>

@@ -1807,12 +1807,6 @@ abaixo e &lt;b&gt;não poderá mais se autenticar&lt;/b&gt;.</target></trans-uni
           <context context-type="sourcefile">/rhn/account/UserDetails</context>
         </context-group>
       <target> Informações Pessoais </target></trans-unit>
-      <trans-unit id="addresses.SendVerification">
-<source>Send Verification</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/ChangeEmail</context>
-        </context-group>
-      <target>Enviar Verificação</target></trans-unit>
       <!-- channelperms.jsp -->
       <trans-unit id="channelperms.jsp.title">
 <source>Channel Subscription Permissions</source>
