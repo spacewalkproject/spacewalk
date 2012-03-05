@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.1
+Version: 1.8.2
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -585,6 +585,11 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Mar 05 2012 Miroslav Suchý 1.8.2-1
+- removing unused strings in StringResources (msuchy@redhat.com)
+- unify errata/Overview.do and errata/RelevantErrata.do
+  (dmacvicar@suse.de)
+
 * Sat Mar 03 2012 Jan Pazdziora 1.8.1-1
 - Removing the Downloads tab, in points to nonexisting
   /rhn/software/channel/downloads/Download.do page.
