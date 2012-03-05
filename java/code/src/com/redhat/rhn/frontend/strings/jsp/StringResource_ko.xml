@@ -18448,12 +18448,6 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;
         </context-group>
       <target>인타이틀먼트 사용: </target></trans-unit>
 
-      <trans-unit id="system_entitlement_details.total_avail">
-        <source>Total Available</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementDetails</context>
-        </context-group>
-      <target>사용 가능한 합계  </target></trans-unit>
 
 
       <trans-unit id="system_entitlement_details.access_grant">

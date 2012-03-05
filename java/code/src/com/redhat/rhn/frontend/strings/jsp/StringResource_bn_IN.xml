@@ -18453,12 +18453,6 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;
         </context-group>
       <target>এনটাইটেলমেন্টের ব্যবহার:</target></trans-unit>
 
-      <trans-unit id="system_entitlement_details.total_avail">
-        <source>Total Available</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementDetails</context>
-        </context-group>
-      <target>সর্বমোট উপলব্ধ</target></trans-unit>
 
 
       <trans-unit id="system_entitlement_details.access_grant">

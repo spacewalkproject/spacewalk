@@ -18501,12 +18501,6 @@ como refletido neste certificado do @@PRODUCT_NAME@@. </target></trans-unit>
         </context-group>
       <target>Uso dos Serviços:</target></trans-unit>
 
-      <trans-unit id="system_entitlement_details.total_avail">
-        <source>Total Available</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementDetails</context>
-        </context-group>
-      <target>Total Disponível</target></trans-unit>
 
 
       <trans-unit id="system_entitlement_details.access_grant">
