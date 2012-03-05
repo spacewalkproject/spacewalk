@@ -15344,9 +15344,6 @@ concerniente con esas revisiones. ¿Está seguro que es ésto lo que desea hacer
        <trans-unit id="ssm.operations.viewlog.modified">
           <source>Last Modified</source>
        <target>Último modificado</target></trans-unit>
-       <trans-unit id="ssm.operations.viewlog.progress">
-          <source>Percent Complete</source>
-       <target>Porcentaje completo</target></trans-unit>
        <trans-unit id="ssm.operations.viewlog.servers">
           <source>Servers</source>
        <target>Servidores</target></trans-unit>

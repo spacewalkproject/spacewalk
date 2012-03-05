@@ -15335,9 +15335,6 @@ para qualquer uma das revisões, assim como todo o histórico de implementação
        <trans-unit id="ssm.operations.viewlog.modified">
           <source>Last Modified</source>
        <target>Última Modificação</target></trans-unit>
-       <trans-unit id="ssm.operations.viewlog.progress">
-          <source>Percent Complete</source>
-       <target>Porcentagem Concluída</target></trans-unit>
        <trans-unit id="ssm.operations.viewlog.servers">
           <source>Servers</source>
        <target>Servidores</target></trans-unit>

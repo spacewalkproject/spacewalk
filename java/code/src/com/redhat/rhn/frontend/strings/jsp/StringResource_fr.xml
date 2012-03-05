@@ -15345,9 +15345,6 @@ pour ces versions seront également supprimées, ainsi que tous les historiques 
        <trans-unit id="ssm.operations.viewlog.modified">
           <source>Last Modified</source>
        <target>Dernière modification</target></trans-unit>
-       <trans-unit id="ssm.operations.viewlog.progress">
-          <source>Percent Complete</source>
-       <target>Pourcentage achevé</target></trans-unit>
        <trans-unit id="ssm.operations.viewlog.servers">
           <source>Servers</source>
        <target>Serveurs</target></trans-unit>

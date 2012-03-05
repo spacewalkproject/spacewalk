@@ -15312,9 +15312,6 @@ any of these revisions.  Are you sure you want to do this?</source>
        <trans-unit id="ssm.operations.viewlog.modified">
           <source>Last Modified</source>
        <target>છેલ્લે સુધારેલ</target></trans-unit>
-       <trans-unit id="ssm.operations.viewlog.progress">
-          <source>Percent Complete</source>
-       <target>પ્રતિશત સમાપ્ત</target></trans-unit>
        <trans-unit id="ssm.operations.viewlog.servers">
           <source>Servers</source>
        <target>સર્વરો</target></trans-unit>
