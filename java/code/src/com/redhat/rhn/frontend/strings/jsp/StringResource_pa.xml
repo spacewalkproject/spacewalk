@@ -11719,12 +11719,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
           <context context-type="sourcefile">/rhn/configuration/ChannelOverview.do</context>
         </context-group>
      <target>ਤੁਹਾਨੂੰ ਹੇਠਾਂ ਸੰਰਚਨਾ ਚੈਨਲ ਵੇਰਵਾ ਦੇਣਾ ਜਰੂਰੀ ਹੈ।</target></trans-unit>
-     <trans-unit id="toolbar.delete.configchannel">
-<source>delete channel</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/ChannelOverview.do</context>
-        </context-group>
-     <target>ਚੈਨਲ ਹਟਾਓ</target></trans-unit>
    <trans-unit id="channelOverview.jsp.newToolbar">
 <source>New Config Channel</source>
         <context-group name="ctx">

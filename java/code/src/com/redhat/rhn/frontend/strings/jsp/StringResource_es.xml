@@ -11732,12 +11732,6 @@ el &lt;strong&gt;Manual de administración del sistema Red Hat Enterprise Linux.
           <context context-type="sourcefile">/rhn/configuration/ChannelOverview.do</context>
         </context-group>
      <target>A continuación debe introducir la información del canal de configuración.</target></trans-unit>
-     <trans-unit id="toolbar.delete.configchannel">
-<source>delete channel</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/ChannelOverview.do</context>
-        </context-group>
-     <target>borrar canal</target></trans-unit>
    <trans-unit id="channelOverview.jsp.newToolbar">
 <source>New Config Channel</source>
         <context-group name="ctx">
