@@ -8490,12 +8490,6 @@ Por favor tenga en cuenta que podría ser necesario configurar manualmente estos
     <target>Si hace clic en el botón "no acepto" para rechazar los términos y condiciones, será automáticamente desconectado de su cuenta de @@PRODUCT_NAME@@.</target></trans-unit>
 
 
-  <trans-unit id="tnc.jsp.button-refuse">
-    <source>I Do Not Accept</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/tnc/</context>
-        </context-group>
-    <target>No acepto</target></trans-unit>
 
 
   <trans-unit id="tnc.jsp.button-refuse-subtext">

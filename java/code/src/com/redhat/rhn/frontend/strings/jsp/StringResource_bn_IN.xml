@@ -8478,12 +8478,6 @@ Please note that some manual configuration of these scripts may still be require
     <target>"আমি সম্মত নই" বাটন ক্লিক করে যদি আপনি উপরোক্ত শর্তাবলী প্রত্যাখ্যান করেন তাহলে আপনাকে @@PRODUCT_NAME@@ অ্যাকাউন্ট থেকে স্বয়ংক্রিয়রপে লগ আউট করে দেওয়া হবে।</target></trans-unit>
 
 
-  <trans-unit id="tnc.jsp.button-refuse">
-    <source>I Do Not Accept</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/tnc/</context>
-        </context-group>
-    <target>আমি সম্মত নই</target></trans-unit>
 
 
   <trans-unit id="tnc.jsp.button-refuse-subtext">

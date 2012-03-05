@@ -8486,12 +8486,6 @@ Please note that some manual configuration of these scripts may still be require
     <target>如果您点了 "我不接受" 按钮来拒绝这个条款，您将会从您的 @@PRODUCT_NAME@@ 帐户中自动退出。</target></trans-unit>
 
 
-  <trans-unit id="tnc.jsp.button-refuse">
-    <source>I Do Not Accept</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/tnc/</context>
-        </context-group>
-    <target>我不接受</target></trans-unit>
 
 
   <trans-unit id="tnc.jsp.button-refuse-subtext">

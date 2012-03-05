@@ -8475,12 +8475,6 @@ Please note that some manual configuration of these scripts may still be require
     <target>如果您按下「我不接受」按鈕，拒絕以上使用條款，您將會自動登出您的 @@PRODUCT_NAME@@ 帳號。</target></trans-unit>
 
 
-  <trans-unit id="tnc.jsp.button-refuse">
-    <source>I Do Not Accept</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/tnc/</context>
-        </context-group>
-    <target>我不接受</target></trans-unit>
 
 
   <trans-unit id="tnc.jsp.button-refuse-subtext">

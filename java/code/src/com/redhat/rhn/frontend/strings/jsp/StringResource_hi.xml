@@ -8479,12 +8479,6 @@ Please note that some manual configuration of these scripts may still be require
     <target>अगर आप "मैं स्वीकार नहीं करता हूं" बटन चुनकर नियम व शर्त अस्वीकार करते हैं, आप को अपने @@PRODUCT_NAME@@ खाता के स्वतः साइन आउट किया जाएगा.</target></trans-unit>
 
 
-  <trans-unit id="tnc.jsp.button-refuse">
-    <source>I Do Not Accept</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/tnc/</context>
-        </context-group>
-    <target>मुझे स्वीकार नहीं है</target></trans-unit>
 
 
   <trans-unit id="tnc.jsp.button-refuse-subtext">

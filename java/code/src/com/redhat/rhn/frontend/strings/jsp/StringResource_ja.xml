@@ -8476,12 +8476,6 @@ Please note that some manual configuration of these scripts may still be require
     <target>「受諾しません」ボタンを選択して上記の条件を拒否される場合、自動的に @@PRODUCT_NAME@@ アカウントからサインオフすることになります。</target></trans-unit>
 
 
-  <trans-unit id="tnc.jsp.button-refuse">
-    <source>I Do Not Accept</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/tnc/</context>
-        </context-group>
-    <target>受諾しません</target></trans-unit>
 
 
   <trans-unit id="tnc.jsp.button-refuse-subtext">

@@ -8479,12 +8479,6 @@ Please note that some manual configuration of these scripts may still be require
     <target>જો તમે બાબતો અને શરતો ઉપરના બટન "હું મંજૂર નથી" પર ક્લિક કરીને અસ્વીકારો, તો તમે તમારા @@PRODUCT_NAME@@ ખાતામાંથી આપોઆપ બહાર નીકળી જશો.</target></trans-unit>
 
 
-  <trans-unit id="tnc.jsp.button-refuse">
-    <source>I Do Not Accept</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/tnc/</context>
-        </context-group>
-    <target>મને મંજૂર નથી</target></trans-unit>
 
 
   <trans-unit id="tnc.jsp.button-refuse-subtext">

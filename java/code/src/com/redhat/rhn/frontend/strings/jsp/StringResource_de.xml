@@ -8493,12 +8493,6 @@ Bitte beachten Sie, dass m&amp;ouml;glicherweise noch einige manuelle Konfigurat
     <target>Wenn Sie die obigen Gesch&amp;auml;ftsbedingungen durch die Wahl der "Ich akzeptiere nicht" Schaltfl&amp;auml;che ablehnen, werden Sie automatisch von Ihrem @@PRODUCT_NAME@@ Account abgemeldet.</target></trans-unit>
 
 
-  <trans-unit id="tnc.jsp.button-refuse">
-    <source>I Do Not Accept</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/tnc/</context>
-        </context-group>
-    <target>Ich akzeptiere nicht</target></trans-unit>
 
 
   <trans-unit id="tnc.jsp.button-refuse-subtext">
