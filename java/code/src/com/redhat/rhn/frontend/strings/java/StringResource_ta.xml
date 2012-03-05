@@ -2558,12 +2558,6 @@ available for this kickstart profile to function properly.
         </context-group>
       <target>தொடர்புடைய தடங்கள் அல்லது வடிவமைப்புக்களை தேடவும், ஆனால் இரண்டையும் அல்ல.</target></trans-unit>
 
-      <trans-unit id="packages.search.invalidstring">
-<source>Search strings must contain only letters, numbers, plus symbols, hyphens and dashes.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/Search</context>
-        </context-group>
-      <target>தேட வேண்டிய சரங்களானது எழுத்துக்கள், எண்கள், கூட்டல் குறியீடுகள், இடைக்கோடு மற்றும் கோடுகளை மட்டும் கொண்டிருக்க வேண்டும்.</target></trans-unit>
 
       <trans-unit id="packages.search.use_free_form">
 <source>Searching by fields can ONLY be done with Free Form search.</source>

@@ -2564,12 +2564,6 @@ available for this kickstart profile to function properly.
         </context-group>
       <target>প্রযোজ্য চ্যানেল অথবা আর্কিটেকচারের মধ্যে অনুসন্ধান করুন, দুটির মধ্যে এক সাথে অনুসন্ধান করা সম্ভব নয়।</target></trans-unit>
 
-      <trans-unit id="packages.search.invalidstring">
-<source>Search strings must contain only letters, numbers, plus symbols, hyphens and dashes.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/Search</context>
-        </context-group>
-      <target>অনুসন্ধানের জন্য উল্লিখিত পংক্তির মধ্যে শুধুমাত্র অক্ষর, সংখ্যা, যোগ চিহ্ন, হাইফেন অথবা ড্যাশ চিহ্ন প্রয়োগ করা যাবে।</target></trans-unit>
 
       <trans-unit id="packages.search.use_free_form">
 <source>Searching by fields can ONLY be done with Free Form search.</source>

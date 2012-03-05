@@ -2582,12 +2582,6 @@ rhn-kickstart* パッケージが利用可能であることを確認します�
         </context-group>
       <target>検索は関連チャンネルかアーキテクチャのいずれかにしてください。</target></trans-unit>
 
-      <trans-unit id="packages.search.invalidstring">
-<source>Search strings must contain only letters, numbers, plus symbols, hyphens and dashes.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/Search</context>
-        </context-group>
-      <target>検索文字列には、 文字、 数字、 記号、 ハイフン、 ダッシュ以外は使用できません。</target></trans-unit>
 
       <trans-unit id="packages.search.use_free_form">
 <source>Searching by fields can ONLY be done with Free Form search.</source>

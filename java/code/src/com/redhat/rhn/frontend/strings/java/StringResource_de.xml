@@ -2589,12 +2589,6 @@ verfügbar machen, damit dieses Kickstart-Profil einwandfrei funktionieren kann.
         </context-group>
       <target>Durchsuchen Sie entweder relevante Channels oder Architekturen, nicht beides.</target></trans-unit>
 
-      <trans-unit id="packages.search.invalidstring">
-<source>Search strings must contain only letters, numbers, plus symbols, hyphens and dashes.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/Search</context>
-        </context-group>
-      <target>Such-Strings d&amp;uuml;rfen nur Buchstaben, Nummern, Plussymbole, Bindestriche und Querstriche enthalten.</target></trans-unit>
 
       <trans-unit id="packages.search.use_free_form">
 <source>Searching by fields can ONLY be done with Free Form search.</source>

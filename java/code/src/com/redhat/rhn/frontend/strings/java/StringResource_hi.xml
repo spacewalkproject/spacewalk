@@ -2558,12 +2558,6 @@ available for this kickstart profile to function properly.
         </context-group>
       <target>या तो संदर्भ के चैनल या आर्किटेक्चर को खोजें न कि दोनों.</target></trans-unit>
 
-      <trans-unit id="packages.search.invalidstring">
-<source>Search strings must contain only letters, numbers, plus symbols, hyphens and dashes.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/Search</context>
-        </context-group>
-      <target>खोज स्ट्रिंग को जरूर सिर्फ अक्षर, संख्या, जोड़ चिह्न, योजक चिह्न और डैश समाहित करना चाहिए.</target></trans-unit>
 
       <trans-unit id="packages.search.use_free_form">
 <source>Searching by fields can ONLY be done with Free Form search.</source>

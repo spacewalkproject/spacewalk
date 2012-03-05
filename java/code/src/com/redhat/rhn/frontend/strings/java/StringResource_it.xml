@@ -2582,12 +2582,6 @@ disponibili per un corretto funzionamento di questo profilo kickstart.
         </context-group>
       <target>Ricercare i canali rilevanti o le achitetture, ma non entrambi.</target></trans-unit>
 
-      <trans-unit id="packages.search.invalidstring">
-<source>Search strings must contain only letters, numbers, plus symbols, hyphens and dashes.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/Search</context>
-        </context-group>
-      <target>Le stringhe di ricerca devono contenere solo lettere, numeri, e trattini.</target></trans-unit>
 
       <trans-unit id="packages.search.use_free_form">
 <source>Searching by fields can ONLY be done with Free Form search.</source>
