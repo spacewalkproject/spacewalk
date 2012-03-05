@@ -17816,9 +17816,6 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;
         <trans-unit id="exportcolumn.updateDate">
             <source>Updated</source>
         <target>업데이트됨</target></trans-unit>
-        <trans-unit id="exportcolumn.suiteName">
-            <source>Suite Name</source>
-        <target>슈트 이름</target></trans-unit>
         <trans-unit id="exportcolumn.systemCount">
             <source>System Count</source>
         <target>시스템 계산</target></trans-unit>

@@ -17870,9 +17870,6 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;
         <trans-unit id="exportcolumn.updateDate">
             <source>Updated</source>
         <target>更新的</target></trans-unit>
-        <trans-unit id="exportcolumn.suiteName">
-            <source>Suite Name</source>
-        <target>套件名称</target></trans-unit>
         <trans-unit id="exportcolumn.systemCount">
             <source>System Count</source>
         <target>系统计数</target></trans-unit>

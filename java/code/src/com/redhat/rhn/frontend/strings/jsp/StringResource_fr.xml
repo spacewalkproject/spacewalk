@@ -17876,9 +17876,6 @@ les canaux de logiciels de @@PRODUCT_NAME@@pour chaque canal parent pris en char
         <trans-unit id="exportcolumn.updateDate">
             <source>Updated</source>
         <target>Mis à jour le</target></trans-unit>
-        <trans-unit id="exportcolumn.suiteName">
-            <source>Suite Name</source>
-        <target>Nom de la suite</target></trans-unit>
         <trans-unit id="exportcolumn.systemCount">
             <source>System Count</source>
         <target>Nombre de systèmes</target></trans-unit>

@@ -17869,9 +17869,6 @@ de executar um kickstart ou criar uma nova distribuição kickstart.&lt;/strong&
         <trans-unit id="exportcolumn.updateDate">
             <source>Updated</source>
         <target>Atualizado</target></trans-unit>
-        <trans-unit id="exportcolumn.suiteName">
-            <source>Suite Name</source>
-        <target>Nome do Conjunto</target></trans-unit>
         <trans-unit id="exportcolumn.systemCount">
             <source>System Count</source>
         <target>Número de Sistemas</target></trans-unit>
