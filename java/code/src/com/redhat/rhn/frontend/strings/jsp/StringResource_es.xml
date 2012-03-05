@@ -6744,12 +6744,6 @@ para este derecho, excluyendo el consumo de la organización predeterminada.</ta
       </context-group>
 <target>Comando</target></trans-unit>
 
-    <trans-unit id="probesuitesystemsedit.jsp.satclustertouse">
-<source>Monitoring Scout</source>
-      <context-group name="ctx">
-        <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuiteSystems.do</context>
-      </context-group>
-    <target>Explorador de monitorización</target></trans-unit>
 
 
     <trans-unit id="probesuitesystemsedit.jsp.header1">

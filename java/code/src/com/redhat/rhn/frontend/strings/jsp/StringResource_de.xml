@@ -6746,12 +6746,6 @@ für diese Berechtigung, mit Ausnahme des Verbrauchs der Standardorganisation.</
       </context-group>
 <target>Befehl</target></trans-unit>
 
-    <trans-unit id="probesuitesystemsedit.jsp.satclustertouse">
-<source>Monitoring Scout</source>
-      <context-group name="ctx">
-        <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuiteSystems.do</context>
-      </context-group>
-    <target>Monitoring-Scout</target></trans-unit>
 
 
     <trans-unit id="probesuitesystemsedit.jsp.header1">

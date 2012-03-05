@@ -6744,12 +6744,6 @@ value for this entitlement, excluding the default organization's consumption.</s
       </context-group>
 <target>命令</target></trans-unit>
 
-    <trans-unit id="probesuitesystemsedit.jsp.satclustertouse">
-<source>Monitoring Scout</source>
-      <context-group name="ctx">
-        <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuiteSystems.do</context>
-      </context-group>
-    <target>监测侦察</target></trans-unit>
 
 
     <trans-unit id="probesuitesystemsedit.jsp.header1">
