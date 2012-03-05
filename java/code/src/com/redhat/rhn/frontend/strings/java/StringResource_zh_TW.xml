@@ -838,12 +838,6 @@
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
       <target>未分組的</target></trans-unit>
-      <trans-unit id="Unix Reference Guide">
-<source>Unix Reference Guide</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-      <target>Unix 參考使南</target></trans-unit>
       <trans-unit id="Unix Release Notes">
 <source>Unix Release Notes</source>
         <context-group name="ctx">

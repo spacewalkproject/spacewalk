@@ -838,12 +838,6 @@
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
       <target>Sans groupe</target></trans-unit>
-      <trans-unit id="Unix Reference Guide">
-<source>Unix Reference Guide</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-      <target>Guide de référence d'Unix</target></trans-unit>
       <trans-unit id="Unix Release Notes">
 <source>Unix Release Notes</source>
         <context-group name="ctx">

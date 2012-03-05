@@ -838,12 +838,6 @@
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
       <target>그룹에 속하지 않은 시스템   </target></trans-unit>
-      <trans-unit id="Unix Reference Guide">
-<source>Unix Reference Guide</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-      <target>유닉스 참조 가이드</target></trans-unit>
       <trans-unit id="Unix Release Notes">
 <source>Unix Release Notes</source>
         <context-group name="ctx">
