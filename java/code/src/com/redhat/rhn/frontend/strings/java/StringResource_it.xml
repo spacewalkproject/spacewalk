@@ -5917,12 +5917,6 @@ utente prima di disabilitare l'account in questione.</target></trans-unit>
 
 
 
-    <trans-unit id="certificate.config.error.87">
-        <source>No @@PRODUCT_NAME@@ channel available for this version</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-      <target>Nessun canale @@PRODUCT_NAME@@ disponibile per questa versione</target></trans-unit>
 
     <trans-unit id="certificate.config.error.127">
         <source>Unhandled error, see log file for more details.</source>

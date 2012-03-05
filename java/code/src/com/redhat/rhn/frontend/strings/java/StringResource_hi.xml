@@ -5893,12 +5893,6 @@ user before attempting to deactivate their account.</source>
 
 
 
-    <trans-unit id="certificate.config.error.87">
-        <source>No @@PRODUCT_NAME@@ channel available for this version</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-      <target>इस संस्करण के लिये कोई @@PRODUCT_NAME@@ चैनल नहीं उपलब्ध है</target></trans-unit>
 
     <trans-unit id="certificate.config.error.127">
         <source>Unhandled error, see log file for more details.</source>
