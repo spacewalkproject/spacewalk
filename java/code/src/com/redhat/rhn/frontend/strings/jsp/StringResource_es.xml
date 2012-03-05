@@ -16463,12 +16463,6 @@ para suscribir los sistemas a los canales de software durante el inicio de insta
             <context context-type="sourcefile">/rhn/account/LocalePreferences.do</context>
         </context-group>
     <target>Inglés</target></trans-unit>
-    <trans-unit id="preferences.jsp.lang.it">
-        <source>Italian</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/account/LocalePreferences.do</context>
-        </context-group>
-    <target>Italiano</target></trans-unit>
     <trans-unit id="preferences.jsp.lang.ja">
         <source>Japanese</source>
         <context-group name="ctx">
