@@ -6685,12 +6685,6 @@ value for this entitlement, excluding the default organization's consumption.</s
     <target>প্যাকেজ ডাউনলোড করুন</target></trans-unit>
 
 
-    <trans-unit id="download.jsp.summary2">
-<source>To extract the packages once the download is complete, run the following from the commandline:</source>
-      <context-group name="ctx">
-        <context context-type="sourcefile">/rhn/systems/details/packages/DownloadConfirm.do</context>
-      </context-group>
-    <target>ডাউনলোড সমাপ্তির পরে প্যাকেজ আহরণ করতে কমান্ডলাইন থেকে নিম্নলিখিত কমান্ড চালান:</target></trans-unit>
 
     <trans-unit id="download.jsp.summary3">
 <source>The packages you have selected will be in the newly created &lt;code&gt;rhn-packages/&lt;/code&gt; directory beneath your current directory.</source>
