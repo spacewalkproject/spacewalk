@@ -10688,9 +10688,6 @@ el &lt;strong&gt;Manual de administración del sistema Red Hat Enterprise Linux.
         <source>Create New Snippet</source>
     <target>Crear nuevo fragmento</target></trans-unit>
 
-    <trans-unit id="snippetcreate.jsp.summary">
-        <source>Snippets can be shared between kickstart profiles</source>
-    <target>Los fragmentos pueden ser compartidos entre perfiles Kickstart</target></trans-unit>
 
     <trans-unit id="snippetcreate.jsp.header2">
         <source>Create Snippet</source>

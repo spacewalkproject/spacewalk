@@ -10670,9 +10670,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <source>Create New Snippet</source>
     <target>새 Snippet 생성   </target></trans-unit>
 
-    <trans-unit id="snippetcreate.jsp.summary">
-        <source>Snippets can be shared between kickstart profiles</source>
-    <target>Snippet은 킥스타트 프로파일 사이에서 공유될 수 있습니다   </target></trans-unit>
 
     <trans-unit id="snippetcreate.jsp.header2">
         <source>Create Snippet</source>

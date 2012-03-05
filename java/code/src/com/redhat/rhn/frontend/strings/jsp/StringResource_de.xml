@@ -10692,9 +10692,6 @@ Anschlie&amp;szlig;end wird das nicht-chroot Post-Skript ausgef&amp;uuml;hrt, un
         <source>Create New Snippet</source>
     <target>Neues Snippet erstellen</target></trans-unit>
 
-    <trans-unit id="snippetcreate.jsp.summary">
-        <source>Snippets can be shared between kickstart profiles</source>
-    <target>Snippets können von Kickstart-Profilen gemeinsam verwendet werden</target></trans-unit>
 
     <trans-unit id="snippetcreate.jsp.header2">
         <source>Create Snippet</source>

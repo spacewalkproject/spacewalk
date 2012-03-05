@@ -10675,9 +10675,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <source>Create New Snippet</source>
     <target>નવા સ્નીપેટને બનાવો</target></trans-unit>
 
-    <trans-unit id="snippetcreate.jsp.summary">
-        <source>Snippets can be shared between kickstart profiles</source>
-    <target>કિકસ્ટાર્ટ રૂપરેખાઓ વચ્ચે સ્નીપેટો વહેંચાઇ શકે છે</target></trans-unit>
 
     <trans-unit id="snippetcreate.jsp.header2">
         <source>Create Snippet</source>

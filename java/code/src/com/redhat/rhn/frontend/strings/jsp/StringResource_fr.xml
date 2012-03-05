@@ -10690,9 +10690,6 @@ Le script post non-chroot sera ensuite exécuté et le script post sera enfin ex
         <source>Create New Snippet</source>
     <target>Créer un nouveau snippet</target></trans-unit>
 
-    <trans-unit id="snippetcreate.jsp.summary">
-        <source>Snippets can be shared between kickstart profiles</source>
-    <target>Les snippets peuvent être partagés entre les profils kickstart</target></trans-unit>
 
     <trans-unit id="snippetcreate.jsp.header2">
         <source>Create Snippet</source>
