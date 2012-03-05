@@ -13682,9 +13682,6 @@ concerniente con esas revisiones. ¿Está seguro que es ésto lo que desea hacer
         <trans-unit id="manage.jsp.uploadbutton">
           <source>Upload File</source>
         <target>Cargar archivo</target></trans-unit>
-        <trans-unit id="toolbar.create.revision">
-          <source>create new revision</source>
-        <target>crear nueva revisión</target></trans-unit>
         <trans-unit id="manage.jsp.success">
           <source>&lt;a href="{0}"&gt;Revision {1}&lt;/a&gt; successfully uploaded.</source>
         <target>&lt;a href="{0}"&gt;Revisión {1}&lt;/a&gt; cargada satisfactoriamente.</target></trans-unit>
