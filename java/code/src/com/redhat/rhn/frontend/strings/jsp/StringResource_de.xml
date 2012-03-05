@@ -1500,12 +1500,6 @@ dr&amp;uuml;cken und &lt;b&gt;k&amp;ouml;nnen sich nicht wieder einloggen&lt;/b&
           <context context-type="sourcefile">/rhn/users/CreateUser</context>
         </context-group>
       <target> Ja, ich w&amp;uuml;rde gerne &amp;uuml;ber spezielle Angebote von Red Hat's Partnern informiert werden.</target></trans-unit>
-      <trans-unit id="usercreate.createLogin">
-<source>Create a Red Hat Login</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/newlogin/CreateCorporate</context>
-        </context-group>
-      <target>Red Hat Login erstellen</target></trans-unit>
       <trans-unit id="usercreate.createPersonal">
 <source>Create a Home User Login</source>
         <context-group name="ctx">

@@ -1500,12 +1500,6 @@ abaixo e &lt;b&gt;não poderá mais se autenticar&lt;/b&gt;.</target></trans-uni
           <context context-type="sourcefile">/rhn/users/CreateUser</context>
         </context-group>
       <target> Sim, desejo receber ofertas especiais dos parceiros Red Hat.</target></trans-unit>
-      <trans-unit id="usercreate.createLogin">
-<source>Create a Red Hat Login</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/newlogin/CreateCorporate</context>
-        </context-group>
-      <target>Criar um Login para a Red Hat</target></trans-unit>
       <trans-unit id="usercreate.createPersonal">
 <source>Create a Home User Login</source>
         <context-group name="ctx">

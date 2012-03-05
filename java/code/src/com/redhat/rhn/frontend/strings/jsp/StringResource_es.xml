@@ -1500,12 +1500,6 @@ inmediatamente y usted &lt;b&gt;no podrá iniciar una sesión nuevamente&lt;/b&g
           <context context-type="sourcefile">/rhn/users/CreateUser</context>
         </context-group>
       <target>Si, me gustaría escuchar ofertas especiales de los socios de Red Hat.</target></trans-unit>
-      <trans-unit id="usercreate.createLogin">
-<source>Create a Red Hat Login</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/newlogin/CreateCorporate</context>
-        </context-group>
-      <target>Crear un Login de Red Hat</target></trans-unit>
       <trans-unit id="usercreate.createPersonal">
 <source>Create a Home User Login</source>
         <context-group name="ctx">
