@@ -8483,12 +8483,6 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
     <target>@@PRODUCT_NAME@@-এ লগ-ইন করার জন্য লিঙ্ক</target></trans-unit>
 
-  <trans-unit id="tnc.jsp.error-desc">
-    <source>An error occurred while processing your acceptance of Red Hat's Terms and Conditions of use. Please click on the link below to log back into @@PRODUCT_NAME@@ and complete the acceptance process.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/tnc/</context>
-        </context-group>
-    <target>আপনার দ্বারা Red Hat-র শর্তাবলী অনুযায়ী সম্মতি গ্রহণ করার সময় সমস্যা দেখা দিয়েছে। অনুগ্রহ করে নীচে উল্লিখিত লিঙ্ক ক্লিক করে পুনরায় @@PRODUCT_NAME@@-এ লগ-ইন করুন ও সম্মতি জ্ঞাপনের প্রণালী সম্পূর্ণ করুন।</target></trans-unit>
 
   <trans-unit id="tnc.jsp.print-version">
     <source>Printer-Friendly Version</source>

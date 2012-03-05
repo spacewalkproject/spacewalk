@@ -8481,12 +8481,6 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
     <target>@@PRODUCT_NAME@@ ログインのリンク</target></trans-unit>
 
-  <trans-unit id="tnc.jsp.error-desc">
-    <source>An error occurred while processing your acceptance of Red Hat's Terms and Conditions of use. Please click on the link below to log back into @@PRODUCT_NAME@@ and complete the acceptance process.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/tnc/</context>
-        </context-group>
-    <target>Red Hat の使用に関する条件の受諾を処理中にエラーが発生しました。以下のリンクをクリックして @@PRODUCT_NAME@@ に再度ログインし、受諾の処理を完了してください。</target></trans-unit>
 
   <trans-unit id="tnc.jsp.print-version">
     <source>Printer-Friendly Version</source>

@@ -8498,12 +8498,6 @@ Bitte beachten Sie, dass m&amp;ouml;glicherweise noch einige manuelle Konfigurat
         </context-group>
     <target>Link zum Einloggen im @@PRODUCT_NAME@@</target></trans-unit>
 
-  <trans-unit id="tnc.jsp.error-desc">
-    <source>An error occurred while processing your acceptance of Red Hat's Terms and Conditions of use. Please click on the link below to log back into @@PRODUCT_NAME@@ and complete the acceptance process.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/tnc/</context>
-        </context-group>
-    <target>W&amp;auml;hrend der Verarbeitung Ihrer Zustimmung zu den Gesch&amp;auml;ftsbedingungen kam es zu einer Fehlermeldung. Bitte klicken Sie auf den sich untenstehenden Link, um sich wieder im @@PRODUCT_NAME@@ einzuloggen und ihren Zustimmungsprozess fortzusetzen.</target></trans-unit>
 
   <trans-unit id="tnc.jsp.print-version">
     <source>Printer-Friendly Version</source>

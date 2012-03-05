@@ -8495,12 +8495,6 @@ Por favor tenga en cuenta que podría ser necesario configurar manualmente estos
         </context-group>
     <target>Enlace para conectarse a @@PRODUCT_NAME@@</target></trans-unit>
 
-  <trans-unit id="tnc.jsp.error-desc">
-    <source>An error occurred while processing your acceptance of Red Hat's Terms and Conditions of use. Please click on the link below to log back into @@PRODUCT_NAME@@ and complete the acceptance process.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/tnc/</context>
-        </context-group>
-    <target>Ha ocurrido un error mientras se procesaba la aceptación de los términos y condiciones de uso de Red Hat. Por favor haga clic en el enlace de abajo para regresar a @@PRODUCT_NAME@@ y completar el proceso.</target></trans-unit>
 
   <trans-unit id="tnc.jsp.print-version">
     <source>Printer-Friendly Version</source>
