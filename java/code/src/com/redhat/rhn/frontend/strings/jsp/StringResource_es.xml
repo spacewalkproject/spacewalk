@@ -5424,13 +5424,6 @@ para este derecho, excluyendo el consumo de la organización predeterminada.</ta
         </context-group>
       <target>Sistemas inactivos</target></trans-unit>
 
-      <trans-unit id="inactivelist.jsp.nosystems">
-<source>No inactive systems.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/Inactive</context>
-          <context context-type="sourcefile">/rhn/systems/SystemGroupList</context>
-        </context-group>
-      <target>Ningún sistema inactivo</target></trans-unit>
 
       <trans-unit id="registeredlist.jsp.header">
 <source>Recently Registered Systems</source>

@@ -5426,13 +5426,6 @@ für diese Berechtigung, mit Ausnahme des Verbrauchs der Standardorganisation.</
         </context-group>
       <target>Inaktive Systeme</target></trans-unit>
 
-      <trans-unit id="inactivelist.jsp.nosystems">
-<source>No inactive systems.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/Inactive</context>
-          <context context-type="sourcefile">/rhn/systems/SystemGroupList</context>
-        </context-group>
-      <target>Keine inaktiven Systeme</target></trans-unit>
 
       <trans-unit id="registeredlist.jsp.header">
 <source>Recently Registered Systems</source>

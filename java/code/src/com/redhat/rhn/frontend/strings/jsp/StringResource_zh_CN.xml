@@ -5424,13 +5424,6 @@ value for this entitlement, excluding the default organization's consumption.</s
         </context-group>
       <target>不活跃的系统</target></trans-unit>
 
-      <trans-unit id="inactivelist.jsp.nosystems">
-<source>No inactive systems.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/Inactive</context>
-          <context context-type="sourcefile">/rhn/systems/SystemGroupList</context>
-        </context-group>
-      <target>没有不活跃的系统。</target></trans-unit>
 
       <trans-unit id="registeredlist.jsp.header">
 <source>Recently Registered Systems</source>
