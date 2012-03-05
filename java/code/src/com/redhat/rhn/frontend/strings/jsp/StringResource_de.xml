@@ -4079,12 +4079,6 @@ werden diese von der Standard-Organisation abgezogen.</target></trans-unit>
           <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
         </context-group>
       <target>Organisationsname</target></trans-unit>
-      <trans-unit id="softwareEntitlementSubs.column.total">
-<source>Total*</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-      <target>Insgesamt*</target></trans-unit>
       <trans-unit id="softwareEntitlementSubs.systemWideCounts.header.regular">
 <source>System-Wide Regular Entitlement Counts</source>
         <context-group name="ctx">
