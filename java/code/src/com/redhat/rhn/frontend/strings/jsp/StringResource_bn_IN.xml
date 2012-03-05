@@ -5096,13 +5096,6 @@ value for this entitlement, excluding the default organization's consumption.</s
         </context-group>
       <target>সম্প্রতি নিবন্ধিত সিস্টেম</target></trans-unit>
 
-      <trans-unit id="registeredlist.jsp.nosystems">
-<source>No systems were registered in the selected time frame.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/Registered.do</context>
-          <context context-type="sourcefile">/rhn/YourRhn.do</context>
-        </context-group>
-      <target>নির্বাচিত সময়সীমার মধ্যে কোনো সিস্টেম নিবন্ধিত হয়নি।</target></trans-unit>
 
       <trans-unit id="registeredlist.jsp.date">
 <source>Date Registered</source>

@@ -5098,13 +5098,6 @@ für diese Berechtigung, mit Ausnahme des Verbrauchs der Standardorganisation.</
         </context-group>
       <target>K&amp;uuml;rzlich registrierte Systeme</target></trans-unit>
 
-      <trans-unit id="registeredlist.jsp.nosystems">
-<source>No systems were registered in the selected time frame.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/Registered.do</context>
-          <context context-type="sourcefile">/rhn/YourRhn.do</context>
-        </context-group>
-      <target>Es wurden keine Systeme in der ausgew&amp;auml;hlten Zeitspanne registriert.</target></trans-unit>
 
       <trans-unit id="registeredlist.jsp.date">
 <source>Date Registered</source>

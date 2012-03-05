@@ -5096,13 +5096,6 @@ value for this entitlement, excluding the default organization's consumption.</s
         </context-group>
       <target>சமீபத்தில் பதிவு செய்யப்பட்ட கணினிகள்</target></trans-unit>
 
-      <trans-unit id="registeredlist.jsp.nosystems">
-<source>No systems were registered in the selected time frame.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/Registered.do</context>
-          <context context-type="sourcefile">/rhn/YourRhn.do</context>
-        </context-group>
-      <target>எந்த கணினிகளும் தேர்ந்தெடுக்கப்பட்ட நேரத்திற்குள் பதிவு செய்யப்படவில்லை.</target></trans-unit>
 
       <trans-unit id="registeredlist.jsp.date">
 <source>Date Registered</source>

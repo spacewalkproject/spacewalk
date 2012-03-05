@@ -5097,13 +5097,6 @@ pour ce droit d'accès, moins la consommation par défaut de l'organisation.</ta
         </context-group>
       <target>Systèmes enregistrés récemment</target></trans-unit>
 
-      <trans-unit id="registeredlist.jsp.nosystems">
-<source>No systems were registered in the selected time frame.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/Registered.do</context>
-          <context context-type="sourcefile">/rhn/YourRhn.do</context>
-        </context-group>
-      <target>Aucun système n'a été enregistré durant la période sélectionnée.</target></trans-unit>
 
       <trans-unit id="registeredlist.jsp.date">
 <source>Date Registered</source>

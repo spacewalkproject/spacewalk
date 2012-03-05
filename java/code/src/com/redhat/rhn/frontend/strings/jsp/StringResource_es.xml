@@ -5096,13 +5096,6 @@ para este derecho, excluyendo el consumo de la organización predeterminada.</ta
         </context-group>
       <target>Sistemas registrados recientemente</target></trans-unit>
 
-      <trans-unit id="registeredlist.jsp.nosystems">
-<source>No systems were registered in the selected time frame.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/Registered.do</context>
-          <context context-type="sourcefile">/rhn/YourRhn.do</context>
-        </context-group>
-      <target>Ningún sistema fue registrado en el marco de tiempo seleccionado.</target></trans-unit>
 
       <trans-unit id="registeredlist.jsp.date">
 <source>Date Registered</source>

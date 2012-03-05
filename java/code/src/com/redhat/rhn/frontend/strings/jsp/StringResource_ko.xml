@@ -5095,13 +5095,6 @@ value for this entitlement, excluding the default organization's consumption.</s
         </context-group>
       <target>최근 등록된 시스템 </target></trans-unit>
 
-      <trans-unit id="registeredlist.jsp.nosystems">
-<source>No systems were registered in the selected time frame.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/Registered.do</context>
-          <context context-type="sourcefile">/rhn/YourRhn.do</context>
-        </context-group>
-      <target>선택된 시간에 등록된 시스템이 없습니다.</target></trans-unit>
 
       <trans-unit id="registeredlist.jsp.date">
 <source>Date Registered</source>

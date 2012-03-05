@@ -5094,13 +5094,6 @@ value for this entitlement, excluding the default organization's consumption.</s
         </context-group>
       <target>Sistemas Registrados Recentemente</target></trans-unit>
 
-      <trans-unit id="registeredlist.jsp.nosystems">
-<source>No systems were registered in the selected time frame.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/Registered.do</context>
-          <context context-type="sourcefile">/rhn/YourRhn.do</context>
-        </context-group>
-      <target>Nenhum sistema registrado na estrutura de horário selecionado.</target></trans-unit>
 
       <trans-unit id="registeredlist.jsp.date">
 <source>Date Registered</source>
