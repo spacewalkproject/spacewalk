@@ -4032,12 +4032,6 @@ del rol de Administrador de la organización.</target></trans-unit>
         </context-group>
       <target>&lt;strong&gt;{0}&lt;/strong&gt; paquete removidos de la errata &lt;strong&gt;{1}&lt;/strong&gt;</target></trans-unit>
 
-      <trans-unit id="errata.overview.jsp.errataoverview">
-<source>Errata Overview</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/errata/Overview.do</context>
-        </context-group>
-      <target>Visión general de errata</target></trans-unit>
 
 
       <trans-unit id="errata.overview.jsp.summary">

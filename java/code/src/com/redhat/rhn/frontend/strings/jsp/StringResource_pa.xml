@@ -4031,12 +4031,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
         </context-group>
       <target>&lt;strong&gt;{0}&lt;/strong&gt; ਪੈਕੇਜ ਨੂੰ ਇਰੱਟਾ &lt;strong&gt;{1}&lt;/strong&gt; ਤੋਂ ਹਟਾਇਆ ਗਿਆ</target></trans-unit>
 
-      <trans-unit id="errata.overview.jsp.errataoverview">
-<source>Errata Overview</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/errata/Overview.do</context>
-        </context-group>
-      <target>ਇਰੱਟਾ ਸੰਖੇਪ</target></trans-unit>
 
 
       <trans-unit id="errata.overview.jsp.summary">

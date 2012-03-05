@@ -4031,12 +4031,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
         </context-group>
       <target>&lt;strong&gt;{0}&lt;/strong&gt; પેકેજ 	    ત્રુટિસૂચી &lt;strong&gt;{1}&lt;/strong&gt; માંથી દૂર થઈ ગયેલ છે</target></trans-unit>
 
-      <trans-unit id="errata.overview.jsp.errataoverview">
-<source>Errata Overview</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/errata/Overview.do</context>
-        </context-group>
-      <target>ત્રુટિસૂચી ઝાંખી</target></trans-unit>
 
 
       <trans-unit id="errata.overview.jsp.summary">

@@ -4031,12 +4031,6 @@ dr&amp;uuml;cken und &lt;b&gt;k&amp;ouml;nnen sich nicht wieder einloggen&lt;/b&
         </context-group>
       <target>&lt;strong&gt;{0}&lt;/strong&gt; Pakete von Errata &lt;strong&gt;{1}&lt;/strong&gt; entfernt</target></trans-unit>
 
-      <trans-unit id="errata.overview.jsp.errataoverview">
-<source>Errata Overview</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/errata/Overview.do</context>
-        </context-group>
-      <target>Errata-&amp;Uuml;berblick</target></trans-unit>
 
 
       <trans-unit id="errata.overview.jsp.summary">

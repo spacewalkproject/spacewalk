@@ -4031,12 +4031,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
         </context-group>
       <target>&lt;strong&gt;{1}&lt;/strong&gt; 에라타에서 	  &lt;strong&gt;{0}&lt;/strong&gt; 패키지가 삭제되었습니다.</target></trans-unit>
 
-      <trans-unit id="errata.overview.jsp.errataoverview">
-<source>Errata Overview</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/errata/Overview.do</context>
-        </context-group>
-      <target>에라타 개요</target></trans-unit>
 
 
       <trans-unit id="errata.overview.jsp.summary">

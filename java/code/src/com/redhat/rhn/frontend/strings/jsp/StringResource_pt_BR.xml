@@ -4031,12 +4031,6 @@ abaixo e &lt;b&gt;não poderá mais se autenticar&lt;/b&gt;.</target></trans-uni
         </context-group>
       <target>&lt;strong&gt;{0}&lt;/strong&gt; pacote removido da errata &lt;strong&gt;{1}&lt;/strong&gt;</target></trans-unit>
 
-      <trans-unit id="errata.overview.jsp.errataoverview">
-<source>Errata Overview</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/errata/Overview.do</context>
-        </context-group>
-      <target>Visão Geral da Errata</target></trans-unit>
 
 
       <trans-unit id="errata.overview.jsp.summary">
