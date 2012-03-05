@@ -13730,12 +13730,6 @@ but are not subscribed to _@@PRODUCT_NAME@@Config_.</context>
           <context context-type="sourcefile">/rhn/configuration/ChannelAddFiles.do</context>
         </context-group>
      <target>설정 파일 가져오기</target></trans-unit>
-	<trans-unit id="config_files.unsubscribeSystems.success">
-<source>Successfully unsubscribed system(s).</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/ChannelSystemsSubmit.do</context>
-        </context-group>
-	<target>시스템을 성공적으로 등록 해제함.</target></trans-unit>
 		<!-- create.jspf -->
 	<trans-unit id="addfiles.jsp.create.jspf.title">
 <source>Create New Configuration File</source>

@@ -13750,12 +13750,6 @@ mais ne sont pas abonnés à {0}.</target></trans-unit>
           <context context-type="sourcefile">/rhn/configuration/ChannelAddFiles.do</context>
         </context-group>
      <target>Importer un/des fichier(s) de configuration</target></trans-unit>
-	<trans-unit id="config_files.unsubscribeSystems.success">
-<source>Successfully unsubscribed system(s).</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/ChannelSystemsSubmit.do</context>
-        </context-group>
-	<target>Système(s) désabonné(s) avec succès.</target></trans-unit>
 		<!-- create.jspf -->
 	<trans-unit id="addfiles.jsp.create.jspf.title">
 <source>Create New Configuration File</source>
