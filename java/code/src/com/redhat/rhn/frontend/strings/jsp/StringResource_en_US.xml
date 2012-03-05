@@ -240,13 +240,6 @@
           <context context-type="paramnotes">Count must be a double.</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="errors.range">
-<source>{0} is not in the range {1} through {2}.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Any page that has required format fields</context>
-          <context context-type="paramnotes">Count is not in the range 10 through 20.</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="toolbar.jsp.helpicon.alt">
 <source>Help Icon</source>
         <context-group name="ctx">

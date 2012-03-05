@@ -232,13 +232,6 @@
           <context context-type="paramnotes">Count must be a double.</context>
         </context-group>
       <target>Значение {0} должно быть двойным словом.</target></trans-unit>
-      <trans-unit id="errors.range">
-<source>{0} is not in the range {1} through {2}.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Any page that has required format fields</context>
-          <context context-type="paramnotes">Count is not in the range 10 through 20.</context>
-        </context-group>
-      <target>{0} не лежит в диапазоне от {1} до {2}.</target></trans-unit>
       <trans-unit id="toolbar.jsp.helpicon.alt">
 <source>Help Icon</source>
         <context-group name="ctx">
