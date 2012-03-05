@@ -4710,12 +4710,6 @@ für diese Berechtigung, mit Ausnahme des Verbrauchs der Standardorganisation.</
           <context context-type="sourcefile">/rhn/errata/Search</context>
         </context-group>
       <target>CVE (Bsp.: CVE-2006-4535)</target></trans-unit>
-      <trans-unit id="erratasearch.jsp.search.for.errata.issued">
-<source>Search for Errata Issued:</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/errata/Search</context>
-        </context-group>
-      <target>Suche nach ausgegebenen Errata:</target></trans-unit>
       <trans-unit id="erratasearch.jsp.search_by_issue_dates">
 <source>Search by Issue Dates:</source>
         <context-group name="ctx">

@@ -4708,12 +4708,6 @@ value for this entitlement, excluding the default organization's consumption.</s
           <context context-type="sourcefile">/rhn/errata/Search</context>
         </context-group>
       <target>CVE (ex: CVE-2006-4535)</target></trans-unit>
-      <trans-unit id="erratasearch.jsp.search.for.errata.issued">
-<source>Search for Errata Issued:</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/errata/Search</context>
-        </context-group>
-      <target>வழங்கப்பட்ட பிழைத்திருத்தத்திற்கு தேடுகிறது:</target></trans-unit>
       <trans-unit id="erratasearch.jsp.search_by_issue_dates">
 <source>Search by Issue Dates:</source>
         <context-group name="ctx">

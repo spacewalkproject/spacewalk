@@ -4709,12 +4709,6 @@ pour ce droit d'accès, moins la consommation par défaut de l'organisation.</ta
           <context context-type="sourcefile">/rhn/errata/Search</context>
         </context-group>
       <target>CVE (par ex : CVE-2006-4535)</target></trans-unit>
-      <trans-unit id="erratasearch.jsp.search.for.errata.issued">
-<source>Search for Errata Issued:</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/errata/Search</context>
-        </context-group>
-      <target>Recherche de sortie d'errata :</target></trans-unit>
       <trans-unit id="erratasearch.jsp.search_by_issue_dates">
 <source>Search by Issue Dates:</source>
         <context-group name="ctx">

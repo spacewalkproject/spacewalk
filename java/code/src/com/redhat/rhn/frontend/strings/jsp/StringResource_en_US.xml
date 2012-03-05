@@ -4715,12 +4715,6 @@ value for this entitlement, excluding the default organization's consumption.</s
           <context context-type="sourcefile">/rhn/errata/Search</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="erratasearch.jsp.search.for.errata.issued">
-<source>Search for Errata Issued:</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/errata/Search</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="erratasearch.jsp.search_by_issue_dates">
 <source>Search by Issue Dates:</source>
         <context-group name="ctx">
