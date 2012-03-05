@@ -5432,9 +5432,6 @@ value for this entitlement, excluding the default organization's consumption.</s
                 <source>&lt;strong&gt;NOTE:&lt;/strong&gt; We subscribed the system(s) to the {0} and {1} channel as well as scheduled an install of the {2} package to prepare the system(s) for hosting virtual guests.</source>
         <target>&lt;strong&gt;नोट:&lt;/strong&gt; हमने {0} और {1} चैनल में सिस्टम में सदस्यता ली है साथ ही साथ {2} संकुल के संस्थापन का नियोजन वर्चुअल अतिथि के लिये होस्ट करने के लिये किया है.</target></trans-unit>
 
-        <trans-unit id="system_entitlements.virtualization_host.success">
-                <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) set to &lt;strong&gt;Virtualization.&lt;/strong&gt;.  &lt;br/&gt; &lt;strong&gt;NOTE: &lt;/strong&gt;If the system previously had Virtualization Platform it has been downgraded to Virtualization. </source>
-        <target>&lt;strong&gt;{0}&lt;/strong&gt; सिस्टम &lt;strong&gt;वर्चुअलाइजेशन&lt;/strong&gt; में सेट है.  &lt;br/&gt; &lt;strong&gt;नोट: &lt;/strong&gt;अगर सिस्टम के पास पहले से वर्चुअलाइजेशन प्लैटफॉर्म है इसे वर्चुअलाइजेशन में पदावनत किया जा रहा है.</target></trans-unit>
 
 
 

@@ -5428,9 +5428,6 @@ value for this entitlement, excluding the default organization's consumption.</s
                 <source>&lt;strong&gt;NOTE:&lt;/strong&gt; We subscribed the system(s) to the {0} and {1} channel as well as scheduled an install of the {2} package to prepare the system(s) for hosting virtual guests.</source>
         <target>&lt;strong&gt;註：&lt;/strong&gt;我們已將系統訂閱至頻道 {0} 與 {1}，並排程了這 {2} 個套件的安裝以將系統準備來 host 虛擬客座。</target></trans-unit>
 
-        <trans-unit id="system_entitlements.virtualization_host.success">
-                <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) set to &lt;strong&gt;Virtualization.&lt;/strong&gt;.  &lt;br/&gt; &lt;strong&gt;NOTE: &lt;/strong&gt;If the system previously had Virtualization Platform it has been downgraded to Virtualization. </source>
-        <target>&lt;strong&gt;{0}&lt;/strong&gt; 台系統被設為&lt;strong&gt;虛擬化&lt;/strong&gt;。  &lt;br/&gt; &lt;strong&gt;註： &lt;/strong&gt;假如之前系統上就擁有虛擬化平台，它就會被降級為虛擬化。 </target></trans-unit>
 
 
 

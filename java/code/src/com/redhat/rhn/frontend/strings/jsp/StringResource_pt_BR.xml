@@ -5430,9 +5430,6 @@ value for this entitlement, excluding the default organization's consumption.</s
                 <source>&lt;strong&gt;NOTE:&lt;/strong&gt; We subscribed the system(s) to the {0} and {1} channel as well as scheduled an install of the {2} package to prepare the system(s) for hosting virtual guests.</source>
         <target>&lt;strong&gt;NOTA:&lt;/strong&gt; Nós increvemos o(s) sistema(s) nos canais {0} e {1} assim como agendamos uma instalação do {2} pacote para preparar o(s) sistema(s) para convidados virtuais hospedados.</target></trans-unit>
 
-        <trans-unit id="system_entitlements.virtualization_host.success">
-                <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) set to &lt;strong&gt;Virtualization.&lt;/strong&gt;.  &lt;br/&gt; &lt;strong&gt;NOTE: &lt;/strong&gt;If the system previously had Virtualization Platform it has been downgraded to Virtualization. </source>
-        <target>&lt;strong&gt;{0}&lt;/strong&gt; sistema(s) configurado(s) para &lt;strong&gt;Virtualização.&lt;/strong&gt;.  &lt;br/&gt; &lt;strong&gt;NOTA: &lt;/strong&gt; Se o sistema teve uma Plataforma de Virtualização anteriormente, ele recebeu um downgrade para Virtualização.</target></trans-unit>
 
 
 

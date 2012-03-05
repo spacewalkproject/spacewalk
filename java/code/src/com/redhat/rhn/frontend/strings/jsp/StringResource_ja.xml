@@ -5426,9 +5426,6 @@ value for this entitlement, excluding the default organization's consumption.</s
                 <source>&lt;strong&gt;NOTE:&lt;/strong&gt; We subscribed the system(s) to the {0} and {1} channel as well as scheduled an install of the {2} package to prepare the system(s) for hosting virtual guests.</source>
         <target>&lt;strong&gt;注記:&lt;/strong&gt; システムを {0} 及び {1} チャンネルにサブスクライブした他、 システムに仮想ゲストをホストさせる準備として {2} パッケージのインストールをスケジュールしました。</target></trans-unit>
 
-        <trans-unit id="system_entitlements.virtualization_host.success">
-                <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) set to &lt;strong&gt;Virtualization.&lt;/strong&gt;.  &lt;br/&gt; &lt;strong&gt;NOTE: &lt;/strong&gt;If the system previously had Virtualization Platform it has been downgraded to Virtualization. </source>
-        <target>&lt;strong&gt;{0}&lt;/strong&gt; システムに &lt;strong&gt;仮想化&lt;/strong&gt; が設定されました。  &lt;br/&gt; &lt;strong&gt;注記: &lt;/strong&gt; このシステムが以前に仮想化プラットフォームを有していた場合、仮想化にダウングレードしたことになります。</target></trans-unit>
 
 
 

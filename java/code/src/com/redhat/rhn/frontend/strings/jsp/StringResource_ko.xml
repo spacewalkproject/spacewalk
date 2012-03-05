@@ -5431,9 +5431,6 @@ value for this entitlement, excluding the default organization's consumption.</s
                 <source>&lt;strong&gt;NOTE:&lt;/strong&gt; We subscribed the system(s) to the {0} and {1} channel as well as scheduled an install of the {2} package to prepare the system(s) for hosting virtual guests.</source>
         <target>&lt;strong&gt;알림:&lt;/strong&gt; 시스템을 {0} 및 {1} 채널에 등록하고 {2} 패키지 설치를 스케줄하여 시스템이 가상 게스트를 호스팅하게 합니다.</target></trans-unit>
 
-        <trans-unit id="system_entitlements.virtualization_host.success">
-                <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) set to &lt;strong&gt;Virtualization.&lt;/strong&gt;.  &lt;br/&gt; &lt;strong&gt;NOTE: &lt;/strong&gt;If the system previously had Virtualization Platform it has been downgraded to Virtualization. </source>
-        <target>&lt;strong&gt;{0}&lt;/strong&gt; 시스템이 &lt;strong&gt;가상화&lt;/strong&gt;로 설정되었습니다. &lt;br/&gt; &lt;strong&gt;알림: &lt;/strong&gt;시스템에 가상화 플랫폼이 있을 경우 이는 가상화로 다운그레이드됩니다.</target></trans-unit>
 
 
 

@@ -5432,9 +5432,6 @@ para este derecho, excluyendo el consumo de la organización predeterminada.</ta
                 <source>&lt;strong&gt;NOTE:&lt;/strong&gt; We subscribed the system(s) to the {0} and {1} channel as well as scheduled an install of the {2} package to prepare the system(s) for hosting virtual guests.</source>
         <target>&lt;strong&gt;NOTA:&lt;/strong&gt; hemos suscrito el/los sistema(s) a los canales {0} y {1} y hemos programado la instalación del paquete {2} para preparar el sistema para hospedar huéspedes virtuales.</target></trans-unit>
 
-        <trans-unit id="system_entitlements.virtualization_host.success">
-                <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) set to &lt;strong&gt;Virtualization.&lt;/strong&gt;.  &lt;br/&gt; &lt;strong&gt;NOTE: &lt;/strong&gt;If the system previously had Virtualization Platform it has been downgraded to Virtualization. </source>
-        <target>&lt;strong&gt;{0}&lt;/strong&gt; sistema(s) establecidos en &lt;strong&gt;Virtualización&lt;/strong&gt;.  &lt;br/&gt; &lt;strong&gt;NOTA: &lt;/strong&gt;Si el sistema tenía anteriormente Plataforma de virtualización, éste ha sido degradado a Virtualización.</target></trans-unit>
 
 
 

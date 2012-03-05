@@ -5432,9 +5432,6 @@ value for this entitlement, excluding the default organization's consumption.</s
                 <source>&lt;strong&gt;NOTE:&lt;/strong&gt; We subscribed the system(s) to the {0} and {1} channel as well as scheduled an install of the {2} package to prepare the system(s) for hosting virtual guests.</source>
         <target>&lt;strong&gt;குறிப்பு:&lt;/strong&gt; நாம் {0} மற்றும் {1} தடத்தில் கணினிகளை சந்தாப்படுத்தி {2} தொகுப்பை கணினிகளில் மெய்நிகர் விருந்தினர்களை ஏற்றி நிறுவ திட்டமிடப்பட்டது.</target></trans-unit>
 
-        <trans-unit id="system_entitlements.virtualization_host.success">
-                <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) set to &lt;strong&gt;Virtualization.&lt;/strong&gt;.  &lt;br/&gt; &lt;strong&gt;NOTE: &lt;/strong&gt;If the system previously had Virtualization Platform it has been downgraded to Virtualization. </source>
-        <target>&lt;strong&gt;{0}&lt;/strong&gt; கணினிகள் &lt;strong&gt;மெய்நிகராக்கத்திற்கு&lt;/strong&gt; அமைக்கப்பட்டன.  &lt;br/&gt; &lt;strong&gt;குறிப்பு: &lt;/strong&gt;கணினி முன்பே மெய்நிகராக்க இயக்கத்தளத்தை கொண்டிருந்தால் அது மெய்நிகராக்கத்திற்கு குறைக்கப்படும். </target></trans-unit>
 
 
 
