@@ -4199,12 +4199,6 @@ del rol de Administrador de la organización.</target></trans-unit>
           <context context-type="sourcefile">/rhn/errata/details/SystemsAffected</context>
         </context-group>
       <target>Ninguno</target></trans-unit>
-      <trans-unit id="affectedsystems.jsp.provisioning">
-<source>Provisioning</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/errata/details/SystemsAffected</context>
-        </context-group>
-      <target>Aprovisionamiento</target></trans-unit>
       <trans-unit id="affectedsystems.jsp.pending">
 <source>Pending</source>
         <context-group name="ctx">

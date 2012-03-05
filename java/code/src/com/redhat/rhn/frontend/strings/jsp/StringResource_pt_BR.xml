@@ -4199,12 +4199,6 @@ abaixo e &lt;b&gt;não poderá mais se autenticar&lt;/b&gt;.</target></trans-uni
           <context context-type="sourcefile">/rhn/errata/details/SystemsAffected</context>
         </context-group>
       <target>Nenhum</target></trans-unit>
-      <trans-unit id="affectedsystems.jsp.provisioning">
-<source>Provisioning</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/errata/details/SystemsAffected</context>
-        </context-group>
-      <target>Abastecimento</target></trans-unit>
       <trans-unit id="affectedsystems.jsp.pending">
 <source>Pending</source>
         <context-group name="ctx">

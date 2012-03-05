@@ -4199,12 +4199,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/errata/details/SystemsAffected</context>
         </context-group>
       <target>कोई नहीं</target></trans-unit>
-      <trans-unit id="affectedsystems.jsp.provisioning">
-<source>Provisioning</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/errata/details/SystemsAffected</context>
-        </context-group>
-      <target>प्रोविजनिंग</target></trans-unit>
       <trans-unit id="affectedsystems.jsp.pending">
 <source>Pending</source>
         <context-group name="ctx">
