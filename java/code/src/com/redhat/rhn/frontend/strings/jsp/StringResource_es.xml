@@ -1584,12 +1584,6 @@ inmediatamente y usted &lt;b&gt;no podrá iniciar una sesión nuevamente&lt;/b&g
           <context context-type="sourcefile">/rhn/users/UserDetails</context>
         </context-group>
       <target>Contraseña</target></trans-unit>
-      <trans-unit id="userdetails.jsp.passconfirm">
-<source>Password Confirm</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">NOT USED</context>
-        </context-group>
-      <target>Confirmar contraseña</target></trans-unit>
       <trans-unit id="userdetails.jsp.roles">
 <source>Roles</source>
         <context-group name="ctx">
