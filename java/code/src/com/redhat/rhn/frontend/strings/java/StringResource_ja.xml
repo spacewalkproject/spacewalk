@@ -2305,12 +2305,6 @@ rhn-kickstart* パッケージが利用可能であることを確認します�
           <context context-type="sourcefile">System Group pages</context>
         </context-group>
       <target>グループと動作　</target></trans-unit>
-      <trans-unit id="toolbar.delete.errata">
-<source>delete errata</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">Errata edit page</context>
-        </context-group>
-      <target>エラータの削除</target></trans-unit>
 
      <trans-unit id="toolbar.delete.kickstart">
         <source>delete kickstart</source>

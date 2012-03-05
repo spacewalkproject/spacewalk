@@ -2281,12 +2281,6 @@ available for this kickstart profile to function properly.
           <context context-type="sourcefile">System Group pages</context>
         </context-group>
       <target>работа с группой</target></trans-unit>
-      <trans-unit id="toolbar.delete.errata">
-<source>delete errata</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">Errata edit page</context>
-        </context-group>
-      <target>удалить исправления</target></trans-unit>
 
      <trans-unit id="toolbar.delete.kickstart">
         <source>delete kickstart</source>

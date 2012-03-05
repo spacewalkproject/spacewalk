@@ -2312,12 +2312,6 @@ verfügbar machen, damit dieses Kickstart-Profil einwandfrei funktionieren kann.
           <context context-type="sourcefile">System Group pages</context>
         </context-group>
       <target>Mit Gruppe arbeiten</target></trans-unit>
-      <trans-unit id="toolbar.delete.errata">
-<source>delete errata</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">Errata edit page</context>
-        </context-group>
-      <target>Errata l&amp;ouml;schen</target></trans-unit>
 
      <trans-unit id="toolbar.delete.kickstart">
         <source>delete kickstart</source>
