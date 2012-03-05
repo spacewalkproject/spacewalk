@@ -1282,12 +1282,6 @@
         </context-group>
       <target>Oracle પાસવર્ડ</target></trans-unit>
 
-      <trans-unit id="Oracle Password_confirm">
-        <source>Oracle Password Confirm</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-      <target></target></trans-unit>
 
       <trans-unit id="Oracle Port">
         <source>Oracle Port</source>
