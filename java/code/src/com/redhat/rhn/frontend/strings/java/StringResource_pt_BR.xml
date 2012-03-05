@@ -2607,12 +2607,6 @@ disponíveis para seu perfil kickstart funcionar corretamente./n&lt;/li&gt;
           <context context-type="sourcefile">/rhn/errata/Search</context>
         </context-group>
       <target>Não foi possível executar a consulta '{0}'.</target></trans-unit>
-      <trans-unit id="packages.search.tooshort">
-<source>Search strings must be longer than two characters.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/Search</context>
-        </context-group>
-      <target>Os strings da busca devem ter mais que dois caracteres.</target></trans-unit>
      <trans-unit id="searchserver.index_out_of_sync_with_db">
         <source>SearchServer index and database entries appear to be out of sync. Please run '/sbin/service rhn-search cleanindex'</source>
         <context-group name="ctx">

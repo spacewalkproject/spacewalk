@@ -2624,12 +2624,6 @@ verfügbar machen, damit dieses Kickstart-Profil einwandfrei funktionieren kann.
           <context context-type="sourcefile">/rhn/errata/Search</context>
         </context-group>
       <target>Konnte Anfrage {0} nicht ausführen.</target></trans-unit>
-      <trans-unit id="packages.search.tooshort">
-<source>Search strings must be longer than two characters.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/Search</context>
-        </context-group>
-      <target>Such-Strings m&amp;uuml;ssen mehr als 2 Zeichen besitzen.</target></trans-unit>
      <trans-unit id="searchserver.index_out_of_sync_with_db">
         <source>SearchServer index and database entries appear to be out of sync. Please run '/sbin/service rhn-search cleanindex'</source>
         <context-group name="ctx">
