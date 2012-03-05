@@ -543,12 +543,6 @@
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
       <target>ਪਰਬੰਧਨ</target></trans-unit>
-      <trans-unit id="Management Spacewalk Guide">
-<source>Management @@PRODUCT_NAME@@ Guide</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-      <target>ਮੈਨੇਜਮੈਂਟ @@PRODUCT_NAME@@ ਗਾਈਡ</target></trans-unit>
       <trans-unit id="Management Spacewalk Release Notes">
 <source>Management @@PRODUCT_NAME@@ Release Notes</source>
         <context-group name="ctx">
