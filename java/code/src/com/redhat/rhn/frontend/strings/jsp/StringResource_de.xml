@@ -16549,9 +16549,6 @@ den Reiter &lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;Aktivie
 	    <trans-unit id="kickstart.schedule.system.profile.virt.option1.jsp">
 	        <source>Use the default guest profile</source>
 	    <target>Standard-Gastprofil verwenden</target></trans-unit>
-	    <trans-unit id="kickstart.schedule.system.profile.option2.jsp">
-	        <source>Use an activation key (select below):</source>
-	    <target>Verwendung eines Aktivierungsschl&amp;uuml;ssels (w&amp;auml;hlen Sie unten aus):</target></trans-unit>
 	    <trans-unit id="kickstart.schedule.sync.pkg.profile.option1.jsp">
 	        <source>With system's existing package profile</source>
 	    <target>Mit dem existierenden Paketprofil dieses Systems</target></trans-unit>

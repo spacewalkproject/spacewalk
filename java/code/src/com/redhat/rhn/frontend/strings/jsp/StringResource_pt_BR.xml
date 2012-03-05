@@ -16539,9 +16539,6 @@ a aba &lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;Chaves de At
 	    <trans-unit id="kickstart.schedule.system.profile.virt.option1.jsp">
 	        <source>Use the default guest profile</source>
 	    <target>Usar o perfil de convidado padrão</target></trans-unit>
-	    <trans-unit id="kickstart.schedule.system.profile.option2.jsp">
-	        <source>Use an activation key (select below):</source>
-	    <target>Usar uma chave de ativação (selecionar abaixo):</target></trans-unit>
 	    <trans-unit id="kickstart.schedule.sync.pkg.profile.option1.jsp">
 	        <source>With system's existing package profile</source>
 	    <target>Com perfil de pacotes existente do sistema</target></trans-unit>
