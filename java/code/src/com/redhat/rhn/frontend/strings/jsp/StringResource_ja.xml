@@ -21899,9 +21899,6 @@ given channel.</source>
       <trans-unit id="channel.edit.jsp.yumrepo">
 		<source>Associated Yum Repository</source>
       <target>関連付けられた Yum リポジトリ</target></trans-unit>
-      <trans-unit id="channel.edit.jsp.repourl">
-		<source>Repository URL</source>
-      <target>リポジトリ URL</target></trans-unit>
       <trans-unit id="channel.edit.jsp.lastsynced">
 		<source>Last Sync Time</source>
       <target>最終同期時間</target></trans-unit>
