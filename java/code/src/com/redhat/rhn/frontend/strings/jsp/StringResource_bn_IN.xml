@@ -18913,12 +18913,6 @@ Emergency Maintenance windows.&lt;a href="{0}"&gt;Register for the Email Outage 
         </context-group>
       <target>@@PRODUCT_NAME@@-এ ISO ইমেজ ডাউনলোড ব্যবস্থা সমর্থিত নয়।</target></trans-unit>
 
-      <trans-unit id="isodownload.viewsource-note">
-<source>(&lt;strong&gt;NOTE:&lt;/strong&gt; these images are not necessary for installation.)</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/software/channel/downloads/Download.do</context>
-        </context-group>
-      <target>(&lt;strong&gt;উল্লেখ্য:&lt;/strong&gt; ইনস্টলেশনের জন্য এই ইমেজগুলি আবশ্যক নয়।)</target></trans-unit>
 
       <trans-unit id="isodownload.no-access">
 <source>The channel you have attempted to access either does not exist, or you are not allowed access.  Please recheck the link that brought you to this page.</source>
