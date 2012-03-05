@@ -4084,12 +4084,6 @@ deducted from the default organization.</source>
           <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
         </context-group>
       <target>ਕੁੱਲ*</target></trans-unit>
-      <trans-unit id="softwareEntitlementSubs.column.proposedTotal">
-<source>Proposed Total</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-      <target>ਪ੍ਰਸਤਾਵਿਤ ਕੁੱਲ</target></trans-unit>
       <trans-unit id="softwareEntitlementSubs.systemWideCounts.header.regular">
 <source>System-Wide Regular Entitlement Counts</source>
         <context-group name="ctx">

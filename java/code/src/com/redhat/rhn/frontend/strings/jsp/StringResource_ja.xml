@@ -4077,12 +4077,6 @@ deducted from the default organization.</source>
           <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
         </context-group>
       <target>合計*</target></trans-unit>
-      <trans-unit id="softwareEntitlementSubs.column.proposedTotal">
-<source>Proposed Total</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-      <target>提案された合計</target></trans-unit>
       <trans-unit id="softwareEntitlementSubs.systemWideCounts.header.regular">
 <source>System-Wide Regular Entitlement Counts</source>
         <context-group name="ctx">

@@ -4084,12 +4084,6 @@ presi dall'organizzazione predefinita.</target></trans-unit>
           <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
         </context-group>
       <target>Totali*</target></trans-unit>
-      <trans-unit id="softwareEntitlementSubs.column.proposedTotal">
-<source>Proposed Total</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-      <target>Totale suggerito</target></trans-unit>
       <trans-unit id="softwareEntitlementSubs.systemWideCounts.header.regular">
 <source>System-Wide Regular Entitlement Counts</source>
         <context-group name="ctx">
