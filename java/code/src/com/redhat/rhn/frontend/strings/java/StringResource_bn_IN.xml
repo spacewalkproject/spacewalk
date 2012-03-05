@@ -6712,12 +6712,6 @@ Follow this url to see the full list of inactive systems:
       <target>মুছে ফেলুন</target></trans-unit>
 
 
-      <trans-unit id="systems.details.virt.guest.virt.setVCPUs">
-          <source>Set Virtual CPUs ({0})</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
-        </context-group>
-      <target>ভার্চুয়াল CPU নির্ধারণ করুন ({0})</target></trans-unit>
 
 
 

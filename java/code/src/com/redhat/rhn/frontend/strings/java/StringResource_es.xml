@@ -6731,12 +6731,6 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
       <target>Borrar</target></trans-unit>
 
 
-      <trans-unit id="systems.details.virt.guest.virt.setVCPUs">
-          <source>Set Virtual CPUs ({0})</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
-        </context-group>
-      <target>Establecer CPU virtuales ({0})</target></trans-unit>
 
 
 

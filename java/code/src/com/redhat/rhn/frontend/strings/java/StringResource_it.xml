@@ -6730,12 +6730,6 @@ Seguite l'url sotto riportato per visualizzare l'elenco completo di sistemi inat
       <target>Cancella</target></trans-unit>
 
 
-      <trans-unit id="systems.details.virt.guest.virt.setVCPUs">
-          <source>Set Virtual CPUs ({0})</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
-        </context-group>
-      <target>Imposta CPU virtuali ({0})</target></trans-unit>
 
 
 
