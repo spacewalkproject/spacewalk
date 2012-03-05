@@ -19917,9 +19917,6 @@ given channel.</source>
      <trans-unit id="task.status.summary-population">
          <source>Daily Summary Queue</source>
      <target>Дневная сводка</target></trans-unit>
-     <trans-unit id="task.status.daily-summary">
-         <source>Daily Summary Mail</source>
-     <target>Дневная сводка</target></trans-unit>
      <trans-unit id="task.status.sync-probe-state">
          <source>Sync Probe State</source>
      <target>Статус зонда</target></trans-unit>

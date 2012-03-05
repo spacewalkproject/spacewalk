@@ -20049,9 +20049,6 @@ f&amp;uuml;r einen angegebenen Channel aufgelistet wird.</target></trans-unit>
      <trans-unit id="task.status.summary-population">
          <source>Daily Summary Queue</source>
      <target>T&amp;auml;gliche Zusammenfassung</target></trans-unit>
-     <trans-unit id="task.status.daily-summary">
-         <source>Daily Summary Mail</source>
-     <target>T&amp;auml;gliche Zusammenfassung</target></trans-unit>
      <trans-unit id="task.status.sync-probe-state">
          <source>Sync Probe State</source>
      <target>Probe Status</target></trans-unit>

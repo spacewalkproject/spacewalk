@@ -19927,9 +19927,6 @@ stesso pacchetto in un singolo canale, ciò potrebbe causare però il
      <trans-unit id="task.status.summary-population">
          <source>Daily Summary Queue</source>
      <target>Sommario giornaliero</target></trans-unit>
-     <trans-unit id="task.status.daily-summary">
-         <source>Daily Summary Mail</source>
-     <target>Sommario giornaliero</target></trans-unit>
      <trans-unit id="task.status.sync-probe-state">
          <source>Sync Probe State</source>
      <target>Stato di Probe</target></trans-unit>

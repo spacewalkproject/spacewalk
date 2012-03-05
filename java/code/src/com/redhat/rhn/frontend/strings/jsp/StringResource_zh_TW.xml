@@ -19922,9 +19922,6 @@ given channel.</source>
      <trans-unit id="task.status.summary-population">
          <source>Daily Summary Queue</source>
      <target>日常摘要</target></trans-unit>
-     <trans-unit id="task.status.daily-summary">
-         <source>Daily Summary Mail</source>
-     <target>日常摘要</target></trans-unit>
      <trans-unit id="task.status.sync-probe-state">
          <source>Sync Probe State</source>
      <target>偵測狀態</target></trans-unit>

@@ -20586,9 +20586,6 @@ given channel.</source>
      <trans-unit id="task.status.summary-population">
          <source>Daily Summary Queue</source>
      </trans-unit>
-     <trans-unit id="task.status.daily-summary">
-         <source>Daily Summary Mail</source>
-     </trans-unit>
      <trans-unit id="task.status.sync-probe-state">
          <source>Sync Probe State</source>
      </trans-unit>

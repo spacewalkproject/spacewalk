@@ -19930,9 +19930,6 @@ given channel.</source>
      <trans-unit id="task.status.summary-population">
          <source>Daily Summary Queue</source>
      <target>दैनिक सारांश</target></trans-unit>
-     <trans-unit id="task.status.daily-summary">
-         <source>Daily Summary Mail</source>
-     <target>दैनिक सारांश</target></trans-unit>
      <trans-unit id="task.status.sync-probe-state">
          <source>Sync Probe State</source>
      <target>जांच स्थिति</target></trans-unit>
