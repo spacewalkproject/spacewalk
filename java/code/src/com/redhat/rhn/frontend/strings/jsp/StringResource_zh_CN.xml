@@ -10787,12 +10787,6 @@ kickstart 前脚本的内容可以在 &lt;strong&gt;《红帽企业版 Linux 系
       <target>&lt;span class="small-text"&gt;&lt;strong&gt;窍门：&lt;/strong&gt; 这个脚本在 chroot 环境中运行。&lt;/span&gt;</target></trans-unit>
 
 
-      <trans-unit id="post.jsp.header1">
-        <source>Kickstart Post Script Details</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/kickstart/KickstartPostEdit.do</context>
-        </context-group>
-      <target>Kickstart 后脚本详情</target></trans-unit>
 
       <trans-unit id="post.jsp.scriptheader">
         <source>Kickstart Post Script</source>

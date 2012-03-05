@@ -10778,12 +10778,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
       <target>&lt;span class="small-text"&gt;&lt;strong&gt;ਟਿੱਪਣੀ:&lt;/strong&gt; ਇਸ ਸਕਰਿਪਟ chroot ਵਾਤਾਵਰਨ ਵਿੱਚ ਚੱਲਦਾ ਹੈ।&lt;/span&gt;</target></trans-unit>
 
 
-      <trans-unit id="post.jsp.header1">
-        <source>Kickstart Post Script Details</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/kickstart/KickstartPostEdit.do</context>
-        </context-group>
-      <target>ਕਿੱਕਸਟਾਰਟ ਪੋਸਟ ਸਕਰਿਪਟ ਵੇਰਵਾ</target></trans-unit>
 
       <trans-unit id="post.jsp.scriptheader">
         <source>Kickstart Post Script</source>

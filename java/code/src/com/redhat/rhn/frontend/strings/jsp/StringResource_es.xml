@@ -10790,12 +10790,6 @@ el &lt;strong&gt;Manual de administración del sistema Red Hat Enterprise Linux.
       <target>&lt;span class="small-text"&gt;&lt;strong&gt;Nota:&lt;/strong&gt; Este script es ejecutado en el entorno chroot&lt;/span&gt;</target></trans-unit>
 
 
-      <trans-unit id="post.jsp.header1">
-        <source>Kickstart Post Script Details</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/kickstart/KickstartPostEdit.do</context>
-        </context-group>
-      <target>Información del Kickstart Post Script</target></trans-unit>
 
       <trans-unit id="post.jsp.scriptheader">
         <source>Kickstart Post Script</source>

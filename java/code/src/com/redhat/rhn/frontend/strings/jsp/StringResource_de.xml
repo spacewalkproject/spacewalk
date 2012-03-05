@@ -10794,12 +10794,6 @@ Anschlie&amp;szlig;end wird das nicht-chroot Post-Skript ausgef&amp;uuml;hrt, un
       <target>&lt;span class="small-text"&gt;&lt;strong&gt;Tipp:&lt;/strong&gt; Dieses Skript l&amp;auml;uft in einem chroot Umfeld ab.&lt;/span&gt;</target></trans-unit>
 
 
-      <trans-unit id="post.jsp.header1">
-        <source>Kickstart Post Script Details</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/kickstart/KickstartPostEdit.do</context>
-        </context-group>
-      <target>Details des Kickstart Post-Skripts</target></trans-unit>
 
       <trans-unit id="post.jsp.scriptheader">
         <source>Kickstart Post Script</source>

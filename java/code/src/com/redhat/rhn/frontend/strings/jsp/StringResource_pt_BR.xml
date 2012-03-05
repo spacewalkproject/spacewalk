@@ -10783,12 +10783,6 @@ o &lt;strong&gt;Guia de Administração de Sistemas Red Hat Enterprise Li
       <target>&lt;span class="small-text"&gt;&lt;strong&gt;Dica:&lt;/strong&gt; Este script é executado no ambiente chroot.&lt;/span&gt;</target></trans-unit>
 
 
-      <trans-unit id="post.jsp.header1">
-        <source>Kickstart Post Script Details</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/kickstart/KickstartPostEdit.do</context>
-        </context-group>
-      <target>Detalhes do Pós Script do Kickstart</target></trans-unit>
 
       <trans-unit id="post.jsp.scriptheader">
         <source>Kickstart Post Script</source>
