@@ -5426,11 +5426,6 @@ value for this entitlement, excluding the default organization's consumption.</s
         <trans-unit id="system_entitlements.setToManagementEntitled.success">
                 <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) set to &lt;strong&gt;Management&lt;/strong&gt;.</source>
         <target>将 &lt;strong&gt;{0}&lt;/strong&gt; 个系统设为 &lt;strong&gt;管理&lt;/strong&gt;。</target></trans-unit>
-        <trans-unit id="system_entitlements.setToManagementEntitled.failure">
-            <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) were successfully set to &lt;strong&gt;Management&lt;/strong&gt; entitled, but you do not have  enough &lt;strong&gt;Management&lt;/strong&gt; entitlements for the remaining &lt;strong&gt;{1}&lt;/strong&gt; system(s). You may free up &lt;strong&gt;Management&lt;/strong&gt; entitlements by downgrading &lt;strong&gt;Management&lt;/strong&gt; entitled machines to an Update entitlement, or you may purchase additional management entitlements at &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;@@PRODUCT_NAME@@ store&lt;/strong&gt;&lt;/a&gt;. After you have additional &lt;strong&gt;Management&lt;/strong&gt; entitlements, you will be able to upgrade these systems.
-		</source>
-	  <target>&lt;strong&gt;{0}&lt;/strong&gt; 系统被成功地设置为具有 &lt;strong&gt;Management&lt;/strong&gt; 权利，但您不具有足够的 &lt;strong&gt;Management&lt;/strong&gt; 权利来保持  &lt;strong&gt;{1}&lt;/strong&gt; 个系统。您可以通过降级具有具有 &lt;strong&gt;Management&lt;/strong&gt; 权利的机器到 Update 权利来释放 &lt;strong&gt;Management&lt;/strong&gt; 权利，或者您可以在 &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;@@PRODUCT_NAME@@ 商店&lt;/strong&gt;&lt;/a&gt;购买其他的管理权利。在您购买了其他 &lt;strong&gt;Management&lt;/strong&gt; 权利后，您就可以升级这些系统了。
-		</target></trans-unit>
         <trans-unit id="system_entitlements.setToUpdateEntitled.success">
                 <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) set to &lt;strong&gt;Update&lt;/strong&gt;.</source>
         <target>将 &lt;strong&gt;{0}&lt;/strong&gt; 个系统设为 &lt;strong&gt;更新&lt;/strong&gt;</target></trans-unit>

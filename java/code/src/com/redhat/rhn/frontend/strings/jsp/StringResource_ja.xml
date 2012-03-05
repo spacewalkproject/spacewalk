@@ -5420,11 +5420,6 @@ value for this entitlement, excluding the default organization's consumption.</s
         <trans-unit id="system_entitlements.setToManagementEntitled.success">
                 <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) set to &lt;strong&gt;Management&lt;/strong&gt;.</source>
         <target>&lt;strong&gt;{0}&lt;/strong&gt; システムが &lt;strong&gt;Management&lt;/strong&gt; に設定されています</target></trans-unit>
-        <trans-unit id="system_entitlements.setToManagementEntitled.failure">
-            <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) were successfully set to &lt;strong&gt;Management&lt;/strong&gt; entitled, but you do not have  enough &lt;strong&gt;Management&lt;/strong&gt; entitlements for the remaining &lt;strong&gt;{1}&lt;/strong&gt; system(s). You may free up &lt;strong&gt;Management&lt;/strong&gt; entitlements by downgrading &lt;strong&gt;Management&lt;/strong&gt; entitled machines to an Update entitlement, or you may purchase additional management entitlements at &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;@@PRODUCT_NAME@@ store&lt;/strong&gt;&lt;/a&gt;. After you have additional &lt;strong&gt;Management&lt;/strong&gt; entitlements, you will be able to upgrade these systems.
-		</source>
-	  <target>&lt;strong&gt;{0}&lt;/strong&gt; システムが &lt;strong&gt;Management&lt;/strong&gt; エンタイトルメントに正常に設定されましたが、残りの &lt;strong&gt;{1}&lt;/strong&gt; システムに対して十分な &lt;strong&gt;Management&lt;/strong&gt; エンタイトルメントがありません。&lt;strong&gt;Management&lt;/strong&gt; エンタイトルメントがあるマシンを Update エンタイトルメントにダウングレードして &lt;strong&gt;Management&lt;/strong&gt; エンタイトルメントを解放できます。または、&lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;@@PRODUCT_NAME@@ ストア&lt;/strong&gt;&lt;/a&gt;で追加の Management エンタイトルメントをご購入できます。&lt;strong&gt;Management&lt;/strong&gt; エンタイトルメントを追加したら、これらのシステムをアップグレードできます。
-		</target></trans-unit>
         <trans-unit id="system_entitlements.setToUpdateEntitled.success">
                 <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) set to &lt;strong&gt;Update&lt;/strong&gt;.</source>
         <target>&lt;strong&gt;{0}&lt;/strong&gt; システムが &lt;strong&gt;Update&lt;/strong&gt; に設定されています。</target></trans-unit>
