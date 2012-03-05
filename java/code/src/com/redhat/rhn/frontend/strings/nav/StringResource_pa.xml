@@ -151,12 +151,6 @@
       <target>ਬਿਨ-ਗਰੁੱਪ</target></trans-unit>
 
 
-      <trans-unit id="system.nav.proxy">
-<source>Proxy</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Systems Navigation Menu</context>
-        </context-group>
-      <target>ਪਰਾਕਸੀ</target></trans-unit>
 
       <trans-unit id="ssm.nav.config">
         <source>Configuration</source>

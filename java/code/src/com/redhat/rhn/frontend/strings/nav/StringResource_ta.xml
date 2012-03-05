@@ -151,12 +151,6 @@
       <target>குழுநீக்கப்பட்டது</target></trans-unit>
 
 
-      <trans-unit id="system.nav.proxy">
-<source>Proxy</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Systems Navigation Menu</context>
-        </context-group>
-      <target>பதிலாள்</target></trans-unit>
 
       <trans-unit id="ssm.nav.config">
         <source>Configuration</source>
