@@ -11681,9 +11681,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <trans-unit id="targetsystems.jsp.subscribetools">
           <source>Subscribe to @@PRODUCT_NAME@@ Tools channel</source>
         <target>@@PRODUCT_NAME@@ સાધનો ચેનલમાં ઉમેદવારી નોંધાવો</target></trans-unit>
-        <trans-unit id="targetsystems.jsp.installcfgclient">
-          <source>Schedule rhncfg-client package install</source>
-        <target>rhncfg-client પેકેજ સ્થાપન સુનિશ્ચિત કરો</target></trans-unit>
         <trans-unit id="targetsystems.jsp.pending">
           <source>Package installations currently pending.</source>
         <target>પેકેજ સ્થાપનો વર્તમાનમાં બાકી રહેલ છે.</target></trans-unit>
