@@ -22214,9 +22214,6 @@ Les nom et une étiquette de canal sont requis. Ils doivent être au moins de 6
       <trans-unit id="channel.edit.jsp.repolabel">
 		<source>Label</source>
       <target>Étiquette</target></trans-unit>
-      <trans-unit id="edit.channel.invalidrepolabel.missing">
-		<source>A repo label is required if providing a yum repository url.</source>
-      <target>Une étiquette de référentiel est requise si vous procurez un url de référentiel yum.</target></trans-unit>
       <trans-unit id="channel.edit.jsp.lastsynced">
 		<source>Last Sync Time</source>
       <target>Dernière Sync</target></trans-unit>
