@@ -2266,12 +2266,6 @@ rhn-kickstart* パッケージが利用可能であることを確認します�
 
 
 
-        <trans-unit id="toolbar.delete.probe">
-<source>delete probe</source>
-            <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails</context>
-        </context-group>
-        <target>プローブの削除</target></trans-unit>
 
         <trans-unit id="toolbar.delete.user">
 <source>delete user</source>

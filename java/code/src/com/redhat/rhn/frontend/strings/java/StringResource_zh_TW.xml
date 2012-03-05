@@ -2242,12 +2242,6 @@ available for this kickstart profile to function properly.
 
 
 
-        <trans-unit id="toolbar.delete.probe">
-<source>delete probe</source>
-            <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails</context>
-        </context-group>
-        <target>刪除偵測</target></trans-unit>
 
         <trans-unit id="toolbar.delete.user">
 <source>delete user</source>
