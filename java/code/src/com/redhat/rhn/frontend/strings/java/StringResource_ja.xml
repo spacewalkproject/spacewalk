@@ -976,12 +976,6 @@
         </context-group>
       <target>最後に残っているサテライト管理者は削除できません。</target></trans-unit>
 
-      <trans-unit id="Users/Servers">
-<source>Users/Servers</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-      <target>ユーザー/サーバー</target></trans-unit>
       <trans-unit id="Users">
 <source>Users</source>
         <context-group name="ctx">

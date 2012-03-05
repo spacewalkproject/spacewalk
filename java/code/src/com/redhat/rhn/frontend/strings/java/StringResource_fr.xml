@@ -978,12 +978,6 @@ utilisateur avant de supprimer son compte.</target></trans-unit>
         </context-group>
       <target>Impossible d'effacer le dernier adminisrateur de satellite.</target></trans-unit>
 
-      <trans-unit id="Users/Servers">
-<source>Users/Servers</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-      <target>Utilisateurs/Serveurs</target></trans-unit>
       <trans-unit id="Users">
 <source>Users</source>
         <context-group name="ctx">
