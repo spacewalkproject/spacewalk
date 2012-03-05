@@ -206,17 +206,6 @@ Nous vous remercions d'utiliser @@PRODUCT_NAME@@.
          <source>@@PRODUCT_NAME@@ Account Deactivated: {0}</source>
       <target>Compte @@PRODUCT_NAME@@ désactivé : {0}</target></trans-unit>
 
-      <trans-unit id="email.user.deleted.body">
-         <source>
-The Red Hat login {0} has been deactivated in response to your request.
-
-Thank you for contacting Red Hat.
-         </source>
-      <target>
-le login Red Hat {0} a été désactivé suite à votre demande.
-
-Merci de contacter Red Hat.
-</target></trans-unit>
 
 
 

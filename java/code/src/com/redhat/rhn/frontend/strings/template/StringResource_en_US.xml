@@ -158,13 +158,6 @@ Thank you for using @@PRODUCT_NAME@@.
          <source>@@PRODUCT_NAME@@ Account Deactivated: {0}</source>
       </trans-unit>
 
-      <trans-unit id="email.user.deleted.body">
-         <source>
-The Red Hat login {0} has been deactivated in response to your request.
-
-Thank you for contacting Red Hat.
-         </source>
-      </trans-unit>
 
 
 
