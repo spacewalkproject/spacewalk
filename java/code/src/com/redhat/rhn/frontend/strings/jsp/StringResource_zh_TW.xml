@@ -5857,12 +5857,6 @@ value for this entitlement, excluding the default organization's consumption.</s
       </context-group>
     <target>執行遠端指令</target></trans-unit>
 
-    <trans-unit id="upgrade.jsp.package">
-<source>Package Name</source>
-      <context-group name="ctx">
-        <context context-type="sourcefile">/rhn/systems/details/packages/UpgradeConfirm.do</context>
-      </context-group>
-    <target>套件名稱</target></trans-unit>
 
     <trans-unit id="probeedit.jsp.probecommand">
 <source>Probe Command</source>
