@@ -16824,12 +16824,6 @@ the &lt;a href=&quot;/rhn/kickstart/ActivationKeysList.do?ksid={0}&quot;&gt;Acti
             <context context-type="sourcefile">/rhn/account/LocalePreferences.do</context>
         </context-group>
     </trans-unit>
-    <trans-unit id="preferences.jsp.lang.es">
-        <source>Spanish</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/account/LocalePreferences.do</context>
-        </context-group>
-    </trans-unit>
     <trans-unit id="preferences.jsp.lang.fr">
         <source>French</source>
         <context-group name="ctx">
