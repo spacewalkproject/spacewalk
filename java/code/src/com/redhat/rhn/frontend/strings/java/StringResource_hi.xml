@@ -525,12 +525,6 @@
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
       <target>किकस्टार्ट</target></trans-unit>
-      <trans-unit id="LoginSubmit.do">
-<source>LoginSubmit.do</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">NOT USED</context>
-        </context-group>
-      <target>LoginSubmit.do</target></trans-unit>
       <trans-unit id="Lookup Login/Password">
 <source>Lookup Login/Password</source>
         <context-group name="ctx">
