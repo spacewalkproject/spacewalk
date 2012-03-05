@@ -16440,12 +16440,6 @@ the &lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;Activation Key
 	    <target>有効</target></trans-unit>
     </group>
 
-    <trans-unit id="preferences.jsp.lang.bn_IN">
-        <source>Bengali</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/account/LocalePreferences.do</context>
-        </context-group>
-    <target>ベンガル語</target></trans-unit>
     <trans-unit id="preferences.jsp.lang.de">
         <source>German</source>
         <context-group name="ctx">

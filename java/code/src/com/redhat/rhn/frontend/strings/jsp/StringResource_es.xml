@@ -16457,12 +16457,6 @@ para suscribir los sistemas a los canales de software durante el inicio de insta
 	    <target>Válido</target></trans-unit>
     </group>
 
-    <trans-unit id="preferences.jsp.lang.bn_IN">
-        <source>Bengali</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/account/LocalePreferences.do</context>
-        </context-group>
-    <target>Bengalí</target></trans-unit>
     <trans-unit id="preferences.jsp.lang.de">
         <source>German</source>
         <context-group name="ctx">
