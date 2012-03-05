@@ -1560,12 +1560,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/users/UserDetails</context>
         </context-group>
       <target>முன்னொட்டு</target></trans-unit>
-      <trans-unit id="userdetails.jsp.position">
-<source>Position</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/CreateUser</context>
-        </context-group>
-      <target>நிலை</target></trans-unit>
       <trans-unit id="userdetails.jsp.usertype">
 <source>User Type</source>
         <context-group name="ctx">
