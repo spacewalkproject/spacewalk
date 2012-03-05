@@ -19095,12 +19095,6 @@ Note que solo es necesario un grupo de imágenes ISO para instalar cualquier lan
           <context context-type="sourcefile">/rhn/software/channel/downloads/Download.do</context>
         </context-group>
       <target>Los canales a los cuales ha tratado acceder no existen o usted no tiene derechos de acceso a éstos. Por favor revise el enlace que lo trajo a esta página.</target></trans-unit>
-      <trans-unit id="isodownload.channel-dumps.view-base">
-<source>View Base Channel Content ISOs for @@PRODUCT_NAME@@</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/software/channel/downloads/Download.do</context>
-        </context-group>
-      <target>Ver imágenes ISO de contenido de canal base para @@PRODUCT_NAME@@ </target></trans-unit>
       <trans-unit id="isodownload.channel-dumps.view-incr">
 <source>View Incremental Channel Content ISOs for @@PRODUCT_NAME@@</source>
         <context-group name="ctx">

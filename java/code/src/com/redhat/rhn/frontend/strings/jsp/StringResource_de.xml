@@ -19098,12 +19098,6 @@ Beachten Sie, dass nur eine Gruppe von ISO-Images nötig ist, um eine bestimmte 
           <context context-type="sourcefile">/rhn/software/channel/downloads/Download.do</context>
         </context-group>
       <target>Den Channel, auf den Sie versuchten, zuzugreifen, existiert entweder nicht, oder Sie sind nicht berechtigt, darauf zuzugreifen.  Bitte &amp;uuml;berpr&amp;uuml;fen Sie den Link erneut, der Sie auf diese Seite gef&amp;uuml;hrt hat.</target></trans-unit>
-      <trans-unit id="isodownload.channel-dumps.view-base">
-<source>View Base Channel Content ISOs for @@PRODUCT_NAME@@</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/software/channel/downloads/Download.do</context>
-        </context-group>
-      <target>Basis-Channel-Inhalt-ISOs f&amp;uuml;r @@PRODUCT_NAME@@ ansehen</target></trans-unit>
       <trans-unit id="isodownload.channel-dumps.view-incr">
 <source>View Incremental Channel Content ISOs for @@PRODUCT_NAME@@</source>
         <context-group name="ctx">

@@ -19029,12 +19029,6 @@ Note that only one set of ISO images is necessary to install any particular rele
           <context context-type="sourcefile">/rhn/software/channel/downloads/Download.do</context>
         </context-group>
       <target>વાપરવા માટેની ચેનલ કે જે તમે પસંદ કરેલ છે તે ક્યાં તો અસ્તિત્વમાં નથી, અથવા તમને તેના વપરાશની પરવાનગી નથી.  મહેરબાની કરીને કડી પુનઃચકાસો કે જે તમને આ પાનાં સુધી લઈ આવી.</target></trans-unit>
-      <trans-unit id="isodownload.channel-dumps.view-base">
-<source>View Base Channel Content ISOs for @@PRODUCT_NAME@@</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/software/channel/downloads/Download.do</context>
-        </context-group>
-      <target>@@PRODUCT_NAME@@ માટે આધાર ચેનલ સમાવિષ્ટ ISO જુઓ</target></trans-unit>
       <trans-unit id="isodownload.channel-dumps.view-incr">
 <source>View Incremental Channel Content ISOs for @@PRODUCT_NAME@@</source>
         <context-group name="ctx">

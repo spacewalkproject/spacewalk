@@ -19020,12 +19020,6 @@ Note that only one set of ISO images is necessary to install any particular rele
           <context context-type="sourcefile">/rhn/software/channel/downloads/Download.do</context>
         </context-group>
       <target>您所嚐試存取的頻道不存在，或是您並沒有存取權限。請重新檢查您所連至此網頁的連結。</target></trans-unit>
-      <trans-unit id="isodownload.channel-dumps.view-base">
-<source>View Base Channel Content ISOs for @@PRODUCT_NAME@@</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/software/channel/downloads/Download.do</context>
-        </context-group>
-      <target>檢視 @@PRODUCT_NAME@@ 的基礎頻道內容</target></trans-unit>
       <trans-unit id="isodownload.channel-dumps.view-incr">
 <source>View Incremental Channel Content ISOs for @@PRODUCT_NAME@@</source>
         <context-group name="ctx">

@@ -19094,12 +19094,6 @@ Notez qu'il ne suffit pas d'un seul jeu d'images ISO pour installer une version 
           <context context-type="sourcefile">/rhn/software/channel/downloads/Download.do</context>
         </context-group>
       <target>Le canal auquel vous avez essayé d'accéder n'existe pas ou vous n'êtes pas autorisé à y accéder. Veuillez vérifier le lien qui vous a dirigé sur cette page.</target></trans-unit>
-      <trans-unit id="isodownload.channel-dumps.view-base">
-<source>View Base Channel Content ISOs for @@PRODUCT_NAME@@</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/software/channel/downloads/Download.do</context>
-        </context-group>
-      <target>Afficher les ISO de contenu de canal de base pour @@PRODUCT_NAME@@</target></trans-unit>
       <trans-unit id="isodownload.channel-dumps.view-incr">
 <source>View Incremental Channel Content ISOs for @@PRODUCT_NAME@@</source>
         <context-group name="ctx">
