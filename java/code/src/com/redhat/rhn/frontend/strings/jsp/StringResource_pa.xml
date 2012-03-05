@@ -821,12 +821,6 @@
           <context context-type="sourcefile">/rhn/Login</context>
         </context-group>
       <target>ਗੁਪਤ-ਕੋਡ: </target></trans-unit>
-      <trans-unit id="login.jsp.lostpassword">
-<source>Lost Login/Password?</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/Login</context>
-        </context-group>
-      <target>ਕੀ ਲਾਗਇਨ/ਗੁਪਤ-ਕੋਡ ਗੁੰਮ?</target></trans-unit>
 
       <trans-unit id="login.jsp.welcomemessage">
 <source>Welcome to @@PRODUCT_NAME@@</source>

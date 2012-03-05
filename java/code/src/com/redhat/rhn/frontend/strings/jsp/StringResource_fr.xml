@@ -821,12 +821,6 @@
           <context context-type="sourcefile">/rhn/Login</context>
         </context-group>
       <target>Mot de passe&amp;nbsp;:</target></trans-unit>
-      <trans-unit id="login.jsp.lostpassword">
-<source>Lost Login/Password?</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/Login</context>
-        </context-group>
-      <target>Login ou mot de passe oublié</target></trans-unit>
 
       <trans-unit id="login.jsp.welcomemessage">
 <source>Welcome to @@PRODUCT_NAME@@</source>
