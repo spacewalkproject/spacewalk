@@ -17893,9 +17893,6 @@ einen Kickstart durchführen oder eine neue Kickstart-Distribution erzeugen.&lt;
             <source>Status</source>
         <target>Status</target></trans-unit>
 
-        <trans-unit id="exportcolumn.entryDate">
-            <source>Timestamp</source>
-        <target>Zeitstempel</target></trans-unit>
 
         <trans-unit id="exportcolumn.state">
             <source>State</source>

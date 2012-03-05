@@ -17884,9 +17884,6 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;
             <source>Status</source>
         <target>状态</target></trans-unit>
 
-        <trans-unit id="exportcolumn.entryDate">
-            <source>Timestamp</source>
-        <target>时间戳</target></trans-unit>
 
         <trans-unit id="exportcolumn.state">
             <source>State</source>

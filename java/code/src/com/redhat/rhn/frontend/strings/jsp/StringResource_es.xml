@@ -17889,9 +17889,6 @@ de realizar un kickstart o antes de crear una nueva distribución kickstart.&lt;
             <source>Status</source>
         <target>Estado</target></trans-unit>
 
-        <trans-unit id="exportcolumn.entryDate">
-            <source>Timestamp</source>
-        <target>Etiqueta de tiempo</target></trans-unit>
 
         <trans-unit id="exportcolumn.state">
             <source>State</source>

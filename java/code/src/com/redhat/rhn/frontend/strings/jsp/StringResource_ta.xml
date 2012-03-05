@@ -17837,9 +17837,6 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;
             <source>Status</source>
         <target>நிலை</target></trans-unit>
 
-        <trans-unit id="exportcolumn.entryDate">
-            <source>Timestamp</source>
-        <target>நேரம்</target></trans-unit>
 
         <trans-unit id="exportcolumn.state">
             <source>State</source>

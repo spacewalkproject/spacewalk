@@ -17830,9 +17830,6 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;
             <source>Status</source>
         <target>상태</target></trans-unit>
 
-        <trans-unit id="exportcolumn.entryDate">
-            <source>Timestamp</source>
-        <target>타임스탬프</target></trans-unit>
 
         <trans-unit id="exportcolumn.state">
             <source>State</source>

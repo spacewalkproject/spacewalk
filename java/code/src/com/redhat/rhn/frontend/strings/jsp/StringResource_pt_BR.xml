@@ -17883,9 +17883,6 @@ de executar um kickstart ou criar uma nova distribuição kickstart.&lt;/strong&
             <source>Status</source>
         <target>Estado</target></trans-unit>
 
-        <trans-unit id="exportcolumn.entryDate">
-            <source>Timestamp</source>
-        <target>Carimbo de Data e Hora</target></trans-unit>
 
         <trans-unit id="exportcolumn.state">
             <source>State</source>
