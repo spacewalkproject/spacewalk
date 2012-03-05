@@ -20135,12 +20135,6 @@ given channel.</source>
           <context context-type="sourcefile">/rhn/admin/ScheduleDetail.do</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="toolbar.delete.schedule">
-        <source>delete schedule</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/ScheduleDetail.do</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="schedule.edit.jsp.satschedules">
         <source>@@PRODUCT_NAME@@ Schedules</source>
         <context-group name="ctx">
