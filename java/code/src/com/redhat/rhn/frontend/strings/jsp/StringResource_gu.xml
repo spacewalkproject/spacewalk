@@ -16503,9 +16503,6 @@ the &lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;Activation Key
 	    <trans-unit id="kickstart.schedule.sync.pkg.profile.jsp">
 	        <source>Sync Package&lt;br /&gt;Profile</source>
 	    <target>પેકેજ&lt;br /&gt;રૂપરેખા સુમેળ કરો</target></trans-unit>
-	    <trans-unit id="kickstart.schedule.system.profile.option1.jsp">
-	        <source>Use this system's existing @@PRODUCT_NAME@@ Profile</source>
-	    <target>આ સિસ્ટમની હાલની @@PRODUCT_NAME@@ રૂપરેખા વાપરો</target></trans-unit>
 	    <trans-unit id="kickstart.schedule.system.profile.virt.option1.jsp">
 	        <source>Use the default guest profile</source>
 	    <target>મૂળભૂત મહેમાન રૂપરેખા વાપરો</target></trans-unit>
