@@ -32,16 +32,11 @@ if len(args) > 1:
     parser.print_help()
     sys.exit(1)
 
-distmap = {'6E':'.el6',
-           '5E':'.el5',
-           '4E':'.el4',
-           'f10':'.fc10',
-           'f11':'.fc11',
-           'f12':'.fc12',
-           'f13':'.fc13',
-           'f14':'.fc14',
-           'f15':'.fc15',
-           'f16':'.fc16'}
+distmap = {'rhel6':'.el6',
+           'rhel5':'.el5',
+           'rhel4':'.el4',
+           'fedora15':'.fc15',
+           'fedora16':'.fc16'}
 
 distsuffix = ''
 tag = args[0]
@@ -50,7 +45,7 @@ if tag == 'satellite-5.4-rhel-5-candidate':
 elif tag == 'satellite-5.4-rhel-6-candidate':
     disttag = '.el6'
 else:
-    disttag = distmap[tag.split('-')[1]]
+    disttag = distmap[tag.split('-')[-1]]
 pkgstoignore = []
 if config.has_section(tag) and config.has_option(tag, 'blacklist'):
     pkgstoignore = config.get(tag, 'blacklist').split(' ')
