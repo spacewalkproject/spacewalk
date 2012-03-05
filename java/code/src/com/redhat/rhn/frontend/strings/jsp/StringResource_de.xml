@@ -12985,12 +12985,6 @@ Anschlie&amp;szlig;end wird das nicht-chroot Post-Skript ausgef&amp;uuml;hrt, un
           <context context-type="sourcefile">/rhn/configuration/ChannelOverview.do</context>
         </context-group>
      <target>Keine Systeme abonniert</target></trans-unit>
-      <trans-unit id="channelOverview.jsp.recentdeploy-none">
-<source>No files deployed</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/ChannelOverview.do</context>
-        </context-group>
-     <target>Keine Dateien eingesetzt</target></trans-unit>
 
       <trans-unit id="channelOverview.jsp.submitEdit">
 <source>Edit Config Channel</source>

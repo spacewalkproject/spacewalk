@@ -12968,12 +12968,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
           <context context-type="sourcefile">/rhn/configuration/ChannelOverview.do</context>
         </context-group>
      <target>કોઈ ઉમેદવારી નોંધાવેલ સિસ્ટમો નથી</target></trans-unit>
-      <trans-unit id="channelOverview.jsp.recentdeploy-none">
-<source>No files deployed</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/ChannelOverview.do</context>
-        </context-group>
-     <target>કોઈ ફાઈલો જમાવેલ નથી</target></trans-unit>
 
       <trans-unit id="channelOverview.jsp.submitEdit">
 <source>Edit Config Channel</source>

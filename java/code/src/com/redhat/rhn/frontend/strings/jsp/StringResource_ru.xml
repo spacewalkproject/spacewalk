@@ -12962,12 +12962,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
           <context context-type="sourcefile">/rhn/configuration/ChannelOverview.do</context>
         </context-group>
      <target>Нет подписанных систем</target></trans-unit>
-      <trans-unit id="channelOverview.jsp.recentdeploy-none">
-<source>No files deployed</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/ChannelOverview.do</context>
-        </context-group>
-     <target>Файлы не были применены</target></trans-unit>
 
       <trans-unit id="channelOverview.jsp.submitEdit">
 <source>Edit Config Channel</source>

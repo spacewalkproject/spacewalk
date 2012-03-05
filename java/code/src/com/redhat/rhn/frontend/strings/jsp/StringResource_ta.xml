@@ -12968,12 +12968,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
           <context context-type="sourcefile">/rhn/configuration/ChannelOverview.do</context>
         </context-group>
      <target>கணினிகள் எதுவும் சந்தாப்படுத்தப்படவில்லை</target></trans-unit>
-      <trans-unit id="channelOverview.jsp.recentdeploy-none">
-<source>No files deployed</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/ChannelOverview.do</context>
-        </context-group>
-     <target>கோப்புகள் எதுவும் வரிசைப்படுத்தப்படவில்லை</target></trans-unit>
 
       <trans-unit id="channelOverview.jsp.submitEdit">
 <source>Edit Config Channel</source>

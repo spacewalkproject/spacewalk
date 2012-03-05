@@ -12967,12 +12967,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
           <context context-type="sourcefile">/rhn/configuration/ChannelOverview.do</context>
         </context-group>
      <target>ਕੋਈ ਮੈਂਬਰ ਸਿਸਟਮ ਨਹੀਂ ਹੈ</target></trans-unit>
-      <trans-unit id="channelOverview.jsp.recentdeploy-none">
-<source>No files deployed</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/ChannelOverview.do</context>
-        </context-group>
-     <target>ਕੋਈ ਫਾਇਲ ਸ਼ਾਮਿਲ ਨਹੀਂ ਕੀਤੀ</target></trans-unit>
 
       <trans-unit id="channelOverview.jsp.submitEdit">
 <source>Edit Config Channel</source>
