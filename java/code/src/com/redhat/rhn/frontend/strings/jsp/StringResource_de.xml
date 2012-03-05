@@ -17876,9 +17876,6 @@ einen Kickstart durchführen oder eine neue Kickstart-Distribution erzeugen.&lt;
         <trans-unit id="exportcolumn.errataAdvisoryType">
             <source>Advisory Type</source>
         <target>Hinweistyp</target></trans-unit>
-        <trans-unit id="exportcolumn.updateDate">
-            <source>Updated</source>
-        <target>Aktualisiert</target></trans-unit>
 
 
 

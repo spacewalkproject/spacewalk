@@ -17817,9 +17817,6 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;
         <trans-unit id="exportcolumn.errataAdvisoryType">
             <source>Advisory Type</source>
         <target>Tipo di Advisory</target></trans-unit>
-        <trans-unit id="exportcolumn.updateDate">
-            <source>Updated</source>
-        <target>Aggiornato</target></trans-unit>
 
 
 

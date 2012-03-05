@@ -17872,9 +17872,6 @@ de realizar un kickstart o antes de crear una nueva distribución kickstart.&lt;
         <trans-unit id="exportcolumn.errataAdvisoryType">
             <source>Advisory Type</source>
         <target>Tipo de recomendación</target></trans-unit>
-        <trans-unit id="exportcolumn.updateDate">
-            <source>Updated</source>
-        <target>Actualizado</target></trans-unit>
 
 
 

@@ -17813,9 +17813,6 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;
         <trans-unit id="exportcolumn.errataAdvisoryType">
             <source>Advisory Type</source>
         <target>권고 유형 </target></trans-unit>
-        <trans-unit id="exportcolumn.updateDate">
-            <source>Updated</source>
-        <target>업데이트됨</target></trans-unit>
 
 
 
