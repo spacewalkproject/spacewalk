@@ -13862,12 +13862,6 @@ Siete sicuri di voler fare questo?</target></trans-unit>
 
 
 
-    <trans-unit id="quota.jsp.revisions">
-        <source>Revisions</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/Quota.do</context>
-        </context-group>
-    <target>Revisioni</target></trans-unit>
 
 
 

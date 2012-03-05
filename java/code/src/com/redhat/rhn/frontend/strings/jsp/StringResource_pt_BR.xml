@@ -13888,12 +13888,6 @@ para qualquer uma das revisões, assim como todo o histórico de implementação
 
 
 
-    <trans-unit id="quota.jsp.revisions">
-        <source>Revisions</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/Quota.do</context>
-        </context-group>
-    <target>Revisões</target></trans-unit>
 
 
 

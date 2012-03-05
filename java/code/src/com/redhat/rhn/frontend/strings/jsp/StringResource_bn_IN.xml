@@ -13864,12 +13864,6 @@ any of these revisions.  Are you sure you want to do this?</source>
 
 
 
-    <trans-unit id="quota.jsp.revisions">
-        <source>Revisions</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/Quota.do</context>
-        </context-group>
-    <target>পরিমার্জন</target></trans-unit>
 
 
 

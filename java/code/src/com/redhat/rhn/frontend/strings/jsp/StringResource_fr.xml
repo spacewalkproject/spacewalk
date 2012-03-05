@@ -13898,12 +13898,6 @@ pour ces versions seront également supprimées, ainsi que tous les historiques 
 
 
 
-    <trans-unit id="quota.jsp.revisions">
-        <source>Revisions</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/Quota.do</context>
-        </context-group>
-    <target>Versions</target></trans-unit>
 
 
 
