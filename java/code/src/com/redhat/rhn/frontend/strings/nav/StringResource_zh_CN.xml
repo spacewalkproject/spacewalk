@@ -58,12 +58,6 @@
         </context-group>
       <target>安装补丁</target></trans-unit>
 
-      <trans-unit id="system.nav.all">
-<source>All</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Systems Navigation Menu</context>
-        </context-group>
-      <target>所有</target></trans-unit>
 
       <trans-unit id="virtualization.entitlements">
         <source>Virtualization Entitlements</source>

@@ -58,12 +58,6 @@
         </context-group>
       <target>பின்னிணைப்புகளை நிறுவவும்</target></trans-unit>
 
-      <trans-unit id="system.nav.all">
-<source>All</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Systems Navigation Menu</context>
-        </context-group>
-      <target>அனைத்தும்</target></trans-unit>
 
       <trans-unit id="virtualization.entitlements">
         <source>Virtualization Entitlements</source>

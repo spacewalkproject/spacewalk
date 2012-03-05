@@ -58,12 +58,6 @@
         </context-group>
       <target>પેચો સ્થાપિત કરો</target></trans-unit>
 
-      <trans-unit id="system.nav.all">
-<source>All</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Systems Navigation Menu</context>
-        </context-group>
-      <target>બધું</target></trans-unit>
 
       <trans-unit id="virtualization.entitlements">
         <source>Virtualization Entitlements</source>

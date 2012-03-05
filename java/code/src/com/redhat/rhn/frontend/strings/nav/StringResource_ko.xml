@@ -58,12 +58,6 @@
         </context-group>
       <target>패치 설치</target></trans-unit>
 
-      <trans-unit id="system.nav.all">
-<source>All</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Systems Navigation Menu</context>
-        </context-group>
-      <target>전체</target></trans-unit>
 
       <trans-unit id="virtualization.entitlements">
         <source>Virtualization Entitlements</source>
