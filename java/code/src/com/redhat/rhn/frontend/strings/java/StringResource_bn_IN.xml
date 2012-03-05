@@ -1097,12 +1097,6 @@
           <context context-type="sourcefile">/rhn/users/UserDetails</context>
         </context-group>
       <target>প্রতিষ্ঠানের সদস্য</target></trans-unit>
-      <trans-unit id="Organization Admins">
-<source>Organization Admins</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/UserDetails</context>
-        </context-group>
-      <target>প্রাতিষ্ঠানিক অ্যাডমিন</target></trans-unit>
       <trans-unit id="Activation Key Administrators">
 <source>Activation Key Administrators</source>
         <context-group name="ctx">
