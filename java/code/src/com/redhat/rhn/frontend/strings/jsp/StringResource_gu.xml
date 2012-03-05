@@ -18954,21 +18954,6 @@ Emergency Maintenance windows.&lt;a href="{0}"&gt;Register for the Email Outage 
           <context context-type="sourcefile">/rhn/software/channel/downloads/Download.do</context>
         </context-group>
       <target>જૂના પ્રકાશનો જુઓ</target></trans-unit>
-      <trans-unit id="isodownload.latest.note">
-<source>
-&lt;strong&gt;NOTE:&lt;/strong&gt; You'll need an installation number to install {0}.
-&lt;a href="{1}"&gt;Not sure what an installation number is?&lt;/a&gt;
-&lt;a href="{2}"&gt;Need to look up your installation numbers?&lt;/a&gt;
-</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/software/channel/downloads/Download.do</context>
-		  <context context-type="paramnotes">
-NOTE: You'll need an installation number to install Red Hat Enterprise Linux (v.5 for 32-bit x86).
-_Not sure what an installation number is?_
-_Need to look up your installation numbers?_
-		  </context>
-        </context-group>
-      <target></target></trans-unit>
       <trans-unit id="isodownload.rest">
 <source>Older Releases</source>
         <context-group name="ctx">

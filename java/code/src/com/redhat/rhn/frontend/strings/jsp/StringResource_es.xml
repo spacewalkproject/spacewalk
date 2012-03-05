@@ -19009,25 +19009,6 @@ para anunciar periodos de mantenimiento de Emergencia y no programados.
           <context context-type="sourcefile">/rhn/software/channel/downloads/Download.do</context>
         </context-group>
       <target>Ver lanzamientos anteriores</target></trans-unit>
-      <trans-unit id="isodownload.latest.note">
-<source>
-&lt;strong&gt;NOTE:&lt;/strong&gt; You'll need an installation number to install {0}.
-&lt;a href="{1}"&gt;Not sure what an installation number is?&lt;/a&gt;
-&lt;a href="{2}"&gt;Need to look up your installation numbers?&lt;/a&gt;
-</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/software/channel/downloads/Download.do</context>
-		  <context context-type="paramnotes">
-NOTE: You'll need an installation number to install Red Hat Enterprise Linux (v.5 for 32-bit x86).
-_Not sure what an installation number is?_
-_Need to look up your installation numbers?_
-		  </context>
-        </context-group>
-      <target>
-&lt;strong&gt;NOTA:&lt;/strong&gt; Necesitará un número de instalación para poder instalar {0}.
-&lt;a href="{1}"&gt;¿No está seguro de lo que es un número de instalación?&lt;/a&gt;
-&lt;a href="{2}"&gt;¿Necesita buscar su número de instalación?&lt;/a&gt;
-</target></trans-unit>
       <trans-unit id="isodownload.rest">
 <source>Older Releases</source>
         <context-group name="ctx">
