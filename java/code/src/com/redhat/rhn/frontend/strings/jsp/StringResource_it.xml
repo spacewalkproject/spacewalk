@@ -6750,12 +6750,6 @@ value for this entitlement, excluding the default organization's consumption.</s
       </context-group>
     <target>Monitoring Scout</target></trans-unit>
 
-    <trans-unit id="probesuitesystemsedit.jsp.satclusterhelp">
-<source>Monitoring Scout to use with the Probes in this Suite for this system.</source>
-      <context-group name="ctx">
-        <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuiteSystems.do</context>
-      </context-group>
-    <target>Scout di controllo da utilizzare con questi probe in questa Suite per questo sistema.</target></trans-unit>
 
     <trans-unit id="probesuitesystemsedit.jsp.header1">
 <source>Add systems to Probe Suite: {0}</source>

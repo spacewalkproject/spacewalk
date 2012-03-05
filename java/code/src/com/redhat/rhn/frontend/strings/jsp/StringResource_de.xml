@@ -6753,12 +6753,6 @@ für diese Berechtigung, mit Ausnahme des Verbrauchs der Standardorganisation.</
       </context-group>
     <target>Monitoring-Scout</target></trans-unit>
 
-    <trans-unit id="probesuitesystemsedit.jsp.satclusterhelp">
-<source>Monitoring Scout to use with the Probes in this Suite for this system.</source>
-      <context-group name="ctx">
-        <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuiteSystems.do</context>
-      </context-group>
-    <target>Monitoring Scout f&amp;uuml;r die Verwendung mit den Probes in dieser Suite f&amp;uuml;r dieses System.</target></trans-unit>
 
     <trans-unit id="probesuitesystemsedit.jsp.header1">
 <source>Add systems to Probe Suite: {0}</source>

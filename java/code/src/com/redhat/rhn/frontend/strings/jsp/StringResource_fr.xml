@@ -6752,12 +6752,6 @@ pour ce droit d'accès, moins la consommation par défaut de l'organisation.</ta
       </context-group>
     <target>Agent Monitoring</target></trans-unit>
 
-    <trans-unit id="probesuitesystemsedit.jsp.satclusterhelp">
-<source>Monitoring Scout to use with the Probes in this Suite for this system.</source>
-      <context-group name="ctx">
-        <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuiteSystems.do</context>
-      </context-group>
-    <target>Agent de contrôle à utiliser avec les sondes dans cette suite pour ce système.</target></trans-unit>
 
     <trans-unit id="probesuitesystemsedit.jsp.header1">
 <source>Add systems to Probe Suite: {0}</source>
