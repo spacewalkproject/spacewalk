@@ -223,12 +223,6 @@ Merci de contacter Red Hat.
 
 
 
-      <trans-unit id="email.unchanneledsystem.subject">
-<source>Your Red Hat system is not able to receive service</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Taskomatic</context>
-        </context-group>
-      <target>Votre système Red Hat ne peut pas recevoir ce service</target></trans-unit>
 
 
 <group>
