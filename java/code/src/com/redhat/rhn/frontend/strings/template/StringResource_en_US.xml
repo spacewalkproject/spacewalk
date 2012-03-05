@@ -166,12 +166,6 @@ Thank you for contacting Red Hat.
          </source>
       </trans-unit>
 
-      <trans-unit id="email.newuser.bala.subject">
-<source>Red Hat login creation request</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Taskomatic</context>
-        </context-group>
-      </trans-unit>
 
 
 

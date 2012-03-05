@@ -218,12 +218,6 @@ El login Red Hat {0} ha sido desactivado como respuesta a su petición.
 Gracias por contactar a Red Hat.
 </target></trans-unit>
 
-      <trans-unit id="email.newuser.bala.subject">
-<source>Red Hat login creation request</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Taskomatic</context>
-        </context-group>
-      <target>Solicitud de creación de un nombre de usuario de Red Hat</target></trans-unit>
 
 
 

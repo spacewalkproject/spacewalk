@@ -218,12 +218,6 @@ Thank you for contacting Red Hat.
 感谢您联系红帽。
          </target></trans-unit>
 
-      <trans-unit id="email.newuser.bala.subject">
-<source>Red Hat login creation request</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Taskomatic</context>
-        </context-group>
-      <target>红帽登录创建请求</target></trans-unit>
 
 
 
