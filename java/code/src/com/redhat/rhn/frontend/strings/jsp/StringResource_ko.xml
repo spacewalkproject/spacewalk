@@ -19425,13 +19425,6 @@ Emergency Maintenance windows.&lt;a href="{0}"&gt;Register for the Email Outage 
           <context context-type="sourcefile">/rhn/software/channel/downloads/Download.do</context>
         </context-group>
       <target>소프트웨어 채널</target></trans-unit>
-      <trans-unit id="common.download.select-or-all">
-<source>Click the name of the desired software channel to be presented with your download options, or &lt;a href="{0}"&gt;view the complete list of software channels with ISO downloads.&lt;/a&gt;</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/software/downloads/SupportedISOs.do</context>
-		  <context context-type="paramnotes">Click the name of the desired software channel to be presented with your download options, or _view the complete list of software channels with ISO downloads._ </context>
-        </context-group>
-      <target>원하는 소프트웨어 채널명을 클릭하여 다운로드 옵션을 살펴보시거나 또는 &lt;a href="{0}"&gt; ISO 다운로드를 사용하여 소프트웨어 채널에 대한 완전 목록을 살펴보시기 바랍니다.&lt;/a&gt;</target></trans-unit>
 
 		<!-- Supported ISOs -->
       <trans-unit id="download.isotree.jsp.supported-instructions">

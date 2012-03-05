@@ -19462,13 +19462,6 @@ Emergency Maintenance windows.&lt;a href="{0}"&gt;Register for the Email Outage 
           <context context-type="sourcefile">/rhn/software/channel/downloads/Download.do</context>
         </context-group>
       <target>ソフトウェアチャンネル</target></trans-unit>
-      <trans-unit id="common.download.select-or-all">
-<source>Click the name of the desired software channel to be presented with your download options, or &lt;a href="{0}"&gt;view the complete list of software channels with ISO downloads.&lt;/a&gt;</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/software/downloads/SupportedISOs.do</context>
-		  <context context-type="paramnotes">Click the name of the desired software channel to be presented with your download options, or _view the complete list of software channels with ISO downloads._ </context>
-        </context-group>
-      <target>ダウンロードオプションと一緒に表示される目的のソフトウェアチャンネル名をクリックするか、 &lt;a href="{0}"&gt;ISO ダウンロード付きソフトウェアチャンネル全一覧を表示&lt;/a&gt; します。</target></trans-unit>
 
 		<!-- Supported ISOs -->
       <trans-unit id="download.isotree.jsp.supported-instructions">

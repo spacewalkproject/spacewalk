@@ -19434,13 +19434,6 @@ Emergency Maintenance windows.&lt;a href="{0}"&gt;Register for the Email Outage 
           <context context-type="sourcefile">/rhn/software/channel/downloads/Download.do</context>
         </context-group>
       <target>सॉफ्टवेयर चैनल</target></trans-unit>
-      <trans-unit id="common.download.select-or-all">
-<source>Click the name of the desired software channel to be presented with your download options, or &lt;a href="{0}"&gt;view the complete list of software channels with ISO downloads.&lt;/a&gt;</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/software/downloads/SupportedISOs.do</context>
-		  <context context-type="paramnotes">Click the name of the desired software channel to be presented with your download options, or _view the complete list of software channels with ISO downloads._ </context>
-        </context-group>
-      <target>इच्छित सॉफ्टवेयर चैनल के नाम पर क्लिक करें जिसे आपके डाउनलोड विकल्प के साथ प्रस्तुत होना है, या &lt;a href="{0}"&gt;सॉफ्टवेयर चैनल की पूरी सूची देखें ISO डाउनलोड के साथ.&lt;/a&gt;</target></trans-unit>
 
 		<!-- Supported ISOs -->
       <trans-unit id="download.isotree.jsp.supported-instructions">

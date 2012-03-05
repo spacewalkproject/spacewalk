@@ -19482,13 +19482,6 @@ pela Red Hat no caso de Períodos de Manutenção Não Programados ou
           <context context-type="sourcefile">/rhn/software/channel/downloads/Download.do</context>
         </context-group>
       <target>Canal de Software</target></trans-unit>
-      <trans-unit id="common.download.select-or-all">
-<source>Click the name of the desired software channel to be presented with your download options, or &lt;a href="{0}"&gt;view the complete list of software channels with ISO downloads.&lt;/a&gt;</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/software/downloads/SupportedISOs.do</context>
-		  <context context-type="paramnotes">Click the name of the desired software channel to be presented with your download options, or _view the complete list of software channels with ISO downloads._ </context>
-        </context-group>
-      <target>Clique no nome do canal de software que você deseja ser apresentado com suas opções de download, ou &lt;a href="{0}"&gt; visualize a lista completa de canais de software com os downloads do ISO.&lt;/a&gt;</target></trans-unit>
 
 		<!-- Supported ISOs -->
       <trans-unit id="download.isotree.jsp.supported-instructions">
