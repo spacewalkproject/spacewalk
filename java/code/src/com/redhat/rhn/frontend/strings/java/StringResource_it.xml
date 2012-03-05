@@ -2280,12 +2280,6 @@ disponibili per un corretto funzionamento di questo profilo kickstart.
         </context-group>
     <target>cancella utente</target></trans-unit>
 
-      <trans-unit id="toolbar.delete.erratum">
-<source>delete erratum</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Errata details pages</context>
-        </context-group>
-      <target>cancella erratum</target></trans-unit>
 
       <trans-unit id="toolbar.delete.system">
 <source>delete system</source>

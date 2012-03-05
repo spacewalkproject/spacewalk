@@ -2281,12 +2281,6 @@ asegurarse de que estén disponibles para que este perfil kickstart funcione apr
         </context-group>
     <target>borrar usuario</target></trans-unit>
 
-      <trans-unit id="toolbar.delete.erratum">
-<source>delete erratum</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Errata details pages</context>
-        </context-group>
-      <target>borrar errata</target></trans-unit>
 
       <trans-unit id="toolbar.delete.system">
 <source>delete system</source>

@@ -2256,12 +2256,6 @@ available for this kickstart profile to function properly.
         </context-group>
     <target>பயனரை அழிக்கவும்</target></trans-unit>
 
-      <trans-unit id="toolbar.delete.erratum">
-<source>delete erratum</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Errata details pages</context>
-        </context-group>
-      <target>பிழைத்திருத்தத்தை அழிக்கவும்</target></trans-unit>
 
       <trans-unit id="toolbar.delete.system">
 <source>delete system</source>
