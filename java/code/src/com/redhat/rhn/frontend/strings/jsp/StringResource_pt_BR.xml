@@ -10260,12 +10260,6 @@ o &lt;strong&gt;Guia de Administração de Sistemas Red Hat Enterprise Li
         </context-group>
      <target>Crítico</target></trans-unit>
 
-     <trans-unit id="yourrhn.jsp.affectedsystems">
-        <source>Affected Systems</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/YourRhn.do</context>
-        </context-group>
-     <target>Sistemas Afetados</target></trans-unit>
 
      <trans-unit id="yourrhn.jsp.allerrata">
         <source>View All Errata</source>

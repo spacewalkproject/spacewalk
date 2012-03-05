@@ -10267,12 +10267,6 @@ el &lt;strong&gt;Manual de administración del sistema Red Hat Enterprise Linux.
         </context-group>
      <target>Crítico</target></trans-unit>
 
-     <trans-unit id="yourrhn.jsp.affectedsystems">
-        <source>Affected Systems</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/YourRhn.do</context>
-        </context-group>
-     <target>Sistemas afectados</target></trans-unit>
 
      <trans-unit id="yourrhn.jsp.allerrata">
         <source>View All Errata</source>

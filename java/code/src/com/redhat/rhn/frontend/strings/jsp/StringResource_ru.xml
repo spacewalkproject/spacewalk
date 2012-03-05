@@ -10249,12 +10249,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         </context-group>
      <target>Критично</target></trans-unit>
 
-     <trans-unit id="yourrhn.jsp.affectedsystems">
-        <source>Affected Systems</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/YourRhn.do</context>
-        </context-group>
-     <target>Затронутые системы</target></trans-unit>
 
      <trans-unit id="yourrhn.jsp.allerrata">
         <source>View All Errata</source>

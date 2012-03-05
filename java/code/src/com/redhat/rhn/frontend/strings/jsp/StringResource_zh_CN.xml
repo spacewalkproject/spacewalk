@@ -10264,12 +10264,6 @@ kickstart 前脚本的内容可以在 &lt;strong&gt;《红帽企业版 Linux 系
         </context-group>
      <target>重要</target></trans-unit>
 
-     <trans-unit id="yourrhn.jsp.affectedsystems">
-        <source>Affected Systems</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/YourRhn.do</context>
-        </context-group>
-     <target>受影响的系统</target></trans-unit>
 
      <trans-unit id="yourrhn.jsp.allerrata">
         <source>View All Errata</source>

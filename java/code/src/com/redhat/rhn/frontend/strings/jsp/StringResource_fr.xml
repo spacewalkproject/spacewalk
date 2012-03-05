@@ -10269,12 +10269,6 @@ Le script post non-chroot sera ensuite exécuté et le script post sera enfin ex
         </context-group>
      <target>Critique</target></trans-unit>
 
-     <trans-unit id="yourrhn.jsp.affectedsystems">
-        <source>Affected Systems</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/YourRhn.do</context>
-        </context-group>
-     <target>Systèmes affectés</target></trans-unit>
 
      <trans-unit id="yourrhn.jsp.allerrata">
         <source>View All Errata</source>
