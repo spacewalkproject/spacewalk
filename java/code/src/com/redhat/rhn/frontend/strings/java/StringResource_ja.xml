@@ -6680,9 +6680,6 @@ Follow this url to see the full list of inactive systems:
 
 
 
-	<trans-unit id="sdc.config.diff.files_2_dirs_1_symlinks_2">
-		<source>{0} of {1} files and {2} of 1 directory and {4} of {5} symlinks on the system were successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href="{6}"&gt;View Details&lt;/a&gt;]</source>
-	<target>システム上の {1} ファイルのうちの {0} ファイル、1 ディレクトリのうちの {2} ディレクトリ、および {5} シンボリックリンクのうちの {4} シンボリックリンクが、@@PRODUCT_NAME@@ によって管理されたファイルと正常に比較されました。[&lt;a href="{6}"&gt;詳細の表示&lt;/a&gt;]</target></trans-unit>
 
 	<trans-unit id="sdc.config.diff.files_2_dirs_2_symlinks_0">
 		<source>{0} of {1} files and {2} of {3} directories on the system were successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href="{6}"&gt;View Details&lt;/a&gt;]</source>
