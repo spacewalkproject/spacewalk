@@ -14452,12 +14452,6 @@ Konfigurationschannel dieser Datei abonnieren, {2}; nachfolgend sehen Sie eine L
      <target>Ungültige Werte für SElinux-Kontext angegeben.</target></trans-unit>
 
 
-	<trans-unit id="config-file-form.error.start-delim-percent">
-<source>Start delimiter may not contain the '%' character.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
-        </context-group>
-     <target>Das Starttrennzeichen darf nicht das '%'-Zeichen enthalten.</target></trans-unit>
 
 		<!-- filedetails errors -->
 	<trans-unit id="filedetails.jsp.error.download">

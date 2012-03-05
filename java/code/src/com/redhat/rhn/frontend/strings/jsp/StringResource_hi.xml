@@ -14430,12 +14430,6 @@ centrally-managed configuration channel, {2}; below is a list of systems you may
      <target></target></trans-unit>
 
 
-	<trans-unit id="config-file-form.error.start-delim-percent">
-<source>Start delimiter may not contain the '%' character.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
-        </context-group>
-     <target>आरंभ परिसीमक को जरूर '%' संप्रतीक नहीं समाहित करना चाहिए.</target></trans-unit>
 
 		<!-- filedetails errors -->
 	<trans-unit id="filedetails.jsp.error.download">

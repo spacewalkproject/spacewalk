@@ -14450,12 +14450,6 @@ Vous pouvez déployer la dernière version de ce fichier (&lt;a href="{1}"&gt;Re
      <target>Valeurs de contexte SELinux configurées non valides.</target></trans-unit>
 
 
-	<trans-unit id="config-file-form.error.start-delim-percent">
-<source>Start delimiter may not contain the '%' character.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
-        </context-group>
-     <target>Le délimiteur de départ ne peut pas contenir le caractère "%".</target></trans-unit>
 
 		<!-- filedetails errors -->
 	<trans-unit id="filedetails.jsp.error.download">

@@ -14441,12 +14441,6 @@ de configuração centralmente gerenciado pelo arquivo, {2}; segue abaixo uma li
      <target>Configuração de valores inválidos para o Contexto SELinux.</target></trans-unit>
 
 
-	<trans-unit id="config-file-form.error.start-delim-percent">
-<source>Start delimiter may not contain the '%' character.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
-        </context-group>
-     <target>Início do delimitador pode não conter o caractere '%'</target></trans-unit>
 
 		<!-- filedetails errors -->
 	<trans-unit id="filedetails.jsp.error.download">

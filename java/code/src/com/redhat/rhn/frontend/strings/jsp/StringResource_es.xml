@@ -14447,12 +14447,6 @@ centralmente de este archivo, {2}; a continuación encontrará una lista de sist
      <target>Grupo de valores inválidos para el contexto SElinux.</target></trans-unit>
 
 
-	<trans-unit id="config-file-form.error.start-delim-percent">
-<source>Start delimiter may not contain the '%' character.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
-        </context-group>
-     <target>Los delimitadores iniciales no pueden tener el carácter '%'.</target></trans-unit>
 
 		<!-- filedetails errors -->
 	<trans-unit id="filedetails.jsp.error.download">
