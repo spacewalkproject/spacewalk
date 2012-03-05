@@ -18542,20 +18542,6 @@ Network अधिसूचना का प्रयास करेगा, फ�
           <context context-type="sourcefile">outage-policy.jsp</context>
         </context-group>
       <target>आउटेज अधिसूचना</target></trans-unit>
-      <trans-unit id="outage-policy.jsp.notification">
-<source>All @@PRODUCT_NAME@@ users are encouraged to join our optional email outage list.
-This email list will provide you with periodic updates about our
-scheduled downtime maintenance activities, and will also serve as the
-emailing list that Red Hat will use in the case of Unscheduled and
-Emergency Maintenance windows.&lt;a href="{0}"&gt;Register for the Email Outage List&lt;/a&gt;.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">outage-policy.jsp</context>
-        </context-group>
-      <target>सभी @@PRODUCT_NAME@@ उपयोक्ता को हमारे वैकल्पिक ईमेल आउटेज सूची को शामिल करने के लिये प्रोत्साहित किया जाता है.
-यह ईमेल सूची आपको कालिक अद्यतन देगा हमारे
-अनुसूचुत डाउनटाइम देखभाल क्रियाकलाप के बारे में, और एक ईमेलिंग सूची के रूप में
-काम केरगा जो कि Red Hat गैर अनुसूचित और
-आकस्मिक देखभाल विंडो की स्थिति में.&lt;a href="{0}"&gt;ईमेल आउटेज सूची के लिये पंजीकृत करें&lt;/a&gt;. </target></trans-unit>
 	</group>
 
 	<!-- download-ISOs pages -->

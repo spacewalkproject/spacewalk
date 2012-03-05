@@ -18539,20 +18539,6 @@ di seguito riportato), con almeno 12 ore oppure il prima possibile prima di una 
           <context context-type="sourcefile">outage-policy.jsp</context>
         </context-group>
       <target>Notifiche outage</target></trans-unit>
-      <trans-unit id="outage-policy.jsp.notification">
-<source>All @@PRODUCT_NAME@@ users are encouraged to join our optional email outage list.
-This email list will provide you with periodic updates about our
-scheduled downtime maintenance activities, and will also serve as the
-emailing list that Red Hat will use in the case of Unscheduled and
-Emergency Maintenance windows.&lt;a href="{0}"&gt;Register for the Email Outage List&lt;/a&gt;.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">outage-policy.jsp</context>
-        </context-group>
-      <target>È consigliato a tutti gli utenti di @@PRODUCT_NAME@@ di registrarsi alla nostra email outage list.
-La suddetta email list vi manterrà periodicamente aggiornati sulle nostre attività
-di gestione programmate durante il downtime, e rappresenta il mezzo attraverso il quale
-Red Hat vi terrà informati sui periodi di Gestione di Emergenza e non programmati.
-&lt;a href="{0}"&gt;Registrami alla Email Outage List&lt;/a&gt;.</target></trans-unit>
 	</group>
 
 	<!-- download-ISOs pages -->

@@ -18594,20 +18594,6 @@ Network intentará notificar otra vez a través de la lista de correo-e de inter
           <context context-type="sourcefile">outage-policy.jsp</context>
         </context-group>
       <target>Notificaciones de racionamientos</target></trans-unit>
-      <trans-unit id="outage-policy.jsp.notification">
-<source>All @@PRODUCT_NAME@@ users are encouraged to join our optional email outage list.
-This email list will provide you with periodic updates about our
-scheduled downtime maintenance activities, and will also serve as the
-emailing list that Red Hat will use in the case of Unscheduled and
-Emergency Maintenance windows.&lt;a href="{0}"&gt;Register for the Email Outage List&lt;/a&gt;.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">outage-policy.jsp</context>
-        </context-group>
-      <target>Se le recomienda a todos los usuarios de @@PRODUCT_NAME@@ ser parte de la lista de correo-e
-de racionamiento. Esta lista de correo-e le ofrecerá actualizaciones periódicas
-sobre las actividades de mantenimiento programado y también servirá
-para anunciar periodos de mantenimiento de Emergencia y no programados.
-&lt;a href="{0}"&gt;Registro para la lista de correo-e de racionamiento&lt;/a&gt;.</target></trans-unit>
 	</group>
 
 	<!-- download-ISOs pages -->

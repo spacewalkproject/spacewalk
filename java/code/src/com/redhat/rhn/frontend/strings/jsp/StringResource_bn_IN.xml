@@ -18540,20 +18540,6 @@ Network দ্বারা ই-মেইল আউট-এজ লিস্টে�
           <context context-type="sourcefile">outage-policy.jsp</context>
         </context-group>
       <target>আউট-এজ সংক্রান্ত সূচনা</target></trans-unit>
-      <trans-unit id="outage-policy.jsp.notification">
-<source>All @@PRODUCT_NAME@@ users are encouraged to join our optional email outage list.
-This email list will provide you with periodic updates about our
-scheduled downtime maintenance activities, and will also serve as the
-emailing list that Red Hat will use in the case of Unscheduled and
-Emergency Maintenance windows.&lt;a href="{0}"&gt;Register for the Email Outage List&lt;/a&gt;.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">outage-policy.jsp</context>
-        </context-group>
-      <target>@@PRODUCT_NAME@@-র সব ব্যবহারকারীদেরকে ই-মেইল আউট-এজ লিস্টে যোগ দেওয়ার বিশেষ অনুরোধ জানানো
-হচ্ছে। এটি ঐচ্ছিক। এই ই-মেইল লিস্টে পূর্বনির্ধারিত রক্ষণাবেক্ষণ কর্ম সম্পর্কে নিয়মিতরূপে
-সূচনাপ্রদান করা হবে। এছাড়াও অনির্ধারিত অথবা আপতকালীন রক্ষণাবেক্ষণ কর্ম সম্পর্কে
-জানাতে Red Hat দ্বারা এই ই-মেইল লিস্ট ব্যবহার করা হবে।
-&lt;a href="{0}"&gt;ই-মেইল আউট-এজ লিস্টে যোগ দিন&lt;/a&gt;।</target></trans-unit>
 	</group>
 
 	<!-- download-ISOs pages -->

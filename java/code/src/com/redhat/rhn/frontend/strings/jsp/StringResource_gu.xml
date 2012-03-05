@@ -18542,20 +18542,6 @@ Network સૂચન કરશે, ફરીથી ઈમેઈલ આઉટે�
           <context context-type="sourcefile">outage-policy.jsp</context>
         </context-group>
       <target>આઉટેજ સૂચનો</target></trans-unit>
-      <trans-unit id="outage-policy.jsp.notification">
-<source>All @@PRODUCT_NAME@@ users are encouraged to join our optional email outage list.
-This email list will provide you with periodic updates about our
-scheduled downtime maintenance activities, and will also serve as the
-emailing list that Red Hat will use in the case of Unscheduled and
-Emergency Maintenance windows.&lt;a href="{0}"&gt;Register for the Email Outage List&lt;/a&gt;.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">outage-policy.jsp</context>
-        </context-group>
-      <target>બધા @@PRODUCT_NAME@@ વપરાશકર્તાઓ આપણા વૈકલ્પિક આઉટેજ યાદીમાં જોડાવા માટે પ્રોત્સાહિત કરાય છે.
-આ ઈમેઈલ યાદી આપણી સુનિશ્ચિત નીચા સમય જાળવણી ક્રિયાઓ વિશે
-સામયિક સુધારાઓ વિશે સૂચવશે, અને તે ઈમેઈલીંગ યાદી તરીકે
-પણ સેવા આપશે કે જેને Red Hat અસુનિશ્ચિત અને તાત્કાલિક જાળવણી
-વિન્ડો માટે વાપરશે. &lt;a href="{0}"&gt;ઈમેઈલ આઉટેજ યાદી માટે રજીસ્ટર કરો&lt;/a&gt;.</target></trans-unit>
 	</group>
 
 	<!-- download-ISOs pages -->

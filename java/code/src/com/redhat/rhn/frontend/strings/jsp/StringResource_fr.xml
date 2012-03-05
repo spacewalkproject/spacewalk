@@ -18595,20 +18595,6 @@ heures avant ou aussi rapidement que possible.</target></trans-unit>
           <context context-type="sourcefile">outage-policy.jsp</context>
         </context-group>
       <target>Notifications de défaillance</target></trans-unit>
-      <trans-unit id="outage-policy.jsp.notification">
-<source>All @@PRODUCT_NAME@@ users are encouraged to join our optional email outage list.
-This email list will provide you with periodic updates about our
-scheduled downtime maintenance activities, and will also serve as the
-emailing list that Red Hat will use in the case of Unscheduled and
-Emergency Maintenance windows.&lt;a href="{0}"&gt;Register for the Email Outage List&lt;/a&gt;.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">outage-policy.jsp</context>
-        </context-group>
-      <target>Tous les utilisateurs @@PRODUCT_NAME@@ sont encouragés à se joindre à notre liste électronique
-de défaillances. Cette liste électronique facultative vous fournira des mises à jour
-périodiques à propos de nos activités de maintenance de temps d'arrêt programmées
-et Red Hat l'utilisera en cas de fenêtres de maintenance d'urgence et non programmées.
-&lt;a href="{0}"&gt;Enregistrez-vous à la liste électronique de défaillances&lt;/a&gt;.</target></trans-unit>
 	</group>
 
 	<!-- download-ISOs pages -->

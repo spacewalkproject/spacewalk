@@ -18534,20 +18534,6 @@ Red Hat Network는 Email Outage List (아래 참조) 메일링 리스트를 통�
           <context context-type="sourcefile">outage-policy.jsp</context>
         </context-group>
       <target>서비스 중지 통지</target></trans-unit>
-      <trans-unit id="outage-policy.jsp.notification">
-<source>All @@PRODUCT_NAME@@ users are encouraged to join our optional email outage list.
-This email list will provide you with periodic updates about our
-scheduled downtime maintenance activities, and will also serve as the
-emailing list that Red Hat will use in the case of Unscheduled and
-Emergency Maintenance windows.&lt;a href="{0}"&gt;Register for the Email Outage List&lt;/a&gt;.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">outage-policy.jsp</context>
-        </context-group>
-      <target>모든 @@PRODUCT_NAME@@ 사용자는 Email Outage List 메일링 리스트 옵션에 가입할 것을
-권장합니다. 이 메일링 리스트는 스케줄된 서비스 비가동시간에 관해
-정기적으로 업데이트해 드리며, 스케줄되지 않은 긴급 보수 윈도우와 같은
-경우가 발생했을 경우 Red Hat은 이러한 메일링 리스트를 사용하여 통보해
-드립니다. &lt;a href="{0}"&gt;Email Outage List에 등록합니다&lt;/a&gt;. </target></trans-unit>
 	</group>
 
 	<!-- download-ISOs pages -->

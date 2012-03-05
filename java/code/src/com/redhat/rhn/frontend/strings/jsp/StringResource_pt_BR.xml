@@ -18588,21 +18588,6 @@ ou assim que possível antes da manutenção não programada.</target></trans-un
           <context context-type="sourcefile">outage-policy.jsp</context>
         </context-group>
       <target>Notificações de Indisponibilidade</target></trans-unit>
-      <trans-unit id="outage-policy.jsp.notification">
-<source>All @@PRODUCT_NAME@@ users are encouraged to join our optional email outage list.
-This email list will provide you with periodic updates about our
-scheduled downtime maintenance activities, and will also serve as the
-emailing list that Red Hat will use in the case of Unscheduled and
-Emergency Maintenance windows.&lt;a href="{0}"&gt;Register for the Email Outage List&lt;/a&gt;.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">outage-policy.jsp</context>
-        </context-group>
-      <target>Recomendamos que todos os usuários do @@PRODUCT_NAME@@ subscrevam-se à lista de
-e-mails de indisponibilidades opcional. Esta lista de e-mails lhe oferecerá
-atualizações periódicas sobre períodos programados de indisponibilidade
-para atividades de manutenção, e também servirá como o canal a ser usado
-pela Red Hat no caso de Períodos de Manutenção Não Programados ou
- Emergenciais. &lt;a href="{0}"&gt;Subscreva-se à Lista de E-mails de Indisponibilidades&lt;/a&gt;. </target></trans-unit>
 	</group>
 
 	<!-- download-ISOs pages -->

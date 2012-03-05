@@ -18534,20 +18534,6 @@ unscheduled maintenance.</source>
           <context context-type="sourcefile">outage-policy.jsp</context>
         </context-group>
       <target>停機通知</target></trans-unit>
-      <trans-unit id="outage-policy.jsp.notification">
-<source>All @@PRODUCT_NAME@@ users are encouraged to join our optional email outage list.
-This email list will provide you with periodic updates about our
-scheduled downtime maintenance activities, and will also serve as the
-emailing list that Red Hat will use in the case of Unscheduled and
-Emergency Maintenance windows.&lt;a href="{0}"&gt;Register for the Email Outage List&lt;/a&gt;.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">outage-policy.jsp</context>
-        </context-group>
-      <target>我們建議所有的 @@PRODUCT_NAME@@ 使用者加入我們的停機電子郵件清單。
-此清單會定期提供您我們的停機
-維護活動，並做為非計劃與緊急
-維護事件的聯絡
-窗口。&lt;a href="{0}"&gt;請按此註冊停機電子郵件清單&lt;/a&gt;。</target></trans-unit>
 	</group>
 
 	<!-- download-ISOs pages -->

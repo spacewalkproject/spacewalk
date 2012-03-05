@@ -18535,16 +18535,6 @@ Red Hat будет предупреждать о выполнении работ
           <context context-type="sourcefile">outage-policy.jsp</context>
         </context-group>
       <target>Уведомление о перерыве в работе</target></trans-unit>
-      <trans-unit id="outage-policy.jsp.notification">
-<source>All @@PRODUCT_NAME@@ users are encouraged to join our optional email outage list.
-This email list will provide you with periodic updates about our
-scheduled downtime maintenance activities, and will also serve as the
-emailing list that Red Hat will use in the case of Unscheduled and
-Emergency Maintenance windows.&lt;a href="{0}"&gt;Register for the Email Outage List&lt;/a&gt;.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">outage-policy.jsp</context>
-        </context-group>
-      <target>Всем пользователям @@PRODUCT_NAME@@ рекомендуется подписаться на список рассылки профилактики. Эта рассылка предоставляет периодические обновления о том, что происходит во время профилактики. Red Hat также будет использовать эту рассылку для предупреждения о внеплановых или экстренных перерывах в работе. &lt;a href="{0}"&gt;Подписаться на рассылку профилактики&lt;/a&gt;.</target></trans-unit>
 	</group>
 
 	<!-- download-ISOs pages -->

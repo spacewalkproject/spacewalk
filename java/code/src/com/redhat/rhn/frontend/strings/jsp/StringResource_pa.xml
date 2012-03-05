@@ -18541,20 +18541,6 @@ unscheduled maintenance.</source>
           <context context-type="sourcefile">outage-policy.jsp</context>
         </context-group>
       <target>ਆਊਟੇਜ ਸੂਚਨਾ</target></trans-unit>
-      <trans-unit id="outage-policy.jsp.notification">
-<source>All @@PRODUCT_NAME@@ users are encouraged to join our optional email outage list.
-This email list will provide you with periodic updates about our
-scheduled downtime maintenance activities, and will also serve as the
-emailing list that Red Hat will use in the case of Unscheduled and
-Emergency Maintenance windows.&lt;a href="{0}"&gt;Register for the Email Outage List&lt;/a&gt;.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">outage-policy.jsp</context>
-        </context-group>
-      <target>ਸਭ @@PRODUCT_NAME@@ ਉਪਭੋਗੀਆਂ ਨੂੰ ਸਾਡੀ ਚੋਣਵੀਂ ਈ-ਮੇਲ ਆਊਟੇਜ ਸੂਚੀ ਤੇ ਜੁੜਨ ਦੀ ਸਲਾਹ ਦਿੱਤੀ ਜਾਂਦੀ ਹੈ।
-ਇਹ ਈ-ਮੇਲ ਸੂਚੀ ਤੁਹਾਨੂੰ ਸਾਡੀਆਂ ਤਹਿ ਕੀਤੀਆਂ ਨਿਗਰਾਨੀ ਕਾਰਵਾਈਆਂ ਬਾਰੇ
-ਲਗਾਤਾਰ ਅੱਪਡੇਟ ਵੇਖਾਏਗੀ ਅਤੇ ਈ-ਮੇਲ ਸੂਚੀ ਤੌਰ ਤੇ ਰੋਲ ਅਦਾ ਕਰੇਗਾ ਜੋ Red Hat
-ਨਾ-ਤਹਿ ਕੀਤੇ ਅਤੇ ਐਮਰਜੈਂਸੀ ਵਿੰਡੋਜ਼ ਵਿੱਚ ਵਰਤੇਗਾ।&lt;a href="{0}"&gt;ਈ-ਮੇਲ ਆਊਟੇਜ
-ਸੂਚੀ ਲਈ ਰਜਿਸਟਰ ਕਰੋ&lt;/a&gt;।</target></trans-unit>
 	</group>
 
 	<!-- download-ISOs pages -->
