@@ -1099,12 +1099,6 @@ utilisateur avant de supprimer son compte.</target></trans-unit>
           <context context-type="sourcefile">/rhn/users/UserDetails</context>
         </context-group>
       <target>Administrateurs @@PRODUCT_NAME@@</target></trans-unit>
-      <trans-unit id="Spacewalk Administrators">
-<source>@@PRODUCT_NAME@@ Administrators</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/UserDetails</context>
-        </context-group>
-      <target>Administrateurs @@PRODUCT_NAME@@</target></trans-unit>
       <trans-unit id="Spacewalk Super Users">
 <source>@@PRODUCT_NAME@@ Super Users</source>
         <context-group name="ctx">
