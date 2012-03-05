@@ -6677,9 +6677,6 @@ Seguite l'url sotto riportato per visualizzare l'elenco completo di sistemi inat
 
 
 
-	<trans-unit id="sdc.config.diff.files_2_dirs_0_symlinks_2">
-		<source>{0} of {1} files and {4} of {5} symlinks on the system were successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href="{6}"&gt;View Details&lt;/a&gt;]</source>
-	<target></target></trans-unit>
 
 	<trans-unit id="sdc.config.diff.files_2_dirs_1_symlinks_0">
 		<source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href="{6}"&gt;View Details&lt;/a&gt;]</source>
