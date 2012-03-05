@@ -21917,9 +21917,6 @@ given channel.</source>
       <trans-unit id="channel.edit.jsp.lastsynced">
 		<source>Last Sync Time</source>
       <target>最后同步的时间</target></trans-unit>
-      <trans-unit id="channel.edit.jsp.sync">
-		<source>Sync Repo</source>
-      <target>同步库</target></trans-unit>
       <trans-unit id="filedetails.details.jspf.revnum">
 		<source>Next revision number:</source>
       <target>下一个版本号码：</target></trans-unit>

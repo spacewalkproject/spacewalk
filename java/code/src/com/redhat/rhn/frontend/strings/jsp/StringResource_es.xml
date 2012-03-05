@@ -21934,9 +21934,6 @@ given channel.</source>
       <trans-unit id="channel.edit.jsp.lastsynced">
 		<source>Last Sync Time</source>
       <target>Ultima sincronización</target></trans-unit>
-      <trans-unit id="channel.edit.jsp.sync">
-		<source>Sync Repo</source>
-      <target>Sincronizar el repositorio</target></trans-unit>
       <trans-unit id="filedetails.details.jspf.revnum">
 		<source>Next revision number:</source>
       <target>Siguiente número de revisión:</target></trans-unit>

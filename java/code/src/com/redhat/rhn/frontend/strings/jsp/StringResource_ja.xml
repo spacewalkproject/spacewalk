@@ -21902,9 +21902,6 @@ given channel.</source>
       <trans-unit id="channel.edit.jsp.lastsynced">
 		<source>Last Sync Time</source>
       <target>最終同期時間</target></trans-unit>
-      <trans-unit id="channel.edit.jsp.sync">
-		<source>Sync Repo</source>
-      <target>同期リポジトリ</target></trans-unit>
       <trans-unit id="filedetails.details.jspf.revnum">
 		<source>Next revision number:</source>
       <target>次のリビジョン番号:</target></trans-unit>
