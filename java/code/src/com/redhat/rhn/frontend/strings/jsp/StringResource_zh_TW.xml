@@ -10776,12 +10776,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 
 
 
-      <trans-unit id="post.jsp.scriptheader">
-        <source>Kickstart Post Script</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/kickstart/KickstartScriptEdit.do</context>
-        </context-group>
-      <target>Kickstart 的 Post Script</target></trans-unit>
 
 
 

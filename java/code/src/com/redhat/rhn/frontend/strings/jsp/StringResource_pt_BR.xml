@@ -10784,12 +10784,6 @@ o &lt;strong&gt;Guia de Administração de Sistemas Red Hat Enterprise Li
 
 
 
-      <trans-unit id="post.jsp.scriptheader">
-        <source>Kickstart Post Script</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/kickstart/KickstartScriptEdit.do</context>
-        </context-group>
-      <target>Pós Script do Kickstart</target></trans-unit>
 
 
 

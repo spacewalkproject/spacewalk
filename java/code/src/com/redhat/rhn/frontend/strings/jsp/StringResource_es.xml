@@ -10791,12 +10791,6 @@ el &lt;strong&gt;Manual de administración del sistema Red Hat Enterprise Linux.
 
 
 
-      <trans-unit id="post.jsp.scriptheader">
-        <source>Kickstart Post Script</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/kickstart/KickstartScriptEdit.do</context>
-        </context-group>
-      <target>Kickstart Post Script</target></trans-unit>
 
 
 
