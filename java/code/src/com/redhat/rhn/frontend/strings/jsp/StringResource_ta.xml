@@ -1512,12 +1512,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/newlogin/CreateCorporate</context>
         </context-group>
       <target>ஒரு Red Hat புகுபதிவு செயல்படுகிறது</target></trans-unit>
-      <trans-unit id="usercreate.enables4">
-<source>access Red Hat technical support, documentation, and Knowledgebase</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/newlogin/CreateCorporate</context>
-        </context-group>
-      <target>Red Hat தொழில்நுட்ப உதவி, ஆவணமாக்கல் மற்றும் அடிப்படை தகவல்களை அணுகலாம்.</target></trans-unit>
 
       <trans-unit id="usercreate.jsp.createlogin">
 <source>Create Login</source>

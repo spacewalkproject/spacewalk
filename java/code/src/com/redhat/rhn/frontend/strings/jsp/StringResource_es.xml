@@ -1512,12 +1512,6 @@ inmediatamente y usted &lt;b&gt;no podrá iniciar una sesión nuevamente&lt;/b&g
           <context context-type="sourcefile">/rhn/newlogin/CreateCorporate</context>
         </context-group>
       <target>Un login de Red Hat permite</target></trans-unit>
-      <trans-unit id="usercreate.enables4">
-<source>access Red Hat technical support, documentation, and Knowledgebase</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/newlogin/CreateCorporate</context>
-        </context-group>
-      <target>acceso a la asistencia técnica, documentación y base de conocimientos de Red Hat</target></trans-unit>
 
       <trans-unit id="usercreate.jsp.createlogin">
 <source>Create Login</source>

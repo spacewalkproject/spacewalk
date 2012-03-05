@@ -1512,12 +1512,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/newlogin/CreateCorporate</context>
         </context-group>
       <target>启用红帽登录</target></trans-unit>
-      <trans-unit id="usercreate.enables4">
-<source>access Red Hat technical support, documentation, and Knowledgebase</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/newlogin/CreateCorporate</context>
-        </context-group>
-      <target>获得红帽技术支持、文档和知识数据库</target></trans-unit>
 
       <trans-unit id="usercreate.jsp.createlogin">
 <source>Create Login</source>
