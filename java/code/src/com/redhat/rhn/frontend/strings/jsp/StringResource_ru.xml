@@ -13819,12 +13819,6 @@ but are not subscribed to _@@PRODUCT_NAME@@Config_.</context>
           <context context-type="sourcefile">/rhn/configuration/ChannelAddFiles.do</context>
         </context-group>
      <target>Импорт файла конфигурации из другого канала</target></trans-unit>
-	<trans-unit id="addfiles.jsp.create-link">
-<source>Create New Configuration File</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/ChannelAddFiles.do</context>
-        </context-group>
-     <target>Создать файл конфигурации</target></trans-unit>
 
 		<!-- upload.jspf -->
 	<trans-unit id="addfiles.jsp.upload.jspf.title">

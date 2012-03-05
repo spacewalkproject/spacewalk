@@ -13826,12 +13826,6 @@ but are not subscribed to _@@PRODUCT_NAME@@Config_.</context>
           <context context-type="sourcefile">/rhn/configuration/ChannelAddFiles.do</context>
         </context-group>
      <target>வேறு தடத்திலிருந்த கட்டமைப்பு கோப்பினை இறக்கவும்</target></trans-unit>
-	<trans-unit id="addfiles.jsp.create-link">
-<source>Create New Configuration File</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/ChannelAddFiles.do</context>
-        </context-group>
-     <target>புதிய கட்டமைப்பு கோப்பினை உருவாக்குதல்</target></trans-unit>
 
 		<!-- upload.jspf -->
 	<trans-unit id="addfiles.jsp.upload.jspf.title">
