@@ -2791,12 +2791,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
       <target>தொகுப்பு பெயர்</target></trans-unit>
 
 
-      <trans-unit id="packagelist.jsp.name.patchsets">
-<source>Patch Cluster Name</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/schedule/PackageList</context>
-        </context-group>
-      <target>பின்னிணைப்பு கொத்து பெயர்</target></trans-unit>
 
       <trans-unit id="packagelist.jsp.packagename">
 <source>Package Name</source>
