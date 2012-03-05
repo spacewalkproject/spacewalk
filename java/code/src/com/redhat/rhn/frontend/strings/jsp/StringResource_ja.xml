@@ -19035,12 +19035,6 @@ Below is a list of channels in your organization.
 &lt;/ul&gt;
 &lt;strong&gt;注記:&lt;/strong&gt; 互換性のないチャンネルへのシステムの割り当ては失敗します。
         </target></trans-unit>
-	  <trans-unit id="ssmchildsubs.jsp.noChannels">
-        <source>No child-channels were found for the systems in the current System Set!</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channel/ssm/ChildSubscriptions.do</context>
-        </context-group>
-      <target>現在のシステムセット内にはシステム用の子チャンネルは見つかりませんでした</target></trans-unit>
 	  <trans-unit id="ssmchildsubs.jsp.channelname">
         <source>Channel</source>
         <context-group name="ctx">

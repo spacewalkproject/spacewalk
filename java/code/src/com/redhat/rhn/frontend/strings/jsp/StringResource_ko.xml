@@ -18970,12 +18970,6 @@ Below is a list of channels in your organization.
           <context context-type="sourcefile">/rhn/channel/ssm/ChildSubscriptions.do</context>
         </context-group>
       <target></target></trans-unit>
-	  <trans-unit id="ssmchildsubs.jsp.noChannels">
-        <source>No child-channels were found for the systems in the current System Set!</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channel/ssm/ChildSubscriptions.do</context>
-        </context-group>
-      <target>현재 시스템 설정에서 시스템에 대한 자식 채널을 찾을 수 없습니다! </target></trans-unit>
 	  <trans-unit id="ssmchildsubs.jsp.channelname">
         <source>Channel</source>
         <context-group name="ctx">

@@ -19047,12 +19047,6 @@ Below is a list of channels in your organization.
 &lt;/ul&gt;
 &lt;strong&gt;注意：&lt;/strong&gt;试图把系统分配给不兼容的频道将会失败。
         </target></trans-unit>
-	  <trans-unit id="ssmchildsubs.jsp.noChannels">
-        <source>No child-channels were found for the systems in the current System Set!</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channel/ssm/ChildSubscriptions.do</context>
-        </context-group>
-      <target>在目前系统组中没有发现系统子频道！</target></trans-unit>
 	  <trans-unit id="ssmchildsubs.jsp.channelname">
         <source>Channel</source>
         <context-group name="ctx">

@@ -19049,12 +19049,6 @@ Segue abaixo uma lista de canais em sua organização.
 &lt;/ul&gt;
 &lt;strong&gt;Nota:&lt;/strong&gt; as tentativas de entrar num sistema com um canal incompatível falharão.
         </target></trans-unit>
-	  <trans-unit id="ssmchildsubs.jsp.noChannels">
-        <source>No child-channels were found for the systems in the current System Set!</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channel/ssm/ChildSubscriptions.do</context>
-        </context-group>
-      <target>Não foi encontrado nenhum canal filho para os sistemas no Conjunto de Sistema atual!</target></trans-unit>
 	  <trans-unit id="ssmchildsubs.jsp.channelname">
         <source>Channel</source>
         <context-group name="ctx">

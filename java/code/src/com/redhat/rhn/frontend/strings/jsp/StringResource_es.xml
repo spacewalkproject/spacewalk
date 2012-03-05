@@ -19056,12 +19056,6 @@ A continuación encontrará una lista de canales en su organización.
 &lt;/ul&gt;
 &lt;strong&gt;Nota:&lt;/strong&gt; los intentos de asignar un sistema a un canal incompatible fallarán.
         </target></trans-unit>
-	  <trans-unit id="ssmchildsubs.jsp.noChannels">
-        <source>No child-channels were found for the systems in the current System Set!</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channel/ssm/ChildSubscriptions.do</context>
-        </context-group>
-      <target>¡No se encontraron canales hijos para los sistemas en el actual grupo de sistemas!</target></trans-unit>
 	  <trans-unit id="ssmchildsubs.jsp.channelname">
         <source>Channel</source>
         <context-group name="ctx">
