@@ -6705,12 +6705,6 @@ value for this entitlement, excluding the default organization's consumption.</s
       </context-group>
     <target>ਤੁਹਾਡੇ ਵਲੋਂ ਚੁਣੇ ਗਏ ਪੈਕੇਜਾਂ ਨੂੰ ਤੁਹਾਡੀ ਮੌਜੂਦਾ ਡਾਇਰੈਕਟਰੀ ਦੇ ਹੇਠਾਂ &lt;code&gt;rhn-packages/&lt;/code&gt; ਡਾਇਰੈਕਟਰੀ ਵਿੱਚ ਰੱਖਿਆ ਜਾਵੇਗਾ।</target></trans-unit>
 
-    <trans-unit id="download.jsp.none">
-<source>No downloadable packages.</source>
-      <context-group name="ctx">
-        <context context-type="sourcefile">/rhn/systems/details/packages/DownloadConfirm.do</context>
-      </context-group>
-    <target>ਕੋਈ ਡਾਊਨਲੋਡ ਹੋਣ ਯੋਗ ਪੈਕੇਜ ਨਹੀਂ ਹੈ।</target></trans-unit>
 
     <trans-unit id="download.jsp.download">
 <source>Download Selected Packages Now!</source>

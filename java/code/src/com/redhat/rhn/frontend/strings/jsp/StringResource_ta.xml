@@ -6705,12 +6705,6 @@ value for this entitlement, excluding the default organization's consumption.</s
       </context-group>
     <target>நீங்கள் தேர்வு செய்த தொகுப்புகள் புதிதாக உருவாக்கப்பட்ட &lt;code&gt;rhn-packages/&lt;/code&gt; உங்கள் நடப்பு அடைவுக்கு அடுத்துள்ள அடைவில் இருக்கும்.</target></trans-unit>
 
-    <trans-unit id="download.jsp.none">
-<source>No downloadable packages.</source>
-      <context-group name="ctx">
-        <context context-type="sourcefile">/rhn/systems/details/packages/DownloadConfirm.do</context>
-      </context-group>
-    <target>பதிவிறக்க தொகுப்புகள் ஒன்றுமில்லை</target></trans-unit>
 
     <trans-unit id="download.jsp.download">
 <source>Download Selected Packages Now!</source>

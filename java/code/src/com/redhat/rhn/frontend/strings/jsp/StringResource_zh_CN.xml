@@ -6706,12 +6706,6 @@ value for this entitlement, excluding the default organization's consumption.</s
       </context-group>
     <target>您已经选择的软件包将保存在您当前目录下的一个最新创建的 &lt;code&gt;rhn-packages/&lt;/code&gt; 目录中。</target></trans-unit>
 
-    <trans-unit id="download.jsp.none">
-<source>No downloadable packages.</source>
-      <context-group name="ctx">
-        <context context-type="sourcefile">/rhn/systems/details/packages/DownloadConfirm.do</context>
-      </context-group>
-    <target>没有可下载的软件包。</target></trans-unit>
 
     <trans-unit id="download.jsp.download">
 <source>Download Selected Packages Now!</source>
