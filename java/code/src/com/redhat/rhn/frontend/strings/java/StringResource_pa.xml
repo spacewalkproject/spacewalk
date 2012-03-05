@@ -8074,9 +8074,6 @@ Follow this url to see the full list of inactive systems:
           <source>The package key specified ({0}) is invalid.</source>
       <target>ਦਿੱਤੀ ਗਈ ਪੈਕੇਜ ਕੁੰਜੀ ({0}) ਗਲਤ ਹੈ।</target></trans-unit>
 
-      <trans-unit id="api.package.provider.duplicateKey">
-          <source>The package key specified ({0}) already exists.</source>
-      <target>ਦਿੱਤੀ ਗਈ ਪੈਕੇਜ ਕੁੰਜੀ ({0}) ਪਹਿਲਾਂ ਹੀ ਮੌਜੂਦ ਹੈ।</target></trans-unit>
 
        <trans-unit id="api.package.provider.invalidProvider">
           <source>The package provider specified ({0}) is  invalid.</source>

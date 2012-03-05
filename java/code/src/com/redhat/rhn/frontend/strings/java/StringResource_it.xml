@@ -8096,9 +8096,6 @@ Seguite l'url sotto riportato per visualizzare l'elenco completo di sistemi inat
           <source>The package key specified ({0}) is invalid.</source>
       <target>La chiave del pacchetto specificata ({0}) non è valida.</target></trans-unit>
 
-      <trans-unit id="api.package.provider.duplicateKey">
-          <source>The package key specified ({0}) already exists.</source>
-      <target>La chiave del pacchetto specificata ({0}) è già esistente.</target></trans-unit>
 
        <trans-unit id="api.package.provider.invalidProvider">
           <source>The package provider specified ({0}) is  invalid.</source>

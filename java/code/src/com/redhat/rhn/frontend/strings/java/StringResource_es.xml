@@ -8097,9 +8097,6 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
           <source>The package key specified ({0}) is invalid.</source>
       <target>La llave de paquete especificada ({0}) es inválida.</target></trans-unit>
 
-      <trans-unit id="api.package.provider.duplicateKey">
-          <source>The package key specified ({0}) already exists.</source>
-      <target>La llave de paquete especificada ({0}) ya existe.</target></trans-unit>
 
        <trans-unit id="api.package.provider.invalidProvider">
           <source>The package provider specified ({0}) is  invalid.</source>

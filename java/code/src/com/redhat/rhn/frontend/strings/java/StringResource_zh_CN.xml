@@ -8097,9 +8097,6 @@ Follow this url to see the full list of inactive systems:
           <source>The package key specified ({0}) is invalid.</source>
       <target>指定的软件包密钥（{0}）无效。</target></trans-unit>
 
-      <trans-unit id="api.package.provider.duplicateKey">
-          <source>The package key specified ({0}) already exists.</source>
-      <target>指定的软件包密钥（{0}）已经存在。</target></trans-unit>
 
        <trans-unit id="api.package.provider.invalidProvider">
           <source>The package provider specified ({0}) is  invalid.</source>

@@ -8159,9 +8159,6 @@ Follow this url to see the full list of inactive systems:
           <source>The package key specified ({0}) is invalid.</source>
       </trans-unit>
 
-      <trans-unit id="api.package.provider.duplicateKey">
-          <source>The package key specified ({0}) already exists.</source>
-      </trans-unit>
 
        <trans-unit id="api.package.provider.invalidProvider">
           <source>The package provider specified ({0}) is  invalid.</source>

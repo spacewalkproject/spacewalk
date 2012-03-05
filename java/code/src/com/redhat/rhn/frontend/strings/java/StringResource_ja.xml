@@ -8096,9 +8096,6 @@ Follow this url to see the full list of inactive systems:
           <source>The package key specified ({0}) is invalid.</source>
       <target>指定されたパッケージキー ({0}) は無効です。</target></trans-unit>
 
-      <trans-unit id="api.package.provider.duplicateKey">
-          <source>The package key specified ({0}) already exists.</source>
-      <target>指定されたパッケージキー ({0}) は既に存在しています。</target></trans-unit>
 
        <trans-unit id="api.package.provider.invalidProvider">
           <source>The package provider specified ({0}) is  invalid.</source>

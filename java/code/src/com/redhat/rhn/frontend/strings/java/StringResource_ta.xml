@@ -8072,9 +8072,6 @@ url பின்பற்றி செயலிழக்கப்பட்ட �
           <source>The package key specified ({0}) is invalid.</source>
       <target>குறிப்பிடப்பட்ட தொகுப்பு விசை {கப்பட்டது ({0}) தவறானதாகும்.</target></trans-unit>
 
-      <trans-unit id="api.package.provider.duplicateKey">
-          <source>The package key specified ({0}) already exists.</source>
-      <target>குறிப்பிடப்பட்ட தொகுப்பு விசை ({0}) ஏற்கனவே உள்ளது.</target></trans-unit>
 
        <trans-unit id="api.package.provider.invalidProvider">
           <source>The package provider specified ({0}) is  invalid.</source>

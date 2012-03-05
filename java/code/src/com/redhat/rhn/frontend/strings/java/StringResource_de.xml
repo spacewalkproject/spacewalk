@@ -8103,9 +8103,6 @@ Folgen Sie dieser URL f&amp;uuml;r die vollst&amp;auml;ndige Liste inaktiver Sys
           <source>The package key specified ({0}) is invalid.</source>
       <target>Der angegebene Paketschlüssel ({0}) ist ung&amp;uuml;ltig.</target></trans-unit>
 
-      <trans-unit id="api.package.provider.duplicateKey">
-          <source>The package key specified ({0}) already exists.</source>
-      <target>Der angegebene Paketschlüssel ({0}) existiert bereits.</target></trans-unit>
 
        <trans-unit id="api.package.provider.invalidProvider">
           <source>The package provider specified ({0}) is  invalid.</source>
