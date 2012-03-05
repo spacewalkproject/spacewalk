@@ -6268,12 +6268,6 @@ url பின்பற்றி செயலிழக்கப்பட்ட �
         </context-group>
       <target>கிக்ஸ்டார்ட் பகிர்ந்தளிப்பு உருவாக்கப்பட்டது</target></trans-unit>
 
-      <trans-unit id="kickstart.tree.invalidurl">
-        <source>The External Location field is not a valid URL.  Please reformat the field to contain a valid http/https/ftp type value.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/kickstart/TreeEdit.do</context>
-        </context-group>
-      <target>வெளியார்ந்த இட புலம் ஒரு சரியான URL அல்ல.  எனவே சரியான http/https/ftp வகை மதிப்புக்கு புலத்தினை மறுவடிவம் செய்யவும்.</target></trans-unit>
 
       <trans-unit id="kickstart.tree.invalidlabel">
         <source>The label is not formatted properly.  The label should contain only letters, numbers, hyphens, periods, and underscores.  It must also be at least 4 characters long</source>

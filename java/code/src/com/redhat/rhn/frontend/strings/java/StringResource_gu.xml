@@ -6268,12 +6268,6 @@ Follow this url to see the full list of inactive systems:
         </context-group>
       <target>કિકસ્ટાર્ટ વિતરણ બનાવાઈ ગયું</target></trans-unit>
 
-      <trans-unit id="kickstart.tree.invalidurl">
-        <source>The External Location field is not a valid URL.  Please reformat the field to contain a valid http/https/ftp type value.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/kickstart/TreeEdit.do</context>
-        </context-group>
-      <target>બાહ્ય સ્થાન ક્ષેત્ર એ માન્ય URL નથી.  માન્ય http/https/ftp પ્રકાર કિંમત સમાવવા માટે મહેરબાની કરીને ક્ષેત્રનું પુનઃબંધારણ ઘડો.</target></trans-unit>
 
       <trans-unit id="kickstart.tree.invalidlabel">
         <source>The label is not formatted properly.  The label should contain only letters, numbers, hyphens, periods, and underscores.  It must also be at least 4 characters long</source>

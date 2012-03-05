@@ -6293,12 +6293,6 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
         </context-group>
       <target>Distribución kickstart creada</target></trans-unit>
 
-      <trans-unit id="kickstart.tree.invalidurl">
-        <source>The External Location field is not a valid URL.  Please reformat the field to contain a valid http/https/ftp type value.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/kickstart/TreeEdit.do</context>
-        </context-group>
-      <target>El campo Ubicación externa no es una URL válida. Por favor edite el campo para que contenga un valor válido del tipo http/https/ftp.</target></trans-unit>
 
       <trans-unit id="kickstart.tree.invalidlabel">
         <source>The label is not formatted properly.  The label should contain only letters, numbers, hyphens, periods, and underscores.  It must also be at least 4 characters long</source>
