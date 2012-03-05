@@ -6766,12 +6766,6 @@ Folgen Sie dieser URL f&amp;uuml;r die vollst&amp;auml;ndige Liste inaktiver Sys
         </context-group>
       <target>Keine virtuellen Systeme ausgew&amp;auml;hlt.</target></trans-unit>
 
-      <trans-unit id="systems.details.virt.no.actions.scheduled">
-        <source>No actions scheduled.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
-        </context-group>
-      <target>Keine Aktionen geplant.</target></trans-unit>
 
       <trans-unit id="systems.details.virt.one.actions.scheduled">
         <source>Scheduled one action.</source>

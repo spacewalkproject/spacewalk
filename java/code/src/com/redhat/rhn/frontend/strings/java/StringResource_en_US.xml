@@ -6814,12 +6814,6 @@ Follow this url to see the full list of inactive systems:
         </context-group>
       </trans-unit>
 
-      <trans-unit id="systems.details.virt.no.actions.scheduled">
-        <source>No actions scheduled.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
-        </context-group>
-      </trans-unit>
 
       <trans-unit id="systems.details.virt.one.actions.scheduled">
         <source>Scheduled one action.</source>

@@ -6735,12 +6735,6 @@ url பின்பற்றி செயலிழக்கப்பட்ட �
         </context-group>
       <target>மெய்நிகர் கணினிகள் எதுவும் தேர்ந்தெடுக்கப்படவில்லை.</target></trans-unit>
 
-      <trans-unit id="systems.details.virt.no.actions.scheduled">
-        <source>No actions scheduled.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
-        </context-group>
-      <target>எந்த செயலும் திட்டமிடப்படவில்லை.</target></trans-unit>
 
       <trans-unit id="systems.details.virt.one.actions.scheduled">
         <source>Scheduled one action.</source>

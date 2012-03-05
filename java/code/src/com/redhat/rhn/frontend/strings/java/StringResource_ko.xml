@@ -6735,12 +6735,6 @@ Follow this url to see the full list of inactive systems:
         </context-group>
       <target>선택된 가상 시스템이 없습니다.</target></trans-unit>
 
-      <trans-unit id="systems.details.virt.no.actions.scheduled">
-        <source>No actions scheduled.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
-        </context-group>
-      <target>스케줄된 작업이 없습니다.</target></trans-unit>
 
       <trans-unit id="systems.details.virt.one.actions.scheduled">
         <source>Scheduled one action.</source>
