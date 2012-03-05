@@ -10185,9 +10185,6 @@ Anschlie&amp;szlig;end wird das nicht-chroot Post-Skript ausgef&amp;uuml;hrt, un
     <trans-unit id="snippets.jsp.note.default">
         <source>Default kickstart snippets are not editable.</source>
     <target>Standard-Kickstart-Snippets können nicht bearbeitet werden.</target></trans-unit>
-    <trans-unit id="toolbar.create.snippets">
-        <source>create new snippet</source>
-    <target>Neues Snippet erstellen</target></trans-unit>
     <trans-unit id="cobbler.snippet.name">
         <source>Snippet Name</source>
     <target>Snippet-Name</target></trans-unit>

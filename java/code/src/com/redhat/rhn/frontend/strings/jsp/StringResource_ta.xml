@@ -10169,9 +10169,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
     <trans-unit id="snippets.jsp.note.default">
         <source>Default kickstart snippets are not editable.</source>
     <target>முன்னிருப்பு கிக்ஸ்டார்ட் ஸ்னிப்பெட்கள் திருத்தக்கூடியதல்ல.</target></trans-unit>
-    <trans-unit id="toolbar.create.snippets">
-        <source>create new snippet</source>
-    <target>புதிய ஸ்னிப்பெட் உருவாக்குதல்</target></trans-unit>
     <trans-unit id="cobbler.snippet.name">
         <source>Snippet Name</source>
     <target>ஸ்னிப்பெட் பெயர்</target></trans-unit>

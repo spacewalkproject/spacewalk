@@ -10183,9 +10183,6 @@ Le script post non-chroot sera ensuite exécuté et le script post sera enfin ex
     <trans-unit id="snippets.jsp.note.default">
         <source>Default kickstart snippets are not editable.</source>
     <target>Les snippets kickstart, par défaut, ne sont pas modifiables.</target></trans-unit>
-    <trans-unit id="toolbar.create.snippets">
-        <source>create new snippet</source>
-    <target>Créer un nouveau snippet</target></trans-unit>
     <trans-unit id="cobbler.snippet.name">
         <source>Snippet Name</source>
     <target>Nom du snippet</target></trans-unit>

@@ -10181,9 +10181,6 @@ el &lt;strong&gt;Manual de administración del sistema Red Hat Enterprise Linux.
     <trans-unit id="snippets.jsp.note.default">
         <source>Default kickstart snippets are not editable.</source>
     <target>Los fragmentos Kickstart predeterminados no se pueden editar.</target></trans-unit>
-    <trans-unit id="toolbar.create.snippets">
-        <source>create new snippet</source>
-    <target>crear nuevo fragmento</target></trans-unit>
     <trans-unit id="cobbler.snippet.name">
         <source>Snippet Name</source>
     <target>Nombre del fragmento</target></trans-unit>
