@@ -11703,9 +11703,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
        <trans-unit id="system.common.kickstartAlt">
          <source>kickstart</source>
        <target>kickstart</target></trans-unit>
-       <trans-unit id="system.common.infoAlt">
-         <source>information</source>
-       <target>তথ্য</target></trans-unit>
        <trans-unit id="system.common.scheduleAlt">
          <source>scheduler</source>
        <target>সময়নির্ধারণকারী</target></trans-unit>

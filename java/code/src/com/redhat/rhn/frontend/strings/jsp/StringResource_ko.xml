@@ -11699,9 +11699,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
        <trans-unit id="system.common.kickstartAlt">
          <source>kickstart</source>
        <target>킥스타트</target></trans-unit>
-       <trans-unit id="system.common.infoAlt">
-         <source>information</source>
-       <target>정보</target></trans-unit>
        <trans-unit id="system.common.scheduleAlt">
          <source>scheduler</source>
        <target>스케쥴러</target></trans-unit>

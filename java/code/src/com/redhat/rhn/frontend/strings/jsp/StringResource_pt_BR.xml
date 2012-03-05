@@ -11710,9 +11710,6 @@ o &lt;strong&gt;Guia de Administração de Sistemas Red Hat Enterprise Li
        <trans-unit id="system.common.kickstartAlt">
          <source>kickstart</source>
        <target>kickstart</target></trans-unit>
-       <trans-unit id="system.common.infoAlt">
-         <source>information</source>
-       <target>informações</target></trans-unit>
        <trans-unit id="system.common.scheduleAlt">
          <source>scheduler</source>
        <target>Agendador</target></trans-unit>

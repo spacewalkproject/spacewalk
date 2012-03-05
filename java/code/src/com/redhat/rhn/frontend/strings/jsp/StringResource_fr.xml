@@ -11719,9 +11719,6 @@ Le script post non-chroot sera ensuite exécuté et le script post sera enfin ex
        <trans-unit id="system.common.kickstartAlt">
          <source>kickstart</source>
        <target>kickstart</target></trans-unit>
-       <trans-unit id="system.common.infoAlt">
-         <source>information</source>
-       <target>information</target></trans-unit>
        <trans-unit id="system.common.scheduleAlt">
          <source>scheduler</source>
        <target>programmeur</target></trans-unit>

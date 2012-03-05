@@ -11721,9 +11721,6 @@ Anschlie&amp;szlig;end wird das nicht-chroot Post-Skript ausgef&amp;uuml;hrt, un
        <trans-unit id="system.common.kickstartAlt">
          <source>kickstart</source>
        <target>Kickstart</target></trans-unit>
-       <trans-unit id="system.common.infoAlt">
-         <source>information</source>
-       <target>Information</target></trans-unit>
        <trans-unit id="system.common.scheduleAlt">
          <source>scheduler</source>
        <target>Scheduler (Planer)</target></trans-unit>
