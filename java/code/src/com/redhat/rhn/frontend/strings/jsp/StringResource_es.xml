@@ -9787,12 +9787,6 @@ Por favor tenga en cuenta que podría ser necesario configurar manualmente estos
     <target>No había archivos seleccionados para borrar</target></trans-unit>
 
 
-    <trans-unit id="toolbar.create.kickstartscript">
-        <source>add new kickstart script</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/provisioning/preservation/PreservationList.do</context>
-        </context-group>
-    <target>añadir nuevo script de Kickstart</target></trans-unit>
 
 
     <trans-unit id="preservationlist.jsp.updatelist">

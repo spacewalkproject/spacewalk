@@ -9773,12 +9773,6 @@ Please note that some manual configuration of these scripts may still be require
     <target>삭제를 위해 선택된 파일이 없습니다</target></trans-unit>
 
 
-    <trans-unit id="toolbar.create.kickstartscript">
-        <source>add new kickstart script</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/provisioning/preservation/PreservationList.do</context>
-        </context-group>
-    <target>새 킥스타트 스크립트 추가</target></trans-unit>
 
 
     <trans-unit id="preservationlist.jsp.updatelist">

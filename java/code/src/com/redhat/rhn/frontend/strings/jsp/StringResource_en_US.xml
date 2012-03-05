@@ -10130,12 +10130,6 @@ Please note that some manual configuration of these scripts may still be require
     </trans-unit>
 
 
-    <trans-unit id="toolbar.create.kickstartscript">
-        <source>add new kickstart script</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/provisioning/preservation/PreservationList.do</context>
-        </context-group>
-    </trans-unit>
 
 
     <trans-unit id="preservationlist.jsp.updatelist">

@@ -9790,12 +9790,6 @@ Bitte beachten Sie, dass m&amp;ouml;glicherweise noch einige manuelle Konfigurat
     <target>Es wurden keine Dateien zur L&amp;ouml;schung ausgew&amp;auml;hlt</target></trans-unit>
 
 
-    <trans-unit id="toolbar.create.kickstartscript">
-        <source>add new kickstart script</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/provisioning/preservation/PreservationList.do</context>
-        </context-group>
-    <target>Neues Kickstart-Skript hinzuf&amp;uuml;gen</target></trans-unit>
 
 
     <trans-unit id="preservationlist.jsp.updatelist">

@@ -9775,12 +9775,6 @@ Please note that some manual configuration of these scripts may still be require
     <target>ਇੱਥੇ ਹਟਾਉਣ ਲਈ ਕੋਈ ਫਾਇਲ ਨਹੀਂ ਚੁਣੀ</target></trans-unit>
 
 
-    <trans-unit id="toolbar.create.kickstartscript">
-        <source>add new kickstart script</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/provisioning/preservation/PreservationList.do</context>
-        </context-group>
-    <target>ਨਵੀਂ ਕਿੱਕਸਟਾਰਟ ਸਕਰਿਪਟ ਸ਼ਾਮਲ ਕਰੇ</target></trans-unit>
 
 
     <trans-unit id="preservationlist.jsp.updatelist">

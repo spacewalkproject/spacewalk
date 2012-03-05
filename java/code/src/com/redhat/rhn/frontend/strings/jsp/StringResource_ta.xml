@@ -9776,12 +9776,6 @@ Please note that some manual configuration of these scripts may still be require
     <target>அழிக்க தேர்ந்தெடுக்க கோப்புகள் எதுவும் இல்லை</target></trans-unit>
 
 
-    <trans-unit id="toolbar.create.kickstartscript">
-        <source>add new kickstart script</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/provisioning/preservation/PreservationList.do</context>
-        </context-group>
-    <target>புதிய கிக்ஸ்டார்ட் உரையை சேர்க்கவும்</target></trans-unit>
 
 
     <trans-unit id="preservationlist.jsp.updatelist">
