@@ -10300,12 +10300,6 @@ Please note that some manual configuration of these scripts may still be require
             <context context-type="sourcefile">/rhn/kickstart/KickstartSoftwareEdit</context>
         </context-group>
     <target>&lt;strong&gt;ટિપ્પણી:&lt;/strong&gt; આધાર ચેનલ બદલવાનું તમને કોઈપણ બાળ ચેનલો બદલવાની જરૂરી રહેશે કે જે આ રૂપરેખા સાથે સંકળાયેલ હોઈ શકે.</target></trans-unit>
-    <trans-unit id="softwareedit.jsp.arch">
-        <source>OS Architecture</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart/KickstartSoftwareEdit</context>
-        </context-group>
-    <target>OS આર્કીટેક્ચર</target></trans-unit>
 
     <trans-unit id="softwareedit.jsp.release">
         <source>OS Release</source>

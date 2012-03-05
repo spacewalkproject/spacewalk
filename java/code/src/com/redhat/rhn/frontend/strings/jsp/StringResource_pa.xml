@@ -10299,12 +10299,6 @@ Please note that some manual configuration of these scripts may still be require
             <context context-type="sourcefile">/rhn/kickstart/KickstartSoftwareEdit</context>
         </context-group>
     <target>&lt;strong&gt;ਟਿੱਪਣੀ:&lt;/strong&gt; ਅਧਾਰ ਚੈਨਲ ਤਬਦੀਲ ਕਰਨ ਲਈ ਤੁਹਾਨੂੰ ਕੋਈ ਅਧੀਨ ਚੈਨਲ ਚੁਣਨਾ ਪਵੇਗਾ ਜੋ ਇਸ ਪਰੋਫਾਈਲ ਨਾਲ ਸੰਬੰਧਿਤ ਹੈ।</target></trans-unit>
-    <trans-unit id="softwareedit.jsp.arch">
-        <source>OS Architecture</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart/KickstartSoftwareEdit</context>
-        </context-group>
-    <target>OS ਢਾਂਚਾ</target></trans-unit>
 
     <trans-unit id="softwareedit.jsp.release">
         <source>OS Release</source>

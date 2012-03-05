@@ -10313,12 +10313,6 @@ Veuillez noter qu'une configuration manuelle de ces scripts peut toujours être 
             <context context-type="sourcefile">/rhn/kickstart/KickstartSoftwareEdit</context>
         </context-group>
     <target>&lt;strong&gt;Astuce&amp;nbsp;:&lt;/strong&gt; lors de la modification du canal de base, vous devez resélectionner tout canal enfant associé à ce profil.</target></trans-unit>
-    <trans-unit id="softwareedit.jsp.arch">
-        <source>OS Architecture</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart/KickstartSoftwareEdit</context>
-        </context-group>
-    <target>Architecture OS</target></trans-unit>
 
     <trans-unit id="softwareedit.jsp.release">
         <source>OS Release</source>

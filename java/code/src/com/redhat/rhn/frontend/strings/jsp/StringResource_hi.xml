@@ -10300,12 +10300,6 @@ Please note that some manual configuration of these scripts may still be require
             <context context-type="sourcefile">/rhn/kickstart/KickstartSoftwareEdit</context>
         </context-group>
     <target>&lt;strong&gt;संकेत:&lt;/strong&gt; बेस चैनल को बदलने के लिये आपको किसी संतति चैनल को फिर चुनना होगा जो इस प्रोफाइल से जुड़ा है.</target></trans-unit>
-    <trans-unit id="softwareedit.jsp.arch">
-        <source>OS Architecture</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart/KickstartSoftwareEdit</context>
-        </context-group>
-    <target>OS आर्किटेक्चर</target></trans-unit>
 
     <trans-unit id="softwareedit.jsp.release">
         <source>OS Release</source>

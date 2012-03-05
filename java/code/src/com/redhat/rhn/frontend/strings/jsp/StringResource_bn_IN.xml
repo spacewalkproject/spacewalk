@@ -10299,12 +10299,6 @@ Please note that some manual configuration of these scripts may still be require
             <context context-type="sourcefile">/rhn/kickstart/KickstartSoftwareEdit</context>
         </context-group>
     <target>&lt;strong&gt;উপদেশ:&lt;/strong&gt; বেস চ্যানেল পরিবর্তন করা হলে প্রোফাইলের সাথে যুক্ত চাইল্ড চ্যানেল পরিবর্তন করা আবশ্যক।</target></trans-unit>
-    <trans-unit id="softwareedit.jsp.arch">
-        <source>OS Architecture</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart/KickstartSoftwareEdit</context>
-        </context-group>
-    <target>অপারেটিং সিস্টেমের আর্কিটেকচার</target></trans-unit>
 
     <trans-unit id="softwareedit.jsp.release">
         <source>OS Release</source>

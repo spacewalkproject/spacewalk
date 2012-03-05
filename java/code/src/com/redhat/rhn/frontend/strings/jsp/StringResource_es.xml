@@ -10312,12 +10312,6 @@ Por favor tenga en cuenta que podría ser necesario configurar manualmente estos
             <context context-type="sourcefile">/rhn/kickstart/KickstartSoftwareEdit</context>
         </context-group>
     <target>&lt;strong&gt;Consejo:&lt;/strong&gt; Si se cambia el canal base, se deberán seleccionar los canales hijos que están asociados con este perfil.</target></trans-unit>
-    <trans-unit id="softwareedit.jsp.arch">
-        <source>OS Architecture</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart/KickstartSoftwareEdit</context>
-        </context-group>
-    <target>Arquitectura del SO</target></trans-unit>
 
     <trans-unit id="softwareedit.jsp.release">
         <source>OS Release</source>
