@@ -609,12 +609,6 @@
         </context-group>
       <target>সেশানের অবস্থা</target></trans-unit>
 
-      <trans-unit id="Session History">
-<source>Session History</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-      <target>সেশান সংক্রান্ত পূর্ববর্তী তথ্য</target></trans-unit>
 
       <trans-unit id="Sandbox">
 <source>Sandbox</source>

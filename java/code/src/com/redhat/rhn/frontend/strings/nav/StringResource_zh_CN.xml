@@ -609,12 +609,6 @@
         </context-group>
       <target>会话状态</target></trans-unit>
 
-      <trans-unit id="Session History">
-<source>Session History</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-      <target>会话历史</target></trans-unit>
 
       <trans-unit id="Sandbox">
 <source>Sandbox</source>

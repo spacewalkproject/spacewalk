@@ -609,12 +609,6 @@
         </context-group>
       <target>Statut de sessions</target></trans-unit>
 
-      <trans-unit id="Session History">
-<source>Session History</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-      <target>Historique de sessions</target></trans-unit>
 
       <trans-unit id="Sandbox">
 <source>Sandbox</source>
