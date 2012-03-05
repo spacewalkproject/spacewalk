@@ -5135,12 +5135,6 @@ pour ce droit d'accès, moins la consommation par défaut de l'organisation.</ta
         </context-group>
       <target>Serveurs proxy</target></trans-unit>
 
-      <trans-unit id="proxylist.jsp.nosystems">
-<source>No proxy servers.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/ProxyList</context>
-        </context-group>
-      <target>Aucun serveur proxy.</target></trans-unit>
 
       <trans-unit id="systemcurrency.jsp.header">
 <source>System Currency Report</source>

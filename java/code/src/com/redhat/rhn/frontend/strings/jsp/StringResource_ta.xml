@@ -5134,12 +5134,6 @@ value for this entitlement, excluding the default organization's consumption.</s
         </context-group>
       <target>பதிலாள் சேவையகங்கள்</target></trans-unit>
 
-      <trans-unit id="proxylist.jsp.nosystems">
-<source>No proxy servers.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/ProxyList</context>
-        </context-group>
-      <target>பதிலாள் சேவையகங்கள் ஒன்றுமில்லை.</target></trans-unit>
 
       <trans-unit id="systemcurrency.jsp.header">
 <source>System Currency Report</source>

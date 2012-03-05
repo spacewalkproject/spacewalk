@@ -5134,12 +5134,6 @@ para este derecho, excluyendo el consumo de la organización predeterminada.</ta
         </context-group>
       <target>Servidores proxy</target></trans-unit>
 
-      <trans-unit id="proxylist.jsp.nosystems">
-<source>No proxy servers.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/ProxyList</context>
-        </context-group>
-      <target>Ningún servidor proxy</target></trans-unit>
 
       <trans-unit id="systemcurrency.jsp.header">
 <source>System Currency Report</source>
