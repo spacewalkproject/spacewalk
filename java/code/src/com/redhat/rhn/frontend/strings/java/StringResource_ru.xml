@@ -5877,12 +5877,6 @@ user before attempting to deactivate their account.</source>
 
 
 
-            <trans-unit id="package_profiles.removed">
-<source>{0} Package Profile(s) removed.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart/KickstartPackageProfileEditSubmit.do</context>
-        </context-group>
-      <target>Удалено профилей пакетов: {0}</target></trans-unit>
 
       <trans-unit id="taskomatic.msg.awolservers">
         <source>Systems Not Checking In:
