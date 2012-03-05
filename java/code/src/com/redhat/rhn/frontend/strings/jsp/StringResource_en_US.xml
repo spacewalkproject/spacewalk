@@ -2768,12 +2768,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
         </context-group>
       </trans-unit>
 
-      <trans-unit id="upgradable.jsp.download">
-<source>Download Packages</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/packages/UpgradableList</context>
-        </context-group>
-      </trans-unit>
 
       <!-- patchset.jsp -->
       <trans-unit id="patchsetlist.jsp.patchsets">

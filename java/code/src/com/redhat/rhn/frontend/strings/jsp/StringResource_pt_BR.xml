@@ -2754,12 +2754,6 @@ abaixo e &lt;b&gt;não poderá mais se autenticar&lt;/b&gt;.</target></trans-uni
         </context-group>
       <target>Atualizar Pacotes</target></trans-unit>
 
-      <trans-unit id="upgradable.jsp.download">
-<source>Download Packages</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/packages/UpgradableList</context>
-        </context-group>
-      <target>Baixar Pacotes</target></trans-unit>
 
       <!-- patchset.jsp -->
       <trans-unit id="patchsetlist.jsp.patchsets">
