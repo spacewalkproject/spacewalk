@@ -1872,12 +1872,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/users/UserDetails</context>
         </context-group>
       <target>경칭</target></trans-unit>
-      <trans-unit id="orgcreate.jsp.lastname">
-<source>Last Name</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgCreate</context>
-        </context-group>
-      <target>성(姓) </target></trans-unit>
       <trans-unit id="userdetails.jsp.firstname">
 <source>First Name</source>
         <context-group name="ctx">
