@@ -246,12 +246,6 @@
          </context-group>
       <target>Tous</target></trans-unit>
 
-      <trans-unit id="channel.nav.relevant">
-<source>Relevant channels</source>
-          <context-group name="ctx">
-          <context context-type="sourcefile">Channel Navigation Menu</context>
-        </context-group>
-      <target>Canaux appropriés</target></trans-unit>
 
       <trans-unit id="channel.nav.all">
 <source>All Channels</source>

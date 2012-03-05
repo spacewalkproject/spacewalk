@@ -246,12 +246,6 @@
          </context-group>
       <target>全部</target></trans-unit>
 
-      <trans-unit id="channel.nav.relevant">
-<source>Relevant channels</source>
-          <context-group name="ctx">
-          <context context-type="sourcefile">Channel Navigation Menu</context>
-        </context-group>
-      <target>相關頻道</target></trans-unit>
 
       <trans-unit id="channel.nav.all">
 <source>All Channels</source>
