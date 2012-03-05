@@ -10230,9 +10230,6 @@ Please note that some manual configuration of these scripts may still be require
 	  <trans-unit id="kickstart.registration.type.none.jsp.label">
 		<source>Leave the existing system profile in place, but do not re-connect to it. Instead, create a new system profile.</source>
 	  <target>既存のシステムプロファイルをそのまま残し、再接続しません。代わりに新しいシステムプロファイルを作成してください。</target></trans-unit>
-	  <trans-unit id="kickstart.registration.type.none.jsp.unentitle">
-		<source>De-entitle the existing system profile.</source>
-	  <target>既存のシステムプロファイルのエンタイトルメントを解除します。</target></trans-unit>
   </group>
 
 

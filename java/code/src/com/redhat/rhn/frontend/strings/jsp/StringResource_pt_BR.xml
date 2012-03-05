@@ -10236,9 +10236,6 @@ Please note that some manual configuration of these scripts may still be require
 	  <trans-unit id="kickstart.registration.type.none.jsp.label">
 		<source>Leave the existing system profile in place, but do not re-connect to it. Instead, create a new system profile.</source>
 	  <target>Mantenha o perfil de sistema existente, mas não reconecte a ele. Ao invés disso, crie um novo perfil de sistema.</target></trans-unit>
-	  <trans-unit id="kickstart.registration.type.none.jsp.unentitle">
-		<source>De-entitle the existing system profile.</source>
-	  <target>Nomeie novamente o perfil de sistema existente.</target></trans-unit>
   </group>
 
 
