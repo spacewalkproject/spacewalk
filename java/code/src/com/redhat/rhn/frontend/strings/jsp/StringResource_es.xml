@@ -16539,9 +16539,6 @@ para suscribir los sistemas a los canales de software durante el inicio de insta
 	    <trans-unit id="kickstart.schedule.kernel.options.custom.tip">
 	        <source>If you would not like any kernel options, select '{0}' and leave the form field blank.</source>
 	    <target>Si no quiere ninguna opción de kernel entonces seleccione '{0}' y deje el campo en blanco.</target></trans-unit>
-	    <trans-unit id="kickstart.schedule.system.profile.jsp">
-	        <source>@@PRODUCT_NAME@@ System&lt;br /&gt;Profile</source>
-	    <target>Perfil del sistema&lt;br /&gt;@@PRODUCT_NAME@@ </target></trans-unit>
 	    <trans-unit id="kickstart.schedule.sync.pkg.profile.jsp">
 	        <source>Sync Package&lt;br /&gt;Profile</source>
 	    <target>Sincronizar perfil de&lt;br /&gt;paquetes</target></trans-unit>

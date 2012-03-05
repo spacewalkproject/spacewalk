@@ -16497,9 +16497,6 @@ per sottoscrivere i sistemi ai canali software durante un kickstart.&lt;/span&gt
 	    <trans-unit id="kickstart.schedule.kernel.options.custom.tip">
 	        <source>If you would not like any kernel options, select '{0}' and leave the form field blank.</source>
 	    <target></target></trans-unit>
-	    <trans-unit id="kickstart.schedule.system.profile.jsp">
-	        <source>@@PRODUCT_NAME@@ System&lt;br /&gt;Profile</source>
-	    <target>Profilo del sistema &lt;br /&gt;@@PRODUCT_NAME@@</target></trans-unit>
 	    <trans-unit id="kickstart.schedule.sync.pkg.profile.jsp">
 	        <source>Sync Package&lt;br /&gt;Profile</source>
 	    <target>Sincronizza Profilo del&lt;br /&gt;Pacchetto</target></trans-unit>

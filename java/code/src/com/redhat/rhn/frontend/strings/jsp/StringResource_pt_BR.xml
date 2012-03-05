@@ -16533,9 +16533,6 @@ a aba &lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;Chaves de At
 	    <trans-unit id="kickstart.schedule.kernel.options.custom.tip">
 	        <source>If you would not like any kernel options, select '{0}' and leave the form field blank.</source>
 	    <target>Caso você não gostar de qualquer uma das opções do kernel, selecione '{0}' e deixe o campo de formato em branco.</target></trans-unit>
-	    <trans-unit id="kickstart.schedule.system.profile.jsp">
-	        <source>@@PRODUCT_NAME@@ System&lt;br /&gt;Profile</source>
-	    <target>Perfil de Sistema&lt;br /&gt; do @@PRODUCT_NAME@@ </target></trans-unit>
 	    <trans-unit id="kickstart.schedule.sync.pkg.profile.jsp">
 	        <source>Sync Package&lt;br /&gt;Profile</source>
 	    <target>Sincronizar Perfil de Pacotes&lt;br /&gt;</target></trans-unit>

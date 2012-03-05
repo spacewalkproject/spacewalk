@@ -16498,9 +16498,6 @@ Kickstart করার সময় অনুগ্রহ করে সিস্ট
 	    <trans-unit id="kickstart.schedule.kernel.options.custom.tip">
 	        <source>If you would not like any kernel options, select '{0}' and leave the form field blank.</source>
 	    <target></target></trans-unit>
-	    <trans-unit id="kickstart.schedule.system.profile.jsp">
-	        <source>@@PRODUCT_NAME@@ System&lt;br /&gt;Profile</source>
-	    <target>@@PRODUCT_NAME@@ সিস্টেম&lt;br /&gt;প্রোফাইল</target></trans-unit>
 	    <trans-unit id="kickstart.schedule.sync.pkg.profile.jsp">
 	        <source>Sync Package&lt;br /&gt;Profile</source>
 	    <target>প্যাকেজ প্রোফাইল &lt;br /&gt;সুসংগতি</target></trans-unit>

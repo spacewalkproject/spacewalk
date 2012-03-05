@@ -16541,9 +16541,6 @@ pour abonner des systèmes aux canaux de logiciels durant le kickstart.&lt;/span
 	    <trans-unit id="kickstart.schedule.kernel.options.custom.tip">
 	        <source>If you would not like any kernel options, select '{0}' and leave the form field blank.</source>
 	    <target>Si vous souhaitez une option de noyau, sélectionner '{0}' et laisser le champ vide.</target></trans-unit>
-	    <trans-unit id="kickstart.schedule.system.profile.jsp">
-	        <source>@@PRODUCT_NAME@@ System&lt;br /&gt;Profile</source>
-	    <target>Profil de système&lt;br /&gt;@@PRODUCT_NAME@@</target></trans-unit>
 	    <trans-unit id="kickstart.schedule.sync.pkg.profile.jsp">
 	        <source>Sync Package&lt;br /&gt;Profile</source>
 	    <target>Synchroniser le profil&lt;br /&gt;de paquetages</target></trans-unit>
