@@ -7127,12 +7127,6 @@ value for this entitlement, excluding the default organization's consumption.</s
       </context-group>
     <target>ਸੂਟ 'ਚ ਕੋਈ ਸਿਸਟਮ ਜੋੜਿਆ ਨਾ ਗਿਆ</target></trans-unit>
 
-    <trans-unit id="message.remotecommandbefore.upgrade">
-<source>The remote command action was scheduled to run &lt;strong&gt;before&lt;/strong&gt; the package upgrade action.</source>
-      <context-group name="ctx">
-        <context context-type="sourcefile">/rhn/systems/details/packages/PackageList.do</context>
-      </context-group>
-    <target></target></trans-unit>
     <trans-unit id="installpkgs.jsp.installpackages">
 <source>Install Selected Packages</source>
         <context-group name="ctx">

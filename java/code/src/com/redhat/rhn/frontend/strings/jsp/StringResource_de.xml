@@ -7130,12 +7130,6 @@ für diese Berechtigung, mit Ausnahme des Verbrauchs der Standardorganisation.</
       </context-group>
     <target>Keine Systeme wurden zur Suite hinzugef&amp;uuml;gt</target></trans-unit>
 
-    <trans-unit id="message.remotecommandbefore.upgrade">
-<source>The remote command action was scheduled to run &lt;strong&gt;before&lt;/strong&gt; the package upgrade action.</source>
-      <context-group name="ctx">
-        <context context-type="sourcefile">/rhn/systems/details/packages/PackageList.do</context>
-      </context-group>
-    <target>Die Aktion des Remote-Befehls wurde zur Ausführung &lt;strong&gt;vor&lt;/strong&gt; der Aktion der Paketaktualisierung geplant.</target></trans-unit>
     <trans-unit id="installpkgs.jsp.installpackages">
 <source>Install Selected Packages</source>
         <context-group name="ctx">
