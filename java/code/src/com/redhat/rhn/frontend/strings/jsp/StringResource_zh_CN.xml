@@ -11687,9 +11687,6 @@ kickstart 前脚本的内容可以在 &lt;strong&gt;《红帽企业版 Linux 系
         <trans-unit id="targetsystems.jsp.orgadmin">
           <source>Requires organization administrator</source>
         <target>需要机构管理员</target></trans-unit>
-        <trans-unit id="targetsystems.jsp.addprovisioning">
-          <source>Add provisioning entitlement</source>
-        <target>添加 provisioning 权利</target></trans-unit>
         <trans-unit id="targetsystems.jsp.subscribetools">
           <source>Subscribe to @@PRODUCT_NAME@@ Tools channel</source>
         <target>订阅 @@PRODUCT_NAME@@ 工具频道</target></trans-unit>

@@ -11683,9 +11683,6 @@ o &lt;strong&gt;Guia de Administração de Sistemas Red Hat Enterprise Li
         <trans-unit id="targetsystems.jsp.orgadmin">
           <source>Requires organization administrator</source>
         <target>Requer um administrador da organização</target></trans-unit>
-        <trans-unit id="targetsystems.jsp.addprovisioning">
-          <source>Add provisioning entitlement</source>
-        <target>Adicionar Serviços de provisão</target></trans-unit>
         <trans-unit id="targetsystems.jsp.subscribetools">
           <source>Subscribe to @@PRODUCT_NAME@@ Tools channel</source>
         <target>Registrar-se nos canais de Ferramenta do @@PRODUCT_NAME@@</target></trans-unit>

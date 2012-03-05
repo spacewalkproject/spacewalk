@@ -11674,9 +11674,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <trans-unit id="targetsystems.jsp.orgadmin">
           <source>Requires organization administrator</source>
         <target>需要組織管理員</target></trans-unit>
-        <trans-unit id="targetsystems.jsp.addprovisioning">
-          <source>Add provisioning entitlement</source>
-        <target>附加 provisioning 權利</target></trans-unit>
         <trans-unit id="targetsystems.jsp.subscribetools">
           <source>Subscribe to @@PRODUCT_NAME@@ Tools channel</source>
         <target>訂閱 @@PRODUCT_NAME@@ 工具的頻道</target></trans-unit>

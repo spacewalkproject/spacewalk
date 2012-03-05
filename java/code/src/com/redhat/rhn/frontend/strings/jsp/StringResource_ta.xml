@@ -11678,9 +11678,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <trans-unit id="targetsystems.jsp.orgadmin">
           <source>Requires organization administrator</source>
         <target>நிறுவன நிர்வாக தேவைப்படுகிறார்</target></trans-unit>
-        <trans-unit id="targetsystems.jsp.addprovisioning">
-          <source>Add provisioning entitlement</source>
-        <target>வாய்ப்பளித்தல் உரிமத்தை சேர்த்தல்</target></trans-unit>
         <trans-unit id="targetsystems.jsp.subscribetools">
           <source>Subscribe to @@PRODUCT_NAME@@ Tools channel</source>
         <target>@@PRODUCT_NAME@@ கருவிகள் தடத்துடன் சந்தாப்படுத்தவும்</target></trans-unit>

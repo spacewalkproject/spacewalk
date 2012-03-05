@@ -11690,9 +11690,6 @@ el &lt;strong&gt;Manual de administración del sistema Red Hat Enterprise Linux.
         <trans-unit id="targetsystems.jsp.orgadmin">
           <source>Requires organization administrator</source>
         <target>Requiere un administrador de la organización</target></trans-unit>
-        <trans-unit id="targetsystems.jsp.addprovisioning">
-          <source>Add provisioning entitlement</source>
-        <target>Añadir derechos de aprovisionamiento</target></trans-unit>
         <trans-unit id="targetsystems.jsp.subscribetools">
           <source>Subscribe to @@PRODUCT_NAME@@ Tools channel</source>
         <target>Suscribirse al canal de herramientas de @@PRODUCT_NAME@@</target></trans-unit>

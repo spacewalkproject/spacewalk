@@ -11677,9 +11677,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <trans-unit id="targetsystems.jsp.orgadmin">
           <source>Requires organization administrator</source>
         <target>প্রাতিষ্ঠানিক অ্যাডমিনিস্ট্রেটর আবশ্যক</target></trans-unit>
-        <trans-unit id="targetsystems.jsp.addprovisioning">
-          <source>Add provisioning entitlement</source>
-        <target>provisioning এনটাইটেলমেন্ট যোগ করুন</target></trans-unit>
         <trans-unit id="targetsystems.jsp.subscribetools">
           <source>Subscribe to @@PRODUCT_NAME@@ Tools channel</source>
         <target>@@PRODUCT_NAME@@ Tools চ্যানেলে সাবস্ক্রাইব করুন</target></trans-unit>

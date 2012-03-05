@@ -11692,9 +11692,6 @@ Le script post non-chroot sera ensuite exécuté et le script post sera enfin ex
         <trans-unit id="targetsystems.jsp.orgadmin">
           <source>Requires organization administrator</source>
         <target>Requiert un administrateur d'organisation</target></trans-unit>
-        <trans-unit id="targetsystems.jsp.addprovisioning">
-          <source>Add provisioning entitlement</source>
-        <target>Ajouter un droit d'accès au module Provisioning</target></trans-unit>
         <trans-unit id="targetsystems.jsp.subscribetools">
           <source>Subscribe to @@PRODUCT_NAME@@ Tools channel</source>
         <target>S'abonner au canal @@PRODUCT_NAME@@ Tools (outils @@PRODUCT_NAME@@)</target></trans-unit>
