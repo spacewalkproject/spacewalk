@@ -331,12 +331,6 @@
         </context-group>
       <target>配置文件</target></trans-unit>
 
-      <trans-unit id="config.nav.quota">
-<source>Quota for File Storage</source>
-          <context-group name="ctx">
-          <context context-type="sourcefile">Configuration Navigation Menu</context>
-        </context-group>
-      <target>文件存储的配额</target></trans-unit>
 
       <trans-unit id="config.nav.globalfiles">
 <source>Centrally Managed Files</source>

@@ -331,12 +331,6 @@
         </context-group>
       <target>Arquivos de Configuração</target></trans-unit>
 
-      <trans-unit id="config.nav.quota">
-<source>Quota for File Storage</source>
-          <context-group name="ctx">
-          <context context-type="sourcefile">Configuration Navigation Menu</context>
-        </context-group>
-      <target>Cota para Armazenamento de Arquivo</target></trans-unit>
 
       <trans-unit id="config.nav.globalfiles">
 <source>Centrally Managed Files</source>

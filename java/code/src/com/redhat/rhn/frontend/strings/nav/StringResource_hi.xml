@@ -331,12 +331,6 @@
         </context-group>
       <target>विन्यास फ़ाइल</target></trans-unit>
 
-      <trans-unit id="config.nav.quota">
-<source>Quota for File Storage</source>
-          <context-group name="ctx">
-          <context context-type="sourcefile">Configuration Navigation Menu</context>
-        </context-group>
-      <target>फाइल भंडार के लिये आरक्षण</target></trans-unit>
 
       <trans-unit id="config.nav.globalfiles">
 <source>Centrally Managed Files</source>
