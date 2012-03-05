@@ -12593,9 +12593,6 @@ Le script post non-chroot sera ensuite exécuté et le script post sera enfin ex
        <trans-unit id="activation-key.jsp.universal-default">
          <source>Universal Default</source>
      <target>Valeurs par défaut universelles</target></trans-unit>
-       <trans-unit id="activation-key.jsp.header2">
-         <source>Systems registered with this activation key will inherit the settings listed below.</source>
-     <target>Les systèmes enregistrés avec cette clé d'activation hériteront des paramètres listés ci-dessous.</target></trans-unit>
        <trans-unit id="activation-key.jsp.create">
          <source>Create Activation Key</source>
      <target>Création des clés d'activation</target></trans-unit>

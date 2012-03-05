@@ -12574,9 +12574,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
        <trans-unit id="activation-key.jsp.universal-default">
          <source>Universal Default</source>
      <target>全域預設值</target></trans-unit>
-       <trans-unit id="activation-key.jsp.header2">
-         <source>Systems registered with this activation key will inherit the settings listed below.</source>
-     <target>以這金鑰註冊的系統會承襲以下列出的設定。</target></trans-unit>
        <trans-unit id="activation-key.jsp.create">
          <source>Create Activation Key</source>
      <target>建立啟動金鑰</target></trans-unit>

@@ -12584,9 +12584,6 @@ o &lt;strong&gt;Guia de Administração de Sistemas Red Hat Enterprise Li
        <trans-unit id="activation-key.jsp.universal-default">
          <source>Universal Default</source>
      <target>Padrão Universal</target></trans-unit>
-       <trans-unit id="activation-key.jsp.header2">
-         <source>Systems registered with this activation key will inherit the settings listed below.</source>
-     <target>Os sistemas registrados com esta chave de ativação herdarão as configurações listadas abaixo.</target></trans-unit>
        <trans-unit id="activation-key.jsp.create">
          <source>Create Activation Key</source>
      <target>Criar Chaves de Ativação</target></trans-unit>

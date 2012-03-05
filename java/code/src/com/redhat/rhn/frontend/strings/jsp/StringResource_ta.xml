@@ -12578,9 +12578,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
        <trans-unit id="activation-key.jsp.universal-default">
          <source>Universal Default</source>
      <target>முழுமையான முன்னிருப்பு</target></trans-unit>
-       <trans-unit id="activation-key.jsp.header2">
-         <source>Systems registered with this activation key will inherit the settings listed below.</source>
-     <target>இந்த செயல்படுத்தல் விசையால் பதிவு செய்யப்பட்ட கணினிகள் கீழே பட்டியலிடப்பட்ட அமைவுகளை பெற்றிருக்கும்.</target></trans-unit>
        <trans-unit id="activation-key.jsp.create">
          <source>Create Activation Key</source>
      <target>செயல்படுத்தல் விசைகளை உருவாக்குதல்</target></trans-unit>

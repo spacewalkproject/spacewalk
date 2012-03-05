@@ -12588,9 +12588,6 @@ kickstart 前脚本的内容可以在 &lt;strong&gt;《红帽企业版 Linux 系
        <trans-unit id="activation-key.jsp.universal-default">
          <source>Universal Default</source>
      <target>通用默认设置</target></trans-unit>
-       <trans-unit id="activation-key.jsp.header2">
-         <source>Systems registered with this activation key will inherit the settings listed below.</source>
-     <target>使用这个激活码注册的系统将保留下面列出的设置。</target></trans-unit>
        <trans-unit id="activation-key.jsp.create">
          <source>Create Activation Key</source>
      <target>生成激活码</target></trans-unit>

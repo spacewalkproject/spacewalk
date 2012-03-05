@@ -12572,9 +12572,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
        <trans-unit id="activation-key.jsp.universal-default">
          <source>Universal Default</source>
      <target>Стандарт по умолчанию</target></trans-unit>
-       <trans-unit id="activation-key.jsp.header2">
-         <source>Systems registered with this activation key will inherit the settings listed below.</source>
-     <target>Зарегистрированные с этим ключом системы унаследуют настройки, перечисленные ниже.</target></trans-unit>
        <trans-unit id="activation-key.jsp.create">
          <source>Create Activation Key</source>
      <target>Создать ключи активации</target></trans-unit>
