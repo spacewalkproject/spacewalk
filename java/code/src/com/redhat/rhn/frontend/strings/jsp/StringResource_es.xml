@@ -7266,12 +7266,6 @@ organización si decide borrar este rol de su inicio de sesión.
       <target>A continuación se listan los perfiles de paquetes de este sistema y el sistema seleccionado para comparación.</target></trans-unit>
 
 
-      <trans-unit id="systemcompare.jsp.thissystem">
-<source>This System</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">NOTFILLEDOUT</context>
-        </context-group>
-      <target>Este sistema</target></trans-unit>
 
       <trans-unit id="message.thissystemonly">
 <source>This system only</source>

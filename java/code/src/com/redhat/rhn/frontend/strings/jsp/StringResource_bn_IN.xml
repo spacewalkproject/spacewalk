@@ -7261,12 +7261,6 @@ organization management tools if you choose to remove this role from your login.
       <target>বর্তমান সিস্টেমের প্যাকেজ প্রোফাইল ও নির্বাচিত প্রোফাইলের তুলনামূলক বিশ্লেষণ নীচে উল্লেখ করা হয়েছে।</target></trans-unit>
 
 
-      <trans-unit id="systemcompare.jsp.thissystem">
-<source>This System</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">NOTFILLEDOUT</context>
-        </context-group>
-      <target>বর্তমান সিস্টেম</target></trans-unit>
 
       <trans-unit id="message.thissystemonly">
 <source>This system only</source>

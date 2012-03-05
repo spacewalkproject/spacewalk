@@ -7267,12 +7267,6 @@ ni aux outils de gestion d'organisation si vous choisissez de supprimer ce rôle
       <target>Ci-dessous figure une comparaison des profils de paquetages de ce système et le système sélectionné pour la comparaison.</target></trans-unit>
 
 
-      <trans-unit id="systemcompare.jsp.thissystem">
-<source>This System</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">NOTFILLEDOUT</context>
-        </context-group>
-      <target>Ce système</target></trans-unit>
 
       <trans-unit id="message.thissystemonly">
 <source>This system only</source>

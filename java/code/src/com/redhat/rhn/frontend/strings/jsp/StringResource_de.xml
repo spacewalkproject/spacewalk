@@ -7268,12 +7268,6 @@ und Organisationsmanagement-Tools haben, sollten Sie diese Rolle aus Ihrem Login
       <target>Unten finden Sie einen Vergleich der Paketprofile dieses Systems und dem System, das zum Vergleich ausgew&amp;auml;hlt wurde. </target></trans-unit>
 
 
-      <trans-unit id="systemcompare.jsp.thissystem">
-<source>This System</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">NOTFILLEDOUT</context>
-        </context-group>
-      <target>Dieses System</target></trans-unit>
 
       <trans-unit id="message.thissystemonly">
 <source>This system only</source>

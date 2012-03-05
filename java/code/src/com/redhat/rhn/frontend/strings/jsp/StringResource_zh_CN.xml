@@ -7265,12 +7265,6 @@ organization management tools if you choose to remove this role from your login.
       <target>以下是这个系统和被选为与其进行比较系统的软件包侧写的比较结果。</target></trans-unit>
 
 
-      <trans-unit id="systemcompare.jsp.thissystem">
-<source>This System</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">NOTFILLEDOUT</context>
-        </context-group>
-      <target>这个系统</target></trans-unit>
 
       <trans-unit id="message.thissystemonly">
 <source>This system only</source>

@@ -7260,12 +7260,6 @@ organization management tools if you choose to remove this role from your login.
       <target>다음은 이 시스템의 패키지 프로파일과 선택된 시스템을 비교한 결과입니다.</target></trans-unit>
 
 
-      <trans-unit id="systemcompare.jsp.thissystem">
-<source>This System</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">NOTFILLEDOUT</context>
-        </context-group>
-      <target>이 시스템</target></trans-unit>
 
       <trans-unit id="message.thissystemonly">
 <source>This system only</source>
