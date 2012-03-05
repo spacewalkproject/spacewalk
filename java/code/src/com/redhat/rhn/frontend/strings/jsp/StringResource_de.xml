@@ -4936,12 +4936,6 @@ für diese Berechtigung, mit Ausnahme des Verbrauchs der Standardorganisation.</
         </context-group>
       <target>Ungruppierte Systeme</target></trans-unit>
 
-      <trans-unit id="ungroupedlist.jsp.nosystems">
-<source>No ungrouped systems.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/Ungrouped</context>
-        </context-group>
-      <target>Keine ungruppierten Systeme</target></trans-unit>
 
       <trans-unit id="inactivelist.jsp.header">
 <source>Inactive Systems</source>

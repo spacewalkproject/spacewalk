@@ -4934,12 +4934,6 @@ value for this entitlement, excluding the default organization's consumption.</s
         </context-group>
       <target>જૂથ વિનાની સિસ્ટમો</target></trans-unit>
 
-      <trans-unit id="ungroupedlist.jsp.nosystems">
-<source>No ungrouped systems.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/Ungrouped</context>
-        </context-group>
-      <target>જૂથ વિનાની કોઈ સિસ્ટમો નથી.</target></trans-unit>
 
       <trans-unit id="inactivelist.jsp.header">
 <source>Inactive Systems</source>

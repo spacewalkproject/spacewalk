@@ -4934,12 +4934,6 @@ para este derecho, excluyendo el consumo de la organización predeterminada.</ta
         </context-group>
       <target>Sistemas sin grupo</target></trans-unit>
 
-      <trans-unit id="ungroupedlist.jsp.nosystems">
-<source>No ungrouped systems.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/Ungrouped</context>
-        </context-group>
-      <target>Ningún sistema sin grupo</target></trans-unit>
 
       <trans-unit id="inactivelist.jsp.header">
 <source>Inactive Systems</source>
