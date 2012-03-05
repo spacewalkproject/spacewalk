@@ -8481,12 +8481,6 @@ Please note that some manual configuration of these scripts may still be require
     <target>登入 @@PRODUCT_NAME@@ 的連結</target></trans-unit>
 
 
-  <trans-unit id="tnc.jsp.print-version">
-    <source>Printer-Friendly Version</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/tnc/</context>
-        </context-group>
-    <target>列印版本</target></trans-unit>
 
 
 	<!--  SSM Kickstart -->

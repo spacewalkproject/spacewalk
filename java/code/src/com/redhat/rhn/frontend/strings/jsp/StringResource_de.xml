@@ -8499,12 +8499,6 @@ Bitte beachten Sie, dass m&amp;ouml;glicherweise noch einige manuelle Konfigurat
     <target>Link zum Einloggen im @@PRODUCT_NAME@@</target></trans-unit>
 
 
-  <trans-unit id="tnc.jsp.print-version">
-    <source>Printer-Friendly Version</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/tnc/</context>
-        </context-group>
-    <target>Druckerfreundliche Version</target></trans-unit>
 
 
 	<!--  SSM Kickstart -->

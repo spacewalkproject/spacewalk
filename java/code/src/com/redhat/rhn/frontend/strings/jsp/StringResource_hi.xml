@@ -8485,12 +8485,6 @@ Please note that some manual configuration of these scripts may still be require
     <target>@@PRODUCT_NAME@@ में लॉगिन के लिये लिंक करें</target></trans-unit>
 
 
-  <trans-unit id="tnc.jsp.print-version">
-    <source>Printer-Friendly Version</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/tnc/</context>
-        </context-group>
-    <target>छपाई मित्रवत संस्करण</target></trans-unit>
 
 
 	<!--  SSM Kickstart -->
