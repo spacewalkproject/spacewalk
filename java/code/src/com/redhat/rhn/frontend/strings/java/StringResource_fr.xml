@@ -3688,12 +3688,6 @@ utilisateur avant de désactiver son compte.</target></trans-unit>
         </context-group>
       <target>Durée de récurrence</target></trans-unit>
 
-      <trans-unit id="message.actioninstall">
-<source>Install</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/packages/profiles</context>
-        </context-group>
-      <target>Installer</target></trans-unit>
 
       <trans-unit id="message.install">
 <source>Install</source>

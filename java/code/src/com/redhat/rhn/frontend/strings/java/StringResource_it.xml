@@ -3685,12 +3685,6 @@ utente prima di disabilitare l'account in questione.</target></trans-unit>
         </context-group>
       <target>Durata ricorrente</target></trans-unit>
 
-      <trans-unit id="message.actioninstall">
-<source>Install</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/packages/profiles</context>
-        </context-group>
-      <target>Installa</target></trans-unit>
 
       <trans-unit id="message.install">
 <source>Install</source>

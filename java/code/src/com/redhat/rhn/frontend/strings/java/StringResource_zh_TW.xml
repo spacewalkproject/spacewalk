@@ -3660,12 +3660,6 @@ user before attempting to deactivate their account.</source>
         </context-group>
       <target>重複發生的時間</target></trans-unit>
 
-      <trans-unit id="message.actioninstall">
-<source>Install</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/packages/profiles</context>
-        </context-group>
-      <target>安裝</target></trans-unit>
 
       <trans-unit id="message.install">
 <source>Install</source>
