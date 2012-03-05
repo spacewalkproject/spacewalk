@@ -13859,12 +13859,6 @@ any of these revisions.  Are you sure you want to do this?</source>
     <target>您的組織目前使用 &lt;strong&gt;{0}&lt;/strong&gt; 的空間，並空出了 &lt;strong&gt;{1}&lt;/strong&gt;。</target></trans-unit>
 
 
-    <trans-unit id="quota.jsp.noFiles">
-        <source>No configuration files.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/Quota.do</context>
-        </context-group>
-    <target>無配置檔案。</target></trans-unit>
 
 
     <trans-unit id="quota.jsp.revisions">

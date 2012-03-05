@@ -13895,12 +13895,6 @@ concerniente con esas revisiones. ¿Está seguro que es ésto lo que desea hacer
     <target>Su organización está usando &lt;strong&gt;{0}&lt;/strong&gt; de espacio, dejando &lt;strong&gt;{1}&lt;/strong&gt; libre.</target></trans-unit>
 
 
-    <trans-unit id="quota.jsp.noFiles">
-        <source>No configuration files.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/Quota.do</context>
-        </context-group>
-    <target>No hay archivos de configuración.</target></trans-unit>
 
 
     <trans-unit id="quota.jsp.revisions">

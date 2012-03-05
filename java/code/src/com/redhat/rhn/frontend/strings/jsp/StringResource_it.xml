@@ -13860,12 +13860,6 @@ Siete sicuri di voler fare questo?</target></trans-unit>
     <target>La vostra organizzazione utilizza attualmente &lt;strong&gt;{0}&lt;/strong&gt; di spazio, lasciandone &lt;strong&gt;{1}&lt;/strong&gt; disponibile.</target></trans-unit>
 
 
-    <trans-unit id="quota.jsp.noFiles">
-        <source>No configuration files.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/Quota.do</context>
-        </context-group>
-    <target>Nessun file di configurazione.</target></trans-unit>
 
 
     <trans-unit id="quota.jsp.revisions">

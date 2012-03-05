@@ -13863,12 +13863,6 @@ any of these revisions.  Are you sure you want to do this?</source>
     <target>உங்கள் நிறுவனம் தற்போது &lt;strong&gt;{0}&lt;/strong&gt; இடத்தைப் பயன்படுத்துகிறது, &lt;strong&gt;{1}&lt;/strong&gt; ஐ வெறுமையாக விடுகிறது.</target></trans-unit>
 
 
-    <trans-unit id="quota.jsp.noFiles">
-        <source>No configuration files.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/Quota.do</context>
-        </context-group>
-    <target>கட்டமைப்பு கோப்புகள் இல்லை.</target></trans-unit>
 
 
     <trans-unit id="quota.jsp.revisions">

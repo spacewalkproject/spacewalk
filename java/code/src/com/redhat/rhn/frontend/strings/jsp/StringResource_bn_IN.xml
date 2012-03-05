@@ -13862,12 +13862,6 @@ any of these revisions.  Are you sure you want to do this?</source>
     <target>আপনার প্রতিষ্ঠান দ্বারা বর্তমানে &lt;strong&gt;{0}&lt;/strong&gt; পরিমাণ স্থান ব্যবহার করা হচ্ছে এবং &lt;strong&gt;{1}&lt;/strong&gt; স্থান ফাঁকা রয়েছে।</target></trans-unit>
 
 
-    <trans-unit id="quota.jsp.noFiles">
-        <source>No configuration files.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/Quota.do</context>
-        </context-group>
-    <target>কোনো কনফিগারেশন ফাইল উপস্থিত নেই।</target></trans-unit>
 
 
     <trans-unit id="quota.jsp.revisions">

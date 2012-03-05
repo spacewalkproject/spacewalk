@@ -13862,12 +13862,6 @@ any of these revisions.  Are you sure you want to do this?</source>
     <target>ਤੁਹਾਡੀ ਸੰਗਠਨ ਹੁਣ ਸਪੇਸ ਦਾ &lt;strong&gt;{0}&lt;/strong&gt; ਵਰਤ ਰਹੀ ਹੈ, ਤੇ &lt;strong&gt;{1}&lt;/strong&gt; ਨੂੰ ਫਰੀ ਛੱਡ ਰਹੀ ਹੈ।</target></trans-unit>
 
 
-    <trans-unit id="quota.jsp.noFiles">
-        <source>No configuration files.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/Quota.do</context>
-        </context-group>
-    <target>ਕੋਈ ਸੰਰਚਨਾ ਫਾਇਲ ਨਹੀਂ ਹੈ।</target></trans-unit>
 
 
     <trans-unit id="quota.jsp.revisions">
