@@ -18980,12 +18980,6 @@ para anunciar periodos de mantenimiento de Emergencia y no programados.
           <context context-type="sourcefile">/rhn/software/channel/downloads/Download.do</context>
         </context-group>
       <target>(&lt;strong&gt;NOTA:&lt;/strong&gt; estas imágenes no son necesarias para la instalación.)</target></trans-unit>
-      <trans-unit id="isodownload.view-rest">
-<source>View Older Releases</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/software/channel/downloads/Download.do</context>
-        </context-group>
-      <target>Ver lanzamientos anteriores</target></trans-unit>
 
       <trans-unit id="isodownload.no-access">
 <source>The channel you have attempted to access either does not exist, or you are not allowed access.  Please recheck the link that brought you to this page.</source>
