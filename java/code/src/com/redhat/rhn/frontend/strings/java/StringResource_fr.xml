@@ -6015,12 +6015,6 @@ utilisateur avant de désactiver son compte.</target></trans-unit>
 
 
 
-    <trans-unit id="bootstrap.config.error.11">
-        <source>Invalid script name</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-      <target>Nom de script invalide</target></trans-unit>
 
     <trans-unit id="bootstrap.config.error.12">
         <source>Invalid arguments</source>
