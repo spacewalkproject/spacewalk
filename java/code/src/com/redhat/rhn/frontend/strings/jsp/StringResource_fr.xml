@@ -17417,12 +17417,6 @@ les canaux de logiciels de @@PRODUCT_NAME@@pour chaque canal parent pris en char
             </context-group>
          </trans-unit>
 
-         <trans-unit id="toolbar.create.note">
-            <source>create new note</source>
-            <context-group name="ctx">
-            <context context-type="sourcefile">/systems/details/Note.do</context>
-            </context-group>
-         </trans-unit>
 
          <trans-unit id="toolbar.delete.note">
             <source>delete note</source>
