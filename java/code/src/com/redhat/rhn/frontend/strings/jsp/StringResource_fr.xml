@@ -5605,13 +5605,6 @@ pour ce droit d'accès, moins la consommation par défaut de l'organisation.</ta
         </context-group>
       <target>Utiliser dans le SSM</target></trans-unit>
 
-      <trans-unit id="grouplist.jsp.work">
-<source>Work with {0} Group</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/SystemGroupList</context>
-          <context context-type="paramnotes">Work with Elmo's Chargers Group</context>
-        </context-group>
-      <target>Travailler avec {0} groupe</target></trans-unit>
 
       <trans-unit id="grouplist.jsp.security">
 <source>Security Updates Needed</source>

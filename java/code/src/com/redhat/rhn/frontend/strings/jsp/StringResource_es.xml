@@ -5604,13 +5604,6 @@ para este derecho, excluyendo el consumo de la organización predeterminada.</ta
         </context-group>
       <target>Utilizar en SSM</target></trans-unit>
 
-      <trans-unit id="grouplist.jsp.work">
-<source>Work with {0} Group</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/SystemGroupList</context>
-          <context context-type="paramnotes">Work with Elmo's Chargers Group</context>
-        </context-group>
-      <target>Trabajar con grupo {0}</target></trans-unit>
 
       <trans-unit id="grouplist.jsp.security">
 <source>Security Updates Needed</source>

@@ -5603,13 +5603,6 @@ value for this entitlement, excluding the default organization's consumption.</s
         </context-group>
       <target>SSM에서 사용</target></trans-unit>
 
-      <trans-unit id="grouplist.jsp.work">
-<source>Work with {0} Group</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/SystemGroupList</context>
-          <context context-type="paramnotes">Work with Elmo's Chargers Group</context>
-        </context-group>
-      <target>{0} 그룹과 함께 작업</target></trans-unit>
 
       <trans-unit id="grouplist.jsp.security">
 <source>Security Updates Needed</source>
