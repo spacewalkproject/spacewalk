@@ -2279,12 +2279,6 @@ asegurarse de que estén disponibles para que este perfil kickstart funcione apr
         </context-group>
       <target>crear un nuevo kickstart</target></trans-unit>
 
-      <trans-unit id="toolbar.clone.kickstart">
-<source>clone kickstart</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/UserList</context>
-        </context-group>
-      <target>clonar kickstart</target></trans-unit>
 
       <trans-unit id="toolbar.delete.CryptoKeyDelete">
 <source>delete key</source>

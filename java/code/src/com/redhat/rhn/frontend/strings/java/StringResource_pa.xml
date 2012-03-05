@@ -2256,12 +2256,6 @@ available for this kickstart profile to function properly.
         </context-group>
       <target>ਨਵਾਂ ਕਿੱਕਸਟਾਰਟ ਬਣਾਓ</target></trans-unit>
 
-      <trans-unit id="toolbar.clone.kickstart">
-<source>clone kickstart</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/UserList</context>
-        </context-group>
-      <target>ਕਿੱਕਸਟਾਰਟ ਨਕਲ</target></trans-unit>
 
       <trans-unit id="toolbar.delete.CryptoKeyDelete">
 <source>delete key</source>
