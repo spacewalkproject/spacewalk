@@ -6038,12 +6038,6 @@ utente prima di disabilitare l'account in questione.</target></trans-unit>
         </context-group>
       <target>Chiave/i di attivazione {0} rimossa/e.</target></trans-unit>
 
-      <trans-unit id="file_lists.added">
-<source>{0} File Preservation List(s) added.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart/FilePreservationLists.do</context>
-        </context-group>
-      <target>{0} Elenco di conservazione dei file aggiunto.</target></trans-unit>
 
       <trans-unit id="file_lists.removed">
 <source>{0} File Preservation List(s) removed.</source>

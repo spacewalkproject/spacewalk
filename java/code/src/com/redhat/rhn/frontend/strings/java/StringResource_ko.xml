@@ -6014,12 +6014,6 @@ user before attempting to deactivate their account.</source>
         </context-group>
       <target>{0} 개의 활성키가 삭제되었습니다.</target></trans-unit>
 
-      <trans-unit id="file_lists.added">
-<source>{0} File Preservation List(s) added.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart/FilePreservationLists.do</context>
-        </context-group>
-      <target>{0} 파일 보관 목록이 추가되었습니다. </target></trans-unit>
 
       <trans-unit id="file_lists.removed">
 <source>{0} File Preservation List(s) removed.</source>

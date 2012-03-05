@@ -6026,12 +6026,6 @@ user before attempting to deactivate their account.</source>
         </context-group>
       <target>{0} Chave(s) de Ativação removida(s).</target></trans-unit>
 
-      <trans-unit id="file_lists.added">
-<source>{0} File Preservation List(s) added.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart/FilePreservationLists.do</context>
-        </context-group>
-      <target>{0} Lista(s) de Preservação de Arquivos adicionada.</target></trans-unit>
 
       <trans-unit id="file_lists.removed">
 <source>{0} File Preservation List(s) removed.</source>

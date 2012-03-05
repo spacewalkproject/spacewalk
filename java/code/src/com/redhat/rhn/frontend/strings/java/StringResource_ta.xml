@@ -6014,12 +6014,6 @@ user before attempting to deactivate their account.</source>
         </context-group>
       <target>{0} செயல்படுத்தும் விசைகள் நீக்கப்பட்டன.</target></trans-unit>
 
-      <trans-unit id="file_lists.added">
-<source>{0} File Preservation List(s) added.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart/FilePreservationLists.do</context>
-        </context-group>
-      <target>{0} கோப்பு பாதுகாப்பு பட்டியல்(கள்) சேர்க்கப்பட்டன.</target></trans-unit>
 
       <trans-unit id="file_lists.removed">
 <source>{0} File Preservation List(s) removed.</source>

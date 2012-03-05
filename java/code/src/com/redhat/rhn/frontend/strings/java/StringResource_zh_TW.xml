@@ -6013,12 +6013,6 @@ user before attempting to deactivate their account.</source>
         </context-group>
       <target>已移除 {0} 個啟動金鑰。</target></trans-unit>
 
-      <trans-unit id="file_lists.added">
-<source>{0} File Preservation List(s) added.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart/FilePreservationLists.do</context>
-        </context-group>
-      <target>已新增 {0} 個檔案保存清單。</target></trans-unit>
 
       <trans-unit id="file_lists.removed">
 <source>{0} File Preservation List(s) removed.</source>

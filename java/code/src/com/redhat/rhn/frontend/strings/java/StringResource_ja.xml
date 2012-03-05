@@ -6038,12 +6038,6 @@ user before attempting to deactivate their account.</source>
         </context-group>
       <target>{0} アクティベーションキーが削除されました。</target></trans-unit>
 
-      <trans-unit id="file_lists.added">
-<source>{0} File Preservation List(s) added.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart/FilePreservationLists.do</context>
-        </context-group>
-      <target>{0} ファイル保持一覧が追加されました。</target></trans-unit>
 
       <trans-unit id="file_lists.removed">
 <source>{0} File Preservation List(s) removed.</source>
