@@ -2789,14 +2789,6 @@ user before attempting to deactivate their account.</source>
         </context-group>
       <target>重新激活的用户必须在同一个机构中。</target></trans-unit>
 
-      <trans-unit id="userenable.error.sameorg.param">
-<source>{0}: User to reactivate must be in the same organization.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/users/EnableConfirm</context>
-            <context context-type="paramnotes">kjohnny4: User to reactivate must be
-                                               in the same organization.</context>
-        </context-group>
-      <target>{0}：重新激活的用户必须在同一个机构中。</target></trans-unit>
 
       <trans-unit id="userenable.error.orgadmin">
 <source>You must be an Organization Administrator to enable a user.</source>

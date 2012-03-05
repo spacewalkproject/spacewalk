@@ -2764,14 +2764,6 @@ user before attempting to deactivate their account.</source>
         </context-group>
       <target>फिर सक्रिय किये जाने के लिये उपयोक्ता को समान संगठन में होना चाहिए.</target></trans-unit>
 
-      <trans-unit id="userenable.error.sameorg.param">
-<source>{0}: User to reactivate must be in the same organization.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/users/EnableConfirm</context>
-            <context context-type="paramnotes">kjohnny4: User to reactivate must be
-                                               in the same organization.</context>
-        </context-group>
-      <target>{0}: फिर सक्रिय किये जाने के लिये उपयोक्ता समान संगठन में होना चाहिए.</target></trans-unit>
 
       <trans-unit id="userenable.error.orgadmin">
 <source>You must be an Organization Administrator to enable a user.</source>

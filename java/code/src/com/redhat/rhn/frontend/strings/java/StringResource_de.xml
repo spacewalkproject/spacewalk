@@ -2795,14 +2795,6 @@ Benutzers vor dem Versuch, den Account zu deaktivieren.</target></trans-unit>
         </context-group>
       <target>Zu reaktivierende Benutzer m&amp;uuml;ssen in derselben Organisation sein.</target></trans-unit>
 
-      <trans-unit id="userenable.error.sameorg.param">
-<source>{0}: User to reactivate must be in the same organization.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/users/EnableConfirm</context>
-            <context context-type="paramnotes">kjohnny4: User to reactivate must be
-                                               in the same organization.</context>
-        </context-group>
-      <target>{0}: Zu reaktivierende Benutzer m&amp;uuml;ssen in derselben Organisation sein.</target></trans-unit>
 
       <trans-unit id="userenable.error.orgadmin">
 <source>You must be an Organization Administrator to enable a user.</source>
