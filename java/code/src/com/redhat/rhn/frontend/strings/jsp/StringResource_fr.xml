@@ -10911,9 +10911,6 @@ Le script post non-chroot sera ensuite exécuté et le script post sera enfin ex
         <source>Modify an existing software channel by selecting it from the list below, or create a new software channel. </source>
       <target>Modifiez un canal logiciel existant en le sélectionnant dans la liste ci-dessous, ou créez-en un nouveau.</target></trans-unit>
 
-      <trans-unit id="toolbar.create.channel">
-        <source>create new channel</source>
-      <target>créer un nouveau canal</target></trans-unit>
 
 
       <trans-unit id="kickstart.troubleshooting.jsp.header1">

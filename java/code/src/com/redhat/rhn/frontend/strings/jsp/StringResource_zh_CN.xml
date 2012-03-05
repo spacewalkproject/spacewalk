@@ -10906,9 +10906,6 @@ kickstart 前脚本的内容可以在 &lt;strong&gt;《红帽企业版 Linux 系
         <source>Modify an existing software channel by selecting it from the list below, or create a new software channel. </source>
       <target>通过在下面的列表中选择软件频道对其进行编辑或者创建一个新软件频道。</target></trans-unit>
 
-      <trans-unit id="toolbar.create.channel">
-        <source>create new channel</source>
-      <target>创建新频道</target></trans-unit>
 
 
       <trans-unit id="kickstart.troubleshooting.jsp.header1">

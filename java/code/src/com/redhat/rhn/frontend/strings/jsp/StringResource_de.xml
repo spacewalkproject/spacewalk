@@ -10913,9 +10913,6 @@ Anschlie&amp;szlig;end wird das nicht-chroot Post-Skript ausgef&amp;uuml;hrt, un
         <source>Modify an existing software channel by selecting it from the list below, or create a new software channel. </source>
       <target>Modifizieren Sie einen vorhandenen Software-Channel durch Auswahl aus der Liste unten, oder erstellen Sie einen neuen Software-Channel.</target></trans-unit>
 
-      <trans-unit id="toolbar.create.channel">
-        <source>create new channel</source>
-      <target>Neuen Channel erstellen</target></trans-unit>
 
 
       <trans-unit id="kickstart.troubleshooting.jsp.header1">

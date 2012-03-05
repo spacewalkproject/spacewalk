@@ -10894,9 +10894,6 @@ la &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stron
         <source>Modify an existing software channel by selecting it from the list below, or create a new software channel. </source>
       <target>Modificate un canale software esistente selezionandolo dall'elenco di seguito riportato, o creando un nuovo canale software.</target></trans-unit>
 
-      <trans-unit id="toolbar.create.channel">
-        <source>create new channel</source>
-      <target>crea nuovo canale</target></trans-unit>
 
 
       <trans-unit id="kickstart.troubleshooting.jsp.header1">
