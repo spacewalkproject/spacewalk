@@ -18914,12 +18914,6 @@ Emergency Maintenance windows.&lt;a href="{0}"&gt;Register for the Email Outage 
           <context context-type="sourcefile">/rhn/software/channel/downloads/Download.do</context>
         </context-group>
       <target>ISO ઈમેજો ડાઉનલોડ કરવાનું @@PRODUCT_NAME@@ સેટેલાઈટ પર આધારભૂત નથી.</target></trans-unit>
-      <trans-unit id="isodownload.not-paying.warn">
-<source>Downloading of ISO images is only available to customers with paid entitlements to @@PRODUCT_NAME@@.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/software/channel/downloads/Download.do</context>
-        </context-group>
-      <target>ISO ઈમેજો ડાઉનલોડ કરવાનું માત્ર ગ્રાહકો કે જેઓ પાસે @@PRODUCT_NAME@@ ની ભરપાઈ ઉમેદવારીઓ છે તેઓ માટે જ ઉપલબ્ધ છે.</target></trans-unit>
       <trans-unit id="isodownload.tna">
 <source>
 &lt;strong&gt;NOTE:&lt;/strong&gt; By downloading this software, you agree to the terms and conditions of the applicable License Agreement (available at &lt;a href="{0}"&gt;{1}&lt;/a&gt;)

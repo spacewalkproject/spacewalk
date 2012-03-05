@@ -18967,12 +18967,6 @@ para anunciar periodos de mantenimiento de Emergencia y no programados.
           <context context-type="sourcefile">/rhn/software/channel/downloads/Download.do</context>
         </context-group>
       <target>La descarga de imágenes ISO no es soportada en @@PRODUCT_NAME@@.</target></trans-unit>
-      <trans-unit id="isodownload.not-paying.warn">
-<source>Downloading of ISO images is only available to customers with paid entitlements to @@PRODUCT_NAME@@.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/software/channel/downloads/Download.do</context>
-        </context-group>
-      <target>La descarga de imágenes ISO sólo está disponible para los usuarios con derechos pagados para @@PRODUCT_NAME@@.</target></trans-unit>
       <trans-unit id="isodownload.tna">
 <source>
 &lt;strong&gt;NOTE:&lt;/strong&gt; By downloading this software, you agree to the terms and conditions of the applicable License Agreement (available at &lt;a href="{0}"&gt;{1}&lt;/a&gt;)

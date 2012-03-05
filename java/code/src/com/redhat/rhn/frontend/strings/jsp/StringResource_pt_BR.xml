@@ -18962,12 +18962,6 @@ pela Red Hat no caso de Períodos de Manutenção Não Programados ou
           <context context-type="sourcefile">/rhn/software/channel/downloads/Download.do</context>
         </context-group>
       <target>Fazer o Download das imagens ISO não é uma ação suportada pelo @@PRODUCT_NAME@@. </target></trans-unit>
-      <trans-unit id="isodownload.not-paying.warn">
-<source>Downloading of ISO images is only available to customers with paid entitlements to @@PRODUCT_NAME@@.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/software/channel/downloads/Download.do</context>
-        </context-group>
-      <target>O download das imagens ISO está disponível somente para clientes que pagaram pelos serviços @@PRODUCT_NAME@@. </target></trans-unit>
       <trans-unit id="isodownload.tna">
 <source>
 &lt;strong&gt;NOTE:&lt;/strong&gt; By downloading this software, you agree to the terms and conditions of the applicable License Agreement (available at &lt;a href="{0}"&gt;{1}&lt;/a&gt;)

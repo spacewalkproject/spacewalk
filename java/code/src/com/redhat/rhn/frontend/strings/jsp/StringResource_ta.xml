@@ -18914,12 +18914,6 @@ Emergency Maintenance windows.&lt;a href="{0}"&gt;Register for the Email Outage 
           <context context-type="sourcefile">/rhn/software/channel/downloads/Download.do</context>
         </context-group>
       <target>@@PRODUCT_NAME@@ சேட்டிலைட்டில் துணை புரியாத ISO உருக்களை பதிவிறக்குகிறது.</target></trans-unit>
-      <trans-unit id="isodownload.not-paying.warn">
-<source>Downloading of ISO images is only available to customers with paid entitlements to @@PRODUCT_NAME@@.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/software/channel/downloads/Download.do</context>
-        </context-group>
-      <target>ISO உருக்கள் @@PRODUCT_NAME@@ க்கு பணம் செலுத்தப்பட்ட உரிமங்களுக்கு கொண்ட வாடிக்கையாளர்களுக்கு மட்டுமே இருக்கும்.</target></trans-unit>
       <trans-unit id="isodownload.tna">
 <source>
 &lt;strong&gt;NOTE:&lt;/strong&gt; By downloading this software, you agree to the terms and conditions of the applicable License Agreement (available at &lt;a href="{0}"&gt;{1}&lt;/a&gt;)

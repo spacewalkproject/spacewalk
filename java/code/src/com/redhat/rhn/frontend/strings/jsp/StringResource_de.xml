@@ -18970,12 +18970,6 @@ Notfall-Wartungsfenstern f&amp;uuml;r Benachrichtigungen verwendet.
           <context context-type="sourcefile">/rhn/software/channel/downloads/Download.do</context>
         </context-group>
       <target>Das Herunterladen von ISO-Images wird auf @@PRODUCT_NAME@@-Satellite nicht unterst&amp;uuml;tzt.</target></trans-unit>
-      <trans-unit id="isodownload.not-paying.warn">
-<source>Downloading of ISO images is only available to customers with paid entitlements to @@PRODUCT_NAME@@.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/software/channel/downloads/Download.do</context>
-        </context-group>
-      <target>Das Herunterladen von ISO-Images steht nur Kunden mit bezahlten Berechtigungen zu @@PRODUCT_NAME@@ zur Verf&amp;uuml;gung.</target></trans-unit>
       <trans-unit id="isodownload.tna">
 <source>
 &lt;strong&gt;NOTE:&lt;/strong&gt; By downloading this software, you agree to the terms and conditions of the applicable License Agreement (available at &lt;a href="{0}"&gt;{1}&lt;/a&gt;)
