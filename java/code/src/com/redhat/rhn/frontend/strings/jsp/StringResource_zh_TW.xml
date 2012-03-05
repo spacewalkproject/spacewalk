@@ -893,12 +893,6 @@
 		 </context-group>
 	<target>監控狀態 - 警告偵測</target></trans-unit>
 
-	<trans-unit id="preferences.warning-probes.description">
-         <source> A preview of probes that are in a warning state.</source>
-		 <context-group name="ctx">
-		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
-		 </context-group>
-	<target> 處於警告狀態中的偵測一覽。</target></trans-unit>
 
 
 

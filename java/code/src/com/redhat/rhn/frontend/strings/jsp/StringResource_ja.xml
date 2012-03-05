@@ -893,12 +893,6 @@
 		 </context-group>
 	<target>モニタリングの状態 - 警告レベルのプローブ</target></trans-unit>
 
-	<trans-unit id="preferences.warning-probes.description">
-         <source> A preview of probes that are in a warning state.</source>
-		 <context-group name="ctx">
-		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
-		 </context-group>
-	<target>警告レベルにあるプローブのプレビューです。</target></trans-unit>
 
 
 

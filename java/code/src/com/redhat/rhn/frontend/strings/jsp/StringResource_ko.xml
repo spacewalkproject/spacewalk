@@ -893,12 +893,6 @@
 		 </context-group>
 	<target>모니터링 상태 - 경고 상태인 프로브</target></trans-unit>
 
-	<trans-unit id="preferences.warning-probes.description">
-         <source> A preview of probes that are in a warning state.</source>
-		 <context-group name="ctx">
-		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
-		 </context-group>
-	<target>경고 상태인 프로브 미리 보기 </target></trans-unit>
 
 
 

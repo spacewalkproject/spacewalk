@@ -893,12 +893,6 @@
 		 </context-group>
 	<target>Status do Monitoring - Detecções em Alerta</target></trans-unit>
 
-	<trans-unit id="preferences.warning-probes.description">
-         <source> A preview of probes that are in a warning state.</source>
-		 <context-group name="ctx">
-		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
-		 </context-group>
-	<target> Uma prévia das detecções que estejam em um estado de alerta.</target></trans-unit>
 
 
 

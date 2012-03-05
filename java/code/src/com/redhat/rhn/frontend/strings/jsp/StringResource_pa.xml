@@ -893,12 +893,6 @@
 		 </context-group>
 	<target>ਨਿਗਰਾਨੀ ਸਥਿਤੀ - ਚੇਤਾਵਨੀ ਪੜਚੋਲ</target></trans-unit>
 
-	<trans-unit id="preferences.warning-probes.description">
-         <source> A preview of probes that are in a warning state.</source>
-		 <context-group name="ctx">
-		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
-		 </context-group>
-	<target> ਪੜਤਾਲਾਂ ਜੋ ਚੇਤਾਵਨੀ ਹਾਲਤ ਵਿੱਚ ਹਨ ਬਾਰੇ ਸੰਖੇਪ ਜਾਣਕਾਰੀ।</target></trans-unit>
 
 
 

@@ -893,12 +893,6 @@
 		 </context-group>
 	<target>பார்வையிடும் நிலை - எச்சரிக்கை ஆய்வுகள்</target></trans-unit>
 
-	<trans-unit id="preferences.warning-probes.description">
-         <source> A preview of probes that are in a warning state.</source>
-		 <context-group name="ctx">
-		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
-		 </context-group>
-	<target>ஆய்வுகளின் முன்பார்வை எச்சரிக்கை நிலையில் உள்ளது.</target></trans-unit>
 
 
 
