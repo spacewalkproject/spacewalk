@@ -1066,12 +1066,6 @@ http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd"
   </trans-unit>
 
 
-  <trans-unit id="subdetails.details">
-    <source>Details</source>
-    <context-group name="ctx">
-      <context context-type="sourcefile">/rhn/admin/multiorg/EntitlementDetails.do</context>
-    </context-group>
-  </trans-unit>
 
 
   <!-- SSM NAV -->

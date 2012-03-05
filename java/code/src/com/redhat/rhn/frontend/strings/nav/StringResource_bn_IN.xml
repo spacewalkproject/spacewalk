@@ -1047,12 +1047,6 @@
   <target>সাবস্ক্রিপশন</target></trans-unit>
 
 
-  <trans-unit id="subdetails.details">
-    <source>Details</source>
-    <context-group name="ctx">
-      <context context-type="sourcefile">/rhn/admin/multiorg/EntitlementDetails.do</context>
-    </context-group>
-  <target>বিবরণ</target></trans-unit>
 
 
   <!-- SSM NAV -->
