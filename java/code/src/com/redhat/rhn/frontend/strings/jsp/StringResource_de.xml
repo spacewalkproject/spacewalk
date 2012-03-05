@@ -11682,9 +11682,6 @@ Anschlie&amp;szlig;end wird das nicht-chroot Post-Skript ausgef&amp;uuml;hrt, un
         <trans-unit id="targetsystems.jsp.capable">
           <source>@@PRODUCT_NAME@@ Configuration Capable?</source>
         <target>@@PRODUCT_NAME@@ konfigurationsfähig?</target></trans-unit>
-        <trans-unit id="targetsystems.jsp.yes">
-          <source>Yes</source>
-        <target>Ja</target></trans-unit>
         <trans-unit id="targetsystems.jsp.no">
           <source>No</source>
         <target>Nein</target></trans-unit>

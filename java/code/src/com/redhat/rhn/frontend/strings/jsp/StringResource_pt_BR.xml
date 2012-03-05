@@ -11671,9 +11671,6 @@ o &lt;strong&gt;Guia de Administração de Sistemas Red Hat Enterprise Li
         <trans-unit id="targetsystems.jsp.capable">
           <source>@@PRODUCT_NAME@@ Configuration Capable?</source>
         <target>Capacitação de Configuração do @@PRODUCT_NAME@@?</target></trans-unit>
-        <trans-unit id="targetsystems.jsp.yes">
-          <source>Yes</source>
-        <target>Sim</target></trans-unit>
         <trans-unit id="targetsystems.jsp.no">
           <source>No</source>
         <target>Não</target></trans-unit>

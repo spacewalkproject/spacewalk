@@ -11664,9 +11664,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <trans-unit id="targetsystems.jsp.capable">
           <source>@@PRODUCT_NAME@@ Configuration Capable?</source>
         <target>@@PRODUCT_NAME@@ 設定は可能ですか?</target></trans-unit>
-        <trans-unit id="targetsystems.jsp.yes">
-          <source>Yes</source>
-        <target>はい</target></trans-unit>
         <trans-unit id="targetsystems.jsp.no">
           <source>No</source>
         <target>いいえ</target></trans-unit>

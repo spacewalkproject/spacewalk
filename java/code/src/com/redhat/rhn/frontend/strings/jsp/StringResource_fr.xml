@@ -11680,9 +11680,6 @@ Le script post non-chroot sera ensuite exécuté et le script post sera enfin ex
         <trans-unit id="targetsystems.jsp.capable">
           <source>@@PRODUCT_NAME@@ Configuration Capable?</source>
         <target>Est-ce que la configuration @@PRODUCT_NAME@@ est possible ?</target></trans-unit>
-        <trans-unit id="targetsystems.jsp.yes">
-          <source>Yes</source>
-        <target>Oui</target></trans-unit>
         <trans-unit id="targetsystems.jsp.no">
           <source>No</source>
         <target>Non</target></trans-unit>
