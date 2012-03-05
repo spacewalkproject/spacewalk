@@ -4053,12 +4053,6 @@ del rol de Administrador de la organización.</target></trans-unit>
           <context context-type="sourcefile">/rhn/admin/multiorg/Organizations.do</context>
         </context-group>
       <target>Organizaciones</target></trans-unit>
-      <trans-unit id="organizationtrusts.jsp.toolbar">
-<source>Organization Trusts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/multiorg/Organizations.do</context>
-        </context-group>
-      <target>Confianzas organizativas</target></trans-unit>
       <trans-unit id="org.displayname">
 <source>Organization</source>
         <context-group name="ctx">

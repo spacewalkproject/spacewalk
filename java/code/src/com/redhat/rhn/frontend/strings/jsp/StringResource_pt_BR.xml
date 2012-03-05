@@ -4052,12 +4052,6 @@ abaixo e &lt;b&gt;não poderá mais se autenticar&lt;/b&gt;.</target></trans-uni
           <context context-type="sourcefile">/rhn/admin/multiorg/Organizations.do</context>
         </context-group>
       <target>Organizações</target></trans-unit>
-      <trans-unit id="organizationtrusts.jsp.toolbar">
-<source>Organization Trusts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/multiorg/Organizations.do</context>
-        </context-group>
-      <target>Trusts das Organizações</target></trans-unit>
       <trans-unit id="org.displayname">
 <source>Organization</source>
         <context-group name="ctx">

@@ -4066,12 +4066,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/admin/multiorg/Organizations.do</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="organizationtrusts.jsp.toolbar">
-<source>Organization Trusts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/multiorg/Organizations.do</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="org.displayname">
 <source>Organization</source>
         <context-group name="ctx">

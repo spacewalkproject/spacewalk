@@ -4052,12 +4052,6 @@ dr&amp;uuml;cken und &lt;b&gt;k&amp;ouml;nnen sich nicht wieder einloggen&lt;/b&
           <context context-type="sourcefile">/rhn/admin/multiorg/Organizations.do</context>
         </context-group>
       <target>Organisationen</target></trans-unit>
-      <trans-unit id="organizationtrusts.jsp.toolbar">
-<source>Organization Trusts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/multiorg/Organizations.do</context>
-        </context-group>
-      <target>Organisations-Trust</target></trans-unit>
       <trans-unit id="org.displayname">
 <source>Organization</source>
         <context-group name="ctx">
