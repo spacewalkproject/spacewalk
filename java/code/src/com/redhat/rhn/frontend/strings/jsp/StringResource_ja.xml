@@ -18102,12 +18102,6 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;
         </context-group>
       <target>{1} のシステム &lt;strong&gt;{0}&lt;/strong&gt; に対して再起動がスケジュールされました。 再起動を取り消すには、 &lt;a href="/rhn/schedule/InProgressSystems.do?aid={2}"&gt;&lt;strong&gt;再起動するシステムの一覧&lt;/strong&gt;&lt;/a&gt; から &lt;strong&gt;{0}&lt;/strong&gt; を削除してください。</target></trans-unit>
 
-      <trans-unit id="system.osad.pinged">
-        <source>&lt;strong&gt;{0}&lt;/strong&gt; has been pinged.  OSA Status will update within the next minute.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestUnlimitedHosts.do</context>
-        </context-group>
-      <target>&lt;strong&gt;{0}&lt;/strong&gt; は ping されています。 OSA の状態は数分で更新します。</target></trans-unit>
 
 
       <trans-unit id="org.login.examples">

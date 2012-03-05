@@ -18063,12 +18063,6 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;
         </context-group>
       <target>為 {1} 所排程的系統 &lt;strong&gt;{0}&lt;/strong&gt; 之重新啟動。若要取消重新啟動，請由 &lt;a href="/rhn/schedule/InProgressSystems.do?aid={2}"&gt;&lt;strong&gt;需被重新啟動的系統之清單&lt;/strong&gt;&lt;/a&gt; 之中，將 &lt;strong&gt;{0}&lt;/strong&gt; 給移除掉。</target></trans-unit>
 
-      <trans-unit id="system.osad.pinged">
-        <source>&lt;strong&gt;{0}&lt;/strong&gt; has been pinged.  OSA Status will update within the next minute.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestUnlimitedHosts.do</context>
-        </context-group>
-      <target>&lt;strong&gt;{0}&lt;/strong&gt; 已被 ping 了。OSA 狀態會在一分鐘以內更新。</target></trans-unit>
 
 
       <trans-unit id="org.login.examples">

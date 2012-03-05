@@ -18065,12 +18065,6 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;
         </context-group>
       <target>Riavvio del sistema &lt;strong&gt;{0}&lt;/strong&gt; programmato per {1}.  Per cancellare il processo di riavvio rimuovere &lt;strong&gt;{0}&lt;/strong&gt; dall'elenco &lt;a href="/rhn/schedule/InProgressSystems.do?aid={2}"&gt;&lt;strong&gt;di sistemi da riavviare&lt;/strong&gt;&lt;/a&gt;.</target></trans-unit>
 
-      <trans-unit id="system.osad.pinged">
-        <source>&lt;strong&gt;{0}&lt;/strong&gt; has been pinged.  OSA Status will update within the next minute.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestUnlimitedHosts.do</context>
-        </context-group>
-      <target>È stato eseguito il ping di &lt;strong&gt;{0}&lt;/strong&gt;.  Lo stato OSA verrà aggiornato nei prossimi minuti.</target></trans-unit>
 
 
       <trans-unit id="org.login.examples">

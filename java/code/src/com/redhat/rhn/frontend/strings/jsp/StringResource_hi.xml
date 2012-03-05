@@ -18068,12 +18068,6 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;
         </context-group>
       <target>सिस्टम &lt;strong&gt;{0}&lt;/strong&gt; का {1} के लिए रिबूट नियोजित.  रिबूट रद्द करने के लिए, &lt;strong&gt;{0}&lt;/strong&gt; को &lt;a href="/rhn/schedule/InProgressSystems.do?aid={2}"&gt;&lt;strong&gt;रिबूट किये जाने वाले सिस्टम की सूची&lt;/strong&gt;&lt;/a&gt; से हटाएं.</target></trans-unit>
 
-      <trans-unit id="system.osad.pinged">
-        <source>&lt;strong&gt;{0}&lt;/strong&gt; has been pinged.  OSA Status will update within the next minute.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestUnlimitedHosts.do</context>
-        </context-group>
-      <target>&lt;strong&gt;{0}&lt;/strong&gt; को पिंग किया गया है.  OSA स्थिति अगले मिनट अद्यतन की जायेगी.</target></trans-unit>
 
 
       <trans-unit id="org.login.examples">

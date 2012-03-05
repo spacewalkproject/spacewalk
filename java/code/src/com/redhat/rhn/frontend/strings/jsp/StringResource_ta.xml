@@ -18068,12 +18068,6 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;
         </context-group>
       <target>{1}க்கு  &lt;strong&gt;{0}&lt;/strong&gt; கணினி திட்டமிடுதலை மறுதுவக்கம் செய்யவும்.  மறுதுவக்கத்தை ரத்து செய்ய&lt;strong&gt;{0}&lt;/strong&gt;ஐ &lt;a href="/rhn/schedule/InProgressSystems.do?aid={2}"&gt;&lt;strong&gt;மறுதுவக்கம் செய்ய வேண்டிய கணினிகளின் பட்டியலிலிருந்து&lt;/strong&gt;&lt;/a&gt; நீக்கவும்.</target></trans-unit>
 
-      <trans-unit id="system.osad.pinged">
-        <source>&lt;strong&gt;{0}&lt;/strong&gt; has been pinged.  OSA Status will update within the next minute.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestUnlimitedHosts.do</context>
-        </context-group>
-      <target>&lt;strong&gt;{0}&lt;/strong&gt; அழைத்துள்ளது.  OSA நிலை அடுத்த நிமிடத்தில் மேம்படுத்தப்படும்.</target></trans-unit>
 
 
       <trans-unit id="org.login.examples">

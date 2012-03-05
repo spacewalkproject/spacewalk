@@ -18119,12 +18119,6 @@ de realizar un kickstart o antes de crear una nueva distribución kickstart.&lt;
         </context-group>
       <target>Se ha programado un reinicio para el sistema &lt;strong&gt;{0}&lt;/strong&gt; para {1}. Para cancelar el reinicio, remueva &lt;strong&gt;{0}&lt;/strong&gt; desde &lt;a href="/rhn/schedule/InProgressSystems.do?aid={2}"&gt;&lt;strong&gt;la lista de sistemas a ser reiniciados&lt;/strong&gt;&lt;/a&gt;.</target></trans-unit>
 
-      <trans-unit id="system.osad.pinged">
-        <source>&lt;strong&gt;{0}&lt;/strong&gt; has been pinged.  OSA Status will update within the next minute.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestUnlimitedHosts.do</context>
-        </context-group>
-      <target>&lt;strong&gt;{0}&lt;/strong&gt; ha sido llamado con ping. El estado OSA será actualizado en un minuto.</target></trans-unit>
 
 
       <trans-unit id="org.login.examples">

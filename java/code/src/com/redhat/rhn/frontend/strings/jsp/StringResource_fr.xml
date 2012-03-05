@@ -18120,12 +18120,6 @@ les canaux de logiciels de @@PRODUCT_NAME@@pour chaque canal parent pris en char
         </context-group>
       <target>Redémarrage programmé pour le système &lt;strong&gt;{0}&lt;/strong&gt; à {1}. Pour annuler le redémarrage, supprimez &lt;strong&gt;{0}&lt;/strong&gt; de la &lt;a href="/rhn/schedule/InProgressSystems.do?aid={2}"&gt;&lt;strong&gt;liste des systèmes à redémarrer&lt;/strong&gt;&lt;/a&gt;.</target></trans-unit>
 
-      <trans-unit id="system.osad.pinged">
-        <source>&lt;strong&gt;{0}&lt;/strong&gt; has been pinged.  OSA Status will update within the next minute.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestUnlimitedHosts.do</context>
-        </context-group>
-      <target>Un ping a été envoyé à &lt;strong&gt;{0}&lt;/strong&gt;.  Le statut OSA sera mis à jour dans la minute suivante.</target></trans-unit>
 
 
       <trans-unit id="org.login.examples">

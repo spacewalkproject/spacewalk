@@ -18062,12 +18062,6 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;
         </context-group>
       <target>Для системы &lt;strong&gt;{0}&lt;/strong&gt; для {1} назначен рестарт. Чтобы отменить, удалите &lt;strong&gt;{0}&lt;/strong&gt; из &lt;a href="/rhn/schedule/InProgressSystems.do?aid={2}"&gt;&lt;strong&gt;списка систем для перезагрузки&lt;/strong&gt;&lt;/a&gt;.</target></trans-unit>
 
-      <trans-unit id="system.osad.pinged">
-        <source>&lt;strong&gt;{0}&lt;/strong&gt; has been pinged.  OSA Status will update within the next minute.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestUnlimitedHosts.do</context>
-        </context-group>
-      <target>Пинг &lt;strong&gt;{0}&lt;/strong&gt; выполнен успешно. Статус OSA будет обновлен в течение минуты.</target></trans-unit>
 
 
       <trans-unit id="org.login.examples">

@@ -18113,12 +18113,6 @@ de executar um kickstart ou criar uma nova distribuição kickstart.&lt;/strong&
         </context-group>
       <target>Reinicialização agendada para sistema &lt;strong&gt;{0}&lt;/strong&gt; para {1}.  Para cancelar a reinicialização, remova &lt;strong&gt;{0}&lt;/strong&gt; a partir da lista &lt;a href="/rhn/schedule/InProgressSystems.do?aid={2}"&gt;&lt;strong&gt; de sistemas a serem reinicializadas&lt;/strong&gt;&lt;/a&gt;.</target></trans-unit>
 
-      <trans-unit id="system.osad.pinged">
-        <source>&lt;strong&gt;{0}&lt;/strong&gt; has been pinged.  OSA Status will update within the next minute.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestUnlimitedHosts.do</context>
-        </context-group>
-      <target>&lt;strong&gt;{0}&lt;/strong&gt; foi chamado.  O Estado de OSA Status irá atualizar dentro de um minuto.</target></trans-unit>
 
 
       <trans-unit id="org.login.examples">

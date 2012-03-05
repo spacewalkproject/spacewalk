@@ -18067,12 +18067,6 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;
         </context-group>
       <target>ਸਿਸਟਮ &lt;strong&gt;{0}&lt;/strong&gt; ਨੂੰ {1} ਲਈ ਮੁੜ-ਚਾਲੂ ਹੋਣ ਲਈ ਸਮਾਂ-ਤਹਿ ਕੀਤਾ ਗਿਆ ਹੈ। ਮੁੜ-ਚਾਲੂ ਰੱਦ ਹੋਣ ਲਈ , &lt;strong&gt;{0}&lt;/strong&gt; ਨੂੰ &lt;a href="/rhn/schedule/InProgressSystems.do?aid={2}"&gt;&lt;strong&gt; ਮੁੜ-ਚਾਲੂ ਹੋਣ ਵਾਲੇ ਸਿਸਟਮਾਂ ਦੀ ਸੂਚੀ ਵਿੱਚੋਂ ਹਟਾਓ&lt;/strong&gt;&lt;/a&gt;।</target></trans-unit>
 
-      <trans-unit id="system.osad.pinged">
-        <source>&lt;strong&gt;{0}&lt;/strong&gt; has been pinged.  OSA Status will update within the next minute.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestUnlimitedHosts.do</context>
-        </context-group>
-      <target>&lt;strong&gt;{0}&lt;/strong&gt; ਨੂੰ ਪਿੰਗ ਕੀਤਾ ਗਿਆ ਹੈ। OSA ਸਥਿਤੀ ਅਗਲੇ ਮਿੰਟ ਵਿੱਚ ਅੱਪਡੇਟ ਕੀਤੀ ਗਈ ਹੈ।</target></trans-unit>
 
 
       <trans-unit id="org.login.examples">
