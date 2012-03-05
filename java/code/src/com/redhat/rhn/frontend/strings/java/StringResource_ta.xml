@@ -5979,12 +5979,6 @@ user before attempting to deactivate their account.</source>
         </context-group>
       <target>கோப்பு பாதுகாப்பு பெயர் ஏற்கனவே உள்ளது. எனவே வேறு கோப்பு பாதுகாப்பு பெயரை தேர்வு செய்யவும்.</target></trans-unit>
 
-      <trans-unit id="file_lists.success">
-<source>{0} File List(s) deleted.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/provisioning/preservation/PreservationListDelete.do</context>
-        </context-group>
-      <target>{0} அழிக்கப்பட்ட கோப்பு பட்டியல்கள்.</target></trans-unit>
 
 
       <trans-unit id="filelists.jsp.selectafilelist">

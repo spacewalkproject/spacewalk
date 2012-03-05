@@ -5991,12 +5991,6 @@ user before attempting to deactivate their account.</source>
         </context-group>
       <target>Etiqueta de Preservação de Arquivos já existe. Por favor escolha uma etiqueta de Preservação de Arquivos única.</target></trans-unit>
 
-      <trans-unit id="file_lists.success">
-<source>{0} File List(s) deleted.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/provisioning/preservation/PreservationListDelete.do</context>
-        </context-group>
-      <target>Lista(s) de Arquivo {0} removida(s).</target></trans-unit>
 
 
       <trans-unit id="filelists.jsp.selectafilelist">

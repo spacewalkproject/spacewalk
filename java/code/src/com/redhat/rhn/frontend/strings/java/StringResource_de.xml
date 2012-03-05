@@ -6010,12 +6010,6 @@ Benutzers vor dem Versuch, den Account zu deaktivieren.</target></trans-unit>
         </context-group>
       <target>Das Dateierhaltungs-Label existiert bereits. Bitte w&amp;auml;hlen Sie ein eindeutiges Dateierhaltungs-Label.</target></trans-unit>
 
-      <trans-unit id="file_lists.success">
-<source>{0} File List(s) deleted.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/provisioning/preservation/PreservationListDelete.do</context>
-        </context-group>
-      <target>{0} Dateiliste(n) gel&amp;ouml;scht.</target></trans-unit>
 
 
       <trans-unit id="filelists.jsp.selectafilelist">

@@ -6054,12 +6054,6 @@ user before attempting to deactivate their account.</source>
         </context-group>
       </trans-unit>
 
-      <trans-unit id="file_lists.success">
-<source>{0} File List(s) deleted.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/provisioning/preservation/PreservationListDelete.do</context>
-        </context-group>
-      </trans-unit>
 
 
       <trans-unit id="filelists.jsp.selectafilelist">

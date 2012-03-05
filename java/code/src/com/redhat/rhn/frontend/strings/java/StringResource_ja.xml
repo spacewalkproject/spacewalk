@@ -6003,12 +6003,6 @@ user before attempting to deactivate their account.</source>
         </context-group>
       <target>ファイル保持ラベルはすでに存在しています。 固有のファイル保持ラベルを選択してください。</target></trans-unit>
 
-      <trans-unit id="file_lists.success">
-<source>{0} File List(s) deleted.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/provisioning/preservation/PreservationListDelete.do</context>
-        </context-group>
-      <target>{0} ファイルの一覧が削除されました。</target></trans-unit>
 
 
       <trans-unit id="filelists.jsp.selectafilelist">

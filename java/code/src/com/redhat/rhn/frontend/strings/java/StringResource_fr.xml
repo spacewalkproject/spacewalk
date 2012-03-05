@@ -6006,12 +6006,6 @@ utilisateur avant de désactiver son compte.</target></trans-unit>
         </context-group>
       <target>L'étiquette de conservation de fichiers existe déjà. Choisissez une étiquette de conservation de fichiers unique.</target></trans-unit>
 
-      <trans-unit id="file_lists.success">
-<source>{0} File List(s) deleted.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/provisioning/preservation/PreservationListDelete.do</context>
-        </context-group>
-      <target>{0} liste(s) de fichiers supprimée(s).</target></trans-unit>
 
 
       <trans-unit id="filelists.jsp.selectafilelist">

@@ -5985,12 +5985,6 @@ user before attempting to deactivate their account.</source>
         </context-group>
       <target>ফাইল সংরক্ষণ লেবেল বর্তমানে উপস্থিত রয়েছে। অনুগ্রহ করে ফাইল সংরক্ষণ তালিকার জন্য একটি স্বতন্ত্র লেবেল নির্বাচন করুন।</target></trans-unit>
 
-      <trans-unit id="file_lists.success">
-<source>{0} File List(s) deleted.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/provisioning/preservation/PreservationListDelete.do</context>
-        </context-group>
-      <target>{0}-টি ফাইল তালিকা মুছে ফেলা হয়েছে।</target></trans-unit>
 
 
       <trans-unit id="filelists.jsp.selectafilelist">

@@ -5978,12 +5978,6 @@ user before attempting to deactivate their account.</source>
         </context-group>
       <target>檔案保存標籤已經存在。請選擇獨一無二的檔案保存標籤。</target></trans-unit>
 
-      <trans-unit id="file_lists.success">
-<source>{0} File List(s) deleted.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/provisioning/preservation/PreservationListDelete.do</context>
-        </context-group>
-      <target>已刪除 {0} 個檔案清單。</target></trans-unit>
 
 
       <trans-unit id="filelists.jsp.selectafilelist">

@@ -5981,12 +5981,6 @@ user before attempting to deactivate their account.</source>
         </context-group>
       <target>ਫਾਇਲ ਅਧਿਕਾਰ ਲੇਬਲ ਪਹਿਲਾਂ ਹੀ ਮੌਜੂਦ ਹੈ। ਵੱਖਰਾ ਫਾਇਲ ਅਧਿਕਾਰ ਲੇਬਲ ਚੁਣੋ।</target></trans-unit>
 
-      <trans-unit id="file_lists.success">
-<source>{0} File List(s) deleted.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/provisioning/preservation/PreservationListDelete.do</context>
-        </context-group>
-      <target>{0} ਫਾਇਲ ਸੂਚੀ ਹਟਾਈ ਗਈ</target></trans-unit>
 
 
       <trans-unit id="filelists.jsp.selectafilelist">
