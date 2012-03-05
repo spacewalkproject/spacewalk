@@ -759,12 +759,6 @@
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
       <target>அமர்வுகள்</target></trans-unit>
-      <trans-unit id="Session Tracer">
-<source>Session Tracer</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-      <target>அமர்வு பார்வையாளர்</target></trans-unit>
       <trans-unit id="Sign In">
 <source>Sign In</source>
         <context-group name="ctx">
