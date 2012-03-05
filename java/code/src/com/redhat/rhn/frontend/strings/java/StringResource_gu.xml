@@ -765,12 +765,6 @@
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
       <target>સંગ્રહાયેલ રૂપરેખાઓ</target></trans-unit>
-      <trans-unit id="String Manager">
-<source>String Manager</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-      <target>શબ્દમાળા વ્યવસ્થાપક</target></trans-unit>
       <trans-unit id="Subscription">
 <source>Subscription</source>
         <context-group name="ctx">
