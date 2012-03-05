@@ -21911,9 +21911,6 @@ given channel.</source>
       <trans-unit id="channel.jsp.repolastbuild">
 		<source>Last Repo Build</source>
       <target>最后的库构建</target></trans-unit>
-      <trans-unit id="channel.edit.jsp.yumrepo">
-		<source>Associated Yum Repository</source>
-      <target>关联的 Yum 库</target></trans-unit>
       <trans-unit id="channel.edit.jsp.lastsynced">
 		<source>Last Sync Time</source>
       <target>最后同步的时间</target></trans-unit>
