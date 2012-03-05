@@ -441,12 +441,6 @@
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
       <target>發行套件</target></trans-unit>
-      <trans-unit id="Download Software">
-<source>Download Software</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-      <target>下載軟體</target></trans-unit>
       <trans-unit id="Edit this address">
 <source>Edit this address</source>
         <context-group name="ctx">
