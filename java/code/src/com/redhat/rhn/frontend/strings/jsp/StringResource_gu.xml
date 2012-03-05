@@ -3459,9 +3459,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
       <trans-unit id="erratalist.jsp.severity">
 <source>Severity</source>
       <target>કઠોરતા</target></trans-unit>
-      <trans-unit id="erratalist.jsp.channelinfo">
-<source>The following errata affect this channel, and may affect subscribed systems.</source>
-      <target>નીચેની ત્રુટિસૂચી આ ચેનલને અસર કરે છે, અને ઉમેદવારી થયેલ સિસ્ટમોને પણ અસર કરી શકે છે.</target></trans-unit>
       <trans-unit id="erratalist.jsp.oval">
 <source>OVAL</source>
         <context-group name="ctx">

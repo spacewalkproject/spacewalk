@@ -3459,9 +3459,6 @@ abaixo e &lt;b&gt;não poderá mais se autenticar&lt;/b&gt;.</target></trans-uni
       <trans-unit id="erratalist.jsp.severity">
 <source>Severity</source>
       <target>Gravidade</target></trans-unit>
-      <trans-unit id="erratalist.jsp.channelinfo">
-<source>The following errata affect this channel, and may affect subscribed systems.</source>
-      <target>A seguinte errata afeta este canal, e também pode afetar sistemas inscritos.</target></trans-unit>
       <trans-unit id="erratalist.jsp.oval">
 <source>OVAL</source>
         <context-group name="ctx">

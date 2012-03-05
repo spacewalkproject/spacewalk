@@ -3459,9 +3459,6 @@ dr&amp;uuml;cken und &lt;b&gt;k&amp;ouml;nnen sich nicht wieder einloggen&lt;/b&
       <trans-unit id="erratalist.jsp.severity">
 <source>Severity</source>
       <target>Schweregrad</target></trans-unit>
-      <trans-unit id="erratalist.jsp.channelinfo">
-<source>The following errata affect this channel, and may affect subscribed systems.</source>
-      <target>Die folgenden Errata betreffen diesen Channel und können Auswirkungen auf abonnierende Systeme haben.</target></trans-unit>
       <trans-unit id="erratalist.jsp.oval">
 <source>OVAL</source>
         <context-group name="ctx">

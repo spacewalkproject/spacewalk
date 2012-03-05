@@ -3460,9 +3460,6 @@ del rol de Administrador de la organización.</target></trans-unit>
       <trans-unit id="erratalist.jsp.severity">
 <source>Severity</source>
       <target>Intensidad</target></trans-unit>
-      <trans-unit id="erratalist.jsp.channelinfo">
-<source>The following errata affect this channel, and may affect subscribed systems.</source>
-      <target>La siguiente errata afecta este canal y puede afectar los sistemas suscritos.</target></trans-unit>
       <trans-unit id="erratalist.jsp.oval">
 <source>OVAL</source>
         <context-group name="ctx">
