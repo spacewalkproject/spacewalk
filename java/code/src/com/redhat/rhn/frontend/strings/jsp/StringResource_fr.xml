@@ -17876,9 +17876,6 @@ les canaux de logiciels de @@PRODUCT_NAME@@pour chaque canal parent pris en char
         <trans-unit id="exportcolumn.errataAdvisoryType">
             <source>Advisory Type</source>
         <target>Type d'alerte</target></trans-unit>
-        <trans-unit id="exportcolumn.advisorySynopsis">
-            <source>Synopsis</source>
-        <target>Synopsis</target></trans-unit>
         <trans-unit id="exportcolumn.errataStatus">
             <source>Status</source>
         <target>Statut</target></trans-unit>
