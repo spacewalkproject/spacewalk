@@ -1524,12 +1524,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/newlogin/CreateAccount</context>
         </context-group>
       <target>লগ-ইন নির্মাণ করুন</target></trans-unit>
-      <trans-unit id="usercreate.corpSummary">
-<source>A business login will enable you to administer systems owned by your business and to make business purchases of Red Hat products and services. &lt;strong&gt;If your organization has an existing @@PRODUCT_NAME@@ business login, you should not use this form. Instead, you will need to contact your @@PRODUCT_NAME@@ Organization Administrator to create your account so you are registered with your organization.&lt;/strong&gt; </source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/newlogin/CreateCorporate</context>
-        </context-group>
-      <target>বাণিজ্যিক লগ-ইন অ্যাকাউন্টের সাহায্যে আপনি আপনার প্রতিষ্ঠানের মালিকানাধীন সিস্টেমের পরিচালনা ও Red Hat-র বিভিন্ন উৎপাদন ও পরিসেবা ক্রয় করতে সক্ষম হবেন। &lt;strong&gt;আপনার প্রতিষ্ঠানের যদি বর্তমানে একটি @@PRODUCT_NAME@@ বাণিজ্যিক লগ-ইন উপস্থিত থাকে তাহলে এই ফর্মটি ব্যবহার করবেন না। আপনার অ্যাকাউন্ট নির্মাণের উদ্দেশ্যে আপনার প্রতিষ্ঠানের @@PRODUCT_NAME@@ প্রাতিষ্ঠানিক অ্যাডমিনিস্ট্রেটরের সাথে যোগাযোগ করুন। এর ফলে আপনি আপনার প্রতিষ্ঠানের সাথে সংযুক্ত থাকতে পারবেন।&lt;/strong&gt; </target></trans-unit>
       <trans-unit id="usercreate.personalSummary">
 <source> A home user login will enable you to manage systems you own for personal use and make personal purchases of Red Hat products and services. &lt;strong&gt;(You should not create a home user login if you will use a Red Hat login for managing systems owned by a business or for making business purchases - for business needs, &lt;a href="/rhn/newlogin/CreateCorporate.do?account_type=create_corporate"&gt;create a business login&lt;/a&gt; instead.)&lt;/strong&gt; </source>
         <context-group name="ctx">

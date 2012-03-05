@@ -1524,12 +1524,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/newlogin/CreateAccount</context>
         </context-group>
       <target>建立登入帳號</target></trans-unit>
-      <trans-unit id="usercreate.corpSummary">
-<source>A business login will enable you to administer systems owned by your business and to make business purchases of Red Hat products and services. &lt;strong&gt;If your organization has an existing @@PRODUCT_NAME@@ business login, you should not use this form. Instead, you will need to contact your @@PRODUCT_NAME@@ Organization Administrator to create your account so you are registered with your organization.&lt;/strong&gt; </source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/newlogin/CreateCorporate</context>
-        </context-group>
-      <target>企業登錄帳號能讓您管理公司內部的系統，並購買 Red Hat 的商業級產品與服務。&lt;strong&gt;如果您的組織已經擁有 @@PRODUCT_NAME@@ 的企業登錄帳號，請勿使用本表格。相反地，您應該連絡您的 @@PRODUCT_NAME@@ 組織管理員以建立您的帳號，這麼一來您便能向組織註冊。&lt;/strong&gt;</target></trans-unit>
       <trans-unit id="usercreate.personalSummary">
 <source> A home user login will enable you to manage systems you own for personal use and make personal purchases of Red Hat products and services. &lt;strong&gt;(You should not create a home user login if you will use a Red Hat login for managing systems owned by a business or for making business purchases - for business needs, &lt;a href="/rhn/newlogin/CreateCorporate.do?account_type=create_corporate"&gt;create a business login&lt;/a&gt; instead.)&lt;/strong&gt; </source>
         <context-group name="ctx">

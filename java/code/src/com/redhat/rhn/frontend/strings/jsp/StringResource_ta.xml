@@ -1524,12 +1524,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/newlogin/CreateAccount</context>
         </context-group>
       <target>ஒரு புகுபதிவு உருவாக்கவும்</target></trans-unit>
-      <trans-unit id="usercreate.corpSummary">
-<source>A business login will enable you to administer systems owned by your business and to make business purchases of Red Hat products and services. &lt;strong&gt;If your organization has an existing @@PRODUCT_NAME@@ business login, you should not use this form. Instead, you will need to contact your @@PRODUCT_NAME@@ Organization Administrator to create your account so you are registered with your organization.&lt;/strong&gt; </source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/newlogin/CreateCorporate</context>
-        </context-group>
-      <target>ஒரு தொழில் பதிவு உங்கள் கணினிகளை நிர்வகிக்கவும், Red Hat தயாரிப்புகள் மற்றும் சேவைகளை தொழில்முறை தேவைக்காக வாங்கவும் செயல்படுத்தும் &lt;strong&gt;உங்கள் நிறுவனம் ஏற்கனவே தொழில் பதிவினை கொண்டிருந்தால், இந்தப் படிவத்தைப் பயன்படுத்த வேண்டாம். அதற்குப் பதில் நீங்கள் @@PRODUCT_NAME@@ நிறுவன நிர்வாகியை தொடர்பு கொண்டு உங்களுக்கு கணக்கு உருவாக்கி உங்கள் @@PRODUCT_NAME@@ நிறுவனத்தைப் பதிவு செய்யலாம்.&lt;/strong&gt; </target></trans-unit>
       <trans-unit id="usercreate.personalSummary">
 <source> A home user login will enable you to manage systems you own for personal use and make personal purchases of Red Hat products and services. &lt;strong&gt;(You should not create a home user login if you will use a Red Hat login for managing systems owned by a business or for making business purchases - for business needs, &lt;a href="/rhn/newlogin/CreateCorporate.do?account_type=create_corporate"&gt;create a business login&lt;/a&gt; instead.)&lt;/strong&gt; </source>
         <context-group name="ctx">

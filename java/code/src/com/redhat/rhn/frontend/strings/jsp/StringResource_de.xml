@@ -1524,12 +1524,6 @@ dr&amp;uuml;cken und &lt;b&gt;k&amp;ouml;nnen sich nicht wieder einloggen&lt;/b&
           <context context-type="sourcefile">/rhn/newlogin/CreateAccount</context>
         </context-group>
       <target>Login erstellen</target></trans-unit>
-      <trans-unit id="usercreate.corpSummary">
-<source>A business login will enable you to administer systems owned by your business and to make business purchases of Red Hat products and services. &lt;strong&gt;If your organization has an existing @@PRODUCT_NAME@@ business login, you should not use this form. Instead, you will need to contact your @@PRODUCT_NAME@@ Organization Administrator to create your account so you are registered with your organization.&lt;/strong&gt; </source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/newlogin/CreateCorporate</context>
-        </context-group>
-      <target>Ein Firmen-Login erm&amp;ouml;glicht Ihnen die Verwaltung der Systeme Ihres Unternehmens und den geschäftlichen Erwerb von Red Hat Produkten und Dienstleistungen. &lt;strong&gt;Wenn Ihre Organisation ein bestehendes @@PRODUCT_NAME@@ Firmen-Login besitzt, dann sollten Sie dieses Formular nicht verwenden. Setzen Sie sich stattdessen mit Ihrem @@PRODUCT_NAME@@-Organisations-Administrator in Verbindung, um Ihren Account so zu erstellen, dass Sie bei Ihrer Organisation registriert sind.&lt;/strong&gt; </target></trans-unit>
       <trans-unit id="usercreate.personalSummary">
 <source> A home user login will enable you to manage systems you own for personal use and make personal purchases of Red Hat products and services. &lt;strong&gt;(You should not create a home user login if you will use a Red Hat login for managing systems owned by a business or for making business purchases - for business needs, &lt;a href="/rhn/newlogin/CreateCorporate.do?account_type=create_corporate"&gt;create a business login&lt;/a&gt; instead.)&lt;/strong&gt; </source>
         <context-group name="ctx">
