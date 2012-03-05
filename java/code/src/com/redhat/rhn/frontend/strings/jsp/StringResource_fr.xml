@@ -7257,12 +7257,6 @@ ni aux outils de gestion d'organisation si vous choisissez de supprimer ce rôle
 
 
 
-      <trans-unit id="systemcompare.jsp.nodifference">
-<source>No differences.</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">NOTFILLEDOUT</context>
-        </context-group>
-      <target>Aucune différence.</target></trans-unit>
 
       <trans-unit id="systemcompare.jsp.package">
 <source>Package</source>

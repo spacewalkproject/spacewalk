@@ -7258,12 +7258,6 @@ und Organisationsmanagement-Tools haben, sollten Sie diese Rolle aus Ihrem Login
 
 
 
-      <trans-unit id="systemcompare.jsp.nodifference">
-<source>No differences.</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">NOTFILLEDOUT</context>
-        </context-group>
-      <target>Keine Unterschiede.</target></trans-unit>
 
       <trans-unit id="systemcompare.jsp.package">
 <source>Package</source>
