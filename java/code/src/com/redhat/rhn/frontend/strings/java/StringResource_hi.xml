@@ -2244,12 +2244,6 @@ available for this kickstart profile to function properly.
         </context-group>
       <target>कुंजी मिटाएँ</target></trans-unit>
 
-      <trans-unit id="toolbar.create.user">
-<source>create new user</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/UserList</context>
-        </context-group>
-      <target>नया उपयोक्ता बनाएँ</target></trans-unit>
 
 
 

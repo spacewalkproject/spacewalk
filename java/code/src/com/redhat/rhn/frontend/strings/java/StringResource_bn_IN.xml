@@ -2250,12 +2250,6 @@ available for this kickstart profile to function properly.
         </context-group>
       <target>কি মুছে ফেলুন</target></trans-unit>
 
-      <trans-unit id="toolbar.create.user">
-<source>create new user</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/UserList</context>
-        </context-group>
-      <target>নতুন ব্যবহারকারী নির্মাণ</target></trans-unit>
 
 
 

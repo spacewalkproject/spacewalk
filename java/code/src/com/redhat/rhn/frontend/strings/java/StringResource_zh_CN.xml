@@ -2269,12 +2269,6 @@ available for this kickstart profile to function properly.
         </context-group>
       <target>删除密钥</target></trans-unit>
 
-      <trans-unit id="toolbar.create.user">
-<source>create new user</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/UserList</context>
-        </context-group>
-      <target>创建新用户</target></trans-unit>
 
 
 

@@ -2268,12 +2268,6 @@ rhn-kickstart* パッケージが利用可能であることを確認します�
         </context-group>
       <target>キーの削除</target></trans-unit>
 
-      <trans-unit id="toolbar.create.user">
-<source>create new user</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/UserList</context>
-        </context-group>
-      <target>新規ユーザーの作成</target></trans-unit>
 
 
 

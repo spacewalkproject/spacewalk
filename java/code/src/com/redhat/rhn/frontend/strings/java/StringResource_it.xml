@@ -2268,12 +2268,6 @@ disponibili per un corretto funzionamento di questo profilo kickstart.
         </context-group>
       <target>cancella chiave</target></trans-unit>
 
-      <trans-unit id="toolbar.create.user">
-<source>create new user</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/UserList</context>
-        </context-group>
-      <target>crea un nuovo utente</target></trans-unit>
 
 
 
