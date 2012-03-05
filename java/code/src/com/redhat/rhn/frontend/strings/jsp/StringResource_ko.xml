@@ -932,12 +932,6 @@
 
 
 
-	<trans-unit id="preferences.pending-actions.name">
-         <source>Recently Scheduled Actions</source>
-		 <context-group name="ctx">
-		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
-		 </context-group>
-	<target>최근 스케줄된 작업</target></trans-unit>
 
 
 	<trans-unit id="preferences.recently-registered-systems.name">
