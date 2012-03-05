@@ -6195,12 +6195,6 @@ Follow this url to see the full list of inactive systems:
         </context-group>
       <target></target></trans-unit>
 
-      <trans-unit id="kickstart.schedule.nosubs">
-        <source>You have no remaining subscriptions to the @@PRODUCT_NAME@@ provisioning channel for this system's current base channel.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/kickstart/ScheduleKickstart.do</context>
-        </context-group>
-<target>সিস্টেমের বর্তমান বেস চ্যানেলের জন্য @@PRODUCT_NAME@@ provisioning চ্যানেলে পর্যাপ্ত সাবস্ক্রিপশন অবশিষ্ট নেই।</target></trans-unit>
 
       <trans-unit id="kickstart.schedule.nopackage">
         <source>Could not find the needed @@PRODUCT_NAME@@ provisioning packages given this system's current base channel and desired target channel: {0}</source>

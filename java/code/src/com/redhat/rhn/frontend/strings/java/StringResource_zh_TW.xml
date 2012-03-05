@@ -6188,12 +6188,6 @@ Follow this url to see the full list of inactive systems:
         </context-group>
       <target>無法 kickstart 系統 {0} ，因為它沒有 {1} 網路裝置。</target></trans-unit>
 
-      <trans-unit id="kickstart.schedule.nosubs">
-        <source>You have no remaining subscriptions to the @@PRODUCT_NAME@@ provisioning channel for this system's current base channel.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/kickstart/ScheduleKickstart.do</context>
-        </context-group>
-<target>您已經沒有剩餘的訂閱權利至此系統目前基礎頻道的 @@PRODUCT_NAME@@ provisioning 頻道。</target></trans-unit>
 
       <trans-unit id="kickstart.schedule.nopackage">
         <source>Could not find the needed @@PRODUCT_NAME@@ provisioning packages given this system's current base channel and desired target channel: {0}</source>

@@ -6220,12 +6220,6 @@ Folgen Sie dieser URL f&amp;uuml;r die vollst&amp;auml;ndige Liste inaktiver Sys
         </context-group>
       <target>System {0} kann nicht gekickstartet werden, da es über kein {1} Netzwerkgerät verfügt.</target></trans-unit>
 
-      <trans-unit id="kickstart.schedule.nosubs">
-        <source>You have no remaining subscriptions to the @@PRODUCT_NAME@@ provisioning channel for this system's current base channel.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/kickstart/ScheduleKickstart.do</context>
-        </context-group>
-<target>Sie haben keine verbleibenden Abonnements f&amp;uuml;r den @@PRODUCT_NAME@@ Provisioning-Channel f&amp;uuml;r den derzeitigen Basis-Channel dieses Systems.</target></trans-unit>
 
       <trans-unit id="kickstart.schedule.nopackage">
         <source>Could not find the needed @@PRODUCT_NAME@@ provisioning packages given this system's current base channel and desired target channel: {0}</source>

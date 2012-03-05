@@ -6189,12 +6189,6 @@ url பின்பற்றி செயலிழக்கப்பட்ட �
         </context-group>
       <target></target></trans-unit>
 
-      <trans-unit id="kickstart.schedule.nosubs">
-        <source>You have no remaining subscriptions to the @@PRODUCT_NAME@@ provisioning channel for this system's current base channel.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/kickstart/ScheduleKickstart.do</context>
-        </context-group>
-<target>இந்த கணினியின் நடப்பு அடிப்படை தடத்திற்கு @@PRODUCT_NAME@@ வாய்ப்பளித்தல் தடத்தில் சந்தாக்கள் மீதம் எதுவும் இல்லை.</target></trans-unit>
 
       <trans-unit id="kickstart.schedule.nopackage">
         <source>Could not find the needed @@PRODUCT_NAME@@ provisioning packages given this system's current base channel and desired target channel: {0}</source>

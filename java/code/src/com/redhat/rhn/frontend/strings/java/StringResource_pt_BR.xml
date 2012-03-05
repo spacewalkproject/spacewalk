@@ -6201,12 +6201,6 @@ Follow this url to see the full list of inactive systems:
         </context-group>
       <target>O  {0} do sistema não pode sofrer o kickstart uma vez que não possui um dispositivo de rede {1} .</target></trans-unit>
 
-      <trans-unit id="kickstart.schedule.nosubs">
-        <source>You have no remaining subscriptions to the @@PRODUCT_NAME@@ provisioning channel for this system's current base channel.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/kickstart/ScheduleKickstart.do</context>
-        </context-group>
-<target>Você possui subscrições sobrando no canal provisioning do @@PRODUCT_NAME@@ para este canal base atual do sistema.</target></trans-unit>
 
       <trans-unit id="kickstart.schedule.nopackage">
         <source>Could not find the needed @@PRODUCT_NAME@@ provisioning packages given this system's current base channel and desired target channel: {0}</source>

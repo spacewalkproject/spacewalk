@@ -6213,12 +6213,6 @@ Seguite l'url sotto riportato per visualizzare l'elenco completo di sistemi inat
         </context-group>
       <target>Impossibile eseguire kickstart sul sistema {0} poichè il sistema non possiede un dispositivo di rete {1} .</target></trans-unit>
 
-      <trans-unit id="kickstart.schedule.nosubs">
-        <source>You have no remaining subscriptions to the @@PRODUCT_NAME@@ provisioning channel for this system's current base channel.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/kickstart/ScheduleKickstart.do</context>
-        </context-group>
-<target>Non siete in possesso di sottoscrizioni per il canale di provisioning di @@PRODUCT_NAME@@, per il canale di base corrente di questo sistema.</target></trans-unit>
 
       <trans-unit id="kickstart.schedule.nopackage">
         <source>Could not find the needed @@PRODUCT_NAME@@ provisioning packages given this system's current base channel and desired target channel: {0}</source>

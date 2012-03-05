@@ -6216,12 +6216,6 @@ Suivez cet url pour obtenir la liste complète des systèmes inactifs :
         </context-group>
       <target>Le système {0} ne peut pas être kickstarté car il ne dispose pas d'un périphérique réseau {1} .</target></trans-unit>
 
-      <trans-unit id="kickstart.schedule.nosubs">
-        <source>You have no remaining subscriptions to the @@PRODUCT_NAME@@ provisioning channel for this system's current base channel.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/kickstart/ScheduleKickstart.do</context>
-        </context-group>
-<target>Votre abonnement au @@PRODUCT_NAME@@ approvisionnant le canal pour le canal de base de ce système est terminé.</target></trans-unit>
 
       <trans-unit id="kickstart.schedule.nopackage">
         <source>Could not find the needed @@PRODUCT_NAME@@ provisioning packages given this system's current base channel and desired target channel: {0}</source>

@@ -6189,12 +6189,6 @@ Follow this url to see the full list of inactive systems:
         </context-group>
       <target>Невозможно выполнить установку в системе {0} , так как она не оборудована сетевым устройством {1} .</target></trans-unit>
 
-      <trans-unit id="kickstart.schedule.nosubs">
-        <source>You have no remaining subscriptions to the @@PRODUCT_NAME@@ provisioning channel for this system's current base channel.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/kickstart/ScheduleKickstart.do</context>
-        </context-group>
-<target>У вас не осталось подписок к каналу обеспечения @@PRODUCT_NAME@@ для заданного базового канала этой системы.</target></trans-unit>
 
       <trans-unit id="kickstart.schedule.nopackage">
         <source>Could not find the needed @@PRODUCT_NAME@@ provisioning packages given this system's current base channel and desired target channel: {0}</source>

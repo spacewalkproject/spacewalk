@@ -6213,12 +6213,6 @@ Follow this url to see the full list of inactive systems:
         </context-group>
       <target>システム {0} は、{1} ネットワークデバイスを持たないため、キックスタートできません。</target></trans-unit>
 
-      <trans-unit id="kickstart.schedule.nosubs">
-        <source>You have no remaining subscriptions to the @@PRODUCT_NAME@@ provisioning channel for this system's current base channel.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/kickstart/ScheduleKickstart.do</context>
-        </context-group>
-<target>このシステムの現在のベースチャンネルに対して、@@PRODUCT_NAME@@ チャンネルへのサブスクリプションが残っていません。</target></trans-unit>
 
       <trans-unit id="kickstart.schedule.nopackage">
         <source>Could not find the needed @@PRODUCT_NAME@@ provisioning packages given this system's current base channel and desired target channel: {0}</source>
