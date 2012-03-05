@@ -20398,12 +20398,6 @@ value for this entitlement, excluding the default organization's consumption.</s
         </context-group>
       <target>&lt;strong&gt;Conseil :&lt;/strong&gt; Ce montant correspond à la valeur qui se trouve sur votre certificat @@PRODUCT_NAME @@
  pour ce droit d'accès, excluant la consommation de l'organisation par défaut.</target></trans-unit>
-      <trans-unit id="entitlementorgs.allocated_counts">
-<source> {0} (Total Not Allocated: {1})</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementOrgs</context>
-        </context-group>
-      <target> {0} (Total non alloué&amp;nbsp;: {1})</target></trans-unit>
       <trans-unit id="entitlementorgs.tip">
 <source>&lt;strong&gt;*Tip:&lt;/strong&gt; 'Total' refers to the total available entitlements to
 the organizations (excluding the default @@PRODUCT_NAME@@ organization) on this @@PRODUCT_NAME@@. It is not equal to the total available in the @@PRODUCT_NAME@@ certificate</source>

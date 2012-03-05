@@ -20322,12 +20322,6 @@ value for this entitlement, excluding the default organization's consumption.</s
           <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementOrgs</context>
         </context-group>
       <target></target></trans-unit>
-      <trans-unit id="entitlementorgs.allocated_counts">
-<source> {0} (Total Not Allocated: {1})</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementOrgs</context>
-        </context-group>
-      <target> {0} (ஒதுக்கப்படாத மொத்தம்: {1})</target></trans-unit>
       <trans-unit id="entitlementorgs.tip">
 <source>&lt;strong&gt;*Tip:&lt;/strong&gt; 'Total' refers to the total available entitlements to
 the organizations (excluding the default @@PRODUCT_NAME@@ organization) on this @@PRODUCT_NAME@@. It is not equal to the total available in the @@PRODUCT_NAME@@ certificate</source>
