@@ -1081,12 +1081,6 @@
         </context-group>
       <target>গুরুতর কোনো প্রসেসের চাইল্ডের সংখ্যা উল্লিখিত সংখ্যার অধিক হলে</target></trans-unit>
 
-      <trans-unit id="Critical if number of defunct processes exceeds">
-        <source>Critical if number of defunct processes exceeds</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-      <target>গুরুতর অকার্যকর প্রসেস সংখ্যা উল্লিখিত সংখ্যার অধিক হলে</target></trans-unit>
 
       <trans-unit id="Critical if number of stopped processes exceeds">
         <source>Critical if number of stopped processes exceeds</source>

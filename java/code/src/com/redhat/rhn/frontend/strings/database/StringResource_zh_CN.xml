@@ -1081,12 +1081,6 @@
         </context-group>
       <target>如果任何进程的子进程超过这个值将到达 Critical</target></trans-unit>
 
-      <trans-unit id="Critical if number of defunct processes exceeds">
-        <source>Critical if number of defunct processes exceeds</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-      <target>如果非现存的进程超过这个值将到达 Critical</target></trans-unit>
 
       <trans-unit id="Critical if number of stopped processes exceeds">
         <source>Critical if number of stopped processes exceeds</source>

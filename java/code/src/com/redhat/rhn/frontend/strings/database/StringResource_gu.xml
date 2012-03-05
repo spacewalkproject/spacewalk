@@ -1081,12 +1081,6 @@
         </context-group>
       <target>જો કોઈપણ પ્રક્રિયા માટે બાળની સંખ્યા વધી જાય તો જટિલ</target></trans-unit>
 
-      <trans-unit id="Critical if number of defunct processes exceeds">
-        <source>Critical if number of defunct processes exceeds</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-      <target>જો defunct પ્રક્રિયાઓની સંખ્યા વધી જાય તો જટિલ</target></trans-unit>
 
       <trans-unit id="Critical if number of stopped processes exceeds">
         <source>Critical if number of stopped processes exceeds</source>

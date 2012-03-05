@@ -1081,12 +1081,6 @@
         </context-group>
       <target>Statut critique si le nombre d'enfants pour tout processus est dépassé</target></trans-unit>
 
-      <trans-unit id="Critical if number of defunct processes exceeds">
-        <source>Critical if number of defunct processes exceeds</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-      <target>Statut critique si le nombre de processus terminés est dépassé</target></trans-unit>
 
       <trans-unit id="Critical if number of stopped processes exceeds">
         <source>Critical if number of stopped processes exceeds</source>

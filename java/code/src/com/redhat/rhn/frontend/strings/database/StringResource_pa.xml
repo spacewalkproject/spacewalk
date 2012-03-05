@@ -1081,12 +1081,6 @@
         </context-group>
       <target>ਨਾਜ਼ੁਕ, ਜੇਕਰ ਕਿਸੇ ਕਾਰਜ ਦੇ ਅਧੀਨ ਕਾਰਜਾਂ (ਚਾਇਲਡ) ਦੀ ਗਿਣਤੀ ਜਾਵੇ</target></trans-unit>
 
-      <trans-unit id="Critical if number of defunct processes exceeds">
-        <source>Critical if number of defunct processes exceeds</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-      <target>ਨਾਜ਼ੁਕ, ਜੇਕਰ ਡੀ-ਫੰਕਸ਼ ਕਾਰਜਾਂ ਦੀ ਗਿਣਤੀ ਵੱਧ ਜਾਵੇ</target></trans-unit>
 
       <trans-unit id="Critical if number of stopped processes exceeds">
         <source>Critical if number of stopped processes exceeds</source>
