@@ -5423,9 +5423,6 @@ value for this entitlement, excluding the default organization's consumption.</s
                 <source>No Systems selected. Please select a system before executing an action.</source>
         <target>கணினிகள் தேர்ந்தெடுக்கப்படவில்லை. இந்த செயலை இயக்கும் முன் கணினியை தேர்வு செய்யவும்.</target></trans-unit>
 
-        <trans-unit id="system_entitlements.setToManagementEntitled.success">
-                <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) set to &lt;strong&gt;Management&lt;/strong&gt;.</source>
-        <target>&lt;strong&gt;{0}&lt;/strong&gt; கணினி(கள்) &lt;strong&gt;மேலாண்மை செய்ய&lt;/strong&gt;அமைக்கப்படுகிறது.</target></trans-unit>
         <trans-unit id="system_entitlements.setToUpdateEntitled.success">
                 <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) set to &lt;strong&gt;Update&lt;/strong&gt;.</source>
         <target>&lt;strong&gt;{0}&lt;/strong&gt; கணினி(கள்) &lt;strong&gt;புதுப்பிக்க&lt;/strong&gt;அமைக்கப்படுகிறது.</target></trans-unit>

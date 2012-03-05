@@ -5423,9 +5423,6 @@ para este derecho, excluyendo el consumo de la organización predeterminada.</ta
                 <source>No Systems selected. Please select a system before executing an action.</source>
         <target>Ningún sistema seleccionado. Por favor seleccione un sistema antes de ejecutar una acción.</target></trans-unit>
 
-        <trans-unit id="system_entitlements.setToManagementEntitled.success">
-                <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) set to &lt;strong&gt;Management&lt;/strong&gt;.</source>
-        <target>&lt;strong&gt;{0}&lt;/strong&gt; sistema(s) establecidos en el servicio de &lt;strong&gt;Administración&lt;/strong&gt;.</target></trans-unit>
         <trans-unit id="system_entitlements.setToUpdateEntitled.success">
                 <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) set to &lt;strong&gt;Update&lt;/strong&gt;.</source>
         <target>&lt;strong&gt;{0}&lt;/strong&gt; sistema(s) establecidos para &lt;strong&gt;Actualizar&lt;/strong&gt;.</target></trans-unit>

@@ -5423,9 +5423,6 @@ value for this entitlement, excluding the default organization's consumption.</s
                 <source>No Systems selected. Please select a system before executing an action.</source>
         <target>કોઈ સિસ્ટમો પસંદ થયેલ નથી. મહેરબાની કરીને ક્રિયા ચલાવવા પહેલાં સિસ્ટમ પસંદ કરો.</target></trans-unit>
 
-        <trans-unit id="system_entitlements.setToManagementEntitled.success">
-                <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) set to &lt;strong&gt;Management&lt;/strong&gt;.</source>
-        <target>&lt;strong&gt;{0}&lt;/strong&gt; સિસ્ટમો &lt;strong&gt;વ્યવસ્થાપન&lt;/strong&gt; માં સુયોજિત થયેલ છે.</target></trans-unit>
         <trans-unit id="system_entitlements.setToUpdateEntitled.success">
                 <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) set to &lt;strong&gt;Update&lt;/strong&gt;.</source>
         <target>&lt;strong&gt;{0}&lt;/strong&gt; સિસ્ટમો &lt;strong&gt;સુધારો&lt;/strong&gt; માટે સુયોજિત થઈ છે.</target></trans-unit>
