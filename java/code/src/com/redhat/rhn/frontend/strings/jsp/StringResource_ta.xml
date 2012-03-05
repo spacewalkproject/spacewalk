@@ -18979,13 +18979,6 @@ Note that only one set of ISO images is necessary to install any particular rele
           <context context-type="sourcefile">/rhn/software/channel/downloads/Download.do</context>
         </context-group>
       <target>பழைய வெளியீடுகளுக்கு ISO உருக்களை பார்க்கவும்</target></trans-unit>
-      <trans-unit id="isodownload.missing-file">
-<source>&lt;strong&gt;Missing file:&lt;/strong&gt; {0}</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/software/channel/downloads/Download.do</context>
-		  <context context-type="paramnotes">Missing file: rhel-3-u8-rhcs-i386-disc1.iso</context>
-        </context-group>
-      <target>&lt;strong&gt;விடுபட்ட கோப்பு:&lt;/strong&gt; {0}</target></trans-unit>
 
       <trans-unit id="isodownload.no-access">
 <source>The channel you have attempted to access either does not exist, or you are not allowed access.  Please recheck the link that brought you to this page.</source>
