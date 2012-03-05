@@ -16422,12 +16422,6 @@ Kickstart করার সময় অনুগ্রহ করে সিস্ট
             <context context-type="sourcefile">/rhn/account/LocalePreferences.do</context>
         </context-group>
     <target>ইংরাজি</target></trans-unit>
-    <trans-unit id="preferences.jsp.lang.fr">
-        <source>French</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/account/LocalePreferences.do</context>
-        </context-group>
-    <target>ফ্রেঞ্চ</target></trans-unit>
     <trans-unit id="preferences.jsp.lang.gu">
         <source>Gujarati</source>
         <context-group name="ctx">

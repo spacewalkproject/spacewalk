@@ -16459,12 +16459,6 @@ the &lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;Activation Key
             <context context-type="sourcefile">/rhn/account/LocalePreferences.do</context>
         </context-group>
     <target>英语</target></trans-unit>
-    <trans-unit id="preferences.jsp.lang.fr">
-        <source>French</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/account/LocalePreferences.do</context>
-        </context-group>
-    <target>法语</target></trans-unit>
     <trans-unit id="preferences.jsp.lang.gu">
         <source>Gujarati</source>
         <context-group name="ctx">
