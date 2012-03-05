@@ -8393,12 +8393,6 @@ Please note that some manual configuration of these scripts may still be require
        <trans-unit id="repos.jsp.message.taskomaticdown">
           <source>The scheduling service appears down.  Please contact your Satellite administrator.</source>
         </trans-unit>
-        <trans-unit id="toolbar.create.repos">
-          <source>create new repository</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/channel/manage/repo/RepoList.do</context>
-          </context-group>
-        <target>创建新的库</target></trans-unit>
         <trans-unit id="toolbar.delete.repos">
           <source>delete repository</source>
           <context-group name="ctx">
