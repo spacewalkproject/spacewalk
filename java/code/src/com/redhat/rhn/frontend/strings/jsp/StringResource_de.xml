@@ -13903,12 +13903,6 @@ dieser Revisionen.  M&amp;ouml;chten Sie dies wirklich tun?</target></trans-unit
 
 
 
-    <trans-unit id="quota.jsp.spaceUsed">
-        <source>Total Space Used*</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/Quota.do</context>
-        </context-group>
-    <target>Insgesamt verbrauchter Speicherplatz*</target></trans-unit>
 
 
     <!-- globalfilelist.jsp -->

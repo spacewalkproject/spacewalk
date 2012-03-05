@@ -13891,12 +13891,6 @@ para qualquer uma das revisões, assim como todo o histórico de implementação
 
 
 
-    <trans-unit id="quota.jsp.spaceUsed">
-        <source>Total Space Used*</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/Quota.do</context>
-        </context-group>
-    <target>Total de Espaço Usado*</target></trans-unit>
 
 
     <!-- globalfilelist.jsp -->

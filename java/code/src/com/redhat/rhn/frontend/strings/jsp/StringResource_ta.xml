@@ -13868,12 +13868,6 @@ any of these revisions.  Are you sure you want to do this?</source>
 
 
 
-    <trans-unit id="quota.jsp.spaceUsed">
-        <source>Total Space Used*</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/Quota.do</context>
-        </context-group>
-    <target>பயன்படுத்தப்பட்ட மொத்த இடம்*</target></trans-unit>
 
 
     <!-- globalfilelist.jsp -->
