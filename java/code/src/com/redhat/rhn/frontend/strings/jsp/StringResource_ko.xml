@@ -5331,12 +5331,6 @@ value for this entitlement, excluding the default organization's consumption.</s
         </context-group>
      <target>다음에는 프로파일된 시스템 목록과 이에 상응하는 기본 인타이틀먼트 및 추가 인타이틀먼트가 있습니다. 인타이틀먼트의 수준을 변경하기 위해서 수정하려는 시스템을 고르시고 적절한 옵션을 선택하십시오.</target></trans-unit>
 
-     <trans-unit id="systementitlements.jsp.para3">
-		<source>&lt;strong&gt; If you need additional entitlements,&lt;/strong&gt; please visit &lt;a href="/rhn/account/SubscriptionManagement.do"&gt; &lt;strong&gt;Purchase or Renew&lt;/strong&gt;&lt;/a&gt; via the left navigation bar. Please note that you will need to purchase a Red Hat Enterprise Linux subscription for additional &lt;strong&gt;update&lt;/strong&gt; base entitlements.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/systems/SystemEntitlements</context>
-        </context-group>
-     <target>&lt;strong&gt; 추가적인 인타이틀먼트가 필요하다면,&lt;/strong&gt; 좌측의 내비게이션 바를 이용하여 &lt;a href="rhn/account/SubscriptionManagement.do"&gt; &lt;strong&gt;구매 혹은 갱신&lt;/strong&gt;&lt;/a&gt; 을 방문하시기 바랍니다. 추가적인 &lt;strong&gt;업데이트&lt;/strong&gt; 기본 인타이틀먼트를 위해 Red Hat Enterprise Linux 서브스크립션을 구매하셔야 합니다.</target></trans-unit>
 
      <trans-unit id="systementitlements.jsp.nodata">
 		<source>No systems.</source>

@@ -5332,12 +5332,6 @@ value for this entitlement, excluding the default organization's consumption.</s
         </context-group>
      <target>Di seguito viene riportato un elenco dei vostri sistemi, con i rispettivi entitlement di base e quelli aggiuntivi presenti all'interno delle colonne. Per modificare i livelli degli entitlement, selezionate i sistemi in questione e scegliete l'azione più appropriata.</target></trans-unit>
 
-     <trans-unit id="systementitlements.jsp.para3">
-		<source>&lt;strong&gt; If you need additional entitlements,&lt;/strong&gt; please visit &lt;a href="/rhn/account/SubscriptionManagement.do"&gt; &lt;strong&gt;Purchase or Renew&lt;/strong&gt;&lt;/a&gt; via the left navigation bar. Please note that you will need to purchase a Red Hat Enterprise Linux subscription for additional &lt;strong&gt;update&lt;/strong&gt; base entitlements.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/systems/SystemEntitlements</context>
-        </context-group>
-     <target>&lt;strong&gt; Se avete bisogno di entitlement aggiuntivi,&lt;/strong&gt; &lt;a href="/rhn/account/SubscriptionManagement.do"&gt; &lt;strong&gt;Acquista o Rinnova&lt;/strong&gt;&lt;/a&gt; tramite la barra di navigazione di sinistra. Vi preghiamo di notare che sarà necesario l'acquisto di una sottoscrizione Red Hat Enterprise Linux per entitlement di base di &lt;strong&gt;aggiornamenti&lt;/strong&gt; supplementari.</target></trans-unit>
 
      <trans-unit id="systementitlements.jsp.nodata">
 		<source>No systems.</source>

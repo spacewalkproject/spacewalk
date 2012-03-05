@@ -5332,12 +5332,6 @@ value for this entitlement, excluding the default organization's consumption.</s
         </context-group>
      <target>প্রোফাইল সহ সিস্টেমের তালিকা নীচে উল্লিখিত হয়েছে। পাশাপাশি যথাযত চ্যানেলের মধ্যে প্রধান ও অতিরিক্ত এনটাইটেলমেন্ট প্রদর্শিত হয়েছে। এনটাইটেলমেন্টের স্তর পরিবর্তন করতে প্রযোজ্য সিস্টেমগুলি নির্বাচন করে প্রয়েজনীয় কর্ম নির্ধারণ করুন।</target></trans-unit>
 
-     <trans-unit id="systementitlements.jsp.para3">
-		<source>&lt;strong&gt; If you need additional entitlements,&lt;/strong&gt; please visit &lt;a href="/rhn/account/SubscriptionManagement.do"&gt; &lt;strong&gt;Purchase or Renew&lt;/strong&gt;&lt;/a&gt; via the left navigation bar. Please note that you will need to purchase a Red Hat Enterprise Linux subscription for additional &lt;strong&gt;update&lt;/strong&gt; base entitlements.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/systems/SystemEntitlements</context>
-        </context-group>
-     <target>&lt;strong&gt; অতিরিক্ত এনটাইটেলমেন্ট প্রয়োজন হলে&lt;/strong&gt; অনুগ্রহ করে বাঁদিকের ন্যাভিগেশন বার থেকে &lt;a href="/rhn/account/SubscriptionManagement.do"&gt; &lt;strong&gt;Purchase or Renew&lt;/strong&gt;&lt;/a&gt; শীর্ষক লিঙ্ক দেখুন। উল্লেখ্য, &lt;strong&gt;update&lt;/strong&gt; সংক্রান্ত অতিরিক্ত প্রধান এনটাইটেলমেন্টের জন্য Red Hat Enterprise Linux সাবস্ক্রিপশন ক্রয় করা আবশ্যক।</target></trans-unit>
 
      <trans-unit id="systementitlements.jsp.nodata">
 		<source>No systems.</source>

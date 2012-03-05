@@ -5671,12 +5671,6 @@ value for this entitlement, excluding the default organization's consumption.</s
         </context-group>
      </trans-unit>
 
-     <trans-unit id="systementitlements.jsp.para3">
-		<source>&lt;strong&gt; If you need additional entitlements,&lt;/strong&gt; please visit &lt;a href="/rhn/account/SubscriptionManagement.do"&gt; &lt;strong&gt;Purchase or Renew&lt;/strong&gt;&lt;/a&gt; via the left navigation bar. Please note that you will need to purchase a Red Hat Enterprise Linux subscription for additional &lt;strong&gt;update&lt;/strong&gt; base entitlements.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/systems/SystemEntitlements</context>
-        </context-group>
-     </trans-unit>
 
      <trans-unit id="systementitlements.jsp.nodata">
 		<source>No systems.</source>

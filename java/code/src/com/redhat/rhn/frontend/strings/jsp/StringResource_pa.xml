@@ -5332,12 +5332,6 @@ value for this entitlement, excluding the default organization's consumption.</s
         </context-group>
      <target>ਤੁਹਾਡਾ ਪਰੋਫਾਈਲ ਵਾਲਾ ਸਿਸਟਮ, ਖਾਸ ਕਾਲਮ ਵਿੱਚ ਵੇਖਾਏ ਵਾਧੂ ਇੰਟਾਈਟਲਮੈਂਟ ਅਤੇ ਆਪਣੇ ਅਧਾਰ ਤੇ ਅਧਾਰਿਤ ਹੈ। ਇੰਟਾਈਟਲਮੈਂਟ ਪੱਧਰ ਤਬਦੀਲ ਕਰਨ ਲਈ, ਸਿਸਟਮ ਜੋ ਤੁਸੀਂ ਤਬਦੀਲ ਕਰਨਾ ਹੈ ਚੁਣੋ,ਅਤੇ ਹੇਠੋਂ ਲੋੜੀਂਦੀ ਕਾਰਵਾਈ ਚੁਣੋ।</target></trans-unit>
 
-     <trans-unit id="systementitlements.jsp.para3">
-		<source>&lt;strong&gt; If you need additional entitlements,&lt;/strong&gt; please visit &lt;a href="/rhn/account/SubscriptionManagement.do"&gt; &lt;strong&gt;Purchase or Renew&lt;/strong&gt;&lt;/a&gt; via the left navigation bar. Please note that you will need to purchase a Red Hat Enterprise Linux subscription for additional &lt;strong&gt;update&lt;/strong&gt; base entitlements.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/systems/SystemEntitlements</context>
-        </context-group>
-     <target>&lt;strong&gt; ਜੇ ਤੁਹਾਨੂੰ ਵਾਧੂ ਇੰਟਾਈਟਲਮੈਂਟ ਦੀ ਲੋੜ ਹੈ,&lt;/strong&gt; ਕਿਰਪਾ ਕਰਕੇ &lt;a href="/rhn/account/SubscriptionManagement.do"&gt; &lt;strong&gt;ਖਰੀਦ ਜਾਂ ਮੁੜ ਨਵਾਂ&lt;/strong&gt;&lt;/a&gt; ਖੱਬੇ ਨੈਵੀਗੇਸ਼ਨ ਪੱਟੀ ਦੁਆਰਾ ਵੇਖੋ। ਕਿਰਪਾ ਕਰਕੇ ਯਾਦ ਰੱਖੋ ਕਿ ਤੁਹਾਨੂੰ ਵਾਧੂ &lt;strong&gt;ਅੱਪਡੇਟ&lt;/strong&gt; ਅਧਾਰ ਇੰਟਾਈਟਲਮੈਂਟ ਲਈ Red Hat Enterprise Linux ਮੈਂਬਰੀ ਖਰੀਦਣੀ ਪਵੇਗੀ।</target></trans-unit>
 
      <trans-unit id="systementitlements.jsp.nodata">
 		<source>No systems.</source>

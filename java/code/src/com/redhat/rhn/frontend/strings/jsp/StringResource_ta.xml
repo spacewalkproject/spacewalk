@@ -5332,12 +5332,6 @@ value for this entitlement, excluding the default organization's consumption.</s
         </context-group>
      <target>உங்கள் விவரக்குறிப்புள்ள கணினியின் பட்டியல் அதற்கான நிரலில் அதன் அடிப்படை மற்றும் கூடுதல் உரிமத்துடன் காட்டப்படும். உரிம நிலைகளை மாற்ற, மாற்ற வேண்டிய கணினிகளை தேர்வு செய்து அதற்கான செயலை கீழே செய்யவும்.</target></trans-unit>
 
-     <trans-unit id="systementitlements.jsp.para3">
-		<source>&lt;strong&gt; If you need additional entitlements,&lt;/strong&gt; please visit &lt;a href="/rhn/account/SubscriptionManagement.do"&gt; &lt;strong&gt;Purchase or Renew&lt;/strong&gt;&lt;/a&gt; via the left navigation bar. Please note that you will need to purchase a Red Hat Enterprise Linux subscription for additional &lt;strong&gt;update&lt;/strong&gt; base entitlements.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/systems/SystemEntitlements</context>
-        </context-group>
-     <target>&lt;strong&gt; உங்களுக்கு கூடுதல் உரிமம் தேவைப்பட்டால்,&lt;/strong&gt; &lt;a href="rhn/account/SubscriptionManagement.do"&gt; &lt;strong&gt;Purchase or Renew&lt;/strong&gt;&lt;/a&gt; ஐ இடது திசையமைப்பு பட்டியின் வழியாக பார்க்கவும். கூடுதல் &lt;strong&gt;மேம்பாடு&lt;/strong&gt; அடிப்படை உரிமத்திற்கு நீங்கள் Red Hat Enterprise Linux சந்தாவினை வாங்க வேண்டும்.</target></trans-unit>
 
      <trans-unit id="systementitlements.jsp.nodata">
 		<source>No systems.</source>

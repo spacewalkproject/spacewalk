@@ -5332,12 +5332,6 @@ value for this entitlement, excluding the default organization's consumption.</s
         </context-group>
      <target>તમારી રૂપરેખાવાળી સિસ્ટમોની યાદી આને અનુસરે છે, તેમના આધાર સાથે અને વધારાની ઉમેદવારીઓ યોગ્ય સ્તંભોમાં બતાવાયેલ છે. ઉમેદવારી સ્તરો બદલવા માટે, તમે જે સિસ્ટમો સુધારવા માંગો છો તે પસંદ કરો, અને નીચે યોગ્ય ક્રિયા પસંદ કરો.</target></trans-unit>
 
-     <trans-unit id="systementitlements.jsp.para3">
-		<source>&lt;strong&gt; If you need additional entitlements,&lt;/strong&gt; please visit &lt;a href="/rhn/account/SubscriptionManagement.do"&gt; &lt;strong&gt;Purchase or Renew&lt;/strong&gt;&lt;/a&gt; via the left navigation bar. Please note that you will need to purchase a Red Hat Enterprise Linux subscription for additional &lt;strong&gt;update&lt;/strong&gt; base entitlements.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/systems/SystemEntitlements</context>
-        </context-group>
-     <target>&lt;strong&gt; જો તમને વધારાની ઉમેદવારીઓ જરૂરી હોય,&lt;/strong&gt; તો મહેરબાની કરીને ડાબી સંશોધક પટ્ટી મારફતે &lt;a href="/rhn/account/SubscriptionManagement.do"&gt; &lt;strong&gt;ખરીદો અથવા ફરી નવું કરો&lt;/strong&gt;&lt;/a&gt; ની મુલાકાત લો. મહેરબાની કરીને નોંધ કરો કે તમને વધારાની &lt;strong&gt;સુધારા&lt;/strong&gt; આધાર ઉમેદવારીઓમાટે Red Hat Enterprise Linux ઉમેદવારી ખરીદવાની જરૂર છે.</target></trans-unit>
 
      <trans-unit id="systementitlements.jsp.nodata">
 		<source>No systems.</source>

@@ -5330,12 +5330,6 @@ value for this entitlement, excluding the default organization's consumption.</s
         </context-group>
      <target>Uma lista dos seus sistemas vem a seguir, com seus direitos a serviços básicos e adicionais exibidos nas colunas correspondentes. Para mudar níveis de direitos a serviços, selecione os sistemas que você deseja modificar, e escolha a ação apropriada abaixo.</target></trans-unit>
 
-     <trans-unit id="systementitlements.jsp.para3">
-		<source>&lt;strong&gt; If you need additional entitlements,&lt;/strong&gt; please visit &lt;a href="/rhn/account/SubscriptionManagement.do"&gt; &lt;strong&gt;Purchase or Renew&lt;/strong&gt;&lt;/a&gt; via the left navigation bar. Please note that you will need to purchase a Red Hat Enterprise Linux subscription for additional &lt;strong&gt;update&lt;/strong&gt; base entitlements.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/systems/SystemEntitlements</context>
-        </context-group>
-     <target>&lt;strong&gt; Se você precisar de mais direitos a serviços,&lt;/strong&gt; por favor visite &lt;a href="/rhn/account/SubscriptionManagement.do"&gt; &lt;strong&gt;Comprar ou Renovar&lt;/strong&gt;&lt;/a&gt; através de barra de navegação esquerda. Por favor note que você precisará comprar uma subscrição do Red Hat Enterprise Linux para ter direito a serviços básicos de &lt;strong&gt;atualização&lt;/strong&gt; adicionais.</target></trans-unit>
 
      <trans-unit id="systementitlements.jsp.nodata">
 		<source>No systems.</source>

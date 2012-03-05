@@ -5333,12 +5333,6 @@ pour ce droit d'accès, moins la consommation par défaut de l'organisation.</ta
         </context-group>
      <target>Une liste des systèmes de votre profil suit. Leurs droits d'accès de base et supplémentaires sont affichés dans les colonnes correspondantes. Pour modifier les niveaux des droits d'accès, sélectionnez les systèmes que vous souhaitez modifier et choisissez l'action appropriée ci-dessous.</target></trans-unit>
 
-     <trans-unit id="systementitlements.jsp.para3">
-		<source>&lt;strong&gt; If you need additional entitlements,&lt;/strong&gt; please visit &lt;a href="/rhn/account/SubscriptionManagement.do"&gt; &lt;strong&gt;Purchase or Renew&lt;/strong&gt;&lt;/a&gt; via the left navigation bar. Please note that you will need to purchase a Red Hat Enterprise Linux subscription for additional &lt;strong&gt;update&lt;/strong&gt; base entitlements.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/systems/SystemEntitlements</context>
-        </context-group>
-     <target>&lt;strong&gt; Si vous avez besoin de droits d'accès supplémentaires,&lt;/strong&gt; rendez-vous sur &lt;a href="/rhn/account/SubscriptionManagement.do"&gt; &lt;strong&gt;Acheter ou renouveler&lt;/strong&gt;&lt;/a&gt; via la barre de navigation de gauche. Notez que vous devrez acheter un abonnement à Red Hat Enterprise Linux pour des droits d'accès de base à &lt;strong&gt;update&lt;/strong&gt; supplémentaires.</target></trans-unit>
 
      <trans-unit id="systementitlements.jsp.nodata">
 		<source>No systems.</source>

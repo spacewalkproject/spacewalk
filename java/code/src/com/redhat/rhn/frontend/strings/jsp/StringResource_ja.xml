@@ -5326,12 +5326,6 @@ value for this entitlement, excluding the default organization's consumption.</s
         </context-group>
      <target>プロフィールされたシステムと、そのベースエンタイトルメント及び付属エンタイトルメントの一覧です。エンタイトルメントレベルを変更するには、変更するシステムを選択してから以下のいずれかのアクションを選択します。</target></trans-unit>
 
-     <trans-unit id="systementitlements.jsp.para3">
-		<source>&lt;strong&gt; If you need additional entitlements,&lt;/strong&gt; please visit &lt;a href="/rhn/account/SubscriptionManagement.do"&gt; &lt;strong&gt;Purchase or Renew&lt;/strong&gt;&lt;/a&gt; via the left navigation bar. Please note that you will need to purchase a Red Hat Enterprise Linux subscription for additional &lt;strong&gt;update&lt;/strong&gt; base entitlements.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/systems/SystemEntitlements</context>
-        </context-group>
-     <target>&lt;strong&gt;追加のエンタイトルメントが必要な場合は、&lt;/strong&gt;左のナビゲーションバーから&lt;a href="/rhn/account/SubscriptionManagement.do"&gt; &lt;strong&gt;購入または更新&lt;/strong&gt;&lt;/a&gt;に行きます。 &lt;strong&gt;Update&lt;/strong&gt; ベースエンタイトルメントが追加で必要な場合は Red Hat Enterprise Linux サブスクリプションの購入が必要になりますので注意してください。</target></trans-unit>
 
      <trans-unit id="systementitlements.jsp.nodata">
 		<source>No systems.</source>

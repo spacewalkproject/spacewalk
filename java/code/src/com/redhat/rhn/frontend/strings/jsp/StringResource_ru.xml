@@ -5329,12 +5329,6 @@ value for this entitlement, excluding the default organization's consumption.</s
         </context-group>
      <target>Ниже приведен список систем с их базовыми и дополнительными полномочиями. Чтобы изменить уровень полномочий, выберите систему, для которой будут выполняться изменения, а затем соответствующее действие ниже.</target></trans-unit>
 
-     <trans-unit id="systementitlements.jsp.para3">
-		<source>&lt;strong&gt; If you need additional entitlements,&lt;/strong&gt; please visit &lt;a href="/rhn/account/SubscriptionManagement.do"&gt; &lt;strong&gt;Purchase or Renew&lt;/strong&gt;&lt;/a&gt; via the left navigation bar. Please note that you will need to purchase a Red Hat Enterprise Linux subscription for additional &lt;strong&gt;update&lt;/strong&gt; base entitlements.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/systems/SystemEntitlements</context>
-        </context-group>
-     <target>&lt;strong&gt; Для приобретения дополнительных полномочий&lt;/strong&gt; перейдите к странице &lt;a href="/rhn/account/SubscriptionManagement.do"&gt; &lt;strong&gt;Приобрести или обновить&lt;/strong&gt;&lt;/a&gt; (через панель навигации слева). Обратите внимание, что для того чтобы получить дополнительные базовые полномочия &lt;strong&gt;обновления&lt;/strong&gt;, необходимо приобрести подписку Red Hat Enterprise Linux.</target></trans-unit>
 
      <trans-unit id="systementitlements.jsp.nodata">
 		<source>No systems.</source>

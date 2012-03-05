@@ -5332,12 +5332,6 @@ value for this entitlement, excluding the default organization's consumption.</s
         </context-group>
      <target>आपके प्रोफाइल किये सिस्टम की सूची, उनके आधार और अतिरिक्त एंटाइटेलमेंट के साथ जिसे उचित कॉलम में दिखाया गया है. एंटाइटेलमेंट स्तर बदलने के लिये उन सिस्टम को चुनें जिसे आप बदलना चाहते हैं औऱ नीचे उचित क्रिया चुनें.</target></trans-unit>
 
-     <trans-unit id="systementitlements.jsp.para3">
-		<source>&lt;strong&gt; If you need additional entitlements,&lt;/strong&gt; please visit &lt;a href="/rhn/account/SubscriptionManagement.do"&gt; &lt;strong&gt;Purchase or Renew&lt;/strong&gt;&lt;/a&gt; via the left navigation bar. Please note that you will need to purchase a Red Hat Enterprise Linux subscription for additional &lt;strong&gt;update&lt;/strong&gt; base entitlements.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/systems/SystemEntitlements</context>
-        </context-group>
-     <target>&lt;strong&gt; अगर आप अतिरिक्त एंटाइटेलमेंट चुनते हैं,&lt;/strong&gt; कृपया बांये संचरण पट्टी से होकर &lt;a href="rhn/account/SubscriptionManagement.do"&gt; &lt;strong&gt;खरीदें या फिर नया करें&lt;/strong&gt;&lt;/a&gt; पर जायें. कृपया नोट करें कि आपको एक Red Hat Enterprise Linux सदस्यता को अतिरिक्त &lt;strong&gt;अद्यतन&lt;/strong&gt; बेस एंटाइटेलमेंट की जरूरत होगी.</target></trans-unit>
 
      <trans-unit id="systementitlements.jsp.nodata">
 		<source>No systems.</source>

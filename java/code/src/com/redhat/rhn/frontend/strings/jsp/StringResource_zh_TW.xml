@@ -5328,12 +5328,6 @@ value for this entitlement, excluding the default organization's consumption.</s
         </context-group>
      <target>接下來是您的系統清單，在不同的欄位中，列出系統的基本與額外權利。要改變權利等級，請選擇您想要修改的系統，然後在下方選擇適當的動作。</target></trans-unit>
 
-     <trans-unit id="systementitlements.jsp.para3">
-		<source>&lt;strong&gt; If you need additional entitlements,&lt;/strong&gt; please visit &lt;a href="/rhn/account/SubscriptionManagement.do"&gt; &lt;strong&gt;Purchase or Renew&lt;/strong&gt;&lt;/a&gt; via the left navigation bar. Please note that you will need to purchase a Red Hat Enterprise Linux subscription for additional &lt;strong&gt;update&lt;/strong&gt; base entitlements.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/systems/SystemEntitlements</context>
-        </context-group>
-     <target>&lt;strong&gt;如果您需要額外的權利&lt;/strong&gt;，請透過左方的導覽列，參閱&lt;a href="/rhn/account/SubscriptionManagement.do"&gt;&lt;strong&gt;購買或更新&lt;/strong&gt;&lt;/a&gt;。請注意，您需要購買 Red Hat Enterprise Linux 的訂閱服務，以享有額外的&lt;strong&gt;更新&lt;/strong&gt;基礎權利。</target></trans-unit>
 
      <trans-unit id="systementitlements.jsp.nodata">
 		<source>No systems.</source>
