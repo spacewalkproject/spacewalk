@@ -15921,12 +15921,6 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
       <target>একটি NFS মাউন্ট ব্যবহার করা হবে:</target></trans-unit>
 
 
-      <trans-unit id="virtualization.provision.first.jsp.storage.nfs.hostname.tip1">
-        <source>&lt;strong&gt;Example:&lt;/strong&gt; mynfshost.example.com</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/virtualization/ProvisionVirtualizationWizard.do</context>
-	</context-group>
-      <target>&lt;strong&gt;উদাহরণ:&lt;/strong&gt; mynfshost.example.com</target></trans-unit>
 
       <trans-unit id="virtualization.provision.first.jsp.storage.nfs.server_directory.message1">
         <source>NFS Server Directory:</source>

@@ -15972,12 +15972,6 @@ Le chemin d'arborescence, le RPM Kickstart, le canal de base, et la génération
       <target>Utiliser un montage NFS&amp;nbsp;:</target></trans-unit>
 
 
-      <trans-unit id="virtualization.provision.first.jsp.storage.nfs.hostname.tip1">
-        <source>&lt;strong&gt;Example:&lt;/strong&gt; mynfshost.example.com</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/virtualization/ProvisionVirtualizationWizard.do</context>
-	</context-group>
-      <target>&lt;strong&gt;Exemple&amp;nbsp;:&lt;/strong&gt; mynfshost.example.com</target></trans-unit>
 
       <trans-unit id="virtualization.provision.first.jsp.storage.nfs.server_directory.message1">
         <source>NFS Server Directory:</source>

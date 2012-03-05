@@ -15964,12 +15964,6 @@ O Caminho de Árvore, Kickstart RPM, Canal de Base e a Geração do Instalador d
       <target>Use um montador NFS:</target></trans-unit>
 
 
-      <trans-unit id="virtualization.provision.first.jsp.storage.nfs.hostname.tip1">
-        <source>&lt;strong&gt;Example:&lt;/strong&gt; mynfshost.example.com</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/virtualization/ProvisionVirtualizationWizard.do</context>
-	</context-group>
-      <target>&lt;strong&gt;Exemplo:&lt;/strong&gt; mynfshost.example.com</target></trans-unit>
 
       <trans-unit id="virtualization.provision.first.jsp.storage.nfs.server_directory.message1">
         <source>NFS Server Directory:</source>
