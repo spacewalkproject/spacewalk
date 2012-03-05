@@ -7141,12 +7141,6 @@ Folgen Sie dieser URL f&amp;uuml;r die vollst&amp;auml;ndige Liste inaktiver Sys
           <context context-type="sourcefile">/rhn/systems/details/SystemChannels.do</context>
         </context-group>
     <target>Anzahl der Berechtigung f&amp;uuml;r '{0}' aktualisiert</target></trans-unit>
-    <trans-unit id="orgsyssub.invalidnum">
-        <source>Provisioning must be a valid number.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/SystemChannels.do</context>
-        </context-group>
-    <target>Provisioning muss eine g&amp;uuml;ltige Zahl sein.</target></trans-unit>
       <trans-unit id="orgsystemsubs.invalid">
         <source>Entitlement modification must be a valid number for {0}.</source>
           <context-group name="ctx">
