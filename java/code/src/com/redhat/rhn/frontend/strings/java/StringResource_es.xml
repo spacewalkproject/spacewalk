@@ -6023,13 +6023,6 @@ de este usuario antes de intentar desactivar esta cuenta.</target></trans-unit>
 
 
 
-    <trans-unit id="bootstrap.config.error.15">
-        <source>The hostname was not valid</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-          <context context-type="sourcefile">/rhn/admin/config/GeneralConfig</context>
-        </context-group>
-      <target>El nombre de host no era válido</target></trans-unit>
 
     <trans-unit id="bootstrap.config.error.16">
         <source>Could not find the CA certificate</source>
