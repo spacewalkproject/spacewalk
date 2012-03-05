@@ -8478,12 +8478,6 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
     <target>"நான் ஏற்கவில்லை" என்ற பொத்தானை தேர்வு செய்து, நீங்கள் விதிமுறைகள் மற்றும் நிபந்தனைகளை நிராகாரித்தால், நீங்கள் உங்கள் @@PRODUCT_NAME@@ கணக்கிலிருந்து வெளியேற்றப்படுவீர்கள்.</target></trans-unit>
 
-  <trans-unit id="tnc.jsp.button-accept">
-    <source>I Accept</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/tnc/</context>
-        </context-group>
-    <target>நான் ஏற்கிறேன்</target></trans-unit>
 
   <trans-unit id="tnc.jsp.button-refuse">
     <source>I Do Not Accept</source>

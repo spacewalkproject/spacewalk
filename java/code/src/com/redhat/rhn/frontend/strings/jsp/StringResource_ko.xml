@@ -8475,12 +8475,6 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
     <target>"동의하지 않습니다" 버튼을 선택하여 이용 약관에 동의하지 않으시면, 자동으로 @@PRODUCT_NAME@@ 계정에서 로그아웃됩니다. </target></trans-unit>
 
-  <trans-unit id="tnc.jsp.button-accept">
-    <source>I Accept</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/tnc/</context>
-        </context-group>
-    <target>동의합니다</target></trans-unit>
 
   <trans-unit id="tnc.jsp.button-refuse">
     <source>I Do Not Accept</source>

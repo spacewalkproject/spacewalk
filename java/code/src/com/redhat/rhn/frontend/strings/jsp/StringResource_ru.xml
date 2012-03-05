@@ -8473,12 +8473,6 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
     <target>При отказе принятия условий и соглашений посредством выбора «Не принимаю» будет выполнен выход из @@PRODUCT_NAME@@.</target></trans-unit>
 
-  <trans-unit id="tnc.jsp.button-accept">
-    <source>I Accept</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/tnc/</context>
-        </context-group>
-    <target>Принимаю</target></trans-unit>
 
   <trans-unit id="tnc.jsp.button-refuse">
     <source>I Do Not Accept</source>

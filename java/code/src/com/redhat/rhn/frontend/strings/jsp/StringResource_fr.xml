@@ -8490,12 +8490,6 @@ Veuillez noter qu'une configuration manuelle de ces scripts peut toujours être 
         </context-group>
     <target>Si vous refusez les termes et conditions ci-dessus en sélectionnant le bouton "Je n'accepte pas", vous serez automatiquement déconnecté de votre compte @@PRODUCT_NAME@@.</target></trans-unit>
 
-  <trans-unit id="tnc.jsp.button-accept">
-    <source>I Accept</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/tnc/</context>
-        </context-group>
-    <target>J'accepte</target></trans-unit>
 
   <trans-unit id="tnc.jsp.button-refuse">
     <source>I Do Not Accept</source>

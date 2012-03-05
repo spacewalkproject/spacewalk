@@ -8477,12 +8477,6 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
     <target>ਜੇਕਰ ਤੁਸੀਂ "ਮੈਂ ਮਨਜ਼ੂਰ ਨਹੀਂ ਕਰਦਾ" ਬਟਨ ਨੂੰ ਦਬਾ ਕੇ ਇਕਰਾਰ ਅਤੇ ਸ਼ਰਤਾਂ ਨੂੰ ਨਾ ਕੀਤਾ ਤਾਂ ਸਵੈ-ਚਾਲਤ ਹੀ ਤੁਸੀਂ @@PRODUCT_NAME@@ ਖਾਤੇ ਤੋਂ ਬਾਹਰ ਆ ਜਾਉਗੇ।</target></trans-unit>
 
-  <trans-unit id="tnc.jsp.button-accept">
-    <source>I Accept</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/tnc/</context>
-        </context-group>
-    <target>ਮੈਂ ਮਨਜ਼ੂਰ ਕਰਦਾ ਹਾਂ</target></trans-unit>
 
   <trans-unit id="tnc.jsp.button-refuse">
     <source>I Do Not Accept</source>
