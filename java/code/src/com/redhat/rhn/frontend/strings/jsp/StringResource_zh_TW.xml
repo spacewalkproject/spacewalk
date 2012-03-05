@@ -16712,12 +16712,6 @@ the &lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;Activation Key
         </context-group>
     <target>建置設定檔</target></trans-unit>
 
-    <trans-unit id="kickstart.session_status.jsp.status_profile_remove">
-        <source>Remove old system profile</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/kickstart/SessionStatus.do</context>
-        </context-group>
-    <target>移除舊的系統設定檔</target></trans-unit>
 
     <trans-unit id="kickstart.session_status.jsp.status_failed">
         <source>Kickstart failed</source>

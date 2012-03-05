@@ -16756,12 +16756,6 @@ para suscribir los sistemas a los canales de software durante el inicio de insta
         </context-group>
     <target>Implementar archivos de configuración</target></trans-unit>
 
-    <trans-unit id="kickstart.session_status.jsp.status_profile_remove">
-        <source>Remove old system profile</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/kickstart/SessionStatus.do</context>
-        </context-group>
-    <target>Remover antiguo perfil de sistema</target></trans-unit>
 
     <trans-unit id="kickstart.session_status.jsp.status_failed">
         <source>Kickstart failed</source>

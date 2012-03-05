@@ -16715,12 +16715,6 @@ Kickstart করার সময় অনুগ্রহ করে সিস্ট
         </context-group>
     <target>কনফিগারেশন ফাইল স্থাপন করুন</target></trans-unit>
 
-    <trans-unit id="kickstart.session_status.jsp.status_profile_remove">
-        <source>Remove old system profile</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/kickstart/SessionStatus.do</context>
-        </context-group>
-    <target>পুরোনো সিস্টেম প্রোফাইল অপসারণ করুন</target></trans-unit>
 
     <trans-unit id="kickstart.session_status.jsp.status_failed">
         <source>Kickstart failed</source>

@@ -16714,12 +16714,6 @@ per sottoscrivere i sistemi ai canali software durante un kickstart.&lt;/span&gt
         </context-group>
     <target>Impiega file di configurazione</target></trans-unit>
 
-    <trans-unit id="kickstart.session_status.jsp.status_profile_remove">
-        <source>Remove old system profile</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/kickstart/SessionStatus.do</context>
-        </context-group>
-    <target>Rimuovi profilo vecchio del sistema</target></trans-unit>
 
     <trans-unit id="kickstart.session_status.jsp.status_failed">
         <source>Kickstart failed</source>

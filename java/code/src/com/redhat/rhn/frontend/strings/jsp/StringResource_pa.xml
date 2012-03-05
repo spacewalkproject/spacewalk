@@ -16716,12 +16716,6 @@ the &lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;Activation Key
         </context-group>
     <target>ਸੰਰਚਨਾ ਫਾਇਲਾਂ ਕ੍ਰਮਬੱਧ ਕਰੋ</target></trans-unit>
 
-    <trans-unit id="kickstart.session_status.jsp.status_profile_remove">
-        <source>Remove old system profile</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/kickstart/SessionStatus.do</context>
-        </context-group>
-    <target>ਪੁਰਾਣਾ ਸਿਸਟਮ ਪਰੋਫਾਈਲ ਹਟਾਓ</target></trans-unit>
 
     <trans-unit id="kickstart.session_status.jsp.status_failed">
         <source>Kickstart failed</source>
