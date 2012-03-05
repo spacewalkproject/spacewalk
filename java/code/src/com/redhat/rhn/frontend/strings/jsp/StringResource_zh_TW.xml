@@ -246,9 +246,6 @@
         <trans-unit id="lookup.jsp.title.channel">
           <source>We're sorry, but the channel could not be found.</source>
         <target>對不起，找不到該頻道。</target></trans-unit>
-        <trans-unit id="lookup.jsp.title.package">
-          <source>We're sorry, but the package could not be found.</source>
-        <target>對不起，找不到該套件。</target></trans-unit>
         <trans-unit id="lookup.jsp.title.action">
           <source>We're sorry, but the action could not be found.</source>
         <target>對不起，找不到該動作。</target></trans-unit>
