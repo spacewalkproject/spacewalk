@@ -19907,9 +19907,6 @@ given channel.</source>
      <trans-unit id="task.status.last.execution">
          <source>Last Execution Times</source>
      <target>Script 的執行時間</target></trans-unit>
-     <trans-unit id="task.status.summary-population">
-         <source>Daily Summary Queue</source>
-     <target>日常摘要</target></trans-unit>
      <trans-unit id="task.status.sync-probe-state">
          <source>Sync Probe State</source>
      <target>偵測狀態</target></trans-unit>

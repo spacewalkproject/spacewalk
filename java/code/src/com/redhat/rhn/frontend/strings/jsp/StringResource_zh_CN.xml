@@ -20014,9 +20014,6 @@ given channel.</source>
      <trans-unit id="task.status.last.execution">
          <source>Last Execution Times</source>
      <target>脚本执行时间</target></trans-unit>
-     <trans-unit id="task.status.summary-population">
-         <source>Daily Summary Queue</source>
-     <target>每日总结</target></trans-unit>
      <trans-unit id="task.status.sync-probe-state">
          <source>Sync Probe State</source>
      <target>探测状态</target></trans-unit>

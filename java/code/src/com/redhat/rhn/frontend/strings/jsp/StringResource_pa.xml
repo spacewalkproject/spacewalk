@@ -19914,9 +19914,6 @@ given channel.</source>
      <trans-unit id="task.status.last.execution">
          <source>Last Execution Times</source>
      <target>ਸਕਰਿਪਟ ਚੱਲਣ ਦਾ ਸਮਾਂ</target></trans-unit>
-     <trans-unit id="task.status.summary-population">
-         <source>Daily Summary Queue</source>
-     <target>ਰੋਜ਼ਾਨਾ ਜਾਣਕਾਰੀ</target></trans-unit>
      <trans-unit id="task.status.sync-probe-state">
          <source>Sync Probe State</source>
      <target>ਪੜਤਾਲਾਂ ਦੀ ਹਾਲਤ</target></trans-unit>
