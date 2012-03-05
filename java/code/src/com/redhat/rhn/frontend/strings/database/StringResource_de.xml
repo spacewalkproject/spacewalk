@@ -3537,9 +3537,6 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/kickstart/SessionStatus.do</context>
         </context-group>
-        <trans-unit id="kickstart.state.created">
-          <source>Kickstart session created but has not yet been used.</source>
-        <target>Kickstart-Sitzung wurde erstellt aber noch nicht benutzt.</target></trans-unit>
         <trans-unit id="kickstart.state.deployed">
           <source>Files required for kickstart action have been installed.</source>
         <target>Dateien, die für die Kickstart-Aktion benötigt werden, wurden installiert.</target></trans-unit>
