@@ -9828,12 +9828,6 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
     <target>비활성 킥스타트 프로파일을 사용하여 @@PRODUCT_NAME@@에 등록된 시스템을 킥스타트할 수 없습니다. 하지만, 비활성 킥스타트 프로파일에 해당하는 킥스타트 프로파일을 수동으로 다운로드 가능하며 베어 메탈 킥스타트로 사용할 수 있습니다.  </target></trans-unit>
 
-    <trans-unit id="kickstart.jsp.org_default">
-        <source>Organization Default</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart/KickstartDetailsEdit</context>
-        </context-group>
-    <target>조직 기본  </target></trans-unit>
 
     <trans-unit id="kickstartscript.jsp.type">
         <source>Script Type</source>

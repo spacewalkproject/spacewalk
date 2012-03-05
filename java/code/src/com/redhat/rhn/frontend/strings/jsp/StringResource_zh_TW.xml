@@ -9827,12 +9827,6 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
     <target>您不能透過非作用中的 kickstart 設定檔來 kickstart 已向 @@PRODUCT_NAME@@ 註冊的系統。然而，非作用中的 kickstart 設定檔的 kickstart 檔案還是可以用作手動下載，以及空機 kickstart。</target></trans-unit>
 
-    <trans-unit id="kickstart.jsp.org_default">
-        <source>Organization Default</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart/KickstartDetailsEdit</context>
-        </context-group>
-    <target>組織的預設值</target></trans-unit>
 
     <trans-unit id="kickstartscript.jsp.type">
         <source>Script Type</source>

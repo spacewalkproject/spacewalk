@@ -9826,12 +9826,6 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
     <target>Вы не можете выполнить кикстарт зарегистрированной в @@PRODUCT_NAME@@ системы, используя при этом неактивный профиль кикстарта. Однако файлы кикстарта такого профиля будут доступны для загрузки и могут быть использованы для осуществления кикстарта «с нуля».</target></trans-unit>
 
-    <trans-unit id="kickstart.jsp.org_default">
-        <source>Organization Default</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart/KickstartDetailsEdit</context>
-        </context-group>
-    <target>Организация по умолчанию</target></trans-unit>
 
     <trans-unit id="kickstartscript.jsp.type">
         <source>Script Type</source>

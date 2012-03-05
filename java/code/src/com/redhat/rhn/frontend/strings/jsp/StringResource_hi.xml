@@ -9831,12 +9831,6 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
     <target>आप @@PRODUCT_NAME@@ में पंजीकृत सिस्टम को किकस्टार्ट नहीं कर सकते हैं एक निष्क्रिय किकस्टार्ट प्रोफाइल के प्रयोग से. हालांकि, निष्क्रिय किकस्टार्ट प्रोफाइल के लिए किकस्टार्ट अभी भी खुद डाउनलोड के लिए उपलब्ध है और बेयर धातु किकस्टार्ट के लिए प्रयोग किया जा सकता है.</target></trans-unit>
 
-    <trans-unit id="kickstart.jsp.org_default">
-        <source>Organization Default</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart/KickstartDetailsEdit</context>
-        </context-group>
-    <target>संगठन मूलभूत</target></trans-unit>
 
     <trans-unit id="kickstartscript.jsp.type">
         <source>Script Type</source>

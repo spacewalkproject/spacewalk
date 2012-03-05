@@ -9843,12 +9843,6 @@ Por favor tenga en cuenta que podría ser necesario configurar manualmente estos
         </context-group>
     <target>No puede realizar un inicio de instalación mediante kickstart para un sistema registrado a @@PRODUCT_NAME@@ usando un perfil kickstart inactivo. Sin embargo, los archivos kickstart para los perfiles kickstart inactivos están aún disponibles para descargar el manual y sirven para realizar inicio de instalaciones kickstart en sistemas vacíos.</target></trans-unit>
 
-    <trans-unit id="kickstart.jsp.org_default">
-        <source>Organization Default</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart/KickstartDetailsEdit</context>
-        </context-group>
-    <target>Predeterminado de la organización</target></trans-unit>
 
     <trans-unit id="kickstartscript.jsp.type">
         <source>Script Type</source>

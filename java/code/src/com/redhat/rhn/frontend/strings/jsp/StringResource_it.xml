@@ -9828,12 +9828,6 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
     <target>Non è possibile eseguire kickstart di un sistema registrato con @@PRODUCT_NAME@@ utilizzando un profilo kickstart inattivo. Tuttavia i file di kickstart per profili kickstart inattivi sono ancora disponibili per un download manuale, e possono essere utilizzati per un kickstart bare metal.</target></trans-unit>
 
-    <trans-unit id="kickstart.jsp.org_default">
-        <source>Organization Default</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart/KickstartDetailsEdit</context>
-        </context-group>
-    <target>Default dell'Organizzazione</target></trans-unit>
 
     <trans-unit id="kickstartscript.jsp.type">
         <source>Script Type</source>

@@ -9839,12 +9839,6 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
     <target>您不能使用交互 kickstart 侧写 kickstart 一个在 @@PRODUCT_NAME@@ 中注册的系统。但是，但仍可手动下载用于非交互 kickstart 侧写的 kickstart 文件，可能还可将其用于裸机 kickstart。</target></trans-unit>
 
-    <trans-unit id="kickstart.jsp.org_default">
-        <source>Organization Default</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart/KickstartDetailsEdit</context>
-        </context-group>
-    <target>机构默认</target></trans-unit>
 
     <trans-unit id="kickstartscript.jsp.type">
         <source>Script Type</source>

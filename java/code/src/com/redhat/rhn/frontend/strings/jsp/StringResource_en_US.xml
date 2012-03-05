@@ -10182,12 +10182,6 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
     </trans-unit>
 
-    <trans-unit id="kickstart.jsp.org_default">
-        <source>Organization Default</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart/KickstartDetailsEdit</context>
-        </context-group>
-    </trans-unit>
 
     <trans-unit id="kickstartscript.jsp.type">
         <source>Script Type</source>

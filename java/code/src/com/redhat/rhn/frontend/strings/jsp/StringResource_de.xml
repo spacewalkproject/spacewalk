@@ -9846,12 +9846,6 @@ Bitte beachten Sie, dass m&amp;ouml;glicherweise noch einige manuelle Konfigurat
         </context-group>
     <target>Sie k&amp;ouml;nnen ein System, das bei einem @@PRODUCT_NAME@@ registriert ist nicht mit einem inaktiven Kickstart-Profil kickstarten. Die Kickstart-Dateien f&amp;uuml;r inaktive Kickstart-Profile stehen jedoch weiterhin f&amp;uuml;r das manuelle Herunterladen zur Verf&amp;uuml;gung und k&amp;ouml;nnen f&amp;uuml;r Bare-Metal-Kickstarts verwendet werden.</target></trans-unit>
 
-    <trans-unit id="kickstart.jsp.org_default">
-        <source>Organization Default</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart/KickstartDetailsEdit</context>
-        </context-group>
-    <target>Organisationsstandard</target></trans-unit>
 
     <trans-unit id="kickstartscript.jsp.type">
         <source>Script Type</source>

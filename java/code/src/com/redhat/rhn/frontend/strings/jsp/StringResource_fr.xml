@@ -9844,12 +9844,6 @@ Veuillez noter qu'une configuration manuelle de ces scripts peut toujours être 
         </context-group>
     <target>Vous ne pouvez pas kickstarter un système enregistré sur le @@PRODUCT_NAME@@ en utilisant un profil kickstart inactif. Cependant, les fichiers kickstart pour les profils kickstart inactifs peuvent encore être téléchargés manuellement et  peuvent être utilisés pour les kickstart bare metal.</target></trans-unit>
 
-    <trans-unit id="kickstart.jsp.org_default">
-        <source>Organization Default</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart/KickstartDetailsEdit</context>
-        </context-group>
-    <target>Organisation par défaut</target></trans-unit>
 
     <trans-unit id="kickstartscript.jsp.type">
         <source>Script Type</source>

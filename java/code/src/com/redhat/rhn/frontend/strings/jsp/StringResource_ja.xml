@@ -9829,12 +9829,6 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
     <target>@@PRODUCT_NAME@@ に登録されているシステムは、停止中のキックスタートプロフィールを 使用してキックスタートすることは出来ません。しかし、停止中のキックスタートプロフィールのキックスタートファイルは手作業でダウンロードすることができ、ベアメタルキックスタートに使用できます。</target></trans-unit>
 
-    <trans-unit id="kickstart.jsp.org_default">
-        <source>Organization Default</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart/KickstartDetailsEdit</context>
-        </context-group>
-    <target>企業/組織のデフォルト</target></trans-unit>
 
     <trans-unit id="kickstartscript.jsp.type">
         <source>Script Type</source>

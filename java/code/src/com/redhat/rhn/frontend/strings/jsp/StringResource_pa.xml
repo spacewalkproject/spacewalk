@@ -9830,12 +9830,6 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
     <target>ਤੁਸੀਂ @@PRODUCT_NAME@@ ਉੱਪਰ ਰਜਿਸਟਰ ਕੀਤੇ ਸਿਸਟਮ ਨੂੰ ਨਾ-ਸਰਗਰਮ ਕਿੱਕਸਟਾਰਟ ਪਰੋਫਾਈਲ ਨਾਲ ਕਿੱਕਸਟਾਰਟ ਨਹੀਂ ਕਰ ਸਕਦੇ। ਭਾਵੇਂ, ਨਾ-ਸਰਗਰਮ ਕਿੱਕਸਟਾਰਟ ਪਰੋਫਾਈਲ ਲਈ ਕਿੱਕਸਟਾਰਟ ਫਾਇਲਾਂ ਦਸਤੀ ਡਾਊਨਲੋਡ ਕਰਨ ਲਈ ਉਪਲੱਬਧ ਹਨ ਅਤੇ ਬੇਅਰ ਮੈਟਲ ਕਿੱਕਸਟਾਰਟ ਲਈ ਵਰਤੀਆ ਜਾ ਸਕਦੀਆਂ ਹਨ।</target></trans-unit>
 
-    <trans-unit id="kickstart.jsp.org_default">
-        <source>Organization Default</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart/KickstartDetailsEdit</context>
-        </context-group>
-    <target>ਸੰਗਠਨ ਮੂਲ</target></trans-unit>
 
     <trans-unit id="kickstartscript.jsp.type">
         <source>Script Type</source>

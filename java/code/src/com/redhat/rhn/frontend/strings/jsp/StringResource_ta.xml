@@ -9831,12 +9831,6 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
     <target>நீங்கள் ஒரு கணினியை செயலிழக்கப்பட்ட கிக்ஸ்டார்ட் விவரக்குறிப்பில் @@PRODUCT_NAME@@ன் பதிவு செய்யாமல் கிக்ஸ்டார்ட் செய்ய முடியாது. எனினும் இதனை கைமுறையாக பதிவு செய்து பார் மெட்டல் கிக்ஸ்டார்ட்டுக்கு பயன்படுத்தலாம்.</target></trans-unit>
 
-    <trans-unit id="kickstart.jsp.org_default">
-        <source>Organization Default</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart/KickstartDetailsEdit</context>
-        </context-group>
-    <target>முன்னிருப்பு நிறுவனம்</target></trans-unit>
 
     <trans-unit id="kickstartscript.jsp.type">
         <source>Script Type</source>

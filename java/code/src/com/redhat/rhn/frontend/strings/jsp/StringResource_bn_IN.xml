@@ -9830,12 +9830,6 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
     <target>নিষ্ক্রিয় kickstart প্রোফাইল সহযোগে, @@PRODUCT_NAME@@-র মধ্যে নিবন্ধিত কোনো সিস্টেম kickstart করা যাবে না। তথাপি, বেয়ার-মেটাল kickstart-র উদ্দেশ্যে, নিষ্ক্রিয় kickstart প্রোফাইলের kickstart ফাইলটি ডাউনলোড করে তা ব্যবহার করা যাবে।</target></trans-unit>
 
-    <trans-unit id="kickstart.jsp.org_default">
-        <source>Organization Default</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart/KickstartDetailsEdit</context>
-        </context-group>
-    <target>প্রতিষ্ঠানের ডিফল্ট</target></trans-unit>
 
     <trans-unit id="kickstartscript.jsp.type">
         <source>Script Type</source>

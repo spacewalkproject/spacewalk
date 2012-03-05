@@ -9831,12 +9831,6 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
     <target>અસક્રિય કિકસ્ટાર્ટ રૂપરેખાની મદદથી તમે @@PRODUCT_NAME@@ માં રજીસ્ટર થયેલ સિસ્ટમને કિકસ્ટાર્ટ કરી શકતા નથી. છતાંય, અસક્રિય કિકસ્ટાર્ટ રૂપરેખાઓ માટેની કિકસ્ટાર્ટ ફાઈલો માનવીય ડાઉનલોડ માટે હજુ પણ ઉપલબ્ધ છે અને તે એકદમ ધાતુ કિકસ્ટાર્ટો માટે વાપરી શકાશે.</target></trans-unit>
 
-    <trans-unit id="kickstart.jsp.org_default">
-        <source>Organization Default</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart/KickstartDetailsEdit</context>
-        </context-group>
-    <target>સંસ્થા મૂળભૂત</target></trans-unit>
 
     <trans-unit id="kickstartscript.jsp.type">
         <source>Script Type</source>
