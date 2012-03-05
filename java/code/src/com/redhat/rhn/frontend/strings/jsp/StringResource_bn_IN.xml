@@ -18553,12 +18553,6 @@ Network দ্বারা ই-মেইল আউট-এজ লিস্টে�
 অন্তত ১২ ঘন্টা অথবা যথাসম্ভব পূর্বে অনির্ধারিত রক্ষণাবেক্ষণ কর্ম সম্পর্কে
 সূচনা প্রদান করা হবে।</target></trans-unit>
 
-      <trans-unit id="outage-policy.jsp.emergency-header">
-<source>Emergency Maintenance</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">outage-policy.jsp</context>
-        </context-group>
-      <target>আপতকালীণ রক্ষণাবেক্ষণ কর্ম</target></trans-unit>
 
       <trans-unit id="outage-policy.jsp.notification-header">
 <source>Outage Notifications</source>

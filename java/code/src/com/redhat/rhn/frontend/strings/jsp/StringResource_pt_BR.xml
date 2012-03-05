@@ -18601,12 +18601,6 @@ Network tentará notificar, novamente através da lista de e-mails de
 indisponibilidades (veja abaixo), com pelo menos 12 horas de antecedência,
 ou assim que possível antes da manutenção não programada.</target></trans-unit>
 
-      <trans-unit id="outage-policy.jsp.emergency-header">
-<source>Emergency Maintenance</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">outage-policy.jsp</context>
-        </context-group>
-      <target>Manutenção Emergencial</target></trans-unit>
 
       <trans-unit id="outage-policy.jsp.notification-header">
 <source>Outage Notifications</source>

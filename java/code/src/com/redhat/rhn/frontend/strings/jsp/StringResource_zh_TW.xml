@@ -18547,12 +18547,6 @@ unscheduled maintenance.</source>
         </context-group>
       <target>您可能會遇到未排程的維護時段；但這很罕見。Red Hat Network 會儘可能提前十二小時，以電子郵件通知您這些未排程的維護時段。</target></trans-unit>
 
-      <trans-unit id="outage-policy.jsp.emergency-header">
-<source>Emergency Maintenance</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">outage-policy.jsp</context>
-        </context-group>
-      <target>緊急維護</target></trans-unit>
 
       <trans-unit id="outage-policy.jsp.notification-header">
 <source>Outage Notifications</source>

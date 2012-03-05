@@ -18546,12 +18546,6 @@ Red Hat Network는 Email Outage List (아래 참조) 메일링 리스트를 통�
 최소한 12시간 이전이나 또는 가능한한 빨리 스케줄되지 않은 관리에 대해
 통보해드립니다.</target></trans-unit>
 
-      <trans-unit id="outage-policy.jsp.emergency-header">
-<source>Emergency Maintenance</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">outage-policy.jsp</context>
-        </context-group>
-      <target>긴급 보수</target></trans-unit>
 
       <trans-unit id="outage-policy.jsp.notification-header">
 <source>Outage Notifications</source>

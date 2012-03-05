@@ -18548,12 +18548,6 @@ unscheduled maintenance.</source>
 Red Hat будет предупреждать о выполнении работ по крайней
 мере за 12 часов через список профилактики (см. ниже).</target></trans-unit>
 
-      <trans-unit id="outage-policy.jsp.emergency-header">
-<source>Emergency Maintenance</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">outage-policy.jsp</context>
-        </context-group>
-      <target>Экстренные работы</target></trans-unit>
 
       <trans-unit id="outage-policy.jsp.notification-header">
 <source>Outage Notifications</source>

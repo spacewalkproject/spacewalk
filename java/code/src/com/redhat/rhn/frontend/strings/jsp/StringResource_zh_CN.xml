@@ -18602,12 +18602,6 @@ unscheduled maintenance.</source>
 这个通知邮件会尽量在维护任务发生的12小时前
 进行通知。</target></trans-unit>
 
-      <trans-unit id="outage-policy.jsp.emergency-header">
-<source>Emergency Maintenance</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">outage-policy.jsp</context>
-        </context-group>
-      <target>紧急维护</target></trans-unit>
 
       <trans-unit id="outage-policy.jsp.notification-header">
 <source>Outage Notifications</source>

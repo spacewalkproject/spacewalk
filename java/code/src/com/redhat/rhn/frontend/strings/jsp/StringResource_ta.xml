@@ -18555,12 +18555,6 @@ unscheduled maintenance.</source>
 பட்டியலில் முயற்சிக்கும் (கீழே பார்க்கவும்), குறைந்தது 12 மணிநேரம் அல்லது
 திட்டமிடப்படாத பராமரிப்புக்கு எவ்வளவு சீக்கிரம் முடியுமோ அவ்வளவு சீக்கிரம்</target></trans-unit>
 
-      <trans-unit id="outage-policy.jsp.emergency-header">
-<source>Emergency Maintenance</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">outage-policy.jsp</context>
-        </context-group>
-      <target>அவசர பராமரிப்பு</target></trans-unit>
 
       <trans-unit id="outage-policy.jsp.notification-header">
 <source>Outage Notifications</source>

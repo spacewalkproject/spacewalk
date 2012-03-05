@@ -18610,12 +18610,6 @@ unscheduled maintenance.</source>
 wird dann versuchen, Benutzer ebenfalls via E-Mail-Outage-Liste (siehe unten)
 mindestens 12 Stunden, bzw. so bald wie m&amp;ouml;glich im Voraus zu informieren.</target></trans-unit>
 
-      <trans-unit id="outage-policy.jsp.emergency-header">
-<source>Emergency Maintenance</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">outage-policy.jsp</context>
-        </context-group>
-      <target>Notfallwartung</target></trans-unit>
 
       <trans-unit id="outage-policy.jsp.notification-header">
 <source>Outage Notifications</source>

@@ -18587,12 +18587,6 @@ unscheduled maintenance.</source>
       <target>スケジュールしていないメンテナンスウィンドウもあり得ますが、希です。Red Hat
 Network は、 Email を通じて運用停止リスト(下記)を、スケジュールしていない メンテナンスの少なくとも 12 時間前か、あるいはできるだけ早くお知らせする尽力を します。</target></trans-unit>
 
-      <trans-unit id="outage-policy.jsp.emergency-header">
-<source>Emergency Maintenance</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">outage-policy.jsp</context>
-        </context-group>
-      <target>緊急メンテナンス</target></trans-unit>
 
       <trans-unit id="outage-policy.jsp.notification-header">
 <source>Outage Notifications</source>

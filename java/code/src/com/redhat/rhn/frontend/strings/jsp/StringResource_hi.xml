@@ -18555,12 +18555,6 @@ Network अधिसूचना का प्रयास करेगा, फ�
 (नीचे देखें), गैर अनुसूचित देखभाल के  12 घंटा या
 यथासंभव पूर्व.</target></trans-unit>
 
-      <trans-unit id="outage-policy.jsp.emergency-header">
-<source>Emergency Maintenance</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">outage-policy.jsp</context>
-        </context-group>
-      <target>आकस्मिक अनुरक्षण</target></trans-unit>
 
       <trans-unit id="outage-policy.jsp.notification-header">
 <source>Outage Notifications</source>

@@ -18608,12 +18608,6 @@ de maintenance non programmée, Red Hat Network essayera d'envoyer une
 notification par la liste électronique de défaillances (voir ci-dessous), au moins 12
 heures avant ou aussi rapidement que possible.</target></trans-unit>
 
-      <trans-unit id="outage-policy.jsp.emergency-header">
-<source>Emergency Maintenance</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">outage-policy.jsp</context>
-        </context-group>
-      <target>Maintenance d'urgence</target></trans-unit>
 
       <trans-unit id="outage-policy.jsp.notification-header">
 <source>Outage Notifications</source>

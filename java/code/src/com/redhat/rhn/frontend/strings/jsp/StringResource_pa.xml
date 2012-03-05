@@ -18554,12 +18554,6 @@ unscheduled maintenance.</source>
 (ਹੇਠਾਂ ਵੇਖੋ), ਨਾ-ਤਹਿ ਕੀਤੀ ਨਿਗਰਾਨੀ ਤੋਂ ਪਹਿਲਾਂ ਘੱਟੋ-ਘੱਟ 12 ਘੰਟੇ
 ਜਾਂ ਜਲਦੀ ਤੋਂ ਜਲਦੀ।</target></trans-unit>
 
-      <trans-unit id="outage-policy.jsp.emergency-header">
-<source>Emergency Maintenance</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">outage-policy.jsp</context>
-        </context-group>
-      <target>ਐਂਮਰਜੈਂਸੀ ਪਰਬੰਧਨ</target></trans-unit>
 
       <trans-unit id="outage-policy.jsp.notification-header">
 <source>Outage Notifications</source>

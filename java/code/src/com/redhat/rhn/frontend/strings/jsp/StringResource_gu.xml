@@ -18555,12 +18555,6 @@ Network સૂચન કરશે, ફરીથી ઈમેઈલ આઉટે�
 મારફતેત, ઓછામાં ઓછા ૧૨ કલાકો અથવા બને એટલું જલદી
 અસુનિશ્ચિત જાળવણી માટે.</target></trans-unit>
 
-      <trans-unit id="outage-policy.jsp.emergency-header">
-<source>Emergency Maintenance</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">outage-policy.jsp</context>
-        </context-group>
-      <target>તાત્કાલિક જાળવણી</target></trans-unit>
 
       <trans-unit id="outage-policy.jsp.notification-header">
 <source>Outage Notifications</source>
