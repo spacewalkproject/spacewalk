@@ -3564,9 +3564,6 @@
         <trans-unit id="kickstart.state.package_synch_scheduled">
           <source>Package synchronization scheduled.</source>
         <target>Synchronisation de paquetages programmée.</target></trans-unit>
-        <trans-unit id="kickstart.state.configuration_deploy">
-          <source>Configuration files are being deployed.</source>
-        <target>Les fichiers de configuration sont déployés.</target></trans-unit>
         <trans-unit id="kickstart.state.failed">
           <source>Kickstart failed.</source>
         <target>Kickstart échoué.</target></trans-unit>

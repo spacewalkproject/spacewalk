@@ -3564,9 +3564,6 @@
         <trans-unit id="kickstart.state.package_synch_scheduled">
           <source>Package synchronization scheduled.</source>
         <target>パッケージ同期がスケジュールされました。</target></trans-unit>
-        <trans-unit id="kickstart.state.configuration_deploy">
-          <source>Configuration files are being deployed.</source>
-        <target>設定ファイルは配備されています。</target></trans-unit>
         <trans-unit id="kickstart.state.failed">
           <source>Kickstart failed.</source>
         <target>キックスタートは失敗しました。</target></trans-unit>
