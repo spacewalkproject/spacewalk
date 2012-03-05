@@ -13864,13 +13864,6 @@ para qualquer uma das revisões, assim como todo o histórico de implementação
 
 
 
-    <trans-unit id="quota.jsp.used">
-        <source>Your organization is currently using &lt;strong&gt;{0}&lt;/strong&gt; of space, leaving &lt;strong&gt;{1}&lt;/strong&gt; free.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/Quota.do</context>
-          <context context-type="paramnotes">Your organization is currently using 30.3 KB of space, leaving 9.7 KB free.</context>
-        </context-group>
-    <target>Sua organização está usando &lt;strong&gt;{0}&lt;/strong&gt; de espaço atualmente, deixando &lt;strong&gt;{1}&lt;/strong&gt; livre.</target></trans-unit>
 
 
 
