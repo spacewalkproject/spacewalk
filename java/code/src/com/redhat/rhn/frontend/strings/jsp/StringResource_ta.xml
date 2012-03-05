@@ -20217,12 +20217,6 @@ Alternatively, you will want to download &lt;strong&gt;Incremental Channel Conte
         </context-group>
       <target>மொத்தம் ஒதுக்கப்பட்டது: &lt;strong&gt;{0}&lt;/strong&gt;, மொத்தம் பயனில்: &lt;strong&gt;{1}&lt;/strong&gt;, மொத்தம் பயனில் இல்லாதது (&lt;strong&gt;{2}&lt;/strong&gt;</target></trans-unit>
 
-      <trans-unit id="entitlement_details.tip">
-<source>&lt;span class="small-text"&gt;&lt;strong&gt;Tip:&lt;/strong&gt; These numbers reflect what the current counts are for this entitlement right now across organizations.&lt;/span&gt;</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementDetails</context>
-        </context-group>
-      <target>&lt;span class="small-text"&gt;&lt;strong&gt;துணுக்கு:&lt;/strong&gt; நடப்பு எண்ணிக்கைகள் இந்த உரிமத்திற்கு நிறுவனங்களிடையே பிரதிபலிக்கப்படும்.&lt;/span&gt;</target></trans-unit>
       <trans-unit id="entitlementorgs.orgname">
 <source>Organization Name</source>
         <context-group name="ctx">

@@ -20267,12 +20267,6 @@ Alternatively, you will want to download &lt;strong&gt;Incremental Channel Conte
         </context-group>
       <target>割り当て合計: &lt;strong&gt;{0}&lt;/strong&gt;、使用中合計 &lt;strong&gt;{1}&lt;/strong&gt;、 未使用合計: &lt;strong&gt;{2}&lt;/strong&gt;</target></trans-unit>
 
-      <trans-unit id="entitlement_details.tip">
-<source>&lt;span class="small-text"&gt;&lt;strong&gt;Tip:&lt;/strong&gt; These numbers reflect what the current counts are for this entitlement right now across organizations.&lt;/span&gt;</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementDetails</context>
-        </context-group>
-      <target>&lt;span class="small-text"&gt;&lt;strong&gt;ヒント:&lt;/strong&gt; これらの数字は組織全体に渡って このエンタイトルメントの現在のカウントを反映します。&lt;/span&gt;</target></trans-unit>
       <trans-unit id="entitlementorgs.orgname">
 <source>Organization Name</source>
         <context-group name="ctx">

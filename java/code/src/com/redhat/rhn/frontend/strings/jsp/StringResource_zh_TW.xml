@@ -20207,12 +20207,6 @@ Alternatively, you will want to download &lt;strong&gt;Incremental Channel Conte
         </context-group>
       <target>已分配的總數：&lt;strong&gt;{0}&lt;/strong&gt;，使用中的總數：&lt;strong&gt;{1}&lt;/strong&gt;，非使用中的總數：&lt;strong&gt;{2}&lt;/strong&gt;</target></trans-unit>
 
-      <trans-unit id="entitlement_details.tip">
-<source>&lt;span class="small-text"&gt;&lt;strong&gt;Tip:&lt;/strong&gt; These numbers reflect what the current counts are for this entitlement right now across organizations.&lt;/span&gt;</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementDetails</context>
-        </context-group>
-      <target>&lt;span class="small-text"&gt;&lt;strong&gt;提示：&lt;/strong&gt;這些數字反映了目前整個組織中，所有給這權利使用的數量。&lt;/span&gt;</target></trans-unit>
       <trans-unit id="entitlementorgs.orgname">
 <source>Organization Name</source>
         <context-group name="ctx">

@@ -20694,12 +20694,6 @@ Alternatively, you will want to download &lt;strong&gt;Incremental Channel Conte
         </context-group>
       </trans-unit>
 
-      <trans-unit id="entitlement_details.tip">
-<source>&lt;span class=&quot;small-text&quot;&gt;&lt;strong&gt;Tip:&lt;/strong&gt; These numbers reflect what the current counts are for this entitlement right now across organizations.&lt;/span&gt;</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementDetails</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="entitlementorgs.orgname">
 <source>Organization Name</source>
         <context-group name="ctx">

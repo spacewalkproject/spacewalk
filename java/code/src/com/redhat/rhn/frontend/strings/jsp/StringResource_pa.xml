@@ -20216,12 +20216,6 @@ Alternatively, you will want to download &lt;strong&gt;Incremental Channel Conte
         </context-group>
       <target>ਕੁੱਲ ਨਿਰਧਾਰਤ: &lt;strong&gt;{0}&lt;/strong&gt;, ਵਰਤੋਂ ਵਿੱਚ ਕੁੱਲ: &lt;strong&gt;{1}&lt;/strong&gt;, ਨਾ-ਵਰਤੇ ਕੁੱਲ: &lt;strong&gt;{2}&lt;/strong&gt;</target></trans-unit>
 
-      <trans-unit id="entitlement_details.tip">
-<source>&lt;span class="small-text"&gt;&lt;strong&gt;Tip:&lt;/strong&gt; These numbers reflect what the current counts are for this entitlement right now across organizations.&lt;/span&gt;</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementDetails</context>
-        </context-group>
-      <target>&lt;span class="small-text"&gt;&lt;strong&gt;ਟਿੱਪਣੀ:&lt;/strong&gt; ਇਹ ਨੰਬਰ ਇਸ ਇੰਟਾਈਟਲਮੈਂਟ ਲਈ ਸੰਗਠਨ ਵਿੱਚ ਮੌਜੂਦਾ ਗਿਣਤੀ ਦੱਸਦਾ ਹੈ।&lt;/span&gt;</target></trans-unit>
       <trans-unit id="entitlementorgs.orgname">
 <source>Organization Name</source>
         <context-group name="ctx">

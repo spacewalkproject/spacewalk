@@ -20288,12 +20288,6 @@ como refletido neste certificado do @@PRODUCT_NAME@@. </target></trans-unit>
         </context-group>
       <target>Total Alocado: &lt;strong&gt;{0}&lt;/strong&gt;, Total em Uso: &lt;strong&gt;{1}&lt;/strong&gt;, Total Não Usado: &lt;strong&gt;{2}&lt;/strong&gt;</target></trans-unit>
 
-      <trans-unit id="entitlement_details.tip">
-<source>&lt;span class="small-text"&gt;&lt;strong&gt;Tip:&lt;/strong&gt; These numbers reflect what the current counts are for this entitlement right now across organizations.&lt;/span&gt;</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementDetails</context>
-        </context-group>
-      <target>&lt;span class="small-text"&gt;&lt;strong&gt;Dica:&lt;/strong&gt; Estes números refletem quais são as contas atuais para este serviço nas organizações.&lt;/span&gt;</target></trans-unit>
       <trans-unit id="entitlementorgs.orgname">
 <source>Organization Name</source>
         <context-group name="ctx">
