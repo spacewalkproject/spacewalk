@@ -6092,9 +6092,6 @@ pour ce droit d'accès, moins la consommation par défaut de l'organisation.</ta
 	     <trans-unit id="flexguest.jsp.entitlement_counts_message">
 			<source>{0} consumed, {1} available entitlement</source>
 	     <target>{0} consommés, {1} droit d'accès disponible</target></trans-unit>
-	     <trans-unit id="flexguest.jsp.entitlement_counts_message_1">
-			<source>{0} consumed, {1} available entitlements</source>
-	     <target>{0} consommés, {1} droit d'accès disponible</target></trans-unit>
 	     <trans-unit id="flexguest.jsp.header">
 			<source>Flex Guest Entitlement Consumers</source>
 	     <target>Consommateurs de droits d'accès d'invité Flex</target></trans-unit>

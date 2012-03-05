@@ -6090,9 +6090,6 @@ value for this entitlement, excluding the default organization's consumption.</s
 	     <trans-unit id="flexguest.jsp.entitlement_counts_message">
 			<source>{0} consumed, {1} available entitlement</source>
 	     <target></target></trans-unit>
-	     <trans-unit id="flexguest.jsp.entitlement_counts_message_1">
-			<source>{0} consumed, {1} available entitlements</source>
-	     <target></target></trans-unit>
 	     <trans-unit id="flexguest.jsp.header">
 			<source>Flex Guest Entitlement Consumers</source>
 	     <target></target></trans-unit>

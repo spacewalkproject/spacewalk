@@ -6093,9 +6093,6 @@ für diese Berechtigung, mit Ausnahme des Verbrauchs der Standardorganisation.</
 	     <trans-unit id="flexguest.jsp.entitlement_counts_message">
 			<source>{0} consumed, {1} available entitlement</source>
 	     <target>{0} konsumiert, {1} verfügbare Berechtigung</target></trans-unit>
-	     <trans-unit id="flexguest.jsp.entitlement_counts_message_1">
-			<source>{0} consumed, {1} available entitlements</source>
-	     <target>{0} konsumiert, {1} verfügbare Berechtigungen</target></trans-unit>
 	     <trans-unit id="flexguest.jsp.header">
 			<source>Flex Guest Entitlement Consumers</source>
 	     <target>Verbraucher von Flex-Gast-Berechtigungen</target></trans-unit>

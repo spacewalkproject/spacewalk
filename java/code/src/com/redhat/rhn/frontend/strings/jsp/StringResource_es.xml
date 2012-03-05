@@ -6091,9 +6091,6 @@ para este derecho, excluyendo el consumo de la organización predeterminada.</ta
 	     <trans-unit id="flexguest.jsp.entitlement_counts_message">
 			<source>{0} consumed, {1} available entitlement</source>
 	     <target>{0} consumido, {1} derecho disponible</target></trans-unit>
-	     <trans-unit id="flexguest.jsp.entitlement_counts_message_1">
-			<source>{0} consumed, {1} available entitlements</source>
-	     <target>{0} consumido, {1} derecho disponible</target></trans-unit>
 	     <trans-unit id="flexguest.jsp.header">
 			<source>Flex Guest Entitlement Consumers</source>
 	     <target>Consumidores flexibles de derechos invitados </target></trans-unit>
