@@ -20022,9 +20022,6 @@ given channel.</source>
      <trans-unit id="task.status.last.execution">
          <source>Last Execution Times</source>
      <target>Tempo de Execução do Script</target></trans-unit>
-     <trans-unit id="task.status.last.completed">
-         <source>Last Completed Action</source>
-     <target>Ações Concluídas</target></trans-unit>
      <trans-unit id="task.status.session-cleanup">
          <source>Session Cleanup</source>
      <target>Limpeza de Sessão</target></trans-unit>

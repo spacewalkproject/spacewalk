@@ -19914,9 +19914,6 @@ given channel.</source>
      <trans-unit id="task.status.last.execution">
          <source>Last Execution Times</source>
      <target>સ્ક્રિપ્ટ એક્ઝેક્યુશન સમય</target></trans-unit>
-     <trans-unit id="task.status.last.completed">
-         <source>Last Completed Action</source>
-     <target>સમાપ્ત થયેલ ક્રિયાઓ</target></trans-unit>
      <trans-unit id="task.status.session-cleanup">
          <source>Session Cleanup</source>
      <target></target></trans-unit>

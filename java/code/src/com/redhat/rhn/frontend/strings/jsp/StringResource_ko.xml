@@ -19904,9 +19904,6 @@ given channel.</source>
      <trans-unit id="task.status.last.execution">
          <source>Last Execution Times</source>
      <target>스크립트 실행 시간</target></trans-unit>
-     <trans-unit id="task.status.last.completed">
-         <source>Last Completed Action</source>
-     <target>완료된 작업</target></trans-unit>
      <trans-unit id="task.status.session-cleanup">
          <source>Session Cleanup</source>
      <target></target></trans-unit>
