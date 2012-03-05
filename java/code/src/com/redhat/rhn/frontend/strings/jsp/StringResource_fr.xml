@@ -14468,12 +14468,6 @@ Vous pouvez déployer la dernière version de ce fichier (&lt;a href="{1}"&gt;Re
           <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
         </context-group>
      <target>Le délimiteur de départ ne peut pas contenir le caractère "%".</target></trans-unit>
-	<trans-unit id="config-file-form.error.end-delim-percent">
-<source>End delimiter may not contain the '%' character.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
-        </context-group>
-     <target>Le délimiteur de fin ne peut pas contenir le caractère "%".</target></trans-unit>
 
 		<!-- filedetails errors -->
 	<trans-unit id="filedetails.jsp.error.download">

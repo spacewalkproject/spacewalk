@@ -14463,12 +14463,6 @@ centrally-managed configuration channel, {2}; below is a list of systems you may
           <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
         </context-group>
      <target>起始定界符不能含有 '%' 字符。</target></trans-unit>
-	<trans-unit id="config-file-form.error.end-delim-percent">
-<source>End delimiter may not contain the '%' character.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
-        </context-group>
-     <target>结束定界符不能含有 '%' 字符。</target></trans-unit>
 
 		<!-- filedetails errors -->
 	<trans-unit id="filedetails.jsp.error.download">

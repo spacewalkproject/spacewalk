@@ -14452,12 +14452,6 @@ centrally-managed configuration channel, {2}; below is a list of systems you may
           <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
         </context-group>
      <target>開始デリミタは「%」記号を含むことはできません。</target></trans-unit>
-	<trans-unit id="config-file-form.error.end-delim-percent">
-<source>End delimiter may not contain the '%' character.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
-        </context-group>
-     <target>終了デリミタは「%」記号を含むことはできません。</target></trans-unit>
 
 		<!-- filedetails errors -->
 	<trans-unit id="filedetails.jsp.error.download">

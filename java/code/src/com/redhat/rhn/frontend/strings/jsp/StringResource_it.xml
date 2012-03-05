@@ -14445,12 +14445,6 @@ centrally-managed configuration channel, {2}; below is a list of systems you may
           <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
         </context-group>
      <target>Il delimitatore d'inizio potrebbe non contenere il carattere '%'.</target></trans-unit>
-	<trans-unit id="config-file-form.error.end-delim-percent">
-<source>End delimiter may not contain the '%' character.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
-        </context-group>
-     <target>Il delimitatore di fine potrebbe non contenere il carattere '%'.</target></trans-unit>
 
 		<!-- filedetails errors -->
 	<trans-unit id="filedetails.jsp.error.download">
