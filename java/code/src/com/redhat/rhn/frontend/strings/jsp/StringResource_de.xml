@@ -8735,9 +8735,6 @@ Bitte beachten Sie, dass m&amp;ouml;glicherweise noch einige manuelle Konfigurat
         <trans-unit id="repos.jsp.button-sync">
           <source>Sync Now</source>
         </trans-unit>
-        <trans-unit id="repos.jsp.message.taskoconfig">
-          <source>Taskomatic configuration seems to be malformed. Fix it and scheudule task again.</source>
-        </trans-unit>
         <trans-unit id="repos.jsp.message.schedulefailed">
           <source>Schedule of Repo Sync failed. Check logs for more information.</source>
         </trans-unit>
