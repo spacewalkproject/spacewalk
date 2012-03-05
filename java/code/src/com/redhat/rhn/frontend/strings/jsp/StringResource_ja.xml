@@ -863,12 +863,6 @@
         </context-group>
       <target> </target></trans-unit>
 
-      <trans-unit id="login.jsp.hostbody1">
-<source>@@PRODUCT_NAME@@ is a complete systems management platform for Linux. It's built on open standards and uses a simple, Internet-based graphical interface. It also features a modular design--as networks grow, administrators can add enhanced capabilities for system updates, management, and monitoring of their entire infrastructure.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/Login</context>
-        </context-group>
-      <target>@@PRODUCT_NAME@@ は Linux の完全なシステム管理プラットフォームです。 オープンスタンダードで構築され、 シンプルなインターネットベースのグラフィカルインターフェイスを使用しています。また、 モジュール設計が提供されるため、 管理者はインフラストラクチャ全体のモニタリング、 管理、 システムの更新に対する拡張機能をネットワークの成長に合わせて追加することができます。</target></trans-unit>
 
       <trans-unit id="login.jsp.hostbody2">
 <source>Red Hat currently features three @@PRODUCT_NAME@@ modules:</source>
