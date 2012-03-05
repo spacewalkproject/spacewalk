@@ -7430,9 +7430,6 @@ Follow this url to see the full list of inactive systems:
       <target>O acesso do Canal especificado  ({0}) não é permitido para esta operação.</target></trans-unit>
 
 
-      <trans-unit id="Monitoring Administrators">
-          <source>Monitoring Administrators</source>
-      <target>Administradores de Monitoramento</target></trans-unit>
 
 
       <trans-unit id="user.unspecified.name">

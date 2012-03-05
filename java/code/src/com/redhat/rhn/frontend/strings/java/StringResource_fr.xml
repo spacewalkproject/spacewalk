@@ -7445,9 +7445,6 @@ Suivez cet url pour obtenir la liste complète des systèmes inactifs :
       <target>L'accès au canal ({0}) n'est pas permis pour cette opération.</target></trans-unit>
 
 
-      <trans-unit id="Monitoring Administrators">
-          <source>Monitoring Administrators</source>
-      <target>Administrateurs de contrôle</target></trans-unit>
 
 
       <trans-unit id="user.unspecified.name">

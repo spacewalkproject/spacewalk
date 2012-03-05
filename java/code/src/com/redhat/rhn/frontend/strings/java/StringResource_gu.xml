@@ -7418,9 +7418,6 @@ Follow this url to see the full list of inactive systems:
       <target>આ ક્રિયા માટે ચેનલ પ્રવેશ ({0}) ને પરવાનગી આપેલ નથી.</target></trans-unit>
 
 
-      <trans-unit id="Monitoring Administrators">
-          <source>Monitoring Administrators</source>
-      <target>મોનીટરીંગ સંચાલકો</target></trans-unit>
 
 
       <trans-unit id="user.unspecified.name">

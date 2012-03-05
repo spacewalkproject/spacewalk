@@ -7418,9 +7418,6 @@ url பின்பற்றி செயலிழக்கப்பட்ட �
       <target>இந்த செயல்பாட்டிற்கு ({0}) சேனலை அனுமதிக்கவில்லை.</target></trans-unit>
 
 
-      <trans-unit id="Monitoring Administrators">
-          <source>Monitoring Administrators</source>
-      <target>நிர்வாகிகளை கண்காணித்தல்</target></trans-unit>
 
 
       <trans-unit id="user.unspecified.name">

@@ -7443,9 +7443,6 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
       <target>El acceso de canal ({0}) no es válido para esta operación.</target></trans-unit>
 
 
-      <trans-unit id="Monitoring Administrators">
-          <source>Monitoring Administrators</source>
-      <target>Administradores de monitorización</target></trans-unit>
 
 
       <trans-unit id="user.unspecified.name">

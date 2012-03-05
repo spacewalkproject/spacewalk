@@ -7449,9 +7449,6 @@ Folgen Sie dieser URL f&amp;uuml;r die vollst&amp;auml;ndige Liste inaktiver Sys
       <target>Der Channel-Zugriff ({0}) ist für diese Operation nicht erlaubt.</target></trans-unit>
 
 
-      <trans-unit id="Monitoring Administrators">
-          <source>Monitoring Administrators</source>
-      <target>Monitoring-Administratoren</target></trans-unit>
 
 
       <trans-unit id="user.unspecified.name">

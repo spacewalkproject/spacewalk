@@ -7418,9 +7418,6 @@ Follow this url to see the full list of inactive systems:
       <target>इस कार्य के लिए चैनल पहुँच ({0}) अनुमति प्राप्त नहीं है.</target></trans-unit>
 
 
-      <trans-unit id="Monitoring Administrators">
-          <source>Monitoring Administrators</source>
-      <target>मॉनिटरिंग प्रशासक</target></trans-unit>
 
 
       <trans-unit id="user.unspecified.name">
