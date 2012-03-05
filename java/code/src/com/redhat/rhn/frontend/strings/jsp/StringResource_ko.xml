@@ -20857,9 +20857,6 @@ given channel.</source>
       <trans-unit id="package.jsp.provider">
         <source>Content Provider</source>
       <target>컨텐츠 제공자 </target></trans-unit>
-      <trans-unit id="channel.jsp.globallysubtitle">
-        <source>Globally Subscribable</source>
-      <target>누구나 등록 가능 </target></trans-unit>
       <trans-unit id="channel.jsp.systemssubsribed">
         <source>Systems Subscribed</source>
       <target>등록된 시스템 </target></trans-unit>

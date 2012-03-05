@@ -20855,9 +20855,6 @@ given channel.</source>
       <trans-unit id="package.jsp.provider">
         <source>Content Provider</source>
       <target>內容供應者</target></trans-unit>
-      <trans-unit id="channel.jsp.globallysubtitle">
-        <source>Globally Subscribable</source>
-      <target>全域可訂閱</target></trans-unit>
       <trans-unit id="channel.jsp.systemssubsribed">
         <source>Systems Subscribed</source>
       <target>已訂閱的系統</target></trans-unit>

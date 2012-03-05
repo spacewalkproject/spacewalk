@@ -20865,9 +20865,6 @@ given channel.</source>
       <trans-unit id="package.jsp.provider">
         <source>Content Provider</source>
       <target>உள்ளடக்க வழங்குபவர்</target></trans-unit>
-      <trans-unit id="channel.jsp.globallysubtitle">
-        <source>Globally Subscribable</source>
-      <target>முழுமையான சந்தாப்படுத்தப்படக்கூடியது</target></trans-unit>
       <trans-unit id="channel.jsp.systemssubsribed">
         <source>Systems Subscribed</source>
       <target>சந்தாப்படுத்தப்பட்ட கணினிகள்</target></trans-unit>

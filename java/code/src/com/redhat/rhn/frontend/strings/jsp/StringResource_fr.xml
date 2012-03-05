@@ -20970,9 +20970,6 @@ fois pour un canal donné.</target></trans-unit>
       <trans-unit id="package.jsp.provider">
         <source>Content Provider</source>
       <target>Fournisseur de contenu</target></trans-unit>
-      <trans-unit id="channel.jsp.globallysubtitle">
-        <source>Globally Subscribable</source>
-      <target>Globalement abonnable</target></trans-unit>
       <trans-unit id="channel.jsp.systemssubsribed">
         <source>Systems Subscribed</source>
       <target>Systèmes abonnés</target></trans-unit>
