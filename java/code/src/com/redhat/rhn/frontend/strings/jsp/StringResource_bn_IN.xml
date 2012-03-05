@@ -12826,12 +12826,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <trans-unit id="config.common.quotaAlt">
           <source>configuration quota</source>
         <target>কনফিগারেশন quota</target></trans-unit>
-        <trans-unit id="config.common.quota">
-          <source>Your organization has {0} available for configuration files.</source>
-          <context-group name="ctx">
-            <context context-type="paramnotes">Your organization has 7 KB available for configuration files.</context>
-          </context-group>
-        <target>আপনার প্রতিষ্ঠানের জন্য {0} কনফিগারেশন ফাইল উপলব্ধ রয়েছে।</target></trans-unit>
 
         <trans-unit id="config.common.configChannel">
           <source>Configuration Channel</source>

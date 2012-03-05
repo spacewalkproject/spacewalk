@@ -12837,12 +12837,6 @@ kickstart 前脚本的内容可以在 &lt;strong&gt;《红帽企业版 Linux 系
         <trans-unit id="config.common.quotaAlt">
           <source>configuration quota</source>
         <target>配置配额</target></trans-unit>
-        <trans-unit id="config.common.quota">
-          <source>Your organization has {0} available for configuration files.</source>
-          <context-group name="ctx">
-            <context context-type="paramnotes">Your organization has 7 KB available for configuration files.</context>
-          </context-group>
-        <target>您的机构有 {0} 个可用的配置文件。</target></trans-unit>
 
         <trans-unit id="config.common.configChannel">
           <source>Configuration Channel</source>

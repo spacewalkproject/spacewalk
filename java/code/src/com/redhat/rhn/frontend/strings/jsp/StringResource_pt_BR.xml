@@ -12833,12 +12833,6 @@ o &lt;strong&gt;Guia de Administração de Sistemas Red Hat Enterprise Li
         <trans-unit id="config.common.quotaAlt">
           <source>configuration quota</source>
         <target>cota de configuração</target></trans-unit>
-        <trans-unit id="config.common.quota">
-          <source>Your organization has {0} available for configuration files.</source>
-          <context-group name="ctx">
-            <context context-type="paramnotes">Your organization has 7 KB available for configuration files.</context>
-          </context-group>
-        <target>Sua organização possui {0} de disponibilidade para arquivos de configuração.</target></trans-unit>
 
         <trans-unit id="config.common.configChannel">
           <source>Configuration Channel</source>
