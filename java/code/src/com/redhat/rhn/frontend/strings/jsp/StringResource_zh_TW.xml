@@ -1027,12 +1027,6 @@
         </context-group>
       <target>在登入時，於「總覽」網頁中，顯示以下資訊：</target></trans-unit>
 
-      <trans-unit id="preferences.jsp.phone">
-<source> Phone</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/CreateUser</context>
-        </context-group>
-      <target> 電話</target></trans-unit>
       <trans-unit id="preferences.jsp.submitvalue">
 <source>Save Preferences</source>
         <context-group name="ctx">

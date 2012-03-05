@@ -1027,12 +1027,6 @@
         </context-group>
       <target>Die folgenden Informationen beim Einloggen auf meiner "Überblick"-Seite anzeigen:</target></trans-unit>
 
-      <trans-unit id="preferences.jsp.phone">
-<source> Phone</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/CreateUser</context>
-        </context-group>
-      <target> Telefon</target></trans-unit>
       <trans-unit id="preferences.jsp.submitvalue">
 <source>Save Preferences</source>
         <context-group name="ctx">

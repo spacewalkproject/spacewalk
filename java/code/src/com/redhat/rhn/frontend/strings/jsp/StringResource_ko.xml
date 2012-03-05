@@ -1027,12 +1027,6 @@
         </context-group>
       <target>로그인할 때 "개요" 페이지에 다음과 같은 정보를 표시합니다:   </target></trans-unit>
 
-      <trans-unit id="preferences.jsp.phone">
-<source> Phone</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/CreateUser</context>
-        </context-group>
-      <target> 전화</target></trans-unit>
       <trans-unit id="preferences.jsp.submitvalue">
 <source>Save Preferences</source>
         <context-group name="ctx">

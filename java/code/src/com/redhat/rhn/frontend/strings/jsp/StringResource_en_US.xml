@@ -1043,12 +1043,6 @@
         </context-group>
       </trans-unit>
 
-      <trans-unit id="preferences.jsp.phone">
-<source> Phone</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/CreateUser</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="preferences.jsp.submitvalue">
 <source>Save Preferences</source>
         <context-group name="ctx">
