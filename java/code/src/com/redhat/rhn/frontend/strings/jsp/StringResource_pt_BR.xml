@@ -12670,9 +12670,6 @@ o &lt;strong&gt;Guia de Administração de Sistemas Red Hat Enterprise Li
        <trans-unit id="errata.common.packageAlt">
          <source>package</source>
        <target>pacote</target></trans-unit>
-       <trans-unit id="errata.common.addpackageAlt">
-         <source>add package</source>
-       <target>adicionar pacotes</target></trans-unit>
        <trans-unit id="errata.common.deletepackageAlt">
          <source>remove package</source>
        <target>remover pacotes</target></trans-unit>

@@ -12681,9 +12681,6 @@ Anschlie&amp;szlig;end wird das nicht-chroot Post-Skript ausgef&amp;uuml;hrt, un
        <trans-unit id="errata.common.packageAlt">
          <source>package</source>
        <target>Paket</target></trans-unit>
-       <trans-unit id="errata.common.addpackageAlt">
-         <source>add package</source>
-       <target>Paket hinzuf&amp;uuml;gen</target></trans-unit>
        <trans-unit id="errata.common.deletepackageAlt">
          <source>remove package</source>
        <target>Paket entfernen</target></trans-unit>

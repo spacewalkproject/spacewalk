@@ -12679,9 +12679,6 @@ Le script post non-chroot sera ensuite exécuté et le script post sera enfin ex
        <trans-unit id="errata.common.packageAlt">
          <source>package</source>
        <target>paquetage</target></trans-unit>
-       <trans-unit id="errata.common.addpackageAlt">
-         <source>add package</source>
-       <target>ajouter un paquetage</target></trans-unit>
        <trans-unit id="errata.common.deletepackageAlt">
          <source>remove package</source>
        <target>supprimer un paquetage</target></trans-unit>

@@ -12663,9 +12663,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
        <trans-unit id="errata.common.packageAlt">
          <source>package</source>
        <target>パッケージ</target></trans-unit>
-       <trans-unit id="errata.common.addpackageAlt">
-         <source>add package</source>
-       <target>パッケージの追加</target></trans-unit>
        <trans-unit id="errata.common.deletepackageAlt">
          <source>remove package</source>
        <target>パッケージの削除</target></trans-unit>

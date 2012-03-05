@@ -12661,9 +12661,6 @@ la &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stron
        <trans-unit id="errata.common.packageAlt">
          <source>package</source>
        <target>pacchetto</target></trans-unit>
-       <trans-unit id="errata.common.addpackageAlt">
-         <source>add package</source>
-       <target>aggiungi pacchetto</target></trans-unit>
        <trans-unit id="errata.common.deletepackageAlt">
          <source>remove package</source>
        <target>rimuovi pacchetto</target></trans-unit>

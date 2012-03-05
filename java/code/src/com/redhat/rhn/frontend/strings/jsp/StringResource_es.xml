@@ -12677,9 +12677,6 @@ el &lt;strong&gt;Manual de administración del sistema Red Hat Enterprise Linux.
        <trans-unit id="errata.common.packageAlt">
          <source>package</source>
        <target>paquete</target></trans-unit>
-       <trans-unit id="errata.common.addpackageAlt">
-         <source>add package</source>
-       <target>añadir paquete</target></trans-unit>
        <trans-unit id="errata.common.deletepackageAlt">
          <source>remove package</source>
        <target>remover paquete</target></trans-unit>

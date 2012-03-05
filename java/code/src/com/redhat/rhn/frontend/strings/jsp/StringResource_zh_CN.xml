@@ -12674,9 +12674,6 @@ kickstart 前脚本的内容可以在 &lt;strong&gt;《红帽企业版 Linux 系
        <trans-unit id="errata.common.packageAlt">
          <source>package</source>
        <target>软件包</target></trans-unit>
-       <trans-unit id="errata.common.addpackageAlt">
-         <source>add package</source>
-       <target>添加软件包</target></trans-unit>
        <trans-unit id="errata.common.deletepackageAlt">
          <source>remove package</source>
        <target>删除软件包</target></trans-unit>

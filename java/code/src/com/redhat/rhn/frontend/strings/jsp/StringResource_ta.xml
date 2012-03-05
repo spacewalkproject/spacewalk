@@ -12664,9 +12664,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
        <trans-unit id="errata.common.packageAlt">
          <source>package</source>
        <target>தொகுப்பு</target></trans-unit>
-       <trans-unit id="errata.common.addpackageAlt">
-         <source>add package</source>
-       <target>தொகுப்புகளை சேர்த்தல்</target></trans-unit>
        <trans-unit id="errata.common.deletepackageAlt">
          <source>remove package</source>
        <target>தொகுப்புகளை நீக்குதல்</target></trans-unit>
