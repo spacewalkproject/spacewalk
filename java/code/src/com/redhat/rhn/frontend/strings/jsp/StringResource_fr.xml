@@ -5149,12 +5149,6 @@ pour ce droit d'accès, moins la consommation par défaut de l'organisation.</ta
 
 
 
-      <trans-unit id="systemgroups.jsp.enhancements">
-<source>Product Enhancements: </source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/frontend/dto/SystemGroupOverview</context>
-        </context-group>
-      <target>Améliorations de produit&amp;nbsp;:</target></trans-unit>
 
 
 <!--- System Duplicates pages -->

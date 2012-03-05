@@ -5150,12 +5150,6 @@ für diese Berechtigung, mit Ausnahme des Verbrauchs der Standardorganisation.</
 
 
 
-      <trans-unit id="systemgroups.jsp.enhancements">
-<source>Product Enhancements: </source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/frontend/dto/SystemGroupOverview</context>
-        </context-group>
-      <target>Produktverbesserungen: </target></trans-unit>
 
 
 <!--- System Duplicates pages -->

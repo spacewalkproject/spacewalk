@@ -5142,12 +5142,6 @@ value for this entitlement, excluding the default organization's consumption.</s
 
 
 
-      <trans-unit id="systemgroups.jsp.enhancements">
-<source>Product Enhancements: </source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/frontend/dto/SystemGroupOverview</context>
-        </context-group>
-      <target>製品の機能強化: </target></trans-unit>
 
 
 <!--- System Duplicates pages -->
