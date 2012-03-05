@@ -7928,9 +7928,6 @@ Seguite l'url sotto riportato per visualizzare l'elenco completo di sistemi inat
 	    <source>{0} patch cluster(s) have been removed from this channel</source>
 	  <target>{0} patch cluster sono stati rimossi da questo canale</target></trans-unit>
 
-      <trans-unit id="frontend.xmlrpc.channels.software.merge.permsfailure">
-        <source>You do not have sufficient permissions to merge packages into channel {0}</source>
-      <target>Non siete in possesso di permessi sufficienti per unire i pacchetti nel canale {0}</target></trans-unit>
 
       <trans-unit id="probeparam.passnomatch">
         <source>The Password and Password Confirm did not match.</source>

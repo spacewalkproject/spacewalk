@@ -7929,9 +7929,6 @@ Follow this url to see the full list of inactive systems:
 	    <source>{0} patch cluster(s) have been removed from this channel</source>
 	  <target>已经从此频道中删除了 {0} 不定栈</target></trans-unit>
 
-      <trans-unit id="frontend.xmlrpc.channels.software.merge.permsfailure">
-        <source>You do not have sufficient permissions to merge packages into channel {0}</source>
-      <target>您没有足够的权限将软件包合并到频道 {2} 中。</target></trans-unit>
 
       <trans-unit id="probeparam.passnomatch">
         <source>The Password and Password Confirm did not match.</source>

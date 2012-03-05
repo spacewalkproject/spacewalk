@@ -7904,9 +7904,6 @@ url பின்பற்றி செயலிழக்கப்பட்ட �
 	    <source>{0} patch cluster(s) have been removed from this channel</source>
 	  <target>{0} இணைப்பு கொத்துக்கள் இந்த தடத்திலிருந்து நீக்கப்பட்டது</target></trans-unit>
 
-      <trans-unit id="frontend.xmlrpc.channels.software.merge.permsfailure">
-        <source>You do not have sufficient permissions to merge packages into channel {0}</source>
-      <target>உங்களுக்கு {0} தடத்தில் தொகுப்புகளை இணைக்க போதிய அனுமதிகள் இல்லை</target></trans-unit>
 
       <trans-unit id="probeparam.passnomatch">
         <source>The Password and Password Confirm did not match.</source>

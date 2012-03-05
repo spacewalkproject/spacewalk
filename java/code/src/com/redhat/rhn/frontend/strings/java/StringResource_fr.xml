@@ -7931,9 +7931,6 @@ Suivez cet url pour obtenir la liste complète des systèmes inactifs :
 	    <source>{0} patch cluster(s) have been removed from this channel</source>
 	  <target>{0} cluster(s) de correctifs a/ont été supprimé(s) de ce canal</target></trans-unit>
 
-      <trans-unit id="frontend.xmlrpc.channels.software.merge.permsfailure">
-        <source>You do not have sufficient permissions to merge packages into channel {0}</source>
-      <target>Vous ne disposez pas de suffisamment de permissions pour fusionner les paquetages dans le canal {0}</target></trans-unit>
 
       <trans-unit id="probeparam.passnomatch">
         <source>The Password and Password Confirm did not match.</source>

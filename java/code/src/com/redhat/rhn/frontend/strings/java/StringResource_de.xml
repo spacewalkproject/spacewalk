@@ -7935,9 +7935,6 @@ Folgen Sie dieser URL f&amp;uuml;r die vollst&amp;auml;ndige Liste inaktiver Sys
 	    <source>{0} patch cluster(s) have been removed from this channel</source>
 	  <target>{0} Patch-Cluster wurden aus diesem Channel entfernt</target></trans-unit>
 
-      <trans-unit id="frontend.xmlrpc.channels.software.merge.permsfailure">
-        <source>You do not have sufficient permissions to merge packages into channel {0}</source>
-      <target>Sie besitzen nicht gen&amp;uuml;gend Berechtigungen, um Pakete in den Channel {0} einzuf&amp;uuml;gen</target></trans-unit>
 
       <trans-unit id="probeparam.passnomatch">
         <source>The Password and Password Confirm did not match.</source>

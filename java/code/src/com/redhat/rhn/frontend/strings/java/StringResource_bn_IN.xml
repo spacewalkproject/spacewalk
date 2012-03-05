@@ -7910,9 +7910,6 @@ Follow this url to see the full list of inactive systems:
 	    <source>{0} patch cluster(s) have been removed from this channel</source>
 	  <target>{0} প্যাচ ক্লাস্টার এই চ্যানেল থেকে মুছে ফেলা হয়েছে</target></trans-unit>
 
-      <trans-unit id="frontend.xmlrpc.channels.software.merge.permsfailure">
-        <source>You do not have sufficient permissions to merge packages into channel {0}</source>
-      <target>চ্যানেল {0}-র মধ্যে প্যাকেজ মার্জ করার জন্য আপনি অনুমতিপ্রাপ্ত নন</target></trans-unit>
 
       <trans-unit id="probeparam.passnomatch">
         <source>The Password and Password Confirm did not match.</source>
