@@ -721,12 +721,6 @@
           <context context-type="sourcefile">NOT USED</context>
         </context-group>
       <target>원하는 로그인</target></trans-unit>
-      <trans-unit id="desiredPassword.displayname">
-<source>Desired Password</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">NOT USED</context>
-        </context-group>
-      <target>원하는 암호</target></trans-unit>
       <trans-unit id="passwordConfirm.displayname">
 <source>Confirm Password</source>
         <context-group name="ctx">

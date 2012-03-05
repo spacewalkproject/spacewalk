@@ -721,12 +721,6 @@
           <context context-type="sourcefile">NOT USED</context>
         </context-group>
       <target>வேண்டிய புகுபதிவு</target></trans-unit>
-      <trans-unit id="desiredPassword.displayname">
-<source>Desired Password</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">NOT USED</context>
-        </context-group>
-      <target>வேண்டப்பட்ட கடவுச்சொல்</target></trans-unit>
       <trans-unit id="passwordConfirm.displayname">
 <source>Confirm Password</source>
         <context-group name="ctx">

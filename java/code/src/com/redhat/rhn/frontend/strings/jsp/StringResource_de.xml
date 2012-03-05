@@ -721,12 +721,6 @@
           <context context-type="sourcefile">NOT USED</context>
         </context-group>
       <target>Gew&amp;uuml;nschtes Login</target></trans-unit>
-      <trans-unit id="desiredPassword.displayname">
-<source>Desired Password</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">NOT USED</context>
-        </context-group>
-      <target>Gewünschtes Passwort</target></trans-unit>
       <trans-unit id="passwordConfirm.displayname">
 <source>Confirm Password</source>
         <context-group name="ctx">
