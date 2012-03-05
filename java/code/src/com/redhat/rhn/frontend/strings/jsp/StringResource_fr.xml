@@ -11695,9 +11695,6 @@ Le script post non-chroot sera ensuite exécuté et le script post sera enfin ex
         <trans-unit id="targetsystems.jsp.subscribetools">
           <source>Subscribe to @@PRODUCT_NAME@@ Tools channel</source>
         <target>S'abonner au canal @@PRODUCT_NAME@@ Tools (outils @@PRODUCT_NAME@@)</target></trans-unit>
-        <trans-unit id="targetsystems.jsp.installcfg">
-          <source>Schedule rhncfg package install</source>
-        <target>Programmer l'installation des paquetages rhncfg</target></trans-unit>
         <trans-unit id="targetsystems.jsp.installcfgactions">
           <source>Schedule rhncfg-actions package install</source>
         <target>Programmer l'installation des paquetages rhncfg-actions</target></trans-unit>

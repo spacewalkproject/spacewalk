@@ -11680,9 +11680,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <trans-unit id="targetsystems.jsp.subscribetools">
           <source>Subscribe to @@PRODUCT_NAME@@ Tools channel</source>
         <target>@@PRODUCT_NAME@@ Tools চ্যানেলে সাবস্ক্রাইব করুন</target></trans-unit>
-        <trans-unit id="targetsystems.jsp.installcfg">
-          <source>Schedule rhncfg package install</source>
-        <target>rhncfg প্যাকেজ ইনস্টল কর্মের সময় নির্ধারণ করুন</target></trans-unit>
         <trans-unit id="targetsystems.jsp.installcfgactions">
           <source>Schedule rhncfg-actions package install</source>
         <target>rhncfg-actions প্যাকেজ ইনস্টল কর্মের সময় নির্ধারণ করুন</target></trans-unit>

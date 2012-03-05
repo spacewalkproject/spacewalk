@@ -11681,9 +11681,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <trans-unit id="targetsystems.jsp.subscribetools">
           <source>Subscribe to @@PRODUCT_NAME@@ Tools channel</source>
         <target>@@PRODUCT_NAME@@ கருவிகள் தடத்துடன் சந்தாப்படுத்தவும்</target></trans-unit>
-        <trans-unit id="targetsystems.jsp.installcfg">
-          <source>Schedule rhncfg package install</source>
-        <target>rhncfg தொகுப்பை நிறுவ திட்டமிடவும்</target></trans-unit>
         <trans-unit id="targetsystems.jsp.installcfgactions">
           <source>Schedule rhncfg-actions package install</source>
         <target>rhncfg-actions தொகுப்பை நிறுவ திட்டமிடவும்</target></trans-unit>

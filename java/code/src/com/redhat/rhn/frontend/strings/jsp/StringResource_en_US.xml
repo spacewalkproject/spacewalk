@@ -12096,9 +12096,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <trans-unit id="targetsystems.jsp.subscribetools">
           <source>Subscribe to @@PRODUCT_NAME@@ Tools channel</source>
         </trans-unit>
-        <trans-unit id="targetsystems.jsp.installcfg">
-          <source>Schedule rhncfg package install</source>
-        </trans-unit>
         <trans-unit id="targetsystems.jsp.installcfgactions">
           <source>Schedule rhncfg-actions package install</source>
         </trans-unit>

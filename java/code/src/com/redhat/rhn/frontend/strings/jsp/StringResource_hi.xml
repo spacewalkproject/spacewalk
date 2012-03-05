@@ -11681,9 +11681,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <trans-unit id="targetsystems.jsp.subscribetools">
           <source>Subscribe to @@PRODUCT_NAME@@ Tools channel</source>
         <target>@@PRODUCT_NAME@@ औजार चैनल की सदस्यता लें</target></trans-unit>
-        <trans-unit id="targetsystems.jsp.installcfg">
-          <source>Schedule rhncfg package install</source>
-        <target>rhncfg संकुल अधिष्ठापन नियोजित करें</target></trans-unit>
         <trans-unit id="targetsystems.jsp.installcfgactions">
           <source>Schedule rhncfg-actions package install</source>
         <target>rhncfg-क्रिया संकुल अधिष्ठापन को अनुसूचित करें</target></trans-unit>

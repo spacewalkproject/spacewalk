@@ -11686,9 +11686,6 @@ o &lt;strong&gt;Guia de Administração de Sistemas Red Hat Enterprise Li
         <trans-unit id="targetsystems.jsp.subscribetools">
           <source>Subscribe to @@PRODUCT_NAME@@ Tools channel</source>
         <target>Registrar-se nos canais de Ferramenta do @@PRODUCT_NAME@@</target></trans-unit>
-        <trans-unit id="targetsystems.jsp.installcfg">
-          <source>Schedule rhncfg package install</source>
-        <target>Agendar Instalação de Pacotes rhncfg</target></trans-unit>
         <trans-unit id="targetsystems.jsp.installcfgactions">
           <source>Schedule rhncfg-actions package install</source>
         <target>Agendar Instalação de Pacotes de ações rhncfg</target></trans-unit>
