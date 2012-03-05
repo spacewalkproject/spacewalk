@@ -6720,12 +6720,6 @@ value for this entitlement, excluding the default organization's consumption.</s
       </context-group>
     <target>现在下载选择的软件包！</target></trans-unit>
 
-    <trans-unit id="download.jsp.arch">
-<source>Architecture</source>
-      <context-group name="ctx">
-        <context context-type="sourcefile">/rhn/systems/details/packages/DownloadConfirm.do</context>
-      </context-group>
-    <target>体系构架</target></trans-unit>
 
     <trans-unit id="download.jsp.channels">
 <source>Channels</source>
