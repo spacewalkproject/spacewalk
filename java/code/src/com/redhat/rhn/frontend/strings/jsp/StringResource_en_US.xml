@@ -8814,12 +8814,6 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
     </trans-unit>
 
-  <trans-unit id="tnc.jsp.consequence">
-    <source>If you reject the terms and conditions above by selecting the "I do not accept" button, you will be automatically signed out of your @@PRODUCT_NAME@@ account.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/tnc/</context>
-        </context-group>
-    </trans-unit>
 
 
 

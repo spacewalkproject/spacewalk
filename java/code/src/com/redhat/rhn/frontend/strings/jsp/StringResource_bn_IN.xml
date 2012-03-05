@@ -8470,12 +8470,6 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
     <target>অনুগ্রহ করে নীচে প্রদর্শিত নথিটি পড়ুন ও উল্লিখিত শর্তাবলী সম্পর্কে আপনার সম্মতি অথবা অম্মতি ব্যক্ত করতে নীচে অবস্থিত "আমি সম্মত" অথবা "আমি সম্মত নই" বাটনগুলির মধ্যে যথাযত বাটন ক্লিক করুন। এই শর্তাবলী অনুযায়ী সম্মত না হলে আপনি @@PRODUCT_NAME@@ লগ-ইন প্রয়োগ করে অগ্রসর হতে সক্ষম হবেন না। এই স্থানে শর্তাবলী গ্রহন করা হলে সেগুলি পরিবর্তন না হলে পুনরায় সম্মতি জ্ঞাপন করার প্রয়োজন হবে না।</target></trans-unit>
 
-  <trans-unit id="tnc.jsp.consequence">
-    <source>If you reject the terms and conditions above by selecting the "I do not accept" button, you will be automatically signed out of your @@PRODUCT_NAME@@ account.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/tnc/</context>
-        </context-group>
-    <target>"আমি সম্মত নই" বাটন ক্লিক করে যদি আপনি উপরোক্ত শর্তাবলী প্রত্যাখ্যান করেন তাহলে আপনাকে @@PRODUCT_NAME@@ অ্যাকাউন্ট থেকে স্বয়ংক্রিয়রপে লগ আউট করে দেওয়া হবে।</target></trans-unit>
 
 
 

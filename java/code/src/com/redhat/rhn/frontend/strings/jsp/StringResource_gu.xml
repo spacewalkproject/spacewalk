@@ -8471,12 +8471,6 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
     <target>મહેરબાની કરીને નીચે દર્શાવાયેલ દસ્તાવેજો વાંચો અને તેમાં વર્ણવાયેલ બાબતો અને શરતોની મંજૂરી અથવા નામંજૂરી નીચેના બટનો "હું મંજૂર છું" અથવા "હું મંજૂર નથી" દ્વારા કરો. આ બાબતો અને શરતો સ્વીકાર્યા વિના તમે તમારો @@PRODUCT_NAME@@ નો પ્રવેશ ચાલુ રાખી શકો નહિં. જો તમે આ સમયે આ શરતો અને બાબતો સ્વીકારો, તો તમારે તેમને ફરીથી સ્વીકારવાની જરૂર રહેશે નહિં, જ્યાં સુધી તેઓ બદલાય નહિં.</target></trans-unit>
 
-  <trans-unit id="tnc.jsp.consequence">
-    <source>If you reject the terms and conditions above by selecting the "I do not accept" button, you will be automatically signed out of your @@PRODUCT_NAME@@ account.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/tnc/</context>
-        </context-group>
-    <target>જો તમે બાબતો અને શરતો ઉપરના બટન "હું મંજૂર નથી" પર ક્લિક કરીને અસ્વીકારો, તો તમે તમારા @@PRODUCT_NAME@@ ખાતામાંથી આપોઆપ બહાર નીકળી જશો.</target></trans-unit>
 
 
 

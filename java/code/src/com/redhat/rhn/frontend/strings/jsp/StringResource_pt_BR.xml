@@ -8474,12 +8474,6 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
     <target>Por favor leia o documento exibido abaixo e aceite ou rejeite os termos e condições descritos, selecionando os botões "Eu aceito" ou "Eu não aceito" abaixo. Você não pode prosseguir em sua autenticação na @@PRODUCT_NAME@@ sem aceitar estes termos e condições. Se você aceitá-los agora, não precisará fazê-lo novamente, a não ser que sofram alterações. </target></trans-unit>
 
-  <trans-unit id="tnc.jsp.consequence">
-    <source>If you reject the terms and conditions above by selecting the "I do not accept" button, you will be automatically signed out of your @@PRODUCT_NAME@@ account.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/tnc/</context>
-        </context-group>
-    <target>Se você rejeitar os termos e condições acima selecionando o botão "Eu não aceito", será automaticamente desconectado de sua conta @@PRODUCT_NAME@@. </target></trans-unit>
 
 
 

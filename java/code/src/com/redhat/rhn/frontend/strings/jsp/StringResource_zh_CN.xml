@@ -8478,12 +8478,6 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
     <target>请仔细阅读以下列出的文档并通过点下面的 "我接受" 或 "我不接受" 按钮来确认您接受这些条款或不接受这些条款。如果您不接受这些条款，您将无法继续登录到 @@PRODUCT_NAME@@。如果您在这里选择了接受这些条款，您在以后将不再需要重复这一步骤，除非这些条款有改动。</target></trans-unit>
 
-  <trans-unit id="tnc.jsp.consequence">
-    <source>If you reject the terms and conditions above by selecting the "I do not accept" button, you will be automatically signed out of your @@PRODUCT_NAME@@ account.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/tnc/</context>
-        </context-group>
-    <target>如果您点了 "我不接受" 按钮来拒绝这个条款，您将会从您的 @@PRODUCT_NAME@@ 帐户中自动退出。</target></trans-unit>
 
 
 

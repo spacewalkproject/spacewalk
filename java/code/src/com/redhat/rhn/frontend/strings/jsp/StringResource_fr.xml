@@ -8483,12 +8483,6 @@ Veuillez noter qu'une configuration manuelle de ces scripts peut toujours être 
         </context-group>
     <target>Veuillez lire le document ci-dessous et accepter ou refuser les termes et conditions décrits en sélectionnant soit le bouton "J'accepte", soit le bouton "Je n'accepte pas" ci-dessous. Vous ne pouvez pas continuer votre connexion à @@PRODUCT_NAME@@ sans accepter ces termes et conditions. Si vous acceptez ces termes et conditions maintenant, vous n'aurez pas à les accepter de nouveau, à moins qu'ils ne changent.</target></trans-unit>
 
-  <trans-unit id="tnc.jsp.consequence">
-    <source>If you reject the terms and conditions above by selecting the "I do not accept" button, you will be automatically signed out of your @@PRODUCT_NAME@@ account.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/tnc/</context>
-        </context-group>
-    <target>Si vous refusez les termes et conditions ci-dessus en sélectionnant le bouton "Je n'accepte pas", vous serez automatiquement déconnecté de votre compte @@PRODUCT_NAME@@.</target></trans-unit>
 
 
 

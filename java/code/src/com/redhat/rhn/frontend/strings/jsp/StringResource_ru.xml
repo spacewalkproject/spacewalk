@@ -8466,12 +8466,6 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
     <target>Прочитайте документ, приведенный ниже, и подтвердите принятие условий и соглашений путем выбора «Принимаю» или же «Не принимаю» в случае отказа. В случае отказа вы не сможете войти в @@PRODUCT_NAME@@. Если вы принимаете условия, то вам не нужно будет это делать повторно при следующем входе в систему.</target></trans-unit>
 
-  <trans-unit id="tnc.jsp.consequence">
-    <source>If you reject the terms and conditions above by selecting the "I do not accept" button, you will be automatically signed out of your @@PRODUCT_NAME@@ account.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/tnc/</context>
-        </context-group>
-    <target>При отказе принятия условий и соглашений посредством выбора «Не принимаю» будет выполнен выход из @@PRODUCT_NAME@@.</target></trans-unit>
 
 
 

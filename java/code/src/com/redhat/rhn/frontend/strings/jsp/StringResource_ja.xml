@@ -8468,12 +8468,6 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
     <target>以下に表示されている文書をお読みになり、「受諾します」または「受諾しません」のいずれかのボタンを選択し明記されている条件を受諾するか拒否するかの確認をしてください。条件を受諾頂かない限り、 @@PRODUCT_NAME@@ へのログインを続行することはできません。ここで条件を受諾された場合は、条件が変更されない限り再度受諾する必要はありません。</target></trans-unit>
 
-  <trans-unit id="tnc.jsp.consequence">
-    <source>If you reject the terms and conditions above by selecting the "I do not accept" button, you will be automatically signed out of your @@PRODUCT_NAME@@ account.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/tnc/</context>
-        </context-group>
-    <target>「受諾しません」ボタンを選択して上記の条件を拒否される場合、自動的に @@PRODUCT_NAME@@ アカウントからサインオフすることになります。</target></trans-unit>
 
 
 
