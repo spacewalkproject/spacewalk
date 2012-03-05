@@ -1033,12 +1033,6 @@
           <context context-type="sourcefile">/rhn/users/CreateUser</context>
         </context-group>
       <target>电话</target></trans-unit>
-      <trans-unit id="preferences.jsp.fax">
-<source> Fax</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/CreateUser</context>
-        </context-group>
-      <target>传真</target></trans-unit>
       <trans-unit id="preferences.jsp.mail">
 <source> Mail</source>
         <context-group name="ctx">

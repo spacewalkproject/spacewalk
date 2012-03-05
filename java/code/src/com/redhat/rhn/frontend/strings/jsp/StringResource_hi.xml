@@ -1033,12 +1033,6 @@
           <context context-type="sourcefile">/rhn/users/CreateUser</context>
         </context-group>
       <target> फोन</target></trans-unit>
-      <trans-unit id="preferences.jsp.fax">
-<source> Fax</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/CreateUser</context>
-        </context-group>
-      <target> फैक्स</target></trans-unit>
       <trans-unit id="preferences.jsp.mail">
 <source> Mail</source>
         <context-group name="ctx">
