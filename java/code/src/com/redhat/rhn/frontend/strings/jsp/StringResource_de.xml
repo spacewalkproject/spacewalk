@@ -13831,12 +13831,6 @@ haben jedoch {0} nicht abonniert.</target></trans-unit>
           <context context-type="sourcefile">/rhn/configuration/ChannelAddFiles.do</context>
         </context-group>
      <target>Neue Konfigurationsdatei hochladen</target></trans-unit>
-	<trans-unit id="addfiles.jsp.import-link">
-<source>Import Configuration File from Another Channel</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/ChannelAddFiles.do</context>
-        </context-group>
-     <target>Konfigurationsdatei von einem anderen Channel importieren</target></trans-unit>
 
 		<!-- upload.jspf -->
 	<trans-unit id="addfiles.jsp.upload.jspf.title">

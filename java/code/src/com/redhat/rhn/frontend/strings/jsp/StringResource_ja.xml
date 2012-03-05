@@ -13813,12 +13813,6 @@ but are not subscribed to _@@PRODUCT_NAME@@Config_.</context>
           <context context-type="sourcefile">/rhn/configuration/ChannelAddFiles.do</context>
         </context-group>
      <target>新しい設定ファイルのアップロード</target></trans-unit>
-	<trans-unit id="addfiles.jsp.import-link">
-<source>Import Configuration File from Another Channel</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/ChannelAddFiles.do</context>
-        </context-group>
-     <target>別のチャンネルから設定ファイルをインポート</target></trans-unit>
 
 		<!-- upload.jspf -->
 	<trans-unit id="addfiles.jsp.upload.jspf.title">
