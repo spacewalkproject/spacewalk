@@ -8468,12 +8468,6 @@ Por favor tenga en cuenta que podría ser necesario configurar manualmente estos
         <target>Respositorios de canales</target></trans-unit>
 
     <!-- TNC -->
-  <trans-unit id="tnc.jsp.tnc">
-    <source>Terms And Conditions</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/tnc/</context>
-        </context-group>
-    <target>Términos y condiciones</target></trans-unit>
 
 
 

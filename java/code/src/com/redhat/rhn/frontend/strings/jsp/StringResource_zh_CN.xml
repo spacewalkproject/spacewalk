@@ -8464,12 +8464,6 @@ Please note that some manual configuration of these scripts may still be require
         <target>频道库</target></trans-unit>
 
     <!-- TNC -->
-  <trans-unit id="tnc.jsp.tnc">
-    <source>Terms And Conditions</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/tnc/</context>
-        </context-group>
-    <target>条款</target></trans-unit>
 
 
 

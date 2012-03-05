@@ -8469,12 +8469,6 @@ Veuillez noter qu'une configuration manuelle de ces scripts peut toujours être 
         <target>Référentiels de canaux</target></trans-unit>
 
     <!-- TNC -->
-  <trans-unit id="tnc.jsp.tnc">
-    <source>Terms And Conditions</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/tnc/</context>
-        </context-group>
-    <target>Termes et conditions</target></trans-unit>
 
 
 
