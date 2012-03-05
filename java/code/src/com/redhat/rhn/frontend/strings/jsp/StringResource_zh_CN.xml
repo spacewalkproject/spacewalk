@@ -5699,9 +5699,6 @@ value for this entitlement, excluding the default organization's consumption.</s
       <trans-unit id="System Identity Properties">
          <source>System Identity Properties</source>
      <target>系统标识符属性</target></trans-unit>
-      <trans-unit id="Check to Confirm Delete">
-         <source>Select to Confirm Deletion</source>
-     <target>选择以确认删除</target></trans-unit>
      <trans-unit id="System Content And Monitoring">
          <source>System Content And Monitoring</source>
      <target>系统内容和监控</target></trans-unit>

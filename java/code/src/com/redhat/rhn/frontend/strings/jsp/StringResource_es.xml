@@ -5699,9 +5699,6 @@ para este derecho, excluyendo el consumo de la organización predeterminada.</ta
       <trans-unit id="System Identity Properties">
          <source>System Identity Properties</source>
      <target>Propiedades de identidad del sistema</target></trans-unit>
-      <trans-unit id="Check to Confirm Delete">
-         <source>Select to Confirm Deletion</source>
-     <target>Seleccione el confirmar el borrado</target></trans-unit>
      <trans-unit id="System Content And Monitoring">
          <source>System Content And Monitoring</source>
      <target>Contenido del sistema y monitoreamiento</target></trans-unit>
