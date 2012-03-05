@@ -7165,12 +7165,6 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
             <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions.do</context>
           </context-group>
       <target>La modificación de derechos debe ser un número válido para {0}.</target></trans-unit>
-	  <trans-unit id="multiorg.delete.org.button">
-<source>Delete Selected Organizations</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/Organizations.do</context>
-        </context-group>
-      <target>Borrar organizaciones seleccionadas</target></trans-unit>
       <trans-unit id="message.org_name_updated">
 <source>Organization {0} was successfully updated.</source>
         <context-group name="ctx">

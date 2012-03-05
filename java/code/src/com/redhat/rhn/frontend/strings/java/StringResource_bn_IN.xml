@@ -7146,12 +7146,6 @@ Follow this url to see the full list of inactive systems:
             <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions.do</context>
           </context-group>
       <target>{0}-র ক্ষেত্রে এনটাইটেলমেন্ট পরিবর্তনের বৈধ মান উল্লেখ করা আবশ্যক।</target></trans-unit>
-	  <trans-unit id="multiorg.delete.org.button">
-<source>Delete Selected Organizations</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/Organizations.do</context>
-        </context-group>
-      <target>নির্বাচিত প্রতিষ্ঠান মুছে ফেলুন</target></trans-unit>
       <trans-unit id="message.org_name_updated">
 <source>Organization {0} was successfully updated.</source>
         <context-group name="ctx">
