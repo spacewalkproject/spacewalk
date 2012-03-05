@@ -2697,12 +2697,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/users/AssignedSystemGroups</context>
         </context-group>
       <target>સિસ્ટમ જૂથ સંચાલક તરીકે, આ વપરાશકર્તા પસંદિત સિસ્ટમ જૂથોના બધા પાસાંઓ સુધારવા માટે સમર્થ હશે. </target></trans-unit>
-      <trans-unit id="assignedgroups.jsp.header2">
-<source>Default System Groups</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/AssignedSystemGroups</context>
-        </context-group>
-      <target>મૂળભૂત સિસ્ટમ જૂથો</target></trans-unit>
       <trans-unit id="assignedgroups.jsp.youcanselect">
 <source>You can select one or more default system groups for this user. When the user registers a system, that system will be assigned to the selected group or groups. This allows the user to have access to the newly-registered system immediately, if he or she has permissions to one or more of the groups the system is assigned to. System Groups to which this user has access to are preceded by a (*). </source>
         <context-group name="ctx">

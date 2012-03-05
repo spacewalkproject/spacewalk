@@ -2697,12 +2697,6 @@ del rol de Administrador de la organización.</target></trans-unit>
           <context context-type="sourcefile">/rhn/users/AssignedSystemGroups</context>
         </context-group>
       <target>Como administrador de grupo de sistemas, este usuario tiene la habilidad de modificar todos los aspectos de los grupos de sistemas seleccionados.</target></trans-unit>
-      <trans-unit id="assignedgroups.jsp.header2">
-<source>Default System Groups</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/AssignedSystemGroups</context>
-        </context-group>
-      <target>Grupos de sistemas predeterminados</target></trans-unit>
       <trans-unit id="assignedgroups.jsp.youcanselect">
 <source>You can select one or more default system groups for this user. When the user registers a system, that system will be assigned to the selected group or groups. This allows the user to have access to the newly-registered system immediately, if he or she has permissions to one or more of the groups the system is assigned to. System Groups to which this user has access to are preceded by a (*). </source>
         <context-group name="ctx">
