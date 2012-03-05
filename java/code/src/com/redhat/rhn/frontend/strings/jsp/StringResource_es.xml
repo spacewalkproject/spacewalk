@@ -18559,12 +18559,6 @@ tal y como se refleja en el certificado de @@PRODUCT_NAME@@.</target></trans-uni
         </context-group>
       <target>Plataforma de virtualización (Adicional)</target></trans-unit>
 
-      <trans-unit id="sys_entitlements.add_on">
-        <source>(Add-On)</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
-        </context-group>
-      <target>(Adicional)</target></trans-unit>
 
       <trans-unit id="sys_entitlements.noentitlements">
         <source>No Entitlements Found</source>

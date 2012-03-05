@@ -18554,12 +18554,6 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;
         </context-group>
       <target> 机虚拟化平台（添加）</target></trans-unit>
 
-      <trans-unit id="sys_entitlements.add_on">
-        <source>(Add-On)</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
-        </context-group>
-      <target>（添加）</target></trans-unit>
 
       <trans-unit id="sys_entitlements.noentitlements">
         <source>No Entitlements Found</source>

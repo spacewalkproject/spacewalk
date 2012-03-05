@@ -18563,12 +18563,6 @@ stehende Gesamte, wie in diesem Zertifikat des @@PRODUCT_NAME@@s wiedergegeben.<
         </context-group>
       <target> Virtualisierungsplattform (Zusatz)</target></trans-unit>
 
-      <trans-unit id="sys_entitlements.add_on">
-        <source>(Add-On)</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
-        </context-group>
-      <target>(Zusatz)</target></trans-unit>
 
       <trans-unit id="sys_entitlements.noentitlements">
         <source>No Entitlements Found</source>

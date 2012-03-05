@@ -18553,12 +18553,6 @@ como refletido neste certificado do @@PRODUCT_NAME@@. </target></trans-unit>
         </context-group>
       <target>Plataforma de Virtualização (Adicionar)</target></trans-unit>
 
-      <trans-unit id="sys_entitlements.add_on">
-        <source>(Add-On)</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
-        </context-group>
-      <target>(Adicionar)</target></trans-unit>
 
       <trans-unit id="sys_entitlements.noentitlements">
         <source>No Entitlements Found</source>

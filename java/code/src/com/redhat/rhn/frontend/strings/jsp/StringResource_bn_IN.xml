@@ -18505,12 +18505,6 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;
         </context-group>
       <target> Virtualization Platform (অতিরিক্ত)</target></trans-unit>
 
-      <trans-unit id="sys_entitlements.add_on">
-        <source>(Add-On)</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
-        </context-group>
-      <target>(অতিরিক্ত)</target></trans-unit>
 
       <trans-unit id="sys_entitlements.noentitlements">
         <source>No Entitlements Found</source>
