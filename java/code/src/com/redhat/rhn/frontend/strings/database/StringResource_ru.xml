@@ -3543,9 +3543,6 @@
         <trans-unit id="kickstart.state.started">
           <source>The initial files required for anaconda have been downloaded.</source>
         <target>Загружены исходные файлы Anaconda.</target></trans-unit>
-        <trans-unit id="kickstart.state.in_progress">
-          <source>The system is downloading the RPMs required to install.</source>
-        <target>Загружаются пакеты для установки.</target></trans-unit>
         <trans-unit id="kickstart.state.registered">
           <source>The system has successfully registered with @@PRODUCT_NAME@@ after kickstarting.</source>
         <target>Регистрация системы в @@PRODUCT_NAME@@ произошла успешно после завершения кикстарта.</target></trans-unit>

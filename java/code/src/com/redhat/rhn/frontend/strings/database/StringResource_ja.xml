@@ -3543,9 +3543,6 @@
         <trans-unit id="kickstart.state.started">
           <source>The initial files required for anaconda have been downloaded.</source>
         <target>anaconda に必要な初期ファイルがダウンロードされています。</target></trans-unit>
-        <trans-unit id="kickstart.state.in_progress">
-          <source>The system is downloading the RPMs required to install.</source>
-        <target>このシステムはインストールに必要な RPM をダウンロード中です。</target></trans-unit>
         <trans-unit id="kickstart.state.registered">
           <source>The system has successfully registered with @@PRODUCT_NAME@@ after kickstarting.</source>
         <target>このシステムはキックスタート完了後 @@PRODUCT_NAME@@ に正しく登録されました。</target></trans-unit>

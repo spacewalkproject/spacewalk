@@ -3543,9 +3543,6 @@
         <trans-unit id="kickstart.state.started">
           <source>The initial files required for anaconda have been downloaded.</source>
         <target>એનાકોન્ડા માટે જરૂરી પ્રારંભિક ફાઈલો ડાઉનલોડ થઈ ગયેલ છે.</target></trans-unit>
-        <trans-unit id="kickstart.state.in_progress">
-          <source>The system is downloading the RPMs required to install.</source>
-        <target>સિસ્ટમ એ સ્થાપિત કરવા માટે જરૂરી RPM ડાઉનલોડ કરી રહી છે.</target></trans-unit>
         <trans-unit id="kickstart.state.registered">
           <source>The system has successfully registered with @@PRODUCT_NAME@@ after kickstarting.</source>
         <target>સિસ્ટમે કિકસ્ટાર્ટ કર્યા પછી @@PRODUCT_NAME@@ સાથે સફળતાપૂર્વક રજીસ્ટર થઈ ગઈ છે.</target></trans-unit>
