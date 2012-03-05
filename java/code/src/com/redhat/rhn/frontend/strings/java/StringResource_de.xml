@@ -6672,9 +6672,6 @@ Folgen Sie dieser URL f&amp;uuml;r die vollst&amp;auml;ndige Liste inaktiver Sys
 
 
 
-	<trans-unit id="sdc.config.diff.files_0_dirs_2_symlinks_2">
-		<source>{2} of {3} directories and {4} of {5} symlinks on the system were successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href="{6}"&gt;View Details&lt;/a&gt;]</source>
-	<target>{2} von {3} Verzeichnissen und {4} von {5} symbolischen Links auf dem System wurden erfolgreich mit @@PRODUCT_NAME@@-verwalteten Dateien verglichen. [&lt;a href="{6}"&gt;Details anzeigen&lt;/a&gt;]</target></trans-unit>
 
 	<trans-unit id="sdc.config.diff.files_1_dirs_0_symlinks_0">
 		<source>{0} of 1 file on the system was successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href="{6}"&gt;View Details&lt;/a&gt;]</source>
