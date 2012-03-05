@@ -1602,12 +1602,6 @@ dr&amp;uuml;cken und &lt;b&gt;k&amp;ouml;nnen sich nicht wieder einloggen&lt;/b&
           <context context-type="sourcefile">NOT USED</context>
         </context-group>
       <target>Passwort best&amp;auml;tigen</target></trans-unit>
-      <trans-unit id="userdetails.jsp.email">
-<source>Email</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/UserDetails</context>
-        </context-group>
-      <target>E-Mail</target></trans-unit>
       <trans-unit id="userdetails.jsp.roles">
 <source>Roles</source>
         <context-group name="ctx">

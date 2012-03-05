@@ -1602,12 +1602,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">NOT USED</context>
         </context-group>
       <target>கடவுச்சொல்லை உறுதிபடுத்தவும்</target></trans-unit>
-      <trans-unit id="userdetails.jsp.email">
-<source>Email</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/UserDetails</context>
-        </context-group>
-      <target>மின்னஞ்சல்</target></trans-unit>
       <trans-unit id="userdetails.jsp.roles">
 <source>Roles</source>
         <context-group name="ctx">
