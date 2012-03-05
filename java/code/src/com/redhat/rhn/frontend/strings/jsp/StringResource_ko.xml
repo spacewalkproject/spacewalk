@@ -5425,9 +5425,6 @@ value for this entitlement, excluding the default organization's consumption.</s
         <trans-unit id="system_entitlements.unentitle.success">
                 <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s)  &lt;strong&gt;Unentitled&lt;/strong&gt;.</source>
         <target>&lt;strong&gt;{0}&lt;/strong&gt; 시스템이 &lt;strong&gt;인타이틀먼트 없음&lt;/strong&gt;으로 설정되었습니다.</target></trans-unit>
-        <trans-unit id="system_entitlements.unentitle.failure">
-                <source>Unable to  &lt;strong&gt;Unentitle {0}&lt;/strong&gt; system(s).</source>
-        <target>시스템을 &lt;strong&gt;인타이틀먼트 없음 {0}&lt;/strong&gt; 하는 것이 불가능함.</target></trans-unit>
 
 
 

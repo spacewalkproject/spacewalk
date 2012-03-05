@@ -5426,9 +5426,6 @@ value for this entitlement, excluding the default organization's consumption.</s
         <trans-unit id="system_entitlements.unentitle.success">
                 <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s)  &lt;strong&gt;Unentitled&lt;/strong&gt;.</source>
         <target>&lt;strong&gt;{0}&lt;/strong&gt; கணினி(கள்)  &lt;strong&gt;உரிமப்படுத்தப்படவில்லை&lt;/strong&gt;.</target></trans-unit>
-        <trans-unit id="system_entitlements.unentitle.failure">
-                <source>Unable to  &lt;strong&gt;Unentitle {0}&lt;/strong&gt; system(s).</source>
-        <target>கணினி(களை)&lt;strong&gt;உரிமம் நீக்க{0}&lt;/strong&gt; முடியவில்லை.</target></trans-unit>
 
 
 

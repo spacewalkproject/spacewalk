@@ -5426,9 +5426,6 @@ value for this entitlement, excluding the default organization's consumption.</s
         <trans-unit id="system_entitlements.unentitle.success">
                 <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s)  &lt;strong&gt;Unentitled&lt;/strong&gt;.</source>
         <target>&lt;strong&gt;{0}&lt;/strong&gt;ਸਿਸਟਮ &lt;strong&gt;ਅਨ-ਇੰਟਾਈਟਲ&lt;/strong&gt; ਹੈ।</target></trans-unit>
-        <trans-unit id="system_entitlements.unentitle.failure">
-                <source>Unable to  &lt;strong&gt;Unentitle {0}&lt;/strong&gt; system(s).</source>
-        <target>ਸਿਸਟਮ &lt;strong&gt;ਅਨ-ਇੰਟਾਈਟਲ {0}&lt;/strong&gt; ਕਰਨ ਵਿੱਚ ਅਸਫਲ।</target></trans-unit>
 
 
 
