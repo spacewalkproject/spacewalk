@@ -2090,12 +2090,6 @@ del rol de Administrador de la organización.</target></trans-unit>
           <context context-type="sourcefile">/rhn/account/SubscriptionManagement</context>
         </context-group>
       <target>&lt;strong&gt;&lt;a href="https://www.redhat.com/rhel/renew"&gt;Renueve&lt;/a&gt;&lt;/strong&gt; sus &lt;strong&gt;suscripciones de Red Hat Enterprise Linux&lt;/strong&gt; y los &lt;strong&gt;derechos de @@PRODUCT_NAME@@&lt;/strong&gt; en el &lt;strong&gt;&lt;a href="https://www.redhat.com/rhel/renew"&gt;&lt;img src="/img/external-link.gif" alt="External Link"/&gt;Centro de renovación de Red Hat&lt;/a&gt;&lt;/strong&gt;.</target></trans-unit>
-      <trans-unit id="subscriptionmanagement.jsp.purchase.description1">
-<source>&lt;strong&gt;Note:&lt;/strong&gt; Provisioning and Management services are provided to enable add-on features to existing Red Hat Enterprise Linux subscriptions only.  These services alone will not enable you to successfully register an additional system profile in your @@PRODUCT_NAME@@ account.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/account/SubscriptionManagement</context>
-        </context-group>
-      <target>&lt;strong&gt;Nota:&lt;/strong&gt; los servicios de aprovisionamiento y de administración son proporcionados para habilitar funciones internas a las suscripciones de Red Hat Enterprise Linux existentes únicamente. Estos servicios por sí solos no le permitirán registrar satisfactoriamente un perfil de sistema adicional en su cuenta de @@PRODUCT_NAME@@.</target></trans-unit>
       <trans-unit id="subscriptionmanagement.jsp.purchase.description2">
 <source>&lt;strong&gt;&lt;a href="https://www.redhat.com/apps/commerce/"&gt;Purchase&lt;/a&gt;&lt;/strong&gt; additional &lt;strong&gt;Red Hat Enterprise Linux subscriptions&lt;/strong&gt; at the &lt;strong&gt;&lt;a href="https://www.redhat.com/apps/commerce/"&gt;&lt;img src="/img/external-link.gif" alt="External Link"/&gt;Red Hat Store&lt;/a&gt;&lt;/strong&gt;.</source>
         <context-group name="ctx">

@@ -2089,12 +2089,6 @@ dr&amp;uuml;cken und &lt;b&gt;k&amp;ouml;nnen sich nicht wieder einloggen&lt;/b&
           <context context-type="sourcefile">/rhn/account/SubscriptionManagement</context>
         </context-group>
       <target>&lt;strong&gt;&lt;a href="https://www.redhat.com/rhel/renew"&gt;Erneuern&lt;/a&gt;&lt;/strong&gt; Sie Ihre &lt;strong&gt;Red Hat Enterprise Linux Abonnements&lt;/strong&gt; und &lt;strong&gt;@@PRODUCT_NAME@@ Berechtigungen&lt;/strong&gt; beim &lt;strong&gt;&lt;a href="https://www.redhat.com/rhel/renew"&gt;&lt;img src="/img/external-link.gif" alt="External Link"/&gt; Red Hat Renewal Center&lt;/a&gt;&lt;/strong&gt;.</target></trans-unit>
-      <trans-unit id="subscriptionmanagement.jsp.purchase.description1">
-<source>&lt;strong&gt;Note:&lt;/strong&gt; Provisioning and Management services are provided to enable add-on features to existing Red Hat Enterprise Linux subscriptions only.  These services alone will not enable you to successfully register an additional system profile in your @@PRODUCT_NAME@@ account.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/account/SubscriptionManagement</context>
-        </context-group>
-      <target>&lt;strong&gt;Anmerkung:&lt;/strong&gt; Provisioning- und Management-Services werden bereitgestellt, um Zusatz-Features nur f&amp;uuml;r bestehende Red Hat Enterprise Linux Abonnements zu erm&amp;ouml;glichen.  Diese Dienste alleine erm&amp;ouml;glichen es Ihnen nicht, erfolgreich ein zus&amp;auml;tzliches Systemprofil in Ihrem @@PRODUCT_NAME@@-Account anzumelden.</target></trans-unit>
       <trans-unit id="subscriptionmanagement.jsp.purchase.description2">
 <source>&lt;strong&gt;&lt;a href="https://www.redhat.com/apps/commerce/"&gt;Purchase&lt;/a&gt;&lt;/strong&gt; additional &lt;strong&gt;Red Hat Enterprise Linux subscriptions&lt;/strong&gt; at the &lt;strong&gt;&lt;a href="https://www.redhat.com/apps/commerce/"&gt;&lt;img src="/img/external-link.gif" alt="External Link"/&gt;Red Hat Store&lt;/a&gt;&lt;/strong&gt;.</source>
         <context-group name="ctx">

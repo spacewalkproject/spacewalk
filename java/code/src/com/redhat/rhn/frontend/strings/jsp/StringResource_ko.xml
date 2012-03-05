@@ -2089,12 +2089,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/account/SubscriptionManagement</context>
         </context-group>
       <target>&lt;strong&gt;&lt;a href="https://www.redhat.com/rhel/renew"&gt;&lt;img src="/img/external-link.gif" alt="External Link"/&gt;Red Hat 갱신 센터&lt;/a&gt;&lt;/strong&gt;에서 사용 고객님의 &lt;strong&gt;Red Hat Enterprise Linux 서브스크립션&lt;/strong&gt; 및 &lt;strong&gt;@@PRODUCT_NAME@@ 인타이틀먼트&lt;/strong&gt;를 &lt;strong&gt;&lt;a href="https://www.redhat.com/rhel/renew"&gt;갱신&lt;/a&gt;&lt;/strong&gt;하시기 바랍니다.  </target></trans-unit>
-      <trans-unit id="subscriptionmanagement.jsp.purchase.description1">
-<source>&lt;strong&gt;Note:&lt;/strong&gt; Provisioning and Management services are provided to enable add-on features to existing Red Hat Enterprise Linux subscriptions only.  These services alone will not enable you to successfully register an additional system profile in your @@PRODUCT_NAME@@ account.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/account/SubscriptionManagement</context>
-        </context-group>
-      <target>&lt;strong&gt;알림:&lt;/strong&gt; 프로비저닝 (Provisioning) 과 관리 (Management) 서비스는 기존 Red Hat Enterprise Linux 서브스크립션에 대한 추가 기능으로만 제공되었습니다.  따라서 이 서비스만 가지고는 @@PRODUCT_NAME@@ 계정에 추가 시스템 프로파일을 등록하실 수 없습니다.   </target></trans-unit>
       <trans-unit id="subscriptionmanagement.jsp.purchase.description2">
 <source>&lt;strong&gt;&lt;a href="https://www.redhat.com/apps/commerce/"&gt;Purchase&lt;/a&gt;&lt;/strong&gt; additional &lt;strong&gt;Red Hat Enterprise Linux subscriptions&lt;/strong&gt; at the &lt;strong&gt;&lt;a href="https://www.redhat.com/apps/commerce/"&gt;&lt;img src="/img/external-link.gif" alt="External Link"/&gt;Red Hat Store&lt;/a&gt;&lt;/strong&gt;.</source>
         <context-group name="ctx">
