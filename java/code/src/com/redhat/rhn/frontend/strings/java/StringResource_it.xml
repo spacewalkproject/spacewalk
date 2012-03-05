@@ -8019,9 +8019,6 @@ Seguite l'url sotto riportato per visualizzare l'elenco completo di sistemi inat
           <source>The channel access ({0}) is not allowed for this operation.</source>
       <target>Accesso al canale ({0}) non è un processo valido per questa operazione.</target></trans-unit>
 
-      <trans-unit id="Certificate Administrators">
-          <source>Certificate Administrators</source>
-      <target>Amministratori del certificato</target></trans-unit>
 
       <trans-unit id="Monitoring Administrators">
           <source>Monitoring Administrators</source>

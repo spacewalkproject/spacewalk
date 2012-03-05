@@ -8074,9 +8074,6 @@ Follow this url to see the full list of inactive systems:
           <source>The channel access ({0}) is not allowed for this operation.</source>
       </trans-unit>
 
-      <trans-unit id="Certificate Administrators">
-          <source>Certificate Administrators</source>
-      </trans-unit>
 
       <trans-unit id="Monitoring Administrators">
           <source>Monitoring Administrators</source>
