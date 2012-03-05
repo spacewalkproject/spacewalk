@@ -939,12 +939,6 @@
 		 </context-group>
 	<target>最近排程的動作</target></trans-unit>
 
-	<trans-unit id="preferences.pending-actions.description">
-         <source> Lists the scheduled actions of the user.</source>
-		 <context-group name="ctx">
-		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
-		 </context-group>
-	<target> 列出使用者已排程的工作。</target></trans-unit>
 
 	<trans-unit id="preferences.recently-registered-systems.name">
          <source>Recently Registered Systems</source>

@@ -939,12 +939,6 @@
 		 </context-group>
 	<target>Недавно назначенные действия</target></trans-unit>
 
-	<trans-unit id="preferences.pending-actions.description">
-         <source> Lists the scheduled actions of the user.</source>
-		 <context-group name="ctx">
-		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
-		 </context-group>
-	<target> Список назначенных действий для пользователя.</target></trans-unit>
 
 	<trans-unit id="preferences.recently-registered-systems.name">
          <source>Recently Registered Systems</source>

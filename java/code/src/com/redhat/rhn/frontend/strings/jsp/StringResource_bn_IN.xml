@@ -939,12 +939,6 @@
 		 </context-group>
 	<target>সম্প্রতি নির্ধারিত কর্ম</target></trans-unit>
 
-	<trans-unit id="preferences.pending-actions.description">
-         <source> Lists the scheduled actions of the user.</source>
-		 <context-group name="ctx">
-		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
-		 </context-group>
-	<target> ব্যবহারকারীর দ্বারা নির্ধারিত কর্মের তালিকা নির্মাণ করা হয়।</target></trans-unit>
 
 	<trans-unit id="preferences.recently-registered-systems.name">
          <source>Recently Registered Systems</source>

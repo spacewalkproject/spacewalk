@@ -939,12 +939,6 @@
 		 </context-group>
 	<target>சமீபத்தில் திட்டமிட்ட செயல்கள்</target></trans-unit>
 
-	<trans-unit id="preferences.pending-actions.description">
-         <source> Lists the scheduled actions of the user.</source>
-		 <context-group name="ctx">
-		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
-		 </context-group>
-	<target>பயனரின் திட்டமிட்ட செயல்களை பட்டியலிடுகிறது.</target></trans-unit>
 
 	<trans-unit id="preferences.recently-registered-systems.name">
          <source>Recently Registered Systems</source>
