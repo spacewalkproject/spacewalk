@@ -12016,12 +12016,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
          <context context-type="sourcefile">/rhn/kickstart/CreateProfileWizard.do</context>
        </context-group>
      <target>Kickstart ফাইল মূলত একটি টেক্সট ফাইল। এর মধ্যে সুনির্দিষ্ট অভিব্যক্তি সহ বিভিন্ন বিষয়বস্তু উল্লিখত হয়। এই অভিব্যক্তিগুলির দ্বারা Red Hat Enterprise Linux ইনস্টলেশনের সময় ইনস্টলারের বিভিন্ন প্রয়োজনীয় প্রশ্নের সুরাহা করা হয়। Kickstart প্রোফাইলের মধ্যে একটি kickstart ফাইল ও অন্যান্য সংরক্ষিত অপশন যেমন ইনস্টলেশনের উদ্দেশ্যে চিহ্নিত Red Hat Enterprise Linux-র সংস্করণ ও ইনস্টলেশন ফাইলের অবস্থান উপস্থিত থাকে।</target></trans-unit>
-     <trans-unit id="kickstart.jsp.create.wizard.first.tip">
-       <source>&lt;strong&gt;Tip:&lt;/strong&gt; To associate Child software channels with this profile, Please visit the Software &gt; Child Channels tab after you finish these profile creation steps.</source>
-       <context-group name="ctx">
-         <context context-type="sourcefile">/rhn/kickstart/CreateProfileWizard.do</context>
-       </context-group>
-     <target>&lt;strong&gt;উপদেশ:&lt;/strong&gt; এই প্রোফাইলের সাথে চাইল্ড চ্যানেল যুক্ত করার জন্য প্রোফাইল নির্মাণ সমাপ্ত করে অনুগ্রহ করে সফ্টওয়্যার &gt; চাইল্ড চ্যানেল ট্যাব পরিদর্শন করুন।</target></trans-unit>
      <trans-unit id="kickstart.jsp.create.wizard.kickstart.profile.label">
        <source>Label</source>
        <context-group name="ctx">

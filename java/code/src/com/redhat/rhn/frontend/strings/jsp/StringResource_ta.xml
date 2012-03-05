@@ -12017,12 +12017,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
          <context context-type="sourcefile">/rhn/kickstart/CreateProfileWizard.do</context>
        </context-group>
      <target>கிக்ஸ்டார்ட் கோப்பு ஒரு எளிய உரை கோப்பாகும், அதில் உருப்படிகளின் பட்டியல் இருக்கும், ஒவ்வொன்றும் ஒரு முக்கிய சொல்லால் குறிப்பிடப்படும், நிறுவலின் கேள்விகளுக்கு பதில் இருக்கும், பதிலானது Red Hat Enterprise Linuxஐ வெற்றிகரமாக நிறுவ உதவும். ஒரு கிக்ஸ்டார்ட் விவரக்குறிப்பு கிக்ஸ்டார்ட் கோப்பினையும், மற்ற சேமிக்கப்பட்ட விருப்பங்களான நிறுவ வேண்டிய Red Hat Enterprise Linux இன் பதிப்பு மற்றும் நிறுவும் கோப்புகளின் இடம் போன்றவற்றை கொண்டிருக்கும்.</target></trans-unit>
-     <trans-unit id="kickstart.jsp.create.wizard.first.tip">
-       <source>&lt;strong&gt;Tip:&lt;/strong&gt; To associate Child software channels with this profile, Please visit the Software &gt; Child Channels tab after you finish these profile creation steps.</source>
-       <context-group name="ctx">
-         <context context-type="sourcefile">/rhn/kickstart/CreateProfileWizard.do</context>
-       </context-group>
-     <target>&lt;strong&gt;துணுக்கு:&lt;/strong&gt; இந்த விவரக்குறிப்புடன் சேய் மென்பொருள் தடங்களை தொடர்புப்படுத்த, இந்த விவரக்குறிப்பு உருவாக்குதலை முடித்தப்பின் மென்பொருள் &gt; சேய் தடங்கள் தத்தலை பார்க்கவும்.</target></trans-unit>
      <trans-unit id="kickstart.jsp.create.wizard.kickstart.profile.label">
        <source>Label</source>
        <context-group name="ctx">

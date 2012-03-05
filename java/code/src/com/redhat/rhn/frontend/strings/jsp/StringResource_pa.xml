@@ -12016,12 +12016,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
          <context context-type="sourcefile">/rhn/kickstart/CreateProfileWizard.do</context>
        </context-group>
      <target>ਕਿੱਕਸਟਾਰਟ ਫਾਇਲ ਇੱਕ ਸਧਾਰਨ ਪਾਠ ਫਾਇਲ ਹੁੰਦੀ ਹੈ, ਜਿਸ ਵਿੱਚ ਇਕਾਈਆਂ ਦੀ ਸੂਚੀ ਸ਼ਾਮਿਲ ਹੁੰਦੀ ਹੈ, ਜੋ ਇੱਕ ਕੀਵਰਡ ਨਾਲ ਦਰਸਾਈਆਂ ਹੁੰਦੀਆਂ ਹਨ, ਜੋ ਇੰਸਟਾਲਰ ਨੂੰ Red Hat ਇੰਟਰਪਰਾਈਜ਼ ਲੀਨਕਸ ਨੂੰ ਸਫਲਤਾ ਨਾਲ ਇੰਸਟਾਲ ਕਰਨ ਲਈ ਲੋੜੀਂਦਾ ਉੱਤਰ ਦਿੰਦਾ ਹੈ। ਇੱਕ ਕਿੱਕਸਟਾਰਟ ਪਰੋਫਾਈਲ ਵਿੱਚ ਕਿੱਕਸਟਾਰਟ ਫਾਇਲ ਹੁੰਦੀ ਹੈ, ਨਾਲ ਹੀ ਹੋਰ ਸੰਭਾਲੀਆਂ ਚੋਣਾਂ ਜਿਵੇਂ ਇੰਸਟਾਲ ਹੋਣ ਵਾਲੇ Red Hat Enterprise Linux ਦਾ ਵਰਜਨ ਅਤੇ ਇੰਸਟਾਲੇਸ਼ਨ ਫਾਇਲਾਂ ਦੀ ਸਥਿਤੀ।</target></trans-unit>
-     <trans-unit id="kickstart.jsp.create.wizard.first.tip">
-       <source>&lt;strong&gt;Tip:&lt;/strong&gt; To associate Child software channels with this profile, Please visit the Software &gt; Child Channels tab after you finish these profile creation steps.</source>
-       <context-group name="ctx">
-         <context context-type="sourcefile">/rhn/kickstart/CreateProfileWizard.do</context>
-       </context-group>
-     <target>&lt;strong&gt;ਟਿੱਪਣੀ:&lt;/strong&gt; ਅਧੀਨ ਚੈਨਲ ਨੂੰ ਇਸ ਪਰੋਫਾਈਲ ਨਾਲ ਜੋੜਨ ਲਈ, ਕਿਰਪਾ ਕਰਕੇ ਇਹ ਪਰੋਫਾਈਲ ਬਣਾਉਣ ਤੋਂ ਬਾਅਦ ਸਾਫਟਵੇਅਰ &gt; ਅਧੀਨ ਚੈਨਲ ਟੈਬ ਤੇ ਜਾਓ।</target></trans-unit>
      <trans-unit id="kickstart.jsp.create.wizard.kickstart.profile.label">
        <source>Label</source>
        <context-group name="ctx">

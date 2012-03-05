@@ -12014,12 +12014,6 @@ la &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stron
          <context context-type="sourcefile">/rhn/kickstart/CreateProfileWizard.do</context>
        </context-group>
      <target>Un file kickstart è un file di testo semplice contenente un elenco di oggetti ognuno dei quali identificato da una parola chiave, in grado di rispondere alle domande fatte da un installatore per poter installare Red Hat Enterprise Linux. Un profilo kickstart include un file kickstart, insieme ad altre opzioni salvate come la versione di Red Hat Enterprise Linux da installare, e la posizione dei file di installazione.</target></trans-unit>
-     <trans-unit id="kickstart.jsp.create.wizard.first.tip">
-       <source>&lt;strong&gt;Tip:&lt;/strong&gt; To associate Child software channels with this profile, Please visit the Software &gt; Child Channels tab after you finish these profile creation steps.</source>
-       <context-group name="ctx">
-         <context context-type="sourcefile">/rhn/kickstart/CreateProfileWizard.do</context>
-       </context-group>
-     <target>&lt;strong&gt;Suggerimento:&lt;/strong&gt; Per associare i canali software figlio con questo profilo, vi preghiamo di visitare Software &gt;tabella Canali figlio dopo aver terminato le fasi di creazione di questo profilo.</target></trans-unit>
      <trans-unit id="kickstart.jsp.create.wizard.kickstart.profile.label">
        <source>Label</source>
        <context-group name="ctx">

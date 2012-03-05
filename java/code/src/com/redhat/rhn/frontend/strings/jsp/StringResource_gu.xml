@@ -12017,12 +12017,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
          <context context-type="sourcefile">/rhn/kickstart/CreateProfileWizard.do</context>
        </context-group>
      <target>કિકસ્ટાર્ટ ફાઈલ એ વસ્તુઓની યાદીને સમાવતી સાદી લખાણ ફાઈલ છે, જે દરેક મુખ્ય શબ્દ દ્વારા ઓળખાય છે, કે જે Red Hat Enterprise Linux સફળતાપૂર્વક સ્થાપિત કરવા માટે સ્થાપકને જરૂરી જવાબો માટે પ્રશ્નોના જવાબો આપે છે. કિકસ્ટાર્ટ રૂપરેખા કિકસ્ટાર્ટ ફાઈલનો સમાવેશ કરે છે, સાથે સાથે અન્ય સંગ્રહિત વિકલ્પો જેમ કે સ્થાપિત કરવા માટેની Red Hat Enterprise Linux ની આવૃત્તિ અને સ્થાપન ફાઈલોનું સ્થાન.</target></trans-unit>
-     <trans-unit id="kickstart.jsp.create.wizard.first.tip">
-       <source>&lt;strong&gt;Tip:&lt;/strong&gt; To associate Child software channels with this profile, Please visit the Software &gt; Child Channels tab after you finish these profile creation steps.</source>
-       <context-group name="ctx">
-         <context context-type="sourcefile">/rhn/kickstart/CreateProfileWizard.do</context>
-       </context-group>
-     <target>&lt;strong&gt;ટિપ્પણી:&lt;/strong&gt; બાળ સોફ્ટવેર ચેનલોને આ રૂપરેખા સાથે સાંકળવા માટે, મહેરબાની કરીને તમે આ રૂપરેખા બનાવટ પગલાંઓ સમાપ્ત કરો પછી સોફ્ટવેર &gt; બાળ ચેનલોની મુલાકાત લો.</target></trans-unit>
      <trans-unit id="kickstart.jsp.create.wizard.kickstart.profile.label">
        <source>Label</source>
        <context-group name="ctx">

@@ -12017,12 +12017,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
          <context context-type="sourcefile">/rhn/kickstart/CreateProfileWizard.do</context>
        </context-group>
      <target>एक किकस्टार्ट फाइल एक सामान्य पाठ फाइल है, जिसमें मदों की सूची है, प्रत्येक एक कुंजीशब्द के द्वारा पहचाना जाता है, जो कि उन प्रश्नों के उत्तर देता है जिसे एक अधिष्ठापक को Red Hat Enterprise Linux को सफलतापूर्वक अधिष्ठापित करने के क्रम में जरूरत होती है. एक किकस्टार्ट प्रोफाइल में एक किकस्टार्ट फाइल शामिल है, साथ ही साथ अन्य सहेजा विकल्प जैसे कि Red Hat Enterprise Linux का संस्कऱण अधिष्ठापित करने के लिये और अधिष्ठापन फाइल की अवस्थिति.</target></trans-unit>
-     <trans-unit id="kickstart.jsp.create.wizard.first.tip">
-       <source>&lt;strong&gt;Tip:&lt;/strong&gt; To associate Child software channels with this profile, Please visit the Software &gt; Child Channels tab after you finish these profile creation steps.</source>
-       <context-group name="ctx">
-         <context context-type="sourcefile">/rhn/kickstart/CreateProfileWizard.do</context>
-       </context-group>
-     <target>&lt;strong&gt;संकेत:&lt;/strong&gt; संतति सॉफ्टवेयर चैनल को इस प्रोफाइल से जोड़ने के लिए, कृपया सॉफ्टवेयर &gt; संतति चैनल टैब को इन प्रोफाइल निर्माण चरण के बाद समाप्त करते हैं.</target></trans-unit>
      <trans-unit id="kickstart.jsp.create.wizard.kickstart.profile.label">
        <source>Label</source>
        <context-group name="ctx">

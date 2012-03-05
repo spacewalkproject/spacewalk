@@ -12027,12 +12027,6 @@ kickstart 前脚本的内容可以在 &lt;strong&gt;《红帽企业版 Linux 系
          <context context-type="sourcefile">/rhn/kickstart/CreateProfileWizard.do</context>
        </context-group>
      <target>kickstart 文件是一个简单文本文件，它包括了一个含有多项的列表，每个项由一个关键字来区分，它们提供了安装程序要成功安装红帽企业 Linux 所需的信息。一个 kickstart 侧写包括了一个 kickstart 文件和其它存储的选项，比如要安装的红帽企业 Linux 的版本，安装文件的位置。 </target></trans-unit>
-     <trans-unit id="kickstart.jsp.create.wizard.first.tip">
-       <source>&lt;strong&gt;Tip:&lt;/strong&gt; To associate Child software channels with this profile, Please visit the Software &gt; Child Channels tab after you finish these profile creation steps.</source>
-       <context-group name="ctx">
-         <context context-type="sourcefile">/rhn/kickstart/CreateProfileWizard.do</context>
-       </context-group>
-     <target>&lt;strong&gt;提示：&lt;/strong&gt;要将子软件频道和此配置文件关联，请在完成配置文件的创建步骤后访问软件 &gt; 子频道标签。</target></trans-unit>
      <trans-unit id="kickstart.jsp.create.wizard.kickstart.profile.label">
        <source>Label</source>
        <context-group name="ctx">

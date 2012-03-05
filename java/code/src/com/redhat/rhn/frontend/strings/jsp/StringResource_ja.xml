@@ -12016,12 +12016,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
          <context context-type="sourcefile">/rhn/kickstart/CreateProfileWizard.do</context>
        </context-group>
      <target>キックスタートファイルは単純なテキストファイルで、 キーワードで識別される各アイテムの一覧が含まれています。 インストーラが正しく Red Hat Enterprise Linux をインストールするために必要となる各種の質問に対する答えを持っています。 キックスタートプロフィールにはキックスタートファイルの他、 インストールする Red Hat Enterprise Linux のバージョンやインストールファイルの場所などその他保存済みオプションが含まれます。</target></trans-unit>
-     <trans-unit id="kickstart.jsp.create.wizard.first.tip">
-       <source>&lt;strong&gt;Tip:&lt;/strong&gt; To associate Child software channels with this profile, Please visit the Software &gt; Child Channels tab after you finish these profile creation steps.</source>
-       <context-group name="ctx">
-         <context context-type="sourcefile">/rhn/kickstart/CreateProfileWizard.do</context>
-       </context-group>
-     <target>&lt;strong&gt;ヒント:&lt;/strong&gt; 子ソフトウェアチャンネルをこのプロフィールに関連付けるには、 このプロフィール作成手順が終了してからソフトウェア &gt; 子チャンネルのタブの順に進みます。</target></trans-unit>
      <trans-unit id="kickstart.jsp.create.wizard.kickstart.profile.label">
        <source>Label</source>
        <context-group name="ctx">

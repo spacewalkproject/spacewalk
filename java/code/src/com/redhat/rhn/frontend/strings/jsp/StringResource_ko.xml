@@ -12012,12 +12012,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
          <context context-type="sourcefile">/rhn/kickstart/CreateProfileWizard.do</context>
        </context-group>
      <target>킥스타트 파일은 Red Hat Enterprise Linux를 성공적으로 설치하는데 필요한 응답을 키워드로 인식하는 항목을 포함한 단순한 평문 파일입니다. 킥스타트 프로파일에는 킥스타트 파일 및 설치할 Red Hat Enterprise Linux 버전 및 설치 파일 위치와 같은 기타 저장 옵션이 포함됩니다.</target></trans-unit>
-     <trans-unit id="kickstart.jsp.create.wizard.first.tip">
-       <source>&lt;strong&gt;Tip:&lt;/strong&gt; To associate Child software channels with this profile, Please visit the Software &gt; Child Channels tab after you finish these profile creation steps.</source>
-       <context-group name="ctx">
-         <context context-type="sourcefile">/rhn/kickstart/CreateProfileWizard.do</context>
-       </context-group>
-     <target>&lt;strong&gt;힌트:&lt;/strong&gt; 프로파일에 소프트웨어 채널을 연계하시려면, 프로파일 생성 단계를 마치신 후 소프트웨어 &gt; 자식 채널 탭으로 이동하시기 바랍니다.</target></trans-unit>
      <trans-unit id="kickstart.jsp.create.wizard.kickstart.profile.label">
        <source>Label</source>
        <context-group name="ctx">

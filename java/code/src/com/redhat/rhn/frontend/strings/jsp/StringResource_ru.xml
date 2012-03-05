@@ -12011,12 +12011,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
          <context context-type="sourcefile">/rhn/kickstart/CreateProfileWizard.do</context>
        </context-group>
      <target>Файл кикстарта представляет собой обычный текстовый файл, состоящий из строк, которые идентифицируются установщиком как инструкции. Файл кикстарта является составляющей профиля кикстарта в совокупности с другими параметрами (версия устанавливаемой системы Red Hat Enterprise Linux, положение файлов установки).</target></trans-unit>
-     <trans-unit id="kickstart.jsp.create.wizard.first.tip">
-       <source>&lt;strong&gt;Tip:&lt;/strong&gt; To associate Child software channels with this profile, Please visit the Software &gt; Child Channels tab after you finish these profile creation steps.</source>
-       <context-group name="ctx">
-         <context context-type="sourcefile">/rhn/kickstart/CreateProfileWizard.do</context>
-       </context-group>
-     <target>&lt;strong&gt;Совет:&lt;/strong&gt; Чтобы сопоставить этому профилю дочерние каналы ПО, создав профиль, перейдите ко вкладке ПО &gt; Дочерние каналы.</target></trans-unit>
      <trans-unit id="kickstart.jsp.create.wizard.kickstart.profile.label">
        <source>Label</source>
        <context-group name="ctx">

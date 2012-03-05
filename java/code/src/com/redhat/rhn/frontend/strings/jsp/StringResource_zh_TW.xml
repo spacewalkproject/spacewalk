@@ -12013,12 +12013,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
          <context context-type="sourcefile">/rhn/kickstart/CreateProfileWizard.do</context>
        </context-group>
      <target>Kickstart 檔案是個簡單的文字檔，包含多個項目，每一行都以一個關鍵字標出，用來回答安裝程式的問題，好成功地安裝 Red Hat Enterprise Linux。Kickstart 設定檔包含了 kickstart 檔案，以及其他儲存選項，例如要安裝的 Red Hat Enterprise Linux 版本，以及安裝檔案的位置。</target></trans-unit>
-     <trans-unit id="kickstart.jsp.create.wizard.first.tip">
-       <source>&lt;strong&gt;Tip:&lt;/strong&gt; To associate Child software channels with this profile, Please visit the Software &gt; Child Channels tab after you finish these profile creation steps.</source>
-       <context-group name="ctx">
-         <context context-type="sourcefile">/rhn/kickstart/CreateProfileWizard.do</context>
-       </context-group>
-     <target>&lt;strong&gt;提示：&lt;/strong&gt;如要將子軟體頻道和此設定檔相聯，請在您完成這些設定檔建立步驟後參閱軟體 &gt; 子頻道分頁。</target></trans-unit>
      <trans-unit id="kickstart.jsp.create.wizard.kickstart.profile.label">
        <source>Label</source>
        <context-group name="ctx">
