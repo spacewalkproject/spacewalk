@@ -12859,12 +12859,6 @@ Anschlie&amp;szlig;end wird das nicht-chroot Post-Skript ausgef&amp;uuml;hrt, un
           <context context-type="sourcefile">/rhn/configuration/ChannelOverview.do</context>
         </context-group>
      <target>Sie m&amp;uuml;ssen die Konfigurations-Channel-Details unten eingeben.</target></trans-unit>
-      <trans-unit id="channelOverview.jsp.empty-name">
-<source>Name is required.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Any page with required posix name fields</context>
-        </context-group>
-      <target>Name ist erforderlich.</target></trans-unit>
      <trans-unit id="toolbar.delete.configchannel">
 <source>delete channel</source>
         <context-group name="ctx">

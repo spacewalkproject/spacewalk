@@ -12857,12 +12857,6 @@ Le script post non-chroot sera ensuite exécuté et le script post sera enfin ex
           <context context-type="sourcefile">/rhn/configuration/ChannelOverview.do</context>
         </context-group>
      <target>Vous devez saisir les détails du canal de configuration ci-dessous.</target></trans-unit>
-      <trans-unit id="channelOverview.jsp.empty-name">
-<source>Name is required.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Any page with required posix name fields</context>
-        </context-group>
-      <target>Le nom est requis.</target></trans-unit>
      <trans-unit id="toolbar.delete.configchannel">
 <source>delete channel</source>
         <context-group name="ctx">
