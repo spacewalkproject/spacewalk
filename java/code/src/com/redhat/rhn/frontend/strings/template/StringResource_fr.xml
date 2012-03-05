@@ -442,57 +442,6 @@ Merci d'utiliser @@PRODUCT_NAME@@.
 {5}
 {6}
 </target></trans-unit>
-      <trans-unit id="email.verification.notice.body">
-<source>
-Dear @@PRODUCT_NAME@@ User,
-
-This email is sent to validate the email address that you have
-provided for your Red Hat login. Your Red Hat login, in combination
-with an active Red Hat subscription, provides you with access to
-systems management capabilities through @@PRODUCT_NAME@@.
-
-To ensure the security of the account information associated with your
-Red Hat login, please take a moment to click through the link below
-and verify that we have the correct email address. If you do not
-confirm your email address, your Red Hat login will eventually be
-deactivated.
-
-To confirm your email address, please visit the following URL:
-
-{0}
-
-Thank you for using @@PRODUCT_NAME@@.
-{1}
-{2}
-</source>
-        <context-group name="ctx">
-         <context context-type="sourcefile">Taskomatic task: EmailEngine.java</context>
-                 <context context-type="paramnotes">
-                     {0} - Confirmation URL: https://rhn.redhat.com/
-          </context>
-        </context-group>
-      <target>
-Cher utilisateur @@PRODUCT_NAME@@,
-
-Cet e-mail a été envoyé pour valider l'adresse email que vous avez
- fournie pour votre login Red Hat. Votre login Red Hat, en combination
- avec un abonnement actif à Red Hat, vous fournit un accès à des fonctionnalités de gestion des systèmes
- via @@PRODUCT_NAME@@.
-
-Afin d'assurer la sécurité de l'information de votre compte liée à votre login Red Hat,
- veuillez prendre le temps de cliquer sur le lien ci-dessous
- et de vérifier que l'adresse e-mail soit correcte. Si vous ne confirmez pas
- votre adresse email, votre login Red Hat sera finalement
- désactivé.
-
-Veuillez visiter l'URL suivant pour confirmer votre adresse email :
-
-{0}
-
-Merci d'utiliser @@PRODUCT_NAME@@.
-{1}
-{2}
-</target></trans-unit>
 
       <trans-unit id="email.verification.notice.subject">
 <source>Red Hat login Email Verification</source>

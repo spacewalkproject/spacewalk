@@ -437,56 +437,6 @@ https://{4}/rhn/help/reference/en-US/s1-sm-your-rhn.jsp
 Vielen Dank, dass Sie @@PRODUCT_NAME@ verwenden.
 {5}
 {6}</target></trans-unit>
-      <trans-unit id="email.verification.notice.body">
-<source>
-Dear @@PRODUCT_NAME@@ User,
-
-This email is sent to validate the email address that you have
-provided for your Red Hat login. Your Red Hat login, in combination
-with an active Red Hat subscription, provides you with access to
-systems management capabilities through @@PRODUCT_NAME@@.
-
-To ensure the security of the account information associated with your
-Red Hat login, please take a moment to click through the link below
-and verify that we have the correct email address. If you do not
-confirm your email address, your Red Hat login will eventually be
-deactivated.
-
-To confirm your email address, please visit the following URL:
-
-{0}
-
-Thank you for using @@PRODUCT_NAME@@.
-{1}
-{2}
-</source>
-        <context-group name="ctx">
-         <context context-type="sourcefile">Taskomatic task: EmailEngine.java</context>
-                 <context context-type="paramnotes">
-                     {0} - Confirmation URL: https://rhn.redhat.com/
-          </context>
-        </context-group>
-      <target>
-Sehr geehrter @@PRODUCT_NAME@@ Benutzer,
-
-diese E-Mail wurde gesendet, um die E-Mail-Adresse zu verifizieren,
-die Sie für Ihr Red Hat Login angegeben haben. Ihr Red Hat Login
-in Verbindung mit einem aktiven Red Hat Abonnement ermöglicht Ihnen
-Zugang zu Systemverwaltungsfunktionen über das @@PRODUCT_NAME@@.
-
-Um die Sicherheit Ihrer Account-Informationen in Verbindung mit Ihrem Red Hat
-Login zu gewährleisten, sollten Sie sich einen Moment Zeit nehmen und uns
-mit Hilfe des untenstehenden Links bestätigen, dass wir die korrekte
-E-Mail-Adresse besitzen. Wenn wir keine Bestätigung für Ihre E-Mail-Adresse
-erhalten, wird Ihr Red Hat Login zukünftig deaktiviert
-
-Um Ihre E-Mail-Adresse zu bestätigen, besuchen Sie bitte folgende URL:
-
-{0}
-
-Vielen Dank, dass Sie @@PRODUCT_NAME@@ verwenden.
-{1}
-{2}</target></trans-unit>
 
       <trans-unit id="email.verification.notice.subject">
 <source>Red Hat login Email Verification</source>

@@ -440,57 +440,6 @@ Obrigado por usar o @@PRODUCT_NAME@@.
 {5}
 {6}
 </target></trans-unit>
-      <trans-unit id="email.verification.notice.body">
-<source>
-Dear @@PRODUCT_NAME@@ User,
-
-This email is sent to validate the email address that you have
-provided for your Red Hat login. Your Red Hat login, in combination
-with an active Red Hat subscription, provides you with access to
-systems management capabilities through @@PRODUCT_NAME@@.
-
-To ensure the security of the account information associated with your
-Red Hat login, please take a moment to click through the link below
-and verify that we have the correct email address. If you do not
-confirm your email address, your Red Hat login will eventually be
-deactivated.
-
-To confirm your email address, please visit the following URL:
-
-{0}
-
-Thank you for using @@PRODUCT_NAME@@.
-{1}
-{2}
-</source>
-        <context-group name="ctx">
-         <context context-type="sourcefile">Taskomatic task: EmailEngine.java</context>
-                 <context context-type="paramnotes">
-                     {0} - Confirmation URL: https://rhn.redhat.com/
-          </context>
-        </context-group>
-      <target>
-Caro Usuário do @@PRODUCT_NAME@@,
-
-Este e-mail foi enviado para validar o endereço de e-mail que você
-forneceu para seu login da Red Hat. O seu login da Red Hat, em combinação
-com a subscrição da Red Hat ativa, fornece acesso às capacidades de
-gerenciamento de sistema através do @@PRODUCT_NAME@@.
-
-Para garantia de segurança da informação de conta associada com seu
-login da Red Hat,  por favor espere um momento para clicar no link abaixo
-e verifique se nós possuímos o endereço de e-mail correto. Caso você não
-confirmar seu endereço de e-mail, seu login da Red Hat será eventualmente
-desativado.
-
-Por favor, visite o seguinte URL, para confirmar seu endereço de e-mail:
-
-{0}
-
-Obrigado por usar o @@PRODUCT_NAME@@.
-{1}
-{2}
-</target></trans-unit>
 
       <trans-unit id="email.verification.notice.subject">
 <source>Red Hat login Email Verification</source>

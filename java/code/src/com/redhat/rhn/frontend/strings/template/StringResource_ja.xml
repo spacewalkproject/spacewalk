@@ -438,57 +438,6 @@ https://{4}/rhn/help/reference/en-US/s1-sm-your-rhn.jsp
 {5}
 {6}
 </target></trans-unit>
-      <trans-unit id="email.verification.notice.body">
-<source>
-Dear @@PRODUCT_NAME@@ User,
-
-This email is sent to validate the email address that you have
-provided for your Red Hat login. Your Red Hat login, in combination
-with an active Red Hat subscription, provides you with access to
-systems management capabilities through @@PRODUCT_NAME@@.
-
-To ensure the security of the account information associated with your
-Red Hat login, please take a moment to click through the link below
-and verify that we have the correct email address. If you do not
-confirm your email address, your Red Hat login will eventually be
-deactivated.
-
-To confirm your email address, please visit the following URL:
-
-{0}
-
-Thank you for using @@PRODUCT_NAME@@.
-{1}
-{2}
-</source>
-        <context-group name="ctx">
-         <context context-type="sourcefile">Taskomatic task: EmailEngine.java</context>
-                 <context context-type="paramnotes">
-                     {0} - Confirmation URL: https://rhn.redhat.com/
-          </context>
-        </context-group>
-      <target>
-@@PRODUCT_NAME@@ ユーザー各位
-
-この電子メールは、Red Hat ログインに提供された電子メールアドレスを
-有効にするために送信されています。Red Hat ログインとアクティブな Red Hat
-サブスクリプションの組み合わせにより、@@PRODUCT_NAME@@ からシステム管理機能に
-アクセスできるようになります。
-
-Red Hat ログインに関連付けられたアカウント情報のセキュリティを確保するために、
-以下のリンクをクリックして正しい電子メールアドレスを持っていることを
-確認してください。電子メールアドレスを確認しない場合、
-Red Hat ログインは最終的に無効に
-なります。
-
-電子メールアドレスを確認するには、次の URL にアクセスしてください。
-
-{0}
-
-@@PRODUCT_NAME@@ をご使用いただき誠にありがとうございます。
-{1}
-{2}
-</target></trans-unit>
 
       <trans-unit id="email.verification.notice.subject">
 <source>Red Hat login Email Verification</source>
