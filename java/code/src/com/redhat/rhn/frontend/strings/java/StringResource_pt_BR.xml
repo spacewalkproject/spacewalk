@@ -6551,12 +6551,6 @@ Follow this url to see the full list of inactive systems:
         </context-group>
       <target>{0} MB</target></trans-unit>
 
-      <trans-unit id="error.config-cannot-change-dir2file">
-        <source>Error creating configuration file revision: ({0}) is a directory, but you are attempting to change it to a file. If you want to change its file type, you'll need to delete ({0}) and re-add it as a 'file' rather than a 'directory'.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/file/ManageConfigRevision.do</context>
-        </context-group>
-      <target>Erro ao criar a revisão do arquivo de configuração: ({0}) é um diretório, mas você está tentando mudá-lo para arquivo. Se você desejar mudar seu tipo de arquivo, você precisará remover ({0}) e readicioná-lo como um 'arquivo' ao invés de 'diretório'. </target></trans-unit>
 
       <trans-unit id="error.config-cannot-change-file2dir">
         <source>Error creating configuration file revision: ({0}) is a file, but you are attempting to change it to a directory. If you want to change its file type, you'll need to delete ({0}) and re-add it as a 'directory' rather than a 'file'.</source>
