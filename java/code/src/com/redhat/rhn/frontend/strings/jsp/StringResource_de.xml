@@ -2733,12 +2733,6 @@ dr&amp;uuml;cken und &lt;b&gt;k&amp;ouml;nnen sich nicht wieder einloggen&lt;/b&
           <context context-type="sourcefile">/rhn/users/AssignedSystemGroups</context>
         </context-group>
       <target>Standard-Updates</target></trans-unit>
-      <trans-unit id="assignedgroups.jsp.accessible">
-<source>Accessible</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/AssignedSystemGroups</context>
-        </context-group>
-      <target>Zug&amp;auml;nglich</target></trans-unit>
       <trans-unit id="assignedgroups.jsp.group">
 <source>Group</source>
         <context-group name="ctx">

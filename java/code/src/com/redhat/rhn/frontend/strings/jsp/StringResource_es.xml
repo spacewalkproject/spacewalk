@@ -2733,12 +2733,6 @@ del rol de Administrador de la organización.</target></trans-unit>
           <context context-type="sourcefile">/rhn/users/AssignedSystemGroups</context>
         </context-group>
       <target>Actualizar predeterminados</target></trans-unit>
-      <trans-unit id="assignedgroups.jsp.accessible">
-<source>Accessible</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/AssignedSystemGroups</context>
-        </context-group>
-      <target>Accesible</target></trans-unit>
       <trans-unit id="assignedgroups.jsp.group">
 <source>Group</source>
         <context-group name="ctx">

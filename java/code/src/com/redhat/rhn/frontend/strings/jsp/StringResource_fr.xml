@@ -2733,12 +2733,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/users/AssignedSystemGroups</context>
         </context-group>
       <target>Mettre à jour les valeurs par défaut</target></trans-unit>
-      <trans-unit id="assignedgroups.jsp.accessible">
-<source>Accessible</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/AssignedSystemGroups</context>
-        </context-group>
-      <target>Accessible</target></trans-unit>
       <trans-unit id="assignedgroups.jsp.group">
 <source>Group</source>
         <context-group name="ctx">

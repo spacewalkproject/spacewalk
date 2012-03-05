@@ -2733,12 +2733,6 @@ abaixo e &lt;b&gt;não poderá mais se autenticar&lt;/b&gt;.</target></trans-uni
           <context context-type="sourcefile">/rhn/users/AssignedSystemGroups</context>
         </context-group>
       <target>Atualizar Defaults</target></trans-unit>
-      <trans-unit id="assignedgroups.jsp.accessible">
-<source>Accessible</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/AssignedSystemGroups</context>
-        </context-group>
-      <target>Acessível</target></trans-unit>
       <trans-unit id="assignedgroups.jsp.group">
 <source>Group</source>
         <context-group name="ctx">
