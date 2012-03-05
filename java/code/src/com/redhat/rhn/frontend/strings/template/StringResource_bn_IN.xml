@@ -364,12 +364,6 @@ Thank you for using @@PRODUCT_NAME@@.
         </context-group>
       <target></target></trans-unit>
 
-      <trans-unit id="email.verification.notice.subject">
-<source>Red Hat login Email Verification</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Taskomatic</context>
-        </context-group>
-      <target>Red Hat লগ-ইন সংক্রান্ত ই-মেইল নিশ্চায়ন</target></trans-unit>
 
       <trans-unit id="email.verification.warning.body">
 <source>

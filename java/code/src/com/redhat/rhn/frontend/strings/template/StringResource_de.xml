@@ -438,12 +438,6 @@ Vielen Dank, dass Sie @@PRODUCT_NAME@ verwenden.
 {5}
 {6}</target></trans-unit>
 
-      <trans-unit id="email.verification.notice.subject">
-<source>Red Hat login Email Verification</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Taskomatic</context>
-        </context-group>
-      <target>Red Hat Login E-Mail Verifizierung</target></trans-unit>
 
       <trans-unit id="email.verification.warning.body">
 <source>
