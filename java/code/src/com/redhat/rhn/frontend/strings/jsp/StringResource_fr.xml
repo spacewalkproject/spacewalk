@@ -19578,12 +19578,6 @@ disponibles pour les organisations (à l'exception de l'organisation @@PRODUCT_N
         </context-group>
       <target>Nombre de droits d'accès aux canaux logiciels</target></trans-unit>
 
-      <trans-unit id="orgsoftwaresubs.edit.ent">
-        <source>Entitlement modification must be numeric for {0}.</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions.do</context>
-          </context-group>
-      <target>Le modification du droit d'accès doit être numérique pour {0}.</target></trans-unit>
       <trans-unit id="orgsoftwaresubs.jsp.description">
 <source>Below you modify the total number of software channel entitlements available to the &lt;strong&gt;{0}&lt;/strong&gt; organization on a per-channel basis.  If you'd like to modify the number of entitlements available to a particular channel note that you are limited by the range indicated next to the field.</source>
         <context-group name="ctx">

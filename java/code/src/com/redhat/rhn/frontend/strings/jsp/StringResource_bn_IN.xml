@@ -19522,12 +19522,6 @@ the organizations (excluding the default @@PRODUCT_NAME@@ organization) on this 
         </context-group>
       <target>সফ্টওয়্যার চ্যানেলের এন্টাইটেলমেন্টের সংখ্যা</target></trans-unit>
 
-      <trans-unit id="orgsoftwaresubs.edit.ent">
-        <source>Entitlement modification must be numeric for {0}.</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions.do</context>
-          </context-group>
-      <target>{0}-র জন্য এনটাইটেলমেন্ট পরিবর্তন সংখ্যামূলক হওয়া আবশ্যক।</target></trans-unit>
       <trans-unit id="orgsoftwaresubs.jsp.description">
 <source>Below you modify the total number of software channel entitlements available to the &lt;strong&gt;{0}&lt;/strong&gt; organization on a per-channel basis.  If you'd like to modify the number of entitlements available to a particular channel note that you are limited by the range indicated next to the field.</source>
         <context-group name="ctx">
