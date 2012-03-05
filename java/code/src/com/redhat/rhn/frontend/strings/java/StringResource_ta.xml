@@ -7234,9 +7234,6 @@ url பின்பற்றி செயலிழக்கப்பட்ட �
 
 
 
-	     <trans-unit id="config.files_2_dirs_0_symlinks_0">
-			<source>{0} files</source>
-	     <target></target></trans-unit>
 	     <trans-unit id="config.files_2_dirs_0_symlinks_1">
 			<source>{0} files and {2} symlink</source>
 	     <target></target></trans-unit>
