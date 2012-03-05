@@ -17866,9 +17866,6 @@ de executar um kickstart ou criar uma nova distribuição kickstart.&lt;/strong&
         <trans-unit id="exportcolumn.errataAdvisoryType">
             <source>Advisory Type</source>
         <target>Tipo de Informe (Advisory)</target></trans-unit>
-        <trans-unit id="exportcolumn.errataStatus">
-            <source>Status</source>
-        <target>Estado</target></trans-unit>
         <trans-unit id="exportcolumn.updateDate">
             <source>Updated</source>
         <target>Atualizado</target></trans-unit>

@@ -17855,9 +17855,6 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;
         <trans-unit id="exportcolumn.errataAdvisoryType">
             <source>Advisory Type</source>
         <target>アドバイザリタイプ</target></trans-unit>
-        <trans-unit id="exportcolumn.errataStatus">
-            <source>Status</source>
-        <target>状態</target></trans-unit>
         <trans-unit id="exportcolumn.updateDate">
             <source>Updated</source>
         <target>更新済</target></trans-unit>
