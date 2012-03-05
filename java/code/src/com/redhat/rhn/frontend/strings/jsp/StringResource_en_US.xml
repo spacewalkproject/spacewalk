@@ -22722,12 +22722,6 @@ given channel.</source>
           <context context-type="sourcefile">/rhn/admin/BunchDetail.do</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="bunch.jsp.description.cobbler-sync-bunch">
-        <source>Applies any cobbler configuration changes</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/BunchDetail.do</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="bunch.jsp.description.compare-configs-bunch">
         <source>Schedules a comparison of config files on all systems</source>
         <context-group name="ctx">
