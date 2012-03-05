@@ -16385,12 +16385,6 @@ einen Kickstart durchführen oder eine neue Kickstart-Distribution erzeugen.&lt;
         </context-group>
       <target>Die Kickstart Profil-Optionen wurden erfolgreich aktualisiert.</target></trans-unit>
 
-    <trans-unit id="toolbar.delete.filelist">
-        <source>delete file preservation list</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/provisioning/preservation/PreservationListEdit.do</context>
-        </context-group>
-    <target>Dateierhaltungsliste l&amp;ouml;schen</target></trans-unit>
 
 
   <!--Export Columns  -->

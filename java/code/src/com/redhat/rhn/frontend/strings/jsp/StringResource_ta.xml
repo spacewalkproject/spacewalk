@@ -16330,12 +16330,6 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;
         </context-group>
       <target>கிக்ஸ்டார்ட் விவரக்குறிப்பு விருப்பங்கள் வெற்றிகரமாக மேம்படுத்தப்பட்டன.</target></trans-unit>
 
-    <trans-unit id="toolbar.delete.filelist">
-        <source>delete file preservation list</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/provisioning/preservation/PreservationListEdit.do</context>
-        </context-group>
-    <target>கோப்பு பாதுகாப்பு பட்டியலை அழிக்கவும்</target></trans-unit>
 
 
   <!--Export Columns  -->

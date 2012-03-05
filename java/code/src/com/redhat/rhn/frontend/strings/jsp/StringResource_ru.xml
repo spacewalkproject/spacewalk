@@ -16324,12 +16324,6 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;
         </context-group>
       <target>Параметры профиля кикстарта успешно обновлены.</target></trans-unit>
 
-    <trans-unit id="toolbar.delete.filelist">
-        <source>delete file preservation list</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/provisioning/preservation/PreservationListEdit.do</context>
-        </context-group>
-    <target>удалить список восстановления файлов</target></trans-unit>
 
 
   <!--Export Columns  -->

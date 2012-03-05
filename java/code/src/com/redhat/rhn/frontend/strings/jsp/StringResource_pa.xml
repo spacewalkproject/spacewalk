@@ -16329,12 +16329,6 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;
         </context-group>
       <target>ਕਿੱਕਸਟਾਰਟ ਪਰੋਫਾਈਲ ਪਸੰਦਾਂ ਸਫਲਤਾਪੂਰਕ ਅੱਪਡੇਟ ਹੋ ਗਈਆਂ ਹਨ।</target></trans-unit>
 
-    <trans-unit id="toolbar.delete.filelist">
-        <source>delete file preservation list</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/provisioning/preservation/PreservationListEdit.do</context>
-        </context-group>
-    <target>ਫਾਇਲ ਸੁਰੱਖਿਆ ਸੂਚੀ ਹਟਾਓ</target></trans-unit>
 
 
   <!--Export Columns  -->

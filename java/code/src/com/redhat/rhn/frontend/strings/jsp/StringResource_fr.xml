@@ -16382,12 +16382,6 @@ les canaux de logiciels de @@PRODUCT_NAME@@pour chaque canal parent pris en char
         </context-group>
       <target>Les options du profil Kickstart ont bien été mises à niveau.</target></trans-unit>
 
-    <trans-unit id="toolbar.delete.filelist">
-        <source>delete file preservation list</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/provisioning/preservation/PreservationListEdit.do</context>
-        </context-group>
-    <target>supprimer la liste de conservation de fichiers</target></trans-unit>
 
 
   <!--Export Columns  -->

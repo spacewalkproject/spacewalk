@@ -16381,12 +16381,6 @@ de realizar un kickstart o antes de crear una nueva distribución kickstart.&lt;
         </context-group>
       <target>Las opciones del perfil Kickstart fueron actualizadas satisfactoriamente.</target></trans-unit>
 
-    <trans-unit id="toolbar.delete.filelist">
-        <source>delete file preservation list</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/provisioning/preservation/PreservationListEdit.do</context>
-        </context-group>
-    <target>Borrar lista de preservación de archivos</target></trans-unit>
 
 
   <!--Export Columns  -->

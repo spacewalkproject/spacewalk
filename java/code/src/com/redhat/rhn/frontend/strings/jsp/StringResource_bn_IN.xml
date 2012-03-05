@@ -16328,12 +16328,6 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;
         </context-group>
       <target>Kickstart প্রোফাইল সংক্রান্ত বিকল্প সাফল্যের সাথে আপডেট করা হয়েছে।</target></trans-unit>
 
-    <trans-unit id="toolbar.delete.filelist">
-        <source>delete file preservation list</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/provisioning/preservation/PreservationListEdit.do</context>
-        </context-group>
-    <target>ফাইল সংরক্ষণের তালিকা মুছে ফেলুন</target></trans-unit>
 
 
   <!--Export Columns  -->
