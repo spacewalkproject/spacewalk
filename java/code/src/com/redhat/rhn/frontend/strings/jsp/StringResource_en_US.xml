@@ -22722,12 +22722,6 @@ given channel.</source>
           <context context-type="sourcefile">/rhn/admin/BunchDetail.do</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="bunch.jsp.description.session-cleanup-bunch">
-        <source>Deletes expired rows from the PXTSessions table to keep it from growing too large</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/BunchDetail.do</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="schedule.jsp.noschedules">
         <source>There're no schedules available.</source>
         <context-group name="ctx">
