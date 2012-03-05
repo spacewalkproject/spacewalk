@@ -1548,12 +1548,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/users/UserDetails</context>
         </context-group>
       <target> Les informations de cet utilisateur peuvent être éditées à l'aide du formulaire ci-dessous. Les entrées avec un astérisque (&lt;span class="required-form-field"&gt;*&lt;/span&gt;) sont &lt;strong&gt;requises&lt;/strong&gt;.</target></trans-unit>
-      <trans-unit id="userdetails.jsp.username">
-<source>Username</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/UserDetails</context>
-        </context-group>
-      <target>Nom d'utilisateur</target></trans-unit>
       <trans-unit id="userdetails.jsp.usertype">
 <source>User Type</source>
         <context-group name="ctx">

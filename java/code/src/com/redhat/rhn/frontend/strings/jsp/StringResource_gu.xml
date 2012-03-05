@@ -1548,12 +1548,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/users/UserDetails</context>
         </context-group>
       <target> આ વપરાશકર્તાની જાણકારી નીચે પૂરા પાડવામાં આવેલ ફોર્મની મદદથી ફેરફાર કરી શકાય છે. ફૂદડી (&lt;span class="required-form-field"&gt;*&lt;/span&gt;) થી ચિહ્નિત થયેલ પ્રવેશો &lt;strong&gt;જરૂરી&lt;/strong&gt; છે. </target></trans-unit>
-      <trans-unit id="userdetails.jsp.username">
-<source>Username</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/UserDetails</context>
-        </context-group>
-      <target>વપરાશકર્તાનામ</target></trans-unit>
       <trans-unit id="userdetails.jsp.usertype">
 <source>User Type</source>
         <context-group name="ctx">

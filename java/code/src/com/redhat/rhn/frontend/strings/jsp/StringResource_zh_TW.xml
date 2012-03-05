@@ -1548,12 +1548,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/users/UserDetails</context>
         </context-group>
       <target> 您可以用以下表單修改本使用者的資訊。標示為星號（&lt;span class="required-form-field"&gt;*&lt;/span&gt;）的欄位是&lt;strong&gt;必須&lt;/strong&gt;填寫的欄位。</target></trans-unit>
-      <trans-unit id="userdetails.jsp.username">
-<source>Username</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/UserDetails</context>
-        </context-group>
-      <target>使用者名稱</target></trans-unit>
       <trans-unit id="userdetails.jsp.usertype">
 <source>User Type</source>
         <context-group name="ctx">

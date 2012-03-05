@@ -1548,12 +1548,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/users/UserDetails</context>
         </context-group>
       <target> নীচে উল্লিখিত ফর্মের সাহায্যে ব্যবহারকারীর তথ্য সম্পাদন করা সম্ভব। তারাচিহ্ন দ্বারা নির্দেশিত মানগুলি (&lt;span class="required-form-field"&gt;*&lt;/span&gt;) উল্লেখ করা &lt;strong&gt;আবশ্যক&lt;/strong&gt;।</target></trans-unit>
-      <trans-unit id="userdetails.jsp.username">
-<source>Username</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/UserDetails</context>
-        </context-group>
-      <target>ব্যবহারকারীর নাম</target></trans-unit>
       <trans-unit id="userdetails.jsp.usertype">
 <source>User Type</source>
         <context-group name="ctx">
