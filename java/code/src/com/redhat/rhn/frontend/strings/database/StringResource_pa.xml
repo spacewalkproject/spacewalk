@@ -968,12 +968,6 @@
         </context-group>
       <target>ਨਾਜ਼ੁਕ ਸਵੈਪ ਫੀ-ਸਦੀ ਮੁਕਤ</target></trans-unit>
 
-      <trans-unit id="Critical Swapped Process Count">
-        <source>Critical Swapped Process Count</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-      <target>ਨਾਜ਼ੁਕ ਸਵੈਪ ਕਾਰਜ ਗਿਣਤੀ</target></trans-unit>
 
       <trans-unit id="Critical TIME_WAIT Connections">
         <source>Critical TIME_WAIT Connections</source>
