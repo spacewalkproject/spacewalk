@@ -3537,9 +3537,6 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/kickstart/SessionStatus.do</context>
         </context-group>
-        <trans-unit id="kickstart.state.restarted">
-          <source>The system has been restarted in order to begin the kickstart process.</source>
-        <target>未来开始进行 kickstart，系统已经被重新启动。</target></trans-unit>
         <trans-unit id="kickstart.state.started">
           <source>The initial files required for anaconda have been downloaded.</source>
         <target>anaconda 需要的初始文件已经被下载。</target></trans-unit>
