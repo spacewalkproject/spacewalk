@@ -14750,15 +14750,6 @@ any of these revisions.  Are you sure you want to do this?</source>
 		  </context>
         </context-group>
      <target>ਫਾਇਲ {0} ਸਫਲਤਾਪੂਰਕ ਹਟਾਈ ਗਈ ਹੈ।</target></trans-unit>
-	<trans-unit id="deletefile..jsp.failure">
-<source>Error "{0}" attempting to delete file {1}</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
-		  <context context-type="paramnotes">
-			  Error "Invalid I/O Operation" attempting to delete file /etc/sysconfig/rhn/up2date
-		  </context>
-        </context-group>
-     <target>ਗਲਤੀ "{0}" ਫਾਇਲ {1} ਨੂੰ ਹਟਾਉਣ ਸਮੇਂ</target></trans-unit>
 
     <!-- quota.jsp -->
 

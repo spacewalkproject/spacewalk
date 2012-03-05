@@ -14748,15 +14748,6 @@ Siete sicuri di voler fare questo?</target></trans-unit>
 		  </context>
         </context-group>
      <target>File {0} cancellato con successo.</target></trans-unit>
-	<trans-unit id="deletefile..jsp.failure">
-<source>Error "{0}" attempting to delete file {1}</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
-		  <context context-type="paramnotes">
-			  Error "Invalid I/O Operation" attempting to delete file /etc/sysconfig/rhn/up2date
-		  </context>
-        </context-group>
-     <target>Errore "{0}" durante il tentativo di cancellare il file {1}</target></trans-unit>
 
     <!-- quota.jsp -->
 

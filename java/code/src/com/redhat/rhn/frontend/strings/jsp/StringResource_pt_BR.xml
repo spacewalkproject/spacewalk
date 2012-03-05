@@ -14774,15 +14774,6 @@ para qualquer uma das revisões, assim como todo o histórico de implementação
 		  </context>
         </context-group>
      <target>Arquivo {0} removido com sucesso</target></trans-unit>
-	<trans-unit id="deletefile..jsp.failure">
-<source>Error "{0}" attempting to delete file {1}</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
-		  <context context-type="paramnotes">
-			  Error "Invalid I/O Operation" attempting to delete file /etc/sysconfig/rhn/up2date
-		  </context>
-        </context-group>
-     <target>Erro "{0}" tentando remover arquivo {1}</target></trans-unit>
 
     <!-- quota.jsp -->
 
