@@ -341,9 +341,6 @@
         <trans-unit id="lookup.jsp.reason2.channel">
           <source>You do not have permission to view this channel.</source>
         <target>आपके पास यह चैनल देखने की अनुमति नहीं है.</target></trans-unit>
-        <trans-unit id="lookup.jsp.reason2.package">
-          <source>You do not have permission to view this package.</source>
-        <target>आपके पास यह संकुल देखने की अनुमति नहीं है.</target></trans-unit>
         <trans-unit id="lookup.jsp.reason2.errata">
           <source>You do not have permission to view this erratum.</source>
         <target>आपके पास यह इरेटा देखने की अनुमति नहीं है.</target></trans-unit>
