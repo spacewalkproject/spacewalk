@@ -5908,9 +5908,6 @@ value for this entitlement, excluding the default organization's consumption.</s
 <source>edit this probe</source>
     <target>编辑这个探测</target></trans-unit>
 
-    <trans-unit id="probedetails.jsp.editsuitetitle">
-<source>This is a Probe from a Probe Suite.  Clicking here will edit the Probe Suite.</source>
-    <target>这是一个探测套件中的一个探测。点这里将编辑探测套件。</target></trans-unit>
 
     <trans-unit id="probedetails.jsp.probe_details">
 <source>Probe details</source>

@@ -5908,9 +5908,6 @@ para este derecho, excluyendo el consumo de la organización predeterminada.</ta
 <source>edit this probe</source>
     <target>editar este sondeo</target></trans-unit>
 
-    <trans-unit id="probedetails.jsp.editsuitetitle">
-<source>This is a Probe from a Probe Suite.  Clicking here will edit the Probe Suite.</source>
-    <target>Este es un sondeo del grupo de sondeos. Haga clic aquí para editar el conjunto de sondeos.</target></trans-unit>
 
     <trans-unit id="probedetails.jsp.probe_details">
 <source>Probe details</source>

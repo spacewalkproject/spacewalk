@@ -6269,9 +6269,6 @@ value for this entitlement, excluding the default organization's consumption.</s
 <source>edit this probe</source>
     </trans-unit>
 
-    <trans-unit id="probedetails.jsp.editsuitetitle">
-<source>This is a Probe from a Probe Suite.  Clicking here will edit the Probe Suite.</source>
-    </trans-unit>
 
     <trans-unit id="probedetails.jsp.probe_details">
 <source>Probe details</source>

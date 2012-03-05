@@ -5906,9 +5906,6 @@ value for this entitlement, excluding the default organization's consumption.</s
 <source>edit this probe</source>
     <target>이 프로브를 편집하기</target></trans-unit>
 
-    <trans-unit id="probedetails.jsp.editsuitetitle">
-<source>This is a Probe from a Probe Suite.  Clicking here will edit the Probe Suite.</source>
-    <target>이 프로브는 프로브 슈트에 속한 프로브입니다.  이곳을 클릭하시면 프로브 슈트를 편집하게 됩니다.</target></trans-unit>
 
     <trans-unit id="probedetails.jsp.probe_details">
 <source>Probe details</source>

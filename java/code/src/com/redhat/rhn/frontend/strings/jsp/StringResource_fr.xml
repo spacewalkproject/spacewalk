@@ -5909,9 +5909,6 @@ pour ce droit d'accès, moins la consommation par défaut de l'organisation.</ta
 <source>edit this probe</source>
     <target>éditer cette sonde</target></trans-unit>
 
-    <trans-unit id="probedetails.jsp.editsuitetitle">
-<source>This is a Probe from a Probe Suite.  Clicking here will edit the Probe Suite.</source>
-    <target>Ceci est une sonde d'une suite de sondes. Cliquez ici pour éditer la suite de sondes.</target></trans-unit>
 
     <trans-unit id="probedetails.jsp.probe_details">
 <source>Probe details</source>

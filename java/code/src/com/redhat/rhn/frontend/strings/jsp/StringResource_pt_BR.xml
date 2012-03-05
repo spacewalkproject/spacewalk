@@ -5906,9 +5906,6 @@ value for this entitlement, excluding the default organization's consumption.</s
 <source>edit this probe</source>
     <target>editar esta detecção</target></trans-unit>
 
-    <trans-unit id="probedetails.jsp.editsuitetitle">
-<source>This is a Probe from a Probe Suite.  Clicking here will edit the Probe Suite.</source>
-    <target>Esta é uma detecção de um Conjunto de Detecções.  Clique aqui para editar o conjunto.</target></trans-unit>
 
     <trans-unit id="probedetails.jsp.probe_details">
 <source>Probe details</source>

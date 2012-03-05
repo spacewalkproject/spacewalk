@@ -5910,9 +5910,6 @@ für diese Berechtigung, mit Ausnahme des Verbrauchs der Standardorganisation.</
 <source>edit this probe</source>
     <target>Diesen Probe bearbeiten</target></trans-unit>
 
-    <trans-unit id="probedetails.jsp.editsuitetitle">
-<source>This is a Probe from a Probe Suite.  Clicking here will edit the Probe Suite.</source>
-    <target>Dies ist ein Probe von einer Probe-Suite.  Wenn Sie hier klicken, wird die Probe-Suite bearbeitet.</target></trans-unit>
 
     <trans-unit id="probedetails.jsp.probe_details">
 <source>Probe details</source>

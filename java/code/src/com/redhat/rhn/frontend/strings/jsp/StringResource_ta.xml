@@ -5907,9 +5907,6 @@ value for this entitlement, excluding the default organization's consumption.</s
 <source>edit this probe</source>
     <target>இந்த ஆய்வினை திருத்தவும்</target></trans-unit>
 
-    <trans-unit id="probedetails.jsp.editsuitetitle">
-<source>This is a Probe from a Probe Suite.  Clicking here will edit the Probe Suite.</source>
-    <target>இது ஆய்வு தொகுப்புக்கான ஆய்வாகும்.  இங்கு சொடுக்கி ஆய்வு தொகுப்பினை மாற்றவும்.</target></trans-unit>
 
     <trans-unit id="probedetails.jsp.probe_details">
 <source>Probe details</source>
