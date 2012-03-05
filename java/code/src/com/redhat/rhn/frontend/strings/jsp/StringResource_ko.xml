@@ -17828,9 +17828,6 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;
         <target>상태</target></trans-unit>
 
 
-        <trans-unit id="exportcolumn.state">
-            <source>State</source>
-        <target>상태</target></trans-unit>
 
      </group>
 

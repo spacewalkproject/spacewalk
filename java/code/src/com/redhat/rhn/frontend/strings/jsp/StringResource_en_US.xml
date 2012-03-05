@@ -18235,9 +18235,6 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;
         </trans-unit>
 
 
-        <trans-unit id="exportcolumn.state">
-            <source>State</source>
-        </trans-unit>
 
      </group>
 

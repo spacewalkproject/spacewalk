@@ -17891,9 +17891,6 @@ einen Kickstart durchführen oder eine neue Kickstart-Distribution erzeugen.&lt;
         <target>Status</target></trans-unit>
 
 
-        <trans-unit id="exportcolumn.state">
-            <source>State</source>
-        <target>Status</target></trans-unit>
 
      </group>
 

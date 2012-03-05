@@ -17882,9 +17882,6 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;
         <target>状态</target></trans-unit>
 
 
-        <trans-unit id="exportcolumn.state">
-            <source>State</source>
-        <target>状态</target></trans-unit>
 
      </group>
 

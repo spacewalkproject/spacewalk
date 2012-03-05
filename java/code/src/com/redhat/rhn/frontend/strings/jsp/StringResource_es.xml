@@ -17887,9 +17887,6 @@ de realizar un kickstart o antes de crear una nueva distribución kickstart.&lt;
         <target>Estado</target></trans-unit>
 
 
-        <trans-unit id="exportcolumn.state">
-            <source>State</source>
-        <target>Estado</target></trans-unit>
 
      </group>
 
