@@ -18492,12 +18492,6 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;
         </context-group>
       <target>*&lt;strong&gt;ヒント:&lt;/strong&gt; 「合計」とは、この @@PRODUCT_NAME@@ の証明書で 反映されているように、 @@PRODUCT_NAME@@ へ利用可能な合計を示します。</target></trans-unit>
 
-      <trans-unit id="sys_entitlements.not_allocated">
-        <source>Not Allocated*</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
-        </context-group>
-      <target>割り当てなし*</target></trans-unit>
 
       <trans-unit id="sys_entitlements.notinuse">
         <source>Not In Use</source>

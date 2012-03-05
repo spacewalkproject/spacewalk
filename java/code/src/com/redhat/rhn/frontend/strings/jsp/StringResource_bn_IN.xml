@@ -18456,12 +18456,6 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;
       <target>*&lt;strong&gt;উপদেশ:&lt;/strong&gt; @@PRODUCT_NAME@@-র সার্টিফিকেটের মধ্যে উল্লিখিত, @@PRODUCT_NAME@@-র ক্ষেত্রে সর্বমোট উপলব্ধ এনটাইটেলমেন্ট
 'সর্বমোট' দ্বারা চিহ্নিত হয়েছে।</target></trans-unit>
 
-      <trans-unit id="sys_entitlements.not_allocated">
-        <source>Not Allocated*</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
-        </context-group>
-      <target>বরাদ্দ করা হয়নি*</target></trans-unit>
 
       <trans-unit id="sys_entitlements.notinuse">
         <source>Not In Use</source>

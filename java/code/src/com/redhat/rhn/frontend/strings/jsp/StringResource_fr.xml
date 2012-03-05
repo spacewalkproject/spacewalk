@@ -18511,12 +18511,6 @@ les canaux de logiciels de @@PRODUCT_NAME@@pour chaque canal parent pris en char
       <target>*&lt;strong&gt;Astuce :&lt;/strong&gt; 'Total' fait référence au total disponible pour le @@PRODUCT_NAME@@
 comme défini dans le certificat de ce @@PRODUCT_NAME@@.</target></trans-unit>
 
-      <trans-unit id="sys_entitlements.not_allocated">
-        <source>Not Allocated*</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
-        </context-group>
-      <target>Non alloué*</target></trans-unit>
 
       <trans-unit id="sys_entitlements.notinuse">
         <source>Not In Use</source>

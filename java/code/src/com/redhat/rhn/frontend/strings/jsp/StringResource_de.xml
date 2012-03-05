@@ -18514,12 +18514,6 @@ einen Kickstart durchführen oder eine neue Kickstart-Distribution erzeugen.&lt;
       <target>&lt;strong&gt;*Tipp:&lt;/strong&gt; 'Gesamtwert' bezieht sich auf das dem @@PRODUCT_NAME@@ zur Verf&amp;uuml;gung
 stehende Gesamte, wie in diesem Zertifikat des @@PRODUCT_NAME@@s wiedergegeben.</target></trans-unit>
 
-      <trans-unit id="sys_entitlements.not_allocated">
-        <source>Not Allocated*</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
-        </context-group>
-      <target>Nicht zugewiesen*</target></trans-unit>
 
       <trans-unit id="sys_entitlements.notinuse">
         <source>Not In Use</source>

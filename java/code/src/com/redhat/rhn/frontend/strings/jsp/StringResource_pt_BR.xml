@@ -18504,12 +18504,6 @@ de executar um kickstart ou criar uma nova distribuição kickstart.&lt;/strong&
       <target>*&lt;strong&gt;Dica:&lt;/strong&gt; 'Total' se refere ao total disponível no @@PRODUCT_NAME@@
 como refletido neste certificado do @@PRODUCT_NAME@@. </target></trans-unit>
 
-      <trans-unit id="sys_entitlements.not_allocated">
-        <source>Not Allocated*</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
-        </context-group>
-      <target>Não Alocado*</target></trans-unit>
 
       <trans-unit id="sys_entitlements.notinuse">
         <source>Not In Use</source>

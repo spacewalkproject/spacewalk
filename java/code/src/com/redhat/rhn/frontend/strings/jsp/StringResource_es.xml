@@ -18510,12 +18510,6 @@ de realizar un kickstart o antes de crear una nueva distribución kickstart.&lt;
       <target>*&lt;strong&gt;Consejo&lt;/strong&gt; 'Total' se refiere al total disponible del servidor de  @@PRODUCT_NAME@@.
 tal y como se refleja en el certificado de @@PRODUCT_NAME@@.</target></trans-unit>
 
-      <trans-unit id="sys_entitlements.not_allocated">
-        <source>Not Allocated*</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
-        </context-group>
-      <target>Sin asignar*</target></trans-unit>
 
       <trans-unit id="sys_entitlements.notinuse">
         <source>Not In Use</source>
