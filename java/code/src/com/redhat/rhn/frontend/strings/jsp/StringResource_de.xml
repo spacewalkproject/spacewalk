@@ -13534,12 +13534,6 @@ oder alle Dateien entfernen, oder die neueste Version in ein lokales Ersatz-Set 
           <context context-type="sourcefile">/rhn/configuration/channel/Copy2Systems.do</context>
         </context-group>
      <target>{0} Dateien in {1} lokale Overrides kopiert</target></trans-unit>
-	<trans-unit id="copy2systems.jsp.noSystems">
-<source>No systems found</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/channel/Copy2Systems.do</context>
-        </context-group>
-     <target>Keine Systeme gefunden</target></trans-unit>
 
 	<!-- copy2channels.jsp -->
 	<trans-unit id="copy2channels.jsp.header2">

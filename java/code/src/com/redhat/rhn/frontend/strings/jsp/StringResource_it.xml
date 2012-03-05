@@ -13514,12 +13514,6 @@ file desiderati, copiare l'ultimissima versione all'interno di un set di overrid
           <context context-type="sourcefile">/rhn/configuration/channel/Copy2Systems.do</context>
         </context-group>
      <target>{0} file copiati in {1} override locali</target></trans-unit>
-	<trans-unit id="copy2systems.jsp.noSystems">
-<source>No systems found</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/channel/Copy2Systems.do</context>
-        </context-group>
-     <target>Nessun sistema trovato.</target></trans-unit>
 
 	<!-- copy2channels.jsp -->
 	<trans-unit id="copy2channels.jsp.header2">

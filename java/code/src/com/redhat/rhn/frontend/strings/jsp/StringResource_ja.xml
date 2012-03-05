@@ -13516,12 +13516,6 @@ a file or files, or copy the latest version into a set of local overrides or int
           <context context-type="sourcefile">/rhn/configuration/channel/Copy2Systems.do</context>
         </context-group>
      <target>{0} ファイルが {1} ローカルオーバーライドにコピーされました</target></trans-unit>
-	<trans-unit id="copy2systems.jsp.noSystems">
-<source>No systems found</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/channel/Copy2Systems.do</context>
-        </context-group>
-     <target>システムは見つかりませんでした</target></trans-unit>
 
 	<!-- copy2channels.jsp -->
 	<trans-unit id="copy2channels.jsp.header2">

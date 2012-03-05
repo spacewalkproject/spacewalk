@@ -13532,12 +13532,6 @@ un ou plusieurs fichiers, ou copier la dernière version dans un ensemble de sur
           <context context-type="sourcefile">/rhn/configuration/channel/Copy2Systems.do</context>
         </context-group>
      <target>{0} fichiers copiés dans {1} surcharges locales</target></trans-unit>
-	<trans-unit id="copy2systems.jsp.noSystems">
-<source>No systems found</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/channel/Copy2Systems.do</context>
-        </context-group>
-     <target>Aucun système trouvé.</target></trans-unit>
 
 	<!-- copy2channels.jsp -->
 	<trans-unit id="copy2channels.jsp.header2">
