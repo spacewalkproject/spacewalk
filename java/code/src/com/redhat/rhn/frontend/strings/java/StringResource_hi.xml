@@ -2551,12 +2551,6 @@ available for this kickstart profile to function properly.
       <target>मुक्त प्रपत्र</target></trans-unit>
 
 
-      <trans-unit id="packages.search.onlyone">
-<source>Either search relevant channels or architectures, not both.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/Search</context>
-        </context-group>
-      <target>या तो संदर्भ के चैनल या आर्किटेक्चर को खोजें न कि दोनों.</target></trans-unit>
 
 
       <trans-unit id="packages.search.use_free_form">

@@ -2574,12 +2574,6 @@ available for this kickstart profile to function properly.
       </trans-unit>
 
 
-      <trans-unit id="packages.search.onlyone">
-<source>Either search relevant channels or architectures, not both.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/Search</context>
-        </context-group>
-      </trans-unit>
 
 
       <trans-unit id="packages.search.use_free_form">

@@ -2551,12 +2551,6 @@ available for this kickstart profile to function properly.
       <target>Свободная форма</target></trans-unit>
 
 
-      <trans-unit id="packages.search.onlyone">
-<source>Either search relevant channels or architectures, not both.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/Search</context>
-        </context-group>
-      <target>Или поиск подходящих каналов, или архитектур, но не оба.</target></trans-unit>
 
 
       <trans-unit id="packages.search.use_free_form">

@@ -2582,12 +2582,6 @@ verfügbar machen, damit dieses Kickstart-Profil einwandfrei funktionieren kann.
       <target>Freitext</target></trans-unit>
 
 
-      <trans-unit id="packages.search.onlyone">
-<source>Either search relevant channels or architectures, not both.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/Search</context>
-        </context-group>
-      <target>Durchsuchen Sie entweder relevante Channels oder Architekturen, nicht beides.</target></trans-unit>
 
 
       <trans-unit id="packages.search.use_free_form">

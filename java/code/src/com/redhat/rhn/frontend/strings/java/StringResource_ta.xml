@@ -2551,12 +2551,6 @@ available for this kickstart profile to function properly.
       <target>ஃபிரீ ஃபார்ம்</target></trans-unit>
 
 
-      <trans-unit id="packages.search.onlyone">
-<source>Either search relevant channels or architectures, not both.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/Search</context>
-        </context-group>
-      <target>தொடர்புடைய தடங்கள் அல்லது வடிவமைப்புக்களை தேடவும், ஆனால் இரண்டையும் அல்ல.</target></trans-unit>
 
 
       <trans-unit id="packages.search.use_free_form">

@@ -2553,12 +2553,6 @@ available for this kickstart profile to function properly.
       <target>ਮੁਕਤ ਰੂਪ</target></trans-unit>
 
 
-      <trans-unit id="packages.search.onlyone">
-<source>Either search relevant channels or architectures, not both.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/Search</context>
-        </context-group>
-      <target>ਜਾਂ ਤਾਂ ਅਨੁਸਾਰੀ ਢਾਂਚਾ ਚੈਨਲ ਖੋਜ ਜਾਂ ਢਾਂਚਾ, ਦੋਵੇਂ ਨਹੀਂ।</target></trans-unit>
 
 
       <trans-unit id="packages.search.use_free_form">

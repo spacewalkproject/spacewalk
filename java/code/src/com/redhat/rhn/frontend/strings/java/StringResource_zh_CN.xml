@@ -2576,12 +2576,6 @@ available for this kickstart profile to function properly.
       <target>自选格式</target></trans-unit>
 
 
-      <trans-unit id="packages.search.onlyone">
-<source>Either search relevant channels or architectures, not both.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/Search</context>
-        </context-group>
-      <target>只能搜索相关的频道或体系结构，而不能都查询。</target></trans-unit>
 
 
       <trans-unit id="packages.search.use_free_form">

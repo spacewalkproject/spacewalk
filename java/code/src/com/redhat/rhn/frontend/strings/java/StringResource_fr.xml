@@ -2578,12 +2578,6 @@ disponibles pour que ce profil kickstart puisse fonctionner correctement.
       <target>Formulaire libre</target></trans-unit>
 
 
-      <trans-unit id="packages.search.onlyone">
-<source>Either search relevant channels or architectures, not both.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/Search</context>
-        </context-group>
-      <target>Recherchez parmi les canaux appropriés ou les architectures, mais pas les deux.</target></trans-unit>
 
 
       <trans-unit id="packages.search.use_free_form">

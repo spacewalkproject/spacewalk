@@ -2551,12 +2551,6 @@ available for this kickstart profile to function properly.
       <target>自由格式</target></trans-unit>
 
 
-      <trans-unit id="packages.search.onlyone">
-<source>Either search relevant channels or architectures, not both.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/Search</context>
-        </context-group>
-      <target>搜尋有關的頻道或架構，不是兩者一起。</target></trans-unit>
 
 
       <trans-unit id="packages.search.use_free_form">

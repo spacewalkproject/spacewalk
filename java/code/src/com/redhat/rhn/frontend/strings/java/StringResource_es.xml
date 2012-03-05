@@ -2576,12 +2576,6 @@ asegurarse de que estén disponibles para que este perfil kickstart funcione apr
       <target>Formato libre</target></trans-unit>
 
 
-      <trans-unit id="packages.search.onlyone">
-<source>Either search relevant channels or architectures, not both.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/Search</context>
-        </context-group>
-      <target>Buscar canales relevantes o arquitecturas, no ambos.</target></trans-unit>
 
 
       <trans-unit id="packages.search.use_free_form">

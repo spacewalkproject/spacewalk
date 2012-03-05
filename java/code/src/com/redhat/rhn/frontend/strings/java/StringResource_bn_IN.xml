@@ -2557,12 +2557,6 @@ available for this kickstart profile to function properly.
       <target>সর্বধরনের বিন্যাস</target></trans-unit>
 
 
-      <trans-unit id="packages.search.onlyone">
-<source>Either search relevant channels or architectures, not both.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/Search</context>
-        </context-group>
-      <target>প্রযোজ্য চ্যানেল অথবা আর্কিটেকচারের মধ্যে অনুসন্ধান করুন, দুটির মধ্যে এক সাথে অনুসন্ধান করা সম্ভব নয়।</target></trans-unit>
 
 
       <trans-unit id="packages.search.use_free_form">
