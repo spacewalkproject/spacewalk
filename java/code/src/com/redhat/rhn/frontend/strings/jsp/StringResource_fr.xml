@@ -1270,13 +1270,6 @@
           <context context-type="sourcefile">/rhn/YourRhn.do</context>
         </context-group>
       <target>Paquetages</target></trans-unit>
-<trans-unit id="header.jsp.users">
-<source>Users</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">./includes/header.jsp</context>
-          <context context-type="sourcefile">/rhn/YourRhn.do</context>
-        </context-group>
-      <target>Utilisateurs</target></trans-unit>
       <trans-unit id="header.jsp.my_organization">
 <source>My Organization</source>
         <context-group name="ctx">
