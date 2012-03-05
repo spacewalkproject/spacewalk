@@ -16457,12 +16457,6 @@ a aba &lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;Chaves de At
             <context context-type="sourcefile">/rhn/account/LocalePreferences.do</context>
         </context-group>
     <target>Inglês</target></trans-unit>
-    <trans-unit id="preferences.jsp.lang.zh_TW">
-        <source>Traditional Chinese</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/account/LocalePreferences.do</context>
-        </context-group>
-    <target>Chinês Tradicional</target></trans-unit>
     <trans-unit id="preferences.jsp.lang.none">
         <source>Use Browser Settings</source>
         <context-group name="ctx">

@@ -16422,12 +16422,6 @@ Kickstart করার সময় অনুগ্রহ করে সিস্ট
             <context context-type="sourcefile">/rhn/account/LocalePreferences.do</context>
         </context-group>
     <target>ইংরাজি</target></trans-unit>
-    <trans-unit id="preferences.jsp.lang.zh_TW">
-        <source>Traditional Chinese</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/account/LocalePreferences.do</context>
-        </context-group>
-    <target>পারম্পরিক চীনা</target></trans-unit>
     <trans-unit id="preferences.jsp.lang.none">
         <source>Use Browser Settings</source>
         <context-group name="ctx">

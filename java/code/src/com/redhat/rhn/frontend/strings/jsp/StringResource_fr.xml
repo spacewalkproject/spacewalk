@@ -16465,12 +16465,6 @@ pour abonner des systèmes aux canaux de logiciels durant le kickstart.&lt;/span
             <context context-type="sourcefile">/rhn/account/LocalePreferences.do</context>
         </context-group>
     <target>Anglais</target></trans-unit>
-    <trans-unit id="preferences.jsp.lang.zh_TW">
-        <source>Traditional Chinese</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/account/LocalePreferences.do</context>
-        </context-group>
-    <target>Chinois traditionnel</target></trans-unit>
     <trans-unit id="preferences.jsp.lang.none">
         <source>Use Browser Settings</source>
         <context-group name="ctx">
