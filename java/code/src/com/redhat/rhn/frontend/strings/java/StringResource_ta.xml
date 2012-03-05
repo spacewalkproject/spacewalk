@@ -6744,12 +6744,6 @@ url பின்பற்றி செயலிழக்கப்பட்ட �
       <target>ஒரு செயல் திட்டமிடப்பட்டது.</target></trans-unit>
 
 
-      <trans-unit id="systems.details.virt.no.virt.deleted">
-        <source>No virtual systems deleted.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
-        </context-group>
-      <target>எந்த மெய்நிகர் கணினிகளும் அழிக்கப்படவில்லை.</target></trans-unit>
 
       <trans-unit id="systems.details.virt.one.virt.deleted">
         <source>Deleted one virtual system.</source>

@@ -6744,12 +6744,6 @@ Follow this url to see the full list of inactive systems:
       <target>한 개의 스케줄된 작업.</target></trans-unit>
 
 
-      <trans-unit id="systems.details.virt.no.virt.deleted">
-        <source>No virtual systems deleted.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
-        </context-group>
-      <target>삭제된 가상 시스템이 없습니다.</target></trans-unit>
 
       <trans-unit id="systems.details.virt.one.virt.deleted">
         <source>Deleted one virtual system.</source>

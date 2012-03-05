@@ -6771,12 +6771,6 @@ Suivez cet url pour obtenir la liste complète des systèmes inactifs :
       <target>Une action programmée.</target></trans-unit>
 
 
-      <trans-unit id="systems.details.virt.no.virt.deleted">
-        <source>No virtual systems deleted.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
-        </context-group>
-      <target>Aucun système virtuel supprimé.</target></trans-unit>
 
       <trans-unit id="systems.details.virt.one.virt.deleted">
         <source>Deleted one virtual system.</source>

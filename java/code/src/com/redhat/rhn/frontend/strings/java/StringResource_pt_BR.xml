@@ -6756,12 +6756,6 @@ Follow this url to see the full list of inactive systems:
       <target>Uma ação agendada.</target></trans-unit>
 
 
-      <trans-unit id="systems.details.virt.no.virt.deleted">
-        <source>No virtual systems deleted.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
-        </context-group>
-      <target>Nenhum sistema virtual foi selecionado.</target></trans-unit>
 
       <trans-unit id="systems.details.virt.one.virt.deleted">
         <source>Deleted one virtual system.</source>

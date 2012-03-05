@@ -6744,12 +6744,6 @@ Follow this url to see the full list of inactive systems:
       <target>એક ક્રિયા સુનિશ્ચિત થયેલ છે.</target></trans-unit>
 
 
-      <trans-unit id="systems.details.virt.no.virt.deleted">
-        <source>No virtual systems deleted.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
-        </context-group>
-      <target>કોઈ વર્ચ્યુઅલ સિસ્ટમો કાઢી નંખાઈ નથી.</target></trans-unit>
 
       <trans-unit id="systems.details.virt.one.virt.deleted">
         <source>Deleted one virtual system.</source>
