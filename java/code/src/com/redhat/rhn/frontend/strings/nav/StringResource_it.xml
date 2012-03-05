@@ -58,12 +58,6 @@
         </context-group>
       <target>Installa Patch</target></trans-unit>
 
-      <trans-unit id="system.nav.all">
-<source>All</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Systems Navigation Menu</context>
-        </context-group>
-      <target>Tutti</target></trans-unit>
 
       <trans-unit id="virtualization.entitlements">
         <source>Virtualization Entitlements</source>
@@ -141,40 +135,10 @@
       <target></target></trans-unit>
 
 
-      <trans-unit id="system.nav.outofdate">
-<source>Out of Date</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Systems Navigation Menu</context>
-        </context-group>
-      <target>Scadute</target></trans-unit>
 
-      <trans-unit id="system.nav.unentitled">
-<source>Unentitled</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Systems Navigation Menu</context>
-        </context-group>
-      <target>Senza entitlement</target></trans-unit>
 
-      <trans-unit id="system.nav.ungrouped">
-<source>Ungrouped</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Systems Navigation Menu</context>
-        </context-group>
-      <target>Non raggruppato</target></trans-unit>
 
-      <trans-unit id="system.nav.inactive">
-<source>Inactive</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Systems Navigation Menu</context>
-        </context-group>
-      <target>Inattivo</target></trans-unit>
 
-      <trans-unit id="system.nav.proxy">
-<source>Proxy</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Systems Navigation Menu</context>
-        </context-group>
-      <target>Proxy</target></trans-unit>
 
       <trans-unit id="ssm.nav.config">
         <source>Configuration</source>
@@ -246,12 +210,6 @@
          </context-group>
       <target>Tutti</target></trans-unit>
 
-      <trans-unit id="channel.nav.relevant">
-<source>Relevant channels</source>
-          <context-group name="ctx">
-          <context context-type="sourcefile">Channel Navigation Menu</context>
-        </context-group>
-      <target>Canali rilevanti</target></trans-unit>
 
       <trans-unit id="channel.nav.all">
 <source>All Channels</source>
@@ -267,12 +225,6 @@
         </context-group>
       <target>Canali condivisi</target></trans-unit>
 
-      <trans-unit id="channel.nav.redhat">
-<source>Red Hat Channels</source>
-          <context-group name="ctx">
-          <context context-type="sourcefile">Channel Navigation Menu</context>
-        </context-group>
-      <target>Canali di Red Hat</target></trans-unit>
 
       <trans-unit id="channel.nav.popular">
 <source>Popular Channels</source>
@@ -295,12 +247,6 @@
         </context-group>
       <target></target></trans-unit>
 
-      <trans-unit id="audit.nav.audit">
-<source>Audit</source>
-          <context-group name="ctx">
-          <context context-type="sourcefile">Audit Navigation Menu</context>
-        </context-group>
-      <target></target></trans-unit>
 
       <trans-unit id="config.nav.managed">
 <source>Managed Systems</source>
@@ -337,12 +283,6 @@
         </context-group>
       <target>File di Configurazione</target></trans-unit>
 
-      <trans-unit id="config.nav.quota">
-<source>Quota for File Storage</source>
-          <context-group name="ctx">
-          <context context-type="sourcefile">Configuration Navigation Menu</context>
-        </context-group>
-      <target>Quota per la conservazione del file</target></trans-unit>
 
       <trans-unit id="config.nav.globalfiles">
 <source>Centrally Managed Files</source>
@@ -517,13 +457,7 @@
             <source>View/Modify Files</source>
         <target>Visualizza/Modifica file</target></trans-unit>
 
-        <trans-unit id="nav.sdc.config.add_files">
-            <source>Add File</source>
-        <target>Aggiungi file</target></trans-unit>
 
-        <trans-unit id="nav.sdc.config.deploy_files">
-            <source>Deploy Files</source>
-        <target>Implementa File</target></trans-unit>
         <trans-unit id="nav.sdc.config.compare_files">
             <source>Compare Files</source>
         <target>Confronta file</target></trans-unit>
@@ -639,12 +573,6 @@
         </context-group>
       <target>Stato sessione</target></trans-unit>
 
-      <trans-unit id="Session History">
-<source>Session History</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-      <target>Cronologia della sessione</target></trans-unit>
 
       <trans-unit id="Sandbox">
 <source>Sandbox</source>
@@ -793,19 +721,7 @@
         </context-group>
       <target>Config File</target></trans-unit>
 
-      <trans-unit id="Local Overrides">
-<source>Local Overrides</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-      <target>Override locali</target></trans-unit>
 
-      <trans-unit id="Outage Policy">
-<source>Outage Policy</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-      <target>Policy di outage</target></trans-unit>
 
       <trans-unit id="Join">
 <source>Join</source>
@@ -972,19 +888,7 @@
     </context-group>
   <target>Profili del Pacchetto</target></trans-unit>
 
-  <trans-unit id="Expiration Dates &amp; Purchase History">
-    <source>Expiration Dates &amp; Purchase History</source>
-    <context-group name="ctx">
-      <context context-type="sourcefile">Overview left nav menu</context>
-    </context-group>
-  <target>Date di scadenza &amp; Cronologia d'acquisto</target></trans-unit>
 
-  <trans-unit id="Purchase or Renew">
-    <source>Purchase or Renew</source>
-    <context-group name="ctx">
-      <context context-type="sourcefile">Overview left nav menu</context>
-    </context-group>
-  <target>Acquista o Rinnova</target></trans-unit>
 
   <trans-unit id="Critical">
     <source>Critical</source>
@@ -1107,12 +1011,6 @@
   <target>Sottoscrizioni</target></trans-unit>
 
 
-  <trans-unit id="subdetails.details">
-    <source>Details</source>
-    <context-group name="ctx">
-      <context context-type="sourcefile">/rhn/admin/multiorg/EntitlementDetails.do</context>
-    </context-group>
-  <target>Dettagli</target></trans-unit>
 
 
   <!-- SSM NAV -->

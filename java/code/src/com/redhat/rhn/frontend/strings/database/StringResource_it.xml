@@ -968,12 +968,6 @@
         </context-group>
       <target>Percentuale di Swap Disponibile Critica</target></trans-unit>
 
-      <trans-unit id="Critical Swapped Process Count">
-        <source>Critical Swapped Process Count</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-      <target>Conteggio Processo Scambiati Critico</target></trans-unit>
 
       <trans-unit id="Critical TIME_WAIT Connections">
         <source>Critical TIME_WAIT Connections</source>
@@ -1073,40 +1067,10 @@
         </context-group>
       <target>Critical: Velocità di scrittura</target></trans-unit>
 
-      <trans-unit id="Critical if number of blocked processes exceeds">
-        <source>Critical if number of blocked processes exceeds</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-      <target>Critical: se il numero di processi bloccati supera</target></trans-unit>
 
-      <trans-unit id="Critical if number of children for any process exceeds">
-        <source>Critical if number of children for any process exceeds</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-      <target>Critical: se il numero di processi figli per qualsiasi processo supera</target></trans-unit>
 
-      <trans-unit id="Critical if number of defunct processes exceeds">
-        <source>Critical if number of defunct processes exceeds</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-      <target>Critical: se il numero di processi zombie supera</target></trans-unit>
 
-      <trans-unit id="Critical if number of stopped processes exceeds">
-        <source>Critical if number of stopped processes exceeds</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-      <target>Critical: se il numero di processi arrestati supera</target></trans-unit>
 
-      <trans-unit id="Critical if number of swapped processes exceeds">
-        <source>Critical if number of swapped processes exceeds</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-      <target>Critical: se il numero di processi scambiati supera</target></trans-unit>
 
       <trans-unit id="Database">
         <source>Database</source>
@@ -1318,12 +1282,6 @@
         </context-group>
       <target>Password di Oracle</target></trans-unit>
 
-      <trans-unit id="Oracle Password_confirm">
-        <source>Oracle Password Confirm</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-      <target>Conferma password di Oracle</target></trans-unit>
 
       <trans-unit id="Oracle Port">
         <source>Oracle Port</source>
@@ -1647,40 +1605,10 @@
         </context-group>
       <target>Warn: Utenti</target></trans-unit>
 
-      <trans-unit id="Warn if number of blocked processes exceeds">
-        <source>Warn if number of blocked processes exceeds</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-      <target>Warn: se il numero di processi bloccati eccede</target></trans-unit>
 
-      <trans-unit id="Warn if number of children for any process exceeds">
-        <source>Warn if number of children for any process exceeds</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-      <target>Warn: se il numero di processi figlio per ogni dato processo eccede</target></trans-unit>
 
-      <trans-unit id="Warn if number of defunct processes exceeds">
-        <source>Warn if number of defunct processes exceeds</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-      <target>Warn: se il numero di processi zombie eccede</target></trans-unit>
 
-      <trans-unit id="Warn if number of stopped processes exceeds">
-        <source>Warn if number of stopped processes exceeds</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-      <target>Warn: se il numero di processi arrestati eccede</target></trans-unit>
 
-      <trans-unit id="Warn if number of swapped processes exceeds">
-        <source>Warn if number of swapped processes exceeds</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-      <target>Warn: se il numero di processi scambiati eccede</target></trans-unit>
 
       <trans-unit id="Warning Accesses">
         <source>Warning Accesses</source>
@@ -2116,12 +2044,6 @@
         </context-group>
       <target>Attenzione: Percentuale di Swap disponibile</target></trans-unit>
 
-      <trans-unit id="Warning Swapped Process Count">
-        <source>Warning Swapped Process Count</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-      <target>Attenzione: Conteggio processi scambiati</target></trans-unit>
 
       <trans-unit id="Warning TIME_WAIT Connections">
         <source>Warning TIME_WAIT Connections</source>
@@ -3305,9 +3227,6 @@
         <trans-unit id="BEA Weblogic">
           <source>BEA Weblogic</source>
         <target>BEA Weblogic</target></trans-unit>
-        <trans-unit id="Red Hat Application Server">
-          <source>Red Hat Application Server</source>
-        <target>Red Hat Application Server</target></trans-unit>
         <trans-unit id="General">
           <source>General</source>
         <target>General</target></trans-unit>
@@ -3573,45 +3492,6 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/kickstart/SessionStatus.do</context>
         </context-group>
-        <trans-unit id="kickstart.state.created">
-          <source>Kickstart session created but has not yet been used.</source>
-        <target>Sessione kickstart creata ma non ancora utilizzata.</target></trans-unit>
-        <trans-unit id="kickstart.state.deployed">
-          <source>Files required for kickstart action have been installed.</source>
-        <target>I file necessari per un'azione kickstart sono stati installati.</target></trans-unit>
-        <trans-unit id="kickstart.state.injected">
-          <source>The system configuration has been modified to begin kickstart upon next boot.</source>
-        <target>La configurazione del sistema è stata modificata in modo da iniziare kickstart al prossimo avvio.</target></trans-unit>
-        <trans-unit id="kickstart.state.restarted">
-          <source>The system has been restarted in order to begin the kickstart process.</source>
-        <target>Il sistema è stato riavviato per poter iniziare il processo kickstart.</target></trans-unit>
-        <trans-unit id="kickstart.state.configuration_accessed">
-          <source>The system has downloaded the kickstart configuration file from @@PRODUCT_NAME@@.</source>
-        <target>Il sistema ha scaricato il file di configurazione di kickstart da @@PRODUCT_NAME@@.</target></trans-unit>
-        <trans-unit id="kickstart.state.started">
-          <source>The initial files required for anaconda have been downloaded.</source>
-        <target>I file iniziali necessari per anaconda sono stati scaricati.</target></trans-unit>
-        <trans-unit id="kickstart.state.in_progress">
-          <source>The system is downloading the RPMs required to install.</source>
-        <target>Il sistema stà scaricando gli RPM necessari per l'installazione.</target></trans-unit>
-        <trans-unit id="kickstart.state.registered">
-          <source>The system has successfully registered with @@PRODUCT_NAME@@ after kickstarting.</source>
-        <target>Il sistema ha eseguito con successo la registrazione con @@PRODUCT_NAME@@ dopo aver eseguito un kickstart.</target></trans-unit>
-        <trans-unit id="kickstart.state.package_synch">
-          <source>Package synchronization in progress.</source>
-        <target>Sincronizzazione del pacchetto in corso.</target></trans-unit>
-        <trans-unit id="kickstart.state.package_synch_scheduled">
-          <source>Package synchronization scheduled.</source>
-        <target>È stata programmata la sincronizzazione del pacchetto.</target></trans-unit>
-        <trans-unit id="kickstart.state.configuration_deploy">
-          <source>Configuration files are being deployed.</source>
-        <target>Sono stati impiegati i file di configurazione.</target></trans-unit>
-        <trans-unit id="kickstart.state.complete">
-          <source>Kickstart complete.</source>
-        <target>Kickstart completo.</target></trans-unit>
-        <trans-unit id="kickstart.state.failed">
-          <source>Kickstart failed.</source>
-        <target>Kickstart fallito.</target></trans-unit>
     </group>
 
 

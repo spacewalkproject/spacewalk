@@ -64,12 +64,6 @@ http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd"
         </context-group>
       </trans-unit>
 
-      <trans-unit id="system.nav.all">
-<source>All</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Systems Navigation Menu</context>
-        </context-group>
-      </trans-unit>
 
       <trans-unit id="virtualization.entitlements">
         <source>Virtualization Entitlements</source>
@@ -154,40 +148,10 @@ http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd"
       </trans-unit>
 
 
-      <trans-unit id="system.nav.outofdate">
-<source>Out of Date</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Systems Navigation Menu</context>
-        </context-group>
-      </trans-unit>
 
-      <trans-unit id="system.nav.unentitled">
-<source>Unentitled</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Systems Navigation Menu</context>
-        </context-group>
-      </trans-unit>
 
-      <trans-unit id="system.nav.ungrouped">
-<source>Ungrouped</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Systems Navigation Menu</context>
-        </context-group>
-      </trans-unit>
 
-      <trans-unit id="system.nav.inactive">
-<source>Inactive</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Systems Navigation Menu</context>
-        </context-group>
-      </trans-unit>
 
-      <trans-unit id="system.nav.proxy">
-<source>Proxy</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Systems Navigation Menu</context>
-        </context-group>
-      </trans-unit>
 
       <trans-unit id="ssm.nav.config">
         <source>Configuration</source>
@@ -259,12 +223,6 @@ http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd"
          </context-group>
       </trans-unit>
 
-      <trans-unit id="channel.nav.relevant">
-<source>Relevant channels</source>
-          <context-group name="ctx">
-          <context context-type="sourcefile">Channel Navigation Menu</context>
-        </context-group>
-      </trans-unit>
 
       <trans-unit id="channel.nav.all">
 <source>All Channels</source>
@@ -308,12 +266,6 @@ http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd"
         </context-group>
       </trans-unit>
 
-      <trans-unit id="audit.nav.audit">
-<source>Audit</source>
-          <context-group name="ctx">
-          <context context-type="sourcefile">Audit Navigation Menu</context>
-        </context-group>
-      </trans-unit>
 
       <trans-unit id="config.nav.managed">
 <source>Managed Systems</source>
@@ -350,12 +302,6 @@ http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd"
         </context-group>
       </trans-unit>
 
-      <trans-unit id="config.nav.quota">
-<source>Quota for File Storage</source>
-          <context-group name="ctx">
-          <context context-type="sourcefile">Configuration Navigation Menu</context>
-        </context-group>
-      </trans-unit>
 
       <trans-unit id="config.nav.globalfiles">
 <source>Centrally Managed Files</source>
@@ -530,13 +476,7 @@ http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd"
             <source>View/Modify Files</source>
         </trans-unit>
 
-        <trans-unit id="nav.sdc.config.add_files">
-            <source>Add File</source>
-        </trans-unit>
 
-        <trans-unit id="nav.sdc.config.deploy_files">
-            <source>Deploy Files</source>
-        </trans-unit>
         <trans-unit id="nav.sdc.config.compare_files">
             <source>Compare Files</source>
         </trans-unit>
@@ -652,12 +592,6 @@ http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd"
         </context-group>
       </trans-unit>
 
-      <trans-unit id="Session History">
-<source>Session History</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-      </trans-unit>
 
       <trans-unit id="Sandbox">
 <source>Sandbox</source>
@@ -806,19 +740,7 @@ http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd"
         </context-group>
       </trans-unit>
 
-      <trans-unit id="Local Overrides">
-<source>Local Overrides</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-      </trans-unit>
 
-      <trans-unit id="Outage Policy">
-<source>Outage Policy</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-      </trans-unit>
 
       <trans-unit id="Join">
 <source>Join</source>
@@ -985,19 +907,7 @@ http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd"
     </context-group>
   </trans-unit>
 
-  <trans-unit id="Expiration Dates &amp; Purchase History">
-    <source>Expiration Dates &amp; Purchase History</source>
-    <context-group name="ctx">
-      <context context-type="sourcefile">Overview left nav menu</context>
-    </context-group>
-  </trans-unit>
 
-  <trans-unit id="Purchase or Renew">
-    <source>Purchase or Renew</source>
-    <context-group name="ctx">
-      <context context-type="sourcefile">Overview left nav menu</context>
-    </context-group>
-  </trans-unit>
 
   <trans-unit id="Critical">
     <source>Critical</source>
@@ -1120,12 +1030,6 @@ http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd"
   </trans-unit>
 
 
-  <trans-unit id="subdetails.details">
-    <source>Details</source>
-    <context-group name="ctx">
-      <context context-type="sourcefile">/rhn/admin/multiorg/EntitlementDetails.do</context>
-    </context-group>
-  </trans-unit>
 
 
   <!-- SSM NAV -->

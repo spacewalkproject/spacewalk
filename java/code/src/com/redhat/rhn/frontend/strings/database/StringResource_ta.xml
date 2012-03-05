@@ -968,12 +968,6 @@
         </context-group>
       <target>சிக்கலான மாறும் Pct இடைவெளி</target></trans-unit>
 
-      <trans-unit id="Critical Swapped Process Count">
-        <source>Critical Swapped Process Count</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-      <target>சிக்கலான மாறிய பணியின் எண்ணிக்கை</target></trans-unit>
 
       <trans-unit id="Critical TIME_WAIT Connections">
         <source>Critical TIME_WAIT Connections</source>
@@ -1073,40 +1067,10 @@
         </context-group>
       <target>சிக்கலான எழுதும் விகிதம்</target></trans-unit>
 
-      <trans-unit id="Critical if number of blocked processes exceeds">
-        <source>Critical if number of blocked processes exceeds</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-      <target>தடுக்கப்பட்ட பணிகள் கூடும் போது சிக்கல்</target></trans-unit>
 
-      <trans-unit id="Critical if number of children for any process exceeds">
-        <source>Critical if number of children for any process exceeds</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-      <target>எந்த ஒரு பணியின் சேய்களின் எண்ணிக்கை கூடும் போது சிக்கல்</target></trans-unit>
 
-      <trans-unit id="Critical if number of defunct processes exceeds">
-        <source>Critical if number of defunct processes exceeds</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-      <target>செயலிழக்கப்பட்ட பணிகளின் எண்ணிக்கை கூடும் போது சிக்கல்</target></trans-unit>
 
-      <trans-unit id="Critical if number of stopped processes exceeds">
-        <source>Critical if number of stopped processes exceeds</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-      <target>நிறுத்தப்பட்ட பணிகளின் எண்ணிக்கை கூடும் போது சிக்கல்</target></trans-unit>
 
-      <trans-unit id="Critical if number of swapped processes exceeds">
-        <source>Critical if number of swapped processes exceeds</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-      <target>மாற்றப்பட்ட பணிகளின் எண்ணிக்கை கூடும் போது சிக்கல்</target></trans-unit>
 
       <trans-unit id="Database">
         <source>Database</source>
@@ -1318,12 +1282,6 @@
         </context-group>
       <target>ஆரக்கிள் கடவுச்சொல்</target></trans-unit>
 
-      <trans-unit id="Oracle Password_confirm">
-        <source>Oracle Password Confirm</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-      <target></target></trans-unit>
 
       <trans-unit id="Oracle Port">
         <source>Oracle Port</source>
@@ -1647,40 +1605,10 @@
         </context-group>
       <target>எச்சரிக்கை பயனர்கள்</target></trans-unit>
 
-      <trans-unit id="Warn if number of blocked processes exceeds">
-        <source>Warn if number of blocked processes exceeds</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-      <target>தடைப்பட்ட பணிகளின் எண்ணிக்கை கூடும் போது எச்சரிக்கவும்</target></trans-unit>
 
-      <trans-unit id="Warn if number of children for any process exceeds">
-        <source>Warn if number of children for any process exceeds</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-      <target>எந்த ஒரு பணியின் சேயின் எண்ணிக்கை கூடும் போது எச்சரிக்கவும்</target></trans-unit>
 
-      <trans-unit id="Warn if number of defunct processes exceeds">
-        <source>Warn if number of defunct processes exceeds</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-      <target>செயலிழக்கப்பட்ட பணிகளின் எண்ணிக்கை கூடும் போது எச்சரிக்கவும்</target></trans-unit>
 
-      <trans-unit id="Warn if number of stopped processes exceeds">
-        <source>Warn if number of stopped processes exceeds</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-      <target>நிறுத்தப்பட்ட பணிகளின் எண்ணிக்கை கூடும் போது எச்சரிக்கவும்</target></trans-unit>
 
-      <trans-unit id="Warn if number of swapped processes exceeds">
-        <source>Warn if number of swapped processes exceeds</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-      <target>மாறும் பணிகளின் எண்ணிக்கை கூடும் போது எச்சரிக்கவும்</target></trans-unit>
 
       <trans-unit id="Warning Accesses">
         <source>Warning Accesses</source>
@@ -2116,12 +2044,6 @@
         </context-group>
       <target>எச்சரிக்கை மாறும் Pct இடைவெளி</target></trans-unit>
 
-      <trans-unit id="Warning Swapped Process Count">
-        <source>Warning Swapped Process Count</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-      <target>எச்சரிக்கை இடமாற்றப்பட்ட பணியின் எண்ணிக்கை</target></trans-unit>
 
       <trans-unit id="Warning TIME_WAIT Connections">
         <source>Warning TIME_WAIT Connections</source>
@@ -3305,9 +3227,6 @@
         <trans-unit id="BEA Weblogic">
           <source>BEA Weblogic</source>
         <target>BEA Weblogic</target></trans-unit>
-        <trans-unit id="Red Hat Application Server">
-          <source>Red Hat Application Server</source>
-        <target>Red Hat பயன்பாட்டு சேவையகம்</target></trans-unit>
         <trans-unit id="General">
           <source>General</source>
         <target>பொது</target></trans-unit>
@@ -3573,45 +3492,6 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/kickstart/SessionStatus.do</context>
         </context-group>
-        <trans-unit id="kickstart.state.created">
-          <source>Kickstart session created but has not yet been used.</source>
-        <target>கிக்ஸ்டார்ட் அமர்வு உருவாக்கப்பட்டது. ஆனால் இதுவரை அதனை பயன்படுத்தவில்லை.</target></trans-unit>
-        <trans-unit id="kickstart.state.deployed">
-          <source>Files required for kickstart action have been installed.</source>
-        <target>கிக்ஸ்டார்ட் செயலுக்கு தேவையான கோப்புகள் நிறுவப்பட்டுள்ளன.</target></trans-unit>
-        <trans-unit id="kickstart.state.injected">
-          <source>The system configuration has been modified to begin kickstart upon next boot.</source>
-        <target>அடுத்த தொடக்கத்திற்கு கிக்ஸ்டார்ட்டை ஆரம்பிக்க கணினி கட்டமைப்பு மாற்றப்பட்டுள்ளது.</target></trans-unit>
-        <trans-unit id="kickstart.state.restarted">
-          <source>The system has been restarted in order to begin the kickstart process.</source>
-        <target>கிக்ஸ்டார்ட் பணியை தொடங்கும் பொருட்டு கணினி மீண்டும் தொடக்கப்பட்டுள்ளது.</target></trans-unit>
-        <trans-unit id="kickstart.state.configuration_accessed">
-          <source>The system has downloaded the kickstart configuration file from @@PRODUCT_NAME@@.</source>
-        <target>@@PRODUCT_NAME@@ கணினி கிக்ஸ்டார்ட் கட்டமைப்பு கோப்பினை பதிவிறக்கம் செய்துள்ளது.</target></trans-unit>
-        <trans-unit id="kickstart.state.started">
-          <source>The initial files required for anaconda have been downloaded.</source>
-        <target>அனோகோன்டாவிற்கு தேவையான ஆரம்ப கோப்புகள் பதிவிறக்கம் செய்யப்பட்டுள்ளன.</target></trans-unit>
-        <trans-unit id="kickstart.state.in_progress">
-          <source>The system is downloading the RPMs required to install.</source>
-        <target>நிறுவலுக்கு தேவையான RPMகளை கணினி பதிவிறக்கம் செய்கிறது.</target></trans-unit>
-        <trans-unit id="kickstart.state.registered">
-          <source>The system has successfully registered with @@PRODUCT_NAME@@ after kickstarting.</source>
-        <target>கிக்ஸ்டார்ட்டிற்கு பின் கணினி வெற்றிகரமாக @@PRODUCT_NAME@@ னுடன் பதிவு செய்தது .</target></trans-unit>
-        <trans-unit id="kickstart.state.package_synch">
-          <source>Package synchronization in progress.</source>
-        <target>தொகுப்பு ஒருங்கிணைப்பு நடைபெறுகிறது.</target></trans-unit>
-        <trans-unit id="kickstart.state.package_synch_scheduled">
-          <source>Package synchronization scheduled.</source>
-        <target>தொகுப்பு ஒருங்கிணைப்பு திட்டமிடப்பட்டது.</target></trans-unit>
-        <trans-unit id="kickstart.state.configuration_deploy">
-          <source>Configuration files are being deployed.</source>
-        <target>கட்டமைப்பு கோப்புகள் வரிசைப்படுத்தப்பட்டன.</target></trans-unit>
-        <trans-unit id="kickstart.state.complete">
-          <source>Kickstart complete.</source>
-        <target>கிக்ஸ்டார்ட் முடிக்கப்பட்டது.</target></trans-unit>
-        <trans-unit id="kickstart.state.failed">
-          <source>Kickstart failed.</source>
-        <target>கிக்ஸ்டார்ட் செய்ய முடியவில்லை.</target></trans-unit>
     </group>
 
 

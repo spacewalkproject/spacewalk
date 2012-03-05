@@ -58,12 +58,6 @@
         </context-group>
       <target>பின்னிணைப்புகளை நிறுவவும்</target></trans-unit>
 
-      <trans-unit id="system.nav.all">
-<source>All</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Systems Navigation Menu</context>
-        </context-group>
-      <target>அனைத்தும்</target></trans-unit>
 
       <trans-unit id="virtualization.entitlements">
         <source>Virtualization Entitlements</source>
@@ -141,40 +135,10 @@
       <target></target></trans-unit>
 
 
-      <trans-unit id="system.nav.outofdate">
-<source>Out of Date</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Systems Navigation Menu</context>
-        </context-group>
-      <target>தேதி முடிந்தது</target></trans-unit>
 
-      <trans-unit id="system.nav.unentitled">
-<source>Unentitled</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Systems Navigation Menu</context>
-        </context-group>
-      <target>உரிமப்படாதது</target></trans-unit>
 
-      <trans-unit id="system.nav.ungrouped">
-<source>Ungrouped</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Systems Navigation Menu</context>
-        </context-group>
-      <target>குழுநீக்கப்பட்டது</target></trans-unit>
 
-      <trans-unit id="system.nav.inactive">
-<source>Inactive</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Systems Navigation Menu</context>
-        </context-group>
-      <target>செயலிழந்தது</target></trans-unit>
 
-      <trans-unit id="system.nav.proxy">
-<source>Proxy</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Systems Navigation Menu</context>
-        </context-group>
-      <target>பதிலாள்</target></trans-unit>
 
       <trans-unit id="ssm.nav.config">
         <source>Configuration</source>
@@ -246,12 +210,6 @@
          </context-group>
       <target>அனைத்தும்</target></trans-unit>
 
-      <trans-unit id="channel.nav.relevant">
-<source>Relevant channels</source>
-          <context-group name="ctx">
-          <context context-type="sourcefile">Channel Navigation Menu</context>
-        </context-group>
-      <target>தொடர்புடைய தடங்கள்</target></trans-unit>
 
       <trans-unit id="channel.nav.all">
 <source>All Channels</source>
@@ -267,12 +225,6 @@
         </context-group>
       <target>பகிரப்பட்ட சேனல்கள்</target></trans-unit>
 
-      <trans-unit id="channel.nav.redhat">
-<source>Red Hat Channels</source>
-          <context-group name="ctx">
-          <context context-type="sourcefile">Channel Navigation Menu</context>
-        </context-group>
-      <target>Red Hat சேனல்கள்</target></trans-unit>
 
       <trans-unit id="channel.nav.popular">
 <source>Popular Channels</source>
@@ -295,12 +247,6 @@
         </context-group>
       <target></target></trans-unit>
 
-      <trans-unit id="audit.nav.audit">
-<source>Audit</source>
-          <context-group name="ctx">
-          <context context-type="sourcefile">Audit Navigation Menu</context>
-        </context-group>
-      <target></target></trans-unit>
 
       <trans-unit id="config.nav.managed">
 <source>Managed Systems</source>
@@ -337,12 +283,6 @@
         </context-group>
       <target>கட்டமைப்பு கோப்புகள்</target></trans-unit>
 
-      <trans-unit id="config.nav.quota">
-<source>Quota for File Storage</source>
-          <context-group name="ctx">
-          <context context-type="sourcefile">Configuration Navigation Menu</context>
-        </context-group>
-      <target>கோப்பு சேமிப்பகத்திற்கான இடம்</target></trans-unit>
 
       <trans-unit id="config.nav.globalfiles">
 <source>Centrally Managed Files</source>
@@ -517,13 +457,7 @@
             <source>View/Modify Files</source>
         <target>கோப்புகளை பார்வையிடல்/மாற்றுதல்</target></trans-unit>
 
-        <trans-unit id="nav.sdc.config.add_files">
-            <source>Add File</source>
-        <target>கோப்பினை சேர்த்தல்</target></trans-unit>
 
-        <trans-unit id="nav.sdc.config.deploy_files">
-            <source>Deploy Files</source>
-        <target>கோப்புகளை வரிசைப்படுத்தல்</target></trans-unit>
         <trans-unit id="nav.sdc.config.compare_files">
             <source>Compare Files</source>
         <target>கோப்புகளை ஒப்பிடுதல்</target></trans-unit>
@@ -639,12 +573,6 @@
         </context-group>
       <target>அமர்வு நிலை</target></trans-unit>
 
-      <trans-unit id="Session History">
-<source>Session History</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-      <target>அமர்வு வரலாறு</target></trans-unit>
 
       <trans-unit id="Sandbox">
 <source>Sandbox</source>
@@ -793,19 +721,7 @@
         </context-group>
       <target>கட்டமை கோப்புகள்</target></trans-unit>
 
-      <trans-unit id="Local Overrides">
-<source>Local Overrides</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-      <target>உள்ளமை மேலாணைகள்</target></trans-unit>
 
-      <trans-unit id="Outage Policy">
-<source>Outage Policy</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-      <target>நிறுத்த கொள்கை</target></trans-unit>
 
       <trans-unit id="Join">
 <source>Join</source>
@@ -972,19 +888,7 @@
     </context-group>
   <target>தொகுப்பு விவரக்குறிப்பு</target></trans-unit>
 
-  <trans-unit id="Expiration Dates &amp; Purchase History">
-    <source>Expiration Dates &amp; Purchase History</source>
-    <context-group name="ctx">
-      <context context-type="sourcefile">Overview left nav menu</context>
-    </context-group>
-  <target>முடிவுறும் தேதிகள் &amp; வாங்கிய வரலாறு</target></trans-unit>
 
-  <trans-unit id="Purchase or Renew">
-    <source>Purchase or Renew</source>
-    <context-group name="ctx">
-      <context context-type="sourcefile">Overview left nav menu</context>
-    </context-group>
-  <target>வாங்குதல் அல்லது புதுப்பித்தல்</target></trans-unit>
 
   <trans-unit id="Critical">
     <source>Critical</source>
@@ -1107,12 +1011,6 @@
   <target>சந்தாக்கள்</target></trans-unit>
 
 
-  <trans-unit id="subdetails.details">
-    <source>Details</source>
-    <context-group name="ctx">
-      <context context-type="sourcefile">/rhn/admin/multiorg/EntitlementDetails.do</context>
-    </context-group>
-  <target>விவரங்கள்</target></trans-unit>
 
 
   <!-- SSM NAV -->

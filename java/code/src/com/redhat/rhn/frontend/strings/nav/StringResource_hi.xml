@@ -58,12 +58,6 @@
         </context-group>
       <target>पैच अधिष्ठापित करें</target></trans-unit>
 
-      <trans-unit id="system.nav.all">
-<source>All</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Systems Navigation Menu</context>
-        </context-group>
-      <target>सभी</target></trans-unit>
 
       <trans-unit id="virtualization.entitlements">
         <source>Virtualization Entitlements</source>
@@ -141,40 +135,10 @@
       <target></target></trans-unit>
 
 
-      <trans-unit id="system.nav.outofdate">
-<source>Out of Date</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Systems Navigation Menu</context>
-        </context-group>
-      <target>समयातीत</target></trans-unit>
 
-      <trans-unit id="system.nav.unentitled">
-<source>Unentitled</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Systems Navigation Menu</context>
-        </context-group>
-      <target>एंटाइटिल नहीं</target></trans-unit>
 
-      <trans-unit id="system.nav.ungrouped">
-<source>Ungrouped</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Systems Navigation Menu</context>
-        </context-group>
-      <target>विसमूहीकृत</target></trans-unit>
 
-      <trans-unit id="system.nav.inactive">
-<source>Inactive</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Systems Navigation Menu</context>
-        </context-group>
-      <target>निष्क्रिय</target></trans-unit>
 
-      <trans-unit id="system.nav.proxy">
-<source>Proxy</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Systems Navigation Menu</context>
-        </context-group>
-      <target>प्रॉक्सी</target></trans-unit>
 
       <trans-unit id="ssm.nav.config">
         <source>Configuration</source>
@@ -246,12 +210,6 @@
          </context-group>
       <target>सभी</target></trans-unit>
 
-      <trans-unit id="channel.nav.relevant">
-<source>Relevant channels</source>
-          <context-group name="ctx">
-          <context context-type="sourcefile">Channel Navigation Menu</context>
-        </context-group>
-      <target>संबंधित चैनल</target></trans-unit>
 
       <trans-unit id="channel.nav.all">
 <source>All Channels</source>
@@ -267,12 +225,6 @@
         </context-group>
       <target>साझा चैनल</target></trans-unit>
 
-      <trans-unit id="channel.nav.redhat">
-<source>Red Hat Channels</source>
-          <context-group name="ctx">
-          <context context-type="sourcefile">Channel Navigation Menu</context>
-        </context-group>
-      <target>Red Hat चैनल</target></trans-unit>
 
       <trans-unit id="channel.nav.popular">
 <source>Popular Channels</source>
@@ -295,12 +247,6 @@
         </context-group>
       <target></target></trans-unit>
 
-      <trans-unit id="audit.nav.audit">
-<source>Audit</source>
-          <context-group name="ctx">
-          <context context-type="sourcefile">Audit Navigation Menu</context>
-        </context-group>
-      <target></target></trans-unit>
 
       <trans-unit id="config.nav.managed">
 <source>Managed Systems</source>
@@ -337,12 +283,6 @@
         </context-group>
       <target>विन्यास फ़ाइल</target></trans-unit>
 
-      <trans-unit id="config.nav.quota">
-<source>Quota for File Storage</source>
-          <context-group name="ctx">
-          <context context-type="sourcefile">Configuration Navigation Menu</context>
-        </context-group>
-      <target>फाइल भंडार के लिये आरक्षण</target></trans-unit>
 
       <trans-unit id="config.nav.globalfiles">
 <source>Centrally Managed Files</source>
@@ -517,13 +457,7 @@
             <source>View/Modify Files</source>
         <target>फाइल देखें/सुधारें</target></trans-unit>
 
-        <trans-unit id="nav.sdc.config.add_files">
-            <source>Add File</source>
-        <target>फाइल जोड़ें</target></trans-unit>
 
-        <trans-unit id="nav.sdc.config.deploy_files">
-            <source>Deploy Files</source>
-        <target>फाइल तैनात करें</target></trans-unit>
         <trans-unit id="nav.sdc.config.compare_files">
             <source>Compare Files</source>
         <target>फाइल की तुलना करें</target></trans-unit>
@@ -639,12 +573,6 @@
         </context-group>
       <target>सत्र स्थिति</target></trans-unit>
 
-      <trans-unit id="Session History">
-<source>Session History</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-      <target>सत्र इतिहास</target></trans-unit>
 
       <trans-unit id="Sandbox">
 <source>Sandbox</source>
@@ -793,19 +721,7 @@
         </context-group>
       <target>विन्यास फाइल</target></trans-unit>
 
-      <trans-unit id="Local Overrides">
-<source>Local Overrides</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-      <target>स्थानीय अध्यारोहन</target></trans-unit>
 
-      <trans-unit id="Outage Policy">
-<source>Outage Policy</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-      <target>आउटेज नीति</target></trans-unit>
 
       <trans-unit id="Join">
 <source>Join</source>
@@ -972,19 +888,7 @@
     </context-group>
   <target>संकुल प्रोफाइल</target></trans-unit>
 
-  <trans-unit id="Expiration Dates &amp; Purchase History">
-    <source>Expiration Dates &amp; Purchase History</source>
-    <context-group name="ctx">
-      <context context-type="sourcefile">Overview left nav menu</context>
-    </context-group>
-  <target>समय समाप्ति तिथि व खरीद इतिहास</target></trans-unit>
 
-  <trans-unit id="Purchase or Renew">
-    <source>Purchase or Renew</source>
-    <context-group name="ctx">
-      <context context-type="sourcefile">Overview left nav menu</context>
-    </context-group>
-  <target>खरीद या पुनर्नवीकरण</target></trans-unit>
 
   <trans-unit id="Critical">
     <source>Critical</source>
@@ -1107,12 +1011,6 @@
   <target>सदस्यता</target></trans-unit>
 
 
-  <trans-unit id="subdetails.details">
-    <source>Details</source>
-    <context-group name="ctx">
-      <context context-type="sourcefile">/rhn/admin/multiorg/EntitlementDetails.do</context>
-    </context-group>
-  <target>विवरण</target></trans-unit>
 
 
   <!-- SSM NAV -->

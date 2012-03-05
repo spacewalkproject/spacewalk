@@ -968,12 +968,6 @@
         </context-group>
       <target>Critical 空闲的交换分区的百分比</target></trans-unit>
 
-      <trans-unit id="Critical Swapped Process Count">
-        <source>Critical Swapped Process Count</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-      <target>Critical 交换的进程数</target></trans-unit>
 
       <trans-unit id="Critical TIME_WAIT Connections">
         <source>Critical TIME_WAIT Connections</source>
@@ -1073,40 +1067,10 @@
         </context-group>
       <target>Critical 写频率</target></trans-unit>
 
-      <trans-unit id="Critical if number of blocked processes exceeds">
-        <source>Critical if number of blocked processes exceeds</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-      <target>如果被阻塞的进程超过这个值将到达 Critical</target></trans-unit>
 
-      <trans-unit id="Critical if number of children for any process exceeds">
-        <source>Critical if number of children for any process exceeds</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-      <target>如果任何进程的子进程超过这个值将到达 Critical</target></trans-unit>
 
-      <trans-unit id="Critical if number of defunct processes exceeds">
-        <source>Critical if number of defunct processes exceeds</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-      <target>如果非现存的进程超过这个值将到达 Critical</target></trans-unit>
 
-      <trans-unit id="Critical if number of stopped processes exceeds">
-        <source>Critical if number of stopped processes exceeds</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-      <target>如果终止的进程超过这个值将到达 Critical</target></trans-unit>
 
-      <trans-unit id="Critical if number of swapped processes exceeds">
-        <source>Critical if number of swapped processes exceeds</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-      <target>如果被交换的进程超过这个值将到达 Critical</target></trans-unit>
 
       <trans-unit id="Database">
         <source>Database</source>
@@ -1318,12 +1282,6 @@
         </context-group>
       <target>Oracle 密码</target></trans-unit>
 
-      <trans-unit id="Oracle Password_confirm">
-        <source>Oracle Password Confirm</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-      <target>Oracle 密码确认</target></trans-unit>
 
       <trans-unit id="Oracle Port">
         <source>Oracle Port</source>
@@ -1647,40 +1605,10 @@
         </context-group>
       <target>Warn 用户</target></trans-unit>
 
-      <trans-unit id="Warn if number of blocked processes exceeds">
-        <source>Warn if number of blocked processes exceeds</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-      <target>如果被阻塞的进程超过这个值将到达 Warn</target></trans-unit>
 
-      <trans-unit id="Warn if number of children for any process exceeds">
-        <source>Warn if number of children for any process exceeds</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-      <target>如果任何进程的子进程超过这个值将到达 Warn</target></trans-unit>
 
-      <trans-unit id="Warn if number of defunct processes exceeds">
-        <source>Warn if number of defunct processes exceeds</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-      <target>如果非现存的进程进程超过这个值将到达 Warn</target></trans-unit>
 
-      <trans-unit id="Warn if number of stopped processes exceeds">
-        <source>Warn if number of stopped processes exceeds</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-      <target>如果被终止的进程超过这个值将到达 Warn</target></trans-unit>
 
-      <trans-unit id="Warn if number of swapped processes exceeds">
-        <source>Warn if number of swapped processes exceeds</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-      <target>如果被交换的进程超过这个值将到达 Warn</target></trans-unit>
 
       <trans-unit id="Warning Accesses">
         <source>Warning Accesses</source>
@@ -2116,12 +2044,6 @@
         </context-group>
       <target>Warning 空闲的交换分区的百分比</target></trans-unit>
 
-      <trans-unit id="Warning Swapped Process Count">
-        <source>Warning Swapped Process Count</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-      <target>Warning 交换的进程数</target></trans-unit>
 
       <trans-unit id="Warning TIME_WAIT Connections">
         <source>Warning TIME_WAIT Connections</source>
@@ -3305,9 +3227,6 @@
         <trans-unit id="BEA Weblogic">
           <source>BEA Weblogic</source>
         <target>BEA Weblogic</target></trans-unit>
-        <trans-unit id="Red Hat Application Server">
-          <source>Red Hat Application Server</source>
-        <target>红帽应用服务器</target></trans-unit>
         <trans-unit id="General">
           <source>General</source>
         <target>一般</target></trans-unit>
@@ -3573,45 +3492,6 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/kickstart/SessionStatus.do</context>
         </context-group>
-        <trans-unit id="kickstart.state.created">
-          <source>Kickstart session created but has not yet been used.</source>
-        <target>红帽会话被创建但还没有被使用。</target></trans-unit>
-        <trans-unit id="kickstart.state.deployed">
-          <source>Files required for kickstart action have been installed.</source>
-        <target>kickstart 行动需要的文件已经被安装。</target></trans-unit>
-        <trans-unit id="kickstart.state.injected">
-          <source>The system configuration has been modified to begin kickstart upon next boot.</source>
-        <target>系统配置已经被修改来在下次启动时开始 kickstart。</target></trans-unit>
-        <trans-unit id="kickstart.state.restarted">
-          <source>The system has been restarted in order to begin the kickstart process.</source>
-        <target>未来开始进行 kickstart，系统已经被重新启动。</target></trans-unit>
-        <trans-unit id="kickstart.state.configuration_accessed">
-          <source>The system has downloaded the kickstart configuration file from @@PRODUCT_NAME@@.</source>
-        <target>系统已经从 @@PRODUCT_NAME@@ 下载了 kickstart 配置文件。</target></trans-unit>
-        <trans-unit id="kickstart.state.started">
-          <source>The initial files required for anaconda have been downloaded.</source>
-        <target>anaconda 需要的初始文件已经被下载。</target></trans-unit>
-        <trans-unit id="kickstart.state.in_progress">
-          <source>The system is downloading the RPMs required to install.</source>
-        <target>系统正在下载需要安装的 RPM。</target></trans-unit>
-        <trans-unit id="kickstart.state.registered">
-          <source>The system has successfully registered with @@PRODUCT_NAME@@ after kickstarting.</source>
-        <target>在 kickstart 后系统已经成功在 @@PRODUCT_NAME@@ 注册。</target></trans-unit>
-        <trans-unit id="kickstart.state.package_synch">
-          <source>Package synchronization in progress.</source>
-        <target>软件包同步进行中。</target></trans-unit>
-        <trans-unit id="kickstart.state.package_synch_scheduled">
-          <source>Package synchronization scheduled.</source>
-        <target>软件包同步被调度。</target></trans-unit>
-        <trans-unit id="kickstart.state.configuration_deploy">
-          <source>Configuration files are being deployed.</source>
-        <target>配置文件正在被实施。</target></trans-unit>
-        <trans-unit id="kickstart.state.complete">
-          <source>Kickstart complete.</source>
-        <target>kickstart 完成。</target></trans-unit>
-        <trans-unit id="kickstart.state.failed">
-          <source>Kickstart failed.</source>
-        <target>Kickstart 失败。</target></trans-unit>
     </group>
 
 

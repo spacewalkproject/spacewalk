@@ -323,12 +323,6 @@
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
       <target>归档的动作</target></trans-unit>
-      <trans-unit id="Buy Now">
-<source>Buy Now</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">All pages</context>
-        </context-group>
-      <target>现在购买</target></trans-unit>
       <trans-unit id="cant have spaces">
 <source>do spaces work?</source>
         <context-group name="ctx">
@@ -409,12 +403,6 @@
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
       <target>配置频道</target></trans-unit>
-      <trans-unit id="Contact Spacewalk">
-<source>Contact @@PRODUCT_NAME@@</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-      <target>联络 @@PRODUCT_NAME@@</target></trans-unit>
       <trans-unit id="Create Account">
 <source>Create Account</source>
         <context-group name="ctx">
@@ -439,12 +427,6 @@
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
       <target>细节</target></trans-unit>
-      <trans-unit id="Developer's Area">
-<source>Developer's Area</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-      <target>开发者区域</target></trans-unit>
       <trans-unit id="digits">
 <source>0 1 2 3 4 5 6 7 8 9</source>
         <context-group name="ctx">
@@ -459,12 +441,6 @@
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
       <target>发布</target></trans-unit>
-      <trans-unit id="Download Software">
-<source>Download Software</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-      <target>下载软件</target></trans-unit>
       <trans-unit id="Edit this address">
 <source>Edit this address</source>
         <context-group name="ctx">
@@ -495,42 +471,18 @@
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
       <target>FAQ</target></trans-unit>
-      <trans-unit id="FAQ Management">
-<source>FAQ Management</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-      <target>FAQ 管理</target></trans-unit>
       <trans-unit id="fax">
 <source>Fax</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
       <target>传真</target></trans-unit>
-      <trans-unit id="Feedback Management">
-<source>Feedback Management</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-      <target>反馈管理</target></trans-unit>
       <trans-unit id="File Preservation">
 <source>File Preservation</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
       <target>文件保留</target></trans-unit>
-      <trans-unit id="Get Spacewalk Software">
-<source>Get @@PRODUCT_NAME@@ Software</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-      <target>获得 @@PRODUCT_NAME@@ 软件</target></trans-unit>
-      <trans-unit id="Global Config">
-<source>Global Config</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">NOT USED</context>
-        </context-group>
-      <target>全局配置</target></trans-unit>
       <trans-unit id="Go">
 <source>Go</source>
         <context-group name="ctx">
@@ -573,66 +525,24 @@
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
       <target>Kickstart</target></trans-unit>
-      <trans-unit id="LoginSubmit.do">
-<source>LoginSubmit.do</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">NOT USED</context>
-        </context-group>
-      <target>LoginSubmit.do</target></trans-unit>
       <trans-unit id="Lookup Login/Password">
 <source>Lookup Login/Password</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
       <target>查询登录／密码</target></trans-unit>
-      <trans-unit id="Magic Entitler">
-<source>Magic Entitler</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-      <target>Magic Entitler</target></trans-unit>
-      <trans-unit id="Manage Config Channels">
-<source>Manage Config Channels</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-      <target>管理配置频道</target></trans-unit>
       <trans-unit id="Manage Errata">
 <source>Manage Errata</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
       <target>管理勘误</target></trans-unit>
-      <trans-unit id="Manage Files">
-<source>Manage Files</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-      <target>管理文件</target></trans-unit>
       <trans-unit id="Management">
 <source>Management</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
       <target>管理</target></trans-unit>
-      <trans-unit id="Management Spacewalk Guide">
-<source>Management @@PRODUCT_NAME@@ Guide</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-      <target>管理 @@PRODUCT_NAME@@ 指南</target></trans-unit>
-      <trans-unit id="Management Spacewalk">
-<source>Management @@PRODUCT_NAME@@</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-      <target>管理 @@PRODUCT_NAME@@</target></trans-unit>
-      <trans-unit id="Management Spacewalk Release Notes">
-<source>Management @@PRODUCT_NAME@@ Release Notes</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-      <target>管理 @@PRODUCT_NAME@@ 发行注记</target></trans-unit>
       <trans-unit id="Manage Software Channels">
 <source>Manage Software Channels</source>
         <context-group name="ctx">
@@ -771,12 +681,6 @@
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
       <target>机构信托</target></trans-unit>
-      <trans-unit id="Quick Start Guide">
-<source>Quick Start Guide</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-      <target>快速使用指南</target></trans-unit>
       <trans-unit id="Quota">
 <source>Quota</source>
         <context-group name="ctx">
@@ -813,36 +717,6 @@
           <context context-type="sourcefile">Traceback Email Notifications</context>
         </context-group>
       <target>请求</target></trans-unit>
-      <trans-unit id="RHL Migration FAQ">
-<source>RHL Migration FAQ</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-      <target>RHL 系统迁移常见问题</target></trans-unit>
-      <trans-unit id="Spacewalk Management Tools">
-<source>@@PRODUCT_NAME@@ Management Tools</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-      <target>@@PRODUCT_NAME@@ 管理工具</target></trans-unit>
-          <trans-unit id="Spacewalk Login">
-<source>@@PRODUCT_NAME@@ Login</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-          <target>@@PRODUCT_NAME@@ 登录</target></trans-unit>
-          <trans-unit id="Create Login">
-<source>Create Login</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-          <target>创建登录</target></trans-unit>
-      <trans-unit id="Spacewalk Support Tools">
-<source>@@PRODUCT_NAME@@ Support Tools</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-      <target>@@PRODUCT_NAME@@ 支持工具</target></trans-unit>
       <trans-unit id="Schedule">
 <source>Schedule</source>
         <context-group name="ctx">
@@ -867,12 +741,6 @@
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
       <target>会话</target></trans-unit>
-      <trans-unit id="Session Tracer">
-<source>Session Tracer</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-      <target>会话跟踪器</target></trans-unit>
       <trans-unit id="Sign In">
 <source>Sign In</source>
         <context-group name="ctx">
@@ -897,12 +765,6 @@
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
       <target>存储的侧写</target></trans-unit>
-      <trans-unit id="String Manager">
-<source>String Manager</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-      <target>字符串管理</target></trans-unit>
       <trans-unit id="Subscription">
 <source>Subscription</source>
         <context-group name="ctx">
@@ -945,12 +807,6 @@
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
       <target>显示 Tomcat 日志</target></trans-unit>
-      <trans-unit id="Terms &amp; Conditions">
-<source>Terms &amp; Conditions</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-      <target>条款</target></trans-unit>
       <trans-unit id="testMessage">
 <source>this is a test of the emergency broadcast</source>
         <context-group name="ctx">
@@ -982,12 +838,6 @@
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
       <target>未分组</target></trans-unit>
-      <trans-unit id="Unix Reference Guide">
-<source>Unix Reference Guide</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-      <target>Unix 参考指南</target></trans-unit>
       <trans-unit id="Unix Release Notes">
 <source>Unix Release Notes</source>
         <context-group name="ctx">
@@ -1126,12 +976,6 @@
         </context-group>
       <target>不能够删除最后一个 Satellite 管理员。</target></trans-unit>
 
-      <trans-unit id="Users/Servers">
-<source>Users/Servers</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-      <target>用户／服务器</target></trans-unit>
       <trans-unit id="Users">
 <source>Users</source>
         <context-group name="ctx">
@@ -1187,12 +1031,6 @@
           <context context-type="sourcefile">/rhn/users/UserDetails</context>
         </context-group>
       <target>机构申请人</target></trans-unit>
-      <trans-unit id="Organization Admins">
-<source>Organization Admins</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/UserDetails</context>
-        </context-group>
-      <target>机构管理</target></trans-unit>
       <trans-unit id="Activation Key Administrators">
 <source>Activation Key Administrators</source>
         <context-group name="ctx">
@@ -1217,18 +1055,6 @@
           <context context-type="sourcefile">/rhn/users/UserDetails</context>
         </context-group>
       <target>@@PRODUCT_NAME@@ 管理员</target></trans-unit>
-      <trans-unit id="Spacewalk Administrators">
-<source>@@PRODUCT_NAME@@ Administrators</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/UserDetails</context>
-        </context-group>
-      <target>@@PRODUCT_NAME@@ 管理员</target></trans-unit>
-      <trans-unit id="Spacewalk Super Users">
-<source>@@PRODUCT_NAME@@ Super Users</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/UserDetails</context>
-        </context-group>
-      <target>@@PRODUCT_NAME@@ 超级用户</target></trans-unit>
       <trans-unit id="System Group Administrators">
 <source>System Group Administrators</source>
         <context-group name="ctx">
@@ -1289,24 +1115,12 @@
           <context context-type="sourcefile">/users/CreateUser</context>
         </context-group>
       <target>该用户名已经被使用；请选择另外一个。</target></trans-unit>
-      <trans-unit id="error.link_problem">
-<source>There is a problem with the link you have been sent. Please contact customer support.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/users/CreateUser</context>
-        </context-group>
-      <target>您发送的链接有问题。请联系客户支持部门。</target></trans-unit>
       <trans-unit id="error.same_email">
 <source>You must specify a different email</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/users/ChangeEmail</context>
         </context-group>
       <target>您必须指定一个不同的电子邮件</target></trans-unit>
-      <trans-unit id="error.addr_empty">
-<source>A valid email address must be entered</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/GeneralConfig</context>
-        </context-group>
-      <target>必须输入一个有效的电子邮件地址</target></trans-unit>
 
       <trans-unit id="error.maxemail">
 <source>The email address is too long. Please enter a shorter email address and try again.</source>
@@ -1323,15 +1137,6 @@
           <context context-type="sourcefile">com.redhat.rhn.frontend.action.monitoring.notification.AbstractFilterEditAction</context>
         </context-group>
       <target>输入的电子邮件地址无效</target></trans-unit>
-		<trans-unit id="error.addr_exists">
-<source>Email address "{0}" already exists</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/ChangeEmail</context>
-          <context context-type="sourcefile">/rhn/admin/config/GeneralConfig</context>
-          <context context-type="sourcefile">com.redhat.rhn.frontend.action.monitoring.notification.AbstractFilterEditAction</context>
-		  <context context-type="sourcefile">/users/CreateUser</context>
-        </context-group>
-      <target>电子邮件地址 "{0}" 已经存在</target></trans-unit>
       <trans-unit id="/rhn/">
 <source>That username is already taken; please choose another.</source>
         <context-group name="ctx">
@@ -1386,12 +1191,6 @@
         </context-group>
       <target>密码不匹配。</target></trans-unit>
 
-      <trans-unit id="error.unknown_usertype">
-<source>Unknown account type.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/CreateUser</context>
-        </context-group>
-      <target>未知的帐户类型。</target></trans-unit>
       <trans-unit id="login">
 <source>Desired Login</source>
         <context-group name="ctx">
@@ -1627,12 +1426,6 @@
           <context context-type="sourcefile">/rhn/users/UserDetails</context>
         </context-group>
       <target>更新的用户信息</target></trans-unit>
-      <trans-unit id="message.TnCAcknowledged">
-<source>Thank you for acknowledging the Terms &amp; Conditions</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/UserDetails</context>
-        </context-group>
-      <target>非常感谢您确认了使用条款</target></trans-unit>
       <trans-unit id="no user loggedin">
 <source>No User logged in.</source>
         <context-group name="ctx">
@@ -1748,12 +1541,6 @@
           <context context-type="sourcefile">Logfile error message</context>
         </context-group>
       <target>不能在声明 "{1}"中找到 ACL handler {0}。可用的 ACL handlers：{2}</target></trans-unit>
-      <trans-unit id="illegal-access-exception">
-<source>IllegalAccessException calling {0} ("{1}"): {2}</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">NOT USED</context>
-        </context-group>
-      <target>IllegalAccessException calling {0} ("{1}"): {2}</target></trans-unit>
       <trans-unit id="invocation-target-exception">
 <source>IllegalInvocationException calling {0} ("{1}"): {2}</source>
         <context-group name="ctx">
@@ -1980,12 +1767,6 @@ available for this kickstart profile to function properly.
            <context context-type="sourcefile">/rhn/schedule/ActionDetails.do</context>
          </context-group>
        <target>为 kickstart 调度一个软件包同步</target></trans-unit>
-       <trans-unit id="kickstart.error.nolabel">
-         <source>Please enter a label for this kickstart profile below.</source>
-         <context-group name="ctx">
-         <context context-type="sourcefile">/rhn/kickstart/KickstartDetailsEdit</context>
-         </context-group>
-       <target>请为以下的 kickstart 侧写输入一个标签。</target></trans-unit>
        <trans-unit id="kickstart.error.invalidlabel">
          <source>Your selected kickstart label is invalid, it must be at least {0} characters and only contain the following characters : A-Z, a-z, 0-9, _, - </source>
          <context-group name="ctx">
@@ -2016,12 +1797,6 @@ available for this kickstart profile to function properly.
         <context context-type="sourcefile">/rhn/kickstart/KickstartDeleteSubmit</context>
         </context-group>
       <target>kickstart 被成功删除。</target></trans-unit>
-        <trans-unit id="kickstart.delete.failure">
-        <source>Kickstart {0} could not be deleted, try again on your next login.</source>
-        <context-group name="ctx">
-        <context context-type="sourcefile">/rhn/kickstart/KickstartDeleteSubmit</context>
-        </context-group>
-      <target>Kickstart {0} 不能被删除，在您下一次登录的时候再试。</target></trans-unit>
       <trans-unit id="kickstart.options.success">
         <source>Kickstart advanced options successfully updated.</source>
         <context-group name="ctx">
@@ -2114,12 +1889,6 @@ available for this kickstart profile to function properly.
          </context-group>
        <target>要求的 kickstart snippet 文件名无效。kickstart snippet 文件名不能包含斜线（/）或者以点（.）开始。</target></trans-unit>
 
-      <trans-unit id="toolbar.delete.snippets">
-<source>delete snippet</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/kickstart/cobbler/CobblerSnippetEdit</context>
-        </context-group>
-      <target>删除片段</target></trans-unit>
 
       <trans-unit id="kickstart.iprange.url">
         <source>New systems can be kickstarted based upon their ip address by appending &lt;code&gt;{0}&lt;/code&gt; to the kernel parameters for a kickstart install.</source>
@@ -2128,19 +1897,7 @@ available for this kickstart profile to function properly.
         </context-group>
       <target>新系统可以根据它们的 ip 地址来被 kickstart。对于一个 kickstart 安装，需要在内核参数后面加上 &lt;code&gt;{0}&lt;/code&gt;。</target></trans-unit>
 
-      <trans-unit id="kickstart.partition.duplicate">
-        <source>Only one {0} partition is allowed.</source>
-        <context-group name="ctx">
-        <context context-type="sourcefile">/rhn/kickstart/KickstartPartitionEdit</context>
-        </context-group>
-      <target>只允许一个 {0} 分区。</target></trans-unit>
 
-      <trans-unit id="kickstart.partition.invalid">
-        <source>Invalid partition value removed: &lt;strong&gt;{0}&lt;/strong&gt;. Please verify the input values and resubmit.</source>
-        <context-group name="ctx">
-        <context context-type="sourcefile">/rhn/kickstart/KickstartPartitionEdit</context>
-        </context-group>
-      <target>无效的删除分区值：&lt;strong&gt;{0}&lt;/strong&gt;。请确认输入的值后重新提交。</target></trans-unit>
 
       <trans-unit id="kickstart.partition.success">
         <source>Kickstart profile options updated successfully.</source>
@@ -2328,24 +2085,6 @@ available for this kickstart profile to function properly.
           <context context-type="sourcefile">/rhn/errata/details/ErrataConfirm.do</context>
         </context-group>
       <target>您必须选择至少一个系统。</target></trans-unit>
-      <trans-unit id="erratasearch.error.parse.startdate">
-<source>Unable to parse start date, please re-enter in format yyyy-mm-dd.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/errata/Search.do</context>
-        </context-group>
-      <target>无法解析起始日期，请以 yyyy-mm-dd 格式重新输入。</target></trans-unit>
-      <trans-unit id="erratasearch.error.parse.enddate">
-<source>Unable to parse end date, please re-enter in format yyyy-mm-dd.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/errata/Search.do</context>
-        </context-group>
-      <target>无法解析终止日期，请以 yyyy-mm-dd 格式重新输入。</target></trans-unit>
-      <trans-unit id="patchremoveconfirm.schedule">
-<source>Patch removal has been scheduled for &lt;strong&gt;{1}&lt;/strong&gt; system</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/packages/patches/PatchConfirmSubmit.do</context>
-        </context-group>
-      <target>补丁删除已经为 &lt;strong&gt;{1}&lt;/strong&gt; 个系统调度</target></trans-unit>
 
       <trans-unit id="run as">
 <source>Run as:</source>
@@ -2473,12 +2212,6 @@ available for this kickstart profile to function properly.
           <context context-type="sourcefile">/rhn/account/UserDetails</context>
         </context-group>
       <target>激活码管理员</target></trans-unit>
-      <trans-unit id="normal_user">
-<source>(normal user)</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/account/UserDetails</context>
-        </context-group>
-      <target>（普通用户）</target></trans-unit>
       <trans-unit id="Admin Access">
 <source>Admin Access</source>
         <context-group name="ctx">
@@ -2500,97 +2233,18 @@ available for this kickstart profile to function properly.
         </context-group>
       <target>选择或取消选择这个页中的所有项</target></trans-unit>
 
-      <trans-unit id="toolbar.create.filter">
-<source>create new notification filter</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/UserList</context>
-        </context-group>
-      <target>创建新通知过滤</target></trans-unit>
 
-     <trans-unit id="toolbar.upload.kickstart">
-<source>upload new kickstart file</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/UserList</context>
-        </context-group>
-      <target>上传新 kickstart 文件</target></trans-unit>
 
-     <trans-unit id="toolbar.create.kickstart">
-<source>create new kickstart profile</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/UserList</context>
-        </context-group>
-      <target>创建新的 kickstart 侧写</target></trans-unit>
 
-      <trans-unit id="toolbar.create.kickstartdata">
-<source>create new kickstart</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/UserList</context>
-        </context-group>
-      <target>创建新的 kickstart</target></trans-unit>
 
-      <trans-unit id="toolbar.clone.kickstart">
-<source>clone kickstart</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/UserList</context>
-        </context-group>
-      <target>克隆 kickstart</target></trans-unit>
 
-      <trans-unit id="toolbar.delete.CryptoKeyDelete">
-<source>delete key</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/keys/CryptoKeyEdit</context>
-        </context-group>
-      <target>删除密钥</target></trans-unit>
 
-      <trans-unit id="toolbar.create.user">
-<source>create new user</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/UserList</context>
-        </context-group>
-      <target>创建新用户</target></trans-unit>
 
-      <trans-unit id="toolbar.create.erratum">
-<source>create new erratum</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/errata/UnpublishedErrata</context>
-          <context context-type="sourcefile">/rhn/errata/PublishedErrata</context>
-        </context-group>
-      <target>创建新勘误</target></trans-unit>
 
-      <trans-unit id="toolbar.create.group">
-<source>create new group</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/SystemGroupList</context>
-        </context-group>
-      <target>创建新组群</target></trans-unit>
 
-      <trans-unit id="toolbar.create.probe">
-<source>create new probe</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails</context>
-        </context-group>
-      <target>创建新探测</target></trans-unit>
 
-        <trans-unit id="toolbar.delete.probe">
-<source>delete probe</source>
-            <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails</context>
-        </context-group>
-        <target>删除探测</target></trans-unit>
 
-        <trans-unit id="toolbar.delete.user">
-<source>delete user</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">User details pages</context>
-        </context-group>
-    <target>删除用户</target></trans-unit>
 
-      <trans-unit id="toolbar.delete.erratum">
-<source>delete erratum</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Errata details pages</context>
-        </context-group>
-      <target>删除勘误</target></trans-unit>
 
       <trans-unit id="toolbar.delete.system">
 <source>delete system</source>
@@ -2610,47 +2264,11 @@ available for this kickstart profile to function properly.
           <context context-type="sourcefile">System Group pages</context>
         </context-group>
       <target>与组群一同工作</target></trans-unit>
-      <trans-unit id="toolbar.delete.errata">
-<source>delete errata</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">Errata edit page</context>
-        </context-group>
-      <target>删除勘误</target></trans-unit>
 
-     <trans-unit id="toolbar.delete.kickstart">
-        <source>delete kickstart</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">Kickstart profile pages</context>
-        </context-group>
-      <target>删除 kickstart</target></trans-unit>
 
-      <trans-unit id="toolbar.delete.deleteTree">
-        <source>delete distribution</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">rhn/Kickstart/TreeEdit.do</context>
-        </context-group>
-      <target>删除发布</target></trans-unit>
 
-      <trans-unit id="toolbar.create.probesuite">
-<source>create new probe suite</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuites.do</context>
-        </context-group>
-      <target>创建新探测套件</target></trans-unit>
 
-      <trans-unit id="toolbar.create.probesuitesystem">
-<source>add systems to probe suite</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuites.do</context>
-        </context-group>
-      <target>添加系统到探测套件</target></trans-unit>
 
-      <trans-unit id="toolbar.delete.profile">
-<source>delete profile</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/packages/profiles/CompareProfiles.do</context>
-        </context-group>
-      <target>删除侧写</target></trans-unit>
 
       <trans-unit id="message.unscheduled.system">
 <source>&lt;strong&gt;{0}&lt;/strong&gt; unscheduled for &lt;strong&gt;{1}&lt;/strong&gt; system.</source>
@@ -2729,12 +2347,6 @@ available for this kickstart profile to function properly.
         </context-group>
       <target>安全建议（不重要的）</target></trans-unit>
 
-      <trans-unit id="errata.search.could_not_execute_query">
-<source>Could not execute query: {0}</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/errata/Search.do</context>
-        </context-group>
-      <target>不能执行查询：{0}</target></trans-unit>
 
       <trans-unit id="packages.search.both">
 <source>Name and Summary</source>
@@ -2764,26 +2376,8 @@ available for this kickstart profile to function properly.
         </context-group>
       <target>自选格式</target></trans-unit>
 
-      <trans-unit id="packages.search.chooseone">
-<source>You must choose to search relevant channels or at least one architecture</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/Search</context>
-        </context-group>
-      <target>您必须选择搜索相关的频道或最少一个体系结构</target></trans-unit>
 
-      <trans-unit id="packages.search.onlyone">
-<source>Either search relevant channels or architectures, not both.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/Search</context>
-        </context-group>
-      <target>只能搜索相关的频道或体系结构，而不能都查询。</target></trans-unit>
 
-      <trans-unit id="packages.search.invalidstring">
-<source>Search strings must contain only letters, numbers, plus symbols, hyphens and dashes.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/Search</context>
-        </context-group>
-      <target>搜索的字符串只能包括字母、数据、连字符和破折号。</target></trans-unit>
 
       <trans-unit id="packages.search.use_free_form">
 <source>Searching by fields can ONLY be done with Free Form search.</source>
@@ -2825,12 +2419,6 @@ available for this kickstart profile to function properly.
           <context context-type="sourcefile">/rhn/errata/Search</context>
         </context-group>
       <target>不能执行查询 '{0}'。</target></trans-unit>
-      <trans-unit id="packages.search.tooshort">
-<source>Search strings must be longer than two characters.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/Search</context>
-        </context-group>
-      <target>搜索的字符串必须长于两个字符。</target></trans-unit>
      <trans-unit id="searchserver.index_out_of_sync_with_db">
         <source>SearchServer index and database entries appear to be out of sync. Please run '/sbin/service rhn-search cleanindex'</source>
         <context-group name="ctx">
@@ -3179,14 +2767,6 @@ user before attempting to deactivate their account.</source>
         </context-group>
       <target>只有被取消激活的用户才能被重新激活。</target></trans-unit>
 
-      <trans-unit id="userenable.error.usernotdisabled.param">
-<source>{0}: Only deactivated users can be reactivated.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/users/EnableConfirm</context>
-            <context context-type="paramnotes">kjohnny4: Only deactivated users can
-                                               be reactivated.</context>
-        </context-group>
-      <target>{0}：只有被取消激活的用户才能被重新激活。</target></trans-unit>
 
       <trans-unit id="userenable.error.sameorg">
 <source>User to reactivate must be in the same organization.</source>
@@ -3195,14 +2775,6 @@ user before attempting to deactivate their account.</source>
         </context-group>
       <target>重新激活的用户必须在同一个机构中。</target></trans-unit>
 
-      <trans-unit id="userenable.error.sameorg.param">
-<source>{0}: User to reactivate must be in the same organization.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/users/EnableConfirm</context>
-            <context context-type="paramnotes">kjohnny4: User to reactivate must be
-                                               in the same organization.</context>
-        </context-group>
-      <target>{0}：重新激活的用户必须在同一个机构中。</target></trans-unit>
 
       <trans-unit id="userenable.error.orgadmin">
 <source>You must be an Organization Administrator to enable a user.</source>
@@ -3211,14 +2783,6 @@ user before attempting to deactivate their account.</source>
         </context-group>
       <target>您必须是一个机构管理员才能启用一个用户。</target></trans-unit>
 
-      <trans-unit id="userenable.error.orgadmin.param">
-<source>{0}: You must be an Organization Administrator to enable a user.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/users/EnableConfirm</context>
-            <context context-type="paramnotes">kjohnny4: You must be an Organization
-                                               Administrator to enable a user.</context>
-        </context-group>
-      <target>{0}：您必须是一个机构管理员才能启用一个用户。</target></trans-unit>
 
       <trans-unit id="reactivateusers.none">
 <source>Choose at least one user to reactivate.</source>
@@ -3250,12 +2814,6 @@ user before attempting to deactivate their account.</source>
         </context-group>
       <target>没有勘误被选择。</target></trans-unit>
 
-      <trans-unit id="actions.none">
-<source>No actions selected.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/ErrataList</context>
-        </context-group>
-      <target>没有动作被选择。</target></trans-unit>
 
       <trans-unit id="systems.none">
 <source>No systems selected.</source>
@@ -3264,12 +2822,6 @@ user before attempting to deactivate their account.</source>
         </context-group>
       <target>没有系统被选择。</target></trans-unit>
 
-      <trans-unit id="packages.none">
-<source>No packages selected.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/ErrataList</context>
-        </context-group>
-      <target>没有软件包被选择。</target></trans-unit>
 
       <trans-unit id="probesuites.none">
 <source>No probe suites selected.</source>
@@ -3501,27 +3053,8 @@ user before attempting to deactivate their account.</source>
       <target>探测 &lt;strong&gt;{0}&lt;/strong&gt; 被创建。</target></trans-unit>
 
 
-      <trans-unit id="upgrade.none">
-<source>Choose at least one package to upgrade.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/packages/UpgradableList</context>
-        </context-group>
-      <target>最少选择一个软件包来升级。</target></trans-unit>
 
-      <trans-unit id="download.none">
-<source>Choose at least one package to download.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/packages/UpgradableList</context>
-        </context-group>
-      <target>最少选择一个软件包来下载。</target></trans-unit>
 
-      <trans-unit id="download.toomany">
-<source>At most {0} packages may be downloaded as a tarball at one time; please reduce your selection size.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/packages/UpgradableList</context>
-            <context context-type="paramnotes">At most 10 packages may be downloaded ...</context>
-        </context-group>
-      <target>最多 {0} 个软件包会一次以一个 tarball 的形式被下载；请减小您的选择。</target></trans-unit>
 
       <trans-unit id="timetag.lastcheckin">
 <source>System last check-in:</source>
@@ -3861,12 +3394,6 @@ user before attempting to deactivate their account.</source>
         </context-group>
       <target>管理</target></trans-unit>
 
-      <trans-unit id="filter_expire_list.success">
-<source>{0} Filters(s) expired.  These changes may take up to 5 minutes to take effect.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/monitoring/config/notification/Filters.do</context>
-        </context-group>
-      <target>{0} 过滤器过期。这些更改可能需要 5 分钟后生效。</target></trans-unit>
 
       <trans-unit id="Filters">
 <source>Filters</source>
@@ -3882,12 +3409,6 @@ user before attempting to deactivate their account.</source>
         </context-group>
       <target>重复周期</target></trans-unit>
 
-      <trans-unit id="message.actioninstall">
-<source>Install</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/packages/profiles</context>
-        </context-group>
-      <target>安装</target></trans-unit>
 
       <trans-unit id="message.install">
 <source>Install</source>
@@ -4020,21 +3541,7 @@ user before attempting to deactivate their account.</source>
         </context-group>
       <target>系统侧写被删除。</target></trans-unit>
 
-      <trans-unit id="message.ssm.serverdeleted">
-<source>Deleted &lt;strong&gt;{0}&lt;/strong&gt; system from the System Set Manager.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/Overview</context>
-          <context context-type="paramnotes">Deleted 1 system from the System Set Manager.</context>
-        </context-group>
-      <target>从系统组管理者中删除 &lt;strong&gt;{0}&lt;/strong&gt; 个系统。</target></trans-unit>
 
-      <trans-unit id="message.ssm.serversdeleted">
-<source>Deleted &lt;strong&gt;{0}&lt;/strong&gt; systems from the System Set Manager.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/Overview</context>
-          <context context-type="paramnotes">Deleted 7 systems from the System Set Manager.</context>
-        </context-group>
-      <target>从系统组管理者中删除 &lt;strong&gt;{0}&lt;/strong&gt; 个系统。</target></trans-unit>
 
       <trans-unit id="message.groupdeleted">
 <source>System group deleted.</source>
@@ -5912,19 +5419,7 @@ user before attempting to deactivate their account.</source>
         </context-group>
       <target>证书已被上传。已重新激活 @@PRODUCT_NAME@@。</target></trans-unit>
 
-    <trans-unit id="certificate.config.error.10">
-        <source>Could not parse certificate file, see log file for more details.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-      <target>不能解释证书文件</target></trans-unit>
 
-    <trans-unit id="certificate.config.error.11">
-        <source>Certificate expired</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-      <target>证书过期</target></trans-unit>
 
     <trans-unit id="certificate.config.error.12">
         <source>Unknown @@PRODUCT_NAME@@ version, see log file for more details.</source>
@@ -5933,75 +5428,15 @@ user before attempting to deactivate their account.</source>
         </context-group>
       <target>未知 @@PRODUCT_NAME@@ 版本</target></trans-unit>
 
-    <trans-unit id="certificate.config.error.20">
-        <source>Remote activation failure, see log file for more details.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-      <target>远程激活失败</target></trans-unit>
 
-    <trans-unit id="certificate.config.error.30">
-        <source>Local activation failure, see log file for more details.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-      <target>本地激活失败，更多的细节请查看日志文件。</target></trans-unit>
 
-    <trans-unit id="certificate.config.error.40">
-        <source>Channel population failure, see log file for more details.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-      <target>频道产生失败</target></trans-unit>
 
-    <trans-unit id="certificate.config.error.80">
-        <source>No management entitlements remaining</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-      <target>没有有效的管理权利</target></trans-unit>
 
-    <trans-unit id="certificate.config.error.82">
-        <source>@@PRODUCT_NAME@@ channel not found</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-      <target>没有找到 @@PRODUCT_NAME@@ 频道</target></trans-unit>
 
-    <trans-unit id="certificate.config.error.83">
-        <source>No @@PRODUCT_NAME@@ channel entitlements remaining</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-      <target>没有留下 @@PRODUCT_NAME@@ 频道权利</target></trans-unit>
 
-    <trans-unit id="certificate.config.error.84">
-        <source>Invalid @@PRODUCT_NAME@@ certificate</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-      <target>无效的 @@PRODUCT_NAME@@ 证书</target></trans-unit>
 
-    <trans-unit id="certificate.config.error.85">
-        <source>Unknown activation error, see log file for more details.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-      <target>未知的激活错误，更多的细节请查看日志文件。</target></trans-unit>
 
-    <trans-unit id="certificate.config.error.86">
-        <source>@@PRODUCT_NAME@@ has no base channel on parent server</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-      <target>@@PRODUCT_NAME@@ 在上级服务器上没有基本频道</target></trans-unit>
 
-    <trans-unit id="certificate.config.error.87">
-        <source>No @@PRODUCT_NAME@@ channel available for this version</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-      <target>没有这个版本可用的 @@PRODUCT_NAME@@ 频道</target></trans-unit>
 
     <trans-unit id="certificate.config.error.127">
         <source>Unhandled error, see log file for more details.</source>
@@ -6018,19 +5453,7 @@ user before attempting to deactivate their account.</source>
       <target>@@PRODUCT_NAME@@ 服务器主机名</target></trans-unit>
 
 
-    <trans-unit id="bootstrap.config.error.10">
-        <source>A script with that name already exists</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-      <target>脚本的名字已经存在</target></trans-unit>
 
-    <trans-unit id="bootstrap.config.error.11">
-        <source>Invalid script name</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-      <target>无效的脚本名</target></trans-unit>
 
     <trans-unit id="bootstrap.config.error.12">
         <source>Invalid arguments</source>
@@ -6039,41 +5462,10 @@ user before attempting to deactivate their account.</source>
         </context-group>
       <target>无效的参数</target></trans-unit>
 
-    <trans-unit id="bootstrap.config.error.13">
-        <source>Could not parse httpd proxy URL</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-      <target>不能解释 httpd 代理 URL</target></trans-unit>
 
-    <trans-unit id="bootstrap.config.error.14">
-        <source>Cannot find pub tree</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-      <target>不能找到 pub 树</target></trans-unit>
 
-    <trans-unit id="bootstrap.config.error.15">
-        <source>The hostname was not valid</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-          <context context-type="sourcefile">/rhn/admin/config/GeneralConfig</context>
-        </context-group>
-      <target>这个主机名无效</target></trans-unit>
 
-    <trans-unit id="bootstrap.config.error.16">
-        <source>Could not find the CA certificate</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-      <target>无法找到 CA 证书</target></trans-unit>
 
-    <trans-unit id="bootstrap.config.error.17">
-        <source>Could not find GPG key</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-      <target>无法找到 GPG 密钥</target></trans-unit>
 
     <trans-unit id="bootstrap.config.error.127">
         <source>Unhandled error</source>
@@ -6225,19 +5617,7 @@ user before attempting to deactivate their account.</source>
         </context-group>
       <target>文件保留标签已经存在，请选择一个不同的文件保留标签。</target></trans-unit>
 
-      <trans-unit id="file_lists.success">
-<source>{0} File List(s) deleted.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/provisioning/preservation/PreservationListDelete.do</context>
-        </context-group>
-      <target>{0} 个文件列表被删除。</target></trans-unit>
 
-      <trans-unit id="file_lists.failure">
-<source>{0} File List(s) could not be deleted.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/provisioning/preservation/PreservationListDelete.do</context>
-        </context-group>
-      <target>{0} 个文件列表不能被删除。</target></trans-unit>
 
       <trans-unit id="filelists.jsp.selectafilelist">
   <source>No File List(s) selected.</source>
@@ -6260,33 +5640,9 @@ user before attempting to deactivate their account.</source>
         </context-group>
       <target>{0}个激活码被删除。</target></trans-unit>
 
-      <trans-unit id="file_lists.added">
-<source>{0} File Preservation List(s) added.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart/FilePreservationLists.do</context>
-        </context-group>
-      <target>{0} 个文件保留列表被添加。</target></trans-unit>
 
-      <trans-unit id="file_lists.removed">
-<source>{0} File Preservation List(s) removed.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart/FilePreservationLists.do</context>
-        </context-group>
-      <target>{0} 个文件保留列表被删除。</target></trans-unit>
 
-            <trans-unit id="package_profiles.added">
-<source>{0} Package Profile(s) added.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart/KickstartPackageProfileEditSubmit.do</context>
-        </context-group>
-      <target>{0}个软件包侧写被添加。</target></trans-unit>
 
-            <trans-unit id="package_profiles.removed">
-<source>{0} Package Profile(s) removed.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart/KickstartPackageProfileEditSubmit.do</context>
-        </context-group>
-      <target>{0}个软件包被删除。</target></trans-unit>
 
       <trans-unit id="taskomatic.msg.awolservers">
         <source>Systems Not Checking In:
@@ -6353,19 +5709,7 @@ Follow this url to see the full list of inactive systems:
         </context-group>
       <target>指定的基本频道和 kickstart 树没有找到。</target></trans-unit>
 
-      <trans-unit id="gpgssl_keys.added">
-<source>{0} Key(s) added.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart/KickstartCryptoKeysList.do</context>
-        </context-group>
-      <target>{0}个激活码被添加。</target></trans-unit>
 
-      <trans-unit id="gpgssl_keys.removed">
-<source>{0} Key(s) removed.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart/KickstartCryptoKeysList.do</context>
-        </context-group>
-      <target>{0}个激活码被删除。</target></trans-unit>
 
       <trans-unit id="kickstart.script.success">
         <source>Kickstart Script successfully updated.</source>
@@ -6429,12 +5773,6 @@ Follow this url to see the full list of inactive systems:
         </context-group>
       <target>由于指向内核或 initrd 映像的基础路径是错误的或不存在的，所以 Kickstart 是无效的。要使你自定义版本有效，请选择一个版本并相应地修改其基础路径。</target></trans-unit>
 
-      <trans-unit id="kickstart.troubleshooting.validation.kernelparams.too_long">
-        <source>Extra kernel parameters can be no longer than 128 characters.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/kickstart/Troubleshooting.do</context>
-        </context-group>
-      <target>外部的内核参数不能多于128个字符。</target></trans-unit>
 
       <trans-unit id="kickstart.locale.success">
         <source>Kickstart locale options updated.</source>
@@ -6443,12 +5781,6 @@ Follow this url to see the full list of inactive systems:
         </context-group>
       <target>kickstart 的语言选项被更新。</target></trans-unit>
 
-      <trans-unit id="kickstart.locale.validation.timezone.invalid">
-        <source>Invalid timezone.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/kickstart/Locale.do</context>
-        </context-group>
-      <target>无效的时区。</target></trans-unit>
 
       <trans-unit id="kickstart.script.delete">
         <source>Kickstart Script Deleted.</source>
@@ -6525,12 +5857,6 @@ Follow this url to see the full list of inactive systems:
         </context-group>
       <target>系统{0} 不能够进行 kickstart，因为它没有 {1} 网络设备。</target></trans-unit>
 
-      <trans-unit id="kickstart.schedule.nosubs">
-        <source>You have no remaining subscriptions to the @@PRODUCT_NAME@@ provisioning channel for this system's current base channel.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/kickstart/ScheduleKickstart.do</context>
-        </context-group>
-<target>您没有属于这个系统当前基本频道的 @@PRODUCT_NAME@@ provisioning 频道的剩余订阅。</target></trans-unit>
 
       <trans-unit id="kickstart.schedule.nopackage">
         <source>Could not find the needed @@PRODUCT_NAME@@ provisioning packages given this system's current base channel and desired target channel: {0}</source>
@@ -6559,12 +5885,6 @@ Follow this url to see the full list of inactive systems:
         </context-group>
       <target>没有为 {1} ({0}) 调度 kickstart，因为这个软件包侧写不包括 'up2date' 软件包。可能会需要对那个系统软件包侧写进行更新。</target></trans-unit>
 
-      <trans-unit id="kickstart.schedule.up2dateerror">
-        <source>The latest version of up2date has been scheduled for install before the kickstart action, because the currently-installed version does not support automatic reboot.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/kickstart/ScheduleKickstart.do</context>
-        </context-group>
-      <target>最新版本的 up2date 已经被调度在 kickstart 前安装，这是因为当前安装的版本不支持自动重新启动。</target></trans-unit>
 
       <trans-unit id="kickstart.session.newsession">
         <source>A new kickstart session was initiated for this system.</source>
@@ -6573,12 +5893,6 @@ Follow this url to see the full list of inactive systems:
         </context-group>
       <target>这个系统的一个新的 kickstart 会话已经被初始化。</target></trans-unit>
 
-      <trans-unit id="kickstart.session.notoolschannel">
-        <source>Could not look up the @@PRODUCT_NAME@@ Tools channel for {1}.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/kickstart/ScheduleKickstart.do</context>
-        </context-group>
-      <target>无法为 {1} 查找 @@PRODUCT_NAME@@ 工具频道。</target></trans-unit>
 
       <trans-unit id="kickstart.session.newtokennote">
         <source>Kickstart re-activation key for {0}.</source>
@@ -6622,12 +5936,6 @@ Follow this url to see the full list of inactive systems:
         </context-group>
       <target>kickstart 发布被创建</target></trans-unit>
 
-      <trans-unit id="kickstart.tree.invalidurl">
-        <source>The External Location field is not a valid URL.  Please reformat the field to contain a valid http/https/ftp type value.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/kickstart/TreeEdit.do</context>
-        </context-group>
-      <target>外部位置项中的内容不是一个有效的 URL。请重新修改这个项，使它包括一个有效的 http/https/ftp 类型值。</target></trans-unit>
 
       <trans-unit id="kickstart.tree.invalidlabel">
         <source>The label is not formatted properly.  The label should contain only letters, numbers, hyphens, periods, and underscores.  It must also be at least 4 characters long</source>
@@ -6717,9 +6025,6 @@ Follow this url to see the full list of inactive systems:
          <source>You may ensure that configuration deployment capability will be enabled on this system by selecting this system in the  &lt;a href={0}&gt;{1}&lt;/a&gt; screen and then clicking "{2}"</source>
      <target>您要确定在这个系统中启用了配置部署功能，在 &lt;a href="{0}"&gt;"{1}"&lt;/a&gt; 中选择这个系统，然后点击 "{2}" 就可达到此目的。</target></trans-unit>
 
-     <trans-unit id="system.sdc.config_enablement.client">
-         <source>Also be certain that configuration management is enabled on this system by running the following commands:.</source>
-     <target>请运行以下命令确定在这个系统中启用了配置管理：</target></trans-unit>
 
      <trans-unit id="system.sdc.addtossm">
          <source>System added to the System Set Manager.</source>
@@ -6737,43 +6042,10 @@ Follow this url to see the full list of inactive systems:
      <target>密码</target></trans-unit>
    </group>
 
-      <trans-unit id="file_size.b">
-        <source>{0} B</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/Quota.do</context>
-          <context context-type="paramnotes">40 B</context>
-        </context-group>
-      <target>{0} B</target></trans-unit>
 
-      <trans-unit id="file_size.kb">
-        <source>{0} KB</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/Quota.do</context>
-          <context context-type="paramnotes">40 KB</context>
-        </context-group>
-      <target>{0} KB</target></trans-unit>
 
-      <trans-unit id="file_size.mb">
-        <source>{0} MB</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/Quota.do</context>
-          <context context-type="paramnotes">40 MB</context>
-        </context-group>
-      <target>{0} MB</target></trans-unit>
 
-      <trans-unit id="error.config-cannot-change-dir2file">
-        <source>Error creating configuration file revision: ({0}) is a directory, but you are attempting to change it to a file. If you want to change its file type, you'll need to delete ({0}) and re-add it as a 'file' rather than a 'directory'.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/file/ManageConfigRevision.do</context>
-        </context-group>
-      <target>修改配置文件时生成的错误：({0}) 是一个目录，但您想要将它变成一个文件。如果您想更改其文件类型，您需要删除 ({0})，然后将它作为‘文件’而不是‘目录’重新添加。</target></trans-unit>
 
-      <trans-unit id="error.config-cannot-change-file2dir">
-        <source>Error creating configuration file revision: ({0}) is a file, but you are attempting to change it to a directory. If you want to change its file type, you'll need to delete ({0}) and re-add it as a 'directory' rather than a 'file'.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/file/ManageConfigRevision.do</context>
-        </context-group>
-      <target>修改配置文件时生成的错误：({0}) 是一个文件，但您想要将它变成一个目录。如果您想更改其文件类型，您需要删除 ({0})，然后将它作为‘目录’而不是‘文件’重新添加。</target></trans-unit>
 
       <trans-unit id="error.config-cannot-change-type">
         <source>Error creating configuration file revision: ({0}) is a '{1}', but you are attempting to change it to a '{2}'. If you want to change its file type, you'll need to delete ({0}) and re-add it as a '{2}' rather than a '{1}'.</source>
@@ -6821,83 +6093,15 @@ Follow this url to see the full list of inactive systems:
         </context-group>
       <target>{0} 个修订被成功删除。</target></trans-unit>
 
-      <trans-unit id="config_revisions.failure.singular">
-        <source>1 revision deletion failed.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/file/ManageConfigRevision.do</context>
-        </context-group>
-      <target>1 个修订删除失败。</target></trans-unit>
 
-      <trans-unit id="config_revisions.success.singular">
-        <source>1 revision was deleted successfully.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/file/ManageConfigRevision.do</context>
-        </context-group>
-      <target>1 个修订被成功删除。</target></trans-unit>
 
-      <trans-unit id="config_files.setFilesToRemove.success">
-<source>{0} configuration file(s) successfully deleted.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/ChannelFiles.do</context>
-          <context context-type="paramnotes">7 configuration files were successfully deleted.</context>
-        </context-group>
-     <target>{0} 个配置文件被成功删除。</target></trans-unit>
 
-     <trans-unit id="config_files.setFilesToRemove.failure">
-<source>{0} file deletion(s) failed.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/ChannelFiles.do</context>
-          <context context-type="paramnotes">7 file deletions failed.</context>
-        </context-group>
-     <target>{0} 个文件删除失败。</target></trans-unit>
 
-     <trans-unit id="config_subscribed_systems.unsubscribeSystems.failure">
-        <source>Failed to unsubscribe {0} system(s).</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/file/CopyFilesCentral.do</context>
-          <context context-type="paramnotes">7 revision deletions failed.</context>
-        </context-group>
-      <target>退订 {0} 个系统失败。</target></trans-unit>
 
-      <trans-unit id="config_subscribed_systems.unsubscribeSystems.success">
-        <source>Successfully unsubscribed {0} system(s).</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/file/CopyFilesCentral.do</context>
-          <context context-type="paramnotes">Successfully copied file to 7 channels.</context>
-        </context-group>
-      <target>成功地退订 {0} 个系统。</target></trans-unit>
 
-     <trans-unit id="config_target_systems.subscribeSystems.failure">
-        <source>Failed to subscribe {0} system(s).</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/file/CopyFilesCentral.do</context>
-          <context context-type="paramnotes">7 revision deletions failed.</context>
-        </context-group>
-      <target>订阅 {0} 个系统失败。</target></trans-unit>
 
-      <trans-unit id="config_target_systems.subscribeSystems.success">
-        <source>Successfully subscribed {0} system(s).</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/file/CopyFilesCentral.do</context>
-          <context context-type="paramnotes">Successfully copied file to 7 channels.</context>
-        </context-group>
-      <target>成功地订阅 {0} 个系统。</target></trans-unit>
 
-     <trans-unit id="config_channels.failure">
-        <source>Failed to copy file to {0} channels.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/file/CopyFilesCentral.do</context>
-          <context context-type="paramnotes">7 revision deletions failed.</context>
-        </context-group>
-      <target>复制文件到 {0} 个频道失败。</target></trans-unit>
 
-      <trans-unit id="config_channels.success">
-        <source>Successfully copied file to {0} channels.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/file/CopyFilesCentral.do</context>
-          <context context-type="paramnotes">Successfully copied file to 7 channels.</context>
-        </context-group>
-      <target>复制文件到 {0} 个频道成功。</target></trans-unit>
 
       <trans-unit id="config_channel_name.local">
         <source>local override for {0}</source>
@@ -6915,63 +6119,13 @@ Follow this url to see the full list of inactive systems:
         </context-group>
       <target>{0} 的 sandbox </target></trans-unit>
 
-      <trans-unit id="config_channel.local_override">
-        <source>Locally-Managed</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/file/CompareCopy.do</context>
-        </context-group>
-      <target>本地管理的</target></trans-unit>
 
-      <trans-unit id="config_channel.normal">
-        <source>Centrally-Managed</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/file/CompareCopy.do</context>
-        </context-group>
-      <target>集中管理的</target></trans-unit>
 
-      <trans-unit id="config_channel.server_import">
-        <source>Sandbox</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/file/CompareCopy.do</context>
-        </context-group>
-      <target>Sandbox</target></trans-unit>
 
-      <trans-unit id="schedulediff.ssm.success">
-        <source>Configuration Comparison Action scheduled successfully for &lt;strong&gt;1 system&lt;/strong&gt;.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/ssm/config/Diff.do</context>
-        </context-group>
-      <target>成功地为 &lt;strong&gt;1 个系统&lt;/strong&gt;预定了 Configuration Comparison Action。</target></trans-unit>
 
-      <trans-unit id="schedulediff.ssm.successes">
-        <source>Configuration Comparison Action scheduled successfully for &lt;strong&gt;{0} systems&lt;/strong&gt;.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/ssm/config/Diff.do</context>
-          <context context-type="paramnotes">Configuration Comparison Action scheduled successfully for {0} systems.</context>
-        </context-group>
-      <target>成功地为 &lt;strong&gt;{0} 个系统&lt;/strong&gt;预定了 Configuration Comparison Action。</target></trans-unit>
 
-      <trans-unit id="schedulediff.ssm.failure">
-        <source>Failed to schedule Configuration Comparison Action</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/ssm/config/Diff.do</context>
-        </context-group>
-      <target>预定 Configuration Comparison Action 失败。</target></trans-unit>
 
-      <trans-unit id="scheduledeploy.ssm.success">
-        <source>Configuration Deploy Action scheduled successfully for &lt;strong&gt;1 system&lt;/strong&gt;.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/ssm/config/Diff.do</context>
-        </context-group>
-      <target>成功地为 &lt;strong&gt;1 个系统&lt;/strong&gt;预定了 Configuration Deploy Action。</target></trans-unit>
 
-      <trans-unit id="scheduledeploy.ssm.successes">
-        <source>Configuration Deploy Action scheduled successfully for &lt;strong&gt;{0} systems&lt;/strong&gt;.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/ssm/config/Diff.do</context>
-          <context context-type="paramnotes">Configuration Comparison Action scheduled successfully for {0} systems.</context>
-        </context-group>
-      <target>成功地为 &lt;strong&gt;{0} 个系统&lt;/strong&gt;预定了 Configuration Deploy Action。</target></trans-unit>
 
       <trans-unit id="unsubscribe.ssm.success">
         <source>&lt;strong&gt;1 system&lt;/strong&gt; successfully unsubscribed from configuration channels.</source>
@@ -7258,125 +6412,35 @@ Follow this url to see the full list of inactive systems:
 			<source>No system comparisons completed. [&lt;a href="{0}"&gt;Schedule System Comparison&lt;/a&gt;]</source>
         <target>未完成系统比较。 [&lt;a href="{0}"&gt;预定系统比较&lt;/a&gt;]</target></trans-unit>
 
-	<trans-unit id="sdc.config.diff.files_0_dirs_0_symlinks_0">
-		<source>No files, directories or symlinks were selected for comparison. [&lt;a href="{6}"&gt;View Details&lt;/a&gt;]</source>
-	<target>没有文件、目录或 symlink 被用于比较。[&lt;a href="{6}"&gt;查看细节&lt;/a&gt;]</target></trans-unit>
 
-	<trans-unit id="sdc.config.diff.files_0_dirs_0_symlinks_1">
-		<source>{4} of 1 symlink on the system was successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href="{6}"&gt;View Details&lt;/a&gt;]</source>
-	<target>{4} 系统里的 1 symlink 的{4} 成功地和 @@PRODUCT_NAME@@-Managed 文件进行了比较。[&lt;a href="{6}"&gt;查看详情&lt;/a&gt;]</target></trans-unit>
 
-	<trans-unit id="sdc.config.diff.files_0_dirs_0_symlinks_2">
-		<source>{4} of {5} symlinks on the system were successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href="{6}"&gt;View Details&lt;/a&gt;]</source>
-	<target>系统里 {5} 个 symlink 中的 {4} 个成功和 @@PRODUCT_NAME@@ 管理的文件进行了比较。[&lt;a href="{6}"&gt;查看详情&lt;/a&gt;]</target></trans-unit>
 
-	<trans-unit id="sdc.config.diff.files_0_dirs_1_symlinks_0">
-		<source>{2} of 1 directory on the system was successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href="{6}"&gt;View Details&lt;/a&gt;]</source>
-	<target>系统里 1 个目录中的 {2} 个成功地和 @@PRODUCT_NAME@@ 管理的文件进行了比较。[&lt;a href="{6}"&gt;查看详情&lt;/a&gt;]</target></trans-unit>
 
-	<trans-unit id="sdc.config.diff.files_0_dirs_1_symlinks_1">
-		<source>{2} of 1 directory and {4} of 1 symlink on the system were successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href="{6}"&gt;View Details&lt;/a&gt;]</source>
-	<target>系统里 1 个目录中的 {2} 个以及 1 个symlink 中的 {4} 个成功地和 @@PRODUCT_NAME@@ 管理的文件进行了比较。[&lt;a href="{6}"&gt;查看详情&lt;/a&gt;]</target></trans-unit>
 
-	<trans-unit id="sdc.config.diff.files_0_dirs_1_symlinks_2">
-		<source>{2} of 1 directory and {4} of {5} symlinks on the system were successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href="{6}"&gt;View Details&lt;/a&gt;]</source>
-	<target>系统里 1 个目录中的 {2} 个以及 {5} 个symlink 中的 {4} 个成功地和 @@PRODUCT_NAME@@ 管理的文件进行了比较。[&lt;a href="{6}"&gt;查看详情&lt;/a&gt;]</target></trans-unit>
 
-	<trans-unit id="sdc.config.diff.files_0_dirs_2_symlinks_0">
-		<source>{2} of {3} directories on the system were successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href="{6}"&gt;View Details&lt;/a&gt;]</source>
-	<target>系统里{3} 个目录中的 {2} 个成功地和 @@PRODUCT_NAME@@ 管理的文件进行了比较。[&lt;a href="{6}"&gt;查看详情&lt;/a&gt;]</target></trans-unit>
 
-	<trans-unit id="sdc.config.diff.files_0_dirs_2_symlinks_1">
-		<source>{2} of {3} directories and {4} of 1 symlink on the system were successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href="{6}"&gt;View Details&lt;/a&gt;]</source>
-	<target>系统里{3} 个目录中的 {2} 个以及 1 个 symlink 中的 {4} 个成功地和 @@PRODUCT_NAME@@ 管理的文件进行了比较。[&lt;a href="{6}"&gt;查看详情&lt;/a&gt;]</target></trans-unit>
 
-	<trans-unit id="sdc.config.diff.files_0_dirs_2_symlinks_2">
-		<source>{2} of {3} directories and {4} of {5} symlinks on the system were successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href="{6}"&gt;View Details&lt;/a&gt;]</source>
-	<target>系统里{3} 个目录中的 {2} 个以及 {5} 个symlink 中的 {4} 个成功地和 @@PRODUCT_NAME@@ 管理的文件进行了比较。[&lt;a href="{6}"&gt;查看详情&lt;/a&gt;]</target></trans-unit>
 
-	<trans-unit id="sdc.config.diff.files_1_dirs_0_symlinks_0">
-		<source>{0} of 1 file on the system was successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href="{6}"&gt;View Details&lt;/a&gt;]</source>
-	<target>系统里 1 个文件的 {0} 个成功地和 @@PRODUCT_NAME@@ 管理的文件进行了比较。[&lt;a href="{6}"&gt;查看详情&lt;/a&gt;]</target></trans-unit>
 
-	<trans-unit id="sdc.config.diff.files_1_dirs_0_symlinks_1">
-		<source>{0} of 1 file and {4} of 1 symlink on the system were successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href="{6}"&gt;View Details&lt;/a&gt;]</source>
-	<target>系统里 1 个文件中的 {0} 个以及 1 个 symlink 中的 {4} 个成功地和 @@PRODUCT_NAME@@ 管理的文件进行了比较。[&lt;a href="{6}"&gt;查看详情&lt;/a&gt;]</target></trans-unit>
 
-	<trans-unit id="sdc.config.diff.files_1_dirs_0_symlinks_2">
-		<source>{0} of 1 file and {4} of {5} symlinks on the system were successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href="{6}"&gt;View Details&lt;/a&gt;]</source>
-	<target>系统里 1 个文件中的 {0} 个以及 {5} 个 symlink 中的 {4} 个成功地和 @@PRODUCT_NAME@@ 管理的文件进行了比较。[&lt;a href="{6}"&gt;查看详情&lt;/a&gt;]</target></trans-unit>
 
-	<trans-unit id="sdc.config.diff.files_1_dirs_1_symlinks_0">
-		<source>{0} of 1 file and {2} of 1 directory on the system were successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href="{6}"&gt;View Details&lt;/a&gt;]</source>
-	<target>系统里 1 个文件中的 {0} 个、1 个目录里的 {2} 个成功地和 @@PRODUCT_NAME@@ 管理的文件进行了比较。[&lt;a href="{6}"&gt;查看详情&lt;/a&gt;]</target></trans-unit>
 
-	<trans-unit id="sdc.config.diff.files_1_dirs_1_symlinks_1">
-		<source>{0} of 1 file and {2} of 1 directory and {4} of 1 symlink on the system were successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href="{6}"&gt;View Details&lt;/a&gt;]</source>
-	<target>系统里 1 个文件中的 {0} 个、1 个目录里的 {2} 个以及 1 个 symlink 中的 {4} 个成功地和 @@PRODUCT_NAME@@ 管理的文件进行了比较。[&lt;a href="{6}"&gt;查看详情&lt;/a&gt;]</target></trans-unit>
 
-	<trans-unit id="sdc.config.diff.files_1_dirs_1_symlinks_2">
-		<source>{0} of 1 file and {2} of 1 directory and {4} of {5} symlinks on the system were successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href="{6}"&gt;View Details&lt;/a&gt;]</source>
-	<target>系统里 1 个文件中的 {0} 个、1 个目录里的 {2} 个以及 {5} 个 symlink 中的 {4} 个成功地和 @@PRODUCT_NAME@@ 管理的文件进行了比较。[&lt;a href="{6}"&gt;查看详情&lt;/a&gt;]</target></trans-unit>
 
-	<trans-unit id="sdc.config.diff.files_1_dirs_2_symlinks_0">
-		<source>{0} of 1 file and {2} of {3} directories on the system were successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href="{6}"&gt;View Details&lt;/a&gt;]</source>
-	<target>系统里 1 个文件中的 {0} 个以及 {3} 个目录里的 {2} 个成功地和 @@PRODUCT_NAME@@ 管理的文件进行了比较。[&lt;a href="{6}"&gt;查看详情&lt;/a&gt;]</target></trans-unit>
 
-	<trans-unit id="sdc.config.diff.files_1_dirs_2_symlinks_1">
-		<source>{0} of 1 file and {2} of {3} directories and {4} of 1 symlink on the system were successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href="{6}"&gt;View Details&lt;/a&gt;]</source>
-	<target>系统里 1 个文件中的 {0} 个、{3} 个目录里的 {2} 个以及 1 个 symlink 中的 {4} 个成功地和 @@PRODUCT_NAME@@ 管理的文件进行了比较。[&lt;a href="{6}"&gt;查看详情&lt;/a&gt;]</target></trans-unit>
 
-	<trans-unit id="sdc.config.diff.files_1_dirs_2_symlinks_2">
-		<source>{0} of 1 file and {2} of {3} directories and {4} of {5} symlinks on the system were successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href="{6}"&gt;View Details&lt;/a&gt;]</source>
-	<target>系统里 1 个文件中的 {0} 个、{3} 个目录里的 {2} 个以及 {5} 个 symlink 中的 {4} 个成功地和 @@PRODUCT_NAME@@ 管理的文件进行了比较。[&lt;a href="{6}"&gt;查看详情&lt;/a&gt;]</target></trans-unit>
 
-	<trans-unit id="sdc.config.diff.files_2_dirs_0_symlinks_0">
-		<source>{0} of {1} files on the system were successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href="{6}"&gt;View Details&lt;/a&gt;]</source>
-	<target>系统里 {1} 个文件中的 {0} 个成功地和 @@PRODUCT_NAME@@ 管理的文件进行了比较。[&lt;a href="{6}"&gt;查看详情&lt;/a&gt;]</target></trans-unit>
 
-	<trans-unit id="sdc.config.diff.files_2_dirs_0_symlinks_1">
-		<source>{0} of {1} files and {4} of 1 symlink on the system were successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href="{6}"&gt;View Details&lt;/a&gt;]</source>
-	<target>系统里 {1} 个文件中的 {0} 个以及 1 个 symlink 中的 {4} 个成功地和 @@PRODUCT_NAME@@ 管理的文件进行了比较。[&lt;a href="{6}"&gt;查看详情&lt;/a&gt;]</target></trans-unit>
 
-	<trans-unit id="sdc.config.diff.files_2_dirs_0_symlinks_2">
-		<source>{0} of {1} files and {4} of {5} symlinks on the system were successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href="{6}"&gt;View Details&lt;/a&gt;]</source>
-	<target>系统里 {1} 个文件中的 {0} 个以及 {5} 个 symlink 中的 {4} 个成功地和 @@PRODUCT_NAME@@ 管理的文件进行了比较。[&lt;a href="{6}"&gt;查看详情&lt;/a&gt;]</target></trans-unit>
 
-	<trans-unit id="sdc.config.diff.files_2_dirs_1_symlinks_0">
-		<source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href="{6}"&gt;View Details&lt;/a&gt;]</source>
-	<target>系统里 {1} 个文件中的 {0} 个、1 个目录里的 {2} 个成功地和 @@PRODUCT_NAME@@ 管理的文件进行了比较。[&lt;a href="{6}"&gt;查看详情&lt;/a&gt;]</target></trans-unit>
 
-	<trans-unit id="sdc.config.diff.files_2_dirs_1_symlinks_1">
-		<source>{0} of {1} files and {2} of 1 directory and {4} of 1 symlink on the system were successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href="{6}"&gt;View Details&lt;/a&gt;]</source>
-	<target>系统里 {1} 个文件中的 {0} 个、1 个目录里的 {2} 个以及 1 个 symlink 中的 {4} 个成功地和 @@PRODUCT_NAME@@ 管理的文件进行了比较。[&lt;a href="{6}"&gt;查看详情&lt;/a&gt;]</target></trans-unit>
 
-	<trans-unit id="sdc.config.diff.files_2_dirs_1_symlinks_2">
-		<source>{0} of {1} files and {2} of 1 directory and {4} of {5} symlinks on the system were successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href="{6}"&gt;View Details&lt;/a&gt;]</source>
-	<target>系统里 {1} 个文件中的 {0} 个、1 个目录里的 {2} 个以及 {5} 个 symlink 中的 {4} 个成功地和 @@PRODUCT_NAME@@ 管理的文件进行了比较。[&lt;a href="{6}"&gt;查看详情&lt;/a&gt;]</target></trans-unit>
 
-	<trans-unit id="sdc.config.diff.files_2_dirs_2_symlinks_0">
-		<source>{0} of {1} files and {2} of {3} directories on the system were successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href="{6}"&gt;View Details&lt;/a&gt;]</source>
-	<target>系统里 {1} 个文件中的 {0} 个以及 {3} 个目录里的 {2} 个成功地和 @@PRODUCT_NAME@@ 管理的文件进行了比较。[&lt;a href="{6}"&gt;查看详情&lt;/a&gt;]</target></trans-unit>
 
-	<trans-unit id="sdc.config.diff.files_2_dirs_2_symlinks_1">
-		<source>{0} of {1} files and {2} of {3} directories and {4} of 1 symlink on the system were successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href="{6}"&gt;View Details&lt;/a&gt;]</source>
-	<target>系统里 {1} 个文件中的 {0} 个、{3} 个目录里的 {2} 个以及 1 个 symlink 中的 {4} 个成功地和 @@PRODUCT_NAME@@ 管理的文件进行了比较。[&lt;a href="{6}"&gt;查看详情&lt;/a&gt;]</target></trans-unit>
 
-	<trans-unit id="sdc.config.diff.files_2_dirs_2_symlinks_2">
-		<source>{0} of {1} files and {2} of {3} directories and {4} of {5} symlinks on the system were successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href="{6}"&gt;View Details&lt;/a&gt;]</source>
-	<target>系统里 {1} 个文件中的 {0} 个、{3} 个目录里的 {2} 个以及 {5} 个 symlink 中的 {4} 个成功地和 @@PRODUCT_NAME@@ 管理的文件进行了比较。[&lt;a href="{6}"&gt;查看详情&lt;/a&gt;]</target></trans-unit>
 
-	<trans-unit id="sdc.config.differing.files_0">
-		<source>No existing files in the existing system differed from the @@PRODUCT_NAME@@-Managed files.</source>
-        <target>当前系统中没有与 @@PRODUCT_NAME@@ 所管理的文件不同的现有文件。</target></trans-unit>
 
-	<trans-unit id="sdc.config.differing.files_1">
-		<source>1 of 1 file on the system differed from the @@PRODUCT_NAME@@-Managed files</source>
-	<target>系统中 1 文件中的 1 个与 @@PRODUCT_NAME@@ 管理的文件不同。</target></trans-unit>
 
-	<trans-unit id="sdc.config.differing.files_2">
-		<source>{0} of {1} files on the system differed from the @@PRODUCT_NAME@@-Managed files.</source>
-	<target>系统中 {1} 文件中的 {0} 与 @@PRODUCT_NAME@@ 管理的文件不同。</target></trans-unit>
     </group>
 
     <group>
@@ -7397,108 +6461,15 @@ Follow this url to see the full list of inactive systems:
                 <context context-type="sourcefile">Every Caller of ConfigActionHelper.makeFileCountsMessage</context>
             </context-group>
 
-	     <trans-unit id="config.files_0_dirs_0_symlinks_0_url">
-			<source>No files, directories or symlinks. &lt;a href="{0}"&gt; Add&lt;/a&gt;</source>
-	     <target>没有文件、目录 symlink。&lt;a href="{0}"&gt;添加&lt;/a&gt;</target></trans-unit>
 
-	     <trans-unit id="config.files_0_dirs_0_symlinks_0">
-			<source>No files, directories or symlinks.</source>
-	     <target>没有文件、目录或 symlink。</target></trans-unit>
-	     <trans-unit id="config.files_0_dirs_0_symlinks_1">
-			<source>{2} symlink</source>
-	     <target>{2} 个 symlink</target></trans-unit>
-	     <trans-unit id="config.files_0_dirs_0_symlinks_2">
-			<source>{2} symlinks</source>
-	     <target>{2} 个 symlink</target></trans-unit>
-	     <trans-unit id="config.files_0_dirs_1_symlinks_0">
-			<source>{1} directory</source>
-	     <target>{1} 目录</target></trans-unit>
-	     <trans-unit id="config.files_0_dirs_1_symlinks_1">
-			<source>{1} directory and {2} symlink</source>
-	     <target>{1} 个目录和 {2} 个 symlink</target></trans-unit>
-	     <trans-unit id="config.files_0_dirs_1_symlinks_2">
-			<source>{1} directory and {2} symlinks</source>
-	     <target>{1} 个目录和 {2} 个 symlink</target></trans-unit>
-	     <trans-unit id="config.files_0_dirs_2_symlinks_0">
-			<source>{1} directories</source>
-	     <target>{1} 个目录</target></trans-unit>
-	     <trans-unit id="config.files_0_dirs_2_symlinks_1">
-			<source>{1} directories and {2} symlink</source>
-	     <target>{1} 个目录和 {2} 个 symlink</target></trans-unit>
-	     <trans-unit id="config.files_0_dirs_2_symlinks_2">
-			<source>{1} directories and {2} symlinks</source>
-	     <target>{1} 个目录和 {2} 个 symlink</target></trans-unit>
 
-	     <trans-unit id="config.files_1_dirs_0_symlinks_0">
-			<source>{0} file</source>
-	     <target>{0} 个文件</target></trans-unit>
-	     <trans-unit id="config.files_1_dirs_0_symlinks_1">
-			<source>{0} file and {2} symlink</source>
-	     <target>{0} 个文件和 {2} 个 symlink</target></trans-unit>
-	     <trans-unit id="config.files_1_dirs_0_symlinks_2">
-			<source>{0} file and {2} symlinks</source>
-	     <target>{0} 个文件和 {2} 个 symlink</target></trans-unit>
-	     <trans-unit id="config.files_1_dirs_1_symlinks_0">
-			<source>{0} file and {1} directory</source>
-	     <target>{0} 个文件和 {1} 个目录</target></trans-unit>
-	     <trans-unit id="config.files_1_dirs_1_symlinks_1">
-			<source>{0} file and {1} directory and {2} symlink</source>
-	     <target>{0} 个文件和 {1} 个目录以及 {2} 个 symlink</target></trans-unit>
-	     <trans-unit id="config.files_1_dirs_1_symlinks_2">
-			<source>{0} file and {1} directory and {2} symlinks</source>
-	     <target>{0} 个文件和 {1} 个目录以及 {2} 个 symlink</target></trans-unit>
-	     <trans-unit id="config.files_1_dirs_2_symlinks_0">
-			<source>{0} file and {1} directories</source>
-	     <target>{0} 个文件和 {1} 个目录</target></trans-unit>
-	     <trans-unit id="config.files_1_dirs_2_symlinks_1">
-			<source>{0} file and {1} directories and {2} symlink</source>
-	     <target>{0} 个文件和 {1} 个目录以及 {2} 个 symlink</target></trans-unit>
-	     <trans-unit id="config.files_1_dirs_2_symlinks_2">
-			<source>{0} file and {1} directories and {2} symlinks</source>
-	     <target>{0} 个文件和 {1} 个目录以及 {2} 个 symlink</target></trans-unit>
 
-	     <trans-unit id="config.files_2_dirs_0_symlinks_0">
-			<source>{0} files</source>
-	     <target>{0} 个文件</target></trans-unit>
-	     <trans-unit id="config.files_2_dirs_0_symlinks_1">
-			<source>{0} files and {2} symlink</source>
-	     <target>{0} 个文件和 {2} 个 symlink</target></trans-unit>
-	     <trans-unit id="config.files_2_dirs_0_symlinks_2">
-			<source>{0} files and {2} symlinks</source>
-	     <target>{0} 个文件和 {2} 个 symlink</target></trans-unit>
-	     <trans-unit id="config.files_2_dirs_1_symlinks_0">
-			<source>{0} files and {1} directory</source>
-	     <target>{0} 个文件和 {1} 个目录</target></trans-unit>
-	     <trans-unit id="config.files_2_dirs_1_symlinks_1">
-			<source>{0} files and {1} directory and {2} symlink</source>
-	     <target>{0} 个文件和 {1} 个目录以及 {2} 个 symlink</target></trans-unit>
-	     <trans-unit id="config.files_2_dirs_1_symlinks_2">
-			<source>{0} files and {1} directory and {2} symlinks</source>
-	     <target>{0} 个文件和 {1} 个目录以及 {2} 个 symlink</target></trans-unit>
-	     <trans-unit id="config.files_2_dirs_2_symlinks_0">
-			<source>{0} files and {1} directories</source>
-	     <target>{0} 个文件和 {1} 个目录</target></trans-unit>
-	     <trans-unit id="config.files_2_dirs_2_symlinks_1">
-			<source>{0} files and {1} directories and {2} symlink</source>
-	     <target>{0} 个文件和 {1} 个目录以及 {2} 个 symlink</target></trans-unit>
-	     <trans-unit id="config.files_2_dirs_2_symlinks_2">
-			<source>{0} files and {1} directories and {2} symlinks</source>
-	     <target>{0} 个文件和 {1} 个目录以及 {2} 个 symlink</target></trans-unit>
 	</group>
 
     <group>
         <context-group name="config_channel_counts">
             <context context-type="sourcefile">Every Caller of ConfigActionHelper.makeChannelCountsMessage</context>
         </context-group>
-	     <trans-unit id="config.channels_0">
-			<source>No configuration channels</source>
-        <target>无配置频道</target></trans-unit>
-	     <trans-unit id="config.channels_1">
-			<source>1 configuration channel</source>
-        <target>1 个配置频道</target></trans-unit>
-	     <trans-unit id="config.channels_2">
-             <source>{0} configuration channels</source>
-	     <target>{0} 个配置频道</target></trans-unit>
     </group>
 
       <trans-unit id="channel.unavailable">
@@ -7508,12 +6479,6 @@ Follow this url to see the full list of inactive systems:
         </context-group>
       <target>(没有到上级频道的访问)</target></trans-unit>
 
-      <trans-unit id="kickstart.script.required">
-        <source>Kickstart script required.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/system/details/kickstart/KickstartScriptEdit.do</context>
-        </context-group>
-      <target>要求 Kickstart 脚本。</target></trans-unit>
 
       <trans-unit id="kickstart.script.toolarge">
         <source>The script must be smaller than {0} characters.</source>
@@ -7564,54 +6529,12 @@ Follow this url to see the full list of inactive systems:
         </context-group>
       <target>所有系统</target></trans-unit>
 
-      <trans-unit id="kickstar.error.missingprofile">
-        <source>A kickstart profile must be selected.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/system/details/kickstart/ScheduleWizard.do</context>
-        </context-group>
-      <target>必须选择一个 kickstart 侧写。</target></trans-unit>
 
-      <trans-unit id="systems.details.virt.guest.virt.shutdown">
-        <source>Shutdown</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
-        </context-group>
-      <target>关闭</target></trans-unit>
 
-      <trans-unit id="systems.details.virt.guest.virt.start">
-        <source>Start</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
-        </context-group>
-      <target>启动</target></trans-unit>
 
-      <trans-unit id="systems.details.virt.guest.virt.suspend">
-        <source>Suspend</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
-        </context-group>
-      <target>暂停</target></trans-unit>
 
-      <trans-unit id="systems.details.virt.guest.virt.resume">
-        <source>Resume</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
-        </context-group>
-      <target>恢复</target></trans-unit>
 
-      <trans-unit id="systems.details.virt.guest.virt.reboot">
-        <source>Restart</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
-        </context-group>
-      <target>重新启动</target></trans-unit>
 
-      <trans-unit id="systems.details.virt.guest.virt.destroy">
-        <source>Destroy</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
-        </context-group>
-      <target>销毁</target></trans-unit>
 
       <trans-unit id="systems.details.virt.guest.virt.delete">
         <source>Delete</source>
@@ -7620,47 +6543,11 @@ Follow this url to see the full list of inactive systems:
         </context-group>
       <target>删除</target></trans-unit>
 
-      <trans-unit id="systems.details.virt.guest.virt.setMemory">
-          <source>Set Memory ({0} MB)</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
-        </context-group>
-      <target>设置内存（{0} MB）</target></trans-unit>
 
-      <trans-unit id="systems.details.virt.guest.virt.setVCPUs">
-          <source>Set Virtual CPUs ({0})</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
-        </context-group>
-      <target>设置虚拟 CPU（{0}）</target></trans-unit>
 
-      <trans-unit id="systems.details.virt.guest.already.running">
-        <source>This system is already running.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
-        </context-group>
-      <target>系统已经在运行。</target></trans-unit>
 
-      <trans-unit id="systems.details.virt.guest.already.stopped">
-        <source>This system is already stopped.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
-        </context-group>
-      <target>系统已经被停止。</target></trans-unit>
 
-      <trans-unit id="systems.details.virt.guest.already.paused">
-        <source>This system is already paused.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
-        </context-group>
-      <target>系统已经被暂停。</target></trans-unit>
 
-      <trans-unit id="systems.details.virt.guest.already.crashed">
-        <source>This system is crashed.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
-        </context-group>
-      <target>系统崩溃了。</target></trans-unit>
 
       <trans-unit id="systems.details.virt.vcpu.limit.msg">
           <source>Virtual CPUs limited to {0} on {1}.</source>
@@ -7704,33 +6591,9 @@ Follow this url to see the full list of inactive systems:
         </context-group>
       <target>没有虚拟系统被选择。</target></trans-unit>
 
-      <trans-unit id="systems.details.virt.no.actions.scheduled">
-        <source>No actions scheduled.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
-        </context-group>
-      <target>没有动作被预定。</target></trans-unit>
 
-      <trans-unit id="systems.details.virt.one.actions.scheduled">
-        <source>Scheduled one action.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
-        </context-group>
-      <target>预定了一个动作。</target></trans-unit>
 
-      <trans-unit id="systems.details.virt.actions.scheduled">
-        <source>Scheduled {0} actions.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
-        </context-group>
-      <target>预定了 {0} 个动作。</target></trans-unit>
 
-      <trans-unit id="systems.details.virt.no.virt.deleted">
-        <source>No virtual systems deleted.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
-        </context-group>
-      <target>没有虚拟系统被删除。</target></trans-unit>
 
       <trans-unit id="systems.details.virt.one.virt.deleted">
         <source>Deleted one virtual system.</source>
@@ -7739,12 +6602,6 @@ Follow this url to see the full list of inactive systems:
         </context-group>
       <target>删除了一个虚拟系统。</target></trans-unit>
 
-      <trans-unit id="systems.details.virt.virt.deleted">
-        <source>Deleted {0} virtual systems.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
-        </context-group>
-      <target>删除了 {0} 个虚拟系统。</target></trans-unit>
 
 	  <trans-unit id="sdc.channels.edit.base_channel_updated">
 <source>System's Base Channel has been updated.</source>
@@ -7780,12 +6637,6 @@ Follow this url to see the full list of inactive systems:
           <context context-type="sourcefile">/rhn/systems/details/SystemChannels.do</context>
         </context-group>
     <target>为 '{0}' 更新权利计数</target></trans-unit>
-    <trans-unit id="orgsyssub.invalidnum">
-        <source>Provisioning must be a valid number.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/SystemChannels.do</context>
-        </context-group>
-    <target>Provisioning 必须是一个有效数字。</target></trans-unit>
       <trans-unit id="orgsystemsubs.invalid">
         <source>Entitlement modification must be a valid number for {0}.</source>
           <context-group name="ctx">
@@ -7798,12 +6649,6 @@ Follow this url to see the full list of inactive systems:
             <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions.do</context>
           </context-group>
       <target>权利修改必须对 {0} 是一个有效数字。</target></trans-unit>
-	  <trans-unit id="multiorg.delete.org.button">
-<source>Delete Selected Organizations</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/Organizations.do</context>
-        </context-group>
-      <target>删除选择的机构</target></trans-unit>
       <trans-unit id="message.org_name_updated">
 <source>Organization {0} was successfully updated.</source>
         <context-group name="ctx">
@@ -7946,9 +6791,6 @@ Follow this url to see the full list of inactive systems:
 <source>Invalid system</source>
       <target>无效系统</target></trans-unit>
 
-	  <trans-unit id="system.runningkernel.unknown">
-          <source>Unkown</source>
-      <target>未知</target></trans-unit>
 
 	  <trans-unit id="api.invalidargs">
           <source>Invalid argument(s): {0}</source>
@@ -8002,9 +6844,6 @@ Follow this url to see the full list of inactive systems:
           <source>Errata already exists with advisory {0}</source>
       <target>顾问 {0} 中已存在勘误</target></trans-unit>
 
-      <trans-unit id="api.system.invalidarch">
-          <source>Invalid arch specified: {0}</source>
-	  <target>指定了无效的构架： {0}</target></trans-unit>
 
       <trans-unit id="api.system.invalidsnapshot">
           <source>Invalid snapshot specified: {0}</source>
@@ -8078,25 +6917,13 @@ Follow this url to see the full list of inactive systems:
           <source>The channel access ({0}) is not allowed for this operation.</source>
       <target>这个操作不允许频道访问（{0}）。</target></trans-unit>
 
-      <trans-unit id="Certificate Administrators">
-          <source>Certificate Administrators</source>
-      <target>证书管理员</target></trans-unit>
 
-      <trans-unit id="Monitoring Administrators">
-          <source>Monitoring Administrators</source>
-      <target>监控管理员</target></trans-unit>
 
-      <trans-unit id="Configuration Administrators">
-          <source>Configuration Administrators</source>
-      <target>配置管理员</target></trans-unit>
 
       <trans-unit id="user.unspecified.name">
           <source>(unspecified)</source>
       <target>（未指定）</target></trans-unit>
 
-      <trans-unit id="api.kickstart.labelalreadyinuse">
-          <source>Kickstart label already exists: {0}</source>
-      <target>Kickstart 标签已存在：{0}</target></trans-unit>
 
       <trans-unit id="api.package.provider.invalidKeyType">
           <source>The package key type specified ({0}) is invalid.</source>
@@ -8106,9 +6933,6 @@ Follow this url to see the full list of inactive systems:
           <source>The package key specified ({0}) is invalid.</source>
       <target>指定的软件包密钥（{0}）无效。</target></trans-unit>
 
-      <trans-unit id="api.package.provider.duplicateKey">
-          <source>The package key specified ({0}) already exists.</source>
-      <target>指定的软件包密钥（{0}）已经存在。</target></trans-unit>
 
        <trans-unit id="api.package.provider.invalidProvider">
           <source>The package provider specified ({0}) is  invalid.</source>
@@ -8250,13 +7074,7 @@ Follow this url to see the full list of inactive systems:
       <trans-unit id="matchingFieldValue">
         <source>Matching Field Value</source>
       <target>匹配的字段值</target></trans-unit>
-      <trans-unit id="listtag.note">
-          <source>Note:</source>
-      <target>备注：</target></trans-unit>
 
-      <trans-unit id="listtag.listfiltered">
-          <source> This list is filtered.  </source>
-      <target>这个列表是经过过滤的。</target></trans-unit>
 
       <trans-unit id="listtag.clearfilter">
           <source>Clear filter </source>
@@ -8301,25 +7119,16 @@ Follow this url to see the full list of inactive systems:
           <source>View Associated Errata</source>
       <target>浏览关联的勘误</target></trans-unit>
 
-      <trans-unit id="frontend.actions.channels.manager.add.selectArch">
-          <source>Select Architectures</source>
-      <target>选择构架</target></trans-unit>
 
     <trans-unit id="frontend.actions.channels.manager.add.submit">
           <source>Confirm</source>
       <target>确认</target></trans-unit>
 
-    <trans-unit id="frontend.actions.channels.manager.add.customizePackages">
-          <source>Customize Package Arch Selection</source>
-     <target>定制软件包构架选择</target></trans-unit>
 
        <trans-unit id="frontend.actions.channels.manager.add.success">
           <source>Succesfully added {1} package(s) and scheduled {0} errata to be cloned to channel {2}.  The cloned Errata should appear in the channel and applicable to systems within a few minutes.</source>
      <target>成功添加 {1} 软件包并预定在频道 {2} 中预定克隆 {0} 勘误。几分钟后克隆的勘误应该出现在频道并可用于系统。</target></trans-unit>
 
-       <trans-unit id="frontend.actions.channels.manager.add.clone">
-          <source>"Clone"</source>
-     <target>"克隆"</target></trans-unit>
 
        <trans-unit id="frontend.actions.channels.manager.add.permsfailure">
           <source>You do not have sufficient permissions to perform this action.</source>
@@ -8416,17 +7225,11 @@ Follow this url to see the full list of inactive systems:
 	    <source>{0} patch cluster(s) have been removed from this channel</source>
 	  <target>已经从此频道中删除了 {0} 不定栈</target></trans-unit>
 
-      <trans-unit id="frontend.xmlrpc.channels.software.merge.permsfailure">
-        <source>You do not have sufficient permissions to merge packages into channel {0}</source>
-      <target>您没有足够的权限将软件包合并到频道 {2} 中。</target></trans-unit>
 
       <trans-unit id="probeparam.passnomatch">
         <source>The Password and Password Confirm did not match.</source>
       <target>密码于密钥确认不匹配。</target></trans-unit>
 
-      <trans-unit id="Password_confirm">
-        <source>Password Confirm</source>
-      <target>密码确认</target></trans-unit>
 
       <trans-unit id="permission.configadmin.needed">
         <source>The requested function requires a Configuration Admin or Organizational Admin role.</source>
@@ -8460,9 +7263,6 @@ Follow this url to see the full list of inactive systems:
         <source>The Ip Range specified, {0}, conflicts with an existing Ip Range.</source>
       <target>指定的 Ip 范围 {0} 与现有 Ip 范围冲突。</target></trans-unit>
 
-      <trans-unit id="api.kickstart.iprange.invalid">
-        <source>The Ip Range specified, {0}, is not a valid Ip Range.</source>
-      <target>指定的 Ip 范围 {0} 是一个无效 Ip 范围。</target></trans-unit>
 
       <trans-unit id="api.kickstart.ip.invalid">
         <source>The Ip Address specified, {0}, is not valid..</source>
@@ -8688,9 +7488,6 @@ Follow this url to see the full list of inactive systems:
      <trans-unit id="ssm.package.verify.operationname">
         <source>Schedule Package Verifications</source>
      <target>调度软件包的验证</target></trans-unit>
-     <trans-unit id="ssm.package.delete.operationname">
-        <source>Server Delete</source>
-     <target>删除服务器</target></trans-unit>
      <trans-unit id="channel.manage.merge.finished">
         <source>{0} Package(s) have been added and {1} Package(s) have been removed from the channel.</source>
      <target>这个频道里已经添加了 {0} 个软件包，且删除了 {1} 个软件包。</target></trans-unit>
