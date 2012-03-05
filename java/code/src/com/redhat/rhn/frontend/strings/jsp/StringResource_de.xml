@@ -17895,9 +17895,6 @@ einen Kickstart durchführen oder eine neue Kickstart-Distribution erzeugen.&lt;
             <source>State</source>
         <target>Status</target></trans-unit>
 
-        <trans-unit id="exportcolumn.message">
-            <source>Message</source>
-        <target>Nachricht</target></trans-unit>
      </group>
 
     <trans-unit id="virtualization.provision.first.jsp.no.profiles">

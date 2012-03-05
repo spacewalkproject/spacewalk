@@ -17892,9 +17892,6 @@ les canaux de logiciels de @@PRODUCT_NAME@@pour chaque canal parent pris en char
             <source>State</source>
         <target>État</target></trans-unit>
 
-        <trans-unit id="exportcolumn.message">
-            <source>Message</source>
-        <target>Message</target></trans-unit>
      </group>
 
     <trans-unit id="virtualization.provision.first.jsp.no.profiles">

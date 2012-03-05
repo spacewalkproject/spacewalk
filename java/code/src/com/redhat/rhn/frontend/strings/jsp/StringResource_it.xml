@@ -17836,9 +17836,6 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;
             <source>State</source>
         <target>Stato</target></trans-unit>
 
-        <trans-unit id="exportcolumn.message">
-            <source>Message</source>
-        <target>Messaggio</target></trans-unit>
      </group>
 
     <trans-unit id="virtualization.provision.first.jsp.no.profiles">
