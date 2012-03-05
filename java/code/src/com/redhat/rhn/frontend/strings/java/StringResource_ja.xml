@@ -7256,9 +7256,6 @@ Follow this url to see the full list of inactive systems:
             </context-group>
 
 
-	     <trans-unit id="config.files_0_dirs_1_symlinks_1">
-			<source>{1} directory and {2} symlink</source>
-	     <target>{1} ディレクトリおよび {2} シンボリックリンク</target></trans-unit>
 	     <trans-unit id="config.files_0_dirs_1_symlinks_2">
 			<source>{1} directory and {2} symlinks</source>
 	     <target>{1} ディレクトリおよび {2} シンボリックリンク</target></trans-unit>
