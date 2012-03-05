@@ -703,12 +703,6 @@
           <context context-type="sourcefile">/rhn/users/UserDetails</context>
         </context-group>
       <target>Poste&amp;nbsp;:</target></trans-unit>
-      <trans-unit id="usertype.displayname">
-<source>User Type:</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/UserDetails</context>
-        </context-group>
-      <target>Type d'utilisateur&amp;nbsp;:</target></trans-unit>
       <trans-unit id="created.displayname">
 <source>Created:</source>
         <context-group name="ctx">

@@ -703,12 +703,6 @@
           <context context-type="sourcefile">/rhn/users/UserDetails</context>
         </context-group>
       <target>পদ:</target></trans-unit>
-      <trans-unit id="usertype.displayname">
-<source>User Type:</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/UserDetails</context>
-        </context-group>
-      <target>ব্যবহারকারীর প্রকৃতি:</target></trans-unit>
       <trans-unit id="created.displayname">
 <source>Created:</source>
         <context-group name="ctx">
