@@ -1516,12 +1516,6 @@
           <context context-type="sourcefile">/rhn/account/ChangeEmail</context>
         </context-group>
       <target>ই-মেইল ঠিকানা পরিবর্তন</target></trans-unit>
-      <trans-unit id="changeemail.jsp.summary">
-<source>Please enter the new email address below.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/ChangeEmail</context>
-        </context-group>
-      <target>নীচে উপলব্ধ স্থানে অনুগ্রহ করে নতুন ই-মেইল ঠিকানা লিখুন।</target></trans-unit>
       <trans-unit id="yourchangeemail.verified">
 <source>Your current email address has been verified. If you wish to change it, please enter your new address below and click 'Update.'</source>
         <context-group name="ctx">
