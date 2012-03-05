@@ -16494,9 +16494,6 @@ per sottoscrivere i sistemi ai canali software durante un kickstart.&lt;/span&gt
 	    <trans-unit id="kickstart.schedule.heading4.jsp">
 	        <source>Advanced Kickstart Configuration</source>
 	    <target>Configurazione di Kickstart avanzata</target></trans-unit>
-	    <trans-unit id="kickstart.schedule.bootloader.jsp">
-	        <source>Bootloader</source>
-	    <target>Bootloader</target></trans-unit>
 	    <trans-unit id="kickstart.schedule.kernel.options.distro">
 	        <source>&lt;strong&gt;As specified by Kickstart Distribution&lt;/strong&gt;</source>
 	    <target></target></trans-unit>

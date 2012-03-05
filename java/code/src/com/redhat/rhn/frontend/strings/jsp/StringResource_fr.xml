@@ -16538,9 +16538,6 @@ pour abonner des systèmes aux canaux de logiciels durant le kickstart.&lt;/span
 	    <trans-unit id="kickstart.schedule.heading4.jsp">
 	        <source>Advanced Kickstart Configuration</source>
 	    <target>Configuration avancée du kickstart</target></trans-unit>
-	    <trans-unit id="kickstart.schedule.bootloader.jsp">
-	        <source>Bootloader</source>
-	    <target>Chargeur de démarrage</target></trans-unit>
 	    <trans-unit id="kickstart.schedule.kernel.options.distro">
 	        <source>&lt;strong&gt;As specified by Kickstart Distribution&lt;/strong&gt;</source>
 	    <target>&lt;strong&gt;Comme spécifié par la Distribution Kickstart&lt;/strong&gt;</target></trans-unit>

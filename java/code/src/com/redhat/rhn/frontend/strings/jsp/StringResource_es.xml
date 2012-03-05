@@ -16536,9 +16536,6 @@ para suscribir los sistemas a los canales de software durante el inicio de insta
 	    <trans-unit id="kickstart.schedule.heading4.jsp">
 	        <source>Advanced Kickstart Configuration</source>
 	    <target>Configuración avanzada del Kickstart</target></trans-unit>
-	    <trans-unit id="kickstart.schedule.bootloader.jsp">
-	        <source>Bootloader</source>
-	    <target>Gestor de arranque:</target></trans-unit>
 	    <trans-unit id="kickstart.schedule.kernel.options.distro">
 	        <source>&lt;strong&gt;As specified by Kickstart Distribution&lt;/strong&gt;</source>
 	    <target>&lt;strong&gt;Como lo especificó la distribución Kickstart&lt;/strong&gt;</target></trans-unit>

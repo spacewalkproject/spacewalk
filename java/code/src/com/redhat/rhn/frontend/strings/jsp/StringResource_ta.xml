@@ -16497,9 +16497,6 @@ the &lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;Activation Key
 	    <trans-unit id="kickstart.schedule.heading4.jsp">
 	        <source>Advanced Kickstart Configuration</source>
 	    <target>கூடுதல் கிக்ஸ்டார்ட் கட்டமைப்பு</target></trans-unit>
-	    <trans-unit id="kickstart.schedule.bootloader.jsp">
-	        <source>Bootloader</source>
-	    <target>பூட்லோடர்</target></trans-unit>
 	    <trans-unit id="kickstart.schedule.kernel.options.distro">
 	        <source>&lt;strong&gt;As specified by Kickstart Distribution&lt;/strong&gt;</source>
 	    <target></target></trans-unit>

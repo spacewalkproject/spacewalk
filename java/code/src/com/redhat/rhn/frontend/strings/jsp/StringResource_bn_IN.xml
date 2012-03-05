@@ -16495,9 +16495,6 @@ Kickstart করার সময় অনুগ্রহ করে সিস্ট
 	    <trans-unit id="kickstart.schedule.heading4.jsp">
 	        <source>Advanced Kickstart Configuration</source>
 	    <target>Kickstart সংক্রান্ত উন্নত কনফিগারেশন</target></trans-unit>
-	    <trans-unit id="kickstart.schedule.bootloader.jsp">
-	        <source>Bootloader</source>
-	    <target>বুট-লোডার:</target></trans-unit>
 	    <trans-unit id="kickstart.schedule.kernel.options.distro">
 	        <source>&lt;strong&gt;As specified by Kickstart Distribution&lt;/strong&gt;</source>
 	    <target></target></trans-unit>
