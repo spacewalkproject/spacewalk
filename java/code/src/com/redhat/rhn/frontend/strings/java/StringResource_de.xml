@@ -5916,12 +5916,6 @@ Benutzers vor dem Versuch, den Account zu deaktivieren.</target></trans-unit>
       <target>Unbekannte @@PRODUCT_NAME@@ Version</target></trans-unit>
 
 
-    <trans-unit id="certificate.config.error.30">
-        <source>Local activation failure, see log file for more details.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-      <target>Lokaler Aktivierungsfehler, siehe Protokoll für weitere Einzelheiten.</target></trans-unit>
 
     <trans-unit id="certificate.config.error.40">
         <source>Channel population failure, see log file for more details.</source>
