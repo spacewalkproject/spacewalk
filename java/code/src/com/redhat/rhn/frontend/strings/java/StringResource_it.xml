@@ -7258,9 +7258,6 @@ Seguite l'url sotto riportato per visualizzare l'elenco completo di sistemi inat
 
 
 
-	     <trans-unit id="config.files_2_dirs_0_symlinks_2">
-			<source>{0} files and {2} symlinks</source>
-	     <target></target></trans-unit>
 	     <trans-unit id="config.files_2_dirs_1_symlinks_0">
 			<source>{0} files and {1} directory</source>
 	     <target></target></trans-unit>
