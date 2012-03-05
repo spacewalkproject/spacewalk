@@ -1027,12 +1027,6 @@
         </context-group>
       <target>ਮੇਰੇ "ਜਾਣ-ਪਛਾਣ" ਸਫੇ ਤੇ ਲਾਗਇਨ ਉਪਰੰਤ ਹੇਠਲੀ ਜਾਣਕਾਰੀ ਵੇਖਾਓ:</target></trans-unit>
 
-      <trans-unit id="preferences.jsp.email">
-<source> Email</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/CreateUser</context>
-        </context-group>
-      <target> ਈ-ਮੇਲ</target></trans-unit>
       <trans-unit id="preferences.jsp.phone">
 <source> Phone</source>
         <context-group name="ctx">

@@ -1027,12 +1027,6 @@
         </context-group>
       <target>Mostrar la siguiente información en mi página de "Visión general" una vez iniciada la sesión:</target></trans-unit>
 
-      <trans-unit id="preferences.jsp.email">
-<source> Email</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/CreateUser</context>
-        </context-group>
-      <target> Correo-e</target></trans-unit>
       <trans-unit id="preferences.jsp.phone">
 <source> Phone</source>
         <context-group name="ctx">

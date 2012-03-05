@@ -1027,12 +1027,6 @@
         </context-group>
       <target>निम्न सूचना मेरे "सारांश" पृष्ठ पर लॉगिन के दौरान दिखायें:</target></trans-unit>
 
-      <trans-unit id="preferences.jsp.email">
-<source> Email</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/CreateUser</context>
-        </context-group>
-      <target> ईमेल</target></trans-unit>
       <trans-unit id="preferences.jsp.phone">
 <source> Phone</source>
         <context-group name="ctx">
