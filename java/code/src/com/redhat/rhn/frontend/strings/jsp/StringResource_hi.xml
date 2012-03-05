@@ -2049,12 +2049,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/account/EditAddress</context>
         </context-group>
       <target>कृपया नीचे दिये गये फॉर्म में अपनी सूचना दाखिल करें. तारांकित प्रविष्टि (&lt;span class="required-form-field"&gt;*&lt;/span&gt;) &lt;strong&gt;जरूरी&lt;/strong&gt; है.</target></trans-unit>
-      <trans-unit id="usercreate.personalLoginDesc_2">
-<source>&lt;strong&gt;(You should not create a home user login if you will use a Red Hat login for managing systems owned by a business or for making business purchases.)&lt;/strong&gt; </source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/newlogin</context>
-        </context-group>
-      <target>&lt;strong&gt;(आपको एक घर उपयोक्ता लॉगिन नहीं बनाना चाहिए अगर आप एक Red Hat लॉगिन का व्यापार के स्वामित्व में प्रबंधित सिस्टम के लिये या व्यापर खरीद के लिये प्रयोग करेंगे.)&lt;/strong&gt; </target></trans-unit>
 
       <!-- assignenedgroups.jsp -->
       <trans-unit id="assignedgroups.jsp.header">

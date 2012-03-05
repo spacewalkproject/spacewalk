@@ -2049,12 +2049,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/account/EditAddress</context>
         </context-group>
       <target>கீழே கொடுக்கப்பட்டுள்ள படிவத்தில் உங்கள் விவரங்களை உள்ளிடவும. (&lt;span class="required-form-field"&gt;*&lt;/span&gt;) குறியீட்டில் உள்ளவை &lt;strong&gt;நிரப்பப்பட வேண்டியவை&lt;/strong&gt;.</target></trans-unit>
-      <trans-unit id="usercreate.personalLoginDesc_2">
-<source>&lt;strong&gt;(You should not create a home user login if you will use a Red Hat login for managing systems owned by a business or for making business purchases.)&lt;/strong&gt; </source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/newlogin</context>
-        </context-group>
-      <target>&lt;strong&gt;(நீங்கள் தொழில் அல்லது தொழிலுக்காக வாங்கி Red Hat புகுபதிவினை பயன்படுத்தி கணினிகளை மேலாண்மை செய்யும் போது வீட்டு பயனர் புகுபதிவை உருவாக்கக்கூடாது.)&lt;/strong&gt; </target></trans-unit>
 
       <!-- assignenedgroups.jsp -->
       <trans-unit id="assignedgroups.jsp.header">

@@ -2049,12 +2049,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/account/EditAddress</context>
         </context-group>
       <target>મહેરબાની કરીને નીચે પૂરા પાડવામાં આવેલ ફોર્મમાં જાણકારી દાખલ કરો. ફૂદડી (&lt;span class="required-form-field"&gt;*&lt;/span&gt;) સાથે ચિહ્નિત થયેલ પ્રવેશો &lt;strong&gt;જરૂરી&lt;/strong&gt; છે.</target></trans-unit>
-      <trans-unit id="usercreate.personalLoginDesc_2">
-<source>&lt;strong&gt;(You should not create a home user login if you will use a Red Hat login for managing systems owned by a business or for making business purchases.)&lt;/strong&gt; </source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/newlogin</context>
-        </context-group>
-      <target>&lt;strong&gt;(વ્યવસાયની માલિકીની સિસ્ટમોની વ્યવસ્થા કરવા માટે અથવા ધંધાકીય ખરીદીઓ કરવા માટે જો તમારે Red Hat પ્રવેશ વાપરવો હોય તો તમારે ઘર વપરાશકર્તા પ્રવેશ બનાવવો જોઈએ નહિં.)&lt;/strong&gt; </target></trans-unit>
 
       <!-- assignenedgroups.jsp -->
       <trans-unit id="assignedgroups.jsp.header">

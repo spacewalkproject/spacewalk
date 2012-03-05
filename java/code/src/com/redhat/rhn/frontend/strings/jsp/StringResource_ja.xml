@@ -2049,12 +2049,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/account/EditAddress</context>
         </context-group>
       <target>下記のフォームに情報を入力してください。 アスタリスク (&lt;span class="required-form-field"&gt;*&lt;/span&gt;) の付いた事項は&lt;strong&gt;入力必須&lt;/strong&gt;事項となります。</target></trans-unit>
-      <trans-unit id="usercreate.personalLoginDesc_2">
-<source>&lt;strong&gt;(You should not create a home user login if you will use a Red Hat login for managing systems owned by a business or for making business purchases.)&lt;/strong&gt; </source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/newlogin</context>
-        </context-group>
-      <target>&lt;strong&gt;(ビジネス目的で所有するシステムの管理や、 ビジネス使用を目的とする購入に Red Hat ログインを使用する場合には、 ホームユーザーログインを作成しないでください。)&lt;/strong&gt; </target></trans-unit>
 
       <!-- assignenedgroups.jsp -->
       <trans-unit id="assignedgroups.jsp.header">

@@ -2049,12 +2049,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/account/EditAddress</context>
         </context-group>
       <target> অনুগ্রহ করে নীচে উল্লিখিত ফর্মের মধ্যে আপনার তথ্য পূরণ করুন।  তারাচিহ্ন দ্বারা উল্লিখিত মানগুলি (&lt;span class="required-form-field"&gt;*&lt;/span&gt;) পূরণ করা &lt;strong&gt;আবশ্যক&lt;/strong&gt;।</target></trans-unit>
-      <trans-unit id="usercreate.personalLoginDesc_2">
-<source>&lt;strong&gt;(You should not create a home user login if you will use a Red Hat login for managing systems owned by a business or for making business purchases.)&lt;/strong&gt; </source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/newlogin</context>
-        </context-group>
-      <target>&lt;strong&gt;(বাণিজ্যিক কর্মে নিযুক্ত সিস্টেম পরিচালনা ও ক্রয় করার উদ্দেশ্যে ব্যক্তিগত Red Hat লগ-ইন নির্মাণ করা উচিত নয়।)&lt;/strong&gt;</target></trans-unit>
 
       <!-- assignenedgroups.jsp -->
       <trans-unit id="assignedgroups.jsp.header">
