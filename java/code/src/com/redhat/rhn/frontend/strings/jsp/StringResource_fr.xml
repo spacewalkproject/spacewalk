@@ -13906,12 +13906,6 @@ pour ces versions seront également supprimées, ainsi que tous les historiques 
     <target>Versions</target></trans-unit>
 
 
-    <trans-unit id="quota.jsp.onerevision">
-        <source>1 revision</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/Quota.do</context>
-        </context-group>
-    <target>1 version</target></trans-unit>
 
     <trans-unit id="quota.jsp.spaceUsed">
         <source>Total Space Used*</source>

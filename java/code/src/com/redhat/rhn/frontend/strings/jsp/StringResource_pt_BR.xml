@@ -13896,12 +13896,6 @@ para qualquer uma das revisões, assim como todo o histórico de implementação
     <target>Revisões</target></trans-unit>
 
 
-    <trans-unit id="quota.jsp.onerevision">
-        <source>1 revision</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/Quota.do</context>
-        </context-group>
-    <target>1 revisão</target></trans-unit>
 
     <trans-unit id="quota.jsp.spaceUsed">
         <source>Total Space Used*</source>

@@ -13905,12 +13905,6 @@ concerniente con esas revisiones. ¿Está seguro que es ésto lo que desea hacer
     <target>Revisiones</target></trans-unit>
 
 
-    <trans-unit id="quota.jsp.onerevision">
-        <source>1 revision</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/Quota.do</context>
-        </context-group>
-    <target>1 revisión</target></trans-unit>
 
     <trans-unit id="quota.jsp.spaceUsed">
         <source>Total Space Used*</source>

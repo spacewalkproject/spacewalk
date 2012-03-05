@@ -13901,12 +13901,6 @@ any of these revisions.  Are you sure you want to do this?</source>
     <target>修订</target></trans-unit>
 
 
-    <trans-unit id="quota.jsp.onerevision">
-        <source>1 revision</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/Quota.do</context>
-        </context-group>
-    <target>1 个修订</target></trans-unit>
 
     <trans-unit id="quota.jsp.spaceUsed">
         <source>Total Space Used*</source>
