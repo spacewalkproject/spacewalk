@@ -18550,12 +18550,6 @@ einen Kickstart durchführen oder eine neue Kickstart-Distribution erzeugen.&lt;
 	<group>
 
 
-      <trans-unit id="outage-policy.jsp.unscheduled-header">
-<source>Unscheduled Maintenance Windows</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">outage-policy.jsp</context>
-        </context-group>
-      <target>Au&amp;szlig;erplanm&amp;auml;&amp;szlig;ige Wartungsfenster</target></trans-unit>
 
 
 	</group>

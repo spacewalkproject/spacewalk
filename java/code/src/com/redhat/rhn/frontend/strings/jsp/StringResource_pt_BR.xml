@@ -18540,12 +18540,6 @@ de executar um kickstart ou criar uma nova distribuição kickstart.&lt;/strong&
 	<group>
 
 
-      <trans-unit id="outage-policy.jsp.unscheduled-header">
-<source>Unscheduled Maintenance Windows</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">outage-policy.jsp</context>
-        </context-group>
-      <target>Períodos de Manutenção Não Programados</target></trans-unit>
 
 
 	</group>

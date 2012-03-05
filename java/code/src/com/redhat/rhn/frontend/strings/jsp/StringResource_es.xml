@@ -18546,12 +18546,6 @@ de realizar un kickstart o antes de crear una nueva distribución kickstart.&lt;
 	<group>
 
 
-      <trans-unit id="outage-policy.jsp.unscheduled-header">
-<source>Unscheduled Maintenance Windows</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">outage-policy.jsp</context>
-        </context-group>
-      <target>Ventanas de mantenimiento no programado</target></trans-unit>
 
 
 	</group>
