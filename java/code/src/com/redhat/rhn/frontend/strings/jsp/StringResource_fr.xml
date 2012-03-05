@@ -17870,9 +17870,6 @@ les canaux de logiciels de @@PRODUCT_NAME@@pour chaque canal parent pris en char
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/configuration/ConfigChannelList.do</context>
       </context-group>
-        <trans-unit id="exportcolumn.associatedSystem">
-            <source>System</source>
-        <target>Système</target></trans-unit>
         <trans-unit id="exportcolumn.errataAdvisoryType">
             <source>Advisory Type</source>
         <target>Type d'alerte</target></trans-unit>

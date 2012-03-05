@@ -17864,9 +17864,6 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/configuration/ConfigChannelList.do</context>
       </context-group>
-        <trans-unit id="exportcolumn.associatedSystem">
-            <source>System</source>
-        <target>系统</target></trans-unit>
         <trans-unit id="exportcolumn.errataAdvisoryType">
             <source>Advisory Type</source>
         <target>顾问类型</target></trans-unit>
