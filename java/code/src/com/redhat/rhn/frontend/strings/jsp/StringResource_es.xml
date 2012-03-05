@@ -13926,12 +13926,6 @@ concerniente con esas revisiones. ¿Está seguro que es ésto lo que desea hacer
         </context-group>
     <target>Espacio total usado*</target></trans-unit>
 
-    <trans-unit id="quota.jsp.note">
-        <source>&lt;i&gt;* - 'Total Space Used' refers to the total amount of space all revisions of a file use.&lt;/i&gt;</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/Quota.do</context>
-        </context-group>
-    <target>&lt;i&gt;* - 'Espacio total usado' hace referencia a la cantidad total de espacio utilizado por todas las revisiones de un archivo.&lt;/i&gt;</target></trans-unit>
 
     <!-- globalfilelist.jsp -->
     <trans-unit id="globalfilelist.jsp.toolbar">

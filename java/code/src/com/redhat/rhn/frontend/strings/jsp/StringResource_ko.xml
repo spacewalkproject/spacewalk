@@ -13888,12 +13888,6 @@ any of these revisions.  Are you sure you want to do this?</source>
         </context-group>
     <target>총 사용된 공간*</target></trans-unit>
 
-    <trans-unit id="quota.jsp.note">
-        <source>&lt;i&gt;* - 'Total Space Used' refers to the total amount of space all revisions of a file use.&lt;/i&gt;</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/Quota.do</context>
-        </context-group>
-    <target>&lt;i&gt;* - '총 사용된 공간'은 파일의 모든 버전에서 사용되고 있는 총 공간을 의미합니다.&lt;/i&gt;</target></trans-unit>
 
     <!-- globalfilelist.jsp -->
     <trans-unit id="globalfilelist.jsp.toolbar">

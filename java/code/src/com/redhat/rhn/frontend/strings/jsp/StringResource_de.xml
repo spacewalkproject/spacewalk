@@ -13929,12 +13929,6 @@ dieser Revisionen.  M&amp;ouml;chten Sie dies wirklich tun?</target></trans-unit
         </context-group>
     <target>Insgesamt verbrauchter Speicherplatz*</target></trans-unit>
 
-    <trans-unit id="quota.jsp.note">
-        <source>&lt;i&gt;* - 'Total Space Used' refers to the total amount of space all revisions of a file use.&lt;/i&gt;</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/Quota.do</context>
-        </context-group>
-    <target>&lt;i&gt;* - 'Insgesamt verbrauchter Platz' bezieht sich auf die Menge an Platz, die alle Revisionen einer Datei verwenden.&lt;/i&gt;</target></trans-unit>
 
     <!-- globalfilelist.jsp -->
     <trans-unit id="globalfilelist.jsp.toolbar">

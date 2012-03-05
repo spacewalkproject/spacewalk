@@ -13893,12 +13893,6 @@ any of these revisions.  Are you sure you want to do this?</source>
         </context-group>
     <target>ਕੁੱਲ ਵਰਤੀ ਸਪੇਸ*</target></trans-unit>
 
-    <trans-unit id="quota.jsp.note">
-        <source>&lt;i&gt;* - 'Total Space Used' refers to the total amount of space all revisions of a file use.&lt;/i&gt;</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/Quota.do</context>
-        </context-group>
-    <target>&lt;i&gt;* - 'ਕੁੱਲ ਵਰਤੀ ਸਪੇਸ' ਦਾ ਮਤਲਬ ਹੈ ਕਿ ਕੁੱਲ ਸਪੇਸ ਜੋ ਇਸ ਫਾਇਲ ਦੇ ਸਭ ਰਵੀਜਨ ਵਰਤਦੇ ਹਨ।&lt;/i&gt;</target></trans-unit>
 
     <!-- globalfilelist.jsp -->
     <trans-unit id="globalfilelist.jsp.toolbar">

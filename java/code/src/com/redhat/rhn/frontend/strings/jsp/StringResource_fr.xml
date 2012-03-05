@@ -13927,12 +13927,6 @@ pour ces versions seront également supprimées, ainsi que tous les historiques 
         </context-group>
     <target>Espace total utilisé*</target></trans-unit>
 
-    <trans-unit id="quota.jsp.note">
-        <source>&lt;i&gt;* - 'Total Space Used' refers to the total amount of space all revisions of a file use.&lt;/i&gt;</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/Quota.do</context>
-        </context-group>
-    <target>&lt;i&gt;* - "Espace total utilisé" se rapporte au montant total d'espace utilisé par toutes les versions d'un fichier.&lt;/i&gt;</target></trans-unit>
 
     <!-- globalfilelist.jsp -->
     <trans-unit id="globalfilelist.jsp.toolbar">
