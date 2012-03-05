@@ -886,12 +886,6 @@
 		 </context-group>
 	<target>Задачи</target></trans-unit>
 
-	<trans-unit id="preferences.tasks.description">
-         <source> A task-oriented menu of quick links to different areas of the @@PRODUCT_NAME@@ user interface.</source>
-		 <context-group name="ctx">
-		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
-		 </context-group>
-	<target> Меню задач состоит из ссылок быстрого доступа к различным разделам интерфейса @@PRODUCT_NAME@@.</target></trans-unit>
 
 
 

@@ -886,12 +886,6 @@
 		 </context-group>
 	<target>ક્રિયાઓ</target></trans-unit>
 
-	<trans-unit id="preferences.tasks.description">
-         <source> A task-oriented menu of quick links to different areas of the @@PRODUCT_NAME@@ user interface.</source>
-		 <context-group name="ctx">
-		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
-		 </context-group>
-	<target> @@PRODUCT_NAME@@ વપરાશકર્તા ઈન્ટરફેસના વિવિધ વિસ્તારોની તુરંત કડીઓનું બાબત-લગતું મેનુ.</target></trans-unit>
 
 
 

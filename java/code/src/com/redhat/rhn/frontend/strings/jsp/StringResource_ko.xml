@@ -886,12 +886,6 @@
 		 </context-group>
 	<target>작업</target></trans-unit>
 
-	<trans-unit id="preferences.tasks.description">
-         <source> A task-oriented menu of quick links to different areas of the @@PRODUCT_NAME@@ user interface.</source>
-		 <context-group name="ctx">
-		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
-		 </context-group>
-	<target>@@PRODUCT_NAME@@ 사용자 인터페이스의 다른 위치에 바로 연결하는 작업 중심적인 메뉴   </target></trans-unit>
 
 
 

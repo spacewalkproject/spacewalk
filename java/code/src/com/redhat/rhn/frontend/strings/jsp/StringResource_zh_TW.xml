@@ -886,12 +886,6 @@
 		 </context-group>
 	<target>工作</target></trans-unit>
 
-	<trans-unit id="preferences.tasks.description">
-         <source> A task-oriented menu of quick links to different areas of the @@PRODUCT_NAME@@ user interface.</source>
-		 <context-group name="ctx">
-		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
-		 </context-group>
-	<target> 任務導向的選單，讓您可以快速的連接到不同領域的 @@PRODUCT_NAME@@ 使用者介面。</target></trans-unit>
 
 
 

@@ -886,12 +886,6 @@
 		 </context-group>
 	<target>Compiti</target></trans-unit>
 
-	<trans-unit id="preferences.tasks.description">
-         <source> A task-oriented menu of quick links to different areas of the @@PRODUCT_NAME@@ user interface.</source>
-		 <context-group name="ctx">
-		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
-		 </context-group>
-	<target>Un menu orientato sui compiti di quick links per diverse aree dell'interfaccia utente di @@PRODUCT_NAME@@.</target></trans-unit>
 
 
 

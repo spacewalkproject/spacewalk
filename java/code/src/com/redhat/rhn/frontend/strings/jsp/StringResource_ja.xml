@@ -886,12 +886,6 @@
 		 </context-group>
 	<target>タスク</target></trans-unit>
 
-	<trans-unit id="preferences.tasks.description">
-         <source> A task-oriented menu of quick links to different areas of the @@PRODUCT_NAME@@ user interface.</source>
-		 <context-group name="ctx">
-		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
-		 </context-group>
-	<target>@@PRODUCT_NAME@@ ユーザーインターフェイスの別の場所へのリンクを表示するタスク中心のメニューです。</target></trans-unit>
 
 
 
