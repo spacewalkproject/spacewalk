@@ -17882,9 +17882,6 @@ de realizar un kickstart o antes de crear una nueva distribución kickstart.&lt;
             <source>System Count</source>
         <target>Cuenta de sistemas</target></trans-unit>
 
-        <trans-unit id="exportcolumn.status">
-            <source>Status</source>
-        <target>Estado</target></trans-unit>
 
 
 

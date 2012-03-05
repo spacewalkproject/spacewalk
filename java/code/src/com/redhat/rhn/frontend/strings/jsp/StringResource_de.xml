@@ -17886,9 +17886,6 @@ einen Kickstart durchführen oder eine neue Kickstart-Distribution erzeugen.&lt;
             <source>System Count</source>
         <target>System-Anzahl</target></trans-unit>
 
-        <trans-unit id="exportcolumn.status">
-            <source>Status</source>
-        <target>Status</target></trans-unit>
 
 
 

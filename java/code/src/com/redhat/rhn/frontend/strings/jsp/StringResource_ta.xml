@@ -17830,9 +17830,6 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;
             <source>System Count</source>
         <target>கணினி எண்ணிக்கை</target></trans-unit>
 
-        <trans-unit id="exportcolumn.status">
-            <source>Status</source>
-        <target>நிலை</target></trans-unit>
 
 
 

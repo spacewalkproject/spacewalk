@@ -18230,9 +18230,6 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;
             <source>System Count</source>
         </trans-unit>
 
-        <trans-unit id="exportcolumn.status">
-            <source>Status</source>
-        </trans-unit>
 
 
 
