@@ -18477,12 +18477,6 @@ come riportato in questo certificato @@PRODUCT_NAME@@.</target></trans-unit>
         </context-group>
       <target> Provisioning (Aggiuntivo)</target></trans-unit>
 
-      <trans-unit id="sys_entitlements.monitoring_entitled">
-        <source> Monitoring (Add-On)</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
-        </context-group>
-      <target> Monitoring (Aggiuntivo)</target></trans-unit>
 
       <trans-unit id="sys_entitlements.virtualization_host">
         <source> Virtualization (Add-On)</source>

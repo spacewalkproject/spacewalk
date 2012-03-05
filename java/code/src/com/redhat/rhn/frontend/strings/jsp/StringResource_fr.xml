@@ -18533,12 +18533,6 @@ comme défini dans le certificat de ce @@PRODUCT_NAME@@.</target></trans-unit>
         </context-group>
       <target> Provisioning (Supplémentaire)</target></trans-unit>
 
-      <trans-unit id="sys_entitlements.monitoring_entitled">
-        <source> Monitoring (Add-On)</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
-        </context-group>
-      <target> Monitoring (Supplémentaire)</target></trans-unit>
 
       <trans-unit id="sys_entitlements.virtualization_host">
         <source> Virtualization (Add-On)</source>
