@@ -1512,12 +1512,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/newlogin/CreateCorporate</context>
         </context-group>
       <target>Un login Red Hat offre</target></trans-unit>
-      <trans-unit id="usercreate.enables3">
-<source>access software updates, Errata, and maintenance from @@PRODUCT_NAME@@</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/newlogin/CreateCorporate</context>
-        </context-group>
-      <target>accéedez aux mises à jour de logiciels, Errata et à la maintenance de @@PRODUCT_NAME@@</target></trans-unit>
       <trans-unit id="usercreate.enables4">
 <source>access Red Hat technical support, documentation, and Knowledgebase</source>
         <context-group name="ctx">

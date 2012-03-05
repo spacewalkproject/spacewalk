@@ -1512,12 +1512,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/newlogin/CreateCorporate</context>
         </context-group>
       <target>Red Hat 로그인 사용 혜택은 다음과 같습니다:</target></trans-unit>
-      <trans-unit id="usercreate.enables3">
-<source>access software updates, Errata, and maintenance from @@PRODUCT_NAME@@</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/newlogin/CreateCorporate</context>
-        </context-group>
-      <target>@@PRODUCT_NAME@@에서 소프트웨어 업데이트, 에라타 및 관리 기능을 받으실 수 있습니다 </target></trans-unit>
       <trans-unit id="usercreate.enables4">
 <source>access Red Hat technical support, documentation, and Knowledgebase</source>
         <context-group name="ctx">
