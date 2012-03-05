@@ -1335,12 +1335,6 @@
         </context-group>
       <target>પાસવર્ડો બંધબેસતા નથી.</target></trans-unit>
 
-      <trans-unit id="error.unknown_usertype">
-<source>Unknown account type.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/CreateUser</context>
-        </context-group>
-      <target>અજ્ઞાત ખાતા પ્રકાર.</target></trans-unit>
       <trans-unit id="login">
 <source>Desired Login</source>
         <context-group name="ctx">

@@ -1335,12 +1335,6 @@
         </context-group>
       <target>Las contraseñas no coinciden.</target></trans-unit>
 
-      <trans-unit id="error.unknown_usertype">
-<source>Unknown account type.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/CreateUser</context>
-        </context-group>
-      <target>Tipo de cuenta desconocida.</target></trans-unit>
       <trans-unit id="login">
 <source>Desired Login</source>
         <context-group name="ctx">

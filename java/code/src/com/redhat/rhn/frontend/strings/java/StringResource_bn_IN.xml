@@ -1341,12 +1341,6 @@
         </context-group>
       <target>পাসওয়ার্ডে গরমিল।</target></trans-unit>
 
-      <trans-unit id="error.unknown_usertype">
-<source>Unknown account type.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/CreateUser</context>
-        </context-group>
-      <target>অজানা প্রকৃতির অ্যাকাউন্ট।</target></trans-unit>
       <trans-unit id="login">
 <source>Desired Login</source>
         <context-group name="ctx">

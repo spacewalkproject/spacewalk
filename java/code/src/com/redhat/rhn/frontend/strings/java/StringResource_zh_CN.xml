@@ -1335,12 +1335,6 @@
         </context-group>
       <target>密码不匹配。</target></trans-unit>
 
-      <trans-unit id="error.unknown_usertype">
-<source>Unknown account type.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/CreateUser</context>
-        </context-group>
-      <target>未知的帐户类型。</target></trans-unit>
       <trans-unit id="login">
 <source>Desired Login</source>
         <context-group name="ctx">

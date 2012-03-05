@@ -1335,12 +1335,6 @@
         </context-group>
       <target>암호가 일치하지 않습니다.</target></trans-unit>
 
-      <trans-unit id="error.unknown_usertype">
-<source>Unknown account type.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/CreateUser</context>
-        </context-group>
-      <target>알수없는 계정 유형.</target></trans-unit>
       <trans-unit id="login">
 <source>Desired Login</source>
         <context-group name="ctx">

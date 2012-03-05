@@ -1341,12 +1341,6 @@
         </context-group>
       <target>Passw&amp;ouml;rter stimmen nicht &amp;uuml;berein.</target></trans-unit>
 
-      <trans-unit id="error.unknown_usertype">
-<source>Unknown account type.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/CreateUser</context>
-        </context-group>
-      <target>Unbekannter Account-Typ.</target></trans-unit>
       <trans-unit id="login">
 <source>Desired Login</source>
         <context-group name="ctx">
