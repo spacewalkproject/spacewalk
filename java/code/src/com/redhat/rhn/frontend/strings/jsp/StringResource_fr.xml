@@ -17530,12 +17530,6 @@ les canaux de logiciels de @@PRODUCT_NAME@@pour chaque canal parent pris en char
             </context-group>
          <target>Nom de l'organisation</target></trans-unit>
 
-         <trans-unit id="sdc.details.migrate.notrustedorgs">
-            <source>No trusted oranisations</source>
-            <context-group name="ctx">
-            <context context-type="sourcefile">/systems/details/SystemMigrate.do</context>
-            </context-group>
-         <target>Organisation non trusted</target></trans-unit>
 
          <trans-unit id="sdc.details.migrate.migrate">
             <source>Migrate System</source>

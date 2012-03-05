@@ -17529,12 +17529,6 @@ de realizar un kickstart o antes de crear una nueva distribución kickstart.&lt;
             </context-group>
          <target>Nombre de la organización</target></trans-unit>
 
-         <trans-unit id="sdc.details.migrate.notrustedorgs">
-            <source>No trusted oranisations</source>
-            <context-group name="ctx">
-            <context context-type="sourcefile">/systems/details/SystemMigrate.do</context>
-            </context-group>
-         <target>Organizaciones no confiables</target></trans-unit>
 
          <trans-unit id="sdc.details.migrate.migrate">
             <source>Migrate System</source>

@@ -17523,12 +17523,6 @@ de executar um kickstart ou criar uma nova distribuição kickstart.&lt;/strong&
             </context-group>
          <target>Nome da Organização</target></trans-unit>
 
-         <trans-unit id="sdc.details.migrate.notrustedorgs">
-            <source>No trusted oranisations</source>
-            <context-group name="ctx">
-            <context context-type="sourcefile">/systems/details/SystemMigrate.do</context>
-            </context-group>
-         <target>Nenhuma organização confiável</target></trans-unit>
 
          <trans-unit id="sdc.details.migrate.migrate">
             <source>Migrate System</source>
