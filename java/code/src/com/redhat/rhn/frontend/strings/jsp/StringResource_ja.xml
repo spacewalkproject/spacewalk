@@ -10684,9 +10684,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
     <trans-unit id="snippetdetails.jsp.header2">
         <source>Snippet Details</source>
     <target>スニペットの詳細</target></trans-unit>
-    <trans-unit id="snippetcreate.jsp.name">
-        <source>Name</source>
-    <target>名前</target></trans-unit>
 
     <trans-unit id="snippetcreate.jsp.contents">
         <source>Contents</source>

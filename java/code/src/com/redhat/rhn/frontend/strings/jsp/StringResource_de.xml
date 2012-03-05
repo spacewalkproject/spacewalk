@@ -10702,9 +10702,6 @@ Anschlie&amp;szlig;end wird das nicht-chroot Post-Skript ausgef&amp;uuml;hrt, un
     <trans-unit id="snippetdetails.jsp.header2">
         <source>Snippet Details</source>
     <target>Snippet-Details</target></trans-unit>
-    <trans-unit id="snippetcreate.jsp.name">
-        <source>Name</source>
-    <target>Name</target></trans-unit>
 
     <trans-unit id="snippetcreate.jsp.contents">
         <source>Contents</source>

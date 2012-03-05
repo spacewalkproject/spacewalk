@@ -10700,9 +10700,6 @@ Le script post non-chroot sera ensuite exécuté et le script post sera enfin ex
     <trans-unit id="snippetdetails.jsp.header2">
         <source>Snippet Details</source>
     <target>Détails du snippet</target></trans-unit>
-    <trans-unit id="snippetcreate.jsp.name">
-        <source>Name</source>
-    <target>Nom</target></trans-unit>
 
     <trans-unit id="snippetcreate.jsp.contents">
         <source>Contents</source>

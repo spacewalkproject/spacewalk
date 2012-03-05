@@ -10691,9 +10691,6 @@ o &lt;strong&gt;Guia de Administração de Sistemas Red Hat Enterprise Li
     <trans-unit id="snippetdetails.jsp.header2">
         <source>Snippet Details</source>
     <target>Detalhes do Snippet</target></trans-unit>
-    <trans-unit id="snippetcreate.jsp.name">
-        <source>Name</source>
-    <target>Nome</target></trans-unit>
 
     <trans-unit id="snippetcreate.jsp.contents">
         <source>Contents</source>

@@ -10695,9 +10695,6 @@ kickstart 前脚本的内容可以在 &lt;strong&gt;《红帽企业版 Linux 系
     <trans-unit id="snippetdetails.jsp.header2">
         <source>Snippet Details</source>
     <target>Snippet 详情</target></trans-unit>
-    <trans-unit id="snippetcreate.jsp.name">
-        <source>Name</source>
-    <target>名称</target></trans-unit>
 
     <trans-unit id="snippetcreate.jsp.contents">
         <source>Contents</source>
