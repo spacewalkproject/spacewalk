@@ -643,12 +643,6 @@
           <context context-type="sourcefile">/rhn/users/UserDetails</context>
         </context-group>
       <target>Confirmar Senha &lt;span class="required-form-field"&gt;*&lt;/span&gt;:</target></trans-unit>
-      <trans-unit id="passwordConfirm.displayname">
-<source>Confirm Password</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">NOT USED</context>
-        </context-group>
-      <target>Confirmar Senha</target></trans-unit>
       <trans-unit id="message.Update">
 <source>Update</source>
         <context-group name="ctx">
