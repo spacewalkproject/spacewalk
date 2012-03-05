@@ -2113,12 +2113,6 @@ dr&amp;uuml;cken und &lt;b&gt;k&amp;ouml;nnen sich nicht wieder einloggen&lt;/b&
           <context context-type="sourcefile">/rhn/account/SubscriptionManagement</context>
         </context-group>
       <target>&lt;strong&gt;&lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;Erwerben&lt;/a&gt;&lt;/strong&gt; Sie zus&amp;auml;tzliche &lt;strong&gt;@@PRODUCT_NAME@@ Management und Provisioning Berechtigungen&lt;/strong&gt; im &lt;strong&gt;&lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;img src="/img/external-link.gif" alt="External Link" /&gt;Red Hat Store&lt;/a&gt;&lt;/strong&gt;.</target></trans-unit>
-      <trans-unit id="subscriptionmanagement.jsp.entitlements">
-<source>View &amp;amp; Assign Entitlements to Systems</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/account/SubscriptionManagement</context>
-        </context-group>
-      <target>Ansehen &amp;amp; Zuweisen von Berechtigungen an Systeme</target></trans-unit>
       <trans-unit id="subscriptionmanagement.jsp.entitlements.description1">
 <source>&lt;strong&gt;&lt;a href="/rhn/systems/SystemEntitlements.do"&gt;View your open system entitlement slots and apply system entitlements to your systems&lt;/a&gt;&lt;/strong&gt; at the &lt;strong&gt;&lt;a href="/rhn/systems/SystemEntitlements.do"&gt;Systems Entitlements&lt;/a&gt;&lt;/strong&gt; page in the left navigation bar.</source>
         <context-group name="ctx">

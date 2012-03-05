@@ -2113,12 +2113,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/account/SubscriptionManagement</context>
         </context-group>
       <target>&lt;strong&gt;&lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;img src="/img/external-link.gif" alt="External Link" /&gt;Red Hat Store&lt;/a&gt;&lt;/strong&gt;에서 추가 &lt;strong&gt;@@PRODUCT_NAME@@ 관리 (Management) 및 프로비저닝 (Provisioning) 인타이틀먼트&lt;/strong&gt;를 &lt;strong&gt;&lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;구입하실 수 있습니다&lt;/a&gt;&lt;/strong&gt;. </target></trans-unit>
-      <trans-unit id="subscriptionmanagement.jsp.entitlements">
-<source>View &amp;amp; Assign Entitlements to Systems</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/account/SubscriptionManagement</context>
-        </context-group>
-      <target>시스템에 인타이틀먼트 확인 &amp;amp; 할당하기</target></trans-unit>
       <trans-unit id="subscriptionmanagement.jsp.entitlements.description1">
 <source>&lt;strong&gt;&lt;a href="/rhn/systems/SystemEntitlements.do"&gt;View your open system entitlement slots and apply system entitlements to your systems&lt;/a&gt;&lt;/strong&gt; at the &lt;strong&gt;&lt;a href="/rhn/systems/SystemEntitlements.do"&gt;Systems Entitlements&lt;/a&gt;&lt;/strong&gt; page in the left navigation bar.</source>
         <context-group name="ctx">

@@ -2113,12 +2113,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/account/SubscriptionManagement</context>
         </context-group>
       <target>கூடுதல் &lt;strong&gt;@@PRODUCT_NAME@@ மேலாண்மை மற்றும் வாய்ப்பளிக்கும் உரிமம்&lt;/strong&gt;&lt;strong&gt;&lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;img src="/img/external-link.gif" alt="External Link" /&gt;Red Hat ஸ்டோரில்&lt;/a&gt;&lt;/strong&gt;&lt;strong&gt;&lt;a href="https://www.redhat.com/apps/commerce/"&gt; வாங்கவும்.&lt;/a&gt;&lt;/strong&gt;.</target></trans-unit>
-      <trans-unit id="subscriptionmanagement.jsp.entitlements">
-<source>View &amp;amp; Assign Entitlements to Systems</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/account/SubscriptionManagement</context>
-        </context-group>
-      <target>கணினிகளின் உரிமங்களை பார்வையிடுதல் &amp;amp; ஒதுக்குதல்</target></trans-unit>
       <trans-unit id="subscriptionmanagement.jsp.entitlements.description1">
 <source>&lt;strong&gt;&lt;a href="/rhn/systems/SystemEntitlements.do"&gt;View your open system entitlement slots and apply system entitlements to your systems&lt;/a&gt;&lt;/strong&gt; at the &lt;strong&gt;&lt;a href="/rhn/systems/SystemEntitlements.do"&gt;Systems Entitlements&lt;/a&gt;&lt;/strong&gt; page in the left navigation bar.</source>
         <context-group name="ctx">

@@ -2113,12 +2113,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/account/SubscriptionManagement</context>
         </context-group>
       <target>ਹੋਰ &lt;strong&gt;@@PRODUCT_NAME@@ ਪਰਬੰਧ ਅਤੇ ਮਨਜੂਰੀ ਇੰਟਾਈਟਲਮੈਂਟ&lt;/strong&gt; &lt;strong&gt;&lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;ਖਰੀਦਣ&lt;/a&gt;&lt;/strong&gt; ਲਈ &lt;strong&gt;&lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;img src="/img/external-link.gif" alt="External Link" /&gt;Red Hat ਸਟੋਰ&lt;/a&gt;&lt;/strong&gt; ਉੱਤੇ ਜਾਓ।</target></trans-unit>
-      <trans-unit id="subscriptionmanagement.jsp.entitlements">
-<source>View &amp;amp; Assign Entitlements to Systems</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/account/SubscriptionManagement</context>
-        </context-group>
-      <target>ਵੇਖੋ &amp;amp; ਸਿਸਟਮਾਂ ਨੂੰ ਇੰਟਾਈਟਲਮੈਂਟਾਂ ਨਿਰਧਾਰਤ ਕਰੋ</target></trans-unit>
       <trans-unit id="subscriptionmanagement.jsp.entitlements.description1">
 <source>&lt;strong&gt;&lt;a href="/rhn/systems/SystemEntitlements.do"&gt;View your open system entitlement slots and apply system entitlements to your systems&lt;/a&gt;&lt;/strong&gt; at the &lt;strong&gt;&lt;a href="/rhn/systems/SystemEntitlements.do"&gt;Systems Entitlements&lt;/a&gt;&lt;/strong&gt; page in the left navigation bar.</source>
         <context-group name="ctx">
