@@ -19494,12 +19494,6 @@ Opcionalmente descargue los &lt;strong&gt;ISOs de contenido de canal de incremen
         </context-group>
       <target>Sistema huésped</target></trans-unit>
 
-      <trans-unit id="guestslimited.jsp.nosystems">
-		<source>There are no systems with the Virtualization entitlement.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/PhysicalHosts.do</context>
-        </context-group>
-      <target>No hay sistemas con derechos al nivel de servicios de Virtualización.</target></trans-unit>
 
       <trans-unit id="guestslimited.jsp.total_active">
 <source>Total Active Guests</source>

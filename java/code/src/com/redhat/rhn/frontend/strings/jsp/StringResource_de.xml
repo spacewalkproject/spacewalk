@@ -19497,12 +19497,6 @@ Alternativ sollten Sie &lt;strong&gt;Inkrementelle Channel-Inhalt-ISOs&lt;/stron
         </context-group>
       <target>Host-System</target></trans-unit>
 
-      <trans-unit id="guestslimited.jsp.nosystems">
-		<source>There are no systems with the Virtualization entitlement.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/PhysicalHosts.do</context>
-        </context-group>
-      <target>Es existieren keine Systeme mit Virtualisierungsberechtigung.</target></trans-unit>
 
       <trans-unit id="guestslimited.jsp.total_active">
 <source>Total Active Guests</source>

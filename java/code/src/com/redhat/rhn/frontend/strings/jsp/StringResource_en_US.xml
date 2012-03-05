@@ -19872,12 +19872,6 @@ Alternatively, you will want to download &lt;strong&gt;Incremental Channel Conte
         </context-group>
       </trans-unit>
 
-      <trans-unit id="guestslimited.jsp.nosystems">
-		<source>There are no systems with the Virtualization entitlement.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/PhysicalHosts.do</context>
-        </context-group>
-      </trans-unit>
 
       <trans-unit id="guestslimited.jsp.total_active">
 <source>Total Active Guests</source>

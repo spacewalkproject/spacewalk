@@ -19493,12 +19493,6 @@ Sinon, vous téléchargerez &lt;strong&gt;Incremental Channel Content ISO&lt;/st
         </context-group>
       <target>Système hôte</target></trans-unit>
 
-      <trans-unit id="guestslimited.jsp.nosystems">
-		<source>There are no systems with the Virtualization entitlement.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/PhysicalHosts.do</context>
-        </context-group>
-      <target>Il n'y a pas de systèmes avec le droit d'accès au module Virtualisation.</target></trans-unit>
 
       <trans-unit id="guestslimited.jsp.total_active">
 <source>Total Active Guests</source>

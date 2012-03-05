@@ -19417,12 +19417,6 @@ Alternatively, you will want to download &lt;strong&gt;Incremental Channel Conte
         </context-group>
       <target>ਮੇਜ਼ਬਾਨ ਸਿਸਟਮ</target></trans-unit>
 
-      <trans-unit id="guestslimited.jsp.nosystems">
-		<source>There are no systems with the Virtualization entitlement.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/PhysicalHosts.do</context>
-        </context-group>
-      <target>ਇੱਥੇ ਵਰਚੁਅਲਾਈਜੇਸ਼ਨ ਇੰਟਾਈਟਲਮੈਂਟ ਵਾਲਾ ਕੋਈ ਸਿਸਟਮ ਨਹੀਂ ਹੈ।</target></trans-unit>
 
       <trans-unit id="guestslimited.jsp.total_active">
 <source>Total Active Guests</source>

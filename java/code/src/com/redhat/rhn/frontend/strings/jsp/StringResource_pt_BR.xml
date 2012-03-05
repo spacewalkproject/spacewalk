@@ -19489,12 +19489,6 @@ Do contrário, você deverá baixar os  &lt;strong&gt;ISOs de Conteúdo do Canal
         </context-group>
       <target>Sistema da Máquina</target></trans-unit>
 
-      <trans-unit id="guestslimited.jsp.nosystems">
-		<source>There are no systems with the Virtualization entitlement.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/PhysicalHosts.do</context>
-        </context-group>
-      <target>Não existem sistemas com o serviço de Virtualização.</target></trans-unit>
 
       <trans-unit id="guestslimited.jsp.total_active">
 <source>Total Active Guests</source>
