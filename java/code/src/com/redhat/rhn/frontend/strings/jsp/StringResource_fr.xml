@@ -821,12 +821,6 @@
           <context context-type="sourcefile">/rhn/Login</context>
         </context-group>
       <target>Mot de passe&amp;nbsp;:</target></trans-unit>
-      <trans-unit id="login.jsp.createlogin">
-<source>Create Login</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/Login</context>
-        </context-group>
-      <target>Créer le login</target></trans-unit>
       <trans-unit id="login.jsp.lostpassword">
 <source>Lost Login/Password?</source>
         <context-group name="ctx">

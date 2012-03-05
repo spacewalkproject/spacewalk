@@ -821,12 +821,6 @@
           <context context-type="sourcefile">/rhn/Login</context>
         </context-group>
       <target>கடவுச்சொல்:</target></trans-unit>
-      <trans-unit id="login.jsp.createlogin">
-<source>Create Login</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/Login</context>
-        </context-group>
-      <target>புகுபதிவை உருவாக்கவும்</target></trans-unit>
       <trans-unit id="login.jsp.lostpassword">
 <source>Lost Login/Password?</source>
         <context-group name="ctx">
