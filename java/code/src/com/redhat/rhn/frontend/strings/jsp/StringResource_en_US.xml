@@ -895,12 +895,6 @@
       </trans-unit>
 
 <!--Start of  the Pane entries Section-->
-	<trans-unit id="preferences.tasks.name">
-         <source>Tasks</source>
-		 <context-group name="ctx">
-        	<context context-type="sourcefile">/rhn/users/UserPreferences</context>
-		 </context-group>
-	</trans-unit>
 
 
 
