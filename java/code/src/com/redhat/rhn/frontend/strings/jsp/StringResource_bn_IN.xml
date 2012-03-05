@@ -2755,12 +2755,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
 
 
 
-      <trans-unit id="packagelist.jsp.summary.patches">
-<source>The following patches are associated with this action:</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/schedule/PackageList</context>
-        </context-group>
-      <target>এই কর্মের সাথে নিম্নলিখিত প্যাচগুলি সংযুক্ত রয়েছে:</target></trans-unit>
 
       <trans-unit id="packagelist.jsp.summary.patchsets">
 <source>The following patch clusters are associated with this action:</source>
