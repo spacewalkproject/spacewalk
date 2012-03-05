@@ -16465,12 +16465,6 @@ pour abonner des systèmes aux canaux de logiciels durant le kickstart.&lt;/span
             <context context-type="sourcefile">/rhn/account/LocalePreferences.do</context>
         </context-group>
     <target>Anglais</target></trans-unit>
-    <trans-unit id="preferences.jsp.lang.ru">
-        <source>Russian</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/account/LocalePreferences.do</context>
-        </context-group>
-    <target>Russe</target></trans-unit>
     <trans-unit id="preferences.jsp.lang.ta">
         <source>Tamil</source>
         <context-group name="ctx">
