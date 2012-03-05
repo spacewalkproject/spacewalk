@@ -1033,12 +1033,6 @@
           <context context-type="sourcefile">/rhn/users/CreateUser</context>
         </context-group>
       <target>Telefono</target></trans-unit>
-      <trans-unit id="preferences.jsp.mail">
-<source> Mail</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/UserPreferences</context>
-        </context-group>
-      <target>Posta</target></trans-unit>
       <trans-unit id="preferences.jsp.submitvalue">
 <source>Save Preferences</source>
         <context-group name="ctx">
