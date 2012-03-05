@@ -709,12 +709,6 @@
           <context context-type="sourcefile">/rhn/users/UserDetails</context>
         </context-group>
       <target>Passwort &lt;span class="required-form-field"&gt;*&lt;/span&gt;:</target></trans-unit>
-      <trans-unit id="desiredlogin.displayname">
-<source>Desired Login</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">NOT USED</context>
-        </context-group>
-      <target>Gew&amp;uuml;nschtes Login</target></trans-unit>
       <trans-unit id="desiredpass.displayname">
 <source>Desired Password</source>
         <context-group name="ctx">
