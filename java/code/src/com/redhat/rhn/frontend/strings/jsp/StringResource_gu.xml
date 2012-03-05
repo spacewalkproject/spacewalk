@@ -2113,12 +2113,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/account/SubscriptionManagement</context>
         </context-group>
       <target>વધારાની &lt;strong&gt;@@PRODUCT_NAME@@ વ્યવસ્થાપન અને બચાવ ઉમેદવારીઓ&lt;/strong&gt; ને &lt;strong&gt;&lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;img src="/img/external-link.gif" alt="External Link"/&gt;Red Hat સંગ્રહસ્થાન&lt;/a&gt;&lt;/strong&gt; આગળથી &lt;strong&gt;&lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;ખરીદો&lt;/a&gt;&lt;/strong&gt;.</target></trans-unit>
-      <trans-unit id="subscriptionmanagement.jsp.entitlements.description1">
-<source>&lt;strong&gt;&lt;a href="/rhn/systems/SystemEntitlements.do"&gt;View your open system entitlement slots and apply system entitlements to your systems&lt;/a&gt;&lt;/strong&gt; at the &lt;strong&gt;&lt;a href="/rhn/systems/SystemEntitlements.do"&gt;Systems Entitlements&lt;/a&gt;&lt;/strong&gt; page in the left navigation bar.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/account/SubscriptionManagement</context>
-        </context-group>
-      <target>&lt;strong&gt;&lt;a href="/rhn/systems/SystemEntitlements.do"&gt;તમારા ઓપન સિસ્ટમ ઉમેદવારી સ્લોટ જુઓ અને તમારી સિસ્ટમોને સિસ્ટમ ઉમેદવારીઓ લાગુ કરો&lt;/a&gt;&lt;/strong&gt; ડાબી સંશોધક પટ્ટીમાં &lt;strong&gt;&lt;a href="/rhn/systems/SystemEntitlements.do"&gt;સિસ્ટમો ઉમેદવારીઓ&lt;/a&gt;&lt;/strong&gt; પાનાં આગળ.</target></trans-unit>
       <trans-unit id="subscriptionmanagement.jsp.entitlements.description2">
 <source>&lt;strong&gt;Note:&lt;/strong&gt; You cannot view entitlement expiration information from the &lt;strong&gt;&lt;a href="/rhn/systems/SystemEntitlements.do"&gt;System Entitlements&lt;/a&gt;&lt;/strong&gt; page in the @@PRODUCT_NAME@@ interface. Instead, please visit the &lt;strong&gt;&lt;a href="https://www.redhat.com/apps/support/complete.html"&gt;&lt;img src="/img/external-link.gif" alt="External Link"/&gt;Red Hat Support Site&lt;/a&gt;&lt;/strong&gt; to view entitlement expiration information.</source>
         <context-group name="ctx">

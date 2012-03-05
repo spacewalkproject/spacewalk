@@ -2113,12 +2113,6 @@ abaixo e &lt;b&gt;não poderá mais se autenticar&lt;/b&gt;.</target></trans-uni
           <context context-type="sourcefile">/rhn/account/SubscriptionManagement</context>
         </context-group>
       <target>&lt;strong&gt;&lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;Adquira&lt;/a&gt;&lt;/strong&gt; &lt;strong&gt;serviços adicionais de administração e abastecimento do @@PRODUCT_NAME@@ &lt;/strong&gt; na &lt;strong&gt;&lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;img src="/img/external-link.gif" alt="External Link"/&gt;Loja da Red Hat&lt;/a&gt;&lt;/strong&gt;.</target></trans-unit>
-      <trans-unit id="subscriptionmanagement.jsp.entitlements.description1">
-<source>&lt;strong&gt;&lt;a href="/rhn/systems/SystemEntitlements.do"&gt;View your open system entitlement slots and apply system entitlements to your systems&lt;/a&gt;&lt;/strong&gt; at the &lt;strong&gt;&lt;a href="/rhn/systems/SystemEntitlements.do"&gt;Systems Entitlements&lt;/a&gt;&lt;/strong&gt; page in the left navigation bar.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/account/SubscriptionManagement</context>
-        </context-group>
-      <target>&lt;p&gt;&lt;strong&gt;&lt;a href="/rhn/systems/SystemEntitlements.do"&gt;Veja as possibilidades de direitos a serviços e atribua-os a seus sistemas&lt;/a&gt;&lt;/strong&gt; na página &lt;strong&gt;&lt;a href="/rhn/systems/SystemEntitlements.do"&gt;Direitos a Serviços de Sistemas&lt;/a&gt;&lt;/strong&gt; na barra de navegação esquerda.&lt;/p&gt; </target></trans-unit>
       <trans-unit id="subscriptionmanagement.jsp.entitlements.description2">
 <source>&lt;strong&gt;Note:&lt;/strong&gt; You cannot view entitlement expiration information from the &lt;strong&gt;&lt;a href="/rhn/systems/SystemEntitlements.do"&gt;System Entitlements&lt;/a&gt;&lt;/strong&gt; page in the @@PRODUCT_NAME@@ interface. Instead, please visit the &lt;strong&gt;&lt;a href="https://www.redhat.com/apps/support/complete.html"&gt;&lt;img src="/img/external-link.gif" alt="External Link"/&gt;Red Hat Support Site&lt;/a&gt;&lt;/strong&gt; to view entitlement expiration information.</source>
         <context-group name="ctx">

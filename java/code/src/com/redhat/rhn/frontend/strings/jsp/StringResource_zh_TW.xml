@@ -2113,12 +2113,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/account/SubscriptionManagement</context>
         </context-group>
       <target>從 &lt;strong&gt;&lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;img src="/img/external-link.gif" alt="External Link" /&gt;Red Hat 線上商店&lt;/a&gt;&lt;/strong&gt; &lt;strong&gt;&lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;購買&lt;/a&gt;&lt;/strong&gt; 額外的 &lt;strong&gt;@@PRODUCT_NAME@@ 管理與 provisioning 權利&lt;/strong&gt;。</target></trans-unit>
-      <trans-unit id="subscriptionmanagement.jsp.entitlements.description1">
-<source>&lt;strong&gt;&lt;a href="/rhn/systems/SystemEntitlements.do"&gt;View your open system entitlement slots and apply system entitlements to your systems&lt;/a&gt;&lt;/strong&gt; at the &lt;strong&gt;&lt;a href="/rhn/systems/SystemEntitlements.do"&gt;Systems Entitlements&lt;/a&gt;&lt;/strong&gt; page in the left navigation bar.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/account/SubscriptionManagement</context>
-        </context-group>
-      <target>&lt;strong&gt;&lt;a href="/rhn/systems/SystemEntitlements.do"&gt; 從&lt;strong&gt;&lt;a href="/rhn/systems/SystemEntitlements.do"&gt;系統權利&lt;/a&gt;&lt;/strong&gt;網頁的左方導覽列中檢視您可用的系統權利數，並將系統權利套用到系統上。&lt;/a&gt;&lt;/strong&gt;</target></trans-unit>
       <trans-unit id="subscriptionmanagement.jsp.entitlements.description2">
 <source>&lt;strong&gt;Note:&lt;/strong&gt; You cannot view entitlement expiration information from the &lt;strong&gt;&lt;a href="/rhn/systems/SystemEntitlements.do"&gt;System Entitlements&lt;/a&gt;&lt;/strong&gt; page in the @@PRODUCT_NAME@@ interface. Instead, please visit the &lt;strong&gt;&lt;a href="https://www.redhat.com/apps/support/complete.html"&gt;&lt;img src="/img/external-link.gif" alt="External Link"/&gt;Red Hat Support Site&lt;/a&gt;&lt;/strong&gt; to view entitlement expiration information.</source>
         <context-group name="ctx">
