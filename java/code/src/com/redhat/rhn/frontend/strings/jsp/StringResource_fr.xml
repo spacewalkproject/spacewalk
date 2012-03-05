@@ -20051,9 +20051,6 @@ Les nom et une étiquette de canal sont requis. Ils doivent être au moins de 6
      <trans-unit id="task.status.daily-summary">
          <source>Daily Summary Mail</source>
      <target>Courrier de résumé journalier</target></trans-unit>
-     <trans-unit id="task.status.clean-current-alerts">
-         <source>Clean Current Alerts</source>
-     <target>Version courante</target></trans-unit>
      <trans-unit id="task.status.sync-probe-state">
          <source>Sync Probe State</source>
      <target>État de la sonde</target></trans-unit>
