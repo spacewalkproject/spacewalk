@@ -10602,12 +10602,6 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
     <target>업로드할 파일을 선택해주십시오:</target></trans-unit>
 
-    <trans-unit id="keycreate.jsp.currentkey">
-        <source>Current Key</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/keys/CryptoKeysCreate.do</context>
-        </context-group>
-    <target>현재키</target></trans-unit>
 
     <trans-unit id="keycreate.jsp.nokey">
         <source>&lt;span class="required-form-field"&gt;Neither a GPG or SSL Certificate is currently attached to this cryptokey.  Please attach a GPG key or SSL Certificate to this crypto key using the form above.&lt;/span&gt;</source>

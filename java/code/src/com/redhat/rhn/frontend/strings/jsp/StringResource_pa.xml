@@ -10604,12 +10604,6 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
     <target>ਅੱਪਲੋਡ ਕਰਨ ਲਈ ਫਾਇਲ: </target></trans-unit>
 
-    <trans-unit id="keycreate.jsp.currentkey">
-        <source>Current Key</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/keys/CryptoKeysCreate.do</context>
-        </context-group>
-    <target>ਮੌਜੂਦਾ ਕੁੰਜੀ</target></trans-unit>
 
     <trans-unit id="keycreate.jsp.nokey">
         <source>&lt;span class="required-form-field"&gt;Neither a GPG or SSL Certificate is currently attached to this cryptokey.  Please attach a GPG key or SSL Certificate to this crypto key using the form above.&lt;/span&gt;</source>
