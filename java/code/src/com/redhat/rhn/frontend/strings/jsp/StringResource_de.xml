@@ -10375,12 +10375,6 @@ Bitte beachten Sie, dass m&amp;ouml;glicherweise noch einige manuelle Konfigurat
         </context-group>
     <target>&lt;span class="small-text"&gt;&lt;strong&gt;Warnung:&lt;/strong&gt; Falls irgendwelche Aktivierungsschl&amp;uuml;ssel mit diesem Kickstart-Profil (unter dem Reiter &lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;Aktivierungsschl&amp;uuml;ssel&lt;/a&gt;) verkn&amp;uuml;pft sind, werden die oben aufgef&amp;uuml;hrten Sub-Channel-Abonnements nichtig. Verwenden Sie in diesem Fall bitte einen Aktivierungsschl&amp;uuml;sssel zur Angabe von Abonnements von Sub-Channels.&lt;/span&gt;</target></trans-unit>
 
-    <trans-unit id="softwareedit.jsp.tip2">
-        <source>&lt;span class="small-text"&gt;&lt;strong&gt;Tip:&lt;/strong&gt; If your systems are connected through an @@PRODUCT_NAME@@ Proxy, you may place the installation tree in  &lt;tt&gt;/var/www/html/pub/&lt;/tt&gt; on the Proxy.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart/KickstartSoftwareEdit</context>
-        </context-group>
-    <target>&lt;span class="small-text"&gt;&lt;strong&gt;Tipp:&lt;/strong&gt; Wenn Ihre Systeme durch einen @@PRODUCT_NAME@@-Proxy verbunden sind, k&amp;ouml;nnen Sie den Installationsbaum in  &lt;tt&gt;/var/www/html/pub/&lt;/tt&gt; auf dem Proxy anordnen.</target></trans-unit>
 
     <trans-unit id="kickstart.cryptokeys.jsp.submit">
         <source>Update keys</source>

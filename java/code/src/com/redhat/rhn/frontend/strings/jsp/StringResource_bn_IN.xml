@@ -10359,12 +10359,6 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
     <target>&lt;span class="small-text"&gt;&lt;strong&gt;সতর্কবাণী:&lt;/strong&gt; এই kickstart প্রোফাইলের সাথে কোনো অ্যাক্টিভেশন-কি যুক্ত থাকলে (&lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;অ্যাক্টিভেশন-কি ট্যাব&lt;/a&gt;-র অধীন) উপরোক্ত চাইল্ড চ্যানেল সাবস্ক্রিপশনগুলি উপেক্ষা করা হবে।  এই ক্ষেত্রে চাইল্ড চ্যানেল সাবস্ক্রিপশনের জন্য অনুগ্রহ করে একটি অ্যাক্টিভেশন-কি ব্যবহার করুন।&lt;/span&gt;</target></trans-unit>
 
-    <trans-unit id="softwareedit.jsp.tip2">
-        <source>&lt;span class="small-text"&gt;&lt;strong&gt;Tip:&lt;/strong&gt; If your systems are connected through an @@PRODUCT_NAME@@ Proxy, you may place the installation tree in  &lt;tt&gt;/var/www/html/pub/&lt;/tt&gt; on the Proxy.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart/KickstartSoftwareEdit</context>
-        </context-group>
-    <target>&lt;span class="small-text"&gt;&lt;strong&gt;উপদেশ:&lt;/strong&gt; আপনার সিস্টেমগুলি @@PRODUCT_NAME@@ Proxy-র সাহায্যে সংযুক্ত থাকলে Proxy-র&lt;tt&gt;/var/www/html/pub/&lt;/tt&gt; ডিরেক্টরির মধ্যে ইনস্টলেশন ট্রি স্থাপন করা যাবে।</target></trans-unit>
 
     <trans-unit id="kickstart.cryptokeys.jsp.submit">
         <source>Update keys</source>

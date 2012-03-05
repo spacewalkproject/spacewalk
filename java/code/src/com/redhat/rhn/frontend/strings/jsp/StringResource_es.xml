@@ -10372,12 +10372,6 @@ Por favor tenga en cuenta que podría ser necesario configurar manualmente estos
         </context-group>
     <target>&lt;span class="small-text"&gt;&lt;strong&gt;Advertencia:&lt;/strong&gt; Si hay llaves de activación asociadas con este perfil Kickstart (bajo la pestaña &lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;llaves de activación&lt;/a&gt;), las suscripciones de canal hijo listadas arriba serán sobrescritas. En ese caso, por favor utilice una llave de activación que especifique las suscripciones a los canales hijos.&lt;/span&gt;</target></trans-unit>
 
-    <trans-unit id="softwareedit.jsp.tip2">
-        <source>&lt;span class="small-text"&gt;&lt;strong&gt;Tip:&lt;/strong&gt; If your systems are connected through an @@PRODUCT_NAME@@ Proxy, you may place the installation tree in  &lt;tt&gt;/var/www/html/pub/&lt;/tt&gt; on the Proxy.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart/KickstartSoftwareEdit</context>
-        </context-group>
-    <target>&lt;span class="small-text"&gt;&lt;strong&gt;Consejo:&lt;/strong&gt; Si sus sistemas están conectados a través de un @@PRODUCT_NAME@@ Proxy, usted puede ubicar el árbol de instalación en  &lt;tt&gt;/var/www/html/pub/&lt;/tt&gt; en el Proxy.</target></trans-unit>
 
     <trans-unit id="kickstart.cryptokeys.jsp.submit">
         <source>Update keys</source>

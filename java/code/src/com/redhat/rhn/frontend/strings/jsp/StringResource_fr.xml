@@ -10373,12 +10373,6 @@ Veuillez noter qu'une configuration manuelle de ces scripts peut toujours être 
         </context-group>
     <target>&lt;span class="small-text"&gt;&lt;strong&gt;Avertissement :&lt;/strong&gt; si des clés d'activation sont associées à ce profil kickstart (sous &lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;l'onglet Clés d'activation&lt;/a&gt;), les abonnements aux canaux enfants ci-dessus seront remplacés. Dans cette situation, veuillez utiliser une clé d'activation pour spécifier les abonnements aux canaux enfants.&lt;/span&gt;</target></trans-unit>
 
-    <trans-unit id="softwareedit.jsp.tip2">
-        <source>&lt;span class="small-text"&gt;&lt;strong&gt;Tip:&lt;/strong&gt; If your systems are connected through an @@PRODUCT_NAME@@ Proxy, you may place the installation tree in  &lt;tt&gt;/var/www/html/pub/&lt;/tt&gt; on the Proxy.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart/KickstartSoftwareEdit</context>
-        </context-group>
-    <target>&lt;span class="small-text"&gt;&lt;strong&gt;Astuce :&lt;/strong&gt; si vos systèmes sont connectés par un Proxy @@PRODUCT_NAME@@, vous pouvez placer l'arborescence d'installation dans &lt;tt&gt;/var/www/html/pub/&lt;/tt&gt; sur le Proxy.</target></trans-unit>
 
     <trans-unit id="kickstart.cryptokeys.jsp.submit">
         <source>Update keys</source>

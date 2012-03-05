@@ -10360,12 +10360,6 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
     <target>&lt;span class="small-text"&gt;&lt;strong&gt;चेतावनी:&lt;/strong&gt; यदि कोई सक्रियकरण कुंजी इस किकस्टार्ट प्रोफाइल से जुड़ा है ( &lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;सक्रियकरण कुंजी टैब&lt;/a&gt;) के अंतर्गत. ऊपर की संतति चैनल सदस्यता को अध्यारोहित किया जायेगा. उस स्थिति में कृपया सक्रियकरण कुंजी का प्रयोग संतति चैनल सदस्यता निर्दिष्ट करने के लिए करें.&lt;/span&gt;</target></trans-unit>
 
-    <trans-unit id="softwareedit.jsp.tip2">
-        <source>&lt;span class="small-text"&gt;&lt;strong&gt;Tip:&lt;/strong&gt; If your systems are connected through an @@PRODUCT_NAME@@ Proxy, you may place the installation tree in  &lt;tt&gt;/var/www/html/pub/&lt;/tt&gt; on the Proxy.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart/KickstartSoftwareEdit</context>
-        </context-group>
-    <target>&lt;span class="small-text"&gt;&lt;strong&gt;संकेत:&lt;/strong&gt; अगर आपका सिस्टम एक @@PRODUCT_NAME@@ प्रॉक्सी से होकर जुड़ता है, आपको अधिष्ठापन तरू &lt;tt&gt;/var/www/html/pub/&lt;/tt&gt; में प्रॉक्सी पर रखना चाहिए.</target></trans-unit>
 
     <trans-unit id="kickstart.cryptokeys.jsp.submit">
         <source>Update keys</source>

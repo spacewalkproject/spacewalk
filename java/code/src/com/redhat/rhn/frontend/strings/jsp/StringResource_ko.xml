@@ -10357,12 +10357,6 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
     <target>&lt;span class="small-text"&gt;&lt;strong&gt;경고:&lt;/strong&gt; 활성키가 킥스타트 프로파일(&lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;활성키 탭&lt;/a&gt;아래에 위치)과 연계되었을 경우. 위의 자식 채널 서브스크립션을 덮어쓰게 됩니다. 이러한 경우 활성키를 사용하여 자식 채널 서브스크립션을 지정하시기 바랍니다.&lt;/span&gt; </target></trans-unit>
 
-    <trans-unit id="softwareedit.jsp.tip2">
-        <source>&lt;span class="small-text"&gt;&lt;strong&gt;Tip:&lt;/strong&gt; If your systems are connected through an @@PRODUCT_NAME@@ Proxy, you may place the installation tree in  &lt;tt&gt;/var/www/html/pub/&lt;/tt&gt; on the Proxy.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart/KickstartSoftwareEdit</context>
-        </context-group>
-    <target>&lt;span class="small-text"&gt;&lt;strong&gt;힌트:&lt;/strong&gt; @@PRODUCT_NAME@@ Proxy를 통해서 연결된 시스템이라면, Proxy 상 &lt;tt&gt;/var/www/html/pub/&lt;/tt&gt;에 설치 트리를 설정하시면 됩니다.  </target></trans-unit>
 
     <trans-unit id="kickstart.cryptokeys.jsp.submit">
         <source>Update keys</source>

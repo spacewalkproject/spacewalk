@@ -10354,12 +10354,6 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
     <target>&lt;span class="small-text"&gt;&lt;strong&gt;Внимание:&lt;/strong&gt; Если какие-либо ключи активации связаны с данным профилем кикстарта (см. &lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;вкладку ключей активации&lt;/a&gt;), то перечисленные выше подписки дочерних каналов будут переопределены. В таком случае используйте ключ активации для указания подписок дочерних каналов.&lt;/span&gt;</target></trans-unit>
 
-    <trans-unit id="softwareedit.jsp.tip2">
-        <source>&lt;span class="small-text"&gt;&lt;strong&gt;Tip:&lt;/strong&gt; If your systems are connected through an @@PRODUCT_NAME@@ Proxy, you may place the installation tree in  &lt;tt&gt;/var/www/html/pub/&lt;/tt&gt; on the Proxy.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart/KickstartSoftwareEdit</context>
-        </context-group>
-    <target>&lt;span class="small-text"&gt;&lt;strong&gt;Совет:&lt;/strong&gt; Если ваши системы подключены через @@PRODUCT_NAME@@ Proxy, то допускается расположение дерева установки в &lt;tt&gt;/var/www/html/pub/&lt;/tt&gt; на Proxy.&lt;/span&gt;</target></trans-unit>
 
     <trans-unit id="kickstart.cryptokeys.jsp.submit">
         <source>Update keys</source>

@@ -10356,12 +10356,6 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
     <target>&lt;span class="small-text"&gt;&lt;strong&gt;警告：&lt;/strong&gt;假如任何啟用金鑰與此 kickstart 設定檔相關（位於 &lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;啟動金鑰分頁&lt;/a&gt; 中），上述的子頻道訂閱就會被置換掉。在此情況下，請使用一組啟用金鑰來指定子頻道訂閱。&lt;/span&gt;</target></trans-unit>
 
-    <trans-unit id="softwareedit.jsp.tip2">
-        <source>&lt;span class="small-text"&gt;&lt;strong&gt;Tip:&lt;/strong&gt; If your systems are connected through an @@PRODUCT_NAME@@ Proxy, you may place the installation tree in  &lt;tt&gt;/var/www/html/pub/&lt;/tt&gt; on the Proxy.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart/KickstartSoftwareEdit</context>
-        </context-group>
-    <target>&lt;span class="small-text"&gt;&lt;strong&gt;提示：&lt;/strong&gt;如果您的系統透過 @@PRODUCT_NAME@@ 代理伺服器連線的話，您便可將安裝樹放在代理伺服器上的 &lt;tt&gt;/var/www/html/pub/&lt;/tt&gt; 目錄中。&lt;/span&gt;</target></trans-unit>
 
     <trans-unit id="kickstart.cryptokeys.jsp.submit">
         <source>Update keys</source>

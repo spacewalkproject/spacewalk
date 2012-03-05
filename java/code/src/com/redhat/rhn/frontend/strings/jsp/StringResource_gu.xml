@@ -10360,12 +10360,6 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
     <target>&lt;span class="small-text"&gt;&lt;strong&gt;ચેતવણી:&lt;/strong&gt; જો આ કિકસ્ટાર્ટ રૂપરેખા સાથે સંકળાયેલ કોઈપણ સક્રિયકરણ કીઓ(&lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;સક્રિયકરણ કીઓ ટેબ&lt;/a&gt; હેઠળ), તો ઉપરની બાળ ચેનલ ઉમેદવારીઓ ફરીથી લખાઈ જશે. આ પરિસ્થિતિમાં મહેરબાની કરીને સક્રિયકરણ કી વાપરો બાળ ચેનલ ઉમેદવારીઓ સ્પષ્ટ કરવા માટે.&lt;/span&gt;</target></trans-unit>
 
-    <trans-unit id="softwareedit.jsp.tip2">
-        <source>&lt;span class="small-text"&gt;&lt;strong&gt;Tip:&lt;/strong&gt; If your systems are connected through an @@PRODUCT_NAME@@ Proxy, you may place the installation tree in  &lt;tt&gt;/var/www/html/pub/&lt;/tt&gt; on the Proxy.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart/KickstartSoftwareEdit</context>
-        </context-group>
-    <target>&lt;span class="small-text"&gt;&lt;strong&gt;મદદ:&lt;/strong&gt; જો તમારી સિસ્ટમો @@PRODUCT_NAME@@ પ્રોક્સી મારફતે જોડાય, તો તમે સ્થાપન વૃક્ષને પ્રોક્સી પર &lt;tt&gt;/var/www/html/pub/&lt;/tt&gt; માં મૂકી શકશો.</target></trans-unit>
 
     <trans-unit id="kickstart.cryptokeys.jsp.submit">
         <source>Update keys</source>

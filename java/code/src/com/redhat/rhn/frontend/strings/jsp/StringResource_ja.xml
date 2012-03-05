@@ -10358,12 +10358,6 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
     <target>&lt;span class="small-text"&gt;&lt;strong&gt;警告:&lt;/strong&gt; このキックスタートプロフィールにアクティベーションキーが関連付けられると (&lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;アクティベーションキータブ&lt;/a&gt; 以下)、 上記の子チャンネルサブスクリプションは上書きされます。 このような場合には、 アクティベーションキーを使用して子チャンネルサブスクリプションを指定してください。&lt;/span&gt;</target></trans-unit>
 
-    <trans-unit id="softwareedit.jsp.tip2">
-        <source>&lt;span class="small-text"&gt;&lt;strong&gt;Tip:&lt;/strong&gt; If your systems are connected through an @@PRODUCT_NAME@@ Proxy, you may place the installation tree in  &lt;tt&gt;/var/www/html/pub/&lt;/tt&gt; on the Proxy.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart/KickstartSoftwareEdit</context>
-        </context-group>
-    <target>&lt;span class="small-text"&gt;&lt;strong&gt;ヒント:&lt;/strong&gt; @@PRODUCT_NAME@@ Proxy 経由でシステムが接続される場合、インストールツリーをその Proxy 上の &lt;tt&gt;/var/www/html/pub/&lt;/tt&gt; に置いても構いません。</target></trans-unit>
 
     <trans-unit id="kickstart.cryptokeys.jsp.submit">
         <source>Update keys</source>

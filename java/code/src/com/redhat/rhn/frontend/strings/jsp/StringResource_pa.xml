@@ -10359,12 +10359,6 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
     <target>&lt;span class="small-text"&gt;&lt;strong&gt;ਚੇਤਾਵਨੀ:&lt;/strong&gt; ਜੇ ਇਸ ਪਰੋਫਾਈਲ ਨਾਲ ਕੋਈ ਸਰਗਰਮੀ ਕੁੰਜੀ ਸੰਬੰਧਿਤ ਹੈ(&lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;ਸਰਗਰਮੀ ਕੁੰਜੀ ਟੈਬ&lt;/a&gt; ਦੇ ਹੇਠਾਂ)। ਉੱਪਰਲੀ ਅਧੀਨ ਚੈਨਲ ਮੈਂਬਰੀ ਤਬਦੀਲ ਕੀਤੀ ਜਾਏਗੀ। ਅਜਿਹੀ ਸਥਿਤੀ ਵਿੱਚ ਕਿਰਪਾ ਕਰਕੇ ਅਧੀਨ ਚੈਨਲ ਮੈਂਬਰੀ ਨੂੰ ਦਰਸਾਉਣ ਲਈ ਇੱਕ ਸਰਗਰਮੀ ਕੁੰਜੀ ਵਰਤੋ।&lt;/span&gt;</target></trans-unit>
 
-    <trans-unit id="softwareedit.jsp.tip2">
-        <source>&lt;span class="small-text"&gt;&lt;strong&gt;Tip:&lt;/strong&gt; If your systems are connected through an @@PRODUCT_NAME@@ Proxy, you may place the installation tree in  &lt;tt&gt;/var/www/html/pub/&lt;/tt&gt; on the Proxy.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart/KickstartSoftwareEdit</context>
-        </context-group>
-    <target>&lt;span class="small-text"&gt;&lt;strong&gt;ਟਿੱਪਣੀ:&lt;/strong&gt; ਜੇਕਰ ਤੁਹਾਡੇ ਸਿਸਟਮ ਇੱਕ @@PRODUCT_NAME@@ ਪਰਾਕਸੀ ਰਾਹੀਂ ਜੁੜੇ ਹੋਏ ਹੋਣ ਤਾਂ ਤੁਸੀਂ ਲੜੀ ਨੂੰ ਪਰਾਕਸੀ ਉਤੇ &lt;tt&gt;/var/www/html/pub/&lt;/tt&gt; ਵਿੱਚ ਰੱਖ ਸਕਦੇ ਹੋ।</target></trans-unit>
 
     <trans-unit id="kickstart.cryptokeys.jsp.submit">
         <source>Update keys</source>

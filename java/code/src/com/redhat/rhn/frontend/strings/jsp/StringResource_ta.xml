@@ -10360,12 +10360,6 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
     <target>&lt;span class="small-text"&gt;&lt;strong&gt;எச்சரிக்கை:&lt;/strong&gt; இந்த கிக்ஸ்டார்ட் விவரக்குறிப்புடன் தொடர்புடைய செயல்படுத்தல் விசை இருந்தால் (&lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;செயல்படுத்தல் விசைகள் தத்தலின்&lt;/a&gt; கீழ்), மேலே சேய் தட சந்தாக்கள் மேலாணை செய்யப்படும். இந்த இடத்தில் சேய் தட சந்தாக்களுக்கு ஒரு செயல்படுத்தல் விசயை பயன்படுத்தவும்.&lt;/span&gt;</target></trans-unit>
 
-    <trans-unit id="softwareedit.jsp.tip2">
-        <source>&lt;span class="small-text"&gt;&lt;strong&gt;Tip:&lt;/strong&gt; If your systems are connected through an @@PRODUCT_NAME@@ Proxy, you may place the installation tree in  &lt;tt&gt;/var/www/html/pub/&lt;/tt&gt; on the Proxy.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart/KickstartSoftwareEdit</context>
-        </context-group>
-    <target>&lt;span class="small-text"&gt;&lt;strong&gt;துணுக்கு:&lt;/strong&gt; உங்கள் கணினிகள் @@PRODUCT_NAME@@ பதிலாள் வழியாக இணைக்கப்பட்டிருந்தால், நீங்கள் உங்கள் நிறுவல் கிளையை பதிலாளில்&lt;tt&gt;/var/www/html/pub/&lt;/tt&gt; இங்கு இடலாம்.</target></trans-unit>
 
     <trans-unit id="kickstart.cryptokeys.jsp.submit">
         <source>Update keys</source>
