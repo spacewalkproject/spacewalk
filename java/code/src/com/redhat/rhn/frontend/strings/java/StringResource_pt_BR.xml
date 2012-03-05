@@ -477,12 +477,6 @@
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
       <target>Fax</target></trans-unit>
-      <trans-unit id="Feedback Management">
-<source>Feedback Management</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-      <target>Administração do Feedback</target></trans-unit>
       <trans-unit id="File Preservation">
 <source>File Preservation</source>
         <context-group name="ctx">

@@ -477,12 +477,6 @@
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
       <target>팩스</target></trans-unit>
-      <trans-unit id="Feedback Management">
-<source>Feedback Management</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-      <target>의견 조사 관리</target></trans-unit>
       <trans-unit id="File Preservation">
 <source>File Preservation</source>
         <context-group name="ctx">
