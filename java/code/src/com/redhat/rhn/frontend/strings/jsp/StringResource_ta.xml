@@ -2128,12 +2128,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
         </context-group>
       <target>&lt;strong&gt;(நீங்கள் தொழில் அல்லது தொழிலுக்காக வாங்கி Red Hat புகுபதிவினை பயன்படுத்தி கணினிகளை மேலாண்மை செய்யும் போது வீட்டு பயனர் புகுபதிவை உருவாக்கக்கூடாது.)&lt;/strong&gt; </target></trans-unit>
 
-      <trans-unit id="usercreate.createPersonalNew">
-<source>Create a new Home User Login</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/newlogin</context>
-        </context-group>
-      <target>ஒரு புதிய வீட்டு பயனர் புகுபதிவை உருவாக்கவும்</target></trans-unit>
       <!-- assignenedgroups.jsp -->
       <trans-unit id="assignedgroups.jsp.header">
 <source>Assigned System Groups</source>

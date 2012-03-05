@@ -2128,12 +2128,6 @@ abaixo e &lt;b&gt;não poderá mais se autenticar&lt;/b&gt;.</target></trans-uni
         </context-group>
       <target>&lt;strong&gt;(Você não deve criar um login de usuário home para administrar sistemas corporativos ou para adquirir serviços corporativos.)&lt;/strong&gt; </target></trans-unit>
 
-      <trans-unit id="usercreate.createPersonalNew">
-<source>Create a new Home User Login</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/newlogin</context>
-        </context-group>
-      <target>Criar um novo Login de Usuário Home</target></trans-unit>
       <!-- assignenedgroups.jsp -->
       <trans-unit id="assignedgroups.jsp.header">
 <source>Assigned System Groups</source>

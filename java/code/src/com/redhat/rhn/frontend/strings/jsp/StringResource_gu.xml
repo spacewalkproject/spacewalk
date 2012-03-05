@@ -2128,12 +2128,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
         </context-group>
       <target>&lt;strong&gt;(વ્યવસાયની માલિકીની સિસ્ટમોની વ્યવસ્થા કરવા માટે અથવા ધંધાકીય ખરીદીઓ કરવા માટે જો તમારે Red Hat પ્રવેશ વાપરવો હોય તો તમારે ઘર વપરાશકર્તા પ્રવેશ બનાવવો જોઈએ નહિં.)&lt;/strong&gt; </target></trans-unit>
 
-      <trans-unit id="usercreate.createPersonalNew">
-<source>Create a new Home User Login</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/newlogin</context>
-        </context-group>
-      <target>નવો ઘર વપરાશકર્તા પ્રવેશ બનાવો</target></trans-unit>
       <!-- assignenedgroups.jsp -->
       <trans-unit id="assignedgroups.jsp.header">
 <source>Assigned System Groups</source>

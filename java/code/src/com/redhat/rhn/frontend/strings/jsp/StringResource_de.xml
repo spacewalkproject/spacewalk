@@ -2128,12 +2128,6 @@ dr&amp;uuml;cken und &lt;b&gt;k&amp;ouml;nnen sich nicht wieder einloggen&lt;/b&
         </context-group>
       <target>&lt;strong&gt;(Sie sollten kein Privat-Login erstellen, wenn Sie ein Red Hat Login dazu verwenden, Systeme zu verwalten, die sich im Besitz eines Unternehmens befinden oder Firmeneink&amp;auml;ufe zu t&amp;auml;tigen.)&lt;/strong&gt;</target></trans-unit>
 
-      <trans-unit id="usercreate.createPersonalNew">
-<source>Create a new Home User Login</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/newlogin</context>
-        </context-group>
-      <target>Neues Privat-Login erstellen</target></trans-unit>
       <!-- assignenedgroups.jsp -->
       <trans-unit id="assignedgroups.jsp.header">
 <source>Assigned System Groups</source>

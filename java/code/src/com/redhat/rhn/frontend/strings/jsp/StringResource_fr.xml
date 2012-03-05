@@ -2128,12 +2128,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
         </context-group>
       <target>&lt;strong&gt;(Vous ne devriez pas créer de login d'utilisateur personnel si vous utiliserez un login Red Hat pour la gestion de systèmes qui appartiennent à une entreprise ou pour effectuer des achats d'entreprise.)&lt;/strong&gt; </target></trans-unit>
 
-      <trans-unit id="usercreate.createPersonalNew">
-<source>Create a new Home User Login</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/newlogin</context>
-        </context-group>
-      <target>Créer un nouveau login d'utilisateur personnel</target></trans-unit>
       <!-- assignenedgroups.jsp -->
       <trans-unit id="assignedgroups.jsp.header">
 <source>Assigned System Groups</source>

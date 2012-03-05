@@ -2129,12 +2129,6 @@ del rol de Administrador de la organización.</target></trans-unit>
         </context-group>
       <target>&lt;strong&gt;(No se debe crear un login personal si se va a usar el login de Red Hat para administrar sistemas pertenecientes a una empresa o para realizar adquisiciones empresariales).&lt;/strong&gt; </target></trans-unit>
 
-      <trans-unit id="usercreate.createPersonalNew">
-<source>Create a new Home User Login</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/newlogin</context>
-        </context-group>
-      <target>Crear un nuevo login personal</target></trans-unit>
       <!-- assignenedgroups.jsp -->
       <trans-unit id="assignedgroups.jsp.header">
 <source>Assigned System Groups</source>
