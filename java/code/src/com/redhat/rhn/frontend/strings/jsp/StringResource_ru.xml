@@ -19243,14 +19243,6 @@ Emergency Maintenance windows.&lt;a href="{0}"&gt;Register for the Email Outage 
         </context-group>
       <target></target></trans-unit>
 		<!-- All ISOs -->
-      <trans-unit id="download.isotree.jsp.all-instructions">
-<source>
-The software channels listed below have ISO images available.
-</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/software/downloads/FullTree.do</context>
-        </context-group>
-      <target></target></trans-unit>
 		<!-- Retired ISOs -->
 <trans-unit id="download.isotree.jsp.retired-instructions">
 <source>

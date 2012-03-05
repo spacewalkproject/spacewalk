@@ -19309,16 +19309,6 @@ et Red Hat l'utilisera en cas de fenêtres de maintenance d'urgence et non progr
 	Les canaux de logiciels listés ci-dessous ont des images ISO disponibles pour tous les produits actuellement supportés.
 </target></trans-unit>
 		<!-- All ISOs -->
-      <trans-unit id="download.isotree.jsp.all-instructions">
-<source>
-The software channels listed below have ISO images available.
-</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/software/downloads/FullTree.do</context>
-        </context-group>
-      <target>
-Les canaux de logiciels listés ci-dessous on des images ISO disponibles.
-</target></trans-unit>
 		<!-- Retired ISOs -->
 <trans-unit id="download.isotree.jsp.retired-instructions">
 <source>

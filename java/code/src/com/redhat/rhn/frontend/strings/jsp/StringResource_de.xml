@@ -19312,16 +19312,6 @@ Notfall-Wartungsfenstern f&amp;uuml;r Benachrichtigungen verwendet.
 	Die unten aufgeführten Software-Channels stellen ISO-Images für alle derzeit unterstützten Produkte bereit.
 </target></trans-unit>
 		<!-- All ISOs -->
-      <trans-unit id="download.isotree.jsp.all-instructions">
-<source>
-The software channels listed below have ISO images available.
-</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/software/downloads/FullTree.do</context>
-        </context-group>
-      <target>
-Die unten aufgeführten Software-Channels stellen ISO-Images bereit.
-</target></trans-unit>
 		<!-- Retired ISOs -->
 <trans-unit id="download.isotree.jsp.retired-instructions">
 <source>
