@@ -2719,12 +2719,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
         </context-group>
       <target>다음은 이전 버전 패키지로서 업그레이드되어야 합니다.</target></trans-unit>
 
-      <trans-unit id="upgradable.jsp.nopackages">
-<source>No package updates.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/packages/UpgradableList</context>
-        </context-group>
-      <target>패키지 업데이트 없음.</target></trans-unit>
 
       <trans-unit id="upgradable.jsp.latest">
 <source>Latest Package</source>

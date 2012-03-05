@@ -2719,12 +2719,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
         </context-group>
       <target>本系統的以下套件已經過時，可能可以升級。</target></trans-unit>
 
-      <trans-unit id="upgradable.jsp.nopackages">
-<source>No package updates.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/packages/UpgradableList</context>
-        </context-group>
-      <target>沒有套件可供升級。</target></trans-unit>
 
       <trans-unit id="upgradable.jsp.latest">
 <source>Latest Package</source>
