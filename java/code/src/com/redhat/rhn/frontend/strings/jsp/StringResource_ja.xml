@@ -19070,17 +19070,6 @@ Note that only one set of ISO images is necessary to install any particular rele
           <context context-type="sourcefile">/rhn/software/channel/downloads/Download.do</context>
         </context-group>
       <target>@@PRODUCT_NAME@@ チャンネルコンテント ISO</target></trans-unit>
-      <trans-unit id="isodownload.channel-dump-note">
-<source>
-&lt;strong&gt;Note:&lt;/strong&gt; Additional documentation on using @@PRODUCT_NAME@@ Channel Content ISOs is available in the &lt;em&gt;@@PRODUCT_NAME@@ Installation Guide&lt;/em&gt;, section 6.2.2.
-</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/software/channel/downloads/Download.do</context>
-		  <context context-type="paramnotes">Below are all the channel content ISOs available for use with channel @@PRODUCT_NAME@@ (v4.1 for AS v4 x86)...</context>
-        </context-group>
-      <target>
-&lt;strong&gt;注記:&lt;/strong&gt; @@PRODUCT_NAME@@ チャンネルコンテンツ ISO の使用に関する追加ドキュメンテーションは &lt;em&gt;@@PRODUCT_NAME@@ インストールガイド&lt;/em&gt;のセクション 6.2.2 に記載されています。
-</target></trans-unit>
       <trans-unit id="isodownload.no-access">
 <source>The channel you have attempted to access either does not exist, or you are not allowed access.  Please recheck the link that brought you to this page.</source>
         <context-group name="ctx">
