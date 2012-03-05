@@ -11665,12 +11665,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
      <target>नीचे सूचीबद्ध विन्यास चैनल &lt;strong&gt;केंद्रीकृत प्रबंधित&lt;/strong&gt; हैं. इसका मतलब है कि कोई सिस्टम जो @@PRODUCT_NAME@@ से पंजीकृत है वह विन्यास चैनल को नीचे सदस्यता ले सकता है. इन चैनल के फाइल में बनाया कोई परिवर्तन उस चैनल के सदस्यता लिए हर सिस्टम को प्रभावित करेगा.</target></trans-unit>
 
 
-     <trans-unit id="toolbar.create.org">
-        <source>create new organization</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/Organizations.do</context>
-        </context-group>
-     <target>नया संगठन बनाएं</target></trans-unit>
 
      <trans-unit id="globalconfiglist.jsp.noChannels">
         <source>No configuration channels</source>

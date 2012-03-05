@@ -11664,12 +11664,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
      <target>ਹੇਠਾ ਦਿੱਤੇ ਸਰਚੰਨਾ ਚੈਨਲ &lt;strong&gt;ਕੇਂਦਰੀ-ਪਰਬੰਧਿਤ&lt;/strong&gt; ਹਨ। ਇਸ ਦਾ ਮਤਲਬ ਹੈ ਕਿ @@PRODUCT_NAME@@ ਨਾਲ ਰਜਿਸਟਰਡ ਕੋਈ ਵੀ ਸਿਸਟਮ ਹੇਠਲੇ ਸੰਰਚਨਾ ਚੈਨਲ ਤੇ ਮੈਂਬਰ ਬਣ ਸਕਦਾ ਹੈ।ਇਹਨਾਂ ਚੈਨਲਾਂ ਵਿੱਚੋਂ ਕਿਸੇ ਦੀਆਂ ਫਾਇਲਾਂ ਵਿੱਚ ਕੀਤੀ ਤਬਦੀਲੀ ਇਸ ਚੈਨਲ ਤੇ ਹਰ ਮੈਂਬਰ ਸਿਸਟਮ ਤੇ ਲਾਗੂ ਹੋਵੇਗੀ।</target></trans-unit>
 
 
-     <trans-unit id="toolbar.create.org">
-        <source>create new organization</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/Organizations.do</context>
-        </context-group>
-     <target>ਨਵਾਂ ਸੰਗਠਨ ਬਣਾਓ</target></trans-unit>
 
      <trans-unit id="globalconfiglist.jsp.noChannels">
         <source>No configuration channels</source>

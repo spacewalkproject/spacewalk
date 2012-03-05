@@ -11659,12 +11659,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
      <target>Перечисленные ниже каналы конфигурации являются &lt;strong&gt;центрально управляемыми&lt;/strong&gt;. Это означает, что любая система, зарегистрированная в @@PRODUCT_NAME@@, может к ним подписаться. Изменения файлов в каналах окажут влияние на все подписанные системы.</target></trans-unit>
 
 
-     <trans-unit id="toolbar.create.org">
-        <source>create new organization</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/Organizations.do</context>
-        </context-group>
-     <target>создать организацию</target></trans-unit>
 
      <trans-unit id="globalconfiglist.jsp.noChannels">
         <source>No configuration channels</source>

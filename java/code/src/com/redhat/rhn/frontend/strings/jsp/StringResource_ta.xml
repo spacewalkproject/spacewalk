@@ -11665,12 +11665,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
      <target>கீழே பட்டியலிடப்பட்ட கட்டமைப்பு தடங்கள் &lt;strong&gt;மையமாக மேலாண்மை செய்யப்பட்டது&lt;/strong&gt;. அதாவது @@PRODUCT_NAME@@ உடன் பதிவு செய்யப்பட்ட எந்த கணினியும் கட்டமைப்பு தடங்களுடன் சந்தாப்படுத்தப்பட்டலாம். இந்த தடங்களில் கோப்புகளில் எந்த மாற்றமாவது செய்தால் அது அந்த தடத்திலுள்ள ஒவ்வொரு கணினியையும் பாதிக்கும்.</target></trans-unit>
 
 
-     <trans-unit id="toolbar.create.org">
-        <source>create new organization</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/Organizations.do</context>
-        </context-group>
-     <target>புதிய நிறுவனத்தை உருவாக்கவும்</target></trans-unit>
 
      <trans-unit id="globalconfiglist.jsp.noChannels">
         <source>No configuration channels</source>

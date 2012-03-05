@@ -11660,12 +11660,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
      <target>아래의 목록에 있는 설정 채널은 &lt;strong&gt;중앙 관리&lt;/strong&gt;됩니다. @@PRODUCT_NAME@@에 등록된 모든 시스템은 아래의 설정 채널에 등록할 수 있습니다. 이러한 채널에 있는 파일에 변경사항이 있을 경우 채널에 등록되어 있는 모든 시스템에 영향을 미치게 됩니다.  </target></trans-unit>
 
 
-     <trans-unit id="toolbar.create.org">
-        <source>create new organization</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/Organizations.do</context>
-        </context-group>
-     <target>새로운 조직 생성 </target></trans-unit>
 
      <trans-unit id="globalconfiglist.jsp.noChannels">
         <source>No configuration channels</source>

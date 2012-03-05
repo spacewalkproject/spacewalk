@@ -11661,12 +11661,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
      <target>以下列出的配置頻道為 &lt;strong&gt;中央管理&lt;/strong&gt;。這代表任何與 @@PRODUCT_NAME@@ 註冊的系統都能訂閱下列的配置頻道。任何對於在這些頻道中的檔案所作的改變都會影響到所有訂閱此頻道的系統。</target></trans-unit>
 
 
-     <trans-unit id="toolbar.create.org">
-        <source>create new organization</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/Organizations.do</context>
-        </context-group>
-     <target>建立新的組織</target></trans-unit>
 
      <trans-unit id="globalconfiglist.jsp.noChannels">
         <source>No configuration channels</source>
