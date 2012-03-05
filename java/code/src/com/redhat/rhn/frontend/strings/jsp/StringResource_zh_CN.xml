@@ -20983,11 +20983,6 @@ given channel.</source>
 		</source>
        <target>下面是一个您选择从这个频道删除的软件包列表。从这个频道删除软包不会影响其订阅的系统或适用的勘误。
 		</target></trans-unit>
-      <trans-unit id="channel.jsp.package.listmessage">
-         <source>The following packages are in this channel. To remove a package from this channel, select it here, and click 'Confirm Removal' below. To add a package to this channel, click 'add' above.
-		</source>
-       <target>下面是这个频道里的软件包。要从这个频道删除软件包，选住它并点击『确认删除』。要添加软件包，点击『添加』按钮。
-		</target></trans-unit>
       <trans-unit id="channel.jsp.details.title">
          <source>Details
 		</source>

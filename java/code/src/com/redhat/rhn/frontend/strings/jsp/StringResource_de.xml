@@ -20994,11 +20994,6 @@ f&amp;uuml;r einen angegebenen Channel aufgelistet wird.</target></trans-unit>
 		</source>
        <target>Die folgenden Pakete wurde von Ihnen zur Löschung von diesem Channel ausgewählt. Das Löschen eines Pakets aus einem Channel hat weder Auswirkungen auf die Systeme, die diesen Channel abonnieren, noch auf die zugehörigen Errata.
 		</target></trans-unit>
-      <trans-unit id="channel.jsp.package.listmessage">
-         <source>The following packages are in this channel. To remove a package from this channel, select it here, and click 'Confirm Removal' below. To add a package to this channel, click 'add' above.
-		</source>
-       <target>Die folgenden Pakete sind in diesem Channel. Um Pakete aus diesem Channel zu entfernen, wählen Sie diese hier aus und klicken unten auf 'Entfernen bestätigen'. Um Pakete zu diesem Channel hinzuzufügen, klicken Sie oben auf 'Hinzufügen'.
-		</target></trans-unit>
       <trans-unit id="channel.jsp.details.title">
          <source>Details
 		</source>

@@ -20990,11 +20990,6 @@ fois pour un canal donné.</target></trans-unit>
 		</source>
        <target>Voici la liste des packages que vous avez choisi de supprimer de ce canal. La suppression d'un package de ce canal n'affecte pas les systèmes qui y sont abonnés, ou les errata qui y sont applicables.
 		</target></trans-unit>
-      <trans-unit id="channel.jsp.package.listmessage">
-         <source>The following packages are in this channel. To remove a package from this channel, select it here, and click 'Confirm Removal' below. To add a package to this channel, click 'add' above.
-		</source>
-       <target>Les packages suivants sont sur ce canal. Pour supprimer un package de ce canal, le sélectionnner ici, et cliquer 'Confirmer la suppression' ci-dessous. Pour ajouter un package à ce canal, cliquer 'add' (ajouter) ci-dessus.
-		</target></trans-unit>
       <trans-unit id="channel.jsp.details.title">
          <source>Details
 		</source>

@@ -20962,11 +20962,6 @@ given channel.</source>
 		</source>
        <target>このチャンネルから削除するよう選択したパッケージのリストを以下に示します。このチャンネルからパッケージを削除しても、サブスクライブしているシステムまたは適用可能なエラータには影響が出ません。
 		</target></trans-unit>
-      <trans-unit id="channel.jsp.package.listmessage">
-         <source>The following packages are in this channel. To remove a package from this channel, select it here, and click 'Confirm Removal' below. To add a package to this channel, click 'add' above.
-		</source>
-       <target>このチャンネルには次のパッケージが含まれます。このチャンネルからパッケージを削除するには、ここでパッケージを選択し、以下の [削除の確認] をクリックします。このチャンネルにパッケージを追加するには、上記の [追加] をクリックします。
-		</target></trans-unit>
       <trans-unit id="channel.jsp.details.title">
          <source>Details
 		</source>

@@ -20886,10 +20886,6 @@ given channel.</source>
          <source>Below is the list of packages which you have selected to remove from this channel. Removing a package from this channel does not affect the systems which are subscribed to it, or the errata which are applicable to it.
 		</source>
        <target></target></trans-unit>
-      <trans-unit id="channel.jsp.package.listmessage">
-         <source>The following packages are in this channel. To remove a package from this channel, select it here, and click 'Confirm Removal' below. To add a package to this channel, click 'add' above.
-		</source>
-       <target></target></trans-unit>
       <trans-unit id="channel.jsp.details.title">
          <source>Details
 		</source>

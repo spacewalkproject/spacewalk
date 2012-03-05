@@ -20986,11 +20986,6 @@ given channel.</source>
 		</source>
        <target>Segue abaixo a lista de pacotes selecionados para remoção deste canal. A remoção de um pacote deste canal não afeta os sistemas que estão inscritos ao mesmo, ou erros que são aplicados ao mesmo.
 		</target></trans-unit>
-      <trans-unit id="channel.jsp.package.listmessage">
-         <source>The following packages are in this channel. To remove a package from this channel, select it here, and click 'Confirm Removal' below. To add a package to this channel, click 'add' above.
-		</source>
-       <target>Os seguintes pacotes estão neste canal. Para remover um pacote deste canal, selecione aqui e clique em 'Confirmar Remoção' abaixo. Para adicionar um pacote a este canal, clique em 'adicionar' acima.
-		</target></trans-unit>
       <trans-unit id="channel.jsp.details.title">
          <source>Details
 		</source>
