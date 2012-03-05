@@ -323,12 +323,6 @@
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
       <target>Actions archivées</target></trans-unit>
-      <trans-unit id="Buy Now">
-<source>Buy Now</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">All pages</context>
-        </context-group>
-      <target>Acheter maintenant</target></trans-unit>
       <trans-unit id="cant have spaces">
 <source>do spaces work?</source>
         <context-group name="ctx">

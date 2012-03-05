@@ -329,12 +329,6 @@ http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd"
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="Buy Now">
-<source>Buy Now</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">All pages</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="cant have spaces">
 <source>do spaces work?</source>
         <context-group name="ctx">
