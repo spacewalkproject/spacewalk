@@ -16238,9 +16238,6 @@ dieser Revisionen.  M&amp;ouml;chten Sie dies wirklich tun?</target></trans-unit
           <source>{0} configuration channels were unsubscribed</source>
         <target>{0} Konfiguration-Channels wurden abgemeldet</target></trans-unit>
 
-        <trans-unit id="config_channels_to_unsubscribe.unsubscribe.failure">
-          <source>{0} of {1} configuration channels  were unsubscribed</source>
-        <target>{0} von {1} Konfiguration-Channels wurden abgemeldet</target></trans-unit>
 
      </group>
 

@@ -16197,9 +16197,6 @@ any of these revisions.  Are you sure you want to do this?</source>
           <source>{0} configuration channels were unsubscribed</source>
         <target>{0} 설정 채널이 등록 해제됨</target></trans-unit>
 
-        <trans-unit id="config_channels_to_unsubscribe.unsubscribe.failure">
-          <source>{0} of {1} configuration channels  were unsubscribed</source>
-        <target>{1} 설정 채널 중 {0}이 등록 해제됨</target></trans-unit>
 
      </group>
 

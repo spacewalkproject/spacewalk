@@ -16202,9 +16202,6 @@ any of these revisions.  Are you sure you want to do this?</source>
           <source>{0} configuration channels were unsubscribed</source>
         <target>{0} ਸੰਰਚਨਾ ਚੈਨਲਾਂ ਦੀ ਮੈਂਬਰੀ ਹਟਾਈ ਗਈ ਹੈ</target></trans-unit>
 
-        <trans-unit id="config_channels_to_unsubscribe.unsubscribe.failure">
-          <source>{0} of {1} configuration channels  were unsubscribed</source>
-        <target>{1} ਸੰਰਚਨਾ ਚੈਨਲ ਦੀ {0} ਤੋਂ ਮੈਂਬਰੀ ਹਟਾਈ ਗਈ ਹੈ</target></trans-unit>
 
      </group>
 

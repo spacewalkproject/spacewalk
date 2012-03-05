@@ -16200,9 +16200,6 @@ Siete sicuri di voler fare questo?</target></trans-unit>
           <source>{0} configuration channels were unsubscribed</source>
         <target>rimossa sottoscrizione a {0} canali di configurazione</target></trans-unit>
 
-        <trans-unit id="config_channels_to_unsubscribe.unsubscribe.failure">
-          <source>{0} of {1} configuration channels  were unsubscribed</source>
-        <target>rimossa sottoscrizione a {0} di {1} canali di configurazione</target></trans-unit>
 
      </group>
 

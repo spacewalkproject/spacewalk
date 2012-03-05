@@ -16231,9 +16231,6 @@ any of these revisions.  Are you sure you want to do this?</source>
           <source>{0} configuration channels were unsubscribed</source>
         <target>退订 {0} 配置频道</target></trans-unit>
 
-        <trans-unit id="config_channels_to_unsubscribe.unsubscribe.failure">
-          <source>{0} of {1} configuration channels  were unsubscribed</source>
-        <target>退订 {1} 配置频道中的 {0}</target></trans-unit>
 
      </group>
 

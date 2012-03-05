@@ -16236,9 +16236,6 @@ pour ces versions seront également supprimées, ainsi que tous les historiques 
           <source>{0} configuration channels were unsubscribed</source>
         <target>{0} canaux de configuration ont été désabonnés</target></trans-unit>
 
-        <trans-unit id="config_channels_to_unsubscribe.unsubscribe.failure">
-          <source>{0} of {1} configuration channels  were unsubscribed</source>
-        <target>{0} des {1} canaux de configuration ont été désabonnés</target></trans-unit>
 
      </group>
 

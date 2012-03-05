@@ -16226,9 +16226,6 @@ para qualquer uma das revisões, assim como todo o histórico de implementação
           <source>{0} configuration channels were unsubscribed</source>
         <target>{0} canais de configuração tiveram suas subscrições canceladas</target></trans-unit>
 
-        <trans-unit id="config_channels_to_unsubscribe.unsubscribe.failure">
-          <source>{0} of {1} configuration channels  were unsubscribed</source>
-        <target>{0} de {1} canais de configuração tiveram suas subscrições canceladas</target></trans-unit>
 
      </group>
 

@@ -16199,9 +16199,6 @@ any of these revisions.  Are you sure you want to do this?</source>
           <source>{0} configuration channels were unsubscribed</source>
         <target>{0} 個配置頻道已被解除訂閱</target></trans-unit>
 
-        <trans-unit id="config_channels_to_unsubscribe.unsubscribe.failure">
-          <source>{0} of {1} configuration channels  were unsubscribed</source>
-        <target>{1} 中的 {0} 個配置頻道已被解除訂閱</target></trans-unit>
 
      </group>
 

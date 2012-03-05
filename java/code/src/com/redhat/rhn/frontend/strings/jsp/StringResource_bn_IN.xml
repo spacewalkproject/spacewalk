@@ -16202,9 +16202,6 @@ any of these revisions.  Are you sure you want to do this?</source>
           <source>{0} configuration channels were unsubscribed</source>
         <target>{0} কনফিগারেশন চ্যানেল আন-সাবস্ক্রাইব করা হয়েছে</target></trans-unit>
 
-        <trans-unit id="config_channels_to_unsubscribe.unsubscribe.failure">
-          <source>{0} of {1} configuration channels  were unsubscribed</source>
-        <target>{1}-র মধ্যে {0} কনফিগারেশন চ্যানেল থেকে আন-সাবস্ক্রাইব করা হয়েছে</target></trans-unit>
 
      </group>
 

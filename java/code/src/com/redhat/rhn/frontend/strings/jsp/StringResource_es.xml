@@ -16234,9 +16234,6 @@ concerniente con esas revisiones. ¿Está seguro que es ésto lo que desea hacer
           <source>{0} configuration channels were unsubscribed</source>
         <target>La suscripción de {0} canales de configuración fue removida.</target></trans-unit>
 
-        <trans-unit id="config_channels_to_unsubscribe.unsubscribe.failure">
-          <source>{0} of {1} configuration channels  were unsubscribed</source>
-        <target>La suscripción de {0} de {1} canales de configuración fue removida.</target></trans-unit>
 
      </group>
 
