@@ -1900,12 +1900,6 @@ rhn-kickstart* パッケージが利用可能であることを確認します�
          </context-group>
        <target>リクエストされたキックスタートスニペットのファイル名は無効です。キックスタートスニペットのファイル名にスラッシュ (/) は使用できません。また、ピリオド (.) はファイル名の最初に使用できません。</target></trans-unit>
 
-      <trans-unit id="toolbar.delete.snippets">
-<source>delete snippet</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/kickstart/cobbler/CobblerSnippetEdit</context>
-        </context-group>
-      <target>スニペットの削除</target></trans-unit>
 
       <trans-unit id="kickstart.iprange.url">
         <source>New systems can be kickstarted based upon their ip address by appending &lt;code&gt;{0}&lt;/code&gt; to the kernel parameters for a kickstart install.</source>

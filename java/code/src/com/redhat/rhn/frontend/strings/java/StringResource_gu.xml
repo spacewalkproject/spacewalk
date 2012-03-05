@@ -1876,12 +1876,6 @@ available for this kickstart profile to function properly.
          </context-group>
        <target>સૂચિત કિકસ્ટાર્ટ સ્નીપેટ ફાઇલનામ યોગ્ય નથી. કિકસ્ટાર્ટ સ્નીપેટ ફાઇલનામ એ સ્લેશ (/) અથવા પૂર્ણવિરામ સાથેસમાવતુ શરૂઆતને સમાવતુ નથી</target></trans-unit>
 
-      <trans-unit id="toolbar.delete.snippets">
-<source>delete snippet</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/kickstart/cobbler/CobblerSnippetEdit</context>
-        </context-group>
-      <target>સ્નીપેટને કાઢી નાંખો</target></trans-unit>
 
       <trans-unit id="kickstart.iprange.url">
         <source>New systems can be kickstarted based upon their ip address by appending &lt;code&gt;{0}&lt;/code&gt; to the kernel parameters for a kickstart install.</source>

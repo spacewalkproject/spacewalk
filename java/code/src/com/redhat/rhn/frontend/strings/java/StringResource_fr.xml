@@ -1903,12 +1903,6 @@ disponibles pour que ce profil kickstart puisse fonctionner correctement.
          </context-group>
        <target>Le nom de fichier kickstart snippet requis est invalide. Celui-ci ne peut pas contenir de barre oblique (/) ni commencer par un point (.)</target></trans-unit>
 
-      <trans-unit id="toolbar.delete.snippets">
-<source>delete snippet</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/kickstart/cobbler/CobblerSnippetEdit</context>
-        </context-group>
-      <target>supprimer le snippet</target></trans-unit>
 
       <trans-unit id="kickstart.iprange.url">
         <source>New systems can be kickstarted based upon their ip address by appending &lt;code&gt;{0}&lt;/code&gt; to the kernel parameters for a kickstart install.</source>

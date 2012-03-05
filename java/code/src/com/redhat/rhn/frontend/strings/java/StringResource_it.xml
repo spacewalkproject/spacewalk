@@ -1900,12 +1900,6 @@ disponibili per un corretto funzionamento di questo profilo kickstart.
          </context-group>
        <target>Il nome del file di snippet kickstart non è valido. Il nome non può contenere caratteri slash (/) o iniziare con un punto (.)</target></trans-unit>
 
-      <trans-unit id="toolbar.delete.snippets">
-<source>delete snippet</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/kickstart/cobbler/CobblerSnippetEdit</context>
-        </context-group>
-      <target>cancella snippet</target></trans-unit>
 
       <trans-unit id="kickstart.iprange.url">
         <source>New systems can be kickstarted based upon their ip address by appending &lt;code&gt;{0}&lt;/code&gt; to the kernel parameters for a kickstart install.</source>

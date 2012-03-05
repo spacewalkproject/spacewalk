@@ -1882,12 +1882,6 @@ available for this kickstart profile to function properly.
          </context-group>
        <target>অনুরোধ করা kickstart স্নিপেট ফাইলের নাম বৈধ নয়। kickstart স্নিপেট ফাইলের নামের প্রারম্ভে বিন্দু(.) ও নামের মধ্যে স্ল্যাশ (/) চিহ্ন ব্যবহার করা যাবে না।</target></trans-unit>
 
-      <trans-unit id="toolbar.delete.snippets">
-<source>delete snippet</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/kickstart/cobbler/CobblerSnippetEdit</context>
-        </context-group>
-      <target>স্নিপেট মুছে ফেলুন</target></trans-unit>
 
       <trans-unit id="kickstart.iprange.url">
         <source>New systems can be kickstarted based upon their ip address by appending &lt;code&gt;{0}&lt;/code&gt; to the kernel parameters for a kickstart install.</source>

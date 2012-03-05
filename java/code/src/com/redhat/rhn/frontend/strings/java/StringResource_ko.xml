@@ -1876,12 +1876,6 @@ available for this kickstart profile to function properly.
          </context-group>
        <target>요청하신 킥스타트 snippet 파일 이름이 잘못되었습니다. 킥스타트 snippet 파일 이름에 슬래시(/)가 포함되어 있거나 마침표(.)로 시작해서는 안됩니다.    </target></trans-unit>
 
-      <trans-unit id="toolbar.delete.snippets">
-<source>delete snippet</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/kickstart/cobbler/CobblerSnippetEdit</context>
-        </context-group>
-      <target>snippet 삭제  </target></trans-unit>
 
       <trans-unit id="kickstart.iprange.url">
         <source>New systems can be kickstarted based upon their ip address by appending &lt;code&gt;{0}&lt;/code&gt; to the kernel parameters for a kickstart install.</source>

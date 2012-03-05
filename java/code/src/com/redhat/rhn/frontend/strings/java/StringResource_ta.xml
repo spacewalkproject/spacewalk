@@ -1876,12 +1876,6 @@ available for this kickstart profile to function properly.
          </context-group>
        <target>தேவைப்படும் கிக்ஸ்டார்ட் கோப்புபெயர் தவறானதாகும். கிக்ஸ்டார்ட் கோப்புபெயர் ஸலாஷை பெற்றிருக்கவில்லை (/) அல்லது  ஒரு பகுதியுடன் தொடர்கிறது(.)</target></trans-unit>
 
-      <trans-unit id="toolbar.delete.snippets">
-<source>delete snippet</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/kickstart/cobbler/CobblerSnippetEdit</context>
-        </context-group>
-      <target>சினெப்பட்டை அழிக்கவும்</target></trans-unit>
 
       <trans-unit id="kickstart.iprange.url">
         <source>New systems can be kickstarted based upon their ip address by appending &lt;code&gt;{0}&lt;/code&gt; to the kernel parameters for a kickstart install.</source>

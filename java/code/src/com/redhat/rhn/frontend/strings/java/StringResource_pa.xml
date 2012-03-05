@@ -1878,12 +1878,6 @@ available for this kickstart profile to function properly.
          </context-group>
        <target>ਲੋੜੀਂਦਾ ਕਿੱਕਸਟਾਰਟ ਸਨਿੱਪਟ ਫਾਇਲ-ਨਾਂ ਯੋਗ ਨਹੀਂ ਹੈ। ਕਿੱਕਸਟਾਰਟ ਸਨਿੱਪਟ ਫਾਇਲ-ਨਾਂ ਵਿੱਚ ਸਲੈਸ਼ (/) ਨਹੀਂ ਹੋਣੀ ਚਾਹੀਦੀ ਜਾਂ ਪੀਰੀਅਡ(.) ਨਾਲ ਸ਼ੁਰੂ ਨਹੀਂ ਹੋਣਾ ਚਾਹੀਦਾ।</target></trans-unit>
 
-      <trans-unit id="toolbar.delete.snippets">
-<source>delete snippet</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/kickstart/cobbler/CobblerSnippetEdit</context>
-        </context-group>
-      <target>snippet ਹਟਾਓ</target></trans-unit>
 
       <trans-unit id="kickstart.iprange.url">
         <source>New systems can be kickstarted based upon their ip address by appending &lt;code&gt;{0}&lt;/code&gt; to the kernel parameters for a kickstart install.</source>

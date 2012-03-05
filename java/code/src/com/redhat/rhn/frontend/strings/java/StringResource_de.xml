@@ -1907,12 +1907,6 @@ verfügbar machen, damit dieses Kickstart-Profil einwandfrei funktionieren kann.
          </context-group>
        <target>Der angeforderte Kickstart Snippet Dateiname ist ungültig. Der Kickstart Snippet Dateiname darf keine Schrägstriche (/) enthalten oder mit einem Punkt (.) beginnen.u</target></trans-unit>
 
-      <trans-unit id="toolbar.delete.snippets">
-<source>delete snippet</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/kickstart/cobbler/CobblerSnippetEdit</context>
-        </context-group>
-      <target>Snippet löschen</target></trans-unit>
 
       <trans-unit id="kickstart.iprange.url">
         <source>New systems can be kickstarted based upon their ip address by appending &lt;code&gt;{0}&lt;/code&gt; to the kernel parameters for a kickstart install.</source>
