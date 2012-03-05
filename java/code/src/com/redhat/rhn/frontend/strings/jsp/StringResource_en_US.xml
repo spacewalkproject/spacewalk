@@ -18266,9 +18266,6 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;
         <trans-unit id="exportcolumn.low">
             <source>Security (Low)</source>
         </trans-unit>
-        <trans-unit id="exportcolumn.bug">
-            <source>Bugfixes</source>
-        </trans-unit>
         <trans-unit id="exportcolumn.enhancement">
             <source>Enhancements</source>
         </trans-unit>
