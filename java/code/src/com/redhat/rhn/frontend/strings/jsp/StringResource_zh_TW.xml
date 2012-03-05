@@ -886,12 +886,6 @@
 
 
 
-	<trans-unit id="preferences.warning-probes.name">
-         <source>Monitoring Status - Warning Probes</source>
-		 <context-group name="ctx">
-		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
-		 </context-group>
-	<target>監控狀態 - 警告偵測</target></trans-unit>
 
 
 
