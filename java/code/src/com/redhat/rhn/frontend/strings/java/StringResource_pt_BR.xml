@@ -2293,12 +2293,6 @@ disponíveis para seu perfil kickstart funcionar corretamente./n&lt;/li&gt;
           <context context-type="sourcefile">/rhn/errata/Search.do</context>
         </context-group>
       <target>Não foi possível analisar a data de início, por favor ensira novamente em formato aaa-mm-dd.</target></trans-unit>
-      <trans-unit id="erratasearch.error.parse.enddate">
-<source>Unable to parse end date, please re-enter in format yyyy-mm-dd.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/errata/Search.do</context>
-        </context-group>
-      <target>Não foi possível analisar a data, por favor re-ensira em formato aaaa-mm-dd.</target></trans-unit>
       <trans-unit id="patchremoveconfirm.schedule">
 <source>Patch removal has been scheduled for &lt;strong&gt;{1}&lt;/strong&gt; system</source>
         <context-group name="ctx">

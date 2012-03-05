@@ -2279,12 +2279,6 @@ available for this kickstart profile to function properly.
           <context context-type="sourcefile">/rhn/errata/Search.do</context>
         </context-group>
       <target>Не удалось определить дату начала, пожалуйста, введите дату еще раз в формате ГГГГ-ММ-ДД.</target></trans-unit>
-      <trans-unit id="erratasearch.error.parse.enddate">
-<source>Unable to parse end date, please re-enter in format yyyy-mm-dd.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/errata/Search.do</context>
-        </context-group>
-      <target>Не удалось определить дату завершения, пожалуйста, введите дату еще раз в формате ГГГГ-ММ-ДД.</target></trans-unit>
       <trans-unit id="patchremoveconfirm.schedule">
 <source>Patch removal has been scheduled for &lt;strong&gt;{1}&lt;/strong&gt; system</source>
         <context-group name="ctx">
