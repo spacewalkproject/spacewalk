@@ -6353,13 +6353,6 @@ Follow this url to see the full list of inactive systems:
       <target>预定 Configuration Comparison Action 失败。</target></trans-unit>
 
 
-      <trans-unit id="scheduledeploy.ssm.successes">
-        <source>Configuration Deploy Action scheduled successfully for &lt;strong&gt;{0} systems&lt;/strong&gt;.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/ssm/config/Diff.do</context>
-          <context context-type="paramnotes">Configuration Comparison Action scheduled successfully for {0} systems.</context>
-        </context-group>
-      <target>成功地为 &lt;strong&gt;{0} 个系统&lt;/strong&gt;预定了 Configuration Deploy Action。</target></trans-unit>
 
       <trans-unit id="unsubscribe.ssm.success">
         <source>&lt;strong&gt;1 system&lt;/strong&gt; successfully unsubscribed from configuration channels.</source>
