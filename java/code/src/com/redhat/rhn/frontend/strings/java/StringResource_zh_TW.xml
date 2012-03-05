@@ -7045,12 +7045,6 @@ Follow this url to see the full list of inactive systems:
         </context-group>
       <target>所有系統</target></trans-unit>
 
-      <trans-unit id="kickstar.error.missingprofile">
-        <source>A kickstart profile must be selected.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/system/details/kickstart/ScheduleWizard.do</context>
-        </context-group>
-      <target>您必須選擇一個 kickstart 設定檔。</target></trans-unit>
 
       <trans-unit id="systems.details.virt.guest.virt.shutdown">
         <source>Shutdown</source>

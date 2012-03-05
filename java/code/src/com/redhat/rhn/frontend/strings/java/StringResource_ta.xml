@@ -7046,12 +7046,6 @@ url பின்பற்றி செயலிழக்கப்பட்ட �
         </context-group>
       <target>அனைத்து கணினிகள்</target></trans-unit>
 
-      <trans-unit id="kickstar.error.missingprofile">
-        <source>A kickstart profile must be selected.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/system/details/kickstart/ScheduleWizard.do</context>
-        </context-group>
-      <target>ஒரு கிக்ஸ்டார்ட் விவரக்குறிப்பு தேர்ந்தெடுக்கப்பட வேண்டும்.</target></trans-unit>
 
       <trans-unit id="systems.details.virt.guest.virt.shutdown">
         <source>Shutdown</source>
