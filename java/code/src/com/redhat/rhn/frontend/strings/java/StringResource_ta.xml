@@ -531,12 +531,6 @@
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
       <target>புகுபதிவு/கடவுச்சொல்லை பார்க்கவும்</target></trans-unit>
-      <trans-unit id="Manage Config Channels">
-<source>Manage Config Channels</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-      <target>கட்டமைப்பு தடங்களை மேலாண்மை செய்யவும்</target></trans-unit>
       <trans-unit id="Manage Errata">
 <source>Manage Errata</source>
         <context-group name="ctx">

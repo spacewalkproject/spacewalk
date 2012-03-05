@@ -531,12 +531,6 @@
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
       <target>પ્રવેશ/પાસવર્ડ જુઓ</target></trans-unit>
-      <trans-unit id="Manage Config Channels">
-<source>Manage Config Channels</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-      <target>રૂપરેખા ચેનલોની વ્યવસ્થા કરો</target></trans-unit>
       <trans-unit id="Manage Errata">
 <source>Manage Errata</source>
         <context-group name="ctx">

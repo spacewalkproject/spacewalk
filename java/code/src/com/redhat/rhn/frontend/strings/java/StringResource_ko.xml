@@ -531,12 +531,6 @@
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
       <target>로그인/암호 검색</target></trans-unit>
-      <trans-unit id="Manage Config Channels">
-<source>Manage Config Channels</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-      <target>설정 채널 관리</target></trans-unit>
       <trans-unit id="Manage Errata">
 <source>Manage Errata</source>
         <context-group name="ctx">

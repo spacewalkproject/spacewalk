@@ -531,12 +531,6 @@
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
       <target>लागिन/शब्दकूट अवलोकन</target></trans-unit>
-      <trans-unit id="Manage Config Channels">
-<source>Manage Config Channels</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-      <target>विन्यास चैनल प्रबंधित करें</target></trans-unit>
       <trans-unit id="Manage Errata">
 <source>Manage Errata</source>
         <context-group name="ctx">

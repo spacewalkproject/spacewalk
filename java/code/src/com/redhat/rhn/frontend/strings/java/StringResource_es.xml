@@ -531,12 +531,6 @@
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
       <target>Buscar Nombre de usuario/Contraseña</target></trans-unit>
-      <trans-unit id="Manage Config Channels">
-<source>Manage Config Channels</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-      <target>Administrar canales de configuración</target></trans-unit>
       <trans-unit id="Manage Errata">
 <source>Manage Errata</source>
         <context-group name="ctx">
