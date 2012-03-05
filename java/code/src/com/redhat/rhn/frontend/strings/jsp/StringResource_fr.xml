@@ -16544,9 +16544,6 @@ pour abonner des systèmes aux canaux de logiciels durant le kickstart.&lt;/span
 	    <trans-unit id="kickstart.schedule.sync.pkg.profile.jsp">
 	        <source>Sync Package&lt;br /&gt;Profile</source>
 	    <target>Synchroniser le profil&lt;br /&gt;de paquetages</target></trans-unit>
-	    <trans-unit id="kickstart.schedule.system.profile.virt.option1.jsp">
-	        <source>Use the default guest profile</source>
-	    <target>Utiliser le profil invité par défaut</target></trans-unit>
 	    <trans-unit id="kickstart.schedule.sync.pkg.profile.option1.jsp">
 	        <source>With system's existing package profile</source>
 	    <target>Avec le profil de paquetages existant du système</target></trans-unit>
