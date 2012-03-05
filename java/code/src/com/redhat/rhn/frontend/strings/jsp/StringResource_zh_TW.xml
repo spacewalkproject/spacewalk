@@ -1456,12 +1456,6 @@
           </context>
         </context-group>
       <target>@@PRODUCT_NAME@@ 發行版本 &lt;a href="{0}"&gt;{1}&lt;/a&gt;</target></trans-unit>
-      <trans-unit id="bugzilla.jsp.submitbug">
-<source>Something wrong with this page?  Submit a &lt;a href="{0}"&gt;bug report&lt;/a&gt;.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">./includes/footer.jsp</context>
-        </context-group>
-      <target>本網頁有任何錯誤嗎？請提交&lt;a href="{0}"&gt;錯誤報告&lt;/a&gt;。</target></trans-unit>
       <trans-unit id="footer.jsp.submitbugalt">
 <source>Submit Bug Report</source>
         <context-group name="ctx">
