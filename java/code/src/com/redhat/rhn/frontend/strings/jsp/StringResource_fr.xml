@@ -19094,12 +19094,6 @@ et Red Hat l'utilisera en cas de fenêtres de maintenance d'urgence et non progr
         </context-group>
       <target>Un ping a été envoyé à &lt;strong&gt;{0}&lt;/strong&gt;.  Le statut OSA sera mis à jour dans la minute suivante.</target></trans-unit>
 
-      <trans-unit id="org.jsp.details">
-        <source>&lt;strong&gt;{0}&lt;/strong&gt; has been pinged.  OSA Status will update within the next minute.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestUnlimitedHosts.do</context>
-        </context-group>
-      <target>Un ping a été envoyé à &lt;strong&gt;{0}&lt;/strong&gt;.  Le statut OSA sera mis à jour dans la minute suivante.</target></trans-unit>
 
       <trans-unit id="org.login.examples">
         <source>&lt;strong&gt;Examples:&lt;/strong&gt; 'sales-admin', 'admin_prodops@example.com', 'sales.admin'</source>

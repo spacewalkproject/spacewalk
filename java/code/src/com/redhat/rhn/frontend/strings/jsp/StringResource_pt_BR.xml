@@ -19089,12 +19089,6 @@ pela Red Hat no caso de Períodos de Manutenção Não Programados ou
         </context-group>
       <target>&lt;strong&gt;{0}&lt;/strong&gt; foi chamado.  O Estado de OSA Status irá atualizar dentro de um minuto.</target></trans-unit>
 
-      <trans-unit id="org.jsp.details">
-        <source>&lt;strong&gt;{0}&lt;/strong&gt; has been pinged.  OSA Status will update within the next minute.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestUnlimitedHosts.do</context>
-        </context-group>
-      <target>&lt;strong&gt;{0}&lt;/strong&gt; foi chamado.  O Estado de OSA Status irá atualizar dentro de um minuto.</target></trans-unit>
 
       <trans-unit id="org.login.examples">
         <source>&lt;strong&gt;Examples:&lt;/strong&gt; 'sales-admin', 'admin_prodops@example.com', 'sales.admin'</source>

@@ -19041,12 +19041,6 @@ Emergency Maintenance windows.&lt;a href="{0}"&gt;Register for the Email Outage 
         </context-group>
       <target>&lt;strong&gt;{0}&lt;/strong&gt; அழைத்துள்ளது.  OSA நிலை அடுத்த நிமிடத்தில் மேம்படுத்தப்படும்.</target></trans-unit>
 
-      <trans-unit id="org.jsp.details">
-        <source>&lt;strong&gt;{0}&lt;/strong&gt; has been pinged.  OSA Status will update within the next minute.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestUnlimitedHosts.do</context>
-        </context-group>
-      <target>&lt;strong&gt;{0}&lt;/strong&gt; அழைத்துள்ளது.  OSA நிலை அடுத்த நிமிடத்தில் மேம்படுத்தப்படும்.</target></trans-unit>
 
       <trans-unit id="org.login.examples">
         <source>&lt;strong&gt;Examples:&lt;/strong&gt; 'sales-admin', 'admin_prodops@example.com', 'sales.admin'</source>

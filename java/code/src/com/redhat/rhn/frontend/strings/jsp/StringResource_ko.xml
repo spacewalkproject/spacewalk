@@ -19032,12 +19032,6 @@ Emergency Maintenance windows.&lt;a href="{0}"&gt;Register for the Email Outage 
         </context-group>
       <target>&lt;strong&gt;{0}&lt;/strong&gt;이 핑되었습니다.  곧 OSA 상태가 업데이트됩니다.</target></trans-unit>
 
-      <trans-unit id="org.jsp.details">
-        <source>&lt;strong&gt;{0}&lt;/strong&gt; has been pinged.  OSA Status will update within the next minute.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestUnlimitedHosts.do</context>
-        </context-group>
-      <target>&lt;strong&gt;{0}&lt;/strong&gt;이 핑되었습니다.  곧 OSA 상태가 업데이트됩니다.</target></trans-unit>
 
       <trans-unit id="org.login.examples">
         <source>&lt;strong&gt;Examples:&lt;/strong&gt; 'sales-admin', 'admin_prodops@example.com', 'sales.admin'</source>
