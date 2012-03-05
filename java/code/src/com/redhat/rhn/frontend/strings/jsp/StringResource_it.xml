@@ -15413,12 +15413,6 @@ per sottoscrivere i sistemi ai canali software durante un kickstart.&lt;/span&gt
         </context-group>
     <target>Cancella lo script di Kickstart</target></trans-unit>
 
-    <trans-unit id="toolbar.delete.kickstartscript">
-        <source>delete kickstart script</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart/KickstartDeleteSetup</context>
-        </context-group>
-    <target>cancella lo script di Kickstart</target></trans-unit>
 
     <trans-unit id="kickstart.clone.jsp.clone">
         <source>Clone Kickstart</source>

@@ -15456,12 +15456,6 @@ pour abonner des systèmes aux canaux de logiciels durant le kickstart.&lt;/span
         </context-group>
     <target>Supprimer le script kickstart</target></trans-unit>
 
-    <trans-unit id="toolbar.delete.kickstartscript">
-        <source>delete kickstart script</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart/KickstartDeleteSetup</context>
-        </context-group>
-    <target>supprimer le script kickstart</target></trans-unit>
 
     <trans-unit id="kickstart.clone.jsp.clone">
         <source>Clone Kickstart</source>

@@ -15416,12 +15416,6 @@ the &lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;Activation Key
         </context-group>
     <target>கிக்ஸ்டார்ட் உரையை அழிக்கவும்</target></trans-unit>
 
-    <trans-unit id="toolbar.delete.kickstartscript">
-        <source>delete kickstart script</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart/KickstartDeleteSetup</context>
-        </context-group>
-    <target>கிக்ஸ்டார்ட் உரையை அழிக்கவும்</target></trans-unit>
 
     <trans-unit id="kickstart.clone.jsp.clone">
         <source>Clone Kickstart</source>

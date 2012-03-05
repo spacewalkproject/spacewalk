@@ -15448,12 +15448,6 @@ a aba &lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;Chaves de At
         </context-group>
     <target>Remover Script de Kickstart</target></trans-unit>
 
-    <trans-unit id="toolbar.delete.kickstartscript">
-        <source>delete kickstart script</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart/KickstartDeleteSetup</context>
-        </context-group>
-    <target>remover script de kickstart</target></trans-unit>
 
     <trans-unit id="kickstart.clone.jsp.clone">
         <source>Clone Kickstart</source>
