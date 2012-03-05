@@ -6262,12 +6262,6 @@ Follow this url to see the full list of inactive systems:
         </context-group>
       <target>这个系统的一个新的 kickstart 会话已经被初始化。</target></trans-unit>
 
-      <trans-unit id="kickstart.session.notoolschannel">
-        <source>Could not look up the @@PRODUCT_NAME@@ Tools channel for {1}.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/kickstart/ScheduleKickstart.do</context>
-        </context-group>
-      <target>无法为 {1} 查找 @@PRODUCT_NAME@@ 工具频道。</target></trans-unit>
 
       <trans-unit id="kickstart.session.newtokennote">
         <source>Kickstart re-activation key for {0}.</source>

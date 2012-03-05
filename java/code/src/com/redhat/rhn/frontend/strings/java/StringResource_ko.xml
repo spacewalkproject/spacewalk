@@ -6237,12 +6237,6 @@ Follow this url to see the full list of inactive systems:
         </context-group>
       <target>시스템에 대한 새로운 킥스타트 세션이 시작되었습니다.</target></trans-unit>
 
-      <trans-unit id="kickstart.session.notoolschannel">
-        <source>Could not look up the @@PRODUCT_NAME@@ Tools channel for {1}.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/kickstart/ScheduleKickstart.do</context>
-        </context-group>
-      <target>{1}에 대한 @@PRODUCT_NAME@@ 도구 채널을 찾을 수 없습니다. </target></trans-unit>
 
       <trans-unit id="kickstart.session.newtokennote">
         <source>Kickstart re-activation key for {0}.</source>

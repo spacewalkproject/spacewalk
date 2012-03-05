@@ -6268,12 +6268,6 @@ Folgen Sie dieser URL f&amp;uuml;r die vollst&amp;auml;ndige Liste inaktiver Sys
         </context-group>
       <target>Eine neue Kickstart-Sitzung wurde f&amp;uuml;r dieses System initiiert.</target></trans-unit>
 
-      <trans-unit id="kickstart.session.notoolschannel">
-        <source>Could not look up the @@PRODUCT_NAME@@ Tools channel for {1}.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/kickstart/ScheduleKickstart.do</context>
-        </context-group>
-      <target>Konnte den @@PRODUCT_NAME@@ Tools-Channel für {1} nicht finden.</target></trans-unit>
 
       <trans-unit id="kickstart.session.newtokennote">
         <source>Kickstart re-activation key for {0}.</source>

@@ -6237,12 +6237,6 @@ Follow this url to see the full list of inactive systems:
         </context-group>
       <target>इस सिस्टम के लिये नया किकस्टार्ट सत्र आरंभ किया गया.</target></trans-unit>
 
-      <trans-unit id="kickstart.session.notoolschannel">
-        <source>Could not look up the @@PRODUCT_NAME@@ Tools channel for {1}.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/kickstart/ScheduleKickstart.do</context>
-        </context-group>
-      <target>@@PRODUCT_NAME@@ औजार चैनल को {1} के लिए नहीं देख सका.</target></trans-unit>
 
       <trans-unit id="kickstart.session.newtokennote">
         <source>Kickstart re-activation key for {0}.</source>

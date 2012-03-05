@@ -6237,12 +6237,6 @@ url பின்பற்றி செயலிழக்கப்பட்ட �
         </context-group>
       <target>ஒரு புதிய கிக்ஸ்டார்ட் அமர்வு இந்த கணினிக்கு ஆரம்பிக்கப்பட்டது.</target></trans-unit>
 
-      <trans-unit id="kickstart.session.notoolschannel">
-        <source>Could not look up the @@PRODUCT_NAME@@ Tools channel for {1}.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/kickstart/ScheduleKickstart.do</context>
-        </context-group>
-      <target>@@PRODUCT_NAME@@ தடம் {1}கான கருவிகளை பார்க்க முடியவில்லை.</target></trans-unit>
 
       <trans-unit id="kickstart.session.newtokennote">
         <source>Kickstart re-activation key for {0}.</source>
