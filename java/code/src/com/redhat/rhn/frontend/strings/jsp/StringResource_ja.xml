@@ -934,12 +934,6 @@
 
 
 
-	<trans-unit id="preferences.recently-registered-systems.name">
-         <source>Recently Registered Systems</source>
-		 <context-group name="ctx">
-		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
-		 </context-group>
-	<target>最近登録されたシステム</target></trans-unit>
 
 
 
