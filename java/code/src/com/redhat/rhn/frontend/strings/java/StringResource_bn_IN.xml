@@ -2786,14 +2786,6 @@ user before attempting to deactivate their account.</source>
         </context-group>
       <target>শুধুমাত্র প্রাতিষ্ঠানিক অ্যাডমিনিস্ট্রেটররা ব্যবহারকারীদের অ্যাকাউন্ট সক্রিয় করতে সক্ষম।</target></trans-unit>
 
-      <trans-unit id="userenable.error.orgadmin.param">
-<source>{0}: You must be an Organization Administrator to enable a user.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/users/EnableConfirm</context>
-            <context context-type="paramnotes">kjohnny4: You must be an Organization
-                                               Administrator to enable a user.</context>
-        </context-group>
-      <target>{0}: শুধুমাত্র প্রাতিষ্ঠানিক অ্যাডমিনিস্ট্রেটররা ব্যবহারকারীদের অ্যাকাউন্ট সক্রিয় করতে সক্ষম।</target></trans-unit>
 
       <trans-unit id="reactivateusers.none">
 <source>Choose at least one user to reactivate.</source>

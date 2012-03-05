@@ -2805,14 +2805,6 @@ de este usuario antes de intentar desactivar esta cuenta.</target></trans-unit>
         </context-group>
       <target>Usted debe ser un Administrador de la organización para activar un usuario.</target></trans-unit>
 
-      <trans-unit id="userenable.error.orgadmin.param">
-<source>{0}: You must be an Organization Administrator to enable a user.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/users/EnableConfirm</context>
-            <context context-type="paramnotes">kjohnny4: You must be an Organization
-                                               Administrator to enable a user.</context>
-        </context-group>
-      <target>{0}: Usted debe ser un Administrador de la organización para activar un usuario.</target></trans-unit>
 
       <trans-unit id="reactivateusers.none">
 <source>Choose at least one user to reactivate.</source>

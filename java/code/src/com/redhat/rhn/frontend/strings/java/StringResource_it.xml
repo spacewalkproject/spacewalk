@@ -2804,14 +2804,6 @@ utente prima di disabilitare l'account in questione.</target></trans-unit>
         </context-group>
       <target>È necessario essere un Amministratore dell'Organizzazione per poter abilitare un utente.</target></trans-unit>
 
-      <trans-unit id="userenable.error.orgadmin.param">
-<source>{0}: You must be an Organization Administrator to enable a user.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/users/EnableConfirm</context>
-            <context context-type="paramnotes">kjohnny4: You must be an Organization
-                                               Administrator to enable a user.</context>
-        </context-group>
-      <target>{0}: È necessario essere un Amministratore dell'Organizzazione per poter abilitare un utente.</target></trans-unit>
 
       <trans-unit id="reactivateusers.none">
 <source>Choose at least one user to reactivate.</source>

@@ -2780,14 +2780,6 @@ user before attempting to deactivate their account.</source>
         </context-group>
       <target>एक उपयोक्ता सक्रिय करने के लिये आपको एक संगठन प्रशासक होना चाहिए.</target></trans-unit>
 
-      <trans-unit id="userenable.error.orgadmin.param">
-<source>{0}: You must be an Organization Administrator to enable a user.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/users/EnableConfirm</context>
-            <context context-type="paramnotes">kjohnny4: You must be an Organization
-                                               Administrator to enable a user.</context>
-        </context-group>
-      <target>{0}: आप एक उपयोक्ता सक्रिय करने के लिये आपको एक संगठन प्रशासक होना चाहिए.</target></trans-unit>
 
       <trans-unit id="reactivateusers.none">
 <source>Choose at least one user to reactivate.</source>
