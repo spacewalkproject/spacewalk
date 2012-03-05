@@ -7669,9 +7669,6 @@ Follow this url to see the full list of inactive systems:
       <trans-unit id="matchingFieldValue">
         <source>Matching Field Value</source>
       <target>一致したフィールド値</target></trans-unit>
-      <trans-unit id="listtag.note">
-          <source>Note:</source>
-      <target>注記:</target></trans-unit>
 
 
       <trans-unit id="listtag.clearfilter">

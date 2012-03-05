@@ -7645,9 +7645,6 @@ url பின்பற்றி செயலிழக்கப்பட்ட �
       <trans-unit id="matchingFieldValue">
         <source>Matching Field Value</source>
       <target>பொருந்தும் புல மதிப்பு</target></trans-unit>
-      <trans-unit id="listtag.note">
-          <source>Note:</source>
-      <target>குறிப்பு:</target></trans-unit>
 
 
       <trans-unit id="listtag.clearfilter">

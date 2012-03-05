@@ -7676,9 +7676,6 @@ Folgen Sie dieser URL f&amp;uuml;r die vollst&amp;auml;ndige Liste inaktiver Sys
       <trans-unit id="matchingFieldValue">
         <source>Matching Field Value</source>
       <target>Übereinstimmender Feldwert</target></trans-unit>
-      <trans-unit id="listtag.note">
-          <source>Note:</source>
-      <target>Anmerkung:</target></trans-unit>
 
 
       <trans-unit id="listtag.clearfilter">

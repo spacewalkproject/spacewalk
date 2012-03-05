@@ -7657,9 +7657,6 @@ Follow this url to see the full list of inactive systems:
       <trans-unit id="matchingFieldValue">
         <source>Matching Field Value</source>
       <target>Valor do Campo Coincidente</target></trans-unit>
-      <trans-unit id="listtag.note">
-          <source>Note:</source>
-      <target>Nota:</target></trans-unit>
 
 
       <trans-unit id="listtag.clearfilter">

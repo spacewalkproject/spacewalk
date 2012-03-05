@@ -7670,9 +7670,6 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
       <trans-unit id="matchingFieldValue">
         <source>Matching Field Value</source>
       <target>Valor de campo coincidente</target></trans-unit>
-      <trans-unit id="listtag.note">
-          <source>Note:</source>
-      <target>Nota:</target></trans-unit>
 
 
       <trans-unit id="listtag.clearfilter">

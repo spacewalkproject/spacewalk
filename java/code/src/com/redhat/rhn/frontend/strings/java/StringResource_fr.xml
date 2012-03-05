@@ -7672,9 +7672,6 @@ Suivez cet url pour obtenir la liste complète des systèmes inactifs :
       <trans-unit id="matchingFieldValue">
         <source>Matching Field Value</source>
       <target>Valeurs de champs correspondants</target></trans-unit>
-      <trans-unit id="listtag.note">
-          <source>Note:</source>
-      <target>Remarque&amp;nbsp;:</target></trans-unit>
 
 
       <trans-unit id="listtag.clearfilter">

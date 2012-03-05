@@ -7651,9 +7651,6 @@ Follow this url to see the full list of inactive systems:
       <trans-unit id="matchingFieldValue">
         <source>Matching Field Value</source>
       <target>সমতূল্য ক্ষেত্রের মান</target></trans-unit>
-      <trans-unit id="listtag.note">
-          <source>Note:</source>
-      <target>উল্লেখ্য:</target></trans-unit>
 
 
       <trans-unit id="listtag.clearfilter">

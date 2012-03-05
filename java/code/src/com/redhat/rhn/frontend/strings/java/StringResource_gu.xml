@@ -7645,9 +7645,6 @@ Follow this url to see the full list of inactive systems:
       <trans-unit id="matchingFieldValue">
         <source>Matching Field Value</source>
       <target>ક્ષેત્ર કિંમતને બંધબેસાડી રહ્યા છે</target></trans-unit>
-      <trans-unit id="listtag.note">
-          <source>Note:</source>
-      <target>નોંધ:</target></trans-unit>
 
 
       <trans-unit id="listtag.clearfilter">
