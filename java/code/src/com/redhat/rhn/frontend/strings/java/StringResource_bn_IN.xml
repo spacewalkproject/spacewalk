@@ -2321,12 +2321,6 @@ available for this kickstart profile to function properly.
       <target>ডিস্ট্রিবিউশন মুছে ফেলুন</target></trans-unit>
 
 
-      <trans-unit id="toolbar.create.probesuitesystem">
-<source>add systems to probe suite</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuites.do</context>
-        </context-group>
-      <target>অনুসন্ধানের সমষ্ঠির মধ্যে সিস্টেম যোগ করুন</target></trans-unit>
 
       <trans-unit id="toolbar.delete.profile">
 <source>delete profile</source>

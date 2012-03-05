@@ -2346,12 +2346,6 @@ verfügbar machen, damit dieses Kickstart-Profil einwandfrei funktionieren kann.
       <target>Distribution l&amp;ouml;schen</target></trans-unit>
 
 
-      <trans-unit id="toolbar.create.probesuitesystem">
-<source>add systems to probe suite</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuites.do</context>
-        </context-group>
-      <target>Systeme zur Probe-Suite hinzuf&amp;uuml;gen</target></trans-unit>
 
       <trans-unit id="toolbar.delete.profile">
 <source>delete profile</source>

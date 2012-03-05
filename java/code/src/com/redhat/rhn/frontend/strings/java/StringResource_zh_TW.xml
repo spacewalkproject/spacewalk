@@ -2315,12 +2315,6 @@ available for this kickstart profile to function properly.
       <target>刪除發行套件</target></trans-unit>
 
 
-      <trans-unit id="toolbar.create.probesuitesystem">
-<source>add systems to probe suite</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuites.do</context>
-        </context-group>
-      <target>將系統加入偵測組</target></trans-unit>
 
       <trans-unit id="toolbar.delete.profile">
 <source>delete profile</source>

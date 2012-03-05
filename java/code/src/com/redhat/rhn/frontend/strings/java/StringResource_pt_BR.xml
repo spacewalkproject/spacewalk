@@ -2329,12 +2329,6 @@ disponíveis para seu perfil kickstart funcionar corretamente./n&lt;/li&gt;
       <target>remover distribuição</target></trans-unit>
 
 
-      <trans-unit id="toolbar.create.probesuitesystem">
-<source>add systems to probe suite</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuites.do</context>
-        </context-group>
-      <target>adicionar sistemas ao conjunto de detecções</target></trans-unit>
 
       <trans-unit id="toolbar.delete.profile">
 <source>delete profile</source>
