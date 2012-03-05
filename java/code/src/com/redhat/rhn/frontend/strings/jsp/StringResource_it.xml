@@ -3998,12 +3998,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/admin/multiorg/OrgDetails.do</context>
         </context-group>
       <target>Nome dell'organizzazione</target></trans-unit>
-      <trans-unit id="org.admins.jsp">
-<source>Organization Administrators</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgDetails.do</context>
-        </context-group>
-      <target>Amministraori dell'Organizzazione</target></trans-unit>
       <trans-unit id="org.active.users.jsp">
 <source>Active Users</source>
         <context-group name="ctx">

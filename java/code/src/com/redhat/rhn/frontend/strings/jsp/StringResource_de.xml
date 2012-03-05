@@ -3998,12 +3998,6 @@ dr&amp;uuml;cken und &lt;b&gt;k&amp;ouml;nnen sich nicht wieder einloggen&lt;/b&
           <context context-type="sourcefile">/rhn/admin/multiorg/OrgDetails.do</context>
         </context-group>
       <target>Organisationsname</target></trans-unit>
-      <trans-unit id="org.admins.jsp">
-<source>Organization Administrators</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgDetails.do</context>
-        </context-group>
-      <target>Organisationsadministratoren</target></trans-unit>
       <trans-unit id="org.active.users.jsp">
 <source>Active Users</source>
         <context-group name="ctx">
