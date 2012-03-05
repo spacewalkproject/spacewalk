@@ -306,9 +306,6 @@
         <trans-unit id="lookup.jsp.reason1.channel">
           <source>The channel requested does not exist.  This is most likely if you arrived at this page through bookmarks or some other non-hyperlink.</source>
         <target>અરજી થયેલ ચેનલ અસ્તિત્વમાં નથી.  આ મોટે ભાગે આવું છે જો તમે આ પાનાં આગળ બુકમાર્કો અથવા અમુક અન્ય બિન-હાયપરલીંક મારફતે મેળવો.</target></trans-unit>
-        <trans-unit id="lookup.jsp.reason1.package">
-          <source>The package requested does not exist.  This is most likely if you arrived at this page through bookmarks or some other non-hyperlink.</source>
-        <target>અરજી થયેલ પેકેજ અસ્તિત્વમાં નથી.  આ મોટે ભાગે એટલા માટે થાય છે જો તમે આ પાનાં આગળ બુકમાર્કો અથવા અમુક અન્ય બિન-હાયપરલીંક મારફતે આવો.</target></trans-unit>
         <trans-unit id="lookup.jsp.reason1.errata">
           <source>The erratum requested does not exist.  This is most likely if you arrived at this page through bookmarks or some other non-hyperlink.</source>
         <target>અરજી થયેલ ત્રુટિસૂચી અસ્તિત્વમાં નથી.  આ મોટે ભાગે આવું છે જો તમે આ પાનાં આગળ બુકમાર્કો અથવા અમુક અન્ય બિન-હાયપરલીંક મારફતે મેળવો.</target></trans-unit>

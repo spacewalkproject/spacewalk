@@ -306,9 +306,6 @@
         <trans-unit id="lookup.jsp.reason1.channel">
           <source>The channel requested does not exist.  This is most likely if you arrived at this page through bookmarks or some other non-hyperlink.</source>
         <target>指定的頻道不存在。這很可能是因為您透過書籤或其他非超連結連上這網頁。</target></trans-unit>
-        <trans-unit id="lookup.jsp.reason1.package">
-          <source>The package requested does not exist.  This is most likely if you arrived at this page through bookmarks or some other non-hyperlink.</source>
-        <target>指定的頻道不存在。這很可能是因為您透過書籤或其它非超連結來連上此網頁。</target></trans-unit>
         <trans-unit id="lookup.jsp.reason1.errata">
           <source>The erratum requested does not exist.  This is most likely if you arrived at this page through bookmarks or some other non-hyperlink.</source>
         <target>指定的勘誤不存在。這很可能是因為您透過書籤或其他非超連結連上這網頁。</target></trans-unit>

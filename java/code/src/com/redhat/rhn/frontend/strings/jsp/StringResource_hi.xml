@@ -306,9 +306,6 @@
         <trans-unit id="lookup.jsp.reason1.channel">
           <source>The channel requested does not exist.  This is most likely if you arrived at this page through bookmarks or some other non-hyperlink.</source>
         <target>निवेदित चैनल मौजूद नहीं है.  यह सर्वाधिक संभव है अगर आप किसी पुस्तचिह्न या किसी अन्य हाइपरलिंक से होकर इस पृष्ठ पर आते हैं.</target></trans-unit>
-        <trans-unit id="lookup.jsp.reason1.package">
-          <source>The package requested does not exist.  This is most likely if you arrived at this page through bookmarks or some other non-hyperlink.</source>
-        <target>निवेदित संकुल मौजूद नहीं है.  यह सर्वाधिक संभव है अगर आप किसी पुस्तचिह्न या किसी अन्य गैरहाइपरलिंक से होकर इस पृष्ठ पर आते हैं.</target></trans-unit>
         <trans-unit id="lookup.jsp.reason1.errata">
           <source>The erratum requested does not exist.  This is most likely if you arrived at this page through bookmarks or some other non-hyperlink.</source>
         <target>निवेदित इरेटा मौजूद नहीं है.  यह सर्वाधिक संभव है अगर आप किसी पुस्तचिह्न या किसी अन्य हाइपरलिंक से होकर इस पृष्ठ पर आये हैं.</target></trans-unit>

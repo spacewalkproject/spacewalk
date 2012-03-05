@@ -306,9 +306,6 @@
         <trans-unit id="lookup.jsp.reason1.channel">
           <source>The channel requested does not exist.  This is most likely if you arrived at this page through bookmarks or some other non-hyperlink.</source>
         <target>요청한 채널이 존재하지 않는 경우. 일부 다른 비-하이퍼링크나 북마크를 통해 이 페이지를 방문하셨을 경우 가장 흔히 발생합니다.  </target></trans-unit>
-        <trans-unit id="lookup.jsp.reason1.package">
-          <source>The package requested does not exist.  This is most likely if you arrived at this page through bookmarks or some other non-hyperlink.</source>
-        <target>요청한 패키지가 존재하지 않습니다. 일부 다른 비-하이퍼링크나 북마크를 통해 이 페이지를 방문하셨을 경우 가장 흔히 발생합니다.  </target></trans-unit>
         <trans-unit id="lookup.jsp.reason1.errata">
           <source>The erratum requested does not exist.  This is most likely if you arrived at this page through bookmarks or some other non-hyperlink.</source>
         <target>요청한 에라타가 존재하지 않는 경우. 일부 다른 비-하이퍼링크나 북마크를 통해 이 페이지를 방문하셨을 경우 가장 흔히 발생합니다.  </target></trans-unit>

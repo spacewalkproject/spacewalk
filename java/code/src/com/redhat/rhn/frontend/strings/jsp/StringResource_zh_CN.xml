@@ -306,9 +306,6 @@
         <trans-unit id="lookup.jsp.reason1.channel">
           <source>The channel requested does not exist.  This is most likely if you arrived at this page through bookmarks or some other non-hyperlink.</source>
         <target>所需频道并不存在。这很可能是您通过一个书签或其它非超级链接来到这一页。</target></trans-unit>
-        <trans-unit id="lookup.jsp.reason1.package">
-          <source>The package requested does not exist.  This is most likely if you arrived at this page through bookmarks or some other non-hyperlink.</source>
-        <target>所需软件包不存在。这很可能是您通过一个书签或其它非超级链接来到这一页。</target></trans-unit>
         <trans-unit id="lookup.jsp.reason1.errata">
           <source>The erratum requested does not exist.  This is most likely if you arrived at this page through bookmarks or some other non-hyperlink.</source>
         <target>所需勘误不存在。这很可能是因为您使用书签（bookmark）或其它非链接的方法来访问这个页。</target></trans-unit>

@@ -306,9 +306,6 @@
         <trans-unit id="lookup.jsp.reason1.channel">
           <source>The channel requested does not exist.  This is most likely if you arrived at this page through bookmarks or some other non-hyperlink.</source>
         <target>ਮੰਗਿਆ ਚੈਨਲ ਮੌਜੂਦ ਨਹੀਂ ਹੈ। ਜੇਕਰ ਤੁਸੀਂ ਇਸ ਸਫ਼ੇ 'ਤੇ ਪਹੁੰਚ ਗਏ ਹੋ ਤਾਂ  ਤੁਸੀਂ ਬੁੱਕਮਾਰਕ ਜਾਂ ਕੁਝ ਨਾ-ਹਾਇਪਰਲਿੰਕ ਦੀ ਵਰਤੋਂ ਕੀਤੀ ਹੋ ਸਕਦੀ ਹੈ।</target></trans-unit>
-        <trans-unit id="lookup.jsp.reason1.package">
-          <source>The package requested does not exist.  This is most likely if you arrived at this page through bookmarks or some other non-hyperlink.</source>
-        <target>ਮੰਗਿਆ ਚੈਨਲ ਮੌਜੂਦ ਨਹੀਂ ਹੈ। ਅਜਿਹਾ ਤਾਂ ਹੋਇਆ ਹੈ ਜੇਕਰ ਤੁਸੀਂ ਇਸ ਸਫ਼ੇ 'ਤੇ ਬੁੱਕਮਾਰਕ ਜਾਂ ਕੁਝ ਨਾਨ-ਹਾਇਪਰਲਿੰਕ ਦੀ ਵਰਤੋਂ ਕਰਕੇ ਪਹੁੰਚ ਗਏ ਹੋ।</target></trans-unit>
         <trans-unit id="lookup.jsp.reason1.errata">
           <source>The erratum requested does not exist.  This is most likely if you arrived at this page through bookmarks or some other non-hyperlink.</source>
         <target>ਮੰਗਿਆ ਇੱਰਟਮ (erratum) ਮੌਜੂਦ ਨਹੀਂ ਹੈ। ਜੇਕਰ ਤੁਸੀਂ ਇਸ ਸਫ਼ੇ 'ਤੇ ਪਹੁੰਚ ਗਏ ਹੋ ਤਾਂ ਤੁਸੀਂ ਬੁੱਕਮਾਰਕ ਜਾਂ ਕੁਝ ਨਾ-ਹਾਇਪਰਲਿੰਕ ਦੀ ਵਰਤੋਂ ਕੀਤੀ ਹੋ ਸਕਦੀ ਹੈ।</target></trans-unit>

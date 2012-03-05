@@ -306,9 +306,6 @@
         <trans-unit id="lookup.jsp.reason1.channel">
           <source>The channel requested does not exist.  This is most likely if you arrived at this page through bookmarks or some other non-hyperlink.</source>
         <target>தடத்தின் கோரிக்கை எதுவும் இல்லை. நீங்கள் இந்தப் பக்கத்திற்குப் புத்தகக் குறி அல்லது பிற மீஇணைப்பில்லாதது மூலம் வந்திருக்கலாம்.</target></trans-unit>
-        <trans-unit id="lookup.jsp.reason1.package">
-          <source>The package requested does not exist.  This is most likely if you arrived at this page through bookmarks or some other non-hyperlink.</source>
-        <target>கோரப்பட்ட தொகுப்பு எதுவும் இல்லை. நீங்கள் இந்தப் பக்கத்திற்குப் புத்தகக் குறி அல்லது பிற மீஇணைப்பில்லாதது மூலம் வந்திருக்கலாம்.</target></trans-unit>
         <trans-unit id="lookup.jsp.reason1.errata">
           <source>The erratum requested does not exist.  This is most likely if you arrived at this page through bookmarks or some other non-hyperlink.</source>
         <target>பிழைத்திருத்த கோரிக்கை எதுவும் இல்லை. நீங்கள் இந்தப் பக்கத்திற்குப் புத்தகக் குறி அல்லது பிற மீஇணைப்பில்லாதது மூலம் வந்திருக்கலாம்.</target></trans-unit>
