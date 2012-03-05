@@ -11981,9 +11981,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <trans-unit id="targetsystems.jsp.widgetsummary">
           <source>You may schedule &lt;code&gt;rhncfg*&lt;/code&gt; package installs for the time below. &lt;strong&gt;Note: All other actions will take place immediately.&lt;/strong&gt;</source>
         <target>ਤੁਸੀਂ ਹੇਠਲੇ ਸਮੇਂ ਦੌਰਾਨ &lt;code&gt;rhncfg*&lt;/code&gt; ਪੈਕੇਜ ਇੰਸਟਾਲਲ ਕਰਨ ਲਈ ਸਮਾਂ ਤਹਿ ਕਰ ਸਕਦੇ ਹੋ। &lt;strong&gt;ਸੂਚਨਾ: ਹੋਰ ਸਭ ਕਾਰਵਾਈਆਂ ਤੁਰੰਤ ਹੋਣਗੀਆਂ।&lt;/strong&gt;</target></trans-unit>
-        <trans-unit id="subscribe_systems.success">
-          <source>{0} systems successfully subscribed.</source>
-        <target>{0} ਸਿਸਟਮ ਸਫਲਤਾਪੂਰਕ ਮੈਂਬਰ ਬਣੇ।</target></trans-unit>
         <trans-unit id="unsub_systems.success">
           <source>{0} systems successfully unsubscribed.</source>
         <target>{0} ਸਿਸਟਮ ਸਫਲਤਾਪੂਰਕ ਮੈਂਬਰੀਂ ਤੋਂ ਹਟੇ।</target></trans-unit>

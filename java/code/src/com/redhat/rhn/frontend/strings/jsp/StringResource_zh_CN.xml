@@ -11992,9 +11992,6 @@ kickstart 前脚本的内容可以在 &lt;strong&gt;《红帽企业版 Linux 系
         <trans-unit id="targetsystems.jsp.widgetsummary">
           <source>You may schedule &lt;code&gt;rhncfg*&lt;/code&gt; package installs for the time below. &lt;strong&gt;Note: All other actions will take place immediately.&lt;/strong&gt;</source>
         <target>您可以调度 &lt;code&gt;rhncfg*&lt;/code&gt; 软件包在下面的时间安装。&lt;strong&gt;注意：所有其他的动作将立即开始。&lt;/strong&gt;</target></trans-unit>
-        <trans-unit id="subscribe_systems.success">
-          <source>{0} systems successfully subscribed.</source>
-        <target>{0} 个系统成功地订阅。</target></trans-unit>
         <trans-unit id="unsub_systems.success">
           <source>{0} systems successfully unsubscribed.</source>
         <target>{0} 个系统成功地退订。</target></trans-unit>

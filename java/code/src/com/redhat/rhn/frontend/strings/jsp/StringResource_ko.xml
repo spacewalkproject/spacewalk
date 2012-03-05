@@ -11977,9 +11977,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <trans-unit id="targetsystems.jsp.widgetsummary">
           <source>You may schedule &lt;code&gt;rhncfg*&lt;/code&gt; package installs for the time below. &lt;strong&gt;Note: All other actions will take place immediately.&lt;/strong&gt;</source>
         <target>아래의 시간으로 &lt;code&gt;rhncfg*&lt;/code&gt; 패키지 설치를 스케줄하실 수 있습니다. &lt;strong&gt;알림: 다른 모든 작업은 즉시 실행됩니다.&lt;/strong&gt;</target></trans-unit>
-        <trans-unit id="subscribe_systems.success">
-          <source>{0} systems successfully subscribed.</source>
-        <target>{0} 시스템이 등록되었습니다.</target></trans-unit>
         <trans-unit id="unsub_systems.success">
           <source>{0} systems successfully unsubscribed.</source>
         <target>{0} 시스템이 등록 해제되었습니다.</target></trans-unit>

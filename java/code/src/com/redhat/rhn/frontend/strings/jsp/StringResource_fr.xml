@@ -11997,9 +11997,6 @@ Le script post non-chroot sera ensuite exécuté et le script post sera enfin ex
         <trans-unit id="targetsystems.jsp.widgetsummary">
           <source>You may schedule &lt;code&gt;rhncfg*&lt;/code&gt; package installs for the time below. &lt;strong&gt;Note: All other actions will take place immediately.&lt;/strong&gt;</source>
         <target>Vous pouvez programmer les installations des paquetages &lt;code&gt;rhncfg*&lt;/code&gt; à la date et à l'heure indiquées ci-dessous. &lt;strong&gt;Remarque&amp;nbsp;: toutes les autres actions prendront place immédiatement.&lt;/strong&gt;</target></trans-unit>
-        <trans-unit id="subscribe_systems.success">
-          <source>{0} systems successfully subscribed.</source>
-        <target>{0} systèmes ont été abonnés.</target></trans-unit>
         <trans-unit id="unsub_systems.success">
           <source>{0} systems successfully unsubscribed.</source>
         <target>{0} systèmes ont bien été désabonnés.</target></trans-unit>
