@@ -5413,12 +5413,6 @@ value for this entitlement, excluding the default organization's consumption.</s
 
 	</group>
 
-     <trans-unit id="systementitlements.jsp.footnote">
-		<source>For more information on entitlement purchase and expiration dates, please visit &lt;a href="/rhn/account/PurchaseHistory.do"&gt; &lt;strong&gt;Expiration Dates &amp;amp; Purchase History&lt;/strong&gt;&lt;/a&gt; page via the left-hand navigation bar.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/systems/SystemEntitlements</context>
-        </context-group>
-     <target>உரிமம் வாங்குதல் மற்றும் முடிவுறும் தேதிகள் பற்றிய மேலும் தகவலுக்கு, நீங்கள் &lt;a href="rhn/account/PurchaseHistory.do"&gt; &lt;strong&gt;முடிவுறும் தேதிகள் &amp;amp; வாங்கும் விவரங்கள் &lt;/strong&gt;&lt;/a&gt;பக்கத்தை மேலே இடது திசையமைப்பு வழியாக பார்க்கவும்.</target></trans-unit>
 
      <trans-unit id="systementitlements.jsp.base_entitlements">
 		<source>Base Entitlements</source>

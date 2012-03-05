@@ -5407,12 +5407,6 @@ value for this entitlement, excluding the default organization's consumption.</s
 
 	</group>
 
-     <trans-unit id="systementitlements.jsp.footnote">
-		<source>For more information on entitlement purchase and expiration dates, please visit &lt;a href="/rhn/account/PurchaseHistory.do"&gt; &lt;strong&gt;Expiration Dates &amp;amp; Purchase History&lt;/strong&gt;&lt;/a&gt; page via the left-hand navigation bar.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/systems/SystemEntitlements</context>
-        </context-group>
-     <target>エンタイトルメントの購入及び有効期限についての詳細は、 左のナビゲーションバーから &lt;a href="/rhn/account/PurchaseHistory.do"&gt; &lt;strong&gt;有効期限と購入履歴&lt;/strong&gt; &lt;/a&gt; ページをご覧ください。</target></trans-unit>
 
      <trans-unit id="systementitlements.jsp.base_entitlements">
 		<source>Base Entitlements</source>

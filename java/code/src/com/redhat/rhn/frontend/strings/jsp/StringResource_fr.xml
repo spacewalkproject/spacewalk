@@ -5414,12 +5414,6 @@ pour ce droit d'accès, moins la consommation par défaut de l'organisation.</ta
 
 	</group>
 
-     <trans-unit id="systementitlements.jsp.footnote">
-		<source>For more information on entitlement purchase and expiration dates, please visit &lt;a href="/rhn/account/PurchaseHistory.do"&gt; &lt;strong&gt;Expiration Dates &amp;amp; Purchase History&lt;/strong&gt;&lt;/a&gt; page via the left-hand navigation bar.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/systems/SystemEntitlements</context>
-        </context-group>
-     <target>Pour davantage d'informations sur l'achat et les dates d'expiration de droits d'accès, rendez-vous sur la page &lt;a href="/rhn/account/PurchaseHistory.do"&gt; &lt;strong&gt;Dates d'expiration &amp;amp; Historique d'achats&lt;/strong&gt;&lt;/a&gt; via la barre de navigation de gauche.</target></trans-unit>
 
      <trans-unit id="systementitlements.jsp.base_entitlements">
 		<source>Base Entitlements</source>

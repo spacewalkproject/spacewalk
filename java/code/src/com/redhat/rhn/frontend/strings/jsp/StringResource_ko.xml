@@ -5412,12 +5412,6 @@ value for this entitlement, excluding the default organization's consumption.</s
 
 	</group>
 
-     <trans-unit id="systementitlements.jsp.footnote">
-		<source>For more information on entitlement purchase and expiration dates, please visit &lt;a href="/rhn/account/PurchaseHistory.do"&gt; &lt;strong&gt;Expiration Dates &amp;amp; Purchase History&lt;/strong&gt;&lt;/a&gt; page via the left-hand navigation bar.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/systems/SystemEntitlements</context>
-        </context-group>
-     <target>인타이틀먼트의 구매와 만료일에 대하여 보다 자세한 정보를 보시려면, 위의 좌측 내비게이션 바를 이용하여 &lt;a href="rhn/account/PurchaseHistory.do"&gt; &lt;strong&gt;만료날짜 &amp;amp; 구매 기록&lt;/strong&gt;&lt;/a&gt; 페이지로 가보시기 바랍니다.</target></trans-unit>
 
      <trans-unit id="systementitlements.jsp.base_entitlements">
 		<source>Base Entitlements</source>
