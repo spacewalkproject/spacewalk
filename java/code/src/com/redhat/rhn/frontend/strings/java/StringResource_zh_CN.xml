@@ -1271,12 +1271,6 @@
           <context context-type="sourcefile">/rhn/users/ChangeEmail</context>
         </context-group>
       <target>您必须指定一个不同的电子邮件</target></trans-unit>
-      <trans-unit id="error.addr_empty">
-<source>A valid email address must be entered</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/GeneralConfig</context>
-        </context-group>
-      <target>必须输入一个有效的电子邮件地址</target></trans-unit>
 
       <trans-unit id="error.maxemail">
 <source>The email address is too long. Please enter a shorter email address and try again.</source>

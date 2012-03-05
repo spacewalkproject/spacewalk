@@ -1277,12 +1277,6 @@
           <context context-type="sourcefile">/rhn/users/ChangeEmail</context>
         </context-group>
       <target>কোনো ভিন্ন ই-মেইল ঠিকানা উল্লেখ করা আবশ্যক</target></trans-unit>
-      <trans-unit id="error.addr_empty">
-<source>A valid email address must be entered</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/GeneralConfig</context>
-        </context-group>
-      <target>বৈধ ই-মেইল ঠিকানা লেখা আবশ্যক</target></trans-unit>
 
       <trans-unit id="error.maxemail">
 <source>The email address is too long. Please enter a shorter email address and try again.</source>

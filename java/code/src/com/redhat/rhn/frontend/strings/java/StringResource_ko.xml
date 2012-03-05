@@ -1271,12 +1271,6 @@
           <context context-type="sourcefile">/rhn/users/ChangeEmail</context>
         </context-group>
       <target>다른 이메일을 입력해주십시오</target></trans-unit>
-      <trans-unit id="error.addr_empty">
-<source>A valid email address must be entered</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/GeneralConfig</context>
-        </context-group>
-      <target>올바른 이메일 주소를 입력해주십시오</target></trans-unit>
 
       <trans-unit id="error.maxemail">
 <source>The email address is too long. Please enter a shorter email address and try again.</source>

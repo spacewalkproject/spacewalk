@@ -1271,12 +1271,6 @@
           <context context-type="sourcefile">/rhn/users/ChangeEmail</context>
         </context-group>
       <target>நீங்கள் வேறு மின்னஞ்சலை குறிப்பிட வேண்டும்</target></trans-unit>
-      <trans-unit id="error.addr_empty">
-<source>A valid email address must be entered</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/GeneralConfig</context>
-        </context-group>
-      <target>முறையான மின்னஞ்சல் முகவரி உள்ளிடப்பட வேண்டும்</target></trans-unit>
 
       <trans-unit id="error.maxemail">
 <source>The email address is too long. Please enter a shorter email address and try again.</source>

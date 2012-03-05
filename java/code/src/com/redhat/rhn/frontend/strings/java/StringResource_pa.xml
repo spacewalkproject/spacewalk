@@ -1273,12 +1273,6 @@
           <context context-type="sourcefile">/rhn/users/ChangeEmail</context>
         </context-group>
       <target>ਤੁਹਾਨੂੰ ਇੱਕ ਵੱਖਰਾ ਈ-ਮੇਲ ਸਿਰਨਾਵਾਂ ਦੇਣਾ ਚਾਹੀਦਾ ਹੈ</target></trans-unit>
-      <trans-unit id="error.addr_empty">
-<source>A valid email address must be entered</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/GeneralConfig</context>
-        </context-group>
-      <target>ਸਹੀ ਈ-ਮੇਲ ਸਿਰਨਾਵਾਂ ਭਰਨਾ ਜਰੂਰੀ ਹੈ</target></trans-unit>
 
       <trans-unit id="error.maxemail">
 <source>The email address is too long. Please enter a shorter email address and try again.</source>
