@@ -5918,12 +5918,6 @@ utilisateur avant de désactiver son compte.</target></trans-unit>
 
 
 
-    <trans-unit id="certificate.config.error.85">
-        <source>Unknown activation error, see log file for more details.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-      <target>Erreur d'activation inconnue, voir le fichier de journalisation pour en savoir plus.</target></trans-unit>
 
     <trans-unit id="certificate.config.error.86">
         <source>@@PRODUCT_NAME@@ has no base channel on parent server</source>
