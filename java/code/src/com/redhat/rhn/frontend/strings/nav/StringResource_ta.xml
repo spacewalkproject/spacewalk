@@ -769,12 +769,6 @@
         </context-group>
       <target>கட்டமை கோப்புகள்</target></trans-unit>
 
-      <trans-unit id="Local Overrides">
-<source>Local Overrides</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-      <target>உள்ளமை மேலாணைகள்</target></trans-unit>
 
       <trans-unit id="Outage Policy">
 <source>Outage Policy</source>

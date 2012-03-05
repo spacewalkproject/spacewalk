@@ -788,12 +788,6 @@ http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd"
         </context-group>
       </trans-unit>
 
-      <trans-unit id="Local Overrides">
-<source>Local Overrides</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-      </trans-unit>
 
       <trans-unit id="Outage Policy">
 <source>Outage Policy</source>

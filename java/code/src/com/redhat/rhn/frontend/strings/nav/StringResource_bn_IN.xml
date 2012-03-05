@@ -769,12 +769,6 @@
         </context-group>
       <target>কনফিগারেশন সংক্রান্ত ফাইল</target></trans-unit>
 
-      <trans-unit id="Local Overrides">
-<source>Local Overrides</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-      <target>স্থানীয়রূপে অগ্রাহ্য করা হবে</target></trans-unit>
 
       <trans-unit id="Outage Policy">
 <source>Outage Policy</source>

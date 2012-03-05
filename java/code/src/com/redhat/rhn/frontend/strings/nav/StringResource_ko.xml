@@ -769,12 +769,6 @@
         </context-group>
       <target>설정 파일</target></trans-unit>
 
-      <trans-unit id="Local Overrides">
-<source>Local Overrides</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-      <target>지역 우위</target></trans-unit>
 
       <trans-unit id="Outage Policy">
 <source>Outage Policy</source>
