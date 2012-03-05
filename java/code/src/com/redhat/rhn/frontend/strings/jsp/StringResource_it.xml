@@ -19921,9 +19921,6 @@ stesso pacchetto in un singolo canale, ciò potrebbe causare però il
      <trans-unit id="task.status.errata-queue">
          <source>Errata Notification Queue</source>
      <target>Invia la notifica errata</target></trans-unit>
-     <trans-unit id="task.status.errata-mailer">
-         <source>Errata Notification Mail</source>
-     <target>Invia la notifica errata</target></trans-unit>
      <trans-unit id="task.status.summary-population">
          <source>Daily Summary Queue</source>
      <target>Sommario giornaliero</target></trans-unit>

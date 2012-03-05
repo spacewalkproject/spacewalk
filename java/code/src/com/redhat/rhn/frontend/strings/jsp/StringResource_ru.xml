@@ -19911,9 +19911,6 @@ given channel.</source>
      <trans-unit id="task.status.errata-queue">
          <source>Errata Notification Queue</source>
      <target>Отправить уведомление об исправлениях</target></trans-unit>
-     <trans-unit id="task.status.errata-mailer">
-         <source>Errata Notification Mail</source>
-     <target>Отправить уведомление об исправлениях</target></trans-unit>
      <trans-unit id="task.status.summary-population">
          <source>Daily Summary Queue</source>
      <target>Дневная сводка</target></trans-unit>

@@ -20043,9 +20043,6 @@ f&amp;uuml;r einen angegebenen Channel aufgelistet wird.</target></trans-unit>
      <trans-unit id="task.status.errata-queue">
          <source>Errata Notification Queue</source>
      <target>Errata-Benachrichtigung senden</target></trans-unit>
-     <trans-unit id="task.status.errata-mailer">
-         <source>Errata Notification Mail</source>
-     <target>Errata-Benachrichtigung senden</target></trans-unit>
      <trans-unit id="task.status.summary-population">
          <source>Daily Summary Queue</source>
      <target>T&amp;auml;gliche Zusammenfassung</target></trans-unit>

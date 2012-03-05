@@ -19923,9 +19923,6 @@ given channel.</source>
      <trans-unit id="task.status.errata-queue">
          <source>Errata Notification Queue</source>
      <target>ત્રુટિસૂચી સૂચન મોકલો</target></trans-unit>
-     <trans-unit id="task.status.errata-mailer">
-         <source>Errata Notification Mail</source>
-     <target>ત્રુટિસૂચી સૂચન મોકલો</target></trans-unit>
      <trans-unit id="task.status.summary-population">
          <source>Daily Summary Queue</source>
      <target>દૈનિક સાર</target></trans-unit>
