@@ -20586,9 +20586,6 @@ given channel.</source>
      <trans-unit id="task.status.sandbox-cleanup">
          <source>Sandbox Cleanup</source>
      </trans-unit>
-     <trans-unit id="task.status.package-cleanup">
-         <source>Package Cleanup</source>
-     </trans-unit>
      <trans-unit id="task.status.sat-cert-check">
          <source>Certificate Check</source>
      </trans-unit>
