@@ -22716,12 +22716,6 @@ given channel.</source>
           <context context-type="sourcefile">/rhn/admin/BunchDetail.do</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="bunch.jsp.description.daily-status-bunch">
-        <source>Sends daily report</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/BunchDetail.do</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="bunch.jsp.description.sync-probe-bunch">
         <source>Synchronizes probe state</source>
         <context-group name="ctx">
