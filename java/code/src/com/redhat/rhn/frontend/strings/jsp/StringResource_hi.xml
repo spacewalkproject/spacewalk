@@ -18933,12 +18933,6 @@ Emergency Maintenance windows.&lt;a href="{0}"&gt;Register for the Email Outage 
           <context context-type="sourcefile">/rhn/software/channel/downloads/Download.do</context>
         </context-group>
       <target>पुराने रिलीज देखें</target></trans-unit>
-      <trans-unit id="isodownload.viewprevious">
-<source>View ISO Images for Older Releases</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/software/channel/downloads/Download.do</context>
-        </context-group>
-      <target>पुराने रिलीज के लिये ISO चित्र देखें</target></trans-unit>
 
       <trans-unit id="isodownload.no-access">
 <source>The channel you have attempted to access either does not exist, or you are not allowed access.  Please recheck the link that brought you to this page.</source>
