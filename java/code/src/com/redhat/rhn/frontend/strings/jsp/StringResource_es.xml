@@ -2114,12 +2114,6 @@ del rol de Administrador de la organización.</target></trans-unit>
           <context context-type="sourcefile">/rhn/account/SubscriptionManagement</context>
         </context-group>
       <target>&lt;strong&gt;&lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;Adquiera&lt;/a&gt;&lt;/strong&gt; &lt;strong&gt;derechos administrativos y de aprovisionamiento de @@PRODUCT_NAME@@&lt;/strong&gt; en la &lt;strong&gt;&lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;img src="/img/external-link.gif" alt="External Link" /&gt;Tienda de Red Hat&lt;/a&gt;&lt;/strong&gt;.</target></trans-unit>
-      <trans-unit id="subscriptionmanagement.jsp.entitlements.description2">
-<source>&lt;strong&gt;Note:&lt;/strong&gt; You cannot view entitlement expiration information from the &lt;strong&gt;&lt;a href="/rhn/systems/SystemEntitlements.do"&gt;System Entitlements&lt;/a&gt;&lt;/strong&gt; page in the @@PRODUCT_NAME@@ interface. Instead, please visit the &lt;strong&gt;&lt;a href="https://www.redhat.com/apps/support/complete.html"&gt;&lt;img src="/img/external-link.gif" alt="External Link"/&gt;Red Hat Support Site&lt;/a&gt;&lt;/strong&gt; to view entitlement expiration information.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/account/SubscriptionManagement</context>
-        </context-group>
-      <target>&lt;strong&gt;Nota:&lt;/strong&gt; usted no puede ver la información de vencimiento de sus derechos en la página &lt;strong&gt;&lt;a href="/rhn/systems/SystemEntitlements.do"&gt;Derechos del sistema&lt;/a&gt;&lt;/strong&gt; en la interfaz de @@PRODUCT_NAME@@. Por favor visite en cambio el &lt;strong&gt;&lt;a href="https://www.redhat.com/apps/support/complete.html"&gt;&lt;img src="/img/external-link.gif" alt="External Link"/&gt;Sitio de asistencia de Red Hat&lt;/a&gt;&lt;/strong&gt; para ver la información de vencimiento de los derechos.</target></trans-unit>
 <!-- edit_address.jsp -->
       <trans-unit id="edit_address.jsp.address">
 <source> Address</source>

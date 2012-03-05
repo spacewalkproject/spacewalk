@@ -2113,12 +2113,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/account/SubscriptionManagement</context>
         </context-group>
       <target>&lt;strong&gt;&lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;Приобрести&lt;/a&gt;&lt;/strong&gt; дополнительные &lt;strong&gt;полномочия управления и обеспечения @@PRODUCT_NAME@@&lt;/strong&gt; можно в &lt;strong&gt;&lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;img src="/img/external-link.gif" alt="External Link" /&gt;магазине Red Hat&lt;/a&gt;&lt;/strong&gt;.</target></trans-unit>
-      <trans-unit id="subscriptionmanagement.jsp.entitlements.description2">
-<source>&lt;strong&gt;Note:&lt;/strong&gt; You cannot view entitlement expiration information from the &lt;strong&gt;&lt;a href="/rhn/systems/SystemEntitlements.do"&gt;System Entitlements&lt;/a&gt;&lt;/strong&gt; page in the @@PRODUCT_NAME@@ interface. Instead, please visit the &lt;strong&gt;&lt;a href="https://www.redhat.com/apps/support/complete.html"&gt;&lt;img src="/img/external-link.gif" alt="External Link"/&gt;Red Hat Support Site&lt;/a&gt;&lt;/strong&gt; to view entitlement expiration information.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/account/SubscriptionManagement</context>
-        </context-group>
-      <target>&lt;strong&gt;Замечание:&lt;/strong&gt; Вы не можете просмотреть информацию об истечении полномочий со страницы &lt;strong&gt;&lt;a href="/rhn/systems/SystemEntitlements.do"&gt;Системные полномочия&lt;/a&gt;&lt;/strong&gt; интерфейса @@PRODUCT_NAME@@. Посетите &lt;strong&gt;&lt;a href="https://www.redhat.com/apps/support/complete.html"&gt;&lt;img src="/img/external-link.gif" alt="External Link"/&gt;сайт поддержки Red Hat&lt;/a&gt;&lt;/strong&gt; для просмотра этой информации.</target></trans-unit>
 <!-- edit_address.jsp -->
       <trans-unit id="edit_address.jsp.address">
 <source> Address</source>
