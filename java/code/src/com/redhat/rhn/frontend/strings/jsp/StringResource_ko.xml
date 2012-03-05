@@ -8663,12 +8663,6 @@ organization management tools if you choose to remove this role from your login.
       <target>아니오</target></trans-unit>
 
 
-      <trans-unit id="confirmerrata.jsp.pagesummary">
-<source>The errata listed below will be cloned.  XXX</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/errata/manage/CloneErrata.do</context>
-        </context-group>
-      <target>아래 에라타 목록이 복제될 것입니다. XXX</target></trans-unit>
 
       <trans-unit id="cloneerrata.jsp.noerrata">
 <source>No Errata</source>

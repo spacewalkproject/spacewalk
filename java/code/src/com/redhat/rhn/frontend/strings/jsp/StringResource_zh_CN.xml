@@ -8668,12 +8668,6 @@ organization management tools if you choose to remove this role from your login.
       <target>否</target></trans-unit>
 
 
-      <trans-unit id="confirmerrata.jsp.pagesummary">
-<source>The errata listed below will be cloned.  XXX</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/errata/manage/CloneErrata.do</context>
-        </context-group>
-      <target>将克隆以下列出的勘误。  XXX</target></trans-unit>
 
       <trans-unit id="cloneerrata.jsp.noerrata">
 <source>No Errata</source>
