@@ -1605,12 +1605,6 @@
         </context-group>
       <target>Warnung - Benutzer</target></trans-unit>
 
-      <trans-unit id="Warn if number of blocked processes exceeds">
-        <source>Warn if number of blocked processes exceeds</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-      <target>Warnung, wenn die Anzahl blockierter Prozesse darüber hinausgeht</target></trans-unit>
 
       <trans-unit id="Warn if number of children for any process exceeds">
         <source>Warn if number of children for any process exceeds</source>

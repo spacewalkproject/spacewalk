@@ -1605,12 +1605,6 @@
         </context-group>
       <target>ਸਾਵਧਾਨ ਉਪਭੋਗੀ</target></trans-unit>
 
-      <trans-unit id="Warn if number of blocked processes exceeds">
-        <source>Warn if number of blocked processes exceeds</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-      <target>ਸਾਵਧਾਨ, ਜੇਕਰ ਪਾਬੰਦੀਸ਼ੁਦਾ ਕਾਰਜਾਂ ਦੀ ਗਿਣਤੀ ਵੱਧ ਜਾਵੇ</target></trans-unit>
 
       <trans-unit id="Warn if number of children for any process exceeds">
         <source>Warn if number of children for any process exceeds</source>
