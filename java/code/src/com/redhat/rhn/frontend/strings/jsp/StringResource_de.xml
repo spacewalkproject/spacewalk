@@ -1872,12 +1872,6 @@ dr&amp;uuml;cken und &lt;b&gt;k&amp;ouml;nnen sich nicht wieder einloggen&lt;/b&
           <context context-type="sourcefile">/rhn/users/UserDetails</context>
         </context-group>
       <target>Anrede</target></trans-unit>
-      <trans-unit id="orgcreate.jsp.firstname">
-<source>First Name</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgCreate</context>
-        </context-group>
-      <target>Vorname</target></trans-unit>
       <trans-unit id="orgcreate.jsp.lastname">
 <source>Last Name</source>
         <context-group name="ctx">
