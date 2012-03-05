@@ -12848,12 +12848,6 @@ o &lt;strong&gt;Guia de Administração de Sistemas Red Hat Enterprise Li
           <context context-type="sourcefile">/rhn/configuration/ChannelOverview.do</context>
         </context-group>
      <target>Você precisa inserir os detalhes de canal de configuração abaixo.</target></trans-unit>
-      <trans-unit id="channelOverview.jsp.empty-label">
-<source>Label is required.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Any page with required posix name fields</context>
-        </context-group>
-      <target>Etiqueta requisitada</target></trans-unit>
       <trans-unit id="channelOverview.jsp.empty-name">
 <source>Name is required.</source>
         <context-group name="ctx">

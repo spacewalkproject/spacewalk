@@ -12839,12 +12839,6 @@ la &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stron
           <context context-type="sourcefile">/rhn/configuration/ChannelOverview.do</context>
         </context-group>
      <target>È necessario inserire qui di seguito le informazioni del canale di configurazione.</target></trans-unit>
-      <trans-unit id="channelOverview.jsp.empty-label">
-<source>Label is required.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Any page with required posix name fields</context>
-        </context-group>
-      <target>È necessaria l''etichetta.</target></trans-unit>
       <trans-unit id="channelOverview.jsp.empty-name">
 <source>Name is required.</source>
         <context-group name="ctx">

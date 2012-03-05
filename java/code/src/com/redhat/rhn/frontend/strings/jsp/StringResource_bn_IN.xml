@@ -12841,12 +12841,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
           <context context-type="sourcefile">/rhn/configuration/ChannelOverview.do</context>
         </context-group>
      <target>কনফিগারেশন চ্যানেলের বিবরণ নীচে লেখা আবশ্যক।</target></trans-unit>
-      <trans-unit id="channelOverview.jsp.empty-label">
-<source>Label is required.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Any page with required posix name fields</context>
-        </context-group>
-      <target>লেবেল আবশ্যক।</target></trans-unit>
       <trans-unit id="channelOverview.jsp.empty-name">
 <source>Name is required.</source>
         <context-group name="ctx">

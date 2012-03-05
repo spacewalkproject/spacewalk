@@ -12837,12 +12837,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
           <context context-type="sourcefile">/rhn/configuration/ChannelOverview.do</context>
         </context-group>
      <target>설정 채널 정보를 입력하셔야 합니다.</target></trans-unit>
-      <trans-unit id="channelOverview.jsp.empty-label">
-<source>Label is required.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Any page with required posix name fields</context>
-        </context-group>
-      <target>레이블은 필수 입력 항목입니다.</target></trans-unit>
       <trans-unit id="channelOverview.jsp.empty-name">
 <source>Name is required.</source>
         <context-group name="ctx">
