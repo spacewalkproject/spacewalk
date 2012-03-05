@@ -6,9 +6,6 @@ http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd"
 	version="1.1">
 	<file original="" source-language="en" datatype="plaintext">
 		<body>
-			<trans-unit id="enMessage">
-				<source>some en message</source>
-			</trans-unit>
 		</body>
 	</file>
 </xliff>
