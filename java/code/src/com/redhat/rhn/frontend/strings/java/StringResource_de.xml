@@ -6714,13 +6714,6 @@ Folgen Sie dieser URL f&amp;uuml;r die vollst&amp;auml;ndige Liste inaktiver Sys
         </context-group>
       <target>1 Revision wurde erfolgreich gel&amp;ouml;scht.</target></trans-unit>
 
-      <trans-unit id="config_files.setFilesToRemove.success">
-<source>{0} configuration file(s) successfully deleted.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/ChannelFiles.do</context>
-          <context context-type="paramnotes">7 configuration files were successfully deleted.</context>
-        </context-group>
-     <target>{0} Konfigurationsdatei(en) wurde(n) erfolgreich gel&amp;ouml;scht.</target></trans-unit>
 
 
      <trans-unit id="config_subscribed_systems.unsubscribeSystems.failure">

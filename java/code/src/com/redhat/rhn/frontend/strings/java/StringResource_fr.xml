@@ -6710,13 +6710,6 @@ Suivez cet url pour obtenir la liste complète des systèmes inactifs :
         </context-group>
       <target>1 version a bien été supprimée.</target></trans-unit>
 
-      <trans-unit id="config_files.setFilesToRemove.success">
-<source>{0} configuration file(s) successfully deleted.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/ChannelFiles.do</context>
-          <context context-type="paramnotes">7 configuration files were successfully deleted.</context>
-        </context-group>
-     <target>{0} fichier(s) de configuration a/ont bien été supprimé(s).</target></trans-unit>
 
 
      <trans-unit id="config_subscribed_systems.unsubscribeSystems.failure">

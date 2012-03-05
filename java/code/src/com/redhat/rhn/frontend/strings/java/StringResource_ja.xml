@@ -6707,13 +6707,6 @@ Follow this url to see the full list of inactive systems:
         </context-group>
       <target>1 リビジョンが正常に削除されました。</target></trans-unit>
 
-      <trans-unit id="config_files.setFilesToRemove.success">
-<source>{0} configuration file(s) successfully deleted.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/ChannelFiles.do</context>
-          <context context-type="paramnotes">7 configuration files were successfully deleted.</context>
-        </context-group>
-     <target>{0} 設定ファイルが正常に削除されました。</target></trans-unit>
 
 
      <trans-unit id="config_subscribed_systems.unsubscribeSystems.failure">

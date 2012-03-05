@@ -6689,13 +6689,6 @@ Follow this url to see the full list of inactive systems:
         </context-group>
       <target>সাফল্যের সাথে 1 সংশোধন মুছে ফেলা হয়েছে।</target></trans-unit>
 
-      <trans-unit id="config_files.setFilesToRemove.success">
-<source>{0} configuration file(s) successfully deleted.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/ChannelFiles.do</context>
-          <context context-type="paramnotes">7 configuration files were successfully deleted.</context>
-        </context-group>
-     <target>{0} কনফিগারেশন ফাইল সাফল্যের সাথে মুছে ফেলা হয়েছে।</target></trans-unit>
 
 
      <trans-unit id="config_subscribed_systems.unsubscribeSystems.failure">

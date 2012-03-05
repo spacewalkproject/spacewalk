@@ -6708,13 +6708,6 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
         </context-group>
       <target>1 revisión borrada con éxito.</target></trans-unit>
 
-      <trans-unit id="config_files.setFilesToRemove.success">
-<source>{0} configuration file(s) successfully deleted.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/ChannelFiles.do</context>
-          <context context-type="paramnotes">7 configuration files were successfully deleted.</context>
-        </context-group>
-     <target>{0} archivo(s) de configuración borrados con éxito.</target></trans-unit>
 
 
      <trans-unit id="config_subscribed_systems.unsubscribeSystems.failure">
