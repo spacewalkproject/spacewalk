@@ -3968,12 +3968,6 @@ abaixo e &lt;b&gt;não poderá mais se autenticar&lt;/b&gt;.</target></trans-uni
           <context context-type="sourcefile">/rhn/admin/multiorg/OrgDetails.do</context>
         </context-group>
       <target>Detalhes da Organização</target></trans-unit>
-      <trans-unit id="orgstats.jsp.header">
-<source>Organization Statistics</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgDetails.do</context>
-        </context-group>
-      <target>Estatísticas da Organização</target></trans-unit>
       <trans-unit id="org.name.jsp">
 <source>Organization Name</source>
         <context-group name="ctx">

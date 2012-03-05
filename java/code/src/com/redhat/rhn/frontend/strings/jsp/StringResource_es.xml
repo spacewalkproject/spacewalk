@@ -3969,12 +3969,6 @@ del rol de Administrador de la organización.</target></trans-unit>
           <context context-type="sourcefile">/rhn/admin/multiorg/OrgDetails.do</context>
         </context-group>
       <target>Información de organización</target></trans-unit>
-      <trans-unit id="orgstats.jsp.header">
-<source>Organization Statistics</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgDetails.do</context>
-        </context-group>
-      <target>Estadísticas de organización</target></trans-unit>
       <trans-unit id="org.name.jsp">
 <source>Organization Name</source>
         <context-group name="ctx">
