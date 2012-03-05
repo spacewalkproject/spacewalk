@@ -2756,12 +2756,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
 
 
 
-      <trans-unit id="packagelist.jsp.summary.patchsets">
-<source>The following patch clusters are associated with this action:</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/schedule/PackageList</context>
-        </context-group>
-      <target>다음은 이 작업과 관련된 패치 클러스터 목록입니다:</target></trans-unit>
       <trans-unit id="packagelist.jsp.nopackages">
 <source>No packages.</source>
         <context-group name="ctx">
