@@ -3730,12 +3730,6 @@ user before attempting to deactivate their account.</source>
         </context-group>
       <target>관리  </target></trans-unit>
 
-      <trans-unit id="filter_expire_list.success">
-<source>{0} Filters(s) expired.  These changes may take up to 5 minutes to take effect.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/monitoring/config/notification/Filters.do</context>
-        </context-group>
-      <target>{0} 개의 필터가 만료되었습니다. 이 변경 사항이 적용되는데 5분 정도 소요될 것입니다.</target></trans-unit>
 
       <trans-unit id="Filters">
 <source>Filters</source>

@@ -3755,12 +3755,6 @@ de este usuario antes de intentar desactivar esta cuenta.</target></trans-unit>
         </context-group>
       <target>Admin</target></trans-unit>
 
-      <trans-unit id="filter_expire_list.success">
-<source>{0} Filters(s) expired.  These changes may take up to 5 minutes to take effect.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/monitoring/config/notification/Filters.do</context>
-        </context-group>
-      <target>{0} filtro(s) vencido(s). Estos cambios pueden tomar hasta 5 minutos para surtir efecto.</target></trans-unit>
 
       <trans-unit id="Filters">
 <source>Filters</source>

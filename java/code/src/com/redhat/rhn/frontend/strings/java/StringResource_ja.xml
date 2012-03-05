@@ -3754,12 +3754,6 @@ user before attempting to deactivate their account.</source>
         </context-group>
       <target>管理　</target></trans-unit>
 
-      <trans-unit id="filter_expire_list.success">
-<source>{0} Filters(s) expired.  These changes may take up to 5 minutes to take effect.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/monitoring/config/notification/Filters.do</context>
-        </context-group>
-      <target>{0} フィルタが期限切れです。  これらの変更が反映されるまでには最大で 5 分ほどかかります。</target></trans-unit>
 
       <trans-unit id="Filters">
 <source>Filters</source>

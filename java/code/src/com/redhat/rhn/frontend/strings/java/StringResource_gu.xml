@@ -3730,12 +3730,6 @@ user before attempting to deactivate their account.</source>
         </context-group>
       <target>સંચાલક</target></trans-unit>
 
-      <trans-unit id="filter_expire_list.success">
-<source>{0} Filters(s) expired.  These changes may take up to 5 minutes to take effect.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/monitoring/config/notification/Filters.do</context>
-        </context-group>
-      <target>{0} ગાળકોની સમયમર્યાદા સમાપ્ત થઈ ગઈ.  આ ફેરફારો અસર લાવવા માટે ૫ મિનિટો લેશે.</target></trans-unit>
 
       <trans-unit id="Filters">
 <source>Filters</source>

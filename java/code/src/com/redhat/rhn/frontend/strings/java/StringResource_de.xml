@@ -3761,12 +3761,6 @@ Benutzers vor dem Versuch, den Account zu deaktivieren.</target></trans-unit>
         </context-group>
       <target>Admin</target></trans-unit>
 
-      <trans-unit id="filter_expire_list.success">
-<source>{0} Filters(s) expired.  These changes may take up to 5 minutes to take effect.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/monitoring/config/notification/Filters.do</context>
-        </context-group>
-      <target>{0} Filter abgelaufen.  Es kann bis zu 5 Minuten dauern, bis diese &amp;Auml;nderungen in Kraft treten.</target></trans-unit>
 
       <trans-unit id="Filters">
 <source>Filters</source>
