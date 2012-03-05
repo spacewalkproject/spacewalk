@@ -19531,12 +19531,6 @@ the organizations (excluding the default @@PRODUCT_NAME@@ organization) on this 
         </context-group>
       <target>Ниже вы можете изменить общее число полномочий каналов ПО, которые будут доступны организации &lt;strong&gt;{0}&lt;/strong&gt;. Если вы хотите изменить число доступных какому-либо каналу полномочий, учтите ограничения, указанные сбоку от поля.</target></trans-unit>
 
-      <trans-unit id="org.entitlements.software.success">
-<source>Software Channel Entitlement Counts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions.do</context>
-        </context-group>
-      <target>Счетчики полномочий каналов ПО</target></trans-unit>
 
       <trans-unit id="orgsysubs.jsp.header2">
 <source>System Entitlement Counts</source>

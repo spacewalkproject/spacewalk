@@ -19598,12 +19598,6 @@ en este  @@PRODUCT_NAME@@. No es igual al total disponible en el certificado del
         </context-group>
       <target>A continuación modifique el número total de derechos de canal de software disponibles para la organización &lt;strong&gt;{0}&lt;/strong&gt; para cada canal. Si desea modificar el número de derechos disponibles para cada canal particular note que tiene un límite que se indica al lado del campo.</target></trans-unit>
 
-      <trans-unit id="org.entitlements.software.success">
-<source>Software Channel Entitlement Counts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions.do</context>
-        </context-group>
-      <target>Conteo de derechos de canal de software</target></trans-unit>
 
       <trans-unit id="orgsysubs.jsp.header2">
 <source>System Entitlement Counts</source>

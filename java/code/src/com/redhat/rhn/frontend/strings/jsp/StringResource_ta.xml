@@ -19543,12 +19543,6 @@ the organizations (excluding the default @@PRODUCT_NAME@@ organization) on this 
         </context-group>
       <target>கீழே தடங்களின் அடிப்படையில் &lt;strong&gt;{0}&lt;/strong&gt; நிறுவனத்திற்கு நீங்கள் மென்பொருள் தட உரிமங்களை மாற்றலாம். நீங்கள் ஒரு குறிப்பிட்ட தடத்திற்கு உள்ள உரிமங்களின் எண்ணிக்கையை மாற்ற வேண்டுமென்றால் அடுத்த புலத்திலுள்ள வரம்பு வரையறையை குறித்து கொள்ள வேண்டும்.</target></trans-unit>
 
-      <trans-unit id="org.entitlements.software.success">
-<source>Software Channel Entitlement Counts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions.do</context>
-        </context-group>
-      <target>மென்பொருள் தட உரிம எண்ணிக்கைகள்</target></trans-unit>
 
       <trans-unit id="orgsysubs.jsp.header2">
 <source>System Entitlement Counts</source>

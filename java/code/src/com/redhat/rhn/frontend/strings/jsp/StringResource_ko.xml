@@ -19533,12 +19533,6 @@ the organizations (excluding the default @@PRODUCT_NAME@@ organization) on this 
         </context-group>
       <target>아래에서 각각의 채널에 기반한 &lt;strong&gt;{0}&lt;/strong&gt; 조직에서 사용 가능한 소프트웨어 채널 인타이틀먼트 합계를 수정하셨습니다. 특정 채널에서 사용 가능한 인타이틀먼트 수를 수정하시려면 범위에 제한이 있음에 유의하시기 바랍니다.  </target></trans-unit>
 
-      <trans-unit id="org.entitlements.software.success">
-<source>Software Channel Entitlement Counts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions.do</context>
-        </context-group>
-      <target>소프트웨어 채널 인타이틀먼트 수 </target></trans-unit>
 
       <trans-unit id="orgsysubs.jsp.header2">
 <source>System Entitlement Counts</source>

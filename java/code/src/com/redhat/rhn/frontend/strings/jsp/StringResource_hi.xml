@@ -19543,12 +19543,6 @@ the organizations (excluding the default @@PRODUCT_NAME@@ organization) on this 
         </context-group>
       <target>नीचे आप साफ्टवेयर चैनल एंटाइटेलमेंट की कुल संख्या को बदलते हैं जो &lt;strong&gt;{0}&lt;/strong&gt; संगठन में प्रति चैनल के आधार पर उपलब्ध है.  यदि आप खास चैनल में उपलब्घ एंटाइटेलमेंट की संख्या को रूपांतरित करना चाहते हैं नोट करें कि आप क्षेत्र में बताए गये परिसर के द्वारा परिसीमित हैं.</target></trans-unit>
 
-      <trans-unit id="org.entitlements.software.success">
-<source>Software Channel Entitlement Counts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions.do</context>
-        </context-group>
-      <target>सॉफ्टवेयर चैनल एंटाइटेलमेंट गिनती</target></trans-unit>
 
       <trans-unit id="orgsysubs.jsp.header2">
 <source>System Entitlement Counts</source>

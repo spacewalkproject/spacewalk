@@ -19532,12 +19532,6 @@ the organizations (excluding the default @@PRODUCT_NAME@@ organization) on this 
         </context-group>
       <target>以下您修改 &lt;strong&gt;{0}&lt;/strong&gt; 組織可用的軟體頻道權利總數，列出方式以頻道為基準。如果您想修改特定頻道的可用權利數，您將會受限於該欄位旁邊列出的範圍。</target></trans-unit>
 
-      <trans-unit id="org.entitlements.software.success">
-<source>Software Channel Entitlement Counts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions.do</context>
-        </context-group>
-      <target>軟體頻道權利的數量</target></trans-unit>
 
       <trans-unit id="orgsysubs.jsp.header2">
 <source>System Entitlement Counts</source>

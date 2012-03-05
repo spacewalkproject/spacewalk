@@ -19569,12 +19569,6 @@ the organizations (excluding the default @@PRODUCT_NAME@@ organization) on this 
         </context-group>
       <target>以下で、&lt;strong&gt;{0}&lt;/strong&gt; 組織に利用可能なソフトウェアチャンネルエンタイトルメント の合計数をチャンネル単位で修正してください。特定のチャンネルに利用可能なエンタイトルメントの 数量を修正したい場合は、そのフィールド横に示してある範囲内に制限されていることに注意して下さい。</target></trans-unit>
 
-      <trans-unit id="org.entitlements.software.success">
-<source>Software Channel Entitlement Counts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions.do</context>
-        </context-group>
-      <target>ソフトウェアチャンネルエンタイトルメントカウント</target></trans-unit>
 
       <trans-unit id="orgsysubs.jsp.header2">
 <source>System Entitlement Counts</source>

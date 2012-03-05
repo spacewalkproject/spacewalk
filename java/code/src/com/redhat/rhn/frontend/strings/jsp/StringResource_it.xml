@@ -19540,12 +19540,6 @@ per l'organizzazione (ad esclusione dell'organizzazione satellite predefinita) s
         </context-group>
       <target>Di seguito è possibile modificare il numero totale di entitlement del canale software disponibili all'organizzazione &lt;strong&gt;{0}&lt;/strong&gt; in base al canale. Se desiderate modificare il numero di entitlement disponibili per un canale in particolare, ricordate che sarete limitati da una gamma riportata accanto al campo.</target></trans-unit>
 
-      <trans-unit id="org.entitlements.software.success">
-<source>Software Channel Entitlement Counts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions.do</context>
-        </context-group>
-      <target>Conteggi Entitlement del Canale Software</target></trans-unit>
 
       <trans-unit id="orgsysubs.jsp.header2">
 <source>System Entitlement Counts</source>

@@ -19591,12 +19591,6 @@ the organizations (excluding the default @@PRODUCT_NAME@@ organization) on this 
         </context-group>
       <target>下面您为每个频道修改可用于 &lt;strong&gt;{0}&lt;/strong&gt; 机构的软件频道权利总数。如果您不想修改可用于特定频道的权利数目，请注意，您将会受到字段旁给出的范围的限制。</target></trans-unit>
 
-      <trans-unit id="org.entitlements.software.success">
-<source>Software Channel Entitlement Counts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions.do</context>
-        </context-group>
-      <target>软件频道权利计数</target></trans-unit>
 
       <trans-unit id="orgsysubs.jsp.header2">
 <source>System Entitlement Counts</source>

@@ -19542,12 +19542,6 @@ the organizations (excluding the default @@PRODUCT_NAME@@ organization) on this 
         </context-group>
       <target>ਹੇਠਾਂ ਤੁਸੀਂ ਪ੍ਰਤੀ-ਚੈਨਲ ਅਧਾਰ ਤੇ &lt;strong&gt;{0}&lt;/strong&gt; ਸੰਗਠਨ ਲਈ ਉਪਲੱਬਧ ਇੰਟਾਈਟਲਮੈਂਟ ਦੀ ਕੁੱਲ ਗਿਣਤੀ ਤਬਦੀਲ ਕਰ ਸਕਦੇ ਹੋ।  ਜੇ ਤੁਸੀਂ ਖਾਸ ਚੈਨਲ ਲਈ ਉਪਲੱਬਧ ਇੰਟਾਈਟਲਮੈਂਟਾਂ ਦੀ ਗਿਣਤੀ ਤਬਦੀਲ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ ਤਾਂ ਯਾਦ ਰੱਖੋ ਕਿ ਤੁਸੀਂ ਖੇਤਰ ਤੋਂ ਅੱਗੇ ਦਿੱਤੀ ਰੇਂਜ ਦੁਆਰਾ ਸੀਮਿਤ ਹੋ।</target></trans-unit>
 
-      <trans-unit id="org.entitlements.software.success">
-<source>Software Channel Entitlement Counts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions.do</context>
-        </context-group>
-      <target>ਸਾਫਟਵੇਅਰ ਚੈਨਲ ਇੰਟਾਈਟਲਮੈਂਟ ਗਿਣਤੀ</target></trans-unit>
 
       <trans-unit id="orgsysubs.jsp.header2">
 <source>System Entitlement Counts</source>

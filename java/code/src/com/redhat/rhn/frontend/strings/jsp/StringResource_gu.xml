@@ -19543,12 +19543,6 @@ the organizations (excluding the default @@PRODUCT_NAME@@ organization) on this 
         </context-group>
       <target>નીચે તમે ચેનલ-પ્રતિના આધાર પર &lt;strong&gt;{0}&lt;/strong&gt; સંસ્થામાં ઉપલબ્ધ સોફ્ટવેર ચેનલ ઉમેદવારીઓની કુલ સંખ્યા સુધારી શકશો.  જો તમે વ્યક્તિગત ચેનલ નોંધમાં ઉપલબ્ધ ઉમેદવારીઓની સંખ્યા બદલવા ઈચ્છો કે જેમાં તમે ક્ષેત્રની આગળ સૂચવેલ વિસ્તાર દ્વારા મર્યાદિત હોય.</target></trans-unit>
 
-      <trans-unit id="org.entitlements.software.success">
-<source>Software Channel Entitlement Counts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions.do</context>
-        </context-group>
-      <target>સોફ્ટવેર ચેનલ ઉમેદવારી ગણતરીઓ</target></trans-unit>
 
       <trans-unit id="orgsysubs.jsp.header2">
 <source>System Entitlement Counts</source>

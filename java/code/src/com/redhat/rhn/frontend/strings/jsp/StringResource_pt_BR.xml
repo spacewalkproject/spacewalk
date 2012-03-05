@@ -19592,12 +19592,6 @@ as organizações (excluindo a organização do @@PRODUCT_NAME@@ padrão) neste 
         </context-group>
       <target>Abaixo, você pode modificar o número total de serviços de canais de softwre disponíveis para a  &lt;strong&gt;{0}&lt;/strong&gt; organização em cada canal. Se você quiser modificar o número de serviços disponíveis à um canal específico, note que você está limitado pela variedade indicada ao lado do campo.</target></trans-unit>
 
-      <trans-unit id="org.entitlements.software.success">
-<source>Software Channel Entitlement Counts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions.do</context>
-        </context-group>
-      <target>Contas de Serviços do Canal de Software</target></trans-unit>
 
       <trans-unit id="orgsysubs.jsp.header2">
 <source>System Entitlement Counts</source>

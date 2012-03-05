@@ -19599,12 +19599,6 @@ the organizations (excluding the default @@PRODUCT_NAME@@ organization) on this 
         </context-group>
       <target>Nachfolgend k&amp;ouml;nnen Sie die Gesamtanzahl der Software-Channel-Berechtigungen modifizieren, die der &lt;strong&gt;{0}&lt;/strong&gt; Organisation auf einer Pro-Channel-Basis zur Verf&amp;uuml;gung stehen.  Falls Sie die Anzahl der Berechtigungen ver&amp;auml;ndern m&amp;ouml;chten, die einem bestimmten Channel zur Verf&amp;uuml;gung stehen, beachten Sie bitte, dass eine Einschr&amp;auml;nkung des Bereichs, wie neben dem Feld angezeigt, besteht.</target></trans-unit>
 
-      <trans-unit id="org.entitlements.software.success">
-<source>Software Channel Entitlement Counts</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions.do</context>
-        </context-group>
-      <target>Anzahl der Software-Channel-Berechtigungen</target></trans-unit>
 
       <trans-unit id="orgsysubs.jsp.header2">
 <source>System Entitlement Counts</source>
