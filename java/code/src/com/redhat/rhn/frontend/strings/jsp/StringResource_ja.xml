@@ -8461,12 +8461,6 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
     <target>使用に関する条件</target></trans-unit>
 
-    <trans-unit id="tnc.jsp.desc-para">
-    <source>Please read the document displayed below and acknowledge your acceptance or rejection of the terms and conditions described within it by selecting either the "I accept" or "I do not accept" buttons below. You cannot continue your login to @@PRODUCT_NAME@@ without accepting these terms and conditions. If you accept these terms and conditions at this time, you will not need to accept them again, unless they change.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/tnc/</context>
-        </context-group>
-    <target>以下に表示されている文書をお読みになり、「受諾します」または「受諾しません」のいずれかのボタンを選択し明記されている条件を受諾するか拒否するかの確認をしてください。条件を受諾頂かない限り、 @@PRODUCT_NAME@@ へのログインを続行することはできません。ここで条件を受諾された場合は、条件が変更されない限り再度受諾する必要はありません。</target></trans-unit>
 
 
 

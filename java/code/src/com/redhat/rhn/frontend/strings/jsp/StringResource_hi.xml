@@ -8464,12 +8464,6 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
     <target>नियम व शर्त</target></trans-unit>
 
-    <trans-unit id="tnc.jsp.desc-para">
-    <source>Please read the document displayed below and acknowledge your acceptance or rejection of the terms and conditions described within it by selecting either the "I accept" or "I do not accept" buttons below. You cannot continue your login to @@PRODUCT_NAME@@ without accepting these terms and conditions. If you accept these terms and conditions at this time, you will not need to accept them again, unless they change.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/tnc/</context>
-        </context-group>
-    <target>कृपया नीचे दिखाये दस्तावेज पढ़ें और इसके अंतर्गत वर्णित नियम व शर्त की स्वीकृति या अस्वीकार का ज्ञापन दीजिये या तो "मैं स्वीकार करता हूं" या "मैं अस्वीकार करता हूं" बटन को नीचे चुनकर. आप अपना लॉगिन जारी नहीं रख सकते हैं @@PRODUCT_NAME@@ में बिना इन नियमों व शर्तों को स्वीकार किये. अगर आप इस समय नियम व शर्त स्वीकार करते हैं, आपको तबतक उसे फिर स्वीकार करने की जरूरत नहीं होगी जबतक वे बदल नहीं जाते हैं.</target></trans-unit>
 
 
 

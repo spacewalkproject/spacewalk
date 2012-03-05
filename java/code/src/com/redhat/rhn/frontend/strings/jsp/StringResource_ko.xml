@@ -8461,12 +8461,6 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
     <target>이용 약관</target></trans-unit>
 
-    <trans-unit id="tnc.jsp.desc-para">
-    <source>Please read the document displayed below and acknowledge your acceptance or rejection of the terms and conditions described within it by selecting either the "I accept" or "I do not accept" buttons below. You cannot continue your login to @@PRODUCT_NAME@@ without accepting these terms and conditions. If you accept these terms and conditions at this time, you will not need to accept them again, unless they change.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/tnc/</context>
-        </context-group>
-    <target>아래의 이용 약관을 확인하시고 "동의합니다" 또는 "동의하지 않습니다" 버튼 중 하나를 선택하여 명기되어 있는 이용 약관을 수락하거나 거부합니다. 이용 약관에 동의하지 않을 경우 @@PRODUCT_NAME@@에 로그인할 수 없습니다. 지금 이용 약관에 동의하시면 변경 사항이 없는 한 다시 동의하실 필요가 없습니다.     </target></trans-unit>
 
 
 

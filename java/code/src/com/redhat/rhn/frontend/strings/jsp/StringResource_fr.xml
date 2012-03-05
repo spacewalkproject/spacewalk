@@ -8476,12 +8476,6 @@ Veuillez noter qu'une configuration manuelle de ces scripts peut toujours être 
         </context-group>
     <target>Termes et conditions</target></trans-unit>
 
-    <trans-unit id="tnc.jsp.desc-para">
-    <source>Please read the document displayed below and acknowledge your acceptance or rejection of the terms and conditions described within it by selecting either the "I accept" or "I do not accept" buttons below. You cannot continue your login to @@PRODUCT_NAME@@ without accepting these terms and conditions. If you accept these terms and conditions at this time, you will not need to accept them again, unless they change.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/tnc/</context>
-        </context-group>
-    <target>Veuillez lire le document ci-dessous et accepter ou refuser les termes et conditions décrits en sélectionnant soit le bouton "J'accepte", soit le bouton "Je n'accepte pas" ci-dessous. Vous ne pouvez pas continuer votre connexion à @@PRODUCT_NAME@@ sans accepter ces termes et conditions. Si vous acceptez ces termes et conditions maintenant, vous n'aurez pas à les accepter de nouveau, à moins qu'ils ne changent.</target></trans-unit>
 
 
 

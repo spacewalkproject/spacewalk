@@ -8478,12 +8478,6 @@ Bitte beachten Sie, dass m&amp;ouml;glicherweise noch einige manuelle Konfigurat
         </context-group>
     <target>Gesch&amp;auml;ftsbedingungen</target></trans-unit>
 
-    <trans-unit id="tnc.jsp.desc-para">
-    <source>Please read the document displayed below and acknowledge your acceptance or rejection of the terms and conditions described within it by selecting either the "I accept" or "I do not accept" buttons below. You cannot continue your login to @@PRODUCT_NAME@@ without accepting these terms and conditions. If you accept these terms and conditions at this time, you will not need to accept them again, unless they change.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/tnc/</context>
-        </context-group>
-    <target>Bitte lesen Sie das unten gezeigte Dokument und best&amp;auml;tigen Sie Ihr Akzeptieren oder Ablehnen der darin beschriebenen Gesch&amp;auml;ftsbedingungen durch die Wahl der "Ich akzeptiere" oder "Ich akzeptiere nicht" Schaltfl&amp;auml;chen unten. Sie k&amp;ouml;nnen Ihren Login im @@PRODUCT_NAME@@ nur fortsetzen, wenn Sie die Gesch&amp;auml;ftsbedingungen akzeptieren. Wenn Sie die Gesch&amp;auml;ftsbedingungen dieses Mal akzeptieren, werden Sie, solange diese sich nicht &amp;auml;ndern, nicht nochmals aufgefordert sie zu akzeptieren.</target></trans-unit>
 
 
 

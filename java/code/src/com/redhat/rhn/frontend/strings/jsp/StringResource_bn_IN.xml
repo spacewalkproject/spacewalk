@@ -8463,12 +8463,6 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
     <target>শর্তাবলী</target></trans-unit>
 
-    <trans-unit id="tnc.jsp.desc-para">
-    <source>Please read the document displayed below and acknowledge your acceptance or rejection of the terms and conditions described within it by selecting either the "I accept" or "I do not accept" buttons below. You cannot continue your login to @@PRODUCT_NAME@@ without accepting these terms and conditions. If you accept these terms and conditions at this time, you will not need to accept them again, unless they change.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/tnc/</context>
-        </context-group>
-    <target>অনুগ্রহ করে নীচে প্রদর্শিত নথিটি পড়ুন ও উল্লিখিত শর্তাবলী সম্পর্কে আপনার সম্মতি অথবা অম্মতি ব্যক্ত করতে নীচে অবস্থিত "আমি সম্মত" অথবা "আমি সম্মত নই" বাটনগুলির মধ্যে যথাযত বাটন ক্লিক করুন। এই শর্তাবলী অনুযায়ী সম্মত না হলে আপনি @@PRODUCT_NAME@@ লগ-ইন প্রয়োগ করে অগ্রসর হতে সক্ষম হবেন না। এই স্থানে শর্তাবলী গ্রহন করা হলে সেগুলি পরিবর্তন না হলে পুনরায় সম্মতি জ্ঞাপন করার প্রয়োজন হবে না।</target></trans-unit>
 
 
 

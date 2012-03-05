@@ -8460,12 +8460,6 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
     <target>使用條款</target></trans-unit>
 
-    <trans-unit id="tnc.jsp.desc-para">
-    <source>Please read the document displayed below and acknowledge your acceptance or rejection of the terms and conditions described within it by selecting either the "I accept" or "I do not accept" buttons below. You cannot continue your login to @@PRODUCT_NAME@@ without accepting these terms and conditions. If you accept these terms and conditions at this time, you will not need to accept them again, unless they change.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/tnc/</context>
-        </context-group>
-    <target>請閱讀以下顯示的文件，選擇下方的「我接受」或「我不接受」按鈕，確認您接受或拒絕其中的使用條款。如果您不接受這些使用條款，就無法登入 @@PRODUCT_NAME@@。如果您這次接受這些使用條款，您便不需要再次接受，除非使用條款的內容有所變動。</target></trans-unit>
 
 
 
