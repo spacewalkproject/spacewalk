@@ -11558,9 +11558,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <trans-unit id="targetsystems.jsp.widgetsummary">
           <source>You may schedule &lt;code&gt;rhncfg*&lt;/code&gt; package installs for the time below. &lt;strong&gt;Note: All other actions will take place immediately.&lt;/strong&gt;</source>
         <target>आप &lt;code&gt;rhncfg*&lt;/code&gt; संकुल अधिष्ठापन को नियोजित कर सकते हैं नीचे के समय में. &lt;strong&gt;नोट: सभी अन्य क्रियाएं तत्काल की जायेंगी.&lt;/strong&gt;</target></trans-unit>
-        <trans-unit id="unsub_systems.success">
-          <source>{0} systems successfully unsubscribed.</source>
-        <target>{0} सिस्टम की सफलतापूर्वक सदस्यता वापस की गई.</target></trans-unit>
      </group>
 
      <!-- configuration/overview/summary.jsp  -->

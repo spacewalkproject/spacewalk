@@ -11556,9 +11556,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <trans-unit id="targetsystems.jsp.widgetsummary">
           <source>You may schedule &lt;code&gt;rhncfg*&lt;/code&gt; package installs for the time below. &lt;strong&gt;Note: All other actions will take place immediately.&lt;/strong&gt;</source>
         <target>以下の時間に &lt;code&gt;rhncfg*&lt;/code&gt; パッケージインストールをスケジュールすることができます。 &lt;strong&gt;注記: その他のアクションはすべて直ちに行われます。&lt;/strong&gt;</target></trans-unit>
-        <trans-unit id="unsub_systems.success">
-          <source>{0} systems successfully unsubscribed.</source>
-        <target>{0} システムのサブスクライブが正常に中止されました。</target></trans-unit>
      </group>
 
      <!-- configuration/overview/summary.jsp  -->

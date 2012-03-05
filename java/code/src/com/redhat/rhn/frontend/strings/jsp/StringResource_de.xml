@@ -11574,9 +11574,6 @@ Anschlie&amp;szlig;end wird das nicht-chroot Post-Skript ausgef&amp;uuml;hrt, un
         <trans-unit id="targetsystems.jsp.widgetsummary">
           <source>You may schedule &lt;code&gt;rhncfg*&lt;/code&gt; package installs for the time below. &lt;strong&gt;Note: All other actions will take place immediately.&lt;/strong&gt;</source>
         <target>Sie k&amp;ouml;nnen die &lt;code&gt;rhncfg*&lt;/code&gt;-Paketinstallation f&amp;uuml;r den unten aufgef&amp;uuml;hrten Zeitpunkt planen. &lt;strong&gt;Anmerkung: Alle anderen Aktionen finden umgehend statt.&lt;/strong&gt;</target></trans-unit>
-        <trans-unit id="unsub_systems.success">
-          <source>{0} systems successfully unsubscribed.</source>
-        <target>{0} Systeme erfolgreich abgemeldet.</target></trans-unit>
      </group>
 
      <!-- configuration/overview/summary.jsp  -->

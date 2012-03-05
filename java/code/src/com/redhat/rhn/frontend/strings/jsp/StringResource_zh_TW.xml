@@ -11554,9 +11554,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <trans-unit id="targetsystems.jsp.widgetsummary">
           <source>You may schedule &lt;code&gt;rhncfg*&lt;/code&gt; package installs for the time below. &lt;strong&gt;Note: All other actions will take place immediately.&lt;/strong&gt;</source>
         <target>您能夠於下列時間中進行 &lt;code&gt;rhncfg*&lt;/code&gt; 套件安裝的排程。 &lt;strong&gt;註：所有其它的動作都會馬上發生。&lt;/strong&gt;</target></trans-unit>
-        <trans-unit id="unsub_systems.success">
-          <source>{0} systems successfully unsubscribed.</source>
-        <target>{0} 部系統成功地解除訂閱了。</target></trans-unit>
      </group>
 
      <!-- configuration/overview/summary.jsp  -->

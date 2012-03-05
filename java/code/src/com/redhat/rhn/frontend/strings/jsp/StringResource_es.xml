@@ -11570,9 +11570,6 @@ el &lt;strong&gt;Manual de administración del sistema Red Hat Enterprise Linux.
         <trans-unit id="targetsystems.jsp.widgetsummary">
           <source>You may schedule &lt;code&gt;rhncfg*&lt;/code&gt; package installs for the time below. &lt;strong&gt;Note: All other actions will take place immediately.&lt;/strong&gt;</source>
         <target>Puede programar la instalación del paquete &lt;code&gt;rhncfg*&lt;/code&gt; para la hora determinada. &lt;strong&gt;Nota: todas las otras acciones serán ejecutadas inmediatamente.&lt;/strong&gt;</target></trans-unit>
-        <trans-unit id="unsub_systems.success">
-          <source>{0} systems successfully unsubscribed.</source>
-        <target>eliminadas las suscripciones de {0} sistemas.</target></trans-unit>
      </group>
 
      <!-- configuration/overview/summary.jsp  -->

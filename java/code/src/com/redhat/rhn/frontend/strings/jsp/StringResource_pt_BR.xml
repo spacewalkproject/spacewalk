@@ -11563,9 +11563,6 @@ o &lt;strong&gt;Guia de Administração de Sistemas Red Hat Enterprise Li
         <trans-unit id="targetsystems.jsp.widgetsummary">
           <source>You may schedule &lt;code&gt;rhncfg*&lt;/code&gt; package installs for the time below. &lt;strong&gt;Note: All other actions will take place immediately.&lt;/strong&gt;</source>
         <target>Você pode agendar instalações de pacote &lt;code&gt;rhncfg*&lt;/code&gt; para o horário abaixo. &lt;strong&gt;Nota Todas as outras ações serão substituídas imediatamente.&lt;/strong&gt;</target></trans-unit>
-        <trans-unit id="unsub_systems.success">
-          <source>{0} systems successfully unsubscribed.</source>
-        <target>{0} cancelamento de inscrição de sistemas com sucesso</target></trans-unit>
      </group>
 
      <!-- configuration/overview/summary.jsp  -->
