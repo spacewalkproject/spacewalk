@@ -2089,12 +2089,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/account/SubscriptionManagement</context>
         </context-group>
       <target>ਆਪਣੀ &lt;strong&gt;Red Hat Enterprise Linux ਮੈਂਬਰੀ&lt;/strong&gt; ਅਤੇ &lt;strong&gt;@@PRODUCT_NAME@@ ਇੰਟਾਈਟਲਮੈਂਟ&lt;/strong&gt; ਨੂੰ &lt;strong&gt;&lt;a href="https://www.redhat.com/rhel/renew"&gt;ਨਵਿਆਉਣ &lt;/a&gt;&lt;/strong&gt; ਲਈ &lt;strong&gt;&lt;a href="https://www.redhat.com/rhel/renew"&gt;&lt;img src="/img/external-link.gif" alt="External Link"/&gt; Red Hat ਨਵਿਆਉਣ ਕੇਂਦਰ&lt;/a&gt;&lt;/strong&gt; ਨੂੰ ਵੇਖੋ।</target></trans-unit>
-      <trans-unit id="subscriptionmanagement.jsp.purchase.description2">
-<source>&lt;strong&gt;&lt;a href="https://www.redhat.com/apps/commerce/"&gt;Purchase&lt;/a&gt;&lt;/strong&gt; additional &lt;strong&gt;Red Hat Enterprise Linux subscriptions&lt;/strong&gt; at the &lt;strong&gt;&lt;a href="https://www.redhat.com/apps/commerce/"&gt;&lt;img src="/img/external-link.gif" alt="External Link"/&gt;Red Hat Store&lt;/a&gt;&lt;/strong&gt;.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/account/SubscriptionManagement</context>
-        </context-group>
-      <target>ਹੋਰ &lt;strong&gt;Red Hat Enterprise Linux ਮੈਂਬਰੀ&lt;/strong&gt; &lt;strong&gt;&lt;a href="https://www.redhat.com/apps/commerce/"&gt;ਖਰੀਦਣ&lt;/a&gt;&lt;/strong&gt;ਲਈ &lt;strong&gt;&lt;a href="https://www.redhat.com/apps/commerce/"&gt;&lt;img src="/img/external-link.gif" alt="External Link"/&gt;Red Hat ਸਟੋਰ&lt;/a&gt;&lt;/strong&gt; ਉੱਤੇ ਜਾਓ।</target></trans-unit>
       <trans-unit id="subscriptionmanagement.jsp.purchase.description3">
 <source>&lt;strong&gt;&lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;Purchase&lt;/a&gt;&lt;/strong&gt; additional &lt;strong&gt;@@PRODUCT_NAME@@ management and provisioning entitlements&lt;/strong&gt; at the &lt;strong&gt;&lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;img src="/img/external-link.gif" alt="External Link" /&gt;Red Hat Store&lt;/a&gt;&lt;/strong&gt;.</source>
         <context-group name="ctx">

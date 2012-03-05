@@ -2089,12 +2089,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/account/SubscriptionManagement</context>
         </context-group>
       <target>&lt;strong&gt;&lt;a href="https://www.redhat.com/rhel/renew"&gt;&lt;img src="/img/external-link.gif" alt="External Link"/&gt;Red Hat 갱신 센터&lt;/a&gt;&lt;/strong&gt;에서 사용 고객님의 &lt;strong&gt;Red Hat Enterprise Linux 서브스크립션&lt;/strong&gt; 및 &lt;strong&gt;@@PRODUCT_NAME@@ 인타이틀먼트&lt;/strong&gt;를 &lt;strong&gt;&lt;a href="https://www.redhat.com/rhel/renew"&gt;갱신&lt;/a&gt;&lt;/strong&gt;하시기 바랍니다.  </target></trans-unit>
-      <trans-unit id="subscriptionmanagement.jsp.purchase.description2">
-<source>&lt;strong&gt;&lt;a href="https://www.redhat.com/apps/commerce/"&gt;Purchase&lt;/a&gt;&lt;/strong&gt; additional &lt;strong&gt;Red Hat Enterprise Linux subscriptions&lt;/strong&gt; at the &lt;strong&gt;&lt;a href="https://www.redhat.com/apps/commerce/"&gt;&lt;img src="/img/external-link.gif" alt="External Link"/&gt;Red Hat Store&lt;/a&gt;&lt;/strong&gt;.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/account/SubscriptionManagement</context>
-        </context-group>
-      <target>&lt;strong&gt;&lt;a href="https://www.redhat.com/apps/commerce/"&gt;&lt;img src="/img/external-link.gif" alt="External Link"/&gt;Red Hat Store&lt;/a&gt;&lt;/strong&gt;에서 추가 &lt;strong&gt;Red Hat Enterprise Linux 서브스크립션&lt;/strong&gt;을 &lt;strong&gt;&lt;a href="https://www.redhat.com/apps/commerce/"&gt;구입하실 수 있습니다&lt;/a&gt;&lt;/strong&gt;.</target></trans-unit>
       <trans-unit id="subscriptionmanagement.jsp.purchase.description3">
 <source>&lt;strong&gt;&lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;Purchase&lt;/a&gt;&lt;/strong&gt; additional &lt;strong&gt;@@PRODUCT_NAME@@ management and provisioning entitlements&lt;/strong&gt; at the &lt;strong&gt;&lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;img src="/img/external-link.gif" alt="External Link" /&gt;Red Hat Store&lt;/a&gt;&lt;/strong&gt;.</source>
         <context-group name="ctx">
