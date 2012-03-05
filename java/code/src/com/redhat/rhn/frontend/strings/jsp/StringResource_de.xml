@@ -19735,12 +19735,6 @@ f&amp;uuml;r einen angegebenen Channel aufgelistet wird.</target></trans-unit>
         oder ihnen den Zugriff verwehren. Sie können den Zugriff auf diesen Channel
         jederzeit über den 'Organisationen'-Reiter oben bearbeiten.
         </target></trans-unit>
-      <trans-unit id="toolbar.delete.software.channel">
-        <source>delete software channel</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
-        </context-group>
-      <target>Software-Channel l&amp;ouml;schen</target></trans-unit>
       <trans-unit id="button.denyaccess.confirm">
         <source>Deny Access and Confirm</source>
         <context-group name="ctx">

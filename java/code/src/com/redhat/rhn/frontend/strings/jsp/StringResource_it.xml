@@ -19613,12 +19613,6 @@ stesso pacchetto in un singolo canale, ciò potrebbe causare però il
           <context context-type="sourcefile">/rhn/channels/manage/ConfirmPrivate.do</context>
         </context-group>
       <target></target></trans-unit>
-      <trans-unit id="toolbar.delete.software.channel">
-        <source>delete software channel</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
-        </context-group>
-      <target>cancella canale software</target></trans-unit>
       <trans-unit id="button.denyaccess.confirm">
         <source>Deny Access and Confirm</source>
         <context-group name="ctx">

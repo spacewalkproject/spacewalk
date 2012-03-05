@@ -19723,12 +19723,6 @@ given channel.</source>
       <target>Você pode escolher dar privilégio de acesso a este canal às organizações
          abaixo, ou bloquearo o acesso das mesmas. Você pode modificar o acesso a este/n         canal em qualquer momento de uso da tab 'Organizations' acima.
 </target></trans-unit>
-      <trans-unit id="toolbar.delete.software.channel">
-        <source>delete software channel</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
-        </context-group>
-      <target>deletar canal de software</target></trans-unit>
       <trans-unit id="button.denyaccess.confirm">
         <source>Deny Access and Confirm</source>
         <context-group name="ctx">

@@ -19731,12 +19731,6 @@ Les nom et une étiquette de canal sont requis. Ils doivent être au moins de 6
 , ou vous pouvez leur refuser l'accès. Vous pouvez modifier les accès à ce canal
  à tout moment à l'aide de l'onglet 'Organisations' ci-dessus.
 </target></trans-unit>
-      <trans-unit id="toolbar.delete.software.channel">
-        <source>delete software channel</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
-        </context-group>
-      <target>supprimer le canal logiciel</target></trans-unit>
       <trans-unit id="button.denyaccess.confirm">
         <source>Deny Access and Confirm</source>
         <context-group name="ctx">

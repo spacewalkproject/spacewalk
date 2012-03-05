@@ -19707,12 +19707,6 @@ given channel.</source>
      または、これらの組織にアクセス権を拒否することができます。このチャンネルへのアクセス権は
      上記の [組織] タブを使用していつでも変更できます。
         </target></trans-unit>
-      <trans-unit id="toolbar.delete.software.channel">
-        <source>delete software channel</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
-        </context-group>
-      <target>ソフトウェアチャンネルを削除</target></trans-unit>
       <trans-unit id="button.denyaccess.confirm">
         <source>Deny Access and Confirm</source>
         <context-group name="ctx">
