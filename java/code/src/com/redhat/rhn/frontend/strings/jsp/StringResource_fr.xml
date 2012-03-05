@@ -18532,12 +18532,6 @@ comme défini dans le certificat de ce @@PRODUCT_NAME@@.</target></trans-unit>
 
 
 
-      <trans-unit id="system_entitlement_details.access_grant_desc.virtualization_host">
-        <source>A single Virtualization (Add-On) entitlement applied to a host system, enables management for up to 4 guests. </source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementDetails</context>
-        </context-group>
-      <target>Un droit d'accès Virtualisation unique (Supplémentaire) appliqué à un système hôte, permet de gérer jusqu'à 4 invités.</target></trans-unit>
 
       <trans-unit id="system_entitlement_details.access_grant_desc.virtualization_host_platform">
         <source>A single Virtualization Platform (Add-On) entitlement applied to a host system, enabled management for unlimited guests. </source>

@@ -18472,12 +18472,6 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;
 
 
 
-      <trans-unit id="system_entitlement_details.access_grant_desc.virtualization_host">
-        <source>A single Virtualization (Add-On) entitlement applied to a host system, enables management for up to 4 guests. </source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementDetails</context>
-        </context-group>
-      <target>호스트 시스템에 적용된 단일 가상화 (애드온) 인타이틀먼트로 최대 게스트 4까지 관리를 활성화할 수 있습니다. </target></trans-unit>
 
       <trans-unit id="system_entitlement_details.access_grant_desc.virtualization_host_platform">
         <source>A single Virtualization Platform (Add-On) entitlement applied to a host system, enabled management for unlimited guests. </source>
