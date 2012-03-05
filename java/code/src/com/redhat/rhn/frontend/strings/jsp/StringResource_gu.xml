@@ -5498,9 +5498,6 @@ value for this entitlement, excluding the default organization's consumption.</s
         <trans-unit id="system_entitlements.virtualization_host_platform.noSolarisSupport">
                 <source>&lt;strong&gt;Virtualization Platform&lt;/strong&gt; entitlement failed for &lt;strong&gt;{0}&lt;/strong&gt; system(s) because Virtualization is not supported on Solaris systems.</source>
         <target>&lt;strong&gt;{0}&lt;/strong&gt; સિસ્ટમ(ઓ) માટે &lt;strong&gt;વર્ચ્યુઅલાઈઝેશન પ્લેટફોર્મ&lt;/strong&gt; ઉમેદવારી નિષ્ફળ ગઈ કારણ કે Solaris સિસ્ટમો પર વર્ચ્યુઅલાઈઝેશન આધારભૂત નથી.</target></trans-unit>
-        <trans-unit id="system_entitlements.monitoring.success">
-                <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) set to &lt;strong&gt;Monitoring&lt;/strong&gt;.</source>
-        <target>&lt;strong&gt;{0}&lt;/strong&gt; સિસ્ટમો &lt;strong&gt;મોનીટરીંગ&lt;/strong&gt; માં સુયોજિત થઈ ગઈ.</target></trans-unit>
 
 
 

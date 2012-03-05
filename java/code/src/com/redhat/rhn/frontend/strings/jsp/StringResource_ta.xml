@@ -5498,9 +5498,6 @@ value for this entitlement, excluding the default organization's consumption.</s
         <trans-unit id="system_entitlements.virtualization_host_platform.noSolarisSupport">
                 <source>&lt;strong&gt;Virtualization Platform&lt;/strong&gt; entitlement failed for &lt;strong&gt;{0}&lt;/strong&gt; system(s) because Virtualization is not supported on Solaris systems.</source>
         <target>&lt;strong&gt;{0}&lt;/strong&gt; கணினிகளில் &lt;strong&gt;மெய்நிகராக்க இயக்கத்தளம்&lt;/strong&gt; செயல்நீக்கப்பட்டது, ஏனெனில் மெய்நிகராக்கம் சோலாரிஸ் கணினிகளில் துணைபுரிவதில்லை.</target></trans-unit>
-        <trans-unit id="system_entitlements.monitoring.success">
-                <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) set to &lt;strong&gt;Monitoring&lt;/strong&gt;.</source>
-        <target>&lt;strong&gt;{0}&lt;/strong&gt;கணினி(கள்) &lt;strong&gt;கண்காணிக்க&lt;/strong&gt;அமைக்கப்பட்டுள்ளது.</target></trans-unit>
 
 
 

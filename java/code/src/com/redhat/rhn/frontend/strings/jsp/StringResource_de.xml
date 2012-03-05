@@ -5501,9 +5501,6 @@ für diese Berechtigung, mit Ausnahme des Verbrauchs der Standardorganisation.</
         <trans-unit id="system_entitlements.virtualization_host_platform.noSolarisSupport">
                 <source>&lt;strong&gt;Virtualization Platform&lt;/strong&gt; entitlement failed for &lt;strong&gt;{0}&lt;/strong&gt; system(s) because Virtualization is not supported on Solaris systems.</source>
         <target>&lt;strong&gt;Virtualisierungsplattform&lt;/strong&gt;-Berechtigung f&amp;uuml;r &lt;strong&gt;{0}&lt;/strong&gt; System(e) gescheitert, weil Virtualisierung nicht auf Solaris-Systemen unterst&amp;uuml;tzt wird.</target></trans-unit>
-        <trans-unit id="system_entitlements.monitoring.success">
-                <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) set to &lt;strong&gt;Monitoring&lt;/strong&gt;.</source>
-        <target>&lt;strong&gt;{0}&lt;/strong&gt; System(e) eingestellt auf &lt;strong&gt;Monitoring&lt;/strong&gt;.</target></trans-unit>
 
 
 

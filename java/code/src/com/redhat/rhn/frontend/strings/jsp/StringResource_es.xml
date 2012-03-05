@@ -5499,9 +5499,6 @@ para este derecho, excluyendo el consumo de la organización predeterminada.</ta
         <trans-unit id="system_entitlements.virtualization_host_platform.noSolarisSupport">
                 <source>&lt;strong&gt;Virtualization Platform&lt;/strong&gt; entitlement failed for &lt;strong&gt;{0}&lt;/strong&gt; system(s) because Virtualization is not supported on Solaris systems.</source>
         <target>Los derechos de &lt;strong&gt;Plataforma de virtualización&lt;/strong&gt; fallaron en &lt;strong&gt;{0}&lt;/strong&gt; sistema(s) porque la virtualización no es soportada en sistemas Solaris.</target></trans-unit>
-        <trans-unit id="system_entitlements.monitoring.success">
-                <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) set to &lt;strong&gt;Monitoring&lt;/strong&gt;.</source>
-        <target>&lt;strong&gt;{0}&lt;/strong&gt; sistema(s) establecidos en el servicio de &lt;strong&gt;monitorización&lt;/strong&gt;.</target></trans-unit>
 
 
 

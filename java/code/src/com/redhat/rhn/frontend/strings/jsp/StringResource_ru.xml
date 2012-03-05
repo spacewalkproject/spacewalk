@@ -5495,9 +5495,6 @@ value for this entitlement, excluding the default organization's consumption.</s
         <trans-unit id="system_entitlements.virtualization_host_platform.noSolarisSupport">
                 <source>&lt;strong&gt;Virtualization Platform&lt;/strong&gt; entitlement failed for &lt;strong&gt;{0}&lt;/strong&gt; system(s) because Virtualization is not supported on Solaris systems.</source>
         <target>Не были применены полномочия &lt;strong&gt;Платформы виртуализации&lt;/strong&gt; к &lt;strong&gt;{0}&lt;/strong&gt; систем(е)(ам) вследствие того, что системы Solaris не поддерживают виртуализацию.</target></trans-unit>
-        <trans-unit id="system_entitlements.monitoring.success">
-                <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) set to &lt;strong&gt;Monitoring&lt;/strong&gt;.</source>
-        <target>&lt;strong&gt;{0}&lt;/strong&gt; систем(е)(ам) присвоены полномочия &lt;strong&gt;Мониторинга&lt;/strong&gt;.</target></trans-unit>
 
 
 

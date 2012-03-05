@@ -5500,9 +5500,6 @@ pour ce droit d'accès, moins la consommation par défaut de l'organisation.</ta
         <trans-unit id="system_entitlements.virtualization_host_platform.noSolarisSupport">
                 <source>&lt;strong&gt;Virtualization Platform&lt;/strong&gt; entitlement failed for &lt;strong&gt;{0}&lt;/strong&gt; system(s) because Virtualization is not supported on Solaris systems.</source>
         <target>Le don de droit d'accès à &lt;strong&gt;Plateforme de virtualisation&lt;/strong&gt; a échoué pour &lt;strong&gt;{0}&lt;/strong&gt; système(s) car la Virtualisation n'est pas supportée sur les systèmes Solaris.</target></trans-unit>
-        <trans-unit id="system_entitlements.monitoring.success">
-                <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) set to &lt;strong&gt;Monitoring&lt;/strong&gt;.</source>
-        <target>&lt;strong&gt;{0}&lt;/strong&gt; système(s) ayant droit à &lt;strong&gt;Monitoring&lt;/strong&gt;.</target></trans-unit>
 
 
 
