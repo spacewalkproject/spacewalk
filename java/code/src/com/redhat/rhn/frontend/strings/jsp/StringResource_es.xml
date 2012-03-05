@@ -19652,12 +19652,6 @@ en este  @@PRODUCT_NAME@@. No es igual al total disponible en el certificado del
           <context context-type="sourcefile">/rhn/admin/multiorg/OrgTrusts</context>
         </context-group>
       <target>Confianzas</target></trans-unit>
-      <trans-unit id="org.trust.trust?">
-        <source>Trust?</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgTrusts</context>
-        </context-group>
-      <target>¿Confianza?</target></trans-unit>
       <trans-unit id="org.trust.empty">
         <source>No Other Organizations</source>
         <context-group name="ctx">

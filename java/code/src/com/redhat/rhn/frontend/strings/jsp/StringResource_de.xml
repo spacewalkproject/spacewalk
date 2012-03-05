@@ -19653,12 +19653,6 @@ the organizations (excluding the default @@PRODUCT_NAME@@ organization) on this 
           <context context-type="sourcefile">/rhn/admin/multiorg/OrgTrusts</context>
         </context-group>
       <target>Trusts</target></trans-unit>
-      <trans-unit id="org.trust.trust?">
-        <source>Trust?</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgTrusts</context>
-        </context-group>
-      <target>Trust?</target></trans-unit>
       <trans-unit id="org.trust.empty">
         <source>No Other Organizations</source>
         <context-group name="ctx">

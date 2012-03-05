@@ -19650,12 +19650,6 @@ disponibles pour les organisations (à l'exception de l'organisation @@PRODUCT_N
           <context context-type="sourcefile">/rhn/admin/multiorg/OrgTrusts</context>
         </context-group>
       <target>Confiances</target></trans-unit>
-      <trans-unit id="org.trust.trust?">
-        <source>Trust?</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgTrusts</context>
-        </context-group>
-      <target>Confiance?</target></trans-unit>
       <trans-unit id="org.trust.empty">
         <source>No Other Organizations</source>
         <context-group name="ctx">
