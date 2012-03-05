@@ -15912,12 +15912,6 @@ La ruta del ábol, el RPM Kickstart, el canal base y la generación del instalad
 	</context-group>
       <target>Asignación de memoria:</target></trans-unit>
 
-      <trans-unit id="virtualization.provision.first.jsp.memory_allocation.message1">
-        <source>What is the amount of physical memory that should be assigned to this virtual system?</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/virtualization/ProvisionVirtualizationWizard.do</context>
-	</context-group>
-      <target>¿Qué cantidad de memoria física que debe ser asignada a este sistema virtual?</target></trans-unit>
 
       <trans-unit id="virtualization.provision.first.jsp.memory_allocation.message2">
         <source>megabytes of {0} megabytes total memory on &lt;img src="/img/rhn-listicon-system.gif"&gt; &lt;a href="/rhn/systems/details/Overview.do?sid={1}"&gt;{2}&lt;/a&gt;</source>

@@ -15908,12 +15908,6 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
 	</context-group>
       <target>内存分配：</target></trans-unit>
 
-      <trans-unit id="virtualization.provision.first.jsp.memory_allocation.message1">
-        <source>What is the amount of physical memory that should be assigned to this virtual system?</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/virtualization/ProvisionVirtualizationWizard.do</context>
-	</context-group>
-      <target>应该为这个虚拟系统分配多大物理内存？</target></trans-unit>
 
       <trans-unit id="virtualization.provision.first.jsp.memory_allocation.message2">
         <source>megabytes of {0} megabytes total memory on &lt;img src="/img/rhn-listicon-system.gif"&gt; &lt;a href="/rhn/systems/details/Overview.do?sid={1}"&gt;{2}&lt;/a&gt;</source>
