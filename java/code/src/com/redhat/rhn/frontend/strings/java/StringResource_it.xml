@@ -6351,12 +6351,6 @@ Seguite l'url sotto riportato per visualizzare l'elenco completo di sistemi inat
         </context-group>
       <target>Impossibile programmare l'azione di confronto della configurazione</target></trans-unit>
 
-      <trans-unit id="scheduledeploy.ssm.success">
-        <source>Configuration Deploy Action scheduled successfully for &lt;strong&gt;1 system&lt;/strong&gt;.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/ssm/config/Diff.do</context>
-        </context-group>
-      <target>Azione d'impiego della configurazione per &lt;strong&gt;1 sistema&lt;/strong&gt; programmata con successo.</target></trans-unit>
 
       <trans-unit id="scheduledeploy.ssm.successes">
         <source>Configuration Deploy Action scheduled successfully for &lt;strong&gt;{0} systems&lt;/strong&gt;.</source>

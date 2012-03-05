@@ -6352,12 +6352,6 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
         </context-group>
       <target>Acción de comparación de configuración programada falló.</target></trans-unit>
 
-      <trans-unit id="scheduledeploy.ssm.success">
-        <source>Configuration Deploy Action scheduled successfully for &lt;strong&gt;1 system&lt;/strong&gt;.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/ssm/config/Diff.do</context>
-        </context-group>
-      <target>Acción de implementación de configuración programada con éxito para &lt;strong&gt;1 sistema&lt;/strong&gt;.</target></trans-unit>
 
       <trans-unit id="scheduledeploy.ssm.successes">
         <source>Configuration Deploy Action scheduled successfully for &lt;strong&gt;{0} systems&lt;/strong&gt;.</source>
