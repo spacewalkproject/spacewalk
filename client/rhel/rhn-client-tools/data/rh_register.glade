@@ -237,7 +237,7 @@ You may access the software update tool by running &lt;b&gt;Software Update&lt;/
 		    <widget class="GtkLabel" id="label96">
 		      <property name="visible">True</property>
 		      <property name="can_focus">True</property>
-		      <property name="label" translatable="yes" context="yes">I'd like to receive updates from &lt;b&gt;Red Hat Network&lt;/b&gt;. (I don't have access to a Red Hat Network Satellite or Proxy.)</property>
+		      <property name="label" translatable="yes" context="yes">I'd like to receive updates from &lt;b&gt;Red Hat Network Classic&lt;/b&gt;. (I don't have access to a Red Hat Network Satellite or Proxy.)</property>
 		      <property name="use_underline">True</property>
 		      <property name="use_markup">True</property>
 		      <property name="justify">GTK_JUSTIFY_LEFT</property>
