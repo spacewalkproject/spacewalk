@@ -9510,12 +9510,6 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
     <target>잘못된 변수 '{0}'이 지정되었습니다. 변수는  'ip=192.168.0.1'과 같이 '='로 구분된 이름 값 쌍이어야 하며, 각 쌍은 새로운 행으로 구분해야 합니다.      </target></trans-unit>
 
-    <trans-unit id="kickstart.jsp.error.invalidoption">
-        <source>You have specified an invalid option '{0}'.  Options should be name value pairs, seperated by a '=' symbol, with each pair being seperated by a space.  For example: 'ip=192.168.0.1 netmask=255.255.255.0'</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">Kickstart Details</context>
-        </context-group>
-    <target>잘못된 옵션 '{0}'이 지정되었습니다. 옵션은 'ip=192.168.0.1 netmask=255.255.255.0'과 같이 '='로 구분된 이름값 쌍이어야 하고, 각 쌍은 새로운 행으로 구분해야 합니다.     </target></trans-unit>
 
     <trans-unit id="kickstart.jsp.error.template_generation">
         <source>There are errors in your kickstart template. Please check the &lt;a href="{0}"&gt;template errors&lt;/a&gt; to determine the problem with the template.</source>

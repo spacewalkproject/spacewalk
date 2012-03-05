@@ -9864,12 +9864,6 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
     </trans-unit>
 
-    <trans-unit id="kickstart.jsp.error.invalidoption">
-        <source>You have specified an invalid option '{0}'.  Options should be name value pairs, separated by a '=' symbol, with each pair being separated by a space.  For example: 'ip=192.168.0.1 netmask=255.255.255.0'</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">Kickstart Details</context>
-        </context-group>
-    </trans-unit>
 
     <trans-unit id="kickstart.jsp.error.template_generation">
         <source>There are errors in your kickstart template. Please check the &lt;a href=&quot;{0}&quot;&gt;template errors&lt;/a&gt; to determine the problem with the template.</source>

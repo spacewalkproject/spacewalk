@@ -9521,12 +9521,6 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
     <target>您指定了一个无效变量：'{0}'。变量应该是名称数值对，中间用 '=' 符号分开，每一个名称数值对之间用换行符分开。例如：'ip=192.168.0.1'</target></trans-unit>
 
-    <trans-unit id="kickstart.jsp.error.invalidoption">
-        <source>You have specified an invalid option '{0}'.  Options should be name value pairs, seperated by a '=' symbol, with each pair being seperated by a space.  For example: 'ip=192.168.0.1 netmask=255.255.255.0'</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">Kickstart Details</context>
-        </context-group>
-    <target>您指定了一个无效选项 '{0}'。选项应该是名称数值对，以‘=’符号分开，每对以空格分开。例如：'ip=192.168.0.1 netmask=255.255.255.0'</target></trans-unit>
 
     <trans-unit id="kickstart.jsp.error.template_generation">
         <source>There are errors in your kickstart template. Please check the &lt;a href="{0}"&gt;template errors&lt;/a&gt; to determine the problem with the template.</source>

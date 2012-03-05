@@ -9528,12 +9528,6 @@ Bitte beachten Sie, dass m&amp;ouml;glicherweise noch einige manuelle Konfigurat
         </context-group>
     <target>Sie haben eine ungültige Variable angegeben: '{0}'.  Variablen sollten Name/Wert-Paare sein, getrennt durch ein '=' Symbol, wobei jedes Paar durch eine neue Zeile getrennt werden sollte.  Zum Beispiel: 'ip=192.168.0.1'</target></trans-unit>
 
-    <trans-unit id="kickstart.jsp.error.invalidoption">
-        <source>You have specified an invalid option '{0}'.  Options should be name value pairs, seperated by a '=' symbol, with each pair being seperated by a space.  For example: 'ip=192.168.0.1 netmask=255.255.255.0'</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">Kickstart Details</context>
-        </context-group>
-    <target>Sie haben eine ungültige Option angegeben: '{0}'. Optionen sollten Name/Wert-Paare sein, getrennt durch ein '=' Symbol, wobei jedes Paar durch ein Leerzeichen getrennt werden sollte.  Zum Beispiel: 'ip=192.168.0.1 netmask=255.255.255.0'</target></trans-unit>
 
     <trans-unit id="kickstart.jsp.error.template_generation">
         <source>There are errors in your kickstart template. Please check the &lt;a href="{0}"&gt;template errors&lt;/a&gt; to determine the problem with the template.</source>

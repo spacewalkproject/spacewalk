@@ -9513,12 +9513,6 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
     <target>आपने एक अवैध चर निर्दिष्ट किया है: '{0}'.  चर को नाम मान युग्म होना चाहिए, जो '=' symbol से अलग हो, हर युग्म को नई पंक्ति से अलग करता.  उदाहरण के लिए: 'ip=192.168.0.1'</target></trans-unit>
 
-    <trans-unit id="kickstart.jsp.error.invalidoption">
-        <source>You have specified an invalid option '{0}'.  Options should be name value pairs, seperated by a '=' symbol, with each pair being seperated by a space.  For example: 'ip=192.168.0.1 netmask=255.255.255.0'</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">Kickstart Details</context>
-        </context-group>
-    <target>आपने एक अवैध विकल्प निर्दिष्ट किया है: '{0}'.  विकल्प को नाम मान युग्म होना चाहिए, जो '=' symbol से अलग हो, हर युग्म को नए स्थानों से अलग करता.  उदाहरण के लिए: 'ip=192.168.0.1 netmask=255.255.255.0'</target></trans-unit>
 
     <trans-unit id="kickstart.jsp.error.template_generation">
         <source>There are errors in your kickstart template. Please check the &lt;a href="{0}"&gt;template errors&lt;/a&gt; to determine the problem with the template.</source>

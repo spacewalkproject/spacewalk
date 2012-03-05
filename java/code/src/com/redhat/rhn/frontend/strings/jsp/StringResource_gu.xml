@@ -9513,12 +9513,6 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
     <target>તમે અયેગ્ય ચલ '{0}' ને સ્પષ્ટ કરેલ છે.  ચલો એ કિંમત જોડીઓનું નામ હોવુ જોઇએ, '=' સંકેત દ્દારા અલગ થયેલ છે, નવા વાક્ય દ્દારા દરેક જોડી અલગ થયેલ છે.  ઉદાહરણ માટે: 'ip=192.168.0.1'</target></trans-unit>
 
-    <trans-unit id="kickstart.jsp.error.invalidoption">
-        <source>You have specified an invalid option '{0}'.  Options should be name value pairs, seperated by a '=' symbol, with each pair being seperated by a space.  For example: 'ip=192.168.0.1 netmask=255.255.255.0'</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">Kickstart Details</context>
-        </context-group>
-    <target>તમે અયેગ્ય વિકલ્પ '{0}' ને સ્પષ્ટ કરેલ છે.  વિકલ્પો એ કિંમત જોડીઓનું નામ હોવુ જોઇએ, '=' સંકેત દ્દારા અલગ થયેલ છે, જગ્યા દ્દારા દરેક જોડી અલગ થયેલ છે.  ઉદાહરણ માટે: 'ip=192.168.0.1 netmask=255.255.255.0'</target></trans-unit>
 
     <trans-unit id="kickstart.jsp.error.template_generation">
         <source>There are errors in your kickstart template. Please check the &lt;a href="{0}"&gt;template errors&lt;/a&gt; to determine the problem with the template.</source>

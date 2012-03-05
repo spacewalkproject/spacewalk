@@ -9511,12 +9511,6 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
     <target>無効な変数 '{0}' が指定されました。変数は、 'ip=192.168.0.1' のように '=' で区切られた名前と値のペアでなければならず、各ペアは新しい行で区切らなければなりません。</target></trans-unit>
 
-    <trans-unit id="kickstart.jsp.error.invalidoption">
-        <source>You have specified an invalid option '{0}'.  Options should be name value pairs, seperated by a '=' symbol, with each pair being seperated by a space.  For example: 'ip=192.168.0.1 netmask=255.255.255.0'</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">Kickstart Details</context>
-        </context-group>
-    <target>無効なオプション '{0}' が指定されました。オプションは、 'ip=192.168.0.1 netmask=255.255.255.0' のように '=' で区切られた名前と値のペアでなければならず、各ペアは新しい行で区切らなければなりません。</target></trans-unit>
 
     <trans-unit id="kickstart.jsp.error.template_generation">
         <source>There are errors in your kickstart template. Please check the &lt;a href="{0}"&gt;template errors&lt;/a&gt; to determine the problem with the template.</source>

@@ -9510,12 +9510,6 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
     <target>È stata specificata una variabile non valida: '{0}'.  Le variabili devono essere coppie di valori separati da un simbolo '=' ed ogni coppia deve essere separata da una nuova riga. Per esempio: 'ip=192.168.0.1'</target></trans-unit>
 
-    <trans-unit id="kickstart.jsp.error.invalidoption">
-        <source>You have specified an invalid option '{0}'.  Options should be name value pairs, seperated by a '=' symbol, with each pair being seperated by a space.  For example: 'ip=192.168.0.1 netmask=255.255.255.0'</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">Kickstart Details</context>
-        </context-group>
-    <target>È stata specificata una opzione non valida: '{0}'.  Le opzioni devono essere coppie di valori separati da un simbolo '=' ed ogni coppia deve essere separata da uno spazio. Per esempio: 'ip=192.168.0.1 netmask=255.255.255.0'</target></trans-unit>
 
     <trans-unit id="kickstart.jsp.error.template_generation">
         <source>There are errors in your kickstart template. Please check the &lt;a href="{0}"&gt;template errors&lt;/a&gt; to determine the problem with the template.</source>

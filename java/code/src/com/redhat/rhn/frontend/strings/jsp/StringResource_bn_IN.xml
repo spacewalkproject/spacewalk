@@ -9512,12 +9512,6 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
     <target>অবৈধ ভেরিয়েবল নির্ধারণ করা হয়েছে: '{0}'।  ভেরিয়েবলের ক্ষেত্রে '=' চিহ্ন দ্বারা বিভাজন করে নাম ও মানের জুটি উল্লেখ করা আবশ্যক ও প্রতিটি জুটি একটি নতুন পংক্তিতে উপস্থিত থাকা আবশ্যক।  উদাহরণস্বরপ: 'ip=192.168.0.1'</target></trans-unit>
 
-    <trans-unit id="kickstart.jsp.error.invalidoption">
-        <source>You have specified an invalid option '{0}'.  Options should be name value pairs, seperated by a '=' symbol, with each pair being seperated by a space.  For example: 'ip=192.168.0.1 netmask=255.255.255.0'</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">Kickstart Details</context>
-        </context-group>
-    <target>অবৈধ বিকল্প নির্ধারণ করা হয়েছে: '{0}'।  ভেরিয়েবলের ক্ষেত্রে '=' চিহ্ন দ্বারা বিভাজন করে নাম ও মানের জুটি উল্লেখ করা আবশ্যক ও প্রতিটি জুটি একটি নতুন পংক্তিতে উপস্থিত থাকা আবশ্যক।  উদাহরণস্বরপ: 'ip=192.168.0.1'</target></trans-unit>
 
     <trans-unit id="kickstart.jsp.error.template_generation">
         <source>There are errors in your kickstart template. Please check the &lt;a href="{0}"&gt;template errors&lt;/a&gt; to determine the problem with the template.</source>
