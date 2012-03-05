@@ -8050,9 +8050,6 @@ Follow this url to see the full list of inactive systems:
           <source>Errata already exists with advisory {0}</source>
       </trans-unit>
 
-      <trans-unit id="api.system.invalidarch">
-          <source>Invalid arch specified: {0}</source>
-	  </trans-unit>
 
       <trans-unit id="api.system.invalidsnapshot">
           <source>Invalid snapshot specified: {0}</source>

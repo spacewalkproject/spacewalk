@@ -8002,9 +8002,6 @@ Folgen Sie dieser URL f&amp;uuml;r die vollst&amp;auml;ndige Liste inaktiver Sys
           <source>Errata already exists with advisory {0}</source>
       <target>Erratum existiert bereits f&amp;uuml;r den Hinweis {0}</target></trans-unit>
 
-      <trans-unit id="api.system.invalidarch">
-          <source>Invalid arch specified: {0}</source>
-	  <target>Ung&amp;uuml;ltige angegebene Architektur: {0}</target></trans-unit>
 
       <trans-unit id="api.system.invalidsnapshot">
           <source>Invalid snapshot specified: {0}</source>

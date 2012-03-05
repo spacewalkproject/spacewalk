@@ -7971,9 +7971,6 @@ Follow this url to see the full list of inactive systems:
           <source>Errata already exists with advisory {0}</source>
       <target>{0} 권고와 함께 이미 에라타가 존재함  </target></trans-unit>
 
-      <trans-unit id="api.system.invalidarch">
-          <source>Invalid arch specified: {0}</source>
-	  <target>잘못된 아키텍쳐가 지정됨: {0} </target></trans-unit>
 
       <trans-unit id="api.system.invalidsnapshot">
           <source>Invalid snapshot specified: {0}</source>

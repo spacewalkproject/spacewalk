@@ -7995,9 +7995,6 @@ Seguite l'url sotto riportato per visualizzare l'elenco completo di sistemi inat
           <source>Errata already exists with advisory {0}</source>
       <target>L'errata è già esistente con l'advisory {0}</target></trans-unit>
 
-      <trans-unit id="api.system.invalidarch">
-          <source>Invalid arch specified: {0}</source>
-	  <target>Architettura specificata non valida: {0}</target></trans-unit>
 
       <trans-unit id="api.system.invalidsnapshot">
           <source>Invalid snapshot specified: {0}</source>

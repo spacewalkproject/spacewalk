@@ -7971,9 +7971,6 @@ url பின்பற்றி செயலிழக்கப்பட்ட �
           <source>Errata already exists with advisory {0}</source>
       <target>பிழைத்திருத்தம் ஏற்கனவே அறிவிப்பி {0}இல் உள்ளது</target></trans-unit>
 
-      <trans-unit id="api.system.invalidarch">
-          <source>Invalid arch specified: {0}</source>
-	  <target>தவறான ஆர்ச் குறிப்பீடு: {0}</target></trans-unit>
 
       <trans-unit id="api.system.invalidsnapshot">
           <source>Invalid snapshot specified: {0}</source>

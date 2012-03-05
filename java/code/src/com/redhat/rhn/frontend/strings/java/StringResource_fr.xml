@@ -7998,9 +7998,6 @@ Suivez cet url pour obtenir la liste complète des systèmes inactifs :
           <source>Errata already exists with advisory {0}</source>
       <target>Cet errata existe déjà avec l'alerte {0}</target></trans-unit>
 
-      <trans-unit id="api.system.invalidarch">
-          <source>Invalid arch specified: {0}</source>
-	  <target>L'architecture spécifiée est invalide&amp;nbsp;: {0}</target></trans-unit>
 
       <trans-unit id="api.system.invalidsnapshot">
           <source>Invalid snapshot specified: {0}</source>
