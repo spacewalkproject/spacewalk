@@ -18984,17 +18984,6 @@ Emergency Maintenance windows.&lt;a href="{0}"&gt;Register for the Email Outage 
       <target>
 &lt;strong&gt;注意：&lt;/strong&gt;通过下载这个软件，您同意相关的许可证协议的条款(&lt;a href="{0}"&gt;{1}&lt;/a&gt;）。
 </target></trans-unit>
-      <trans-unit id="isodownload.howto">
-<source>
-Not sure how to download and use these images? &lt;a href="{0}"&gt;Check out our ISO Download Help.&lt;/a&gt;
-</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/software/channel/downloads/Download.do</context>
-		  <context context-type="paramnotes">Not sure how to download and use these images? _Check out our ISO Download Help._</context>
-        </context-group>
-      <target>
-不确定如何下载和使用这些映像？&lt;a href="{0}"&gt;请参考我们的 ISO 下载帮助&lt;/a&gt;。
-</target></trans-unit>
 
       <trans-unit id="isodownload.latest">
 <source>Latest Release</source>

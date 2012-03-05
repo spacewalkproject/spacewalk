@@ -18985,17 +18985,6 @@ pela Red Hat no caso de Períodos de Manutenção Não Programados ou
       <target>
 &lt;strong&gt;NOTE:&lt;/strong&gt; Você estará concordando com os termos e condições do Contrato de Lincença quando realizando o download deste software (disponível em &lt;a href="{0}"&gt;{1}&lt;/a&gt;)
 </target></trans-unit>
-      <trans-unit id="isodownload.howto">
-<source>
-Not sure how to download and use these images? &lt;a href="{0}"&gt;Check out our ISO Download Help.&lt;/a&gt;
-</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/software/channel/downloads/Download.do</context>
-		  <context context-type="paramnotes">Not sure how to download and use these images? _Check out our ISO Download Help._</context>
-        </context-group>
-      <target>
-Não tem certeza de como efetuar o download destas imagens? &lt;a href="{0}"&gt;Confira nossa Ajuda para Download do ISO.&lt;/a&gt;
-</target></trans-unit>
 
       <trans-unit id="isodownload.latest">
 <source>Latest Release</source>

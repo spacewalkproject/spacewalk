@@ -18990,17 +18990,6 @@ para anunciar periodos de mantenimiento de Emergencia y no programados.
       <target>
 &lt;strong&gt;NOTA:&lt;/strong&gt; Al descargar este software, está de acuerdo con los términos y condiciones del contrato de licencia aplicable (disponible en &lt;a href="{0}"&gt;{1}&lt;/a&gt;)
 </target></trans-unit>
-      <trans-unit id="isodownload.howto">
-<source>
-Not sure how to download and use these images? &lt;a href="{0}"&gt;Check out our ISO Download Help.&lt;/a&gt;
-</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/software/channel/downloads/Download.do</context>
-		  <context context-type="paramnotes">Not sure how to download and use these images? _Check out our ISO Download Help._</context>
-        </context-group>
-      <target>
-¿No está seguro de cómo descargar y utilizar estas imágenes? &lt;a href="{0}"&gt;Consulte nuestra ayudar para descargar ISO.&lt;/a&gt;
-</target></trans-unit>
 
       <trans-unit id="isodownload.latest">
 <source>Latest Release</source>
