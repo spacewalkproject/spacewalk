@@ -2127,12 +2127,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/newlogin</context>
         </context-group>
       <target>ਜੇਕਰ ਤੁਹਾਡੇ ਸੰਗਠਨ ਕੋਲ ਇੱਕ @@PRODUCT_NAME@@ ਵਪਾਰਕ ਲਾਗਇਨ ਖਾਤਾ ਹੈ ਤਾਂ ਤੁਹਾਨੂੰ ਆਪਣਾ ਖਾਤਾ ਬਣਾਉਣ ਲਈ ਆਪਣੇ @@PRODUCT_NAME@@ ਸੰਗਠਨ ਪਰਬੰਧਕ ਨਾਲ ਸੰਪਰਕ ਕਰਨਾ ਚਾਹੀਦਾ ਹੈ ਤਾਂ ਕਿ ਤੁਹਾਡਾ ਖਾਤਾ ਤੁਹਾਡੇ ਸੰਗਠਨ ਨਾਲ ਸਬੰਧਿਤ ਕੀਤਾ ਜਾ ਸਕੇ।</target></trans-unit>
-      <trans-unit id="usercreate.createCorpNew">
-<source>Create a new Business Login</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/newlogin</context>
-        </context-group>
-      <target>ਇੱਕ ਨਵਾਂ ਵਪਾਰਕ ਲਾਗਇਨ ਬਣਾਓ</target></trans-unit>
       <trans-unit id="usercreate.personalLoginDesc_1">
 <source>You will need a &lt;strong&gt;home user&lt;/strong&gt; login to manage systems you own for personal use, or to make personal purchases of Red Hat products and services. </source>
         <context-group name="ctx">

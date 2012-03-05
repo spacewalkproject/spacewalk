@@ -2127,12 +2127,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/newlogin</context>
         </context-group>
       <target>જો તમારી સંસ્થા પાસે વર્તમાન @@PRODUCT_NAME@@ ધંધાકીય પ્રવેશો હોય, તો તમારે તમારું ખાતું બનાવવા માટે તમારા @@PRODUCT_NAME@@ સંસ્થા સંચાલકનો સંપર્ક કરવાનો રહેશે કે જેથી તમે તમારી સંસ્થા સાથે રજીસ્ટર થઈ જાવ. </target></trans-unit>
-      <trans-unit id="usercreate.createCorpNew">
-<source>Create a new Business Login</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/newlogin</context>
-        </context-group>
-      <target>નવો વ્યવસાયિક પ્રવેશ બનાવો</target></trans-unit>
       <trans-unit id="usercreate.personalLoginDesc_1">
 <source>You will need a &lt;strong&gt;home user&lt;/strong&gt; login to manage systems you own for personal use, or to make personal purchases of Red Hat products and services. </source>
         <context-group name="ctx">

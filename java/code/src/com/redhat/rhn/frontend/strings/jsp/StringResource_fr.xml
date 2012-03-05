@@ -2127,12 +2127,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/newlogin</context>
         </context-group>
       <target>Si votre organisation possède un login d'entreprise @@PRODUCT_NAME@@, vous devrez contacter votre administrateur d'organisation @@PRODUCT_NAME@@ pour créer votre compte pour que vous puissiez être enregistré avec votre organisation.</target></trans-unit>
-      <trans-unit id="usercreate.createCorpNew">
-<source>Create a new Business Login</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/newlogin</context>
-        </context-group>
-      <target>Créer un nouveau login d'entreprise</target></trans-unit>
       <trans-unit id="usercreate.personalLoginDesc_1">
 <source>You will need a &lt;strong&gt;home user&lt;/strong&gt; login to manage systems you own for personal use, or to make personal purchases of Red Hat products and services. </source>
         <context-group name="ctx">

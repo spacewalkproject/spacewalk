@@ -2127,12 +2127,6 @@ abaixo e &lt;b&gt;não poderá mais se autenticar&lt;/b&gt;.</target></trans-uni
           <context context-type="sourcefile">/rhn/newlogin</context>
         </context-group>
       <target>Se a sua organização já possui um login corporativo junto ao @@PRODUCT_NAME@@, você precisa contatar seu Administrador de Empresa no @@PRODUCT_NAME@@ para ele criar a sua conta e registrá-la sob sua organização. </target></trans-unit>
-      <trans-unit id="usercreate.createCorpNew">
-<source>Create a new Business Login</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/newlogin</context>
-        </context-group>
-      <target>Criar um Novo Login Corporativo</target></trans-unit>
       <trans-unit id="usercreate.personalLoginDesc_1">
 <source>You will need a &lt;strong&gt;home user&lt;/strong&gt; login to manage systems you own for personal use, or to make personal purchases of Red Hat products and services. </source>
         <context-group name="ctx">
