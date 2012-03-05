@@ -12046,12 +12046,6 @@ Anschlie&amp;szlig;end wird das nicht-chroot Post-Skript ausgef&amp;uuml;hrt, un
          <context context-type="sourcefile">/rhn/kickstart/CreateProfileWizard.do</context>
        </context-group>
      <target>Kickstartbarer Baum</target></trans-unit>
-     <trans-unit id="kickstart.jsp.create.wizard.product.label">
-       <source>Product</source>
-       <context-group name="ctx">
-         <context context-type="sourcefile">/rhn/kickstart/CreateProfileWizard.do</context>
-       </context-group>
-     <target>Produkt</target></trans-unit>
      <trans-unit id="kickstart.jsp.create.wizard.version.label">
        <source>Version</source>
        <context-group name="ctx">

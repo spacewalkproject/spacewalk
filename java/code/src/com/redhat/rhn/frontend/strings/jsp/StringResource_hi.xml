@@ -12029,12 +12029,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
          <context context-type="sourcefile">/rhn/kickstart/CreateProfileWizard.do</context>
        </context-group>
      <target>किकस्टार्ट तरू</target></trans-unit>
-     <trans-unit id="kickstart.jsp.create.wizard.product.label">
-       <source>Product</source>
-       <context-group name="ctx">
-         <context context-type="sourcefile">/rhn/kickstart/CreateProfileWizard.do</context>
-       </context-group>
-     <target>उत्पाद</target></trans-unit>
      <trans-unit id="kickstart.jsp.create.wizard.version.label">
        <source>Version</source>
        <context-group name="ctx">
