@@ -6985,12 +6985,6 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
         </context-group>
       <target>(no hay acceso al canal principal)</target></trans-unit>
 
-      <trans-unit id="kickstart.script.required">
-        <source>Kickstart script required.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/system/details/kickstart/KickstartScriptEdit.do</context>
-        </context-group>
-      <target>Script Kickstart requerido.</target></trans-unit>
 
       <trans-unit id="kickstart.script.toolarge">
         <source>The script must be smaller than {0} characters.</source>

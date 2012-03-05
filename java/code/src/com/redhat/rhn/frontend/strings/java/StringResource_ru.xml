@@ -6960,12 +6960,6 @@ Follow this url to see the full list of inactive systems:
         </context-group>
       <target>(нет доступа к родительскому каналу)</target></trans-unit>
 
-      <trans-unit id="kickstart.script.required">
-        <source>Kickstart script required.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/system/details/kickstart/KickstartScriptEdit.do</context>
-        </context-group>
-      <target>Необходим сценарий кикстарта.</target></trans-unit>
 
       <trans-unit id="kickstart.script.toolarge">
         <source>The script must be smaller than {0} characters.</source>

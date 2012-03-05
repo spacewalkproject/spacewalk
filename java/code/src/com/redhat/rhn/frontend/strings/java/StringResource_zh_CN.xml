@@ -6985,12 +6985,6 @@ Follow this url to see the full list of inactive systems:
         </context-group>
       <target>(没有到上级频道的访问)</target></trans-unit>
 
-      <trans-unit id="kickstart.script.required">
-        <source>Kickstart script required.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/system/details/kickstart/KickstartScriptEdit.do</context>
-        </context-group>
-      <target>要求 Kickstart 脚本。</target></trans-unit>
 
       <trans-unit id="kickstart.script.toolarge">
         <source>The script must be smaller than {0} characters.</source>

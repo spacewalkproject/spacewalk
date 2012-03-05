@@ -6960,12 +6960,6 @@ url பின்பற்றி செயலிழக்கப்பட்ட �
         </context-group>
       <target>(தாய் தடத்திற்கு அணுகல் இல்லை)</target></trans-unit>
 
-      <trans-unit id="kickstart.script.required">
-        <source>Kickstart script required.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/system/details/kickstart/KickstartScriptEdit.do</context>
-        </context-group>
-      <target>கிக்ஸ்டார்ட் உரை தேவைப்படுகிறது.</target></trans-unit>
 
       <trans-unit id="kickstart.script.toolarge">
         <source>The script must be smaller than {0} characters.</source>

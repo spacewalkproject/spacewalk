@@ -6991,12 +6991,6 @@ Folgen Sie dieser URL f&amp;uuml;r die vollst&amp;auml;ndige Liste inaktiver Sys
         </context-group>
       <target>(kein Zugriff auf &amp;uuml;bergeordneten Channel)</target></trans-unit>
 
-      <trans-unit id="kickstart.script.required">
-        <source>Kickstart script required.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/system/details/kickstart/KickstartScriptEdit.do</context>
-        </context-group>
-      <target>Kickstart-Skript erforderlich.</target></trans-unit>
 
       <trans-unit id="kickstart.script.toolarge">
         <source>The script must be smaller than {0} characters.</source>

@@ -6984,12 +6984,6 @@ Seguite l'url sotto riportato per visualizzare l'elenco completo di sistemi inat
         </context-group>
       <target>(nessun accesso al canale genitore)</target></trans-unit>
 
-      <trans-unit id="kickstart.script.required">
-        <source>Kickstart script required.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/system/details/kickstart/KickstartScriptEdit.do</context>
-        </context-group>
-      <target>Script Kickstart necessario.</target></trans-unit>
 
       <trans-unit id="kickstart.script.toolarge">
         <source>The script must be smaller than {0} characters.</source>

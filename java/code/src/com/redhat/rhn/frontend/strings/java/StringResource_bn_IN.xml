@@ -6966,12 +6966,6 @@ Follow this url to see the full list of inactive systems:
         </context-group>
       <target>(প্যারেন্ট চ্যানেল ব্যবহার করা সম্ভব নয়)</target></trans-unit>
 
-      <trans-unit id="kickstart.script.required">
-        <source>Kickstart script required.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/system/details/kickstart/KickstartScriptEdit.do</context>
-        </context-group>
-      <target>Kickstart স্ক্রিপ্ট আবশ্যক।</target></trans-unit>
 
       <trans-unit id="kickstart.script.toolarge">
         <source>The script must be smaller than {0} characters.</source>
