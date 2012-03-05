@@ -5888,12 +5888,6 @@ user before attempting to deactivate their account.</source>
 
 
 
-    <trans-unit id="certificate.config.error.40">
-        <source>Channel population failure, see log file for more details.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-      <target>ਚੈਨਲ ਤਿਆਰੀ ਅਸਫ਼ਲ</target></trans-unit>
 
     <trans-unit id="certificate.config.error.80">
         <source>No management entitlements remaining</source>
