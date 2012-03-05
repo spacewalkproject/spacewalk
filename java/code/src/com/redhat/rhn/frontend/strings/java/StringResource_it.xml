@@ -549,12 +549,6 @@
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
       <target>Guida alla gestione @@PRODUCT_NAME@@</target></trans-unit>
-      <trans-unit id="Management Spacewalk">
-<source>Management @@PRODUCT_NAME@@</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-      <target>Gestione @@PRODUCT_NAME@@</target></trans-unit>
       <trans-unit id="Management Spacewalk Release Notes">
 <source>Management @@PRODUCT_NAME@@ Release Notes</source>
         <context-group name="ctx">
