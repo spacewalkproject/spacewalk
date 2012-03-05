@@ -4513,12 +4513,6 @@ deducted from the default organization.</source>
         </context-group>
       <target>Flex Proposed 总数</target></trans-unit>
 
-      <trans-unit id="Entitlement Usage Type">
-<source>Used / Total</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions</context>
-        </context-group>
-      <target>已使用的/全部</target></trans-unit>
 
 
 

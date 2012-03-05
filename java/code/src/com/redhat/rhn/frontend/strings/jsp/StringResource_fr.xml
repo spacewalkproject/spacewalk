@@ -4514,12 +4514,6 @@ que celle par défaut, ces droits d'accès seront déduits de l'organisation
         </context-group>
       <target>Total proposé Flex</target></trans-unit>
 
-      <trans-unit id="Entitlement Usage Type">
-<source>Used / Total</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions</context>
-        </context-group>
-      <target>Utilisé / Total</target></trans-unit>
 
 
 

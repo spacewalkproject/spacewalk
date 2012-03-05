@@ -4512,12 +4512,6 @@ serviços de uma organização não-padrão, eles serão deduzidos da organizaç
         </context-group>
       <target>Total Proposto Flexível</target></trans-unit>
 
-      <trans-unit id="Entitlement Usage Type">
-<source>Used / Total</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions</context>
-        </context-group>
-      <target>Usado / Total</target></trans-unit>
 
 
 

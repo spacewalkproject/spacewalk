@@ -4521,12 +4521,6 @@ deducted from the default organization.</source>
         </context-group>
       </trans-unit>
 
-      <trans-unit id="Entitlement Usage Type">
-<source>Used / Total</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions</context>
-        </context-group>
-      </trans-unit>
 
 
 
