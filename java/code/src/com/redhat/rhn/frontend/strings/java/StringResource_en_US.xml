@@ -2260,12 +2260,6 @@ available for this kickstart profile to function properly.
 
 
 
-        <trans-unit id="toolbar.delete.user">
-<source>delete user</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">User details pages</context>
-        </context-group>
-    </trans-unit>
 
 
       <trans-unit id="toolbar.delete.system">

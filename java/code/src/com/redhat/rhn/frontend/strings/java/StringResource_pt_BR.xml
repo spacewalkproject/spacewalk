@@ -2251,12 +2251,6 @@ disponíveis para seu perfil kickstart funcionar corretamente./n&lt;/li&gt;
 
 
 
-        <trans-unit id="toolbar.delete.user">
-<source>delete user</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">User details pages</context>
-        </context-group>
-    <target>remover usuário</target></trans-unit>
 
 
       <trans-unit id="toolbar.delete.system">

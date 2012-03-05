@@ -2268,12 +2268,6 @@ verfügbar machen, damit dieses Kickstart-Profil einwandfrei funktionieren kann.
 
 
 
-        <trans-unit id="toolbar.delete.user">
-<source>delete user</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">User details pages</context>
-        </context-group>
-    <target>Benutzer l&amp;ouml;schen</target></trans-unit>
 
 
       <trans-unit id="toolbar.delete.system">
