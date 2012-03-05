@@ -442,9 +442,6 @@
         <trans-unit id="permission.jsp.summary.lookupuser">
           <source>You must be an organization administrator to view information on users in this organization.</source>
         <target>您必須是組織管理員，才能檢視組織內的使用者資訊。</target></trans-unit>
-        <trans-unit id="permission.jsp.summary.createrev">
-          <source>You must be a configuration administrator to create new configuration file revisions.</source>
-        <target>您必須是配置管理員，才能建立新的配置檔案修訂版。</target></trans-unit>
 
         <trans-unit id="permission.jsp.summary.acl.header">
           <source>You do not have the appropriate permission set to access the requested page. You may have reached this error page in one of several ways:</source>
