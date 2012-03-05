@@ -14051,15 +14051,6 @@ You may grant provisioning entitlements _here_.
           <context context-type="sourcefile">/rhn/configuration/RevisionDeploy.do</context>
         </context-group>
      <target>ফাইল স্থাপন করুন</target></trans-unit>
-	<trans-unit id="deploy.jsp.global">
-<source>You can deploy the latest revision (&lt;a href="{1}"&gt;Revision {0}&lt;/a&gt;) of this file to any systems subscribed to this file's centrally-managed config channel, &lt;a href="{3}"&gt;{2}&lt;/a&gt;; below is a list of systems you may deploy this file to.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/RevisionDeploy.do</context>
-		  <context context-type="paramnotes">
-You can deploy the latest revision (_Revision 7_) of this file to any systems subscribed to this file's centrally-managed config channel, _@@PRODUCT_NAME@@ Config_; below is  alist of systems you may deploy this file to.
-		  </context>
-        </context-group>
-     <target>কোনো ফাইলের সর্বশেষ পরিমার্জিত সংস্করণ (&lt;a href="{1}"&gt;Revision {0}&lt;/a&gt;) সংশ্লিষ্ট ফাইলটির কেন্দ্রিয় রূপে নিয়ন্ত্রিত কনফিগ চ্যানেলে &lt;a href="{3}"&gt;{2}&lt;/a&gt; সাবস্ক্রাইব করা যে কোনো সিস্টেমে স্থাপন করা যাবে; নিম্নলিখিত তালিকায় উপস্থিত সিস্টেমে এই ফাইল স্থাপন করা যাবে।</target></trans-unit>
 	<trans-unit id="deploylocal.jspf.local">
 <source>
 	You can deploy the latest revision (&lt;a href="{1}"&gt;Revision {0}&lt;/a&gt;) of this file to &lt;a href="{3}"&gt;{2}&lt;/a&gt; - this file is part of that system's locally-managed config channel.

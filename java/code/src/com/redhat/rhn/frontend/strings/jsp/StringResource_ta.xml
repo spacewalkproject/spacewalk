@@ -14052,15 +14052,6 @@ You may grant provisioning entitlements _here_.
           <context context-type="sourcefile">/rhn/configuration/RevisionDeploy.do</context>
         </context-group>
      <target>கோப்பினை வரிசைப்படுத்தல்</target></trans-unit>
-	<trans-unit id="deploy.jsp.global">
-<source>You can deploy the latest revision (&lt;a href="{1}"&gt;Revision {0}&lt;/a&gt;) of this file to any systems subscribed to this file's centrally-managed config channel, &lt;a href="{3}"&gt;{2}&lt;/a&gt;; below is a list of systems you may deploy this file to.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/RevisionDeploy.do</context>
-		  <context context-type="paramnotes">
-You can deploy the latest revision (_Revision 7_) of this file to any systems subscribed to this file's centrally-managed config channel, _@@PRODUCT_NAME@@ Config_; below is  alist of systems you may deploy this file to.
-		  </context>
-        </context-group>
-     <target>நீங்கள் இந்த கோப்பின் சமீபத்திய மறுபார்வையை (&lt;a href="{1}"&gt;மறுபார்வை {0}&lt;/a&gt;) மையமாக-மேலாண்மை செய்யப்பட்ட கட்டமைப்பு தடத்தின் கோப்புடன் சந்தாப்படுத்திய கணினிகளுடன் சந்தாப்படுத்தலாம், &lt;a href="{3}"&gt;{2}&lt;/a&gt;; க்கு கீழே பட்டியலிடப்பட்ட கணினிகள் இந்த கோப்புடன் வரிசைப்படுத்தப்படலாம்.</target></trans-unit>
 	<trans-unit id="deploylocal.jspf.local">
 <source>
 	You can deploy the latest revision (&lt;a href="{1}"&gt;Revision {0}&lt;/a&gt;) of this file to &lt;a href="{3}"&gt;{2}&lt;/a&gt; - this file is part of that system's locally-managed config channel.

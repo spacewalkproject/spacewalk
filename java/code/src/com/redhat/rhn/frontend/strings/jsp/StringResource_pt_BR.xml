@@ -14058,15 +14058,6 @@ You may grant provisioning entitlements _here_.
           <context context-type="sourcefile">/rhn/configuration/RevisionDeploy.do</context>
         </context-group>
      <target>Implementar Arquivo</target></trans-unit>
-	<trans-unit id="deploy.jsp.global">
-<source>You can deploy the latest revision (&lt;a href="{1}"&gt;Revision {0}&lt;/a&gt;) of this file to any systems subscribed to this file's centrally-managed config channel, &lt;a href="{3}"&gt;{2}&lt;/a&gt;; below is a list of systems you may deploy this file to.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/RevisionDeploy.do</context>
-		  <context context-type="paramnotes">
-You can deploy the latest revision (_Revision 7_) of this file to any systems subscribed to this file's centrally-managed config channel, _@@PRODUCT_NAME@@ Config_; below is  alist of systems you may deploy this file to.
-		  </context>
-        </context-group>
-     <target>Você pode implementar a última revisão (&lt;a href="{1}"&gt;Revisão {0}&lt;/a&gt;) deste arquivo para qualquer sistema inscrito neste canal de configuração gerenciado centralmente de arquivo, &lt;a href="{3}"&gt;{2}&lt;/a&gt;. Abaixo segue uma lista de sistemas onde você poderá implementar este arquivo.</target></trans-unit>
 	<trans-unit id="deploylocal.jspf.local">
 <source>
 	You can deploy the latest revision (&lt;a href="{1}"&gt;Revision {0}&lt;/a&gt;) of this file to &lt;a href="{3}"&gt;{2}&lt;/a&gt; - this file is part of that system's locally-managed config channel.
