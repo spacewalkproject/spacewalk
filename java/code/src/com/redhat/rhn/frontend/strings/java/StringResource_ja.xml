@@ -6698,12 +6698,6 @@ Follow this url to see the full list of inactive systems:
       <target>すべてのシステム</target></trans-unit>
 
 
-      <trans-unit id="systems.details.virt.guest.virt.shutdown">
-        <source>Shutdown</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
-        </context-group>
-      <target>シャットダウン</target></trans-unit>
 
       <trans-unit id="systems.details.virt.guest.virt.start">
         <source>Start</source>

@@ -6699,12 +6699,6 @@ Follow this url to see the full list of inactive systems:
       <target>所有系统</target></trans-unit>
 
 
-      <trans-unit id="systems.details.virt.guest.virt.shutdown">
-        <source>Shutdown</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
-        </context-group>
-      <target>关闭</target></trans-unit>
 
       <trans-unit id="systems.details.virt.guest.virt.start">
         <source>Start</source>
