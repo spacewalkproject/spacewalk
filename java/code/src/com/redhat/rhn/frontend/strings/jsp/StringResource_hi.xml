@@ -1623,12 +1623,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
         </context-group>
       <target>उपयोक्ता {0} @@PRODUCT_NAME@@ प्रशासक नहीं है. सिर्फ @@PRODUCT_NAME@@ प्रशासक भूमिका के साथ उपयोक्ता दूसरे उपयोक्ताओं से @@PRODUCT_NAME@@ प्रशासक की भूमिका दे व वापस ले सकता है.</target></trans-unit>
 
-      <trans-unit id="userdetails.jsp.pendingchange">
-<source>Pending change to</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/UserDetails</context>
-        </context-group>
-      <target>इसमें बदलाव स्थगित कर रहा है</target></trans-unit>
 
       <trans-unit id="userdetails.usepam">
 <source>Use PAM: </source>

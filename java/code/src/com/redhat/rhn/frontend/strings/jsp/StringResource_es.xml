@@ -1624,12 +1624,6 @@ del rol de Administrador de la organización.</target></trans-unit>
         </context-group>
       <target>El usuario {0} no es un administrador de @@PRODUCT_NAME@@. Sólo los usuarios con el rol de administrador de @@PRODUCT_NAME@@ pueden otorgar o revocar el rol de administrador de @@PRODUCT_NAME@@ de otros usuarios.</target></trans-unit>
 
-      <trans-unit id="userdetails.jsp.pendingchange">
-<source>Pending change to</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/UserDetails</context>
-        </context-group>
-      <target>Cambio pendiente a</target></trans-unit>
 
       <trans-unit id="userdetails.usepam">
 <source>Use PAM: </source>

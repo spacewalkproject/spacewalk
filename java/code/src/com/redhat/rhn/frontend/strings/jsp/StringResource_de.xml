@@ -1623,12 +1623,6 @@ dr&amp;uuml;cken und &lt;b&gt;k&amp;ouml;nnen sich nicht wieder einloggen&lt;/b&
         </context-group>
       <target>Der Benutzer {0} ist kein @@PRODUCT_NAME@@-Administrator. Nur Benutzer mit @@PRODUCT_NAME@@-Administrator-Rolle k&amp;ouml;nnen anderen Benutzern @@PRODUCT_NAME@@-Administrator-Rollen verleihen oder entziehen.</target></trans-unit>
 
-      <trans-unit id="userdetails.jsp.pendingchange">
-<source>Pending change to</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/UserDetails</context>
-        </context-group>
-      <target>Bevorstehende Änderung an</target></trans-unit>
 
       <trans-unit id="userdetails.usepam">
 <source>Use PAM: </source>

@@ -1623,12 +1623,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
         </context-group>
       <target>ব্যবহারকারী {0}, @@PRODUCT_NAME@@ অ্যাডমিনিস্ট্রেটর রূপে চিহ্নিত নন। শুধুমাত্র @@PRODUCT_NAME@@ অ্যাডমিনিস্ট্রেটর রূপে চিহ্নিত ব্যবহারকারীরা অন্যান্য ব্যবহারকারীদের জন্য @@PRODUCT_NAME@@ অ্যাডমিনিস্ট্রেটরের ভূমিকা ধার্য অথবা বাতিল করতে পারবেন।</target></trans-unit>
 
-      <trans-unit id="userdetails.jsp.pendingchange">
-<source>Pending change to</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/UserDetails</context>
-        </context-group>
-      <target>উল্লিখিত বস্তুর মধ্যে পরিবর্তন অসমাপ্ত</target></trans-unit>
 
       <trans-unit id="userdetails.usepam">
 <source>Use PAM: </source>

@@ -1623,12 +1623,6 @@ abaixo e &lt;b&gt;não poderá mais se autenticar&lt;/b&gt;.</target></trans-uni
         </context-group>
       <target>O usuário {0} não é um Administrador do @@PRODUCT_NAME@@. Somente os usuários com a função de Administrador de @@PRODUCT_NAME@@ podem obter ou revogar as funções de Administrador de @@PRODUCT_NAME@@  de outros usuários.</target></trans-unit>
 
-      <trans-unit id="userdetails.jsp.pendingchange">
-<source>Pending change to</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/UserDetails</context>
-        </context-group>
-      <target>Alteração pendente em</target></trans-unit>
 
       <trans-unit id="userdetails.usepam">
 <source>Use PAM: </source>

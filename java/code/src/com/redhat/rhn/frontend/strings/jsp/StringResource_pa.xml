@@ -1623,12 +1623,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
         </context-group>
       <target>ਉਪਭੋਗੀ {0} @@PRODUCT_NAME@@ ਪਰਬੰਧਕ ਨਹੀਂ ਹੈ। ਸਿਰਫ @@PRODUCT_NAME@@ ਪਰਬੰਧਕ ਦੇ ਰੋਲ ਵਾਲੇ ਉਪਭੋਗੀ ਹੋਰ ਉਪਭੋਗੀਆਂ ਤੋਂ @@PRODUCT_NAME@@ ਪਰਬੰਧਕ ਦਾ ਰੋਲ ਲੈ ਜਾਂ ਦੇ ਸਕਦੇ ਹੋ।</target></trans-unit>
 
-      <trans-unit id="userdetails.jsp.pendingchange">
-<source>Pending change to</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/UserDetails</context>
-        </context-group>
-      <target>ਬਕਾਇਆ ਤਬਦੀਲੀਆਂ ਹਨ</target></trans-unit>
 
       <trans-unit id="userdetails.usepam">
 <source>Use PAM: </source>

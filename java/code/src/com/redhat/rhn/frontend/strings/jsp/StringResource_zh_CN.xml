@@ -1623,12 +1623,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
         </context-group>
       <target>用户 {0}  不是 @@PRODUCT_NAME@@ 管理员。只有具有 @@PRODUCT_NAME@@ 管理员角色的用户才可为其它用户授予或者取消 @@PRODUCT_NAME@@ 管理员角色。</target></trans-unit>
 
-      <trans-unit id="userdetails.jsp.pendingchange">
-<source>Pending change to</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/UserDetails</context>
-        </context-group>
-      <target>未完成的改变到</target></trans-unit>
 
       <trans-unit id="userdetails.usepam">
 <source>Use PAM: </source>

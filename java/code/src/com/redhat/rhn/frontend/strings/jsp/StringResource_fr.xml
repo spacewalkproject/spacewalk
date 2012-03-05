@@ -1623,12 +1623,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
         </context-group>
       <target>L'utilisateur {0} n'est pas un administrateur de @@PRODUCT_NAME@@. Seuls les utilisateurs avec le rôle Administrateur @@PRODUCT_NAME@@ peuvent accorder ou retirer les rôles Administrateurs @@PRODUCT_NAME@@ aux autres utilisateurs.</target></trans-unit>
 
-      <trans-unit id="userdetails.jsp.pendingchange">
-<source>Pending change to</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/UserDetails</context>
-        </context-group>
-      <target>Changement en attente pour</target></trans-unit>
 
       <trans-unit id="userdetails.usepam">
 <source>Use PAM: </source>

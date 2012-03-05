@@ -1623,12 +1623,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
         </context-group>
       <target>ユーザー {0} は @@PRODUCT_NAME@@ 管理者ではありません。@@PRODUCT_NAME@@ 管理者のロールを持つユーザーのみが、他のユーザーに対して @@PRODUCT_NAME@@ 管理者のロールを認可したり、剥奪することができます。</target></trans-unit>
 
-      <trans-unit id="userdetails.jsp.pendingchange">
-<source>Pending change to</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/UserDetails</context>
-        </context-group>
-      <target>待機中が変更になります</target></trans-unit>
 
       <trans-unit id="userdetails.usepam">
 <source>Use PAM: </source>

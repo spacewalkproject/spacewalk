@@ -1623,12 +1623,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
         </context-group>
       <target>பயனர் {0} ஒரு @@PRODUCT_NAME@@ நிர்வாகி இல்லை. @@PRODUCT_NAME@@ நிர்வாகி பொறுப்பை கொண்ட பயனர்கள் மட்டுமே வேறு பயனருக்கு @@PRODUCT_NAME@@ நிர்வாகி பொறுப்பை கொடுக்க முடியும் அல்லது திரும்ப பெற முடியும்.</target></trans-unit>
 
-      <trans-unit id="userdetails.jsp.pendingchange">
-<source>Pending change to</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/UserDetails</context>
-        </context-group>
-      <target>மீதி மாற்றப்படுகிறது</target></trans-unit>
 
       <trans-unit id="userdetails.usepam">
 <source>Use PAM: </source>
