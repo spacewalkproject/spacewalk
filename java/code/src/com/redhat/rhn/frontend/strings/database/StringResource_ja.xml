@@ -2044,12 +2044,6 @@
         </context-group>
       <target>警告: 空きスワップ Pct</target></trans-unit>
 
-      <trans-unit id="Warning Swapped Process Count">
-        <source>Warning Swapped Process Count</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-      <target>警告: スワップしたプロセス数</target></trans-unit>
 
       <trans-unit id="Warning TIME_WAIT Connections">
         <source>Warning TIME_WAIT Connections</source>

@@ -2044,12 +2044,6 @@
         </context-group>
       <target>ચેતવણી સ્વેપ Pct મુક્ત</target></trans-unit>
 
-      <trans-unit id="Warning Swapped Process Count">
-        <source>Warning Swapped Process Count</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-      <target>ચેતવણી સ્વેપ થયેલ પ્રક્રિયા ગણક</target></trans-unit>
 
       <trans-unit id="Warning TIME_WAIT Connections">
         <source>Warning TIME_WAIT Connections</source>
