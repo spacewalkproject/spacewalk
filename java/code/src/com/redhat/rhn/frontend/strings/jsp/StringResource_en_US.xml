@@ -22734,12 +22734,6 @@ given channel.</source>
           <context context-type="sourcefile">/rhn/admin/BunchDetail.do</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="bunch.jsp.description.package-cleanup-bunch">
-        <source>Cleans up orphaned packages</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/BunchDetail.do</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="bunch.jsp.description.satcert-check-bunch">
         <source>Checks whether satellite certificate has not expired</source>
         <context-group name="ctx">
