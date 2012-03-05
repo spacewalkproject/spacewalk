@@ -137,12 +137,6 @@
 
 
 
-      <trans-unit id="system.nav.ungrouped">
-<source>Ungrouped</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Systems Navigation Menu</context>
-        </context-group>
-      <target>Ungruppiert</target></trans-unit>
 
 
 
