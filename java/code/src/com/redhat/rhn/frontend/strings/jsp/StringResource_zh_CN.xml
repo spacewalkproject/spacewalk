@@ -3992,12 +3992,6 @@ deducted from the default organization.</source>
           <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementDetails</context>
         </context-group>
       <target>权利使用</target></trans-unit>
-      <trans-unit id="softwareEntitlementDetails.header.entitlementUsage.totalAvailable.counts">
-<source>Total: &lt;strong&gt;{0}&lt;/strong&gt;, Used: &lt;strong&gt;{1}&lt;/strong&gt;, Free: &lt;strong&gt;{2}&lt;/strong&gt;</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementDetails</context>
-        </context-group>
-      <target>总计：&lt;strong&gt;{0}&lt;/strong&gt;，已使用：&lt;strong&gt;{1}&lt;/strong&gt;，可用的：&lt;strong&gt; {2}&lt;/strong&gt;</target></trans-unit>
       <trans-unit id="softwareEntitlementDetails.header.accessGranted">
 <source>Access Granted by this Entitlement</source>
         <context-group name="ctx">
