@@ -13966,13 +13966,6 @@ Observe que si un sistema dado sobrescribe un archivo, o tiene el archivo en un 
         </context-group>
       <target>Archivos sobrescritos</target></trans-unit>
 
-      <trans-unit id="deploysystems.jsp.outranked-header">
-<source>Outranked Files</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/</context>
-          <context context-type="paramnotes"/>
-        </context-group>
-      <target>Archivos con rango menor</target></trans-unit>
 
 
 

@@ -13960,13 +13960,6 @@ Note que se um sistema específico sobrescrever um dado arquivo, ou existir em u
         </context-group>
       <target>Arquivos Sobrescritos</target></trans-unit>
 
-      <trans-unit id="deploysystems.jsp.outranked-header">
-<source>Outranked Files</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/</context>
-          <context context-type="paramnotes"/>
-        </context-group>
-      <target>Arquivos Desclassificados</target></trans-unit>
 
 
 

@@ -13951,13 +13951,6 @@ Da notare che se un dato sistema sovrascrive un determinato file, oppure se il f
         </context-group>
       <target>File sovrascritti</target></trans-unit>
 
-      <trans-unit id="deploysystems.jsp.outranked-header">
-<source>Outranked Files</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/</context>
-          <context context-type="paramnotes"/>
-        </context-group>
-      <target>File declassati</target></trans-unit>
 
 
 

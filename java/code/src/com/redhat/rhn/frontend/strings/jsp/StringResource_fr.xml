@@ -13970,13 +13970,6 @@ Notez que si un système donné surcharge un ficher donné ou qu'il a ce fichier
         </context-group>
       <target>Fichiers surchargés</target></trans-unit>
 
-      <trans-unit id="deploysystems.jsp.outranked-header">
-<source>Outranked Files</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/</context>
-          <context context-type="paramnotes"/>
-        </context-group>
-      <target>Fichiers déclassés</target></trans-unit>
 
 
 

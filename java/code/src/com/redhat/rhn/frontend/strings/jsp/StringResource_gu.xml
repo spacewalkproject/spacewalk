@@ -13954,13 +13954,6 @@ Note that if a given system overrides a given file, or has it in that system's l
         </context-group>
       <target>ઓવરરાઈડ થયેલ ફાઈલો</target></trans-unit>
 
-      <trans-unit id="deploysystems.jsp.outranked-header">
-<source>Outranked Files</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/</context>
-          <context context-type="paramnotes"/>
-        </context-group>
-      <target>આઉટરેન્ક થયેલ ફાઈલો</target></trans-unit>
 
 
 

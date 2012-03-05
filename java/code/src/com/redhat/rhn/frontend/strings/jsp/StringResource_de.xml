@@ -13971,13 +13971,6 @@ Beachten Sie bitte, dass wenn eine bestimmtes System eine bestimmte Datei au&amp
         </context-group>
       <target>Ersetzte Dateien</target></trans-unit>
 
-      <trans-unit id="deploysystems.jsp.outranked-header">
-<source>Outranked Files</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/</context>
-          <context context-type="paramnotes"/>
-        </context-group>
-      <target>&amp;Uuml;bergeordnete Dateien</target></trans-unit>
 
 
 

@@ -13950,13 +13950,6 @@ Note that if a given system overrides a given file, or has it in that system's l
         </context-group>
       <target>被置換的檔案</target></trans-unit>
 
-      <trans-unit id="deploysystems.jsp.outranked-header">
-<source>Outranked Files</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/</context>
-          <context context-type="paramnotes"/>
-        </context-group>
-      <target>階級較高的檔案</target></trans-unit>
 
 
 
