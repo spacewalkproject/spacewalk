@@ -3250,12 +3250,6 @@ de este usuario antes de intentar desactivar esta cuenta.</target></trans-unit>
         </context-group>
       <target>Ninguna errata seleccionada.</target></trans-unit>
 
-      <trans-unit id="actions.none">
-<source>No actions selected.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/ErrataList</context>
-        </context-group>
-      <target>Ninguna acción seleccionada.</target></trans-unit>
 
       <trans-unit id="systems.none">
 <source>No systems selected.</source>

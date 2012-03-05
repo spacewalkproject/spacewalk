@@ -3225,12 +3225,6 @@ user before attempting to deactivate their account.</source>
         </context-group>
       <target>કોઈ ત્રુટિસૂચી પસંદ થયેલ નથી.</target></trans-unit>
 
-      <trans-unit id="actions.none">
-<source>No actions selected.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/ErrataList</context>
-        </context-group>
-      <target>કોઈ ક્રિયાઓ પસંદ થયેલ નથી.</target></trans-unit>
 
       <trans-unit id="systems.none">
 <source>No systems selected.</source>

@@ -3256,12 +3256,6 @@ Benutzers vor dem Versuch, den Account zu deaktivieren.</target></trans-unit>
         </context-group>
       <target>Keine Errata ausgew&amp;auml;hlt.</target></trans-unit>
 
-      <trans-unit id="actions.none">
-<source>No actions selected.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/ErrataList</context>
-        </context-group>
-      <target>Keine Aktionen ausgew&amp;auml;hlt.</target></trans-unit>
 
       <trans-unit id="systems.none">
 <source>No systems selected.</source>

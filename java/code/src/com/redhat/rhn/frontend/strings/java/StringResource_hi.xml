@@ -3225,12 +3225,6 @@ user before attempting to deactivate their account.</source>
         </context-group>
       <target>कोई इरेटा चयनित नहीं.</target></trans-unit>
 
-      <trans-unit id="actions.none">
-<source>No actions selected.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/ErrataList</context>
-        </context-group>
-      <target>कोई क्रिया चयनित नहीं.</target></trans-unit>
 
       <trans-unit id="systems.none">
 <source>No systems selected.</source>

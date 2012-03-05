@@ -3252,12 +3252,6 @@ utilisateur avant de désactiver son compte.</target></trans-unit>
         </context-group>
       <target>Aucun errata sélectionné.</target></trans-unit>
 
-      <trans-unit id="actions.none">
-<source>No actions selected.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/ErrataList</context>
-        </context-group>
-      <target>Aucun action sélectionnée.</target></trans-unit>
 
       <trans-unit id="systems.none">
 <source>No systems selected.</source>

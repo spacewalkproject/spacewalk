@@ -3249,12 +3249,6 @@ utente prima di disabilitare l'account in questione.</target></trans-unit>
         </context-group>
       <target>Nessun errata selezionato.</target></trans-unit>
 
-      <trans-unit id="actions.none">
-<source>No actions selected.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/ErrataList</context>
-        </context-group>
-      <target>Nessuna azione selezionata.</target></trans-unit>
 
       <trans-unit id="systems.none">
 <source>No systems selected.</source>
