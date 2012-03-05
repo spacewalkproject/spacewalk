@@ -863,12 +863,6 @@
 
 
 
-      <trans-unit id="login.jsp.note">
-<source>&lt;strong&gt;Note:&lt;/strong&gt; If you are having SSL connection issues when connecting to @@PRODUCT_NAME@@, ensure that you are using &lt;a href="/help/latest-up2date.pxt"&gt;the latest versions&lt;/a&gt; of up2date (Enterprise Linux 4 and below) or yum (Enterprise Linux 5 and higher) and rhn_register.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/Login</context>
-        </context-group>
-      <target>&lt;strong&gt;注：&lt;/strong&gt; 如果您在连接到 @@PRODUCT_NAME@@ 时出现 SSL 连接问题，请确认您在使用 up2date（企业版 Linux 4 以及之前的版本）或者 yum（企业版 Linux 5 以及之后的版本）和 rhn_register 的 &lt;a href="/help/latest-up2date.pxt"&gt;最新的版本&lt;/a&gt;。</target></trans-unit>
 
       <!-- preferences.jsp -->
       <trans-unit id="preferences.jsp.alt">

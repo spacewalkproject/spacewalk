@@ -863,12 +863,6 @@
 
 
 
-      <trans-unit id="login.jsp.note">
-<source>&lt;strong&gt;Note:&lt;/strong&gt; If you are having SSL connection issues when connecting to @@PRODUCT_NAME@@, ensure that you are using &lt;a href="/help/latest-up2date.pxt"&gt;the latest versions&lt;/a&gt; of up2date (Enterprise Linux 4 and below) or yum (Enterprise Linux 5 and higher) and rhn_register.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/Login</context>
-        </context-group>
-      <target>&lt;strong&gt;Remarque :&lt;/strong&gt; si vous avez des problèmes de connexion SSL lorsque vous vous connectez à @@PRODUCT_NAME@@, assurez-vous que vous utilisez &lt;a href="/help/latest-up2date.pxt"&gt;les dernières versions&lt;/a&gt; de up2date (Enterprise Linux 4 et les versions précédentes) ou yum (Enterprise Linux 5 et les versions plus récentes) et rhn_register.</target></trans-unit>
 
       <!-- preferences.jsp -->
       <trans-unit id="preferences.jsp.alt">
