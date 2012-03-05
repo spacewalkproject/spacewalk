@@ -3561,12 +3561,6 @@ abaixo e &lt;b&gt;não poderá mais se autenticar&lt;/b&gt;.</target></trans-uni
         </context-group>
       <target>Errata {0}-{1} criada.</target></trans-unit>
 
-      <trans-unit id="errata.edit.cache.modified">
-<source>The list of packages associated with this erratum has been modified recently.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/errata/manage/Edit.do</context>
-        </context-group>
-      <target>A lista de pacotes associados a esta errata foi modificada recentemente.</target></trans-unit>
 
 
       <trans-unit id="errata.edit.toolbar">

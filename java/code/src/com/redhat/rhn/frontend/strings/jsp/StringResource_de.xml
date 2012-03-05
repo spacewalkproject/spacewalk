@@ -3561,12 +3561,6 @@ dr&amp;uuml;cken und &lt;b&gt;k&amp;ouml;nnen sich nicht wieder einloggen&lt;/b&
         </context-group>
       <target>Erratum {0}-{1} erstellt.</target></trans-unit>
 
-      <trans-unit id="errata.edit.cache.modified">
-<source>The list of packages associated with this erratum has been modified recently.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/errata/manage/Edit.do</context>
-        </context-group>
-      <target>Die Liste von Paketen in Zusammenhang mit diesem Erratum ist k&amp;uuml;rzlich modifiziert worden.</target></trans-unit>
 
 
       <trans-unit id="errata.edit.toolbar">

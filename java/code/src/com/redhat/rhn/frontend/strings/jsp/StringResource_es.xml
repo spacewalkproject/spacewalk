@@ -3562,12 +3562,6 @@ del rol de Administrador de la organización.</target></trans-unit>
         </context-group>
       <target>Errata {0}-{1} creada.</target></trans-unit>
 
-      <trans-unit id="errata.edit.cache.modified">
-<source>The list of packages associated with this erratum has been modified recently.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/errata/manage/Edit.do</context>
-        </context-group>
-      <target>La lista de paquetes asociados con esta errata ha sido modificada recientemente.</target></trans-unit>
 
 
       <trans-unit id="errata.edit.toolbar">

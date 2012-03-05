@@ -3561,12 +3561,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
         </context-group>
       <target>பிழைத்திருத்தங்கள் {0}-{1} உருவாக்கப்பட்டன.</target></trans-unit>
 
-      <trans-unit id="errata.edit.cache.modified">
-<source>The list of packages associated with this erratum has been modified recently.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/errata/manage/Edit.do</context>
-        </context-group>
-      <target>இந்த பிழைத்திருத்தம் உடன் தொடர்புடைய தொகுப்புகள் பட்டியல் சமீபத்தில் மாற்றப்பட்டது.</target></trans-unit>
 
 
       <trans-unit id="errata.edit.toolbar">
