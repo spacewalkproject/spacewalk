@@ -156,12 +156,6 @@
         </context-group>
       <target>Non raggruppato</target></trans-unit>
 
-      <trans-unit id="system.nav.inactive">
-<source>Inactive</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Systems Navigation Menu</context>
-        </context-group>
-      <target>Inattivo</target></trans-unit>
 
       <trans-unit id="system.nav.proxy">
 <source>Proxy</source>

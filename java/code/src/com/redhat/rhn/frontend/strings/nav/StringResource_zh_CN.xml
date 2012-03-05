@@ -156,12 +156,6 @@
         </context-group>
       <target>未分组的</target></trans-unit>
 
-      <trans-unit id="system.nav.inactive">
-<source>Inactive</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Systems Navigation Menu</context>
-        </context-group>
-      <target>不活跃的</target></trans-unit>
 
       <trans-unit id="system.nav.proxy">
 <source>Proxy</source>

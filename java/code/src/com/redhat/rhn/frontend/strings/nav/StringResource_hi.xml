@@ -156,12 +156,6 @@
         </context-group>
       <target>विसमूहीकृत</target></trans-unit>
 
-      <trans-unit id="system.nav.inactive">
-<source>Inactive</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Systems Navigation Menu</context>
-        </context-group>
-      <target>निष्क्रिय</target></trans-unit>
 
       <trans-unit id="system.nav.proxy">
 <source>Proxy</source>
