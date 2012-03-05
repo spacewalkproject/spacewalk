@@ -2162,12 +2162,6 @@ rhn-kickstart* パッケージが利用可能であることを確認します�
           <context context-type="sourcefile">/rhn/errata/details/ErrataConfirm.do</context>
         </context-group>
       <target>少くとも 1 システムを選択する必要があります。</target></trans-unit>
-      <trans-unit id="patchremoveconfirm.schedule">
-<source>Patch removal has been scheduled for &lt;strong&gt;{1}&lt;/strong&gt; system</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/packages/patches/PatchConfirmSubmit.do</context>
-        </context-group>
-      <target>&lt;strong&gt;{1}&lt;/strong&gt; システムに対してパッチの削除がスケジュールされています</target></trans-unit>
 
       <trans-unit id="run as">
 <source>Run as:</source>

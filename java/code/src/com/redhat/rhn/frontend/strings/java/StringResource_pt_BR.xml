@@ -2152,12 +2152,6 @@ disponíveis para seu perfil kickstart funcionar corretamente./n&lt;/li&gt;
           <context context-type="sourcefile">/rhn/errata/details/ErrataConfirm.do</context>
         </context-group>
       <target>Selecione ao menos um sistema.</target></trans-unit>
-      <trans-unit id="patchremoveconfirm.schedule">
-<source>Patch removal has been scheduled for &lt;strong&gt;{1}&lt;/strong&gt; system</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/packages/patches/PatchConfirmSubmit.do</context>
-        </context-group>
-      <target>A remoção do patch foi agendada para &lt;strong&gt;{1}&lt;/strong&gt; sistema</target></trans-unit>
 
       <trans-unit id="run as">
 <source>Run as:</source>

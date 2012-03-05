@@ -2140,12 +2140,6 @@ available for this kickstart profile to function properly.
           <context context-type="sourcefile">/rhn/errata/details/ErrataConfirm.do</context>
         </context-group>
       <target>ਤੁਹਾਨੂੰ ਘੱਟੋ-ਘੱਟ ਇੱਕ ਸਿਸਟਮ ਚੁਣਨਾ ਜਰੂਰੀ ਹੈ।</target></trans-unit>
-      <trans-unit id="patchremoveconfirm.schedule">
-<source>Patch removal has been scheduled for &lt;strong&gt;{1}&lt;/strong&gt; system</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/packages/patches/PatchConfirmSubmit.do</context>
-        </context-group>
-      <target>ਸਿਸਟਮ &lt;strong&gt;{1}&lt;/strong&gt; ਤੋਂ ਪੈਂਚ ਹਟਾਉਣ ਲਈ ਤਹਿ ਕੀਤਾ ਗਿਆ ਹੈ।</target></trans-unit>
 
       <trans-unit id="run as">
 <source>Run as:</source>
