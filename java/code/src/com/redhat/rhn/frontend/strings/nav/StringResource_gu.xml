@@ -267,12 +267,6 @@
         </context-group>
       <target>વહેંચાયેલ ચેનલો</target></trans-unit>
 
-      <trans-unit id="channel.nav.redhat">
-<source>Red Hat Channels</source>
-          <context-group name="ctx">
-          <context context-type="sourcefile">Channel Navigation Menu</context>
-        </context-group>
-      <target>Red Hat ચેનલો</target></trans-unit>
 
       <trans-unit id="channel.nav.popular">
 <source>Popular Channels</source>
