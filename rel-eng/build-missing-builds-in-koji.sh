@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-TAGS="dist-5E-sw-1.8-candidate dist-6E-sw-1.8-candidate dist-f15-sw-1.8-candidate dist-f16-sw-1.8-candidate"
+TAGS="spacewalk-nightly-rhel5 spacewalk-nightly-rhel6 spacewalk-nightly-fedora15 spacewalk-nightly-fedora16"
 FEDORA_UPLOAD=1
 
 pushd . >/dev/null
