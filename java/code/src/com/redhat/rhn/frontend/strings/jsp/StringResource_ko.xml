@@ -18936,13 +18936,6 @@ the organizations (excluding the default @@PRODUCT_NAME@@ organization) on this 
           <context context-type="paramnotes">4 systems subscribed</context>
         </context-group>
       <target>{0} 시스템이 등록됨 </target></trans-unit>
-	  <trans-unit id="ssmchildsubs.jsp.successfulUnsubs">
-        <source>There were {0} successful unsubscribe actions.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channel/ssm/ChildSubscriptions.do</context>
-          <context context-type="paramnotes">There were 42 successful unsubscribe actions.</context>
-        </context-group>
-      <target>{0}이 성공적으로 등록 해제되었습니다. </target></trans-unit>
 	  <trans-unit id="ssmchildsubs.jsp.header">
         <source>Channel Subscriptions</source>
         <context-group name="ctx">

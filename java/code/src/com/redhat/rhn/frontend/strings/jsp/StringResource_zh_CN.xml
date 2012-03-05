@@ -19005,13 +19005,6 @@ the organizations (excluding the default @@PRODUCT_NAME@@ organization) on this 
           <context context-type="paramnotes">4 systems subscribed</context>
         </context-group>
       <target>订阅了 {0} 系统</target></trans-unit>
-	  <trans-unit id="ssmchildsubs.jsp.successfulUnsubs">
-        <source>There were {0} successful unsubscribe actions.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channel/ssm/ChildSubscriptions.do</context>
-          <context context-type="paramnotes">There were 42 successful unsubscribe actions.</context>
-        </context-group>
-      <target>有 {0} 个成功取消订阅动作。</target></trans-unit>
 	  <trans-unit id="ssmchildsubs.jsp.header">
         <source>Channel Subscriptions</source>
         <context-group name="ctx">
