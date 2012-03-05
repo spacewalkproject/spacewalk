@@ -9666,12 +9666,6 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
     <target>કિકસ્ટાર્ટ સુનિશ્ચિત કરવા માટે, ઉપર સિસ્ટમો ટેબ પર જાવ અને સિસ્ટમ પસંદ કરો કે જેને તમે કિકસ્ટાર્ટ કરવા ઈચ્છો. ત્યાંથી, તમે સિસ્ટમની બચાવ ટેબ પર જાવ અને સુનિશ્ચિત ઉપટેબ પર ક્લિક કરો.</target></trans-unit>
 
-    <trans-unit id="kickstartranges.jsp.noranges">
-        <source>There are currently no kickstart ip ranges associated for any of your organization's kickstart profiles.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart</context>
-        </context-group>
-    <target>તમારી સંસ્થાની કિકસ્ટાર્ટ રૂપરેખાઓમાંની કોઈપણ સાથે સંકળાયેલ કોઈપણ કિકસ્ટાર્ટ ip વિસ્તારો વર્તમાનમાં નથી.</target></trans-unit>
 
     <trans-unit id="kickstartranges.jsp.range">
         <source>Range</source>

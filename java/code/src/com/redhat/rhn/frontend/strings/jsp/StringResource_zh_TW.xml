@@ -9662,12 +9662,6 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
     <target>如要為一個 kickstart 排程，請至上方的系統分頁並選擇您所想 kickstart 的系統。從這裡，請至系統的 Provisioning 分頁並點選「排程」的子分頁。</target></trans-unit>
 
-    <trans-unit id="kickstartranges.jsp.noranges">
-        <source>There are currently no kickstart ip ranges associated for any of your organization's kickstart profiles.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart</context>
-        </context-group>
-    <target>目前沒有任何 kickstart IP 位址與您組織的 kickstart 檔相關。</target></trans-unit>
 
     <trans-unit id="kickstartranges.jsp.range">
         <source>Range</source>

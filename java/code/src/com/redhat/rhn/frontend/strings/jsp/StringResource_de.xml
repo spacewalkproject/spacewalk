@@ -9681,12 +9681,6 @@ Bitte beachten Sie, dass m&amp;ouml;glicherweise noch einige manuelle Konfigurat
         </context-group>
     <target>Um einen Kickstart zu planen, gehen Sie zum Reiter "Systeme" oben und w&amp;auml;hlen das System, das Sie kickstarten m&amp;ouml;chten. Navigieren Sie von dort aus zum Reiter "Provisioning" und klicken Sie auf den Unterreiter "Planen".</target></trans-unit>
 
-    <trans-unit id="kickstartranges.jsp.noranges">
-        <source>There are currently no kickstart ip ranges associated for any of your organization's kickstart profiles.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart</context>
-        </context-group>
-    <target>Momentan sind keine Kickstart-IP-Bereiche mit irgendeinem Ihrer Organisations-Kickstart-Profile zugeordnet.</target></trans-unit>
 
     <trans-unit id="kickstartranges.jsp.range">
         <source>Range</source>

@@ -9670,12 +9670,6 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
     <target>Para agendar um kickstart, vá à aba Sistemas acima e selecione um sistema para o kickstart. Neste sistema, vá à aba Provisioning do sistema e clique na sub-aba Agendamento.</target></trans-unit>
 
-    <trans-unit id="kickstartranges.jsp.noranges">
-        <source>There are currently no kickstart ip ranges associated for any of your organization's kickstart profiles.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart</context>
-        </context-group>
-    <target>Não há nenhum intervalo de IPs de kickstart associado a qualquer um dos perfis de kickstart da sua organização.</target></trans-unit>
 
     <trans-unit id="kickstartranges.jsp.range">
         <source>Range</source>

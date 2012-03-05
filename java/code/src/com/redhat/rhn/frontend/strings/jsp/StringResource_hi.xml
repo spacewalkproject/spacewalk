@@ -9666,12 +9666,6 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
     <target>किकस्टार्ट नियोजित करने के लिए, सिस्टम टैब पर ऊपर जाएं और सिस्टम चुनें जिससे आप किकस्टार्ट किया जाना पसंद करेंगे. वहां से, सिस्टम के प्रोविजनिंग टैब पर जाएं और नियोजन उपटैब क्लिक करें.</target></trans-unit>
 
-    <trans-unit id="kickstartranges.jsp.noranges">
-        <source>There are currently no kickstart ip ranges associated for any of your organization's kickstart profiles.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart</context>
-        </context-group>
-    <target>अभी आपके संगठन के किकस्टार्ट प्रोफाइल के लिये कोई ip परिसर जुड़ी नहीं है.</target></trans-unit>
 
     <trans-unit id="kickstartranges.jsp.range">
         <source>Range</source>

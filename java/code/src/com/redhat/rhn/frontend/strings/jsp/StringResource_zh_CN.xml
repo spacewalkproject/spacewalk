@@ -9674,12 +9674,6 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
     <target>要调度 kickstart，请点击上面的系统标签并选择您要继续 kickstart 安装的系统。然后进入系统的 Provisioning 标签并点击调度子标签。</target></trans-unit>
 
-    <trans-unit id="kickstartranges.jsp.noranges">
-        <source>There are currently no kickstart ip ranges associated for any of your organization's kickstart profiles.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart</context>
-        </context-group>
-    <target>当前没有 kickstart ip 范围和您的机构内的任何 kickstart 侧写相关联。</target></trans-unit>
 
     <trans-unit id="kickstartranges.jsp.range">
         <source>Range</source>

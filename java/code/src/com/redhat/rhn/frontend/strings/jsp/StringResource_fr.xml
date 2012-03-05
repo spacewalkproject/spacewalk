@@ -9679,12 +9679,6 @@ Veuillez noter qu'une configuration manuelle de ces scripts peut toujours être 
         </context-group>
     <target>Pour programmer un kickstart, allez sur l'onglet Systèmes ci-dessus et sélectionnez le système que vous voulez kickstarter. Puis, allez sur l'onglet Provisioning du système et cliquez sur l'onglet Programmer.</target></trans-unit>
 
-    <trans-unit id="kickstartranges.jsp.noranges">
-        <source>There are currently no kickstart ip ranges associated for any of your organization's kickstart profiles.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart</context>
-        </context-group>
-    <target>Il n'existe aucune gamme d'ip kickstart associée à l'un des profils kickstart de votre organisation.</target></trans-unit>
 
     <trans-unit id="kickstartranges.jsp.range">
         <source>Range</source>

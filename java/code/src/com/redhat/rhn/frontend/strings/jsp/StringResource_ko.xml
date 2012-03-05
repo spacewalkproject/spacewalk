@@ -9663,12 +9663,6 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
     <target>킥스타트를 스케줄하시려면, 위의 시스템 탭으로 가셔서 킥스타트하시려는 시스템을 선택하신 후, 시스템의 프로비저닝 (Provisioning) 탭으로 가셔서 스케줄 하부탭을 클릭하시기 바랍니다.</target></trans-unit>
 
-    <trans-unit id="kickstartranges.jsp.noranges">
-        <source>There are currently no kickstart ip ranges associated for any of your organization's kickstart profiles.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart</context>
-        </context-group>
-    <target>현재 조직의 킥스타트 프로파일에는 아무런 킥스타트 IP 범위도 연계되지 않았습니다.   </target></trans-unit>
 
     <trans-unit id="kickstartranges.jsp.range">
         <source>Range</source>

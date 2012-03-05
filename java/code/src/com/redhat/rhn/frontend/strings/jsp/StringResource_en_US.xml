@@ -10017,12 +10017,6 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
     </trans-unit>
 
-    <trans-unit id="kickstartranges.jsp.noranges">
-        <source>There are currently no kickstart ip ranges associated for any of your organization's kickstart profiles.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart</context>
-        </context-group>
-    </trans-unit>
 
     <trans-unit id="kickstartranges.jsp.range">
         <source>Range</source>

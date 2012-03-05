@@ -9678,12 +9678,6 @@ Por favor tenga en cuenta que podría ser necesario configurar manualmente estos
         </context-group>
     <target>Para programar un inicio de instalación mediante kickstart, vaya a la pestaña Sistemas y seleccione el sistema en el cual desea el kickstart. Desde allí, vaya a la pestaña de aprovisionamiento y haga clic en la subpestaña Programar.</target></trans-unit>
 
-    <trans-unit id="kickstartranges.jsp.noranges">
-        <source>There are currently no kickstart ip ranges associated for any of your organization's kickstart profiles.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart</context>
-        </context-group>
-    <target>No hay ningún rango IP asociado para ninguno de los perfiles kickstart de su organización.</target></trans-unit>
 
     <trans-unit id="kickstartranges.jsp.range">
         <source>Range</source>

@@ -9666,12 +9666,6 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
     <target>ஒரு கிக்ஸ்டார்ட் திட்டமிட, கணினிகள் தத்தலில் மேலே நீங்கள் கிக்ஸ்டார்ட் செய்ய விரும்பும் கணினியை தேர்ந்தெடுக்கவும். அங்கிருந்து, கணினிகள் வாய்ப்பளித்தல் தத்தலுக்கு சென்று திட்டம் துணை தத்தலை சொடுக்கவும்</target></trans-unit>
 
-    <trans-unit id="kickstartranges.jsp.noranges">
-        <source>There are currently no kickstart ip ranges associated for any of your organization's kickstart profiles.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart</context>
-        </context-group>
-    <target>உங்கள் நிறுவனத்தின் கிக்ஸ்டார்ட் விவரக்குறிப்புகள் எதற்கும் தற்போது தொடர்புடைய கிக்ஸ்டார்ட் ஐபி வரையறை இல்லை.</target></trans-unit>
 
     <trans-unit id="kickstartranges.jsp.range">
         <source>Range</source>

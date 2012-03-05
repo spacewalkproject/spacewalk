@@ -9663,12 +9663,6 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
     <target>Per programmare un kickstart, andate sulla tabella Sistemi e selezionate il sistema desiderato sul quale eseguire il kickstart. Da qui andate sulla tabella Provisioning del sistema, facendo clic sulla sottotabella Programma.</target></trans-unit>
 
-    <trans-unit id="kickstartranges.jsp.noranges">
-        <source>There are currently no kickstart ip ranges associated for any of your organization's kickstart profiles.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart</context>
-        </context-group>
-    <target>Al momento non sono presenti ip range associati ai profili kickstart della vostra organizzazione.</target></trans-unit>
 
     <trans-unit id="kickstartranges.jsp.range">
         <source>Range</source>

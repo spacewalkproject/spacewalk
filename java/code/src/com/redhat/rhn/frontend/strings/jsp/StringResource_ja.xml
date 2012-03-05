@@ -9664,12 +9664,6 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
     <target>キックスタートをスケジュールするには、 上部のシステムタブを選択し、 キックスタートを行いたいシステムを選択します。同じ画面でシステムのプロビジョニングタブを選択し、スケジュールのサブタブをクリックします。</target></trans-unit>
 
-    <trans-unit id="kickstartranges.jsp.noranges">
-        <source>There are currently no kickstart ip ranges associated for any of your organization's kickstart profiles.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart</context>
-        </context-group>
-    <target>いずれの企業/組織のキックスタートプロフィールに対しても、現在キックスタート IP 範囲は関連付けられていません。</target></trans-unit>
 
     <trans-unit id="kickstartranges.jsp.range">
         <source>Range</source>

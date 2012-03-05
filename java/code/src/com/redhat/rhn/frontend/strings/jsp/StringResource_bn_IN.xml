@@ -9665,12 +9665,6 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
     <target>kickstart-র সময় নির্ধারণ করার জন্য উপরে অবস্থিত সিস্টেম ট্যাব-এ গিয়ে kickstart করার জন্য প্রয়োজনীয় সিস্টেম নির্বাচন করুন।  এর পরে সিস্টেমের Provisioning ট্যাব থেকে সময় নির্ধারণ শীর্ষক সাব-ট্যাব ক্লিক করুন।</target></trans-unit>
 
-    <trans-unit id="kickstartranges.jsp.noranges">
-        <source>There are currently no kickstart ip ranges associated for any of your organization's kickstart profiles.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart</context>
-        </context-group>
-    <target>আপনার প্রতিষ্ঠানের kickstart প্রোফাইলগুলির সাথে বর্তমানে কোনো kickstart ip রেঞ্জ যুক্ত করা হয়নি।</target></trans-unit>
 
     <trans-unit id="kickstartranges.jsp.range">
         <source>Range</source>

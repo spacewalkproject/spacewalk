@@ -9661,12 +9661,6 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
     <target>Чтобы назначить кикстарт, перейдите ко вкладке «Системы» и выберите систему, для которой вы планируете выполнить кикстарт. Затем перейдите к вкладке «Обеспечение», «Назначить».</target></trans-unit>
 
-    <trans-unit id="kickstartranges.jsp.noranges">
-        <source>There are currently no kickstart ip ranges associated for any of your organization's kickstart profiles.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart</context>
-        </context-group>
-    <target>С профилями кикстарта вашей организации не связан ни один диапазон IP.</target></trans-unit>
 
     <trans-unit id="kickstartranges.jsp.range">
         <source>Range</source>
