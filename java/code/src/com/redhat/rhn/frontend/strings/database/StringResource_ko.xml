@@ -3537,9 +3537,6 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/kickstart/SessionStatus.do</context>
         </context-group>
-        <trans-unit id="kickstart.state.started">
-          <source>The initial files required for anaconda have been downloaded.</source>
-        <target>anaconda에 사용되는 초기 파일은 다운로드되었습니다.</target></trans-unit>
     </group>
 
 
