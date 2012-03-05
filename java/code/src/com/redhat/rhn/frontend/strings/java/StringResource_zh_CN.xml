@@ -2301,12 +2301,6 @@ available for this kickstart profile to function properly.
         </context-group>
       <target>与组群一同工作</target></trans-unit>
 
-     <trans-unit id="toolbar.delete.kickstart">
-        <source>delete kickstart</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">Kickstart profile pages</context>
-        </context-group>
-      <target>删除 kickstart</target></trans-unit>
 
 
 

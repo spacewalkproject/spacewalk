@@ -2276,12 +2276,6 @@ available for this kickstart profile to function properly.
         </context-group>
       <target>குழுவுடன் பணி</target></trans-unit>
 
-     <trans-unit id="toolbar.delete.kickstart">
-        <source>delete kickstart</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">Kickstart profile pages</context>
-        </context-group>
-      <target>கிக்ஸ்டார்ட்டை அழிக்கவும்</target></trans-unit>
 
 
 

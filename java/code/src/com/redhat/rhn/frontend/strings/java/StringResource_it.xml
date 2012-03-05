@@ -2300,12 +2300,6 @@ disponibili per un corretto funzionamento di questo profilo kickstart.
         </context-group>
       <target>lavora con il gruppo</target></trans-unit>
 
-     <trans-unit id="toolbar.delete.kickstart">
-        <source>delete kickstart</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">Kickstart profile pages</context>
-        </context-group>
-      <target>cancella kickstart</target></trans-unit>
 
 
 

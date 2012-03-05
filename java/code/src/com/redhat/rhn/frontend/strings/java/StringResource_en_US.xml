@@ -2299,12 +2299,6 @@ available for this kickstart profile to function properly.
         </context-group>
       </trans-unit>
 
-     <trans-unit id="toolbar.delete.kickstart">
-        <source>delete kickstart</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">Kickstart profile pages</context>
-        </context-group>
-      </trans-unit>
 
 
 
