@@ -1246,12 +1246,6 @@
           <context context-type="sourcefile">/rhn/account/ChangeEmail</context>
         </context-group>
       <target>ই-মেইল ঠিকানা পরিবর্তন</target></trans-unit>
-      <trans-unit id="yourchangeemail.verified">
-<source>Your current email address has been verified. If you wish to change it, please enter your new address below and click 'Update.'</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/account/ChangeEmail</context>
-        </context-group>
-      <target>আপনার বর্তমান ই-মেইল ঠিকানা পরীক্ষিত হয়েছে। আপনি যদি এটি পরিবর্তন করে ইচ্ছুক থাকেন তাহলে অনুগ্রহ করে নিম্নলিখিত স্থানে নতুন ঠিকানা উল্লেখ করে 'আপডেট' ক্লিক করুন।</target></trans-unit>
 
 
       <trans-unit id="yourchangeemail.instructions">

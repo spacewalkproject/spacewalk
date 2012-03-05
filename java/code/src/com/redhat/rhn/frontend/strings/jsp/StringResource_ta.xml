@@ -1246,12 +1246,6 @@
           <context context-type="sourcefile">/rhn/account/ChangeEmail</context>
         </context-group>
       <target>மின்னஞ்சல் முகவரியை மாற்றவும்</target></trans-unit>
-      <trans-unit id="yourchangeemail.verified">
-<source>Your current email address has been verified. If you wish to change it, please enter your new address below and click 'Update.'</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/account/ChangeEmail</context>
-        </context-group>
-      <target>உங்கள் நடப்பு மின்னஞ்சல் முகவரி சரிபார்க்கப்பட்டது. நீங்கள் அதனை மாற்ற வேண்டுமென்று நினைத்தால் புதிய முகவரியை கீழே உள்ளிட்டு 'மேம்படுத்தல்' என்பதை சொடுக்கவும். ஒரு மின்னஞ்சல் அந்த முகவரிக்கு அனுப்பப்படும், அதில் ஒரு இணைப்பு இருக்கும் அதனை சொடுக்கி மாற்றத்தை சரிபார்க்க வேண்டும்.</target></trans-unit>
 
 
       <trans-unit id="yourchangeemail.instructions">

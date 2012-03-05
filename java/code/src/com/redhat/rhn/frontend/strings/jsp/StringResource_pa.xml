@@ -1246,12 +1246,6 @@
           <context context-type="sourcefile">/rhn/account/ChangeEmail</context>
         </context-group>
       <target>ਈ-ਮੇਲ ਐਡਰੈੱਸ ਤਬਦੀਲ</target></trans-unit>
-      <trans-unit id="yourchangeemail.verified">
-<source>Your current email address has been verified. If you wish to change it, please enter your new address below and click 'Update.'</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/account/ChangeEmail</context>
-        </context-group>
-      <target>ਤੁਹਾਡਾ ਮੌਜੂਦਾ ਈ-ਮੇਲ ਐਡਰੈੱਸ ਦੀ ਜਾਂਚ ਕੀਤੀ ਜਾ ਚੁੱਕੀ ਹੈ। ਜੇਕਰ ਤੁਸੀਂ ਇਸ ਨੂੰ ਤਬਦੀਲ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ, ਤਾਂ ਕਿਰਪਾ ਕਰਕੇ ਹੇਠਾਂ ਆਪਣਾ ਨਵਾਂ ਈ-ਮੇਲ ਐਡਰੈੱਸ ਦਿਓ ਅਤੇ 'ਅੱਪਡੇਟ' ਨੂੰ ਦਬਾਓ।</target></trans-unit>
 
 
       <trans-unit id="yourchangeemail.instructions">

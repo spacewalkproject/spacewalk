@@ -1246,12 +1246,6 @@
           <context context-type="sourcefile">/rhn/account/ChangeEmail</context>
         </context-group>
       <target>이메일 주소 변경</target></trans-unit>
-      <trans-unit id="yourchangeemail.verified">
-<source>Your current email address has been verified. If you wish to change it, please enter your new address below and click 'Update.'</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/account/ChangeEmail</context>
-        </context-group>
-      <target>현재 이메일 주소 확인을 마쳤습니다. 기존 이메일 주소를 변경하시려면 새 주소를 아래에 입력하신 후 '업데이트' 버튼을 클릭하시기 바랍니다.</target></trans-unit>
 
 
       <trans-unit id="yourchangeemail.instructions">

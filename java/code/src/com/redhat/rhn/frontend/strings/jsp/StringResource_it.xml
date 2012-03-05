@@ -1246,12 +1246,6 @@
           <context context-type="sourcefile">/rhn/account/ChangeEmail</context>
         </context-group>
       <target>Modifica dell'indirizzo email</target></trans-unit>
-      <trans-unit id="yourchangeemail.verified">
-<source>Your current email address has been verified. If you wish to change it, please enter your new address below and click 'Update.'</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/account/ChangeEmail</context>
-        </context-group>
-      <target>Il vostro indirizzo email attuale è stato verificato. Se desiderate modificarlo, vi preghiamo di inserire il vostro nuovo indirizzo facendo clic successivamente su 'Aggiorna'.</target></trans-unit>
 
 
       <trans-unit id="yourchangeemail.instructions">

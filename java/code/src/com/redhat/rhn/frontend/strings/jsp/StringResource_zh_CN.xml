@@ -1246,12 +1246,6 @@
           <context context-type="sourcefile">/rhn/account/ChangeEmail</context>
         </context-group>
       <target>更改电子邮件地址</target></trans-unit>
-      <trans-unit id="yourchangeemail.verified">
-<source>Your current email address has been verified. If you wish to change it, please enter your new address below and click 'Update.'</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/account/ChangeEmail</context>
-        </context-group>
-      <target>您当前的电子邮件地址已经被验证。如果您需要更改它，请在下面输入您的新电子邮件地址并点“更新”。</target></trans-unit>
 
 
       <trans-unit id="yourchangeemail.instructions">
