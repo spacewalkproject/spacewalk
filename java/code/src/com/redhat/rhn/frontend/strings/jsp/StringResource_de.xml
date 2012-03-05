@@ -947,12 +947,6 @@
 		 </context-group>
 	<target>Berechtigungs-Widget</target></trans-unit>
 
-	<trans-unit id="preferences.entitlements-widget.description">
-         <source> Lists out the numbers of available entitlments per entitlement type.</source>
-		 <context-group name="ctx">
-		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
-		 </context-group>
-	<target> Listet die Anzahl der erh&amp;auml;ltlichen Berechtigungen per Berechtigungs-Typ auf.</target></trans-unit>
 
 	<trans-unit id="preferences.inactive-systems.name">
          <source>Inactive Systems</source>

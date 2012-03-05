@@ -963,12 +963,6 @@
 		 </context-group>
 	</trans-unit>
 
-	<trans-unit id="preferences.entitlements-widget.description">
-         <source> Lists out the numbers of available entitlements per entitlement type.</source>
-		 <context-group name="ctx">
-        	<context context-type="sourcefile">/rhn/users/UserPreferences</context>
-		 </context-group>
-	</trans-unit>
 
 	<trans-unit id="preferences.inactive-systems.name">
          <source>Inactive Systems</source>

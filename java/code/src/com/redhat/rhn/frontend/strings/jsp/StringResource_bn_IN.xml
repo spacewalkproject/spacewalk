@@ -947,12 +947,6 @@
 		 </context-group>
 	<target>এনটাইটেলমেন্ট সংক্রান্ত উইজেট</target></trans-unit>
 
-	<trans-unit id="preferences.entitlements-widget.description">
-         <source> Lists out the numbers of available entitlments per entitlement type.</source>
-		 <context-group name="ctx">
-		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
-		 </context-group>
-	<target> প্রতি ধরনের এনটাইটেলমেন্টের ক্ষেত্রে উপলব্ধ এনটাইটেলমেন্ট সংখ্যার তালিকা নির্মাণ করা হয়।</target></trans-unit>
 
 	<trans-unit id="preferences.inactive-systems.name">
          <source>Inactive Systems</source>

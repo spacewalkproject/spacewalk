@@ -947,12 +947,6 @@
 		 </context-group>
 	<target>权利 Widget</target></trans-unit>
 
-	<trans-unit id="preferences.entitlements-widget.description">
-         <source> Lists out the numbers of available entitlments per entitlement type.</source>
-		 <context-group name="ctx">
-		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
-		 </context-group>
-	<target>列出每个权利类型的有效权利的数量。</target></trans-unit>
 
 	<trans-unit id="preferences.inactive-systems.name">
          <source>Inactive Systems</source>

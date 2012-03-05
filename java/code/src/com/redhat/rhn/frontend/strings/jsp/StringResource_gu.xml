@@ -947,12 +947,6 @@
 		 </context-group>
 	<target>ઉમેદવારીઓ વિજેટ</target></trans-unit>
 
-	<trans-unit id="preferences.entitlements-widget.description">
-         <source> Lists out the numbers of available entitlments per entitlement type.</source>
-		 <context-group name="ctx">
-		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
-		 </context-group>
-	<target> ઉમેદવારી પ્રકાર પ્રતિ ઉપલબ્ધ ઉમેદવારીઓની સંખ્યાની યાદી આપો.</target></trans-unit>
 
 	<trans-unit id="preferences.inactive-systems.name">
          <source>Inactive Systems</source>

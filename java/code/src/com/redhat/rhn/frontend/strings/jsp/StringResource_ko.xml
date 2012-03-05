@@ -947,12 +947,6 @@
 		 </context-group>
 	<target>인타이틀먼트 위짓</target></trans-unit>
 
-	<trans-unit id="preferences.entitlements-widget.description">
-         <source> Lists out the numbers of available entitlments per entitlement type.</source>
-		 <context-group name="ctx">
-		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
-		 </context-group>
-	<target>인타이틀먼트 유형에 따른 사용 가능한 인타이틀먼트 수 </target></trans-unit>
 
 	<trans-unit id="preferences.inactive-systems.name">
          <source>Inactive Systems</source>
