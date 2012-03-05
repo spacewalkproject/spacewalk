@@ -12966,13 +12966,6 @@ Anschlie&amp;szlig;end wird das nicht-chroot Post-Skript ausgef&amp;uuml;hrt, un
 		  <context context-type="paramnotes">by {ggainey} {15 days ago}</context>
         </context-group>
      <target>bis {0} {1}</target></trans-unit>
-      <trans-unit id="channelOverview.jsp.recentdeploy-files">
-<source>{0} files by {1} {2}</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/ChannelOverview.do</context>
-		  <context context-type="paramnotes">"{15} files by {ggainey} {3 weeks ago}"</context>
-        </context-group>
-     <target>{0} Dateien von {1} {2}</target></trans-unit>
 
       <trans-unit id="channelOverview.jsp.numfiles-none">
 <source>No files found</source>
