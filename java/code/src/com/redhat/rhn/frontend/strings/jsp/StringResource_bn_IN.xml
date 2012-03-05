@@ -10787,12 +10787,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
       <target>Kickstart-র পোস্ট-স্ক্রিপ্ট</target></trans-unit>
 
 
-      <trans-unit id="post.jsp.langheader">
-        <source>Kickstart Post Script Scripting Language</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/kickstart/KickstartPostEdit.do</context>
-        </context-group>
-      <target>Kickstart পোস্ট-স্ক্রিপ্ট লিখতে ব্যবহৃত স্ক্রিপ্টিং ভাষা</target></trans-unit>
 
       <trans-unit id="post.jsp.nonchrootheader">
         <source>Post-Kickstart Script (Non-chroot)</source>

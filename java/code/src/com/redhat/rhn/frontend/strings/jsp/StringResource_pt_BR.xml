@@ -10792,12 +10792,6 @@ o &lt;strong&gt;Guia de Administração de Sistemas Red Hat Enterprise Li
       <target>Pós Script do Kickstart</target></trans-unit>
 
 
-      <trans-unit id="post.jsp.langheader">
-        <source>Kickstart Post Script Scripting Language</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/kickstart/KickstartPostEdit.do</context>
-        </context-group>
-      <target>Linguagem do Pós Script do Kickstart</target></trans-unit>
 
       <trans-unit id="post.jsp.nonchrootheader">
         <source>Post-Kickstart Script (Non-chroot)</source>
