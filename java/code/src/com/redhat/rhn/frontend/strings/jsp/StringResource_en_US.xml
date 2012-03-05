@@ -20574,9 +20574,6 @@ given channel.</source>
      <trans-unit id="task.status.taskomatic.on">
          <source>Scheduling Service</source>
      </trans-unit>
-     <trans-unit id="task.status.session-cleanup">
-         <source>Session Cleanup</source>
-     </trans-unit>
      <trans-unit id="task.status.summary-population">
          <source>Daily Summary Queue</source>
      </trans-unit>

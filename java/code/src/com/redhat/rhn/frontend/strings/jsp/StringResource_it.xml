@@ -19912,9 +19912,6 @@ stesso pacchetto in un singolo canale, ciò potrebbe causare però il
      <trans-unit id="task.status.last.execution">
          <source>Last Execution Times</source>
      <target>Tempo di Esecuzione dello Script</target></trans-unit>
-     <trans-unit id="task.status.session-cleanup">
-         <source>Session Cleanup</source>
-     <target></target></trans-unit>
      <trans-unit id="task.status.summary-population">
          <source>Daily Summary Queue</source>
      <target>Sommario giornaliero</target></trans-unit>

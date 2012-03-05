@@ -20030,9 +20030,6 @@ Les nom et une étiquette de canal sont requis. Ils doivent être au moins de 6
      <trans-unit id="task.status.last.execution">
          <source>Last Execution Times</source>
      <target>Temps d'exécution du script</target></trans-unit>
-     <trans-unit id="task.status.session-cleanup">
-         <source>Session Cleanup</source>
-     <target>Nettoyage de session</target></trans-unit>
      <trans-unit id="task.status.summary-population">
          <source>Daily Summary Queue</source>
      <target>Résumé journalier</target></trans-unit>
