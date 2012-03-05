@@ -19000,12 +19000,6 @@ unscheduled maintenance.</source>
       </trans-unit>
 
 
-      <trans-unit id="outage-policy.jsp.notification-header">
-<source>Outage Notifications</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">outage-policy.jsp</context>
-        </context-group>
-      </trans-unit>
   	</group>
 		
 	<!-- download-ISOs pages -->

@@ -18536,12 +18536,6 @@ unscheduled maintenance.</source>
 திட்டமிடப்படாத பராமரிப்புக்கு எவ்வளவு சீக்கிரம் முடியுமோ அவ்வளவு சீக்கிரம்</target></trans-unit>
 
 
-      <trans-unit id="outage-policy.jsp.notification-header">
-<source>Outage Notifications</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">outage-policy.jsp</context>
-        </context-group>
-      <target>நிறுத்த அறிவிப்புகள்</target></trans-unit>
 	</group>
 
 	<!-- download-ISOs pages -->

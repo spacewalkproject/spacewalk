@@ -18529,12 +18529,6 @@ Red Hat будет предупреждать о выполнении работ
 мере за 12 часов через список профилактики (см. ниже).</target></trans-unit>
 
 
-      <trans-unit id="outage-policy.jsp.notification-header">
-<source>Outage Notifications</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">outage-policy.jsp</context>
-        </context-group>
-      <target>Уведомление о перерыве в работе</target></trans-unit>
 	</group>
 
 	<!-- download-ISOs pages -->

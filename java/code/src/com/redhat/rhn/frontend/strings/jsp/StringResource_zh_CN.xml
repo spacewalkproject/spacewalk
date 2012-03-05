@@ -18583,12 +18583,6 @@ unscheduled maintenance.</source>
 进行通知。</target></trans-unit>
 
 
-      <trans-unit id="outage-policy.jsp.notification-header">
-<source>Outage Notifications</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">outage-policy.jsp</context>
-        </context-group>
-      <target>暂时停止服务通知</target></trans-unit>
 	</group>
 
 	<!-- download-ISOs pages -->

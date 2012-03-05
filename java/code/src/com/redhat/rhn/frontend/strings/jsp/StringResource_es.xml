@@ -18588,12 +18588,6 @@ Network intentará notificar otra vez a través de la lista de correo-e de inter
  o tan pronto como sea posible en caso de mantenimiento no programado.</target></trans-unit>
 
 
-      <trans-unit id="outage-policy.jsp.notification-header">
-<source>Outage Notifications</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">outage-policy.jsp</context>
-        </context-group>
-      <target>Notificaciones de racionamientos</target></trans-unit>
 	</group>
 
 	<!-- download-ISOs pages -->

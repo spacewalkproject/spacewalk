@@ -18528,12 +18528,6 @@ Red Hat Network는 Email Outage List (아래 참조) 메일링 리스트를 통�
 통보해드립니다.</target></trans-unit>
 
 
-      <trans-unit id="outage-policy.jsp.notification-header">
-<source>Outage Notifications</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">outage-policy.jsp</context>
-        </context-group>
-      <target>서비스 중지 통지</target></trans-unit>
 	</group>
 
 	<!-- download-ISOs pages -->

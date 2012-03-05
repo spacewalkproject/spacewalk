@@ -18534,12 +18534,6 @@ Network দ্বারা ই-মেইল আউট-এজ লিস্টে�
 সূচনা প্রদান করা হবে।</target></trans-unit>
 
 
-      <trans-unit id="outage-policy.jsp.notification-header">
-<source>Outage Notifications</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">outage-policy.jsp</context>
-        </context-group>
-      <target>আউট-এজ সংক্রান্ত সূচনা</target></trans-unit>
 	</group>
 
 	<!-- download-ISOs pages -->

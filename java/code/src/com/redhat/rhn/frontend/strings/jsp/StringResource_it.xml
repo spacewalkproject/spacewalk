@@ -18533,12 +18533,6 @@ di seguito riportato), con almeno 12 ore oppure il prima possibile prima di una 
  programmata.</target></trans-unit>
 
 
-      <trans-unit id="outage-policy.jsp.notification-header">
-<source>Outage Notifications</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">outage-policy.jsp</context>
-        </context-group>
-      <target>Notifiche outage</target></trans-unit>
 	</group>
 
 	<!-- download-ISOs pages -->

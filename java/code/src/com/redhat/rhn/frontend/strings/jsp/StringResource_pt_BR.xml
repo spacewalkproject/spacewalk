@@ -18582,12 +18582,6 @@ indisponibilidades (veja abaixo), com pelo menos 12 horas de antecedência,
 ou assim que possível antes da manutenção não programada.</target></trans-unit>
 
 
-      <trans-unit id="outage-policy.jsp.notification-header">
-<source>Outage Notifications</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">outage-policy.jsp</context>
-        </context-group>
-      <target>Notificações de Indisponibilidade</target></trans-unit>
 	</group>
 
 	<!-- download-ISOs pages -->

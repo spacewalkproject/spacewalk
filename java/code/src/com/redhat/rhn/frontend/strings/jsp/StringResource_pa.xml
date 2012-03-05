@@ -18535,12 +18535,6 @@ unscheduled maintenance.</source>
 ਜਾਂ ਜਲਦੀ ਤੋਂ ਜਲਦੀ।</target></trans-unit>
 
 
-      <trans-unit id="outage-policy.jsp.notification-header">
-<source>Outage Notifications</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">outage-policy.jsp</context>
-        </context-group>
-      <target>ਆਊਟੇਜ ਸੂਚਨਾ</target></trans-unit>
 	</group>
 
 	<!-- download-ISOs pages -->
