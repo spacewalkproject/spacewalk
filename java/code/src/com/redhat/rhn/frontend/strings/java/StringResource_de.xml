@@ -543,12 +543,6 @@
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
       <target>Management</target></trans-unit>
-      <trans-unit id="Management Spacewalk Release Notes">
-<source>Management @@PRODUCT_NAME@@ Release Notes</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-      <target>Management @@PRODUCT_NAME@@ Release Notes</target></trans-unit>
       <trans-unit id="Manage Software Channels">
 <source>Manage Software Channels</source>
         <context-group name="ctx">
