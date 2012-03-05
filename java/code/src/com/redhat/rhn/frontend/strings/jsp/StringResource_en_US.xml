@@ -2004,12 +2004,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
       </trans-unit>
 
       <!-- systemsadmin.jsp -->
-      <trans-unit id="systemsadmined.jsp.noData">
-<source>No systems.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/SystemsAdmined</context>
-        </context-group>
-      </trans-unit>
 
       <trans-unit id="systemsadmined.jsp.header">
 <source>Modify Systems Administered</source>

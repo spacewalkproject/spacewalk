@@ -1990,12 +1990,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
       <target>&lt;p&gt;이 작업을 수행하시면 이 사용자는 @@PRODUCT_NAME@@에 액세스할 수 있게 됩니다.  이 사용자는 비활성화되기 이전에 가졌던 모든 권한, 역할, 데이터를 다시 갖게됩니다.&lt;/p&gt;  </target></trans-unit>
 
       <!-- systemsadmin.jsp -->
-      <trans-unit id="systemsadmined.jsp.noData">
-<source>No systems.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/SystemsAdmined</context>
-        </context-group>
-      <target>시스템 없음.</target></trans-unit>
 
       <trans-unit id="systemsadmined.jsp.header">
 <source>Modify Systems Administered</source>

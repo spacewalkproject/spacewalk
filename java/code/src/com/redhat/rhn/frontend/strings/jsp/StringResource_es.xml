@@ -1991,12 +1991,6 @@ del rol de Administrador de la organización.</target></trans-unit>
       <target>&lt;p&gt;Esta acción habilitará el acceso de este usuario a @@PRODUCT_NAME@@. Este usuario retendrá todos los permisos, roles y datos que tenía antes de ser desactivado.&lt;/p&gt;</target></trans-unit>
 
       <!-- systemsadmin.jsp -->
-      <trans-unit id="systemsadmined.jsp.noData">
-<source>No systems.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/SystemsAdmined</context>
-        </context-group>
-      <target>No hay sistemas.</target></trans-unit>
 
       <trans-unit id="systemsadmined.jsp.header">
 <source>Modify Systems Administered</source>

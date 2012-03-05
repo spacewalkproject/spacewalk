@@ -1990,12 +1990,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
       <target>&lt;p&gt;Это действие позволит данному пользователю получить доступ к @@PRODUCT_NAME@@. Пользователь сохранит все свои права, роли и данные, которыми он обладал до отключения.&lt;/p&gt;</target></trans-unit>
 
       <!-- systemsadmin.jsp -->
-      <trans-unit id="systemsadmined.jsp.noData">
-<source>No systems.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/SystemsAdmined</context>
-        </context-group>
-      <target>Нет систем.</target></trans-unit>
 
       <trans-unit id="systemsadmined.jsp.header">
 <source>Modify Systems Administered</source>

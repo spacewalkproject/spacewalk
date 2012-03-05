@@ -1990,12 +1990,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
       <target>&lt;p&gt;यह क्रिया उपयोक्ता को @@PRODUCT_NAME@@ का अभिगम के लिये अनुमति देगी.  इस उपयोक्ता के पास सारी अनुमति, भूमिका और आंकड़ा होगी, जो वह निष्क्रिय होने के पहले रखते थे.&lt;/p&gt;</target></trans-unit>
 
       <!-- systemsadmin.jsp -->
-      <trans-unit id="systemsadmined.jsp.noData">
-<source>No systems.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/SystemsAdmined</context>
-        </context-group>
-      <target>कोई सिस्टम नहीं.</target></trans-unit>
 
       <trans-unit id="systemsadmined.jsp.header">
 <source>Modify Systems Administered</source>

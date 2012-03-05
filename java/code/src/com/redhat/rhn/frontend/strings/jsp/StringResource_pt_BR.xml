@@ -1990,12 +1990,6 @@ abaixo e &lt;b&gt;não poderá mais se autenticar&lt;/b&gt;.</target></trans-uni
       <target>&lt;p&gt;Esta ação permitirá ao usuário acessar o @@PRODUCT_NAME@@.  Este usuário reterá todas as permissões, funções e dados que possuía antes de ser desativado.&lt;/p&gt;</target></trans-unit>
 
       <!-- systemsadmin.jsp -->
-      <trans-unit id="systemsadmined.jsp.noData">
-<source>No systems.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/SystemsAdmined</context>
-        </context-group>
-      <target>Nenhum sistema.  </target></trans-unit>
 
       <trans-unit id="systemsadmined.jsp.header">
 <source>Modify Systems Administered</source>

@@ -1990,12 +1990,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
       <target>&lt;p&gt;இந்த செயல் பயனரை @@PRODUCT_NAME@@ ஐ அணுக அனுமதிக்கும். இந்தப் பயனர்கள் அனைத்து அனுமதிகள், பதவிகள் மற்றும் செயலிழக்கப்படுவதற்கு முன் கொண்ட தரவுகள் போன்றவற்றைப் பெறலாம்.&lt;/p&gt;</target></trans-unit>
 
       <!-- systemsadmin.jsp -->
-      <trans-unit id="systemsadmined.jsp.noData">
-<source>No systems.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/SystemsAdmined</context>
-        </context-group>
-      <target>கணினிகள் இல்லை.</target></trans-unit>
 
       <trans-unit id="systemsadmined.jsp.header">
 <source>Modify Systems Administered</source>

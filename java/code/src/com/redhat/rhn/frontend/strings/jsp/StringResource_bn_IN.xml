@@ -1990,12 +1990,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
       <target>&lt;p&gt;এর ফলে এই ব্যবহারকারী @@PRODUCT_NAME@@-এ প্রবেশ করতে সক্ষম হবেন।  অ্যাকাউন্ট নিষ্ক্রিয় হওয়ার পূর্বে উপলব্ধ সমস্ত অনুমতি, ভূমিকা ও তথ্য ব্যবহারকারী পুনরায় প্রয়োগ করতে সক্ষম হবেন।&lt;/p&gt;</target></trans-unit>
 
       <!-- systemsadmin.jsp -->
-      <trans-unit id="systemsadmined.jsp.noData">
-<source>No systems.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/SystemsAdmined</context>
-        </context-group>
-      <target>কোনো সিস্টেম উপস্থিত নেই।</target></trans-unit>
 
       <trans-unit id="systemsadmined.jsp.header">
 <source>Modify Systems Administered</source>
