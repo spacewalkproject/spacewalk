@@ -673,12 +673,6 @@
         </context-group>
       <target>请提供您如何接受这个消息的详情，以帮助我们纠正这个问题。</target></trans-unit>
 
-      <trans-unit id="companyname.displayname">
-<source>Company Name:</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/UserDetails</context>
-        </context-group>
-      <target>公司名：</target></trans-unit>
       <trans-unit id="orgadmin.displayname">
 <source>Org Admin?*</source>
         <context-group name="ctx">

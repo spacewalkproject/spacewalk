@@ -673,12 +673,6 @@
         </context-group>
       <target>Bitte helfen Sie uns, dieses Problem zu beheben und kontaktieren uns mit Details, wie Sie diese Nachricht erhalten haben.</target></trans-unit>
 
-      <trans-unit id="companyname.displayname">
-<source>Company Name:</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/UserDetails</context>
-        </context-group>
-      <target>Firmenname:</target></trans-unit>
       <trans-unit id="orgadmin.displayname">
 <source>Org Admin?*</source>
         <context-group name="ctx">

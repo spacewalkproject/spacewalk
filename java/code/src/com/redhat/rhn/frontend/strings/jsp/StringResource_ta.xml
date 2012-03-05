@@ -673,12 +673,6 @@
         </context-group>
       <target></target></trans-unit>
 
-      <trans-unit id="companyname.displayname">
-<source>Company Name:</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/UserDetails</context>
-        </context-group>
-      <target>நிறுவன பெயர்:</target></trans-unit>
       <trans-unit id="orgadmin.displayname">
 <source>Org Admin?*</source>
         <context-group name="ctx">

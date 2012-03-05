@@ -673,12 +673,6 @@
         </context-group>
       <target>このメッセージを受け取った状況の詳細を弊社に報告して、この問題の解決にご協力ください。</target></trans-unit>
 
-      <trans-unit id="companyname.displayname">
-<source>Company Name:</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/UserDetails</context>
-        </context-group>
-      <target>会社名:</target></trans-unit>
       <trans-unit id="orgadmin.displayname">
 <source>Org Admin?*</source>
         <context-group name="ctx">
