@@ -5273,12 +5273,6 @@ para este derecho, excluyendo el consumo de la organización predeterminada.</ta
         </context-group>
       <target>Sistemas desactualizados</target></trans-unit>
 
-      <trans-unit id="outofdatelist.jsp.nosystems">
-<source>No out of date systems.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/OutOfDate</context>
-        </context-group>
-      <target>Ningún sistema desactualizado</target></trans-unit>
 
       <trans-unit id="unentitledlist.jsp.header">
 <source>Unentitled Systems</source>

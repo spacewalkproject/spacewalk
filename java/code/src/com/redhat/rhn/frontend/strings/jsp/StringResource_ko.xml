@@ -5272,12 +5272,6 @@ value for this entitlement, excluding the default organization's consumption.</s
         </context-group>
       <target>업데이트되지 않은 시스템</target></trans-unit>
 
-      <trans-unit id="outofdatelist.jsp.nosystems">
-<source>No out of date systems.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/OutOfDate</context>
-        </context-group>
-      <target>업데이트되지 않은 시스템이 없습니다.</target></trans-unit>
 
       <trans-unit id="unentitledlist.jsp.header">
 <source>Unentitled Systems</source>

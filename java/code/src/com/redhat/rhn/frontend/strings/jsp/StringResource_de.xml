@@ -5275,12 +5275,6 @@ für diese Berechtigung, mit Ausnahme des Verbrauchs der Standardorganisation.</
         </context-group>
       <target>Veraltete Systeme</target></trans-unit>
 
-      <trans-unit id="outofdatelist.jsp.nosystems">
-<source>No out of date systems.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/OutOfDate</context>
-        </context-group>
-      <target>Keine veralteten Systeme.</target></trans-unit>
 
       <trans-unit id="unentitledlist.jsp.header">
 <source>Unentitled Systems</source>

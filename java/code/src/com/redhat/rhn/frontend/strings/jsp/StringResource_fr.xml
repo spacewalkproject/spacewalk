@@ -5274,12 +5274,6 @@ pour ce droit d'accès, moins la consommation par défaut de l'organisation.</ta
         </context-group>
       <target>Systèmes périmés</target></trans-unit>
 
-      <trans-unit id="outofdatelist.jsp.nosystems">
-<source>No out of date systems.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/OutOfDate</context>
-        </context-group>
-      <target>Aucun système périmé.</target></trans-unit>
 
       <trans-unit id="unentitledlist.jsp.header">
 <source>Unentitled Systems</source>

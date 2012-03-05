@@ -5273,12 +5273,6 @@ value for this entitlement, excluding the default organization's consumption.</s
         </context-group>
       <target>पुराना सिस्टम</target></trans-unit>
 
-      <trans-unit id="outofdatelist.jsp.nosystems">
-<source>No out of date systems.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/OutOfDate</context>
-        </context-group>
-      <target>कोई पुराना सिस्टम नहीं.</target></trans-unit>
 
       <trans-unit id="unentitledlist.jsp.header">
 <source>Unentitled Systems</source>
