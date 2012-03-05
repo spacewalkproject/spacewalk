@@ -812,12 +812,6 @@
           <context context-type="sourcefile">/rhn/users/UserDetails</context>
         </context-group>
       <target>Компания:</target></trans-unit>
-      <trans-unit id="address1.displayname">
-<source>Street Address</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">NOT USED</context>
-        </context-group>
-      <target>Адрес</target></trans-unit>
       <trans-unit id="city.displayname">
 <source>City</source>
         <context-group name="ctx">
