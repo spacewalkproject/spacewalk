@@ -7688,9 +7688,6 @@ Seguite l'url sotto riportato per visualizzare l'elenco completo di sistemi inat
         <source>The Password and Password Confirm did not match.</source>
       <target>La password e Conferma password non coincidono.</target></trans-unit>
 
-      <trans-unit id="Password_confirm">
-        <source>Password Confirm</source>
-      <target>Conferma password</target></trans-unit>
 
       <trans-unit id="permission.configadmin.needed">
         <source>The requested function requires a Configuration Admin or Organizational Admin role.</source>

@@ -7664,9 +7664,6 @@ Follow this url to see the full list of inactive systems:
         <source>The Password and Password Confirm did not match.</source>
       <target>પાસવર્ડ અને ખાતરી પાસવર્ડ બંધબેસતા નથી.</target></trans-unit>
 
-      <trans-unit id="Password_confirm">
-        <source>Password Confirm</source>
-      <target>ખાતરી પાસવર્ડ</target></trans-unit>
 
       <trans-unit id="permission.configadmin.needed">
         <source>The requested function requires a Configuration Admin or Organizational Admin role.</source>

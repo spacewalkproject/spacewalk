@@ -7664,9 +7664,6 @@ url பின்பற்றி செயலிழக்கப்பட்ட �
         <source>The Password and Password Confirm did not match.</source>
       <target>கடவுச்சொல் மற்றும் கடவுச்சொல் உறுதிப்படுத்தல் பொருந்தவில்லை</target></trans-unit>
 
-      <trans-unit id="Password_confirm">
-        <source>Password Confirm</source>
-      <target>கடவுச்சொல் உறுதிப்படுத்தல்</target></trans-unit>
 
       <trans-unit id="permission.configadmin.needed">
         <source>The requested function requires a Configuration Admin or Organizational Admin role.</source>

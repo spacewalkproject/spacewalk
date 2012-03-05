@@ -7676,9 +7676,6 @@ Follow this url to see the full list of inactive systems:
         <source>The Password and Password Confirm did not match.</source>
       <target>O conteúdo do campo de Senha e Confirmar a Senha não coincidem.</target></trans-unit>
 
-      <trans-unit id="Password_confirm">
-        <source>Password Confirm</source>
-      <target>Confirmar a Senha</target></trans-unit>
 
       <trans-unit id="permission.configadmin.needed">
         <source>The requested function requires a Configuration Admin or Organizational Admin role.</source>

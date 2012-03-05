@@ -7695,9 +7695,6 @@ Folgen Sie dieser URL f&amp;uuml;r die vollst&amp;auml;ndige Liste inaktiver Sys
         <source>The Password and Password Confirm did not match.</source>
       <target>Das Passwort und die Best&amp;auml;tigung desselben stimmen nicht &amp;uuml;berein.</target></trans-unit>
 
-      <trans-unit id="Password_confirm">
-        <source>Password Confirm</source>
-      <target>Passwort best&amp;auml;tigen</target></trans-unit>
 
       <trans-unit id="permission.configadmin.needed">
         <source>The requested function requires a Configuration Admin or Organizational Admin role.</source>

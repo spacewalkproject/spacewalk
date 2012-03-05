@@ -7664,9 +7664,6 @@ Follow this url to see the full list of inactive systems:
         <source>The Password and Password Confirm did not match.</source>
       <target>Пароль и его подтверждение не совпадают.</target></trans-unit>
 
-      <trans-unit id="Password_confirm">
-        <source>Password Confirm</source>
-      <target>Подтвердить пароль</target></trans-unit>
 
       <trans-unit id="permission.configadmin.needed">
         <source>The requested function requires a Configuration Admin or Organizational Admin role.</source>
