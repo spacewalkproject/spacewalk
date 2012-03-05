@@ -2261,12 +2261,6 @@ rhn-kickstart* パッケージが利用可能であることを確認します�
 
 
 
-      <trans-unit id="toolbar.delete.CryptoKeyDelete">
-<source>delete key</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/keys/CryptoKeyEdit</context>
-        </context-group>
-      <target>キーの削除</target></trans-unit>
 
 
 

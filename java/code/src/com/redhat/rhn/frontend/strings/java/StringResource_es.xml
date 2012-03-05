@@ -2262,12 +2262,6 @@ asegurarse de que estén disponibles para que este perfil kickstart funcione apr
 
 
 
-      <trans-unit id="toolbar.delete.CryptoKeyDelete">
-<source>delete key</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/keys/CryptoKeyEdit</context>
-        </context-group>
-      <target>borrar llave</target></trans-unit>
 
 
 

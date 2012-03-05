@@ -2251,12 +2251,6 @@ disponíveis para seu perfil kickstart funcionar corretamente./n&lt;/li&gt;
 
 
 
-      <trans-unit id="toolbar.delete.CryptoKeyDelete">
-<source>delete key</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/keys/CryptoKeyEdit</context>
-        </context-group>
-      <target>remover chave</target></trans-unit>
 
 
 

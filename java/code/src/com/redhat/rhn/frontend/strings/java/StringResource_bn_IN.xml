@@ -2243,12 +2243,6 @@ available for this kickstart profile to function properly.
 
 
 
-      <trans-unit id="toolbar.delete.CryptoKeyDelete">
-<source>delete key</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/keys/CryptoKeyEdit</context>
-        </context-group>
-      <target>কি মুছে ফেলুন</target></trans-unit>
 
 
 
