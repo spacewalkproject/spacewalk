@@ -7780,9 +7780,6 @@ Folgen Sie dieser URL f&amp;uuml;r die vollst&amp;auml;ndige Liste inaktiver Sys
           <source>Monitoring Administrators</source>
       <target>Monitoring-Administratoren</target></trans-unit>
 
-      <trans-unit id="Configuration Administrators">
-          <source>Configuration Administrators</source>
-      <target>Konfigurations-Administratoren</target></trans-unit>
 
       <trans-unit id="user.unspecified.name">
           <source>(unspecified)</source>

@@ -7755,9 +7755,6 @@ Follow this url to see the full list of inactive systems:
           <source>Monitoring Administrators</source>
       <target>Monitoring অ্যাডমিনিস্ট্রেটর</target></trans-unit>
 
-      <trans-unit id="Configuration Administrators">
-          <source>Configuration Administrators</source>
-      <target>কনফিগারেশন অ্যাডমিনিস্ট্রেটর</target></trans-unit>
 
       <trans-unit id="user.unspecified.name">
           <source>(unspecified)</source>

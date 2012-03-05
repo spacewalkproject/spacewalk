@@ -7776,9 +7776,6 @@ Suivez cet url pour obtenir la liste complète des systèmes inactifs :
           <source>Monitoring Administrators</source>
       <target>Administrateurs de contrôle</target></trans-unit>
 
-      <trans-unit id="Configuration Administrators">
-          <source>Configuration Administrators</source>
-      <target>Administrateurs de configuration</target></trans-unit>
 
       <trans-unit id="user.unspecified.name">
           <source>(unspecified)</source>

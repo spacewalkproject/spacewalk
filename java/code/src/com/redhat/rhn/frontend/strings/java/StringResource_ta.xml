@@ -7749,9 +7749,6 @@ url பின்பற்றி செயலிழக்கப்பட்ட �
           <source>Monitoring Administrators</source>
       <target>நிர்வாகிகளை கண்காணித்தல்</target></trans-unit>
 
-      <trans-unit id="Configuration Administrators">
-          <source>Configuration Administrators</source>
-      <target>கட்டமைப்பு நிர்வாகிகள்</target></trans-unit>
 
       <trans-unit id="user.unspecified.name">
           <source>(unspecified)</source>

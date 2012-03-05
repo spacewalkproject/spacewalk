@@ -7748,9 +7748,6 @@ Follow this url to see the full list of inactive systems:
           <source>Monitoring Administrators</source>
       <target>監控管理員</target></trans-unit>
 
-      <trans-unit id="Configuration Administrators">
-          <source>Configuration Administrators</source>
-      <target>設定管理員</target></trans-unit>
 
       <trans-unit id="user.unspecified.name">
           <source>(unspecified)</source>

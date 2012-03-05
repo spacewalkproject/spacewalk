@@ -7773,9 +7773,6 @@ Seguite l'url sotto riportato per visualizzare l'elenco completo di sistemi inat
           <source>Monitoring Administrators</source>
       <target>Amministratori di monitoring</target></trans-unit>
 
-      <trans-unit id="Configuration Administrators">
-          <source>Configuration Administrators</source>
-      <target>Amministratori della configurazione</target></trans-unit>
 
       <trans-unit id="user.unspecified.name">
           <source>(unspecified)</source>
