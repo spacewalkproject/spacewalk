@@ -764,12 +764,6 @@
       <target>ਸੰਰਚਨਾ ਫਾਇਲਾਂ</target></trans-unit>
 
 
-      <trans-unit id="Outage Policy">
-<source>Outage Policy</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-      <target>ਬਾਹਰੀ ਨੀਤੀ</target></trans-unit>
 
       <trans-unit id="Join">
 <source>Join</source>

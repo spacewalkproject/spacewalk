@@ -764,12 +764,6 @@
       <target>配置文件</target></trans-unit>
 
 
-      <trans-unit id="Outage Policy">
-<source>Outage Policy</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-      <target>临时中断服务政策</target></trans-unit>
 
       <trans-unit id="Join">
 <source>Join</source>

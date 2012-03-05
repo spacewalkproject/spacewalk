@@ -764,12 +764,6 @@
       <target>Archivos de configuración</target></trans-unit>
 
 
-      <trans-unit id="Outage Policy">
-<source>Outage Policy</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-      <target>Política de racionamiento</target></trans-unit>
 
       <trans-unit id="Join">
 <source>Join</source>

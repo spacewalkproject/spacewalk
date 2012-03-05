@@ -764,12 +764,6 @@
       <target>কনফিগারেশন সংক্রান্ত ফাইল</target></trans-unit>
 
 
-      <trans-unit id="Outage Policy">
-<source>Outage Policy</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-      <target>কর্মবিহীন সময় (আউটএজ) সংক্রান্ত নিয়মনীতি</target></trans-unit>
 
       <trans-unit id="Join">
 <source>Join</source>
