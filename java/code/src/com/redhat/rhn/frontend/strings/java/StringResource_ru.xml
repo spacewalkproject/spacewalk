@@ -3448,13 +3448,6 @@ user before attempting to deactivate their account.</source>
       <target>Выберите хотя бы один пакет для обновления.</target></trans-unit>
 
 
-      <trans-unit id="download.toomany">
-<source>At most {0} packages may be downloaded as a tarball at one time; please reduce your selection size.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/packages/UpgradableList</context>
-            <context context-type="paramnotes">At most 10 packages may be downloaded ...</context>
-        </context-group>
-      <target>Максимум {0} пакетов может быть загружено как tarball за один раз; пожалуйста, сократите Ваш выбор.</target></trans-unit>
 
       <trans-unit id="timetag.lastcheckin">
 <source>System last check-in:</source>

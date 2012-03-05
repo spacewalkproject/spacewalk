@@ -3475,13 +3475,6 @@ utilisateur avant de désactiver son compte.</target></trans-unit>
       <target>Choisissez au moins un paquetage à mettre à niveau.</target></trans-unit>
 
 
-      <trans-unit id="download.toomany">
-<source>At most {0} packages may be downloaded as a tarball at one time; please reduce your selection size.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/packages/UpgradableList</context>
-            <context context-type="paramnotes">At most 10 packages may be downloaded ...</context>
-        </context-group>
-      <target>Un maximum de {0} paquetages peuvent être téléchargés comme un fichier tarball en une fois&amp;nbsp;; veuillez réduire la taille de votre sélection.</target></trans-unit>
 
       <trans-unit id="timetag.lastcheckin">
 <source>System last check-in:</source>

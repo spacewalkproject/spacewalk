@@ -3454,13 +3454,6 @@ user before attempting to deactivate their account.</source>
       <target>আপগ্রেড করার উদ্দেশ্যে অন্তত একটি প্যাকেজ নির্বাচন করুন।</target></trans-unit>
 
 
-      <trans-unit id="download.toomany">
-<source>At most {0} packages may be downloaded as a tarball at one time; please reduce your selection size.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/packages/UpgradableList</context>
-            <context context-type="paramnotes">At most 10 packages may be downloaded ...</context>
-        </context-group>
-      <target>এক সময়ে সর্বাধিক {0}-টি প্যাকেজ টারবলরূপে ডাউনলোড করা সম্ভব হবে; অনুগ্রহ করে আপনার নির্বাচিত তালিকার পরিমাণ হ্রাস করুন।</target></trans-unit>
 
       <trans-unit id="timetag.lastcheckin">
 <source>System last check-in:</source>
