@@ -6776,12 +6776,6 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
 
 
 
-      <trans-unit id="config_channel.server_import">
-        <source>Sandbox</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/file/CompareCopy.do</context>
-        </context-group>
-      <target>Entorno de prueba</target></trans-unit>
 
       <trans-unit id="schedulediff.ssm.success">
         <source>Configuration Comparison Action scheduled successfully for &lt;strong&gt;1 system&lt;/strong&gt;.</source>

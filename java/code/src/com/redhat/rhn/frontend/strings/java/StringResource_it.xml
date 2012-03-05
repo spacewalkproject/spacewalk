@@ -6775,12 +6775,6 @@ Seguite l'url sotto riportato per visualizzare l'elenco completo di sistemi inat
 
 
 
-      <trans-unit id="config_channel.server_import">
-        <source>Sandbox</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/file/CompareCopy.do</context>
-        </context-group>
-      <target>Sandbox</target></trans-unit>
 
       <trans-unit id="schedulediff.ssm.success">
         <source>Configuration Comparison Action scheduled successfully for &lt;strong&gt;1 system&lt;/strong&gt;.</source>
