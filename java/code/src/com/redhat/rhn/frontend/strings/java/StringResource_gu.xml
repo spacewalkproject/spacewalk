@@ -723,12 +723,6 @@
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
       <target>@@PRODUCT_NAME@@ વ્યવસ્થાપન સાધનો</target></trans-unit>
-          <trans-unit id="Spacewalk Login">
-<source>@@PRODUCT_NAME@@ Login</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-          <target>@@PRODUCT_NAME@@ પ્રવેશ</target></trans-unit>
       <trans-unit id="Spacewalk Support Tools">
 <source>@@PRODUCT_NAME@@ Support Tools</source>
         <context-group name="ctx">
