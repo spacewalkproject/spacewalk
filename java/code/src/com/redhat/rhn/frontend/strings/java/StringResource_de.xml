@@ -3075,12 +3075,6 @@ Benutzers vor dem Versuch, den Account zu deaktivieren.</target></trans-unit>
         </context-group>
       <target>Keine Systeme ausgew&amp;auml;hlt.</target></trans-unit>
 
-      <trans-unit id="packages.none">
-<source>No packages selected.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/ErrataList</context>
-        </context-group>
-      <target>Keine Pakete ausgew&amp;auml;hlt.</target></trans-unit>
 
       <trans-unit id="probesuites.none">
 <source>No probe suites selected.</source>

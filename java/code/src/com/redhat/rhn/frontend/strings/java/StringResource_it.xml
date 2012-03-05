@@ -3068,12 +3068,6 @@ utente prima di disabilitare l'account in questione.</target></trans-unit>
         </context-group>
       <target>Nessun sistema selezionato.</target></trans-unit>
 
-      <trans-unit id="packages.none">
-<source>No packages selected.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/ErrataList</context>
-        </context-group>
-      <target>Nessun pacchetto selezionato.</target></trans-unit>
 
       <trans-unit id="probesuites.none">
 <source>No probe suites selected.</source>

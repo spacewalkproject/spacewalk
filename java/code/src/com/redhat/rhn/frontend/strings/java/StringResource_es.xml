@@ -3069,12 +3069,6 @@ de este usuario antes de intentar desactivar esta cuenta.</target></trans-unit>
         </context-group>
       <target>Ningún sistema seleccionado.</target></trans-unit>
 
-      <trans-unit id="packages.none">
-<source>No packages selected.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/ErrataList</context>
-        </context-group>
-      <target>Ningún paquete seleccionado.</target></trans-unit>
 
       <trans-unit id="probesuites.none">
 <source>No probe suites selected.</source>

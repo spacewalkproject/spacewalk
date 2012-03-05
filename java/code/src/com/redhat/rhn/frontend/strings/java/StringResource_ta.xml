@@ -3044,12 +3044,6 @@ user before attempting to deactivate their account.</source>
         </context-group>
       <target>கணினிகள் எதுவும் தேர்ந்தெடுக்கப்படவில்லை.</target></trans-unit>
 
-      <trans-unit id="packages.none">
-<source>No packages selected.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/ErrataList</context>
-        </context-group>
-      <target>தொகுப்புகள் எதுவும் தேர்ந்தெடுக்கப்படவில்லை.</target></trans-unit>
 
       <trans-unit id="probesuites.none">
 <source>No probe suites selected.</source>
