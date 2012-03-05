@@ -20332,12 +20332,6 @@ stehende Gesamte, wie in diesem Zertifikat des @@PRODUCT_NAME@@s wiedergegeben.<
           <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementOrgs</context>
         </context-group>
       <target>@@PRODUCT_NAME@@weiter Verbrauch von Berechtigungen</target></trans-unit>
-      <trans-unit id="entitlementorgs.inuse">
-<source>In Use*</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementOrgs</context>
-        </context-group>
-      <target>In Gebrauch*</target></trans-unit>
       <trans-unit id="entitlementorgs.filterBy">
 <source>Organization Name</source>
         <context-group name="ctx">

@@ -20253,12 +20253,6 @@ Alternatively, you will want to download &lt;strong&gt;Incremental Channel Conte
           <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementOrgs</context>
         </context-group>
       <target>@@PRODUCT_NAME@@ वाइड एंटाइटेलमेंट प्रयोग</target></trans-unit>
-      <trans-unit id="entitlementorgs.inuse">
-<source>In Use*</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementOrgs</context>
-        </context-group>
-      <target>प्रयोग में*</target></trans-unit>
       <trans-unit id="entitlementorgs.filterBy">
 <source>Organization Name</source>
         <context-group name="ctx">
