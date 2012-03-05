@@ -4727,12 +4727,6 @@ value for this entitlement, excluding the default organization's consumption.</s
           <context context-type="sourcefile">/rhn/errata/Search</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="erratasearch.jsp.search_with_end_date">
-<source>End Date (optional): </source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/errata/Search.do</context>
-        </context-group>
-      </trans-unit>
           <trans-unit id="errata_search_by_all_fields">
 <source>All Fields </source>
         <context-group name="ctx">
