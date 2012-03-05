@@ -3568,12 +3568,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
         </context-group>
       <target>L'elenco di pacchetti associati al suddetto erratum è stato recentemente modificato.</target></trans-unit>
 
-      <trans-unit id="errata.edit.cache.explain">
-<source>These changes will not immediately be available to systems to which this erratum applies. The changes will become available approximately 10 minutes after they are made. Or, you can &lt;a href="/rhn/errata/manage/CommitErrataPackageChanges.do?eid={0}"&gt; commit your changes immediately&lt;/a&gt; when you are finished editing this erratum.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/errata/manage/Edit.do</context>
-        </context-group>
-      <target>Queste modifiche non verranno rese disponibili immediatamente ai sistemi, nei confronti dei quali verranno applicati i suddetti erratum. Queste modifiche saranno disponibili dopo circa 10 minuti dalla loro avvenuta esecuzione. Oppure, potrete &lt;a href="/rhn/errata/manage/CommitErrataPackageChanges.do?eid={0}"&gt; confermarle immediatamente&lt;/a&gt; dopo aver finito di modificare questo erratum.</target></trans-unit>
 
       <trans-unit id="errata.edit.toolbar">
 <source>Errata: </source>

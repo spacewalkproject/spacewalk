@@ -3568,12 +3568,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
         </context-group>
       <target>이 에라타와 관련된 패키지 목록이 최근 수정되었습니다.</target></trans-unit>
 
-      <trans-unit id="errata.edit.cache.explain">
-<source>These changes will not immediately be available to systems to which this erratum applies. The changes will become available approximately 10 minutes after they are made. Or, you can &lt;a href="/rhn/errata/manage/CommitErrataPackageChanges.do?eid={0}"&gt; commit your changes immediately&lt;/a&gt; when you are finished editing this erratum.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/errata/manage/Edit.do</context>
-        </context-group>
-      <target>변경 사항은 에라타가 적용될 시스템에서 즉시 사용 가능하지 않고, 변경된 후 약 10분이 지나야 사용 가능해집니다. 또는 에라타 수정을 마친 후 &lt;a href="/rhn/errata/manage/CommitErrataPackageChanges.do?eid={0}"&gt; 곧바로 변경 사항을 커밋하시면 됩니다&lt;/a&gt;.</target></trans-unit>
 
       <trans-unit id="errata.edit.toolbar">
 <source>Errata: </source>

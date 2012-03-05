@@ -3568,12 +3568,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
         </context-group>
       <target>આ ત્રુટિસૂચી સાથે સંકળાયેલ પેકેજોની યાદી હમણાં જ સુધારાઈ ગયેલ છે.</target></trans-unit>
 
-      <trans-unit id="errata.edit.cache.explain">
-<source>These changes will not immediately be available to systems to which this erratum applies. The changes will become available approximately 10 minutes after they are made. Or, you can &lt;a href="/rhn/errata/manage/CommitErrataPackageChanges.do?eid={0}"&gt; commit your changes immediately&lt;/a&gt; when you are finished editing this erratum.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/errata/manage/Edit.do</context>
-        </context-group>
-      <target>આ ફેરફારો સિસ્ટમો માટે તુરંત જ ઉપલબ્ધ રહેશે નહિં કે જેમને આ ત્રુટિસૂચી લાગુ પડે છે. ફેરફારો તેઓ લાગુ પડે પછીની આશરે ૧૦ મિનિટો પછી ઉપલબ્ધ થશે. અથવા, તમે &lt;a href="/rhn/errata/manage/CommitErrataPackageChanges.do?eid={0}"&gt; તમારા ફેરફારો તુરંત જ સંગ્રહી શકો છો&lt;/a&gt; જ્યારે તમે આ ત્રુટિસૂચીમાં ફેરફાર કરવાનું સમાપ્ત કરો.</target></trans-unit>
 
       <trans-unit id="errata.edit.toolbar">
 <source>Errata: </source>

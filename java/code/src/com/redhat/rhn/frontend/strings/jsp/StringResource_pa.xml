@@ -3568,12 +3568,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
         </context-group>
       <target>ਇਸ ਇੱਰਟੱਮ ਨਾਲ ਸਬੰਧਿਤ ਪੈਕੇਜ ਨੂੰ ਹੁਣੇ ਹੀ ਸੋਧਿਆ ਗਿਆ ਹੈ।</target></trans-unit>
 
-      <trans-unit id="errata.edit.cache.explain">
-<source>These changes will not immediately be available to systems to which this erratum applies. The changes will become available approximately 10 minutes after they are made. Or, you can &lt;a href="/rhn/errata/manage/CommitErrataPackageChanges.do?eid={0}"&gt; commit your changes immediately&lt;/a&gt; when you are finished editing this erratum.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/errata/manage/Edit.do</context>
-        </context-group>
-      <target>ਇਹ ਤਬਦੀਲੀਆਂ ਸਿਸਟਮ ਉੱਤੇ ਤਰੁੰਤ ਉਪਲੱਬਧ ਨਹੀਂ ਹੋਣਗੀਆਂ, ਜਿੰਨਾਂ ਉੱਤੇ ਇਹ ਇੱਰਟੱਮ ਲਾਗੂ ਹੁੰਦਾ ਹੈ। ਇਹ ਤਬਦੀਲੀਆਂ ਇਹਨਾਂ ਦੇ ਲਾਗੂ ਕਰਨ ਤੋਂ ਲਗਭਗ 10 ਮਿੰਟ ਬਾਅਦ ਲਾਗੂ ਹੁੰਦੀਆਂ ਹਨ। ਜਾਂ ਤੁਸੀਂ ਇਸ ਇੱਰਟੱਮ ਨੂੰ ਮੁਕੰਮਲ ਕਰਨ ਤੋਂ ਬਾਅਦ ਤੁਸੀਂ &lt;a href="/rhn/errata/manage/CommitErrataPackageChanges.do?eid={0}"&gt; ਰਾਹੀਂ ਆਪਣੀਆਂ ਤਬਦੀਲੀਆਂ ਨੂੰ ਤਰੁੰਤ ਕਮਿੱਟ&lt;/a&gt; ਕਰ ਸਕਦੇ ਹੋ।</target></trans-unit>
 
       <trans-unit id="errata.edit.toolbar">
 <source>Errata: </source>

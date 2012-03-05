@@ -3568,12 +3568,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
         </context-group>
       <target>與這勘誤相關的套件清單最近已經修改。</target></trans-unit>
 
-      <trans-unit id="errata.edit.cache.explain">
-<source>These changes will not immediately be available to systems to which this erratum applies. The changes will become available approximately 10 minutes after they are made. Or, you can &lt;a href="/rhn/errata/manage/CommitErrataPackageChanges.do?eid={0}"&gt; commit your changes immediately&lt;/a&gt; when you are finished editing this erratum.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/errata/manage/Edit.do</context>
-        </context-group>
-      <target>這些改變將不會馬上套用到本勘誤相關的系統上，這大概需要十分鐘的時間。或者您可以在編輯這勘誤之後，按下&lt;a href="/rhn/errata/manage/CommitErrataPackageChanges.do?eid={0}"&gt;立即套用改變&lt;/a&gt;。</target></trans-unit>
 
       <trans-unit id="errata.edit.toolbar">
 <source>Errata: </source>

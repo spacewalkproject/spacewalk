@@ -3569,12 +3569,6 @@ del rol de Administrador de la organización.</target></trans-unit>
         </context-group>
       <target>La lista de paquetes asociados con esta errata ha sido modificada recientemente.</target></trans-unit>
 
-      <trans-unit id="errata.edit.cache.explain">
-<source>These changes will not immediately be available to systems to which this erratum applies. The changes will become available approximately 10 minutes after they are made. Or, you can &lt;a href="/rhn/errata/manage/CommitErrataPackageChanges.do?eid={0}"&gt; commit your changes immediately&lt;/a&gt; when you are finished editing this erratum.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/errata/manage/Edit.do</context>
-        </context-group>
-      <target>Estos cambios no estarán disponibles inmediatamente en los sistemas a los cuales se aplica esta errata. Los cambios estarán disponibles después de 10 minutos de haber sido realizados. O puede &lt;a href="/rhn/errata/manage/CommitErrataPackageChanges.do?eid={0}"&gt;enviar sus cambios inmediatamente&lt;/a&gt; cuando haya finalizado la edición de esta errata.</target></trans-unit>
 
       <trans-unit id="errata.edit.toolbar">
 <source>Errata: </source>

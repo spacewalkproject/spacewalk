@@ -3568,12 +3568,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
         </context-group>
       <target>இந்த பிழைத்திருத்தம் உடன் தொடர்புடைய தொகுப்புகள் பட்டியல் சமீபத்தில் மாற்றப்பட்டது.</target></trans-unit>
 
-      <trans-unit id="errata.edit.cache.explain">
-<source>These changes will not immediately be available to systems to which this erratum applies. The changes will become available approximately 10 minutes after they are made. Or, you can &lt;a href="/rhn/errata/manage/CommitErrataPackageChanges.do?eid={0}"&gt; commit your changes immediately&lt;/a&gt; when you are finished editing this erratum.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/errata/manage/Edit.do</context>
-        </context-group>
-      <target>இந்த பிழைத்திருத்தம் செய்த இந்த மாற்றங்கள் உடனடியாக கணினிகளில் இருக்காது. தோராயமாக 10 நிமிடங்களுக்கு பிறகு தான் மாற்றங்கள் நிகழ்த்தப்படும் அல்லது நீங்கள் இந்த பிழைத்திருத்தத்தை மாற்றிய பின் &lt;a href="/rhn/errata/manage/CommitErrataPackageChanges.do?eid={0}"&gt; உடனடியாக உங்கள் மாற்றங்களை சமர்ப்பிக்கவும்&lt;/a&gt; .</target></trans-unit>
 
       <trans-unit id="errata.edit.toolbar">
 <source>Errata: </source>

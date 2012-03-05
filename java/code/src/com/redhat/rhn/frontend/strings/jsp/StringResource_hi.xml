@@ -3568,12 +3568,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
         </context-group>
       <target>इस इरेटा से जुड़े संकुल की सूची को हाल में रूपांतरित किया गया है.</target></trans-unit>
 
-      <trans-unit id="errata.edit.cache.explain">
-<source>These changes will not immediately be available to systems to which this erratum applies. The changes will become available approximately 10 minutes after they are made. Or, you can &lt;a href="/rhn/errata/manage/CommitErrataPackageChanges.do?eid={0}"&gt; commit your changes immediately&lt;/a&gt; when you are finished editing this erratum.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/errata/manage/Edit.do</context>
-        </context-group>
-      <target>ये बदलाव सिस्टम में तत्काल उपलब्ध होंगे जिसमें यह इरेटा लागू होता है. यह बदलाव अनुमानतः बनाये जाने के 10 मिनट बाद उपलब्ध होंगे. या , आप &lt;a href="/rhn/errata/manage/CommitErrataPackageChanges.do?eid={0}"&gt; अपने बदलाव को तत्काल सुपुर्द कर सकते हैं&lt;/a&gt; जब आप इस इरेटा का संपादन समाप्त कर लेंगे.</target></trans-unit>
 
       <trans-unit id="errata.edit.toolbar">
 <source>Errata: </source>

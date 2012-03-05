@@ -3568,12 +3568,6 @@ abaixo e &lt;b&gt;não poderá mais se autenticar&lt;/b&gt;.</target></trans-uni
         </context-group>
       <target>A lista de pacotes associados a esta errata foi modificada recentemente.</target></trans-unit>
 
-      <trans-unit id="errata.edit.cache.explain">
-<source>These changes will not immediately be available to systems to which this erratum applies. The changes will become available approximately 10 minutes after they are made. Or, you can &lt;a href="/rhn/errata/manage/CommitErrataPackageChanges.do?eid={0}"&gt; commit your changes immediately&lt;/a&gt; when you are finished editing this erratum.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/errata/manage/Edit.do</context>
-        </context-group>
-      <target>Estas alterações não serão disponibilizados imediatamente aos sistemas aos quais esta errata se aplica após aproximadamente 10 minutos depois de sua execução. Se preferir, você pode &lt;a href="/rhn/errata/CommitErrataPackageChanges.do?eid={0}"&gt; submeter suas alterações imediatamente&lt;/a&gt; quando terminar a edição desta errata.</target></trans-unit>
 
       <trans-unit id="errata.edit.toolbar">
 <source>Errata: </source>

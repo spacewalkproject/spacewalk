@@ -3568,12 +3568,6 @@ dr&amp;uuml;cken und &lt;b&gt;k&amp;ouml;nnen sich nicht wieder einloggen&lt;/b&
         </context-group>
       <target>Die Liste von Paketen in Zusammenhang mit diesem Erratum ist k&amp;uuml;rzlich modifiziert worden.</target></trans-unit>
 
-      <trans-unit id="errata.edit.cache.explain">
-<source>These changes will not immediately be available to systems to which this erratum applies. The changes will become available approximately 10 minutes after they are made. Or, you can &lt;a href="/rhn/errata/manage/CommitErrataPackageChanges.do?eid={0}"&gt; commit your changes immediately&lt;/a&gt; when you are finished editing this erratum.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/errata/manage/Edit.do</context>
-        </context-group>
-      <target>Diese &amp;Auml;nderungen stehen Systemen, auf die dieses Erratum zutrifft, nicht umgehend zur Verf&amp;uuml;gung. Es dauert ca. 10 Minuten, bis die &amp;Auml;nderungen wirksam werden. Alternativ k&amp;ouml;nnen Sie &lt;a href="/rhn/errata/manage/CommitErrataPackageChanges.do?eid={0}"&gt; Ihre &amp;Auml;nderungen sofort festlegen&lt;/a&gt;, wenn Sie mit dem Bearbeiten dieses Erratums fertig sind.</target></trans-unit>
 
       <trans-unit id="errata.edit.toolbar">
 <source>Errata: </source>
