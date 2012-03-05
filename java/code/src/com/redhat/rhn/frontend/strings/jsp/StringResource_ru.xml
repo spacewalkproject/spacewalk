@@ -8487,12 +8487,6 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
     <target>Версия для печати</target></trans-unit>
 
-  <trans-unit id="tnc.jsp.for-other-tnc">
-    <source>If you purchased your subscription outside the US, please review the Terms and Conditions here: </source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/tnc/</context>
-        </context-group>
-    <target>Если ваша подписка приобретена за пределами США, просмотрите условия и соглашения: </target></trans-unit>
 
 	<!--  SSM Kickstart -->
     <group>

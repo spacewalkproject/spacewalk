@@ -8492,12 +8492,6 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
     <target>அச்சடிப்பான்-துணை பதிப்பு</target></trans-unit>
 
-  <trans-unit id="tnc.jsp.for-other-tnc">
-    <source>If you purchased your subscription outside the US, please review the Terms and Conditions here: </source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/tnc/</context>
-        </context-group>
-    <target>நீங்கள் உங்கள் சந்தாவினை US க்கு  வெளியே வாங்கியிருந்தால், இங்கு விதிமுறைகள் மற்றும் நிபந்தனைகளை மறுபார்வை செய்யவும்:</target></trans-unit>
 
 	<!--  SSM Kickstart -->
     <group>

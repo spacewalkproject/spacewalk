@@ -8504,12 +8504,6 @@ Veuillez noter qu'une configuration manuelle de ces scripts peut toujours être 
         </context-group>
     <target>Version pour imprimante</target></trans-unit>
 
-  <trans-unit id="tnc.jsp.for-other-tnc">
-    <source>If you purchased your subscription outside the US, please review the Terms and Conditions here: </source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/tnc/</context>
-        </context-group>
-    <target>Si vous avez acheté votre abonnement en-dehors des États-Unis, veuillez lire les termes et conditions présents&amp;nbsp;:</target></trans-unit>
 
 	<!--  SSM Kickstart -->
     <group>

@@ -8506,12 +8506,6 @@ Bitte beachten Sie, dass m&amp;ouml;glicherweise noch einige manuelle Konfigurat
         </context-group>
     <target>Druckerfreundliche Version</target></trans-unit>
 
-  <trans-unit id="tnc.jsp.for-other-tnc">
-    <source>If you purchased your subscription outside the US, please review the Terms and Conditions here: </source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/tnc/</context>
-        </context-group>
-    <target>Wenn Sie Ihr Abonnement ausserhalb der Vereinigten Staaten erworben haben, bitte sehen Sie sich die Gesch&amp;auml;ftsbedingungen nochmals hier an:</target></trans-unit>
 
 	<!--  SSM Kickstart -->
     <group>

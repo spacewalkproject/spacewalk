@@ -8492,12 +8492,6 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
     <target>પ્રિન્ટર-મૈત્રી આવૃત્તિ</target></trans-unit>
 
-  <trans-unit id="tnc.jsp.for-other-tnc">
-    <source>If you purchased your subscription outside the US, please review the Terms and Conditions here: </source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/tnc/</context>
-        </context-group>
-    <target>જો તમે તમારી ઉમેદવારી US થી બહાર ખરીદી હોય, તો મહેરબાની કરીને બાબતો અને શરતોનું અંહિ રીવ્યુ કરો: </target></trans-unit>
 
 	<!--  SSM Kickstart -->
     <group>

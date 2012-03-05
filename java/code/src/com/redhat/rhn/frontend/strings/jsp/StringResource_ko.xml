@@ -8489,12 +8489,6 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
     <target>인쇄용 버전</target></trans-unit>
 
-  <trans-unit id="tnc.jsp.for-other-tnc">
-    <source>If you purchased your subscription outside the US, please review the Terms and Conditions here: </source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/tnc/</context>
-        </context-group>
-    <target>미국 외 국가에서 서브스크립션을 구매하셨다면, 이곳에서 이용 약관을 확인해주십시오:</target></trans-unit>
 
 	<!--  SSM Kickstart -->
     <group>

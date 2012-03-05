@@ -8491,12 +8491,6 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
     <target>প্রিন্টযোগ্য সংস্করণ</target></trans-unit>
 
-  <trans-unit id="tnc.jsp.for-other-tnc">
-    <source>If you purchased your subscription outside the US, please review the Terms and Conditions here: </source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/tnc/</context>
-        </context-group>
-    <target>মার্কিন যুক্তরাষ্ট্রের বাইরে কোনো স্থানে সাবস্ক্রিপশন ক্রয় করা হলে নিম্নলিখিত স্থানে শর্তাবলী অনুধাবন করুন: </target></trans-unit>
 
 	<!--  SSM Kickstart -->
     <group>

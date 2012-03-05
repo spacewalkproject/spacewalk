@@ -8488,12 +8488,6 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
     <target>列印版本</target></trans-unit>
 
-  <trans-unit id="tnc.jsp.for-other-tnc">
-    <source>If you purchased your subscription outside the US, please review the Terms and Conditions here: </source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/tnc/</context>
-        </context-group>
-    <target>如果您在美國之外的地區購買訂閱，請在此檢視使用條款：</target></trans-unit>
 
 	<!--  SSM Kickstart -->
     <group>
