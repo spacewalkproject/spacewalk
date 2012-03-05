@@ -13903,12 +13903,6 @@ pour ces versions seront également supprimées, ainsi que tous les historiques 
         </context-group>
     <target>Aucun fichier de configuration.</target></trans-unit>
 
-    <trans-unit id="quota.jsp.filename">
-        <source>Filename</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/Quota.do</context>
-        </context-group>
-    <target>Nom du fichier</target></trans-unit>
 
     <trans-unit id="quota.jsp.revisions">
         <source>Revisions</source>

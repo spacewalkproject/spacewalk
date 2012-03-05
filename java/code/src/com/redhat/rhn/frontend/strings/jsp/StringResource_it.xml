@@ -13867,12 +13867,6 @@ Siete sicuri di voler fare questo?</target></trans-unit>
         </context-group>
     <target>Nessun file di configurazione.</target></trans-unit>
 
-    <trans-unit id="quota.jsp.filename">
-        <source>Filename</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/Quota.do</context>
-        </context-group>
-    <target>Nome del file</target></trans-unit>
 
     <trans-unit id="quota.jsp.revisions">
         <source>Revisions</source>

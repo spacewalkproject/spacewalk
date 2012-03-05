@@ -13905,12 +13905,6 @@ dieser Revisionen.  M&amp;ouml;chten Sie dies wirklich tun?</target></trans-unit
         </context-group>
     <target>Keine Konfigurationsdateien.</target></trans-unit>
 
-    <trans-unit id="quota.jsp.filename">
-        <source>Filename</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/Quota.do</context>
-        </context-group>
-    <target>Dateiname</target></trans-unit>
 
     <trans-unit id="quota.jsp.revisions">
         <source>Revisions</source>

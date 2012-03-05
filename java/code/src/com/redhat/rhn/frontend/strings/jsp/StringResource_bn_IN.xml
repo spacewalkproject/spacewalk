@@ -13869,12 +13869,6 @@ any of these revisions.  Are you sure you want to do this?</source>
         </context-group>
     <target>কোনো কনফিগারেশন ফাইল উপস্থিত নেই।</target></trans-unit>
 
-    <trans-unit id="quota.jsp.filename">
-        <source>Filename</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/Quota.do</context>
-        </context-group>
-    <target>ফাইলের নাম</target></trans-unit>
 
     <trans-unit id="quota.jsp.revisions">
         <source>Revisions</source>

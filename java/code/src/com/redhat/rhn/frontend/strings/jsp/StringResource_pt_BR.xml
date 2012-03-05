@@ -13893,12 +13893,6 @@ para qualquer uma das revisões, assim como todo o histórico de implementação
         </context-group>
     <target>Nenhum arquivo de configuração</target></trans-unit>
 
-    <trans-unit id="quota.jsp.filename">
-        <source>Filename</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/Quota.do</context>
-        </context-group>
-    <target>Nome do Arquivo</target></trans-unit>
 
     <trans-unit id="quota.jsp.revisions">
         <source>Revisions</source>
