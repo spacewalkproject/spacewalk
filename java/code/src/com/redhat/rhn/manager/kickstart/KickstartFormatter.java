@@ -850,10 +850,6 @@ public class KickstartFormatter {
                     log.debug("Found one time activation key: " + defaultKey.getKey());
                 }
         }
-        else {
-            log.error("We should have gotten an activation key with this session: " +
-                    ksession.getId());
-        }
         log.debug("tokens size: " + tokens.size());
         //add the activation keys associated with the kickstart profile
         if (ksdata.getDefaultRegTokens() != null) {
