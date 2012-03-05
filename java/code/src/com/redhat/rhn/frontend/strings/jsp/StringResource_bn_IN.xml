@@ -6686,12 +6686,6 @@ value for this entitlement, excluding the default organization's consumption.</s
 
 
 
-    <trans-unit id="download.jsp.summary3">
-<source>The packages you have selected will be in the newly created &lt;code&gt;rhn-packages/&lt;/code&gt; directory beneath your current directory.</source>
-      <context-group name="ctx">
-        <context context-type="sourcefile">/rhn/systems/details/packages/DownloadConfirm.do</context>
-      </context-group>
-    <target>আপনার নির্বাচিত প্যাকেজগুলি বর্তমান ডিরেক্টরির মধ্যে &lt;code&gt;rhn-packages/&lt;/code&gt; নামক নবনির্মিত ডিরেক্টরির মধ্যে অবস্থান করবে।</target></trans-unit>
 
 
     <trans-unit id="download.jsp.download">
