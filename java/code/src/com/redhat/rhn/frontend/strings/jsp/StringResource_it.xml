@@ -10664,9 +10664,6 @@ la &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stron
         <source>Default kickstart snippets are available to all organizations. These snippets cannot be modified.</source>
     <target>Gli snippet kickstart predefiniti sono disponibili a tutte le organizzazioni. I suddetti snippet non possono essere modificati.</target></trans-unit>
 
-    <trans-unit id="snippetedit.jsp.header2">
-        <source>Edit Snippet</source>
-    <target>Modifica Snippet</target></trans-unit>
 
     <trans-unit id="snippetcreate.jsp.toolbar">
         <source>Create New Snippet</source>

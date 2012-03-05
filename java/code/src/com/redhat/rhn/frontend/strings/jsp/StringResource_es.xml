@@ -10680,9 +10680,6 @@ el &lt;strong&gt;Manual de administración del sistema Red Hat Enterprise Linux.
         <source>Default kickstart snippets are available to all organizations. These snippets cannot be modified.</source>
     <target>Los fragmentos Kickstart predeterminados están disponibles para todas las organizaciones. Dichos fragmentos no pueden ser modificados.</target></trans-unit>
 
-    <trans-unit id="snippetedit.jsp.header2">
-        <source>Edit Snippet</source>
-    <target>Editar fragmento</target></trans-unit>
 
     <trans-unit id="snippetcreate.jsp.toolbar">
         <source>Create New Snippet</source>

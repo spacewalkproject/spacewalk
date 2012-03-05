@@ -10666,9 +10666,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <source>Default kickstart snippets are available to all organizations. These snippets cannot be modified.</source>
     <target>ডিফল্ট kickstart স্নিপেটগুলি সকল প্রতিষ্ঠানের ব্যবহারের জন্য উপলব্ধ থাকবে। এই স্নিপেটগুলি পরিবর্তন করা যাবে না।</target></trans-unit>
 
-    <trans-unit id="snippetedit.jsp.header2">
-        <source>Edit Snippet</source>
-    <target>স্নিপেট সম্পাদনা করুন</target></trans-unit>
 
     <trans-unit id="snippetcreate.jsp.toolbar">
         <source>Create New Snippet</source>

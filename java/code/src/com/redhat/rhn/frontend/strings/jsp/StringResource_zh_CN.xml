@@ -10677,9 +10677,6 @@ kickstart 前脚本的内容可以在 &lt;strong&gt;《红帽企业版 Linux 系
         <source>Default kickstart snippets are available to all organizations. These snippets cannot be modified.</source>
     <target>默认 kickstart snippet 对所有机构都可用。这些 snippet 是无法修改的。</target></trans-unit>
 
-    <trans-unit id="snippetedit.jsp.header2">
-        <source>Edit Snippet</source>
-    <target>编辑 Snippet </target></trans-unit>
 
     <trans-unit id="snippetcreate.jsp.toolbar">
         <source>Create New Snippet</source>

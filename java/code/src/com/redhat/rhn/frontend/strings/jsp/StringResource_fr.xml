@@ -10682,9 +10682,6 @@ Le script post non-chroot sera ensuite exécuté et le script post sera enfin ex
         <source>Default kickstart snippets are available to all organizations. These snippets cannot be modified.</source>
     <target>Les snippets kickstart par défaut sont disponibles pour toutes les organisations. Ces snippets ne peuvent pas être modifiés.</target></trans-unit>
 
-    <trans-unit id="snippetedit.jsp.header2">
-        <source>Edit Snippet</source>
-    <target>Éditer le snippet</target></trans-unit>
 
     <trans-unit id="snippetcreate.jsp.toolbar">
         <source>Create New Snippet</source>

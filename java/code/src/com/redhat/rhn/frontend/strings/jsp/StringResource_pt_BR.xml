@@ -10673,9 +10673,6 @@ o &lt;strong&gt;Guia de Administração de Sistemas Red Hat Enterprise Li
         <source>Default kickstart snippets are available to all organizations. These snippets cannot be modified.</source>
     <target>Os snippets do kickstart padrão estão disponíveis para todas as organizações. Estes snippets não podem ser modificados. </target></trans-unit>
 
-    <trans-unit id="snippetedit.jsp.header2">
-        <source>Edit Snippet</source>
-    <target>Editar Snippet</target></trans-unit>
 
     <trans-unit id="snippetcreate.jsp.toolbar">
         <source>Create New Snippet</source>
