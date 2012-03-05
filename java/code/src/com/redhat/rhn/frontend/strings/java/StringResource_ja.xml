@@ -6023,12 +6023,6 @@ user before attempting to deactivate their account.</source>
 
 
 
-    <trans-unit id="bootstrap.config.error.16">
-        <source>Could not find the CA certificate</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-      <target>CA 証明書が見つかりませんでした</target></trans-unit>
 
     <trans-unit id="bootstrap.config.error.17">
         <source>Could not find GPG key</source>
