@@ -14661,9 +14661,6 @@ any of these revisions.  Are you sure you want to do this?</source>
         <trans-unit id="toolbar.create.revision">
           <source>create new revision</source>
         <target>新規のリビジョンを作成</target></trans-unit>
-        <trans-unit id="manage.jsp.alt">
-          <source>upload new revision</source>
-        <target>新規のリビジョンをアップロード</target></trans-unit>
         <trans-unit id="manage.jsp.success">
           <source>&lt;a href="{0}"&gt;Revision {1}&lt;/a&gt; successfully uploaded.</source>
         <target>&lt;a href="{0}"&gt;リビジョン {1}&lt;/a&gt; を正常にアップロードしました。</target></trans-unit>

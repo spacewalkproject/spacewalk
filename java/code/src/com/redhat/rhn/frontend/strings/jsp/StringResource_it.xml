@@ -14644,9 +14644,6 @@ Siete sicuri di voler fare questo?</target></trans-unit>
         <trans-unit id="toolbar.create.revision">
           <source>create new revision</source>
         <target>crea nuova revisione</target></trans-unit>
-        <trans-unit id="manage.jsp.alt">
-          <source>upload new revision</source>
-        <target>carica nuova revisione</target></trans-unit>
         <trans-unit id="manage.jsp.success">
           <source>&lt;a href="{0}"&gt;Revision {1}&lt;/a&gt; successfully uploaded.</source>
         <target>&lt;a href="{0}"&gt;Revisione {1}&lt;/a&gt; caricata con successo.</target></trans-unit>

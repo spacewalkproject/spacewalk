@@ -14670,9 +14670,6 @@ para qualquer uma das revisões, assim como todo o histórico de implementação
         <trans-unit id="toolbar.create.revision">
           <source>create new revision</source>
         <target>criar nova revisão</target></trans-unit>
-        <trans-unit id="manage.jsp.alt">
-          <source>upload new revision</source>
-        <target>carregar nova revisão</target></trans-unit>
         <trans-unit id="manage.jsp.success">
           <source>&lt;a href="{0}"&gt;Revision {1}&lt;/a&gt; successfully uploaded.</source>
         <target>&lt;a href="{0}"&gt;Revisão {1}&lt;/a&gt; carregada com sucesso.</target></trans-unit>
