@@ -10288,12 +10288,6 @@ kickstart 前脚本的内容可以在 &lt;strong&gt;《红帽企业版 Linux 系
         </context-group>
      <target>任务</target></trans-unit>
 
-     <trans-unit id="yourrhn.jsp.task.searchfor">
-        <source>&lt;strong&gt;Search&lt;/strong&gt; for:</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/YourRhn.do</context>
-        </context-group>
-     <target>&lt;strong&gt;搜索&lt;/strong&gt;：</target></trans-unit>
 
       <trans-unit id="yourrhn.jsp.tasks.subscriptions">
         <source>Manage &lt;strong&gt;Entitlements&lt;/strong&gt; &amp;amp; &lt;strong&gt;Subscriptions&lt;/strong&gt;</source>

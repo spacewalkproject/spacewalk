@@ -10276,12 +10276,6 @@ la &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stron
         </context-group>
      <target>Compiti</target></trans-unit>
 
-     <trans-unit id="yourrhn.jsp.task.searchfor">
-        <source>&lt;strong&gt;Search&lt;/strong&gt; for:</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/YourRhn.do</context>
-        </context-group>
-     <target>&lt;strong&gt;Ricerca&lt;/strong&gt; per:</target></trans-unit>
 
       <trans-unit id="yourrhn.jsp.tasks.subscriptions">
         <source>Manage &lt;strong&gt;Entitlements&lt;/strong&gt; &amp;amp; &lt;strong&gt;Subscriptions&lt;/strong&gt;</source>

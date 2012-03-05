@@ -10291,12 +10291,6 @@ el &lt;strong&gt;Manual de administración del sistema Red Hat Enterprise Linux.
         </context-group>
      <target>Tareas</target></trans-unit>
 
-     <trans-unit id="yourrhn.jsp.task.searchfor">
-        <source>&lt;strong&gt;Search&lt;/strong&gt; for:</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/YourRhn.do</context>
-        </context-group>
-     <target>&lt;strong&gt;Buscar&lt;/strong&gt; por:</target></trans-unit>
 
       <trans-unit id="yourrhn.jsp.tasks.subscriptions">
         <source>Manage &lt;strong&gt;Entitlements&lt;/strong&gt; &amp;amp; &lt;strong&gt;Subscriptions&lt;/strong&gt;</source>
