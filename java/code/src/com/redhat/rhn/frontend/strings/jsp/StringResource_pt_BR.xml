@@ -1554,12 +1554,6 @@ abaixo e &lt;b&gt;não poderá mais se autenticar&lt;/b&gt;.</target></trans-uni
           <context context-type="sourcefile">/rhn/users/UserDetails</context>
         </context-group>
       <target>Nome do usuário</target></trans-unit>
-      <trans-unit id="userdetails.jsp.prefix">
-<source>Prefix</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/UserDetails</context>
-        </context-group>
-      <target>Prefixo</target></trans-unit>
       <trans-unit id="userdetails.jsp.usertype">
 <source>User Type</source>
         <context-group name="ctx">
