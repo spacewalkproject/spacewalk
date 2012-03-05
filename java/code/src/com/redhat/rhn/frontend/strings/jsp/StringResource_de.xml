@@ -5012,12 +5012,6 @@ für diese Berechtigung, mit Ausnahme des Verbrauchs der Standardorganisation.</
         </context-group>
       <target>Bericht zur Systemaktualität</target></trans-unit>
 
-      <trans-unit id="systemcurrency.jsp.view">
-<source>View systems with a score of at least: </source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/SystemCurrency.do</context>
-        </context-group>
-      <target>Systeme anzeigen mit Wertung von mindestens: </target></trans-unit>
 
       <trans-unit id="systemcurrency.jsp.critical">
 <source>Security (Critical)</source>

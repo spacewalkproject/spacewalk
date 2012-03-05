@@ -5010,12 +5010,6 @@ para este derecho, excluyendo el consumo de la organización predeterminada.</ta
         </context-group>
       <target>Reporte de moneda del sistema</target></trans-unit>
 
-      <trans-unit id="systemcurrency.jsp.view">
-<source>View systems with a score of at least: </source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/SystemCurrency.do</context>
-        </context-group>
-      <target>Ver los sistemas con un resultado de por lo menos:</target></trans-unit>
 
       <trans-unit id="systemcurrency.jsp.critical">
 <source>Security (Critical)</source>

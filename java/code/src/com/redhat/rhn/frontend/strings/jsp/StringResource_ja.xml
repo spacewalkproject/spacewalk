@@ -5004,12 +5004,6 @@ value for this entitlement, excluding the default organization's consumption.</s
         </context-group>
       <target>システム状態レポート</target></trans-unit>
 
-      <trans-unit id="systemcurrency.jsp.view">
-<source>View systems with a score of at least: </source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/SystemCurrency.do</context>
-        </context-group>
-      <target>少なくとも次のスコアのシステムを表示: </target></trans-unit>
 
       <trans-unit id="systemcurrency.jsp.critical">
 <source>Security (Critical)</source>

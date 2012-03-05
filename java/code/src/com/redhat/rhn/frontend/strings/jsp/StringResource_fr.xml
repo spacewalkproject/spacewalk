@@ -5011,12 +5011,6 @@ pour ce droit d'accès, moins la consommation par défaut de l'organisation.</ta
         </context-group>
       <target>Rapport de besoin de mise à jour du système</target></trans-unit>
 
-      <trans-unit id="systemcurrency.jsp.view">
-<source>View systems with a score of at least: </source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/SystemCurrency.do</context>
-        </context-group>
-      <target>Affiche les systèmes dont le score est d'au moins :</target></trans-unit>
 
       <trans-unit id="systemcurrency.jsp.critical">
 <source>Security (Critical)</source>

@@ -5008,12 +5008,6 @@ value for this entitlement, excluding the default organization's consumption.</s
         </context-group>
       <target>Relatório de Validação do Sistema</target></trans-unit>
 
-      <trans-unit id="systemcurrency.jsp.view">
-<source>View systems with a score of at least: </source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/SystemCurrency.do</context>
-        </context-group>
-      <target>Visualiza sistemas com uma classificação de pelo menos:</target></trans-unit>
 
       <trans-unit id="systemcurrency.jsp.critical">
 <source>Security (Critical)</source>
