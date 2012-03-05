@@ -2808,12 +2808,6 @@ del rol de Administrador de la organización.</target></trans-unit>
           <context context-type="sourcefile">/rhn/systems/details/packages/PackageList.do</context>
         </context-group>
       <target>Instalado</target></trans-unit>
-      <trans-unit id="packagelist.jsp.unknowntime">
-<source>N/A</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/packages/PackageList.do</context>
-        </context-group>
-      <target>N/A</target></trans-unit>
       <trans-unit id="packagelist.jsp.removepagesummary">
 <source>The following packages are installed on this system.  Packages may be scheduled for removal by selecting them and clicking "Remove Packages" below.</source>
         <context-group name="ctx">
