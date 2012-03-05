@@ -42,6 +42,7 @@ class moduleClass(Module):
         self.sidebarTitle = _("Choose Server")
         self.title = _("Choose Server")
         self.support_sm = False
+        self.rhsmActive = True
 
     def needsNetwork(self):
         return True
@@ -51,15 +52,17 @@ class moduleClass(Module):
             return RESULT_SUCCESS
 
         if self.support_sm \
-            and self.chooseServerPage.hostedButton.get_active() \
-            and not self.chooseServerPage.chooseServerXml.get_widget("hostedClassicButton").get_active():
+            and not self.chooseServerPage.chooseServerXml.get_widget("hostedButton").get_active() \
+            and not self.chooseServerPage.chooseServerXml.get_widget("satelliteButton").get_active():
                 i = 0
                 while not interface.moduleList[i].__module__.startswith('rhsm_'):
                     i += 1
                 interface.moveToPage(pageNum=i)
+                self.rhsmActive = True
                 return RESULT_JUMP
 
         try:
+            self.rhsmActive = False
             if self.chooseServerPage.chooseServerPageApply() is False:
                 interface.moveToPage(moduleTitle=_("Red Hat Login"))
                 return RESULT_JUMP
@@ -77,12 +80,14 @@ class moduleClass(Module):
         self.vbox.pack_start(self.chooseServerPage.chooseServerPageVbox(), True, True)
         if sys.modules.has_key('rhsm_login'):
             self.support_sm = True
-            classicMode = self.chooseServerPage.chooseServerXml.get_widget("hostedClassicAlignment")
-            classicMode.set_no_show_all(False)
-            classicMode.show_all()
+            self.rhsmButton = self.chooseServerPage.chooseServerXml.get_widget("rhsmButton")
+            self.rhsmButton.set_no_show_all(False)
+            self.rhsmButton.show_all()
 
     def initializeUI(self):
         self.chooseServerPage.chooseServerPagePrepare()
+        if self.support_sm and self.rhsmActive:
+            self.rhsmButton.set_active(True)
 
     def shouldAppear(self):
         if rhnreg.registered():
