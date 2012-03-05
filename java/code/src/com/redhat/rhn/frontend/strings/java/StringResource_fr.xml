@@ -6661,9 +6661,6 @@ Suivez cet url pour obtenir la liste complète des systèmes inactifs :
         <target>Aucune comparaison de systèmes n'est terminée. [&lt;a href="{0}"&gt;Programmer la comparaison de systèmes&lt;/a&gt;]</target></trans-unit>
 
 
-	<trans-unit id="sdc.config.diff.files_0_dirs_0_symlinks_1">
-		<source>{4} of 1 symlink on the system was successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href="{6}"&gt;View Details&lt;/a&gt;]</source>
-	<target>{4} du lien symbolique 1 du système ont été comparés avec succès avec les fichiers @@PRODUCT_NAME@@-Managed. [&lt;a href="{6}"&gt;voir détails&lt;/a&gt;]</target></trans-unit>
 
 	<trans-unit id="sdc.config.diff.files_0_dirs_0_symlinks_2">
 		<source>{4} of {5} symlinks on the system were successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href="{6}"&gt;View Details&lt;/a&gt;]</source>

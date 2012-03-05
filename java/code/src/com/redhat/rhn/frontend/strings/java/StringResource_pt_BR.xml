@@ -6646,9 +6646,6 @@ Follow this url to see the full list of inactive systems:
         <target>Nenhuma comparação de sistema concluída. [&lt;a href="{0}"&gt;Agendar Comparação de Sistema&lt;/a&gt;]</target></trans-unit>
 
 
-	<trans-unit id="sdc.config.diff.files_0_dirs_0_symlinks_1">
-		<source>{4} of 1 symlink on the system was successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href="{6}"&gt;View Details&lt;/a&gt;]</source>
-	<target>{4} de 1 symlink no sistema foram bem sucedidos quando comparados com os arquivos @@PRODUCT_NAME@@-Gerenciados. [&lt;a href="{6}"&gt;View Details&lt;/a&gt;]</target></trans-unit>
 
 	<trans-unit id="sdc.config.diff.files_0_dirs_0_symlinks_2">
 		<source>{4} of {5} symlinks on the system were successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href="{6}"&gt;View Details&lt;/a&gt;]</source>
