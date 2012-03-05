@@ -15619,12 +15619,6 @@ Baumpfad, Kickstart-RPM, Basis-Channel und Installer-Generation sollten immer ü
         </context-group>
       <target>Gast</target></trans-unit>
 
-     <trans-unit id="virtualguestslist.jsp.hostname">
-<source>Hostname</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/virtualization/VirtualGuestsList.do</context>
-        </context-group>
-      <target>Hostname</target></trans-unit>
 
      <trans-unit id="virtualguestslist.jsp.unregistered">
 <source>Unregistered System</source>

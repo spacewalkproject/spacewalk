@@ -15609,12 +15609,6 @@ O Caminho de Árvore, Kickstart RPM, Canal de Base e a Geração do Instalador d
         </context-group>
       <target>Convidado</target></trans-unit>
 
-     <trans-unit id="virtualguestslist.jsp.hostname">
-<source>Hostname</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/virtualization/VirtualGuestsList.do</context>
-        </context-group>
-      <target>Nome da máquina</target></trans-unit>
 
      <trans-unit id="virtualguestslist.jsp.unregistered">
 <source>Unregistered System</source>

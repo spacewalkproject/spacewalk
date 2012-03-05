@@ -15617,12 +15617,6 @@ Le chemin d'arborescence, le RPM Kickstart, le canal de base, et la génération
         </context-group>
       <target>Invité</target></trans-unit>
 
-     <trans-unit id="virtualguestslist.jsp.hostname">
-<source>Hostname</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/virtualization/VirtualGuestsList.do</context>
-        </context-group>
-      <target>Nom d'hôte</target></trans-unit>
 
      <trans-unit id="virtualguestslist.jsp.unregistered">
 <source>Unregistered System</source>
