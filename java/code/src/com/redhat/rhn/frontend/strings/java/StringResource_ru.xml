@@ -2221,12 +2221,6 @@ available for this kickstart profile to function properly.
       <target>Выберите или отмените выбор всех пунктов на этой странице</target></trans-unit>
 
 
-     <trans-unit id="toolbar.upload.kickstart">
-<source>upload new kickstart file</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/UserList</context>
-        </context-group>
-      <target>загрузить новый файл кикстарта</target></trans-unit>
 
 
 

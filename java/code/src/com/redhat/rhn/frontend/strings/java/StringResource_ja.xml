@@ -2245,12 +2245,6 @@ rhn-kickstart* パッケージが利用可能であることを確認します�
       <target>このページのすべてのアイテムを選択または選択解除する</target></trans-unit>
 
 
-     <trans-unit id="toolbar.upload.kickstart">
-<source>upload new kickstart file</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/UserList</context>
-        </context-group>
-      <target>新規のキックスタートプロフィールをアップロード　</target></trans-unit>
 
 
 

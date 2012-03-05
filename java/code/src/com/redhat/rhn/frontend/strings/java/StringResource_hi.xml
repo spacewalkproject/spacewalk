@@ -2221,12 +2221,6 @@ available for this kickstart profile to function properly.
       <target>इस पृष्ठ पर सारे मद को चुनें या विचयनित करें</target></trans-unit>
 
 
-     <trans-unit id="toolbar.upload.kickstart">
-<source>upload new kickstart file</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/UserList</context>
-        </context-group>
-      <target>नयी किकस्टार्ट प्रोफाइल अपलोड करें</target></trans-unit>
 
 
 

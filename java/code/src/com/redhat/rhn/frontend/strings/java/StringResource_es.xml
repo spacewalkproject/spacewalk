@@ -2246,12 +2246,6 @@ asegurarse de que estén disponibles para que este perfil kickstart funcione apr
       <target>Active o desactive todos los elementos de esta página</target></trans-unit>
 
 
-     <trans-unit id="toolbar.upload.kickstart">
-<source>upload new kickstart file</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/UserList</context>
-        </context-group>
-      <target>subir un nuevo perfil kickstart</target></trans-unit>
 
 
 

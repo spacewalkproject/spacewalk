@@ -2252,12 +2252,6 @@ verfügbar machen, damit dieses Kickstart-Profil einwandfrei funktionieren kann.
       <target>Alle Punkte auf dieser Seite ausw&amp;auml;hlen oder deren Auswahl aufheben</target></trans-unit>
 
 
-     <trans-unit id="toolbar.upload.kickstart">
-<source>upload new kickstart file</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/UserList</context>
-        </context-group>
-      <target>Neues Kickstart-Profil hochladen</target></trans-unit>
 
 
 

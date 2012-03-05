@@ -2235,12 +2235,6 @@ disponíveis para seu perfil kickstart funcionar corretamente./n&lt;/li&gt;
       <target>Selecione ou desselecione todos os ítens desta página</target></trans-unit>
 
 
-     <trans-unit id="toolbar.upload.kickstart">
-<source>upload new kickstart file</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/UserList</context>
-        </context-group>
-      <target>atualizar criar novo arquivo do kickstart</target></trans-unit>
 
 
 

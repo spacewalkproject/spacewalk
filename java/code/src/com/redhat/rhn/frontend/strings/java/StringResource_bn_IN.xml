@@ -2227,12 +2227,6 @@ available for this kickstart profile to function properly.
       <target>এই পৃষ্ঠায় উপস্থিত সমস্ত বিষয়বস্তু নির্বাচন করুন অথবা নির্বাচিত বস্তুর তালিকা থেকে অপসারণ করুন</target></trans-unit>
 
 
-     <trans-unit id="toolbar.upload.kickstart">
-<source>upload new kickstart file</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/UserList</context>
-        </context-group>
-      <target>নতুন kickstart প্রোফাইল আপলোড করুন</target></trans-unit>
 
 
 

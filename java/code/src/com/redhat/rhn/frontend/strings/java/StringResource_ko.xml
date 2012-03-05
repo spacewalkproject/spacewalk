@@ -2221,12 +2221,6 @@ available for this kickstart profile to function properly.
       <target>이 페이지 모든 항목 선택 또는 선택해제</target></trans-unit>
 
 
-     <trans-unit id="toolbar.upload.kickstart">
-<source>upload new kickstart file</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/UserList</context>
-        </context-group>
-      <target>새 킥스타트 파일 업로드  </target></trans-unit>
 
 
 

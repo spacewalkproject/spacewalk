@@ -2223,12 +2223,6 @@ available for this kickstart profile to function properly.
       <target>ਇਸ ਸਫ਼ੇ 'ਤੇ ਸਭ ਇਕਾਈ ਚੁਣੋ ਜਾਂ ਨਾ ਚੁਣੋ</target></trans-unit>
 
 
-     <trans-unit id="toolbar.upload.kickstart">
-<source>upload new kickstart file</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/UserList</context>
-        </context-group>
-      <target>ਨਵੀਂ ਕਿੱਕਸਟਾਰਟ ਫਾਈਲ ਅੱਪਲੋਡ ਕਰੋ</target></trans-unit>
 
 
 

@@ -2248,12 +2248,6 @@ disponibles pour que ce profil kickstart puisse fonctionner correctement.
       <target>Sélectionner ou dé-sélectionner tous les éléments sur cette page</target></trans-unit>
 
 
-     <trans-unit id="toolbar.upload.kickstart">
-<source>upload new kickstart file</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/UserList</context>
-        </context-group>
-      <target>télécharger un nouveau profil kickstart</target></trans-unit>
 
 
 

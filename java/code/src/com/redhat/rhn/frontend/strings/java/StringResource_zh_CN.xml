@@ -2246,12 +2246,6 @@ available for this kickstart profile to function properly.
       <target>选择或取消选择这个页中的所有项</target></trans-unit>
 
 
-     <trans-unit id="toolbar.upload.kickstart">
-<source>upload new kickstart file</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/UserList</context>
-        </context-group>
-      <target>上传新 kickstart 文件</target></trans-unit>
 
 
 
