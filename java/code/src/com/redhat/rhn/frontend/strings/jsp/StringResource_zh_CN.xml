@@ -775,13 +775,6 @@
           <context context-type="sourcefile">/rhn/users/UserDetails</context>
         </context-group>
       <target>确认</target></trans-unit>
-      <trans-unit id="cancel.displayname">
-<source>Cancel</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/manage/ConfirmPrivate.do</context>
-          <context context-type="sourcefile">/rhn/channels/manage/ConfirmProtected.do</context>
-        </context-group>
-      <target>取消</target></trans-unit>
       <trans-unit id="change.displayname">
 <source>Change</source>
         <context-group name="ctx">
