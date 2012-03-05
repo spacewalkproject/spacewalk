@@ -1626,12 +1626,6 @@ dr&amp;uuml;cken und &lt;b&gt;k&amp;ouml;nnen sich nicht wieder einloggen&lt;/b&
           <context context-type="sourcefile">/rhn/users/UserDetails</context>
         </context-group>
       <target>Die oben aufgef&amp;uuml;hrten Rollen werden durch die Rolle des Organisations-Administrators verliehen.</target></trans-unit>
-      <trans-unit id="userdetails.jsp.created">
-<source>Created</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/UserDetails</context>
-        </context-group>
-      <target>Erstellt</target></trans-unit>
       <trans-unit id="userdetails.jsp.lastsign">
 <source>Last Sign In</source>
         <context-group name="ctx">

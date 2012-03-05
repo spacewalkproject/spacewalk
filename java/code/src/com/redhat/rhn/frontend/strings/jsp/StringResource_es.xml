@@ -1626,12 +1626,6 @@ inmediatamente y usted &lt;b&gt;no podrá iniciar una sesión nuevamente&lt;/b&g
           <context context-type="sourcefile">/rhn/users/UserDetails</context>
         </context-group>
       <target>Los roles anteriores son otorgados a través del rol de administrador de la organización.</target></trans-unit>
-      <trans-unit id="userdetails.jsp.created">
-<source>Created</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/UserDetails</context>
-        </context-group>
-      <target>Creado</target></trans-unit>
       <trans-unit id="userdetails.jsp.lastsign">
 <source>Last Sign In</source>
         <context-group name="ctx">

@@ -1626,12 +1626,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/users/UserDetails</context>
         </context-group>
       <target>மேலே உள்ள பொறுப்புகள் நிறுவன நிர்வாகி பொறுப்பு வழியாக கொடுக்கப்பட்டது.</target></trans-unit>
-      <trans-unit id="userdetails.jsp.created">
-<source>Created</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/UserDetails</context>
-        </context-group>
-      <target>உருவாக்கப்பட்டது</target></trans-unit>
       <trans-unit id="userdetails.jsp.lastsign">
 <source>Last Sign In</source>
         <context-group name="ctx">

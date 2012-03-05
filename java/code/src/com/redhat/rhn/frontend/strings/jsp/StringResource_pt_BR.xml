@@ -1626,12 +1626,6 @@ abaixo e &lt;b&gt;não poderá mais se autenticar&lt;/b&gt;.</target></trans-uni
           <context context-type="sourcefile">/rhn/users/UserDetails</context>
         </context-group>
       <target>As funções acima são obtidas através da função do Administrador da Empresa.</target></trans-unit>
-      <trans-unit id="userdetails.jsp.created">
-<source>Created</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/UserDetails</context>
-        </context-group>
-      <target>Criado</target></trans-unit>
       <trans-unit id="userdetails.jsp.lastsign">
 <source>Last Sign In</source>
         <context-group name="ctx">

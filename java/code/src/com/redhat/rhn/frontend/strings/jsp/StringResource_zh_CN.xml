@@ -1626,12 +1626,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/users/UserDetails</context>
         </context-group>
       <target>以上角色是通过机构管理员角色赋予的。</target></trans-unit>
-      <trans-unit id="userdetails.jsp.created">
-<source>Created</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/UserDetails</context>
-        </context-group>
-      <target>已创建</target></trans-unit>
       <trans-unit id="userdetails.jsp.lastsign">
 <source>Last Sign In</source>
         <context-group name="ctx">
