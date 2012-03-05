@@ -6125,12 +6125,6 @@ Follow this url to see the full list of inactive systems:
         </context-group>
       <target>किकस्टार्ट लोकेल विकल्प अद्यतन किया गया</target></trans-unit>
 
-      <trans-unit id="kickstart.locale.validation.timezone.invalid">
-        <source>Invalid timezone.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/kickstart/Locale.do</context>
-        </context-group>
-      <target>अमान्य समयक्षेत्र</target></trans-unit>
 
       <trans-unit id="kickstart.script.delete">
         <source>Kickstart Script Deleted.</source>

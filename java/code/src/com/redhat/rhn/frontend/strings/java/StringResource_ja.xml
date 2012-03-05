@@ -6149,12 +6149,6 @@ Follow this url to see the full list of inactive systems:
         </context-group>
       <target>キックスタートの言語オプションが更新されました。</target></trans-unit>
 
-      <trans-unit id="kickstart.locale.validation.timezone.invalid">
-        <source>Invalid timezone.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/kickstart/Locale.do</context>
-        </context-group>
-      <target>無効なタイムゾーンです。</target></trans-unit>
 
       <trans-unit id="kickstart.script.delete">
         <source>Kickstart Script Deleted.</source>

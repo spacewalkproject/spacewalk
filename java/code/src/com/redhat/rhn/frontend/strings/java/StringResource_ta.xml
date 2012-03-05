@@ -6125,12 +6125,6 @@ url பின்பற்றி செயலிழக்கப்பட்ட �
         </context-group>
       <target>கிக்ஸ்டார்ட் மொழி விருப்பங்கள் மேம்படுத்தப்பட்டன.</target></trans-unit>
 
-      <trans-unit id="kickstart.locale.validation.timezone.invalid">
-        <source>Invalid timezone.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/kickstart/Locale.do</context>
-        </context-group>
-      <target>முறையற்ற நேர மண்டலம்</target></trans-unit>
 
       <trans-unit id="kickstart.script.delete">
         <source>Kickstart Script Deleted.</source>
