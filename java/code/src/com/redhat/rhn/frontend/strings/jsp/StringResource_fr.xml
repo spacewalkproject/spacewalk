@@ -18546,12 +18546,6 @@ les canaux de logiciels de @@PRODUCT_NAME@@pour chaque canal parent pris en char
   <!-- outage-policy.jsp -->
 	<group>
 
-      <trans-unit id="outage-policy.jsp.scheduled-header">
-<source>Scheduled Maintenance Windows</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">outage-policy.jsp</context>
-        </context-group>
-      <target>Fenêtres de maintenance programmées</target></trans-unit>
 
       <trans-unit id="outage-policy.jsp.unscheduled-header">
 <source>Unscheduled Maintenance Windows</source>

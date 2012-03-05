@@ -18486,12 +18486,6 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;
   <!-- outage-policy.jsp -->
 	<group>
 
-      <trans-unit id="outage-policy.jsp.scheduled-header">
-<source>Scheduled Maintenance Windows</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">outage-policy.jsp</context>
-        </context-group>
-      <target>스케줄 관리 윈도우 </target></trans-unit>
 
       <trans-unit id="outage-policy.jsp.unscheduled-header">
 <source>Unscheduled Maintenance Windows</source>
