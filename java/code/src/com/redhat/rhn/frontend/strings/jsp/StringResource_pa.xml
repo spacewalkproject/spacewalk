@@ -1482,12 +1482,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/users/CreateUser</context>
         </context-group>
       <target>ਲੋੜੀਦੇ ਖੇਤਰ</target></trans-unit>
-      <trans-unit id="usercreate.partners1">
-<source> Red Hat has close relationships with many industry leaders. From time to time, our partners have special news and offerings to share with you. If you'd like, we will pass this information on to you. </source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/CreateUser</context>
-        </context-group>
-      <target> Red Hat ਦਾ ਕਈ ਉਦਯੋਗ ਮੋਢੀਆਂ ਨਾਲ ਨੇੜਲਾ ਸਬੰਧ ਹੈ।   ਸਮੇਂ ਸਮੇਂ 'ਤੇ ਸਾਡੀ ਸਾਥੀ ਤੁਹਾਡੇ ਨਾਲ ਖਾਸ ਖ਼ਬਰਾਂ ਅਤੇ ਪੇਸਕਸ਼ਾਂ ਤੁਹਾਡੇ ਨਾਲ ਸਾਂਝੀਆਂ ਕਰਨੀਆਂ ਚਾਹੁੰਦੇ ਹਨ। ਜੇਕਰ ਤੁਸੀਂ ਪਸੰਦ ਕਰੋ ਤਾਂ ਅਸੀਂ ਇਹ ਜਾਣਕਾਰੀ   ਤੁਹਾਡੇ ਤੱਕ ਪੁਚਾ ਸਕਦੇ ਹਾਂ।</target></trans-unit>
       <trans-unit id="usercreate.partners2">
 <source> Yes, I would like to hear about special offers from Red Hat's partners. </source>
         <context-group name="ctx">

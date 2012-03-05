@@ -1482,12 +1482,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/users/CreateUser</context>
         </context-group>
       <target>தேவைப்படும் புலம்</target></trans-unit>
-      <trans-unit id="usercreate.partners1">
-<source> Red Hat has close relationships with many industry leaders. From time to time, our partners have special news and offerings to share with you. If you'd like, we will pass this information on to you. </source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/CreateUser</context>
-        </context-group>
-      <target>Red Hat பல நிறுவன தலைவர்களுடன் நெருங்கிய உறவுமுறை வைத்துள்ளது. ஒவ்வொரு நேரமும் உங்களுடன் பகிர்ந்து கொள்ள எங்கள் பங்காளர்களுக்க்கான சிறப்பு செய்திகள் மற்றும் சலுகைகள் இருக்கும். நீங்கள் விரும்பினால் இந்த தகவல்கள் உங்களுக்கும் அனுப்பப்படும். </target></trans-unit>
       <trans-unit id="usercreate.partners2">
 <source> Yes, I would like to hear about special offers from Red Hat's partners. </source>
         <context-group name="ctx">

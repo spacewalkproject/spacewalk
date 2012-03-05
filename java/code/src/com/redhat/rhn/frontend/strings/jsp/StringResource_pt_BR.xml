@@ -1482,12 +1482,6 @@ abaixo e &lt;b&gt;não poderá mais se autenticar&lt;/b&gt;.</target></trans-uni
           <context context-type="sourcefile">/rhn/users/CreateUser</context>
         </context-group>
       <target>Campo Requisitado</target></trans-unit>
-      <trans-unit id="usercreate.partners1">
-<source> Red Hat has close relationships with many industry leaders. From time to time, our partners have special news and offerings to share with you. If you'd like, we will pass this information on to you. </source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/CreateUser</context>
-        </context-group>
-      <target> A Red Hat estabeleceu parcerias com diversos líderes do setor. Nossos parceiros trazem freqüentemente novidades e ofertas especiais. Se desejar, nós podemos repassar estas informações a você.</target></trans-unit>
       <trans-unit id="usercreate.partners2">
 <source> Yes, I would like to hear about special offers from Red Hat's partners. </source>
         <context-group name="ctx">

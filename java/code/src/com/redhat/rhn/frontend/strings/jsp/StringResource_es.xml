@@ -1482,12 +1482,6 @@ inmediatamente y usted &lt;b&gt;no podrá iniciar una sesión nuevamente&lt;/b&g
           <context context-type="sourcefile">/rhn/users/CreateUser</context>
         </context-group>
       <target>Campo obligatorio</target></trans-unit>
-      <trans-unit id="usercreate.partners1">
-<source> Red Hat has close relationships with many industry leaders. From time to time, our partners have special news and offerings to share with you. If you'd like, we will pass this information on to you. </source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/CreateUser</context>
-        </context-group>
-      <target>Red Hat tiene una relación cercana con muchos líderes de la industria. De vez en cuando, nuestros socios tienen noticias especiales y ofertas para compartir con usted. Si lo desea podemos enviarle esta información.</target></trans-unit>
       <trans-unit id="usercreate.partners2">
 <source> Yes, I would like to hear about special offers from Red Hat's partners. </source>
         <context-group name="ctx">

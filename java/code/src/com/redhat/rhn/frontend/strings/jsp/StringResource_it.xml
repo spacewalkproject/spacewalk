@@ -1482,12 +1482,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/users/CreateUser</context>
         </context-group>
       <target>Campo Necessario</target></trans-unit>
-      <trans-unit id="usercreate.partners1">
-<source> Red Hat has close relationships with many industry leaders. From time to time, our partners have special news and offerings to share with you. If you'd like, we will pass this information on to you. </source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/CreateUser</context>
-        </context-group>
-      <target> Red Hat ha un rapporto molto stretto con numerosi leader      del settore. Spesso i nostri partner hanno delle notizie speciali.......che desiderano condividere con voi. Se desiderate, noi siamo in grado       di passare queste informazioni a voi.</target></trans-unit>
       <trans-unit id="usercreate.partners2">
 <source> Yes, I would like to hear about special offers from Red Hat's partners. </source>
         <context-group name="ctx">

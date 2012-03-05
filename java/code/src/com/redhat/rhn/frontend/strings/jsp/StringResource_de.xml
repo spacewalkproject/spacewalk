@@ -1482,12 +1482,6 @@ dr&amp;uuml;cken und &lt;b&gt;k&amp;ouml;nnen sich nicht wieder einloggen&lt;/b&
           <context context-type="sourcefile">/rhn/users/CreateUser</context>
         </context-group>
       <target>Pflichtfeld</target></trans-unit>
-      <trans-unit id="usercreate.partners1">
-<source> Red Hat has close relationships with many industry leaders. From time to time, our partners have special news and offerings to share with you. If you'd like, we will pass this information on to you. </source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/CreateUser</context>
-        </context-group>
-      <target>Red Hat arbeitet eng mit zahlreichen branchenf&amp;uuml;hrenden Unternehmen zusammen. Von Zeit zu Zeit haben unsere Partner spezielle Neuigkeiten und Angebote, die wir, wenn Sie m&amp;ouml;chten, an Sie weiterleiten.</target></trans-unit>
       <trans-unit id="usercreate.partners2">
 <source> Yes, I would like to hear about special offers from Red Hat's partners. </source>
         <context-group name="ctx">
