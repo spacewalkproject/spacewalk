@@ -11153,12 +11153,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 
 
 
-      <trans-unit id="post.jsp.nonchrootheader">
-        <source>Post-Kickstart Script (Non-chroot)</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/kickstart/KickstartPostEdit.do</context>
-        </context-group>
-      </trans-unit>
 
       <trans-unit id="post.jsp.nonchrootsummary">
         <source>"Non-chroot" post-kickstart scripts are run outside of the chroot environment.  You can use them to perform tasks that aren't allowed in chroot environments, such as copying scripts or RPMs from installation media.</source>

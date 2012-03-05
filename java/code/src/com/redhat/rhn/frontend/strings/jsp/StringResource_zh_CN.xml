@@ -10797,12 +10797,6 @@ kickstart 前脚本的内容可以在 &lt;strong&gt;《红帽企业版 Linux 系
 
 
 
-      <trans-unit id="post.jsp.nonchrootheader">
-        <source>Post-Kickstart Script (Non-chroot)</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/kickstart/KickstartPostEdit.do</context>
-        </context-group>
-      <target>后 Kickstart 脚本 (Non-chroot)</target></trans-unit>
 
       <trans-unit id="post.jsp.nonchrootsummary">
         <source>"Non-chroot" post-kickstart scripts are run outside of the chroot environment.  You can use them to perform tasks that aren't allowed in chroot environments, such as copying scripts or RPMs from installation media.</source>
