@@ -18239,9 +18239,6 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;
             <source>State</source>
         </trans-unit>
 
-        <trans-unit id="exportcolumn.serverName">
-            <source>System</source>
-        </trans-unit>
      </group>
 
     <trans-unit id="virtualization.provision.first.jsp.no.profiles">
