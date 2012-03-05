@@ -16415,12 +16415,6 @@ per sottoscrivere i sistemi ai canali software durante un kickstart.&lt;/span&gt
 	    <target></target></trans-unit>
     </group>
 
-    <trans-unit id="preferences.jsp.lang.de">
-        <source>German</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/account/LocalePreferences.do</context>
-        </context-group>
-    <target>Tedesco</target></trans-unit>
     <trans-unit id="preferences.jsp.lang.en_US">
         <source>English</source>
         <context-group name="ctx">

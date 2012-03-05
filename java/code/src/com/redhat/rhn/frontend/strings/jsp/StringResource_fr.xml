@@ -16459,12 +16459,6 @@ pour abonner des systèmes aux canaux de logiciels durant le kickstart.&lt;/span
 	    <target>Valide</target></trans-unit>
     </group>
 
-    <trans-unit id="preferences.jsp.lang.de">
-        <source>German</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/account/LocalePreferences.do</context>
-        </context-group>
-    <target>Allemand</target></trans-unit>
     <trans-unit id="preferences.jsp.lang.en_US">
         <source>English</source>
         <context-group name="ctx">
