@@ -12836,12 +12836,6 @@ o &lt;strong&gt;Guia de Administração de Sistemas Red Hat Enterprise Li
           <context context-type="sourcefile">/rhn/configuration/ChannelOverview.do</context>
         </context-group>
      <target>Editar Propriedades </target></trans-unit>
-     <trans-unit id="channelOverview.jsp.edit-header">
-<source>Edit Config Channel</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/ChannelOverview.do</context>
-        </context-group>
-     <target>Editar Canais de Configuração</target></trans-unit>
      <trans-unit id="channelOverview.jsp.edit-instruction">
 <source>You may edit the configuration channel details below.</source>
         <context-group name="ctx">

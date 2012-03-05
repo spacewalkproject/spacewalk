@@ -12830,12 +12830,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
           <context context-type="sourcefile">/rhn/configuration/ChannelOverview.do</context>
         </context-group>
      <target>பண்புகளை திருத்துதல்</target></trans-unit>
-     <trans-unit id="channelOverview.jsp.edit-header">
-<source>Edit Config Channel</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/ChannelOverview.do</context>
-        </context-group>
-     <target>கட்டமைப்பு தடத்தை திருத்தவும்</target></trans-unit>
      <trans-unit id="channelOverview.jsp.edit-instruction">
 <source>You may edit the configuration channel details below.</source>
         <context-group name="ctx">

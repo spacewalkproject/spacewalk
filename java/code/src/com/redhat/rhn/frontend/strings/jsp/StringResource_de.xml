@@ -12847,12 +12847,6 @@ Anschlie&amp;szlig;end wird das nicht-chroot Post-Skript ausgef&amp;uuml;hrt, un
           <context context-type="sourcefile">/rhn/configuration/ChannelOverview.do</context>
         </context-group>
      <target>Eigenschaften bearbeiten</target></trans-unit>
-     <trans-unit id="channelOverview.jsp.edit-header">
-<source>Edit Config Channel</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/ChannelOverview.do</context>
-        </context-group>
-     <target>Konfig-Channel bearbeiten</target></trans-unit>
      <trans-unit id="channelOverview.jsp.edit-instruction">
 <source>You may edit the configuration channel details below.</source>
         <context-group name="ctx">

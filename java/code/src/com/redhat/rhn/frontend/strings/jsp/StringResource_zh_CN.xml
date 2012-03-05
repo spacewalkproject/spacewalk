@@ -12840,12 +12840,6 @@ kickstart 前脚本的内容可以在 &lt;strong&gt;《红帽企业版 Linux 系
           <context context-type="sourcefile">/rhn/configuration/ChannelOverview.do</context>
         </context-group>
      <target>编辑属性</target></trans-unit>
-     <trans-unit id="channelOverview.jsp.edit-header">
-<source>Edit Config Channel</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/ChannelOverview.do</context>
-        </context-group>
-     <target>编辑配置频道</target></trans-unit>
      <trans-unit id="channelOverview.jsp.edit-instruction">
 <source>You may edit the configuration channel details below.</source>
         <context-group name="ctx">
