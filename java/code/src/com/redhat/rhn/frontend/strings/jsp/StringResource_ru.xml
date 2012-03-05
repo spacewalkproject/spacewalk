@@ -18755,12 +18755,6 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;
         </context-group>
       <target>Если узел гостевой системы отмечен как неизвестный, и вы хотели бы освободить физические полномочия, используемые гостем, убедитесь, что:</target></trans-unit>
 
-      <trans-unit id="physicalhosts.jsp.unknownnote1">
-<source>The host system of your guest is registered to @@PRODUCT_NAME@@</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
-        </context-group>
-      <target>Хост-система гостя зарегистрирована в @@PRODUCT_NAME@@</target></trans-unit>
 
 	  <trans-unit id="physicalhosts.jsp.unknownnote2">
 <source>The host has a Virtualization or Virtualization host applied to it</source>

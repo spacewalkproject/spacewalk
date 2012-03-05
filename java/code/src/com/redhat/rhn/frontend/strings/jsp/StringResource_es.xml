@@ -18813,12 +18813,6 @@ de realizar un kickstart o antes de crear una nueva distribución kickstart.&lt;
         </context-group>
       <target>Si el anfitrión de un sistema huésped es listado como desconocido y usted desea liberar los derechos físicos consumidos por el huésped, verifique si:</target></trans-unit>
 
-      <trans-unit id="physicalhosts.jsp.unknownnote1">
-<source>The host system of your guest is registered to @@PRODUCT_NAME@@</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
-        </context-group>
-      <target>El sistema anfitrión de su huésped está registrado con @@PRODUCT_NAME@@ </target></trans-unit>
 
 	  <trans-unit id="physicalhosts.jsp.unknownnote2">
 <source>The host has a Virtualization or Virtualization host applied to it</source>

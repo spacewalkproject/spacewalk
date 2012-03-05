@@ -18807,12 +18807,6 @@ de executar um kickstart ou criar uma nova distribuição kickstart.&lt;/strong&
         </context-group>
       <target>Se um host de um sistema de convidado acima estiver listado como desconhecido e você quiser libertar os serviços físicos que os convidados consomem, tenha a certeza de que:</target></trans-unit>
 
-      <trans-unit id="physicalhosts.jsp.unknownnote1">
-<source>The host system of your guest is registered to @@PRODUCT_NAME@@</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
-        </context-group>
-      <target>O sistema host do seu convidado está registrado no @@PRODUCT_NAME@@ </target></trans-unit>
 
 	  <trans-unit id="physicalhosts.jsp.unknownnote2">
 <source>The host has a Virtualization or Virtualization host applied to it</source>

@@ -18817,12 +18817,6 @@ einen Kickstart durchführen oder eine neue Kickstart-Distribution erzeugen.&lt;
         </context-group>
       <target>Falls der Host eines oben aufgef&amp;uuml;hrten Gast-Systems als ein unbekanntes System aufgelistet ist und Sie die von dem Gast belegten physischen Berechtigungen freigeben m&amp;ouml;chten, stellen Sie Folgendes sicher:</target></trans-unit>
 
-      <trans-unit id="physicalhosts.jsp.unknownnote1">
-<source>The host system of your guest is registered to @@PRODUCT_NAME@@</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
-        </context-group>
-      <target>Das Host-System Ihres Gasts ist bei @@PRODUCT_NAME@@ registriert.</target></trans-unit>
 
 	  <trans-unit id="physicalhosts.jsp.unknownnote2">
 <source>The host has a Virtualization or Virtualization host applied to it</source>

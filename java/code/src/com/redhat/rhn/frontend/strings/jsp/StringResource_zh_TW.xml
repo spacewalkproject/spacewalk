@@ -18756,12 +18756,6 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;
         </context-group>
       <target>假如以上列出的客座系統的主機被列為不明，而您想要空出此客座所耗費的實體權利，請確認：</target></trans-unit>
 
-      <trans-unit id="physicalhosts.jsp.unknownnote1">
-<source>The host system of your guest is registered to @@PRODUCT_NAME@@</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
-        </context-group>
-      <target>您客座的主機系統已與 @@PRODUCT_NAME@@ 註冊</target></trans-unit>
 
 	  <trans-unit id="physicalhosts.jsp.unknownnote2">
 <source>The host has a Virtualization or Virtualization host applied to it</source>

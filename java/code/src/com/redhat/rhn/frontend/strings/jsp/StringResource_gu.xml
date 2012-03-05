@@ -18761,12 +18761,6 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;
         </context-group>
       <target>જો ઉપર મહેમાન સિસ્ટમનો યજમાન અજ્ઞાત તરીકે યાદી થયેલ હોય અને તમે મહેમાન જે વાપરે છે તે ભૌતિક ઉમેદવારીઓ દૂર કરવા ઈચ્છો તો આની ખાતરી કરો:</target></trans-unit>
 
-      <trans-unit id="physicalhosts.jsp.unknownnote1">
-<source>The host system of your guest is registered to @@PRODUCT_NAME@@</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
-        </context-group>
-      <target>તમારા મહેમાનની યજમાન સિસ્ટમ @@PRODUCT_NAME@@ સાથે રજીસ્ટર થયેલ છે</target></trans-unit>
 
 	  <trans-unit id="physicalhosts.jsp.unknownnote2">
 <source>The host has a Virtualization or Virtualization host applied to it</source>

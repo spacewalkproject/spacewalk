@@ -18814,12 +18814,6 @@ les canaux de logiciels de @@PRODUCT_NAME@@pour chaque canal parent pris en char
         </context-group>
       <target>Si l'hôte d'un des systèmes invité ci-dessus est listé comme étant un hôte inconnu et que vous désirez libérer les droits d'accès physiques que l'invité consomme, veuillez vous assurer que&amp;nbsp;:</target></trans-unit>
 
-      <trans-unit id="physicalhosts.jsp.unknownnote1">
-<source>The host system of your guest is registered to @@PRODUCT_NAME@@</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
-        </context-group>
-      <target>Le système hôte de votre invité est enregistré à @@PRODUCT_NAME@@</target></trans-unit>
 
 	  <trans-unit id="physicalhosts.jsp.unknownnote2">
 <source>The host has a Virtualization or Virtualization host applied to it</source>

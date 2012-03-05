@@ -18761,12 +18761,6 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;
         </context-group>
       <target>புரவலனின் ஒரு விருந்தினர் கணினி மேலே பட்டியலிடப்பட்டது தெரியாதது மற்றும் நீங்கள் பருநிலை உரிமங்கள் விருந்தினரில் விடலாம் அதனை உறுதிப்படுத்தவும்:</target></trans-unit>
 
-      <trans-unit id="physicalhosts.jsp.unknownnote1">
-<source>The host system of your guest is registered to @@PRODUCT_NAME@@</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
-        </context-group>
-      <target>புரவலன் கணினியல் உங்கள் விருந்தினர் @@PRODUCT_NAME@@ உடன் பதிவு செய்யப்பட்டது</target></trans-unit>
 
 	  <trans-unit id="physicalhosts.jsp.unknownnote2">
 <source>The host has a Virtualization or Virtualization host applied to it</source>
