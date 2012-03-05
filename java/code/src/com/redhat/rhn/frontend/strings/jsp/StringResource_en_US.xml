@@ -20592,9 +20592,6 @@ given channel.</source>
      <trans-unit id="task.status.sync-probe-state">
          <source>Sync Probe State</source>
      </trans-unit>
-     <trans-unit id="task.status.compare-config-files">
-         <source>Compare Config Files</source>
-     </trans-unit>
      <trans-unit id="task.status.sandbox-cleanup">
          <source>Sandbox Cleanup</source>
      </trans-unit>
