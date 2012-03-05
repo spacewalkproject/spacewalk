@@ -1027,12 +1027,6 @@
         </context-group>
       <target>பின்வரும் தகவலைப் புகுபதிவு செய்யும் போது என் "Overview" பக்கத்தில் காட்டவும்:</target></trans-unit>
 
-      <trans-unit id="preferences.jsp.contactoptions">
-<source>The following options define how Red Hat, Inc. may contact you for informational purposes.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/UserPreferences</context>
-        </context-group>
-      <target>பின்வரும் வாய்ப்புகள் Red Hat, Inc. தகவல் தேவைக்காக உங்களை எவ்வாறு தொடர்பு கொள்ளும் என்பதை குறிப்பிடும்.</target></trans-unit>
       <trans-unit id="preferences.jsp.email">
 <source> Email</source>
         <context-group name="ctx">

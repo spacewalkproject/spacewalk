@@ -1027,12 +1027,6 @@
         </context-group>
       <target>Afficher les informations suivantes sur ma page "Aperçu" après la connexion :</target></trans-unit>
 
-      <trans-unit id="preferences.jsp.contactoptions">
-<source>The following options define how Red Hat, Inc. may contact you for informational purposes.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/UserPreferences</context>
-        </context-group>
-      <target>Les options suivantes définissent comment Red Hat, Inc. peut vous contacter.</target></trans-unit>
       <trans-unit id="preferences.jsp.email">
 <source> Email</source>
         <context-group name="ctx">

@@ -1027,12 +1027,6 @@
         </context-group>
       <target>ਮੇਰੇ "ਜਾਣ-ਪਛਾਣ" ਸਫੇ ਤੇ ਲਾਗਇਨ ਉਪਰੰਤ ਹੇਠਲੀ ਜਾਣਕਾਰੀ ਵੇਖਾਓ:</target></trans-unit>
 
-      <trans-unit id="preferences.jsp.contactoptions">
-<source>The following options define how Red Hat, Inc. may contact you for informational purposes.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/UserPreferences</context>
-        </context-group>
-      <target>ਹੇਠਾਂ ਚੋਣਾਂ ਰਾਹੀਂ ਇਹ ਦੱਸੋ ਕਿ Red Hat Inc. ਤੁਹਾਡੇ ਨਾਲ ਜਾਣਕਾਰੀ ਲਈ ਕਿਵੇਂ ਸੰਪਰਕ ਕਰੇ।</target></trans-unit>
       <trans-unit id="preferences.jsp.email">
 <source> Email</source>
         <context-group name="ctx">

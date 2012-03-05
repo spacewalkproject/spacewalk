@@ -1027,12 +1027,6 @@
         </context-group>
       <target>ログイン時に、「概要」ページに次の情報を表示します。</target></trans-unit>
 
-      <trans-unit id="preferences.jsp.contactoptions">
-<source>The following options define how Red Hat, Inc. may contact you for informational purposes.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/UserPreferences</context>
-        </context-group>
-      <target>次のオプションで、 お知らせなどのため Red Hat, Inc. からお客様に連絡をとる場合の連絡方法を定義します。</target></trans-unit>
       <trans-unit id="preferences.jsp.email">
 <source> Email</source>
         <context-group name="ctx">
