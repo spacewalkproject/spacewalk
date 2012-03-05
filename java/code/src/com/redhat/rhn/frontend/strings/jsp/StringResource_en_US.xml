@@ -19416,9 +19416,6 @@ As a Channel Administrator, you may change the base channels your systems are su
 			<source>&lt;strong&gt;Tip:&lt;/strong&gt; The max size of each line is 2048 characters.</source>
       </trans-unit>
 
-      <trans-unit id="systemgroup.jsp.systemgroup">
-			<source>System Group</source>
-      </trans-unit>
 
       <trans-unit id="channel.manage.errata.updatedate">
 			<source>Update Date</source>

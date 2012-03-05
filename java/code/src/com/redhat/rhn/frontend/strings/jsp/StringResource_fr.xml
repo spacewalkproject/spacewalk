@@ -19036,9 +19036,6 @@ En tant qu' Administrateur de canal, vous pouvez modifier les canaux de base aux
 			<source>&lt;strong&gt;Tip:&lt;/strong&gt; The max size of each line is 2048 characters.</source>
       <target>&lt;strong&gt;Astuce&amp;nbsp;:&lt;/strong&gt; la taille maximale de chaque ligne est de 2048 caractères.</target></trans-unit>
 
-      <trans-unit id="systemgroup.jsp.systemgroup">
-			<source>System Group</source>
-      <target>Groupe de systèmes</target></trans-unit>
 
       <trans-unit id="channel.manage.errata.updatedate">
 			<source>Update Date</source>

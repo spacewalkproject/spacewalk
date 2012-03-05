@@ -18956,9 +18956,6 @@ As a Channel Administrator, you may change the base channels your systems are su
 			<source>&lt;strong&gt;Tip:&lt;/strong&gt; The max size of each line is 2048 characters.</source>
       <target>&lt;strong&gt;துணுக்கு:&lt;/strong&gt; ஒவ்வொரு வரியின் அதிகபட்ச அளவு 2048 எழுத்துக்கள்.</target></trans-unit>
 
-      <trans-unit id="systemgroup.jsp.systemgroup">
-			<source>System Group</source>
-      <target>கணினி குழு</target></trans-unit>
 
       <trans-unit id="channel.manage.errata.updatedate">
 			<source>Update Date</source>

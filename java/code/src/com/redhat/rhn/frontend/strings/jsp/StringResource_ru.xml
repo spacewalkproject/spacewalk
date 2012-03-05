@@ -18949,9 +18949,6 @@ As a Channel Administrator, you may change the base channels your systems are su
 			<source>&lt;strong&gt;Tip:&lt;/strong&gt; The max size of each line is 2048 characters.</source>
       <target>&lt;strong&gt;Совет:&lt;/strong&gt; Максимальная длина каждой строки &amp;mdash; 2048 символов.</target></trans-unit>
 
-      <trans-unit id="systemgroup.jsp.systemgroup">
-			<source>System Group</source>
-      <target>Системная группа</target></trans-unit>
 
       <trans-unit id="channel.manage.errata.updatedate">
 			<source>Update Date</source>

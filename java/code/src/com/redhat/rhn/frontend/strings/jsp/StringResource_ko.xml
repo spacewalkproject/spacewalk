@@ -18948,9 +18948,6 @@ As a Channel Administrator, you may change the base channels your systems are su
 			<source>&lt;strong&gt;Tip:&lt;/strong&gt; The max size of each line is 2048 characters.</source>
       <target>&lt;strong&gt;힌트:&lt;/strong&gt; 각 행의 최대 길이는 2048 문자입니다. </target></trans-unit>
 
-      <trans-unit id="systemgroup.jsp.systemgroup">
-			<source>System Group</source>
-      <target>시스템 그룹 </target></trans-unit>
 
       <trans-unit id="channel.manage.errata.updatedate">
 			<source>Update Date</source>

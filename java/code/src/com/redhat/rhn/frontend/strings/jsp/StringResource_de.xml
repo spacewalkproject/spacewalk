@@ -19039,9 +19039,6 @@ Als Channel-Administrator können Sie die Basis-Channels ändern, die Ihre Syste
 			<source>&lt;strong&gt;Tip:&lt;/strong&gt; The max size of each line is 2048 characters.</source>
       <target>&lt;strong&gt;Tipp:&lt;/strong&gt; Die maximale Gr&amp;ouml;&amp;szlig;e jeder Zeile betr&amp;auml;gt 2048 Zeichen.</target></trans-unit>
 
-      <trans-unit id="systemgroup.jsp.systemgroup">
-			<source>System Group</source>
-      <target>Systemgruppe</target></trans-unit>
 
       <trans-unit id="channel.manage.errata.updatedate">
 			<source>Update Date</source>
