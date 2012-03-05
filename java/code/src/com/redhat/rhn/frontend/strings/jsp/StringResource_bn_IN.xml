@@ -926,12 +926,6 @@
 		 </context-group>
 	<target> আপনার সিস্টেম দলের সম্পূর্ণ অবস্থার পূর্বরূপ।</target></trans-unit>
 
-	<trans-unit id="preferences.latest-errata.name">
-         <source>Relevant Security Errata</source>
-		 <context-group name="ctx">
-		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
-		 </context-group>
-	<target>প্রযোজ্য ত্রুটি-বিচ্যুতির তথ্য</target></trans-unit>
 
 
 

@@ -926,12 +926,6 @@
 		 </context-group>
 	<target> 您系統群組的整體狀態一覽。</target></trans-unit>
 
-	<trans-unit id="preferences.latest-errata.name">
-         <source>Relevant Security Errata</source>
-		 <context-group name="ctx">
-		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
-		 </context-group>
-	<target>相關的安全性勘誤</target></trans-unit>
 
 
 

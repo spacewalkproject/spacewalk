@@ -926,12 +926,6 @@
 		 </context-group>
 	<target> Vorschau auf den gesamten Status Ihrer Systemgruppen.</target></trans-unit>
 
-	<trans-unit id="preferences.latest-errata.name">
-         <source>Relevant Security Errata</source>
-		 <context-group name="ctx">
-		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
-		 </context-group>
-	<target>Relevante Sicherheits-Errata</target></trans-unit>
 
 
 
