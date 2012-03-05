@@ -9602,12 +9602,6 @@ Please note that some manual configuration of these scripts may still be require
     <target>விவரம்</target></trans-unit>
 
 
-    <trans-unit id="toolbar.create.keys">
-        <source>create new stored key/cert</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/keys/CryptoKeysList.do</context>
-        </context-group>
-    <target>புதிய சேமிப்பு விசையை உருவாக்கவும்</target></trans-unit>
 
     <trans-unit id="keyedit.jsp.toolbar">
         <source>Edit GPG/SSL Key</source>

@@ -9613,12 +9613,6 @@ Por favor tenga en cuenta que podría ser necesario configurar manualmente estos
     <target>Descripción</target></trans-unit>
 
 
-    <trans-unit id="toolbar.create.keys">
-        <source>create new stored key/cert</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/keys/CryptoKeysList.do</context>
-        </context-group>
-    <target>crear nueva llave/certificado almacenado</target></trans-unit>
 
     <trans-unit id="keyedit.jsp.toolbar">
         <source>Edit GPG/SSL Key</source>

@@ -9598,12 +9598,6 @@ Please note that some manual configuration of these scripts may still be require
     <target>描述</target></trans-unit>
 
 
-    <trans-unit id="toolbar.create.keys">
-        <source>create new stored key/cert</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/keys/CryptoKeysList.do</context>
-        </context-group>
-    <target>建立新的、用以儲存的金鑰 / 認證</target></trans-unit>
 
     <trans-unit id="keyedit.jsp.toolbar">
         <source>Edit GPG/SSL Key</source>
