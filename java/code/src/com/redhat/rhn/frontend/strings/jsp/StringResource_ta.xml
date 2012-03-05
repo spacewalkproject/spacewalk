@@ -18920,12 +18920,6 @@ Emergency Maintenance windows.&lt;a href="{0}"&gt;Register for the Email Outage 
           <context context-type="sourcefile">/rhn/software/channel/downloads/Download.do</context>
         </context-group>
       <target>ISO உருக்கள் @@PRODUCT_NAME@@ க்கு பணம் செலுத்தப்பட்ட உரிமங்களுக்கு கொண்ட வாடிக்கையாளர்களுக்கு மட்டுமே இருக்கும்.</target></trans-unit>
-      <trans-unit id="isodownload.not-paying.purchase">
-<source>If you are interested in buying @@PRODUCT_NAME@@ entitlements, go to our &lt;a href="/rhn/account/SubscriptionManagement.do"&gt;purchase info&lt;/a&gt; page for more information.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/software/channel/downloads/Download.do</context>
-        </context-group>
-      <target>நீங்கள் @@PRODUCT_NAME@@ உரிமங்கள் வாங்க நினைத்தால், எங்கள் &lt;a href="/rhn/account/SubscriptionManagement.do"&gt;வாங்கும் தகவல்&lt;/a&gt; பக்கத்தில் மேலும் தகவலை அறிந்த கொள்ளலாம்.</target></trans-unit>
       <trans-unit id="isodownload.tna">
 <source>
 &lt;strong&gt;NOTE:&lt;/strong&gt; By downloading this software, you agree to the terms and conditions of the applicable License Agreement (available at &lt;a href="{0}"&gt;{1}&lt;/a&gt;)

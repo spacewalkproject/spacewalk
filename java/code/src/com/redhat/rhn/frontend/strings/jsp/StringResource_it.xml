@@ -18917,12 +18917,6 @@ Red Hat vi terrà informati sui periodi di Gestione di Emergenza e non programma
           <context context-type="sourcefile">/rhn/software/channel/downloads/Download.do</context>
         </context-group>
       <target>Il download delle immagini ISO è solo disponibile per gli utenti che hanno acquistato gli entitlement per @@PRODUCT_NAME@@.</target></trans-unit>
-      <trans-unit id="isodownload.not-paying.purchase">
-<source>If you are interested in buying @@PRODUCT_NAME@@ entitlements, go to our &lt;a href="/rhn/account/SubscriptionManagement.do"&gt;purchase info&lt;/a&gt; page for more information.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/software/channel/downloads/Download.do</context>
-        </context-group>
-      <target>Se siete interessati ad acquistare gli entitlement di @@PRODUCT_NAME@@, consultate la nostra pagina &lt;a href="/rhn/account/SubscriptionManagement.do"&gt;informazioni acquisto&lt;/a&gt; per maggiori informazioni.</target></trans-unit>
       <trans-unit id="isodownload.tna">
 <source>
 &lt;strong&gt;NOTE:&lt;/strong&gt; By downloading this software, you agree to the terms and conditions of the applicable License Agreement (available at &lt;a href="{0}"&gt;{1}&lt;/a&gt;)

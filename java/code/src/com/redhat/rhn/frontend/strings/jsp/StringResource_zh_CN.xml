@@ -18967,12 +18967,6 @@ Emergency Maintenance windows.&lt;a href="{0}"&gt;Register for the Email Outage 
           <context context-type="sourcefile">/rhn/software/channel/downloads/Download.do</context>
         </context-group>
       <target>只有在 @@PRODUCT_NAME@@ 交付权利费用的客户可下载 ISO 映像。</target></trans-unit>
-      <trans-unit id="isodownload.not-paying.purchase">
-<source>If you are interested in buying @@PRODUCT_NAME@@ entitlements, go to our &lt;a href="/rhn/account/SubscriptionManagement.do"&gt;purchase info&lt;/a&gt; page for more information.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/software/channel/downloads/Download.do</context>
-        </context-group>
-      <target>如果您有兴趣购买 @@PRODUCT_NAME@@ 权利，您可以访问 &lt;a href="/rhn/account/SubscriptionManagement.do"&gt;购买信息&lt;/a&gt; 页来获得更多信息。</target></trans-unit>
       <trans-unit id="isodownload.tna">
 <source>
 &lt;strong&gt;NOTE:&lt;/strong&gt; By downloading this software, you agree to the terms and conditions of the applicable License Agreement (available at &lt;a href="{0}"&gt;{1}&lt;/a&gt;)

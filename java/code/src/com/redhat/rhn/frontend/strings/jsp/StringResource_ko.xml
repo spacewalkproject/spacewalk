@@ -18911,12 +18911,6 @@ Emergency Maintenance windows.&lt;a href="{0}"&gt;Register for the Email Outage 
           <context context-type="sourcefile">/rhn/software/channel/downloads/Download.do</context>
         </context-group>
       <target>@@PRODUCT_NAME@@에 유료 인타이틀먼트를 갖고 계신 사용자만이 ISO 이미지를 다운로드하실 수 있습니다.  </target></trans-unit>
-      <trans-unit id="isodownload.not-paying.purchase">
-<source>If you are interested in buying @@PRODUCT_NAME@@ entitlements, go to our &lt;a href="/rhn/account/SubscriptionManagement.do"&gt;purchase info&lt;/a&gt; page for more information.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/software/channel/downloads/Download.do</context>
-        </context-group>
-      <target>@@PRODUCT_NAME@@ 인타이틀먼트를 구입하시고자 할 경우, &lt;a href="/rhn/account/SubscriptionManagement.do"&gt;구매 정보&lt;/a&gt; 페이지에서 자세한 내용을 살펴보시기 바랍니다. </target></trans-unit>
       <trans-unit id="isodownload.tna">
 <source>
 &lt;strong&gt;NOTE:&lt;/strong&gt; By downloading this software, you agree to the terms and conditions of the applicable License Agreement (available at &lt;a href="{0}"&gt;{1}&lt;/a&gt;)

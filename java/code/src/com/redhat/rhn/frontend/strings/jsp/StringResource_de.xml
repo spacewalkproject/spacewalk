@@ -18976,12 +18976,6 @@ Notfall-Wartungsfenstern f&amp;uuml;r Benachrichtigungen verwendet.
           <context context-type="sourcefile">/rhn/software/channel/downloads/Download.do</context>
         </context-group>
       <target>Das Herunterladen von ISO-Images steht nur Kunden mit bezahlten Berechtigungen zu @@PRODUCT_NAME@@ zur Verf&amp;uuml;gung.</target></trans-unit>
-      <trans-unit id="isodownload.not-paying.purchase">
-<source>If you are interested in buying @@PRODUCT_NAME@@ entitlements, go to our &lt;a href="/rhn/account/SubscriptionManagement.do"&gt;purchase info&lt;/a&gt; page for more information.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/software/channel/downloads/Download.do</context>
-        </context-group>
-      <target>Falls Sie @@PRODUCT_NAME@@ Berechtigungen erwerben m&amp;ouml;chten, finden Sie auf der Seite &lt;a href="/rhn/account/SubscriptionManagement.do"&gt;Kaufinformationen&lt;/a&gt; weitere Informationen diesbez&amp;uuml;glich.</target></trans-unit>
       <trans-unit id="isodownload.tna">
 <source>
 &lt;strong&gt;NOTE:&lt;/strong&gt; By downloading this software, you agree to the terms and conditions of the applicable License Agreement (available at &lt;a href="{0}"&gt;{1}&lt;/a&gt;)
