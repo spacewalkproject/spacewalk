@@ -6217,12 +6217,6 @@ Follow this url to see the full list of inactive systems:
         </context-group>
       <target>Не был назначен кикстарт для {1} ({0}), поскольку профиль пакетов не содержит пакет up2date. Возможно, надо обновить профиль пакетов системы.</target></trans-unit>
 
-      <trans-unit id="kickstart.schedule.up2dateerror">
-        <source>The latest version of up2date has been scheduled for install before the kickstart action, because the currently-installed version does not support automatic reboot.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/kickstart/ScheduleKickstart.do</context>
-        </context-group>
-      <target>Установка последней версии up2date будет выполнена перед началом кикстарта, так как настоящая версия не поддерживает автоматическую перезагрузку.</target></trans-unit>
 
       <trans-unit id="kickstart.session.newsession">
         <source>A new kickstart session was initiated for this system.</source>

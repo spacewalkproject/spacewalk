@@ -6223,12 +6223,6 @@ Follow this url to see the full list of inactive systems:
         </context-group>
       <target>প্যাকেজ প্রোফাইলের মধ্যে 'up2date' উপস্থিত না থাকার ফলে {1} ({0})-র জন্য kickstart কর্ম নির্ধারণ করা হয়নি। সিস্টেমের প্যাকেজ প্রোফাইল সম্ভবত আপডেট করা আবশ্যক।</target></trans-unit>
 
-      <trans-unit id="kickstart.schedule.up2dateerror">
-        <source>The latest version of up2date has been scheduled for install before the kickstart action, because the currently-installed version does not support automatic reboot.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/kickstart/ScheduleKickstart.do</context>
-        </context-group>
-      <target>kickstart কর্মের পূর্বে up2date-র সর্বশেষ সংস্করণ ইনস্টল করার জন্য নির্ধারণ করা হয়েছে। বর্তমানে ইনস্টল থাকা up2date-র মধ্যে স্বয়ংক্রিয় রি-বুট ব্যবস্থা অনুপস্থিত থাকার ফলে এই কর্ম করা আবশ্যক।</target></trans-unit>
 
       <trans-unit id="kickstart.session.newsession">
         <source>A new kickstart session was initiated for this system.</source>

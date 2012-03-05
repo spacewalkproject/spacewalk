@@ -6217,12 +6217,6 @@ url பின்பற்றி செயலிழக்கப்பட்ட �
         </context-group>
       <target>{1} ({0})க்கு கிக்ஸ்டார்ட் திட்டமிடப்படவில்லை, ஏனெனில் தொகுப்பு விவரக்குறிப்பு 'up2date' தொகுப்பினை கொண்டிருக்கவில்லை. கணினியுடைய தொகுப்பு விவரக்குறிப்பின் மேம்பாடு தேவைப்படுகிறது.</target></trans-unit>
 
-      <trans-unit id="kickstart.schedule.up2dateerror">
-        <source>The latest version of up2date has been scheduled for install before the kickstart action, because the currently-installed version does not support automatic reboot.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/kickstart/ScheduleKickstart.do</context>
-        </context-group>
-      <target>கிக்ஸ்டார்ட் செயலுக்கு முன் up2date ன் கடைசி பதிப்பு திட்டமிடப்பட்டது, ஏனெனில் தற்போது நிறுவப்பட்ட பதிப்பு தானியக்க மறு தொடக்கத்திற்கு துணை புரியவில்லை.</target></trans-unit>
 
       <trans-unit id="kickstart.session.newsession">
         <source>A new kickstart session was initiated for this system.</source>

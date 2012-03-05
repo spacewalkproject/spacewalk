@@ -6217,12 +6217,6 @@ Follow this url to see the full list of inactive systems:
         </context-group>
       <target>किकस्टार्ट को {1} ({0}) के लिये नियोजित नहीं किया गया था क्योंकि संकुल प्रोफाइल में 'up2date' संकुल नहीं है. उस सिस्टम के संकुल प्रोफाइल का अद्यतन जरूरी हो सकता है.</target></trans-unit>
 
-      <trans-unit id="kickstart.schedule.up2dateerror">
-        <source>The latest version of up2date has been scheduled for install before the kickstart action, because the currently-installed version does not support automatic reboot.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/kickstart/ScheduleKickstart.do</context>
-        </context-group>
-      <target>up2date का नया संस्करण अधिष्ठापित किया गया अधिष्ठापन के लिये किकस्टार्ट क्रिया के पहले, क्योंकि अभी अधिष्ठापित संस्कऱण स्वतः रिबूट का समर्थन नहीं करता है.</target></trans-unit>
 
       <trans-unit id="kickstart.session.newsession">
         <source>A new kickstart session was initiated for this system.</source>

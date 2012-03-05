@@ -6219,12 +6219,6 @@ Follow this url to see the full list of inactive systems:
         </context-group>
       <target>{1} ({0}) ਲਈ ਕਿੱਕਸਟਾਰਟ ਤਹਿ ਨਹੀਂ ਕੀਤੀ ਗਈ ਕਿਉਂਕਿ ਪੈਕੇਜ ਪਰੋਫਾਈਲ ਵਿੱਚ 'up2date' ਪੈਕੇਜ ਸ਼ਾਮਲ ਨਹੀਂ ਹੈ। ਇਸ ਸਿਸਟਮ ਦੇ ਪੈਕੇਜ ਪਰੋਫਾਈਲ ਦੇ ਅੱਪਡੇਟ ਦੀ ਲੋੜ ਪੈ ਸਕਦੀ ਹੈ।</target></trans-unit>
 
-      <trans-unit id="kickstart.schedule.up2dateerror">
-        <source>The latest version of up2date has been scheduled for install before the kickstart action, because the currently-installed version does not support automatic reboot.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/kickstart/ScheduleKickstart.do</context>
-        </context-group>
-      <target>ਕਿੱਕਸਟਾਰਟ ਕਾਰਵਾਈ ਤੋਂ ਪਹਿਲਾਂ ਇੰਸਟਾਲ ਲਈ up2date ਦਾ ਨਵਾਂ ਵਰਜਨ ਤਹਿ ਕੀਤਾ ਹੈ, ਕਿਉਂਕਿ ਮੌਜੂਦਾ ਇੰਸਟਾਲ ਕੀਤਾ ਵਰਜਨ ਸਵੈ-ਚਾਲਤ ਮੁੜ-ਚਾਲੂ ਲਈ ਸਹਿਯੋਗੀ ਨਹੀਂ ਹੈ।</target></trans-unit>
 
       <trans-unit id="kickstart.session.newsession">
         <source>A new kickstart session was initiated for this system.</source>

@@ -6229,12 +6229,6 @@ Follow this url to see the full list of inactive systems:
         </context-group>
       <target>Nenhum kickstart foi agendado para {1} ({0}) porque o perfil de pacotes não contém, o pacote 'up2date'. Uma atualização do perfil de pacotes do sistema em questão pode ser necessária.</target></trans-unit>
 
-      <trans-unit id="kickstart.schedule.up2dateerror">
-        <source>The latest version of up2date has been scheduled for install before the kickstart action, because the currently-installed version does not support automatic reboot.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/kickstart/ScheduleKickstart.do</context>
-        </context-group>
-      <target>A última versão do up2date foi agendada para instalação antes da execução do kickstart porque a versão instalada atualmente não suporta reinicialização automática.</target></trans-unit>
 
       <trans-unit id="kickstart.session.newsession">
         <source>A new kickstart session was initiated for this system.</source>

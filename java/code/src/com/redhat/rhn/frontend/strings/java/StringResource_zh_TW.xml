@@ -6216,12 +6216,6 @@ Follow this url to see the full list of inactive systems:
         </context-group>
       <target>{1} ({0}) 並未排程 kickstart，因為套件設定檔並不包含「up2date」套件。您需要更新這台系統的套件設定檔。</target></trans-unit>
 
-      <trans-unit id="kickstart.schedule.up2dateerror">
-        <source>The latest version of up2date has been scheduled for install before the kickstart action, because the currently-installed version does not support automatic reboot.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/kickstart/ScheduleKickstart.do</context>
-        </context-group>
-      <target>在 kickstart 之前，已經排程安裝最新版本的 up2date，因為目前安裝的版本並不支援自動重新開機。</target></trans-unit>
 
       <trans-unit id="kickstart.session.newsession">
         <source>A new kickstart session was initiated for this system.</source>

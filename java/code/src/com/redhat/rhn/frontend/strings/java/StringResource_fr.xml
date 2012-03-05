@@ -6244,12 +6244,6 @@ Suivez cet url pour obtenir la liste complète des systèmes inactifs :
         </context-group>
       <target>Un kickstart n'a pas été programmé pour {1} ({0}) car le profil de paquetages ne contenait pas le paquetage "up2date". Une mise à jour du profil de paquetages de ce système peut être requise.</target></trans-unit>
 
-      <trans-unit id="kickstart.schedule.up2dateerror">
-        <source>The latest version of up2date has been scheduled for install before the kickstart action, because the currently-installed version does not support automatic reboot.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/kickstart/ScheduleKickstart.do</context>
-        </context-group>
-      <target>L'installation de la dernière version de up2date a été programmée avant l'action kickstart vu que la version couramment installée ne supporte pas le redémarrage automatique.</target></trans-unit>
 
       <trans-unit id="kickstart.session.newsession">
         <source>A new kickstart session was initiated for this system.</source>

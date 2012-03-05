@@ -6217,12 +6217,6 @@ Follow this url to see the full list of inactive systems:
         </context-group>
       <target>패키지 프로파일에 'up2date'패키지가 들어있지 않아 킥스타트가 {1} ({0})에 대해 스케줄되지 않았습니다. 시스템의 패키지 프로파일을 업데이트해야 합니다.</target></trans-unit>
 
-      <trans-unit id="kickstart.schedule.up2dateerror">
-        <source>The latest version of up2date has been scheduled for install before the kickstart action, because the currently-installed version does not support automatic reboot.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/kickstart/ScheduleKickstart.do</context>
-        </context-group>
-      <target>현재 설치된 버전은 자동 재부팅을 지원하지 않아 up2date의 최신 버전이 킥스타트 작업전의 설치를 위해 스케줄되었습니다.</target></trans-unit>
 
       <trans-unit id="kickstart.session.newsession">
         <source>A new kickstart session was initiated for this system.</source>

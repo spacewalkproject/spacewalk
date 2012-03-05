@@ -6241,12 +6241,6 @@ Follow this url to see the full list of inactive systems:
         </context-group>
       <target>{1} ({0}) に対するキックスタートはスケジュールされませんでした。 パッケージプロフィールに「up2date」パッケージが含まれていなかったためです。 このシステムのパッケージプロフィールの更新が必要かもしれません。</target></trans-unit>
 
-      <trans-unit id="kickstart.schedule.up2dateerror">
-        <source>The latest version of up2date has been scheduled for install before the kickstart action, because the currently-installed version does not support automatic reboot.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/kickstart/ScheduleKickstart.do</context>
-        </context-group>
-      <target>キックスタート動作の前に、 up2date 最新バージョンのインストールがスケジュールされています。 現在インストールされているバージョンは自動再起動をサポートしないためです。</target></trans-unit>
 
       <trans-unit id="kickstart.session.newsession">
         <source>A new kickstart session was initiated for this system.</source>

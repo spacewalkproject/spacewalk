@@ -6241,12 +6241,6 @@ Seguite l'url sotto riportato per visualizzare l'elenco completo di sistemi inat
         </context-group>
       <target>Il processo kickstart non è stato programmato per {1} ({0}) poichè il profilo del pacchetto non conteneva il pacchetto 'up2date'. Sarà necessario un aggiornamento del profilo del pacchetto del sistema in questione.</target></trans-unit>
 
-      <trans-unit id="kickstart.schedule.up2dateerror">
-        <source>The latest version of up2date has been scheduled for install before the kickstart action, because the currently-installed version does not support automatic reboot.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/kickstart/ScheduleKickstart.do</context>
-        </context-group>
-      <target>L'ultimissima versione di up2date è stata programmata per l'installazione prima dell'esecuzione di kickstart, poichè la versione attuale non supporta il riavvio automatico.</target></trans-unit>
 
       <trans-unit id="kickstart.session.newsession">
         <source>A new kickstart session was initiated for this system.</source>
