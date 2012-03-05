@@ -4148,12 +4148,6 @@ value for this entitlement, excluding the default organization's consumption.</s
           <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
         </context-group>
       <target>{1} ਵਿੱਚੋਂ {0} ਸੰਗਠਨਾਂ ({2}%) ਨੂੰ ਇਸ ਇੰਟਾਈਟਲਮੈਂਟ ਦੀ ਪਹੁੰਚ ਹੈ</target></trans-unit>
-      <trans-unit id="softwareEntitlementSubs.filterBy">
-<source>Organization Name</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-      <target>ਸੰਗਠਨ ਨਾਂ</target></trans-unit>
       <trans-unit id="softwareEntitlementSubs.invalidInput">
 <source>Proposed Allocation is invalid.</source>
         <context-group name="ctx">

@@ -4149,12 +4149,6 @@ pour ce droit d'accès, moins la consommation par défaut de l'organisation.</ta
           <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
         </context-group>
       <target>{0} des {1} organisations ({2}%) ont accès à ce droit d'accès</target></trans-unit>
-      <trans-unit id="softwareEntitlementSubs.filterBy">
-<source>Organization Name</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-      <target>Nom de l'organisation</target></trans-unit>
       <trans-unit id="softwareEntitlementSubs.invalidInput">
 <source>Proposed Allocation is invalid.</source>
         <context-group name="ctx">

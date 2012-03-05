@@ -4144,12 +4144,6 @@ value for this entitlement, excluding the default organization's consumption.</s
           <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
         </context-group>
       <target>{1} 組織（{2}%）的 {0} 已經存取了這個權利</target></trans-unit>
-      <trans-unit id="softwareEntitlementSubs.filterBy">
-<source>Organization Name</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-      <target>組織名稱</target></trans-unit>
       <trans-unit id="softwareEntitlementSubs.invalidInput">
 <source>Proposed Allocation is invalid.</source>
         <context-group name="ctx">

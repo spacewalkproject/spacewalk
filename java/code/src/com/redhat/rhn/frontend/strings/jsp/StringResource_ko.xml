@@ -4147,12 +4147,6 @@ value for this entitlement, excluding the default organization's consumption.</s
           <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
         </context-group>
       <target>{1} 중 {0} 조직 ({2}%)이 이 인타이틀먼트로 액세스함   </target></trans-unit>
-      <trans-unit id="softwareEntitlementSubs.filterBy">
-<source>Organization Name</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
-        </context-group>
-      <target>조직 이름 </target></trans-unit>
       <trans-unit id="softwareEntitlementSubs.invalidInput">
 <source>Proposed Allocation is invalid.</source>
         <context-group name="ctx">
