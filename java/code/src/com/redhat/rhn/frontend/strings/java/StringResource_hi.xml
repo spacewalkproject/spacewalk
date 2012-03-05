@@ -2004,12 +2004,6 @@ available for this kickstart profile to function properly.
         </context-group>
       <target>नया सिस्टम किकस्टार्ट किया जा सकता है उनके ip पता पर आधारित &lt;code&gt;{0}&lt;/code&gt; को कर्नेल पैरामीटर में किकस्टार्ट अधिष्ठापन के लिये जोड़कर.</target></trans-unit>
 
-      <trans-unit id="kickstart.partition.duplicate">
-        <source>Only one {0} partition is allowed.</source>
-        <context-group name="ctx">
-        <context context-type="sourcefile">/rhn/kickstart/KickstartPartitionEdit</context>
-        </context-group>
-      <target>सिर्फ एक {0} विभाजन की अनुमति है.</target></trans-unit>
 
       <trans-unit id="kickstart.partition.invalid">
         <source>Invalid partition value removed: &lt;strong&gt;{0}&lt;/strong&gt;. Please verify the input values and resubmit.</source>

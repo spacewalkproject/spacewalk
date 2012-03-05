@@ -2010,12 +2010,6 @@ available for this kickstart profile to function properly.
         </context-group>
       <target>IP ঠিকানার উপর ভিত্তি করে নতুন সিস্টেম kickstart করা যাবে। এই ক্ষেত্রে kickstart ভিত্তিক ইনস্টলেশনের সময় কার্নেল পরামিতির শেষে &lt;code&gt;{0}&lt;/code&gt; যোগ করা আবশ্যক।</target></trans-unit>
 
-      <trans-unit id="kickstart.partition.duplicate">
-        <source>Only one {0} partition is allowed.</source>
-        <context-group name="ctx">
-        <context context-type="sourcefile">/rhn/kickstart/KickstartPartitionEdit</context>
-        </context-group>
-      <target>শুধুমাত্র {0} একটি পার্টিশন অনুমোদিত।</target></trans-unit>
 
       <trans-unit id="kickstart.partition.invalid">
         <source>Invalid partition value removed: &lt;strong&gt;{0}&lt;/strong&gt;. Please verify the input values and resubmit.</source>

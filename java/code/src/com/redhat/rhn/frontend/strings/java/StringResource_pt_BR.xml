@@ -2018,12 +2018,6 @@ disponíveis para seu perfil kickstart funcionar corretamente./n&lt;/li&gt;
         </context-group>
       <target>Sistemas novos podem ter o kickstart baseado em seus endereços ip; basta acrescentar &lt;code&gt;{0}&lt;/code&gt; aos parâmetros do kernel para uma instalação via kickstart.</target></trans-unit>
 
-      <trans-unit id="kickstart.partition.duplicate">
-        <source>Only one {0} partition is allowed.</source>
-        <context-group name="ctx">
-        <context context-type="sourcefile">/rhn/kickstart/KickstartPartitionEdit</context>
-        </context-group>
-      <target>Somente uma partição {0} é permitida.</target></trans-unit>
 
       <trans-unit id="kickstart.partition.invalid">
         <source>Invalid partition value removed: &lt;strong&gt;{0}&lt;/strong&gt;. Please verify the input values and resubmit.</source>

@@ -2035,12 +2035,6 @@ verfügbar machen, damit dieses Kickstart-Profil einwandfrei funktionieren kann.
         </context-group>
       <target>Neue Systeme k&amp;ouml;nnen - basierend auf ihrer IP-Adresse - durch Anhängen von &lt;code&gt;{0}&lt;/code&gt; an die Kernel-Parameter f&amp;uuml;r eine Kickstart-Installation gekickstartet werden.</target></trans-unit>
 
-      <trans-unit id="kickstart.partition.duplicate">
-        <source>Only one {0} partition is allowed.</source>
-        <context-group name="ctx">
-        <context context-type="sourcefile">/rhn/kickstart/KickstartPartitionEdit</context>
-        </context-group>
-      <target>Nur eine {0} Partition ist erlaubt.</target></trans-unit>
 
       <trans-unit id="kickstart.partition.invalid">
         <source>Invalid partition value removed: &lt;strong&gt;{0}&lt;/strong&gt;. Please verify the input values and resubmit.</source>

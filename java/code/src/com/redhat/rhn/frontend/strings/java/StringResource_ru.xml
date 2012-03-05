@@ -2004,12 +2004,6 @@ available for this kickstart profile to function properly.
         </context-group>
       <target>Кикстарт новых систем возможен на основе их IP-адресов с добавлением &lt;code&gt;{0}&lt;/code&gt; к параметрам ядра.</target></trans-unit>
 
-      <trans-unit id="kickstart.partition.duplicate">
-        <source>Only one {0} partition is allowed.</source>
-        <context-group name="ctx">
-        <context context-type="sourcefile">/rhn/kickstart/KickstartPartitionEdit</context>
-        </context-group>
-      <target>Разрешён только один раздел {0}.</target></trans-unit>
 
       <trans-unit id="kickstart.partition.invalid">
         <source>Invalid partition value removed: &lt;strong&gt;{0}&lt;/strong&gt;. Please verify the input values and resubmit.</source>

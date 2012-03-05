@@ -2006,12 +2006,6 @@ available for this kickstart profile to function properly.
         </context-group>
       <target>ਨਵੇਂ ਸਿਸਟਮ ਕਿੱਕਸਟਾਰਟ ਇੰਸਟਾਲ ਲਈ ਕਰਨਲ ਪੈਰਾਮੀਟਰ ਨਾਲ &lt;code&gt;{0}&lt;/code&gt; ਜੋੜ ਕੇ ਉਹਨਾਂ ਦੇ IP ਸਿਰਨਾਵਿਆਂ ਦੇ ਅਧਾਰ ਤੇ ਕਿੱਕਸਟਾਰਟ ਤੋਂ ਚਲਾਏ ਜਾ ਸਕਦੇ ਹਨ।</target></trans-unit>
 
-      <trans-unit id="kickstart.partition.duplicate">
-        <source>Only one {0} partition is allowed.</source>
-        <context-group name="ctx">
-        <context context-type="sourcefile">/rhn/kickstart/KickstartPartitionEdit</context>
-        </context-group>
-      <target>ਸਿਰਫ ਇੱਕ {0} ਭਾਗ ਦੀ ਮਨਜੂਰੀ ਹੈ।</target></trans-unit>
 
       <trans-unit id="kickstart.partition.invalid">
         <source>Invalid partition value removed: &lt;strong&gt;{0}&lt;/strong&gt;. Please verify the input values and resubmit.</source>

@@ -2004,12 +2004,6 @@ available for this kickstart profile to function properly.
         </context-group>
       <target>નવી સિસ્ટમો તેમના ip સરનામા પર આધાર રાખીને કિકસ્ટાર્ટ કરી શકાય છે કિકસ્ટાર્ટ સ્થાપન માટે &lt;code&gt;{0}&lt;/code&gt; ને કર્નલ પરિમાણોમાં ઉમેરીને.</target></trans-unit>
 
-      <trans-unit id="kickstart.partition.duplicate">
-        <source>Only one {0} partition is allowed.</source>
-        <context-group name="ctx">
-        <context context-type="sourcefile">/rhn/kickstart/KickstartPartitionEdit</context>
-        </context-group>
-      <target>માત્ર એક {0} જ માન્ય છે.</target></trans-unit>
 
       <trans-unit id="kickstart.partition.invalid">
         <source>Invalid partition value removed: &lt;strong&gt;{0}&lt;/strong&gt;. Please verify the input values and resubmit.</source>

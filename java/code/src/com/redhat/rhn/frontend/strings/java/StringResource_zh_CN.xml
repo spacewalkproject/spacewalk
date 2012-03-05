@@ -2029,12 +2029,6 @@ available for this kickstart profile to function properly.
         </context-group>
       <target>新系统可以根据它们的 ip 地址来被 kickstart。对于一个 kickstart 安装，需要在内核参数后面加上 &lt;code&gt;{0}&lt;/code&gt;。</target></trans-unit>
 
-      <trans-unit id="kickstart.partition.duplicate">
-        <source>Only one {0} partition is allowed.</source>
-        <context-group name="ctx">
-        <context context-type="sourcefile">/rhn/kickstart/KickstartPartitionEdit</context>
-        </context-group>
-      <target>只允许一个 {0} 分区。</target></trans-unit>
 
       <trans-unit id="kickstart.partition.invalid">
         <source>Invalid partition value removed: &lt;strong&gt;{0}&lt;/strong&gt;. Please verify the input values and resubmit.</source>

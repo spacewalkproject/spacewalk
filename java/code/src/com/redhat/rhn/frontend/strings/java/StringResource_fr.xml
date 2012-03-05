@@ -2031,12 +2031,6 @@ disponibles pour que ce profil kickstart puisse fonctionner correctement.
         </context-group>
       <target>De nouveaux systèmes peuvent être installés avec kickstart selon leur adresse ip en ajoutant &lt;code&gt;{0}&lt;/code&gt; aux paramètres du noyau pour une installation kickstart.</target></trans-unit>
 
-      <trans-unit id="kickstart.partition.duplicate">
-        <source>Only one {0} partition is allowed.</source>
-        <context-group name="ctx">
-        <context context-type="sourcefile">/rhn/kickstart/KickstartPartitionEdit</context>
-        </context-group>
-      <target>Une seule partition {0} est autorisée.</target></trans-unit>
 
       <trans-unit id="kickstart.partition.invalid">
         <source>Invalid partition value removed: &lt;strong&gt;{0}&lt;/strong&gt;. Please verify the input values and resubmit.</source>

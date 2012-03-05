@@ -2004,12 +2004,6 @@ available for this kickstart profile to function properly.
         </context-group>
       <target>கிக்ஸ்டார்ட் நிறுவலில் கர்னல் மதிப்பான&lt;code&gt;{0}&lt;/code&gt;ஐ சேர்ப்பதன் மூலம் ஐபி முகவரி அடிப்படையில் புதிய கணினிகளை கிக்ஸ்டார்ட் செய்யப்பட்டன.</target></trans-unit>
 
-      <trans-unit id="kickstart.partition.duplicate">
-        <source>Only one {0} partition is allowed.</source>
-        <context-group name="ctx">
-        <context context-type="sourcefile">/rhn/kickstart/KickstartPartitionEdit</context>
-        </context-group>
-      <target>ஒரேயொரு {0} பகிர்வு மட்டுமே அனுமதிப்படும்.</target></trans-unit>
 
       <trans-unit id="kickstart.partition.invalid">
         <source>Invalid partition value removed: &lt;strong&gt;{0}&lt;/strong&gt;. Please verify the input values and resubmit.</source>
