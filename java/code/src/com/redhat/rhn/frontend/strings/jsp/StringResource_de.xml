@@ -4928,12 +4928,6 @@ für diese Berechtigung, mit Ausnahme des Verbrauchs der Standardorganisation.</
         </context-group>
       <target>Unberechtigte Systeme</target></trans-unit>
 
-      <trans-unit id="unentitledlist.jsp.nosystems">
-<source>No unentitled systems.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/Unentitled</context>
-        </context-group>
-      <target>Keine unberechtigten Systeme.</target></trans-unit>
 
       <trans-unit id="ungroupedlist.jsp.header">
 <source>Ungrouped Systems</source>

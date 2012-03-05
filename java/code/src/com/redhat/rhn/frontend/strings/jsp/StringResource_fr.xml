@@ -4927,12 +4927,6 @@ pour ce droit d'accès, moins la consommation par défaut de l'organisation.</ta
         </context-group>
       <target>Systèmes sans droits</target></trans-unit>
 
-      <trans-unit id="unentitledlist.jsp.nosystems">
-<source>No unentitled systems.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/Unentitled</context>
-        </context-group>
-      <target>Aucun système sans droit.</target></trans-unit>
 
       <trans-unit id="ungroupedlist.jsp.header">
 <source>Ungrouped Systems</source>

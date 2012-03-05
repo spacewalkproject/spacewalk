@@ -4923,12 +4923,6 @@ value for this entitlement, excluding the default organization's consumption.</s
         </context-group>
       <target>Системы без полномочий</target></trans-unit>
 
-      <trans-unit id="unentitledlist.jsp.nosystems">
-<source>No unentitled systems.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/Unentitled</context>
-        </context-group>
-      <target>Нет систем без полномочий</target></trans-unit>
 
       <trans-unit id="ungroupedlist.jsp.header">
 <source>Ungrouped Systems</source>
