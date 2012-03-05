@@ -18459,12 +18459,6 @@ come riportato in questo certificato @@PRODUCT_NAME@@.</target></trans-unit>
         </context-group>
       <target>Totale disponibile</target></trans-unit>
 
-      <trans-unit id="system_entitlement_details.org_usage">
-        <source>Organization Usage</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementDetails</context>
-        </context-group>
-      <target>Utilizzo Organizzazione</target></trans-unit>
 
       <trans-unit id="system_entitlement_details.access_grant">
         <source>Access Granted by this Entitlement:</source>

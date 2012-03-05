@@ -18518,12 +18518,6 @@ stehende Gesamte, wie in diesem Zertifikat des @@PRODUCT_NAME@@s wiedergegeben.<
         </context-group>
       <target>Insgesamt verf&amp;uuml;gbar</target></trans-unit>
 
-      <trans-unit id="system_entitlement_details.org_usage">
-        <source>Organization Usage</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementDetails</context>
-        </context-group>
-      <target>Organisationsverwendung</target></trans-unit>
 
       <trans-unit id="system_entitlement_details.access_grant">
         <source>Access Granted by this Entitlement:</source>
