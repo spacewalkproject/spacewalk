@@ -6746,12 +6746,6 @@ url பின்பற்றி செயலிழக்கப்பட்ட �
         </context-group>
       <target>ஒரு மெய்நிகர் கணினி அழிக்கப்பட்டது.</target></trans-unit>
 
-      <trans-unit id="systems.details.virt.virt.deleted">
-        <source>Deleted {0} virtual systems.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
-        </context-group>
-      <target>{0} மெய்நிகர் கணினிகள் அழிக்கப்பட்டது.</target></trans-unit>
 
 	  <trans-unit id="sdc.channels.edit.base_channel_updated">
 <source>System's Base Channel has been updated.</source>

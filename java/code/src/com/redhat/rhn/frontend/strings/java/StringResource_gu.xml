@@ -6746,12 +6746,6 @@ Follow this url to see the full list of inactive systems:
         </context-group>
       <target>કાઢી નંખાયેલ એક વર્ચ્યુઅલ સિસ્ટમ.</target></trans-unit>
 
-      <trans-unit id="systems.details.virt.virt.deleted">
-        <source>Deleted {0} virtual systems.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
-        </context-group>
-      <target>કાઢી નંખાયેલ {0} વર્ચ્યુઅલ સિસ્ટમો.</target></trans-unit>
 
 	  <trans-unit id="sdc.channels.edit.base_channel_updated">
 <source>System's Base Channel has been updated.</source>

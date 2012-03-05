@@ -6770,12 +6770,6 @@ Seguite l'url sotto riportato per visualizzare l'elenco completo di sistemi inat
         </context-group>
       <target>È stato cancellato un sistema virtuale.</target></trans-unit>
 
-      <trans-unit id="systems.details.virt.virt.deleted">
-        <source>Deleted {0} virtual systems.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
-        </context-group>
-      <target>Sono stati cancellati {0} sistemi virtuali.</target></trans-unit>
 
 	  <trans-unit id="sdc.channels.edit.base_channel_updated">
 <source>System's Base Channel has been updated.</source>

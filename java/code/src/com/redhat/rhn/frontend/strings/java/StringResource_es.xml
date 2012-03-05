@@ -6771,12 +6771,6 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
         </context-group>
       <target>Un sistema virtual borrado.</target></trans-unit>
 
-      <trans-unit id="systems.details.virt.virt.deleted">
-        <source>Deleted {0} virtual systems.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
-        </context-group>
-      <target>{0} sistemas virtuales borrados.</target></trans-unit>
 
 	  <trans-unit id="sdc.channels.edit.base_channel_updated">
 <source>System's Base Channel has been updated.</source>
