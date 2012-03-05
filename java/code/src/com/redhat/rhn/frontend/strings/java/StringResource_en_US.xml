@@ -2249,12 +2249,6 @@ available for this kickstart profile to function properly.
         </context-group>
       </trans-unit>
 
-      <trans-unit id="toolbar.create.filter">
-<source>create new notification filter</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/UserList</context>
-        </context-group>
-      </trans-unit>
 
      <trans-unit id="toolbar.upload.kickstart">
 <source>upload new kickstart file</source>

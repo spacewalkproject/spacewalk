@@ -2251,12 +2251,6 @@ asegurarse de que estén disponibles para que este perfil kickstart funcione apr
         </context-group>
       <target>Active o desactive todos los elementos de esta página</target></trans-unit>
 
-      <trans-unit id="toolbar.create.filter">
-<source>create new notification filter</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/UserList</context>
-        </context-group>
-      <target>crear nuevo filtro de notificación</target></trans-unit>
 
      <trans-unit id="toolbar.upload.kickstart">
 <source>upload new kickstart file</source>
