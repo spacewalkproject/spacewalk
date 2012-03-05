@@ -226,19 +226,6 @@ Vielen Dank, dass Sie sich mit Red Hat in Verbindung gesetzt haben.
       <target>Anfrage zur Erstellung eines Red Hat Logins</target></trans-unit>
 
 
-      <trans-unit id="email.newuser.bala.footer2">
-<source>
-For French, click here: {0}
-</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Taskomatic</context>
-          <context context-type="paramnotes">
-          {0} - URL to German website containing French and German text
-          </context>
-        </context-group>
-      <target>
-Für Französisch klicken Sie bitte hier: {0}
-</target></trans-unit>
 
 
 

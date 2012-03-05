@@ -226,19 +226,6 @@ Gracias por contactar a Red Hat.
       <target>Solicitud de creación de un nombre de usuario de Red Hat</target></trans-unit>
 
 
-      <trans-unit id="email.newuser.bala.footer2">
-<source>
-For French, click here: {0}
-</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Taskomatic</context>
-          <context context-type="paramnotes">
-          {0} - URL to German website containing French and German text
-          </context>
-        </context-group>
-      <target>
-Para francés haga clic aquí: {0}
-</target></trans-unit>
 
 
 
