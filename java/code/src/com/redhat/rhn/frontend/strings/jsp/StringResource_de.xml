@@ -16467,12 +16467,6 @@ den Reiter &lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;Aktivie
             <context context-type="sourcefile">/rhn/account/LocalePreferences.do</context>
         </context-group>
     <target>Englisch</target></trans-unit>
-    <trans-unit id="preferences.jsp.lang.ta">
-        <source>Tamil</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/account/LocalePreferences.do</context>
-        </context-group>
-    <target>Tamil</target></trans-unit>
     <trans-unit id="preferences.jsp.lang.zh_TW">
         <source>Traditional Chinese</source>
         <context-group name="ctx">
