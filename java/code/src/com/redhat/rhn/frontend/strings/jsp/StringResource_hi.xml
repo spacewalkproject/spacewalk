@@ -6684,12 +6684,6 @@ value for this entitlement, excluding the default organization's consumption.</s
       </context-group>
     <target>संकुल डाउनलोड करें</target></trans-unit>
 
-    <trans-unit id="download.jsp.summary1">
-<source>To begin the download process, click the button at the bottom of the page. You will be presented with a dialog box that allows you to choose the directory to which you wish to save the &lt;strong&gt;rhn-packages.tar&lt;/strong&gt; file.</source>
-      <context-group name="ctx">
-        <context context-type="sourcefile">/rhn/systems/details/packages/DownloadConfirm.do</context>
-      </context-group>
-    <target>अधिभारण प्रक्रिया को शुरू करने के लिये, पृष्ठ के तल में बटन पर क्लिक करें. आपको एक संवाद पेटी दी जायेगी जो आपको निर्देशिका चुनने की अनुमति देगा जिसमें आप &lt;strong&gt;rhn-packages.tar&lt;/strong&gt; फाइल सहेजना चाहते हैं.</target></trans-unit>
 
     <trans-unit id="download.jsp.summary2">
 <source>To extract the packages once the download is complete, run the following from the commandline:</source>

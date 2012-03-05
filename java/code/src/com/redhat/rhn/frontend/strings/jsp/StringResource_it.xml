@@ -6684,12 +6684,6 @@ value for this entitlement, excluding the default organization's consumption.</s
       </context-group>
     <target>Scarica pacchetti</target></trans-unit>
 
-    <trans-unit id="download.jsp.summary1">
-<source>To begin the download process, click the button at the bottom of the page. You will be presented with a dialog box that allows you to choose the directory to which you wish to save the &lt;strong&gt;rhn-packages.tar&lt;/strong&gt; file.</source>
-      <context-group name="ctx">
-        <context context-type="sourcefile">/rhn/systems/details/packages/DownloadConfirm.do</context>
-      </context-group>
-    <target>Per poter iniziare il processo di download, fate clic sul pulsante nella parte bassa della pagina. Vi verrà presentata una casella di dialogo che vi permetterà di selezionare la directory nella quale desiderate salvare il file &lt;strong&gt;rhn-packages.tar&lt;/strong&gt;.</target></trans-unit>
 
     <trans-unit id="download.jsp.summary2">
 <source>To extract the packages once the download is complete, run the following from the commandline:</source>
