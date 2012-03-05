@@ -3058,12 +3058,6 @@ user before attempting to deactivate their account.</source>
       <target>जांच &lt;strong&gt;{0}&lt;/strong&gt; बनाया गया.</target></trans-unit>
 
 
-      <trans-unit id="upgrade.none">
-<source>Choose at least one package to upgrade.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/packages/UpgradableList</context>
-        </context-group>
-      <target>कम से कम एक संकुल उन्नत करने के लिये चुनें.</target></trans-unit>
 
 
 

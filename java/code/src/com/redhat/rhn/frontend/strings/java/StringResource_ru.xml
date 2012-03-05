@@ -3058,12 +3058,6 @@ user before attempting to deactivate their account.</source>
       <target>Создан зонд &lt;strong&gt;{0}&lt;/strong&gt;.</target></trans-unit>
 
 
-      <trans-unit id="upgrade.none">
-<source>Choose at least one package to upgrade.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/packages/UpgradableList</context>
-        </context-group>
-      <target>Выберите хотя бы один пакет для обновления.</target></trans-unit>
 
 
 

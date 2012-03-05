@@ -3083,12 +3083,6 @@ de este usuario antes de intentar desactivar esta cuenta.</target></trans-unit>
       <target>Sondeo &lt;strong&gt;{0}&lt;/strong&gt; creado.</target></trans-unit>
 
 
-      <trans-unit id="upgrade.none">
-<source>Choose at least one package to upgrade.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/packages/UpgradableList</context>
-        </context-group>
-      <target>Escoja al menos un paquete para actualizar.</target></trans-unit>
 
 
 

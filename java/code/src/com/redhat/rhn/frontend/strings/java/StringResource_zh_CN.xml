@@ -3083,12 +3083,6 @@ user before attempting to deactivate their account.</source>
       <target>探测 &lt;strong&gt;{0}&lt;/strong&gt; 被创建。</target></trans-unit>
 
 
-      <trans-unit id="upgrade.none">
-<source>Choose at least one package to upgrade.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/packages/UpgradableList</context>
-        </context-group>
-      <target>最少选择一个软件包来升级。</target></trans-unit>
 
 
 

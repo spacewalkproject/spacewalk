@@ -3058,12 +3058,6 @@ user before attempting to deactivate their account.</source>
       <target>ஆய்வு &lt;strong&gt;{0}&lt;/strong&gt; உருவாக்கப்பட்டது.</target></trans-unit>
 
 
-      <trans-unit id="upgrade.none">
-<source>Choose at least one package to upgrade.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/packages/UpgradableList</context>
-        </context-group>
-      <target>குறைந்தது ஒரு தொகுப்பையாவது மேம்படுத்த தேர்வு செய்யவும்.</target></trans-unit>
 
 
 
