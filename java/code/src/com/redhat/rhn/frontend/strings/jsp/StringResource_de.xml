@@ -2049,12 +2049,6 @@ dr&amp;uuml;cken und &lt;b&gt;k&amp;ouml;nnen sich nicht wieder einloggen&lt;/b&
           <context context-type="sourcefile">/rhn/account/EditAddress</context>
         </context-group>
       <target>Bitte geben Sie Ihre Informationen im unten zur Verf&amp;uuml;gung gestellten Formular ein.  Eintr&amp;auml;ge, die mit einem Sternchen (&lt;span class="required-form-field"&gt;*&lt;/span&gt;) versehen sind, sind &lt;strong&gt;Pflichtfelder&lt;/strong&gt;.</target></trans-unit>
-      <trans-unit id="usercreate.personalLoginDesc_1">
-<source>You will need a &lt;strong&gt;home user&lt;/strong&gt; login to manage systems you own for personal use, or to make personal purchases of Red Hat products and services. </source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/newlogin</context>
-        </context-group>
-      <target>Sie ben&amp;ouml;tigen ein &lt;strong&gt;privates&lt;/strong&gt; Login, um Ihre eigenen Systeme für Ihren persönlichen Gebrauch zu verwalten und um Red Hat Produkte und Dienstleistungen privat zu erwerben.</target></trans-unit>
       <trans-unit id="usercreate.personalLoginDesc_2">
 <source>&lt;strong&gt;(You should not create a home user login if you will use a Red Hat login for managing systems owned by a business or for making business purchases.)&lt;/strong&gt; </source>
         <context-group name="ctx">

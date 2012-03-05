@@ -2049,12 +2049,6 @@ abaixo e &lt;b&gt;não poderá mais se autenticar&lt;/b&gt;.</target></trans-uni
           <context context-type="sourcefile">/rhn/account/EditAddress</context>
         </context-group>
       <target>Por favor indique suas informações no formulário abaixo. Os campos marcados com um asterisco (&lt;span class="required-form-field"&gt;*&lt;/span&gt;) são &lt;strong&gt;requisitados&lt;/strong&gt;.</target></trans-unit>
-      <trans-unit id="usercreate.personalLoginDesc_1">
-<source>You will need a &lt;strong&gt;home user&lt;/strong&gt; login to manage systems you own for personal use, or to make personal purchases of Red Hat products and services. </source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/newlogin</context>
-        </context-group>
-      <target>Você precisa de um login &lt;strong&gt;de usuário home&lt;/strong&gt; para administrar os sistemas de seu uso pessoal ou para adquirir produtos e serviços pessoais da Red Hat. </target></trans-unit>
       <trans-unit id="usercreate.personalLoginDesc_2">
 <source>&lt;strong&gt;(You should not create a home user login if you will use a Red Hat login for managing systems owned by a business or for making business purchases.)&lt;/strong&gt; </source>
         <context-group name="ctx">

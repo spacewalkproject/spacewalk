@@ -2049,12 +2049,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/account/EditAddress</context>
         </context-group>
       <target>ਹੇਠ ਦਿੱਤੇ ਫਾਰਮ 'ਚ ਆਪਣੀ ਜਾਣਕਾਰੀ ਦਿਓ। ਤਾਰੇ (&lt;span class="required-form-field"&gt;*&lt;/span&gt;) ਨਾਲ ਵਿਖਾਏ ਇੰਦਰਾਜ਼ਾ&lt;strong&gt;ਲਾਜ਼ਮੀ&lt;/strong&gt; ਹਨ।</target></trans-unit>
-      <trans-unit id="usercreate.personalLoginDesc_1">
-<source>You will need a &lt;strong&gt;home user&lt;/strong&gt; login to manage systems you own for personal use, or to make personal purchases of Red Hat products and services. </source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/newlogin</context>
-        </context-group>
-      <target>ਤੁਹਾਨੂੰ ਇੱਕ &lt;strong&gt;ਘਰੇਲੂ ਉਪਭੋਗੀ&lt;/strong&gt; ਲਾਗਇਨ ਬਣਾਉਣਾ ਚਾਹੀਦਾ ਹੈ, ਜੇਕਰ ਤੁਸੀਂ ਆਪਣੀ ਨਿੱਜੀ ਵਰਤੋਂ ਲਈ ਸਿਸਟਮ ਪਰਬੰਧ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ ਜਾਂ Red Hat ਉਤਪਾਦਾਂ ਅਤੇ ਸੇਵਾਵਾਂ ਦੀ ਨਿੱਜੀ ਤੌਰ 'ਤੇ ਖਰੀਦਦਾਰੀ ਕਰਨੀ ਚਾਹੁੰਦੇ ਹੋ।</target></trans-unit>
       <trans-unit id="usercreate.personalLoginDesc_2">
 <source>&lt;strong&gt;(You should not create a home user login if you will use a Red Hat login for managing systems owned by a business or for making business purchases.)&lt;/strong&gt; </source>
         <context-group name="ctx">

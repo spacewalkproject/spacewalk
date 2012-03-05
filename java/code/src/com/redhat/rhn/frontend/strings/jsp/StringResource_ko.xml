@@ -2049,12 +2049,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/account/EditAddress</context>
         </context-group>
       <target>아래의 양식에 해당 정보를 입력해주십시오.  별표 (&lt;span class="required-form-field"&gt;*&lt;/span&gt;) 로 표시된 항목은 &lt;strong&gt;필수 입력란&lt;/strong&gt;입니다.</target></trans-unit>
-      <trans-unit id="usercreate.personalLoginDesc_1">
-<source>You will need a &lt;strong&gt;home user&lt;/strong&gt; login to manage systems you own for personal use, or to make personal purchases of Red Hat products and services. </source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/newlogin</context>
-        </context-group>
-      <target>개인용 시스템을 관리하거나 개인적으로 Red Hat 제품이나 서비스를 구입하시려고 하신다면 &lt;strong&gt;개인용&lt;/strong&gt; 로그인을 사용하셔야 합니다.</target></trans-unit>
       <trans-unit id="usercreate.personalLoginDesc_2">
 <source>&lt;strong&gt;(You should not create a home user login if you will use a Red Hat login for managing systems owned by a business or for making business purchases.)&lt;/strong&gt; </source>
         <context-group name="ctx">
