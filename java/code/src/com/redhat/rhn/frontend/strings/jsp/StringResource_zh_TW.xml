@@ -18906,12 +18906,6 @@ Emergency Maintenance windows.&lt;a href="{0}"&gt;Register for the Email Outage 
         </context-group>
       <target>@@PRODUCT_NAME@@ 上並不支援 ISO 映像檔的下載。</target></trans-unit>
 
-      <trans-unit id="isodownload.viewsource">
-<source>View Source ISO Images</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/software/channel/downloads/Download.do</context>
-        </context-group>
-      <target>檢視來源的 ISO 映像</target></trans-unit>
       <trans-unit id="isodownload.viewsource-note">
 <source>(&lt;strong&gt;NOTE:&lt;/strong&gt; these images are not necessary for installation.)</source>
         <context-group name="ctx">

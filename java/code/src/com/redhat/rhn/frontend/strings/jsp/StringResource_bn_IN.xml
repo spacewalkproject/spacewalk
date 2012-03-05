@@ -18913,12 +18913,6 @@ Emergency Maintenance windows.&lt;a href="{0}"&gt;Register for the Email Outage 
         </context-group>
       <target>@@PRODUCT_NAME@@-এ ISO ইমেজ ডাউনলোড ব্যবস্থা সমর্থিত নয়।</target></trans-unit>
 
-      <trans-unit id="isodownload.viewsource">
-<source>View Source ISO Images</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/software/channel/downloads/Download.do</context>
-        </context-group>
-      <target>সোর্স ISO ইমেজ পরিদর্শন করুন</target></trans-unit>
       <trans-unit id="isodownload.viewsource-note">
 <source>(&lt;strong&gt;NOTE:&lt;/strong&gt; these images are not necessary for installation.)</source>
         <context-group name="ctx">

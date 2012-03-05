@@ -18912,12 +18912,6 @@ Red Hat vi terrà informati sui periodi di Gestione di Emergenza e non programma
         </context-group>
       <target>Il download delle immagini ISO non è supportato su @@PRODUCT_NAME@@ Satellite.</target></trans-unit>
 
-      <trans-unit id="isodownload.viewsource">
-<source>View Source ISO Images</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/software/channel/downloads/Download.do</context>
-        </context-group>
-      <target>Visualizza immagini ISO sorgente</target></trans-unit>
       <trans-unit id="isodownload.viewsource-note">
 <source>(&lt;strong&gt;NOTE:&lt;/strong&gt; these images are not necessary for installation.)</source>
         <context-group name="ctx">

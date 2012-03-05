@@ -18963,12 +18963,6 @@ pela Red Hat no caso de Períodos de Manutenção Não Programados ou
         </context-group>
       <target>Fazer o Download das imagens ISO não é uma ação suportada pelo @@PRODUCT_NAME@@. </target></trans-unit>
 
-      <trans-unit id="isodownload.viewsource">
-<source>View Source ISO Images</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/software/channel/downloads/Download.do</context>
-        </context-group>
-      <target>Visualizar Fonte das Imagens ISO</target></trans-unit>
       <trans-unit id="isodownload.viewsource-note">
 <source>(&lt;strong&gt;NOTE:&lt;/strong&gt; these images are not necessary for installation.)</source>
         <context-group name="ctx">
