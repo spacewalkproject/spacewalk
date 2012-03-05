@@ -11865,12 +11865,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <source>Software Channels Overview</source>
       <target>மென்பொருள் தடங்கள் கண்ணோட்டம்</target></trans-unit>
 
-     <trans-unit id="channels.header.hostedonly">
-        <source>You can also &lt;strong&gt;download ISO images&lt;/strong&gt; of channel content on the &lt;a href="/rhn/software/downloads/SupportedISOs.do"&gt;&lt;strong&gt;Download Software&lt;/strong&gt;&lt;/a&gt; page.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/RelevantChannels.do</context>
-        </context-group>
-      <target>நீங்களும் &lt;strong&gt;ISO படங்களை பதிவிறக்கம்&lt;/strong&gt; செய்ய &lt;a href="/rhn/software/downloads/SupportedISOs.do"&gt;&lt;strong&gt;மென்பொருள் பதிவிறக்கவும்&lt;/strong&gt;&lt;/a&gt; பக்கத்தில் தட உள்ளடக்கத்தைப் பார்க்கவும்.</target></trans-unit>
 
       <trans-unit id="channels.all.jsp.toolbar">
         <source>Full Software Channel List</source>

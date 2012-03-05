@@ -11882,12 +11882,6 @@ Anschlie&amp;szlig;end wird das nicht-chroot Post-Skript ausgef&amp;uuml;hrt, un
         <source>Software Channels Overview</source>
       <target>Software-Channels &amp;Uuml;berblick</target></trans-unit>
 
-     <trans-unit id="channels.header.hostedonly">
-        <source>You can also &lt;strong&gt;download ISO images&lt;/strong&gt; of channel content on the &lt;a href="/rhn/software/downloads/SupportedISOs.do"&gt;&lt;strong&gt;Download Software&lt;/strong&gt;&lt;/a&gt; page.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/RelevantChannels.do</context>
-        </context-group>
-      <target>Sie k&amp;ouml;nnen auch &lt;strong&gt;ISO-Images&lt;/strong&gt; der Channel-Inhalte auf der Seite &lt;a href="/rhn/software/downloads/SupportedISOs.do"&gt;&lt;strong&gt;Software herunterladen&lt;/strong&gt;&lt;/a&gt; herunterladen.</target></trans-unit>
 
       <trans-unit id="channels.all.jsp.toolbar">
         <source>Full Software Channel List</source>

@@ -11871,12 +11871,6 @@ o &lt;strong&gt;Guia de Administração de Sistemas Red Hat Enterprise Li
         <source>Software Channels Overview</source>
       <target>Visão Geral dos Canais de Software</target></trans-unit>
 
-     <trans-unit id="channels.header.hostedonly">
-        <source>You can also &lt;strong&gt;download ISO images&lt;/strong&gt; of channel content on the &lt;a href="/rhn/software/downloads/SupportedISOs.do"&gt;&lt;strong&gt;Download Software&lt;/strong&gt;&lt;/a&gt; page.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/RelevantChannels.do</context>
-        </context-group>
-      <target>Você também pode &lt;strong&gt;baixar imagens ISO&lt;/strong&gt; de conteúdo de canais na página &lt;a href="/rhn/software/downloads/SupportedISOs.do"&gt;&lt;strong&gt;BaixarSoftware&lt;/strong&gt;&lt;/a&gt;</target></trans-unit>
 
       <trans-unit id="channels.all.jsp.toolbar">
         <source>Full Software Channel List</source>
