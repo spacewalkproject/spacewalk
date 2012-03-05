@@ -3819,13 +3819,6 @@ de este usuario antes de intentar desactivar esta cuenta.</target></trans-unit>
       <target>Perfil del sistema borrado.</target></trans-unit>
 
 
-      <trans-unit id="message.ssm.serversdeleted">
-<source>Deleted &lt;strong&gt;{0}&lt;/strong&gt; systems from the System Set Manager.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/Overview</context>
-          <context context-type="paramnotes">Deleted 7 systems from the System Set Manager.</context>
-        </context-group>
-      <target>Borrados &lt;strong&gt;{0}&lt;/strong&gt; sistemas del Gestor de grupos de sistemas (SSM).</target></trans-unit>
 
       <trans-unit id="message.groupdeleted">
 <source>System group deleted.</source>

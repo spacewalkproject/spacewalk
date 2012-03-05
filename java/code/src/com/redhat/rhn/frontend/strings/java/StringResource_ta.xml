@@ -3794,13 +3794,6 @@ user before attempting to deactivate their account.</source>
       <target>கணினி விவரக்குறிப்பு அழிக்கப்பட்டது.</target></trans-unit>
 
 
-      <trans-unit id="message.ssm.serversdeleted">
-<source>Deleted &lt;strong&gt;{0}&lt;/strong&gt; systems from the System Set Manager.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/Overview</context>
-          <context context-type="paramnotes">Deleted 7 systems from the System Set Manager.</context>
-        </context-group>
-      <target>கணினி அமை மேலாளரிலிருந்து கணினிகள்&lt;strong&gt;{0}&lt;/strong&gt; அழிக்கப்பட்டது.</target></trans-unit>
 
       <trans-unit id="message.groupdeleted">
 <source>System group deleted.</source>

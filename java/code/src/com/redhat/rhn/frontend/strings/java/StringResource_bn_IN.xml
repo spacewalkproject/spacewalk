@@ -3800,13 +3800,6 @@ user before attempting to deactivate their account.</source>
       <target>সিস্টেম প্রোফাইল মুছে পেলা হয়েছে।</target></trans-unit>
 
 
-      <trans-unit id="message.ssm.serversdeleted">
-<source>Deleted &lt;strong&gt;{0}&lt;/strong&gt; systems from the System Set Manager.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/Overview</context>
-          <context context-type="paramnotes">Deleted 7 systems from the System Set Manager.</context>
-        </context-group>
-      <target>সিস্টেম সেট ম্যানেজার থকে &lt;strong&gt;{0}&lt;/strong&gt;-টি সিস্টেম মুছে ফেলা হয়েছে।</target></trans-unit>
 
       <trans-unit id="message.groupdeleted">
 <source>System group deleted.</source>

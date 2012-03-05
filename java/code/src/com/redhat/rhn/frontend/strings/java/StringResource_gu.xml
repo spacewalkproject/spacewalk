@@ -3794,13 +3794,6 @@ user before attempting to deactivate their account.</source>
       <target>સિસ્ટમ રૂપરેખા કાઢી નંખાઈ.</target></trans-unit>
 
 
-      <trans-unit id="message.ssm.serversdeleted">
-<source>Deleted &lt;strong&gt;{0}&lt;/strong&gt; systems from the System Set Manager.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/Overview</context>
-          <context context-type="paramnotes">Deleted 7 systems from the System Set Manager.</context>
-        </context-group>
-      <target>સિસ્ટમ સેટ વ્યવસ્થાપકમાંથી &lt;strong&gt;{0}&lt;/strong&gt; સિસ્ટમો કાઢી નાંખી.</target></trans-unit>
 
       <trans-unit id="message.groupdeleted">
 <source>System group deleted.</source>
