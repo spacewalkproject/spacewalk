@@ -1027,12 +1027,6 @@
         </context-group>
       <target>Die folgenden Informationen beim Einloggen auf meiner "Überblick"-Seite anzeigen:</target></trans-unit>
 
-      <trans-unit id="preferences.jsp.contactopt">
-<source>Red Hat Contact Options</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/UserPreferences</context>
-        </context-group>
-      <target>Red Hat Kontakt-Optionen</target></trans-unit>
       <trans-unit id="preferences.jsp.contactoptions">
 <source>The following options define how Red Hat, Inc. may contact you for informational purposes.</source>
         <context-group name="ctx">

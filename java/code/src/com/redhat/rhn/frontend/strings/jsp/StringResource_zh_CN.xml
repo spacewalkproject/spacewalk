@@ -1027,12 +1027,6 @@
         </context-group>
       <target>登录时在 "总览" 页中显示以下信息：</target></trans-unit>
 
-      <trans-unit id="preferences.jsp.contactopt">
-<source>Red Hat Contact Options</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/UserPreferences</context>
-        </context-group>
-      <target>红帽联系选项</target></trans-unit>
       <trans-unit id="preferences.jsp.contactoptions">
 <source>The following options define how Red Hat, Inc. may contact you for informational purposes.</source>
         <context-group name="ctx">

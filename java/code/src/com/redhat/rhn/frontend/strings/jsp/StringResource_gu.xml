@@ -1027,12 +1027,6 @@
         </context-group>
       <target>પ્રવેશ કરવા પર મારા "સારાંશ" પાનાં પર નીચેની જાણકારી દર્શાવો:</target></trans-unit>
 
-      <trans-unit id="preferences.jsp.contactopt">
-<source>Red Hat Contact Options</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/UserPreferences</context>
-        </context-group>
-      <target>Red Hat સંપર્ક વિકલ્પો</target></trans-unit>
       <trans-unit id="preferences.jsp.contactoptions">
 <source>The following options define how Red Hat, Inc. may contact you for informational purposes.</source>
         <context-group name="ctx">
