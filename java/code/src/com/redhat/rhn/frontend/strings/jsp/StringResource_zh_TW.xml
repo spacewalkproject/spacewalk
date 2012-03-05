@@ -1097,12 +1097,6 @@
 
 
 
-	<trans-unit id="sidebar.ads.downloadnowalt">
-<source>Software Downloads Image</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">./includes/footer.jsp</context>
-        </context-group>
-      <target>軟體下載的圖片</target></trans-unit>
       <!-- legends -->
 
       <trans-unit id="errata-legend.jsp.title">
