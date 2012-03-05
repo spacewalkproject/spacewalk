@@ -7232,9 +7232,6 @@ url பின்பற்றி செயலிழக்கப்பட்ட �
             </context-group>
 
 
-	     <trans-unit id="config.files_0_dirs_1_symlinks_2">
-			<source>{1} directory and {2} symlinks</source>
-	     <target></target></trans-unit>
 	     <trans-unit id="config.files_0_dirs_2_symlinks_0">
 			<source>{1} directories</source>
 	     <target></target></trans-unit>

@@ -7259,9 +7259,6 @@ Suivez cet url pour obtenir la liste complète des systèmes inactifs :
             </context-group>
 
 
-	     <trans-unit id="config.files_0_dirs_1_symlinks_2">
-			<source>{1} directory and {2} symlinks</source>
-	     <target>{1} répertoire et {2} liens symboliques</target></trans-unit>
 	     <trans-unit id="config.files_0_dirs_2_symlinks_0">
 			<source>{1} directories</source>
 	     <target>{1} répertoire</target></trans-unit>
