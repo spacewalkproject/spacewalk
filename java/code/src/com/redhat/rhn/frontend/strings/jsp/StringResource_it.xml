@@ -12026,12 +12026,6 @@ la &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stron
          <context context-type="sourcefile">/rhn/kickstart/CreateProfileWizard.do</context>
        </context-group>
      <target>Albero di Kickstart</target></trans-unit>
-     <trans-unit id="kickstart.jsp.create.wizard.version.label">
-       <source>Version</source>
-       <context-group name="ctx">
-         <context context-type="sourcefile">/rhn/kickstart/CreateProfileWizard.do</context>
-       </context-group>
-     <target>Versione</target></trans-unit>
      <trans-unit id="wizard.jsp.next.step">
        <source>Next</source>
        <context-group name="ctx">
