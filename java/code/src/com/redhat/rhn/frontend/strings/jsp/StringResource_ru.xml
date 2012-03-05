@@ -5438,9 +5438,6 @@ value for this entitlement, excluding the default organization's consumption.</s
         <target>Полномочие &lt;strong&gt;Виртуализации&lt;/strong&gt; удалено из &lt;strong&gt;{0}&lt;/strong&gt; систем(ы). В результате, все гостевые системы, связанные с выбранным размещающим узлом будут использовать полномочия канала и систем.</target></trans-unit>
 
 
-        <trans-unit id="system_entitlements.virtualization_host_platform.success">
-                <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) set to &lt;strong&gt;Virtualization Platform.&lt;/strong&gt;.  &lt;br/&gt; &lt;strong&gt;NOTE: &lt;/strong&gt;If the system previously had Virtualization it has been upgraded to Virtualization Platform. </source>
-        <target>Число систем, полномочия которых были изменены на &lt;strong&gt;Платформу виртуализации&lt;/strong&gt;: &lt;strong&gt;{0}&lt;/strong&gt;. &lt;br/&gt; &lt;strong&gt;ЗАМЕЧАНИЕ:&lt;/strong&gt; Если система обладала полномочием Виртуализации, оно было повышено до уровня полномочия Платформы виртуализации.</target></trans-unit>
 
 
 

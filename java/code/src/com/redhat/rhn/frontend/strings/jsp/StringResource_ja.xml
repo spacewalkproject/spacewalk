@@ -5435,9 +5435,6 @@ value for this entitlement, excluding the default organization's consumption.</s
         <target>&lt;strong&gt;{0}&lt;/strong&gt; システムから&lt;strong&gt;仮想化&lt;/strong&gt;が削除されました。 これにより選択したホストに関連付けられるゲストはすべて物理的にチャンネル及びシステムのエンタイトルメントを使用することになります。</target></trans-unit>
 
 
-        <trans-unit id="system_entitlements.virtualization_host_platform.success">
-                <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) set to &lt;strong&gt;Virtualization Platform.&lt;/strong&gt;.  &lt;br/&gt; &lt;strong&gt;NOTE: &lt;/strong&gt;If the system previously had Virtualization it has been upgraded to Virtualization Platform. </source>
-        <target>&lt;strong&gt;{0}&lt;/strong&gt; システムに&lt;strong&gt;仮想化プラットフォーム&lt;/strong&gt;が設定されました。  &lt;br/&gt; &lt;strong&gt;注記: &lt;/strong&gt; このシステムが以前に仮想化を有していた場合、 仮想化プラットフォームにアップグレードしたことになります。</target></trans-unit>
 
 
 
