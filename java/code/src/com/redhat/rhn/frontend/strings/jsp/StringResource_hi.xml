@@ -264,13 +264,6 @@
           <context context-type="paramnotes">Count is not in the range 10 through 20.</context>
         </context-group>
       <target>{0} {1} से {2} के परिसर में नहीं होना चाहिए.</target></trans-unit>
-      <trans-unit id="errors.creditcard">
-<source>{0} is an invalid credit card number.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Any page that has required format fields</context>
-          <context context-type="paramnotes">{1}78774742 is an invalid credit card number.</context>
-        </context-group>
-      <target>{0} एक अमान्य क्रेडिट कार्ड संख्या है.</target></trans-unit>
       <trans-unit id="errors.email">
 <source>{0} is an invalid e-mail address.</source>
         <context-group name="ctx">

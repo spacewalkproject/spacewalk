@@ -264,13 +264,6 @@
           <context context-type="paramnotes">Count is not in the range 10 through 20.</context>
         </context-group>
       <target>{0} не лежит в диапазоне от {1} до {2}.</target></trans-unit>
-      <trans-unit id="errors.creditcard">
-<source>{0} is an invalid credit card number.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Any page that has required format fields</context>
-          <context context-type="paramnotes">{1}78774742 is an invalid credit card number.</context>
-        </context-group>
-      <target>{0} - некорректный номер кредитной карты.</target></trans-unit>
       <trans-unit id="errors.email">
 <source>{0} is an invalid e-mail address.</source>
         <context-group name="ctx">
