@@ -18477,12 +18477,6 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;
       <target>આ ઉમેદવારી દ્વારા વપરાશ મંજૂર થયો:</target></trans-unit>
 
 
-      <trans-unit id="system_entitlement_details.access_grant_desc.provisioning_entitled">
-        <source>A single Provisioning (Add-On) entitlement allows various advanced functionality such as kickstart and configuration file provisioning. </source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementDetails</context>
-        </context-group>
-      <target>એક બચાવ (ઉમેરો) ઉમેદવારી વિવિધ અદ્યતન વિધેયો જેમ કે કિકસ્ટાર્ટ અને રૂપરેખાંકન ફાઈલ બચાવની પરવાનગી આપે છે. </target></trans-unit>
 
 
       <trans-unit id="system_entitlement_details.access_grant_desc.virtualization_host">

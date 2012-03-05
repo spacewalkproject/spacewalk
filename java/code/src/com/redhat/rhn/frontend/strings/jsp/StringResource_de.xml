@@ -18533,12 +18533,6 @@ stehende Gesamte, wie in diesem Zertifikat des @@PRODUCT_NAME@@s wiedergegeben.<
       <target>Zugriff durch diese Berechtigung gew&amp;auml;hrt:</target></trans-unit>
 
 
-      <trans-unit id="system_entitlement_details.access_grant_desc.provisioning_entitled">
-        <source>A single Provisioning (Add-On) entitlement allows various advanced functionality such as kickstart and configuration file provisioning. </source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementDetails</context>
-        </context-group>
-      <target>Eine einzelne Provisioning- (Zusatz-) Berechtigung erm&amp;ouml;glicht verschiedene erweiterte Funktionen, wie Kickstart- und Konfigurationsdatei-Provisioning. </target></trans-unit>
 
 
       <trans-unit id="system_entitlement_details.access_grant_desc.virtualization_host">

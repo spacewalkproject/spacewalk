@@ -18471,12 +18471,6 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;
       <target>這權利所賦予的存取權限：</target></trans-unit>
 
 
-      <trans-unit id="system_entitlement_details.access_grant_desc.provisioning_entitled">
-        <source>A single Provisioning (Add-On) entitlement allows various advanced functionality such as kickstart and configuration file provisioning. </source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementDetails</context>
-        </context-group>
-      <target>單一 Provision（附加）權利能提供了多種高階功能，例如 kickstart 與設定檔的 provision。</target></trans-unit>
 
 
       <trans-unit id="system_entitlement_details.access_grant_desc.virtualization_host">

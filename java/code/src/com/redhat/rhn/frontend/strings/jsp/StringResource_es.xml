@@ -18529,12 +18529,6 @@ tal y como se refleja en el certificado de @@PRODUCT_NAME@@.</target></trans-uni
       <target>Acceso garantizado por este derecho:</target></trans-unit>
 
 
-      <trans-unit id="system_entitlement_details.access_grant_desc.provisioning_entitled">
-        <source>A single Provisioning (Add-On) entitlement allows various advanced functionality such as kickstart and configuration file provisioning. </source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementDetails</context>
-        </context-group>
-      <target>Un derecho de aprovisionamiento (adicional) permite varias funciones avanzadas como Kickstart y el aprovisionamiento de archivos de configuración.</target></trans-unit>
 
 
       <trans-unit id="system_entitlement_details.access_grant_desc.virtualization_host">
