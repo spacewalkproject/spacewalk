@@ -1609,12 +1609,6 @@
 
 
 
-      <trans-unit id="Warn if number of swapped processes exceeds">
-        <source>Warn if number of swapped processes exceeds</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
-        </context-group>
-      <target>Warn: se il numero di processi scambiati eccede</target></trans-unit>
 
       <trans-unit id="Warning Accesses">
         <source>Warning Accesses</source>
