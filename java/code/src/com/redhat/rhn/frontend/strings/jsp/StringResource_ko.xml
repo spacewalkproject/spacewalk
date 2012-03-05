@@ -19910,9 +19910,6 @@ given channel.</source>
      <trans-unit id="task.status.session-cleanup">
          <source>Session Cleanup</source>
      <target></target></trans-unit>
-     <trans-unit id="task.status.errata-queue">
-         <source>Errata Notification Queue</source>
-     <target>에라타 통지 보내기</target></trans-unit>
      <trans-unit id="task.status.summary-population">
          <source>Daily Summary Queue</source>
      <target>일별 요약</target></trans-unit>

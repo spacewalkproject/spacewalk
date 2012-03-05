@@ -19919,9 +19919,6 @@ given channel.</source>
      <trans-unit id="task.status.session-cleanup">
          <source>Session Cleanup</source>
      <target></target></trans-unit>
-     <trans-unit id="task.status.errata-queue">
-         <source>Errata Notification Queue</source>
-     <target>ত্রুটি-বিচ্যুতি সংক্রান্ত সূচনা প্রেরণ করুন</target></trans-unit>
      <trans-unit id="task.status.summary-population">
          <source>Daily Summary Queue</source>
      <target>দৈনিক সারসংক্ষেপ</target></trans-unit>

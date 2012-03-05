@@ -19919,9 +19919,6 @@ given channel.</source>
      <trans-unit id="task.status.session-cleanup">
          <source>Session Cleanup</source>
      <target></target></trans-unit>
-     <trans-unit id="task.status.errata-queue">
-         <source>Errata Notification Queue</source>
-     <target>பிழைத்திருத்தங்கள் அறிவிப்பினை அனுப்பவும்</target></trans-unit>
      <trans-unit id="task.status.summary-population">
          <source>Daily Summary Queue</source>
      <target>தினசரி சுருக்கம்</target></trans-unit>

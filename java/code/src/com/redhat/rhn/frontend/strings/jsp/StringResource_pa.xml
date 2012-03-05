@@ -19920,9 +19920,6 @@ given channel.</source>
      <trans-unit id="task.status.session-cleanup">
          <source>Session Cleanup</source>
      <target></target></trans-unit>
-     <trans-unit id="task.status.errata-queue">
-         <source>Errata Notification Queue</source>
-     <target>ਇਰੱਟਾ ਸੂਚਨਾ ਭੇਜੋ</target></trans-unit>
      <trans-unit id="task.status.summary-population">
          <source>Daily Summary Queue</source>
      <target>ਰੋਜ਼ਾਨਾ ਜਾਣਕਾਰੀ</target></trans-unit>

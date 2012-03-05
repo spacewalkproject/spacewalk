@@ -20012,9 +20012,6 @@ given channel.</source>
      <trans-unit id="task.status.session-cleanup">
          <source>Session Cleanup</source>
      <target>セッションクリーンアップ</target></trans-unit>
-     <trans-unit id="task.status.errata-queue">
-         <source>Errata Notification Queue</source>
-     <target>エラータ通知を送信</target></trans-unit>
      <trans-unit id="task.status.summary-population">
          <source>Daily Summary Queue</source>
      <target>デイリー要約:</target></trans-unit>

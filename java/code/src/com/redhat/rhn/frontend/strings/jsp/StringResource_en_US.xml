@@ -20577,9 +20577,6 @@ given channel.</source>
      <trans-unit id="task.status.session-cleanup">
          <source>Session Cleanup</source>
      </trans-unit>
-     <trans-unit id="task.status.errata-queue">
-         <source>Errata Notification Queue</source>
-     </trans-unit>
      <trans-unit id="task.status.summary-population">
          <source>Daily Summary Queue</source>
      </trans-unit>
