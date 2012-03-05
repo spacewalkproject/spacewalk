@@ -4034,12 +4034,6 @@ del rol de Administrador de la organización.</target></trans-unit>
 
 
 
-      <trans-unit id="errata.overview.jsp.summary">
-<source>The following errata apply to at least one system to which you have administrative access.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/errata/Overview.do</context>
-        </context-group>
-      <target>La siguiente errata se aplica a por lo menos un sistema al cual se tiene acceso administrativo.</target></trans-unit>
 
       <trans-unit id="affectedsystems.jsp.summary">
 <source>Below is a list of systems affected by this erratum.</source>

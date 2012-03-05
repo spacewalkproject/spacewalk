@@ -4033,12 +4033,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
 
 
 
-      <trans-unit id="errata.overview.jsp.summary">
-<source>The following errata apply to at least one system to which you have administrative access.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/errata/Overview.do</context>
-        </context-group>
-      <target>আপনার প্রশাসনের অধীন অন্তত একটি সিস্টেমের জন্য নিম্নলিখিত ত্রুটি-বিচ্যুতির 	    তথ্য প্রযোজ্য।</target></trans-unit>
 
       <trans-unit id="affectedsystems.jsp.summary">
 <source>Below is a list of systems affected by this erratum.</source>
