@@ -5029,9 +5029,6 @@ value for this entitlement, excluding the default organization's consumption.</s
        <trans-unit id="ssm.misc.index.syspref.update">
          <source>Automatic application of relevant errata</source>
        </trans-unit>
-       <trans-unit id="ssm.misc.index.syspref.yes">
-         <source>Yes</source>
-       </trans-unit>
        <trans-unit id="ssm.misc.index.syspref.no">
          <source>No</source>
        </trans-unit>
