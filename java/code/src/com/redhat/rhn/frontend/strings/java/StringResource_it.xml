@@ -7822,9 +7822,6 @@ Seguite l'url sotto riportato per visualizzare l'elenco completo di sistemi inat
           <source>View Associated Errata</source>
       <target>Visualizza errata associati</target></trans-unit>
 
-      <trans-unit id="frontend.actions.channels.manager.add.selectArch">
-          <source>Select Architectures</source>
-      <target>Seleziona architettura</target></trans-unit>
 
     <trans-unit id="frontend.actions.channels.manager.add.submit">
           <source>Confirm</source>

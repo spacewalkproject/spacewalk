@@ -7825,9 +7825,6 @@ Suivez cet url pour obtenir la liste complète des systèmes inactifs :
           <source>View Associated Errata</source>
       <target>Voir les errata associés</target></trans-unit>
 
-      <trans-unit id="frontend.actions.channels.manager.add.selectArch">
-          <source>Select Architectures</source>
-      <target>Sélectionner les architectures</target></trans-unit>
 
     <trans-unit id="frontend.actions.channels.manager.add.submit">
           <source>Confirm</source>

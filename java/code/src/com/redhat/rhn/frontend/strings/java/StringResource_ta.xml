@@ -7798,9 +7798,6 @@ url பின்பற்றி செயலிழக்கப்பட்ட �
           <source>View Associated Errata</source>
       <target>தொடர்படைய பிழைத்திருத்தத்தை பார்வையிடவும்</target></trans-unit>
 
-      <trans-unit id="frontend.actions.channels.manager.add.selectArch">
-          <source>Select Architectures</source>
-      <target>வடிவமைப்பை தேர்ந்தெடுக்கவும்</target></trans-unit>
 
     <trans-unit id="frontend.actions.channels.manager.add.submit">
           <source>Confirm</source>

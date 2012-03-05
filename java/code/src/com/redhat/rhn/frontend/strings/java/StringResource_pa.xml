@@ -7800,9 +7800,6 @@ Follow this url to see the full list of inactive systems:
           <source>View Associated Errata</source>
       <target>ਸੰਬੰਧਿਤ ਇਰੱਟਾ ਵੇਖੋ</target></trans-unit>
 
-      <trans-unit id="frontend.actions.channels.manager.add.selectArch">
-          <source>Select Architectures</source>
-      <target>ਢਾਂਚੇ ਚੁਣੋ</target></trans-unit>
 
     <trans-unit id="frontend.actions.channels.manager.add.submit">
           <source>Confirm</source>

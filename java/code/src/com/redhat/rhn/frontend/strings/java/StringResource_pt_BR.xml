@@ -7810,9 +7810,6 @@ Follow this url to see the full list of inactive systems:
           <source>View Associated Errata</source>
       <target>Visualizar Erratas Associadas</target></trans-unit>
 
-      <trans-unit id="frontend.actions.channels.manager.add.selectArch">
-          <source>Select Architectures</source>
-      <target>Selecionar Arquiteturas</target></trans-unit>
 
     <trans-unit id="frontend.actions.channels.manager.add.submit">
           <source>Confirm</source>

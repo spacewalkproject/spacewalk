@@ -7804,9 +7804,6 @@ Follow this url to see the full list of inactive systems:
           <source>View Associated Errata</source>
       <target>প্রযোজ্য ত্রুটি-বিচ্যুতি প্রদর্শন</target></trans-unit>
 
-      <trans-unit id="frontend.actions.channels.manager.add.selectArch">
-          <source>Select Architectures</source>
-      <target>আর্কিটেকচার নির্বাচন করুন</target></trans-unit>
 
     <trans-unit id="frontend.actions.channels.manager.add.submit">
           <source>Confirm</source>

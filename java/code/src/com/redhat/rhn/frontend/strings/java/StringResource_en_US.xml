@@ -7885,9 +7885,6 @@ Follow this url to see the full list of inactive systems:
           <source>View Associated Errata</source>
       </trans-unit>
 
-      <trans-unit id="frontend.actions.channels.manager.add.selectArch">
-          <source>Select Architectures</source>
-      </trans-unit>
 
     <trans-unit id="frontend.actions.channels.manager.add.submit">
           <source>Confirm</source>
