@@ -5854,12 +5854,6 @@ pour ce droit d'accès, moins la consommation par défaut de l'organisation.</ta
    <target>Vous pouvez programmer les mises à jour des paquetages pour qu'elles commencent le plus tôt possible ou à partir d'une date spécifiée :</target></trans-unit>
 
 
-    <trans-unit id="upgrade.jsp.none">
-<source>No upgradable packages.</source>
-      <context-group name="ctx">
-        <context context-type="sourcefile">/rhn/systems/details/packages/UpgradeConfirm.do</context>
-      </context-group>
-    <target>Aucun paquetage à mettre à niveau</target></trans-unit>
 
     <trans-unit id="upgrade.jsp.remote">
 <source>Run Remote Command</source>
