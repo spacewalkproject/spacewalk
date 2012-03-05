@@ -13813,12 +13813,6 @@ ma non sono sottoscritti a {0}.</target></trans-unit>
      <target>Carica nuovo file di configurazione</target></trans-unit>
 
 		<!-- upload.jspf -->
-	<trans-unit id="addfiles.jsp.upload.jspf.title">
-<source>Upload New Configuration File</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/ChannelAddFiles.do</context>
-        </context-group>
-     <target>Carica nuovo file di configurazione</target></trans-unit>
 	<trans-unit id="addfiles.jsp.upload.jspf.submit">
 <source>Upload Configuration File</source>
         <context-group name="ctx">

@@ -13809,12 +13809,6 @@ but are not subscribed to _@@PRODUCT_NAME@@Config_.</context>
      <target>Загрузить на сервер файл конфигурации</target></trans-unit>
 
 		<!-- upload.jspf -->
-	<trans-unit id="addfiles.jsp.upload.jspf.title">
-<source>Upload New Configuration File</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/ChannelAddFiles.do</context>
-        </context-group>
-     <target>Загрузить на сервер файл конфигурации</target></trans-unit>
 	<trans-unit id="addfiles.jsp.upload.jspf.submit">
 <source>Upload Configuration File</source>
         <context-group name="ctx">
