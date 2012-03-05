@@ -6737,12 +6737,6 @@ Follow this url to see the full list of inactive systems:
         </context-group>
       <target>({0}) वर्चुअल सीपीयू सेट करें</target></trans-unit>
 
-      <trans-unit id="systems.details.virt.guest.already.running">
-        <source>This system is already running.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
-        </context-group>
-      <target>सिस्टम पहले से कार्यशील है.</target></trans-unit>
 
       <trans-unit id="systems.details.virt.guest.already.stopped">
         <source>This system is already stopped.</source>

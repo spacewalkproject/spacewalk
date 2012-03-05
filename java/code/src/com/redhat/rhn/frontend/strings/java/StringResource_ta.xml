@@ -6737,12 +6737,6 @@ url பின்பற்றி செயலிழக்கப்பட்ட �
         </context-group>
       <target>மெய்நிகர் CPUகளை அமைத்தல் ({0})</target></trans-unit>
 
-      <trans-unit id="systems.details.virt.guest.already.running">
-        <source>This system is already running.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
-        </context-group>
-      <target>இந்த கணினி ஏற்கனவே இயக்கத்தில் உள்ளது.</target></trans-unit>
 
       <trans-unit id="systems.details.virt.guest.already.stopped">
         <source>This system is already stopped.</source>

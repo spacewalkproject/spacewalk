@@ -6764,12 +6764,6 @@ Suivez cet url pour obtenir la liste complète des systèmes inactifs :
         </context-group>
       <target>Définir les CPU virtuels ({0})</target></trans-unit>
 
-      <trans-unit id="systems.details.virt.guest.already.running">
-        <source>This system is already running.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
-        </context-group>
-      <target>Ce système est déjà en cours d'exécution.</target></trans-unit>
 
       <trans-unit id="systems.details.virt.guest.already.stopped">
         <source>This system is already stopped.</source>
