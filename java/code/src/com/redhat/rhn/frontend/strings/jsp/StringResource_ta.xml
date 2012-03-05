@@ -2103,12 +2103,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/account/EditAddress</context>
         </context-group>
       <target>கீழே கொடுக்கப்பட்டுள்ள படிவத்தில் உங்கள் விவரங்களை உள்ளிடவும. (&lt;span class="required-form-field"&gt;*&lt;/span&gt;) குறியீட்டில் உள்ளவை &lt;strong&gt;நிரப்பப்பட வேண்டியவை&lt;/strong&gt;.</target></trans-unit>
-      <trans-unit id="usercreate.do_you_need_corp_2">
-<source>If your organization has an existing @@PRODUCT_NAME@@ business login, you will need to contact your @@PRODUCT_NAME@@ Organization Administrator to create your account so you are registered with your organization. </source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/newlogin</context>
-        </context-group>
-      <target>உங்கள் நிறுவனம் ஏற்கனவே உள்ள @@PRODUCT_NAME@@ தொழில் பதிவினை கொண்டிருந்தால், நீங்கள் உங்கள் @@PRODUCT_NAME@@ நிறுவன நிர்வாகியை தொடர்பு கொண்டு உங்கள் கணக்கினை உருவாக்கி உங்கள் நிறுவனத்துடன் பதிவு செய்து கொள்ளலாம்.</target></trans-unit>
       <trans-unit id="usercreate.personalLoginDesc_1">
 <source>You will need a &lt;strong&gt;home user&lt;/strong&gt; login to manage systems you own for personal use, or to make personal purchases of Red Hat products and services. </source>
         <context-group name="ctx">

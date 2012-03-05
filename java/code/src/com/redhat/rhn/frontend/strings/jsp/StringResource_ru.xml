@@ -2103,12 +2103,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/account/EditAddress</context>
         </context-group>
       <target>Заполните форму, приведенную ниже. Поля, отмеченные звездочкой, (&lt;span class="required-form-field"&gt;*&lt;/span&gt;) являются &lt;strong&gt;обязательными&lt;/strong&gt;.</target></trans-unit>
-      <trans-unit id="usercreate.do_you_need_corp_2">
-<source>If your organization has an existing @@PRODUCT_NAME@@ business login, you will need to contact your @@PRODUCT_NAME@@ Organization Administrator to create your account so you are registered with your organization. </source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/newlogin</context>
-        </context-group>
-      <target>Если ваша организация уже имеет существующее бизнес-имя для входа в @@PRODUCT_NAME@@, то вам нужно будет связаться с вашим администратором организации @@PRODUCT_NAME@@, чтобы создать учетную запись для регистрации в вашей организации.</target></trans-unit>
       <trans-unit id="usercreate.personalLoginDesc_1">
 <source>You will need a &lt;strong&gt;home user&lt;/strong&gt; login to manage systems you own for personal use, or to make personal purchases of Red Hat products and services. </source>
         <context-group name="ctx">

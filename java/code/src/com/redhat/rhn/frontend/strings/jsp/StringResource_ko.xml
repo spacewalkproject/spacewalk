@@ -2103,12 +2103,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/account/EditAddress</context>
         </context-group>
       <target>아래의 양식에 해당 정보를 입력해주십시오.  별표 (&lt;span class="required-form-field"&gt;*&lt;/span&gt;) 로 표시된 항목은 &lt;strong&gt;필수 입력란&lt;/strong&gt;입니다.</target></trans-unit>
-      <trans-unit id="usercreate.do_you_need_corp_2">
-<source>If your organization has an existing @@PRODUCT_NAME@@ business login, you will need to contact your @@PRODUCT_NAME@@ Organization Administrator to create your account so you are registered with your organization. </source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/newlogin</context>
-        </context-group>
-      <target>조직에 이미 @@PRODUCT_NAME@@ 비지니스 로그인 계정이 있는 경우, @@PRODUCT_NAME@@ 조직 관리자에게 연락하여 계정을 만들어야 합니다. 이에 따라 조직에 등록되는 것입니다.   </target></trans-unit>
       <trans-unit id="usercreate.personalLoginDesc_1">
 <source>You will need a &lt;strong&gt;home user&lt;/strong&gt; login to manage systems you own for personal use, or to make personal purchases of Red Hat products and services. </source>
         <context-group name="ctx">

@@ -2103,12 +2103,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/account/EditAddress</context>
         </context-group>
       <target> অনুগ্রহ করে নীচে উল্লিখিত ফর্মের মধ্যে আপনার তথ্য পূরণ করুন।  তারাচিহ্ন দ্বারা উল্লিখিত মানগুলি (&lt;span class="required-form-field"&gt;*&lt;/span&gt;) পূরণ করা &lt;strong&gt;আবশ্যক&lt;/strong&gt;।</target></trans-unit>
-      <trans-unit id="usercreate.do_you_need_corp_2">
-<source>If your organization has an existing @@PRODUCT_NAME@@ business login, you will need to contact your @@PRODUCT_NAME@@ Organization Administrator to create your account so you are registered with your organization. </source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/newlogin</context>
-        </context-group>
-      <target>আপনার প্রতিষ্ঠানের জন্য কোনো @@PRODUCT_NAME@@ বাণিজ্যিক লগ-ইন উপস্থিত থাকলে আপনার অ্যাকাউন্ট নির্মাণের জন্য আপনার প্রতিষ্ঠানের @@PRODUCT_NAME@@ প্রাতিষ্ঠানিক অ্যাডমিনিস্ট্রেটরের সাথে যোগাযোগ করুন যার ফলে আপনি আপনার প্রতিষ্ঠানের সাথে নিবন্ধিত থাকতে পারবেন।</target></trans-unit>
       <trans-unit id="usercreate.personalLoginDesc_1">
 <source>You will need a &lt;strong&gt;home user&lt;/strong&gt; login to manage systems you own for personal use, or to make personal purchases of Red Hat products and services. </source>
         <context-group name="ctx">
