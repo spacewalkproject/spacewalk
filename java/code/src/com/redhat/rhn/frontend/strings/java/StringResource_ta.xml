@@ -6709,12 +6709,6 @@ url பின்பற்றி செயலிழக்கப்பட்ட �
         </context-group>
       <target>மறுதுவக்கம்</target></trans-unit>
 
-      <trans-unit id="systems.details.virt.guest.virt.destroy">
-        <source>Destroy</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
-        </context-group>
-      <target>அழித்தல்</target></trans-unit>
 
       <trans-unit id="systems.details.virt.guest.virt.delete">
         <source>Delete</source>
