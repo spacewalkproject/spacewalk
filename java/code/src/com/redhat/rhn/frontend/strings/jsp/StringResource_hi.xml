@@ -18499,22 +18499,6 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;
           <context context-type="sourcefile">outage-policy.jsp</context>
         </context-group>
       <target>अनुसूचित अनुरक्षण विंडो</target></trans-unit>
-      <trans-unit id="outage-policy.jsp.scheduled">
-<source>Red Hat schedules all planned maintenance to @@PRODUCT_NAME@@ each
-Tuesday from 9pm-3am, Eastern U.S. Time (1am-7am UTC).  While Red Hat will not
-necessarily use every one of these windows to perform maintenance, we recommend that your
-enterprise develop business practices that allow this period of downtime for your @@PRODUCT_NAME@@ solution.
-Red Hat will always attempt to inform at least one week in advance through the email outage
-list (see below) about this scheduled downtime whenever possible.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">outage-policy.jsp</context>
-        </context-group>
-      <target>Red Hat सारे नियोजित देखभाल के काम को @@PRODUCT_NAME@@ में अनुसूचित करता है
-हर मंगलबार को 9pm-3am, पूर्वी U.S. समय (1am-7am UTC) पर.  जबकि Red Hat आवश्यक रूप से
-हरेक विंडो को देखभाल करने के लिये प्रयोग नहीं करेगा, हम अनुशंसा करते हैं कि आपका
-उद्यम व्यापार कौशल विकसित करे जो कि डाउनटाइम के इस समय को आपके @@PRODUCT_NAME@@ समाधान के लिये अनुमति देता है.
-Red Hat हमेशा एक सप्ताह पहले बताने का प्रयास करेगा ईमेल आउटेज सूची
-के द्वारा (नीचे देखें) इस अऩुसूचित डाउनटाइम के बारे में जब कभी संभव हो.</target></trans-unit>
 
       <trans-unit id="outage-policy.jsp.unscheduled-header">
 <source>Unscheduled Maintenance Windows</source>

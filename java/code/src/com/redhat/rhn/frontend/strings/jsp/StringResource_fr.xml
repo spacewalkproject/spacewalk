@@ -18552,22 +18552,6 @@ les canaux de logiciels de @@PRODUCT_NAME@@pour chaque canal parent pris en char
           <context context-type="sourcefile">outage-policy.jsp</context>
         </context-group>
       <target>Fenêtres de maintenance programmées</target></trans-unit>
-      <trans-unit id="outage-policy.jsp.scheduled">
-<source>Red Hat schedules all planned maintenance to @@PRODUCT_NAME@@ each
-Tuesday from 9pm-3am, Eastern U.S. Time (1am-7am UTC).  While Red Hat will not
-necessarily use every one of these windows to perform maintenance, we recommend that your
-enterprise develop business practices that allow this period of downtime for your @@PRODUCT_NAME@@ solution.
-Red Hat will always attempt to inform at least one week in advance through the email outage
-list (see below) about this scheduled downtime whenever possible.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">outage-policy.jsp</context>
-        </context-group>
-      <target>Red Hat programme toutes les maintenances planifiées pour @@PRODUCT_NAME@@ chaque
-mardi de 21 heures à 3 heures du matin, heure à l'est des U.S.A. (1am-7am UTC).  Même si Red
-Hat n'utilisera pas nécessairement chacune de ces fenêtres pour effectuer une maintenance, nous recommandons à votre
-entreprise de développer des procédures de gestion qui accordent ce temps d'arrêt à votre solution @@PRODUCT_NAME@@.
-Red Hat essayera toujours de vous informer au moins une semaine à l'avance avec la liste électronique de défaillances
-(voir ci-dessous) à propos de ce temps d'arrêt programmé.</target></trans-unit>
 
       <trans-unit id="outage-policy.jsp.unscheduled-header">
 <source>Unscheduled Maintenance Windows</source>

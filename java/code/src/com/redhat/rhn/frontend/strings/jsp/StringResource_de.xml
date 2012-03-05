@@ -18555,22 +18555,6 @@ einen Kickstart durchführen oder eine neue Kickstart-Distribution erzeugen.&lt;
           <context context-type="sourcefile">outage-policy.jsp</context>
         </context-group>
       <target>Geplante Wartungsfenster</target></trans-unit>
-      <trans-unit id="outage-policy.jsp.scheduled">
-<source>Red Hat schedules all planned maintenance to @@PRODUCT_NAME@@ each
-Tuesday from 9pm-3am, Eastern U.S. Time (1am-7am UTC).  While Red Hat will not
-necessarily use every one of these windows to perform maintenance, we recommend that your
-enterprise develop business practices that allow this period of downtime for your @@PRODUCT_NAME@@ solution.
-Red Hat will always attempt to inform at least one week in advance through the email outage
-list (see below) about this scheduled downtime whenever possible.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">outage-policy.jsp</context>
-        </context-group>
-      <target>Red Hat terminiert alle geplanten Wartungsarbeiten an @@PRODUCT_NAME@@ auf
-jeden Dienstag zwischen 9pm-3am, Eastern U.S. Zeit (1am-7am UTC).  Auch wenn Red Hat nicht
-unbedingt jedes dieser Zeitfenster ben&amp;ouml;tigt, um Wartungsarbeiten durchzuf&amp;uuml;hren, empfehlen wir
-Ihrem Unternehmen, Gesch&amp;auml;ftspraktiken f&amp;uuml;r Ihre @@PRODUCT_NAME@@-L&amp;ouml;sung w&amp;auml;hrend dieser Ausfallperiode zu entwickeln.
-Red Hat wird immer versuchen, mindestens eine Woche im Voraus &amp;uuml;ber den geplanten Ausfall via
-E-Mail-Ausfall-Liste (siehe unten) zu informieren.</target></trans-unit>
 
       <trans-unit id="outage-policy.jsp.unscheduled-header">
 <source>Unscheduled Maintenance Windows</source>

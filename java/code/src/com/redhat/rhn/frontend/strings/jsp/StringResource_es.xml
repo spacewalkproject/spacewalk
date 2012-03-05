@@ -18551,22 +18551,6 @@ de realizar un kickstart o antes de crear una nueva distribución kickstart.&lt;
           <context context-type="sourcefile">outage-policy.jsp</context>
         </context-group>
       <target>Periodos de mantenimiento programados</target></trans-unit>
-      <trans-unit id="outage-policy.jsp.scheduled">
-<source>Red Hat schedules all planned maintenance to @@PRODUCT_NAME@@ each
-Tuesday from 9pm-3am, Eastern U.S. Time (1am-7am UTC).  While Red Hat will not
-necessarily use every one of these windows to perform maintenance, we recommend that your
-enterprise develop business practices that allow this period of downtime for your @@PRODUCT_NAME@@ solution.
-Red Hat will always attempt to inform at least one week in advance through the email outage
-list (see below) about this scheduled downtime whenever possible.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">outage-policy.jsp</context>
-        </context-group>
-      <target>Red Hat programa todas las tareas de mantenimiento de @@PRODUCT_NAME@@ para
-que sean llevadas a cabo todos los martes de 9pm-3am, E.U. (1am-7am UTC). Aunque
- Red Hat no utiliza cada uno de estos periodos de mantenimiento, es aconsejable que
-su empresa desarrolle una práctica empresarial que permita este periodo de
- racionamiento para su solución de @@PRODUCT_NAME@@. Red Hat siempre intentará informarle al
-menos con una semana de anticipación los periodos de corte a través de la lista de correo-e de interrupciones (ver abajo).</target></trans-unit>
 
       <trans-unit id="outage-policy.jsp.unscheduled-header">
 <source>Unscheduled Maintenance Windows</source>
