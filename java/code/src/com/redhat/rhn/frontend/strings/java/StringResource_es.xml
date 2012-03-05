@@ -7831,9 +7831,6 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
           <source>Confirm</source>
       <target>Confirmar</target></trans-unit>
 
-    <trans-unit id="frontend.actions.channels.manager.add.customizePackages">
-          <source>Customize Package Arch Selection</source>
-     <target>Personalizar la selección de arquitecturas de paquetes</target></trans-unit>
 
        <trans-unit id="frontend.actions.channels.manager.add.success">
           <source>Succesfully added {1} package(s) and scheduled {0} errata to be cloned to channel {2}.  The cloned Errata should appear in the channel and applicable to systems within a few minutes.</source>

@@ -7812,9 +7812,6 @@ Follow this url to see the full list of inactive systems:
           <source>Confirm</source>
       <target>নিশ্চায়ন</target></trans-unit>
 
-    <trans-unit id="frontend.actions.channels.manager.add.customizePackages">
-          <source>Customize Package Arch Selection</source>
-     <target>প্যাকেজ আর্কিটেকচার নির্বাচন স্বনির্ধারণ করুন</target></trans-unit>
 
        <trans-unit id="frontend.actions.channels.manager.add.success">
           <source>Succesfully added {1} package(s) and scheduled {0} errata to be cloned to channel {2}.  The cloned Errata should appear in the channel and applicable to systems within a few minutes.</source>
