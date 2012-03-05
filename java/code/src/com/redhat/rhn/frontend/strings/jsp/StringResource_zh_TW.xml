@@ -13695,13 +13695,6 @@ but are not subscribed to _@@PRODUCT_NAME@@Config_.</context>
      <target>無法找到任何系統。</target></trans-unit>
 
 	<!-- addfiles.jsp -->
-	<trans-unit id="config.error.path-required">
-<source>You must select a file to upload.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/ChannelAddFiles.do</context>
-		  <context context-type="paramnotes">A file named /etc/passwd already exists in this channel.</context>
-        </context-group>
-     <target>您必須選擇欲上傳的檔案。</target></trans-unit>
 	<trans-unit id="config.error.file-exists">
 <source>A file named "{0}" already exists in this channel.</source>
         <context-group name="ctx">

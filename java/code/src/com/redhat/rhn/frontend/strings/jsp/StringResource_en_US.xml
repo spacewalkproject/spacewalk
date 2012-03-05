@@ -14119,13 +14119,6 @@ but are not subscribed to _@@PRODUCT_NAME@@Config_.</context>
      </trans-unit>
 
 	<!-- addfiles.jsp -->
-	<trans-unit id="config.error.path-required">
-<source>You must select a file to upload.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/ChannelAddFiles.do</context>
-		  <context context-type="paramnotes">A file named /etc/passwd already exists in this channel.</context>
-        </context-group>
-     </trans-unit>
 	<trans-unit id="config.error.file-exists">
 <source>A file named &quot;{0}&quot; already exists in this channel.</source>
         <context-group name="ctx">

@@ -13716,13 +13716,6 @@ haben jedoch {0} nicht abonniert.</target></trans-unit>
      <target>Keine Systeme gefunden.</target></trans-unit>
 
 	<!-- addfiles.jsp -->
-	<trans-unit id="config.error.path-required">
-<source>You must select a file to upload.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/ChannelAddFiles.do</context>
-		  <context context-type="paramnotes">A file named /etc/passwd already exists in this channel.</context>
-        </context-group>
-     <target>W&amp;auml;hlen Sie eine Datei zum Hochladen aus.</target></trans-unit>
 	<trans-unit id="config.error.file-exists">
 <source>A file named "{0}" already exists in this channel.</source>
         <context-group name="ctx">
