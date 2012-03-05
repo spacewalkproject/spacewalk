@@ -6753,9 +6753,6 @@ Follow this url to see the full list of inactive systems:
 		<source>{0} of {1} files and {2} of {3} directories and {4} of {5} symlinks on the system were successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href="{6}"&gt;View Details&lt;/a&gt;]</source>
 	<target>{0} de {1} arquivo, {2} de {3} diretórios e {4} de {5} symlinks  foram bem sucedidos no sistema quando comparados com os arquivos @@PRODUCT_NAME@@-Gerenciados.  [&lt;a href="{6}"&gt;View Details&lt;/a&gt;] </target></trans-unit>
 
-	<trans-unit id="sdc.config.differing.files_0">
-		<source>No existing files in the existing system differed from the @@PRODUCT_NAME@@-Managed files.</source>
-        <target>Nenhum arquivo existente no sistema existente diferiu dos arquivos Gerenciados pelo @@PRODUCT_NAME@@</target></trans-unit>
 
 	<trans-unit id="sdc.config.differing.files_1">
 		<source>1 of 1 file on the system differed from the @@PRODUCT_NAME@@-Managed files</source>

@@ -6766,9 +6766,6 @@ Follow this url to see the full list of inactive systems:
 		<source>{0} of {1} files and {2} of {3} directories and {4} of {5} symlinks on the system were successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href="{6}"&gt;View Details&lt;/a&gt;]</source>
 	<target>系统里 {1} 个文件中的 {0} 个、{3} 个目录里的 {2} 个以及 {5} 个 symlink 中的 {4} 个成功地和 @@PRODUCT_NAME@@ 管理的文件进行了比较。[&lt;a href="{6}"&gt;查看详情&lt;/a&gt;]</target></trans-unit>
 
-	<trans-unit id="sdc.config.differing.files_0">
-		<source>No existing files in the existing system differed from the @@PRODUCT_NAME@@-Managed files.</source>
-        <target>当前系统中没有与 @@PRODUCT_NAME@@ 所管理的文件不同的现有文件。</target></trans-unit>
 
 	<trans-unit id="sdc.config.differing.files_1">
 		<source>1 of 1 file on the system differed from the @@PRODUCT_NAME@@-Managed files</source>

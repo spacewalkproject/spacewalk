@@ -6768,9 +6768,6 @@ Suivez cet url pour obtenir la liste complète des systèmes inactifs :
 		<source>{0} of {1} files and {2} of {3} directories and {4} of {5} symlinks on the system were successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href="{6}"&gt;View Details&lt;/a&gt;]</source>
 	<target>{0} de {1} fichier et {2} de {3} répertoires et {4} de {5} liens symboliques du systéme ont été comparés avec succès pour les fichiers @@PRODUCT_NAME@@-Managed. [&lt;a href="{6}"&gt;Voir détails&lt;/a&gt;]</target></trans-unit>
 
-	<trans-unit id="sdc.config.differing.files_0">
-		<source>No existing files in the existing system differed from the @@PRODUCT_NAME@@-Managed files.</source>
-        <target>Aucun fichier dans le système existant diffère des fichiers gérés par @@PRODUCT_NAME@@.</target></trans-unit>
 
 	<trans-unit id="sdc.config.differing.files_1">
 		<source>1 of 1 file on the system differed from the @@PRODUCT_NAME@@-Managed files</source>

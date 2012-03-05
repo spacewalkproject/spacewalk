@@ -6741,9 +6741,6 @@ url பின்பற்றி செயலிழக்கப்பட்ட �
 		<source>{0} of {1} files and {2} of {3} directories and {4} of {5} symlinks on the system were successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href="{6}"&gt;View Details&lt;/a&gt;]</source>
 	<target></target></trans-unit>
 
-	<trans-unit id="sdc.config.differing.files_0">
-		<source>No existing files in the existing system differed from the @@PRODUCT_NAME@@-Managed files.</source>
-        <target>@@PRODUCT_NAME@@-மேலாண்மை செய்யப்பட்ட கோப்புகளிலிருந்து இருக்கும் கணினியில் எந்த கோப்புகளும் வேறுபடவில்லை.</target></trans-unit>
 
 	<trans-unit id="sdc.config.differing.files_1">
 		<source>1 of 1 file on the system differed from the @@PRODUCT_NAME@@-Managed files</source>
