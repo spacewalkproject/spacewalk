@@ -6670,12 +6670,6 @@ url பின்பற்றி செயலிழக்கப்பட்ட �
       <target>{0} மறுபார்வைகள் வெற்றிகரமாக அழிக்கப்பட்டன.</target></trans-unit>
 
 
-      <trans-unit id="config_revisions.success.singular">
-        <source>1 revision was deleted successfully.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/file/ManageConfigRevision.do</context>
-        </context-group>
-      <target>1 மறுபார்வை வெற்றிகரமாக அழிக்கப்பட்டது.</target></trans-unit>
 
 
 

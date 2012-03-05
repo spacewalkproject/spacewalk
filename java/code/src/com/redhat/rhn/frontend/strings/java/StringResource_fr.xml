@@ -6697,12 +6697,6 @@ Suivez cet url pour obtenir la liste complète des systèmes inactifs :
       <target>{0} versions ont bien été supprimées.</target></trans-unit>
 
 
-      <trans-unit id="config_revisions.success.singular">
-        <source>1 revision was deleted successfully.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/file/ManageConfigRevision.do</context>
-        </context-group>
-      <target>1 version a bien été supprimée.</target></trans-unit>
 
 
 
