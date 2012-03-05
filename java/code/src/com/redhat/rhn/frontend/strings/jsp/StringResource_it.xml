@@ -12849,9 +12849,6 @@ la &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stron
           </context-group>
         <target>{0} file</target></trans-unit>
 
-        <trans-unit id="config.common.noSystems">
-          <source>No systems</source>
-        <target>Nessun sistema</target></trans-unit>
 
         <trans-unit id="config.common.revision">
           <source>Revision {0}</source>

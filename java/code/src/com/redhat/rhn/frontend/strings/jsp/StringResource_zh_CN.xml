@@ -12862,9 +12862,6 @@ kickstart 前脚本的内容可以在 &lt;strong&gt;《红帽企业版 Linux 系
           </context-group>
         <target>{0} 个文件</target></trans-unit>
 
-        <trans-unit id="config.common.noSystems">
-          <source>No systems</source>
-        <target>没有系统</target></trans-unit>
 
         <trans-unit id="config.common.revision">
           <source>Revision {0}</source>

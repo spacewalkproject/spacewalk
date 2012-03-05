@@ -12864,9 +12864,6 @@ el &lt;strong&gt;Manual de administración del sistema Red Hat Enterprise Linux.
           </context-group>
         <target>{0} archivos</target></trans-unit>
 
-        <trans-unit id="config.common.noSystems">
-          <source>No systems</source>
-        <target>Ningún sistema</target></trans-unit>
 
         <trans-unit id="config.common.revision">
           <source>Revision {0}</source>

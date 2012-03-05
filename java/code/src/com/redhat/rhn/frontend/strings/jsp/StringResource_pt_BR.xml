@@ -12858,9 +12858,6 @@ o &lt;strong&gt;Guia de Administração de Sistemas Red Hat Enterprise Li
           </context-group>
         <target>{0} arquivos</target></trans-unit>
 
-        <trans-unit id="config.common.noSystems">
-          <source>No systems</source>
-        <target>Nenhum sistema. </target></trans-unit>
 
         <trans-unit id="config.common.revision">
           <source>Revision {0}</source>

@@ -12847,9 +12847,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
           </context-group>
         <target>{0} 파일</target></trans-unit>
 
-        <trans-unit id="config.common.noSystems">
-          <source>No systems</source>
-        <target>시스템 없음</target></trans-unit>
 
         <trans-unit id="config.common.revision">
           <source>Revision {0}</source>

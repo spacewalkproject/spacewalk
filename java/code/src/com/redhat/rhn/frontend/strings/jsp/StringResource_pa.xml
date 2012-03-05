@@ -12851,9 +12851,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
           </context-group>
         <target>{0} ਫਾਇਲਾਂ</target></trans-unit>
 
-        <trans-unit id="config.common.noSystems">
-          <source>No systems</source>
-        <target>ਕੋਈ ਸਿਸਟਮ ਨਹੀਂ ਹੈ।</target></trans-unit>
 
         <trans-unit id="config.common.revision">
           <source>Revision {0}</source>

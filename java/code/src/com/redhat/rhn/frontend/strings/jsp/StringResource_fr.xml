@@ -12867,9 +12867,6 @@ Le script post non-chroot sera ensuite exécuté et le script post sera enfin ex
           </context-group>
         <target>{0} fichier(s)</target></trans-unit>
 
-        <trans-unit id="config.common.noSystems">
-          <source>No systems</source>
-        <target>Aucun système</target></trans-unit>
 
         <trans-unit id="config.common.revision">
           <source>Revision {0}</source>
