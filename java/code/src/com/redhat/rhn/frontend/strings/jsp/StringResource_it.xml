@@ -20891,9 +20891,6 @@ stesso pacchetto in un singolo canale, ciò potrebbe causare però il
       <trans-unit id="channel.jsp.gpgid">
         <source>Key Id</source>
       <target>ID Chiave</target></trans-unit>
-      <trans-unit id="channel.jsp.gpgfp">
-        <source>Key Fingerprint</source>
-      <target>Key Fingerprint</target></trans-unit>
       <trans-unit id="channel.jsp.gpgunknown">
         <source>Unknown</source>
       <target>Sconosciuto</target></trans-unit>

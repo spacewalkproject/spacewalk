@@ -20892,9 +20892,6 @@ given channel.</source>
       <trans-unit id="channel.jsp.gpgid">
         <source>Key Id</source>
       <target>কি-র Id</target></trans-unit>
-      <trans-unit id="channel.jsp.gpgfp">
-        <source>Key Fingerprint</source>
-      <target>কি ফিংগারপ্রিন্ট</target></trans-unit>
       <trans-unit id="channel.jsp.gpgunknown">
         <source>Unknown</source>
       <target>অজানা</target></trans-unit>

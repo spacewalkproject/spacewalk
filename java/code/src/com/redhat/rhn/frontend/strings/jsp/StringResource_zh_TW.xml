@@ -20882,9 +20882,6 @@ given channel.</source>
       <trans-unit id="channel.jsp.gpgid">
         <source>Key Id</source>
       <target>金鑰 ID</target></trans-unit>
-      <trans-unit id="channel.jsp.gpgfp">
-        <source>Key Fingerprint</source>
-      <target>金鑰指紋</target></trans-unit>
       <trans-unit id="channel.jsp.gpgunknown">
         <source>Unknown</source>
       <target>不明</target></trans-unit>
