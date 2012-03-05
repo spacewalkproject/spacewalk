@@ -16735,12 +16735,6 @@ pour abonner des systèmes aux canaux de logiciels durant le kickstart.&lt;/span
         </context-group>
     <target>Redémarrer le système</target></trans-unit>
 
-    <trans-unit id="kickstart.session_status.jsp.status_access_file">
-        <source>Access kickstart file</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/kickstart/SessionStatus.do</context>
-        </context-group>
-    <target>Accéder au fichier Kickstart</target></trans-unit>
 
     <trans-unit id="kickstart.session_status.jsp.status_kickstart">
         <source>Kickstart System</source>
