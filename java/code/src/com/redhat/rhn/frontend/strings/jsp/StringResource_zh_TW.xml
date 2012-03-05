@@ -19020,15 +19020,6 @@ Note that only one set of ISO images is necessary to install any particular rele
           <context context-type="sourcefile">/rhn/software/channel/downloads/Download.do</context>
         </context-group>
       <target>@@PRODUCT_NAME@@ 頻道內容的 ISO</target></trans-unit>
-      <trans-unit id="isodownload.channel-dump-descr1">
-<source>
-Below are all the channel content ISOs available for use with channel {0}.  If any channel content ISOs appear to be missing below, please ensure that your @@PRODUCT_NAME@@ Entitlement Certificate has been uploaded to @@PRODUCT_NAME@@ and correctly identifies the target channels.
-</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/software/channel/downloads/Download.do</context>
-		  <context context-type="paramnotes">Below are all the channel content ISOs available for use with channel @@PRODUCT_NAME@@ (v4.1 for AS v4 x86)...</context>
-        </context-group>
-      <target></target></trans-unit>
       <trans-unit id="isodownload.channel-dump-descr2">
 <source>
 There are two types of channel content ISOs: Base Channel Content ISOs and Incremental Channel Content ISOs.

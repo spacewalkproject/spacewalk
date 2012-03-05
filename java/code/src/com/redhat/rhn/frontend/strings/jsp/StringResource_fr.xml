@@ -19094,17 +19094,6 @@ Notez qu'il ne suffit pas d'un seul jeu d'images ISO pour installer une version 
           <context context-type="sourcefile">/rhn/software/channel/downloads/Download.do</context>
         </context-group>
       <target>ISO de contenu des canaux @@PRODUCT_NAME@@</target></trans-unit>
-      <trans-unit id="isodownload.channel-dump-descr1">
-<source>
-Below are all the channel content ISOs available for use with channel {0}.  If any channel content ISOs appear to be missing below, please ensure that your @@PRODUCT_NAME@@ Entitlement Certificate has been uploaded to @@PRODUCT_NAME@@ and correctly identifies the target channels.
-</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/software/channel/downloads/Download.do</context>
-		  <context context-type="paramnotes">Below are all the channel content ISOs available for use with channel @@PRODUCT_NAME@@ (v4.1 for AS v4 x86)...</context>
-        </context-group>
-      <target>
- Vous trouverez ci-dessous tous les ISO de contenus de canaux de logiciels disponibles sur le canal {0}.  Si un ISO de contenu de canal semble manquer ci-dessous, veuillez vous assurer que votre certificat de droit d'accès @@PRODUCT_NAME@@ a été téléchargé dans @@ PRODUCT_NAME @@ et qu'il identifie correctement les canaux cible.
-</target></trans-unit>
       <trans-unit id="isodownload.channel-dump-descr2">
 <source>
 There are two types of channel content ISOs: Base Channel Content ISOs and Incremental Channel Content ISOs.
