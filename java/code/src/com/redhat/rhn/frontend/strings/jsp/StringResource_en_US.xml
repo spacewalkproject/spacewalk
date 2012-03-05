@@ -20592,9 +20592,6 @@ given channel.</source>
      <trans-unit id="task.status.sync-probe-state">
          <source>Sync Probe State</source>
      </trans-unit>
-     <trans-unit id="task.status.clear-log-history">
-         <source>Clean Log History</source>
-     </trans-unit>
      <trans-unit id="task.status.cobbler-sync">
          <source>Cobbler Sync</source>
      </trans-unit>
