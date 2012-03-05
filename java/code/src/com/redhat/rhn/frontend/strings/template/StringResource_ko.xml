@@ -202,9 +202,6 @@ Thank you for using @@PRODUCT_NAME@@.
 
 @@PRODUCT_NAME@@를 사용해주셔서 감사합니다.
 {2} </target></trans-unit>
-      <trans-unit id="email.user.deleted.subject">
-         <source>@@PRODUCT_NAME@@ Account Deactivated: {0}</source>
-      <target>@@PRODUCT_NAME@@ 계정이 비활성화되었습니다: {0}</target></trans-unit>
 
 
 

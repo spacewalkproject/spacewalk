@@ -202,9 +202,6 @@ Thank you for using @@PRODUCT_NAME@@.
 
 感谢您使用 @@PRODUCT_NAME@@。
 {2}</target></trans-unit>
-      <trans-unit id="email.user.deleted.subject">
-         <source>@@PRODUCT_NAME@@ Account Deactivated: {0}</source>
-      <target>@@PRODUCT_NAME@@ 帐户被取消激活：{0}</target></trans-unit>
 
 
 

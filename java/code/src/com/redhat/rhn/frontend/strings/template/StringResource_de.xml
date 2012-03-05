@@ -202,9 +202,6 @@ besuchen Sie bitte:
 
 Vielen Dank, dass Sie @@PRODUCT_NAME@@ verwenden.
 {2}</target></trans-unit>
-      <trans-unit id="email.user.deleted.subject">
-         <source>@@PRODUCT_NAME@@ Account Deactivated: {0}</source>
-      <target>@@PRODUCT_NAME@@ Account deaktiviert: {0}</target></trans-unit>
 
 
 

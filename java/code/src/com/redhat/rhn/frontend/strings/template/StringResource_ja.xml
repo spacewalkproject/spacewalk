@@ -202,9 +202,6 @@ Thank you for using @@PRODUCT_NAME@@.
 
 @@PRODUCT_NAME@@ をご利用頂きありがとうございます。
 {2}</target></trans-unit>
-      <trans-unit id="email.user.deleted.subject">
-         <source>@@PRODUCT_NAME@@ Account Deactivated: {0}</source>
-      <target>@@PRODUCT_NAME@@ アカウントが無効になりました: {0}</target></trans-unit>
 
 
 

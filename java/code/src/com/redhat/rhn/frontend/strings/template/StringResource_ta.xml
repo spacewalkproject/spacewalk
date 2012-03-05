@@ -202,9 +202,6 @@ Thank you for using @@PRODUCT_NAME@@.
 
 @@PRODUCT_NAME@@ஐ பயன்படுத்தியதற்காக நன்றி.
 {2}</target></trans-unit>
-      <trans-unit id="email.user.deleted.subject">
-         <source>@@PRODUCT_NAME@@ Account Deactivated: {0}</source>
-      <target>@@PRODUCT_NAME@@ கணக்கு செயலிழக்கப்பட்டது: {0}</target></trans-unit>
 
 
 

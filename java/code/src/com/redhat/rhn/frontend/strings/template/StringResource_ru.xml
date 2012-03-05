@@ -202,9 +202,6 @@ Thank you for using @@PRODUCT_NAME@@.
 
 Благодарим за выбор @@PRODUCT_NAME@@.
 {2}</target></trans-unit>
-      <trans-unit id="email.user.deleted.subject">
-         <source>@@PRODUCT_NAME@@ Account Deactivated: {0}</source>
-      <target>Учетная запись @@PRODUCT_NAME@@ деактивирована: {0}</target></trans-unit>
 
 
 

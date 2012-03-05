@@ -202,9 +202,6 @@ Thank you for using @@PRODUCT_NAME@@.
 
 @@PRODUCT_NAME@@ ਦੀ ਵਰਤੋਂ ਕਰਨ ਲਈ ਸ਼ੁਕਰੀਆ।
 {2}</target></trans-unit>
-      <trans-unit id="email.user.deleted.subject">
-         <source>@@PRODUCT_NAME@@ Account Deactivated: {0}</source>
-      <target>@@PRODUCT_NAME@@ ਖਾਤਾ ਨਾ-ਸਰਗਰਮ: {0}</target></trans-unit>
 
 
 

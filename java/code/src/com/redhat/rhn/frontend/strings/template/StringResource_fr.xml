@@ -202,9 +202,6 @@ Pour afficher tous utilisateurs actifs et les logins Red Hat associés
 
 Nous vous remercions d'utiliser @@PRODUCT_NAME@@.
 {2}</target></trans-unit>
-      <trans-unit id="email.user.deleted.subject">
-         <source>@@PRODUCT_NAME@@ Account Deactivated: {0}</source>
-      <target>Compte @@PRODUCT_NAME@@ désactivé : {0}</target></trans-unit>
 
 
 
