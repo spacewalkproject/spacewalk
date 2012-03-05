@@ -433,12 +433,6 @@ http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd"
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="Developer's Area">
-<source>Developer's Area</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="digits">
 <source>0 1 2 3 4 5 6 7 8 9</source>
         <context-group name="ctx">
