@@ -19007,13 +19007,6 @@ as organizações (excluindo a organização do @@PRODUCT_NAME@@ padrão) neste 
           <context context-type="paramnotes">4 systems subscribed</context>
         </context-group>
       <target>{0}sistema registrado</target></trans-unit>
-	  <trans-unit id="ssmchildsubs.jsp.successfulSubs">
-        <source>There were {0} successful channel-subscribe actions.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channel/ssm/ChildSubscriptions.do</context>
-          <context context-type="paramnotes">There were 42 successful channel-subscriptions.</context>
-        </context-group>
-      <target>Houveram {0} ações de subscrição de canal bem sucedidas. </target></trans-unit>
 	  <trans-unit id="ssmchildsubs.jsp.successfulUnsubs">
         <source>There were {0} successful unsubscribe actions.</source>
         <context-group name="ctx">

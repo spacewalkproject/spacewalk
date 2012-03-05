@@ -19014,13 +19014,6 @@ en este  @@PRODUCT_NAME@@. No es igual al total disponible en el certificado del
           <context context-type="paramnotes">4 systems subscribed</context>
         </context-group>
       <target>{0} sistemas suscritos</target></trans-unit>
-	  <trans-unit id="ssmchildsubs.jsp.successfulSubs">
-        <source>There were {0} successful channel-subscribe actions.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channel/ssm/ChildSubscriptions.do</context>
-          <context context-type="paramnotes">There were 42 successful channel-subscriptions.</context>
-        </context-group>
-      <target>Hubo {0} acciones de suscripción de canal satisfactorias.</target></trans-unit>
 	  <trans-unit id="ssmchildsubs.jsp.successfulUnsubs">
         <source>There were {0} successful unsubscribe actions.</source>
         <context-group name="ctx">
