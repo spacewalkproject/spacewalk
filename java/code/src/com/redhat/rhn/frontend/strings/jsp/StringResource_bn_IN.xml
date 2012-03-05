@@ -19436,12 +19436,6 @@ Alternatively, you will want to download &lt;strong&gt;Incremental Channel Conte
         </context-group>
       <target>সক্রিয় গেস্ট সিস্টেমের সর্বমোট সংখ্যা</target></trans-unit>
 
-      <trans-unit id="guestslimited.jsp.exceeding">
-<source>Guests Exceeding Limit</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
-        </context-group>
-      <target>গেস্ট সংখ্যা সীমা অতিক্রম করছে</target></trans-unit>
 
       <trans-unit id="physicalhosts.jsp.guestsystem">
 <source>Guest System</source>

@@ -19429,12 +19429,6 @@ Alternatively, you will want to download &lt;strong&gt;Incremental Channel Conte
         </context-group>
       <target>활성화된 모든 게스트</target></trans-unit>
 
-      <trans-unit id="guestslimited.jsp.exceeding">
-<source>Guests Exceeding Limit</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
-        </context-group>
-      <target>제한을 초과하는 게스트</target></trans-unit>
 
       <trans-unit id="physicalhosts.jsp.guestsystem">
 <source>Guest System</source>

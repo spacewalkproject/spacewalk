@@ -19513,12 +19513,6 @@ Sinon, vous téléchargerez &lt;strong&gt;Incremental Channel Content ISO&lt;/st
         </context-group>
       <target>Nombre total d'invités actifs</target></trans-unit>
 
-      <trans-unit id="guestslimited.jsp.exceeding">
-<source>Guests Exceeding Limit</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
-        </context-group>
-      <target>Invités excédant la limite</target></trans-unit>
 
       <trans-unit id="physicalhosts.jsp.guestsystem">
 <source>Guest System</source>

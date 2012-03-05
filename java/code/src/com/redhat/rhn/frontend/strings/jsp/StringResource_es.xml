@@ -19514,12 +19514,6 @@ Opcionalmente descargue los &lt;strong&gt;ISOs de contenido de canal de incremen
         </context-group>
       <target>Huéspedes activos en total</target></trans-unit>
 
-      <trans-unit id="guestslimited.jsp.exceeding">
-<source>Guests Exceeding Limit</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
-        </context-group>
-      <target>Huéspedes que exceden el límite</target></trans-unit>
 
       <trans-unit id="physicalhosts.jsp.guestsystem">
 <source>Guest System</source>

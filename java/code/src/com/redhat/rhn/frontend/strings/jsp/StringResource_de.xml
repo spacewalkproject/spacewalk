@@ -19517,12 +19517,6 @@ Alternativ sollten Sie &lt;strong&gt;Inkrementelle Channel-Inhalt-ISOs&lt;/stron
         </context-group>
       <target>Aktive G&amp;auml;ste insgesamt</target></trans-unit>
 
-      <trans-unit id="guestslimited.jsp.exceeding">
-<source>Guests Exceeding Limit</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
-        </context-group>
-      <target>G&amp;auml;ste Limit&amp;uuml;berschreitung</target></trans-unit>
 
       <trans-unit id="physicalhosts.jsp.guestsystem">
 <source>Guest System</source>
