@@ -12982,12 +12982,6 @@ el &lt;strong&gt;Manual de administración del sistema Red Hat Enterprise Linux.
         </context-group>
      <target>No hay sistemas suscritos</target></trans-unit>
 
-      <trans-unit id="channelOverview.jsp.submitEdit">
-<source>Edit Config Channel</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/ChannelOverview.do</context>
-        </context-group>
-     <target>Editar canal de configuración</target></trans-unit>
       <trans-unit id="channelOverview.jsp.submitCreate">
 <source>Create Config Channel</source>
         <context-group name="ctx">

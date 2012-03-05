@@ -12969,12 +12969,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         </context-group>
      <target>கணினிகள் எதுவும் சந்தாப்படுத்தப்படவில்லை</target></trans-unit>
 
-      <trans-unit id="channelOverview.jsp.submitEdit">
-<source>Edit Config Channel</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/ChannelOverview.do</context>
-        </context-group>
-     <target>கட்டமைப்பு தடத்தை திருத்தவும்</target></trans-unit>
       <trans-unit id="channelOverview.jsp.submitCreate">
 <source>Create Config Channel</source>
         <context-group name="ctx">

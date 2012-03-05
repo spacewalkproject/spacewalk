@@ -12969,12 +12969,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         </context-group>
      <target>कोई सिस्टम सदस्यता नहीं लिया गया</target></trans-unit>
 
-      <trans-unit id="channelOverview.jsp.submitEdit">
-<source>Edit Config Channel</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/ChannelOverview.do</context>
-        </context-group>
-     <target>विन्यास चैनल संपादित करें</target></trans-unit>
       <trans-unit id="channelOverview.jsp.submitCreate">
 <source>Create Config Channel</source>
         <context-group name="ctx">

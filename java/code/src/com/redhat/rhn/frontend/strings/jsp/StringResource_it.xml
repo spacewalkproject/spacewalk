@@ -12966,12 +12966,6 @@ la &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stron
         </context-group>
      <target>Nessun sistema sottoscritto</target></trans-unit>
 
-      <trans-unit id="channelOverview.jsp.submitEdit">
-<source>Edit Config Channel</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/ChannelOverview.do</context>
-        </context-group>
-     <target>Modifica Canale di configurazione</target></trans-unit>
       <trans-unit id="channelOverview.jsp.submitCreate">
 <source>Create Config Channel</source>
         <context-group name="ctx">

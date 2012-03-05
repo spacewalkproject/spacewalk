@@ -12965,12 +12965,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         </context-group>
      <target>無訂閱的系統</target></trans-unit>
 
-      <trans-unit id="channelOverview.jsp.submitEdit">
-<source>Edit Config Channel</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/ChannelOverview.do</context>
-        </context-group>
-     <target>編輯配置頻道</target></trans-unit>
       <trans-unit id="channelOverview.jsp.submitCreate">
 <source>Create Config Channel</source>
         <context-group name="ctx">

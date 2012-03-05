@@ -12984,12 +12984,6 @@ Le script post non-chroot sera ensuite exécuté et le script post sera enfin ex
         </context-group>
      <target>Aucun système abonné</target></trans-unit>
 
-      <trans-unit id="channelOverview.jsp.submitEdit">
-<source>Edit Config Channel</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/ChannelOverview.do</context>
-        </context-group>
-     <target>Éditer le canal de configuration</target></trans-unit>
       <trans-unit id="channelOverview.jsp.submitCreate">
 <source>Create Config Channel</source>
         <context-group name="ctx">
