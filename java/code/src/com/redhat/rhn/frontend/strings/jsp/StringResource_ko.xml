@@ -919,12 +919,6 @@
 		 </context-group>
 	<target>시스템 그룹</target></trans-unit>
 
-	<trans-unit id="preferences.system-groups-widget.description">
-         <source> Preview the overall status of your system groups.</source>
-		 <context-group name="ctx">
-		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
-		 </context-group>
-	<target> 시스템 그룹의 전체 상태 미리 보기 </target></trans-unit>
 
 
 

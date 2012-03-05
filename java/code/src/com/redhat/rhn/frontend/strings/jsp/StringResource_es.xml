@@ -919,12 +919,6 @@
 		 </context-group>
 	<target>Grupos de sistemas</target></trans-unit>
 
-	<trans-unit id="preferences.system-groups-widget.description">
-         <source> Preview the overall status of your system groups.</source>
-		 <context-group name="ctx">
-		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
-		 </context-group>
-	<target>Resumen del estado general de sus grupos de sistemas.</target></trans-unit>
 
 
 

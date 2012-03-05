@@ -919,12 +919,6 @@
 		 </context-group>
 	<target>સિસ્ટમ જૂથો</target></trans-unit>
 
-	<trans-unit id="preferences.system-groups-widget.description">
-         <source> Preview the overall status of your system groups.</source>
-		 <context-group name="ctx">
-		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
-		 </context-group>
-	<target> તમારા સિસ્ટમ જૂથોની સંપૂર્ણ પરિસ્થિતિનું પૂર્વદર્શન.</target></trans-unit>
 
 
 

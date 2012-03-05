@@ -919,12 +919,6 @@
 		 </context-group>
 	<target>கணினி குழுக்கள்</target></trans-unit>
 
-	<trans-unit id="preferences.system-groups-widget.description">
-         <source> Preview the overall status of your system groups.</source>
-		 <context-group name="ctx">
-		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
-		 </context-group>
-	<target>உங்கள் கணினி குழுக்களின் முழு நிலையையும் முன்பார்வை செய்யவும்.</target></trans-unit>
 
 
 
