@@ -18616,16 +18616,6 @@ mindestens 12 Stunden, bzw. so bald wie m&amp;ouml;glich im Voraus zu informiere
           <context context-type="sourcefile">outage-policy.jsp</context>
         </context-group>
       <target>Notfallwartung</target></trans-unit>
-      <trans-unit id="outage-policy.jsp.emergency">
-<source>When failing equipment or any other critical issue forces an outage,
-Red Hat will open a trouble ticket on the outage and contact all users
-on the email outage list as soon as possible.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">outage-policy.jsp</context>
-        </context-group>
-      <target>Wenn Hardwareausfall oder irgendein anderes kritisches Problem einen Ausfall
-erzwingt, informiert Red Hat via Trouble-Ticket &amp;uuml;ber den Ausfall und kontaktiert
-alle Benutzer der E-Mail-Ausfall-Liste so schnell wie m&amp;ouml;glich.</target></trans-unit>
 
       <trans-unit id="outage-policy.jsp.notification-header">
 <source>Outage Notifications</source>

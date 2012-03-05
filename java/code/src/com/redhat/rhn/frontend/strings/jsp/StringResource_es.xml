@@ -18613,17 +18613,6 @@ Network intentará notificar otra vez a través de la lista de correo-e de inter
           <context context-type="sourcefile">outage-policy.jsp</context>
         </context-group>
       <target>Mantenimiento de emergencia</target></trans-unit>
-      <trans-unit id="outage-policy.jsp.emergency">
-<source>When failing equipment or any other critical issue forces an outage,
-Red Hat will open a trouble ticket on the outage and contact all users
-on the email outage list as soon as possible.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">outage-policy.jsp</context>
-        </context-group>
-      <target>Cuando el equipo falla u ocurre otro error grave que obligue la realización
-de un racionamiento, Red Hat abrirá un tiquete sobre el problema y contactará
-a todos los usuarios en la lista de correos de racionamientos tan pronto como
-sea posible.</target></trans-unit>
 
       <trans-unit id="outage-policy.jsp.notification-header">
 <source>Outage Notifications</source>

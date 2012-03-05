@@ -18561,16 +18561,6 @@ Network अधिसूचना का प्रयास करेगा, फ�
           <context context-type="sourcefile">outage-policy.jsp</context>
         </context-group>
       <target>आकस्मिक अनुरक्षण</target></trans-unit>
-      <trans-unit id="outage-policy.jsp.emergency">
-<source>When failing equipment or any other critical issue forces an outage,
-Red Hat will open a trouble ticket on the outage and contact all users
-on the email outage list as soon as possible.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">outage-policy.jsp</context>
-        </context-group>
-      <target>जब विफल औजार या कोई अन्य गंभीर मुद्दा आउटेज के लिये बाध्य करता है,
-Red Hat एक समस्या टिकट खोलेगा आउटेज पर और सारे उपयोक्ता से
-ईमेल आउटेज सूची पर संपर्क करेगा.</target></trans-unit>
 
       <trans-unit id="outage-policy.jsp.notification-header">
 <source>Outage Notifications</source>

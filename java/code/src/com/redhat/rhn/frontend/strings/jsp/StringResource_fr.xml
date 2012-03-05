@@ -18614,16 +18614,6 @@ heures avant ou aussi rapidement que possible.</target></trans-unit>
           <context context-type="sourcefile">outage-policy.jsp</context>
         </context-group>
       <target>Maintenance d'urgence</target></trans-unit>
-      <trans-unit id="outage-policy.jsp.emergency">
-<source>When failing equipment or any other critical issue forces an outage,
-Red Hat will open a trouble ticket on the outage and contact all users
-on the email outage list as soon as possible.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">outage-policy.jsp</context>
-        </context-group>
-      <target>Lorsqu'un échec de matériel ou tout autre problème critique provoque une défaillance,
-Red Hat ouvre un ticket "problème" sur cette défaillance et contacte tous les utilisateurs
-de la liste électronique de défaillance, dès que possible.</target></trans-unit>
 
       <trans-unit id="outage-policy.jsp.notification-header">
 <source>Outage Notifications</source>

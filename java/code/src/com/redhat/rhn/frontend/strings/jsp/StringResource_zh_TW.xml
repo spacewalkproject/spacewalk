@@ -18553,15 +18553,6 @@ unscheduled maintenance.</source>
           <context context-type="sourcefile">outage-policy.jsp</context>
         </context-group>
       <target>緊急維護</target></trans-unit>
-      <trans-unit id="outage-policy.jsp.emergency">
-<source>When failing equipment or any other critical issue forces an outage,
-Red Hat will open a trouble ticket on the outage and contact all users
-on the email outage list as soon as possible.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">outage-policy.jsp</context>
-        </context-group>
-      <target>當裝備問題或其他重大事故發生，導致必須停機時，Red Hat 會紀錄、追蹤此項停機事
-件，並立即透過停機電子郵件清單，與所有使用者聯絡。</target></trans-unit>
 
       <trans-unit id="outage-policy.jsp.notification-header">
 <source>Outage Notifications</source>

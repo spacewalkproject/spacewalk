@@ -18593,16 +18593,6 @@ Network は、 Email を通じて運用停止リスト(下記)を、スケジュ
           <context context-type="sourcefile">outage-policy.jsp</context>
         </context-group>
       <target>緊急メンテナンス</target></trans-unit>
-      <trans-unit id="outage-policy.jsp.emergency">
-<source>When failing equipment or any other critical issue forces an outage,
-Red Hat will open a trouble ticket on the outage and contact all users
-on the email outage list as soon as possible.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">outage-policy.jsp</context>
-        </context-group>
-      <target>器機が故障したり、他の重大な問題が運用停止を強要する場合には、Red Hat は運用停止に関する
-問題チケット(記録簿)を開き、可能な限り早急に Email の運用停止リスト上のお客様に
-連絡をします。</target></trans-unit>
 
       <trans-unit id="outage-policy.jsp.notification-header">
 <source>Outage Notifications</source>

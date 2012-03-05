@@ -18607,17 +18607,6 @@ ou assim que possível antes da manutenção não programada.</target></trans-un
           <context context-type="sourcefile">outage-policy.jsp</context>
         </context-group>
       <target>Manutenção Emergencial</target></trans-unit>
-      <trans-unit id="outage-policy.jsp.emergency">
-<source>When failing equipment or any other critical issue forces an outage,
-Red Hat will open a trouble ticket on the outage and contact all users
-on the email outage list as soon as possible.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">outage-policy.jsp</context>
-        </context-group>
-      <target>Quando uma falha de equipamento ou quaisquer outras questões de
-caráter crítico forçarem uma indisponibilidade, a Red Hat emitirá um
-comunicado sobre a indisponibilidade e contatará todos os usuários na
-lista de e-mails de indisponibilidades assim que possível.</target></trans-unit>
 
       <trans-unit id="outage-policy.jsp.notification-header">
 <source>Outage Notifications</source>

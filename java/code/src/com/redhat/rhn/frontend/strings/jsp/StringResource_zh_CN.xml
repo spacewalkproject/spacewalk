@@ -18608,16 +18608,6 @@ unscheduled maintenance.</source>
           <context context-type="sourcefile">outage-policy.jsp</context>
         </context-group>
       <target>紧急维护</target></trans-unit>
-      <trans-unit id="outage-policy.jsp.emergency">
-<source>When failing equipment or any other critical issue forces an outage,
-Red Hat will open a trouble ticket on the outage and contact all users
-on the email outage list as soon as possible.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">outage-policy.jsp</context>
-        </context-group>
-      <target>如果因为紧急的情况倒置红帽网络停止服务，
-红帽会开启一个文体记录并会尽早通过
-电子邮件通知用户。</target></trans-unit>
 
       <trans-unit id="outage-policy.jsp.notification-header">
 <source>Outage Notifications</source>

@@ -18554,16 +18554,6 @@ Red Hat будет предупреждать о выполнении работ
           <context context-type="sourcefile">outage-policy.jsp</context>
         </context-group>
       <target>Экстренные работы</target></trans-unit>
-      <trans-unit id="outage-policy.jsp.emergency">
-<source>When failing equipment or any other critical issue forces an outage,
-Red Hat will open a trouble ticket on the outage and contact all users
-on the email outage list as soon as possible.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">outage-policy.jsp</context>
-        </context-group>
-      <target>В критических случаях (сбой оборудования и пр.), приводящих
-к вынужденному перерыву в работе Red Hat Network, будет создан
-специальный отчет в списке профилактики.</target></trans-unit>
 
       <trans-unit id="outage-policy.jsp.notification-header">
 <source>Outage Notifications</source>

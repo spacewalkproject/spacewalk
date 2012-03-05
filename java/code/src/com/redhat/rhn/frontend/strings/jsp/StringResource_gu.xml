@@ -18561,16 +18561,6 @@ Network સૂચન કરશે, ફરીથી ઈમેઈલ આઉટે�
           <context context-type="sourcefile">outage-policy.jsp</context>
         </context-group>
       <target>તાત્કાલિક જાળવણી</target></trans-unit>
-      <trans-unit id="outage-policy.jsp.emergency">
-<source>When failing equipment or any other critical issue forces an outage,
-Red Hat will open a trouble ticket on the outage and contact all users
-on the email outage list as soon as possible.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">outage-policy.jsp</context>
-        </context-group>
-      <target>જ્યારે સાધન નિષ્ફળ જાય અથવા અન્ય જટિલ મુદ્દો આઉટેજ માટે દબાણ કરે,
-ત્યારે Red Hat આઉટેજ પર મુશ્કેલ ટિકીટ ખોલશે અને બધા વપરાશકર્તાઓને
-ઈમેઈલ આઉટેજ યાદી પર શક્ય તેટલું જલદી સંપર્ક કરશે.</target></trans-unit>
 
       <trans-unit id="outage-policy.jsp.notification-header">
 <source>Outage Notifications</source>

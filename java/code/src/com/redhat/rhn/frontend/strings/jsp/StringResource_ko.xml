@@ -18552,16 +18552,6 @@ Red Hat Network는 Email Outage List (아래 참조) 메일링 리스트를 통�
           <context context-type="sourcefile">outage-policy.jsp</context>
         </context-group>
       <target>긴급 보수</target></trans-unit>
-      <trans-unit id="outage-policy.jsp.emergency">
-<source>When failing equipment or any other critical issue forces an outage,
-Red Hat will open a trouble ticket on the outage and contact all users
-on the email outage list as soon as possible.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">outage-policy.jsp</context>
-        </context-group>
-      <target>도구 사용을 실패하거나 기타 다른 치명적인 사항으로 서비스가 중지되었을 때,
-Red Hat은 장애 티켓 (trouble ticket)을 발행하여 가능한 빨리 Email Outage List
-메일링 리스트에 있는 모든 사용자에게 연락합니다.</target></trans-unit>
 
       <trans-unit id="outage-policy.jsp.notification-header">
 <source>Outage Notifications</source>

@@ -18560,16 +18560,6 @@ unscheduled maintenance.</source>
           <context context-type="sourcefile">outage-policy.jsp</context>
         </context-group>
       <target>ਐਂਮਰਜੈਂਸੀ ਪਰਬੰਧਨ</target></trans-unit>
-      <trans-unit id="outage-policy.jsp.emergency">
-<source>When failing equipment or any other critical issue forces an outage,
-Red Hat will open a trouble ticket on the outage and contact all users
-on the email outage list as soon as possible.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">outage-policy.jsp</context>
-        </context-group>
-      <target>ਜਦੋਂ ਜੰਤਰ ਫੇਲ ਹੋ ਜਾਂਦਾ ਹੈ ਜਾਂ ਕੋਈ ਹੋਰ ਜਰੂਰੀ ਮੁੱਦਾ ਆਊਟੇਜ ਕਰ ਰਿਹਾ ਹੈ,
-Red Hat ਆਊਟੇਜ ਉੱਪਰ ਸਮੱਸਿਆ ਟਿਕਟ ਖੋਲੇਗਾ ਅਤੇ ਜਲਦੀ ਤੋਂ ਜਲਦੀ
-ਈ-ਮੇਲ ਆਊਟੇਜ ਸੂਚੀ ਉੱਪਰ ਸਭ ਉਪਭੋਗੀਆਂ ਨਾਲ ਸੰਪਰਕ ਕਰੋ।</target></trans-unit>
 
       <trans-unit id="outage-policy.jsp.notification-header">
 <source>Outage Notifications</source>

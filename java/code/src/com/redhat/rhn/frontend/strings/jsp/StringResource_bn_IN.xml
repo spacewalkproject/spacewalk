@@ -18559,16 +18559,6 @@ Network দ্বারা ই-মেইল আউট-এজ লিস্টে�
           <context context-type="sourcefile">outage-policy.jsp</context>
         </context-group>
       <target>আপতকালীণ রক্ষণাবেক্ষণ কর্ম</target></trans-unit>
-      <trans-unit id="outage-policy.jsp.emergency">
-<source>When failing equipment or any other critical issue forces an outage,
-Red Hat will open a trouble ticket on the outage and contact all users
-on the email outage list as soon as possible.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">outage-policy.jsp</context>
-        </context-group>
-      <target>বিপর্যস্ত হার্ডওয়্যার অথবা অন্যা গুরুতর সমস্যার জন্য বাধ্যতামূলকরূপে কর্ম-অবকাশ ঘটলে
-Red Hat-র পক্ষ থেকে একটি সমস্যা জনীত টিকেট অর্থাৎ একটি ট্রাবল-টিকেট খোলা হবে
-ও যথাশীঘ্র সম্ভব সমস্ত ব্যবহারকারীদেরকে ই-মেইল আউট-এজ লিস্টের মাধ্যমে সূচনা প্রদান করা হবে।</target></trans-unit>
 
       <trans-unit id="outage-policy.jsp.notification-header">
 <source>Outage Notifications</source>
