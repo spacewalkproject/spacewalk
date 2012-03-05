@@ -5505,9 +5505,6 @@ für diese Berechtigung, mit Ausnahme des Verbrauchs der Standardorganisation.</
                 <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) set to &lt;strong&gt;Monitoring&lt;/strong&gt;.</source>
         <target>&lt;strong&gt;{0}&lt;/strong&gt; System(e) eingestellt auf &lt;strong&gt;Monitoring&lt;/strong&gt;.</target></trans-unit>
 
-        <trans-unit id="system_entitlements.monitoring.removed.success">
-                <source>Removed &lt;strong&gt;Monitoring&lt;/strong&gt; from &lt;strong&gt;{0}&lt;/strong&gt; system(s).</source>
-        <target>&lt;strong&gt;Monitoring&lt;/strong&gt; von &lt;strong&gt;{0}&lt;/strong&gt; System(en) entfernt.</target></trans-unit>
 
 
         <trans-unit id="system_entitlements.virtualization.setup_error">

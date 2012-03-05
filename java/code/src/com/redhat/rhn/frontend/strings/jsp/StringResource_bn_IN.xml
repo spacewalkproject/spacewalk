@@ -5502,9 +5502,6 @@ value for this entitlement, excluding the default organization's consumption.</s
                 <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) set to &lt;strong&gt;Monitoring&lt;/strong&gt;.</source>
         <target>&lt;strong&gt;{0}&lt;/strong&gt;-টি সিস্টেম &lt;strong&gt;Monitoring&lt;/strong&gt; হিসাবে নির্ধারিত।</target></trans-unit>
 
-        <trans-unit id="system_entitlements.monitoring.removed.success">
-                <source>Removed &lt;strong&gt;Monitoring&lt;/strong&gt; from &lt;strong&gt;{0}&lt;/strong&gt; system(s).</source>
-        <target>&lt;strong&gt;{0}&lt;/strong&gt; সিস্টেম থেকে &lt;strong&gt;Monitoring&lt;/strong&gt; মুছে ফেলা হয়েছে।</target></trans-unit>
 
 
         <trans-unit id="system_entitlements.virtualization.setup_error">

@@ -5497,9 +5497,6 @@ value for this entitlement, excluding the default organization's consumption.</s
                 <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) set to &lt;strong&gt;Monitoring&lt;/strong&gt;.</source>
         <target>&lt;strong&gt;{0}&lt;/strong&gt; システムが &lt;strong&gt;Monitoring&lt;/strong&gt; に設定されています。</target></trans-unit>
 
-        <trans-unit id="system_entitlements.monitoring.removed.success">
-                <source>Removed &lt;strong&gt;Monitoring&lt;/strong&gt; from &lt;strong&gt;{0}&lt;/strong&gt; system(s).</source>
-        <target>&lt;strong&gt;{0}&lt;/strong&gt; システムから &lt;strong&gt;Monitoring&lt;/strong&gt; が削除されました。</target></trans-unit>
 
 
         <trans-unit id="system_entitlements.virtualization.setup_error">

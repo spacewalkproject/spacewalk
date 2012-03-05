@@ -5504,9 +5504,6 @@ pour ce droit d'accès, moins la consommation par défaut de l'organisation.</ta
                 <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) set to &lt;strong&gt;Monitoring&lt;/strong&gt;.</source>
         <target>&lt;strong&gt;{0}&lt;/strong&gt; système(s) ayant droit à &lt;strong&gt;Monitoring&lt;/strong&gt;.</target></trans-unit>
 
-        <trans-unit id="system_entitlements.monitoring.removed.success">
-                <source>Removed &lt;strong&gt;Monitoring&lt;/strong&gt; from &lt;strong&gt;{0}&lt;/strong&gt; system(s).</source>
-        <target>&lt;strong&gt;Monitoring&lt;/strong&gt; supprimé du/des système(s) &lt;strong&gt;{0}&lt;/strong&gt;.</target></trans-unit>
 
 
         <trans-unit id="system_entitlements.virtualization.setup_error">

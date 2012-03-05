@@ -5498,9 +5498,6 @@ value for this entitlement, excluding the default organization's consumption.</s
                 <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) set to &lt;strong&gt;Monitoring&lt;/strong&gt;.</source>
         <target>&lt;strong&gt;{0}&lt;/strong&gt; 台系統已經設定為&lt;strong&gt;監控&lt;/strong&gt;權利。</target></trans-unit>
 
-        <trans-unit id="system_entitlements.monitoring.removed.success">
-                <source>Removed &lt;strong&gt;Monitoring&lt;/strong&gt; from &lt;strong&gt;{0}&lt;/strong&gt; system(s).</source>
-        <target>已移除 &lt;strong&gt;{0}&lt;/strong&gt; 台系統的&lt;strong&gt;監控&lt;/strong&gt;權利。</target></trans-unit>
 
 
         <trans-unit id="system_entitlements.virtualization.setup_error">

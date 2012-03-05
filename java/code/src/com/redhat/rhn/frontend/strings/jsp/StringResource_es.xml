@@ -5503,9 +5503,6 @@ para este derecho, excluyendo el consumo de la organización predeterminada.</ta
                 <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) set to &lt;strong&gt;Monitoring&lt;/strong&gt;.</source>
         <target>&lt;strong&gt;{0}&lt;/strong&gt; sistema(s) establecidos en el servicio de &lt;strong&gt;monitorización&lt;/strong&gt;.</target></trans-unit>
 
-        <trans-unit id="system_entitlements.monitoring.removed.success">
-                <source>Removed &lt;strong&gt;Monitoring&lt;/strong&gt; from &lt;strong&gt;{0}&lt;/strong&gt; system(s).</source>
-        <target>Servicio de &lt;strong&gt;monitorización&lt;/strong&gt; removido de &lt;strong&gt;{0}&lt;/strong&gt; sistema(s).</target></trans-unit>
 
 
         <trans-unit id="system_entitlements.virtualization.setup_error">
