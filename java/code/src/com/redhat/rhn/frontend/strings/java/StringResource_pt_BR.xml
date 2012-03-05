@@ -5899,12 +5899,6 @@ user before attempting to deactivate their account.</source>
 
 
 
-    <trans-unit id="certificate.config.error.80">
-        <source>No management entitlements remaining</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-      <target>Nenhum atributo de administração remanescente</target></trans-unit>
 
     <trans-unit id="certificate.config.error.82">
         <source>@@PRODUCT_NAME@@ channel not found</source>

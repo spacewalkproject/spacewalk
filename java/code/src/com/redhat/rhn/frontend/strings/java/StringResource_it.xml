@@ -5911,12 +5911,6 @@ utente prima di disabilitare l'account in questione.</target></trans-unit>
 
 
 
-    <trans-unit id="certificate.config.error.80">
-        <source>No management entitlements remaining</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-      <target>Nessun entitlement di Management presente</target></trans-unit>
 
     <trans-unit id="certificate.config.error.82">
         <source>@@PRODUCT_NAME@@ channel not found</source>

@@ -5918,12 +5918,6 @@ Benutzers vor dem Versuch, den Account zu deaktivieren.</target></trans-unit>
 
 
 
-    <trans-unit id="certificate.config.error.80">
-        <source>No management entitlements remaining</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-      <target>Keine verbleibenden Management-Berechtigungen</target></trans-unit>
 
     <trans-unit id="certificate.config.error.82">
         <source>@@PRODUCT_NAME@@ channel not found</source>
