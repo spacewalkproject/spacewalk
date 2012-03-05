@@ -1482,12 +1482,6 @@ inmediatamente y usted &lt;b&gt;no podrá iniciar una sesión nuevamente&lt;/b&g
           <context context-type="sourcefile">/rhn/users/CreateUser</context>
         </context-group>
       <target>Campo obligatorio</target></trans-unit>
-      <trans-unit id="usercreate.contactMethod">
-<source>Contact Method</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/CreateUser</context>
-        </context-group>
-      <target>Método de contacto</target></trans-unit>
       <trans-unit id="usercreate.contactSummary">
 <source> I would like to receive information from Red Hat in the following ways. (Please note: you may receive email from all of Red Hat, not just regarding @@PRODUCT_NAME@@.) </source>
         <context-group name="ctx">

@@ -1482,12 +1482,6 @@ dr&amp;uuml;cken und &lt;b&gt;k&amp;ouml;nnen sich nicht wieder einloggen&lt;/b&
           <context context-type="sourcefile">/rhn/users/CreateUser</context>
         </context-group>
       <target>Pflichtfeld</target></trans-unit>
-      <trans-unit id="usercreate.contactMethod">
-<source>Contact Method</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/CreateUser</context>
-        </context-group>
-      <target>Kontaktmethode</target></trans-unit>
       <trans-unit id="usercreate.contactSummary">
 <source> I would like to receive information from Red Hat in the following ways. (Please note: you may receive email from all of Red Hat, not just regarding @@PRODUCT_NAME@@.) </source>
         <context-group name="ctx">
