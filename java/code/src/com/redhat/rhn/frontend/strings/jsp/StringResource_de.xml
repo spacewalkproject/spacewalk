@@ -14311,12 +14311,6 @@ Konfigurationschannel dieser Datei abonnieren, {2}; nachfolgend sehen Sie eine L
           <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
         </context-group>
      <target>Zus&amp;auml;tzliche Datei-Details</target></trans-unit>
-	<trans-unit id="filedetails.add_details.jspf.size-name">
-<source>File Size:</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
-        </context-group>
-     <target>Dateigr&amp;ouml;&amp;szlig;e:</target></trans-unit>
 	<trans-unit id="filedetails.add_details.jspf.md5">
 <source>MD5 Sum:</source>
         <context-group name="ctx">

@@ -14289,12 +14289,6 @@ centrally-managed configuration channel, {2}; below is a list of systems you may
           <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
         </context-group>
      <target>વધારાની ફાઈલ વિગતો</target></trans-unit>
-	<trans-unit id="filedetails.add_details.jspf.size-name">
-<source>File Size:</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
-        </context-group>
-     <target>ફાઈલ માપ:</target></trans-unit>
 	<trans-unit id="filedetails.add_details.jspf.md5">
 <source>MD5 Sum:</source>
         <context-group name="ctx">
