@@ -11694,9 +11694,6 @@ Anschlie&amp;szlig;end wird das nicht-chroot Post-Skript ausgef&amp;uuml;hrt, un
         <trans-unit id="targetsystems.jsp.orgadmin">
           <source>Requires organization administrator</source>
         <target>Erfordert den Organisationsadministrator.</target></trans-unit>
-        <trans-unit id="targetsystems.jsp.subscribetools">
-          <source>Subscribe to @@PRODUCT_NAME@@ Tools channel</source>
-        <target>@@PRODUCT_NAME@@ Tools-Channel abonnieren</target></trans-unit>
         <trans-unit id="targetsystems.jsp.pending">
           <source>Package installations currently pending.</source>
         <target>Derzeit ausstehende Paketinstallationen.</target></trans-unit>

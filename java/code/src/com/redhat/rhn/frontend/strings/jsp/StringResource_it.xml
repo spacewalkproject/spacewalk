@@ -11675,9 +11675,6 @@ la &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stron
         <trans-unit id="targetsystems.jsp.orgadmin">
           <source>Requires organization administrator</source>
         <target>Richiede uno stato di amministratore di organizzazione</target></trans-unit>
-        <trans-unit id="targetsystems.jsp.subscribetools">
-          <source>Subscribe to @@PRODUCT_NAME@@ Tools channel</source>
-        <target>Sottoscrivi al canale di @@PRODUCT_NAME@@ Tools</target></trans-unit>
         <trans-unit id="targetsystems.jsp.pending">
           <source>Package installations currently pending.</source>
         <target>Installazioni del pacchetto attualmente sospese.</target></trans-unit>

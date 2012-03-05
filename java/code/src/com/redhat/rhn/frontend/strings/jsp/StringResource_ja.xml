@@ -11676,9 +11676,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <trans-unit id="targetsystems.jsp.orgadmin">
           <source>Requires organization administrator</source>
         <target>Organization Administrator (組織管理者) の権限が必要です</target></trans-unit>
-        <trans-unit id="targetsystems.jsp.subscribetools">
-          <source>Subscribe to @@PRODUCT_NAME@@ Tools channel</source>
-        <target>@@PRODUCT_NAME@@ ツールチャンネルにサブスクライブ</target></trans-unit>
         <trans-unit id="targetsystems.jsp.pending">
           <source>Package installations currently pending.</source>
         <target>パッケージのインストールは現在、 待機中です。</target></trans-unit>
