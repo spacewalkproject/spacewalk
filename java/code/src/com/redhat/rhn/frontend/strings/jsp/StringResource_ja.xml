@@ -19273,16 +19273,6 @@ Emergency Maintenance windows.&lt;a href="{0}"&gt;Register for the Email Outage 
       <target>ソフトウェアチャンネル</target></trans-unit>
 
 		<!-- Supported ISOs -->
-      <trans-unit id="download.isotree.jsp.supported-instructions">
-<source>
-	The software channels listed below have ISO images available for all currently-supported products.
-</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/software/downloads/SupportedISOs.do</context>
-        </context-group>
-      <target>
-	以下にリストされたソフトウェアチャンネルでは、現在サポートされているすべての製品の ISO イメージが利用可能です。
-</target></trans-unit>
 		<!-- All ISOs -->
 		<!-- Retired ISOs -->
 

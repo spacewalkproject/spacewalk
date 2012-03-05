@@ -19242,14 +19242,6 @@ Red Hat vi terrà informati sui periodi di Gestione di Emergenza e non programma
       <target>Canale software</target></trans-unit>
 
 		<!-- Supported ISOs -->
-      <trans-unit id="download.isotree.jsp.supported-instructions">
-<source>
-	The software channels listed below have ISO images available for all currently-supported products.
-</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/software/downloads/SupportedISOs.do</context>
-        </context-group>
-      <target></target></trans-unit>
 		<!-- All ISOs -->
 		<!-- Retired ISOs -->
 

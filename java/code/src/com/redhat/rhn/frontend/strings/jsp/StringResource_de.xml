@@ -19301,16 +19301,6 @@ Notfall-Wartungsfenstern f&amp;uuml;r Benachrichtigungen verwendet.
       <target>Software-Channel</target></trans-unit>
 
 		<!-- Supported ISOs -->
-      <trans-unit id="download.isotree.jsp.supported-instructions">
-<source>
-	The software channels listed below have ISO images available for all currently-supported products.
-</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/software/downloads/SupportedISOs.do</context>
-        </context-group>
-      <target>
-	Die unten aufgeführten Software-Channels stellen ISO-Images für alle derzeit unterstützten Produkte bereit.
-</target></trans-unit>
 		<!-- All ISOs -->
 		<!-- Retired ISOs -->
 

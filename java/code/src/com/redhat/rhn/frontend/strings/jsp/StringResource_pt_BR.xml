@@ -19293,16 +19293,6 @@ pela Red Hat no caso de Períodos de Manutenção Não Programados ou
       <target>Canal de Software</target></trans-unit>
 
 		<!-- Supported ISOs -->
-      <trans-unit id="download.isotree.jsp.supported-instructions">
-<source>
-	The software channels listed below have ISO images available for all currently-supported products.
-</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/software/downloads/SupportedISOs.do</context>
-        </context-group>
-      <target>
-	Os canais do software listados abaixo possuem imagens ISO disponíveis para todos os produtos suportados no momento.
-</target></trans-unit>
 		<!-- All ISOs -->
 		<!-- Retired ISOs -->
 
