@@ -10708,9 +10708,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <source>Delete Snippet Confirmation</source>
     <target>স্নিপেট অপসারণের নিশ্চায়ন</target></trans-unit>
 
-   <trans-unit id="snippetdelete.jsp.header2">
-        <source>Deleting Snippet</source>
-    <target>স্নিপেট মুছে ফেলা হচ্ছে</target></trans-unit>
 
      <trans-unit id="snippetdelete.jsp.summary">
         <source>Are you sure you want to delete this snippet permanently?</source>

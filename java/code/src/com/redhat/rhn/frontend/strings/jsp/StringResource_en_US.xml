@@ -11086,9 +11086,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <source>Delete Snippet Confirmation</source>
     </trans-unit>
 
-   <trans-unit id="snippetdelete.jsp.header2">
-        <source>Deleting Snippet</source>
-    </trans-unit>
 
      <trans-unit id="snippetdelete.jsp.summary">
         <source>Are you sure you want to delete this snippet permanently?</source>
