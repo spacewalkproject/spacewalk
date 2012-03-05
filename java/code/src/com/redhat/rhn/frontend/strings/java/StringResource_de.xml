@@ -6706,13 +6706,6 @@ Folgen Sie dieser URL f&amp;uuml;r die vollst&amp;auml;ndige Liste inaktiver Sys
 
 
 
-     <trans-unit id="config_target_systems.subscribeSystems.failure">
-        <source>Failed to subscribe {0} system(s).</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/file/CopyFilesCentral.do</context>
-          <context context-type="paramnotes">7 revision deletions failed.</context>
-        </context-group>
-      <target>Anmelden von {0} System(en) gescheitert.</target></trans-unit>
 
       <trans-unit id="config_target_systems.subscribeSystems.success">
         <source>Successfully subscribed {0} system(s).</source>

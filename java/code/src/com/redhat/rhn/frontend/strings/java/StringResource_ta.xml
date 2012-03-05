@@ -6675,13 +6675,6 @@ url பின்பற்றி செயலிழக்கப்பட்ட �
 
 
 
-     <trans-unit id="config_target_systems.subscribeSystems.failure">
-        <source>Failed to subscribe {0} system(s).</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/file/CopyFilesCentral.do</context>
-          <context context-type="paramnotes">7 revision deletions failed.</context>
-        </context-group>
-      <target>{0} கணினி(களை) சந்தாப்படுத்த முடியவில்லை.</target></trans-unit>
 
       <trans-unit id="config_target_systems.subscribeSystems.success">
         <source>Successfully subscribed {0} system(s).</source>

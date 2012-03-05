@@ -6702,13 +6702,6 @@ Suivez cet url pour obtenir la liste complète des systèmes inactifs :
 
 
 
-     <trans-unit id="config_target_systems.subscribeSystems.failure">
-        <source>Failed to subscribe {0} system(s).</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/file/CopyFilesCentral.do</context>
-          <context context-type="paramnotes">7 revision deletions failed.</context>
-        </context-group>
-      <target>Échec de l'abonnement de {0} système(s).</target></trans-unit>
 
       <trans-unit id="config_target_systems.subscribeSystems.success">
         <source>Successfully subscribed {0} system(s).</source>
