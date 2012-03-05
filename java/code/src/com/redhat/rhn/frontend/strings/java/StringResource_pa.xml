@@ -6745,9 +6745,6 @@ Follow this url to see the full list of inactive systems:
 
 
 
-	<trans-unit id="sdc.config.differing.files_2">
-		<source>{0} of {1} files on the system differed from the @@PRODUCT_NAME@@-Managed files.</source>
-	<target>ਸਿਸਟਮ ਉੱਪਰ {1} ਫਾਇਲਾਂ ਦਾ {0} @@PRODUCT_NAME@@-ਪਰਬੰਧਿਤ ਫਾਇਲਾਂ ਤੋਂ ਵੱਖਰੀ ਹੈ।</target></trans-unit>
     </group>
 
     <group>

@@ -6774,9 +6774,6 @@ Folgen Sie dieser URL f&amp;uuml;r die vollst&amp;auml;ndige Liste inaktiver Sys
 
 
 
-	<trans-unit id="sdc.config.differing.files_2">
-		<source>{0} of {1} files on the system differed from the @@PRODUCT_NAME@@-Managed files.</source>
-	<target>{0} von {1} Dateien auf dem System unterschieden sich von den von @@PRODUCT_NAME@@ gemanagten Dateien.</target></trans-unit>
     </group>
 
     <group>
