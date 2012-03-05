@@ -8674,12 +8674,6 @@ und Organisationsmanagement-Tools haben, sollten Sie diese Rolle aus Ihrem Login
         </context-group>
       <target>Bereits geklont? </target></trans-unit>
 
-      <trans-unit id="cloneerrata.jsp.yes">
-<source>Yes</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/errata/manage/CloneErrata.do</context>
-        </context-group>
-      <target>Ja</target></trans-unit>
 
       <trans-unit id="cloneerrata.jsp.no">
 <source>No</source>

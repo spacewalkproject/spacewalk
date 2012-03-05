@@ -8666,12 +8666,6 @@ organization management tools if you choose to remove this role from your login.
         </context-group>
       <target>이미 복제되었습니까?</target></trans-unit>
 
-      <trans-unit id="cloneerrata.jsp.yes">
-<source>Yes</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/errata/manage/CloneErrata.do</context>
-        </context-group>
-      <target>예</target></trans-unit>
 
       <trans-unit id="cloneerrata.jsp.no">
 <source>No</source>

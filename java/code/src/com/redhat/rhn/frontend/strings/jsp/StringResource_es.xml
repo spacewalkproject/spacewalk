@@ -8671,12 +8671,6 @@ organización si decide borrar este rol de su inicio de sesión.
         </context-group>
       <target>¿Ya clonada?</target></trans-unit>
 
-      <trans-unit id="cloneerrata.jsp.yes">
-<source>Yes</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/errata/manage/CloneErrata.do</context>
-        </context-group>
-      <target>Si</target></trans-unit>
 
       <trans-unit id="cloneerrata.jsp.no">
 <source>No</source>

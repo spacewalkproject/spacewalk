@@ -8673,12 +8673,6 @@ ni aux outils de gestion d'organisation si vous choisissez de supprimer ce rôle
         </context-group>
       <target>Déjà clonés&amp;nbsp;?</target></trans-unit>
 
-      <trans-unit id="cloneerrata.jsp.yes">
-<source>Yes</source>
-          <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/errata/manage/CloneErrata.do</context>
-        </context-group>
-      <target>Oui</target></trans-unit>
 
       <trans-unit id="cloneerrata.jsp.no">
 <source>No</source>
