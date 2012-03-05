@@ -14444,12 +14444,6 @@ Konfigurationschannel dieser Datei abonnieren, {2}; nachfolgend sehen Sie eine L
           <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
         </context-group>
      <target>Benutzer muss ein g&amp;uuml;ltiger Linux Benutzername oder Benutzer-ID mit 32 Zeichen oder weniger sein.</target></trans-unit>
-	<trans-unit id="config-file-form.error.mode-invalid">
-<source>Permissions must be a valid Linux permissions set (4 octal digits)</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
-        </context-group>
-     <target>Berechtigungen muss ein Set aus g&amp;uuml;ltigen Linux-Berechtigungen (vierziffrige Oktal-Zahl) sein</target></trans-unit>
 	<trans-unit id="config-file-form.error.selinux-invalid">
 <source>Invalid values set for SElinux Context.</source>
         <context-group name="ctx">

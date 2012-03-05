@@ -14421,12 +14421,6 @@ centrally-managed configuration channel, {2}; below is a list of systems you may
           <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
         </context-group>
      <target>ব্যবহারকারীর ক্ষেত্রে ৩২ অথবা কম সংখ্যক অক্ষর বিশিষ্ট বৈধ Linux ব্যবহারকারীর নাম অথবা ব্যবহারকারীর id প্রয়োগ করা আবশ্যক।</target></trans-unit>
-	<trans-unit id="config-file-form.error.mode-invalid">
-<source>Permissions must be a valid Linux permissions set (4 octal digits)</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
-        </context-group>
-     <target>বৈধ Linux অনুমতি ধার্য করা আবশ্যক (৪ অক্টাল ডিজিট)</target></trans-unit>
 	<trans-unit id="config-file-form.error.selinux-invalid">
 <source>Invalid values set for SElinux Context.</source>
         <context-group name="ctx">

@@ -14422,12 +14422,6 @@ centrally-managed configuration channel, {2}; below is a list of systems you may
           <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
         </context-group>
      <target>பயனர் 32 எழுத்துக்கள் அல்லது அதற்கு குறைவாக ஒரு சரியான லினக்ஸ் பயனர் அல்லது பயனர் குறியீடாக இருக்க வேண்டும்.</target></trans-unit>
-	<trans-unit id="config-file-form.error.mode-invalid">
-<source>Permissions must be a valid Linux permissions set (4 octal digits)</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
-        </context-group>
-     <target>அனுமதிகள் ஒரு சரியான லினக்ஸ் அனுமதிகள் அமைவாக இருக்க வேண்டும் (4 எண்ம தசமங்கள்)</target></trans-unit>
 	<trans-unit id="config-file-form.error.selinux-invalid">
 <source>Invalid values set for SElinux Context.</source>
         <context-group name="ctx">

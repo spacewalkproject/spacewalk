@@ -14442,12 +14442,6 @@ Vous pouvez déployer la dernière version de ce fichier (&lt;a href="{1}"&gt;Re
           <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
         </context-group>
      <target>L'utilisateur doit être un nom d'utilisateur Linux valide ou un id d'utilisateur, de 32 caractères ou moins.</target></trans-unit>
-	<trans-unit id="config-file-form.error.mode-invalid">
-<source>Permissions must be a valid Linux permissions set (4 octal digits)</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
-        </context-group>
-     <target>Les permissions doivent être un groupe de permissions Linux valide (4 chiffres octaux)</target></trans-unit>
 	<trans-unit id="config-file-form.error.selinux-invalid">
 <source>Invalid values set for SElinux Context.</source>
         <context-group name="ctx">

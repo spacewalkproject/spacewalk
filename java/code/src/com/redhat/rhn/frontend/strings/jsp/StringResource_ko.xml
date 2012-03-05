@@ -14417,12 +14417,6 @@ centrally-managed configuration channel, {2}; below is a list of systems you may
           <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
         </context-group>
      <target>사용자는 32자 보다 적게 Linux 사용자명 또는 사용자 ID를 가지고 있어야 합니다.</target></trans-unit>
-	<trans-unit id="config-file-form.error.mode-invalid">
-<source>Permissions must be a valid Linux permissions set (4 octal digits)</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
-        </context-group>
-     <target>권한은 유효한 Linux 권한 세트여야 합니다 (4 팔진 숫자)</target></trans-unit>
 	<trans-unit id="config-file-form.error.selinux-invalid">
 <source>Invalid values set for SElinux Context.</source>
         <context-group name="ctx">

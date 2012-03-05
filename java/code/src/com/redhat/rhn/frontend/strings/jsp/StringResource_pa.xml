@@ -14421,12 +14421,6 @@ centrally-managed configuration channel, {2}; below is a list of systems you may
           <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
         </context-group>
      <target>ਉਪਭੋਗੀ 32 ਅੱਖਰਾਂ ਜਾਂ ਘੱਟ ਦਾ ਇੱਕ ਯੋਗ ਲੀਨਕਸ ਉਪਭੋਗੀ ਨਾਂ ਜਾਂ ਉਪਭੋਗੀ id ਹੋਣਾ ਜਰੂਰੀ ਹੈ।</target></trans-unit>
-	<trans-unit id="config-file-form.error.mode-invalid">
-<source>Permissions must be a valid Linux permissions set (4 octal digits)</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
-        </context-group>
-     <target>ਅਧਿਕਾਰ ਯੋਗ ਲੀਨਕਸ ਅਧਿਕਾਰ ਸੈੱਟ ਹੋਣਾ ਜਰੂਰੀ ਹੈ (4 octal digits)</target></trans-unit>
 	<trans-unit id="config-file-form.error.selinux-invalid">
 <source>Invalid values set for SElinux Context.</source>
         <context-group name="ctx">
