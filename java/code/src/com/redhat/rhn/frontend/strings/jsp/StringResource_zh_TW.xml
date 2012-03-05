@@ -1608,12 +1608,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
         </context-group>
       <target>使用者一覽</target></trans-unit>
 
-      <trans-unit id="userlist.jsp.noUsers">
-<source>No users.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/UserList</context>
-        </context-group>
-      <target>沒有使用者。</target></trans-unit>
 
       <trans-unit id="userlist.jsp.status">
 <source>Status</source>

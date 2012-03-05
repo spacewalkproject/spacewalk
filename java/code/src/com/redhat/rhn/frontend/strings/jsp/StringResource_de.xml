@@ -1608,12 +1608,6 @@ dr&amp;uuml;cken und &lt;b&gt;k&amp;ouml;nnen sich nicht wieder einloggen&lt;/b&
         </context-group>
       <target>Benutzerüberblick</target></trans-unit>
 
-      <trans-unit id="userlist.jsp.noUsers">
-<source>No users.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/UserList</context>
-        </context-group>
-      <target>Keine Benutzer.</target></trans-unit>
 
       <trans-unit id="userlist.jsp.status">
 <source>Status</source>

@@ -1608,12 +1608,6 @@ abaixo e &lt;b&gt;não poderá mais se autenticar&lt;/b&gt;.</target></trans-uni
         </context-group>
       <target>Visão Geral dos Usuários</target></trans-unit>
 
-      <trans-unit id="userlist.jsp.noUsers">
-<source>No users.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/UserList</context>
-        </context-group>
-      <target>Nenhum usuário.</target></trans-unit>
 
       <trans-unit id="userlist.jsp.status">
 <source>Status</source>

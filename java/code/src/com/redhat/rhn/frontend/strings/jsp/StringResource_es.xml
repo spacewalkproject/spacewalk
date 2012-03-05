@@ -1609,12 +1609,6 @@ del rol de Administrador de la organización.</target></trans-unit>
         </context-group>
       <target>Visión general de usuarios</target></trans-unit>
 
-      <trans-unit id="userlist.jsp.noUsers">
-<source>No users.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/UserList</context>
-        </context-group>
-      <target>Ningún usuario.</target></trans-unit>
 
       <trans-unit id="userlist.jsp.status">
 <source>Status</source>
