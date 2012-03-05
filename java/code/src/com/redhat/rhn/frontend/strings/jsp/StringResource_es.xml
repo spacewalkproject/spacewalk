@@ -5436,9 +5436,6 @@ para este derecho, excluyendo el consumo de la organización predeterminada.</ta
                 <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) set to &lt;strong&gt;Virtualization.&lt;/strong&gt;.  &lt;br/&gt; &lt;strong&gt;NOTE: &lt;/strong&gt;If the system previously had Virtualization Platform it has been downgraded to Virtualization. </source>
         <target>&lt;strong&gt;{0}&lt;/strong&gt; sistema(s) establecidos en &lt;strong&gt;Virtualización&lt;/strong&gt;.  &lt;br/&gt; &lt;strong&gt;NOTA: &lt;/strong&gt;Si el sistema tenía anteriormente Plataforma de virtualización, éste ha sido degradado a Virtualización.</target></trans-unit>
 
-        <trans-unit id="system_entitlements.virtualization_host.removed.success">
-                <source>Removed &lt;strong&gt;Virtualization&lt;/strong&gt; from &lt;strong&gt;{0}&lt;/strong&gt; system(s)  This will cause any guests associated with the selected host to consume physical Channel and System entitlements.</source>
-        <target>Se eliminó &lt;strong&gt;Virtualización&lt;/strong&gt; de &lt;strong&gt;{0}&lt;/strong&gt; sistemas. Esto hará que los huéspedes asociados con el anfitrión seleccionado consuman derechos de sistema y canal físico.</target></trans-unit>
 
 
 
