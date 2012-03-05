@@ -5448,9 +5448,6 @@ value for this entitlement, excluding the default organization's consumption.</s
                 <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) set to &lt;strong&gt;Provisioning&lt;/strong&gt;.</source>
         <target>将 &lt;strong&gt;{0}&lt;/strong&gt; 个系统设为 &lt;strong&gt;Provisioning&lt;/strong&gt;</target></trans-unit>
 
-        <trans-unit id="system_entitlements.provisioning.removed.success">
-                <source>Removed &lt;strong&gt;Provisioning&lt;/strong&gt; from &lt;strong&gt;{0}&lt;/strong&gt; system(s).</source>
-        <target>从 &lt;strong&gt;{0}&lt;/strong&gt; 个系统中删除 &lt;strong&gt;Provisioning&lt;/strong&gt; 权利。</target></trans-unit>
 
 
 
