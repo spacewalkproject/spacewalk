@@ -19310,16 +19310,6 @@ para anunciar periodos de mantenimiento de Emergencia y no programados.
 </target></trans-unit>
 		<!-- All ISOs -->
 		<!-- Retired ISOs -->
-<trans-unit id="download.isotree.jsp.retired-instructions">
-<source>
-The software channels listed below have ISO images available for products which are no longer supported.
-</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/software/downloads/RetiredISOs.do</context>
-        </context-group>
-      <target>
-Los canales software listados a continuación tienen imágenes ISO disponibles para productos que ya no se soportan.
-</target></trans-unit>
 
 		<!-- download -->
 		<!-- instructions -->

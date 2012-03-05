@@ -19310,16 +19310,6 @@ et Red Hat l'utilisera en cas de fenêtres de maintenance d'urgence et non progr
 </target></trans-unit>
 		<!-- All ISOs -->
 		<!-- Retired ISOs -->
-<trans-unit id="download.isotree.jsp.retired-instructions">
-<source>
-The software channels listed below have ISO images available for products which are no longer supported.
-</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/software/downloads/RetiredISOs.do</context>
-        </context-group>
-      <target>
-Les canaux de logiciels listés ci-dessous on des images ISO disponibles pour les produits qui ne sont plus pris en charge.
-</target></trans-unit>
 
 		<!-- download -->
 		<!-- instructions -->

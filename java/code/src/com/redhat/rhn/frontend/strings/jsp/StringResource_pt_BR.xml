@@ -19305,16 +19305,6 @@ pela Red Hat no caso de Períodos de Manutenção Não Programados ou
 </target></trans-unit>
 		<!-- All ISOs -->
 		<!-- Retired ISOs -->
-<trans-unit id="download.isotree.jsp.retired-instructions">
-<source>
-The software channels listed below have ISO images available for products which are no longer supported.
-</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/software/downloads/RetiredISOs.do</context>
-        </context-group>
-      <target>
-Os canais do software listados acima possuem imagens ISO disponíveis para produtos que não são mais suportados.
-</target></trans-unit>
 
 		<!-- download -->
 		<!-- instructions -->

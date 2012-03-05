@@ -19313,16 +19313,6 @@ Notfall-Wartungsfenstern f&amp;uuml;r Benachrichtigungen verwendet.
 </target></trans-unit>
 		<!-- All ISOs -->
 		<!-- Retired ISOs -->
-<trans-unit id="download.isotree.jsp.retired-instructions">
-<source>
-The software channels listed below have ISO images available for products which are no longer supported.
-</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/software/downloads/RetiredISOs.do</context>
-        </context-group>
-      <target>
-Die unten aufgeführten Software-Channels stellen ISO-Images für nicht länger unterstützte Produkte bereit.
-</target></trans-unit>
 
 		<!-- download -->
 		<!-- instructions -->
