@@ -135,12 +135,6 @@
       <target>系统 Currency</target></trans-unit>
 
 
-      <trans-unit id="system.nav.outofdate">
-<source>Out of Date</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Systems Navigation Menu</context>
-        </context-group>
-      <target>过时</target></trans-unit>
 
       <trans-unit id="system.nav.unentitled">
 <source>Unentitled</source>

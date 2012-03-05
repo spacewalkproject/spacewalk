@@ -135,12 +135,6 @@
       <target>Moneda del sistema</target></trans-unit>
 
 
-      <trans-unit id="system.nav.outofdate">
-<source>Out of Date</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Systems Navigation Menu</context>
-        </context-group>
-      <target>Desactualizado</target></trans-unit>
 
       <trans-unit id="system.nav.unentitled">
 <source>Unentitled</source>

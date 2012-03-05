@@ -135,12 +135,6 @@
       <target></target></trans-unit>
 
 
-      <trans-unit id="system.nav.outofdate">
-<source>Out of Date</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Systems Navigation Menu</context>
-        </context-group>
-      <target>업데이트되지 않은 시스템</target></trans-unit>
 
       <trans-unit id="system.nav.unentitled">
 <source>Unentitled</source>
