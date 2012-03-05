@@ -5403,12 +5403,6 @@ para este derecho, excluyendo el consumo de la organización predeterminada.</ta
         </context-group>
      <target>Número de derechos</target></trans-unit>
 
-     <trans-unit id="systementitlements.jsp.demo_information">
-         <source>&lt;a href="{0}" target="_new"&gt;Information&lt;/a&gt;</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/systems/SystemEntitlements</context>
-        </context-group>
-    <target>&lt;a href="{0}" target="_new"&gt;Información&lt;/a&gt;</target></trans-unit>
 	<group>
 	    <context-group name="ctx">
 		    <context context-type="sourcefile">/rhn/systems/SystemEntitlements.do</context>

@@ -5742,12 +5742,6 @@ value for this entitlement, excluding the default organization's consumption.</s
         </context-group>
      </trans-unit>
 
-     <trans-unit id="systementitlements.jsp.demo_information">
-         <source>&lt;a href=&quot;{0}&quot; target=&quot;_new&quot;&gt;Information&lt;/a&gt;</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/systems/SystemEntitlements</context>
-        </context-group>
-    </trans-unit>
 	<group>
 	    <context-group name="ctx">
 		    <context context-type="sourcefile">/rhn/systems/SystemEntitlements.do</context>

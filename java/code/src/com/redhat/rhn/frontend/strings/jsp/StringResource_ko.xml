@@ -5402,12 +5402,6 @@ value for this entitlement, excluding the default organization's consumption.</s
         </context-group>
      <target>인타이틀먼트 계산</target></trans-unit>
 
-     <trans-unit id="systementitlements.jsp.demo_information">
-         <source>&lt;a href="{0}" target="_new"&gt;Information&lt;/a&gt;</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/systems/SystemEntitlements</context>
-        </context-group>
-    <target>&lt;a href="{0}" target="_new"&gt;정보&lt;/a&gt;</target></trans-unit>
 	<group>
 	    <context-group name="ctx">
 		    <context context-type="sourcefile">/rhn/systems/SystemEntitlements.do</context>

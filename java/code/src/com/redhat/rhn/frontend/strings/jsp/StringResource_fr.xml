@@ -5404,12 +5404,6 @@ pour ce droit d'accès, moins la consommation par défaut de l'organisation.</ta
         </context-group>
      <target>Nombre de droits d'accès</target></trans-unit>
 
-     <trans-unit id="systementitlements.jsp.demo_information">
-         <source>&lt;a href="{0}" target="_new"&gt;Information&lt;/a&gt;</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/systems/SystemEntitlements</context>
-        </context-group>
-    <target>&lt;a href="{0}" target="_new"&gt;Information&lt;/a&gt;</target></trans-unit>
 	<group>
 	    <context-group name="ctx">
 		    <context context-type="sourcefile">/rhn/systems/SystemEntitlements.do</context>
