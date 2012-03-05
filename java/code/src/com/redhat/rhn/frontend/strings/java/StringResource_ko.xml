@@ -6758,12 +6758,6 @@ Follow this url to see the full list of inactive systems:
         </context-group>
       <target>시스템이 일시 정지되었습니다.</target></trans-unit>
 
-      <trans-unit id="systems.details.virt.guest.already.crashed">
-        <source>This system is crashed.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
-        </context-group>
-      <target>시스템이 충돌했습니다.</target></trans-unit>
 
       <trans-unit id="systems.details.virt.vcpu.limit.msg">
           <source>Virtual CPUs limited to {0} on {1}.</source>

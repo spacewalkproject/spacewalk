@@ -6789,12 +6789,6 @@ Folgen Sie dieser URL f&amp;uuml;r die vollst&amp;auml;ndige Liste inaktiver Sys
         </context-group>
       <target>Dieses System wurde bereits unterbrochen.</target></trans-unit>
 
-      <trans-unit id="systems.details.virt.guest.already.crashed">
-        <source>This system is crashed.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
-        </context-group>
-      <target>Dieses System ist abgest&amp;uuml;rzt.</target></trans-unit>
 
       <trans-unit id="systems.details.virt.vcpu.limit.msg">
           <source>Virtual CPUs limited to {0} on {1}.</source>
