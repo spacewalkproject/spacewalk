@@ -8486,12 +8486,6 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
     <target>મને મંજૂર નથી</target></trans-unit>
 
-  <trans-unit id="tnc.jsp.button-accept-subtext">
-    <source>This will continue your login to @@PRODUCT_NAME@@</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/tnc/</context>
-        </context-group>
-    <target>આ તમારો @@PRODUCT_NAME@@ નો પ્રવેશ ચાલુ રાખશે</target></trans-unit>
 
   <trans-unit id="tnc.jsp.button-refuse-subtext">
     <source>This will log you out of @@PRODUCT_NAME@@</source>

@@ -8483,12 +8483,6 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
     <target>동의하지 않습니다</target></trans-unit>
 
-  <trans-unit id="tnc.jsp.button-accept-subtext">
-    <source>This will continue your login to @@PRODUCT_NAME@@</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/tnc/</context>
-        </context-group>
-    <target>이렇게하면 @@PRODUCT_NAME@@에 로그인이 계속됩니다.   </target></trans-unit>
 
   <trans-unit id="tnc.jsp.button-refuse-subtext">
     <source>This will log you out of @@PRODUCT_NAME@@</source>

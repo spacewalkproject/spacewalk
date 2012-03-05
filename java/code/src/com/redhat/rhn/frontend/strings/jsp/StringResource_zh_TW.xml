@@ -8482,12 +8482,6 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
     <target>我不接受</target></trans-unit>
 
-  <trans-unit id="tnc.jsp.button-accept-subtext">
-    <source>This will continue your login to @@PRODUCT_NAME@@</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/tnc/</context>
-        </context-group>
-    <target>這將會繼續您登入 @@PRODUCT_NAME@@ 的動作</target></trans-unit>
 
   <trans-unit id="tnc.jsp.button-refuse-subtext">
     <source>This will log you out of @@PRODUCT_NAME@@</source>

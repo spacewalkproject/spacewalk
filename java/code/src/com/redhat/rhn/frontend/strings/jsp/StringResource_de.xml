@@ -8500,12 +8500,6 @@ Bitte beachten Sie, dass m&amp;ouml;glicherweise noch einige manuelle Konfigurat
         </context-group>
     <target>Ich akzeptiere nicht</target></trans-unit>
 
-  <trans-unit id="tnc.jsp.button-accept-subtext">
-    <source>This will continue your login to @@PRODUCT_NAME@@</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/tnc/</context>
-        </context-group>
-    <target>Dies wird Ihren Login im @@PRODUCT_NAME@@ fortsetzen</target></trans-unit>
 
   <trans-unit id="tnc.jsp.button-refuse-subtext">
     <source>This will log you out of @@PRODUCT_NAME@@</source>

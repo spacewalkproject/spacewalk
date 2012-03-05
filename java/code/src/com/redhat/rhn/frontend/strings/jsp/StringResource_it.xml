@@ -8483,12 +8483,6 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
     <target>Non Accetto</target></trans-unit>
 
-  <trans-unit id="tnc.jsp.button-accept-subtext">
-    <source>This will continue your login to @@PRODUCT_NAME@@</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/tnc/</context>
-        </context-group>
-    <target>Questa opzione vi permetterà di procedere fino al @@PRODUCT_NAME@@</target></trans-unit>
 
   <trans-unit id="tnc.jsp.button-refuse-subtext">
     <source>This will log you out of @@PRODUCT_NAME@@</source>
