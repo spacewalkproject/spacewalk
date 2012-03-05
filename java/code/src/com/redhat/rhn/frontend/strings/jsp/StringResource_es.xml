@@ -18552,18 +18552,6 @@ de realizar un kickstart o antes de crear una nueva distribución kickstart.&lt;
           <context context-type="sourcefile">outage-policy.jsp</context>
         </context-group>
       <target>Ventanas de mantenimiento no programado</target></trans-unit>
-      <trans-unit id="outage-policy.jsp.unscheduled">
-<source>Unscheduled maintenance windows are possible, but rare. Red Hat
-Network will attempt notification, again through the email outage list
-(see below), at least 12 hours or as soon as possible in advance of
-unscheduled maintenance.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">outage-policy.jsp</context>
-        </context-group>
-      <target>Las ventanas de mantenimiento no programadas son posibles, aunque muy raras.Red Hat
-Network intentará notificar otra vez a través de la lista de correo-e de interrupciones
- (ver abajo), al menos con 12 horas de anticipación
- o tan pronto como sea posible en caso de mantenimiento no programado.</target></trans-unit>
 
 
 	</group>

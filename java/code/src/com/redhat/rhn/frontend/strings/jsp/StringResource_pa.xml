@@ -18499,18 +18499,6 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;
           <context context-type="sourcefile">outage-policy.jsp</context>
         </context-group>
       <target>ਨਾ-ਤਹਿ ਕੀਤੀ ਪਰਬੰਧਨ Windows</target></trans-unit>
-      <trans-unit id="outage-policy.jsp.unscheduled">
-<source>Unscheduled maintenance windows are possible, but rare. Red Hat
-Network will attempt notification, again through the email outage list
-(see below), at least 12 hours or as soon as possible in advance of
-unscheduled maintenance.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">outage-policy.jsp</context>
-        </context-group>
-      <target>ਨਾ-ਤਹਿ ਕੀਤੇ ਨਿਗਰਾਨੀ ਪਰਦੇ ਸੰਭਵ ਹਨ, ਪਰ ਬਹੁਤ ਘੱਟ। Red Hat
-ਨੈੱਟਵਰਕ ਸੂਚਨਾ ਭੇਜੇਗਾ, ਫਿਰ ਈ-ਮੇਲ ਆਊਟੇਜ ਸੂਚੀ ਵੇਖਾਏਗਾ
-(ਹੇਠਾਂ ਵੇਖੋ), ਨਾ-ਤਹਿ ਕੀਤੀ ਨਿਗਰਾਨੀ ਤੋਂ ਪਹਿਲਾਂ ਘੱਟੋ-ਘੱਟ 12 ਘੰਟੇ
-ਜਾਂ ਜਲਦੀ ਤੋਂ ਜਲਦੀ।</target></trans-unit>
 
 
 	</group>

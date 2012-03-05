@@ -18498,18 +18498,6 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;
           <context context-type="sourcefile">outage-policy.jsp</context>
         </context-group>
       <target>অনির্ধারিত রক্ষণাবেক্ষণের সময়</target></trans-unit>
-      <trans-unit id="outage-policy.jsp.unscheduled">
-<source>Unscheduled maintenance windows are possible, but rare. Red Hat
-Network will attempt notification, again through the email outage list
-(see below), at least 12 hours or as soon as possible in advance of
-unscheduled maintenance.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">outage-policy.jsp</context>
-        </context-group>
-      <target>অনির্ধারিত রক্ষণাবেক্ষণ কর্মের জন্য কর্ম-অবকাশ সাধারণত না ঘটলেও, সম্ভাব্য। Red Hat
-Network দ্বারা ই-মেইল আউট-এজ লিস্টের (নীচে দেখুন) মাধ্যমে
-অন্তত ১২ ঘন্টা অথবা যথাসম্ভব পূর্বে অনির্ধারিত রক্ষণাবেক্ষণ কর্ম সম্পর্কে
-সূচনা প্রদান করা হবে।</target></trans-unit>
 
 
 	</group>

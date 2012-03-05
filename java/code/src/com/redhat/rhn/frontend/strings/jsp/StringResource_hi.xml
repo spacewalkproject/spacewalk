@@ -18500,18 +18500,6 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;
           <context context-type="sourcefile">outage-policy.jsp</context>
         </context-group>
       <target>गैर अनुसूचित अनुरक्षण विंडो </target></trans-unit>
-      <trans-unit id="outage-policy.jsp.unscheduled">
-<source>Unscheduled maintenance windows are possible, but rare. Red Hat
-Network will attempt notification, again through the email outage list
-(see below), at least 12 hours or as soon as possible in advance of
-unscheduled maintenance.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">outage-policy.jsp</context>
-        </context-group>
-      <target>गैर अनुसूचित देखभाल विंडो संभव है, लेकिन दुर्लभ है. Red Hat
-Network अधिसूचना का प्रयास करेगा, फिर ईमेल आउटेज सूची से होकर
-(नीचे देखें), गैर अनुसूचित देखभाल के  12 घंटा या
-यथासंभव पूर्व.</target></trans-unit>
 
 
 	</group>

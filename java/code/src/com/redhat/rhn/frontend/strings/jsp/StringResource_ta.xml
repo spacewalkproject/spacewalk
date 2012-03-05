@@ -18500,18 +18500,6 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;
           <context context-type="sourcefile">outage-policy.jsp</context>
         </context-group>
       <target>திட்டமிடாத பராமரிப்பு சாளரங்கள்</target></trans-unit>
-      <trans-unit id="outage-policy.jsp.unscheduled">
-<source>Unscheduled maintenance windows are possible, but rare. Red Hat
-Network will attempt notification, again through the email outage list
-(see below), at least 12 hours or as soon as possible in advance of
-unscheduled maintenance.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">outage-policy.jsp</context>
-        </context-group>
-      <target>திட்டமிடப்படாத பராமரிப்பு சாளரங்களுக்கு வாய்ப்புள்ளது, ஆனால்
-அரிதானது. Red Hat Network அறிவிப்பை மீண்டும் மின்னஞ்சல் நிறுத்த
-பட்டியலில் முயற்சிக்கும் (கீழே பார்க்கவும்), குறைந்தது 12 மணிநேரம் அல்லது
-திட்டமிடப்படாத பராமரிப்புக்கு எவ்வளவு சீக்கிரம் முடியுமோ அவ்வளவு சீக்கிரம்</target></trans-unit>
 
 
 	</group>

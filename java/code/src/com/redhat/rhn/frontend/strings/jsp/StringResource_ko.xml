@@ -18493,18 +18493,6 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;
           <context context-type="sourcefile">outage-policy.jsp</context>
         </context-group>
       <target>스케줄되지 않은 관리 윈도우</target></trans-unit>
-      <trans-unit id="outage-policy.jsp.unscheduled">
-<source>Unscheduled maintenance windows are possible, but rare. Red Hat
-Network will attempt notification, again through the email outage list
-(see below), at least 12 hours or as soon as possible in advance of
-unscheduled maintenance.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">outage-policy.jsp</context>
-        </context-group>
-      <target>스케줄되지 않은 관리 윈도우를 사용하실 수 있으나 많이 사용되지 않습니다.
-Red Hat Network는 Email Outage List (아래 참조) 메일링 리스트를 통하여,
-최소한 12시간 이전이나 또는 가능한한 빨리 스케줄되지 않은 관리에 대해
-통보해드립니다.</target></trans-unit>
 
 
 	</group>

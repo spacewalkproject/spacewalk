@@ -18553,18 +18553,6 @@ les canaux de logiciels de @@PRODUCT_NAME@@pour chaque canal parent pris en char
           <context context-type="sourcefile">outage-policy.jsp</context>
         </context-group>
       <target>Fenêtres de maintenance non programmées</target></trans-unit>
-      <trans-unit id="outage-policy.jsp.unscheduled">
-<source>Unscheduled maintenance windows are possible, but rare. Red Hat
-Network will attempt notification, again through the email outage list
-(see below), at least 12 hours or as soon as possible in advance of
-unscheduled maintenance.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">outage-policy.jsp</context>
-        </context-group>
-      <target>Les fenêtres de maintenance non programmées sont possibles mais rare. En cas
-de maintenance non programmée, Red Hat Network essayera d'envoyer une
-notification par la liste électronique de défaillances (voir ci-dessous), au moins 12
-heures avant ou aussi rapidement que possible.</target></trans-unit>
 
 
 	</group>

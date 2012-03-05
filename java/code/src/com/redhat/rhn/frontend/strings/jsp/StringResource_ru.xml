@@ -18494,17 +18494,6 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;
           <context context-type="sourcefile">outage-policy.jsp</context>
         </context-group>
       <target>Внеплановые окна профилактики</target></trans-unit>
-      <trans-unit id="outage-policy.jsp.unscheduled">
-<source>Unscheduled maintenance windows are possible, but rare. Red Hat
-Network will attempt notification, again through the email outage list
-(see below), at least 12 hours or as soon as possible in advance of
-unscheduled maintenance.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">outage-policy.jsp</context>
-        </context-group>
-      <target>Внеплановая профилактика редка, но возможна.
-Red Hat будет предупреждать о выполнении работ по крайней
-мере за 12 часов через список профилактики (см. ниже).</target></trans-unit>
 
 
 	</group>

@@ -18556,17 +18556,6 @@ einen Kickstart durchführen oder eine neue Kickstart-Distribution erzeugen.&lt;
           <context context-type="sourcefile">outage-policy.jsp</context>
         </context-group>
       <target>Au&amp;szlig;erplanm&amp;auml;&amp;szlig;ige Wartungsfenster</target></trans-unit>
-      <trans-unit id="outage-policy.jsp.unscheduled">
-<source>Unscheduled maintenance windows are possible, but rare. Red Hat
-Network will attempt notification, again through the email outage list
-(see below), at least 12 hours or as soon as possible in advance of
-unscheduled maintenance.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">outage-policy.jsp</context>
-        </context-group>
-      <target>Ungeplante Wartungsfenster sind m&amp;ouml;glich, aber selten. Red Hat Network
-wird dann versuchen, Benutzer ebenfalls via E-Mail-Outage-Liste (siehe unten)
-mindestens 12 Stunden, bzw. so bald wie m&amp;ouml;glich im Voraus zu informieren.</target></trans-unit>
 
 
 	</group>
