@@ -18486,20 +18486,6 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;
 
   <!-- outage-policy.jsp -->
 	<group>
-      <trans-unit id="outage-policy.jsp.intro">
-<source>Our highest priority is your access to @@PRODUCT_NAME@@ and the
-advantages of a registered account. We strive to maintain 100% uptime
-for your @@PRODUCT_NAME@@ service, but must also periodically perform maintenance
-tasks to upgrade functionality, fix reported bugs, and improve
-performance.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">outage-policy.jsp</context>
-        </context-group>
-      <target>Обеспечение постоянного доступа к @@PRODUCT_NAME@@ является нашим
-приоритетом. Мы делаем все возможное для поддержания бесперебойной
-работы @@PRODUCT_NAME@@, но периодически мы должны выполнять профилактические работы
-для усовершенствования функциональности, исправления ошибок и
-улучшения производительности.</target></trans-unit>
 
       <trans-unit id="outage-policy.jsp.scheduled-header">
 <source>Scheduled Maintenance Windows</source>
