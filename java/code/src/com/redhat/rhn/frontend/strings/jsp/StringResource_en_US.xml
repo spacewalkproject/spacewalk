@@ -21319,9 +21319,6 @@ given channel.</source>
  	  <trans-unit id="help.jsp.release.title">
         <source>@@PRODUCT_NAME@@ Release Notes</source>
       </trans-unit>
- 	  <trans-unit id="help.jsp.proxyrelease.title">
-        <source>@@PRODUCT_NAME@@ Proxy Release Notes</source>
-      </trans-unit>
 
       <trans-unit id="iprange.emptylist">
         <source>No Ip Ranges Found</source>

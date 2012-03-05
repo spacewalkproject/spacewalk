@@ -20850,9 +20850,6 @@ given channel.</source>
 	  <trans-unit id="help.jsp.release.title">
         <source>@@PRODUCT_NAME@@ Release Notes</source>
       <target>@@PRODUCT_NAME@@ 릴리즈 노트  </target></trans-unit>
-	  <trans-unit id="help.jsp.proxyrelease.title">
-        <source>@@PRODUCT_NAME@@ Proxy Release Notes</source>
-      <target>@@PRODUCT_NAME@@ 프록시 릴리즈 노트  </target></trans-unit>
 
       <trans-unit id="iprange.emptylist">
         <source>No Ip Ranges Found</source>

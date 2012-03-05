@@ -20967,9 +20967,6 @@ f&amp;uuml;r einen angegebenen Channel aufgelistet wird.</target></trans-unit>
 	  <trans-unit id="help.jsp.release.title">
         <source>@@PRODUCT_NAME@@ Release Notes</source>
       <target>@@PRODUCT_NAME@@ Release Notes</target></trans-unit>
-	  <trans-unit id="help.jsp.proxyrelease.title">
-        <source>@@PRODUCT_NAME@@ Proxy Release Notes</source>
-      <target>@@PRODUCT_NAME@@ Proxy Release Notes</target></trans-unit>
 
       <trans-unit id="iprange.emptylist">
         <source>No Ip Ranges Found</source>
