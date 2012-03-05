@@ -8730,9 +8730,6 @@ Veuillez noter qu'une configuration manuelle de ces scripts peut toujours être 
         <trans-unit id="repos.jsp.label">
           <source>Label</source>
         <target>Etiquette</target></trans-unit>
-        <trans-unit id="repos.jsp.lastsync">
-          <source>Last Synced</source>
-        <target>Dernière Sync</target></trans-unit>
         <trans-unit id="repos.jsp.button-sync">
           <source>Sync Now</source>
         </trans-unit>

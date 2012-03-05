@@ -8725,9 +8725,6 @@ Please note that some manual configuration of these scripts may still be require
         <trans-unit id="repos.jsp.label">
           <source>Label</source>
         <target>标签</target></trans-unit>
-        <trans-unit id="repos.jsp.lastsync">
-          <source>Last Synced</source>
-        <target>最近同步的时间</target></trans-unit>
         <trans-unit id="repos.jsp.button-sync">
           <source>Sync Now</source>
         </trans-unit>

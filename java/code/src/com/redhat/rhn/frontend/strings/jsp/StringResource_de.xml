@@ -8732,9 +8732,6 @@ Bitte beachten Sie, dass m&amp;ouml;glicherweise noch einige manuelle Konfigurat
         <trans-unit id="repos.jsp.label">
           <source>Label</source>
         <target>Label</target></trans-unit>
-        <trans-unit id="repos.jsp.lastsync">
-          <source>Last Synced</source>
-        <target>Zuletzt synchronisiert</target></trans-unit>
         <trans-unit id="repos.jsp.button-sync">
           <source>Sync Now</source>
         </trans-unit>
