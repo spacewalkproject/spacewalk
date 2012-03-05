@@ -19002,12 +19002,6 @@ Not sure how to download and use these images? &lt;a href="{0}"&gt;Check out our
 	インストールする {0} の種類によっては、これらのディスクのセブセットだけしか必要ない場合があります。
     (&lt;a href="{1}"&gt;詳細情報&lt;/a&gt;)
 </target></trans-unit>
-      <trans-unit id="isodownload.header.size">
-<source>Size</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/software/channel/downloads/Download.do</context>
-        </context-group>
-      <target>サイズ</target></trans-unit>
       <trans-unit id="isodownload.viewsource">
 <source>View Source ISO Images</source>
         <context-group name="ctx">

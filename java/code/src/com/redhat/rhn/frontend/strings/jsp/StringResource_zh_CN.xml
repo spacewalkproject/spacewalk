@@ -19021,12 +19021,6 @@ Not sure how to download and use these images? &lt;a href="{0}"&gt;Check out our
 	根据您想安装的 {0} 的版本，您可能需要这些映像的一个子集。
     (&lt;a href="{1}"&gt;更多信息&lt;/a&gt;)
 </target></trans-unit>
-      <trans-unit id="isodownload.header.size">
-<source>Size</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/software/channel/downloads/Download.do</context>
-        </context-group>
-      <target>大小</target></trans-unit>
       <trans-unit id="isodownload.viewsource">
 <source>View Source ISO Images</source>
         <context-group name="ctx">

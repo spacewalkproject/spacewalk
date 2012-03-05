@@ -19030,12 +19030,6 @@ Nicht sicher, wie diese Images heruntergeladen und verwendet werden? &lt;a href=
 	Abhängig von der {0} Variante, die Sie installieren möchten, benötigen Sie ggf. nur eine Untergruppe dieser Discs.
     (&lt;a href="{1}"&gt;Weitere Informationen&lt;/a&gt;)
 </target></trans-unit>
-      <trans-unit id="isodownload.header.size">
-<source>Size</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/software/channel/downloads/Download.do</context>
-        </context-group>
-      <target>Gr&amp;ouml;&amp;szlig;e</target></trans-unit>
       <trans-unit id="isodownload.viewsource">
 <source>View Source ISO Images</source>
         <context-group name="ctx">
