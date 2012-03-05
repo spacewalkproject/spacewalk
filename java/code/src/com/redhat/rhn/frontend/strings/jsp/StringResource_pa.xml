@@ -10792,12 +10792,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         </context-group>
       <target>ਕਿੱਕਸਟਾਰਟ ਪੋਸਟ ਸਕਰਿਪਟ</target></trans-unit>
 
-      <trans-unit id="post.jsp.contents">
-        <source>Post Script Contents</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/kickstart/KickstartScriptEdit.do</context>
-        </context-group>
-      <target>ਪੋਸਟ ਸਕਰਿਪਟ ਸੰਖੇਪ</target></trans-unit>
 
       <trans-unit id="post.jsp.langheader">
         <source>Kickstart Post Script Scripting Language</source>

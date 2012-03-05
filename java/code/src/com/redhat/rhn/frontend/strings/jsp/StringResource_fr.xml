@@ -10806,12 +10806,6 @@ Le script post non-chroot sera ensuite exécuté et le script post sera enfin ex
         </context-group>
       <target>Script post kickstart</target></trans-unit>
 
-      <trans-unit id="post.jsp.contents">
-        <source>Post Script Contents</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/kickstart/KickstartScriptEdit.do</context>
-        </context-group>
-      <target>Contenu du script post</target></trans-unit>
 
       <trans-unit id="post.jsp.langheader">
         <source>Kickstart Post Script Scripting Language</source>

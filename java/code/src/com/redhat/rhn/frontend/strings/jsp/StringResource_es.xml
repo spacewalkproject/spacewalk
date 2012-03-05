@@ -10804,12 +10804,6 @@ el &lt;strong&gt;Manual de administración del sistema Red Hat Enterprise Linux.
         </context-group>
       <target>Kickstart Post Script</target></trans-unit>
 
-      <trans-unit id="post.jsp.contents">
-        <source>Post Script Contents</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/kickstart/KickstartScriptEdit.do</context>
-        </context-group>
-      <target>Contenido del Post Script</target></trans-unit>
 
       <trans-unit id="post.jsp.langheader">
         <source>Kickstart Post Script Scripting Language</source>

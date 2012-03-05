@@ -10801,12 +10801,6 @@ kickstart 前脚本的内容可以在 &lt;strong&gt;《红帽企业版 Linux 系
         </context-group>
       <target>Kickstart 后脚本</target></trans-unit>
 
-      <trans-unit id="post.jsp.contents">
-        <source>Post Script Contents</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/kickstart/KickstartScriptEdit.do</context>
-        </context-group>
-      <target>后脚本的内容</target></trans-unit>
 
       <trans-unit id="post.jsp.langheader">
         <source>Kickstart Post Script Scripting Language</source>
