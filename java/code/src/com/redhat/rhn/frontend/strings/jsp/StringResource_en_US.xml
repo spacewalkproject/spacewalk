@@ -1526,12 +1526,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/newlogin/CreateCorporate</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="usercreate.enables1b">
-<source>www.redhat.com store</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/newlogin/CreateCorporate</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="usercreate.enables2">
 <source>access to whitepapers, webcasts, and product information on redhat.com</source>
         <context-group name="ctx">

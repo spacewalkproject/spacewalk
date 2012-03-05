@@ -1512,12 +1512,6 @@ abaixo e &lt;b&gt;não poderá mais se autenticar&lt;/b&gt;.</target></trans-uni
           <context context-type="sourcefile">/rhn/newlogin/CreateCorporate</context>
         </context-group>
       <target>Um login Red Hat possibilita</target></trans-unit>
-      <trans-unit id="usercreate.enables1b">
-<source>www.redhat.com store</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/newlogin/CreateCorporate</context>
-        </context-group>
-      <target>loja da www.redhat.com</target></trans-unit>
       <trans-unit id="usercreate.enables2">
 <source>access to whitepapers, webcasts, and product information on redhat.com</source>
         <context-group name="ctx">
