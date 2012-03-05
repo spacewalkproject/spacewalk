@@ -11690,12 +11690,6 @@ o &lt;strong&gt;Guia de Administração de Sistemas Red Hat Enterprise Li
         </context-group>
      <target>Os canais de configuração listados abaixo são &lt;strong&gt;gerenciados centralmente&lt;/strong&gt;. Isto significa que qualquer sistema registrado no @@PRODUCT_NAME@@ pode se inscrever nos canais de configuração abaixo. Qualquer modificação realizada nestes arquivos dentro de um destes canais, afetará todos os sistemas inscritos neste canal. </target></trans-unit>
 
-     <trans-unit id="toolbar.create.configchannel">
-        <source>create new config channel</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/GlobalConfigChannelList.do</context>
-        </context-group>
-     <target>criar um novo canal de configuração</target></trans-unit>
 
      <trans-unit id="toolbar.create.org">
         <source>create new organization</source>

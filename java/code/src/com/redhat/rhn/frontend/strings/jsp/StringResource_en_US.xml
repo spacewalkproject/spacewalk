@@ -12100,12 +12100,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         </context-group>
      </trans-unit>
 
-     <trans-unit id="toolbar.create.configchannel">
-        <source>create new config channel</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/GlobalConfigChannelList.do</context>
-        </context-group>
-     </trans-unit>
 
      <trans-unit id="toolbar.create.org">
         <source>create new organization</source>

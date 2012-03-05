@@ -11694,12 +11694,6 @@ kickstart 前脚本的内容可以在 &lt;strong&gt;《红帽企业版 Linux 系
         </context-group>
      <target>下面列出的配置频道是&lt;strong&gt;集中管理&lt;/strong&gt;的。这意味这任何在 @@PRODUCT_NAME@@ 注册的系统都可以订阅下面的配置频道。对这些频道中文件的任何修改，都将影响到订阅的每个系统。</target></trans-unit>
 
-     <trans-unit id="toolbar.create.configchannel">
-        <source>create new config channel</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/GlobalConfigChannelList.do</context>
-        </context-group>
-     <target>创建新的配置频道</target></trans-unit>
 
      <trans-unit id="toolbar.create.org">
         <source>create new organization</source>

@@ -11699,12 +11699,6 @@ Le script post non-chroot sera ensuite exécuté et le script post sera enfin ex
         </context-group>
      <target>Les canaux de configuration listés ci-dessous sont &lt;strong&gt;gérés centralement&lt;/strong&gt;. Cela signifie que tout système enregistré à @@PRODUCT_NAME@@ peut s'abonner aux canaux de configuration ci-dessous. Tout changement effectué sur les fichiers de l'un de ces canaux affectera tous les systèmes abonnés à ce canal.</target></trans-unit>
 
-     <trans-unit id="toolbar.create.configchannel">
-        <source>create new config channel</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/GlobalConfigChannelList.do</context>
-        </context-group>
-     <target>créer un nouveau canal de configuration</target></trans-unit>
 
      <trans-unit id="toolbar.create.org">
         <source>create new organization</source>

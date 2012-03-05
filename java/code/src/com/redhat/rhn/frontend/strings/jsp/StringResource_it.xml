@@ -11682,12 +11682,6 @@ la &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stron
         </context-group>
      <target>I canali di configurazione di seguito elencati sono &lt;strong&gt;gestiti-centralmente&lt;/strong&gt;. Ciò significa che qualsiasi sistema registrato con @@PRODUCT_NAME@@, può essere sottoscritto ai canali di configurazione. Qualsiasi modifica fatta ai file presenti all'interno di uno dei suddetti canali, interesserà ogni sistema sottoscritto a quel canale.</target></trans-unit>
 
-     <trans-unit id="toolbar.create.configchannel">
-        <source>create new config channel</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/GlobalConfigChannelList.do</context>
-        </context-group>
-     <target>crea nuovo canale di configurazione</target></trans-unit>
 
      <trans-unit id="toolbar.create.org">
         <source>create new organization</source>

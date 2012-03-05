@@ -11701,12 +11701,6 @@ Anschlie&amp;szlig;end wird das nicht-chroot Post-Skript ausgef&amp;uuml;hrt, un
         </context-group>
      <target>Die unten aufgelisteten Konfigurations-Channels sind &lt;strong&gt;zentral verwaltet&lt;/strong&gt;. Dies bedeutet, dass ein beliebiges bei @@PRODUCT_NAME@@ registriertes System die unten aufgef&amp;uuml;hrten Konfigurations-Channels abonnieren kann. Jegliche &amp;Auml;nderungen, die an den Dateien in einem dieser Channels gemacht werden, wirken sich auf jedes System aus, dass diesen Channel abonniert hat.</target></trans-unit>
 
-     <trans-unit id="toolbar.create.configchannel">
-        <source>create new config channel</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/GlobalConfigChannelList.do</context>
-        </context-group>
-     <target>Neuen Konfigurations-Channel erstellen</target></trans-unit>
 
      <trans-unit id="toolbar.create.org">
         <source>create new organization</source>

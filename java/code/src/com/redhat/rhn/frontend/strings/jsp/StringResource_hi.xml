@@ -11685,12 +11685,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         </context-group>
      <target>नीचे सूचीबद्ध विन्यास चैनल &lt;strong&gt;केंद्रीकृत प्रबंधित&lt;/strong&gt; हैं. इसका मतलब है कि कोई सिस्टम जो @@PRODUCT_NAME@@ से पंजीकृत है वह विन्यास चैनल को नीचे सदस्यता ले सकता है. इन चैनल के फाइल में बनाया कोई परिवर्तन उस चैनल के सदस्यता लिए हर सिस्टम को प्रभावित करेगा.</target></trans-unit>
 
-     <trans-unit id="toolbar.create.configchannel">
-        <source>create new config channel</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/GlobalConfigChannelList.do</context>
-        </context-group>
-     <target>नयी विन्यास चैनल बनाएं</target></trans-unit>
 
      <trans-unit id="toolbar.create.org">
         <source>create new organization</source>

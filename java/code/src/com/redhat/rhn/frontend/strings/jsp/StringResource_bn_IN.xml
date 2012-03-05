@@ -11684,12 +11684,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         </context-group>
      <target>নিম্নলিখিত কনফিগারেশন চ্যানেলগুলি &lt;strong&gt;কেন্দ্রিয়রূপে পরিচালিত&lt;/strong&gt;। এর ফলে @@PRODUCT_NAME@@-এ নিবন্ধিত যে কোনো সিস্টেম নিম্নলিখিত কনফিগারেশন চ্যানেল সাবস্ক্রাইব করতে সক্ষম হবে।  এই চ্যানেলগুলির মধ্যে উপস্থিত ফাইলগুলির মধ্যে কোনো ধরনের পরিবর্তনের ফলে চ্যানেলে সাবস্ক্রাইব করা সব সিস্টেম প্রভাবিত হবে।</target></trans-unit>
 
-     <trans-unit id="toolbar.create.configchannel">
-        <source>create new config channel</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/GlobalConfigChannelList.do</context>
-        </context-group>
-     <target>নতুন কনফিগ চ্যানেল নির্মাণ করুন</target></trans-unit>
 
      <trans-unit id="toolbar.create.org">
         <source>create new organization</source>

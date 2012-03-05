@@ -11697,12 +11697,6 @@ el &lt;strong&gt;Manual de administración del sistema Red Hat Enterprise Linux.
         </context-group>
      <target>A continuación se listan los canales de &lt;strong&gt;gestión centralizada&lt;/strong&gt;. Esto significa que cualquier sistema registrado con @@PRODUCT_NAME@@ puede suscribirse a los canales de configuración listados abajo. Cualquier cambio en alguno de los archivos de estos canales afectará a todos los sistemas suscritos a ese canal.</target></trans-unit>
 
-     <trans-unit id="toolbar.create.configchannel">
-        <source>create new config channel</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/GlobalConfigChannelList.do</context>
-        </context-group>
-     <target>crear un nuevo canal de configuración</target></trans-unit>
 
      <trans-unit id="toolbar.create.org">
         <source>create new organization</source>
