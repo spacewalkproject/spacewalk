@@ -6735,12 +6735,6 @@ Follow this url to see the full list of inactive systems:
       <target>未選擇虛擬系統。</target></trans-unit>
 
 
-      <trans-unit id="systems.details.virt.one.actions.scheduled">
-        <source>Scheduled one action.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
-        </context-group>
-      <target>排程一個動作。</target></trans-unit>
 
 
 

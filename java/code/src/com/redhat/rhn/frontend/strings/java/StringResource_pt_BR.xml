@@ -6748,12 +6748,6 @@ Follow this url to see the full list of inactive systems:
       <target>Nenhum sistema virtual foi selecionado.</target></trans-unit>
 
 
-      <trans-unit id="systems.details.virt.one.actions.scheduled">
-        <source>Scheduled one action.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
-        </context-group>
-      <target>Uma ação agendada.</target></trans-unit>
 
 
 

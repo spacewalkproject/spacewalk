@@ -6760,12 +6760,6 @@ Seguite l'url sotto riportato per visualizzare l'elenco completo di sistemi inat
       <target>Nessun sistema virtuale selezionato.</target></trans-unit>
 
 
-      <trans-unit id="systems.details.virt.one.actions.scheduled">
-        <source>Scheduled one action.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
-        </context-group>
-      <target>Un'azione programmata.</target></trans-unit>
 
 
 

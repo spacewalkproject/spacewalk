@@ -6738,12 +6738,6 @@ Follow this url to see the full list of inactive systems:
       <target>ਕੋਈ ਵਰਚੁਅਲ ਸਿਸਟਮ ਨਹੀਂ ਚੁਣਿਆ ਹੈ।</target></trans-unit>
 
 
-      <trans-unit id="systems.details.virt.one.actions.scheduled">
-        <source>Scheduled one action.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
-        </context-group>
-      <target>ਤਹਿ ਕੀਤੀ ਇੱਕ ਕਾਰਵਾਈ।</target></trans-unit>
 
 
 
