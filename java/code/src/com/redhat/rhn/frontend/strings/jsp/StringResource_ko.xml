@@ -15083,9 +15083,6 @@ any of these revisions.  Are you sure you want to do this?</source>
           <source>Locally-managed Configuration Files:</source>
         <target>로컬 관리 설정 파일:</target></trans-unit>
 
-        <trans-unit id="configoverview.jsp.quota">
-          <source>File Storage Quota Remaining:</source>
-        <target>남아있는 파일 저장용 쿼터:</target></trans-unit>
 
         <trans-unit id="configoverview.jsp.configlinks">
           <source>Configuration Actions</source>

@@ -15124,9 +15124,6 @@ dieser Revisionen.  M&amp;ouml;chten Sie dies wirklich tun?</target></trans-unit
           <source>Locally-managed Configuration Files:</source>
         <target>Lokal verwaltete Konfigurationsdateien:</target></trans-unit>
 
-        <trans-unit id="configoverview.jsp.quota">
-          <source>File Storage Quota Remaining:</source>
-        <target>Verbleibende Quota f&amp;uuml;r die Dateispeicherung:</target></trans-unit>
 
         <trans-unit id="configoverview.jsp.configlinks">
           <source>Configuration Actions</source>

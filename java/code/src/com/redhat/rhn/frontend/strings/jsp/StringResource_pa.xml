@@ -15088,9 +15088,6 @@ any of these revisions.  Are you sure you want to do this?</source>
           <source>Locally-managed Configuration Files:</source>
         <target>ਲੋਕਲ-ਪਰਬੰਧਿਤ ਸੰਰਚਨਾ ਫਾਇਲਾਂ:</target></trans-unit>
 
-        <trans-unit id="configoverview.jsp.quota">
-          <source>File Storage Quota Remaining:</source>
-        <target>ਫਾਇਲ ਸਟੋਰੇਜ਼ ਕੋਟਾ ਬਕਾਇਆ ਹੈ:</target></trans-unit>
 
         <trans-unit id="configoverview.jsp.configlinks">
           <source>Configuration Actions</source>

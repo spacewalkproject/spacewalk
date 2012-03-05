@@ -15112,9 +15112,6 @@ para qualquer uma das revisões, assim como todo o histórico de implementação
           <source>Locally-managed Configuration Files:</source>
         <target>Arquivos de Configuração Gerenciados Localmente:</target></trans-unit>
 
-        <trans-unit id="configoverview.jsp.quota">
-          <source>File Storage Quota Remaining:</source>
-        <target>Cota de Armazenamento de Arquivo Restante:</target></trans-unit>
 
         <trans-unit id="configoverview.jsp.configlinks">
           <source>Configuration Actions</source>

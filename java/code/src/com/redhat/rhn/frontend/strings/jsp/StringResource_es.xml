@@ -15120,9 +15120,6 @@ concerniente con esas revisiones. ¿Está seguro que es ésto lo que desea hacer
           <source>Locally-managed Configuration Files:</source>
         <target>Archivos de configuración de gestión local:</target></trans-unit>
 
-        <trans-unit id="configoverview.jsp.quota">
-          <source>File Storage Quota Remaining:</source>
-        <target>Cuota restante de almacenamiento de archivos:</target></trans-unit>
 
         <trans-unit id="configoverview.jsp.configlinks">
           <source>Configuration Actions</source>

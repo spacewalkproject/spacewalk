@@ -15122,9 +15122,6 @@ pour ces versions seront également supprimées, ainsi que tous les historiques 
           <source>Locally-managed Configuration Files:</source>
         <target>Fichiers de configuration gérés localement</target></trans-unit>
 
-        <trans-unit id="configoverview.jsp.quota">
-          <source>File Storage Quota Remaining:</source>
-        <target>Quota de stockage des fichiers restant&amp;nbsp;:</target></trans-unit>
 
         <trans-unit id="configoverview.jsp.configlinks">
           <source>Configuration Actions</source>
