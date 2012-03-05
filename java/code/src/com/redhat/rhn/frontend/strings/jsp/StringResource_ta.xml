@@ -5452,9 +5452,6 @@ value for this entitlement, excluding the default organization's consumption.</s
         <target>&lt;strong&gt;{0}&lt;/strong&gt; கணினிகளிலிருந்து &lt;strong&gt;வாய்ப்பளித்தல்&lt;/strong&gt; நீக்கப்பட்டது.</target></trans-unit>
 
 
-        <trans-unit id="system_entitlements.provisioning.notEnoughSlots">
-                <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) were successfully set to &lt;strong&gt;Provisioning&lt;/strong&gt; entitled, but you do not have enough &lt;strong&gt;Provisioning&lt;/strong&gt; entitlements for the remaining &lt;strong&gt;{1}&lt;/strong&gt; system(s). You may purchase additional &lt;strong&gt;Provisioning&lt;/strong&gt; entitlements at &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;@@PRODUCT_NAME@@ store&lt;/strong&gt;&lt;/a&gt;. After you have additional &lt;strong&gt;Provisioning&lt;/strong&gt; entitlements, you will be able to upgrade these systems.</source>
-        <target>&lt;strong&gt;{0}&lt;/strong&gt; கணினி(கள்) வெற்றிகரமாக &lt;strong&gt;வாய்ப்பளித்தல்&lt;/strong&gt; உரிமப்படுத்தப்பட்டது, ஆனால், நீங்கள் &lt;strong&gt;{1}&lt;/strong&gt; கணினி(களுக்கு) போதிய &lt;strong&gt;வாய்ப்பளித்தல்&lt;/strong&gt; உரிமம் இல்லை. நீங்கள் கூடுதல் &lt;strong&gt;வாய்ப்பளித்தல்&lt;/strong&gt; உரிமத்தை &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;@@PRODUCT_NAME@@ ஸ்டோரில் வாங்கலாம்&lt;/strong&gt;&lt;/a&gt;. நீங்கள்  கூடுதல் &lt;strong&gt;வாய்ப்பளித்தல்&lt;/strong&gt; உரிமத்தைப் பெற்ற பின், இந்த கணினிகளை மேம்படுத்தலாம்.</target></trans-unit>
 
         <trans-unit id="system_entitlements.virtualization.success_note">
                 <source>&lt;strong&gt;NOTE:&lt;/strong&gt; We subscribed the system(s) to the {0} and {1} channel as well as scheduled an install of the {2} package to prepare the system(s) for hosting virtual guests.</source>
