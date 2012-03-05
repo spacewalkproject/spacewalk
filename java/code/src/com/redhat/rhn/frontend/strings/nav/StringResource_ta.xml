@@ -960,12 +960,6 @@
     </context-group>
   <target>தொகுப்பு விவரக்குறிப்பு</target></trans-unit>
 
-  <trans-unit id="Expiration Dates &amp; Purchase History">
-    <source>Expiration Dates &amp; Purchase History</source>
-    <context-group name="ctx">
-      <context context-type="sourcefile">Overview left nav menu</context>
-    </context-group>
-  <target>முடிவுறும் தேதிகள் &amp; வாங்கிய வரலாறு</target></trans-unit>
 
   <trans-unit id="Purchase or Renew">
     <source>Purchase or Renew</source>

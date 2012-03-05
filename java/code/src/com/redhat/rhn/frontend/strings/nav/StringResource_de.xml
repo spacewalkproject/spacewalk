@@ -960,12 +960,6 @@
     </context-group>
   <target>Paketprofile</target></trans-unit>
 
-  <trans-unit id="Expiration Dates &amp; Purchase History">
-    <source>Expiration Dates &amp; Purchase History</source>
-    <context-group name="ctx">
-      <context context-type="sourcefile">Overview left nav menu</context>
-    </context-group>
-  <target>Ablauftermine &amp; Kaufverlauf</target></trans-unit>
 
   <trans-unit id="Purchase or Renew">
     <source>Purchase or Renew</source>

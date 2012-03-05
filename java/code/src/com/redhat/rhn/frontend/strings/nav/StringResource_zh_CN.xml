@@ -960,12 +960,6 @@
     </context-group>
   <target>软件包配置档案</target></trans-unit>
 
-  <trans-unit id="Expiration Dates &amp; Purchase History">
-    <source>Expiration Dates &amp; Purchase History</source>
-    <context-group name="ctx">
-      <context context-type="sourcefile">Overview left nav menu</context>
-    </context-group>
-  <target>过期时间和购买历史</target></trans-unit>
 
   <trans-unit id="Purchase or Renew">
     <source>Purchase or Renew</source>

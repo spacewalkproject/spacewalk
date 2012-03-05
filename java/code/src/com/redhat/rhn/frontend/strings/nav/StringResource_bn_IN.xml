@@ -960,12 +960,6 @@
     </context-group>
   <target>প্যাকেজ প্রোফাইল</target></trans-unit>
 
-  <trans-unit id="Expiration Dates &amp; Purchase History">
-    <source>Expiration Dates &amp; Purchase History</source>
-    <context-group name="ctx">
-      <context context-type="sourcefile">Overview left nav menu</context>
-    </context-group>
-  <target>মেয়াদপূর্তীর তারিখ ক্রয় সংক্রান্ত পূর্ববর্তী তথ্য</target></trans-unit>
 
   <trans-unit id="Purchase or Renew">
     <source>Purchase or Renew</source>

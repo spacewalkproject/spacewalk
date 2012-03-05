@@ -960,12 +960,6 @@
     </context-group>
   <target>પેકેજ રૂપરેખાઓ</target></trans-unit>
 
-  <trans-unit id="Expiration Dates &amp; Purchase History">
-    <source>Expiration Dates &amp; Purchase History</source>
-    <context-group name="ctx">
-      <context context-type="sourcefile">Overview left nav menu</context>
-    </context-group>
-  <target>સમયસમાપ્તિ તારીખો &amp; ખરીદ ઈતિહાસ</target></trans-unit>
 
   <trans-unit id="Purchase or Renew">
     <source>Purchase or Renew</source>
