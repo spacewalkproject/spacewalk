@@ -18533,12 +18533,6 @@ comme défini dans le certificat de ce @@PRODUCT_NAME@@.</target></trans-unit>
 
 
 
-      <trans-unit id="system_entitlement_details.access_grant_desc.virtualization_host_platform">
-        <source>A single Virtualization Platform (Add-On) entitlement applied to a host system, enabled management for unlimited guests. </source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementDetails</context>
-        </context-group>
-      <target>Un droit d'accès Plateforme de virtualisation unique (Supplémentaire) appliqué à un système hôte, permet de gérer un nombre illimité d'invités.</target></trans-unit>
 
       <trans-unit id="system_entitlement_details.org_msg">
        <source>&lt;strong&gt;{0}&lt;/strong&gt; of &lt;strong&gt;{1}&lt;/strong&gt; organizations on this satellite have at least one registered system using this entitlement.</source>
