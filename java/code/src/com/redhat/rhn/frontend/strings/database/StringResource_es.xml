@@ -3570,9 +3570,6 @@
         <trans-unit id="kickstart.state.configuration_deploy">
           <source>Configuration files are being deployed.</source>
         <target>Los archivos de configuración están siendo implementados.</target></trans-unit>
-        <trans-unit id="kickstart.state.complete">
-          <source>Kickstart complete.</source>
-        <target>Kickstart completado.</target></trans-unit>
         <trans-unit id="kickstart.state.failed">
           <source>Kickstart failed.</source>
         <target>Falló la instalación kickstart.</target></trans-unit>

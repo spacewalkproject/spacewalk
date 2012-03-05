@@ -3590,9 +3590,6 @@ http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd"
         <trans-unit id="kickstart.state.configuration_deploy">
           <source>Configuration files are being deployed.</source>
         </trans-unit>
-        <trans-unit id="kickstart.state.complete">
-          <source>Kickstart complete.</source>
-        </trans-unit>
         <trans-unit id="kickstart.state.failed">
           <source>Kickstart failed.</source>
         </trans-unit>

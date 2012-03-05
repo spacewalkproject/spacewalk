@@ -3570,9 +3570,6 @@
         <trans-unit id="kickstart.state.configuration_deploy">
           <source>Configuration files are being deployed.</source>
         <target>கட்டமைப்பு கோப்புகள் வரிசைப்படுத்தப்பட்டன.</target></trans-unit>
-        <trans-unit id="kickstart.state.complete">
-          <source>Kickstart complete.</source>
-        <target>கிக்ஸ்டார்ட் முடிக்கப்பட்டது.</target></trans-unit>
         <trans-unit id="kickstart.state.failed">
           <source>Kickstart failed.</source>
         <target>கிக்ஸ்டார்ட் செய்ய முடியவில்லை.</target></trans-unit>
