@@ -20866,9 +20866,6 @@ given channel.</source>
       <trans-unit id="package.jsp.provider">
         <source>Content Provider</source>
       <target>ਸੰਖੇਪ ਮੁਹੱਈਆ ਕਰਤਾ</target></trans-unit>
-      <trans-unit id="channel.jsp.globallysub">
-        <source> If checked, all users in your organization may subscribe to this channel.</source>
-      <target> ਜੇ ਚੁਣਿਆ ਹੈ, ਤੁਹਾਡੇ ਸੰਗਠਨ ਦੇ ਸਾਰੇ ਉਪਭੋਗੀ ਇਸ ਚੈਨਲ ਤੇ ਮੈਂਬਰ ਬਣ ਸਕਦੇ ਹਨ।</target></trans-unit>
       <trans-unit id="channel.jsp.globallysubtitle">
         <source>Globally Subscribable</source>
       <target>ਗਲੋਬਲ ਮੈਂਬਰ-ਬਣਾਉਣ ਯੋਗ</target></trans-unit>

@@ -20864,9 +20864,6 @@ stesso pacchetto in un singolo canale, ciò potrebbe causare però il
       <trans-unit id="package.jsp.provider">
         <source>Content Provider</source>
       <target>Content Provider</target></trans-unit>
-      <trans-unit id="channel.jsp.globallysub">
-        <source> If checked, all users in your organization may subscribe to this channel.</source>
-      <target> se selezionati, tutti gli utenti della vostra organizzazione possono sottoscriverse a questo canale.</target></trans-unit>
       <trans-unit id="channel.jsp.globallysubtitle">
         <source>Globally Subscribable</source>
       <target>Sottoscrivibile globalmente</target></trans-unit>

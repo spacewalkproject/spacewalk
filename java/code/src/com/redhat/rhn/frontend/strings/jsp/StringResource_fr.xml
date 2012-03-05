@@ -20970,9 +20970,6 @@ fois pour un canal donné.</target></trans-unit>
       <trans-unit id="package.jsp.provider">
         <source>Content Provider</source>
       <target>Fournisseur de contenu</target></trans-unit>
-      <trans-unit id="channel.jsp.globallysub">
-        <source> If checked, all users in your organization may subscribe to this channel.</source>
-      <target>Si sélectionné, tous les utilisateurs dans votre organisation pourront s'abonner à ce canal.</target></trans-unit>
       <trans-unit id="channel.jsp.globallysubtitle">
         <source>Globally Subscribable</source>
       <target>Globalement abonnable</target></trans-unit>

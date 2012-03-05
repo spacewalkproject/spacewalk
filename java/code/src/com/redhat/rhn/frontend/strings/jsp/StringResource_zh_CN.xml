@@ -20963,9 +20963,6 @@ given channel.</source>
       <trans-unit id="package.jsp.provider">
         <source>Content Provider</source>
       <target>内容提供者</target></trans-unit>
-      <trans-unit id="channel.jsp.globallysub">
-        <source> If checked, all users in your organization may subscribe to this channel.</source>
-      <target>如果检查，您机构中的所有用户都可以在此频道中订阅。</target></trans-unit>
       <trans-unit id="channel.jsp.globallysubtitle">
         <source>Globally Subscribable</source>
       <target>全局可订阅</target></trans-unit>

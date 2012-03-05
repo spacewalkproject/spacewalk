@@ -20942,9 +20942,6 @@ given channel.</source>
       <trans-unit id="package.jsp.provider">
         <source>Content Provider</source>
       <target>コンテンツプロバイダー</target></trans-unit>
-      <trans-unit id="channel.jsp.globallysub">
-        <source> If checked, all users in your organization may subscribe to this channel.</source>
-      <target>チェックすると、 ユーザーの組織のすべてのユーザーがこのチャンネルにサブスクライブできます。</target></trans-unit>
       <trans-unit id="channel.jsp.globallysubtitle">
         <source>Globally Subscribable</source>
       <target>グローバルにサブスクライブ可能</target></trans-unit>

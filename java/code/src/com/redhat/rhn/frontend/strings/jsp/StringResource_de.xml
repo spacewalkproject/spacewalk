@@ -20974,9 +20974,6 @@ f&amp;uuml;r einen angegebenen Channel aufgelistet wird.</target></trans-unit>
       <trans-unit id="package.jsp.provider">
         <source>Content Provider</source>
       <target>Inhalteanbieter</target></trans-unit>
-      <trans-unit id="channel.jsp.globallysub">
-        <source> If checked, all users in your organization may subscribe to this channel.</source>
-      <target>Falls ausgewählt, können alle Benutzer Ihrer Organisation diesen Channel abonnieren.</target></trans-unit>
       <trans-unit id="channel.jsp.globallysubtitle">
         <source>Globally Subscribable</source>
       <target>Allgemein abonnierbar</target></trans-unit>

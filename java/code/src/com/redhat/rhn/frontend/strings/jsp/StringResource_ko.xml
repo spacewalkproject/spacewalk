@@ -20857,9 +20857,6 @@ given channel.</source>
       <trans-unit id="package.jsp.provider">
         <source>Content Provider</source>
       <target>컨텐츠 제공자 </target></trans-unit>
-      <trans-unit id="channel.jsp.globallysub">
-        <source> If checked, all users in your organization may subscribe to this channel.</source>
-      <target>선택하였을 경우 조직의 모든 사용자를 이 채널에 등록할 수 있습니다.  </target></trans-unit>
       <trans-unit id="channel.jsp.globallysubtitle">
         <source>Globally Subscribable</source>
       <target>누구나 등록 가능 </target></trans-unit>
