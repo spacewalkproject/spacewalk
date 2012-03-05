@@ -8063,9 +8063,6 @@ Follow this url to see the full list of inactive systems:
           <source>(unspecified)</source>
       <target>(અસ્પષ્ટ)</target></trans-unit>
 
-      <trans-unit id="api.kickstart.labelalreadyinuse">
-          <source>Kickstart label already exists: {0}</source>
-      <target>કિકસ્ટાર્ટ લેબલ પહેલાથી જ અસ્તિત્વમાં છે: {0}</target></trans-unit>
 
       <trans-unit id="api.package.provider.invalidKeyType">
           <source>The package key type specified ({0}) is invalid.</source>

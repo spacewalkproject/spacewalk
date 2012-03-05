@@ -8063,9 +8063,6 @@ url பின்பற்றி செயலிழக்கப்பட்ட �
           <source>(unspecified)</source>
       <target>(குறிப்பிடப்படாதது)</target></trans-unit>
 
-      <trans-unit id="api.kickstart.labelalreadyinuse">
-          <source>Kickstart label already exists: {0}</source>
-      <target>கிக்ஸ்டார்ட் லேபிள் ஏற்கனவே உள்ளது: {0}</target></trans-unit>
 
       <trans-unit id="api.package.provider.invalidKeyType">
           <source>The package key type specified ({0}) is invalid.</source>

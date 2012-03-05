@@ -8142,9 +8142,6 @@ Follow this url to see the full list of inactive systems:
           <source>(unspecified)</source>
       </trans-unit>
 
-      <trans-unit id="api.kickstart.labelalreadyinuse">
-          <source>Kickstart label already exists: {0}</source>
-      </trans-unit>
 
       <trans-unit id="api.provisioning.snapshot.tagalreadyinuse">
           <source>Snapshot tag already exists: {0}</source>

@@ -8087,9 +8087,6 @@ Seguite l'url sotto riportato per visualizzare l'elenco completo di sistemi inat
           <source>(unspecified)</source>
       <target>(non specificato)</target></trans-unit>
 
-      <trans-unit id="api.kickstart.labelalreadyinuse">
-          <source>Kickstart label already exists: {0}</source>
-      <target>L'etichetta di Kickstart è già esistente: {0}</target></trans-unit>
 
       <trans-unit id="api.package.provider.invalidKeyType">
           <source>The package key type specified ({0}) is invalid.</source>

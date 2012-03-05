@@ -8088,9 +8088,6 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
           <source>(unspecified)</source>
       <target>(sin especificar)</target></trans-unit>
 
-      <trans-unit id="api.kickstart.labelalreadyinuse">
-          <source>Kickstart label already exists: {0}</source>
-      <target>La etiqueta kickstart ya existe: {0}</target></trans-unit>
 
       <trans-unit id="api.package.provider.invalidKeyType">
           <source>The package key type specified ({0}) is invalid.</source>
