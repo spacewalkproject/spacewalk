@@ -20877,9 +20877,6 @@ given channel.</source>
       <trans-unit id="channel.jsp.chanent">
         <source>Channel Entitlement Name</source>
       <target>சேனல் உரிம பெயர்</target></trans-unit>
-      <trans-unit id="channel.jsp.label">
-        <source>Label</source>
-      <target>பெயர் அடையாளம்</target></trans-unit>
       <trans-unit id="channel.jsp.gpgunknown">
         <source>Unknown</source>
       <target>தெரியாதது</target></trans-unit>

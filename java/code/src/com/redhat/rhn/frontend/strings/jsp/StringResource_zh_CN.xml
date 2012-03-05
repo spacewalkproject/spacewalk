@@ -20975,9 +20975,6 @@ given channel.</source>
       <trans-unit id="channel.jsp.chanent">
         <source>Channel Entitlement Name</source>
       <target>频道权利名称</target></trans-unit>
-      <trans-unit id="channel.jsp.label">
-        <source>Label</source>
-      <target>标签</target></trans-unit>
       <trans-unit id="channel.jsp.gpgunknown">
         <source>Unknown</source>
       <target>未知的</target></trans-unit>

@@ -21338,9 +21338,6 @@ given channel.</source>
       <trans-unit id="channel.jsp.chanent">
         <source>Channel Entitlement Name</source>
       </trans-unit>
-      <trans-unit id="channel.jsp.label">
-        <source>Label</source>
-      </trans-unit>
       <trans-unit id="channel.jsp.gpgunknown">
         <source>Unknown</source>
       </trans-unit>
