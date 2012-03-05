@@ -5422,9 +5422,6 @@ value for this entitlement, excluding the default organization's consumption.</s
         <trans-unit id="system_entitlements.setToUpdateEntitled.success">
                 <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) set to &lt;strong&gt;Update&lt;/strong&gt;.</source>
         <target>&lt;strong&gt;{0}&lt;/strong&gt; 台系統已經設定為&lt;strong&gt;更新&lt;/strong&gt;。</target></trans-unit>
-        <trans-unit id="system_entitlements.setToUpdateEntitled.failure">
-                <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) were successfully set to &lt;strong&gt;Update&lt;/strong&gt; entitled, but you do not have enough &lt;strong&gt;Update&lt;/strong&gt; entitlements for the remaining &lt;strong&gt;{1}&lt;/strong&gt; system(s). You may purchase additional &lt;strong&gt;Update&lt;/strong&gt; entitlements at &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;@@PRODUCT_NAME@@ store&lt;/strong&gt;&lt;/a&gt;. After you have additional &lt;strong&gt;Update&lt;/strong&gt; entitlements, you will be able to update these systems.</source>
-        <target>&lt;strong&gt;{0}&lt;/strong&gt; 台系統已成功地被設定為擁有&lt;strong&gt;更新&lt;/strong&gt;權利，但您沒有足夠的&lt;strong&gt;更新&lt;/strong&gt;權利給剩下的 &lt;strong&gt;{1}&lt;/strong&gt; 台系統使用。您可自 &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;@@PRODUCT_NAME@@ 線上商店&lt;/strong&gt;&lt;/a&gt;購買額外的&lt;strong&gt;更新&lt;/strong&gt;權利。一旦您獲取更多的&lt;strong&gt;更新&lt;/strong&gt;權利後，您便可以更新這些系統。</target></trans-unit>
         <trans-unit id="system_entitlements.unentitle.success">
                 <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s)  &lt;strong&gt;Unentitled&lt;/strong&gt;.</source>
         <target>&lt;strong&gt;{0}&lt;/strong&gt; 台系統已不再&lt;strong&gt;享有權利&lt;/strong&gt;。</target></trans-unit>

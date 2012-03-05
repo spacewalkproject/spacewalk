@@ -5425,9 +5425,6 @@ value for this entitlement, excluding the default organization's consumption.</s
         <trans-unit id="system_entitlements.setToUpdateEntitled.success">
                 <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) set to &lt;strong&gt;Update&lt;/strong&gt;.</source>
         <target>&lt;strong&gt;{0}&lt;/strong&gt; 시스템이 &lt;strong&gt;업데이트&lt;/strong&gt;로 설정되었습니다.</target></trans-unit>
-        <trans-unit id="system_entitlements.setToUpdateEntitled.failure">
-                <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) were successfully set to &lt;strong&gt;Update&lt;/strong&gt; entitled, but you do not have enough &lt;strong&gt;Update&lt;/strong&gt; entitlements for the remaining &lt;strong&gt;{1}&lt;/strong&gt; system(s). You may purchase additional &lt;strong&gt;Update&lt;/strong&gt; entitlements at &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;@@PRODUCT_NAME@@ store&lt;/strong&gt;&lt;/a&gt;. After you have additional &lt;strong&gt;Update&lt;/strong&gt; entitlements, you will be able to update these systems.</source>
-        <target>&lt;strong&gt;{0}&lt;/strong&gt; 시스템은 &lt;strong&gt;업데이트&lt;/strong&gt; 인타이틀먼트로 성공적으로 변환되었지만, 마지막 &lt;strong&gt;{1}&lt;/strong&gt; 시스템에 대해 &lt;strong&gt;업데이트&lt;/strong&gt; 인타이틀먼트가 부족합니다. &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;@@PRODUCT_NAME@@ 스토어&lt;/strong&gt;&lt;/a&gt; 에서 추가적인 &lt;strong&gt;업데이트&lt;/strong&gt; 인타이틀먼트를 구매하실 수 있습니다. 추가적인 &lt;strong&gt;업데이트&lt;/strong&gt; 인타이틀먼트를 가지셔야만 이 시스템들을 업데이트할 수 있습니다. </target></trans-unit>
         <trans-unit id="system_entitlements.unentitle.success">
                 <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s)  &lt;strong&gt;Unentitled&lt;/strong&gt;.</source>
         <target>&lt;strong&gt;{0}&lt;/strong&gt; 시스템이 &lt;strong&gt;인타이틀먼트 없음&lt;/strong&gt;으로 설정되었습니다.</target></trans-unit>
