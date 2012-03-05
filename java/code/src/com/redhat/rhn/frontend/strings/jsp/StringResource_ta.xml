@@ -18459,12 +18459,6 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;
 மொத்த @@PRODUCT_NAME@@ காட்டப்படுவதாகும்.</target></trans-unit>
 
 
-      <trans-unit id="sys_entitlements.notinuse">
-        <source>Not In Use</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
-        </context-group>
-      <target>பயனில் இல்லை</target></trans-unit>
 
 
       <trans-unit id="sys_entitlements.provisioning_entitled">

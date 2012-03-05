@@ -18511,12 +18511,6 @@ de realizar un kickstart o antes de crear una nueva distribución kickstart.&lt;
 tal y como se refleja en el certificado de @@PRODUCT_NAME@@.</target></trans-unit>
 
 
-      <trans-unit id="sys_entitlements.notinuse">
-        <source>Not In Use</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
-        </context-group>
-      <target>Sin usar</target></trans-unit>
 
 
       <trans-unit id="sys_entitlements.provisioning_entitled">

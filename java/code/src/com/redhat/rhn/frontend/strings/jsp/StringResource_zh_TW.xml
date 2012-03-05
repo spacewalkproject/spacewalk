@@ -18453,12 +18453,6 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;
       <target>*&lt;strong&gt;提示：&lt;/strong&gt;「總數」指的是反映在此 @@PRODUCT_NAME@@ 認證中的可用 @@PRODUCT_NAME@@ 數量。</target></trans-unit>
 
 
-      <trans-unit id="sys_entitlements.notinuse">
-        <source>Not In Use</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
-        </context-group>
-      <target>非使用中</target></trans-unit>
 
 
       <trans-unit id="sys_entitlements.provisioning_entitled">

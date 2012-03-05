@@ -18458,12 +18458,6 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;
 ਜਿਵੇਂ @@PRODUCT_NAME@@ ਸਾਰਟੀਫਿਕੇਟ ਵਿੱਚ ਦਿੱਤਾ ਗਿਆ ਹੈ।</target></trans-unit>
 
 
-      <trans-unit id="sys_entitlements.notinuse">
-        <source>Not In Use</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
-        </context-group>
-      <target>ਵਰਤੋਂ ਵਿੱਚ ਨਹੀਂ</target></trans-unit>
 
 
       <trans-unit id="sys_entitlements.provisioning_entitled">
