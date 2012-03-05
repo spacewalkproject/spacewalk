@@ -20884,9 +20884,6 @@ given channel.</source>
       <trans-unit id="channel.jsp.gpgtitle">
         <source>GPG Public Key</source>
       <target>GPG ਪਬਲਿਕ ਕੁੰਜੀ</target></trans-unit>
-      <trans-unit id="channel.jsp.gpglocation">
-        <source>Key Location</source>
-      <target>ਕੁੰਜੀ ਟਿਕਾਣਾ</target></trans-unit>
       <trans-unit id="channel.jsp.gpgunknown">
         <source>Unknown</source>
       <target>ਅਣਜਾਣ</target></trans-unit>

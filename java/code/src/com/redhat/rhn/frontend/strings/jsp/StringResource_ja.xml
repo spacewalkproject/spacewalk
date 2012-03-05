@@ -20960,9 +20960,6 @@ given channel.</source>
       <trans-unit id="channel.jsp.gpgtitle">
         <source>GPG Public Key</source>
       <target>GPG パブリックキー</target></trans-unit>
-      <trans-unit id="channel.jsp.gpglocation">
-        <source>Key Location</source>
-      <target>キーの場所</target></trans-unit>
       <trans-unit id="channel.jsp.gpgunknown">
         <source>Unknown</source>
       <target>不明</target></trans-unit>
