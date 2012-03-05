@@ -13867,12 +13867,6 @@ any of these revisions.  Are you sure you want to do this?</source>
 
     <!-- quota.jsp -->
 
-    <trans-unit id="quota.jsp.toolbar">
-        <source>Quota for File Storage</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/Quota.do</context>
-        </context-group>
-    <target>文件存储的配额</target></trans-unit>
 
     <trans-unit id="quota.jsp.total">
         <source>Your organization is allowed &lt;strong&gt;{0}&lt;/strong&gt; of space to store configuration files.</source>
