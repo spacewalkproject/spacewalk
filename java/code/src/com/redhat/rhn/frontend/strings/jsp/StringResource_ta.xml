@@ -18488,12 +18488,6 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;
         </context-group>
       <target>இந்த சேட்டிலைட்டில் &lt;strong&gt;{1}&lt;/strong&gt; இல் &lt;strong&gt;{0}&lt;/strong&gt; நிறுவனங்கள் குறைந்தது ஒரு பதிவு செய்யப்பட்ட கணினியை இந்த உரிமத்தில் பயன்படுத்தும்.</target></trans-unit>
 
-      <trans-unit id="system_entitlement_details.counts">
-       <source>Total Allocated: &lt;strong&gt;{0}&lt;/strong&gt;, Total In Use: &lt;strong&gt;{1}&lt;/strong&gt;, Total Not in Use: &lt;strong&gt;{2}&lt;/strong&gt;</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementDetails</context>
-        </context-group>
-      <target>மொத்தம் ஒதுக்கப்பட்டது: &lt;strong&gt;{0}&lt;/strong&gt;, மொத்தம் பயனில்: &lt;strong&gt;{1}&lt;/strong&gt;, மொத்தம் பயனில் இல்லாதது (&lt;strong&gt;{2}&lt;/strong&gt;</target></trans-unit>
 
       <trans-unit id="entitlementorgs.orgname">
 <source>Organization Name</source>

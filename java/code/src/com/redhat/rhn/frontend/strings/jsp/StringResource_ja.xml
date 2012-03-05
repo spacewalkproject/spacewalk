@@ -18522,12 +18522,6 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;
         </context-group>
       <target>この satellite 上の &lt;strong&gt;{1}&lt;/strong&gt; 組織の内、&lt;strong&gt;{0}&lt;/strong&gt; は このエンタイトルメントを使用して少なくとも、1 つの登録済みシステムを持っています。</target></trans-unit>
 
-      <trans-unit id="system_entitlement_details.counts">
-       <source>Total Allocated: &lt;strong&gt;{0}&lt;/strong&gt;, Total In Use: &lt;strong&gt;{1}&lt;/strong&gt;, Total Not in Use: &lt;strong&gt;{2}&lt;/strong&gt;</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementDetails</context>
-        </context-group>
-      <target>割り当て合計: &lt;strong&gt;{0}&lt;/strong&gt;、使用中合計 &lt;strong&gt;{1}&lt;/strong&gt;、 未使用合計: &lt;strong&gt;{2}&lt;/strong&gt;</target></trans-unit>
 
       <trans-unit id="entitlementorgs.orgname">
 <source>Organization Name</source>

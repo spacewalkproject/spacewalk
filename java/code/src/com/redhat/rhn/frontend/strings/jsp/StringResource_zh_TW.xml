@@ -18482,12 +18482,6 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;
         </context-group>
       <target>這台衛星伺服器上，&lt;strong&gt;{1}&lt;/strong&gt; 組織中的 &lt;strong&gt;{0}&lt;/strong&gt; 幾個組織有至少一台系統已經註冊，使用這個權利。</target></trans-unit>
 
-      <trans-unit id="system_entitlement_details.counts">
-       <source>Total Allocated: &lt;strong&gt;{0}&lt;/strong&gt;, Total In Use: &lt;strong&gt;{1}&lt;/strong&gt;, Total Not in Use: &lt;strong&gt;{2}&lt;/strong&gt;</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementDetails</context>
-        </context-group>
-      <target>已分配的總數：&lt;strong&gt;{0}&lt;/strong&gt;，使用中的總數：&lt;strong&gt;{1}&lt;/strong&gt;，非使用中的總數：&lt;strong&gt;{2}&lt;/strong&gt;</target></trans-unit>
 
       <trans-unit id="entitlementorgs.orgname">
 <source>Organization Name</source>

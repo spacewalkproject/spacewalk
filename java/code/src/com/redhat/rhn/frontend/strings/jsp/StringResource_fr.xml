@@ -18541,12 +18541,6 @@ comme défini dans le certificat de ce @@PRODUCT_NAME@@.</target></trans-unit>
         </context-group>
       <target>&lt;strong&gt;{0}&lt;/strong&gt; des &lt;strong&gt;{1}&lt;/strong&gt; organisations sur ce Satellite ont au moins un système enregistré utilisant ce droit d'accès.</target></trans-unit>
 
-      <trans-unit id="system_entitlement_details.counts">
-       <source>Total Allocated: &lt;strong&gt;{0}&lt;/strong&gt;, Total In Use: &lt;strong&gt;{1}&lt;/strong&gt;, Total Not in Use: &lt;strong&gt;{2}&lt;/strong&gt;</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementDetails</context>
-        </context-group>
-      <target>Total alloué&amp;nbsp;: &lt;strong&gt;{0}&lt;/strong&gt;, Total utilisé&amp;nbsp;: &lt;strong&gt;{1}&lt;/strong&gt;, Total non utilisé&amp;nbsp;: &lt;strong&gt;{2}&lt;/strong&gt;</target></trans-unit>
 
       <trans-unit id="entitlementorgs.orgname">
 <source>Organization Name</source>

@@ -18481,12 +18481,6 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;
         </context-group>
       <target>satellite에 있는 &lt;strong&gt;{1}&lt;/strong&gt; 중 &lt;strong&gt;{0}&lt;/strong&gt; 조직은 이 인타이틀먼트를 사용하여 최소 한개의 등록된 시스템을 갖을 수 있습니다.  </target></trans-unit>
 
-      <trans-unit id="system_entitlement_details.counts">
-       <source>Total Allocated: &lt;strong&gt;{0}&lt;/strong&gt;, Total In Use: &lt;strong&gt;{1}&lt;/strong&gt;, Total Not in Use: &lt;strong&gt;{2}&lt;/strong&gt;</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementDetails</context>
-        </context-group>
-      <target>할당 합계: &lt;strong&gt;{0}&lt;/strong&gt;, 사용중 합계: &lt;strong&gt;{1}&lt;/strong&gt;, 미사용중 합계: &lt;strong&gt;{2}&lt;/strong&gt; </target></trans-unit>
 
       <trans-unit id="entitlementorgs.orgname">
 <source>Organization Name</source>

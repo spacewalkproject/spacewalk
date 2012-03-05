@@ -18481,12 +18481,6 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;
         </context-group>
       <target>Число организаций на этом сервере Satellite, которым соответствует как минимум одна зарегистрированная система с данным полномочием &amp;mdash; &lt;strong&gt;{0}&lt;/strong&gt;. Общее число организаций &amp;mdash; &lt;strong&gt;{1}&lt;/strong&gt;.</target></trans-unit>
 
-      <trans-unit id="system_entitlement_details.counts">
-       <source>Total Allocated: &lt;strong&gt;{0}&lt;/strong&gt;, Total In Use: &lt;strong&gt;{1}&lt;/strong&gt;, Total Not in Use: &lt;strong&gt;{2}&lt;/strong&gt;</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementDetails</context>
-        </context-group>
-      <target>Всего выделено: &lt;strong&gt;{0}&lt;/strong&gt;. Всего занято: &lt;strong&gt;{1}&lt;/strong&gt;. Всего свободно: &lt;strong&gt;{2}&lt;/strong&gt;.</target></trans-unit>
 
       <trans-unit id="entitlementorgs.orgname">
 <source>Organization Name</source>
