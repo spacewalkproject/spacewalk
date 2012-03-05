@@ -1527,12 +1527,6 @@ dr&amp;uuml;cken und &lt;b&gt;k&amp;ouml;nnen sich nicht wieder einloggen&lt;/b&
         </context-group>
       <target>Keine E-Mail-Adresse</target></trans-unit>
 
-      <trans-unit id="userdetails.jsp.pleasechangeemailaddress">
-<source>We do not have a valid email address on record, please change your email address.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/UserDetails</context>
-        </context-group>
-      <target>Wir haben keine g&amp;uuml;ltige E-Mail-Adresse in unseren Unterlagen. &amp;Auml;ndern Sie daher bitte Ihre E-Mail-Adresse.</target></trans-unit>
 
       <trans-unit id="userdetails.jsp.disable">
 <source>deactivate user</source>

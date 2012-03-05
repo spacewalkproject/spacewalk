@@ -1527,12 +1527,6 @@ abaixo e &lt;b&gt;não poderá mais se autenticar&lt;/b&gt;.</target></trans-uni
         </context-group>
       <target>Nenhum endereço de e-mail</target></trans-unit>
 
-      <trans-unit id="userdetails.jsp.pleasechangeemailaddress">
-<source>We do not have a valid email address on record, please change your email address.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/UserDetails</context>
-        </context-group>
-      <target>Nós não temos um endereço de e-mail válido registrado. Por favor, edite seu endereço de e-mail.</target></trans-unit>
 
       <trans-unit id="userdetails.jsp.disable">
 <source>deactivate user</source>

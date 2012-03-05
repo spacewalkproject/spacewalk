@@ -1527,12 +1527,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
         </context-group>
       <target>没有电子邮件地址</target></trans-unit>
 
-      <trans-unit id="userdetails.jsp.pleasechangeemailaddress">
-<source>We do not have a valid email address on record, please change your email address.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/UserDetails</context>
-        </context-group>
-      <target>我们在记录中没有有效的电子邮件地址，请修改您的电子邮件地址。</target></trans-unit>
 
       <trans-unit id="userdetails.jsp.disable">
 <source>deactivate user</source>

@@ -1527,12 +1527,6 @@ inmediatamente y usted &lt;b&gt;no podrá iniciar una sesión nuevamente&lt;/b&g
         </context-group>
       <target>No hay ninguna dirección de correo-e</target></trans-unit>
 
-      <trans-unit id="userdetails.jsp.pleasechangeemailaddress">
-<source>We do not have a valid email address on record, please change your email address.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/UserDetails</context>
-        </context-group>
-      <target>No tenemos ninguna dirección de correo-e válida en registro, por favor cambie su dirección de correo-e.</target></trans-unit>
 
       <trans-unit id="userdetails.jsp.disable">
 <source>deactivate user</source>

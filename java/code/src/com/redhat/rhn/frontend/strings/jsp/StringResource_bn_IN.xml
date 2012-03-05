@@ -1527,12 +1527,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
         </context-group>
       <target>ই-মেইল ঠিকানা অনুপস্থিত</target></trans-unit>
 
-      <trans-unit id="userdetails.jsp.pleasechangeemailaddress">
-<source>We do not have a valid email address on record, please change your email address.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/users/UserDetails</context>
-        </context-group>
-      <target>আমাদের নথিপত্রে কোনো বৈধ ই-মেইল ঠিকানা উপস্থিত নেই, অনুগ্রহ করে আপনার ই-মেইল ঠিকানা পরিবর্তন করুন।</target></trans-unit>
 
       <trans-unit id="userdetails.jsp.disable">
 <source>deactivate user</source>
