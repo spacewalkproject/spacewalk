@@ -866,12 +866,6 @@
 
 
 
-      <trans-unit id="login.jsp.list2">
-<source>Management: Increased management capabilities and scalability of your Linux deployment.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/Login</context>
-        </context-group>
-      <target>Management: Maggiori capacità di gestione e di scalabilità con l'utilizzo del vostro Linux.</target></trans-unit>
 
       <trans-unit id="login.jsp.list3">
 <source>Provisioning: System snapshots, integrated kickstarts, configuration management and more.</source>
