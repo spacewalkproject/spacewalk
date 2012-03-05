@@ -15909,12 +15909,6 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
 	</context-group>
       <target>Гбайт</target></trans-unit>
 
-      <trans-unit id="virtualization.provision.first.jsp.storage.nfs.message1">
-        <source>Use an NFS mount:</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/virtualization/ProvisionVirtualizationWizard.do</context>
-	</context-group>
-      <target>Использовать NFS-подключение:</target></trans-unit>
 
 
 

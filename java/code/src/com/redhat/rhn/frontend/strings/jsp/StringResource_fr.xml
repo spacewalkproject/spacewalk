@@ -15964,12 +15964,6 @@ Le chemin d'arborescence, le RPM Kickstart, le canal de base, et la génération
 	</context-group>
       <target>gigaoctets.</target></trans-unit>
 
-      <trans-unit id="virtualization.provision.first.jsp.storage.nfs.message1">
-        <source>Use an NFS mount:</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/virtualization/ProvisionVirtualizationWizard.do</context>
-	</context-group>
-      <target>Utiliser un montage NFS&amp;nbsp;:</target></trans-unit>
 
 
 

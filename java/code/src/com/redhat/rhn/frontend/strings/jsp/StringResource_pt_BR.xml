@@ -15956,12 +15956,6 @@ O Caminho de Árvore, Kickstart RPM, Canal de Base e a Geração do Instalador d
 	</context-group>
       <target>gigabytes.</target></trans-unit>
 
-      <trans-unit id="virtualization.provision.first.jsp.storage.nfs.message1">
-        <source>Use an NFS mount:</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/virtualization/ProvisionVirtualizationWizard.do</context>
-	</context-group>
-      <target>Use um montador NFS:</target></trans-unit>
 
 
 
