@@ -717,12 +717,6 @@
           <context context-type="sourcefile">Traceback Email Notifications</context>
         </context-group>
       <target>கோரிக்கை</target></trans-unit>
-      <trans-unit id="RHL Migration FAQ">
-<source>RHL Migration FAQ</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-      <target>RHL இடமாற்ற FAQ</target></trans-unit>
       <trans-unit id="Spacewalk Management Tools">
 <source>@@PRODUCT_NAME@@ Management Tools</source>
         <context-group name="ctx">
