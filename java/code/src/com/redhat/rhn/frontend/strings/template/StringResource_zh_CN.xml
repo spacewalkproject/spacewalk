@@ -442,65 +442,6 @@ https://{4}/rhn/help/reference/en-US/s1-sm-your-rhn.jsp
 </target></trans-unit>
 
 
-      <trans-unit id="email.verification.warning.body">
-<source>
-Dear @@PRODUCT_NAME@@ User,
-
-This email is sent to validate the email address that you have
-provided for your Red Hat login. Your Red Hat login, in combination
-with an active Red Hat subscription, provides you with access to
-systems management capabilities through @@PRODUCT_NAME@@.
-
-To ensure the security of the account information associated with your
-Red Hat login, please take a moment to click through the link below
-and verify that we have the correct email address. If you do not
-confirm your email address, your Red Hat login will eventually be
-deactivated.
-
-Please note that this is a final notice.  If you do not click through
-this URL within the next 2 days, your Red Hat login will deactivated.
-
-To confirm your email address, please visit the following URL:
-
-{0}
-
-Thank you for using @@PRODUCT_NAME@@.
-{1}
-{2}
-</source>
-        <context-group name="ctx">
-         <context context-type="sourcefile">Taskomatic task: EmailEngine.java</context>
-                 <context context-type="paramnotes">
-                     {0} - Confirmation URL: https://rhn.redhat.com/
-         {1} - EmailFooter
-         {2} - EmailAccountInfo
-          </context>
-        </context-group>
-      <target>
-尊敬的 @@PRODUCT_NAME@@ 用户，
-
-这封电子邮件将验证您为红帽登录帐号提供的电子邮件地址。
-您的红帽登录帐号，以及
-活动的红帽订阅，通过 @@PRODUCT_NAME@@
-为您提供了对系统的管理。
-
-为了确保和您的红帽登录帐号关联的帐号信息的安全性，
-请点击下面的链接
-并验证是否提供了正确的电子邮件。如果您没有确认电子邮件地址，
-您的红帽登录帐号
-最终将会失效。
-
-请注意这是最后的通知。如果你没有在两天内点击
-这个 URL，您的红帽登录帐号将会失效。
-
-要确认您的邮件地址，请访问下列 URL：
-
-{0}
-
-感谢您使用 @@PRODUCT_NAME@@。
-{1}
-{2}
-</target></trans-unit>
 
       <trans-unit id="email.verification.warning.subject">
 <source>Red Hat Login Email Verification, Final Notice</source>

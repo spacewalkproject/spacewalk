@@ -442,65 +442,6 @@ Obrigado por usar o @@PRODUCT_NAME@@.
 </target></trans-unit>
 
 
-      <trans-unit id="email.verification.warning.body">
-<source>
-Dear @@PRODUCT_NAME@@ User,
-
-This email is sent to validate the email address that you have
-provided for your Red Hat login. Your Red Hat login, in combination
-with an active Red Hat subscription, provides you with access to
-systems management capabilities through @@PRODUCT_NAME@@.
-
-To ensure the security of the account information associated with your
-Red Hat login, please take a moment to click through the link below
-and verify that we have the correct email address. If you do not
-confirm your email address, your Red Hat login will eventually be
-deactivated.
-
-Please note that this is a final notice.  If you do not click through
-this URL within the next 2 days, your Red Hat login will deactivated.
-
-To confirm your email address, please visit the following URL:
-
-{0}
-
-Thank you for using @@PRODUCT_NAME@@.
-{1}
-{2}
-</source>
-        <context-group name="ctx">
-         <context context-type="sourcefile">Taskomatic task: EmailEngine.java</context>
-                 <context context-type="paramnotes">
-                     {0} - Confirmation URL: https://rhn.redhat.com/
-         {1} - EmailFooter
-         {2} - EmailAccountInfo
-          </context>
-        </context-group>
-      <target>
-Caro Usuário do @@PRODUCT_NAME@@,
-
-Este e-mail foi enviado com o objetivo de validar o endereço de e-mail que você
-forneceu para seu login da Red Hat. O seu login da Red Hat, em combinação
-com uma subscrição ativa da Red Hat, fornece acesso às capacidades de
-gerenciamento de sistema através do @@PRODUCT_NAME@@.
-
-Por favor, espere um minuto antes de clicar no link abaixo
-e verifique se possuímos o endereço de e-mail correto,
-para garantia da segurança de informação de conta associada com seu login da Red Hat.
-Caso você não confirme seu endereço de e-mail, o seu login da Red Hat será eventualmente
-desativado.
-
-Perceba que este é o aviso final. Caso você não entre neste URL
-nos próximos dois dias, o seu login da Red Hat será desativado.
-
-Por favor visite o seguinte URL para confirmar seu endereço de e-mail:
-
-{0}
-
-Obrigado por usar o @@PRODUCT_NAME@@.
-{1}
-{2}
-</target></trans-unit>
 
       <trans-unit id="email.verification.warning.subject">
 <source>Red Hat Login Email Verification, Final Notice</source>
