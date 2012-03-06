@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.7.53
+Version: 1.7.54
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -585,6 +585,11 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Mar 06 2012 Tomas Lestach <tlestach@redhat.com> 1.7.54-1
+- 799992 - remove the error message completely (tlestach@redhat.com)
+- prevent ISE on the rhn/channels/manage/errata/AddCustomErrata.do page
+  (tlestach@redhat.com)
+
 * Sat Mar 03 2012 Jan Pazdziora 1.7.53-1
 - Removing the Downloads tab, it points to nonexisting
   /rhn/software/channel/downloads/Download.do page.
