@@ -43,6 +43,16 @@ Syncs the content from yum repos into Spacewalk or Satellite channels.
         <arg>-f</arg>
         <arg>--fail</arg>
         </group>
+        <sbr>
+        <group>
+        <arg>-i <replaceable>PKG1,PKG2...</replaceable></arg>
+        <arg>--include <replaceable>PKG1,PKG2...</replaceable></arg>
+        </group>
+        <sbr>
+        <group>
+        <arg>-e <replaceable>PKG1,PKG2...</replaceable></arg>
+        <arg>--exclude <replaceable>PKG1,PKG2...</replaceable></arg>
+        </group>
     </cmdsynopsis>
 </synopsis>
 </refsynopsisdiv>
@@ -78,7 +88,7 @@ Syncs the content from yum repos into Spacewalk or Satellite channels.
     <varlistentry>
         <term>-c<replaceable>CHANNEL</replaceable>, --channel=<replaceable>CHANNEL</replaceable></term>
         <listitem>
-            <para>The channel to sync the repository too.</para>
+            <para>The channel to sync the repository to.</para>
         </listitem>
     </varlistentry>
     <varlistentry>
@@ -103,6 +113,18 @@ Syncs the content from yum repos into Spacewalk or Satellite channels.
         <term>-q, --quiet</term>
         <listitem>
             <para>Do not print any output except for errors.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-i <replaceable>PKG1,PKG2...</replaceable>, --include <replaceable>PKG1,PKG2...</replaceable></term>
+        <listitem>
+            <para>Comma or space separated list of included packages.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-e <replaceable>PKG1,PKG2...</replaceable>, --exclude <replaceable>PKG1,PKG2...</replaceable></term>
+        <listitem>
+            <para>Comma or space separated list of excluded packages.</para>
         </listitem>
     </varlistentry>
 </variablelist>
