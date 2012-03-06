@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.2
+Version: 1.8.3
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -585,6 +585,17 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Mar 06 2012 Tomas Lestach <tlestach@redhat.com> 1.8.3-1
+- 799992 - remove the error message completely (tlestach@redhat.com)
+- prevent ISE on the rhn/channels/manage/errata/AddCustomErrata.do page
+  (tlestach@redhat.com)
+- remove unused file (tlestach@redhat.com)
+- include also conf/default dir into rhn-test.jar (tlestach@redhat.com)
+- do not fall, if there's no .in the filename (tlestach@redhat.com)
+- make use of default kernel and initrd path (tlestach@redhat.com)
+- fix KickstartableTreeTest (tlestach@redhat.com)
+- remove unused buildCertificate method (tlestach@redhat.com)
+
 * Mon Mar 05 2012 Miroslav Suchý 1.8.2-1
 - removing unused strings in StringResources (msuchy@redhat.com)
 - unify errata/Overview.do and errata/RelevantErrata.do
