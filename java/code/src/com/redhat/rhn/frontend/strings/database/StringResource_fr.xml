@@ -3492,6 +3492,45 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/kickstart/SessionStatus.do</context>
         </context-group>
+        <trans-unit id="kickstart.state.created">
+          <source>Kickstart session created but has not yet been used.</source>
+        <target>La session de kickstart a été créée mais n'a pas encore été utilisée.</target></trans-unit>
+        <trans-unit id="kickstart.state.deployed">
+          <source>Files required for kickstart action have been installed.</source>
+        <target>Les fichiers requis pour l'action kickstart ont été installés.</target></trans-unit>
+        <trans-unit id="kickstart.state.injected">
+          <source>The system configuration has been modified to begin kickstart upon next boot.</source>
+        <target>La configuration du système a été modifiée pour lancer le kickstart au prochain démarrage.</target></trans-unit>
+        <trans-unit id="kickstart.state.restarted">
+          <source>The system has been restarted in order to begin the kickstart process.</source>
+        <target>Le système a été redémarré pour commencer le kickstart.</target></trans-unit>
+        <trans-unit id="kickstart.state.configuration_accessed">
+          <source>The system has downloaded the kickstart configuration file from @@PRODUCT_NAME@@.</source>
+        <target>Le système a téléchargé le fichier de configuration du kickstart de @@PRODUCT_NAME@@.</target></trans-unit>
+        <trans-unit id="kickstart.state.started">
+          <source>The initial files required for anaconda have been downloaded.</source>
+        <target>Les fichiers initiaux requis pour anaconda ont été téléchargés.</target></trans-unit>
+        <trans-unit id="kickstart.state.in_progress">
+          <source>The system is downloading the RPMs required to install.</source>
+        <target>Le système télécharge les RPM requis pour l'installation.</target></trans-unit>
+        <trans-unit id="kickstart.state.registered">
+          <source>The system has successfully registered with @@PRODUCT_NAME@@ after kickstarting.</source>
+        <target>Le système s'est bien enregistré à @@PRODUCT_NAME@@ après le kickstart.</target></trans-unit>
+        <trans-unit id="kickstart.state.package_synch">
+          <source>Package synchronization in progress.</source>
+        <target>Synchronisation de paquetages en cours.</target></trans-unit>
+        <trans-unit id="kickstart.state.package_synch_scheduled">
+          <source>Package synchronization scheduled.</source>
+        <target>Synchronisation de paquetages programmée.</target></trans-unit>
+        <trans-unit id="kickstart.state.configuration_deploy">
+          <source>Configuration files are being deployed.</source>
+        <target>Les fichiers de configuration sont déployés.</target></trans-unit>
+        <trans-unit id="kickstart.state.complete">
+          <source>Kickstart complete.</source>
+        <target>Kickstart terminé.</target></trans-unit>
+        <trans-unit id="kickstart.state.failed">
+          <source>Kickstart failed.</source>
+        <target>Kickstart échoué.</target></trans-unit>
     </group>
 
 

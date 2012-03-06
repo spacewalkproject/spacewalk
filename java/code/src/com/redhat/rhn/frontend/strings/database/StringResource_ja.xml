@@ -3492,6 +3492,45 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/kickstart/SessionStatus.do</context>
         </context-group>
+        <trans-unit id="kickstart.state.created">
+          <source>Kickstart session created but has not yet been used.</source>
+        <target>キックスタートセッションが作成されましたが、 まだ使用されていません。</target></trans-unit>
+        <trans-unit id="kickstart.state.deployed">
+          <source>Files required for kickstart action have been installed.</source>
+        <target>キックスタートアクションに必要なファイルがインストールされています。</target></trans-unit>
+        <trans-unit id="kickstart.state.injected">
+          <source>The system configuration has been modified to begin kickstart upon next boot.</source>
+        <target>このシステム設定は次回起動時にキックスタートを開始するよう変更されています。</target></trans-unit>
+        <trans-unit id="kickstart.state.restarted">
+          <source>The system has been restarted in order to begin the kickstart process.</source>
+        <target>キックスタートプロセスを開始するため、 システムが再起動されています。</target></trans-unit>
+        <trans-unit id="kickstart.state.configuration_accessed">
+          <source>The system has downloaded the kickstart configuration file from @@PRODUCT_NAME@@.</source>
+        <target>このシステムはキックスタート設定ファイルを @@PRODUCT_NAME@@ からダウンロードしました。</target></trans-unit>
+        <trans-unit id="kickstart.state.started">
+          <source>The initial files required for anaconda have been downloaded.</source>
+        <target>anaconda に必要な初期ファイルがダウンロードされています。</target></trans-unit>
+        <trans-unit id="kickstart.state.in_progress">
+          <source>The system is downloading the RPMs required to install.</source>
+        <target>このシステムはインストールに必要な RPM をダウンロード中です。</target></trans-unit>
+        <trans-unit id="kickstart.state.registered">
+          <source>The system has successfully registered with @@PRODUCT_NAME@@ after kickstarting.</source>
+        <target>このシステムはキックスタート完了後 @@PRODUCT_NAME@@ に正しく登録されました。</target></trans-unit>
+        <trans-unit id="kickstart.state.package_synch">
+          <source>Package synchronization in progress.</source>
+        <target>パッケージの同期が進行中です。</target></trans-unit>
+        <trans-unit id="kickstart.state.package_synch_scheduled">
+          <source>Package synchronization scheduled.</source>
+        <target>パッケージ同期がスケジュールされました。</target></trans-unit>
+        <trans-unit id="kickstart.state.configuration_deploy">
+          <source>Configuration files are being deployed.</source>
+        <target>設定ファイルは配備されています。</target></trans-unit>
+        <trans-unit id="kickstart.state.complete">
+          <source>Kickstart complete.</source>
+        <target>キックスタート完了</target></trans-unit>
+        <trans-unit id="kickstart.state.failed">
+          <source>Kickstart failed.</source>
+        <target>キックスタートは失敗しました。</target></trans-unit>
     </group>
 
 

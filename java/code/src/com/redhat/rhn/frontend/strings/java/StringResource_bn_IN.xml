@@ -1870,6 +1870,12 @@ available for this kickstart profile to function properly.
          </context-group>
        <target>অনুরোধ করা kickstart স্নিপেট ফাইলের নাম বৈধ নয়। kickstart স্নিপেট ফাইলের নামের প্রারম্ভে বিন্দু(.) ও নামের মধ্যে স্ল্যাশ (/) চিহ্ন ব্যবহার করা যাবে না।</target></trans-unit>
 
+      <trans-unit id="toolbar.delete.snippets">
+<source>delete snippet</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/kickstart/cobbler/CobblerSnippetEdit</context>
+        </context-group>
+      <target>স্নিপেট মুছে ফেলুন</target></trans-unit>
 
       <trans-unit id="kickstart.iprange.url">
         <source>New systems can be kickstarted based upon their ip address by appending &lt;code&gt;{0}&lt;/code&gt; to the kernel parameters for a kickstart install.</source>
@@ -2214,18 +2220,97 @@ available for this kickstart profile to function properly.
         </context-group>
       <target>এই পৃষ্ঠায় উপস্থিত সমস্ত বিষয়বস্তু নির্বাচন করুন অথবা নির্বাচিত বস্তুর তালিকা থেকে অপসারণ করুন</target></trans-unit>
 
+      <trans-unit id="toolbar.create.filter">
+<source>create new notification filter</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/users/UserList</context>
+        </context-group>
+      <target>সূচনাপ্রদান সংক্রান্ত নতুন ফিল্টার নির্মাণ</target></trans-unit>
 
+     <trans-unit id="toolbar.upload.kickstart">
+<source>upload new kickstart file</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/users/UserList</context>
+        </context-group>
+      <target>নতুন kickstart প্রোফাইল আপলোড করুন</target></trans-unit>
 
+     <trans-unit id="toolbar.create.kickstart">
+<source>create new kickstart profile</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/users/UserList</context>
+        </context-group>
+      <target>নতুন kickstart প্রোফাইল নির্মাণ করুন</target></trans-unit>
 
+      <trans-unit id="toolbar.create.kickstartdata">
+<source>create new kickstart</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/users/UserList</context>
+        </context-group>
+      <target>নতুন kickstart নির্মাণ করুন</target></trans-unit>
 
+      <trans-unit id="toolbar.clone.kickstart">
+<source>clone kickstart</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/users/UserList</context>
+        </context-group>
+      <target>kickstart ক্লোন করুন</target></trans-unit>
 
+      <trans-unit id="toolbar.delete.CryptoKeyDelete">
+<source>delete key</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/keys/CryptoKeyEdit</context>
+        </context-group>
+      <target>কি মুছে ফেলুন</target></trans-unit>
 
+      <trans-unit id="toolbar.create.user">
+<source>create new user</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/users/UserList</context>
+        </context-group>
+      <target>নতুন ব্যবহারকারী নির্মাণ</target></trans-unit>
 
+      <trans-unit id="toolbar.create.erratum">
+<source>create new erratum</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/errata/UnpublishedErrata</context>
+          <context context-type="sourcefile">/rhn/errata/PublishedErrata</context>
+        </context-group>
+      <target>নতুন ত্রুটি-বিচ্যুতি নির্মাণ</target></trans-unit>
 
+      <trans-unit id="toolbar.create.group">
+<source>create new group</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/SystemGroupList</context>
+        </context-group>
+      <target>নতুন দল নির্মাণ</target></trans-unit>
 
+      <trans-unit id="toolbar.create.probe">
+<source>create new probe</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails</context>
+        </context-group>
+      <target>নতুন অনুসন্ধান নির্মাণ</target></trans-unit>
 
+        <trans-unit id="toolbar.delete.probe">
+<source>delete probe</source>
+            <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails</context>
+        </context-group>
+        <target>অনুসন্ধান অপসারণ</target></trans-unit>
 
+        <trans-unit id="toolbar.delete.user">
+<source>delete user</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">User details pages</context>
+        </context-group>
+    <target>ব্যবহারকারী অপসারণ</target></trans-unit>
 
+      <trans-unit id="toolbar.delete.erratum">
+<source>delete erratum</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Errata details pages</context>
+        </context-group>
+      <target>ত্রুটি-বিচ্যুতি অপসারণ</target></trans-unit>
 
       <trans-unit id="toolbar.delete.system">
 <source>delete system</source>
@@ -2245,11 +2330,47 @@ available for this kickstart profile to function properly.
           <context context-type="sourcefile">System Group pages</context>
         </context-group>
       <target>দল সহযোগে কর্ম সঞ্চালন করুন</target></trans-unit>
+      <trans-unit id="toolbar.delete.errata">
+<source>delete errata</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">Errata edit page</context>
+        </context-group>
+      <target>ত্রুটি-বিচ্যুতি অপসারণ</target></trans-unit>
 
+     <trans-unit id="toolbar.delete.kickstart">
+        <source>delete kickstart</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">Kickstart profile pages</context>
+        </context-group>
+      <target>kickstart মুছে ফেলুন</target></trans-unit>
 
+      <trans-unit id="toolbar.delete.deleteTree">
+        <source>delete distribution</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">rhn/Kickstart/TreeEdit.do</context>
+        </context-group>
+      <target>ডিস্ট্রিবিউশন মুছে ফেলুন</target></trans-unit>
 
+      <trans-unit id="toolbar.create.probesuite">
+<source>create new probe suite</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuites.do</context>
+        </context-group>
+      <target>নতুন অনুসন্ধান সমষ্ঠি নির্মাণ</target></trans-unit>
 
+      <trans-unit id="toolbar.create.probesuitesystem">
+<source>add systems to probe suite</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuites.do</context>
+        </context-group>
+      <target>অনুসন্ধানের সমষ্ঠির মধ্যে সিস্টেম যোগ করুন</target></trans-unit>
 
+      <trans-unit id="toolbar.delete.profile">
+<source>delete profile</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/packages/profiles/CompareProfiles.do</context>
+        </context-group>
+      <target>প্রোফাইল অপসারণ</target></trans-unit>
 
       <trans-unit id="message.unscheduled.system">
 <source>&lt;strong&gt;{0}&lt;/strong&gt; unscheduled for &lt;strong&gt;{1}&lt;/strong&gt; system.</source>
@@ -5400,7 +5521,19 @@ user before attempting to deactivate their account.</source>
         </context-group>
       <target>সার্টিফিকেট আপলোড করা হয়েছে।  @@PRODUCT_NAME@@ পুনরায় সক্রিয় করা হয়েছে।</target></trans-unit>
 
+    <trans-unit id="certificate.config.error.10">
+        <source>Could not parse certificate file, see log file for more details.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
+        </context-group>
+      <target>সার্টিফিকেট ফাইল পার্স করা যায়নি</target></trans-unit>
 
+    <trans-unit id="certificate.config.error.11">
+        <source>Certificate expired</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
+        </context-group>
+      <target>সার্টিফকেটের মেয়াদ পূর্ণ হয়ে গেছে</target></trans-unit>
 
     <trans-unit id="certificate.config.error.12">
         <source>Unknown @@PRODUCT_NAME@@ version, see log file for more details.</source>
@@ -5409,15 +5542,75 @@ user before attempting to deactivate their account.</source>
         </context-group>
       <target>অজানা @@PRODUCT_NAME@@ সংস্করণ</target></trans-unit>
 
+    <trans-unit id="certificate.config.error.20">
+        <source>Remote activation failure, see log file for more details.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
+        </context-group>
+      <target>দূরবর্তী সক্রিয়করণ ব্যর্থ</target></trans-unit>
 
+    <trans-unit id="certificate.config.error.30">
+        <source>Local activation failure, see log file for more details.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
+        </context-group>
+      <target></target></trans-unit>
 
+    <trans-unit id="certificate.config.error.40">
+        <source>Channel population failure, see log file for more details.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
+        </context-group>
+      <target>চ্যানেলে মাণ পূরণ করতে ব্যর্থ</target></trans-unit>
 
+    <trans-unit id="certificate.config.error.80">
+        <source>No management entitlements remaining</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
+        </context-group>
+      <target>Management এনটাইটেলমেন্ট অবশিষ্ট নেই</target></trans-unit>
 
+    <trans-unit id="certificate.config.error.82">
+        <source>@@PRODUCT_NAME@@ channel not found</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
+        </context-group>
+      <target>@@PRODUCT_NAME@@ চ্যানেল পাওয়া যায়নি</target></trans-unit>
 
+    <trans-unit id="certificate.config.error.83">
+        <source>No @@PRODUCT_NAME@@ channel entitlements remaining</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
+        </context-group>
+      <target>@@PRODUCT_NAME@@ চ্যানেল এনটাইটেলমেন্ট অবশিষ্ট নেই</target></trans-unit>
 
+    <trans-unit id="certificate.config.error.84">
+        <source>Invalid @@PRODUCT_NAME@@ certificate</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
+        </context-group>
+      <target>@@PRODUCT_NAME@@-র সার্টিফিকেট বৈধ নয়</target></trans-unit>
 
+    <trans-unit id="certificate.config.error.85">
+        <source>Unknown activation error, see log file for more details.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
+        </context-group>
+      <target></target></trans-unit>
 
+    <trans-unit id="certificate.config.error.86">
+        <source>@@PRODUCT_NAME@@ has no base channel on parent server</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
+        </context-group>
+      <target>ঊর্ধ্বতন সার্ভারের মধ্যে @@PRODUCT_NAME@@-র কোনো বেস চ্যানেল উপস্থিত নেই</target></trans-unit>
 
+    <trans-unit id="certificate.config.error.87">
+        <source>No @@PRODUCT_NAME@@ channel available for this version</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
+        </context-group>
+      <target>এই সংস্করণের জন্য কোনো @@PRODUCT_NAME@@ চ্যানেল উপলব্ধ নেই</target></trans-unit>
 
     <trans-unit id="certificate.config.error.127">
         <source>Unhandled error, see log file for more details.</source>
@@ -5434,7 +5627,19 @@ user before attempting to deactivate their account.</source>
       <target>@@PRODUCT_NAME@@ সার্ভারের হোস্ট-নেম</target></trans-unit>
 
 
+    <trans-unit id="bootstrap.config.error.10">
+        <source>A script with that name already exists</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
+        </context-group>
+      <target>এই নামের একটি স্ক্রিপ্ট বর্তমানে উপস্থিত রয়েছে</target></trans-unit>
 
+    <trans-unit id="bootstrap.config.error.11">
+        <source>Invalid script name</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
+        </context-group>
+      <target>স্ক্রিপ্টের নাম বৈধ নয়</target></trans-unit>
 
     <trans-unit id="bootstrap.config.error.12">
         <source>Invalid arguments</source>
@@ -5443,10 +5648,41 @@ user before attempting to deactivate their account.</source>
         </context-group>
       <target>আর্গুমেন্ট বৈধ নয়</target></trans-unit>
 
+    <trans-unit id="bootstrap.config.error.13">
+        <source>Could not parse httpd proxy URL</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
+        </context-group>
+      <target>httpd প্রক্সি-র URL পার্স করা যায়নি</target></trans-unit>
 
+    <trans-unit id="bootstrap.config.error.14">
+        <source>Cannot find pub tree</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
+        </context-group>
+      <target>pub ট্রি পাওয়া যায়নি</target></trans-unit>
 
+    <trans-unit id="bootstrap.config.error.15">
+        <source>The hostname was not valid</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
+          <context context-type="sourcefile">/rhn/admin/config/GeneralConfig</context>
+        </context-group>
+      <target>হোস্ট-নেম বৈধ নয়</target></trans-unit>
 
+    <trans-unit id="bootstrap.config.error.16">
+        <source>Could not find the CA certificate</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
+        </context-group>
+      <target>CA সার্টিফিকেট পাওয়া যায়নি</target></trans-unit>
 
+    <trans-unit id="bootstrap.config.error.17">
+        <source>Could not find GPG key</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
+        </context-group>
+      <target>GPG-কি পাওয়া যায়নি</target></trans-unit>
 
     <trans-unit id="bootstrap.config.error.127">
         <source>Unhandled error</source>
@@ -5754,6 +5990,12 @@ Follow this url to see the full list of inactive systems:
         </context-group>
       <target></target></trans-unit>
 
+      <trans-unit id="kickstart.troubleshooting.validation.kernelparams.too_long">
+        <source>Extra kernel parameters can be no longer than 128 characters.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/kickstart/Troubleshooting.do</context>
+        </context-group>
+      <target>অতিরিক্ত কার্নেল পরামিতি ১২৮-টি অক্ষরের মধ্যে সীমাবদ্ধ রাখা আবশ্যক।</target></trans-unit>
 
       <trans-unit id="kickstart.locale.success">
         <source>Kickstart locale options updated.</source>
@@ -5762,6 +6004,12 @@ Follow this url to see the full list of inactive systems:
         </context-group>
       <target>kickstart-র লোকেইল অপশন আপডেট করা হয়েছে।</target></trans-unit>
 
+      <trans-unit id="kickstart.locale.validation.timezone.invalid">
+        <source>Invalid timezone.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/kickstart/Locale.do</context>
+        </context-group>
+      <target>সময়ের অঞ্চল বৈধ নয়।</target></trans-unit>
 
       <trans-unit id="kickstart.script.delete">
         <source>Kickstart Script Deleted.</source>
@@ -6100,8 +6348,26 @@ Follow this url to see the full list of inactive systems:
         </context-group>
       <target>{0}-র জন্য স্যান্ডবক্স</target></trans-unit>
 
+      <trans-unit id="config_channel.local_override">
+        <source>Locally-Managed</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/file/CompareCopy.do</context>
+        </context-group>
+      <target>স্থানীয়-রূপে পরিচালিত</target></trans-unit>
 
+      <trans-unit id="config_channel.normal">
+        <source>Centrally-Managed</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/file/CompareCopy.do</context>
+        </context-group>
+      <target>কেন্দ্রিয়রূপে পরিচালিত</target></trans-unit>
 
+      <trans-unit id="config_channel.server_import">
+        <source>Sandbox</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/file/CompareCopy.do</context>
+        </context-group>
+      <target>Sandbox</target></trans-unit>
 
 
 
@@ -6442,9 +6708,93 @@ Follow this url to see the full list of inactive systems:
                 <context context-type="sourcefile">Every Caller of ConfigActionHelper.makeFileCountsMessage</context>
             </context-group>
 
+	     <trans-unit id="config.files_0_dirs_0_symlinks_0_url">
+			<source>No files, directories or symlinks. &lt;a href="{0}"&gt; Add&lt;/a&gt;</source>
+	     <target></target></trans-unit>
 
+	     <trans-unit id="config.files_0_dirs_0_symlinks_0">
+			<source>No files, directories or symlinks.</source>
+	     <target></target></trans-unit>
+	     <trans-unit id="config.files_0_dirs_0_symlinks_1">
+			<source>{2} symlink</source>
+	     <target></target></trans-unit>
+	     <trans-unit id="config.files_0_dirs_0_symlinks_2">
+			<source>{2} symlinks</source>
+	     <target></target></trans-unit>
+	     <trans-unit id="config.files_0_dirs_1_symlinks_0">
+			<source>{1} directory</source>
+	     <target></target></trans-unit>
+	     <trans-unit id="config.files_0_dirs_1_symlinks_1">
+			<source>{1} directory and {2} symlink</source>
+	     <target></target></trans-unit>
+	     <trans-unit id="config.files_0_dirs_1_symlinks_2">
+			<source>{1} directory and {2} symlinks</source>
+	     <target></target></trans-unit>
+	     <trans-unit id="config.files_0_dirs_2_symlinks_0">
+			<source>{1} directories</source>
+	     <target></target></trans-unit>
+	     <trans-unit id="config.files_0_dirs_2_symlinks_1">
+			<source>{1} directories and {2} symlink</source>
+	     <target></target></trans-unit>
+	     <trans-unit id="config.files_0_dirs_2_symlinks_2">
+			<source>{1} directories and {2} symlinks</source>
+	     <target></target></trans-unit>
 
+	     <trans-unit id="config.files_1_dirs_0_symlinks_0">
+			<source>{0} file</source>
+	     <target></target></trans-unit>
+	     <trans-unit id="config.files_1_dirs_0_symlinks_1">
+			<source>{0} file and {2} symlink</source>
+	     <target></target></trans-unit>
+	     <trans-unit id="config.files_1_dirs_0_symlinks_2">
+			<source>{0} file and {2} symlinks</source>
+	     <target></target></trans-unit>
+	     <trans-unit id="config.files_1_dirs_1_symlinks_0">
+			<source>{0} file and {1} directory</source>
+	     <target></target></trans-unit>
+	     <trans-unit id="config.files_1_dirs_1_symlinks_1">
+			<source>{0} file and {1} directory and {2} symlink</source>
+	     <target></target></trans-unit>
+	     <trans-unit id="config.files_1_dirs_1_symlinks_2">
+			<source>{0} file and {1} directory and {2} symlinks</source>
+	     <target></target></trans-unit>
+	     <trans-unit id="config.files_1_dirs_2_symlinks_0">
+			<source>{0} file and {1} directories</source>
+	     <target></target></trans-unit>
+	     <trans-unit id="config.files_1_dirs_2_symlinks_1">
+			<source>{0} file and {1} directories and {2} symlink</source>
+	     <target></target></trans-unit>
+	     <trans-unit id="config.files_1_dirs_2_symlinks_2">
+			<source>{0} file and {1} directories and {2} symlinks</source>
+	     <target></target></trans-unit>
 
+	     <trans-unit id="config.files_2_dirs_0_symlinks_0">
+			<source>{0} files</source>
+	     <target></target></trans-unit>
+	     <trans-unit id="config.files_2_dirs_0_symlinks_1">
+			<source>{0} files and {2} symlink</source>
+	     <target></target></trans-unit>
+	     <trans-unit id="config.files_2_dirs_0_symlinks_2">
+			<source>{0} files and {2} symlinks</source>
+	     <target></target></trans-unit>
+	     <trans-unit id="config.files_2_dirs_1_symlinks_0">
+			<source>{0} files and {1} directory</source>
+	     <target></target></trans-unit>
+	     <trans-unit id="config.files_2_dirs_1_symlinks_1">
+			<source>{0} files and {1} directory and {2} symlink</source>
+	     <target></target></trans-unit>
+	     <trans-unit id="config.files_2_dirs_1_symlinks_2">
+			<source>{0} files and {1} directory and {2} symlinks</source>
+	     <target></target></trans-unit>
+	     <trans-unit id="config.files_2_dirs_2_symlinks_0">
+			<source>{0} files and {1} directories</source>
+	     <target></target></trans-unit>
+	     <trans-unit id="config.files_2_dirs_2_symlinks_1">
+			<source>{0} files and {1} directories and {2} symlink</source>
+	     <target></target></trans-unit>
+	     <trans-unit id="config.files_2_dirs_2_symlinks_2">
+			<source>{0} files and {1} directories and {2} symlinks</source>
+	     <target></target></trans-unit>
 	</group>
 
     <group>
@@ -6511,11 +6861,47 @@ Follow this url to see the full list of inactive systems:
       <target>সব সিস্টেম</target></trans-unit>
 
 
+      <trans-unit id="systems.details.virt.guest.virt.shutdown">
+        <source>Shutdown</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
+        </context-group>
+      <target>বন্ধ</target></trans-unit>
 
+      <trans-unit id="systems.details.virt.guest.virt.start">
+        <source>Start</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
+        </context-group>
+      <target>আরম্ভ</target></trans-unit>
 
+      <trans-unit id="systems.details.virt.guest.virt.suspend">
+        <source>Suspend</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
+        </context-group>
+      <target>স্থগিত</target></trans-unit>
 
+      <trans-unit id="systems.details.virt.guest.virt.resume">
+        <source>Resume</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
+        </context-group>
+      <target>পুনরারম্ভ</target></trans-unit>
 
+      <trans-unit id="systems.details.virt.guest.virt.reboot">
+        <source>Restart</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
+        </context-group>
+      <target>পুনরারম্ভ</target></trans-unit>
 
+      <trans-unit id="systems.details.virt.guest.virt.destroy">
+        <source>Destroy</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
+        </context-group>
+      <target>বিনাশ</target></trans-unit>
 
       <trans-unit id="systems.details.virt.guest.virt.delete">
         <source>Delete</source>
@@ -6524,11 +6910,47 @@ Follow this url to see the full list of inactive systems:
         </context-group>
       <target>মুছে ফেলুন</target></trans-unit>
 
+      <trans-unit id="systems.details.virt.guest.virt.setMemory">
+          <source>Set Memory ({0} MB)</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
+        </context-group>
+      <target>মেমরি নির্ধারণ করুন ({0} মেগাবাইট)</target></trans-unit>
 
+      <trans-unit id="systems.details.virt.guest.virt.setVCPUs">
+          <source>Set Virtual CPUs ({0})</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
+        </context-group>
+      <target>ভার্চুয়াল CPU নির্ধারণ করুন ({0})</target></trans-unit>
 
+      <trans-unit id="systems.details.virt.guest.already.running">
+        <source>This system is already running.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
+        </context-group>
+      <target>সিস্টেম বর্তমানে চলছে।</target></trans-unit>
 
+      <trans-unit id="systems.details.virt.guest.already.stopped">
+        <source>This system is already stopped.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
+        </context-group>
+      <target>সিস্টেম বর্তমানে বন্ধ অবস্থায় রয়েছে।</target></trans-unit>
 
+      <trans-unit id="systems.details.virt.guest.already.paused">
+        <source>This system is already paused.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
+        </context-group>
+      <target>সিস্টেম বর্তমানে স্থগিত অবস্থায় রয়েছে।</target></trans-unit>
 
+      <trans-unit id="systems.details.virt.guest.already.crashed">
+        <source>This system is crashed.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
+        </context-group>
+      <target>সিস্টেম বিপর্যস্ত হয়েছে।</target></trans-unit>
 
       <trans-unit id="systems.details.virt.vcpu.limit.msg">
           <source>Virtual CPUs limited to {0} on {1}.</source>
@@ -6572,9 +6994,27 @@ Follow this url to see the full list of inactive systems:
         </context-group>
       <target>কোনো ভার্চুয়াল সিস্টেম নির্বাচন করা হয়নি।</target></trans-unit>
 
+      <trans-unit id="systems.details.virt.no.actions.scheduled">
+        <source>No actions scheduled.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
+        </context-group>
+      <target>কোনো কর্ম নির্ধারণ করা হয়নি।</target></trans-unit>
+
+      <trans-unit id="systems.details.virt.one.actions.scheduled">
+        <source>Scheduled one action.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
+        </context-group>
+      <target>একটি কর্ম নির্ধারিত হয়েছে।</target></trans-unit>
 
 
-
+      <trans-unit id="systems.details.virt.no.virt.deleted">
+        <source>No virtual systems deleted.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
+        </context-group>
+      <target>কোনো ভার্চুয়াল সিস্টম মুছে ফেলা হয়নি।</target></trans-unit>
 
       <trans-unit id="systems.details.virt.one.virt.deleted">
         <source>Deleted one virtual system.</source>
@@ -6583,6 +7023,12 @@ Follow this url to see the full list of inactive systems:
         </context-group>
       <target>একটি ভার্চুয়াল সিস্টেম মুছে ফেলা হয়েছে।</target></trans-unit>
 
+      <trans-unit id="systems.details.virt.virt.deleted">
+        <source>Deleted {0} virtual systems.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
+        </context-group>
+      <target>{0}-টি ভার্চুয়াল সিস্টেম মুছে ফেলা হয়েছে।</target></trans-unit>
 
 	  <trans-unit id="sdc.channels.edit.base_channel_updated">
 <source>System's Base Channel has been updated.</source>

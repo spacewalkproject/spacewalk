@@ -3492,6 +3492,45 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/kickstart/SessionStatus.do</context>
         </context-group>
+        <trans-unit id="kickstart.state.created">
+          <source>Kickstart session created but has not yet been used.</source>
+        <target>Сессия кикстарта создана, но еще не использовалась.</target></trans-unit>
+        <trans-unit id="kickstart.state.deployed">
+          <source>Files required for kickstart action have been installed.</source>
+        <target>Файлы для кикстарта установлены.</target></trans-unit>
+        <trans-unit id="kickstart.state.injected">
+          <source>The system configuration has been modified to begin kickstart upon next boot.</source>
+        <target>Система настроена на выполнение кикстарта при следующем рестарте.</target></trans-unit>
+        <trans-unit id="kickstart.state.restarted">
+          <source>The system has been restarted in order to begin the kickstart process.</source>
+        <target>Произошел рестарт системы с целью начала кикстарта.</target></trans-unit>
+        <trans-unit id="kickstart.state.configuration_accessed">
+          <source>The system has downloaded the kickstart configuration file from @@PRODUCT_NAME@@.</source>
+        <target>Система загрузила файл конфигурации кикстарта с @@PRODUCT_NAME@@.</target></trans-unit>
+        <trans-unit id="kickstart.state.started">
+          <source>The initial files required for anaconda have been downloaded.</source>
+        <target>Загружены исходные файлы Anaconda.</target></trans-unit>
+        <trans-unit id="kickstart.state.in_progress">
+          <source>The system is downloading the RPMs required to install.</source>
+        <target>Загружаются пакеты для установки.</target></trans-unit>
+        <trans-unit id="kickstart.state.registered">
+          <source>The system has successfully registered with @@PRODUCT_NAME@@ after kickstarting.</source>
+        <target>Регистрация системы в @@PRODUCT_NAME@@ произошла успешно после завершения кикстарта.</target></trans-unit>
+        <trans-unit id="kickstart.state.package_synch">
+          <source>Package synchronization in progress.</source>
+        <target>Выполняется синхронизация пакетов.</target></trans-unit>
+        <trans-unit id="kickstart.state.package_synch_scheduled">
+          <source>Package synchronization scheduled.</source>
+        <target>Синхронизация пакетов назначена.</target></trans-unit>
+        <trans-unit id="kickstart.state.configuration_deploy">
+          <source>Configuration files are being deployed.</source>
+        <target>Файлы конфигурации применены.</target></trans-unit>
+        <trans-unit id="kickstart.state.complete">
+          <source>Kickstart complete.</source>
+        <target>Кикстарт завершён.</target></trans-unit>
+        <trans-unit id="kickstart.state.failed">
+          <source>Kickstart failed.</source>
+        <target>Сбой кикстарта.</target></trans-unit>
     </group>
 
 

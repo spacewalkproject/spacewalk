@@ -1864,6 +1864,12 @@ available for this kickstart profile to function properly.
          </context-group>
        <target>தேவைப்படும் கிக்ஸ்டார்ட் கோப்புபெயர் தவறானதாகும். கிக்ஸ்டார்ட் கோப்புபெயர் ஸலாஷை பெற்றிருக்கவில்லை (/) அல்லது  ஒரு பகுதியுடன் தொடர்கிறது(.)</target></trans-unit>
 
+      <trans-unit id="toolbar.delete.snippets">
+<source>delete snippet</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/kickstart/cobbler/CobblerSnippetEdit</context>
+        </context-group>
+      <target>சினெப்பட்டை அழிக்கவும்</target></trans-unit>
 
       <trans-unit id="kickstart.iprange.url">
         <source>New systems can be kickstarted based upon their ip address by appending &lt;code&gt;{0}&lt;/code&gt; to the kernel parameters for a kickstart install.</source>
@@ -2208,18 +2214,97 @@ available for this kickstart profile to function properly.
         </context-group>
       <target>இந்தப் பக்கத்திலுள்ள அனைத்தையும் தேர்ந்தெடுக்கவும் அல்லது தேர்ந்தெடுக்க வேண்டாம்</target></trans-unit>
 
+      <trans-unit id="toolbar.create.filter">
+<source>create new notification filter</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/users/UserList</context>
+        </context-group>
+      <target>புதிய அறிவிப்பு வடிப்பியை உருவாக்கவும்</target></trans-unit>
 
+     <trans-unit id="toolbar.upload.kickstart">
+<source>upload new kickstart file</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/users/UserList</context>
+        </context-group>
+      <target>புதிய கிக்ஸ்டார்ட் கோப்பினை மேலேற்றவும்</target></trans-unit>
 
+     <trans-unit id="toolbar.create.kickstart">
+<source>create new kickstart profile</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/users/UserList</context>
+        </context-group>
+      <target>புதிய கிக்ஸ்டார்ட் விவரக்குறிப்பை உருவாக்கவும்</target></trans-unit>
 
+      <trans-unit id="toolbar.create.kickstartdata">
+<source>create new kickstart</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/users/UserList</context>
+        </context-group>
+      <target>புதிய கிக்ஸ்டார்ட்டை உருவாக்கவும்</target></trans-unit>
 
+      <trans-unit id="toolbar.clone.kickstart">
+<source>clone kickstart</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/users/UserList</context>
+        </context-group>
+      <target>கிக்ஸ்டார்ட்டை க்ளோன் செய்யவும்</target></trans-unit>
 
+      <trans-unit id="toolbar.delete.CryptoKeyDelete">
+<source>delete key</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/keys/CryptoKeyEdit</context>
+        </context-group>
+      <target>விசையை அழிக்கவும்</target></trans-unit>
 
+      <trans-unit id="toolbar.create.user">
+<source>create new user</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/users/UserList</context>
+        </context-group>
+      <target>புதிய பயனரை உருவாக்கவும்</target></trans-unit>
 
+      <trans-unit id="toolbar.create.erratum">
+<source>create new erratum</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/errata/UnpublishedErrata</context>
+          <context context-type="sourcefile">/rhn/errata/PublishedErrata</context>
+        </context-group>
+      <target>புதிய பிழைத்திருத்தத்தை உருவாக்கவும்</target></trans-unit>
 
+      <trans-unit id="toolbar.create.group">
+<source>create new group</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/SystemGroupList</context>
+        </context-group>
+      <target>புதிய குழுவை உருவாக்கவும்</target></trans-unit>
 
+      <trans-unit id="toolbar.create.probe">
+<source>create new probe</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails</context>
+        </context-group>
+      <target>புதிய ஆய்வினை உருவாக்கவும்</target></trans-unit>
 
+        <trans-unit id="toolbar.delete.probe">
+<source>delete probe</source>
+            <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails</context>
+        </context-group>
+        <target>ஆய்வினை அழிக்கவும்</target></trans-unit>
 
+        <trans-unit id="toolbar.delete.user">
+<source>delete user</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">User details pages</context>
+        </context-group>
+    <target>பயனரை அழிக்கவும்</target></trans-unit>
 
+      <trans-unit id="toolbar.delete.erratum">
+<source>delete erratum</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Errata details pages</context>
+        </context-group>
+      <target>பிழைத்திருத்தத்தை அழிக்கவும்</target></trans-unit>
 
       <trans-unit id="toolbar.delete.system">
 <source>delete system</source>
@@ -2239,11 +2324,47 @@ available for this kickstart profile to function properly.
           <context context-type="sourcefile">System Group pages</context>
         </context-group>
       <target>குழுவுடன் பணி</target></trans-unit>
+      <trans-unit id="toolbar.delete.errata">
+<source>delete errata</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">Errata edit page</context>
+        </context-group>
+      <target>பிழைத்திருத்தத்தை அழிக்கவும்</target></trans-unit>
 
+     <trans-unit id="toolbar.delete.kickstart">
+        <source>delete kickstart</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">Kickstart profile pages</context>
+        </context-group>
+      <target>கிக்ஸ்டார்ட்டை அழிக்கவும்</target></trans-unit>
 
+      <trans-unit id="toolbar.delete.deleteTree">
+        <source>delete distribution</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">rhn/Kickstart/TreeEdit.do</context>
+        </context-group>
+      <target>பகிர்தலை அழிக்கவும்</target></trans-unit>
 
+      <trans-unit id="toolbar.create.probesuite">
+<source>create new probe suite</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuites.do</context>
+        </context-group>
+      <target>புதிய ஆய்வு தொகுப்பை உருவாக்கவும்</target></trans-unit>
 
+      <trans-unit id="toolbar.create.probesuitesystem">
+<source>add systems to probe suite</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuites.do</context>
+        </context-group>
+      <target>கணினிகளை ஆய்வு தொகுப்புடன் சேர்க்கவும்</target></trans-unit>
 
+      <trans-unit id="toolbar.delete.profile">
+<source>delete profile</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/packages/profiles/CompareProfiles.do</context>
+        </context-group>
+      <target>விவரக்குறிப்பை அழிக்கவும்</target></trans-unit>
 
       <trans-unit id="message.unscheduled.system">
 <source>&lt;strong&gt;{0}&lt;/strong&gt; unscheduled for &lt;strong&gt;{1}&lt;/strong&gt; system.</source>
@@ -5394,7 +5515,19 @@ user before attempting to deactivate their account.</source>
         </context-group>
       <target>சான்றிதழ் ஏற்றப்பட்டது. @@PRODUCT_NAME@@ மீண்டும் செயல்படுத்தப்பட்டது.</target></trans-unit>
 
+    <trans-unit id="certificate.config.error.10">
+        <source>Could not parse certificate file, see log file for more details.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
+        </context-group>
+      <target>சான்றிதழ் கோப்பினை அலகிட முடியாது</target></trans-unit>
 
+    <trans-unit id="certificate.config.error.11">
+        <source>Certificate expired</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
+        </context-group>
+      <target>சான்றிதழ் முடிவுற்றது</target></trans-unit>
 
     <trans-unit id="certificate.config.error.12">
         <source>Unknown @@PRODUCT_NAME@@ version, see log file for more details.</source>
@@ -5403,15 +5536,75 @@ user before attempting to deactivate their account.</source>
         </context-group>
       <target>தெரியாத @@PRODUCT_NAME@@ பதிப்பு</target></trans-unit>
 
+    <trans-unit id="certificate.config.error.20">
+        <source>Remote activation failure, see log file for more details.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
+        </context-group>
+      <target>தொலை செயல்படுத்தல் செயலிழக்கப்பட்டது</target></trans-unit>
 
+    <trans-unit id="certificate.config.error.30">
+        <source>Local activation failure, see log file for more details.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
+        </context-group>
+      <target></target></trans-unit>
 
+    <trans-unit id="certificate.config.error.40">
+        <source>Channel population failure, see log file for more details.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
+        </context-group>
+      <target>தட தொகை செயலிழக்கப்பட்டது</target></trans-unit>
 
+    <trans-unit id="certificate.config.error.80">
+        <source>No management entitlements remaining</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
+        </context-group>
+      <target>மீதி மேலாண்மை உரிமங்கள் எதுவுமில்லை</target></trans-unit>
 
+    <trans-unit id="certificate.config.error.82">
+        <source>@@PRODUCT_NAME@@ channel not found</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
+        </context-group>
+      <target>@@PRODUCT_NAME@@ சேனல் காணப்படவில்லை</target></trans-unit>
 
+    <trans-unit id="certificate.config.error.83">
+        <source>No @@PRODUCT_NAME@@ channel entitlements remaining</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
+        </context-group>
+      <target>மீதி எந்த @@PRODUCT_NAME@@ தட உரிமங்களும் இல்லை</target></trans-unit>
 
+    <trans-unit id="certificate.config.error.84">
+        <source>Invalid @@PRODUCT_NAME@@ certificate</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
+        </context-group>
+      <target>தவறான @@PRODUCT_NAME@@ சான்றிதழ்</target></trans-unit>
 
+    <trans-unit id="certificate.config.error.85">
+        <source>Unknown activation error, see log file for more details.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
+        </context-group>
+      <target></target></trans-unit>
 
+    <trans-unit id="certificate.config.error.86">
+        <source>@@PRODUCT_NAME@@ has no base channel on parent server</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
+        </context-group>
+      <target>@@PRODUCT_NAME@@ மூல சேவையகத்தில் அடிப்படை தடம் எதுவும் கொண்டிருக்கவில்லை</target></trans-unit>
 
+    <trans-unit id="certificate.config.error.87">
+        <source>No @@PRODUCT_NAME@@ channel available for this version</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
+        </context-group>
+      <target>இந்தப் பதிப்புக்கு @@PRODUCT_NAME@@ தடம் எதுவுமில்லை</target></trans-unit>
 
     <trans-unit id="certificate.config.error.127">
         <source>Unhandled error, see log file for more details.</source>
@@ -5428,7 +5621,19 @@ user before attempting to deactivate their account.</source>
       <target>@@PRODUCT_NAME@@ சேவையக புரவலபெயர்</target></trans-unit>
 
 
+    <trans-unit id="bootstrap.config.error.10">
+        <source>A script with that name already exists</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
+        </context-group>
+      <target>அந்த பெயரிலுள்ள உரை ஏற்கனவே உள்ளது</target></trans-unit>
 
+    <trans-unit id="bootstrap.config.error.11">
+        <source>Invalid script name</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
+        </context-group>
+      <target>முறையற்ற உரை பெயர்</target></trans-unit>
 
     <trans-unit id="bootstrap.config.error.12">
         <source>Invalid arguments</source>
@@ -5437,10 +5642,41 @@ user before attempting to deactivate their account.</source>
         </context-group>
       <target>முறையற்ற மதிப்பு</target></trans-unit>
 
+    <trans-unit id="bootstrap.config.error.13">
+        <source>Could not parse httpd proxy URL</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
+        </context-group>
+      <target>httpd பதிலாள் URLஐ அலகிட முடியாது</target></trans-unit>
 
+    <trans-unit id="bootstrap.config.error.14">
+        <source>Cannot find pub tree</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
+        </context-group>
+      <target>pub treeஐ காணவில்லை</target></trans-unit>
 
+    <trans-unit id="bootstrap.config.error.15">
+        <source>The hostname was not valid</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
+          <context context-type="sourcefile">/rhn/admin/config/GeneralConfig</context>
+        </context-group>
+      <target>முறையற்ற புரவலன் பெயர்</target></trans-unit>
 
+    <trans-unit id="bootstrap.config.error.16">
+        <source>Could not find the CA certificate</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
+        </context-group>
+      <target>CA சான்றிதழை காணவில்லை</target></trans-unit>
 
+    <trans-unit id="bootstrap.config.error.17">
+        <source>Could not find GPG key</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
+        </context-group>
+      <target>GPG விசைகளை காணவில்லை</target></trans-unit>
 
     <trans-unit id="bootstrap.config.error.127">
         <source>Unhandled error</source>
@@ -5748,6 +5984,12 @@ url பின்பற்றி செயலிழக்கப்பட்ட �
         </context-group>
       <target></target></trans-unit>
 
+      <trans-unit id="kickstart.troubleshooting.validation.kernelparams.too_long">
+        <source>Extra kernel parameters can be no longer than 128 characters.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/kickstart/Troubleshooting.do</context>
+        </context-group>
+      <target>கூடுதல் கர்னல் மதிப்புருக்கள் 128 எழுத்துக்களுக்கு மேல் இருக்க முடியாது.</target></trans-unit>
 
       <trans-unit id="kickstart.locale.success">
         <source>Kickstart locale options updated.</source>
@@ -5756,6 +5998,12 @@ url பின்பற்றி செயலிழக்கப்பட்ட �
         </context-group>
       <target>கிக்ஸ்டார்ட் மொழி விருப்பங்கள் மேம்படுத்தப்பட்டன.</target></trans-unit>
 
+      <trans-unit id="kickstart.locale.validation.timezone.invalid">
+        <source>Invalid timezone.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/kickstart/Locale.do</context>
+        </context-group>
+      <target>முறையற்ற நேர மண்டலம்</target></trans-unit>
 
       <trans-unit id="kickstart.script.delete">
         <source>Kickstart Script Deleted.</source>
@@ -6094,8 +6342,26 @@ url பின்பற்றி செயலிழக்கப்பட்ட �
         </context-group>
       <target>{0} க்கு சான்ட்பாக்ஸ்</target></trans-unit>
 
+      <trans-unit id="config_channel.local_override">
+        <source>Locally-Managed</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/file/CompareCopy.do</context>
+        </context-group>
+      <target>உள்ளமைவாக-மேலாண்மை செய்யப்பட்டது</target></trans-unit>
 
+      <trans-unit id="config_channel.normal">
+        <source>Centrally-Managed</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/file/CompareCopy.do</context>
+        </context-group>
+      <target>பொதுவாக-மேலாண்மை செய்யப்பட்டது</target></trans-unit>
 
+      <trans-unit id="config_channel.server_import">
+        <source>Sandbox</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/file/CompareCopy.do</context>
+        </context-group>
+      <target>சான்ட்பாக்ஸ்</target></trans-unit>
 
 
 
@@ -6436,9 +6702,93 @@ url பின்பற்றி செயலிழக்கப்பட்ட �
                 <context context-type="sourcefile">Every Caller of ConfigActionHelper.makeFileCountsMessage</context>
             </context-group>
 
+	     <trans-unit id="config.files_0_dirs_0_symlinks_0_url">
+			<source>No files, directories or symlinks. &lt;a href="{0}"&gt; Add&lt;/a&gt;</source>
+	     <target></target></trans-unit>
 
+	     <trans-unit id="config.files_0_dirs_0_symlinks_0">
+			<source>No files, directories or symlinks.</source>
+	     <target></target></trans-unit>
+	     <trans-unit id="config.files_0_dirs_0_symlinks_1">
+			<source>{2} symlink</source>
+	     <target></target></trans-unit>
+	     <trans-unit id="config.files_0_dirs_0_symlinks_2">
+			<source>{2} symlinks</source>
+	     <target></target></trans-unit>
+	     <trans-unit id="config.files_0_dirs_1_symlinks_0">
+			<source>{1} directory</source>
+	     <target></target></trans-unit>
+	     <trans-unit id="config.files_0_dirs_1_symlinks_1">
+			<source>{1} directory and {2} symlink</source>
+	     <target></target></trans-unit>
+	     <trans-unit id="config.files_0_dirs_1_symlinks_2">
+			<source>{1} directory and {2} symlinks</source>
+	     <target></target></trans-unit>
+	     <trans-unit id="config.files_0_dirs_2_symlinks_0">
+			<source>{1} directories</source>
+	     <target></target></trans-unit>
+	     <trans-unit id="config.files_0_dirs_2_symlinks_1">
+			<source>{1} directories and {2} symlink</source>
+	     <target></target></trans-unit>
+	     <trans-unit id="config.files_0_dirs_2_symlinks_2">
+			<source>{1} directories and {2} symlinks</source>
+	     <target></target></trans-unit>
 
+	     <trans-unit id="config.files_1_dirs_0_symlinks_0">
+			<source>{0} file</source>
+	     <target></target></trans-unit>
+	     <trans-unit id="config.files_1_dirs_0_symlinks_1">
+			<source>{0} file and {2} symlink</source>
+	     <target></target></trans-unit>
+	     <trans-unit id="config.files_1_dirs_0_symlinks_2">
+			<source>{0} file and {2} symlinks</source>
+	     <target></target></trans-unit>
+	     <trans-unit id="config.files_1_dirs_1_symlinks_0">
+			<source>{0} file and {1} directory</source>
+	     <target></target></trans-unit>
+	     <trans-unit id="config.files_1_dirs_1_symlinks_1">
+			<source>{0} file and {1} directory and {2} symlink</source>
+	     <target></target></trans-unit>
+	     <trans-unit id="config.files_1_dirs_1_symlinks_2">
+			<source>{0} file and {1} directory and {2} symlinks</source>
+	     <target></target></trans-unit>
+	     <trans-unit id="config.files_1_dirs_2_symlinks_0">
+			<source>{0} file and {1} directories</source>
+	     <target></target></trans-unit>
+	     <trans-unit id="config.files_1_dirs_2_symlinks_1">
+			<source>{0} file and {1} directories and {2} symlink</source>
+	     <target></target></trans-unit>
+	     <trans-unit id="config.files_1_dirs_2_symlinks_2">
+			<source>{0} file and {1} directories and {2} symlinks</source>
+	     <target></target></trans-unit>
 
+	     <trans-unit id="config.files_2_dirs_0_symlinks_0">
+			<source>{0} files</source>
+	     <target></target></trans-unit>
+	     <trans-unit id="config.files_2_dirs_0_symlinks_1">
+			<source>{0} files and {2} symlink</source>
+	     <target></target></trans-unit>
+	     <trans-unit id="config.files_2_dirs_0_symlinks_2">
+			<source>{0} files and {2} symlinks</source>
+	     <target></target></trans-unit>
+	     <trans-unit id="config.files_2_dirs_1_symlinks_0">
+			<source>{0} files and {1} directory</source>
+	     <target></target></trans-unit>
+	     <trans-unit id="config.files_2_dirs_1_symlinks_1">
+			<source>{0} files and {1} directory and {2} symlink</source>
+	     <target></target></trans-unit>
+	     <trans-unit id="config.files_2_dirs_1_symlinks_2">
+			<source>{0} files and {1} directory and {2} symlinks</source>
+	     <target></target></trans-unit>
+	     <trans-unit id="config.files_2_dirs_2_symlinks_0">
+			<source>{0} files and {1} directories</source>
+	     <target></target></trans-unit>
+	     <trans-unit id="config.files_2_dirs_2_symlinks_1">
+			<source>{0} files and {1} directories and {2} symlink</source>
+	     <target></target></trans-unit>
+	     <trans-unit id="config.files_2_dirs_2_symlinks_2">
+			<source>{0} files and {1} directories and {2} symlinks</source>
+	     <target></target></trans-unit>
 	</group>
 
     <group>
@@ -6505,11 +6855,47 @@ url பின்பற்றி செயலிழக்கப்பட்ட �
       <target>அனைத்து கணினிகள்</target></trans-unit>
 
 
+      <trans-unit id="systems.details.virt.guest.virt.shutdown">
+        <source>Shutdown</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
+        </context-group>
+      <target>பணிநிறுத்தம்</target></trans-unit>
 
+      <trans-unit id="systems.details.virt.guest.virt.start">
+        <source>Start</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
+        </context-group>
+      <target>துவக்கம்</target></trans-unit>
 
+      <trans-unit id="systems.details.virt.guest.virt.suspend">
+        <source>Suspend</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
+        </context-group>
+      <target>இடைநிறுத்தம்</target></trans-unit>
 
+      <trans-unit id="systems.details.virt.guest.virt.resume">
+        <source>Resume</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
+        </context-group>
+      <target>தொடர்தல்</target></trans-unit>
 
+      <trans-unit id="systems.details.virt.guest.virt.reboot">
+        <source>Restart</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
+        </context-group>
+      <target>மறுதுவக்கம்</target></trans-unit>
 
+      <trans-unit id="systems.details.virt.guest.virt.destroy">
+        <source>Destroy</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
+        </context-group>
+      <target>அழித்தல்</target></trans-unit>
 
       <trans-unit id="systems.details.virt.guest.virt.delete">
         <source>Delete</source>
@@ -6518,11 +6904,47 @@ url பின்பற்றி செயலிழக்கப்பட்ட �
         </context-group>
       <target>அழித்தல்</target></trans-unit>
 
+      <trans-unit id="systems.details.virt.guest.virt.setMemory">
+          <source>Set Memory ({0} MB)</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
+        </context-group>
+      <target>நினைவகம் அமைத்தல் ({0} MB)</target></trans-unit>
 
+      <trans-unit id="systems.details.virt.guest.virt.setVCPUs">
+          <source>Set Virtual CPUs ({0})</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
+        </context-group>
+      <target>மெய்நிகர் CPUகளை அமைத்தல் ({0})</target></trans-unit>
 
+      <trans-unit id="systems.details.virt.guest.already.running">
+        <source>This system is already running.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
+        </context-group>
+      <target>இந்த கணினி ஏற்கனவே இயக்கத்தில் உள்ளது.</target></trans-unit>
 
+      <trans-unit id="systems.details.virt.guest.already.stopped">
+        <source>This system is already stopped.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
+        </context-group>
+      <target>இந்த கணினி ஏற்கனவே நிறுத்தப்பட்டது.</target></trans-unit>
 
+      <trans-unit id="systems.details.virt.guest.already.paused">
+        <source>This system is already paused.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
+        </context-group>
+      <target>இந்த கணினி ஏற்கனவே இடைநிறுத்தப்பட்டது.</target></trans-unit>
 
+      <trans-unit id="systems.details.virt.guest.already.crashed">
+        <source>This system is crashed.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
+        </context-group>
+      <target>இந்த கணினி அழிக்கப்பட்டது.</target></trans-unit>
 
       <trans-unit id="systems.details.virt.vcpu.limit.msg">
           <source>Virtual CPUs limited to {0} on {1}.</source>
@@ -6566,9 +6988,27 @@ url பின்பற்றி செயலிழக்கப்பட்ட �
         </context-group>
       <target>மெய்நிகர் கணினிகள் எதுவும் தேர்ந்தெடுக்கப்படவில்லை.</target></trans-unit>
 
+      <trans-unit id="systems.details.virt.no.actions.scheduled">
+        <source>No actions scheduled.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
+        </context-group>
+      <target>எந்த செயலும் திட்டமிடப்படவில்லை.</target></trans-unit>
+
+      <trans-unit id="systems.details.virt.one.actions.scheduled">
+        <source>Scheduled one action.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
+        </context-group>
+      <target>ஒரு செயல் திட்டமிடப்பட்டது.</target></trans-unit>
 
 
-
+      <trans-unit id="systems.details.virt.no.virt.deleted">
+        <source>No virtual systems deleted.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
+        </context-group>
+      <target>எந்த மெய்நிகர் கணினிகளும் அழிக்கப்படவில்லை.</target></trans-unit>
 
       <trans-unit id="systems.details.virt.one.virt.deleted">
         <source>Deleted one virtual system.</source>
@@ -6577,6 +7017,12 @@ url பின்பற்றி செயலிழக்கப்பட்ட �
         </context-group>
       <target>ஒரு மெய்நிகர் கணினி அழிக்கப்பட்டது.</target></trans-unit>
 
+      <trans-unit id="systems.details.virt.virt.deleted">
+        <source>Deleted {0} virtual systems.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
+        </context-group>
+      <target>{0} மெய்நிகர் கணினிகள் அழிக்கப்பட்டது.</target></trans-unit>
 
 	  <trans-unit id="sdc.channels.edit.base_channel_updated">
 <source>System's Base Channel has been updated.</source>

@@ -861,26 +861,98 @@
       <target>दिखाएँ</target></trans-unit>
 
 <!--Start of  the Pane entries Section-->
+	<trans-unit id="preferences.tasks.name">
+         <source>Tasks</source>
+		 <context-group name="ctx">
+		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
+		 </context-group>
+	<target>कार्य</target></trans-unit>
+
+	<trans-unit id="preferences.tasks.description">
+         <source> A task-oriented menu of quick links to different areas of the @@PRODUCT_NAME@@ user interface.</source>
+		 <context-group name="ctx">
+		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
+		 </context-group>
+	<target>@@PRODUCT_NAME@@ उपयोक्ता अंतरफलक के अलग क्षेत्रों में द्रुत लिंक की कार्य अभिमुख मेनू.</target></trans-unit>
 
 
 
 
 
 
+	<trans-unit id="preferences.warning-probes.name">
+         <source>Monitoring Status - Warning Probes</source>
+		 <context-group name="ctx">
+		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
+		 </context-group>
+	<target>मॉनिटरिंग स्थिति - चेतावनी जांच</target></trans-unit>
+
+	<trans-unit id="preferences.warning-probes.description">
+         <source> A preview of probes that are in a warning state.</source>
+		 <context-group name="ctx">
+		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
+		 </context-group>
+	<target> जांच का पूर्वावलोकन जो कि चेतावनी स्थिति में है.</target></trans-unit>
+
+	<trans-unit id="preferences.system-groups-widget.name">
+         <source>System Groups</source>
+		 <context-group name="ctx">
+		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
+		 </context-group>
+	<target>सिस्टम समूह</target></trans-unit>
+
+	<trans-unit id="preferences.system-groups-widget.description">
+         <source> Preview the overall status of your system groups.</source>
+		 <context-group name="ctx">
+		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
+		 </context-group>
+	<target> अपने सिस्टम समूह की समग्र स्थिति का पूर्वावलोकन.</target></trans-unit>
+
+	<trans-unit id="preferences.latest-errata.name">
+         <source>Relevant Security Errata</source>
+		 <context-group name="ctx">
+		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
+		 </context-group>
+	<target>संबंधित सुरक्षा इरेटा</target></trans-unit>
+
+	<trans-unit id="preferences.latest-errata.description">
+         <source> View the most recent security errata applicable to your systems.</source>
+		 <context-group name="ctx">
+		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
+		 </context-group>
+	<target> अपने सिस्टम में लागू सर्वाधिक अद्यतन इरेटा को देखें.</target></trans-unit>
 
 
 
 
 
+	<trans-unit id="preferences.pending-actions.name">
+         <source>Recently Scheduled Actions</source>
+		 <context-group name="ctx">
+		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
+		 </context-group>
+	<target>हाल में नियोजित क्रिया</target></trans-unit>
 
+	<trans-unit id="preferences.pending-actions.description">
+         <source> Lists the scheduled actions of the user.</source>
+		 <context-group name="ctx">
+		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
+		 </context-group>
+	<target> उपयोक्ता की अनुसूचित क्रिया सूचीबद्ध करें.</target></trans-unit>
 
+	<trans-unit id="preferences.recently-registered-systems.name">
+         <source>Recently Registered Systems</source>
+		 <context-group name="ctx">
+		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
+		 </context-group>
+	<target>हाल में पंजीकृत सिस्टम</target></trans-unit>
 
-
-
-
-
-
-
+	<trans-unit id="preferences.recently-registered-systems.description">
+         <source> A listing of the most recently registered systems within the past 30 days.</source>
+		 <context-group name="ctx">
+		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
+		 </context-group>
+	<target> सबसे हाल में पंजीकृत सिस्टम की सूची अंतिम 30 के अंदर.</target></trans-unit>
 
 
 
@@ -5081,22 +5153,79 @@ value for this entitlement, excluding the default organization's consumption.</s
         <target>कोई सिस्टम नहीं चुना गया. एक काम करने के पहले एक सिस्टम चुनें.</target></trans-unit>
 
 
+        <trans-unit id="system_entitlements.provisioning.success">
+                <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) set to &lt;strong&gt;Provisioning&lt;/strong&gt;.</source>
+        <target>&lt;strong&gt;{0}&lt;/strong&gt; सिस्टम &lt;strong&gt;प्रोविजनिंग&lt;/strong&gt; में सेट.</target></trans-unit>
+
+        <trans-unit id="system_entitlements.provisioning.removed.success">
+                <source>Removed &lt;strong&gt;Provisioning&lt;/strong&gt; from &lt;strong&gt;{0}&lt;/strong&gt; system(s).</source>
+        <target>&lt;strong&gt;प्रोविजनिंग&lt;/strong&gt; को &lt;strong&gt;{0}&lt;/strong&gt; सिस्टम से हटाया.</target></trans-unit>
 
 
-
+        <trans-unit id="system_entitlements.provisioning.notEnoughSlots">
+                <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) were successfully set to &lt;strong&gt;Provisioning&lt;/strong&gt; entitled, but you do not have enough &lt;strong&gt;Provisioning&lt;/strong&gt; entitlements for the remaining &lt;strong&gt;{1}&lt;/strong&gt; system(s). You may purchase additional &lt;strong&gt;Provisioning&lt;/strong&gt; entitlements at &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;@@PRODUCT_NAME@@ store&lt;/strong&gt;&lt;/a&gt;. After you have additional &lt;strong&gt;Provisioning&lt;/strong&gt; entitlements, you will be able to upgrade these systems.</source>
+        <target>&lt;strong&gt;{0}&lt;/strong&gt; सिस्टम सफलतापूर्वक &lt;strong&gt;प्रोविजनिंग&lt;/strong&gt; एंटाइटेलमेंट में उन्नत किया जा सकता है, लेकिन शेष &lt;strong&gt;{1}&lt;/strong&gt; सिस्टम  आपके पास इन सिस्टम के लिये पर्याप्त &lt;strong&gt;प्रोविजनिंग&lt;/strong&gt; एंटाइटेलमेंट नहीं है. आप अतिरिक्त &lt;strong&gt;प्रोविजनिंग&lt;/strong&gt; एंटाइटेलमेंट &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;@@PRODUCT_NAME@@ भंडार&lt;/strong&gt;&lt;/a&gt; पर खरीद सकते हैं. आपके पास अतिरिक्त &lt;strong&gt;प्रोविजनिंग&lt;/strong&gt; एंटाइटेलमेंट के बाद, आप इन सिस्टम के उन्नयन में समर्थ होंगे.</target></trans-unit>
+        <trans-unit id="system_entitlements.provisioning.noManagement">
+                <source>&lt;strong&gt;Provisioning&lt;/strong&gt; entitlement failed for &lt;strong&gt;{0}&lt;/strong&gt; system(s) because they did not have &lt;strong&gt;Management&lt;/strong&gt; base entitlements. The failed systems are still selected below. If you click first the &lt;strong&gt;Set To Management Entitled&lt;/strong&gt; button below, then select the &lt;strong&gt;Provisioning&lt;/strong&gt; item in the drop-down list located in the &lt;strong&gt;Add-On entitlements section&lt;/strong&gt; and then click the &lt;strong&gt;Add Entitlement&lt;/strong&gt; button below, you'll be able to add the &lt;strong&gt;Provisioning&lt;/strong&gt; entitlement to these system(s).</source>
+        <target>&lt;strong&gt;प्रोविजनिंग&lt;/strong&gt; एंटाइटेलमेंट &lt;strong&gt;{0}&lt;/strong&gt; सिस्टम के लिये विफल रहा क्योंकि उनके पास &lt;strong&gt;प्रबंधन&lt;/strong&gt; बेस एंटाइटेलमेंट नहीं है. विफल सिस्टम नीचे चयनित किया जाता है. अगर आप पहले &lt;strong&gt;प्रबंधन एंटाइटेल में सेट&lt;/strong&gt; बटन पर नीचे क्लिक करते हैं, तब &lt;strong&gt;प्रोविजनिंग&lt;/strong&gt; मद लटकती मेनू में &lt;strong&gt;अतिरिक्त एंटाइटेलमेंट खंड&lt;/strong&gt; में से चुनें और तब नीचे &lt;strong&gt;एंटाइटेलमेंट जोड़ें&lt;/strong&gt; बटन पर क्लिक करें, आप इन सिस्टम में &lt;strong&gt;प्रोविजनिंग&lt;/strong&gt; एंटाइठलमेंट जोड़ने में समर्थ होंगे.</target></trans-unit>
 
         <trans-unit id="system_entitlements.virtualization.success_note">
                 <source>&lt;strong&gt;NOTE:&lt;/strong&gt; We subscribed the system(s) to the {0} and {1} channel as well as scheduled an install of the {2} package to prepare the system(s) for hosting virtual guests.</source>
         <target>&lt;strong&gt;नोट:&lt;/strong&gt; हमने {0} और {1} चैनल में सिस्टम में सदस्यता ली है साथ ही साथ {2} संकुल के संस्थापन का नियोजन वर्चुअल अतिथि के लिये होस्ट करने के लिये किया है.</target></trans-unit>
 
+        <trans-unit id="system_entitlements.virtualization_host.success">
+                <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) set to &lt;strong&gt;Virtualization.&lt;/strong&gt;.  &lt;br/&gt; &lt;strong&gt;NOTE: &lt;/strong&gt;If the system previously had Virtualization Platform it has been downgraded to Virtualization. </source>
+        <target>&lt;strong&gt;{0}&lt;/strong&gt; सिस्टम &lt;strong&gt;वर्चुअलाइजेशन&lt;/strong&gt; में सेट है.  &lt;br/&gt; &lt;strong&gt;नोट: &lt;/strong&gt;अगर सिस्टम के पास पहले से वर्चुअलाइजेशन प्लैटफॉर्म है इसे वर्चुअलाइजेशन में पदावनत किया जा रहा है.</target></trans-unit>
+
+        <trans-unit id="system_entitlements.virtualization_host.removed.success">
+                <source>Removed &lt;strong&gt;Virtualization&lt;/strong&gt; from &lt;strong&gt;{0}&lt;/strong&gt; system(s)  This will cause any guests associated with the selected host to consume physical Channel and System entitlements.</source>
+        <target>&lt;strong&gt;वर्चुअलाइजेशन&lt;/strong&gt; को &lt;strong&gt;{0}&lt;/strong&gt; सिस्टम से हटाया चुने मेजबान से जुड़े किसी अतिथि का कारण बनेगा भौतिक चैनल व सिस्टम एंटाइटेलमें की खपत करने के लिए.</target></trans-unit>
+
+        <trans-unit id="system_entitlements.virtualization_host.notEnoughSlots">
+                <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) were successfully set to &lt;strong&gt;Virtualization&lt;/strong&gt; entitled, but you do not have enough &lt;strong&gt;Virtualization&lt;/strong&gt; entitlements for the remaining &lt;strong&gt;{1}&lt;/strong&gt; system(s). You may purchase additional &lt;strong&gt;Virtualization&lt;/strong&gt; entitlements at &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;@@PRODUCT_NAME@@ store&lt;/strong&gt;&lt;/a&gt;. After you have additional &lt;strong&gt;Virtualization&lt;/strong&gt; entitlements, you will be able to upgrade these systems. &lt;br/&gt; &lt;strong&gt;NOTE: &lt;/strong&gt;If the system previously had Virtualization Platform it has been downgraded to Virtualization. </source>
+        <target>&lt;strong&gt;{0}&lt;/strong&gt; सिस्टम सफलतापूर्वक &lt;strong&gt;वर्चुअलाइजेशन&lt;/strong&gt; एंटाइटेलमेंट में उन्नत किया जा सकता है, लेकिन शेष &lt;strong&gt;{1}&lt;/strong&gt; सिस्टम आपके पास इन सिस्टम के लिये पर्याप्त &lt;strong&gt;वर्चुअलाइजेशन&lt;/strong&gt; एंटाइटेलमेंट नहीं है. आप अतिरिक्त &lt;strong&gt;वर्चुअलाइजेशन&lt;/strong&gt; एंटाइटेलमेंट &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;@@PRODUCT_NAME@@ भंडार&lt;/strong&gt;&lt;/a&gt; पर खरीद सकते हैं. आपके पास अतिरिक्त &lt;strong&gt;प्रोविजनिंग&lt;/strong&gt; एंटाइटेलमेंट के बाद, आप इन सिस्टम के उन्नयन में समर्थ होंगे. &lt;strong&gt;नोट: &lt;/strong&gt;यदि कोई सिस्टम पहले वर्चुअलाइजेशन प्लेटफॉर्म रखते हैं, इसे वर्चुअलाइजेशन में पदावनत किया जायेगा.</target></trans-unit>
+        <trans-unit id="system_entitlements.virtualization_host.noManagement">
+                <source>&lt;strong&gt;Virtualization&lt;/strong&gt; entitlement failed for &lt;strong&gt;{0}&lt;/strong&gt; system(s) because they did not have &lt;strong&gt;Management&lt;/strong&gt; base entitlements. The failed systems are still selected below. If you click first the &lt;strong&gt;Set To Management Entitled&lt;/strong&gt; button below, then select the &lt;strong&gt;Virtualization&lt;/strong&gt; item in the drop-down list located in the &lt;strong&gt;Add-On entitlements section&lt;/strong&gt; and then click the &lt;strong&gt;Add Entitlement&lt;/strong&gt; button below, you'll be able to add the &lt;strong&gt;Virtualization&lt;/strong&gt; entitlement to these system(s).</source>
+        <target>&lt;strong&gt;वर्चुअलाइजेशन&lt;/strong&gt; एंटाइटेलमेंट &lt;strong&gt;{0}&lt;/strong&gt; सिस्टम के लिये विफल रहा क्योंकि उनके पास &lt;strong&gt;प्रबंधन&lt;/strong&gt; बेस एंटाइटेलमेंट नहीं है. विफल सिस्टम नीचे चयनित किया जाता है. अगर आप पहले &lt;strong&gt;प्रबंधन एंटाइटेल में सेट&lt;/strong&gt; बटन पर नीचे क्लिक करते हैं, तब &lt;strong&gt;प्रोविजनिंग&lt;/strong&gt; मद लटकती मेनू में &lt;strong&gt;अतिरिक्त एंटाइटेलमेंट खंड&lt;/strong&gt; में से चुनें और तब नीचे &lt;strong&gt;एंटाइटेलमेंट जोड़ें&lt;/strong&gt; बटन पर क्लिक करें, आप इन सिस्टम में &lt;strong&gt;प्रोविजनिंग&lt;/strong&gt; एंटाइटेलमेंट जोड़ने में समर्थ होंगे.</target></trans-unit>
+        <trans-unit id="system_entitlements.virtualization_host.noSolarisSupport">
+                <source>&lt;strong&gt;Virtualization&lt;/strong&gt; entitlement failed for &lt;strong&gt;{0}&lt;/strong&gt; system(s) because Virtualization is not supported on Solaris systems.</source>
+        <target>&lt;strong&gt;वर्चुअलाइजेशन&lt;/strong&gt; एंटाइटेलमेंट &lt;strong&gt;{0}&lt;/strong&gt; सिस्टम के लिए विफल रहा क्योंकि वर्चुअलाइजेशन Solaris सिस्टम पर समर्थित नहीं है.</target></trans-unit>
+
+        <trans-unit id="system_entitlements.virtualization_host_platform.success">
+                <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) set to &lt;strong&gt;Virtualization Platform.&lt;/strong&gt;.  &lt;br/&gt; &lt;strong&gt;NOTE: &lt;/strong&gt;If the system previously had Virtualization it has been upgraded to Virtualization Platform. </source>
+        <target>&lt;strong&gt;{0}&lt;/strong&gt; सिस्टम &lt;strong&gt;वर्चुअलाइजेशन प्लैटफ़ार्म&lt;/strong&gt; पर सेट.  &lt;br/&gt; &lt;strong&gt;नोट: &lt;/strong&gt;अगर सिस्टम पहले वर्चुअलाइजेशन रखता है इसे वर्चुअलाइजेशन प्लैटफॉर्म में उन्नत किया जा रहा है. </target></trans-unit>
+
+        <trans-unit id="system_entitlements.virtualization_host_platform.removed.success">
+                <source>Removed &lt;strong&gt;Virtualization&lt;/strong&gt; from &lt;strong&gt;{0}&lt;/strong&gt; system(s)  This will cause any guests associated with the selected host to consume physical Channel and System entitlements.</source>
+        <target>&lt;strong&gt;वर्चुअलाइजेशन&lt;/strong&gt; को &lt;strong&gt;{0}&lt;/strong&gt; सिस्टम से हटाया चुने मेजबान से जुड़े किसी अतिथि का कारण बनेगा भौतिक चैनल व सिस्टम एंटाइटेलमें की खपत करने के लिए.</target></trans-unit>
+
+        <trans-unit id="system_entitlements.virtualization_host_platform.notEnoughSlots">
+                <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) were successfully set to &lt;strong&gt;Virtualization Platform&lt;/strong&gt; entitled, but you do not have enough &lt;strong&gt;Virtualization Platform&lt;/strong&gt; entitlements for the remaining &lt;strong&gt;{1}&lt;/strong&gt; system(s). You may purchase additional &lt;strong&gt;Virtualization Platform&lt;/strong&gt; entitlements at &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;@@PRODUCT_NAME@@ store&lt;/strong&gt;&lt;/a&gt;. After you have additional &lt;strong&gt;Virtualization Platform&lt;/strong&gt; entitlements, you will be able to upgrade these systems.  &lt;br/&gt;&lt;strong&gt;NOTE: &lt;/strong&gt;If the system previously had Virtualization Platform it has been downgraded to Virtualization.</source>
+        <target>&lt;strong&gt;{0}&lt;/strong&gt; सिस्टम सफलतापूर्वक &lt;strong&gt;वर्चुअलाइजेशन प्लेटफार्म&lt;/strong&gt; एंटाइटेलमेंट में सेट किया है, लेकिन शेष &lt;strong&gt;{1}&lt;/strong&gt; सिस्टम के लिये आपके पास पर्याप्त &lt;strong&gt;वर्चुअलाइजेशन प्लेटफार्म&lt;/strong&gt; एंटाइटेलमेंट नहीं है. आप अतिरिक्त &lt;strong&gt;वर्चुअलाइजेशन प्लेटफार्म&lt;/strong&gt; एंटाइटेलमेंट &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;@@PRODUCT_NAME@@ भंडार&lt;/strong&gt;&lt;/a&gt; पर खरीद सकते हैं. आपके पास अतिरिक्त &lt;strong&gt;वर्चुअलाइजेशन प्लेटफॉर्म&lt;/strong&gt; एंटाइटेलमेंट के बाद, आप इन सिस्टम के उन्नयन में समर्थ होंगे. &lt;br/&gt;&lt;strong&gt;नोट: &lt;/strong&gt;यदि कोई सिस्टम पहले वर्चुअलाइजेशन प्लेटफॉर्म रखता है, इसे वर्चुअलाइजेशन प्लेटफार्म में पदावनत किया जायेगा.</target></trans-unit>
+        <trans-unit id="system_entitlements.virtualization_host_platform.noManagement">
+                <source>&lt;strong&gt;Virtualization Platform&lt;/strong&gt; entitlement failed for &lt;strong&gt;{0}&lt;/strong&gt; system(s) because they did not have &lt;strong&gt;Management&lt;/strong&gt; base entitlements. The failed systems are still selected below. If you click first the &lt;strong&gt;Set To Management Entitled&lt;/strong&gt; button below, then select the &lt;strong&gt;Virtualization Platform&lt;/strong&gt; item in the drop-down list located in the &lt;strong&gt;Add-On entitlements section&lt;/strong&gt; and then click the &lt;strong&gt;Add Entitlement&lt;/strong&gt; button below, you'll be able to add the &lt;strong&gt;Virtualization Platform&lt;/strong&gt; entitlement to these system(s).</source>
+        <target>&lt;strong&gt;वर्चुअलाइजेशन प्लेटफार्म&lt;/strong&gt; एंटाइटेलमेंट &lt;strong&gt;{0}&lt;/strong&gt; सिस्टम के लिये विफल रहा क्योंकि उनके पास &lt;strong&gt;प्रबंधन&lt;/strong&gt; बेस एंटाइटेलमेंट नहीं है. विफल सिस्टम अबभी नीचे चयनित किया गया. अगर आप पहले &lt;strong&gt;प्रबंधन एंटाइटेल में सेट&lt;/strong&gt; बटन पर नीचे क्लिक करते हैं, तब &lt;strong&gt;वर्चुअलाइजेशन प्लेटफार्म&lt;/strong&gt; मद लटकती मेनू में &lt;strong&gt;अतिरिक्त एंटाइटेलमेंट खंड&lt;/strong&gt; में से चुनें और तब नीचे &lt;strong&gt;एंटाइटेलमेंट जोड़ें&lt;/strong&gt; बटन पर क्लिक करें, आप इन सिस्टम में &lt;strong&gt;वर्चुअलाइजेशन प्लेटफार्म&lt;/strong&gt; एंटाइटेलमेंट जोड़ने में समर्थ होंगे.</target></trans-unit>
+        <trans-unit id="system_entitlements.virtualization_host_platform.noSolarisSupport">
+                <source>&lt;strong&gt;Virtualization Platform&lt;/strong&gt; entitlement failed for &lt;strong&gt;{0}&lt;/strong&gt; system(s) because Virtualization is not supported on Solaris systems.</source>
+        <target>&lt;strong&gt;{0}&lt;/strong&gt; सिस्टम के लिए &lt;strong&gt;वर्चुअलाइजेशन प्लैटफ़ार्म&lt;/strong&gt; विफल क्योंकि वर्चुअलाइजेशन Solaris सिस्टम पर समर्थित नहीं है. </target></trans-unit>
+        <trans-unit id="system_entitlements.monitoring.success">
+                <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) set to &lt;strong&gt;Monitoring&lt;/strong&gt;.</source>
+        <target>&lt;strong&gt;{0}&lt;/strong&gt; सिस्टम &lt;strong&gt;मॉनिटरिंग&lt;/strong&gt; सेट किया गया.</target></trans-unit>
+
+        <trans-unit id="system_entitlements.monitoring.removed.success">
+                <source>Removed &lt;strong&gt;Monitoring&lt;/strong&gt; from &lt;strong&gt;{0}&lt;/strong&gt; system(s).</source>
+        <target>&lt;strong&gt;{0}&lt;/strong&gt; सिस्टम से &lt;strong&gt;मॉनिटरिंग&lt;/strong&gt; को हटाया गया.</target></trans-unit>
 
 
-
-
-
-
-
-
+        <trans-unit id="system_entitlements.monitoring.notEnoughSlots">
+                <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) were successfully set to&lt;strong&gt;Monitoring&lt;/strong&gt; entitled, but you not have enough &lt;strong&gt;Monitoring&lt;/strong&gt; entitlements for the remaining &lt;strong&gt;{1}&lt;/strong&gt; system(s). You may purchase additional &lt;strong&gt;Monitoring&lt;/strong&gt; entitlements at &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;@@PRODUCT_NAME@@ store&lt;/strong&gt;&lt;/a&gt;. After you have additional &lt;strong&gt;Monitoring&lt;/strong&gt; entitlements, you will be able to upgrade these systems.</source>
+        <target>&lt;strong&gt;{0}&lt;/strong&gt; सिस्टम का &lt;strong&gt;मॉनिटरिंग&lt;/strong&gt; एंटाइटेलमेंट में सफलतापूर्वक सेट किया गया, लेकिन बचे &lt;strong&gt;{1}&lt;/strong&gt; सिस्टम आपके पास पर्याप्त &lt;strong&gt;मॉनिटरिंग&lt;/strong&gt; नहीं है.  आप अतिरिक्त &lt;strong&gt;मॉनिटरिंग&lt;/strong&gt; एंटाइटेलमेंट &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;@@PRODUCT_NAME@@ भंडार&lt;/strong&gt;&lt;/a&gt; पर खरीद सकते हैं. आपके पास अतिरिक्त &lt;strong&gt;मॉनिटिरंग&lt;/strong&gt; एंटाइटेलमेंट के बाद, आप इन सिस्टम के उन्नत किये जाने में सक्षम होंगें.</target></trans-unit>
+        <trans-unit id="system_entitlements.monitoring.noManagement">
+                <source>&lt;strong&gt;Monitoring&lt;/strong&gt; entitlement failed for &lt;strong&gt;{0}&lt;/strong&gt; system(s) because they did not have &lt;strong&gt;Management&lt;/strong&gt; base entitlements. The failed systems are still selected below. If you click first the &lt;strong&gt;Set To Management Entitled&lt;/strong&gt; button below, then select the &lt;strong&gt;Monitoring&lt;/strong&gt; item in the drop-down list located in the &lt;strong&gt;Add-On entitlements section&lt;/strong&gt; and then click the &lt;strong&gt;Add Entitlement&lt;/strong&gt; button below, you'll be able to add the &lt;strong&gt;Monitoring&lt;/strong&gt; entitlement to these system(s).</source>
+        <target>&lt;strong&gt;मॉनिटरिंग&lt;/strong&gt; एंटाइटेलमेंट &lt;strong&gt;{0}&lt;/strong&gt; सिस्टम के लिये विफल रहा क्योंकि उनके पास &lt;strong&gt;प्रबंधन&lt;/strong&gt; आधारित एंटाइटेलमेंट नहीं है. विफल सिस्टम अब भी नीचे चयनित किया गया है. अगर आपने &lt;strong&gt;प्रबंधन एंटाइटेल में सेट&lt;/strong&gt; बटन पर नीचे पहले क्लिक किया है, तब &lt;strong&gt;मॉनिटरिंग&lt;/strong&gt; मद नीचे लटकती सूची में &lt;strong&gt;अतिरिक्त एंटाइटेलमेंट खंड&lt;/strong&gt; में से चुनें औऱ तब &lt;strong&gt;एंटाइटेलमेंट जोड़ें&lt;/strong&gt; बटन पर नीचे क्लिक करें, आप इन सिस्टमों में &lt;strong&gt;मॉनिटरिंग&lt;/strong&gt; एंटाइटेलमेंट जोड़ने में समर्थ होंगे.</target></trans-unit>
+        <trans-unit id="system_entitlements.monitoring.noSolarisSupport">
+                <source>&lt;strong&gt;Monitoring&lt;/strong&gt; entitlement failed for &lt;strong&gt;{0}&lt;/strong&gt; system(s) because Monitoring is not supported on Solaris systems.</source>
+        <target>&lt;strong&gt;मानिटरिंग&lt;/strong&gt; एंटाइटेलमेंट &lt;strong&gt;{0}&lt;/strong&gt; सिस्टम के लिए विफल रहा क्योंकि मानिटरिंग Solaris सिस्टम पर समर्थित नहीं है.</target></trans-unit>
         <trans-unit id="system_entitlements.virtualization.setup_error">
                 <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) failed to add &lt;strong&gt;Virtualization(Platform)&lt;/strong&gt;.  This was caused by errors attempting to automatically subscribe the system to the @@PRODUCT_NAME@@ Tools and RHEL Virtualization channels which are required for virtualization.</source>
         <target>&lt;strong&gt;{0}&lt;/strong&gt; सिस्टम &lt;strong&gt;वर्चुअलाइजेशन (प्लेटफॉर्म)&lt;/strong&gt; को जोड़ने में विफल रहा.  यह सिस्टम में स्वतः सदस्यता लेने के प्रयास में त्रुटि के कारण हुआ था @@PRODUCT_NAME@@ औजार और RHEL वर्चुअलाइजेशन चैनल में जिसके लिए वर्चुअलाइजेशन जरूरी है.</target></trans-unit>
@@ -6172,6 +6301,42 @@ value for this entitlement, excluding the default organization's consumption.</s
       </context-group>
     <target>सूट में कोई सिस्टम नहीं जोड़ा गया</target></trans-unit>
 
+    <trans-unit id="message.remotecommandbefore.remove">
+<source>The remote command action was scheduled to run &lt;strong&gt;before&lt;/strong&gt; the package remove action.</source>
+      <context-group name="ctx">
+        <context context-type="sourcefile">/rhn/systems/details/packages/PackageList.do</context>
+      </context-group>
+    <target></target></trans-unit>
+    <trans-unit id="message.remotecommandafter.remove">
+<source>The remote command action was scheduled to run &lt;strong&gt;after&lt;/strong&gt; the package remove action.</source>
+      <context-group name="ctx">
+        <context context-type="sourcefile">/rhn/systems/details/packages/PackageList.do</context>
+      </context-group>
+    <target></target></trans-unit>
+    <trans-unit id="message.remotecommandbefore.install">
+<source>The remote command action was scheduled to run &lt;strong&gt;before&lt;/strong&gt; the package install action.</source>
+      <context-group name="ctx">
+        <context context-type="sourcefile">/rhn/systems/details/packages/PackageList.do</context>
+      </context-group>
+    <target></target></trans-unit>
+    <trans-unit id="message.remotecommandafter.install">
+<source>The remote command action was scheduled to run &lt;strong&gt;after&lt;/strong&gt; the package install action.</source>
+      <context-group name="ctx">
+        <context context-type="sourcefile">/rhn/systems/details/packages/PackageList.do</context>
+      </context-group>
+    <target></target></trans-unit>
+    <trans-unit id="message.remotecommandbefore.upgrade">
+<source>The remote command action was scheduled to run &lt;strong&gt;before&lt;/strong&gt; the package upgrade action.</source>
+      <context-group name="ctx">
+        <context context-type="sourcefile">/rhn/systems/details/packages/PackageList.do</context>
+      </context-group>
+    <target></target></trans-unit>
+    <trans-unit id="message.remotecommandafter.upgrade">
+<source>The remote command action was scheduled to run &lt;strong&gt;after&lt;/strong&gt; the package upgrade action.</source>
+      <context-group name="ctx">
+        <context context-type="sourcefile">/rhn/systems/details/packages/PackageList.do</context>
+      </context-group>
+    <target></target></trans-unit>
     <trans-unit id="installpkgs.jsp.installpackages">
 <source>Install Selected Packages</source>
         <context-group name="ctx">
@@ -8037,6 +8202,18 @@ Please note that some manual configuration of these scripts may still be require
        <trans-unit id="repos.jsp.message.taskomaticdown">
           <source>The scheduling service appears down.  Please contact your Satellite administrator.</source>
         </trans-unit>
+        <trans-unit id="toolbar.create.repos">
+          <source>create new repository</source>
+          <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/channel/manage/repo/RepoList.do</context>
+          </context-group>
+        <target></target></trans-unit>
+        <trans-unit id="toolbar.delete.repos">
+          <source>delete repository</source>
+          <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/channel/manage/repo/RepoDetails.do</context>
+          </context-group>
+        <target></target></trans-unit>
         <trans-unit id="repos.jsp.toolbar">
           <source>Create New Repository</source>
         <target></target></trans-unit>
@@ -9241,6 +9418,12 @@ Please note that some manual configuration of these scripts may still be require
     <target>विवरण</target></trans-unit>
 
 
+    <trans-unit id="toolbar.create.keys">
+        <source>create new stored key/cert</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/keys/CryptoKeysList.do</context>
+        </context-group>
+    <target>नयी संग्रहित कुंजी/प्रमाणपत्र बनाएं</target></trans-unit>
 
     <trans-unit id="keyedit.jsp.toolbar">
         <source>Edit GPG/SSL Key</source>
@@ -9414,7 +9597,19 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
     <target>मिटाने के लिये कोई फाइल चयनित नहीं था</target></trans-unit>
 
+    <trans-unit id="toolbar.create.filelist">
+        <source>create new file preservation list</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/systems/provisioning/preservation/PreservationList.do</context>
+        </context-group>
+    <target>नयी फाइल संरक्षण सूची बनाएं</target></trans-unit>
 
+    <trans-unit id="toolbar.create.kickstartscript">
+        <source>add new kickstart script</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/systems/provisioning/preservation/PreservationList.do</context>
+        </context-group>
+    <target>नयी किकस्टार्ट स्क्रिप्ट जोड़ें</target></trans-unit>
 
 
     <trans-unit id="preservationlist.jsp.updatelist">
@@ -9814,6 +10009,9 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
     <trans-unit id="snippets.jsp.note.default">
         <source>Default kickstart snippets are not editable.</source>
     <target>मूलभूत किकस्टार्ट स्निपेट संपादन योग्य है.</target></trans-unit>
+    <trans-unit id="toolbar.create.snippets">
+        <source>create new snippet</source>
+    <target>नया स्निपेट बनाएँ</target></trans-unit>
     <trans-unit id="cobbler.snippet.name">
         <source>Snippet Name</source>
     <target>स्निपेट नाम</target></trans-unit>
@@ -10497,6 +10695,9 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <source>Modify an existing software channel by selecting it from the list below, or create a new software channel. </source>
       <target>किसी मौजूदा साफ्टवेयर चैनल को नीचे की सूची से चुनकर बदलें या एक नया साफ्टवेयर चैनल बनाएँ. </target></trans-unit>
 
+      <trans-unit id="toolbar.create.channel">
+        <source>create new channel</source>
+      <target>नयी चैनल बनाएं</target></trans-unit>
 
 
       <trans-unit id="kickstart.troubleshooting.jsp.header1">
@@ -10723,6 +10924,12 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
        <trans-unit id="activation-keys.jsp.header">
          <source>Activation Keys</source>
        <target>सक्रियकरण कुंजी</target></trans-unit>
+       <trans-unit id="toolbar.create.activationkeys">
+         <source>create new key</source>
+     <target>नयी कुंजी बनाएं</target></trans-unit>
+       <trans-unit id="toolbar.delete.activationkeys">
+         <source>delete key</source>
+     <target>कुंजी मिटाएँ</target></trans-unit>
        <trans-unit id="activation-keys.common.alt">
          <source>Activation Key icon</source>
        <target>कुंजी प्रतीक सक्रियकरण</target></trans-unit>
@@ -11176,6 +11383,9 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <trans-unit id="targetsystems.jsp.capable">
           <source>@@PRODUCT_NAME@@ Configuration Capable?</source>
         <target>@@PRODUCT_NAME@@ विन्यास समर्थ?</target></trans-unit>
+        <trans-unit id="targetsystems.jsp.yes">
+          <source>Yes</source>
+        <target>हाँ</target></trans-unit>
         <trans-unit id="targetsystems.jsp.no">
           <source>No</source>
         <target>नहीं</target></trans-unit>
@@ -11185,6 +11395,21 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <trans-unit id="targetsystems.jsp.orgadmin">
           <source>Requires organization administrator</source>
         <target>संगठन प्रशासक जरूरी</target></trans-unit>
+        <trans-unit id="targetsystems.jsp.addprovisioning">
+          <source>Add provisioning entitlement</source>
+        <target>प्रोविजनिंग एंटाइटेलमेंट जोड़ें</target></trans-unit>
+        <trans-unit id="targetsystems.jsp.subscribetools">
+          <source>Subscribe to @@PRODUCT_NAME@@ Tools channel</source>
+        <target>@@PRODUCT_NAME@@ औजार चैनल की सदस्यता लें</target></trans-unit>
+        <trans-unit id="targetsystems.jsp.installcfg">
+          <source>Schedule rhncfg package install</source>
+        <target>rhncfg संकुल अधिष्ठापन नियोजित करें</target></trans-unit>
+        <trans-unit id="targetsystems.jsp.installcfgactions">
+          <source>Schedule rhncfg-actions package install</source>
+        <target>rhncfg-क्रिया संकुल अधिष्ठापन को अनुसूचित करें</target></trans-unit>
+        <trans-unit id="targetsystems.jsp.installcfgclient">
+          <source>Schedule rhncfg-client package install</source>
+        <target>rhncfg-क्लाइंट संकुल अधिष्ठापन को अनुसूचित करें</target></trans-unit>
         <trans-unit id="targetsystems.jsp.pending">
           <source>Package installations currently pending.</source>
         <target>संकुल अधिष्ठापन अभी स्थगित.</target></trans-unit>
@@ -11270,7 +11495,19 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         </context-group>
      <target>नीचे सूचीबद्ध विन्यास चैनल &lt;strong&gt;केंद्रीकृत प्रबंधित&lt;/strong&gt; हैं. इसका मतलब है कि कोई सिस्टम जो @@PRODUCT_NAME@@ से पंजीकृत है वह विन्यास चैनल को नीचे सदस्यता ले सकता है. इन चैनल के फाइल में बनाया कोई परिवर्तन उस चैनल के सदस्यता लिए हर सिस्टम को प्रभावित करेगा.</target></trans-unit>
 
+     <trans-unit id="toolbar.create.configchannel">
+        <source>create new config channel</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/GlobalConfigChannelList.do</context>
+        </context-group>
+     <target>नयी विन्यास चैनल बनाएं</target></trans-unit>
 
+     <trans-unit id="toolbar.create.org">
+        <source>create new organization</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/multiorg/Organizations.do</context>
+        </context-group>
+     <target>नया संगठन बनाएं</target></trans-unit>
 
      <trans-unit id="globalconfiglist.jsp.noChannels">
         <source>No configuration channels</source>
@@ -11338,6 +11575,12 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
           <context context-type="sourcefile">/rhn/configuration/ChannelOverview.do</context>
         </context-group>
      <target>आपको जरूर विन्यास चैनल विवरण नीचे दाखिल करना चाहिए.</target></trans-unit>
+     <trans-unit id="toolbar.delete.configchannel">
+<source>delete channel</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/ChannelOverview.do</context>
+        </context-group>
+     <target>चैनल मिटाएं</target></trans-unit>
    <trans-unit id="channelOverview.jsp.newToolbar">
 <source>New Config Channel</source>
         <context-group name="ctx">
@@ -12533,6 +12776,24 @@ centrally-managed configuration channel, {2}; below is a list of systems you may
 	</context-group>
 	<target></target></trans-unit>
 		<!-- form error messages -->
+	<trans-unit id="config-file-form.error.user-invalid">
+<source>User must be a valid Linux user name or user id, of 32 characters or less.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
+        </context-group>
+     <target>उपयोक्ता को जरूर वैध Linux प्रयोक्ता नाम या प्रयोक्ता id का होना चाहिए, 32 संप्रतीक या कम का.</target></trans-unit>
+	<trans-unit id="config-file-form.error.group-invalid">
+<source>Group must be a valid Linux group name or group id, of 32 characters or less.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
+        </context-group>
+     <target>समूह को जरूर वैध Linux समूह नाम या समूह id का होना चाहिए, 32 संप्रतीक या कम का.</target></trans-unit>
+	<trans-unit id="config-file-form.error.mode-invalid">
+<source>Permissions must be a valid Linux permissions set (4 octal digits)</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
+        </context-group>
+     <target>अनुमति को जरूर वैध Linux अनुमति सेट होना चाहिए (4 अष्टक अंक)</target></trans-unit>
 	<trans-unit id="config-file-form.error.selinux-invalid">
 <source>Invalid values set for SElinux Context.</source>
         <context-group name="ctx">
@@ -12541,6 +12802,18 @@ centrally-managed configuration channel, {2}; below is a list of systems you may
      <target></target></trans-unit>
 
 
+	<trans-unit id="config-file-form.error.start-delim-percent">
+<source>Start delimiter may not contain the '%' character.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
+        </context-group>
+     <target>आरंभ परिसीमक को जरूर '%' संप्रतीक नहीं समाहित करना चाहिए.</target></trans-unit>
+	<trans-unit id="config-file-form.error.end-delim-percent">
+<source>End delimiter may not contain the '%' character.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
+        </context-group>
+     <target>अंत परिसीमक को जरूर '%' संप्रतीक को समाहित नहीं करना चाहिए.</target></trans-unit>
 
 		<!-- filedetails errors -->
 	<trans-unit id="filedetails.jsp.error.download">
@@ -12564,6 +12837,24 @@ centrally-managed configuration channel, {2}; below is a list of systems you may
           <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
         </context-group>
      <target>नवीनतम पुनरीक्षण डाउनलोड करें</target></trans-unit>
+	<trans-unit id="toolbar.delete.configfile">
+<source>delete this file revision</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
+        </context-group>
+     <target>इस फाइल पुनरीक्षण मिटाएं</target></trans-unit>
+	<trans-unit id="toolbar.delete.org">
+<source>delete organization</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
+        </context-group>
+     <target>संगठन मिटाएं</target></trans-unit>
+	<trans-unit id="toolbar.delete.deletefile">
+<source>delete this file</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
+        </context-group>
+     <target>यह फ़ाइल मिटाएं</target></trans-unit>
 	<trans-unit id="filedetails.jsp.download">
 <source>download file revision</source>
         <context-group name="ctx">
@@ -13239,6 +13530,9 @@ any of these revisions.  Are you sure you want to do this?</source>
         <trans-unit id="manage.jsp.uploadbutton">
           <source>Upload File</source>
         <target>फाइल अपलोड करें</target></trans-unit>
+        <trans-unit id="toolbar.create.revision">
+          <source>create new revision</source>
+        <target>नया पुनरीक्षण बनाएं</target></trans-unit>
         <trans-unit id="manage.jsp.success">
           <source>&lt;a href="{0}"&gt;Revision {1}&lt;/a&gt; successfully uploaded.</source>
         <target>&lt;a href="{0}"&gt;पुनरीक्षण {1}&lt;/a&gt; सफलतापूर्वक अपलोड किया गया.</target></trans-unit>
@@ -15028,6 +15322,12 @@ the &lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;Activation Key
         </context-group>
     <target>किकस्टार्ट स्क्रिप्ट मिटाएं</target></trans-unit>
 
+    <trans-unit id="toolbar.delete.kickstartscript">
+        <source>delete kickstart script</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/kickstart/KickstartDeleteSetup</context>
+        </context-group>
+    <target>किकस्टार्ट स्क्रिप्ट मिटाएं</target></trans-unit>
 
     <trans-unit id="kickstart.clone.jsp.clone">
         <source>Clone Kickstart</source>
@@ -15263,12 +15563,102 @@ the &lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;Activation Key
 	    <target></target></trans-unit>
     </group>
 
+    <trans-unit id="preferences.jsp.lang.bn_IN">
+        <source>Bengali</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/account/LocalePreferences.do</context>
+        </context-group>
+    <target>बंगाली</target></trans-unit>
+    <trans-unit id="preferences.jsp.lang.de">
+        <source>German</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/account/LocalePreferences.do</context>
+        </context-group>
+    <target>जर्मन</target></trans-unit>
     <trans-unit id="preferences.jsp.lang.en_US">
         <source>English</source>
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/account/LocalePreferences.do</context>
         </context-group>
     <target>अंग्रेजी</target></trans-unit>
+    <trans-unit id="preferences.jsp.lang.es">
+        <source>Spanish</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/account/LocalePreferences.do</context>
+        </context-group>
+    <target>स्पेनिश</target></trans-unit>
+    <trans-unit id="preferences.jsp.lang.fr">
+        <source>French</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/account/LocalePreferences.do</context>
+        </context-group>
+    <target>फ्रेंच</target></trans-unit>
+    <trans-unit id="preferences.jsp.lang.gu">
+        <source>Gujarati</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/account/LocalePreferences.do</context>
+        </context-group>
+    <target>गुजराती</target></trans-unit>
+    <trans-unit id="preferences.jsp.lang.hi">
+        <source>Hindi</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/account/LocalePreferences.do</context>
+        </context-group>
+    <target>हिन्दी</target></trans-unit>
+    <trans-unit id="preferences.jsp.lang.it">
+        <source>Italian</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/account/LocalePreferences.do</context>
+        </context-group>
+    <target>इटालियन</target></trans-unit>
+    <trans-unit id="preferences.jsp.lang.ja">
+        <source>Japanese</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/account/LocalePreferences.do</context>
+        </context-group>
+    <target>जापानी</target></trans-unit>
+    <trans-unit id="preferences.jsp.lang.ko">
+        <source>Korean</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/account/LocalePreferences.do</context>
+        </context-group>
+    <target>कोरियाई</target></trans-unit>
+    <trans-unit id="preferences.jsp.lang.pa">
+        <source>Punjabi</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/account/LocalePreferences.do</context>
+        </context-group>
+    <target>पंजाबी</target></trans-unit>
+    <trans-unit id="preferences.jsp.lang.pt_BR">
+        <source>Brazilian Portuguese</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/account/LocalePreferences.do</context>
+        </context-group>
+    <target>ब्राजीलियन पुर्तगाली</target></trans-unit>
+    <trans-unit id="preferences.jsp.lang.ru">
+        <source>Russian</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/account/LocalePreferences.do</context>
+        </context-group>
+    <target>रूसी</target></trans-unit>
+    <trans-unit id="preferences.jsp.lang.ta">
+        <source>Tamil</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/account/LocalePreferences.do</context>
+        </context-group>
+    <target>तमिल</target></trans-unit>
+    <trans-unit id="preferences.jsp.lang.zh_TW">
+        <source>Traditional Chinese</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/account/LocalePreferences.do</context>
+        </context-group>
+    <target>पारंपरिक चीनी</target></trans-unit>
+    <trans-unit id="preferences.jsp.lang.zh_CN">
+        <source>Simplified Chinese</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/account/LocalePreferences.do</context>
+        </context-group>
+    <target>सरलीकृत चीनी</target></trans-unit>
     <trans-unit id="preferences.jsp.lang.none">
         <source>Use Browser Settings</source>
         <context-group name="ctx">
@@ -15872,6 +16262,12 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
         </context-group>
       <target>किकस्टार्ट प्रोफाइल विकल्प सफलतापूर्वक अद्यतन किया गया.</target></trans-unit>
 
+    <trans-unit id="toolbar.delete.filelist">
+        <source>delete file preservation list</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/systems/provisioning/preservation/PreservationListEdit.do</context>
+        </context-group>
+    <target>फाइल संरक्षण सूची मिटाएं</target></trans-unit>
 
 
   <!--Export Columns  -->
@@ -15879,13 +16275,46 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/configuration/ConfigChannelList.do</context>
       </context-group>
+        <trans-unit id="exportcolumn.associatedSystem">
+            <source>System</source>
+        <target>सिस्टम</target></trans-unit>
         <trans-unit id="exportcolumn.errataAdvisoryType">
             <source>Advisory Type</source>
         <target>सलाहकारी प्रकार</target></trans-unit>
+        <trans-unit id="exportcolumn.advisorySynopsis">
+            <source>Synopsis</source>
+        <target>शोध सार</target></trans-unit>
+        <trans-unit id="exportcolumn.errataStatus">
+            <source>Status</source>
+        <target>स्थिति</target></trans-unit>
+        <trans-unit id="exportcolumn.updateDate">
+            <source>Updated</source>
+        <target>अद्यतनीकृत</target></trans-unit>
+        <trans-unit id="exportcolumn.suiteName">
+            <source>Suite Name</source>
+        <target>सूट नाम</target></trans-unit>
+        <trans-unit id="exportcolumn.systemCount">
+            <source>System Count</source>
+        <target>सिस्टम गिनती</target></trans-unit>
 
+        <trans-unit id="exportcolumn.status">
+            <source>Status</source>
+        <target>स्थिति</target></trans-unit>
 
+        <trans-unit id="exportcolumn.entryDate">
+            <source>Timestamp</source>
+        <target>टाइमस्टैंप</target></trans-unit>
 
+        <trans-unit id="exportcolumn.state">
+            <source>State</source>
+        <target>स्थिति</target></trans-unit>
 
+        <trans-unit id="exportcolumn.message">
+            <source>Message</source>
+        <target>संदेश</target></trans-unit>
+        <trans-unit id="exportcolumn.issueDate">
+            <source>Issue Date</source>
+        <target>निर्गत तिथि</target></trans-unit>
      </group>
 
     <trans-unit id="virtualization.provision.first.jsp.no.profiles">
@@ -16862,7 +17291,19 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
             </context-group>
          </trans-unit>
 
+         <trans-unit id="toolbar.create.note">
+            <source>create new note</source>
+            <context-group name="ctx">
+            <context context-type="sourcefile">/systems/details/Note.do</context>
+            </context-group>
+         </trans-unit>
 
+         <trans-unit id="toolbar.delete.note">
+            <source>delete note</source>
+            <context-group name="ctx">
+            <context context-type="sourcefile">/systems/details/Note.do</context>
+            </context-group>
+         </trans-unit>
 
          <trans-unit id="edit_note.jsp.update">
            <source>Update</source>
@@ -19176,6 +19617,12 @@ given channel.</source>
           <context context-type="sourcefile">/rhn/channels/manage/ConfirmPrivate.do</context>
         </context-group>
       <target></target></trans-unit>
+      <trans-unit id="toolbar.delete.software.channel">
+        <source>delete software channel</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
+        </context-group>
+      <target>साफ्टवेयर चैनल मिटाएं</target></trans-unit>
       <trans-unit id="button.denyaccess.confirm">
         <source>Deny Access and Confirm</source>
         <context-group name="ctx">
@@ -19194,6 +19641,12 @@ given channel.</source>
           <context context-type="sourcefile">/rhn/channels/software/Search.do</context>
         </context-group>
       <target>खोजें</target></trans-unit>
+       <trans-unit id="toolbar.delete.channel">
+         <source>delete software channel</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/manage/errata//Add.do</context>
+        </context-group>
+     <target>साफ्टवेयर चैनल मिटाएं</target></trans-unit>
        <trans-unit id="header.jsp.errata.add">
          <source>Add Errata</source>
         <context-group name="ctx">
@@ -19280,9 +19733,36 @@ given channel.</source>
          If you are requesting an organizational default kickstart, ensure that a kickstart has been selected as the "Organization Default".</source>
      <target>निवेदित फाइल नहीं मिला.
          यदि आप किसी संगठन के मूलभूत किकस्टार्ट के लिए निवेदन कर रहे हैं, सुनिश्चित करें कि कोई किकस्टार्ट को "संगठन मूलभूत" के रूप में चुना गया है.</target></trans-unit>
+     <trans-unit id="task.status.current.db.time">
+         <source>Current DB Time</source>
+     <target>मौजूदा कुंजी</target></trans-unit>
      <trans-unit id="task.status.last.execution">
          <source>Last Execution Times</source>
      <target>स्क्रिप्ट निष्पादन समय</target></trans-unit>
+     <trans-unit id="task.status.last.completed">
+         <source>Last Completed Action</source>
+     <target>पूर्ण क्रिया</target></trans-unit>
+     <trans-unit id="task.status.session-cleanup">
+         <source>Session Cleanup</source>
+     <target></target></trans-unit>
+     <trans-unit id="task.status.errata-queue">
+         <source>Errata Notification Queue</source>
+     <target>इरेटा अधिसूचना भेजें</target></trans-unit>
+     <trans-unit id="task.status.errata-mailer">
+         <source>Errata Notification Mail</source>
+     <target>इरेटा अधिसूचना भेजें</target></trans-unit>
+     <trans-unit id="task.status.summary-population">
+         <source>Daily Summary Queue</source>
+     <target>दैनिक सारांश</target></trans-unit>
+     <trans-unit id="task.status.daily-summary">
+         <source>Daily Summary Mail</source>
+     <target>दैनिक सारांश</target></trans-unit>
+     <trans-unit id="task.status.clean-current-alerts">
+         <source>Clean Current Alerts</source>
+     <target>मौजूदा संस्करण</target></trans-unit>
+     <trans-unit id="task.status.sync-probe-state">
+         <source>Sync Probe State</source>
+     <target>जांच स्थिति</target></trans-unit>
      <trans-unit id="task.status.message">
          <source>The following is a status report for the various tasks run by the @@PRODUCT_NAME@@ task engine:</source>
      <target></target></trans-unit>

@@ -861,26 +861,98 @@
       <target>페이지 당 </target></trans-unit>
 
 <!--Start of  the Pane entries Section-->
+	<trans-unit id="preferences.tasks.name">
+         <source>Tasks</source>
+		 <context-group name="ctx">
+		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
+		 </context-group>
+	<target>작업</target></trans-unit>
+
+	<trans-unit id="preferences.tasks.description">
+         <source> A task-oriented menu of quick links to different areas of the @@PRODUCT_NAME@@ user interface.</source>
+		 <context-group name="ctx">
+		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
+		 </context-group>
+	<target>@@PRODUCT_NAME@@ 사용자 인터페이스의 다른 위치에 바로 연결하는 작업 중심적인 메뉴   </target></trans-unit>
 
 
 
 
 
 
+	<trans-unit id="preferences.warning-probes.name">
+         <source>Monitoring Status - Warning Probes</source>
+		 <context-group name="ctx">
+		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
+		 </context-group>
+	<target>모니터링 상태 - 경고 상태인 프로브</target></trans-unit>
+
+	<trans-unit id="preferences.warning-probes.description">
+         <source> A preview of probes that are in a warning state.</source>
+		 <context-group name="ctx">
+		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
+		 </context-group>
+	<target>경고 상태인 프로브 미리 보기 </target></trans-unit>
+
+	<trans-unit id="preferences.system-groups-widget.name">
+         <source>System Groups</source>
+		 <context-group name="ctx">
+		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
+		 </context-group>
+	<target>시스템 그룹</target></trans-unit>
+
+	<trans-unit id="preferences.system-groups-widget.description">
+         <source> Preview the overall status of your system groups.</source>
+		 <context-group name="ctx">
+		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
+		 </context-group>
+	<target> 시스템 그룹의 전체 상태 미리 보기 </target></trans-unit>
+
+	<trans-unit id="preferences.latest-errata.name">
+         <source>Relevant Security Errata</source>
+		 <context-group name="ctx">
+		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
+		 </context-group>
+	<target>보안 관련 에라타</target></trans-unit>
+
+	<trans-unit id="preferences.latest-errata.description">
+         <source> View the most recent security errata applicable to your systems.</source>
+		 <context-group name="ctx">
+		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
+		 </context-group>
+	<target> 시스템에 적용 가능한 최신 보안 에라타 보기 </target></trans-unit>
 
 
 
 
 
+	<trans-unit id="preferences.pending-actions.name">
+         <source>Recently Scheduled Actions</source>
+		 <context-group name="ctx">
+		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
+		 </context-group>
+	<target>최근 스케줄된 작업</target></trans-unit>
 
+	<trans-unit id="preferences.pending-actions.description">
+         <source> Lists the scheduled actions of the user.</source>
+		 <context-group name="ctx">
+		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
+		 </context-group>
+	<target> 사용자가 스케줄한 작업 목록 보기 </target></trans-unit>
 
+	<trans-unit id="preferences.recently-registered-systems.name">
+         <source>Recently Registered Systems</source>
+		 <context-group name="ctx">
+		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
+		 </context-group>
+	<target>최근 등록된 시스템 </target></trans-unit>
 
-
-
-
-
-
-
+	<trans-unit id="preferences.recently-registered-systems.description">
+         <source> A listing of the most recently registered systems within the past 30 days.</source>
+		 <context-group name="ctx">
+		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
+		 </context-group>
+	<target> 30일 이내에서 가장 최근에 등록된 시스템 목록 </target></trans-unit>
 
 
 
@@ -5080,22 +5152,79 @@ value for this entitlement, excluding the default organization's consumption.</s
         <target>시스템이 선택되지 않았습니다. 작업을 실행하기전에 시스템을 선택하여 주십시오.</target></trans-unit>
 
 
+        <trans-unit id="system_entitlements.provisioning.success">
+                <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) set to &lt;strong&gt;Provisioning&lt;/strong&gt;.</source>
+        <target>&lt;strong&gt;{0}&lt;/strong&gt; 시스템이 &lt;strong&gt;프로비저닝 (Provisioning)&lt;/strong&gt;으로 설정되어졌습니다.</target></trans-unit>
+
+        <trans-unit id="system_entitlements.provisioning.removed.success">
+                <source>Removed &lt;strong&gt;Provisioning&lt;/strong&gt; from &lt;strong&gt;{0}&lt;/strong&gt; system(s).</source>
+        <target>&lt;strong&gt;{0}&lt;/strong&gt; 시스템에서 삭제된 &lt;strong&gt;프로비저닝(Provisioning)&lt;/strong&gt;.</target></trans-unit>
 
 
-
+        <trans-unit id="system_entitlements.provisioning.notEnoughSlots">
+                <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) were successfully set to &lt;strong&gt;Provisioning&lt;/strong&gt; entitled, but you do not have enough &lt;strong&gt;Provisioning&lt;/strong&gt; entitlements for the remaining &lt;strong&gt;{1}&lt;/strong&gt; system(s). You may purchase additional &lt;strong&gt;Provisioning&lt;/strong&gt; entitlements at &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;@@PRODUCT_NAME@@ store&lt;/strong&gt;&lt;/a&gt;. After you have additional &lt;strong&gt;Provisioning&lt;/strong&gt; entitlements, you will be able to upgrade these systems.</source>
+        <target>&lt;strong&gt;{0}&lt;/strong&gt; 시스템은 &lt;strong&gt;프로비저닝 (Provisioning)&lt;/strong&gt; 인타이틀먼트로 성공적으로 업그레이드되었지만, 마지막 &lt;strong&gt;{1}&lt;/strong&gt; 시스템에 대해 &lt;strong&gt;프로비저닝 (Provisioning)&lt;/strong&gt; 인타이틀먼트가 부족합니다. &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;@@PRODUCT_NAME@@ 스토어&lt;/strong&gt;&lt;/a&gt;에서 추가적인 &lt;strong&gt;프로비저닝 (Provisioning)&lt;/strong&gt; 인타이틀먼트를 구매하실 수 있습니다. 추가적인 &lt;strong&gt;프로비저닝 (Provisioning)&lt;/strong&gt; 인타이틀먼트를 가지셔야만 이 시스템들을 업그레이드할 수 있습니다. </target></trans-unit>
+        <trans-unit id="system_entitlements.provisioning.noManagement">
+                <source>&lt;strong&gt;Provisioning&lt;/strong&gt; entitlement failed for &lt;strong&gt;{0}&lt;/strong&gt; system(s) because they did not have &lt;strong&gt;Management&lt;/strong&gt; base entitlements. The failed systems are still selected below. If you click first the &lt;strong&gt;Set To Management Entitled&lt;/strong&gt; button below, then select the &lt;strong&gt;Provisioning&lt;/strong&gt; item in the drop-down list located in the &lt;strong&gt;Add-On entitlements section&lt;/strong&gt; and then click the &lt;strong&gt;Add Entitlement&lt;/strong&gt; button below, you'll be able to add the &lt;strong&gt;Provisioning&lt;/strong&gt; entitlement to these system(s).</source>
+        <target>&lt;strong&gt;{0}&lt;/strong&gt; 시스템이 &lt;strong&gt;관리&lt;/strong&gt; 기본 인타이틀먼트를 가지고 있지 않기때문에 &lt;strong&gt;프로비저닝 (Provisioning)&lt;/strong&gt; 인타이틀먼트는 실패하였습니다. 실패한 시스템은 아직 아래에 선택되어져 있습니다. 아래의 &lt;strong&gt;관리 인타이틀먼트하도록 설정&lt;/strong&gt; 버튼을 먼저 클릭하시고, &lt;strong&gt;추가 인타이틀먼트 부분&lt;/strong&gt;에 위치한 드랍다운 리스트에서 &lt;strong&gt;프로비저닝 (Provisioning)&lt;/strong&gt; 아이템을 선택하신 다음, 아래의 &lt;strong&gt;인타이틀먼트 추가&lt;/strong&gt; 버튼을 클릭하시면, 이 시스템에 &lt;strong&gt;프로비저닝 (Provisioning)&lt;/strong&gt; 인타이틀먼트를 추가하실 수 있습니다.</target></trans-unit>
 
         <trans-unit id="system_entitlements.virtualization.success_note">
                 <source>&lt;strong&gt;NOTE:&lt;/strong&gt; We subscribed the system(s) to the {0} and {1} channel as well as scheduled an install of the {2} package to prepare the system(s) for hosting virtual guests.</source>
         <target>&lt;strong&gt;알림:&lt;/strong&gt; 시스템을 {0} 및 {1} 채널에 등록하고 {2} 패키지 설치를 스케줄하여 시스템이 가상 게스트를 호스팅하게 합니다.</target></trans-unit>
 
+        <trans-unit id="system_entitlements.virtualization_host.success">
+                <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) set to &lt;strong&gt;Virtualization.&lt;/strong&gt;.  &lt;br/&gt; &lt;strong&gt;NOTE: &lt;/strong&gt;If the system previously had Virtualization Platform it has been downgraded to Virtualization. </source>
+        <target>&lt;strong&gt;{0}&lt;/strong&gt; 시스템이 &lt;strong&gt;가상화&lt;/strong&gt;로 설정되었습니다. &lt;br/&gt; &lt;strong&gt;알림: &lt;/strong&gt;시스템에 가상화 플랫폼이 있을 경우 이는 가상화로 다운그레이드됩니다.</target></trans-unit>
+
+        <trans-unit id="system_entitlements.virtualization_host.removed.success">
+                <source>Removed &lt;strong&gt;Virtualization&lt;/strong&gt; from &lt;strong&gt;{0}&lt;/strong&gt; system(s)  This will cause any guests associated with the selected host to consume physical Channel and System entitlements.</source>
+        <target>&lt;strong&gt;{0}&lt;/strong&gt; 시스템에서 삭제된 &lt;strong&gt;가상화&lt;/strong&gt;는 선택한 호스트와 연계된 게스트가 물리적 채널 및 시스템 인타이틀먼트를 사용하게 합니다.</target></trans-unit>
+
+        <trans-unit id="system_entitlements.virtualization_host.notEnoughSlots">
+                <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) were successfully set to &lt;strong&gt;Virtualization&lt;/strong&gt; entitled, but you do not have enough &lt;strong&gt;Virtualization&lt;/strong&gt; entitlements for the remaining &lt;strong&gt;{1}&lt;/strong&gt; system(s). You may purchase additional &lt;strong&gt;Virtualization&lt;/strong&gt; entitlements at &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;@@PRODUCT_NAME@@ store&lt;/strong&gt;&lt;/a&gt;. After you have additional &lt;strong&gt;Virtualization&lt;/strong&gt; entitlements, you will be able to upgrade these systems. &lt;br/&gt; &lt;strong&gt;NOTE: &lt;/strong&gt;If the system previously had Virtualization Platform it has been downgraded to Virtualization. </source>
+        <target>&lt;strong&gt;{0}&lt;/strong&gt; 시스템은 &lt;strong&gt;가상화&lt;/strong&gt;인타이틀먼트로 성공적으로 업그레이드되었지만, 마지막 &lt;strong&gt;{1}&lt;/strong&gt; 시스템에 대해 &lt;strong&gt;가상화&lt;/strong&gt; 인타이틀먼트가 부족합니다. &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;@@PRODUCT_NAME@@ 스토어&lt;/strong&gt;&lt;/a&gt;에서 추가적인 &lt;strong&gt;가상화&lt;/strong&gt; 인타이틀먼트를 구매하실 수 있습니다. 추가적인 &lt;strong&gt;가상화&lt;/strong&gt; 인타이틀먼트를 갖고계셔야 시스템을 업그레이드하실 수 있습니다. &lt;br/&gt; &lt;strong&gt;알림: &lt;/strong&gt;시스템에 가상화 플랫폼이 있을 경우 이는 가상화로 다운그레이드됩니다. </target></trans-unit>
+        <trans-unit id="system_entitlements.virtualization_host.noManagement">
+                <source>&lt;strong&gt;Virtualization&lt;/strong&gt; entitlement failed for &lt;strong&gt;{0}&lt;/strong&gt; system(s) because they did not have &lt;strong&gt;Management&lt;/strong&gt; base entitlements. The failed systems are still selected below. If you click first the &lt;strong&gt;Set To Management Entitled&lt;/strong&gt; button below, then select the &lt;strong&gt;Virtualization&lt;/strong&gt; item in the drop-down list located in the &lt;strong&gt;Add-On entitlements section&lt;/strong&gt; and then click the &lt;strong&gt;Add Entitlement&lt;/strong&gt; button below, you'll be able to add the &lt;strong&gt;Virtualization&lt;/strong&gt; entitlement to these system(s).</source>
+        <target>&lt;strong&gt;{0}&lt;/strong&gt; 시스템이 &lt;strong&gt;관리&lt;/strong&gt; 기본 인타이틀먼트를 가지고 있지 않기 때문에 &lt;strong&gt;가상화&lt;/strong&gt; 인타이틀먼트를 실패하였습니다. 실패한 시스템은 아직 아래에 선택되어져 있습니다. 먼저 아래의 &lt;strong&gt;관리 인타이틀먼트 설정 &lt;/strong&gt; 버튼을 클릭하시고, &lt;strong&gt;추가 인타이틀먼트 부분&lt;/strong&gt;에 위치한 드롭다운 목록에서 &lt;strong&gt;가상화&lt;/strong&gt; 항목을 선택하신 다음, 아래의 &lt;strong&gt;인타이틀먼트 추가&lt;/strong&gt; 버튼을 클릭하시면, 이 시스템에 &lt;strong&gt;가상화&lt;/strong&gt; 인타이틀먼트를 추가하실 수 있습니다.</target></trans-unit>
+        <trans-unit id="system_entitlements.virtualization_host.noSolarisSupport">
+                <source>&lt;strong&gt;Virtualization&lt;/strong&gt; entitlement failed for &lt;strong&gt;{0}&lt;/strong&gt; system(s) because Virtualization is not supported on Solaris systems.</source>
+        <target>가상화는 Solaris 시스템에서 지원되지 않기 때문에 &lt;strong&gt;{0}&lt;/strong&gt; 시스템에 대한 &lt;strong&gt;가상화&lt;/strong&gt; 인타이틀먼트를 실패했습니다.  </target></trans-unit>
+
+        <trans-unit id="system_entitlements.virtualization_host_platform.success">
+                <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) set to &lt;strong&gt;Virtualization Platform.&lt;/strong&gt;.  &lt;br/&gt; &lt;strong&gt;NOTE: &lt;/strong&gt;If the system previously had Virtualization it has been upgraded to Virtualization Platform. </source>
+        <target>&lt;strong&gt;{0}&lt;/strong&gt; 시스템이 &lt;strong&gt;가상화 플랫폼&lt;/strong&gt;으로 설정되었습니다.  &lt;br/&gt; &lt;strong&gt;알림: &lt;/strong&gt;시스템에 가상화가 있을 경우 이는 가상화 플랫폼으로 업그레이드됩니다.</target></trans-unit>
+
+        <trans-unit id="system_entitlements.virtualization_host_platform.removed.success">
+                <source>Removed &lt;strong&gt;Virtualization&lt;/strong&gt; from &lt;strong&gt;{0}&lt;/strong&gt; system(s)  This will cause any guests associated with the selected host to consume physical Channel and System entitlements.</source>
+        <target>&lt;strong&gt;{0}&lt;/strong&gt; 시스템에서 삭제된 &lt;strong&gt;가상화&lt;/strong&gt;는 선택한 호스트와 연계된 게스트가 물리적 채널 및 시스템 인타이틀먼트를 사용하게 합니다.</target></trans-unit>
+
+        <trans-unit id="system_entitlements.virtualization_host_platform.notEnoughSlots">
+                <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) were successfully set to &lt;strong&gt;Virtualization Platform&lt;/strong&gt; entitled, but you do not have enough &lt;strong&gt;Virtualization Platform&lt;/strong&gt; entitlements for the remaining &lt;strong&gt;{1}&lt;/strong&gt; system(s). You may purchase additional &lt;strong&gt;Virtualization Platform&lt;/strong&gt; entitlements at &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;@@PRODUCT_NAME@@ store&lt;/strong&gt;&lt;/a&gt;. After you have additional &lt;strong&gt;Virtualization Platform&lt;/strong&gt; entitlements, you will be able to upgrade these systems.  &lt;br/&gt;&lt;strong&gt;NOTE: &lt;/strong&gt;If the system previously had Virtualization Platform it has been downgraded to Virtualization.</source>
+        <target>&lt;strong&gt;{0}&lt;/strong&gt; 시스템은 &lt;strong&gt;가상화 플랫폼&lt;/strong&gt;인타이틀먼트로 성공적으로 설정되었지만, 마지막 &lt;strong&gt;{1}&lt;/strong&gt; 시스템에 대해 &lt;strong&gt;가상화 플랫폼&lt;/strong&gt; 인타이틀먼트가 부족합니다. &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;@@PRODUCT_NAME@@ 스토어&lt;/strong&gt;&lt;/a&gt;에서 &lt;strong&gt;가상화 플랫폼&lt;/strong&gt; 인타이틀먼트를 추가로 구매하실 수 있습니다. 추가적인 &lt;strong&gt;가상화 플랫폼&lt;/strong&gt; 인타이틀먼트를 갖고 계셔야 시스템을 업그레이드하실 수 있습니다. &lt;br/&gt; &lt;strong&gt;알림: &lt;/strong&gt;시스템에 가상화 플랫폼이 있을 경우 이는 가상화로 다운그레이드됩니다.   </target></trans-unit>
+        <trans-unit id="system_entitlements.virtualization_host_platform.noManagement">
+                <source>&lt;strong&gt;Virtualization Platform&lt;/strong&gt; entitlement failed for &lt;strong&gt;{0}&lt;/strong&gt; system(s) because they did not have &lt;strong&gt;Management&lt;/strong&gt; base entitlements. The failed systems are still selected below. If you click first the &lt;strong&gt;Set To Management Entitled&lt;/strong&gt; button below, then select the &lt;strong&gt;Virtualization Platform&lt;/strong&gt; item in the drop-down list located in the &lt;strong&gt;Add-On entitlements section&lt;/strong&gt; and then click the &lt;strong&gt;Add Entitlement&lt;/strong&gt; button below, you'll be able to add the &lt;strong&gt;Virtualization Platform&lt;/strong&gt; entitlement to these system(s).</source>
+        <target>&lt;strong&gt;{0}&lt;/strong&gt; 시스템이 &lt;strong&gt;관리&lt;/strong&gt; 기본 인타이틀먼트를 가지고 있지 않기 때문에 &lt;strong&gt;가상화 플랫폼&lt;/strong&gt; 인타이틀먼트를 실패하였습니다. 실패한 시스템은 아직 아래에 선택되어져 있습니다. 먼저 아래의 &lt;strong&gt;관리 인타이틀먼트 설정 &lt;/strong&gt; 버튼을 클릭하시고, &lt;strong&gt;애드온 인타이틀먼트 부분&lt;/strong&gt;에 위치한 드롭다운 목록에서 &lt;strong&gt;가상화 플랫폼&lt;/strong&gt; 항목을 선택하신 다음, 아래의 &lt;strong&gt;인타이틀먼트 추가&lt;/strong&gt; 버튼을 클릭하시면, 이 시스템에 &lt;strong&gt;가상화 플랫폼&lt;/strong&gt; 인타이틀먼트를 추가하실 수 있습니다. </target></trans-unit>
+        <trans-unit id="system_entitlements.virtualization_host_platform.noSolarisSupport">
+                <source>&lt;strong&gt;Virtualization Platform&lt;/strong&gt; entitlement failed for &lt;strong&gt;{0}&lt;/strong&gt; system(s) because Virtualization is not supported on Solaris systems.</source>
+        <target>가상화는 Solaris 시스템에서 지원되지 않기 때문에 &lt;strong&gt;{0}&lt;/strong&gt; 시스템에 대한 &lt;strong&gt;가상화 플랫폼&lt;/strong&gt; 인타이틀먼트를 실패하였습니다.   </target></trans-unit>
+        <trans-unit id="system_entitlements.monitoring.success">
+                <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) set to &lt;strong&gt;Monitoring&lt;/strong&gt;.</source>
+        <target>&lt;strong&gt;{0}&lt;/strong&gt; 시스템이 &lt;strong&gt;모니터링&lt;/strong&gt;으로 설정되어졌습니다.</target></trans-unit>
+
+        <trans-unit id="system_entitlements.monitoring.removed.success">
+                <source>Removed &lt;strong&gt;Monitoring&lt;/strong&gt; from &lt;strong&gt;{0}&lt;/strong&gt; system(s).</source>
+        <target>&lt;strong&gt;{0}&lt;/strong&gt; 시스템에서 삭제된 &lt;strong&gt;모니터링&lt;/strong&gt;.</target></trans-unit>
 
 
-
-
-
-
-
-
+        <trans-unit id="system_entitlements.monitoring.notEnoughSlots">
+                <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) were successfully set to&lt;strong&gt;Monitoring&lt;/strong&gt; entitled, but you not have enough &lt;strong&gt;Monitoring&lt;/strong&gt; entitlements for the remaining &lt;strong&gt;{1}&lt;/strong&gt; system(s). You may purchase additional &lt;strong&gt;Monitoring&lt;/strong&gt; entitlements at &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;@@PRODUCT_NAME@@ store&lt;/strong&gt;&lt;/a&gt;. After you have additional &lt;strong&gt;Monitoring&lt;/strong&gt; entitlements, you will be able to upgrade these systems.</source>
+        <target>&lt;strong&gt;{0}&lt;/strong&gt; 시스템은 &lt;strong&gt;모니터링&lt;/strong&gt; 인타이틀먼트로 성공적으로 업그레이드되었지만, 마지막 &lt;strong&gt;{1}&lt;/strong&gt; 시스템에 대해 &lt;strong&gt;모니터링&lt;/strong&gt; 인타이틀먼트가 부족합니다. &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;@@PRODUCT_NAME@@ 스토어&lt;/strong&gt;&lt;/a&gt; 에서 추가적인 &lt;strong&gt;모니터링&lt;/strong&gt; 인타이틀먼트를 구매하실 수 있습니다. 추가적인 &lt;strong&gt;모니터링&lt;/strong&gt; 인타이틀먼트를 가지셔야만 이 시스템들을 업그레이드할 수 있습니다. </target></trans-unit>
+        <trans-unit id="system_entitlements.monitoring.noManagement">
+                <source>&lt;strong&gt;Monitoring&lt;/strong&gt; entitlement failed for &lt;strong&gt;{0}&lt;/strong&gt; system(s) because they did not have &lt;strong&gt;Management&lt;/strong&gt; base entitlements. The failed systems are still selected below. If you click first the &lt;strong&gt;Set To Management Entitled&lt;/strong&gt; button below, then select the &lt;strong&gt;Monitoring&lt;/strong&gt; item in the drop-down list located in the &lt;strong&gt;Add-On entitlements section&lt;/strong&gt; and then click the &lt;strong&gt;Add Entitlement&lt;/strong&gt; button below, you'll be able to add the &lt;strong&gt;Monitoring&lt;/strong&gt; entitlement to these system(s).</source>
+        <target>&lt;strong&gt;{0}&lt;/strong&gt; 시스템이 &lt;strong&gt;관리&lt;/strong&gt; 기본 인타이틀먼트를 가지고 있지 않기때문에 &lt;strong&gt;모니터링&lt;/strong&gt; 인타이틀먼트는 실패하였습니다. 실패한 시스템은 아직 아래에 선택되어져 있습니다. 아래의 &lt;strong&gt;관리 인타이틀먼트하도록 설정&lt;/strong&gt; 버튼을 먼저 클릭하시고, &lt;strong&gt;추가 인타이틀먼트 부분&lt;/strong&gt;에 위치한 드랍다운 리스트에서 &lt;strong&gt;모니터링&lt;/strong&gt; 아이템을 선택하신 다음, 아래의 &lt;strong&gt;인타이틀먼트 추가&lt;/strong&gt; 버튼을 클릭하시면, 이 시스템에 &lt;strong&gt;모니터링&lt;/strong&gt; 인타이틀먼트를 추가하실 수 있습니다.</target></trans-unit>
+        <trans-unit id="system_entitlements.monitoring.noSolarisSupport">
+                <source>&lt;strong&gt;Monitoring&lt;/strong&gt; entitlement failed for &lt;strong&gt;{0}&lt;/strong&gt; system(s) because Monitoring is not supported on Solaris systems.</source>
+        <target>모니터링은 Solaris 시스템에서 지원되지 않기 때문에 &lt;strong&gt;{0}&lt;/strong&gt; 시스템에 대한 &lt;strong&gt;모니터링&lt;/strong&gt; 인타이틀먼트를 실패하였습니다.     </target></trans-unit>
         <trans-unit id="system_entitlements.virtualization.setup_error">
                 <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) failed to add &lt;strong&gt;Virtualization(Platform)&lt;/strong&gt;.  This was caused by errors attempting to automatically subscribe the system to the @@PRODUCT_NAME@@ Tools and RHEL Virtualization channels which are required for virtualization.</source>
         <target>&lt;strong&gt;{0}&lt;/strong&gt; 시스템에 &lt;strong&gt;가상화 (플랫폼)&lt;/strong&gt;를 추가시키지 못했습니다. 이는 가상화에 필요한 @@PRODUCT_NAME@@ 도구 및 RHEL 가상화 채널에 자동으로 시스템을 등록하려고 하여 발생한 오류입니다.      </target></trans-unit>
@@ -6171,6 +6300,42 @@ value for this entitlement, excluding the default organization's consumption.</s
       </context-group>
     <target>슈트에 추가할 시스템이 없습니다</target></trans-unit>
 
+    <trans-unit id="message.remotecommandbefore.remove">
+<source>The remote command action was scheduled to run &lt;strong&gt;before&lt;/strong&gt; the package remove action.</source>
+      <context-group name="ctx">
+        <context context-type="sourcefile">/rhn/systems/details/packages/PackageList.do</context>
+      </context-group>
+    <target></target></trans-unit>
+    <trans-unit id="message.remotecommandafter.remove">
+<source>The remote command action was scheduled to run &lt;strong&gt;after&lt;/strong&gt; the package remove action.</source>
+      <context-group name="ctx">
+        <context context-type="sourcefile">/rhn/systems/details/packages/PackageList.do</context>
+      </context-group>
+    <target></target></trans-unit>
+    <trans-unit id="message.remotecommandbefore.install">
+<source>The remote command action was scheduled to run &lt;strong&gt;before&lt;/strong&gt; the package install action.</source>
+      <context-group name="ctx">
+        <context context-type="sourcefile">/rhn/systems/details/packages/PackageList.do</context>
+      </context-group>
+    <target></target></trans-unit>
+    <trans-unit id="message.remotecommandafter.install">
+<source>The remote command action was scheduled to run &lt;strong&gt;after&lt;/strong&gt; the package install action.</source>
+      <context-group name="ctx">
+        <context context-type="sourcefile">/rhn/systems/details/packages/PackageList.do</context>
+      </context-group>
+    <target></target></trans-unit>
+    <trans-unit id="message.remotecommandbefore.upgrade">
+<source>The remote command action was scheduled to run &lt;strong&gt;before&lt;/strong&gt; the package upgrade action.</source>
+      <context-group name="ctx">
+        <context context-type="sourcefile">/rhn/systems/details/packages/PackageList.do</context>
+      </context-group>
+    <target></target></trans-unit>
+    <trans-unit id="message.remotecommandafter.upgrade">
+<source>The remote command action was scheduled to run &lt;strong&gt;after&lt;/strong&gt; the package upgrade action.</source>
+      <context-group name="ctx">
+        <context context-type="sourcefile">/rhn/systems/details/packages/PackageList.do</context>
+      </context-group>
+    <target></target></trans-unit>
     <trans-unit id="installpkgs.jsp.installpackages">
 <source>Install Selected Packages</source>
         <context-group name="ctx">
@@ -8034,6 +8199,18 @@ Please note that some manual configuration of these scripts may still be require
        <trans-unit id="repos.jsp.message.taskomaticdown">
           <source>The scheduling service appears down.  Please contact your Satellite administrator.</source>
         </trans-unit>
+        <trans-unit id="toolbar.create.repos">
+          <source>create new repository</source>
+          <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/channel/manage/repo/RepoList.do</context>
+          </context-group>
+        <target></target></trans-unit>
+        <trans-unit id="toolbar.delete.repos">
+          <source>delete repository</source>
+          <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/channel/manage/repo/RepoDetails.do</context>
+          </context-group>
+        <target></target></trans-unit>
         <trans-unit id="repos.jsp.toolbar">
           <source>Create New Repository</source>
         <target></target></trans-unit>
@@ -9238,6 +9415,12 @@ Please note that some manual configuration of these scripts may still be require
     <target>설명</target></trans-unit>
 
 
+    <trans-unit id="toolbar.create.keys">
+        <source>create new stored key/cert</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/keys/CryptoKeysList.do</context>
+        </context-group>
+    <target>새로운 저장 키/인증서 생성</target></trans-unit>
 
     <trans-unit id="keyedit.jsp.toolbar">
         <source>Edit GPG/SSL Key</source>
@@ -9411,7 +9594,19 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
     <target>삭제를 위해 선택된 파일이 없습니다</target></trans-unit>
 
+    <trans-unit id="toolbar.create.filelist">
+        <source>create new file preservation list</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/systems/provisioning/preservation/PreservationList.do</context>
+        </context-group>
+    <target>새 파일 보관 목록 생성 </target></trans-unit>
 
+    <trans-unit id="toolbar.create.kickstartscript">
+        <source>add new kickstart script</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/systems/provisioning/preservation/PreservationList.do</context>
+        </context-group>
+    <target>새 킥스타트 스크립트 추가</target></trans-unit>
 
 
     <trans-unit id="preservationlist.jsp.updatelist">
@@ -9809,6 +10004,9 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
     <trans-unit id="snippets.jsp.note.default">
         <source>Default kickstart snippets are not editable.</source>
     <target>기본값 킥스타트 snippets는 편집할 수 없습니다.   </target></trans-unit>
+    <trans-unit id="toolbar.create.snippets">
+        <source>create new snippet</source>
+    <target>새 snippet 생성    </target></trans-unit>
     <trans-unit id="cobbler.snippet.name">
         <source>Snippet Name</source>
     <target>Snippet 이름 </target></trans-unit>
@@ -10492,6 +10690,9 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <source>Modify an existing software channel by selecting it from the list below, or create a new software channel. </source>
       <target>아래의 목록에서 수정할 기존 소프트웨어 채널을 선택하거나 새 소프트웨어 채널을 생성합니다.   </target></trans-unit>
 
+      <trans-unit id="toolbar.create.channel">
+        <source>create new channel</source>
+      <target>새 채널 생성  </target></trans-unit>
 
 
       <trans-unit id="kickstart.troubleshooting.jsp.header1">
@@ -10718,6 +10919,12 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
        <trans-unit id="activation-keys.jsp.header">
          <source>Activation Keys</source>
        <target>활성키 </target></trans-unit>
+       <trans-unit id="toolbar.create.activationkeys">
+         <source>create new key</source>
+     <target>새로운 키 생성 </target></trans-unit>
+       <trans-unit id="toolbar.delete.activationkeys">
+         <source>delete key</source>
+     <target>키 삭제 </target></trans-unit>
        <trans-unit id="activation-keys.common.alt">
          <source>Activation Key icon</source>
        <target>활성키 아이콘 </target></trans-unit>
@@ -11171,6 +11378,9 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <trans-unit id="targetsystems.jsp.capable">
           <source>@@PRODUCT_NAME@@ Configuration Capable?</source>
         <target>@@PRODUCT_NAME@@ 설정 가능? </target></trans-unit>
+        <trans-unit id="targetsystems.jsp.yes">
+          <source>Yes</source>
+        <target>예</target></trans-unit>
         <trans-unit id="targetsystems.jsp.no">
           <source>No</source>
         <target>아니오</target></trans-unit>
@@ -11180,6 +11390,21 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <trans-unit id="targetsystems.jsp.orgadmin">
           <source>Requires organization administrator</source>
         <target>조직 관리자 필요</target></trans-unit>
+        <trans-unit id="targetsystems.jsp.addprovisioning">
+          <source>Add provisioning entitlement</source>
+        <target>프로비저닝 (Provisioning) 인타이틀먼트 추가</target></trans-unit>
+        <trans-unit id="targetsystems.jsp.subscribetools">
+          <source>Subscribe to @@PRODUCT_NAME@@ Tools channel</source>
+        <target>@@PRODUCT_NAME@@ 도구 채널에 등록 </target></trans-unit>
+        <trans-unit id="targetsystems.jsp.installcfg">
+          <source>Schedule rhncfg package install</source>
+        <target>rhncfg 패키지 설치 스케줄하기</target></trans-unit>
+        <trans-unit id="targetsystems.jsp.installcfgactions">
+          <source>Schedule rhncfg-actions package install</source>
+        <target>rhncfg-actions 패키지 설치 스케줄하기</target></trans-unit>
+        <trans-unit id="targetsystems.jsp.installcfgclient">
+          <source>Schedule rhncfg-client package install</source>
+        <target>rhncfg-client 패키지 설치 스케줄하기</target></trans-unit>
         <trans-unit id="targetsystems.jsp.pending">
           <source>Package installations currently pending.</source>
         <target>현재 패키지 설치 보류 상태.</target></trans-unit>
@@ -11265,7 +11490,19 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         </context-group>
      <target>아래의 목록에 있는 설정 채널은 &lt;strong&gt;중앙 관리&lt;/strong&gt;됩니다. @@PRODUCT_NAME@@에 등록된 모든 시스템은 아래의 설정 채널에 등록할 수 있습니다. 이러한 채널에 있는 파일에 변경사항이 있을 경우 채널에 등록되어 있는 모든 시스템에 영향을 미치게 됩니다.  </target></trans-unit>
 
+     <trans-unit id="toolbar.create.configchannel">
+        <source>create new config channel</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/GlobalConfigChannelList.do</context>
+        </context-group>
+     <target>새 설정 채널 생성</target></trans-unit>
 
+     <trans-unit id="toolbar.create.org">
+        <source>create new organization</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/multiorg/Organizations.do</context>
+        </context-group>
+     <target>새로운 조직 생성 </target></trans-unit>
 
      <trans-unit id="globalconfiglist.jsp.noChannels">
         <source>No configuration channels</source>
@@ -11333,6 +11570,12 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
           <context context-type="sourcefile">/rhn/configuration/ChannelOverview.do</context>
         </context-group>
      <target>설정 채널 정보를 입력하셔야 합니다.</target></trans-unit>
+     <trans-unit id="toolbar.delete.configchannel">
+<source>delete channel</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/ChannelOverview.do</context>
+        </context-group>
+     <target>채널 삭제</target></trans-unit>
    <trans-unit id="channelOverview.jsp.newToolbar">
 <source>New Config Channel</source>
         <context-group name="ctx">
@@ -12528,6 +12771,24 @@ centrally-managed configuration channel, {2}; below is a list of systems you may
 	</context-group>
 	<target></target></trans-unit>
 		<!-- form error messages -->
+	<trans-unit id="config-file-form.error.user-invalid">
+<source>User must be a valid Linux user name or user id, of 32 characters or less.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
+        </context-group>
+     <target>사용자는 32자 보다 적게 Linux 사용자명 또는 사용자 ID를 가지고 있어야 합니다.</target></trans-unit>
+	<trans-unit id="config-file-form.error.group-invalid">
+<source>Group must be a valid Linux group name or group id, of 32 characters or less.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
+        </context-group>
+     <target>그룹은 32자 보다 적게 Linux 그룹명 또는 그룹 ID를 가지고 있어야 합니다.</target></trans-unit>
+	<trans-unit id="config-file-form.error.mode-invalid">
+<source>Permissions must be a valid Linux permissions set (4 octal digits)</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
+        </context-group>
+     <target>권한은 유효한 Linux 권한 세트여야 합니다 (4 팔진 숫자)</target></trans-unit>
 	<trans-unit id="config-file-form.error.selinux-invalid">
 <source>Invalid values set for SElinux Context.</source>
         <context-group name="ctx">
@@ -12536,6 +12797,18 @@ centrally-managed configuration channel, {2}; below is a list of systems you may
      <target></target></trans-unit>
 
 
+	<trans-unit id="config-file-form.error.start-delim-percent">
+<source>Start delimiter may not contain the '%' character.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
+        </context-group>
+     <target>시작 구분 문자에는 '%' 기호가 포함되서는 안됩니다.</target></trans-unit>
+	<trans-unit id="config-file-form.error.end-delim-percent">
+<source>End delimiter may not contain the '%' character.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
+        </context-group>
+     <target>마침 구분 문자에는 '%' 기호가 포함되어서는 안됩니다.</target></trans-unit>
 
 		<!-- filedetails errors -->
 	<trans-unit id="filedetails.jsp.error.download">
@@ -12559,6 +12832,24 @@ centrally-managed configuration channel, {2}; below is a list of systems you may
           <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
         </context-group>
      <target>최신 버전 다운로드</target></trans-unit>
+	<trans-unit id="toolbar.delete.configfile">
+<source>delete this file revision</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
+        </context-group>
+     <target>파일 버전 삭제</target></trans-unit>
+	<trans-unit id="toolbar.delete.org">
+<source>delete organization</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
+        </context-group>
+     <target>조직 삭제   </target></trans-unit>
+	<trans-unit id="toolbar.delete.deletefile">
+<source>delete this file</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
+        </context-group>
+     <target>파일 삭제</target></trans-unit>
 	<trans-unit id="filedetails.jsp.download">
 <source>download file revision</source>
         <context-group name="ctx">
@@ -13233,6 +13524,9 @@ any of these revisions.  Are you sure you want to do this?</source>
         <trans-unit id="manage.jsp.uploadbutton">
           <source>Upload File</source>
         <target>파일 업로드</target></trans-unit>
+        <trans-unit id="toolbar.create.revision">
+          <source>create new revision</source>
+        <target>새로운 버전 생성</target></trans-unit>
         <trans-unit id="manage.jsp.success">
           <source>&lt;a href="{0}"&gt;Revision {1}&lt;/a&gt; successfully uploaded.</source>
         <target>&lt;a href="{0}"&gt;버전 {1}&lt;/a&gt;이 성공적으로 업로드되었습니다.</target></trans-unit>
@@ -15021,6 +15315,12 @@ the &lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;Activation Key
         </context-group>
     <target>킥스타트 스크립트 삭제</target></trans-unit>
 
+    <trans-unit id="toolbar.delete.kickstartscript">
+        <source>delete kickstart script</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/kickstart/KickstartDeleteSetup</context>
+        </context-group>
+    <target>킥스타트 스크립트 삭제</target></trans-unit>
 
     <trans-unit id="kickstart.clone.jsp.clone">
         <source>Clone Kickstart</source>
@@ -15256,12 +15556,102 @@ the &lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;Activation Key
 	    <target></target></trans-unit>
     </group>
 
+    <trans-unit id="preferences.jsp.lang.bn_IN">
+        <source>Bengali</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/account/LocalePreferences.do</context>
+        </context-group>
+    <target>벵골어</target></trans-unit>
+    <trans-unit id="preferences.jsp.lang.de">
+        <source>German</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/account/LocalePreferences.do</context>
+        </context-group>
+    <target>독일어</target></trans-unit>
     <trans-unit id="preferences.jsp.lang.en_US">
         <source>English</source>
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/account/LocalePreferences.do</context>
         </context-group>
     <target>영어</target></trans-unit>
+    <trans-unit id="preferences.jsp.lang.es">
+        <source>Spanish</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/account/LocalePreferences.do</context>
+        </context-group>
+    <target>스페인어</target></trans-unit>
+    <trans-unit id="preferences.jsp.lang.fr">
+        <source>French</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/account/LocalePreferences.do</context>
+        </context-group>
+    <target>프랑스어</target></trans-unit>
+    <trans-unit id="preferences.jsp.lang.gu">
+        <source>Gujarati</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/account/LocalePreferences.do</context>
+        </context-group>
+    <target>구자라트어</target></trans-unit>
+    <trans-unit id="preferences.jsp.lang.hi">
+        <source>Hindi</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/account/LocalePreferences.do</context>
+        </context-group>
+    <target>힌디어</target></trans-unit>
+    <trans-unit id="preferences.jsp.lang.it">
+        <source>Italian</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/account/LocalePreferences.do</context>
+        </context-group>
+    <target>이탈리아어</target></trans-unit>
+    <trans-unit id="preferences.jsp.lang.ja">
+        <source>Japanese</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/account/LocalePreferences.do</context>
+        </context-group>
+    <target>일본어</target></trans-unit>
+    <trans-unit id="preferences.jsp.lang.ko">
+        <source>Korean</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/account/LocalePreferences.do</context>
+        </context-group>
+    <target>한국어</target></trans-unit>
+    <trans-unit id="preferences.jsp.lang.pa">
+        <source>Punjabi</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/account/LocalePreferences.do</context>
+        </context-group>
+    <target>펀자브어</target></trans-unit>
+    <trans-unit id="preferences.jsp.lang.pt_BR">
+        <source>Brazilian Portuguese</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/account/LocalePreferences.do</context>
+        </context-group>
+    <target>브라질 포루투갈어</target></trans-unit>
+    <trans-unit id="preferences.jsp.lang.ru">
+        <source>Russian</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/account/LocalePreferences.do</context>
+        </context-group>
+    <target>러시아어</target></trans-unit>
+    <trans-unit id="preferences.jsp.lang.ta">
+        <source>Tamil</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/account/LocalePreferences.do</context>
+        </context-group>
+    <target>타밀어</target></trans-unit>
+    <trans-unit id="preferences.jsp.lang.zh_TW">
+        <source>Traditional Chinese</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/account/LocalePreferences.do</context>
+        </context-group>
+    <target>중국어 번체</target></trans-unit>
+    <trans-unit id="preferences.jsp.lang.zh_CN">
+        <source>Simplified Chinese</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/account/LocalePreferences.do</context>
+        </context-group>
+    <target>중국어 간체</target></trans-unit>
     <trans-unit id="preferences.jsp.lang.none">
         <source>Use Browser Settings</source>
         <context-group name="ctx">
@@ -15865,6 +16255,12 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
         </context-group>
       <target>킥스타트 프로파일 옵션이 성공적으로 업데이트되었습니다.</target></trans-unit>
 
+    <trans-unit id="toolbar.delete.filelist">
+        <source>delete file preservation list</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/systems/provisioning/preservation/PreservationListEdit.do</context>
+        </context-group>
+    <target>파일 보관 목록 삭제 </target></trans-unit>
 
 
   <!--Export Columns  -->
@@ -15872,13 +16268,46 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/configuration/ConfigChannelList.do</context>
       </context-group>
+        <trans-unit id="exportcolumn.associatedSystem">
+            <source>System</source>
+        <target>시스템</target></trans-unit>
         <trans-unit id="exportcolumn.errataAdvisoryType">
             <source>Advisory Type</source>
         <target>권고 유형 </target></trans-unit>
+        <trans-unit id="exportcolumn.advisorySynopsis">
+            <source>Synopsis</source>
+        <target>개요 </target></trans-unit>
+        <trans-unit id="exportcolumn.errataStatus">
+            <source>Status</source>
+        <target>상태</target></trans-unit>
+        <trans-unit id="exportcolumn.updateDate">
+            <source>Updated</source>
+        <target>업데이트됨</target></trans-unit>
+        <trans-unit id="exportcolumn.suiteName">
+            <source>Suite Name</source>
+        <target>슈트 이름</target></trans-unit>
+        <trans-unit id="exportcolumn.systemCount">
+            <source>System Count</source>
+        <target>시스템 계산</target></trans-unit>
 
+        <trans-unit id="exportcolumn.status">
+            <source>Status</source>
+        <target>상태</target></trans-unit>
 
+        <trans-unit id="exportcolumn.entryDate">
+            <source>Timestamp</source>
+        <target>타임스탬프</target></trans-unit>
 
+        <trans-unit id="exportcolumn.state">
+            <source>State</source>
+        <target>상태</target></trans-unit>
 
+        <trans-unit id="exportcolumn.message">
+            <source>Message</source>
+        <target>메시지</target></trans-unit>
+        <trans-unit id="exportcolumn.issueDate">
+            <source>Issue Date</source>
+        <target>발행일 </target></trans-unit>
      </group>
 
     <trans-unit id="virtualization.provision.first.jsp.no.profiles">
@@ -16855,7 +17284,19 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
             </context-group>
          </trans-unit>
 
+         <trans-unit id="toolbar.create.note">
+            <source>create new note</source>
+            <context-group name="ctx">
+            <context context-type="sourcefile">/systems/details/Note.do</context>
+            </context-group>
+         </trans-unit>
 
+         <trans-unit id="toolbar.delete.note">
+            <source>delete note</source>
+            <context-group name="ctx">
+            <context context-type="sourcefile">/systems/details/Note.do</context>
+            </context-group>
+         </trans-unit>
 
          <trans-unit id="edit_note.jsp.update">
            <source>Update</source>
@@ -19165,6 +19606,12 @@ given channel.</source>
           <context context-type="sourcefile">/rhn/channels/manage/ConfirmPrivate.do</context>
         </context-group>
       <target></target></trans-unit>
+      <trans-unit id="toolbar.delete.software.channel">
+        <source>delete software channel</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
+        </context-group>
+      <target>소프트웨어 채널 삭제 </target></trans-unit>
       <trans-unit id="button.denyaccess.confirm">
         <source>Deny Access and Confirm</source>
         <context-group name="ctx">
@@ -19183,6 +19630,12 @@ given channel.</source>
           <context context-type="sourcefile">/rhn/channels/software/Search.do</context>
         </context-group>
       <target>검색 </target></trans-unit>
+       <trans-unit id="toolbar.delete.channel">
+         <source>delete software channel</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/manage/errata//Add.do</context>
+        </context-group>
+     <target>소프트웨어 채널 삭제 </target></trans-unit>
        <trans-unit id="header.jsp.errata.add">
          <source>Add Errata</source>
         <context-group name="ctx">
@@ -19269,9 +19722,36 @@ given channel.</source>
          If you are requesting an organizational default kickstart, ensure that a kickstart has been selected as the "Organization Default".</source>
      <target>요청하신 킥스타트 파일을 찾을 수 없습니다.
           조직의 기본값 킥스타트를 요청하신 경우, 킥스타트가 "조직 기본값"으로 선택되었는지를 확인합니다.  </target></trans-unit>
+     <trans-unit id="task.status.current.db.time">
+         <source>Current DB Time</source>
+     <target>현재키</target></trans-unit>
      <trans-unit id="task.status.last.execution">
          <source>Last Execution Times</source>
      <target>스크립트 실행 시간</target></trans-unit>
+     <trans-unit id="task.status.last.completed">
+         <source>Last Completed Action</source>
+     <target>완료된 작업</target></trans-unit>
+     <trans-unit id="task.status.session-cleanup">
+         <source>Session Cleanup</source>
+     <target></target></trans-unit>
+     <trans-unit id="task.status.errata-queue">
+         <source>Errata Notification Queue</source>
+     <target>에라타 통지 보내기</target></trans-unit>
+     <trans-unit id="task.status.errata-mailer">
+         <source>Errata Notification Mail</source>
+     <target>에라타 통지 보내기</target></trans-unit>
+     <trans-unit id="task.status.summary-population">
+         <source>Daily Summary Queue</source>
+     <target>일별 요약</target></trans-unit>
+     <trans-unit id="task.status.daily-summary">
+         <source>Daily Summary Mail</source>
+     <target>일별 요약</target></trans-unit>
+     <trans-unit id="task.status.clean-current-alerts">
+         <source>Clean Current Alerts</source>
+     <target>현재 버전</target></trans-unit>
+     <trans-unit id="task.status.sync-probe-state">
+         <source>Sync Probe State</source>
+     <target>프로브 상태</target></trans-unit>
      <trans-unit id="task.status.message">
          <source>The following is a status report for the various tasks run by the @@PRODUCT_NAME@@ task engine:</source>
      <target></target></trans-unit>

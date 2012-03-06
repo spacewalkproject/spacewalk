@@ -1864,6 +1864,12 @@ available for this kickstart profile to function properly.
          </context-group>
        <target>요청하신 킥스타트 snippet 파일 이름이 잘못되었습니다. 킥스타트 snippet 파일 이름에 슬래시(/)가 포함되어 있거나 마침표(.)로 시작해서는 안됩니다.    </target></trans-unit>
 
+      <trans-unit id="toolbar.delete.snippets">
+<source>delete snippet</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/kickstart/cobbler/CobblerSnippetEdit</context>
+        </context-group>
+      <target>snippet 삭제  </target></trans-unit>
 
       <trans-unit id="kickstart.iprange.url">
         <source>New systems can be kickstarted based upon their ip address by appending &lt;code&gt;{0}&lt;/code&gt; to the kernel parameters for a kickstart install.</source>
@@ -2208,18 +2214,97 @@ available for this kickstart profile to function properly.
         </context-group>
       <target>이 페이지 모든 항목 선택 또는 선택해제</target></trans-unit>
 
+      <trans-unit id="toolbar.create.filter">
+<source>create new notification filter</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/users/UserList</context>
+        </context-group>
+      <target>새 통지 필터 생성</target></trans-unit>
 
+     <trans-unit id="toolbar.upload.kickstart">
+<source>upload new kickstart file</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/users/UserList</context>
+        </context-group>
+      <target>새 킥스타트 파일 업로드  </target></trans-unit>
 
+     <trans-unit id="toolbar.create.kickstart">
+<source>create new kickstart profile</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/users/UserList</context>
+        </context-group>
+      <target>새 킥스타트 프로파일 생성</target></trans-unit>
 
+      <trans-unit id="toolbar.create.kickstartdata">
+<source>create new kickstart</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/users/UserList</context>
+        </context-group>
+      <target>새 킥스타트 생성</target></trans-unit>
 
+      <trans-unit id="toolbar.clone.kickstart">
+<source>clone kickstart</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/users/UserList</context>
+        </context-group>
+      <target>킥스타트 복제</target></trans-unit>
 
+      <trans-unit id="toolbar.delete.CryptoKeyDelete">
+<source>delete key</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/keys/CryptoKeyEdit</context>
+        </context-group>
+      <target>키 삭제</target></trans-unit>
 
+      <trans-unit id="toolbar.create.user">
+<source>create new user</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/users/UserList</context>
+        </context-group>
+      <target>새 사용자 생성</target></trans-unit>
 
+      <trans-unit id="toolbar.create.erratum">
+<source>create new erratum</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/errata/UnpublishedErrata</context>
+          <context context-type="sourcefile">/rhn/errata/PublishedErrata</context>
+        </context-group>
+      <target>새 에라타 생성</target></trans-unit>
 
+      <trans-unit id="toolbar.create.group">
+<source>create new group</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/SystemGroupList</context>
+        </context-group>
+      <target>새 그룹 생성</target></trans-unit>
 
+      <trans-unit id="toolbar.create.probe">
+<source>create new probe</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails</context>
+        </context-group>
+      <target>새 프로브 생성</target></trans-unit>
 
+        <trans-unit id="toolbar.delete.probe">
+<source>delete probe</source>
+            <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails</context>
+        </context-group>
+        <target>프로브 삭제</target></trans-unit>
 
+        <trans-unit id="toolbar.delete.user">
+<source>delete user</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">User details pages</context>
+        </context-group>
+    <target>사용자 삭제</target></trans-unit>
 
+      <trans-unit id="toolbar.delete.erratum">
+<source>delete erratum</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Errata details pages</context>
+        </context-group>
+      <target>에라타 삭제</target></trans-unit>
 
       <trans-unit id="toolbar.delete.system">
 <source>delete system</source>
@@ -2239,11 +2324,47 @@ available for this kickstart profile to function properly.
           <context context-type="sourcefile">System Group pages</context>
         </context-group>
       <target>그룹과 함께 작동 </target></trans-unit>
+      <trans-unit id="toolbar.delete.errata">
+<source>delete errata</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">Errata edit page</context>
+        </context-group>
+      <target>에라타 삭제 </target></trans-unit>
 
+     <trans-unit id="toolbar.delete.kickstart">
+        <source>delete kickstart</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">Kickstart profile pages</context>
+        </context-group>
+      <target>킥스타트 삭제</target></trans-unit>
 
+      <trans-unit id="toolbar.delete.deleteTree">
+        <source>delete distribution</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">rhn/Kickstart/TreeEdit.do</context>
+        </context-group>
+      <target>배포판 삭제</target></trans-unit>
 
+      <trans-unit id="toolbar.create.probesuite">
+<source>create new probe suite</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuites.do</context>
+        </context-group>
+      <target>새 프로브 슈트 생성</target></trans-unit>
 
+      <trans-unit id="toolbar.create.probesuitesystem">
+<source>add systems to probe suite</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuites.do</context>
+        </context-group>
+      <target>프로브 슈트에 시스템 추가</target></trans-unit>
 
+      <trans-unit id="toolbar.delete.profile">
+<source>delete profile</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/packages/profiles/CompareProfiles.do</context>
+        </context-group>
+      <target>프로파일 삭제</target></trans-unit>
 
       <trans-unit id="message.unscheduled.system">
 <source>&lt;strong&gt;{0}&lt;/strong&gt; unscheduled for &lt;strong&gt;{1}&lt;/strong&gt; system.</source>
@@ -5394,7 +5515,19 @@ user before attempting to deactivate their account.</source>
         </context-group>
       <target>인증서를 업로드하였습니다.  @@PRODUCT_NAME@@가 다시 활성화되었습니다.  </target></trans-unit>
 
+    <trans-unit id="certificate.config.error.10">
+        <source>Could not parse certificate file, see log file for more details.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
+        </context-group>
+      <target>인증서 파일을 구문 분석하지 못했습니다</target></trans-unit>
 
+    <trans-unit id="certificate.config.error.11">
+        <source>Certificate expired</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
+        </context-group>
+      <target>만료된 인증서</target></trans-unit>
 
     <trans-unit id="certificate.config.error.12">
         <source>Unknown @@PRODUCT_NAME@@ version, see log file for more details.</source>
@@ -5403,15 +5536,75 @@ user before attempting to deactivate their account.</source>
         </context-group>
       <target>알 수 없는 @@PRODUCT_NAME@@ 버전  </target></trans-unit>
 
+    <trans-unit id="certificate.config.error.20">
+        <source>Remote activation failure, see log file for more details.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
+        </context-group>
+      <target>원격 활성화 실패</target></trans-unit>
 
+    <trans-unit id="certificate.config.error.30">
+        <source>Local activation failure, see log file for more details.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
+        </context-group>
+      <target></target></trans-unit>
 
+    <trans-unit id="certificate.config.error.40">
+        <source>Channel population failure, see log file for more details.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
+        </context-group>
+      <target>채널 채우기 실패</target></trans-unit>
 
+    <trans-unit id="certificate.config.error.80">
+        <source>No management entitlements remaining</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
+        </context-group>
+      <target>관리 인타이틀먼트가 남아있지 않음</target></trans-unit>
 
+    <trans-unit id="certificate.config.error.82">
+        <source>@@PRODUCT_NAME@@ channel not found</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
+        </context-group>
+      <target>@@PRODUCT_NAME@@ 채널을 찾을 수 없음  </target></trans-unit>
 
+    <trans-unit id="certificate.config.error.83">
+        <source>No @@PRODUCT_NAME@@ channel entitlements remaining</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
+        </context-group>
+      <target>@@PRODUCT_NAME@@ 채널 인타이틀먼트가 남아있지 않음 </target></trans-unit>
 
+    <trans-unit id="certificate.config.error.84">
+        <source>Invalid @@PRODUCT_NAME@@ certificate</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
+        </context-group>
+      <target>잘못된 @@PRODUCT_NAME@@ 인증서  </target></trans-unit>
 
+    <trans-unit id="certificate.config.error.85">
+        <source>Unknown activation error, see log file for more details.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
+        </context-group>
+      <target></target></trans-unit>
 
+    <trans-unit id="certificate.config.error.86">
+        <source>@@PRODUCT_NAME@@ has no base channel on parent server</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
+        </context-group>
+      <target>@@PRODUCT_NAME@@는 부모 서버에 아무런 기본 채널도 갖지 않음  </target></trans-unit>
 
+    <trans-unit id="certificate.config.error.87">
+        <source>No @@PRODUCT_NAME@@ channel available for this version</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
+        </context-group>
+      <target>이 버전에는 @@PRODUCT_NAME@@ 채널을 사용할 수 없음 </target></trans-unit>
 
     <trans-unit id="certificate.config.error.127">
         <source>Unhandled error, see log file for more details.</source>
@@ -5428,7 +5621,19 @@ user before attempting to deactivate their account.</source>
       <target>@@PRODUCT_NAME@@ 서버 호스트 이름 </target></trans-unit>
 
 
+    <trans-unit id="bootstrap.config.error.10">
+        <source>A script with that name already exists</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
+        </context-group>
+      <target>같은 이름을 가진 스크립트가 이미 존재합니다</target></trans-unit>
 
+    <trans-unit id="bootstrap.config.error.11">
+        <source>Invalid script name</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
+        </context-group>
+      <target>부적절한 스크립트 이름</target></trans-unit>
 
     <trans-unit id="bootstrap.config.error.12">
         <source>Invalid arguments</source>
@@ -5437,10 +5642,41 @@ user before attempting to deactivate their account.</source>
         </context-group>
       <target>부적절한 인수</target></trans-unit>
 
+    <trans-unit id="bootstrap.config.error.13">
+        <source>Could not parse httpd proxy URL</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
+        </context-group>
+      <target>httpd proxy URL을 구문 분석하지 못했습니다</target></trans-unit>
 
+    <trans-unit id="bootstrap.config.error.14">
+        <source>Cannot find pub tree</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
+        </context-group>
+      <target>pub 트리를 찾지 못했습니다</target></trans-unit>
 
+    <trans-unit id="bootstrap.config.error.15">
+        <source>The hostname was not valid</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
+          <context context-type="sourcefile">/rhn/admin/config/GeneralConfig</context>
+        </context-group>
+      <target>유효한 호스트명이 아닙니다</target></trans-unit>
 
+    <trans-unit id="bootstrap.config.error.16">
+        <source>Could not find the CA certificate</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
+        </context-group>
+      <target>CA 인증서를 찾지 못했습니다</target></trans-unit>
 
+    <trans-unit id="bootstrap.config.error.17">
+        <source>Could not find GPG key</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
+        </context-group>
+      <target>GPG 키를 찾지 못했습니다</target></trans-unit>
 
     <trans-unit id="bootstrap.config.error.127">
         <source>Unhandled error</source>
@@ -5748,6 +5984,12 @@ Follow this url to see the full list of inactive systems:
         </context-group>
       <target></target></trans-unit>
 
+      <trans-unit id="kickstart.troubleshooting.validation.kernelparams.too_long">
+        <source>Extra kernel parameters can be no longer than 128 characters.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/kickstart/Troubleshooting.do</context>
+        </context-group>
+      <target>추가 커널 변수는 128 자를 넘을 수 없습니다.</target></trans-unit>
 
       <trans-unit id="kickstart.locale.success">
         <source>Kickstart locale options updated.</source>
@@ -5756,6 +5998,12 @@ Follow this url to see the full list of inactive systems:
         </context-group>
       <target>킥스타트 로케일 옵션이 업데이트되었습니다.</target></trans-unit>
 
+      <trans-unit id="kickstart.locale.validation.timezone.invalid">
+        <source>Invalid timezone.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/kickstart/Locale.do</context>
+        </context-group>
+      <target>부적절한 시간대.</target></trans-unit>
 
       <trans-unit id="kickstart.script.delete">
         <source>Kickstart Script Deleted.</source>
@@ -6094,8 +6342,26 @@ Follow this url to see the full list of inactive systems:
         </context-group>
       <target>{0} 에 해당하는 sandbox</target></trans-unit>
 
+      <trans-unit id="config_channel.local_override">
+        <source>Locally-Managed</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/file/CompareCopy.do</context>
+        </context-group>
+      <target>로컬 관리</target></trans-unit>
 
+      <trans-unit id="config_channel.normal">
+        <source>Centrally-Managed</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/file/CompareCopy.do</context>
+        </context-group>
+      <target>중앙 관리</target></trans-unit>
 
+      <trans-unit id="config_channel.server_import">
+        <source>Sandbox</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/file/CompareCopy.do</context>
+        </context-group>
+      <target>Sandbox</target></trans-unit>
 
 
 
@@ -6436,9 +6702,93 @@ Follow this url to see the full list of inactive systems:
                 <context context-type="sourcefile">Every Caller of ConfigActionHelper.makeFileCountsMessage</context>
             </context-group>
 
+	     <trans-unit id="config.files_0_dirs_0_symlinks_0_url">
+			<source>No files, directories or symlinks. &lt;a href="{0}"&gt; Add&lt;/a&gt;</source>
+	     <target></target></trans-unit>
 
+	     <trans-unit id="config.files_0_dirs_0_symlinks_0">
+			<source>No files, directories or symlinks.</source>
+	     <target></target></trans-unit>
+	     <trans-unit id="config.files_0_dirs_0_symlinks_1">
+			<source>{2} symlink</source>
+	     <target></target></trans-unit>
+	     <trans-unit id="config.files_0_dirs_0_symlinks_2">
+			<source>{2} symlinks</source>
+	     <target></target></trans-unit>
+	     <trans-unit id="config.files_0_dirs_1_symlinks_0">
+			<source>{1} directory</source>
+	     <target></target></trans-unit>
+	     <trans-unit id="config.files_0_dirs_1_symlinks_1">
+			<source>{1} directory and {2} symlink</source>
+	     <target></target></trans-unit>
+	     <trans-unit id="config.files_0_dirs_1_symlinks_2">
+			<source>{1} directory and {2} symlinks</source>
+	     <target></target></trans-unit>
+	     <trans-unit id="config.files_0_dirs_2_symlinks_0">
+			<source>{1} directories</source>
+	     <target></target></trans-unit>
+	     <trans-unit id="config.files_0_dirs_2_symlinks_1">
+			<source>{1} directories and {2} symlink</source>
+	     <target></target></trans-unit>
+	     <trans-unit id="config.files_0_dirs_2_symlinks_2">
+			<source>{1} directories and {2} symlinks</source>
+	     <target></target></trans-unit>
 
+	     <trans-unit id="config.files_1_dirs_0_symlinks_0">
+			<source>{0} file</source>
+	     <target></target></trans-unit>
+	     <trans-unit id="config.files_1_dirs_0_symlinks_1">
+			<source>{0} file and {2} symlink</source>
+	     <target></target></trans-unit>
+	     <trans-unit id="config.files_1_dirs_0_symlinks_2">
+			<source>{0} file and {2} symlinks</source>
+	     <target></target></trans-unit>
+	     <trans-unit id="config.files_1_dirs_1_symlinks_0">
+			<source>{0} file and {1} directory</source>
+	     <target></target></trans-unit>
+	     <trans-unit id="config.files_1_dirs_1_symlinks_1">
+			<source>{0} file and {1} directory and {2} symlink</source>
+	     <target></target></trans-unit>
+	     <trans-unit id="config.files_1_dirs_1_symlinks_2">
+			<source>{0} file and {1} directory and {2} symlinks</source>
+	     <target></target></trans-unit>
+	     <trans-unit id="config.files_1_dirs_2_symlinks_0">
+			<source>{0} file and {1} directories</source>
+	     <target></target></trans-unit>
+	     <trans-unit id="config.files_1_dirs_2_symlinks_1">
+			<source>{0} file and {1} directories and {2} symlink</source>
+	     <target></target></trans-unit>
+	     <trans-unit id="config.files_1_dirs_2_symlinks_2">
+			<source>{0} file and {1} directories and {2} symlinks</source>
+	     <target></target></trans-unit>
 
+	     <trans-unit id="config.files_2_dirs_0_symlinks_0">
+			<source>{0} files</source>
+	     <target></target></trans-unit>
+	     <trans-unit id="config.files_2_dirs_0_symlinks_1">
+			<source>{0} files and {2} symlink</source>
+	     <target></target></trans-unit>
+	     <trans-unit id="config.files_2_dirs_0_symlinks_2">
+			<source>{0} files and {2} symlinks</source>
+	     <target></target></trans-unit>
+	     <trans-unit id="config.files_2_dirs_1_symlinks_0">
+			<source>{0} files and {1} directory</source>
+	     <target></target></trans-unit>
+	     <trans-unit id="config.files_2_dirs_1_symlinks_1">
+			<source>{0} files and {1} directory and {2} symlink</source>
+	     <target></target></trans-unit>
+	     <trans-unit id="config.files_2_dirs_1_symlinks_2">
+			<source>{0} files and {1} directory and {2} symlinks</source>
+	     <target></target></trans-unit>
+	     <trans-unit id="config.files_2_dirs_2_symlinks_0">
+			<source>{0} files and {1} directories</source>
+	     <target></target></trans-unit>
+	     <trans-unit id="config.files_2_dirs_2_symlinks_1">
+			<source>{0} files and {1} directories and {2} symlink</source>
+	     <target></target></trans-unit>
+	     <trans-unit id="config.files_2_dirs_2_symlinks_2">
+			<source>{0} files and {1} directories and {2} symlinks</source>
+	     <target></target></trans-unit>
 	</group>
 
     <group>
@@ -6505,11 +6855,47 @@ Follow this url to see the full list of inactive systems:
       <target>모든 시스템</target></trans-unit>
 
 
+      <trans-unit id="systems.details.virt.guest.virt.shutdown">
+        <source>Shutdown</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
+        </context-group>
+      <target>종료</target></trans-unit>
 
+      <trans-unit id="systems.details.virt.guest.virt.start">
+        <source>Start</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
+        </context-group>
+      <target>시작</target></trans-unit>
 
+      <trans-unit id="systems.details.virt.guest.virt.suspend">
+        <source>Suspend</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
+        </context-group>
+      <target>중지</target></trans-unit>
 
+      <trans-unit id="systems.details.virt.guest.virt.resume">
+        <source>Resume</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
+        </context-group>
+      <target>다시 시작</target></trans-unit>
 
+      <trans-unit id="systems.details.virt.guest.virt.reboot">
+        <source>Restart</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
+        </context-group>
+      <target>재시작</target></trans-unit>
 
+      <trans-unit id="systems.details.virt.guest.virt.destroy">
+        <source>Destroy</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
+        </context-group>
+      <target>삭제</target></trans-unit>
 
       <trans-unit id="systems.details.virt.guest.virt.delete">
         <source>Delete</source>
@@ -6518,11 +6904,47 @@ Follow this url to see the full list of inactive systems:
         </context-group>
       <target>삭제</target></trans-unit>
 
+      <trans-unit id="systems.details.virt.guest.virt.setMemory">
+          <source>Set Memory ({0} MB)</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
+        </context-group>
+      <target>메모리 설정 ({0} MB)</target></trans-unit>
 
+      <trans-unit id="systems.details.virt.guest.virt.setVCPUs">
+          <source>Set Virtual CPUs ({0})</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
+        </context-group>
+      <target>가상 CPU ({0}) 설정</target></trans-unit>
 
+      <trans-unit id="systems.details.virt.guest.already.running">
+        <source>This system is already running.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
+        </context-group>
+      <target>시스템이 실행되고 있습니다.</target></trans-unit>
 
+      <trans-unit id="systems.details.virt.guest.already.stopped">
+        <source>This system is already stopped.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
+        </context-group>
+      <target>시스템이 정지되었습니다.</target></trans-unit>
 
+      <trans-unit id="systems.details.virt.guest.already.paused">
+        <source>This system is already paused.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
+        </context-group>
+      <target>시스템이 일시 정지되었습니다.</target></trans-unit>
 
+      <trans-unit id="systems.details.virt.guest.already.crashed">
+        <source>This system is crashed.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
+        </context-group>
+      <target>시스템이 충돌했습니다.</target></trans-unit>
 
       <trans-unit id="systems.details.virt.vcpu.limit.msg">
           <source>Virtual CPUs limited to {0} on {1}.</source>
@@ -6566,9 +6988,27 @@ Follow this url to see the full list of inactive systems:
         </context-group>
       <target>선택된 가상 시스템이 없습니다.</target></trans-unit>
 
+      <trans-unit id="systems.details.virt.no.actions.scheduled">
+        <source>No actions scheduled.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
+        </context-group>
+      <target>스케줄된 작업이 없습니다.</target></trans-unit>
+
+      <trans-unit id="systems.details.virt.one.actions.scheduled">
+        <source>Scheduled one action.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
+        </context-group>
+      <target>한 개의 스케줄된 작업.</target></trans-unit>
 
 
-
+      <trans-unit id="systems.details.virt.no.virt.deleted">
+        <source>No virtual systems deleted.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
+        </context-group>
+      <target>삭제된 가상 시스템이 없습니다.</target></trans-unit>
 
       <trans-unit id="systems.details.virt.one.virt.deleted">
         <source>Deleted one virtual system.</source>
@@ -6577,6 +7017,12 @@ Follow this url to see the full list of inactive systems:
         </context-group>
       <target>한개의 가상 시스템 삭제</target></trans-unit>
 
+      <trans-unit id="systems.details.virt.virt.deleted">
+        <source>Deleted {0} virtual systems.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
+        </context-group>
+      <target>{0} 가상 시스템 삭제</target></trans-unit>
 
 	  <trans-unit id="sdc.channels.edit.base_channel_updated">
 <source>System's Base Channel has been updated.</source>

@@ -3492,6 +3492,45 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/kickstart/SessionStatus.do</context>
         </context-group>
+        <trans-unit id="kickstart.state.created">
+          <source>Kickstart session created but has not yet been used.</source>
+        <target>킥스타트 세션은 생성되었으나 아직 사용되고 있지 않습니다.</target></trans-unit>
+        <trans-unit id="kickstart.state.deployed">
+          <source>Files required for kickstart action have been installed.</source>
+        <target>킥스타트 작업에 필요한 파일이 설치되었습니다.</target></trans-unit>
+        <trans-unit id="kickstart.state.injected">
+          <source>The system configuration has been modified to begin kickstart upon next boot.</source>
+        <target>시스템 설정은 다음 부팅시에 킥스타트가 실행되도록 수정되었습니다.</target></trans-unit>
+        <trans-unit id="kickstart.state.restarted">
+          <source>The system has been restarted in order to begin the kickstart process.</source>
+        <target>시스템은 킥스타트 과정을 수행하기 위해서 다시 시작되었습니다.</target></trans-unit>
+        <trans-unit id="kickstart.state.configuration_accessed">
+          <source>The system has downloaded the kickstart configuration file from @@PRODUCT_NAME@@.</source>
+        <target>시스템은 @@PRODUCT_NAME@@에서 킥스타트 설정 파일을 다운로드하였습니다. </target></trans-unit>
+        <trans-unit id="kickstart.state.started">
+          <source>The initial files required for anaconda have been downloaded.</source>
+        <target>anaconda에 사용되는 초기 파일은 다운로드되었습니다.</target></trans-unit>
+        <trans-unit id="kickstart.state.in_progress">
+          <source>The system is downloading the RPMs required to install.</source>
+        <target>시스템은 설치에 필요한 RPM을 다운로드하고 있습니다.</target></trans-unit>
+        <trans-unit id="kickstart.state.registered">
+          <source>The system has successfully registered with @@PRODUCT_NAME@@ after kickstarting.</source>
+        <target>시스템은 킥스타트 후에 @@PRODUCT_NAME@@에 성공적으로 등록되었습니다.  </target></trans-unit>
+        <trans-unit id="kickstart.state.package_synch">
+          <source>Package synchronization in progress.</source>
+        <target>패키지 동기화가 진행중입니다.</target></trans-unit>
+        <trans-unit id="kickstart.state.package_synch_scheduled">
+          <source>Package synchronization scheduled.</source>
+        <target>패키지 동기화가 예정되어 있습니다.</target></trans-unit>
+        <trans-unit id="kickstart.state.configuration_deploy">
+          <source>Configuration files are being deployed.</source>
+        <target>설정 파일이 배치되고 있습니다.</target></trans-unit>
+        <trans-unit id="kickstart.state.complete">
+          <source>Kickstart complete.</source>
+        <target>킥스타트가 완료되었습니다.</target></trans-unit>
+        <trans-unit id="kickstart.state.failed">
+          <source>Kickstart failed.</source>
+        <target>킥스타트가 실패하였습니다.</target></trans-unit>
     </group>
 
 

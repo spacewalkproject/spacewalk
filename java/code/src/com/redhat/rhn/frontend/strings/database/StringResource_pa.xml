@@ -3492,6 +3492,45 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/kickstart/SessionStatus.do</context>
         </context-group>
+        <trans-unit id="kickstart.state.created">
+          <source>Kickstart session created but has not yet been used.</source>
+        <target>ਕਿੱਕਸਟਾਰਟ ਅਜਲਾਸ ਬਣ ਗਿਆ ਪਰ ਵਰਤਿਆ ਨਹੀਂ ਗਿਆ।</target></trans-unit>
+        <trans-unit id="kickstart.state.deployed">
+          <source>Files required for kickstart action have been installed.</source>
+        <target>ਕਿੱਕਸਟਾਰਟ ਲਈ ਲੋੜੀਂਦੀਆਂ ਫਾਇਲਾਂ ਇੰਸਟਾਲ ਹੋ ਗਈਆਂ।</target></trans-unit>
+        <trans-unit id="kickstart.state.injected">
+          <source>The system configuration has been modified to begin kickstart upon next boot.</source>
+        <target>ਸਿਸਟਮ ਸੰਰਚਨਾ ਤਬਦੀਲ ਹੋ ਗਈ ਹੈ ਤਾਂ ਕਿ ਅਗਲੀ ਵਾਰ ਬੂਟ ਕਰਲ ਤੇ ਕਿੱਕਸਟਾਰਟ ਸ਼ੁਰੂ ਹੋ ਸਕੇ।</target></trans-unit>
+        <trans-unit id="kickstart.state.restarted">
+          <source>The system has been restarted in order to begin the kickstart process.</source>
+        <target>ਕਿੱਕਸਟਾਰਟ ਕਾਰਜ ਸ਼ੁਰੂ ਕਰਨ ਲਈ ਸਿਸਟਮ ਮੁੜ ਚਾਲੂ ਕੀਤਾ ਗਿਆ ਹੈ।</target></trans-unit>
+        <trans-unit id="kickstart.state.configuration_accessed">
+          <source>The system has downloaded the kickstart configuration file from @@PRODUCT_NAME@@.</source>
+        <target>ਸਿਸਟਮ ਨੇ ਕਿੱਕਸਟਾਰਟ ਸੰਰਚਨਾ ਫਾਇਲ @@PRODUCT_NAME@@ ਤੋਂ ਡਾਊਨਲੋਡ ਕੀਤੀ ਹੈ।</target></trans-unit>
+        <trans-unit id="kickstart.state.started">
+          <source>The initial files required for anaconda have been downloaded.</source>
+        <target>ਐਨਾਕਾਂਡਾ ਲਈ ਲੋੜੀਂਦੀਆਂ ਸ਼ੁਰੂਆਤੀ ਫਾਇਲਾਂ ਡਾਊਨਲੋਡ ਕੀਤੀਆਂ ਗਈਆਂ।</target></trans-unit>
+        <trans-unit id="kickstart.state.in_progress">
+          <source>The system is downloading the RPMs required to install.</source>
+        <target>ਇੰਸਟਾਲ ਕਰਨ ਲਈ ਲੋੜੀਂਦੀਆਂ RPMs ਨੂੰ ਸਿਸਟਮ ਡਾਊਨਲੋਡ ਕਰ ਰਿਹਾ ਹੈ।</target></trans-unit>
+        <trans-unit id="kickstart.state.registered">
+          <source>The system has successfully registered with @@PRODUCT_NAME@@ after kickstarting.</source>
+        <target>ਕਿੱਕਸਟਾਰਟ ਕਰਨ ਤੋਂ ਬਾਅਦ ਸਿਸਟਮ @@PRODUCT_NAME@@ ਨਾਲ ਸਫਲਤਾਪੂਰਕ ਰਜਿਸਟਰ ਹੋ ਗਿਆ ਹੈ।</target></trans-unit>
+        <trans-unit id="kickstart.state.package_synch">
+          <source>Package synchronization in progress.</source>
+        <target>ਪੈਕੇਜ ਸਮਕਾਲਤਾ ਚੱਲ ਰਹੀ ਹੈ।</target></trans-unit>
+        <trans-unit id="kickstart.state.package_synch_scheduled">
+          <source>Package synchronization scheduled.</source>
+        <target>ਪੈਕੇਜ ਸਮਕਾਲਤਾ ਸਮਾਂ ਤਹਿ ਕੀਤੀ ਗਈ।</target></trans-unit>
+        <trans-unit id="kickstart.state.configuration_deploy">
+          <source>Configuration files are being deployed.</source>
+        <target>ਸੰਰਚਨਾ ਫਾਇਲਾਂ ਡਿਪਲਾਏ ਕੀਤੀਆਂ ਹਨ।</target></trans-unit>
+        <trans-unit id="kickstart.state.complete">
+          <source>Kickstart complete.</source>
+        <target>ਕਿੱਕਸਟਾਰਟ ਮੁਕੰਮਲ ਹੋਈ।</target></trans-unit>
+        <trans-unit id="kickstart.state.failed">
+          <source>Kickstart failed.</source>
+        <target>ਕਿੱਕਸਟਾਰਟ ਫੇਲ ਹੋ ਗਈ।</target></trans-unit>
     </group>
 
 

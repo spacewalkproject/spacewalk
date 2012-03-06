@@ -3492,6 +3492,45 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/kickstart/SessionStatus.do</context>
         </context-group>
+        <trans-unit id="kickstart.state.created">
+          <source>Kickstart session created but has not yet been used.</source>
+        <target>Kickstart সেশান নির্মিত হলেও ব্যবহৃত হয়নি।</target></trans-unit>
+        <trans-unit id="kickstart.state.deployed">
+          <source>Files required for kickstart action have been installed.</source>
+        <target>kickstart কর্মের জন্য আবশ্যক ফাইল ইনস্টল করা হয়েছে।</target></trans-unit>
+        <trans-unit id="kickstart.state.injected">
+          <source>The system configuration has been modified to begin kickstart upon next boot.</source>
+        <target>সিস্টেম পরবর্তীবার বুট করার পরে kickstart আরম্ভ করার জন্য সিস্টেম কনফিগার করা হয়েছে।</target></trans-unit>
+        <trans-unit id="kickstart.state.restarted">
+          <source>The system has been restarted in order to begin the kickstart process.</source>
+        <target>kickstart কর্ম আরম্ভ করার জন্য সিস্টেম পুনরায় আরম্ভ করা হয়েছে।</target></trans-unit>
+        <trans-unit id="kickstart.state.configuration_accessed">
+          <source>The system has downloaded the kickstart configuration file from @@PRODUCT_NAME@@.</source>
+        <target>সিস্টেমের দ্বারা @@PRODUCT_NAME@@ থেকে kickstart কনফিগারেশন ফাইল ডাউনলোড করা হয়েছে।</target></trans-unit>
+        <trans-unit id="kickstart.state.started">
+          <source>The initial files required for anaconda have been downloaded.</source>
+        <target>anaconda-র জন্য প্রারম্ভিক ফাই; ডাউনলোড করা হয়েছে।</target></trans-unit>
+        <trans-unit id="kickstart.state.in_progress">
+          <source>The system is downloading the RPMs required to install.</source>
+        <target>সিস্টেমের দ্বারা ইনস্টল কর্মের জন্য আবশ্যক RPM ডাউনলোড করা হচ্ছে।</target></trans-unit>
+        <trans-unit id="kickstart.state.registered">
+          <source>The system has successfully registered with @@PRODUCT_NAME@@ after kickstarting.</source>
+        <target>Kickstart করার পরে সিস্টেম সাফল্যের সাথে @@PRODUCT_NAME@@-র সাথে নিবন্ধিত হয়েছে।</target></trans-unit>
+        <trans-unit id="kickstart.state.package_synch">
+          <source>Package synchronization in progress.</source>
+        <target>প্যাকেজ সুসংগতি করা হচ্ছে।</target></trans-unit>
+        <trans-unit id="kickstart.state.package_synch_scheduled">
+          <source>Package synchronization scheduled.</source>
+        <target>প্যাকেজ সুসংগতি কর্ম নির্ধারিত হয়েছে।</target></trans-unit>
+        <trans-unit id="kickstart.state.configuration_deploy">
+          <source>Configuration files are being deployed.</source>
+        <target>কনফিগারেশন ফাইল স্থাপন করা হয়েছে।</target></trans-unit>
+        <trans-unit id="kickstart.state.complete">
+          <source>Kickstart complete.</source>
+        <target>Kickstart কর্ম সমাপ্ত।</target></trans-unit>
+        <trans-unit id="kickstart.state.failed">
+          <source>Kickstart failed.</source>
+        <target>Kickstart ব্যর্থ।</target></trans-unit>
     </group>
 
 

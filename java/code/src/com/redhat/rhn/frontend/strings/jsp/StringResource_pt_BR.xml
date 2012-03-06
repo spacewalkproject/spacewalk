@@ -861,26 +861,98 @@
       <target>Exibir</target></trans-unit>
 
 <!--Start of  the Pane entries Section-->
+	<trans-unit id="preferences.tasks.name">
+         <source>Tasks</source>
+		 <context-group name="ctx">
+		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
+		 </context-group>
+	<target>Tarefas</target></trans-unit>
+
+	<trans-unit id="preferences.tasks.description">
+         <source> A task-oriented menu of quick links to different areas of the @@PRODUCT_NAME@@ user interface.</source>
+		 <context-group name="ctx">
+		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
+		 </context-group>
+	<target> Um menu orientado a tarefas contendo links rápidos à diversas áreas da interface do @@PRODUCT_NAME@@.</target></trans-unit>
 
 
 
 
 
 
+	<trans-unit id="preferences.warning-probes.name">
+         <source>Monitoring Status - Warning Probes</source>
+		 <context-group name="ctx">
+		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
+		 </context-group>
+	<target>Status do Monitoring - Detecções em Alerta</target></trans-unit>
+
+	<trans-unit id="preferences.warning-probes.description">
+         <source> A preview of probes that are in a warning state.</source>
+		 <context-group name="ctx">
+		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
+		 </context-group>
+	<target> Uma prévia das detecções que estejam em um estado de alerta.</target></trans-unit>
+
+	<trans-unit id="preferences.system-groups-widget.name">
+         <source>System Groups</source>
+		 <context-group name="ctx">
+		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
+		 </context-group>
+	<target>Grupos de Sistemas</target></trans-unit>
+
+	<trans-unit id="preferences.system-groups-widget.description">
+         <source> Preview the overall status of your system groups.</source>
+		 <context-group name="ctx">
+		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
+		 </context-group>
+	<target> Uma prévia do estado geral dos seus grupos de sistemas.</target></trans-unit>
+
+	<trans-unit id="preferences.latest-errata.name">
+         <source>Relevant Security Errata</source>
+		 <context-group name="ctx">
+		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
+		 </context-group>
+	<target>Errata de Segurança Relevante</target></trans-unit>
+
+	<trans-unit id="preferences.latest-errata.description">
+         <source> View the most recent security errata applicable to your systems.</source>
+		 <context-group name="ctx">
+		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
+		 </context-group>
+	<target> Apresenta as erratas de segurança mais recentes que sejam aplicáveis aos seus sistemas.</target></trans-unit>
 
 
 
 
 
+	<trans-unit id="preferences.pending-actions.name">
+         <source>Recently Scheduled Actions</source>
+		 <context-group name="ctx">
+		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
+		 </context-group>
+	<target>Ações Agendadas Recentemente</target></trans-unit>
 
+	<trans-unit id="preferences.pending-actions.description">
+         <source> Lists the scheduled actions of the user.</source>
+		 <context-group name="ctx">
+		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
+		 </context-group>
+	<target> Lista as ações agendadas do usuário.</target></trans-unit>
 
+	<trans-unit id="preferences.recently-registered-systems.name">
+         <source>Recently Registered Systems</source>
+		 <context-group name="ctx">
+		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
+		 </context-group>
+	<target>Sistemas Registrados Recentemente</target></trans-unit>
 
-
-
-
-
-
-
+	<trans-unit id="preferences.recently-registered-systems.description">
+         <source> A listing of the most recently registered systems within the past 30 days.</source>
+		 <context-group name="ctx">
+		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
+		 </context-group>
+	<target>Uma lista dos sistemas registrados mais recentes, dos últimos 30 dias.</target></trans-unit>
 
 
 
@@ -5079,22 +5151,79 @@ value for this entitlement, excluding the default organization's consumption.</s
         <target>Nenhum sistema selecionado. Por favor selecione um sistema antes de executar uma ação.</target></trans-unit>
 
 
+        <trans-unit id="system_entitlements.provisioning.success">
+                <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) set to &lt;strong&gt;Provisioning&lt;/strong&gt;.</source>
+        <target>&lt;strong&gt;{0}&lt;/strong&gt; sistema(s) configurado(s) para &lt;strong&gt;Provisioning&lt;/strong&gt;.</target></trans-unit>
+
+        <trans-unit id="system_entitlements.provisioning.removed.success">
+                <source>Removed &lt;strong&gt;Provisioning&lt;/strong&gt; from &lt;strong&gt;{0}&lt;/strong&gt; system(s).</source>
+        <target>&lt;strong&gt;Provisioning&lt;/strong&gt; foi removido de &lt;strong&gt;{0}&lt;/strong&gt; sistemas(s).</target></trans-unit>
 
 
-
+        <trans-unit id="system_entitlements.provisioning.notEnoughSlots">
+                <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) were successfully set to &lt;strong&gt;Provisioning&lt;/strong&gt; entitled, but you do not have enough &lt;strong&gt;Provisioning&lt;/strong&gt; entitlements for the remaining &lt;strong&gt;{1}&lt;/strong&gt; system(s). You may purchase additional &lt;strong&gt;Provisioning&lt;/strong&gt; entitlements at &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;@@PRODUCT_NAME@@ store&lt;/strong&gt;&lt;/a&gt;. After you have additional &lt;strong&gt;Provisioning&lt;/strong&gt; entitlements, you will be able to upgrade these systems.</source>
+        <target>&lt;strong&gt;{0}&lt;/strong&gt; sistema(s) foram configurados para direitos a serviços de &lt;strong&gt;Provisioning&lt;/strong&gt; com sucesso, mas você não possui direitos a serviços de &lt;strong&gt;Provisioning&lt;/strong&gt; suficientes para &lt;strong&gt;{1}&lt;/strong&gt; sistema(s) restantes. Você pode adquirir direitos a serviços de &lt;strong&gt;Provisioning&lt;/strong&gt; adicionais na &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;@@PRODUCT_NAME@@ store&lt;/strong&gt;&lt;/a&gt;. Após obter direitos a serviços de &lt;strong&gt;Provisioning&lt;/strong&gt; adicionais, você poderá fazer o upgrade destes sistemas.</target></trans-unit>
+        <trans-unit id="system_entitlements.provisioning.noManagement">
+                <source>&lt;strong&gt;Provisioning&lt;/strong&gt; entitlement failed for &lt;strong&gt;{0}&lt;/strong&gt; system(s) because they did not have &lt;strong&gt;Management&lt;/strong&gt; base entitlements. The failed systems are still selected below. If you click first the &lt;strong&gt;Set To Management Entitled&lt;/strong&gt; button below, then select the &lt;strong&gt;Provisioning&lt;/strong&gt; item in the drop-down list located in the &lt;strong&gt;Add-On entitlements section&lt;/strong&gt; and then click the &lt;strong&gt;Add Entitlement&lt;/strong&gt; button below, you'll be able to add the &lt;strong&gt;Provisioning&lt;/strong&gt; entitlement to these system(s).</source>
+        <target>A associação de direitos a serviços de &lt;strong&gt;Provisioning&lt;/strong&gt; falhou para &lt;strong&gt;{0}&lt;/strong&gt; sistema(s) porque eles não possuem os direitos a serviços de &lt;strong&gt;Management&lt;/strong&gt; base. Os sistemas falhos ainda estão selecionados abaixo. Se você primeiro clicar no botão &lt;strong&gt;Mudar para Direitos a Serviços de Management&lt;/strong&gt; abaixo e selecionar o item &lt;strong&gt;Provisioning&lt;/strong&gt; na lista suspensa localizada na &lt;strong&gt;seção direitos a serviços Complementares&lt;/strong&gt; e então clicar no botão &lt;strong&gt;Adicionar Direito a Serviço&lt;/strong&gt; abaixo, você poderá adicionar o direito a serviços de &lt;strong&gt;Provisioning&lt;/strong&gt; a estes sistema(s).</target></trans-unit>
 
         <trans-unit id="system_entitlements.virtualization.success_note">
                 <source>&lt;strong&gt;NOTE:&lt;/strong&gt; We subscribed the system(s) to the {0} and {1} channel as well as scheduled an install of the {2} package to prepare the system(s) for hosting virtual guests.</source>
         <target>&lt;strong&gt;NOTA:&lt;/strong&gt; Nós increvemos o(s) sistema(s) nos canais {0} e {1} assim como agendamos uma instalação do {2} pacote para preparar o(s) sistema(s) para convidados virtuais hospedados.</target></trans-unit>
 
+        <trans-unit id="system_entitlements.virtualization_host.success">
+                <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) set to &lt;strong&gt;Virtualization.&lt;/strong&gt;.  &lt;br/&gt; &lt;strong&gt;NOTE: &lt;/strong&gt;If the system previously had Virtualization Platform it has been downgraded to Virtualization. </source>
+        <target>&lt;strong&gt;{0}&lt;/strong&gt; sistema(s) configurado(s) para &lt;strong&gt;Virtualização.&lt;/strong&gt;.  &lt;br/&gt; &lt;strong&gt;NOTA: &lt;/strong&gt; Se o sistema teve uma Plataforma de Virtualização anteriormente, ele recebeu um downgrade para Virtualização.</target></trans-unit>
+
+        <trans-unit id="system_entitlements.virtualization_host.removed.success">
+                <source>Removed &lt;strong&gt;Virtualization&lt;/strong&gt; from &lt;strong&gt;{0}&lt;/strong&gt; system(s)  This will cause any guests associated with the selected host to consume physical Channel and System entitlements.</source>
+        <target>O componente de  &lt;strong&gt;Virtualização&lt;/strong&gt; foi removido do(s) sistema(s) &lt;strong&gt;{0}&lt;/strong&gt;. Isto fará com que qualquer convidado associado à máquina selecionada consuma um Canal físico e serviços de Sistema.</target></trans-unit>
+
+        <trans-unit id="system_entitlements.virtualization_host.notEnoughSlots">
+                <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) were successfully set to &lt;strong&gt;Virtualization&lt;/strong&gt; entitled, but you do not have enough &lt;strong&gt;Virtualization&lt;/strong&gt; entitlements for the remaining &lt;strong&gt;{1}&lt;/strong&gt; system(s). You may purchase additional &lt;strong&gt;Virtualization&lt;/strong&gt; entitlements at &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;@@PRODUCT_NAME@@ store&lt;/strong&gt;&lt;/a&gt;. After you have additional &lt;strong&gt;Virtualization&lt;/strong&gt; entitlements, you will be able to upgrade these systems. &lt;br/&gt; &lt;strong&gt;NOTE: &lt;/strong&gt;If the system previously had Virtualization Platform it has been downgraded to Virtualization. </source>
+        <target>&lt;strong&gt;{0}&lt;/strong&gt; sistema(s) foram configurados para direitos a serviços de &lt;strong&gt;Virtualização&lt;/strong&gt; com sucesso, mas você não possui direitos a serviços de &lt;strong&gt;Virtualização&lt;/strong&gt; suficientes para &lt;strong&gt;{1}&lt;/strong&gt; sistema(s) restantes. Você pode adquirir direitos a serviços de &lt;strong&gt;Virtualização&lt;/strong&gt; adicionais na &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;@@PRODUCT_NAME@@ store&lt;/strong&gt;&lt;/a&gt;. Após obter direitos a serviços de &lt;strong&gt;Virtualização&lt;/strong&gt; adicionais, você poderá fazer o upgrade destes sistemas. &lt;br/&gt; &lt;strong&gt;NOTA: &lt;/strong&gt;Se havia anteriormente uma Plataforma de Virtualização no sistema, ele recebeu um downgrade para Virtualização.</target></trans-unit>
+        <trans-unit id="system_entitlements.virtualization_host.noManagement">
+                <source>&lt;strong&gt;Virtualization&lt;/strong&gt; entitlement failed for &lt;strong&gt;{0}&lt;/strong&gt; system(s) because they did not have &lt;strong&gt;Management&lt;/strong&gt; base entitlements. The failed systems are still selected below. If you click first the &lt;strong&gt;Set To Management Entitled&lt;/strong&gt; button below, then select the &lt;strong&gt;Virtualization&lt;/strong&gt; item in the drop-down list located in the &lt;strong&gt;Add-On entitlements section&lt;/strong&gt; and then click the &lt;strong&gt;Add Entitlement&lt;/strong&gt; button below, you'll be able to add the &lt;strong&gt;Virtualization&lt;/strong&gt; entitlement to these system(s).</source>
+        <target>A associação de direitos a serviços de &lt;strong&gt;Virtualização&lt;/strong&gt; falhou para &lt;strong&gt;{0}&lt;/strong&gt; sistema(s) porque eles não possuem os direitos a serviços de &lt;strong&gt;Management&lt;/strong&gt; base. Os sistemas falhos ainda estão selecionados abaixo. Se você primeiro clicar no botão &lt;strong&gt;Mudar para Direitos a Serviços de Management&lt;/strong&gt; abaixo e selecionar o item &lt;strong&gt;Virtualização&lt;/strong&gt; na lista suspensa localizada na &lt;strong&gt;seção direitos a serviços Complementares&lt;/strong&gt; e então clicar no botão &lt;strong&gt;Adicionar Direito a Serviço&lt;/strong&gt; abaixo, você poderá adicionar o direito a serviços de &lt;strong&gt;Virtualização&lt;/strong&gt; a estes sistema(s).</target></trans-unit>
+        <trans-unit id="system_entitlements.virtualization_host.noSolarisSupport">
+                <source>&lt;strong&gt;Virtualization&lt;/strong&gt; entitlement failed for &lt;strong&gt;{0}&lt;/strong&gt; system(s) because Virtualization is not supported on Solaris systems.</source>
+        <target>O serviço &lt;strong&gt;Virtualização&lt;/strong&gt; falhou no(s) sistema(s) &lt;strong&gt;{0}&lt;/strong&gt;  pois o Componente de Virtualização não é suportado nos sitemas Solaris.</target></trans-unit>
+
+        <trans-unit id="system_entitlements.virtualization_host_platform.success">
+                <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) set to &lt;strong&gt;Virtualization Platform.&lt;/strong&gt;.  &lt;br/&gt; &lt;strong&gt;NOTE: &lt;/strong&gt;If the system previously had Virtualization it has been upgraded to Virtualization Platform. </source>
+        <target>&lt;strong&gt;{0}&lt;/strong&gt; sistema(s) configurado(s) para &lt;strong&gt;Plataforma de Virtualização.&lt;/strong&gt;.  &lt;br/&gt; &lt;strong&gt;NOTA: &lt;/strong&gt;Se havia anteriormente Virtualização no sitema, ele foi atualizado para Plataforma de Virtualização. </target></trans-unit>
+
+        <trans-unit id="system_entitlements.virtualization_host_platform.removed.success">
+                <source>Removed &lt;strong&gt;Virtualization&lt;/strong&gt; from &lt;strong&gt;{0}&lt;/strong&gt; system(s)  This will cause any guests associated with the selected host to consume physical Channel and System entitlements.</source>
+        <target>O componente de  &lt;strong&gt;Virtualização&lt;/strong&gt; foi removido do(s) sistema(s) &lt;strong&gt;{0}&lt;/strong&gt;. Isto fará com que qualquer convidado associado à máquina selecionada consuma um Canal físico e serviços de Sistema.</target></trans-unit>
+
+        <trans-unit id="system_entitlements.virtualization_host_platform.notEnoughSlots">
+                <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) were successfully set to &lt;strong&gt;Virtualization Platform&lt;/strong&gt; entitled, but you do not have enough &lt;strong&gt;Virtualization Platform&lt;/strong&gt; entitlements for the remaining &lt;strong&gt;{1}&lt;/strong&gt; system(s). You may purchase additional &lt;strong&gt;Virtualization Platform&lt;/strong&gt; entitlements at &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;@@PRODUCT_NAME@@ store&lt;/strong&gt;&lt;/a&gt;. After you have additional &lt;strong&gt;Virtualization Platform&lt;/strong&gt; entitlements, you will be able to upgrade these systems.  &lt;br/&gt;&lt;strong&gt;NOTE: &lt;/strong&gt;If the system previously had Virtualization Platform it has been downgraded to Virtualization.</source>
+        <target>&lt;strong&gt;{0}&lt;/strong&gt; sistema(s) foram configurados para direitos a serviços de &lt;strong&gt;Plataforma de Virtualização&lt;/strong&gt; com sucesso, mas você não possui direitos a serviços de &lt;strong&gt;Plataforma de Virtualização&lt;/strong&gt; suficientes para &lt;strong&gt;{1}&lt;/strong&gt; sistema(s) restantes. Você pode adquirir direitos a serviços de &lt;strong&gt;Plataforma de Virtualização&lt;/strong&gt; adicionais na &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;@@PRODUCT_NAME@@ store&lt;/strong&gt;&lt;/a&gt;. Após obter direitos a serviços de &lt;strong&gt;Plataforma de Virtualização&lt;/strong&gt; adicionais, você poderá fazer o upgrade destes sistemas.&lt;br/&gt;&lt;strong&gt;NOTA: &lt;/strong&gt; Se havia anteriormente uma Plataforma de Virtualização no sistema, ele recebeu um downgrade para Virtualização.</target></trans-unit>
+        <trans-unit id="system_entitlements.virtualization_host_platform.noManagement">
+                <source>&lt;strong&gt;Virtualization Platform&lt;/strong&gt; entitlement failed for &lt;strong&gt;{0}&lt;/strong&gt; system(s) because they did not have &lt;strong&gt;Management&lt;/strong&gt; base entitlements. The failed systems are still selected below. If you click first the &lt;strong&gt;Set To Management Entitled&lt;/strong&gt; button below, then select the &lt;strong&gt;Virtualization Platform&lt;/strong&gt; item in the drop-down list located in the &lt;strong&gt;Add-On entitlements section&lt;/strong&gt; and then click the &lt;strong&gt;Add Entitlement&lt;/strong&gt; button below, you'll be able to add the &lt;strong&gt;Virtualization Platform&lt;/strong&gt; entitlement to these system(s).</source>
+        <target>A associação de direitos a serviços de &lt;strong&gt;Plataforma de Virtualização&lt;/strong&gt; falhou para &lt;strong&gt;{0}&lt;/strong&gt; sistema(s) porque eles não possuem os direitos a serviços de &lt;strong&gt;Management&lt;/strong&gt; base. Os sistemas falhos ainda estão selecionados abaixo. Se você primeiro clicar no botão &lt;strong&gt;Mudar para Direitos a Serviços de Management&lt;/strong&gt; abaixo e selecionar o item &lt;strong&gt;Plataforma de Virtualização&lt;/strong&gt; na lista suspensa localizada na &lt;strong&gt;seção direitos a serviços Complementares&lt;/strong&gt; e então clicar no botão &lt;strong&gt;Adicionar Direito a Serviço&lt;/strong&gt; abaixo, você poderá adicionar o direito a serviços de &lt;strong&gt;Plataforma de Virtualização&lt;/strong&gt; a estes sistema(s).</target></trans-unit>
+        <trans-unit id="system_entitlements.virtualization_host_platform.noSolarisSupport">
+                <source>&lt;strong&gt;Virtualization Platform&lt;/strong&gt; entitlement failed for &lt;strong&gt;{0}&lt;/strong&gt; system(s) because Virtualization is not supported on Solaris systems.</source>
+        <target>O serviço de &lt;strong&gt;Plataforma de Virtualização&lt;/strong&gt; falhou nos sistemas &lt;strong&gt;{0}&lt;/strong&gt;.pois o Componente de Virtualização não é suportado nos sistemas Solaris. </target></trans-unit>
+        <trans-unit id="system_entitlements.monitoring.success">
+                <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) set to &lt;strong&gt;Monitoring&lt;/strong&gt;.</source>
+        <target>&lt;strong&gt;{0}&lt;/strong&gt; sistema(s) configurado(s) para &lt;strong&gt;Monitoring&lt;/strong&gt;.</target></trans-unit>
+
+        <trans-unit id="system_entitlements.monitoring.removed.success">
+                <source>Removed &lt;strong&gt;Monitoring&lt;/strong&gt; from &lt;strong&gt;{0}&lt;/strong&gt; system(s).</source>
+        <target>&lt;strong&gt;Monitoring&lt;/strong&gt; foi removido de &lt;strong&gt;{0}&lt;/strong&gt; sistemas(s).</target></trans-unit>
 
 
-
-
-
-
-
-
+        <trans-unit id="system_entitlements.monitoring.notEnoughSlots">
+                <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) were successfully set to&lt;strong&gt;Monitoring&lt;/strong&gt; entitled, but you not have enough &lt;strong&gt;Monitoring&lt;/strong&gt; entitlements for the remaining &lt;strong&gt;{1}&lt;/strong&gt; system(s). You may purchase additional &lt;strong&gt;Monitoring&lt;/strong&gt; entitlements at &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;@@PRODUCT_NAME@@ store&lt;/strong&gt;&lt;/a&gt;. After you have additional &lt;strong&gt;Monitoring&lt;/strong&gt; entitlements, you will be able to upgrade these systems.</source>
+        <target>&lt;strong&gt;{0}&lt;/strong&gt; sistema(s) foram configurados para direitos a serviços de &lt;strong&gt;Monitoring&lt;/strong&gt; com sucesso, mas você não possui direitos a serviços de &lt;strong&gt;Monitoring&lt;/strong&gt; suficientes para &lt;strong&gt;{1}&lt;/strong&gt; sistema(s) restantes. Você pode adquirir direitos a serviços de &lt;strong&gt;Monitoring&lt;/strong&gt; adicionais na &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;@@PRODUCT_NAME@@ store&lt;/strong&gt;&lt;/a&gt;. Após obter direitos a serviços de &lt;strong&gt;Monitoring&lt;/strong&gt; adicionais, você poderá fazer o upgrade destes sistemas.</target></trans-unit>
+        <trans-unit id="system_entitlements.monitoring.noManagement">
+                <source>&lt;strong&gt;Monitoring&lt;/strong&gt; entitlement failed for &lt;strong&gt;{0}&lt;/strong&gt; system(s) because they did not have &lt;strong&gt;Management&lt;/strong&gt; base entitlements. The failed systems are still selected below. If you click first the &lt;strong&gt;Set To Management Entitled&lt;/strong&gt; button below, then select the &lt;strong&gt;Monitoring&lt;/strong&gt; item in the drop-down list located in the &lt;strong&gt;Add-On entitlements section&lt;/strong&gt; and then click the &lt;strong&gt;Add Entitlement&lt;/strong&gt; button below, you'll be able to add the &lt;strong&gt;Monitoring&lt;/strong&gt; entitlement to these system(s).</source>
+        <target>A associação de direitos a serviços de &lt;strong&gt;Monitoring&lt;/strong&gt; falhou para &lt;strong&gt;{0}&lt;/strong&gt; sistema(s) porque eles não possuem os direitos a serviços de &lt;strong&gt;Management&lt;/strong&gt; base. Os sistemas falhos ainda estão selecionados abaixo. Se você primeiro clicar no botão &lt;strong&gt;Mudar para Direitos a Serviços de Management&lt;/strong&gt; abaixo e selecionar o item &lt;strong&gt;Monitoring&lt;/strong&gt; na lista suspensa localizada na &lt;strong&gt;seção direitos a serviços Complementares&lt;/strong&gt; e então clicar no botão &lt;strong&gt;Adicionar Direito a Serviço&lt;/strong&gt; abaixo, você poderá adicionar o direito a serviços de &lt;strong&gt;Monitoring&lt;/strong&gt; a estes sistema(s).</target></trans-unit>
+        <trans-unit id="system_entitlements.monitoring.noSolarisSupport">
+                <source>&lt;strong&gt;Monitoring&lt;/strong&gt; entitlement failed for &lt;strong&gt;{0}&lt;/strong&gt; system(s) because Monitoring is not supported on Solaris systems.</source>
+        <target>O serviço &lt;strong&gt;Monitoring&lt;/strong&gt; falhou nos sistemas &lt;strong&gt;{0}&lt;/strong&gt; pois o Monitoring não é suportado nos sistemas Solaris.</target></trans-unit>
         <trans-unit id="system_entitlements.virtualization.setup_error">
                 <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) failed to add &lt;strong&gt;Virtualization(Platform)&lt;/strong&gt;.  This was caused by errors attempting to automatically subscribe the system to the @@PRODUCT_NAME@@ Tools and RHEL Virtualization channels which are required for virtualization.</source>
         <target>&lt;strong&gt;{0}&lt;/strong&gt; sistema(s) falhou ao adicionar &lt;strong&gt;(Plataforma) Virtualização&lt;/strong&gt;.  Isto foi causado por erros ao tentar se inscrever automaticamente no sistema nas Ferramentas @@PRODUCT_NAME@@ e canais de Virtualização RHEL que são requisitados para a virtualização.</target></trans-unit>
@@ -6170,6 +6299,42 @@ value for this entitlement, excluding the default organization's consumption.</s
       </context-group>
     <target>Nenhum sistema adicionado ao conjunto</target></trans-unit>
 
+    <trans-unit id="message.remotecommandbefore.remove">
+<source>The remote command action was scheduled to run &lt;strong&gt;before&lt;/strong&gt; the package remove action.</source>
+      <context-group name="ctx">
+        <context context-type="sourcefile">/rhn/systems/details/packages/PackageList.do</context>
+      </context-group>
+    <target>A ação do comando remoto foi programada para rodar &lt;strong&gt;antes&lt;/strong&gt; da ação de remoção do pacote.</target></trans-unit>
+    <trans-unit id="message.remotecommandafter.remove">
+<source>The remote command action was scheduled to run &lt;strong&gt;after&lt;/strong&gt; the package remove action.</source>
+      <context-group name="ctx">
+        <context context-type="sourcefile">/rhn/systems/details/packages/PackageList.do</context>
+      </context-group>
+    <target>A ação do comando remoto foi programada para rodar  &lt;strong&gt;depois&lt;/strong&gt; da ação de remoção do pacote.</target></trans-unit>
+    <trans-unit id="message.remotecommandbefore.install">
+<source>The remote command action was scheduled to run &lt;strong&gt;before&lt;/strong&gt; the package install action.</source>
+      <context-group name="ctx">
+        <context context-type="sourcefile">/rhn/systems/details/packages/PackageList.do</context>
+      </context-group>
+    <target>A ação do comando remoto foi programada para rodar &lt;strong&gt;antes&lt;/strong&gt; da ação da instalação do pacote.</target></trans-unit>
+    <trans-unit id="message.remotecommandafter.install">
+<source>The remote command action was scheduled to run &lt;strong&gt;after&lt;/strong&gt; the package install action.</source>
+      <context-group name="ctx">
+        <context context-type="sourcefile">/rhn/systems/details/packages/PackageList.do</context>
+      </context-group>
+    <target>A ação do comando remoto foi programada para rodar &lt;strong&gt;depois&lt;/strong&gt; da ação de instalação do pacote.</target></trans-unit>
+    <trans-unit id="message.remotecommandbefore.upgrade">
+<source>The remote command action was scheduled to run &lt;strong&gt;before&lt;/strong&gt; the package upgrade action.</source>
+      <context-group name="ctx">
+        <context context-type="sourcefile">/rhn/systems/details/packages/PackageList.do</context>
+      </context-group>
+    <target>A ação do comando remoto foi programada para rodar &lt;strong&gt;antes&lt;/strong&gt; da ação de atualização do pacote.</target></trans-unit>
+    <trans-unit id="message.remotecommandafter.upgrade">
+<source>The remote command action was scheduled to run &lt;strong&gt;after&lt;/strong&gt; the package upgrade action.</source>
+      <context-group name="ctx">
+        <context context-type="sourcefile">/rhn/systems/details/packages/PackageList.do</context>
+      </context-group>
+    <target>A ação do comando remoto foi programada para rodar &lt;strong&gt;depois&lt;/strong&gt; da ação de atualização do pacote.</target></trans-unit>
     <trans-unit id="installpkgs.jsp.installpackages">
 <source>Install Selected Packages</source>
         <context-group name="ctx">
@@ -8040,6 +8205,18 @@ Please note that some manual configuration of these scripts may still be require
        <trans-unit id="repos.jsp.message.taskomaticdown">
           <source>The scheduling service appears down.  Please contact your Satellite administrator.</source>
         </trans-unit>
+        <trans-unit id="toolbar.create.repos">
+          <source>create new repository</source>
+          <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/channel/manage/repo/RepoList.do</context>
+          </context-group>
+        <target>cria um novo repositório</target></trans-unit>
+        <trans-unit id="toolbar.delete.repos">
+          <source>delete repository</source>
+          <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/channel/manage/repo/RepoDetails.do</context>
+          </context-group>
+        <target>deleta o repositório</target></trans-unit>
         <trans-unit id="repos.jsp.toolbar">
           <source>Create New Repository</source>
         <target>Cria um novo repositório</target></trans-unit>
@@ -9244,6 +9421,12 @@ Please note that some manual configuration of these scripts may still be require
     <target>Descrição</target></trans-unit>
 
 
+    <trans-unit id="toolbar.create.keys">
+        <source>create new stored key/cert</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/keys/CryptoKeysList.do</context>
+        </context-group>
+    <target>criar nova chave/certificado armazenado</target></trans-unit>
 
     <trans-unit id="keyedit.jsp.toolbar">
         <source>Edit GPG/SSL Key</source>
@@ -9417,7 +9600,19 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
     <target>Nenhum arquivo selecionado para remoção</target></trans-unit>
 
+    <trans-unit id="toolbar.create.filelist">
+        <source>create new file preservation list</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/systems/provisioning/preservation/PreservationList.do</context>
+        </context-group>
+    <target>criar nova lista de preservação de arquivos</target></trans-unit>
 
+    <trans-unit id="toolbar.create.kickstartscript">
+        <source>add new kickstart script</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/systems/provisioning/preservation/PreservationList.do</context>
+        </context-group>
+    <target>adicionar novo script de kickstart</target></trans-unit>
 
 
     <trans-unit id="preservationlist.jsp.updatelist">
@@ -9819,6 +10014,9 @@ o &lt;strong&gt;Guia de Administração de Sistemas Red Hat Enterprise Li
     <trans-unit id="snippets.jsp.note.default">
         <source>Default kickstart snippets are not editable.</source>
     <target>Snippets de kickstart padrão não são editáveis.</target></trans-unit>
+    <trans-unit id="toolbar.create.snippets">
+        <source>create new snippet</source>
+    <target>criar novo snippet</target></trans-unit>
     <trans-unit id="cobbler.snippet.name">
         <source>Snippet Name</source>
     <target>Nome do Snippet</target></trans-unit>
@@ -10502,6 +10700,9 @@ o &lt;strong&gt;Guia de Administração de Sistemas Red Hat Enterprise Li
         <source>Modify an existing software channel by selecting it from the list below, or create a new software channel. </source>
       <target>Para modificar um canal de software existente, selecione-o a partir da lista abaixo, ou crie um novo canal de software.</target></trans-unit>
 
+      <trans-unit id="toolbar.create.channel">
+        <source>create new channel</source>
+      <target>criar um novo canal</target></trans-unit>
 
 
       <trans-unit id="kickstart.troubleshooting.jsp.header1">
@@ -10728,6 +10929,12 @@ o &lt;strong&gt;Guia de Administração de Sistemas Red Hat Enterprise Li
        <trans-unit id="activation-keys.jsp.header">
          <source>Activation Keys</source>
        <target>Chaves de Ativação</target></trans-unit>
+       <trans-unit id="toolbar.create.activationkeys">
+         <source>create new key</source>
+     <target>criar nova chave</target></trans-unit>
+       <trans-unit id="toolbar.delete.activationkeys">
+         <source>delete key</source>
+     <target>remover chave </target></trans-unit>
        <trans-unit id="activation-keys.common.alt">
          <source>Activation Key icon</source>
        <target>Ícone de Chave de Ativação</target></trans-unit>
@@ -11181,6 +11388,9 @@ o &lt;strong&gt;Guia de Administração de Sistemas Red Hat Enterprise Li
         <trans-unit id="targetsystems.jsp.capable">
           <source>@@PRODUCT_NAME@@ Configuration Capable?</source>
         <target>Capacitação de Configuração do @@PRODUCT_NAME@@?</target></trans-unit>
+        <trans-unit id="targetsystems.jsp.yes">
+          <source>Yes</source>
+        <target>Sim</target></trans-unit>
         <trans-unit id="targetsystems.jsp.no">
           <source>No</source>
         <target>Não</target></trans-unit>
@@ -11190,6 +11400,21 @@ o &lt;strong&gt;Guia de Administração de Sistemas Red Hat Enterprise Li
         <trans-unit id="targetsystems.jsp.orgadmin">
           <source>Requires organization administrator</source>
         <target>Requer um administrador da organização</target></trans-unit>
+        <trans-unit id="targetsystems.jsp.addprovisioning">
+          <source>Add provisioning entitlement</source>
+        <target>Adicionar Serviços de provisão</target></trans-unit>
+        <trans-unit id="targetsystems.jsp.subscribetools">
+          <source>Subscribe to @@PRODUCT_NAME@@ Tools channel</source>
+        <target>Registrar-se nos canais de Ferramenta do @@PRODUCT_NAME@@</target></trans-unit>
+        <trans-unit id="targetsystems.jsp.installcfg">
+          <source>Schedule rhncfg package install</source>
+        <target>Agendar Instalação de Pacotes rhncfg</target></trans-unit>
+        <trans-unit id="targetsystems.jsp.installcfgactions">
+          <source>Schedule rhncfg-actions package install</source>
+        <target>Agendar Instalação de Pacotes de ações rhncfg</target></trans-unit>
+        <trans-unit id="targetsystems.jsp.installcfgclient">
+          <source>Schedule rhncfg-client package install</source>
+        <target>Agendar Instalação de Pacotes de cliente rhncfg</target></trans-unit>
         <trans-unit id="targetsystems.jsp.pending">
           <source>Package installations currently pending.</source>
         <target>Instalações de Pacote atualmente pendentes.</target></trans-unit>
@@ -11275,7 +11500,19 @@ o &lt;strong&gt;Guia de Administração de Sistemas Red Hat Enterprise Li
         </context-group>
      <target>Os canais de configuração listados abaixo são &lt;strong&gt;gerenciados centralmente&lt;/strong&gt;. Isto significa que qualquer sistema registrado no @@PRODUCT_NAME@@ pode se inscrever nos canais de configuração abaixo. Qualquer modificação realizada nestes arquivos dentro de um destes canais, afetará todos os sistemas inscritos neste canal. </target></trans-unit>
 
+     <trans-unit id="toolbar.create.configchannel">
+        <source>create new config channel</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/GlobalConfigChannelList.do</context>
+        </context-group>
+     <target>criar um novo canal de configuração</target></trans-unit>
 
+     <trans-unit id="toolbar.create.org">
+        <source>create new organization</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/multiorg/Organizations.do</context>
+        </context-group>
+     <target>criar nova organização</target></trans-unit>
 
      <trans-unit id="globalconfiglist.jsp.noChannels">
         <source>No configuration channels</source>
@@ -11343,6 +11580,12 @@ o &lt;strong&gt;Guia de Administração de Sistemas Red Hat Enterprise Li
           <context context-type="sourcefile">/rhn/configuration/ChannelOverview.do</context>
         </context-group>
      <target>Você precisa inserir os detalhes de canal de configuração abaixo.</target></trans-unit>
+     <trans-unit id="toolbar.delete.configchannel">
+<source>delete channel</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/ChannelOverview.do</context>
+        </context-group>
+     <target>deletar canal</target></trans-unit>
    <trans-unit id="channelOverview.jsp.newToolbar">
 <source>New Config Channel</source>
         <context-group name="ctx">
@@ -12543,6 +12786,24 @@ de configuração centralmente gerenciado pelo arquivo, {2}; segue abaixo uma li
 	</context-group>
 	<target>&lt;strong&gt;Dica:&lt;/strong&gt; Insira a destinação do symlink como conteúdos de arquivo</target></trans-unit>
 		<!-- form error messages -->
+	<trans-unit id="config-file-form.error.user-invalid">
+<source>User must be a valid Linux user name or user id, of 32 characters or less.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
+        </context-group>
+     <target>O Usuário deve ser um nome de usuário do Linux válido ou uma id de usuário, com menos de 32 caractéres.</target></trans-unit>
+	<trans-unit id="config-file-form.error.group-invalid">
+<source>Group must be a valid Linux group name or group id, of 32 characters or less.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
+        </context-group>
+     <target>Um Grupo deve ser um nome de grupo Linux válido ou uma id de grupo, com menos de  32 caractéres.</target></trans-unit>
+	<trans-unit id="config-file-form.error.mode-invalid">
+<source>Permissions must be a valid Linux permissions set (4 octal digits)</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
+        </context-group>
+     <target>As permissões devem ser conjuntos de permissões Linux válidas (4 dígitos)</target></trans-unit>
 	<trans-unit id="config-file-form.error.selinux-invalid">
 <source>Invalid values set for SElinux Context.</source>
         <context-group name="ctx">
@@ -12551,6 +12812,18 @@ de configuração centralmente gerenciado pelo arquivo, {2}; segue abaixo uma li
      <target>Configuração de valores inválidos para o Contexto SELinux.</target></trans-unit>
 
 
+	<trans-unit id="config-file-form.error.start-delim-percent">
+<source>Start delimiter may not contain the '%' character.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
+        </context-group>
+     <target>Início do delimitador pode não conter o caractere '%'</target></trans-unit>
+	<trans-unit id="config-file-form.error.end-delim-percent">
+<source>End delimiter may not contain the '%' character.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
+        </context-group>
+     <target>O Final do delimitador pode não conter o caractere '%'.</target></trans-unit>
 
 		<!-- filedetails errors -->
 	<trans-unit id="filedetails.jsp.error.download">
@@ -12574,6 +12847,24 @@ de configuração centralmente gerenciado pelo arquivo, {2}; segue abaixo uma li
           <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
         </context-group>
      <target>baixar revisão mais recente</target></trans-unit>
+	<trans-unit id="toolbar.delete.configfile">
+<source>delete this file revision</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
+        </context-group>
+     <target>remover esta revisão de arquivo</target></trans-unit>
+	<trans-unit id="toolbar.delete.org">
+<source>delete organization</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
+        </context-group>
+     <target>remover organização</target></trans-unit>
+	<trans-unit id="toolbar.delete.deletefile">
+<source>delete this file</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
+        </context-group>
+     <target>Remover este arquivo</target></trans-unit>
 	<trans-unit id="filedetails.jsp.download">
 <source>download file revision</source>
         <context-group name="ctx">
@@ -13261,6 +13552,9 @@ para qualquer uma das revisões, assim como todo o histórico de implementação
         <trans-unit id="manage.jsp.uploadbutton">
           <source>Upload File</source>
         <target>Upload do Arquivo</target></trans-unit>
+        <trans-unit id="toolbar.create.revision">
+          <source>create new revision</source>
+        <target>criar nova revisão</target></trans-unit>
         <trans-unit id="manage.jsp.success">
           <source>&lt;a href="{0}"&gt;Revision {1}&lt;/a&gt; successfully uploaded.</source>
         <target>&lt;a href="{0}"&gt;Revisão {1}&lt;/a&gt; carregada com sucesso.</target></trans-unit>
@@ -15060,6 +15354,12 @@ a aba &lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;Chaves de At
         </context-group>
     <target>Remover Script de Kickstart</target></trans-unit>
 
+    <trans-unit id="toolbar.delete.kickstartscript">
+        <source>delete kickstart script</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/kickstart/KickstartDeleteSetup</context>
+        </context-group>
+    <target>remover script de kickstart</target></trans-unit>
 
     <trans-unit id="kickstart.clone.jsp.clone">
         <source>Clone Kickstart</source>
@@ -15295,12 +15595,102 @@ a aba &lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;Chaves de At
 	    <target>Válido</target></trans-unit>
     </group>
 
+    <trans-unit id="preferences.jsp.lang.bn_IN">
+        <source>Bengali</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/account/LocalePreferences.do</context>
+        </context-group>
+    <target>Bengalês</target></trans-unit>
+    <trans-unit id="preferences.jsp.lang.de">
+        <source>German</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/account/LocalePreferences.do</context>
+        </context-group>
+    <target>Alemão</target></trans-unit>
     <trans-unit id="preferences.jsp.lang.en_US">
         <source>English</source>
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/account/LocalePreferences.do</context>
         </context-group>
     <target>Inglês</target></trans-unit>
+    <trans-unit id="preferences.jsp.lang.es">
+        <source>Spanish</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/account/LocalePreferences.do</context>
+        </context-group>
+    <target>Espanhol</target></trans-unit>
+    <trans-unit id="preferences.jsp.lang.fr">
+        <source>French</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/account/LocalePreferences.do</context>
+        </context-group>
+    <target>Francês</target></trans-unit>
+    <trans-unit id="preferences.jsp.lang.gu">
+        <source>Gujarati</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/account/LocalePreferences.do</context>
+        </context-group>
+    <target>Guzerate</target></trans-unit>
+    <trans-unit id="preferences.jsp.lang.hi">
+        <source>Hindi</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/account/LocalePreferences.do</context>
+        </context-group>
+    <target>Hindi</target></trans-unit>
+    <trans-unit id="preferences.jsp.lang.it">
+        <source>Italian</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/account/LocalePreferences.do</context>
+        </context-group>
+    <target>Italiano</target></trans-unit>
+    <trans-unit id="preferences.jsp.lang.ja">
+        <source>Japanese</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/account/LocalePreferences.do</context>
+        </context-group>
+    <target>Japonês</target></trans-unit>
+    <trans-unit id="preferences.jsp.lang.ko">
+        <source>Korean</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/account/LocalePreferences.do</context>
+        </context-group>
+    <target>Coreano</target></trans-unit>
+    <trans-unit id="preferences.jsp.lang.pa">
+        <source>Punjabi</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/account/LocalePreferences.do</context>
+        </context-group>
+    <target>Punjabi</target></trans-unit>
+    <trans-unit id="preferences.jsp.lang.pt_BR">
+        <source>Brazilian Portuguese</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/account/LocalePreferences.do</context>
+        </context-group>
+    <target>Português Brasileiro</target></trans-unit>
+    <trans-unit id="preferences.jsp.lang.ru">
+        <source>Russian</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/account/LocalePreferences.do</context>
+        </context-group>
+    <target>Russo</target></trans-unit>
+    <trans-unit id="preferences.jsp.lang.ta">
+        <source>Tamil</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/account/LocalePreferences.do</context>
+        </context-group>
+    <target>Támil</target></trans-unit>
+    <trans-unit id="preferences.jsp.lang.zh_TW">
+        <source>Traditional Chinese</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/account/LocalePreferences.do</context>
+        </context-group>
+    <target>Chinês Tradicional</target></trans-unit>
+    <trans-unit id="preferences.jsp.lang.zh_CN">
+        <source>Simplified Chinese</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/account/LocalePreferences.do</context>
+        </context-group>
+    <target>Chinês Simplificado</target></trans-unit>
     <trans-unit id="preferences.jsp.lang.none">
         <source>Use Browser Settings</source>
         <context-group name="ctx">
@@ -15913,6 +16303,12 @@ O Caminho de Árvore, Kickstart RPM, Canal de Base e a Geração do Instalador d
         </context-group>
       <target>Opções do perfil do kickstart atualizadas com sucesso.</target></trans-unit>
 
+    <trans-unit id="toolbar.delete.filelist">
+        <source>delete file preservation list</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/systems/provisioning/preservation/PreservationListEdit.do</context>
+        </context-group>
+    <target>remover lista de preservação de arquivos</target></trans-unit>
 
 
   <!--Export Columns  -->
@@ -15920,13 +16316,46 @@ O Caminho de Árvore, Kickstart RPM, Canal de Base e a Geração do Instalador d
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/configuration/ConfigChannelList.do</context>
       </context-group>
+        <trans-unit id="exportcolumn.associatedSystem">
+            <source>System</source>
+        <target>Sistemas</target></trans-unit>
         <trans-unit id="exportcolumn.errataAdvisoryType">
             <source>Advisory Type</source>
         <target>Tipo de Informe (Advisory)</target></trans-unit>
+        <trans-unit id="exportcolumn.advisorySynopsis">
+            <source>Synopsis</source>
+        <target>Sinopse</target></trans-unit>
+        <trans-unit id="exportcolumn.errataStatus">
+            <source>Status</source>
+        <target>Estado</target></trans-unit>
+        <trans-unit id="exportcolumn.updateDate">
+            <source>Updated</source>
+        <target>Atualizado</target></trans-unit>
+        <trans-unit id="exportcolumn.suiteName">
+            <source>Suite Name</source>
+        <target>Nome do Conjunto</target></trans-unit>
+        <trans-unit id="exportcolumn.systemCount">
+            <source>System Count</source>
+        <target>Número de Sistemas</target></trans-unit>
 
+        <trans-unit id="exportcolumn.status">
+            <source>Status</source>
+        <target>Estado</target></trans-unit>
 
+        <trans-unit id="exportcolumn.entryDate">
+            <source>Timestamp</source>
+        <target>Carimbo de Data e Hora</target></trans-unit>
 
+        <trans-unit id="exportcolumn.state">
+            <source>State</source>
+        <target>Estado</target></trans-unit>
 
+        <trans-unit id="exportcolumn.message">
+            <source>Message</source>
+        <target>Mensagem</target></trans-unit>
+        <trans-unit id="exportcolumn.issueDate">
+            <source>Issue Date</source>
+        <target>Data de Emissão</target></trans-unit>
      </group>
 
     <trans-unit id="virtualization.provision.first.jsp.no.profiles">
@@ -16903,7 +17332,19 @@ O Caminho de Árvore, Kickstart RPM, Canal de Base e a Geração do Instalador d
             </context-group>
          </trans-unit>
 
+         <trans-unit id="toolbar.create.note">
+            <source>create new note</source>
+            <context-group name="ctx">
+            <context context-type="sourcefile">/systems/details/Note.do</context>
+            </context-group>
+         </trans-unit>
 
+         <trans-unit id="toolbar.delete.note">
+            <source>delete note</source>
+            <context-group name="ctx">
+            <context context-type="sourcefile">/systems/details/Note.do</context>
+            </context-group>
+         </trans-unit>
 
          <trans-unit id="edit_note.jsp.update">
            <source>Update</source>
@@ -19279,6 +19720,12 @@ given channel.</source>
       <target>Você pode escolher dar privilégio de acesso a este canal às organizações
          abaixo, ou bloquearo o acesso das mesmas. Você pode modificar o acesso a este/n         canal em qualquer momento de uso da tab 'Organizations' acima.
 </target></trans-unit>
+      <trans-unit id="toolbar.delete.software.channel">
+        <source>delete software channel</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
+        </context-group>
+      <target>deletar canal de software</target></trans-unit>
       <trans-unit id="button.denyaccess.confirm">
         <source>Deny Access and Confirm</source>
         <context-group name="ctx">
@@ -19297,6 +19744,12 @@ given channel.</source>
           <context context-type="sourcefile">/rhn/channels/software/Search.do</context>
         </context-group>
       <target>Buscar</target></trans-unit>
+       <trans-unit id="toolbar.delete.channel">
+         <source>delete software channel</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/manage/errata//Add.do</context>
+        </context-group>
+     <target>deletar canal de software</target></trans-unit>
        <trans-unit id="header.jsp.errata.add">
          <source>Add Errata</source>
         <context-group name="ctx">
@@ -19383,9 +19836,36 @@ given channel.</source>
          If you are requesting an organizational default kickstart, ensure that a kickstart has been selected as the "Organization Default".</source>
      <target>O arquivo do kickstart solicitado não foi encontrado.
            Se você estiver solicitando um kickstart padrão organizacional, assegure-se de que um kickstart foi selecionado como "Organização Padrão".</target></trans-unit>
+     <trans-unit id="task.status.current.db.time">
+         <source>Current DB Time</source>
+     <target>Chave Corrente</target></trans-unit>
      <trans-unit id="task.status.last.execution">
          <source>Last Execution Times</source>
      <target>Tempo de Execução do Script</target></trans-unit>
+     <trans-unit id="task.status.last.completed">
+         <source>Last Completed Action</source>
+     <target>Ações Concluídas</target></trans-unit>
+     <trans-unit id="task.status.session-cleanup">
+         <source>Session Cleanup</source>
+     <target>Limpeza de Sessão</target></trans-unit>
+     <trans-unit id="task.status.errata-queue">
+         <source>Errata Notification Queue</source>
+     <target>Enviar Notificação da Errata</target></trans-unit>
+     <trans-unit id="task.status.errata-mailer">
+         <source>Errata Notification Mail</source>
+     <target>Enviar Notificação da Errata</target></trans-unit>
+     <trans-unit id="task.status.summary-population">
+         <source>Daily Summary Queue</source>
+     <target>Sumário Diário:</target></trans-unit>
+     <trans-unit id="task.status.daily-summary">
+         <source>Daily Summary Mail</source>
+     <target>Sumário Diário:</target></trans-unit>
+     <trans-unit id="task.status.clean-current-alerts">
+         <source>Clean Current Alerts</source>
+     <target>Versão Atual</target></trans-unit>
+     <trans-unit id="task.status.sync-probe-state">
+         <source>Sync Probe State</source>
+     <target>Estado das Detecções</target></trans-unit>
      <trans-unit id="task.status.message">
          <source>The following is a status report for the various tasks run by the @@PRODUCT_NAME@@ task engine:</source>
      <target>Segue abaixo o relatório de status para as diversas tarefas pelo mecanismo da tarefa @@PRODUCT_NAME@@:</target></trans-unit>

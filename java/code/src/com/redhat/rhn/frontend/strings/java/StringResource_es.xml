@@ -1889,6 +1889,12 @@ asegurarse de que estén disponibles para que este perfil kickstart funcione apr
          </context-group>
        <target>El nombre de archivo del fragmento kickstart solicitado no es válido. El nombre de archivo del fragmento Kickstart no puede contener barra oblicua (/) ni comenzar por punto(.) </target></trans-unit>
 
+      <trans-unit id="toolbar.delete.snippets">
+<source>delete snippet</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/kickstart/cobbler/CobblerSnippetEdit</context>
+        </context-group>
+      <target>borrar fragmento</target></trans-unit>
 
       <trans-unit id="kickstart.iprange.url">
         <source>New systems can be kickstarted based upon their ip address by appending &lt;code&gt;{0}&lt;/code&gt; to the kernel parameters for a kickstart install.</source>
@@ -2233,18 +2239,97 @@ asegurarse de que estén disponibles para que este perfil kickstart funcione apr
         </context-group>
       <target>Active o desactive todos los elementos de esta página</target></trans-unit>
 
+      <trans-unit id="toolbar.create.filter">
+<source>create new notification filter</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/users/UserList</context>
+        </context-group>
+      <target>crear nuevo filtro de notificación</target></trans-unit>
 
+     <trans-unit id="toolbar.upload.kickstart">
+<source>upload new kickstart file</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/users/UserList</context>
+        </context-group>
+      <target>subir un nuevo perfil kickstart</target></trans-unit>
 
+     <trans-unit id="toolbar.create.kickstart">
+<source>create new kickstart profile</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/users/UserList</context>
+        </context-group>
+      <target>crear un nuevo perfil kickstart</target></trans-unit>
 
+      <trans-unit id="toolbar.create.kickstartdata">
+<source>create new kickstart</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/users/UserList</context>
+        </context-group>
+      <target>crear un nuevo kickstart</target></trans-unit>
 
+      <trans-unit id="toolbar.clone.kickstart">
+<source>clone kickstart</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/users/UserList</context>
+        </context-group>
+      <target>clonar kickstart</target></trans-unit>
 
+      <trans-unit id="toolbar.delete.CryptoKeyDelete">
+<source>delete key</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/keys/CryptoKeyEdit</context>
+        </context-group>
+      <target>borrar llave</target></trans-unit>
 
+      <trans-unit id="toolbar.create.user">
+<source>create new user</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/users/UserList</context>
+        </context-group>
+      <target>crear nuevo usuario</target></trans-unit>
 
+      <trans-unit id="toolbar.create.erratum">
+<source>create new erratum</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/errata/UnpublishedErrata</context>
+          <context context-type="sourcefile">/rhn/errata/PublishedErrata</context>
+        </context-group>
+      <target>crear nueva errata</target></trans-unit>
 
+      <trans-unit id="toolbar.create.group">
+<source>create new group</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/SystemGroupList</context>
+        </context-group>
+      <target>crear nuevo grupo</target></trans-unit>
 
+      <trans-unit id="toolbar.create.probe">
+<source>create new probe</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails</context>
+        </context-group>
+      <target>crear nuevo sondeo</target></trans-unit>
 
+        <trans-unit id="toolbar.delete.probe">
+<source>delete probe</source>
+            <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails</context>
+        </context-group>
+        <target>borrar sondeo</target></trans-unit>
 
+        <trans-unit id="toolbar.delete.user">
+<source>delete user</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">User details pages</context>
+        </context-group>
+    <target>borrar usuario</target></trans-unit>
 
+      <trans-unit id="toolbar.delete.erratum">
+<source>delete erratum</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Errata details pages</context>
+        </context-group>
+      <target>borrar errata</target></trans-unit>
 
       <trans-unit id="toolbar.delete.system">
 <source>delete system</source>
@@ -2264,11 +2349,47 @@ asegurarse de que estén disponibles para que este perfil kickstart funcione apr
           <context context-type="sourcefile">System Group pages</context>
         </context-group>
       <target>trabajar con grupo</target></trans-unit>
+      <trans-unit id="toolbar.delete.errata">
+<source>delete errata</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">Errata edit page</context>
+        </context-group>
+      <target>borrar errata</target></trans-unit>
 
+     <trans-unit id="toolbar.delete.kickstart">
+        <source>delete kickstart</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">Kickstart profile pages</context>
+        </context-group>
+      <target>borrar kickstart</target></trans-unit>
 
+      <trans-unit id="toolbar.delete.deleteTree">
+        <source>delete distribution</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">rhn/Kickstart/TreeEdit.do</context>
+        </context-group>
+      <target>borrar distribución</target></trans-unit>
 
+      <trans-unit id="toolbar.create.probesuite">
+<source>create new probe suite</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuites.do</context>
+        </context-group>
+      <target>crear nuevo conjunto de sondeos</target></trans-unit>
 
+      <trans-unit id="toolbar.create.probesuitesystem">
+<source>add systems to probe suite</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/monitoring/config/ProbeSuites.do</context>
+        </context-group>
+      <target>añadir sistema al conjunto de sondeos</target></trans-unit>
 
+      <trans-unit id="toolbar.delete.profile">
+<source>delete profile</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/packages/profiles/CompareProfiles.do</context>
+        </context-group>
+      <target>borrar perfil</target></trans-unit>
 
       <trans-unit id="message.unscheduled.system">
 <source>&lt;strong&gt;{0}&lt;/strong&gt; unscheduled for &lt;strong&gt;{1}&lt;/strong&gt; system.</source>
@@ -5419,7 +5540,19 @@ de este usuario antes de intentar desactivar esta cuenta.</target></trans-unit>
         </context-group>
       <target>El certificado ha sido cargado. @@PRODUCT_NAME@@ ha sido reactivado.</target></trans-unit>
 
+    <trans-unit id="certificate.config.error.10">
+        <source>Could not parse certificate file, see log file for more details.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
+        </context-group>
+      <target>No se pudo analizar el archivo de certificado.</target></trans-unit>
 
+    <trans-unit id="certificate.config.error.11">
+        <source>Certificate expired</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
+        </context-group>
+      <target>Certificado vencido</target></trans-unit>
 
     <trans-unit id="certificate.config.error.12">
         <source>Unknown @@PRODUCT_NAME@@ version, see log file for more details.</source>
@@ -5428,15 +5561,75 @@ de este usuario antes de intentar desactivar esta cuenta.</target></trans-unit>
         </context-group>
       <target>Versión de @@PRODUCT_NAME@@ desconocida</target></trans-unit>
 
+    <trans-unit id="certificate.config.error.20">
+        <source>Remote activation failure, see log file for more details.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
+        </context-group>
+      <target>Activación remota fallida</target></trans-unit>
 
+    <trans-unit id="certificate.config.error.30">
+        <source>Local activation failure, see log file for more details.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
+        </context-group>
+      <target>Falla en la activación local, revise los archivos de registro para obtener más detalles.</target></trans-unit>
 
+    <trans-unit id="certificate.config.error.40">
+        <source>Channel population failure, see log file for more details.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
+        </context-group>
+      <target>Llenado de canal fallido</target></trans-unit>
 
+    <trans-unit id="certificate.config.error.80">
+        <source>No management entitlements remaining</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
+        </context-group>
+      <target>No hay derechos administrativos restantes</target></trans-unit>
 
+    <trans-unit id="certificate.config.error.82">
+        <source>@@PRODUCT_NAME@@ channel not found</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
+        </context-group>
+      <target>Canal de @@PRODUCT_NAME@@ no encontrado</target></trans-unit>
 
+    <trans-unit id="certificate.config.error.83">
+        <source>No @@PRODUCT_NAME@@ channel entitlements remaining</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
+        </context-group>
+      <target>No hay derechos de canal de @@PRODUCT_NAME@@ restantes</target></trans-unit>
 
+    <trans-unit id="certificate.config.error.84">
+        <source>Invalid @@PRODUCT_NAME@@ certificate</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
+        </context-group>
+      <target>Certificado de @@PRODUCT_NAME@@ inválido</target></trans-unit>
 
+    <trans-unit id="certificate.config.error.85">
+        <source>Unknown activation error, see log file for more details.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
+        </context-group>
+      <target>Error de activación desconocido, revise el archivo de registro para obtener más detalles.</target></trans-unit>
 
+    <trans-unit id="certificate.config.error.86">
+        <source>@@PRODUCT_NAME@@ has no base channel on parent server</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
+        </context-group>
+      <target>@@PRODUCT_NAME@@ no tiene canal base en el servidor de nivel superior</target></trans-unit>
 
+    <trans-unit id="certificate.config.error.87">
+        <source>No @@PRODUCT_NAME@@ channel available for this version</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
+        </context-group>
+      <target>No hay canales de @@PRODUCT_NAME@@ disponibles para esta versión</target></trans-unit>
 
     <trans-unit id="certificate.config.error.127">
         <source>Unhandled error, see log file for more details.</source>
@@ -5453,7 +5646,19 @@ de este usuario antes de intentar desactivar esta cuenta.</target></trans-unit>
       <target>Nombre de host de servidor de @@PRODUCT_NAME@@</target></trans-unit>
 
 
+    <trans-unit id="bootstrap.config.error.10">
+        <source>A script with that name already exists</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
+        </context-group>
+      <target>Ya existe un script con este nombre</target></trans-unit>
 
+    <trans-unit id="bootstrap.config.error.11">
+        <source>Invalid script name</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
+        </context-group>
+      <target>Nombre de script inválido</target></trans-unit>
 
     <trans-unit id="bootstrap.config.error.12">
         <source>Invalid arguments</source>
@@ -5462,10 +5667,41 @@ de este usuario antes de intentar desactivar esta cuenta.</target></trans-unit>
         </context-group>
       <target>Argumentos inválidos</target></trans-unit>
 
+    <trans-unit id="bootstrap.config.error.13">
+        <source>Could not parse httpd proxy URL</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
+        </context-group>
+      <target>No se pudo analizar la URL del proxy httpd</target></trans-unit>
 
+    <trans-unit id="bootstrap.config.error.14">
+        <source>Cannot find pub tree</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
+        </context-group>
+      <target>No se puede encontrar el árbol pub</target></trans-unit>
 
+    <trans-unit id="bootstrap.config.error.15">
+        <source>The hostname was not valid</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
+          <context context-type="sourcefile">/rhn/admin/config/GeneralConfig</context>
+        </context-group>
+      <target>El nombre de host no era válido</target></trans-unit>
 
+    <trans-unit id="bootstrap.config.error.16">
+        <source>Could not find the CA certificate</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
+        </context-group>
+      <target>No se pudo encontrar el certificado CA</target></trans-unit>
 
+    <trans-unit id="bootstrap.config.error.17">
+        <source>Could not find GPG key</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
+        </context-group>
+      <target>No se pudo encontrar la llave GPG</target></trans-unit>
 
     <trans-unit id="bootstrap.config.error.127">
         <source>Unhandled error</source>
@@ -5773,6 +6009,12 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
         </context-group>
       <target>La distribución kickstart no es válida debido a un error en la ruta base del kernel o la imagen initrd. Para hacer que su distribución personalizada sea válida, por favor seleccione la distribución y modifique su ruta base apropiadamente.</target></trans-unit>
 
+      <trans-unit id="kickstart.troubleshooting.validation.kernelparams.too_long">
+        <source>Extra kernel parameters can be no longer than 128 characters.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/kickstart/Troubleshooting.do</context>
+        </context-group>
+      <target>Los parámetros adicionales del kernel no pueden tener más de 128 caracteres.</target></trans-unit>
 
       <trans-unit id="kickstart.locale.success">
         <source>Kickstart locale options updated.</source>
@@ -5781,6 +6023,12 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
         </context-group>
       <target>Opciones locales de Kickstart actualizadas.</target></trans-unit>
 
+      <trans-unit id="kickstart.locale.validation.timezone.invalid">
+        <source>Invalid timezone.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/kickstart/Locale.do</context>
+        </context-group>
+      <target>Zona horaria no válida.</target></trans-unit>
 
       <trans-unit id="kickstart.script.delete">
         <source>Kickstart Script Deleted.</source>
@@ -6119,8 +6367,26 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
         </context-group>
       <target>entorno de prueba para {0}</target></trans-unit>
 
+      <trans-unit id="config_channel.local_override">
+        <source>Locally-Managed</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/file/CompareCopy.do</context>
+        </context-group>
+      <target>Administrado localmente</target></trans-unit>
 
+      <trans-unit id="config_channel.normal">
+        <source>Centrally-Managed</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/file/CompareCopy.do</context>
+        </context-group>
+      <target>Administrado centralmente</target></trans-unit>
 
+      <trans-unit id="config_channel.server_import">
+        <source>Sandbox</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/file/CompareCopy.do</context>
+        </context-group>
+      <target>Entorno de prueba</target></trans-unit>
 
 
 
@@ -6461,9 +6727,93 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
                 <context context-type="sourcefile">Every Caller of ConfigActionHelper.makeFileCountsMessage</context>
             </context-group>
 
+	     <trans-unit id="config.files_0_dirs_0_symlinks_0_url">
+			<source>No files, directories or symlinks. &lt;a href="{0}"&gt; Add&lt;/a&gt;</source>
+	     <target>No hay archivos, directorios o enlaces simbólicos. &lt;a href="{0}"&gt; Añadir&lt;/a&gt;</target></trans-unit>
 
+	     <trans-unit id="config.files_0_dirs_0_symlinks_0">
+			<source>No files, directories or symlinks.</source>
+	     <target>No hay archivos, directorios o enlaces simbólicos.</target></trans-unit>
+	     <trans-unit id="config.files_0_dirs_0_symlinks_1">
+			<source>{2} symlink</source>
+	     <target>{2} enlace simbólico</target></trans-unit>
+	     <trans-unit id="config.files_0_dirs_0_symlinks_2">
+			<source>{2} symlinks</source>
+	     <target>{2} enlaces simbólicos</target></trans-unit>
+	     <trans-unit id="config.files_0_dirs_1_symlinks_0">
+			<source>{1} directory</source>
+	     <target>{1} directorio</target></trans-unit>
+	     <trans-unit id="config.files_0_dirs_1_symlinks_1">
+			<source>{1} directory and {2} symlink</source>
+	     <target>{1} directorio y un {2} enlace simbólico</target></trans-unit>
+	     <trans-unit id="config.files_0_dirs_1_symlinks_2">
+			<source>{1} directory and {2} symlinks</source>
+	     <target>{1} directorio y {2} enlaces simbólicos</target></trans-unit>
+	     <trans-unit id="config.files_0_dirs_2_symlinks_0">
+			<source>{1} directories</source>
+	     <target>{1} directorios</target></trans-unit>
+	     <trans-unit id="config.files_0_dirs_2_symlinks_1">
+			<source>{1} directories and {2} symlink</source>
+	     <target>{1} directorios y {2} enlace simbólico</target></trans-unit>
+	     <trans-unit id="config.files_0_dirs_2_symlinks_2">
+			<source>{1} directories and {2} symlinks</source>
+	     <target>{1} directorios y {2} enlaces simbólicos</target></trans-unit>
 
+	     <trans-unit id="config.files_1_dirs_0_symlinks_0">
+			<source>{0} file</source>
+	     <target>{0} archivo</target></trans-unit>
+	     <trans-unit id="config.files_1_dirs_0_symlinks_1">
+			<source>{0} file and {2} symlink</source>
+	     <target>{0} archivo y {2} enlace simbólico</target></trans-unit>
+	     <trans-unit id="config.files_1_dirs_0_symlinks_2">
+			<source>{0} file and {2} symlinks</source>
+	     <target>{0} archivo y {2} enlaces simbólicos</target></trans-unit>
+	     <trans-unit id="config.files_1_dirs_1_symlinks_0">
+			<source>{0} file and {1} directory</source>
+	     <target>{0} archivo y {1} directorio</target></trans-unit>
+	     <trans-unit id="config.files_1_dirs_1_symlinks_1">
+			<source>{0} file and {1} directory and {2} symlink</source>
+	     <target>{0} archivo y {1} directorio y {2} enlace simbólico</target></trans-unit>
+	     <trans-unit id="config.files_1_dirs_1_symlinks_2">
+			<source>{0} file and {1} directory and {2} symlinks</source>
+	     <target>{0} archivo y {1} directorio y {2} enlaces simbólicos</target></trans-unit>
+	     <trans-unit id="config.files_1_dirs_2_symlinks_0">
+			<source>{0} file and {1} directories</source>
+	     <target>{0} archivo y {1} directorios</target></trans-unit>
+	     <trans-unit id="config.files_1_dirs_2_symlinks_1">
+			<source>{0} file and {1} directories and {2} symlink</source>
+	     <target>{0} archivo y {1} directorios y {2} enlace simbólico</target></trans-unit>
+	     <trans-unit id="config.files_1_dirs_2_symlinks_2">
+			<source>{0} file and {1} directories and {2} symlinks</source>
+	     <target>{0} archivo y {1} directorios y {2} enlaces simbólicos</target></trans-unit>
 
+	     <trans-unit id="config.files_2_dirs_0_symlinks_0">
+			<source>{0} files</source>
+	     <target>{0} archivos</target></trans-unit>
+	     <trans-unit id="config.files_2_dirs_0_symlinks_1">
+			<source>{0} files and {2} symlink</source>
+	     <target>{0} archivos y {2} enlace simbólico</target></trans-unit>
+	     <trans-unit id="config.files_2_dirs_0_symlinks_2">
+			<source>{0} files and {2} symlinks</source>
+	     <target>{0} archivos y {2} enlaces simbólicos</target></trans-unit>
+	     <trans-unit id="config.files_2_dirs_1_symlinks_0">
+			<source>{0} files and {1} directory</source>
+	     <target>{0} archivos y {1} directorio</target></trans-unit>
+	     <trans-unit id="config.files_2_dirs_1_symlinks_1">
+			<source>{0} files and {1} directory and {2} symlink</source>
+	     <target>{0} archivos y {1} directorio y {2} enlace simbólico</target></trans-unit>
+	     <trans-unit id="config.files_2_dirs_1_symlinks_2">
+			<source>{0} files and {1} directory and {2} symlinks</source>
+	     <target>{0} archivos y {1} directorio y {2} enlaces simbólicos</target></trans-unit>
+	     <trans-unit id="config.files_2_dirs_2_symlinks_0">
+			<source>{0} files and {1} directories</source>
+	     <target>{0} archivos y {1} directorios</target></trans-unit>
+	     <trans-unit id="config.files_2_dirs_2_symlinks_1">
+			<source>{0} files and {1} directories and {2} symlink</source>
+	     <target>{0} archivos y {1} directorios y {2} enlace simbólico</target></trans-unit>
+	     <trans-unit id="config.files_2_dirs_2_symlinks_2">
+			<source>{0} files and {1} directories and {2} symlinks</source>
+	     <target>{0} archivos y {1} directorios y {2} enlaces simbólicos</target></trans-unit>
 	</group>
 
     <group>
@@ -6530,11 +6880,47 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
       <target>Todos los sistemas</target></trans-unit>
 
 
+      <trans-unit id="systems.details.virt.guest.virt.shutdown">
+        <source>Shutdown</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
+        </context-group>
+      <target>Apagar</target></trans-unit>
 
+      <trans-unit id="systems.details.virt.guest.virt.start">
+        <source>Start</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
+        </context-group>
+      <target>Iniciar</target></trans-unit>
 
+      <trans-unit id="systems.details.virt.guest.virt.suspend">
+        <source>Suspend</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
+        </context-group>
+      <target>Suspender</target></trans-unit>
 
+      <trans-unit id="systems.details.virt.guest.virt.resume">
+        <source>Resume</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
+        </context-group>
+      <target>Reanudar</target></trans-unit>
 
+      <trans-unit id="systems.details.virt.guest.virt.reboot">
+        <source>Restart</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
+        </context-group>
+      <target>Reiniciar</target></trans-unit>
 
+      <trans-unit id="systems.details.virt.guest.virt.destroy">
+        <source>Destroy</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
+        </context-group>
+      <target>Destruir</target></trans-unit>
 
       <trans-unit id="systems.details.virt.guest.virt.delete">
         <source>Delete</source>
@@ -6543,11 +6929,47 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
         </context-group>
       <target>Borrar</target></trans-unit>
 
+      <trans-unit id="systems.details.virt.guest.virt.setMemory">
+          <source>Set Memory ({0} MB)</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
+        </context-group>
+      <target>Establecer memoria ({0} MB)</target></trans-unit>
 
+      <trans-unit id="systems.details.virt.guest.virt.setVCPUs">
+          <source>Set Virtual CPUs ({0})</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
+        </context-group>
+      <target>Establecer CPU virtuales ({0})</target></trans-unit>
 
+      <trans-unit id="systems.details.virt.guest.already.running">
+        <source>This system is already running.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
+        </context-group>
+      <target>Este sistema ya está en ejecución.</target></trans-unit>
 
+      <trans-unit id="systems.details.virt.guest.already.stopped">
+        <source>This system is already stopped.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
+        </context-group>
+      <target>Este sistema ya está detenido.</target></trans-unit>
 
+      <trans-unit id="systems.details.virt.guest.already.paused">
+        <source>This system is already paused.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
+        </context-group>
+      <target>Este sistema ya está en pausa.</target></trans-unit>
 
+      <trans-unit id="systems.details.virt.guest.already.crashed">
+        <source>This system is crashed.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
+        </context-group>
+      <target>Este sistema está colgado.</target></trans-unit>
 
       <trans-unit id="systems.details.virt.vcpu.limit.msg">
           <source>Virtual CPUs limited to {0} on {1}.</source>
@@ -6591,9 +7013,27 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
         </context-group>
       <target>Ningún sistema virtual seleccionado.</target></trans-unit>
 
+      <trans-unit id="systems.details.virt.no.actions.scheduled">
+        <source>No actions scheduled.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
+        </context-group>
+      <target>Ninguna acción programada.</target></trans-unit>
+
+      <trans-unit id="systems.details.virt.one.actions.scheduled">
+        <source>Scheduled one action.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
+        </context-group>
+      <target>Una acción programada.</target></trans-unit>
 
 
-
+      <trans-unit id="systems.details.virt.no.virt.deleted">
+        <source>No virtual systems deleted.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
+        </context-group>
+      <target>Ningún sistema virtual borrado.</target></trans-unit>
 
       <trans-unit id="systems.details.virt.one.virt.deleted">
         <source>Deleted one virtual system.</source>
@@ -6602,6 +7042,12 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
         </context-group>
       <target>Un sistema virtual borrado.</target></trans-unit>
 
+      <trans-unit id="systems.details.virt.virt.deleted">
+        <source>Deleted {0} virtual systems.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
+        </context-group>
+      <target>{0} sistemas virtuales borrados.</target></trans-unit>
 
 	  <trans-unit id="sdc.channels.edit.base_channel_updated">
 <source>System's Base Channel has been updated.</source>
