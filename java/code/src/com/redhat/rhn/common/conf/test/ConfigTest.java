@@ -19,22 +19,19 @@ import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.testing.RhnBaseTestCase;
 import com.redhat.rhn.testing.TestUtils;
 
-import java.net.URL;
 import java.util.Iterator;
 import java.util.Properties;
 
 public class ConfigTest extends RhnBaseTestCase {
     static final String TEST_KEY = "user";
     static final String TEST_VALUE = "newval";
+    static final String TEST_CONF_LOCATION = "/usr/share/rhn/unit-tests/conf";
     private Config c;
 
     public void setUp() throws Exception {
-        URL url = TestUtils.findTestData("conf");
-        String path = url.getFile();
         c = new Config();
-        c.addPath(path + "/rhn.conf");
-        // add everything under /default regardless of extension
-        c.addPath(path + "/default");
+        c.addPath(TEST_CONF_LOCATION + "/default");
+        c.addPath(TEST_CONF_LOCATION);
         c.parseFiles();
     }
 
