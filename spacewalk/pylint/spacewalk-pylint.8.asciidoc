@@ -1,0 +1,24 @@
+spacewalk-pylint(8)
+===================
+
+NAME
+----
+spacewalk-pylint - Pylint configured for Spacewalk
+
+SYNOPSIS
+--------
+
+ spacewalk-pylint directory1 [directory2 ...]
+
+DESCRIPTION
+-----------
+
+spacewalk-pylint runs pylint for every *.py in directories passed as argument.
+It runs ordinary pylint with /etc/spacewalk-pylint.rc as configuration file.
+
+You very probably do not want to run it by yourself. It is run automaticaly
+during build process.
+
+FILES
+-----
+/etc/spacewalk-pylint.rc
