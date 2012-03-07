@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.3
+Version: 1.8.4
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -585,6 +585,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Mar 07 2012 Jan Pazdziora 1.8.4-1
+- partialy revert 423cfc6255b7e6d52da35f7e543ec38cd99e04c9 to return back
+  string which are dynamicaly created (msuchy@redhat.com)
+
 * Tue Mar 06 2012 Tomas Lestach <tlestach@redhat.com> 1.8.3-1
 - 799992 - remove the error message completely (tlestach@redhat.com)
 - prevent ISE on the rhn/channels/manage/errata/AddCustomErrata.do page
