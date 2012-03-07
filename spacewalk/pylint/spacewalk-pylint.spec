@@ -1,5 +1,5 @@
 Name:		spacewalk-pylint
-Version:	0.2
+Version:	0.3
 Release:	1%{?dist}
 Summary:	Pylint configuration for spacewalk python packages
 
@@ -50,6 +50,11 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Wed Mar 07 2012 Miroslav Suchý 0.3-1
+- add man page
+- Description lines must not exceed 80 characters
+- Summary must begin with capital letter
+
 * Wed Feb 15 2012 Michael Mraka <michael.mraka@redhat.com> 0.2-1
 - made it noarch package
 
