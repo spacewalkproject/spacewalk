@@ -1,4 +1,4 @@
--- oracle equivalent source sha1 a40f476aed74ffd95e6622b2c0eceb95fe2ac68a
+-- oracle equivalent source sha1 f428444d05e86f405df73b5a32d12f63e574850a
 --
 -- Copyright (c) 2008--2012 Red Hat, Inc.
 --
@@ -82,82 +82,6 @@ create or replace
 	 
 	return org_id_out;
     end;
-$$ language plpgsql;
-
-	-- paid users often don't have verified email addresses, so
-	-- try to find an address that is useful to us.
-create or replace
-	function find_mailable_address(user_id_in in numeric)
-	returns varchar as $$
-        declare
-		retval rhnEmailAddress.address%TYPE;
-                addr record;
-	begin
-		-- this would be so much prettier if we just had an order built
-		-- into rhnEmailAddressState
-		for addr in
-			select	ea.state_id, ea.address
-			from	rhnEmailAddressState eas,
-					rhnEmailAddress ea
-			where	ea.user_id = user_id_in
-				and eas.label = 'verified'
-				and ea.state_id = eas.id
-			union all
-			select	ea.state_id, ea.address
-			from	rhnEmailAddressState eas,
-					rhnEmailAddress ea
-			where	ea.user_id = user_id_in
-				and eas.label = 'unverified'
-				and ea.state_id = eas.id
-			union all
-			select	ea.state_id, ea.address
-			from	rhnEmailAddressState eas,
-					rhnEmailAddress ea
-			where	ea.user_id = user_id_in
-				and eas.label = 'pending'
-				and ea.state_id = eas.id
-			union all
-			select	ea.state_id, ea.address
-			from	rhnEmailAddressState eas,
-					rhnEmailAddress ea
-			where	ea.user_id = user_id_in
-				and eas.label = 'pending_warned'
-				and ea.state_id = eas.id
-			union all
-			select	ea.state_id, ea.address
-			from	rhnEmailAddressState eas,
-					rhnEmailAddress ea
-			where	ea.user_id = user_id_in
-				and eas.label = 'needs_verifying'
-				and ea.state_id = eas.id
-			union all
-			select	-1 as state_id,
-					email  as address
-			from	web_user_personal_info
-			where	web_user_id = user_id_in
-                loop
-			retval := addr.address;
-			if addr.address is null then
-				update web_user_contact_permission
-					set email = 'N'
-					where web_user_id = user_id_in;
-				return null;
-			end if;
-			if addr.state_id = -1 then
-				insert into rhnEmailAddress (
-						id, address,
-						user_id, state_id
-					) (
-						select	nextval('rhn_eaddress_id_seq'), addr.address,
-								user_id_in, eas.id
-						from	rhnEmailAddressState eas
-						where	eas.label = 'unverified'
-					);
-			end if;
-			return retval;
-		end loop;
-		return null;
-	end;
 $$ language plpgsql;
 
 create or replace

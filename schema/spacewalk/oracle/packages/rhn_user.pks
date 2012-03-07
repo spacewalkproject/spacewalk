@@ -27,8 +27,6 @@ is
     function get_org_id(user_id_in in number) return number;
     PRAGMA RESTRICT_REFERENCES(get_org_id, WNDS, RNPS, WNPS);
     
-	function find_mailable_address(user_id_in in number) return varchar2;
-
 	procedure add_servergroup_perm(
 		user_id_in in number,
 		server_group_id_in in number
