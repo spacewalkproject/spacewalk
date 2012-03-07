@@ -5973,6 +5973,12 @@ value for this entitlement, excluding the default organization's consumption.</s
           <context context-type="sourcefile">/rhn/schedule/PackageList</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="message.xccdfeval">
+<source>XCCDF scan has been &lt;a href="/rhn/schedule/ActionDetails.do?aid={0}"&gt;scheduled&lt;/a&gt; for &lt;a href="/rhn/systems/details/Overview.do?sid={1}"&gt;{2}&lt;/a&gt;</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/audit/ListScap.do</context>
+        </context-group>
+      </trans-unit>
     <trans-unit id="removeconfirm.jsp.runremotecommand">
 <source>Add Remote Command To Package Removal</source>
       <context-group name="ctx">
@@ -11680,6 +11686,36 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
        </trans-unit>
        <trans-unit id="errata.common.errataAlt">
          <source>erratum</source>
+       </trans-unit>
+     </group>
+
+     <group>
+       <context-group name="ctx">
+         <context context-type="sourcefile">Page for a new SCAP scan schedule</context>
+       </context-group>
+       <trans-unit id="system.audit.schedulexccdf.jsp.schedule">
+         <source>Schedule New XCCDF Scan</source>
+       </trans-unit>
+       <trans-unit id="system.audit.schedulexccdf.jsp.button">
+         <source>Schedule</source>
+       </trans-unit>
+       <trans-unit id="system.audit.confirmschedulexccdf.jsp.button">
+         <source>Confirm</source>
+       </trans-unit>
+       <trans-unit id="system.audit.schedulexccdf.jsp.command">
+         <source>Command</source>
+       </trans-unit>
+       <trans-unit id="system.audit.schedulexccdf.jsp.arguments">
+         <source>Command-line Arguments</source>
+       </trans-unit>
+       <trans-unit id="system.audit.schedulexccdf.jsp.path">
+         <source>Path to XCCDF document</source>
+       </trans-unit>
+       <trans-unit id="system.audit.schedulexccdf.jsp.xccdfEval">
+         <source>/usr/bin/oscap xccdf eval</source>
+       </trans-unit>
+       <trans-unit id="system.audit.schedulexccdf.jsp.tooltip">
+         <source>The --profile command-line argument might be required by certain versions of OpenSCAP. It determinates a particular profile from XCCDF document.</source>
        </trans-unit>
      </group>
 

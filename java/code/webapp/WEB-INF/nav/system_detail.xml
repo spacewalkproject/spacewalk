@@ -185,6 +185,9 @@
     <rhn-tab name="nav.system.audit.list_scans">
       <rhn-tab-url>/rhn/systems/details/audit/ListScap.do</rhn-tab-url>
     </rhn-tab>
+    <rhn-tab name="nav.system.audit.schedule">
+      <rhn-tab-url>/rhn/systems/details/audit/ScheduleXccdf.do</rhn-tab-url>
+    </rhn-tab>
   </rhn-tab>
 
   <rhn-tab name="Events">

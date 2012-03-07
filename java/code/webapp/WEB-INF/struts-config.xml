@@ -931,6 +931,22 @@
            <form-property name="submitted" type="java.lang.Boolean"/>
        </form-bean>
 
+	<!-- Audit forms -->
+	<form-bean name="scheduleXccdfForm"
+		type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
+		<form-property name="params" type="java.lang.String"/>
+		<form-property name="path" type="java.lang.String"/>
+		<form-property name="submitted" type="java.lang.Boolean"/>
+		<!-- fields needed by datePicker -->
+		<form-property name="use_date" type="java.lang.Boolean"/>
+		<form-property name="date_year" type="java.lang.Integer"/>
+		<form-property name="date_month" type="java.lang.Integer"/>
+		<form-property name="date_day" type="java.lang.Integer"/>
+		<form-property name="date_hour" type="java.lang.Integer"/>
+		<form-property name="date_minute" type="java.lang.Integer"/>
+		<form-property name="date_am_pm" type="java.lang.Integer"/>
+	</form-bean>
+
 	<!-- ConfigChannel forms -->
     <form-bean name="channelOverviewForm"
       type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm" >
@@ -2808,6 +2824,20 @@
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
         <forward name="default"
             path="/WEB-INF/pages/systems/details/audit/listscap.jsp"/>
+    </action>
+
+    <action path="/systems/details/audit/ScheduleXccdf"
+        scope="request"
+        name="scheduleXccdfForm"
+        input="/WEB-INF/pages/systems/details/audit/schedulexccdf.jsp"
+        type="com.redhat.rhn.frontend.action.systems.audit.ScheduleXccdfAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <forward name="default"
+            path="/WEB-INF/pages/systems/details/audit/schedulexccdf.jsp"/>
+        <forward name="error"
+            path="/WEB-INF/pages/systems/details/audit/schedulexccdf.jsp"/>
+        <forward name="submit" redirect="true"
+            path="/systems/details/audit/ListScap.do"/>
     </action>
 
     <!-- ===== SYSTEMS DETAILS ===== -->

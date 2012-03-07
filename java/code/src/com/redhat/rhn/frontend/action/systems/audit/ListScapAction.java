@@ -17,7 +17,6 @@ package com.redhat.rhn.frontend.action.systems.audit;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.manager.audit.ScapManager;
-import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.taglibs.list.helper.ListHelper;
@@ -35,8 +34,7 @@ import java.util.List;
  * @version $Rev$
  */
 
-public class ListScapAction extends RhnAction implements Listable {
-    public static final String SCAP_ENABLED = "scapEnabled";
+public class ListScapAction extends ScapAction implements Listable {
 
     public ActionForward execute(ActionMapping mapping, ActionForm formIn,
             HttpServletRequest request,
@@ -53,12 +51,5 @@ public class ListScapAction extends RhnAction implements Listable {
     public List getResult(RequestContext context) {
         Server server = context.lookupAndBindServer();
         return ScapManager.allScans(server);
-    }
-
-    private void setupScapEnablementInfo(RequestContext context) {
-        Server server = context.lookupAndBindServer();
-        User user = context.getLoggedInUser();
-        boolean enabled = ScapManager.isScapEnabled(server, user);
-        context.getRequest().setAttribute(SCAP_ENABLED, enabled);
     }
 }
