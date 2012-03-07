@@ -227,6 +227,7 @@ This package contains testing files of spacewalk-java.
 
 %files tests
 %{_datadir}/rhn/lib/rhn-test.jar
+%{_datadir}/rhn/unit-tests/*
 %{_datadir}/rhn/unittest.xml
 %{jardir}/mockobjects*.jar
 %{jardir}/strutstest*.jar
@@ -353,6 +354,7 @@ install -d -m 755 $RPM_BUILD_ROOT%{_initrddir}
 install -d -m 755 $RPM_BUILD_ROOT%{_bindir}
 install -d -m 755 $RPM_BUILD_ROOT%{_sysconfdir}/rhn
 install -d -m 755 $RPM_BUILD_ROOT%{_prefix}/share/rhn
+install -d -m 755 $RPM_BUILD_ROOT%{_prefix}/share/rhn/unit-tests
 install -d -m 755 $RPM_BUILD_ROOT%{_prefix}/share/rhn/lib
 install -d -m 755 $RPM_BUILD_ROOT%{_prefix}/share/rhn/classes
 install -d -m 755 $RPM_BUILD_ROOT%{_prefix}/share/rhn/config-defaults
@@ -372,6 +374,7 @@ install -m 755 scripts/unittest.xml $RPM_BUILD_ROOT/%{_datadir}/rhn/
 install -m 644 build/webapp/rhnjava/WEB-INF/lib/rhn.jar $RPM_BUILD_ROOT%{_datadir}/rhn/lib
 %if ! 0%{?omit_tests} > 0
 install -m 644 build/webapp/rhnjava/WEB-INF/lib/rhn-test.jar $RPM_BUILD_ROOT%{_datadir}/rhn/lib
+cp -a build/classes/com/redhat/rhn/common/conf/test/conf $RPM_BUILD_ROOT%{_datadir}/rhn/unit-tests/
 %endif
 install -m 644 conf/log4j.properties.taskomatic $RPM_BUILD_ROOT%{_datadir}/rhn/classes/log4j.properties
 
@@ -409,6 +412,7 @@ rm -rf $RPM_BUILD_ROOT%{jardir}/jasper5-runtime.jar
 rm -rf $RPM_BUILD_ROOT%{jardir}/tomcat6*.jar
 %if 0%{?omit_tests} > 0
 rm -rf $RPM_BUILD_ROOT%{_datadir}/rhn/lib/rhn-test.jar
+rm -rf $RPM_BUILD_ROOT/classes/com/redhat/rhn/common/conf/test/conf
 rm -rf $RPM_BUILD_ROOT%{_datadir}/rhn/unittest.xml
 rm -rf $RPM_BUILD_ROOT%{jardir}/mockobjects*.jar
 rm -rf $RPM_BUILD_ROOT%{jardir}/strutstest*.jar
