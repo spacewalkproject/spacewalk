@@ -18,7 +18,7 @@ as
 select c.id,
        ct.label checksum_type,
        c.checksum
-  from rhnChecksum c,
-       rhnChecksumType ct
- where c.checksum_type_id = ct.id;
+  from rhnChecksum c
+  left join rhnChecksumType ct
+    on c.checksum_type_id = ct.id;
 
