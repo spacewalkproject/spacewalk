@@ -1,7 +1,7 @@
 Name:		spacewalk-pylint
 Version:	0.2
 Release:	1%{?dist}
-Summary:	pylint configuration for spacewalk python packages
+Summary:	Pylint configuration for spacewalk python packages
 
 Group:		Development/Debuggers
 License:	GPLv2+
