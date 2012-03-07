@@ -13,7 +13,8 @@ BuildArch:      noarch
 Requires:	pylint
 
 %description
-Pylint configuration fine tuned to check coding style of spacewalk python packages.
+Pylint configuration fine tuned to check coding style of spacewalk python
+packages.
 
 %prep
 %setup -q
