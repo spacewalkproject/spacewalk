@@ -13,13 +13,23 @@
 -- in this software or its documentation.
 --
 
+-- Fedora 16, 17, 18
+update rhnPackageKey set provider_id = lookup_package_provider('Fedora')
+where key_id in ('067f00b6a82ba4b7', '50e94c991aca3465', '0983129322b3b81a');
+
 -- Fedora 16
-insert into rhnPackageKey (id, key_id, key_type_id, provider_id) values
-(sequence_nextval('rhn_pkey_id_seq'), '067f00b6a82ba4b7', lookup_package_key_type('gpg'), lookup_package_provider('Fedora'));
+insert into rhnPackageKey (id, key_id, key_type_id, provider_id)
+select sequence_nextval('rhn_pkey_id_seq'), '067f00b6a82ba4b7', lookup_package_key_type('gpg'), lookup_package_provider('Fedora')
+from dual
+where not exists ( select 1 from rhnPackageKey where key_id = '067f00b6a82ba4b7' );
 -- Fedora 17
-insert into rhnPackageKey (id, key_id, key_type_id, provider_id) values
-(sequence_nextval('rhn_pkey_id_seq'), '50e94c991aca3465', lookup_package_key_type('gpg'), lookup_package_provider('Fedora'));
+insert into rhnPackageKey (id, key_id, key_type_id, provider_id)
+select sequence_nextval('rhn_pkey_id_seq'), '50e94c991aca3465', lookup_package_key_type('gpg'), lookup_package_provider('Fedora')
+from dual
+where not exists ( select 1 from rhnPackageKey where key_id = '50e94c991aca3465' );
 -- Fedora 18
-insert into rhnPackageKey (id, key_id, key_type_id, provider_id) values
-(sequence_nextval('rhn_pkey_id_seq'), '0983129322b3b81a', lookup_package_key_type('gpg'), lookup_package_provider('Fedora'));
+insert into rhnPackageKey (id, key_id, key_type_id, provider_id)
+select sequence_nextval('rhn_pkey_id_seq'), '0983129322b3b81a', lookup_package_key_type('gpg'), lookup_package_provider('Fedora')
+from dual
+where not exists ( select 1 from rhnPackageKey where key_id = '0983129322b3b81a' );
 
