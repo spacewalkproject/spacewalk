@@ -486,19 +486,6 @@ sub session {
   return $self->{session};
 }
 
-sub clear_session {
-  my $self = shift;
-
-  PXT::Debug->log(2, sprintf("Clearing session for user: '%s', " .
-			     "IP: '%s'.",
-			     $self->user ? $self->user->id() : 'none',
-			     $self->{apache}->connection->remote_ip));
-
-  my $session = new RHN::Session $self->{apache}->hostname, $self->{apache}->connection->remote_ip;
-  $session->serialize(-new => 1);
-  $self->session($session);
-}
-
 sub user {
   my $self = shift;
 
