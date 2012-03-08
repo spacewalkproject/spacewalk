@@ -372,13 +372,6 @@
       </context-group>
     <target>@@PRODUCT_NAME@@ 管理員電子郵件</target></trans-unit>
 
-    <trans-unit id="RHN_DB_NAME">
-<source>@@PRODUCT_NAME@@ database name</source>
-      <context-group name="ctx">
-        <context context-type="sourcefile">/rhn/monitoring/config/GeneralConfig.do</context>
-      </context-group>
-    <target>@@PRODUCT_NAME@@ 資料庫名稱</target></trans-unit>
-
     <trans-unit id="RHN_DB_PASSWD">
 <source>@@PRODUCT_NAME@@ database password</source>
       <context-group name="ctx">

@@ -22,11 +22,9 @@
 
 insert into rhn_config_macro(name,definition,description,editable,last_update_user,last_update_date)     values ( 'CCS_CRYPTKEY', '**CCS_CRYPTKEY**', 'ClusterConfigSvcs encryption key', '0', 'system',current_timestamp);
 insert into rhn_config_macro(name,definition,description,editable,last_update_user,last_update_date)     values ( 'CFDBHOST', '%{RHN_SAT_HOSTNAME}', 'Configuration database host', '0', 'system',current_timestamp);
-insert into rhn_config_macro(name,definition,description,editable,last_update_user,last_update_date)     values ( 'CFDB_NAME', '%{RHN_DB_NAME}', 'Configuration database name', '0', 'system',current_timestamp);
 insert into rhn_config_macro(name,definition,description,editable,last_update_user,last_update_date)     values ( 'CFDB_NOTIF_PASSWD', '%{RHN_DB_PASSWD}', 'Configuration database notification user password', '0', 'system',current_timestamp);
 insert into rhn_config_macro(name,definition,description,editable,last_update_user,last_update_date)     values ( 'CFDB_PASSWD', '%{RHN_DB_PASSWD}', 'Configuration database password', '0', 'system',current_timestamp);
 insert into rhn_config_macro(name,definition,description,editable,last_update_user,last_update_date)     values ( 'CSDBHOST', '%{CFDBHOST}', 'Current state database host', '0', 'system',current_timestamp);
-insert into rhn_config_macro(name,definition,description,editable,last_update_user,last_update_date)     values ( 'CSDB_NAME', '%{RHN_DB_NAME}', 'Current state database name', '0', 'system',current_timestamp);
 insert into rhn_config_macro(name,definition,description,editable,last_update_user,last_update_date)     values ( 'CSDB_PASSWD', '%{CFDB_PASSWD}', 'Current state database password', '0', 'system',current_timestamp);
 insert into rhn_config_macro(name,definition,description,editable,last_update_user,last_update_date)     values ( 'DOM', '**DOM**', 'Local host domain (e.g. ''redhat.com'')', '0', 'system',current_timestamp);
 insert into rhn_config_macro(name,definition,description,editable,last_update_user,last_update_date)     values ( 'EDOM', '%{DOM}', 'Environment-specific domain (e.g. ''dev.rhn_net'')', '0', 'system',current_timestamp);
@@ -52,7 +50,6 @@ insert into rhn_config_macro(name,definition,description,editable,last_update_us
 insert into rhn_config_macro(name,definition,description,editable,last_update_user,last_update_date)     values ( 'NPLIB', '/var/lib/%{USER}', 'Production user data directory', '0', 'system',current_timestamp);
 insert into rhn_config_macro(name,definition,description,editable,last_update_user,last_update_date)     values ( 'PORTALURL', '%{XPROTO}://%{RHN_SAT_HOSTNAME}', 'Portal URL', '0', 'system',current_timestamp);
 insert into rhn_config_macro(name,definition,description,editable,last_update_user,last_update_date)     values ( 'RHN_ADMIN_EMAIL', '**RHN_ADMIN_EMAIL**', 'Spacewalk administrator email', '1', 'system',current_timestamp);
-insert into rhn_config_macro(name,definition,description,editable,last_update_user,last_update_date)     values ( 'RHN_DB_NAME', '**RHN_DB_NAME**', 'Spacewalk database name ', '1', 'system',current_timestamp);
 insert into rhn_config_macro(name,definition,description,editable,last_update_user,last_update_date)     values ( 'RHN_DB_PASSWD', '**RHN_DB_PASSWD**', 'Spacewalk database password', '1', 'system',current_timestamp);
 insert into rhn_config_macro(name,definition,description,editable,last_update_user,last_update_date)     values ( 'RHN_DB_USERNAME', '**RHN_DB_USERNAME**', 'Spacewalk database username', '1', 'system',current_timestamp);
 insert into rhn_config_macro(name,definition,description,editable,last_update_user,last_update_date)     values ( 'RHN_SAT_HOSTNAME', '**RHN_SAT_HOSTNAME**', 'Spacewalk hostname (FQDN)', '1', 'system',current_timestamp);
@@ -61,7 +58,6 @@ insert into rhn_config_macro(name,definition,description,editable,last_update_us
 insert into rhn_config_macro(name,definition,description,editable,last_update_user,last_update_date)     values ( 'SATCFGURL', '%{SMONURL}/satconfig', 'Satellite configurator URL', '0', 'system',current_timestamp);
 insert into rhn_config_macro(name,definition,description,editable,last_update_user,last_update_date)     values ( 'SCDBHOST', '%{RHN_SAT_HOSTNAME}', 'State change database host', '0', 'system',current_timestamp);
 insert into rhn_config_macro(name,definition,description,editable,last_update_user,last_update_date)     values ( 'SCDBURL', '%{IPROTO}://%{SCDBHOST}/scdb', 'State change database URL', '0', 'system',current_timestamp);
-insert into rhn_config_macro(name,definition,description,editable,last_update_user,last_update_date)     values ( 'SCDB_NAME', '%{RHN_DB_NAME}', 'State change database name', '0', 'system',current_timestamp);
 insert into rhn_config_macro(name,definition,description,editable,last_update_user,last_update_date)     values ( 'SMONHOST', '%{RHN_SAT_HOSTNAME}', 'SMON host', '0', 'system',current_timestamp);
 insert into rhn_config_macro(name,definition,description,editable,last_update_user,last_update_date)     values ( 'SMONTEST', '%{RHN_SAT_HOSTNAME}', 'SMON-TEST host', '0', 'system',current_timestamp);
 insert into rhn_config_macro(name,definition,description,editable,last_update_user,last_update_date)     values ( 'SMONURL', '%{XPROTO}://%{SMONHOST}', 'SMON URL', '0', 'system',current_timestamp);

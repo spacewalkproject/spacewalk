@@ -103,7 +103,6 @@ my %mon_config =
    RHN_ADMIN_EMAIL => $opts{'admin-email'} || PXT::Config->get('traceback_mail'),
    MAIL_MX => $opts{'mail-mx'} || 'localhost',
    MDOM => $opts{'mail-domain'} || $opts{'hostname'} || $hostname,
-   RHN_DB_NAME => $config_opts{monitoringDOTdbname},
    RHN_DB_USERNAME => $config_opts{monitoringDOTusername},
    RHN_DB_PASSWD => $config_opts{monitoringDOTpassword},
    RHN_SAT_HOSTNAME => $opts{'hostname'} || $hostname,
