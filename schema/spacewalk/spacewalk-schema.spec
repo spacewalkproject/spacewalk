@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.8.1
+Version:        1.8.2
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -69,6 +69,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Thu Mar 08 2012 Milan Zazrivec <mzazrivec@redhat.com> 1.8.2-1
+- create_pxt_session: correct insert syntax (mzazrivec@redhat.com)
+- Allow for rhnPackageKey records to preexist already. (jpazdziora@redhat.com)
+
 * Thu Mar 08 2012 Milan Zazrivec <mzazrivec@redhat.com> 1.8.1-1
 - pxt_session_cleanup: no need for autonomous_transaction
 - removed rhnEmailAddress* objects
