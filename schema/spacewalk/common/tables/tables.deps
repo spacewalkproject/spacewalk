@@ -67,7 +67,6 @@ rhnCryptoKeyKickstart          :: rhnCryptoKey rhnKSData
 rhnDevice                      :: rhnServer
 rhnDistChannelMap              :: rhnChannel rhnChannelArch
 rhnDownloads                   :: rhnChannelFamily rhnFile rhnDownloadType
-rhnEmailAddress                :: rhnEmailAddressState web_contact
 rhnErrata                      :: rhnChecksum web_customer rhnErrataSeverity
 rhnErrataBuglist               :: rhnErrata
 rhnErrataBuglistTmp            :: rhnErrataTmp
