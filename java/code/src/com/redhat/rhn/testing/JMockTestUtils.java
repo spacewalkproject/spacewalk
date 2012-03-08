@@ -14,7 +14,7 @@
  */
 package com.redhat.rhn.testing;
 
-import org.jmock.cglib.MockObjectTestCase;
+import org.jmock.MockObjectTestCase;
 
 import javax.servlet.ServletOutputStream;
 

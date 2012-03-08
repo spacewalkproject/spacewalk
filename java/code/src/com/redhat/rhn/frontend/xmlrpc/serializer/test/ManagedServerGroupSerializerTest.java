@@ -19,7 +19,7 @@ import com.redhat.rhn.domain.server.ManagedServerGroup;
 import com.redhat.rhn.frontend.xmlrpc.serializer.ManagedServerGroupSerializer;
 
 import org.jmock.Mock;
-import org.jmock.cglib.MockObjectTestCase;
+import org.jmock.MockObjectTestCase;
 
 import java.io.StringWriter;
 import java.io.Writer;

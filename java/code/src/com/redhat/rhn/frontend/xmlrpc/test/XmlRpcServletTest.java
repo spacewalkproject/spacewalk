@@ -22,7 +22,7 @@ import com.redhat.rhn.testing.UserTestUtils;
 import com.mockobjects.servlet.MockServletInputStream;
 
 import org.jmock.Mock;
-import org.jmock.cglib.MockObjectTestCase;
+import org.jmock.MockObjectTestCase;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;

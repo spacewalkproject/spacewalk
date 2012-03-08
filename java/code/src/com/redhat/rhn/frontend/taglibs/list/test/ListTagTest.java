@@ -24,7 +24,7 @@ import com.redhat.rhn.testing.RhnBaseTestCase;
 import com.redhat.rhn.testing.RhnMockJspWriter;
 
 import org.jmock.Mock;
-import org.jmock.cglib.MockObjectTestCase;
+import org.jmock.MockObjectTestCase;
 import org.jmock.core.Stub;
 
 import java.util.List;
