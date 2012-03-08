@@ -386,13 +386,6 @@
       </context-group>
     <target>@@PRODUCT_NAME@@ password database</target></trans-unit>
 
-    <trans-unit id="RHN_DB_TABLE_OWNER">
-<source>@@PRODUCT_NAME@@ Database table owner</source>
-      <context-group name="ctx">
-        <context context-type="sourcefile">/rhn/monitoring/config/GeneralConfig.do</context>
-      </context-group>
-    <target>@@PRODUCT_NAME@@ Proprietario tabella del database</target></trans-unit>
-
     <trans-unit id="RHN_DB_USERNAME">
 <source>@@PRODUCT_NAME@@ database username</source>
       <context-group name="ctx">

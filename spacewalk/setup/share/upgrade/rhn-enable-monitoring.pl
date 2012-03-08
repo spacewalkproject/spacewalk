@@ -106,7 +106,6 @@ my %mon_config =
    RHN_DB_NAME => $config_opts{monitoringDOTdbname},
    RHN_DB_USERNAME => $config_opts{monitoringDOTusername},
    RHN_DB_PASSWD => $config_opts{monitoringDOTpassword},
-   RHN_DB_TABLE_OWNER => $config_opts{monitoringDOTusername},
    RHN_SAT_HOSTNAME => $opts{'hostname'} || $hostname,
    XPROTO => 'https',
    RHN_SAT_WEB_PORT => 443

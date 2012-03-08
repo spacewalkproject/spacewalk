@@ -406,13 +406,6 @@ http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd"
       </context-group>
     </trans-unit>
 	
-    <trans-unit id="RHN_DB_TABLE_OWNER">
-<source>@@PRODUCT_NAME@@ Database table owner</source>
-      <context-group name="ctx">
-        <context context-type="sourcefile">/rhn/monitoring/config/GeneralConfig.do</context>
-      </context-group>
-    </trans-unit>
-
     <trans-unit id="RHN_DB_USERNAME">
 <source>@@PRODUCT_NAME@@ database username</source>
       <context-group name="ctx">
