@@ -1,4 +1,4 @@
--- oracle equivalent source sha1 493c274411b4022270947657759f02e64ee3df79
+-- oracle equivalent source sha1 8236eb1e649092e2f2659b57778fca6a722a520f
 -- retrieved from ./1241128047/984a347f2afbd47756e90584364799dd670b62db/schema/spacewalk/oracle/procs/pxt_session_cleanup.sql
 --
 -- Copyright (c) 2008--2010 Red Hat, Inc.
