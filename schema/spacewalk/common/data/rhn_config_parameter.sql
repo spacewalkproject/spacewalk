@@ -69,12 +69,8 @@ insert into rhn_config_parameter(group_name,name,value,security_type,last_update
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'cf_db', 'dbd', 'Oracle', 'INTERNAL', 'system',current_timestamp);
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'cf_db', 'notification_password', '%{CFDB_NOTIF_PASSWD}', 'INTERNAL', 'system',current_timestamp);
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'cf_db', 'notification_username', '%{RHN_DB_USERNAME}', 'INTERNAL', 'system',current_timestamp);
-insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'cf_db', 'password', '%{CFDB_PASSWD}', 'INTERNAL', 'system',current_timestamp);
-insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'cf_db', 'portal_password', '%{CFDB_PASSWD}', 'INTERNAL', 'system',current_timestamp);
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'cf_db', 'portal_username', '%{RHN_DB_USERNAME}', 'INTERNAL', 'system',current_timestamp);
-insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'cf_db', 'proxy_password', '%{CFDB_PASSWD}', 'INTERNAL', 'system',current_timestamp);
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'cf_db', 'proxy_username', '%{RHN_DB_USERNAME}', 'INTERNAL', 'system',current_timestamp);
-insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'cf_db', 'ui_password', '%{CFDB_PASSWD}', 'INTERNAL', 'system',current_timestamp);
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'cf_db', 'ui_username', '%{RHN_DB_USERNAME}', 'INTERNAL', 'system',current_timestamp);
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'cf_db', 'username', '%{RHN_DB_USERNAME}', 'INTERNAL', 'system',current_timestamp);
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'cs_db', 'dbd', 'Oracle', 'INTERNAL', 'system',current_timestamp);

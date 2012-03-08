@@ -372,13 +372,6 @@
       </context-group>
     <target>@@PRODUCT_NAME@@ administrador de correo-e</target></trans-unit>
 
-    <trans-unit id="RHN_DB_PASSWD">
-<source>@@PRODUCT_NAME@@ database password</source>
-      <context-group name="ctx">
-        <context context-type="sourcefile">/rhn/monitoring/config/GeneralConfig.do</context>
-      </context-group>
-    <target>Contraseña de la base de datos de @@PRODUCT_NAME@@</target></trans-unit>
-
     <trans-unit id="RHN_DB_USERNAME">
 <source>@@PRODUCT_NAME@@ database username</source>
       <context-group name="ctx">

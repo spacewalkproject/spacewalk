@@ -372,13 +372,6 @@
       </context-group>
     <target>@@PRODUCT_NAME@@ 관리자 이메일 </target></trans-unit>
 
-    <trans-unit id="RHN_DB_PASSWD">
-<source>@@PRODUCT_NAME@@ database password</source>
-      <context-group name="ctx">
-        <context context-type="sourcefile">/rhn/monitoring/config/GeneralConfig.do</context>
-      </context-group>
-    <target>@@PRODUCT_NAME@@ 데이터베이스 암호 </target></trans-unit>
-
     <trans-unit id="RHN_DB_USERNAME">
 <source>@@PRODUCT_NAME@@ database username</source>
       <context-group name="ctx">

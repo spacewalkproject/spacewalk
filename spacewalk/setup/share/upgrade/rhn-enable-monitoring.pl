@@ -82,7 +82,6 @@ $config_opts{monitoringDOTdbd} = 'Oracle';
 $config_opts{monitoringDOTorahome} = $ENV{ORACLE_HOME} || '/opt/oracle';
 $config_opts{monitoringDOTdbname} = PXT::Config->get('db_name');
 $config_opts{monitoringDOTusername} = PXT::Config->get('db_user');
-$config_opts{monitoringDOTpassword} = PXT::Config->get('db_password');
 
 $config_opts{monitoringDOTsmonDOTaddr} = '127.0.0.1';
 $config_opts{monitoringDOTsmonDOTfqdn} = 'localhost';
@@ -104,7 +103,6 @@ my %mon_config =
    MAIL_MX => $opts{'mail-mx'} || 'localhost',
    MDOM => $opts{'mail-domain'} || $opts{'hostname'} || $hostname,
    RHN_DB_USERNAME => $config_opts{monitoringDOTusername},
-   RHN_DB_PASSWD => $config_opts{monitoringDOTpassword},
    RHN_SAT_HOSTNAME => $opts{'hostname'} || $hostname,
    XPROTO => 'https',
    RHN_SAT_WEB_PORT => 443
