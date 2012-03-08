@@ -5131,6 +5131,18 @@ value for this entitlement, excluding the default organization's consumption.</s
 			<source>&lt;strong&gt;{0} system&lt;/strong&gt; entitled, &lt;strong&gt;unlimited available&lt;/strong&gt; entitlements</source>
 	     <target>&lt;strong&gt;{0} система&lt;/strong&gt; имеет полномочия, &lt;strong&gt;нет ограничений&lt;/strong&gt; на полномочия.</target></trans-unit>
 
+	     <trans-unit id="systementitlements.jsp.entitlement_counts_message_1">
+			<source>&lt;strong&gt;{0} system&lt;/strong&gt; entitled, &lt;strong&gt;{1} available&lt;/strong&gt; entitlement (&lt;strong&gt;{2} total&lt;/strong&gt;) </source>
+	     <target>&lt;strong&gt;{0} система&lt;/strong&gt; имеет полномочия, &lt;strong&gt;доступно {1}&lt;/strong&gt; полномочие (&lt;strong&gt;всего {2}&lt;/strong&gt;)</target></trans-unit>
+	     <trans-unit id="systementitlements.jsp.entitlement_counts_message_2">
+			<source>&lt;strong&gt;{0} system&lt;/strong&gt; entitled, &lt;strong&gt;{1} available&lt;/strong&gt; entitlements (&lt;strong&gt;{2} total&lt;/strong&gt;) </source>
+	     <target>&lt;strong&gt;{0} система&lt;/strong&gt; имеет полномочия, доступно полномочий: &lt;strong&gt;{1}&lt;/strong&gt; (&lt;strong&gt;всего {2}&lt;/strong&gt;)</target></trans-unit>
+	     <trans-unit id="systementitlements.jsp.entitlement_counts_message_3">
+			<source>&lt;strong&gt;{0} systems&lt;/strong&gt; entitled, &lt;strong&gt;{1} available&lt;/strong&gt; entitlement (&lt;strong&gt;{2} total&lt;/strong&gt;) </source>
+	     <target>&lt;strong&gt;{0} систем(ы)&lt;/strong&gt; имеют полномочия, &lt;strong&gt;доступно {1}&lt;/strong&gt; полномочие (&lt;strong&gt;всего {2}&lt;/strong&gt;)</target></trans-unit>
+	     <trans-unit id="systementitlements.jsp.entitlement_counts_message_4">
+			<source>&lt;strong&gt;{0} systems&lt;/strong&gt; entitled, &lt;strong&gt;{1} available&lt;/strong&gt; entitlements (&lt;strong&gt;{2} total&lt;/strong&gt;) </source>
+	     <target>&lt;strong&gt;{0} систем(ы)&lt;/strong&gt; имеют полномочия, доступно полномочий: &lt;strong&gt;{1}&lt;/strong&gt; (&lt;strong&gt;всего {2}&lt;/strong&gt;)</target></trans-unit>
 	</group>
 
 

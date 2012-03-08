@@ -5128,6 +5128,18 @@ value for this entitlement, excluding the default organization's consumption.</s
 			<source>&lt;strong&gt;{0} system&lt;/strong&gt; entitled, &lt;strong&gt;unlimited available&lt;/strong&gt; entitlements</source>
 	     <target>&lt;strong&gt;{0} システム&lt;/strong&gt; にエンタイトルメントが与えられました。 &lt;strong&gt;無制限に使用できる&lt;/strong&gt; エンタイトルメントがあります。</target></trans-unit>
 
+	     <trans-unit id="systementitlements.jsp.entitlement_counts_message_1">
+			<source>&lt;strong&gt;{0} system&lt;/strong&gt; entitled, &lt;strong&gt;{1} available&lt;/strong&gt; entitlement (&lt;strong&gt;{2} total&lt;/strong&gt;) </source>
+	     <target>&lt;strong&gt;{0} システム&lt;/strong&gt; にエンタイトルメントが与えられています。 &lt;strong&gt;{1} 使用可能な&lt;/strong&gt;エンタイトルメントがあります。 (&lt;strong&gt;合計 {2} &lt;/strong&gt;) </target></trans-unit>
+	     <trans-unit id="systementitlements.jsp.entitlement_counts_message_2">
+			<source>&lt;strong&gt;{0} system&lt;/strong&gt; entitled, &lt;strong&gt;{1} available&lt;/strong&gt; entitlements (&lt;strong&gt;{2} total&lt;/strong&gt;) </source>
+	     <target>&lt;strong&gt;{0} システム&lt;/strong&gt; にエンタイトルメントが与えられています。 &lt;strong&gt;{1} 使用可能な&lt;/strong&gt;エンタイトルメントがあります。 (&lt;strong&gt;合計 {2}&lt;/strong&gt;) </target></trans-unit>
+	     <trans-unit id="systementitlements.jsp.entitlement_counts_message_3">
+			<source>&lt;strong&gt;{0} systems&lt;/strong&gt; entitled, &lt;strong&gt;{1} available&lt;/strong&gt; entitlement (&lt;strong&gt;{2} total&lt;/strong&gt;) </source>
+	     <target>&lt;strong&gt;{0} システム&lt;/strong&gt; にエンタイトルメントが与えられています。 &lt;strong&gt;{1} 使用可能な&lt;/strong&gt;エンタイトルメントがあります。 (&lt;strong&gt;合計 {2} &lt;/strong&gt;) </target></trans-unit>
+	     <trans-unit id="systementitlements.jsp.entitlement_counts_message_4">
+			<source>&lt;strong&gt;{0} systems&lt;/strong&gt; entitled, &lt;strong&gt;{1} available&lt;/strong&gt; entitlements (&lt;strong&gt;{2} total&lt;/strong&gt;) </source>
+	     <target>&lt;strong&gt;{0} システム&lt;/strong&gt; にエンタイトルメントが与えられています。 &lt;strong&gt;{1} 使用可能な&lt;/strong&gt;エンタイトルメントがあります。 (&lt;strong&gt;合計 {2} &lt;/strong&gt;) </target></trans-unit>
 	</group>
 
 

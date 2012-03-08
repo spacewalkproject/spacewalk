@@ -5132,6 +5132,18 @@ value for this entitlement, excluding the default organization's consumption.</s
 			<source>&lt;strong&gt;{0} system&lt;/strong&gt; entitled, &lt;strong&gt;unlimited available&lt;/strong&gt; entitlements</source>
 	     <target>&lt;strong&gt;{0} sistema&lt;/strong&gt; entitulados, serviços &lt;strong&gt;ilimitados disponíveis&lt;/strong&gt; </target></trans-unit>
 
+	     <trans-unit id="systementitlements.jsp.entitlement_counts_message_1">
+			<source>&lt;strong&gt;{0} system&lt;/strong&gt; entitled, &lt;strong&gt;{1} available&lt;/strong&gt; entitlement (&lt;strong&gt;{2} total&lt;/strong&gt;) </source>
+	     <target>&lt;strong&gt;{0} sistema&lt;/strong&gt; com direito a serviços, &lt;strong&gt;{1} direito a serviços&lt;/strong&gt; disponíveis (&lt;strong&gt;{2} no total&lt;/strong&gt;) </target></trans-unit>
+	     <trans-unit id="systementitlements.jsp.entitlement_counts_message_2">
+			<source>&lt;strong&gt;{0} system&lt;/strong&gt; entitled, &lt;strong&gt;{1} available&lt;/strong&gt; entitlements (&lt;strong&gt;{2} total&lt;/strong&gt;) </source>
+	     <target>&lt;strong&gt;{0} sistema&lt;/strong&gt; com direito a serviços, &lt;strong&gt;{1} direitos a serviços&lt;/strong&gt; disponíveis (&lt;strong&gt;{2} no total&lt;/strong&gt;) </target></trans-unit>
+	     <trans-unit id="systementitlements.jsp.entitlement_counts_message_3">
+			<source>&lt;strong&gt;{0} systems&lt;/strong&gt; entitled, &lt;strong&gt;{1} available&lt;/strong&gt; entitlement (&lt;strong&gt;{2} total&lt;/strong&gt;) </source>
+	     <target>&lt;strong&gt;{0} sistemas&lt;/strong&gt; com direito a serviços, &lt;strong&gt;{1} direito a serviços&lt;/strong&gt; disponíveis (&lt;strong&gt;{2} no total&lt;/strong&gt;) </target></trans-unit>
+	     <trans-unit id="systementitlements.jsp.entitlement_counts_message_4">
+			<source>&lt;strong&gt;{0} systems&lt;/strong&gt; entitled, &lt;strong&gt;{1} available&lt;/strong&gt; entitlements (&lt;strong&gt;{2} total&lt;/strong&gt;) </source>
+	     <target>&lt;strong&gt;{0} sistemas&lt;/strong&gt; com direito a serviços, &lt;strong&gt;{1} direitos a serviços&lt;/strong&gt; disponíveis (&lt;strong&gt;{2} no total&lt;/strong&gt;) </target></trans-unit>
 	</group>
 
 

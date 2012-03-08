@@ -5136,6 +5136,18 @@ für diese Berechtigung, mit Ausnahme des Verbrauchs der Standardorganisation.</
 			<source>&lt;strong&gt;{0} system&lt;/strong&gt; entitled, &lt;strong&gt;unlimited available&lt;/strong&gt; entitlements</source>
 	     <target>&lt;strong&gt;{0} System&lt;/strong&gt; berechtigt, &lt;strong&gt;uneingeschr&amp;auml;nkt verf&amp;uuml;gbare&lt;/strong&gt; Berechtigungen</target></trans-unit>
 
+	     <trans-unit id="systementitlements.jsp.entitlement_counts_message_1">
+			<source>&lt;strong&gt;{0} system&lt;/strong&gt; entitled, &lt;strong&gt;{1} available&lt;/strong&gt; entitlement (&lt;strong&gt;{2} total&lt;/strong&gt;) </source>
+	     <target>&lt;strong&gt;{0} System&lt;/strong&gt; berechtigt, &lt;strong&gt;{1} erh&amp;auml;ltliche&lt;/strong&gt; Berechtigung (&lt;strong&gt;{2} insgesamt&lt;/strong&gt;) </target></trans-unit>
+	     <trans-unit id="systementitlements.jsp.entitlement_counts_message_2">
+			<source>&lt;strong&gt;{0} system&lt;/strong&gt; entitled, &lt;strong&gt;{1} available&lt;/strong&gt; entitlements (&lt;strong&gt;{2} total&lt;/strong&gt;) </source>
+	     <target>&lt;strong&gt;{0} System&lt;/strong&gt; berechtigt, &lt;strong&gt;{1} erh&amp;auml;ltliche&lt;/strong&gt; Berechtigungen (&lt;strong&gt;{2} insgesamt&lt;/strong&gt;) </target></trans-unit>
+	     <trans-unit id="systementitlements.jsp.entitlement_counts_message_3">
+			<source>&lt;strong&gt;{0} systems&lt;/strong&gt; entitled, &lt;strong&gt;{1} available&lt;/strong&gt; entitlement (&lt;strong&gt;{2} total&lt;/strong&gt;) </source>
+	     <target>&lt;strong&gt;{0} Systeme&lt;/strong&gt; berechtigt, &lt;strong&gt;{1} erh&amp;auml;ltliche&lt;/strong&gt; Berechtigung (&lt;strong&gt;{2} insgesamt&lt;/strong&gt;) </target></trans-unit>
+	     <trans-unit id="systementitlements.jsp.entitlement_counts_message_4">
+			<source>&lt;strong&gt;{0} systems&lt;/strong&gt; entitled, &lt;strong&gt;{1} available&lt;/strong&gt; entitlements (&lt;strong&gt;{2} total&lt;/strong&gt;) </source>
+	     <target>&lt;strong&gt;{0} Systeme&lt;/strong&gt; berechtigt, &lt;strong&gt;{1} erh&amp;auml;ltliche&lt;/strong&gt; Berechtigungen (&lt;strong&gt;{2} insgesamt&lt;/strong&gt;)</target></trans-unit>
 	</group>
 
 

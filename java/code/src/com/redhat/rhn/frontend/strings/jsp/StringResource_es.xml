@@ -5134,6 +5134,18 @@ para este derecho, excluyendo el consumo de la organización predeterminada.</ta
 			<source>&lt;strong&gt;{0} system&lt;/strong&gt; entitled, &lt;strong&gt;unlimited available&lt;/strong&gt; entitlements</source>
 	     <target>&lt;strong&gt;{0} sistema&lt;/strong&gt; con derechos, derechos disponibles &lt;strong&gt;sin límite&lt;/strong&gt;</target></trans-unit>
 
+	     <trans-unit id="systementitlements.jsp.entitlement_counts_message_1">
+			<source>&lt;strong&gt;{0} system&lt;/strong&gt; entitled, &lt;strong&gt;{1} available&lt;/strong&gt; entitlement (&lt;strong&gt;{2} total&lt;/strong&gt;) </source>
+	     <target>&lt;strong&gt;{0} sistema&lt;/strong&gt; con derechos, &lt;strong&gt;{1}&lt;/strong&gt; derecho disponible (&lt;strong&gt;{2} total&lt;/strong&gt;) </target></trans-unit>
+	     <trans-unit id="systementitlements.jsp.entitlement_counts_message_2">
+			<source>&lt;strong&gt;{0} system&lt;/strong&gt; entitled, &lt;strong&gt;{1} available&lt;/strong&gt; entitlements (&lt;strong&gt;{2} total&lt;/strong&gt;) </source>
+	     <target>&lt;strong&gt;{0} sistema&lt;/strong&gt; con derechos, &lt;strong&gt;{1}&lt;/strong&gt; derechos disponibles (&lt;strong&gt;{2} en total&lt;/strong&gt;) </target></trans-unit>
+	     <trans-unit id="systementitlements.jsp.entitlement_counts_message_3">
+			<source>&lt;strong&gt;{0} systems&lt;/strong&gt; entitled, &lt;strong&gt;{1} available&lt;/strong&gt; entitlement (&lt;strong&gt;{2} total&lt;/strong&gt;) </source>
+	     <target>&lt;strong&gt;{0} sistemas&lt;/strong&gt; con derechos, &lt;strong&gt;{1}&lt;/strong&gt; derecho disponible (&lt;strong&gt;{2} en total&lt;/strong&gt;) </target></trans-unit>
+	     <trans-unit id="systementitlements.jsp.entitlement_counts_message_4">
+			<source>&lt;strong&gt;{0} systems&lt;/strong&gt; entitled, &lt;strong&gt;{1} available&lt;/strong&gt; entitlements (&lt;strong&gt;{2} total&lt;/strong&gt;) </source>
+	     <target>&lt;strong&gt;{0} sistemas&lt;/strong&gt; con derechos, &lt;strong&gt;{1}&lt;/strong&gt; derechos disponibles (&lt;strong&gt;{2} en total&lt;/strong&gt;) </target></trans-unit>
 	</group>
 
 

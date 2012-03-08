@@ -5134,6 +5134,18 @@ value for this entitlement, excluding the default organization's consumption.</s
 			<source>&lt;strong&gt;{0} system&lt;/strong&gt; entitled, &lt;strong&gt;unlimited available&lt;/strong&gt; entitlements</source>
 	     <target>&lt;strong&gt;{0} সিস্টেম&lt;/strong&gt; এনটাইটেল করা হয়েছে, &lt;strong&gt;সীমাহীন উপলব্ধ&lt;/strong&gt; এনটাইটেলমেন্ট</target></trans-unit>
 
+	     <trans-unit id="systementitlements.jsp.entitlement_counts_message_1">
+			<source>&lt;strong&gt;{0} system&lt;/strong&gt; entitled, &lt;strong&gt;{1} available&lt;/strong&gt; entitlement (&lt;strong&gt;{2} total&lt;/strong&gt;) </source>
+	     <target>&lt;strong&gt;{0} সিস্টেম&lt;/strong&gt; এনটাইটেল করা হয়েছে, &lt;strong&gt;{1}-টি উপলব্ধ&lt;/strong&gt; এনটাইটেলমেন্ট (&lt;strong&gt;{2} সর্বমোট&lt;/strong&gt;) </target></trans-unit>
+	     <trans-unit id="systementitlements.jsp.entitlement_counts_message_2">
+			<source>&lt;strong&gt;{0} system&lt;/strong&gt; entitled, &lt;strong&gt;{1} available&lt;/strong&gt; entitlements (&lt;strong&gt;{2} total&lt;/strong&gt;) </source>
+	     <target>&lt;strong&gt;{0} সিস্টেম&lt;/strong&gt; এনটাইটেলমেন্ট সহ, &lt;strong&gt;{1}-টি উপলব্ধ&lt;/strong&gt; এনটাইটেলমেন্ট (&lt;strong&gt;{2} সর্বমোট&lt;/strong&gt;) </target></trans-unit>
+	     <trans-unit id="systementitlements.jsp.entitlement_counts_message_3">
+			<source>&lt;strong&gt;{0} systems&lt;/strong&gt; entitled, &lt;strong&gt;{1} available&lt;/strong&gt; entitlement (&lt;strong&gt;{2} total&lt;/strong&gt;) </source>
+	     <target>&lt;strong&gt;{0} সিস্টেম&lt;/strong&gt; এনটাইটেলমেন্ট সহ, &lt;strong&gt;{1}-টি উপলব্ধ&lt;/strong&gt; এনটাইটেলমেন্ট (&lt;strong&gt;{2} সর্বমোট&lt;/strong&gt;) </target></trans-unit>
+	     <trans-unit id="systementitlements.jsp.entitlement_counts_message_4">
+			<source>&lt;strong&gt;{0} systems&lt;/strong&gt; entitled, &lt;strong&gt;{1} available&lt;/strong&gt; entitlements (&lt;strong&gt;{2} total&lt;/strong&gt;) </source>
+	     <target>&lt;strong&gt;{0} সিস্টেম&lt;/strong&gt; এনটাইটেলমেন্ট সহ, &lt;strong&gt;{1}-টি উপলব্ধ&lt;/strong&gt; এনটাইটেলমেন্ট (&lt;strong&gt;{2} সর্বমোট&lt;/strong&gt;) </target></trans-unit>
 	</group>
 
 

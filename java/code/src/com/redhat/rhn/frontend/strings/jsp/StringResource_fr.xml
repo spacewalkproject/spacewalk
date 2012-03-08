@@ -5135,6 +5135,18 @@ pour ce droit d'accès, moins la consommation par défaut de l'organisation.</ta
 			<source>&lt;strong&gt;{0} system&lt;/strong&gt; entitled, &lt;strong&gt;unlimited available&lt;/strong&gt; entitlements</source>
 	     <target>&lt;strong&gt;{0} système&lt;/strong&gt; à droits d'accès, &lt;strong&gt;droits d'accès&lt;/strong&gt; disponibles de façon illimitée</target></trans-unit>
 
+	     <trans-unit id="systementitlements.jsp.entitlement_counts_message_1">
+			<source>&lt;strong&gt;{0} system&lt;/strong&gt; entitled, &lt;strong&gt;{1} available&lt;/strong&gt; entitlement (&lt;strong&gt;{2} total&lt;/strong&gt;) </source>
+	     <target>&lt;strong&gt;{0} système&lt;/strong&gt; à droits, &lt;strong&gt;{1} droit disponible&lt;/strong&gt; (&lt;strong&gt;{2} au total&lt;/strong&gt;)</target></trans-unit>
+	     <trans-unit id="systementitlements.jsp.entitlement_counts_message_2">
+			<source>&lt;strong&gt;{0} system&lt;/strong&gt; entitled, &lt;strong&gt;{1} available&lt;/strong&gt; entitlements (&lt;strong&gt;{2} total&lt;/strong&gt;) </source>
+	     <target>&lt;strong&gt;{0} système&lt;/strong&gt; à droits, &lt;strong&gt;{1} droits disponibles&lt;/strong&gt; (&lt;strong&gt;{2} au total&lt;/strong&gt;) </target></trans-unit>
+	     <trans-unit id="systementitlements.jsp.entitlement_counts_message_3">
+			<source>&lt;strong&gt;{0} systems&lt;/strong&gt; entitled, &lt;strong&gt;{1} available&lt;/strong&gt; entitlement (&lt;strong&gt;{2} total&lt;/strong&gt;) </source>
+	     <target>&lt;strong&gt;{0} systèmes&lt;/strong&gt; à droits, &lt;strong&gt;{1} droit disponible&lt;/strong&gt; (&lt;strong&gt;{2} au total&lt;/strong&gt;) </target></trans-unit>
+	     <trans-unit id="systementitlements.jsp.entitlement_counts_message_4">
+			<source>&lt;strong&gt;{0} systems&lt;/strong&gt; entitled, &lt;strong&gt;{1} available&lt;/strong&gt; entitlements (&lt;strong&gt;{2} total&lt;/strong&gt;) </source>
+	     <target>&lt;strong&gt;{0} systèmes&lt;/strong&gt; à droits, &lt;strong&gt;{1} droits disponibles&lt;/strong&gt; (&lt;strong&gt;{2} au total&lt;/strong&gt;) </target></trans-unit>
 	</group>
 
 

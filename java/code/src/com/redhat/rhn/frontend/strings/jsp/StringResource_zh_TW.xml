@@ -5130,6 +5130,18 @@ value for this entitlement, excluding the default organization's consumption.</s
 			<source>&lt;strong&gt;{0} system&lt;/strong&gt; entitled, &lt;strong&gt;unlimited available&lt;/strong&gt; entitlements</source>
 	     <target>&lt;strong&gt;{0} 部系統&lt;/strong&gt;享有權利，&lt;strong&gt;無限可用的&lt;/strong&gt;權利</target></trans-unit>
 
+	     <trans-unit id="systementitlements.jsp.entitlement_counts_message_1">
+			<source>&lt;strong&gt;{0} system&lt;/strong&gt; entitled, &lt;strong&gt;{1} available&lt;/strong&gt; entitlement (&lt;strong&gt;{2} total&lt;/strong&gt;) </source>
+	     <target>&lt;strong&gt;{0} 部系統&lt;/strong&gt;享有權利，&lt;strong&gt;{1} 個可用的&lt;/strong&gt;權利（&lt;strong&gt;總計 {2}&lt;/strong&gt;）</target></trans-unit>
+	     <trans-unit id="systementitlements.jsp.entitlement_counts_message_2">
+			<source>&lt;strong&gt;{0} system&lt;/strong&gt; entitled, &lt;strong&gt;{1} available&lt;/strong&gt; entitlements (&lt;strong&gt;{2} total&lt;/strong&gt;) </source>
+	     <target>&lt;strong&gt;{0} 部系統&lt;/strong&gt;享有權利，&lt;strong&gt;{1} 個可用的&lt;/strong&gt;權利（&lt;strong&gt;總計 {2}&lt;/strong&gt;）</target></trans-unit>
+	     <trans-unit id="systementitlements.jsp.entitlement_counts_message_3">
+			<source>&lt;strong&gt;{0} systems&lt;/strong&gt; entitled, &lt;strong&gt;{1} available&lt;/strong&gt; entitlement (&lt;strong&gt;{2} total&lt;/strong&gt;) </source>
+	     <target>&lt;strong&gt;{0} 部系統&lt;/strong&gt;享有權利，&lt;strong&gt;{1} 個可用的&lt;/strong&gt;權利（&lt;strong&gt;總計 {2}&lt;/strong&gt;）</target></trans-unit>
+	     <trans-unit id="systementitlements.jsp.entitlement_counts_message_4">
+			<source>&lt;strong&gt;{0} systems&lt;/strong&gt; entitled, &lt;strong&gt;{1} available&lt;/strong&gt; entitlements (&lt;strong&gt;{2} total&lt;/strong&gt;) </source>
+	     <target>&lt;strong&gt;{0} 部系統&lt;/strong&gt;享有權利，&lt;strong&gt;{1} 個可用的&lt;/strong&gt;權利（&lt;strong&gt;總計 {2}&lt;/strong&gt;）</target></trans-unit>
 	</group>
 
 
