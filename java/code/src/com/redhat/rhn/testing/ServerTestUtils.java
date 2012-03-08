@@ -152,7 +152,7 @@ public class ServerTestUtils {
         for (int i = 0; i < numberOfGuests; i++) {
             VirtualInstance vi = new VirtualInstanceManufacturer(user).
                 newRegisteredGuestWithoutHost();
-
+            vi.setConfirmed((long) 0);
             s.addGuest(vi);
         }
 
