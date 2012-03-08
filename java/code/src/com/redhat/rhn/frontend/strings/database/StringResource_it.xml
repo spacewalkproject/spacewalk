@@ -372,13 +372,6 @@
       </context-group>
     <target>@@PRODUCT_NAME@@ Email amministratore</target></trans-unit>
 
-    <trans-unit id="RHN_DB_USERNAME">
-<source>@@PRODUCT_NAME@@ database username</source>
-      <context-group name="ctx">
-        <context context-type="sourcefile">/rhn/monitoring/config/GeneralConfig.do</context>
-      </context-group>
-    <target>@@PRODUCT_NAME@@ nome utente del database</target></trans-unit>
-
 	<trans-unit id="RHN_SAT_HOSTNAME">
 <source>@@PRODUCT_NAME@@ hostname (FQDN)</source>
       <context-group name="ctx">

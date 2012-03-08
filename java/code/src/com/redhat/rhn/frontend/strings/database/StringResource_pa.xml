@@ -372,13 +372,6 @@
       </context-group>
     <target>@@PRODUCT_NAME@@ ਪਰਬੰਧਕ ਈ-ਮੇਲ</target></trans-unit>
 
-    <trans-unit id="RHN_DB_USERNAME">
-<source>@@PRODUCT_NAME@@ database username</source>
-      <context-group name="ctx">
-        <context context-type="sourcefile">/rhn/monitoring/config/GeneralConfig.do</context>
-      </context-group>
-    <target>@@PRODUCT_NAME@@ ਡਾਟਾਬੇਸ ਉਪਭੋਗੀ ਨਾਂ</target></trans-unit>
-
 	<trans-unit id="RHN_SAT_HOSTNAME">
 <source>@@PRODUCT_NAME@@ hostname (FQDN)</source>
       <context-group name="ctx">

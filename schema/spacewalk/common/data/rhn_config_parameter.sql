@@ -68,14 +68,8 @@ insert into rhn_config_parameter(group_name,name,value,security_type,last_update
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'TSDBLocalQueue', 'read_old_file_seconds', '3', 'INTERNAL', 'system',current_timestamp);
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'cf_db', 'dbd', 'Oracle', 'INTERNAL', 'system',current_timestamp);
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'cf_db', 'notification_password', '%{CFDB_NOTIF_PASSWD}', 'INTERNAL', 'system',current_timestamp);
-insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'cf_db', 'notification_username', '%{RHN_DB_USERNAME}', 'INTERNAL', 'system',current_timestamp);
-insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'cf_db', 'portal_username', '%{RHN_DB_USERNAME}', 'INTERNAL', 'system',current_timestamp);
-insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'cf_db', 'proxy_username', '%{RHN_DB_USERNAME}', 'INTERNAL', 'system',current_timestamp);
-insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'cf_db', 'ui_username', '%{RHN_DB_USERNAME}', 'INTERNAL', 'system',current_timestamp);
-insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'cf_db', 'username', '%{RHN_DB_USERNAME}', 'INTERNAL', 'system',current_timestamp);
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'cs_db', 'dbd', 'Oracle', 'INTERNAL', 'system',current_timestamp);
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'cs_db', 'password', '%{CSDB_PASSWD}', 'INTERNAL', 'system',current_timestamp);
-insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'cs_db', 'username', '%{RHN_DB_USERNAME}', 'INTERNAL', 'system',current_timestamp);
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'current_state', 'acceptor_url', '%{SATCFGURL}/cgi-mod-perl/accept_status_log.cgi', 'ALL', 'system',current_timestamp);
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'current_state', 'last_success', '%{NPLIB}/last_state_push', 'ALL', 'system',current_timestamp);
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'current_state', 'notification_interval', '300', 'ALL', 'system',current_timestamp);

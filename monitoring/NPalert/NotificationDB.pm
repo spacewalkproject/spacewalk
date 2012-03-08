@@ -34,7 +34,6 @@ my %INIT_ARGS = (
                  ora_port     => $cfg->get('oracle', 'ora_port'),
                  ora_host     => $cfg->get('hosts',  'cfdb'),
                  ora_sid      => $cfg->get('cf_db',  'name'),
-                 ora_user     => $cfg->get('cf_db',  'notification_username'),
                  ora_password => $cfg->get('cf_db',  'notification_password'),
                  use_tnsnames => 1,
                 );
@@ -43,7 +42,6 @@ my %field_map =
   (
    ora_host     => 'host',
    ora_port     => 'port',
-   ora_user     => 'username',
    ora_password => 'password',
    ora_sid      => 'database',
    timeout      => 'timeout_seconds',
