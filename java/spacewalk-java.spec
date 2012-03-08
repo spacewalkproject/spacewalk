@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.5
+Version: 1.8.6
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -589,6 +589,24 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Mar 08 2012 Tomas Lestach <tlestach@redhat.com> 1.8.6-1
+- fix SystemAclHandlerTest (tlestach@redhat.com)
+- fix MessageQueueTest.testDatabaseTransactionHandling (tlestach@redhat.com)
+- load test hmb.xml files when loading TestImpl (tlestach@redhat.com)
+- fix MockObjectTestCase issue (tlestach@redhat.com)
+- fix JarFinderTest (tlestach@redhat.com)
+- fix FileFinderTest.testFindFilesSubDir (tlestach@redhat.com)
+- remove test/validation/userCreateForm.xsd exclude from rhn.jar
+  (tlestach@redhat.com)
+- do not include test directories into rhn.jar (tlestach@redhat.com)
+- consider only *Test.classes as junit tests (tlestach@redhat.com)
+- add debug arguments to the junit (tlestach@redhat.com)
+- point unit tests to search for configuration on a new fs location
+  (tlestach@redhat.com)
+- place conf directory into /user/share/rhn/unit-tests (tlestach@redhat.com)
+- 801433 - save kickstart data after modifying ks profile child channels
+  (tlestach@redhat.com)
+
 * Thu Mar 08 2012 Miroslav Suchý 1.8.5-1
 - Revert "removing unused string with trans-id
   'systementitlements.jsp.entitlement_counts_message_*'" (msuchy@redhat.com)
