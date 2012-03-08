@@ -684,7 +684,6 @@ delete from rhnChannel where label like 'ChannelLabel%';
         <exclude name="**/log4j.properties" />
         <exclude name="**/*.conf" />
         <exclude name="**/*.conf.rpmsave" />
-        <exclude name="**/test/validation/userCreateForm.xsd" />
       </fileset>
       <!-- ugh, we can't flatten this like we would with a <copy> tag
            or use a mapper, alas -->
