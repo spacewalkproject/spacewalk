@@ -136,9 +136,13 @@ class BaseMain:
         else:
             server_name = config.getServerlURL()
         up2date_cfg['proto'] = urlsplit(server_name[0])[0]
-        up2date_cfg['server_list'] = map(lambda x: urlsplit(x)[1], server_name)
+        if up2date_cfg['proto'] == '':
+            up2date_cfg['proto'] = 'https'
+            up2date_cfg['server_list'] = map(lambda x: urlsplit(x)[2], server_name)
+        else:
+            up2date_cfg['server_list'] = map(lambda x: urlsplit(x)[1], server_name)
         if server_name:
-            server_name = urlsplit(server_name[0])[1]
+            server_name = (up2date_cfg['server_list'])[0]
             print "Using server name", server_name
             local_config.init(self.config_section, defaults=up2date_cfg, server_name=server_name)
         else:
