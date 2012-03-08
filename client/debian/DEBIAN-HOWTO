@@ -6,12 +6,18 @@ cd client/rhel/rhnlib
 tito build --tgz
 copy rhnlib-2.5.27.tar.gz /tmp/python-rhnlib_2.5.27.orig.tar.gz
 cd -
+cd /tmp
+tar zxvf python-rhnlib_2.5.27.orig.tar.gz
+mv rhnlib_2.5.27 python-rhnlib_2.5.27
+cd -
 cd client/debian
-cp -a rhnlib /tmp/python-rhnlib-2.5.27
+cp -a rhnlib/* /tmp/python-rhnlib-2.5.27
 cd /tmp/python-rhnlib-2.5.27
 debuild -i -S
 # and if you have configured dupload properly, then:
 dupload -t mentors python-rhnlib_2.5.27-1_source.changes 
+# or if you want unsigned build:
+debuild -us -uc
 
 Similary for other packages.
 
