@@ -42,7 +42,7 @@ public class FileFinderTest extends RhnBaseTestCase {
         assertNotNull(f);
 
         List result = f.find(".class");
-        assertEquals(6, result.size());
+        assertEquals(4, result.size());
     }
 
     public void testFindExcluding() throws Exception {
