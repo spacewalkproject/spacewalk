@@ -161,7 +161,6 @@
     <description>Spacewalk Server Non-installatble Packages</description>
     <uservisible>false</uservisible>
     <packagelist>
-       <packagereq type="optional">oracle-rhnsat-selinux</packagereq>
        <packagereq type="optional">perl-DBD-Oracle-explain</packagereq>
        <packagereq type="optional">spacewalk-java-tests</packagereq>
     </packagelist>
