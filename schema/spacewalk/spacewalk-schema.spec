@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.8.0
+Version:        1.8.1
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -69,6 +69,13 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Thu Mar 08 2012 Milan Zazrivec <mzazrivec@redhat.com> 1.8.1-1
+- pxt_session_cleanup: no need for autonomous_transaction
+- removed rhnEmailAddress* objects
+- find_mailable_address is no longer needed
+- don't call rhn_user.find_mailable_address for a valid email address
+- rhn_channel.update_needed_cache does not need autonomous_transaction
+
 * Fri Mar 02 2012 Jan Pazdziora 1.7.55-1
 - Keys for Fedora 16 -- 18.
 - Update the copyright year info.
