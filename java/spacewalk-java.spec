@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.4
+Version: 1.8.5
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -585,6 +585,15 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Mar 08 2012 Miroslav Suchý 1.8.5-1
+- Revert "removing unused string with trans-id
+  'systementitlements.jsp.entitlement_counts_message_*'" (msuchy@redhat.com)
+- API : KickstartHandler::renameProfile remove unused code referring to
+  Kickstart Trees (shardy@redhat.com)
+- API Documentation : kickstart.renameProfile renames profiles not kickstart
+  trees (shardy@redhat.com)
+- API Documentation : api.get_version fix typo (shardy@redhat.com)
+
 * Wed Mar 07 2012 Jan Pazdziora 1.8.4-1
 - partialy revert 423cfc6255b7e6d52da35f7e543ec38cd99e04c9 to return back
   string which are dynamicaly created (msuchy@redhat.com)
