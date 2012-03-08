@@ -243,7 +243,7 @@ public class ProfileHandler extends BaseHandler {
             }
             ksdata.addChildChannel(channel);
         }
-
+        KickstartFactory.saveKickstartData(ksdata);
         return 1;
     }
 
