@@ -28,8 +28,8 @@ begin
 
     perform pg_dblink_exec(
         'insert into PXTSessions (id, value, expires, web_user_id) values (' ||
-        l_id || ', ' || ', ' || coalesce(quote_literal(p_value), 'NULL') ||
-        ', ' || ', ' || p_expires || ', ' || p_web_user_id || '); commit');
+        l_id || ', ' || coalesce(quote_literal(p_value), 'NULL') ||
+        ', ' || p_expires || ', ' || p_web_user_id || '); commit');
 
 	return l_id;
 end;
