@@ -32,7 +32,7 @@ public class JarFinderTest extends RhnBaseTestCase {
         assertNotNull(f);
 
         List result = f.find(".class");
-        assertEquals(46, result.size());
+        assertEquals(28, result.size());
     }
 
     public void testFindFilesSubDir() throws Exception {
@@ -40,7 +40,7 @@ public class JarFinderTest extends RhnBaseTestCase {
         assertNotNull(f);
 
         List result = f.find("");
-        assertEquals(47, result.size());
+        assertEquals(29, result.size());
     }
 
     public void testFindFilesExcluding() throws Exception {
@@ -50,7 +50,7 @@ public class JarFinderTest extends RhnBaseTestCase {
         String[] sarr = {"End"};
 
         List result = f.findExcluding(sarr, "class");
-        assertEquals(46, result.size());
+        assertEquals(28, result.size());
     }
 }
 
