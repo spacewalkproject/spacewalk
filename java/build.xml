@@ -679,7 +679,7 @@ delete from rhnChannel where label like 'ChannelLabel%';
         <exclude name="**/internal/**" />
         <exclude name="**/*.tld" />
         <exclude name="**/*.html" />
-        <exclude name="**/test/*" />
+        <exclude name="**/test/" />
         <exclude name="**/*/testing/**" />
         <exclude name="**/log4j.properties" />
         <exclude name="**/*.conf" />
