@@ -266,7 +266,7 @@ SELECT u.created as CREATED
 </write-mode>
 
 <write-mode name="insert_into_time_series">
-  <query params="oid, entry_time, data">
+  <query params="org_id, probe_id, probe_desc, entry_time, data">
   INSERT INTO TIME_SERIES_DATA(ORG_ID, PROBE_ID, PROBE_DESC, ENTRY_TIME, DATA)
       VALUES(:org_id, :probe_id, :probe_desc, :entry_time, :data)
   </query>
@@ -434,13 +434,6 @@ SELECT name FROM web_customer WHERE id IN (%s) AND name = :name
   <query params="sessionid, obj_id, obj_type">
     INSERT INTO rhnVisibleObjects (pxt_session_id, object_id, object_type)
     VALUES (:sessionid, :obj_id, :obj_type)
-  </query>
-</write-mode>
-
-<write-mode name="insert_time_series">
-  <query params="entry_time, data">
-    INSERT INTO time_series_data (org_id, probe_id, probe_desc, entry_time, data)
-                          VALUES (1, 1, 'test_desc', :entry_time, :data)
   </query>
 </write-mode>
 

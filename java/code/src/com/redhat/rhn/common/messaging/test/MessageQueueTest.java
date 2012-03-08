@@ -20,8 +20,12 @@ import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.WriteMode;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.common.messaging.MessageQueue;
+import com.redhat.rhn.domain.monitoring.ServerProbe;
+import com.redhat.rhn.domain.monitoring.test.MonitoringFactoryTest;
+import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.testing.RhnBaseTestCase;
 import com.redhat.rhn.testing.TestUtils;
+import com.redhat.rhn.testing.UserTestUtils;
 
 import org.apache.log4j.Logger;
 import org.hibernate.Transaction;
@@ -99,11 +103,18 @@ public class MessageQueueTest extends RhnBaseTestCase {
         MessageQueue.publish(me);
         assertFalse(me.getMessageReceived());
 
+        //create probe first
+        User user = UserTestUtils.findNewUser("testUser", "testOrg");
+        ServerProbe probe = (ServerProbe) MonitoringFactoryTest.createTestProbe(user);
+
         WriteMode m = ModeFactory.getWriteMode("test_queries",
-            "insert_time_series");
+            "insert_into_time_series");
         Map params = new HashMap();
         params.put("entry_time", new Long(1));
         params.put("data", testString);
+        params.put("probe_desc", "hmmm");
+        params.put("probe_id", probe.getId());
+        params.put("org_id", user.getOrg().getId());
         m.executeUpdate(params);
         commitAndCloseSession();
         // === END TXN ===
