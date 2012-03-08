@@ -40,9 +40,16 @@ import junit.framework.TestSuite;
  */
 public class TestFactoryWrapperTest extends RhnBaseTestCase {
     private static Logger log = Logger.getLogger(TestFactoryWrapperTest.class);
+    private static final String[] TEST_PACKAGE_NAMES =
+        {"com.redhat.rhn.domain.test"};
+
 
     public TestFactoryWrapperTest(String name) {
         super(name);
+    }
+
+    public void setUp() {
+        HibernateFactory.createSessionFactory(TEST_PACKAGE_NAMES);
     }
 
     public void testLookupReturnNull() throws Exception {
