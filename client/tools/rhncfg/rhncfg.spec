@@ -8,7 +8,7 @@ Group:   Applications/System
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.10.27
+Version: 5.10.28
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -106,6 +106,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Thu Mar 08 2012 Miroslav Suchý 5.10.28-1
+- accept server name without protocol
+
 * Fri Mar 02 2012 Jan Pazdziora 5.10.27-1
 - Update the copyright year info.
 
