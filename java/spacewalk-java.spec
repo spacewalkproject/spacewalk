@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.7
+Version: 1.8.8
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -589,6 +589,27 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Mar 09 2012 Stephen Herr <sherr@redhat.com> 1.8.8-1
+- 782551 - Making a default selection of no Proxy when kickstarting a server
+  (sherr@redhat.com)
+- 773113 - Added new XMLRPC API method to allow people to change the kickstart
+  preserve ks.cfg option (sherr@redhat.com)
+- 755470 - Fixed incorrect sorting of archived action timestamp
+  (sherr@redhat.com)
+- 753064 - throw appropriate error if deleting nonexistant kickstart key
+  (sherr@redhat.com)
+- Revert "removing unused string with trans-id 'file_size.b'"
+  (msuchy@redhat.com)
+- Revert "removing unused string with trans-id 'file_size.kb'"
+  (msuchy@redhat.com)
+- Revert "removing unused string with trans-id 'file_size.mb'"
+  (msuchy@redhat.com)
+- Just minor template fix (mkollar@redhat.com)
+- 795565 - better keep the original 'date' in ErrataOverviewSerializer
+  (tlestach@redhat.com)
+- 795565 - let ErrataOverviewSerializer return also issue_date
+  (tlestach@redhat.com)
+
 * Fri Mar 09 2012 Miroslav Suchý 1.8.7-1
 - remove RHN_DB_USERNAME from monitoring scout configuration
 - remove RHN_DB_PASSWD from monitoring scout configuration
