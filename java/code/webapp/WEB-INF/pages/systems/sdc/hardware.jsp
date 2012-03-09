@@ -25,7 +25,7 @@
     <h2><bean:message key="sdc.details.hardware.general"/></h2>
 
     <c:if test="${cpu_mhz != null}" >
-    (${cpu_count}) ${cpu_model} (${cpu_mhz} MHZ)
+    (${cpu_count}) ${cpu_model} (${cpu_mhz} MHz)
     </c:if>
 
     <table class="details">
