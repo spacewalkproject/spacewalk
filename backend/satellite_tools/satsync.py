@@ -2213,6 +2213,7 @@ def processCommandline():
             sys.exit(21)
         else:
             CFG.set('DEBUG', debugLevel)
+            initLOG(CFG.LOG_FILE, debugLevel)
 
 
     if OPTIONS.print_configuration:

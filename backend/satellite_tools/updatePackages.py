@@ -67,9 +67,11 @@ def main():
         sys.exit(-1)
 
     if options.verbose:
+        initLOG("stdout", options.verbose or 0)
         verbose = 1
 
     if options.debug:
+        initLOG(CFG.LOG_FILE, options.debug or 0)
         debug = 1
 
     if not options.db:
