@@ -12,7 +12,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.1
+Version: 1.8.2
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -688,6 +688,11 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Fri Mar 09 2012 Miroslav Suchý 1.8.2-1
+- spacewalk-repo-sync documentation fix : add include/exclude options to
+  manpage (shardy@redhat.com)
+- add default value for taskomatic.channel_repodata_workers
+
 * Mon Mar 05 2012 Michael Mraka <michael.mraka@redhat.com> 1.8.1-1
 - login(), logout() moved to spacewalk.common.cli
 - added cli module to rpm
