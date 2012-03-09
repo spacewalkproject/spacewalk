@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        1.8.0
+Version:        1.8.1
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -106,6 +106,14 @@ rm -rf %{buildroot}
 %{_mandir}/man8/spacewalk-make-mount-points*
 
 %changelog
+* Fri Mar 09 2012 Miroslav Suchý 1.8.1-1
+- monitoringDOTdbname is not used anymore
+- remove RHN_DB_USERNAME from monitoring scout configuration
+- remove RHN_DB_PASSWD from monitoring scout configuration
+- remove RHN_DB_NAME from monitoring scout configuration
+- remove tableowner from monitoring scout configuration
+- Bumping package versions for 1.8. (jpazdziora@redhat.com)
+
 * Fri Mar 02 2012 Jan Pazdziora 1.7.9-1
 - Update the copyright year info.
 
