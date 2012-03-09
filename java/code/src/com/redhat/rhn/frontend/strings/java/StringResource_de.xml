@@ -6298,6 +6298,13 @@ Folgen Sie dieser URL f&amp;uuml;r die vollst&amp;auml;ndige Liste inaktiver Sys
 
 
 
+      <trans-unit id="file_size.mb">
+        <source>{0} MB</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/Quota.do</context>
+          <context context-type="paramnotes">40 MB</context>
+        </context-group>
+      <target>{0} MB</target></trans-unit>
 
 
 

@@ -6294,6 +6294,13 @@ Suivez cet url pour obtenir la liste complète des systèmes inactifs :
 
 
 
+      <trans-unit id="file_size.mb">
+        <source>{0} MB</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/Quota.do</context>
+          <context context-type="paramnotes">40 MB</context>
+        </context-group>
+      <target>{0} Mo</target></trans-unit>
 
 
 
