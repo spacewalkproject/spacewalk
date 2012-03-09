@@ -55,6 +55,11 @@ public class DeleteCryptoKeyCommand extends BaseCryptoKeyCommand {
         }
 
         this.key = KickstartFactory.lookupCryptoKey(description, currentUser.getOrg());
+
+        if (this.key == null) {
+            throw new IllegalArgumentException(
+                    "No key with description " + description + " exists.");
+        }
     }
 
     /**

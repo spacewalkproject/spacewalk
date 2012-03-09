@@ -93,5 +93,26 @@ public class CryptoKeyCommandTest extends BaseTestCaseWithUser {
         setupKey(new DeleteCryptoKeyCommand(user, key2.getId()));
         assertNull(KickstartFactory.lookupCryptoKeyById(key2.getId(), key2.getOrg()));
     }
+
+    public void testDuplicateDelete() throws Exception {
+        CryptoKey key = CryptoTest.createTestKey(user.getOrg());
+        KickstartFactory.saveCryptoKey(key);
+        assertNotNull(KickstartFactory.lookupCryptoKeyById(key.getId(), key.getOrg()));
+        flushAndEvict(key);
+
+        //CryptoKey will be deleted by the cmd.store command in setupKey
+        setupKey(new DeleteCryptoKeyCommand(user, key.getId()));
+        assertNull(KickstartFactory.lookupCryptoKeyById(key.getId(), key.getOrg()));
+
+        try {
+            setupKey(new DeleteCryptoKeyCommand(user, key.getDescription()));
+
+            // if no exception was thrown there is a problem
+            fail();
+        }
+        catch (IllegalArgumentException e) {
+            // this is what we want to see
+        } // other exceptions are legitimate errors, throw them and fail the test
+    }
 }
 
