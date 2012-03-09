@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE preface PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.docbook.org/xml/4.5/docbookx.dtd">
+
+<preface>
+<title>Sample Scripts</title>
+
+<example>
+    <title>Perl Example</title>
+    <para>This Perl example shows the <function>system.listUserSystems</function> call being used to get a
+list of systems a user has access to. In the example below, the name of each system will be printed.</para>
+    <programlisting>#!/usr/bin/perl
+use Frontier::Client;
+
+my $HOST = 'spacewalk.example.com';
+my $user = 'username';
+my $pass = 'password';
+
+my $client = new Frontier::Client(url => "http://$HOST/rpc/api");
+my $session = $client->call('auth.login',$user, $pass);
+
+my $systems = $client->call('system.listUserSystems', $session);
+foreach my $system (@$systems) {
+   print $system->{'name'}."\n";
+}
+$client->call('auth.logout', $session);</programlisting>
+</example>
+
+<example>
+    <title>Python Example</title>
+    <para>Below is an example of the <function>user.listUsers</function> call being used. Only the login of each
+user is printed.</para>
+    <programlisting>#!/usr/bin/python
+import xmlrpclib
+
+SPACEWALK_URL = "http://spacewalk.example.com/rpc/api"
+SPACEWALK_LOGIN = "username"
+SPACEWALK_PASSWORD = "password"
+
+client = xmlrpclib.Server(SPACEWALK_URL, verbose=0)
+
+key = client.auth.login(SPACEWALK_LOGIN, SPACEWALK_PASSWORD)
+list = client.user.list_users(key)
+for user in list:
+  print user.get('login')
+
+client.auth.logout(key)</programlisting>
+</example>
+</preface>

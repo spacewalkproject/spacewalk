@@ -100,11 +100,19 @@ public class ApiDoclet {
 
                         Tag methodDoc = getFirst(method.tags(XMLRPC_DOC));
                         if (methodDoc != null) {
-                            call.setDoc(methodDoc.text());
+                            if (docType.equals("docbook")) {
+                                call.setDoc(DocBookWriter.transcode(methodDoc.text()));
+                            } else {
+                                call.setDoc(methodDoc.text());
+                            }
                         }
 
                         for (Tag param : method.tags(XMLRPC_PARAM)) {
-                            call.addParam(param.text());
+                            if (docType.equals("docbook")) {
+                                call.addParam(DocBookWriter.transcode(param.text()));
+                            } else {
+                                call.addParam(param.text());
+                            }
                         }
 
                         if (method.tags(DEPRECATED).length > 0) {
@@ -147,6 +155,9 @@ public class ApiDoclet {
         }
         else if (docType.equals("singlepage")) {
             writer = new SinglePageWriter();
+        }
+        else if (docType.equals("docbook")) {
+            writer = new DocBookWriter();
         }
         else {
             writer = new JSPWriter();

@@ -253,6 +253,12 @@
     <antcall target="apidoc" />
   </target>
 
+  <target name="apidoc-docbook" description="Generate docbook xml from the API">
+    <property name="doclet.class" value="DocBookDoclet" />
+    <property name="template.dir" value="docbook" />
+    <antcall target="apidoc" />
+  </target>
+
   <target name="apidoc" description="Generate the api documentation" depends="init">
     <path id="javadocpath">
     <path refid="buildjars" />

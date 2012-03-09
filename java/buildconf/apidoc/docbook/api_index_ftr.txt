@@ -1,0 +1,11 @@
+  <colophon>
+    <title>Colophon</title>
+    <para>This documentation is written in DocBook (see <ulink url="http://www.docbook.org"/>). The XML
+      source files were validated by <command>xmllint</command>, processed by <command>xsltproc</command>,
+      and converted into XSL-FO using a customized version of Norman Walsh's stylesheets. The final PDF is
+      formatted through XEP from RenderX. <phrase>The open source tools and the environment used to build
+      this manual are available in the package <systemitem class="resource">daps</systemitem>.</phrase>
+      The project's home page can be found at <ulink url="http://daps.sf.net/"/>.
+    </para>
+  </colophon>
+</book>

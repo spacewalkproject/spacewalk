@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.docbook.org/xml/4.5/docbookx.dtd">
+
+<book lang="en">
+  <title>Spacewalk API Documentation</title>
+  <bookinfo>
+    <pubdate><?dbtimestamp?></pubdate>
+    <productname>Spacewalk</productname>
+    <productnumber>1.7</productnumber>
+    <bibliosource class="uri">https://fedorahosted.org/spacewalk</bibliosource>
+    <abstract>
+      <para>
+        Welcome to the Spacewalk API. By using the included API calls, you can easily automate many of
+        the tasks you perform everyday. All API calls are grouped by common functionality.
+      </para>
+    </abstract>
+    <legalnotice>
+    <title>Legal Notice</title>
+    <para>Copyright (c) 2012 Red Hat, Inc.
+      This software is licensed to you under the GNU General Public License, version 2 (GPLv2). There is
+      NO WARRANTY for this software, express or implied, including the implied warranties of MERCHANTABILITY
+      or FITNESS FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2 along with this software;
+      if not, see http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
+    </para>
+    <para>
+      Red Hat trademarks are not licensed under GPLv2. No permission is granted to use or replicate Red Hat
+      trademarks that are incorporated in this software or its documentation.
+    </para>
+    </legalnotice>
+  </bookinfo>
+
+  <xi:include href="scripts.xml" xmlns:xi="http://www.w3.org/2001/XInclude" />
+  <xi:include href="faqs.xml" xmlns:xi="http://www.w3.org/2001/XInclude" />

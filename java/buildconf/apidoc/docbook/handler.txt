@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.docbook.org/xml/4.5/docbookx.dtd">
+
+## One chapter per handler
+<chapter role="namespace">
+<title>$handler.name</title>
+<abstract><para>$handler.desc</para></abstract>
+
+#foreach ($call in $handler.calls)
+<sect1>
+  <title><function>$call.name</function></title>
+  <para/>
+
+  <variablelist>
+    ## The description of this call
+    <varlistentry>
+      <term>Description</term>
+      <listitem>
+        <para>$call.doc</para>
+      #if ($call.deprecated)
+        <para>Deprecated - $call.deprecatedReason</para>
+      #end
+      #if ($call.sinceAvailable)
+        <para>Available since: $call.sinceVersion</para>
+      #end
+      </listitem>
+    </varlistentry>
+
+    ## The parameters
+    <varlistentry>
+      <term>Parameters</term>
+      <listitem>
+      <itemizedlist spacing="compact">
+        #if ($call.params.size() <= 0)
+          <listitem><para>None</para></listitem>
+        #else
+          #foreach($param in $call.params)
+            #if ($param.trim().startsWith('<listitem>'))
+              $param
+            #else
+              <listitem><para>$param</para></listitem>
+            #end
+          #end
+        #end
+      </itemizedlist>
+      </listitem>
+    </varlistentry>
+
+    ## The return value
+    <varlistentry>
+      <term>Return Value</term>
+      <listitem>
+        <itemizedlist spacing="compact">
+        ## Find out if we need to put a <para> here
+        #if (!$call.returnDoc.trim().startsWith('<') && !$call.returnDoc.trim().startsWith('$'))
+          <listitem><para>
+        #end
+        $call.returnDoc
+        #if (!$call.returnDoc.trim().startsWith('<') && !$call.returnDoc.trim().startsWith('$'))
+          </para></listitem>
+        #end
+        </itemizedlist>
+      </listitem>
+    </varlistentry>
+  </variablelist>
+</sect1>
+#end
+
+</chapter>

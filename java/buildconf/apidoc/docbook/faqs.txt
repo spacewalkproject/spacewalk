@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE preface PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.docbook.org/xml/4.5/docbookx.dtd">
+
+<preface>
+<title>Frequently Asked Questions</title>
+
+<qandaset>
+  <qandaentry>
+    <question>
+      <para>What programming languages are supported by the Spacewalk API?</para>
+    </question>
+    <answer>
+      <para>Any language that provides an XMLRPC client interface will work with the Spacewalk API. While
+Perl and Python are two of the most commonly used, an XMLRPC client implementation is available for every
+common language.</para>
+    </answer>
+  </qandaentry>
+  <qandaentry>
+    <question>
+      <para>When trying to call a specific function, the error <quote>Fault returned from XML RPC Server,
+fault code -1: Could not find method METHOD in class...</quote>  is given. What is wrong?</para>
+    </question>
+    <answer>
+      <para>Typically this is seen when either a function name is being called that doesn't exist, the number
+of parameters for a particular function is incorrect, or the type of a passed parameter is incorrect (Such as
+an array is expected, but a String is passed). Check all of these things.</para>
+    </answer>
+  </qandaentry>
+  <qandaentry>
+    <question>
+      <para>Should I call an API method using the naming scheme <quote>methodName</quote> or
+<quote>method_name</quote>?</para>
+    </question>
+    <answer>
+      <para>Both of these are valid names for the same method, so use whichever you prefer.</para>
+    </answer>
+  </qandaentry>
+</qandaset>
+</preface>

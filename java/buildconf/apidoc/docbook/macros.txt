@@ -1,0 +1,86 @@
+
+#set($date="dateTime.iso8601")
+
+#macro(serializer $serializer)
+<listitem><para>$serializer</para></listitem>
+#end
+#macro(prop $type $value)
+<listitem><para>$type "$value"</para></listitem>
+#end
+#macro(prop_desc $type $value $desc)
+<listitem><para>$type "$value" - $desc</para></listitem>
+#end
+#macro(prop_array $key $type $desc)
+<listitem>
+  <para>array "$key"</para>
+  <itemizedlist spacing="compact">
+    <listitem><para>$type $desc</para></listitem>
+  </itemizedlist>
+</listitem>
+#end
+#macro(prop_array_begin $key)
+<listitem>
+  <para>array "$key"</para>
+  <itemizedlist spacing="compact">
+#end
+#macro(prop_array_begin_desc $key $desc)
+<listitem>
+  <para>array "$key" - $desc</para>
+  <itemizedlist spacing="compact">
+#end
+#macro(prop_array_end)
+  </itemizedlist>
+</listitem>
+#end
+#macro(struct $type)
+<listitem>
+  <para>struct - $type</para>
+  <itemizedlist spacing="compact">
+#end
+#macro(struct_end)
+  </itemizedlist>
+</listitem>
+#end
+#macro(array)
+<listitem>
+  <para>array:</para>
+  <itemizedlist spacing="compact">
+#end
+#macro(array_end)
+  </itemizedlist>
+</listitem>
+#end
+#macro(array_single $type $desc)
+<listitem>
+  <para>array:</para>
+  <itemizedlist spacing="compact">
+    <listitem><para>$type - $desc</para></listitem>
+  </itemizedlist>
+</listitem>
+#end
+#macro(options)
+<listitem override="none">
+  <itemizedlist spacing="compact">
+#end
+#macro(item $item)
+  <listitem><para>$item</para></listitem>
+#end
+#macro(item_desc $item, $desc)
+  <listitem><para>$item - $desc</para></listitem>
+#end
+#macro(options_end)
+  </itemizedlist>
+</listitem>
+#end
+#macro(param $type $value)
+<listitem><para>$type $value</para></listitem>
+#end
+#macro(param_desc $type $value $desc)
+<listitem><para>$type $value - $desc</para></listitem>
+#end
+#macro(session_key)
+  #param("string", "sessionKey")
+#end
+#macro(return_int_success)
+<listitem><para>int - 1 on success, exception thrown otherwise.</para></listitem>
+#end
