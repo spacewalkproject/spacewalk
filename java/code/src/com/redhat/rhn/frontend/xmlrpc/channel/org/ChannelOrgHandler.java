@@ -62,7 +62,7 @@ public class ChannelOrgHandler extends BaseHandler {
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param_desc("string", "channelLabel", "label of the channel")
      * @xmlrpc.returntype
-     *   #array("organizations")
+     *   #array()
      *      #struct("org")
      *          #prop("int", "org_id")
      *          #prop("string", "org_name")

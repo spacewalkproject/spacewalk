@@ -39,7 +39,7 @@ import redstone.xmlrpc.XmlRpcSerializer;
  *   #prop("int", "free_flex")
  *   #prop("int", "used_flex")
  *   #prop("int", "allocated_flex")
- *   #prop("int", "unallocated_flex") *
+ *   #prop("int", "unallocated_flex")
  * #struct_end()
  */
 public class MultiOrgEntitlementsDtoSerializer implements

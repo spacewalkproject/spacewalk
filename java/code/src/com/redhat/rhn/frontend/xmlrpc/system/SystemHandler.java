@@ -1064,6 +1064,7 @@ public class SystemHandler extends BaseHandler {
      *          #prop("string", "release")
      *          #prop("string", "epoch")
      *          #prop("string", "arch")
+     *        #struct_end()
      *      #array_end()
      *
      */
@@ -1491,7 +1492,8 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.doc List the available groups for a given system.
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("int", "serverId")
-     * @xmlrpc.returntype array
+     * @xmlrpc.returntype
+     *  #array()
      *      #struct("system group")
      *          #prop_desc("int", "id", "server group id")
      *          #prop_desc("int", "subscribed", "1 if the given server is subscribed
@@ -1499,6 +1501,7 @@ public class SystemHandler extends BaseHandler {
      *          #prop_desc("string", "system_group_name", "Name of the server group")
      *          #prop_desc("string", "sgid", "server group id (Deprecated)")
      *      #struct_end()
+     *  #array_end()
      */
     public Object[] listGroups(String sessionKey, Integer sid) throws FaultException {
         // Get the logged in user and server
@@ -1890,7 +1893,7 @@ public class SystemHandler extends BaseHandler {
      * filter the results to fetch the specific events they are looking for.
      *
      * @xmlrpc.param #param("string", "sessionKey")
-     * @xmlrpc.param #param("int", "serverId") - ID of system.
+     * @xmlrpc.param #param_desc("int", "serverId", "ID of system.")
      * @xmlrpc.returntype
      *  #array()
      *      #struct("action")
@@ -2145,7 +2148,7 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.doc Provision a guest on the host specified.  Defaults to:
      * memory=512MB, vcpu=1, storage=3GB.
      * @xmlrpc.param #param("string", "sessionKey")
-     * @xmlrpc.param #param("int", "serverId") - ID of host to provision guest on.
+     * @xmlrpc.param #param_desc("int", "serverId", "ID of host to provision guest on.")
      * @xmlrpc.param #param("string", "guestName")
      * @xmlrpc.param #param_desc("string", "profileName", "Kickstart profile to use.")
      * @xmlrpc.returntype #return_int_success()
@@ -2168,7 +2171,7 @@ public class SystemHandler extends BaseHandler {
      *
      * @xmlrpc.doc Provision a system using the specified kickstart profile.
      * @xmlrpc.param #param("string", "sessionKey")
-     * @xmlrpc.param #param("int", "serverId") - ID of the system to be provisioned.
+     * @xmlrpc.param #param_desc("int", "serverId", "ID of the system to be provisioned.")
      * @xmlrpc.param #param_desc("string", "profileName", "Kickstart profile to use.")
      * @xmlrpc.returntype int - ID of the action scheduled, otherwise exception thrown
      * on error
@@ -2220,7 +2223,7 @@ public class SystemHandler extends BaseHandler {
      *
      * @xmlrpc.doc Provision a system using the specified kickstart profile.
      * @xmlrpc.param #param("string", "sessionKey")
-     * @xmlrpc.param #param("int", "serverId") - ID of the system to be provisioned.
+     * @xmlrpc.param #param_desc("int", "serverId", "ID of the system to be provisioned.")
      * @xmlrpc.param #param_desc("string", "profileName", "Kickstart profile to use.")
      * @xmlrpc.param #param("dateTime.iso8601", "earliestDate")
      * @xmlrpc.returntype int - ID of the action scheduled, otherwise exception thrown
@@ -2280,7 +2283,7 @@ public class SystemHandler extends BaseHandler {
      * or if OSAD is enabled will begin immediately.
      *
      * @xmlrpc.param #param("string", "sessionKey")
-     * @xmlrpc.param #param("int", "serverId") - ID of host to provision guest on.
+     * @xmlrpc.param #param_desc("int", "serverId", "ID of host to provision guest on.")
      * @xmlrpc.param #param("string", "guestName")
      * @xmlrpc.param #param_desc("string", "profileName", "Kickstart Profile to use.")
      * @xmlrpc.param #param_desc("int", "memoryMb", "Memory to allocate to the guest")
@@ -3175,8 +3178,7 @@ public class SystemHandler extends BaseHandler {
      *
      * @xmlrpc.doc Schedule a script to run.
      * @xmlrpc.param #param("string", "sessionKey")
-     * @xmlrpc.param #array_single("int", "systemIds") - IDs of the servers to run
-     * the script on.
+     * @xmlrpc.param #array_single("int", "System IDs of the servers to run the script on.")
      * @xmlrpc.param #param_desc("string", "username", "User to run script as.")
      * @xmlrpc.param #param_desc("string", "groupname", "Group to run script as.")
      * @xmlrpc.param #param_desc("int", "timeout", "Seconds to allow the script to run
@@ -3241,7 +3243,7 @@ public class SystemHandler extends BaseHandler {
      *
      * @xmlrpc.doc Schedule a script to run.
      * @xmlrpc.param #param("string", "sessionKey")
-     * @xmlrpc.param #param("int", "serverId") - ID of the server to run the script on.
+     * @xmlrpc.param #param_desc("int", "serverId", "ID of the server to run the script on.")
      * @xmlrpc.param #param_desc("string", "username", "User to run script as.")
      * @xmlrpc.param #param_desc("string", "groupname", "Group to run script as.")
      * @xmlrpc.param #param_desc("int", "timeout", "Seconds to allow the script to run
@@ -3416,7 +3418,7 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.doc Set server details. All arguments are optional and will only be modified
      * if included in the struct.
      * @xmlrpc.param #param("string", "sessionKey")
-     * @xmlrpc.param #param("int", "serverId") - ID of server to lookup details for.
+     * @xmlrpc.param #param_desc("int", "serverId", "ID of server to lookup details for.")
      * @xmlrpc.param
      *      #struct("server details")
      *          #prop_desc("string", "profile_name", "System's profile name")
@@ -4028,8 +4030,10 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.doc Lists systems that have been inactive for the default period of
      *          inactivity
      * @xmlrpc.param #param("string", "sessionKey")
-     * @xmlrpc.returntype array
-     *              $SystemOverviewSerializer
+     * @xmlrpc.returntype
+     *      #array()
+     *          $SystemOverviewSerializer
+     *      #array_end()
      */
     public List listInactiveSystems(String sessionKey) {
         User loggedInUser = getLoggedInUser(sessionKey);
@@ -4048,8 +4052,10 @@ public class SystemHandler extends BaseHandler {
      *      number of days..
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("int", "days")
-     * @xmlrpc.returntype array
+     * @xmlrpc.returntype
+     *      #array()
      *          $SystemOverviewSerializer
+     *      #array_end()
      */
     public List listInactiveSystems(String sessionKey, Integer days) {
         User loggedInUser = getLoggedInUser(sessionKey);

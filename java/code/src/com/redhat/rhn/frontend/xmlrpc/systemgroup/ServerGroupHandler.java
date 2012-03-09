@@ -405,10 +405,7 @@ public class ServerGroupHandler extends BaseHandler {
      * @xmlrpc.doc Lists active systems within a server group
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param("string", "systemGroupName")
-     * @xmlrpc.returntype
-     *  #array()
-     *      int server_id
-     *  #array_end()
+     * @xmlrpc.returntype #array_single("int", "server_id")
      */
     public List<Long> listActiveSystemsInGroup(String sessionKey, String systemGroupName) {
         User loggedInUser =  getLoggedInUser(sessionKey);
@@ -435,10 +432,7 @@ public class ServerGroupHandler extends BaseHandler {
      * @xmlrpc.param #param("string", "systemGroupName")
      * @xmlrpc.param #param_desc("int", "daysInactive", "Number of days a system
      *           must not check in to be considered inactive.")
-     * @xmlrpc.returntype
-     *  #array()
-     *      int server_id
-     *  #array_end()
+     * @xmlrpc.returntype #array_single("int", "server_id")
      */
     public List<Long> listInactiveSystemsInGroup(String sessionKey,
             String systemGroupName, Integer daysInactive) {
@@ -459,10 +453,7 @@ public class ServerGroupHandler extends BaseHandler {
      *          1 day threshold.
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param("string", "systemGroupName")
-     * @xmlrpc.returntype
-     *  #array()
-     *      int server_id
-     *  #array_end()
+     * @xmlrpc.returntype #array_single("int", "server_id")
      */
     public List<Long> listInactiveSystemsInGroup(String sessionKey,
             String systemGroupName) {

@@ -471,7 +471,6 @@ public class ServerConfigHandler extends BaseHandler {
      *      #options()
      *          #item_desc ("true", "to prepend the given channels
      *          list to the top of the configuration channels list of a server")
-     *              to the system's local override configuration channel")
      *          #item_desc ("false", "to append the given  channels
      *          list to the bottom of the configuration channels list of a server")
      *      #options_end()
