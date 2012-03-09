@@ -9,7 +9,7 @@ Name:         NPalert
 Summary:      NOCpulse notification system
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version:      1.127.5
+Version:      1.127.6
 Release:      1%{?dist}
 BuildArch:    noarch
 Requires:     perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
@@ -137,6 +137,9 @@ fi
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Fri Mar 09 2012 Miroslav Suchý 1.127.6-1
+- remove RHN_DB_USERNAME from monitoring scout configuration
+
 * Thu Feb 23 2012 Jan Pazdziora 1.127.5-1
 - Removing usage of rhn_current_alerts as it's never inserted to.
 
