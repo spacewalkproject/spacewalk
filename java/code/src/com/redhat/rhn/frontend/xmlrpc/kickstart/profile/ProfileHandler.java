@@ -104,6 +104,59 @@ public class ProfileHandler extends BaseHandler {
         return ksdefault.getKstree().getLabel();
     }
 
+
+    /**
+     * Get the option to perserve ks.cfg.
+     * @param sessionKey the session key
+     * @param kslabel the kickstart label
+     * @return Boolean value of the option
+     *
+     * @xmlrpc.doc Get ks.cfg preservation option for a kickstart profile.
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("string", "kslabel", "Label of kickstart
+     * profile to be changed.")
+     * @xmlrpc.returntype boolean - The value of the option. True means that
+     *     ks.cfg will be copied to /root, false means that it will not.
+     */
+    public Boolean getCfgPreservation(String sessionKey, String kslabel) {
+        User loggedInUser = getLoggedInUser(sessionKey);
+        checkKickstartPerms(loggedInUser);
+        KickstartData data = lookupKsData(kslabel, loggedInUser.getOrg());
+        if (data == null) {
+            throw new FaultException(-3, "kickstartProfileNotFound",
+                "No Kickstart Profile found with label: " + kslabel);
+        }
+        return data.getKsCfg();
+    }
+
+    /**
+     * Set the option to perserve ks.cfg.
+     * @param sessionKey the session key
+     * @param kslabel the kickstart label
+     * @param preserve whether to perserve ks.cfg or not
+     * @return int 1 for success
+     *
+     * @xmlrpc.doc Set ks.cfg preservation option for a kickstart profile.
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("string", "kslabel", "Label of kickstart
+     * profile to be changed.")
+     * @xmlrpc.param #param_desc("boolean", "preserve", "whether or not
+     *      ks.cfg and all %include fragments will be copied to /root.")
+     * @xmlrpc.returntype #return_int_success()
+     */
+    public int setCfgPreservation(String sessionKey, String kslabel, boolean preserve) {
+        User loggedInUser = getLoggedInUser(sessionKey);
+        checkKickstartPerms(loggedInUser);
+        KickstartData data = lookupKsData(kslabel, loggedInUser.getOrg());
+        if (data == null) {
+            throw new FaultException(-3, "kickstartProfileNotFound",
+                "No Kickstart Profile found with label: " + kslabel);
+        }
+        data.setKsCfg(preserve);
+        KickstartFactory.saveKickstartData(data);
+        return 1;
+    }
+
     /**
      * Set the logging (Pre and post) for a kickstart file
      * @param sessionKey the session key
@@ -112,14 +165,14 @@ public class ProfileHandler extends BaseHandler {
      * @param post whether to log post scripts or not
      * @return int 1 for success
      *
-     * @xmlrpc.doc Get the kickstart tree for a kickstart profile.
+     * @xmlrpc.doc Set logging options for a kickstart profile.
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param_desc("string", "kslabel", "Label of kickstart
      * profile to be changed.")
      * @xmlrpc.param #param_desc("boolean", "pre", "whether or not to log
      *      the pre section of a kickstart to /root/ks-pre.log")
      * @xmlrpc.param #param_desc("boolean", "post", "whether or not to log
-     *      the pre section of a kickstart to /root/ks-post.log")
+     *      the post section of a kickstart to /root/ks-post.log")
      * @xmlrpc.returntype #return_int_success()
      */
     public int setLogging(String sessionKey, String kslabel, boolean pre, boolean post) {

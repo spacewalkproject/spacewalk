@@ -85,6 +85,31 @@ public class ProfileHandlerTest extends BaseHandlerTestCase {
         assertEquals(anotherTestTree.getLabel(), tree);
     }
 
+    public void testCfgPreservation() throws Exception {
+        // test the setCfgPreservation and getCfgPreservation APIs
+
+        Channel baseChan = ChannelFactoryTest.createTestChannel(admin);
+        KickstartableTree testTree = KickstartableTreeTest.
+            createTestKickstartableTree(baseChan);
+
+        String profileLabel = "new-ks-profile";
+        ksHandler.createProfile(adminKey, profileLabel,
+                KickstartVirtualizationType.XEN_PARAVIRT,
+                testTree.getLabel(), "localhost", "rootpw");
+
+        KickstartData newKsProfile = KickstartFactory.lookupKickstartDataByLabelAndOrgId(
+                profileLabel, admin.getOrg().getId());
+        assertNotNull(newKsProfile);
+        assertTrue(newKsProfile.getCommand("url").getArguments().contains("/ks/dist/org/"));
+
+        int result = handler.setCfgPreservation(adminKey, profileLabel, true);
+        assertEquals(1, result);
+        assertTrue(handler.getCfgPreservation(adminKey, profileLabel));
+        result = handler.setCfgPreservation(adminKey, profileLabel, false);
+        assertEquals(1, result);
+        assertFalse(handler.getCfgPreservation(adminKey, profileLabel));
+    }
+
     public void testChildChannels() throws Exception {
         // test the setChildChannels and getChildChannels APIs
 
