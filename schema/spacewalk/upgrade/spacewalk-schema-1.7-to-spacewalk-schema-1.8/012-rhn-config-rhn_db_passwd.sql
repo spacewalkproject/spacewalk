@@ -7,3 +7,5 @@ delete from rhn_config_parameter where group_name='cf_db' and name='password';
 delete from rhn_config_parameter where group_name='cf_db' and name='portal_password';
 delete from rhn_config_parameter where group_name='cf_db' and name='proxy_password';
 delete from rhn_config_parameter where group_name='cf_db' and name='ui_password';
+delete from rhn_config_parameter where group_name='cf_db' and name='notification_password';
+delete from rhn_config_parameter where group_name='cs_db' and name='password';
