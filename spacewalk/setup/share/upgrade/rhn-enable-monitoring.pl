@@ -80,7 +80,6 @@ $config_opts{webDOTis_monitoring_scout} = $opts{"enable-scout"} ? '1' : '0';
 
 $config_opts{monitoringDOTdbd} = 'Oracle';
 $config_opts{monitoringDOTorahome} = $ENV{ORACLE_HOME} || '/opt/oracle';
-$config_opts{monitoringDOTdbname} = PXT::Config->get('db_name');
 
 $config_opts{monitoringDOTsmonDOTaddr} = '127.0.0.1';
 $config_opts{monitoringDOTsmonDOTfqdn} = 'localhost';
