@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 1.8.0
+Version: 1.8.1
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -333,6 +333,15 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Fri Mar 09 2012 Miroslav Suchý 1.8.1-1
+- fix typo in man page
+- 772070 - classic hosted alignment is no longer needed (mzazrivec@redhat.com)
+- 772070 - firstboot gui re-design (mzazrivec@redhat.com)
+- 772070 - correct button text (mzazrivec@redhat.com)
+- 772070 - new title for "cannot contact server" dialog (mzazrivec@redhat.com)
+- 799926 - correct path to rhsm's certlib (mzazrivec@redhat.com)
+- Bumping package versions for 1.8. (jpazdziora@redhat.com)
+
 * Fri Mar 02 2012 Jan Pazdziora 1.7.14-1
 - Update the copyright year info.
 
