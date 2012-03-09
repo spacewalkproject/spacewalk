@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.8.2
+Version:        1.8.3
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -69,6 +69,13 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Fri Mar 09 2012 Miroslav Suchý 1.8.3-1
+- remove more password macros
+- remove RHN_DB_USERNAME from monitoring scout configuration
+- remove RHN_DB_PASSWD from monitoring scout configuration
+- remove RHN_DB_NAME from monitoring scout configuration
+- remove tableowner from monitoring scout configuration
+
 * Thu Mar 08 2012 Milan Zazrivec <mzazrivec@redhat.com> 1.8.2-1
 - create_pxt_session: correct insert syntax (mzazrivec@redhat.com)
 - Allow for rhnPackageKey records to preexist already. (jpazdziora@redhat.com)
