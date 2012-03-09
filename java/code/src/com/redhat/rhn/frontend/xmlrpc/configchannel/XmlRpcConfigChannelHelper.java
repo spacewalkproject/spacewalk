@@ -31,6 +31,7 @@ import com.redhat.rhn.manager.configuration.file.SymlinkData;
 import com.redhat.rhn.manager.configuration.file.TextFileData;
 
 import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
 
 import java.io.ByteArrayInputStream;
@@ -113,34 +114,39 @@ public class XmlRpcConfigChannelHelper {
         ConfigFileData form;
 
         if (ConfigFileType.file().equals(type)) {
-            if (data.get(ConfigRevisionSerializer.CONTENTS) instanceof String) {
-                String content = (String)data.get(ConfigRevisionSerializer.CONTENTS);
-                if (data.containsKey(ConfigRevisionSerializer.CONTENTS_ENC64)) {
-                    try {
-                        content = new String(Base64.decodeBase64(content.getBytes("UTF-8")),
-                                "UTF-8");
+            try {
+                if (BooleanUtils.isTrue((Boolean) data.get(
+                                ConfigRevisionSerializer.BINARY))) {
+                    byte[] content = Base64.decodeBase64(
+                            ((String)data.get(ConfigRevisionSerializer.CONTENTS))
+                            .getBytes("UTF-8"));
+
+                    if (content != null) {
+                        form = new BinaryFileData(new ByteArrayInputStream(content),
+                                                                        content.length);
                     }
-                    catch (UnsupportedEncodingException e) {
-                        String msg = "Following errors were encountered " +
-                            "when creating the config file.\n" + e.getMessage();
-                        throw new FaultException(1023, "ConfgFileError", msg);
+                    else {
+                        form = new BinaryFileData(new ByteArrayInputStream(new byte[0]), 0);
                     }
                 }
-                form = new TextFileData();
-                ((TextFileData)form).setContents(content);
+                else {  // TEXT FILE
+                    String content;
+                    if (BooleanUtils.isTrue((Boolean) data.get(
+                            ConfigRevisionSerializer.CONTENTS_ENC64))) {
+                        content = new String(Base64.decodeBase64(
+                                ((String)data.get(ConfigRevisionSerializer.CONTENTS))
+                                .getBytes("UTF-8")), "UTF-8");
+                    }
+                    else {
+                        content = (String)data.get(ConfigRevisionSerializer.CONTENTS);
+                    }
+                    form = new TextFileData(content);
+                }
             }
-            else {
-                byte[] content = (byte[])data.get(ConfigRevisionSerializer.CONTENTS);
-                if (content != null) {
-                    if (data.containsKey(ConfigRevisionSerializer.CONTENTS_ENC64)) {
-                        content = Base64.decodeBase64(content);
-                    }
-                    form = new BinaryFileData(new ByteArrayInputStream(content),
-                                                                    content.length);
-                }
-                else {
-                    form = new BinaryFileData(new ByteArrayInputStream(new byte[0]), 0);
-                }
+            catch (UnsupportedEncodingException e) {
+                String msg = "Following errors were encountered " +
+                    "when creating the config file.\n" + e.getMessage();
+                throw new FaultException(1023, "ConfgFileError", msg);
             }
             String startDelim = (String)data.get(ConfigRevisionSerializer.MACRO_START);
             String stopDelim = (String)data.get(ConfigRevisionSerializer.MACRO_END);

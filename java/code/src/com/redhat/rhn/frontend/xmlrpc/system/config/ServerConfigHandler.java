@@ -147,6 +147,7 @@ public class ServerConfigHandler extends BaseHandler {
      *      #prop_desc("string","selinux_ctx",
      *                   "SeLinux context (optional)")
      *      #prop_desc("int", "revision", "next revision number, auto increment for null")
+     *      #prop_desc("boolean", "binary", "mark the binary content")
      *  #struct_end()
      * @xmlrpc.param #param("int","commitToLocal")
      *      #options()
@@ -167,16 +168,17 @@ public class ServerConfigHandler extends BaseHandler {
 
         // confirm that the user only provided valid keys in the map
         Set<String> validKeys = new HashSet<String>();
-        validKeys.add(ConfigRevisionSerializer.CONTENTS);
-        validKeys.add(ConfigRevisionSerializer.CONTENTS_ENC64);
         validKeys.add(ConfigRevisionSerializer.OWNER);
         validKeys.add(ConfigRevisionSerializer.GROUP);
         validKeys.add(ConfigRevisionSerializer.PERMISSIONS);
         validKeys.add(ConfigRevisionSerializer.REVISION);
         validKeys.add(ConfigRevisionSerializer.SELINUX_CTX);
         if (!isDir) {
+            validKeys.add(ConfigRevisionSerializer.CONTENTS);
+            validKeys.add(ConfigRevisionSerializer.CONTENTS_ENC64);
             validKeys.add(ConfigRevisionSerializer.MACRO_START);
             validKeys.add(ConfigRevisionSerializer.MACRO_END);
+            validKeys.add(ConfigRevisionSerializer.BINARY);
         }
         validateMap(validKeys, data);
 

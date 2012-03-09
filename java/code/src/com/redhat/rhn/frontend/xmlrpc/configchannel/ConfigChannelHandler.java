@@ -396,6 +396,7 @@ public class ConfigChannelHandler extends BaseHandler {
      *              "Config file macro end delimiter. Use null or
      *  empty string to accept the default. (ignored if working with a directory)")
      *      #prop_desc("int", "revision", "next revision number, auto increment for null")
+     *      #prop_desc("boolean", "binary", "mark the binary content")
      *
      *  #struct_end()
      * @xmlrpc.returntype
@@ -409,15 +410,18 @@ public class ConfigChannelHandler extends BaseHandler {
 
         // confirm that the user only provided valid keys in the map
         Set<String> validKeys = new HashSet<String>();
-        validKeys.add(ConfigRevisionSerializer.CONTENTS);
-        validKeys.add(ConfigRevisionSerializer.CONTENTS_ENC64);
         validKeys.add(ConfigRevisionSerializer.OWNER);
         validKeys.add(ConfigRevisionSerializer.GROUP);
         validKeys.add(ConfigRevisionSerializer.PERMISSIONS);
         validKeys.add(ConfigRevisionSerializer.REVISION);
         validKeys.add(ConfigRevisionSerializer.SELINUX_CTX);
-        validKeys.add(ConfigRevisionSerializer.MACRO_START);
-        validKeys.add(ConfigRevisionSerializer.MACRO_END);
+        if (!isDir) {
+            validKeys.add(ConfigRevisionSerializer.CONTENTS);
+            validKeys.add(ConfigRevisionSerializer.CONTENTS_ENC64);
+            validKeys.add(ConfigRevisionSerializer.MACRO_START);
+            validKeys.add(ConfigRevisionSerializer.MACRO_END);
+            validKeys.add(ConfigRevisionSerializer.BINARY);
+        }
         validateMap(validKeys, data);
 
         if (data.get(ConfigRevisionSerializer.SELINUX_CTX) == null) {
