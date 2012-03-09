@@ -60,6 +60,7 @@ public class ErrataOverviewSerializer implements XmlRpcCustomSerializer {
 
         helper.add("id", errata.getId());
         helper.add("issue_date", errata.getIssueDate());
+        helper.add("date", errata.getUpdateDate());
         helper.add("update_date", errata.getUpdateDate());
         helper.add("advisory_synopsis", errata.getAdvisorySynopsis());
         helper.add("advisory_type", errata.getAdvisoryType());
