@@ -27,6 +27,9 @@ function clearChecked(radioGroup) {
         <p>
 		<c:forEach var="proxy" items="${proxies}">
 			<input type="radio"  name="proxyHost" id="x${proxy.value}"
+			<c:if test="${empty proxy.value}">
+			    checked="checked"
+			</c:if>
 			<c:choose>
 				<c:when test="${proxy.value == param.proxyHost}">checked</c:when>
 			</c:choose>
