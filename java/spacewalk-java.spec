@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.6
+Version: 1.8.7
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -589,6 +589,12 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Mar 09 2012 Miroslav Suchý 1.8.7-1
+- remove RHN_DB_USERNAME from monitoring scout configuration
+- remove RHN_DB_PASSWD from monitoring scout configuration
+- remove RHN_DB_NAME from monitoring scout configuration
+- remove tableowner from monitoring scout configuration
+
 * Thu Mar 08 2012 Tomas Lestach <tlestach@redhat.com> 1.8.6-1
 - fix SystemAclHandlerTest (tlestach@redhat.com)
 - fix MessageQueueTest.testDatabaseTransactionHandling (tlestach@redhat.com)
