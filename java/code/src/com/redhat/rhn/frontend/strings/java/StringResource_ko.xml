@@ -6265,6 +6265,13 @@ Follow this url to see the full list of inactive systems:
      <target>키 </target></trans-unit>
    </group>
 
+      <trans-unit id="file_size.b">
+        <source>{0} B</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/Quota.do</context>
+          <context context-type="paramnotes">40 B</context>
+        </context-group>
+      <target>{0} B</target></trans-unit>
 
       <trans-unit id="file_size.kb">
         <source>{0} KB</source>
