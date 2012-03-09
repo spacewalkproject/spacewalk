@@ -6268,6 +6268,13 @@ Follow this url to see the full list of inactive systems:
    </group>
 
 
+      <trans-unit id="file_size.kb">
+        <source>{0} KB</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/Quota.do</context>
+          <context context-type="paramnotes">40 KB</context>
+        </context-group>
+      <target>{0} KB</target></trans-unit>
 
       <trans-unit id="file_size.mb">
         <source>{0} MB</source>
