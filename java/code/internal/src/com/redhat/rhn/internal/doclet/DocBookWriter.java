@@ -45,7 +45,8 @@ public class DocBookWriter extends DocWriter {
         }
 
         for (String file : OTHER_FILES) {
-            writeFile(DOCBOOK_OUTPUT + file + ".xml", readFile(DOCBOOK_TEMPLATES + file + ".txt"));
+            writeFile(DOCBOOK_OUTPUT + file + ".xml",
+                    readFile(DOCBOOK_TEMPLATES + file + ".txt"));
         }
     }
 

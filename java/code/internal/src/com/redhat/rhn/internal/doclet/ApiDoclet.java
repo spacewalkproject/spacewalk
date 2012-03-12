@@ -102,7 +102,8 @@ public class ApiDoclet {
                         if (methodDoc != null) {
                             if (docType.equals("docbook")) {
                                 call.setDoc(DocBookWriter.transcode(methodDoc.text()));
-                            } else {
+                            }
+                            else {
                                 call.setDoc(methodDoc.text());
                             }
                         }
@@ -110,7 +111,8 @@ public class ApiDoclet {
                         for (Tag param : method.tags(XMLRPC_PARAM)) {
                             if (docType.equals("docbook")) {
                                 call.addParam(DocBookWriter.transcode(param.text()));
-                            } else {
+                            }
+                            else {
                                 call.addParam(param.text());
                             }
                         }
