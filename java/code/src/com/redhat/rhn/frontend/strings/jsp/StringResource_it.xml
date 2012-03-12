@@ -10708,6 +10708,9 @@ la &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stron
         <source>create new channel</source>
       <target>crea nuovo canale</target></trans-unit>
 
+      <trans-unit id="toolbar.clone.channel">
+        <source>clone channel</source>
+      <target>clona canale</target></trans-unit>
 
       <trans-unit id="kickstart.troubleshooting.jsp.header1">
         <source>Troubleshooting</source>

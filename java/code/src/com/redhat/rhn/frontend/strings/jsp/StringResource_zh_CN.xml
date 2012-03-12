@@ -10720,6 +10720,9 @@ kickstart 前脚本的内容可以在 &lt;strong&gt;《红帽企业版 Linux 系
         <source>create new channel</source>
       <target>创建新频道</target></trans-unit>
 
+      <trans-unit id="toolbar.clone.channel">
+        <source>clone channel</source>
+      <target>克隆频道</target></trans-unit>
 
       <trans-unit id="kickstart.troubleshooting.jsp.header1">
         <source>Troubleshooting</source>

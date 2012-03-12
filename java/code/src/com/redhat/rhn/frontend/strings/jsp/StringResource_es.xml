@@ -10723,6 +10723,9 @@ el &lt;strong&gt;Manual de administración del sistema Red Hat Enterprise Linux.
         <source>create new channel</source>
       <target>crear un nuevo canal</target></trans-unit>
 
+      <trans-unit id="toolbar.clone.channel">
+        <source>clone channel</source>
+      <target>clonar canal</target></trans-unit>
 
       <trans-unit id="kickstart.troubleshooting.jsp.header1">
         <source>Troubleshooting</source>

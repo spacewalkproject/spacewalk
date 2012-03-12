@@ -10725,6 +10725,9 @@ Le script post non-chroot sera ensuite exécuté et le script post sera enfin ex
         <source>create new channel</source>
       <target>créer un nouveau canal</target></trans-unit>
 
+      <trans-unit id="toolbar.clone.channel">
+        <source>clone channel</source>
+      <target>cloner le canal</target></trans-unit>
 
       <trans-unit id="kickstart.troubleshooting.jsp.header1">
         <source>Troubleshooting</source>
