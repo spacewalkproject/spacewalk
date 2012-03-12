@@ -87,15 +87,15 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root,-)
-%config %{_sysconfdir}/yum.repos.d/spacewalk.repo
-%config %{_sysconfdir}/yum.repos.d/spacewalk-source.repo
-%config %{_sysconfdir}/yum.repos.d/spacewalk-nightly.repo
-%config %{_sysconfdir}/yum.repos.d/spacewalk-source.repo
+%config(noreplace) %{_sysconfdir}/yum.repos.d/spacewalk.repo
+%config(noreplace) %{_sysconfdir}/yum.repos.d/spacewalk-source.repo
+%config(noreplace) %{_sysconfdir}/yum.repos.d/spacewalk-nightly.repo
+%config(noreplace) %{_sysconfdir}/yum.repos.d/spacewalk-source.repo
 
 %files -n spacewalk-client-repo
 %defattr(-,root,root,-)
-%config %{_sysconfdir}/yum.repos.d/spacewalk-client.repo
-%config %{_sysconfdir}/yum.repos.d/spacewalk-client-nightly.repo
+%config(noreplace) %{_sysconfdir}/yum.repos.d/spacewalk-client.repo
+%config(noreplace) %{_sysconfdir}/yum.repos.d/spacewalk-client-nightly.repo
 
 %changelog
 * Fri Mar 02 2012 Jan Pazdziora 1.8-1
