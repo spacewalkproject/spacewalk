@@ -4,7 +4,7 @@
 %endif
 
 Name:        spacecmd
-Version:     1.8.0
+Version:     1.8.1
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -61,6 +61,9 @@ touch %{buildroot}/%{python_sitelib}/spacecmd/__init__.py
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Mon Mar 12 2012 Jan Pazdziora 1.8.1-1
+- Update the spacecmd copyright years for Red Hat contributions.
+
 * Mon Feb 27 2012 Steven Hardy <shardy@redhat.com> 1.7.7-1
 - spacecmd : activationkey_details print child channels and packages sorted
   (joerg.steffens@dass-it.de)
