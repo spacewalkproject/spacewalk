@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.9
+Version: 1.8.10
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -589,6 +589,11 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Mar 13 2012 Simon Lukasik <slukasik@redhat.com> 1.8.10-1
+- Checkstyle fix (slukasik@redhat.com)
+- Checkstyle fix (slukasik@redhat.com)
+- fix various checkstyle issues (tlestach@redhat.com)
+
 * Tue Mar 13 2012 Simon Lukasik <slukasik@redhat.com> 1.8.9-1
 - OpenSCAP integration -- Page for XCCDF scan schedule (slukasik@redhat.com)
 - OpenSCAP integration  -- Show results for system on web.
