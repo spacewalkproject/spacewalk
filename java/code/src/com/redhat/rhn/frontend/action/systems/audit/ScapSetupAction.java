@@ -21,11 +21,11 @@ import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RequestContext;
 
 /**
- * ScapAction
+ * ScapSetupAction
  * @version $Rev$
  */
 
-public abstract class ScapAction extends RhnAction {
+public abstract class ScapSetupAction extends RhnAction {
     private static final String SCAP_ENABLED = "scapEnabled";
 
     protected void setupScapEnablementInfo(RequestContext context) {

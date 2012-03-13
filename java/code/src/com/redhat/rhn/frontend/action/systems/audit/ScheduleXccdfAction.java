@@ -45,8 +45,7 @@ import java.util.Map;
  * @version $Rev$
  */
 
-public class ScheduleXccdfAction
-        extends com.redhat.rhn.frontend.action.systems.audit.ScapAction {
+public class ScheduleXccdfAction extends ScapSetupAction {
 
     /**
      * {@inheritDoc}

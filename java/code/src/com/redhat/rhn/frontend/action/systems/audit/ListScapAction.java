@@ -33,7 +33,7 @@ import java.util.List;
  * @version $Rev$
  */
 
-public class ListScapAction extends ScapAction implements Listable {
+public class ListScapAction extends ScapSetupAction implements Listable {
 
     /**
      * {@inheritDoc}
