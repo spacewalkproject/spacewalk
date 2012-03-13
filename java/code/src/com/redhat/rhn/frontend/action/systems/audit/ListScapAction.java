@@ -14,7 +14,6 @@
  */
 package com.redhat.rhn.frontend.action.systems.audit;
 
-import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.manager.audit.ScapManager;
 import com.redhat.rhn.frontend.struts.RhnHelper;
@@ -36,6 +35,9 @@ import java.util.List;
 
 public class ListScapAction extends ScapAction implements Listable {
 
+    /**
+     * {@inheritDoc}
+     */
     public ActionForward execute(ActionMapping mapping, ActionForm formIn,
             HttpServletRequest request,
             HttpServletResponse response) {
@@ -48,6 +50,9 @@ public class ListScapAction extends ScapAction implements Listable {
         return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public List getResult(RequestContext context) {
         Server server = context.lookupAndBindServer();
         return ScapManager.allScans(server);
