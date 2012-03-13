@@ -118,6 +118,7 @@ rm -rf $RPM_BUILD_ROOT
 
 * Wed Feb 11 2009 Miroslav Suchý <msuchy@redhat.com> 1.27.19-1
 - remove dead code (apachereg)
+
 * Thu Feb 05 2009 jesus m. rodriguez <jesusr@redhat.com> 1.27.18-1
 - rebuild
 - 479541, 483867 - replaced runuser with /sbin/runuser
