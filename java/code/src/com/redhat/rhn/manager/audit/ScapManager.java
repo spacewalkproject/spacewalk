@@ -81,6 +81,7 @@ public class ScapManager extends BaseManager {
                 currResult.put("testResult", row.get("test_result"));
                 currResult.put((String) row.get("label"), row.get("count"));
                 currResult.put("sum", row.get("count"));
+                currResult.put("completionTime", row.get("completion_time"));
             }
         }
         if (currResult != null) {

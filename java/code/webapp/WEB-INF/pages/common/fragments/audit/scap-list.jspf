@@ -6,6 +6,9 @@
 		<rl:column headerkey="system.audit.listscap.jsp.testresult">
 			${current.testResult}
 		</rl:column>
+		<rl:column headerkey="system.audit.listscap.jsp.completed">
+			${current.completionTime}
+		</rl:column>
 		<rl:column headerkey="system.audit.listscap.jsp.percentage">
 			<fmt:formatNumber maxFractionDigits="0"
 				value="${current.pass * 100 / (current.sum - current.notselected - current.informational)}"/>

@@ -14,13 +14,20 @@
 
 <mode name="show_system_scans">
   <query params="sid">
-  SELECT tr.id, tr.identifier as test_result, rrt.label, count(rr.*)
-      FROM rhnXccdfTestresult tr, rhnXccdfRuleresult rr,
-          rhnXccdfRuleresultType rrt
+  SELECT tr.id, tr.identifier as test_result, rrt.label, count(rr.*),
+      TO_CHAR(sa.completion_time, 'YYYY-MM-DD HH24:MI:SS') AS completion_time
+      FROM rhnXccdfTestresult tr,
+          rhnXccdfRuleresult rr,
+          rhnXccdfRuleresultType rrt,
+          rhnActionScap ras,
+          rhnServerAction sa
       WHERE tr.server_id = :sid
           AND tr.id = rr.testresult_id
           AND rr.result_id = rrt.id
-      GROUP BY tr.id, tr.identifier, rrt.label
+          AND tr.action_scap_id = ras.id
+          AND sa.server_id = tr.server_id
+          AND sa.action_id = ras.action_id
+      GROUP BY tr.id, tr.identifier, rrt.label, sa.completion_time
       ORDER BY tr.id DESC
   </query>
 </mode>
