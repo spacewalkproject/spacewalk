@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.2
+Version: 1.8.3
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -254,6 +254,10 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Tue Mar 13 2012 Simon Lukasik <slukasik@redhat.com> 1.8.3-1
+- OpenSCAP integration  -- Show results for system on web.
+  (slukasik@redhat.com)
+
 * Tue Mar 13 2012 Jan Pazdziora 1.8.2-1
 - Need to point to ReleventErrata.do from .pxt pages as well.
 - PXT::Request->clear_session is not used anywhere, thus removing
