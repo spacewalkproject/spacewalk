@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.8.3
+Version:        1.8.4
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -69,6 +69,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Tue Mar 13 2012 Jan Pazdziora 1.8.4-1
+- let's make rhnChecksumView perform better in PG (michael.mraka@redhat.com)
+- rhn_contact_monitoring: fix schema upgrade (mzazrivec@redhat.com)
+
 * Fri Mar 09 2012 Miroslav Suchý 1.8.3-1
 - remove more password macros
 - remove RHN_DB_USERNAME from monitoring scout configuration
