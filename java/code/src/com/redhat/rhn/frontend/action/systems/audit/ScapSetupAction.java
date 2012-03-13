@@ -14,11 +14,11 @@
  */
 package com.redhat.rhn.frontend.action.systems.audit;
 
-import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.server.Server;
-import com.redhat.rhn.manager.audit.ScapManager;
-import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.manager.audit.ScapManager;
 
 /**
  * ScapSetupAction

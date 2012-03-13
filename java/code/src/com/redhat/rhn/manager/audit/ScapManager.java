@@ -14,18 +14,17 @@
  */
 package com.redhat.rhn.manager.audit;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.SelectMode;
-import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.server.Server;
-
+import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.manager.BaseManager;
-
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.HashMap;
 
 /**
  * ScapManager

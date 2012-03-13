@@ -14,31 +14,30 @@
  */
 package com.redhat.rhn.frontend.action.systems.audit;
 
-import com.redhat.rhn.common.util.DatePicker;
-import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.domain.server.Server;
-import com.redhat.rhn.domain.action.scap.ScapAction;
-import com.redhat.rhn.manager.system.SystemManager;
-import com.redhat.rhn.manager.action.ActionManager;
+import java.util.Date;
+import java.util.Map;
 
-import com.redhat.rhn.frontend.struts.RhnHelper;
-import com.redhat.rhn.frontend.struts.RequestContext;
-import com.redhat.rhn.frontend.struts.RhnValidationHelper;
-import com.redhat.rhn.frontend.struts.StrutsDelegate;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
+import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionMessages;
-import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.DynaActionForm;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import java.util.Date;
-import java.util.Map;
+import com.redhat.rhn.common.util.DatePicker;
+import com.redhat.rhn.domain.action.scap.ScapAction;
+import com.redhat.rhn.domain.server.Server;
+import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.frontend.struts.RhnHelper;
+import com.redhat.rhn.frontend.struts.RhnValidationHelper;
+import com.redhat.rhn.frontend.struts.StrutsDelegate;
+import com.redhat.rhn.manager.action.ActionManager;
+import com.redhat.rhn.manager.system.SystemManager;
 
 /**
  * ScheduleXccdfAction
