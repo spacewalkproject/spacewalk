@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.8
+Version: 1.8.9
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -589,6 +589,17 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Mar 13 2012 Simon Lukasik <slukasik@redhat.com> 1.8.9-1
+- OpenSCAP integration -- Page for XCCDF scan schedule (slukasik@redhat.com)
+- OpenSCAP integration  -- Show results for system on web.
+  (slukasik@redhat.com)
+- Add translations for the new SCAP action (slukasik@redhat.com)
+- Revert "removing unused string with trans-id 'toolbar.clone.channel'"
+  (msuchy@redhat.com)
+- Fix usage of velocity macros for API documentation (jrenner@suse.de)
+- Add support for generating DocBook XML from the API documentation
+  (jrenner@suse.de)
+
 * Fri Mar 09 2012 Stephen Herr <sherr@redhat.com> 1.8.8-1
 - 782551 - Making a default selection of no Proxy when kickstarting a server
   (sherr@redhat.com)
