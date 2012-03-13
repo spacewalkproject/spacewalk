@@ -1,5 +1,5 @@
 Name:         NOCpulsePlugins
-Version:      2.209.3
+Version:      2.209.4
 Release:      1%{?dist}
 Summary:      NOCpulse authored Plug-ins
 URL:          https://fedorahosted.org/spacewalk
@@ -88,6 +88,9 @@ fi
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Tue Mar 13 2012 Michael Mraka <michael.mraka@redhat.com> 2.209.4-1
+- fixed error: %%changelog entries must start with *
+
 * Thu Aug 11 2011 Jan Pazdziora 2.209.3-1
 - Add additional member name mappings in ProbeRecord to ensure that the probe
   will run when rhn-runprobe is called. (davidn@elrond.bioss.sari.ac.uk)
