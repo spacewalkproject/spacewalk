@@ -1,3 +1,4 @@
+drop view rhn_contact_monitoring;
 create or replace view rhn_contact_monitoring as
 select	u.id			as recid,
 	u.org_id		as customer_id,
