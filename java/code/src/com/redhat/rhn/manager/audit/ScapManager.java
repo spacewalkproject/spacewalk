@@ -61,14 +61,6 @@ public class ScapManager extends BaseManager {
         params.put("sid", server.getId());
         DataResult dr = m.execute(params);
         return transposeView(dr);
-/*
-        List<Map<String, Object>> result = transposeView(dr);
-        Map row = new HashMap();
-        row.put("testName", "bomba");
-        List res = new ArrayList<Map>();
-        res.add(row);
-        return res;
-*/
     }
 
     private static List<Map<String, Object>> transposeView(DataResult testResultsRaw) {
