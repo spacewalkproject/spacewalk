@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.11
+Version: 1.8.12
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -589,6 +589,12 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Mar 13 2012 Stephen Herr <sherr@redhat.com> 1.8.12-1
+- 755470 - Fixing sorting by date without replying on the inapplicable
+  listdisplay-new.jspf (sherr@redhat.com)
+- Revert "755470 - Fixed incorrect sorting of archived action timestamp"
+  (sherr@redhat.com)
+
 * Tue Mar 13 2012 Jan Pazdziora 1.8.11-1
 - 801463 - fix binary file uploads (tlestach@redhat.com)
 - Add the completetion time to the list of scap scans. (slukasik@redhat.com)
