@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.10
+Version: 1.8.11
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -589,6 +589,14 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Mar 13 2012 Jan Pazdziora 1.8.11-1
+- 801463 - fix binary file uploads (tlestach@redhat.com)
+- Add the completetion time to the list of scap scans. (slukasik@redhat.com)
+- Sort imports alphabetically. (slukasik@redhat.com)
+- Remove purposeless commentary (slukasik@redhat.com)
+- Remove unneccessary casts to String. (slukasik@redhat.com)
+- Refactor: rename ScapAction class (slukasik@redhat.com)
+
 * Tue Mar 13 2012 Simon Lukasik <slukasik@redhat.com> 1.8.10-1
 - Checkstyle fix (slukasik@redhat.com)
 - Checkstyle fix (slukasik@redhat.com)
