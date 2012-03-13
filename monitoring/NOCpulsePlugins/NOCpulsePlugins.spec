@@ -106,6 +106,7 @@ rm -rf $RPM_BUILD_ROOT
 - preserve timestamp and set correct attributes for files (msuchy@redhat.com)
 - split package NOCpulsePlugins to NOCpulsePlugins-Oracle, which contain Oracle
   only probes (msuchy@redhat.com)
+
 * Wed Jun 10 2009 Miroslav Suchy <msuchy@redhat.com> 2.208.10-1
 - 502595 - use ip instead of hostname
 
