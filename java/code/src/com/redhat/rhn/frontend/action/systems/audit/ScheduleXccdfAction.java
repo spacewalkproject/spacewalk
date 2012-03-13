@@ -14,7 +14,6 @@
  */
 package com.redhat.rhn.frontend.action.systems.audit;
 
-import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.util.DatePicker;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.server.Server;
@@ -40,15 +39,18 @@ import javax.servlet.http.HttpServletResponse;
 
 import java.util.Date;
 import java.util.Map;
-import java.util.HashMap;
 
 /**
  * ScheduleXccdfAction
  * @version $Rev$
  */
 
-public class ScheduleXccdfAction extends com.redhat.rhn.frontend.action.systems.audit.ScapAction {
+public class ScheduleXccdfAction
+        extends com.redhat.rhn.frontend.action.systems.audit.ScapAction {
 
+    /**
+     * {@inheritDoc}
+     */
     public ActionForward execute(ActionMapping mapping, ActionForm formIn,
             HttpServletRequest request,
             HttpServletResponse response) {
@@ -70,14 +72,17 @@ public class ScheduleXccdfAction extends com.redhat.rhn.frontend.action.systems.
                 params.put("sid", sid);
                 forward = strutsDelegate.forwardParams(mapping.findForward("submit"),
                         params);
-            } else {
+            }
+            else {
                 strutsDelegate.saveMessages(request, errors);
                 forwardValuesOnError(form, strutsDelegate, request);
                 forward = mapping.findForward("error");
             }
-        } else {
+        }
+        else {
             setupDefaultValues(request, form);
-            forward = strutsDelegate.forwardParams(mapping.findForward(RhnHelper.DEFAULT_FORWARD),
+            forward = strutsDelegate.forwardParams(
+                    mapping.findForward(RhnHelper.DEFAULT_FORWARD),
                     request.getParameterMap());
         }
         setupScapEnablementInfo(context);
@@ -89,14 +94,13 @@ public class ScheduleXccdfAction extends com.redhat.rhn.frontend.action.systems.
         String path = (String) f.get("path");
         Date earliest = getStrutsDelegate().readDatePicker(f, "date",
                 DatePicker.YEAR_RANGE_POSITIVE);
-        ScapAction action = ActionManager.scheduleXccdfEval(user, server, path, params, earliest);
+        ScapAction action = ActionManager.scheduleXccdfEval(user, server,
+            path, params, earliest);
 
         ActionMessages msgs = new ActionMessages();
         msgs.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage("message.xccdfeval",
                 action.getId().toString(), server.getId().toString(), server.getName()));
         return msgs;
-
-
     }
 
     private void forwardValuesOnError(DynaActionForm form, StrutsDelegate strutsDelegate,
@@ -109,7 +113,7 @@ public class ScheduleXccdfAction extends com.redhat.rhn.frontend.action.systems.
                 form, "date", DatePicker.YEAR_RANGE_POSITIVE);
     }
 
-    private void setupDefaultValues(HttpServletRequest request, DynaActionForm form){
+    private void setupDefaultValues(HttpServletRequest request, DynaActionForm form) {
         DatePicker date = getStrutsDelegate().prepopulateDatePicker(request,
                 form, "date", DatePicker.YEAR_RANGE_POSITIVE);
     }
