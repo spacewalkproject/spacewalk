@@ -104,8 +104,8 @@ public class ScheduleXccdfAction extends ScapSetupAction {
 
     private void forwardValuesOnError(DynaActionForm form, StrutsDelegate strutsDelegate,
             HttpServletRequest request) {
-        request.setAttribute("path", (String) form.get("path"));
-        request.setAttribute("params", (String) form.get("params"));
+        request.setAttribute("path", form.get("path"));
+        request.setAttribute("params", form.get("params"));
         Date earliest = strutsDelegate.readDatePicker(form, "date",
                 DatePicker.YEAR_RANGE_POSITIVE);
         DatePicker datePicker = strutsDelegate.prepopulateDatePicker(request,
