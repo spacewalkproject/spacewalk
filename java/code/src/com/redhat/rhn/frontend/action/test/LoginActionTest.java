@@ -137,7 +137,7 @@ public class LoginActionTest extends RhnBaseTestCase {
          * using u.getPassword() will fail when we're using encrypted passwords.
          */
         form.set("password", "password");
-        form.set("method", "POST");
+        form.set("request_method", "POST");
 
         ActionForward rc = action.execute(mapping, form, request, response);
 
