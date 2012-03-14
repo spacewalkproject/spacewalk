@@ -64,6 +64,11 @@
     <mkdir dir="${tmpdir}"/>
     <unzip src="${test-jar}" dest="${tmpdir}" />
 
+    <condition property="testcase" value="Test">
+        <not><isset property="testcase" /></not>
+    </condition>
+    <echo message="${testcase}" />
+
     <junit forkmode="once" fork="yes" printsummary="yes" haltonfailure="no">
       <jvmarg value="-Xdebug" />
       <jvmarg value="-Xnoagent" />
@@ -81,7 +86,7 @@
 
       <batchtest fork="yes" todir="${reports.tests}">
         <fileset dir="${tmpdir}">
-          <include name="**/*Test.class"/>
+          <include name="**/*${testcase}.class"/>
         </fileset>
       </batchtest>
 
