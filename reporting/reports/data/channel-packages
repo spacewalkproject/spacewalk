@@ -25,7 +25,7 @@ sql:
 		rhnpackagename.name,
 		rhnpackageevr.version, rhnpackageevr.release, rhnpackageevr.epoch,
 		rhnpackagearch.label arch,
-		case when rhnpackageevr.epoch is not null then rhnpackageevr.epoch || ':' end || 
+		case when rhnpackageevr.epoch is not null then rhnpackageevr.epoch || ':' else '' end ||
 		rhnpackagename.name || '-' || rhnpackageevr.version || '-' || rhnpackageevr.release || '.' || rhnpackagearch.label full_package_name
 	from rhnchannel, rhnchannelpackage, rhnpackage, rhnpackagename, rhnpackageevr, rhnpackagearch
 	where rhnchannel.id = rhnchannelpackage.channel_id
