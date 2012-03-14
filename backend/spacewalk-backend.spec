@@ -12,7 +12,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.2
+Version: 1.8.3
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -688,6 +688,10 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Wed Mar 14 2012 Jan Pazdziora 1.8.3-1
+- 803230 - cast to string to force lookup_evr prototype.
+- 798401 - use --debug-level parameter (msuchy@redhat.com)
+
 * Fri Mar 09 2012 Miroslav Suchý 1.8.2-1
 - spacewalk-repo-sync documentation fix : add include/exclude options to
   manpage (shardy@redhat.com)
