@@ -22,7 +22,7 @@ import com.redhat.rhn.testing.RhnBaseTestCase;
 import com.redhat.rhn.testing.RhnMockJspWriter;
 
 import org.jmock.Mock;
-import org.jmock.MockObjectTestCase;
+import org.jmock.cglib.MockObjectTestCase;
 
 import java.util.List;
 

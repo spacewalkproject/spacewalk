@@ -33,7 +33,7 @@ import com.redhat.rhn.testing.TestUtils;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.jmock.Mock;
-import org.jmock.MockObjectTestCase;
+import org.jmock.cglib.MockObjectTestCase;
 
 /**
  * AffectedSystemsActionTest
