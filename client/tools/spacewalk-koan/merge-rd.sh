@@ -57,7 +57,9 @@ get_initrd_type() {
 uncompress_rd() {
     local COMPRESSED_INITRD=$1
     local UNCOMPRESSED_INITRD=$2
-    zcat $COMPRESSED_INITRD > $UNCOMPRESSED_INITRD
+    if ! zcat $COMPRESSED_INITRD > $UNCOMPRESSED_INITRD 2> /dev/null; then
+        xzcat $COMPRESSED_INITRD > $UNCOMPRESSED_INITRD
+    fi
 }
 
 # Expands the provided initrd file into the specified directory.  Returns the
@@ -143,7 +145,8 @@ estimate_merged_rd_size() {
     local ORIG_SIZE=$(du -s -b $SOURCE_TREE | cut -f 1)
     local MERGED_SIZE=$(du -s -b $MERGED_TREE | cut -f 1)
     local DELTA="$(($MERGED_SIZE - $ORIG_SIZE))"
-    local ORIG_RD_SIZE=$(zcat $SOURCE_INITRD | wc -c)
+    zcat $SOURCE_INITRD >& /dev/null && local ORIG_RD_SIZE=$(zcat $SOURCE_INITRD | wc -c)
+    xzcat $SOURCE_INITRD >& /dev/null && local ORIG_RD_SIZE=$(xzcat $SOURCE_INITRD | wc -c)
     local MERGED_RD_SIZE="$(( 12 * ($ORIG_RD_SIZE + $DELTA) / 10 ))"
 
     eval "$RESULT_ASSN=\"$MERGED_RD_SIZE\""
