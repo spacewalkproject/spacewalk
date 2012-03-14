@@ -82,7 +82,6 @@
         <path location="/usr/share/java/struts-tiles.jar"/>
       </classpath>
       <formatter type="plain"/>
-      <formatter type="xml"/>
 
       <batchtest fork="yes" todir="${reports.tests}">
         <fileset dir="${tmpdir}">
