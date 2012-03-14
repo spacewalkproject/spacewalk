@@ -17,7 +17,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.12
+Version: 1.8.13
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -589,6 +589,15 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Mar 14 2012 Tomas Lestach <tlestach@redhat.com> 1.8.13-1
+- remove xml formatter (tlestach@redhat.com)
+- make it possible to run single testcases (tlestach@redhat.com)
+- add webapps/rhn directory to classpath (tlestach@redhat.com)
+- fix LoginActionTest (tlestach@redhat.com)
+- add required jars to classpath (tlestach@redhat.com)
+- removing unused test (tlestach@redhat.com)
+- Revert "fix MockObjectTestCase issue" (tlestach@redhat.com)
+
 * Tue Mar 13 2012 Stephen Herr <sherr@redhat.com> 1.8.12-1
 - 755470 - Fixing sorting by date without replying on the inapplicable
   listdisplay-new.jspf (sherr@redhat.com)
