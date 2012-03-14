@@ -29,6 +29,7 @@
         <include name="server/lib/*.jar" />
       </fileset>
 
+      <pathelement path="/var/lib/tomcat5/webapps/rhn"/>
       <pathelement location="${test-jar}" />
   </path>
 </target>
@@ -44,6 +45,7 @@
       <include name="lib/*.jar" />
     </fileset>
   
+    <pathelement path="/var/lib/tomcat6/webapps/rhn"/>
     <pathelement location="${test-jar}" />
   </path>
 </target>
