@@ -2,7 +2,7 @@ Name: spacewalk-reports
 Summary: Script based reporting
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.0
+Version: 1.8.1
 Release: 1%{?dist}
 URL: https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -42,6 +42,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/spacewalk-report.8*
 
 %changelog
+* Wed Mar 14 2012 Jan Pazdziora 1.8.1-1
+- 803228 - concatenation with null gives null on PostgreSQL, fixing.
+
 * Mon Feb 27 2012 Simon Lukasik <slukasik@redhat.com> 1.7.1-1
 - OpenSCAP integration -- Spacewalk reports. (slukasik@redhat.com)
 - Bumping package versions for 1.7. (mzazrivec@redhat.com)
