@@ -27,7 +27,7 @@ import java.util.Date;
  * SystemScapHandler
  * @version $Rev$
  * @xmlrpc.namespace system.scap
- * @xmlrpc.doc Provides methods to schedule scap scans and access the results.
+ * @xmlrpc.doc Provides methods to schedule SCAP scans and access the results.
  */
 public class SystemScapHandler extends BaseHandler {
     /**
@@ -42,8 +42,8 @@ public class SystemScapHandler extends BaseHandler {
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param("int", "serverId")
      * @xmlrpc.param #param("string", "Path to xccdf content on targeted system.")
-     * @xmlrpc.param #param("string", "Additional parameters for oscap tool.");
-     * @xmlrpc.returntype int - ID os the scap action created.
+     * @xmlrpc.param #param("string", "Additional parameters for oscap tool.")
+     * @xmlrpc.returntype int - ID of the scap action created.
      */
     // TODO: Date ... earliest occurence
     // TODO: multiple server instances at once
