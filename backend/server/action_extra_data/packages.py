@@ -49,7 +49,7 @@ insert into rhnServerActionVerifyResult (
 values (
       :server_id, :action_id,
       lookup_package_name(:package_name),
-      lookup_evr(:epoch, :version, :release),
+      lookup_evr(:epoch || '', :version, :release),
       lookup_package_arch(:arch),
       lookup_package_capability(:filename),
       :attrib, :test_S, :test_M, :test_5,
@@ -71,7 +71,7 @@ values (
     :server_id,
     :action_id,
     lookup_package_name(:package_name),
-    lookup_evr(:epoch, :version, :release),
+    lookup_evr(:epoch || '', :version, :release),
     lookup_package_arch(:arch),
     lookup_package_capability(:filename)
 )
