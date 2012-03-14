@@ -4,7 +4,9 @@
 	<rl:list emptykey="system.audit.listscap.jsp.noscans">
 
 		<rl:column headerkey="system.audit.listscap.jsp.testresult">
-			${current.testResult}
+			<a href="/rhn/systems/details/audit/XccdfDetails.do?sid=${param.sid}&xid=${current.id}">
+				${current.testResult}
+			</a>
 		</rl:column>
 		<rl:column headerkey="system.audit.listscap.jsp.completed">
 			${current.completionTime}

@@ -2840,6 +2840,15 @@
             path="/systems/details/audit/ListScap.do"/>
     </action>
 
+    <action path="/systems/details/audit/XccdfDetails"
+        scope="request"
+        input="/WEB-INF/pages/systems/details/audit/xccdfdetails.jsp"
+        type="com.redhat.rhn.frontend.action.systems.audit.XccdfDetailsAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <forward name="default"
+            path="/WEB-INF/pages/systems/details/audit/xccdfdetails.jsp"/>
+    </action>
+
     <!-- ===== SYSTEMS DETAILS ===== -->
     <action path="/systems/details/packages/Packages"
         scope="request"

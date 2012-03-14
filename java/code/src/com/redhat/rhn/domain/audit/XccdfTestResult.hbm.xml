@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping
+PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.redhat.rhn.domain.audit.XccdfTestResult"
+		table="rhnXccdfTestresult"
+		mutable="false">
+		<cache usage="read-only"/>
+		<id name="id" type="long" column="id">
+			<meta attribute="scope-set">protected</meta>
+			<generator class="assigned"/>
+		</id>
+
+		<many-to-one name="server" column="server_id"
+			class="com.redhat.rhn.domain.server.Server"/>
+		<many-to-one name="scapActionDetails" column="action_scap_id"
+			class="com.redhat.rhn.domain.action.scap.ScapActionDetails"/>
+		<many-to-one name="benchmark" column="benchmark_id"
+			class="com.redhat.rhn.domain.audit.XccdfBenchmark"/>
+		<many-to-one name="profile" column="profile_id"
+			class="com.redhat.rhn.domain.audit.XccdfProfile"/>
+
+		<property name="identifier" column="identifier" type="string" length="120"/>
+		<property name="startTime" column="start_time" type="timestamp"/>
+		<property name="endTime" column="end_time" type="timestamp"/>
+		<property name="errors" column="errors" type="binary"/>
+	</class>
+
+	<query name="XccdfTestResult.findById">
+		<![CDATA[from com.redhat.rhn.domain.audit.XccdfTestResult as a where a.id = :xid]]>
+	</query>
+</hibernate-mapping>

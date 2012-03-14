@@ -32,4 +32,19 @@
   </query>
 </mode>
 
+<mode name="show_ruleresults" class="com.redhat.rhn.frontend.dto.XccdfRuleResultDto">
+  <query params="xid">
+  SELECT xis.system, xi.identifier, rrt.label
+      FROM rhnXccdfRuleresult rr,
+          rhnXccdfRuleresultType rrt,
+          rhnXccdfIdent xi,
+          rhnXccdfIdentSystem xis
+      WHERE rr.testresult_id = :xid
+          AND rr.ident_id = xi.id
+          AND rr.result_id = rrt.id
+          AND xi.identsystem_id = xis.id
+      ORDER BY rrt.id
+  </query>
+</mode>
+
 </datasource_modes>

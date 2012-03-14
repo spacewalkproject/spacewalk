@@ -11810,6 +11810,51 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
        </trans-unit>
      </group>
 
+     <group>
+       <context-group name="ctx">
+         <context context-type="sourcefile">Detailed view of SCAP XCCDF scan</context>
+       </context-group>
+       <trans-unit id="system.audit.xccdfdetails.jsp.header">
+         <source>Details of XCCDF Scan</source>
+       </trans-unit>
+       <trans-unit id="system.audit.xccdfdetails.jsp.path">
+         <source>File System Path</source>
+       </trans-unit>
+       <trans-unit id="system.audit.xccdfdetails.jsp.benchmarkid">
+         <source>Benchmark Identifier</source>
+       </trans-unit>
+       <trans-unit id="system.audit.xccdfdetails.jsp.version">
+         <source>Benchmark Version</source>
+       </trans-unit>
+       <trans-unit id="system.audit.xccdfdetails.jsp.profileid">
+         <source>Benchmark Identifier</source>
+       </trans-unit>
+       <trans-unit id="system.audit.xccdfdetails.jsp.title">
+         <source>Benchmark Title</source>
+       </trans-unit>
+       <trans-unit id="system.audit.xccdfdetails.jsp.started">
+         <source>Started</source>
+       </trans-unit>
+       <trans-unit id="system.audit.xccdfdetails.jsp.completed">
+         <source>Completed</source>
+       </trans-unit>
+       <trans-unit id="system.audit.xccdfdetails.jsp.errors">
+         <source>Scan's Error output</source>
+       </trans-unit>
+       <trans-unit id="system.audit.xccdfdetails.jsp.xccdfrules">
+         <source>XCCDF Rule Results</source>
+       </trans-unit>
+       <trans-unit id="system.audit.xccdfdetails.jsp.scheme">
+         <source>Naming System URI</source>
+       </trans-unit>
+       <trans-unit id="system.audit.xccdfdetails.jsp.ident">
+         <source>XCCDF Rule Identifier</source>
+       </trans-unit>
+       <trans-unit id="system.audit.xccdfdetails.jsp.result">
+         <source>Result</source>
+       </trans-unit>
+     </group>
+
      <!-- Action common -->
      <group>
        <context-group name="ctx">

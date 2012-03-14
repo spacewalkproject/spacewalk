@@ -62,6 +62,19 @@ public class ScapManager extends BaseManager {
         return transposeView(dr);
     }
 
+    /**
+     * Show xccdf:rule-result results for given test
+     * @param testResultId of XccdfTestResult of the test for which to search
+     * @return the list of rule-results
+     */
+    public static DataResult ruleResultsPerScan(Long testResultId) {
+        SelectMode m = ModeFactory.getMode("scap_queries",
+                "show_ruleresults");
+        HashMap params = new HashMap();
+        params.put("xid", testResultId);
+        return m.execute(params);
+    }
+
     private static List<Map<String, Object>> transposeView(DataResult testResultsRaw) {
         List<Map<String, Object>> resultView = new ArrayList<Map<String, Object>>();
         Map<String, Object> currResult = null;
