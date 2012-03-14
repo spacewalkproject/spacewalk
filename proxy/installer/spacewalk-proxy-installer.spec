@@ -20,9 +20,11 @@ Requires: chkconfig
 Requires: libxslt
 Requires: spacewalk-certs-tools >= 1.6.4
 BuildRequires: /usr/bin/docbook2man
+%if 0%{?fedora} > 15 || 0%{?rhel} > 5
 # pylint check
 BuildRequires: spacewalk-pylint
 BuildRequires: rhnlib
+%endif
 
 Obsoletes: proxy-installer < 5.3.0
 Provides: proxy-installer = 5.3.0
@@ -71,9 +73,11 @@ install -m 640 jabberd/sm.xml jabberd/c2s.xml $RPM_BUILD_ROOT%{_usr}/share/rhn/i
 rm -rf $RPM_BUILD_ROOT
 
 %check
+%if 0%{?fedora} > 15 || 0%{?rhel} > 5
 # check coding style
 export PYTHONPATH=$RPM_BUILD_ROOT/usr/share/rhn:/usr/share/rhn
 spacewalk-pylint $RPM_BUILD_ROOT/usr/share/rhn
+%endif
 
 %files
 %defattr(-,root,root,-)
