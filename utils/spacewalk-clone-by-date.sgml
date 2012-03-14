@@ -18,18 +18,18 @@ Utility for cloning errata by date.
 
 <refsection id="spacewalk-clone-by-date-description">
   <para>
-    Script to clone software channels and errata up to specific dates ensuring any added packages have their 
+    Script to clone software channels and errata up to specific dates ensuring any added packages have their
     dependencies satisfied.  Any destination channels that do not exist will be created.
   </para>
   <para>
-     By specifying channels on the command line, only a single channel tree (a base channel and its children) 
-     can be cloned with a single command.  If you would like to specify multiple trees within a single command, 
+     By specifying channels on the command line, only a single channel tree (a base channel and its children)
+     can be cloned with a single command.  If you would like to specify multiple trees within a single command,
      simply use a configuration file.  See --sample-config for a sample.
   </para>
   <para>
-    All options can either be specified in the configuration file or via command line.  Any option specified via 
-    command line will override a configuration file value with the exception of channels.  If a configuration file is 
-    specified, --channels is not a valid command line argument.  
+    All options can either be specified in the configuration file or via command line.  Any option specified via
+    command line will override a configuration file value with the exception of channels.  If a configuration file is
+    specified, --channels is not a valid command line argument.
   </para>
 </refsection>
 
@@ -37,7 +37,7 @@ Utility for cloning errata by date.
 <RefSynopsisDiv>
 <Synopsis>
     <cmdsynopsis>
-        <command>spacewalk-clone-by-date</command> 
+        <command>spacewalk-clone-by-date</command>
         <arg>options <replaceable>...</replaceable></arg>
     </cmdsynopsis>
     <cmdsynopsis>
@@ -46,7 +46,7 @@ Utility for cloning errata by date.
     </cmdsynopsis>
     <cmdsynopsis>
         <arg> -m </arg><arg> --sample-config</arg>
-    </cmdsynopsis>    
+    </cmdsynopsis>
     <cmdsynopsis>
         <arg>-u<replaceable>USERNAME</replaceable></arg>
         <arg>--username=<replaceable>USERNAME</replaceable></arg>
@@ -56,30 +56,30 @@ Utility for cloning errata by date.
         <arg>--password=<replaceable>PASSWORD</replaceable></arg>
     </cmdsynopsis>
     <cmdsynopsis>
-        <arg>-c<replaceable>SRC DEST</replaceable></arg>
+        <arg>-l<replaceable>SRC DEST</replaceable></arg>
         <arg>--channels=<replaceable>SRC DEST</replaceable></arg>
-    </cmdsynopsis>    
+    </cmdsynopsis>
     <cmdsynopsis>
-    	<arg> -d=<replaceable>YYYY-MM-DD</replaceable></arg>
+        <arg> -d=<replaceable>YYYY-MM-DD</replaceable></arg>
         <arg> --to_date=<replaceable>YYYY-MM-DD</replaceable></arg>
     </cmdsynopsis>
     <cmdsynopsis>
         <arg>-b<replaceable>PKG1,PKG2,PKG3</replaceable></arg>
         <arg>--blacklist=<replaceable>PKG1,PKG2,PKG3</replaceable></arg>
-    </cmdsynopsis>    
+    </cmdsynopsis>
     <cmdsynopsis>
         <arg>-r<replaceable>PKG1,PKG2,PKG3</replaceable></arg>
         <arg>--removelist=<replaceable>PKG1,PKG2,PKG3</replaceable></arg>
-    </cmdsynopsis>       
+    </cmdsynopsis>
     <cmdsynopsis>
         <arg>-v</arg><arg> --validate </arg>
-    </cmdsynopsis>   
+    </cmdsynopsis>
     <cmdsynopsis>
         <arg>-k</arg><arg> --skip_depsolve </arg>
-    </cmdsynopsis>   
+    </cmdsynopsis>
     <cmdsynopsis>
         <arg>-y</arg><arg> --assumeyes </arg>
-    </cmdsynopsis>   
+    </cmdsynopsis>
     <cmdsynopsis>
         <arg>-h</arg><arg>--help</arg>
     </cmdsynopsis>
@@ -106,13 +106,13 @@ Utility for cloning errata by date.
             <para>Configuration file holding parameters, see --sample-config for an example.
                       Any command-line parameters override those in specified config file.</para>
         </listitem>
-    </varlistentry>   
+    </varlistentry>
     <varlistentry>
         <term>-m  --sample-config</term>
         <listitem>
             <para>Generate a sample configuration file.</para>
         </listitem>
-    </varlistentry>     
+    </varlistentry>
     <varlistentry>
         <term>-u<replaceable>USERNAME</replaceable>, --username=<replaceable>USERNAME</replaceable></term>
         <listitem>
@@ -126,7 +126,7 @@ Utility for cloning errata by date.
         </listitem>
     </varlistentry>
     <varlistentry>
-        <term> -c <replaceable>SRC_LABEL DEST_LABEL</replaceable>, --channels=<replaceable>SRC_LABEL DEST_LABEL</replaceable></term>
+        <term>-l<replaceable>SRC_LABEL DEST_LABEL</replaceable>, --channels=<replaceable>SRC_LABEL DEST_LABEL</replaceable></term>
         <listitem>
             <para>Space separated list of source channel and destination channel.  Can be specified multiple times to provide base channel and child channel pairs of a single channel tree.  To specify more than one channel tree, specify a config file.</para>
         </listitem>
@@ -136,7 +136,7 @@ Utility for cloning errata by date.
         <listitem>
             <para>Instead of asking for confirmation before cloning a channel or errata, continue uninterrupted.</para>
         </listitem>
-    </varlistentry>    
+    </varlistentry>
     <varlistentry>
         <term> -v  --validate</term>
         <listitem>
@@ -155,43 +155,43 @@ Utility for cloning errata by date.
             <para>All errata on or before the specified date will be cloned if it does not already exist in the destination channel(s).
             </para>
         </listitem>
-    </varlistentry>       
+    </varlistentry>
     <varlistentry>
         <term> -b <replaceable>PKG1,PKG2,PKG3</replaceable>, --blacklist=<replaceable>PKG1,PKG2,PKG3</replaceable> </term>
         <listitem>
             <para>Comma separated list of package names to be removed after cloning. Perl-style regular expressions also supported.  Only newly added packages will removed if they are on the blacklist.  Dependency resolution is not ensured on resulting repository.
             </para>
             <para>
-            	Note:  This option is global across all destination channels.  To specify per channel blacklists, you must use a configuration file.  See --sample-config for an example.
-        	</para>
+                Note:  This option is global across all destination channels.  To specify per channel blacklists, you must use a configuration file.  See --sample-config for an example.
+            </para>
         </listitem>
     </varlistentry>
     <varlistentry>
         <term> -r <replaceable>PKG1,PKG2,PKG3</replaceable>, --removelist=<replaceable>PKG1,PKG2,PKG3</replaceable>  </term>
         <listitem>
             <para>Comma separated list of package names to be removed after cloning.  Perl-style regular expressions are also supported.  All packages are considered for removal, even those not added by errata/channel cloning.  Dependency resolution is not ensured on resulting repository.
-        	</para>
+            </para>
             <para>
-            	Note:  This option is global across all destination channels. To specify per channel removelists, you must use a configuration file.  See --sample-config for an example.
-        	</para>        	            	
+                Note:  This option is global across all destination channels. To specify per channel removelists, you must use a configuration file.  See --sample-config for an example.
+            </para>
         </listitem>
-    </varlistentry>    
+    </varlistentry>
 </variablelist>
 </RefSect1>
 
 
 <RefSect1><Title>Examples</Title>
 <example>
-	<title>Clone a base channel and child channel to 2008-12-20 with a blacklist excluding all versions of squid, and all versions of any package that starts with 'sendmail'.</title>
-	<para>spacewalk-clone-by-date  --channel=rhel-x86_64-server-5 clone-rhel --channel=rhn-tools-rhel-x86_64-server-5 clone-tools --username admin --password redhat --to_date=2008-12-20 --blacklist=sendmail.*,squid</para>
+    <title>Clone a base channel and child channel to 2008-12-20 with a blacklist excluding all versions of squid, and all versions of any package that starts with 'sendmail'.</title>
+    <para>spacewalk-clone-by-date  --channels=rhel-x86_64-server-5 clone-rhel --channels=rhn-tools-rhel-x86_64-server-5 clone-tools --username admin --password redhat --to_date=2008-12-20 --blacklist=sendmail.*,squid</para>
 </example>
 <example>
-	<title>Clone with options completely from a config file.</title>
-	<para>spacewalk-clone-by-date  --config=/etc/clone.conf</para>
+    <title>Clone with options completely from a config file.</title>
+    <para>spacewalk-clone-by-date  --config=/etc/clone.conf</para>
 </example>
 <example>
-	<title>Clone while overriding some options from the command line.</title>
-	<para>spacewalk-clone-by-date  --config=/etc/clone.conf --username rocky --password squirrel --to_date=2010-10-09</para>
+    <title>Clone while overriding some options from the command line.</title>
+    <para>spacewalk-clone-by-date  --config=/etc/clone.conf --username rocky --password squirrel --to_date=2010-10-09</para>
 </example>
 </RefSect1>
 
