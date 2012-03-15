@@ -328,7 +328,7 @@
         <trans-unit id="lookup.jsp.reason2.user">
           <source>You do not have permission to view this user.</source>
         <target>您沒有檢視這使用者的權限。</target></trans-unit>
-	<trans-unit id="lookup.activatonkey.reason2">
+	<trans-unit id="lookup.activationkey.reason2">
           <source>You do not have permission to view this activation key.</source>
       <target>您沒有檢視這啟動金鑰的權限。</target></trans-unit>
 	<trans-unit id="lookup.servergroup.reason2">

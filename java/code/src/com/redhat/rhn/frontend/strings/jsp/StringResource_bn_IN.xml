@@ -328,7 +328,7 @@
         <trans-unit id="lookup.jsp.reason2.user">
           <source>You do not have permission to view this user.</source>
         <target>এই ব</target></trans-unit>
-	<trans-unit id="lookup.activatonkey.reason2">
+	<trans-unit id="lookup.activationkey.reason2">
           <source>You do not have permission to view this activation key.</source>
       <target>এই অ্যাক্টিভেশন-কি দেখার অনুমতি আপনার নেই।</target></trans-unit>
 	<trans-unit id="lookup.servergroup.reason2">
