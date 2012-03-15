@@ -328,6 +328,9 @@
         <trans-unit id="lookup.jsp.reason2.user">
           <source>You do not have permission to view this user.</source>
         <target>ਤੁਹਾਨੂੰ ਇਸ ਉਪਭੋਗੀ ਨੂੰ ਵੇਖਣ ਲਈ ਅਧਿਕਾਰ ਨਹੀਂ ਹਨ।</target></trans-unit>
+	<trans-unit id="lookup.activatonkey.reason2">
+          <source>You do not have permission to view this activation key.</source>
+      <target>ਤੁਹਾਨੂੰ ਇਸ ਸਰਗਰਮ ਕੁੰਜੀ ਨੂੰ ਵੇਖਣ ਲਈ ਅਧਿਕਾਰ ਨਹੀਂ ਹਨ।</target></trans-unit>
 	<trans-unit id="lookup.servergroup.reason2">
           <source>You do not have permission to view this system group.</source>
         <target>ਤੁਹਾਨੂੰ ਇਸ ਸਿਸਟਮ ਗਰੁੱਪ ਨੂੰ ਵੇਖਣ ਲਈ ਅਧਿਕਾਰ ਨਹੀਂ ਹਨ।</target></trans-unit>

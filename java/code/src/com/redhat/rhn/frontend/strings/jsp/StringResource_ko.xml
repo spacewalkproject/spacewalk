@@ -328,6 +328,9 @@
         <trans-unit id="lookup.jsp.reason2.user">
           <source>You do not have permission to view this user.</source>
         <target>이 사용자 정보를 볼 수 있는 권한이 없습니다.</target></trans-unit>
+	<trans-unit id="lookup.activatonkey.reason2">
+          <source>You do not have permission to view this activation key.</source>
+      <target>이 활성키를 볼 수 있는 권한이 없습니다. </target></trans-unit>
 	<trans-unit id="lookup.servergroup.reason2">
           <source>You do not have permission to view this system group.</source>
         <target>이 시스템 그룹을 볼 수 있는 권한이 없습니다. </target></trans-unit>
