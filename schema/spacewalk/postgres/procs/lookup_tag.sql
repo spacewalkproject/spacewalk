@@ -32,7 +32,7 @@ begin
             perform pg_dblink_exec(
                 'insert into rhnTag(id, org_id, name_id) values (' ||
                 tag_id || ', ' || org_id_in || ', ' ||
-                coalesce(quote_literal(lookup_tag_name(name_in), 'NULL')) || ')');
+                coalesce(quote_literal(lookup_tag_name(name_in)), 'NULL') || ')');
         exception when unique_violation then
             select id
               into strict tag_id
