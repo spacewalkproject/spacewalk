@@ -584,19 +584,9 @@ public class SystemHandler extends BaseHandler {
      *          $SystemOverviewSerializer
      *      #array_end()
      */
-    public Object[] listActiveSystems(String sessionKey) throws FaultException {
+    public List listActiveSystems(String sessionKey) throws FaultException {
         User loggedInUser = getLoggedInUser(sessionKey);
-        DataResult<SystemOverview> dr = SystemManager.systemList(loggedInUser, null);
-        dr.elaborate();
-        List<SystemOverview> returnList = new ArrayList();
-
-        for (SystemOverview so : dr) {
-            if (isSystemInactive(so)) {
-                continue;
-            }
-            returnList.add(so);
-        }
-        return returnList.toArray();
+        return SystemManager.systemListShortActive(loggedInUser, null);
     }
 
     private Map createChannelMap(EssentialChannelDto channel, Boolean currentBase) {
@@ -2340,7 +2330,6 @@ public class SystemHandler extends BaseHandler {
         return XmlRpcSystemHelper.getInstance().lookupServer(user, sid);
     }
 
-
     /**
      * Private helper method to determine if a server is inactive.
      * @param so SystemOverview object representing system to inspect.
@@ -4038,8 +4027,7 @@ public class SystemHandler extends BaseHandler {
      */
     public List listInactiveSystems(String sessionKey) {
         User loggedInUser = getLoggedInUser(sessionKey);
-        return SystemManager.inactiveList(loggedInUser, null);
-
+        return SystemManager.systemListShortInactive(loggedInUser, null);
     }
 
 
@@ -4060,7 +4048,7 @@ public class SystemHandler extends BaseHandler {
      */
     public List listInactiveSystems(String sessionKey, Integer days) {
         User loggedInUser = getLoggedInUser(sessionKey);
-        return SystemManager.inactiveList(loggedInUser, null, days);
+        return SystemManager.systemListShortInactive(loggedInUser, days, null);
     }
 
     /**

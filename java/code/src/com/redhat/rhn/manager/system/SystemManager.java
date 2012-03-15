@@ -372,6 +372,58 @@ public class SystemManager extends BaseManager {
     }
 
     /**
+     * Returns list of all systems visible to user that are inactive.
+     *    This is meant to be fast and only gets the id, name, and last checkin
+     * @param user Currently logged in user.
+     * @param pc PageControl
+     * @return list of SystemOverviews.
+     */
+    public static DataResult systemListShortInactive(User user, PageControl pc) {
+        return systemListShortInactive(user, new Integer(Config.get().getInt(ConfigDefaults
+                .SYSTEM_CHECKIN_THRESHOLD)), pc);
+    }
+
+    /**
+     * Returns list of all systems visible to user that are inactive.
+     *    This is meant to be fast and only gets the id, name, and last checkin
+     * @param user Currently logged in user.
+     * @param inactiveThreshold number of days before we consider systems inactive
+     * @param pc PageControl
+     * @return list of SystemOverviews.
+     */
+    public static DataResult systemListShortInactive(
+            User user, int inactiveThreshold, PageControl pc) {
+        SelectMode m = ModeFactory.getMode(
+                "System_queries", "xmlrpc_visible_to_user_inactive",
+                SystemOverview.class);
+        Map params = new HashMap();
+        params.put("user_id", user.getId());
+        params.put("checkin_threshold", inactiveThreshold);
+        Map elabParams = new HashMap();
+
+        return makeDataResult(params, elabParams, pc, m);
+    }
+
+    /**
+     * Returns list of all systems visible to user that are active.
+     *    This is meant to be fast and only gets the id, name, and last checkin
+     * @param user Currently logged in user.
+     * @param pc PageControl
+     * @return list of SystemOverviews.
+     */
+    public static DataResult systemListShortActive(User user, PageControl pc) {
+        SelectMode m = ModeFactory.getMode(
+                "System_queries", "xmlrpc_visible_to_user_active", SystemOverview.class);
+        Map params = new HashMap();
+        params.put("user_id", user.getId());
+        params.put("checkin_threshold", new Integer(Config.get().getInt(ConfigDefaults
+                .SYSTEM_CHECKIN_THRESHOLD)));
+        Map elabParams = new HashMap();
+
+        return makeDataResult(params, elabParams, pc, m);
+    }
+
+    /**
      * Returns list of all systems that are  visible to user
      * but not in the given server group.
      * @param user Currently logged in user.

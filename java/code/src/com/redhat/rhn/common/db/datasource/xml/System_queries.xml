@@ -425,6 +425,38 @@ ORDER BY  UPPER(COALESCE(X.name, '(none)')), X.id
   </query>
 </mode>
 
+<mode name="xmlrpc_visible_to_user_inactive">
+  <query params="user_id, checkin_threshold">
+select * from (
+  SELECT  DISTINCT S.id AS ID,
+          S.name AS NAME,
+          INFO.checkin AS LAST_CHECKIN
+    FROM  rhnServer S, rhnUserServerPerms USP, rhnServerInfo INFO
+   WHERE  USP.user_id = :user_id
+     AND  S.id = USP.server_id
+     AND  S.id = INFO.server_id
+     AND  INFO.checkin &lt; current_timestamp - numtodsinterval(:checkin_threshold * 86400, 'second')
+) X
+ORDER BY  UPPER(COALESCE(X.name, '(none)')), X.id
+  </query>
+</mode>
+
+<mode name="xmlrpc_visible_to_user_active">
+  <query params="user_id, checkin_threshold">
+select * from (
+  SELECT  DISTINCT S.id AS ID,
+          S.name AS NAME,
+          INFO.checkin AS LAST_CHECKIN
+    FROM  rhnServer S, rhnUserServerPerms USP, rhnServerInfo INFO
+   WHERE  USP.user_id = :user_id
+     AND  S.id = USP.server_id
+     AND  S.id = INFO.server_id
+     AND  INFO.checkin &gt; current_timestamp - numtodsinterval(:checkin_threshold * 86400, 'second')
+) X
+ORDER BY  UPPER(COALESCE(X.name, '(none)')), X.id
+  </query>
+</mode>
+
 <mode name="visible_to_user_from_sysid_list" class="com.redhat.rhn.frontend.dto.SystemSearchResult">
   <query name="available_to_user_from_sysid_list" />
   <elaborator name="system_overview" />
@@ -1112,7 +1144,7 @@ ORDER BY S.ID
 </query>
 
 <query name="system_overview" params="">
-  SELECT /*+ RULE */ SERVER_ID AS ID, OUTDATED_PACKAGES, SERVER_NAME, security_errata, bug_errata, enhancement_errata,
+  SELECT SERVER_ID AS ID, OUTDATED_PACKAGES, SERVER_NAME, security_errata, bug_errata, enhancement_errata,
           SERVER_ADMINS, GROUP_COUNT, MODIFIED, CHANNEL_LABELS, CHANNEL_ID, HISTORY_COUNT,
           LAST_CHECKIN_DAYS_AGO, PENDING_UPDATES, OS, RELEASE, SERVER_ARCH_NAME, LAST_CHECKIN, LOCKED,
           config_files_with_differences,
