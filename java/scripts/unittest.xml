@@ -1,86 +1,46 @@
-<!-- ant build file for running unit tests on a live satellite/spacewalk server-->
 
 <project name="RHN" default="all" basedir=".">
 
-<property name="reports.tests" location="/tmp/reports" />
-<property name="test-jar" location="/usr/share/rhn/lib/rhn-test.jar"/>
+  <property name="reports.tests" location="/tmp/reports" />
+  <property name="test-jar" location="/usr/share/rhn/lib/rhn-test.jar"/>
+  <property name="tmpdir" value="${java.io.tmpdir}/spacewalk-test" />
 
-<property name="tmpdir" value="${java.io.tmpdir}/spacewalk-test" />
+  <property name="tomcat" value="tomcat5" />
+  <available file="/usr/share/java/tomcat6" type="dir" property="tomcat" value="tomcat6" />
+  <echo message="Detected: ${tomcat}" />
 
+  <target name="all" depends="test"/>
 
-<condition property="tomcat5.exists">
-  <available file="/var/lib/tomcat5/" type="dir" />
-</condition>
-<condition property="tomcat6.exists">
-  <available file="/var/lib/tomcat6/" type="dir" />
-</condition>
-
-
-
-<target name="tomcat5-path" if="${tomcat5-exists}">
-  <path id="class.path" >
-    <fileset dir="/var/lib/tomcat5/">
-      <include name="webapps/rhn/WEB-INF/lib/*.jar" />
-    </fileset>
-
-     <fileset dir="/var/lib/tomcat5/">
-        <include name="webapps/rhn/WEB-INF/lib/*.jar" />
-        <include name="common/lib/*.jar" />
-        <include name="server/lib/*.jar" />
-      </fileset>
-
-      <pathelement path="/var/lib/tomcat5/webapps/rhn"/>
-      <pathelement location="${test-jar}" />
-  </path>
-</target>
-
-<target name="tomcat6-path" if="${tomcat6-exists}">
-  <path id="class.path" >
-
-    <fileset dir="/var/lib/tomcat6/">
-      <include name="webapps/rhn/WEB-INF/lib/*.jar" />
-    </fileset>
-
-    <fileset dir="/usr/share/tomcat6/">
-      <include name="lib/*.jar" />
-    </fileset>
-  
-    <pathelement path="/var/lib/tomcat6/webapps/rhn"/>
-    <pathelement location="${test-jar}" />
-  </path>
-</target>
-
-
-
-<target name="all" depends="test" />
-
-<target name="test" >
-
-    <antcall target="tomcat5-path" />
-    <antcall target="tomcat6-path" />
-
-    <delete dir="${reports.tests}" />
-    <mkdir dir="${reports.tests}"/>
-    <mkdir dir="${tmpdir}"/>
-    <unzip src="${test-jar}" dest="${tmpdir}" />
+  <target name="test">
 
     <condition property="testcase" value="Test">
         <not><isset property="testcase" /></not>
     </condition>
     <echo message="${testcase}" />
 
+    <delete dir="${reports.tests}" />
+    <mkdir dir="${reports.tests}"/>
+    <mkdir dir="${tmpdir}"/>
+    <unzip src="${test-jar}" dest="${tmpdir}" />
+
     <junit forkmode="once" fork="yes" printsummary="yes" haltonfailure="no">
       <jvmarg value="-Xdebug" />
       <jvmarg value="-Xnoagent" />
       <jvmarg value="-Djava.compiler=NONE" />
-      <jvmarg value="-Xrunjdwp:transport=dt_socket,address=8000,server=y,suspend=n" />
+      <jvmarg value="-Xrunjdwp:transport=dt_socket,address=8002,server=y,suspend=n" />
       <classpath>
-        <path refid="class.path" />
+        <pathelement location="${test-jar}" />
+        <!-- <pathelement location="${tmpdir}"/> -->
+        <pathelement path="/var/lib/${tomcat}/webapps/rhn"/>
+        <fileset dir="/usr/share/${tomcat}">
+          <include name="webapps/rhn/WEB-INF/lib/*.jar" />
+          <include name="**/lib/*.jar" />
+        </fileset>
         <path location="/usr/share/java/jmock.jar"/>
         <path location="/usr/share/java/jmock-cglib.jar"/>
-        <path location="/usr/share/java/mockobjects-core.jar"/>
-        <path location="/usr/share/java/struts-tiles.jar"/>
+        <path location="/usr/share/java/struts*.jar"/>
       </classpath>
+
       <formatter type="plain"/>
 
       <batchtest fork="yes" todir="${reports.tests}">
@@ -88,11 +48,9 @@
           <include name="**/*${testcase}.class"/>
         </fileset>
       </batchtest>
-
     </junit>
 
-    <delete dir="${tmpdir}" /> 
+    <delete dir="${tmpdir}" />
 
-</target>
-
+  </target>
 </project>
