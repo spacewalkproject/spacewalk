@@ -1,0 +1,34 @@
+-- oracle equivalent source sha1 b04dab2ff31049a8744e5ce1531ccd8b00152bbc
+
+create or replace function
+lookup_tag(org_id_in in numeric, name_in in varchar)
+returns numeric
+as $$
+declare
+    tag_id  numeric;
+begin
+    select id
+      into tag_id
+      from rhnTag
+     where org_id = org_id_in and
+           name_id = lookup_tag_name(name_in);
+
+    if not found then
+        tag_id := nextval('rhn_tag_id_seq');
+        begin
+            perform pg_dblink_exec(
+                'insert into rhnTag(id, org_id, name_id) values (' ||
+                tag_id || ', ' || org_id_in || ', ' ||
+                coalesce(quote_literal(lookup_tag_name(name_in)), 'NULL') || ')');
+        exception when unique_violation then
+            select id
+              into strict tag_id
+              from rhnTag
+             where org_id = org_id_in and
+                   name_id = lookup_tag_name(name_in);
+        end;
+    end if;
+
+    return tag_id;
+end; $$
+language plpgsql immutable;
