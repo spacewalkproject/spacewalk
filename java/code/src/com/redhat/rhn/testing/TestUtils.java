@@ -516,6 +516,30 @@ public class TestUtils {
         return null;
     }
 
+    /**
+     * Used to test the equals contract on objects.
+     * The contract as specified by java.lang.Object states that if A.equals(B) is true
+     * then B.equals(A) is also true. It also specifies that if A.equals(B) is true
+     * then A.hashCode() will equals B.hashCode()
+     * @param o1 object1
+     * @param o2 object2
+     * @return both objects equal
+     */
+    public static boolean equalTest(Object o1, Object o2) {
+        // both null
+        if (o1 == null && o2 == null) {
+            return true;
+        }
+        // just one null
+        if (o1 == null || o2 == null) {
+            return false;
+        }
+
+        if (o1.equals(o2) != o2.equals(o1)) {
+            return false;
+        }
+        return o1.hashCode() == o2.hashCode();
+    }
 }
 
 

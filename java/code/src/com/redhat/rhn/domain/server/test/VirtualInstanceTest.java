@@ -17,8 +17,7 @@ package com.redhat.rhn.domain.server.test;
 import com.redhat.rhn.domain.server.ServerFactory;
 import com.redhat.rhn.domain.server.VirtualInstance;
 import com.redhat.rhn.testing.Sequence;
-
-import com.gargoylesoftware.base.testing.EqualsTester;
+import com.redhat.rhn.testing.TestUtils;
 
 import junit.framework.TestCase;
 
@@ -58,7 +57,9 @@ public class VirtualInstanceTest extends TestCase {
         VirtualInstance guestB = new GuestStub(guestA.getId());
         VirtualInstance guestC = new GuestStub(idSequence.nextLong());
 
-        new EqualsTester(guestA, guestB, guestC, new Object());
+        assertEquals(true, TestUtils.equalTest(guestA, guestB));
+        assertEquals(false, TestUtils.equalTest(guestA, guestC));
+        assertEquals(false, TestUtils.equalTest(guestA, new Object()));
     }
 
     public void testGetNullInfo() {

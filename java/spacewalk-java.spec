@@ -224,10 +224,8 @@ This package contains PostgreSQL database backend files for the Spacewalk Java.
 Summary: Test Classes for testing spacewalk-java
 Group:  Applications/Internet
 
-BuildRequires:  gsbase
 BuildRequires:  jmock
 Requires: jmock
-Requires: gsbase
 
 %description tests
 This package contains testing files of spacewalk-java.  

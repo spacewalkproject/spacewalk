@@ -72,12 +72,12 @@
   <property name="test.build.jar.dependencies"
       value="junit
              log4j
-             regexp jmock jmock-cglib gsbase postgresql-jdbc" />
+             regexp jmock jmock-cglib postgresql-jdbc" />
 
   <property name="test.jar.dependencies"
       value="antlr checkstyle dom4j emma emma_ant jdom jta junit
              log4j 
-             regexp jmock jmock-cglib gsbase ${jfreechart}
+             regexp jmock jmock-cglib ${jfreechart}
              postgresql-jdbc" />
 
   <condition property="ant-contrib.path" value="ant/ant-contrib" else="ant-contrib">
@@ -98,7 +98,7 @@
   <!-- property name="install.test.jar.dependencies"
       value="antlr checkstyle dom4j emma emma_ant jdom jta junit
              log4j mockobjects mockobjects-core mockobjects-jdk1.4-j2ee1.3
-             regexp jmock jmock-cglib strutstest gsbase" / -->
+             regexp jmock jmock-cglib strutstest" / -->
 
   <property name="install.build.jar.dependencies"
       value="ant ant/ant-junit ${ant-contrib.path} antlr ${jasper-jars} ${test.build.jar.dependencies}

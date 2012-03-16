@@ -15,8 +15,7 @@
 package com.redhat.rhn.domain.test;
 
 import com.redhat.rhn.domain.Label;
-
-import com.gargoylesoftware.base.testing.EqualsTester;
+import com.redhat.rhn.testing.TestUtils;
 
 import junit.framework.TestCase;
 
@@ -63,8 +62,9 @@ public class LabelTest extends TestCase {
         BeerLabel aprihop = new BeerLabel("Aprihop",
                 "Aprihop....Dogfish Head bringing you America's finest beer");
 
-
-        new EqualsTester(negroModelo, anotherNegroModelo, aprihop, new Object());
+        assertEquals(true, TestUtils.equalTest(negroModelo, anotherNegroModelo));
+        assertEquals(false, TestUtils.equalTest(negroModelo, aprihop));
+        assertEquals(false, TestUtils.equalTest(negroModelo, new Object()));
     }
 
 }
