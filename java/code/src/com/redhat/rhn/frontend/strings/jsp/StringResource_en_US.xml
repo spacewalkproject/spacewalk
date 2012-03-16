@@ -17364,8 +17364,15 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
         	</context-group>
 	     </trans-unit>
 
-	     <trans-unit id="sdc.details.overview.inactive">
-		<source>&lt;strong&gt;System not checking in with @@PRODUCT_NAME@@&lt;/strong&gt; (&lt;a href=&quot;{0}&quot;&gt;more info&lt;/a&gt;)</source>
+	     <trans-unit id="sdc.details.overview.inactive1">
+		<source>&lt;strong&gt;System not checking in with @@PRODUCT_NAME@@&lt;/strong&gt;</source>
+		<context-group name="ctx">
+		<context context-type="sourcefile">/systems/details/Overview.do</context>
+		</context-group>
+	     </trans-unit>
+
+	     <trans-unit id="sdc.details.overview.inactive2">
+		<source> (&lt;a href=&quot;{0}&quot;&gt;more info&lt;/a&gt;)</source>
 	     	<context-group name="ctx">
 	     	<context context-type="sourcefile">/systems/details/Overview.do</context>
         	</context-group>

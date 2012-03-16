@@ -16864,13 +16864,6 @@ La ruta del ábol, el RPM Kickstart, el canal base y la generación del instalad
 		</context-group>
 	     <target>&lt;strong&gt;&lt;a href="{0}"&gt;Paquetes: &lt;/a&gt;&lt;/strong&gt; {1}</target></trans-unit>
 
-	     <trans-unit id="sdc.details.overview.inactive">
-		<source>&lt;strong&gt;System not checking in with @@PRODUCT_NAME@@&lt;/strong&gt; (&lt;a href="{0}"&gt;more info&lt;/a&gt;)</source>
-		<context-group name="ctx">
-		<context context-type="sourcefile">/systems/details/Overview.do</context>
-		</context-group>
-	     <target>&lt;strong&gt;El sistema no se está conectando con @@PRODUCT_NAME@@&lt;/strong&gt; (&lt;a href="{0}"&gt;mayor información&lt;/a&gt;)</target></trans-unit>
-
 	     <trans-unit id="sdc.details.overview.unentitled">
 		<source>&lt;strong&gt;System not entitled&lt;/strong&gt; (&lt;a href="{0}"&gt;entitle it here&lt;/a&gt;)</source>
 		<context-group name="ctx">

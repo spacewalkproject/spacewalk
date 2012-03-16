@@ -14,6 +14,7 @@
  */
 package com.redhat.rhn.frontend.action.systems.sdc;
 
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.domain.action.Action;
@@ -119,6 +120,7 @@ public class SystemOverviewAction extends RhnAction {
 
         request.setAttribute("unentitled", Boolean.valueOf(s.getEntitlements().isEmpty()));
         request.setAttribute("systemInactive", Boolean.valueOf(s.isInactive()));
+        request.setAttribute("documentation", ConfigDefaults.get().isDocAvailable());
         request.setAttribute("criticalErrataCount", criticalErrataCount);
         request.setAttribute("nonCriticalErrataCount", nonCriticalErrataCount);
         request.setAttribute("upgradablePackagesCount", upgradablePackagesCount);

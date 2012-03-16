@@ -17,7 +17,10 @@
         </c:when>
 
         <c:when test="${systemInactive}">
-          <img src="/img/icon_checkin.gif"/> <bean:message key="sdc.details.overview.inactive" arg0="/rhn/help/reference/en-US/s1-sm-systems.jsp#s2-sm-system-list"/>
+          <img src="/img/icon_checkin.gif"/> <bean:message key="sdc.details.overview.inactive1"/>
+          <c:if test="${documentation == 'true'}">
+            <bean:message key="sdc.details.overview.inactive2" arg0="/rhn/help/reference/en-US/s1-sm-systems.jsp#s2-sm-system-list"/>
+          </c:if>
         </c:when>
 
         <c:when test="${hasUpdates}">

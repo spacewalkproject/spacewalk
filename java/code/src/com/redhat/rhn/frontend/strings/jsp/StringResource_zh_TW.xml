@@ -16812,13 +16812,6 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
 		</context-group>
 	     <target>&lt;strong&gt;&lt;a href="{0}"&gt;套件：&lt;/a&gt;&lt;/strong&gt; {1}</target></trans-unit>
 
-	     <trans-unit id="sdc.details.overview.inactive">
-		<source>&lt;strong&gt;System not checking in with @@PRODUCT_NAME@@&lt;/strong&gt; (&lt;a href="{0}"&gt;more info&lt;/a&gt;)</source>
-		<context-group name="ctx">
-		<context context-type="sourcefile">/systems/details/Overview.do</context>
-		</context-group>
-	     <target>&lt;strong&gt;系統未登錄於 @@PRODUCT_NAME@@ 之中&lt;/strong&gt;（&lt;a href="{0}"&gt;更多資訊&lt;/a&gt;）</target></trans-unit>
-
 	     <trans-unit id="sdc.details.overview.unentitled">
 		<source>&lt;strong&gt;System not entitled&lt;/strong&gt; (&lt;a href="{0}"&gt;entitle it here&lt;/a&gt;)</source>
 		<context-group name="ctx">

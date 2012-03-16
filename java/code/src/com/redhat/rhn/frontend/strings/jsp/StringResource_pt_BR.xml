@@ -16858,13 +16858,6 @@ O Caminho de Árvore, Kickstart RPM, Canal de Base e a Geração do Instalador d
 		</context-group>
 	     <target>&lt;strong&gt;&lt;a href="{0}"&gt;Pacotes: &lt;/a&gt;&lt;/strong&gt; {1}</target></trans-unit>
 
-	     <trans-unit id="sdc.details.overview.inactive">
-		<source>&lt;strong&gt;System not checking in with @@PRODUCT_NAME@@&lt;/strong&gt; (&lt;a href="{0}"&gt;more info&lt;/a&gt;)</source>
-		<context-group name="ctx">
-		<context context-type="sourcefile">/systems/details/Overview.do</context>
-		</context-group>
-	     <target>&lt;strong&gt;Sistema não está fazendo o check in com o @@PRODUCT_NAME@@&lt;/strong&gt; (&lt;a href="{0}"&gt;mais info&lt;/a&gt;) </target></trans-unit>
-
 	     <trans-unit id="sdc.details.overview.unentitled">
 		<source>&lt;strong&gt;System not entitled&lt;/strong&gt; (&lt;a href="{0}"&gt;entitle it here&lt;/a&gt;)</source>
 		<context-group name="ctx">
