@@ -12,7 +12,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.3
+Version: 1.8.4
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -688,6 +688,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Fri Mar 16 2012 Jan Pazdziora 1.8.4-1
+- 802688 - Forcing empty strings to be Nones.
+
 * Wed Mar 14 2012 Jan Pazdziora 1.8.3-1
 - 803230 - cast to string to force lookup_evr prototype.
 - 798401 - use --debug-level parameter (msuchy@redhat.com)
