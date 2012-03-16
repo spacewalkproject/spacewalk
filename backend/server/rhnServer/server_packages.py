@@ -44,15 +44,17 @@ class dbPackage:
             return None
         if not pdict.has_key('arch') or pdict['arch'] is None:
             pdict['arch'] = ""
-        if string.lower(str(pdict['epoch'])) == "(none)" or pdict['epoch'] == None:
-            pdict['epoch'] = ""
-        for k in ('name', 'version', 'release', 'epoch', 'arch'):
+        if string.lower(str(pdict['epoch'])) == "(none)" or pdict['epoch'] == "" or pdict['epoch'] == None:
+            pdict['epoch'] = None
+        else:
+            pdict['epoch'] = str(pdict['epoch'])
+        for k in ('name', 'version', 'release', 'arch'):
             if pdict[k] == None:
                 return None
         self.n = str(pdict['name'])
         self.v = str(pdict['version'])
         self.r = str(pdict['release'])
-        self.e = str(pdict['epoch'])
+        self.e = pdict['epoch']
         self.a = str(pdict['arch'])
         if pdict.has_key('installtime'):
             self.installtime = pdict['installtime']
