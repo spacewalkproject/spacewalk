@@ -29,7 +29,6 @@ import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
 import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.org.UpdateOrgSoftwareEntitlementsCommand;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -167,7 +166,6 @@ public class OrgSoftwareSubscriptionsAction extends RhnAction implements Listabl
 
 
     private Long processCount(String count, ActionErrors errors, ChannelFamily cfm) {
-        if (!StringUtils.isBlank(count)) {
             // check for invalid number format
             try {
                 return Long.parseLong(count.trim());
@@ -175,7 +173,6 @@ public class OrgSoftwareSubscriptionsAction extends RhnAction implements Listabl
             catch (NumberFormatException ex) {
                 ValidatorException.raiseException("orgsoftwaresubs.invalid", cfm.getName());
             }
-        }
 
         return null;
     }
