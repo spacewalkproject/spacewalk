@@ -130,24 +130,25 @@ public class ServerConfigHandler extends BaseHandler {
      * @xmlrpc.param
      *   #struct("path info")
      *      #prop_desc("string","contents",
-     *              "Contents of the file (text or base64 encoded if binary).
-     *                   (ignored for directories)")
+     *              "Contents of the file (text or base64 encoded if binary)
+     *                   ((only for non-directories)")
      *      #prop_desc("boolean","contents_enc64", "Identifies base64 encoded content
-     *                  (default: disabled).")
+     *                  (default: disabled, only for non-directories).")
      *      #prop_desc("string","owner", "Owner of the file/directory.")
      *      #prop_desc("string","group", "Group name of the file/directory.")
      *      #prop_desc("string","permissions",
      *                          "Octal file/directory permissions (eg: 644)")
      *      #prop_desc("string","macro-start-delimiter",
      *                  "Config file macro end delimiter. Use null or empty string
-     *              to accept the default. (ignored if working with a directory)")
+     *              to accept the default. (only for non-directories)")
      *      #prop_desc("string","macro-end-delimiter",
      *                   "Config file macro end delimiter. Use null or empty string
-     *              to accept the default. (ignored if working with a directory)")
+     *              to accept the default. (only for non-directories)")
      *      #prop_desc("string","selinux_ctx",
      *                   "SeLinux context (optional)")
      *      #prop_desc("int", "revision", "next revision number, auto increment for null")
-     *      #prop_desc("boolean", "binary", "mark the binary content")
+     *      #prop_desc("boolean", "binary", "mark the binary content,
+     *              (only for non-directories)")
      *  #struct_end()
      * @xmlrpc.param #param("int","commitToLocal")
      *      #options()
