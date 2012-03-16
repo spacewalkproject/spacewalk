@@ -41,12 +41,13 @@
 </rhn:require>
 </rhn:require>
 
+<c:if test="${documentation == 'true'}">
 <tr class="list-row-odd">
 <td style="text-align: left;" class="first-column last-column"><img style="margin-left: 4px;" src="/img/parent_node.gif"
 									alt="<bean:message key="yourrhn.jsp.bullet.alttag"/>" /> <a href="/rhn/help/client-config/en-US/index.jsp">
     	<bean:message key="yourrhn.jsp.tasks.registersystem" />
     </a></td></tr>
-
+</c:if>
 
 <rhn:require acl="org_entitlement(sw_mgr_enterprise); user_role(activation_key_admin)">
 <tr class="list-row-odd">

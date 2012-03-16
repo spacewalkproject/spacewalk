@@ -524,4 +524,12 @@ public class ConfigDefaults {
     public boolean isPostgresql() {
         return DB_BACKEND_POSTGRESQL.equals(Config.get().getString(DB_BACKEND));
     }
+
+    /**
+     * is documentation available
+     * @return true if so
+     */
+    public boolean isDocAvailable() {
+        return !isSpacewalk();
+    }
 }

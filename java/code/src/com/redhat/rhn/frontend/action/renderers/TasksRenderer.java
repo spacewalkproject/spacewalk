@@ -15,6 +15,7 @@
 
 package com.redhat.rhn.frontend.action.renderers;
 
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.listview.PageControl;
 
@@ -34,8 +35,8 @@ public class TasksRenderer extends BaseFragmentRenderer {
      */
     protected void render(User user, PageControl pc, HttpServletRequest request) {
         request.setAttribute(TASKS, Boolean.TRUE);
+        request.setAttribute("documentation", ConfigDefaults.get().isDocAvailable());
         RendererHelper.setTableStyle(request, null);
-
     }
 
     /**
