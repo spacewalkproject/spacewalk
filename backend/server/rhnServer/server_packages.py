@@ -205,7 +205,7 @@ class Packages:
             insert into rhnServerPackage
             (server_id, name_id, evr_id, package_arch_id, installtime)
             values (:sysid, LOOKUP_PACKAGE_NAME(:n), LOOKUP_EVR(:e, :v, :r),
-                LOOKUP_PACKAGE_ARCH(:a), TO_DATE(:instime, 'YYYY-MM-DD HH24:MI:SS')
+                LOOKUP_PACKAGE_ARCH(:a), TO_TIMESTAMP(:instime, 'YYYY-MM-DD HH24:MI:SS')
             )
             """)
             # some fields are not allowed to contain empty string (varchar)
