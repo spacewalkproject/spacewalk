@@ -1613,7 +1613,7 @@ public class SystemManager extends BaseManager {
             // just install libvirt for RHEL6 base channel
             Channel base = server.getBaseChannel();
 
-            if (base.isCloned()) {
+            if (base != null && base.isCloned()) {
                 ClonedChannel clonedBase = (ClonedChannel) base;
                 base = clonedBase.getOriginal();
             }
