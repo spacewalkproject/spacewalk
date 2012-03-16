@@ -22,7 +22,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.16
+Version: 1.8.17
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -595,6 +595,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Mar 16 2012 Michael Mraka <michael.mraka@redhat.com> 1.8.17-1
+- require checkstyle only if we run it
+
 * Thu Mar 15 2012 Tomas Lestach <tlestach@redhat.com> 1.8.16-1
 - rewrite unittest.xml (tlestach@redhat.com)
 
