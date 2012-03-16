@@ -52,6 +52,8 @@ class DBPatch(object):
         """[constructor] This method looks up the patch in the databse, the 
         'id' field is the rhnPackage id. The 'id' field will be None if the
         patch does not exist in the database"""
+        if patch['epoch'] == '':
+            patch['epoch'] == None
         self.id = get_package_id(patch)
 
 # solaris patches server class -------------------------------------------
