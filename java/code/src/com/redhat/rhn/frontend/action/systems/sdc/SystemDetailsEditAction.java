@@ -14,6 +14,7 @@
  */
 package com.redhat.rhn.frontend.action.systems.sdc;
 
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.common.validator.ValidatorResult;
@@ -282,9 +283,15 @@ public class SystemDetailsEditAction extends RhnAction {
                         }
                         if (e instanceof VirtualizationEntitlement) {
                             log.debug("adding virt msg");
-                            createSuccessMessage(request,
+                            if (ConfigDefaults.get().isDocAvailable()) {
+                                createSuccessMessage(request,
                                     "system.entitle.addedvirtualization",
                                     "/rhn/help/reference/en-US/ch-virtualization.jsp");
+                            }
+                            else {
+                                createSuccessMessage(request,
+                                        "system.entitle.addedvirtualization.nodoc", null);
+                            }
                         }
                     }
                 }
