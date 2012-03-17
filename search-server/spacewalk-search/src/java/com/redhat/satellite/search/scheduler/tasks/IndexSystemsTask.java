@@ -72,7 +72,7 @@ public class IndexSystemsTask extends GenericIndexTask {
         attrs.put("cpuBogoMIPs", srvr.getCpuBogoMIPS());
         attrs.put("cpuCache", srvr.getCpuCache());
         attrs.put("cpuFamily", srvr.getCpuFamily());
-        attrs.put("cpuMhz", srvr.getCpuMhz());
+        attrs.put("cpuMHz", srvr.getCpuMHz());
         attrs.put("cpuStepping", srvr.getCpuStepping());
         attrs.put("cpuFlags", srvr.getCpuFlags());
         attrs.put("cpuModel", srvr.getCpuModel());

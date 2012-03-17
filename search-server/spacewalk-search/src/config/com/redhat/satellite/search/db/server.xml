@@ -35,7 +35,7 @@
                 cpu.bogomips as cpuBogoMIPS,
                 cpu.cache as cpuCache,
                 cpu.family as cpuFamily,
-                cpu.mhz as cpuMhz,
+                cpu.mhz as cpuMHz,
                 cpu.stepping as cpuStepping,
                 cpu.flags as cpuFlags,
                 cpu.model as cpuModel,

@@ -54,9 +54,9 @@ public class MatchingField {
             terms = new Term[0];
         }
         needNumberToolsAdjust = new HashMap();
-        needNumberToolsAdjust.put("cpuMhz", true);
+        needNumberToolsAdjust.put("cpuMHz", true);
         needNumberToolsAdjust.put("cpuBogoMIPS", true);
-        needNumberToolsAdjust.put("cpuMhz", true);
+        needNumberToolsAdjust.put("cpuMHz", true);
         needNumberToolsAdjust.put("cpuNumberOfCpus", true);
         needNumberToolsAdjust.put("ram", true);
         needNumberToolsAdjust.put("swap", true);

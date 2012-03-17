@@ -2639,11 +2639,11 @@ rhn-kickstart* パッケージが利用可能であることを確認します�
      <target>CPU MHz が指定値未満のもの</target></trans-unit>
 
      <trans-unit id="systemsearch_cpu_mhz_gt">
-		<source>CPU Mhz Greater Than</source>
+		<source>CPU MHz Greater Than</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/systems/Search</context>
         </context-group>
-     <target>CPU Mhz が指定値を超えるもの</target></trans-unit>
+     <target>CPU MHz が指定値を超えるもの</target></trans-unit>
 
      <trans-unit id="systemsearch_num_of_cpus_lt">
         <source>Number of CPUs Less Than</source>

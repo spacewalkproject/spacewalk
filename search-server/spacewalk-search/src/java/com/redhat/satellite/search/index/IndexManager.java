@@ -734,7 +734,7 @@ public class IndexManager {
         analyzer.addAnalyzer("registered", new KeywordAnalyzer());
         analyzer.addAnalyzer("ram", new KeywordAnalyzer());
         analyzer.addAnalyzer("swap", new KeywordAnalyzer());
-        analyzer.addAnalyzer("cpuMhz", new KeywordAnalyzer());
+        analyzer.addAnalyzer("cpuMHz", new KeywordAnalyzer());
         analyzer.addAnalyzer("cpuNumberOfCpus", new KeywordAnalyzer());
 
 

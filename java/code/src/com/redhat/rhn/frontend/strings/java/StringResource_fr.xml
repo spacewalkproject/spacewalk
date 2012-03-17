@@ -2639,14 +2639,14 @@ disponibles pour que ce profil kickstart puisse fonctionner correctement.
         <context-group name="ctx">
           <context context-type="sourcefile">/systems/Search</context>
         </context-group>
-     <target>Mhz du CPU inférieurs à</target></trans-unit>
+     <target>MHz du CPU inférieurs à</target></trans-unit>
 
      <trans-unit id="systemsearch_cpu_mhz_gt">
-		<source>CPU Mhz Greater Than</source>
+		<source>CPU MHz Greater Than</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/systems/Search</context>
         </context-group>
-     <target>Mhz du CPU supérieurs à</target></trans-unit>
+     <target>MHz du CPU supérieurs à</target></trans-unit>
 
      <trans-unit id="systemsearch_num_of_cpus_lt">
         <source>Number of CPUs Less Than</source>

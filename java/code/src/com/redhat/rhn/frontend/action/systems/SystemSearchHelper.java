@@ -292,11 +292,11 @@ public class SystemSearchHelper {
             index = SERVER_INDEX;
         }
         else if (CPU_MHZ_LT.equals(mode)) {
-            query = "cpuMhz:[0 TO " + terms + "]";
+            query = "cpuMHz:[0 TO " + terms + "]";
             index = SERVER_INDEX;
         }
         else if (CPU_MHZ_GT.equals(mode)) {
-            query = "cpuMhz:[" + terms + " TO " + Long.MAX_VALUE + "]";
+            query = "cpuMHz:[" + terms + " TO " + Long.MAX_VALUE + "]";
             index = SERVER_INDEX;
         }
         else if (NUM_CPUS_LT.equals(mode)) {

@@ -2615,11 +2615,11 @@ available for this kickstart profile to function properly.
      <target>CPU MHz 이하</target></trans-unit>
 
      <trans-unit id="systemsearch_cpu_mhz_gt">
-		<source>CPU Mhz Greater Than</source>
+		<source>CPU MHz Greater Than</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/systems/Search</context>
         </context-group>
-     <target>CPU Mhz 이상</target></trans-unit>
+     <target>CPU MHz 이상</target></trans-unit>
 
      <trans-unit id="systemsearch_num_of_cpus_lt">
         <source>Number of CPUs Less Than</source>

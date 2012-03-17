@@ -60,7 +60,7 @@ public class Server extends GenericRecord {
     private String cpuBogoMIPS;
     private String cpuCache;
     private String cpuFamily;
-    private String cpuMhz;
+    private String cpuMHz;
     private String cpuStepping;
     private String cpuFlags;
     private String cpuModel;
@@ -452,21 +452,21 @@ public class Server extends GenericRecord {
     }
 
     /**
-     * @return the cpuMhz
+     * @return the cpuMHz
      */
-    public String getCpuMhz() {
-        return cpuMhz;
+    public String getCpuMHz() {
+        return cpuMHz;
     }
 
     /**
-     * @param cpuMhzIn the cpuMhz to set
+     * @param cpuMHzIn the cpuMHz to set
      */
-    public void setCpuMhz(String cpuMhzIn) {
-        if (cpuMhzIn != null) {
-            this.cpuMhz = NumberTools.longToString(Long.parseLong(cpuMhzIn));
+    public void setCpuMHz(String cpuMHzIn) {
+        if (cpuMHzIn != null) {
+            this.cpuMHz = NumberTools.longToString(Long.parseLong(cpuMHzIn));
         }
         else {
-            this.cpuMhz = null;
+            this.cpuMHz = null;
         }
     }
 

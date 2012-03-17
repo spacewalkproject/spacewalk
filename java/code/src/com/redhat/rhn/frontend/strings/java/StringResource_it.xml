@@ -2639,11 +2639,11 @@ disponibili per un corretto funzionamento di questo profilo kickstart.
      <target>CPU MHz Minore di</target></trans-unit>
 
      <trans-unit id="systemsearch_cpu_mhz_gt">
-		<source>CPU Mhz Greater Than</source>
+		<source>CPU MHz Greater Than</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/systems/Search</context>
         </context-group>
-     <target>CPU Mhz Maggiore di</target></trans-unit>
+     <target>CPU MHz Maggiore di</target></trans-unit>
 
      <trans-unit id="systemsearch_num_of_cpus_lt">
         <source>Number of CPUs Less Than</source>

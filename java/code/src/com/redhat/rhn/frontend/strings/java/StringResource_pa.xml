@@ -2617,11 +2617,11 @@ available for this kickstart profile to function properly.
      <target>CPU MHz ਇਸ ਤੋਂ ਘੱਟ</target></trans-unit>
 
      <trans-unit id="systemsearch_cpu_mhz_gt">
-		<source>CPU Mhz Greater Than</source>
+		<source>CPU MHz Greater Than</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/systems/Search</context>
         </context-group>
-     <target>CPU Mhz ਇਸ ਤੋਂ ਵੱਧ</target></trans-unit>
+     <target>CPU MHz ਇਸ ਤੋਂ ਵੱਧ</target></trans-unit>
 
      <trans-unit id="systemsearch_num_of_cpus_lt">
         <source>Number of CPUs Less Than</source>

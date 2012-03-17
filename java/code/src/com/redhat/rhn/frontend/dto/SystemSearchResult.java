@@ -34,7 +34,7 @@ public class SystemSearchResult extends SystemOverview {
     private String description;
     private String runningKernel;
     private Long cpuNumberOfCpus;
-    private String cpuMhz;
+    private String cpuMHz;
     private String cpuModel;
     private String dmiSystem;
     private String dmiBiosVendor;
@@ -211,17 +211,17 @@ public class SystemSearchResult extends SystemOverview {
     }
 
     /**
-     * @return the cpuMhz
+     * @return the cpuMHz
      */
-    public String getCpuMhz() {
-        return cpuMhz;
+    public String getCpuMHz() {
+        return cpuMHz;
     }
 
     /**
-     * @param cpuMhzIn the cpuMhz to set
+     * @param cpuMHzIn the cpuMHz to set
      */
-    public void setCpuMhz(String cpuMhzIn) {
-        this.cpuMhz = cpuMhzIn;
+    public void setCpuMHz(String cpuMHzIn) {
+        this.cpuMHz = cpuMHzIn;
     }
 
     /**

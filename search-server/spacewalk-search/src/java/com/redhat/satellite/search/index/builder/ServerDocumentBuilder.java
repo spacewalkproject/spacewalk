@@ -58,7 +58,7 @@ public class ServerDocumentBuilder implements DocumentBuilder {
             }
             else if (name.equals("checkin") || name.equals("registered") ||
                     name.equals("ram") || name.equals("swap") ||
-                    name.equals("cpuMhz") | name.equals("cpuNumberOfCpus")) {
+                    name.equals("cpuMHz") | name.equals("cpuNumberOfCpus")) {
                 store = Field.Store.YES;
                 tokenize = Field.Index.UN_TOKENIZED;
             }
