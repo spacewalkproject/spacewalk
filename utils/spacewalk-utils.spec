@@ -1,7 +1,7 @@
 %define rhnroot %{_prefix}/share/rhn
 
 Name:		spacewalk-utils
-Version:	1.8.1
+Version:	1.8.2
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -87,6 +87,10 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Sun Mar 18 2012 Aron Parsons <aronparsons@gmail.com> 1.8.2-1
+- added spacewalk-manage-channel-lifecycle script (aronparsons@gmail.com)
+- spacewalk-clone-by-date manpage bugfixes/cleanups (shardy@redhat.com)
+
 * Mon Mar 05 2012 Michael Mraka <michael.mraka@redhat.com> 1.8.1-1
 - reused function from spacewalk.common.cli
 - login(), logout() moved to spacewalk.common.cli
