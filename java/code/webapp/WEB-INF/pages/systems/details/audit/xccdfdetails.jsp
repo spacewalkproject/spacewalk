@@ -51,7 +51,7 @@
 
 <h2><bean:message key="system.audit.xccdfdetails.jsp.xccdfrules"/></h2>
 
-<rl:listset name="groupSet">
+<rl:listset name="groupSet" legend="xccdf">
   <rl:list>
     <rl:decorator name="PageSizeDecorator"/>
     <rhn:csrf/>
