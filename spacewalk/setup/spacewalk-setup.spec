@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        1.8.1
+Version:        1.8.2
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -106,6 +106,9 @@ rm -rf %{buildroot}
 %{_mandir}/man8/spacewalk-make-mount-points*
 
 %changelog
+* Mon Mar 19 2012 Jan Pazdziora 1.8.2-1
+- We no longer have /install/index.pxt, so satellite_install cannot be used.
+
 * Fri Mar 09 2012 Miroslav Suchý 1.8.1-1
 - monitoringDOTdbname is not used anymore
 - remove RHN_DB_USERNAME from monitoring scout configuration
