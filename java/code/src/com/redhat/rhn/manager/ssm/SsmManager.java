@@ -18,12 +18,17 @@ import com.redhat.rhn.common.db.datasource.CallableMode;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.rhnset.RhnSet;
+import com.redhat.rhn.domain.rhnset.RhnSetElement;
+import com.redhat.rhn.domain.server.Server;
+import com.redhat.rhn.domain.server.ServerFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.channel.ssm.ChannelActionDAO;
 import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.rhnset.RhnSetManager;
+import com.redhat.rhn.manager.system.SystemManager;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
@@ -69,6 +74,11 @@ public class SsmManager {
             idToChan.put(c.getId(), c);
         }
 
+        RhnSet ssm = RhnSetDecl.SYSTEMS.lookup(user);
+        List<Server> servers = new ArrayList<Server>();
+        for (RhnSetElement rse : ssm.getElements()) {
+            servers.add(SystemManager.lookupByIdAndUser(rse.getElement(), user));
+        }
 
         // Keeps a mapping of how many entitlements are left on each channel. This map
         // will be updated as the processing continues, however changes won't be written
@@ -77,31 +87,54 @@ public class SsmManager {
         // always loading the static value from the DB.
         Map<Channel, Long> channelToAvailableEntitlements =
             new HashMap<Channel, Long>(allChannels.size());
+        Map<Channel, Long> channelToAvailableFteEntitlements =
+                new HashMap<Channel, Long>(allChannels.size());
 
-
-        for (Long sysid : sysMapping.keySet()) {
+        for (Server server : servers) {
+            Long sysid = server.getId();
 
             Set<Long> chanIds = sysMapping.get(sysid).getSubscribeChannelIds();
             //Use an iterator so i can remove from the set
-            Iterator it = chanIds.iterator();
+            Iterator<Long> it = chanIds.iterator();
             while (it.hasNext()) {
                 Channel channel = idToChan.get(it.next());
                 Long availableEntitlements = channelToAvailableEntitlements.get(channel);
-
+                Long availableFteEntitlements = 
+                        channelToAvailableFteEntitlements.get(channel);
+                
                 if (availableEntitlements == null) {
                     availableEntitlements =
                         ChannelManager.getAvailableEntitlements(user.getOrg(), channel);
                     channelToAvailableEntitlements.put(channel, availableEntitlements);
                 }
-                //Most likely acustom channel1
+                if (availableFteEntitlements == null) {
+                    availableFteEntitlements =
+                            ChannelManager.getAvailableFveEntitlements(
+                                    user.getOrg(), channel);
+                    // null fte entitlements means not found
+                    if (availableFteEntitlements == null) {
+                        availableFteEntitlements = 0L;
+                    }
+                    channelToAvailableFteEntitlements.put(channel, availableFteEntitlements);
+                }
+                
+                //Most likely a custom channel, null means unlimited entitlements
                 if (availableEntitlements == null) {
                     continue;
                 }
-                if (availableEntitlements > 0) {
-                        // Update our cached count for what will happen when
-                        // the subscribe is done
-                        availableEntitlements = availableEntitlements - 1;
-                        channelToAvailableEntitlements.put(channel, availableEntitlements);
+
+                // First try to consume an FTE entitlement, then try regular,
+                // then remove the system
+                if (availableFteEntitlements > 0
+                        && SystemManager.isServerFveEligible(server)) {
+                    availableFteEntitlements -= 1;
+                    channelToAvailableEntitlements.put(channel, availableFteEntitlements);
+                }
+                else if (availableEntitlements > 0) {
+                    // Update our cached count for what will happen when
+                    // the subscribe is done
+                    availableEntitlements = availableEntitlements - 1;
+                    channelToAvailableEntitlements.put(channel, availableEntitlements);
                 }
                 else {
                     sysMapping.get(sysid).getSubscribeChannelIds().remove(channel.getId());
