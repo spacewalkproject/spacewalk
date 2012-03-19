@@ -84,6 +84,9 @@ sub lookup_server_event {
   elsif ($label eq 'script.run') {
     return bless $struct, "RHN::ServerEvent::RemoteCommand";
   }
+  elsif ($label eq 'scap.xccdf_eval') {
+    return bless $struct, "RHN::ServerEvent::XccdfEval";
+  }
   else {
     return bless $struct, "RHN::ServerEvent::SimpleAction";
   }
@@ -520,6 +523,34 @@ EOQ
 	     );
   }
 
+  return $ret;
+}
+
+package RHN::ServerEvent::XccdfEval;
+our @ISA = qw/RHN::ServerEvent::SimpleAction/;
+
+sub render {
+  my $self = shift;
+  my $details_url = "/rhn/systems/details/audit/XccdfDetails.do";
+
+  my $ret = $self->SUPER::render(@_);
+  $ret->{server_event_details} .=
+    sprintf(<<EOQ, PXT::Utils->escapeHTML($self->{DATA}->{PATH}), PXT::Utils->escapeHTML($self->{DATA}->{PARAMETERS}));
+<br/><br/>
+<strong>Path to XCCDF document:</strong> %s<br/>
+<strong>Parameters:</strong> %s<br/><br/>
+EOQ
+
+  if (defined $self->{DATA}->{TEST_RESULT}) {
+    $ret->{server_event_details} .=
+      PXT::HTML->link2(-url => $details_url,
+                       -params => {sid => $self->{SERVER_ID},
+                                   xid => $self->{DATA}->{TEST_RESULT}},
+                       -text => 'View detailed results.');
+  }
+  else {
+    $ret->{server_event_details} .= qq{Detailed results not available.};
+  }
   return $ret;
 }
 

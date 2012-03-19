@@ -952,6 +952,28 @@ sub server_event_config_diff {
   return $ret;
 }
 
+sub server_event_xccdf_eval {
+  my $class = shift;
+  my $sid = shift;
+  my $aid = shift;
+  my $action_type = shift;
+
+  my $ret = $class->server_event_simple_action($sid, $aid);
+  my $dbh = RHN::DB->connect;
+  my $sth = $dbh->prepare(<<EOS);
+SELECT ras.path, ras.parameters, tr.id as test_result
+  FROM rhnActionScap ras
+  LEFT OUTER JOIN rhnXccdfTestresult tr ON ras.id = tr.action_scap_id
+   AND tr.server_id = :sid
+ WHERE ras.action_id = :aid
+EOS
+  $sth->execute_h(sid => $sid, aid => $aid);
+  $ret->{DATA} = $sth->fetchrow_hashref_copy;
+  $sth->finish;
+
+  return $ret;
+}
+
 
 sub server_event_details {
   my $class = shift;
@@ -997,6 +1019,9 @@ EOS
   }
   elsif ($label eq 'configfiles.diff') {
     return ($label, $class->server_event_config_diff($sid, $aid, $label));
+  }
+  elsif ($label eq 'scap.xccdf_eval') {
+    return ($label, $class->server_event_xccdf_eval($sid, $aid, $label));
   }
   else {
     return ($label, $class->server_event_simple_action($sid, $aid));
