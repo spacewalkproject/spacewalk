@@ -26,6 +26,7 @@ import org.apache.struts.action.ActionMapping;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnHelper;
+import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
 import com.redhat.rhn.frontend.taglibs.list.helper.ListHelper;
 import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
 import com.redhat.rhn.manager.audit.ScapManager;
@@ -44,10 +45,14 @@ public class ListScapAction extends ScapSetupAction implements Listable {
             HttpServletRequest request,
             HttpServletResponse response) {
         RequestContext context = new RequestContext(request);
+        Long sid = context.getRequiredParam("sid");
         setupScapEnablementInfo(context);
 
         ListHelper helper = new ListHelper(this, request);
         helper.execute();
+
+        request.setAttribute(ListTagHelper.PARENT_URL,
+            request.getRequestURI() + "?sid=" + sid);
 
         return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
