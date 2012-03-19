@@ -2,6 +2,7 @@
 <project name="RHN" default="all" basedir=".">
 
   <property name="reports.tests" location="/tmp/reports" />
+  <property name="app-jar" location="/usr/share/rhn/lib/rhn.jar"/>
   <property name="test-jar" location="/usr/share/rhn/lib/rhn-test.jar"/>
   <property name="tmpdir" value="${java.io.tmpdir}/spacewalk-test" />
 
@@ -21,6 +22,7 @@
     <delete dir="${reports.tests}" />
     <mkdir dir="${reports.tests}"/>
     <mkdir dir="${tmpdir}"/>
+    <unzip src="${app-jar}" dest="${tmpdir}" />
     <unzip src="${test-jar}" dest="${tmpdir}" />
 
     <junit forkmode="once" fork="yes" printsummary="yes" haltonfailure="no">
@@ -29,6 +31,7 @@
       <jvmarg value="-Djava.compiler=NONE" />
       <jvmarg value="-Xrunjdwp:transport=dt_socket,address=8002,server=y,suspend=n" />
       <classpath>
+        <pathelement location="${tmpdir}" />
         <pathelement path="/var/lib/${tomcat}/webapps/rhn"/>
         <fileset dir="/usr/share/${tomcat}">
           <include name="webapps/rhn/WEB-INF/lib/*.jar" />
