@@ -62,7 +62,7 @@
     <rl:column headerkey="system.audit.xccdfdetails.jsp.ident" sortattr="identifier" sortable="true">
       <c:out value="${current.identifier}"/>
     </rl:column>
-    <rl:column headerkey="system.audit.xccdfdetails.jsp.result" sortattr="label" sortable="true">
+    <rl:column headerkey="system.audit.xccdfdetails.jsp.result" sortattr="label" sortable="true" filterattr="label">
       <c:out value="${current.label}"/>
     </rl:column>
   </rl:list>
