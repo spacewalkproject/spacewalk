@@ -280,7 +280,8 @@ def save_uploaded_package(stream, nevra, org_id, packaging,
                            a_pkg.checksum_type, a_pkg.checksum))
             raise rhnFault(104, "Mismatching information")
 
-    temp_stream.delete=False
+    temp_stream.file.close()
+    temp_stream.close_called = True
     return a_pkg
 
 def load_package(package_stream):
