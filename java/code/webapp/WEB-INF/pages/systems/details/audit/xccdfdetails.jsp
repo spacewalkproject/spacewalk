@@ -56,13 +56,13 @@
     <rl:decorator name="PageSizeDecorator"/>
     <rhn:csrf/>
 
-    <rl:column headerkey="system.audit.xccdfdetails.jsp.scheme">
+    <rl:column headerkey="system.audit.xccdfdetails.jsp.scheme" sortattr="system" sortable="true">
       <c:out value="${current.system}"/>
     </rl:column>
-    <rl:column headerkey="system.audit.xccdfdetails.jsp.ident">
+    <rl:column headerkey="system.audit.xccdfdetails.jsp.ident" sortattr="identifier" sortable="true">
       <c:out value="${current.identifier}"/>
     </rl:column>
-    <rl:column headerkey="system.audit.xccdfdetails.jsp.result">
+    <rl:column headerkey="system.audit.xccdfdetails.jsp.result" sortattr="label" sortable="true">
       <c:out value="${current.label}"/>
     </rl:column>
   </rl:list>
