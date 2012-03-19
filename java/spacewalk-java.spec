@@ -104,6 +104,7 @@ BuildRequires: jpam
 BuildRequires: tanukiwrapper
 Requires: classpathx-mail
 BuildRequires: classpathx-mail
+BuildRequires: perl(XML::XPath)
 %if 0%{?run_checkstyle}
 BuildRequires: checkstyle
 %endif
@@ -309,6 +310,15 @@ if test -d /usr/share/tomcat6; then
     fi
 fi
 
+#check duplicate message keys in StringResource_*.xml files
+find . -name 'StringResource_*.xml' |      while read i ;
+    do echo $i
+    CONTENT=$(./xpath -q -e '*//trans-unit/@id' "$i" | sort | uniq -d )
+    if [ -n "$CONTENT" ]; then
+        echo ERROR - duplicate message keys: $CONTENT
+        exit 1
+    fi
+done
 
 %build
 # compile only java sources (no packing here)
