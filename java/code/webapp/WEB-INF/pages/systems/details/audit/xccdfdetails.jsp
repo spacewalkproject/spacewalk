@@ -53,7 +53,9 @@
 
 <rl:listset name="groupSet">
   <rl:list>
-  <rhn:csrf/>
+    <rl:decorator name="PageSizeDecorator"/>
+    <rhn:csrf/>
+
     <rl:column headerkey="system.audit.xccdfdetails.jsp.scheme">
       <c:out value="${current.system}"/>
     </rl:column>
