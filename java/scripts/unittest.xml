@@ -29,13 +29,12 @@
       <jvmarg value="-Djava.compiler=NONE" />
       <jvmarg value="-Xrunjdwp:transport=dt_socket,address=8002,server=y,suspend=n" />
       <classpath>
-        <pathelement location="${test-jar}" />
-        <!-- <pathelement location="${tmpdir}"/> -->
         <pathelement path="/var/lib/${tomcat}/webapps/rhn"/>
         <fileset dir="/usr/share/${tomcat}">
           <include name="webapps/rhn/WEB-INF/lib/*.jar" />
           <include name="**/lib/*.jar" />
         </fileset>
+        <pathelement location="${test-jar}" />
         <path location="/usr/share/java/jmock.jar"/>
         <path location="/usr/share/java/jmock-cglib.jar"/>
         <path location="/usr/share/java/struts*.jar"/>
