@@ -40,6 +40,7 @@
         <pathelement location="${test-jar}" />
         <path location="/usr/share/java/jmock.jar"/>
         <path location="/usr/share/java/jmock-cglib.jar"/>
+        <path location="/usr/share/java/struts.jar"/>
         <path location="/usr/share/java/struts*.jar"/>
       </classpath>
 
