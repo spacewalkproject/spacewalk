@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        1.8.2
+Version:        1.8.3
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -106,6 +106,10 @@ rm -rf %{buildroot}
 %{_mandir}/man8/spacewalk-make-mount-points*
 
 %changelog
+* Mon Mar 19 2012 Jan Pazdziora 1.8.3-1
+- rhn-config-satellite.pl does not like to be invoked with no --option
+  specified.
+
 * Mon Mar 19 2012 Jan Pazdziora 1.8.2-1
 - We no longer have /install/index.pxt, so satellite_install cannot be used.
 
