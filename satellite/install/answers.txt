@@ -108,7 +108,7 @@ satellite-cert-file =
 # hostname = 
 
 # The mount point for the RHN package repository.  Defaults to
-# /var/rhn/satellite
+# /var/satellite
 #
 # mount-point =
 
