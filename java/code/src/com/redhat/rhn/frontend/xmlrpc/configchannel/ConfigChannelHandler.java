@@ -776,7 +776,8 @@ public class ConfigChannelHandler extends BaseHandler {
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param_desc("string","channelLabel",
      *                       "The configuration channel's label.")
-     * @xmlrpc.param #param_desc($date, "The date to schedule the action")
+     * @xmlrpc.param #param_desc("dateTime.iso8601","date",
+     *                       "The date to schedule the action")
      * @xmlrpc.returntype #return_int_success()
      */
     public int deployAllSystems(String sessionKey, String channelLabel, Date date) {
