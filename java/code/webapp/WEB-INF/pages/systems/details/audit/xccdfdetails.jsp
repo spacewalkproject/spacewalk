@@ -33,7 +33,7 @@
     <td><c:out value="${testResult.profile.identifier}"/></td>
   </tr>
   <tr>
-    <th><bean:message key="system.audit.xccdfdetails.jsp.title"/></th>
+    <th><bean:message key="system.audit.xccdfdetails.jsp.title"/>:</th>
     <td><c:out value="${testResult.profile.title}"/></td>
   </tr>
   <tr>
