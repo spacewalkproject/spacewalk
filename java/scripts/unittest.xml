@@ -42,6 +42,7 @@
         <path location="/usr/share/java/jmock-cglib.jar"/>
         <path location="/usr/share/java/struts.jar"/>
         <path location="/usr/share/java/struts*.jar"/>
+        <path location="/usr/share/java/slf4j/api.jar"/>
       </classpath>
 
       <formatter type="plain"/>
