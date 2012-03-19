@@ -1209,10 +1209,6 @@ sub populate_final_configs {
   my $options = shift;
   my $answers = shift;
 
-  my $final_config = { };
-
-  write_config($final_config, Spacewalk::Setup::DEFAULT_SATCON_DICT);
-
   Spacewalk::Setup::satcon_deploy(-tree => '/var/lib/rhn/rhn-satellite-prep/etc/rhn',
 		-dest => '/etc/rhn');
 
