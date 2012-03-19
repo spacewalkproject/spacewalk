@@ -3,7 +3,7 @@ Name: spacewalk-koan
 Group: System Environment/Kernel
 License: GPLv2
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 1.8.0
+Version: 1.8.1
 Release: 1%{?dist}
 BuildArch : noarch
 URL:            https://fedorahosted.org/spacewalk
@@ -47,6 +47,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/rhn/actions/
 
 %changelog
+* Mon Mar 19 2012 Jan Pazdziora 1.8.1-1
+- 803320 - support for xz packed ramdisk (mzazrivec@redhat.com)
+
 * Thu Feb 23 2012 Michael Mraka <michael.mraka@redhat.com> 1.7.1-1
 - we are now just GPL
 
