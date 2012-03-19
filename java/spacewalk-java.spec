@@ -22,7 +22,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.20
+Version: 1.8.21
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -603,6 +603,14 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Mar 19 2012 Tomas Lestach <tlestach@redhat.com> 1.8.21-1
+- fix junit classpath ordering (tlestach@redhat.com)
+- 533164 - check duplicate message keys in StringResource_*.xml files
+  (msuchy@redhat.com)
+- Forward the page url to the list (slukasik@redhat.com)
+- Polish api documentation for system.scap APIs. (slukasik@redhat.com)
+- OpenSCAP integration -- Details page for XCCDF results (slukasik@redhat.com)
+
 * Sat Mar 17 2012 Miroslav Suchý 1.8.20-1
 - 521248 - correctly spell MHz (msuchy@redhat.com)
 
