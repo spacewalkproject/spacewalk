@@ -152,10 +152,6 @@ sub rhn_login_form {
     $pxt->redirect("/rhn/YourRhn.do");
   }
 
-  if (PXT::Config->get('satellite_install')) {
-    $pxt->redirect("/install/index.pxt");
-  }
-
   if (not $pxt->ssl_request and $pxt->ssl_available) {
     # ssl available?  useragent look like a real user?  then it likely
     # *IS* a real user (mozilla in user-agent) and not a
