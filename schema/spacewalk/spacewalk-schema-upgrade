@@ -317,7 +317,7 @@ sub get_shortest_path {
 }
 
 sub match_overrides {
-	return sort map {-e "$_.override" ? "$_.override" : $_} map { glob } @_;
+	return sort map {-e "$_.override" ? "$_.override" : $_} grep { -e $_ } map { glob } @_;
 }
 
 1;
