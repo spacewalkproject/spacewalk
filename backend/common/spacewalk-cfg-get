@@ -44,6 +44,6 @@ else:
     elif isinstance(val, list):
         for i in val:
             print i
-    else:
+    elif val != None:
         print val
 
