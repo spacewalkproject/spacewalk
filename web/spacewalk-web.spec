@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.4
+Version: 1.8.5
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -254,6 +254,10 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Tue Mar 20 2012 Michael Mraka <michael.mraka@redhat.com> 1.8.5-1
+- fixed rhn_server.delete_from_servergroup() call
+- Show details of SCAP event.
+
 * Mon Mar 19 2012 Jan Pazdziora 1.8.4-1
 - We no longer have /install/index.pxt, so satellite_install cannot be used.
 
