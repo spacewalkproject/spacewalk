@@ -5398,6 +5398,12 @@ value for this entitlement, excluding the default organization's consumption.</s
         </context-group>
      <target>RAM</target></trans-unit>
 
+     <trans-unit id="systemsearch_ram_gt_column">
+		<source>RAM</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/systems/Search</context>
+        </context-group>
+     <target>RAM</target></trans-unit>
 
 
     <!-- probedatails.jsp -->
