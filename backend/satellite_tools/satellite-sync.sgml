@@ -332,7 +332,7 @@ Incrementally synchronize an RHN Satellite's DB data and RPM repository with Red
         <term>--email</term>
         <listitem>
             <para>e-mail a report of what was synced/imported (sent to whomever
-            is considered the receiver of "traceback_email").</para>
+            is considered the receiver of "traceback_mail").</para>
         </listitem>
     </varlistentry>
     <varlistentry>
