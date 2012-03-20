@@ -79,7 +79,8 @@ public class ScapManager extends BaseManager {
         List<Map<String, Object>> resultView = new ArrayList<Map<String, Object>>();
         Map<String, Object> currResult = null;
         for (Map row : (DataResult<Map>) testResultsRaw) {
-            if (currResult != null && currResult.get("id") == row.get("id")) {
+            if (currResult != null &&
+                    ((Long) currResult.get("id")).equals((Long) row.get("id"))) {
                 String label = (String) row.get("label");
                 Long figure = (Long) row.get("figure");
                 currResult.put(label, figure);
