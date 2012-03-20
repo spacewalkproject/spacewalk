@@ -81,9 +81,9 @@ public class ScapManager extends BaseManager {
         for (Map row : (DataResult<Map>) testResultsRaw) {
             if (currResult != null && currResult.get("id") == row.get("id")) {
                 String label = (String) row.get("label");
-                Long count = (Long) row.get("count");
-                currResult.put(label, count);
-                currResult.put("sum", ((Long) currResult.get("sum")) + count);
+                Long figure = (Long) row.get("figure");
+                currResult.put(label, figure);
+                currResult.put("sum", ((Long) currResult.get("sum")) + figure);
             }
             else {
                 if (currResult != null) {
@@ -92,8 +92,8 @@ public class ScapManager extends BaseManager {
                 currResult = new HashMap<String, Object>();
                 currResult.put("id", row.get("id"));
                 currResult.put("testResult", row.get("test_result"));
-                currResult.put((String) row.get("label"), row.get("count"));
-                currResult.put("sum", row.get("count"));
+                currResult.put((String) row.get("label"), row.get("figure"));
+                currResult.put("sum", row.get("figure"));
                 currResult.put("completionTime", row.get("completion_time"));
             }
         }

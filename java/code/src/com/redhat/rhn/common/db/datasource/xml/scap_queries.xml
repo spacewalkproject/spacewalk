@@ -14,7 +14,7 @@
 
 <mode name="show_system_scans">
   <query params="sid">
-  SELECT tr.id, tr.identifier as test_result, rrt.label, count(*),
+  SELECT tr.id, tr.identifier as test_result, rrt.label, count(*) as figure,
       TO_CHAR(sa.completion_time, 'YYYY-MM-DD HH24:MI:SS') AS completion_time
       FROM rhnXccdfTestresult tr,
           rhnXccdfRuleresult rr,
