@@ -20,7 +20,6 @@ import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.rhnset.RhnSetElement;
 import com.redhat.rhn.domain.server.Server;
-import com.redhat.rhn.domain.server.ServerFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.channel.ssm.ChannelActionDAO;
 import com.redhat.rhn.manager.channel.ChannelManager;
@@ -99,9 +98,9 @@ public class SsmManager {
             while (it.hasNext()) {
                 Channel channel = idToChan.get(it.next());
                 Long availableEntitlements = channelToAvailableEntitlements.get(channel);
-                Long availableFteEntitlements = 
+                Long availableFteEntitlements =
                         channelToAvailableFteEntitlements.get(channel);
-                
+
                 if (availableEntitlements == null) {
                     availableEntitlements =
                         ChannelManager.getAvailableEntitlements(user.getOrg(), channel);
@@ -115,9 +114,10 @@ public class SsmManager {
                     if (availableFteEntitlements == null) {
                         availableFteEntitlements = 0L;
                     }
-                    channelToAvailableFteEntitlements.put(channel, availableFteEntitlements);
+                    channelToAvailableFteEntitlements.put(
+                            channel, availableFteEntitlements);
                 }
-                
+
                 //Most likely a custom channel, null means unlimited entitlements
                 if (availableEntitlements == null) {
                     continue;
@@ -125,8 +125,8 @@ public class SsmManager {
 
                 // First try to consume an FTE entitlement, then try regular,
                 // then remove the system
-                if (availableFteEntitlements > 0
-                        && SystemManager.isServerFveEligible(server)) {
+                if (availableFteEntitlements > 0 &&
+                        SystemManager.isServerFveEligible(server)) {
                     availableFteEntitlements -= 1;
                     channelToAvailableEntitlements.put(channel, availableFteEntitlements);
                 }
