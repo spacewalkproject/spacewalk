@@ -822,6 +822,21 @@ def export_configchannel_getdetails(self, channel):
     # string "macro-start-delimiter"  Y               N
     # string "macro-end-delimiter"    Y               N
     for f in fileinfo:
+        # If we're using a recent API version files exported with no contents
+        # i.e binary or non-xml encodable ascii files can be exported as
+        # base64 encoded
+        if not f.has_key('contents'):
+            if not self.check_api_version('11.1'):
+                logging.warning("File %s could not be exported " % f['path'] +\
+                    "with this API version(needs base64 encoding)")
+            else:
+                logging.info("File %s could not be exported as" % f['path'] +\
+                    " text...getting base64 encoded version")
+                b64f = self.client.configchannel.getEncodedFileRevision(\
+                    self.session, channel, f['path'], f['revision'])
+                f['contents'] = b64f['contents']
+                f['contents_enc64'] = b64f['contents_enc64']
+
         for k in [ 'channel', 'revision', 'creation', 'modified', \
                         'permissions_mode', 'binary', 'md5' ]:
             if f.has_key(k):
@@ -954,7 +969,8 @@ def import_configchannel_fromdetails(self, ccdetails):
                     isdir = False
                     # If binary files (or those containing characters which are
                     # invalid in XML, e.g the ascii escape character) are
-                    # exported, you end up with a file with no "contents" key
+                    # exported, on older API versions, you end up with a file 
+                    # with no "contents" key (
                     # I guess the best thing to do here flag an error and
                     # import everything else
                     if not filedetails.has_key('contents'):
@@ -965,9 +981,7 @@ def import_configchannel_fromdetails(self, ccdetails):
                         continue
                     # Now we check if the file needs base64 encoding
                     # This will be because of trailing newlines (which get
-                    # eaten by the API), since as mentioned above, binary
-                    # and other problematic files can't be exported (there's
-                    # no option to export in base64 encoded format AFAICS)
+                    # eaten by the API)
                     elif self.file_needs_b64_enc(filedetails['contents']):
                         logging.debug("Detected file needs base64 encoding")
                         filedetails['contents'] =\
