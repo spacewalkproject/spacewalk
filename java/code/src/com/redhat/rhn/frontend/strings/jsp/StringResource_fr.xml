@@ -5390,6 +5390,12 @@ pour ce droit d'accès, moins la consommation par défaut de l'organisation.</ta
         </context-group>
      <target>Aucun résultat trouvé.</target></trans-unit>
 
+     <trans-unit id="systemsearch_name_and_description_column">
+		<source>Description</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/systems/Search</context>
+        </context-group>
+     <target>Description</target></trans-unit>
 
 
 

@@ -5391,6 +5391,12 @@ für diese Berechtigung, mit Ausnahme des Verbrauchs der Standardorganisation.</
         </context-group>
      <target>Keine Ergebnisse gefunden.</target></trans-unit>
 
+     <trans-unit id="systemsearch_name_and_description_column">
+		<source>Description</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/systems/Search</context>
+        </context-group>
+     <target>Beschreibung</target></trans-unit>
 
 
 

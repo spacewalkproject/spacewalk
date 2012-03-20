@@ -5388,6 +5388,12 @@ value for this entitlement, excluding the default organization's consumption.</s
         </context-group>
      <target>결과를 찾을 수 없음.</target></trans-unit>
 
+     <trans-unit id="systemsearch_name_and_description_column">
+		<source>Description</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/systems/Search</context>
+        </context-group>
+     <target>설명</target></trans-unit>
 
 
 
