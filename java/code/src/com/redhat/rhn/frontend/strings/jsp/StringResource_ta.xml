@@ -5396,6 +5396,12 @@ value for this entitlement, excluding the default organization's consumption.</s
         </context-group>
      <target>விவரம்</target></trans-unit>
 
+     <trans-unit id="systemsearch_cpu_mhz_lt_column">
+		<source>CPU Mhz</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/systems/Search</context>
+        </context-group>
+     <target>CPU Mhz</target></trans-unit>
 
 
     <trans-unit id="systemsearch_num_of_cpus_lt_column">

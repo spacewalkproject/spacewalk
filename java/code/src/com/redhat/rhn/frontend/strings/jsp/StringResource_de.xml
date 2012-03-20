@@ -5398,6 +5398,12 @@ für diese Berechtigung, mit Ausnahme des Verbrauchs der Standardorganisation.</
         </context-group>
      <target>Beschreibung</target></trans-unit>
 
+     <trans-unit id="systemsearch_cpu_mhz_lt_column">
+		<source>CPU Mhz</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/systems/Search</context>
+        </context-group>
+     <target>CPU MHz</target></trans-unit>
 
 
     <trans-unit id="systemsearch_num_of_cpus_lt_column">
