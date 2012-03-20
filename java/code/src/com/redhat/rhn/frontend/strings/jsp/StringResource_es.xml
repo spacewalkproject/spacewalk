@@ -5395,6 +5395,12 @@ para este derecho, excluyendo el consumo de la organización predeterminada.</ta
 
 
 
+     <trans-unit id="systemsearch_ram_lt_column">
+		<source>RAM</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/systems/Search</context>
+        </context-group>
+     <target>RAM</target></trans-unit>
 
 
 

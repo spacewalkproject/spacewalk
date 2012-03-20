@@ -5392,6 +5392,12 @@ value for this entitlement, excluding the default organization's consumption.</s
 
 
 
+     <trans-unit id="systemsearch_ram_lt_column">
+		<source>RAM</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/systems/Search</context>
+        </context-group>
+     <target>ОЗУ</target></trans-unit>
 
 
 
