@@ -1752,7 +1752,7 @@ sub remove_servers_from_groups {
 
   for my $server (@servers) {
     for my $group (@groups) {
-      $dbh->call_function('rhn_server.delete_from_servergroup', $server, $group);
+      $dbh->call_procedure('rhn_server.delete_from_servergroup', $server, $group);
     }
   }
       
