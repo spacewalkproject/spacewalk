@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        1.7.9
+Version:        1.7.10
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -106,6 +106,9 @@ rm -rf %{buildroot}
 %{_mandir}/man8/spacewalk-make-mount-points*
 
 %changelog
+* Tue Mar 20 2012 Jan Pazdziora 1.7.10-1
+- Reverting removal of traceback_mail.
+
 * Fri Mar 02 2012 Jan Pazdziora 1.7.9-1
 - Update the copyright year info.
 
