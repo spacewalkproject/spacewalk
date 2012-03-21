@@ -93,7 +93,6 @@ public abstract class AuthenticationServiceAbstractTest extends MockObjectTestCa
         return (PxtSessionDelegate)mockPxtDelegate.proxy();
     }
 
-
     protected Enumeration getParameterNames() {
         Vector vector = new Vector();
         vector.add(requestParamNames[0]);

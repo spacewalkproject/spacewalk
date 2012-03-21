@@ -82,6 +82,12 @@ public class AuthFilterTest extends MockObjectTestCase {
                 returnValue(mockDispatcher.proxy()));
         mockRequest.stubs().method("getHeaders").will(returnValue(new Vector().elements()));
 
+        mockRequest.stubs().method("getRemoteAddr")
+                .will(returnValue(new String("aaa.bbb.ccc.ddd")));
+
+        mockRequest.stubs().method("getMethod")
+                .will(returnValue(new String("GET")));
+
         filter.setAuthenticationService((AuthenticationService)mockAuthService.proxy());
     }
 
