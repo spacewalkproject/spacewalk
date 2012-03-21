@@ -14,9 +14,10 @@
  */
 package com.redhat.rhn.frontend.servlets.test;
 
-import com.redhat.rhn.domain.session.WebSession;
-import com.redhat.rhn.frontend.servlets.PxtCookieManager;
-import com.redhat.rhn.frontend.servlets.PxtSessionDelegateImpl;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.collections.Transformer;
 import org.apache.commons.collections.TransformerUtils;
@@ -24,9 +25,9 @@ import org.jmock.Mock;
 import org.jmock.MockObjectTestCase;
 import org.jmock.core.Constraint;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import com.redhat.rhn.domain.session.WebSession;
+import com.redhat.rhn.frontend.servlets.PxtCookieManager;
+import com.redhat.rhn.frontend.servlets.PxtSessionDelegateImpl;
 
 /**
  * PxtSessionDelegateImplTest
@@ -91,6 +92,7 @@ public class PxtSessionDelegateImplTest extends MockObjectTestCase {
     private Mock mockRequest;
     private Mock mockResponse;
     private Mock mockPxtSession;
+    private Mock mockHttpSession;
 
     private PxtSessionDelegateImplStub pxtSessionDelegate;
 
@@ -113,6 +115,10 @@ public class PxtSessionDelegateImplTest extends MockObjectTestCase {
 
     private WebSession getPxtSession() {
         return (WebSession)mockPxtSession.proxy();
+    }
+
+    private HttpSession getSession() {
+        return (HttpSession) mockHttpSession.proxy();
     }
 
     private Cookie getPxtCookie() {
@@ -139,6 +145,7 @@ public class PxtSessionDelegateImplTest extends MockObjectTestCase {
         mockRequest = mock(HttpServletRequest.class);
         mockResponse = mock(HttpServletResponse.class);
         mockPxtSession = mock(WebSession.class);
+        mockHttpSession = mock(HttpSession.class);
         pxtSessionDelegate = new PxtSessionDelegateImplStub();
         pxtCookieManager = new PxtCookieManager();
 
@@ -245,11 +252,15 @@ public class PxtSessionDelegateImplTest extends MockObjectTestCase {
         mockRequest.stubs().method("getAttribute").with(eq("session")).will(
                 returnValue(getPxtSession()));
 
+        mockRequest.stubs().method("getSession").will(returnValue(getSession()));
+
         mockPxtSession.stubs().method("getId").will(returnValue(PXT_SESSION_ID));
 
         mockPxtSession.stubs().method("setExpires");
 
         mockPxtSession.stubs().method("setWebUserId");
+
+        mockHttpSession.stubs().method("setAttribute");
 
         mockResponse.stubs().method("addCookie");
 
