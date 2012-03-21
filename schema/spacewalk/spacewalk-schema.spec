@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.8.8
+Version:        1.8.9
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -69,6 +69,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Wed Mar 21 2012 Jan Pazdziora 1.8.9-1
+- Glob returns its input when file does not exist, filter it out.
+
 * Mon Mar 19 2012 Jan Pazdziora 1.8.8-1
 - lookup_tag: schema upgrade (mzazrivec@redhat.com)
 - fix quote_literal() syntax (mzazrivec@redhat.com)
