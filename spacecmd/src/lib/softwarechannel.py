@@ -1159,6 +1159,8 @@ def help_softwarechannel_adderrata(self):
     print 'softwarechannel_adderrata: Add errata from one channel ' + \
           'into another channel'
     print 'usage: softwarechannel_adderrata SOURCE DEST <ERRATA|search:XXX ...>'
+    print 'Options:'
+    print '    -q/--quick : Don\'t display list of packages (slightly faster)'
 
 def complete_softwarechannel_adderrata(self, text, line, beg, end):
     parts = line.split(' ')
@@ -1169,7 +1171,9 @@ def complete_softwarechannel_adderrata(self, text, line, beg, end):
         return self.tab_complete_errata(text)
 
 def do_softwarechannel_adderrata(self, args):
-    (args, options) = parse_arguments(args)
+    options = [ Option('-q', '--quick', action='store_true') ]
+
+    (args, options) = parse_arguments(args, options)
 
     if len(args) < 3:
         self.help_softwarechannel_adderrata()
@@ -1192,19 +1196,20 @@ def do_softwarechannel_adderrata(self, args):
         if erratum.get('advisory_name') in errata:
             errata_details.append(erratum)
 
-    # get the packages that resolve these errata so we can add them
-    # to the channel afterwards
-    package_ids = []
-    for erratum in errata:
-        logging.debug('Retrieving packages for errata %s' % erratum)
+    if not options.quick:
+        # get the packages that resolve these errata so we can add them
+        # to the channel afterwards
+        package_ids = []
+        for erratum in errata:
+            logging.debug('Retrieving packages for errata %s' % erratum)
 
-        # get the packages affected by this errata
-        packages = self.client.errata.listPackages(self.session, erratum)
+            # get the packages affected by this errata
+            packages = self.client.errata.listPackages(self.session, erratum)
 
-        # only add packages that exist in the source channel
-        for package in packages:
-            if source_channel in package.get('providing_channels'):
-                package_ids.append(package.get('id'))
+            # only add packages that exist in the source channel
+            for package in packages:
+                if source_channel in package.get('providing_channels'):
+                    package_ids.append(package.get('id'))
 
     if not len(errata):
         logging.warning('No errata to add')
@@ -1213,16 +1218,19 @@ def do_softwarechannel_adderrata(self, args):
     # show the user which errata will be added
     print_errata_list(errata_details)
 
-    print
-    print 'Packages'
-    print '--------'
-    print '\n'.join(sorted([ self.get_package_name(p) for p in package_ids ]))
+    if not options.quick:
+        print
+        print 'Packages'
+        print '--------'
+        print '\n'.join(sorted([ self.get_package_name(p) for p in package_ids ]))
 
-    print
+        print
     print 'Total Errata:   %s' % str(len(errata)).rjust(3)
-    print 'Total Packages: %s' % str(len(package_ids)).rjust(3)
 
-    if not self.user_confirm('Add these errata and packages [y/N]:'): return
+    if not options.quick:
+        print 'Total Packages: %s' % str(len(package_ids)).rjust(3)
+
+    if not self.user_confirm('Add these errata [y/N]:'): return
 
     if self.check_api_version('10.12'):
         merged = self.client.channel.software.mergeErrata(self.session,
