@@ -205,7 +205,7 @@ public class LocalizationServiceTest extends RhnBaseTestCase {
         // Now test formatting it to German format in a DE TimeZone.
         ctx.setTimezone(TimeZone.getTimeZone("Europe/Paris"));
         String deDate = ls.formatDate(dt, Locale.GERMAN);
-        expected = "10.12.04 22:20:00 MEZ";
+        expected = "10.12.04 22:20:00 CET";
         assertEquals(expected, deDate);
 
         String shortDeDate = ls.formatShortDate(dt, Locale.GERMAN);
