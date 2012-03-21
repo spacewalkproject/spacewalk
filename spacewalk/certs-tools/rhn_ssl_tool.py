@@ -936,12 +936,7 @@ def genServerRpm_dependencies(d):
     dependencyCheck(server_cert)
     dependencyCheck(server_cert_req)
 
-    # if all the other dependencies exist except the server pem, 
-    # just generate it
-    try:
-        dependencyCheck(jabberd_ssl_cert)
-    except FailedFileDependencyException:
-        gen_jabberd_cert(d)
+    gen_jabberd_cert(d)
 
 def genServerRpm(d, verbosity=0):
     """ generates server's SSL key set RPM """
