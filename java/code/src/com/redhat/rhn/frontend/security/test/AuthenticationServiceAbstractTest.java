@@ -125,6 +125,11 @@ public abstract class AuthenticationServiceAbstractTest extends MockObjectTestCa
                 new StringBuffer(getRequestURL())));
 
         mockRequest.stubs().method("getQueryString").will(returnValue(null));
+
+        mockRequest.stubs().method("getMethod")
+                .will(returnValue(new String("POST")));
+
+        mockRequest.stubs().method("setAttribute");
     }
 
 }
