@@ -798,7 +798,7 @@ public class ConfigChannelHandler extends BaseHandler {
         }
 
         try {
-            manager.deployConfiguration(loggedInUser, servers, date);
+            manager.deployConfiguration(loggedInUser, servers, channel, date);
         }
         catch (MissingCapabilityException e) {
             throw new com.redhat.rhn.frontend.xmlrpc.MissingCapabilityException(

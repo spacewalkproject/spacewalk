@@ -1284,6 +1284,26 @@ ORDER BY CFN.path
   <elaborator name="file_name_elab" />
 </mode>
 
+<mode name="file_names_for_system_channel" class="com.redhat.rhn.frontend.dto.ConfigFileNameDto">
+  <query params="sid, user_id">
+SELECT  DISTINCT CFN.id, CFN.path
+  FROM  rhnConfigFileName CFN, rhnServerConfigChannel SCC,
+        rhnConfigFile CF, rhnUserServerPerms USP,
+        rhnConfigChannel CC, rhnConfigChannelType CCT
+ WHERE  SCC.server_id = :sid
+   AND  CC.id = :ccid
+   AND  USP.server_id = SCC.server_id
+   AND  USP.user_id = :user_id
+   AND  SCC.config_channel_id = CF.config_channel_id
+   AND  SCC.config_channel_id = CC.id
+   AND  CC.confchan_type_id = CCT.id
+   AND  CCT.label != 'server_import'
+   AND  CF.config_file_name_id = CFN.id
+ORDER BY CFN.path
+  </query>
+  <elaborator name="file_name_elab" />
+</mode>
+
 <mode name="file_names_in_set" class="com.redhat.rhn.frontend.dto.ConfigFileNameDto">
   <query params="user_id, name_set_label">
 SELECT  CFN.id, CFN.path

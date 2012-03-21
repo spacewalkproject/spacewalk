@@ -536,6 +536,29 @@ public class ConfigurationManager extends BaseManager {
     }
 
     /**
+     * Lists the file names to which the given server is subscribed by channel
+     * Finds the deployable revisions for each file name.
+     * @param user The user requesting a list of file names
+     * @param server The server to which these files must be relevant
+     * @param channel The channel to which these files must be relevant
+     * @param pc A PageControl for this user
+     * @return A list of config file names in DTO format.
+     */
+    public DataResult <ConfigFileNameDto> listFileNamesForSystemChannel(User user,
+            Server server, ConfigChannel channel, PageControl pc) {
+        SelectMode m = ModeFactory.getMode("config_queries",
+                "file_names_for_system_channel");
+        Map params = new HashMap();
+        params.put("user_id", user.getId());
+        params.put("sid", server.getId());
+        params.put("ccid", channel.getId());
+        Map elabParams = new HashMap();
+        elabParams.put("sid", server.getId());
+        DataResult dr = makeDataResult(params, elabParams, pc, m);
+        return dr;
+    }
+
+    /**
      * Lists the config channels in the user's config channel set to which the
      * given server is subscribed. Finds the deployable files for each channel.
      * @param user The user requesting a list of config channels
@@ -2041,13 +2064,38 @@ public class ConfigurationManager extends BaseManager {
     public void deployConfiguration(User user,
                                         Collection <Server> servers,
                                         Date datePicked) {
+      deployConfiguration(user, servers, null, datePicked);
+    }
+
+
+    /**
+     * Schedules deploys of all the configuration files or dirs
+     * associated to a list of servers
+     *
+     * @param user User needed for authentication purposes..
+     * @param servers The list of servers, to whom the deploy action
+     *                  needs to be scheduled
+     * @param channel ConfigChannel to deploy files from
+     * @param datePicked date to deploy or null for the earliest date
+     */
+    public void deployConfiguration(User user,
+                                        Collection <Server> servers,
+                                        ConfigChannel channel,
+                                        Date datePicked) {
         if (datePicked == null) {
             datePicked = new Date();
         }
         for (Server server : servers) {
             ensureConfigManageable(server);
-            List <ConfigFileNameDto> names = listFileNamesForSystem(user,
-                                                                server, null);
+
+            List <ConfigFileNameDto> names;
+            if (channel == null) {
+              names = listFileNamesForSystem(user, server, null);
+            }
+            else {
+              names = listFileNamesForSystemChannel(user, server, channel, null);
+            }
+
             Set <Server> system = new HashSet<Server>();
             system.add(server);
             Set <Long> revs = new HashSet<Long>();
