@@ -33,7 +33,7 @@ Authors:
             <xsl:value-of select="normalize-space(cdf:version/text())"/>
         </xsl:attribute>
         <xsl:apply-templates select="cdf:Profile"/>
-        <xsl:apply-templates select="cdf:TestResult"/>
+        <xsl:apply-templates select="cdf:TestResult[1]"/>
     </xsl:template>
 
     <xsl:template match="cdf:Profile">
