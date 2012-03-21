@@ -14,13 +14,13 @@
  */
 package com.redhat.rhn.frontend.struts.test;
 
-import com.redhat.rhn.frontend.action.test.LoginActionTest;
-import com.redhat.rhn.frontend.struts.RequestContext;
-import com.redhat.rhn.testing.RhnMockHttpServletRequest;
+import javax.servlet.http.HttpServletRequest;
 
 import org.jmock.MockObjectTestCase;
 
-import javax.servlet.http.HttpServletRequest;
+import com.redhat.rhn.frontend.action.test.LoginActionTest;
+import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.testing.RhnMockHttpServletRequest;
 
 /**
  * RequestContextTest
@@ -126,7 +126,7 @@ public class RequestContextTest extends MockObjectTestCase {
         // works long term. Thankfully in most cases we don't care about
         // the parameters order.
         assertEquals("http://localhost/rhn/somePage.do?" +
-                "otherparam=foo&barparam=beer&someparam=zzzzz", url);
+                "someparam=zzzzz&barparam=beer&otherparam=foo", url);
     }
 
 }
