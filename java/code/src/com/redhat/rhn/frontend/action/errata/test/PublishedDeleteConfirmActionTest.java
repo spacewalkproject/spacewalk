@@ -17,13 +17,13 @@ package com.redhat.rhn.frontend.action.errata.test;
 import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.domain.errata.test.ErrataFactoryTest;
 import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.testing.BaseDeleteErrataActionTest;
+import com.redhat.rhn.testing.BaseDeleteErrataActionAbstractTest;
 
 /**
  * PublishedDeleteConfirmActionTest
  * @version $Rev$
  */
-public class PublishedDeleteConfirmActionTest extends BaseDeleteErrataActionTest {
+public class PublishedDeleteConfirmActionTest extends BaseDeleteErrataActionAbstractTest {
 
     /**
      * {@inheritDoc}

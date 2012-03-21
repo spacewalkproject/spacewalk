@@ -23,7 +23,7 @@ import com.redhat.rhn.domain.user.User;
  * BaseDeleteActionTest
  * @version $Rev$
  */
-public abstract class BaseDeleteErrataActionTest extends RhnMockStrutsTestCase {
+public abstract class BaseDeleteErrataActionAbstractTest extends RhnMockStrutsTestCase {
 
     /**
      * {@inheritDoc}
