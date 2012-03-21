@@ -49,6 +49,7 @@
       <batchtest fork="yes" todir="${reports.tests}">
         <fileset dir="${tmpdir}">
           <include name="**/*${testcase}.class"/>
+          <exclude name="**/*Abstract*.class"/>
         </fileset>
       </batchtest>
     </junit>
