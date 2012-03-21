@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.5
+Version: 1.8.6
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -254,6 +254,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Wed Mar 21 2012 Jan Pazdziora 1.8.6-1
+- Fixing regular_systems_in_channel_family for PostgreSQL.
+
 * Tue Mar 20 2012 Michael Mraka <michael.mraka@redhat.com> 1.8.5-1
 - fixed rhn_server.delete_from_servergroup() call
 - Show details of SCAP event.
