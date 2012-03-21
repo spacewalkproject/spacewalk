@@ -22,7 +22,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.22
+Version: 1.8.23
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -603,6 +603,44 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Mar 21 2012 Tomas Lestach <tlestach@redhat.com> 1.8.23-1
+- fix LocalizationServiceTest (tlestach@redhat.com)
+- fix AuthFilterTest (tlestach@redhat.com)
+- fix PxtAuthenticationServiceTest (tlestach@redhat.com)
+- fix RequestContextTest (tlestach@redhat.com)
+- fix PxtSessionDelegateImplTest (tlestach@redhat.com)
+- rename AuthenticationServiceTest (tlestach@redhat.com)
+- rename BaseDeleteErrataActionTest (tlestach@redhat.com)
+- skip executing Abstract test classes (tlestach@redhat.com)
+- clean up classpath (tlestach@redhat.com)
+- add slf4j.jar to classpath (tlestach@redhat.com)
+- add struts.jar explicitelly to classpath (tlestach@redhat.com)
+- we need to extract also the rhn.jar into the temp directory
+  (tlestach@redhat.com)
+- 805275 - fix for configchannel.deployAllSystems (shughes@redhat.com)
+- checkstyle fixes (sherr@redhat.com)
+- Ensure the comparison uses correct type (slukasik@redhat.com)
+- Set column name explicitly, because it varies by db backend.
+  (slukasik@redhat.com)
+- Revert "removing unused string with trans-id
+  'systemsearch_cpu_mhz_gt_column'" (msuchy@redhat.com)
+- Revert "removing unused string with trans-id
+  'systemsearch_cpu_mhz_lt_column'" (msuchy@redhat.com)
+- Revert "removing unused string with trans-id
+  'systemsearch_name_and_description_column'" (msuchy@redhat.com)
+- Revert "removing unused string with trans-id
+  'systemsearch_num_of_cpus_gt_column'" (msuchy@redhat.com)
+- Revert "removing unused string with trans-id
+  'systemsearch_num_of_cpus_lt_column'" (msuchy@redhat.com)
+- Revert "removing unused string with trans-id 'systemsearch_ram_gt_column'"
+  (msuchy@redhat.com)
+- Revert "removing unused string with trans-id 'systemsearch_ram_lt_column'"
+  (msuchy@redhat.com)
+- 804810 - Taught SSM to look at flex as well as regular entitlements when
+  trying to add child channels (sherr@redhat.com)
+- 804702 - fixed apidoc deployAllSystems() including the date parameter
+  (mmello@redhat.com)
+
 * Mon Mar 19 2012 Jan Pazdziora 1.8.22-1
 - Add a missing colon. (slukasik@redhat.com)
 - Show legend on details page; suggesting what to search for
