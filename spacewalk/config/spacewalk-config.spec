@@ -1,6 +1,6 @@
 Name: spacewalk-config
 Summary: Spacewalk Configuration
-Version: 1.7.2
+Version: 1.7.3
 Release: 1%{?dist}
 URL: http://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -105,6 +105,9 @@ chgrp apache /etc/rhn /etc/rhn/rhn.conf /etc/rhn/cluster.ini 2> /dev/null || :
 chmod o-rwx /etc/rhn/rhn.conf* /etc/rhn/cluster.ini* /etc/sysconfig/rhn/backup-* /var/lib/rhn/rhn-satellite-prep/* 2> /dev/null || :
 
 %changelog
+* Wed Mar 21 2012 Jan Pazdziora 1.7.3-1
+- Reverting removal of traceback_mail.
+
 * Tue Jan 31 2012 Jan Pazdziora 1.7.2-1
 - Removing the web.debug_disable_database option -- it is not supported beyond
   RHN::DB anyway.
