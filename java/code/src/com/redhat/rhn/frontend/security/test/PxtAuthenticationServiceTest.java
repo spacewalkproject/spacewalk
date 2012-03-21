@@ -30,7 +30,7 @@ import javax.servlet.http.HttpServletRequest;
  * @version $Rev$
  */
 // TODO Review Test classes in package to factor out common code
-public class PxtAuthenticationServiceTest extends AuthenticationServiceTest {
+public class PxtAuthenticationServiceTest extends AuthenticationServiceAbstractTest {
 
     private class PxtAuthenticationServiceStub extends PxtAuthenticationService {
     }

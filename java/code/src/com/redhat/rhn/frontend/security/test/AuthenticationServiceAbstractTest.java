@@ -34,7 +34,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @version $Rev$
  */
-public abstract class AuthenticationServiceTest extends MockObjectTestCase {
+public abstract class AuthenticationServiceAbstractTest extends MockObjectTestCase {
 
     protected Mock mockRequest;
     protected Mock mockResponse;
@@ -47,12 +47,12 @@ public abstract class AuthenticationServiceTest extends MockObjectTestCase {
     /**
      * @param name The test case name
      */
-    public AuthenticationServiceTest(String name) {
+    public AuthenticationServiceAbstractTest(String name) {
         super(name);
     }
 
 
-    public AuthenticationServiceTest() {
+    public AuthenticationServiceAbstractTest() {
     }
 
     /**
