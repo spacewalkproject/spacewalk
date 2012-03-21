@@ -32,7 +32,9 @@ Authors:
         <xsl:attribute name="version">
             <xsl:value-of select="normalize-space(cdf:version/text())"/>
         </xsl:attribute>
-        <xsl:apply-templates select="cdf:Profile"/>
+
+        <xsl:variable name="profileId" select="cdf:TestResult[1]/cdf:profile/@idref"/>
+        <xsl:apply-templates select="cdf:Profile[@id = $profileId]"/>
         <xsl:apply-templates select="cdf:TestResult[1]"/>
     </xsl:template>
 
