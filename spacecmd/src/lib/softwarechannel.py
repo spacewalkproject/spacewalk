@@ -1161,6 +1161,7 @@ def help_softwarechannel_adderrata(self):
     print 'usage: softwarechannel_adderrata SOURCE DEST <ERRATA|search:XXX ...>'
     print 'Options:'
     print '    -q/--quick : Don\'t display list of packages (slightly faster)'
+    print '    -s/--skip :  Skip errata which appear to exist already in DEST'
 
 def complete_softwarechannel_adderrata(self, text, line, beg, end):
     parts = line.split(' ')
@@ -1171,7 +1172,8 @@ def complete_softwarechannel_adderrata(self, text, line, beg, end):
         return self.tab_complete_errata(text)
 
 def do_softwarechannel_adderrata(self, args):
-    options = [ Option('-q', '--quick', action='store_true') ]
+    options = [ Option('-q', '--quick', action='store_true'),
+                Option('-s', '--skip', action='store_true') ]
 
     (args, options) = parse_arguments(args, options)
 
@@ -1186,9 +1188,28 @@ def do_softwarechannel_adderrata(self, args):
     logging.debug('Retrieving the list of errata from source channel')
     source_errata = self.client.channel.software.listErrata(self.session,
                                                             source_channel)
+    dest_errata = self.client.channel.software.listErrata(self.session,
+                                                            dest_channel)
 
     errata = filter_results([ e.get('advisory_name') for e in source_errata ],
                             errata_wanted)
+    logging.debug("errata = %s" % errata)
+    if options.skip:
+        # We just match the NNNN:MMMM of the XXXX-NNNN:MMMM as the 
+        # source errata will be RH[BES]A and the DEST errata will be CLA
+        dest_errata_suffix = [ x.get('advisory_name').split("-")[1] \
+            for x in dest_errata]
+        logging.debug("dest_errata_suffix = %s" % dest_errata_suffix)
+        toremove = []
+        for e in errata:
+            if e.split("-")[1] in dest_errata_suffix:
+                logging.debug("Skipping errata %s as it seems to be in %s" %\
+                    (e, dest_channel))
+                toremove.append(e)
+        for e in toremove:
+                logging.debug("Removing %s from errata to be added" % e)
+                errata.remove(e)
+        logging.debug("skip-mode : reduced errata = %s" % errata)
 
     # keep the details for our matching errata so we can use them later
     errata_details = []
