@@ -63,10 +63,22 @@ def do_custominfo_deletekey(self, args):
     if not len(args):
         self.help_custominfo_deletekey()
         return
-        
+
+    # allow globbing of custominfo key names
+    keys = filter_results(self.do_custominfo_listkeys('', True), args)
+    logging.debug("customkey_deletekey called with args %s, keys=%s" % \
+        (args, keys))
+
+    if not len(keys):
+        logging.error("No keys matched argument %s" % args)
+        return
+
+    # Print the keys prior to the confirmation
+    print '\n'.join(sorted(keys))
+
     if not self.user_confirm('Delete these keys [y/N]:'): return
 
-    for key in args:
+    for key in keys:
         self.client.system.custominfo.deleteKey(self.session, key)
 
 ####################
