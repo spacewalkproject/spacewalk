@@ -51,6 +51,7 @@ public class VirtualInstanceManufacturer {
         guest.setTotalMemory(new Long(1024 * DEFAULT_GUEST_RAM_MB));
         guest.setState(state);
         guest.setNumberOfCPUs(new Integer(1));
+        guest.setConfirmed(0L);
 
         return guest;
     }
