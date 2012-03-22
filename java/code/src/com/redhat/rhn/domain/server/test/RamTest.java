@@ -15,7 +15,6 @@
 package com.redhat.rhn.domain.server.test;
 
 import com.redhat.rhn.common.hibernate.HibernateFactory;
-import com.redhat.rhn.domain.server.Ram;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.testing.RhnBaseTestCase;
@@ -41,21 +40,24 @@ public class RamTest extends RhnBaseTestCase {
         assertNotNull(server);
         assertNotNull(server.getId());
 
-        Ram ram = new Ram();
-        ram.setServer(server);
-        ram.setRam(1024);
-        ram.setSwap(256);
+        server.setRam(1024);
+        server.setSwap(256);
 
-        TestUtils.saveAndFlush(ram);
-        verifyInDb(ram.getId(),  1024, 256);
-        assertEquals(1, TestUtils.removeObject(ram));
-        // can't seem to be able to delete a server, would be nice
-        // to be able to clean up after ourselves.
-        //assertEquals(1, TestUtils.removeObject(server));
+        TestUtils.saveAndFlush(server);
+        verifyInDb(server.getId(), 1024, 256);
+
+        server.setRam(2048);
+        server.setSwap(512);
+
+        TestUtils.saveAndFlush(server);
+        verifyInDb(server.getId(), 2048, 512);
+
+        assertEquals(1, TestUtils.removeObject(server));
     }
 
 
-    private void verifyInDb(Long id, long ram, long swap) throws Exception {
+    private void verifyInDb(Long serverId, long ram, long swap)
+        throws Exception {
         // Now lets manually test to see if the user got updated
         Session session = null;
         Connection c = null;
@@ -67,11 +69,10 @@ public class RamTest extends RhnBaseTestCase {
             assertNotNull(c);
             ps = c.prepareStatement(
                 "SELECT ID, RAM, SWAP FROM RHNRAM " +
-                "  WHERE ID = " + id);
+ "  WHERE SERVER_ID = " + serverId);
             rs = ps.executeQuery();
             rs.next();
 
-            assertEquals(id.longValue(), rs.getLong("ID"));
             assertEquals(ram, rs.getLong("RAM"));
             assertEquals(swap, rs.getLong("SWAP"));
         }
