@@ -148,9 +148,18 @@ def do_cryptokey_details(self, args):
         self.help_cryptokey_details()
         return
 
+    # allow globbing of cryptokey names
+    keys = filter_results(self.do_cryptokey_list('', True), args)
+    logging.debug("cryptokey_details called with args %s, keys=%s" % \
+        (args, keys))
+
+    if not len(keys):
+        logging.error("No keys matched argument %s" % args)
+        return
+
     add_separator = False
 
-    for key in args:
+    for key in keys:
         try:
             details = self.client.kickstart.keys.getDetails(self.session,
                                                             key)
