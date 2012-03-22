@@ -21,7 +21,7 @@ CREATE TABLE rhnXccdfIdent
     identsystem_id  NUMBER NOT NULL
                         CONSTRAINT rhn_xccdf_ident_system_fk
                             REFERENCES rhnXccdfIdentsystem (id),
-    identifier      VARCHAR (20) NOT NULL
+    identifier      VARCHAR (100) NOT NULL
 )
 ENABLE ROW MOVEMENT
 ;

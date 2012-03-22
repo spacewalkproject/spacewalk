@@ -1,0 +1,3 @@
+-- oracle equivalent source sha1 cc5737c136de9cb3648c3ab699622a119ea64062
+
+ALTER TABLE rhnXccdfIdent ALTER COLUMN identifier TYPE VARCHAR(100);
