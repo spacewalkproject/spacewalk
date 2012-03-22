@@ -105,6 +105,7 @@ public class GuestBuilder {
     public GuestBuilder createUnregisteredGuest() {
         guest = new VirtualInstance();
         guest.setUuid(TestUtils.randomString());
+        guest.setConfirmed(0L);
 
         return this;
     }
@@ -121,6 +122,7 @@ public class GuestBuilder {
         guest = new VirtualInstance();
         guest.setUuid(TestUtils.randomString());
         guest.setGuestSystem(ServerFactoryTest.createTestServer(owner));
+        guest.setConfirmed(0L);
 
         return this;
     }
