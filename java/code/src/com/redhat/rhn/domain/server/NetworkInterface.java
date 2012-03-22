@@ -21,7 +21,6 @@ import com.redhat.rhn.manager.kickstart.IpAddress;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
-
 import org.hibernate.Session;
 
 import java.io.Serializable;
@@ -338,6 +337,14 @@ public class NetworkInterface extends BaseDomainHelper implements
         }
 
         return sa6;
+    }
+
+    /**
+     * Setter for sa4
+     * @param sa4In sa4
+     */
+    public void setSa4(ServerNetAddress4 sa4In) {
+        this.sa4 = sa4In;
     }
 
 }

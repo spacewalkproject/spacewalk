@@ -19,6 +19,7 @@ import com.redhat.rhn.domain.kickstart.KickstartIpRange;
 import com.redhat.rhn.domain.kickstart.test.KickstartDataTest;
 import com.redhat.rhn.domain.server.NetworkInterface;
 import com.redhat.rhn.domain.server.Server;
+import com.redhat.rhn.domain.server.ServerNetAddress4;
 import com.redhat.rhn.domain.server.test.ServerFactoryTest;
 import com.redhat.rhn.manager.kickstart.KickstartManager;
 import com.redhat.rhn.testing.BaseTestCaseWithUser;
@@ -42,7 +43,11 @@ public class KickstartManagerTest extends BaseTestCaseWithUser {
         Server serv = ServerFactoryTest.createTestServer(user);
         NetworkInterface nic = new NetworkInterface();
         nic.setName("eth0");
+        nic.setHwaddr("aa:aa:aa");
         nic.setServer(serv);
+        ServerNetAddress4 netAddr = new ServerNetAddress4();
+        netAddr.setAddress("192.168.0.122");
+        nic.setSa4(netAddr);
         serv.getNetworkInterfaces().add(nic);
 
 
@@ -76,6 +81,9 @@ public class KickstartManagerTest extends BaseTestCaseWithUser {
         nic = new NetworkInterface();
         nic.setName("eth1");
         nic.setHwaddr("aa:aa:aa");
+        ServerNetAddress4 netAddr = new ServerNetAddress4();
+        netAddr.setAddress("192.168.0.123");
+        nic.setSa4(netAddr);
         nic.setServer(serv);
         serv.getNetworkInterfaces().add(nic);
 
@@ -110,6 +118,9 @@ public class KickstartManagerTest extends BaseTestCaseWithUser {
         nic.setName("eth0");
         nic.setHwaddr("aa:aa:aa");
         nic.setServer(serv);
+        ServerNetAddress4 netAddr = new ServerNetAddress4();
+        netAddr.setAddress("1.2.3.4");
+        nic.setSa4(netAddr);
         serv.getNetworkInterfaces().add(nic);
 
 
@@ -139,6 +150,9 @@ public class KickstartManagerTest extends BaseTestCaseWithUser {
         nic.setName("eth0");
         nic.setHwaddr("aa:aa:aa");
         nic.setServer(serv);
+        ServerNetAddress4 netAddr = new ServerNetAddress4();
+        netAddr.setAddress("1.2.3.4");
+        nic.setSa4(netAddr);
         serv.getNetworkInterfaces().add(nic);
 
 
