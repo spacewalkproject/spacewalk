@@ -22,7 +22,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.23
+Version: 1.8.24
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -603,6 +603,16 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Mar 22 2012 Tomas Lestach <tlestach@redhat.com> 1.8.24-1
+- fix ServerFactoryVirtualizationTest (tlestach@redhat.com)
+- fix ServerFactoryTest (tlestach@redhat.com)
+- fix VirtualInstanceFactoryTest (tlestach@redhat.com)
+- fix RamTest (tlestach@redhat.com)
+- fix ServerTest (tlestach@redhat.com)
+- fix AffectedSystemsActionTest (tlestach@redhat.com)
+- fix KickstartManagerTest (tlestach@redhat.com)
+- Revert "fix FileFinderTest.testFindFilesSubDir" (tlestach@redhat.com)
+
 * Wed Mar 21 2012 Tomas Lestach <tlestach@redhat.com> 1.8.23-1
 - fix LocalizationServiceTest (tlestach@redhat.com)
 - fix AuthFilterTest (tlestach@redhat.com)
