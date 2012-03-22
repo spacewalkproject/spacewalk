@@ -17,6 +17,7 @@ package com.redhat.rhn.domain.server.test;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.domain.server.NetworkInterface;
 import com.redhat.rhn.domain.server.Server;
+import com.redhat.rhn.domain.server.ServerNetAddress4;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.testing.RhnBaseTestCase;
 import com.redhat.rhn.testing.TestUtils;
@@ -89,9 +90,14 @@ public class NetworkInterfaceTest extends RhnBaseTestCase {
         NetworkInterface netint = new NetworkInterface();
         netint.setHwaddr(macAddress);
         netint.setModule("test");
-
         netint.setName(networkName);
+        ServerNetAddress4 netAddr = new ServerNetAddress4();
+        netAddr.setAddress(ipAddress);
+        netint.setSa4(netAddr);
         server.addNetworkInterface(netint);
+        netint = (NetworkInterface) TestUtils.saveAndReload(netint);
+        netAddr.setInterfaceId(netint.getInterfaceId());
+        TestUtils.saveAndFlush(netAddr);
         return netint;
     }
 }
