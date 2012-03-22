@@ -1181,8 +1181,17 @@ def do_softwarechannel_adderrata(self, args):
         self.help_softwarechannel_adderrata()
         return
 
+    allchannels = self.do_softwarechannel_list('', True)
     source_channel = args[0]
+    if not source_channel in allchannels:
+        logging.error("source channel %s does not exist!" % source_channel)
+        self.help_softwarechannel_adderrata()
+        return
     dest_channel = args[1]
+    if not dest_channel in allchannels:
+        logging.error("dest channel %s does not exist!" % dest_channel)
+        self.help_softwarechannel_adderrata()
+        return
     errata_wanted = self.expand_errata(args[2:])
 
     logging.debug('Retrieving the list of errata from source channel')
