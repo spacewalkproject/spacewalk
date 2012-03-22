@@ -14,6 +14,8 @@
  */
 package com.redhat.rhn.common.filediff;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -22,9 +24,11 @@ import java.util.List;
  * @version $Rev$
  */
 public class Differ {
-    private Trace head;
+    private final Trace head;
     private Trace beforeCurrent;
     private int bestSoFar;
+    private static final int NUMBEROFTRACESTOKEEP = 1000;
+    private final List<Integer> matches = new ArrayList<Integer>();
 
     /**
      * @param oldLength The length of the old file
@@ -52,24 +56,52 @@ public class Differ {
     }
 
     /**
-     * The crux of the optimization for this algorithm lies in the fact that
-     * we will step through all of the traces in parallel rather than
-     * recursively.  This allows us to delete traces that can't possibly
-     * be the most optimal.
+     * The crux of the optimization for this algorithm lies in the fact that we
+     * will step through all of the traces in parallel rather than recursively.
+     * This allows us to delete traces that are unlikely be the most optimal.
+     *
+     * We only consider the best {@value #NUMBEROFTRACESTOKEEP} traces at any
+     * given time. This is to prevent the memory required from growing
+     * exponentially in large files. The resulting trace is always guaranteed to
+     * be *correct*, but maybe not *optimal*.
      *
      * This will call the step function on Trace for every current trace we
-     * have.  It will delete traces that cannot be optimal.
-     * @param oldFile The old(first, from) file
-     * @param newFile The new(second, to) file
-     * @return A list of Hunks representing the differences.
-     *         null if we need to step again
+     * have. It will delete traces that are unlikely to be optimal.
+     *
+     * @param oldFile
+     *            The old(first, from) file
+     * @param newFile
+     *            The new(second, to) file
+     * @return A list of Hunks representing the differences. null if we need to
+     *         step again
      */
     private List step(String[] oldFile, String[] newFile) {
         beforeCurrent = head;
         boolean forked;
+        int minimumMatchValue = 0;
+
+        // get a list of all match values for all traces
         while (beforeCurrent.next() != null) {
-            //delete impossible traces.
-            if (bestSoFar > beforeCurrent.next().bestPossible()) {
+            beforeCurrent = beforeCurrent.next();
+            matches.add(beforeCurrent.getMatches());
+        }
+
+        // if we have too many traces find the match number you need to beat to
+        // remain valid
+        if (matches.size() > NUMBEROFTRACESTOKEEP) {
+            Collections.sort(matches); // sort ascending
+            minimumMatchValue = matches.get(matches.size() -
+                    NUMBEROFTRACESTOKEEP);
+        }
+
+        // reset things before the "real" iteration
+        matches.clear();
+        beforeCurrent = head;
+
+        while (beforeCurrent.next() != null) {
+            // delete impossible and unlikely traces.
+            if (beforeCurrent.next().getMatches() < minimumMatchValue ||
+                    bestSoFar > beforeCurrent.next().bestPossible()) {
                 beforeCurrent.setNext(beforeCurrent.next().next());
             }
             else {
