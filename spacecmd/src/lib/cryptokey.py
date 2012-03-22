@@ -96,14 +96,25 @@ def complete_cryptokey_delete(self, text, line, beg, end):
 def do_cryptokey_delete(self, args):
     (args, options) = parse_arguments(args)
 
-    if len(args) != 1:
+    if not len(args):
         self.help_cryptokey_delete()
         return
 
-    name = args[0]
+    # allow globbing of cryptokey names
+    keys = filter_results(self.do_cryptokey_list('', True), args)
+    logging.debug("cryptokey_delete called with args %s, keys=%s" % \
+        (args, keys))
 
-    if self.user_confirm('Delete this key [y/N]:'):
-        self.client.kickstart.keys.delete(self.session, name)
+    if not len(keys):
+        logging.error("No keys matched argument %s" % args)
+        return
+
+    # Print the keys prior to the confirmation
+    print '\n'.join(sorted(keys))
+
+    if self.user_confirm('Delete key(s) [y/N]:'):
+        for key in keys:
+            self.client.kickstart.keys.delete(self.session, key)
 
 ####################
 
