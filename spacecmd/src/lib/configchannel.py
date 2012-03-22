@@ -359,7 +359,7 @@ def do_configchannel_delete(self, args):
         self.help_configchannel_delete()
         return
 
-    # allow globbing of configchannel channel names
+    # allow globbing of configchannel names
     channels = filter_results(self.do_configchannel_list('', True), args)
     logging.debug("configchannel_delete called with args %s, channels=%s" % \
         (args, channels))
@@ -368,7 +368,7 @@ def do_configchannel_delete(self, args):
         logging.error("No channels matched argument %s" % args)
         return
 
-    # Print the channels prior to the confimation
+    # Print the channels prior to the confirmation
     print '\n'.join(sorted(channels))
 
     if self.user_confirm('Delete these channels [y/N]:'):
@@ -872,7 +872,7 @@ def do_configchannel_export(self, args):
         logging.info("Exporting ALL config channels to %s" % filename)
         ccs = self.do_configchannel_list('', True)
     else:
-        # allow globbing of configchannel channel names
+        # allow globbing of configchannel names
         ccs = filter_results(self.do_configchannel_list('', True), args)
         logging.debug("configchannel_export called with args %s, ccs=%s" % \
             (args, ccs))
@@ -1060,7 +1060,7 @@ def do_configchannel_clone(self, args):
         self.help_configchannel_clone()
         return
     logging.debug("Got args=%s %d" % (args, len(args)))
-    # allow globbing of configchannel channel names
+    # allow globbing of configchannel names
     ccs = filter_results(self.do_configchannel_list('', True), args)
     logging.debug("Filtered ccs %s" % ccs)
     for cc in ccs:
