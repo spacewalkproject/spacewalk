@@ -199,6 +199,7 @@ public class HostBuilder {
                 RhnBaseTestCase.assertNotNull(guest);
                 virtualInstance.setGuestSystem(guest);
             }
+            virtualInstance.setConfirmed(host != null ? 1L : 0L);
             if (host != null) {
                 host.addGuest(virtualInstance);
                 HibernateFactory.getSession().save(host);
