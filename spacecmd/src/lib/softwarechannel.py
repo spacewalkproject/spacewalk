@@ -1262,35 +1262,21 @@ def do_softwarechannel_adderrata(self, args):
 
     if not self.user_confirm('Add these errata [y/N]:'): return
 
-    if self.check_api_version('10.12'):
-        merged = self.client.channel.software.mergeErrata(self.session,
-                                                          source_channel,
-                                                          dest_channel,
-                                                          errata)
-
-        # show the user which errata were actually merged
-        if self.options.debug:
-            print
-            print "Errata Merged"
-            print "-------------"
-            print
-            print_errata_list(merged)
-    else:
-        # clone each erratum individually because the process is slow and it can
-        # lead to timeouts on the server
-        for erratum in errata:
-            logging.debug('Cloning %s' % erratum)
-            if self.check_api_version('10.11'):
-                # This call is poorly documented, but it stops errata.clone
-                # pushing EL6 packages into EL5 channels when the errata 
-                # package list contains both versions, ref bz678721
-                self.client.errata.cloneAsOriginal(self.session, dest_channel,\
-                    [erratum])
-            else:
-                logging.warning("Using the old errata.clone function")
-                logging.warning("If you have base channels for multiple OS" +\
-                    " versions, check no unexpected packages have been added")
-                self.client.errata.clone(self.session, dest_channel, [erratum])
+    # clone each erratum individually because the process is slow and it can
+    # lead to timeouts on the server
+    for erratum in errata:
+        logging.debug('Cloning %s' % erratum)
+        if self.check_api_version('10.11'):
+            # This call is poorly documented, but it stops errata.clone
+            # pushing EL6 packages into EL5 channels when the errata 
+            # package list contains both versions, ref bz678721
+            self.client.errata.cloneAsOriginal(self.session, dest_channel,\
+                [erratum])
+        else:
+            logging.warning("Using the old errata.clone function")
+            logging.warning("If you have base channels for multiple OS" +\
+                " versions, check no unexpected packages have been added")
+            self.client.errata.clone(self.session, dest_channel, [erratum])
 
     # regenerate the errata cache since we just cloned errata
     self.generate_errata_cache(True)
