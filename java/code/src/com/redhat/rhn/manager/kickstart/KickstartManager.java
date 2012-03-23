@@ -196,7 +196,7 @@ public class KickstartManager extends BaseManager {
         SelectMode mode = ModeFactory.getMode("General_queries",
             "org_ks_ip_ranges_for_ip");
         Map params = new HashMap();
-        params.put("org_id", orgIn.getId().toString());
+        params.put("org_id", orgIn.getId());
         params.put("ip", clientIpIn.getLongNumber().toString());
         ipRanges = mode.execute(params);
 
