@@ -392,6 +392,17 @@ sub has_virtualization_entitlement {
   }
 }
 
+sub has_management_entitlement {
+  my $self = shift;
+
+  if ($self -> has_entitlement("enterprise_entitled")) {
+    return 1;
+  }
+  else {
+    return;
+  }
+}
+
 # If the system is a proxy, return array of (epoch, version, release)
 sub proxy_evr {
   my $self_or_class = shift;
