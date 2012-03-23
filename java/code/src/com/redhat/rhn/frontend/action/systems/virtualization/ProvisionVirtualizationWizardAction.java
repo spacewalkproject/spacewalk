@@ -18,15 +18,20 @@ import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
+import com.redhat.rhn.domain.rhnpackage.PackageFactory;
+import com.redhat.rhn.domain.server.InstalledPackage;
+import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.kickstart.KickstartHelper;
 import com.redhat.rhn.frontend.action.kickstart.ScheduleKickstartWizardAction;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnValidationHelper;
 import com.redhat.rhn.frontend.struts.wizard.WizardStep;
+import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.kickstart.KickstartScheduleCommand;
 import com.redhat.rhn.manager.kickstart.ProvisionVirtualInstanceCommand;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerXMLRPCHelper;
+import com.redhat.rhn.manager.system.SystemManager;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.struts.action.ActionErrors;
@@ -61,10 +66,13 @@ public class ProvisionVirtualizationWizardAction extends ScheduleKickstartWizard
     /**
      * {@inheritDoc}
      */
+    @Override
     public ActionForward runFirst(ActionMapping mapping, DynaActionForm form,
             RequestContext ctx, HttpServletResponse response,
             WizardStep step) throws Exception {
-
+        Long sid = (Long) form.get(RequestContext.SID);
+        User user = ctx.getCurrentUser();
+        Server system = SystemManager.lookupByIdAndUser(sid, user);
 
         if (StringUtils.isEmpty(form.getString(MEMORY_ALLOCATION))) {
             form.set(MEMORY_ALLOCATION, "");
@@ -75,7 +83,16 @@ public class ProvisionVirtualizationWizardAction extends ScheduleKickstartWizard
         }
 
         if (StringUtils.isEmpty(form.getString(LOCAL_STORAGE_GB))) {
-                form.set(LOCAL_STORAGE_GB, "");
+            form.set(LOCAL_STORAGE_GB, "");
+        }
+
+        // Check if the server already has rhnVirtHost package installed.
+        InstalledPackage rhnVirtHost = PackageFactory.lookupByNameAndServer(
+                ChannelManager.RHN_VIRT_HOST_PACKAGE_NAME, system);
+
+        if (rhnVirtHost == null) {
+            // system does not have the package installed, tell them to get it.
+            addMessage(ctx.getRequest(), "system.virtualization.help");
         }
 
         return super.runFirst(mapping, form, ctx, response, step);
@@ -103,8 +120,8 @@ public class ProvisionVirtualizationWizardAction extends ScheduleKickstartWizard
         KickstartData ksdata = ctx.lookupAndBindKickstartData();
         if (StringUtils.isEmpty(form.getString(VIRTUAL_FILE_PATH))) {
             form.set(VIRTUAL_FILE_PATH, ProvisionVirtualInstanceCommand.
-                                makeDefaultVirtPath(form.getString(GUEST_NAME),
-                         ksdata.getKickstartDefaults().getVirtualizationType()));
+                    makeDefaultVirtPath(form.getString(GUEST_NAME),
+                            ksdata.getKickstartDefaults().getVirtualizationType()));
         }
         if (StringUtils.isEmpty(form.getString(MEMORY_ALLOCATION))) {
             form.set(MEMORY_ALLOCATION, String.valueOf(pf.getVirtRam()));
@@ -124,7 +141,7 @@ public class ProvisionVirtualizationWizardAction extends ScheduleKickstartWizard
 
         if (StringUtils.isEmpty(form.getString(TARGET_PROFILE_TYPE))) {
             form.set(TARGET_PROFILE_TYPE,
-                        KickstartScheduleCommand.TARGET_PROFILE_TYPE_NONE);
+                    KickstartScheduleCommand.TARGET_PROFILE_TYPE_NONE);
         }
         return forward;
     }
@@ -132,6 +149,7 @@ public class ProvisionVirtualizationWizardAction extends ScheduleKickstartWizard
     /**
      * {@inheritDoc}
      */
+    @Override
     public ActionForward runThird(ActionMapping mapping, DynaActionForm form,
             RequestContext ctx, HttpServletResponse response,
             WizardStep step) throws Exception {
@@ -157,7 +175,7 @@ public class ProvisionVirtualizationWizardAction extends ScheduleKickstartWizard
         KickstartHelper helper = new KickstartHelper(ctx.getRequest());
 
         ProvisionVirtualInstanceCommand cmd = getScheduleCommand(form,
-                                ctx, scheduleTime, helper.getKickstartHost());
+                ctx, scheduleTime, helper.getKickstartHost());
 
         cmd.setKernelOptions(form.getString(KERNEL_PARAMS));
 
@@ -219,7 +237,7 @@ public class ProvisionVirtualizationWizardAction extends ScheduleKickstartWizard
     }
     @Override
     protected KickstartScheduleCommand getKickstartScheduleCommand(Long sid,
-                                                                   User currentUser) {
+            User currentUser) {
         return new ProvisionVirtualInstanceCommand(sid, currentUser);
     }
 
@@ -257,7 +275,7 @@ public class ProvisionVirtualizationWizardAction extends ScheduleKickstartWizard
             catch (NumberFormatException e) {
                 errors.add(ActionErrors.GLOBAL_MESSAGE, new ActionMessage(
                         "frontend.actions.systems.virt.invalidcpuvalue",
-                                (MAX_CPU + 1)));
+                        (MAX_CPU + 1)));
             }
         }
 
@@ -286,7 +304,7 @@ public class ProvisionVirtualizationWizardAction extends ScheduleKickstartWizard
     private Profile getCobblerProfile(RequestContext context) {
         if (context.getRequest().getAttribute(PROFILE) == null) {
             String cobblerId = (String) context.getRequest().getAttribute(
-                                                    RequestContext.COBBLER_ID);
+                    RequestContext.COBBLER_ID);
             User user = context.getLoggedInUser();
             Profile cobblerProfile = org.cobbler.Profile.lookupById(
                     CobblerXMLRPCHelper.getConnection(user), cobblerId);
@@ -306,17 +324,17 @@ public class ProvisionVirtualizationWizardAction extends ScheduleKickstartWizard
 
         if (data != null) {
             cmd =
-                new ProvisionVirtualInstanceCommand(
-                        (Long) form.get(RequestContext.SID),
-                        data,
-                        ctx.getCurrentUser(),
-                        scheduleTime,
-                        host);
+                    new ProvisionVirtualInstanceCommand(
+                            (Long) form.get(RequestContext.SID),
+                            data,
+                            ctx.getCurrentUser(),
+                            scheduleTime,
+                            host);
         }
         else {
             cmd = ProvisionVirtualInstanceCommand.createCobblerScheduleCommand((Long)
-                     form.get(RequestContext.SID), cobblerProfile.getName(),
-                     user, scheduleTime,  host);
+                    form.get(RequestContext.SID), cobblerProfile.getName(),
+                    user, scheduleTime,  host);
         }
         return cmd;
     }

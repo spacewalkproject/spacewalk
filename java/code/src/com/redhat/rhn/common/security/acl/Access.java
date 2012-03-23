@@ -126,7 +126,7 @@ public class Access extends BaseHandler {
         String label = params[0];
 
         SelectMode m = ModeFactory.getMode("Org_queries",
-        "has_channel_family_entitlement");
+                "has_channel_family_entitlement");
         Map queryParams = new HashMap();
         queryParams.put("label", label);
         queryParams.put("org_id", user.getOrg().getId());
@@ -177,6 +177,21 @@ public class Access extends BaseHandler {
             return false;
         }
         return server.hasEntitlement(EntitlementManager.MANAGEMENT);
+    }
+
+    /**
+     * Uses the sid param to decide if a system is a virtual guest
+     * @param ctx Context Map to pass in
+     * @param params Parameters to use (unused)
+     * @return true if a system is a satellite, false otherwise
+     */
+    public boolean aclSystemIsVirtual(Object ctx, String[] params) {
+        Map map = (Map) ctx;
+        Long sid = getAsLong(map.get("sid"));
+        User user = (User) map.get("user");
+        Server lookedUp = SystemManager.lookupByIdAndUser(sid, user);
+
+        return lookedUp.isVirtualGuest();
     }
 
     /**

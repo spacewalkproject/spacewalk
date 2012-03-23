@@ -26,8 +26,6 @@ import com.redhat.rhn.domain.server.test.ServerFactoryTest;
 import com.redhat.rhn.manager.system.SystemManager;
 import com.redhat.rhn.manager.system.test.SystemManagerTest;
 import com.redhat.rhn.testing.BaseTestCaseWithUser;
-import com.redhat.rhn.testing.ServerTestUtils;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -38,6 +36,7 @@ import java.util.Map;
 public class SystemAclHandlerTest extends BaseTestCaseWithUser {
     private Server srvr;
 
+    @Override
     public void setUp() throws Exception {
         super.setUp();
         srvr = ServerFactoryTest.createTestServer(user);
@@ -79,18 +78,6 @@ public class SystemAclHandlerTest extends BaseTestCaseWithUser {
         KickstartFactory.saveKickstartSession(sess);
         flushAndEvict(sess);
         assertTrue(sah.aclSystemKickstartSessionExists(ctx, null));
-    }
-
-    public void testIsVirtual() throws Exception {
-        Server host = ServerTestUtils.createVirtHostWithGuests(user, 1);
-        Server guest = host.getGuests().iterator().next().
-            getGuestSystem();
-
-        SystemAclHandler sah = new SystemAclHandler();
-        Map ctx = new HashMap();
-        ctx.put("sid", guest.getId());
-        ctx.put("user", user);
-        assertTrue(sah.aclSystemIsVirtual(ctx, null));
     }
 
 }

@@ -174,10 +174,10 @@
     <rhn-tab name="Join" url="/rhn/systems/details/groups/Add.do"/>
   </rhn-tab>
 
-  <rhn-tab name="Virtualization" acl="not system_is_virtual(); system_has_virtualization_entitlement()">
+  <rhn-tab name="Virtualization" acl="not system_is_virtual(); system_has_management_entitlement()">
     <rhn-tab-url>/rhn/systems/details/virtualization/VirtualGuestsList.do</rhn-tab-url>
     <rhn-tab name="Details" url="/rhn/systems/details/virtualization/VirtualGuestsList.do"/>
-    <rhn-tab name="Provisioning" url="/rhn/systems/details/virtualization/ProvisionVirtualizationWizard.do"/>
+    <rhn-tab name="Provisioning" url="/rhn/systems/details/virtualization/ProvisionVirtualizationWizard.do" acl="system_feature(ftr_kickstart) or system_feature(ftr_snapshotting)"/>
   </rhn-tab>
 
   <rhn-tab name="Audit">

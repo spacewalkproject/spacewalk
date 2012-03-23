@@ -29,7 +29,8 @@ import com.redhat.rhn.domain.server.test.ServerFactoryTest;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.user.UserFactory;
 import com.redhat.rhn.domain.user.legacy.UserImpl;
-import com.redhat.rhn.testing.RhnBaseTestCase;
+import com.redhat.rhn.testing.BaseTestCaseWithUser;
+import com.redhat.rhn.testing.ServerTestUtils;
 import com.redhat.rhn.testing.UserTestUtils;
 
 import java.util.Date;
@@ -42,7 +43,7 @@ import java.util.Set;
  * AccessTest
  * @version $Rev$
  */
-public class AccessTest extends RhnBaseTestCase {
+public class AccessTest extends BaseTestCaseWithUser {
 
     private Acl acl;
 
@@ -282,6 +283,17 @@ public class AccessTest extends RhnBaseTestCase {
         // xxx_yyy(param);
         boolean rc = aclIn.evalAcl(context, aclStr);
         assertFalse(rc);
+    }
+
+    public void testIsVirtual() throws Exception {
+        Server host = ServerTestUtils.createVirtHostWithGuests(user, 1);
+        Server guest = host.getGuests().iterator().next().getGuestSystem();
+
+        Access a = new Access();
+        Map ctx = new HashMap();
+        ctx.put("sid", guest.getId());
+        ctx.put("user", user);
+        assertTrue(a.aclSystemIsVirtual(ctx, null));
     }
 
     /**

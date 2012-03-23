@@ -16,7 +16,9 @@ package com.redhat.rhn.frontend.action.systems.virtualization;
 
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.localization.LocalizationService;
+import com.redhat.rhn.domain.rhnpackage.PackageFactory;
 import com.redhat.rhn.domain.rhnset.RhnSet;
+import com.redhat.rhn.domain.server.InstalledPackage;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.OptionsCollectionBean;
@@ -26,6 +28,7 @@ import com.redhat.rhn.frontend.action.systems.sdc.SdcHelper;
 import com.redhat.rhn.frontend.dto.VirtualSystemOverview;
 import com.redhat.rhn.frontend.listview.PageControl;
 import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.system.SystemManager;
 
@@ -47,6 +50,7 @@ import javax.servlet.http.HttpServletResponse;
 public class VirtualGuestsListSetupAction extends BaseSystemListSetupAction {
 
     /** {@inheritDoc} */
+    @Override
     public ActionForward execute(ActionMapping mapping,
             ActionForm formIn,
             HttpServletRequest request,
@@ -75,6 +79,15 @@ public class VirtualGuestsListSetupAction extends BaseSystemListSetupAction {
 
         Long sid = rctx.getRequiredParam(RequestContext.SID);
         Server server = SystemManager.lookupByIdAndUser(sid, user);
+
+        // Check if the server already has rhnVirtHost package installed.
+        InstalledPackage rhnVirtHost = PackageFactory.lookupByNameAndServer(
+                ChannelManager.RHN_VIRT_HOST_PACKAGE_NAME, server);
+
+        if (rhnVirtHost == null) {
+            // system does not have the package installed, tell them to get it.
+            addMessage(rctx.getRequest(), "system.virtualization.help");
+        }
 
         SdcHelper.ssmCheck(request, sid, user);
         request.setAttribute("set", set);
@@ -125,6 +138,7 @@ public class VirtualGuestsListSetupAction extends BaseSystemListSetupAction {
      * @param dr The list of System Overviews
      * @param user The user viewing the System List
      */
+    @Override
     public void setStatusDisplay(DataResult dr, User user) {
         Iterator i = dr.iterator();
 
@@ -147,8 +161,8 @@ public class VirtualGuestsListSetupAction extends BaseSystemListSetupAction {
     // BaseSystemListSetupAction we have no access to the
     // HttpServletRequest.  We need the request here to find the sid.
     protected DataResult getDataResult(User user,
-                                       PageControl pc,
-                                       HttpServletRequest request) {
+            PageControl pc,
+            HttpServletRequest request) {
 
         RequestContext ctx = new RequestContext(request);
         Long sid = ctx.getRequiredParam(RequestContext.SID);
@@ -163,6 +177,7 @@ public class VirtualGuestsListSetupAction extends BaseSystemListSetupAction {
         return dr;
     }
 
+    @Override
     protected DataResult getDataResult(User user, PageControl pc, ActionForm form) {
         // Never call this.
         return null;
@@ -174,6 +189,7 @@ public class VirtualGuestsListSetupAction extends BaseSystemListSetupAction {
      * are to be set.
      * @return set declation item
      */
+    @Override
     protected RhnSetDecl getSetDecl() {
         return RhnSetDecl.VIRTUAL_SYSTEMS;
     }

@@ -151,21 +151,6 @@ public class SystemAclHandler extends BaseHandler {
     }
 
     /**
-     * Uses the sid param to decide if a system is a satellite server
-     * @param ctx Context Map to pass in
-     * @param params Parameters to use (unused)
-     * @return true if a system is a satellite, false otherwise
-     */
-    public boolean aclSystemIsVirtual(Object ctx, String[] params) {
-        Map map = (Map) ctx;
-        Long sid = getAsLong(map.get("sid"));
-        User user = (User)map.get("user");
-        Server lookedUp = SystemManager.lookupByIdAndUser(sid, user);
-
-        return lookedUp.isVirtualGuest();
-    }
-
-    /**
      * Checks to see if the system has a KickstartSession
      * @param ctx Context Map to pass in
      * @param params Parameters to use (unused)
