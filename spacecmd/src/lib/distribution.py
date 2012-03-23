@@ -156,14 +156,25 @@ def complete_distribution_delete(self, text, line, beg, end):
 def do_distribution_delete(self, args):
     (args, options) = parse_arguments(args)
 
-    if len(args) != 1:
+    if not len(args):
         self.help_distribution_delete()
         return
 
-    label = args[0]
+    # allow globbing of distribution names
+    dists = filter_results(self.do_distribution_list('', True), args)
+    logging.debug("distribution_delete called with args %s, dists=%s" % \
+        (args, dists))
 
-    if self.user_confirm('Delete this tree [y/N]:'):
-        self.client.kickstart.tree.delete(self.session, label)
+    if not len(dists):
+        logging.error("No distributions matched argument %s" % args)
+        return
+
+    # Print the distributions prior to the confirmation
+    print '\n'.join(sorted(dists))
+
+    if self.user_confirm('Delete distribution tree(s) [y/N]:'):
+        for d in dists:
+            self.client.kickstart.tree.delete(self.session, d)
 
 ####################
 
