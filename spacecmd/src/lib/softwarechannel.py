@@ -533,6 +533,21 @@ def do_softwarechannel_create(self, args):
 
 ####################
 
+def softwarechannel_check_existing(self, name, label):
+    # Catch label or name which already exists, duplicate label throws a
+    # descriptive xmlrpc error, but duplicate name results in ISE
+    for c in  self.list_base_channels() + self.list_child_channels():
+        cd = self.client.channel.software.getDetails(self.session, c)
+        if cd['name'] == name:
+            logging.error("Name %s already in use by channel %s" %\
+                (name, cd['label']))
+            return True
+        if cd['label'] == label:
+            logging.error("Label %s already in use by channel %s" %\
+                (label, cd['label']))
+            return True
+    return False
+
 def help_softwarechannel_clone(self):
     print 'softwarechannel_clone: Clone a software channel'
     print '''usage: softwarechannel_clone [options]
@@ -630,6 +645,9 @@ def do_softwarechannel_clone(self, args):
             logging.debug("regex mode : %s %s %s" % (options.source_channel,\
                 options.name, options.label))
 
+    # Catch label or name which already exists
+    if self.softwarechannel_check_existing(options.name, options.label):
+        return
 
     details = { 'name' : options.name,
                 'label' : options.label,
@@ -783,6 +801,10 @@ def do_softwarechannel_clonetree(self, args):
         else:
             # Shouldn't ever get here due to earlier checks
             logging.error("called without prefix or regex option!")
+            return
+
+        # Catch label or name which already exists
+        if self.softwarechannel_check_existing(name, label):
             return
 
         details = { 'name' : name,
