@@ -86,7 +86,9 @@ Authors:
     </xsl:template>
 
     <xsl:template match="cdf:rule-result">
-        <xsl:apply-templates select="cdf:ident"/>
+        <rr>
+            <xsl:apply-templates select="cdf:ident"/>
+        </rr>
     </xsl:template>
 
     <xsl:template match="cdf:ident">

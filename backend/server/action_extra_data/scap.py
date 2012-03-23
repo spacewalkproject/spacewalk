@@ -68,17 +68,25 @@ def _process_testresult(tr, server_id, action_id, benchmark, profile, errors):
     _process_ruleresults(h.fetchone()[0], tr)
 
 def _process_ruleresults(testresult_id, tr):
-    inserts = {'tr_id': [], 'system': [], 'ident': [], 'type': []}
-    for rule_result in tr.childNodes:
-        for ident in rule_result.childNodes:
-            inserts['tr_id'].append(testresult_id)
-            inserts['system'].append(ident.getAttribute('system'))
-            inserts['ident'].append(_get_text(ident))
-            inserts['type'].append(rule_result.nodeName)
-    _store_ruleresults(inserts)
+    inserts = {'rr_id': [], 'system': [], 'ident': []}
+    for result in tr.childNodes:
+        for rr in result.childNodes:
+            rr_id = _create_rresult(testresult_id, result.nodeName)
+            for ident in rr.childNodes:
+                inserts['rr_id'].append(rr_id)
+                inserts['system'].append(ident.getAttribute('system'))
+                inserts['ident'].append(_get_text(ident))
+    _store_idents(inserts)
 
-def _store_ruleresults(data):
-    h = rhnSQL.prepare(_query_insert_ruleresult)
+def _create_rresult(testresult_id, result_label):
+    rr_id = rhnSQL.Sequence("rhn_xccdf_rresult_id_seq")()
+    h = rhnSQL.prepare(_query_insert_rresult)
+    h.execute(rr_id=rr_id, testresult_id=testresult_id,
+            result_label=result_label)
+    return rr_id
+
+def _store_idents(data):
+    h = rhnSQL.prepare(_query_insert_identmap)
     rowcount = h.execute_bulk(data)
     log_debug(5, "Inserted xccdf_ruleresults rows:", rowcount)
 
@@ -133,13 +141,21 @@ select id from rhnXccdfTestresult
     )
 """)
 
-_query_insert_ruleresult = rhnSQL.Statement("""
-insert into rhnXccdfRuleresult (testresult_id, ident_id, result_id)
+_query_insert_rresult = """
+insert into rhnXccdfRuleresult (id, testresult_id, result_id)
 values (
-    :tr_id,
-    lookup_xccdf_ident(:system, :ident),
+    :rr_id,
+    :testresult_id,
     (select rt.id
         from rhnXccdfRuleresultType rt
-        where rt.label = :type)
+        where rt.label = :result_label)
+    )
+"""
+
+_query_insert_identmap = rhnSQL.Statement("""
+insert into rhnXccdfRuleIdentMap (rresult_id, ident_id)
+values (
+    :rr_id,
+    lookup_xccdf_ident(:system, :ident)
     )
 """)

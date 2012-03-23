@@ -13,20 +13,20 @@
 -- in this software or its documentation.
 --
 
-CREATE TABLE rhnXccdfRuleresult
+CREATE TABLE rhnXccdfRuleIdentMap
 (
-    id            NUMBER NOT NULL
-                      CONSTRAINT rhn_xccdf_rresult_id_pk PRIMARY KEY
-                      USING INDEX TABLESPACE [[8m_tbs]],
-    testresult_id NUMBER NOT NULL
-                      CONSTRAINT rhn_xccdf_rresult_tresult_fk
-                          REFERENCES rhnXccdfTestresult (id)
+    rresult_id    NUMBER NOT NULL
+                      CONSTRAINT rhn_xccdf_rim_rresult_fk
+                          REFERENCES rhnXccdfRuleresult (id)
                           ON DELETE CASCADE,
-    result_id     NUMBER NOT NULL
-                      CONSTRAINT rhn_xccdf_rresult_result_fk
-                          REFERENCES rhnXccdfRuleresultType (id)
+    ident_id      NUMBER NOT NULL
+                      CONSTRAINT rhn_xccdf_rim_ident_fk
+                          REFERENCES rhnXccdfIdent (id)
 )
 ENABLE ROW MOVEMENT
 ;
 
-CREATE SEQUENCE rhn_xccdf_rresult_id_seq;
+CREATE UNIQUE INDEX rhn_xccdf_rim_ri_uq
+    ON rhnXccdfRuleIdentMap (rresult_id, ident_id)
+    TABLESPACE [[8m_tbs]]
+    NOLOGGING;
