@@ -66,6 +66,7 @@ public class VirtualGuestsActionTest extends RhnMockStrutsTestCase {
         virtualInstance.setUuid("1234");
         virtualInstance.setGuestSystem(guest);
         virtualInstance.setHostSystem(host);
+        virtualInstance.setConfirmed(1L);
         virtualInstance.setState(VirtualInstanceFactory.getInstance().getRunningState());
 
         addRequestParameter(RequestContext.SID, host.getId().toString());
@@ -114,6 +115,7 @@ public class VirtualGuestsActionTest extends RhnMockStrutsTestCase {
         VirtualInstance virtualInstance = new VirtualInstance();
         virtualInstance.setUuid("1234");
         virtualInstance.setGuestSystem(guest);
+        virtualInstance.setConfirmed(0L);
 
         ServerFactory.save(guest);
         new VirtualInstanceFactory().saveVirtualInstance(virtualInstance);
