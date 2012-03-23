@@ -184,7 +184,7 @@ public class ConfigFileBuilder {
         // Committing the revision commits the file for us (which commits the
         // Channel, so everybody's pointers get updated...)
         ConfigurationFactory.commit(revision);
-        return revision;
+        return (ConfigRevision) ConfigurationFactory.reload(revision);
     }
 
 
