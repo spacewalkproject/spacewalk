@@ -188,21 +188,34 @@ def complete_distribution_details(self, text, line, beg, end):
 def do_distribution_details(self, args):
     (args, options) = parse_arguments(args)
 
-    if len(args) != 1:
+    if not len(args):
         self.help_distribution_details()
         return
 
-    label = args[0]
+    # allow globbing of distribution names
+    dists = filter_results(self.do_distribution_list('', True), args)
+    logging.debug("distribution_details called with args %s, dists=%s" % \
+        (args, dists))
 
-    details = self.client.kickstart.tree.getDetails(self.session, label)
+    if not len(dists):
+        logging.error("No distributions matched argument %s" % args)
+        return
 
-    channel = \
-        self.client.channel.software.getDetails(self.session,
+    add_separator = False
+
+    for label in dists:
+        details = self.client.kickstart.tree.getDetails(self.session, label)
+
+        channel = \
+            self.client.channel.software.getDetails(self.session,
                                                 details.get('channel_id'))
 
-    print 'Name:    %s' % details.get('label')
-    print 'Path:    %s' % details.get('abs_path')
-    print 'Channel: %s' % channel.get('label')
+        if add_separator: print self.SEPARATOR
+        add_separator = True
+
+        print 'Name:    %s' % details.get('label')
+        print 'Path:    %s' % details.get('abs_path')
+        print 'Channel: %s' % channel.get('label')
 
 ####################
 
