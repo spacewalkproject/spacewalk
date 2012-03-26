@@ -10,9 +10,6 @@ Group: Applications/Internet
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 Requires: spacewalk-base
 Requires: perl-URI, perl(MIME::Base64)
-Requires: sudo
-# for /sbin/restorecon 
-Requires: policycoreutils
 Requires: lsof
 Obsoletes: satellite-utils < 5.3.0
 Provides: satellite-utils = 5.3.0
