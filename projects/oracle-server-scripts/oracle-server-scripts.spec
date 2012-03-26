@@ -8,7 +8,7 @@
 
 Summary: Oracle 10g Database Server Enterprise Edition scripts
 Name: oracle-server-scripts
-Version: 10.2.0.55
+Version: 10.2.0.56
 Release: 1%{?dist}
 Source0: oracle-home.sh
 Source1: init-params.ora
@@ -101,6 +101,11 @@ exit 0
 %{oracle_scripts}
 
 %changelog
+* Mon Mar 26 2012 Miroslav Suchý 10.2.0.56-1
+- add requires /sbin/restorecon (msuchy@redhat.com)
+- All the NoTgzBuilders are now spacewalkx.builderx.NoTgzBuilder.
+  (jpazdziora@redhat.com)
+
 * Thu Apr 07 2011 Tomas Lestach <tlestach@redhat.com> 10.2.0.55-1
 - fail the pipeline, if one of the pipeline commands fail (tlestach@redhat.com)
 
