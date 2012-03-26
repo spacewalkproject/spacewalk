@@ -80,7 +80,7 @@ public class ScapManager extends BaseManager {
         Map<String, Object> currResult = null;
         for (Map row : (DataResult<Map>) testResultsRaw) {
             if (currResult != null &&
-                    ((Long) currResult.get("id")).equals((Long) row.get("id"))) {
+                    ((Long) currResult.get("id")).equals(row.get("id"))) {
                 String label = (String) row.get("label");
                 Long figure = (Long) row.get("figure");
                 currResult.put(label, figure);

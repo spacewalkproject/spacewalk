@@ -224,7 +224,7 @@ public class TestUtils {
     public static Object lookupFromCacheById(Long id, String queryname) throws Exception {
         Session session = HibernateFactory.getSession();
         return session.getNamedQuery(queryname)
-                        .setString("id", id.toString())
+                        .setLong("id", id)
                         //Retrieve from cache if there
                         .setCacheable(true)
                         .uniqueResult();
