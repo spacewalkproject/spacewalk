@@ -1,4 +1,4 @@
-%define rhnroot /%{_datadir}/rhn
+%global rhnroot /%{_datadir}/rhn
 Summary: Various utility scripts and data files for RHN Satellite installations
 Name: spacewalk-admin
 URL:     https://fedorahosted.org/spacewalk
