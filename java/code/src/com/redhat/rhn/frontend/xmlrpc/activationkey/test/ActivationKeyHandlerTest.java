@@ -31,7 +31,6 @@ import com.redhat.rhn.domain.token.test.ActivationKeyTest;
 import com.redhat.rhn.frontend.xmlrpc.InvalidChannelException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidEntitlementException;
 import com.redhat.rhn.frontend.xmlrpc.MissingEntitlementException;
-import com.redhat.rhn.frontend.xmlrpc.activationkey.ActivationKeyAlreadyExistsException;
 import com.redhat.rhn.frontend.xmlrpc.activationkey.ActivationKeyHandler;
 import com.redhat.rhn.frontend.xmlrpc.serializer.ActivationKeySerializer;
 import com.redhat.rhn.frontend.xmlrpc.test.BaseHandlerTestCase;
@@ -137,7 +136,7 @@ public class ActivationKeyHandlerTest extends BaseHandlerTestCase {
                 baseChannelLabel, new Integer(0), KEY_ENTITLEMENTS, Boolean.FALSE);
             fail();
         }
-        catch (ActivationKeyAlreadyExistsException e) {
+        catch (InvalidEntitlementException e) {
             // expected
         }
     }
