@@ -19,8 +19,8 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.Calendar;
 import java.net.IDN;
+import java.util.Calendar;
 
 /**
  * SystemSearchResult
@@ -221,6 +221,13 @@ public class SystemSearchResult extends SystemOverview {
      * @param cpuMHzIn the cpuMHz to set
      */
     public void setCpuMHz(String cpuMHzIn) {
+        this.cpuMHz = cpuMHzIn;
+    }
+
+    /**
+     * @param cpuMHzIn the cpuMHz to set
+     */
+    public void setCpuMhz(String cpuMHzIn) {
         this.cpuMHz = cpuMHzIn;
     }
 
