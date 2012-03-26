@@ -2,7 +2,7 @@
 Summary: Various utility scripts and data files for RHN Satellite installations
 Name: spacewalk-admin
 URL:     https://fedorahosted.org/spacewalk
-Version: 1.8.1
+Version: 1.8.2
 Release: 1%{?dist}
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 License: GPLv2
@@ -70,6 +70,9 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) %{_sysconfdir}/rhn/service-list
 
 %changelog
+* Mon Mar 26 2012 Miroslav Suchý 1.8.2-1
+- sudo and restorecon is not needed any more
+
 * Mon Mar 26 2012 Miroslav Suchý 1.8.1-1
 - 737972 - use %%global, not %%define
 - 737972 - add license text
