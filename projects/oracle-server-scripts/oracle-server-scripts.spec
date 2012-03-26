@@ -33,6 +33,7 @@ Requires: oracle-server >= %{oracle_base_version}
 Requires: m4
 Requires: oracle-config
 Requires(post): /sbin/runuser
+Requires: /sbin/restorecon
 
 %description
 Management scripts for Oracle
