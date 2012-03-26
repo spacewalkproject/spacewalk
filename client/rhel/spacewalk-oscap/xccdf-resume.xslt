@@ -87,6 +87,9 @@ Authors:
 
     <xsl:template match="cdf:rule-result">
         <rr>
+            <xsl:attribute name="id">
+                <xsl:value-of select="normalize-space(@idref)"/>
+            </xsl:attribute>
             <xsl:apply-templates select="cdf:ident"/>
         </rr>
     </xsl:template>

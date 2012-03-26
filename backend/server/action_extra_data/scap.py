@@ -72,6 +72,10 @@ def _process_ruleresults(testresult_id, tr):
     for result in tr.childNodes:
         for rr in result.childNodes:
             rr_id = _create_rresult(testresult_id, result.nodeName)
+
+            inserts['rr_id'].append(rr_id)
+            inserts['system'].append('#IDREF#')
+            inserts['ident'].append(rr.getAttribute('id'))
             for ident in rr.childNodes:
                 inserts['rr_id'].append(rr_id)
                 inserts['system'].append(ident.getAttribute('system'))
