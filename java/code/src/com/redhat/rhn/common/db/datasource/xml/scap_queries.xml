@@ -34,16 +34,25 @@
 
 <mode name="show_ruleresults" class="com.redhat.rhn.frontend.dto.XccdfRuleResultDto">
   <query params="xid">
-  SELECT xis.system, xi.identifier, rrt.label
+  SELECT rr.id, rrt.label
       FROM rhnXccdfRuleresult rr,
-          rhnXccdfRuleresultType rrt,
+          rhnXccdfRuleresultType rrt
+      WHERE rr.testresult_id = :xid
+          AND rr.result_id = rrt.id
+      ORDER BY rrt.id
+  </query>
+</mode>
+
+<mode name="idents_per_ruleresult" class="com.redhat.rhn.frontend.dto.XccdfIdentDto">
+  <query params="rr_id">
+  SELECT xi.id, xi.identifier, xis.system
+      FROM rhnXccdfRuleIdentMap rim,
           rhnXccdfIdent xi,
           rhnXccdfIdentSystem xis
-      WHERE rr.testresult_id = :xid
-          AND rr.ident_id = xi.id
-          AND rr.result_id = rrt.id
+      WHERE rim.rresult_id = :rr_id
+          AND rim.ident_id = xi.id
           AND xi.identsystem_id = xis.id
-      ORDER BY rrt.id
+      ORDER BY xis.system
   </query>
 </mode>
 

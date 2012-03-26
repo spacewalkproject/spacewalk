@@ -14,46 +14,34 @@
  */
 package com.redhat.rhn.frontend.dto;
 
+import java.util.List;
+
+import com.redhat.rhn.manager.audit.ScapManager;
+
 /**
  * Simple DTO for transfering data from the DB to the UI through datasource.
  * @version $Rev$
  */
 public class XccdfRuleResultDto {
 
-    private String system;
-    private String identifier;
+    private Long id;
     private String label;
+    private List<XccdfIdentDto> idents;
 
     /**
-     * Returns the xccdf:rule-result system
-     * @return the system
+     * Returns id of xccdf:rule-result
+     * @return the id
      */
-    public String getSystem() {
-        return this.system;
+    public Long getId() {
+        return this.id;
     }
 
     /**
-     * Sets the xccdf:rule-result system
-     * @param systemIn to set
+     * Sets the id of xccdf:rule-result
+     * @param idIn to set
      */
-    public void setSystem(String systemIn) {
-        this.system = systemIn;
-    }
-
-    /**
-     * Returns the xccdf:ident
-     * @return the ident
-     */
-    public String getIdentifier() {
-        return this.identifier;
-    }
-
-    /**
-     * Sets the xccdf:ident
-     * @param identifierIn to set
-     */
-    public void setIdentifier(String identifierIn) {
-        this.identifier = identifierIn;
+    public void setId(Long idIn) {
+        this.id = idIn;
     }
 
     /**
@@ -70,5 +58,39 @@ public class XccdfRuleResultDto {
      */
     public void setLabel(String labelIn) {
         label = labelIn;
+    }
+
+    /**
+     * Get idref attribute of xccdf:rule-result
+     * @return idref attribute
+     */
+    public String getDocumentIdref() {
+        for (XccdfIdentDto i : getIdents()) {
+            if (i.isDocumentIdref()) {
+                return i.getIdentifier();
+            }
+        }
+        return new String();
+    }
+
+    /**
+     * Return summary of xccdf:idents in xccdf:rule-result
+     * @return comma separated list of xccdf:ident identifiers
+     */
+    public String getIdentsString() {
+        String result = new String();
+        for (XccdfIdentDto i : getIdents()) {
+            if (!i.isDocumentIdref()) {
+                result += (result.isEmpty() ? "" : ", ") + i.getIdentifier();
+            }
+        }
+        return result;
+    }
+
+    private List<XccdfIdentDto> getIdents() {
+        if (idents == null) {
+            idents = ScapManager.identsPerRuleResult(this.id);
+        }
+        return idents;
     }
 }

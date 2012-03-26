@@ -11886,14 +11886,17 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
        <trans-unit id="system.audit.xccdfdetails.jsp.xccdfrules">
          <source>XCCDF Rule Results</source>
        </trans-unit>
-       <trans-unit id="system.audit.xccdfdetails.jsp.scheme">
-         <source>Naming System URI</source>
-       </trans-unit>
-       <trans-unit id="system.audit.xccdfdetails.jsp.ident">
+       <trans-unit id="system.audit.xccdfdetails.jsp.idref">
          <source>XCCDF Rule Identifier</source>
+       </trans-unit>
+       <trans-unit id="system.audit.xccdfdetails.jsp.idents">
+         <source>XCCDF Ident Tags</source>
        </trans-unit>
        <trans-unit id="system.audit.xccdfdetails.jsp.result">
          <source>Result</source>
+       </trans-unit>
+       <trans-unit id="system.audit.xccdfdetails.jsp.unknown">
+         <source>Unknown</source>
        </trans-unit>
      </group>
 

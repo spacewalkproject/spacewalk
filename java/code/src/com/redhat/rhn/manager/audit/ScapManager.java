@@ -24,6 +24,7 @@ import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.SelectMode;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.dto.XccdfIdentDto;
 import com.redhat.rhn.manager.BaseManager;
 
 /**
@@ -73,6 +74,19 @@ public class ScapManager extends BaseManager {
         HashMap params = new HashMap();
         params.put("xid", testResultId);
         return m.execute(params);
+    }
+
+    /**
+     * Show xccdf:ident results for given rule-result
+     * @param ruleResultId of XccdfRuleResultDto
+     * @return the list of idents
+     */
+    public static List<XccdfIdentDto> identsPerRuleResult(Long ruleResultId) {
+        SelectMode m = ModeFactory.getMode("scap_queries",
+                "idents_per_ruleresult");
+        HashMap params = new HashMap();
+        params.put("rr_id", ruleResultId);
+        return (List<XccdfIdentDto>) m.execute(params);
     }
 
     private static List<Map<String, Object>> transposeView(DataResult testResultsRaw) {

@@ -56,11 +56,19 @@
     <rl:decorator name="PageSizeDecorator"/>
     <rhn:csrf/>
 
-    <rl:column headerkey="system.audit.xccdfdetails.jsp.scheme" sortattr="system" sortable="true">
-      <c:out value="${current.system}"/>
+    <rl:column headerkey="system.audit.xccdfdetails.jsp.idref" sortattr="documentIdref" sortable="true">
+      <c:choose>
+        <c:when test="${empty current.documentIdref}">
+          <bean:message key="system.audit.xccdfdetails.jsp.unknown"/>
+        </c:when>
+        <c:otherwise>
+          <c:out value="${current.documentIdref}"/>
+        </c:otherwise>
+      </c:choose>
+
     </rl:column>
-    <rl:column headerkey="system.audit.xccdfdetails.jsp.ident" sortattr="identifier" sortable="true">
-      <c:out value="${current.identifier}"/>
+    <rl:column headerkey="system.audit.xccdfdetails.jsp.idents" sortattr="identsString" sortable="true">
+      <c:out value="${current.identsString}"/>
     </rl:column>
     <rl:column headerkey="system.audit.xccdfdetails.jsp.result" sortattr="label" sortable="true" filterattr="label">
       <c:out value="${current.label}"/>
