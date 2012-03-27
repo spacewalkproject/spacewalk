@@ -22,7 +22,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.25
+Version: 1.8.26
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -603,6 +603,25 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Mar 27 2012 Tomas Lestach <tlestach@redhat.com> 1.8.26-1
+- fix KickstartDataTest.testCommands (tlestach@redhat.com)
+- fixin cobbler version issue (tlestach@redhat.com)
+- temporary disable errata check in ChannelSoftwareHandlerTest
+  (tlestach@redhat.com)
+- fix parameter type (tlestach@redhat.com)
+- fix UserManagerTest (tlestach@redhat.com)
+- fix ActivationKeyAlreadyExistsException (tlestach@redhat.com)
+- Revert "removing unused string with trans-id 'config.channels_0'"
+  (msuchy@redhat.com)
+- Revert "removing unused string with trans-id 'config.channels_1'"
+  (msuchy@redhat.com)
+- Revert "removing unused string with trans-id 'config.channels_2'"
+  (msuchy@redhat.com)
+- 806439 - Make Virtualization tab of system profile independent of
+  Virtualization (Platform) entitlements (sherr@redhat.com)
+- The org_id colum is numeric, do not cast parameter to string.
+  (jpazdziora@redhat.com)
+
 * Fri Mar 23 2012 Tomas Lestach <tlestach@redhat.com> 1.8.25-1
 - fix VirtualGuestsActionTest (tlestach@redhat.com)
 - 752416 - reload config revision from DB before returning it
