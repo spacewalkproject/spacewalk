@@ -313,6 +313,9 @@ public class MockConnection extends CobblerConnection {
         return url + "/cobbler_api";
     }
 
+    public Double getVersion() {
+        return new Double(2.2);
+    }
 
     public static void clear() {
         profiles = new ArrayList<Map>();
