@@ -39,6 +39,7 @@ mkdir -p $RPM_BUILD_ROOT%{_mandir}/man8/
 %{_bindir}/pod2man --section=8 rhn-config-satellite.pl > $RPM_BUILD_ROOT%{_mandir}/man8/rhn-config-satellite.pl.8
 %{_bindir}/pod2man --section=8 man/rhn-generate-pem.pl.pod > $RPM_BUILD_ROOT%{_mandir}/man8/rhn-generate-pem.pl.8
 %{_bindir}/pod2man --section=8 man/rhn-deploy-ca-cert.pl.pod > $RPM_BUILD_ROOT%{_mandir}/man8/rhn-deploy-ca-cert.pl.8
+%{_bindir}/pod2man --section=8 man/rhn-install-ssl-cert.pl.pod > $RPM_BUILD_ROOT%{_mandir}/man8/rhn-install-ssl-cert.pl.8
 install -p man/rhn-satellite.8 $RPM_BUILD_ROOT%{_mandir}/man8/
 install -p man/validate-sat-cert.pl.8 $RPM_BUILD_ROOT%{_mandir}/man8/
 chmod 0644 $RPM_BUILD_ROOT%{_mandir}/man8/*.8*
@@ -71,6 +72,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/rhn-config-satellite.pl.8*
 %{_mandir}/man8/rhn-generate-pem.pl.8*
 %{_mandir}/man8/rhn-deploy-ca-cert.pl.8*
+%{_mandir}/man8/rhn-install-ssl-cert.pl.8*
 %config(noreplace) %{_sysconfdir}/rhn/service-list
 
 %changelog

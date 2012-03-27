@@ -1,0 +1,24 @@
+=head1 NAME
+
+rhn-install-ssl-cert.pl - utility to install latest certificate mentioned in DIR/latest.txt 
+This tool is used internally by spacewalk-setup. You should not call it directly.
+
+=head2 SYNOPSIS
+
+B<rhn-install-ssl-cert.pl> B<--dir=DIR> [B<--help>]
+
+=head1 OPTIONS
+
+=over 5
+
+=item B<--dir=DIR>
+
+Specify directory where is you CA certificates. Usually /root/ssl-build/.
+
+=item B<--help>
+
+Display reference to this man page.
+
+=head1 SEE ALSO
+
+B<spacewalk-setup>(1), B<rhn-ssl-tool>(1)
