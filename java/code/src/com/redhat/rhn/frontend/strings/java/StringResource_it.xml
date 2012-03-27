@@ -6840,6 +6840,9 @@ Seguite l'url sotto riportato per visualizzare l'elenco completo di sistemi inat
         <context-group name="config_channel_counts">
             <context context-type="sourcefile">Every Caller of ConfigActionHelper.makeChannelCountsMessage</context>
         </context-group>
+	     <trans-unit id="config.channels_0">
+			<source>No configuration channels</source>
+        <target>Nessun canale di configurazione</target></trans-unit>
 	     <trans-unit id="config.channels_1">
 			<source>1 configuration channel</source>
         <target>1 canale di configurazione</target></trans-unit>
