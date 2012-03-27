@@ -70,24 +70,24 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) %{_sysconfdir}/rhn/service-list
 
 %changelog
-* Mon Mar 26 2012 Miroslav Suchý 1.8.2-1
+* Mon Mar 26 2012 Miroslav Suchý <msuchy@redhat.com> 1.8.2-1
 - sudo and restorecon is not needed any more
 
-* Mon Mar 26 2012 Miroslav Suchý 1.8.1-1
+* Mon Mar 26 2012 Miroslav Suchý <msuchy@redhat.com> 1.8.1-1
 - 737972 - use %%global, not %%define
 - 737972 - add license text
 - 737972 - using packages rather than filedesps
 - Bumping package versions for 1.8. (jpazdziora@redhat.com)
 
-* Fri Mar 02 2012 Jan Pazdziora 1.7.4-1
+* Fri Mar 02 2012 Jan Pazdziora <jpazdziora@redhat.com> 1.7.4-1
 - Update the copyright year info.
 
-* Fri Feb 03 2012 Jan Pazdziora 1.7.3-1
+* Fri Feb 03 2012 Jan Pazdziora <jpazdziora@redhat.com> 1.7.3-1
 - 784158 - make it possible to customize list of services managed by the
   spacewalk-service command.
 - Purging trailing whitespaces.
 
-* Fri Feb 03 2012 Jan Pazdziora 1.7.2-1
+* Fri Feb 03 2012 Jan Pazdziora <jpazdziora@redhat.com> 1.7.2-1
 - Revert "cat /var/run/.pid nondeterministically failes with 'cat: write error:
   Broken pipe', thus it's better to do it in two separate steps."
 
@@ -98,20 +98,20 @@ rm -rf $RPM_BUILD_ROOT
 - On F16 some services are run using systemd. Some remain in old fashion
   init.d. (mminar@redhat.com)
 
-* Thu Dec 08 2011 Miroslav Suchý 1.6.2-1
+* Thu Dec 08 2011 Miroslav Suchý <msuchy@redhat.com> 1.6.2-1
 - code cleanup - rhn-load-ssl-cert and rhn-sudo-load-ssl-cert are not needed
   anymore
 
-* Tue Oct 04 2011 Miroslav Suchý 1.6.1-1
+* Tue Oct 04 2011 Miroslav Suchý <msuchy@redhat.com> 1.6.1-1
 - writing pod documentation to shell script is not smart, move it aside
 
-* Tue Jul 19 2011 Jan Pazdziora 1.5.5-1
+* Tue Jul 19 2011 Jan Pazdziora <jpazdziora@redhat.com> 1.5.5-1
 - Updating the copyright years.
 
-* Tue Jul 19 2011 Jan Pazdziora 1.5.4-1
+* Tue Jul 19 2011 Jan Pazdziora <jpazdziora@redhat.com> 1.5.4-1
 - Fixing typo.
 
-* Mon Jul 18 2011 Miroslav Suchý 1.5.3-1
+* Mon Jul 18 2011 Miroslav Suchý <msuchy@redhat.com> 1.5.3-1
 - it is recomended to not use .gz extension as this may change in future
   (msuchy@redhat.com)
 - create man page for validate-sat-cert.pl.8 as alias for validate-sat-cert.8
@@ -121,18 +121,18 @@ rm -rf $RPM_BUILD_ROOT
 - add man page for rhn-sat-restart-silent (msuchy@redhat.com)
 - remove warning about obsolete rhn-satellite service (msuchy@redhat.com)
 
-* Fri Apr 29 2011 Jan Pazdziora 1.5.2-1
+* Fri Apr 29 2011 Jan Pazdziora <jpazdziora@redhat.com> 1.5.2-1
 - For config files created in /etc/rhn, do chgrp apache.
 
-* Thu Apr 28 2011 Jan Pazdziora 1.5.1-1
+* Thu Apr 28 2011 Jan Pazdziora <jpazdziora@redhat.com> 1.5.1-1
 - Disable access of other to the satellite-local-rules.conf file, as it
   contains the database password.
 
-* Wed Mar 30 2011 Jan Pazdziora 1.4.2-1
+* Wed Mar 30 2011 Jan Pazdziora <jpazdziora@redhat.com> 1.4.2-1
 - Fixing spacewalk-service start hang at waiting for tomcat.
   (dale@fedoraproject.org)
 
-* Fri Feb 18 2011 Jan Pazdziora 1.4.1-1
+* Fri Feb 18 2011 Jan Pazdziora <jpazdziora@redhat.com> 1.4.1-1
 - Explicitly require lsof in spacewalk-admin (for spacewalk-service).
 
 * Thu Jan 20 2011 Tomas Lestach <tlestach@redhat.com> 1.3.9-1
@@ -140,7 +140,7 @@ rm -rf $RPM_BUILD_ROOT
 - Removing rhn-populate-database.pl, we now use the generic spacewalk-sql.
   (jpazdziora@redhat.com)
 
-* Tue Jan 18 2011 Jan Pazdziora 1.3.8-1
+* Tue Jan 18 2011 Jan Pazdziora <jpazdziora@redhat.com> 1.3.8-1
 - The rhn-config-tnsnames.pl is no longer used, removing.
 - Do not call external /bin/touch to create a lockfile.
 
@@ -152,13 +152,13 @@ rm -rf $RPM_BUILD_ROOT
 * Tue Jan 11 2011 Miroslav Suchý <msuchy@redhat.com> 1.3.6-1
 - add man page for spacewalk-service
 
-* Tue Jan 11 2011 Jan Pazdziora 1.3.5-1
+* Tue Jan 11 2011 Jan Pazdziora <jpazdziora@redhat.com> 1.3.5-1
 - Fixing typo -- we want to eval, not echo.
 
-* Mon Jan 10 2011 Jan Pazdziora 1.3.4-1
+* Mon Jan 10 2011 Jan Pazdziora <jpazdziora@redhat.com> 1.3.4-1
 - Wait for tomcat by default, use --no-wait-for-tomcat to skip.
 
-* Tue Dec 14 2010 Jan Pazdziora 1.3.3-1
+* Tue Dec 14 2010 Jan Pazdziora <jpazdziora@redhat.com> 1.3.3-1
 - Need to define $usage if I insist on using it.
 
 * Tue Dec 14 2010 Miroslav Suchý <msuchy@redhat.com> 1.3.2-1
@@ -171,28 +171,28 @@ rm -rf $RPM_BUILD_ROOT
 - provide rhn-satellite-admin
 - provide satellite-utils
 
-* Tue Dec 14 2010 Jan Pazdziora 1.3.1-1
+* Tue Dec 14 2010 Jan Pazdziora <jpazdziora@redhat.com> 1.3.1-1
 - We need to check the return value of GetOptions and die if the parameters
   were not correct.
 
-* Tue Nov 02 2010 Jan Pazdziora 1.2.7-1
+* Tue Nov 02 2010 Jan Pazdziora <jpazdziora@redhat.com> 1.2.7-1
 - Update copyright years in the rest of the repo.
 
-* Tue Oct 19 2010 Jan Pazdziora 1.2.6-1
+* Tue Oct 19 2010 Jan Pazdziora <jpazdziora@redhat.com> 1.2.6-1
 - The /usr/sbin/rhn-satellite will no longer start/stop Oracle XE.
 
-* Wed Oct 13 2010 Jan Pazdziora 1.2.5-1
+* Wed Oct 13 2010 Jan Pazdziora <jpazdziora@redhat.com> 1.2.5-1
 - 631847 - in RHN Proxy 5.4 is used jabber 2.0 where user is called jabber
   (instead of jabberd) (msuchy@redhat.com)
 
-* Tue Sep 14 2010 Jan Pazdziora 1.2.4-1
+* Tue Sep 14 2010 Jan Pazdziora <jpazdziora@redhat.com> 1.2.4-1
 - If there are some errors with overrides, exit with error code.
 
-* Thu Sep 09 2010 Jan Pazdziora 1.2.3-1
+* Thu Sep 09 2010 Jan Pazdziora <jpazdziora@redhat.com> 1.2.3-1
 - Add back support for old Spacewalk schema sources, needed for Satellite
   schema upgrade testing.
 
-* Thu Aug 26 2010 Jan Pazdziora 1.2.2-1
+* Thu Aug 26 2010 Jan Pazdziora <jpazdziora@redhat.com> 1.2.2-1
 - 626420 - chdir to root to stop sqlplus from searching the mounted devices.
 - As we never fork now, the --nofork is obsolete, removing.
 - We do not call the schema population from WebUI, no forking.
@@ -204,11 +204,11 @@ rm -rf $RPM_BUILD_ROOT
 * Thu Jul 22 2010 Michael Mraka <michael.mraka@redhat.com> 1.1.4-1
 - 536989 - exit cleanly when run by non-root
 
-* Thu Jun 24 2010 Jan Pazdziora 1.1.3-1
+* Thu Jun 24 2010 Jan Pazdziora <jpazdziora@redhat.com> 1.1.3-1
 - To allow database population to create at least some database schema, do not
   stop on error for now.
 
-* Mon Jun 21 2010 Jan Pazdziora 1.1.2-1
+* Mon Jun 21 2010 Jan Pazdziora <jpazdziora@redhat.com> 1.1.2-1
 - For PostgreSQL, add support for connects to nondefault port; also, avoid
   using shell.
 - PostgreSQL can use local connection just fine, no need for host to be
@@ -247,10 +247,10 @@ rm -rf $RPM_BUILD_ROOT
 * Wed Mar 25 2009 jesus m. rodriguez <jesusr@redhat.com> 0.5.14-1
 - some jabberd installs use jabberd, while others use jabber, check for both.
 
-* Wed Mar 25 2009 Jan Pazdziora 0.5.13-1
+* Wed Mar 25 2009 Jan Pazdziora <jpazdziora@redhat.com> 0.5.13-1
 - 491687 - wrapper around sudo rhn-load-ssl-cert.pl, to change SELinux domain
 
-* Fri Mar 13 2009 Jan Pazdziora 0.5.12-1
+* Fri Mar 13 2009 Jan Pazdziora <jpazdziora@redhat.com> 0.5.12-1
 - 486738 - change to root's home directory before running sqlplus
 
 * Wed Mar 11 2009 jesus m. rodriguez <jesusr@redhat.com> 0.5.11-1
@@ -259,7 +259,7 @@ rm -rf $RPM_BUILD_ROOT
 * Thu Feb 26 2009 jesus m. rodriguez <jesusr@redhat.com> 0.5.10-1
 - fix typo
 
-* Thu Feb 19 2009 Jan Pazdziora 0.5.9-1
+* Thu Feb 19 2009 Jan Pazdziora <jpazdziora@redhat.com> 0.5.9-1
 - rhn-populate-database.pl: fix the LOGFILE logic
 
 * Wed Feb 11 2009 Dave Parker <dparker@redhat.com> 0.5.8-1
@@ -268,29 +268,29 @@ rm -rf $RPM_BUILD_ROOT
 - rhn-config-satellite.pl: use hardlink to create original backup
 - rhn-config-satellite.pl: code cleanup
 
-* Mon Feb  9 2009 Jan Pazdziora 0.5.6-1
+* Mon Feb  9 2009 Jan Pazdziora <jpazdziora@redhat.com> 0.5.6-1
 - rhn-config-schema.pl mustn't die if the override directory does not exist
 
-* Wed Feb  4 2009 Jan Pazdziora 0.5.5-1
+* Wed Feb  4 2009 Jan Pazdziora <jpazdziora@redhat.com> 0.5.5-1
 - only run restorecon on RHEL 5+ and with SELinux enabled
 
-* Thu Jan 29 2009 Jan Pazdziora 0.5.4-1
+* Thu Jan 29 2009 Jan Pazdziora <jpazdziora@redhat.com> 0.5.4-1
 - rhn-config-schema.pl: add check that all the overrides were used
 - rhn-config-schema.pl: turn spaces (two) to tabs
 - rhn-populate-database.pl: only write to logfile if --log specified.
 - rhn-populate-database.pl: use parameter log_file in get_next_backup_filename
 - .spec changes, silence rpmlint warnings
 
-* Fri Jan 23 2009 Jan Pazdziora 0.5.3-1
+* Fri Jan 23 2009 Jan Pazdziora <jpazdziora@redhat.com> 0.5.3-1
 - add support for schema overrides
 
 * Wed Jan 21 2009 Michael Mraka <michael.mraka@redhat.com> 0.5.2-1
 - fixed branding stuff
  
-* Mon Jan 19 2009 Jan Pazdziora 0.5.1-1
+* Mon Jan 19 2009 Jan Pazdziora <jpazdziora@redhat.com> 0.5.1-1
 - rebuilt for 0.5, after repository reorg
 
-* Fri Jan  9 2009 Jan Pazdziora 0.4.8-1
+* Fri Jan  9 2009 Jan Pazdziora <jpazdziora@redhat.com> 0.4.8-1
 - restart "stock" httpd rather than satellite-httpd (by Milan Z.)
 
 * Thu Dec 11 2008 Michael Mraka <michael.mraka@redhat.com> 0.4.6-1
@@ -314,13 +314,13 @@ rm -rf $RPM_BUILD_ROOT
 * Tue Oct 21 2008 Michael Mraka <michael.mraka@redhat.com> 0.3.2-1
 - resolved #467717 - fixed sysvinit scripts
 
-* Tue Sep 23 2008 Milan Zazrivec 0.3.1-1
+* Tue Sep 23 2008 Milan Zazrivec <mzazrivec@redhat.com> 0.3.1-1
 - fixed package obsoletes
 
-* Tue Sep  2 2008 Milan Zazrivec 0.2.1-1
+* Tue Sep  2 2008 Milan Zazrivec <mzazrivec@redhat.com> 0.2.1-1
 - bumped version for make tag-release
 
-* Tue Aug  5 2008 Jan Pazdziora 0.1.1-0
+* Tue Aug  5 2008 Jan Pazdziora <jpazdziora@redhat.com> 0.1.1-0
 - tagged for rebuild after rename, also bumping version
 
 * Mon Aug  4 2008 Miroslav Suchy <msuchy@redhat.com>
@@ -328,13 +328,13 @@ rm -rf $RPM_BUILD_ROOT
 - reworked .spec to use macros
 - fixed BuildRoot
 
-* Mon Aug  4 2008 Jan Pazdziora 0.1-1
+* Mon Aug  4 2008 Jan Pazdziora <jpazdziora@redhat.com> 0.1-1
 - removed version and sources files
 
 * Wed May 21 2008 Michael Mraka <michael.mraka@redhat.com> 5.2.0-3%{?dist}
 - fixed * expansion in rhn-populate-database.pl
 
-* Tue May 20 2008 Jan Pazdziora - 5.2.0-2%{?dist}
+* Tue May 20 2008 Jan Pazdziora <jpazdziora@redhat.com> 5.2.0-2%{?dist}
 - rebuild via dist-cvs
 
 * Thu Dec 20 2007 Justin Sherrill <jsherril@redhat.com>
