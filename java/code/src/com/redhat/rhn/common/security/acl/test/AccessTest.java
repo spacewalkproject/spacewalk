@@ -48,7 +48,8 @@ public class AccessTest extends BaseTestCaseWithUser {
     private Acl acl;
 
     @Override
-    public void setUp() {
+    public void setUp() throws Exception {
+        super.setUp();
         acl = new Acl();
         acl.registerHandler(new Access());
     }
