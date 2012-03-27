@@ -1,0 +1,29 @@
+=head1 NAME
+
+rhn-generate-pem.pl - utility to generate PEM certificate for jabber service.
+This tool is used internally by spacewalk-setup. You should not call it directly.
+
+=head2 SYNOPSIS
+
+B<rhn-generate-pem.pl> B<--ssl-dir=DIR> [B<--out-file=FILE>]
+[B<--help>]
+
+=head1 OPTIONS
+
+=over 5
+
+=item B<--ssl-dir=DIR>
+
+Specify directory where is you CA certificates. Usually /root/ssl-build/$HOSTNAME.
+
+=item B<--out-file=FILE>
+
+To which file certificate file should be saved. If ommited, it is printed to STDOUT. 
+
+=item B<--help>
+
+Display reference to this man page. :)
+
+=head1 SEE ALSO
+
+B<spacewalk-setup>(1), B<rhn-ssl-tool>(1)
