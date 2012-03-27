@@ -92,7 +92,9 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %preun host
-/sbin/chkconfig --del rhn-virtualization-host
+if [ $1 = 0 ]; then
+  /sbin/chkconfig --del rhn-virtualization-host
+fi
 
 %postun host
 %if 0%{?suse_version}
