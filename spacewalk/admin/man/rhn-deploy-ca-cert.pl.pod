@@ -1,0 +1,29 @@
+=head1 NAME
+
+rhn-deploy-ca-cert.pl - utility to move CA certificates to Spacewalk public folder.
+This tool is used internally by spacewalk-setup. You should not call it directly.
+
+=head2 SYNOPSIS
+
+B<rhn-deploy-ca-cert.pl> B<--source-dir=DIR> B<--targer-dir=DIR>
+[B<--help>]
+
+=head1 OPTIONS
+
+=over 5
+
+=item B<--source-dir=DIR>
+
+Specify directory where is you CA certificates. Usually /root/ssl-build/.
+
+=item B<--target-dir=DIR>
+
+Destination directory. Usually /var/www/html/pub.
+
+=item B<--help>
+
+Display reference to this man page.
+
+=head1 SEE ALSO
+
+B<spacewalk-setup>(1), B<rhn-ssl-tool>(1)
