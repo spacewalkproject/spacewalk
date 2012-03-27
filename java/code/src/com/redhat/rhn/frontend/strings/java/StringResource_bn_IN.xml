@@ -6822,6 +6822,9 @@ Follow this url to see the full list of inactive systems:
         <context-group name="config_channel_counts">
             <context context-type="sourcefile">Every Caller of ConfigActionHelper.makeChannelCountsMessage</context>
         </context-group>
+	     <trans-unit id="config.channels_1">
+			<source>1 configuration channel</source>
+        <target>1 কনফিগারেশন চ্যানেল</target></trans-unit>
 	     <trans-unit id="config.channels_2">
              <source>{0} configuration channels</source>
 	     <target>{0} কনফিগারেশন চ্যানেল</target></trans-unit>

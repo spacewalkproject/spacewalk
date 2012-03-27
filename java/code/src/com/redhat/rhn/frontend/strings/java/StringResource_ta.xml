@@ -6816,6 +6816,9 @@ url பின்பற்றி செயலிழக்கப்பட்ட �
         <context-group name="config_channel_counts">
             <context context-type="sourcefile">Every Caller of ConfigActionHelper.makeChannelCountsMessage</context>
         </context-group>
+	     <trans-unit id="config.channels_1">
+			<source>1 configuration channel</source>
+        <target>1 கட்டமைப்பு தடம்</target></trans-unit>
 	     <trans-unit id="config.channels_2">
              <source>{0} configuration channels</source>
 	     <target>{0} கட்டமைப்பு தடங்கள்</target></trans-unit>
