@@ -6841,6 +6841,9 @@ Follow this url to see the full list of inactive systems:
         <context-group name="config_channel_counts">
             <context context-type="sourcefile">Every Caller of ConfigActionHelper.makeChannelCountsMessage</context>
         </context-group>
+	     <trans-unit id="config.channels_2">
+             <source>{0} configuration channels</source>
+	     <target>{0} 个配置频道</target></trans-unit>
     </group>
 
       <trans-unit id="channel.unavailable">
