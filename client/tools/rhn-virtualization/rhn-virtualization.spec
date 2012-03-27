@@ -10,7 +10,7 @@ License:        GPLv2
 URL:            https://fedorahosted.org/spacewalk
 Source0:        https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 
-Version:        5.4.34
+Version:        5.4.35
 Release:        1%{?dist}
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:      noarch
@@ -136,6 +136,10 @@ fi
 %doc LICENSE
 
 %changelog
+* Tue Mar 27 2012 Stephen Herr <sherr@redhat.com> 5.4.35-1
+- 807028 - rhn-virtualization-host should not delete chkconfig settings on
+  upgrade (sherr@redhat.com)
+
 * Fri Mar 02 2012 Jan Pazdziora 5.4.34-1
 - Update the copyright year info.
 
