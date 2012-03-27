@@ -242,7 +242,7 @@ public class ErrataFactory extends HibernateFactory {
      * @param chan channel to publish it into.
      * @param user the user doing the pushing
      * @param inheritPackages include only original channel packages
-     * @return the publsihed errata
+     * @return the published errata
      */
     public static List<Errata> publishToChannel(List<Errata> errataList, Channel chan,
             User user, boolean inheritPackages) {
@@ -263,6 +263,12 @@ public class ErrataFactory extends HibernateFactory {
                             chan.getLabel());
                 }
                 Channel original = ((ClonedChannel) chan).getOriginal();
+                // see BZ 805714, if we are a clone of a clone the 1st clone
+                // may not have the errata we want
+                while (original.isCloned() &&
+                        !original.getErratas().contains(errata)) {
+                    original = ChannelFactory.lookupOriginalChannel(original);
+                }
                 packs = ErrataManager.listErrataChannelPacks(original, errata, user);
             }
             else {
