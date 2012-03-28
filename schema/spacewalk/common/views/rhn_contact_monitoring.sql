@@ -26,7 +26,7 @@ select	u.id			as recid,
 	u.login			as username,
 	u.password		as password,
 	1			as schedule_id,
-	'GMT'			as preferred_time_zone
+	'GMT' || ''			as preferred_time_zone
 from 
 	web_user_personal_info wupi,
 	web_contact u
