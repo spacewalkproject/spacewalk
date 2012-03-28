@@ -344,7 +344,7 @@ http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd"
     </trans-unit>
 
     <trans-unit id="America/Sao_Paulo">
-<source>(GMT-0200) Brazil</source>
+<source>(GMT-0300) Brazil</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/account/UserDetails</context>
         </context-group>
