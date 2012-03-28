@@ -125,6 +125,7 @@ public class UserTestUtils extends Assert {
 
 
     private static User createUserInternal(String userName, boolean randomLogin) {
+        UserFactory.getSession();
         User usr = UserFactory.createUser();
         if (randomLogin) {
             usr.setLogin(userName + TestUtils.randomString());
