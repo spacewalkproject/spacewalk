@@ -151,7 +151,7 @@ install -p -m 644 osa-dispatcher-selinux/%{modulename}.if \
 # Hardlink identical policy module packages together
 /usr/sbin/hardlink -cv %{buildroot}%{_datadir}/selinux
 
-# Install osa-dispatcher-selinux-enable which will be called in %post
+# Install osa-dispatcher-selinux-enable which will be called in %%post
 install -d %{buildroot}%{_sbindir}
 install -p -m 755 osa-dispatcher-selinux/osa-dispatcher-selinux-enable %{buildroot}%{_sbindir}/osa-dispatcher-selinux-enable
 %endif
