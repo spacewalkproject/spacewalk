@@ -192,7 +192,7 @@ public class Filter {
     /**
      * @return Returns the recurring boolean
      */
-    public Boolean isRecurring() {
+    public Boolean isRecurringBool() {
         return recurring != 0;
     }
 
