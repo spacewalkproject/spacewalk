@@ -14,8 +14,6 @@
  */
 package com.redhat.rhn.testing;
 
-import com.redhat.rhn.common.db.datasource.ModeFactory;
-import com.redhat.rhn.common.db.datasource.WriteMode;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.errata.Errata;
@@ -47,9 +45,7 @@ import com.redhat.rhn.manager.system.SystemManager;
 
 import org.hibernate.Session;
 
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 
 
@@ -226,26 +222,6 @@ public class ServerTestUtils {
      */
     public static Server createVirtHostWithGuests(int numberOfGuests) throws Exception {
         return createVirtHostWithGuests(UserTestUtils.findNewUser(), numberOfGuests);
-    }
-
-    /**
-     * Associates the given package with the given server.
-     * @param serverId  identifies the server
-     * @param packageIn identifies the package; must already be saved
-     */
-    public static  void addServerPackageMapping(Long serverId, Package packageIn) {
-        WriteMode wm = ModeFactory.getWriteMode("test_queries",
-            "insert_into_rhnServerPackage_with_arch");
-
-        Map<String, Long> params = new HashMap<String, Long>(4);
-        params.put("server_id", serverId);
-        params.put("pn_id", packageIn.getPackageName().getId());
-        params.put("evr_id", packageIn.getPackageEvr().getId());
-        params.put("arch_id", packageIn.getPackageArch().getId());
-
-        int result = wm.executeUpdate(params);
-
-        assert result == 1;
     }
 
     /**

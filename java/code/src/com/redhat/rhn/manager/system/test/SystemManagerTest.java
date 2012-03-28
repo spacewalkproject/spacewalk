@@ -924,11 +924,6 @@ public class SystemManagerTest extends RhnBaseTestCase {
             RhnSetDecl.SYSTEMS.getLabel(), SetCleanup.NOOP);
         assert ssmSet != null;
 
-        ServerTestUtils.addServerPackageMapping(server1.getId(), installedPackage1);
-        ServerTestUtils.addServerPackageMapping(server1.getId(), installedPackage2);
-
-        ServerTestUtils.addServerPackageMapping(server2.getId(), installedPackage1);
-
         //    Add the servers to the SSM set
         ServerTestUtils.addServersToSsm(admin, server1.getId(), server2.getId());
 
