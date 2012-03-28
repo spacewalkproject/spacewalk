@@ -62,8 +62,7 @@ public class TranslationsTest extends RhnBaseTestCase {
             fail("Translation should have failed");
         }
         catch (TranslationException e) {
-            assertEquals(e.getCause().getClass(),
-                         java.lang.IllegalAccessException.class);
+            assertNull(e.getCause());
         }
     }
 
