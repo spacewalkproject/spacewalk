@@ -94,7 +94,7 @@ public class KickstartInstallType extends BaseDomainHelper {
      * @return true if the installer type is rhel
      */
     public boolean isRhel() {
-        return isRhel2() || isRhel3() || isRhel4() || isRhel5();
+        return isRhel2() || isRhel3() || isRhel4() || isRhel5() || isRhel6();
     }
 
     /**
