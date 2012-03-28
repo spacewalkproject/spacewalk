@@ -604,7 +604,7 @@ public class KickstartDataTest extends BaseTestCaseWithUser {
 
         KickstartData k2 = lookupById(user.getOrg(), ksid);
         assertNotNull(k2);
-        assertEquals(2, k2.getPartitionData().split("\\n").length);
+        assertEquals(5, k2.getPartitionData().split("\\n").length);
         assertEquals(2, k2.getOptions().size()); // url and command from k creation
     }
 
