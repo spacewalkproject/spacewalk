@@ -204,7 +204,6 @@ public class ConfigChannelHandlerTest extends BaseHandlerTestCase {
                             ConfigChannel cc, String selinuxCtx)
                                         throws ValidatorException {
         Map <String, Object> data = new HashMap<String, Object>();
-        data.put("contents", contents);
         data.put(ConfigRevisionSerializer.GROUP, group);
         data.put(ConfigRevisionSerializer.OWNER, owner);
         data.put(ConfigRevisionSerializer.PERMISSIONS, perms);
@@ -212,6 +211,7 @@ public class ConfigChannelHandlerTest extends BaseHandlerTestCase {
         String start = "#@";
         String end = "@#";
         if (!isDir) {
+            data.put(ConfigRevisionSerializer.CONTENTS, contents);
             data.put(ConfigRevisionSerializer.MACRO_START, start);
             data.put(ConfigRevisionSerializer.MACRO_END, end);
         }
