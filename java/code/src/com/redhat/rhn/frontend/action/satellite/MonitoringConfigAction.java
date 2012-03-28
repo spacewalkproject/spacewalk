@@ -84,6 +84,9 @@ public class MonitoringConfigAction extends BaseConfigAction {
             // If the user submitted the form and there exists a value
             Object param = req.getParameter(ci.getName());
             if (param != null) {
+                if (MDOM.equals(ci.getName())) {
+                    param = IDN.toASCII((String) param);
+                }
                 if (!param.equals(ci.getDefinition())) {
                     ci.setDefinition((String) param);
                     getManager().storeConfigMacro(ci);
@@ -118,7 +121,6 @@ public class MonitoringConfigAction extends BaseConfigAction {
             ConfigureSatelliteCommand csc = (ConfigureSatelliteCommand) getCommand(user);
             csc.updateBoolean(ConfigDefaults.WEB_IS_MONITORING_SCOUT,
                     (Boolean) form.get(IS_MONITORING_SCOUT));
-            csc.updateString(MDOM, IDN.toASCII(form.getString(MDOM)));
             if (csc.getKeysToBeUpdated().size() > 0) {
                 valuesChanged = true;
                 ValidatorError[] verrors = csc.storeConfiguration();
@@ -143,7 +145,6 @@ public class MonitoringConfigAction extends BaseConfigAction {
             form.set(IS_MONITORING_SCOUT,
                     Boolean.valueOf(Config.get().getBoolean(
                             ConfigDefaults.WEB_IS_MONITORING_SCOUT)));
-            // form.set(MDOM, IDN.toUnicode((String) form.get(MDOM)));
         }
 
         req.setAttribute("configList", nameDescVals);
