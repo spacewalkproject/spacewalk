@@ -22,7 +22,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.28
+Version: 1.8.29
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -604,6 +604,26 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Mar 28 2012 Tomas Lestach <tlestach@redhat.com> 1.8.29-1
+- fix ConfigChannelHandlerTest revision comparism (tlestach@redhat.com)
+- fix ConfigChannelHandlerTest.testDeployAllSystems (tlestach@redhat.com)
+- 805275 - add missing query parameter (tlestach@redhat.com)
+- fix ConfigChannelHandlerTest validation issue (tlestach@redhat.com)
+- fix MDOM storage (tlestach@redhat.com)
+- fix ProfileHandlerTest (tlestach@redhat.com)
+- fix KickstartDataTest.testISRhelRevMethods (tlestach@redhat.com)
+- fix KickstartScheduleCommandTest (tlestach@redhat.com)
+- Revert "fix KickstartDataTest.testCommands" (tlestach@redhat.com)
+- fix TranslationsTest (tlestach@redhat.com)
+- fix FilterActionTest.testCreateSubmitFailValidation (tlestach@redhat.com)
+- fix FilterActionTest.testEditExecute (tlestach@redhat.com)
+- rename Filter.isRecurring to Filter.isRecurringBool (tlestach@redhat.com)
+- fix ProbeGraphActionTest and MonitoringManagerTest (tlestach@redhat.com)
+- fix ProbeGraphActionTest.setUp (tlestach@redhat.com)
+- fix SystemManagerTest.testListInstalledPackage (tlestach@redhat.com)
+- fix SystemManagerTest.testSsmSystemPackagesToRemove (tlestach@redhat.com)
+- 676434 - Text for Brazil timezone is incorrect (sherr@redhat.com)
+
 * Wed Mar 28 2012 Tomas Lestach <tlestach@redhat.com> 1.8.28-1
 - let spacewalk-java-tests require ant-junit (tlestach@redhat.com)
 - fix AccessTest (tlestach@redhat.com)
