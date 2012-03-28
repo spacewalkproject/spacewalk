@@ -1,13 +1,13 @@
-%define rhnroot /usr/share/rhn
-%define rhnconf /etc/sysconfig/rhn
-%define client_caps_dir /etc/sysconfig/rhn/clientCaps.d
+%global rhnroot /usr/share/rhn
+%global rhnconf /etc/sysconfig/rhn
+%global client_caps_dir /etc/sysconfig/rhn/clientCaps.d
 
 %if 0%{?suse_version}
-%define apache_group www
-%define include_selinux_package 0
+%global apache_group www
+%global include_selinux_package 0
 %else
-%define apache_group apache
-%define include_selinux_package 1
+%global apache_group apache
+%global include_selinux_package 1
 %endif
 
 Name: osad
@@ -81,12 +81,12 @@ that message is transported via jabber protocol to OSAD agent on the clients.
 
 %if 0%{?include_selinux_package}
 %package -n osa-dispatcher-selinux
-%define selinux_variants mls strict targeted
-%define selinux_policyver %(sed -e 's,.*selinux-policy-\\([^/]*\\)/.*,\\1,' /usr/share/selinux/devel/policyhelp 2> /dev/null)
-%define POLICYCOREUTILSVER 1.33.12-1
+%global selinux_variants mls strict targeted
+%global selinux_policyver %(sed -e 's,.*selinux-policy-\\([^/]*\\)/.*,\\1,' /usr/share/selinux/devel/policyhelp 2> /dev/null)
+%global POLICYCOREUTILSVER 1.33.12-1
 
-%define moduletype apps
-%define modulename osa-dispatcher
+%global moduletype apps
+%global modulename osa-dispatcher
 
 Summary: SELinux policy module supporting osa-dispatcher
 Group: System Environment/Base
