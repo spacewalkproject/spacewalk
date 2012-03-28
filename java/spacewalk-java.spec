@@ -22,7 +22,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.27
+Version: 1.8.28
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -604,6 +604,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Mar 28 2012 Tomas Lestach <tlestach@redhat.com> 1.8.28-1
+- let spacewalk-java-tests require ant-junit (tlestach@redhat.com)
+- fix AccessTest (tlestach@redhat.com)
+
 * Tue Mar 27 2012 Stephen Herr <sherr@redhat.com> 1.8.27-1
 - 807463 - If our channel is a clone of a clone we need to find the channel
   that contains the erratum we are cloning (sherr@redhat.com)
