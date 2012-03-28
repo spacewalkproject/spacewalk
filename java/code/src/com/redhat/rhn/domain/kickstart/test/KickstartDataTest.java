@@ -700,7 +700,7 @@ public class KickstartDataTest extends BaseTestCaseWithUser {
         assertTrue(k.isRhel5OrGreater());
 
         k.getTree().setInstallType(KickstartFactory.
-                lookupKickstartInstallTypeByLabel("fedora_9"));
+                lookupKickstartInstallTypeByLabel("fedora"));
         assertTrue(k.isRhel5OrGreater());
         assertFalse(k.isRhel5());
     }
