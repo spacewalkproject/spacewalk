@@ -227,6 +227,7 @@ Group:  Applications/Internet
 
 BuildRequires:  jmock
 Requires: jmock
+Requires: ant-junit
 
 %description tests
 This package contains testing files of spacewalk-java.  
