@@ -262,7 +262,8 @@ public class ConfigChannelHandlerTest extends BaseHandlerTestCase {
     private void assertRev(ConfigRevision rev, String path, ConfigChannel cc) {
         List<String> paths = new ArrayList<String>(1);
         paths.add(path);
-        assertEquals(rev, handler.lookupFileInfo(adminKey, cc.getLabel(), paths).get(0));
+        assertTrue(rev.matches(handler.lookupFileInfo(adminKey, cc.getLabel(), paths)
+                    .get(0)));
 
     }
 
