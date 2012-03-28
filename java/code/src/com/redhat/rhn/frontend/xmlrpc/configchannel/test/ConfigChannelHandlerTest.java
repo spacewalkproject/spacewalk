@@ -433,27 +433,28 @@ public class ConfigChannelHandlerTest extends BaseHandlerTestCase {
 
         ServerFactory.save(srv1);
 
-        Set <ConfigRevision> revisions = new HashSet<ConfigRevision>();
+        Map <Long, Set<ConfigRevision>> revisions =
+            new HashMap<Long, Set<ConfigRevision>>();
 
         ConfigFile g1f1 = gcc1.createConfigFile(
                 ConfigFileState.normal(), "/etc/foo1");
-        revisions.add(ConfigTestUtils.createConfigRevision(g1f1));
+        store(revisions, gcc1.getId(), ConfigTestUtils.createConfigRevision(g1f1));
 
         ConfigurationFactory.commit(gcc1);
 
         ConfigFile g1f2 = gcc1.createConfigFile(
                 ConfigFileState.normal(), "/etc/foo2");
-        revisions.add(ConfigTestUtils.createConfigRevision(g1f2));
+        store(revisions, gcc1.getId(), ConfigTestUtils.createConfigRevision(g1f2));
         ConfigurationFactory.commit(gcc2);
 
         ConfigFile g2f2 = gcc2.createConfigFile(
                 ConfigFileState.normal(), "/etc/foo4");
-        revisions.add(ConfigTestUtils.createConfigRevision(g2f2));
+        store(revisions, gcc2.getId(), ConfigTestUtils.createConfigRevision(g2f2));
         ConfigurationFactory.commit(gcc2);
 
         ConfigFile g2f3 = gcc2.createConfigFile(
                 ConfigFileState.normal(), "/etc/foo3");
-        revisions.add(ConfigTestUtils.createConfigRevision(g2f3));
+        store(revisions, gcc2.getId(), ConfigTestUtils.createConfigRevision(g2f3));
         ConfigurationFactory.commit(gcc2);
 
 
@@ -489,11 +490,20 @@ public class ConfigChannelHandlerTest extends BaseHandlerTestCase {
             }
         }
         assertNotNull(ca);
-        assertEquals(revisions.size(), ca.getConfigRevisionActions().size());
+        assertEquals(revisions.get(gcc1.getId()).size(),
+                ca.getConfigRevisionActions().size());
         for (ConfigRevisionAction cra : ca.getConfigRevisionActions()) {
-            assertTrue(revisions.contains(cra.getConfigRevision()));
+            assertTrue(revisions.get(gcc1.getId()).contains(cra.getConfigRevision()));
         }
 
+    }
+
+    private void store(Map<Long, Set<ConfigRevision>> revisions, Long ccid,
+            ConfigRevision crev) {
+        if (!revisions.containsKey(ccid)) {
+            revisions.put(ccid, new HashSet<ConfigRevision>());
+        }
+        revisions.get(ccid).add(crev);
     }
 
 }
