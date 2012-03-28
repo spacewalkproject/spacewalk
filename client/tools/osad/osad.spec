@@ -474,7 +474,7 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 - make osa-dispatcher start after jabberd
 
 * Mon Jun 21 2010 Jan Pazdziora 5.9.35-1
-- Some spell checking in %descriptions.
+- Some spell checking in %%descriptions.
 - OSAD stands for Open Source Architecture Daemon.
 
 * Tue May 04 2010 Jan Pazdziora 5.9.34-1
