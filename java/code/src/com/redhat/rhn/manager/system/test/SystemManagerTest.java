@@ -65,7 +65,6 @@ import com.redhat.rhn.frontend.dto.SystemOverview;
 import com.redhat.rhn.frontend.listview.PageControl;
 import com.redhat.rhn.manager.entitlement.EntitlementManager;
 import com.redhat.rhn.manager.errata.cache.ErrataCacheManager;
-import com.redhat.rhn.manager.rhnpackage.PackageManager;
 import com.redhat.rhn.manager.rhnpackage.test.PackageManagerTest;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.rhnset.RhnSetManager;
@@ -1098,7 +1097,7 @@ public class SystemManagerTest extends RhnBaseTestCase {
 
         InstalledPackage p = new InstalledPackage();
         p.setArch(PackageFactory.lookupPackageArchByLabel("x86_64"));
-        p.setName(PackageManager.lookupPackageName("kernel"));
+        p.setName(PackageFactory.lookupOrCreatePackageByName("kernel"));
         p.setEvr(PackageEvrFactoryTest.createTestPackageEvr());
         p.setServer(s);
         Set set = new HashSet();
