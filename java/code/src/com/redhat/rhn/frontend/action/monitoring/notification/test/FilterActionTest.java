@@ -214,7 +214,7 @@ public class FilterActionTest extends RhnBaseTestCase {
 
         DynaActionForm form = ah.getForm();
         assertEquals(form.get(FilterEditAction.RECURRING),
-                filter.getRecurring());
+                filter.isRecurringBool());
         assertEquals(form.get(FilterEditAction.RECURRING_DURATION),
                 filter.getRecurringDuration().toString());
         assertEquals(form.get(FilterEditAction.RECURRING_FREQUENCY),
