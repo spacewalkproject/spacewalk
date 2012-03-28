@@ -1285,7 +1285,7 @@ ORDER BY CFN.path
 </mode>
 
 <mode name="file_names_for_system_channel" class="com.redhat.rhn.frontend.dto.ConfigFileNameDto">
-  <query params="sid, user_id">
+  <query params="sid, ccid, user_id">
 SELECT  DISTINCT CFN.id, CFN.path
   FROM  rhnConfigFileName CFN, rhnServerConfigChannel SCC,
         rhnConfigFile CF, rhnUserServerPerms USP,
