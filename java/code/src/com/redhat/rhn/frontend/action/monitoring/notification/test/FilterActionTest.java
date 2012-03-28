@@ -166,6 +166,9 @@ public class FilterActionTest extends RhnBaseTestCase {
         assertEquals(1, messages.size());
         assertEquals("", ah.getForm().get(FilterCreateAction.DESCRIPTION));
 
+        // clear action messages
+        ah.getRequest().getSession().removeAttribute(Globals.ERROR_KEY);
+
         // Test requiredIf
         ah.getForm().set(FilterCreateAction.RECURRING, Boolean.TRUE);
         ah.executeAction();
