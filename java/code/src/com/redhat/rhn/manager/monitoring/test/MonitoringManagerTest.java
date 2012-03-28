@@ -176,7 +176,7 @@ public class MonitoringManagerTest extends RhnBaseTestCase {
         // Insert a blank number, since some probe data has NULL data.
         Timestamp laterTime = new Timestamp(System.currentTimeMillis());
         insertTimeSeriesData(laterTime, userIn.getOrg().getId(), probeIn
-                .getId(), "", metric);
+                .getId(), null, metric);
         return entryTime;
     }
 
