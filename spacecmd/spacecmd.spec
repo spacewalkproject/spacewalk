@@ -4,7 +4,7 @@
 %endif
 
 Name:        spacecmd
-Version:     1.8.1
+Version:     1.8.2
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -61,6 +61,35 @@ touch %{buildroot}/%{python_sitelib}/spacecmd/__init__.py
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Thu Mar 29 2012 Steven Hardy <shardy@redhat.com> 1.8.2-1
+- spacecmd : softwarechannel_clone avoid ISE on duplicate name
+  (shardy@redhat.com)
+- spacecmd bugfix : softwarechannel_adderrata mergeErrata should be
+  cloneErrataAsOriginal (shardy@redhat.com)
+- spacecmd enhancement : Add globbing support to distribution_details
+  (shardy@redhat.com)
+- spacecmd enhancement : Add globbing support to distribution_delete
+  (shardy@redhat.com)
+- spacecmd : Cleanup some typos in comments (shardy@redhat.com)
+- spacecmd enhancement : custominfo_details add support for globbing key names
+  (shardy@redhat.com)
+- spacecmd enhancement : custominfo_deletekey add support for globbing key
+  names (shardy@redhat.com)
+- spacecmd enhancement : Add cryptokey_details globbing support
+  (shardy@redhat.com)
+- spacecmd enhancement : cryptokey_delete add support for globbing
+  (shardy@redhat.com)
+- spacecmd : Workaround missing date key in recent spacewalk listErrata
+  (shardy@redhat.com)
+- spacecmd : Add validation to softwarechannel_adderrata channel args
+  (shardy@redhat.com)
+- spacecmd enhancement : softwarechannel_adderrata add --skip mode
+  (shardy@redhat.com)
+- spacecmd enhancement : Add --quick mode to softwarechannel_adderrata
+  (shardy@redhat.com)
+- spacecmd enhancement : Allow config-channel export of b64 encoded files
+  (shardy@redhat.com)
+
 * Mon Mar 12 2012 Jan Pazdziora 1.8.1-1
 - Update the spacecmd copyright years for Red Hat contributions.
 
