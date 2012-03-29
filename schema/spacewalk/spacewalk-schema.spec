@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.8.11
+Version:        1.8.12
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -69,6 +69,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Thu Mar 29 2012 Simon Lukasik <slukasik@redhat.com> 1.8.12-1
+- Fix SHA1 of oracle sources. (slukasik@redhat.com)
+
 * Thu Mar 29 2012 Simon Lukasik <slukasik@redhat.com> 1.8.11-1
 - Schema upgrade for the new rule/ident mapping. (slukasik@redhat.com)
 - We want to store all idents per rule-result (slukasik@redhat.com)
