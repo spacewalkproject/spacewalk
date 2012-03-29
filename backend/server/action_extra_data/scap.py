@@ -54,20 +54,29 @@ def _process_testresult(tr, server_id, action_id, benchmark, profile, errors):
     h = rhnSQL.prepare(_query_insert_tresult, blob_map={'errors': 'errors'})
     h.execute(server_id=server_id,
         action_id=action_id,
-        bench_id=benchmark.getAttribute('id'),
-        bench_version=benchmark.getAttribute('version'),
+        bench_id=_truncate(benchmark.getAttribute('id'), 120),
+        bench_version=_truncate(benchmark.getAttribute('version'), 80),
         profile_id=profile.getAttribute('id'),
-        profile_title=profile.getAttribute('title'),
-        identifier=tr.getAttribute('id'),
+        profile_title=_truncate(profile.getAttribute('title'), 120),
+        identifier=_truncate(tr.getAttribute('id'), 120),
         start_time=start_time.replace('T',' '),
         end_time=tr.getAttribute('end-time').replace('T', ' '),
         errors=errors
         )
     h = rhnSQL.prepare(_query_get_tresult)
     h.execute(server_id=server_id, action_id=action_id)
-    _process_ruleresults(h.fetchone()[0], tr)
+    testresult_id = h.fetchone()[0]
+    if not _process_ruleresults(testresult_id, tr):
+        h = rhnSQL.prepare(_query_update_errors, blob_map={'errors': 'errors'})
+        h.execute(testresult_id=testresult_id,
+            errors=errors +
+            '\nSome text strings were truncated when saving to the database.')
+
+truncated = False
 
 def _process_ruleresults(testresult_id, tr):
+    global truncated
+    truncated = False
     inserts = {'rr_id': [], 'system': [], 'ident': []}
     for result in tr.childNodes:
         for rr in result.childNodes:
@@ -75,12 +84,20 @@ def _process_ruleresults(testresult_id, tr):
 
             inserts['rr_id'].append(rr_id)
             inserts['system'].append('#IDREF#')
-            inserts['ident'].append(rr.getAttribute('id'))
+            inserts['ident'].append(_truncate(rr.getAttribute('id'), 100))
             for ident in rr.childNodes:
                 inserts['rr_id'].append(rr_id)
-                inserts['system'].append(ident.getAttribute('system'))
-                inserts['ident'].append(_get_text(ident))
+                inserts['system'].append(_truncate(ident.getAttribute('system'), 80))
+                inserts['ident'].append(_truncate(_get_text(ident), 100))
     _store_idents(inserts)
+    return not truncated
+
+def _truncate(string, max_len):
+    global truncated
+    if len(string) > max_len:
+        truncated = True
+        return string[:max_len-3] + "..."
+    return string
 
 def _create_rresult(testresult_id, result_label):
     rr_id = rhnSQL.Sequence("rhn_xccdf_rresult_id_seq")()
@@ -163,3 +180,10 @@ values (
     lookup_xccdf_ident(:system, :ident)
     )
 """)
+
+_query_update_errors = rhnSQL.Statement("""
+update rhnXccdfTestresult
+set errors = :errors
+where id = :testresult_id
+""")
+
