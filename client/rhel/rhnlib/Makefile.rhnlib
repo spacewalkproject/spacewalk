@@ -32,6 +32,7 @@ setup.cfg: setup.cfg.in $(VERFILE)
 
 build: setup.py
 	@$(PYTHON) setup.py build
+	for i in build/lib/rhn/rpclib.py build/lib/rhn/transports.py ; do sed -i 's!\$$Revision\$$!$(VERSION)-$(RELEASE)!' $$i ; done
 
 install: setup.py setup.cfg
 	@$(PYTHON) setup.py install
