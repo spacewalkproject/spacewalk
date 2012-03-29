@@ -22,7 +22,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.30
+Version: 1.8.31
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -604,6 +604,12 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Mar 29 2012 Stephen Herr <sherr@redhat.com> 1.8.31-1
+- 808210 - Fixing ISE on selecting None yum checksum type for channel
+  (sherr@redhat.com)
+- 808162 - Auto-import the RHEL RPM GPG key for systems we have kickstarted
+  (sherr@redhat.com)
+
 * Thu Mar 29 2012 Simon Lukasik <slukasik@redhat.com> 1.8.30-1
 - Rework web interface to correspond with 0-n rule/ident mapping
   (slukasik@redhat.com)
