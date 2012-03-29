@@ -28,7 +28,7 @@ public class ScapActionDetails extends ActionChild {
     private byte[] parameters;
 
     /**
-     * {@inheritDoc}
+     * Default constructor.
      */
     public ScapActionDetails() {
         super();
