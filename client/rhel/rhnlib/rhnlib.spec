@@ -4,7 +4,7 @@ Summary: Python libraries for the RHN project
 Name: rhnlib
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 2.5.51
+Version: 2.5.52
 Release: 1%{?dist}
 
 Group: Development/Libraries
@@ -61,6 +61,9 @@ rm -rf $RPM_BUILD_ROOT
 %{python_sitelib}/*
 
 %changelog
+* Thu Mar 29 2012 Jan Pazdziora 2.5.52-1
+- 807679 - replace $Revision$ with rhnlib version-release.
+
 * Fri Jan 27 2012 Jan Pazdziora 2.5.51-1
 - Revert "make split_host IPv6 compliant" (msuchy@redhat.com)
 
