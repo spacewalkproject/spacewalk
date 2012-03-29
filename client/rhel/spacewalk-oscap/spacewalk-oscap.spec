@@ -1,5 +1,5 @@
 Name:		spacewalk-oscap
-Version:	0.0.4
+Version:	0.0.5
 Release:	1%{?dist}
 Summary:	OpenSCAP plug-in for rhn-check
 
@@ -43,6 +43,12 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Thu Mar 29 2012 Simon Lukasik <slukasik@redhat.com> 0.0.5-1
+- Store also @idref of xccdf:rule-result element (slukasik@redhat.com)
+- We want to store all idents per rule-result (slukasik@redhat.com)
+- Only one Profile element is useful (slukasik@redhat.com)
+- Make sure only one TestResult element is used (slukasik@redhat.com)
+
 * Wed Feb 29 2012 Simon Lukasik <slukasik@redhat.com> 0.0.4-1
 - Send capabilities to server. (slukasik@redhat.com)
 
