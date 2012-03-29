@@ -1,4 +1,4 @@
--- oracle equivalent source sha1 086e3135accd03bd79f2656d7e657af6d6b1b81f
+-- oracle equivalent source sha1 fb7dcca51b20b0109694ce8fefa8d51a25aaaaa2
 
 CREATE TABLE rhnXccdfRuleIdentMap
 (
