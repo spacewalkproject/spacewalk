@@ -10,6 +10,8 @@ description:
 columns:
 
 	testresult_id:i		Testresult identifier
+	ruleresult_id:i		Ruleresult identifier
+	idref			Ruleresult text identifier
 	system			Naming scheme for the identifier
 	ident			Identifier of the xccdf rule
 	result			Result of the check
@@ -18,16 +20,34 @@ multival_columns:
 
 sql:
 
-	select testresult_id, system, ident, result from (
-	select rhnxccdftestresult.id as testresult_id,
+	select testresult_id, ruleresult_id, idref, system, ident, result from (
+	select rhnxccdfruleresult.testresult_id as testresult_id,
+		rhnxccdfruleresult.id as ruleresult_id,
+		(select xi.identifier
+			from rhnxccdfruleidentmap rim, rhnxccdfident xi, rhnxccdfidentsystem xis
+			where rim.rresult_id = rhnxccdfruleresult.id
+				and rim.ident_id = xi.id
+				and xi.identsystem_id = xis.id
+				and xis.system = '#IDREF#'
+		) as idref,
 		rhnxccdfidentsystem.system as system,
 		rhnxccdfident.identifier as ident,
 		rhnxccdfruleresulttype.label as result
-	from rhnxccdftestresult, rhnxccdfruleresult, rhnxccdfruleresulttype, rhnxccdfident, rhnxccdfidentsystem
-	where rhnxccdftestresult.id = rhnxccdfruleresult.testresult_id
-		and rhnxccdfruleresult.result_id = rhnxccdfruleresulttype.id
-		and rhnxccdfruleresult.ident_id = rhnxccdfident.id
-		and rhnxccdfident.identsystem_id = rhnxccdfidentsystem.id
+	from rhnxccdfruleresult
+		left outer join rhnxccdfruleresulttype
+			on rhnxccdfruleresult.result_id = rhnxccdfruleresulttype.id
+		left outer join rhnxccdfruleidentmap
+			on rhnxccdfruleresult.id = rhnxccdfruleidentmap.rresult_id
+			and (select count(*)
+				from rhnxccdfident xi, rhnxccdfidentsystem xis
+				where rhnxccdfruleidentmap.ident_id = xi.id
+					and xi.identsystem_id = xis.id
+					and xis.system = '#IDREF#'
+			) = 0
+		left outer join rhnxccdfident
+			on rhnxccdfruleidentmap.ident_id = rhnxccdfident.id
+		left outer join rhnxccdfidentsystem
+			on rhnxccdfident.identsystem_id = rhnxccdfidentsystem.id
 	) X
 	-- where placeholder
-	order by testresult_id, system, ident
+	order by testresult_id, ruleresult_id, system, ident
