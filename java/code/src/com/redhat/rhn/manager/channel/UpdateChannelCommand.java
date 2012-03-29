@@ -88,8 +88,8 @@ public class UpdateChannelCommand extends CreateChannelCommand {
      * valid base channel.
      */
     public Channel update(Long cid)
-        throws InvalidChannelLabelException, InvalidChannelNameException,
-        InvalidParentChannelException {
+            throws InvalidChannelLabelException, InvalidChannelNameException,
+            InvalidParentChannelException {
 
         verifyRequiredParameters();
         verifyChannelName(name);
@@ -107,17 +107,21 @@ public class UpdateChannelCommand extends CreateChannelCommand {
             throw new IllegalArgumentException("Invalid architecture label");
         }
 
-        ChecksumType ct = ChannelFactory.findChecksumTypeByLabel(checksum);
-        if (ct == null) {
-            throw new InvalidChecksumLabelException(checksum);
+        ChecksumType ct = null;
+        // RHEL <= 4 does not use yum and therefore does not have a checksum
+        if (!checksum.equals("")) {
+            ct = ChannelFactory.findChecksumTypeByLabel(checksum);
+            if (ct == null) {
+                throw new InvalidChecksumLabelException(checksum);
+            }
+            if (checksumChanged(c.getChecksumTypeLabel(), ct) &&
+                    c.getPackageCount() > 0) {
+                // schedule repo re generation if the checksum type changed
+                // and the channel has packages
+                ChannelManager.queueChannelChange(c.getLabel(),
+                        "java::updateChannelCommon", null);
+            }
         }
-        if (checksumChanged(c.getChecksumTypeLabel(), ct) && c.getPackageCount() > 0) {
-            // schedule repo re generation if the checksum type changed
-            // and the channel has packages
-            ChannelManager.queueChannelChange(c.getLabel(),
-                    "java::updateChannelCommon", null);
-        }
-
         c.setName(name);
         c.setSummary(summary);
         c.setDescription(description);
