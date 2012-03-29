@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.8.10
+Version:        1.8.11
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -69,6 +69,12 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Thu Mar 29 2012 Simon Lukasik <slukasik@redhat.com> 1.8.11-1
+- Schema upgrade for the new rule/ident mapping. (slukasik@redhat.com)
+- We want to store all idents per rule-result (slukasik@redhat.com)
+- Extend xccdf:ident length (slukasik@redhat.com)
+- A fast way to force the preferred_time_zone to be string. (msuchy@redhat.com)
+
 * Mon Mar 26 2012 Miroslav Suchý 1.8.10-1
 - add requires /sbin/restorecon
 
