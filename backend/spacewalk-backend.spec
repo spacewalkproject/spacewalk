@@ -12,7 +12,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.7
+Version: 1.8.8
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -688,6 +688,12 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Thu Mar 29 2012 Simon Lukasik <slukasik@redhat.com> 1.8.8-1
+- Store also @idref of xccdf:rule-result element (slukasik@redhat.com)
+- We want to store all idents per rule-result (slukasik@redhat.com)
+- PostgreSQL 9.x does not like alias without AS, the alias not needed in the
+  end. (jonathan.hoser@helmholtz-muenchen.de)
+
 * Wed Mar 21 2012 Jan Pazdziora 1.8.7-1
 - Avoid printing "None" when uninitialized value is found.
 - The parameter/option is traceback_mail.
