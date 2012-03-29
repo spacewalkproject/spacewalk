@@ -22,7 +22,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.29
+Version: 1.8.30
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -604,6 +604,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Mar 29 2012 Simon Lukasik <slukasik@redhat.com> 1.8.30-1
+- Rework web interface to correspond with 0-n rule/ident mapping
+  (slukasik@redhat.com)
+
 * Wed Mar 28 2012 Tomas Lestach <tlestach@redhat.com> 1.8.29-1
 - fix ConfigChannelHandlerTest revision comparism (tlestach@redhat.com)
 - fix ConfigChannelHandlerTest.testDeployAllSystems (tlestach@redhat.com)
