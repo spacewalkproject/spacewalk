@@ -2849,6 +2849,15 @@
             path="/WEB-INF/pages/systems/details/audit/xccdfdetails.jsp"/>
     </action>
 
+    <action path="/systems/details/audit/RuleDetails"
+        scope="request"
+        input="/WEB-INF/pages/systems/details/audit/ruledetails.jsp"
+        type="com.redhat.rhn.frontend.action.systems.audit.RuleDetailsAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <forward name="default"
+            path="/WEB-INF/pages/systems/details/audit/ruledetails.jsp"/>
+    </action>
+
     <!-- ===== SYSTEMS DETAILS ===== -->
     <action path="/systems/details/packages/Packages"
         scope="request"

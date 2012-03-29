@@ -25,6 +25,7 @@ import com.redhat.rhn.common.db.datasource.SelectMode;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.XccdfIdentDto;
+import com.redhat.rhn.frontend.dto.XccdfRuleResultDto;
 import com.redhat.rhn.manager.BaseManager;
 
 /**
@@ -74,6 +75,20 @@ public class ScapManager extends BaseManager {
         HashMap params = new HashMap();
         params.put("xid", testResultId);
         return m.execute(params);
+    }
+
+    /**
+     * Get xccdf:rule-result by id
+     * @param ruleResultId of the XccdfRuleResult
+     * @return the result
+     */
+    public static XccdfRuleResultDto ruleResultById(Long ruleResultId) {
+        SelectMode m = ModeFactory.getMode("scap_queries",
+                "ruleresult_by_id");
+        HashMap params = new HashMap();
+        params.put("rr_id", ruleResultId);
+        List<XccdfRuleResultDto> result = (List<XccdfRuleResultDto>) m.execute(params);
+        return result.isEmpty() ? null : result.get(0);
     }
 
     /**

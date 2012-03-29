@@ -34,12 +34,22 @@
 
 <mode name="show_ruleresults" class="com.redhat.rhn.frontend.dto.XccdfRuleResultDto">
   <query params="xid">
-  SELECT rr.id, rrt.label
+  SELECT rr.id, rrt.label, rr.testresult_id as test_result_id
       FROM rhnXccdfRuleresult rr,
           rhnXccdfRuleresultType rrt
       WHERE rr.testresult_id = :xid
           AND rr.result_id = rrt.id
       ORDER BY rrt.id
+  </query>
+</mode>
+
+<mode name="ruleresult_by_id" class="com.redhat.rhn.frontend.dto.XccdfRuleResultDto">
+  <query params="rr_id">
+  SELECT rr.id, rrt.label, rr.testresult_id as test_result_id
+      FROM rhnXccdfRuleresult rr,
+          rhnXccdfRuleresultType rrt
+      WHERE rr.id = :rr_id
+          AND rr.result_id = rrt.id
   </query>
 </mode>
 

@@ -57,14 +57,16 @@
     <rhn:csrf/>
 
     <rl:column headerkey="system.audit.xccdfdetails.jsp.idref" sortattr="documentIdref" sortable="true">
-      <c:choose>
-        <c:when test="${empty current.documentIdref}">
-          <bean:message key="system.audit.xccdfdetails.jsp.unknown"/>
-        </c:when>
-        <c:otherwise>
-          <c:out value="${current.documentIdref}"/>
-        </c:otherwise>
-      </c:choose>
+      <a href="/rhn/systems/details/audit/RuleDetails.do?sid=${param.sid}&rrid=${current.id}">
+        <c:choose>
+          <c:when test="${empty current.documentIdref}">
+            <bean:message key="system.audit.xccdfdetails.jsp.unknown"/>
+          </c:when>
+          <c:otherwise>
+            <c:out value="${current.documentIdref}"/>
+          </c:otherwise>
+        </c:choose>
+      </a>
 
     </rl:column>
     <rl:column headerkey="system.audit.xccdfdetails.jsp.idents" sortattr="identsString" sortable="true">

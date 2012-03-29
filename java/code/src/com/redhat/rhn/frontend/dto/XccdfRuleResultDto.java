@@ -14,8 +14,11 @@
  */
 package com.redhat.rhn.frontend.dto;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import com.redhat.rhn.domain.audit.ScapFactory;
+import com.redhat.rhn.domain.audit.XccdfTestResult;
 import com.redhat.rhn.manager.audit.ScapManager;
 
 /**
@@ -26,6 +29,7 @@ public class XccdfRuleResultDto {
 
     private Long id;
     private String label;
+    private Long testResultId;
     private List<XccdfIdentDto> idents;
 
     /**
@@ -61,6 +65,30 @@ public class XccdfRuleResultDto {
     }
 
     /**
+     * Returns id of parent xccdf:TestResult
+     * @return the id
+     */
+    public Long getTestResultId() {
+        return this.testResultId;
+    }
+
+    /**
+     * Sets the id of parent xccdf:TestResult
+     * @param testResultIdIn to set
+     */
+    public void setTestResultId(Long testResultIdIn) {
+        testResultId = testResultIdIn;
+    }
+
+    /**
+     * Returns the parent testResult
+     * @return the parent testResult
+     */
+    public XccdfTestResult getTestResult() {
+        return ScapFactory.lookupTestResultById(this.testResultId);
+    }
+
+    /**
      * Get idref attribute of xccdf:rule-result
      * @return idref attribute
      */
@@ -71,6 +99,20 @@ public class XccdfRuleResultDto {
             }
         }
         return new String();
+    }
+
+    /**
+     * Get idents without idref
+     * @return list of idents without the idref
+     */
+    public List<XccdfIdentDto> getIdentsWithoutIdref() {
+        List<XccdfIdentDto> result = new ArrayList<XccdfIdentDto>();
+        for (XccdfIdentDto i : getIdents()) {
+            if (!i.isDocumentIdref()) {
+                result.add(i);
+            }
+        }
+        return result;
     }
 
     /**
