@@ -1455,6 +1455,15 @@ public class Server extends BaseDomainHelper implements Identifiable {
     }
 
     /**
+     * Return <code>true</code> if this is a bare metal system.
+     * @return <code>true</code> if this is bare metal
+     */
+    public boolean isBootstrap() {
+        return hasEntitlement(EntitlementManager.BOOTSTRAP);
+    }
+
+
+    /**
      *
      * @return the virtual guests
      */

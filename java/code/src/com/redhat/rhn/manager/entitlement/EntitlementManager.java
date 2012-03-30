@@ -17,6 +17,7 @@ package com.redhat.rhn.manager.entitlement;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.SelectMode;
+import com.redhat.rhn.domain.entitlement.BootstrapEntitlement;
 import com.redhat.rhn.domain.entitlement.Entitlement;
 import com.redhat.rhn.domain.entitlement.ManagementEntitlement;
 import com.redhat.rhn.domain.entitlement.MonitoringEntitlement;
@@ -60,6 +61,7 @@ public class EntitlementManager extends BaseManager {
     public static final Entitlement VIRTUALIZATION = new VirtualizationEntitlement();
     public static final Entitlement VIRTUALIZATION_PLATFORM =
         new VirtualizationPlatformEntitlement();
+    public static final Entitlement BOOTSTRAP = new BootstrapEntitlement();
 
     public static final String UNENTITLED = "unentitled";
     public static final String SW_MGR_ENTITLED = "sw_mgr_entitled";
@@ -70,6 +72,7 @@ public class EntitlementManager extends BaseManager {
     public static final String VIRTUALIZATION_ENTITLED = "virtualization_host";
     public static final String VIRTUALIZATION_PLATFORM_ENTITLED
         = "virtualization_host_platform";
+    public static final String BOOTSTRAP_ENTITLED = "bootstrap_entitled";
 
     private static final Set <Entitlement> ADDON_ENTITLEMENTS;
     private static final Set <Entitlement> BASE_ENTITLEMENTS;
@@ -110,6 +113,9 @@ public class EntitlementManager extends BaseManager {
         }
         else if (VIRTUALIZATION_PLATFORM_ENTITLED.equals(name)) {
             return VIRTUALIZATION_PLATFORM;
+        }
+        else if (BOOTSTRAP_ENTITLED.equals(name)) {
+            return BOOTSTRAP;
         }
         return null;
     }

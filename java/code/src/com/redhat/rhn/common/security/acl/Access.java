@@ -163,6 +163,20 @@ public class Access extends BaseHandler {
     }
 
     /**
+     * Check if a system has bootstrap entitlements.
+     * @param ctx Context map to pass in.
+     * @param params Parameters to use to fetch from context.
+     * @return True if system has virtualization entitlement, false otherwise.
+     */
+    public boolean aclSystemHasBootstrapEntitlement(Object ctx, String[] params) {
+        Map map = (Map) ctx;
+        Long sid = getAsLong(map.get("sid"));
+        User user = (User) map.get("user");
+
+        return SystemManager.serverHasBootstrapEntitlement(sid, user.getOrg());
+    }
+
+    /**
      * Check if a system has a management entitlement
      * @param ctx Context map to pass in.
      * @param params Parameters to use to fetch from context.
