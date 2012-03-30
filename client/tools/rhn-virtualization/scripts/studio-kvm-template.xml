@@ -1,0 +1,41 @@
+<domain type='kvm'>
+  <name>%(name)s</name>
+  <uuid>%(uuid)s</uuid>
+  <memory>%(mem_kb)s</memory>
+  <vcpu>%(vcpus)s</vcpu>
+  <os>
+    <type arch='%(arch)s' machine='pc-0.12'>hvm</type>
+    <boot dev='hd'/>
+  </os>
+  <clock offset='utc'/>
+  <on_poweroff>destroy</on_poweroff>
+  <on_reboot>restart</on_reboot>
+  <on_crash>restart</on_crash>
+  <devices>
+    <emulator>/usr/bin/qemu-kvm</emulator>
+    <disk type='file' device='disk'>
+      <driver name='qemu' type='vmdk'/>
+      <source file='%(disk)s'/>
+      <target dev='hda' bus='ide'/>
+      <address type='drive' controller='0' bus='0' unit='0'/>
+    </disk>
+    <controller type='ide' index='0'/>
+
+    <!-- if you don't want a bridge, remove this interface -->
+    <interface type='bridge'>
+      <source bridge='%(virtBridge)s'/>
+    </interface>
+
+    <serial type='pty'>
+      <target port='0'/>
+    </serial>
+    <console type='pty'>
+      <target port='0'/>
+    </console>
+    <input type='mouse' bus='ps2'/>
+    <graphics type='vnc' port='-1' autoport='yes' keymap='en-us'/>
+    <video>
+      <model type='cirrus' vram='9216' heads='1'/>
+    </video>
+  </devices>
+</domain>

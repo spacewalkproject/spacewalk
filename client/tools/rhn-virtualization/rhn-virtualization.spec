@@ -48,8 +48,10 @@ Requires: libvirt-python
 Requires: rhn-virtualization-common = %{version}-%{release}
 %if 0%{?suse_version}
 Requires: cron
+Requires: python-curl
 %else
 Requires: /usr/sbin/crond
+Requires: python-pycurl
 %endif
 %if 0%{?rhel} && 0%{?rhel} < 6
 # in RHEL5 we need libvirt, but in RHEV@RHEL5 there should not be libvirt
@@ -90,6 +92,11 @@ rm -rf $RPM_BUILD_ROOT
 %else
 /sbin/service crond condrestart
 %endif
+if [ -d /proc/xen ]; then
+    # xen kernel is running
+    # change the default template to the xen version
+    sed -i 's@^IMAGE_CFG_TEMPLATE=/etc/sysconfig/rhn/studio-kvm-template.xml@IMAGE_CFG_TEMPLATE=/etc/sysconfig/rhn/studio-xen-template.xml@' /etc/sysconfig/rhn/image.cfg
+fi
 
 %preun host
 if [ $1 = 0 ]; then
@@ -114,6 +121,9 @@ fi
 %doc LICENSE
 
 %files host
+%if 0%{?suse_version}
+%dir %{rhn_conf_dir}
+%endif
 %dir %{rhn_conf_dir}/virt
 %dir %{rhn_conf_dir}/virt/auto
 %{_initrddir}/rhn-virtualization-host
@@ -130,7 +140,10 @@ fi
 %{rhn_dir}/virtualization/state.py*
 %{rhn_dir}/virtualization/support.py*
 %{rhn_dir}/actions/virt.py*
+%{rhn_dir}/actions/image.py*
 %{rhn_dir}/virtualization/localvdsm.py*
+%{rhn_conf_dir}/studio-*-template.xml
+%config(noreplace) %{rhn_conf_dir}/image.cfg
 %doc LICENSE
 
 %changelog

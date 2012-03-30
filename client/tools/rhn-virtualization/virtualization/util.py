@@ -13,7 +13,14 @@
 # in this software or its documentation. 
 #
 
+import random
 from virtualization.errors import UUIDError
+
+def generate_uuid():
+    """Generate a random UUID and return it."""
+
+    uuid_list = [ random.randint(0, 255) for _ in range(0, 16) ]
+    return ("%02x" * 16) % tuple(uuid_list)
 
 def hyphenize_uuid(uuid):
     # Determine whether the string is already hyphenized.
