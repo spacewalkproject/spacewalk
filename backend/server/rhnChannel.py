@@ -1787,8 +1787,17 @@ def unsubscribe_channel(server_id, channel, username, password):
             server_id, channel))
         raise rhnFault(72, "You can not unsubscribe %s from base channel %s." % (
             server_id, channel))
-    # we're fine
-    return unsubscribe_sql(server_id, ret["id"])
+
+    # check specific channel subscription permissions
+    channel_id = ret['id']
+    h = rhnSQL.prepare(_query_can_subscribe)
+    h.execute(cid=channel_id, username=username)
+    ret = h.fetchone_dict()
+
+    if ret and ret['can_subscribe']:
+        return unsubscribe_sql(server_id, channel_id)
+
+    raise rhnFault(71)
 
 # unsubscribe from all channels
 def unsubscribe_all_channels(server_id):           
