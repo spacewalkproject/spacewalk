@@ -70,6 +70,7 @@ insert into rhnActionType values (48, 'virt.setVCPUs', 'Sets the Vcpu usage for 
 commit;
 insert into rhnActionType values (49, 'proxy.deactivate', 'Deactivate Proxy', 'N', 'N');
 insert into rhnActionType values (50, 'scap.xccdf_eval', 'OpenSCAP xccdf scanning', 'N', 'Y');
+insert into rhnActionType values (500, 'image.deploy', 'Deploy an image to a virtual host.', 'N', 'N');
 --
 --
 -- Revision 1.25  2004/10/29 05:07:52  pjones
