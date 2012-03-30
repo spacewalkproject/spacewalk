@@ -27,6 +27,9 @@ from spacewalk.common.rhnConfig import CFG
 from spacewalk.common.rhnTB import Traceback
 from spacewalk.server.importlib import importLib, backendLib
 
+import re
+RHEL234_REGEX = re.compile("rhel-[^-]*-[aew]s-(4|3|2.1)")
+
 # Terminology used throughout this file:
 # Item: an atomic entity from the database's perspective.
 #   A channel, or a package, or an erratum is an item.
@@ -458,9 +461,32 @@ class ChannelItem(BaseItem):
         'rhn-channel-comps-last-modified' : 'comps_last_modified',
     }
     def populateFromElements(self, obj, elements):
+        # bz 808516, to retain compatibility with Satellite <= 5.3 we
+        # need to assume sha1 checksum type unless we explicitly see
+        # 'rhn-null' in the xml
+        checksum_type_really_null = False
+        for element in elements:
+            if (not _is_string(element)
+                    and element.name == 'rhn-channel-checksum-type'):
+                for subelement in element.subelements:
+                    if (not _is_string(subelement)
+                            and subelement.name == 'rhn-null'):
+                        checksum_type_really_null = True
+
         BaseItem.populateFromElements(self, obj, elements)
+
         if obj['checksum_type'] == 'sha':
             obj['checksum_type'] = 'sha1'
+        if not obj['checksum_type'] and not checksum_type_really_null:
+            obj['checksum_type'] = 'sha1'
+
+        # if using versions of rhel that doesn't use yum, set
+        # checksum_type to None
+        if (RHEL234_REGEX.match(obj['label'])
+                or (obj['parent_channel']
+                    and RHEL234_REGEX.match(obj['parent_channel']))):
+            obj['checksum_type'] = None
+
 addItem(ChannelItem)
 
 class BaseChecksummedItem(BaseItem):
