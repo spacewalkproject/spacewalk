@@ -36,7 +36,7 @@ def handle(environ, start_response, server, component_type, servertype="spacewal
     parseServ = get_handle(servertype, "HeaderParserHandler")
     ret = parseServ(req)
 
-    if len(req.output) > 0:
+    if len(req.output) > 0 or ret != 0:
         if not req.sent_header:
             req.send_http_header(status=ret)
         return req.output
