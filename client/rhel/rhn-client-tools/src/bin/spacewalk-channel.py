@@ -43,7 +43,7 @@ def systemExit(code, msgs=None):
          if type(msgs) not in [type([]), type(())]:
              msgs = (msgs, )
          for msg in msgs:
-             sys.stderr.write(rhncli.utf8_encode(msg)+'\n')
+             sys.stderr.write(rhncli.utf8_encode(msg.value) + "\n")
      sys.exit(code)
 
 # quick check to see if you are a super-user.
