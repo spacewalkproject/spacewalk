@@ -261,3 +261,4 @@ rhnActionScap                  :: rhnAction
 rhnXccdfIdent                  :: rhnXccdfIdentSystem
 rhnXccdfRuleresult             :: rhnXccdfTestresult rhnXccdfIdent rhnXccdfRuleresultType
 rhnXccdfTestresult             :: rhnServer rhnActionScap rhnXccdfBenchmark rhnXccdfProfile
+rhnXccdfRuleIdentMap           :: rhnXccdfRuleresult
