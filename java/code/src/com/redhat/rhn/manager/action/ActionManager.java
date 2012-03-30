@@ -27,6 +27,8 @@ import com.redhat.rhn.domain.action.ActionType;
 import com.redhat.rhn.domain.action.config.ConfigAction;
 import com.redhat.rhn.domain.action.config.ConfigUploadAction;
 import com.redhat.rhn.domain.action.errata.ErrataAction;
+import com.redhat.rhn.domain.action.image.DeployImageAction;
+import com.redhat.rhn.domain.action.image.DeployImageActionDetails;
 import com.redhat.rhn.domain.action.kickstart.KickstartAction;
 import com.redhat.rhn.domain.action.kickstart.KickstartActionDetails;
 import com.redhat.rhn.domain.action.kickstart.KickstartGuestAction;
@@ -47,6 +49,8 @@ import com.redhat.rhn.domain.config.ConfigRevision;
 import com.redhat.rhn.domain.config.ConfigurationFactory;
 import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.domain.errata.impl.PublishedErrata;
+import com.redhat.rhn.domain.image.Image;
+import com.redhat.rhn.domain.image.ProxyConfig;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.org.Org;
@@ -70,6 +74,7 @@ import com.redhat.rhn.manager.kickstart.cobbler.CobblerVirtualSystemCommand;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerXMLRPCHelper;
 import com.redhat.rhn.manager.system.SystemManager;
 
+import org.apache.commons.codec.binary.Base64;
 import org.apache.log4j.Logger;
 import org.cobbler.Profile;
 
@@ -612,6 +617,44 @@ public class ActionManager extends BaseManager {
         m.executeUpdate(params);
 
         return patchSetAction;
+    }
+
+    /**
+     * Schedule deployment of an image to a vhost.
+     *
+     * @return The created action
+     * @param user The user scheduling image deployment
+     * @param image The image that will be deployed
+     * @param vcpus number of vcpus
+     * @param memkb memory in Kb
+     * @param bridge device
+     * @param proxy proxy configuration
+     */
+    public static Action createDeployImageAction(User user, Image image,
+            Long vcpus, Long memkb, String bridge, ProxyConfig proxy) {
+        DeployImageAction a = (DeployImageAction) ActionFactory
+                .createAction(ActionFactory.TYPE_DEPLOY_IMAGE);
+        if (user != null) {
+            a.setSchedulerUser(user);
+            a.setOrg(user.getOrg());
+        }
+
+        DeployImageActionDetails details = new DeployImageActionDetails();
+        details.setParentAction(a);
+        details.setVcpus(vcpus);
+        details.setMemKb(memkb);
+        details.setBridgeDevice(bridge);
+        details.setDownloadUrl(image.getDownloadUrl());
+        if (proxy != null) {
+            details.setProxyServer(proxy.getServer());
+            details.setProxyUser(proxy.getUser());
+            details.setProxyPass(new String(Base64.encodeBase64(
+                    proxy.getPass().getBytes())));
+        }
+        a.setDetails(details);
+        a.setName("Image Deployment: " + image.getName() + " - " +
+                image.getVersion());
+        return a;
     }
 
     /**

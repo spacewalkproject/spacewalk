@@ -52,6 +52,12 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 					class="com.redhat.rhn.domain.errata.impl.PublishedErrata" />
 			</set>
 		</subclass>
+        <subclass name="com.redhat.rhn.domain.action.image.DeployImageAction"
+            lazy="true" discriminator-value="500">
+            <one-to-one name="details"
+                class="com.redhat.rhn.domain.action.image.DeployImageActionDetails"
+                outer-join="false" cascade="all" constrained="false" property-ref="parentAction"/>
+        </subclass>
 		<subclass
 				name="com.redhat.rhn.domain.action.Up2DateConfigGetAction"
 				discriminator-value="6" lazy="true">

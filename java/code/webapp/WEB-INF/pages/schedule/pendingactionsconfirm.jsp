@@ -36,7 +36,7 @@
                            defaultsort="asc"
                            filterattr="actionName"
                            styleclass="first-column">
-				<a href="/rhn/schedule/CompletedSystems.do?aid=${current.id}">${current.actionName}</a>
+				<a href="/rhn/schedule/CompletedSystems.do?aid=${current.id}"><c:out value="${current.actionName}" /></a>
                 </rl:column>
 
 

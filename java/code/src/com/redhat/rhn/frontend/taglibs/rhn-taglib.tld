@@ -704,4 +704,9 @@
         <function-class>com.redhat.rhn.frontend.taglibs.RhnTagFunctions</function-class>
         <function-signature>java.lang.String urlEncode(java.lang.String)</function-signature>
     </function>    
+    <function>
+        <name>escapeJS</name>
+        <function-class>com.redhat.rhn.frontend.taglibs.RhnTagFunctions</function-class>
+        <function-signature>java.lang.String escapeJS(java.lang.String)</function-signature>
+    </function>
 </taglib>

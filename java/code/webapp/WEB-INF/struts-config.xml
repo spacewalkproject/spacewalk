@@ -1178,6 +1178,16 @@
       <form-property name="submitted" type="java.lang.Boolean" />
     </form-bean>
 
+    <form-bean name="deployImageForm"
+               type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
+      <form-property name="vcpus" type="java.lang.Long" />
+      <form-property name="mem_mb" type="java.lang.Long" />
+      <form-property name="bridge" type="java.lang.String" />
+      <form-property name="proxy_server" type="java.lang.String" />
+      <form-property name="proxy_user" type="java.lang.String" />
+      <form-property name="proxy_pass" type="java.lang.String" />
+    </form-bean>
+
   </form-beans>
 
   <global-exceptions>
@@ -7729,6 +7739,46 @@
         <forward name="default"
                  path="/WEB-INF/pages/admin/bunchDetail.jsp" />
      </action>
+
+    <!-- Image Deployment -->
+    <action path="/systems/details/virtualization/Images"
+            scope="request"
+            name="deployImageForm"
+            parameter="dispatch"
+            type="com.redhat.rhn.frontend.action.systems.images.ScheduleImageDeploymentAction"
+            className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+      <set-property property="postRequiredIfSubmitted" value="true" />
+      <set-property property="acls" value="not system_is_virtual(); system_has_management_entitlement()" />
+      <forward name="default"
+               path="/WEB-INF/pages/systems/details/virtualization/images/images.jsp" />
+      <forward name="submitted"
+               redirect="true"
+               path="/systems/details/virtualization/Images.do" />
+    </action>
+
+    <action path="/account/Credentials"
+            scope="request"
+            input="/WEB-INF/pages/credentials/edit.jsp"
+            type="com.redhat.rhn.frontend.action.user.UserCredentialsEditAction"
+            className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+      <set-property property="postRequiredIfSubmitted" value="true" />
+      <forward name="default"
+               path="/WEB-INF/pages/credentials/edit.jsp" />
+    </action>
+
+    <action path="/account/DeleteCredentials"
+            scope="request"
+            input="/WEB-INF/pages/credentials/delete.jsp"
+            type="com.redhat.rhn.frontend.action.user.UserCredentialsDeleteAction"
+            className="com.redhat.rhn.frontend.struts.RhnActionMapping"
+            parameter="dispatch">
+      <set-property property="postRequiredIfSubmitted" value="true" />
+      <forward name="default"
+               path="/WEB-INF/pages/credentials/delete.jsp" />
+      <forward name="success"
+               redirect="true"
+               path="/account/Credentials.do" />
+    </action>
 
   </action-mappings>
 

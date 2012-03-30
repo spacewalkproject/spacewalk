@@ -8210,6 +8210,25 @@ tree will not be usable for kickstarting.
      </trans-unit>
 
 
+      <!-- SUSE Studio -->
+      <trans-unit id="credentials.message.updated">
+        <source>Your credentials were successfully updated.</source>
+      </trans-unit>
+      <trans-unit id="credentials.message.deleted">
+        <source>Your credentials were successfully deleted.</source>
+      </trans-unit>
+      <trans-unit id="credentials.message.incomplete">
+        <source>Your credentials are incomplete, at least username and password are needed.</source>
+      </trans-unit>
+      <trans-unit id="images.message.error.nocreds">
+        <source>It looks like you did not enter valid credentials for talking to SUSE Studio, please check &lt;a href="/rhn/account/Credentials.do"&gt;here&lt;/a&gt;.</source>
+      </trans-unit>
+      <trans-unit id="images.message.error.connection">
+        <source>There was a problem connecting to SUSE Studio, you might want to review your configuration &lt;a href="/rhn/account/Credentials.do"&gt;here&lt;/a&gt; or try again later.</source>
+      </trans-unit>
+      <trans-unit id="images.message.success.scheduled">
+        <source>Image deployment scheduled: {0}</source>
+      </trans-unit>
     </body>
   </file>
 </xliff>

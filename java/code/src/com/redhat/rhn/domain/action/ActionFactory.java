@@ -25,6 +25,7 @@ import com.redhat.rhn.domain.action.config.ConfigUploadAction;
 import com.redhat.rhn.domain.action.config.ConfigUploadMtimeAction;
 import com.redhat.rhn.domain.action.config.DaemonConfigAction;
 import com.redhat.rhn.domain.action.errata.ErrataAction;
+import com.redhat.rhn.domain.action.image.DeployImageAction;
 import com.redhat.rhn.domain.action.kickstart.KickstartGuestToolsChannelSubscriptionAction;
 import com.redhat.rhn.domain.action.kickstart.KickstartHostToolsChannelSubscriptionAction;
 import com.redhat.rhn.domain.action.kickstart.KickstartInitiateAction;
@@ -366,6 +367,9 @@ public class ActionFactory extends HibernateFactory {
         }
         else if (typeIn.equals(TYPE_SCAP_XCCDF_EVAL)) {
             retval = new ScapAction();
+        }
+        else if (typeIn.equals(TYPE_DEPLOY_IMAGE)) {
+            retval = new DeployImageAction();
         }
 
         else {
@@ -991,6 +995,12 @@ public class ActionFactory extends HibernateFactory {
 
     public static final String TXN_OPERATION_INSERT = "insert";
     public static final String TXN_OPERATION_DELETE = "delete";
+
+    /**
+     * The constant representing Image deploy action.  [ID:500]
+     */
+    public static final ActionType TYPE_DEPLOY_IMAGE =
+            lookupActionTypeByLabel("image.deploy");
 
 }
 

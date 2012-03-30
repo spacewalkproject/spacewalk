@@ -111,7 +111,8 @@ public class ActivationKeyHandler extends BaseHandler {
      * default.")
      * @xmlrpc.param #param_desc("int", "usageLimit", "If unlimited usage is desired,
      * use the create API that does not include the parameter.")
-     * @xmlrpc.param #array_desc("string", "Add-on entitlement label to associate with the key.")
+     * @xmlrpc.param #array_desc("string", "Add-on entitlement label to associate with the
+     * key.")
      *   #options()
      *     #item("monitoring_entitled")
      *     #item("provisioning_entitled")
@@ -220,7 +221,8 @@ public class ActivationKeyHandler extends BaseHandler {
      * @xmlrpc.param #param("string", "description")
      * @xmlrpc.param #param_desc("string", "baseChannelLabel", "Leave empty to accept
      * default.")
-     * @xmlrpc.param #array_desc("string", "Add-on entitlement label to associate with the key.")
+     * @xmlrpc.param #array_desc("string", "Add-on entitlement label to associate with the
+     * key.")
      *   #options()
      *     #item("monitoring_entitled")
      *     #item("provisioning_entitled")

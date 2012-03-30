@@ -43,5 +43,9 @@
 	  	<param name="class" value="com.redhat.rhn.frontend.taglibs.DWRItemSelector" />
 	  	<include method="select" />	  	
 	  </create>	  
+          <create creator="new" javascript="ImagesRenderer">
+                <param name="class" value="com.redhat.rhn.frontend.action.renderers.ImagesRenderer" />
+                <include method="renderAsync" />
+          </create>
 	</allow>
 </dwr>

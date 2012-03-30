@@ -29,7 +29,7 @@
     			<img src="/img/icon_checkin.gif" title="<bean:message key="yourrhn.jsp.actions.unknown" />" alt="<bean:message key="yourrhn.jsp.actions.unknown" />"  />
     		</c:otherwise>
     	</c:choose>
-    	<a href="/rhn/schedule/ActionDetails.do?aid=${current.id}">${current.actionName}</a>
+      <a href="/rhn/schedule/ActionDetails.do?aid=${current.id}"><c:out value="${current.actionName}" /></a>
     </rhn:column>
 
         <rhn:column header="yourrhn.jsp.user"

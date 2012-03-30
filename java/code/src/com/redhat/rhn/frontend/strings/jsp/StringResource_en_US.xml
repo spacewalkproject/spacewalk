@@ -21165,6 +21165,95 @@ given channel.</source>
 	 <trans-unit id="channel.jsp.changelog.error">
         <source>There was an error reading the selected package changelog.  Please check that the package physically exists and has the correct permissions.</source>
      </trans-unit>
+
+     <!-- SUSE Studio -->
+     <trans-unit id="image.deploy">
+        <source>Image Deployment</source>
+     </trans-unit>
+     <trans-unit id="images.jsp.select.title">
+        <source>Select an Image</source>
+     </trans-unit>
+     <trans-unit id="images.jsp.select.summary">
+        <source>Please choose from the images below to create a new virtual system.</source>
+     </trans-unit>
+     <trans-unit id="images.jsp.name">
+        <source>Name</source>
+     </trans-unit>
+     <trans-unit id="images.jsp.version">
+        <source>Version</source>
+     </trans-unit>
+     <trans-unit id="images.jsp.arch">
+        <source>Architecture</source>
+     </trans-unit>
+     <trans-unit id="images.jsp.type">
+        <source>Type</source>
+     </trans-unit>
+     <trans-unit id="images.jsp.noimages">
+        <source>No Images</source>
+     </trans-unit>
+     <trans-unit id="images.jsp.deploy.title">
+        <source>Image Deployment: </source>
+     </trans-unit>
+     <trans-unit id="images.jsp.deploy.summary">
+        <source>Please submit the form to schedule the deployment of image &lt;span id="image-string"&gt;&lt;/span&gt;.</source>
+     </trans-unit>
+     <trans-unit id="images.jsp.vmsetup">
+        <source>Virtual Machine Setup</source>
+     </trans-unit>
+     <trans-unit id="images.jsp.vcpus">
+        <source>Number of VCPUs&lt;span class="required-form-field"&gt;*&lt;/span&gt;:</source>
+     </trans-unit>
+     <trans-unit id="images.jsp.memory">
+        <source>Memory (MB)&lt;span class="required-form-field"&gt;*&lt;/span&gt;:</source>
+     </trans-unit>
+     <trans-unit id="images.jsp.bridge">
+        <source>Bridge Device:</source>
+     </trans-unit>
+     <trans-unit id="images.jsp.proxyconfig">
+        <source>Proxy Configuration</source>
+     </trans-unit>
+     <trans-unit id="images.jsp.proxyserver">
+        <source>Proxy Server:</source>
+     </trans-unit>
+     <trans-unit id="images.jsp.proxyuser">
+        <source>Proxy User:</source>
+     </trans-unit>
+     <trans-unit id="images.jsp.proxypass">
+        <source>Proxy Password:</source>
+     </trans-unit>
+     <trans-unit id="images.jsp.cancel">
+        <source>Cancel</source>
+     </trans-unit>
+     <trans-unit id="images.jsp.dispatch">
+        <source>Schedule Deployment</source>
+     </trans-unit>
+     <trans-unit id="credentials.jsp.susestudio">
+        <source>SUSE Studio</source>
+     </trans-unit>
+     <trans-unit id="credentials.jsp.edit.summary">
+        <source>External system or API credentials associated with your @@PRODUCT_NAME@@ account are listed below.</source>
+     </trans-unit>
+     <trans-unit id="credentials.jsp.edit.dispatch">
+        <source>Update Credentials</source>
+     </trans-unit>
+     <trans-unit id="credentials.jsp.delete.summary">
+        <source>These external system or API credentials will be deleted. This action cannot be undone.</source>
+     </trans-unit>
+     <trans-unit id="credentials.jsp.delete.dispatch">
+        <source>Delete Credentials</source>
+     </trans-unit>
+     <trans-unit id="toolbar.delete.credentials">
+        <source>delete credentials</source>
+     </trans-unit>
+     <trans-unit id="credentials.jsp.username">
+        <source>Username</source>
+     </trans-unit>
+     <trans-unit id="credentials.jsp.apikey">
+        <source>API Key</source>
+     </trans-unit>
+     <trans-unit id="credentials.jsp.url">
+        <source>URL</source>
+     </trans-unit>
   </body>
   </file>
 </xliff>

@@ -81,8 +81,10 @@ Requires: struts-taglib >= 0:1.3.0
 Requires: xalan-j2 >= 0:2.6.0
 Requires: xerces-j2
 Requires: simple-core
+Requires: simple-xml
 Requires: sitemesh
 Requires: stringtree-json
+Requires: susestudio-java-client
 Requires: spacewalk-java-config
 Requires: spacewalk-java-lib
 Requires: spacewalk-java-jdbc
@@ -137,7 +139,9 @@ BuildRequires: redstone-xmlrpc
 BuildRequires: oscache
 BuildRequires: quartz
 BuildRequires: simple-core
+BuildRequires: simple-xml
 BuildRequires: stringtree-json
+BuildRequires: susestudio-java-client
 # EL5 = Struts 1.2 and Tomcat 5, EL6+/recent Fedoras = 1.3 and Tomcat 6
 %if 0%{?rhel} && 0%{?rhel} < 6
 BuildRequires: struts >= 0:1.2.9
@@ -520,8 +524,10 @@ fi
 %{jardir}/redstone-xmlrpc.jar
 %{jardir}/rhn.jar
 %{jardir}/simple-core.jar
+%{jardir}/simple-xml.jar
 %{jardir}/sitemesh.jar
 %{jardir}/stringtree-json.jar
+%{jardir}/susestudio-java-client.jar
 %{jardir}/taglibs-core.jar
 %{jardir}/taglibs-standard.jar
 %{jardir}/tanukiwrapper.jar
