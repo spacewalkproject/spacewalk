@@ -12,7 +12,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.8
+Version: 1.8.9
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -688,6 +688,10 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Fri Mar 30 2012 Jan Pazdziora 1.8.9-1
+- CVE-2012-1145, 800688 - check the result of parseServ operation.
+- Truncate data which are longer than db allows (slukasik@redhat.com)
+
 * Thu Mar 29 2012 Simon Lukasik <slukasik@redhat.com> 1.8.8-1
 - Store also @idref of xccdf:rule-result element (slukasik@redhat.com)
 - We want to store all idents per rule-result (slukasik@redhat.com)
