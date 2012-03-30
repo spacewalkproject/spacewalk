@@ -33,7 +33,7 @@ if [ -x /etc/init.d/tomcat6 -o -x /lib/systemd/system/tomcat6.service ]; then
 fi
 
 
-SERVICES="jabberd $DB_SERVICE osa-dispatcher $TOMCAT httpd Monitoring MonitoringScout rhn-search cobblerd taskomatic"
+SERVICES="jabberd $DB_SERVICE $TOMCAT httpd osa-dispatcher Monitoring MonitoringScout rhn-search cobblerd taskomatic"
 if [ -f /etc/rhn/service-list ] ; then
    . /etc/rhn/service-list
 fi
