@@ -17,7 +17,7 @@ sub run {
 
     my $row = $ora->fetch_first(q{select count(*) as COUNT 
 				  from v$session_wait a, v$session b
-				  where event = 'SQL*Net message from client'
+				  where a.event = 'SQL*Net message from client'
 				  and a.seconds_in_wait >= ?
 				  and a.sid = b.sid
 				  and b.username is not null
