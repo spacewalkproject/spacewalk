@@ -6707,6 +6707,9 @@ Follow this url to see the full list of inactive systems:
 
 
 
+	<trans-unit id="sdc.config.diff.files_1_dirs_0_symlinks_0">
+		<source>{0} of 1 file on the system was successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href="{6}"&gt;View Details&lt;/a&gt;]</source>
+	<target>システム上の 1 個のファイルのうちの {0} 個が、@@PRODUCT_NAME@@ によって管理されたファイルと正常に比較されました。[&lt;a href="{6}"&gt;詳細の表示&lt;/a&gt;]</target></trans-unit>
 
 
 
