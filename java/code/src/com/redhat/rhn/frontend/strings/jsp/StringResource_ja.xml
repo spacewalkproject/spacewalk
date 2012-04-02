@@ -893,6 +893,12 @@
 		 </context-group>
 	<target>最も重大レベルの更新と健全性の状態を示すシステムのリストです。</target></trans-unit>
 
+	<trans-unit id="preferences.critical-probes.name">
+         <source>Monitoring Status - Critical Probes</source>
+		 <context-group name="ctx">
+		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
+		 </context-group>
+	<target>モニタリングの状態 - 重大レベルのプローブ</target></trans-unit>
 
 
 	<trans-unit id="preferences.warning-probes.name">

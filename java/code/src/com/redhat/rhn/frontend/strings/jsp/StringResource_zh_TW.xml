@@ -893,6 +893,12 @@
 		 </context-group>
 	<target> 列出有重大更新與健康狀態的系統清單。</target></trans-unit>
 
+	<trans-unit id="preferences.critical-probes.name">
+         <source>Monitoring Status - Critical Probes</source>
+		 <context-group name="ctx">
+		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
+		 </context-group>
+	<target>監控狀態 - 重大偵測</target></trans-unit>
 
 
 	<trans-unit id="preferences.warning-probes.name">

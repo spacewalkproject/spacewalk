@@ -893,6 +893,12 @@
 		 </context-group>
 	<target>Uma listagem dos sistemas com os estados de integridade e atualização mais críticos.</target></trans-unit>
 
+	<trans-unit id="preferences.critical-probes.name">
+         <source>Monitoring Status - Critical Probes</source>
+		 <context-group name="ctx">
+		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
+		 </context-group>
+	<target>Status do Monitoring - Detecções críticas</target></trans-unit>
 
 
 	<trans-unit id="preferences.warning-probes.name">

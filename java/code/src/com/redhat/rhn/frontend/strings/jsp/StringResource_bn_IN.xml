@@ -893,6 +893,12 @@
 		 </context-group>
 	<target> অত্যাধিক গুরুতর আপডেট ও সংকটজনক অবস্থার সিস্টেমের তালিকা।</target></trans-unit>
 
+	<trans-unit id="preferences.critical-probes.name">
+         <source>Monitoring Status - Critical Probes</source>
+		 <context-group name="ctx">
+		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
+		 </context-group>
+	<target>Monitoring সংক্রান্ত অবস্থা - গুরুতর প্রোব</target></trans-unit>
 
 
 	<trans-unit id="preferences.warning-probes.name">

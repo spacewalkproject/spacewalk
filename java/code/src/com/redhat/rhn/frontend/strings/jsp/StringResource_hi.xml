@@ -893,6 +893,12 @@
 		 </context-group>
 	<target> बहुत गंभीर अद्यतन और स्वास्थ्य स्थिति के साथ सिस्टम का सूचीकरण.</target></trans-unit>
 
+	<trans-unit id="preferences.critical-probes.name">
+         <source>Monitoring Status - Critical Probes</source>
+		 <context-group name="ctx">
+		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
+		 </context-group>
+	<target>मॉनिटरिंग स्थिति - गंभीर जांच</target></trans-unit>
 
 
 	<trans-unit id="preferences.warning-probes.name">

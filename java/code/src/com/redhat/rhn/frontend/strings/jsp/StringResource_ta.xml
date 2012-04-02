@@ -893,6 +893,12 @@
 		 </context-group>
 	<target>மிக சிக்கலான மேம்படுத்தல் மற்றும் நல நிலை ஆகியவற்றைக்கொண்ட கணினிகளின் பட்டியல்.</target></trans-unit>
 
+	<trans-unit id="preferences.critical-probes.name">
+         <source>Monitoring Status - Critical Probes</source>
+		 <context-group name="ctx">
+		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
+		 </context-group>
+	<target>பார்வையிடும் நிலை - சிக்கலான ஆய்வுகள்</target></trans-unit>
 
 
 	<trans-unit id="preferences.warning-probes.name">
