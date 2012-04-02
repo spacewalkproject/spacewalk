@@ -12406,6 +12406,9 @@ Beachten Sie bitte, dass wenn eine bestimmtes System eine bestimmte Datei au&amp
             <source>System Name</source>
       <target>Systemname</target></trans-unit>
 
+        <trans-unit id="configchannelfilter.name">
+            <source>Channel Name</source>
+        <target>Channel-Name</target></trans-unit>
     </group>
 
       <trans-unit id="deploy.jsp.noSystems">

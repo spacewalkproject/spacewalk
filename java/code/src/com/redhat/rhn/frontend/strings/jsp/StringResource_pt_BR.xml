@@ -12395,6 +12395,9 @@ Note que se um sistema específico sobrescrever um dado arquivo, ou existir em u
             <source>System Name</source>
       <target>Nome do Sistema</target></trans-unit>
 
+        <trans-unit id="configchannelfilter.name">
+            <source>Channel Name</source>
+        <target>Nome do Canal</target></trans-unit>
     </group>
 
       <trans-unit id="deploy.jsp.noSystems">

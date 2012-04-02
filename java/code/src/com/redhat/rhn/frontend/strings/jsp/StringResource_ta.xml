@@ -12390,6 +12390,9 @@ Note that if a given system overrides a given file, or has it in that system's l
             <source>System Name</source>
       <target>கணினி பெயர்</target></trans-unit>
 
+        <trans-unit id="configchannelfilter.name">
+            <source>Channel Name</source>
+        <target>தடப் பெயர்</target></trans-unit>
     </group>
 
       <trans-unit id="deploy.jsp.noSystems">

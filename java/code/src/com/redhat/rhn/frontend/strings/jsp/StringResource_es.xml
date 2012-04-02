@@ -12402,6 +12402,9 @@ Observe que si un sistema dado sobrescribe un archivo, o tiene el archivo en un 
             <source>System Name</source>
       <target>Nombre del sistema</target></trans-unit>
 
+        <trans-unit id="configchannelfilter.name">
+            <source>Channel Name</source>
+        <target>Nombre del canal</target></trans-unit>
     </group>
 
       <trans-unit id="deploy.jsp.noSystems">
