@@ -927,6 +927,12 @@
 
 
 
+	<trans-unit id="preferences.inactive-systems.name">
+         <source>Inactive Systems</source>
+		 <context-group name="ctx">
+		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
+		 </context-group>
+	<target>ਨਾ-ਸਰਗਰਮ ਸਿਸਟਮ</target></trans-unit>
 
 	<trans-unit id="preferences.inactive-systems.description">
          <source> Lists the registered @@PRODUCT_NAME@@ systems that recently stopped checking in.</source>
