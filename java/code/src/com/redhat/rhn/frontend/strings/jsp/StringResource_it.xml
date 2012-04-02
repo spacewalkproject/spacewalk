@@ -12387,6 +12387,9 @@ Da notare che se un dato sistema sovrascrive un determinato file, oppure se il f
             <source>System Name</source>
       <target>Nome del sistema</target></trans-unit>
 
+       <trans-unit id="configfilefilter.path">
+         <source>Path</source>
+       <target>Percorso</target></trans-unit>
         <trans-unit id="configchannelfilter.name">
             <source>Channel Name</source>
         <target>Nome del canale</target></trans-unit>

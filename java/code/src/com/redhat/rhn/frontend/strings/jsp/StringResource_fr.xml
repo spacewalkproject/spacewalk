@@ -12405,6 +12405,9 @@ Notez que si un système donné surcharge un ficher donné ou qu'il a ce fichier
             <source>System Name</source>
       <target>Nom du système</target></trans-unit>
 
+       <trans-unit id="configfilefilter.path">
+         <source>Path</source>
+       <target>Chemin d'accès</target></trans-unit>
         <trans-unit id="configchannelfilter.name">
             <source>Channel Name</source>
         <target>Nom du canal</target></trans-unit>
