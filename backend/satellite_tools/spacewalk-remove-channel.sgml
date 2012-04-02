@@ -20,7 +20,7 @@ Removes a channel from an RHN Satellite or Spacewalk server.
 <RefSynopsisDiv>
 <Synopsis>
     <cmdsynopsis>
-        <command>spaceawlk-remove-channel</command>
+        <command>spacewalk-remove-channel</command>
         <arg>options <replaceable>...</replaceable></arg>
         <arg>-c<replaceable>CHANNEL_LABEL</replaceable></arg>
         <arg>--mount-point=<replaceable>CHANNEL_LABEL</replaceable></arg>
