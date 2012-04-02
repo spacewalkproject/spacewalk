@@ -74,7 +74,7 @@ def add_channels(channels, section, arch):
     base_channels = ['']
     optional  = ['activationkey', 'base_channel_activationkey', 'gpgkey_url',
                  'gpgkey_id', 'gpgkey_fingerprint', 'yumrepo_url',
-                 'yum_repo_label']
+                 'yum_repo_label', 'dist_map_release']
     mandatory = ['label', 'name', 'summary', 'checksum', 'arch', 'section']
 
     if config.has_option(section, 'base_channels'):
@@ -142,6 +142,8 @@ Create everything as well as unlimited activation key for every channel:
         Option("-a", "--archs", help="list of architectures"),
         Option("-v", "--verbose", help="verbose", action="count"),
         Option("-l", "--list", help="print list of available channels",
+                         action="store_true"),
+        Option("-d", "--default-channels", help="make base channels default channels for given OS version",
                          action="store_true"),
         ]
 
@@ -288,6 +290,16 @@ Create everything as well as unlimited activation key for every channel:
                     sys.stderr.write("ERROR: %s: %s\n" % (
                                       base_channel_label, e.faultString))
                 continue
+
+        if options.default_channels:
+            try:
+                client.distchannel.setDefaultMap(key,
+                                base_info['name'], base_info['dist_map_release'],
+                                CHANNEL_ARCH[base_info['arch']], base_info['label'])
+
+            except xmlrpclib.Fault, e:
+                sys.stderr.write("ERROR: %s: %s\n" % (
+                                  base_info['label'], e.faultString))
 
         for child_channel_label in sorted(child_channels[base_channel_label]):
             child_info = channels[child_channel_label]
