@@ -886,6 +886,12 @@
 		 </context-group>
 	<target>가장 중요한 시스템</target></trans-unit>
 
+	<trans-unit id="preferences.critical-systems.description">
+         <source> A listing of the systems with the most critical update and health status.</source>
+		 <context-group name="ctx">
+		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
+		 </context-group>
+	<target> 중요 업데이트 및 시스템 상태에 대한 시스템 목록  </target></trans-unit>
 
 
 

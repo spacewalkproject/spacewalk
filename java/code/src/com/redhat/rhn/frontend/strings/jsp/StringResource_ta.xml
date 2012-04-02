@@ -886,6 +886,12 @@
 		 </context-group>
 	<target>மிக அவசியமான கணினிகள்</target></trans-unit>
 
+	<trans-unit id="preferences.critical-systems.description">
+         <source> A listing of the systems with the most critical update and health status.</source>
+		 <context-group name="ctx">
+		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
+		 </context-group>
+	<target>மிக சிக்கலான மேம்படுத்தல் மற்றும் நல நிலை ஆகியவற்றைக்கொண்ட கணினிகளின் பட்டியல்.</target></trans-unit>
 
 
 

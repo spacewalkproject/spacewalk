@@ -886,6 +886,12 @@
 		 </context-group>
 	<target>Systèmes les plus critiques</target></trans-unit>
 
+	<trans-unit id="preferences.critical-systems.description">
+         <source> A listing of the systems with the most critical update and health status.</source>
+		 <context-group name="ctx">
+		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
+		 </context-group>
+	<target> Une liste des systèmes avec un statut de santé et de mise à jour le plus critique.</target></trans-unit>
 
 
 
