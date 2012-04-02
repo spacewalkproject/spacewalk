@@ -1655,6 +1655,12 @@ del rol de Administrador de la organización.</target></trans-unit>
         </context-group>
       <target>Estado</target></trans-unit>
 
+      <trans-unit id="userlist.jsp.enabled">
+<source>Active</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/users/UserList</context>
+        </context-group>
+      <target>Activo</target></trans-unit>
 
 
       <!-- activelist.jsp -->

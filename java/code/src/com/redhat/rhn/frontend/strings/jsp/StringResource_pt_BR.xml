@@ -1654,6 +1654,12 @@ abaixo e &lt;b&gt;não poderá mais se autenticar&lt;/b&gt;.</target></trans-uni
         </context-group>
       <target>Estado</target></trans-unit>
 
+      <trans-unit id="userlist.jsp.enabled">
+<source>Active</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/users/UserList</context>
+        </context-group>
+      <target>Ativo</target></trans-unit>
 
 
       <!-- activelist.jsp -->

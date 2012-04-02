@@ -1654,6 +1654,12 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
         </context-group>
       <target>ਹਾਲਤ</target></trans-unit>
 
+      <trans-unit id="userlist.jsp.enabled">
+<source>Active</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/users/UserList</context>
+        </context-group>
+      <target>ਸਰਗਰਮ</target></trans-unit>
 
 
       <!-- activelist.jsp -->
