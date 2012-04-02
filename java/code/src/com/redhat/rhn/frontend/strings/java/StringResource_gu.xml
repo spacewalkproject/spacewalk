@@ -6344,6 +6344,13 @@ Follow this url to see the full list of inactive systems:
 
 
 
+      <trans-unit id="config_target_systems.subscribeSystems.success">
+        <source>Successfully subscribed {0} system(s).</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/file/CopyFilesCentral.do</context>
+          <context context-type="paramnotes">Successfully copied file to 7 channels.</context>
+        </context-group>
+      <target>{0} સિસ્ટમ(ઓ)ની સફળતાપૂર્વક ઉમેદવારી કરાઈ.</target></trans-unit>
 
 
 

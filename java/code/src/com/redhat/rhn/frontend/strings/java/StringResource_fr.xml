@@ -6371,6 +6371,13 @@ Suivez cet url pour obtenir la liste complète des systèmes inactifs :
 
 
 
+      <trans-unit id="config_target_systems.subscribeSystems.success">
+        <source>Successfully subscribed {0} system(s).</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/file/CopyFilesCentral.do</context>
+          <context context-type="paramnotes">Successfully copied file to 7 channels.</context>
+        </context-group>
+      <target>{0} système(s) a/ont bien été abonné(s).</target></trans-unit>
 
 
 

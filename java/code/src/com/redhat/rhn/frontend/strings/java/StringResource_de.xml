@@ -6375,6 +6375,13 @@ Folgen Sie dieser URL f&amp;uuml;r die vollst&amp;auml;ndige Liste inaktiver Sys
 
 
 
+      <trans-unit id="config_target_systems.subscribeSystems.success">
+        <source>Successfully subscribed {0} system(s).</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/file/CopyFilesCentral.do</context>
+          <context context-type="paramnotes">Successfully copied file to 7 channels.</context>
+        </context-group>
+      <target>{0} System(e) erfolgreich angemeldet.</target></trans-unit>
 
 
 
