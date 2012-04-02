@@ -928,6 +928,12 @@
 
 
 
+	<trans-unit id="preferences.inactive-systems.description">
+         <source> Lists the registered @@PRODUCT_NAME@@ systems that recently stopped checking in.</source>
+		 <context-group name="ctx">
+		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
+		 </context-group>
+	<target> રજીસ્ટર થયેલ @@PRODUCT_NAME@@ સિસ્ટમોની યાદી આપે છે કે જેણે છેલ્લે ચકાસણી કરવાનું અટકાવી દીધું છે.</target></trans-unit>
 
 	<trans-unit id="preferences.pending-actions.name">
          <source>Recently Scheduled Actions</source>
