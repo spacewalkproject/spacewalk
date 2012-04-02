@@ -6366,6 +6366,13 @@ Seguite l'url sotto riportato per visualizzare l'elenco completo di sistemi inat
 
 
 
+      <trans-unit id="config_subscribed_systems.unsubscribeSystems.success">
+        <source>Successfully unsubscribed {0} system(s).</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/file/CopyFilesCentral.do</context>
+          <context context-type="paramnotes">Successfully copied file to 7 channels.</context>
+        </context-group>
+      <target>Rimozione sottoscrizione di {0} sistema(i) completata.</target></trans-unit>
 
 
       <trans-unit id="config_target_systems.subscribeSystems.success">
