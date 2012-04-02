@@ -900,6 +900,12 @@
 		 </context-group>
 	<target>Stato di controllo - Probe critici</target></trans-unit>
 
+	<trans-unit id="preferences.critical-probes.description">
+         <source> A preview of probes that are in critical state.</source>
+		 <context-group name="ctx">
+		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
+		 </context-group>
+	<target>Anteprima dei Probe con uno stato critico 'critical'.</target></trans-unit>
 
 	<trans-unit id="preferences.warning-probes.name">
          <source>Monitoring Status - Warning Probes</source>

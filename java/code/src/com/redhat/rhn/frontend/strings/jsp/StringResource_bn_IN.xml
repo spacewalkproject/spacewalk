@@ -900,6 +900,12 @@
 		 </context-group>
 	<target>Monitoring সংক্রান্ত অবস্থা - গুরুতর প্রোব</target></trans-unit>
 
+	<trans-unit id="preferences.critical-probes.description">
+         <source> A preview of probes that are in critical state.</source>
+		 <context-group name="ctx">
+		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
+		 </context-group>
+	<target> গুরুতর অবস্থার প্রোবগুলির পূর্বরূপ।</target></trans-unit>
 
 	<trans-unit id="preferences.warning-probes.name">
          <source>Monitoring Status - Warning Probes</source>

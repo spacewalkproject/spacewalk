@@ -900,6 +900,12 @@
 		 </context-group>
 	<target>監控狀態 - 重大偵測</target></trans-unit>
 
+	<trans-unit id="preferences.critical-probes.description">
+         <source> A preview of probes that are in critical state.</source>
+		 <context-group name="ctx">
+		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
+		 </context-group>
+	<target> 處於臨界狀態的偵測一覽。</target></trans-unit>
 
 	<trans-unit id="preferences.warning-probes.name">
          <source>Monitoring Status - Warning Probes</source>

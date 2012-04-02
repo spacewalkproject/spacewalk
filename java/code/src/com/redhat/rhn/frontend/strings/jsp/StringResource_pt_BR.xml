@@ -900,6 +900,12 @@
 		 </context-group>
 	<target>Status do Monitoring - Detecções críticas</target></trans-unit>
 
+	<trans-unit id="preferences.critical-probes.description">
+         <source> A preview of probes that are in critical state.</source>
+		 <context-group name="ctx">
+		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
+		 </context-group>
+	<target> Uma prévia das detecções que estejam em um estado crítico.</target></trans-unit>
 
 	<trans-unit id="preferences.warning-probes.name">
          <source>Monitoring Status - Warning Probes</source>

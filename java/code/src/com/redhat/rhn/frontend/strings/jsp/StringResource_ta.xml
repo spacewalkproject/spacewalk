@@ -900,6 +900,12 @@
 		 </context-group>
 	<target>பார்வையிடும் நிலை - சிக்கலான ஆய்வுகள்</target></trans-unit>
 
+	<trans-unit id="preferences.critical-probes.description">
+         <source> A preview of probes that are in critical state.</source>
+		 <context-group name="ctx">
+		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
+		 </context-group>
+	<target>ஆய்வுகளின் முன்பார்வை சிக்கலான நிலையில் உள்ளது.</target></trans-unit>
 
 	<trans-unit id="preferences.warning-probes.name">
          <source>Monitoring Status - Warning Probes</source>
