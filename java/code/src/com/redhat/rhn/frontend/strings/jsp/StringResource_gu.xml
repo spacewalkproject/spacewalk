@@ -879,6 +879,12 @@
 	<target> @@PRODUCT_NAME@@ વપરાશકર્તા ઈન્ટરફેસના વિવિધ વિસ્તારોની તુરંત કડીઓનું બાબત-લગતું મેનુ.</target></trans-unit>
 
 
+	<trans-unit id="preferences.critical-systems.name">
+         <source>Most Critical Systems</source>
+		 <context-group name="ctx">
+		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
+		 </context-group>
+	<target>ખૂબ જટિલ સિસ્ટમો</target></trans-unit>
 
 
 

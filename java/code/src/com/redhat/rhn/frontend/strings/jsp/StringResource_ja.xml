@@ -879,6 +879,12 @@
 	<target>@@PRODUCT_NAME@@ ユーザーインターフェイスの別の場所へのリンクを表示するタスク中心のメニューです。</target></trans-unit>
 
 
+	<trans-unit id="preferences.critical-systems.name">
+         <source>Most Critical Systems</source>
+		 <context-group name="ctx">
+		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
+		 </context-group>
+	<target>最も重要なシステム</target></trans-unit>
 
 
 

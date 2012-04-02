@@ -879,6 +879,12 @@
 	<target> 任務導向的選單，讓您可以快速的連接到不同領域的 @@PRODUCT_NAME@@ 使用者介面。</target></trans-unit>
 
 
+	<trans-unit id="preferences.critical-systems.name">
+         <source>Most Critical Systems</source>
+		 <context-group name="ctx">
+		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
+		 </context-group>
+	<target>處於最高臨界狀態的系統</target></trans-unit>
 
 
 

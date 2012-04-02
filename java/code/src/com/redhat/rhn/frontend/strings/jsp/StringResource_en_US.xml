@@ -895,6 +895,12 @@
 	</trans-unit>
 
 
+	<trans-unit id="preferences.critical-systems.name">
+         <source>Most Critical Systems</source>
+		 <context-group name="ctx">
+        	<context context-type="sourcefile">/rhn/users/UserPreferences</context>
+		 </context-group>
+	</trans-unit>
 
 
 

@@ -879,6 +879,12 @@
 	<target>@@PRODUCT_NAME@@ उपयोक्ता अंतरफलक के अलग क्षेत्रों में द्रुत लिंक की कार्य अभिमुख मेनू.</target></trans-unit>
 
 
+	<trans-unit id="preferences.critical-systems.name">
+         <source>Most Critical Systems</source>
+		 <context-group name="ctx">
+		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
+		 </context-group>
+	<target>सर्वाधिक गंभीर सिस्टम</target></trans-unit>
 
 
 

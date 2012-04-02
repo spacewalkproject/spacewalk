@@ -879,6 +879,12 @@
 	<target> Меню задач состоит из ссылок быстрого доступа к различным разделам интерфейса @@PRODUCT_NAME@@.</target></trans-unit>
 
 
+	<trans-unit id="preferences.critical-systems.name">
+         <source>Most Critical Systems</source>
+		 <context-group name="ctx">
+		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
+		 </context-group>
+	<target>Наиболее критичные системы</target></trans-unit>
 
 
 

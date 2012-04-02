@@ -879,6 +879,12 @@
 	<target> @@PRODUCT_NAME@@-র ইউজার ইন্টারফেসের বিভিন্ন অংশের কর্ম অনুসারে নির্দেশকারী লিঙ্কের তালিকা।</target></trans-unit>
 
 
+	<trans-unit id="preferences.critical-systems.name">
+         <source>Most Critical Systems</source>
+		 <context-group name="ctx">
+		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
+		 </context-group>
+	<target>অত্যন্ত গুরুতর সিস্টেম</target></trans-unit>
 
 
 

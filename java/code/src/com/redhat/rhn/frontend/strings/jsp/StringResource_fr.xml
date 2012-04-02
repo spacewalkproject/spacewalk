@@ -879,6 +879,12 @@
 	<target> Un menu orienté tâches de liens rapides vers les différentes zones de l'interface utilisateur @@PRODUCT_NAME@@.</target></trans-unit>
 
 
+	<trans-unit id="preferences.critical-systems.name">
+         <source>Most Critical Systems</source>
+		 <context-group name="ctx">
+		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
+		 </context-group>
+	<target>Systèmes les plus critiques</target></trans-unit>
 
 
 

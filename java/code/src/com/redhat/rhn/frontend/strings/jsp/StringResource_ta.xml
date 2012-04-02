@@ -879,6 +879,12 @@
 	<target>பணி சார்ந்த பட்டியில் விரைவு இணைப்புகள் @@PRODUCT_NAME@@  பயனர் இடைமுகத்தின் வெவ்வேறு இடங்களை வேறுபடுத்துகிறது.</target></trans-unit>
 
 
+	<trans-unit id="preferences.critical-systems.name">
+         <source>Most Critical Systems</source>
+		 <context-group name="ctx">
+		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
+		 </context-group>
+	<target>மிக அவசியமான கணினிகள்</target></trans-unit>
 
 
 

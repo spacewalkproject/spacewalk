@@ -879,6 +879,12 @@
 	<target>到 @@PRODUCT_NAME@@ 用户界面不同区域的快速链接任务导向菜单。</target></trans-unit>
 
 
+	<trans-unit id="preferences.critical-systems.name">
+         <source>Most Critical Systems</source>
+		 <context-group name="ctx">
+		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
+		 </context-group>
+	<target>最关键的系统</target></trans-unit>
 
 
 

@@ -879,6 +879,12 @@
 	<target>@@PRODUCT_NAME@@ 사용자 인터페이스의 다른 위치에 바로 연결하는 작업 중심적인 메뉴   </target></trans-unit>
 
 
+	<trans-unit id="preferences.critical-systems.name">
+         <source>Most Critical Systems</source>
+		 <context-group name="ctx">
+		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
+		 </context-group>
+	<target>가장 중요한 시스템</target></trans-unit>
 
 
 

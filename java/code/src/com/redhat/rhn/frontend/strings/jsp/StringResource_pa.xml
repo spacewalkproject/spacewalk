@@ -879,6 +879,12 @@
 	<target>@@PRODUCT_NAME@@ ਉਪਭੋਗੀ ਇੰਟਰਫੇਸ ਦੇ ਵੱਖਰੇ ਖੇਤਰ ਨੂੰ ਕੁਇੱਕ ਲਿੰਕ ਦਾ ਕਾਰਜ ਦਾ ਅਨੁਸਾਰੀ ਮੇਨੂ।</target></trans-unit>
 
 
+	<trans-unit id="preferences.critical-systems.name">
+         <source>Most Critical Systems</source>
+		 <context-group name="ctx">
+		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
+		 </context-group>
+	<target>ਵਧੇਰੇ ਨਾਜੁਕ ਸਿਸਟਮ</target></trans-unit>
 
 
 

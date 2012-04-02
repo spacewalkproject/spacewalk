@@ -879,6 +879,12 @@
 	<target> Ein taskorientiertes Men&amp;uuml; mit Schnelllinks zu verschiedenen Bereichen der @@PRODUCT_NAME@@-Benutzeroberfl&amp;auml;che.</target></trans-unit>
 
 
+	<trans-unit id="preferences.critical-systems.name">
+         <source>Most Critical Systems</source>
+		 <context-group name="ctx">
+		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
+		 </context-group>
+	<target>Kritische Systeme</target></trans-unit>
 
 
 
