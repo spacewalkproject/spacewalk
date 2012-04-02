@@ -63,7 +63,10 @@ insert_checksum                 :: rhnChecksum rhnChecksumType
 insert_config_filename          :: rhnConfigFileName
 insert_config_info              :: rhnConfigInfo
 insert_evr                      :: rhnPackageEVR
+insert_package_name             :: rhnPackageName
 insert_package_nevra            :: rhnPackageNEVRA
+insert_package_capability       :: rhnPackageCapability
+insert_package_delta            :: rhnPackageDelta
 insert_source_name              :: rhnSourceRPM
 insert_tag                      :: rhnTag
 insert_tag_name                 :: rhnTagName
@@ -99,8 +102,9 @@ lookup_functions                :: lookup_evr lookup_package_name \
                                    lookup_tag lookup_arch_type
 lookup_package_arch             :: rhn_exception.pks data/rhnException rhnPackageArch \
                                    data/rhnPackageArch
-lookup_package_capability       :: rhnPackageCapability
-lookup_package_name             :: rhnPackageName
+lookup_package_capability       :: rhnPackageCapability insert_package_capability
+lookup_package_delta            :: rhnPackageDelta insert_package_delta
+lookup_package_name             :: rhnPackageName insert_package_name
 lookup_package_provider         :: rhnPackageProvider
 lookup_package_key_type         :: rhnPackageKeyType
 lookup_package_nevra            :: rhnPackageNEVRA insert_package_nevra
