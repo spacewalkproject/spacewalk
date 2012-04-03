@@ -337,6 +337,7 @@ is
                      'added system entitlement ',
                       case type_label_in
                        when 'enterprise_entitled' then 'Management'
+                       when 'bootstrap_entitled' then 'Bootstrap'
                        when 'sw_mgr_entitled' then 'Update'
                        when 'provisioning_entitled' then 'Provisioning'
                        when 'monitoring_entitled' then 'Monitoring'  
@@ -404,6 +405,7 @@ is
                   'removed system entitlement ',
                    case type_label_in
                     when 'enterprise_entitled' then 'Management'
+                    when 'bootstrap_entitled' then 'Bootstrap'
                     when 'sw_mgr_entitled' then 'Update'
                     when 'provisioning_entitled' then 'Provisioning'
                     when 'monitoring_entitled' then 'Monitoring'
@@ -469,6 +471,7 @@ is
                   'removed system entitlement ',
                    case servergroup.label
                     when 'enterprise_entitled' then 'Management'
+                    when 'bootstrap_entitled' then 'Bootstrap'
                     when 'sw_mgr_entitled' then 'Update'
                     when 'provisioning_entitled' then 'Provisioning'
                     when 'monitoring_entitled' then 'Monitoring'
@@ -753,7 +756,7 @@ is
                 and sg.id = sgm.server_group_id
                 and sgt.id = sg.group_type
                 and sgt.label in (
-                    'sw_mgr_entitled','enterprise_entitled',
+                    'sw_mgr_entitled','enterprise_entitled', 'bootstrap_entitled',
                     'provisioning_entitled', 'nonlinux_entitled',
                     'monitoring_entitled', 'virtualization_host',
                                         'virtualization_host_platform'
