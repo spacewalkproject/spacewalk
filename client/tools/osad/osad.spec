@@ -16,7 +16,7 @@ Group:   System Environment/Daemons
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.10.41
+Version: 5.10.42
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -278,6 +278,11 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 %endif
 
 %changelog
+* Tue Apr 03 2012 Jan Pazdziora 5.10.42-1
+- use %%global, not %%define (msuchy@redhat.com)
+- osad.src:477: W: macro-in-%%changelog %%descriptions (msuchy@redhat.com)
+- osad.src:154: W: macro-in-comment %%post (msuchy@redhat.com)
+
 * Fri Mar 02 2012 Jan Pazdziora 5.10.41-1
 - Update the copyright year info.
 
