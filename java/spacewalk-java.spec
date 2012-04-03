@@ -22,7 +22,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.31
+Version: 1.8.32
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -604,6 +604,40 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Apr 03 2012 Jan Pazdziora 1.8.32-1
+- 804949 - make invocation of rhn_channel.convert_to_fve database-agnostic.
+- Revert "removing unused string with trans-id 'configfilefilter.path'"
+  (msuchy@redhat.com)
+- Revert "removing unused string with trans-id 'configchannelfilter.name'"
+  (msuchy@redhat.com)
+- Revert "removing unused string with trans-id
+  'config_subscribed_systems.unsubscribeSystems.success'" (msuchy@redhat.com)
+- Revert "removing unused string with trans-id
+  'config_target_systems.subscribeSystems.success'" (msuchy@redhat.com)
+- Revert "removing unused string with trans-id 'preferences.critical-
+  probes.description'" (msuchy@redhat.com)
+- Revert "removing unused string with trans-id 'preferences.critical-
+  probes.name'" (msuchy@redhat.com)
+- Revert "removing unused string with trans-id 'preferences.critical-
+  systems.description'" (msuchy@redhat.com)
+- Revert "removing unused string with trans-id 'preferences.critical-
+  systems.name'" (msuchy@redhat.com)
+- Revert "removing unused string with trans-id 'preferences.inactive-
+  systems.name'" (msuchy@redhat.com)
+- Revert "removing unused string with trans-id 'preferences.inactive-
+  systems.description'" (msuchy@redhat.com)
+- Revert "removing unused string with trans-id 'sdc.config.differing.files_1'"
+  (msuchy@redhat.com)
+- Revert "removing unused string with trans-id
+  'sdc.config.diff.files_1_dirs_0_symlinks_0'" (msuchy@redhat.com)
+- Revert "removing unused string with trans-id 'userlist.jsp.disabled'"
+  (msuchy@redhat.com)
+- Revert "removing unused string with trans-id 'userlist.jsp.enabled'"
+  (msuchy@redhat.com)
+- Fix checkstyle error (invalid use of the {@inheritDoc} tag) (jrenner@suse.de)
+- Add lib directory to checkstyle classpath (jrenner@suse.de)
+- New web page -- details of the xccdf:rule-result (slukasik@redhat.com)
+
 * Thu Mar 29 2012 Stephen Herr <sherr@redhat.com> 1.8.31-1
 - 808210 - Fixing ISE on selecting None yum checksum type for channel
   (sherr@redhat.com)
