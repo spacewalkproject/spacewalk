@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.8.13
+Version:        1.8.14
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -69,6 +69,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Tue Apr 03 2012 Jan Pazdziora 1.8.14-1
+- fix procedure dependencies (mzazrivec@redhat.com)
+
 * Fri Mar 30 2012 Jan Pazdziora 1.8.13-1
 - Add dependency for rhnXccdfRuleIdentMap to force order.
 
