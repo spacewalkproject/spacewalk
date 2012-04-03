@@ -2,7 +2,7 @@ Name: spacewalk-reports
 Summary: Script based reporting
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.1
+Version: 1.8.2
 Release: 1%{?dist}
 URL: https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -42,6 +42,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/spacewalk-report.8*
 
 %changelog
+* Tue Apr 03 2012 Jan Pazdziora 1.8.2-1
+- Rework reporting to correspond with 0-n rule/ident mapping
+  (slukasik@redhat.com)
+
 * Wed Mar 14 2012 Jan Pazdziora 1.8.1-1
 - 803228 - concatenation with null gives null on PostgreSQL, fixing.
 
