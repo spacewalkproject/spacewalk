@@ -22,7 +22,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.32
+Version: 1.8.33
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -604,6 +604,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Apr 03 2012 Jan Pazdziora 1.8.33-1
+- 804949 - make invocation of rhn_channel.convert_to_fve database-agnostic.
+
 * Tue Apr 03 2012 Jan Pazdziora 1.8.32-1
 - 804949 - make invocation of rhn_channel.convert_to_fve database-agnostic.
 - Revert "removing unused string with trans-id 'configfilefilter.path'"
