@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 1.8.1
+Version: 1.8.2
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -333,6 +333,10 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Tue Apr 03 2012 Jan Pazdziora 1.8.2-1
+- 804559 - not all msgs are CommunicationError objects (mzazrivec@redhat.com)
+- 804559 - correct string catenation (mzazrivec@redhat.com)
+
 * Fri Mar 09 2012 Miroslav Suchý 1.8.1-1
 - fix typo in man page
 - 772070 - classic hosted alignment is no longer needed (mzazrivec@redhat.com)
