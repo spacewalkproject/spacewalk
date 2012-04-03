@@ -1,4 +1,4 @@
--- oracle equivalent source sha1 b6947eea546edc7a66c7b53d0b62dc734ce3ca8a
+-- oracle equivalent source sha1 3e207b5203c8b8c0b51cd8c1d88e1d2f6b34e0c7
 --
 -- Copyright (c) 2008--2012 Red Hat, Inc.
 --
@@ -540,6 +540,7 @@ update pg_settings set setting = 'rhn_server,' || setting where name = 'search_p
 		-- the naive easy path that gets hit most often and has to be quickest.
 		if group_label in ('sw_mgr_entitled',
                            'enterprise_entitled',
+                           'bootstrap_entitled',
                            'monitoring_entitled',
                            'provisioning_entitled',
                            'virtualization_host',
@@ -675,6 +676,7 @@ update pg_settings set setting = 'rhn_server,' || setting where name = 'search_p
 
 		if label in ('sw_mgr_entitled',
                      'enterprise_entitled', 
+                     'bootstrap_entitled',
                      'provisioning_entitled', 
                      'monitoring_entitled',
                      'virtualization_host',

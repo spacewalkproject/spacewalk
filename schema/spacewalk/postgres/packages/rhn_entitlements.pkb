@@ -1,4 +1,4 @@
--- oracle equivalent source sha1 6faf828b0838ec2be2d6922790d22f6f3c6a40b6
+-- oracle equivalent source sha1 6df06cea5b2b1207dbdbcc39f39525c8f0e1e1d8
 --
 -- Copyright (c) 2008--2012 Red Hat, Inc.
 --
@@ -355,6 +355,7 @@ as $$
                      'added system entitlement ',
                       case type_label_in
                        when 'enterprise_entitled' then 'Management'
+                       when 'bootstrap_entitled' then 'Bootstrap'
                        when 'sw_mgr_entitled' then 'Update'
                        when 'provisioning_entitled' then 'Provisioning'
                        when 'monitoring_entitled' then 'Monitoring'  
@@ -424,6 +425,7 @@ as $$
                   'removed system entitlement ',
                    case type_label_in
                     when 'enterprise_entitled' then 'Management'
+                    when 'bootstrap_entitled' then 'Bootstrap'
                     when 'sw_mgr_entitled' then 'Update'
                     when 'provisioning_entitled' then 'Provisioning'
                     when 'monitoring_entitled' then 'Monitoring'
@@ -486,6 +488,7 @@ as $$
                   'removed system entitlement ',
                    case servergroup.label
                     when 'enterprise_entitled' then 'Management'
+                    when 'bootstrap_entitled' then 'Bootstrap'
                     when 'sw_mgr_entitled' then 'Update'
                     when 'provisioning_entitled' then 'Provisioning'
                     when 'monitoring_entitled' then 'Monitoring'
@@ -765,7 +768,7 @@ as $$
                 and sg.id = sgm.server_group_id
                 and sgt.id = sg.group_type
                 and sgt.label in (
-                    'sw_mgr_entitled','enterprise_entitled',
+                    'sw_mgr_entitled','enterprise_entitled', 'bootstrap_entitled',
                     'provisioning_entitled', 'nonlinux_entitled',
                     'monitoring_entitled', 'virtualization_host',
                                         'virtualization_host_platform'

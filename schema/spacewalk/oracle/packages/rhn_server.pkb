@@ -510,6 +510,7 @@ is
 		-- the naive easy path that gets hit most often and has to be quickest.
 		if group_label in ('sw_mgr_entitled',
                            'enterprise_entitled',
+                           'bootstrap_entitled',
                            'monitoring_entitled',
                            'provisioning_entitled',
                            'virtualization_host',
@@ -640,7 +641,8 @@ is
 		where	sgt.id = group_type;
 
 		if label in ('sw_mgr_entitled',
-                     'enterprise_entitled', 
+                     'enterprise_entitled',
+                     'bootstrap_entitled',
                      'provisioning_entitled', 
                      'monitoring_entitled',
                      'virtualization_host',
