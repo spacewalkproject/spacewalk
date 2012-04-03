@@ -1,5 +1,5 @@
 Name:         NOCpulsePlugins
-Version:      2.209.4
+Version:      2.209.5
 Release:      1%{?dist}
 Summary:      NOCpulse authored Plug-ins
 URL:          https://fedorahosted.org/spacewalk
@@ -88,6 +88,9 @@ fi
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Tue Apr 03 2012 Jan Pazdziora 2.209.5-1
+- 518985 - fix ORA-00918: column ambiguously defined (mzazrivec@redhat.com)
+
 * Tue Mar 13 2012 Michael Mraka <michael.mraka@redhat.com> 2.209.4-1
 - fixed error: %%changelog entries must start with *
 
