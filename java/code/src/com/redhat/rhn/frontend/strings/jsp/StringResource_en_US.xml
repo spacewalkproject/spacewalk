@@ -11975,6 +11975,30 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
        </trans-unit>
      </group>
 
+     <group>
+       <context-group name="ctx">
+         <context context-type="sourcefile">View of SCAP scans for whole infrastructure</context>
+       </context-group>
+       <trans-unit id="audit.listxccdf.jsp.profile">
+         <source>Xccdf Profile</source>
+       </trans-unit>
+       <trans-unit id="audit.listxccdf.jsp.noscans">
+         <source>There are no SCAP results reported yet.</source>
+       </trans-unit>
+       <trans-unit id="audit.listxccdf.jsp.satisfied">
+         <source>Satisfied</source>
+       </trans-unit>
+       <trans-unit id="audit.listxccdf.jsp.dissatisfied">
+         <source>Dissatisfied</source>
+       </trans-unit>
+       <trans-unit id="audit.listxccdf.jsp.satisfactionunknown">
+         <source>Unknown</source>
+       </trans-unit>
+       <trans-unit id="audit.listxccdf.jsp.tooltip">
+         <source>The last three columns represent numbers of xccdf:Rules evaluated with a given result. Satisfied = P + X, Dissatisfied = F, Unknown = E + U + K.</source>
+       </trans-unit>
+     </group>
+
      <!-- Action common -->
      <group>
        <context-group name="ctx">

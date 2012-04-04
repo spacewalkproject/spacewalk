@@ -1,0 +1,38 @@
+<rl:listset name="groupSet" legend="xccdf">
+  <rhn:csrf />
+  <rhn:submitted />
+
+  <rl:list emptykey="audit.listxccdf.jsp.noscans">
+    <rl:decorator name="ElaborationDecorator"/>
+    <rl:decorator name="PageSizeDecorator"/>
+
+    <rl:column headerkey="systemlist.jsp.system" sortable="true" sortattr="serverName">
+        <c:out escapeXml="false"
+          value="<a href=\"/rhn/systems/details/audit/ListScap.do?sid=${current.sid}\">"/>
+        <c:out value="${current.serverName}"/>
+        <c:out escapeXml="false" value="</a>"/>
+    </rl:column>
+    <rl:column headerkey="audit.listxccdf.jsp.profile" sortable="true" sortattr="profile"
+      filterattr="profile">
+      <c:out escapeXml="false"
+        value="<a href=\"/rhn/systems/details/audit/XccdfDetails.do?sid=${current.sid}&xid=${current.xid}\">"/>
+      <c:out value="${current.profile}"/>
+      <c:out escapeXml="false" value="</a>"/>
+    </rl:column>
+    <rl:column headerkey="system.audit.listscap.jsp.completed" sortable="true" sortattr="completed"
+      defaultsort="desc">
+      <c:out value="${current.completed}"/>
+    </rl:column>
+    <rl:column headerkey="audit.listxccdf.jsp.satisfied">
+      <c:out value="${current.satisfied}"/>
+    </rl:column>
+    <rl:column headerkey="audit.listxccdf.jsp.dissatisfied">
+      <c:out value="${current.dissatisfied}"/>
+    </rl:column>
+    <rl:column headerkey="audit.listxccdf.jsp.satisfactionunknown">
+      <c:out value="${current.satisfactionUnknown}"/>
+    </rl:column>
+  </rl:list>
+</rl:listset>
+
+<rhn:tooltip key="audit.listxccdf.jsp.tooltip"/>

@@ -173,6 +173,7 @@
      <rhn-tab name="Overview" url="/rhn/audit/Overview.do">
          <rhn-tab name="Reviews" url="/rhn/audit/Machine.do" />
      </rhn-tab>
+     <rhn-tab name="OpenSCAP" url="/rhn/audit/ListXccdf.do" />
      <rhn-tab name="Search" url="/rhn/audit/Search.do" />
   </rhn-tab>
   <rhn-tab name="config.nav.config" url="/rhn/configuration/Overview.do" acl="org_entitlement(rhn_provisioning);user_role(config_admin)">

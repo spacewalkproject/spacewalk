@@ -32,6 +32,43 @@
   </query>
 </mode>
 
+<mode name="latest_testresults_by_user" class="com.redhat.rhn.frontend.dto.XccdfTestResultDto">
+  <elaborator name="testresult_counts"/>
+  <query params="user_id">
+  SELECT
+      tr.id as xid,
+      tr.server_id as sid,
+      s.name as server_name,
+      xp.identifier as profile,
+      sa.completion_time as completed
+      FROM rhnUserServerPerms usp,
+          rhnXccdfTestresult tr,
+          rhnXccdfProfile xp,
+          rhnActionScap ras,
+          rhnServerAction sa,
+          rhnServer s
+      WHERE usp.user_id = :user_id
+          AND usp.server_id = tr.server_id
+          AND sa.server_id = tr.server_id
+          AND tr.action_scap_id = ras.id
+          AND sa.action_id = ras.action_id
+          AND tr.profile_id = xp.id
+          AND s.id = tr.server_id
+      ORDER BY completed DESC
+  </query>
+</mode>
+
+<query name="testresult_counts" multiple="t" column="xid">
+  SELECT tr.id as xid, rrt.label, count(rr.id) as count
+  FROM rhnXccdfTestresult tr,
+      rhnXccdfRuleresult rr,
+      rhnXccdfRuleresultType rrt
+  WHERE tr.id in (%s)
+      AND tr.id = rr.testresult_id
+      AND rr.result_id = rrt.id
+  GROUP BY tr.id, rrt.label
+</query>
+
 <mode name="show_ruleresults" class="com.redhat.rhn.frontend.dto.XccdfRuleResultDto">
   <query params="xid">
   SELECT rr.id, rrt.label, rr.testresult_id as test_result_id

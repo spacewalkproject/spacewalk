@@ -1923,6 +1923,13 @@
         <forward name="success" path="/audit/Machine.do" redirect="true"/>
     </action>
 
+    <action path="/audit/ListXccdf"
+        scope="request"
+        input="/WEB-INF/pages/audit/listxccdf.jsp"
+        type="com.redhat.rhn.frontend.action.audit.ListXccdfAction">
+        <forward name="default" path="/WEB-INF/pages/audit/listxccdf.jsp"/>
+    </action>
+
     <!-- ===== ERRATA ===== -->
     <action path="/errata/Search"
             name="errataSearchForm"

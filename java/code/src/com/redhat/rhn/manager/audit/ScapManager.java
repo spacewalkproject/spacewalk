@@ -51,6 +51,20 @@ public class ScapManager extends BaseManager {
     }
 
     /**
+     * Show brief results of all scans accessible by user.
+     * Sorted by date, descending.
+     * @param user The user requesting.
+     * @return The list of scan results
+     */
+    public static DataResult latestTestResultByUser(User user) {
+        SelectMode m = ModeFactory.getMode("scap_queries",
+                "latest_testresults_by_user");
+        HashMap params = new HashMap();
+        params.put("user_id", user.getId());
+        return makeDataResult(params, new HashMap(), null, m);
+    }
+
+    /**
      * Show brief results of all scans for given system
      * @param server The system for which to search
      * @return The list of scan results in brief
