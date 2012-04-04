@@ -8,6 +8,7 @@
     <simpleType baseType="int">
       <minLength value="1" />
       <maxLength value="10" />
+      <optional/>
     </simpleType>
   </attribute>
 
