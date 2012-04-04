@@ -83,8 +83,6 @@ public class ProvisionVirtualizationWizardActionTest extends RhnMockStrutsTestCa
     public void testStepOne() throws Exception {
         actionPerform();
         verifyNoActionErrors();
-        assertNotNull(request.getAttribute(RequestContext.SYSTEM));
-        assertNotNull(request.getAttribute(ScheduleKickstartWizardAction.HAS_PROFILES));
     }
 
     public void testStepTwo() throws Exception {
