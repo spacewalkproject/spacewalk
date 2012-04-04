@@ -2910,6 +2910,10 @@
         <forward name="confirm"
                  path="/systems/details/packages/VerifyConfirm.do"
                  redirect="true" />
+        <set-property property="acls"
+                      value="system_feature(ftr_package_verify); client_capable(packges.verify) or client_capable(packages.verify)"/>
+        <set-property property="mixins"
+                      value="com.redhat.rhn.common.security.acl.SystemAclHandler"/>
     </action>
 
      <action path="/systems/details/packages/VerifyConfirm"
