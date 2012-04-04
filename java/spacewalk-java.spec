@@ -22,7 +22,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.33
+Version: 1.8.34
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -604,6 +604,14 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Apr 04 2012 Stephen Herr <sherr@redhat.com> 1.8.34-1
+- 809868 - Make automatically-scheduled tasks visible on Failed and Archived
+  tabs (sherr@redhat.com)
+- 805952 - make the "allocation to equal" value optional.
+  (jpazdziora@redhat.com)
+- Fix naming of cloned errata to replace only the first 2 chars
+  (tlestach@redhat.com)
+
 * Tue Apr 03 2012 Jan Pazdziora 1.8.33-1
 - 804949 - make invocation of rhn_channel.convert_to_fve database-agnostic.
 
