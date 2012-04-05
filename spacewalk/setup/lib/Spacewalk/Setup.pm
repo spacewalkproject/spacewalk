@@ -1004,8 +1004,8 @@ sub postgresql_clear_db {
 
 	print loc("** Database: Shutting down spacewalk services that may be using DB.\n");
 
-	# The --exclude=oracle is needed for embedded database Satellites.
-	system_debug('/usr/sbin/spacewalk-service', '--exclude=oracle', 'stop');
+	# The --exclude=postgresql is needed for embedded database Satellites.
+	system_debug('/usr/sbin/spacewalk-service', '--exclude=postgresql', 'stop');
 
 	print loc("** Database: Services stopped.  Clearing DB.\n");
 
