@@ -1,7 +1,7 @@
 %define rhnroot %{_prefix}/share/rhn
 
 Name:		spacewalk-utils
-Version:	1.8.3
+Version:	1.8.4
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -87,6 +87,9 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Thu Apr 05 2012 Michael Mraka <michael.mraka@redhat.com> 1.8.4-1
+- made new pylint on Fedora 16 happy
+
 * Tue Apr 03 2012 Jan Pazdziora 1.8.3-1
 - 809444 - support for psql syntax (mzazrivec@redhat.com)
 
