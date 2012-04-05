@@ -76,8 +76,6 @@ public class RuleDetailsAction extends RhnAction implements Listable {
         if (ruleResult == null) {
             return null;
         }
-        else {
-            return ruleResult.getIdentsWithoutIdref();
-        }
+        return ruleResult.getIdentsWithoutIdref();
     }
 }
