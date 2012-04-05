@@ -31,6 +31,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -65,7 +66,7 @@ public class SsmManager {
      *         channels that are safe to subscribe it to
      */
     public static Map<Long, ChannelActionDAO> verifyChildEntitlements(
-        User user, Map<Long, ChannelActionDAO> sysMapping, List<Channel> allChannels) {
+            User user, Map<Long, ChannelActionDAO> sysMapping, List<Channel> allChannels) {
 
         //Load all of the channels in a map for easy lookup
         Map<Long, Channel> idToChan = new HashMap<Long, Channel>();
@@ -85,14 +86,17 @@ public class SsmManager {
         // a more accurate representation of how many entitlements are left rather than
         // always loading the static value from the DB.
         Map<Channel, Long> channelToAvailableEntitlements =
-            new HashMap<Channel, Long>(allChannels.size());
+                new HashMap<Channel, Long>(allChannels.size());
         Map<Channel, Long> channelToAvailableFteEntitlements =
                 new HashMap<Channel, Long>(allChannels.size());
 
         for (Server server : servers) {
             Long sysid = server.getId();
 
-            Set<Long> chanIds = sysMapping.get(sysid).getSubscribeChannelIds();
+            Set<Long> chanIds = new HashSet<Long>();
+            if (sysMapping.get(sysid) != null) {
+                chanIds = sysMapping.get(sysid).getSubscribeChannelIds();
+            }
             //Use an iterator so i can remove from the set
             Iterator<Long> it = chanIds.iterator();
             while (it.hasNext()) {
@@ -103,7 +107,7 @@ public class SsmManager {
 
                 if (availableEntitlements == null) {
                     availableEntitlements =
-                        ChannelManager.getAvailableEntitlements(user.getOrg(), channel);
+                            ChannelManager.getAvailableEntitlements(user.getOrg(), channel);
                     channelToAvailableEntitlements.put(channel, availableEntitlements);
                 }
                 if (availableFteEntitlements == null) {
@@ -125,7 +129,11 @@ public class SsmManager {
 
                 // First try to consume an FTE entitlement, then try regular,
                 // then remove the system
-                if (availableFteEntitlements > 0 &&
+                if (ChannelManager
+                        .isChannelFreeForSubscription(server, channel)) {
+                    // do nothing, server gets this channel for free
+                }
+                else if (availableFteEntitlements > 0 &&
                         SystemManager.isServerFveEligible(server)) {
                     availableFteEntitlements -= 1;
                     channelToAvailableEntitlements.put(channel, availableFteEntitlements);
@@ -167,7 +175,7 @@ public class SsmManager {
      * @param sysMapping a collection of ChannelActionDAOs
      */
     public static void performChannelActions(User user,
-                    Collection<ChannelActionDAO> sysMapping) {
+            Collection<ChannelActionDAO> sysMapping) {
 
         for (ChannelActionDAO system : sysMapping) {
             for (Long cid : system.getSubscribeChannelIds()) {
