@@ -101,7 +101,7 @@ public class ScapManager extends BaseManager {
                 "ruleresult_by_id");
         HashMap params = new HashMap();
         params.put("rr_id", ruleResultId);
-        List<XccdfRuleResultDto> result = (List<XccdfRuleResultDto>) m.execute(params);
+        List<XccdfRuleResultDto> result = m.execute(params);
         return result.isEmpty() ? null : result.get(0);
     }
 
@@ -115,7 +115,7 @@ public class ScapManager extends BaseManager {
                 "idents_per_ruleresult");
         HashMap params = new HashMap();
         params.put("rr_id", ruleResultId);
-        return (List<XccdfIdentDto>) m.execute(params);
+        return m.execute(params);
     }
 
     private static List<Map<String, Object>> transposeView(DataResult testResultsRaw) {
