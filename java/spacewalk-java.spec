@@ -22,7 +22,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.34
+Version: 1.8.35
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -605,6 +605,16 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Apr 05 2012 Jan Pazdziora 1.8.35-1
+- 809897 - using the evr_t_as_vre_simple.
+- adding jdom dependency (tlestach@redhat.com)
+- Fixing the order of action's child elements.
+- 701893 - do not show the Schedule Deploy Action and Schedule System
+  Comparison links in the left pane -- the right pane has them with correct
+  ACLs.
+- Add ACL to VerifyPackages to match the ACL on the .jsp referencing it.
+- fix typo (tlestach@redhat.com)
+
 * Wed Apr 04 2012 Stephen Herr <sherr@redhat.com> 1.8.34-1
 - 809868 - Make automatically-scheduled tasks visible on Failed and Archived
   tabs (sherr@redhat.com)
