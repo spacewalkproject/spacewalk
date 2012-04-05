@@ -6667,7 +6667,7 @@ Follow this url to see the full list of inactive systems:
 		    <context context-type="sourcefile">/rhn/systems/details/configuration/Overview.do</context>
 		</context-group>
 	     <trans-unit id="sdc.config.deploy.noaction">
-			<source>No deploy action completed. [&lt;a href="{0}"&gt;Schedule Deploy Action&lt;/a&gt;]</source>
+			<source>No deploy action completed.</source>
 	     <target>無建置動作被完成。「&lt;a href="{0}"&gt;排程建置動作&lt;/a&gt;」</target></trans-unit>
 
          <trans-unit id="sdc.config.deploy.failure">
@@ -6684,8 +6684,8 @@ Follow this url to see the full list of inactive systems:
 		    <context context-type="sourcefile">/rhn/systems/details/configuration/Overview.do</context>
 		</context-group>
 	     <trans-unit id="sdc.config.diff.noaction">
-			<source>No system comparisons completed. [&lt;a href="{0}"&gt;Schedule System Comparison&lt;/a&gt;]</source>
-        <target>沒有完成的系統比較。「&lt;a href="{0}"&gt;排程系統比較&lt;/a&gt;」</target></trans-unit>
+			<source>No system comparisons completed.</source>
+        <target>沒有完成的系統比較。</target></trans-unit>
 
 
 

@@ -6692,8 +6692,8 @@ Follow this url to see the full list of inactive systems:
 		    <context context-type="sourcefile">/rhn/systems/details/configuration/Overview.do</context>
 		</context-group>
 	     <trans-unit id="sdc.config.deploy.noaction">
-			<source>No deploy action completed. [&lt;a href="{0}"&gt;Schedule Deploy Action&lt;/a&gt;]</source>
-	     <target>配備のアクションは完了していません。 [&lt;a href="{0}"&gt;配備アクションのスケジュール&lt;/a&gt;]</target></trans-unit>
+			<source>No deploy action completed.</source>
+	     <target>配備のアクションは完了していません。</target></trans-unit>
 
          <trans-unit id="sdc.config.deploy.failure">
              <source>All file and/or directory ({0}) deployments failed. [&lt;a href="{1}"&gt;View Details&lt;/a&gt;]</source>
@@ -6709,8 +6709,8 @@ Follow this url to see the full list of inactive systems:
 		    <context context-type="sourcefile">/rhn/systems/details/configuration/Overview.do</context>
 		</context-group>
 	     <trans-unit id="sdc.config.diff.noaction">
-			<source>No system comparisons completed. [&lt;a href="{0}"&gt;Schedule System Comparison&lt;/a&gt;]</source>
-        <target>システムの比較は完了していません。 [&lt;a href="{0}"&gt;システムの比較をスケジュール&lt;/a&gt;]</target></trans-unit>
+			<source>No system comparisons completed.</source>
+        <target>システムの比較は完了していません。</target></trans-unit>
 
 
 

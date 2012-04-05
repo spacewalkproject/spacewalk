@@ -180,13 +180,10 @@ public class OverviewAction extends RhnAction {
                                              ActionFactory.TYPE_CONFIGFILES_DIFF,
                                                                 server);
         if (sysCompare == null) {
-            String url = COMPARE_FILES_URL + "?sid=" + server.getId();
-            Object [] params = new Object[] { url };
             request.setAttribute(DIFF_TIME_MESSAGE, "");
 
             request.setAttribute(DIFF_ACTION_MESSAGE,
-                                    service.getMessage("sdc.config.diff.noaction",
-                                            params));
+                                    service.getMessage("sdc.config.diff.noaction"));
         }
         else {
             request.setAttribute(DIFF_TIME_MESSAGE,
@@ -223,13 +220,10 @@ public class OverviewAction extends RhnAction {
                                                          server);
 
         if (ca == null) {
-            String url = DEPLOY_FILES_URL + "?sid=" + server.getId();
-            Object [] params = new Object[] { url };
             request.setAttribute(DEPLOYMENT_TIME_MESSAGE, "");
 
             request.setAttribute(DEPLOYMENT_DETAILS_MESSAGE,
-                                    service.getMessage("sdc.config.deploy.noaction",
-                                            params));
+                                    service.getMessage("sdc.config.deploy.noaction"));
         }
         else {
 

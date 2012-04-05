@@ -6674,8 +6674,8 @@ Follow this url to see the full list of inactive systems:
 		    <context context-type="sourcefile">/rhn/systems/details/configuration/Overview.do</context>
 		</context-group>
 	     <trans-unit id="sdc.config.deploy.noaction">
-			<source>No deploy action completed. [&lt;a href="{0}"&gt;Schedule Deploy Action&lt;/a&gt;]</source>
-	     <target>স্থাপনা কর্ম সমাপ্ত হয়নি। [&lt;a href="{0}"&gt;স্থাপনার কর্ম নির্ধারণ করুন&lt;/a&gt;]</target></trans-unit>
+			<source>No deploy action completed.</source>
+	     <target>স্থাপনা কর্ম সমাপ্ত হয়নি।</target></trans-unit>
 
          <trans-unit id="sdc.config.deploy.failure">
              <source>All file and/or directory ({0}) deployments failed. [&lt;a href="{1}"&gt;View Details&lt;/a&gt;]</source>
@@ -6691,8 +6691,8 @@ Follow this url to see the full list of inactive systems:
 		    <context context-type="sourcefile">/rhn/systems/details/configuration/Overview.do</context>
 		</context-group>
 	     <trans-unit id="sdc.config.diff.noaction">
-			<source>No system comparisons completed. [&lt;a href="{0}"&gt;Schedule System Comparison&lt;/a&gt;]</source>
-        <target>সিস্টেমের তুলনামূলক কোনো পরীক্ষণ সমাপ্ত হয়নি। [&lt;a href="{0}"&gt;সিস্টেমের তুলনামূলক পরীক্ষণ নির্ধারণ করুন&lt;/a&gt;]</target></trans-unit>
+			<source>No system comparisons completed.</source>
+        <target>সিস্টেমের তুলনামূলক কোনো পরীক্ষণ সমাপ্ত হয়নি।</target></trans-unit>
 
 
 
