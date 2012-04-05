@@ -29,7 +29,10 @@ class History:
     def add_history(self, summary, details = ""):
         """ Add a history event to the server. """
         log_debug(4, summary)
-        self.__h.append((summary[:MAX_SUMMARY], details[:MAX_DETAILS]))
+        if details == '':
+            self.__h.append((summary[:MAX_SUMMARY], None))
+        else:
+            self.__h.append((summary[:MAX_SUMMARY], details[:MAX_DETAILS]))
         
     def save_history_byid(self, server_id):
         log_debug(3, server_id, "%d history events" % len(self.__h))
