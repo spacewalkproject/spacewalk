@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        1.8.3
+Version:        1.8.4
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -106,6 +106,9 @@ rm -rf %{buildroot}
 %{_mandir}/man8/spacewalk-make-mount-points*
 
 %changelog
+* Thu Apr 05 2012 Jan Pazdziora 1.8.4-1
+- fixed clearing db for postgresql installation (michael.mraka@redhat.com)
+
 * Mon Mar 19 2012 Jan Pazdziora 1.8.3-1
 - rhn-config-satellite.pl does not like to be invoked with no --option
   specified.
