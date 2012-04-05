@@ -58,6 +58,7 @@ Requires: jakarta-commons-fileupload
 Requires: jakarta-commons-io
 Requires: jakarta-taglibs-standard
 Requires: jcommon
+Requires: jdom
 Requires: jpam
 Requires: jta
 Requires: log4j
