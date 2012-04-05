@@ -41,23 +41,35 @@ public class PackageEvrFactory {
      * @param evrIn PackageEvr to commit to db
      * @return Returns a new/committed PackageEvr object.
      */
-    public static PackageEvr save(PackageEvr evrIn) {
+    private static Long lookupPackageEvr(String epoch, String version,
+            String release) {
 
         CallableMode m = ModeFactory.getCallableMode("Package_queries", "lookup_evr");
 
         Map inParams = new HashMap();
-        inParams.put("epoch", evrIn.getEpoch());
-        inParams.put("version", evrIn.getVersion());
-        inParams.put("release", evrIn.getRelease());
+        inParams.put("epoch", epoch);
+        inParams.put("version", version);
+        inParams.put("release", release);
 
         Map outParams = new HashMap();
         outParams.put("evrId", new Integer(Types.NUMERIC));
 
         Map result = m.execute(inParams, outParams);
 
-        Long newEvrId = new Long(result.get("evrId").toString());
+        return (Long) result.get("evrId");
+    }
 
-        return lookupPackageEvrById(newEvrId);
+    /**
+     * Creates a new PackageEvr object
+     * @param evr PackageEvr
+     * @return Returns a committed PackageEvr
+     */
+    public static PackageEvr lookupOrCreatePackageEvr(PackageEvr evr) {
+        if (evr.getId() != null) {
+            return lookupPackageEvrById(evr.getId());
+        }
+        return lookupOrCreatePackageEvr(evr.getEpoch(), evr.getVersion(),
+                evr.getRelease());
     }
 
     /**
@@ -67,13 +79,9 @@ public class PackageEvrFactory {
      * @param r PackageEvr Release
      * @return Returns a committed PackageEvr
      */
-    public static PackageEvr createPackageEvr(String e, String v, String r) {
-        PackageEvr evr = new PackageEvr();
-        evr.setEpoch(e);
-        evr.setVersion(v);
-        evr.setRelease(r);
-
-        return PackageEvrFactory.save(evr);
+    public static PackageEvr lookupOrCreatePackageEvr(String e, String v, String r) {
+        Long id = lookupPackageEvr(e, v, r);
+        return lookupPackageEvrById(id);
     }
 
     /**

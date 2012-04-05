@@ -137,8 +137,8 @@ public class ErrataCacheManagerTest extends RhnBaseTestCase {
         TestUtils.flushAndEvict(s);
         retval.put("server", s);
         Package p = PackageTest.createTestPackage(userIn.getOrg());
-        PackageEvr evr = PackageEvrFactory.createPackageEvr(p.getPackageEvr().getEpoch(),
-                p.getPackageEvr().getVersion(), "2");
+        PackageEvr evr = PackageEvrFactory.lookupOrCreatePackageEvr(
+                p.getPackageEvr().getEpoch(), p.getPackageEvr().getVersion(), "2");
         evr = (PackageEvr) TestUtils.saveAndReload(evr);
         Package newPackage = PackageTest.createTestPackage(userIn.getOrg());
         newPackage.setPackageName(p.getPackageName());

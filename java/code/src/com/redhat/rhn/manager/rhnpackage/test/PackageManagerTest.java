@@ -645,7 +645,7 @@ public class PackageManagerTest extends BaseTestCaseWithUser {
 
         //   Create upgraded package EVR so package will show up from the query
         PackageEvr upgradedPackageEvr =
-            PackageEvrFactory.createPackageEvr("1", "1.0.0", "2");
+            PackageEvrFactory.lookupOrCreatePackageEvr("1", "1.0.0", "2");
         upgradedPackageEvr =
             (PackageEvr)TestUtils.saveAndReload(upgradedPackageEvr);
 

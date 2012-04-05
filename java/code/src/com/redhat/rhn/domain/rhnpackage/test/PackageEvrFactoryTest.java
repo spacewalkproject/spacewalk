@@ -49,6 +49,6 @@ public class PackageEvrFactoryTest extends RhnBaseTestCase {
         String version = "1.0.0";
         String release = "1";
 
-        return PackageEvrFactory.createPackageEvr(epoch, version, release);
+        return PackageEvrFactory.lookupOrCreatePackageEvr(epoch, version, release);
     }
 }

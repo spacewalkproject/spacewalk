@@ -64,7 +64,7 @@ public class ProxyInfo {
      * @param r Release
      */
     public void setVersion(String e, String v, String r) {
-        setVersion(PackageEvrFactory.createPackageEvr(e, v, r));
+        setVersion(PackageEvrFactory.lookupOrCreatePackageEvr(e, v, r));
     }
 
 

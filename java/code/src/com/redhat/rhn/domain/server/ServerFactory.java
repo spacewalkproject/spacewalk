@@ -313,7 +313,7 @@ public class ServerFactory extends HibernateFactory {
     public static void save(Server serverIn) {
         if (serverIn.isSatellite()) {
             SatelliteServer ss = (SatelliteServer) serverIn;
-            PackageEvrFactory.save(ss.getVersion());
+            PackageEvrFactory.lookupOrCreatePackageEvr(ss.getVersion());
         }
 
         singleton.saveObject(serverIn);

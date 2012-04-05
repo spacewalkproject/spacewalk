@@ -540,7 +540,7 @@ public class ActionFactory extends HibernateFactory {
                 // It is possible to have a Package Action with only a package name
                 if (evr != null) {
                     //commit each packageEvr
-                    PackageEvr newEvr = PackageEvrFactory.save(evr);
+                    PackageEvr newEvr = PackageEvrFactory.lookupOrCreatePackageEvr(evr);
                     detail.setEvr(newEvr);
                 }
             }

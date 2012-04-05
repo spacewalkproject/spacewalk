@@ -147,7 +147,7 @@ public class SatelliteServer extends Server {
      * @param v Version
      */
     public void setVersion(String v) {
-        setVersion(PackageEvrFactory.createPackageEvr(null, v, "1"));
+        setVersion(PackageEvrFactory.lookupOrCreatePackageEvr(null, v, "1"));
     }
 
     /**
