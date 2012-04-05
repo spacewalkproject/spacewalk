@@ -2905,15 +2905,15 @@
         type="com.redhat.rhn.frontend.action.rhnpackage.VerifyPackageSetupAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
         <set-property property="postRequiredIfSubmitted" value="true" />
+        <set-property property="acls"
+                      value="system_feature(ftr_package_verify); client_capable(packges.verify) or client_capable(packages.verify)"/>
+        <set-property property="mixins"
+                      value="com.redhat.rhn.common.security.acl.SystemAclHandler"/>
         <forward name="default"
                  path="/WEB-INF/pages/systems/details/packages/verifypkgs.jsp"/>
         <forward name="confirm"
                  path="/systems/details/packages/VerifyConfirm.do"
                  redirect="true" />
-        <set-property property="acls"
-                      value="system_feature(ftr_package_verify); client_capable(packges.verify) or client_capable(packages.verify)"/>
-        <set-property property="mixins"
-                      value="com.redhat.rhn.common.security.acl.SystemAclHandler"/>
     </action>
 
      <action path="/systems/details/packages/VerifyConfirm"
