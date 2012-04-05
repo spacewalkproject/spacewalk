@@ -158,11 +158,11 @@ class DepSolver:
         return results
 
     def __whatProvides(self, name, flags, version):
+        # pylint: disable=W0702
         try:
             return ListPackageSack(self._repostore.pkgSack.searchProvides((name, flags, version)))
         except:
             #perhaps we're on older version of yum try old style
-            # pylint: disable=W0702
             return ListPackageSack(self._repostore.pkgSack.searchProvides(name))
 
     @staticmethod
