@@ -4,7 +4,7 @@
 %endif
 
 Name:        spacecmd
-Version:     1.8.2
+Version:     1.8.3
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -61,6 +61,10 @@ touch %{buildroot}/%{python_sitelib}/spacecmd/__init__.py
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Thu Apr 05 2012 Stephen Herr <sherr@redhat.com> 1.8.3-1
+- 809905 - add option to allow templating for spacecmd kickstarting
+  (sherr@redhat.com)
+
 * Thu Mar 29 2012 Steven Hardy <shardy@redhat.com> 1.8.2-1
 - spacecmd : softwarechannel_clone avoid ISE on duplicate name
   (shardy@redhat.com)
