@@ -1638,6 +1638,7 @@ def do_kickstart_addscript(self, args):
     options = [ Option('-p', '--profile', action='store'),
                 Option('-e', '--execution-time', action='store'),
                 Option('-c', '--chroot', action='store_true'),
+                Option('-t', '--template', action='store_true'),
                 Option('-i', '--interpreter', action='store'),
                 Option('-f', '--file', action='store') ]
 
@@ -1667,6 +1668,11 @@ def do_kickstart_addscript(self, args):
             options.chroot = False
         else:
             options.chroot = True
+
+        if re.match('n', options.template, re.I):
+            options.template = False
+        else:
+            options.template = True
 
         if re.match('pre', options.execution_time, re.I):
             options.execution_time = 'pre'
@@ -1698,6 +1704,7 @@ def do_kickstart_addscript(self, args):
     print 'Profile Name:   %s' % options.profile
     print 'Execution Time: %s' % options.execution_time
     print 'Chroot:         %s' % options.chroot
+    print 'Template:       %s' % options.template
     print 'Interpreter:    %s' % options.interpreter
     print 'Contents:'
     print options.contents
@@ -1709,7 +1716,8 @@ def do_kickstart_addscript(self, args):
                                             options.contents,
                                             options.interpreter,
                                             options.execution_time,
-                                            options.chroot)
+                                            options.chroot,
+                                            options.template)
 
 ####################
 
