@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.7
+Version: 1.8.8
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -254,6 +254,10 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Thu Apr 05 2012 Jan Pazdziora 1.8.8-1
+- Fix naming of cloned errata to replace only the first 2 chars
+  (tlestach@redhat.com)
+
 * Tue Apr 03 2012 Jan Pazdziora 1.8.7-1
 - 806439 - Changing perl sitenav too (sherr@redhat.com)
 
