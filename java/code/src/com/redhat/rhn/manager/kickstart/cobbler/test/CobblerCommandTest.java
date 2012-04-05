@@ -16,6 +16,7 @@ package com.redhat.rhn.manager.kickstart.cobbler.test;
 
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.test.KickstartDataTest;
+import com.redhat.rhn.domain.kickstart.test.KickstartableTreeTest;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.server.NetworkInterface;
 import com.redhat.rhn.domain.server.Server;
@@ -49,7 +50,7 @@ public class CobblerCommandTest extends BaseTestCaseWithUser {
         user = UserTestUtils.createUserInOrgOne();
         user.addRole(RoleFactory.ORG_ADMIN);
         this.ksdata = KickstartDataTest.createKickstartWithDefaultKey(this.user.getOrg());
-        this.ksdata.getTree().setBasePath("/opt/repo/f9-x86_64/");
+        this.ksdata.getTree().setBasePath("/tmp/opt/repo/f9-x86_64/");
 
         // Uncomment this if you want the tests to actually talk to cobbler
         //Config.get().setString(CobblerXMLRPCHelper.class.getName(),
@@ -58,6 +59,7 @@ public class CobblerCommandTest extends BaseTestCaseWithUser {
         //        CobblerConnection.class.getName());
         //commitAndCloseSession();
 
+        KickstartableTreeTest.createKickstartTreeItems(this.ksdata.getTree());
         CobblerDistroCreateCommand dcreate = new
             CobblerDistroCreateCommand(ksdata.getTree(), user);
         dcreate.store();
