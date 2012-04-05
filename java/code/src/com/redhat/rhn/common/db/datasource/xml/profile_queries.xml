@@ -15,7 +15,7 @@ ORDER BY UPPER(SP.name)
 
 <mode name="profile_package_overview" class="com.redhat.rhn.frontend.dto.ProfilePackageOverviewDto">
   <query params="prid">
-SELECT PN.name || '-' || PE.evr.as_vre_simple() AS NVRE,
+SELECT PN.name || '-' || evr_t_as_vre_simple(PE.evr) AS NVRE,
        PA.label as arch
   FROM rhnServerProfilePackage SPP
   		LEFT JOIN rhnPackageArch PA ON SPP.package_arch_id = PA.id
