@@ -197,7 +197,6 @@ public class ServerConfigHandlerTest extends BaseHandlerTestCase {
                 Server server, boolean commitToLocal, String selinuxCtx)
                         throws ValidatorException {
             Map <String, Object> data = new HashMap<String, Object>();
-            data.put("contents", contents);
             data.put(ConfigRevisionSerializer.GROUP, group);
             data.put(ConfigRevisionSerializer.OWNER, owner);
             data.put(ConfigRevisionSerializer.PERMISSIONS, perms);
@@ -205,6 +204,7 @@ public class ServerConfigHandlerTest extends BaseHandlerTestCase {
             String start = "#@";
             String end = "@#";
             if (!isDir) {
+                data.put(ConfigRevisionSerializer.CONTENTS, contents);
                 data.put(ConfigRevisionSerializer.MACRO_START, start);
                 data.put(ConfigRevisionSerializer.MACRO_END, end);
             }
