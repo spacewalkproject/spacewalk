@@ -21,6 +21,8 @@ import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.domain.channel.NoBaseChannelFoundException;
 import com.redhat.rhn.domain.channel.test.ChannelFactoryTest;
 import com.redhat.rhn.domain.rhnpackage.Package;
+import com.redhat.rhn.domain.rhnpackage.PackageArch;
+import com.redhat.rhn.domain.rhnpackage.PackageFactory;
 import com.redhat.rhn.domain.rhnpackage.profile.Profile;
 import com.redhat.rhn.domain.rhnpackage.test.PackageTest;
 import com.redhat.rhn.domain.rhnset.RhnSet;
@@ -439,6 +441,9 @@ public class ProfileManagerTest extends RhnBaseTestCase {
         pli.setIdCombo(nameId + "|" + evrString.hashCode());
         pli.setEvr(evrString);
         pli.setNameId(new Long(nameId));
+        PackageArch pa = PackageFactory.lookupPackageArchByLabel("x86_64");
+        pli.setArch(pa.getLabel());
+        pli.setArchId(pa.getId());
         return pli;
     }
 
