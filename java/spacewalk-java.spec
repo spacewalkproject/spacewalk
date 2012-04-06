@@ -22,7 +22,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.36
+Version: 1.8.37
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -605,6 +605,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Apr 06 2012 Michael Mraka <michael.mraka@redhat.com> 1.8.37-1
+- improved performance of repomd generation
+
 * Thu Apr 05 2012 Stephen Herr <sherr@redhat.com> 1.8.36-1
 - 804810 - also making inherited virtualization entitlements work correctly in
   SSM (sherr@redhat.com)
