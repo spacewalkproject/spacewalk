@@ -277,9 +277,8 @@ public class ServerConfigHandlerTest extends BaseHandlerTestCase {
                                                         boolean lookLocal) {
         List<String> paths = new ArrayList<String>(1);
         paths.add(path);
-        assertEquals(rev, handler.lookupFileInfo(adminKey,
-                                            server.getId().intValue(),
-                                                paths, lookLocal).get(0));
+        assertTrue(rev.matches(handler.lookupFileInfo(adminKey, server.getId().intValue(),
+                paths, lookLocal).get(0)));
     }
 
     public void testLookupFileInfoNoData() throws Exception {
