@@ -87,75 +87,81 @@ public class AdvDataSourceTest extends RhnBaseTestCase {
      * Test for ModeFactory.getMode methods
      */
     public void testDate() {
-        SelectMode m = ModeFactory.getMode("test_queries", "date_dto_test");
-        DataResult dr = m.execute(new HashMap());
-        assertTrue(dr.get(0) instanceof TestDateDto);
-        TestDateDto d = (TestDateDto) dr.get(0);
-        assertTrue(d.getCreated() instanceof Timestamp);
+        if (ConfigDefaults.get().isOracle()) {
+            SelectMode m = ModeFactory.getMode("test_queries", "date_dto_test");
+            DataResult dr = m.execute(new HashMap());
+            assertTrue(dr.get(0) instanceof TestDateDto);
+            TestDateDto d = (TestDateDto) dr.get(0);
+            assertTrue(d.getCreated() instanceof Timestamp);
+        }
     }
 
     public void testMaxRows() {
-        SelectMode m = ModeFactory.getMode("test_queries", "withClass");
-        try {
-            m.setMaxRows(-10);
-            fail("setMaxRows should NOT allow negative numbers.");
+        if (ConfigDefaults.get().isOracle()) {
+            SelectMode m = ModeFactory.getMode("test_queries", "withClass");
+            try {
+                m.setMaxRows(-10);
+                fail("setMaxRows should NOT allow negative numbers.");
+            }
+            catch (IllegalArgumentException e) {
+                // expected.
+            }
+            m.setMaxRows(10);
+            Map params = null;
+            DataResult dr = m.execute(params);
+            assertNotNull(dr);
+            assertTrue(dr.size() == 10);
         }
-        catch (IllegalArgumentException e) {
-            // expected.
-        }
-        m.setMaxRows(10);
-        Map params = null;
-        DataResult dr = m.execute(params);
-        assertNotNull(dr);
-        assertTrue(dr.size() == 10);
     }
 
     /**
      * Test for ModeFactory.getMode methods
      */
     public void testModes() {
-        SelectMode m = ModeFactory.getMode("test_queries", "withClass");
-        Map params = null;
-        DataResult dr = m.execute(params);
-        assertNotNull(dr);
-        assertTrue(dr.size() > 1);
-        Object obj = dr.iterator().next();
-        /* The withClass query in test_queries should have a class defined. We don't really
-         * care what it is as long as it isn't a Map.
-         */
-        assertTrue(!obj.getClass().getName().equals("java.util.Map"));
+        if (ConfigDefaults.get().isOracle()) {
+            SelectMode m = ModeFactory.getMode("test_queries", "withClass");
+            Map params = null;
+            DataResult dr = m.execute(params);
+            assertNotNull(dr);
+            assertTrue(dr.size() > 1);
+            Object obj = dr.iterator().next();
+            /* The withClass query in test_queries should have a class defined. We don't
+             * really care what it is as long as it isn't a Map.
+             */
+            assertTrue(!obj.getClass().getName().equals("java.util.Map"));
 
-        //Try over-riding and getting a Map back
-        SelectMode m2 = ModeFactory.getMode("test_queries", "withClass", Map.class);
-        dr = m2.execute(params);
-        assertNotNull(dr);
-        assertTrue(dr.size() > 1);
-        obj = dr.iterator().next();
-        //make sure we got some sort of a Map back
-        assertEquals("java.util.HashMap", obj.getClass().getName());
+            //Try over-riding and getting a Map back
+            SelectMode m2 = ModeFactory.getMode("test_queries", "withClass", Map.class);
+            dr = m2.execute(params);
+            assertNotNull(dr);
+            assertTrue(dr.size() > 1);
+            obj = dr.iterator().next();
+            //make sure we got some sort of a Map back
+            assertEquals("java.util.HashMap", obj.getClass().getName());
 
-        //Try over-riding with something incompatible
-        SelectMode m3 = ModeFactory.getMode("test_queries", "withClass", Set.class);
-        try {
-            dr = m3.execute(params);
-            fail();
+            //Try over-riding with something incompatible
+            SelectMode m3 = ModeFactory.getMode("test_queries", "withClass", Set.class);
+            try {
+                dr = m3.execute(params);
+                fail();
+            }
+            catch (ObjectCreateWrapperException e) {
+                //success!
+            }
+
+            //Make sure our selectMode object was a copy and not the one cached
+            SelectMode m2a = ModeFactory.getMode("test_queries", "withClass");
+            assertFalse(m2a.getClassString().equals("java.util.Set"));
+            assertFalse(m2a.getClassString().equals("java.util.Map"));
+
+            //finally, make sure that by default our DataResult objects contain Maps
+            SelectMode m4 = ModeFactory.getMode("test_queries", "all_tables");
+            dr = m4.execute(params);
+            assertNotNull(dr);
+            assertTrue(dr.size() > 1);
+            obj = dr.iterator().next();
+            assertEquals("java.util.HashMap", obj.getClass().getName());
         }
-        catch (ObjectCreateWrapperException e) {
-            //success!
-        }
-
-        //Make sure our selectMode object was a copy and not the one cached
-        SelectMode m2a = ModeFactory.getMode("test_queries", "withClass");
-        assertFalse(m2a.getClassString().equals("java.util.Set"));
-        assertFalse(m2a.getClassString().equals("java.util.Map"));
-
-        //finally, make sure that by default our DataResult objects contain Maps
-        SelectMode m4 = ModeFactory.getMode("test_queries", "all_tables");
-        dr = m4.execute(params);
-        assertNotNull(dr);
-        assertTrue(dr.size() > 1);
-        obj = dr.iterator().next();
-        assertEquals("java.util.HashMap", obj.getClass().getName());
     }
 
     public void testInsert() throws Exception {
@@ -287,21 +293,23 @@ public class AdvDataSourceTest extends RhnBaseTestCase {
     }
 
     public void testDoubleElaboration() throws Exception {
-        SelectMode m = ModeFactory.getMode("test_queries", "withClass");
-        DataResult<TableData> dr = m.execute(Collections.EMPTY_MAP);
-        assertTrue(dr.size() >= 1);
-        dr.elaborate();
-        TableData rowA = dr.get(0);
-        String tableNameA = rowA.getTableName();
-        String columnNameA = StringUtils.join(rowA.getColumnName().iterator(), ",");
-        // Elaborate 2nd time
-        dr.elaborate();
-        TableData rowB = dr.get(0);
-        String tableNameB = rowB.getTableName();
-        String columnNameB = StringUtils.join(rowB.getColumnName().iterator(), ",");
+        if (ConfigDefaults.get().isOracle()) {
+            SelectMode m = ModeFactory.getMode("test_queries", "withClass");
+            DataResult<TableData> dr = m.execute(Collections.EMPTY_MAP);
+            assertTrue(dr.size() >= 1);
+            dr.elaborate();
+            TableData rowA = dr.get(0);
+            String tableNameA = rowA.getTableName();
+            String columnNameA = StringUtils.join(rowA.getColumnName().iterator(), ",");
+            // Elaborate 2nd time
+            dr.elaborate();
+            TableData rowB = dr.get(0);
+            String tableNameB = rowB.getTableName();
+            String columnNameB = StringUtils.join(rowB.getColumnName().iterator(), ",");
 
-        assertEquals(tableNameA, tableNameB);
-        assertEquals(columnNameA, columnNameB);
+            assertEquals(tableNameA, tableNameB);
+            assertEquals(columnNameA, columnNameB);
+        }
     }
 
     public void testMaxRowsWithElaboration() throws Exception {
