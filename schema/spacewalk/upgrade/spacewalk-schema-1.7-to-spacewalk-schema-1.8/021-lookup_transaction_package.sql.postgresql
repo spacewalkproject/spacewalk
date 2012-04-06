@@ -1,4 +1,4 @@
--- oracle equivalent source sha1 5507c4bf3760c813f3f8ffb461a73f5e2903473e
+-- oracle equivalent source sha1 b04dab2ff31049a8744e5ce1531ccd8b00152bbc
 --
 -- Copyright (c) 2008--2012 Red Hat, Inc.
 --
@@ -8,10 +8,10 @@
 -- FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 -- along with this software; if not, see
 -- http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
--- 
+--
 -- Red Hat trademarks are not licensed under GPLv2. No permission is
 -- granted to use or replicate Red Hat trademarks that are incorporated
--- in this software or its documentation. 
+-- in this software or its documentation.
 
 create or replace function
 lookup_transaction_package(
