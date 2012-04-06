@@ -17,6 +17,8 @@ package com.redhat.rhn.frontend.action.systems.provisioning.kickstart.test;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 
+import servletunit.HttpServletRequestSimulator;
+
 /**
  * SessionCancelActionTest
  * @version $Rev: 1 $
@@ -33,6 +35,7 @@ public class SessionCancelActionTest extends BaseSessionTestCase {
     public void testExecuteSubmit() {
         addRequestParameter(RhnAction.SUBMITTED, Boolean.TRUE.toString());
         setRequestPathInfo("/systems/details/kickstart/SessionCancel");
+        request.setMethod(HttpServletRequestSimulator.POST);
         actionPerform();
         verifyActionMessage("kickstart.session_cancel.success");
         assertEquals("/systems/details/kickstart/SessionStatus.do?sid=" + s.getId(),
