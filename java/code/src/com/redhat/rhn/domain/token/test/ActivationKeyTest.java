@@ -14,6 +14,7 @@
  */
 package com.redhat.rhn.domain.token.test;
 
+import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.common.validator.ValidatorException;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.test.ChannelFactoryTest;
@@ -38,8 +39,6 @@ import com.redhat.rhn.testing.BaseTestCaseWithUser;
 import com.redhat.rhn.testing.ServerGroupTestUtils;
 import com.redhat.rhn.testing.TestUtils;
 import com.redhat.rhn.testing.UserTestUtils;
-
-import org.hibernate.NonUniqueObjectException;
 
 import java.util.List;
 
@@ -234,8 +233,14 @@ public class ActivationKeyTest extends BaseTestCaseWithUser {
             String msg = "Duplicate Key exception not raised..";
             fail(msg);
         }
-        catch (NonUniqueObjectException e) {
-            //sweet duplicate object exception
+        catch (ValidatorException e) {
+            for (ValidatorError er : e.getResult().getErrors()) {
+                    if (er.getKey().equals("activation-key.java.exists")) {
+                        // sweet duplicate object exception
+                        return;
+                    }
+            }
+            throw e;
         }
     }
 }
