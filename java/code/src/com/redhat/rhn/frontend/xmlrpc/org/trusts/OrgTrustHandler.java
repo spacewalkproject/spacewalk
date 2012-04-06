@@ -192,6 +192,9 @@ public class OrgTrustHandler extends BaseHandler {
         if (trustOrg == null) {
             throw new NoSuchOrgException(trustOrgId.toString());
         }
+        if (!user.getOrg().getTrustedOrgs().contains(trustOrg)) {
+            throw new OrgNotInTrustException(trustOrgId);
+        }
 
         Map<String, Object> details = new HashMap<String, Object>();
 
