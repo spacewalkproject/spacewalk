@@ -51,7 +51,7 @@ public class TraceBackEvent extends BaseEvent implements EventMessage {
         if (request != null) {
             out.println(ls.getMessage("traceback message header"));
             out.print(request.getMethod());
-            out.println(" " + request.getAttribute("requestedUri"));
+            out.println(" " + request.getRequestURI());
             out.println();
             out.print(ls.getMessage("date", getUserLocale()));
             out.print(":");
