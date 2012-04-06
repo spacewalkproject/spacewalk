@@ -1,27 +1,31 @@
 #!/bin/sh
 
-if [[ $@ =~ "--help|-h" ]] || [ $# -lt 1 -o $# -gt 2 ]; then
-	echo "Usage: `basename $0` -h | --help | output-file [connect-string]"
-	exit
+if [[ $@ =~ "-h" ]] || [[ $@ =~ "--help" ]] || [ $# -ne 1 -o $# -gt 1 ]; then
+        echo "Usage: `basename $0` -h | --help | output-file"
+        exit
 fi
 
-connect=$(spacewalk-cfg-get default_db)
-[ -n "$2" ] && connect=$2
-
-sql="
-set serverout on
-set pagesize 2000 linesize 145
-column name_col_plus_show_param format a40 word wrap heading PARAMETER
-column value_col_plus_show_param format a90 word wrap heading VALUE
+if [ "$(spacewalk-cfg-get db_backend)" = "oracle" ]; then
+        sql="
+set serverout on;
+set pagesize 2000 linesize 145;
+column name_col_plus_show_param format a40 word wrap heading PARAMETER;
+column value_col_plus_show_param format a90 word wrap heading VALUE;
 
 select dbms_stats.get_param('METHOD_OPT') from dual;
 show parameter;
 "
 
-if [ "$1" == "-" ]; then
-        echo "$sql" | sqlplus -S $connect
+elif [ "$(spacewalk-cfg-get db_backend)" = "postgresql" ]; then
+        sql="
+SHOW ALL;
+"
+fi
+
+output=$(echo "$sql" | spacewalk-sql --select-mode -)
+
+if [ "$1" = "-" ]; then
+        echo "$output"
 else
-        # sqlplus ... | cat ... is here to fool selinux, since oracle_sqlplus_t
-        # cannot write just anywhere (via spool ...)
-        echo "$sql" | sqlplus -S $connect | cat > $1
+        echo "$output" > $1
 fi
