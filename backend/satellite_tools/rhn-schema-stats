@@ -1,14 +1,12 @@
 #!/bin/bash
 
-if [[ $@ =~ "--help|-h" ]] || [ $# -lt 1 -o $# -gt 2 ]; then
-	echo "Usage: `basename $0` -h | --help | output-file [connect-string]"
+if [[ $@ =~ "--help" ]] || [[ $@ =~ "-h" ]] || [ $# -ne 1 ]; then
+	echo "Usage: `basename $0` -h | --help | output-file"
 	exit
 fi
 
-connect=$(spacewalk-cfg-get default_db)
-[ -n "$2" ] && connect=$2
-
-sql="
+if [ $(spacewalk-cfg-get db_backend) = "oracle" ]; then
+	sql="
 set pagesize 4000 linesize 200
 set serverout on
 
@@ -58,11 +56,45 @@ where
 
 quit;
 "
+elif [ $(spacewalk-cfg-get db_backend) = "postgresql" ]; then
+	sql="
+select schemaname as schema,
+       relname as table,
+       n_live_tup as rows
+  from pg_stat_user_tables
+ order by n_live_tup desc;
 
-if [ "$1" == "-" ]; then
-	echo "$sql" | sqlplus -S $connect 
+select con.conname as name,
+       con.contype as type,
+       cl.relname as table,
+       con.consrc as src
+  from pg_constraint con,
+       pg_class cl
+ where cl.oid = con.conrelid
+ order by name;
+
+select
+        rvi.label, to_char(rvi.created, 'YYYY-MM-DD') as created,
+        to_char(rvi.modified, 'YYYY-MM-DD') as modified,
+        rpn.name,
+        rpe.epoch,
+        rpe.version,
+        rpe.release
+from
+        rhnVersionInfo rvi,
+        rhnPackageName rpn,
+        rhnPackageEvr rpe
+where
+        rvi.evr_id = rpe.id and
+        rvi.name_id = rpn.id;
+"
+
+fi
+
+output=$(echo "$sql" | spacewalk-sql --select-mode -)
+
+if [ "$1" = "-" ]; then
+        echo "$output"
 else
-	# sqlplus ... | cat ... is here to fool selinux, since oracle_sqlplus_t
-	# cannot write just anywhere (via spool ...)
-	echo "$sql" | sqlplus -S $connect | cat > $1
+        echo "$output" > $1
 fi
