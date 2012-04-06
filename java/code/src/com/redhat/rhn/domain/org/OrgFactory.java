@@ -19,7 +19,6 @@ import com.redhat.rhn.common.db.datasource.DataList;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.SelectMode;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
-import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.domain.channel.ChannelFamily;
 import com.redhat.rhn.domain.role.RoleFactory;
 
@@ -417,15 +416,14 @@ public class OrgFactory extends HibernateFactory {
     /**
      *  @param org Our org
      *  @param trustedOrg the org we trust
-     *  @return Formated created String for Trusted Org
+     *  @return date created for Trusted Org
      */
-    public static String getTrustedSince(Long org, Long trustedOrg) {
+    public static Date getTrustedSince(Long org, Long trustedOrg) {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("org_id", org);
         params.put("trusted_org_id", trustedOrg);
-        Date date = (Date)singleton.lookupObjectByNamedQuery(
+        return (Date)singleton.lookupObjectByNamedQuery(
                 "Org.getTrustedSince", params);
-        return LocalizationService.getInstance().formatDate(date);
     }
 
     /**

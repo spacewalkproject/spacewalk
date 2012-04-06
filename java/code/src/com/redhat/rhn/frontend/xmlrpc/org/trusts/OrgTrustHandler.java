@@ -202,10 +202,9 @@ public class OrgTrustHandler extends BaseHandler {
             details.put("created", trustOrg.getCreated());
         }
 
-        String since = OrgManager.getTrustedSince(user, user.getOrg(), trustOrg);
+        Date since = OrgManager.getTrustedSince(user, user.getOrg(), trustOrg);
         if (since != null) {
-            Date dateSince = new Date(since);
-            details.put("trusted_since", dateSince);
+            details.put("trusted_since", since);
         }
         details.put("channels_provided",
                 OrgManager.getSharedChannels(user, trustOrg, user.getOrg()));

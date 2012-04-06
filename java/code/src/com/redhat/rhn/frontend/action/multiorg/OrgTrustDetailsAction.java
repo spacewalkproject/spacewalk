@@ -53,7 +53,7 @@ public class OrgTrustDetailsAction extends RhnAction {
         String created = LocalizationService.getInstance()
         .formatDate(trustOrg.getCreated());
 
-        String since = OrgManager.getTrustedSince(user, org, trustOrg);
+        String since = OrgManager.getTrustedSinceString(user, org, trustOrg);
 
         request.setAttribute("orgtrust", trustOrg.getName());
         request.setAttribute("created", created);

@@ -38,6 +38,7 @@ import com.redhat.rhn.manager.entitlement.EntitlementManager;
 
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -334,9 +335,9 @@ public class OrgManager extends BaseManager {
      * @param user currently logged in user
      * @param org our org
      * @param trustOrg the org we trust
-     * @return String representing date we started trusting this org
+     * @return date we started trusting this org
      */
-    public static String getTrustedSince(User user, Org org, Org trustOrg) {
+    public static Date getTrustedSince(User user, Org org, Org trustOrg) {
         if (!user.hasRole(RoleFactory.ORG_ADMIN)) {
             // Throw an exception w/error msg so the user knows what went wrong.
             LocalizationService ls = LocalizationService.getInstance();
@@ -348,6 +349,21 @@ public class OrgManager extends BaseManager {
         }
 
         return OrgFactory.getTrustedSince(org.getId(), trustOrg.getId());
+    }
+
+    /**
+     * Returns the date which this org trusted the supplied orgId
+     * @param user currently logged in user
+     * @param org our org
+     * @param trustOrg the org we trust
+     * @return String representing date we started trusting this org
+     */
+    public static String getTrustedSinceString(User user, Org org, Org trustOrg) {
+        Date since = getTrustedSince(user, org, trustOrg);
+        if (since == null) {
+            return null;
+        }
+        return LocalizationService.getInstance().formatDate(since);
     }
 
     /**
