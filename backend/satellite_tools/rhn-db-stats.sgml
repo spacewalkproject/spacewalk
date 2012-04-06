@@ -24,7 +24,6 @@ utility for querying important database parameters used by
         <command>&THECOMMAND;</command>
         <arg choice="opt">-h | --help</arg>
 	<arg choice="req">output-file</arg>
-	<arg choice="opt">db-conect-string</arg>
     </cmdsynopsis>
 </Synopsis>
 </RefSynopsisDiv>
@@ -53,12 +52,6 @@ used by your Satellite / Spacewalk installation. It is used by spacewalk-debug
         <listitem>
             <para>File name to save the retrieved information to. Use - if you wish to
                   print the output to stdout.</para>
-        </listitem>
-    </varlistentry>
-    <varlistentry>
-        <term>db-connect-string</term>
-        <listitem>
-            <para>Connection string to your Oracle database.</para>
         </listitem>
     </varlistentry>
 </variablelist>
