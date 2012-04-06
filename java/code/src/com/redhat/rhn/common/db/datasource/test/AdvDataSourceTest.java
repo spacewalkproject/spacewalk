@@ -15,6 +15,7 @@
 package com.redhat.rhn.common.db.datasource.test;
 
 import com.redhat.rhn.common.ObjectCreateWrapperException;
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.db.datasource.CallableMode;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
@@ -364,16 +365,29 @@ public class AdvDataSourceTest extends RhnBaseTestCase {
         }
         catch (SQLException e) {
             // Couldn't select 1, so the table didn't exist, create it
-            stmt.execute("create table adv_datasource " +
-                    "( " +
-                    "  foobar VarChar2(32)," +
-                    "  test_column VarChar2(25)," +
-                    "  pin    number, " +
-                    "  id     number" +
-                    "         constraint adv_datasource_pk primary key" +
-                    ")");
+            if (ConfigDefaults.get().isOracle()) {
+                stmt.execute("create table adv_datasource " +
+                        "( " +
+                        "  foobar VarChar2(32)," +
+                        "  test_column VarChar2(25)," +
+                        "  pin    number, " +
+                        "  id     number" +
+                        "         constraint adv_datasource_pk primary key" +
+                        ")");
+            }
+            else {
+                c.rollback();
+                stmt.execute("create table adv_datasource " +
+                        "( " +
+                        "  foobar VarChar," +
+                        "  test_column VarChar," +
+                        "  pin    numeric, " +
+                        "  id     numeric" +
+                        "         constraint adv_datasource_pk primary key" +
+                        ");");
+            }
             stmt.execute("insert into adv_datasource(foobar, id) " +
-                    "values ('Blarg', 1)");
+                    "values ('Blarg', 1);");
             c.commit();
         }
         finally {
