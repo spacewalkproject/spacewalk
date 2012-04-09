@@ -130,11 +130,15 @@ class Runner(jabber_lib.Runner):
         log_debug(1, "Upstream notification server started on port", port)
 
         self._tcp_server.set_jabber_connection(c)
-        
+
         self._poll_interval = CFG.poll_interval
         self._next_poll_interval = self._poll_interval
 
-        hostname = socket.gethostname()
+        if self._jabber_servers and self._jabber_servers[0]:
+            hostname = self._jabber_servers[0]
+        else:
+            hostname = socket.gethostname()
+
         self._register_dispatcher(c.jid, hostname, port)
 
         c.retrieve_roster()
