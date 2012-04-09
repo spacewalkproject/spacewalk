@@ -7,6 +7,8 @@ editAreaLoader.init({
         ,allow_resize: "both"
         ,word_wrap: true
         ,toolbar: "search, go_to_line, |, undo, redo, |, syntax_selection, |, highlight, reset_highlight, |, help"
-	,syntax: "bash"
+        ,syntax: "bash"
+        ,syntax_selection_allow: "bash,perl,php,python,ruby,xml"
+        ,start_highlight: true // default syntax highlighting on
 });
 </script>
