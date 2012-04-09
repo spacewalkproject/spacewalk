@@ -1004,6 +1004,119 @@ def do_system_listconfigchannels(self, args):
 
 ####################
 
+def print_configfiles(self, quiet, filelist):
+
+    # Figure out correct indentation to allow pretty table output
+    max_path  = max_length([f['path'] for f in filelist], min=10)
+    max_type  = max_length(["file", "directory", "symlink"], min=10)
+    max_label = max_length([f['channel_label'] for f in filelist], min=15)
+
+    # print header when not in quiet mode
+    if not quiet:
+        print '%s  %s  %s' % (
+                'path'.ljust(max_path),
+                'type'.ljust(max_type),
+                'label/type'.ljust(max_label))
+
+        print '%s  %s  %s' % (
+                '-' * max_path,
+                '-' * max_type,
+                '-' * max_label)
+
+    for f in filelist:
+        print '%s  %s  %s' % (f['path'].ljust(max_path),\
+                              f['type'].ljust(max_type),\
+                              f['channel_label'].ljust(max_label))
+
+def help_system_listconfigfiles(self):
+    print 'system_listconfigfiles: List the managed config files of a system'
+    print '''usage: system_listconfigfiles <SYSTEMS>'
+options:
+  -s/--sandbox : list only system-sandbox files
+  -l/--local   : list only locally managed files
+  -c/--central : list only centrally managed files
+  -q/--quiet   : quiet mode (omits the header)'''
+    print
+    print self.HELP_SYSTEM_OPTS
+
+def complete_system_listconfigfiles(self, text, line, beg, end):
+    return self.tab_complete_systems(text)
+
+def do_system_listconfigfiles(self, args):
+    options = [ Option('-s', '--sandbox', action='store_true'),
+                Option('-l', '--local', action='store_true'),
+                Option('-c', '--central', action='store_true'),
+                Option('-q', '--quiet', action='store_true') ]
+
+    (args, options) = parse_arguments(args, options)
+
+    if not options.sandbox and not options.local and not options.central:
+        logging.debug("No sandbox/local/central option specified, listing ALL")
+        options.sandbox = True
+        options.local = True
+        options.central = True
+
+    if not len(args):
+        self.help_system_listconfigfiles()
+        return
+
+    add_separator = False
+
+    # use the systems listed in the SSM
+    if re.match('ssm', args[0], re.I):
+        systems = self.ssm.keys()
+    else:
+        systems = self.expand_systems(args)
+
+    for system in sorted(systems):
+        system_id = self.get_system_id(system)
+        if not system_id: return
+
+        if add_separator: print self.SEPARATOR
+        add_separator = True
+
+        if len(systems) > 1:
+            print 'System: %s' % system
+
+        try:
+            # Pass 0 for system-sandbox files
+            # Pass 1 for locally managed or centrally managed
+            files = self.client.system.config.listFiles(self.session,\
+                                                              system_id, 0)
+            files += self.client.system.config.listFiles(self.session,\
+                                                              system_id, 1)
+        except:
+            logging.warning('%s does not support configuration channels' %\
+                            system)
+            continue
+
+        # For system sandbox or locally managed files, there is no
+        # channel_label so we add a descriptive label for these files
+        toprint=[]
+        for f in files:
+            if f['channel_type']['label'] == 'server_import':
+                f['channel_label'] = "system_sandbox"
+                if options.sandbox:
+                    toprint.append(f)
+
+            elif f['channel_type']['label'] == 'local_override':
+                f['channel_label'] = "locally_managed"
+                if options.local:
+                    toprint.append(f)
+
+            elif f['channel_type']['label'] == 'normal':
+                if options.central:
+                    toprint.append(f)
+
+            else:
+                logging.error("Error, unexpected channel type label %s" %\
+                    f['channel_type']['label'])
+                return
+
+        self.print_configfiles(options.quiet, toprint)
+
+####################
+
 def help_system_addconfigchannels(self):
     print 'system_addconfigchannels: Add config channels to a system'
     print '''usage: system_addconfigchannels <SYSTEMS> <CHANNEL ...> [options]
