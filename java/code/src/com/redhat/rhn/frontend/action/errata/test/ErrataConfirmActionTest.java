@@ -23,14 +23,14 @@ import com.redhat.rhn.domain.server.test.ServerFactoryTest;
 import com.redhat.rhn.domain.user.UserFactory;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.rhnset.RhnSetManager;
-import com.redhat.rhn.testing.RhnMockStrutsTestCase;
+import com.redhat.rhn.testing.RhnPostMockStrutsTestCase;
 
 /**
  * ErrataConfirmActionTest - test that ErrataConfirmAction correctly
  * schedules the Actions associated with the Errata
  * @version $Rev$
  */
-public class ErrataConfirmActionTest extends RhnMockStrutsTestCase {
+public class ErrataConfirmActionTest extends RhnPostMockStrutsTestCase {
 
     public void testExecute() throws Exception {
         setRequestPathInfo("/errata/details/ErrataConfirmSubmit");
