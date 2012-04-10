@@ -18,7 +18,7 @@ import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.frontend.action.satellite.RestartAction;
 import com.redhat.rhn.frontend.struts.RhnAction;
-import com.redhat.rhn.testing.RhnMockStrutsTestCase;
+import com.redhat.rhn.testing.RhnPostMockStrutsTestCase;
 
 import org.apache.struts.action.DynaActionForm;
 
@@ -26,7 +26,7 @@ import org.apache.struts.action.DynaActionForm;
  * RestartActionTest
  * @version $Rev: 1 $
  */
-public class RestartActionTest extends RhnMockStrutsTestCase {
+public class RestartActionTest extends RhnPostMockStrutsTestCase {
 
     /**
      * {@inheritDoc}
