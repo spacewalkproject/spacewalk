@@ -20,13 +20,13 @@ import com.redhat.rhn.frontend.action.keys.CryptoKeyCreateAction;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.manager.kickstart.crypto.CreateCryptoKeyCommand;
 import com.redhat.rhn.manager.kickstart.crypto.test.CryptoKeyCommandTest;
-import com.redhat.rhn.testing.RhnMockStrutsTestCase;
+import com.redhat.rhn.testing.RhnPostMockStrutsTestCase;
 
 /**
  * CryptoKeyDeleteActionTest
  * @version $Rev: 1 $
  */
-public class CryptoKeyDeleteActionTest extends RhnMockStrutsTestCase {
+public class CryptoKeyDeleteActionTest extends RhnPostMockStrutsTestCase {
 
     private CreateCryptoKeyCommand cmd;
 
