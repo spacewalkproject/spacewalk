@@ -18,7 +18,7 @@ import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.frontend.action.satellite.CertificateConfigAction;
 import com.redhat.rhn.frontend.struts.RhnAction;
-import com.redhat.rhn.testing.RhnMockStrutsTestCase;
+import com.redhat.rhn.testing.RhnPostMockStrutsTestCase;
 import com.redhat.rhn.testing.TestUtils;
 
 import org.apache.struts.action.DynaActionForm;
@@ -27,7 +27,7 @@ import org.apache.struts.action.DynaActionForm;
  * CertificateConfigActionTest
  * @version $Rev: 1 $
  */
-public class CertificateConfigActionTest extends RhnMockStrutsTestCase {
+public class CertificateConfigActionTest extends RhnPostMockStrutsTestCase {
 
     @Override
     public void setUp() throws Exception {
