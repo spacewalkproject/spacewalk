@@ -23,7 +23,7 @@ import com.redhat.rhn.frontend.action.kickstart.KickstartIpRangeAction;
 import com.redhat.rhn.frontend.action.kickstart.KickstartIpRangeDeleteAction;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.manager.kickstart.IpAddress;
-import com.redhat.rhn.testing.RhnMockStrutsTestCase;
+import com.redhat.rhn.testing.RhnPostMockStrutsTestCase;
 import com.redhat.rhn.testing.TestUtils;
 
 import java.util.Date;
@@ -32,7 +32,7 @@ import java.util.Date;
  * KickstartIpRangeActionTest
  * @version $Rev: 1 $
  */
-public class KickstartIpRangeActionTest extends RhnMockStrutsTestCase {
+public class KickstartIpRangeActionTest extends RhnPostMockStrutsTestCase {
 
     protected KickstartData ksdata;
     protected KickstartIpRange ip1;
