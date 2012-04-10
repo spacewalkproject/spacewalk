@@ -19,7 +19,7 @@ import com.redhat.rhn.domain.kickstart.test.KickstartDataTest;
 import com.redhat.rhn.frontend.action.kickstart.KickstartPartitionEditAction;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
-import com.redhat.rhn.testing.RhnMockStrutsTestCase;
+import com.redhat.rhn.testing.RhnPostMockStrutsTestCase;
 import com.redhat.rhn.testing.TestUtils;
 
 import org.apache.struts.action.DynaActionForm;
@@ -28,7 +28,7 @@ import org.apache.struts.action.DynaActionForm;
  * KickstartPreActionTest
  * @version $Rev: 1 $
  */
-public class KickstartPartitionActionTest extends RhnMockStrutsTestCase {
+public class KickstartPartitionActionTest extends RhnPostMockStrutsTestCase {
     private KickstartData ksdata;
 
     @Override
