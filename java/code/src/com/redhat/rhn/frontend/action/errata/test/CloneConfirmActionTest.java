@@ -27,7 +27,7 @@ import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.manager.errata.ErrataManager;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.rhnset.RhnSetManager;
-import com.redhat.rhn.testing.RhnMockStrutsTestCase;
+import com.redhat.rhn.testing.RhnPostMockStrutsTestCase;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -37,7 +37,7 @@ import java.util.List;
  * CloneConfirmActionTest
  * @version $Rev$
  */
-public class CloneConfirmActionTest extends RhnMockStrutsTestCase {
+public class CloneConfirmActionTest extends RhnPostMockStrutsTestCase {
 
     public void setUp() throws Exception {
         super.setUp();
