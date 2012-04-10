@@ -13,6 +13,8 @@
 /usr/lib/oracle/xe/app/oracle/product/(.*/)?audit(/.*)?          gen_context(user_u:object_r:oracle_db_log_t,s0)
 /usr/lib/oracle/xe/app/oracle/product/(.*/)?server/config(/.*)?	gen_context(user_u:object_r:oracle_db_log_t,s0)
 /usr/lib/oracle/xe/app/oracle/product/(.*/)?server/config/scripts(/.*)?          gen_context(user_u:object_r:oracle_sqlplus_log_t,s0)
+/usr/lib/oracle/xe/app/oracle/product/(.*/)?server/config/scripts/backup\.sh          gen_context(user_u:object_r:oracle_sqlplus_exec_t,s0)
+/usr/lib/oracle/xe/app/oracle/product/(.*/)?server/config/scripts/restore\.sh          gen_context(user_u:object_r:oracle_sqlplus_exec_t,s0)
 
 # otherwise these would default to bin_t
 /usr/lib/oracle/xe/app/oracle/product/(.*/)?bin/lsnrctl          gen_context(system_u:object_r:oracle_lsnrctl_exec_t,s0)
