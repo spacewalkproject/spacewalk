@@ -24,7 +24,7 @@ import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.manager.entitlement.EntitlementManager;
 import com.redhat.rhn.manager.system.SystemManager;
 import com.redhat.rhn.testing.ChannelTestUtils;
-import com.redhat.rhn.testing.RhnMockStrutsTestCase;
+import com.redhat.rhn.testing.RhnPostMockStrutsTestCase;
 import com.redhat.rhn.testing.ServerTestUtils;
 import com.redhat.rhn.testing.TestUtils;
 import com.redhat.rhn.testing.UserTestUtils;
@@ -38,7 +38,7 @@ import java.util.List;
  * SystemDetailsEditActionTest
  * @version $Rev$
  */
-public class SystemDetailsEditActionTest extends RhnMockStrutsTestCase {
+public class SystemDetailsEditActionTest extends RhnPostMockStrutsTestCase {
 
     protected Server s;
 
