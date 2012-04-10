@@ -19,7 +19,7 @@ import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.frontend.action.satellite.GeneralConfigAction;
 import com.redhat.rhn.frontend.struts.RhnAction;
-import com.redhat.rhn.testing.RhnMockStrutsTestCase;
+import com.redhat.rhn.testing.RhnPostMockStrutsTestCase;
 
 import org.apache.struts.action.DynaActionForm;
 
@@ -31,7 +31,7 @@ import java.util.Map;
  * GeneralConfigActionTest
  * @version $Rev: 1 $
  */
-public class GeneralConfigActionTest extends RhnMockStrutsTestCase {
+public class GeneralConfigActionTest extends RhnPostMockStrutsTestCase {
     private static final String TEST_CONFIG_BOOLEAN =
         ConfigDefaults.WEB_IS_MONITORING_BACKEND;
 
