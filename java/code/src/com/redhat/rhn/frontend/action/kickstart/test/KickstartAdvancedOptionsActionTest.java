@@ -18,14 +18,14 @@ import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.test.KickstartDataTest;
 import com.redhat.rhn.frontend.action.kickstart.KickstartAdvancedOptionsAction;
 import com.redhat.rhn.frontend.struts.RequestContext;
-import com.redhat.rhn.testing.RhnMockStrutsTestCase;
+import com.redhat.rhn.testing.RhnPostMockStrutsTestCase;
 import com.redhat.rhn.testing.TestUtils;
 
 /**
  * KickstartAdvancedOptionsTest
  * @version $Rev: 1 $
  */
-public class KickstartAdvancedOptionsActionTest extends RhnMockStrutsTestCase {
+public class KickstartAdvancedOptionsActionTest extends RhnPostMockStrutsTestCase {
 
     protected KickstartData ksdata;
     protected KickstartData ksdataOptions;
