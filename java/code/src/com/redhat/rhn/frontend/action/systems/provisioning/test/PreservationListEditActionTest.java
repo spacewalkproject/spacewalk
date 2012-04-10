@@ -20,7 +20,7 @@ import com.redhat.rhn.domain.common.test.FileListTest;
 import com.redhat.rhn.frontend.action.systems.provisioning.BasePreservationListEditAction;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
-import com.redhat.rhn.testing.RhnMockStrutsTestCase;
+import com.redhat.rhn.testing.RhnPostMockStrutsTestCase;
 import com.redhat.rhn.testing.TestUtils;
 import com.redhat.rhn.testing.UserTestUtils;
 
@@ -28,7 +28,7 @@ import com.redhat.rhn.testing.UserTestUtils;
  * PreservationListEditActionTest
  * @version $Rev: 1 $
  */
-public class PreservationListEditActionTest extends RhnMockStrutsTestCase {
+public class PreservationListEditActionTest extends RhnPostMockStrutsTestCase {
 
     public void testEditExecute() throws Exception {
         UserTestUtils.addProvisioning(user.getOrg());
