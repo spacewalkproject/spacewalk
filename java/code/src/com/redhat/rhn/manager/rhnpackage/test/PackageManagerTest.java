@@ -500,11 +500,11 @@ public class PackageManagerTest extends BaseTestCaseWithUser {
         Map params = new HashMap();
         params.put("pkg_id", kickstartPkg.getId());
         params.put("capability_id", kickstartCapability.getId());
-        params.put("sense_id", "8");
+        params.put("sense_id", 8);
         m.executeUpdate(params);
 
         // Repeast for another sense:
-        params.put("sense_id", "268435464");
+        params.put("sense_id", 268435464);
         m.executeUpdate(params);
     }
 
