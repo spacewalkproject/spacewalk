@@ -5,7 +5,7 @@
 %define modulename oracle-xe
 
 Name:            oracle-xe-selinux
-Version:         10.2.0.23
+Version:         10.2.0.24
 Release:         1%{?dist}
 Summary:         SELinux policy module supporting Oracle XE
 Group:           System Environment/Base
@@ -145,6 +145,13 @@ fi
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
+* Tue Apr 10 2012 Jan Pazdziora 10.2.0.24-1
+- The rman is more like the database server process.
+- The backup.sh and restore.sh need to run as sqlplus, so that their log files
+  can be used by sqlplus.
+- The backup.sh from Oracle XE 10g seems to want to access urandom.
+- Allow Oracle database to ptrace self.
+
 * Wed Nov 30 2011 Michael Mraka <michael.mraka@redhat.com> 10.2.0.23-1
 - system user uids are < 1000 on Fedora 16
 
