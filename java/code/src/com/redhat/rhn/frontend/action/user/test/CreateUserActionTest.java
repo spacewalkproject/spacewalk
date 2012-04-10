@@ -18,7 +18,7 @@ import com.redhat.rhn.common.messaging.MessageQueue;
 import com.redhat.rhn.frontend.action.user.CreateUserAction;
 import com.redhat.rhn.frontend.action.user.UserActionHelper;
 import com.redhat.rhn.testing.RhnMockDynaActionForm;
-import com.redhat.rhn.testing.RhnMockStrutsTestCase;
+import com.redhat.rhn.testing.RhnPostMockStrutsTestCase;
 import com.redhat.rhn.testing.TestUtils;
 import com.redhat.rhn.webapp.RhnServletListener;
 
@@ -27,7 +27,7 @@ import com.redhat.rhn.webapp.RhnServletListener;
  *
  * @version $Rev: 1427 $
  */
-public class CreateUserActionTest extends RhnMockStrutsTestCase {
+public class CreateUserActionTest extends RhnPostMockStrutsTestCase {
 
     private static RhnServletListener rl;
 
