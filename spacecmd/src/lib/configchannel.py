@@ -410,9 +410,10 @@ options:
   -t SYMLINK_TARGET
   -f local path to file contents
 
-  Note re binary/base64: Some text files, notably those containing blank lines
-  and those containing ASCII escape characters (or other charaters not allowed
-  or processed correctly as text via the XMLRPC API) need to be sent as binary
+  Note re binary/base64: Some text files, notably those containing trailing
+  newlines, those containing ASCII escape characters (or other charaters not
+  allowed in XML) need to be sent as binary (-b).  Some effort is made to auto-
+  detect files which require this, but you may need to explicitly specify.
 '''
 
 def complete_configchannel_addfile(self, text, line, beg, end):
