@@ -10,6 +10,7 @@ require {
 	type oracle_db_log_t;
 	type http_cache_port_t;
 	type initrc_t;
+	type urandom_device_t;
 }
 
 rw_files_pattern(oracle_db_t, oracle_sqlplus_log_t, oracle_sqlplus_log_t)
@@ -36,3 +37,5 @@ term_dontaudit_use_console(oracle_db_t)
 term_dontaudit_use_console(oracle_tnslsnr_t)
 
 mcs_ptrace_all(oracle_db_t)
+
+allow oracle_sqlplus_t urandom_device_t:chr_file read;
