@@ -24,14 +24,14 @@ import com.redhat.rhn.frontend.action.kickstart.ActivationKeysSubmitAction;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.taglibs.ListDisplayTag;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
-import com.redhat.rhn.testing.RhnMockStrutsTestCase;
+import com.redhat.rhn.testing.RhnPostMockStrutsTestCase;
 import com.redhat.rhn.testing.TestUtils;
 
 /**
  * BaseSetOperateOnDiffActionTest
  * @version $Rev$
  */
-public class BaseSetOperateOnDiffActionTest extends RhnMockStrutsTestCase {
+public class BaseSetOperateOnDiffActionTest extends RhnPostMockStrutsTestCase {
 
     // We use activation keys <-> to kickstart profile to test this.
     // I wanted to make sure we had a specific test class that was tied
