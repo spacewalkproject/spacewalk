@@ -187,7 +187,7 @@ class Runner(jabber_lib.Runner):
             client.ping_clients(need_pinging)
         npi = self._next_poll_interval
 
-        rfds, wfds, efds = select.select([client, self._tcp_server], [], [], npi)
+        rfds, wfds, efds = select.select([client, self._tcp_server], [client], [], npi)
         # Reset the next poll interval
         npi = self._next_poll_interval = self._poll_interval
         if client in rfds:
@@ -198,7 +198,7 @@ class Runner(jabber_lib.Runner):
             # we were tickled
             self._tcp_server.handle_request()
             npi = self._tcp_server.get_next_poll_interval() or self._poll_interval
-        if not rfds:
+        if wfds:
             # Timeout
             log_debug(5,"Notifying jabber nodes")
             self._tcp_server.notify_jabber_nodes()
