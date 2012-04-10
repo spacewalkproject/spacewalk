@@ -382,6 +382,8 @@ public class AdvDataSourceTest extends RhnBaseTestCase {
                         "  id     number" +
                         "         constraint adv_datasource_pk primary key" +
                         ")");
+                stmt.execute("insert into adv_datasource(foobar, id) " +
+                        "values ('Blarg', 1)");
             }
             else {
                 c.rollback();
@@ -393,9 +395,9 @@ public class AdvDataSourceTest extends RhnBaseTestCase {
                         "  id     numeric" +
                         "         constraint adv_datasource_pk primary key" +
                         ");");
+                stmt.execute("insert into adv_datasource(foobar, id) " +
+                        "values ('Blarg', 1);");
             }
-            stmt.execute("insert into adv_datasource(foobar, id) " +
-                    "values ('Blarg', 1);");
             c.commit();
         }
         finally {
