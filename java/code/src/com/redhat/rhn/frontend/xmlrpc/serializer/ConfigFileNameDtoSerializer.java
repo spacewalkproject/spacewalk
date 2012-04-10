@@ -72,7 +72,7 @@ public class ConfigFileNameDtoSerializer implements XmlRpcCustomSerializer {
             ConfigChannelType.lookup(dto.getConfigChannelType());
         helper.add("channel_type", type);
         if (type.equals(ConfigChannelType.global())) {
-            helper.add("channel_label", dto.getConfigChannelName());
+            helper.add("channel_label", dto.getConfigChannelLabel());
         }
         helper.add("last_modified", dto.getLastModifiedDate());
         helper.writeTo(output);
