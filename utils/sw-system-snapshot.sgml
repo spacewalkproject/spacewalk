@@ -38,6 +38,10 @@ List or delete system snapshots from the management server.
         <arg>--list</arg>
     </cmdsynopsis>
     <cmdsynopsis>
+        <arg>-L</arg>
+        <arg>--long-list</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
         <arg>-d</arg>
         <arg>--delete</arg>
     </cmdsynopsis>
@@ -104,6 +108,12 @@ List or delete system snapshots from the management server.
         <term>-l, --list</term>
         <listitem>
             <para>List system snapshot summaries that meet the criteria provided.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-L, --long-list</term>
+        <listitem>
+            <para>List details about system snapshots that meet the criteria provided.</para>
         </listitem>
     </varlistentry>
     <varlistentry>

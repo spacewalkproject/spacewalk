@@ -37,6 +37,8 @@ options_table = [
         help="Delete snapshots."),
     Option("-l", "--list",           action="count",
         help="List snapshot summary."),
+    Option("-L", "--long-list",           action="count",
+        help="Display comprehensive snapshot list."),
     Option("-a", "--all",            action="count",
         help="Include all snapshots based on criteria provided."),
     Option("--start-date",           action="store",
@@ -127,7 +129,8 @@ def deleteAllBetweenDates(sessionKey, startDate, endDate):
 
         if options.list:
             listSnapshots(system.get('id'), snapshots)
-
+        elif options.long_list:
+            listSnapshotsLong(system.get('id'), snapshots)
         else:
             client.system.provisioning.snapshot.deleteSnapshots(sessionKey, \
                 {"startDate":startDate, "endDate":endDate})
@@ -150,7 +153,8 @@ def deleteAllAfterDate(sessionKey, startDate):
 
         if options.list:
             listSnapshots(system.get('id'), snapshots)
-
+        elif options.long_list:
+            listSnapshotsLong(system.get('id'), snapshots)
         else:
             client.system.provisioning.snapshot.deleteSnapshots(sessionKey, \
                 {"startDate":startDate})
@@ -172,7 +176,8 @@ def deleteAll(sessionKey):
 
         if options.list:
             listSnapshots(system.get('id'), snapshots)
-
+        elif options.long_list:
+            listSnapshotsLong(system.get('id'), snapshots)
         else:
             client.system.provisioning.snapshot.deleteSnapshots(sessionKey, \
                 {})
@@ -196,7 +201,8 @@ def deleteBySystemBetweenDates(sessionKey, systemIds, startDate, endDate):
 
             if options.list:
                 listSnapshots(systemId, snapshots)
-
+            elif options.long_list:
+                listSnapshotsLong(systemId, snapshots)
             else:
                 client.system.provisioning.snapshot.deleteSnapshots( \
                     sessionKey, systemId, \
@@ -224,7 +230,8 @@ def deleteBySystemAfterDate(sessionKey, systemIds, startDate):
 
             if options.list:
                 listSnapshots(systemId, snapshots)
-
+            elif options.long_list:
+                listSnapshotsLong(systemId, snapshots)
             else:
                 client.system.provisioning.snapshot.deleteSnapshots( \
                     sessionKey, systemId, {"startDate":startDate})
@@ -250,7 +257,8 @@ def deleteBySystem(sessionKey, systemIds):
 
             if options.list:
                 listSnapshots(systemId, snapshots)
-
+            elif options.long_list:
+                listSnapshotsLong(systemId, snapshots)
             else:
                 client.system.provisioning.snapshot.deleteSnapshots( \
                     sessionKey, systemId, {})
@@ -305,13 +313,26 @@ def listSnapshots(systemId, snapshots):
         print "systemId: %d, snapshots: %d, oldest: %s, newest: %s"  \
             % (systemId, len(snapshots), oldest, newest)
 
+
+def listSnapshotsLong(systemId, snapshots):
+    """
+      List to stdout the comprehensive summaries of snapshots for the system provided.
+    """
+    for snapshot in snapshots:
+        print "systemId: %d, snapshotId: %d, created: %s, reason: %s" % \
+            (systemId, \
+             snapshot['id'], \
+             datetime(*(strptime(snapshot['created'].value, "%Y%m%dT%H:%M:%S")[0:6])), \
+             snapshot['reason'])
+
+
 def processCommandLine():
 
     if not options.satellite:
         options.satellite = os.uname()[1]
 
-    if not options.delete and not options.list:
-        sys.stderr.write("Must include a command options (--list, --delete)\n")
+    if not options.delete and not options.list and not options.long_list:
+        sys.stderr.write("Must include a command options (--list, --long-list, --delete)\n")
         sys.exit(1)
 
     if not options.all and not options.system_id and not options.snapshot_id:
@@ -324,6 +345,10 @@ def processCommandLine():
 
     if options.end_date and not options.start_date:
         sys.stderr.write("--end-date must be used with --start-date.\n")
+        sys.exit(1)
+
+    if options.list and options.long_list:
+        sys.stderr.write("-l (--list) and -L (--long-list) are mutually exclusive.\n")
         sys.exit(1)
 
     # convert the start / end dates to a format that usable by the xmlrpc api
