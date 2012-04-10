@@ -192,7 +192,7 @@ sub load_answer_file {
     close FH;
   }
   if ($answers->{'db-host'}) {
-    $answers->{'db-host'} = Net::LibIDN::idn_to_ascii($answers->{'db-host'});
+    $answers->{'db-host'} = Net::LibIDN::idn_to_ascii($answers->{'db-host'}, "utf8");
   }
   return;
 }
@@ -748,7 +748,7 @@ REDO_CONNECT:
 		-default => 'localhost',
 		-answer => \$answers->{'db-host'});
 
-    $answers->{'db-host'} = Net::LibIDN::idn_to_ascii($answers->{'db-host'});
+    $answers->{'db-host'} = Net::LibIDN::idn_to_ascii($answers->{'db-host'}, "utf8");
 	$data{'db-name'} = _oracle_make_dsn_string($answers);
 	if (defined $data{'db-name'}) {
 		# Try db-name as SID for host (//host:port/name).
@@ -842,7 +842,7 @@ sub postgresql_get_database_answers {
         -answer => \$answers->{'db-host'});
 
     if ($answers->{'db-host'} ne '') {
-        $answers->{'db-host'} = Net::LibIDN::idn_to_ascii($answers->{'db-host'});
+        $answers->{'db-host'} = Net::LibIDN::idn_to_ascii($answers->{'db-host'}, "utf8");
         ask(
             -noninteractive => $opts->{"non-interactive"},
             -question => "Port",
