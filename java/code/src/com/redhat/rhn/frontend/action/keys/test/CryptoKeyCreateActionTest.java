@@ -19,14 +19,14 @@ import com.redhat.rhn.domain.kickstart.crypto.CryptoKey;
 import com.redhat.rhn.domain.kickstart.crypto.test.CryptoTest;
 import com.redhat.rhn.frontend.action.keys.CryptoKeyCreateAction;
 import com.redhat.rhn.frontend.struts.RequestContext;
-import com.redhat.rhn.testing.RhnMockStrutsTestCase;
+import com.redhat.rhn.testing.RhnPostMockStrutsTestCase;
 import com.redhat.rhn.testing.TestUtils;
 
 /**
  * CryptoKeyCreateActionTest
  * @version $Rev: 1 $
  */
-public class CryptoKeyCreateActionTest extends RhnMockStrutsTestCase {
+public class CryptoKeyCreateActionTest extends RhnPostMockStrutsTestCase {
 
     public void setUp() throws Exception {
         TestUtils.disableLocalizationLogging();
