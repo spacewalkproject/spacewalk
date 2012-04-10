@@ -3324,8 +3324,8 @@
         <trans-unit id="Log Pattern Match">
           <source>Log Pattern Match</source>
         <target>日志特征匹配</target></trans-unit>
-        <trans-unit id="Log Size">
-          <source>Log Size</source>
+        <trans-unit id="Log Size Growth">
+          <source>Log Size Growth</source>
         <target>日志大小</target></trans-unit>
         <trans-unit id="LongLegs">
           <source>LongLegs</source>

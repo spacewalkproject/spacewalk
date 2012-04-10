@@ -3324,8 +3324,8 @@
         <trans-unit id="Log Pattern Match">
           <source>Log Pattern Match</source>
         <target>Corrispondenze del Pattern di log</target></trans-unit>
-        <trans-unit id="Log Size">
-          <source>Log Size</source>
+        <trans-unit id="Log Size Growth">
+          <source>Log Size Growth</source>
         <target>Misura del Log</target></trans-unit>
         <trans-unit id="LongLegs">
           <source>LongLegs</source>

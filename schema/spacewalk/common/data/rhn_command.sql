@@ -264,7 +264,7 @@ command_class,enabled,for_host_probe,last_update_user,last_update_date,system_re
 insert into rhn_command(recid,name,description,group_name,allowed_in_suite,
 command_class,enabled,for_host_probe,last_update_user,last_update_date,system_requirements,version_support,help_url) 
     values (
-106,'check_log_size','Log Size','logagent','1','LogAgent::Size','1','0','system',current_timestamp,'npunix',NULL,'/help/userguides/user_guide_v2/Output/LogAgentCheck.html#LogSize');
+106,'check_log_size','Log Size Growth','logagent','1','LogAgent::Size','1','0','system',current_timestamp,'npunix',NULL,'/help/userguides/user_guide_v2/Output/LogAgentCheck.html#LogSize');
 
 insert into rhn_command(recid,name,description,group_name,allowed_in_suite,
 command_class,enabled,for_host_probe,last_update_user,last_update_date,system_requirements,version_support,help_url) 
