@@ -22,7 +22,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.38
+Version: 1.8.39
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -605,6 +605,25 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Apr 10 2012 Tomas Lestach <tlestach@redhat.com> 1.8.39-1
+- fix ServerConfigHandlerTest revision comparism (tlestach@redhat.com)
+- fix ServerConfigHandlerTest.createRevision (tlestach@redhat.com)
+- tests - set user's org to the channel created by him (tlestach@redhat.com)
+- fix ProfileManagerTest (tlestach@redhat.com)
+- fix org.trusts.getDetails API (tlestach@redhat.com)
+- check whether it's a trusted org before accessing its attributes
+  (tlestach@redhat.com)
+- fix ActivationKeyTest.testDuplicateKeyCreation (tlestach@redhat.com)
+- fix TraceBackEventTest (tlestach@redhat.com)
+- fix SessionCancelActionTest (tlestach@redhat.com)
+- run oracle specific tests only with oracle DB (tlestach@redhat.com)
+- fix AdvDataSourceTest suite part (tlestach@redhat.com)
+- fix CobblerCommandTest (tlestach@redhat.com)
+- refactor how PackageEvr gets stored (tlestach@redhat.com)
+- removing unnecessary casts (tlestach@redhat.com)
+- removing unnecessary else statement (tlestach@redhat.com)
+- fix ProvisionVirtualizationWizardActionTest.testStepOne (tlestach@redhat.com)
+
 * Tue Apr 10 2012 Jan Pazdziora 1.8.38-1
 - OpenSCAP integration -- view latest results of whole infrastructure
   (slukasik@redhat.com)
