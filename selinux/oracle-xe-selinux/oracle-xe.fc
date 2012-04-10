@@ -22,6 +22,7 @@
 /usr/lib/oracle/xe/app/oracle/product/(.*/)?bin/orapwd          gen_context(system_u:object_r:oracle_db_exec_t,s0)
 /usr/lib/oracle/xe/app/oracle/product/(.*/)?bin/sqlplus          gen_context(system_u:object_r:oracle_sqlplus_exec_t,s0)
 /usr/lib/oracle/xe/app/oracle/product/(.*/)?bin/tnslsnr          gen_context(system_u:object_r:oracle_tnslsnr_exec_t,s0)
+/usr/lib/oracle/xe/app/oracle/product/(.*/)?bin/rman          gen_context(system_u:object_r:oracle_db_exec_t,s0)
 
 # many jars are not located under lib, jre, or java directories
 /usr/lib/oracle/xe/app/oracle/product/(.*/)?.+\.jar          gen_context(system_u:object_r:shlib_t,s0)
