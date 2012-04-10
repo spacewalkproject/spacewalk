@@ -16,7 +16,7 @@ Group:   System Environment/Daemons
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.10.43
+Version: 5.10.44
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -278,6 +278,9 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 %endif
 
 %changelog
+* Tue Apr 10 2012 Milan Zazrivec <mzazrivec@redhat.com> 5.10.44-1
+- 716064 - prevent 'notifying clients' starvation
+
 * Mon Apr 09 2012 Stephen Herr <sherr@redhat.com> 5.10.43-1
 - 810908 - Make osa-dispatcher use the hostname in the rhn.conf if present
   (sherr@redhat.com)
