@@ -28,7 +28,7 @@ import com.redhat.rhn.frontend.context.Context;
 import com.redhat.rhn.manager.errata.ErrataManager;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.rhnset.RhnSetManager;
-import com.redhat.rhn.testing.RhnMockStrutsTestCase;
+import com.redhat.rhn.testing.RhnPostMockStrutsTestCase;
 
 import java.util.TimeZone;
 
@@ -36,7 +36,7 @@ import java.util.TimeZone;
  * ErrataConfirmActionTest
  * @version $Rev$
  */
-public class ErrataConfirmActionTest extends RhnMockStrutsTestCase {
+public class ErrataConfirmActionTest extends RhnPostMockStrutsTestCase {
 
     public void setUp() throws Exception {
         super.setUp();
