@@ -22,7 +22,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.41
+Version: 1.8.42
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -605,6 +605,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Apr 11 2012 Stephen Herr <sherr@redhat.com> 1.8.42-1
+- 698940 - Activation Key does not have to have a base channel to add Child
+  Channels (sherr@redhat.com)
+
 * Wed Apr 11 2012 Tomas Lestach <tlestach@redhat.com> 1.8.41-1
 - adding javadoc to public RhnPostMockStrutsTestCase method
   (tlestach@redhat.com)
