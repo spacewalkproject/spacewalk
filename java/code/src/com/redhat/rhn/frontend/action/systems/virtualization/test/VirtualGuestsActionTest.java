@@ -29,7 +29,7 @@ import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.taglibs.ListDisplayTag;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.rhnset.RhnSetManager;
-import com.redhat.rhn.testing.RhnMockStrutsTestCase;
+import com.redhat.rhn.testing.RhnPostMockStrutsTestCase;
 import com.redhat.rhn.testing.ServerTestUtils;
 import com.redhat.rhn.testing.TestUtils;
 
@@ -44,7 +44,7 @@ import java.util.Map;
  * VirtualGuestsListActionTest
  * @version $Rev$
  */
-public class VirtualGuestsActionTest extends RhnMockStrutsTestCase {
+public class VirtualGuestsActionTest extends RhnPostMockStrutsTestCase {
 
     private RhnSet submitVirtualGuestsForm(String dispatch, Map requestParams)
         throws Exception {
