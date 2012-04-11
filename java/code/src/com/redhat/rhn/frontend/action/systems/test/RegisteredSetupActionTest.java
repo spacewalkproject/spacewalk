@@ -26,13 +26,13 @@ import com.redhat.rhn.domain.server.test.ServerGroupTest;
 import com.redhat.rhn.frontend.action.systems.RegisteredSetupAction;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.manager.system.SystemManager;
-import com.redhat.rhn.testing.RhnMockStrutsTestCase;
+import com.redhat.rhn.testing.RhnPostMockStrutsTestCase;
 
 /**
  * RegisteredSetupActionTest
  * @version $Rev$
  */
-public class RegisteredSetupActionTest extends RhnMockStrutsTestCase {
+public class RegisteredSetupActionTest extends RhnPostMockStrutsTestCase {
 
     public void setUp() throws Exception {
         super.setUp();
