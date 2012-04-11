@@ -22,7 +22,7 @@ import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.user.UserFactory;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.taglibs.list.helper.ListHelper;
-import com.redhat.rhn.testing.RhnMockStrutsTestCase;
+import com.redhat.rhn.testing.RhnPostMockStrutsTestCase;
 import com.redhat.rhn.testing.TestUtils;
 
 import java.util.HashMap;
@@ -34,7 +34,7 @@ import java.util.Map;
  * OrgSoftwareSubscriptionsActionTest
  * @version $Rev: 1 $
  */
-public class OrgSoftwareSubscriptionsActionTest extends RhnMockStrutsTestCase {
+public class OrgSoftwareSubscriptionsActionTest extends RhnPostMockStrutsTestCase {
 
     public void testExecute() throws Exception {
         user.getOrg().addRole(RoleFactory.SAT_ADMIN);
