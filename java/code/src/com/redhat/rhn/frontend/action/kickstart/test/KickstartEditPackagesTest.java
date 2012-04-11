@@ -15,9 +15,9 @@
 package com.redhat.rhn.frontend.action.kickstart.test;
 
 import com.redhat.rhn.domain.kickstart.KickstartData;
-import com.redhat.rhn.testing.RhnMockStrutsTestCase;
+import com.redhat.rhn.testing.RhnPostMockStrutsTestCase;
 
-public class KickstartEditPackagesTest extends RhnMockStrutsTestCase {
+public class KickstartEditPackagesTest extends RhnPostMockStrutsTestCase {
 
     public void testDisplay() throws Exception {
         KickstartData k = KickstartTestHelper.createTestKickStart(user);
