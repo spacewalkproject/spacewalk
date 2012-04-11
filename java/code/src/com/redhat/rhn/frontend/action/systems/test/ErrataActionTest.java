@@ -30,13 +30,13 @@ import com.redhat.rhn.manager.errata.ErrataManager;
 import com.redhat.rhn.manager.errata.cache.ErrataCacheManager;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.rhnset.RhnSetManager;
-import com.redhat.rhn.testing.RhnMockStrutsTestCase;
+import com.redhat.rhn.testing.RhnPostMockStrutsTestCase;
 
 /**
  * ErrataActionTest
  * @version $Rev$
  */
-public class ErrataActionTest extends RhnMockStrutsTestCase {
+public class ErrataActionTest extends RhnPostMockStrutsTestCase {
     public void testEmptySelection() throws Exception {
         String pathInfo = "/systems/details/ErrataList";
         setRequestPathInfo(pathInfo);
