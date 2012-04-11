@@ -24,14 +24,14 @@ import com.redhat.rhn.domain.server.test.ServerFactoryTest;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.rhnset.RhnSetManager;
-import com.redhat.rhn.testing.RhnMockStrutsTestCase;
+import com.redhat.rhn.testing.RhnPostMockStrutsTestCase;
 import com.redhat.rhn.testing.TestUtils;
 
 /**
  * PendingActionsSetupActionTest
  * @version $Rev$
  */
-public class PendingActionsSetupActionTest extends RhnMockStrutsTestCase {
+public class PendingActionsSetupActionTest extends RhnPostMockStrutsTestCase {
 
 
 
