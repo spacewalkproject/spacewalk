@@ -19,7 +19,7 @@ import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.test.KickstartDataTest;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.frontend.struts.RequestContext;
-import com.redhat.rhn.testing.RhnMockStrutsTestCase;
+import com.redhat.rhn.testing.RhnPostMockStrutsTestCase;
 import com.redhat.rhn.testing.TestUtils;
 import com.redhat.rhn.testing.UserTestUtils;
 
@@ -29,7 +29,7 @@ import java.util.List;
  * KickstartDetailsEditTest
  * @version $Rev: 1 $
  */
-public class BaseKickstartEditTestCase extends RhnMockStrutsTestCase {
+public class BaseKickstartEditTestCase extends RhnPostMockStrutsTestCase {
 
     protected KickstartData ksdata;
 
