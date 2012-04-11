@@ -22,7 +22,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.39
+Version: 1.8.40
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -605,6 +605,46 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Apr 11 2012 Tomas Lestach <tlestach@redhat.com> 1.8.40-1
+- fix BaseKickstartEditTestCase tests (tlestach@redhat.com)
+- fix VirtualGuestsActionTest (tlestach@redhat.com)
+- fix MethodActionTest (tlestach@redhat.com)
+- fix PendingActionsSetupActionTest (tlestach@redhat.com)
+- fix BootstrapConfigActionTest (tlestach@redhat.com)
+- fix KickstartEditPackagesTest (tlestach@redhat.com)
+- fix OrgSystemSubscriptionsActionTest (tlestach@redhat.com)
+- fix SystemEntitlementsSubmitActionTest (tlestach@redhat.com)
+- fix ChannelFilesImportTest (tlestach@redhat.com)
+- fix RegisteredSetupActionTest (tlestach@redhat.com)
+- fix OrgCreateActionTest (tlestach@redhat.com)
+- fix ErrataActionTest (tlestach@redhat.com)
+- fix FailedActionsSetupActionTest (tlestach@redhat.com)
+- fix OrgSoftwareSubscriptionsActionTest (tlestach@redhat.com)
+- fix TreeActionTest - need to set ks tree installtype (tlestach@redhat.com)
+- fix TreeActionTest.testCreateRefresh (tlestach@redhat.com)
+- fix TreeActionTest (tlestach@redhat.com)
+- fix systems/test/ErrataConfirmActionTest (tlestach@redhat.com)
+- fix errata/test/ErrataConfirmActionTest (tlestach@redhat.com)
+- fix KickstartAdvancedOptionsActionTest (tlestach@redhat.com)
+- fix CryptoKeyDeleteActionTest (tlestach@redhat.com)
+- fix CompletedActionsSetupActionTest (tlestach@redhat.com)
+- fix BaseSetOperateOnDiffActionTest (tlestach@redhat.com)
+- fix GeneralConfigActionTest (tlestach@redhat.com)
+- fix RestartActionTest (tlestach@redhat.com)
+- fix KickstartIpRangeActionTest (tlestach@redhat.com)
+- fix CryptoKeyCreateActionTest (tlestach@redhat.com)
+- fix CertificateConfigActionTest (tlestach@redhat.com)
+- fix SystemDetailsEditActionTest (tlestach@redhat.com)
+- fix PreservationListEditActionTest (tlestach@redhat.com)
+- fix KickstartPartitionActionTest (tlestach@redhat.com)
+- fix CreateUserActionTest (tlestach@redhat.com)
+- fix CloneConfirmActionTest (tlestach@redhat.com)
+- create RhnPostMockStrutsTestCase for testing POST methods
+  (tlestach@redhat.com)
+- statements cannot end with ";" for Oracle (tlestach@redhat.com)
+- 787225 - the Log Size actually checks Log Size Growth.
+  (jpazdziora@redhat.com)
+
 * Tue Apr 10 2012 Tomas Lestach <tlestach@redhat.com> 1.8.39-1
 - fix ServerConfigHandlerTest revision comparism (tlestach@redhat.com)
 - fix ServerConfigHandlerTest.createRevision (tlestach@redhat.com)
