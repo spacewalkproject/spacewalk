@@ -12,7 +12,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.13
+Version: 1.8.14
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -688,6 +688,10 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Wed Apr 11 2012 Stephen Herr <sherr@redhat.com> 1.8.14-1
+- 786705 - Update config default to preserve base channel on reactivation
+  (sherr@redhat.com)
+
 * Tue Apr 10 2012 Jan Pazdziora 1.8.13-1
 - rhn-schema-stats: update manual page (mzazrivec@redhat.com)
 - rhn-schema-stats: support for PostgreSQL (mzazrivec@redhat.com)
