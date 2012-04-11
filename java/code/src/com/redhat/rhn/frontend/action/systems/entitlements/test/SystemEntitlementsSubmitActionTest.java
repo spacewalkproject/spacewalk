@@ -28,7 +28,7 @@ import com.redhat.rhn.frontend.action.systems.entitlements.SystemEntitlementsSub
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.manager.entitlement.EntitlementManager;
 import com.redhat.rhn.manager.system.SystemManager;
-import com.redhat.rhn.testing.RhnMockStrutsTestCase;
+import com.redhat.rhn.testing.RhnPostMockStrutsTestCase;
 import com.redhat.rhn.testing.ServerGroupTestUtils;
 import com.redhat.rhn.testing.ServerTestUtils;
 import com.redhat.rhn.testing.TestUtils;
@@ -40,7 +40,7 @@ import java.util.Iterator;
  * SystemEntitlementSubmitActionToast
  * @version $Rev$
  */
-public class SystemEntitlementsSubmitActionTest extends RhnMockStrutsTestCase {
+public class SystemEntitlementsSubmitActionTest extends RhnPostMockStrutsTestCase {
 
     private static final String UPDATE =
                                     "system_entitlements.setToUpdateEntitled";
