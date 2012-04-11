@@ -17,7 +17,7 @@ package com.redhat.rhn.frontend.action.configuration.test;
 import com.redhat.rhn.domain.config.ConfigChannel;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.testing.ConfigTestUtils;
-import com.redhat.rhn.testing.RhnMockStrutsTestCase;
+import com.redhat.rhn.testing.RhnPostMockStrutsTestCase;
 import com.redhat.rhn.testing.UserTestUtils;
 
 /**
@@ -25,7 +25,7 @@ import com.redhat.rhn.testing.UserTestUtils;
  * ChannelFilesImportTest
  * @version $Rev$
  */
-public class ChannelFilesImportTest extends RhnMockStrutsTestCase {
+public class ChannelFilesImportTest extends RhnPostMockStrutsTestCase {
 
     public void testExecuteNoFiles() throws Exception {
         UserTestUtils.addUserRole(user, RoleFactory.CONFIG_ADMIN);
