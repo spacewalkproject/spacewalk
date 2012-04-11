@@ -17,7 +17,7 @@ package com.redhat.rhn.frontend.action.multiorg.test;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.manager.entitlement.EntitlementManager;
-import com.redhat.rhn.testing.RhnMockStrutsTestCase;
+import com.redhat.rhn.testing.RhnPostMockStrutsTestCase;
 
 import org.apache.struts.action.DynaActionForm;
 
@@ -25,7 +25,7 @@ import org.apache.struts.action.DynaActionForm;
  * OrgSubscriptionsActionTest
  * @version $Rev: 1 $
  */
-public class OrgSystemSubscriptionsActionTest extends RhnMockStrutsTestCase {
+public class OrgSystemSubscriptionsActionTest extends RhnPostMockStrutsTestCase {
 
     public void testExecute() throws Exception {
         user.getOrg().addRole(RoleFactory.SAT_ADMIN);
