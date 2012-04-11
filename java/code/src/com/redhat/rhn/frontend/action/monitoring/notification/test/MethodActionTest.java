@@ -24,11 +24,11 @@ import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.manager.monitoring.ModifyMethodCommand;
-import com.redhat.rhn.testing.RhnMockStrutsTestCase;
+import com.redhat.rhn.testing.RhnPostMockStrutsTestCase;
 import com.redhat.rhn.testing.TestUtils;
 import com.redhat.rhn.testing.UserTestUtils;
 
-public class MethodActionTest extends RhnMockStrutsTestCase {
+public class MethodActionTest extends RhnPostMockStrutsTestCase {
 
     private String expectedName = "Expected Method Name";
 
