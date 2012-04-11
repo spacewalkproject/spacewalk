@@ -15,14 +15,14 @@
 package com.redhat.rhn.frontend.action.multiorg.test;
 
 import com.redhat.rhn.domain.role.RoleFactory;
-import com.redhat.rhn.testing.RhnMockStrutsTestCase;
+import com.redhat.rhn.testing.RhnPostMockStrutsTestCase;
 import com.redhat.rhn.testing.TestUtils;
 
 /**
  * OrgCreateActionTest - test org create
  * @version $Rev: 119601 $
  */
-public class OrgCreateActionTest extends RhnMockStrutsTestCase {
+public class OrgCreateActionTest extends RhnPostMockStrutsTestCase {
 
     public void testExecuteSubmit() throws Exception {
         user.getOrg().addRole(RoleFactory.SAT_ADMIN);
