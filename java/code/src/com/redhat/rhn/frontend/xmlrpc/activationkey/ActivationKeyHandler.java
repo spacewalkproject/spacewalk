@@ -480,13 +480,6 @@ public class ActivationKeyHandler extends BaseHandler {
                         " is not a child channel.");
             }
 
-            // Verify we have access to the child's parent channel:
-            Channel parentChannel = childChannel.getParentChannel();
-            if (!activationKey.getChannels().contains(parentChannel)) {
-                throw new InvalidChannelException("Key has not been assigned base " +
-                    "channel for " + childChannel.getName());
-            }
-
             manager.addChannel(activationKey, childChannel);
         }
 
