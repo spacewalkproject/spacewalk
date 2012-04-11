@@ -376,22 +376,6 @@ def do_configchannel_delete(self, args):
 
 ####################
 
-def file_needs_b64_enc(self, contents):
-
-    # we try to catch files automatically which will not work
-    # correctly via the API so that they get uploaded correctly
-
-    # Files with trailing newlines, which the API strips from files
-    # uploaded as text, to avoid this we upload them as base64 encoded
-    if contents != contents.rstrip():
-        logging.info("trailing newlines detected, uploading as binary")
-        return True
-
-    # TODO : Add other exceptions here, e.g those containing characters which
-    # are valid ascii but not valid XML (e.g the escape character)
-
-    return False
-
 def help_configchannel_addfile(self):
     print 'configchannel_addfile: Create a configuration file'
     print '''usage: configchannel_addfile [CHANNEL] [options]

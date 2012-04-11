@@ -633,4 +633,20 @@ def json_read_from_file(filename):
             print "could not open file %s for reading, check permissions?" % filename
         return None
 
+def file_needs_b64_enc(self, contents):
+
+    # Used to check if files (config files primarily) need base64 encoding 
+    # in order to work properly via the API
+
+    # Files with trailing newlines, which the API strips from files
+    # uploaded as text, to avoid this we upload them as base64 encoded
+    if contents != contents.rstrip():
+        logging.info("trailing newlines detected, uploading as binary")
+        return True
+
+    # TODO : Add other exceptions here, e.g those containing characters which
+    # are valid ascii but not valid XML (e.g the escape character)
+
+    return False
+
 # vim:ts=4:expandtab:
