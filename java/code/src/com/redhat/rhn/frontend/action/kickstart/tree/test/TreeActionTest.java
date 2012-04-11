@@ -19,6 +19,7 @@ import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.test.ChannelFactoryTest;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
+import com.redhat.rhn.domain.kickstart.KickstartInstallType;
 import com.redhat.rhn.domain.kickstart.KickstartableTree;
 import com.redhat.rhn.domain.kickstart.test.KickstartDataTest;
 import com.redhat.rhn.domain.kickstart.test.KickstartableTreeTest;
@@ -208,6 +209,9 @@ public class TreeActionTest extends RhnPostMockStrutsTestCase {
         addRequestParameter(TreeCreateAction.CHANNEL_ID,
                 c.getId().toString());
         addRequestParameter(TreeCreateAction.LABEL, newLabel);
+        KickstartInstallType installtype = (KickstartInstallType)
+                TestUtils.lookupFromCacheById(1L, "KickstartInstallType.findById");
+        addRequestParameter(TreeCreateAction.INSTALL_TYPE, installtype.getLabel());
         actionPerform();
         verifyNoActionErrors();
         return newLabel;
