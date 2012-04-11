@@ -23,6 +23,10 @@ import servletunit.HttpServletRequestSimulator;
  */
 public class RhnPostMockStrutsTestCase extends RhnMockStrutsTestCase {
 
+    /**
+     * override the setupUp method
+     * {@inheritDoc}
+     */
     public void setUp() throws Exception {
         super.setUp();
         request.setMethod(HttpServletRequestSimulator.POST);
