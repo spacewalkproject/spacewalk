@@ -19,39 +19,10 @@
 	</c:when>
 	<c:otherwise>
 		<html:form method="post" action="/systems/details/audit/ScheduleXccdf.do">
-		<rhn:csrf/>
-		<table class="details">
-		<tr>
-			<th><bean:message key="system.audit.schedulexccdf.jsp.command"/>:</th>
-			<td>/usr/bin/oscap xccdf eval</td>
-		</tr>
-		<tr>
-			<th><bean:message key="system.audit.schedulexccdf.jsp.arguments"/>:</th>
-			<td><html:text property="params" maxlength="2048" size="40" styleId="params"/></td>
-		</tr>
-		<tr>
-			<th><bean:message key="system.audit.schedulexccdf.jsp.path"/><span class="required-form-field">*</span>:</th>
-			<td><html:text property="path" size="40" styleId="path"/></td>
-		</tr>
-		<tr>
-			<th><bean:message key="scheduleremote.jsp.nosoonerthan"/>:</th>
-			<td>
-				<jsp:include page="/WEB-INF/pages/common/fragments/date-picker.jsp">
-					<jsp:param name="widget" value="date"/>
-				</jsp:include>
-			</td>
-		</tr>
-		</table>
 
-		<html:hidden property="sid" value="${param.sid}"/>
-		<html:hidden property="submitted" value="true" />
+			<%@ include file="/WEB-INF/pages/common/fragments/audit/schedule-xccdf.jspf" %>
 
-		<div align="right">
-			</hr>
-			<html:submit property="schedule_button">
-				<bean:message key="system.audit.schedulexccdf.jsp.button"/>
-			</html:submit>
-		</div>
+			<html:hidden property="sid" value="${param.sid}"/>
 		</html:form>
 		<rhn:tooltip>
 			<bean:message key="system.audit.schedulexccdf.jsp.tooltip"/>
