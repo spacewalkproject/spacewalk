@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.8
+Version: 1.8.9
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -254,6 +254,10 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Thu Apr 12 2012 Stephen Herr <sherr@redhat.com> 1.8.9-1
+- 812031 - Update perl channel-select-dropdowns to use the same hierarchical
+  sort as java pages (sherr@redhat.com)
+
 * Thu Apr 05 2012 Jan Pazdziora 1.8.8-1
 - Fix naming of cloned errata to replace only the first 2 chars
   (tlestach@redhat.com)
