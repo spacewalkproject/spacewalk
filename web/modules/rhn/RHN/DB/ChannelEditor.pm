@@ -146,6 +146,64 @@ EOQ
   return @channels;
 }
 
+sub base_channels_visible_to_org {
+  my $self = shift;
+  my $org_id = shift;
+
+  my $dbh = RHN::DB->connect;
+
+  my $query;
+  my $sth;
+
+  $query = <<EOQ;
+SELECT NAME, ID 
+  FROM rhnChannel
+ WHERE (org_id = :org_id OR org_id is NULL)
+   AND parent_channel is NULL
+ ORDER BY name
+EOQ
+
+  $sth = $dbh->prepare($query);
+  $sth->execute_h(org_id => $org_id);
+
+  my @channels;
+
+  while (my $row = $sth->fetchrow_hashref) {
+    push @channels, $row;
+  }
+
+  return @channels;
+}
+
+sub child_channels_visible_to_org_from_base {
+  my $self = shift;
+  my $org_id = shift;
+  my $base_channel_id = shift;
+
+  my $dbh = RHN::DB->connect;
+
+  my $query;
+  my $sth;
+
+  $query = <<EOQ;
+SELECT NAME, ID 
+  FROM rhnChannel
+ WHERE (org_id = :org_id OR org_id is NULL)
+   AND parent_channel = :parent_channel
+ ORDER BY name
+EOQ
+
+  $sth = $dbh->prepare($query);
+  $sth->execute_h(org_id => $org_id, parent_channel => $base_channel_id);
+
+  my @channels;
+
+  while (my $row = $sth->fetchrow_hashref) {
+    push @channels, $row;
+  }
+
+  return @channels;
+}
 
 sub channels_visible_to_org {
   my $self = shift;

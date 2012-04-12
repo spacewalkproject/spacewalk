@@ -350,11 +350,31 @@ sub clone_channel_form {
   return $html;
 }
 
+sub populate_channel_list {
+  my $org_id = shift;
+
+  my @channel_list = ();
+  my @base_channel_list = RHN::ChannelEditor->base_channels_visible_to_org($org_id);
+  foreach my $base (@base_channel_list) {
+    push (@channel_list, { NAME => $base->{NAME}, 
+		    ID => $base->{ID}, 
+		    DEPTH => 1});
+    my @child_channel_list = RHN::ChannelEditor->child_channels_visible_to_org_from_base($org_id, $base->{ID});
+    foreach my $child (@child_channel_list) {
+      push (@channel_list, { NAME => $child->{NAME},
+		      ID => $child->{ID},
+		      DEPTH => 2});
+    }
+  }
+
+  return @channel_list
+}
+
 sub build_clone_channel_details_form {
   my $pxt = shift;
   my %attr = @_;
 
-  my @channel_list = RHN::ChannelEditor->channels_visible_to_org_with_parent($pxt->user->org_id);
+  my @channel_list = populate_channel_list($pxt->user->org_id);
 
   my $ds = new RHN::DataSource::Channel(-mode => 'user_subscribe_perms');
   my $subscribable = $ds->execute_query(-u_id => $pxt->user->id, -org_id => $pxt->user->org_id);
@@ -373,17 +393,7 @@ sub build_clone_channel_details_form {
   my $channel_selectbox = new RHN::Form::Widget::Select(name => 'Clone From',
 							label => 'clone_from');
 
-  my @my_channels = grep {$_->{CHANNEL_ORG_ID} and $_->{CHANNEL_ORG_ID} == $pxt->user->org_id} @channel_list;
-##  my @other_channels = grep { not ($_->{CHANNEL_ORG_ID} and $_->{CHANNEL_ORG_ID} == $pxt->user->org_id) } @channel_list;
-  ##bugzilla
-  my @other_channels = grep { not ($_->{CHANNEL_ORG_ID}) } @channel_list;
-
-  my @options = ( { NAME => 'My Channels', ID => 'my_channels', DEPTH => 1, OPTGROUP => 1 },
-		 @my_channels,
-		  { NAME => 'Other Channels', ID => 'other_channels', DEPTH => 1, OPTGROUP => 1 },
-		 @other_channels);
-
-  foreach my $opt (@options) {
+  foreach my $opt (@channel_list) {
     $channel_selectbox->add_option( {value => $opt->{ID},
 				     label => ( $opt->{DEPTH} == 1
 						? $opt->{NAME}
@@ -649,16 +659,17 @@ sub channel_select_options {
 			   @rh_channels);
   }
   elsif ($mode eq 'compare_channels') {
-      my @org_channels = RHN::Channel->channels_owned_by_org($pxt->user->org_id);
-      my @rh_channels = RHN::Channel->channels_owned_by_org('NULL');
+    my @additional_channels_hash = populate_channel_list($pxt->user->org_id);
+    my @additional_channels = ();
+    foreach my $tmp_channel (@additional_channels_hash) {
+      push (@additional_channels, [$tmp_channel->{DEPTH} == 1 ?
+		      $tmp_channel->{NAME} : '&#160;&#160;' . $tmp_channel->{NAME}, 
+		      'channel_' . $tmp_channel->{ID}]);
+    }
 
-      @org_channels = grep { $perm_map{$_->[1]} } @org_channels;
-      @rh_channels = grep { $perm_map{$_->[1]} } @rh_channels;
+    @additional_channels = grep { $perm_map{$_->[1]} } @additional_channels;
 
-      push @channel_list, ([ 'My Channels', 'my_channels', 'optgroup' ],
-                           @org_channels,
-                           [ 'Red Hat Channels', 'redhat_channels', 'optgroup' ],
-                           @rh_channels);
+    push @channel_list, (@additional_channels);
   }
   elsif ($mode eq 'errata_manager') {
     @channel_list = ([ 'All managed packages', 'any_channel' ]);
