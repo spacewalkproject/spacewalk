@@ -458,7 +458,8 @@ public class ConfigChannelHandler extends BaseHandler {
      *      #prop_desc("string","target_path",
      *              "The target path for the symbolic link")
      *      #prop_desc("string", "selinux_ctx", "SELinux Security context (optional)")
-     *      #prop_desc("int", "revision", "next revision number, auto increment for null")
+     *      #prop_desc("int", "revision", "next revision number,
+     *       skip this field for automatic revision number assignment")
      *  #struct_end()
      * @xmlrpc.returntype
      * $ConfigRevisionSerializer
