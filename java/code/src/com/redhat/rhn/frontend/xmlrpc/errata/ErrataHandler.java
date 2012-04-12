@@ -891,23 +891,27 @@ public class ErrataHandler extends BaseHandler {
             throw new NoSuchChannelException();
         }
 
-        if (!channel.isCloned()) {
-            throw new InvalidChannelException("Cloned channel expected: " +
+        //if calling cloneAsOriginal, do additional checks to verify a clone
+        if(inheritAllPackages){
+            if (!channel.isCloned()) {
+                throw new InvalidChannelException("Cloned channel expected: " +
                     channel.getLabel());
+            }
+
+            Channel original = ChannelFactory.lookupOriginalChannel(channel);
+    
+            if (original == null) {
+                throw new InvalidChannelException("Cannot access original " +
+                        "of the channel: " + channel.getLabel());
+            }
+            // check access to the original
+            if (ChannelFactory.lookupByIdAndUser(original.getId(), loggedInUser) == null) {
+                throw new LookupException("User " + loggedInUser.getLogin() +
+                        " does not have access to channel " + original.getLabel());
+            }
+            
         }
 
-        Channel original = ChannelFactory.lookupOriginalChannel(channel);
-
-        if (original == null) {
-            throw new InvalidChannelException("Cannot access original " +
-                    "of the channel: " + channel.getLabel());
-        }
-
-        // check access to the original
-        if (ChannelFactory.lookupByIdAndUser(original.getId(), loggedInUser) == null) {
-            throw new LookupException("User " + loggedInUser.getLogin() +
-                    " does not have access to channel " + original.getLabel());
-        }
 
         if (!UserManager.verifyChannelAdmin(loggedInUser, channel)) {
             throw new PermissionCheckFailureException();
@@ -943,7 +947,7 @@ public class ErrataHandler extends BaseHandler {
 
         //Now publish them all to the channel in a single shot
         List<Errata> published = ErrataFactory.publishToChannel(errataToPublish, channel,
-                loggedInUser, true);
+                loggedInUser, inheritAllPackages);
         for (Errata e : published) {
             ErrataFactory.save(e);
         }
