@@ -2700,15 +2700,15 @@ public class ChannelSoftwareHandler extends BaseHandler {
     }
 
     /**
-     * Returns repo synchronization cron expression
+     * Returns repo synchronization quartz expression
      * @param sessionKey session key
      * @param channelLabel channel label
-     * @return cron expression
+     * @return quartz expression
      *
      * @xmlrpc.doc Returns repo synchronization cron expression
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param_desc("string", "channelLabel", "channel label")
-     * @xmlrpc.returntype string cron expression
+     * @xmlrpc.returntype string quartz expression
      */
     public String getRepoSyncCronExpression(String sessionKey, String channelLabel) {
         User loggedInUser = getLoggedInUser(sessionKey);
