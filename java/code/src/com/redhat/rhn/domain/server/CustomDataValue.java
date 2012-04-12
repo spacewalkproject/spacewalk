@@ -14,6 +14,7 @@
  */
 package com.redhat.rhn.domain.server;
 
+import com.redhat.rhn.common.util.StringUtil;
 import com.redhat.rhn.domain.action.server.ServerAction;
 import com.redhat.rhn.domain.org.CustomDataKey;
 import com.redhat.rhn.domain.user.User;
@@ -120,7 +121,7 @@ public class CustomDataValue implements Serializable {
      * @param valueIn The value to set.
      */
     public void setValue(String valueIn) {
-        this.value = valueIn;
+        this.value = StringUtil.webToLinux(valueIn);
     }
 
     /**
