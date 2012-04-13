@@ -30,10 +30,10 @@
   </rhn-require>
 
   <column name="Errata" label="total_errata" align="center" width="5%">
-    <url>/network/systems/details/errata_list.pxt?sid={column:id}</url>
+    <url>/rhn/systems/details/ErrataList.do?sid={column:id}</url>
   </column>
   <column name="Packages" label="outdated_packages" align="center" width="5%">
-    <url>/network/systems/details/packages/upgrade.pxt?sid={column:id}</url>
+    <url>/rhn/systems/details/packages/UpgradableList.do?sid={column:id}</url>
   </column>
   <column name="System" label="server_name" sort_by="1" align="left" width="35%">
     <url>/rhn/systems/details/Overview.do?sid={column:id}</url>
