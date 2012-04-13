@@ -1,98 +1,13 @@
-#!/usr/bin/python -u
-#
-# Copyright (c) 2008--2011 Red Hat, Inc.
-#
-# This software is licensed to you under the GNU General Public License,
-# version 2 (GPLv2). There is NO WARRANTY for this software, express or
-# implied, including the implied warranties of MERCHANTABILITY or FITNESS
-# FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
-# along with this software; if not, see
-# http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
-# Red Hat trademarks are not licensed under GPLv2. No permission is
-# granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
-#
+#!/bin/bash
 
-import sys
-try:
-    import os
-    from os.path import exists, join
-except KeyboardInterrupt:
-    sys.stderr.write("\nUser interrupted process.\n")
-    sys.exit(0)
+BACKEND=$( spacewalk-cfg-get db_backend )
 
-
-def errAndExit(errno, msg):
-    sys.stderr.write(msg+'\n')
-    sys.exit(errno)
-
-
-# figure out import path
-_LIBPATH = ""
-for p in ["/var/www/rhns", "/usr/share/rhn"]:
-    if exists(p) and exists(join(p, 'server')) and exists(join(p, 'common')):
-        _LIBPATH = p
-if _LIBPATH not in sys.path:
-    sys.path.append(_LIBPATH)
-
-
-try:
-    from spacewalk.server import rhnSQL
-    from spacewalk.common.rhnConfig import initCFG
-except KeyboardInterrupt:
-    sys.stderr.write("\nUser interrupted process.\n")
-    sys.exit(0)
-
-
-def processCommandline():
-    """ process the commandline """
-
-    from optparse import Option, OptionParser
-    optionsTable = [
-        Option('--db', action='store', type="string",
-               help='alternative database string (USERNAME/PASSWORD@SID). '+\
-                    'Default value is the DEFAULT_DB setting in '+\
-                    '/etc/rhn/rhn.conf'),
-      ]
-
-    optionParser = OptionParser(option_list=optionsTable)
-    options, args = optionParser.parse_args()
-
-    # we take no extra commandline arguments that are not linked to an option
-    if args:
-        msg = "ERROR: these arguments make no sense in this context (try "+\
-              "--help): %s\n" % repr(args)
-        sys.stderr.write(msg)
-        sys.exit(-1)
-
-    initCFG('server')
-    rhnSQL.initDB(options.db)
-
-    return options
-
-
-if __name__ == '__main__':
-    options = processCommandline()
-
-    try:
-        h = rhnSQL.prepare("""
-                SELECT parameter, value
-                FROM   nls_database_parameters
-                WHERE  parameter = 'NLS_CHARACTERSET'
-                    OR parameter = 'NLS_NCHAR_CHARACTERSET'
-                """)
-        h.execute()
-        while True:
-            row = h.fetchone_dict()
-            if not row:
-                break
-            print '%s: %s' % (row['parameter'], repr(row['value']))
-    except KeyboardInterrupt:
-        sys.stderr.write("\nUser interrupted process.\n")
-        sys.exit(0)
-    except (rhnSQL.SQLError, rhnSQL.SQLSchemaError, rhnSQL.SQLConnectError), e:
-        # really a stub for better exception handling in the future.
-        sys.stderr.write("SQL error occurred, traceback follows...\n")
-        raise
+if [ $BACKEND == 'oracle' ]; then
+	echo "SELECT parameter, value from nls_database_parameters where parameter in ( 'NLS_CHARACTERSET', 'NLS_NCHAR_CHARACTERSET' );" | spacewalk-sql --select-mode -
+elif [ $BACKEND == 'postgresql' ]; then
+	echo 'show server_encoding; show client_encoding;' | spacewalk-sql --select-mode -
+else
+	echo "Unknown database backend [$BACKEND]"
+	exit 1
+fi
 
