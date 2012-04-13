@@ -97,11 +97,7 @@ Conflicts: python-sgmlop
 # cobbler-web is known to break our configuration
 Conflicts: cobbler-web
 
-%if  0%{?rhel} && 0%{?rhel} < 6
-Requires: mod_python
-%else
 Requires: mod_wsgi
-%endif
 
 
 %description server
@@ -255,7 +251,7 @@ Requires: python-hashlib
 Requires: PyXML
 Requires: mod_ssl
 Requires: %{name}-xml-export-libs
-Requires: cobbler >= 1.4.3
+Requires: cobbler >= 2.2.1
 Requires: rhnlib  >= 2.5.38
 Obsoletes: rhns-satellite-tools < 5.3.0
 Obsoletes: spacewalk-backend-satellite-tools <= 0.2.7
@@ -290,12 +286,7 @@ make -f Makefile.backend install PREFIX=$RPM_BUILD_ROOT \
 export PYTHON_MODULE_NAME=%{name}
 export PYTHON_MODULE_VERSION=%{version}
 
-%if 0%{?rhel} && 0%{?rhel} < 6
-rm -v $RPM_BUILD_ROOT/%{apacheconfd}/zz-spacewalk-server-wsgi.conf
-rm -rfv $RPM_BUILD_ROOT/%{rhnroot}/wsgi
-%else
 rm -v $RPM_BUILD_ROOT/%{apacheconfd}/zz-spacewalk-server-python.conf
-%endif
 
 %find_lang %{name}-server
 
@@ -368,12 +359,10 @@ rm -f %{rhnconf}/rhnSecret.py*
 %attr(755,root,root) %{_bindir}/spacewalk-cfg-get
 %{_mandir}/man8/spacewalk-cfg-get.8.gz
 # wsgi stuff
-%if !( 0%{?rhel} && 0%{?rhel} < 6)
 %dir %{rhnroot}/wsgi
 %{rhnroot}/wsgi/__init__.py*
 %{rhnroot}/wsgi/wsgiHandler.py*
 %{rhnroot}/wsgi/wsgiRequest.py*
-%endif
 
 %files sql
 %defattr(-,root,root)
@@ -462,9 +451,6 @@ rm -f %{rhnconf}/rhnSecret.py*
 # main httpd config
 %attr(644,root,apache) %config %{apacheconfd}/zz-spacewalk-server.conf
 
-%if 0%{?rhel} && 0%{?rhel} < 6
-%attr(644,root,apache) %config %{apacheconfd}/zz-spacewalk-server-python.conf
-%else
 # wsgi stuff
 %attr(644,root,apache) %config %{apacheconfd}/zz-spacewalk-server-wsgi.conf
 %{rhnroot}/wsgi/app.py*
@@ -476,7 +462,6 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{rhnroot}/wsgi/sat_dump.py*
 %{rhnroot}/wsgi/xmlrpc.py*
 %{rhnroot}/wsgi/xp.py*
-%endif
 
 # logs and other stuff
 %config(noreplace) %{_sysconfdir}/logrotate.d/spacewalk-backend-server
