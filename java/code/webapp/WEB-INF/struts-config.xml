@@ -313,6 +313,8 @@
         <form-property name="invert" type="java.lang.Boolean" />
         <form-property name="fineGrained" type="java.lang.Boolean" />
         <form-property name="submitted" type="java.lang.Boolean" />
+        <form-property name="no_scrub" type="java.lang.String"
+						initial="search_string"/>
         </form-bean>
 
         <form-bean  name="docsSearchForm"
