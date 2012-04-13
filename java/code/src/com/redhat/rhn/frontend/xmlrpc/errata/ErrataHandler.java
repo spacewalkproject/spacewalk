@@ -892,14 +892,14 @@ public class ErrataHandler extends BaseHandler {
         }
 
         //if calling cloneAsOriginal, do additional checks to verify a clone
-        if(inheritAllPackages){
+        if (inheritAllPackages) {
             if (!channel.isCloned()) {
                 throw new InvalidChannelException("Cloned channel expected: " +
                     channel.getLabel());
             }
 
             Channel original = ChannelFactory.lookupOriginalChannel(channel);
-    
+
             if (original == null) {
                 throw new InvalidChannelException("Cannot access original " +
                         "of the channel: " + channel.getLabel());
@@ -909,7 +909,6 @@ public class ErrataHandler extends BaseHandler {
                 throw new LookupException("User " + loggedInUser.getLogin() +
                         " does not have access to channel " + original.getLabel());
             }
-            
         }
 
 
