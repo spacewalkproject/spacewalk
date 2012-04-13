@@ -296,6 +296,8 @@ public class SystemHandler extends BaseHandler {
         }
 
         SystemManager.entitleServer(server, entitlement);
+        SystemManager.snapshotServer(server, LocalizationService.getInstance()
+                .getMessage("snapshots.entitlements"));
 
         return 1;
     }
@@ -3604,6 +3606,7 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.returntype #return_int_success()
      */
     public int addEntitlements(String sessionKey, Integer serverId, List entitlements) {
+        boolean needsSnapshot = false;
         User loggedInUser = getLoggedInUser(sessionKey);
         Server server = null;
         try {
@@ -3656,6 +3659,7 @@ public class SystemHandler extends BaseHandler {
 
             if (SystemManager.canEntitleServer(server, ent)) {
                 ValidatorResult vr = SystemManager.entitleServer(server, ent);
+                needsSnapshot = true;
                 if (vr.getErrors().size() > 0) {
                     throw new InvalidEntitlementException();
                 }
@@ -3663,6 +3667,11 @@ public class SystemHandler extends BaseHandler {
             else {
                 throw new InvalidEntitlementException();
             }
+        }
+
+        if (needsSnapshot) {
+            SystemManager.snapshotServer(server, LocalizationService
+                    .getInstance().getMessage("snapshots.entitlements"));
         }
 
         return 1;
@@ -3684,6 +3693,7 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.returntype #return_int_success()
      */
     public int removeEntitlements(String sessionKey, Integer serverId, List entitlements) {
+        boolean needsSnapshot = false;
         User loggedInUser = getLoggedInUser(sessionKey);
         Server server = null;
         try {
@@ -3705,12 +3715,19 @@ public class SystemHandler extends BaseHandler {
                 continue;
             }
             SystemManager.removeServerEntitlement(server.getId(), ent);
+            needsSnapshot = true;
         }
 
         // process base entitlements at the end
         if (!baseEnts.isEmpty()) {
             // means unentile the whole system
             SystemManager.removeAllServerEntitlements(server.getId());
+            needsSnapshot = true;
+        }
+
+        if (needsSnapshot) {
+            SystemManager.snapshotServer(server, LocalizationService
+                    .getInstance().getMessage("snapshots.entitlements"));
         }
 
         return 1;
