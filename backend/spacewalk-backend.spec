@@ -12,7 +12,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.14
+Version: 1.8.15
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -673,6 +673,10 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Fri Apr 13 2012 Jan Pazdziora 1.8.15-1
+- With cobbler 2.2 landing in EPEL 5, we need to move to mod_wsgi with
+  Spacewalk backend even on RHEL 5.
+
 * Wed Apr 11 2012 Stephen Herr <sherr@redhat.com> 1.8.14-1
 - 786705 - Update config default to preserve base channel on reactivation
   (sherr@redhat.com)
