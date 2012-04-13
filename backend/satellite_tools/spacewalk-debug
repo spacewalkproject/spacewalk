@@ -221,6 +221,14 @@ fi
 ls /rhnsat/admin/rhnsat/bdump/*.trc 2>/dev/null | xargs -I file cp -fa file $DIR/database
 ls /rhnsat/admin/rhnsat/logs/*.log 2>/dev/null | xargs -I file cp -fa file $DIR/database
 
+# PostgreSQL logs
+if [ -f /var/lib/pgsql/pgstartup.log ] ; then
+	echo "    * copying pgstartup.log"
+	cp -fa /var/lib/pgsql/pgstartup.log $DIR/database
+fi
+
+ls /var/lib/pgsql/data/*.conf /var/lib/pgsql/data/pg_log/* 2>/dev/null | xargs -I file cp -fa file $DIR/database
+
 if [ -d /var/log/spacewalk/schema-upgrade ] ; then
 	echo "    * copying schema upgrade logs"
 	mkdir -p $DIR/schema-upgrade-logs
