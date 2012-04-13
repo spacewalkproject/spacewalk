@@ -12,7 +12,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.15
+Version: 1.8.16
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -673,6 +673,16 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Fri Apr 13 2012 Jan Pazdziora 1.8.16-1
+- 812329 - adding PostgreSQL configuration and log files to the debug.
+- 812329 - updating rhn-charsets man page -- update list of value names, no
+  command line options.
+- 812329 - make rhn-charsets working on PostgreSQL as well; the output format
+  changed even for Oracle.
+- 812329 - add sudoers.d to the debug, there can be important information
+  there.
+- 812329 - The /etc/tnsnames.ora file might not exists.
+
 * Fri Apr 13 2012 Jan Pazdziora 1.8.15-1
 - With cobbler 2.2 landing in EPEL 5, we need to move to mod_wsgi with
   Spacewalk backend even on RHEL 5.
