@@ -21,13 +21,6 @@ Fetch the database characterset types for an &RHNSAT;.
 <Synopsis>
     <cmdsynopsis>
         <command>&COMMAND;</command> 
-        <arg>options <replaceable>...</replaceable></arg>
-    </cmdsynopsis>
-    <cmdsynopsis>
-        <arg>--db <replaceable>USERNAME/PASSWORD@SID</replaceable></arg>
-    </cmdsynopsis>
-    <cmdsynopsis>
-        <arg>-h</arg> <arg>--help</arg>
     </cmdsynopsis>
 </Synopsis>
 </RefSynopsisDiv>
@@ -35,28 +28,10 @@ Fetch the database characterset types for an &RHNSAT;.
 <RefSect1><Title>Description</Title>
 
     <para> <emphasis>&COMMAND;</emphasis> fetches the database characterset
-    ('NLS_CHARACTERSET', 'NLS_NCHAR_CHARACTERSET') values for an &RHNSAT;.  By
-    default it uses the database connection string found in /etc/rhn/rhn.conf.
+    ('NLS_CHARACTERSET', 'NLS_NCHAR_CHARACTERSET', 'server_encoding', 'client_encoding')
+    values for an &RHNSAT;.  It uses the database connection string found in /etc/rhn/rhn.conf.
     </para>
 
-</RefSect1>
-
-<RefSect1><Title>Options</Title>
-<variablelist>
-    <varlistentry>
-        <term>-h, --help</term>
-        <listitem>
-            <para>Display the help screen with a list of options.</para>
-        </listitem>
-    </varlistentry>
-    <varlistentry>
-        <term>--db <replaceable>USERNAME/PASSWORD@SID</replaceable></term>
-        <listitem>
-            <para>alternative database string. Default value is the DEFAULT_DB
-                  setting in /etc/rhn/rhn.conf</para>
-        </listitem>
-    </varlistentry>
-</variablelist>
 </RefSect1>
 
 <RefSect1><Title>Files</Title>
