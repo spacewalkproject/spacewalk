@@ -97,7 +97,9 @@ echo "    * copying configuration information"
 cp -fapRd /etc/httpd/conf* $DIR/conf/httpd
 cp -fapRd /etc/rhn $DIR/conf/rhn
 cp -fapRd /etc/sysconfig/rhn $DIR/conf/rhn/sysconfig
-cp -fapRd /etc/tnsnames.ora $DIR/conf
+if [ -f /etc/tnsnames.ora ] ; then
+    cp -fad /etc/tnsnames.ora $DIR/conf
+fi
 
 echo "    * copying logs"
 cp -fapRd /var/log/httpd $DIR/httpd-logs
