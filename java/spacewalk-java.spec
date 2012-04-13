@@ -22,7 +22,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.44
+Version: 1.8.45
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -605,6 +605,13 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Apr 13 2012 Tomas Lestach <tlestach@redhat.com> 1.8.45-1
+- 809579 - make system snapshot when changing server entitlements using API
+  (tlestach@redhat.com)
+- 812053 - change the condition (tlestach@redhat.com)
+- print extra stack trace (tlestach@redhat.com)
+- 804665 - do not scrub search_string (tlestach@redhat.com)
+
 * Fri Apr 13 2012 Jan Pazdziora 1.8.44-1
 - Fixing checkstyle.
 
