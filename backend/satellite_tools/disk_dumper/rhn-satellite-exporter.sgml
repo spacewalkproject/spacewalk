@@ -46,6 +46,9 @@ A tool that exports satellite content into a directory in an XML format. That co
         <arg>--end-date=<replaceable>END_DATE</replaceable></arg>
     </cmdsynopsis>
     <cmdsynopsis>
+        <arg>--whole-errata</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
         <arg>-p</arg>
         <arg>--print-configuration</arg>
     </cmdsynopsis>
@@ -151,6 +154,14 @@ A tool that exports satellite content into a directory in an XML format. That co
                   compared against. Must be in the format 'YYYYMMDDHH24MISS'.
                   If you did not enter hour, minute and/or second, then zero is
                   assumed. I.e. date 20100101 is expanded to 20100101000000.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--whole-errata</term>
+        <listitem>
+            <para>Always include package if it belongs to errata which
+                  is withing start/end-date range.
+                  </para>
         </listitem>
     </varlistentry>
     <varlistentry>

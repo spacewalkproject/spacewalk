@@ -201,11 +201,12 @@ class SatelliteDumper(BaseDumper):
 class _ChannelDumper(BaseRowDumper):
     tag_name = 'rhn-channel'
 
-    def __init__(self, writer, row, start_date=None, end_date=None, use_rhn_date=True):
+    def __init__(self, writer, row, start_date=None, end_date=None, use_rhn_date=True, whole_errata=False):
         BaseRowDumper.__init__(self, writer, row)
         self.start_date = start_date
         self.end_date = end_date
         self.use_rhn_date = use_rhn_date
+        self.whole_errata = whole_errata
 
     def set_attributes(self):
         channel_id = self._row['id']
@@ -323,10 +324,39 @@ class _ChannelDumper(BaseRowDumper):
            and rp.last_modified <= TO_TIMESTAMP(:upper_limit, 'YYYYMMDDHH24MISS')
      """)
 
+    _query_get_package_ids_by_date_limits_whole_errata = rhnSQL.Statement("""
+        select rcp.package_id as id
+          from rhnPackage rp, rhnChannelPackage rcp,
+          rhnErrataPackage rep, rhnErrata re
+         where rcp.channel_id = :channel_id
+           and rcp.package_id = rp.id
+           and rp.id = rep.package_id
+           and rep.errata_id = re.id
+           and re.modified >= TO_TIMESTAMP(:lower_limit, 'YYYYMMDDHH24MISS')
+           and re.modified <= TO_TIMESTAMP(:upper_limit, 'YYYYMMDDHH24MISS')
+     """)
+
+    _query_get_package_ids_by_rhndate_limits_whole_errata = rhnSQL.Statement("""
+        select rcp.package_id as id
+          from rhnPackage rp, rhnChannelPackage rcp,
+          rhnErrataPackage rep, rhnErrata re
+         where rcp.channel_id = :channel_id
+           and rcp.package_id = rp.id
+           and rp.id = rep.package_id
+           and rep.errata_id = re.id
+           and re.last_modified >= TO_TIMESTAMP(:lower_limit, 'YYYYMMDDHH24MISS')
+           and re.last_modified <= TO_TIMESTAMP(:upper_limit, 'YYYYMMDDHH24MISS')
+     """)
+
 
     # Things that can be overwriten in subclasses
     def _get_package_ids(self):
-        return self._get_ids(self._query_get_package_ids_by_date_limits,
+        if self.start_date and self.whole_errata:
+            return self._get_ids(self._query_get_package_ids_by_date_limits_whole_errata,
+                             self._query_get_package_ids_by_rhndate_limits_whole_errata,
+                             self._query_get_package_ids)
+        else:
+            return self._get_ids(self._query_get_package_ids_by_date_limits,
                              self._query_get_package_ids_by_rhndate_limits,
                              self._query_get_package_ids)
 

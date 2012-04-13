@@ -154,7 +154,7 @@ class FileMapper:
 """
 class Dumper(dumper.XML_Dumper): 
     def __init__(self, outputdir, channel_labels, hardlinks, start_date, \
-                  end_date, use_rhn_date):
+                  end_date, use_rhn_date, whole_errata):
         dumper.XML_Dumper.__init__(self)
         self.fm = FileMapper(outputdir)
         self.mp = outputdir
@@ -167,6 +167,7 @@ class Dumper(dumper.XML_Dumper):
 	self.start_date = start_date
 	self.end_date   = end_date
         self.use_rhn_date = use_rhn_date
+        self.whole_errata = whole_errata
 
 	if self.start_date:
             dates = { 'start_date' : self.start_date,
@@ -241,24 +242,46 @@ class Dumper(dumper.XML_Dumper):
 
         ###BINARY RPM INFO###
         try:
-            query = """
-                     select rcp.package_id id, rp.path path
-		       from rhnChannelPackage rcp, rhnPackage rp
-		      where rcp.package_id = rp.id
-		        and rcp.channel_id = :channel_id
+            if self.whole_errata and self.start_date:
+                query = """ select rcp.package_id id, rp.path path
+                   from rhnChannelPackage rcp, rhnPackage rp,
+                        rhnErrataPackage rep, rhnErrata re
+                  where rcp.package_id = rp.id
+                    and rcp.channel_id = :channel_id
+                    and rp.id = rep.package_id
+                    and rep.errata_id = re.id
                 """
+            else:
+                query = """
+                         select rcp.package_id id, rp.path path
+		           from rhnChannelPackage rcp, rhnPackage rp
+		          where rcp.package_id = rp.id
+		            and rcp.channel_id = :channel_id
+                    """
+
             if self.start_date:
-                if self.use_rhn_date:
+                if self.whole_errata:
+                    if self.use_rhn_date:
+                        query += """ and
+                         re.last_modified >= TO_TIMESTAMP(:start_date, 'YYYYMMDDHH24MISS')
+                         and re.last_modified <= TO_TIMESTAMP(:end_date, 'YYYYMMDDHH24MISS')
+                        """
+                    else:
+                        query += """ and
+                         re.modified >= TO_TIMESTAMP(:start_date, 'YYYYMMDDHH24MISS')
+                         and re.modified <= TO_TIMESTAMP(:end_date, 'YYYYMMDDHH24MISS')
+                        """
+                elif self.use_rhn_date:
                     query += """
                         and rp.last_modified >= TO_TIMESTAMP(:start_date, 'YYYYMMDDHH24MISS')
                         and rp.last_modified <= TO_TIMESTAMP(:end_date, 'YYYYMMDDHH24MISS')
                         """
                 else:
                     query += """
-                        and rcp.modified >= TO_TIMESTAMP(:start_date, 'YYYYMMDDHH24MISS')
-                        and rcp.modified <= TO_TIMESTAMP(:end_date, 'YYYYMMDDHH24MISS')
+                        and ((rcp.modified >= TO_TIMESTAMP(:start_date, 'YYYYMMDDHH24MISS')
+                        and rcp.modified <= TO_TIMESTAMP(:end_date, 'YYYYMMDDHH24MISS'))
                         """
-	    self.brpm_query = rhnSQL.Statement(query)
+            self.brpm_query = rhnSQL.Statement(query)
             brpm_data = rhnSQL.prepare(self.brpm_query)
             
             #self.brpms is a list of binary rpm info. It is a list of dictionaries, where each dictionary
@@ -268,7 +291,6 @@ class Dumper(dumper.XML_Dumper):
             for ch in self.channel_ids:
                 brpm_data.execute(channel_id=ch['channel_id'], **dates)
                 self.brpms = self.brpms + (brpm_data.fetchall_dict() or [])
-                
         except Exception, e:
             tbout = cStringIO.StringIO()
             Traceback(mail=0, ostream=tbout, with_locals=1)
@@ -277,23 +299,46 @@ class Dumper(dumper.XML_Dumper):
         ###PACKAGE INFO###
         #This will grab channel package information for a given channel.
         try:
-            query = """
+            if self.whole_errata and self.start_date:
+                query = """
                  select rp.id package_id,  
-		        TO_CHAR(rp.last_modified, 'YYYYMMDDHH24MISS') last_modified
-		   from rhnPackage rp, rhnChannelPackage rcp
-		  where rcp.channel_id = :channel_id
-		    and rcp.package_id = rp.id
-		"""
-	    if self.start_date:
-                if self.use_rhn_date:
+		            TO_CHAR(rp.last_modified, 'YYYYMMDDHH24MISS') last_modified
+                 from rhnPackage rp, rhnChannelPackage rcp,
+                    rhnErrataPackage rep, rhnErrata re
+		         where rcp.channel_id = :channel_id
+		            and rcp.package_id = rp.id
+                    and rp.id = rep.package_id
+                    and rep.errata_id = re.id
+		    """
+            else:
+                query = """
+                 select rp.id package_id,
+                TO_CHAR(rp.last_modified, 'YYYYMMDDHH24MISS') last_modified
+           from rhnPackage rp, rhnChannelPackage rcp
+          where rcp.channel_id = :channel_id
+            and rcp.package_id = rp.id
+                """
+            if self.start_date:
+                if self.whole_errata:
+                    if self.use_rhn_date:
+                        query += """ and
+                         re.last_modified >= TO_TIMESTAMP(:start_date, 'YYYYMMDDHH24MISS')
+                         and re.last_modified <= TO_TIMESTAMP(:end_date, 'YYYYMMDDHH24MISS')
+                        """
+                    else:
+                        query += """ and
+                         re.modified >= TO_TIMESTAMP(:start_date, 'YYYYMMDDHH24MISS')
+                         and re.modified <= TO_TIMESTAMP(:end_date, 'YYYYMMDDHH24MISS')
+                        """
+                elif self.use_rhn_date:
                     query += """
                     and rp.last_modified >= TO_TIMESTAMP(:start_date, 'YYYYMMDDHH24MISS')
                     and rp.last_modified <= TO_TIMESTAMP(:end_date, 'YYYYMMDDHH24MISS')
                     """
                 else:
                     query += """
-                    and rcp.modified >= TO_TIMESTAMP(:start_date, 'YYYYMMDDHH24MISS')
-                    and rcp.modified <= TO_TIMESTAMP(:end_date, 'YYYYMMDDHH24MISS')
+                    and (rcp.modified >= TO_TIMESTAMP(:start_date, 'YYYYMMDDHH24MISS')
+                    and rcp.modified <= TO_TIMESTAMP(:end_date, 'YYYYMMDDHH24MISS'))
                     """
             self.package_query = rhnSQL.Statement(query)
             package_data = rhnSQL.prepare(self.package_query)
@@ -322,11 +367,28 @@ class Dumper(dumper.XML_Dumper):
         try:
 	    query = """
                   select ps.id package_id, 
-		         TO_CHAR(ps.last_modified,'YYYYMMDDHH24MISS') last_modified,                         ps.source_rpm_id source_rpm_id
+		         TO_CHAR(ps.last_modified,'YYYYMMDDHH24MISS') last_modified,
+                         ps.source_rpm_id source_rpm_id
                     from rhnPackageSource ps
 		"""
             if self.start_date:
-                if self.use_rhn_date:
+                if self.whole_errata:
+                    query += """, rhnErrataFilePackageSource refps, rhnErrataFile ref, rhnErrata re
+                        where refps.package_id = ps.id
+                        and refps.errata_file_id = ref.id
+                        and ref.errata_id = re.id
+                    """
+                    if self.use_rhn_date:
+                        query += """ and
+                         re.last_modified >= TO_TIMESTAMP(:start_date, 'YYYYMMDDHH24MISS')
+                         and re.last_modified <= TO_TIMESTAMP(:end_date, 'YYYYMMDDHH24MISS')
+                        """
+                    else:
+                        query += """ and
+                         re.modified >= TO_TIMESTAMP(:start_date, 'YYYYMMDDHH24MISS')
+                         and re.modified <= TO_TIMESTAMP(:end_date, 'YYYYMMDDHH24MISS')
+                        """
+                elif self.use_rhn_date:
                    query += """
 	           where ps.last_modified >= TO_TIMESTAMP(:start_date, 'YYYYMMDDHH24MISS')
 	             and ps.last_modified <= TO_TIMESTAMP(:end_date, 'YYYYMMDDHH24MISS')
@@ -338,7 +400,7 @@ class Dumper(dumper.XML_Dumper):
                    """
             self.source_package_query = rhnSQL.Statement(query)
             source_package_data = rhnSQL.prepare(self.source_package_query)
-	    source_package_data.execute(**dates)
+            source_package_data.execute(**dates)
     
             #self.src_pkg_info is a list of dictionaries containing the source package information.
             #The keys for each dictionary are 'package_id', 'last_modified', and 'source_rpm_id'.
@@ -558,7 +620,7 @@ class Dumper(dumper.XML_Dumper):
             pb.printAll(1) 
             for channel in self.channel_ids:
                 self.set_filename(self.fm.getChannelsFile(channel['label']))
-                dumper.XML_Dumper.dump_channels(self, [channel], self.start_date, self.end_date, self.use_rhn_date)
+                dumper.XML_Dumper.dump_channels(self, [channel], self.start_date, self.end_date, self.use_rhn_date, self.whole_errata)
     
                 log2email(4, "Channel: %s" % channel['label'])
                 log2email(5, "Channel exported to %s" % self.fm.getChannelsFile(channel['label']))
@@ -968,10 +1030,13 @@ class ExporterMain:
             self.start_date = None
             self.end_date = None
 
+        if self.start_date and self.options.whole_errata:
+            self.whole_errata = self.options.whole_errata
+
         #verify mountpoint
         if os.access(self.outputdir, os.F_OK|os.R_OK|os.W_OK):
             if os.path.isdir(self.outputdir):
-                self.dumper = Dumper(self.outputdir, self.options.channel, self.options.hard_links, start_date=self.start_date, end_date=self.end_date, use_rhn_date=self.options.use_rhn_date)
+                self.dumper = Dumper(self.outputdir, self.options.channel, self.options.hard_links, start_date=self.start_date, end_date=self.end_date, use_rhn_date=self.options.use_rhn_date, whole_errata=self.options.whole_errata)
                 self.actionmap = {
                                     'arches'                :   {'dump' : self.dumper.dump_arches},
                                     'arches-extra'          :   {'dump' : self.dumper.dump_server_group_type_server_arches},

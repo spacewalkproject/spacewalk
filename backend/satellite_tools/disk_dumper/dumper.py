@@ -195,12 +195,13 @@ class XML_Dumper:
                 data_iterator=h, null_max_members=0)
         return 0
 
-    def dump_channels(self, channel_labels=None, start_date=None, end_date=None, use_rhn_date=True):
+    def dump_channels(self, channel_labels=None, start_date=None, end_date=None, use_rhn_date=True, whole_errata=False):
         log_debug(2)
         #channels = self._validate_channels(channel_labels=channel_labels)
 
         self._write_dump(ChannelsDumper,
-                channels=channel_labels, start_date=start_date, end_date=end_date, use_rhn_date=use_rhn_date)
+                channels=channel_labels, start_date=start_date, end_date=end_date, use_rhn_date=use_rhn_date,
+                whole_errata=whole_errata)
         return 0
 
     def _send_headers(self, error=0, init_compressed_stream=1):
@@ -674,16 +675,18 @@ class ChannelsDumper(exportLib.ChannelsDumper):
            and c.channel_arch_id = ca.id
     """)
 
-    def __init__(self, writer, channels=[], start_date=None, end_date=None, use_rhn_date=True):
+    def __init__(self, writer, channels=[], start_date=None, end_date=None, use_rhn_date=True, whole_errata=False):
         exportLib.ChannelsDumper.__init__(self, writer, channels)
         self.start_date = start_date
         self.end_date = end_date
         self.use_rhn_date = use_rhn_date
+        self.whole_errata = whole_errata
 
     def dump_subelement(self, data):
         log_debug(6, data)
         #return exportLib.ChannelsDumper.dump_subelement(self, data)
-        c = exportLib._ChannelDumper(self._writer, data, self.start_date, self.end_date, self.use_rhn_date)
+        c = exportLib._ChannelDumper(self._writer, data, self.start_date, self.end_date,
+                self.use_rhn_date, self.whole_errata)
         c.dump()
 
     def set_iterator(self):

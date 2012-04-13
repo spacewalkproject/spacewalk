@@ -42,6 +42,8 @@ class UI:
 	        help="Limit exported packages according to the date when they appeared at Red Hat Network."),
 	    option(         "--use-sync-date",            action="store_true",
 	        help="Limit exported packages according to the date they where pulled into satellite."),
+        option(         "--whole-errata",            action="store_true",
+            help="Always include package if it belongs to errata which is withing start/end-date range."),
 	    option(         "--make-isos",               action="store",
 	        help="Create channel dump isos a directory called satellite-isos. Usage: --make-isos=cd or dvd"),
             option("-p",    "--print-configuration",    action="store_true",    default=0,
