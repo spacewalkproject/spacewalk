@@ -83,10 +83,11 @@ if __name__ == '__main__':
                     OR parameter = 'NLS_NCHAR_CHARACTERSET'
                 """)
         h.execute()
-        for key in ('NLS_CHARACTERSET', 'NLS_NCHAR_CHARACTERSET'):
+        while True:
             row = h.fetchone_dict()
-            if row:
-                print '%s: %s' % (row['parameter'], repr(row['value']))
+            if not row:
+                break
+            print '%s: %s' % (row['parameter'], repr(row['value']))
     except KeyboardInterrupt:
         sys.stderr.write("\nUser interrupted process.\n")
         sys.exit(0)
