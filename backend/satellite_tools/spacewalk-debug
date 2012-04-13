@@ -175,9 +175,9 @@ if [ -d /root/ssl-build ] ; then
 fi
 
 # /etc/sudoers
-if [ -f /etc/sudoers ] ; then
-	echo "    * copying /etc/sudoers"
-	cp -fa /etc/sudoers $DIR/conf
+if [ -f /etc/sudoers -o -d /etc/sudoers.d ] ; then
+	echo "    * copying /etc/sudoers*"
+	cp -faRd /etc/sudoers* $DIR/conf
 fi
 
 # /etc/passwd
