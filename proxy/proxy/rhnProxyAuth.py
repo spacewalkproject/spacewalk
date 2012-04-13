@@ -22,6 +22,7 @@ import time
 import socket
 import xmlrpclib
 import sys
+from hashlib import sha1
 
 ## local imports
 import rhnAuthCacheClient
@@ -364,7 +365,7 @@ problems, isn't running, or the token is somehow corrupt.
         return serverObj
 
     def __cache_proxy_key(self):
-        return 'p' + str(self.__serverid)
+        return 'p' + str(self.__serverid) + sha1(self.hostname).hexdigest()
 
     def getProxyServerId(self):
         return self.__serverid
