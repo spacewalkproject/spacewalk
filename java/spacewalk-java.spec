@@ -22,7 +22,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.42
+Version: 1.8.43
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -605,6 +605,17 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Apr 13 2012 Jan Pazdziora 1.8.43-1
+- fix KickstartWizardCommandTest (tlestach@redhat.com)
+- 812053 - making errata.clone api not requires cloned channels
+  (jsherril@redhat.com)
+- 811470 - fix documentation for getRepoSyncCronExpression API
+  (mzazrivec@redhat.com)
+- 811470 - make the documentation for createOrUpdateSymlink more clear
+  (mzazrivec@redhat.com)
+- 811470 - fix documentation for ChannelSerializer (mzazrivec@redhat.com)
+- replace \r\n with \n for CustomDataValues (tlestach@redhat.com)
+
 * Wed Apr 11 2012 Stephen Herr <sherr@redhat.com> 1.8.42-1
 - 698940 - Activation Key does not have to have a base channel to add Child
   Channels (sherr@redhat.com)
