@@ -892,7 +892,7 @@ public class ErrataHandler extends BaseHandler {
         }
 
         //if calling cloneAsOriginal, do additional checks to verify a clone
-        if (inheritAllPackages) {
+        if (!inheritAllPackages) {
             if (!channel.isCloned()) {
                 throw new InvalidChannelException("Cloned channel expected: " +
                     channel.getLabel());
