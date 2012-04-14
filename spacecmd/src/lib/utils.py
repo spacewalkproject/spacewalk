@@ -596,12 +596,12 @@ def parse_api_args(args, sep=','):
     return ret
 
 
-def json_dump(obj, fp, indent=2, **kwargs):
+def json_dump(obj, fp, indent = 4, **kwargs):
     json.dump(obj, fp, ensure_ascii=False, indent=indent, **kwargs)
 
 
-def json_dump_to_file(obj, filename, indent = 2):
-    json_data = json.dumps(obj, indent)
+def json_dump_to_file(obj, filename):
+    json_data = json.dumps(obj, indent = 4, sort_keys = True)
 
     if json_data == None:
         logging.error("Could not generate json data object!" % k)
