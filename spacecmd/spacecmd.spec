@@ -4,7 +4,7 @@
 %endif
 
 Name:        spacecmd
-Version:     1.8.3
+Version:     1.8.4
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -61,6 +61,10 @@ touch %{buildroot}/%{python_sitelib}/spacecmd/__init__.py
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Sat Apr 14 2012 Aron Parsons <aronparsons@gmail.com> 1.8.4-1
+- spacecmd: pretty-print JSON output
+- spacecmd: cosmetics
+
 * Thu Apr 05 2012 Stephen Herr <sherr@redhat.com> 1.8.3-1
 - 809905 - add option to allow templating for spacecmd kickstarting
   (sherr@redhat.com)
