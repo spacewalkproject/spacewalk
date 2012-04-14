@@ -599,12 +599,14 @@ def parse_api_args(args, sep=','):
 def json_dump(obj, fp, indent=2, **kwargs):
     json.dump(obj, fp, ensure_ascii=False, indent=indent, **kwargs)
 
-def json_dump_to_file(obj, filename, indent = 2):
 
+def json_dump_to_file(obj, filename, indent = 2):
     json_data = json.dumps(obj, indent)
+
     if json_data == None:
         logging.error("Could not generate json data object!" % k)
         return False
+
     try:
             fd = open(filename, 'w')
             fd.write(json_data)
@@ -616,6 +618,7 @@ def json_dump_to_file(obj, filename, indent = 2):
         return False
 
     return True
+
 
 def json_read_from_file(filename):
     try:
