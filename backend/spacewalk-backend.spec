@@ -12,7 +12,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.17
+Version: 1.8.18
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -673,6 +673,10 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Mon Apr 16 2012 Jan Pazdziora 1.8.18-1
+- Sadly, even if cobbler 2.2 is in EPELs, it is not in Fedora -- we need to
+  require just 2.0.
+
 * Mon Apr 16 2012 Miroslav Suchý <msuchy@redhat.com> 1.8.17-1
 - add man page for --use-rhn-date and --use-sync-date
 - 805582 - include even package which does not belong to errata
