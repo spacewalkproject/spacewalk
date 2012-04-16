@@ -326,26 +326,35 @@ class _ChannelDumper(BaseRowDumper):
 
     _query_get_package_ids_by_date_limits_whole_errata = rhnSQL.Statement("""
         select rcp.package_id as id
-          from rhnPackage rp, rhnChannelPackage rcp,
+          from rhnChannelPackage rcp, rhnPackage rp
+            left join rhnErrataPackage rep on rp.id = rep.package_id
+            left join rhnErrata re on rep.errata_id = re.id
           rhnErrataPackage rep, rhnErrata re
          where rcp.channel_id = :channel_id
            and rcp.package_id = rp.id
-           and rp.id = rep.package_id
-           and rep.errata_id = re.id
-           and re.modified >= TO_TIMESTAMP(:lower_limit, 'YYYYMMDDHH24MISS')
-           and re.modified <= TO_TIMESTAMP(:upper_limit, 'YYYYMMDDHH24MISS')
+           and ((re.modified >= TO_TIMESTAMP(:lower_limit, 'YYYYMMDDHH24MISS')
+               and re.modified <= TO_TIMESTAMP(:upper_limit, 'YYYYMMDDHH24MISS')
+            ) or (rep.package_id is NULL
+               and rcp.modified >= TO_TIMESTAMP(:lower_limit, 'YYYYMMDDHH24MISS')
+               and rcp.modified <= TO_TIMESTAMP(:upper_limit, 'YYYYMMDDHH24MISS'))
+            )
      """)
 
     _query_get_package_ids_by_rhndate_limits_whole_errata = rhnSQL.Statement("""
         select rcp.package_id as id
-          from rhnPackage rp, rhnChannelPackage rcp,
-          rhnErrataPackage rep, rhnErrata re
+          from rhnChannelPackage rcp, rhnPackage rp
+            left join rhnErrataPackage rep on rp.id = rep.package_id
+            left join rhnErrata re on rep.errata_id = re.id
          where rcp.channel_id = :channel_id
            and rcp.package_id = rp.id
            and rp.id = rep.package_id
            and rep.errata_id = re.id
-           and re.last_modified >= TO_TIMESTAMP(:lower_limit, 'YYYYMMDDHH24MISS')
-           and re.last_modified <= TO_TIMESTAMP(:upper_limit, 'YYYYMMDDHH24MISS')
+           and ((re.last_modified >= TO_TIMESTAMP(:lower_limit, 'YYYYMMDDHH24MISS')
+               and re.last_modified <= TO_TIMESTAMP(:upper_limit, 'YYYYMMDDHH24MISS')
+            ) or (rep.package_id is NULL
+               and rp.last_modified >= TO_TIMESTAMP(:lower_limit, 'YYYYMMDDHH24MISS')
+               and rp.last_modified <= TO_TIMESTAMP(:upper_limit, 'YYYYMMDDHH24MISS'))
+            )
      """)
 
 

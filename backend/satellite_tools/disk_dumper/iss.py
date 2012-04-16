@@ -244,12 +244,11 @@ class Dumper(dumper.XML_Dumper):
         try:
             if self.whole_errata and self.start_date:
                 query = """ select rcp.package_id id, rp.path path
-                   from rhnChannelPackage rcp, rhnPackage rp,
-                        rhnErrataPackage rep, rhnErrata re
+                   from rhnChannelPackage rcp, rhnPackage rp
+                        left join rhnErrataPackage rep on rp.id = rep.package_id
+                        left join rhnErrata re on rep.errata_id = re.id
                   where rcp.package_id = rp.id
                     and rcp.channel_id = :channel_id
-                    and rp.id = rep.package_id
-                    and rep.errata_id = re.id
                 """
             else:
                 query = """
@@ -263,13 +262,21 @@ class Dumper(dumper.XML_Dumper):
                 if self.whole_errata:
                     if self.use_rhn_date:
                         query += """ and
-                         re.last_modified >= TO_TIMESTAMP(:start_date, 'YYYYMMDDHH24MISS')
-                         and re.last_modified <= TO_TIMESTAMP(:end_date, 'YYYYMMDDHH24MISS')
+                         ((re.last_modified >= TO_TIMESTAMP(:start_date, 'YYYYMMDDHH24MISS')
+                             and re.last_modified <= TO_TIMESTAMP(:end_date, 'YYYYMMDDHH24MISS')
+                         ) or (rep.package_id is NULL 
+                             and rp.last_modified >= TO_TIMESTAMP(:start_date, 'YYYYMMDDHH24MISS')
+                             and rp.last_modified <= TO_TIMESTAMP(:end_date, 'YYYYMMDDHH24MISS'))
+                         )
                         """
                     else:
                         query += """ and
-                         re.modified >= TO_TIMESTAMP(:start_date, 'YYYYMMDDHH24MISS')
+                         ((re.modified >= TO_TIMESTAMP(:start_date, 'YYYYMMDDHH24MISS')
                          and re.modified <= TO_TIMESTAMP(:end_date, 'YYYYMMDDHH24MISS')
+                         ) or (rep.package_id is NULL
+                            and rcp.modified >= TO_TIMESTAMP(:start_date, 'YYYYMMDDHH24MISS')
+                            and rcp.modified <= TO_TIMESTAMP(:end_date, 'YYYYMMDDHH24MISS'))
+                         )
                         """
                 elif self.use_rhn_date:
                     query += """
@@ -303,12 +310,11 @@ class Dumper(dumper.XML_Dumper):
                 query = """
                  select rp.id package_id,  
 		            TO_CHAR(rp.last_modified, 'YYYYMMDDHH24MISS') last_modified
-                 from rhnPackage rp, rhnChannelPackage rcp,
-                    rhnErrataPackage rep, rhnErrata re
+                 from rhnChannelPackage rcp, rhnPackage rp
+                    left join rhnErrataPackage rep on rp.id = rep.package_id
+                        left join rhnErrata re on rep.errata_id = re.id
 		         where rcp.channel_id = :channel_id
 		            and rcp.package_id = rp.id
-                    and rp.id = rep.package_id
-                    and rep.errata_id = re.id
 		    """
             else:
                 query = """
@@ -322,13 +328,21 @@ class Dumper(dumper.XML_Dumper):
                 if self.whole_errata:
                     if self.use_rhn_date:
                         query += """ and
-                         re.last_modified >= TO_TIMESTAMP(:start_date, 'YYYYMMDDHH24MISS')
+                         ((re.last_modified >= TO_TIMESTAMP(:start_date, 'YYYYMMDDHH24MISS')
                          and re.last_modified <= TO_TIMESTAMP(:end_date, 'YYYYMMDDHH24MISS')
+                         ) or (rep.package_id is NULL
+                            and rp.last_modified >= TO_TIMESTAMP(:start_date, 'YYYYMMDDHH24MISS')
+                            and rp.last_modified <= TO_TIMESTAMP(:end_date, 'YYYYMMDDHH24MISS'))
+                         )
                         """
                     else:
                         query += """ and
-                         re.modified >= TO_TIMESTAMP(:start_date, 'YYYYMMDDHH24MISS')
+                         ((re.modified >= TO_TIMESTAMP(:start_date, 'YYYYMMDDHH24MISS')
                          and re.modified <= TO_TIMESTAMP(:end_date, 'YYYYMMDDHH24MISS')
+                         ) or (rep.package_id is NULL
+                            and rcp.modified >= TO_TIMESTAMP(:start_date, 'YYYYMMDDHH24MISS')
+                            and rcp.modified <= TO_TIMESTAMP(:end_date, 'YYYYMMDDHH24MISS'))
+                         )
                         """
                 elif self.use_rhn_date:
                     query += """
@@ -373,20 +387,28 @@ class Dumper(dumper.XML_Dumper):
 		"""
             if self.start_date:
                 if self.whole_errata:
-                    query += """, rhnErrataFilePackageSource refps, rhnErrataFile ref, rhnErrata re
-                        where refps.package_id = ps.id
-                        and refps.errata_file_id = ref.id
-                        and ref.errata_id = re.id
+                    query += """
+                        left join rhnErrataFilePackageSource refps on refps.package_id = ps.id
+                        left join rhnErrataFile ref on refps.errata_file_id = ref.id
+                        left join rhnErrata re on ref.errata_id = re.id
                     """
                     if self.use_rhn_date:
                         query += """ and
-                         re.last_modified >= TO_TIMESTAMP(:start_date, 'YYYYMMDDHH24MISS')
+                         ((re.last_modified >= TO_TIMESTAMP(:start_date, 'YYYYMMDDHH24MISS')
                          and re.last_modified <= TO_TIMESTAMP(:end_date, 'YYYYMMDDHH24MISS')
+                         ) or (refps.package_id is NULL
+                            and ps.last_modified >= TO_TIMESTAMP(:start_date, 'YYYYMMDDHH24MISS')
+                            and ps.last_modified <= TO_TIMESTAMP(:end_date, 'YYYYMMDDHH24MISS'))
+                         )
                         """
                     else:
                         query += """ and
-                         re.modified >= TO_TIMESTAMP(:start_date, 'YYYYMMDDHH24MISS')
+                         ((re.modified >= TO_TIMESTAMP(:start_date, 'YYYYMMDDHH24MISS')
                          and re.modified <= TO_TIMESTAMP(:end_date, 'YYYYMMDDHH24MISS')
+                         ) or (refps.package_id is NULL
+                            and ps.modified >= TO_TIMESTAMP(:start_date, 'YYYYMMDDHH24MISS')
+                            and ps.modified <= TO_TIMESTAMP(:end_date, 'YYYYMMDDHH24MISS'))
+                         )
                         """
                 elif self.use_rhn_date:
                    query += """
