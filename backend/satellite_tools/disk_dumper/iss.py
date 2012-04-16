@@ -883,6 +883,8 @@ class Dumper(dumper.XML_Dumper):
                 #get the dirs to the rpm
                 dirs_to_rpm = os.path.split(path_to_rpm)[0]
 
+                if (not rpm['path']):
+                    raise ISSError("Error: Missing RPM under the satellite mount point. (Package id: %s)" % rpm['id'], "")
                 #get the path to the rpm from under the satellite's mountpoint
                 satellite_path = os.path.join(CFG.MOUNT_POINT, rpm['path'])
 
