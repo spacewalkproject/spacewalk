@@ -304,6 +304,7 @@ public class ErrataFactoryTest extends BaseTestCaseWithUser {
         e.setAdvisoryName(name);
         e.setAdvisoryRel(new Long(2));
         e.setLocallyModified(Boolean.FALSE);
+        e.addKeyword("keyword");
         Package testPackage = PackageTest.createTestPackage();
 
         ErrataFile ef;
