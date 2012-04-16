@@ -444,7 +444,7 @@ public class ErrataHandlerTest extends BaseHandlerTestCase {
         Map errataInfo = new HashMap();
 
 
-        String advisoryName = RandomStringUtils.random(37);
+        String advisoryName = RandomStringUtils.random(101);
         populateErrataInfo(errataInfo);
         errataInfo.put("advisory_name", advisoryName);
 
