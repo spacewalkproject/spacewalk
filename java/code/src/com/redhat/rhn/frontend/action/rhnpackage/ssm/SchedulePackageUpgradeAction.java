@@ -18,6 +18,7 @@ import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.messaging.MessageQueue;
 import com.redhat.rhn.common.util.DatePicker;
 import com.redhat.rhn.domain.rhnpackage.PackageEvr;
+import com.redhat.rhn.domain.rhnpackage.PackageEvrFactory;
 import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.rhnset.SetCleanup;
 import com.redhat.rhn.domain.user.User;
@@ -115,15 +116,13 @@ public class SchedulePackageUpgradeAction extends RhnAction implements Listable 
                     String[] existingParts = splitEvr(existing.getNvre());
                     String[] itemParts = splitEvr(item.getNvre());
 
-                    PackageEvr existingEvr = new PackageEvr();
-                    existingEvr.setEpoch(existingParts[0]);
-                    existingEvr.setVersion(existingParts[1]);
-                    existingEvr.setRelease(existingParts[2]);
+                    PackageEvr existingEvr = PackageEvrFactory
+                            .lookupOrCreatePackageEvr(existingParts[0],
+                                    existingParts[1], existingParts[2]);
 
-                    PackageEvr itemEvr = new PackageEvr();
-                    itemEvr.setEpoch(itemParts[0]);
-                    itemEvr.setVersion(itemParts[1]);
-                    itemEvr.setRelease(itemParts[2]);
+                    PackageEvr itemEvr = PackageEvrFactory
+                            .lookupOrCreatePackageEvr(itemParts[0],
+                                    itemParts[1], itemParts[2]);
 
                     if (existingEvr.compareTo(itemEvr) < 0) {
                         packageNameIdsToItems.put(item.getIdOne() + "|" +

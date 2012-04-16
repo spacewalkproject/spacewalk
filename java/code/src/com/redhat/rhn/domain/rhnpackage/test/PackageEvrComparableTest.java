@@ -15,6 +15,7 @@
 package com.redhat.rhn.domain.rhnpackage.test;
 
 import com.redhat.rhn.domain.rhnpackage.PackageEvr;
+import com.redhat.rhn.domain.rhnpackage.PackageEvrFactory;
 import com.redhat.rhn.testing.RhnBaseTestCase;
 
 import org.apache.commons.lang.StringUtils;
@@ -65,10 +66,8 @@ public class PackageEvrComparableTest extends RhnBaseTestCase {
 
     private PackageEvr create(String evr) {
         String[] values = split(evr);
-        PackageEvr result = new PackageEvr();
-        result.setEpoch(values[0]);
-        result.setVersion(values[1]);
-        result.setRelease(values[2]);
+        PackageEvr result = PackageEvrFactory.lookupOrCreatePackageEvr(
+                values[0], values[1], values[2]);
         return result;
     }
 

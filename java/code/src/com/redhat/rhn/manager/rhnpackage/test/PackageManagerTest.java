@@ -456,12 +456,10 @@ public class PackageManagerTest extends BaseTestCaseWithUser {
         if (p == null) {
             p = PackageManagerTest.
             addPackageToSystemAndChannel("up2date", s, c);
-            PackageEvr pevr = p.getPackageEvr();
-            pevr.setEpoch("0");
-            pevr.setVersion(version);
-            pevr.setRelease("0");
+            PackageEvr pevr = PackageEvrFactory.lookupOrCreatePackageEvr("0",
+                    version, "0");
+            p.setPackageEvr(pevr);
             TestUtils.saveAndFlush(p);
-            TestUtils.saveAndFlush(pevr);
         }
         else {
             PackageManagerTest.associateSystemToPackage(s, p);

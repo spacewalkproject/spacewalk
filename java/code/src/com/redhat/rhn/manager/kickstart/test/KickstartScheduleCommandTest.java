@@ -32,6 +32,7 @@ import com.redhat.rhn.domain.kickstart.test.KickstartDataTest;
 import com.redhat.rhn.domain.kickstart.test.KickstartSessionTest;
 import com.redhat.rhn.domain.rhnpackage.Package;
 import com.redhat.rhn.domain.rhnpackage.PackageEvr;
+import com.redhat.rhn.domain.rhnpackage.PackageEvrFactory;
 import com.redhat.rhn.domain.rhnpackage.profile.ProfileFactory;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.server.Server;
@@ -319,13 +320,10 @@ public class KickstartScheduleCommandTest extends BaseKickstartCommandTestCase {
         PackageManagerTest.addPackageToChannel("auto-kickstart-TestBootImage", c);
         Package p = PackageManagerTest.
         addPackageToChannel("up2date", c);
-        PackageEvr pevr = p.getPackageEvr();
-        pevr.setEpoch("0");
-        pevr.setVersion(KickstartScheduleCommand.UP2DATE_VERSION);
-        pevr.setRelease("0");
+        PackageEvr pevr = PackageEvrFactory.lookupOrCreatePackageEvr("0",
+                KickstartScheduleCommand.UP2DATE_VERSION, "0");
+        p.setPackageEvr(pevr);
         TestUtils.saveAndFlush(p);
-        TestUtils.saveAndFlush(pevr);
-
     }
 
     // Like the number of params on this one?  Nice eh?  At least its private and

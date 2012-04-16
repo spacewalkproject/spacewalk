@@ -18,6 +18,7 @@ package com.redhat.rhn.taskomatic.task.repomd;
 import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.rhnpackage.PackageEvr;
+import com.redhat.rhn.domain.rhnpackage.PackageEvrFactory;
 import com.redhat.rhn.frontend.dto.PackageDto;
 import com.redhat.rhn.manager.rhnpackage.PackageManager;
 import com.redhat.rhn.manager.task.TaskManager;
@@ -322,33 +323,32 @@ public class PrimaryXmlWriter extends RepomdWriter {
      * @return package evr object
      */
     private static PackageEvr parseEvr(String evr) {
-        PackageEvr evrObj = new PackageEvr();
+        String epoch = null, version = null, release = null;
 
-        if (evr == null) {
-            return evrObj;
+        if (evr != null) {
+            String[] parts = evr.split(":");
+            String vr;
+            if (parts.length != 1) {
+                epoch = parts[0];
+                vr = parts[1];
+            }
+            else {
+                vr = parts[0];
+            }
+
+            int dash = vr.lastIndexOf("-");
+
+            if (dash == -1) {
+                version = vr;
+            }
+            else {
+                version = vr.substring(0, dash);
+                release = vr.substring(dash + 1);
+            }
         }
 
-        String[] parts = evr.split(":");
-        String vr;
-        if (parts.length != 1) {
-            evrObj.setEpoch(parts[0]);
-            vr = parts[1];
-        }
-        else {
-            vr = parts[0];
-        }
-
-        int dash = vr.lastIndexOf("-");
-
-        if (dash == -1) {
-            evrObj.setVersion(vr);
-        }
-        else {
-            evrObj.setVersion(vr.substring(0, dash));
-            evrObj.setRelease(vr.substring(dash + 1));
-        }
-
-        return evrObj;
+        return PackageEvrFactory.lookupOrCreatePackageEvr(epoch, version,
+                release);
     }
 
     /**

@@ -43,6 +43,7 @@ import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.domain.errata.test.ErrataFactoryTest;
 import com.redhat.rhn.domain.rhnpackage.PackageArch;
 import com.redhat.rhn.domain.rhnpackage.PackageEvr;
+import com.redhat.rhn.domain.rhnpackage.PackageEvrFactory;
 import com.redhat.rhn.domain.rhnpackage.PackageName;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.server.Server;
@@ -448,11 +449,8 @@ public class ActionFactoryTest extends RhnBaseTestCase {
             d.setPackageName(name);
 
             //create packageEvr
-            PackageEvr evr = new PackageEvr();
-            evr.setEpoch("" + System.currentTimeMillis());
-            evr.setRelease("1.0");
-            evr.setVersion("2.0");
-
+            PackageEvr evr = PackageEvrFactory.lookupOrCreatePackageEvr("" +
+                    System.currentTimeMillis(), "2.0", "1.0");
             d.setEvr(evr);
             ((PackageAction) newA).addDetail(d);
         }
