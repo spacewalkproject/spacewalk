@@ -39,6 +39,9 @@ use constant SHARED_DIR => "/usr/share/spacewalk/setup";
 use constant POSTGRESQL_SCHEMA_FILE => File::Spec->catfile("/etc", "sysconfig", 
     'rhn', 'postgres', 'main.sql');
 
+use constant POSTGRESQL_DEPLOY_FILE => File::Spec->catfile("/etc", "sysconfig",
+    'rhn', 'postgres', 'deploy.sql');
+
 use constant DEFAULT_ANSWER_FILE_GLOB =>
   SHARED_DIR . '/defaults.d/*.conf';
 
@@ -949,7 +952,17 @@ sub postgresql_populate_db {
         }
     }
 
-    my $sat_schema_deploy = POSTGRESQL_SCHEMA_FILE;
+    my $sat_schema = POSTGRESQL_SCHEMA_FILE;
+    my $sat_schema_deploy = POSTGRESQL_DEPLOY_FILE;
+
+    system_or_exit([ "/usr/bin/rhn-config-schema.pl",
+                   "--source=" . $sat_schema,
+                   "--target=" . $sat_schema_deploy,
+                   "--tablespace-name=None" ],
+                   22,
+                   'There was a problem populating the deploy.sql file.',
+                   );
+
     my $logfile = DB_POP_LOG_FILE;
 
     my @opts = ('spacewalk-sql', '--select-mode-direct', $sat_schema_deploy);
