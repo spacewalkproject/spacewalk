@@ -46,6 +46,12 @@ A tool that exports satellite content into a directory in an XML format. That co
         <arg>--end-date=<replaceable>END_DATE</replaceable></arg>
     </cmdsynopsis>
     <cmdsynopsis>
+        <arg>--use-rhn-date</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>--use-sync-date</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
         <arg>--whole-errata</arg>
     </cmdsynopsis>
     <cmdsynopsis>
@@ -154,6 +160,22 @@ A tool that exports satellite content into a directory in an XML format. That co
                   compared against. Must be in the format 'YYYYMMDDHH24MISS'.
                   If you did not enter hour, minute and/or second, then zero is
                   assumed. I.e. date 20100101 is expanded to 20100101000000.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--use-rhn-date</term>
+        <listitem>
+            <para>Limit exported packages according to the date when
+                  they appeared at Red Hat Network. This is default.
+                  </para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--use-sync-date</term>
+        <listitem>
+            <para>Limit exported packages according to the date they
+                  where pulled into satellite.
+                  </para>
         </listitem>
     </varlistentry>
     <varlistentry>
