@@ -137,6 +137,7 @@ Requires: postgresql84-contrib
 %else
 Requires: postgresql-contrib >= 8.4
 %endif
+Requires: postgresql >= 8.4
 
 %description postgresql
 Spacewalk is a systems management application that will 
