@@ -63,17 +63,22 @@ print "Schema upgrade: [$start_schema] -> [$target_schema]\n";
 my $retried = 0;
 RETRY:
 
-if ($start_schema_norm eq $target_schema_norm) {
-	warn "Your database schema already matches the schema package version [$target_schema_norm].\n";
+if ($start_schema eq $target_schema) {
+	warn "Your database schema already matches the schema package version [$target_schema].\n";
 	exit;
+}
+my %upgrade_path;
+my @queue = ( $target_schema_norm );
+if ($start_schema_norm eq $target_schema_norm) {
+	print "The schema version is the same, except for the dist tag.\n";
+	@queue = ();
+	$upgrade_path{$target_schema_norm} = undef;
 }
 if ($start_schema ne $start_schema_norm
 	or $target_schema ne $target_schema_norm) {
 	print "Searching for upgrade path: [$start_schema_norm] -> [$target_schema_norm]\n";
 }
 
-my %upgrade_path;
-my @queue = ( $target_schema_norm );
 while (@queue) {
 	my $t = shift @queue;
 	my @lookup = glob "$SCHEMA_UPGRADE_DIR/*-to-$t";
