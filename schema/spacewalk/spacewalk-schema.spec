@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.8.15
+Version:        1.8.16
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -69,6 +69,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Mon Apr 16 2012 Jan Pazdziora 1.8.16-1
+- 812453 - bring the schema version as recorded in the database in sync with
+  the installed rpms, even if the difference is just the dist tag.
+
 * Fri Apr 13 2012 Jan Pazdziora 1.8.15-1
 - 787225 - the Log Size actually checks Log Size Growth.
 - fix PG lookup_transaction_package stored procedure (tlestach@redhat.com)
