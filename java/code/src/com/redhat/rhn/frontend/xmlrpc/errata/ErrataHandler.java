@@ -879,7 +879,7 @@ public class ErrataHandler extends BaseHandler {
 
 
     private Object[] clone(String sessionKey, String channelLabel,
-            List<String> advisoryNames, boolean inheritAllPackages) {
+            List<String> advisoryNames, boolean inheritPackages) {
         User loggedInUser = getLoggedInUser(sessionKey);
 
         Logger log = Logger.getLogger(ErrataFactory.class);
@@ -892,7 +892,7 @@ public class ErrataHandler extends BaseHandler {
         }
 
         //if calling cloneAsOriginal, do additional checks to verify a clone
-        if (!inheritAllPackages) {
+        if (inheritPackages) {
             if (!channel.isCloned()) {
                 throw new InvalidChannelException("Cloned channel expected: " +
                     channel.getLabel());
@@ -918,8 +918,6 @@ public class ErrataHandler extends BaseHandler {
 
         List<Errata> errataToClone = new ArrayList<Errata>();
         List<Errata> errataToPublish = new ArrayList<Errata>();
-        List<Errata> toReturn = new ArrayList<Errata>();
-
         //We loop through once, making sure all the errata exist
         for (String advisory : advisoryNames) {
             Errata toClone = lookupErrata(advisory, loggedInUser.getOrg());
@@ -946,12 +944,12 @@ public class ErrataHandler extends BaseHandler {
 
         //Now publish them all to the channel in a single shot
         List<Errata> published = ErrataFactory.publishToChannel(errataToPublish, channel,
-                loggedInUser, inheritAllPackages);
+                loggedInUser, inheritPackages);
         for (Errata e : published) {
             ErrataFactory.save(e);
         }
 
-        return toReturn.toArray();
+        return published.toArray();
     }
 
 
