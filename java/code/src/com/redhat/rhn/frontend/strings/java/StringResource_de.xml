@@ -7419,8 +7419,17 @@ Folgen Sie dieser URL f&amp;uuml;r die vollst&amp;auml;ndige Liste inaktiver Sys
           <source>The channel access ({0}) is not allowed for this operation.</source>
       <target>Der Channel-Zugriff ({0}) ist für diese Operation nicht erlaubt.</target></trans-unit>
 
+      <trans-unit id="Certificate Administrators">
+          <source>Certificate Administrators</source>
+      <target>Zertifikat-Administratoren</target></trans-unit>
 
+      <trans-unit id="Monitoring Administrators">
+          <source>Monitoring Administrators</source>
+      <target>Monitoring-Administratoren</target></trans-unit>
 
+      <trans-unit id="Configuration Administrators">
+          <source>Configuration Administrators</source>
+      <target>Konfigurations-Administratoren</target></trans-unit>
 
       <trans-unit id="user.unspecified.name">
           <source>(unspecified)</source>

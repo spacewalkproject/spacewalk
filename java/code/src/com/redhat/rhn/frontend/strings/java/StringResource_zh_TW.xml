@@ -7387,8 +7387,17 @@ Follow this url to see the full list of inactive systems:
           <source>The channel access ({0}) is not allowed for this operation.</source>
       <target>這項作業不允許頻道存取（{0}）。</target></trans-unit>
 
+      <trans-unit id="Certificate Administrators">
+          <source>Certificate Administrators</source>
+      <target>認證管理員</target></trans-unit>
 
+      <trans-unit id="Monitoring Administrators">
+          <source>Monitoring Administrators</source>
+      <target>監控管理員</target></trans-unit>
 
+      <trans-unit id="Configuration Administrators">
+          <source>Configuration Administrators</source>
+      <target>設定管理員</target></trans-unit>
 
       <trans-unit id="user.unspecified.name">
           <source>(unspecified)</source>

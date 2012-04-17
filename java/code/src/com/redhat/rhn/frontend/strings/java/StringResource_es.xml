@@ -7413,8 +7413,17 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
           <source>The channel access ({0}) is not allowed for this operation.</source>
       <target>El acceso de canal ({0}) no es válido para esta operación.</target></trans-unit>
 
+      <trans-unit id="Certificate Administrators">
+          <source>Certificate Administrators</source>
+      <target>Administradores de certificados</target></trans-unit>
 
+      <trans-unit id="Monitoring Administrators">
+          <source>Monitoring Administrators</source>
+      <target>Administradores de monitorización</target></trans-unit>
 
+      <trans-unit id="Configuration Administrators">
+          <source>Configuration Administrators</source>
+      <target>Administradores de configuración</target></trans-unit>
 
       <trans-unit id="user.unspecified.name">
           <source>(unspecified)</source>

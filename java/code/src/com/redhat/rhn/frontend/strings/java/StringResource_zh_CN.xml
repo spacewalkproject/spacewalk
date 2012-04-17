@@ -7413,8 +7413,17 @@ Follow this url to see the full list of inactive systems:
           <source>The channel access ({0}) is not allowed for this operation.</source>
       <target>这个操作不允许频道访问（{0}）。</target></trans-unit>
 
+      <trans-unit id="Certificate Administrators">
+          <source>Certificate Administrators</source>
+      <target>证书管理员</target></trans-unit>
 
+      <trans-unit id="Monitoring Administrators">
+          <source>Monitoring Administrators</source>
+      <target>监控管理员</target></trans-unit>
 
+      <trans-unit id="Configuration Administrators">
+          <source>Configuration Administrators</source>
+      <target>配置管理员</target></trans-unit>
 
       <trans-unit id="user.unspecified.name">
           <source>(unspecified)</source>

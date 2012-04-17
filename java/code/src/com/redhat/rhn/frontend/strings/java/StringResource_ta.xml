@@ -7388,8 +7388,17 @@ url பின்பற்றி செயலிழக்கப்பட்ட �
           <source>The channel access ({0}) is not allowed for this operation.</source>
       <target>இந்த செயல்பாட்டிற்கு ({0}) சேனலை அனுமதிக்கவில்லை.</target></trans-unit>
 
+      <trans-unit id="Certificate Administrators">
+          <source>Certificate Administrators</source>
+      <target>சான்றிதழ் நிர்வாகிகள்</target></trans-unit>
 
+      <trans-unit id="Monitoring Administrators">
+          <source>Monitoring Administrators</source>
+      <target>நிர்வாகிகளை கண்காணித்தல்</target></trans-unit>
 
+      <trans-unit id="Configuration Administrators">
+          <source>Configuration Administrators</source>
+      <target>கட்டமைப்பு நிர்வாகிகள்</target></trans-unit>
 
       <trans-unit id="user.unspecified.name">
           <source>(unspecified)</source>

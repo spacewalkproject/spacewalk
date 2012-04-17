@@ -7400,8 +7400,17 @@ Follow this url to see the full list of inactive systems:
           <source>The channel access ({0}) is not allowed for this operation.</source>
       <target>O acesso do Canal especificado  ({0}) não é permitido para esta operação.</target></trans-unit>
 
+      <trans-unit id="Certificate Administrators">
+          <source>Certificate Administrators</source>
+      <target>Certificar Administradores</target></trans-unit>
 
+      <trans-unit id="Monitoring Administrators">
+          <source>Monitoring Administrators</source>
+      <target>Administradores de Monitoramento</target></trans-unit>
 
+      <trans-unit id="Configuration Administrators">
+          <source>Configuration Administrators</source>
+      <target>Administradores da Configuração</target></trans-unit>
 
       <trans-unit id="user.unspecified.name">
           <source>(unspecified)</source>

@@ -7390,8 +7390,17 @@ Follow this url to see the full list of inactive systems:
           <source>The channel access ({0}) is not allowed for this operation.</source>
       <target>ਚੈਨਲ ਪਹੁੰਚ ({0}) ਇਸ ਕਾਰਵਾਈ ਲਈ ਮਨਜੂਰ ਨਹੀਂ ਹੈ।</target></trans-unit>
 
+      <trans-unit id="Certificate Administrators">
+          <source>Certificate Administrators</source>
+      <target>ਸਰਟੀਫਿਕੇਟ ਪਰਬੰਧਕ</target></trans-unit>
 
+      <trans-unit id="Monitoring Administrators">
+          <source>Monitoring Administrators</source>
+      <target>ਨਿਗਰਾਨੀ ਪਰਬੰਧਕ</target></trans-unit>
 
+      <trans-unit id="Configuration Administrators">
+          <source>Configuration Administrators</source>
+      <target>ਸੰਰਚਨਾ ਪਰਬੰਧਕ</target></trans-unit>
 
       <trans-unit id="user.unspecified.name">
           <source>(unspecified)</source>
