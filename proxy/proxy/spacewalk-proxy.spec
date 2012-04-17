@@ -4,7 +4,7 @@ Group:   Applications/Internet
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 1.8.0
+Version: 1.8.1
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
 BuildRequires: python
@@ -334,6 +334,9 @@ fi
 
 
 %changelog
+* Tue Apr 17 2012 Jan Pazdziora 1.8.1-1
+- 811990 - refresh proxy auth cache for hostname changes (shughes@redhat.com)
+
 * Fri Mar 02 2012 Jan Pazdziora 1.7.12-1
 - Update the copyright year info.
 
