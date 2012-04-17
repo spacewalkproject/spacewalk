@@ -68,8 +68,11 @@ class WsgiRequest:
                 self.headers_out.add(i[0], i[1])
 
         if hasattr(httplib, "responses"):
-            # httplib in 2.4 did not have the responses dictionary
             self.status = self.status + " " +  httplib.responses[int(self.status)]
+        else:
+            # httplib in 2.4 did not have the responses dictionary
+            # and mod_wsgi insists on having something after the numeric value
+            self.status = self.status + " Status " +  self.status
 
         if len(self.content_type) > 0:
             self.headers_out['Content-Type'] = self.content_type
