@@ -22,7 +22,10 @@
             <bean:message key="sdc.details.overview.inactive2" arg0="/rhn/help/reference/en-US/s1-sm-systems.jsp#s2-sm-system-list"/>
           </c:if>
         </c:when>
-
+        <c:when test="${rebootRequired}">
+          <img src="/img/restart.png"/><bean:message key="sdc.details.overview.requires_reboot"/>
+          <bean:message key="sdc.details.overview.schedulereboot" arg0="/network/systems/details/reboot_confirm.pxt?sid=${system.id}"/>
+        </c:when>
         <c:when test="${hasUpdates}">
             <c:choose>
                 <c:when test="${criticalErrataCount > 0}">

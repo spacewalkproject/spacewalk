@@ -59,6 +59,7 @@ public class SystemOverviewAction extends RhnAction {
                                                        .RECEIVE_NOTIFICATIONS};
 
     /** {@inheritDoc} */
+    @Override
     public ActionForward execute(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response) {
         RequestContext rctx = new RequestContext(request);
@@ -106,6 +107,9 @@ public class SystemOverviewAction extends RhnAction {
         boolean hasUpdates =
             criticalErrataCount + nonCriticalErrataCount + upgradablePackagesCount > 0;
 
+        // Reboot needed after certain types of updates
+        boolean rebootRequired = SystemManager.requiresReboot(user, sid);
+
         // Monitoring
         processRequestForMonitoring(user, s, request);
 
@@ -118,6 +122,7 @@ public class SystemOverviewAction extends RhnAction {
 
         SdcHelper.ssmCheck(request, sid, user);
 
+        request.setAttribute("rebootRequired", Boolean.valueOf(rebootRequired));
         request.setAttribute("unentitled", Boolean.valueOf(s.getEntitlements().isEmpty()));
         request.setAttribute("systemInactive", Boolean.valueOf(s.isInactive()));
         request.setAttribute("documentation", ConfigDefaults.get().isDocAvailable());

@@ -5058,6 +5058,13 @@ value for this entitlement, excluding the default organization's consumption.</s
         </context-group>
       </trans-unit>
 
+      <trans-unit id="requiringrebootlist.jsp.header">
+        <source>Systems requiring reboot</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/RequiringReboot</context>
+          <context context-type="sourcefile">/rhn/systems/YourRhn.do</context>
+        </context-group>
+      </trans-unit>
 
       <trans-unit id="inactivelist.jsp.header">
 <source>Inactive Systems</source>
@@ -17558,6 +17565,13 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
 	     	<context context-type="sourcefile">/systems/details/Overview.do</context>
         	</context-group>
 	     </trans-unit>
+
+	     <trans-unit id="sdc.details.overview.requires_reboot">
+	        <source>The system requires a reboot</source>
+		<context-group name="ctx">
+                  <context context-type="sourcefile">/systems/details/Overview.do</context>
+                </context-group>
+             </trans-unit>
 
 	     <trans-unit id="sdc.details.overview.inactive1">
 		<source>&lt;strong&gt;System not checking in with @@PRODUCT_NAME@@&lt;/strong&gt;</source>

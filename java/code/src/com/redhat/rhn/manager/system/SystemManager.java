@@ -196,6 +196,46 @@ public class SystemManager extends BaseManager {
         return m.execute(params);
     }
 
+    /**
+     * @param user
+     *            Currently logged in user.
+     * @param sid
+     *            System id
+     * @return true if the system requires a reboot i.e: because kernel updates.
+     */
+    public static boolean requiresReboot(User user, Long sid) {
+        SelectMode m = ModeFactory.getMode("System_queries",
+                "has_errata_with_keyword_applied_since_last_reboot");
+        Map params = new HashMap();
+        params.put("user_id", user.getId());
+        params.put("org_id", user.getOrg().getId());
+        params.put("sid", sid);
+        params.put("keyword", "reboot_suggested");
+        DataResult dr = m.execute(params);
+        return !dr.isEmpty();
+    }
+
+    /**
+     * Returns list of systems requiring a reboot i.e: because kernel updates,
+     * visible to user, sorted by name.
+     *
+     * @param user
+     *            Currently logged in user.
+     * @param pc
+     *            PageControl
+     * @return list of SystemOverviews.
+     */
+    public static DataResult<SystemOverview> requiringRebootList(User user,
+            PageControl pc) {
+        SelectMode m = ModeFactory.getMode("System_queries",
+                "having_errata_with_keyword_applied_since_last_reboot");
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("org_id", user.getOrg().getId());
+        params.put("user_id", user.getId());
+        params.put("keyword", "reboot_suggested");
+        Map<String, Object> elabParams = new HashMap<String, Object>();
+        return makeDataResult(params, elabParams, pc, m);
+    }
 
     /**
      * Gets the latest upgradable packages for a system

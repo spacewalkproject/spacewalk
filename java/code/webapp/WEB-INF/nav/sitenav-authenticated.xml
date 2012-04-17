@@ -37,6 +37,7 @@
       <rhn-tab name="All" url="/rhn/systems/SystemList.do"/>
       <rhn-tab name="Virtual Systems" url="/rhn/systems/VirtualSystemsList.do"/>
       <rhn-tab name="Out of Date" url="/rhn/systems/OutOfDate.do"/>
+      <rhn-tab name="Requiring Reboot" url="/rhn/systems/RequiringReboot.do"/>
       <rhn-tab name="Unentitled" url="/rhn/systems/Unentitled.do"/>
       <rhn-tab name="Ungrouped" url="/rhn/systems/Ungrouped.do" acl="org_entitlement(sw_mgr_enterprise); user_role(org_admin)"/>
       <rhn-tab name="Inactive" url="/rhn/systems/Inactive.do"/>

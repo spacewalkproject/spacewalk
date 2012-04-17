@@ -757,6 +757,61 @@ ORDER BY  UPPER(COALESCE(S.NAME, '(none)')), S.ID
   <elaborator name="is_virtual_host" />
 </mode>
 
+<query name="having_errata_with_keyword_applied_since_last_reboot_list" params="org_id, user_id, keyword">
+SELECT DISTINCT S.id, S.NAME,
+       (SELECT 1
+          FROM rhnServerFeaturesView SFV
+         WHERE SFV.server_id = S.id
+           AND SFV.label = 'ftr_system_grouping') AS selectable
+  FROM rhnServer S,
+       rhnErrata E,
+       rhnServerInfo SI,
+       rhnServerPackage SP,
+       rhnPackage P,
+       rhnErrataPackage EP
+ WHERE S.org_id = :org_id
+   AND EXISTS (SELECT 1 FROM rhnUserServerPerms USP WHERE USP.user_id=:user_id AND USP.server_id = S.id)
+   AND SI.server_id = S.id
+   AND SP.server_id = S.id
+   AND P.evr_id = SP.evr_id
+   AND P.name_id = SP.name_id
+   AND EP.errata_id = E.id AND EP.package_id = P.id
+   AND (to_date('1970-01-01', 'YYYY-MM-DD') + numtodsinterval(S.last_boot, 'second')) &lt; SP.installtime
+   AND E.id IN (SELECT EK.errata_id FROM rhnErrataKeyword EK WHERE EK.keyword = :keyword)
+</query>
+
+<mode name="having_errata_with_keyword_applied_since_last_reboot" class="com.redhat.rhn.frontend.dto.SystemOverview">
+  <query name="having_errata_with_keyword_applied_since_last_reboot_list"/>
+  <elaborator name="system_overview" />
+  <elaborator name="entitlements" />
+  <elaborator name="is_virtual_guest" />
+  <elaborator name="is_virtual_host" />
+</mode>
+
+<mode name="has_errata_with_keyword_applied_since_last_reboot">
+  <query params="org_id, user_id, keyword, sid">
+  SELECT EXISTS (
+	SELECT 1
+	FROM rhnServer S,
+	  rhnErrata E,
+	  rhnServerInfo SI,
+	  rhnServerPackage SP,
+	  rhnPackage P,
+	  rhnErrataPackage EP
+	WHERE S.org_id = :org_id
+	  AND S.id = :sid
+	  AND EXISTS (SELECT 1 FROM rhnUserServerPerms USP WHERE USP.user_id=:user_id AND USP.server_id = S.id)
+	  AND SI.server_id = S.id
+	  AND SP.server_id = S.id
+	  AND P.evr_id = SP.evr_id
+	  AND P.name_id = SP.name_id
+	  AND EP.errata_id = E.id AND EP.package_id = P.id
+	  AND (to_date('1970-01-01', 'YYYY-MM-DD') + numtodsinterval(S.last_boot, 'second')) &lt; SP.installtime
+	  AND E.id IN (SELECT EK.errata_id FROM rhnErrataKeyword EK WHERE EK.keyword = :keyword)
+    )
+    </query>
+</mode>
+
 <mode name="inactive" class="com.redhat.rhn.frontend.dto.SystemOverview">
   <query params="org_id, user_id, checkin_threshold">
 SELECT S.id, S.NAME,
