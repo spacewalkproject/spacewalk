@@ -1215,6 +1215,13 @@ http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd"
         </context-group>
       </trans-unit>
 
+      <trans-unit id="error.user_invalid_prefix">
+<source>Invalid prefix [{0}]. Must be one of {1}.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/users/CreateUser</context>
+        </context-group>
+      </trans-unit>
+
       <trans-unit id="login">
 <source>Desired Login</source>
         <context-group name="ctx">
