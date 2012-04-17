@@ -12,7 +12,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.18
+Version: 1.8.19
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -673,6 +673,13 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Tue Apr 17 2012 Jan Pazdziora 1.8.19-1
+- The mod_wsgi insists on having something after the numeric value on the
+  Status line.
+- Workaround httplib in 2.4 which did not have the responses dictionary.
+- 812789 - write nicer error message in case you are missing rpm files
+  (msuchy@redhat.com)
+
 * Mon Apr 16 2012 Jan Pazdziora 1.8.18-1
 - Sadly, even if cobbler 2.2 is in EPELs, it is not in Fedora -- we need to
   require just 2.0.
