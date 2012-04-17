@@ -67,7 +67,9 @@ class WsgiRequest:
             for i in self.err_headers_out.items():
                 self.headers_out.add(i[0], i[1])
 
-        self.status = self.status + " " +  httplib.responses[int(self.status)]
+        if hasattr(httplib, "responses"):
+            # httplib in 2.4 did not have the responses dictionary
+            self.status = self.status + " " +  httplib.responses[int(self.status)]
 
         if len(self.content_type) > 0:
             self.headers_out['Content-Type'] = self.content_type
