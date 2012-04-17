@@ -228,8 +228,8 @@ public class CreateUserCommand {
             // Make sure whether prefix is valid, if it is set
             SortedSet validPrefixes = LocalizationService.getInstance().availablePrefixes();
             if (!validPrefixes.contains(user.getPrefix())) {
-                errors.add(new ValidatorError(
-                        "error.user_invalid_prefix", user.getPrefix(), validPrefixes.toString()));
+                errors.add(new ValidatorError("error.user_invalid_prefix",
+                                               user.getPrefix(), validPrefixes.toString()));
             }
         }
     }
