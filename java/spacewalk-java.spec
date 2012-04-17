@@ -22,7 +22,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.46
+Version: 1.8.47
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -605,6 +605,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Apr 17 2012 Jan Pazdziora 1.8.47-1
+- Make the Invalid prefix error localizable.
+
 * Tue Apr 17 2012 Jan Pazdziora 1.8.46-1
 - fix ErrataHandlerTest (tlestach@redhat.com)
 - 812053 - fix the ErrataHandler.clone method (tlestach@redhat.com)
