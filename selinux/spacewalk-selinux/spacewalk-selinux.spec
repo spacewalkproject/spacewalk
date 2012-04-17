@@ -7,7 +7,7 @@
 %define modulename spacewalk
 
 Name:           spacewalk-selinux
-Version:        1.8.0
+Version:        1.8.1
 Release:        1%{?dist}
 Summary:        SELinux policy module supporting Spacewalk Server
 
@@ -113,6 +113,9 @@ fi
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
+* Tue Apr 17 2012 Jan Pazdziora 1.8.1-1
+- No need to require httpd_cobbler_content_t that we don't use.
+
 * Thu Mar 01 2012 Jan Pazdziora 1.7.2-1
 - Allow PostgreSQL to use dblink.
 
