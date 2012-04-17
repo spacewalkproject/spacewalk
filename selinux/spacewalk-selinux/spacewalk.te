@@ -84,7 +84,6 @@ optional_policy(`
 optional_policy(`
         gen_require(`
                 type cobblerd_t;
-                type httpd_cobbler_content_t;
         ')
         read_files_pattern(cobblerd_t, spacewalk_data_t, spacewalk_data_t);
         allow cobblerd_t spacewalk_data_t:file { getattr link unlink rename };
