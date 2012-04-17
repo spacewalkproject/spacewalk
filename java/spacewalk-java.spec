@@ -22,7 +22,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.45
+Version: 1.8.46
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -605,6 +605,12 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Apr 17 2012 Jan Pazdziora 1.8.46-1
+- fix ErrataHandlerTest (tlestach@redhat.com)
+- 812053 - fix the ErrataHandler.clone method (tlestach@redhat.com)
+- create a test erratum with keyword (tlestach@redhat.com)
+- refactor PackageEvr handling II (tlestach@redhat.com)
+
 * Fri Apr 13 2012 Tomas Lestach <tlestach@redhat.com> 1.8.45-1
 - 809579 - make system snapshot when changing server entitlements using API
   (tlestach@redhat.com)
