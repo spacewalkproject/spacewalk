@@ -101,10 +101,12 @@
             </c:if>
           </rhn:require>
             <br />
-            <span class="small-text">
-              <bean:message key="filedetails.jsp.binarytoggletip"
+            <c:if test="${documentation == 'true'}">
+              <span class="small-text">
+                <bean:message key="filedetails.jsp.binarytoggletip"
                             arg0="/rhn/help/reference/en-US/s1-sm-configuration.jsp" />
-            </span>
+              </span>
+            </c:if>
     	</c:otherwise>
     </c:choose>
   </td>

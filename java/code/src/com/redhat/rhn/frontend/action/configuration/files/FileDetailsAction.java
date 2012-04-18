@@ -93,6 +93,7 @@ public class FileDetailsAction extends RhnAction {
         cff.updateFromRevision(request, cr);
         setupRequestParams(context, cr);
         request.setAttribute("form", cff);
+        request.setAttribute("documentation", ConfigDefaults.get().isDocAvailable());
 
         return getStrutsDelegate().forwardParams(mapping.findForward("default"), params);
     }

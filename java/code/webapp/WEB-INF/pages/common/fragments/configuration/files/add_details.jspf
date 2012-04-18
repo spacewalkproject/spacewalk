@@ -31,8 +31,9 @@
         <c:out value="${revision.configContent.delimEnd}" />
     </rhn:require>
     <br />
-
-    <span class="small-text"><bean:message key="filedetails.jsp.tip.macros" arg0="/rhn/help/reference/en-US/s1-sm-configuration.jsp"/></span>
+    <c:if test="${documentation == 'true'}">
+      <span class="small-text"><bean:message key="filedetails.jsp.tip.macros" arg0="/rhn/help/reference/en-US/s1-sm-configuration.jsp"/></span>
+    </c:if>
 </tr>
 </c:if>
 </table>

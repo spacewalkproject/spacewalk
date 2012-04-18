@@ -59,9 +59,11 @@
               <html:text property="cffMacroStart" size="3" />
               <bean:message key="filedetails.add_details.jspf.macro.end" />
               <html:text property="cffMacroEnd" size="3" /><br />
-              <span class="small-text">
-                <bean:message key="filedetails.jsp.tip.macros" arg0="/rhn/help/reference/index.jsp" />
-              </span>
+              <c:if test="${documentation == 'true'}">
+                <span class="small-text">
+                  <bean:message key="filedetails.jsp.tip.macros" arg0="/rhn/help/reference/index.jsp" />
+                </span>
+              </c:if>
             </td>
 		</tr>
 	</table>
