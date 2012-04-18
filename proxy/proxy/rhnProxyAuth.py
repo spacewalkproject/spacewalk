@@ -22,6 +22,7 @@ import time
 import socket
 import xmlrpclib
 import sys
+# pylint: disable=E0611
 from hashlib import sha1
 
 ## local imports
