@@ -63,8 +63,8 @@ class HandlerWrap:
                 ret = f(req)
             else:
                 raise Exception("Class has no attribute %s" % self.__name)
+        # pylint: disable=W0702
         except:
-            # pylint: disable=W0702
             Traceback(self.__name, req, extra = "Unhandled exception type",
                       severity="unhandled")
             return apache.HTTP_INTERNAL_SERVER_ERROR

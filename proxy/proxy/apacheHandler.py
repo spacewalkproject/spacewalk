@@ -62,8 +62,8 @@ def getComponentType(req):
     try:
         log_debug(4, "last_visited", last_visited, "; proxy server id", 
             proxy_server_id)
+    # pylint: disable=W0702
     except:
-        # pylint: disable=W0702
         # incase called prior to the log files being initialized
         pass
     if last_visited == proxy_server_id:
