@@ -17,6 +17,7 @@ package com.redhat.rhn.frontend.dto;
 import com.redhat.rhn.common.db.datasource.RowCallback;
 
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +34,7 @@ public class SecurityErrataOverview extends ErrataOverview
      */
     public List<String> getCallBackColumns() {
         List<String> list = new ArrayList<String>();
-        list.add("CVE".toLowerCase());
+        list.add("cve");
         return list;
     }
 
@@ -45,9 +46,19 @@ public class SecurityErrataOverview extends ErrataOverview
             // need to use try-catch, because of use of two
             // elaborators (only one of them elaborates "CVE")
             try {
-                String cve = rs.getString("CVE");
-                if (cve != null) {
-                    addCve(cve);
+                ResultSetMetaData meta = rs.getMetaData();
+                int columnCount = meta.getColumnCount();
+                // make it faster by skipping the non-cve elaborators
+                // expected errata_cves_elab returns 2 columns
+                if (columnCount < 3) {
+                    for (int i = 1; i <= columnCount; i++) {
+                        if (meta.getColumnLabel(i).equals("cve")) {
+                            String cve = rs.getString("cve");
+                            if (cve != null) {
+                                addCve(cve);
+                            }
+                        }
+                    }
                 }
             }
             catch (SQLException e) {
