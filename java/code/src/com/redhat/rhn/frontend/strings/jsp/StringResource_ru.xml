@@ -1161,11 +1161,11 @@
       <target>{0} систем(ы) выбрано</target></trans-unit>
       <!-- footer.jsp -->
       <trans-unit id="footer.jsp.copyright">
-<source>Copyright &amp;#169; 2002--12 Red Hat, Inc. All rights reserved.</source>
+<source>Copyright &amp;#169; 2002&amp;#x2012;12 Red Hat, Inc. All rights reserved.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">./includes/footer.jsp</context>
         </context-group>
-      <target>&amp;#169; 2002--12 Red Hat, Inc. Все права защищены.</target></trans-unit>
+      <target>&amp;#169; 2002&amp;#x2012;12 Red Hat, Inc. Все права защищены.</target></trans-unit>
       <trans-unit id="footer.jsp.legalStatement">
 <source>Legal statement</source>
         <context-group name="ctx">

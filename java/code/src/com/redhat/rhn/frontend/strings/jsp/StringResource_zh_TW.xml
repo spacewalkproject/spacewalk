@@ -1161,11 +1161,11 @@
       <target>選擇了 {0} 部系統</target></trans-unit>
       <!-- footer.jsp -->
       <trans-unit id="footer.jsp.copyright">
-<source>Copyright &amp;#169; 2002--12 Red Hat, Inc. All rights reserved.</source>
+<source>Copyright &amp;#169; 2002&amp;#x2012;12 Red Hat, Inc. All rights reserved.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">./includes/footer.jsp</context>
         </context-group>
-      <target>版權所有 &amp;#169; 2002--12 Red Hat, Inc. 保留所有權利。</target></trans-unit>
+      <target>版權所有 &amp;#169; 2002&amp;#x2012;12 Red Hat, Inc. 保留所有權利。</target></trans-unit>
       <trans-unit id="footer.jsp.legalStatement">
 <source>Legal statement</source>
         <context-group name="ctx">

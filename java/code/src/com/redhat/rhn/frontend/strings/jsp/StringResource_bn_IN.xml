@@ -1161,7 +1161,7 @@
       <target>{0}-টি সিস্টেম নির্বাচন করা হয়েছে</target></trans-unit>
       <!-- footer.jsp -->
       <trans-unit id="footer.jsp.copyright">
-<source>Copyright &amp;#169; 2002--12 Red Hat, Inc. All rights reserved.</source>
+<source>Copyright &amp;#169; 2002&amp;#x2012;12 Red Hat, Inc. All rights reserved.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">./includes/footer.jsp</context>
         </context-group>
