@@ -144,7 +144,7 @@ sub cpu {
 # has a for_filesystem hash indexed by filesystem name.
 sub df {
     my $self = shift;
-    my $args = '-k';
+    my $args = '-k --exclude-type=fuse.gvfs-fuse-daemon';
 
     if (os_matches($self->shell_os_name, PROBE_HPUX)){
 	$args = '-Pk';
@@ -192,7 +192,7 @@ sub inodes {
        LINUX() =>
        {
         binary => '/bin/df',
-        args   => "-i $fs",
+        args   => "--exclude-type=fuse.gvfs-fuse-daemon -i $fs",
         parse  =>
         sub {
             my (@fields) = @_;
