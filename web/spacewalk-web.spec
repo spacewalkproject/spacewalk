@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.10
+Version: 1.8.11
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -254,6 +254,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Thu Apr 19 2012 Jan Pazdziora 1.8.11-1
+- Removed double-dash from copyright notice on error pages.
+
 * Tue Apr 17 2012 Jan Pazdziora 1.8.10-1
 - Broken link patch submitted on behalf of Michael Calmer (sherr@redhat.com)
 
