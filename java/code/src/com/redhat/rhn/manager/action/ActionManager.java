@@ -1795,14 +1795,33 @@ public class ActionManager extends BaseManager {
      */
     public static ScapAction scheduleXccdfEval(User scheduler, Server srvr, String path,
             String parameters, Date earliestAction) {
-        if (!SystemManager.hasEntitlement(srvr.getId(),
-                    EntitlementManager.MANAGEMENT)) {
-            throw new MissingEntitlementException(
-                    EntitlementManager.MANAGEMENT.getHumanReadableLabel());
-        }
-
         Set<Long> serverIds = new HashSet<Long>();
         serverIds.add(srvr.getId());
+        return scheduleXccdfEval(scheduler, serverIds, path, parameters, earliestAction);
+    }
+
+    /**
+     * Schedules Xccdf evaluation.
+     * @param scheduler User scheduling the action.
+     * @param serverIds Set of server identifiers for which the action affects.
+     * @param path Path for the Xccdf content.
+     * @param parameters Additional parameters for oscap tool.
+     * @param earliestAction Date of earliest action to be executed.
+     * @return scheduled Scap Action
+     */
+    public static ScapAction scheduleXccdfEval(User scheduler, Set<Long> serverIds,
+        String path, String parameters, Date earliestAction) {
+        if (serverIds.isEmpty()) {
+            return null;
+        }
+        for (Long serverId : serverIds) {
+            if (!SystemManager.hasEntitlement(serverId,
+                    EntitlementManager.MANAGEMENT)) {
+                throw new MissingEntitlementException(
+                        EntitlementManager.MANAGEMENT.getHumanReadableLabel());
+            }
+        }
+
         ScapActionDetails scapDetails = new ScapActionDetails(path, parameters);
         ScapAction action = (ScapAction) scheduleAction(scheduler,
             ActionFactory.TYPE_SCAP_XCCDF_EVAL,
