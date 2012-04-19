@@ -598,6 +598,7 @@ as $$
         current_members_calc numeric;
         sg_id numeric;
         is_virt numeric := 0;
+        free_slots numeric := 0;
     begin
           select 1 into is_virt
                 from rhnServerEntitlementView
@@ -619,6 +620,10 @@ as $$
             -- if the host_server does not have virt
             --- find all possible flex slots
             -- and set each of the flex eligible guests to Y
+                select sfc.max_members - sfc.current_members
+                  into free_slots
+                  from rhnServerFveCapable sfc
+                 where sfc.channel_family_id = family.channel_family_id;
                 UPDATE rhnServerChannel sc set is_fve = 'Y'
                 where sc.server_id in (
                             select vi.virtual_system_id
