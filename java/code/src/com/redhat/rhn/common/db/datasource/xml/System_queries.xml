@@ -790,7 +790,6 @@ SELECT DISTINCT S.id, S.NAME,
 
 <mode name="has_errata_with_keyword_applied_since_last_reboot">
   <query params="org_id, user_id, keyword, sid">
-  SELECT EXISTS (
 	SELECT 1
 	FROM rhnServer S,
 	  rhnErrata E,
@@ -808,7 +807,6 @@ SELECT DISTINCT S.id, S.NAME,
 	  AND EP.errata_id = E.id AND EP.package_id = P.id
 	  AND (to_date('1970-01-01', 'YYYY-MM-DD') + numtodsinterval(S.last_boot, 'second')) &lt; SP.installtime
 	  AND E.id IN (SELECT EK.errata_id FROM rhnErrataKeyword EK WHERE EK.keyword = :keyword)
-    )
     </query>
 </mode>
 
