@@ -34,6 +34,7 @@ import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.RhnValidationHelper;
 import com.redhat.rhn.frontend.struts.StrutsDelegate;
+import com.redhat.rhn.manager.MissingEntitlementException;
 import com.redhat.rhn.manager.audit.ScapManager;
 
 /**
@@ -75,12 +76,29 @@ public class SsmScheduleXccdfConfirmAction extends RhnAction {
         RequestContext context = new RequestContext(request);
         StrutsDelegate strutsDelegate = getStrutsDelegate();
 
-        ScapAction scapAction = ScapManager.scheduleXccdfEvalInSsm(
-                context.getLoggedInUser(),
-                (String) form.get(PATH),
-                (String) form.get(PARAMS),
-                getStrutsDelegate().readDatePicker(form, DATE,
-                        DatePicker.YEAR_RANGE_POSITIVE));
+        ActionErrors errors = new ActionErrors();
+        ScapAction scapAction = null;
+        try {
+            scapAction = ScapManager.scheduleXccdfEvalInSsm(
+                    context.getLoggedInUser(),
+                    (String) form.get(PATH),
+                    (String) form.get(PARAMS),
+                    getStrutsDelegate().readDatePicker(form, DATE,
+                            DatePicker.YEAR_RANGE_POSITIVE));
+        }
+        catch (MissingEntitlementException e) {
+                errors.add(ActionMessages.GLOBAL_MESSAGE,
+                new ActionMessage("message.entitlement.missing", e.getMessage()));
+        }
+
+        if (scapAction == null) {
+            errors.add(ActionMessages.GLOBAL_MESSAGE,
+                    new ActionMessage("message.xccdfeval.failed"));
+            addErrors(request, errors);
+            return strutsDelegate.forwardParams(
+                mapping.findForward(ERROR),
+                request.getParameterMap());
+        }
 
         ActionMessages msgs = new ActionMessages();
         msgs.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage("message.xccdfeval.ssm"));

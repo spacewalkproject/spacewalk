@@ -6088,6 +6088,18 @@ value for this entitlement, excluding the default organization's consumption.</s
           <context context-type="sourcefile">/rhn/schedule/ActionDetails.do</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="message.entitlement.missing">
+        <source>One or more of the selected systems lack the {0} entitlement.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/ssm/audit/ScheduleXccdf.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="message.xccdfeval.failed">
+        <source>Action was not scheduled.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/ssm/audit/ScheduleXccdf.do</context>
+        </context-group>
+      </trans-unit>
     <trans-unit id="removeconfirm.jsp.runremotecommand">
 <source>Add Remote Command To Package Removal</source>
       <context-group name="ctx">
