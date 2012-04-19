@@ -22,7 +22,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.50
+Version: 1.8.51
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -605,6 +605,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Apr 19 2012 Stephen Herr <sherr@redhat.com> 1.8.51-1
+- 814365 - When displaying errata available for adding to channel, make sure a
+  clone is not already in the channel.
+
 * Thu Apr 19 2012 Jan Pazdziora 1.8.50-1
 - Removed double-dash from WebUI copyright notice.
 - fix has_errata_with_keyword_applied_since_last_reboot query (mc@suse.de)
