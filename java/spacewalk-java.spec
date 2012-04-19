@@ -22,7 +22,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.49
+Version: 1.8.50
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -605,6 +605,15 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Apr 19 2012 Jan Pazdziora 1.8.50-1
+- Removed double-dash from WebUI copyright notice.
+- fix has_errata_with_keyword_applied_since_last_reboot query (mc@suse.de)
+- fix PackageEvr handling III (tlestach@redhat.com)
+- increase taskomatic memory (tlestach@redhat.com)
+- 803353 - fixing another two broken documentation links (tlestach@redhat.com)
+- Show systems that need reboot because of an errata. (dmacvicar@suse.de)
+- modify SecurityErrataOverview.callaback (tlestach@redhat.com)
+
 * Tue Apr 17 2012 Jan Pazdziora 1.8.49-1
 - Revert "removing unused string with trans-id Certificate Administrators,
   Monitoring Administrators, and Configuration Administrators"
