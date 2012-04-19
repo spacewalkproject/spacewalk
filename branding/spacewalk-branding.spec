@@ -1,5 +1,5 @@
 Name:       spacewalk-branding
-Version:    1.8.0
+Version:    1.8.1
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -83,6 +83,9 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Thu Apr 19 2012 Jan Pazdziora 1.8.1-1
+- Update the copyright year info on .pxt pages.
+
 * Mon Feb 27 2012 Jan Pazdziora 1.7.1-1
 - automatically focus search form (msuchy@redhat.com)
 
