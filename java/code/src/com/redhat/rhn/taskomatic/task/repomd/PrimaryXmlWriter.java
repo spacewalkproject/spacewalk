@@ -17,8 +17,6 @@ package com.redhat.rhn.taskomatic.task.repomd;
 
 import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.domain.channel.Channel;
-import com.redhat.rhn.domain.rhnpackage.PackageEvr;
-import com.redhat.rhn.domain.rhnpackage.PackageEvrFactory;
 import com.redhat.rhn.frontend.dto.PackageDto;
 import com.redhat.rhn.manager.rhnpackage.PackageManager;
 import com.redhat.rhn.manager.task.TaskManager;
@@ -29,6 +27,8 @@ import org.xml.sax.SAXException;
 
 import java.io.ByteArrayOutputStream;
 import java.io.Writer;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Primary.xml writer class
@@ -288,27 +288,28 @@ public class PrimaryXmlWriter extends RepomdWriter {
             SimpleAttributesImpl attr = new SimpleAttributesImpl();
             attr.addAttribute("name", sanitize(pkgId, pkgCapIter
                     .getString("name")));
-            PackageEvr evrObj = parseEvr(sanitize(pkgId, pkgCapIter
+            Map<String, String> evrMap = parseEvr(sanitize(pkgId,
+                    pkgCapIter
                     .getString("version")));
 
-            if (evrObj.getEpoch() != null || evrObj.getVersion() != null ||
-                    evrObj.getRelease() != null) {
+            if (evrMap.get("epoch") != null || evrMap.get("version") != null ||
+                    evrMap.get("release") != null) {
                 attr.addAttribute("flags", getSenseAsString(pkgCapIter
                         .getNumber("sense").longValue()));
             }
 
-            if (evrObj.getEpoch() != null) {
-                attr.addAttribute("epoch", evrObj.getEpoch());
+            if (evrMap.get("epoch") != null) {
+                attr.addAttribute("epoch", evrMap.get("epoch"));
             }
-            else if (evrObj.getVersion() != null) {
+            else if (evrMap.get("version") != null) {
                 attr.addAttribute("epoch", "0");
             }
 
-            if (evrObj.getVersion() != null) {
-                attr.addAttribute("ver", evrObj.getVersion());
+            if (evrMap.get("version") != null) {
+                attr.addAttribute("ver", evrMap.get("version"));
             }
-            if (evrObj.getRelease() != null) {
-                attr.addAttribute("rel", evrObj.getRelease());
+            if (evrMap.get("release") != null) {
+                attr.addAttribute("rel", evrMap.get("release"));
             }
 
             localHandler.startElement("rpm:entry", attr);
@@ -322,14 +323,17 @@ public class PrimaryXmlWriter extends RepomdWriter {
      * @param evr package evr info
      * @return package evr object
      */
-    private static PackageEvr parseEvr(String evr) {
-        String epoch = null, version = null, release = null;
+    private static Map<String, String> parseEvr(String evr) {
+        Map map = new HashMap<String, String>();
+        map.put("epoch", null);
+        map.put("version", null);
+        map.put("release", null);
 
         if (evr != null) {
             String[] parts = evr.split(":");
             String vr;
             if (parts.length != 1) {
-                epoch = parts[0];
+                map.put("epoch", parts[0]);
                 vr = parts[1];
             }
             else {
@@ -339,16 +343,15 @@ public class PrimaryXmlWriter extends RepomdWriter {
             int dash = vr.lastIndexOf("-");
 
             if (dash == -1) {
-                version = vr;
+                map.put("version", vr);
             }
             else {
-                version = vr.substring(0, dash);
-                release = vr.substring(dash + 1);
+                map.put("version", vr.substring(0, dash));
+                map.put("release", vr.substring(dash + 1));
             }
         }
 
-        return PackageEvrFactory.lookupOrCreatePackageEvr(epoch, version,
-                release);
+        return map;
     }
 
     /**
