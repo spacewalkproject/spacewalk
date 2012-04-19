@@ -4764,6 +4764,43 @@
                  path="/WEB-INF/pages/ssm/systems/misc/index.jsp" />
     </action>
 
+    <action path="/systems/ssm/audit/ScheduleXccdf"
+        scope="request"
+        name="scheduleXccdfForm"
+        input="/WEB-INF/pages/audit/ssm/ssmschedulexccdf.jsp"
+        type="com.redhat.rhn.frontend.action.audit.ssm.SsmScheduleXccdfAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <forward name="default"
+            path="/WEB-INF/pages/audit/ssm/ssmschedulexccdf.jsp"/>
+        <forward name="error"
+            path="/WEB-INF/pages/audit/ssm/ssmschedulexccdf.jsp"/>
+        <forward name="submit"
+            path="/systems/ssm/audit/ScheduleXccdfSubmit.do"/>
+    </action>
+
+    <action path="/systems/ssm/audit/ScheduleXccdfSubmit"
+        scope="request"
+        name="scheduleXccdfForm"
+        input="/WEB-INF/pages/audit/ssm/ssmschedulexccdf-submit.jsp"
+        type="com.redhat.rhn.frontend.action.audit.ssm.SsmScheduleXccdfSubmitAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <set-property property="postRequired" value="true"/>
+        <forward name="default"
+            path="/WEB-INF/pages/audit/ssm/ssmschedulexccdf-submit.jsp"/>
+    </action>
+
+    <action path="/systems/ssm/audit/ScheduleXccdfConfirm"
+        scope="request"
+        name="scheduleXccdfForm"
+        type="com.redhat.rhn.frontend.action.audit.ssm.SsmScheduleXccdfConfirmAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <set-property property="postRequired" value="true"/>
+        <forward name="default"
+            path="/schedule/InProgressSystems.do"/>
+        <forward name="error"
+            path="/systems/ssm/audit/ScheduleXccdf.do"/>
+    </action>
+
     <!-- ===== END SSM ===== -->
 
     <action path="/monitoring/config/notification/Methods"

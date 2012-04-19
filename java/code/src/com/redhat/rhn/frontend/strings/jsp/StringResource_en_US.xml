@@ -4581,6 +4581,9 @@ value for this entitlement, excluding the default organization's consumption.</s
        <trans-unit id="ssm.overview.misc.migrate">
          <source>&lt;a href="/rhn/systems/ssm/misc/Index.do#migrate"&gt;Migrate&lt;/a&gt; systems to another organization</source>
        </trans-unit>
+       <trans-unit id="ssm.overview.misc.scap">
+         <source>&lt;a href="/rhn/systems/ssm/audit/ScheduleXccdf.do"&gt;Audit&lt;/a&gt; systems with OpenSCAP</source>
+       </trans-unit>
      </group>
 
 <!-- SSM System List -->
@@ -6077,6 +6080,12 @@ value for this entitlement, excluding the default organization's consumption.</s
 <source>XCCDF scan has been &lt;a href="/rhn/schedule/ActionDetails.do?aid={0}"&gt;scheduled&lt;/a&gt; for &lt;a href="/rhn/systems/details/Overview.do?sid={1}"&gt;{2}&lt;/a&gt;</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/audit/ListScap.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="message.xccdfeval.ssm">
+        <source>XCCDF scan has been scheduled successfully.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/schedule/ActionDetails.do</context>
         </context-group>
       </trans-unit>
     <trans-unit id="removeconfirm.jsp.runremotecommand">

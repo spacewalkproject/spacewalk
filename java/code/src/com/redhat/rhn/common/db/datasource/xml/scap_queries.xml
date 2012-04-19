@@ -103,4 +103,22 @@
   </query>
 </mode>
 
+<mode name="scap_capable_systems_in_set">
+  <query params="user_id, set_label">
+  SELECT DISTINCT usp.server_id AS id
+      FROM rhnUserServerPerms usp
+          INNER JOIN rhnSet st ON st.user_id = usp.user_id
+              AND st.element = usp.server_id
+      WHERE st.user_id = :user_id
+          AND st.label = :set_label
+          AND EXISTS (
+              SELECT 1
+                  FROM rhnClientCapability cc
+                      INNER JOIN rhnClientCapabilityName ccn ON cc.capability_name_id = ccn.id
+                  WHERE cc.server_id = usp.server_id
+                      AND ccn.name LIKE 'scap%'
+          )
+  </query>
+</mode>
+
 </datasource_modes>

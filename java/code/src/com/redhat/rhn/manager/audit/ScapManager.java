@@ -15,18 +15,23 @@
 package com.redhat.rhn.manager.audit;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.SelectMode;
+import com.redhat.rhn.domain.action.scap.ScapAction;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.XccdfIdentDto;
 import com.redhat.rhn.frontend.dto.XccdfRuleResultDto;
 import com.redhat.rhn.manager.BaseManager;
+import com.redhat.rhn.manager.action.ActionManager;
+import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 
 /**
  * ScapManager
@@ -118,6 +123,26 @@ public class ScapManager extends BaseManager {
         return m.execute(params);
     }
 
+    /**
+     * Schedule scap.xccdf_eval action for systems in user's SSM.
+     * @param scheduler user which commits the schedule
+     * @param path path to xccdf document on systems file system
+     * @param parameters additional parameters for xccdf scan
+     * @param earliest time of earliest action occurence
+     * @return the newly created ScapAction
+     */
+    public static ScapAction scheduleXccdfEvalInSsm(User scheduler, String path,
+            String parameters, Date earliest) {
+        SelectMode m = ModeFactory.getMode("scap_queries",
+                "scap_capable_systems_in_set");
+        HashMap params = new HashMap();
+        params.put("user_id", scheduler.getId());
+        params.put("set_label", RhnSetDecl.SYSTEMS.getLabel());
+        HashSet<Long> systemIds = idsInDataResultToSet(m.execute(params));
+        return ActionManager.scheduleXccdfEval(
+                scheduler, systemIds, path, parameters, earliest);
+    }
+
     private static List<Map<String, Object>> transposeView(DataResult testResultsRaw) {
         List<Map<String, Object>> resultView = new ArrayList<Map<String, Object>>();
         Map<String, Object> currResult = null;
@@ -146,4 +171,13 @@ public class ScapManager extends BaseManager {
         }
         return resultView;
     }
+
+    private static HashSet<Long> idsInDataResultToSet(DataResult dataIn) {
+        HashSet<Long> result = new HashSet<Long>();
+        for (Map<String, Long> map : (List<Map<String, Long>>) dataIn) {
+            result.add(map.get("id"));
+        }
+        return result;
+    }
+
 }

@@ -75,6 +75,7 @@
       <bean:message key="ssm.overview.misc.entitlements"/><br />
       <bean:message key="ssm.overview.misc.deletereboot"/><br />
       <bean:message key="ssm.overview.misc.migrate"/><br />
+      <bean:message key="ssm.overview.misc.scap"/><br />
       </p>
     </td>
   </tr>
