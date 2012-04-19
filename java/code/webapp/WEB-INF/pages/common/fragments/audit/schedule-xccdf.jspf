@@ -1,3 +1,8 @@
+
+<c:if test="${empty readonly}">
+	<c:set var="readonly" value="false"/>
+</c:if>
+
 <rhn:csrf/>
 <table class="details">
 <tr>
@@ -6,18 +11,38 @@
 </tr>
 <tr>
 	<th><bean:message key="system.audit.schedulexccdf.jsp.arguments"/>:</th>
-	<td><html:text property="params" maxlength="2048" size="40" styleId="params"/></td>
+	<td>
+		<html:text property="params" maxlength="2048" size="40" styleId="params"
+			readonly="${readonly}"/>
+	</td>
 </tr>
 <tr>
 	<th><bean:message key="system.audit.schedulexccdf.jsp.path"/><span class="required-form-field">*</span>:</th>
-	<td><html:text property="path" size="40" styleId="path"/></td>
+	<td>
+		<html:text property="path" size="40" styleId="path"
+			readonly="${readonly}"/>
+	</td>
 </tr>
 <tr>
 	<th><bean:message key="scheduleremote.jsp.nosoonerthan"/>:</th>
 	<td>
-		<jsp:include page="/WEB-INF/pages/common/fragments/date-picker.jsp">
-			<jsp:param name="widget" value="date"/>
-		</jsp:include>
+		<c:choose>
+			<c:when test="${readonly == 'true'}">
+				<c:out value="${localizedDate}"/>
+				<html:hidden property="use_date" value="true" />
+				<html:hidden property="date_year" />
+				<html:hidden property="date_month" />
+				<html:hidden property="date_day" />
+				<html:hidden property="date_hour" />
+				<html:hidden property="date_minute" />
+				<html:hidden property="date_am_pm" />
+			</c:when>
+			<c:otherwise>
+				<jsp:include page="/WEB-INF/pages/common/fragments/date-picker.jsp">
+					<jsp:param name="widget" value="date"/>
+				</jsp:include>
+			</c:otherwise>
+		</c:choose>
 	</td>
 </tr>
 </table>
