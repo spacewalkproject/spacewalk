@@ -49,7 +49,6 @@
       </td>
     </tr>
   </table>
-  <html:hidden property="use_date" value="true" />
 
 <html:hidden property="session_set_label" value="${param.session_set_label}" />
 <html:hidden property="sid" value="${param.sid}" />
