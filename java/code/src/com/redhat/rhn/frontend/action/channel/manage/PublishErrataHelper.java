@@ -39,6 +39,8 @@ import java.util.Set;
  */
 public class PublishErrataHelper {
 
+    private static final String DEFAULT_ERRATA_CLONE_PREFIX = "CL-";
+    private static final String REDHAT_ERRATA_PREFIX = "RH";
 
     private PublishErrataHelper() {
 
@@ -106,33 +108,7 @@ public class PublishErrataHelper {
            clone.addBug(bClone);
         }
 
-
-        String baseClonedAdvisoryName = "CL" + original.getAdvisoryName().substring(2);
-        String baseClonedAdvisory = "CL" + original.getAdvisory().substring(2);
-        String clonedAdvisory = baseClonedAdvisory;
-        String clonedAdvisoryName = baseClonedAdvisoryName;
-        boolean unusedNameFound = false;
-
-
-        for (int j = 1; !unusedNameFound; ++j) {
-            Errata advisoryNameMatch = ErrataFactory.lookupByAdvisory(
-                    clonedAdvisoryName);
-            Errata advisoryMatch = ErrataFactory.lookupByAdvisoryId(clonedAdvisory);
-
-            if ((advisoryNameMatch == null) && (advisoryMatch == null)) {
-                unusedNameFound = true;
-            }
-            else {
-                clonedAdvisoryName = baseClonedAdvisoryName + '-' +
-                                     new Integer(j).toString();
-                clonedAdvisory = baseClonedAdvisory + '-' +
-                                 new Integer(j).toString();
-            }
-        }
-
-
-        clone.setAdvisoryName(clonedAdvisoryName);
-        clone.setAdvisory(clonedAdvisory);
+        setUniqueAdvisoryCloneName(original, clone);
         ((PublishedClonedErrata) clone).setOriginal(original);
         clone.setOrg(org);
         ErrataFactory.save(clone);
@@ -141,4 +117,79 @@ public class PublishErrataHelper {
 
     }
 
+    /**
+     * Generates a unique errata clone advisory and advisoryName and sets them
+     * to the errata clone
+     * @param original original erratum
+     * @param clone cloned erratum
+     */
+    public static void setUniqueAdvisoryCloneName(Errata original, Errata clone) {
+        String clonedAdvisory, clonedAdvisoryName;
+
+        if (!original.isCloned()) {
+            if (original.getAdvisory().startsWith(REDHAT_ERRATA_PREFIX)) {
+                // RHBA-1234:1234 -> CL-BA-1234:1234
+                clonedAdvisory = DEFAULT_ERRATA_CLONE_PREFIX +
+                        original.getAdvisory().substring(
+                                REDHAT_ERRATA_PREFIX.length());
+                clonedAdvisoryName = DEFAULT_ERRATA_CLONE_PREFIX +
+                        original.getAdvisoryName().substring(
+                                REDHAT_ERRATA_PREFIX.length());
+            }
+            else {
+                // CUSTOM-ERRATA -> CL-CUSTOM-ERRATA
+                clonedAdvisory = DEFAULT_ERRATA_CLONE_PREFIX +
+                        original.getAdvisory();
+                clonedAdvisoryName = DEFAULT_ERRATA_CLONE_PREFIX +
+                        original.getAdvisoryName();
+            }
+        }
+        else {
+            // increment CL -> CM only advisories with 3rd char '-'
+            if ('-' == original.getAdvisory().charAt(2) &&
+                    '-' == original.getAdvisoryName().charAt(2)) {
+                clonedAdvisory = new String(original.getAdvisory());
+                clonedAdvisoryName = new String(original.getAdvisoryName());
+            }
+            else {
+                clonedAdvisory = DEFAULT_ERRATA_CLONE_PREFIX +
+                        original.getAdvisory();
+                clonedAdvisoryName = DEFAULT_ERRATA_CLONE_PREFIX +
+                        original.getAdvisoryName();
+            }
+        }
+
+        boolean unusedNameFound = false;
+
+        while (!unusedNameFound) {
+            Errata advisoryNameMatch = ErrataFactory.lookupByAdvisory(
+                    clonedAdvisoryName);
+            Errata advisoryMatch = ErrataFactory.lookupByAdvisoryId(clonedAdvisory);
+
+            if ((advisoryNameMatch == null) && (advisoryMatch == null)) {
+                unusedNameFound = true;
+            }
+            else {
+                // use the advisory prefix for both - advisory and advisory_name
+                char c1 = clonedAdvisory.charAt(1);
+                if ('Z' == c1) {
+                    char c0next = (char) (clonedAdvisory.charAt(0) + 1);
+                    clonedAdvisory = "" + c0next + 'A' +
+                            clonedAdvisory.substring(2);
+                    clonedAdvisoryName = "" + c0next + 'A' +
+                            clonedAdvisoryName.substring(2);
+                }
+                else {
+                    char c1next = (char) (c1 + 1);
+                    clonedAdvisory = "" + clonedAdvisory.charAt(0) + c1next +
+                            clonedAdvisory.substring(2);
+                    clonedAdvisoryName = "" + clonedAdvisoryName.charAt(0) +
+                            c1next + clonedAdvisoryName.substring(2);
+                }
+            }
+        }
+
+        clone.setAdvisoryName(clonedAdvisoryName);
+        clone.setAdvisory(clonedAdvisory);
+    }
 }
