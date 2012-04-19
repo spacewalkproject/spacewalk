@@ -2,7 +2,7 @@ Name:         perl-NOCpulse-Probe
 Summary:      Monitoring probes for Spacewalk
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version:      1.184.15
+Version:      1.184.16
 Release:      1%{?dist}
 BuildArch:    noarch
 Group:        Development/Libraries
@@ -145,6 +145,9 @@ rm -rf $RPM_BUILD_ROOT
 %{perl_vendorlib}/NOCpulse/Probe/DataSource/test/TestOracle.pm
 
 %changelog
+* Thu Apr 19 2012 Jan Pazdziora 1.184.16-1
+- 808118 - ignore fuse.gvfs-fuse-daemon in df (msuchy@redhat.com)
+
 * Fri Mar 02 2012 Jan Pazdziora 1.184.15-1
 - Update the copyright year info.
 
