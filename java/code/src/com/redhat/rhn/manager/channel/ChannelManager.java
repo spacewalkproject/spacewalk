@@ -2442,7 +2442,7 @@ public class ChannelManager extends BaseManager {
 
         SelectMode m = ModeFactory.getMode("Errata_queries", mode);
 
-        Set<Errata> channel_errata = ChannelFactory.lookupById(cid)
+        Set<Errata> channelErrata = ChannelFactory.lookupById(cid)
                 .getErratas();
 
         DataResult<ErrataOverview> errata = m.execute(params);
@@ -2453,7 +2453,7 @@ public class ChannelManager extends BaseManager {
             Set<ErrataOverview> clones = getClones(erratum);
             for (ErrataOverview clone : clones) {
                 Errata tmp = ErrataFactory.lookupById(clone.getId());
-                if (channel_errata.contains(tmp)) {
+                if (channelErrata.contains(tmp)) {
                     iterator.remove();
                     break; // don't bother checking the rest of the clones of
                            // this erratum
