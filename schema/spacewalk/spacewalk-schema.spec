@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.8.16
+Version:        1.8.17
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -69,6 +69,11 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Fri Apr 20 2012 Jan Pazdziora 1.8.17-1
+- Schema hardening: catch code which would update or delete rhnPackageEvr.
+- Make the records in rhnPackageUpgradeArchCompat -- no need to have
+  duplicates.
+
 * Mon Apr 16 2012 Jan Pazdziora 1.8.16-1
 - 812453 - bring the schema version as recorded in the database in sync with
   the installed rpms, even if the difference is just the dist tag.
