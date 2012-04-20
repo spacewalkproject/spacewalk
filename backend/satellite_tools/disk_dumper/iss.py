@@ -285,8 +285,8 @@ class Dumper(dumper.XML_Dumper):
                         """
                 else:
                     query += """
-                        and ((rcp.modified >= TO_TIMESTAMP(:start_date, 'YYYYMMDDHH24MISS')
-                        and rcp.modified <= TO_TIMESTAMP(:end_date, 'YYYYMMDDHH24MISS'))
+                        and rcp.modified >= TO_TIMESTAMP(:start_date, 'YYYYMMDDHH24MISS')
+                        and rcp.modified <= TO_TIMESTAMP(:end_date, 'YYYYMMDDHH24MISS')
                         """
             self.brpm_query = rhnSQL.Statement(query)
             brpm_data = rhnSQL.prepare(self.brpm_query)
