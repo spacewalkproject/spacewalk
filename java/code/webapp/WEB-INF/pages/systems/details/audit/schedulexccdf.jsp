@@ -23,6 +23,12 @@
 			<%@ include file="/WEB-INF/pages/common/fragments/audit/schedule-xccdf.jspf" %>
 
 			<html:hidden property="sid" value="${param.sid}"/>
+			<div align="right">
+				</hr>
+				<html:submit property="schedule_button">
+				<bean:message key="system.audit.schedulexccdf.jsp.button"/>
+				</html:submit>
+			</div>
 		</html:form>
 		<rhn:tooltip>
 			<bean:message key="system.audit.schedulexccdf.jsp.tooltip"/>

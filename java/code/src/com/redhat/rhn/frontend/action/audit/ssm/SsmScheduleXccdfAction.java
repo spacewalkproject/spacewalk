@@ -23,8 +23,6 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.DynaActionForm;
 
-import com.redhat.rhn.common.util.DatePicker;
-import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.RhnValidationHelper;
 
@@ -32,7 +30,7 @@ import com.redhat.rhn.frontend.struts.RhnValidationHelper;
  * SSM OpenSCAP XCCDF scanning.
  * @version $Rev$
  */
-public class SsmScheduleXccdfAction extends RhnAction {
+public class SsmScheduleXccdfAction extends BaseSsmScheduleXccdfAction {
 
     /**
      * {@inheritDoc}
@@ -53,15 +51,10 @@ public class SsmScheduleXccdfAction extends RhnAction {
                 getStrutsDelegate().saveMessages(request, errors);
             }
         }
-        setupDefaultFormValues(request, form);
+        setupDatePicker(request, form);
+        setupListHelper(request);
         return getStrutsDelegate().forwardParams(
             mapping.findForward(RhnHelper.DEFAULT_FORWARD),
             request.getParameterMap());
-    }
-
-    private void setupDefaultFormValues(HttpServletRequest request,
-            DynaActionForm form) {
-        getStrutsDelegate().prepopulateDatePicker(request,
-                form, "date", DatePicker.YEAR_RANGE_POSITIVE);
     }
 }

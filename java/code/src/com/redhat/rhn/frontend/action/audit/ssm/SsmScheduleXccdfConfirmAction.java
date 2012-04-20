@@ -30,7 +30,6 @@ import org.apache.struts.action.DynaActionForm;
 import com.redhat.rhn.common.util.DatePicker;
 import com.redhat.rhn.domain.action.scap.ScapAction;
 import com.redhat.rhn.frontend.struts.RequestContext;
-import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.RhnValidationHelper;
 import com.redhat.rhn.frontend.struts.StrutsDelegate;
@@ -42,12 +41,7 @@ import com.redhat.rhn.manager.audit.ScapManager;
  * This action dispatches the second submit and commits the action.
  * @version $Rev$
  */
-public class SsmScheduleXccdfConfirmAction extends RhnAction {
-
-    private static final String PATH = "path";
-    private static final String PARAMS = "params";
-    private static final String DATE = "date";
-    private static final String ERROR = "error";
+public class SsmScheduleXccdfConfirmAction extends BaseSsmScheduleXccdfAction {
 
     /**
      * {@inheritDoc}

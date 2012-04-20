@@ -1,0 +1,25 @@
+<rl:listset name="systemListSet" legend="system">
+  <rhn:csrf/>
+  <rhn:submitted/>
+  <h2><bean:message key="ssm.audit.xccdf.targetedsystems"/></h2>
+  <rl:list emptykey="nosystems.message">
+
+    <rl:column headerkey="systemlist.jsp.system" styleclass="first-column">
+      <c:out escapeXml="false"
+          value="<a href=\"/rhn/systems/details/audit/ListScap.do?sid=${current.sid}\">"/>
+      <c:out value="${current.name}"/>
+      <c:out escapeXml="false" value="</a>"/>
+    </rl:column>
+
+    <rl:column headerkey="ssm.audit.xccdf.capability" styleclass="last-column">
+      <c:choose>
+        <c:when test="${current.scap == 1}">
+          <bean:message key="targetsystems.jsp.yes"/>
+        </c:when>
+        <c:otherwise>
+          <bean:message key="targetsystems.jsp.no"/>
+        </c:otherwise>
+      </c:choose>
+    </rl:column>
+  </rl:list>
+</rl:listset>

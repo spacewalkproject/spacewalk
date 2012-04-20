@@ -138,6 +138,20 @@ public class ScapManager extends BaseManager {
     }
 
     /**
+     * Show systems in SSM and their true/false scap capability
+     * @param scheduler user requesting the systems
+     * @return the list of systems in SSM
+     */
+    public static DataResult systemsInSsmAndScapCapability(User scheduler) {
+        SelectMode m = ModeFactory.getMode("scap_queries",
+                "systems_in_set_and_scap_capability");
+        HashMap params = new HashMap();
+        params.put("user_id", scheduler.getId());
+        params.put("set_label", RhnSetDecl.SYSTEMS.getLabel());
+        return m.execute(params);
+    }
+
+    /**
      * Schedule scap.xccdf_eval action for systems in user's SSM.
      * @param scheduler user which commits the schedule
      * @param path path to xccdf document on systems file system

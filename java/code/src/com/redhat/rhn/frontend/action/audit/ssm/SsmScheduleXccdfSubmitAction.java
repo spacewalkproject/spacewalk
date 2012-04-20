@@ -26,7 +26,6 @@ import org.apache.struts.action.DynaActionForm;
 
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.util.DatePicker;
-import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.StrutsDelegate;
 
@@ -34,14 +33,7 @@ import com.redhat.rhn.frontend.struts.StrutsDelegate;
  * SSM OpenSCAP XCCDF scanning.
  * @version $Rev$
  */
-public class SsmScheduleXccdfSubmitAction extends RhnAction {
-
-    private static final String PATH = "path";
-    private static final String PARAMS = "params";
-    private static final String DATE = "date";
-    private static final String LOCALIZED_DATE = "localizedDate";
-    private static final String READONLY = "readonly";
-    private static final String TRUE = "true";
+public class SsmScheduleXccdfSubmitAction extends BaseSsmScheduleXccdfAction {
 
     /**
      * {@inheritDoc}
@@ -61,8 +53,9 @@ public class SsmScheduleXccdfSubmitAction extends RhnAction {
         request.setAttribute(LOCALIZED_DATE,
                 LocalizationService.getInstance().formatDate(earliest));
         request.setAttribute(READONLY, TRUE);
-        strutsDelegate.prepopulateDatePicker(request,
-                form, DATE, DatePicker.YEAR_RANGE_POSITIVE);
+
+        setupDatePicker(request, form);
+        setupListHelper(request);
 
         return strutsDelegate.forwardParams(
                 mapping.findForward(RhnHelper.DEFAULT_FORWARD),

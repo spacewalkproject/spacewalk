@@ -48,10 +48,3 @@
 </table>
 
 <html:hidden property="submitted" value="true" />
-
-<div align="right">
-	</hr>
-	<html:submit property="schedule_button">
-		<bean:message key="system.audit.schedulexccdf.jsp.button"/>
-	</html:submit>
-</div>
