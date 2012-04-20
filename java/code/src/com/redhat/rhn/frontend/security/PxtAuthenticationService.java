@@ -51,12 +51,7 @@ public class PxtAuthenticationService extends BaseAuthenticationService {
         LOGIN_URIS = UnmodifiableSet.decorate(set);
 
         set = new TreeSet(set);
-        set.add("/rhn/newuser");
         set.add("/rhn/rpc/api");
-        set.add("/rhn/servlet/");
-        set.add("/rhn/services/");
-        set.add("/rhn/help/");
-        set.add("/rhn/tnc/");       //TODO should tnc be here?
         set.add("/rhn/help/");
         set.add("/rhn/apidoc");
         set.add("/rhn/kickstart/DownloadFile");
