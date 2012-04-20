@@ -124,6 +124,20 @@ public class ScapManager extends BaseManager {
     }
 
     /**
+     * Show scap capable systems which are currently in SSM
+     * @param scheduler user requesting the systems
+     * @return the list of systems in SSM
+     */
+    public static DataResult scapCapableSystemsInSsm(User scheduler) {
+        SelectMode m = ModeFactory.getMode("scap_queries",
+                "scap_capable_systems_in_set");
+        HashMap params = new HashMap();
+        params.put("user_id", scheduler.getId());
+        params.put("set_label", RhnSetDecl.SYSTEMS.getLabel());
+        return m.execute(params);
+    }
+
+    /**
      * Schedule scap.xccdf_eval action for systems in user's SSM.
      * @param scheduler user which commits the schedule
      * @param path path to xccdf document on systems file system
@@ -133,12 +147,7 @@ public class ScapManager extends BaseManager {
      */
     public static ScapAction scheduleXccdfEvalInSsm(User scheduler, String path,
             String parameters, Date earliest) {
-        SelectMode m = ModeFactory.getMode("scap_queries",
-                "scap_capable_systems_in_set");
-        HashMap params = new HashMap();
-        params.put("user_id", scheduler.getId());
-        params.put("set_label", RhnSetDecl.SYSTEMS.getLabel());
-        HashSet<Long> systemIds = idsInDataResultToSet(m.execute(params));
+        HashSet<Long> systemIds = idsInDataResultToSet(scapCapableSystemsInSsm(scheduler));
         return ActionManager.scheduleXccdfEval(
                 scheduler, systemIds, path, parameters, earliest);
     }
