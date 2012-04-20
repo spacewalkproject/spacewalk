@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2010 Red Hat, Inc.
+-- Copyright (c) 2010--2012 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -30,6 +30,6 @@ CREATE TABLE rhnPackageUpgradeArchCompat
 ENABLE ROW MOVEMENT
 ;
 
-CREATE INDEX rhn_puac_pa_pua
+CREATE UNIQUE INDEX rhn_puac_pa_pua_uq
     ON rhnPackageUpgradeArchCompat (package_arch_id, package_upgrade_arch_id)
     TABLESPACE [[64k_tbs]];
