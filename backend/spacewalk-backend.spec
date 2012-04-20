@@ -12,7 +12,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.19
+Version: 1.8.20
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -673,6 +673,10 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Fri Apr 20 2012 Miroslav Suchý <msuchy@redhat.com> 1.8.20-1
+- 805582 - fix sql query with --use-sync-date and --start-date of rhn-
+  satellite-exporter
+
 * Tue Apr 17 2012 Jan Pazdziora 1.8.19-1
 - The mod_wsgi insists on having something after the numeric value on the
   Status line.
