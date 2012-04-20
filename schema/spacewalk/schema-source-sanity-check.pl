@@ -131,6 +131,7 @@ sub check_file_content {
 					|\s*\n
 					|create(?:\s+or\s+replace)?\s+function\s+(\w+)(?s:.+?)\s+language\s+plpgsql;
 						\s+create(\s+or\s+replace)?\s+trigger[^;]+\s+on\s+$name\b[^;]+execute\s+procedure\s+\1\(\);
+					|create(\s+or\s+replace)?\s+trigger[^;]+\s+on\s+$name\b[^;]+execute\s+procedure\s+no_operation_trig_fun\(\);
 					|create(\s+or\s+replace)?\s+trigger[^;]+\s+on\s+$name\b(?s:.+?);\n/\n
 					|show\s+errors;?\n
 					)+$!ix) {
