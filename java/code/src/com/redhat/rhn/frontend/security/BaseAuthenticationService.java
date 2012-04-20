@@ -35,6 +35,14 @@ public abstract class BaseAuthenticationService implements AuthenticationService
         });
     }
 
-    protected abstract Set getUnprotectedURIs();
+    protected boolean requestURIdoesLogin(final HttpServletRequest request) {
+        return CollectionUtils.exists(getLoginURIs(), new Predicate() {
+            public boolean evaluate(Object uri) {
+                return request.getRequestURI().startsWith(uri.toString());
+            }
+        });
+    }
 
+    protected abstract Set getUnprotectedURIs();
+    protected abstract Set getLoginURIs();
 }

@@ -46,6 +46,14 @@ public interface AuthenticationService {
         throws ServletException;
 
     /**
+     * CSFR check might be skipped for particular POST requests f.e. all login
+     * pages
+     * @param request The current request
+     * @return True if CSFR check shall be skipped for current request
+     */
+    boolean skipCsfr(HttpServletRequest request);
+
+    /**
      * Redirects the request to whatever resource handles logins. This method is typically
      * invoked after a call to {@link #validate(HttpServletRequest, HttpServletResponse)}
      * fails. Note that the redirect may be client-side or server-side, and it may be to an
