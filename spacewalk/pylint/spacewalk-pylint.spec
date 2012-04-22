@@ -13,7 +13,7 @@ BuildArch:	noarch
 Requires:	pylint
 BuildRequires:	asciidoc
 BuildRequires:	libxslt
-%if 0%{?rhel} < 6
+%if 0%{?rhel} && 0%{?rhel} < 6
 BuildRequires:	docbook-style-xsl
 %endif
 
