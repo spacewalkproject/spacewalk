@@ -1,7 +1,7 @@
 %define rhnroot %{_prefix}/share/rhn
 
 Name:		spacewalk-utils
-Version:	1.8.8
+Version:	1.8.9
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -87,6 +87,9 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Mon Apr 23 2012 Miroslav Suchý <msuchy@redhat.com> 1.8.9-1
+- 812886 - determine the advisory type by parsing "advisory_type"
+
 * Mon Apr 23 2012 Miroslav Suchý <msuchy@redhat.com> 1.8.8-1
 - 813281 - fix indetation
 
