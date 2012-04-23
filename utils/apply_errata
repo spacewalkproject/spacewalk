@@ -286,7 +286,7 @@ def main():
       if opt['verbose']:
         print "\tDeploying updates now"
         command += ["-v"]
-        call(command, shell=False)
+      call(command, shell=False)
 
    client.auth.logout(session)
 
