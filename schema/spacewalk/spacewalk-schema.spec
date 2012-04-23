@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.8.17
+Version:        1.8.18
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -69,6 +69,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Mon Apr 23 2012 Jan Pazdziora 1.8.18-1
+- Fixing the schema hardening trigger on rhnPackageEvr.
+
 * Fri Apr 20 2012 Jan Pazdziora 1.8.17-1
 - Schema hardening: catch code which would update or delete rhnPackageEvr.
 - Make the records in rhnPackageUpgradeArchCompat -- no need to have
