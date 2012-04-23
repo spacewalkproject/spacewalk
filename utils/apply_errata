@@ -251,13 +251,13 @@ def main():
          result = pattern.search(e['advisory_synopsis'])
 
          if result is not None:
-            if type['b'] and e['advisory_name'].find("RHBA") == 0:
+            if type['b'] and (e['advisory_name'].find("RHBA") == 0 or e['advisory_type'].find("Bug Fix Advisory") == 0):
                erratum.append(e['id'])
 
-            if type['e'] and e['advisory_name'].find("RHEA") == 0:
+            if type['e'] and (e['advisory_name'].find("RHEA") == 0 or e['advisory_type'].find("Enhancement Advisory") == 0):
                erratum.append(e['id'])
 
-            if type['s'] and e['advisory_name'].find("RHSA") == 0:
+            if type['s'] and (e['advisory_name'].find("RHSA") == 0 or e['advisory_type'].find("Security Advisory") == 0):
                erratum.append(e['id'])
 
    if opt['verbose']:
