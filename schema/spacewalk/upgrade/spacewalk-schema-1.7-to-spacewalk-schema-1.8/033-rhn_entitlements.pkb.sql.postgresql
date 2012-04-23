@@ -1,0 +1,254 @@
+-- oracle equivalent source sha1 b04dab2ff31049a8744e5ce1531ccd8b00152bbc
+
+-- setup search_path so that these functions are created in appropriate schema.
+update pg_settings set setting = 'rhn_entitlements,' || setting where name = 'search_path';
+
+
+    -- *******************************************************************
+    -- PROCEDURE: repoll_virt_guest_entitlements
+    --
+    --   Whenever we add/remove a virtualization_host* entitlement from 
+    --   a host, we can call this procedure to update what type of slots
+    --   the guests are consuming.  
+    -- 
+    --   If you're removing the entitlement, it's 
+    --   possible the guests will become unentitled if you don't have enough
+    --   physical slots to cover them.
+    --
+    --   If you're adding the entitlement, you end up freeing up physical
+    --   slots for other systems.
+    --
+    -- *******************************************************************
+    create or replace function repoll_virt_guest_entitlements(
+        server_id_in in numeric
+    ) returns void
+as $$
+    declare
+        -- All channel families associated with the guests of server_id_in
+        families cursor for 
+            select distinct cfs.channel_family_id
+            from
+                rhnChannelFamilyServers cfs,
+                rhnVirtualInstance vi
+            where
+                vi.host_system_id = server_id_in
+                and vi.virtual_system_id = cfs.server_id;
+        
+        -- All of server group types associated with the guests of
+        -- server_id_in
+        group_types cursor for
+            select distinct sg.group_type, sgt.label
+            from
+                rhnServerGroupType sgt,
+                rhnServerGroup sg,
+                rhnServerGroupMembers sgm,
+                rhnVirtualInstance vi
+            where
+                vi.host_system_id = server_id_in
+                and vi.virtual_system_id = sgm.server_id
+                and sgm.server_group_id = sg.id
+                and sg.group_type = sgt.id;
+
+        -- Virtual servers from a certain family belonging to a specific
+        -- host that are consuming physical channel slots over the limit.
+        virt_servers_cfam cursor(family_id_in numeric, quantity_in numeric) for
+                select vi.virtual_system_id
+                from
+                    rhnChannelFamilyMembers cfm,
+                    rhnServerChannel sc,
+                    rhnVirtualInstance vi
+                where
+                    vi.host_system_id = server_id_in
+                    and vi.virtual_system_id = sc.server_id
+                    and sc.channel_id = cfm.channel_id
+                    and cfm.channel_family_id = family_id_in
+                order by sc.modified desc
+                limit quantity_in;                
+
+        -- Virtual servers from a certain family belonging to a specific
+        -- host that are consuming physical system slots over the limit.
+        virt_servers_sgt cursor(group_type_in numeric, quantity_in numeric) for
+                select vi.virtual_system_id
+                from
+                    rhnServerGroup sg,
+                    rhnServerGroupMembers sgm,
+                    rhnVirtualInstance vi
+                where
+                    vi.host_system_id = server_id_in
+                    and vi.virtual_system_id = sgm.server_id
+                    and sgm.server_group_id = sg.id
+                    and sg.group_type = group_type_in
+                order by sgm.modified desc
+                limit quantity_in;                
+        
+        -- Get the orgs of Virtual guests
+        -- Since they may belong to different orgs
+        virt_guest_orgs cursor for
+                select  distinct (s.org_id)
+                from rhnServer s
+                    inner join  rhnVirtualInstance vi on vi.virtual_system_id = s.id
+                where
+                    vi.host_system_id = server_id_in
+                    and s.org_id <> (select s1.org_id from rhnServer s1 where s1.id = vi.host_system_id) ;
+
+        org_id_val numeric;
+        max_members_val numeric;
+        max_flex_val numeric;
+        current_members_calc numeric;
+        sg_id numeric;
+        is_virt numeric := 0;
+        free_slots numeric := 0;
+    begin
+          select 1 into is_virt
+                from rhnServerEntitlementView
+           where server_id = server_id_in
+                 and label in ('virtualization_host', 'virtualization_host_platform');
+
+      if not found then
+          is_virt := 0;
+      end if;
+
+        select org_id
+        into org_id_val
+        from rhnServer
+        where id = server_id_in;
+
+        -- deal w/ channel entitlements first ...
+        for family in families loop
+            if is_virt = 0 then
+            -- if the host_server does not have virt
+            --- find all possible flex slots
+            -- and set each of the flex eligible guests to Y
+                select sfc.max_members - sfc.current_members
+                  into free_slots
+                  from rhnServerFveCapable sfc
+                 where sfc.channel_family_id = family.channel_family_id;
+                UPDATE rhnServerChannel sc set is_fve = 'Y'
+                where sc.server_id in (
+                            select vi.virtual_system_id
+                            from rhnServerFveCapable sfc
+                                inner join rhnVirtualInstance vi on vi.virtual_system_id = sfc.server_id
+                            where vi.host_system_id = server_id_in
+                                  and sfc.channel_family_id = family.channel_family_id
+                              order by vi.modified desc
+                            limit free_slots
+                );
+            else
+            -- if the host_server has virt
+            -- set all its flex guests to N
+                UPDATE rhnServerChannel sc set is_fve = 'N'
+                where
+                    sc.channel_id in (select cfm.channel_id from rhnChannelFamilyMembers cfm
+                                      where cfm.CHANNEL_FAMILY_ID = family.channel_family_id)
+                    and sc.is_fve = 'Y'
+                    and sc.server_id in
+                            (select vi.virtual_system_id  from rhnVirtualInstance vi
+                                    where vi.host_system_id = server_id_in);
+            end if;
+
+            -- get the current (physical) members of the family
+            current_members_calc := 
+                rhn_channel.channel_family_current_members(family.channel_family_id,
+                                                           org_id_val); -- fixed transposed args
+
+            -- get the max members of the family
+            select max_members
+            into max_members_val
+            from rhnPrivateChannelFamily
+            where channel_family_id = family.channel_family_id
+            and org_id = org_id_val;
+
+            select fve_max_members
+            into max_flex_val
+            from rhnPrivateChannelFamily
+            where channel_family_id = family.channel_family_id
+            and org_id = org_id_val;
+
+            if current_members_calc > max_members_val then
+                -- A virtualization_host* ent must have been removed, so we'll
+                -- unsubscribe guests from the host first.
+
+                -- hm, i don't think max_members - current_members_calc yielding a negative number
+                -- will work w/ rownum, swaping 'em in the body of this if...
+                for virt_server in virt_servers_cfam(family.channel_family_id,
+                                current_members_calc - max_members_val) loop 
+
+                    perform rhn_channel.unsubscribe_server_from_family(
+                                virt_server.virtual_system_id,
+                                family.channel_family_id);
+                end loop;                               
+
+                -- if we're still over the limit, which would be odd,
+                -- just prune the group to max_members
+                --
+                -- er... wouldn't we actually have to refresh the values of
+                -- current_members_calc and max_members_val to actually ever
+                -- *skip this??
+                if current_members_calc > max_members_val then
+                    -- argh, transposed again?!
+                    perform rhn_entitlements.set_family_count(org_id_val,
+                                     family.channel_family_id,
+                                     max_members_val, max_flex_val);
+                    --TODO calculate this correctly
+                end if; 
+
+           end if;
+
+            -- update current_members for the family.  This will set the value
+            -- to reflect adding/removing the entitlement.
+            --
+            -- what's the difference of doing this vs the unavoidable set_family_count above?
+            perform rhn_channel.update_family_counts(family.channel_family_id,
+                                             org_id_val);
+
+            -- It is possible that the guests belong  to a different org than the host
+            -- so we are going to update the family counts in the guests orgs also
+            for org in virt_guest_orgs loop
+                    perform rhn_channel.update_family_counts(family.channel_family_id,
+                                             org.org_id);
+            end loop;
+        end loop;
+
+        for a_group_type in group_types loop
+          -- get the current *physical* members of the system entitlement type for the org...
+          -- 
+          -- unlike channel families, it appears the standard rhnServerGroup.max_members represents
+          -- *physical* slots, vs physical+virt ... boy that's confusing...
+
+          select max_members, id
+            into max_members_val, sg_id
+            from rhnServerGroup
+            where group_type = a_group_type.group_type
+            and org_id = org_id_val;
+
+
+      select count(sep.server_id) into current_members_calc
+            from rhnServerEntitlementPhysical sep
+           where sep.server_group_id = sg_id
+             and sep.server_group_type_id = a_group_type.group_type;
+          
+          if current_members_calc > max_members_val then
+            -- A virtualization_host* ent must have been removed, and we're over the limit, so unsubscribe guests
+            for virt_server in virt_servers_sgt(a_group_type.group_type,
+                                                current_members_calc - max_members_val) loop
+              perform rhn_entitlements.remove_server_entitlement(virt_server.virtual_system_id, a_group_type.label);
+
+              -- decrement current_members_calc, we'll use it to reset current_members for the group at the end...
+              current_members_calc := current_members_calc - 1;
+            end loop;
+
+          end if;
+
+          update rhnServerGroup set current_members = current_members_calc
+           where org_id = org_id_val
+             and group_type = a_group_type.group_type;
+
+          -- I think that's all the house-keeping we have to do...
+        end loop;
+
+    end$$
+language plpgsql;
+
+
+-- restore the original setting
+update pg_settings set setting = overlay( setting placing '' from 1 for (length('rhn_entitlements')+1) ) where name = 'search_path';
