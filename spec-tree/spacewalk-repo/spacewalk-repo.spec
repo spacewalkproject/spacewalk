@@ -1,7 +1,7 @@
 Summary: Spacewalk packages yum repository configuration
 Name: spacewalk-repo
 Version: 1.8
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPLv2
 Group: System Environment/Base
 # This src.rpm is cannonical upstream
@@ -98,6 +98,9 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) %{_sysconfdir}/yum.repos.d/spacewalk-client-nightly.repo
 
 %changelog
+* Mon Apr 23 2012 Jan Pazdziora 1.8-3
+- Use the yum.spacewalkproject.org address for yum repos.
+
 * Mon Mar 12 2012 Jan Pazdziora 1.8-2
 - Marking all .repo files as noreplace, so that they survive local
   modifications like enabling nightly repo.
