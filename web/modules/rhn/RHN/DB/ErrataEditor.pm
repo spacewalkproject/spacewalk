@@ -153,24 +153,47 @@ EOQ
   return ($new_eid);
 }
 
+# This duplicates the algorithm in PublishErrataHelper.java
 sub find_next_advisory {
   my $adv = shift || '';
   my $adv_name = shift || '';
-  my $suffix = '';
-  my $i = 1;
+  my $eid = shift;
 
-  $adv = 'CL' . substr($adv, 2);
-  $adv_name = 'CL' . substr($adv_name, 2);
+  # Set adv equal to adv_name if unset
+  unless ($adv) {
+    $adv = $adv_name;
+  }
 
-  if (advisory_exists($adv) || advisory_name_exists($adv_name)) {
-    $suffix = sprintf("-%u", $i++);
-    $adv = $adv . $suffix;
-    $adv_name = $adv_name . $suffix;
+  if (not erratum_is_clone($eid)) {
+    # For RH errata, replace 'RH' with 'CL-', else prepend
+    if ('RH' eq substr($adv_name, 0, 2)) {
+      $adv = 'CL-' . substr($adv, 2);
+      $adv_name = 'CL-' . substr($adv_name, 2);
+    } else {
+      $adv = 'CL-' . $adv;
+      $adv_name = 'CL-' . $adv_name;
+    }
+  } else {
+    # Erratum is a clone, prepend 'CL-', if there is no prefix yet
+    if ('-' ne substr($adv, 2, 1) || '-' ne substr($adv_name, 2, 1)) {
+      $adv = 'CL-' . $adv;
+      $adv_name = 'CL-' . $adv_name;
+    }
+  }
 
-    while (advisory_exists($adv) || advisory_name_exists($adv_name)) {
-      substr($adv, -1, 1) = $i;
-      substr($adv_name, -1, 1) = $i;
-      $i++;
+  # Find the next valid advisory name that doesn't exist yet
+  while (advisory_exists($adv) || advisory_name_exists($adv_name)) {
+    my $c1 = substr($adv, 1, 1);
+    if ('Z' eq $c1) {
+      # Get the next c0
+      my $c0next = ++substr($adv, 0, 1);
+      $adv = $c0next . 'A' . substr($adv, 2);
+      $adv_name = $c0next . 'A' . substr($adv_name, 2);
+    } else {
+      # Get the next c1
+      my $c1next = ++$c1;
+      $adv = substr($adv, 0, 1) . $c1next . substr($adv, 2);
+      $adv_name = substr($adv_name, 0, 1) . $c1next . substr($adv_name, 2);
     }
   }
 
@@ -200,7 +223,7 @@ sub clone_into_org {
   my $adv = $new->advisory;
   my $adv_name = $new->advisory_name;
 
-  ($adv, $adv_name) = find_next_advisory($adv, $adv_name);
+  ($adv, $adv_name) = find_next_advisory($adv, $adv_name, $old_eid);
 
   $new->advisory($adv);
   $new->advisory_name($adv_name);
@@ -270,6 +293,25 @@ EOQ
   
 
   return ($new_eid);
+}
+
+sub erratum_is_clone {
+  my $eid = shift;
+  my $dbh = RHN::DB->connect;
+
+  my $query =<<EOQ;
+SELECT 1
+  FROM dual
+ WHERE EXISTS (SELECT 1 FROM rhnErrataCloned E WHERE E.id = :eid)
+    OR EXISTS (SELECT 1 FROM rhnErrataClonedTmp ET WHERE ET.id = :eid)
+EOQ
+
+  my $sth = $dbh->prepare($query);
+  $sth->execute_h(eid => $eid);
+  my ($exists) = $sth->fetchrow;
+  $sth->finish;
+
+  return ($exists ? 1 : 0);
 }
 
 sub advisory_exists {

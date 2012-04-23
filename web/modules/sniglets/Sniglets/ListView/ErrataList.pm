@@ -361,7 +361,7 @@ sub potential_for_cloned_channel_provider {
       $row->{OWNED_ERRATA_LIST} = '(none)';
     }
 
-    my ($adv, $adv_name) = RHN::DB::ErrataEditor::find_next_advisory($row->{ADVISORY}, $row->{ADVISORY_NAME});
+    my ($adv, $adv_name) = RHN::DB::ErrataEditor::find_next_advisory($row->{ADVISORY}, $row->{ADVISORY_NAME}, $row->{ID});
 
     push(@options, ( { label => "Clone as ${adv_name}",
 		       value => 'clone_new' },
