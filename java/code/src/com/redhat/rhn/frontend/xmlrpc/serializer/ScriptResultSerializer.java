@@ -14,8 +14,11 @@
  */
 package com.redhat.rhn.frontend.xmlrpc.serializer;
 
+import com.redhat.rhn.common.util.StringUtil;
 import com.redhat.rhn.domain.action.script.ScriptResult;
 import com.redhat.rhn.frontend.xmlrpc.serializer.util.SerializerHelper;
+
+import org.apache.commons.codec.binary.Base64;
 
 import java.io.IOException;
 import java.io.Writer;
@@ -35,7 +38,9 @@ import redstone.xmlrpc.XmlRpcSerializer;
  *      #prop_desc("dateTime.iso8601", "startDate", "Time script began execution.")
  *      #prop_desc("dateTime.iso8601", "stopDate", "Time script stopped execution.")
  *      #prop_desc("int", "returnCode", "Script execution return code.")
- *      #prop_desc("string", "output", "Output of the script")
+ *      #prop_desc("string", "output", "Output of the script (base64 encoded according
+                to the output_enc64 attribute)")
+ *      #prop_desc("boolean", "output_enc64", "Identifies base64 encoded output")
  *  #struct_end()
  *
  */
@@ -57,8 +62,16 @@ public class ScriptResultSerializer implements XmlRpcCustomSerializer {
         helper.add("startDate", scriptResult.getStartDate());
         helper.add("stopDate", scriptResult.getStopDate());
         helper.add("returnCode", scriptResult.getReturnCode());
-        helper.add("output", scriptResult.getOutputContents());
+        String outputContents = scriptResult.getOutputContents();
+        if (StringUtil.containsInvalidXmlChars2(outputContents)) {
+            helper.add("output_enc64", Boolean.TRUE);
+            helper.add("output", new String(Base64.encodeBase64(outputContents
+                    .getBytes("UTF-8")), "UTF-8"));
+        }
+        else {
+            helper.add("output_enc64", Boolean.FALSE);
+            helper.add("output", scriptResult.getOutputContents());
+        }
         helper.writeTo(output);
     }
-
 }
