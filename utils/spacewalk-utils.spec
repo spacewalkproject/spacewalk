@@ -1,7 +1,7 @@
 %define rhnroot %{_prefix}/share/rhn
 
 Name:		spacewalk-utils
-Version:	1.8.6
+Version:	1.8.7
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -87,6 +87,9 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Mon Apr 23 2012 Miroslav Suchý <msuchy@redhat.com> 1.8.7-1
+- 813281 - implement -n for apply_errata
+
 * Mon Apr 16 2012 Tomas Lestach <tlestach@redhat.com> 1.8.6-1
 - 812812 - make generated SSL certificate publicly available
   (tlestach@redhat.com)
