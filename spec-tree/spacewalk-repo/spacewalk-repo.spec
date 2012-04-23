@@ -40,8 +40,8 @@ mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/yum.repos.d
 cat >>$RPM_BUILD_ROOT%{_sysconfdir}/yum.repos.d/spacewalk.repo <<REPO
 [spacewalk]
 name=Spacewalk
-baseurl=http://spacewalk.redhat.com/yum/%{version}/%{reposubdir}/\$basearch/
-gpgkey=http://spacewalk.redhat.com/yum/RPM-GPG-KEY-spacewalk-2012
+baseurl=http://yum.spacewalkproject.org/%{version}/%{reposubdir}/\$basearch/
+gpgkey=http://yum.spacewalkproject.org/RPM-GPG-KEY-spacewalk-2012
 enabled=1
 gpgcheck=1
 REPO
@@ -49,8 +49,8 @@ REPO
 cat >>$RPM_BUILD_ROOT%{_sysconfdir}/yum.repos.d/spacewalk-client.repo <<REPO
 [spacewalk-client]
 name=Spacewalk Client Tools
-baseurl=http://spacewalk.redhat.com/yum/%{version}-client/%{reposubdir}/\$basearch/
-gpgkey=http://spacewalk.redhat.com/yum/RPM-GPG-KEY-spacewalk-2012
+baseurl=http://yum.spacewalkproject.org/%{version}-client/%{reposubdir}/\$basearch/
+gpgkey=http://yum.spacewalkproject.org/RPM-GPG-KEY-spacewalk-2012
 enabled=1
 gpgcheck=1
 REPO
@@ -59,7 +59,7 @@ cat >>$RPM_BUILD_ROOT%{_sysconfdir}/yum.repos.d/spacewalk-source.repo <<REPO
 [spacewalk-source]
 name=Spacewalk SRPMS
 baseurl=http://spacewalk.redhat.com/source/%{version}/%{reposubdir}/
-gpgkey=http://spacewalk.redhat.com/yum/RPM-GPG-KEY-spacewalk-2012
+gpgkey=http://yum.spacewalkproject.org/RPM-GPG-KEY-spacewalk-2012
 enabled=0
 gpgcheck=1
 REPO
@@ -67,8 +67,8 @@ REPO
 cat >>$RPM_BUILD_ROOT%{_sysconfdir}/yum.repos.d/spacewalk-nightly.repo <<REPO
 [spacewalk-nightly]
 name=Spacewalk nightly
-baseurl=http://spacewalk.redhat.com/yum/nightly/%{reposubdir}/\$basearch/
-gpgkey=http://spacewalk.redhat.com/yum/RPM-GPG-KEY-spacewalk-2012
+baseurl=http://yum.spacewalkproject.org/nightly/%{reposubdir}/\$basearch/
+gpgkey=http://yum.spacewalkproject.org/RPM-GPG-KEY-spacewalk-2012
 enabled=0
 gpgcheck=0
 REPO
@@ -76,8 +76,8 @@ REPO
 cat >>$RPM_BUILD_ROOT%{_sysconfdir}/yum.repos.d/spacewalk-client-nightly.repo <<REPO
 [spacewalk-client-nightly]
 name=Spacewalk Client Tools nightly
-baseurl=http://spacewalk.redhat.com/yum/nightly-client/%{reposubdir}/\$basearch/
-gpgkey=http://spacewalk.redhat.com/yum/RPM-GPG-KEY-spacewalk-2012
+baseurl=http://yum.spacewalkproject.org/nightly-client/%{reposubdir}/\$basearch/
+gpgkey=http://yum.spacewalkproject.org/RPM-GPG-KEY-spacewalk-2012
 enabled=0
 gpgcheck=0
 REPO
