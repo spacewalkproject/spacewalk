@@ -22,8 +22,9 @@
 import getopt, sys, time, os, re
 import xmlrpclib, httplib
 from time import localtime
-from sys import argv
+from sys import argv, stdout
 import getpass
+from subprocess import call
 
 prog = sys.argv[0]
 today = "%d-%d-%d" % (localtime()[2], localtime()[1], localtime()[0])
@@ -151,6 +152,7 @@ def main():
       opt['proxy'] = os.environ['RHN_PROXY']
 
    opt['verbose'] = False
+   opt['rhn_check'] = False
    for o, a in opts:
       if o == "-v":
          opt['verbose'] = True
@@ -177,6 +179,8 @@ def main():
          opt['test'] = False
       if o in ("-z"):
          opt['search'] = a
+      if o in ("-n"):
+         opt['rhn_check'] = True
 
       if opt['passwd'] == '-':
          opt['passwd'] = getpass.getpass()
@@ -278,6 +282,11 @@ def main():
 
    if not opt['test']:
       client.system.applyErrata(session, sid, erratum)
+      command=["/usr/sbin/rhn_check"]
+      if opt['verbose']:
+        print "\tDeploying updates now"
+        command += ["-v"]
+        call(command, shell=False)
 
    client.auth.logout(session)
 
