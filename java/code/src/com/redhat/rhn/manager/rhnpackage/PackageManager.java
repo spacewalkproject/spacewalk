@@ -26,6 +26,7 @@ import com.redhat.rhn.common.security.PermissionException;
 import com.redhat.rhn.common.util.CompressionUtil;
 import com.redhat.rhn.common.util.RpmVersionComparator;
 import com.redhat.rhn.domain.channel.Channel;
+import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.domain.channel.DistChannelMap;
 import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.domain.org.Org;
@@ -61,6 +62,7 @@ import org.hibernate.Session;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -619,7 +621,13 @@ public class PackageManager extends BaseManager {
         // metadata needs tto be updated (RHEL5+, mostly)
         for (Iterator itr = channels.iterator(); itr.hasNext();) {
             Map m = (Map)itr.next();
-            ChannelManager.queueChannelChange(m.get("label").toString(),
+            String channelLabel = m.get("label").toString();
+            Channel channel = ChannelFactory.lookupByLabel(user.getOrg(), channelLabel);
+            // force channel save to change last_modified
+            // otherwise the repodata won't be generated
+            channel.setLastModified(new Date());
+            ChannelFactory.save(channel);
+            ChannelManager.queueChannelChange(channelLabel,
                     "java::deletePackage",
                     pkg.getPackageName().getName());
         }
