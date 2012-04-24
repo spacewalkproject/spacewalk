@@ -8,8 +8,10 @@
 <body>
 <%@ include file="/WEB-INF/pages/common/fragments/systems/system-header.jspf" %>
     <h2><bean:message key="sdc.details.overview.systemstatus"/></h2>
+
       <div class="systeminfo">
       <div class="systeminfo-full">
+
       <c:choose>
 
         <c:when test="${unentitled}">
@@ -21,10 +23,6 @@
           <c:if test="${documentation == 'true'}">
             <bean:message key="sdc.details.overview.inactive2" arg0="/rhn/help/reference/en-US/s1-sm-systems.jsp#s2-sm-system-list"/>
           </c:if>
-        </c:when>
-        <c:when test="${rebootRequired}">
-          <img src="/img/restart.png"/><bean:message key="sdc.details.overview.requires_reboot"/>
-          <bean:message key="sdc.details.overview.schedulereboot" arg0="/network/systems/details/reboot_confirm.pxt?sid=${system.id}"/>
         </c:when>
         <c:when test="${hasUpdates}">
             <c:choose>
@@ -54,6 +52,16 @@
         </c:otherwise>
       </c:choose>
       </div>
+
+      <c:if test="${rebootRequired}">
+        <div class="systeminfo">
+          <div class="systeminfo-full">
+            <img src="/img/restart.png"/><bean:message key="sdc.details.overview.requires_reboot"/>
+            <bean:message key="sdc.details.overview.schedulereboot" arg0="/network/systems/details/reboot_confirm.pxt?sid=${system.id}"/>
+          </div>
+        </div>
+      </c:if>
+
       <div class="systeminfo-clear" />
       </div>
       <c:if test="${probeListEmpty != 'true'}">
