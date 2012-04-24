@@ -22,7 +22,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.53
+Version: 1.8.54
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -605,6 +605,23 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Apr 24 2012 Simon Lukasik <slukasik@redhat.com> 1.8.54-1
+- Promote Audit to separate tab within SSM. (slukasik@redhat.com)
+- Show targeted systems when scheduling SCAP scan through SSM.
+  (slukasik@redhat.com)
+- Extract method scapCapableSystemsInSsm() (slukasik@redhat.com)
+- Handle errors during SSM schedule of SCAP scan. (slukasik@redhat.com)
+- OpenSCAP integration -- schedule new scan in SSM (slukasik@redhat.com)
+- Extract method for scheduling xccdfEval for multiple systems.
+  (slukasik@redhat.com)
+- The fragment could be used as readonly for confirmation (slukasik@redhat.com)
+- Refactor xccdf schedule form to jsp fragment. (slukasik@redhat.com)
+- Remove redundant definitions of use_date (slukasik@redhat.com)
+- 814836 - do not list ks session related activation keys (tlestach@redhat.com)
+- 815372 - prevent sending XML invalid chars in system.getScriptResults API
+  (tlestach@redhat.com)
+- 815252 - fix errata.listPackages APIdoc (tlestach@redhat.com)
+
 * Fri Apr 20 2012 Tomas Lestach <tlestach@redhat.com> 1.8.53-1
 - remove unused paths from unprotected uris
 - 728205 - do not check CSRF token for login pages
