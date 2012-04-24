@@ -30,12 +30,7 @@
 			<c:when test="${readonly == 'true'}">
 				<c:out value="${localizedDate}"/>
 				<html:hidden property="use_date" value="true" />
-				<html:hidden property="date_year" />
-				<html:hidden property="date_month" />
-				<html:hidden property="date_day" />
-				<html:hidden property="date_hour" />
-				<html:hidden property="date_minute" />
-				<html:hidden property="date_am_pm" />
+				<%@ include file="/WEB-INF/pages/common/fragments/date-picker-hidden.jspf" %>
 			</c:when>
 			<c:otherwise>
 				<jsp:include page="/WEB-INF/pages/common/fragments/date-picker.jsp">

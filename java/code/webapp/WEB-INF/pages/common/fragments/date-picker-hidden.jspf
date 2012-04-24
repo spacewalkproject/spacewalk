@@ -1,0 +1,6 @@
+<html:hidden property="date_year" />
+<html:hidden property="date_month" />
+<html:hidden property="date_day" />
+<html:hidden property="date_hour" />
+<html:hidden property="date_minute" />
+<html:hidden property="date_am_pm" />

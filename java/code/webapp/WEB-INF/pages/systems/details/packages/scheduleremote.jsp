@@ -55,12 +55,7 @@
 <html:hidden property="mode" value="${param.mode}" />
 <html:hidden property="submitted" value="true" />
     <html:hidden property="use_date" />
-    <html:hidden property="date_year" />
-    <html:hidden property="date_month" />
-    <html:hidden property="date_day" />
-    <html:hidden property="date_hour" />
-    <html:hidden property="date_minute" />
-    <html:hidden property="date_am_pm" />
+<%@ include file="/WEB-INF/pages/common/fragments/date-picker-hidden.jspf" %>
 
   <div align="right">
     <hr />
