@@ -58,7 +58,7 @@ public class CriticalSystemsRenderer extends BaseFragmentRenderer {
         request.setAttribute(PAGINATION_MESSAGE,
                 makePaginationMessage(mcdr.getEnd(), mcdr.getTotalSize(),
                         "yourrhn.jsp.criticalsystems.description"));
-        request.setAttribute("parentUrl", request.getRequestURI());
+        request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
     }
 
     /**

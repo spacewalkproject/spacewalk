@@ -29,6 +29,7 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.ContentSourceDto;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
 import com.redhat.rhn.manager.channel.RepoLister;
 
 /**
@@ -53,7 +54,7 @@ public class RepoListSetupAction extends RhnAction {
         result = RepoLister.getInstance().list(user);
         Collections.sort(result, LABEL_COMPARATOR);
         request.setAttribute("pageList", result);
-        request.setAttribute("parentUrl", request.getRequestURI());
+        request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
         return mapping.findForward("default");
     }
 

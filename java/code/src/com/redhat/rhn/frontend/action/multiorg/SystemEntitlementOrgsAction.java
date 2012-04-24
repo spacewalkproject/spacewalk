@@ -23,6 +23,7 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnValidationHelper;
+import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
 import com.redhat.rhn.manager.entitlement.EntitlementManager;
 import com.redhat.rhn.manager.org.OrgManager;
 import com.redhat.rhn.manager.org.UpdateOrgSystemEntitlementsCommand;
@@ -99,7 +100,7 @@ public class SystemEntitlementOrgsAction extends RhnAction {
         request.setAttribute("egntname", entitlementLabel);
         request.setAttribute("enthuman", e.getHumanReadableLabel());
         request.setAttribute("pageList", result);
-        request.setAttribute("parentUrl", request.getRequestURI() +
+        request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI() +
             "?label=" + entitlementLabel);
 
         //Calculate System Wide Sat usage

@@ -22,6 +22,7 @@ import com.redhat.rhn.frontend.dto.SystemsPerChannelDto;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnHelper;
+import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
 import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.rhnset.RhnSetManager;
@@ -64,7 +65,7 @@ public class ChildChannelAction extends RhnAction {
         User user = rctx.getLoggedInUser();
         DynaActionForm daForm = (DynaActionForm)form;
 
-        request.setAttribute("parentUrl", request.getRequestURI());
+        request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
 
         // Provide the list of all child-channels for all systems in the SSM
         setupList(user, request);

@@ -24,6 +24,7 @@ import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.StrutsDelegate;
+import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
 import com.redhat.rhn.frontend.taglibs.list.TagHelper;
 import com.redhat.rhn.frontend.taglibs.list.helper.ListRhnSetHelper;
 import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
@@ -59,7 +60,7 @@ public class AddPackagesAction extends RhnAction implements Listable {
                                  HttpServletResponse response)
         throws Exception {
 
-        request.setAttribute("parentUrl", request.getRequestURI());
+        request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
 
         RequestContext context = new RequestContext(request);
         Map<String, Object> params = new HashMap<String, Object>();

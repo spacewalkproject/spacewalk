@@ -16,6 +16,7 @@ package com.redhat.rhn.frontend.action.systems.entitlements;
 
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
 import com.redhat.rhn.manager.system.VirtualizationEntitlementsManager;
 
 import org.apache.struts.action.ActionForm;
@@ -56,7 +57,7 @@ public class VirtualizationEntitlementsAction extends MappingDispatchAction {
     public ActionForward listGuestLimited(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response) {
 
-        request.setAttribute("parentUrl", request.getRequestURI());
+        request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
         RequestContext rctx = new RequestContext(request);
         User user = rctx.getLoggedInUser();
         request.setAttribute(PAGELIST,
@@ -78,7 +79,7 @@ public class VirtualizationEntitlementsAction extends MappingDispatchAction {
     public ActionForward listGuestUnlimited(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response) {
 
-        request.setAttribute("parentUrl", request.getRequestURI());
+        request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
         RequestContext context = new RequestContext(request);
         User user = context.getLoggedInUser();
         request.setAttribute(PAGELIST,
@@ -101,7 +102,7 @@ public class VirtualizationEntitlementsAction extends MappingDispatchAction {
     public ActionForward listPhysicalHosts(ActionMapping mapping,
             ActionForm form, HttpServletRequest request, HttpServletResponse response) {
 
-        request.setAttribute("parentUrl", request.getRequestURI());
+        request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
         RequestContext rctx = new RequestContext(request);
         User user = rctx.getLoggedInUser();
         request.setAttribute(PAGELIST,

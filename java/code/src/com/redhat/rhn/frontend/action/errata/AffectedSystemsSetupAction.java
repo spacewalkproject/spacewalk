@@ -96,7 +96,7 @@ public class AffectedSystemsSetupAction extends RhnListAction {
         request.setAttribute("pageList", dr);
         request.setAttribute("set", set);
         request.setAttribute("errata", errata);
-        request.setAttribute("parentUrl", request.getRequestURI() + "?" +
+        request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI() + "?" +
                 RequestContext.ERRATA_ID + "=" + errata.getId());
 
         return strutsDelegate.forwardParams(mapping.findForward("default"),

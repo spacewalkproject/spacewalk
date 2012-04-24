@@ -15,6 +15,7 @@
 package com.redhat.rhn.frontend.action.multiorg;
 
 import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
 
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -35,7 +36,7 @@ public class SystemEntitlementDetailsAction extends RhnAction {
             HttpServletRequest request, HttpServletResponse response) throws Exception {
         String entitlementLabel = request.getParameter("label");
         request.setAttribute("name", entitlementLabel);
-        request.setAttribute("parentUrl", request.getRequestURI());
+        request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
 
         return mapping.findForward("default");
     }

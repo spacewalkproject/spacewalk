@@ -25,6 +25,7 @@ import com.redhat.rhn.domain.server.ServerNetAddress6;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
 import com.redhat.rhn.manager.action.ActionManager;
 import com.redhat.rhn.manager.system.SystemManager;
 
@@ -242,7 +243,7 @@ public class SystemHardwareAction extends RhnAction {
         request.setAttribute("usbDevices", usbDevices);
         request.setAttribute("captureDevices", captureDevices);
 
-        request.setAttribute("parentUrl", request.getRequestURI());
+        request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
     }
 
 }

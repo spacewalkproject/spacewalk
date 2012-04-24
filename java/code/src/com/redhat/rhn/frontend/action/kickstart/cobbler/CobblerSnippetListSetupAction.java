@@ -20,6 +20,7 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.common.BadParameterException;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerSnippetLister;
 
 import org.apache.struts.action.ActionForm;
@@ -68,7 +69,7 @@ public class CobblerSnippetListSetupAction extends RhnAction {
         }
         Collections.sort(result, NAME_COMPARATOR);
         request.setAttribute("pageList", result);
-        request.setAttribute("parentUrl", request.getRequestURI());
+        request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
         return mapping.findForward("default");
     }
 

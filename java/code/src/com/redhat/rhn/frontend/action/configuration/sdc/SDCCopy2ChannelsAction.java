@@ -19,6 +19,7 @@ import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.configuration.channel.Copy2ChannelsAction;
 import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
 import com.redhat.rhn.manager.configuration.ConfigurationManager;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 
@@ -54,7 +55,7 @@ public class SDCCopy2ChannelsAction extends Copy2ChannelsAction {
         Server s = ctx.lookupAndBindServer();
         String url = req.getRequestURI() + "?" +
                             RequestContext.SID + "=" + s.getId();
-        req.setAttribute("parentUrl", url);
+        req.setAttribute(ListTagHelper.PARENT_URL, url);
     }
 
     /**

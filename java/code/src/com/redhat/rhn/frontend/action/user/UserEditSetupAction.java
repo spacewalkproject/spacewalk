@@ -25,6 +25,7 @@ import com.redhat.rhn.frontend.action.common.BadParameterException;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnHelper;
+import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
 import com.redhat.rhn.manager.user.UserManager;
 
 import org.apache.log4j.Logger;
@@ -113,7 +114,7 @@ public class UserEditSetupAction extends RhnAction {
         }
 
         // Keep the new list tag happy:
-        request.setAttribute("parentUrl", request.getRequestURI());
+        request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
 
         return mapping.findForward("default");
     }

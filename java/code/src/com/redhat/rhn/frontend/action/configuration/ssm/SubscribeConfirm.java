@@ -27,6 +27,7 @@ import com.redhat.rhn.frontend.dto.ConfigSystemDto;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnHelper;
+import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
 import com.redhat.rhn.manager.configuration.ConfigurationManager;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.system.SystemManager;
@@ -100,7 +101,7 @@ public class SubscribeConfirm extends RhnAction {
         parentUrl.append(request.getParameter(POSITION));
 
         //store the data so the list tag can see it
-        request.setAttribute("parentUrl", parentUrl.toString());
+        request.setAttribute(ListTagHelper.PARENT_URL, parentUrl.toString());
         request.setAttribute("channelList", channels);
         request.setAttribute("systemList", systems);
 

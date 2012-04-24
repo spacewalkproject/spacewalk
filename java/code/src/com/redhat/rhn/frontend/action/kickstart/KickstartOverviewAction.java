@@ -22,6 +22,7 @@ import com.redhat.rhn.frontend.dto.kickstart.KickstartOverviewSummaryDto;
 import com.redhat.rhn.frontend.dto.kickstart.KickstartOverviewSystemsDto;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
 import com.redhat.rhn.manager.kickstart.KickstartLister;
 
 import org.apache.struts.action.ActionForm;
@@ -102,7 +103,7 @@ public class KickstartOverviewAction extends RhnAction {
        rctx.getRequest().setAttribute(KICKSTART_SUMMARY, ksdr);
        rctx.getRequest().setAttribute(SYSTEMS_CURRENTLY_KICKSTARTING, ckdr);
        rctx.getRequest().setAttribute(SYSTEMS_TO_BE_KICKSTARTED, skdr);
-       rctx.getRequest().setAttribute("parentUrl", request.getRequestURI());
+       rctx.getRequest().setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
 
 
        return mapping.findForward("default");

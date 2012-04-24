@@ -19,6 +19,7 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnHelper;
+import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
 import com.redhat.rhn.frontend.taglibs.list.helper.ListSessionSetHelper;
 import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
 import com.redhat.rhn.manager.rhnpackage.PackageManager;
@@ -48,7 +49,7 @@ public class SelectVerifyPackagesAction extends RhnAction implements Listable {
                                  ActionForm actionForm,
                                  HttpServletRequest request,
                                  HttpServletResponse response) throws Exception {
-        request.setAttribute("parentUrl", request.getRequestURI());
+        request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
 
         Map params = new HashMap();
 

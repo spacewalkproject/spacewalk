@@ -126,7 +126,7 @@ public class PatchSetListAction extends RhnListAction {
 
         request.setAttribute("cid", chan.getId());
         request.setAttribute("pageList", patchSets);
-        request.setAttribute("parentUrl", request.getRequestURI());
+        request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
         ListTagHelper.bindSetDeclTo(LIST_NAME, getDecl(), request);
 
 

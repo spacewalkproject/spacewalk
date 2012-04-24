@@ -106,7 +106,8 @@ public abstract class BaseCopyToAction extends RhnAction {
         RequestContext ctx = new RequestContext(req);
         ConfigChannel cc = ConfigActionHelper.getChannel(req);
         ConfigActionHelper.setupRequestAttributes(ctx, cc);
-        req.setAttribute("parentUrl",  req.getRequestURI() + "?ccid=" + cc.getId());
+        req.setAttribute(ListTagHelper.PARENT_URL,
+                req.getRequestURI() + "?ccid=" + cc.getId());
     }
 
     protected ActionForward doCopy(ActionMapping mapping,

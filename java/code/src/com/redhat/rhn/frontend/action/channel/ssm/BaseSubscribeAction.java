@@ -30,6 +30,7 @@ import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.RhnLookupDispatchAction;
 import com.redhat.rhn.frontend.struts.StrutsDelegate;
+import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
 import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.system.SystemManager;
@@ -97,7 +98,7 @@ public class BaseSubscribeAction extends RhnLookupDispatchAction {
 
         RequestContext rctx = new RequestContext(request);
         User user = rctx.getLoggedInUser();
-        request.setAttribute("parentUrl", request.getRequestURI());
+        request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
 
         ActionForward af = mapping.findForward(RhnHelper.DEFAULT_FORWARD);
 
@@ -251,7 +252,7 @@ public class BaseSubscribeAction extends RhnLookupDispatchAction {
             }
         }
 
-        request.setAttribute("parentUrl", request.getRequestURI());
+        request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
         request.setAttribute(MATCHED_CHILD_CHANNELS, matched);
         request.setAttribute(FOUND_UNMATCHED_CHANNELS, unmatched.size() > 0);
         request.setAttribute(UNMATCHED_CHILD_CHANNELS, unmatched);
@@ -302,7 +303,7 @@ public class BaseSubscribeAction extends RhnLookupDispatchAction {
 
         RequestContext rctx = new RequestContext(request);
         User user = rctx.getLoggedInUser();
-        request.setAttribute("parentUrl", request.getRequestURI());
+        request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
 
         String barSeparatedChannelIds = request.getParameter(BASE_CHANNEL_IDS);
         String barSeparatedNewChannelIds = request.getParameter(NEW_BASE_CHANNEL_IDS);
