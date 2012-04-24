@@ -2851,6 +2851,7 @@
         input="/WEB-INF/pages/systems/details/audit/schedulexccdf.jsp"
         type="com.redhat.rhn.frontend.action.systems.audit.ScheduleXccdfAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <set-property property="acls" value="system_has_management_entitlement()"/>
         <forward name="default"
             path="/WEB-INF/pages/systems/details/audit/schedulexccdf.jsp"/>
         <forward name="error"

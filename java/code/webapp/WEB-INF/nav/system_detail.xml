@@ -186,7 +186,7 @@
       <rhn-tab-url>/rhn/systems/details/audit/ListScap.do</rhn-tab-url>
       <rhn-tab-url>/rhn/systems/details/audit/XccdfDetails.do</rhn-tab-url>
     </rhn-tab>
-    <rhn-tab name="nav.system.audit.schedule">
+    <rhn-tab name="nav.system.audit.schedule" acl="system_has_management_entitlement()">
       <rhn-tab-url>/rhn/systems/details/audit/ScheduleXccdf.do</rhn-tab-url>
     </rhn-tab>
   </rhn-tab>
