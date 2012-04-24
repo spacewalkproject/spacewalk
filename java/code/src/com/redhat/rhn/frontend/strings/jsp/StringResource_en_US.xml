@@ -5062,7 +5062,7 @@ value for this entitlement, excluding the default organization's consumption.</s
       </trans-unit>
 
       <trans-unit id="requiringrebootlist.jsp.header">
-        <source>Systems requiring reboot</source>
+        <source>Systems Requiring Reboot</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/RequiringReboot</context>
           <context context-type="sourcefile">/rhn/systems/YourRhn.do</context>
