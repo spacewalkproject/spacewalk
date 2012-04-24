@@ -96,9 +96,9 @@ SELECT CFO.id, CFO.name, GREATEST(0, CFO.current_members) current_members, CFO.m
 
 <mode name="channel_tree">
   <query params="user_id, org_id">
-SELECT  UACh.channel_name NAME,
-        UACh.channel_id ID,
-        UACh.channel_depth DEPTH,
+SELECT  UACh.channel_name AS NAME,
+        UACh.channel_id AS ID,
+        UACh.channel_depth AS DEPTH,
         UACh.channel_arch_id,
         UACh.current_members,
         UACh.available_members,
@@ -126,9 +126,9 @@ ORDER BY rhn_channel.channel_priority(UACh.parent_or_self_id), UACh.parent_or_se
 
 <mode name="channels_with_downloads_tree_relevant">
   <query params="user_id, org_id">
-SELECT  UACh.channel_name NAME,
-        UACh.channel_id ID,
-        UACh.channel_depth DEPTH,
+SELECT  UACh.channel_name AS NAME,
+        UACh.channel_id AS ID,
+        UACh.channel_depth AS DEPTH,
         UACh.channel_arch_id,
         UACh.current_members,
         UACh.available_members,
@@ -159,9 +159,9 @@ ORDER BY  rhn_channel.channel_priority(UACh.parent_or_self_id), UACh.parent_or_s
 
 <mode name="channels_with_downloads_tree_full">
   <query params="user_id">
-SELECT  UACh.channel_name NAME,
-        UACh.channel_id ID,
-        UACh.channel_depth DEPTH,
+SELECT  UACh.channel_name AS NAME,
+        UACh.channel_id AS ID,
+        UACh.channel_depth AS DEPTH,
         UACh.channel_arch_id,
         UACh.current_members,
         UACh.available_members,
@@ -186,7 +186,7 @@ ORDER BY  rhn_channel.channel_priority(UACh.parent_or_self_id),  UACh.parent_or_
 
 <mode name="channel_tree_ssm_install">
   <query params="org_id, user_id">
-SELECT  ACh.channel_name NAME, ACh.channel_id ID, ACh.channel_depth DEPTH, ACh.channel_arch_id, ACh.current_members, ACh.available_members, (SELECT COUNT(DISTINCT CPN.name_id) FROM rhnChannelNewestPackage CPN WHERE CPN.channel_id = ACh.channel_id) AS PACKAGE_COUNT, ACh.parent_or_self_label, ACh.channel_label
+SELECT  ACh.channel_name AS NAME, ACh.channel_id AS ID, ACh.channel_depth AS DEPTH, ACh.channel_arch_id, ACh.current_members, ACh.available_members, (SELECT COUNT(DISTINCT CPN.name_id) FROM rhnChannelNewestPackage CPN WHERE CPN.channel_id = ACh.channel_id) AS PACKAGE_COUNT, ACh.parent_or_self_label, ACh.channel_label
   FROM  rhnAvailableChannels ACh
  WHERE  ACh.org_id = :org_id
    AND  (    ACh.channel_arch_id = lookup_channel_arch('channel-ia32')
@@ -209,7 +209,7 @@ ORDER BY  rhn_channel.channel_priority(ACh.parent_or_self_id), ACh.parent_or_sel
 
 <mode name="channel_tree_ssm_solaris_install">
   <query params="org_id, user_id">
-SELECT  ACh.channel_name NAME,         ACh.channel_id ID,         ACh.channel_depth DEPTH,         ACh.channel_arch_id,         ACh.current_members,         ACh.available_members,         (  SELECT COUNT(DISTINCT CPN.name_id)              FROM rhnChannelNewestPackage CPN
+SELECT  ACh.channel_name AS NAME,         ACh.channel_id AS ID,         ACh.channel_depth AS DEPTH,         ACh.channel_arch_id,         ACh.current_members,         ACh.available_members,         (  SELECT COUNT(DISTINCT CPN.name_id)              FROM rhnChannelNewestPackage CPN
             WHERE CPN.channel_id = ACh.channel_id) AS PACKAGE_COUNT,
         ACh.parent_or_self_label,
         ACh.channel_label
@@ -232,8 +232,8 @@ ORDER BY  rhn_channel.channel_priority(ACh.parent_or_self_id), ACh.parent_or_sel
 
 <mode name="non_eol_all_channels_tree">
   <query params="user_id">
-SELECT  UACh.channel_name NAME,
-        UACh.channel_id ID,
+SELECT  UACh.channel_name AS NAME,
+        UACh.channel_id AS ID,
         UACh.channel_depth AS DEPTH,
         UACh.channel_arch_id,
         UACh.current_members,
@@ -259,8 +259,8 @@ ORDER BY  rhn_channel.channel_priority(UACh.parent_or_self_id), UACh.parent_or_s
 
 <mode name="eol_all_channels_tree">
   <query params="user_id">
-SELECT  UACh.channel_name NAME,
-        UACh.channel_id ID,
+SELECT  UACh.channel_name AS NAME,
+        UACh.channel_id AS ID,
         UACh.channel_depth AS DEPTH,
         UACh.channel_arch_id,
         UACh.current_members,
