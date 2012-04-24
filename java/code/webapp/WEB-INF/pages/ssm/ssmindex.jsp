@@ -35,6 +35,26 @@
     <td><bean:message key="ssm.overview.packages.upgrade"/></td>
   </tr>
 
+<rhn:require acl="is(enable_solaris_support)">
+  <tr>
+     <td><img src="/img/rhn-icon-patch.gif"
+                alt="<bean:message key="ssm.overview.patches"/>"/></td>
+                <th><bean:message key="ssm.overview.patches"/>:</th>
+                <td>
+<a href="/network/systems/ssm/patches/install.pxt"><bean:message key="ssm.overview.patches.install"/></a> / <a href="/network/systems/ssm/patches/remove.pxt"><bean:message key="ssm.overview.patches.remove"/></a>
+ <bean:message key="ssm.overview.patches.patches"/><br />
+                </td>
+  </tr>
+
+  <tr>
+     <td><img src="/img/rhn-icon-patchset.gif"
+                alt="<bean:message key="ssm.overview.patch.clusters"/>"/></td>
+                <th><bean:message key="ssm.overview.patch.clusters"/>:</th>
+                <td> <bean:message key="ssm.overview.patch.clusters.install"/><br />
+     </td>
+  </tr>
+</rhn:require>
+
   <tr>
     <td><img src="/img/rhn-icon-system_group.gif" alt="<bean:message key="ssm.overview.groups"/>" /></td>
     <th><b><bean:message key="ssm.overview.groups"/></b></th>

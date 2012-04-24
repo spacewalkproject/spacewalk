@@ -4546,6 +4546,29 @@ value for this entitlement, excluding the default organization's consumption.</s
          <source>Provisioning</source>
        </trans-unit>
 
+       <trans-unit id="ssm.overview.patches">
+         <source>Patches</source>
+       </trans-unit>
+
+       <trans-unit id="ssm.overview.patches.install">
+         <source>Install</source>
+       </trans-unit>
+
+       <trans-unit id="ssm.overview.patches.remove">
+         <source>Remove</source>
+       </trans-unit>
+
+       <trans-unit id="ssm.overview.patches.patches">
+         <source>patches</source>
+       </trans-unit>
+
+       <trans-unit id="ssm.overview.patch.clusters">
+         <source>Patch Clusters</source>
+       </trans-unit>
+
+       <trans-unit id="ssm.overview.patch.clusters.install">
+         <source>&lt;a href="/network/systems/ssm/patchsets/install.pxt"&gt;Install&lt;/a&gt; patch clusters</source>
+       </trans-unit>
 
        <trans-unit id="ssm.overview.provisioning.kickstart">
          <source>&lt;a href="/rhn/systems/ssm/kickstart/KickstartableSystems.do"&gt;Kickstart&lt;/a&gt; systems</source>
