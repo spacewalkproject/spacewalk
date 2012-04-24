@@ -1,0 +1,261 @@
+#!/usr/bin/perl
+
+eval 'exec /usr/bin/perl  -S $0 ${1+"$@"}'
+    if 0; # not running under some shell
+#
+# Copyright (c) 2012 Red Hat, Inc.
+#
+# This software is licensed to you under the GNU General Public License,
+# version 2 (GPLv2). There is NO WARRANTY for this software, express or
+# implied, including the implied warranties of MERCHANTABILITY or FITNESS
+# FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
+# along with this software; if not, see
+# http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
+#
+# Red Hat trademarks are not licensed under GPLv2. No permission is
+# granted to use or replicate Red Hat trademarks that are incorporated
+# in this software or its documentation.
+
+use Sys::Hostname;
+use Getopt::Long;
+use Spacewalk::Setup;
+
+use strict 'refs';
+use warnings FATAL => 'all';;
+
+my $macros = '';
+my $verbose;
+my $help = 0;
+my %macros = ('hostname' => Sys::Hostname::hostname());
+
+my @ini_files = ('modules.conf');
+my @flat_files = ('settings');
+
+my $usage = <<EOHELP;
+Usage: $0 --help | --macros macros
+Options:
+  --help     Print this help message
+  --verbose  Verbose output
+  --macros   Comma delimited list of macroname:macrovalue options
+EOHELP
+
+GetOptions("macros:s" => \$macros, "verbose" => \$verbose, "help" => \$help) or die $usage;
+if ($help) {
+	print $usage;
+	exit 0;
+}
+
+if ($macros) {
+	foreach my $i (split(/,/, $macros, 0)) {
+		my ($key, $value) = split(/:/, $i, 3);
+		$macros{$key} = $value;
+	}
+}
+
+foreach my $configfile ('modules.conf', 'settings') {
+	my $cfpath= "/etc/cobbler/" . $configfile;
+	my @original_content = my @modified_content = @{ read_filelines($cfpath) };
+	my %cf_def = %{ read_config_definition($configfile, \%macros) };
+	my $i = 0;
+	my $section;
+
+	print "Processing $cfpath\n" if $verbose;
+	foreach my $line (@original_content) {
+		next if ($line =~ /^\s*#/);
+
+		$section = $1 if ($line =~ /^\[(.+)\]\s*$/);
+
+		if ($line =~ /^([^#=:]+?)\s*[:=]\s*(.+?)\s*$/) {
+			if (defined $section) {
+				if (defined $cf_def{$section}{$1} && not $cf_def{$section}{$1} eq $2) {
+					$modified_content[$i] = "## disabled by spacewalk-setup-cobbler ## " .
+						"$line$1 = $cf_def{$section}{$1}\n";
+				}
+			} else {
+				if (defined $cf_def{$1} && not $cf_def{$1} eq $2) {
+					$modified_content[$i] = "## disabled by spacewalk-setup-cobbler ## " .
+						"$line$1: $cf_def{$1}\n";
+				}
+			}
+		}
+	} continue {
+		++$i;
+	}
+
+	if (!arrays_match(\@original_content, \@modified_content)) {
+		my @backup_cmd = ('/bin/cp', '-p', '--backup=numbered', $cfpath, "$cfpath-swsave");
+		push @backup_cmd, '-v' if $verbose;
+		system(@backup_cmd);
+
+		local *FILE;
+		open FILE, ">$cfpath" or die "Error opening [$cfpath] for writing: $!\n";
+		print FILE @modified_content;
+		close FILE;
+	}
+}
+
+sub read_filelines {
+	my $path = shift;
+	my @content;
+
+	local *CF_FILE;
+	open (CF_FILE, $path) or die "Error opening [$path] for reading: $!\n";
+	@content = <CF_FILE>;
+	close CF_FILE;
+
+	return \@content;
+}
+
+sub read_config_definition {
+	my $file = shift;
+	my %macros = %{(shift)};
+	my %definition;
+
+	foreach my $line (@{read_filelines(Spacewalk::Setup::SHARED_DIR . "/cobbler/$file")}) {
+		chomp $line;
+		next if $line =~ /^\s*(#|$)/;
+		my @content = split / /, $line, 3;
+		my $value = $content[-1];
+
+		if ($value and $value =~ /^\@(.+)\@$/) {
+			$value = $macros{$1} if defined $macros{$1};
+		}
+
+		if (scalar(@content) == 2) {
+			$definition{$content[0]} = $value;
+		} elsif (scalar(@content) == 3) {
+			$definition{$content[0]}{$content[1]} = $value;
+		}
+	}
+
+	return \%definition;
+}
+
+sub arrays_match {
+	my @array1 = @{(shift)};
+	my @array2 = @{(shift)};
+
+	foreach my $i (@array1) {
+		return 0 if ! grep {$i eq $_} (@array2);
+	}
+
+	return 1;
+}
+
+1;
+
+=head1 NAME
+
+spacewalk-setup-cobbler - utility for configuring cobbler services to work with
+Spacewalk / Satellite
+
+=head1 SYNOPSIS
+
+B<spacewalk-setup-cobbler>
+[B<--help>]
+[B<--verbose>]
+[B<--macros macro1:macro1value,macro2:macro2value...>]
+
+=head1 OPTIONS
+
+=over 5
+
+=item B<--macros>
+
+Specify macro names and corresponding macro values that will be used for
+substitution for correct document modification. You can specify multiple
+macro:value pairs which you need to delimit by commas.
+
+Example: --macros hostname:host.domain.org
+
+=item B<--verbose>
+
+Verbose script operation.
+
+=item B<--help>
+
+Print help message.
+
+=back
+
+=head1 DESCRIPTION
+
+B<spacewalk-setup-cobbler> is a utility for configuring cobbler to work
+with Spacewalk / Satellite. The script uses template documents to modify
+default / existing cobbler configuration.
+
+Ordinarily, spacewalk-setup-cobbler is called by spacewalk-setup(1) during
+initial Spacewalk / Satellite configuration or upgrade.
+
+The workflow of the script is:
+
+=over 5
+
+=item
+
+For each of the cobbler configuration files, the script reads appropriate
+template file.
+
+=item
+
+Substitutes macros as found in template files with expanded values.
+
+=item
+
+Reads particular cobbler configuration files and substitutes default / existing
+values with values from template files.
+
+=item
+
+Resulting configuration files are written out while the original files are backed up.
+
+=back
+
+=head1 TEMPLATE FILES
+
+Basename of a template files must be the same as the basename of
+the corresponding configuration file.
+
+A template file for an INI-style configuration file (such as
+/etc/cobbler/modules.conf) has the following format:
+
+C<section parameter value>
+
+A template file for a key: value type of configuration file (such as
+/etc/cobbler/settings) has the following format:
+
+C<parameter value>
+
+In both cases, string enclosed in '@' signs (e.g. @hostname@) denotes a macro
+name rather than an actual value.
+
+=head1 MACROS
+
+Currently, the only recognized macro is B<hostname>. If not specified on
+command line, the hostname will be determined automatically.
+
+=head1 FILES
+
+Template files used for modification of existing cobbler configuration files:
+
+F</usr/share/spacewalk/setup/cobbler/modules.conf>
+
+F</usr/share/spacewalk/setup/cobbler/settings>
+
+Cobbler configuration files modified by spacewalk-setup-cobbler:
+
+F</etc/cobbler/modules.conf>
+
+F</etc/cobbler/settings>
+
+=head1 SEE ALSO
+
+B<spacewalk-setup>(1) - Spacewalk setup program
+
+B<cobbler>(1) - Cobbler manual page
+
+=head1 AUTHORS
+
+Milan Zazrivec
+
+=cut

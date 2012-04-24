@@ -72,6 +72,8 @@ install -d -m 755 %{buildroot}/%{_datadir}/spacewalk/setup/defaults.d/
 install -d -m 755 %{buildroot}/%{_datadir}/spacewalk/setup/upgrade
 install -m 0755 share/upgrade/* %{buildroot}/%{_datadir}/spacewalk/setup/upgrade
 install -m 0644 share/defaults.d/defaults.conf %{buildroot}/%{_datadir}/spacewalk/setup/defaults.d/
+install -d -m 755 %{buildroot}/%{_datadir}/spacewalk/setup/cobbler
+install -m 0644 share/cobbler/* %{buildroot}/%{_datadir}/spacewalk/setup/cobbler/
 
 # Oracle specific stuff, possible candidate for sub-package down the road:
 install -d -m 755 %{buildroot}/%{_datadir}/spacewalk/setup/oracle/
@@ -84,6 +86,7 @@ install -d -m 755 %{buildroot}/%{_var}/spacewalk
 
 mkdir -p $RPM_BUILD_ROOT%{_mandir}/man8
 /usr/bin/pod2man --section=8 $RPM_BUILD_ROOT/%{_bindir}/spacewalk-make-mount-points | gzip > $RPM_BUILD_ROOT%{_mandir}/man8/spacewalk-make-mount-points.8.gz
+/usr/bin/pod2man --section=1 $RPM_BUILD_ROOT/%{_bindir}/spacewalk-setup-cobbler | gzip > $RPM_BUILD_ROOT%{_mandir}/man1/spacewalk-setup-cobbler.1.gz
 
 %check
 make test
@@ -99,6 +102,7 @@ rm -rf %{buildroot}
 %{perl_vendorlib}/*
 %{_bindir}/spacewalk-setup
 %{_bindir}/spacewalk-make-mount-points
+%{_bindir}/spacewalk-setup-cobbler
 %{_bindir}/cobbler20-setup
 %{_mandir}/man[13]/*.[13]*
 %{_datadir}/spacewalk/*

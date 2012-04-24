@@ -38,7 +38,8 @@ $DEBUG = 0;
 use constant DEFAULT_CA_CERT_NAME =>
   'RHN-ORG-TRUSTED-SSL-CERT';
 
-use constant COBBLER_COMMAND => 'cobbler-setup';
+use constant COBBLER_20_COMMAND => 'cobbler20-setup';
+use constant COBBLER_COMMAND => 'spacewalk-setup-cobbler';
 
 my %opts = Spacewalk::Setup::parse_options();
 
@@ -236,89 +237,9 @@ sub setup_cobbler {
   # newer versions of Cobbler don't ship the config templates
   if ($cobbler_version =~ /2\.0/) {
     # Cobbler 2.0 can use the old helper script
-    system(COBBLER_COMMAND);
+    system(COBBLER_20_COMMAND);
   } else {
-    my $cobbler_dir = '/etc/cobbler';
-    my $cobbler_settings_file = 'settings';
-    my $cobbler_modules_file = 'modules.conf';
-
-    my %cobbler_settings = (
-      'server'                   => $answers->{'hostname'},
-      'next_server'              => $answers->{'hostname'},
-      'redhat_management_server' => $answers->{'hostname'},
-      'redhat_management_type'   => 'site',
-      'pxe_just_once'            => 1
-    );
-
-    Spacewalk::Setup::backup_file($cobbler_dir, $cobbler_settings_file);
-
-    open(FILE, "<$cobbler_dir/$cobbler_settings_file");
-
-    my @output_lines;
-    while(<FILE>) {
-      my $line = $_;
-
-      foreach my $key (keys(%cobbler_settings)) {
-          if ($line =~ /^$key ?:/) {
-            $line = "$key: $cobbler_settings{$key}\n";
-            last;
-          }
-      }
-
-      push(@output_lines, $line);
-    }
-
-    close(FILE);
-
-    # write the new file
-    open(FILE, ">$cobbler_dir/$cobbler_settings_file");
-    for my $line (@output_lines) {
-      print FILE $line;
-    }
-    close(FILE);
-
-    my %cobbler_modules = ( 'authentication' => 'authn_spacewalk' );
-    Spacewalk::Setup::backup_file($cobbler_dir, $cobbler_modules_file);
-    open(FILE, "<$cobbler_dir/$cobbler_modules_file");
-
-    @output_lines = ();
-    my $replace = 0;
-    my $value = '';
-    while(<FILE>) {
-      my $line = $_;
-
-      # look for the next 'module' line
-      if ($replace) {
-          if ($line =~ /^module ?=/) {
-              $line = "module = $value\n";
-              push(@output_lines, $line);
-              $replace = 0;
-              next;
-          } else {
-              next;
-          }
-      }
-
-      # look for a section in the config
-      foreach my $key (keys(%cobbler_modules)) {
-          if ($line =~ /^\[$key\]/) {
-            $replace = 1;
-            $value = $cobbler_modules{$key};
-            last;
-          }
-      }
-
-      push(@output_lines, $line);
-    }
-
-    close(FILE);
-
-    # write the new file
-    open(FILE, ">$cobbler_dir/$cobbler_modules_file");
-    for my $line (@output_lines) {
-      print FILE $line;
-    }
-    close(FILE);
+    system(COBBLER_COMMAND . " --verbose --macros hostname:$answers->{'hostname'}");
 
     my $skip_rhnconf = 0;
     open(FILE, "<" . Spacewalk::Setup::DEFAULT_RHN_CONF_LOCATION);
@@ -336,6 +257,7 @@ sub setup_cobbler {
       print FILE "cobbler.host = " . $answers->{'hostname'} . "\n";
       close(FILE);
     }
+    system("/usr/bin/cobbler sync");
   }
 
   Spacewalk::Setup::ask(

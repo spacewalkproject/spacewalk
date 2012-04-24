@@ -1,0 +1,5 @@
+next_server @hostname@
+pxe_just_once 1
+redhat_management_type "site"
+redhat_management_server @hostname@
+server @hostname@
