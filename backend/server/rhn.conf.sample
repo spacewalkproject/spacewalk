@@ -81,6 +81,7 @@ web.mail_server_errors = user0@redhat.com, user1@redhat.com
 web.rhnproc_server = #FIXME
 web.rhnproc_port =   #FIXME
 
+#web.monitoring_probes_batch_size = 50
 
 
 

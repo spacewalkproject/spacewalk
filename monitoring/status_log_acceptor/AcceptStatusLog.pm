@@ -4,6 +4,7 @@ package NOCpulse::AcceptStatusLog;
 use strict;
 
 use RHN::DBI;
+use PXT::Config;
 use CGI;
 use NOCpulse::Config;
 use LWP::UserAgent;
@@ -39,6 +40,8 @@ sub store_probe_state
     
     my @lines = split("\n", $probe_state);
     my $line;
+    my $count = 0;
+    my $probes_per_commit = PXT::Config->get('monitoring_probes_batch_size');
     
     foreach $line (@lines)
     {
@@ -71,6 +74,12 @@ sub store_probe_state
                                    $sat_cluster_id, $probe_id)
                 or die(sprintf("%s sat_cluster_id = %s, probe_id = %s",
                                $cs_dbh->errstr, $sat_cluster_id,  $probe_id));
+	}
+
+	$count ++;
+	if ( $count >= $probes_per_commit ) {
+	    $count = 0;
+	    $cs_dbh->commit();
 	}
 
     }
