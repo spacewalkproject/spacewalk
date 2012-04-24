@@ -48,7 +48,6 @@ public class ChannelPackageMenuAction extends RhnAction {
         long cid = requestContext.getRequiredParam("cid");
 
         Channel chan = ChannelFactory.lookupByIdAndUser(cid, user);
-        ChannelFactory.lookupByLabelAndUser(chan.getLabel(), user);
         if (!user.hasRole(RoleFactory.CHANNEL_ADMIN) &&
                 !UserManager.verifyChannelAdmin(user, chan)) {
             throw new PermissionCheckFailureException(RoleFactory.CHANNEL_ADMIN);
