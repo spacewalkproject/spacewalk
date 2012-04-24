@@ -1,6 +1,6 @@
 Name:         status_log_acceptor
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version:      0.12.10
+Version:      0.12.11
 Release:      1%{?dist}
 Summary:      Current state log acceptor
 URL:          https://fedorahosted.org/spacewalk
@@ -38,6 +38,10 @@ install -m 444 AcceptStatusLog.pm $RPM_BUILD_ROOT%{perl_vendorlib}/NOCpulse
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Tue Apr 24 2012 Stephen Herr <sherr@redhat.com> 0.12.11-1
+- 815964 - update monitoring probes in small batches to reduce the chance of a
+  deadlock
+
 * Wed Feb 01 2012 Jan Pazdziora 0.12.10-1
 - Make the Last update value not truncated to day which makes the probe state
   actually green.
