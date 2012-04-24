@@ -85,10 +85,8 @@ public class PackageManager extends BaseManager {
 
     private static final String[]
         CLEANUP_QUERIES = {"requires", "provides", "conflicts", "obsoletes",
-            "channels", "files", "caps", "changelogs", "locations"};
+            "channels", "files", "caps", "changelogs"};
 
-
-    private static final String[] EXCLUDE_SATELLITE = {"locations"};
     /**
      * Runs Package_queries.package_obsoletes query, which returns dependencies of the
      * obsolete type.
@@ -631,11 +629,7 @@ public class PackageManager extends BaseManager {
     private static void cleanupFileEntries(Long pid) {
         Map params = new HashMap();
         params.put("pid", pid);
-        List excludeSatellite = Arrays.asList(EXCLUDE_SATELLITE);
         for (int x = 0; x < CLEANUP_QUERIES.length; x++) {
-            if (excludeSatellite.indexOf(CLEANUP_QUERIES[x]) > -1) {
-                continue;
-            }
             WriteMode writeMode = ModeFactory.getWriteMode("Package_queries",
                     "cleanup_package_" + CLEANUP_QUERIES[x]);
             writeMode.executeUpdate(params);
