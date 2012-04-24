@@ -87,14 +87,14 @@ def testEnvVar(ev):
 def getSysId():
    infile = open("/etc/sysconfig/rhn/systemid","r")
    text = infile.read()
-   pattern = re.compile("[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]")
+   pattern = re.compile(">ID-([0-9]{10})<")
    result = pattern.search(text)
    infile.close()
    if result is None:
       print "No system ID found, please register the node with RHN or your local Satellite/"
       print "Spacewalk server using rhn_register or another appropriate tool"
       sys.exit(3)
-   return int(result.group(0))
+   return int(result.group(1))
 
 
 def getServer():
