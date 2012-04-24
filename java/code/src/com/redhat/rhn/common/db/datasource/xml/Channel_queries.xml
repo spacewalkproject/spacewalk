@@ -391,6 +391,8 @@ SELECT CFO.id, CFO.org_id, CFO.name, CFO.label, CFO.current_members, CFO.max_mem
 	<query params="user_id, org_id">
 	select Distinct C.id,
 		   C.name,
+		   C.org_id,
+		  WC.name as org_name,
 		   C.parent_channel as parent_id,
 		   C.label as channel_label,
 			(SELECT COUNT(P.package_id)
@@ -399,11 +401,11 @@ SELECT CFO.id, CFO.org_id, CFO.name, CFO.label, CFO.current_members, CFO.max_mem
 			        ) AS package_count,
                    CA.name as arch_name
 	from rhnChannel C inner join
-	 rhnUserChannel UC on UC.channel_id = C.id left join
-	 rhnChannel C2 on C2.parent_channel = C.id
-         inner join rhnChannelArch CA ON CA.ID  = C.channel_arch_id
-	 where UC.user_id = :user_id  AND
-	 		(C.org_id = :org_id  or ( C2.id is not null AND C2.org_id = :org_id ))
+	 rhnUserChannel UC ON UC.channel_id = C.id
+                          AND UC.user_id = :user_id
+                          AND C.org_id = :org_id inner join
+         rhnChannelArch CA ON CA.ID  = C.channel_arch_id inner join
+         web_customer WC ON WC.id = C.org_id
     </query>
       <elaborator name="visible_server_count"/>
 </mode>
