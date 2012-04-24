@@ -119,6 +119,11 @@
           </rhn-tab>
         </rhn-tab>
 
+	<rhn-tab name="Audit">
+		<rhn-tab-url>/rhn/systems/ssm/audit/ScheduleXccdf.do</rhn-tab-url>
+		<rhn-tab-url>/rhn/systems/ssm/audit/ScheduleXccdfSubmit.do</rhn-tab-url>
+	</rhn-tab>
+
 	<rhn-tab name="Misc">
 		<rhn-tab-url>/rhn/systems/ssm/misc/Index.do</rhn-tab-url>
 		<rhn-tab-url>/rhn/systems/ssm/HardwareRefresh.do</rhn-tab-url>
