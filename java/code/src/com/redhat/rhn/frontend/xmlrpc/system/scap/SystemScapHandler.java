@@ -30,6 +30,7 @@ import java.util.Date;
  * @xmlrpc.doc Provides methods to schedule SCAP scans and access the results.
  */
 public class SystemScapHandler extends BaseHandler {
+
     /**
      * Run Open Scap XCCDF Evaluation on a given server
      * @param sessionKey The session key.
@@ -45,16 +46,38 @@ public class SystemScapHandler extends BaseHandler {
      * @xmlrpc.param #param("string", "Additional parameters for oscap tool.")
      * @xmlrpc.returntype int - ID of the scap action created.
      */
-    // TODO: Date ... earliest occurence
+    public int scheduleXccdfScan(String sessionKey, Integer sid,
+        String xccdfPath, String oscapParams) {
+        return scheduleXccdfScan(sessionKey, sid, xccdfPath, oscapParams, new Date());
+    }
+
+    /**
+     * Run Open Scap XCCDF Evaluation on a given server at a given time.
+     * @param sessionKey The session key.
+     * @param sid The server id.
+     * @param xccdfPath The path to xccdf path.
+     * @param oscapParams The additional params for oscap tool.
+     * @param date The date of earliest occurence
+     * @return ID of the new scap action.
+     *
+     * @xmlrpc.doc Schedule Scap XCCDF scan.
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param("int", "serverId")
+     * @xmlrpc.param #param("string", "Path to xccdf content on targeted system.")
+     * @xmlrpc.param #param("string", "Additional parameters for oscap tool.")
+     * @xmlrpc.param #param_desc("dateTime.iso8601","date",
+     *                       "The date to schedule the action")
+     * @xmlrpc.returntype int - ID of the scap action created.
+     */
     // TODO: multiple server instances at once
     // TODO: install all the needed stuff
     public int scheduleXccdfScan(String sessionKey, Integer sid,
-            String xccdfPath, String oscapParams) {
+            String xccdfPath, String oscapParams, Date date) {
         User loggedInUser = getLoggedInUser(sessionKey);
         Server server = SystemManager.lookupByIdAndUser(new Long(sid.longValue()),
                 loggedInUser);
         ScapAction action = ActionManager.scheduleXccdfEval(loggedInUser, server,
-            xccdfPath, oscapParams, new Date());
+            xccdfPath, oscapParams, date);
         return action.getId().intValue();
     }
 }
