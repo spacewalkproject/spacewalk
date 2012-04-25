@@ -14,18 +14,17 @@
  */
 package com.redhat.rhn.frontend.xmlrpc.system.scap;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 
-import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
-import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.action.scap.ScapAction;
-import com.redhat.rhn.manager.system.SystemManager;
+import com.redhat.rhn.domain.server.Server;
+import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
 import com.redhat.rhn.manager.action.ActionManager;
-
-import java.util.Date;
+import com.redhat.rhn.manager.system.SystemManager;
 
 /**
  * SystemScapHandler
