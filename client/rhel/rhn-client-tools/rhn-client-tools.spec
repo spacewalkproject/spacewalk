@@ -91,6 +91,12 @@ Group: System Environment/Base
 Requires: usermode >= 1.36
 Requires: %{name} = %{version}-%{release}
 Requires: rhnsd
+%if 0%{?rhel} == 5
+Requires: newt
+%endif
+%if 0%{?fedora} || 0%{?rhel} > 5
+Requires: newt-python
+%endif
 
 %description -n rhn-setup
 rhn-setup contains programs and utilities to configure a system to use
