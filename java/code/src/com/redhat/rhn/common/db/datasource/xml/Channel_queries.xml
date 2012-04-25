@@ -379,11 +379,10 @@ SELECT CFO.id, CFO.org_id, CFO.name, CFO.label, CFO.current_members, CFO.max_mem
 			        ) AS package_count,
                    CA.name as arch_name
 	from rhnChannel C inner join
-	 rhnUserChannel UC on UC.channel_id = C.id left join
-	 rhnChannel C2 on C.parent_channel = C2.id
-         inner join rhnChannelArch CA ON CA.ID  = C.channel_arch_id
-	 where UC.user_id = :user_id  AND
-	 		(C.org_id is null  or ( C2.id is not null AND C2.org_id is null ))
+         rhnUserChannel UC ON UC.channel_id = C.id
+                          AND UC.user_id = :user_id inner join
+         rhnChannelArch CA ON CA.ID  = C.channel_arch_id
+        where C.org_id is null
     </query>
       <elaborator name="visible_server_count"/>
 </mode>
