@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 1.8.2
+Version: 1.8.3
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -339,6 +339,9 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Wed Apr 25 2012 Milan Zazrivec <mzazrivec@redhat.com> 1.8.3-1
+- 816199 - include package dependency on newt
+
 * Tue Apr 03 2012 Jan Pazdziora 1.8.2-1
 - 804559 - not all msgs are CommunicationError objects (mzazrivec@redhat.com)
 - 804559 - correct string catenation (mzazrivec@redhat.com)
