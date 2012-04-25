@@ -14,17 +14,17 @@
  */
 package com.redhat.rhn.frontend.xmlrpc.system.scap;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 
 import com.redhat.rhn.domain.action.scap.ScapAction;
-import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
 import com.redhat.rhn.manager.action.ActionManager;
-import com.redhat.rhn.manager.system.SystemManager;
+import com.redhat.rhn.manager.MissingEntitlementException;
 
 /**
  * SystemScapHandler
@@ -82,9 +82,15 @@ public class SystemScapHandler extends BaseHandler {
             longServerIds.add(new Long((Integer) it.next()));
         }
 
-        ScapAction action = ActionManager.scheduleXccdfEval(loggedInUser,
-                longServerIds, xccdfPath, oscapParams, date);
-        return action.getId().intValue();
+        try {
+            ScapAction action = ActionManager.scheduleXccdfEval(loggedInUser,
+                    longServerIds, xccdfPath, oscapParams, date);
+            return action.getId().intValue();
+        }
+        catch (MissingEntitlementException e) {
+           throw new com.redhat.rhn.frontend.xmlrpc.MissingEntitlementException(
+                   e.getMessage());
+        }
     }
 
     /**
@@ -128,11 +134,8 @@ public class SystemScapHandler extends BaseHandler {
     // TODO: install all the needed stuff
     public int scheduleXccdfScan(String sessionKey, Integer sid,
             String xccdfPath, String oscapParams, Date date) {
-        User loggedInUser = getLoggedInUser(sessionKey);
-        Server server = SystemManager.lookupByIdAndUser(new Long(sid.longValue()),
-                loggedInUser);
-        ScapAction action = ActionManager.scheduleXccdfEval(loggedInUser, server,
-            xccdfPath, oscapParams, date);
-        return action.getId().intValue();
+        List serverIds = new ArrayList();
+        serverIds.add(sid);
+        return scheduleXccdfScan(sessionKey, serverIds, xccdfPath, oscapParams, date);
     }
 }
