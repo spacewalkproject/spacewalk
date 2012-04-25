@@ -24,6 +24,7 @@ import com.redhat.rhn.domain.action.scap.ScapAction;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
 import com.redhat.rhn.manager.action.ActionManager;
+import com.redhat.rhn.manager.MissingCapabilityException;
 import com.redhat.rhn.manager.MissingEntitlementException;
 
 /**
@@ -91,6 +92,10 @@ public class SystemScapHandler extends BaseHandler {
            throw new com.redhat.rhn.frontend.xmlrpc.MissingEntitlementException(
                    e.getMessage());
         }
+        catch (MissingCapabilityException e) {
+           throw new com.redhat.rhn.frontend.xmlrpc.MissingCapabilityException(
+                   e.getCapability(), e.getServer());
+        }
     }
 
     /**
@@ -131,7 +136,6 @@ public class SystemScapHandler extends BaseHandler {
      *                       "The date to schedule the action")
      * @xmlrpc.returntype int - ID of the scap action created.
      */
-    // TODO: install all the needed stuff
     public int scheduleXccdfScan(String sessionKey, Integer sid,
             String xccdfPath, String oscapParams, Date date) {
         List serverIds = new ArrayList();
