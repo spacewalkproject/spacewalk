@@ -100,6 +100,7 @@ IS
         delete from rhn_redirects where customer_id = org_id_in;
         delete from rhn_sat_cluster where customer_id = org_id_in;
         delete from rhn_schedules where customer_id = org_id_in;
+        delete from rhnContentSource where org_id = org_id_in;
 
         -- Delete the org.
         delete from web_customer where id = org_id_in;
