@@ -7,10 +7,10 @@
 <html:xhtml/>
 <html>
 <body>
+
 <%@ include file="/WEB-INF/pages/common/fragments/ssm/header.jspf" %>
 
 <h2><bean:message key="ssm.overview.header"/></h2>
-
 
 <table class="ssm-overview" align="center">
 <div class="page-summary">
@@ -55,24 +55,30 @@
   </tr>
 </rhn:require>
 
+<rhn:require acl="user_role(org_admin)">
   <tr>
     <td><img src="/img/rhn-icon-system_group.gif" alt="<bean:message key="ssm.overview.groups"/>" /></td>
     <th><b><bean:message key="ssm.overview.groups"/></b></th>
     <td><bean:message key="ssm.overview.groups.create"/></td>
   </tr>
+</rhn:require>
 
   <tr>
     <td><img src="/img/rhn-icon-channels.gif" alt="<bean:message key="ssm.overview.channels"/>" /></td>
     <th><b><bean:message key="ssm.overview.channels"/></b></th>
     <td>
       <p>
-      <bean:message key="ssm.overview.channels.memberships"/><br />
-      <bean:message key="ssm.overview.channels.subscriptions"/><br />
-      <bean:message key="ssm.overview.channels.deploy"/><br />
+      <bean:message key="ssm.overview.channels.memberships"/>
+      <rhn:require acl="org_entitlement(rhn_provisioning); user_role(config_admin)">
+        <br />
+        <bean:message key="ssm.overview.channels.subscriptions"/><br />
+        <bean:message key="ssm.overview.channels.deploy"/><br />
+      </rhn:require>
       </p>
     </td>
   </tr>
 
+<rhn:require acl="org_entitlement(rhn_provisioning)">
   <tr>
     <td><img src="/img/rhn-kickstart_profile.gif" alt="<bean:message key="ssm.overview.provisioning"/>" /></td>
     <th><b><bean:message key="ssm.overview.provisioning"/></b></th>
@@ -84,6 +90,7 @@
       </p>
     </td>
   </tr>
+</rhn:require>
 
   <tr>
     <td><img src="/img/rhn-icon-form.gif" alt="<bean:message key="ssm.overview.misc"/>" /></td>
@@ -91,8 +98,12 @@
     <td>
       <p>
       <bean:message key="ssm.overview.misc.updateprofiles"/><br />
-      <bean:message key="ssm.overview.misc.customvalues"/><br />
-      <bean:message key="ssm.overview.misc.entitlements"/><br />
+      <rhn:require acl="org_entitlement(rhn_provisioning)">
+        <bean:message key="ssm.overview.misc.customvalues"/><br />
+      </rhn:require>
+      <rhn:require acl="user_role(org_admin);org_entitlement(rhn_provisioning) or org_entitlement(rhn_monitor)">
+        <bean:message key="ssm.overview.misc.entitlements"/><br />
+      </rhn:require>
       <bean:message key="ssm.overview.misc.deletereboot"/><br />
       <bean:message key="ssm.overview.misc.migrate"/><br />
       <bean:message key="ssm.overview.misc.scap"/><br />
