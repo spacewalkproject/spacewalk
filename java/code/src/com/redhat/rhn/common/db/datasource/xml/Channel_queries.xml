@@ -307,6 +307,7 @@ SELECT CFO.id, CFO.org_id, CFO.name, CFO.label, CFO.current_members, CFO.max_mem
     from rhnSharedChannelView C inner join
     rhnUserChannel UC on UC.channel_id = C.id
     inner join rhnChannelArch CA ON CA.ID  = C.channel_arch_id
+    inner join rhnUser U ON U.id = :user_id AND C.org_id = U.org_id
     where UC.user_id = :user_id
     </query>
       <elaborator name="visible_server_count"/>
