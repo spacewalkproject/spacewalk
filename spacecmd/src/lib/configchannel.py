@@ -376,91 +376,22 @@ def do_configchannel_delete(self, args):
 
 ####################
 
-def help_configchannel_addfile(self):
-    print 'configchannel_addfile: Create a configuration file'
-    print '''usage: configchannel_addfile [CHANNEL] [options]
-
-options:
-  -c CHANNEL
-  -p PATH
-  -r REVISION
-  -o OWNER [default: root]
-  -g GROUP [default: root]
-  -m MODE [defualt: 0644]
-  -x SELINUX_CONTEXT
-  -d path is a directory
-  -s path is a symlink
-  -b path is a binary (or other file which needs base64 encoding)
-  -t SYMLINK_TARGET
-  -f local path to file contents
-
-  Note re binary/base64: Some text files, notably those containing trailing
-  newlines, those containing ASCII escape characters (or other charaters not
-  allowed in XML) need to be sent as binary (-b).  Some effort is made to auto-
-  detect files which require this, but you may need to explicitly specify.
-'''
-
-def complete_configchannel_addfile(self, text, line, beg, end):
-    return tab_completer(self.do_configchannel_list('', True), text)
-
-def do_configchannel_addfile(self, args, update_path=''):
-    options = [ Option('-c', '--channel', action='store'),
-                Option('-p', '--path', action='store'),
-                Option('-o', '--owner', action='store'),
-                Option('-g', '--group', action='store'),
-                Option('-m', '--mode', action='store'),
-                Option('-x', '--selinux-ctx', action='store'),
-                Option('-t', '--target-path', action='store'),
-                Option('-f', '--file', action='store'),
-                Option('-r', '--revision', action='store'),
-                Option('-s', '--symlink', action='store_true'),
-                Option('-b', '--binary', action='store_true'),
-                Option('-d', '--directory', action='store_true') ]
-
-    (args, options) = parse_arguments(args, options)
+def configfile_getinfo(self, args, options, file_info=None, interactive=False):
+    # Common code which is used in both configchannel_addfile and
+    # system_addconfigfile.  Takes args/options from each call and
+    # returns the file_info dict needed to create the file in either
+    # the configchannel or sytem sandbox/local-override respectively
+    #
+    # file_info is the existing info from lookupFileInfo or None if 
+    # no file for this path exists already
 
     # initialize here instead of multiple times below
     contents = ''
 
-    if is_interactive(options):
-        # the channel name can be passed in
-        if len(args):
-            options.channel = args[0]
-        else:
-            while True:
-                print 'Configuration Channels'
-                print '----------------------'
-                print '\n'.join(sorted(self.do_configchannel_list('', True)))
-                print
-
-                options.channel = prompt_user('Select:', noblank = True)
-
-                # ensure the user enters a valid configuration channel
-                if options.channel in self.do_configchannel_list('', True):
-                    break
-                else:
-                    print
-                    logging.warning('%s is not a valid channel' % \
-                                    options.channel)
-                    print
-
-        if update_path:
-            options.path = update_path
-        else:
-            options.path = prompt_user('Path:', noblank = True)
-
-        # check if this file already exists
-        try:
-            fileinfo = \
-                self.client.configchannel.lookupFileInfo(self.session,
-                                                         options.channel,
-                                                         [ options.path ])
-        except:
-            fileinfo = None
-
+    if interactive:
         # use existing values if available
-        if fileinfo:
-            for info in fileinfo:
+        if file_info:
+            for info in file_info:
                 if info.get('path') == options.path:
                     logging.debug('Found existing file in channel')
 
@@ -540,16 +471,6 @@ def do_configchannel_addfile(self, args, update_path=''):
 
                     contents = editor(template = template, delete = True)
     else:
-        # the channel name can be passed in without -c
-        if len(args):
-            options.channel = args[0]
-
-        if not options.channel:
-            logging.error("The channel name is required")
-            return
-
-        logging.debug("Using channel %s" % options.channel)
-
         if not options.path:
             logging.error('The path is required')
             return
@@ -628,6 +549,94 @@ def do_configchannel_addfile(self, args, update_path=''):
                 print 'Contents'
             print '--------'
             print file_info['contents']
+
+    return file_info
+
+def help_configchannel_addfile(self):
+    print 'configchannel_addfile: Create a configuration file'
+    print '''usage: configchannel_addfile [CHANNEL] [options]
+
+options:
+  -c CHANNEL
+  -p PATH
+  -r REVISION
+  -o OWNER [default: root]
+  -g GROUP [default: root]
+  -m MODE [defualt: 0644]
+  -x SELINUX_CONTEXT
+  -d path is a directory
+  -s path is a symlink
+  -b path is a binary (or other file which needs base64 encoding)
+  -t SYMLINK_TARGET
+  -f local path to file contents
+
+  Note re binary/base64: Some text files, notably those containing trailing
+  newlines, those containing ASCII escape characters (or other charaters not
+  allowed in XML) need to be sent as binary (-b).  Some effort is made to auto-
+  detect files which require this, but you may need to explicitly specify.
+'''
+
+def complete_configchannel_addfile(self, text, line, beg, end):
+    return tab_completer(self.do_configchannel_list('', True), text)
+
+def do_configchannel_addfile(self, args, update_path=''):
+    options = [ Option('-c', '--channel', action='store'),
+                Option('-p', '--path', action='store'),
+                Option('-o', '--owner', action='store'),
+                Option('-g', '--group', action='store'),
+                Option('-m', '--mode', action='store'),
+                Option('-x', '--selinux-ctx', action='store'),
+                Option('-t', '--target-path', action='store'),
+                Option('-f', '--file', action='store'),
+                Option('-r', '--revision', action='store'),
+                Option('-s', '--symlink', action='store_true'),
+                Option('-b', '--binary', action='store_true'),
+                Option('-d', '--directory', action='store_true') ]
+
+    (args, options) = parse_arguments(args, options)
+
+    file_info = None
+
+    interactive = is_interactive(options)
+    if interactive:
+        # the channel name can be passed in
+        if len(args):
+            options.channel = args[0]
+        else:
+            while True:
+                print 'Configuration Channels'
+                print '----------------------'
+                print '\n'.join(sorted(self.do_configchannel_list('', True)))
+                print
+
+                options.channel = prompt_user('Select:', noblank = True)
+
+                # ensure the user enters a valid configuration channel
+                if options.channel in self.do_configchannel_list('', True):
+                    break
+                else:
+                    print
+                    logging.warning('%s is not a valid channel' % \
+                                    options.channel)
+                    print
+
+        if update_path:
+            options.path = update_path
+        else:
+            options.path = prompt_user('Path:', noblank = True)
+
+        # check if this file already exists
+        try:
+            file_info = \
+                self.client.configchannel.lookupFileInfo(self.session,
+                                                         options.channel,
+                                                         [ options.path ])
+        except:
+            logging.debug("No existing file information found for %s" %\
+                options.path)
+            file_info = None
+
+    file_info = self.configfile_getinfo(args, options, file_info, interactive)
 
     if self.user_confirm():
         if options.symlink:

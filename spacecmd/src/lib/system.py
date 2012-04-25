@@ -1117,6 +1117,143 @@ def do_system_listconfigfiles(self, args):
 
 ####################
 
+def help_system_addconfigfile(self):
+    print 'system_addconfigfile: Create a configuration file'
+    print 'Note this is only for system sandbox or locally-managed files'
+    print 'Centrally managed files should be created via configchannel_addfile'
+    print '''usage: system_addconfigfile [SYSTEM] [options]
+
+options:
+  -S/--sandbox : list only system-sandbox files
+  -L/--local   : list only locally managed files
+  -p PATH
+  -r REVISION
+  -o OWNER [default: root]
+  -g GROUP [default: root]
+  -m MODE [defualt: 0644]
+  -x SELINUX_CONTEXT
+  -d path is a directory
+  -s path is a symlink
+  -b path is a binary (or other file which needs base64 encoding)
+  -t SYMLINK_TARGET
+  -f local path to file contents
+
+  Note re binary/base64: Some text files, notably those containing trailing
+  newlines, those containing ASCII escape characters (or other charaters not
+  allowed in XML) need to be sent as binary (-b).  Some effort is made to auto-
+  detect files which require this, but you may need to explicitly specify.
+'''
+
+def complete_system_addconfigfile(self, text, line, beg, end):
+    return self.tab_complete_systems(text)
+
+def do_system_addconfigfile(self, args, update_path=''):
+    options = [ Option('-S', '--sandbox', action='store_true'),
+                Option('-L', '--local', action='store_true'),
+                Option('-p', '--path', action='store'),
+                Option('-o', '--owner', action='store'),
+                Option('-g', '--group', action='store'),
+                Option('-m', '--mode', action='store'),
+                Option('-x', '--selinux-ctx', action='store'),
+                Option('-t', '--target-path', action='store'),
+                Option('-f', '--file', action='store'),
+                Option('-r', '--revision', action='store'),
+                Option('-s', '--symlink', action='store_true'),
+                Option('-b', '--binary', action='store_true'),
+                Option('-d', '--directory', action='store_true') ]
+
+    (args, options) = parse_arguments(args, options)
+
+    file_info = None
+
+    # the system name can be passed in
+    if len(args):
+        options.system = args[0]
+
+    interactive = is_interactive(options)
+    if interactive:
+        if not options.system:
+            while True:
+                print 'Systems'
+                print '----------------------'
+                print '\n'.join(sorted(self.do_system_list('', True)))
+                print
+
+                options.system = prompt_user('Select:', noblank = True)
+
+                # ensure the user enters a valid system
+                if options.system in self.do_system_list('', True):
+                    break
+                else:
+                    print
+                    logging.warning('%s is not a valid system' % \
+                                    options.system)
+                    print
+
+        if update_path:
+            options.path = update_path
+        else:
+            options.path = prompt_user('Path:', noblank = True)
+
+        while not options.local and not options.sandbox:
+            answer = prompt_user('System-Sandbox or Locally-Managed? [S/L]:')
+            if re.match('L', answer, re.I):
+                options.local = True
+                localopt=1
+            elif re.match('S', answer, re.I):
+                options.sandbox = True
+                localopt=0
+
+    # Set the int variable (required by the API calls) for sandbox/local
+    localopt=0
+    if options.local:
+        logging.debug("Selected locally-managed")
+        localopt=1
+    elif options.sandbox:
+        logging.debug("Selected system-sandbox")
+    else:
+        logging.error("Must choose system-sandbox or locally-managed option")
+        self.help_system_addconfigfile()
+        return
+
+    if not options.system:
+        logging.error("Must provide system")
+        self.help_system_addconfigfile()
+        return
+
+    system_id = self.get_system_id(options.system)
+    logging.debug("Got ID %s for system %s" % (system_id, options.system))
+
+    # check if this file already exists
+    try:
+        file_info = self.client.system.config.lookupFileInfo(self.session,\
+            system_id, [ options.path ], localopt)
+        if file_info:
+            logging.debug("Found existing file_info %s" % file_info)
+    except:
+        logging.debug("No existing file information found for %s" %\
+            options.path)
+
+    file_info = self.configfile_getinfo(args, options, file_info, interactive)
+
+    if self.user_confirm():
+        if options.symlink:
+            self.client.system.config.createOrUpdateSymlink(self.session,
+                system_id, options.path, file_info, localopt)
+        else:
+#            # compatibility for Satellite 5.3
+#            if not self.check_api_version('10.11'):
+#                del file_info['selinux_ctx']
+#
+#                if file_info.has_key('revision'):
+#                    del file_info['revision']
+#
+            self.client.system.config.createOrUpdatePath(self.session,
+                system_id, options.path, options.directory, file_info,
+                localopt)
+
+####################
+
 def help_system_addconfigchannels(self):
     print 'system_addconfigchannels: Add config channels to a system'
     print '''usage: system_addconfigchannels <SYSTEMS> <CHANNEL ...> [options]
