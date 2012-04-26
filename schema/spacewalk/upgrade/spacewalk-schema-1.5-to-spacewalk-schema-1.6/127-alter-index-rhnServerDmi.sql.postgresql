@@ -1,4 +1,8 @@
--- oracle equivalent source sha1 37531557b1d0368256273ea973cbdbc6eac3dd19
+-- oracle equivalent source sha1 56008d1848869b0186d908d8d18ffd1bd45fdd0a
+
+delete from rhnServerDMI X
+       where server_id in (select server_id from rhnServerDMI group by server_id having count(server_id)>1)
+        and id<(select max(id) from rhnServerDMI Y where X.server_id=Y.server_id group by server_id having count(server_id)>1);
 
 DROP INDEX rhn_server_dmi_sid_idx;
 

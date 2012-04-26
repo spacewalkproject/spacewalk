@@ -1,4 +1,8 @@
--- oracle equivalent source sha1 586724a3a2befe543cd5352b7e1d3d88f82d82f3
+-- oracle equivalent source sha1 d19240cbb55e923ebacf93283f80f79e367e5b5d
+
+delete from rhnram X
+       where server_id in (select server_id from rhnram group by server_id having count(server_id)>1)
+        and id<(select max(id) from rhnram Y where X.server_id=Y.server_id group by server_id having count(server_id)>1);
 
 DROP INDEX rhn_ram_sid_idx;
 

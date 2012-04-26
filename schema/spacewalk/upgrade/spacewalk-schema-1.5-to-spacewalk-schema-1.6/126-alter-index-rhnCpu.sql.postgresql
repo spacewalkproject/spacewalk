@@ -1,4 +1,8 @@
--- oracle equivalent source sha1 061451bfe6e3c20f6a56e6844336f10007f7eebd
+-- oracle equivalent source sha1 bb8f41f8832c528ad013158cddf0c543c700a0c8
+
+delete from rhncpu X
+	where server_id in (select server_id from rhncpu group by server_id having count(server_id)>1)
+	 and id<(select max(id) from rhncpu Y where X.server_id=Y.server_id group by server_id having count(server_id)>1);
 
 DROP INDEX rhn_cpu_server_id_idx;
 
