@@ -22,7 +22,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.54
+Version: 1.8.55
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -605,6 +605,30 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Apr 26 2012 Miroslav Suchý <msuchy@redhat.com> 1.8.55-1
+- 806815 - add missing acl to SSM
+- 806815 - add missing links about Solaris Patches to SSM
+- 816445 - fixed error in redhat_register snippet
+- 816299 - Updating default config files with additional options for heapdump
+  directory
+- Ensure that given system has OpenSCAP capability.
+- Ensure that given systems is available to user.
+- Repack and throw MissingEntitlementException when occurs.
+- Sort imports alphabetically.
+- API: SCAP scan schedule for multiple systems
+- changed kernel-params field to 1024 chars in size (bnc#698166)
+- removing unused lookup
+- Capitalize title to be consistent
+- Put the reboot notification at the end. Make it not mutually exclusive with
+  other notifications.
+- API: SCAP scan schedule should accept the date of earliest occurence
+- Promote read only DatePicker to fragment.
+- Refactor parentUrl to ListTagHelper.PARENT_URL
+- Hide the 'Schedule' tab for systems without management ent.
+- 815804 - force repo regeneration, when removing package using
+  packages.removePackage API
+- 815804 - make the cleanupFileEntries simplier
+
 * Tue Apr 24 2012 Simon Lukasik <slukasik@redhat.com> 1.8.54-1
 - Promote Audit to separate tab within SSM. (slukasik@redhat.com)
 - Show targeted systems when scheduling SCAP scan through SSM.
