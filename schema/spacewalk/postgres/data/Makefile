@@ -14,7 +14,7 @@ COMMON = ../../common/data
 common :
 	rm -rf common
 	mkdir common
-	cp -p $(COMMON)/* common
+	for i in $(COMMON)/* ; do sed 's/\\n/\\\\n/g' $$i > common/$${i##*/} ; done
 
 clean :
 	rm -rf common
