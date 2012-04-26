@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.8.19
+Version:        1.8.20
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -69,6 +69,11 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Thu Apr 26 2012 Jan Pazdziora 1.8.20-1
+- We need to use to_timestamp, so that we do not miss the hour-to-second part
+  on PostgreSQL.
+- Quote newlines to match the Oracle behaviour.
+
 * Mon Apr 23 2012 Michael Mraka <michael.mraka@redhat.com> 1.8.19-1
 - 811646 - assign number of free slots
 
