@@ -697,6 +697,18 @@ public class ChannelFactory extends HibernateFactory {
     }
 
     /**
+     * Lookup a ChannelArch based on its label
+     * @param label arch label
+     * @return ChannelArch if found, otherwise null
+     */
+    public static ChannelArch lookupArchByLabel(String label) {
+        Map params = new HashMap();
+        params.put("label", label);
+        return (ChannelArch)
+            singleton.lookupObjectByNamedQuery("ChannelArch.findByLabel", params);
+    }
+
+    /**
      * Get package ids for a channel
      * @param cid the channel id
      * @return List of package ids

@@ -74,7 +74,7 @@ public class DistChannelHandler extends BaseHandler {
             throw new PermissionException(RoleFactory.SAT_ADMIN);
         }
 
-        ChannelArch channelArch = ChannelFactory.lookupArchByName(archLabel);
+        ChannelArch channelArch = ChannelFactory.lookupArchByLabel(archLabel);
         if (channelArch == null) {
             throw new InvalidChannelArchException(archLabel);
         }

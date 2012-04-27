@@ -47,4 +47,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     <query name="ChannelArch.findByName">
         <![CDATA[from com.redhat.rhn.domain.channel.ChannelArch as c where c.name = :name]]>
     </query>
+    <query name="ChannelArch.findByLabel">
+        <![CDATA[from com.redhat.rhn.domain.channel.ChannelArch as c where c.label = :label]]>
+    </query>
 </hibernate-mapping>
