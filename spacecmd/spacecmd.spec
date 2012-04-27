@@ -4,7 +4,7 @@
 %endif
 
 Name:        spacecmd
-Version:     1.8.4
+Version:     1.8.5
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -61,6 +61,12 @@ touch %{buildroot}/%{python_sitelib}/spacecmd/__init__.py
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Fri Apr 27 2012 Steven Hardy <shardy@redhat.com> 1.8.5-1
+- spacecmd : enhancement add system_addconfigfile (shardy@redhat.com)
+- spacecmd : move file_needs_b64_enc into utils (shardy@redhat.com)
+- spacecmd : Fix usage for configchannel_addfile (shardy@redhat.com)
+- spacecmd : enhancement Add system_listconfigfiles (shardy@redhat.com)
+
 * Sat Apr 14 2012 Aron Parsons <aronparsons@gmail.com> 1.8.4-1
 - spacecmd: pretty-print JSON output
 - spacecmd: cosmetics
