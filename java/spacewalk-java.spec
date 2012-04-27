@@ -22,7 +22,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.55
+Version: 1.8.56
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -605,6 +605,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Apr 27 2012 Tomas Lestach <tlestach@redhat.com> 1.8.56-1
+- use arch label in distchannel.setDefaultMap API as stated in the API doc
+
 * Thu Apr 26 2012 Miroslav Suchý <msuchy@redhat.com> 1.8.55-1
 - 806815 - add missing acl to SSM
 - 806815 - add missing links about Solaris Patches to SSM
