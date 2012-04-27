@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.8.21
+Version:        1.8.22
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -69,6 +69,12 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Fri Apr 27 2012 Tomas Lestach <tlestach@redhat.com> 1.8.22-1
+- 807283 - fixing postgresql schema and adding appropriate schema upgrade
+  scripts
+- 807283 - remove rhnContentSource row when delete row in oracle pkg
+- add unique constraint on rhnChannelArch.name
+
 * Fri Apr 27 2012 Miroslav Suchý <msuchy@redhat.com> 1.8.21-1
 - 630953 - make sure that rows are unique before creating unique index
 
