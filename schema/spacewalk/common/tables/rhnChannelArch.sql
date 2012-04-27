@@ -39,3 +39,6 @@ ALTER TABLE rhnChannelArch
     ADD CONSTRAINT rhn_carch_label_uq UNIQUE (label)
     USING INDEX TABLESPACE [[2m_tbs]];
 
+ALTER TABLE rhnChannelArch
+    ADD CONSTRAINT rhn_carch_name_uq UNIQUE (name)
+    USING INDEX TABLESPACE [[2m_tbs]];
