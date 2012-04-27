@@ -77,6 +77,9 @@ insert into rhnChannelPackageArchCompat (channel_arch_id, package_arch_id)
 values (LOOKUP_CHANNEL_ARCH('channel-armv7'), LOOKUP_PACKAGE_ARCH('armv5tel'));
 
 insert into rhnChannelPackageArchCompat (channel_arch_id, package_arch_id)
+values (LOOKUP_CHANNEL_ARCH('channel-armv5'), LOOKUP_PACKAGE_ARCH('armv5tel'));
+
+insert into rhnChannelPackageArchCompat (channel_arch_id, package_arch_id)
 values (LOOKUP_CHANNEL_ARCH('channel-ia64-deb'), LOOKUP_PACKAGE_ARCH('all-deb'));
 
 insert into rhnChannelPackageArchCompat (channel_arch_id, package_arch_id)
