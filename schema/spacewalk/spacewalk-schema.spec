@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.8.23
+Version:        1.8.24
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -69,6 +69,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Fri Apr 27 2012 Jan Pazdziora 1.8.24-1
+- We cannot specify tablespace for PostgreSQL.
+
 * Fri Apr 27 2012 Miroslav Suchý <msuchy@redhat.com> 1.8.23-1
 - 719609 - add support for armv5 channels
 - 719609 - Add support for armv7l cpu and armv7 channels
