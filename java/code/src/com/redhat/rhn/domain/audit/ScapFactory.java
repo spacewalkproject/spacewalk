@@ -19,6 +19,7 @@ import java.util.HashMap;
 import org.apache.log4j.Logger;
 
 import com.redhat.rhn.common.hibernate.HibernateFactory;
+import com.redhat.rhn.domain.user.User;
 
 /**
  * ScapFactory - the singleton class used to fetch and store
@@ -41,6 +42,21 @@ public class ScapFactory extends HibernateFactory {
         params.put("xid", xid);
         return (XccdfTestResult)singleton.lookupObjectByNamedQuery(
                 "XccdfTestResult.findById", params);
+    }
+
+    /**
+     * Lookup a XCCDF TestResult by the id.
+     * Make sure that a given user can access the data.
+     * @param xid of the XCCDF TestResult to search for
+     * @param user user searching the results
+     * @return the XccdfTestResult found
+     */
+    public static XccdfTestResult lookupTestResultByIdAndUser(Long xid, User user) {
+        HashMap<String, Long> params = new HashMap<String, Long>();
+        params.put("xid", xid);
+        params.put("user_id", user.getId());
+        return (XccdfTestResult)singleton.lookupObjectByNamedQuery(
+                "XccdfTestResult.findByIdAndUser", params);
     }
 
     /**

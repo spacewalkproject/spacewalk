@@ -20,7 +20,10 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 
+import com.redhat.rhn.FaultException;
 import com.redhat.rhn.domain.action.scap.ScapAction;
+import com.redhat.rhn.domain.audit.ScapFactory;
+import com.redhat.rhn.domain.audit.XccdfTestResult;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.XccdfTestResultDto;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
@@ -59,6 +62,28 @@ public class SystemScapHandler extends BaseHandler {
          * If it was not done, an empty list would be returned. */
         SystemManager.ensureAvailableToUser(loggedInUser, new Long(serverId));
         return ScapManager.latestTestResultByServerId(loggedInUser, new Long(serverId));
+    }
+
+    /**
+     * Get Details of given OpenSCAP XCCDF scan.
+     * @param sessionKey The session key.
+     * @param xid The id of XCCDF scan.
+     * @return a detasil of OpenSCAP XCCDF scan.
+     *
+     * @xmlrpc.doc Get details of given OpenSCAP XCCDF scan.
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param("int", "Id of XCCDF scan (xid).")
+     * @xmlrpc.returntype $XccdfTestResultSerializer
+     */
+    public XccdfTestResult getXccdfScanDetails(String sessionKey, Integer xid) {
+        User loggedInUser = getLoggedInUser(sessionKey);
+        XccdfTestResult testResult = ScapFactory.lookupTestResultByIdAndUser(new Long(xid),
+                loggedInUser);
+        if (testResult == null) {
+            throw new FaultException(-1, "scanDoesNotExists",
+                    "Scan of id=" + xid + " does not exists or permission error.");
+        }
+        return testResult;
     }
 
     /**
