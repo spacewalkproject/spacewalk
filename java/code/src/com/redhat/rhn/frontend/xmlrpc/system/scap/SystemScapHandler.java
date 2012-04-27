@@ -22,10 +22,13 @@ import java.util.List;
 
 import com.redhat.rhn.domain.action.scap.ScapAction;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.dto.XccdfTestResultDto;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
-import com.redhat.rhn.manager.action.ActionManager;
 import com.redhat.rhn.manager.MissingCapabilityException;
 import com.redhat.rhn.manager.MissingEntitlementException;
+import com.redhat.rhn.manager.action.ActionManager;
+import com.redhat.rhn.manager.audit.ScapManager;
+import com.redhat.rhn.manager.system.SystemManager;
 
 /**
  * SystemScapHandler
@@ -34,6 +37,29 @@ import com.redhat.rhn.manager.MissingEntitlementException;
  * @xmlrpc.doc Provides methods to schedule SCAP scans and access the results.
  */
 public class SystemScapHandler extends BaseHandler {
+
+    /**
+     * List OpenSCAP XCCDF scans for a given system.
+     * @param sessionKey The session key.
+     * @param serverId The server ID.
+     * @return a list of dto holding this info.
+     *
+     * @xmlrpc.doc Return a list of finished OpenSCAP scans for a given system.
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param("int", "serverId")
+     * @xmlrpc.returntype
+     * #array()
+     *   $XccdfTestResultDtoSerializer
+     * #array_end()
+     */
+    public List<XccdfTestResultDto> listXccdfScans(String sessionKey, Integer serverId) {
+        User loggedInUser = getLoggedInUser(sessionKey);
+
+        /* Make sure the system is available to user and throw a nice exception.
+         * If it was not done, an empty list would be returned. */
+        SystemManager.ensureAvailableToUser(loggedInUser, new Long(serverId));
+        return ScapManager.latestTestResultByServerId(loggedInUser, new Long(serverId));
+    }
 
     /**
      * Run OpenSCAP XCCDF Evaluation on a given list of servers

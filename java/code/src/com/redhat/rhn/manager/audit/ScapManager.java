@@ -29,6 +29,7 @@ import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.XccdfIdentDto;
 import com.redhat.rhn.frontend.dto.XccdfRuleResultDto;
+import com.redhat.rhn.frontend.dto.XccdfTestResultDto;
 import com.redhat.rhn.manager.BaseManager;
 import com.redhat.rhn.manager.action.ActionManager;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
@@ -67,6 +68,23 @@ public class ScapManager extends BaseManager {
         HashMap params = new HashMap();
         params.put("user_id", user.getId());
         return makeDataResult(params, new HashMap(), null, m);
+    }
+
+    /**
+     * Show brief results of all scans accessible by user.
+     * Sorted by date, descending.
+     * @param user The user requesting the data.
+     * @param systemId The id of system
+     * @return The list of scan results.
+     */
+    public static List<XccdfTestResultDto> latestTestResultByServerId(
+            User user, Long systemId) {
+        SelectMode m = ModeFactory.getMode("scap_queries",
+                "latest_testresults_by_server");
+        HashMap<String, Long> params = new HashMap<String, Long>();
+        params.put("user_id", user.getId());
+        params.put("sid", systemId);
+        return (List<XccdfTestResultDto>) m.execute(params);
     }
 
     /**

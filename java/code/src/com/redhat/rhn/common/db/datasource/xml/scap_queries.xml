@@ -58,6 +58,29 @@
   </query>
 </mode>
 
+<mode name="latest_testresults_by_server" class="com.redhat.rhn.frontend.dto.XccdfTestResultDto">
+  <query params="user_id, sid">
+  SELECT
+      tr.id AS xid,
+      xp.identifier AS profile,
+      ras.path AS path,
+      sa.completion_time AS completed
+      FROM rhnUserServerPerms usp,
+          rhnXccdfTestresult tr,
+          rhnXccdfProfile xp,
+          rhnActionScap ras,
+          rhnServerAction sa
+      WHERE usp.user_id = :user_id
+          AND usp.server_id = :sid
+          AND usp.server_id = tr.server_id
+          AND sa.server_id = tr.server_id
+          AND tr.action_scap_id = ras.id
+          AND sa.action_id = ras.action_id
+          AND tr.profile_id = xp.id
+      ORDER BY completed DESC
+  </query>
+</mode>
+
 <query name="testresult_counts" multiple="t" column="xid">
   SELECT tr.id as xid, rrt.label, count(rr.id) as count
   FROM rhnXccdfTestresult tr,

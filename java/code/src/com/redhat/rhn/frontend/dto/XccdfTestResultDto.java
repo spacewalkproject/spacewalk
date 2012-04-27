@@ -27,6 +27,7 @@ public class XccdfTestResultDto extends XccdfTestResultCounts {
     private String serverName;
     private String profile;
     private Date completed;
+    private String path;
 
     /**
      * Returns id of xccdf:TestResult
@@ -108,5 +109,21 @@ public class XccdfTestResultDto extends XccdfTestResultCounts {
      */
     public void setCompleted(Date completedIn) {
         this.completed = completedIn;
+    }
+
+    /**
+     * Returns the path of xccdf document
+     * @return the path
+     */
+    public String getPath() {
+        return this.path;
+    }
+
+    /**
+     * Sets the path of xccdf document
+     * @param pathIn to set
+     */
+    public void setPath(String pathIn) {
+        this.path = pathIn;
     }
 }
