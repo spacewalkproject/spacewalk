@@ -84,38 +84,3 @@ insert into rhnChannelArch (id, label, name, arch_type_id) values
 
 commit;
 
---
--- Revision 1.11  2004/02/19 17:40:28  misa
--- Solaris patches
---
--- Revision 1.10  2004/02/19 00:13:11  pjones
--- bugzilla: 116188 -- ia32e/amd64 support that might actually work.
---
--- Revision 1.9  2004/02/06 02:21:16  misa
--- Weird solaris arches added
---
--- Revision 1.8  2004/02/05 17:33:12  pjones
--- bugzilla: 115009 -- rhnArchType is new, and has changes to go with it
---
--- Revision 1.7  2003/10/06 14:38:07  cturner
--- make the Name column more representative of proper noun usage of arches
---
--- Revision 1.6  2003/06/09 18:16:04  misa
--- bugzilla: 86150  Added the ppc64iseries and ppc64pseries arches, plus the channel-ppc channel arch
---
--- Revision 1.5  2003/01/29 17:11:36  misa
--- bugzilla: 83022  Adding x86_64 as a supported arch
---
--- Revision 1.4  2002/11/13 22:59:59  misa
--- Added a sequence; added data
---
--- Revision 1.3  2002/11/13 00:22:11  misa
--- name -> label
--- the label becomes family_blah
---
--- Revision 1.2  2002/11/12 23:36:21  misa
--- Added rhnArchFamily and rhnArchFamilyMembers
---
--- Revision 1.1  2002/10/15 21:06:22  misa
--- Arch family
---
