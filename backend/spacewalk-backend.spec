@@ -12,7 +12,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.21
+Version: 1.8.22
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -673,6 +673,10 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Fri Apr 27 2012 Jan Pazdziora 1.8.22-1
+- 815964 - update monitoring probes in small batches to reduce the chance of a
+  deadlock (sherr@redhat.com)
+
 * Tue Apr 24 2012 Michael Mraka <michael.mraka@redhat.com> 1.8.21-1
 - 807962 - raise SQLSchemaError alike oracle driver does
 
