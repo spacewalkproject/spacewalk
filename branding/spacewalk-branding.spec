@@ -1,5 +1,5 @@
 Name:       spacewalk-branding
-Version:    1.8.1
+Version:    1.8.2
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -83,6 +83,9 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Fri Apr 27 2012 Jan Pazdziora 1.8.2-1
+- Missing icon for the systems that need reboot list (dmacvicar@suse.de)
+
 * Thu Apr 19 2012 Jan Pazdziora 1.8.1-1
 - Update the copyright year info on .pxt pages.
 
