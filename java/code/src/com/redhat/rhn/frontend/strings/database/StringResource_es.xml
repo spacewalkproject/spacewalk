@@ -324,11 +324,11 @@
     <target>(GMT-1100) Midway</target></trans-unit>
 
     <trans-unit id="America/Sao_Paulo">
-<source>(GMT-0200) Brazil</source>
+<source>(GMT-0300) Brazil</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/account/UserDetails</context>
         </context-group>
-    <target>(GMT-0200) Brasil</target></trans-unit>
+    <target>(GMT-0300) Brasil</target></trans-unit>
 
     <trans-unit id="America/Indianapolis">
 <source>(GMT-0500) United States (Indiana)</source>
