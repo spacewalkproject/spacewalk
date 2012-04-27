@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.8.20
+Version:        1.8.21
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -69,6 +69,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Fri Apr 27 2012 Miroslav Suchý <msuchy@redhat.com> 1.8.21-1
+- 630953 - make sure that rows are unique before creating unique index
+
 * Thu Apr 26 2012 Jan Pazdziora 1.8.20-1
 - We need to use to_timestamp, so that we do not miss the hour-to-second part
   on PostgreSQL.
