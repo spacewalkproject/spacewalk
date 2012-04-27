@@ -1,6 +1,5 @@
 #!/usr/bin/perl
 use strict;
-use lib '/var/www/lib';
 
 use Getopt::Long;
 
