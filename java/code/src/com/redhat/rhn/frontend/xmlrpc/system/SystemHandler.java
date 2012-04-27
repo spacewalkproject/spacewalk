@@ -1909,14 +1909,14 @@ public class SystemHandler extends BaseHandler {
      *          #prop_desc("int", "id", "Id of this action.")
      *          #prop_desc("string", "version", "Version of action.")
      *          #prop_desc("string", "completion_time", "The date/time the event was
-     *                     completed. Format ->YYYY-MM-dd hh:mm:ss.ms
-     *                     Eg ->2007-06-04 13:58:13.0. (optional)
+     *                     completed. Format -&gt;YYYY-MM-dd hh:mm:ss.ms
+     *                     Eg -&gt;2007-06-04 13:58:13.0. (optional)
      *                     (Deprecated by completed_date)")
      *          #prop_desc($date, "completed_date", "The date/time the event was completed.
      *                     (optional)")
      *          #prop_desc("string", "pickup_time", "The date/time the action was picked
-     *                     up. Format ->YYYY-MM-dd hh:mm:ss.ms
-     *                     Eg ->2007-06-04 13:58:13.0. (optional)
+     *                     up. Format -&gt;YYYY-MM-dd hh:mm:ss.ms
+     *                     Eg -&gt;2007-06-04 13:58:13.0. (optional)
      *                     (Deprecated by pickup_date)")
      *          #prop_desc($date, "pickup_date", "The date/time the action was picked up.
      *                     (optional)")
@@ -4571,8 +4571,8 @@ public class SystemHandler extends BaseHandler {
      *  To create a system record over xmlrpc use system.createSystemRecord
      *
      *  To create a system record in the Web UI  please go to
-     *  System -> <Specified System> -> Provisioning ->
-     *  Select a Kickstart profile -> Create Cobbler System Record.
+     *  System -&gt; &lt;Specified System&gt; -&gt; Provisioning -&gt;
+     *  Select a Kickstart profile -&gt; Create Cobbler System Record.
      *
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("int", "serverId")
@@ -4633,8 +4633,8 @@ public class SystemHandler extends BaseHandler {
      *  To create a system record over xmlrpc use system.createSystemRecord
      *
      *  To create a system record in the Web UI  please go to
-     *  System -> <Specified System> -> Provisioning ->
-     *  Select a Kickstart profile -> Create Cobbler System Record.
+     *  System -&gt; &lt;Specified System&gt; -&gt; Provisioning -&gt;
+     *  Select a Kickstart profile -&gt; Create Cobbler System Record.
      *
      *
      * @xmlrpc.param #param("string", "sessionKey")

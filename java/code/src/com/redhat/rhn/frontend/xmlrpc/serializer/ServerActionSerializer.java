@@ -49,14 +49,14 @@ import redstone.xmlrpc.XmlRpcSerializer;
  *          #prop_desc("int", "id", "Id of this action.")
  *          #prop_desc("string", "version", "Version of action.")
  *          #prop_desc("string", "completion_time", "The date/time the event was completed.
- *                                  Format ->YYYY-MM-dd hh:mm:ss.ms
- *                                  Eg ->2007-06-04 13:58:13.0. (optional)
+ *                                  Format -&gt;YYYY-MM-dd hh:mm:ss.ms
+ *                                  Eg -&gt;2007-06-04 13:58:13.0. (optional)
  *                                  (Deprecated by completed_date)")
  *          #prop_desc($date, "completed_date", "The date/time the event was completed.
  *                                  (optional)")
  *          #prop_desc("string", "pickup_time", "The date/time the action was picked up.
- *                                   Format ->YYYY-MM-dd hh:mm:ss.ms
- *                                   Eg ->2007-06-04 13:58:13.0. (optional)
+ *                                   Format -&gt;YYYY-MM-dd hh:mm:ss.ms
+ *                                   Eg -&gt;2007-06-04 13:58:13.0. (optional)
  *                                   (Deprecated by pickup_date)")
  *          #prop_desc($date, "pickup_date", "The date/time the action was picked up.
  *                                   (optional)")

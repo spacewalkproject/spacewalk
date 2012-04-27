@@ -408,8 +408,8 @@ public class SystemDetailsHandler extends BaseHandler {
     /**
      * Returns the set of all keys associated with the indicated kickstart profile.
      *
-     * @param sessionKey     identifies the user's session; cannot be <code>null</code>
-     * @param kickstartLabel identifies the profile; cannot be <code>null</code>
+     * @param sessionKey     identifies the user's session; cannot be &lt;code&gt;null&lt;/code&gt;
+     * @param kickstartLabel identifies the profile; cannot be &lt;code&gt;null&lt;/code&gt;
      * @return set of all keys associated with the given profile
      *
      * @xmlrpc.doc Returns the set of all keys associated with the given kickstart
@@ -452,8 +452,8 @@ public class SystemDetailsHandler extends BaseHandler {
     /**
      * Adds the given list of keys to the specified kickstart profile.
      *
-     * @param sessionKey     identifies the user's session; cannot be <code>null</code>
-     * @param kickstartLabel identifies the profile; cannot be <code>null</code>
+     * @param sessionKey     identifies the user's session; cannot be &lt;code&gt;null&lt;/code&gt;
+     * @param kickstartLabel identifies the profile; cannot be &lt;code&gt;null&lt;/code&gt;
      * @param descriptions   list identifiying the keys to add
      * @return 1 if the associations were performed correctly
      *
@@ -498,8 +498,8 @@ public class SystemDetailsHandler extends BaseHandler {
     /**
      * Removes the given list of keys from the specified kickstart profile.
      *
-     * @param sessionKey     identifies the user's session; cannot be <code>null</code>
-     * @param kickstartLabel identifies the profile; cannot be <code>null</code>
+     * @param sessionKey     identifies the user's session; cannot be &lt;code&gt;null&lt;/code&gt;
+     * @param kickstartLabel identifies the profile; cannot be &lt;code&gt;null&lt;/code&gt;
      * @param descriptions   list identifiying the keys to remove
      * @return 1 if the associations were performed correctly
      *
@@ -544,8 +544,8 @@ public class SystemDetailsHandler extends BaseHandler {
      * Returns the set of all file preservations associated with the given kickstart
      * profile.
      *
-     * @param sessionKey     identifies the user's session; cannot be <code>null</code>
-     * @param kickstartLabel identifies the profile; cannot be <code>null</code>
+     * @param sessionKey     identifies the user's session; cannot be &lt;code&gt;null&lt;/code&gt;
+     * @param kickstartLabel identifies the profile; cannot be &lt;code&gt;null&lt;/code&gt;
      * @throws FaultException A FaultException is thrown if:
      *   - The sessionKey is invalid
      *   - The kickstartLabel is invalid
@@ -584,8 +584,8 @@ public class SystemDetailsHandler extends BaseHandler {
     /**
      * Adds the given list of file preservations to the specified kickstart profile.
      *
-     * @param sessionKey     identifies the user's session; cannot be <code>null</code>
-     * @param kickstartLabel identifies the profile; cannot be <code>null</code>
+     * @param sessionKey     identifies the user's session; cannot be &lt;code&gt;null&lt;/code&gt;
+     * @param kickstartLabel identifies the profile; cannot be &lt;code&gt;null&lt;/code&gt;
      * @param filePreservations   list identifying the file preservations to add
      * @throws FaultException A FaultException is thrown if:
      *   - The sessionKey is invalid
@@ -648,8 +648,8 @@ public class SystemDetailsHandler extends BaseHandler {
     /**
      * Removes the given list of file preservations from the specified kickstart profile.
      *
-     * @param sessionKey     identifies the user's session; cannot be <code>null</code>
-     * @param kickstartLabel identifies the profile; cannot be <code>null</code>
+     * @param sessionKey     identifies the user's session; cannot be &lt;code&gt;null&lt;/code&gt;
+     * @param kickstartLabel identifies the profile; cannot be &lt;code&gt;null&lt;/code&gt;
      * @param filePreservations   list identifying the file preservations to remove
      * @throws FaultException A FaultException is thrown if:
      *   - The sessionKey is invalid
@@ -713,8 +713,8 @@ public class SystemDetailsHandler extends BaseHandler {
     /**
      * Sets the registration type of a given kickstart profile.
      *
-     * @param sessionKey     identifies the user's session; cannot be <code>null</code>
-     * @param kickstartLabel identifies the profile; cannot be <code>null</code>
+     * @param sessionKey     identifies the user's session; cannot be &lt;code&gt;null&lt;/code&gt;
+     * @param kickstartLabel identifies the profile; cannot be &lt;code&gt;null&lt;/code&gt;
      * @param registrationType   registration type
      * @throws FaultException A FaultException is thrown if:
      *   - The sessionKey is invalid
@@ -753,8 +753,8 @@ public class SystemDetailsHandler extends BaseHandler {
     /**
      * Returns the registration type of a given kickstart profile.
      *
-     * @param sessionKey     identifies the user's session; cannot be <code>null</code>
-     * @param kickstartLabel identifies the profile; cannot be <code>null</code>
+     * @param sessionKey     identifies the user's session; cannot be &lt;code&gt;null&lt;/code&gt;
+     * @param kickstartLabel identifies the profile; cannot be &lt;code&gt;null&lt;/code&gt;
      * @throws FaultException A FaultException is thrown if:
      *   - The sessionKey is invalid
      *   - The kickstartLabel is invalid

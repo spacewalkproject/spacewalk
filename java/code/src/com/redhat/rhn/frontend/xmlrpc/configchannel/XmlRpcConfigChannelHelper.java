@@ -96,12 +96,12 @@ public class XmlRpcConfigChannelHelper {
      * @param path the path of the given text file.
      * @param type the config file type
      * @param data a map containing properties pertaining to the given path..
-     * for directory paths - 'data' will hold values for ->
+     * for directory paths - 'data' will hold values for -&gt;
      *  owner, group, permissions, revision, selinux_ctx
-     * for file paths -  'data' will hold values for->
+     * for file paths -  'data' will hold values for-&gt;
      *  contents, owner, group, permissions, selinux_ctx
      *      macro-start-delimiter, macro-end-delimiter, revision
-     * for symlinks paths -  'data' will hold values for->
+     * for symlinks paths -  'data' will hold values for-&gt;
      *  target_path, revision, selinux_ctx
      * @return returns the new created or updated config revision..
      */

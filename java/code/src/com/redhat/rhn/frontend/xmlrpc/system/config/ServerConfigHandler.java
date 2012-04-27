@@ -107,9 +107,9 @@ public class ServerConfigHandler extends BaseHandler {
      * @param path the path of the given text file.
      * @param isDir true if this is a directory path, false if its to be a file path
      * @param data a map containing properties pertaining to the given path..
-     * for directory paths - 'data' will hold values for ->
+     * for directory paths - 'data' will hold values for -&gt;
      *  owner, group, permissions
-     * for file paths -  'data' will hold values for->
+     * for file paths -  'data' will hold values for-&gt;
      *  contents, owner, group, permissions, macro-start-delimiter, macro-end-delimiter
      * @param commitToLocal true if we want to commit the file to
      * the server's local channel false if we want to commit it to sandbox.
@@ -206,7 +206,7 @@ public class ServerConfigHandler extends BaseHandler {
      * @param sid the server id.
      * @param path the path of the given text file.
      * @param data a map containing properties pertaining to the given path..
-     * 'data' will hold values for ->
+     * 'data' will hold values for -&gt;
      *      target_paths, selinux_ctx
      * @param commitToLocal true if we want to commit the file to
      * the server's local channel false if we want to commit it to sandbox.
