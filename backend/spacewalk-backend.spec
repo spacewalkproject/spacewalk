@@ -12,7 +12,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.22
+Version: 1.8.23
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -673,6 +673,11 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Mon Apr 30 2012 Simon Lukasik <slukasik@redhat.com> 1.8.23-1
+- Assign a dummy profile when none is selected. (slukasik@redhat.com)
+- xccdf_eval should not send null value (slukasik@redhat.com)
+- Removing unhelpful assignment. (slukasik@redhat.com)
+
 * Fri Apr 27 2012 Jan Pazdziora 1.8.22-1
 - 815964 - update monitoring probes in small batches to reduce the chance of a
   deadlock (sherr@redhat.com)
