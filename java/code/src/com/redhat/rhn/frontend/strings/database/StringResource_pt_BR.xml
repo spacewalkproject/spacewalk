@@ -44,14 +44,14 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/SystemList</context>
         </context-group>
-    <target>Management</target></trans-unit>
+    <target>Gerenciamento</target></trans-unit>
 
     <trans-unit id="Spacewalk Provisioning Entitled Servers">
 <source>Provisioning</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/SystemList</context>
         </context-group>
-    <target>Provisioning</target></trans-unit>
+    <target>Provisionamento</target></trans-unit>
 
     <trans-unit id="Non-Linux Entitled Servers">
 <source>Non-Linux</source>
@@ -65,7 +65,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/SystemList</context>
         </context-group>
-    <target>Monitoring</target></trans-unit>
+    <target>Monitoramento</target></trans-unit>
 	<!--  Human Readable version of the entitlement labels -->
 	<group>
 	    <context-group name="ctx">
@@ -75,16 +75,16 @@
 		</context-group>
 		<trans-unit id="enterprise_entitled">
 			<source>Management</source>
-		<target>Management</target></trans-unit>
+		<target>Gerenciamento</target></trans-unit>
 		<trans-unit id="monitoring_entitled">
 			<source>Monitoring</source>
-		<target>Monitoring</target></trans-unit>
+		<target>Monitoramento</target></trans-unit>
 		<trans-unit id="nonlinux_entitled">
 			<source>Non-Linux</source>
 		<target>Não-Linux</target></trans-unit>
 		<trans-unit id="provisioning_entitled">
 			<source>Provisioning</source>
-		<target>Provisioning</target></trans-unit>
+		<target>Provisionamento</target></trans-unit>
 		<trans-unit id="sw_mgr_entitled">
 			<source>Update</source>
 		<target>Update</target></trans-unit>
@@ -99,10 +99,10 @@
 		<target>Adicionais</target></trans-unit>
       <trans-unit id="virtualization_host">
         <source>Virtualization</source>
-      <target>Componente de Virtualização</target></trans-unit>
+      <target>Virtualização</target></trans-unit>
       <trans-unit id="virtualization_host_platform">
         <source>Virtualization Platform</source>
-      <target>Plataforma de Virtualização</target></trans-unit>
+      <target>Virtualização Ilimitada</target></trans-unit>
 	</group>
 
     <!-- TimeZones -->

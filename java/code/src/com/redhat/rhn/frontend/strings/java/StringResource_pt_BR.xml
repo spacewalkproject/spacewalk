@@ -354,7 +354,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
-      <target>Direitos a Serviços do Canal de Software</target></trans-unit>
+      <target>Direitos ao Canal de Software</target></trans-unit>
       <trans-unit id="Audit">
 <source>Audit</source>
         <context-group name="ctx">
@@ -414,7 +414,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
-      <target>Informações Personalizadas do Sistema</target></trans-unit>
+      <target>Informações Personalizadas de Sistema</target></trans-unit>
       <trans-unit id="date">
 <source>Date</source>
         <context-group name="ctx">
@@ -590,7 +590,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
-      <target>Desatualizado</target></trans-unit>
+      <target>Sistemas Desatualizados</target></trans-unit>
       <trans-unit id="Overview">
 <source>Overview</source>
         <context-group name="ctx">
@@ -674,13 +674,13 @@
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
-      <target>Gerenciamento da Subscrição</target></trans-unit>
+      <target>Gerenciar Subscrição</target></trans-unit>
       <trans-unit id="Organization Trusts">
 <source>Organization Trusts</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
-      <target>Trusts da Organização</target></trans-unit>
+      <target>Relações de Confiança da Organização</target></trans-unit>
       <trans-unit id="Quota">
 <source>Quota</source>
         <context-group name="ctx">
@@ -722,7 +722,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
-      <target>Agenda</target></trans-unit>
+      <target>Cronograma</target></trans-unit>
       <trans-unit id="Scout Config Push">
 <source>Scout Config Push</source>
         <context-group name="ctx">
@@ -776,7 +776,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
-      <target>Serviços do Sistema</target></trans-unit>
+      <target>Direitos a Serviços</target></trans-unit>
       <trans-unit id="System Groups">
 <source>System Groups</source>
         <context-group name="ctx">
@@ -859,7 +859,7 @@
             system has no entitlements.
           </context>
         </context-group>
-      <target>Sem Serviços</target></trans-unit>
+      <target>Sem Direitos a Serviços</target></trans-unit>
       <trans-unit id="User List">
 <source>User List</source>
         <context-group name="ctx">
@@ -1478,7 +1478,7 @@
           <context context-type="sourcefile">on any listview page with a set.  1 - 5 of 120</context>
         </context-group>
       <target>&lt;strong&gt;{0}&lt;/strong&gt; - &lt;strong&gt;{1}&lt;/strong&gt; de &lt;strong&gt;{2}&lt;/strong&gt;
-{3} exibidos</target></trans-unit>
+{3}</target></trans-unit>
       <trans-unit id="message.numselected">
 <source>({0} selected)</source>
         <context-group name="ctx">
@@ -1648,7 +1648,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/schedule/ActionDetails.do</context>
         </context-group>
-      <target>Empregar arquivos de configuração no sistema</target></trans-unit>
+      <target>Implementar arquivos de configuração no sistema</target></trans-unit>
       <trans-unit id="configfiles.verify">
 <source>Verify deployed config files</source>
         <context-group name="ctx">
@@ -1749,7 +1749,7 @@ disponíveis para seu perfil kickstart funcionar corretamente./n&lt;/li&gt;
          <context-group name="ctx">
            <context context-type="sourcefile">/rhn/schedule/ActionDetails.do</context>
          </context-group>
-       <target>Iniciar um kickstart de um sistema de convidado</target></trans-unit>
+       <target>Iniciar um kickstart de um sistema de virtualizado</target></trans-unit>
        <trans-unit id="kickstart.schedule_sync">
  <source>Schedule a package sync for kickstarts</source>
          <context-group name="ctx">
@@ -1761,13 +1761,13 @@ disponíveis para seu perfil kickstart funcionar corretamente./n&lt;/li&gt;
          <context-group name="ctx">
          <context context-type="sourcefile">/rhn/kickstart/KickstartDetailsEdit</context>
          </context-group>
-       <target>A etiqueta do kickstart que você selecionou é inválida. Ela deve conter no mínimo {0} caracteres e somente conter os seguintes caracteres: A-Z, a-z, 0-9, _, - </target></trans-unit>
+       <target>O nome do kickstart que você selecionou é inválida. Ela deve conter no mínimo {0} caracteres e somente conter os seguintes caracteres: A-Z, a-z, 0-9, _, - </target></trans-unit>
        <trans-unit id="kickstart.error.labelexists">
          <source>Kickstart label already exists. Please choose a unique kickstart label.</source>
          <context-group name="ctx">
          <context context-type="sourcefile">/rhn/kickstart/KickstartDetailsEdit</context>
          </context-group>
-       <target>Etiqueta de kickstart já existe. Por favor escolha uma etiqueta de kickstart única.</target></trans-unit>
+       <target>Nome de kickstart já existe. Por favor escolha outro nome de kickstart único.</target></trans-unit>
       <trans-unit id="kickstart.details.success">
         <source>Kickstart details successfully updated.</source>
         <context-group name="ctx">
@@ -1779,7 +1779,7 @@ disponíveis para seu perfil kickstart funcionar corretamente./n&lt;/li&gt;
         <context-group name="ctx">
         <context context-type="sourcefile">/rhn/kickstart/KickstartDetailsEdit</context>
         </context-group>
-      <target>Uma etiqueta de perfil de kickstart deve ser selecionado.</target></trans-unit>
+      <target>Nome de perfil kickstart deve ser selecionado.</target></trans-unit>
       <trans-unit id="kickstart.delete.success">
         <source>Kickstart was deleted successfully.</source>
         <context-group name="ctx">
@@ -5801,7 +5801,7 @@ user before attempting to deactivate their account.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/KickstartDetailsEdit.do</context>
         </context-group>
-      <target>Etiqueta</target></trans-unit>
+      <target>Nome</target></trans-unit>
 
     <trans-unit id="emptyselectionerror">
         <source>There was no selection. Please make your selection and try again.</source>
@@ -5838,7 +5838,7 @@ user before attempting to deactivate their account.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/provisioning/preservation/PreservationListCreate.do</context>
         </context-group>
-      <target>Etiqueta de Preservação de Arquivos já existe. Por favor escolha uma etiqueta de Preservação de Arquivos única.</target></trans-unit>
+      <target>Nome de Preservação de Arquivos já existe. Por favor escolha outro nome de Preservação de Arquivos único.</target></trans-unit>
 
 
 
@@ -6155,7 +6155,7 @@ Follow this url to see the full list of inactive systems:
         <context-group name="ctx">
           <context context-type="sourcefile">rhn/systems/details/kickstart/SessionStatus.do</context>
         </context-group>
-      <target>O sistema convidado não se comunicou com o @@PRODUCT_NAME@@ nos últimos {0} minutos. O processo de instalação pode ser lento devido às restrições do hardware, ou ele pode estar congelado. .&lt;p/&gt;Você pode preferir aplicar a resolução de problemas, executando &lt;em&gt;virsh console &lt;strong&gt;guestname&lt;/strong%gt;&lt;/em&gt; no sistema hóspede. Este comando não permitirá que você se conecte ao console de texto do convidado enquanto estiver instalando, o qual pode fornecer informações adicionais sobre o estado da instalação deste sistema convidado.</target></trans-unit>
+      <target>O sistema virtualizado não se comunicou com o @@PRODUCT_NAME@@ nos últimos {0} minutos. O processo de instalação pode ser lento devido às restrições do hardware, ou ele pode estar congelado.&lt;p/&gt;Você pode preferir aplicar a resolução de problemas, executando &lt;em&gt;virsh console &lt;strong&gt;guestname&lt;/strong%gt;&lt;/em&gt; no sistema hóspede (host). Este comando não permitirá que você se conecte ao console de texto do sistema virtualizado enquanto estiver instalando, o qual pode fornecer informações adicionais sobre o estado da instalação do mesmo.</target></trans-unit>
 
       <trans-unit id="tree.edit.success">
         <source>Kickstart Distribution Updated</source>
@@ -6177,7 +6177,7 @@ Follow this url to see the full list of inactive systems:
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/TreeEdit.do</context>
         </context-group>
-      <target>A formatação da etiqueta está incorreta.  A etiqueta deve conter somente letras, números, hífens, pontos finais, e sublinhados (underscores).  Além disso, a etiqueta deve ter no mínimo 4 caracteres</target></trans-unit>
+      <target>A formatação do nome está incorreta. O nome deve conter somente letras, números, hífens, pontos finais, e sublinhados (underscores).  Além disso, o nome deve ter no mínimo 4 caracteres</target></trans-unit>
 
       <trans-unit id="kickstart.tree.invalidkernel">
         <source>The kernel could not be found at the specified location: {0}</source>
@@ -6234,11 +6234,11 @@ Follow this url to see the full list of inactive systems:
      </context-group>
      <trans-unit id="activation-key.java.invalid_chars">
          <source>Activation key label &lt;strong&gt;{0}&lt;/strong&gt; has one or more of the following invalid characters &lt;strong&gt;{1}&lt;/strong&gt;. Please remove these characters from the label.</source>
-     <target>Etiqueta da chave de ativação &lt;strong&gt;{0}&lt;/strong&gt; possui um ou mais dos seguintes carateres inválidos &lt;strong&gt;{1}&lt;/strong&gt;. Por favor, remova-os da etiqueta. </target></trans-unit>
+     <target>Nome da chave de ativação &lt;strong&gt;{0}&lt;/strong&gt; possui um ou mais dos seguintes carateres inválidos &lt;strong&gt;{1}&lt;/strong&gt;. Por favor, remova-os. </target></trans-unit>
 
      <trans-unit id="activation-key.java.exists">
          <source>An activation key with label &lt;strong&gt;{0}&lt;/strong&gt; is already taken. Please choose a different label.</source>
-     <target>Uma chave de ativação com etiqueta &lt;strong&gt;{0}&lt;/strong&gt; já está em uso.  Por favor escolha uma outra etiqueta.</target></trans-unit>
+     <target>Uma chave de ativação com o nome &lt;strong&gt;{0}&lt;/strong&gt; já está em uso.  Por favor escolha outra nome.</target></trans-unit>
      <trans-unit id="activation-key.java.created">
          <source>Activation key &lt;strong&gt;{0}&lt;/strong&gt; has been created.</source>
      <target>A chave de ativação &lt;strong&gt;{0}&lt;/strong&gt; foi criada.</target></trans-unit>
@@ -6442,7 +6442,7 @@ Follow this url to see the full list of inactive systems:
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/channel/ChannelOverview.do</context>
         </context-group>
-      <target>Etiqueta do Canal de Configuração</target></trans-unit>
+      <target>Nome do Canal de Configuração</target></trans-unit>
       <trans-unit id="cofDescription">
 <source>Configuration channel description</source>
         <context-group name="ctx">
@@ -7041,7 +7041,7 @@ Follow this url to see the full list of inactive systems:
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
         </context-group>
-      <target>Assegure-se de que o sistema host possui memória livre suficiente, caso a alocação da memória do convidado aumente. Caso contrário, o convidado poderá recusar-se a inicializar da próxima vez.</target></trans-unit>
+      <target>Assegure-se de que o sistema hospedeiro (host) possui memória livre suficiente, caso a alocação da memória do sistema virtualizado aumente. Caso contrário, o sistema virtualizado poderá recusar-se a inicializar da próxima vez.</target></trans-unit>
 
       <trans-unit id="virtualsystems.none">
         <source>No virtual systems selected.</source>
@@ -7191,7 +7191,7 @@ Follow this url to see the full list of inactive systems:
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/Overview.do</context>
         </context-group>
-      <target>Nennum canal com o pacote {0} foi encontrado. Este pacote é necessário para gerenciar os convidados virtuais com o @@PRODUCT_NAME@@.</target></trans-unit>
+      <target>Nennum canal com o pacote {0} foi encontrado. Este pacote é necessário para gerenciar os sistemas virtuais no @@PRODUCT_NAME@@.</target></trans-unit>
 
 	  <trans-unit id="system.entitle.alreadyentitled">
 <source>The system already has the {0} entitlement.</source>
@@ -7205,14 +7205,14 @@ Follow this url to see the full list of inactive systems:
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/Overview.do</context>
         </context-group>
-      <target>Como você adicionou o serviço de Virtualização ao sistema, nós também tomamos algumas providências para assegurar que seu sistema será capaz de gerenciar os convidados virtuais de uma melhor forma. Consulte &lt;a href="{0}"&gt;aqui&lt;/a&gt; para mais informações.</target></trans-unit>
+      <target>Como você adicionou o serviço de Virtualização ao sistema, nós também tomamos algumas providências para assegurar que seu sistema será capaz de gerenciar os sistemas virtuais da melhor forma. Consulte &lt;a href="{0}"&gt;aqui&lt;/a&gt; para mais informações.</target></trans-unit>
 
 	  <trans-unit id="system.entitle.alreadyvirt">
 <source>A system can have either the Virtualization or Virtualization Platform entitlement but not both.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/Overview.do</context>
         </context-group>
-      <target>Um sistema pode ter tanto o serviço de Virtualização quanto o serviço de Plataforma de Virtualização, porém não ambos ao mesmo tempo.</target></trans-unit>
+      <target>Um sistema pode ter tanto o serviço de Virtualização quanto o serviço de Virtualização Ilimitada, porém não ambos ao mesmo tempo.</target></trans-unit>
 
           <trans-unit id="system.migrate.user_no_perms">
 <source>This user lacks the required permissions to migrate this system.</source>
@@ -7394,7 +7394,7 @@ Follow this url to see the full list of inactive systems:
 
       <trans-unit id="api.channel.duplicatechannellabel">
           <source>The channel label specified ({0}) already exists.</source>
-      <target>A etiqueta do canal especificada {0} já existe.</target></trans-unit>
+      <target>O nome do canal especificado {0} já existe.</target></trans-unit>
 
       <trans-unit id="api.channel.invalidchannelaccess">
           <source>The channel access ({0}) is not allowed for this operation.</source>
@@ -7448,7 +7448,7 @@ Follow this url to see the full list of inactive systems:
 
      <trans-unit id="api.kickstart.invalidkickstartlabel">
           <source>Invalid kickstart label: {0}</source>
-      <target>Etiqueta do kickstart inválida: {0}</target></trans-unit>
+      <target>Nome do kickstart inválida: {0}</target></trans-unit>
 
      <trans-unit id="api.package.invalidpackagearch">
           <source>The package arch specified ({0}) is invalid.</source>
@@ -7492,7 +7492,7 @@ Follow this url to see the full list of inactive systems:
 
       <trans-unit id="outdatedPackages">
           <source>Outdated Packages</source>
-      <target>Paoctes Desatualizados</target></trans-unit>
+      <target>Pacotes Desatualizados</target></trans-unit>
 
       <trans-unit id="lastCheckin">
           <source>Last Checkin</source>
@@ -7552,7 +7552,7 @@ Follow this url to see the full list of inactive systems:
 
       <trans-unit id="channelLabels">
 	<source>Channel Labels</source>
-      <target>Etiquetas de Canais</target></trans-unit>
+      <target>Nomes de Canais</target></trans-unit>
 
       <trans-unit id="entitlementLevel">
 	<source>Entitlement Level</source>
@@ -7589,7 +7589,7 @@ Follow this url to see the full list of inactive systems:
 
       <trans-unit id="frontend.actions.systems.virt.invalidguestnamelength">
           <source>Length of guest names must be at least {0} characters.</source>
-      <target>O nome dos convidados deve conter ao menos {0} caracteres.</target></trans-unit>
+      <target>O nome dos sistemas virtualizados deve conter ao menos {0} caracteres.</target></trans-unit>
 
        <trans-unit id="frontend.actions.systems.virt.invalidmemvalue">
           <source>Memory Allocation must be a positive value greater than 0.</source>
@@ -7737,7 +7737,7 @@ Follow this url to see the full list of inactive systems:
 
       <trans-unit id="filter.kickstart.label">
         <source>Label</source>
-      <target>Etiqueta</target></trans-unit>
+      <target>Nome</target></trans-unit>
 
       <trans-unit id="package.remove.cant.rollback">
         <source>One or more of the packages you have selected for removal below are not contained in
@@ -7762,11 +7762,11 @@ Follow this url to see the full list of inactive systems:
 
       <trans-unit id="api.kickstart.filelist.exists">
          <source>A file list with label {0} already exists.</source>
-      <target>Já existe uma lista de arquivo com a etiqueta {0}.</target></trans-unit>
+      <target>Já existe uma lista de arquivo com o nome {0}.</target></trans-unit>
 
       <trans-unit id="api.kickstart.filelist.notfound">
          <source>A file list with label {0} could not be found.</source>
-      <target>Não foi encontrada nenhuma lista de arquivo com a etiqueta {0}.</target></trans-unit>
+      <target>Não foi encontrada nenhuma lista de arquivo com o nome {0}.</target></trans-unit>
 
       <trans-unit id="api.kickstart.keys.exists">
          <source>The specified key conflicts with an existing key.</source>
@@ -7778,16 +7778,16 @@ Follow this url to see the full list of inactive systems:
 
      <trans-unit id="Compare">
         <source>Compare</source>
-      <target>Compare</target></trans-unit>
+      <target>Comparar</target></trans-unit>
      <trans-unit id="system.customkey.error.alreadyexists">
         <source>A Custom Key with this label already exists.</source>
-      <target>Já existe uma Chave Padronizada com esta etiqueta.</target></trans-unit>
+      <target>Já existe uma Chave Padronizada com este nome.</target></trans-unit>
      <trans-unit id="system.customkey.error.tooshort">
         <source>A Custom Key label and description must be at least two characters long.</source>
-      <target>A etiqueta da Chave Padronizada e a descrição deve ter no mínimo dois caractéres.</target></trans-unit>
+      <target>O nome da Chave Padronizada e a descrição deve ter no mínimo dois caractéres.</target></trans-unit>
      <trans-unit id="system.customkey.error.invalid">
         <source>A Custom Key label can only contain letters, numbers, hyphens (-), and underscores (_).</source>
-      <target>Uma etiqueta Chave Padrão pode conter apenas letras, números, hifens (-) e linhas sublinhadas (_).</target></trans-unit>
+      <target>O nome da Chave Padrão pode conter apenas letras, números, hifens (-) e linhas sublinhadas (_).</target></trans-unit>
      <trans-unit id="system.customkey.addsuccess">
         <source>Successfully added 1 custom key.</source>
       <target>1 Chave padronizada adicionada com sucesso.</target></trans-unit>
@@ -7867,22 +7867,22 @@ Follow this url to see the full list of inactive systems:
         <context-group name="ctx">
           <context context-type="sourcefile">/channels/manage/Edit</context>
         </context-group>
-      <target>Etiquetas de Canais Inválidas</target></trans-unit>
+      <target>Nomes de Canais Inválidas</target></trans-unit>
       <trans-unit id="edit.channel.invalidchannellabel.missing">
         <source>Channel label must be specified</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/channels/manage/Edit</context>
         </context-group>
-      <target>Etiqueta de canal deve ser especificada</target></trans-unit>
+      <target>Nome de canal deve ser especificada</target></trans-unit>
       <trans-unit id="edit.channel.invalidchannellabel.regex">
         <source>Invalid channel label, please see the format described below</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/channels/manage/Edit</context>
         </context-group>
-      <target>Etiqueta de canal inválida, por favor veja o formato descrito abaixo</target></trans-unit>
+      <target>Nome de canal inválida, por favor veja o formato descrito abaixo</target></trans-unit>
       <trans-unit id="edit.channel.invalidchannellabel.supportedregex">
         <source>Channel label must begin with a letter and may contain only lowercase letters, hyphens ('-'), periods ('.'), underscores ('_'), and numerals.</source>
-      <target>A etiqueta do canal deve iniciar com uma letra e deverá conter apenas letras minúsculas, hifens  ('-'), períodos ('.'), linhas sublinhadas ('_') e numerais.</target></trans-unit>
+      <target>O nome do canal deve iniciar com uma letra e deverá conter apenas letras minúsculas, hifens  ('-'), períodos ('.'), linhas sublinhadas ('_') e numerais.</target></trans-unit>
       <trans-unit id="edit.channel.invalidchannellabel.redhat">
         <source>Red Hat channels require admin privileges</source>
         <context-group name="ctx">
@@ -7894,13 +7894,13 @@ Follow this url to see the full list of inactive systems:
         <context-group name="ctx">
           <context context-type="sourcefile">/channels/manage/Edit</context>
         </context-group>
-      <target>Etiqueta de Canal deve possuir ao menos {0} caracteres.</target></trans-unit>
+      <target>Nome de Canal deve possuir ao menos {0} caracteres.</target></trans-unit>
       <trans-unit id="edit.channel.invalidchannellabel.labelinuse">
         <source>The channel label '{0}' is already in use, please enter a different name</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/channels/manage/Edit</context>
         </context-group>
-      <target>Etiqueta de Canal {0} já está em uso. Por favor indique um outro nome.</target></trans-unit>
+      <target>Nome de Canal {0} já está em uso. Por favor indique um outro nome.</target></trans-unit>
 
       <trans-unit id="edit.channel.invalidchannelsummary">
         <source>Invalid Channel Summary</source>
@@ -7943,7 +7943,7 @@ Follow this url to see the full list of inactive systems:
      <target>As restrições de subscrições por usuário podem ser aplicadas na aba de Associados.</target></trans-unit>
      <trans-unit id="kickstart.cobbler.profile.invalidvirt">
         <source>Para-Virtualization is unsupported with the selected kickstart tree or distribution.</source>
-     <target>O componente de Para-Virtualização não é suportado com a àrvore de kickstart selecionada ou distribuição.</target></trans-unit>
+     <target>Para-Virtualização não é suportado com a árvore de kickstart selecionada ou distribuição.</target></trans-unit>
      <trans-unit id="kickstart.cobbler.profile.invalidtreeforvirt">
         <source>You have selected a distribution or kickstart tree that is incompatible with the currently selected virtualization type.  Please either select a different distribution, or change the selected Virtualization Type of this profile before trying to set the distribution.</source>
      <target>Você selecionou uma distribuição ou uma árvore de kickstart que é incompatível com o tipo de virtualização selecionada atualmente. Por favor, selecione uma distribuição diferente desta, ou mude o Tipo de Virtualização selecionado deste perfil antes de tentar estabelecer a distribuição.  </target></trans-unit>

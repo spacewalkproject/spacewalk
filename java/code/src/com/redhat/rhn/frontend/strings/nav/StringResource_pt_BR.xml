@@ -64,28 +64,28 @@
         <context-group name="ctx">
           <context context-type="sourcefile">Subscription Management Menu</context>
         </context-group>
-      <target>Serviços da Tecnologia de Virtualização</target></trans-unit>
+      <target>Direitos a Virtualização</target></trans-unit>
 
       <trans-unit id="guest.limited.hosts">
         <source>Virtualization Hosts</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Virtualization Entitlements Navigation</context>
         </context-group>
-      <target>Máquinas de Virtualização</target></trans-unit>
+      <target>Sistemas Hóspedes de Virtualização</target></trans-unit>
 
       <trans-unit id="guest.unlimited.hosts">
         <source>Virtualization Platform Hosts</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Virtualization Entitlements Navigation</context>
         </context-group>
-      <target>Máquinas de Plataforma de Virtualização</target></trans-unit>
+      <target>Sistemas Hóspedes de Virtualização Ilimitada</target></trans-unit>
 
       <trans-unit id="guests.without.hosts">
         <source>Guests Without Hosts</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Virtualization Entitlements Navigation</context>
         </context-group>
-      <target>Máquinas sem Convidados</target></trans-unit>
+      <target>Sistemas Virtualizados não Associados a Sistemas Hospedeiros</target></trans-unit>
 
       <trans-unit id="Virtualization">
 <source>Virtualization</source>
@@ -98,7 +98,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">Systems Navigation Menu</context>
         </context-group>
-      <target>Sistemas Virtuais</target></trans-unit>
+      <target>Sistemas Virtualizados</target></trans-unit>
       <trans-unit id="Duplicate Systems">
 <source>Duplicate Systems</source>
         <context-group name="ctx">
@@ -132,7 +132,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">Systems Navigation Menu</context>
         </context-group>
-      <target>Atualização do Sistema</target></trans-unit>
+      <target>Resumo de Atualizações</target></trans-unit>
 
 
 
@@ -166,7 +166,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">System Set Manager Navigation Menu</context>
         </context-group>
-      <target>Cancelar a Subscrição</target></trans-unit>
+      <target>Adicionar Canais</target></trans-unit>
 
       <trans-unit id="ssm.nav.config.unsubscribe">
         <source>Unsubscribe from Channels</source>
@@ -260,7 +260,7 @@
           <context-group name="ctx">
           <context context-type="sourcefile">Configuration Navigation Menu</context>
         </context-group>
-      <target>Sistemas Alvo</target></trans-unit>
+      <target>Sistemas Não Gerenciados</target></trans-unit>
 
       <trans-unit id="config.nav.config">
 <source>Configuration</source>
@@ -367,7 +367,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/channel/ChannelSystems.do</context>
         </context-group>
-	<target>Sistemas Alvo</target></trans-unit>
+	<target>Inscrever Sistemas</target></trans-unit>
 	<!-- END config channel nav -->
 
 	<!-- config file nav -->
@@ -472,7 +472,7 @@
 
         <trans-unit id="nav.sdc.config.subscribe_channels">
             <source>Subscribe to Channels</source>
-        <target>Cancelar a Subscrição</target></trans-unit>
+        <target>Adicionar Canais</target></trans-unit>
 
         <trans-unit id="nav.sdc.config.rank_channels">
             <source>View/Modify Rankings</source>
@@ -550,7 +550,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu (system details)</context>
         </context-group>
-      <target>Abastecimento</target></trans-unit>
+      <target>Provisionamento</target></trans-unit>
 
       <trans-unit id="Misc">
 <source>Misc</source>
@@ -564,7 +564,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
-      <target>Marcas Instantâneas</target></trans-unit>
+      <target>Snapshot Tags</target></trans-unit>
 
       <trans-unit id="Session Status">
 <source>Session Status</source>
@@ -831,13 +831,13 @@
         <context-group name="ctx">
           <context context-type="sourcefile">Kickstart Details Menu</context>
         </context-group>
-      <target>Kickstart a Partir do Zero</target></trans-unit>
+      <target>Kickstart por IP</target></trans-unit>
       <trans-unit id="Bare Metal">
 <source>Bare Metal</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Kickstart Menu</context>
         </context-group>
-      <target>A Partir do Zero</target></trans-unit>
+      <target>Por Endereço IP</target></trans-unit>
 
       <trans-unit id="Advanced Options">
 <source>Advanced Options</source>
@@ -1044,7 +1044,7 @@
     <context-group name="ctx">
       <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions.do</context>
     </context-group>
-  <target>Serviços de Canal de Software</target></trans-unit>
+  <target>Direitos ao Canal de Software</target></trans-unit>
   </group>
 
 <!-- Activation Keys nav -->

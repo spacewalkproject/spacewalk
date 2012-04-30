@@ -693,7 +693,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/users/UserDetails</context>
         </context-group>
-      <target>Prefixo:</target></trans-unit>
+      <target>Saudação:</target></trans-unit>
       <trans-unit id="position.displayname">
 <source>Position:</source>
         <context-group name="ctx">
@@ -991,7 +991,7 @@
 		 <context-group name="ctx">
 		<context context-type="sourcefile">/rhn/users/UserPreferences</context>
 		 </context-group>
-	<target>Uma lista dos sistemas registrados mais recentes, dos últimos 30 dias.</target></trans-unit>
+	<target> Uma lista dos sistemas registrados mais recentes, dos últimos 30 dias.</target></trans-unit>
 
 
 
@@ -1358,7 +1358,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/account/ChangeEmail</context>
         </context-group>
-      <target>Por favor indique seu novo endereço de e-mail abaixo.</target></trans-unit>
+      <target>Por favor preencha seu novo endereço de e-mail abaixo.</target></trans-unit>
 
       <!-- channelmanagementperms.jsp -->
       <trans-unit id="channelManagementPerms.title">
@@ -1578,7 +1578,7 @@ abaixo e &lt;b&gt;não poderá mais se autenticar&lt;/b&gt;.</target></trans-uni
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/users/CreateUser.do</context>
         </context-group>
-      <target>Nota: Os campos de senha acima não são requisitados quando esta caixa está selecionada; no entanto, você pode indicar uma senha que funcionará somente quando a autenticação PAM estiver desativada para esta conta de usuário.</target></trans-unit>
+      <target>Nota: Os campos de senha acima não são obrigatórios quando esta caixa está selecionada; no entanto, você pode indicar uma senha que funcionará somente quando a autenticação PAM estiver desativada para esta conta de usuário.</target></trans-unit>
 
       <trans-unit id="usercreate.jsp.pam.reference">
 <source>If you would like to set up your satellite to authenticate against LDAP, kerberos, and other network-based authentication systems, please visit the &lt;a href="/rhn/help/satellite/en-US/s1-maintenance-pam-auth.jsp"&gt;reference guide&lt;/a&gt; for instructions on how to set up PAM.</source>
@@ -1735,7 +1735,7 @@ abaixo e &lt;b&gt;não poderá mais se autenticar&lt;/b&gt;.</target></trans-uni
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/users/DisabledList</context>
         </context-group>
-      <target>Desativar Usuários</target></trans-unit>
+      <target>Usuários Desativados</target></trans-unit>
 
       <trans-unit id="disabledlist.jsp.noUsers">
 <source>No deactivated users.</source>
@@ -1996,7 +1996,7 @@ abaixo e &lt;b&gt;não poderá mais se autenticar&lt;/b&gt;.</target></trans-uni
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/account/UserDetails</context>
         </context-group>
-      <target>Por favor indique suas informações no formulário abaixo. Os campos marcados com um asterisco (&lt;span class="required-form-field"&gt;*&lt;/span&gt;) são &lt;strong&gt;requisitados&lt;/strong&gt;.</target></trans-unit>
+      <target>Por favor preencha suas informações no formulário abaixo. Os campos marcados com um asterisco (&lt;span class="required-form-field"&gt;*&lt;/span&gt;) são &lt;strong&gt;obrigatórios&lt;/strong&gt;.</target></trans-unit>
       <trans-unit id="your_edit_address_record.displayname">
 <source>Record:</source>
         <context-group name="ctx">
@@ -2008,7 +2008,7 @@ abaixo e &lt;b&gt;não poderá mais se autenticar&lt;/b&gt;.</target></trans-uni
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/account/EditAddress</context>
         </context-group>
-      <target>Por favor indique suas informações no formulário abaixo. Os campos marcados com um asterisco (&lt;span class="required-form-field"&gt;*&lt;/span&gt;) são &lt;strong&gt;requisitados&lt;/strong&gt;.</target></trans-unit>
+      <target>Por favor preencha suas informações no formulário abaixo. Os campos marcados com um asterisco (&lt;span class="required-form-field"&gt;*&lt;/span&gt;) são &lt;strong&gt;obrigatórios&lt;/strong&gt;.</target></trans-unit>
 
       <!-- assignenedgroups.jsp -->
       <trans-unit id="assignedgroups.jsp.header">
@@ -2136,7 +2136,7 @@ abaixo e &lt;b&gt;não poderá mais se autenticar&lt;/b&gt;.</target></trans-uni
           <context context-type="sourcefile">/rhn/schedule/FailedActions</context>
           <context context-type="sourcefile">/rhn/schedule/PendingActions</context>
         </context-group>
-      <target>Tempo Agendado</target></trans-unit>
+      <target>Data Agendada</target></trans-unit>
       <trans-unit id="actions.jsp.succeeded">
 <source>Succeeded</source>
         <context-group name="ctx">
@@ -2144,7 +2144,7 @@ abaixo e &lt;b&gt;não poderá mais se autenticar&lt;/b&gt;.</target></trans-uni
           <context context-type="sourcefile">/rhn/schedule/FailedActions</context>
           <context context-type="sourcefile">/rhn/schedule/PendingActions</context>
         </context-group>
-      <target>Bem sucedida</target></trans-unit>
+      <target>Êxito</target></trans-unit>
       <trans-unit id="actions.jsp.failed">
 <source>Failed</source>
         <context-group name="ctx">
@@ -2153,7 +2153,7 @@ abaixo e &lt;b&gt;não poderá mais se autenticar&lt;/b&gt;.</target></trans-uni
           <context context-type="sourcefile">/rhn/schedule/PendingActions</context>
           <context context-type="sourcefile">/rhn/errata/details/SystemsAffected</context>
         </context-group>
-      <target>Falhou</target></trans-unit>
+      <target>Falhas</target></trans-unit>
       <trans-unit id="actions.jsp.inprogress">
 <source>Pending</source>
         <context-group name="ctx">
@@ -2161,7 +2161,7 @@ abaixo e &lt;b&gt;não poderá mais se autenticar&lt;/b&gt;.</target></trans-uni
           <context context-type="sourcefile">/rhn/schedule/FailedActions</context>
           <context context-type="sourcefile">/rhn/schedule/PendingActions</context>
         </context-group>
-      <target>Pendência</target></trans-unit>
+      <target>Pendentes</target></trans-unit>
       <trans-unit id="actions.jsp.total">
 <source>Total</source>
         <context-group name="ctx">
@@ -2676,7 +2676,7 @@ abaixo e &lt;b&gt;não poderá mais se autenticar&lt;/b&gt;.</target></trans-uni
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/schedule/CompletedSystems</context>
         </context-group>
-      <target>Completos</target></trans-unit>
+      <target>Finalizado em</target></trans-unit>
       <!-- inprogresssystems.jsp -->
       <trans-unit id="inprogresssystems.jsp.inprogresssystems">
 <source>In Progress Systems</source>
@@ -2923,7 +2923,7 @@ abaixo e &lt;b&gt;não poderá mais se autenticar&lt;/b&gt;.</target></trans-uni
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/errata/manage/Edit.do</context>
         </context-group>
-      <target>Edite a errata aqui.  Os campos requisitados estão marcados com um (&lt;span class="required-form-field"&gt;*&lt;/span&gt;).</target></trans-unit>
+      <target>Edite a errata aqui.  Os campos obrigatórios estão marcados com um (&lt;span class="required-form-field"&gt;*&lt;/span&gt;).</target></trans-unit>
 
       <trans-unit id="errata.edit.updateerrata">
 <source>Update Erratum</source>
@@ -3614,7 +3614,7 @@ abaixo e &lt;b&gt;não poderá mais se autenticar&lt;/b&gt;.</target></trans-uni
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlements</context>
         </context-group>
-      <target>Serviços do Canal de Software do @@PRODUCT_NAME@@ </target></trans-unit>
+      <target>Direitos ao Canal de Software do @@PRODUCT_NAME@@ </target></trans-unit>
       <trans-unit id="softwareentitlements.description">
 <source>The following is a list of all software channel entitlements on this @@PRODUCT_NAME@@, across organizations, and their usage. Click on the entitlement's name for more details about it.</source>
         <context-group name="ctx">
@@ -3656,7 +3656,7 @@ abaixo e &lt;b&gt;não poderá mais se autenticar&lt;/b&gt;.</target></trans-uni
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlements</context>
         </context-group>
-      <target>Contagem de Serviço Regulare</target></trans-unit>
+      <target>Contagem de Direitos de Serviço Regular</target></trans-unit>
       <trans-unit id="Regular Usage">
 <source>Regular Usage</source>
         <context-group name="ctx">
@@ -3669,7 +3669,7 @@ abaixo e &lt;b&gt;não poderá mais se autenticar&lt;/b&gt;.</target></trans-uni
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlements</context>
         </context-group>
-      <target>Contagens de Recurso Flexível</target></trans-unit>
+      <target>Contagem de Recurso Flexível</target></trans-unit>
 
       <trans-unit id="Flex Usage">
 <source>Flex Usage</source>
@@ -4144,7 +4144,7 @@ value for this entitlement, excluding the default organization's consumption.</s
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/errata/manage/Create.do</context>
         </context-group>
-      <target>Crie uma errata nova aqui.  Os campos requisitados estão marcados com um (&lt;span class="required-form-field"&gt;*&lt;/span&gt;).</target></trans-unit>
+      <target>Crie uma errata nova aqui.  Os campos obrigatórios estão marcados com um (&lt;span class="required-form-field"&gt;*&lt;/span&gt;).</target></trans-unit>
 
       <trans-unit id="errata.create.jsp.synopsis">
 <source>Synopsis&lt;span class="required-form-field"&gt;*&lt;/span&gt;:</source>
@@ -4296,7 +4296,7 @@ value for this entitlement, excluding the default organization's consumption.</s
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/channels/Entitlements</context>
         </context-group>
-      <target>Serviços do Canal de Software</target></trans-unit>
+      <target>Direitos ao Canal de Software</target></trans-unit>
       <trans-unit id="entitlements.jsp.summary">
 <source>The software channels listed below are subscription-based channels to which your organization has paid access.</source>
         <context-group name="ctx">
@@ -4314,7 +4314,7 @@ value for this entitlement, excluding the default organization's consumption.</s
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/channels/Entitlements</context>
         </context-group>
-      <target>Serviço do Canal</target></trans-unit>
+      <target>Canal de Software</target></trans-unit>
       <trans-unit id="entitlements.jsp.subscribed">
 <source>Systems Subscribed</source>
         <context-group name="ctx">
@@ -4332,13 +4332,13 @@ value for this entitlement, excluding the default organization's consumption.</s
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/channels/Entitlements</context>
         </context-group>
-      <target>Visitantes Flexíveis Consumidos</target></trans-unit>
+      <target>Sistemas Virtualizados Consumidos</target></trans-unit>
       <trans-unit id="entitlements.jsp.avaible_flex">
 <source>Available Flex Guests</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/channels/Entitlements</context>
         </context-group>
-      <target>Visitantes Flexíveis Consumidos</target></trans-unit>
+      <target>Disponibilidade Sistemas Virtualizados</target></trans-unit>
 
       <trans-unit id="entitlements.jsp.available">
 <source>Regular Available</source>
@@ -4474,7 +4474,7 @@ value for this entitlement, excluding the default organization's consumption.</s
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/Overview</context>
         </context-group>
-      <target>Visão Geral do Sistema</target></trans-unit>
+      <target>Visão Geral dos Sistemas</target></trans-unit>
 
       <trans-unit id="overview.jsp.alt">
 <source>System Icon</source>
@@ -4730,7 +4730,7 @@ value for this entitlement, excluding the default organization's consumption.</s
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/OutOfDate</context>
         </context-group>
-      <target>Sistemas Desatualizados</target></trans-unit>
+      <target>Desatualizados</target></trans-unit>
 
 
       <trans-unit id="unentitledlist.jsp.header">
@@ -4738,7 +4738,7 @@ value for this entitlement, excluding the default organization's consumption.</s
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/Unentitled</context>
         </context-group>
-      <target>Sistemas Sem Serviços</target></trans-unit>
+      <target>Sistemas Sem Direitos a Serviços</target></trans-unit>
 
 
       <trans-unit id="ungroupedlist.jsp.header">
@@ -4804,7 +4804,7 @@ value for this entitlement, excluding the default organization's consumption.</s
           <context context-type="sourcefile">/rhn/systems/SystemCurrency.do</context>
           <context context-type="sourcefile">/rhn/YourRhn.do</context>
         </context-group>
-      <target>Relatório de Validação do Sistema</target></trans-unit>
+      <target>Relatório de Atualizações do Sistemas</target></trans-unit>
 
 
       <trans-unit id="systemcurrency.jsp.critical">
@@ -5108,7 +5108,7 @@ value for this entitlement, excluding the default organization's consumption.</s
         <context-group name="ctx">
           <context context-type="sourcefile">/systems/SystemEntitlements</context>
         </context-group>
-     <target>Uma lista dos seus sistemas vem a seguir, com seus direitos a serviços básicos e adicionais exibidos nas colunas correspondentes. Para mudar níveis de direitos a serviços, selecione os sistemas que você deseja modificar, e escolha a ação apropriada abaixo.</target></trans-unit>
+     <target>A listagem exibida abaixo dos seus sistemas, informa os direitos a serviços básicos e adicionais nas colunas correspondentes. Para mudar níveis de direitos a serviços, selecione os sistemas que você deseja modificar, e escolha a ação apropriada abaixo.</target></trans-unit>
 
 
      <trans-unit id="systementitlements.jsp.nodata">
@@ -5232,43 +5232,43 @@ value for this entitlement, excluding the default organization's consumption.</s
 
         <trans-unit id="system_entitlements.virtualization.success_note">
                 <source>&lt;strong&gt;NOTE:&lt;/strong&gt; We subscribed the system(s) to the {0} and {1} channel as well as scheduled an install of the {2} package to prepare the system(s) for hosting virtual guests.</source>
-        <target>&lt;strong&gt;NOTA:&lt;/strong&gt; Nós increvemos o(s) sistema(s) nos canais {0} e {1} assim como agendamos uma instalação do {2} pacote para preparar o(s) sistema(s) para convidados virtuais hospedados.</target></trans-unit>
+        <target>&lt;strong&gt;NOTA:&lt;/strong&gt; Nós increvemos o(s) sistema(s) nos canais {0} e {1} assim como agendamos uma instalação do {2} pacote para preparar o(s) sistema(s) virtuais hospedados.</target></trans-unit>
 
         <trans-unit id="system_entitlements.virtualization_host.success">
                 <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) set to &lt;strong&gt;Virtualization.&lt;/strong&gt;.  &lt;br/&gt; &lt;strong&gt;NOTE: &lt;/strong&gt;If the system previously had Virtualization Platform it has been downgraded to Virtualization. </source>
-        <target>&lt;strong&gt;{0}&lt;/strong&gt; sistema(s) configurado(s) para &lt;strong&gt;Virtualização.&lt;/strong&gt;.  &lt;br/&gt; &lt;strong&gt;NOTA: &lt;/strong&gt; Se o sistema teve uma Plataforma de Virtualização anteriormente, ele recebeu um downgrade para Virtualização.</target></trans-unit>
+        <target>&lt;strong&gt;{0}&lt;/strong&gt; sistema(s) configurado(s) para &lt;strong&gt;Virtualização.&lt;/strong&gt;.  &lt;br/&gt; &lt;strong&gt;NOTA: &lt;/strong&gt; Se o sistema esteve antiormente configurado como 'Virtualização Ilimitada', ele recebeu um downgrade para Virtualização.</target></trans-unit>
 
         <trans-unit id="system_entitlements.virtualization_host.removed.success">
                 <source>Removed &lt;strong&gt;Virtualization&lt;/strong&gt; from &lt;strong&gt;{0}&lt;/strong&gt; system(s)  This will cause any guests associated with the selected host to consume physical Channel and System entitlements.</source>
-        <target>O componente de  &lt;strong&gt;Virtualização&lt;/strong&gt; foi removido do(s) sistema(s) &lt;strong&gt;{0}&lt;/strong&gt;. Isto fará com que qualquer convidado associado à máquina selecionada consuma um Canal físico e serviços de Sistema.</target></trans-unit>
+        <target>O Direito ao Serviço de &lt;strong&gt;Virtualização&lt;/strong&gt; foi removido do(s) sistema(s) &lt;strong&gt;{0}&lt;/strong&gt;. Isto fará com que qualquer sistema virtualizado associado à máquina selecionada consuma Direitos de Serviços de Sistema físico.</target></trans-unit>
 
         <trans-unit id="system_entitlements.virtualization_host.notEnoughSlots">
                 <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) were successfully set to &lt;strong&gt;Virtualization&lt;/strong&gt; entitled, but you do not have enough &lt;strong&gt;Virtualization&lt;/strong&gt; entitlements for the remaining &lt;strong&gt;{1}&lt;/strong&gt; system(s). You may purchase additional &lt;strong&gt;Virtualization&lt;/strong&gt; entitlements at &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;@@PRODUCT_NAME@@ store&lt;/strong&gt;&lt;/a&gt;. After you have additional &lt;strong&gt;Virtualization&lt;/strong&gt; entitlements, you will be able to upgrade these systems. &lt;br/&gt; &lt;strong&gt;NOTE: &lt;/strong&gt;If the system previously had Virtualization Platform it has been downgraded to Virtualization. </source>
-        <target>&lt;strong&gt;{0}&lt;/strong&gt; sistema(s) foram configurados para direitos a serviços de &lt;strong&gt;Virtualização&lt;/strong&gt; com sucesso, mas você não possui direitos a serviços de &lt;strong&gt;Virtualização&lt;/strong&gt; suficientes para &lt;strong&gt;{1}&lt;/strong&gt; sistema(s) restantes. Você pode adquirir direitos a serviços de &lt;strong&gt;Virtualização&lt;/strong&gt; adicionais na &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;@@PRODUCT_NAME@@ store&lt;/strong&gt;&lt;/a&gt;. Após obter direitos a serviços de &lt;strong&gt;Virtualização&lt;/strong&gt; adicionais, você poderá fazer o upgrade destes sistemas. &lt;br/&gt; &lt;strong&gt;NOTA: &lt;/strong&gt;Se havia anteriormente uma Plataforma de Virtualização no sistema, ele recebeu um downgrade para Virtualização.</target></trans-unit>
+        <target>&lt;strong&gt;{0}&lt;/strong&gt; sistema(s) foram configurados para direitos a serviços de &lt;strong&gt;Virtualização&lt;/strong&gt; com sucesso, mas você não possui direitos a serviços de &lt;strong&gt;Virtualização&lt;/strong&gt; suficientes para &lt;strong&gt;{1}&lt;/strong&gt; sistema(s) restantes. Você pode adquirir direitos a serviços de &lt;strong&gt;Virtualização&lt;/strong&gt; adicionais na &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;@@PRODUCT_NAME@@ store&lt;/strong&gt;&lt;/a&gt;. Após obter direitos a serviços de &lt;strong&gt;Virtualização&lt;/strong&gt; adicionais, você poderá fazer o upgrade destes sistemas. &lt;br/&gt; &lt;strong&gt;NOTA: &lt;/strong&gt;Se anteriormente o sistema estava configurado como 'Virtualização Ilimitada', ele recebeu um downgrade para Virtualização.</target></trans-unit>
         <trans-unit id="system_entitlements.virtualization_host.noManagement">
                 <source>&lt;strong&gt;Virtualization&lt;/strong&gt; entitlement failed for &lt;strong&gt;{0}&lt;/strong&gt; system(s) because they did not have &lt;strong&gt;Management&lt;/strong&gt; base entitlements. The failed systems are still selected below. If you click first the &lt;strong&gt;Set To Management Entitled&lt;/strong&gt; button below, then select the &lt;strong&gt;Virtualization&lt;/strong&gt; item in the drop-down list located in the &lt;strong&gt;Add-On entitlements section&lt;/strong&gt; and then click the &lt;strong&gt;Add Entitlement&lt;/strong&gt; button below, you'll be able to add the &lt;strong&gt;Virtualization&lt;/strong&gt; entitlement to these system(s).</source>
         <target>A associação de direitos a serviços de &lt;strong&gt;Virtualização&lt;/strong&gt; falhou para &lt;strong&gt;{0}&lt;/strong&gt; sistema(s) porque eles não possuem os direitos a serviços de &lt;strong&gt;Management&lt;/strong&gt; base. Os sistemas falhos ainda estão selecionados abaixo. Se você primeiro clicar no botão &lt;strong&gt;Mudar para Direitos a Serviços de Management&lt;/strong&gt; abaixo e selecionar o item &lt;strong&gt;Virtualização&lt;/strong&gt; na lista suspensa localizada na &lt;strong&gt;seção direitos a serviços Complementares&lt;/strong&gt; e então clicar no botão &lt;strong&gt;Adicionar Direito a Serviço&lt;/strong&gt; abaixo, você poderá adicionar o direito a serviços de &lt;strong&gt;Virtualização&lt;/strong&gt; a estes sistema(s).</target></trans-unit>
         <trans-unit id="system_entitlements.virtualization_host.noSolarisSupport">
                 <source>&lt;strong&gt;Virtualization&lt;/strong&gt; entitlement failed for &lt;strong&gt;{0}&lt;/strong&gt; system(s) because Virtualization is not supported on Solaris systems.</source>
-        <target>O serviço &lt;strong&gt;Virtualização&lt;/strong&gt; falhou no(s) sistema(s) &lt;strong&gt;{0}&lt;/strong&gt;  pois o Componente de Virtualização não é suportado nos sitemas Solaris.</target></trans-unit>
+        <target>O serviço de &lt;strong&gt;Virtualização&lt;/strong&gt; falhou no(s) sistema(s) &lt;strong&gt;{0}&lt;/strong&gt; porque Virtualização não é suportado nos sistemas Solaris.</target></trans-unit>
 
         <trans-unit id="system_entitlements.virtualization_host_platform.success">
                 <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) set to &lt;strong&gt;Virtualization Platform.&lt;/strong&gt;.  &lt;br/&gt; &lt;strong&gt;NOTE: &lt;/strong&gt;If the system previously had Virtualization it has been upgraded to Virtualization Platform. </source>
-        <target>&lt;strong&gt;{0}&lt;/strong&gt; sistema(s) configurado(s) para &lt;strong&gt;Plataforma de Virtualização.&lt;/strong&gt;.  &lt;br/&gt; &lt;strong&gt;NOTA: &lt;/strong&gt;Se havia anteriormente Virtualização no sitema, ele foi atualizado para Plataforma de Virtualização. </target></trans-unit>
+        <target>&lt;strong&gt;{0}&lt;/strong&gt; sistema(s) configurado(s) para &lt;strong&gt;Virtualização Ilimitada.&lt;/strong&gt;.  &lt;br/&gt; &lt;strong&gt;NOTA: &lt;/strong&gt;Se anteriormete o sistema estava configurado como 'Virtualização', ele foi atualizado para 'Virtualização Ilimitada'. </target></trans-unit>
 
         <trans-unit id="system_entitlements.virtualization_host_platform.removed.success">
                 <source>Removed &lt;strong&gt;Virtualization&lt;/strong&gt; from &lt;strong&gt;{0}&lt;/strong&gt; system(s)  This will cause any guests associated with the selected host to consume physical Channel and System entitlements.</source>
-        <target>O componente de  &lt;strong&gt;Virtualização&lt;/strong&gt; foi removido do(s) sistema(s) &lt;strong&gt;{0}&lt;/strong&gt;. Isto fará com que qualquer convidado associado à máquina selecionada consuma um Canal físico e serviços de Sistema.</target></trans-unit>
+        <target>O serviço de &lt;strong&gt;Virtualização&lt;/strong&gt; foi removido do(s) sistema(s) &lt;strong&gt;{0}&lt;/strong&gt;. Isto fará com que qualquer sistema virtual associado à máquina selecionada consuma Direitos a Serviços de Sistema físico.</target></trans-unit>
 
         <trans-unit id="system_entitlements.virtualization_host_platform.notEnoughSlots">
                 <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) were successfully set to &lt;strong&gt;Virtualization Platform&lt;/strong&gt; entitled, but you do not have enough &lt;strong&gt;Virtualization Platform&lt;/strong&gt; entitlements for the remaining &lt;strong&gt;{1}&lt;/strong&gt; system(s). You may purchase additional &lt;strong&gt;Virtualization Platform&lt;/strong&gt; entitlements at &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;@@PRODUCT_NAME@@ store&lt;/strong&gt;&lt;/a&gt;. After you have additional &lt;strong&gt;Virtualization Platform&lt;/strong&gt; entitlements, you will be able to upgrade these systems.  &lt;br/&gt;&lt;strong&gt;NOTE: &lt;/strong&gt;If the system previously had Virtualization Platform it has been downgraded to Virtualization.</source>
-        <target>&lt;strong&gt;{0}&lt;/strong&gt; sistema(s) foram configurados para direitos a serviços de &lt;strong&gt;Plataforma de Virtualização&lt;/strong&gt; com sucesso, mas você não possui direitos a serviços de &lt;strong&gt;Plataforma de Virtualização&lt;/strong&gt; suficientes para &lt;strong&gt;{1}&lt;/strong&gt; sistema(s) restantes. Você pode adquirir direitos a serviços de &lt;strong&gt;Plataforma de Virtualização&lt;/strong&gt; adicionais na &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;@@PRODUCT_NAME@@ store&lt;/strong&gt;&lt;/a&gt;. Após obter direitos a serviços de &lt;strong&gt;Plataforma de Virtualização&lt;/strong&gt; adicionais, você poderá fazer o upgrade destes sistemas.&lt;br/&gt;&lt;strong&gt;NOTA: &lt;/strong&gt; Se havia anteriormente uma Plataforma de Virtualização no sistema, ele recebeu um downgrade para Virtualização.</target></trans-unit>
+        <target>&lt;strong&gt;{0}&lt;/strong&gt; sistema(s) foram configurados para direitos a serviços de &lt;strong&gt;Virtualização Ilimitada&lt;/strong&gt; com sucesso, mas você não possui direitos a serviços de &lt;strong&gt;Virtualização Ilimitada&lt;/strong&gt; suficientes para &lt;strong&gt;{1}&lt;/strong&gt; sistema(s) restantes. Você pode adquirir direitos a serviços de &lt;strong&gt;Virtualização Ilimitada&lt;/strong&gt; adicionais na &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;@@PRODUCT_NAME@@ store&lt;/strong&gt;&lt;/a&gt;. Após obter direitos a serviços de &lt;strong&gt;Virtualização Ilimitada&lt;/strong&gt; adicionais, você poderá fazer o upgrade destes sistemas.&lt;br/&gt;&lt;strong&gt;NOTA: &lt;/strong&gt; Se anteriormente o sistema estava configurado como 'Virtualização Ilimitada', ele recebeu um downgrade para Virtualização.</target></trans-unit>
         <trans-unit id="system_entitlements.virtualization_host_platform.noManagement">
                 <source>&lt;strong&gt;Virtualization Platform&lt;/strong&gt; entitlement failed for &lt;strong&gt;{0}&lt;/strong&gt; system(s) because they did not have &lt;strong&gt;Management&lt;/strong&gt; base entitlements. The failed systems are still selected below. If you click first the &lt;strong&gt;Set To Management Entitled&lt;/strong&gt; button below, then select the &lt;strong&gt;Virtualization Platform&lt;/strong&gt; item in the drop-down list located in the &lt;strong&gt;Add-On entitlements section&lt;/strong&gt; and then click the &lt;strong&gt;Add Entitlement&lt;/strong&gt; button below, you'll be able to add the &lt;strong&gt;Virtualization Platform&lt;/strong&gt; entitlement to these system(s).</source>
-        <target>A associação de direitos a serviços de &lt;strong&gt;Plataforma de Virtualização&lt;/strong&gt; falhou para &lt;strong&gt;{0}&lt;/strong&gt; sistema(s) porque eles não possuem os direitos a serviços de &lt;strong&gt;Management&lt;/strong&gt; base. Os sistemas falhos ainda estão selecionados abaixo. Se você primeiro clicar no botão &lt;strong&gt;Mudar para Direitos a Serviços de Management&lt;/strong&gt; abaixo e selecionar o item &lt;strong&gt;Plataforma de Virtualização&lt;/strong&gt; na lista suspensa localizada na &lt;strong&gt;seção direitos a serviços Complementares&lt;/strong&gt; e então clicar no botão &lt;strong&gt;Adicionar Direito a Serviço&lt;/strong&gt; abaixo, você poderá adicionar o direito a serviços de &lt;strong&gt;Plataforma de Virtualização&lt;/strong&gt; a estes sistema(s).</target></trans-unit>
+        <target>A associação de direitos a serviços de &lt;strong&gt;Virtualização Ilimitada&lt;/strong&gt; falhou para &lt;strong&gt;{0}&lt;/strong&gt; sistema(s) porque eles não possuem os direitos a serviços básicos de &lt;strong&gt;Gerenciamento&lt;/strong&gt;. Os sistemas que falharam ainda estão selecionados abaixo. Se você primeiro clicar no botão &lt;strong&gt;Mudar para Direitos a Serviços de Gerenciamento&lt;/strong&gt; abaixo e selecionar o item &lt;strong&gt;Virtualização Ilimitada&lt;/strong&gt; na lista suspensa localizada na &lt;strong&gt;seção direitos a Serviços Complementares&lt;/strong&gt; e então clicar no botão &lt;strong&gt;Adicionar Direito a Serviço&lt;/strong&gt; abaixo, você poderá adicionar o direito a serviços de &lt;strong&gt;Virtualização Ilimitada&lt;/strong&gt; a estes sistema(s).</target></trans-unit>
         <trans-unit id="system_entitlements.virtualization_host_platform.noSolarisSupport">
                 <source>&lt;strong&gt;Virtualization Platform&lt;/strong&gt; entitlement failed for &lt;strong&gt;{0}&lt;/strong&gt; system(s) because Virtualization is not supported on Solaris systems.</source>
-        <target>O serviço de &lt;strong&gt;Plataforma de Virtualização&lt;/strong&gt; falhou nos sistemas &lt;strong&gt;{0}&lt;/strong&gt;.pois o Componente de Virtualização não é suportado nos sistemas Solaris. </target></trans-unit>
+        <target>O serviço de &lt;strong&gt;Virtualização Ilimitada&lt;/strong&gt; falhou nos sistemas &lt;strong&gt;{0}&lt;/strong&gt; porque não é suportado nos sistemas Solaris. </target></trans-unit>
         <trans-unit id="system_entitlements.monitoring.success">
                 <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) set to &lt;strong&gt;Monitoring&lt;/strong&gt;.</source>
         <target>&lt;strong&gt;{0}&lt;/strong&gt; sistema(s) configurado(s) para &lt;strong&gt;Monitoring&lt;/strong&gt;.</target></trans-unit>
@@ -5289,7 +5289,7 @@ value for this entitlement, excluding the default organization's consumption.</s
         <target>O serviço &lt;strong&gt;Monitoring&lt;/strong&gt; falhou nos sistemas &lt;strong&gt;{0}&lt;/strong&gt; pois o Monitoring não é suportado nos sistemas Solaris.</target></trans-unit>
         <trans-unit id="system_entitlements.virtualization.setup_error">
                 <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) failed to add &lt;strong&gt;Virtualization(Platform)&lt;/strong&gt;.  This was caused by errors attempting to automatically subscribe the system to the @@PRODUCT_NAME@@ Tools and RHEL Virtualization channels which are required for virtualization.</source>
-        <target>&lt;strong&gt;{0}&lt;/strong&gt; sistema(s) falhou ao adicionar &lt;strong&gt;(Plataforma) Virtualização&lt;/strong&gt;.  Isto foi causado por erros ao tentar se inscrever automaticamente no sistema nas Ferramentas @@PRODUCT_NAME@@ e canais de Virtualização RHEL que são requisitados para a virtualização.</target></trans-unit>
+        <target>&lt;strong&gt;{0}&lt;/strong&gt; sistema(s) falhou ao adicionar &lt;strong&gt;(Plataforma) Virtualização&lt;/strong&gt;.  Isto foi causado por erros ao tentar se inscrever automaticamente no sistema nas Ferramentas @@PRODUCT_NAME@@ e canais de Virtualização RHEL que são obrigatórios para a virtualização.</target></trans-unit>
 
         <trans-unit id="system_entitlements.unknown.error">
                 <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) failed to add an entitlement.  This was caused by an unknown error.  Please contact support.</source>
@@ -5308,45 +5308,45 @@ value for this entitlement, excluding the default organization's consumption.</s
 	     <target>Registrado</target></trans-unit>
 	     <trans-unit id="flexguest.jsp.entitlement_counts_message_unlimited">
 			<source>{0} consumed, unlimited available entitlements</source>
-	     <target>{0} consumido, ilimitadas nomeações disponíveis </target></trans-unit>
+	     <target>{0} consumido, direitos ilimitados disponíveis </target></trans-unit>
 
 	     <trans-unit id="flexguest.jsp.entitlement_counts_message">
 			<source>{0} consumed, {1} available entitlement</source>
-	     <target>{0} consumido, {1} nomeação disponível</target></trans-unit>
+	     <target>{0} consumido, {1} direitos disponíveis</target></trans-unit>
 	     <trans-unit id="flexguest.jsp.header">
 			<source>Flex Guest Entitlement Consumers</source>
-	     <target>Consumidores de Nomeação de Convidado Flexível</target></trans-unit>
+	     <target>Sistemas Virtualizados Associados a Virtualização Flexível</target></trans-unit>
 	     <trans-unit id="flexguest.jsp.message">
 			<source>The following is a list of guest systems that are currently consuming &lt;a href="{0}"&gt; Flex Guest entitlements&lt;/a&gt;. These entitlements are used when registering virtual guests that are not associated with a registered host system or that are associated with a host system that is not Virtualization or Virtualization Platform entitled. Flex Guest Entitlement Consumers</source>
-	     <target>Segue abaixo uma lista de sistemas de convidados que estão consumindo &lt;a href="{0}"&gt;nomeações de Convidado Flexível&lt;/a&gt;. Estas nomeações são usadas quando registrando os convidados virtuais que não são associados com o sistema host registrado ou que são associadas com o sistema host que não é nomeado Virtualização ou Plataforma de Virtualização. Consumidores de Nomeação de Convidado Flexível </target></trans-unit>
+	     <target>Segue abaixo uma lista de Sistemas Virtualizados que estão consumindo &lt;a href="{0}"&gt;Direitos de Sistemas Virtualizados&lt;/a&gt;. Esses direitos são utilizados quando sistemas virtualizados não estão associados com algum sistema hospedeiro (host) registrado ou que não estão configurados com direitos a 'Virtualização ou Virtualização Ilimitada'. Sistemas associdados a Virtualização Flexível </target></trans-unit>
 	     <trans-unit id="floating.guests">
 			<source>Flex Guest Entitlement Consumers</source>
-	     <target>Consumidores de Nomeação de Convidado Flexível</target></trans-unit>
+	     <target>Sistemas Virtualizados Associados a Virtualização Flexível</target></trans-unit>
 
 	     <trans-unit id="eligible.floating.guests">
 			<source>Guests Consuming Regular Entitlements</source>
-	     <target>Nomeações Regulares de Consumo de Convidados</target></trans-unit>
+	     <target>Sistema Virtualizados Associados a Direitos a Serviços de Sistemas Físicos</target></trans-unit>
 	     <trans-unit id="eligible.flexguest.jsp.header">
 			<source>Guests Consuming Regular Entitlements</source>
-	     <target>Nomeações Regulares de Consumo de Convidados</target></trans-unit>
+	     <target>Sistema Virtualizados Associados a Direitos a Serviços de Sistemas Físicos</target></trans-unit>
 	     <trans-unit id="eligible.flexguest.jsp.message">
 			<source>The following is a list of guest systems that are not associated with a virtual entitled (either Virtualization or Virtualization Platform) host system in RHN or for whom there are no remaining &lt;a href="{0}"&gt; Virtualization inherited guest entitlements&lt;/a&gt;. These systems are consuming the same software and system entitlements as a physical system.</source>
-	     <target>Segue abaixo uma lista de sistemas de convidados que não está associada com o sistema host de nomeação virtual (tanto Virtualização ou Plataforma de Virtualização) no RHN ou para aqueles que não existe sobra de &lt;a href="{0}"&gt; nomeações de convidado herdado da virtualização&lt;/a&gt;. Estes sistemas estão consumindo o mesmo software e as nomeações de sistema como um sistema físico.</target></trans-unit>
+	     <target>Segue abaixo uma lista de Sistemas Virtualizados que não estão consumindo &lt;a href="{0}"&gt;Direitos de Sistemas Virtualizados&lt;/a&gt;. Estes sistemas estão consumindo o mesmo Direito a Software que um sistema físico.</target></trans-unit>
 
 	     <trans-unit id="eligible.flexguest.jsp.no-systems">
 			<source>There are no eligible flex guest systems consuming regular entitlements.</source>
-	     <target>Não existem sistemas de convidado flexível consumindo nomeações regulares.</target></trans-unit>
+	     <target>Não existem sistemas virtuais flexíveis consumindo direitos regulares.</target></trans-unit>
 
 	     <trans-unit id="flexguest.jsp.no-systems">
 			<source>There are no systems consuming Flex Guest entitlements.</source>
-	     <target>Não existe consumo de sistemas de nomeações de Convidado Flexível.</target></trans-unit>
+	     <target>Não existem sistemas regulares consumindo Direitos a Virtualização Flexível.</target></trans-unit>
 	     <trans-unit id="Make Flex">
 			<source>Convert To Flex Guest Entitlement</source>
-	     <target>Converte para Nomeação de Convidado Flexível</target></trans-unit>
+	     <target>Converte para Virtualização Flexível</target></trans-unit>
 
 	     <trans-unit id="eligible.flexguest.systems.confirm.message">
 			<source>Converted &lt;strong&gt;{0}&lt;/strong&gt; system(s) to use Flex Guest Entitlement.</source>
-	     <target>Converte para  &lt;strong&gt;{0}&lt;/strong&gt; sistema(s) de uso da Nomeação de Convidado Flexível.</target></trans-unit>
+	     <target>Converte para  &lt;strong&gt;{0}&lt;/strong&gt; sistema(s) utilizar Virtualização Flexível.</target></trans-unit>
 	</group>
 
 	<!--  System search -->
@@ -6988,7 +6988,7 @@ organization management tools if you choose to remove this role from your login.
           <context-group name="ctx">
             <context context-type="sourcefile">NOTFILLEDOUT</context>
         </context-group>
-      <target>Sincronização da Agenda</target></trans-unit>
+      <target>Sincronizar Cronograma</target></trans-unit>
 
 
 
@@ -7878,8 +7878,7 @@ on a @@PRODUCT_NAME@@.</source>
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/admin/config/GeneralConfig.do</context>
         </context-group>
-      <target>O @@PRODUCT_NAME@@ Satellite permite a criação de várias 'organizações'
-em um @@PRODUCT_NAME@@.</target></trans-unit>
+      <target>O @@PRODUCT_NAME@@ permite a criação de várias 'organizações'.</target></trans-unit>
       <trans-unit id="general.jsp.org.summary2">
 <source>Organizations are a way to place boundaries between sets of systems, system
 groups, software channels, subscriptions and entitlements, kickstart profiles,
@@ -7894,7 +7893,7 @@ organization.
             <context context-type="sourcefile">/rhn/admin/config/GeneralConfig.do</context>
         </context-group>
       <target>As organizações são uma maneira de colocar barreiras entre conjuntos de sistemas, grupos de
-sistemas, canais de software, subscrições e nomeações, perfis kickstart,
+sistemas, canais de software, subscrições, perfis kickstart,
 chaves de ativação, arquivos e canais de configuração, usuários - tudo
 o que você gerencia usando @@PRODUCT_NAME@@. Cada organização é gerenciada por pelo menos um
 administrador e todo o @@PRODUCT_NAME@@ é gerenciado pelo administrador @@PRODUCT_NAME@@.
@@ -8300,7 +8299,7 @@ Please note that some manual configuration of these scripts may still be require
         <target>Não há repos no db</target></trans-unit>
         <trans-unit id="repos.jsp.label">
           <source>Label</source>
-        <target>Etiqueta</target></trans-unit>
+        <target>Nome</target></trans-unit>
         <trans-unit id="repos.jsp.button-sync">
           <source>Sync Now</source>
         </trans-unit>
@@ -8333,10 +8332,10 @@ Please note that some manual configuration of these scripts may still be require
         <target>Cria um Repositório</target></trans-unit>
         <trans-unit id="repos.jsp.create.label">
           <source>Repository Label</source>
-        <target>Etiqueta de Repositório</target></trans-unit>
+        <target>Nome do Repositório</target></trans-unit>
         <trans-unit id="repos.jsp.create.url">
           <source>Repository URL</source>
-        <target>URL de Repositório</target></trans-unit>
+        <target>URL do Repositório</target></trans-unit>
         <trans-unit id="repos.jsp.create.submit">
           <source>Create Repository</source>
         <target>Cria um Repositório</target></trans-unit>
@@ -8649,7 +8648,7 @@ Please note that some manual configuration of these scripts may still be require
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/kickstart</context>
         </context-group>
-    <target>Etiqueta</target></trans-unit>
+    <target>Nome</target></trans-unit>
 
 
     <trans-unit id="kickstart.jsp.lastchange">
@@ -9038,14 +9037,14 @@ Please note that some manual configuration of these scripts may still be require
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/kickstart/KickstartDetailsEdit</context>
         </context-group>
-    <target>Etiqueta do kickstart</target></trans-unit>
+    <target>Nome do kickstart</target></trans-unit>
 
     <trans-unit id="kickstartdetails.jsp.labelwarning">
         <source>&lt;strong&gt;Tip:&lt;/strong&gt; The label field should not be easily guessable, since it could be used to expose information about this kickstart profile to a 3rd party.</source>
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/kickstart/KickstartDetailsEdit</context>
         </context-group>
-    <target>&lt;strong&gt;Dica:&lt;/strong&gt; O campo da etiqueta não deve ser fácil de adivinhar, pois ele pode ser usado para revelar informações sobre este perfil de kickstart a terceiros.</target></trans-unit>
+    <target>&lt;strong&gt;Dica:&lt;/strong&gt; O campo Nome não deve ser fácil de adivinhar, pois ele pode ser usado para revelar informações sobre este perfil de kickstart a terceiros.</target></trans-unit>
 
     <trans-unit id="kickstartdetails.jsp.virtTypeChangeWarning">
         <source>&lt;strong&gt;NOTE:&lt;/strong&gt; Changing the Virtualization Type may require changes to the
@@ -9143,7 +9142,7 @@ Please note that some manual configuration of these scripts may still be require
 	  <target>Criar Perfil de Kickstart</target></trans-unit>
 	  <trans-unit id="kickstart.advanced.jsp.para1">
 	    <source>Each kickstart file you upload to satellite will need a label so that you can refer to it later - please choose a label for this kickstart and enter it below. Entries marked with an asterisk (*) are required.</source>
-	  <target>Cada arquivo de kickstart que você carregar no satellite, precisará de uma etiqueta para que você possa consultá-lo mais tarde. Escolha uma etiqueta para este kickstart e insira-a abaixo. As entradas marcadas com um asterisco (*) são obrigatórias.</target></trans-unit>
+	  <target>Cada arquivo de kickstart que você carregar no satellite, precisará de um nome para que você possa consultá-lo mais tarde. Escolha um nome para este kickstart e insira-a abaixo. As entradas marcadas com um asterisco (*) são obrigatórias.</target></trans-unit>
 
 	  <trans-unit id="kickstart.advanced.jsp.uploadtab">
 	    <source>File to Upload</source>
@@ -9205,7 +9204,7 @@ Please note that some manual configuration of these scripts may still be require
             <context context-type="sourcefile">/rhn/kickstart/ActivationKeysEdit.do</context>
             <context context-type="sourcefile">/rhn/activationkeys/List.do</context>
         </context-group>
-    <target>Uso</target></trans-unit>
+    <target>Utilização</target></trans-unit>
 
     <trans-unit id="kickstart.activationkeys.jsp.nousagelimit">
         <source>(unlimited)</source>
@@ -9710,7 +9709,7 @@ Please note that some manual configuration of these scripts may still be require
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/provisioning/preservation/PreservationList.do</context>
         </context-group>
-    <target>criar nova lista de preservação de arquivos</target></trans-unit>
+    <target>criar nova lista de arquivos preservados</target></trans-unit>
 
     <trans-unit id="toolbar.create.kickstartscript">
         <source>add new kickstart script</source>
@@ -9739,7 +9738,7 @@ Please note that some manual configuration of these scripts may still be require
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/provisioning/preservation/PreservationListEdit.do</context>
         </context-group>
-    <target>Etiqueta</target></trans-unit>
+    <target>Nome</target></trans-unit>
 
     <trans-unit id="preservation-form.jsp.files">
         <source>Files</source>
@@ -10247,7 +10246,7 @@ o &lt;strong&gt;Guia de Administração de Sistemas Red Hat Enterprise Li
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/YourRhn</context>
         </context-group>
-     <target>Idade</target></trans-unit>
+     <target>Horário</target></trans-unit>
 
      <trans-unit id="yourrhn.jsp.allupdates">
         <source>All Updates</source>
@@ -10452,7 +10451,7 @@ o &lt;strong&gt;Guia de Administração de Sistemas Red Hat Enterprise Li
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/YourRhn.do</context>
         </context-group>
-     <target>Visuazar Todos os Sistemas Críticos</target></trans-unit>
+     <target>Visualizar Todos os Sistemas Críticos</target></trans-unit>
 
      <trans-unit id="yourrhn.jsp.criticalsystems.description">
         <source>most critical systems</source>
@@ -10946,7 +10945,7 @@ o &lt;strong&gt;Guia de Administração de Sistemas Red Hat Enterprise Li
        <context-group name="ctx">
          <context context-type="sourcefile">/rhn/kickstart/CreateProfileWizard.do</context>
        </context-group>
-     <target>Etiqueta</target></trans-unit>
+     <target>Nome</target></trans-unit>
      <trans-unit id="kickstart.jsp.create.wizard.kstree.label">
        <source>Kickstartable Tree</source>
        <context-group name="ctx">
@@ -11641,7 +11640,7 @@ o &lt;strong&gt;Guia de Administração de Sistemas Red Hat Enterprise Li
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/GlobalConfigChannelList.do</context>
         </context-group>
-     <target>Etiqueta</target></trans-unit>
+     <target>Nome</target></trans-unit>
 
      <trans-unit id="globalconfiglist.jsp.files">
         <source>Files</source>
@@ -11717,13 +11716,13 @@ o &lt;strong&gt;Guia de Administração de Sistemas Red Hat Enterprise Li
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/ChannelOverview.do</context>
         </context-group>
-     <target>Etiqueta &lt;span class="required-form-field"&gt;*&lt;/span&gt;:</target></trans-unit>
+     <target>Nome &lt;span class="required-form-field"&gt;*&lt;/span&gt;:</target></trans-unit>
       <trans-unit id="channelOverview.jsp.label">
 <source>Label:</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/ChannelOverview.do</context>
         </context-group>
-     <target>Etiqueta:</target></trans-unit>
+     <target>Nome:</target></trans-unit>
       <trans-unit id="channelOverview.jsp.descr-edit">
 <source>Description&lt;span class="required-form-field"&gt;*&lt;/span&gt;:</source>
         <context-group name="ctx">
@@ -11936,7 +11935,7 @@ o &lt;strong&gt;Guia de Administração de Sistemas Red Hat Enterprise Li
           <context context-type="sourcefile">/rhn/configuration/ChannelCreate.do</context>
 		  <context context-type="paramnotes">"Label 'NEWCHANNEL' already exists.  Please choose a different label for the new channel."</context>
         </context-group>
-     <target>Etiqueta '{0}' já existe. Por favor, escolha uma etiqueta diferente para um novo canal.</target></trans-unit>
+     <target>Nome '{0}' já existe. Por favor, escolha um nome diferente para o novo canal.</target></trans-unit>
 
 	<!-- channelfiles.jsp -->
 	<trans-unit id="channelfiles.jsp.header2">
@@ -13721,7 +13720,7 @@ para qualquer uma das revisões, assim como todo o histórico de implementação
         <target>Arquivo de Cópia</target></trans-unit>
         <trans-unit id="copycentral.jsp.label">
           <source>Channel Label</source>
-        <target>Etiqueta de Canal</target></trans-unit>
+        <target>Nome de Canal</target></trans-unit>
         <trans-unit id="copycentral.jsp.current">
           <source>Current Version in Channel</source>
         <target>Versão Atual no Canal </target></trans-unit>
@@ -14520,7 +14519,7 @@ para qualquer uma das revisões, assim como todo o histórico de implementação
         </context-group>
         <trans-unit id="sdc.config.file_list.central_description">
             <source>Below is a list of centrally-managed configuration files associated with {0}. Centrally-managed configuration files are provided by global configuration channels - you can determine which channel provides which file by examining the "Provided By" column below. Some of these centrally-managed files may be overridden by locally-managed files - you can determine whether or not a file is overridden by examining the "Overridden By" column below.</source>
-        <target>Segue abaixo uma lista dos arquivos de configuração gerenciados centralmente, associados ao {0}. Os arquivos de configuração gerenciados centralmente, são fornecidos pelos canais de configuração mundiais. Você pode determinar quais canais fornecem quais arquivos, examinando a coluna "Fornecido por" abaixo. Aguns destes arquivos gerenciados centralmente, podem ser sobrescritos por arquivos gerenciados localmente. Você pode determinar se um arquivo é ou não sobrescrito, examinando a coluna "Sobrescrito por" abaixo.</target></trans-unit>
+        <target>Segue abaixo uma lista dos arquivos de configuração gerenciados centralmente, associados ao {0}. Os arquivos de configuração gerenciados centralmente, são fornecidos pelos canais de configuração globais. Você pode determinar quais canais fornecem quais arquivos, examinando a coluna "Oferecido por" abaixo. Alguns destes arquivos gerenciados centralmente, podem ser sobrescritos por arquivos gerenciados localmente. Você pode determinar se um arquivo é ou não sobrescrito, examinando a coluna "Sobrescrito por" abaixo.</target></trans-unit>
         <trans-unit id="sdc.config.file_list.local_description">
           <source>Locally-managed configuration files are useful for overriding centrally-managed configuration profiles that cause problems on particular systems. Also, locally-managed configuration files are a method by which system group administrators who don't have configuration administration privileges can manage configuration files on the machines they are able to manage.</source>
         <target>Arquivos de configuração gerenciados localmente são úteis para sobrescrever perfis de configuração gerenciados centralmente, que causem problemas em sistemas específicos. Os arquivos de configuração gerenciados localmente, também são um método pelo qual os administradores do grupo de sistemas, que não possuem privilégios de administração de configuração, podem gerenciar arquivos de configuração em máquinas que eles podem gerenciar. </target></trans-unit>
@@ -14577,15 +14576,15 @@ para qualquer uma das revisões, assim como todo o histórico de implementação
 
         <trans-unit id="sdc.config.file_list.copy_to_sandbox">
             <source>Copy Latest to Sandbox</source>
-        <target>Copiar Último para Modo Seguro</target></trans-unit>
+        <target>Copiar Última Revisão para Modo Seguro</target></trans-unit>
 
         <trans-unit id="sdc.config.file_list.copy_to_local">
             <source>Copy Latest to System Channel</source>
-        <target>Copiar Último para Canal de Sistema</target></trans-unit>
+        <target>Copiar Última Revisão para Canal do Sistema</target></trans-unit>
 
         <trans-unit id="sdc.config.file_list.copy_to_global">
             <source>Copy Latest to Central Channel</source>
-        <target>Copiar Último para Canal Central</target></trans-unit>
+        <target>Copiar Última Revisão para Canal Global</target></trans-unit>
         <trans-unit id="sdc.config.file_list.sandbox.success">
             <source>{0} file(s) successfully copied to Sandbox</source>
         <target>{0} arquivo(s) copiados para o Modo Seguro com sucesso</target></trans-unit>
@@ -14618,7 +14617,7 @@ para qualquer uma das revisões, assim como todo o histórico de implementação
         <target>Nome do Canal</target></trans-unit>
         <trans-unit id="sdc.configlist.jsp.label">
           <source>Channel Label</source>
-        <target>Etiqueta de Canal</target></trans-unit>
+        <target>Identifição do Canal</target></trans-unit>
         <trans-unit id="sdc.configlist.jsp.files">
           <source>Total Files</source>
         <target>Total de Arquivos</target></trans-unit>
@@ -14856,7 +14855,7 @@ para qualquer uma das revisões, assim como todo o histórico de implementação
           <context-group name="ctx">
             <context context-type="paramnotes">7 files scheduled for comparison.</context>
           </context-group>
-        <target>{0} files &lt;a href="{1}"&gt;agendado&lt;/a&gt; para comparação.</target></trans-unit>
+        <target>{0} arquivo(s) &lt;a href="{1}"&gt;agendado(s)&lt;/a&gt; para comparação.</target></trans-unit>
      </group>
 
      <!-- configuration/sdc/deployfileconfirm.jsp  -->
@@ -14881,7 +14880,7 @@ para qualquer uma das revisões, assim como todo o histórico de implementação
           <context-group name="ctx">
             <context context-type="paramnotes">7 files scheduled for deploy.</context>
           </context-group>
-        <target>{0} arquivo(s) &lt;a href="{1}"&gt;agendado&lt;/a&gt;para implemetação.</target></trans-unit>
+        <target>{0} arquivo(s) &lt;a href="{1}"&gt;agendado(s)&lt;/a&gt; para implementação.</target></trans-unit>
      </group>
 
     <!-- ssm/view-log.jsp, ssm/view-log-details.jsp -->
@@ -14914,7 +14913,7 @@ para qualquer uma das revisões, assim como todo o histórico de implementação
        <target>Em Progresso</target></trans-unit>
        <trans-unit id="ssm.operations.viewlog.completed">
           <source>Completed</source>
-       <target>Completos</target></trans-unit>
+       <target>Finalizado em</target></trans-unit>
        <trans-unit id="ssm.operations.viewlog.empty">
           <source>No tasks match the given criteria</source>
        <target>Nenhuma tarefa coincide com o critério desejado.</target></trans-unit>
@@ -15171,7 +15170,7 @@ para qualquer uma das revisões, assim como todo o histórico de implementação
          <context-group name="ctx">
          <context context-type="sourcefile">/rhn/kickstart/CreateProfileWizard.do</context>
        </context-group>
-     <target>Etiqueta do perfil de kickstart</target></trans-unit>
+     <target>Nome do perfil de kickstart</target></trans-unit>
      <trans-unit id="kstreeId">
          <source>Kickstartable tree</source>
          <context-group name="ctx">
@@ -15271,14 +15270,14 @@ a aba &lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;Chaves de At
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/kickstart/ScheduleWizard.do</context>
         </context-group>
-    <target>O Reabastecimento dos sistemas convidados não é suportado no momento.</target></trans-unit>
+    <target>O reprovisionamento dos sistemas virtuais não é suportado no momento.</target></trans-unit>
 
     <trans-unit id="kickstart.schedule.visit.host.virt.tab">
         <source>If this guest system is no longer needed you can delete the guest. To provision a new guest on this system's host, &lt;a href="/rhn/systems/details/virtualization/VirtualGuestsList.do?sid={0}"&gt;please visit the 'Virtualization' tab of the host's system details page&lt;/a&gt;.</source>
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/kickstart/ScheduleWizard.do</context>
         </context-group>
-    <target>Se o sistema convidado não for mais necessário, você poderá remover o convidado. Para provisionar um novo convidado neste host do sistema, &lt;a href="/rhn/systems/details/virtualization/VirtualGuestsList.do?sid={0}"&gt; visite a aba 'Virtualização' na página de detalhes do sistema do host&lt;/a&gt;.</target></trans-unit>
+    <target>Se o sistema virtual não for mais necessário, você poderá remove-lo. Para provisionar um novo sistema virtual neste sistema hóspede (host), &lt;a href="/rhn/systems/details/virtualization/VirtualGuestsList.do?sid={0}"&gt; visite a aba 'Virtualização' na página de detalhes do sistema hóspede&lt;/a&gt;.</target></trans-unit>
 
     <trans-unit id="kickstart.schedule.heading1.jsp">
         <source>Schedule Kickstart</source>
@@ -15494,7 +15493,7 @@ a aba &lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;Chaves de At
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/kickstart/KickstartClean</context>
         </context-group>
-    <target>Por favor especifique uma nova etiqueta para este Perfil de Kickstart.  Todas as opções, configurações e scripts do Perfil de Kickstart fonte serão copiados para um novo Perfil, exceto a Configuração de Intervalo de IP.</target></trans-unit>
+    <target>Por favor especifique um novo nome para este Perfil de Kickstart.  Todas as opções, configurações e scripts do Perfil de Kickstart fonte serão copiados para um novo Perfil, exceto a Configuração de Intervalo de IP.</target></trans-unit>
 
     <trans-unit id="kickstart.clone.jsp.header1">
         <source>Create a Clone of Kickstart: {0}</source>
@@ -15868,7 +15867,7 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
         </context-group>
       <target>Os seguintes detalhes são necessários para definir a distribuição kickstart. O campo do caminho de árvore deve ser um caminho válido para a árvore de instalação localizada no servidor @@PRODUCT_NAME@@ . O Kickstart RPM deve ser o rpm contendo os scripts de implementação kickstart. Estes RPMs são fornecidos pelo @@PRODUCT_NAME@@ e estão localizados nos canais filho das ferramentas @@PRODUCT_NAME@@. &lt;br/&gt;&lt;br/&gt;
 
-O campo de Etiqueta de Distribuição deve conter apenas letras, números, hifens, períodos e linhas sublinhadas. Além disso, deve conter pelo menos 4 caracteres longos.&lt;br/&gt;&lt;br/&gt;
+O campo de Nome de Distribuição deve conter apenas letras, números, hifens, períodos e linhas sublinhadas. Além disso, deve conter pelo menos 4 caracteres longos.&lt;br/&gt;&lt;br/&gt;
 
 O Caminho de Árvore, Kickstart RPM, Canal de Base e a Geração do Instalador devem sempre combinar. Isto normalmente significa que as versões de cada campo devem ser a mesma versão do Red Hat Enterprise Linux.&lt;br/&gt;&lt;br/&gt;
 
@@ -15908,7 +15907,7 @@ O Caminho de Árvore, Kickstart RPM, Canal de Base e a Geração do Instalador d
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/kickstart/TreeCreate.do</context>
         </context-group>
-      <target>Etiqueta da Distribuição</target></trans-unit>
+      <target>Nome da Distribuição</target></trans-unit>
 
      <trans-unit id="tree-form.jspf.location">
 <source>Tree Path</source>
@@ -15950,7 +15949,7 @@ O Caminho de Árvore, Kickstart RPM, Canal de Base e a Geração do Instalador d
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/VirtualSystemsList.do</context>
         </context-group>
-      <target>Sistemas Virtuais</target></trans-unit>
+      <target>Sistemas Virtualizados</target></trans-unit>
 
      <trans-unit id="virtuallist.jsp.system">
 <source>System</source>
@@ -15986,7 +15985,7 @@ O Caminho de Árvore, Kickstart RPM, Canal de Base e a Geração do Instalador d
          <context context-type="sourcefile">/rhn/systems/VirtualSystemsList.do</context>
 	 <context context-type="paramnotes">3 Active Virtual Systems, 10 Total.</context>
        </context-group>
-     <target>{0} Ativar Sistemas Virtuais, {1} Total.</target></trans-unit>
+     <target>{0} Ativar Sistemas Virtualizados, {1} Total.</target></trans-unit>
 
      <trans-unit id="virtuallist.jsp.viewall">
 <source>View All</source>
@@ -16028,14 +16027,14 @@ O Caminho de Árvore, Kickstart RPM, Canal de Base e a Geração do Instalador d
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/virtualization/VirtualGuestsList.do</context>
         </context-group>
-      <target>Sistemas Virtuais Hospedados</target></trans-unit>
+      <target>Sistemas Virtualizados Hospedados</target></trans-unit>
 
      <trans-unit id="virtualguestslist.jsp.summary">
 <source>This is a list of virtual guests which are configured to run on this host.  You can perform actions on these guests with the buttons below.</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/virtualization/VirtualGuestsList.do</context>
         </context-group>
-      <target>Esta é uma lista de convidados virtuais que são configurados para rodar nesta máquina. Você pode realizar ações nestes convidados com os botões abaixo.</target></trans-unit>
+      <target>Esta é uma lista de sistemas virtuais que são configurados para rodar nesta máquina. Você pode realizar ações nestes sistemas virtuais com os botões abaixo.</target></trans-unit>
 
      <trans-unit id="virtualguestslist.jsp.nosystems">
 <source>No virtual systems.</source>
@@ -16056,7 +16055,7 @@ O Caminho de Árvore, Kickstart RPM, Canal de Base e a Geração do Instalador d
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/virtualization/VirtualGuestsList.do</context>
         </context-group>
-      <target>Convidado</target></trans-unit>
+      <target>Sistema Virtual</target></trans-unit>
 
 
      <trans-unit id="virtualguestslist.jsp.unregistered">
@@ -16197,7 +16196,7 @@ O Caminho de Árvore, Kickstart RPM, Canal de Base e a Geração do Instalador d
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/virtualization/VirtualGuestsConfirm.do</context>
         </context-group>
-      <target>Sistemas Virtuais Hospedados</target></trans-unit>
+      <target>Sistemas Virtualizados Hospedados</target></trans-unit>
 
      <trans-unit id="virtualguests_confirm.jsp.summary">
 <source>Click the Confirm button below to schedule the following actions.</source>
@@ -16225,7 +16224,7 @@ O Caminho de Árvore, Kickstart RPM, Canal de Base e a Geração do Instalador d
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/virtualization/VirtualGuestsConfirm.do</context>
         </context-group>
-      <target>Convidado</target></trans-unit>
+      <target>Sistema Virtual</target></trans-unit>
 
      <trans-unit id="virtualguests_confirm.jsp.hostname">
 <source>Hostname</source>
@@ -16276,7 +16275,7 @@ O Caminho de Árvore, Kickstart RPM, Canal de Base e a Geração do Instalador d
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/TreeDelete.do</context>
         </context-group>
-      <target>&lt;strong&gt;NOTA:&lt;/strong&gt; A Distribuição do Kickstart que você escolheu para remover está sendo usada pelos seguintes Perfis de Kickstart.  Você deve mudar a Distribuição usada pelos perfis antes de remover esta distribuição.  Clique na etiqueta no link para editar a Distribuição do perfil.</target></trans-unit>
+      <target>&lt;strong&gt;NOTA:&lt;/strong&gt; A Distribuição do Kickstart que você escolheu para remover está sendo usada pelos seguintes Perfis de Kickstart.  Você deve mudar a Distribuição usada pelos perfis antes de remover esta distribuição.  Clique no nome do link para editar a Distribuição do Perfil.</target></trans-unit>
 
       <trans-unit id="distro-delete.jsp.cantdelete">
         <source>This distribution cannot be deleted at this time.</source>
@@ -16311,21 +16310,21 @@ O Caminho de Árvore, Kickstart RPM, Canal de Base e a Geração do Instalador d
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/virtualization/ProvisionVirtualizationWizard.do</context>
 	</context-group>
-      <target>Sobrescrição do Hardware de Sistemas Virtuais</target></trans-unit>
+      <target>Sobrescrição do Hardware de Sistemas Virtualizados</target></trans-unit>
 
       <trans-unit id="virtualization.provision.override.jsp.goto.advanced.options">
         <source>By default virtual guest settings like memory, cpu and storage allocations will be inherited from your kickstart profile. If you want to override these settings click on &lt;strong&gt;{0}&lt;/strong&gt; button below.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/virtualization/ProvisionVirtualizationWizard.do</context>
 	</context-group>
-      <target>Por padrão, as configurações de convidado virtual, como a memória, cpu e alocações de armazenamento, serão herdadas de seu perfil do kickstart. Se você desejar sobrescrever estas configurações, clique em &lt;strong&gt;{0}&lt;/strong&gt; abaixo.</target></trans-unit>
+      <target>Por padrão, as configurações do sistema virtual, como a memória, cpu e alocações de armazenamento, serão herdadas de seu perfil do kickstart. Se você desejar sobrescrever estas configurações, clique em &lt;strong&gt;{0}&lt;/strong&gt; abaixo.</target></trans-unit>
 
       <trans-unit id="virtualization.provision.first.jsp.guest_name.header">
         <source>Guest Name:</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/virtualization/ProvisionVirtualizationWizard.do</context>
 	</context-group>
-      <target>Nome do Convidado:</target></trans-unit>
+      <target>Nome do Sistema Virtual:</target></trans-unit>
 
       <trans-unit id="virtualization.provision.first.jsp.virt_bridge.example">
         <source>(ex. xenbr0)</source>
@@ -16339,7 +16338,7 @@ O Caminho de Árvore, Kickstart RPM, Canal de Base e a Geração do Instalador d
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/virtualization/ProvisionVirtualizationWizard.do</context>
 	</context-group>
-      <target>Qual nome devemos usar para identificar o convidado nesta máquina?</target></trans-unit>
+      <target>Qual nome devemos usar para identificar sistema virtual o nesta máquina?</target></trans-unit>
 
       <trans-unit id="virtualization.provision.first.jsp.guest_name.tip1">
         <source>&lt;strong&gt;Tip:&lt;/strong&gt; This name is only used for identification purposes on the host system.</source>
@@ -16804,14 +16803,14 @@ O Caminho de Árvore, Kickstart RPM, Canal de Base e a Geração do Instalador d
 		<context-group name="ctx">
 		<context context-type="sourcefile">/systems/details/Overview.do</context>
 		</context-group>
-	     <target>Sistema Ping</target></trans-unit>
+	     <target>Contatar Sistema</target></trans-unit>
 
 	     <trans-unit id="sdc.details.overview.osa.status.lastping">
 		<source>Last pinged:</source>
 		<context-group name="ctx">
 		<context context-type="sourcefile">/systems/details/Overview.do</context>
 		</context-group>
-	     <target>Última vez que realizou ping:</target></trans-unit>
+	     <target>Último Contato:</target></trans-unit>
 
 	     <trans-unit id="sdc.details.overview.applet">
 		<source>@@PRODUCT_NAME@@ Applet:</source>
@@ -17213,7 +17212,7 @@ O Caminho de Árvore, Kickstart RPM, Canal de Base e a Geração do Instalador d
             <context-group name="ctx">
             <context context-type="sourcefile">/systems/details/SystemHardware.do</context>
             </context-group>
-         <target>Atualiza o Hardware do Programa</target></trans-unit>
+         <target>Atualizar Informações de Hardware</target></trans-unit>
 
          <trans-unit id="sdc.details.hardware.arch">
             <source>Arch:</source>
@@ -17669,14 +17668,14 @@ O Caminho de Árvore, Kickstart RPM, Canal de Base e a Geração do Instalador d
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/SystemChannels.do</context>
         </context-group>
-      <target>&lt;strong&gt;NOTE:&lt;/strong&gt; Estes canais não são parte da subscrição do Red Hat Enterprise Linux para este host de convidado, &lt;a href="/rhn/systems/details/Overview.do?sid={0}"&gt;{1}&lt;/a&gt;. A Subscrição deles irá consumir serviços de software adicionais. &lt;a href="/rhn/systems/details/SystemChannels.do?sid={0}"&gt;A aplicação de um serviço de sistema virtual diferente em um sistema host&lt;/a&gt; irá afetar os canais que possuem esta marca.</target></trans-unit>
+      <target>&lt;strong&gt;NOTE:&lt;/strong&gt; Estes canais não são parte da subscrição do Red Hat Enterprise Linux para este sistema hospedeiro (host), &lt;a href="/rhn/systems/details/Overview.do?sid={0}"&gt;{1}&lt;/a&gt;. A Subscrição deles irá consumir serviços de software adicionais. &lt;a href="/rhn/systems/details/SystemChannels.do?sid={0}"&gt;A aplicação de um serviço de sistema virtual diferente em um sistema host&lt;/a&gt; irá afetar os canais que possuem esta característica.</target></trans-unit>
 
 	<trans-unit id="sdc.channels.edit.virtsubwarning_nohost">
 <source>&lt;strong&gt;NOTE:&lt;/strong&gt; These channels are not part of the Red Hat Enterprise Linux subscription for this guest's host. Subscribing to them will consume additional software entitlements. Applying a different virtual system entitlement to the host system will affect which channels have this mark.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/SystemChannels.do</context>
         </context-group>
-      <target>&lt;strong&gt;NOTA:&lt;/strong&gt; Estes canais não são parte da subscriçãoLinux para este host de convidado. A subscrição deles irá consumir serviços de software adicional. Aplicar um serviço de sistema virtual diferente irá afetar quais canais possuem esta marca.</target></trans-unit>
+      <target>&lt;strong&gt;NOTA:&lt;/strong&gt; Estes canais não são parte da subscrição para este sistema hospedeiro (host). A subscrição deles irá consumir serviços de software adicional. Aplicar um serviço de sistema virtual diferente irá afetar quais canais possuem esta característica.</target></trans-unit>
 
       <trans-unit id="sdc.channels.edit.fastrackBetaWarning">
           <source>&lt;strong&gt;Warning:&lt;/strong&gt; 'FasTrack' and Beta child software channels are not available with Extended Update Support.</source>
@@ -17754,35 +17753,35 @@ O Caminho de Árvore, Kickstart RPM, Canal de Base e a Geração do Instalador d
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/entitlements/GuestUnlimitedHosts.do</context>
         </context-group>
-      <target>@@PRODUCT_NAME@@ - Serviços de Virtualização - Hosts de Virtualização</target></trans-unit>
+      <target>@@PRODUCT_NAME@@ - Direitos a Virtualização - Hosts de Virtualização</target></trans-unit>
 
       <trans-unit id="guestlimited.jsp.header2">
         <source>Guest-Limited  Hosts</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/entitlements/GuestUnlimitedHosts.do</context>
         </context-group>
-      <target>Máquinas Limitadas de Convidado</target></trans-unit>
+      <target>Sistemas de Virtualização Limitados até 4 Sistemas Virtuais</target></trans-unit>
 
       <trans-unit id="guestlimited.jsp.para1">
         <source>The following is a list of host systems with the 'Virtualization' entitlement. You may wish to consider upgrading systems that have exceeded the 4-guest limit to an 'Unlimited Virtualization' entitlement to make the most of your subscriptions and stay in compliance with your service level agreements with Red Hat.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/entitlements/GuestUnlimitedHosts.do</context>
         </context-group>
-      <target>Segue abaixo uma lista dos sistemas host com o serviço 'Virtualização'. Recomendamos que você atualize os sistemas que tiverem excedido o limite de 4 convidados para um serviço de 'Virtualização Ilimitada', assim irá usufruir o máximo de suas subscrições e estará de acordo com a política de nível de serviço da Red Hat.</target></trans-unit>
+      <target>Segue abaixo uma lista dos sistemas com direito ao serviço de 'Virtualização'. Recomendamos que você atualize os sistemas que tiverem excedido o limite de 4 sistemas virtualizados para o serviço de 'Virtualização Ilimitada'. Desta forma, você irá usufruir o máximo de suas subscrições e estará de acordo com a política de nível de serviço da Red Hat.</target></trans-unit>
 
       <trans-unit id="guestlimited.jsp.hostsystem">
         <source>Host System</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
         </context-group>
-      <target>Sistema da Máquina</target></trans-unit>
+      <target>Servidor de Virtualização</target></trans-unit>
 
       <trans-unit id="guestlimited.jsp.guest">
         <source>Guests</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
         </context-group>
-      <target>Convidados</target></trans-unit>
+      <target>Sistemas Virtuais</target></trans-unit>
 
 
       <trans-unit id="guestslimited.jsp.hostsystem">
@@ -17790,7 +17789,7 @@ O Caminho de Árvore, Kickstart RPM, Canal de Base e a Geração do Instalador d
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
         </context-group>
-      <target>Sistema da Máquina</target></trans-unit>
+      <target>Servidor de Virtualização</target></trans-unit>
 
 
 
@@ -17800,84 +17799,84 @@ O Caminho de Árvore, Kickstart RPM, Canal de Base e a Geração do Instalador d
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
         </context-group>
-      <target>Sistema de Convidado</target></trans-unit>
+      <target>Sistema Virtualizado</target></trans-unit>
 
       <trans-unit id="physicalhosts.jsp.title">
 <source>@@PRODUCT_NAME@@ - Virtualization Entitlements - Guests without Hosts</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
         </context-group>
-      <target>@@PRODUCT_NAME@@ - Serviços de Virtualização - Hosts sem Convidados</target></trans-unit>
+      <target>@@PRODUCT_NAME@@ - Direitos a Virtualização - Hospedeiros sem Sistemas Virtualizados</target></trans-unit>
 
       <trans-unit id="physicalhosts.jsp.header2">
 <source>Guests of Non-Virtual Entitled Hosts</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
         </context-group>
-      <target>Convidado de Máquinas com Serviços Não Virtuais</target></trans-unit>
+      <target>Sistemas Virtuais não Associados a Sistemas Hospedeiros</target></trans-unit>
 
       <trans-unit id="physicalhosts.jsp.para1">
 <source>The following is a list of guest systems that are not associated with a virtual entitled (either Virtualization or Virtualization Platform) host system in @@PRODUCT_NAME@@.  These systems are consuming the same software and system entitlements as a normal physical system.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/entitlements/PhysicalHosts.do</context>
         </context-group>
-      <target>Segue abaixo uma lista de sistemas convidados que não são associados a um sistema de máquina com serviço virtual (seja ele Virtualização ou Plataforma de Virtualização) no @@PRODUCT_NAME@@. Estes sistemas estão consumindo o mesmo software e serviços de sistema que um sistema físico normal. </target></trans-unit>
+      <target>Segue abaixo uma lista dos sistemas virtualizados que não são associados a um sistema com direito de 'Virtualização' (seja ele Virtualização até 4 sistemas virtuais ou Virtualiação Ilimitada) no @@PRODUCT_NAME@@. Estes sistemas estão consumindo serviços de sistema equivalentes à um sistema físico normal. </target></trans-unit>
 
       <trans-unit id="virtualentitlements.toolbar">
 <source>Virtualization Entitlements</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/entitlements/PhysicalHosts.do</context>
         </context-group>
-      <target>Serviços de Virtualização</target></trans-unit>
+      <target>Direitos a Virtualização</target></trans-unit>
 
       <trans-unit id="physicalhosts.jsp.header3">
 <source>Reconciling the Entitlements from Guests of Non-Virtualization Entitled Hosts</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/entitlements/PhysicalHosts.do</context>
         </context-group>
-      <target>Reconciliando os Serviços de Convidados de Máquinas com Serviços sem Virtualização.</target></trans-unit>
+      <target>Reconciliando Direitos de Sistemas Virtualizados em Sistemas sem Direito ao Serviço de Virtualização.</target></trans-unit>
 
       <trans-unit id="physicalhosts.jsp.para2">
 <source>You may always delete the @@PRODUCT_NAME@@ system profie of a guest listed above to free the software and system entitlements it consumes (or you may remove system entitlements from the guest to free system entitlements).  You may be able to free the physical entitlements associated with the guest without deleting the guest's profile:</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/entitlements/PhysicalHosts.do</context>
         </context-group>
-      <target>Você pode sempre remover o perfil de sistema @@PRODUCT_NAME@@ de um convidado listado acima para libertar o software livre e os serviços de sistema que ele consome (ou então, você pode remover os serviços de sistemas de um convidado para libertar os serviços de sistema). Você pode libertar os serviços físicos associados ao convidado sem remover o perfil do convidado: </target></trans-unit>
+      <target>Você pode remover o perfil de um sistema virtualizado listado para desassociá-lo dos direitos a seviços de sistema e/ou de software consumidos pelo mesmo. As operações não irão remover o perfil do sistema virtualizado.</target></trans-unit>
 
       <trans-unit id="physicalhosts.jsp.guestsofknown">
 <source>Guests of Known Hosts</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
         </context-group>
-      <target>Convidados de Máquinas Desconhecidas</target></trans-unit>
+      <target>Sistemas Virtualizados em Servidores de Virtualização Registrados</target></trans-unit>
 
       <trans-unit id="physicalhosts.jsp.guestsofunknown">
 <source>Guests of Known Unknown Hosts</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
         </context-group>
-      <target>Convidados de Máquinas Desconhecidas/Conhecidas</target></trans-unit>
+      <target>Sistemas Virtualizados em Servidores de Virtualização não Registrados</target></trans-unit>
 
       <trans-unit id="physicalhosts.jsp.guestsofnonredhat">
 <source>Guests of Non-Red Hat Virtualization Hosts</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
         </context-group>
-      <target>Convidados de Máquinas sem o Componente de Virtualização Red Hat</target></trans-unit>
+      <target>Sistemas Virtualizados em Servidores não Associados a 'Virtualização' ou 'Virtualização Ilimitada'</target></trans-unit>
 
       <trans-unit id="physicalhosts.jsp.knownnote">
 <source>If you would like to free the physical entitlements of a guest listed above and it is associated with a Host registered with @@PRODUCT_NAME@@ please add either the Virtualization or Virtualization Platform system entitlement.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
         </context-group>
-      <target>Se você quiser libertar os serviços físicos de um convidado listado acima e estiver associado ao Host registrado com o @@PRODUCT_NAME@@, por favor adicione um serviço de sistema de Virtualização ou Plataforma de Virtualização. </target></trans-unit>
+      <target>Se você quiser liberar o direito a serviço físico de um sistema virtualizado que estiver associado a um servidor de Virtualização registrado no @@PRODUCT_NAME@@, por favor adicione o direito a serviço de sistema de Virtualização até 4 sistemas virtuais ou Virtualização Ilimitada. </target></trans-unit>
 
       <trans-unit id="physicalhosts.jsp.unknownnote">
 <source>If the host of a guest system above is listed as an unknown and you would like to free the physical entitlements the guest consumes please make sure that:</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
         </context-group>
-      <target>Se um host de um sistema de convidado acima estiver listado como desconhecido e você quiser libertar os serviços físicos que os convidados consomem, tenha a certeza de que:</target></trans-unit>
+      <target>Se um sistema de virtualização for listado acima como desconhecido e você quiser liberar o direito a serviço físico que o sistema virtual consome, por favor tenha a certeza de que:</target></trans-unit>
 
 
 	  <trans-unit id="physicalhosts.jsp.unknownnote2">
@@ -17885,35 +17884,35 @@ O Caminho de Árvore, Kickstart RPM, Canal de Base e a Geração do Instalador d
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
         </context-group>
-      <target>O host possui um host de Virtualização ou um componente de Virtualização aplicado à ele.</target></trans-unit>
+      <target>O sistema de virtualização esta associonado com 'Virtualização de até 4 Sistemas virtuais' ou 'Virtualização Ilimitada'.</target></trans-unit>
 
 	  <trans-unit id="physicalhosts.jsp.note3">
 <source>The host is subscribed to the @@PRODUCT_NAME@@ Tools channel and has the rhn-virtualization-host package installed.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
         </context-group>
-      <target>O host está registrado ao canal de Ferramentas @@PRODUCT_NAME@@ e possui o pacote rhn-virtualization-host instalado. </target></trans-unit>
+      <target>O sistema de virtualização será registrado ao canal que contém o pacote rhn-virtualization-host e por sua vez o pacote será instalado.</target></trans-unit>
 
       <trans-unit id="physicalhosts.jsp.nonredhatnote">
 <source>If the host of a guest system above is not a Red Hat Virtualization host running Red Hat Enterprise Linux, it must consume the same software and system entitlements it would if it were a physical system at this time.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
         </context-group>
-      <target>Se o host de um sistema acima não for um host de Virtualização da Red Hat rodando em um Red Hat Enterprise Linux, ele irá consumir o mesmo software e serviços de sistema que consumiria se fosse um sistema físico desta vez.</target></trans-unit>
+      <target>Se um sistema virtualizado acima não for estiver em execução em um sistema de Virtualização da Red Hat rodando Red Hat Enterprise Linux, ele irá consumir direitos de sistema como se fosse um sistema físico.</target></trans-unit>
 
       <trans-unit id="physicalhosts.jsp.nosystems">
 		<source>There are no guests consuming physical entitlements.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/entitlements/PhysicalHosts.do</context>
         </context-group>
-      <target>Não existema convidados consumindo serviços físicos.</target></trans-unit>
+      <target>Não existem sistemas virtualizados consumindo direitos de sistema destinados a sistemas físicos.</target></trans-unit>
 
       <trans-unit id="guestunlimited.jsp.nosystems">
 		<source>There are no systems with the Virtualization Platform entitlement.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/entitlements/PhysicalHosts.do</context>
         </context-group>
-      <target>Não existem sistemas com o serviço de Plataforma de Virtualização.</target></trans-unit>
+      <target>Não existem sistemas com o Direitos a Virtualização Ilimitada.</target></trans-unit>
 
       <trans-unit id="guestlimited.jsp.nosystems">
 		<source>There are no systems with the Virtualization entitlement.</source>
@@ -17927,35 +17926,35 @@ O Caminho de Árvore, Kickstart RPM, Canal de Base e a Geração do Instalador d
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/entitlements/GuestUnlimitedHosts.do</context>
         </context-group>
-      <target>Segue abaixo uma lista de sistemas host com o serviço 'Virtualização Ilimitada'. Você pode querer considerar o downgrading de sistemas que não excederam o serviço limitado da 'Virtualização' para um serviço de 'Virtualização' para usufruir o máximo de suas subscrições.</target></trans-unit>
+      <target>Segue abaixo uma lista dos sistemas com direito a 'Virtualização Ilimitada'. Você pode querer considerar o downgrading dos sistemas que não excederam o limite de 4 sistemas virtuais para o serviço de 'Virtualização' para usufruir o máximo de suas subscrições.</target></trans-unit>
 
       <trans-unit id="guestunlimited.jsp.title">
         <source>@@PRODUCT_NAME@@ - Virtualization Entitlements - Virtualization Platform Hosts</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/entitlements/GuestUnlimitedHosts.do</context>
         </context-group>
-      <target>@@PRODUCT_NAME@@ - Serviços de Virtualização - Hosts de Plataforma de Virtualização</target></trans-unit>
+      <target>@@PRODUCT_NAME@@ - Direitos a Virtualização - Sistemas de Virtualização Ilimitada</target></trans-unit>
 
       <trans-unit id="guestunlimited.jsp.header2">
         <source>Unlimited-Guest Virtualization Platform Hosts</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/entitlements/GuestUnlimitedHosts.do</context>
         </context-group>
-      <target>Hosts de Plataforma de Virtualização com Convidados Ilimitados</target></trans-unit>
+      <target>Sistemas de Virtualização Ilimitada</target></trans-unit>
 
       <trans-unit id="guestunlimited.jsp.hostsystem">
         <source>Host System</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/entitlements/GuestUnlimitedHosts.do</context>
         </context-group>
-      <target>Sistema da Máquina</target></trans-unit>
+      <target>Servidor de Virtualização</target></trans-unit>
 
       <trans-unit id="guestunlimited.jsp.guest">
         <source>Guests</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/entitlements/GuestUnlimitedHosts.do</context>
         </context-group>
-      <target>Convidados</target></trans-unit>
+      <target>Sistemas Virtuais</target></trans-unit>
 
       <trans-unit id="system.remotecommand.scheduled">
         <source>Remote command &lt;a href="/network/systems/details/history/event.pxt?sid={0}&amp;amp;hid={1}"&gt;scheduled&lt;/a&gt; for &lt;strong&gt;{2}&lt;/strong&gt;.</source>
@@ -18013,7 +18012,7 @@ O Caminho de Árvore, Kickstart RPM, Canal de Base e a Geração do Instalador d
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/multiorg/Organizations.do</context>
         </context-group>
-      <target>Organizações Confiáveis ao {0} ({1})</target></trans-unit>
+      <target>Relações de Confiança da Organização {0} ({1})</target></trans-unit>
 
       <trans-unit id="org.login.tip">
         <source>Between {0} and 64 characters</source>
@@ -18066,7 +18065,7 @@ O Caminho de Árvore, Kickstart RPM, Canal de Base e a Geração do Instalador d
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/OrgSystemSubs.do</context>
         </context-group>
-      <target>Uso</target></trans-unit>
+      <target>Utilização</target></trans-unit>
       <trans-unit id="orgsystemsubs.jsp.proposed_total">
         <source>Proposed Total</source>
         <context-group name="ctx">
@@ -18106,21 +18105,21 @@ O Caminho de Árvore, Kickstart RPM, Canal de Base e a Geração do Instalador d
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/OrgSystemSubs.do</context>
         </context-group>
-      <target>Permite diversas funcionalidades avançadas, tais como kickstart e abastecimento de configuração de arquivo.</target></trans-unit>
+      <target>Permite diversas funcionalidades avançadas, tais como kickstart e provisionamento de configuração de arquivo.</target></trans-unit>
 
       <trans-unit id="orgsystemsubs.jsp.virt_tip">
         <source>Applied to a host system, enables management for up to 4 guests.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/OrgSystemSubs.do</context>
         </context-group>
-      <target>Aplicado à um sistema host, habilita o gerenciamento para até 4 convidados.</target></trans-unit>
+      <target>Aplicado à um sistema hóspede (host), habilitando o gerenciamento para até 4 sistemas virtuais.</target></trans-unit>
 
       <trans-unit id="orgsystemsubs.jsp.virt_plat_tip">
         <source>Applied to a host system, enables management for unlimited guests.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/OrgSystemSubs.do</context>
         </context-group>
-      <target>Aplicado à um sistema host, habilita o gerenciamento para convidados ilimitados.</target></trans-unit>
+      <target>Aplicado à um sistema hóspede (host), habilitand o gerenciamento para sistemas virtuais ilimitados.</target></trans-unit>
 
       <trans-unit id="orgsystemsubs.jsp.possible_vals">
         <source>Possible Values: &lt;strong&gt;{0}&lt;/strong&gt; to &lt;strong&gt;{1}&lt;/strong&gt;.</source>
@@ -18155,7 +18154,7 @@ O Caminho de Árvore, Kickstart RPM, Canal de Base e a Geração do Instalador d
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
         </context-group>
-      <target>Uso</target></trans-unit>
+      <target>Utilização</target></trans-unit>
 
       <trans-unit id="sys_entitlements.usagedata">
         <source>{0} of {1} ({2}%)</source>
@@ -18323,7 +18322,7 @@ este serviço.</target></trans-unit>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/EntitlementOrgs</context>
         </context-group>
-      <target>Uso</target></trans-unit>
+      <target>Utilização</target></trans-unit>
       <trans-unit id="entitlementorgs.tip_allocated">
 <source>&lt;strong&gt;Tip:&lt;/strong&gt; This total corresponds to your @@PRODUCT_NAME@@ certificate's
 value for this entitlement, excluding the default organization's consumption.</source>
@@ -19113,7 +19112,7 @@ given channel.</source>
       <target>Sumário</target></trans-unit>
       <trans-unit id="channel.jsp.chanent">
         <source>Channel Entitlement Name</source>
-      <target>Nome do Serviço do Canal</target></trans-unit>
+      <target>Nome do Canal de Software</target></trans-unit>
       <trans-unit id="channel.jsp.gpgunknown">
         <source>Unknown</source>
       <target>Desconhecido</target></trans-unit>
@@ -19211,7 +19210,7 @@ given channel.</source>
        <target>As seguintes chaves personalizadas de informações de sistema foram criadas para o uso em sua organização.</target></trans-unit>
       <trans-unit id="system.jsp.customkey.keylabel">
          <source>Key Label</source>
-       <target>Etiqueta da Chave</target></trans-unit>
+       <target>Nome da Chave</target></trans-unit>
       <trans-unit id="system.jsp.customkey.description">
          <source>Description</source>
        <target>Descrição</target></trans-unit>
@@ -19462,7 +19461,7 @@ given channel.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
         </context-group>
-      <target>Etiqueta de Canal</target></trans-unit>
+      <target>Nome de Canal</target></trans-unit>
       <trans-unit id="channel.edit.jsp.parent">
         <source>Parent Channel</source>
         <context-group name="ctx">
