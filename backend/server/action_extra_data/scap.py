@@ -34,7 +34,7 @@ def xccdf_eval(server_id, action_id, data={}):
 
     resume = xml.dom.minidom.parseString(data['resume'])
     benchmark = resume.getElementsByTagName('benchmark-resume')[0]
-    profiles = benchmark.getElementsByTagName('profile')
+    profiles = benchmark.getElementsByTagName('profile') or [_dummyDefaultProfile()]
     testresults = benchmark.getElementsByTagName('TestResult')
     if len(profiles) < 1 or len(testresults) < 1:
         log_error('Scap report misses profile or testresult element')
@@ -117,6 +117,14 @@ def _get_text(node):
         if node.nodeType == node.TEXT_NODE:
             rc.append(node.data)
     return ''.join(rc)
+
+class _dummyDefaultProfile:
+    def getAttribute(self, name):
+        if name == 'id':
+            return 'None'
+        elif name == 'title':
+            return 'No profile selected. Using defaults.'
+        return ''
 
 _query_clear_tresult = rhnSQL.Statement("""
 delete from rhnXccdfTestresult
