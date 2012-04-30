@@ -15,6 +15,8 @@ insert into rhnChannelPackageArchCompat (channel_arch_id, package_arch_id)
         values (LOOKUP_CHANNEL_ARCH('channel-armv7'), LOOKUP_PACKAGE_ARCH('armv7l'));
 insert into rhnChannelPackageArchCompat (channel_arch_id, package_arch_id)
         values (LOOKUP_CHANNEL_ARCH('channel-armv7'), LOOKUP_PACKAGE_ARCH('armv5tel'));
+insert into rhnChannelPackageArchCompat (channel_arch_id, package_arch_id)
+        values (LOOKUP_CHANNEL_ARCH('channel-armv7'), LOOKUP_PACKAGE_ARCH('noarch'));
 
 insert into rhnServerArch (id, label, name, arch_type_id) values
 (sequence_nextval('rhn_server_arch_id_seq'), 'armv7l-redhat-linux', 'armv7l', lookup_arch_type('rpm'));
