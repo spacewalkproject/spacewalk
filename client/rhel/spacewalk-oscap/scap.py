@@ -16,8 +16,13 @@ def xccdf_eval(args, cache_only=None):
         return (0, 'no-ops for caching', {})
 
     results_file = tempfile.NamedTemporaryFile()
-    oscap_err = _run_oscap(['xccdf', 'eval', '--results', results_file.name]
-        + args['params'].split(' ') + [args['path']])
+    if args['params']:
+        oscap_err = _run_oscap(['xccdf', 'eval', '--results', results_file.name]
+            + args['params'].split(' ') + [args['path']])
+    else:
+        oscap_err = _run_oscap(['xccdf', 'eval', '--results', results_file.name]
+            + [args['path']])
+
     if not _assert_xml(results_file.name):
         return (1, 'oscap tool did not produce valid xml.\n' + oscap_err, {})
 
