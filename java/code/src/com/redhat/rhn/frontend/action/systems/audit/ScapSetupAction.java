@@ -27,11 +27,14 @@ import com.redhat.rhn.manager.audit.ScapManager;
 
 public abstract class ScapSetupAction extends RhnAction {
     private static final String SCAP_ENABLED = "scapEnabled";
+    private static final String REQUIRED_PKG = "requiredPackage";
+    private static final String SPACEWALK_OSCAP = "spacewalk-oscap";
 
     protected void setupScapEnablementInfo(RequestContext context) {
         Server server = context.lookupAndBindServer();
         User user = context.getLoggedInUser();
         boolean enabled = ScapManager.isScapEnabled(server, user);
         context.getRequest().setAttribute(SCAP_ENABLED, enabled);
+        context.getRequest().setAttribute(REQUIRED_PKG, SPACEWALK_OSCAP);
     }
 }

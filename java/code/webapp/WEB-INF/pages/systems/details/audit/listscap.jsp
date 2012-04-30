@@ -17,7 +17,7 @@
 <c:choose>
 	<c:when test="${not requestScope.scapEnabled}">
 		<p><bean:message key="system.audit.listscap.jsp.missing"
-			arg0="spacewalk-openscap"/></p>
+			arg0="${requiredPackage}"/></p>
 		<br/>
 	</c:when>
 </c:choose>
