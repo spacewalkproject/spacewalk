@@ -12,9 +12,16 @@
 			${current.completionTime}
 		</rl:column>
 		<rl:column headerkey="system.audit.listscap.jsp.percentage">
-			<fmt:formatNumber maxFractionDigits="0"
-				value="${current.pass * 100 / (current.sum - current.notselected - current.informational)}"/>
-			%
+			<c:choose>
+				<c:when test="${current.sum - current.notselected - current.informational == 0}">
+					<bean:message key="system.audit.listscap.jsp.na"/>
+				</c:when>
+				<c:otherwise>
+					<fmt:formatNumber maxFractionDigits="0"
+						value="${current.pass * 100 / (current.sum - current.notselected - current.informational)}"/>
+					%
+				</c:otherwise>
+			</c:choose>
 		</rl:column>
 		<rl:column headerkey="system.audit.listscap.jsp.pass.abb">
 			<c:choose>
