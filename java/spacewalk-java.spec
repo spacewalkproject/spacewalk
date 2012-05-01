@@ -22,7 +22,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.59
+Version: 1.8.60
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -605,6 +605,11 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue May 01 2012 Miroslav Suchý <msuchy@redhat.com> 1.8.60-1
+- 817098 - fixed the Brazilian time zone
+- Enhancement and fixes on Brazilian (pt_BR) localization at webUI
+- Do not divide by zero. It prints a question mark.
+
 * Mon Apr 30 2012 Jan Pazdziora 1.8.59-1
 - 811470 - fixing checkstyle.
 
