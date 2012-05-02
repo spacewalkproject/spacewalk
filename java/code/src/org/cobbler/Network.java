@@ -26,7 +26,7 @@ import java.util.Map;
  * @version $Rev$
  */
 public class Network {
-    private String name;
+    private final String name;
     private String netmask;
     private String ipAddress;
     private String ipv6Address;
@@ -34,6 +34,12 @@ public class Network {
     private boolean isStatic;
     private String macAddress;
     private String netmaskVariableName;
+    private String bondingMaster;
+    private String bondingOptions;
+    private String bonding;
+    private static final String BONDING_MASTER = "master";
+    private static final String BONDING_SLAVE = "slave";
+    private static final String BONDING_NA = "na";
     /**
      * Constructor to create a new network interface
      * @param nameIn the name of the network
@@ -65,6 +71,9 @@ public class Network {
         addToMap(inet, "static-" + name, isStatic);
         addToMap(inet, "ipv6address-" + name, ipv6Address);
         addToMap(inet, "ipv6secondaries-" + name, ipv6Secondaries);
+        addToMap(inet, "bonding-" + name, bonding);
+        addToMap(inet, "bondingmaster-" + name, bondingMaster);
+        addToMap(inet, "bondingopts-" + name, bondingOptions);
         return inet;
     }
 
@@ -81,7 +90,7 @@ public class Network {
      * this method creates a new Network object.
      * @param name the name of the interface
      * @param ifaceInfo the interface information
-     * @return the netwrok object
+     * @return the network object
      */
     static Network load(CobblerConnection connection, String name,
             Map<String, Object> ifaceInfo) {
@@ -89,7 +98,7 @@ public class Network {
         net.setMacAddress((String)ifaceInfo.get("mac_address"));
         net.setIpAddress((String)ifaceInfo.get("ip_address"));
         net.setStaticNetwork(ifaceInfo.containsKey("static") &&
-                                    Boolean.TRUE.equals(ifaceInfo.get("static")));
+                Boolean.TRUE.equals(ifaceInfo.get("static")));
 
         // use the correct variable for the netmask/subnet
         if (connection.getVersion() >= 2.2) {
@@ -101,6 +110,9 @@ public class Network {
 
         net.setIpv6Address((String) ifaceInfo.get("ipv6_address"));
         net.setIpv6Secondaries((ArrayList<String>) ifaceInfo.get("ipv6_secondaries"));
+        net.setBonding((String) ifaceInfo.get("bonding"));
+        net.setBondingMaster((String) ifaceInfo.get("bonding_master"));
+        net.setBondingOptions((String) ifaceInfo.get("bonding_opts"));
 
         return net;
     }
@@ -194,5 +206,65 @@ public class Network {
      */
     public void setMacAddress(String macAddressIn) {
         macAddress = macAddressIn;
+    }
+
+    /**
+     * @return Returns the bonding master.
+     */
+    public String getBondingMaster() {
+        return bondingMaster;
+    }
+
+    /**
+     * @param bondingMasterIn the bondingMaster to set.
+     */
+    public void setBondingMaster(String bondingMasterIn) {
+        bondingMaster = bondingMasterIn;
+    }
+
+    /**
+     * @return Returns the bonding options.
+     */
+    public String getBondingOptions() {
+        return bondingOptions;
+    }
+
+    /**
+     * @param bondingOptionsIn the bondingOptions to set.
+     */
+    public void setBondingOptions(String bondingOptionsIn) {
+        bondingOptions = bondingOptionsIn;
+    }
+
+    /**
+     * Set the Network as a bonding master.
+     */
+    public void makeBondingMaster() {
+        bonding = BONDING_MASTER;
+    }
+
+    /**
+     * Set the Network as a bonding slave.
+     */
+    public void makeBondingSlave() {
+        bonding = BONDING_SLAVE;
+    }
+
+    /**
+     * Set the Network as not applicable to bonding.
+     */
+    public void makeBondingNA() {
+        bonding = BONDING_NA;
+    }
+
+    /**
+     * @return Returns the bonding status [master, slave, na]
+     */
+    public String getBonding() {
+        return bonding;
+    }
+
+    private void setBonding(String bondingIn) {
+        bonding = bondingIn;
     }
 }

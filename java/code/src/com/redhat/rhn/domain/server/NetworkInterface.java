@@ -31,7 +31,7 @@ import java.util.ArrayList;
  * @version $Rev$
  */
 public class NetworkInterface extends BaseDomainHelper implements
-    Serializable {
+Serializable {
 
     private Long interfaceId;
     private Server server;
@@ -41,9 +41,9 @@ public class NetworkInterface extends BaseDomainHelper implements
     private ServerNetAddress4 sa4 = null;
     private ArrayList<ServerNetAddress6> sa6 = null;
     private static final String IPV6_REGEX = "^(((?=(?>.*?::)(?!.*::)))(::)?" +
-        "([0-9A-F]{1,4}::?){0,5}|([0-9A-F]{1,4}:){6})(\\2([0-9A-F]{1,4}(::?|$)){0,2}" +
-        "|((25[0-5]|(2[0-4]|1\\d|[1-9])?\\d)(\\.|$)){4}|[0-9A-F]{1,4}:[0-9A-F]{1,4})" +
-        "(?<![^:]:|\\.)\\z";
+            "([0-9A-F]{1,4}::?){0,5}|([0-9A-F]{1,4}:){6})(\\2([0-9A-F]{1,4}(::?|$)){0,2}" +
+            "|((25[0-5]|(2[0-4]|1\\d|[1-9])?\\d)(\\.|$)){4}|[0-9A-F]{1,4}:[0-9A-F]{1,4})" +
+            "(?<![^:]:|\\.)\\z";
 
     /**
      * @return Returns the interfaceid.
@@ -118,32 +118,35 @@ public class NetworkInterface extends BaseDomainHelper implements
     /**
      * {@inheritDoc}
      */
+    @Override
     public boolean equals(final Object other) {
         if (!(other instanceof NetworkInterface)) {
             return false;
         }
         NetworkInterface castOther = (NetworkInterface) other;
         return new EqualsBuilder().append(this.getServer(), castOther.getServer())
-                                  .append(this.getName(), castOther.getName())
-                                  .append(this.getHwaddr(), castOther.getHwaddr())
-                                  .append(this.getModule(), castOther.getModule())
-                                  .isEquals();
+                .append(this.getName(), castOther.getName())
+                .append(this.getHwaddr(), castOther.getHwaddr())
+                .append(this.getModule(), castOther.getModule())
+                .isEquals();
     }
 
     /**
      * {@inheritDoc}
      */
+    @Override
     public int hashCode() {
         return new HashCodeBuilder().append(this.getServer())
-                                    .append(this.getName())
-                                    .append(this.getHwaddr())
-                                    .append(this.getModule())
-                                    .toHashCode();
+                .append(this.getName())
+                .append(this.getHwaddr())
+                .append(this.getModule())
+                .toHashCode();
     }
 
     /**
      * {@inheritDoc}
      */
+    @Override
     public String toString() {
         return "NetworkInterface - name: " + this.getName();
     }
@@ -160,8 +163,8 @@ public class NetworkInterface extends BaseDomainHelper implements
 
         Session session = HibernateFactory.getSession();
         sa4 = (ServerNetAddress4) session.getNamedQuery("ServerNetAddress4.lookup")
-                                         .setParameter("interface_id", this.interfaceId)
-                                         .uniqueResult();
+                .setParameter("interface_id", this.interfaceId)
+                .uniqueResult();
     }
 
     /**
@@ -188,7 +191,7 @@ public class NetworkInterface extends BaseDomainHelper implements
         }
 
         return sa4.getNetmask();
-   }
+    }
 
     /**
      * @return Returns the broadcast (IPv4 compatibility).
@@ -211,10 +214,10 @@ public class NetworkInterface extends BaseDomainHelper implements
     private ArrayList<String> findServerNetAddress6ByScope(String scope) {
         Session session = HibernateFactory.getSession();
         ArrayList<ServerNetAddress6> ad6 = (ArrayList<ServerNetAddress6>)
-            session.getNamedQuery("ServerNetAddress6.lookup_by_scope_and_id")
-            .setParameter("interface_id", this.interfaceId)
-            .setParameter("scope", scope)
-            .list();
+                session.getNamedQuery("ServerNetAddress6.lookup_by_scope_and_id")
+                .setParameter("interface_id", this.interfaceId)
+                .setParameter("scope", scope)
+                .list();
 
         if (ad6 == null) {
             return null;
@@ -254,9 +257,9 @@ public class NetworkInterface extends BaseDomainHelper implements
         }
 
         return ((this.getIpaddr() == null ||
-            this.getIpaddr().equals("0") ||
-            this.getIpaddr().equals("")) &&
-            !ipv6Available);
+                this.getIpaddr().equals("0") ||
+                this.getIpaddr().equals("")) &&
+                !ipv6Available);
     }
 
 
@@ -312,8 +315,8 @@ public class NetworkInterface extends BaseDomainHelper implements
         if (addr4 != null) {
             hasAddress = true;
             isPub = isPub &&
-                !(addr4.equals("127.0.0.1") ||
-                  addr4.equals("0.0.0.0"));
+                    !(addr4.equals("127.0.0.1") ||
+                            addr4.equals("0.0.0.0"));
         }
 
         for (ServerNetAddress6 addr6 : getIPv6Addresses()) {
@@ -325,6 +328,17 @@ public class NetworkInterface extends BaseDomainHelper implements
     }
 
     /**
+     * true if the nic uses the "bonding" driver module
+     * @return true if the nic is a bonding master
+     */
+    public boolean isBond() {
+        // The "bonding" driver module is standard for linux bonds, but it's
+        // always possible that someone wrote their own bonding driver. What to
+        // do then?
+        return "bonding".equals(module);
+    }
+
+    /**
      * Retrieve list of IPv6 addresses
      * @return List of ServerNetAddress6 objects
      */
@@ -332,8 +346,8 @@ public class NetworkInterface extends BaseDomainHelper implements
         if (sa6 == null) {
             Session session = HibernateFactory.getSession();
             sa6 = (ArrayList<ServerNetAddress6>)
-                session.getNamedQuery("ServerNetAddress6.lookup_by_id")
-                .setParameter("interface_id", this.interfaceId).list();
+                    session.getNamedQuery("ServerNetAddress6.lookup_by_id")
+                    .setParameter("interface_id", this.interfaceId).list();
         }
 
         return sa6;

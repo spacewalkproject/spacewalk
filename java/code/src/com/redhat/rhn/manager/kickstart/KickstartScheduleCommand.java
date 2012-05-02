@@ -63,6 +63,7 @@ import com.redhat.rhn.manager.token.ActivationKeyManager;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.cobbler.CobblerConnection;
 import org.cobbler.SystemRecord;
 
 import java.util.ArrayList;
@@ -155,6 +156,12 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
     // The id of the action scheduled to perform the kickstart
     private Action scheduledAction;
 
+    // Bond configuration
+    private boolean createBond;
+    private String bondInterface;
+    private List<String> bondSlaveInterfaces;
+    private String bondOptions;
+
     /**
      * Constructor for a kickstart where the host and the target are the same system.
      * @param selectedServer server to kickstart
@@ -187,16 +194,16 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
      * @param kickstartServerNameIn the name of the server who is serving the kickstart
      */
     public KickstartScheduleCommand(Long selectedServer,
-                                    Long ksid,
-                                    User userIn,
-                                    Date scheduleDateIn,
-                                    String kickstartServerNameIn) {
+            Long ksid,
+            User userIn,
+            Date scheduleDateIn,
+            String kickstartServerNameIn) {
         this(selectedServer,
-             selectedServer,
-             ksid,
-             userIn,
-             scheduleDateIn,
-             kickstartServerNameIn);
+                selectedServer,
+                ksid,
+                userIn,
+                scheduleDateIn,
+                kickstartServerNameIn);
     }
 
 
@@ -211,16 +218,16 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
      * @param kickstartServerNameIn the name of the server who is serving the kickstart
      */
     public KickstartScheduleCommand(Long selectedServer,
-                                    KickstartData data,
-                                    User userIn,
-                                    Date scheduleDateIn,
-                                    String kickstartServerNameIn) {
+            KickstartData data,
+            User userIn,
+            Date scheduleDateIn,
+            String kickstartServerNameIn) {
         this(selectedServer,
-             selectedServer,
-             data,
-             userIn,
-             scheduleDateIn,
-             kickstartServerNameIn);
+                selectedServer,
+                data,
+                userIn,
+                scheduleDateIn,
+                kickstartServerNameIn);
     }
 
     /**
@@ -288,11 +295,11 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
      * @param kickstartServerNameIn the name of the server who is serving the kickstart
      */
     public KickstartScheduleCommand(Long selectedHostServer,
-                                    Long selectedTargetServer,
-                                    KickstartData data,
-                                    User userIn,
-                                    Date scheduleDateIn,
-                                    String kickstartServerNameIn) {
+            Long selectedTargetServer,
+            KickstartData data,
+            User userIn,
+            Date scheduleDateIn,
+            String kickstartServerNameIn) {
         super(selectedHostServer);
         initialize(selectedHostServer, selectedTargetServer, userIn);
         this.setScheduleDate(scheduleDateIn);
@@ -320,32 +327,32 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
      * @return the created cobbler only profile aware kickstartScheduleCommand
      */
     public static KickstartScheduleCommand createCobblerScheduleCommand(
-                                        Long selectedHostServer,
-                                        String label,
-                                        User userIn,
-                                        Date scheduleDateIn,
-                                        String kickstartServerNameIn) {
+            Long selectedHostServer,
+            String label,
+            User userIn,
+            Date scheduleDateIn,
+            String kickstartServerNameIn) {
         KickstartScheduleCommand cmd = new KickstartScheduleCommand(selectedHostServer,
                 selectedHostServer, (KickstartData)null,
                 userIn, scheduleDateIn, kickstartServerNameIn);
-                cmd.cobblerProfileLabel = label;
-                cmd.cobblerOnly =  true;
-                return cmd;
+        cmd.cobblerProfileLabel = label;
+        cmd.cobblerOnly =  true;
+        return cmd;
     }
 
 
     private void initialize(Long selectedHostServerId,
-                            Long selectedTargetServerId,
-                            User userIn) {
+            Long selectedTargetServerId,
+            User userIn) {
 
         log.debug("Initializing with selectedHostServerId=" + selectedHostServerId +
-                  ", selectedTargetServerId=" + selectedTargetServerId);
+                ", selectedTargetServerId=" + selectedTargetServerId);
         this.setPackagesToInstall(new LinkedList());
 
         // There must always be a host server present.
 
         Server hServer =
-            ServerFactory.lookupByIdAndOrg(selectedHostServerId, userIn.getOrg());
+                ServerFactory.lookupByIdAndOrg(selectedHostServerId, userIn.getOrg());
         assert (hServer != null);
         this.setHostServer(hServer);
 
@@ -371,7 +378,7 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
     public DataResult<? extends KickstartDto> getKickstartProfiles() {
         log.debug("getKickstartProfiles()");
         DataResult<KickstartDto> retval = new DataResult
-                                            <KickstartDto>(Collections.EMPTY_LIST);
+                <KickstartDto>(Collections.EMPTY_LIST);
 
         // Profiles are associated with the host; the target system might not be created
         // yet.  Also, the host will be the one performing the kickstart, so the profile
@@ -397,7 +404,7 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
                         (hostServer.getServerArch().getName().equals(
                                 ServerConstants.getArchI686().getName()) ||
                                 hostServer.getServerArch().getName().equals(
-                                ServerConstants.getArchATHLON().getName()))) {
+                                        ServerConstants.getArchATHLON().getName()))) {
                     log.debug("    Adding x86_64 to search list.");
                     ChannelArch x86Arch = ChannelFactory.lookupArchByName("x86_64");
                     params.put("sec_arch_id", x86Arch.getId());
@@ -416,7 +423,7 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
         }
 
         List<CobblerProfileDto> dtos = KickstartLister.getInstance().
-                                            listCobblerProfiles(user);
+                listCobblerProfiles(user);
         if (log.isDebugEnabled()) {
             log.debug("got back from cobbler: " + dtos);
         }
@@ -428,7 +435,7 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
 
     protected SelectMode getMode() {
         return ModeFactory.getMode("General_queries",
-                                   "kickstarts_channels_for_org");
+                "kickstarts_channels_for_org");
     }
 
     /**
@@ -514,6 +521,7 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
     /**
      * {@inheritDoc}
      */
+    @Override
     public ValidatorError store() {
 
         ValidatorError e = this.doValidation();
@@ -528,18 +536,18 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
         //rhn-kickstart-virtualization conflicts with this package, so we have to
         //  remove it
         List<Map<String, Long>> installed = SystemManager.listInstalledPackage(
-                                                PACKAGE_TO_REMOVE, hostServer);
+                PACKAGE_TO_REMOVE, hostServer);
         Action removal = null;
         if (!installed.isEmpty()) {
             removal = ActionManager.schedulePackageRemoval(user, hostServer,
-                        installed, scheduleDate);
+                    installed, scheduleDate);
         }
 
         // Install packages on the host server.
         log.debug("** Creating packageAction");
         Action packageAction =
-            ActionManager.schedulePackageInstall(
-                this.user, hostServer, this.packagesToInstall, scheduleDate);
+                ActionManager.schedulePackageInstall(
+                        this.user, hostServer, this.packagesToInstall, scheduleDate);
         packageAction.setPrerequisite(removal);
         log.debug("** Created packageAction ? " + packageAction.getId());
 
@@ -566,6 +574,7 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
             host = this.getProxyHost();
         }
 
+        CobblerSystemCreateCommand cmd = null;
         if (!cobblerOnly) {
             // Setup Cobbler system profile
             KickstartUrlHelper uhelper = new KickstartUrlHelper(ksdata);
@@ -573,46 +582,38 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
 
             if (ksdata.getRegistrationType(null).equals(RegistrationType.REACTIVATION)) {
                 tokenList = KickstartFormatter.generateActivationKeyString(
-                    ksdata, kickstartSession);
+                        ksdata, kickstartSession);
             }
             else {
                 // RegistrationType.DELETION && RegistrationType.NONE
-                tokenList = org.cobbler.Profile.lookupById(
-                    CobblerXMLRPCHelper.getConnection(
-                        Config.get().getString(ConfigDefaults.COBBLER_AUTOMATED_USER)),
+                CobblerConnection connection = CobblerXMLRPCHelper
+                        .getConnection(Config.get().getString(
+                                ConfigDefaults.COBBLER_AUTOMATED_USER));
+                tokenList = org.cobbler.Profile.lookupById(connection,
                         ksdata.getCobblerId()).getRedHatManagementKey();
             }
 
-            CobblerSystemCreateCommand cmd =
-                getCobblerSystemCreateCommand(user, server,
-                        ksdata, uhelper.
-                        getKickstartMediaPath(kickstartSession, scheduleDate),
-                        tokenList);
-            cmd.setKickstartHost(host);
+            cmd = getCobblerSystemCreateCommand(user, server,
+                    ksdata, uhelper.
+                    getKickstartMediaPath(kickstartSession, scheduleDate),
+                    tokenList);
             cmd.setKernelOptions(getExtraOptions());
-            cmd.setPostKernelOptions(postKernelOptions);
-            cmd.setScheduledAction(kickstartAction);
-            cmd.setNetworkInfo(isDhcp, networkInterface, this.useIpv6Gateway(),
-                ksdata.getInstallType().getLabel());
-            ValidatorError cobblerError = cmd.store();
-            if (cobblerError != null) {
-                return cobblerError;
-            }
         }
         else {
-            CobblerSystemCreateCommand cmd =
-                new CobblerSystemCreateCommand(user,
-                        server, cobblerProfileLabel);
-            cmd.setKickstartHost(host);
+            cmd = new CobblerSystemCreateCommand(user,
+                    server, cobblerProfileLabel);
             cmd.setKernelOptions(kernelOptions);
-            cmd.setPostKernelOptions(postKernelOptions);
-            cmd.setScheduledAction(kickstartAction);
-            cmd.setNetworkInfo(isDhcp, networkInterface, this.useIpv6Gateway(),
+        }
+        cmd.setKickstartHost(host);
+        cmd.setPostKernelOptions(postKernelOptions);
+        cmd.setScheduledAction(kickstartAction);
+        cmd.setNetworkInfo(isDhcp, networkInterface, this.useIpv6Gateway(),
                 ksdata.getInstallType().getLabel());
-            ValidatorError cobblerError = cmd.store();
-            if (cobblerError != null) {
-                return cobblerError;
-            }
+        cmd.setBridgeInfo(createBond, bondInterface,
+                bondSlaveInterfaces, bondOptions);
+        ValidatorError cobblerError = cmd.store();
+        if (cobblerError != null) {
+            return cobblerError;
         }
         SystemRecord rec = SystemRecord.lookupById(CobblerXMLRPCHelper.getConnection(
                 this.getUser().getLogin()), this.getServer().getCobblerId());
@@ -622,7 +623,7 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
         //      We only want to do this for the non-guest action
         if (kickstartAction instanceof KickstartAction) {
             ((KickstartAction) kickstartAction).getKickstartActionDetails().
-                                                    setCobblerSystemName(rec.getName());
+            setCobblerSystemName(rec.getName());
         }
 
         ActionFactory.save(kickstartAction);
@@ -663,7 +664,7 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
         log.debug("** ActivationType : Existing profile..");
         if (getTargetServer() != null) {
             List oldkeys =
-                ActivationKeyFactory.lookupByServer(getTargetServer());
+                    ActivationKeyFactory.lookupByServer(getTargetServer());
 
             if (oldkeys != null) {
                 log.debug("** Removing old tokens");
@@ -672,15 +673,15 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
                     log.debug("removing key.");
                     ActivationKey oldkey =  (ActivationKey) i.next();
                     ActivationKeyFactory.removeKey(oldkey);
-               }
+                }
             }
         }
 
         String note = null;
         if (getTargetServer() != null) {
             note =
-                LocalizationService.getInstance().getMessage(
-                    "kickstart.session.newtokennote", getTargetServer().getName());
+                    LocalizationService.getInstance().getMessage(
+                            "kickstart.session.newtokennote", getTargetServer().getName());
         }
         else {
             // TODO: translate this
@@ -691,12 +692,11 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
 
         if (regType.equals(RegistrationType.REACTIVATION)) {
             // Create a new activation key for the target system.
-            createKickstartActivationKey(this.user,
-                this.ksdata,
-                RegistrationType.REACTIVATION.equals(regType) ? getTargetServer() : null,
-                this.kickstartSession,
-                1L,
-                note);
+            boolean reactivation = RegistrationType.REACTIVATION
+                    .equals(regType);
+            createKickstartActivationKey(this.user, this.ksdata,
+                    reactivation ? getTargetServer() : null,
+                    this.kickstartSession, 1L, note);
         }
         this.createdProfile = processProfileType(this.profileType);
         log.debug("** profile created: " + createdProfile);
@@ -710,7 +710,7 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
     protected KickstartSession setupKickstartSession(Action firstAction) {
         kickstartSession = new KickstartSession();
         Boolean deployConfig = this.getKsdata().
-            getKickstartDefaults().getCfgManagementFlag();
+                getKickstartDefaults().getCfgManagementFlag();
 
         // TODO: Proxy logic
 
@@ -732,8 +732,8 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
         kickstartSession.setOrg(this.getUser().getOrg());
         kickstartSession.setSystemRhnHost(this.getProxyHost());
         kickstartSession
-            .setVirtualizationType(this.getKsdata().
-                        getKickstartDefaults().getVirtualizationType());
+        .setVirtualizationType(this.getKsdata().
+                getKickstartDefaults().getVirtualizationType());
         log.debug("** Saving new KickstartSession: " + kickstartSession.getId());
         KickstartFactory.saveKickstartSession(kickstartSession);
         log.debug("** Saved new KickstartSession: " + kickstartSession.getId());
@@ -760,12 +760,12 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
             server = this.getProxyHost();
         }
         KickstartAction ksAction =
-            ActionManager.scheduleKickstartAction(fileList,
-                                              this.getUser(),
-                                              this.getHostServer(),
-                                              this.getScheduleDate(),
-                                              this.getExtraOptions(),
-                                              server);
+                ActionManager.scheduleKickstartAction(fileList,
+                        this.getUser(),
+                        this.getHostServer(),
+                        this.getScheduleDate(),
+                        this.getExtraOptions(),
+                        server);
 
         if (prereqAction != null) {
             ksAction.setPrerequisite(prereqAction);
@@ -863,7 +863,7 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
 
         // Now create ActivationKey
         ActivationKey key = ActivationKeyManager.getInstance().
-                                createNewReActivationKey(creator, server, note, session);
+                createNewReActivationKey(creator, server, note, session);
         key.addEntitlement(ServerConstants.getServerGroupTypeProvisioningEntitled());
         key.setDeployConfigs(false);
         key.setUsageLimit(usageLimit);
@@ -880,7 +880,7 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
             Iterator i = ksdata.getChildChannels().iterator();
             log.debug("Add the child Channels");
             while (i.hasNext()) {
-               key.addChannel((Channel) i.next());
+                key.addChannel((Channel) i.next());
             }
         }
 
@@ -923,21 +923,21 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
         log.debug("PROFILE_TYPE=" + profileTypeIn);
 
         if (profileTypeIn == null ||
-            profileTypeIn.length() == 0 || // TODO: fix this hack
+                profileTypeIn.length() == 0 || // TODO: fix this hack
                 profileTypeIn.equals(TARGET_PROFILE_TYPE_NONE)) {
             return null;
         }
         Profile retval = null;
         // Profile of this existing system's packages
         String pname = LocalizationService.getInstance().
-            getMessage("kickstart.session.newprofile",
-                this.kickstartSession.getId().toString());
+                getMessage("kickstart.session.newprofile",
+                        this.kickstartSession.getId().toString());
         if (profileTypeIn.equals(TARGET_PROFILE_TYPE_EXISTING)) {
             log.debug("    TARGET_PROFILE_TYPE_EXISTING");
             // "Profile for kickstart session "
             retval = ProfileManager.createProfile(
                     ProfileFactory.TYPE_SYNC_PROFILE, this.user,
-                        getTargetServer().getBaseChannel(), pname, pname);
+                    getTargetServer().getBaseChannel(), pname, pname);
             ProfileManager.copyFrom(this.server, retval);
         }
         // Profile of 'stored profile'
@@ -946,11 +946,11 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
             if (this.profileId == null) {
                 throw new UnsupportedOperationException(
                         "You specified a target profile type" +
-                        TARGET_PROFILE_TYPE_PACKAGE +
+                                TARGET_PROFILE_TYPE_PACKAGE +
                         " but this.profileId is null");
             }
             retval = ProfileManager.
-                lookupByIdAndOrg(this.profileId, this.user.getOrg());
+                    lookupByIdAndOrg(this.profileId, this.user.getOrg());
         }
         // Some other system's profile
         else if (profileTypeIn.equals(TARGET_PROFILE_TYPE_SYSTEM)) {
@@ -965,7 +965,7 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
 
             retval = ProfileManager.createProfile(
                     ProfileFactory.TYPE_SYNC_PROFILE, this.user,
-                        otherServer.getBaseChannel(), pname, pname);
+                    otherServer.getBaseChannel(), pname, pname);
             ProfileManager.copyFrom(otherServer, retval);
         }
         this.kickstartSession.setServerProfile(retval);
@@ -989,7 +989,7 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
         Server hostServer = getHostServer();
 
         List sessions = KickstartFactory.
-            lookupAllKickstartSessionsByServer(hostServer.getId());
+                lookupAllKickstartSessionsByServer(hostServer.getId());
         if (sessions != null) {
             log.debug("    Found sessions: " + sessions);
             Iterator i = sessions.iterator();
@@ -1007,14 +1007,14 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
                     log.debug("    need to cancel this Session this.s: " +
                             hostServer.getId() + " sess.hostServer: " +
                             (sess.getHostServer() == null ?
-                                 "null" :
-                                 "" + sess.getHostServer().getId()));
+                                    "null" :
+                                        "" + sess.getHostServer().getId()));
                     if (sess.getHostServer() != null &&
                             sess.getHostServer().getId().equals(hostServer.getId())) {
                         log.debug("    Marking session failed.");
                         sess.markFailed(
                                 LocalizationService.getInstance().
-                                    getMessage("kickstart.session.newsession"));
+                                getMessage("kickstart.session.newsession"));
                     }
                 }
             }
@@ -1153,7 +1153,7 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
         log.debug("    Got back comp from verCmp: " + comp);
         if (comp < 0) {
             Long packageId = PackageManager.
-                getServerNeededUpdatePackageByName(hostServer.getId(), "up2date");
+                    getServerNeededUpdatePackageByName(hostServer.getId(), "up2date");
             if (packageId == null) {
                 Object[] args = new Object[2];
                 args[0] = UP2DATE_VERSION;
@@ -1320,7 +1320,7 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
      */
     public void setNetworkDevice(String networkType, String networkInterfaceIn) {
         if (StringUtils.isBlank(networkType) ||
-                                    LINK_NETWORK_TYPE.equals(networkType)) {
+                LINK_NETWORK_TYPE.equals(networkType)) {
             isDhcp = true;
             networkInterface = LINK_NETWORK_TYPE;
         }
@@ -1343,6 +1343,62 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
      */
     public boolean useIpv6Gateway() {
         return useIpv6Gateway;
+    }
+
+    /**
+     * @return Returns the bond name.
+     */
+    public String getBondInterface() {
+        return bondInterface;
+    }
+
+    /**
+     * @param bondInterfaceIn The bond name to set
+     */
+    public void setBondInterface(String bondInterfaceIn) {
+        bondInterface = bondInterfaceIn;
+    }
+
+    /**
+     * @return Returns a list of the bond slave interfaces.
+     */
+    public List<String> getBondSlaveInterfaces() {
+        return bondSlaveInterfaces;
+    }
+
+    /**
+     * @param bondSlaveInterfacesIn The bond slave interfaces to set.
+     */
+    public void setBondSlaveInterfaces(List<String> bondSlaveInterfacesIn) {
+        bondSlaveInterfaces = bondSlaveInterfacesIn;
+    }
+
+    /**
+     * @return Returns whether or not we should create a bond
+     */
+    public boolean createBond() {
+        return createBond;
+    }
+
+    /**
+     * @param createBondIn Whether or not to create a bond
+     */
+    public void setCreateBond(boolean createBondIn) {
+        createBond = createBondIn;
+    }
+
+    /**
+     * @return Returns the bondOptions
+     */
+    public String getBondOptions() {
+        return bondOptions;
+    }
+
+    /**
+     * @param bondOptionsIn The bond options to set.
+     */
+    public void setBondOptions(String bondOptionsIn) {
+        bondOptions = bondOptionsIn;
     }
 
     /**
@@ -1421,7 +1477,7 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
             }
             if (!nicAvailable) {
                 return new ValidatorError("kickstart.schedule.nosuchdevice",
-                                                server.getName(), networkInterface);
+                        server.getName(), networkInterface);
             }
         }
         return null;

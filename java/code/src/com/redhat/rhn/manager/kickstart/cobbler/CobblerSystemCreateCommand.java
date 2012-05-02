@@ -52,7 +52,7 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
 
     private static Logger log = Logger.getLogger(CobblerSystemCreateCommand.class);
     private Action scheduledAction;
-    private Server server;
+    private final Server server;
     private String mediaPath;
     private String profileName;
     private String activationKeys;
@@ -63,6 +63,10 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
     private boolean isDhcp;
     private boolean useIpv6Gateway;
     private String ksDistro;
+    private boolean setupBridge;
+    private String bridgeName;
+    private List<String> bridgeSlaves;
+    private String bridgeOptions;
     /**
      * @param dhcp true if the network type is dhcp
      * @param networkInterfaceIn The name of the network interface
@@ -70,11 +74,26 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
      * @param ksDistroIn distro to be provisioned
      */
     public void setNetworkInfo(boolean dhcp, String networkInterfaceIn,
-        boolean useIpv6GatewayIn, String ksDistroIn) {
+            boolean useIpv6GatewayIn, String ksDistroIn) {
         isDhcp = dhcp;
         networkInterface = networkInterfaceIn;
         useIpv6Gateway = useIpv6GatewayIn;
         ksDistro = ksDistroIn;
+    }
+
+    /**
+     * @param doBridge boolean, wheither or not to set up a bridge post-install
+     * @param name string, name of the bridge
+     * @param slaves string array, nics to use as slaves
+     * @param options string, bridge options
+     */
+    public void setBridgeInfo(boolean doBridge, String name,
+            List<String> slaves,
+            String options) {
+        setupBridge = doBridge;
+        bridgeName = name;
+        bridgeSlaves = slaves;
+        bridgeOptions = options;
     }
 
     /**
@@ -109,15 +128,15 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
      * @param ksData the kickstart data to associate the system with
      */
     public CobblerSystemCreateCommand(Server serverIn, String cobblerProfileName,
-                                                            KickstartData ksData) {
+            KickstartData ksData) {
         super(serverIn.getCreator());
         this.server = serverIn;
         this.mediaPath = null;
         this.profileName = cobblerProfileName;
         String note = "Reactivation key for " + server.getName() + ".";
         ActivationKey key = ActivationKeyManager.getInstance().
-              createNewReActivationKey(UserFactory.findRandomOrgAdmin(
-                      server.getOrg()), server, note);
+                createNewReActivationKey(UserFactory.findRandomOrgAdmin(
+                        server.getOrg()), server, note);
         log.debug("created reactivation key: " + key.getKey());
         String keys = key.getKey();
         if (ksData != null) {
@@ -218,6 +237,7 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
      * Store the System to cobbler
      * @return ValidatorError if the store failed.
      */
+    @Override
     public ValidatorError store() {
         Profile profile = Profile.lookupByName(getCobblerConnection(), profileName);
         // First lookup by MAC addr
@@ -225,14 +245,14 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
         if (rec == null) {
             // Next try by name
             rec = SystemRecord.lookupByName(getCobblerConnection(user),
-                                                getCobblerSystemRecordName());
+                    getCobblerSystemRecordName());
         }
 
         // Else, lets make a new system
         if (rec == null) {
             rec = SystemRecord.create(getCobblerConnection(),
-                                                    getCobblerSystemRecordName(),
-                                                    profile);
+                    getCobblerSystemRecordName(),
+                    profile);
         }
         processNetworkInterfaces(rec, server);
         rec.setProfile(profile);
@@ -246,7 +266,7 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
 
         if (this.activationKeys == null || this.activationKeys.length() == 0) {
             log.error("This cobbler profile does not " +
-                "have a redhat_management_key set ");
+                    "have a redhat_management_key set ");
         }
         else {
             rec.setRedHatManagementKey(activationKeys);
@@ -266,7 +286,7 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
 
         if (!StringUtils.isBlank(mediaPath)) {
             ksmeta.put(KickstartUrlHelper.COBBLER_MEDIA_VARIABLE,
-                                                    this.mediaPath);
+                    this.mediaPath);
         }
         if (!StringUtils.isBlank(getKickstartHost())) {
             ksmeta.put(SystemRecord.REDHAT_MGMT_SERVER,
@@ -274,7 +294,7 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
         }
         ksmeta.remove(KickstartFormatter.STATIC_NETWORK_VAR);
         ksmeta.put(KickstartFormatter.USE_IPV6_GATEWAY,
-            this.useIpv6Gateway ? "true" : "false");
+                this.useIpv6Gateway ? "true" : "false");
         if (this.ksDistro != null) {
             ksmeta.put(KickstartFormatter.KS_DISTRO, this.ksDistro);
         }
@@ -294,16 +314,18 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
         String name = this.server.getName().replace(' ', '_');
         name = name.replace(' ', '_').replaceAll("[^a-zA-Z0-9_\\-\\.]", "");
         return name + sep +
-            this.server.getOrg().getId();
+                this.server.getOrg().getId();
     }
 
     protected void processNetworkInterfaces(SystemRecord rec,
-                                                Server serverIn) {
+            Server serverIn) {
         List <Network> nics = new LinkedList<Network>();
         if (serverIn.getNetworkInterfaces() != null) {
             for (NetworkInterface n : serverIn.getNetworkInterfaces()) {
-                if (n.isPublic()) {
-                    Network net = new Network(getCobblerConnection(), n.getName());
+                // don't create a physical network device for a bond
+                if (n.isPublic() && !n.isBond()) {
+                    Network net = new Network(getCobblerConnection(),
+                            n.getName());
                     net.setIpAddress(n.getIpaddr());
                     net.setMacAddress(n.getHwaddr());
                     net.setNetmask(n.getNetmask());
@@ -323,6 +345,20 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
 
                     nics.add(net);
                 }
+                else if (setupBridge && bridgeSlaves.contains(n.getName())) {
+                    Network net = new Network(getCobblerConnection(),
+                            n.getName());
+                    net.setMacAddress(n.getHwaddr());
+                    net.makeBondingSlave();
+                    net.setBondingMaster(bridgeName);
+                    nics.add(net);
+                }
+            }
+            if (setupBridge) {
+                Network net = new Network(getCobblerConnection(), bridgeName);
+                net.makeBondingMaster();
+                net.setBondingOptions(bridgeOptions);
+                nics.add(net);
             }
         }
         rec.setNetworkInterfaces(nics);

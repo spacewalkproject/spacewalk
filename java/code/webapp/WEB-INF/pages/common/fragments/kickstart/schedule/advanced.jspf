@@ -40,11 +40,14 @@ function setStep(stepName) {
     <html:hidden property="guestName" />
     <html:hidden property="proxyHost" />
     <table class="details">
-     <%@ include file="/WEB-INF/pages/common/fragments/kickstart/schedule/network-options.jspf" %>
-      <%@ include file="/WEB-INF/pages/common/fragments/kickstart/schedule/kernel-options.jspf" %>
-      <c:if test="${empty requestScope.cobblerOnlyProfile}" >
-	<%@ include file="/WEB-INF/pages/common/fragments/kickstart/schedule/profile-sync.jspf" %>
-      </c:if>
+        <%@ include file="/WEB-INF/pages/common/fragments/kickstart/schedule/network-options.jspf" %>
+        <c:if test="${!empty regularKS}">
+            <%@ include file="/WEB-INF/pages/common/fragments/kickstart/schedule/post-network-options.jspf" %>
+        </c:if>
+        <%@ include file="/WEB-INF/pages/common/fragments/kickstart/schedule/kernel-options.jspf" %>
+        <c:if test="${empty requestScope.cobblerOnlyProfile}" >
+	        <%@ include file="/WEB-INF/pages/common/fragments/kickstart/schedule/profile-sync.jspf" %>
+        </c:if>
     </table>
 	<c:if test="${empty regularKS}">
     	<%@ include file="/WEB-INF/pages/common/fragments/kickstart/schedule/virt-options.jspf" %>

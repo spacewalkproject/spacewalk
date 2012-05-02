@@ -9727,6 +9727,55 @@ Please note that some manual configuration of these scripts may still be require
     </context-group>
   </trans-unit>
 
+  <trans-unit id="kickstart.postnetconn.jsp.label">
+    <source>Post-Install Network Configuration</source>
+    <context-group name="ctx">
+      <context context-type="sourcefile">/rhn/kickstart/KickstartSystemDetailsEdit</context>
+    </context-group>
+  </trans-unit>
+
+  <trans-unit id="kickstart.postnetconn.none.jsp.label">
+    <source>Do not create a bonded network interface after installation</source>
+    <context-group name="ctx">
+      <context context-type="sourcefile">/rhn/kickstart/KickstartSystemDetailsEdit</context>
+    </context-group>
+  </trans-unit>
+
+  <trans-unit id="kickstart.postnetconn.bonding.jsp.label">
+    <source>Create a bonded network interface after installation</source>
+    <context-group name="ctx">
+      <context context-type="sourcefile">/rhn/kickstart/KickstartSystemDetailsEdit</context>
+    </context-group>
+  </trans-unit>
+
+  <trans-unit id="kickstart.postnetconn.bondname.jsp.label">
+    <source>Bond name</source>
+    <context-group name="ctx">
+      <context context-type="sourcefile">/rhn/kickstart/KickstartSystemDetailsEdit</context>
+    </context-group>
+  </trans-unit>
+
+  <trans-unit id="kickstart.postnetconn.bondinterfaces.jsp.label">
+    <source>Interfaces to bond</source>
+    <context-group name="ctx">
+      <context context-type="sourcefile">/rhn/kickstart/KickstartSystemDetailsEdit</context>
+    </context-group>
+  </trans-unit>
+
+  <trans-unit id="kickstart.postnetconn.bondoptions.jsp.label">
+    <source>Bond options</source>
+    <context-group name="ctx">
+      <context context-type="sourcefile">/rhn/kickstart/KickstartSystemDetailsEdit</context>
+    </context-group>
+  </trans-unit>
+
+  <trans-unit id="kickstart.postnetconn.bondoptionstip.jsp.label">
+    <source>Bond options are a space-separated list of any valid "bonding" kernel module options. Common options include mode=[0,1,2] (0 is round-robin, 1 is active-backup, 2 is balance-xor) and miimon=100</source>
+    <context-group name="ctx">
+      <context context-type="sourcefile">/rhn/kickstart/KickstartSystemDetailsEdit</context>
+    </context-group>
+  </trans-unit>
+
   <trans-unit id="kickstart.selinux.jsp.label">
     <source>SELinux</source>
     <context-group name="ctx">

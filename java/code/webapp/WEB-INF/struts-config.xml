@@ -797,6 +797,11 @@
             <form-property name="proxyHost" type="java.lang.String" />
             <form-property name="proxyHostCname" type="java.lang.String" />
             <!--  Advanced Options Page -->
+            <form-property name="bondType" type="java.lang.String" />
+            <form-property name="bondInterface" type="java.lang.String" />
+            <form-property name="bondSlaveInterfaces" type="java.lang.String[]" />
+            <form-property name="hiddenBondSlaveInterfaces" type="java.lang.String" />
+            <form-property name="bondOptions" type="java.lang.String" />
             <form-property name="networkType" type="java.lang.String" />
             <form-property name="networkInterface" type="java.lang.String" />
             <form-property name="useIpv6Gateway" type="java.lang.String"/>

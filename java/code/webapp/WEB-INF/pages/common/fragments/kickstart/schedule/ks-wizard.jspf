@@ -14,6 +14,11 @@
         <input type="hidden" name="networkType" value="${form.networkType}" />
         <input type="hidden" name="networkInterface" value="${form.networkInterface}" />
 
+        <input type="hidden" name="bondType" value="${form.bondType}" />
+        <input type="hidden" name="bondInterface" value="${form.bondInterface}" />
+        <input type="hidden" name="bondOptions" value="${form.bondOptions}" />
+        <input type="hidden" name="hiddenBondSlaveInterfaces" value="${rhn:arrayToString(form.bondSlaveInterfaces)}" />
+
         <!-- Store useful id fields-->
         <input type="hidden" name="wizardStep" value="first" id="wizard-step" />
         <input type="hidden" name="cobbler_id" value="${form.cobbler_id}" id="cobbler_id" />

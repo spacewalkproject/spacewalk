@@ -1,0 +1,40 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://rhn.redhat.com/rhn" prefix="rhn" %>
+<%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
+<%@ taglib uri="http://struts.apache.org/tags-html" prefix="html" %>
+      <tr>
+        <th><bean:message key="kickstart.postnetconn.jsp.label" />:</th>
+        <td>
+        <input type="radio" name="bondType" value="none"
+              onclick="form.masterInterfaceName.disabled = true; form.slaveInterfaceNames.disabled = true; form.bondingInterfaceOptions.disabled = true;"
+              <c:if test="${form.bondType == null || form.bondType == 'none'}">checked="checked"</c:if>
+              />
+        <bean:message key="kickstart.postnetconn.none.jsp.label"/>&nbsp;
+        <br />
+        <input type="radio" name="bondType" value="bonding"
+                onclick="form.masterInterfaceName.disabled = false; form.slaveInterfaceNames.disabled = false; form.bondingInterfaceOptions.disabled = false;"
+                <c:if test="${form.bondType == 'bonding'}">checked="checked"</c:if>
+                />
+        <bean:message key="kickstart.postnetconn.bonding.jsp.label" />&nbsp;
+        <br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<bean:message key="kickstart.postnetconn.bondname.jsp.label" />:&nbsp;
+        <input type="text" name="bondInterface" id="masterInterfaceName" size="5" Maxlength="10"
+                <c:if test="${form.bondType ne 'bonding'}">disabled="true"</c:if>
+                value="${form.bondInterface}"/>
+        &nbsp;<bean:message key="kickstart.postnetconn.bondinterfaces.jsp.label" />:&nbsp;
+        <select name="bondSlaveInterfaces" id="slaveInterfaceNames" multiple="multiple"
+            <c:if test="${form.bondType ne 'bonding'}">disabled="true"</c:if>
+            >
+            <c:forEach var="nic" items="${requestScope.allNetworkInterfaces}">
+                <option
+                <c:if test="${rhn:arrayContains(form.bondSlaveInterfaces, nic.name)}">selected="selected"</c:if>
+                value='${nic.name}'>${nic.name}</option>
+            </c:forEach>
+        </select>
+        &nbsp;<bean:message key="kickstart.postnetconn.bondoptions.jsp.label" />:&nbsp;
+        <input type="text" name="bondOptions" id="bondingInterfaceOptions" size="10" Maxlength="125"
+            <c:if test="${form.bondType ne 'bonding'}">disabled="true"</c:if>
+            value="${form.bondOptions}"/>
+        <rhn:tooltip><bean:message key="kickstart.postnetconn.bondoptionstip.jsp.label" /></rhn:tooltip>
+        </td>
+      </tr>

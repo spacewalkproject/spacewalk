@@ -55,6 +55,7 @@ import org.cobbler.Distro;
 import org.cobbler.SystemRecord;
 
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -104,10 +105,19 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
     public static final String NETWORK_TYPE = "networkType";
     public static final String NETWORK_INTERFACE = "networkInterface";
     public static final String NETWORK_INTERFACES = "networkInterfaces";
+    public static final String ALL_NETWORK_INTERFACES = "allNetworkInterfaces";
     public static final String USE_IPV6_GATEWAY = "useIpv6Gateway";
+    public static final String BOND_TYPE = "bondType";
+    public static final String BOND_INTERFACE = "bondInterface";
+    public static final String BOND_SLAVE_INTERFACES = "bondSlaveInterfaces";
+    public static final String HIDDEN_BOND_SLAVE_INTERFACES = "hiddenBondSlaveInterfaces";
+    public static final String BOND_OPTIONS = "bondOptions";
+    public static final String CREATE_BOND_VALUE = "bonding";
+    public static final String DONT_CREATE_BOND_VALUE = "none";
     /**
      * {@inheritDoc}
      */
+    @Override
     protected void generateWizardSteps(Map wizardSteps) {
         List methods = findMethods("run");
         for (Iterator iter = methods.iterator(); iter.hasNext();) {
@@ -139,6 +149,7 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
         /**
          * {@inheritDoc}
          */
+        @Override
         public List getResult(RequestContext ctx) {
             Long sid = ctx.getParamAsLong(RequestContext.SID);
             User user = ctx.getCurrentUser();
@@ -169,7 +180,7 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
      */
     public static void setupProxyInfo(RequestContext ctx) {
         List<OrgProxyServer> proxies = SystemManager.
-                        listProxies(ctx.getLoggedInUser().getOrg());
+                listProxies(ctx.getLoggedInUser().getOrg());
         if (proxies != null && proxies.size() > 0) {
             List<LabelValueBean> formatted = new LinkedList<LabelValueBean>();
 
@@ -179,7 +190,7 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
                 formatted.add(lv(serv.getName() + " (" + serv.getCheckin() + ")",
                         serv.getId().toString()));
                 List proxyCnames = Config.get().getList(VALID_CNAMES +
-                    serv.getId().toString());
+                        serv.getId().toString());
                 if (!proxyCnames.isEmpty()) {
                     cnames.put(serv.getId().toString(), proxyCnames);
                 }
@@ -193,11 +204,76 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
         }
     }
 
-    private void setupNetworkInfo(DynaActionForm form,
-                    RequestContext context, KickstartScheduleCommand cmd) {
+    private void setupBondInfo(DynaActionForm form, RequestContext context,
+            KickstartScheduleCommand cmd) {
         Server server = cmd.getServer();
         List<NetworkInterface> nics = new LinkedList<NetworkInterface>
-                                                (server.getNetworkInterfaces());
+        (server.getNetworkInterfaces());
+
+        if (nics.isEmpty()) {
+            return;
+        }
+
+        for (Iterator<NetworkInterface> itr = nics.iterator(); itr.hasNext();) {
+            NetworkInterface nic = itr.next();
+            if ("127.0.0.1".equals(nic.getIpaddr())) {
+                itr.remove();
+            }
+        }
+
+        context.getRequest().setAttribute(ALL_NETWORK_INTERFACES, nics);
+
+        if (StringUtils.isBlank(form.getString(BOND_TYPE))) {
+            form.set(BOND_TYPE, DONT_CREATE_BOND_VALUE);
+        }
+
+        if (StringUtils.isBlank(form.getString(BOND_INTERFACE))) {
+            for (NetworkInterface nic : nics) {
+                if (nic.isBond()) {
+                    form.set(BOND_INTERFACE, nic.getName());
+                    break;
+                }
+            }
+        }
+
+        String[] slaves = (String[]) form.get(BOND_SLAVE_INTERFACES);
+        if (slaves == null || slaves.length == 0) {
+            List<String> slavesList = new ArrayList<String>();
+            // if there is a bonded interface on the system
+            if (!StringUtils.isBlank(form.getString(BOND_INTERFACE))) {
+                for (NetworkInterface nic : nics) {
+                    // if the nic does not have an IP address it is probably a
+                    // slave to the bond, add it to the default selected list
+                    if (StringUtils.isBlank(nic.getIpaddr())) {
+                        slavesList.add(nic.getName());
+                    }
+                }
+            }
+
+            form.set(BOND_SLAVE_INTERFACES,
+                    convertToStringArray(slavesList.toArray()));
+        }
+    }
+
+    /*
+     * Throwing an error when casting from Object[] to String [], so let's do it
+     * manually
+     */
+    private String[] convertToStringArray(Object[] objects) {
+        String[] strings = new String[objects.length];
+        int i = 0;
+        for (Object object : objects) {
+            strings[i] = (String) object;
+            i++;
+        }
+        return strings;
+    }
+
+    private void setupNetworkInfo(DynaActionForm form, RequestContext context,
+            KickstartScheduleCommand cmd) {
+        Server server = cmd.getServer();
+        List<NetworkInterface> nics = new LinkedList<NetworkInterface>(
+                server.getNetworkInterfaces());
 
         if (nics.isEmpty()) {
             return;
@@ -209,11 +285,12 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
                 itr.remove();
             }
         }
+
         context.getRequest().setAttribute(NETWORK_INTERFACES, nics);
 
         if (StringUtils.isBlank(form.getString(NETWORK_INTERFACE))) {
             String defaultInterface = ConfigDefaults.get().
-                            getDefaultKickstartNetworkInterface();
+                    getDefaultKickstartNetworkInterface();
             for (NetworkInterface nic : nics) {
                 if (nic.getName().equals(defaultInterface)) {
                     form.set(NETWORK_INTERFACE, ConfigDefaults.get().
@@ -222,7 +299,7 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
             }
             if (StringUtils.isBlank(form.getString(NETWORK_INTERFACE))) {
                 form.set(NETWORK_INTERFACE, server.
-                            findPrimaryNetworkInterface().getName());
+                        findPrimaryNetworkInterface().getName());
             }
         }
     }
@@ -240,7 +317,7 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
      */
     public ActionForward runFirst(ActionMapping mapping, DynaActionForm form,
             RequestContext ctx, HttpServletResponse response, WizardStep step)
-        throws Exception {
+                    throws Exception {
         log.debug("runFirst");
         Long sid = (Long) form.get(RequestContext.SID);
         User user = ctx.getCurrentUser();
@@ -295,7 +372,7 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
             SystemRecord rec = SystemRecord.lookupById(
                     CobblerXMLRPCHelper.getConnection(
                             ConfigDefaults.get().getCobblerAutomatedUser()),
-                    system.getCobblerId());
+                            system.getCobblerId());
             if (rec != null) {
                 ListTagHelper.selectRadioValue(ListHelper.LIST,
                         rec.getProfile().getId(), ctx.getRequest());
@@ -319,8 +396,14 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
      */
     public ActionForward runSecond(ActionMapping mapping, DynaActionForm form,
             RequestContext ctx, HttpServletResponse response, WizardStep step)
-        throws Exception {
+                    throws Exception {
         log.debug("runSecond");
+
+        if (!StringUtils.isBlank(form.getString(HIDDEN_BOND_SLAVE_INTERFACES))) {
+            form.set(BOND_SLAVE_INTERFACES,
+                    form.getString(HIDDEN_BOND_SLAVE_INTERFACES).split(","));
+        }
+
         Long sid = (Long) form.get(RequestContext.SID);
         User user = ctx.getCurrentUser();
 
@@ -348,12 +431,12 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
                 syncSystemDisabled = "true";
             }
             ctx.getRequest()
-                    .setAttribute(SYNC_PACKAGE_DISABED, syncPackageDisabled);
+            .setAttribute(SYNC_PACKAGE_DISABED, syncPackageDisabled);
             ctx.getRequest().setAttribute(SYNC_SYSTEM_DISABLED, syncSystemDisabled);
 
             if (StringUtils.isEmpty(form.getString(TARGET_PROFILE_TYPE))) {
                 form.set(TARGET_PROFILE_TYPE,
-                            KickstartScheduleCommand.TARGET_PROFILE_TYPE_NONE);
+                        KickstartScheduleCommand.TARGET_PROFILE_TYPE_NONE);
             }
         }
         else {
@@ -376,27 +459,27 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
             KickstartScheduleCommand cmd, DynaActionForm form) {
         ctx.getRequest().setAttribute(RequestContext.SYSTEM, cmd.getServer());
         ctx.getRequest()
-                .setAttribute(RequestContext.KICKSTART, cmd.getKsdata());
+        .setAttribute(RequestContext.KICKSTART, cmd.getKsdata());
         if (cmd.getKsdata() != null) {
             ctx.getRequest().setAttribute("profile", cmd.getKsdata());
             ctx.getRequest().setAttribute("distro", cmd.getKsdata().getTree());
             CobblerConnection con = CobblerXMLRPCHelper.
-                                    getConnection(ctx.getLoggedInUser());
+                    getConnection(ctx.getLoggedInUser());
 
             Distro distro = Distro.lookupById(con,
-                                cmd.getKsdata().getTree().getCobblerId());
+                    cmd.getKsdata().getTree().getCobblerId());
 
             ctx.getRequest().setAttribute("distro_kernel_params",
-                                            distro.getKernelOptionsString());
+                    distro.getKernelOptionsString());
             ctx.getRequest().setAttribute("distro_post_kernel_params",
-                                                distro.getKernelPostOptionsString());
+                    distro.getKernelPostOptionsString());
 
             org.cobbler.Profile profile = org.cobbler.Profile.
-                                lookupById(con, cmd.getKsdata().getCobblerId());
+                    lookupById(con, cmd.getKsdata().getCobblerId());
             ctx.getRequest().setAttribute("profile_kernel_params",
-                                    profile.getKernelOptionsString());
+                    profile.getKernelOptionsString());
             ctx.getRequest().setAttribute("profile_post_kernel_params",
-                                        profile.getKernelPostOptionsString());
+                    profile.getKernelPostOptionsString());
             if (cmd.getServer().getCobblerId() != null) {
                 SystemRecord rec = SystemRecord.
                         lookupById(con, cmd.getServer().getCobblerId());
@@ -413,6 +496,7 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
             }
         }
         setupNetworkInfo(form, ctx, cmd);
+        setupBondInfo(form, ctx, cmd);
     }
 
 
@@ -430,7 +514,7 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
      */
     public ActionForward runThird(ActionMapping mapping, DynaActionForm form,
             RequestContext ctx, HttpServletResponse response, WizardStep step)
-        throws Exception {
+                    throws Exception {
         log.debug("runThird");
         if (!validateFirstSelections(form, ctx)) {
             return runFirst(mapping, form, ctx, response, step);
@@ -449,14 +533,31 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
                 scheduleTime, helper.getKickstartHost());
 
         cmd.setNetworkDevice(form.getString(NETWORK_TYPE),
-                                            form.getString(NETWORK_INTERFACE));
+                form.getString(NETWORK_INTERFACE));
+
+        if (!StringUtils.isBlank(form.getString(HIDDEN_BOND_SLAVE_INTERFACES))) {
+            form.set(BOND_SLAVE_INTERFACES,
+                    form.getString(HIDDEN_BOND_SLAVE_INTERFACES).split(","));
+        }
+        if (CREATE_BOND_VALUE.equals(form.getString(BOND_TYPE))) {
+            cmd.setCreateBond(true);
+            cmd.setBondInterface(form.getString(BOND_INTERFACE));
+            cmd.setBondOptions(form.getString(BOND_OPTIONS));
+            String[] slaves = (String[]) form.get(BOND_SLAVE_INTERFACES);
+            List<String> tmp = new ArrayList<String>();
+            for (String slave : slaves) {
+                tmp.add(slave);
+            }
+            cmd.setBondSlaveInterfaces(tmp);
+        }
+
         if (form.getString(USE_IPV6_GATEWAY).equals("1")) {
             cmd.setIpv6Gateway();
         }
         cmd.setKernelOptions(parseKernelOptions(form, ctx.getRequest(),
-                            form.getString(RequestContext.COBBLER_ID), false));
+                form.getString(RequestContext.COBBLER_ID), false));
         cmd.setPostKernelOptions(parseKernelOptions(form, ctx.getRequest(),
-                            form.getString(RequestContext.COBBLER_ID), true));
+                form.getString(RequestContext.COBBLER_ID), true));
 
         if (!cmd.isCobblerOnly()) {
             // now setup system/package profiles for kickstart to sync
@@ -500,7 +601,7 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
         if (cmd.isCobblerOnly()) {
             createSuccessMessage(ctx.getRequest(),
                     "kickstart.cobbler.schedule.success", LocalizationService
-                            .getInstance().formatDate(scheduleTime));
+                    .getInstance().formatDate(scheduleTime));
             return getStrutsDelegate().forwardParams(
                     mapping.findForward("cobbler-success"), params);
         }
@@ -524,7 +625,7 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
      */
     public ActionForward runFourth(ActionMapping mapping, DynaActionForm form,
             RequestContext ctx, HttpServletResponse response, WizardStep step)
-        throws Exception {
+                    throws Exception {
 
         log.debug("runFourth");
         if (!validateFirstSelections(form, ctx)) {
@@ -546,7 +647,7 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
                 CobblerXMLRPCHelper.getConnection(user), cobblerId);
 
         KickstartData data = KickstartFactory.lookupKickstartDataByCobblerIdAndOrg(
-                    user.getOrg(), profile.getUid());
+                user.getOrg(), profile.getUid());
 
         CobblerSystemCreateCommand cmd = new CobblerSystemCreateCommand(server,
                 profile.getName(), data);
@@ -615,7 +716,7 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
     protected boolean validateFirstSelections(DynaActionForm form,
             RequestContext ctx) {
         String cobblerId = ListTagHelper.getRadioSelection(ListHelper.LIST,
-                                                            ctx.getRequest());
+                ctx.getRequest());
         if (StringUtils.isBlank(cobblerId)) {
             cobblerId = ctx.getParam(RequestContext.COBBLER_ID, true);
         }
@@ -661,16 +762,16 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
      * @return the kernel options selected by the user.
      */
     public static String parseKernelOptions(DynaActionForm form,
-                                                HttpServletRequest request,
-                                                String profileCobblerId,
-                                                boolean isPost) {
+            HttpServletRequest request,
+            String profileCobblerId,
+            boolean isPost) {
         RequestContext context = new RequestContext(request);
         String typeKey = !isPost ? KERNEL_PARAMS_TYPE : POST_KERNEL_PARAMS_TYPE;
         String customKey = !isPost ? KERNEL_PARAMS : POST_KERNEL_PARAMS;
         String type = form.getString(typeKey);
 
         return parseKernelOptions(form.getString(customKey), type, profileCobblerId,
-                                            isPost, context.getCurrentUser());
+                isPost, context.getCurrentUser());
     }
 
 
@@ -687,12 +788,12 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
      * @return the kernel options selected by the user.
      */
     public static String parseKernelOptions(String customOptions,
-                                                String paramsType,
-                                                String cobblerId,
-                                                boolean isPost, User user) {
+            String paramsType,
+            String cobblerId,
+            boolean isPost, User user) {
 
         CobblerConnection con  = CobblerXMLRPCHelper.
-                            getConnection(user);
+                getConnection(user);
         if (KERNEL_PARAMS_CUSTOM.equals(paramsType)) {
             return customOptions;
         }

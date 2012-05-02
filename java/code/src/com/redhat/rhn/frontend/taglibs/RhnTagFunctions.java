@@ -14,6 +14,8 @@
  */
 package com.redhat.rhn.frontend.taglibs;
 
+import org.apache.commons.lang.StringUtils;
+
 import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.util.StringUtil;
@@ -28,6 +30,36 @@ public class RhnTagFunctions {
 
     // Pure util class.  No need for construction.
     private RhnTagFunctions() {
+    }
+
+    /**
+     * Joins an array of Strings into a comma-separated String
+     *
+     * @param array The array of Strings to join
+     * @return String containing a comma-separated list
+     */
+    public static String arrayToString(String[] array) {
+        return StringUtils.join(array, ',');
+    }
+
+    /**
+     * Checks to see if an array of Strings contains any element that .equals()
+     * the given String
+     *
+     * @param array The array of Strings to check
+     * @param string The string to look for in the array
+     * @return Boolean telling you if the String was found or not
+     */
+    public static Boolean arrayContains(String[] array, String string) {
+        if (array == null) {
+            return false;
+        }
+        for (String s : array) {
+            if (s.equals(string)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
