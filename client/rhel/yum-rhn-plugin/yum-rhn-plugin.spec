@@ -1,6 +1,6 @@
 Summary: RHN support for yum
 Name: yum-rhn-plugin
-Version: 1.8.0
+Version: 1.8.1
 Release: 1%{?dist}
 License: GPLv2
 Group: System Environment/Base
@@ -71,6 +71,9 @@ fi
 %doc LICENSE
 
 %changelog
+* Wed May 02 2012 Milan Zazrivec <mzazrivec@redhat.com> 1.8.1-1
+- 817567 - fix reports for auto-errata application already installed
+
 * Tue Feb 28 2012 Jan Pazdziora 1.7.2-1
 - Update .po and .pot files for yum-rhn-plugin.
 - Download translations from Transifex for yum-rhn-plugin.
