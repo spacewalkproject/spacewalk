@@ -310,7 +310,7 @@ def update(package_list, cache_only=None):
     log.log_debug("Called update", package_list)
   
     # Remove already installed packages from the list
-    for package in package_list:
+    for package in package_list[:]:
         pkgkeys = {
                     'name' : package[0],
                     'epoch' : package[3],
