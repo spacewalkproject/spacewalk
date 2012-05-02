@@ -69,7 +69,7 @@ public class SystemScapHandler extends BaseHandler {
      * Get Details of given OpenSCAP XCCDF scan.
      * @param sessionKey The session key.
      * @param xid The id of XCCDF scan.
-     * @return a detasil of OpenSCAP XCCDF scan.
+     * @return a details of OpenSCAP XCCDF scan.
      *
      * @xmlrpc.doc Get details of given OpenSCAP XCCDF scan.
      * @xmlrpc.param #session_key()
