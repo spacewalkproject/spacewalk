@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 1.8.3
+Version: 1.8.4
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -343,6 +343,9 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Wed May 02 2012 Milan Zazrivec <mzazrivec@redhat.com> 1.8.4-1
+- 816199 - fix package dependency on newt
+
 * Wed Apr 25 2012 Milan Zazrivec <mzazrivec@redhat.com> 1.8.3-1
 - 816199 - include package dependency on newt
 
