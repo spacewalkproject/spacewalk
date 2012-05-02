@@ -52,11 +52,12 @@
 <h2><bean:message key="system.audit.xccdfdetails.jsp.xccdfrules"/></h2>
 
 <rl:listset name="groupSet" legend="xccdf">
+  <rhn:csrf/>
   <rl:list>
     <rl:decorator name="PageSizeDecorator"/>
-    <rhn:csrf/>
 
-    <rl:column headerkey="system.audit.xccdfdetails.jsp.idref" sortattr="documentIdref" sortable="true">
+    <rl:column headerkey="system.audit.xccdfdetails.jsp.idref" sortattr="documentIdref"
+        sortable="true" styleclass="first-column">
       <a href="/rhn/systems/details/audit/RuleDetails.do?sid=${param.sid}&rrid=${current.id}">
         <c:choose>
           <c:when test="${empty current.documentIdref}">

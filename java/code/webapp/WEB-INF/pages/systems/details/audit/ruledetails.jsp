@@ -37,10 +37,11 @@
 <h2><bean:message key="system.audit.ruledetails.jsp.assignedidents"/></h2>
 
 <rl:listset name="groupSet">
+  <rhn:csrf/>
   <rl:list emptykey="system.audit.ruledetails.jsp.noidents">
-    <rhn:csrf/>
 
-    <rl:column headerkey="system.audit.ruledetails.jsp.system" sortattr="system" sortable="true">
+    <rl:column headerkey="system.audit.ruledetails.jsp.system" sortattr="system" sortable="true"
+        styleclass="first-column">
       <c:out value="${current.system}"/>
     </rl:column>
     <rl:column headerkey="system.audit.ruledetails.jsp.ident" sortattr="identifier" sortable="true">
