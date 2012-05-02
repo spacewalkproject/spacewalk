@@ -45,21 +45,6 @@ public class ScapFactory extends HibernateFactory {
     }
 
     /**
-     * Lookup a XCCDF TestResult by the id.
-     * Make sure that a given user can access the data.
-     * @param xid of the XCCDF TestResult to search for
-     * @param user user searching the results
-     * @return the XccdfTestResult found
-     */
-    public static XccdfTestResult lookupTestResultByIdAndUser(Long xid, User user) {
-        HashMap<String, Long> params = new HashMap<String, Long>();
-        params.put("xid", xid);
-        params.put("user_id", user.getId());
-        return (XccdfTestResult)singleton.lookupObjectByNamedQuery(
-                "XccdfTestResult.findByIdAndUser", params);
-    }
-
-    /**
      * Get the Logger for the derived class so log messages
      * show up on the correct class.
      * @return Logger

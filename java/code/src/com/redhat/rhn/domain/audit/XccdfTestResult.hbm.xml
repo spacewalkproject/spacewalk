@@ -30,15 +30,4 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 	<query name="XccdfTestResult.findById">
 		<![CDATA[from com.redhat.rhn.domain.audit.XccdfTestResult as a where a.id = :xid]]>
 	</query>
-
-	<sql-query name="XccdfTestResult.findByIdAndUser">
-		<![CDATA[SELECT {tr.*}
-		FROM rhnXccdfTestResult {tr},
-			rhnUserServerPerms usp
-		WHERE tr.id = :xid
-			AND usp.server_id = tr.server_id
-			AND usp.user_id = :user_id
-		]]>
-		<return alias="tr" class="com.redhat.rhn.domain.audit.XccdfTestResult" />
-	</sql-query>
 </hibernate-mapping>

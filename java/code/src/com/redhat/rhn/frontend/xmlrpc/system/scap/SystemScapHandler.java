@@ -78,13 +78,8 @@ public class SystemScapHandler extends BaseHandler {
      */
     public XccdfTestResult getXccdfScanDetails(String sessionKey, Integer xid) {
         User loggedInUser = getLoggedInUser(sessionKey);
-        XccdfTestResult testResult = ScapFactory.lookupTestResultByIdAndUser(new Long(xid),
-                loggedInUser);
-        if (testResult == null) {
-            throw new FaultException(-1, "scanDoesNotExists",
-                    "Scan of id=" + xid + " does not exists or permission error.");
-        }
-        return testResult;
+        ScapManager.ensureAvailableToUser(loggedInUser, new Long(xid));
+        return ScapFactory.lookupTestResultById(new Long(xid));
     }
 
     /**
