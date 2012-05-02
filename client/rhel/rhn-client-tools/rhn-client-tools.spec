@@ -31,8 +31,12 @@ Requires: hal >= 0.5.8.1-52
 %endif
 %if 0%{?suse_version}
 Requires: python-newt
-%else
+%endif
+%if 0%{?rhel} == 5
 Requires: newt
+%endif
+%if 0%{?fedora} || 0%{?rhel} > 5
+Requires: newt-python
 %endif
 Requires: python-dmidecode
 %if 0%{?suse_version}
