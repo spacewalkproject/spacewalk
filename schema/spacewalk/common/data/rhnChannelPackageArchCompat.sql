@@ -71,6 +71,9 @@ insert into rhnChannelPackageArchCompat (channel_arch_id, package_arch_id)
 values (LOOKUP_CHANNEL_ARCH('channel-armv7'), LOOKUP_PACKAGE_ARCH('noarch'));
 
 insert into rhnChannelPackageArchCompat (channel_arch_id, package_arch_id)
+values (LOOKUP_CHANNEL_ARCH('channel-armv7'), LOOKUP_PACKAGE_ARCH('armv7hnl'));
+
+insert into rhnChannelPackageArchCompat (channel_arch_id, package_arch_id)
 values (LOOKUP_CHANNEL_ARCH('channel-armv7'), LOOKUP_PACKAGE_ARCH('armv7hl'));
 
 insert into rhnChannelPackageArchCompat (channel_arch_id, package_arch_id)
