@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.8.28
+Version:        1.8.29
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -69,6 +69,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Wed May 02 2012 Miroslav Suchý <msuchy@redhat.com> 1.8.29-1
+- 719609 - add support for armv7hnl package arch
+
 * Mon Apr 30 2012 Jan Pazdziora 1.8.28-1
 - Update existing rhn_notification_formats with the new newlines matching
   Oracle.
