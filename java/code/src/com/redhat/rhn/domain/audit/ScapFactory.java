@@ -19,7 +19,6 @@ import java.util.HashMap;
 import org.apache.log4j.Logger;
 
 import com.redhat.rhn.common.hibernate.HibernateFactory;
-import com.redhat.rhn.domain.user.User;
 
 /**
  * ScapFactory - the singleton class used to fetch and store
