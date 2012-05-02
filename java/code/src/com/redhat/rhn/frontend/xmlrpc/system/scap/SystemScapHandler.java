@@ -25,6 +25,7 @@ import com.redhat.rhn.domain.action.scap.ScapAction;
 import com.redhat.rhn.domain.audit.ScapFactory;
 import com.redhat.rhn.domain.audit.XccdfTestResult;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.dto.XccdfRuleResultDto;
 import com.redhat.rhn.frontend.dto.XccdfTestResultDto;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
 import com.redhat.rhn.manager.MissingCapabilityException;
@@ -84,6 +85,27 @@ public class SystemScapHandler extends BaseHandler {
                     "Scan of id=" + xid + " does not exists or permission error.");
         }
         return testResult;
+    }
+
+    /**
+     * List RuleResults for given XCCDF Scan.
+     * @param sessionKey The session key.
+     * @param xid The id of XCCDF scan.
+     * @return a list of RuleResults for given scan.
+     *
+     * @xmlrpc.doc Return a full list of RuleResults for given OpenSCAP XCCDF scan.
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param("int", "Id of XCCDF scan (xid).")
+     * @xmlrpc.returntype
+     * #array()
+     *   $XccdfRuleResultDtoSerializer
+     * #array_end()
+     */
+    public List<XccdfRuleResultDto> getXccdfScanRuleResults(String sessionKey,
+            Integer xid) {
+        User loggedInUser = getLoggedInUser(sessionKey);
+        ScapManager.ensureAvailableToUser(loggedInUser, new Long(xid));
+        return (List<XccdfRuleResultDto>) ScapManager.ruleResultsPerScan(new Long(xid));
     }
 
     /**

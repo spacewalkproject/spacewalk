@@ -118,6 +118,7 @@ public class SerializerRegistry {
         SERIALIZER_CLASSES.add(ContentSourceSerializer.class);
         SERIALIZER_CLASSES.add(XccdfTestResultDtoSerializer.class);
         SERIALIZER_CLASSES.add(XccdfTestResultSerializer.class);
+        SERIALIZER_CLASSES.add(XccdfRuleResultDtoSerializer.class);
     }
 
     /**

@@ -24,6 +24,7 @@ import java.util.Map;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.SelectMode;
+import com.redhat.rhn.common.hibernate.LookupException;
 import com.redhat.rhn.domain.action.scap.ScapAction;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
@@ -182,6 +183,34 @@ public class ScapManager extends BaseManager {
         HashSet<Long> systemIds = idsInDataResultToSet(scapCapableSystemsInSsm(scheduler));
         return ActionManager.scheduleXccdfEval(
                 scheduler, systemIds, path, parameters, earliest);
+    }
+
+    /**
+     * Check if the user has permission to see the XCCDF scan.
+     * @param user User being checked.
+     * @param testResultId ID of XCCDF scan being checked.
+     * @throws LookupException if user cannot access the scan.
+     */
+    public static void ensureAvailableToUser(User user, Long testResultId) {
+        if (!isAvailableToUser(user, testResultId)) {
+            throw new LookupException("Could not find XCCDF scan " +
+                    testResultId + " for user " + user.getId());
+        }
+    }
+
+    /**
+     * Checks if the user has permission to see the XCCDF scan.
+     * @param user User being checked.
+     * @param testResultId ID of the XCCDF scan being checked.
+     * @retutn true if the user can access the TestResult, false otherwise.
+     */
+    private static boolean isAvailableToUser(User user, Long testResultId) {
+        SelectMode m = ModeFactory.getMode("scap_queries",
+                "is_available_to_user");
+        HashMap<String, Long> params = new HashMap<String, Long>();
+        params.put("user_id", user.getId());
+        params.put("xid", testResultId);
+        return m.execute(params).size() >= 1;
     }
 
     private static List<Map<String, Object>> transposeView(DataResult testResultsRaw) {

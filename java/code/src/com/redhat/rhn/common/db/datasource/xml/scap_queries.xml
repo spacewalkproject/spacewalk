@@ -144,6 +144,17 @@
   </query>
 </mode>
 
+<mode name="is_available_to_user">
+  <query params="user_id, xid">
+  SELECT 1
+      FROM rhnXccdfTestResult tr,
+          rhnUserServerPerms usp
+      WHERE tr.id = :xid
+          AND usp.server_id = tr.server_id
+          AND usp.user_id = :user_id
+  </query>
+</mode>
+
 <mode name="systems_in_set_and_scap_capability">
   <query params="user_id, set_label">
   SELECT DISTINCT s.id AS sid,
