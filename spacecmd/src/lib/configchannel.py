@@ -638,6 +638,16 @@ def do_configchannel_addfile(self, args, update_path=''):
 
     file_info = self.configfile_getinfo(args, options, file_info, interactive)
 
+    if not options.channel:
+        logging.error("No config channel specified!")
+        self.help_configchannel_addfile()
+        return
+
+    if not file_info:
+        logging.error("Error obtaining file info")
+        self.help_configchannel_addfile()
+        return
+
     if self.user_confirm():
         if options.symlink:
             self.client.configchannel.createOrUpdateSymlink(self.session,
