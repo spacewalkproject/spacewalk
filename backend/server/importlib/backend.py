@@ -242,25 +242,15 @@ class Backend:
             updates[1].append(name)
         if inserts[0]:
             h = self.dbmodule.prepare("""
-                declare
-                    pragma autonomous_transaction;
-                begin
                     insert into rhnArchType (id, label, name)
-                    values (:id, :label, :name);
-                    commit;
-                end;
+                    values (:id, :label, :name)
             """)
             h.executemany(id=inserts[0], label=inserts[1], name=inserts[2])
         if updates[0]:
             h = self.dbmodule.prepare("""
-                declare
-                    pragma autonomous_transaction;
-                begin
                     update rhnArchType 
                        set name = :name
-                     where id = :id;
-                    commit;
-                end;
+                     where id = :id
             """)
             h.executemany(id=updates[0], name=updates[1])
 
