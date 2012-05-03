@@ -49,17 +49,16 @@ public abstract class BaseKickstartScriptAction extends BaseKickstartEditAction 
     protected ValidatorError processFormValues(HttpServletRequest request,
             DynaActionForm form,
             BaseKickstartCommand cmd) {
-        String chroot = "Y";
-        Boolean b = Boolean.TRUE;
+
+        BaseKickstartScriptCommand kssc = (BaseKickstartScriptCommand) cmd;
 
         Boolean template = false;
         if (form.get(TEMPLATE) != null) {
             template = (Boolean) form.get(TEMPLATE);
         }
 
-        BaseKickstartScriptCommand kssc = (BaseKickstartScriptCommand) cmd;
-
-        if (b.equals(form.get(NOCHROOT))) {
+        String chroot = "Y";
+        if (Boolean.TRUE.equals(form.get(NOCHROOT))) {
             chroot = "N";
         }
 
