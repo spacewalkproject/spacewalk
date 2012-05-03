@@ -22,7 +22,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.60
+Version: 1.8.61
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -605,6 +605,17 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu May 03 2012 Stephen Herr <sherr@redhat.com> 1.8.61-1
+- 818700 - When kickstarting a system there is an option that allows you to
+  create or re-create a network bond.
+- fix listSharedChannels to only show this org's channels
+- fix my_channel_tree query
+- fix channel.listRedHatChannels shows custom channels
+- Remove unused import
+- Remove a code which duplicates ensureAvailableToUser() method.
+- Eliminate a typo.
+- API: list results for XCCDF scan.
+
 * Tue May 01 2012 Miroslav Suchý <msuchy@redhat.com> 1.8.60-1
 - 817098 - fixed the Brazilian time zone
 - Enhancement and fixes on Brazilian (pt_BR) localization at webUI
