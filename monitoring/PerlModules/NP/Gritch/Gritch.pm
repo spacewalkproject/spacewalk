@@ -429,8 +429,8 @@ sub sendmail {
 sub get_mac {
 #############
 
-  my $ifconfig = `/sbin/ifconfig eth0`;
-  if ($ifconfig =~ /HWaddr\s+(\S+)/) {
+  my $ifconfig = `/sbin/ifconfig`;
+  if ($ifconfig =~ /.*?HWaddr (\S*).*/) {
     return $1;
   } else {
     return undef;
