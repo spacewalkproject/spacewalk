@@ -21,7 +21,7 @@
           </tr>
           <tr>
               <th>
-                  <bean:message key="kickstart.script.scriptname"/>
+                  <rhn:required-field key="kickstart.script.scriptname"/>
               </th>
               <td>
                   <html:text property="script_name" maxlength="40" size="20" /><br/>
