@@ -116,7 +116,8 @@ public class KickstartManager extends BaseManager {
         try {
             if (ksdata.isValid()) {
                 String text = renderKickstart(ksdata);
-                if (text.contains("Traceback (most recent call last):")) {
+                if (text.contains("Traceback (most recent call last):") ||
+                text.contains("There is a templating error preventing this file from")) {
                     ValidatorException.
                         raiseException("kickstart.jsp.error.template_generation",
                             KickstartUrlHelper.getFileDowloadPageUrl(ksdata));
