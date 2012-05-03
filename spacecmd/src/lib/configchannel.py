@@ -544,11 +544,11 @@ def configfile_getinfo(self, args, options, file_info=None, interactive=False):
         if not options.directory:
             print
             if options.binary:
-                print 'Contents (base64 encoded)'
+                print 'Contents not displayed (base64 encoded)'
             else:
                 print 'Contents'
-            print '--------'
-            print file_info['contents']
+                print '--------'
+                print file_info['contents']
 
     return file_info
 
