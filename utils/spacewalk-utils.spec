@@ -1,7 +1,7 @@
 %define rhnroot %{_prefix}/share/rhn
 
 Name:		spacewalk-utils
-Version:	1.8.10
+Version:	1.8.11
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -87,6 +87,11 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Fri May 04 2012 Michael Mraka <michael.mraka@redhat.com> 1.8.11-1
+- added dist_map_release for automatic OS->base channel mapping
+- set dist release map via setDefaultMap
+- removed fedora12/13/14 which are long time EOL
+
 * Tue Apr 24 2012 Stephen Herr <sherr@redhat.com> 1.8.10-1
 - 812810 - Better regex for getting system_id in apply_errata
 
