@@ -91,6 +91,8 @@ foreach my $configfile ('modules.conf', 'settings') {
 		open FILE, ">$cfpath" or die "Error opening [$cfpath] for writing: $!\n";
 		print FILE @modified_content;
 		close FILE;
+	} else {
+		print " * Leaving $cfpath unmodified\n" if $verbose;
 	}
 }
 
