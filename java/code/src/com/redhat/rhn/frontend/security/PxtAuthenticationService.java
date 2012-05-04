@@ -40,6 +40,7 @@ public class PxtAuthenticationService extends BaseAuthenticationService {
     public static final long MAX_URL_LENGTH = 2048;
 
     private static final Set UNPROTECTED_URIS;
+    private static final Set POST_UNPROTECTED_URIS;
     private static final Set LOGIN_URIS;
 
     static {
@@ -62,6 +63,11 @@ public class PxtAuthenticationService extends BaseAuthenticationService {
         set.add("/rhn/common/DownloadFile");
 
         UNPROTECTED_URIS = UnmodifiableSet.decorate(set);
+
+        set = new TreeSet(set);
+        set.add("/rhn/common/DownloadFile");
+
+        POST_UNPROTECTED_URIS = UnmodifiableSet.decorate(set);
     }
 
     private PxtSessionDelegate pxtDelegate;
@@ -75,6 +81,10 @@ public class PxtAuthenticationService extends BaseAuthenticationService {
 
     protected Set getUnprotectedURIs() {
         return UNPROTECTED_URIS;
+    }
+
+    protected Set getPostUnprotectedURIs() {
+        return POST_UNPROTECTED_URIS;
     }
 
     /**
@@ -92,7 +102,7 @@ public class PxtAuthenticationService extends BaseAuthenticationService {
      * {@inheritDoc}
      */
     public boolean skipCsfr(HttpServletRequest request) {
-        return requestURIdoesLogin(request);
+        return requestURIdoesLogin(request) || requestPostCsfrWhitelist(request);
     }
 
     /**

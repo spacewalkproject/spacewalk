@@ -66,6 +66,7 @@ public class KickstartHelper {
     private static final String ORG = "org";
     private static final String HOST = "host";
     private static final String ORG_ID = "org_id";
+    private static final String XFORWARD_HOST = "X-Forwarded-Host";
     private static final String XFORWARD = "X-Forwarded-For";
     private static final String XFORWARD_REGEX =
         "(\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}.\\d{1,3})";
@@ -238,6 +239,19 @@ public class KickstartHelper {
         return remoteAddr;
     }
 
+
+    /**
+     * Check to see if this request came through a proxy
+     * @return String of hostname of first proxy in chain or null otherwise.
+     */
+    public String getForwardedHost() {
+        String host = null;
+        String forwardHosts = request.getHeader(XFORWARD_HOST);
+        if (forwardHosts != null) {
+            host = forwardHosts.split(",")[0];
+        }
+        return host;
+    }
 
     /**
      *

@@ -39,6 +39,7 @@ public class DownloadManager extends BaseManager {
 
     public static final String DOWNLOAD_TYPE_KICKSTART = "kickstart";
     public static final String DOWNLOAD_TYPE_COBBLER = "cobbler";
+    public static final String DOWNLOAD_TYPE_COBBLER_API = "cobbler_api";
     public static final String DOWNLOAD_TYPE_PACKAGE = "package";
     public static final String DOWNLOAD_TYPE_SOURCE = "srpm";
     public static final String DOWNLOAD_TYPE_PATCH_README = "patchreadme";

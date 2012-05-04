@@ -43,6 +43,15 @@ public abstract class BaseAuthenticationService implements AuthenticationService
         });
     }
 
+    protected boolean requestPostCsfrWhitelist(final HttpServletRequest request) {
+        return CollectionUtils.exists(getPostUnprotectedURIs(), new Predicate() {
+            public boolean evaluate(Object uri) {
+                return request.getRequestURI().startsWith(uri.toString());
+            }
+        });
+    }
+
     protected abstract Set getUnprotectedURIs();
+    protected abstract Set getPostUnprotectedURIs();
     protected abstract Set getLoginURIs();
 }

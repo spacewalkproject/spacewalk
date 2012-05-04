@@ -51,7 +51,11 @@ import org.apache.struts.actions.DownloadAction;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.io.InputStreamReader;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.net.URL;
+import java.net.URLConnection;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -88,9 +92,10 @@ public class DownloadFile extends DownloadAction {
     private static final String CHILD = "child";
     private static final String TREE = "tree";
     private static final String SESSION = "session";
-    private static final String URL = "url";
+    private static final String URL_STRING = "url";
     private static final String CONTENT_TYPE_OCTET_STREAM = "application/octet-stream";
     private static final String CONTENT_TYPE_TEXT_PLAIN = "text/plain";
+    private static final String CONTENT_TYPE_TEXT_XML = "text/xml";
 
     /** {@inheritDoc} */
     @Override
@@ -116,7 +121,13 @@ public class DownloadFile extends DownloadAction {
         else if (url.startsWith("/cblr/svc/op/ks/")) {
             Map params = new HashMap();
             params.put(TYPE,  DownloadManager.DOWNLOAD_TYPE_COBBLER);
-            params.put(URL, url);
+            params.put(URL_STRING, url);
+            request.setAttribute(PARAMS, params);
+            return super.execute(mapping, formIn, request, response);
+        }
+        else if (url.startsWith("/cobbler_api")) {
+            Map params = new HashMap();
+            params.put(TYPE,  DownloadManager.DOWNLOAD_TYPE_COBBLER_API);
             request.setAttribute(PARAMS, params);
             return super.execute(mapping, formIn, request, response);
         }
@@ -332,7 +343,7 @@ public class DownloadFile extends DownloadAction {
         }
         else if (type.equals(DownloadManager.DOWNLOAD_TYPE_COBBLER)) {
             String url = ConfigDefaults.get().getCobblerServerUrl() +
-                        (String) params.get(URL);
+                        (String) params.get(URL_STRING);
             KickstartHelper helper = new KickstartHelper(request);
             String data = "";
             if (helper.isProxyRequest()) {
@@ -344,6 +355,46 @@ public class DownloadFile extends DownloadAction {
             }
             setTextContentInfo(response, data.length());
             return getStreamForText(data.getBytes());
+        }
+        else if (type.equals(DownloadManager.DOWNLOAD_TYPE_COBBLER_API)) {
+            // read data from POST body
+            String postData = new String();
+            String line = null;
+            BufferedReader reader = request.getReader();
+            while ((line = reader.readLine()) != null) {
+                postData += line;
+            }
+
+            // Send data
+            URL url = new URL("http://localhost:25151/cobbler_api");
+            URLConnection conn = url.openConnection();
+            conn.setDoOutput(true);
+            OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
+            // this will write POST /download//cobbler_api instead of
+            // POST /cobbler_api, but cobbler do not mind
+            wr.write(postData, 0, postData.length());
+            wr.flush();
+            conn.connect();
+
+            // Get the response
+            String output = new String();
+            BufferedReader rd = new BufferedReader(new InputStreamReader(
+                conn.getInputStream()));
+            while ((line = rd.readLine()) != null) {
+                output += line;
+            }
+            wr.close();
+
+            KickstartHelper helper = new KickstartHelper(request);
+            if (helper.isProxyRequest()) {
+                // Search/replacing all instances of cobbler host with host
+                // we pass in, for use with rhn proxy.
+                output = output.replaceAll(ConfigDefaults.get().getCobblerHost(),
+                    helper.getForwardedHost());
+            }
+
+            setXmlContentInfo(response, output.length());
+            return getStreamForXml(output.getBytes());
         }
         else {
             Long fileId = (Long) params.get(FILEID);
@@ -567,8 +618,20 @@ public class DownloadFile extends DownloadAction {
         responseIn.setContentLength(lengthIn);
     }
 
+    private void setXmlContentInfo(HttpServletResponse responseIn, int lengthIn) {
+        // make sure content type is set first!!!
+        // otherwise content length gets ignored
+        responseIn.setContentType(CONTENT_TYPE_TEXT_XML);
+        responseIn.setContentLength(lengthIn);
+    }
+
     private StreamInfo getStreamForText(byte[] text) {
         ByteArrayStreamInfo stream = new ByteArrayStreamInfo("text/plain", text);
+        return stream;
+    }
+
+    private StreamInfo getStreamForXml(byte[] text) {
+        ByteArrayStreamInfo stream = new ByteArrayStreamInfo(CONTENT_TYPE_TEXT_XML, text);
         return stream;
     }
 
