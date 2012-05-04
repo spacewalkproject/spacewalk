@@ -685,6 +685,16 @@
           <function-signature>java.lang.String localizedValue(java.lang.String, java.lang.String)</function-signature>
     </function>
     <function>
+        <name>arrayToString</name>
+        <function-class>com.redhat.rhn.frontend.taglibs.RhnTagFunctions</function-class>
+        <function-signature>java.lang.String arrayToString(java.lang.String[])</function-signature>
+    </function>
+    <function>
+        <name>arrayContains</name>
+        <function-class>com.redhat.rhn.frontend.taglibs.RhnTagFunctions</function-class>
+        <function-signature>java.lang.String arrayContains(java.lang.String[],java.lang.String)</function-signature>
+    </function>
+    <function>
         <name>getConfig</name>
         <function-class>com.redhat.rhn.frontend.taglibs.RhnTagFunctions</function-class>
         <function-signature>java.lang.String getConfig(java.lang.String)</function-signature>
