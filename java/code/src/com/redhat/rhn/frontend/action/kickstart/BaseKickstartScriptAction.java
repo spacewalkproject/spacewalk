@@ -62,14 +62,21 @@ public abstract class BaseKickstartScriptAction extends BaseKickstartEditAction 
             chroot = "N";
         }
 
+        String scriptValue = getStrutsDelegate().getTextAreaValue(form, CONTENTS);
+
         ValidatorResult result = RhnValidationHelper.validate(this.getClass(), form, null,
                 "validation/" + form.getDynaClass().getName() + ".xsd");
 
         if (!result.isEmpty()) {
+            request.setAttribute(LANGUAGE, form.getString(LANGUAGE));
+            request.setAttribute(SCRIPTNAME, form.getString(SCRIPTNAME));
+            request.setAttribute(CONTENTS, scriptValue);
+            request.setAttribute(TYPE, form.getString(TYPE));
+            request.setAttribute(NOCHROOT, form.get(NOCHROOT));
+            request.setAttribute(TEMPLATE, form.get(TEMPLATE));
             return result.getErrors().get(0);
         }
 
-        String scriptValue = getStrutsDelegate().getTextAreaValue(form, CONTENTS);
         kssc.setScript(form.getString(LANGUAGE),
                 scriptValue,
                 form.getString(TYPE),
@@ -97,12 +104,24 @@ public abstract class BaseKickstartScriptAction extends BaseKickstartEditAction 
         ctx.getRequest().setAttribute(TYPES, types);
 
         BaseKickstartScriptCommand kssc = (BaseKickstartScriptCommand) cmd;
-        form.set(CONTENTS, kssc.getContents());
-        form.set(SCRIPTNAME, kssc.getScriptName());
-        form.set(LANGUAGE, kssc.getLanguage());
-        form.set(TYPE, kssc.getType());
-        form.set(NOCHROOT, kssc.getNoChrootVal());
-        form.set(TEMPLATE, !kssc.getScript().getRaw());
+
+        if (kssc.getScript().getId() == null) {
+            HttpServletRequest req = ctx.getRequest();
+            form.set(CONTENTS, req.getAttribute(CONTENTS));
+            form.set(SCRIPTNAME, req.getAttribute(SCRIPTNAME));
+            form.set(LANGUAGE, req.getAttribute(LANGUAGE));
+            form.set(TYPE, req.getAttribute(TYPE));
+            form.set(NOCHROOT, req.getAttribute(NOCHROOT));
+            form.set(TEMPLATE, req.getAttribute(TEMPLATE));
+
+        } else {
+            form.set(CONTENTS, kssc.getContents());
+            form.set(SCRIPTNAME, kssc.getScriptName());
+            form.set(LANGUAGE, kssc.getLanguage());
+            form.set(TYPE, kssc.getType());
+            form.set(NOCHROOT, kssc.getNoChrootVal());
+            form.set(TEMPLATE, !kssc.getScript().getRaw());
+        }
     }
 
     /**
