@@ -2176,7 +2176,7 @@
          <set-property property="postRequired" value="true" />
          <set-property property="acls" value="user_role(channel_admin)"/>
          <forward name="default"
-                  path="/errata/AllErrata.do" redirect="true"/>
+                  path="/errata/manage/PublishedErrata.do" redirect="true"/>
      </action>
 
      <action path="/errata/manage/Delete"
