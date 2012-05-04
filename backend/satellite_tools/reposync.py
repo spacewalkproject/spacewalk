@@ -178,10 +178,12 @@ class RepoSync(object):
                              'arch'          : pkg['arch'],
                              'channel_id'    : int(self.channel['id']),
                              }
-                if pkg['epoch'] is None or pkg['epoch'] == '':
-                    epochStatement = "is NULL"
+		if pkg['epoch'] == '0':
+                    epochStatement = "(pevr.epoch is NULL or pevr.epoch = '0')"
+                elif pkg['epoch'] is None or pkg['epoch'] == '':
+                    epochStatement = "pevr.epoch is NULL"
                 else:
-                    epochStatement = "= :epoch"
+                    epochStatement = "pevr.epoch = :epoch"
                     param_dict['epoch'] = pkg['epoch']
                 if self.channel['org_id']:
                     param_dict['org_id'] = self.channel['org_id']
@@ -190,7 +192,7 @@ class RepoSync(object):
                     orgStatement = "is NULL"
 
                 h = rhnSQL.prepare("""
-                    select p.id, c.checksum, c.checksum_type
+                    select p.id, pevr.epoch, c.checksum, c.checksum_type
                       from rhnPackage p
                       join rhnPackagename pn on p.name_id = pn.id
                       join rhnpackageevr pevr on p.evr_id = pevr.id
@@ -203,7 +205,7 @@ class RepoSync(object):
                        and pevr.version = :version
                        and pevr.release = :release
                        and pa.label = :arch
-                       and pevr.epoch %s
+                       and %s
                        and at.label = 'rpm'
                        and cp.channel_id = :channel_id
                 """ % (orgStatement, epochStatement))
@@ -232,7 +234,7 @@ class RepoSync(object):
                 package = IncompletePackage()
                 for k in pkg.keys():
                     package[k] = pkg[k]
-                package['epoch'] = pkg.get('epoch', '')
+                package['epoch'] = cs['epoch']
                 package['org_id'] = self.channel['org_id']
 
                 package['checksums'] = {cs['checksum_type'] : cs['checksum']}
