@@ -312,6 +312,7 @@ if test -d /usr/share/tomcat6; then
     fi
 fi
 
+%if ! 0%{?omit_tests} > 0
 #check duplicate message keys in StringResource_*.xml files
 find . -name 'StringResource_*.xml' |      while read i ;
     do echo $i
@@ -321,6 +322,7 @@ find . -name 'StringResource_*.xml' |      while read i ;
         exit 1
     fi
 done
+%endif
 
 %build
 # compile only java sources (no packing here)
