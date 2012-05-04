@@ -12,7 +12,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.24
+Version: 1.8.25
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -673,6 +673,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Fri May 04 2012 Michael Mraka <michael.mraka@redhat.com> 1.8.25-1
+- update.xml contains epoch='0' even for packages which epoch is NULL
+
 * Fri May 04 2012 Jan Pazdziora 1.8.24-1
 - No need to be autonomous when inserting to rhnArchType, only satellite-sync
   does it.
