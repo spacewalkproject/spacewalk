@@ -114,7 +114,8 @@ public abstract class BaseKickstartScriptAction extends BaseKickstartEditAction 
             form.set(NOCHROOT, req.getAttribute(NOCHROOT));
             form.set(TEMPLATE, req.getAttribute(TEMPLATE));
 
-        } else {
+        }
+        else {
             form.set(CONTENTS, kssc.getContents());
             form.set(SCRIPTNAME, kssc.getScriptName());
             form.set(LANGUAGE, kssc.getLanguage());
