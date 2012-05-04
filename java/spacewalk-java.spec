@@ -22,7 +22,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.61
+Version: 1.8.62
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -605,6 +605,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri May 04 2012 Tomas Lestach <tlestach@redhat.com> 1.8.62-1
+- 818700 - make newly introduced rhn tag functions available
+
 * Thu May 03 2012 Stephen Herr <sherr@redhat.com> 1.8.61-1
 - 818700 - When kickstarting a system there is an option that allows you to
   create or re-create a network bond.
