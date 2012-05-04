@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        1.8.7
+Version:        1.8.8
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -110,6 +110,9 @@ rm -rf %{buildroot}
 %{_mandir}/man8/spacewalk-make-mount-points*
 
 %changelog
+* Fri May 04 2012 Jan Pazdziora 1.8.8-1
+- spacewalk-setup-cobbler: extend verbose output (mzazrivec@redhat.com)
+
 * Tue Apr 24 2012 Milan Zazrivec <mzazrivec@redhat.com> 1.8.7-1
 - spacewalk-setup-cobbler: script to configure cobbler for Spacewalk
 - Rename cobbler-setup to cobbler20-setup
