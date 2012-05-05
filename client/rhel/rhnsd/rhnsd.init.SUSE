@@ -66,8 +66,6 @@ rc_reset
 start() {
     echo -n $"Starting Red Hat Network Daemon: "
     startproc -p $RHNSD_PIDFILE $RHNSD
-    rc_status
-    touch /var/lock/subsys/rhnsd
     rc_status -v
 }
 
@@ -75,7 +73,6 @@ stop() {
     echo -n $"Stopping Red Hat Network Daemon: "
     killproc -p $RHNSD_PIDFILE $RHNSD
     rc_status -v
-    rm -f /var/lock/subsys/rhnsd
 }
 
 # See how we were called.
@@ -96,10 +93,13 @@ case "$1" in
 	start
 	;;
     condrestart|try-restart)
-	if [ -f /var/lock/subsys/rhnsd ]; then
-	    stop
-	    start
-	fi
+        $0 status
+        if test $? = 0; then
+            $0 restart
+        else
+            rc_reset
+        fi
+        rc_status
 	;;
     reload)
         echo -n $"Reloading Red Hat Network Daemon: "
