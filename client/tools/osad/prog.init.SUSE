@@ -30,8 +30,6 @@ start() {
     # Start daemon
     echo -n "Starting $prog: "
     startproc -p $PIDFILE $script --pid-file="$PIDFILE"
-    rc_status
-    touch /var/lock/subsys/$prog
     rc_status -v
 }
 
@@ -39,7 +37,6 @@ start() {
 stop() {
     # Stop daemon
     echo -n "Shutting down $prog: "
-    rm -f /var/lock/subsys/$prog
     killproc -p $PIDFILE $script
     rc_status -v
 }
@@ -62,10 +59,13 @@ case "$1" in
         rc_status -v
         ;;
     condrestart|try-restart)
-        if [ -f /var/lock/subsys/$prog ]; then
-            stop
-            start
+        $0 status
+        if test $? = 0; then
+            $0 restart
+        else
+            rc_reset
         fi
+        rc_status
         ;;
     *)
         echo $"Usage: $0 {start|stop|restart|reload|status|condrestart}"
