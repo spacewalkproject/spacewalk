@@ -41,7 +41,6 @@ start() {
         fi
     done
 
-    touch /var/lock/subsys/rhn-virtualization
     rc_status -v
 }
 
@@ -55,28 +54,29 @@ stop() {
         fi
     done
 
-    rm -f /var/lock/subsys/rhn-virtualization
     rc_status -v
 }
 
 status() {
     found_guests=0
+    rc_reset
 
     for NAME in $list_of_files; do
         found_guests=1
         dom_name=$(eval $get_name $auto_dir/$NAME)
         dom_state=$(virsh domstate $dom_name 2> /dev/null)
+        rc_check
 
         if [ $? -eq 0 ]; then
             echo "$dom_name: $dom_state"
         else
             echo "Error getting the status for $dom_name."
-            rc_check
         fi
     done
 
     if [ $found_guests -eq 0 ]; then
         echo "No guest configurations symlinked in $auto_dir."
+        rc_status -u
     fi
 
     rc_status -v
@@ -99,10 +99,13 @@ case "$1" in
         start
         ;;
     condrestart|try-restart)
-        if [ -f /var/lock/subsys/rhn-virtualization ]; then
-            stop
-	    start
-	fi
+        $0 status
+        if test $? = 0; then
+            $0 restart
+        else
+            rc_reset
+        fi
+        rc_status
         ;;
     status)
         status
