@@ -52,14 +52,12 @@ start()
 	fi
 	startproc -p $SSHD_PIDFILE $SSHD -f /etc/nocpulse/rhnmd_config -o "PidFile=$SSHD_PIDFILE"
 	rc_status
-	touch /var/lock/subsys/rhnmd
 	rc_status -v
 }
 
 stop()
 {
 	echo -n $"Stopping $prog:"
-	rm -f /var/lock/subsys/rhnmd
 	killproc -p $SSHD_PIDFILE -TERM $SSHD
         rc_status -v
 }
@@ -86,15 +84,19 @@ case "$1" in
 		reload
 		;;
 	condrestart|try-restart)
-		if [ -f /var/lock/subsys/rhnmd ] ; then
-			do_restart_sanity_check
-			if [ "$RETVAL" = 0 ] ; then
-				stop
-				# avoid race
-				sleep 3
-				start
-			fi
-		fi
+                $0 status
+                if test $? = 0; then
+                        do_restart_sanity_check
+                        if [ "$RETVAL" = 0 ] ; then
+                                $0 stop
+                                # avoid race
+                                sleep 3
+                                $0 start
+                        fi
+                else
+                        rc_reset
+                fi
+                rc_status
 		;;
 	status)
 	        echo -n "Checking for service rhnmd: "
@@ -102,6 +104,6 @@ case "$1" in
 		rc_status -v
 		;;
 	*)
-		echo $"Usage: $0 {start|stop|restart|reload|condrestart|status}"
+		echo $"Usage: $0 {start|stop|restart|reload|condrestart|try-restart|status}"
 esac
 rc_exit
