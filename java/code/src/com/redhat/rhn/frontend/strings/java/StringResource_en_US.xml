@@ -6325,6 +6325,13 @@ Follow this url to see the full list of inactive systems:
         </context-group>
       </trans-unit>
 
+      <trans-unit id="kickstart.bond.not.defined.jsp">
+        <source>If you want to create a bonded network after installation you must specefy a bond name and at least one slave interface.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/kickstart/ScheduleWizard.do</context>
+        </context-group>
+      </trans-unit>
+
       <!-- Activation Keys -->
      <group>
        <context-group name="ctx">

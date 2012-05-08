@@ -47,6 +47,8 @@ import org.apache.log4j.Logger;
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.ActionMessage;
+import org.apache.struts.action.ActionMessages;
 import org.apache.struts.action.DynaActionForm;
 import org.apache.struts.util.LabelValueBean;
 import org.cobbler.CobblerConnection;
@@ -516,6 +518,9 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
             RequestContext ctx, HttpServletResponse response, WizardStep step)
                     throws Exception {
         log.debug("runThird");
+        if (!validateBondSelections(form, ctx)) {
+            return runSecond(mapping, form, ctx, response, step);
+        }
         if (!validateFirstSelections(form, ctx)) {
             return runFirst(mapping, form, ctx, response, step);
         }
@@ -535,10 +540,6 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
         cmd.setNetworkDevice(form.getString(NETWORK_TYPE),
                 form.getString(NETWORK_INTERFACE));
 
-        if (!StringUtils.isBlank(form.getString(HIDDEN_BOND_SLAVE_INTERFACES))) {
-            form.set(BOND_SLAVE_INTERFACES,
-                    form.getString(HIDDEN_BOND_SLAVE_INTERFACES).split(","));
-        }
         if (CREATE_BOND_VALUE.equals(form.getString(BOND_TYPE))) {
             cmd.setCreateBond(true);
             cmd.setBondInterface(form.getString(BOND_INTERFACE));
@@ -711,6 +712,30 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
             cmd.setProxy(SystemManager.lookupByIdAndOrg(new Long(phost), ctx
                     .getCurrentUser().getOrg()));
         }
+    }
+
+    protected boolean validateBondSelections(DynaActionForm form,
+            RequestContext ctx) {
+        if (!StringUtils.isBlank(form.getString(HIDDEN_BOND_SLAVE_INTERFACES))) {
+            form.set(BOND_SLAVE_INTERFACES,
+                    form.getString(HIDDEN_BOND_SLAVE_INTERFACES).split(","));
+        }
+
+        String[] slaves = (String[]) form.get(BOND_SLAVE_INTERFACES);
+
+        // if we are trying to create a bond but have not specified a name or at
+        // least one slave interface
+        if (form.getString(BOND_TYPE).equals(CREATE_BOND_VALUE) &&
+                (StringUtils.isBlank(form.getString(BOND_INTERFACE)) ||
+                        slaves.length < 1 || StringUtils.isBlank(slaves[0]))) {
+            ActionErrors errors = new ActionErrors();
+            errors.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
+                    "kickstart.bond.not.defined.jsp"));
+            addErrors(ctx.getRequest(), errors);
+            return false;
+        }
+
+        return true;
     }
 
     protected boolean validateFirstSelections(DynaActionForm form,
