@@ -146,7 +146,12 @@ public abstract class AbstractErrata extends BaseDomainHelper implements
      * @param from to set
      */
     public void setErrataFrom(String from) {
-        this.errataFrom = from;
+        if (StringUtils.isEmpty(from)) {
+            this.errataFrom = null;
+        }
+        else {
+            this.errataFrom = from;
+        }
     }
 
     /**
