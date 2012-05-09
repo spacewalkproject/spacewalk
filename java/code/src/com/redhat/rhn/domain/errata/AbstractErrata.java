@@ -308,7 +308,12 @@ public abstract class AbstractErrata extends BaseDomainHelper implements
      * @param refersToIn to set
      */
     public void setRefersTo(String refersToIn) {
-        this.refersTo = refersToIn;
+        if (StringUtils.isEmpty(refersToIn)) {
+            this.refersTo = null;
+        }
+        else {
+            this.refersTo = refersToIn;
+        }
     }
 
     /**
