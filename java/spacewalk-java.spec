@@ -22,7 +22,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.63
+Version: 1.8.64
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -607,6 +607,14 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed May 09 2012 Tomas Lestach <tlestach@redhat.com> 1.8.64-1
+- 817433 - fix NetworkDtoSerializer API doc
+- prevent storing empty string for errata refersTo
+- prevent storing empty string for errata errataFrom
+- prevent storing empty string for errata notes
+- Split OpenSCAP and AuditReviewing up
+- 818700 - Cannot submit the form with broken bonding info
+
 * Fri May 04 2012 Stephen Herr <sherr@redhat.com> 1.8.63-1
 - checkstyle fix
 - 735043 - redirect to errata/manage/PublishedErrata.do page after deleting a
