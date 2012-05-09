@@ -119,12 +119,14 @@
       </rhn-tab>
     </rhn-tab>
   </rhn-tab>
-  <rhn-tab name="Audit" url="/rhn/audit/Overview.do" acl="not is_satellite()">
+  <rhn-tab name="Audit" url="/rhn/audit/ListXccdf.do">
     <rhn-tab-directory>/rhn/audit</rhn-tab-directory>
-    <rhn-tab name="Overview" url="/rhn/audit/Overview.do">
-      <rhn-tab name="Reviews" url="/rhn/audit/Machine.do" />
-    </rhn-tab>
-    <rhn-tab name="Search" url="/rhn/audit/Search.do" />
+     <rhn-tab name="OpenSCAP" url="/rhn/audit/ListXccdf.do" />
+     <rhn-tab name="audit.nav.logreview" url="/rhn/audit/Overview.do" acl="not is_satellite()">
+         <rhn-tab name="Overview" url="/rhn/audit/Overview.do" />
+         <rhn-tab name="Reviews" url="/rhn/audit/Machine.do" />
+         <rhn-tab name="Search" url="/rhn/audit/Search.do" />
+     </rhn-tab>
   </rhn-tab>
   <rhn-tab name="Configuration" url="/rhn/configuration/Overview.do" acl="org_entitlement(rhn_provisioning);user_role(config_admin)">
     <rhn-tab-directory>/rhn/configuration</rhn-tab-directory>
