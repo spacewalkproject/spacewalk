@@ -27,6 +27,7 @@ import com.redhat.rhn.frontend.struts.Selectable;
 import com.redhat.rhn.manager.errata.ErrataManager;
 
 import org.apache.commons.collections.IteratorUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
@@ -265,7 +266,12 @@ public abstract class AbstractErrata extends BaseDomainHelper implements
      * @param notesIn to set
      */
     public void setNotes(String notesIn) {
-        this.notes = notesIn;
+        if (StringUtils.isEmpty(notesIn)) {
+            this.notes = null;
+        }
+        else {
+            this.notes = notesIn;
+        }
     }
 
     /**
