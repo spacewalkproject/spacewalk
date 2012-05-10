@@ -580,14 +580,10 @@ public class KickstartFactory extends HibernateFactory {
      * @return list of KickstartableTrees
      */
     public static List <KickstartableTree> lookupAccessibleTreesByOrg(Org org) {
-        Session session = null;
-        List retval = null;
-        String query = "KickstartableTree.findAccessibleToOrg";
-        session = HibernateFactory.getSession();
-        session.evict(KickstartableTree.class);
-        retval = session.getNamedQuery(query).
-        setLong("org_id", org.getId().longValue()).list();
-        return retval;
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("org_id", org.getId());
+        return singleton.listObjectsByNamedQuery(
+                    "KickstartableTree.findAccessibleToOrg", params, false);
     }
 
     /**
