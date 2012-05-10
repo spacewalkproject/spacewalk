@@ -22,7 +22,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.64
+Version: 1.8.65
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -607,6 +607,11 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu May 10 2012 Miroslav Suchý <msuchy@redhat.com> 1.8.65-1
+- 695276 - if koan is requesting anything from /cobbller_api replace hostname
+  of server with hostname of first proxy in chain
+- 818700 - support for cobbler v2.2
+
 * Wed May 09 2012 Tomas Lestach <tlestach@redhat.com> 1.8.64-1
 - 817433 - fix NetworkDtoSerializer API doc
 - prevent storing empty string for errata refersTo
