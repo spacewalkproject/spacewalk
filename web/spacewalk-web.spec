@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.13
+Version: 1.8.14
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -254,6 +254,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Thu May 10 2012 Jan Pazdziora 1.8.14-1
+- Split OpenSCAP and AuditReviewing up (slukasik@redhat.com)
+
 * Thu Apr 26 2012 Miroslav Suchý <msuchy@redhat.com> 1.8.13-1
 - add AS syntax for PostgreSQL
 
