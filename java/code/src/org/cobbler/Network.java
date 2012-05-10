@@ -34,12 +34,14 @@ public class Network {
     private boolean isStatic;
     private String macAddress;
     private String netmaskVariableName;
+    private String bondingMasterVariableName;
+    private String bondingTypeVariableName;
     private String bondingMaster;
     private String bondingOptions;
     private String bonding;
-    private static final String BONDING_MASTER = "master";
-    private static final String BONDING_SLAVE = "slave";
-    private static final String BONDING_NA = "na";
+    private static String BONDING_MASTER;
+    private static String BONDING_SLAVE;
+    private static String BONDING_NA = "na";
     /**
      * Constructor to create a new network interface
      * @param nameIn the name of the network
@@ -48,12 +50,20 @@ public class Network {
     public Network(CobblerConnection connection, String nameIn) {
         name = nameIn;
 
-        // 'subnet' changed to 'netmask' in newer versions of Cobbler
+        // several variable names changed in cobbler 2.2
         if (connection.getVersion() >= 2.2) {
             netmaskVariableName = "netmask";
+            bondingMasterVariableName = "interfacemaster";
+            bondingTypeVariableName = "interfacetype";
+            BONDING_MASTER = "bond";
+            BONDING_SLAVE = "bond_slave";
         }
         else {
             netmaskVariableName = "subnet";
+            bondingMasterVariableName = "bondingmaster";
+            bondingTypeVariableName = "bonding";
+            BONDING_MASTER = "master";
+            BONDING_SLAVE = "slave";
         }
     }
 
@@ -71,8 +81,8 @@ public class Network {
         addToMap(inet, "static-" + name, isStatic);
         addToMap(inet, "ipv6address-" + name, ipv6Address);
         addToMap(inet, "ipv6secondaries-" + name, ipv6Secondaries);
-        addToMap(inet, "bonding-" + name, bonding);
-        addToMap(inet, "bondingmaster-" + name, bondingMaster);
+        addToMap(inet, bondingTypeVariableName + "-" + name, bonding);
+        addToMap(inet, bondingMasterVariableName + "-" + name, bondingMaster);
         addToMap(inet, "bondingopts-" + name, bondingOptions);
         return inet;
     }
@@ -100,18 +110,19 @@ public class Network {
         net.setStaticNetwork(ifaceInfo.containsKey("static") &&
                 Boolean.TRUE.equals(ifaceInfo.get("static")));
 
-        // use the correct variable for the netmask/subnet
         if (connection.getVersion() >= 2.2) {
             net.setNetmask((String)ifaceInfo.get("netmask"));
+            net.setBondingMaster((String) ifaceInfo.get("interface_master"));
+            net.setBonding((String) ifaceInfo.get("interface_type"));
         }
         else {
             net.setNetmask((String)ifaceInfo.get("subnet"));
+            net.setBondingMaster((String) ifaceInfo.get("bonding_master"));
+            net.setBonding((String) ifaceInfo.get("bonding"));
         }
 
         net.setIpv6Address((String) ifaceInfo.get("ipv6_address"));
         net.setIpv6Secondaries((ArrayList<String>) ifaceInfo.get("ipv6_secondaries"));
-        net.setBonding((String) ifaceInfo.get("bonding"));
-        net.setBondingMaster((String) ifaceInfo.get("bonding_master"));
         net.setBondingOptions((String) ifaceInfo.get("bonding_opts"));
 
         return net;
