@@ -39,6 +39,11 @@ if ($help or not ($source and $target and $tablespace_name)) {
 	die $usage;
 }
 
+my $backend = 'oracle';
+if ($source =~ m!/postgres(ql)?/!) {
+	$backend = 'postgresql';
+}
+
 open(SOURCE, "< $source") or die "Could not open $source: $OS_ERROR";
 open(TARGET, "> $target") or die "Could not open $target for writing: $OS_ERROR";
 
@@ -56,7 +61,7 @@ while (@exception_queue) {
 	my $full_path = "$exception_dir/$d";
 	if (-d $full_path) {
 		if (opendir DIR, $full_path) {
-			for (readdir DIR) {
+			for (sort readdir DIR) {
 				next if /^\.\.?$/;
 				if (-d "$full_path$_") {
 					push @exception_queue, "$d$_";
@@ -80,9 +85,17 @@ while ($line = <SOURCE>) {
 			$filename = $2;
 			$filename =~ s!^.+/([^/]+/[^/]+)$!$1!;
 		}
-		if (exists $exception_files{$filename}) {
-			open OVERRIDE, "$exception_dir/$filename" or die "Error reading file [$exception_dir/$filename]: $!\n";
-			$exception_seen{$filename}++;
+		my $full_file = undef;
+		if (exists $exception_files{"$filename.$backend"}) {
+			$full_file = "$exception_dir/$filename.$backend";
+		} elsif (exists $exception_files{$filename}) {
+			$full_file = "$exception_dir/$filename";
+		}
+		if (defined $full_file) {
+			for my $e ( '', '.oracle', '.postgresql' ) {
+				$exception_seen{"$filename$e"}++ if exists $exception_files{"$filename$e"};
+			}
+			open OVERRIDE, $full_file or die "Error reading file [$full_file]: $!\n";
 			print TARGET "-- Source: $subdir_name/$filename\n\n";
 			while (<OVERRIDE>) {
 				s/\[\[.*\]\]/$tablespace_name/g;
