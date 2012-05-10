@@ -122,7 +122,8 @@ if __name__ == '__main__':
                 command += ' %s' % ' '.join("'%s'" % s for s in args[1:])
 
             # run the command
-            shell.onecmd(shell.precmd(command))
+            precmd = shell.precmd(command)
+            shell.print_result(shell.onecmd( precmd ), precmd)
         except KeyboardInterrupt:
             print
             print 'User Interrupt'

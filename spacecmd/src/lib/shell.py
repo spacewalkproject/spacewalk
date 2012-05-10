@@ -188,7 +188,18 @@ class SpacewalkShell(Cmd):
 
 
     # update the prompt with the SSM size
-    def postcmd(self, stop, line):
+    def postcmd(self, cmdresult, cmd):
+        self.print_result( cmdresult, cmd )
         self.prompt = re.sub('##', str(len(self.ssm)), self.prompt_template)
+
+    def print_result( self, cmdresult, cmd ):
+        logging.debug( cmd + ": " + repr(cmdresult) )
+        if cmd:
+            try:
+                for i in cmdresult:
+                    print i
+            except TypeError:
+                pass
+
 
 # vim:ts=4:expandtab:
