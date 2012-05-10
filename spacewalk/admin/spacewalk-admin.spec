@@ -2,7 +2,7 @@
 Summary: Various utility scripts and data files for RHN Satellite installations
 Name: spacewalk-admin
 URL:     https://fedorahosted.org/spacewalk
-Version: 1.8.4
+Version: 1.8.5
 Release: 1%{?dist}
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 License: GPLv2
@@ -76,6 +76,9 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) %{_sysconfdir}/rhn/service-list
 
 %changelog
+* Thu May 10 2012 Jan Pazdziora 1.8.5-1
+- Add support for database-specific override files.
+
 * Fri Mar 30 2012 Stephen Herr <sherr@redhat.com> 1.8.4-1
 - 808580 - change service startup order so jabberd can finish before osa-
   dispatcher starts (sherr@redhat.com)
