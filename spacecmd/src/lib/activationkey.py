@@ -743,6 +743,7 @@ def do_activationkey_details(self, args):
 
     add_separator = False
 
+    result = []
     for key in args:
         try:
             details = self.client.activationkey.getDetails(self.session,
@@ -780,46 +781,47 @@ def do_activationkey_details(self, args):
         if add_separator: print self.SEPARATOR
         add_separator = True
 
-        print 'Key:                    %s' % details.get('key')
-        print 'Description:            %s' % details.get('description')
-        print 'Universal Default:      %s' % details.get('universal_default')
-        print 'Usage Limit:            %s' % details.get('usage_limit')
-        print 'Deploy Config Channels: %s' % config_channel_deploy
+        result.append( 'Key:                    %s' % details.get('key') )
+        result.append( 'Description:            %s' % details.get('description') )
+        result.append( 'Universal Default:      %s' % details.get('universal_default') )
+        result.append( 'Usage Limit:            %s' % details.get('usage_limit') )
+        result.append( 'Deploy Config Channels: %s' % config_channel_deploy )
 
-        print
-        print 'Software Channels'
-        print '-----------------'
-        print details.get('base_channel_label')
+        result.append( '' )
+        result.append( 'Software Channels' )
+        result.append( '-----------------' )
+        result.append( details.get('base_channel_label') )
 
         for channel in sorted(details.get('child_channel_labels')):
-            print ' |-- %s' % channel
+            result.append( ' |-- %s' % channel )
 
-        print
-        print 'Configuration Channels'
-        print '----------------------'
+        result.append( '' )
+        result.append( 'Configuration Channels' )
+        result.append( '----------------------' )
         for channel in config_channels:
-            print channel.get('label')
+            result.append( channel.get('label') )
 
-        print
-        print 'Entitlements'
-        print '------------'
-        print '\n'.join(sorted(details.get('entitlements')))
+        result.append( '' )
+        result.append( 'Entitlements' )
+        result.append( '------------' )
+        result.append( '\n'.join(sorted(details.get('entitlements'))) )
 
-        print
-        print 'System Groups'
-        print '-------------'
-        print '\n'.join(sorted(groups))
+        result.append( '' )
+        result.append( 'System Groups' )
+        result.append( '-------------' )
+        result.append( '\n'.join(sorted(groups)) )
 
-        print
-        print 'Packages'
-        print '--------'
+        result.append( '' )
+        result.append( 'Packages' )
+        result.append( '--------' )
         for package in sorted(details.get('packages')):
             name = package.get('name')
 
             if package.get('arch'):
                 name += '.%s' % package.get('arch')
 
-            print name
+            result.append( name )
+    return result
 
 ####################
 
@@ -1356,5 +1358,74 @@ def do_activationkey_clone(self, args):
         if self.import_activationkey_fromdetails(keydetails) != True:
             logging.error("Failed to clone %s to %s" % \
              (ak, keydetails['key']))
+
+####################
+# activationkey helper
+
+def is_activationkey( self, name ):
+    if not name: return
+    return name in self.do_activationkey_list( name, True )
+
+def check_activationkey( self, name ):
+    if not name:
+        logging.error( "no activationkey label given" )
+        return False
+    if not self.is_activationkey( name ):
+        logging.error( "invalid activationkey label " + name )
+        return False
+    return True
+
+def dump_activationkey(self, name, replacedict=None, excludes=[ "Universal Default:" ]):
+    content = self.do_activationkey_details( name )
+
+    content = get_normalized_text( content, replacedict=replacedict, excludes=excludes )
+
+    return content
+
+####################
+
+def help_activationkey_diff(self):
+    print 'activationkeyt_diff: diff activationkeys'
+    print ''
+    print 'usage: activationkey_diff SOURCE_ACTIVATIONKEY TARGET_ACTIVATIONKEY'
+
+def complete_activationkey_diff(self, text, line, beg, end):
+    parts = shlex.split(line)
+    if line[-1] == ' ': parts.append('')
+    args = len(parts)
+
+    if args == 2:
+        return tab_completer(self.do_activationkey_list('', True), text)
+    if args == 3:
+        return tab_completer(self.do_activationkey_list('', True), text)
+    return []
+
+def do_activationkey_diff(self, args):
+    options = []
+
+    (args, options) = parse_arguments(args, options)
+
+    if len(args) != 1 and len(args) != 2:
+        self.help_activationkey_diff()
+        return
+
+    source_channel = args[0]
+    if not self.check_activationkey( source_channel ): return
+
+    target_channel = None
+    if len(args) == 2:
+        target_channel = args[1]
+    elif hasattr( self, "do_activationkey_getcorresponding" ):
+        # can a corresponding channel name be found automatically?
+        target_channel=self.do_activationkey_getcorresponding( source_channel )
+    if not self.check_activationkey( target_channel ): return
+
+    source_replacedict, target_replacedict = get_string_diff_dicts( source_channel, target_channel )
+
+    source_data = self.dump_activationkey( source_channel, source_replacedict )
+    target_data = self.dump_activationkey( target_channel, target_replacedict )
+
+    return diff( source_data, target_data, source_channel, target_channel )
+
 
 # vim:ts=4:expandtab:

@@ -23,6 +23,7 @@
 
 import logging, os, pickle, re, readline, shlex, sys, time, xmlrpclib
 from datetime import datetime, timedelta
+from difflib  import unified_diff, SequenceMatcher
 from optparse import OptionParser
 from tempfile import mkstemp
 from textwrap import wrap
@@ -632,6 +633,67 @@ def json_read_from_file(filename):
         if verbose:
             print "could not open file %s for reading, check permissions?" % filename
         return None
+
+def get_string_diff_dicts( string1, string2 ):
+    replace1 = {}
+    replace2 = {}
+    s = SequenceMatcher(None, string1, string2)
+    for tag, i1a, i1b, i2a, i2b in s.get_opcodes():
+        sub1=string1[i1a:i1b]
+        sub2=string2[i2a:i2b]
+        if tag == "equal":
+            # equal, nothing to do
+            pass
+        elif tag == "replace":
+            replace1[sub1] = "DIFF("+sub1+"|"+sub2+")"
+            replace2[sub2] = "DIFF("+sub1+"|"+sub2+")"
+        else:
+            # "insert" or "delete"
+            # can't handle this
+            #logging.debug( "will not handle differences " + sub1 + sub2 )
+            logging.debug( "Too many differences between " + string1 + " and " + string2 + ". Skipping usage of common strings." )
+            return [None,None]
+    return [replace1,replace2]
+
+def replace( line, replacedict ):
+    if replacedict:
+        for source in replacedict:
+            line = line.replace( source, replacedict[source] )
+    return line
+
+def get_normalized_text( text, replacedict=None, excludes=_DIFF_EXCLUDES ):
+    # parts of the data inside the spacewalk component information
+    # is not relevant for showing real differences between two instances.
+    # Therefore parts of the data will be modified before the real diff:
+    # - specific lines, starting with a defined keyword, will be excluded
+    # - specific character sequences will be replaced with the same text in both instances.
+    # Example:
+    # we want to compare two activationkeys from different stages:
+    # "1-rhel6-x86_64-dev" and "1-rhel6-x86_64-prd"
+    # ("dev" for "development" and "prd" for "production").
+    # We assume that the "dev" activationkey "1-rhel6-x86_64-dev"
+    # has references to other "dev" components,
+    # while the "prd" activationkey "1-rhel6-x86_64-prd"
+    # has references to other "prd" components.
+    # Therefore we replace all occurrences of "dev" in "1-rhel6-x86_64-dev"
+    # and all occurrences of "prd" in "1-rhel6-x86_64-prd"
+    # with the common string "DIFF(dev|prd)".
+    # What differences are to be replaced is guessed
+    # from the name differences of there components.
+    # This will not work always, but it help in a lot of cases.
+
+    normalized_text = []
+    if text:
+        for string in text:
+            for line in string.split( "\n" ):
+                if not excludes or not line.startswith( tuple(excludes) ):
+                    normalized_text.append( replace( line, replacedict ) )
+                else:
+                    logging.debug( "excluding line: " + line )
+    return normalized_text
+
+def diff( source_data, target_data, source_channel, target_channel ):
+    return unified_diff( source_data, target_data, source_channel, target_channel )
 
 def file_needs_b64_enc(self, contents):
 

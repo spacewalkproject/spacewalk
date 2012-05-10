@@ -153,32 +153,35 @@ def do_configchannel_filedetails(self, args):
         # grab the first item since we only do one file
         details = results[0]
 
-    print 'Path:     %s' % details.get('path')
-    print 'Type:     %s' % details.get('type')
-    print 'Revision: %i' % details.get('revision')
-    print 'Created:  %s' % details.get('creation')
-    print 'Modified: %s' % details.get('modified')
+    result = []
+    result.append( 'Path:     %s' % details.get('path') )
+    result.append( 'Type:     %s' % details.get('type') )
+    result.append( 'Revision: %i' % details.get('revision') )
+    result.append( 'Created:  %s' % details.get('creation') )
+    result.append( 'Modified: %s' % details.get('modified') )
 
     if details.get('type') == 'symlink':
-        print
-        print 'Target Path:     %s' % details.get('target_path')
+        result.append( '' )
+        result.append( 'Target Path:     %s' % details.get('target_path') )
     else:
-        print
-        print 'Owner:           %s' % details.get('owner')
-        print 'Group:           %s' % details.get('group')
-        print 'Mode:            %s' % details.get('permissions_mode')
+        result.append( '' )
+        result.append( 'Owner:           %s' % details.get('owner') )
+        result.append( 'Group:           %s' % details.get('group') )
+        result.append( 'Mode:            %s' % details.get('permissions_mode') )
 
-    print 'SELinux Context: %s' % details.get('selinux_ctx')
+    result.append( 'SELinux Context: %s' % details.get('selinux_ctx') )
 
     if details.get('type') == 'file':
-        print 'MD5:             %s' % details.get('md5')
-        print 'Binary:          %s' % details.get('binary')
+        result.append( 'MD5:             %s' % details.get('md5') )
+        result.append( 'Binary:          %s' % details.get('binary') )
 
         if not details.get('binary'):
-            print
-            print 'Contents'
-            print '--------'
-            print details.get('contents')
+            result.append( '' )
+            result.append( 'Contents' )
+            result.append( '--------' )
+            result.append( details.get('contents') )
+
+    return result
 
 ####################
 
@@ -289,6 +292,7 @@ def do_configchannel_details(self, args):
 
     add_separator = False
 
+    result = []
     for channel in args:
         details = self.client.configchannel.getDetails(self.session,
                                                        channel)
@@ -299,15 +303,16 @@ def do_configchannel_details(self, args):
         if add_separator: print self.SEPARATOR
         add_separator = True
 
-        print 'Label:       %s' % details.get('label')
-        print 'Name:        %s' % details.get('name')
-        print 'Description: %s' % details.get('description')
+        result.append( 'Label:       %s' % details.get('label') )
+        result.append( 'Name:        %s' % details.get('name') )
+        result.append( 'Description: %s' % details.get('description') )
 
-        print
-        print 'Files'
-        print '-----'
+        result.append( '' )
+        result.append( 'Files' )
+        result.append( '-----' )
         for f in files:
-            print f.get('path')
+            result.append( f.get('path') )
+    return result
 
 ####################
 
@@ -1109,5 +1114,80 @@ def do_configchannel_clone(self, args):
         if self.import_configchannel_fromdetails(ccdetails) != True:
             logging.error("Failed to clone %s to %s" % \
              (cc, ccdetails['label']))
+
+####################
+# configchannel helper
+
+def is_configchannel( self, name ):
+    if not name: return
+    return name in self.do_configchannel_list( name, True )
+
+def check_configchannel( self, name ):
+    if not name:
+        logging.error( "no configchannel given" )
+        return False
+    if not self.is_configchannel( name ):
+        logging.error( "invalid configchannel label " + name )
+        return False
+    return True
+
+def dump_configchannel_filedetails(self, name, filename):
+    content = self.do_configchannel_filedetails( name +" "+ filename )
+    return content
+
+def dump_configchannel(self, name, replacedict=None, excludes=[ "Revision:", "Created:", "Modified:" ]):
+    content = self.do_configchannel_details( name )
+
+    for filename in self.do_configchannel_listfiles(name, True):
+        content.extend( self.dump_configchannel_filedetails(name, filename) )
+
+    content = get_normalized_text( content, replacedict=replacedict, excludes=excludes )
+
+    return content
+
+####################
+
+def help_configchannel_diff(self):
+    print 'configchannel_diff: diff between config channels'
+    print ''
+    print 'usage: configchannel_diff SOURCE_CHANNEL TARGET_CHANNEL'
+
+def complete_configchannel_diff(self, text, line, beg, end):
+    parts = shlex.split(line)
+    if line[-1] == ' ': parts.append('')
+    args = len(parts)
+
+    if args == 2:
+        return tab_completer(self.do_configchannel_list('', True), text)
+    if args == 3:
+        return tab_completer(self.do_configchannel_list('', True), text)
+    return []
+
+def do_configchannel_diff(self, args):
+    options = []
+
+    (args, options) = parse_arguments(args, options)
+
+    if len(args) != 1 and len(args) != 2:
+        self.help_stage_configchannel_diff()
+        return
+
+    source_channel = args[0]
+    if not self.check_configchannel( source_channel ): return
+
+    target_channel = None
+    if len(args) == 2:
+        target_channel = args[1]
+    elif hasattr( self, "do_configchannel_getcorresponding" ):
+        # can a corresponding channel name be found automatically?
+        target_channel=self.do_configchannel_getcorresponding( source_channel )
+    if not self.check_configchannel( target_channel ): return
+
+    source_replacedict, target_replacedict = get_string_diff_dicts( source_channel, target_channel )
+
+    source_data = self.dump_configchannel( source_channel, source_replacedict )
+    target_data = self.dump_configchannel( target_channel, target_replacedict )
+
+    return diff( source_data, target_data, source_channel, target_channel )
 
 # vim:ts=4:expandtab:

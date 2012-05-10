@@ -287,8 +287,11 @@ def do_kickstart_details(self, args):
         self.client.kickstart.profile.keys.getActivationKeys(self.session,
                                                              label)
 
-    variables = self.client.kickstart.profile.getVariables(self.session,
-                                                           label)
+    try:
+        variables = self.client.kickstart.profile.getVariables(self.session,
+                                                      label)
+    except:
+        variables = []
 
     tree = \
         self.client.kickstart.tree.getDetails(self.session,
@@ -336,100 +339,103 @@ def do_kickstart_details(self, args):
     scripts = self.client.kickstart.profile.listScripts(self.session,
                                                         label)
 
-    print 'Name:        %s' % kickstart.get('name')
-    print 'Label:       %s' % kickstart.get('label')
-    print 'Tree:        %s' % kickstart.get('tree_label')
-    print 'Active:      %s' % kickstart.get('active')
-    print 'Advanced:    %s' % kickstart.get('advanced_mode')
-    print 'Org Default: %s' % kickstart.get('org_default')
+    result = []
+    result.append( 'Name:        %s' % kickstart.get('name') )
+    result.append( 'Label:       %s' % kickstart.get('label') )
+    result.append( 'Tree:        %s' % kickstart.get('tree_label') )
+    result.append( 'Active:      %s' % kickstart.get('active') )
+    result.append( 'Advanced:    %s' % kickstart.get('advanced_mode') )
+    result.append( 'Org Default: %s' % kickstart.get('org_default') )
 
-    print
-    print 'Configuration Management: %s' % config_manage
-    print 'Remote Commands:          %s' % remote_commands
+    result.append( '' )
+    result.append( 'Configuration Management: %s' % config_manage )
+    result.append( 'Remote Commands:          %s' % remote_commands )
 
-    print
-    print 'Software Channels'
-    print '-----------------'
-    print base_channel.get('label')
+    result.append( '' )
+    result.append( 'Software Channels' )
+    result.append( '-----------------' )
+    result.append( base_channel.get('label') )
 
     for channel in sorted(child_channels):
-        print '  |-- %s' % channel
+        result.append( '  |-- %s' % channel )
 
     if len(advanced_options):
-        print
-        print 'Advanced Options'
-        print '----------------'
+        result.append( '' )
+        result.append( 'Advanced Options' )
+        result.append( '----------------' )
         for o in sorted(advanced_options, key=itemgetter('name')):
             if o.get('arguments'):
-                print '%s %s' % (o.get('name'), o.get('arguments'))
+                result.append( '%s %s' % (o.get('name'), o.get('arguments')) )
 
     if len(custom_options):
-        print
-        print 'Custom Options'
-        print '--------------'
+        result.append( '' )
+        result.append( 'Custom Options' )
+        result.append( '--------------' )
         for o in sorted(custom_options, key=itemgetter('arguments')):
-            print re.sub('\n', '', o.get('arguments'))
+            result.append( re.sub('\n', '', o.get('arguments')) )
 
     if len(partitions):
-        print
-        print 'Partitioning'
-        print '------------'
-        print '\n'.join(partitions)
+        result.append( '' )
+        result.append( 'Partitioning' )
+        result.append( '------------' )
+        result.append( '\n'.join(partitions) )
 
-    print
-    print 'Software'
-    print '--------'
-    print '\n'.join(software)
+    result.append( '' )
+    result.append( 'Software' )
+    result.append( '--------' )
+    result.append( '\n'.join(software) )
 
     if len(act_keys):
-        print
-        print 'Activation Keys'
-        print '---------------'
+        result.append( '' )
+        result.append( 'Activation Keys' )
+        result.append( '---------------' )
         for k in sorted(act_keys, key=itemgetter('key')):
-            print k.get('key')
+            result.append( k.get('key') )
 
     if len(crypto_keys):
-        print
-        print 'Crypto Keys'
-        print '-----------'
+        result.append( '' )
+        result.append( 'Crypto Keys' )
+        result.append( '-----------' )
         for k in sorted(crypto_keys, key=itemgetter('description')):
-            print k.get('description')
+            result.append( k.get('description') )
 
     if len(file_preservations):
-        print
-        print 'File Preservations'
-        print '------------------'
+        result.append( '' )
+        result.append( 'File Preservations' )
+        result.append( '------------------' )
         for fp in sorted(file_preservations, key=itemgetter('name')):
-            print fp.get('name')
+            result.append( fp.get('name') )
             for profile_name in sorted(fp.get('file_names')):
-                print '    |-- %s' % profile_name
+                result.append( '    |-- %s' % profile_name )
 
     if len(variables):
-        print
-        print 'Variables'
-        print '---------'
+        result.append( '' )
+        result.append( 'Variables' )
+        result.append( '---------' )
         for k in sorted(variables.keys()):
-            print '%s = %s' % (k, str(variables[k]))
+            result.append( '%s = %s' % (k, str(variables[k])) )
 
     if len(scripts):
-        print
-        print 'Scripts'
-        print '-------'
+        result.append( '' )
+        result.append( 'Scripts' )
+        result.append( '-------' )
 
         add_separator = False
 
         for s in scripts:
-            if add_separator: print self.SEPARATOR
+            if add_separator: result.append( self.SEPARATOR )
             add_separator = True
 
-            print 'Type:        %s' % s.get('script_type')
-            print 'Chroot:      %s' % s.get('chroot')
+            result.append( 'Type:        %s' % s.get('script_type') )
+            result.append( 'Chroot:      %s' % s.get('chroot') )
 
             if s.get('interpreter'):
-                print 'Interpreter: %s' % s.get('interpreter')
+                result.append( 'Interpreter: %s' % s.get('interpreter') )
 
-            print
-            print s.get('contents')
+            result.append( '' )
+            result.append( s.get('contents') )
+
+    return result
 
 ####################
 
@@ -2135,5 +2141,73 @@ def import_kickstart_fromdetails(self, ksdetails):
         logging.warning(" * Details->Post Kernel Options : %s" %\
             ksdetails['post_kopts'])
     return True
+
+####################
+# kickstart helper
+
+def is_kickstart( self, name ):
+    if not name: return
+    return name in self.do_kickstart_list( name, True )
+
+def check_kickstart( self, name ):
+    if not name:
+        logging.error( "no kickstart label given" )
+        return False
+    if not self.is_kickstart( name ):
+        logging.error( "invalid kickstart label " + name )
+        return False
+    return True
+
+def dump_kickstart(self, name, replacedict=None, excludes=[ "Org Default:" ]):
+    content = self.do_kickstart_details( name )
+
+    content = get_normalized_text( content, replacedict=replacedict, excludes=excludes )
+
+    return content
+
+####################
+
+def help_kickstart_diff(self):
+    print 'kickstart_diff: diff kickstart files'
+    print ''
+    print 'usage: kickstart_diff SOURCE_CHANNEL TARGET_CHANNEL'
+
+def complete_kickstart_diff(self, text, line, beg, end):
+    parts = shlex.split(line)
+    if line[-1] == ' ': parts.append('')
+    args = len(parts)
+
+    if args == 2:
+        return tab_completer(self.do_kickstart_list('', True), text)
+    if args == 3:
+        return tab_completer(self.do_kickstart_list('', True), text)
+    return []
+
+def do_kickstart_diff(self, args):
+    options = []
+
+    (args, options) = parse_arguments(args, options)
+
+    if len(args) != 1 and len(args) != 2:
+        self.help_kickstart_diff()
+        return
+
+    source_channel = args[0]
+    if not self.check_kickstart( source_channel ): return
+
+    target_channel = None
+    if len(args) == 2:
+        target_channel = args[1]
+    elif hasattr( self, "do_kickstart_getcorresponding" ):
+        # can a corresponding channel name be found automatically?
+        target_channel=self.do_kickstart_getcorresponding( source_channel)
+    if not self.check_kickstart( target_channel ): return
+
+    source_replacedict, target_replacedict = get_string_diff_dicts( source_channel, target_channel )
+
+    source_data = self.dump_kickstart( source_channel, source_replacedict )
+    target_data = self.dump_kickstart( target_channel, target_replacedict )
+
+    return diff( source_data, target_data, source_channel, target_channel )
 
 # vim:ts=4:expandtab:

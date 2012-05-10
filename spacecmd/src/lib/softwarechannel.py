@@ -1399,12 +1399,80 @@ def do_softwarechannel_regenerateyumcache(self, args):
     if not len(args):
         self.help_softwarechannel_regenerateyumcache()
         return
-    
+
     # allow globbing of software channel names
     channels = filter_results(self.do_softwarechannel_list('', True), args)
 
     for channel in channels:
         logging.debug('Regenerating YUM cache for %s' % channel)
         self.client.channel.software.regenerateYumCache(self.session, channel)
+
+####################
+# softwarechannel helper
+
+def is_softwarechannel( self, name ):
+    if not name: return
+    return name in self.do_softwarechannel_list( name, True )
+
+def check_softwarechannel( self, name ):
+    if not name:
+        logging.error( "no softwarechannel label given" )
+        return False
+    if not self.is_softwarechannel( name ):
+        logging.error( "invalid softwarechannel label " + name )
+        return False
+    return True
+
+def dump_softwarechannel(self, name, replacedict=None, excludes=[]):
+    content = self.do_softwarechannel_listallpackages( name, doreturn=True )
+
+    content = get_normalized_text( content, replacedict=replacedict, excludes=excludes )
+
+    return content
+
+####################
+
+def help_softwarechannel_diff(self):
+    print 'softwarechannel_diff: diff softwarechannel files'
+    print ''
+    print 'usage: softwarechannel_diff SOURCE_CHANNEL TARGET_CHANNEL'
+
+def complete_softwarechannel_diff(self, text, line, beg, end):
+    parts = shlex.split(line)
+    if line[-1] == ' ': parts.append('')
+    args = len(parts)
+
+    if args == 2:
+        return tab_completer(self.do_softwarechannel_list('', True), text)
+    if args == 3:
+        return tab_completer(self.do_softwarechannel_list('', True), text)
+    return []
+
+def do_softwarechannel_diff(self, args):
+    options = []
+
+    (args, options) = parse_arguments(args, options)
+
+    if len(args) != 1 and len(args) != 2:
+        self.help_softwarechannel_diff()
+        return
+
+    source_channel = args[0]
+    if not self.check_softwarechannel( source_channel ): return
+
+    target_channel = None
+    if len(args) == 2:
+        target_channel = args[1]
+    elif hasattr( self, "do_softwarechannel_getcorresponding" ):
+        # can a corresponding channel name be found automatically?
+        target_channel=self.do_softwarechannel_getcorresponding( source_channel)
+    if not self.check_softwarechannel( target_channel ): return
+
+    # softwarechannel do not contain references to other components,
+    # therefore there is no need to use replace dicts
+    source_data = self.dump_softwarechannel( source_channel, None )
+    target_data = self.dump_softwarechannel( target_channel, None )
+
+    return diff( source_data, target_data, source_channel, target_channel )
 
 # vim:ts=4:expandtab:
