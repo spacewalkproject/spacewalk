@@ -1,7 +1,7 @@
 %define rhnroot %{_prefix}/share/rhn
 
 Name:		spacewalk-utils
-Version:	1.8.11
+Version:	1.8.12
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -87,6 +87,9 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Thu May 10 2012 Jan Pazdziora 1.8.12-1
+- The plan_table is not part of our schema, do not dump it.
+
 * Fri May 04 2012 Michael Mraka <michael.mraka@redhat.com> 1.8.11-1
 - added dist_map_release for automatic OS->base channel mapping
 - set dist release map via setDefaultMap
