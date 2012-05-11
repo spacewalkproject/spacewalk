@@ -99,7 +99,7 @@ public class SystemScapHandler extends BaseHandler {
             Integer xid) {
         User loggedInUser = getLoggedInUser(sessionKey);
         ScapManager.ensureAvailableToUser(loggedInUser, new Long(xid));
-        return (List<XccdfRuleResultDto>) ScapManager.ruleResultsPerScan(new Long(xid));
+        return ScapManager.ruleResultsPerScan(new Long(xid));
     }
 
     /**

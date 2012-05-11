@@ -85,7 +85,7 @@ public class ScapManager extends BaseManager {
         HashMap<String, Long> params = new HashMap<String, Long>();
         params.put("user_id", user.getId());
         params.put("sid", systemId);
-        return (List<XccdfTestResultDto>) m.execute(params);
+        return m.execute(params);
     }
 
     /**
