@@ -25,7 +25,8 @@ CREATE TABLE rhnKickstartableTree
     base_path       VARCHAR2(256) NOT NULL,
     channel_id      NUMBER NOT NULL
                         CONSTRAINT rhn_kstree_cid_fk
-                            REFERENCES rhnChannel (id),
+                            REFERENCES rhnChannel (id)
+                            ON DELETE CASCADE,
     cobbler_id      VARCHAR2(64),
     cobbler_xen_id  VARCHAR2(64),
     boot_image      VARCHAR2(128)
