@@ -234,8 +234,7 @@ def resolveHostnamePort(hostnamePort=''):
     if hostname:
         try:
             socket.getaddrinfo(hostname, None)
-        except:
-            # pylint: disable=W0702
+        except: # pylint: disable=W0702
             errorCode, errorString = _errorHandler()
             sys.stderr.write(errorString + '\n')
             sys.exit(errorCode)
@@ -261,15 +260,13 @@ def _deactivateProxy_api_v3_x(options):
         if not s.proxy.is_proxy(systemid):
             # if system is not proxy, we do not need to deactivate it
             return (errorCode, errorString)
-    except:
+    except: # pylint: disable=W0702
         # api do not have proxy.is_proxy is implemented or it is hosted
         # ignore error and try to deactivate
-        # pylint: disable=W0702
         pass
     try:
         s.proxy.deactivate_proxy(systemid)       # proxy 3.0+ API
-    except:
-        # pylint: disable=W0702
+    except: # pylint: disable=W0702
         errorCode, errorString = _errorHandler()
         try:
             raise
@@ -310,8 +307,7 @@ def _activateProxy_api_v3_x(options):
         s.proxy.activate_proxy(systemid, str(options.version))
         if options.enable_monitoring:
             s.proxy.create_monitoring_scout(systemid)
-    except:
-        # pylint: disable=W0702
+    except: # pylint: disable=W0702
         errorCode, errorString = _errorHandler()
         try:
             raise
@@ -347,8 +343,7 @@ def createMonitoringScout(options):
     try:
         ssk = s.proxy.create_monitoring_scout(systemid)
         print "Scout shared key: %s" % ssk
-    except:
-        # pylint: disable=W0702
+    except: # pylint: disable=W0702
         errorCode, errorString = _errorHandler()
         try:
             raise
@@ -394,8 +389,7 @@ def listAvailableProxyChannels(options):
     channel_list = []
     try:
         channel_list = server.proxy.list_available_proxy_channels(systemid)
-    except:
-        # pylint: disable=W0702
+    except: # pylint: disable=W0702
         errorCode, errorString = _errorHandler()
         try:
             raise
