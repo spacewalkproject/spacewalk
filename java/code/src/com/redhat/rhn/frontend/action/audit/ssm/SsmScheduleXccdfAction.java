@@ -47,9 +47,7 @@ public class SsmScheduleXccdfAction extends BaseSsmScheduleXccdfAction {
                 return getStrutsDelegate().forwardParams(mapping.findForward("submit"),
                         request.getParameterMap());
             }
-            else {
-                getStrutsDelegate().saveMessages(request, errors);
-            }
+            getStrutsDelegate().saveMessages(request, errors);
         }
         setupDatePicker(request, form);
         setupListHelper(request);
