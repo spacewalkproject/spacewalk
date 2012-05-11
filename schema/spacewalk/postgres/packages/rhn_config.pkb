@@ -57,10 +57,6 @@ $$ LANGUAGE 'plpgsql';
 			)
 			returning id into retval;
 
-		for org in affected_orgs loop
-                        perform rhn_quota.update_org_quota(org.id);
-                end loop;
-
 		return retval;
 	end$$ language 'plpgsql';
 
@@ -148,7 +144,6 @@ $$ LANGUAGE 'plpgsql';
 			end if;
 
 		end if;
-		perform rhn_quota.update_org_quota(oid);
 
 	end ;
 $$ LANGUAGE 'plpgsql';
@@ -218,7 +213,6 @@ revision record;
 			perform rhn_config.delete_revision(revision.id, revision.org_id);
 			org_id := revision.org_id;
 		end loop;
-		perform rhn_quota.update_org_quota(org_id);
 		delete from rhnConfigFile where id = config_file_id_in;
 	end;
 $$ LANGUAGE 'plpgsql';

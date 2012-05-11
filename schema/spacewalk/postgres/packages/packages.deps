@@ -32,7 +32,7 @@ rhn_channel.pks         :: rhnChannel rhnOrgChannelFamilyPermissions \
                            rhnServerChannel
 rhn_config.pkb          :: rhnSnapshot rhnSnapshotConfigRevision lookup_functions \
                            rhnConfigRevision rhnConfigRevision rhnConfigFile \
-                           rhnConfigChannel rhnConfigContent rhn_quota.pks \
+                           rhnConfigChannel rhnConfigContent \
                            rhnConfigFileState
 rhn_config_channel.pkb  :: rhnConfigChannelType rhnConfigChannel \
                            rhnServerConfigChannel rhnConfigRevision rhnConfigFile \
@@ -57,8 +57,6 @@ rhn_org.pkb             :: rhn_entitlements.pks \
                            rhn_probe rhn_redirects rhn_sat_cluster \
                            web_contact web_customer
 rhn_org.pks             :: rhnServerGroupType rhnServerGroup
-rhn_quota.pkb           :: rhnConfigContent rhnConfigRevision rhnConfigFile \
-                           rhnConfigChannel rhnOrgQuota rhn_config.pks
 rhn_server.pkb          :: rhnServerChannel rhnConfigFileName \
                            rhnServerGroupMembers rhnServerPackage rhnServer \
                            rhnServerCustomDataValue rhnCustomDataKey \

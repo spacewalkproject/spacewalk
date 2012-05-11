@@ -52,10 +52,6 @@ is
 			)
 			returning id into retval;
 
-		for org in affected_orgs loop
-			rhn_quota.update_org_quota(org.id);
-		end loop;
-
 		return retval;
 	end insert_revision;
 
@@ -143,7 +139,6 @@ is
 			end if;
 
 		end if;
-		rhn_quota.update_org_quota(oid);
 	end delete_revision;
 
 	function get_latest_revision (
@@ -202,7 +197,6 @@ is
 			rhn_config.delete_revision(revision.id, revision.org_id);
 			org_id := revision.org_id;
 		end loop;
-		rhn_quota.update_org_quota(org_id);
 		delete from rhnConfigFile where id = config_file_id_in;
 	end delete_file;
 

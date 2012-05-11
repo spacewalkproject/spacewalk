@@ -22,7 +22,7 @@ rhnChannelPackage          :: rhnChannelPackage rhnSnapshot rhnChannel \
 rhnConfigChannel           :: rhnConfigChannel rhnSnapshotConfigChannel \
                               rhnSnapshot lookup_functions
 rhnConfigRevision          :: rhnConfigRevision rhnSnapshotConfigRevision \
-                              rhnSnapshot lookup_functions rhn_quota.pks \
+                              rhnSnapshot lookup_functions \
                               rhnConfigContent rhnConfigChannel rhnConfigFile \
                               rhnOrgQuota rhn_exception.pks
 rhnErrata                  :: rhnChannel rhnChannelErrata
