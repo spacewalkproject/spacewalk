@@ -38,12 +38,6 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
             <one-to-many class="com.redhat.rhn.domain.org.CustomDataKey" />
         </set>
 
-		<one-to-one name="orgQuota"
-				class="com.redhat.rhn.domain.org.OrgQuota"
-                outer-join="false"
-                cascade="all"
-                constrained="true" />
-
         <set name="monitoringScouts" lazy="true" cascade="none"  >
             <key column="customer_id" />
             <one-to-many class="com.redhat.rhn.domain.monitoring.satcluster.SatCluster" />
