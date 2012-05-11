@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.8.31
+Version:        1.8.32
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -69,6 +69,15 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Fri May 11 2012 Tomas Lestach <tlestach@redhat.com> 1.8.32-1
+- adding create_first_org upgrade scripts
+- adding rhn_org upgrade scripts
+- adding rhn_config upgrade scripts
+- remove rhnOrgQuota and its usage
+- remove rhn_schema package
+- remove usage of rhn_quota package
+- kickstartable tree shall be deleted together with the channel
+
 * Thu May 10 2012 Tomas Lestach <tlestach@redhat.com> 1.8.31-1
 - fix rhn_time_zone_names upgrade scripts
 
