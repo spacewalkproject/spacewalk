@@ -506,27 +506,18 @@ ORDER BY  rhn_channel.channel_priority(ACh.parent_or_self_id), ACh.parent_or_sel
 
 <mode name="all_channels_tree">
   <query params="user_id">
-SELECT  UACh.channel_name AS NAME,
-        UACh.channel_id AS ID,
-        UACh.channel_depth AS DEPTH,
-        UACh.channel_arch_id,
-        UACh.current_members,
-        UACh.available_members,
-        (
-SELECT COUNT(P.package_id)
-  FROM rhnChannelPackage P
-  WHERE P.channel_id = UACh.channel_id
-        ) AS PACKAGE_COUNT,
-        UACh.parent_or_self_label,
-        UACh.parent_or_self_id,
-        UACh.channel_label,
-  1 show_all_results,
-        TO_CHAR(UACh.end_of_life, 'YYYY-MM-DD HH24:MI:SS') AS end_of_life,
-        CA.name AS CHANNEL_ARCH
-  FROM  rhnChannelArch CA, rhnUserAvailableChannels UACh
- WHERE  UACh.user_id = :user_id
-   AND  UACh.channel_arch_id = CA.id
-ORDER BY  rhn_channel.channel_priority(UACh.parent_or_self_id), UACh.parent_or_self_id, UACh.channel_depth, UPPER(UACh.channel_name)
+SELECT  C.name,
+        UC.channel_id ID,
+        PC.label PARENT_CHANNEL,
+        C.label,
+        TO_CHAR(C.end_of_life, 'YYYY-MM-DD HH24:MI:SS') END_OF_LIFE,
+        CA.name CHANNEL_ARCH
+  FROM rhnUserChannel UC
+    JOIN rhnChannel C ON UC.channel_id = C.id
+    JOIN rhnChannelArch CA ON C.channel_arch_id = CA.id
+    LEFT JOIN rhnChannel PC ON PC.id = C.parent_channel
+ WHERE  UC.user_id = :user_id
+ORDER BY UPPER(C.name)
   </query>
   <elaborator name="visible_server_count"/>
 </mode>

@@ -78,21 +78,14 @@ public class ChannelHandler extends BaseHandler {
             // Deprecated stupid code
             // this is some really stupid code, but oh well, c'est la vie
             Map newItem = new HashMap();
-            newItem.put("label", item.get("channel_label"));
-            String selfLabel = (String) item.get("parent_or_self_label");
-            if (selfLabel.equals(item.get("channel_label"))) {
-                newItem.put("parent_label", "");
-            }
-            else {
-                newItem.put("parent_label",
-                        item.get("parent_or_self_label"));
-            }
+            newItem.put("label", item.get("label"));
+            newItem.put("parent_label", StringUtils.defaultString(
+                    (String) item.get("parent_channel")));
             newItem.put("name", item.get("name"));
             newItem.put("end_of_life",
                     StringUtils.defaultString(
                             (String)item.get("end_of_life")));
             newItem.put("arch", item.get("channel_arch"));
-
 
             returnList.add(newItem);
         }
