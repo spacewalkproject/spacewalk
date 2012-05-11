@@ -1,36 +1,7 @@
--- oracle equivalent source sha1 b4cc166deb4192f4cbccd84c6f2a3552fbb6ccae
---
--- Copyright (c) 2008--2011 Red Hat, Inc.
---
--- This software is licensed to you under the GNU General Public License,
--- version 2 (GPLv2). There is NO WARRANTY for this software, express or
--- implied, including the implied warranties of MERCHANTABILITY or FITNESS
--- FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
--- along with this software; if not, see
--- http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
--- 
--- Red Hat trademarks are not licensed under GPLv2. No permission is
--- granted to use or replicate Red Hat trademarks that are incorporated
--- in this software or its documentation. 
---
---
---
---
+-- oracle equivalent source sha1 799443c60d6326e6665fa42fcb7593f61330f27f
 
 -- setup search_path so that these functions are created in appropriate schema.
 update pg_settings set setting = 'rhn_config,' || setting where name = 'search_path';
-
-
-	-- just a stub for now
-create or replace function prune_org_configs (
-		org_id_in in numeric,
-		total_in in numeric
-	)
-returns void
-as $$	
-begin
-end;
-$$ LANGUAGE 'plpgsql';
 
 
 	create or replace function insert_revision (
@@ -148,50 +119,6 @@ $$ LANGUAGE 'plpgsql';
 	end ;
 $$ LANGUAGE 'plpgsql';
 
-	create or replace function get_latest_revision (
-		config_file_id_in in numeric
-		) 
-		returns numeric as $$
-		declare 
- 		revision1 record;
-		begin
-		for revision1 in 
-			select cr.id 
-			from rhnConfigRevision cr
-			where cr.config_file_id = config_file_id_in
-			order by revision desc
-		loop
-			return revision1.id;
-		end loop;
-		return null;
-end;
-$$ LANGUAGE 'plpgsql';
-
-	create or replace function insert_file (
-		config_channel_id_in in numeric,
-		name_in in varchar
-	) returns numeric as $$
-		declare
-		retval numeric;
-	begin
-		select nextval('rhn_conffile_id_seq')
-		into retval;
-
-		insert into rhnConfigFile(id, config_channel_id, config_file_name_id, 
-				state_id
-			) (
-				select retval,
-						config_channel_id_in,
-						lookup_config_filename(name_in),
-						id
-				from rhnConfigFileState
-				where label = 'alive'
-			);
-
-		return retval;
-	end;
-$$ LANGUAGE 'plpgsql';
-
 	create or replace function delete_file (
 		config_file_id_in in numeric
 	) returns void as $$
@@ -215,53 +142,6 @@ revision record;
 		end loop;
 		delete from rhnConfigFile where id = config_file_id_in;
 	end;
-$$ LANGUAGE 'plpgsql';
-
-	create or replace function insert_channel (
-		org_id_in in numeric,
-		type_in in varchar,
-		name_in in varchar,
-		label_in in varchar,
-		description_in in varchar
-	) returns numeric as $$
-declare
-		retval numeric;
-	begin
-		select nextval ('rhn_confchan_id_seq')
-		into retval;
-
-		insert into rhnConfigChannel(id, org_id, confchan_type_id,
-				name, label, description
-			) (
-				select	retval,
-						org_id_in,
-						cct.id,
-						name_in,
-						label_in,
-						description_in
-				from rhnConfigChannelType cct
-				where label = type_in
-			);
-		return retval;
-	end;
-$$ LANGUAGE 'plpgsql';
-
-	create or replace function delete_channel (
-		config_channel_id_in in numeric
-	) returns void as $$
-declare
-	config_file record;		
-	begin
-		for config_file in 
-		select id
-			from rhnConfigFile
-			where config_channel_id = config_channel_id_in
-                loop
-                    perform rhn_config.delete_file(config_file.id);
-		end loop;
-		delete from rhnConfigChannel where id = config_channel_id_in;
-
-end;
 $$ LANGUAGE 'plpgsql';
 
 update pg_settings set setting = overlay( setting placing '' from 1 for (length('rhn_config')+1) ) where name = 'search_path';
