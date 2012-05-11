@@ -151,7 +151,6 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
         /**
          * {@inheritDoc}
          */
-        @Override
         public List getResult(RequestContext ctx) {
             Long sid = ctx.getParamAsLong(RequestContext.SID);
             User user = ctx.getCurrentUser();
