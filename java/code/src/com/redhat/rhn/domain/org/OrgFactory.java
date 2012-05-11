@@ -188,11 +188,6 @@ public class OrgFactory extends HibernateFactory {
         retval.addRole(RoleFactory.MONITORING_ADMIN);
         retval.addRole(RoleFactory.SAT_ADMIN);
 
-        OrgQuota quota = new OrgQuota();
-        quota.setTotal(new Long(1024L * 1024L * 1024L * 16L));
-        quota.setOrg(retval);
-        (retval).setOrgQuota(quota);
-        singleton.saveObject(quota);
         // Save the object since we may have in memory items to write\
         singleton.saveInternal(retval);
         retval = (Org) HibernateFactory.reload(retval);
