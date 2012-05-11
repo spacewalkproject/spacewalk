@@ -195,19 +195,21 @@ class Applet(rhnHandler):
         # out of it
         h = rhnSQL.prepare("""
         select distinct
-            pn.name name,
-            pe.version version,
-            pe.release release,
-            pe.epoch epoch,
-            e_sq.errata_advisory errata_advisory,
-            e_sq.errata_synopsis errata_synopsis,
-            e_sq.errata_id errata_id
+            pn.name,
+            pe.version,
+            pe.release,
+            pe.epoch,
+            e_sq.errata_advisory,
+            e_sq.errata_synopsis,
+            e_sq.errata_id
         from
             rhnPackageName pn,
             rhnPackageEVR pe,
-	    (	select	sq_e.id errata_id,
-			sq_e.synopsis errata_synopsis,
-			sq_e.advisory errata_advisory,
+            rhnChannelNewestPackage cnp
+        left join
+	    (	select	sq_e.id as errata_id,
+			sq_e.synopsis as errata_synopsis,
+			sq_e.advisory as errata_advisory,
 			sq_ep.package_id
 		from	
 			rhnErrata sq_e,
@@ -216,13 +218,12 @@ class Applet(rhnHandler):
 		where	sq_ce.errata_id = sq_ep.errata_id
 			and sq_ce.errata_id = sq_e.id
 			and sq_ce.channel_id in ( %s )
-	    ) e_sq,
-            rhnChannelNewestPackage cnp
+	    ) e_sq
+          on cnp.package_id = e_sq.package_id
         where
             cnp.channel_id in ( %s )
         and cnp.name_id = pn.id
         and cnp.evr_id = pe.id
-	and cnp.package_id = e_sq.package_id(+)
         """ % (qlist, qlist))
         apply(h.execute, (), qdict)
         
