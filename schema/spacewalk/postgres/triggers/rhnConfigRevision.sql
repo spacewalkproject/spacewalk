@@ -1,4 +1,4 @@
--- oracle equivalent source sha1 c99c0b72a32681747aae82f00b243fd5af149a3b
+-- oracle equivalent source sha1 4f7ad899e4e2e19b707dfcf411b268f9fcea2c73
 --
 -- Copyright (c) 2008--2010 Red Hat, Inc.
 --
@@ -32,50 +32,6 @@ rhn_confrevision_mod_trig
 before insert or update on rhnConfigRevision
 for each row
 execute procedure rhn_confrevision_mod_trig_func();
-
-
--- right now we're not doing accounting for rhnConfigRevision updates.
--- we shouldn't ever _do_ updates, but right now the perms exist.
-
-create or replace function rhn_confrevision_acct_trig_fun() returns trigger
-as
-$$
-declare
-        org_id numeric;
-        available numeric;
-        added numeric;
-begin
-        -- find the current amount of quota available
-        select  cc.org_id,
-                        oq.total + oq.bonus - oq.used,
-                        content.file_size
-        into    org_id, available, added
-        from    rhnConfigContent        content,
-                        rhnOrgQuota                     oq,
-                        rhnConfigChannel        cc,
-                        rhnConfigFile           cf
-        where   cf.id = new.config_file_id
-                        and cf.config_channel_id = cc.org_id
-                        and cc.org_id = oq.org_id
-                        and new.config_file_type_id = (select id from rhnConfigFileType where label='file')
-                        and new.config_content_id = content.id;
-
-        if added > available then
-                perform rhn_exception.raise_exception('not_enough_quota');
-        end if;
-
-        return new;
-end;
-$$
-language plpgsql;
-
-create trigger
-rhn_confrevision_acct_trig
-after insert on rhnConfigRevision
-for each row
-execute procedure rhn_confrevision_acct_trig_fun();
-
-
 
 create or replace function rhn_confrevision_del_trig_fun() returns trigger 
 as

@@ -140,16 +140,6 @@ begin
 	);
 
 
-	-- if they need more than 16GB, they'll call us and we'll whip
-	-- out a "can be null" patch, which we should do for next
-	-- version anyway.  (I thought we did that for this version?)
-	insert into rhnOrgQuota(
-		org_id, total
-	) values (
-		1, 1024*1024*1024*16
-	);
-	
-	
 	-- there aren't any users yet, so we don't need to update
 	-- rhnUserServerPerms
         insert into rhnServerGroup 

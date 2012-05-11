@@ -107,7 +107,6 @@ rhnServerNetAddress6           :: rhnServerNetInterface
 rhnOrgChannelSettings          :: web_customer rhnChannel rhnOrgChannelSettingsType
 rhnOrgEntitlements             :: rhnOrgEntitlementType
 rhnOrgErrataCacheQueue         :: web_customer
-rhnOrgQuota                    :: web_customer
 rhnPackage                     :: rhnPackageName rhnPackageEVR rhnPackageArch \
                                   rhnPackageGroup rhnSourceRPM web_customer \
                                   rhnChecksum

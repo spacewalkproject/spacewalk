@@ -24,7 +24,7 @@ rhnConfigChannel           :: rhnConfigChannel rhnSnapshotConfigChannel \
 rhnConfigRevision          :: rhnConfigRevision rhnSnapshotConfigRevision \
                               rhnSnapshot lookup_functions \
                               rhnConfigContent rhnConfigChannel rhnConfigFile \
-                              rhnOrgQuota rhn_exception.pks
+                              rhn_exception.pks
 rhnErrata                  :: rhnChannel rhnChannelErrata
 rhnKickstartSession        :: rhnKickstartSession rhnKickstartSessionHistory
 rhnServerGroup             :: rhnUserGroup rhnUserGroupType rhn_exception \

@@ -1,4 +1,4 @@
--- oracle equivalent source sha1 2284fa9b4b21f4537781ec647db6c856415efc9b
+-- oracle equivalent source sha1 5ab67356ee6f35be89739cf5d31334fdf96596ac
 -- retrieved from ./1279712605/e7eb734c1a1ae108af13b6aa9040c8f20aee64c5/schema/spacewalk/oracle/procs/create_first_org.sql
 --
 -- Copyright (c) 2008--2010 Red Hat, Inc.
@@ -143,16 +143,6 @@ begin
 	);
 
 
-	-- if they need more than 16GB, they'll call us and we'll whip
-	-- out a "can be null" patch, which we should do for next
-	-- version anyway.  (I thought we did that for this version?)
-	insert into rhnOrgQuota(
-		org_id, total
-	) values (
-		1, 16::numeric * 1024*1024*1024
-	);
-	
-	
 	-- there aren't any users yet, so we don't need to update
 	-- rhnUserServerPerms
         insert into rhnServerGroup 

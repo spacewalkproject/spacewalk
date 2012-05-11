@@ -1,4 +1,4 @@
--- oracle equivalent source sha1 48f766d7e2ec61890c48645c66978f81eab2cdbe
+-- oracle equivalent source sha1 ac267d828333cf407cd9e19842d7fc86d5e17628
 --
 -- Copyright (c) 2008--2012 Red Hat, Inc.
 --
@@ -92,7 +92,6 @@ create or replace function delete_org (
         -- Clean up tables where we don't have a cascading delete.
         delete from rhnChannel where org_id = org_id_in;
         delete from rhnDailySummaryQueue where org_id = org_id_in;
-        delete from rhnOrgQuota where org_id = org_id_in;
         delete from rhnFileList where org_id = org_id_in;
         delete from rhnServerGroup where org_id = org_id_in;
         delete from rhn_check_suites where customer_id = org_id_in;
