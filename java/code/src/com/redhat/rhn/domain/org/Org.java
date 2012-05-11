@@ -46,7 +46,6 @@ import org.hibernate.Session;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -75,8 +74,6 @@ public class Org extends BaseDomainHelper {
     private Set<Org> trustedOrgs;
     private Token token;
     private boolean stagingContentEnabled;
-
-    private OrgQuota orgQuota;
 
     private Set monitoringScouts;
     private Set contactGroups;
@@ -365,49 +362,6 @@ public class Org extends BaseDomainHelper {
     public void removeChannelPermissions(Long uid, Long cid, String roleLabel) {
         manipulateChannelPerms("remove_channel_permissions", uid, cid,
                 roleLabel);
-    }
-
-    /**
-     * Set the OrgQuota.
-     * @param quotaIn the new quota to set.
-     */
-    public void setOrgQuota(OrgQuota quotaIn) {
-        this.orgQuota = quotaIn;
-    }
-
-    /**
-     * Get the OrgQuota
-     * @return OrgQuota object
-     */
-    public OrgQuota getOrgQuota() {
-        return this.orgQuota;
-    }
-
-    /**
-     * Add a Quota to this Org
-     * @param totalIn the total size of the quota
-     */
-    public void addOrgQuota(Long totalIn) {
-        if (orgQuota == null) {
-            orgQuota = new OrgQuota();
-            orgQuota.setCreated(new Date());
-            orgQuota.setModified(new Date());
-            orgQuota.setOrg(this);
-            orgQuota.setBonus(new Long(0));
-            orgQuota.setUsed(new Long(0));
-        }
-        orgQuota.setTotal(totalIn);
-    }
-
-    /**
-     * Get the value of the OrgQuota's TOTAL allowed
-     * @return Long value of the Org's Quota total - null if there isnt one
-     */
-    public Long getQuotaTotal() {
-        if (orgQuota == null) {
-            return null;
-        }
-        return orgQuota.getTotal();
     }
 
     /**

@@ -124,10 +124,6 @@ public class OrgFactoryTest extends RhnBaseTestCase {
         Org org2 = OrgFactory.lookupById(org1.getId());
         assertEquals(org2.getName(), org1.getName());
         assertNotNull(org2.getOwnedChannels());
-        assertNotNull(org2.getOrgQuota());
-        assertNotNull(org2.getOrgQuota().getTotal());
-        assertEquals(new Long(1024L * 1024L * 1024L * 16L), org2.getOrgQuota()
-                .getTotal());
     }
 
     public void testOrgDefautRegistrationToken() throws Exception {
@@ -158,13 +154,6 @@ public class OrgFactoryTest extends RhnBaseTestCase {
 
         lookup = OrgFactory.lookupById(origId);
         assertNull(lookup.getToken());
-    }
-
-    public void testAddOrgQuota() throws Exception {
-        Org org1 = UserTestUtils.findNewOrg("testOrg");
-        org1.addOrgQuota(new Long(5242880));
-        org1 = OrgFactory.save(org1);
-        assertNotNull(org1.getQuotaTotal());
     }
 
     public void testHasRole() throws Exception {
