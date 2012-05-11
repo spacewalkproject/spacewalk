@@ -39,9 +39,9 @@ public class Network {
     private String bondingMaster;
     private String bondingOptions;
     private String bonding;
-    private static String BONDING_MASTER;
-    private static String BONDING_SLAVE;
-    private static String BONDING_NA = "na";
+    private static String bondingMASTER;
+    private static String bondingSLAVE;
+    private static final String BONDING_NA = "na";
     /**
      * Constructor to create a new network interface
      * @param nameIn the name of the network
@@ -55,15 +55,15 @@ public class Network {
             netmaskVariableName = "netmask";
             bondingMasterVariableName = "interfacemaster";
             bondingTypeVariableName = "interfacetype";
-            BONDING_MASTER = "bond";
-            BONDING_SLAVE = "bond_slave";
+            bondingMASTER = "bond";
+            bondingSLAVE = "bond_slave";
         }
         else {
             netmaskVariableName = "subnet";
             bondingMasterVariableName = "bondingmaster";
             bondingTypeVariableName = "bonding";
-            BONDING_MASTER = "master";
-            BONDING_SLAVE = "slave";
+            bondingMASTER = "master";
+            bondingSLAVE = "slave";
         }
     }
 
@@ -251,14 +251,14 @@ public class Network {
      * Set the Network as a bonding master.
      */
     public void makeBondingMaster() {
-        bonding = BONDING_MASTER;
+        bonding = bondingMASTER;
     }
 
     /**
      * Set the Network as a bonding slave.
      */
     public void makeBondingSlave() {
-        bonding = BONDING_SLAVE;
+        bonding = bondingSLAVE;
     }
 
     /**
