@@ -2708,7 +2708,16 @@ def filter_latest_packages(pkglist):
     # for each arch.  This approach avoids nested loops :)
     latest={}
     for p in pkglist:
-        tuplekey = p['name'], p['arch_label']
+        if p.has_key('arch_label'):
+            tuplekey = p['name'], p['arch_label']
+        elif p.has_key('arch'):
+            # Fixup arch==AMD64 which is returned for some reason
+            p['arch'] = re.sub('AMD64', 'x86_64', p['arch'])
+            tuplekey = p['name'], p['arch']
+        else:
+            logging.error("Failed to filter package list, package %s" % p\
+                + "found with no arch or arch_label")
+            return None
         if not latest.has_key(tuplekey):
             latest[tuplekey] = p
         else:
@@ -2833,10 +2842,15 @@ def do_system_comparewithchannel(self, args):
         system_id = self.get_system_id(system)
         if not system_id: return
 
-        packages = self.client.system.listPackages(self.session,\
+        instpkgs = self.client.system.listPackages(self.session,\
                                                         system_id)
         logging.debug("Got %d packages installed in system %s" %\
-            (len(packages), system))
+            (len(instpkgs), system))
+        # We need to filter to get only the latest installed packages,
+        # because multiple versions (e.g kernel) can be installed
+        packages = filter_latest_packages(instpkgs)
+        logging.debug("Got latest %d packages installed in system %s" %\
+            (len(packages.keys()), system))
 
         channels=[]
         if options.channel:
@@ -2897,19 +2911,17 @@ def do_system_comparewithchannel(self, args):
         channelnewer=[]
         systemnewer=[]
         channelmissing=[]
-        for p in packages:
-            # Fixup arch==AMD64 which is returned for some reason
-            p['arch'] = re.sub('AMD64', 'x86_64', p['arch'])
-            key = p['name'],p['arch']
+        for key in packages.keys():
+            syspkg = packages.get(key)
             if latestpkgs.has_key(key):
-                basepkg = latestpkgs.get(key)
-                newest = latest_pkg(p,basepkg)
-                if p == newest:
-                    systemnewer.append(p)
-                elif basepkg == newest:
-                    channelnewer.append(p)
+                chpkg = latestpkgs.get(key)
+                newest = latest_pkg(syspkg,chpkg)
+                if syspkg == newest:
+                    systemnewer.append(syspkg)
+                elif chpkg == newest:
+                    channelnewer.append(syspkg)
             else:
-                channelmissing.append(p)
+                channelmissing.append(syspkg)
         self.print_comparison_withchannel(channelnewer, systemnewer,\
                                             channelmissing, latestpkgs)
 
