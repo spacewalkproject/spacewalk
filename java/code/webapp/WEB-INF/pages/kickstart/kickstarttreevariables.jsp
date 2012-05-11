@@ -6,7 +6,7 @@
 <html:html xhtml="true">
 <body>
 <rhn:toolbar base="h1" img="/img/rhn-kickstart_profile.gif"
-			 deletionUrl="/rhn/kickstart/TreeDelete.do?kstid=${kstree.id}"
+			 deletionUrl="/rhn/kickstart/TreeDelete.do?kstid=${kstid}"
              deletionType="deleteTree"
              imgAlt="kickstarts.alt.img">
   <bean:message key="treeedit.jsp.toolbar"/>
