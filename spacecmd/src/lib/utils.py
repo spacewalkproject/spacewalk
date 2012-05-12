@@ -650,7 +650,6 @@ def get_string_diff_dicts( string1, string2 ):
         else:
             # "insert" or "delete"
             # can't handle this
-            #logging.debug( "will not handle differences " + sub1 + sub2 )
             logging.debug( "Too many differences between " + string1 + " and " + string2 + ". Skipping usage of common strings." )
             return [None,None]
     return [replace1,replace2]
@@ -661,14 +660,14 @@ def replace( line, replacedict ):
             line = line.replace( source, replacedict[source] )
     return line
 
-def get_normalized_text( text, replacedict=None, excludes=_DIFF_EXCLUDES ):
+def get_normalized_text( text, replacedict=None, excludes=None ):
     # parts of the data inside the spacewalk component information
-    # is not relevant for showing real differences between two instances.
-    # Therefore parts of the data will be modified before the real diff:
+    # are not really differences between two instances.
+    # Therefore parts of the data will be modified before the diff:
     # - specific lines, starting with a defined keyword, will be excluded
     # - specific character sequences will be replaced with the same text in both instances.
     # Example:
-    # we want to compare two activationkeys from different stages:
+    # we want to compare two related activationkeys:
     # "1-rhel6-x86_64-dev" and "1-rhel6-x86_64-prd"
     # ("dev" for "development" and "prd" for "production").
     # We assume that the "dev" activationkey "1-rhel6-x86_64-dev"
