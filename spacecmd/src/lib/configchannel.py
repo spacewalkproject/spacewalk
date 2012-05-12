@@ -1169,7 +1169,7 @@ def do_configchannel_diff(self, args):
     (args, options) = parse_arguments(args, options)
 
     if len(args) != 1 and len(args) != 2:
-        self.help_stage_configchannel_diff()
+        self.help_configchannel_diff()
         return
 
     source_channel = args[0]
