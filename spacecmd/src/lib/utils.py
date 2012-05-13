@@ -22,8 +22,9 @@
 # NOTE: the 'self' variable is an instance of SpacewalkShell
 
 import logging, os, pickle, re, readline, shlex, sys, time, xmlrpclib
+from collections import deque
 from datetime import datetime, timedelta
-from difflib  import unified_diff, SequenceMatcher
+from difflib  import unified_diff
 from optparse import OptionParser
 from tempfile import mkstemp
 from textwrap import wrap
@@ -634,30 +635,54 @@ def json_read_from_file(filename):
             print "could not open file %s for reading, check permissions?" % filename
         return None
 
-def get_string_diff_dicts( string1, string2 ):
+
+def get_string_diff_dicts( string1, string2, sep="-" ):
+    """
+    compares two strings and determine, if one string can be transformed into the other by simple string replacements.
+
+    If these strings are closly related, it returns two dictonaries of regular expressions.
+
+    The first dictionary can be used to transfrom type 1 strings into type 2 strings.
+    The second dictionary vice versa.
+
+    These replacements blocks must be separated by "-".
+
+    Example:
+    string1: rhel6-x86_64-dev-application1
+    string2: rhel6-x86_64-qas-application1
+
+    Result:
+    dict1: {'(^|-)dev(-|$)': '\\1DIFF(dev|qas)\\2'}
+    dict2: {'(^|-)qas(-|$)': '\\1DIFF(dev|qas)\\2'}
+    """
     replace1 = {}
     replace2 = {}
-    s = SequenceMatcher(None, string1, string2)
-    for tag, i1a, i1b, i2a, i2b in s.get_opcodes():
-        sub1=string1[i1a:i1b]
-        sub2=string2[i2a:i2b]
-        if tag == "equal":
+
+    if string1 == string2:
+        logging.info( "Skipping usage of common strings: both strings are equal" )
+        return [None,None]
+    substrings1 = deque( string1.split(sep) )
+    substrings2 = deque( string2.split(sep) )
+
+    while substrings1 and substrings2:
+        sub1 = substrings1.popleft()
+        sub2 = substrings2.popleft()
+        if sub1 == sub2:
             # equal, nothing to do
             pass
-        elif tag == "replace":
-            replace1[sub1] = "DIFF("+sub1+"|"+sub2+")"
-            replace2[sub2] = "DIFF("+sub1+"|"+sub2+")"
         else:
-            # "insert" or "delete"
-            # can't handle this
-            logging.debug( "Too many differences between " + string1 + " and " + string2 + ". Skipping usage of common strings." )
-            return [None,None]
+            # TODO: replace only if len(sub1) == len(sub2) ?
+            replace1['(^|-)' + sub1 + '(-|$)'] = r'\1' + "DIFF("+sub1+"|"+sub2+")" + r'\2'
+            replace2['(^|-)' + sub2 + '(-|$)'] = r'\1' + "DIFF("+sub1+"|"+sub2+")" + r'\2'
+    if substrings1 or substrings2:
+        logging.info( "Skipping usage of common strings: number of substrings differ" )
+        return [None,None]
     return [replace1,replace2]
 
 def replace( line, replacedict ):
     if replacedict:
         for source in replacedict:
-            line = line.replace( source, replacedict[source] )
+            line = re.sub( source, replacedict[source], line )
     return line
 
 def get_normalized_text( text, replacedict=None, excludes=None ):
