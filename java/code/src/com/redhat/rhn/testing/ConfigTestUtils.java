@@ -371,16 +371,6 @@ public class ConfigTestUtils extends Assert {
     }
 
     /**
-     * Creating revisions requires org quota because they take up quota.
-     * This must be called before creating a revision, but it need only
-     * be called once.
-     * @param org The org we are giving quota.
-     */
-    public static void giveOrgQuota(Org org) {
-        //there is no quota in satellite...  is unlimited.
-    }
-
-    /**
      * Gives  all the config capabilites to a server
      * @param server the server that you want to be config enabled
      * @throws Exception In the case of DB errors or sql exceptions.

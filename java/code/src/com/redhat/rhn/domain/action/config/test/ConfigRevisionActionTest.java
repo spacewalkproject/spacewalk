@@ -99,7 +99,6 @@ public class ConfigRevisionActionTest extends RhnBaseTestCase {
         ConfigRevisionAction cra = new ConfigRevisionAction();
         cra.setServer(ServerFactoryTest.createTestServer(user));
 
-        ConfigTestUtils.giveOrgQuota(user.getOrg());
         cra.setConfigRevision(ConfigTestUtils.createConfigRevision(user.getOrg()));
         cra.setCreated(new Date());
         cra.setModified(new Date());

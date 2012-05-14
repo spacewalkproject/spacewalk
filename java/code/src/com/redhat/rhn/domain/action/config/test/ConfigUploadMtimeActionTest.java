@@ -85,7 +85,6 @@ public class ConfigUploadMtimeActionTest extends RhnBaseTestCase {
         testAction.addConfigDateFileAction(cfda);
 
         Server newS = ServerFactoryTest.createTestServer(usr);
-        ConfigTestUtils.giveOrgQuota(usr.getOrg());
         ConfigRevision cr = ConfigTestUtils.createConfigRevision(usr.getOrg());
 
         testAction.addConfigChannelAndServer(cr.getConfigFile()

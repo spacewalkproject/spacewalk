@@ -213,7 +213,6 @@ public class ActionFactoryTest extends RhnBaseTestCase {
         Action newA = ActionFactory.createAction(ActionFactory.TYPE_CONFIGFILES_DIFF);
         newA.setOrg(usr.getOrg());
 
-        ConfigTestUtils.giveOrgQuota(usr.getOrg());
         newA.setSchedulerUser(usr);
 
         Server newS = ServerFactoryTest.createTestServer(usr, true);
@@ -225,7 +224,6 @@ public class ActionFactoryTest extends RhnBaseTestCase {
         crad.setModified(new Date());
 
         // Create ConfigRevision
-        ConfigTestUtils.giveOrgQuota(usr.getOrg());
         ConfigRevision cr = ConfigTestUtils.createConfigRevision(usr.getOrg());
         crad.setConfigRevision(cr);
         ConfigAction ca = (ConfigAction) newA;
@@ -247,7 +245,6 @@ public class ActionFactoryTest extends RhnBaseTestCase {
         Action newA = ActionFactory.createAction(ActionFactory.TYPE_CONFIGFILES_DIFF);
         newA.setOrg(usr.getOrg());
 
-        ConfigTestUtils.giveOrgQuota(usr.getOrg());
         newA.setSchedulerUser(usr);
 
         Server newS = ServerFactoryTest.createTestServer(usr, true);
@@ -267,7 +264,6 @@ public class ActionFactoryTest extends RhnBaseTestCase {
         cresult.setConfigRevisionAction(crad);
         crad.setConfigRevisionActionResult(cresult);
         // Create ConfigRevision
-        ConfigTestUtils.giveOrgQuota(usr.getOrg());
         ConfigRevision cr = ConfigTestUtils.createConfigRevision(usr.getOrg());
         crad.setConfigRevision(cr);
         ConfigAction ca = (ConfigAction) newA;
@@ -356,7 +352,6 @@ public class ActionFactoryTest extends RhnBaseTestCase {
             cua.addConfigDateFileAction(cfda);
 
             Server newS = ServerFactoryTest.createTestServer(usr);
-            ConfigTestUtils.giveOrgQuota(usr.getOrg());
             ConfigRevision cr = ConfigTestUtils.createConfigRevision(usr.getOrg());
             cua.addConfigChannelAndServer(cr.getConfigFile().getConfigChannel(), newS);
             // rhnActionConfigChannel requires a ServerAction to exist
@@ -373,7 +368,6 @@ public class ActionFactoryTest extends RhnBaseTestCase {
             ConfigUploadAction cua = (ConfigUploadAction) newA;
             Server newS = ServerFactoryTest.createTestServer(usr);
 
-            ConfigTestUtils.giveOrgQuota(usr.getOrg());
             ConfigRevision cr = ConfigTestUtils.createConfigRevision(usr.getOrg());
             cua.addConfigChannelAndServer(cr.getConfigFile().getConfigChannel(), newS);
             cua.addServerAction(ServerActionTest.createServerAction(newS, newA));
@@ -400,7 +394,6 @@ public class ActionFactoryTest extends RhnBaseTestCase {
             cresult.setConfigRevisionAction(crad);
             crad.setConfigRevisionActionResult(cresult);
             // Create ConfigRevision
-            ConfigTestUtils.giveOrgQuota(usr.getOrg());
             ConfigRevision cr = ConfigTestUtils.createConfigRevision(usr.getOrg());
             crad.setConfigRevision(cr);
             ConfigAction ca = (ConfigAction) newA;

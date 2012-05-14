@@ -36,8 +36,6 @@ public class FileListSetupActionTest extends RhnMockStrutsTestCase {
         Server server = ServerFactoryTest.createTestServer(user, true,
                 ServerConstants.getServerGroupTypeProvisioningEntitled());
         SystemManagerTest.giveCapability(server.getId(), feature, 1L);
-        //needed for config revisions
-        ConfigTestUtils.giveOrgQuota(user.getOrg());
 
         //create a normal config revision
         ConfigRevision rev1 = ConfigTestUtils.createConfigRevision(user.getOrg());
