@@ -8,7 +8,7 @@ Group:   Applications/System
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.10.28
+Version: 5.10.29
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -106,6 +106,10 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Mon May 14 2012 Michael Mraka <michael.mraka@redhat.com> 5.10.29-1
+- 820517 - fixed command synopsis
+- 805449 - honor rhncfg-specific settings
+
 * Thu Mar 08 2012 Miroslav Suchý 5.10.28-1
 - accept server name without protocol
 
