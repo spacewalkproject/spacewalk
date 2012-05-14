@@ -41,6 +41,9 @@ Controls the enabling and disabling of scheduled actions.
     <cmdsynopsis>
         <arg>--enable-all | --disable-all</arg>
     </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>--report</arg>
+    </cmdsynopsis>
 </Synopsis>
 </RefSynopsisDiv>
 
