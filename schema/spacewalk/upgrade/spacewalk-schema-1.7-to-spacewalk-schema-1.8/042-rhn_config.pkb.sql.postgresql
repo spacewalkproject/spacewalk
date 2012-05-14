@@ -1,4 +1,4 @@
--- oracle equivalent source sha1 799443c60d6326e6665fa42fcb7593f61330f27f
+-- oracle equivalent source sha1 a85e15e256fabf959083cabb02a6895b14167b5a
 
 -- setup search_path so that these functions are created in appropriate schema.
 update pg_settings set setting = 'rhn_config,' || setting where name = 'search_path';
@@ -13,11 +13,7 @@ update pg_settings set setting = 'rhn_config,' || setting where name = 'search_p
 	) returns numeric as $$
                declare
 		retval numeric;
-		 affected_orgs cursor is
-			select cc.org_id as id from rhnConfigChannel cc,
-					rhnConfigFile cf
-			where cf.id = config_file_id_in
-				and cf.config_channel_id = cc.id;
+
 	begin
       
 		insert into rhnConfigRevision(id, revision, config_file_id,

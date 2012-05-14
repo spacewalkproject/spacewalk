@@ -1,4 +1,4 @@
--- oracle equivalent source sha1 b4cc166deb4192f4cbccd84c6f2a3552fbb6ccae
+-- oracle equivalent source sha1 419e08aaf083764eefd187f2758bd9e8a7a98c1f
 --
 -- Copyright (c) 2008--2011 Red Hat, Inc.
 --
@@ -42,11 +42,7 @@ $$ LANGUAGE 'plpgsql';
 	) returns numeric as $$
                declare
 		retval numeric;
-		 affected_orgs cursor is
-			select cc.org_id as id from rhnConfigChannel cc,
-					rhnConfigFile cf
-			where cf.id = config_file_id_in
-				and cf.config_channel_id = cc.id;
+
 	begin
       
 		insert into rhnConfigRevision(id, revision, config_file_id,

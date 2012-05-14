@@ -36,12 +36,7 @@ is
       config_file_type_id_in in number := 1
 	) return number is
 		retval number;
-		cursor affected_orgs is
-			select	cc.org_id id
-			from	rhnConfigChannel cc,
-					rhnConfigFile cf
-			where	cf.id = config_file_id_in
-				and cf.config_channel_id = cc.id;
+
 	begin
       
 		insert into rhnConfigRevision(id, revision, config_file_id,
