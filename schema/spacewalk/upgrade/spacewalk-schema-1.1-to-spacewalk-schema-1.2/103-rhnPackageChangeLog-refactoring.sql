@@ -79,7 +79,7 @@ declare
 	i integer;
 begin
 	select max(id), min(id) into max_id, i from rhnPackageChangeLog;
-	while i < max_id loop
+	while i <= max_id loop
 		insert /*+append*/ into rhnPackageChangelogRec (id, package_id, changelog_data_id, created, modified)
 		select rhnPackageChangeLog.id, rhnPackageChangeLog.package_id, rhnPackageChangeLogData.id, rhnPackageChangeLog.created, rhnPackageChangeLog.created
 		from rhnPackageChangeLog, rhnPackageChangeLogData
