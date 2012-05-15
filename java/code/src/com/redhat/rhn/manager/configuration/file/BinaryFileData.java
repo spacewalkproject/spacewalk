@@ -14,9 +14,13 @@
  */
 package com.redhat.rhn.manager.configuration.file;
 
+import com.redhat.rhn.common.util.MD5Crypt;
 import com.redhat.rhn.common.validator.ValidatorResult;
+import com.redhat.rhn.domain.common.Checksum;
+import com.redhat.rhn.domain.common.ChecksumFactory;
 import com.redhat.rhn.domain.config.ConfigFileType;
 import com.redhat.rhn.domain.config.ConfigRevision;
+import com.redhat.rhn.domain.config.ConfigurationFactory;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 
@@ -128,5 +132,19 @@ public class BinaryFileData extends ConfigFileData {
         builder.append("ConfigFileData", super.toString()).
                         append("Size", getContentSize());
         return builder.toString();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean matchesRevision(ConfigRevision cRevision) {
+        if (!super.matchesRevision(cRevision)) {
+            return Boolean.FALSE;
+        }
+        byte[] bContent = ConfigurationFactory.bytesFromStream(getContents(),
+                getContentSize());
+        Checksum checksum = ChecksumFactory.safeCreate(MD5Crypt.md5Hex(bContent), "md5");
+        return checksum.equals(cRevision.getConfigContent().getChecksum());
     }
 }

@@ -19,6 +19,7 @@ import com.redhat.rhn.common.validator.ValidatorException;
 import com.redhat.rhn.common.validator.ValidatorResult;
 import com.redhat.rhn.domain.config.ConfigFileType;
 import com.redhat.rhn.domain.config.ConfigInfo;
+import com.redhat.rhn.domain.config.ConfigRevision;
 import com.redhat.rhn.domain.config.ConfigurationFactory;
 import com.redhat.rhn.frontend.struts.RhnValidationHelper;
 import com.redhat.rhn.manager.configuration.ConfigurationValidation;
@@ -107,5 +108,16 @@ public class SymlinkData extends DirectoryData {
        if (!result.isEmpty()) {
            throw new ValidatorException(result);
        }
+   }
+
+   /**
+    * {@inheritDoc}
+    */
+   @Override
+   public boolean matchesRevision(ConfigRevision cRevision) {
+       if (!super.matchesRevision(cRevision)) {
+           return Boolean.FALSE;
+       }
+       return getTargetPath().equals(cRevision.getConfigInfo().getTargetFileName());
    }
 }

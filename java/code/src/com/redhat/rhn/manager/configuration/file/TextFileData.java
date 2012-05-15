@@ -143,4 +143,15 @@ public class TextFileData extends ConfigFileData {
                         append("Contents", getContents());
         return builder.toString();
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean matchesRevision(ConfigRevision cRevision) {
+        if (!super.matchesRevision(cRevision)) {
+            return Boolean.FALSE;
+        }
+        return getContents().equals(cRevision.getConfigContent().getContentsString());
+    }
 }

@@ -153,6 +153,10 @@ public class ConfigFileBuilder {
             revision.setChangedById(user.getId());
         }
         else {
+            if ((prevRevision != null) &&
+                    form.matchesRevision(prevRevision)) {
+                return prevRevision;
+            }
             revision = manager.createNewRevision(
                     user, form.getContentStream(), cf,
                         form.getContentSize());
@@ -177,14 +181,9 @@ public class ConfigFileBuilder {
             revision.setRevision(Long.parseLong(form.getRevNumber()));
         }
 
-        if (!onCreate && revision.matches(prevRevision)) {
-            ConfigurationFactory.removeConfigRevision(revision, user.getOrg().getId());
-            return prevRevision;
-        }
         // Committing the revision commits the file for us (which commits the
         // Channel, so everybody's pointers get updated...)
-        ConfigurationFactory.commit(revision);
-        return (ConfigRevision) ConfigurationFactory.reload(revision);
+        return ConfigurationFactory.commit(revision);
     }
 
 

@@ -17,6 +17,7 @@ package com.redhat.rhn.domain.config;
 import com.redhat.rhn.domain.BaseDomainHelper;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.user.UserFactory;
+
 import java.util.Date;
 
 /**

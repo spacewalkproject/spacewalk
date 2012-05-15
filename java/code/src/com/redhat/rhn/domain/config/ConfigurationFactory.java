@@ -197,8 +197,9 @@ public class ConfigurationFactory extends HibernateFactory {
      *       attached to it.  config files also used stored procedures for
      *       insertions, so we can't simply ask hibernate to save it for us.
      * @param revision the new ConfigRevision we want to store.
+     * @return returns revision id
      */
-    public static void saveNewConfigRevision(ConfigRevision revision) {
+    public static Long saveNewConfigRevision(ConfigRevision revision) {
         //This is designed to catch some of the cases in which the config file
         //was not saved before the config revision.
         //There is still the possibility that the config file hasn't been committed to
@@ -242,7 +243,7 @@ public class ConfigurationFactory extends HibernateFactory {
 
         Map result = m.execute(inParams, outParams);
 
-        revision.setId((Long)result.get("configRevisionId"));
+        return (Long) result.get("configRevisionId");
     }
 
     private static void save(ConfigChannel channel) {
@@ -293,12 +294,14 @@ public class ConfigurationFactory extends HibernateFactory {
      * use a stored procedure for inserting, we have to decide whether to
      * insert or update here.  If the revision's id is null, we insert.
      * @param revision The revision to save or update
+     * @return returns config revision (with set id)
      */
-    public static void commit(ConfigRevision revision) {
+    public static ConfigRevision commit(ConfigRevision revision) {
         ConfigFile file = revision.getConfigFile();
         commit(file);
         if (revision.getId() == null) {
-            saveNewConfigRevision(revision);
+            Long revId = saveNewConfigRevision(revision);
+            revision = (ConfigRevision) getSession().get(ConfigRevision.class, revId);
             file.setLatestConfigRevision(revision);
             //and now we have to save the file again
             //it would be nice to save it only once, but we require the file id
@@ -329,6 +332,7 @@ public class ConfigurationFactory extends HibernateFactory {
         // And now, because saveNewConfigRevision doesn't store -every-thing
         // about a revision, we have to commit it -again-.  Sigh.  See BZ212236
         save(revision);
+        return revision;
     }
 
     /**
@@ -809,6 +813,23 @@ public class ConfigurationFactory extends HibernateFactory {
         content.setModified(new Date());
         content.setFileSize(size);
 
+        byte[] foo = bytesFromStream(stream, size);
+        content.setContents(foo);
+        Checksum newChecksum = ChecksumFactory.safeCreate(MD5Crypt.md5Hex(foo), "md5");
+        content.setChecksum(newChecksum);
+        content.setBinary(isBinary);
+        content.setDelimStart(delimStart);
+        content.setDelimEnd(delimEnd);
+        return content;
+    }
+
+    /**
+     * Convert input stream to byte array
+     * @param stream input stream
+     * @param size stream size
+     * @return byte array
+     */
+    public static byte[] bytesFromStream(InputStream stream, Long size) {
         byte[] foo = new byte[size.intValue()];
         try {
             //this silly bit of logic is to ensure that we read as much from the file
@@ -827,14 +848,7 @@ public class ConfigurationFactory extends HibernateFactory {
             throw new RuntimeException("IOException while reading config content from" +
                     " input stream!");
         }
-
-        content.setContents(foo);
-        Checksum newChecksum = ChecksumFactory.safeCreate(MD5Crypt.md5Hex(foo), "md5");
-        content.setChecksum(newChecksum);
-        content.setBinary(isBinary);
-        content.setDelimStart(delimStart);
-        content.setDelimEnd(delimEnd);
-        return content;
+        return foo;
     }
 
     private static Map getMaxRevisionForFile(ConfigFile file) {

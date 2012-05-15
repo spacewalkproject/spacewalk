@@ -422,4 +422,27 @@ public abstract class ConfigFileData {
     public void setRevNumber(String revNumberIn) {
         this.revNumber = revNumberIn;
     }
+
+    /**
+     * @param cRevision config revision
+     * @return true if mathces the config revision
+     */
+    public boolean matchesRevision(ConfigRevision cRevision) {
+        if (cRevision == null) {
+            return Boolean.FALSE;
+        }
+        ConfigInfo cInfo = cRevision.getConfigInfo();
+        ConfigInfo ci = ConfigurationFactory.lookupConfigInfoById(cInfo.getId());
+        String cfdSelinuxCtx = getSelinuxCtx();
+        String crSelinuxCtx = cInfo.getSelinuxCtx();
+
+        return getType().equals(cRevision.getConfigFileType()) &&
+               getPath().equals(
+                       cRevision.getConfigFile().getConfigFileName().getPath()) &&
+               getOwner().equals(cInfo.getUsername()) &&
+               getGroup().equals(cInfo.getGroupname()) &&
+               getPermissions().equals(cInfo.getFilemode().toString()) &&
+               ((StringUtils.isEmpty(cfdSelinuxCtx) && StringUtils.isEmpty(crSelinuxCtx)) ||
+                       cfdSelinuxCtx.equals(crSelinuxCtx));
+    }
  }
