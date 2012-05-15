@@ -100,6 +100,7 @@ class rpmBinaryPackage(Package, rpmPackage):
         'package_group' : 'group',
         'rpm_version'   : 'rpmversion',
         'payload_size'  : 'archivesize',
+        'installed_size': 'size',
         'payload_format': 'payloadformat',
         'build_host'    : 'buildhost',
         'build_time'    : 'buildtime',

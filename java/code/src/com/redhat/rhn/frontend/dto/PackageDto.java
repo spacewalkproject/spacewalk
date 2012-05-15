@@ -44,6 +44,7 @@ public class PackageDto extends BaseDto {
     private Date buildTime;
     private Long packageSize;
     private Long payloadSize;
+    private Long installedSize;
     private String path;
     private String copyright;
     private String vendor;
@@ -298,6 +299,22 @@ public class PackageDto extends BaseDto {
      */
     public void setPayloadSize(Long payloadSizeIn) {
         this.payloadSize = payloadSizeIn;
+    }
+
+    /**
+     *
+     * @return Returns the installed size
+     */
+    public Long getInstalledSize() {
+        return installedSize;
+    }
+
+    /**
+     *
+     * @param installedSizeIn The installed size to set.
+     */
+    public void setInstalledSize(Long installedSizeIn) {
+        this.installedSize = installedSizeIn;
     }
 
     /**

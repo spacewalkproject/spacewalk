@@ -1,4 +1,4 @@
--- oracle equivalent source sha1 197aca2e6b8be7fa9aef2f9dfe3052e622cc4d22
+-- oracle equivalent source sha1 198e4f2c8e26ecf4e6dc1b1118915d5b3163ab3f
 --
 -- Copyright (c) 2008--2010 Red Hat, Inc.
 --
@@ -39,6 +39,7 @@ CREATE TABLE rhnPackage
     summary          VARCHAR(4000),
     package_size     NUMERIC NOT NULL,
     payload_size     NUMERIC,
+    installed_size   NUMERIC,
     build_host       VARCHAR(256),
     build_time       TIMESTAMP WITHOUT TIME ZONE,
     source_rpm_id    NUMERIC 

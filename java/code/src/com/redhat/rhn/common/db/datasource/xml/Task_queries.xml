@@ -576,7 +576,7 @@ where rhnChannelErrata.errata_id = rhnErrataPackage.errata_id
   SELECT /*+ ORDERED */ p.id, pn.name as name, pevr.epoch as epoch,
          pevr.version as version, pevr.release as release,
          p.summary, p.description, pa.label as arch_label,
-         p.build_time, p.path, p.package_size, p.payload_size,
+         p.build_time, p.path, p.package_size, p.payload_size, p.installed_size,
          p.copyright, p.vendor, p.build_host, p.header_start, p.header_end,
          srpm.name as source_rpm, pg.name as package_group_name,
          cs.checksum, cs.checksum_type as checksum_type,

@@ -330,6 +330,7 @@ class Package(IncompletePackage):
         'package_group'     : StringType,
         'rpm_version'       : StringType,
         'payload_size'      : IntType,
+        'installed_size'    : IntType,
         'payload_format'    : StringType,
         'build_host'        : StringType,
         'build_time'        : DateType,

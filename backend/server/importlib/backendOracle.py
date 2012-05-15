@@ -156,6 +156,7 @@ class OracleBackend(Backend):
                 'summary'       : DBstring(4000),
                 'package_size'  : DBint(), 
                 'payload_size'  : DBint(),
+                'installed_size': DBint(),
                 'build_host'    : DBstring(256), 
                 'build_time'    : DBdateTime(),
                 'source_rpm_id' : DBint(),

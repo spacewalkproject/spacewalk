@@ -55,6 +55,7 @@ class Package:
         self.build_time = None
         self.package_size = None
         self.payload_size = None
+        self.installed_size = None
         self.header_start = None
         self.header_end = None
         self.package_group = None

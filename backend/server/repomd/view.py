@@ -119,9 +119,10 @@ class PrimaryView(object):
         output.append("    <url></url>")
         output.append("    <time file=\"%d\" build=\"%d\" />"
             % (package.build_time, package.build_time))
-        output.append("    <size package=\"%d\" installed=\"\" "
+        output.append("    <size package=\"%d\" installed=\"%d\" "
             "archive=\"%d\" />"
-            % (package.package_size, package.payload_size))
+            % (package.package_size, package.installed_size,
+               package.payload_size))
         output.append("    <location href=\"getPackage/%s\" />"
             % (package.filename))
         output.append("    <format>")

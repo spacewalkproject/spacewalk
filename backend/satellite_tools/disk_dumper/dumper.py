@@ -762,6 +762,7 @@ class PackagesDumper(CachedDumper, exportLib.PackagesDumper):
                 p.summary,
                 p.package_size,
                 p.payload_size,
+                p.installed_size,
                 p.build_host, 
                 TO_CHAR(p.build_time, 'YYYYMMDDHH24MISS') as build_time,
                 sr.name as source_rpm,

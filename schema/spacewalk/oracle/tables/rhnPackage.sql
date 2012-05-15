@@ -40,6 +40,7 @@ CREATE TABLE rhnPackage
     summary          VARCHAR2(4000),
     package_size     NUMBER NOT NULL,
     payload_size     NUMBER,
+    installed_size   NUMBER,
     build_host       VARCHAR2(256),
     build_time       DATE,
     source_rpm_id    NUMBER

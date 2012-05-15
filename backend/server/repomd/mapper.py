@@ -208,6 +208,7 @@ class SqlPackageMapper:
             p.build_time,
             p.package_size,
             p.payload_size,
+            p.installed_size,
             p.header_start,
             p.header_end,
             pg.name package_group,
@@ -365,8 +366,8 @@ class SqlPackageMapper:
         return package
 
     def _get_package_filename(self, pkg): 
-        if pkg[17]: 
-            path = pkg[17] 
+        if pkg[18]: 
+            path = pkg[18] 
             return os.path.basename(path) 
         else: 
             name = pkg[0] 
@@ -388,7 +389,7 @@ class SqlPackageMapper:
             package.epoch = pkg[3]
         package.arch = pkg[4]
 
-        package.checksum_type = pkg[20]
+        package.checksum_type = pkg[21]
         package.checksum = pkg[5]
         package.summary = string_to_unicode(pkg[6])
         package.description = string_to_unicode(pkg[7])
@@ -398,13 +399,14 @@ class SqlPackageMapper:
         
         package.package_size = pkg[10]
         package.payload_size = pkg[11]
-        package.header_start = pkg[12]
-        package.header_end = pkg[13]
-        package.package_group = pkg[14]
-        package.build_host = pkg[15]
-        package.copyright = string_to_unicode(pkg[16])
+        package.installed_size = pkg[12]
+        package.header_start = pkg[13]
+        package.header_end = pkg[14]
+        package.package_group = pkg[15]
+        package.build_host = pkg[16]
+        package.copyright = string_to_unicode(pkg[17])
         package.filename = self._get_package_filename(pkg)
-        package.source_rpm = pkg[18]
+        package.source_rpm = pkg[19]
 
     def _fill_package_prco(self, package):
         """ Load the package's provides, requires, conflicts, obsoletes. """

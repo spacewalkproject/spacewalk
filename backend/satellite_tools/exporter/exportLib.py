@@ -706,7 +706,7 @@ class _PackageDumper(BaseRowDumper):
     def set_attributes(self):
         attrs = ["name", "version", "release", "package_arch",
             "package_group", "rpm_version", "package_size", "payload_size", 
-            "build_host", "source_rpm", "payload_format",
+            "installed_size", "build_host", "source_rpm", "payload_format",
             "compat"]
         dict = {
             'id'            : "rhn-package-%s" % self._row['id'],

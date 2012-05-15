@@ -18,6 +18,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <property name="summary"         type="string" column="summary"/>
         <property name="packageSize"     type="long"   column="package_size"/>
         <property name="payloadSize"     type="long"   column="payload_size"/>
+        <property name="installedSize"   type="long"   column="installed_size"/>
         <property name="buildHost"       type="string" column="build_host"/>
         <property name="buildTime"       type="date"   column="build_time"/>
         <property name="vendor"          type="string" column="vendor"/>

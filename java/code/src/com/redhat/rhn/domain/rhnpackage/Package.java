@@ -44,6 +44,7 @@ public class Package extends BaseDomainHelper {
     private String summary;
     private Long packageSize;
     private Long payloadSize;
+    private Long installedSize;
     private String buildHost;
     private Date buildTime;
     private Checksum checksum;
@@ -379,6 +380,28 @@ public class Package extends BaseDomainHelper {
      */
     public void setPayloadSize(Long p) {
         this.payloadSize = p;
+    }
+
+    /**
+     * @return Returns the installedSize.
+     */
+    public Long getInstalledSize() {
+        return installedSize;
+    }
+
+    /**
+     * Get a display friendly version of the installed size
+     * @return the size
+     */
+    public String getInstalledSizeString() {
+        return StringUtil.displayFileSize(this.getInstalledSize());
+    }
+
+    /**
+     * @param p The installedSize to set.
+     */
+    public void setInstalledSize(Long p) {
+        this.installedSize = p;
     }
 
     /**
