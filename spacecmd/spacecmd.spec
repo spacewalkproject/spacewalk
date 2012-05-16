@@ -4,7 +4,7 @@
 %endif
 
 Name:        spacecmd
-Version:     1.8.6
+Version:     1.8.7
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -61,6 +61,13 @@ touch %{buildroot}/%{python_sitelib}/spacecmd/__init__.py
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Tue May 15 2012 Aron Parsons <aronparsons@gmail.com> 1.8.7-1
+- changed get_string_diff_dicts to better fitting replacement method
+- bugfix and comment clarification
+- bugfix: remove reference to stage function
+- add do_SPACEWALKCOMPONENT_diff functions
+- print return values
+
 * Tue May 15 2012 Steven Hardy <shardy@redhat.com> 1.8.6-1
 - spacecmd bugfix : system_comparewithchannel filter system packagelist
 - spacecmd bugfix : argument validation needed for configchannel_addfile
