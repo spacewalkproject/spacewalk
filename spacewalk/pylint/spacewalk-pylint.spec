@@ -4,7 +4,7 @@ Release:	1%{?dist}
 Summary:	Pylint configuration for spacewalk python packages
 
 Group:		Development/Debuggers
-License:	GPLv2+
+License:	GPLv2
 URL:		https://fedorahosted.org/spacewalk
 Source0:	https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 BuildRoot:	%(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
