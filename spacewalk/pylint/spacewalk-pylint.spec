@@ -47,7 +47,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/spacewalk-pylint
 %config(noreplace)  %{_sysconfdir}/spacewalk-pylint.rc
 %doc %{_mandir}/man8/spacewalk-pylint.8*
-
+%doc LICENSE
 
 %changelog
 * Wed Mar 07 2012 Miroslav Suchý 0.3-1
