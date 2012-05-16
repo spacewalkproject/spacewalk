@@ -1,5 +1,5 @@
 Name:		spacewalk-pylint
-Version:	0.3
+Version:	0.4
 Release:	1%{?dist}
 Summary:	Pylint configuration for spacewalk python packages
 
@@ -50,6 +50,11 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Wed May 16 2012 Miroslav Suchý <msuchy@redhat.com> 0.4-1
+- 800899 - consistently use macros
+- 800899 - include license file
+- Spacewalk is released under GPLv2, lets stick to it
+
 * Wed Mar 07 2012 Miroslav Suchý 0.3-1
 - add man page
 - Description lines must not exceed 80 characters
