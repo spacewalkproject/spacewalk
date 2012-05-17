@@ -862,7 +862,12 @@ public class ConfigurationFactory extends HibernateFactory {
         return (Map)dr.get(0);
     }
 
-    private static Long getNextRevisionForFile(ConfigFile file) {
+    /**
+     * Returns new revision number for config file
+     * @param file config file
+     * @return next revision number
+     */
+    public static Long getNextRevisionForFile(ConfigFile file) {
         Map results = getMaxRevisionForFile(file);
         Long next = new Long(((Long) results.get("revision")).longValue() + 1);
         return next;

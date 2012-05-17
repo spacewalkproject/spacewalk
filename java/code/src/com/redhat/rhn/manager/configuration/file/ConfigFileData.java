@@ -432,7 +432,6 @@ public abstract class ConfigFileData {
             return Boolean.FALSE;
         }
         ConfigInfo cInfo = cRevision.getConfigInfo();
-        ConfigInfo ci = ConfigurationFactory.lookupConfigInfoById(cInfo.getId());
         String cfdSelinuxCtx = getSelinuxCtx();
         String crSelinuxCtx = cInfo.getSelinuxCtx();
 

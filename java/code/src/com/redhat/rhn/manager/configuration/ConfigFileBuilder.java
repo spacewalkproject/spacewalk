@@ -128,13 +128,13 @@ public class ConfigFileBuilder {
         ConfigurationManager manager = ConfigurationManager.getInstance();
         ConfigRevision prevRevision = cf.getLatestConfigRevision();
         ConfigRevision revision;
+        String delimStart = form.getMacroStart();
+        String delimEnd = form.getMacroEnd();
 
         if (onCreate) {
             revision = ConfigurationFactory.newConfigRevision();
             ConfigContent content = null;
             if (ConfigFileType.file().equals(form.getType())) {
-                String delimStart = form.getMacroStart();
-                String delimEnd = form.getMacroEnd();
                 if (form.isBinary()) {
                     // if not given, use the default value
                     if (delimStart == null) {
@@ -144,42 +144,36 @@ public class ConfigFileBuilder {
                         delimEnd = ConfigFileForm.DEFAULT_CONFIG_DELIM_END;
                     }
                 }
-                content = ConfigurationFactory.createNewContentFromStream(
-                            form.getContentStream(),
-                        form.getContentSize(), form.isBinary(),
-                        delimStart, delimEnd);
             }
-            revision.setConfigContent(content);
-            revision.setChangedById(user.getId());
         }
         else {
             if ((prevRevision != null) &&
                     form.matchesRevision(prevRevision)) {
                 return prevRevision;
             }
-            revision = manager.createNewRevision(
-                    user, form.getContentStream(), cf,
-                        form.getContentSize());
-            if (revision.isFile()) {
-                revision.getConfigContent().setBinary(form.isBinary());
-                if (form.isBinary()) {
-                    // copy delims from the previous revision
-                    ConfigContent prevContent = prevRevision.getConfigContent();
-                    revision.getConfigContent().setDelimStart(prevContent.getDelimStart());
-                    revision.getConfigContent().setDelimEnd(prevContent.getDelimEnd());
-                }
-                else {
-                    revision.getConfigContent().setDelimStart(form.getMacroStart());
-                    revision.getConfigContent().setDelimEnd(form.getMacroEnd());
-                }
+            revision = prevRevision.copy();
+            if (StringUtils.isEmpty(delimStart)) {
+                delimStart = prevRevision.getConfigContent().getDelimStart();
+            }
+            if (StringUtils.isEmpty(delimEnd)) {
+                delimEnd = prevRevision.getConfigContent().getDelimStart();
+            }
+
+            if (!StringUtils.isEmpty(form.getRevNumber())) {
+                revision.setRevision(Long.parseLong(form.getRevNumber()));
+            }
+            else {
+                revision.setRevision(ConfigurationFactory.getNextRevisionForFile(cf));
             }
         }
+        revision.setConfigContent(
+                ConfigurationFactory.createNewContentFromStream(
+                        form.getContentStream(), form.getContentSize(),
+                        form.isBinary(), delimStart, delimEnd));
+        revision.setChangedById(user.getId());
         revision.setConfigInfo(form.extractInfo());
         revision.setConfigFileType(form.getType());
         revision.setConfigFile(cf);
-        if (!StringUtils.isEmpty(form.getRevNumber())) {
-            revision.setRevision(Long.parseLong(form.getRevNumber()));
-        }
 
         // Committing the revision commits the file for us (which commits the
         // Channel, so everybody's pointers get updated...)
