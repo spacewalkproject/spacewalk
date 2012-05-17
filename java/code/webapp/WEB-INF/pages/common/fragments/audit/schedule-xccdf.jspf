@@ -12,14 +12,14 @@
 <tr>
 	<th><bean:message key="system.audit.schedulexccdf.jsp.arguments"/>:</th>
 	<td>
-		<html:text property="params" maxlength="2048" size="40" styleId="params"
+		<html:text property="params" maxlength="2048" size="60" styleId="params"
 			readonly="${readonly}"/>
 	</td>
 </tr>
 <tr>
 	<th><bean:message key="system.audit.schedulexccdf.jsp.path"/><span class="required-form-field">*</span>:</th>
 	<td>
-		<html:text property="path" size="40" styleId="path"
+		<html:text property="path" size="60" styleId="path"
 			readonly="${readonly}"/>
 	</td>
 </tr>
