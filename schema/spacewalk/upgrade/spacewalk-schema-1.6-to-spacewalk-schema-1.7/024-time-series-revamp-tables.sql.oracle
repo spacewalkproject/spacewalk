@@ -84,25 +84,24 @@ end;
 
 -- migration from time_series to time_series_data
 declare
-    minx varchar2(64);
-    maxx varchar2(64);
-    i number;
+    cur_rec_id number;
+    pre_rec_id number;
+    max_rec_id number;
 begin
-    select min(substr(o_id,
-                      instr(o_id, '-') + 1,
-                      (instr(o_id, '-', instr(o_id, '-') + 1) - instr(o_id, '-')) - 1
-                     )
-              ),
-           max(substr(o_id,
-                      instr(o_id, '-') + 1,
-                      (instr(o_id, '-', instr(o_id, '-') + 1) - instr(o_id, '-')) - 1
-                     )
-              ) into minx, maxx
-      from time_series;
+    select max(recid) into max_rec_id
+      from rhn_probe;
 
-    i := to_number(minx);
+	if max_rec_id is null then
+		return;
+    end if;
 
-    while i <= to_number(maxx) loop
+    pre_rec_id := 0;
+
+    loop
+        select min(recid) into cur_rec_id
+          from rhn_probe
+         where recid > pre_rec_id;
+
         insert /*+ append */ into time_series_data (org_id, probe_id, probe_desc, entry_time, data) (
             select t_ts.*
               from (select substr(ts.o_id, 1, instr(ts.o_id, '-', 1, 1) - 1),
@@ -117,13 +116,14 @@ begin
                            ts.entry_time,
                            ts.data
                       from time_series ts
-                   ) t_ts, rhn_probe rp
-             where t_ts.probe_id = rp.recid and
-                   t_ts.probe_id >= to_char(i) and
-                   t_ts.probe_id < to_char(i + 1)
+                   ) t_ts
+             where t_ts.probe_id = to_char(cur_rec_id)
         );
         commit;
-        i := i + 1;
+
+        exit when cur_rec_id = max_rec_id;
+
+        pre_rec_id := cur_rec_id;
     end loop;
 end;
 /
