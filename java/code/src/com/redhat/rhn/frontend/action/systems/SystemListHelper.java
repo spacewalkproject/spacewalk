@@ -79,6 +79,9 @@ public class SystemListHelper {
             img.setAttribute("src", "/img/icon_checkin.gif");
             img.setAttribute("alt", message);
             img.setAttribute("title", message);
+            if (makeLinks) {
+                makeLinks = ConfigDefaults.get().isDocAvailable();
+            }
         }
         else if (SystemManager.isKickstarting(user,
                  new Long(next.getId().longValue()))) {
@@ -169,6 +172,9 @@ public class SystemListHelper {
             lockedImg.setAttribute("src", "/img/icon_locked.gif");
             lockedImg.setAttribute("alt", message);
             lockedImg.setAttribute("title", message);
+            if (makeLinks) {
+                makeLinks = ConfigDefaults.get().isDocAvailable();
+            }
             if (makeLinks) {
                 lockedUrl.addBody(lockedImg);
                 statusDisplay = statusDisplay + lockedUrl.render();
