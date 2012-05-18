@@ -296,7 +296,7 @@ def get_source_package_path_by_name(server_id, packageName):
     rhnFlags.set("Download-Accelerator-Path", rs['path'])
     return filePath
 
-def get_info_for_package(pkg, channel_id):
+def get_info_for_package(pkg, channel_id, org_id):
     log_debug(3, pkg)
     pkg = map(str, pkg)
     params = {'name': pkg[0],
@@ -304,7 +304,8 @@ def get_info_for_package(pkg, channel_id):
               'rel': pkg[2],
               'epoch': pkg[3],
               'arch': pkg[4],
-              'channel_id': channel_id}
+              'channel_id': channel_id,
+              'org_id': org_id}
     # yum repo has epoch="0" not only when epoch is "0" but also if it's NULL
     if pkg[3] == '0' or pkg[3] == '':
         epochStatement = "(epoch is null or epoch = :epoch)"
@@ -330,6 +331,7 @@ def get_info_for_package(pkg, channel_id):
        and pe.release = :rel
        and %s
        and pa.label = :arch
+       and p.org_id = :org_id
      order by cp.channel_id nulls last
     """ % epochStatement
     h = rhnSQL.prepare(statement)

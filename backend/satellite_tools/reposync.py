@@ -313,7 +313,7 @@ class RepoSync(object):
         for pack in packages:
             db_pack = rhnPackage.get_info_for_package(
                    [pack.name, pack.version, pack.release, pack.epoch, pack.arch],
-                   channel_id)
+                   channel_id, int(self.channel['org_id']))
 
             to_download = True
             to_link     = True
