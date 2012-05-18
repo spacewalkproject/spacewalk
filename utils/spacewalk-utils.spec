@@ -1,7 +1,7 @@
 %define rhnroot %{_prefix}/share/rhn
 
 Name:		spacewalk-utils
-Version:	1.8.13
+Version:	1.8.14
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -87,6 +87,10 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Fri May 18 2012 Tomas Lestach <tlestach@redhat.com> 1.8.14-1
+- use spacewalk-setup-cobbler instead of outdated cobbler-setup
+- Revert "set localhost instead of hostname to tnsnames.ora and listener.ora"
+
 * Wed May 16 2012 Michael Mraka <michael.mraka@redhat.com> 1.8.13-1
 - added version for scientific linux default channel mapping
 
