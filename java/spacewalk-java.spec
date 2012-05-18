@@ -22,7 +22,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.69
+Version: 1.8.70
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -607,6 +607,12 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri May 18 2012 Tomas Lestach <tlestach@redhat.com> 1.8.70-1
+- 736661 - rewrite revision creation by config file update
+- Don't show empty table, if there is not ident assigned.
+- Extend input cell for 20 characters.
+- 822237 - there're no help pages in Spacewalk
+
 * Wed May 16 2012 Tomas Lestach <tlestach@redhat.com> 1.8.69-1
 - 736661 - prevent system.config.createOrUpdatePath causing deadlock
 
