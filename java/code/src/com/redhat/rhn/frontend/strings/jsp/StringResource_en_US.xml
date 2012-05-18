@@ -12032,10 +12032,10 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
          <source>Benchmark Version</source>
        </trans-unit>
        <trans-unit id="system.audit.xccdfdetails.jsp.profileid">
-         <source>Benchmark Identifier</source>
+         <source>Profile Identifier</source>
        </trans-unit>
        <trans-unit id="system.audit.xccdfdetails.jsp.title">
-         <source>Benchmark Title</source>
+         <source>Profile Title</source>
        </trans-unit>
        <trans-unit id="system.audit.xccdfdetails.jsp.started">
          <source>Started</source>
