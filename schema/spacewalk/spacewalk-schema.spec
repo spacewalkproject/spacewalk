@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.8.33
+Version:        1.8.34
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -68,6 +68,16 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Mon May 21 2012 Tomas Lestach <tlestach@redhat.com> 1.8.34-1
+- 822918 - fix various issues in PG variant of rhn_channel.convert_to_fve
+- Disable rhn_srv_net_iface_mod_trig while updating rhnServerNetInterface, so
+  that modified does not get modified.
+- %%defattr is not needed since rpm 4.4
+- fix sha1 sum
+- Improve rhnPackageChangeLog upgrade logic.
+- Improve upgrade time_series data move
+- Fix rhnPackageChangeLog upgrade logic.
+
 * Mon May 14 2012 Tomas Lestach <tlestach@redhat.com> 1.8.33-1
 - remove unused cursor
 
