@@ -22,7 +22,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.70
+Version: 1.8.71
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -605,6 +605,12 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon May 21 2012 Jan Pazdziora 1.8.71-1
+- %%defattr is not needed since rpm 4.4
+- Fix incorrect text fields.
+- Tables on SCAP pages should have corners rounded.
+- File RuleDetails page into correct item in navigation bar
+
 * Fri May 18 2012 Tomas Lestach <tlestach@redhat.com> 1.8.70-1
 - 736661 - rewrite revision creation by config file update
 - Don't show empty table, if there is not ident assigned.
