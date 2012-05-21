@@ -499,6 +499,12 @@ public class IndexManager {
             else if (indexName.compareTo(BuilderFactory.SERVER_CUSTOM_INFO_TYPE) == 0) {
                 pr = new ServerCustomInfoResult(x, hits.score(x), doc);
             }
+            else if (indexName.compareTo(BuilderFactory.XCCDF_IDENT_TYPE) == 0) {
+                pr = new Result(x,
+                        doc.getField("id").stringValue(),
+                        doc.getField("identifier").stringValue(),
+                        hits.score(x));
+            }
             else {
                 pr = new Result(x,
                         doc.getField("id").stringValue(),

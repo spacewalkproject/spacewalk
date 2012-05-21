@@ -114,6 +114,8 @@ public class DeleteIndexes {
                     indexWorkDir + File.separator + "snapshotTag"));
             indexes.add(new IndexInfo("deleteLastServerCustomInfo",
                     indexWorkDir + File.separator + "serverCustomInfo"));
+            indexes.add(new IndexInfo("deleteLastXccdfIdent",
+                    indexWorkDir + File.separator + "xccdfIdent"));
             for (IndexInfo info : indexes) {
                 deleteQuery(databaseManager, info.getQueryName());
                 if (!deleteIndexPath(info.getDirPath())) {

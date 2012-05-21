@@ -28,6 +28,7 @@ public class BuilderFactory {
     public static final String HARDWARE_DEVICE_TYPE = "hwdevice";
     public static final String SNAPSHOT_TAG_TYPE = "snapshotTag";
     public static final String SERVER_CUSTOM_INFO_TYPE = "serverCustomInfo";
+    public static final String XCCDF_IDENT_TYPE = "xccdfIdent";
     /**
      * Private constructor.
      */
@@ -58,6 +59,9 @@ public class BuilderFactory {
         }
         else if (SERVER_CUSTOM_INFO_TYPE.equals(type)) {
             return new ServerCustomInfoDocumentBuilder();
+        }
+        else if (XCCDF_IDENT_TYPE.equals(type)) {
+            return new XccdfIdentDocumentBuilder();
         }
         else {
             throw new UnsupportedOperationException(type +

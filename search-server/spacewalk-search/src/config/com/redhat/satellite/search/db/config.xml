@@ -35,4 +35,5 @@
  <sqlMap resource="com/redhat/satellite/search/db/hwdevice.xml" />
  <sqlMap resource="com/redhat/satellite/search/db/snapshot_tag.xml" />
   <sqlMap resource="com/redhat/satellite/search/db/server_custom_info.xml" />
+ <sqlMap resource="com/redhat/satellite/search/db/xccdf_ident.xml" />
 </sqlMapConfig>

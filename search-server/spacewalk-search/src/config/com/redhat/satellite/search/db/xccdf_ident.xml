@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap
+	PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="xccdfIdent">
+	<select id="getXccdfIdentById" parameterClass="java.util.Map"
+		resultClass="com.redhat.satellite.search.db.models.XccdfIdent">
+	SELECT id, identifier
+		FROM rhnXccdfIdent
+		WHERE id > #id#
+		ORDER BY id ASC
+	</select>
+	<select id="queryAllXccdfIdentIds" resultClass="Long">
+	SELECT id
+		FROM rhnXccdfIdent
+	</select>
+
+	<insert id="createLastXccdfIdent" parameterClass="java.util.Map">
+	INSERT INTO rhnIndexerWork
+		VALUES ('xccdf_ident', #id#, #last_modified#)
+	</insert>
+	<select id="getLastXccdfIdentId" resultClass="java.lang.Long">
+	SELECT last_id
+		FROM rhnIndexerWork
+		WHERE object_type='xccdf_ident'
+	</select>
+	<select id="getLastXccdfIdentIndexRun" resultClass="java.util.Date">
+	SELECT last_modified
+		FROM rhnIndexerWork
+		WHERE object_type='xccdf_ident'
+	</select>
+	<update id="updateLastXccdfIdent" parameterClass="java.util.Map">
+	UPDATE rhnIndexerWork
+		SET last_id = #id#, last_modified = #last_modified#
+		WHERE object_type = 'xccdf_ident'
+	</update>
+	<delete id="deleteLastXccdfIdent">
+	DELETE FROM rhnIndexerWork
+		WHERE object_type = 'xccdf_ident'
+	</delete>
+</sqlMap>

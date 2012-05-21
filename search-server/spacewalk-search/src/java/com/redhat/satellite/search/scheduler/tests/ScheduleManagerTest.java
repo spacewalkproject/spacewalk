@@ -40,6 +40,7 @@ public class ScheduleManagerTest extends BaseTestCase {
         assertTrue(sm.triggerIndexTask(BuilderFactory.SERVER_CUSTOM_INFO_TYPE));
         assertTrue(sm.triggerIndexTask(BuilderFactory.SERVER_TYPE));
         assertTrue(sm.triggerIndexTask(BuilderFactory.SNAPSHOT_TAG_TYPE));
+        assertTrue(sm.triggerIndexTask(BuilderFactory.XCCDF_IDENT_TYPE));
         assertFalse(sm.triggerIndexTask(BuilderFactory.DOCS_TYPE));
         assertFalse(sm.triggerIndexTask(null));
         assertFalse(sm.triggerIndexTask("biteme"));

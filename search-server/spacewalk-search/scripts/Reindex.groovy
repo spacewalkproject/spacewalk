@@ -21,7 +21,8 @@ def deleteQuery(config, queryName) {
 Configuration config = new Configuration()
 deleteQueries = ["deleteLastErrata", "deleteLastPackage", 
               "deleteLastServer", "deleteLastHardwareDevice", 
-              "deleteLastSnapshotTag", "deleteLastServerCustomInfo"]
+              "deleteLastSnapshotTag", "deleteLastServerCustomInfo",
+              "deleteLastXccdfIdent"]
 deleteQueries.each{deleteQuery(config, it)}
 
 println "Database has been prepared so we can re-index."
@@ -31,7 +32,8 @@ println "Previous indexes will be deleted on filesystem under ${indexWorkDir}"
 
 dirs = [indexWorkDir+"/package", indexWorkDir+"/errata", 
      indexWorkDir+"/server", indexWorkDir+"/hwdevice", 
-     indexWorkDir+"/snapshotTag", indexWorkDir+"/serverCustomInfo"]
+     indexWorkDir+"/snapshotTag", indexWorkDir+"/serverCustomInfo",
+     indexWorkDir+"/xccdfIdent"]
 dirs.each { 
     cmd = "rm -r $it"
     def proc = cmd.execute()

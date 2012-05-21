@@ -25,6 +25,7 @@ import com.redhat.satellite.search.scheduler.tasks.IndexSnapshotTagsTask;
 import com.redhat.satellite.search.scheduler.tasks.IndexServerCustomInfoTask;
 import com.redhat.satellite.search.scheduler.tasks.IndexSystemsTask;
 import com.redhat.satellite.search.scheduler.tasks.IndexHardwareDevicesTask;
+import com.redhat.satellite.search.scheduler.tasks.IndexXccdfIdentTask;
 
 import org.apache.log4j.Logger;
 
@@ -132,6 +133,10 @@ public class ScheduleManager implements Startable {
                     mode, interval,
                     IndexServerCustomInfoTask.class, jobData);
 
+            scheduleJob(scheduler, BuilderFactory.XCCDF_IDENT_TYPE,
+                    mode, interval,
+                    IndexXccdfIdentTask.class, jobData);
+
             scheduler.start();
         }
         catch (SchedulerException e) {
@@ -157,7 +162,8 @@ public class ScheduleManager implements Startable {
              BuilderFactory.PACKAGES_TYPE.equals(indexName) ||
              BuilderFactory.SERVER_CUSTOM_INFO_TYPE.equals(indexName) ||
              BuilderFactory.SERVER_TYPE.equals(indexName) ||
-             BuilderFactory.SNAPSHOT_TAG_TYPE.equals(indexName)) {
+             BuilderFactory.SNAPSHOT_TAG_TYPE.equals(indexName) ||
+             BuilderFactory.XCCDF_IDENT_TYPE.equals(indexName)) {
             return true;
         }
         else if (BuilderFactory.DOCS_TYPE.equals(indexName)) {
