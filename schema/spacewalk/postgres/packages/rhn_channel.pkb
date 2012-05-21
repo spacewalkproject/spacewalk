@@ -199,11 +199,11 @@ update pg_settings set setting = 'rhn_channel,' || setting where name = 'search_
          WHERE id = server_id_in;
 
 
-        perform obtain_read_lock(channel_family_id_val, server_org_id_val);
+        perform rhn_channel.obtain_read_lock(channel_family_id_val, server_org_id_val);
         if not found then
                 perform rhn_exception.raise_exception('channel_family_no_subscriptions');
         end if;
-        IF (can_convert_to_fve(server_id_in, channel_family_id_val ) = 0)
+        IF (rhn_channel.can_convert_to_fve(server_id_in, channel_family_id_val ) = 0)
             THEN
                 perform rhn_exception.raise_exception('server_cannot_convert_to_flex');
         END IF;
@@ -222,7 +222,7 @@ update pg_settings set setting = 'rhn_channel,' || setting where name = 'search_
                 where   cf.id = channel_family_id_val
             );
 
-            UPDATE rhnServerChannel sc set sc.is_fve = 'Y'
+            UPDATE rhnServerChannel sc set is_fve = 'Y'
                            where sc.server_id = server_id_in and
                                  sc.channel_id in
                                     (select cfm.channel_id from rhnChannelFamilyMembers cfm
