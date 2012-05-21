@@ -55,8 +55,7 @@ rm -rf %{buildroot}
 %{_bindir}/spacewalk-setup-jabberd
 %{_mandir}/man1/*
 %{_datadir}/spacewalk/*
-%dir %{_sysconfdir}/pki/spacewalk
-%dir %{_sysconfdir}/pki/spacewalk/jabberd
+%{_sysconfdir}/pki/spacewalk
 
 %changelog
 * Wed Dec 21 2011 Milan Zazrivec <mzazrivec@redhat.com> 1.6.5-1
