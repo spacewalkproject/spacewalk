@@ -1,5 +1,5 @@
 Name:           spacewalk-setup-jabberd
-Version:        1.8.0
+Version:        1.8.1
 Release:        1%{?dist}
 Summary:        Tools to setup jabberd for Spacewalk
 Group:          Applications/System
@@ -57,6 +57,12 @@ rm -rf %{buildroot}
 %{_sysconfdir}/pki/spacewalk
 
 %changelog
+* Mon May 21 2012 Miroslav Suchý <msuchy@redhat.com> 1.8.1-1
+- %%defattr is not needed since rpm 4.4
+- 807479 - simplify pki declaration
+- 807479 - require spacewalk-branding
+- Bumping package versions for 1.8.
+
 * Wed Dec 21 2011 Milan Zazrivec <mzazrivec@redhat.com> 1.6.5-1
 - update copyright info
 
