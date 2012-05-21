@@ -1,7 +1,7 @@
 %define rhnroot %{_prefix}/share/rhn
 
 Name:		spacewalk-utils
-Version:	1.8.14
+Version:	1.8.15
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -86,6 +86,10 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Mon May 21 2012 Jan Pazdziora 1.8.15-1
+- Fix refsection build error.
+- %%defattr is not needed since rpm 4.4
+
 * Fri May 18 2012 Tomas Lestach <tlestach@redhat.com> 1.8.14-1
 - use spacewalk-setup-cobbler instead of outdated cobbler-setup
 - Revert "set localhost instead of hostname to tnsnames.ora and listener.ora"
