@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        1.8.8
+Version:        1.8.9
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -109,6 +109,10 @@ rm -rf %{buildroot}
 %{_mandir}/man8/spacewalk-make-mount-points*
 
 %changelog
+* Mon May 21 2012 Jan Pazdziora 1.8.9-1
+- %%defattr is not needed since rpm 4.4
+- remove usage of rhn_quota package
+
 * Fri May 04 2012 Jan Pazdziora 1.8.8-1
 - spacewalk-setup-cobbler: extend verbose output (mzazrivec@redhat.com)
 
