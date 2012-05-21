@@ -503,7 +503,7 @@ class UploadClass:
         if source:
             lh.append('src')
         else:
-            lh.append(h['arch'])
+            lh.append(a_pkg.header['arch'])
 
         # Build the header hash to be sent
         hash = { 'header' : Binary(a_pkg.header.unload()),
