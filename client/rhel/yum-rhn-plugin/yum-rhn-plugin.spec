@@ -62,7 +62,6 @@ if [ $1 -gt 1 ] && [ -f "$pluginconf" ] && [ -f "/var/tmp/enable-yum-rhn-plugin"
 fi
 
 %files -f %{name}.lang
-%defattr(-,root,root,-)
 %verify(not md5 mtime size) %config(noreplace) %{_sysconfdir}/yum/pluginconf.d/rhnplugin.conf
 %dir /var/lib/up2date
 %{_mandir}/man*/*

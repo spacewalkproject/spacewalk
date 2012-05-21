@@ -36,7 +36,6 @@ install *.8 $RPM_BUILD_ROOT/%{_mandir}/man8
 rm -rf $RPM_BUILD_ROOT
 
 %files
-%defattr(-,root,root)
 %attr(755,root,root) %{_bindir}/spacewalk-report
 %{_datadir}/spacewalk/reports.py*
 %{_datadir}/spacewalk/reports

@@ -55,7 +55,6 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %files
-%defattr(-,root,root,-)
 %doc ChangeLog COPYING README TODO
 
 %{python_sitelib}/*

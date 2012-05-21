@@ -333,7 +333,6 @@ echo "server.secret_key = $secret_key" >> %{rhnconf}/rhn.conf
 rm -f %{rhnconf}/rhnSecret.py*
 
 %files
-%defattr(-,root,root)
 %doc LICENSE
 %dir %{pythonrhnroot}
 %dir %{pythonrhnroot}/common
@@ -365,7 +364,6 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{rhnroot}/wsgi/wsgiRequest.py*
 
 %files sql
-%defattr(-,root,root)
 %doc LICENSE
 # Need __init__ = share it with rhns-server
 %dir %{pythonrhnroot}/server
@@ -378,17 +376,14 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{pythonrhnroot}/server/rhnSQL/sql_*.py*
 
 %files sql-oracle
-%defattr(-,root,root,-)
 %doc LICENSE
 %{pythonrhnroot}/server/rhnSQL/driver_cx_Oracle.py*
 
 %files sql-postgresql
-%defattr(-,root,root,-)
 %doc LICENSE
 %{pythonrhnroot}/server/rhnSQL/driver_postgresql.py*
 
 %files server -f %{name}-server.lang
-%defattr(-,root,root)
 %doc LICENSE
 # modules
 %{pythonrhnroot}/server/apacheAuth.py*
@@ -467,7 +462,6 @@ rm -f %{rhnconf}/rhnSecret.py*
 %config(noreplace) %{_sysconfdir}/logrotate.d/spacewalk-backend-server
 
 %files xmlrpc
-%defattr(-,root,root) 
 %doc LICENSE
 %dir %{rhnroot}/server/handlers/xmlrpc
 %{rhnroot}/server/handlers/xmlrpc/*
@@ -481,7 +475,6 @@ rm -f %{rhnconf}/rhnSecret.py*
 %config(noreplace) %{_sysconfdir}/logrotate.d/spacewalk-backend-xmlrpc
 
 %files applet
-%defattr(-,root,root)
 %doc LICENSE
 %dir %{rhnroot}/server/handlers/applet
 %{rhnroot}/server/handlers/applet/*
@@ -491,7 +484,6 @@ rm -f %{rhnconf}/rhnSecret.py*
 %config(noreplace) %{_sysconfdir}/logrotate.d/spacewalk-backend-applet
 
 %files app
-%defattr(-,root,root)
 %doc LICENSE
 %dir %{rhnroot}/server/handlers/app
 %{rhnroot}/server/handlers/app/*
@@ -501,7 +493,6 @@ rm -f %{rhnconf}/rhnSecret.py*
 %config(noreplace) %{_sysconfdir}/logrotate.d/spacewalk-backend-app
 
 %files xp
-%defattr(-,root,root)
 %doc LICENSE
 %dir %{rhnroot}/server/handlers/xp
 %{rhnroot}/server/handlers/xp/*
@@ -511,7 +502,6 @@ rm -f %{rhnconf}/rhnSecret.py*
 %config(noreplace) %{_sysconfdir}/logrotate.d/spacewalk-backend-xp
 
 %files iss
-%defattr(-,root,root)
 %doc LICENSE
 %dir %{rhnroot}/server/handlers/sat
 %{rhnroot}/server/handlers/sat/*
@@ -519,7 +509,6 @@ rm -f %{rhnconf}/rhnSecret.py*
 %attr(644,root,apache) %config %{httpdconf}/rhn/spacewalk-backend-sat.conf
 
 %files iss-export
-%defattr(-,root,root)
 %doc LICENSE
 %dir %{pythonrhnroot}/satellite_exporter
 %{pythonrhnroot}/satellite_exporter/__init__.py*
@@ -536,7 +525,6 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 
 %files libs
-%defattr(-,root,root)
 %doc LICENSE
 %{pythonrhnroot}/__init__.py*
 %dir %{pythonrhnroot}/common
@@ -550,14 +538,12 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{pythonrhnroot}/common/rhn_rpm.py*
 
 %files config-files-common
-%defattr(-,root,root)
 %doc LICENSE
 %{pythonrhnroot}/server/configFilesHandler.py*
 %dir %{pythonrhnroot}/server/config_common
 %{pythonrhnroot}/server/config_common/*
 
 %files config-files
-%defattr(-,root,root)
 %doc LICENSE
 %dir %{rhnroot}/server/handlers/config
 %{rhnroot}/server/handlers/config/*
@@ -566,7 +552,6 @@ rm -f %{rhnconf}/rhnSecret.py*
 %config(noreplace) %{_sysconfdir}/logrotate.d/spacewalk-backend-config-files
 
 %files config-files-tool
-%defattr(-,root,root)
 %doc LICENSE
 %dir %{rhnroot}/server/handlers/config_mgmt
 %{rhnroot}/server/handlers/config_mgmt/*
@@ -575,7 +560,6 @@ rm -f %{rhnconf}/rhnSecret.py*
 %config(noreplace) %{_sysconfdir}/logrotate.d/spacewalk-backend-config-files-tool
 
 %files package-push-server
-%defattr(-,root,root)
 %doc LICENSE
 %dir %{rhnroot}/upload_server
 %{rhnroot}/upload_server/__init__.py*
@@ -588,7 +572,6 @@ rm -f %{rhnconf}/rhnSecret.py*
 %attr(644,root,apache) %config %{httpdconf}/rhn/spacewalk-backend-package-push.conf
 
 %files tools
-%defattr(-,root,root)
 %doc LICENSE
 %attr(644,root,apache) %{rhnconfigdefaults}/rhn_server_satellite.conf
 %config(noreplace) %{_sysconfdir}/logrotate.d/spacewalk-backend-tools
@@ -655,7 +638,6 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{_mandir}/man8/rhn-entitlement-report.8*
 
 %files xml-export-libs
-%defattr(-,root,root)
 %doc LICENSE
 %dir %{pythonrhnroot}/satellite_tools
 %{pythonrhnroot}/satellite_tools/__init__.py*

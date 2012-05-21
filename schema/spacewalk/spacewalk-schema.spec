@@ -59,7 +59,6 @@ cp -p spacewalk-sql.1 $RPM_BUILD_ROOT%{_mandir}/man1
 rm -rf $RPM_BUILD_ROOT
 
 %files
-%defattr(-,root,root)
 %{oracle}
 %{postgres}
 %{rhnroot}/schema-upgrade

@@ -167,15 +167,12 @@ done
 rm -rf %{buildroot}
 
 %files common
-%defattr(-,root,root)
 %{_sysconfdir}/spacewalk-release
 
 %files oracle
-%defattr(-,root,root)
 %{_datadir}/spacewalk/setup/defaults.d/oracle-backend.conf
 
 %files postgresql
-%defattr(-,root,root)
 %{_datadir}/spacewalk/setup/defaults.d/postgresql-backend.conf
 
 %changelog

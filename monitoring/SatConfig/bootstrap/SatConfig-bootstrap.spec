@@ -31,7 +31,6 @@ mkdir -p $RPM_BUILD_ROOT%{_bindir}
 install -m 755 npBootstrap.pl $RPM_BUILD_ROOT%{_bindir}
 
 %files
-%defattr(-,root,root,-)
 %{_bindir}/npBootstrap.pl
 
 %clean

@@ -93,7 +93,6 @@ install tomcat-setenv.sh $RPM_BUILD_ROOT%{_datadir}/%{tomcatname}/bin/setenv.sh
 rm -rf $RPM_BUILD_ROOT
 
 %files
-%defattr(-,root,root,-)
 %ifarch x86_64 s390x
 %{_bindir}/sqlplus
 %{_libdir}/oracle

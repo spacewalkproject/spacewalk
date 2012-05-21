@@ -97,7 +97,6 @@ rm -rf %{buildroot}
 
 
 %files
-%defattr(-,root,root,-)
 %doc Changes README answers.txt
 %{perl_vendorlib}/*
 %{_bindir}/spacewalk-setup

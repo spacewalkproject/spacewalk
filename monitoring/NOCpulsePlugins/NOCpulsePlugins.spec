@@ -63,7 +63,6 @@ if [ $1 -eq 2 ]; then
 fi
 
 %files
-%defattr(-,root,root,-)
 %dir %{_sysconfdir}/nocpulse
 %dir %attr(-, nocpulse,nocpulse) %{_var}/lib/nocpulse
 %attr(-,nocpulse,nocpulse) %dir %{_var}/lib/nocpulse/ProbeState
@@ -81,7 +80,6 @@ fi
 %{_bindir}/*
 
 %files Oracle
-%defattr(-,root,root,-)
 %{_var}/lib/nocpulse/libexec/Oracle*
 
 %clean

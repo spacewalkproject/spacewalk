@@ -31,7 +31,6 @@ install -m 444 AcceptStatusLog.pm $RPM_BUILD_ROOT%{perl_vendorlib}/NOCpulse
 #install -m 444 test/TestAcceptStatusLog.pm $RPM_BUILD_ROOT%{perl_vendorlib}/NOCpulse/AcceptStatusLog/test
 
 %files
-%defattr(-,root,root,-)
 %{perl_vendorlib}/NOCpulse/*
 
 %clean

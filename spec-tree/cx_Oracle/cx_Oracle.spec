@@ -61,7 +61,6 @@ export ORACLE_HOME=%{oracle_home}
 rm -rf $RPM_BUILD_ROOT
 
 %files -f INSTALLED_FILES
-%defattr(-,root,root)
 %doc LICENSE.txt README.txt BUILD.txt HISTORY.txt html samples test
 
 %changelog

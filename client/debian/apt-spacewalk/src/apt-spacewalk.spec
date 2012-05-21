@@ -17,7 +17,6 @@ apt-spacewalk is plugin used on Debian clients
 to acquire content from Spacewalk server
 
 %files
-%defattr(-,root,root,-)
 
 %changelog
 * Thu Apr 28 2011 Simon Lukasik <slukasik@redhat.com> 1.0.4-1

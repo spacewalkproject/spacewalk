@@ -43,7 +43,6 @@ rm -rf %{buildroot}
 
 
 %files
-%defattr(-,root,root,-)
 %{_bindir}/spacewalk-pylint
 %config(noreplace)  %{_sysconfdir}/spacewalk-pylint.rc
 %doc %{_mandir}/man8/spacewalk-pylint.8*

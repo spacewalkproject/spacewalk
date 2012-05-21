@@ -31,7 +31,6 @@ install -m 755 -d $RPM_BUILD_ROOT
 rm -rf $RPM_BUILD_ROOT
 
 %files
-%defattr(-,root,root)
 %doc *.pdf
 %doc LICENSE
 %doc squid.conf.sample

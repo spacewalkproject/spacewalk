@@ -74,7 +74,6 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 %endif
 
 %files
-%defattr(-,root,root)
 %config %{_sysconfdir}/rhn/spacewalk-common-channels.ini
 %attr(755,root,root) %{_bindir}/*
 %dir %{rhnroot}/utils

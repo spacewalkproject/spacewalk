@@ -48,7 +48,6 @@ install -m 555 describeClusterIni $RPM_BUILD_ROOT%sysv_dir
 install -m 644 SatCluster.pm $RPM_BUILD_ROOT%{perl_vendorlib}/NOCpulse/
  
 %files
-%defattr(-,root,root,-)
 %doc Cluster.ini.example
 %sysv_dir/*
 %{perl_vendorlib}/NOCpulse/*

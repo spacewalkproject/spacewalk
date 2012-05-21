@@ -45,7 +45,6 @@ make test
 rm -rf $RPM_BUILD_ROOT
 
 %files 
-%defattr(-,root,root,-)
 %{perl_vendorlib}/*
 %{_mandir}/man3/*
 %doc LICENSE

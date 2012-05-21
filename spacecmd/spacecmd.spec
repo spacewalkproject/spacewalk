@@ -51,7 +51,6 @@ touch %{buildroot}/%{python_sitelib}/spacecmd/__init__.py
 %{__rm} -rf %{buildroot}
 
 %files
-%defattr(-,root,root,-)
 %{_bindir}/spacecmd
 %{python_sitelib}/spacecmd/
 %ghost %config %{_sysconfdir}/spacecmd.conf

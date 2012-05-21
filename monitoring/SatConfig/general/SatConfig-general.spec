@@ -44,7 +44,6 @@ install -D -m 644 NOCpulse-ini.8 $RPM_BUILD_ROOT%{_mandir}/man8/NOCpulse-ini.8
 install -D -p -m 755 NOCpulse-ini $RPM_BUILD_ROOT%{_sbindir}/NOCpulse-ini
 
 %files
-%defattr(-,root,root,-)
 %dir %sysv_dir
 %dir %installed_dir
 %sysv_dir/*.pm

@@ -49,7 +49,6 @@ make test
 rm -rf $RPM_BUILD_ROOT
 
 %files
-%defattr(-,root,root,-)
 %config(noreplace) %{_sysconfdir}/nocpulse/logging.ini
 %dir %{perl_vendorlib}/NOCpulse
 %{perl_vendorlib}/NOCpulse/*

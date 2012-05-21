@@ -102,7 +102,6 @@ fi
 /sbin/restorecon -rvvi /var/log/rhn /var/cache/rhn/proxy-auth /var/spool/rhn-proxy
 
 %files
-%defattr(-,root,root,0755)
 %doc %{modulename}.fc %{modulename}.if %{modulename}.te
 %{_datadir}/selinux/*/%{modulename}.pp
 %{_datadir}/selinux/devel/include/%{moduletype}/%{modulename}.if

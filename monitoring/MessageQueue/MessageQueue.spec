@@ -60,7 +60,6 @@ if [ $1 -eq 2 ]; then
 fi
 
 %files
-%defattr(-,root,root,-)
 %attr(755,nocpulse,nocpulse) %dir %queue_dir
 %attr(755,nocpulse,nocpulse) %dir %states_qdir
 %attr(755,nocpulse,nocpulse) %dir %notif_qdir

@@ -106,7 +106,6 @@ fi
     %{_bindir}/rhn-sudo-ssl-tool /usr/sbin/tanukiwrapper
 
 %files
-%defattr(-,root,root,0755)
 %doc %{modulename}.fc %{modulename}.if %{modulename}.te
 %{_datadir}/selinux/*/%{modulename}.pp
 %{_datadir}/selinux/devel/include/%{moduletype}/%{modulename}.if

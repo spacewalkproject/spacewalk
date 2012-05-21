@@ -113,7 +113,6 @@ if [ $1 = 0 ] ; then
 fi
 
 %files
-%defattr(644,root,root,755)
 %attr(755, root, root) %{_var}/log/rhn/search
 %{_prefix}/share/rhn/search/lib/*
 %attr(755, root, root) %{_prefix}/share/rhn/search/indexes

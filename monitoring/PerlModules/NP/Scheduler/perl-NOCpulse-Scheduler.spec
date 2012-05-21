@@ -48,7 +48,6 @@ if [ $1 -eq 2 ]; then
 fi
 
 %files 
-%defattr(-,root,root,-)
 %{perl_vendorlib}/NOCpulse/*
 %{_bindir}/kernel.pl
 %attr(755,nocpulse,nocpulse) %{_var}/lib/nocpulse

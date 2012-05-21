@@ -35,7 +35,6 @@ install -m755 rhn-ssl-cert-check $RPM_BUILD_ROOT/%{_sysconfdir}/cron.daily/rhn-s
 rm -rf $RPM_BUILD_ROOT
 
 %files
-%defattr(-,root,root,-) 
 %attr(0755,root,root) %{_sysconfdir}/cron.daily/rhn-ssl-cert-check
 %doc LICENSE
 

@@ -36,7 +36,6 @@ mkdir -p $RPM_BUILD_ROOT%{_mandir}/man3/
 /usr/bin/pod2man $RPM_BUILD_ROOT%{perl_vendorlib}/NOCpulse/Module.pm |gzip > $RPM_BUILD_ROOT%{_mandir}/man3/NOCpulse::Module.3pm.gz
 
 %files 
-%defattr(-,root,root)
 %dir %{perl_vendorlib}/NOCpulse
 %{perl_vendorlib}/NOCpulse/*
 %{_mandir}/man3/*

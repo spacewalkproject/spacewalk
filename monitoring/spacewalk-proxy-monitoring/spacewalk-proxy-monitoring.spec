@@ -92,7 +92,6 @@ fi
 rm -rf $RPM_BUILD_ROOT
 
 %files
-%defattr(-, root,root,-)
 %config %{_sysconfdir}/satname
 %{_initrddir}/*
 %{_sbindir}/*

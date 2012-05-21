@@ -258,7 +258,6 @@ fi
 
 
 %files broker
-%defattr(-,root,root)
 %dir %{destdir}
 %{destdir}/broker/__init__.py*
 %{destdir}/broker/rhnBroker.py*
@@ -271,7 +270,6 @@ fi
 %attr(644,root,apache) %{_prefix}/share/rhn/config-defaults/rhn_proxy_broker.conf
 
 %files redirect
-%defattr(-,root,root)
 %dir %{destdir}
 %{destdir}/redirect/__init__.py*
 %{destdir}/redirect/rhnRedirect.py*
@@ -281,7 +279,6 @@ fi
 %attr(644,root,apache) %{_prefix}/share/rhn/config-defaults/rhn_proxy_redirect.conf
 
 %files common
-%defattr(-,root,root)
 %dir %{destdir}
 %{destdir}/__init__.py*
 %{destdir}/apacheServer.py*
@@ -314,7 +311,6 @@ fi
 %attr(750,apache,root) %dir %{_var}/cache/rhn/proxy-auth
 
 %files package-manager
-%defattr(-,root,root)
 # config files
 %attr(644,root,apache) %{_prefix}/share/rhn/config-defaults/rhn_proxy_package_manager.conf
 %{_bindir}/rhn_package_manager
@@ -324,7 +320,6 @@ fi
 %{_mandir}/man8/rhn_package_manager.8.gz
 
 %files management
-%defattr(-,root,root)
 # dirs
 %dir %{destdir}
 # start/stop script

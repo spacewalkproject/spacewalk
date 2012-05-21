@@ -76,7 +76,6 @@ mkdir -p $RPM_BUILD_ROOT%{_mandir}/man3
 rm -rf $RPM_BUILD_ROOT
 
 %files 
-%defattr(-,root,root,-)
 %{_bindir}/rhn-runprobe
 %{_bindir}/monitoring-data-cleanup
 %dir %{perl_vendorlib}/NOCpulse
@@ -139,7 +138,6 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %files Oracle
-%defattr(-,root,root,-)
 %{perl_vendorlib}/NOCpulse/Probe/DataSource/CannedOracle.pm
 %{perl_vendorlib}/NOCpulse/Probe/DataSource/Oracle.pm
 %{perl_vendorlib}/NOCpulse/Probe/DataSource/test/TestOracle.pm

@@ -33,7 +33,6 @@ mkdir -p $RPM_BUILD_ROOT%{_bindir}
 install -m 755 ssl_bridge.pl $RPM_BUILD_ROOT%{_bindir}
 
 %files
-%defattr(-,root,root,-)
 %{_bindir}/ssl_bridge.pl
 
 %clean

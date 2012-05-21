@@ -50,7 +50,6 @@ rm -rf %{buildroot}
 
 
 %files
-%defattr(-,root,root,-)
 %doc LICENSE
 %{_bindir}/spacewalk-setup-jabberd
 %{_mandir}/man1/*

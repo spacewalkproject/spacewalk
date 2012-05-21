@@ -84,7 +84,6 @@ if [ "$1" = "0" ]; then
 fi
 
 %files
-%defattr(-,root,root,-)
 %{_javadir}/*
 /usr/lib/libjpam.so
 
@@ -92,7 +91,6 @@ fi
 %{_docdir}/*
 
 %files javadoc
-%defattr(0644,root,root,0755)
 %{_javadocdir}/%{name}-%{version}
 
 %changelog

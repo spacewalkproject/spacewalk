@@ -73,7 +73,6 @@ mkdir -p $RPM_BUILD_ROOT/%{_localstatedir}/spool/rhn
 rm -rf $RPM_BUILD_ROOT
 
 %files
-%defattr(-,root,root,-)
 %if 0%{?suse_version}
 %dir %{_sharedstatedir}
 %endif
@@ -84,21 +83,18 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %files client
-%defattr(-,root,root,-)
 %{rhnroot}/config_client
 %{_bindir}/rhncfg-client
 %attr(644,root,root) %config(noreplace) %{rhnconf}/rhncfg-client.conf
 %{_mandir}/man8/rhncfg-client.8*
 
 %files management
-%defattr(-,root,root,-)
 %{rhnroot}/config_management
 %{_bindir}/rhncfg-manager
 %attr(644,root,root) %config(noreplace) %{rhnconf}/rhncfg-manager.conf
 %{_mandir}/man8/rhncfg-manager.8*
 
 %files actions
-%defattr(-,root,root,-)
 %{rhnroot}/actions
 %{_bindir}/rhn-actions-control
 %config(noreplace) %{client_caps_dir}/*

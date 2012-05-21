@@ -45,7 +45,6 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %files
-%defattr(-,root,root)
 %dir %{rhnroot}/rhnpush
 %{rhnroot}/rhnpush/*
 %attr(755,root,root) %{_bindir}/rhnpush

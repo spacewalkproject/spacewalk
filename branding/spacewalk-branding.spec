@@ -61,7 +61,6 @@ rm -rf %{buildroot}
 
 
 %files
-%defattr(-,root,root,-)
 %config(noreplace) %{_sysconfdir}/httpd/conf.d/zz-spacewalk-branding.conf
 %dir %{_var}/www/html/css
 %{_var}/www/html/css/*

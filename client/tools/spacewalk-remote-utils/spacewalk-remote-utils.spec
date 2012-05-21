@@ -49,7 +49,6 @@ docbook2man ./spacewalk-create-channel/doc/spacewalk-create-channel.sgml -o ./sp
 %{__rm} -rf %{buildroot}
 
 %files
-%defattr(-,root,root,-)
 %{_bindir}/spacewalk-add-providers
 %{_bindir}/spacewalk-create-channel
 #%{python_sitelib}/spacecmd/

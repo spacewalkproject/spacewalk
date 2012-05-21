@@ -52,7 +52,6 @@ touch $RPM_BUILD_ROOT/var/run/.keep
 rm -rf $RPM_BUILD_ROOT
 
 %files
-%defattr(-,root,root)
 %{shareroot}/rhn/*
 /usr/sbin/*
 %{python_sitelib}/rhn/*

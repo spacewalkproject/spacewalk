@@ -75,7 +75,6 @@ if [ $1 -eq 2 ]; then
 fi
 
 %files
-%defattr(-,root,root,-)
 %{init_script}
 %{_bindir}/*
 %attr(755,apache,apache) %dir %bdbdir

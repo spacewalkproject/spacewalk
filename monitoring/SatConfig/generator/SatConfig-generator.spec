@@ -44,7 +44,6 @@ install -m 644 GenerateConfig.pm $RPM_BUILD_ROOT%{install_prefix}
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 %files
-%defattr(-,root,root,-)
 %dir %{install_prefix}
 %dir %attr(-,nocpulse,nocpulse) %{db_dir}
 %{install_prefix}/ConfigDocument.pm

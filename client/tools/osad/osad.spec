@@ -215,7 +215,6 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 %endif
 
 %files
-%defattr(-,root,root)
 %dir %{rhnroot}/osad
 %attr(755,root,root) %{_sbindir}/osad
 %{rhnroot}/osad/__init__.py*
@@ -240,7 +239,6 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 %endif
 
 %files -n osa-dispatcher
-%defattr(-,root,root)
 %dir %{rhnroot}/osad
 %attr(755,root,root) %{_sbindir}/osa-dispatcher
 %{rhnroot}/osad/__init__.py*
@@ -267,7 +265,6 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 
 %if 0%{?include_selinux_package}
 %files -n osa-dispatcher-selinux
-%defattr(-,root,root,0755)
 %doc osa-dispatcher-selinux/%{modulename}.fc
 %doc osa-dispatcher-selinux/%{modulename}.if
 %doc osa-dispatcher-selinux/%{modulename}.te

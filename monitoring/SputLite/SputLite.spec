@@ -81,14 +81,12 @@ if [ $1 -eq 2 ]; then
 fi
 
 %files server
-%defattr(-,root,root,-)
 %attr(755, nocpulse, nocpulse) %dir %templatedir
 %cgi_bin/*
 %cgi_mod_perl/*
 %templatedir/*
 
 %files client
-%defattr(-,root,root,-)
 %attr(755,nocpulse,nocpulse) %dir %{vardir}/commands
 %attr(755,nocpulse,nocpulse) %dir %{vardir}/queue/commands
 %{_bindir}/*

@@ -40,7 +40,6 @@ make -f Makefile.spacewalk-koan install PREFIX=$RPM_BUILD_ROOT ROOT=%{_datadir}/
 rm -rf $RPM_BUILD_ROOT
 
 %files
-%defattr(-,root,root,-)
 %config(noreplace)  %{_sysconfdir}/sysconfig/rhn/clientCaps.d/kickstart
 %{_sbindir}/*
 %{_datadir}/rhn/spacewalkkoan/

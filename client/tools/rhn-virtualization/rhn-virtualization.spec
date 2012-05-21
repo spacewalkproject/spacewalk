@@ -104,7 +104,6 @@ fi
 %endif
 
 %files common
-%defattr(-,root,root,-)
 %dir %{rhn_dir}/virtualization
 %{rhn_dir}/virtualization/__init__.py*
 %{rhn_dir}/virtualization/batching_log_notifier.py*
@@ -115,7 +114,6 @@ fi
 %doc LICENSE
 
 %files host
-%defattr(-,root,root,-)
 %dir %{rhn_conf_dir}/virt
 %dir %{rhn_conf_dir}/virt/auto
 %{_initrddir}/rhn-virtualization-host

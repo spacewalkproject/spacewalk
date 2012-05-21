@@ -189,7 +189,6 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %files -f %{name}.lang
-%defattr(-,root,root,-)
 # some info about mirrors
 %doc doc/mirrors.txt 
 %doc doc/AUTHORS
@@ -243,7 +242,6 @@ make -f Makefile.rhn-client-tools test
 %{_datadir}/rhn/RHNS-CA-CERT
 
 %files -n rhn-check
-%defattr(-,root,root,-)
 %dir %{_datadir}/rhn/actions
 %{_mandir}/man8/rhn_check.8*
 
@@ -260,7 +258,6 @@ make -f Makefile.rhn-client-tools test
 %{_datadir}/rhn/actions/up2date_config.*
 
 %files -n rhn-setup
-%defattr(-,root,root,-)
 %{_mandir}/man8/rhnreg_ks.8*
 %{_mandir}/man8/rhn_register.8*
 %{_mandir}/man8/spacewalk-channel.8*
@@ -290,7 +287,6 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %files -n rhn-setup-gnome
-%defattr(-,root,root,-)
 %{_datadir}/rhn/up2date_client/messageWindow.*
 %{_datadir}/rhn/up2date_client/rhnregGui.*
 %{_datadir}/rhn/up2date_client/rh_register.glade

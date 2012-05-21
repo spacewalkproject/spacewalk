@@ -24,7 +24,6 @@ mkdir -p $RPM_BUILD_ROOT%{_bindir}
 install -m 755 getSpreadConfig $RPM_BUILD_ROOT%{_bindir}
 
 %files
-%defattr(-,root,root,-)
 %{_bindir}/getSpreadConfig
 %doc README
 

@@ -47,7 +47,6 @@ env %{__python} setup.py build
 %{__rm} -rf %{buildroot}
 
 %files
-%defattr(-, root, root, 0755)
 %doc HACKING IDEAS LICENSE README TODO doc/*
 %{_bindir}/smart
 %{_bindir}/up2date

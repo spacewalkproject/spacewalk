@@ -63,7 +63,6 @@ make PREFIX=$RPM_BUILD_ROOT%{_prefix} pure_install
 rm -f `find $RPM_BUILD_ROOT -type f -name perllocal.pod -o -name .packlist`
 
 %files
-%defattr(-,root,root)
 %{perl_vendorarch}/auto/DBD/
 %{perl_vendorarch}/DBD/
 %{perl_vendorarch}/Oraperl.pm
@@ -71,7 +70,6 @@ rm -f `find $RPM_BUILD_ROOT -type f -name perllocal.pod -o -name .packlist`
 %{_mandir}/man3/*
 
 %files explain
-%defattr(-,root,root)
 %{_bindir}/ora_explain
 %{_mandir}/man1/ora_explain.1.gz
 

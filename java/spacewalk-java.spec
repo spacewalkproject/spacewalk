@@ -587,14 +587,12 @@ fi
 
 
 %files config
-%defattr(644, root, root)
 %{_prefix}/share/rhn/config-defaults/rhn_hibernate.conf
 %{_prefix}/share/rhn/config-defaults/rhn_taskomatic_daemon.conf
 %{_prefix}/share/rhn/config-defaults/rhn_org_quartz.conf
 %config %{_sysconfdir}/logrotate.d/rhn_web_api
 
 %files lib
-%defattr(644, root, root)
 %{_datadir}/rhn/classes/log4j.properties
 %{_datadir}/rhn/lib/rhn.jar
 

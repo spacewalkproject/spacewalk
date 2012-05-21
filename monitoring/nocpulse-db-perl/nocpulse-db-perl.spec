@@ -34,7 +34,6 @@ install -m644 Database.pm $RPM_BUILD_ROOT%{perl_vendorlib}/NOCpulse/
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 %files
-%defattr(-,root,root,-)
 %{perl_vendorlib}/NOCpulse/*
 
 %clean

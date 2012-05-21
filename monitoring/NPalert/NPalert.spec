@@ -106,7 +106,6 @@ if [ $1 -eq 2 ]; then
 fi
 
 %files
-%defattr(-,root,root,-)
 %{_sysconfdir}/cron.d/notification
 %{httpd_prefix}
 %dir %attr(-, %notif_user,%notif_user) %install_prefix

@@ -80,7 +80,6 @@ spacewalk-pylint $RPM_BUILD_ROOT/usr/share/rhn
 %endif
 
 %files
-%defattr(-,root,root,-)
 %dir %{defaultdir}
 %{defaultdir}/cluster.ini
 %{defaultdir}/squid.conf

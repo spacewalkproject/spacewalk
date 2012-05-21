@@ -34,7 +34,6 @@ cp -p pifconfig.py %{buildroot}%{_sbindir}/pifconfig
 rm -rf %{buildroot}
 
 %files
-%defattr(-,root,root)
 %doc COPYING
 %{_sbindir}/pethtool
 %{_sbindir}/pifconfig

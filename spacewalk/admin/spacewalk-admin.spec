@@ -49,7 +49,6 @@ ln -s spacewalk-service $RPM_BUILD_ROOT%{_sbindir}/rhn-satellite
 rm -rf $RPM_BUILD_ROOT
 
 %files
-%defattr(-,root,root)
 %doc LICENSE
 %dir %{rhnroot}
 %{_sbindir}/spacewalk-service

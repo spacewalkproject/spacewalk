@@ -207,14 +207,12 @@ if [ $1 -eq 0 ]; then
 fi
 
 %files
-%defattr(-,root,root,0755)
 %doc SELinux/%{modulename}.fc SELinux/%{modulename}.if SELinux/%{modulename}.te
 %{_datadir}/selinux/*/%{modulename}.pp
 %{_datadir}/selinux/*/%{modulename}-port.pp
 %{_datadir}/selinux/devel/include/%{moduletype}/%{modulename}.if
 
 %files -n oracle-nofcontext-selinux
-%defattr(-,root,root,0755)
 %doc SELinux/%{modulename}-nofcontext.fc SELinux/%{modulename}-nofcontext.if SELinux/%{modulename}-nofcontext.te
 %{_datadir}/selinux/*/%{modulename}-nofcontext.pp
 %{_datadir}/selinux/*/%{modulename}-port.pp

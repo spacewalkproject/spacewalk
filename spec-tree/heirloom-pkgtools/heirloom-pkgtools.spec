@@ -48,7 +48,6 @@ make -f makefile install SHELL=/bin/bash INSTALL=/usr/bin/install ROOT=$RPM_BUIL
 rm -rf $RPM_BUILD_ROOT
 
 %files
-%defattr(-,root,root)
 %config %_sysconfdir/device.tab
 %{_sbindir}/installf
 %{_sbindir}/pkgadd

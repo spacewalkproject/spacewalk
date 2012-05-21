@@ -34,7 +34,6 @@ install -m 644 _rhn_proxy/* $RPM_BUILD_ROOT%{htmldir}/_rhn_proxy/
 rm -rf $RPM_BUILD_ROOT
 
 %files
-%defattr(-,root,root)
 %dir %{htmldir}/_rhn_proxy
 %config %{htmldir}/_rhn_proxy/index.html
 %{htmldir}/_rhn_proxy/*.ico

@@ -59,7 +59,6 @@ if [ "$(cat Mail-RFC822-Address-%{version}-filelist)X" = "X" ] ; then
 fi
 
 %files -f Mail-RFC822-Address-%{version}-filelist
-%defattr(-,root,root)
 
 %changelog
 * Thu Dec 12 2002 cturner@redhat.com
