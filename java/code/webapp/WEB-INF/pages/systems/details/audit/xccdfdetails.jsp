@@ -56,26 +56,8 @@
   <rl:list>
     <rl:decorator name="PageSizeDecorator"/>
 
-    <rl:column headerkey="system.audit.xccdfdetails.jsp.idref" sortattr="documentIdref"
-        sortable="true" styleclass="first-column">
-      <a href="/rhn/systems/details/audit/RuleDetails.do?sid=${param.sid}&rrid=${current.id}">
-        <c:choose>
-          <c:when test="${empty current.documentIdref}">
-            <bean:message key="system.audit.xccdfdetails.jsp.unknown"/>
-          </c:when>
-          <c:otherwise>
-            <c:out value="${current.documentIdref}"/>
-          </c:otherwise>
-        </c:choose>
-      </a>
+    <%@ include file="/WEB-INF/pages/common/fragments/audit/rule-common-columns.jspf" %>
 
-    </rl:column>
-    <rl:column headerkey="system.audit.xccdfdetails.jsp.idents" sortattr="identsString" sortable="true">
-      <c:out value="${current.identsString}"/>
-    </rl:column>
-    <rl:column headerkey="system.audit.xccdfdetails.jsp.result" sortattr="label" sortable="true" filterattr="label">
-      <c:out value="${current.label}"/>
-    </rl:column>
   </rl:list>
 </rl:listset>
 
