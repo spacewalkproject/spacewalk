@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.8.35
+Version:        1.8.36
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -68,6 +68,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Tue May 22 2012 Jan Pazdziora 1.8.36-1
+- No need to enforce unique (name_id, evr_id) on rhnVersionInfo.
+
 * Tue May 22 2012 Miroslav Suchý <msuchy@redhat.com> 1.8.35-1
 - 719609 - set priorities between server and package arch
 - 719609 - allow upgrade from arm to noarch and vice versa
