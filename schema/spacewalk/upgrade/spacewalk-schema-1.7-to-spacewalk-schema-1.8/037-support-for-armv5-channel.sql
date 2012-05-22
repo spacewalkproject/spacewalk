@@ -10,5 +10,26 @@ insert into rhnChannelPackageArchCompat (channel_arch_id, package_arch_id)
 insert into rhnChannelPackageArchCompat (channel_arch_id, package_arch_id)
 		values (LOOKUP_CHANNEL_ARCH('channel-arm'), LOOKUP_PACKAGE_ARCH('noarch'));
 
+insert into rhnServerArch (id, label, name, arch_type_id) values
+(sequence_nextval('rhn_server_arch_id_seq'), 'armv5tejl-redhat-linux', 'armv5tejl', lookup_arch_type('rpm'));
+
 insert into rhnServerChannelArchCompat (server_arch_id, channel_arch_id) values
         (LOOKUP_SERVER_ARCH('armv7l-redhat-linux'), LOOKUP_CHANNEL_ARCH('channel-arm'));
+insert into rhnServerChannelArchCompat (server_arch_id, channel_arch_id) values
+        (LOOKUP_SERVER_ARCH('armv5tejl-redhat-linux'), LOOKUP_CHANNEL_ARCH('channel-arm'));
+
+insert into rhnServerServerGroupArchCompat ( server_arch_id, server_group_type )
+        values (lookup_server_arch('armv5tejl-redhat-linux'),
+            lookup_sg_type('sw_mgr_entitled'));
+insert into rhnServerServerGroupArchCompat ( server_arch_id, server_group_type )
+        values (lookup_server_arch('armv5tejl-redhat-linux'),
+            lookup_sg_type('enterprise_entitled'));
+insert into rhnServerServerGroupArchCompat ( server_arch_id, server_group_type )
+        values (lookup_server_arch('armv5tejl-redhat-linux'),
+            lookup_sg_type('provisioning_entitled'));
+insert into rhnServerServerGroupArchCompat ( server_arch_id, server_group_type )
+        values (lookup_server_arch('armv5tejl-redhat-linux'),
+            lookup_sg_type('monitoring_entitled'));
+insert into rhnServerServerGroupArchCompat ( server_arch_id, server_group_type )
+        values (lookup_server_arch('armv5tejl-redhat-linux'),
+            lookup_sg_type('virtualization_host'));
