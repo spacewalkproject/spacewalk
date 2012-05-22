@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008--2010 Red Hat, Inc.
+-- Copyright (c) 2008--2011 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -33,9 +33,5 @@ ENABLE ROW MOVEMENT
 
 CREATE UNIQUE INDEX rhn_versioninfo_label_uq
     ON rhnVersionInfo (label)
-    TABLESPACE [[64k_tbs]];
-
-CREATE UNIQUE INDEX rhn_versioninfo_nid_eid_uq
-    ON rhnVersionInfo (name_id, evr_id)
     TABLESPACE [[64k_tbs]];
 
