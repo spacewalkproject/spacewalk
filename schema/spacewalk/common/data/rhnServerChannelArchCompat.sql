@@ -76,10 +76,10 @@ insert into rhnServerChannelArchCompat (server_arch_id, channel_arch_id) values
 (LOOKUP_SERVER_ARCH('ppc64pseries-redhat-linux'), LOOKUP_CHANNEL_ARCH('channel-ppc'));
 
 insert into rhnServerChannelArchCompat (server_arch_id, channel_arch_id) values
-(LOOKUP_SERVER_ARCH('armv7l-redhat-linux'), LOOKUP_CHANNEL_ARCH('channel-armv7'));
+(LOOKUP_SERVER_ARCH('armv7l-redhat-linux'), LOOKUP_CHANNEL_ARCH('channel-armhfp'));
 
 insert into rhnServerChannelArchCompat (server_arch_id, channel_arch_id) values
-(LOOKUP_SERVER_ARCH('armv7l-redhat-linux'), LOOKUP_CHANNEL_ARCH('channel-armv5'));
+(LOOKUP_SERVER_ARCH('armv7l-redhat-linux'), LOOKUP_CHANNEL_ARCH('channel-arm'));
 
 insert into rhnServerChannelArchCompat (server_arch_id, channel_arch_id) values
 (LOOKUP_SERVER_ARCH('sparc-sun4m-solaris'), LOOKUP_CHANNEL_ARCH('channel-sparc-sun-solaris'));

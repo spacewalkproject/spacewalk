@@ -1,5 +1,5 @@
 insert into rhnChannelArch (id, label, name, arch_type_id) values
-        (sequence_nextval('rhn_channel_arch_id_seq'), 'channel-armv7', 'ARMv7', lookup_arch_type('rpm'));
+        (sequence_nextval('rhn_channel_arch_id_seq'), 'channel-armhfp', 'ARM hard. FP', lookup_arch_type('rpm'));
 
 insert into rhnPackageArch (id, label, name, arch_type_id) values
         (sequence_nextval('rhn_package_arch_id_seq'), 'armv7hnl', 'ARMv7hnl', lookup_arch_type('rpm'));
@@ -11,13 +11,9 @@ insert into rhnPackageArch (id, label, name, arch_type_id) values
         (sequence_nextval('rhn_package_arch_id_seq'), 'armv5tel', 'ARMv5tel', lookup_arch_type('rpm'));
 
 insert into rhnChannelPackageArchCompat (channel_arch_id, package_arch_id)
-        values (LOOKUP_CHANNEL_ARCH('channel-armv7'), LOOKUP_PACKAGE_ARCH('armv7hnl'));
+        values (LOOKUP_CHANNEL_ARCH('channel-armhfp'), LOOKUP_PACKAGE_ARCH('armv7hnl'));
 insert into rhnChannelPackageArchCompat (channel_arch_id, package_arch_id)
-        values (LOOKUP_CHANNEL_ARCH('channel-armv7'), LOOKUP_PACKAGE_ARCH('armv7hl'));
-insert into rhnChannelPackageArchCompat (channel_arch_id, package_arch_id)
-        values (LOOKUP_CHANNEL_ARCH('channel-armv7'), LOOKUP_PACKAGE_ARCH('armv7l'));
-insert into rhnChannelPackageArchCompat (channel_arch_id, package_arch_id)
-        values (LOOKUP_CHANNEL_ARCH('channel-armv7'), LOOKUP_PACKAGE_ARCH('armv5tel'));
+        values (LOOKUP_CHANNEL_ARCH('channel-armhfp'), LOOKUP_PACKAGE_ARCH('armv7hl'));
 insert into rhnChannelPackageArchCompat (channel_arch_id, package_arch_id)
         values (LOOKUP_CHANNEL_ARCH('channel-armv7'), LOOKUP_PACKAGE_ARCH('noarch'));
 
@@ -26,7 +22,7 @@ insert into rhnServerArch (id, label, name, arch_type_id) values
 
 
 insert into rhnServerChannelArchCompat (server_arch_id, channel_arch_id) values
-(LOOKUP_SERVER_ARCH('armv7l-redhat-linux'), LOOKUP_CHANNEL_ARCH('channel-armv7'));
+(LOOKUP_SERVER_ARCH('armv7l-redhat-linux'), LOOKUP_CHANNEL_ARCH('channel-armhfp'));
 
 
 insert into rhnServerServerGroupArchCompat ( server_arch_id, server_group_type )

@@ -71,10 +71,10 @@ insert into rhnChannelArch (id, label, name, arch_type_id) values
 (sequence_nextval('rhn_channel_arch_id_seq'), 'channel-powerpc-deb', 'PowerPC Debian', lookup_arch_type('deb'));
 
 insert into rhnChannelArch (id, label, name, arch_type_id) values
-(sequence_nextval('rhn_channel_arch_id_seq'), 'channel-armv7', 'ARMv7', lookup_arch_type('rpm'));
+(sequence_nextval('rhn_channel_arch_id_seq'), 'channel-arm', 'ARM soft. FP', lookup_arch_type('rpm'));
 
 insert into rhnChannelArch (id, label, name, arch_type_id) values
-(sequence_nextval('rhn_channel_arch_id_seq'), 'channel-armv5', 'ARMv5', lookup_arch_type('rpm'));
+(sequence_nextval('rhn_channel_arch_id_seq'), 'channel-armhfp', 'ARM hard. FP', lookup_arch_type('rpm'));
 
 insert into rhnChannelArch (id, label, name, arch_type_id) values
 (sequence_nextval('rhn_channel_arch_id_seq'), 'channel-arm-deb', 'arm Debian', lookup_arch_type('deb'));
