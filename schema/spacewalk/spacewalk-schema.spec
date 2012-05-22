@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.8.34
+Version:        1.8.35
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -68,6 +68,12 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Tue May 22 2012 Miroslav Suchý <msuchy@redhat.com> 1.8.35-1
+- 719609 - set priorities between server and package arch
+- 719609 - allow upgrade from arm to noarch and vice versa
+- 719609 - add support for server arch armv5tejl
+- 719609 - for arm create channel-armhfp and channel-arm
+
 * Mon May 21 2012 Tomas Lestach <tlestach@redhat.com> 1.8.34-1
 - 822918 - fix various issues in PG variant of rhn_channel.convert_to_fve
 - Disable rhn_srv_net_iface_mod_trig while updating rhnServerNetInterface, so
