@@ -12117,6 +12117,27 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
        </trans-unit>
      </group>
 
+     <group>
+       <context-group name="ctx">
+         <context context-type="sourcefile">Search of OpenSCAP scans</context>
+       </context-group>
+       <trans-unit id="scapsearch.jsp.toolbar">
+         <source>OpenSCAP Search</source>
+       </trans-unit>
+       <trans-unit id="scapsearch.jsp.summary">
+         <source>OpenSCAP Search will return finished OpenSCAP scans from all scans you have access.</source>
+       </trans-unit>
+       <trans-unit id="scapsearch.jsp.instructions">
+         <source>Specify your search criteria below.</source>
+       </trans-unit>
+       <trans-unit id="scapsearch.jsp.searchfor">
+         <source>Search XCCDF Rules For</source>
+       </trans-unit>
+       <trans-unit id="scapsearch.jsp.whatsearch.tip">
+         <source>&lt;strong&gt;Examples:&lt;/strong&gt; &#39;no_hashes_outside_shadow&#39;, &#39;CCE-14300-8&#39;</source>
+       </trans-unit>
+     </group>
+
      <!-- Action common -->
      <group>
        <context-group name="ctx">

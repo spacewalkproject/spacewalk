@@ -121,7 +121,10 @@
   </rhn-tab>
   <rhn-tab name="Audit" url="/rhn/audit/ListXccdf.do">
     <rhn-tab-directory>/rhn/audit</rhn-tab-directory>
-     <rhn-tab name="OpenSCAP" url="/rhn/audit/ListXccdf.do" />
+     <rhn-tab name="OpenSCAP" url="/rhn/audit/ListXccdf.do">
+         <rhn-tab name="All Scans" url="/rhn/audit/ListXccdf.do"/>
+         <rhn-tab name="Advanced Search" url="/rhn/audit/scap/Search.do"/>
+     </rhn-tab>
      <rhn-tab name="audit.nav.logreview" url="/rhn/audit/Overview.do" acl="not is_satellite()">
          <rhn-tab name="Overview" url="/rhn/audit/Overview.do" />
          <rhn-tab name="Reviews" url="/rhn/audit/Machine.do" />

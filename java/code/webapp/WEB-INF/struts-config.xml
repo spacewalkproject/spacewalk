@@ -233,6 +233,11 @@
             <form-property name="end_minute" type="java.lang.Integer" />
             <form-property name="end_am_pm" type="java.lang.Integer" />
         </form-bean>
+        <form-bean name="xccdfSearchForm"
+                   type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
+            <form-property name="search_string" type="java.lang.String"/>
+            <form-property name="submitted" type="java.lang.Boolean" />
+        </form-bean>
         <form-bean name="errataSearchForm"
                    type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
             <form-property name="search_string" type="java.lang.String"/>
@@ -1935,6 +1940,15 @@
         input="/WEB-INF/pages/audit/listxccdf.jsp"
         type="com.redhat.rhn.frontend.action.audit.ListXccdfAction">
         <forward name="default" path="/WEB-INF/pages/audit/listxccdf.jsp"/>
+    </action>
+
+    <action path="/audit/scap/Search"
+        name="xccdfSearchForm"
+        scope="request"
+        input="/WEB-INF/pages/audit/scap/xccdfsearch.jsp"
+        type="com.redhat.rhn.frontend.action.audit.scap.XccdfSearchAction">
+        <forward name="default" path="/WEB-INF/pages/audit/scap/xccdfsearch.jsp"/>
+        <forward name="success" path="/audit/scap/Search.do" redirect="true" />
     </action>
 
     <!-- ===== ERRATA ===== -->

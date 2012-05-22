@@ -1,6 +1,13 @@
 <rl:column headerkey="system.audit.xccdfdetails.jsp.idref" sortattr="documentIdref"
     sortable="true" styleclass="first-column">
-  <a href="/rhn/systems/details/audit/RuleDetails.do?sid=${param.sid}&rrid=${current.id}">
+    <c:choose>
+      <c:when test="${not empty param.sid}">
+        <a href="/rhn/systems/details/audit/RuleDetails.do?sid=${param.sid}&rrid=${current.id}">
+      </c:when>
+      <c:otherwise>
+        <a href="/rhn/systems/details/audit/RuleDetails.do?sid=${current.testResult.server.id}&rrid=${current.id}">
+      </c:otherwise>
+    </c:choose>
     <c:choose>
       <c:when test="${empty current.documentIdref}">
         <bean:message key="system.audit.xccdfdetails.jsp.unknown"/>
