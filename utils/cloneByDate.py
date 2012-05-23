@@ -503,7 +503,7 @@ class ChannelCloner:
         to_clone = []
         
         for err in available_errata:
-            if err['issue_date'] <= self.to_date:
+            if err['issue_date'].date() <= self.to_date.date():
                 to_clone.append(err)
         
         return (to_clone, available_errata)   
