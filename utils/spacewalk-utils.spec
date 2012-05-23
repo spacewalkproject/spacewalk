@@ -1,7 +1,7 @@
 %define rhnroot %{_prefix}/share/rhn
 
 Name:		spacewalk-utils
-Version:	1.8.15
+Version:	1.8.16
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -86,6 +86,10 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Wed May 23 2012 Stephen Herr <sherr@redhat.com> 1.8.16-1
+- 824583 - spacewalk-clone-by-date failes with TypeError when on Postgres
+  database.
+
 * Mon May 21 2012 Jan Pazdziora 1.8.15-1
 - Fix refsection build error.
 - %%defattr is not needed since rpm 4.4
