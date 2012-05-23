@@ -208,8 +208,7 @@ public class ConfigTestUtils extends Assert {
         cr.setConfigFile(file);
         cr.setConfigInfo(info);
         cr.setConfigFileType(type);
-        ConfigurationFactory.commit(cr);
-        return cr;
+        return ConfigurationFactory.commit(cr);
     }
 
     /**
