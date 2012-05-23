@@ -33,3 +33,6 @@ insert into rhnServerServerGroupArchCompat ( server_arch_id, server_group_type )
 insert into rhnServerServerGroupArchCompat ( server_arch_id, server_group_type )
         values (lookup_server_arch('armv5tejl-redhat-linux'),
             lookup_sg_type('virtualization_host'));
+
+insert into rhnCpuArch (id, label, name) values
+(sequence_nextval('rhn_cpu_arch_id_seq'), 'armv5tejl', 'ARMv5tejl');
