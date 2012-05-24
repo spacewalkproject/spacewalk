@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.8.38
+Version:        1.8.39
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -68,6 +68,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Thu May 24 2012 Miroslav Suchý <msuchy@redhat.com> 1.8.39-1
+- 719609 - correct channel arch for armv7
+
 * Wed May 23 2012 Miroslav Suchý <msuchy@redhat.com> 1.8.38-1
 - 719609 - correct server arch for armv7
 
