@@ -479,7 +479,12 @@ def do_kickstart_getcontents(self, args):
     kickstart = self.kickstart_getcontents(profile)
 
     if kickstart:
-        print kickstart
+        # We try to encode the output as UTF8, which is what we expect from
+        # the API.  This avoids "'ascii' codec can't encode character" errors
+        try:
+            print kickstart.encode('UTF8')
+        except:
+            print kickstart
 
 ####################
 
