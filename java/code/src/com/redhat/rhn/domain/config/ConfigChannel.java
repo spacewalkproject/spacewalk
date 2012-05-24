@@ -224,8 +224,7 @@ public class ConfigChannel extends BaseDomainHelper implements Identifiable {
          file.setConfigFileName(cfn);
          file.setCreated(new Date());
          file.setModified(new Date());
-         ConfigurationFactory.commit(file);
-         return file;
+         return ConfigurationFactory.commit(file);
     }
 
      /**

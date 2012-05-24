@@ -157,8 +157,9 @@ public class ConfigurationFactory extends HibernateFactory {
      *       attached to it.  config channels also used stored procedures for
      *       insertions, so we can't simply ask hibernate to save it for us.
      * @param file The configuration file to persist
+     * @return config file id
      */
-    public static void saveNewConfigFile(ConfigFile file) {
+    public static Long saveNewConfigFile(ConfigFile file) {
         //This is designed to catch some of the cases in which the config channel
         //was not saved before the config file.
         //There is still the possibility that the config channel hasn't been committed to
@@ -186,7 +187,7 @@ public class ConfigurationFactory extends HibernateFactory {
         outParams.put("configFileId", new Integer(Types.NUMERIC));
 
         Map result = m.execute(inParams, outParams);
-        file.setId((Long)result.get("configFileId"));
+        return (Long)result.get("configFileId");
     }
 
     /**
@@ -278,15 +279,18 @@ public class ConfigurationFactory extends HibernateFactory {
      * use a stored procedure for inserting, we have to decide whether to
      * insert or update here.  If the file's id is null, we insert.
      * @param file The file to save or update
+     * @return config file
      */
-    public static void commit(ConfigFile file) {
+    public static ConfigFile commit(ConfigFile file) {
         commit(file.getConfigChannel());
         if (file.getId() == null) {
-            saveNewConfigFile(file);
+            Long fileId = saveNewConfigFile(file);
+            file = (ConfigFile) getSession().get(ConfigFile.class, fileId);
         }
         else {
             save(file);
         }
+        return file;
     }
 
     /**
@@ -786,7 +790,7 @@ public class ConfigurationFactory extends HibernateFactory {
 
         //Step 5
         revision.setId(null);
-        commit(revision);
+        revision = commit(revision);
 
         file.setLatestConfigRevision(revision);
         commit(file);
@@ -903,6 +907,7 @@ public class ConfigurationFactory extends HibernateFactory {
             file.setConfigFileState(ConfigFileState.normal());
             file.setCreated(new Date());
             file.setModified(new Date());
+            file = commit(file);
         }
         else {
             rev = getNextRevisionForFile(file);
@@ -918,7 +923,7 @@ public class ConfigurationFactory extends HibernateFactory {
         newRevision.setConfigFile(file);
 
         //Step 4
-        commit(newRevision);
+        newRevision = commit(newRevision);
         file.setLatestConfigRevision(newRevision);
         commit(file);
     }

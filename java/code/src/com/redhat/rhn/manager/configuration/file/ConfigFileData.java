@@ -440,7 +440,7 @@ public abstract class ConfigFileData {
                        cRevision.getConfigFile().getConfigFileName().getPath()) &&
                getOwner().equals(cInfo.getUsername()) &&
                getGroup().equals(cInfo.getGroupname()) &&
-               getPermissions().equals(cInfo.getFilemode().toString()) &&
+               Long.valueOf(getPermissions()).equals(cInfo.getFilemode()) &&
                ((StringUtils.isEmpty(cfdSelinuxCtx) && StringUtils.isEmpty(crSelinuxCtx)) ||
                        cfdSelinuxCtx.equals(crSelinuxCtx));
     }
