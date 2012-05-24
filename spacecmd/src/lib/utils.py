@@ -631,8 +631,7 @@ def json_read_from_file(filename):
         except:
             print "could not read in data from %s" % filename
     except IOError, E:
-        if verbose:
-            print "could not open file %s for reading, check permissions?" % filename
+        print "could not open file %s for reading, check permissions?" % filename
         return None
 
 
