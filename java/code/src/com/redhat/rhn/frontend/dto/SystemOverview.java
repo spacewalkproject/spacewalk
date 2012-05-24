@@ -673,7 +673,7 @@ public class SystemOverview extends BaseDto implements Serializable  {
      * @param creatorNameIn The name to set of user who registered system.
      */
     public void setCreatorName(String creatorNameIn) {
-        this.creatorName = name;
+        this.creatorName = creatorNameIn;
     }
     /**
      * @return Returns the created.
