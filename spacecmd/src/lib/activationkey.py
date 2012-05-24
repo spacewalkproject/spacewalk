@@ -1145,6 +1145,12 @@ def import_activationkey_fromdetails(self, keydetails):
         logging.debug("Found key %s, importing as %s" % \
             (keydetails['key'], keyname))
 
+        # Channel label must be an empty-string for "RHN Satellite Default"
+        # The export to json maps this to a unicode string "none"
+        # To avoid changing the json format now, just fix it up here...
+        if keydetails['base_channel_label'] == "none":
+            keydetails['base_channel_label'] = ''
+
         if keydetails['usage_limit'] != 0:
             newkey = self.client.activationkey.create(self.session,
                                            keyname,
