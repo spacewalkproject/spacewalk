@@ -22,7 +22,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.72
+Version: 1.8.73
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -605,6 +605,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu May 24 2012 Miroslav Suchý <msuchy@redhat.com> 1.8.73-1
+- 820987 - fix error during backporting
+- 820987 - do not guess creator name
+
 * Thu May 24 2012 Tomas Lestach <tlestach@redhat.com> 1.8.72-1
 - fix ConfigurationManagerTest.testCopyFile
 - fix ConfigTestUtils.createConfigRevision
