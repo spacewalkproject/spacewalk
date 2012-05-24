@@ -4,7 +4,7 @@
 %endif
 
 Name:        spacecmd
-Version:     1.8.7
+Version:     1.8.8
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -60,6 +60,14 @@ touch %{buildroot}/%{python_sitelib}/spacecmd/__init__.py
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Thu May 24 2012 Steven Hardy <shardy@redhat.com> 1.8.8-1
+- spacecmd bugfix : kickstart_getcontents fix character encoding error
+- spacecmd bugfix: activationkey_import don't add empty package/group lists
+- spacecmd bugfix : fix activationkey_import when no base-channel specified
+- spacecmd bugfix : Fix reference to non-existent variable
+- spacecmd bugfix : improve configchannel_export operation on old API versions
+- spacecmd bugfix : *diff functions allow python 2.4 compatibility
+
 * Tue May 15 2012 Aron Parsons <aronparsons@gmail.com> 1.8.7-1
 - changed get_string_diff_dicts to better fitting replacement method
 - bugfix and comment clarification
