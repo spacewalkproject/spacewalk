@@ -710,7 +710,11 @@ def get_normalized_text( text, replacedict=None, excludes=None ):
     if text:
         for string in text:
             for line in string.split( "\n" ):
-                if not excludes or not line.startswith( tuple(excludes) ):
+                if not excludes:
+                    normalized_text.append( replace( line, replacedict ) )
+                # We do it this way instead of passing a tuple to
+                # line.startswith to allow compatibility with python 2.4
+                elif not [ e for e in excludes if line.startswith(e) ]:
                     normalized_text.append( replace( line, replacedict ) )
                 else:
                     logging.debug( "excluding line: " + line )
