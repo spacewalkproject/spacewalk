@@ -22,7 +22,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.73
+Version: 1.8.74
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -605,6 +605,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu May 24 2012 Miroslav Suchý <msuchy@redhat.com> 1.8.74-1
+- 825024 - API *must* check for compatible channels in system.setBaseChannel()
+
 * Thu May 24 2012 Miroslav Suchý <msuchy@redhat.com> 1.8.73-1
 - 820987 - fix error during backporting
 - 820987 - do not guess creator name
