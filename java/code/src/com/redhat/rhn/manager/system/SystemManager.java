@@ -91,8 +91,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import java.net.IDN;
 
 /**
@@ -111,11 +109,6 @@ public class SystemManager extends BaseManager {
     public static final String CAP_PACKAGES_VERIFY = "packages.verify";
     public static final String CAP_CONFIGFILES_BASE64_ENC =
         "configfiles.base64_enc";
-
-    public static final String[] INFO_PATTERNS = {
-        "Registered by username = '(\\w+)' using rhn_register client",
-        "rhn_register by username = '(\\w+)'",
-        "Registered by (\\w+) using rhn_register client"};
 
     public static final String NO_SLOT_KEY = "system.entitle.noslots";
 
@@ -619,24 +612,6 @@ public class SystemManager extends BaseManager {
         params.put("user_id", user.getId());
         Map elabParams = new HashMap();
         DataResult dr = makeDataResult(params, elabParams, pc, m);
-
-        Iterator i = dr.iterator();
-
-        while (i.hasNext()) {
-            SystemOverview so = (SystemOverview) i.next();
-
-            if (so.getInfo() != null) {
-                for (int j = 0; j < INFO_PATTERNS.length; ++j) {
-                    Pattern pattern = Pattern.compile(INFO_PATTERNS[j]);
-                    Matcher matcher = pattern.matcher(so.getInfo());
-
-                    if (matcher.matches()) {
-                        so.setNameOfUserWhoRegisteredSystem(matcher.group(1));
-                    }
-                }
-            }
-        }
-
         return dr;
     }
 

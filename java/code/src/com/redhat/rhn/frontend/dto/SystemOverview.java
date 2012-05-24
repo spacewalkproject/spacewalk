@@ -49,7 +49,7 @@ public class SystemOverview extends BaseDto implements Serializable  {
     private Long lastCheckinDaysAgo;
     private Long pendingUpdates;
     private String info;
-    private String nameOfUserWhoRegisteredSystem;
+    private String creatorName;
     private String os;
     private String release;
     private String serverArchName;
@@ -666,15 +666,14 @@ public class SystemOverview extends BaseDto implements Serializable  {
     /**
      * @return Returns the nameOfUserWhoRegisteredSystem.
      */
-    public String getNameOfUserWhoRegisteredSystem() {
-        return nameOfUserWhoRegisteredSystem;
+    public String getCreatorName() {
+        return creatorName;
     }
     /**
-     * @param nameOfUserWhoRegisteredSystemIn The nameOfUserWhoRegisteredSystem to set.
+     * @param creatorNameIn The name to set of user who registered system.
      */
-    public void setNameOfUserWhoRegisteredSystem(
-            String nameOfUserWhoRegisteredSystemIn) {
-        this.nameOfUserWhoRegisteredSystem = nameOfUserWhoRegisteredSystemIn;
+    public void setCreatorName(String creatorNameIn) {
+        this.creatorName = name;
     }
     /**
      * @return Returns the created.

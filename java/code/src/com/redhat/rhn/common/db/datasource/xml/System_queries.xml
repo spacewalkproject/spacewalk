@@ -862,7 +862,10 @@ SELECT S.id, S.NAME, S.info, S.created,
 			from rhnChannel C
 			inner join rhnServerChannel SC on SC.channel_id = C.id
       			where SC.server_id = S.id
-			and C.parent_channel IS NULL) AS CHANNEL_LABELS
+			and C.parent_channel IS NULL) AS CHANNEL_LABELS,
+       (SELECT wc.login
+          FROM web_contact wc
+         WHERE wc.id = s.creator_id) as creator_name
   FROM rhnServer S
  WHERE S.org_id = :org_id
    AND EXISTS (SELECT 1 FROM rhnUserServerPerms USP WHERE USP.user_id = :user_id AND USP.server_id = S.id)
@@ -886,10 +889,15 @@ SELECT S.id, S.NAME, S.info, S.created,
 			from rhnChannel C
 			inner join rhnServerChannel SC on SC.channel_id = C.id
       			where SC.server_id = S.id
-			and C.parent_channel IS NULL) AS CHANNEL_LABELS
+			and C.parent_channel IS NULL) AS CHANNEL_LABELS,
+    (SELECT wc.login
+          FROM web_contact wc
+         WHERE wc.id = s.creator_id) as creator_name
   FROM rhnServer S
  WHERE S.org_id = :org_id
-   AND EXISTS (SELECT 1 FROM rhnUserServerPerms USP WHERE USP.user_id = :user_id AND USP.server_id = S.id)
+   AND EXISTS (SELECT 1 FROM rhnUserServerPerms USP
+                WHERE USP.user_id = :user_id
+                  AND USP.server_id = S.id)
 ORDER BY S.created DESC
   </query>
   <elaborator name="system_overview" />

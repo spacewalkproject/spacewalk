@@ -54,10 +54,15 @@
 		<rl:column bound="false"
 		           headerkey="registeredlist.jsp.user"
 		           >
-			<c:if test="${current.nameOfUserWhoRegisteredSystem != null}">
-	        	<img src="/img/rhn-listicon-user.gif" alt="<bean:message key="yourrhn.jsp.user.alt" />"  />
-	        	<c:out value="${current.nameOfUserWhoRegisteredSystem}"/>
-	        </c:if>
+	          <c:choose>
+	            <c:when test="${current.creatorName != null}">
+	               <img src="/img/rhn-listicon-user.gif" alt="<bean:message key="yourrhn.jsp.user.alt" />"  />
+	              <c:out value="${current.creatorName}"/>
+	        </c:when>
+		    <c:otherwise>
+	              <bean:message key="Unknown" />
+	            </c:otherwise>
+	          </c:choose>
 		</rl:column>
 	
 		<rl:column bound="true"
