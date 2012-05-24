@@ -801,9 +801,23 @@ def export_configchannel_getdetails(self, channel):
     files = self.client.configchannel.listFiles(self.session, channel)
     details['files'] = []
     paths = [f['path'] for f in files]
-    logging.debug("Found files %s for %s" % (paths, channel))
-    fileinfo = self.client.configchannel.lookupFileInfo(self.session, \
-                    channel, paths)
+    fileinfo = []
+    # Some versions of the API blow up when lookupFileInfo is asked to
+    # return details of files containing non-XML-valid characters.
+    # later API versions simply return empty file contents, but to
+    # ensure the least-bad operation with older (sat 5.3) API versions
+    # we can iterate over each file, then we just error on individual files
+    # instead of failing to export anything at all...
+    for p in paths:
+        logging.debug("Found file %s for %s" % (p, channel))
+        try:
+            pinfo = self.client.configchannel.lookupFileInfo(self.session,
+                channel, [ p ])
+            if len(pinfo):
+                fileinfo.append(pinfo[0])
+        except:
+            logging.error("Failed to get details for file %s from %s"
+                % (p, channel))
     # Now we strip the datetime fields from the Info structs, as they
     # are not JSON serializable with the default encoder, and we don't
     # need them on import anyway
