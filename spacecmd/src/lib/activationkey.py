@@ -1197,12 +1197,15 @@ def import_activationkey_fromdetails(self, keydetails):
                      grp)
             gids.append(grpdetails.get('id'))
 
-        logging.debug("Adding groups %s to key %s" % (gids, newkey)) 
-        self.client.activationkey.addServerGroups(self.session, newkey, gids)
+        if gids:
+            logging.debug("Adding groups %s to key %s" % (gids, newkey))
+            self.client.activationkey.addServerGroups(self.session, newkey,
+                gids)
 
         # Finally add the package list
-        self.client.activationkey.addPackages(self.session, newkey, \
-            keydetails['packages'])
+        if keydetails['packages']:
+            self.client.activationkey.addPackages(self.session, newkey,
+                keydetails['packages'])
 
         return True
 
