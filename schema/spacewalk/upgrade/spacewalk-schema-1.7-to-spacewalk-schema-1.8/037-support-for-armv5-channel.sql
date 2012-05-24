@@ -1,6 +1,13 @@
 insert into rhnChannelArch (id, label, name, arch_type_id) values
         (sequence_nextval('rhn_channel_arch_id_seq'), 'channel-arm', 'ARM soft. FP', lookup_arch_type('rpm'));
 
+insert into rhnPackageArch (id, label, name, arch_type_id) values
+(sequence_nextval('rhn_package_arch_id_seq'), 'armv7l', 'ARMv7l', lookup_arch_type('rpm'));
+insert into rhnPackageArch (id, label, name, arch_type_id) values
+(sequence_nextval('rhn_package_arch_id_seq'), 'armv6l', 'ARMv6l', lookup_arch_type('rpm'));
+insert into rhnPackageArch (id, label, name, arch_type_id) values
+(sequence_nextval('rhn_package_arch_id_seq'), 'armv5tel', 'ARMv5tel', lookup_arch_type('rpm'));
+
 insert into rhnChannelPackageArchCompat (channel_arch_id, package_arch_id)
         values (LOOKUP_CHANNEL_ARCH('channel-arm'), LOOKUP_PACKAGE_ARCH('armv7l'));
 insert into rhnChannelPackageArchCompat (channel_arch_id, package_arch_id)
