@@ -84,6 +84,7 @@ import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
 import com.redhat.rhn.frontend.xmlrpc.InvalidActionTypeException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidChannelLabelException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidChannelListException;
+import com.redhat.rhn.frontend.xmlrpc.InvalidChannelException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidEntitlementException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidPackageException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidProfileLabelException;
@@ -414,7 +415,11 @@ public class SystemHandler extends BaseHandler {
         Server server = lookupServer(loggedInUser, sid);
         UpdateBaseChannelCommand cmd =
             new UpdateBaseChannelCommand(loggedInUser, server, new Long(cid.longValue()));
-        cmd.store();
+        ValidatorError ve = cmd.store();
+        if (ve != null) {
+            throw new InvalidChannelException(
+                LocalizationService.getInstance().getMessage(ve.getKey(), ve.getValues()));
+        }
         return 1;
     }
 
@@ -465,7 +470,11 @@ public class SystemHandler extends BaseHandler {
                 throw new InvalidChannelLabelException();
             }
         }
-        cmd.store();
+        ValidatorError ve = cmd.store();
+        if (ve != null) {
+            throw new InvalidChannelException(
+                LocalizationService.getInstance().getMessage(ve.getKey(), ve.getValues()));
+        }
         return 1;
     }
 
