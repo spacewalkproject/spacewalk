@@ -33,6 +33,18 @@ update rhnpackage set package_group = (select n.id
                                             on trim(o.name) = n.name
                                            and o.id <> n.id);
 
+update rhnPackageSource set package_group = (select n.id
+                                         from rhnPackageGroup n
+                                         join rhnPackageGroup o
+                                           on trim(o.name) = n.name
+                                          and o.id <> n.id
+                                        where o.id = package_group)
+                where package_group in (select o.id
+                                          from rhnPackageGroup n
+                                          join rhnPackageGroup o
+                                            on trim(o.name) = n.name
+                                           and o.id <> n.id);
+
 -- delete unused groups
 delete from rhnpackagegroup pg
       where not exists (select 1 from rhnpackage p where p.package_group = pg.id)
