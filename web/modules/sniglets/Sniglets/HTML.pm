@@ -284,25 +284,16 @@ sub rhn_autorefresh_widget {
   return $ret;
 }
 
+# Since we always want to return to the current page when we click "Clear", 
+# simply reconstruct the current url. There is no need to do anything more 
+# complicated then that. Additionally, the old way didn't work very well. 
+# See BZs 825279 and 824879.
 sub return_link {
   my $pxt = shift;
   my %params = @_;
 
-  my $trees = $pxt->pnotes("navi_trees") || { };
-
-  my $deepest = -1;
-  my $which = '';
-  my $formvars = [];
-
-  foreach my $tree (keys %{$trees}) {
-    if ($trees->{$tree}->{depth} > $deepest) {
-      $deepest = $trees->{$tree}->{depth};
-      $which = $tree;
-      $formvars = $trees->{$tree}->{formvars};
-    }
-  }
-
-  my $url = $pxt->session->get("${which}_navi_location") || $params{default};
+  my $args = $pxt->{apache}->args;
+  my $url = $pxt->{apache}->uri || $params{default};
 
   throw "param default needed but not provided." unless $url;
 
@@ -310,9 +301,10 @@ sub return_link {
 
   $subst{return_url} = $url;
 
-  if (@{$formvars}) {
-    # argh!  get around & + i18N issue by using ; as seperator...
-    $subst{return_url} .= '?' . join(";", map {"$_=" . ($pxt->passthrough_param($_) || '')} @{$formvars});
+  if ($args) {
+    #argh!  get around & + i18N issue by using ; as seperator...
+    $args =~ s/&/;/g;
+    $subst{return_url} .= '?' . $args;
   }
 
   $subst{return_url} = PXT::Utils->escapeURI($subst{return_url});
