@@ -217,7 +217,7 @@ public class ConfigurationFactoryTest extends RhnBaseTestCase {
         Session session = HibernateFactory.getSession();
         session.flush();
         session.evict(channel);
-        //session.evict(file); //TODO: figure out why we don't have to evict this one.
+        session.evict(file);
         session.evict(cr.getConfigFile());
         session.evict(cr);
 
