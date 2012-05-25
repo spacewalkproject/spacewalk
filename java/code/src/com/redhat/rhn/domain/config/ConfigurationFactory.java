@@ -304,8 +304,12 @@ public class ConfigurationFactory extends HibernateFactory {
         ConfigFile file = revision.getConfigFile();
         commit(file);
         if (revision.getId() == null) {
+            // save changedById, because saveNewConfigRevision does not handle it
+            // and set it after reload not to lose it
+            Long changedById = revision.getChangedById();
             Long revId = saveNewConfigRevision(revision);
             revision = (ConfigRevision) getSession().get(ConfigRevision.class, revId);
+            revision.setChangedById(changedById);
             file.setLatestConfigRevision(revision);
             //and now we have to save the file again
             //it would be nice to save it only once, but we require the file id
