@@ -145,6 +145,22 @@ public class ScapManager extends BaseManager {
     }
 
     /**
+     * Get xccdf:rule-results by ident's ids, but only those in relation
+     * with some of the SSM systems.
+     * @param user requesting results
+     * @param identIds list of xccdf:ident ids
+     * @return the result
+     */
+    public static List<XccdfRuleResultDto> ruleResultsByIdentIdsForSsm(
+            User user, List<Long> identIds) {
+        SelectMode m = ModeFactory.getMode("scap_queries",
+                "ruleresults_by_idents_for_ssm");
+        HashMap params = new HashMap();
+        params.put("user_id", user.getId());
+        return m.execute(params, identIds);
+    }
+
+    /**
      * Show xccdf:ident results for given rule-result
      * @param ruleResultId of XccdfRuleResultDto
      * @return the list of idents

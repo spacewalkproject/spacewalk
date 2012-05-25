@@ -35,8 +35,10 @@ public class XccdfSearchHelper extends RhnAction {
 
     private static String IDENT_INDEX = "xccdfIdent";
     private static String INDEX_SEARCH = "index.search";
+    private static String SYSTEM_LIST = "system_list";
 
-    public static List performSearch(String searchString, RequestContext context)
+    public static List performSearch(String searchString, String whereToSearch,
+            RequestContext context)
             throws MalformedURLException, XmlRpcException, XmlRpcFault {
         ArrayList args = new ArrayList();
         args.add(context.getWebSession().getId());
@@ -52,7 +54,14 @@ public class XccdfSearchHelper extends RhnAction {
             Long id = new Long((String)item.get("id"));
             identIds.add(id);
         }
-        return ScapManager.ruleResultsByIdentIds(context.getCurrentUser(), identIds);
+
+        if (SYSTEM_LIST.equals(whereToSearch)) {
+            return ScapManager.ruleResultsByIdentIdsForSsm(context.getCurrentUser(),
+                     identIds);
+        }
+        else {
+            return ScapManager.ruleResultsByIdentIds(context.getCurrentUser(), identIds);
+        }
     }
 
     private static String preprocessSearchString(String searchString) {

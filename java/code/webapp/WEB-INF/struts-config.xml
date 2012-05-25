@@ -236,6 +236,7 @@
         <form-bean name="xccdfSearchForm"
                    type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
             <form-property name="search_string" type="java.lang.String"/>
+            <form-property name="whereToSearch" type="java.lang.String"/>
             <form-property name="submitted" type="java.lang.Boolean" />
         </form-bean>
         <form-bean name="errataSearchForm"

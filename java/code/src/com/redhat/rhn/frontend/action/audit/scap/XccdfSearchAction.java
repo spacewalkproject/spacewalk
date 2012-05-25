@@ -47,6 +47,7 @@ import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
 public class XccdfSearchAction extends RhnAction {
 
     private static String SEARCH_STRING = "search_string";
+    private static String WHERE_TO_SEARCH = "whereToSearch";
     private static Logger log = Logger.getLogger(XccdfSearchAction.class);
 
     /** {@inheritDoc} */
@@ -114,11 +115,15 @@ public class XccdfSearchAction extends RhnAction {
             throws MalformedURLException, XmlRpcException, XmlRpcFault {
         RequestContext context = new RequestContext(request);
         String searchString = request.getParameter(SEARCH_STRING);
+        String whereToSearch = request.getParameter(WHERE_TO_SEARCH);
 
         request.setAttribute(SEARCH_STRING, searchString);
+        form.set(WHERE_TO_SEARCH,
+                "system_list".equals(whereToSearch) ? whereToSearch : "all");
 
         if (!StringUtils.isBlank(searchString)) {
-            List results = XccdfSearchHelper.performSearch(searchString, context);
+            List results = XccdfSearchHelper.performSearch(searchString, whereToSearch,
+                    context);
             request.setAttribute(RequestContext.PAGE_LIST,
                     results != null ? results : Collections.EMPTY_LIST);
         }

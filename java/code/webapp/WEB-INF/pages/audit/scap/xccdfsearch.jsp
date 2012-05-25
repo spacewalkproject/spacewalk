@@ -33,6 +33,18 @@
             </span>
           </td>
         </tr>
+        <tr><th><bean:message key="systemsearch.jsp.wheretosearch"/></th>
+          <td>
+            <div style="text-align: left">
+              <html:radio property="whereToSearch" value="all" styleId="whereToSearch-all"/>
+              <label for="whereToSearch-all"><bean:message key="systemsearch.jsp.searchallsystems"/></label>
+            </div>
+            <div style="text-align: left">
+              <html:radio property="whereToSearch" value="system_list" styleId="whereToSearch-system_list"/>
+              <label for="whereToSearch-system_list"><bean:message key="systemsearch.jsp.searchSSM"/></label>
+            </div>
+          </td>
+        </tr>
       </table>
     </div> <!-- search-choices-group -->
   </div> <!-- search-choices -->
@@ -53,6 +65,7 @@
     <!-- there are two forms here, need to keep the formvars around for pagination -->
     <input type="hidden" name="submitted" value="true"/>
     <input type="hidden" name="search_string" value="${search_string}"/>
+    <input type="hidden" name="whereToSearch" value="${whereToSearch}"/>
   </rl:listset>
 </c:if>
 
