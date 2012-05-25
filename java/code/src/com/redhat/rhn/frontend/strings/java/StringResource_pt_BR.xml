@@ -1636,7 +1636,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/configuration/addfiles/ImportFileConfirm.do</context>
         </context-group>
-      <target>{0} files &lt;a href="{1}"&gt;agendado&lt;/a&gt; para carregar.</target></trans-unit>
+      <target>{0} arquivo(s) &lt;a href="{1}"&gt;agendado(s)&lt;/a&gt; para carregar.</target></trans-unit>
       <trans-unit id="configfiles.upload">
 <source>Import config file data from system</source>
         <context-group name="ctx">
@@ -6408,7 +6408,7 @@ Follow this url to see the full list of inactive systems:
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/file/CompareCopy.do</context>
         </context-group>
-      <target>Modo Seguro</target></trans-unit>
+      <target>Quarentena</target></trans-unit>
 
 
 
@@ -6604,7 +6604,7 @@ Follow this url to see the full list of inactive systems:
           <context context-type="sourcefile">/rhn/systems/details/Overview.do</context>
           <context context-type="sourcefile">/rhn/systems/details/Edit.do</context>
         </context-group>
-      <target>Notificações de email desativadas mundialmente</target></trans-unit>
+      <target>Notificações de email desativadas</target></trans-unit>
 
       <trans-unit id="sdc.details.overview.lock.reason">
         <source>Manually locked</source>

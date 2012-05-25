@@ -3470,7 +3470,7 @@ abaixo e &lt;b&gt;não poderá mais se autenticar&lt;/b&gt;.</target></trans-uni
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/Users.do</context>
         </context-group>
-      <target>Usuários cadastrados no @@PRODUCT_NAME@@ </target></trans-unit>
+      <target>Usuários Cadastrados no @@PRODUCT_NAME@@ </target></trans-unit>
       <trans-unit id="orgdetails.jsp.header">
 <source>Organization Details</source>
         <context-group name="ctx">
@@ -8338,13 +8338,13 @@ Please note that some manual configuration of these scripts may still be require
         <target>URL do Repositório</target></trans-unit>
         <trans-unit id="repos.jsp.create.submit">
           <source>Create Repository</source>
-        <target>Cria um Repositório</target></trans-unit>
+        <target>Criar Repositório</target></trans-unit>
         <trans-unit id="repos.jsp.update.submit">
           <source>Update Repository</source>
-        <target>Atualiza um Repositório</target></trans-unit>
+        <target>Atualizar Repositório</target></trans-unit>
         <trans-unit id="repos.jsp.delete.submit">
           <source>Delete Repository</source>
-        <target>Deleta um Repositório</target></trans-unit>
+        <target>Deletar Repositório</target></trans-unit>
         <trans-unit id="repos.jsp.create.success">
           <source>Repository created successfully</source>
         <target>Repositório criado com êxito</target></trans-unit>
@@ -11390,7 +11390,7 @@ o &lt;strong&gt;Guia de Administração de Sistemas Red Hat Enterprise Li
         <target>canal de configuração gerenciado localmente</target></trans-unit>
         <trans-unit id="config.common.sandboxAlt">
           <source>configuration sandbox </source>
-        <target>Modo Seguro de configuração</target></trans-unit>
+        <target>Configuração da Área de Quarentena</target></trans-unit>
 
         <trans-unit id="config.common.fileAlt">
           <source>file</source>
@@ -12660,7 +12660,7 @@ You may grant provisioning entitlements _here_.
 		  <context context-type="paramnotes">You can't deploy this file to any systems because this file is part of a config sandbox local to
 system _zanarkand.boston.redhat.com_.</context>
         </context-group>
-     <target>Você não pode implementar este arquivo em qualquer sistema, pois este arquivo é parte de uma configuração de modo seguro local para sistema
+     <target>Você não pode implementar este arquivo em qualquer sistema, pois este arquivo é parte de uma configuração da área de quarentena do sistema
 &lt;a href="{1}"&gt;{0}&lt;/a&gt;.</target></trans-unit>
 	<trans-unit id="deploy.jsp.sandbox-note2">
 <source>Configuration sandboxes are a place to store configuration files that are under development.
@@ -12672,7 +12672,7 @@ From there, you can deploy the file to systems.</source>
         </context-group>
      <target>Modos Seguros de Configuração são locais para armazenar arquivos de configuração que estejam em construção.
 Se você acredita que este arquivo de configuração está pronto para a implementação em um sistema, você pode &lt;a href="{0}"&gt;copiá-lo para um canal de configuração gerenciado localmente&lt;/a&gt;
-ou &lt;a href="{1}"&gt;copiá-lo para um canal de configuração gerenciado mundialmente&lt;/a&gt; através da aba '&lt;a href="{3}"&gt;{4}&lt;/a&gt;' acima.
+ou &lt;a href="{1}"&gt;copiá-lo para um canal de configuração global&lt;/a&gt; através da aba '&lt;a href="{3}"&gt;{4}&lt;/a&gt;' acima.
 A partir daqui, você pode implementar o arquivo em sistemas. </target></trans-unit>
 
 	<trans-unit id="deployglobal.jspf.note">
@@ -12864,7 +12864,7 @@ de configuração centralmente gerenciado pelo arquivo, {2}; segue abaixo uma li
 	<context-group name="ctx">
 		<context context-type="sourcefile">/rhn/configuration/FileDetails.do</context>
 	</context-group>
-	<target>&lt;strong&gt;Dica:&lt;/strong&gt; '644' para arquivos de texto e '755' para diretórios e executáveis, permitirão acesso mundial ou execução (porém não modificação).</target></trans-unit>
+	<target>&lt;strong&gt;Dica:&lt;/strong&gt; '644' para arquivos de texto e '755' para diretórios e executáveis, permitirão acesso ou execução para todos (porém não modificação).</target></trans-unit>
 	<trans-unit id="filedetails.jsp.tip.macros">
 <source>&lt;strong&gt;Tip:&lt;/strong&gt; A full listing of the available macros is listed in the &lt;a href="{0}"&gt;RHN Reference Guide&lt;/a&gt;.</source>
 	<context-group name="ctx">
@@ -13720,7 +13720,7 @@ para qualquer uma das revisões, assim como todo o histórico de implementação
         <target>Arquivo de Cópia</target></trans-unit>
         <trans-unit id="copycentral.jsp.label">
           <source>Channel Label</source>
-        <target>Nome de Canal</target></trans-unit>
+        <target>Referência do Canal</target></trans-unit>
         <trans-unit id="copycentral.jsp.current">
           <source>Current Version in Channel</source>
         <target>Versão Atual no Canal </target></trans-unit>
@@ -13769,10 +13769,10 @@ para qualquer uma das revisões, assim como todo o histórico de implementação
           <context-group name="ctx">
             <context context-type="paramnotes">You may copy Revision 7 of this file into system sandboxes.  When you copy this file into a sandbox, it will become the newest revision for the file in that sandbox.</context>
           </context-group>
-        <target>Você pode copiar a &lt;a href="{0}"&gt;Revisão {1}&lt;/a&gt; deste arquivo para os &lt;strong&gt;modos seguros do sistema&lt;/strong&gt;. Quando você copiar este arquivo para um modo seguro, ele se tornará a revisão mais recente deste arquivo em modo seguro.</target></trans-unit>
+        <target>Você pode copiar a &lt;a href="{0}"&gt;Revisão {1}&lt;/a&gt; deste arquivo para a&lt;strong&gt;Área de Quarentena do Sistema&lt;/strong&gt;. Quando você copiar este arquivo para Área de Quarentena, ele se tornará a revisão mais recente do mesmo.</target></trans-unit>
         <trans-unit id="copysandbox.jsp.channel">
           <source>System Sandbox Name</source>
-        <target>Nome do Sistema Modo Seguro</target></trans-unit>
+        <target>Nome do Sistema na Área de Quarentena</target></trans-unit>
      </group>
 
      <!-- configuration/files/comparerevision.jsp  -->
@@ -13827,7 +13827,7 @@ para qualquer uma das revisões, assim como todo o histórico de implementação
           <context-group name="ctx">
             <context context-type="paramnotes">You can compare Revision 8 of this file to a copy of this file in another config channel. Below is a list of all of the other copies of this file in locally and centrally-managed config channels, as well as in system sandboxes. Please select which copies of the file you would like to perform a comparison on.</context>
           </context-group>
-        <target>Você pode comparar uma &lt;a href="{0}"&gt;Revision {1}&lt;/a&gt; deste arquivo com uma cópia deste arquivo em outro canal de config. Abaixo, segue uma lista com todas as outras cópias deste arquivo nos canais de config gerenciados centralmente e localmente, assim como nos sistemas modo seguro. Selecione as cópias de arquivo que você deseja comparar.</target></trans-unit>
+        <target>Você pode comparar uma &lt;a href="{0}"&gt;Revision {1}&lt;/a&gt; deste arquivo com uma cópia deste arquivo em outro canal de config. Abaixo, segue uma lista com todas as outras cópias deste arquivo nos canais de config gerenciados centralmente e localmente, assim como nos sistemas em Quarentena. Selecione as cópias de arquivo que você deseja comparar.</target></trans-unit>
         <trans-unit id="comparecopy.jsp.noAlternates">
           <source>No file alternatives.</source>
         <target>Nenhuma alternativa de arquivos.</target></trans-unit>
@@ -14349,7 +14349,7 @@ para qualquer uma das revisões, assim como todo o histórico de implementação
          <target>Cancelar Inscrição de Sistemas </target></trans-unit>
          <trans-unit id="unsubscribe.jsp.summary">
            <source>You can unsubscribe systems from the configuration channels below. The channels shown below are all of the global configuration channels to which at least one system in your system set is subscribed.</source>
-         <target>Você pode cancelar sua subscrição de sistemas a partir dos canais de configuração abaixo. Os canais exibidos abaixo são todos vindos de canais de configuração mundiais, no qual pelo menos um sistema em seu conjunto de sistema é registrado.</target></trans-unit>
+         <target>Você pode cancelar sua subscrição de sistemas a partir dos canais de configuração abaixo. Os canais exibidos abaixo são todos vindos de canais de configuração globais, no qual pelo menos um sistema em seu conjunto de sistema é registrado.</target></trans-unit>
          <trans-unit id="unsubscribe.jsp.noChannels">
            <source>No configuration channels with subscribed systems in the current System Set!</source>
          <target>Nenhum canal de destino com sistemas subscritos na Configuração do Sistema Atual!</target></trans-unit>
@@ -14430,7 +14430,7 @@ para qualquer uma das revisões, assim como todo o histórico de implementação
           <context-group name="ctx">
             <context context-type="paramnotes">The systems listed below are those in your system set that are subscribed to Configgy Channel. Deployable Files are configuration files or directories in this channel that are not overridden by a local system configuration channel or a higher priority global channel.</context>
           </context-group>
-        <target>Os sistemas listados abaixo são aqueles em seu conjunto de sistemas que são registrados em {0}. Arquivos Implementáveis são arquivos de configuração ou diretórios neste canal que não são sobrescritos por um canal de configuração de sistema local ou um canal mundial com maior prioridade.</target></trans-unit>
+        <target>Os sistemas listados abaixo são aqueles em seu conjunto de sistemas que são registrados em {0}. Arquivos Implementáveis são arquivos de configuração ou diretórios neste canal que não são sobrescritos por um canal de configuração de sistema local ou um canal global com maior prioridade.</target></trans-unit>
         <trans-unit id="ssmchannelsystems.jsp.noSystems">
           <source>No systems.</source>
         <target>Nenhum sistema.  </target></trans-unit>
@@ -14465,7 +14465,7 @@ para qualquer uma das revisões, assim como todo o histórico de implementação
           <context-group name="ctx">
             <context context-type="paramnotes">The configuration channels listed below are those selected configuration channels to which system32.devel is subscribed. Deployable Files are configuration files or directories in the channel that are not overridden by a local system configuration channel or a higher priority global channel. Change this system's configuration channel ranking.</context>
           </context-group>
-        <target>Os canais de configuração listados abaixo são aqueles canais de configuração selecionados para o qual {0} é registrado. Arquivos Implementáveis são arquivos de configuração ou diretórios neste canal que não são sobrescritos por um canal de configuração de sistema local ou um canal mundial com maior prioridade. &lt;a href="{1}"&gt;Mude esta classificação de canal de configuração de sistema&lt;/a&gt;.</target></trans-unit>
+        <target>Os canais de configuração listados abaixo são aqueles canais de configuração selecionados para o qual {0} é registrado. Arquivos Implementáveis são arquivos de configuração ou diretórios neste canal que não são sobrescritos por um canal de configuração de sistema local ou um canal global com maior prioridade. &lt;a href="{1}"&gt;Mude esta classificação de canal de configuração de sistema&lt;/a&gt;.</target></trans-unit>
         <trans-unit id="ssmsystemchannels.jsp.files">
           <source>Deployable Configuration Files</source>
         <target>Arquivos de Configuração Implementáveis</target></trans-unit>
@@ -14525,7 +14525,7 @@ para qualquer uma das revisões, assim como todo o histórico de implementação
         <target>Arquivos de configuração gerenciados localmente são úteis para sobrescrever perfis de configuração gerenciados centralmente, que causem problemas em sistemas específicos. Os arquivos de configuração gerenciados localmente, também são um método pelo qual os administradores do grupo de sistemas, que não possuem privilégios de administração de configuração, podem gerenciar arquivos de configuração em máquinas que eles podem gerenciar. </target></trans-unit>
         <trans-unit id="sdc.config.file_list.sandbox_description">
             <source>This sandbox is a place you can store configuration files that are under development. This sandbox is associated with this system, {0}, but you may promote files from this sandbox to a centrally-managed configuration channel using the "{1}" below. After files in this sandbox have been promoted to a centrally-managed configuration channel, you will be able to deploy them to other systems.</source>
-        <target>Você pode armazenar arquivos de configuração em desenvolvimento no modo seguro. Este modo seguro é associado a este sistema, {0}, mas você precisa promover arquivos a partir deste modo seguro para um canal de configuração gerenciado centralmente, usando o "{1}" abaixo. Após estes arquivos dentro do modo seguro terem sido promovidos ao canal de configuração gerenciado centralmente, você poderá implementá-los em outros sistemas.</target></trans-unit>
+        <target>Você pode armazenar arquivos de configuração em desenvolvimento na Área de Quarentena. Esta área está associada ao sistema, {0}, mas você precisa promover arquivos a partir da Área de Quarentena  para um canal de configuração gerenciado centralmente, usando o "{1}" abaixo. Após estes arquivos dentro da área de quarentena terem sido promovidos ao canal de configuração gerenciado centralmente, você poderá implementá-los em outros sistemas.</target></trans-unit>
         <trans-unit id="sdc.config.file_list.name">
             <source>File Name</source>
         <target>Nome do Arquivo</target></trans-unit>
@@ -14555,14 +14555,14 @@ para qualquer uma das revisões, assim como todo o histórico de implementação
 
         <trans-unit id="sdc.config.file_list.overridden_none">
             <source>None [&lt;a href="{0}"&gt;Override this file&lt;/a&gt;]</source>
-        <target>Nenhum [&lt;a href="{0}"&gt;Sobrescreve este arquivo&lt;/a&gt;]</target></trans-unit>
+        <target>Nenhum [&lt;a href="{0}"&gt;Sobrescrever este arquivo&lt;/a&gt;]</target></trans-unit>
         <trans-unit id="sdc.config.file_list.current_revision">
             <source>Current Revision</source>
         <target>Revisão Atual</target></trans-unit>
 
         <trans-unit id="sdc.config.file_list.overrides">
             <source>Overrides</source>
-        <target>Sobrescreve</target></trans-unit>
+        <target>Sobrescrever</target></trans-unit>
         <trans-unit id="sdc.config.file_list.none">
             <source>None</source>
         <target>Nenhum</target></trans-unit>
@@ -14576,7 +14576,7 @@ para qualquer uma das revisões, assim como todo o histórico de implementação
 
         <trans-unit id="sdc.config.file_list.copy_to_sandbox">
             <source>Copy Latest to Sandbox</source>
-        <target>Copiar Última Revisão para Modo Seguro</target></trans-unit>
+        <target>Copiar Última Revisão para Quarentena</target></trans-unit>
 
         <trans-unit id="sdc.config.file_list.copy_to_local">
             <source>Copy Latest to System Channel</source>
@@ -14587,13 +14587,13 @@ para qualquer uma das revisões, assim como todo o histórico de implementação
         <target>Copiar Última Revisão para Canal Global</target></trans-unit>
         <trans-unit id="sdc.config.file_list.sandbox.success">
             <source>{0} file(s) successfully copied to Sandbox</source>
-        <target>{0} arquivo(s) copiados para o Modo Seguro com sucesso</target></trans-unit>
+        <target>{0} arquivo(s) copiados para Área de Quarentena com sucesso</target></trans-unit>
         <trans-unit id="sdc.config.file_list.local.success">
             <source>{0} file(s) successfully copied to System Channel</source>
         <target>{0}arquivo(s) copiado para Canal de Sistema com sucesso</target></trans-unit>
         <trans-unit id="sdc.config.file_list.sandbox.delete.success">
             <source>{0} file(s) successfully deleted from Sandbox.</source>
-        <target>{0} arquivo(s) removido do Modod Seguro com sucesso</target></trans-unit>
+        <target>{0} arquivo(s) removido da Área de Quarentena com sucesso</target></trans-unit>
         <trans-unit id="sdc.config.file_list.local.delete.success">
             <source>{0} file(s) successfully deleted from System Config Channel</source>
         <target>{0} arquivo(s) removido do Canal de Config de Sistema com sucesso</target></trans-unit>
@@ -14650,7 +14650,7 @@ para qualquer uma das revisões, assim como todo o histórico de implementação
         <target>Criar Arquivo Local</target></trans-unit>
         <trans-unit id="sdccreatefile.jsp.summary">
           <source>You may create a file below. The created file will be placed in your system sandbox. If you wish to deploy this file or override config files in global channels, copy this file into your local override channel.</source>
-        <target>Você pode criar um arquivo abaixo. O arquivo criado será colocado em modo seguro de seu sistema. Se você desejar implementar este arquivo ou sobrescrever arquivos de config em canais mundiais, copie este arquivo para seu canal de sobrescrição local. </target></trans-unit>
+        <target>Você pode criar um arquivo abaixo. O arquivo criado será colocado na Área de Quarentena do seu sistema. Se você desejar implementar este arquivo ou sobrescrever arquivos de config em canais globais, copie este arquivo para seu canal de sobrescrição local. </target></trans-unit>
      </group>
 
      <!-- configuration/sdc/uploadfile.jsp  -->
@@ -14663,7 +14663,7 @@ para qualquer uma das revisões, assim como todo o histórico de implementação
         <target>Carregar Arquivo Local</target></trans-unit>
         <trans-unit id="sdcuploadfile.jsp.summary">
           <source>You may upload a file from your machine below. The uploaded file will be placed in your system sandbox. If you wish to deploy this file or override config files in global channels, copy this file into your local override channel.</source>
-        <target>Você pode carregar um arquivo a partir de sua máquina abaixo. O arquivo carregado será colocado em modo seguro do seu sistema. Se você desejar implementar este arquivo para sobrescrever arquivos de config em canais mundiais, copie este arquivo em seu canal de sobrescrição local.</target></trans-unit>
+        <target>Você pode carregar um arquivo a partir de sua máquina abaixo. O arquivo carregado será colocado na Área de Quarentena do seu sistema. Se você desejar implementar este arquivo para sobrescrever arquivos de config em canais globais, copie este arquivo em seu canal de sobrescrição local.</target></trans-unit>
      </group>
 
      <!-- configuration/sdc/importfile.jsp  -->
@@ -14682,7 +14682,7 @@ para qualquer uma das revisões, assim como todo o histórico de implementação
           <context-group name="ctx">
             <context context-type="paramnotes">All files added through this interface will be imported from terry.pratchett.bn.com into this system's sandbox channel. Files will be imported the next time rhn_check runs on the system. If you wish to deploy these files or override config files in global channels, copy this file into your local override channel after the import has occurred. You may use either or both file selection methods below.</context>
           </context-group>
-        <target>Todos os arquivos adicionados nesta interface serão importados do {0} para este canal de modo seguro de sistema. Os arquivos podem ser importados da próxima vez que o &lt;code&gt;rhn_check&lt;/code&gt; rodar em seu sistema. Se você desejar implementar estes arquivos ou sobrescrever arquivos de config em canais mundiais, copie este arquivo para seu canal de sobrescrição local após a importação. Você pode usar quantos métodos de seleção de arquivos desejar.</target></trans-unit>
+        <target>Todos os arquivos adicionados nesta interface serão importados do {0} para este canal de Quarentena do sistema. Os arquivos podem ser importados da próxima vez que o &lt;code&gt;rhn_check&lt;/code&gt; rodar em seu sistema. Se você desejar implementar estes arquivos ou sobrescrever arquivos de config em canais globais, copie este arquivo para seu canal de sobrescrição local após a importação. Você pode usar quantos métodos de seleção de arquivos desejar.</target></trans-unit>
         <trans-unit id="sdcimportfile.jsp.new">
           <source>Import New Files</source>
         <target>Importar Novos Arquivos</target></trans-unit>
@@ -14703,7 +14703,7 @@ para qualquer uma das revisões, assim como todo o histórico de implementação
           <context-group name="ctx">
             <context context-type="paramnotes">The following is a list of all deployable configuration files to this system. Selected files here will import the version currently on photolab.devel into this system's sandbox.</context>
           </context-group>
-        <target>Segue abaixo uma lista de todos os arquivos de configuração implementáveis para este sistema. Os arquivos selecionados aqui importarão a versão atual em {0} para o modo seguro do sistema. </target></trans-unit>
+        <target>Segue abaixo uma lista de todos os arquivos de configuração implementáveis para este sistema. Os arquivos selecionados aqui importarão a versão atual em {0} para a Área de Quarentena do sistema. </target></trans-unit>
         <trans-unit id="sdcimportfile.jsp.noFiles">
           <source>No existing configuration files.</source>
         <target>Nenhum arquivo de configuração existente</target></trans-unit>
@@ -14734,7 +14734,7 @@ para qualquer uma das revisões, assim como todo o histórico de implementação
           <context-group name="ctx">
             <context context-type="paramnotes">This action will import the listed files from postbox.devel into this system's sandbox configuration channel.</context>
           </context-group>
-        <target>Esta ação irá importar os arquivos listados a partir de {0} para este canal de configuração de sistema em modo seguro.</target></trans-unit>
+        <target>Esta ação irá importar os arquivos listados a partir de {0} para este canal de configuração de Quarentena do sistema.</target></trans-unit>
         <trans-unit id="sdcimportconfirm.jsp.noFiles">
           <source>No selected configuration files.</source>
         <target>Nenhum arquivo de configuração selecionado.</target></trans-unit>
@@ -16526,7 +16526,7 @@ O Caminho de Árvore, Kickstart RPM, Canal de Base e a Geração do Instalador d
 	     <target>Configuração Gerenciada Localmente</target></trans-unit>
 	     <trans-unit id="sdc.config.sandbox.files">
 			<source>System Sandbox Configuration</source>
-	     <target>Configuração de Sistema em Modo Seguro</target></trans-unit>
+	     <target>Configuração de Sistema em Quarentena</target></trans-unit>
 	     <trans-unit id="sdc.config.central-channel.subscriptions">
 			<source>Centrally-Managed Channel Subscriptions</source>
         <target>Subscrições de Canais Gerenciados Centralmente</target></trans-unit>
@@ -16937,14 +16937,14 @@ O Caminho de Árvore, Kickstart RPM, Canal de Base e a Geração do Instalador d
 		<context-group name="ctx">
 		<context context-type="sourcefile">/systems/details/Overview.do</context>
 		</context-group>
-	     <target>&lt;strong&gt;&lt;a href="{0}"&gt;Critico: &lt;/a&gt;&lt;/strong&gt; {1}</target></trans-unit>
+	     <target>&lt;strong&gt;&lt;a href="{0}"&gt;Crítico: &lt;/a&gt;&lt;/strong&gt; {1}</target></trans-unit>
 
 	     <trans-unit id="sdc.details.overview.updates.noncritical">
 		<source>&lt;strong&gt;&lt;a href="{0}"&gt;Non-Critical: &lt;/a&gt;&lt;/strong&gt; {1}</source>
 		<context-group name="ctx">
 		<context context-type="sourcefile">/systems/details/Overview.do</context>
 		</context-group>
-	     <target>&lt;strong&gt;&lt;a href="{0}"&gt;Não-Critico: &lt;/a&gt;&lt;/strong&gt; {1}</target></trans-unit>
+	     <target>&lt;strong&gt;&lt;a href="{0}"&gt;Não-Crítico: &lt;/a&gt;&lt;/strong&gt; {1}</target></trans-unit>
 
 	     <trans-unit id="sdc.details.overview.updates.packages">
 		<source>&lt;strong&gt;&lt;a href="{0}"&gt;Packages: &lt;/a&gt;&lt;/strong&gt; {1}</source>
@@ -17100,7 +17100,7 @@ O Caminho de Árvore, Kickstart RPM, Canal de Base e a Geração do Instalador d
             <context-group name="ctx">
             <context context-type="sourcefile">/systems/details/Edit.do</context>
             </context-group>
-         <target>Endereço das Facilidades:</target></trans-unit>
+         <target>Localização do Equipamento:</target></trans-unit>
 
          <trans-unit id="sdc.details.edit.city">
             <source>City:</source>
@@ -17128,7 +17128,7 @@ O Caminho de Árvore, Kickstart RPM, Canal de Base e a Geração do Instalador d
             <context-group name="ctx">
             <context context-type="sourcefile">/systems/details/Edit.do</context>
             </context-group>
-         <target>Construindo:</target></trans-unit>
+         <target>Prédio:</target></trans-unit>
 
          <trans-unit id="sdc.details.edit.room">
             <source>Room:</source>
@@ -17163,7 +17163,7 @@ O Caminho de Árvore, Kickstart RPM, Canal de Base e a Geração do Instalador d
             <context-group name="ctx">
             <context context-type="sourcefile">/systems/details/Edit.do</context>
             </context-group>
-         <target>Incluir sistema nos cálculos do formulário de sumário diário.</target></trans-unit>
+         <target>Incluir sistema no relatório consumo diário.</target></trans-unit>
 
          <trans-unit id="sdc.details.edit.notifications.unentitled">
             <source>Notifications not available for unentitled systems.</source>
@@ -19461,7 +19461,7 @@ given channel.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
         </context-group>
-      <target>Nome de Canal</target></trans-unit>
+      <target>Referência do Canal</target></trans-unit>
       <trans-unit id="channel.edit.jsp.parent">
         <source>Parent Channel</source>
         <context-group name="ctx">
@@ -19503,13 +19503,13 @@ given channel.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
         </context-group>
-      <target>Nome da Manutenção</target></trans-unit>
+      <target>Nome do Mantenedor</target></trans-unit>
       <trans-unit id="channel.edit.jsp.maintainercontactinfo">
         <source>Maintainer Contact Information</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
         </context-group>
-      <target>Informações sobre o Conato da Manutenção</target></trans-unit>
+      <target>Informações sobre o Contato do Mantenedor</target></trans-unit>
       <trans-unit id="channel.edit.jsp.emailaddress">
         <source>Email Address</source>
         <context-group name="ctx">
@@ -19977,7 +19977,7 @@ given channel.</source>
      <target>Segue abaixo o relatório de status para as diversas tarefas pelo mecanismo da tarefa @@PRODUCT_NAME@@:</target></trans-unit>
      <trans-unit id="task.status.title">
          <source>Task Engine Status</source>
-     <target>Status do Mecanismo da Tarefa</target></trans-unit>
+     <target>Status do Mecanismo de Tarefas</target></trans-unit>
       <trans-unit id="actions.jsp.pickedup">
 		<source>Picked Up</source>
       <target>Escolhido</target></trans-unit>
@@ -20018,7 +20018,7 @@ given channel.</source>
       <target>Última Construção Repo</target></trans-unit>
       <trans-unit id="channel.edit.jsp.lastsynced">
 		<source>Last Sync Time</source>
-      <target>Último Período de Sync</target></trans-unit>
+      <target>Última Sincronização</target></trans-unit>
       <trans-unit id="filedetails.details.jspf.revnum">
 		<source>Next revision number:</source>
       <target>Próximo número de revisão:</target></trans-unit>

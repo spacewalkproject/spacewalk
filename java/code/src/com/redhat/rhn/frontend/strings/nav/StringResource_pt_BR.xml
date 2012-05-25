@@ -412,7 +412,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/FileCopy.do</context>
         </context-group>
-	<target>Copiar para o Modo Seguro do Sistema</target></trans-unit>
+	<target>Copiar para área de Quarentena do Sistema</target></trans-unit>
 	<trans-unit id="configfile.nav.compare">
 <source>Compare File</source>
         <context-group name="ctx">
@@ -488,7 +488,7 @@
 
         <trans-unit id="nav.sdc.config.sandbox_managed_files">
             <source>Local Sandbox</source>
-        <target>Modo Seguro Local</target></trans-unit>
+        <target>Área de Quarentena</target></trans-unit>
 
       </group>
 
@@ -944,7 +944,7 @@
     <context-group name="ctx">
       <context context-type="sourcefile">/rhn/software/channel/downloads/Download.do</context>
     </context-group>
-  <target>Gerenciadores</target></trans-unit>
+  <target>Administradores</target></trans-unit>
 
   <trans-unit id="Subscribers">
     <source>Subscribers</source>
@@ -965,14 +965,14 @@
     <context-group name="ctx">
       <context context-type="sourcefile">/rhn/software/channel/downloads/Download.do</context>
     </context-group>
-  <target>Licensa</target></trans-unit>
+  <target>Licença</target></trans-unit>
 
   <trans-unit id="Sync">
     <source>Sync</source>
     <context-group name="ctx">
       <context context-type="sourcefile">/rhn/channels/manage/errata/SyncErrata.do</context>
     </context-group>
-  <target>Sync</target></trans-unit>
+  <target>Sincronizar</target></trans-unit>
 
   <trans-unit id="Organizations">
     <source>Organizations</source>
