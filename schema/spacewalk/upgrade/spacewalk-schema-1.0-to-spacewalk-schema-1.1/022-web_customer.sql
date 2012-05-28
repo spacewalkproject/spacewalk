@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008--2010 Red Hat, Inc.
+-- Copyright (c) 2008--2012 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -15,11 +15,13 @@
 --
 --
 
+alter trigger web_customer_mod_trig disable;
 alter table web_customer add
         staging_content_enabled CHAR(1)
                     DEFAULT ('N') NOT NULL
                 CONSTRAINT web_customer_stage_content_chk
                 CHECK (staging_content_enabled in ( 'Y' , 'N' ));
+alter trigger web_customer_mod_trig enable;
 
 alter table web_customer drop column oracle_customer_id;
 alter table web_customer drop column oracle_customer_number;
