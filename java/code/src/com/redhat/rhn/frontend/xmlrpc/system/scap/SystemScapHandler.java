@@ -27,6 +27,7 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.XccdfRuleResultDto;
 import com.redhat.rhn.frontend.dto.XccdfTestResultDto;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
+import com.redhat.rhn.frontend.xmlrpc.InvalidSystemException;
 import com.redhat.rhn.manager.MissingCapabilityException;
 import com.redhat.rhn.manager.MissingEntitlementException;
 import com.redhat.rhn.manager.action.ActionManager;
@@ -144,6 +145,10 @@ public class SystemScapHandler extends BaseHandler {
     public int scheduleXccdfScan(String sessionKey, List serverIds,
              String xccdfPath, String oscapParams, Date date) {
         User loggedInUser = getLoggedInUser(sessionKey);
+
+        if (serverIds.isEmpty()) {
+            throw new InvalidSystemException();
+        }
 
         HashSet<Long> longServerIds = new HashSet<Long>();
         for (Iterator it = serverIds.iterator(); it.hasNext();) {
