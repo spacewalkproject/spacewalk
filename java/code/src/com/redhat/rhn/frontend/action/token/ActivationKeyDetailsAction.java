@@ -317,15 +317,18 @@ public class ActivationKeyDetailsAction extends RhnAction {
             usageLimit = Long.valueOf(daForm.getString(USAGE_LIMIT));
         }
 
+        List<String> selected = Arrays.asList((String[])daForm.get(SELECTED_ENTS));
+        manager.validateAddOnEntitlements(selected, true);
+
         ActivationKey key = manager.createNewActivationKey(user,
                                 daForm.getString(KEY),
                                 daForm.getString(DESCRIPTION),
                                 usageLimit,
                                 lookupChannel(daForm, user),
                                 Boolean.TRUE.equals(daForm.get(ORG_DEFAULT)));
-        String[] selected = (String[])daForm.get(SELECTED_ENTS);
+
         if (selected != null) {
-            manager.addEntitlements(key, Arrays.asList(selected));
+            manager.addEntitlements(key, selected);
         }
         ActionMessages msg = new ActionMessages();
         addToMessage(msg, "activation-key.java.created", key.getNote());
