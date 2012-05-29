@@ -1161,14 +1161,13 @@ public class ChannelManager extends BaseManager {
         inParams.put("role", role);
 
         Map outParams = new HashMap();
-        outParams.put("result", new Integer(Types.NUMERIC));
-        outParams.put("reason", new Integer(Types.VARCHAR));
+        outParams.put("result", new Integer(Types.VARCHAR));
         Map result = m.execute(inParams, outParams);
 
-        boolean accessible = BooleanUtils.toBoolean(
-                ((Long) result.get("result")).intValue());
-        if (!accessible) {
-            String reason = (String) result.get("reason");
+        boolean accessible = true;
+        String reason = (String) result.get("result");
+        if (reason != null) {
+            accessible = false;
             throw new InvalidChannelRoleException(reason);
         }
         return accessible;

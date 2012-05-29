@@ -144,12 +144,13 @@ public class UserManager extends BaseManager {
         inParams.put("role", role);
 
         Map outParams = new HashMap();
-        outParams.put("result", new Integer(Types.NUMERIC));
-        outParams.put("reason", new Integer(Types.VARCHAR));
+        outParams.put("result", new Integer(Types.VARCHAR));
         Map result = m.execute(inParams, outParams);
 
-        boolean accessible = BooleanUtils.toBoolean(
-                ((Long)result.get("result")).intValue());
+        boolean accessible = false;
+        if (result.get("result") == null) {
+            accessible = true;
+        }
 
         return accessible;
     }

@@ -196,8 +196,8 @@ ORDER BY UPPER(C.name)
 </mode>
 
 <callable-mode name="verify_channel_role">
-  <query params="result, cid, user_id, role, reason">
-      {:result = call rhn_channel.user_role_check_debug(:cid, :user_id, :role, :reason)}
+  <query params="result, cid, user_id, role">
+      {:result = call rhn_channel.user_role_check_debug(:cid, :user_id, :role)}
   </query>
 </callable-mode>
 
