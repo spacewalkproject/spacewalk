@@ -22,7 +22,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.76
+Version: 1.8.77
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -605,6 +605,12 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue May 29 2012 Simon Lukasik <slukasik@redhat.com> 1.8.77-1
+- Fail gracefully on empty list of systems
+- Add option to search scap within SSM.
+- OpenSCAP integration -- A simple search page.
+- Promote some of the rule's columns to fragment.
+
 * Tue May 29 2012 Tomas Lestach <tlestach@redhat.com> 1.8.76-1
 - 814659 - add an extra entitlement check before the key creation
 - Enhancements pt_BR localization at webUI
