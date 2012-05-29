@@ -22,7 +22,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.75
+Version: 1.8.76
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -605,6 +605,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue May 29 2012 Tomas Lestach <tlestach@redhat.com> 1.8.76-1
+- 814659 - add an extra entitlement check before the key creation
+- Enhancements pt_BR localization at webUI
+
 * Fri May 25 2012 Tomas Lestach <tlestach@redhat.com> 1.8.75-1
 - store also config revision changed_by_id
 - fix ConfigurationFactoryTest.testRemoveConfigChannel
