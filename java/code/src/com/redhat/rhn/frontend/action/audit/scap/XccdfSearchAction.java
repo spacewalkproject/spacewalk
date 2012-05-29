@@ -46,8 +46,8 @@ import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
  */
 public class XccdfSearchAction extends RhnAction {
 
-    private static String SEARCH_STRING = "search_string";
-    private static String WHERE_TO_SEARCH = "whereToSearch";
+    private static final String SEARCH_STRING = "search_string";
+    private static final String WHERE_TO_SEARCH = "whereToSearch";
     private static Logger log = Logger.getLogger(XccdfSearchAction.class);
 
     /** {@inheritDoc} */

@@ -33,10 +33,17 @@ import com.redhat.rhn.manager.audit.ScapManager;
  */
 public class XccdfSearchHelper extends RhnAction {
 
-    private static String IDENT_INDEX = "xccdfIdent";
-    private static String INDEX_SEARCH = "index.search";
-    private static String SYSTEM_LIST = "system_list";
+    private static final String IDENT_INDEX = "xccdfIdent";
+    private static final String INDEX_SEARCH = "index.search";
+    private static final String SYSTEM_LIST = "system_list";
 
+    /**
+     * Perform search over XCCDF
+     * @param searchString A string to search within xccdf:Rules
+     * @param whereToSearch Where to search for scans, either ssm or all machines
+     * @param context A context of cuyrrent request
+     * @return a list of xccdf:rule-results
+     */
     public static List performSearch(String searchString, String whereToSearch,
             RequestContext context)
             throws MalformedURLException, XmlRpcException, XmlRpcFault {
