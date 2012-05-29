@@ -14,8 +14,6 @@
 --
 
 
--- A view that displays packages which can be updated on selected client.
--- This is an uncached version of rhnServerNeededCache.
 -- RHEL 6  timezones
 
 insert into rhnKickstartTimezone (id, label, name, install_type)
