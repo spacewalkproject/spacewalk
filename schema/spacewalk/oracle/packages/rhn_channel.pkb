@@ -824,11 +824,11 @@ IS
     end;
     
     -- check if a user has a given role, or if such a role is inferrable
+    -- returns NULL if OK, error message otherwise
     function user_role_check_debug(channel_id_in in number, 
                                    user_id_in in number, 
-                                   role_in in varchar2, 
-                                   reason_out out varchar2)
-    return number
+                                   role_in in varchar2)
+    return varchar2
     is
         org_id number;
     begin
@@ -837,52 +837,54 @@ IS
         -- channel might be shared
         if role_in = 'subscribe' and
            rhn_channel.shared_user_role_check(channel_id_in, user_id_in, role_in) = 1 then
-            return 1;
+            return NULL;
         end if;
         
         if role_in = 'manage' and 
            NVL(rhn_channel.get_org_id(channel_id_in), -1) <> org_id then
-                reason_out := 'channel_not_owned';
-               return 0;
-            end if;
+               return 'channel_not_owned';
+        end if;
         
         if role_in = 'subscribe' and 
            rhn_channel.get_org_access(channel_id_in, org_id) = 0 then
-                reason_out := 'channel_not_available';
-                return 0;
-            end if;
+                return 'channel_not_available';
+        end if;
         
         -- channel admins have all roles
         if rhn_user.check_role_implied(user_id_in, 'channel_admin') = 1 then
-            reason_out := 'channel_admin';
-            return 1;
-            end if;
+            return NULL;
+        end if;
 
         -- the subscribe permission is inferred 
-    -- UNLESS the not_globally_subscribable flag is set 
+        -- UNLESS the not_globally_subscribable flag is set
         if role_in = 'subscribe'
         then
             if rhn_channel.org_channel_setting(channel_id_in, 
                        org_id,
                        'not_globally_subscribable') = 0 then
-                reason_out := 'globally_subscribable';
-                    return 1;
+                    return NULL;
             end if;
         end if;
         
         -- all other roles (manage right now) are explicitly granted    
-        reason_out := 'direct_permission';
-        return rhn_channel.direct_user_role_check(channel_id_in, 
-                                              user_id_in, role_in);
+        if rhn_channel.direct_user_role_check(channel_id_in,
+                                              user_id_in, role_in) = 1 then
+            return NULL;
+        end if;
+        return 'direct_permission';
     end;
     
-    -- same as above, but with no OUT param; useful in views, etc
+    -- same as above, but with 1/0 output; useful in views, etc
     function user_role_check(channel_id_in in number, user_id_in in number, role_in in varchar2)
     return number
     is
-        throwaway varchar2(256);
     begin
-        return rhn_channel.user_role_check_debug(channel_id_in, user_id_in, role_in, throwaway);
+        if rhn_channel.user_role_check_debug(channel_id_in,
+                                             user_id_in, role_in) is NULL then
+            return 1;
+        else
+            return 0;
+        end if;
     end;
 
     --

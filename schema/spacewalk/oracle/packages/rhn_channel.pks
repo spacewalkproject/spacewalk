@@ -107,8 +107,8 @@ IS
     
     function get_cfam_org_access(cfam_id_in in number, org_id_in in number) return number;
 
-    function user_role_check_debug(channel_id_in in number, user_id_in in number, role_in in varchar2, reason_out out varchar2)
-    	RETURN NUMBER;
+    function user_role_check_debug(channel_id_in in number, user_id_in in number, role_in in varchar2)
+        RETURN VARCHAR2;
     PRAGMA RESTRICT_REFERENCES(user_role_check_debug, WNDS, RNPS, WNPS);
 
     function user_role_check(channel_id_in in number, user_id_in in number, role_in in varchar2)
