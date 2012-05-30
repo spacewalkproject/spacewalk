@@ -1,3 +1,5 @@
+alter trigger rhn_confcontent_mod_trig disable;
+
 declare
  md5_id number;
 begin
@@ -24,3 +26,4 @@ begin
 end;
 /
 
+alter trigger rhn_confcontent_mod_trig enable;

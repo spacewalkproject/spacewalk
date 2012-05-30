@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008--2010 Red Hat, Inc.
+-- Copyright (c) 2008--2012 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -27,6 +27,7 @@ CREATE UNIQUE INDEX rhn_confinfo_ugf_uq
 alter table rhnConfigContent     add delim_start    VARCHAR2(16);
 alter table rhnConfigContent     add delim_end      VARCHAR2(16);
 
+alter trigger rhn_confcontent_mod_trig disable;
 DECLARE
      CURSOR config_content_delimeters is
        select CONFIG_CONTENT_ID, DELIM_START, DELIM_END 
@@ -44,6 +45,7 @@ BEGIN
   commit;
 END;
 /
+alter trigger rhn_confcontent_mod_trig enable;
 
 alter table rhnConfigContent modify delim_start   not null;
 alter table rhnConfigContent modify delim_end     not null;
