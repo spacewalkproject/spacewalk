@@ -22,7 +22,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.78
+Version: 1.8.79
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -605,6 +605,13 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed May 30 2012 Michael Mraka <michael.mraka@redhat.com> 1.8.79-1
+- checkstyle fix
+- omit accessible parameter
+- simplify construct
+- remove unnecessarily nested else clause
+- remove unused imports
+
 * Tue May 29 2012 Michael Mraka <michael.mraka@redhat.com> 1.8.78-1
 - modified java stack to use new user_role_check_debug()
 
