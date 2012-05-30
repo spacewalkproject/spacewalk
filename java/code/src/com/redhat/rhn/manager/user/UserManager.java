@@ -43,7 +43,6 @@ import com.redhat.rhn.frontend.taglibs.list.decorators.PageSizeDecorator;
 import com.redhat.rhn.manager.BaseManager;
 import com.redhat.rhn.manager.SatManager;
 
-import org.apache.commons.lang.BooleanUtils;
 import org.apache.log4j.Logger;
 
 import java.sql.Types;
