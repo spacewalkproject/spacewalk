@@ -100,20 +100,6 @@
         <module name="StaticVariableName"/>
         <module name="TypeName"/>
 
-
-        <!-- Checks for Headers                              -->
-        <!-- See http://checkstyle.sourceforge.net/config_header.html#RegexpHeader -->
-        <!-- Following interprets the header file as regular expressions. -->
-        <module name="RegexpHeader">
-            <!-- The follow property value demonstrates the ability     -->
-            <!-- to have access to ANT properties. In this case it uses -->
-            <!-- the ${basedir} property to allow Checkstyle to be run  -->
-            <!-- from any directory within a project.                   -->
-            <property name="headerFile" value="${checkstyle.header.file}"/>
-        </module>
-
-
-
         <!-- Checks for imports                              -->
         <!-- See http://checkstyle.sf.net/config_import.html -->
         <module name="AvoidStarImport"/>
@@ -233,6 +219,17 @@ MINUS_ASSIGN, MOD, MOD_ASSIGN, NOT_EQUAL, PLUS, PLUS_ASSIGN, QUESTION, RCURLY, S
         <module name="usage.UnusedParameter"/>
         <module name="usage.UnusedPrivateField"/>
 -->        
+    </module>
+
+    <!-- Checks for Headers                              -->
+    <!-- See http://checkstyle.sourceforge.net/config_header.html#RegexpHeader -->
+    <!-- Following interprets the header file as regular expressions. -->
+    <module name="RegexpHeader">
+        <!-- The follow property value demonstrates the ability     -->
+        <!-- to have access to ANT properties. In this case it uses -->
+        <!-- the ${basedir} property to allow Checkstyle to be run  -->
+        <!-- from any directory within a project.                   -->
+        <property name="headerFile" value="${checkstyle.header.file}"/>
     </module>
 
 </module>
