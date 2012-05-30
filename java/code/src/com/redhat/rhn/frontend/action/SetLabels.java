@@ -26,4 +26,6 @@ public final class SetLabels {
     public static final String PATCH_INSTALL_SET = "install_patch_list";
     public static final String PATCH_REMOVE_SET  = "removable_patch_list";
     public static final String PACKAGE_UPGRADE_SET = "upgrade_package_list";
+
+   private SetLabels() { }
 }
