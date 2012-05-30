@@ -66,9 +66,7 @@ public class XccdfSearchHelper extends RhnAction {
             return ScapManager.ruleResultsByIdentIdsForSsm(context.getCurrentUser(),
                      identIds);
         }
-        else {
-            return ScapManager.ruleResultsByIdentIds(context.getCurrentUser(), identIds);
-        }
+        return ScapManager.ruleResultsByIdentIds(context.getCurrentUser(), identIds);
     }
 
     private static String preprocessSearchString(String searchString) {
