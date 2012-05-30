@@ -13,8 +13,9 @@
 %define jardir          %{_localstatedir}/lib/tomcat6/webapps/rhn/WEB-INF/lib
 %endif
 
-%if 0%{?rhel} && 0%{?rhel} < 6
-# checkstyle is broken on Fedora 14 - we skip for now
+%if 0%{?rhel} && 0%{?rhel} >= 6
+# checkstyle is broken on Fedoras - we skip for now
+# RHEL5 checkstyle4 is incompatible with checkstyle5
 %define run_checkstyle  1
 %endif
 
