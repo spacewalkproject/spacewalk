@@ -1163,13 +1163,11 @@ public class ChannelManager extends BaseManager {
         outParams.put("result", new Integer(Types.VARCHAR));
         Map result = m.execute(inParams, outParams);
 
-        boolean accessible = true;
         String reason = (String) result.get("result");
         if (reason != null) {
-            accessible = false;
             throw new InvalidChannelRoleException(reason);
         }
-        return accessible;
+        return true;
     }
 
     /**
