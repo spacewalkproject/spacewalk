@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.8.43
+Version:        1.8.44
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -68,6 +68,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Wed May 30 2012 Michael Mraka <michael.mraka@redhat.com> 1.8.44-1
+- fixed build time sanity check errors
+
 * Tue May 29 2012 Michael Mraka <michael.mraka@redhat.com> 1.8.43-1
 - changes from 001 and 048 files have been merged into 051-* upgrade file
 - upgrade scripts for user_role_check_debug() changes
