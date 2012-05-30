@@ -53,7 +53,7 @@ public class VirtualInstanceFactory extends HibernateFactory {
     private static Logger log = Logger
             .getLogger(VirtualInstanceFactory.class);
 
-    private static interface HibernateCallback {
+    private interface HibernateCallback {
         Object executeInSession(Session session);
     }
 
