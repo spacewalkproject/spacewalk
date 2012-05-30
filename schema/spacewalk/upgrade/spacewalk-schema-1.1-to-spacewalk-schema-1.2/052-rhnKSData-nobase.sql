@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2010 Red Hat, Inc.
+-- Copyright (c) 2010--2012 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -13,6 +13,8 @@
 -- in this software or its documentation.
 --
 
+alter trigger rhn_ks_mod_trig disable;
+
 alter table rhnKsData add (
     no_base         CHAR(1)
                         DEFAULT ('N') NOT NULL
@@ -23,3 +25,5 @@ alter table rhnKsData add (
                         CONSTRAINT rhn_ks_ignore_missing_ck
                             CHECK (ignore_missing in ( 'Y' , 'N' ))
 );
+
+alter trigger rhn_ks_mod_trig enable;
