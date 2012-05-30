@@ -24,4 +24,6 @@ public class TestStatics {
      */
     public static final String TESTORG = "testOrg";
     public static final String TESTUSER = "testUser";
+
+    private TestStatics() { }
 }
