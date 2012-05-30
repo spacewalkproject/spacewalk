@@ -133,8 +133,6 @@
             <property name="option" value="eol" />
         </module>
         <module name="ParenPad"/>
-<!--        <module name="TypecastParenPad"/>  -->
-        <module name="TabCharacter"/>
         <module name="WhitespaceAfter">
           <property name="tokens" value="COMMA, SEMI, GENERIC_END"/>
         </module>
@@ -231,5 +229,7 @@ MINUS_ASSIGN, MOD, MOD_ASSIGN, NOT_EQUAL, PLUS, PLUS_ASSIGN, QUESTION, RCURLY, S
         <!-- from any directory within a project.                   -->
         <property name="headerFile" value="${checkstyle.header.file}"/>
     </module>
+
+    <module name="FileTabCharacter"/>
 
 </module>
