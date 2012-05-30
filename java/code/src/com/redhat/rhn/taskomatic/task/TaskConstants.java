@@ -161,4 +161,6 @@ public class TaskConstants {
         "repomdgenerator_package_changelog";
 
     public static final String MODE_NAME = "Task_queries";
+
+    private TaskConstants() { }
 }
