@@ -43,6 +43,9 @@ public class XccdfSearchHelper extends RhnAction {
      * @param whereToSearch Where to search for scans, either ssm or all machines
      * @param context A context of cuyrrent request
      * @return a list of xccdf:rule-results
+     * @throws MalformedURLException possibly bad configuration for search server address
+     * @throws XmlRpcException in the case of a serialization failure
+     * @throws XmlRpcFault bad communication with search server
      */
     public static List performSearch(String searchString, String whereToSearch,
             RequestContext context)
