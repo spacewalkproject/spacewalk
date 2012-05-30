@@ -1,3 +1,5 @@
+alter trigger rhn_pkgsrc_mod_trig disable;
+
 declare
  md5_id number;
 begin
@@ -37,3 +39,4 @@ begin
 end;
 /
 
+alter trigger rhn_pkgsrc_mod_trig enable;
