@@ -146,12 +146,7 @@ public class UserManager extends BaseManager {
         outParams.put("result", new Integer(Types.VARCHAR));
         Map result = m.execute(inParams, outParams);
 
-        boolean accessible = false;
-        if (result.get("result") == null) {
-            accessible = true;
-        }
-
-        return accessible;
+        return result.get("result") == null;
     }
 
 
