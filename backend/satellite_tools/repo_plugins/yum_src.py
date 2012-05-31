@@ -141,7 +141,11 @@ class ContentSource(object):
 
         warnings = YumWarnings()
         warnings.disable()
-        repo.baseurlSetup()
+        try:
+            repo.baseurlSetup()
+        except:
+            warnings.restore()
+            raise
         warnings.restore()
         repo.setup(False)
         self.sack = self.repo.getPackageSack()

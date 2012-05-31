@@ -96,9 +96,14 @@ class RepoSync(object):
         """Trigger a reposync"""
         start_time = datetime.now()
         for (repo_id, url) in self.urls:
-            plugin = self.repo_plugin(url, self.channel_label)
-            self.import_packages(plugin, repo_id, url)
-            self.import_updates(plugin, url)
+            self.print_msg("Repo URL: %s" % url)
+            try:
+                plugin = self.repo_plugin(url, self.channel_label)
+                self.import_packages(plugin, repo_id, url)
+                self.import_updates(plugin, url)
+            except Exception, e:
+                self.error_msg("ERROR: %s" % e.value)
+                continue
         if self.regen:
             taskomatic.add_to_repodata_queue_for_channel_package_subscription(
                 [self.channel_label], [], "server.app.yumreposync")
@@ -305,7 +310,6 @@ class RepoSync(object):
         packages = plug.list_packages(filters)
         to_process = []
         num_passed = len(packages)
-        self.print_msg("Repo URL: %s" % url)
         self.print_msg("Packages in repo:             %5d" % plug.num_packages)
         if plug.num_excluded:
             self.print_msg("Packages passed filter rules: %5d" % num_passed)
