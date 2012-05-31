@@ -4,7 +4,7 @@ Name: spacewalk-search
 Summary: Spacewalk Full Text Search Server
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.2
+Version: 1.8.3
 Release: 1%{?dist}
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
@@ -123,6 +123,9 @@ fi
 %{_sysconfdir}/logrotate.d/rhn-search
 
 %changelog
+* Thu May 31 2012 Jan Pazdziora 1.8.3-1
+- Start indexing XCCDF idents.
+
 * Fri Apr 27 2012 Jan Pazdziora 1.8.2-1
 - 816299 - Updating default config files with additional options for heapdump
   directory (sherr@redhat.com)
