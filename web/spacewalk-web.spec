@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.15
+Version: 1.8.16
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -254,6 +254,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Thu May 31 2012 Jan Pazdziora 1.8.16-1
+- OpenSCAP integration -- A simple search page.
+
 * Fri May 25 2012 Stephen Herr <sherr@redhat.com> 1.8.15-1
 - 824879, 825279 - Sometimes the return_link on the SSM Clear button does not
   work
