@@ -25,6 +25,15 @@
     <td><c:out value="${testResult.scapActionDetails.parametersContents}"/></td>
   </tr>
   <tr>
+    <th><bean:message key="configoverview.jsp.scheduledBy"/>:</th>
+    <td>
+      <img src="/img/rhn-listicon-user.gif" alt="<bean:message key="yourrhn.jsp.user.alt" />"/>
+      <a href="/network/systems/details/history/event.pxt?sid=${param.sid}&hid=${testResult.scapActionDetails.parentAction.id}">
+        <c:out value="${testResult.scapActionDetails.parentAction.schedulerUser.login}"/>
+      </a>
+    </td>
+  </tr>
+  <tr>
     <th><bean:message key="system.audit.xccdfdetails.jsp.benchmarkid"/>:</th>
     <td><c:out value="${testResult.benchmark.identifier}"/></td>
   </tr>
