@@ -4,7 +4,7 @@
 %endif
 
 Name:        spacecmd
-Version:     1.8.8
+Version:     1.8.9
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -60,6 +60,10 @@ touch %{buildroot}/%{python_sitelib}/spacecmd/__init__.py
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Thu May 31 2012 Stephen Herr <sherr@redhat.com> 1.8.9-1
+- 809905 - fixing chroot option for addscript, is now possible to not chroot in
+  non-interactive mode
+
 * Thu May 24 2012 Steven Hardy <shardy@redhat.com> 1.8.8-1
 - spacecmd bugfix : kickstart_getcontents fix character encoding error
 - spacecmd bugfix: activationkey_import don't add empty package/group lists
