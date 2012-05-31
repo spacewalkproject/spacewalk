@@ -1,5 +1,5 @@
 Name:		spacewalk-oscap
-Version:	0.0.8
+Version:	0.0.9
 Release:	1%{?dist}
 Summary:	OpenSCAP plug-in for rhn-check
 
@@ -42,6 +42,10 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Thu May 31 2012 Simon Lukasik <slukasik@redhat.com> 0.0.9-1
+- Forbid oscap args other than --profile and --skip-valid
+- %%defattr is not needed since rpm 4.4
+
 * Mon Apr 30 2012 Simon Lukasik <slukasik@redhat.com> 0.0.8-1
 - Do not pass empty string as parameter to oscap tool. (slukasik@redhat.com)
 
