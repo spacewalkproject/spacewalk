@@ -21,6 +21,10 @@
     <td><c:out value="${testResult.scapActionDetails.path}"/></td>
   </tr>
   <tr>
+    <th><bean:message key="system.audit.schedulexccdf.jsp.arguments"/>:</th>
+    <td><c:out value="${testResult.scapActionDetails.parametersContents}"/></td>
+  </tr>
+  <tr>
     <th><bean:message key="system.audit.xccdfdetails.jsp.benchmarkid"/>:</th>
     <td><c:out value="${testResult.benchmark.identifier}"/></td>
   </tr>
