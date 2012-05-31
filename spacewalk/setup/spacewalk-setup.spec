@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        1.8.9
+Version:        1.8.10
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -109,6 +109,9 @@ rm -rf %{buildroot}
 %{_mandir}/man8/spacewalk-make-mount-points*
 
 %changelog
+* Thu May 31 2012 Jan Pazdziora 1.8.10-1
+- get rid of jabberd xsl templates in spacewalk-setup
+
 * Mon May 21 2012 Jan Pazdziora 1.8.9-1
 - %%defattr is not needed since rpm 4.4
 - remove usage of rhn_quota package
