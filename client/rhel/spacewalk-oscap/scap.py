@@ -16,12 +16,8 @@ def xccdf_eval(args, cache_only=None):
         return (0, 'no-ops for caching', {})
 
     results_file = tempfile.NamedTemporaryFile()
-    if args['params']:
-        oscap_err = _run_oscap(['xccdf', 'eval', '--results', results_file.name]
-            + args['params'].split(' ') + [args['path']])
-    else:
-        oscap_err = _run_oscap(['xccdf', 'eval', '--results', results_file.name]
-            + [args['path']])
+    params, oscap_err = _process_params(args['params'], results_file.name)
+    oscap_err += _run_oscap(['xccdf', 'eval'] + params + [args['path']])
 
     if not _assert_xml(results_file.name):
         return (1, 'oscap tool did not produce valid xml.\n' + oscap_err, {})
@@ -58,6 +54,27 @@ def _popen(args):
     log.log_debug('Running: ' + str(args))
     return subprocess.Popen(args, bufsize=-1, stdin=subprocess.PIPE,
         stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=False)
+
+def _process_params(args, filename):
+    params = ['--results', filename]
+    errors = ''
+    if args:
+        allowed_args = {'--profile': 1, '--skip-valid': 0}
+        args = args.split(' ')
+        i = 0
+        while i < len(args):
+            if args[i] in allowed_args:
+                j = i + allowed_args[args[i]]
+                params += args[i:j+1]
+                i = j
+            elif not errors:
+                errors = 'xccdf_eval: Following arguments forbidden: ' + args[i]
+            else:
+                errors += ' ' + args[i]
+            i += 1
+    if errors:
+        errors += '\n'
+    return params, errors
 
 def _assert_xml(filename):
     f = open(filename, 'rb')
