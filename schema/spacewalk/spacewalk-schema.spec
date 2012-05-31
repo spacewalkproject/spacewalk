@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.8.44
+Version:        1.8.45
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -68,6 +68,27 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Thu May 31 2012 Jan Pazdziora 1.8.45-1
+- Disable rhn_pkgsrc_mod_trig while updating rhnPackageSource, so that modified
+  does not get modified.
+- Disable rhn_ks_mod_trig while updating rhnKsData, so that modified does not
+  get modified.
+- Disable rhn_erratafiletmp_mod_trig while updating rhnErrataFileTmp, so that
+  modified does not get modified.
+- Disable rhn_errata_file_mod_trig while updating rhnErrataFile, so that
+  modified does not get modified.
+- Disable rhn_channel_mod_trig while updating rhnChannel, so that modified does
+  not get modified.
+- Disable rhn_confcontent_mod_trig while updating rhnConfigContent, so that
+  modified does not get modified.
+- Fixing misleading comment.
+- Disable rhn_privcf_mod_trig while updating rhnPrivateChannelFamily, so that
+  modified does not get modified.
+- Disable rhn_server_channel_mod_trig while updating rhnServerChannel, so that
+  modified does not get modified.
+- Disable rhn_servernetwork_mod_trig while updating rhnServerNetwork, so that
+  modified does not get modified.
+
 * Wed May 30 2012 Michael Mraka <michael.mraka@redhat.com> 1.8.44-1
 - fixed build time sanity check errors
 
