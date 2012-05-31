@@ -1703,7 +1703,7 @@ def do_kickstart_addscript(self, args):
             return
 
         if not options.chroot:
-            options.chroot = True
+            options.chroot = False
 
         if not options.interpreter:
             options.interpreter = '/bin/bash'
