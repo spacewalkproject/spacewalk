@@ -109,7 +109,7 @@ public class ChannelAccessHandler extends BaseHandler {
      * @xmlrpc.doc Set organization sharing access control.
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param_desc("string", "channelLabel", "label of the channel")
-     * @xmlrpc.param #prop_desc("string", "access", "Access (one of the
+     * @xmlrpc.param #param_desc("string", "access", "Access (one of the
      *                  following: 'public', 'private', or 'protected'")
      * @xmlrpc.returntype  #return_int_success()
      */
