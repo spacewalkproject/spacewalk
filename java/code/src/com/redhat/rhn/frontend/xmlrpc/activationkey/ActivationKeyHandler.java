@@ -827,10 +827,12 @@ public class ActivationKeyHandler extends BaseHandler {
      * @xmlrpc.param #param("string", "key")
      * @xmlrpc.returntype
      *   #array()
-     *       #prop_desc("int", "id", "System id")
-     *       #prop("string", "hostname")
-     *       #prop_desc("dateTime.iso8601",  "last_checkin", "Last time server
-     *              successfully checked in")
+     *       #struct("system structure")
+     *           #prop_desc("int", "id", "System id")
+     *           #prop("string", "hostname")
+     *           #prop_desc("dateTime.iso8601",  "last_checkin", "Last time server
+     *               successfully checked in")
+     *       #struct_end()
      *   #array_end()
      */
     public Object[] listActivatedSystems(String sessionKey, String key) {
