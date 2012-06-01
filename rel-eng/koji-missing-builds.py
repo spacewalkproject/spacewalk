@@ -35,8 +35,8 @@ if len(args) > 1:
 distmap = {'rhel6':'.el6',
            'rhel5':'.el5',
            'rhel4':'.el4',
-           'fedora15':'.fc15',
-           'fedora16':'.fc16'}
+           'fedora16':'.fc16',
+           'fedora17':'.fc17'}
 
 distsuffix = ''
 tag = args[0]

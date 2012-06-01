@@ -6,7 +6,7 @@ changelog_do_not_remove_cherrypick = 0
 lib_dir = rel-eng/lib
 
 [koji]
-autobuild_tags = spacewalk-nightly-rhel5 spacewalk-nightly-rhel6 spacewalk-nightly-fedora15 spacewalk-nightly-fedora16
+autobuild_tags = spacewalk-nightly-rhel5 spacewalk-nightly-rhel6 spacewalk-nightly-fedora16 spacewalk-nightly-fedora17
 
 [spacewalk-nightly-rhel5]
 disttag = .el5
@@ -16,10 +16,10 @@ blacklist=oracle-server-admin oracle-server-scripts rhnclient smartpm oracle-rhn
 disttag = .el6
 blacklist=oracle-server-admin oracle-server-scripts rhnclient smartpm heirloom-pkgtools oracle-rhnsat-selinux jabberd-selinux apt-spacewalk python-hwdata spacewalk-oro-compat
 
-[spacewalk-nightly-fedora15]
-disttag = .fc15
-blacklist=jabberd-selinux oracle-server-admin oracle-server-scripts rhnclient smartpm apt-spacewalk python-hwdata heirloom-pkgtools oracle-rhnsat-selinux spacewalk-oro-compat
-
 [spacewalk-nightly-fedora16]
 disttag = .fc16
+blacklist=jabberd-selinux oracle-server-admin oracle-server-scripts rhnclient smartpm apt-spacewalk python-hwdata heirloom-pkgtools oracle-rhnsat-selinux
+
+[spacewalk-nightly-fedora17]
+disttag = .fc17
 blacklist=jabberd-selinux oracle-server-admin oracle-server-scripts rhnclient smartpm apt-spacewalk python-hwdata heirloom-pkgtools oracle-rhnsat-selinux
