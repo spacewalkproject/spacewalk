@@ -49,8 +49,6 @@ public class SystemNoteEditAction extends RhnAction {
             HttpServletRequest request,
             HttpServletResponse response) {
 
-        String forwardName = "default";
-
         RequestContext rctx = new RequestContext(request);
         DynaActionForm daForm = (DynaActionForm)form;
         StrutsDelegate strutsDelegate = getStrutsDelegate();
