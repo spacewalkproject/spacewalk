@@ -18,7 +18,9 @@ import java.util.HashMap;
 
 import org.apache.log4j.Logger;
 
+import com.redhat.rhn.common.hibernate.LookupException;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
+import com.redhat.rhn.common.localization.LocalizationService;
 
 /**
  * ScapFactory - the singleton class used to fetch and store
@@ -43,6 +45,24 @@ public class ScapFactory extends HibernateFactory {
                 "XccdfTestResult.findById", params);
     }
 
+    /**
+     * Lookup an XCCDF TestResult by the id and ensure it is assigned with given system
+     * @param xid of the XCCDF TestResult to search for
+     * @param sid of the system expected
+     * @return the XccdfTestResult found
+     */
+    public static XccdfTestResult lookupTestResultByIdAndSid(Long xid, Long sid) {
+        XccdfTestResult result = lookupTestResultById(xid);
+        if (result == null || result.getServer().getId() != sid) {
+            LocalizationService ls = LocalizationService.getInstance();
+            LookupException e = new LookupException("Could not find XCCDF scan " +
+                    xid + " for system " + sid);
+
+            e.setLocalizedTitle(ls.getMessage("lookup.xccdfscan.title"));
+            throw e;
+        }
+        return result;
+    }
     /**
      * Get the Logger for the derived class so log messages
      * show up on the correct class.

@@ -281,6 +281,9 @@
         <trans-unit id="lookup.servergroup.title">
           <source>We're sorry, but the system group could not be found.</source>
         </trans-unit>
+        <trans-unit id="lookup.xccdfscan.title">
+          <source>We're sorry, but the XCCDF scan could not be found.</source>
+        </trans-unit>
         <trans-unit id="missing_capabilities.jsp.header">
           <source>Missing Capabilities</source>
         </trans-unit>
