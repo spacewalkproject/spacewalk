@@ -14,6 +14,7 @@
 #
 
 import os
+import stat
 import time
 import tempfile
 import base64
@@ -145,7 +146,8 @@ def diff(src, dst, srcname=None, dstname=None):
             f = open(path, 'U')
             content = f.readlines()
             f.close()
-            f_time = time.ctime(os.stat(path).st_mtime)
+            statinfo = os.stat(path)
+            f_time = time.ctime(statinfo.st_mtime)
             if content and content[-1] and content[-1][-1] != "\n":
                 content[-1] += "\n"
         else:
@@ -153,15 +155,25 @@ def diff(src, dst, srcname=None, dstname=None):
             f_time = time.ctime(0)
         if not name:
             name = path
-        return (content, name, f_time)
+        return (content, name, f_time, statinfo)
 
-    (src_content, src_name, src_time) = f_content(src, srcname)
-    (dst_content, dst_name, dst_time) = f_content(dst, dstname)
+    (src_content, src_name, src_time, src_stat) = f_content(src, srcname)
+    (dst_content, dst_name, dst_time, dst_stat) = f_content(dst, dstname)
 
     diff_u = difflib.unified_diff(src_content, dst_content,
                                   src_name, dst_name,
                                   src_time, dst_time)
-    return list(diff_u)
+
+    ret_list = list(diff_u)
+    # don't return the diff if the file is not readable by everyone
+    # for security reasons.
+    if (len(ret_list) > 0 # if differences exist
+            and src_stat.st_uid == 0 # and file is owned by root
+            and not src_stat.st_mode & stat.S_IROTH): #and not readable by all
+        ret_list = [
+                "Differences exist in a file that is not readable by all. ",
+                "Re-deployment of configuration file is recommended."]
+    return ret_list
 
 
 
