@@ -18,6 +18,7 @@ import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.frontend.dto.NetworkDto;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.taglibs.list.ListTagUtil;
 import com.redhat.rhn.frontend.taglibs.list.helper.ListRhnSetHelper;
 import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
@@ -96,7 +97,7 @@ public class DuplicateSystemsAction extends RhnAction implements Listable {
 
         request.setAttribute(inactiveButton,
                 "system.select.inactive");
-        return mapping.findForward("default");
+        return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
 
     private ActionForward handleConfirm(RequestContext context,

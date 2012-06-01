@@ -27,6 +27,7 @@ import com.redhat.rhn.frontend.action.configuration.ConfigActionHelper;
 import com.redhat.rhn.frontend.dto.ConfigSystemDto;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.manager.configuration.ConfigurationManager;
 
 import org.apache.struts.action.ActionForm;
@@ -92,7 +93,8 @@ public class LocalRevisionDeployAction extends RhnAction {
                 DatePicker.YEAR_RANGE_POSITIVE);
         request.setAttribute("date", d);
         ConfigActionHelper.setupRequestAttributes(requestContext, cr.getConfigFile(), cr);
-        return getStrutsDelegate().forwardParams(mapping.findForward("default"), params);
+        return getStrutsDelegate().forwardParams(
+                mapping.findForward(RhnHelper.DEFAULT_FORWARD), params);
     }
 
     protected Server findServer(HttpServletRequest request, ConfigRevision cr) {

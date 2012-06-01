@@ -20,6 +20,7 @@ import com.redhat.rhn.domain.channel.ChannelFamilyFactory;
 import com.redhat.rhn.frontend.dto.ChannelOverview;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.taglibs.list.helper.ListHelper;
 import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
 import com.redhat.rhn.manager.channel.ChannelManager;
@@ -51,7 +52,7 @@ public class ChannelEntitlementSetupAction extends RhnAction implements Listable
 
         ListHelper helper = new ListHelper(this, request);
         helper.execute();
-        return mapping.findForward("default");
+        return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
 
     }
 

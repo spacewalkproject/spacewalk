@@ -22,6 +22,7 @@ import com.redhat.rhn.frontend.dto.ChannelFamilySystem;
 import com.redhat.rhn.frontend.dto.ChannelFamilySystemGroup;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.taglibs.list.helper.ListSessionSetHelper;
 import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
 import com.redhat.rhn.manager.system.VirtualizationEntitlementsManager;
@@ -75,7 +76,7 @@ public class EligibleFlexGuestAction extends RhnAction implements Listable {
         }
 
         request.setAttribute("selected_family", getSelectedChannel(requestContext));
-        return mapping.findForward("default");
+        return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
 
     protected String getSelectedChannel(RequestContext requestContext) {

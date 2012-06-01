@@ -18,6 +18,7 @@ import com.redhat.rhn.domain.monitoring.Probe;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.manager.monitoring.MonitoringManager;
 
 import org.apache.commons.lang.StringEscapeUtils;
@@ -65,7 +66,7 @@ public class ProbeDeleteAction extends BaseProbeAction {
             return getStrutsDelegate().forwardParams(mapping.findForward("deleted"),
                     params);
         }
-        return mapping.findForward("default");
+        return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
 
     // Copy values from the DynaActionForm into the ServerProbe object

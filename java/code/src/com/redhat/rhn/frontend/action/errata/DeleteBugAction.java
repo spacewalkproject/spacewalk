@@ -17,6 +17,7 @@ package com.redhat.rhn.frontend.action.errata;
 import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.manager.errata.ErrataManager;
 
 import org.apache.struts.action.ActionForm;
@@ -56,7 +57,8 @@ public class DeleteBugAction extends RhnAction {
                                    bid.toString(), errata.getAdvisory()));
         saveMessages(request, msgs);
 
-        return getStrutsDelegate().forwardParam(mapping.findForward("default"),
-                                      "eid", errata.getId().toString());
+        return getStrutsDelegate().forwardParam(
+                mapping.findForward(RhnHelper.DEFAULT_FORWARD),
+                "eid", errata.getId().toString());
     }
 }

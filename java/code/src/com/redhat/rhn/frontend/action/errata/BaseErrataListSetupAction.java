@@ -18,6 +18,7 @@ import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.listview.PageControl;
 import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.RhnListAction;
 
 import org.apache.struts.action.ActionForm;
@@ -48,7 +49,7 @@ public abstract class BaseErrataListSetupAction extends RhnListAction {
         DataResult dr = getDataResult(user, pc);
 
         request.setAttribute("pageList", dr);
-        return mapping.findForward("default");
+        return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
 
     protected abstract DataResult getDataResult(User user, PageControl pc);

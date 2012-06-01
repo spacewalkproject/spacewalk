@@ -22,6 +22,7 @@ import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.RhnValidationHelper;
 import com.redhat.rhn.manager.org.MigrationManager;
 import com.redhat.rhn.manager.system.SystemManager;
@@ -56,7 +57,7 @@ public class SystemMigrateAction extends RhnAction {
         RequestContext rctx = new RequestContext(request);
         DynaActionForm daForm = (DynaActionForm) form;
         User user = rctx.getLoggedInUser();
-        String forwardName = "default";
+        String forwardName = RhnHelper.DEFAULT_FORWARD;
         Integer trustedOrgCount = user.getOrg().getTrustedOrgs().size();
 
         if (isSubmitted(daForm)) {
@@ -136,7 +137,7 @@ public class SystemMigrateAction extends RhnAction {
             }
         }
 
-        if (forwardName.equals("default")) {
+        if (forwardName.equals(RhnHelper.DEFAULT_FORWARD)) {
             Server s = SystemManager.lookupByIdAndUser(
                     rctx.getRequiredParam(RequestContext.SID), user);
             Org fromOrg = s.getOrg();

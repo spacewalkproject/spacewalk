@@ -17,6 +17,7 @@ package com.redhat.rhn.frontend.action.systems;
 import com.redhat.rhn.domain.rhnset.SetCleanup;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.RhnListAction;
 import com.redhat.rhn.manager.acl.AclManager;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
@@ -135,7 +136,8 @@ public class OverviewAction extends RhnListAction {
         //SystemGroupListAction currently redirects to a perl page for its
         //two real actions.  To avoid the IllegalStateException we need to
         //refrain from redirecting and forwarding.
-        if (forward == null || mapping.findForward("default").equals(forward)) {
+        if (forward == null ||
+                mapping.findForward(RhnHelper.DEFAULT_FORWARD).equals(forward)) {
             return forward;
         }
 
@@ -147,7 +149,7 @@ public class OverviewAction extends RhnListAction {
             new SystemGroupListSetupAction().execute(mapping, formIn, request, response);
         }
 
-        return mapping.findForward("default");
+        return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
 }
 

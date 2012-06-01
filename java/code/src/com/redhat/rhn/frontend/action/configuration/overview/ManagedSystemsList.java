@@ -18,6 +18,7 @@ import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.listview.PageControl;
 import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.RhnListAction;
 import com.redhat.rhn.manager.configuration.ConfigurationManager;
 
@@ -51,8 +52,8 @@ public class ManagedSystemsList extends RhnListAction {
 
         clampListBounds(pc, request, user);
         request.setAttribute("pageList", getDataResult(user, pc));
-        return getStrutsDelegate().forwardParams(mapping.findForward("default"),
-                request.getParameterMap());
+        return getStrutsDelegate().forwardParams(mapping.findForward(
+                RhnHelper.DEFAULT_FORWARD), request.getParameterMap());
     }
 
     /**

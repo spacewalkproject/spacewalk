@@ -25,6 +25,7 @@ import com.redhat.rhn.frontend.action.common.BadParameterException;
 import com.redhat.rhn.frontend.dto.PackageListItem;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.xmlrpc.NoSuchPackageException;
 import com.redhat.rhn.manager.download.DownloadManager;
 import com.redhat.rhn.manager.rhnpackage.PackageManager;
@@ -135,7 +136,7 @@ public class PackageDetailsAction extends RhnAction {
                     PackageFactory.findPackagesWithDifferentArch(pkg));
             request.setAttribute("pid", pid);
 
-            return mapping.findForward("default");
+            return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
         }
         PackageListItem item = PackageListItem.parse(request.getParameter("id_combo"));
         Package pkg;

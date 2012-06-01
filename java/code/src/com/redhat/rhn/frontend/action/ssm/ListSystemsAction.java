@@ -16,6 +16,7 @@ package com.redhat.rhn.frontend.action.ssm;
 
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.taglibs.list.helper.ListHelper;
 import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
@@ -48,7 +49,7 @@ public class ListSystemsAction extends RhnAction implements Listable {
         helper.setListName("systemList");
         helper.setDataSetName("pageList");
         helper.execute();
-        return mapping.findForward("default");
+        return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
 
     /**

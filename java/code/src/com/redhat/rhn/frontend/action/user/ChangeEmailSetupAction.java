@@ -78,8 +78,9 @@ public class ChangeEmailSetupAction extends RhnAction {
         request.setAttribute("button_label", buttonLabel);
         form.set("email", email);
 
-        return getStrutsDelegate().forwardParam(mapping.findForward("default"), "uid",
-                                      String.valueOf(targetUser.getId()));
+        return getStrutsDelegate().forwardParam(
+                mapping.findForward(RhnHelper.DEFAULT_FORWARD), "uid",
+                String.valueOf(targetUser.getId()));
     }
 
 }

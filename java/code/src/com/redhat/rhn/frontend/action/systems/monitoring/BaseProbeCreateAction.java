@@ -22,6 +22,7 @@ import com.redhat.rhn.domain.monitoring.command.CommandGroup;
 import com.redhat.rhn.domain.monitoring.satcluster.SatClusterFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.manager.monitoring.ModifyProbeCommand;
 import com.redhat.rhn.manager.monitoring.MonitoringManager;
 
@@ -124,7 +125,7 @@ public abstract class BaseProbeCreateAction extends BaseProbeAction {
         req.setAttribute("commands", toLabelValue(group, commands));
         req.setAttribute(COMMAND, command);
 
-        return mapping.findForward("default");
+        return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
 
     /**

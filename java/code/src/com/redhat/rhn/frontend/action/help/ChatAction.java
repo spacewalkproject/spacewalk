@@ -20,6 +20,8 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
+import com.redhat.rhn.frontend.struts.RhnHelper;
+
 /**
  * Static action page.
  *
@@ -33,6 +35,6 @@ public class ChatAction extends org.apache.struts.action.Action {
                                   HttpServletRequest request,
                                   HttpServletResponse response) {
 
-        return mapping.findForward("default");
+        return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
 }

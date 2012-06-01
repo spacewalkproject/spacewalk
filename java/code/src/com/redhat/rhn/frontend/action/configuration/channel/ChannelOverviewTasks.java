@@ -24,6 +24,7 @@ import com.redhat.rhn.frontend.dto.ConfigFileDto;
 import com.redhat.rhn.frontend.dto.ConfigSystemDto;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.RhnSetHelper;
 import com.redhat.rhn.manager.action.ActionManager;
 import com.redhat.rhn.manager.configuration.ConfigurationManager;
@@ -59,7 +60,6 @@ public class ChannelOverviewTasks extends RhnAction {
     public static final String SEL_FILES_TO_ALL_SYS = "sel2all";
     public static final String SEL_FILES_TO_SEL_SYS = "sel2sel";
     public static final String COMPARE = "compare";
-    public static final String DEFAULT = "default";
 
     /**
      * {@inheritDoc}
@@ -105,7 +105,7 @@ public class ChannelOverviewTasks extends RhnAction {
         else {
             createErrorMessage(req, "deploytask.error.badmode", null);
             return getStrutsDelegate().forwardParams(
-                    map.findForward(DEFAULT), params);
+                    map.findForward(RhnHelper.DEFAULT_FORWARD), params);
         }
     }
 

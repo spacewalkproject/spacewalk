@@ -16,6 +16,7 @@ package com.redhat.rhn.frontend.action.errata;
 
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.manager.errata.ErrataManager;
 
 import org.apache.commons.lang.StringUtils;
@@ -54,6 +55,6 @@ public class CreateSetupAction extends RhnAction {
         //set l10n-ed advisoryTypeLabels list for select drop down
         form.set("advisoryTypeLabels", ErrataManager.advisoryTypeLabels());
 
-        return mapping.findForward("default");
+        return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
 }

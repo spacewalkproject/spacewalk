@@ -23,6 +23,7 @@ import com.redhat.rhn.domain.server.ServerFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.StrutsDelegate;
 import com.redhat.rhn.manager.system.SystemManager;
 
@@ -96,7 +97,8 @@ public class DeleteCustomDataAction extends RhnAction {
                     params);
         }
 
-        return getStrutsDelegate().forwardParams(mapping.findForward("default"), params);
+        return getStrutsDelegate().forwardParams(
+                mapping.findForward(RhnHelper.DEFAULT_FORWARD), params);
     }
 
 }

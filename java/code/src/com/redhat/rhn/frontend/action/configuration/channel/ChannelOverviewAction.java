@@ -20,6 +20,7 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.configuration.ConfigActionHelper;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.RhnValidationHelper;
 import com.redhat.rhn.manager.configuration.ChannelSummary;
 import com.redhat.rhn.manager.configuration.ConfigChannelCreationHelper;
@@ -102,13 +103,14 @@ public class ChannelOverviewAction extends RhnAction {
                 else {
                     setupForm(request, cc, daForm, params);
                     return getStrutsDelegate().forwardParams(
-                            mapping.findForward("default"), params);
+                            mapping.findForward(RhnHelper.DEFAULT_FORWARD), params);
                 }
             }
         }
 
         // No channel - proabably creating a new one
-        return getStrutsDelegate().forwardParams(mapping.findForward("default"), params);
+        return getStrutsDelegate().forwardParams(
+                mapping.findForward(RhnHelper.DEFAULT_FORWARD), params);
     }
 
 

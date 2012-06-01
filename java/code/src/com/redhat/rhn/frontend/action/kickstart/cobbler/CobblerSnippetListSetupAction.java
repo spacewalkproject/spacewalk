@@ -20,6 +20,7 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.common.BadParameterException;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerSnippetLister;
 
@@ -38,7 +39,6 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Rev: 1 $
  */
 public class CobblerSnippetListSetupAction extends RhnAction {
-    private static final String DEFAULT = "default";
     private static final String CUSTOM = "custom";
     private static final String ALL = "all";
 
@@ -57,7 +57,7 @@ public class CobblerSnippetListSetupAction extends RhnAction {
         if (ALL.equals(mapping.getParameter())) {
             result = CobblerSnippetLister.getInstance().list(user);
         }
-        else if (DEFAULT.equals(mapping.getParameter())) {
+        else if (RhnHelper.DEFAULT_FORWARD.equals(mapping.getParameter())) {
             result = CobblerSnippetLister.getInstance().listDefault(user);
         }
         else if (CUSTOM.equals(mapping.getParameter())) {
@@ -70,7 +70,7 @@ public class CobblerSnippetListSetupAction extends RhnAction {
         Collections.sort(result, NAME_COMPARATOR);
         request.setAttribute("pageList", result);
         request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
-        return mapping.findForward("default");
+        return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
 
 }

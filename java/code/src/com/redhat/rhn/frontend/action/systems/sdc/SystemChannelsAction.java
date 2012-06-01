@@ -24,6 +24,7 @@ import com.redhat.rhn.frontend.dto.ChannelOverview;
 import com.redhat.rhn.frontend.dto.ChildChannelDto;
 import com.redhat.rhn.frontend.dto.EssentialChannelDto;
 import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.RhnLookupDispatchAction;
 import com.redhat.rhn.frontend.struts.RhnValidationHelper;
 import com.redhat.rhn.manager.channel.ChannelManager;
@@ -155,8 +156,8 @@ public class SystemChannelsAction extends RhnLookupDispatchAction {
         }
         request.setAttribute(CURRENT_BASE_CHANNEL_ID, currentBaseChanId);
         SdcHelper.ssmCheck(request, s.getId(), user);
-        return getStrutsDelegate().forwardParam(mapping.findForward("default"),
-                RequestContext.SID, s.getId().toString());
+        return getStrutsDelegate().forwardParam(mapping.findForward(
+                RhnHelper.DEFAULT_FORWARD), RequestContext.SID, s.getId().toString());
     }
 
     private List<ChannelOverview> convertToChannelOverview(List<Channel> orgChannels) {

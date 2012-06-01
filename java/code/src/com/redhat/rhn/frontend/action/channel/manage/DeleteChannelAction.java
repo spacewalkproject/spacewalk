@@ -20,6 +20,7 @@ import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.system.SystemManager;
 
@@ -79,19 +80,19 @@ public class DeleteChannelAction extends RhnAction {
                 }
                 catch (PermissionException e) {
                     addMessage(request, e.getMessage());
-                    return actionMapping.findForward("default");
+                    return actionMapping.findForward(RhnHelper.DEFAULT_FORWARD);
                 }
                 catch (ValidatorException ve) {
                     getStrutsDelegate().saveMessages(request, ve.getResult());
                     request.setAttribute(DISABLE_DELETE, Boolean.TRUE);
-                    return actionMapping.findForward("default");
+                    return actionMapping.findForward(RhnHelper.DEFAULT_FORWARD);
                 }
 
                 createSuccessMessage(request, "message.channeldeleted", channel.getName());
                 return actionMapping.findForward("success");
             }
             addMessage(request, "message.channel.delete.systemssubscribed");
-            return actionMapping.findForward("default");
+            return actionMapping.findForward(RhnHelper.DEFAULT_FORWARD);
         }
         else if (channel.containsDistributions()) {
             createErrorMessage(request,
@@ -99,6 +100,6 @@ public class DeleteChannelAction extends RhnAction {
             request.setAttribute(DISABLE_DELETE, Boolean.TRUE);
         }
 
-        return actionMapping.findForward("default");
+        return actionMapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
 }

@@ -20,6 +20,7 @@ import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.manager.SatManager;
 import com.redhat.rhn.manager.acl.AclManager;
 import com.redhat.rhn.manager.user.UserManager;
@@ -70,7 +71,7 @@ public class SatRoleConfirm extends RhnAction {
             return mapping.findForward("cancel");
         }
 
-        ActionForward retval = mapping.findForward("default");
+        ActionForward retval = mapping.findForward(RhnHelper.DEFAULT_FORWARD);
 
         DynaActionForm dynaForm = (DynaActionForm) formIn;
         if (isSubmitted(dynaForm)) {

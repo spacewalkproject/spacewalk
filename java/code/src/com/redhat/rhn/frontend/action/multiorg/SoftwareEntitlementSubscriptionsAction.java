@@ -24,6 +24,7 @@ import com.redhat.rhn.frontend.dto.ChannelOverview;
 import com.redhat.rhn.frontend.dto.OrgSoftwareEntitlementDto;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.RhnValidationHelper;
 import com.redhat.rhn.frontend.taglibs.list.helper.ListHelper;
 import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
@@ -88,7 +89,7 @@ public class SoftwareEntitlementSubscriptionsAction extends RhnAction implements
         params.put("cfid", cfid);
         ListHelper helper = new ListHelper(this, request, params);
         helper.execute();
-        ActionForward retval = mapping.findForward("default");
+        ActionForward retval = mapping.findForward(RhnHelper.DEFAULT_FORWARD);
 
         if (isSubmitted(dynaForm)) {
 

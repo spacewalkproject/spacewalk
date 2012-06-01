@@ -22,6 +22,7 @@ import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.frontend.action.user.UserActionHelper;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.RhnValidationHelper;
 import com.redhat.rhn.manager.org.CreateOrgCommand;
 
@@ -49,7 +50,7 @@ public class OrgCreateAction extends RhnAction {
             HttpServletRequest request,
             HttpServletResponse response) {
 
-        ActionForward retval = mapping.findForward("default");
+        ActionForward retval = mapping.findForward(RhnHelper.DEFAULT_FORWARD);
         DynaActionForm dynaForm = (DynaActionForm) formIn;
 
         /*

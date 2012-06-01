@@ -22,6 +22,7 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.SetLabels;
 import com.redhat.rhn.frontend.dto.SystemOverview;
 import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.RhnListDispatchAction;
 import com.redhat.rhn.frontend.struts.StrutsDelegate;
 import com.redhat.rhn.manager.action.ActionManager;
@@ -126,7 +127,8 @@ public class ErrataConfirmAction extends RhnListDispatchAction {
                 new ActionMessage("errataconfirm.nosystems"));
         strutsDelegate.saveMessages(request, msg);
         Map params = makeParamMap(formIn, request);
-        return strutsDelegate.forwardParams(mapping.findForward("default"), params);
+        return strutsDelegate.forwardParams(
+                mapping.findForward(RhnHelper.DEFAULT_FORWARD), params);
     }
 
 }

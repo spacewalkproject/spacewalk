@@ -26,6 +26,7 @@ import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.RhnListSetHelper;
 import com.redhat.rhn.frontend.taglibs.list.AlphaBarHelper;
 import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
@@ -179,7 +180,7 @@ public class ChannelPackagesAddAction extends RhnAction {
         request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
         request.setAttribute("pageList", result);
 
-        return mapping.findForward("default");
+        return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
 
     }
 

@@ -20,6 +20,7 @@ import com.redhat.rhn.frontend.dto.kickstart.CobblerProfileDto;
 import com.redhat.rhn.frontend.dto.kickstart.KickstartDto;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
 import com.redhat.rhn.frontend.taglibs.list.TagHelper;
 import com.redhat.rhn.manager.kickstart.KickstartLister;
@@ -65,6 +66,6 @@ public class KickstartsSetupAction  extends RhnAction {
         request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
         request.setAttribute("pageList", result);
         TagHelper.bindElaboratorTo("ksList", result.getElaborator(), request);
-        return mapping.findForward("default");
+        return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
 }

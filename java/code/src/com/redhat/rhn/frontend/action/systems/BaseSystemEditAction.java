@@ -17,6 +17,7 @@ package com.redhat.rhn.frontend.action.systems;
 import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.RhnValidationHelper;
 import com.redhat.rhn.frontend.struts.StrutsDelegate;
 import com.redhat.rhn.manager.system.BaseSystemOperation;
@@ -44,7 +45,7 @@ public abstract class BaseSystemEditAction extends RhnAction {
                                   ActionForm formIn,
                                   HttpServletRequest request,
                                   HttpServletResponse response) {
-        String forwardname = "default";
+        String forwardname = RhnHelper.DEFAULT_FORWARD;
         DynaActionForm form = (DynaActionForm) formIn;
         RequestContext requestContext = new RequestContext(request);
         BaseSystemOperation cmd = getOperation(requestContext);

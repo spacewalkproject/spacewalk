@@ -19,6 +19,7 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.configuration.ConfigActionHelper;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.manager.configuration.ConfigurationManager;
 
 import org.apache.struts.action.ActionForm;
@@ -64,7 +65,8 @@ public class DeleteChannelAction extends RhnAction {
             ConfigActionHelper.setupRequestAttributes(rctx, cc);
         }
 
-        return getStrutsDelegate().forwardParams(mapping.findForward("default"), params);
+        return getStrutsDelegate().forwardParams(
+                mapping.findForward(RhnHelper.DEFAULT_FORWARD), params);
     }
 
     private void deleteChannel(HttpServletRequest request, ConfigChannel cc) {

@@ -21,6 +21,7 @@ import com.redhat.rhn.domain.channel.ContentSource;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.StrutsDelegate;
 import com.redhat.rhn.frontend.taglibs.list.helper.ListHelper;
 import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
@@ -83,7 +84,7 @@ public class SyncRepositoriesAction extends RhnAction implements Listable {
             request.setAttribute("inactive", true);
             createErrorMessage(request,
                     "repos.jsp.message.taskomaticdown", null);
-            return mapping.findForward("default");
+            return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
 
         }
 
@@ -102,7 +103,7 @@ public class SyncRepositoriesAction extends RhnAction implements Listable {
             if (!UserManager.verifyChannelAdmin(user, chan)) {
                 createErrorMessage(request,
                         "frontend.actions.channels.manager.add.permsfailure", null);
-                return mapping.findForward("default");
+                return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
             }
 
 
@@ -137,7 +138,7 @@ public class SyncRepositoriesAction extends RhnAction implements Listable {
                     createErrorMessage(request,
                             "repos.jsp.message.schedulefailed", null);
                 }
-                return mapping.findForward("default");
+                return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
             }
 
             Map forwardParams = new HashMap();
@@ -146,7 +147,7 @@ public class SyncRepositoriesAction extends RhnAction implements Listable {
                     forwardParams);
         }
 
-        return mapping.findForward("default");
+        return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
 
 

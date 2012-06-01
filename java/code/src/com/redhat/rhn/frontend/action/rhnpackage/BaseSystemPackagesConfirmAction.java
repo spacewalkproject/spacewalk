@@ -23,6 +23,7 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.PackageListItem;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.SessionSetHelper;
 import com.redhat.rhn.frontend.struts.StrutsDelegate;
 import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
@@ -120,8 +121,9 @@ public abstract class BaseSystemPackagesConfirmAction extends RhnAction {
         request.setAttribute(HEADER_KEY, getHeaderKey());
         request.setAttribute(DATA_SET, items);
 
-        return getStrutsDelegate().forwardParams(mapping.findForward("default"),
-                                       request.getParameterMap());
+        return getStrutsDelegate().forwardParams(
+                mapping.findForward(RhnHelper.DEFAULT_FORWARD),
+                request.getParameterMap());
 
 
     }

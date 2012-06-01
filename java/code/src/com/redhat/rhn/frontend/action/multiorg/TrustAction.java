@@ -40,6 +40,7 @@ import com.redhat.rhn.domain.user.UserFactory;
 import com.redhat.rhn.frontend.dto.OrgTrust;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.RhnListSetHelper;
 import com.redhat.rhn.frontend.struts.StrutsDelegate;
 import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
@@ -158,7 +159,7 @@ public class TrustAction extends FormDispatcher {
             request.getRequestURI() + "?oid=" + oid);
 
         ListTagHelper.bindSetDeclTo(LIST_NAME, RHNSET, request);
-        return mapping.findForward("default");
+        return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
 
     private List<OrgTrust> getOrgs(Org theOrg) {

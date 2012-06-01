@@ -30,6 +30,7 @@ import com.redhat.rhn.frontend.action.renderers.WarningProbesRenderer;
 import com.redhat.rhn.frontend.listview.PageControl;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -121,7 +122,7 @@ public class YourRhnAction extends RhnAction {
         }
         request.setAttribute(ANY_LISTS_SELECTED, Boolean.valueOf(anyListsSelected));
         request.setAttribute("legends", "yourrhn");
-        return mapping.findForward("default");
+        return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
 
     private String formatKey(String key) {

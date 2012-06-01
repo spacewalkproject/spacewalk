@@ -59,6 +59,6 @@ public class DeleteUserSetupAction extends RhnAction {
         User user = UserManager.lookupUser(requestContext.getLoggedInUser(), uid);
         request.setAttribute(RhnHelper.TARGET_USER, user);
 
-        return mapping.findForward("default");
+        return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
 }

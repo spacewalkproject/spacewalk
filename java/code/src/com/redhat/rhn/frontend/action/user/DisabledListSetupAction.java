@@ -101,7 +101,7 @@ public class DisabledListSetupAction extends RhnAction {
         ListTagHelper.bindSetDeclTo(LIST_NAME, getDecl(), request);
         TagHelper.bindElaboratorTo(LIST_NAME, dr.getElaborator(), request);
 
-        return mapping.findForward("default");
+        return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
 
 
@@ -127,7 +127,7 @@ public class DisabledListSetupAction extends RhnAction {
             params = makeParamMap(request);
             saveMessages(request, msg);
             return getStrutsDelegate().forwardParams(
-                    mapping.findForward("default"), params);
+                    mapping.findForward(RhnHelper.DEFAULT_FORWARD), params);
         }
 
         //if they chose users, send them to the confirmation page

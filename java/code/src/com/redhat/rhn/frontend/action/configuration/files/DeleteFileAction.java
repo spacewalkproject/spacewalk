@@ -22,6 +22,7 @@ import com.redhat.rhn.frontend.action.configuration.ConfigActionHelper;
 import com.redhat.rhn.frontend.action.configuration.ConfigFileForm;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.manager.configuration.ConfigurationManager;
 
 import org.apache.struts.action.ActionForm;
@@ -77,7 +78,7 @@ public class DeleteFileAction extends RhnAction {
             req.setAttribute("deleting", Boolean.TRUE);
 
             return getStrutsDelegate().forwardParams(
-                    map.findForward("default"), params);
+                    map.findForward(RhnHelper.DEFAULT_FORWARD), params);
         }
         catch (IllegalArgumentException e) {
             //Log the error and go on with life.

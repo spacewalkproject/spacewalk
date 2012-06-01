@@ -29,6 +29,7 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.OrgTrust;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.taglibs.list.helper.ListHelper;
 import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
 import com.redhat.rhn.frontend.xmlrpc.InvalidChannelLabelException;
@@ -88,7 +89,7 @@ public class EditChannelAction extends RhnAction implements Listable {
         if (!isSubmitted(form)) {
             setupForm(request, form);
             return getStrutsDelegate().forwardParams(
-                    mapping.findForward("default"),
+                    mapping.findForward(RhnHelper.DEFAULT_FORWARD),
                     request.getParameterMap());
         }
 
@@ -165,7 +166,7 @@ public class EditChannelAction extends RhnAction implements Listable {
             addErrors(request, errors);
             prepDropdowns(new RequestContext(request));
             return getStrutsDelegate().forwardParams(
-                    mapping.findForward("default"),
+                    mapping.findForward(RhnHelper.DEFAULT_FORWARD),
                     params);
         }
 

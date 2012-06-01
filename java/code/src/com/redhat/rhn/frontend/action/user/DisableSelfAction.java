@@ -15,6 +15,7 @@
 package com.redhat.rhn.frontend.action.user;
 
 import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -34,7 +35,7 @@ public class DisableSelfAction extends RhnAction {
             ActionForm formIn,
             HttpServletRequest request,
             HttpServletResponse response) {
-        return mapping.findForward("default");
+        return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
 
 }

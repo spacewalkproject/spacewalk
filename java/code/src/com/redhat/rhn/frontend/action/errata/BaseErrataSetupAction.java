@@ -16,6 +16,7 @@ package com.redhat.rhn.frontend.action.errata;
 
 import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.RhnListAction;
 
 import org.apache.struts.action.ActionForm;
@@ -45,7 +46,7 @@ public class BaseErrataSetupAction extends RhnListAction {
         request.setAttribute("advisory", errata.getAdvisory());
 
         //default forward
-        return mapping.findForward("default");
+        return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
 
 }

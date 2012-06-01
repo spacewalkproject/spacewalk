@@ -18,6 +18,7 @@ import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.SelectMode;
 import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.manager.acl.AclManager;
 import com.redhat.rhn.manager.satellite.CertificateManager;
 import com.redhat.rhn.manager.satellite.SystemCommandExecutor;
@@ -80,7 +81,7 @@ public class LoginSetupAction extends RhnAction {
         if (man.isSatelliteCertExpired()) {
             addMessage(request, "satellite.expired");
             request.setAttribute(HAS_EXPIRED, Boolean.TRUE);
-            return mapping.findForward("default");
+            return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
         }
         else if (man.isSatelliteCertInGracePeriod()) {
             long daysUntilExpiration = man.getDaysLeftBeforeCertExpiration();
@@ -120,7 +121,7 @@ public class LoginSetupAction extends RhnAction {
             f.set("request_method", requestMethod);
         }
 
-        return mapping.findForward("default");
+        return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
 
     private String getRpmSchemaVersion(String schemaName) {

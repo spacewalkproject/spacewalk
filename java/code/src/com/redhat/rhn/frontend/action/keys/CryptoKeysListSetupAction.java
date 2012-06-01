@@ -17,6 +17,7 @@ package com.redhat.rhn.frontend.action.keys;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
 import com.redhat.rhn.manager.kickstart.KickstartLister;
 
@@ -45,7 +46,7 @@ public class CryptoKeysListSetupAction extends RhnAction {
                 requestContext.getCurrentUser().getOrg(), null);
         request.setAttribute("pageList", result);
         request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
-        return mapping.findForward("default");
+        return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
 
 }

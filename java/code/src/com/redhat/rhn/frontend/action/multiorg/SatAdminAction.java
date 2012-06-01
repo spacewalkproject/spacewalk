@@ -21,6 +21,7 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.user.UserFactory;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.manager.SatManager;
 import com.redhat.rhn.manager.acl.AclManager;
 
@@ -48,7 +49,7 @@ public class SatAdminAction extends RhnAction {
         Long uid = requestContext.getParamAsLong(RequestContext.USER_ID);
         User u = UserFactory.lookupById(uid);
         User current = requestContext.getCurrentUser();
-        ActionForward retval = mapping.findForward("default");
+        ActionForward retval = mapping.findForward(RhnHelper.DEFAULT_FORWARD);
 
         // protect self from removing sat admin role
         if (current.getId() == u.getId()) {

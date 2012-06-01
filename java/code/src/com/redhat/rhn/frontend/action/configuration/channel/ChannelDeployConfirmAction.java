@@ -24,6 +24,7 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.configuration.ConfigActionHelper;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
 import com.redhat.rhn.manager.configuration.ConfigurationManager;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
@@ -73,7 +74,7 @@ public class ChannelDeployConfirmAction extends RhnAction {
             }
             return prepareToLeave(mapping, request, cc, dForm, "failure");
         }
-        return prepareToLeave(mapping, request, cc, dForm, "default");
+        return prepareToLeave(mapping, request, cc, dForm, RhnHelper.DEFAULT_FORWARD);
     }
 
     private ActionForward prepareToLeave(ActionMapping mapping, HttpServletRequest req,

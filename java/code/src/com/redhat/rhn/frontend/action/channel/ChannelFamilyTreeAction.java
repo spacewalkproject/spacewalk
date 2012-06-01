@@ -20,6 +20,7 @@ import com.redhat.rhn.frontend.dto.ChannelOverview;
 import com.redhat.rhn.frontend.dto.ChannelTreeNode;
 import com.redhat.rhn.frontend.listview.ListControl;
 import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.manager.channel.ChannelManager;
 
 import org.apache.struts.action.ActionForm;
@@ -61,7 +62,7 @@ public class ChannelFamilyTreeAction extends BaseChannelTreeAction {
         request.setAttribute("cfid", cfid);
         request.setAttribute("familyName", co.getName());
 
-        return mapping.findForward("default");
+        return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
 
     @Override

@@ -21,6 +21,7 @@ import com.redhat.rhn.frontend.action.configuration.ConfigActionHelper;
 import com.redhat.rhn.frontend.action.configuration.ConfigFileForm;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.manager.configuration.ConfigurationManager;
 
 import org.apache.struts.action.ActionForm;
@@ -92,12 +93,12 @@ public class DeleteRevisionAction extends RhnAction {
                 cff.updateFromRevision(request, cr);
                 request.setAttribute("deleting", Boolean.TRUE);
                 return getStrutsDelegate().forwardParams(
-                        mapping.findForward("default"), params);
+                        mapping.findForward(RhnHelper.DEFAULT_FORWARD), params);
             }
             ActionMessage am = new ActionMessage("deleterev.jsp.unknown");
             msgs.add(ActionMessages.GLOBAL_MESSAGE, am);
             return getStrutsDelegate().forwardParams(
-                    mapping.findForward("default"), params);
+                    mapping.findForward(RhnHelper.DEFAULT_FORWARD), params);
         }
         finally {
             if (!msgs.isEmpty()) {

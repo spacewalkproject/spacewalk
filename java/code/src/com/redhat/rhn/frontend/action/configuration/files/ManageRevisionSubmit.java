@@ -155,7 +155,8 @@ public class ManageRevisionSubmit extends RhnSetAction {
         ValidatorResult result = cff.validateUpload(request);
         if (!result.isEmpty()) {
             getStrutsDelegate().saveMessages(request, result);
-            return getStrutsDelegate().forwardParam(mapping.findForward("default"),
+            return getStrutsDelegate().forwardParam(
+                    mapping.findForward(RhnHelper.DEFAULT_FORWARD),
                     ConfigActionHelper.FILE_ID, cfid.toString());
         }
 
@@ -167,7 +168,8 @@ public class ManageRevisionSubmit extends RhnSetAction {
 
         //create the success message
         createUploadSuccessMessage(rev, request, cfid);
-        return getStrutsDelegate().forwardParam(mapping.findForward("default"),
+        return getStrutsDelegate().forwardParam(
+                mapping.findForward(RhnHelper.DEFAULT_FORWARD),
                 ConfigActionHelper.FILE_ID, cfid.toString());
     }
 

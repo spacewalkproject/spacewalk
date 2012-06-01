@@ -20,6 +20,7 @@ import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.RhnValidationHelper;
 import com.redhat.rhn.frontend.struts.StrutsDelegate;
 import com.redhat.rhn.manager.acl.AclManager;
@@ -84,7 +85,7 @@ public abstract class BaseCryptoKeyEditAction extends RhnAction {
         types.add(lvl10n("crypto.key.ssl",
                 KickstartFactory.KEY_TYPE_SSL.getLabel()));
         request.setAttribute(TYPES, types);
-        ActionForward retval = mapping.findForward("default");
+        ActionForward retval = mapping.findForward(RhnHelper.DEFAULT_FORWARD);
         request.setAttribute(CSRF_TOKEN, request.getSession().getAttribute("csrf_token"));
 
         if (isSubmitted(form)) {

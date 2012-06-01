@@ -18,6 +18,7 @@ import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.RhnValidationHelper;
 import com.redhat.rhn.frontend.struts.StrutsDelegate;
 import com.redhat.rhn.manager.satellite.ConfigureBootstrapCommand;
@@ -108,7 +109,7 @@ public class BootstrapConfigAction extends BaseConfigAction {
             form.set(ALLOW_CONFIG_ACTIONS, Boolean.TRUE);
             form.set(ALLOW_REMOTE_COMMANDS, Boolean.TRUE);
         }
-        return mapping.findForward("default");
+        return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
 
     // the protocol should be specified if anything on that host is viewed

@@ -21,6 +21,7 @@ import com.redhat.rhn.domain.action.ActionType;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.taglibs.list.helper.ListHelper;
 import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
 import com.redhat.rhn.manager.action.ActionManager;
@@ -78,7 +79,7 @@ public class PackageListSetupAction extends RhnAction implements Listable {
         request.setAttribute("user", user);
         request.setAttribute("aid", actionId);
 
-        return mapping.findForward("default");
+        return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
 
     /**

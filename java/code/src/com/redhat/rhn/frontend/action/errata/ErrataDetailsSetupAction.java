@@ -23,6 +23,7 @@ import com.redhat.rhn.domain.errata.ErrataFile;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.manager.errata.ErrataManager;
 
 import org.apache.struts.action.ActionForm;
@@ -84,8 +85,9 @@ public class ErrataDetailsSetupAction extends RhnAction {
         request.setAttribute("ovalFile", ovalFile);
         request.setAttribute("errataFrom", errata.getErrataFrom());
 
-        return getStrutsDelegate().forwardParams(mapping.findForward("default"),
-                                       request.getParameterMap());
+        return getStrutsDelegate().forwardParams(
+                mapping.findForward(RhnHelper.DEFAULT_FORWARD),
+                request.getParameterMap());
     }
 
     private String findOvalFile(Long errataId) {

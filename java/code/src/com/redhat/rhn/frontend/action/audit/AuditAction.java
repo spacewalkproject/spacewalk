@@ -17,6 +17,7 @@ package com.redhat.rhn.frontend.action.audit;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
 import com.redhat.rhn.frontend.taglibs.list.helper.ListHelper;
 import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
@@ -61,7 +62,7 @@ public class AuditAction extends RhnAction implements Listable {
         }
 
         return getStrutsDelegate().forwardParams(
-            mapping.findForward("default"),
+            mapping.findForward(RhnHelper.DEFAULT_FORWARD),
             forwardParams);
     }
 

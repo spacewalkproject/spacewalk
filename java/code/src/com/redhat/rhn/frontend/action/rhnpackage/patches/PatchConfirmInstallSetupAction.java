@@ -21,6 +21,7 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.SetLabels;
 import com.redhat.rhn.frontend.listview.PageControl;
 import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.RhnListAction;
 import com.redhat.rhn.manager.solarispackage.SolarisManager;
 import com.redhat.rhn.manager.system.SystemManager;
@@ -83,6 +84,6 @@ public class PatchConfirmInstallSetupAction extends RhnListAction {
         request.setAttribute("pageSummary", msg);
         request.setAttribute("system", server);
 
-        return mapping.findForward("default");
+        return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
 }

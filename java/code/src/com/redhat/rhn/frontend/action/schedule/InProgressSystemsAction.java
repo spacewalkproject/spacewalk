@@ -21,6 +21,7 @@ import com.redhat.rhn.domain.action.ActionFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.common.RhnSetAction;
 import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.StrutsDelegate;
 import com.redhat.rhn.manager.action.ActionManager;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
@@ -74,7 +75,8 @@ public class InProgressSystemsAction extends RhnSetAction {
             msgs.add(ActionMessages.GLOBAL_MESSAGE,
                     new ActionMessage("systems.none"));
             strutsDelegate.saveMessages(request, msgs);
-            return strutsDelegate.forwardParams(mapping.findForward("default"), params);
+            return strutsDelegate.forwardParams(
+                    mapping.findForward(RhnHelper.DEFAULT_FORWARD), params);
         }
 
 
@@ -109,7 +111,8 @@ public class InProgressSystemsAction extends RhnSetAction {
          */
         int remainingSystems = ActionManager.inProgressSystems(user, action, null).size();
         if (remainingSystems > 0) {
-            return strutsDelegate.forwardParams(mapping.findForward("default"), params);
+            return strutsDelegate.forwardParams(
+                    mapping.findForward(RhnHelper.DEFAULT_FORWARD), params);
         }
         return mapping.findForward("noSystemsLeft");
     }

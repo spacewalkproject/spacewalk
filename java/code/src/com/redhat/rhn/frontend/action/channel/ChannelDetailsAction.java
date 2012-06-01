@@ -21,6 +21,7 @@ import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.system.SystemManager;
 import com.redhat.rhn.manager.user.UserManager;
@@ -51,7 +52,7 @@ public class ChannelDetailsAction extends RhnAction {
         RequestContext ctx = new RequestContext(request);
         User user =  ctx.getLoggedInUser();
         Map params = makeParamMap(request);
-        String fwd = "default";
+        String fwd = RhnHelper.DEFAULT_FORWARD;
 
         long cid = ctx.getRequiredParam("cid");
         Channel chan = ChannelManager.lookupByIdAndUser(cid, user);

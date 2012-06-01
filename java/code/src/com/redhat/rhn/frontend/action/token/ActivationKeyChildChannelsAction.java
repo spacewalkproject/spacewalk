@@ -24,6 +24,7 @@ import com.redhat.rhn.domain.token.ActivationKeyFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.manager.token.ActivationKeyManager;
 
 import org.apache.struts.action.ActionForm;
@@ -60,7 +61,7 @@ public class ActivationKeyChildChannelsAction extends RhnAction {
 
         ActivationKey key = context.lookupAndBindActivationKey();
         Map params = new HashMap();
-        String fwd = "default";
+        String fwd = RhnHelper.DEFAULT_FORWARD;
 
         request.setAttribute("description", key.getNote());
 

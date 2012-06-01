@@ -16,6 +16,7 @@ package com.redhat.rhn.frontend.action.ssm;
 
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -69,7 +70,7 @@ public class MiscIndexAction extends RhnAction {
             return mapping.findForward("confirm");
         }
 
-        return mapping.findForward("default");
+        return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
 
 }

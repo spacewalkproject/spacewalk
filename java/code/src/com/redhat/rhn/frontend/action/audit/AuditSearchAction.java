@@ -19,6 +19,7 @@ import com.redhat.rhn.frontend.action.common.DateRangePicker;
 import com.redhat.rhn.frontend.dto.AuditReviewDto;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
 import com.redhat.rhn.manager.audit.AuditManager;
 
@@ -213,7 +214,7 @@ public class AuditSearchAction extends RhnAction {
             // we skip the search dialog and return the default selection
             submitted = true;
             typemap = AuditManager.getAuditTypeMap();
-            autypes = typemap.get("default");
+            autypes = typemap.get(RhnHelper.DEFAULT_FORWARD);
         }
 
         amsgs = new ActionMessages();
@@ -300,7 +301,7 @@ public class AuditSearchAction extends RhnAction {
             }
 
             return getStrutsDelegate().forwardParams(
-                    mapping.findForward("default"),
+                    mapping.findForward(RhnHelper.DEFAULT_FORWARD),
                     forwardParams);
         }
 

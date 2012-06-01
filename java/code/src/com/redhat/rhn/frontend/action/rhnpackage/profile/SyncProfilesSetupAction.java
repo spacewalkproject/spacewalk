@@ -21,6 +21,7 @@ import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.SessionSetHelper;
 import com.redhat.rhn.frontend.taglibs.list.helper.ListHelper;
 import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
@@ -87,8 +88,8 @@ public class SyncProfilesSetupAction extends RhnAction implements Listable {
 
         request.setAttribute("system", server);
         request.setAttribute("profilename", profile.getName());
-        return getStrutsDelegate().forwardParams(mapping.findForward("default"),
-                                       request.getParameterMap());
+        return getStrutsDelegate().forwardParams(mapping.findForward(
+                 RhnHelper.DEFAULT_FORWARD), request.getParameterMap());
     }
 
     /**

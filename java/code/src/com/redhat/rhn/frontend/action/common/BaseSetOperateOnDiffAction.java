@@ -19,6 +19,7 @@ import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.rhnset.RhnSetElement;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.rhnset.RhnSetManager;
 
@@ -139,7 +140,8 @@ public abstract class BaseSetOperateOnDiffAction extends RhnSetAction {
 
         generateUserMessage(added, removed, request);
 
-        return getStrutsDelegate().forwardParams(mapping.findForward("default"), params);
+        return getStrutsDelegate().forwardParams(mapping.findForward(
+                RhnHelper.DEFAULT_FORWARD), params);
     }
 
     protected void generateUserMessage(List added, List removed,

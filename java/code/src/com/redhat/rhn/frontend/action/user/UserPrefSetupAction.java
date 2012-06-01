@@ -78,7 +78,7 @@ public class UserPrefSetupAction extends RhnAction {
         setupTasks(form, user);
         request.setAttribute("pagesizes", getPageSizes());
 
-        return mapping.findForward("default");
+        return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
 
     /**

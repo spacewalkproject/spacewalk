@@ -18,6 +18,7 @@ import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.domain.token.ActivationKey;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.RhnValidationHelper;
 import com.redhat.rhn.manager.token.ActivationKeyPackagesCommand;
 
@@ -68,7 +69,7 @@ public class ActivationKeyPackagesAction extends RhnAction {
             // setup form
             setupForm(form, cmd);
             return getStrutsDelegate().forwardParams(
-                    mapping.findForward("default"),
+                    mapping.findForward(RhnHelper.DEFAULT_FORWARD),
                     request.getParameterMap());
         }
 

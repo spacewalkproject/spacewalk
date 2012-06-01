@@ -20,6 +20,7 @@ import com.redhat.rhn.domain.rhnpackage.PackageFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.manager.rhnpackage.PackageManager;
 
 import org.apache.commons.lang.StringEscapeUtils;
@@ -68,7 +69,7 @@ public class PackageChangeLogAction extends RhnAction {
 
         request.setAttribute("pid", pid);
         request.setAttribute("package_name", pkg.getFilename());
-        return mapping.findForward("default");
+        return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
 
     }
 }

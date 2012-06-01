@@ -67,7 +67,7 @@ public abstract class BaseListAction extends RhnListAction {
         request.setAttribute(RequestContext.PAGE_LIST, dr);
         processRequestAttributes(requestContext);
         processForm(requestContext, formIn);
-        return strutsDelegate.forwardParams(mapping.findForward("default"),
+        return strutsDelegate.forwardParams(mapping.findForward(RhnHelper.DEFAULT_FORWARD),
                 request.getParameterMap());
     }
 

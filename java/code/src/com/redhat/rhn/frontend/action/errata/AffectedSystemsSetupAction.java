@@ -99,7 +99,7 @@ public class AffectedSystemsSetupAction extends RhnListAction {
         request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI() + "?" +
                 RequestContext.ERRATA_ID + "=" + errata.getId());
 
-        return strutsDelegate.forwardParams(mapping.findForward("default"),
+        return strutsDelegate.forwardParams(mapping.findForward(RhnHelper.DEFAULT_FORWARD),
                                        request.getParameterMap());
     }
 }

@@ -28,6 +28,7 @@ import com.redhat.rhn.frontend.action.systems.sdc.SdcHelper;
 import com.redhat.rhn.frontend.dto.VirtualSystemOverview;
 import com.redhat.rhn.frontend.listview.PageControl;
 import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.system.SystemManager;
@@ -95,7 +96,7 @@ public class VirtualGuestsListSetupAction extends BaseSystemListSetupAction {
         request.setAttribute("system", server);
         request.setAttribute("actionOptions", getActionOptions());
         request.setAttribute("guestSettingOptions", getGuestSettingOptions());
-        return mapping.findForward("default");
+        return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
 
     private List getActionOptions() {

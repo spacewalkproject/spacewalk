@@ -19,6 +19,7 @@ import com.redhat.rhn.common.validator.ValidatorException;
 import com.redhat.rhn.domain.kickstart.builder.KickstartBuilder;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.RhnValidationHelper;
 import com.redhat.rhn.frontend.struts.StrutsDelegate;
 import com.redhat.rhn.manager.kickstart.KickstartCloneCommand;
@@ -92,12 +93,12 @@ public class KickstartCloneAction extends RhnAction {
                 }
                 catch (ValidatorException ve) {
                     getStrutsDelegate().saveMessages(request, ve.getResult());
-                    return mapping.findForward("default");
+                    return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
                 }
             }
         }
 
         form.set(RequestContext.LABEL, cmd.getNewLabel());
-        return mapping.findForward("default");
+        return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
 }

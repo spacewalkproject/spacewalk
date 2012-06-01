@@ -20,6 +20,7 @@ import com.redhat.rhn.domain.server.ServerFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -57,7 +58,7 @@ public class CreateCustomKeyAction extends RhnAction {
                 request.setAttribute("old_label", label);
                 request.setAttribute("old_description", description);
                 bindMessage(requestContext, error);
-                return mapping.findForward("default");
+                return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
             }
 
             CustomDataKey key = new CustomDataKey();
@@ -71,7 +72,7 @@ public class CreateCustomKeyAction extends RhnAction {
             return mapping.findForward("created");
         }
 
-        return mapping.findForward("default");
+        return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
 
     private void bindMessage(RequestContext requestContext, String error) {

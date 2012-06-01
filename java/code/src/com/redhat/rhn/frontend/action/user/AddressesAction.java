@@ -71,7 +71,7 @@ public class AddressesAction extends RhnAction {
         request.setAttribute(RhnHelper.TARGET_ADDRESS_MARKETING, marketing);
         //request.setAttribute(RhnHelper.TARGET_ADDRESS_BILLING, billing);
         //request.setAttribute(RhnHelper.TARGET_ADDRESS_SHIPPING, shipping);
-        return mapping.findForward("default");
+        return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
 
 }

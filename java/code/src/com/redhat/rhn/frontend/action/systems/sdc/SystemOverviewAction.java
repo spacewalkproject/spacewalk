@@ -25,6 +25,7 @@ import com.redhat.rhn.domain.user.UserServerPreferenceId;
 import com.redhat.rhn.frontend.dto.monitoring.ServerProbeComparator;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.manager.action.ActionManager;
 import com.redhat.rhn.manager.entitlement.EntitlementManager;
 import com.redhat.rhn.manager.monitoring.MonitoringManager;
@@ -137,7 +138,7 @@ public class SystemOverviewAction extends RhnAction {
         request.setAttribute("system", s);
         request.setAttribute("hasLocation",
                 !(s.getLocation() == null || s.getLocation().isEmpty()));
-        return mapping.findForward("default");
+        return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
 
     protected List findUserServerPreferences(User user, Server s) {

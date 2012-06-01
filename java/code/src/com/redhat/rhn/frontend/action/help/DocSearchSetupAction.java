@@ -22,6 +22,7 @@ import com.redhat.rhn.frontend.context.Context;
 import com.redhat.rhn.frontend.dto.HelpDocumentOverview;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
 
 import org.apache.commons.lang.StringUtils;
@@ -81,7 +82,7 @@ public class DocSearchSetupAction extends RhnAction {
             if (!isSubmitted(form)) {
                 setupForm(request, form);
                 return getStrutsDelegate().forwardParams(
-                        mapping.findForward("default"),
+                        mapping.findForward(RhnHelper.DEFAULT_FORWARD),
                         request.getParameterMap());
             }
         }
@@ -139,7 +140,7 @@ public class DocSearchSetupAction extends RhnAction {
         if (!errors.isEmpty()) {
             addErrors(request, errors);
             return getStrutsDelegate().forwardParams(
-                    mapping.findForward("default"),
+                    mapping.findForward(RhnHelper.DEFAULT_FORWARD),
                     forwardParams);
         }
 

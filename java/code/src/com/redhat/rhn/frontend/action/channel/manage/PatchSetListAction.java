@@ -23,6 +23,7 @@ import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.PatchSetOverview;
 import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.RhnListAction;
 import com.redhat.rhn.frontend.struts.RhnListSetHelper;
 import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
@@ -130,7 +131,7 @@ public class PatchSetListAction extends RhnListAction {
         ListTagHelper.bindSetDeclTo(LIST_NAME, getDecl(), request);
 
 
-        return mapping.findForward("default");
+        return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
 
     }
 

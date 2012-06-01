@@ -18,6 +18,7 @@ import com.redhat.rhn.domain.rhnpackage.profile.Profile;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.StrutsDelegate;
 import com.redhat.rhn.manager.profile.ProfileManager;
 
@@ -64,7 +65,8 @@ public class DeleteProfileAction extends RhnAction {
 
         if (!isSubmitted(f)) {
             setup(request, f);
-            forward =  strutsDelegate.forwardParams(mapping.findForward("default"),
+            forward =  strutsDelegate.forwardParams(
+                    mapping.findForward(RhnHelper.DEFAULT_FORWARD),
                     request.getParameterMap());
         }
         else {

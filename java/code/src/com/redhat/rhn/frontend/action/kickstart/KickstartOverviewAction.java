@@ -22,6 +22,7 @@ import com.redhat.rhn.frontend.dto.kickstart.KickstartOverviewSummaryDto;
 import com.redhat.rhn.frontend.dto.kickstart.KickstartOverviewSystemsDto;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
 import com.redhat.rhn.manager.kickstart.KickstartLister;
 
@@ -106,7 +107,7 @@ public class KickstartOverviewAction extends RhnAction {
        rctx.getRequest().setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
 
 
-       return mapping.findForward("default");
+       return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
 
     /**

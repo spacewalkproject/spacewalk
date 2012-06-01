@@ -19,6 +19,7 @@ import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.common.RhnSetAction;
 import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.StrutsDelegate;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.solarispackage.SolarisManager;
@@ -63,7 +64,8 @@ public class PatchInstallAction extends RhnSetAction {
                     new ActionMessage("patch.applynone"));
             params = makeParamMap(formIn, request);
             strutsDelegate.saveMessages(request, msg);
-            return strutsDelegate.forwardParams(mapping.findForward("default"), params);
+            return strutsDelegate.forwardParams(
+                    mapping.findForward(RhnHelper.DEFAULT_FORWARD), params);
         }
 
         processParamMap(formIn, request, params);

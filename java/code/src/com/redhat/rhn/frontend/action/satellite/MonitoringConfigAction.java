@@ -22,6 +22,7 @@ import com.redhat.rhn.domain.monitoring.config.ConfigMacro;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.NameDescriptionValue;
 import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.RhnValidationHelper;
 import com.redhat.rhn.manager.monitoring.MonitoringManager;
 import com.redhat.rhn.manager.satellite.ConfigureSatelliteCommand;
@@ -148,7 +149,7 @@ public class MonitoringConfigAction extends BaseConfigAction {
         }
 
         req.setAttribute("configList", nameDescVals);
-        ActionForward returnActionForward = mapping.findForward("default");
+        ActionForward returnActionForward = mapping.findForward(RhnHelper.DEFAULT_FORWARD);
         if (logger.isDebugEnabled()) {
             logger.debug("execute(ActionMapping, ActionForm, " +
                     "HttpServletRequest, HttpServletResponse)" +

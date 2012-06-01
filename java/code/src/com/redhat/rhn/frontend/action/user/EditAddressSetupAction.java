@@ -74,7 +74,7 @@ public class EditAddressSetupAction extends RhnAction {
         request.setAttribute(
             "availableCountries", UserActionHelper.getCountries());
 
-        ActionForward fwd = mapping.findForward("default");
+        ActionForward fwd = mapping.findForward(RhnHelper.DEFAULT_FORWARD);
         return fwd;
     }
 

@@ -15,6 +15,7 @@
 package com.redhat.rhn.frontend.action.multiorg;
 
 import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
 
 import org.apache.struts.action.ActionForm;
@@ -38,7 +39,7 @@ public class SystemEntitlementDetailsAction extends RhnAction {
         request.setAttribute("name", entitlementLabel);
         request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
 
-        return mapping.findForward("default");
+        return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
 
 }

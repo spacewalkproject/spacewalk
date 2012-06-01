@@ -15,6 +15,7 @@
 package com.redhat.rhn.frontend.action.schedule;
 
 import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.RhnListAction;
 
 import org.apache.struts.action.ActionForm;
@@ -40,7 +41,8 @@ public class CompletedSystemsAction extends RhnListAction {
 
         Map params = getParamMap(request);
 
-        return getStrutsDelegate().forwardParams(mapping.findForward("default"), params);
+        return getStrutsDelegate().forwardParams(
+                mapping.findForward(RhnHelper.DEFAULT_FORWARD), params);
     }
 
     /**

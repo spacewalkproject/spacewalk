@@ -18,6 +18,7 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.common.BadParameterException;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.StrutsDelegate;
 import com.redhat.rhn.manager.kickstart.KickstartIpCommand;
 
@@ -93,7 +94,7 @@ public class KickstartIpRangeDeleteAction extends RhnAction {
         request.setAttribute(RequestContext.KICKSTART,
                 cmd.getKickstartData());
 
-        return strutsDelegate.forwardParams(mapping.findForward("default"),
+        return strutsDelegate.forwardParams(mapping.findForward(RhnHelper.DEFAULT_FORWARD),
                 params);
     }
 

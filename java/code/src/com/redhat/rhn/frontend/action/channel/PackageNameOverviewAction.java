@@ -17,6 +17,7 @@ package com.redhat.rhn.frontend.action.channel;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
 import com.redhat.rhn.manager.rhnpackage.PackageManager;
 
@@ -78,6 +79,6 @@ public class PackageNameOverviewAction extends RhnAction {
 
         request.setAttribute("pageList", dr);
 
-        return mapping.findForward("default");
+        return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
 }

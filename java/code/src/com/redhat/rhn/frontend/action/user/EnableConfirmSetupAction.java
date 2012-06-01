@@ -94,7 +94,7 @@ public class EnableConfirmSetupAction extends RhnListAction {
         request.setAttribute("pageList", dr);
         request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
 
-        return mapping.findForward("default");
+        return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
 
     /**
@@ -160,7 +160,7 @@ public class EnableConfirmSetupAction extends RhnListAction {
         }
 
         addErrors(request, errors);
-        return strutsDelegate.forwardParams(mapping.findForward("default"),
+        return strutsDelegate.forwardParams(mapping.findForward(RhnHelper.DEFAULT_FORWARD),
                                        makeParamMap(request));
 
 

@@ -17,6 +17,7 @@ package com.redhat.rhn.frontend.action.tasko;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.taskomatic.TaskomaticApi;
 import com.redhat.rhn.taskomatic.TaskomaticApiException;
 
@@ -94,7 +95,7 @@ public class DeleteScheduleAction extends RhnAction {
             }
         }
         return getStrutsDelegate().forwardParams(
-                mapping.findForward("default"),
+                mapping.findForward(RhnHelper.DEFAULT_FORWARD),
                 request.getParameterMap());
     }
 

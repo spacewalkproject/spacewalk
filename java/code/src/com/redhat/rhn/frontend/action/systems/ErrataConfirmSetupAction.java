@@ -83,8 +83,8 @@ public class ErrataConfirmSetupAction extends RhnAction implements Listable {
         request.setAttribute("date", picker);
         request.setAttribute("system", server);
 
-        return getStrutsDelegate().forwardParams(mapping.findForward("default"),
-                                       request.getParameterMap());
+        return getStrutsDelegate().forwardParams(mapping.findForward(
+                RhnHelper.DEFAULT_FORWARD), request.getParameterMap());
     }
 
 
@@ -149,7 +149,8 @@ public class ErrataConfirmSetupAction extends RhnAction implements Listable {
          * What happens if a few ServerActions fail to be scheduled?
          */
         Map params = makeParamMap(request);
-        return strutsDelegate.forwardParams(mapping.findForward("default"), params);
+        return strutsDelegate.forwardParams(
+                mapping.findForward(RhnHelper.DEFAULT_FORWARD), params);
     }
 
 

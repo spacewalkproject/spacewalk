@@ -21,6 +21,7 @@ import com.redhat.rhn.domain.rhnpackage.WrongPackageTypeException;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.StrutsDelegate;
 import com.redhat.rhn.manager.action.ActionManager;
 import com.redhat.rhn.manager.rhnpackage.PackageManager;
@@ -101,7 +102,8 @@ public class InstallPatchSetAction extends LookupDispatchAction {
         strutsDelegate.saveMessages(request, msgs);
 
         Map params = makeParamMap(request);
-        return strutsDelegate.forwardParams(mapping.findForward("default"), params);
+        return strutsDelegate.forwardParams(
+                mapping.findForward(RhnHelper.DEFAULT_FORWARD), params);
     }
 
     /**
@@ -118,7 +120,8 @@ public class InstallPatchSetAction extends LookupDispatchAction {
                                      HttpServletRequest request,
                                      HttpServletResponse response) {
         Map params = makeParamMap(request);
-        return getStrutsDelegate().forwardParams(mapping.findForward("default"), params);
+        return getStrutsDelegate().forwardParams(
+                mapping.findForward(RhnHelper.DEFAULT_FORWARD), params);
     }
 
     /**

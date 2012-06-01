@@ -21,6 +21,7 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.SystemOverview;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.RhnListSetHelper;
 import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
 import com.redhat.rhn.frontend.taglibs.list.TagHelper;
@@ -93,7 +94,7 @@ public class SystemGroupListSetupAction extends RhnAction {
             ListTagHelper.setSelectedAmount("result", set.size(), request);
         }
 
-        return mapping.findForward("default");
+        return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
 
     protected RhnSetDecl getSetDecl() {
@@ -124,7 +125,7 @@ public class SystemGroupListSetupAction extends RhnAction {
             msg.add(ActionMessages.GLOBAL_MESSAGE,
                     new ActionMessage("systemgroups.none"));
             getStrutsDelegate().saveMessages(request, msg);
-            return mapping.findForward("default");
+            return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
         }
 
        // Iterator groups = groupSet.getElements().iterator();
@@ -213,7 +214,7 @@ public class SystemGroupListSetupAction extends RhnAction {
             msg.add(ActionMessages.GLOBAL_MESSAGE,
                     new ActionMessage("systemgroups.none"));
             getStrutsDelegate().saveMessages(request, msg);
-            return mapping.findForward("default");
+            return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
         }
 
         Iterator groups = groupSet.getElements().iterator();

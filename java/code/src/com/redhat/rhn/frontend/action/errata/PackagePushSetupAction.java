@@ -22,6 +22,7 @@ import com.redhat.rhn.domain.rhnset.RhnSetElement;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.listview.PageControl;
 import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.RhnListAction;
 import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.errata.ErrataManager;
@@ -108,7 +109,7 @@ public class PackagePushSetupAction extends RhnListAction {
                 request.setAttribute("set", packageSet);
                 request.setAttribute("advisory", e.getAdvisory());
                 request.setAttribute("channel_name", c.getName());
-                return mapping.findForward("default");
+                return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
             }
         }
 

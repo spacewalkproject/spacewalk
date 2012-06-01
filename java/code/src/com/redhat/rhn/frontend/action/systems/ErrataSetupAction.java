@@ -22,6 +22,7 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.systems.sdc.SdcHelper;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.StrutsDelegate;
 import com.redhat.rhn.frontend.taglibs.list.helper.ListRhnSetHelper;
 import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
@@ -121,7 +122,8 @@ public class ErrataSetupAction extends RhnAction implements Listable {
         request.setAttribute("combo", getComboList(request));
         request.setAttribute(SELECTOR, request.getParameter(SELECTOR));
 
-        return getStrutsDelegate().forwardParams(mapping.findForward("default"), params);
+        return getStrutsDelegate().forwardParams(
+                mapping.findForward(RhnHelper.DEFAULT_FORWARD), params);
     }
 
 
@@ -200,7 +202,8 @@ public class ErrataSetupAction extends RhnAction implements Listable {
                     new ActionMessage("errata.applynone"));
             params = makeParamMap(formIn, request);
             strutsDelegate.saveMessages(request, msg);
-            return strutsDelegate.forwardParams(mapping.findForward("default"), params);
+            return strutsDelegate.forwardParams(mapping.findForward(
+                    RhnHelper.DEFAULT_FORWARD), params);
         }
 
         if (sid != null) {

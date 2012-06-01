@@ -18,6 +18,7 @@ import com.redhat.rhn.domain.action.Action;
 import com.redhat.rhn.domain.action.ActionFormatter;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.manager.action.ActionManager;
 
 import org.apache.struts.action.ActionForm;
@@ -52,7 +53,7 @@ public class ActionDetailsSetupAction extends RhnAction {
         request.setAttribute("earliestaction", af.getEarliestDate());
         request.setAttribute("actionnotes", af.getNotes());
 
-        return mapping.findForward("default");
+        return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
 
 }

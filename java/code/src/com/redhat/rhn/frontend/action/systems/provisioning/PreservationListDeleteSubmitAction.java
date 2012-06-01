@@ -18,6 +18,7 @@ import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.common.RhnSetAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.StrutsDelegate;
 import com.redhat.rhn.manager.kickstart.KickstartLister;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
@@ -56,7 +57,7 @@ public class PreservationListDeleteSubmitAction extends RhnSetAction {
 
         if (set.size() == 0) {
             strutsDelegate.saveMessage("filelists.jsp.selectafilelist", request);
-            forwardName = "default";
+            forwardName = RhnHelper.DEFAULT_FORWARD;
         }
         Map params = makeParamMap(formIn, request);
         RhnSetManager.store(set);

@@ -20,6 +20,7 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.ChannelOverview;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.StrutsDelegate;
 import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.user.UserManager;
@@ -69,7 +70,7 @@ public class ErrataPackagesSetupAction extends RhnAction {
         request.setAttribute("errata", errata);
         request.setAttribute("channels", chans);
 
-        return strutsDelegate.forwardParams(mapping.findForward("default"),
+        return strutsDelegate.forwardParams(mapping.findForward(RhnHelper.DEFAULT_FORWARD),
                                        request.getParameterMap());
     }
 }

@@ -61,6 +61,6 @@ public class VisibleSystemsListSetupAction extends RhnListAction {
         request.setAttribute("user", user);
         request.setAttribute("set", set);
 
-        return mapping.findForward("default");
+        return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
 }

@@ -25,6 +25,7 @@ import com.redhat.rhn.frontend.action.common.DateRangePicker.DatePickerResults;
 import com.redhat.rhn.frontend.dto.ErrataOverview;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
 import com.redhat.rhn.manager.errata.ErrataManager;
 
@@ -89,7 +90,7 @@ public class ErrataSearchAction extends RhnAction {
             if (!isSubmitted(form)) {
                 setupForm(request, form);
                 return getStrutsDelegate().forwardParams(
-                        mapping.findForward("default"),
+                        mapping.findForward(RhnHelper.DEFAULT_FORWARD),
                         request.getParameterMap());
             }
         }
@@ -148,7 +149,7 @@ public class ErrataSearchAction extends RhnAction {
         if (!errors.isEmpty()) {
             addErrors(request, errors);
             return getStrutsDelegate().forwardParams(
-                    mapping.findForward("default"),
+                    mapping.findForward(RhnHelper.DEFAULT_FORWARD),
                     forwardParams);
         }
 

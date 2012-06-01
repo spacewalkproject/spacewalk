@@ -25,6 +25,7 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.systems.BaseSystemListAction;
 import com.redhat.rhn.frontend.dto.VirtualSystemOverview;
 import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.StrutsDelegate;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.system.SystemManager;
@@ -80,7 +81,8 @@ public class VirtualGuestsConfirmAction extends BaseSystemListAction {
                     new ActionMessage("virtualsystems.none"));
             params = makeParamMap(formIn, request);
             strutsDelegate.saveMessages(request, msg);
-            return strutsDelegate.forwardParams(mapping.findForward("default"), params);
+            return strutsDelegate.forwardParams(
+                    mapping.findForward(RhnHelper.DEFAULT_FORWARD), params);
         }
 
         RequestContext ctx = new RequestContext(request);

@@ -30,6 +30,7 @@ import com.redhat.rhn.domain.user.UserServerPreferenceId;
 import com.redhat.rhn.frontend.dto.EntitlementDto;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.RhnValidationHelper;
 import com.redhat.rhn.manager.action.ActionManager;
 import com.redhat.rhn.manager.entitlement.EntitlementManager;
@@ -91,7 +92,7 @@ public class SystemDetailsEditAction extends RhnAction {
         User user = rctx.getLoggedInUser();
         Server s  = SystemManager.lookupByIdAndUser(
                 rctx.getRequiredParam(RequestContext.SID), user);
-        String forwardName = "default";
+        String forwardName = RhnHelper.DEFAULT_FORWARD;
 
         if (isSubmitted(daForm)) {
             ActionErrors errors = RhnValidationHelper.validateDynaActionForm(this, daForm);

@@ -84,7 +84,7 @@ public class RepoDetailsAction extends RhnAction {
                     if (!errors.isEmpty()) {
                         addErrors(request, errors);
                         return getStrutsDelegate().forwardParams(
-                                mapping.findForward("default"),
+                                mapping.findForward(RhnHelper.DEFAULT_FORWARD),
                                 new HashMap());
                     }
                     if (isCreateMode(request)) {

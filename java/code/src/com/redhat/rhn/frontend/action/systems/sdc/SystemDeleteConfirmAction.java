@@ -19,6 +19,7 @@ import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.StrutsDelegate;
 import com.redhat.rhn.manager.entitlement.EntitlementManager;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
@@ -63,7 +64,8 @@ public class SystemDeleteConfirmAction extends RhnAction {
         request.setAttribute("sid", sid);
 
         params.put(RequestContext.SID, request.getParameter(RequestContext.SID));
-        forward = strutsDelegate.forwardParams(mapping.findForward("default"), params);
+        forward = strutsDelegate.forwardParams(
+                mapping.findForward(RhnHelper.DEFAULT_FORWARD), params);
 
         if (isSubmitted(daForm)) {
             if (server.hasEntitlement(EntitlementManager.MANAGEMENT)) {

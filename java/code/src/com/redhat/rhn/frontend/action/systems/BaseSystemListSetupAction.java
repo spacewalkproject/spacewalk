@@ -20,6 +20,7 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.SystemOverview;
 import com.redhat.rhn.frontend.listview.PageControl;
 import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.RhnListAction;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 
@@ -62,7 +63,7 @@ public abstract class BaseSystemListSetupAction extends RhnListAction {
 
         request.setAttribute("set", set);
         request.setAttribute("pageList", dr);
-        return mapping.findForward("default");
+        return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
     /**
      * Retrives the set declation item

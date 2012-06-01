@@ -19,6 +19,7 @@ import com.redhat.rhn.domain.channel.ChannelFamily;
 import com.redhat.rhn.domain.channel.ChannelFamilyFactory;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
 
 import org.apache.struts.action.ActionForm;
@@ -58,6 +59,6 @@ public class SoftwareEntitlementDetailsAction extends RhnAction {
         request.setAttribute("pageList", channelsPageList);
         request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
 
-        return mapping.findForward("default");
+        return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
 }

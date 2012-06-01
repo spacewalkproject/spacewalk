@@ -21,6 +21,7 @@ import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.frontend.dto.OrgEntitlementDto;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.RhnValidationHelper;
 import com.redhat.rhn.manager.entitlement.EntitlementManager;
 import com.redhat.rhn.manager.org.OrgManager;
@@ -57,7 +58,7 @@ public class OrgSystemSubscriptionsAction extends RhnAction {
         Org org = OrgFactory.lookupById(oid);
 
         ActionForward retval =
-            getStrutsDelegate().forwardParam(mapping.findForward("default"),
+            getStrutsDelegate().forwardParam(mapping.findForward(RhnHelper.DEFAULT_FORWARD),
                 "oid", oid.toString());
 
         if (isSubmitted(dynaForm)) {

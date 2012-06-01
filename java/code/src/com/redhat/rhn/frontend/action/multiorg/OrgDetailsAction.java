@@ -22,6 +22,7 @@ import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.frontend.dto.OrgDto;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.manager.acl.AclManager;
 import com.redhat.rhn.manager.org.OrgManager;
 
@@ -58,7 +59,7 @@ public class OrgDetailsAction extends RhnAction {
             throw pex;
         }
 
-        ActionForward retval = mapping.findForward("default");
+        ActionForward retval = mapping.findForward(RhnHelper.DEFAULT_FORWARD);
         DynaActionForm dynaForm = (DynaActionForm) formIn;
         if (isSubmitted(dynaForm)) {
             Long oid = updateOrgDetails(mapping, dynaForm, request, response);

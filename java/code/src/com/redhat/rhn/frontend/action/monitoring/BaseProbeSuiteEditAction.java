@@ -17,6 +17,7 @@ package com.redhat.rhn.frontend.action.monitoring;
 import com.redhat.rhn.domain.monitoring.suite.ProbeSuite;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.RhnValidationHelper;
 import com.redhat.rhn.frontend.struts.StrutsDelegate;
 import com.redhat.rhn.manager.monitoring.MonitoringManager;
@@ -45,7 +46,7 @@ public abstract class BaseProbeSuiteEditAction extends RhnAction {
 
         StrutsDelegate strutsDelegate = getStrutsDelegate();
 
-        String forwardName = "default";
+        String forwardName = RhnHelper.DEFAULT_FORWARD;
         if (isSubmitted(form)) {
             ActionErrors errors = RhnValidationHelper.validateDynaActionForm(
                     this, form);

@@ -26,6 +26,7 @@ import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.frontend.action.common.DateRangePicker;
 import com.redhat.rhn.frontend.action.common.DateRangePicker.DatePickerResults;
 import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.taglibs.list.helper.ListHelper;
 import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
 import com.redhat.rhn.manager.monitoring.MonitoringManager;
@@ -205,7 +206,7 @@ public class ProbeDetailsAction extends BaseProbeAction implements Listable {
 
         req.setAttribute(SHOW_GRAPH, Boolean.valueOf(showGraph));
         req.setAttribute(SHOW_LOG, Boolean.valueOf(showLog));
-        return mapping.findForward("default");
+        return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
 
     /**

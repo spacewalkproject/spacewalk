@@ -16,6 +16,7 @@ package com.redhat.rhn.frontend.action.errata;
 
 import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.StrutsDelegate;
 import com.redhat.rhn.manager.errata.ErrataManager;
 
@@ -59,7 +60,8 @@ public class DeleteErratumAction extends LookupDispatchAction {
         Errata errata = requestContext.lookupErratum();
 
         request.setAttribute("errata", errata);
-        return getStrutsDelegate().forwardParam(mapping.findForward("default"),
+        return getStrutsDelegate().forwardParam(
+                mapping.findForward(RhnHelper.DEFAULT_FORWARD),
                 "eid", errata.getId().toString());
     }
 

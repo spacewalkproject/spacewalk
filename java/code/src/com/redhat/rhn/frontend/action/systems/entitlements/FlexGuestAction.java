@@ -17,6 +17,7 @@ package com.redhat.rhn.frontend.action.systems.entitlements;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.ChannelFamilySystemGroup;
 import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.taglibs.list.helper.ListHelper;
 import com.redhat.rhn.manager.system.VirtualizationEntitlementsManager;
 
@@ -53,7 +54,7 @@ public class FlexGuestAction  extends EligibleFlexGuestAction  {
         request.setAttribute("selected_family", getSelectedChannel(requestContext));
         ListHelper helper = new ListHelper(this, request);
         helper.execute();
-        return mapping.findForward("default");
+        return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
 
 

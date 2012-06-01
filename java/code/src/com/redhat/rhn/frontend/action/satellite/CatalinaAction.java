@@ -18,6 +18,7 @@ package com.redhat.rhn.frontend.action.satellite;
 import com.redhat.rhn.common.util.FileUtils;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -51,6 +52,6 @@ public class CatalinaAction extends RhnAction {
        request.setAttribute("contents",
                FileUtils.readStringFromFile("/var/log" + m.group(0) + "/catalina.out"));
 
-       return mapping.findForward("default");
+       return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
    }
 }

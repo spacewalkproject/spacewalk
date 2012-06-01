@@ -19,6 +19,7 @@ import com.redhat.rhn.domain.channel.InvalidChannelRoleException;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.taglibs.list.helper.ListRhnSetHelper;
 import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
 import com.redhat.rhn.manager.channel.ChannelManager;
@@ -61,7 +62,7 @@ public class SyncErrataAction extends RhnAction implements Listable  {
         }
         catch (InvalidChannelRoleException e) {
             addMessage(request, e.getMessage());
-            return mapping.findForward("default");
+            return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
         }
 
         ListRhnSetHelper helper = new ListRhnSetHelper(this, request,
@@ -77,7 +78,7 @@ public class SyncErrataAction extends RhnAction implements Listable  {
 
         request.setAttribute("channel_name", chan.getName());
         request.setAttribute(RequestContext.CID, chan.getId());
-        return mapping.findForward("default");
+        return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
 
 

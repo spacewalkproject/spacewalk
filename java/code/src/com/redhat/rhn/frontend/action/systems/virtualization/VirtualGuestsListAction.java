@@ -25,6 +25,7 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.systems.BaseSystemListAction;
 import com.redhat.rhn.frontend.dto.VirtualSystemOverview;
 import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.RhnValidationHelper;
 import com.redhat.rhn.frontend.struts.StrutsDelegate;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
@@ -137,7 +138,8 @@ public class VirtualGuestsListAction extends BaseSystemListAction {
                 (DynaActionForm)formIn);
         if (!errors.isEmpty()) {
             strutsDelegate.saveMessages(request, errors);
-            return strutsDelegate.forwardParams(mapping.findForward("default"), params);
+            return strutsDelegate.forwardParams(
+                    mapping.findForward(RhnHelper.DEFAULT_FORWARD), params);
         }
 
         RhnSet set = updateSet(request);
@@ -148,7 +150,8 @@ public class VirtualGuestsListAction extends BaseSystemListAction {
                     new ActionMessage("virtualsystems.none"));
 
             strutsDelegate.saveMessages(request, msg);
-            return strutsDelegate.forwardParams(mapping.findForward("default"), params);
+            return strutsDelegate.forwardParams(
+                    mapping.findForward(RhnHelper.DEFAULT_FORWARD), params);
         }
 
         //on to the confirmation page, with the action 'type'
@@ -192,7 +195,8 @@ public class VirtualGuestsListAction extends BaseSystemListAction {
         // Redirect back to the screen with error messages if any problems were found with
         // the proposed guest setting changes:
         if (validationErrors.size() > 0) {
-            return strutsDelegate.forwardParams(mapping.findForward("default"), params);
+            return strutsDelegate.forwardParams(
+                    mapping.findForward(RhnHelper.DEFAULT_FORWARD), params);
         }
         return strutsDelegate.forwardParams(mapping.findForward("confirm"), params);
     }

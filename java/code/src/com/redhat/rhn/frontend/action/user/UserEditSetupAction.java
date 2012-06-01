@@ -116,7 +116,7 @@ public class UserEditSetupAction extends RhnAction {
         // Keep the new list tag happy:
         request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
 
-        return mapping.findForward("default");
+        return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
 
     private void setupRoles(HttpServletRequest request, User targetUser) {

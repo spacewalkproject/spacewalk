@@ -18,6 +18,7 @@ import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.taglibs.list.helper.ListHelper;
 import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
 import com.redhat.rhn.manager.errata.ErrataManager;
@@ -56,7 +57,7 @@ public abstract class ErrataListBaseAction extends RhnAction implements Listable
         ListHelper helper = new ListHelper(this, request);
         helper.execute();
 
-        return actionMapping.findForward("default");
+        return actionMapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
 
     /** {@inheritDoc} */

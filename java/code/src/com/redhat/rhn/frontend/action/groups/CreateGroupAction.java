@@ -20,6 +20,7 @@ import com.redhat.rhn.domain.server.ServerGroupFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.manager.system.ServerGroupManager;
 
 import org.apache.commons.lang.StringUtils;
@@ -81,7 +82,7 @@ public class CreateGroupAction extends RhnAction {
             return mapping.findForward("error");
         }
 
-        return mapping.findForward("default");
+        return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
 
 }

@@ -17,6 +17,7 @@ package com.redhat.rhn.frontend.action.user;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.common.BadParameterException;
 import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.manager.user.UserManager;
 
 import org.apache.struts.action.ActionForm;
@@ -100,7 +101,7 @@ public class UserLocalePrefAction extends BaseUserSetupAction {
         }
         form.set("uid", currentUser.getId());
 
-        return mapping.findForward("default");
+        return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
 
     private User lookupUser(RequestContext ctx, DynaActionForm form) {

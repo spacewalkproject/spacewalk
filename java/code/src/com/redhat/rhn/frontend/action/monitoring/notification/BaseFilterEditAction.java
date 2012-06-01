@@ -27,6 +27,7 @@ import com.redhat.rhn.frontend.action.common.DateRangePicker.DatePickerResults;
 import com.redhat.rhn.frontend.dto.monitoring.CheckProbeDto;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.RhnValidationHelper;
 import com.redhat.rhn.manager.monitoring.ModifyFilterCommand;
 import com.redhat.rhn.manager.monitoring.MonitoringManager;
@@ -191,7 +192,7 @@ public abstract class BaseFilterEditAction extends RhnAction {
         DataResult groups = MonitoringManager.getInstance().
             listContactGroups(rctx.getCurrentUser());
         req.setAttribute(CONTACT_GROUPS, groups);
-        return mapping.findForward("default");
+        return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
 
 

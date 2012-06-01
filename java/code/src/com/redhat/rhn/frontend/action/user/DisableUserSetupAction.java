@@ -70,7 +70,7 @@ public class DisableUserSetupAction extends RhnAction {
             getStrutsDelegate().saveMessages(request, msg);
         }
 
-        return mapping.findForward("default");
+        return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
 
 }

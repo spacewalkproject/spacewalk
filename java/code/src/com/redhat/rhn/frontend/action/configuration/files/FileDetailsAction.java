@@ -24,6 +24,7 @@ import com.redhat.rhn.frontend.action.configuration.ConfigActionHelper;
 import com.redhat.rhn.frontend.action.configuration.ConfigFileForm;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.RhnValidationHelper;
 import com.redhat.rhn.manager.configuration.ConfigFileBuilder;
 import com.redhat.rhn.manager.configuration.ConfigurationManager;
@@ -95,7 +96,8 @@ public class FileDetailsAction extends RhnAction {
         request.setAttribute("form", cff);
         request.setAttribute("documentation", ConfigDefaults.get().isDocAvailable());
 
-        return getStrutsDelegate().forwardParams(mapping.findForward("default"), params);
+        return getStrutsDelegate().forwardParams(
+                mapping.findForward(RhnHelper.DEFAULT_FORWARD), params);
     }
 
     protected void setupRequestParams(RequestContext ctx, ConfigRevision cr) {

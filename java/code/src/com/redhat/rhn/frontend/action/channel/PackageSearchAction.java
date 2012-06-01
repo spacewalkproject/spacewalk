@@ -24,6 +24,7 @@ import com.redhat.rhn.frontend.dto.PackageDto;
 import com.redhat.rhn.frontend.dto.PackageOverview;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
 import com.redhat.rhn.frontend.xmlrpc.SearchServerIndexException;
 import com.redhat.rhn.manager.channel.ChannelManager;
@@ -84,7 +85,7 @@ public class PackageSearchAction extends RhnAction {
             if (!isSubmitted(form)) {
                 setupForm(request, form);
                 return getStrutsDelegate().forwardParams(
-                        mapping.findForward("default"),
+                        mapping.findForward(RhnHelper.DEFAULT_FORWARD),
                         request.getParameterMap());
             }
         }
@@ -148,7 +149,7 @@ public class PackageSearchAction extends RhnAction {
         if (!errors.isEmpty()) {
             addErrors(request, errors);
             return getStrutsDelegate().forwardParams(
-                    mapping.findForward("default"),
+                    mapping.findForward(RhnHelper.DEFAULT_FORWARD),
                     forwardParams);
         }
 

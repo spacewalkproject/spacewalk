@@ -18,6 +18,7 @@ import com.redhat.rhn.common.util.RecurringEventPicker;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.taskomatic.TaskomaticApi;
 import com.redhat.rhn.taskomatic.TaskomaticApiException;
 
@@ -84,7 +85,7 @@ public class ScheduleDetailAction extends RhnAction {
         if (!isSubmitted(form)) {
             setupForm(request, form);
             return getStrutsDelegate().forwardParams(
-                    mapping.findForward("default"),
+                    mapping.findForward(RhnHelper.DEFAULT_FORWARD),
                     request.getParameterMap());
         }
 
@@ -97,7 +98,7 @@ public class ScheduleDetailAction extends RhnAction {
                 createErrorMessage(request, "message.scheduledisabled", null);
 
                 return getStrutsDelegate().forwardParams(
-                        mapping.findForward("default"), params);
+                        mapping.findForward(RhnHelper.DEFAULT_FORWARD), params);
             }
             return getStrutsDelegate().forwardParams(
                     mapping.findForward("disable"), params);
@@ -109,7 +110,7 @@ public class ScheduleDetailAction extends RhnAction {
             createErrorMessage(request, "schedule.jsp.schedulenameregex", null);
 
             return getStrutsDelegate().forwardParams(
-                    mapping.findForward("default"), params);
+                    mapping.findForward(RhnHelper.DEFAULT_FORWARD), params);
         }
 
         try {
@@ -119,7 +120,7 @@ public class ScheduleDetailAction extends RhnAction {
                 createErrorMessage(request,
                         "schedule.jsp.schedulenameinuse", scheduleName);
                 return getStrutsDelegate().forwardParams(
-                        mapping.findForward("default"), params);
+                        mapping.findForward(RhnHelper.DEFAULT_FORWARD), params);
             }
             // set the schedule
             tapi.scheduleSatBunch(loggedInUser,
@@ -163,7 +164,7 @@ public class ScheduleDetailAction extends RhnAction {
             }
         }
         return getStrutsDelegate().forwardParams(
-                mapping.findForward("default"), params);
+                mapping.findForward(RhnHelper.DEFAULT_FORWARD), params);
     }
 
     private Boolean isActive(Map schedule) {

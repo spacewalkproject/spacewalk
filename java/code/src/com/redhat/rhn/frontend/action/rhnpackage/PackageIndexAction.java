@@ -19,6 +19,7 @@ import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.systems.sdc.SdcHelper;
 import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.StrutsDelegate;
 import com.redhat.rhn.manager.action.ActionManager;
 import com.redhat.rhn.manager.system.SystemManager;
@@ -78,7 +79,7 @@ public class PackageIndexAction extends LookupDispatchAction {
         getStrutsDelegate().saveMessages(request, msg);
         SdcHelper.ssmCheck(request, sid, user);
         request.setAttribute("system", server);
-        return mapping.findForward("default");
+        return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
 
     /**
@@ -101,7 +102,7 @@ public class PackageIndexAction extends LookupDispatchAction {
         Long sid = requestContext.getRequiredParam("sid");
         SdcHelper.ssmCheck(request, sid, user);
         request.setAttribute("system", SystemManager.lookupByIdAndUser(sid, user));
-        return mapping.findForward("default");
+        return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
 
     protected Map getKeyMethodMap() {

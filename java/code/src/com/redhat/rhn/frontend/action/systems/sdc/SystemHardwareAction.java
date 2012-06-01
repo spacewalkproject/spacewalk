@@ -25,6 +25,7 @@ import com.redhat.rhn.domain.server.ServerNetAddress6;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
 import com.redhat.rhn.manager.action.ActionManager;
 import com.redhat.rhn.manager.system.SystemManager;
@@ -63,7 +64,7 @@ public class SystemHardwareAction extends RhnAction {
         RequestContext ctx = new RequestContext(request);
         User user =  ctx.getLoggedInUser();
         Map params = makeParamMap(request);
-        String fwd = "default";
+        String fwd = RhnHelper.DEFAULT_FORWARD;
 
         Long sid = ctx.getRequiredParam(RequestContext.SID);
         Server server = SystemManager.lookupByIdAndUser(sid, user);

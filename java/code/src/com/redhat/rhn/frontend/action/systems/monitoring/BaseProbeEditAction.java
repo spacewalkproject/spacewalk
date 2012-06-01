@@ -17,6 +17,7 @@ package com.redhat.rhn.frontend.action.systems.monitoring;
 import com.redhat.rhn.domain.monitoring.Probe;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.manager.monitoring.ModifyProbeCommand;
 
 import org.apache.struts.action.ActionForm;
@@ -71,7 +72,7 @@ public abstract class BaseProbeEditAction extends BaseProbeAction {
         setIntervals(req);
         setContactGroups(req, user.getOrg());
         setParamValueList(req, probe, probe.getCommand(), isSubmitted(form));
-        return mapping.findForward("default");
+        return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
 
     protected abstract void addSuccessParams(RequestContext rctx, HashMap params,

@@ -19,6 +19,7 @@ import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.RhnValidationHelper;
 import com.redhat.rhn.manager.satellite.ConfigureSatelliteCommand;
 
@@ -171,7 +172,7 @@ public class GeneralConfigAction extends BaseConfigAction {
                 }
             }
         }
-        returnActionForward = mapping.findForward("default");
+        returnActionForward = mapping.findForward(RhnHelper.DEFAULT_FORWARD);
         if (logger.isDebugEnabled()) {
             logger.debug("execute(ActionMapping, ActionForm, HttpServletRequest," +
                     " HttpServletResponse) - end - return value=" +

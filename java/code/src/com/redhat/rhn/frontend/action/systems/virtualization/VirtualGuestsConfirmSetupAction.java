@@ -25,6 +25,7 @@ import com.redhat.rhn.frontend.action.systems.SystemListHelper;
 import com.redhat.rhn.frontend.dto.VirtualSystemOverview;
 import com.redhat.rhn.frontend.listview.PageControl;
 import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.system.SystemManager;
 import com.redhat.rhn.manager.system.VirtualizationActionCommand;
@@ -81,7 +82,7 @@ public class VirtualGuestsConfirmSetupAction extends BaseSystemListSetupAction {
         request.setAttribute("pageList", dr);
         request.setAttribute("system", server);
 
-        return mapping.findForward("default");
+        return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
 
     /**

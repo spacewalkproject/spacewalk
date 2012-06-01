@@ -20,6 +20,7 @@ import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.manager.acl.AclManager;
 
 import org.apache.struts.action.ActionForm;
@@ -48,7 +49,7 @@ public class OrgDeleteAction extends RhnAction {
         RequestContext requestContext = new RequestContext(request);
         Long oid = requestContext.getParamAsLong(RequestContext.ORG_ID);
 
-        ActionForward retval = mapping.findForward("default");
+        ActionForward retval = mapping.findForward(RhnHelper.DEFAULT_FORWARD);
         DynaActionForm dynaForm = (DynaActionForm) formIn;
 
         if (!AclManager.hasAcl("user_role(satellite_admin)", request, null)) {

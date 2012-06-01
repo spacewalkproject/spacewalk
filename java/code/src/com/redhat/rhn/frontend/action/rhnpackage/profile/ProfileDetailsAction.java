@@ -18,6 +18,7 @@ import com.redhat.rhn.domain.rhnpackage.profile.Profile;
 import com.redhat.rhn.domain.rhnpackage.profile.ProfileFactory;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.manager.profile.ProfileManager;
 
 import org.apache.struts.action.ActionForm;
@@ -61,7 +62,7 @@ public class ProfileDetailsAction extends RhnAction {
         if (!isSubmitted(form)) {
             setupForm(form, profile);
             return getStrutsDelegate().forwardParams(
-                    mapping.findForward("default"),
+                    mapping.findForward(RhnHelper.DEFAULT_FORWARD),
                     request.getParameterMap());
         }
 

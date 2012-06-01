@@ -19,6 +19,7 @@ import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.StrutsDelegate;
 import com.redhat.rhn.manager.system.SystemManager;
 
@@ -68,8 +69,8 @@ public class SystemNoteDeleteAction extends RhnAction {
         }
         else {
             setupPageAndFormValues(rctx.getRequest(), daForm, server, note);
-            forward =  strutsDelegate.forwardParams(mapping.findForward("default"),
-                    params);
+            forward =  strutsDelegate.forwardParams(
+                    mapping.findForward(RhnHelper.DEFAULT_FORWARD), params);
         }
 
         return forward;

@@ -18,6 +18,7 @@ import com.redhat.rhn.common.security.user.StateChangeException;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.manager.user.UserManager;
 
 import org.apache.struts.action.ActionErrors;
@@ -51,7 +52,8 @@ public class DisableSelfConfirmAction extends RhnAction {
         User user = requestContext.getLoggedInUser();
 
         if (!isSubmitted(f)) {
-            forward =  getStrutsDelegate().forwardParams(mapping.findForward("default"),
+            forward =  getStrutsDelegate().forwardParams(
+                    mapping.findForward(RhnHelper.DEFAULT_FORWARD),
                     request.getParameterMap());
         }
         else {

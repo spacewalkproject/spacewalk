@@ -20,6 +20,7 @@ import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.taglibs.list.helper.ListRhnSetHelper;
 import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
 import com.redhat.rhn.manager.channel.ChannelManager;
@@ -68,7 +69,7 @@ public class CloneErrataAction extends RhnAction implements Listable {
             RequestContext context = new RequestContext(request);
             populateChannelDropDown(context);
 
-            forward = actionMapping.findForward("default");
+            forward = actionMapping.findForward(RhnHelper.DEFAULT_FORWARD);
         }
 
         return forward;

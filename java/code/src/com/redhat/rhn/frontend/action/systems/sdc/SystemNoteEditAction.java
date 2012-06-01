@@ -20,6 +20,7 @@ import com.redhat.rhn.domain.server.ServerNoteFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.StrutsDelegate;
 import com.redhat.rhn.manager.system.SystemManager;
 
@@ -72,8 +73,8 @@ public class SystemNoteEditAction extends RhnAction {
         }
 
         params.put(RequestContext.SID, request.getParameter(RequestContext.SID));
-        forward = strutsDelegate.forwardParams(mapping.findForward("default"),
-                params);
+        forward = strutsDelegate.forwardParams(
+                mapping.findForward(RhnHelper.DEFAULT_FORWARD), params);
 
         if (isSubmitted(daForm)) {
             ActionErrors errors = new ActionErrors();

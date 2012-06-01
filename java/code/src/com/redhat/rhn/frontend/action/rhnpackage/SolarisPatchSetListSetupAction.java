@@ -19,6 +19,7 @@ import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.listview.PageControl;
 import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.RhnListAction;
 import com.redhat.rhn.manager.solarispatchset.SolarisPatchSetManager;
 import com.redhat.rhn.manager.system.SystemManager;
@@ -62,8 +63,8 @@ public class SolarisPatchSetListSetupAction extends RhnListAction {
         request.setAttribute("pageList", dr);
         request.setAttribute("system", server);
 
-        return getStrutsDelegate().forwardParams(mapping.findForward("default"),
-                                       request.getParameterMap());
+        return getStrutsDelegate().forwardParams(
+                mapping.findForward(RhnHelper.DEFAULT_FORWARD), request.getParameterMap());
     }
 
     /**

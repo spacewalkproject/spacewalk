@@ -16,6 +16,7 @@ package com.redhat.rhn.frontend.action.monitoring;
 
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.taglibs.list.helper.ListRhnSetHelper;
 import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
 import com.redhat.rhn.manager.monitoring.MonitoringManager;
@@ -49,12 +50,12 @@ public class ProbeSuiteListSetupAction extends RhnAction implements Listable {
         if (helper.isDispatched()) {
             if (helper.getSet().size() == 0) {
                 getStrutsDelegate().saveMessage("probesuites.jsp.selectasuite", request);
-                return  mapping.findForward("default");
+                return  mapping.findForward(RhnHelper.DEFAULT_FORWARD);
             }
             return  mapping.findForward("remove");
         }
 
-        return mapping.findForward("default");
+        return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
 
     }
 

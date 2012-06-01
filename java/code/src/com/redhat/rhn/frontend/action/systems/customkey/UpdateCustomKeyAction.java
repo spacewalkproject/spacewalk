@@ -20,6 +20,7 @@ import com.redhat.rhn.domain.server.ServerFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.taglibs.list.helper.ListHelper;
 import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
 
@@ -91,7 +92,7 @@ public class UpdateCustomKeyAction extends RhnAction implements Listable {
             String description = (String)form.get(DESC_PARAM);
             if (description.length() < 2) {
                 createErrorMessage(request, "system.customkey.error.tooshort", null);
-                return mapping.findForward("default");
+                return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
             }
 
             key.setDescription(description);
@@ -100,7 +101,7 @@ public class UpdateCustomKeyAction extends RhnAction implements Listable {
             return mapping.findForward("updated");
         }
 
-        return mapping.findForward("default");
+        return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
 
     /** {@inheritDoc} **/

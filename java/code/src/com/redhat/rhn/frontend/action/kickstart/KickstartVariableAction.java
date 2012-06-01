@@ -23,6 +23,7 @@ import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.RhnValidationHelper;
 
 import org.apache.struts.action.ActionForm;
@@ -70,7 +71,8 @@ public abstract class KickstartVariableAction extends RhnAction {
         setupFormValues(context, (DynaActionForm) formIn, cobblerId);
         request.setAttribute(getObjectString(), request.getParameter(getObjectString()));
 
-        return getStrutsDelegate().forwardParams(mapping.findForward("default"),
+        return getStrutsDelegate().forwardParams(
+                mapping.findForward(RhnHelper.DEFAULT_FORWARD),
                 request.getParameterMap());
 
     }

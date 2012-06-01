@@ -17,6 +17,7 @@ package com.redhat.rhn.frontend.action.satellite;
 import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.RhnValidationHelper;
 import com.redhat.rhn.frontend.struts.StrutsDelegate;
 import com.redhat.rhn.manager.satellite.ConfigureCertificateCommand;
@@ -85,7 +86,7 @@ public class CertificateConfigAction extends BaseConfigAction {
         }
         request.setAttribute(CSRF_TOKEN,
             request.getSession().getAttribute("csrf_token"));
-        return mapping.findForward("default");
+        return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
 
     /**

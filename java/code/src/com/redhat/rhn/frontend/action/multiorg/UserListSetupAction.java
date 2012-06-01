@@ -21,6 +21,7 @@ import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
 import com.redhat.rhn.manager.org.OrgManager;
 
@@ -62,6 +63,6 @@ public class UserListSetupAction extends RhnAction {
         request.setAttribute("pageList", result);
         request.setAttribute(ListTagHelper.PARENT_URL,
                 request.getRequestURI() + "?oid=" + oid);
-        return mapping.findForward("default");
+        return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
 }

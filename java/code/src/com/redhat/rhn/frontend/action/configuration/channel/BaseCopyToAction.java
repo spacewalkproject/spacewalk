@@ -99,7 +99,7 @@ public abstract class BaseCopyToAction extends RhnAction {
             helper.syncSelections(destSet, result);
             ListTagHelper.setSelectedAmount(getJspLabel(), destSet.size(), req);
         }
-        return mapping.findForward("default");
+        return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
 
     protected void setupRequest(HttpServletRequest req) {

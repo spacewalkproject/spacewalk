@@ -21,6 +21,7 @@ import com.redhat.rhn.domain.rhnset.RhnSetElement;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.common.RhnSetAction;
 import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.StrutsDelegate;
 import com.redhat.rhn.manager.monitoring.MonitoringManager;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
@@ -70,7 +71,8 @@ public class ProbeSuitesRemoveAction extends RhnSetAction {
             msg.add(ActionMessages.GLOBAL_MESSAGE,
                     new ActionMessage("probesuites.none"));
             strutsDelegate.saveMessages(request, msg);
-            return strutsDelegate.forwardParams(mapping.findForward("default"), params);
+            return strutsDelegate.forwardParams(
+                    mapping.findForward(RhnHelper.DEFAULT_FORWARD), params);
         }
 
         Iterator i = set.getElements().iterator();
@@ -87,7 +89,8 @@ public class ProbeSuitesRemoveAction extends RhnSetAction {
 
         createSuccessMessage(request, "probesuites.jsp.suitesdeleted",
                 new Integer(updatedCount).toString());
-        return strutsDelegate.forwardParams(mapping.findForward("default"), params);
+        return strutsDelegate.forwardParams(
+                mapping.findForward(RhnHelper.DEFAULT_FORWARD), params);
     }
 
     /**

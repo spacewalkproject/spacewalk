@@ -22,6 +22,7 @@ import com.redhat.rhn.frontend.dto.ChannelTreeNode;
 import com.redhat.rhn.frontend.filter.TreeFilter;
 import com.redhat.rhn.frontend.listview.ListControl;
 import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.RhnUnpagedListAction;
 
 import org.apache.struts.action.ActionForm;
@@ -63,7 +64,7 @@ public abstract class BaseChannelTreeAction extends RhnUnpagedListAction {
             request.setAttribute("pageList", dr);
             request.setAttribute("satAdmin", user.hasRole(RoleFactory.SAT_ADMIN));
             addAttributes(requestContext);
-            return mapping.findForward("default");
+            return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
         }
 
     protected abstract DataResult getDataResult(RequestContext requestContext,

@@ -22,6 +22,7 @@ import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
 import com.redhat.rhn.manager.action.ActionManager;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
@@ -91,7 +92,7 @@ public class SSMUpdateSoftwareProfileConfirm extends RhnAction implements Listab
         }
 
         return getStrutsDelegate().forwardParams(
-                mapping.findForward("default"), params);
+                mapping.findForward(RhnHelper.DEFAULT_FORWARD), params);
     }
 
     /**

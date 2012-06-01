@@ -17,6 +17,7 @@ package com.redhat.rhn.frontend.action.configuration.overview;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.manager.acl.AclManager;
 import com.redhat.rhn.manager.configuration.ConfigurationManager;
 
@@ -59,8 +60,8 @@ public class Overview extends RhnAction {
         request.setAttribute("recentActions", manager.getRecentConfigDeployActions(user,
                 new Integer(5))); //display five recent actions.
 
-        return getStrutsDelegate().forwardParams(mapping.findForward("default"),
-                      request.getParameterMap());
+        return getStrutsDelegate().forwardParams(mapping.findForward(
+                RhnHelper.DEFAULT_FORWARD), request.getParameterMap());
     }
 
 }

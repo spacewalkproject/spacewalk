@@ -20,6 +20,7 @@ import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.RhnValidationHelper;
 import com.redhat.rhn.frontend.struts.StrutsDelegate;
 import com.redhat.rhn.manager.acl.AclManager;
@@ -58,7 +59,7 @@ public abstract class BaseKickstartEditAction extends RhnAction {
             pex.setLocalizedSummary(ls.getMessage("permission.jsp.summary.acl.reason5"));
             throw pex;
         }
-        String forwardname = "default";
+        String forwardname = RhnHelper.DEFAULT_FORWARD;
         DynaActionForm form = (DynaActionForm) formIn;
         Map params = makeParamMap(request);
         RequestContext requestContext = new RequestContext(request);
@@ -104,7 +105,7 @@ public abstract class BaseKickstartEditAction extends RhnAction {
      * @return String "default" that can be overridden
      */
     protected String getSuccessForward() {
-        return "default";
+        return RhnHelper.DEFAULT_FORWARD;
     }
 
     /**

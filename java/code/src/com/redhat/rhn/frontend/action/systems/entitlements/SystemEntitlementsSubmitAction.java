@@ -26,6 +26,7 @@ import com.redhat.rhn.domain.server.ServerGroup;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.common.BaseSetOperateOnSelectedItemsAction;
 import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.StrutsDelegate;
 import com.redhat.rhn.manager.entitlement.EntitlementManager;
 import com.redhat.rhn.manager.monitoring.ScoutConfigPushCommand;
@@ -496,7 +497,8 @@ public class SystemEntitlementsSubmitAction extends
         }
 
         strutsDelegate.saveMessages(request, msg);
-        return strutsDelegate.forwardParams(mapping.findForward("default"), params);
+        return strutsDelegate.forwardParams(mapping.findForward(
+                RhnHelper.DEFAULT_FORWARD), params);
     }
 
     private boolean checkSolarisFailure(Long sid, Entitlement ent, User user) {

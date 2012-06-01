@@ -18,6 +18,7 @@ import com.redhat.rhn.common.messaging.MessageQueue;
 import com.redhat.rhn.frontend.events.RestartSatelliteEvent;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 
 import org.apache.commons.lang.BooleanUtils;
 import org.apache.struts.action.ActionForm;
@@ -74,7 +75,7 @@ public class RestartAction extends RhnAction {
             request.setAttribute(RESTART, Boolean.FALSE);
         }
 
-        return mapping.findForward("default");
+        return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
 
 }

@@ -107,7 +107,7 @@ public abstract class BaseMethodEditAction extends RhnAction {
 
 
         ActionForward returnActionForward = strutsDelegate.forwardParams(mapping
-                .findForward("default"), request.getParameterMap());
+                .findForward(RhnHelper.DEFAULT_FORWARD), request.getParameterMap());
         if (logger.isDebugEnabled()) {
             logger.debug("execute(ActionMapping, ActionForm, HttpServletRequest, " +
                             "HttpServletResponse) - end - return value=" +

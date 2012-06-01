@@ -18,6 +18,7 @@ package com.redhat.rhn.frontend.action.satellite;
 import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.manager.satellite.CobblerSyncCommand;
 
 import org.apache.struts.action.ActionErrors;
@@ -55,6 +56,6 @@ public class CobblerAction extends RhnAction {
             }
         }
 
-        return mapping.findForward("default");
+        return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
 }

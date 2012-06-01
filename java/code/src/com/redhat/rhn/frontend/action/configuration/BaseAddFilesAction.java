@@ -23,6 +23,7 @@ import com.redhat.rhn.domain.config.ConfigFile;
 import com.redhat.rhn.domain.config.ConfigRevision;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.RhnValidationHelper;
 import com.redhat.rhn.manager.configuration.ConfigFileBuilder;
 
@@ -70,7 +71,7 @@ public abstract class BaseAddFilesAction extends RhnAction {
             cff.setDefaults();
         }
         return getStrutsDelegate().forwardParams(
-                mapping.findForward("default"), params);
+                mapping.findForward(RhnHelper.DEFAULT_FORWARD), params);
     }
 
     /**
@@ -137,7 +138,7 @@ public abstract class BaseAddFilesAction extends RhnAction {
         }
         // If we got here, something went wrong - try again
         return getStrutsDelegate().forwardParams(
-                mapping.findForward("default"), params);
+                mapping.findForward(RhnHelper.DEFAULT_FORWARD), params);
     }
 
     protected abstract ConfigChannel getConfigChannel(HttpServletRequest request);
