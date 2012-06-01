@@ -8,7 +8,7 @@ Group:   Applications/System
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.10.29
+Version: 5.10.30
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -102,6 +102,11 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Fri Jun 01 2012 Stephen Herr <sherr@redhat.com> 5.10.30-1
+- 824707 - rhncfg-actions should not log the diff of files that are not
+  readable by all
+- %%defattr is not needed since rpm 4.4
+
 * Mon May 14 2012 Michael Mraka <michael.mraka@redhat.com> 5.10.29-1
 - 820517 - fixed command synopsis
 - 805449 - honor rhncfg-specific settings
