@@ -47,6 +47,14 @@ array:
 #macro(array_end)
 </li></ul>
 #end
+#macro(array_desc $type $desc)
+array:
+  <ul>
+   <li>$type - $desc
+#end
+#macro(array_desc_end)
+</li></ul>
+#end
 #macro(array_single $type $desc)
 array:
 <ul>

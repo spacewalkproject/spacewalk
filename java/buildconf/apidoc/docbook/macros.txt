@@ -50,6 +50,15 @@
   </itemizedlist>
 </listitem>
 #end
+#macro(array_desc $type $desc)
+<listitem>
+  <para>array $type - $desc</para>
+  <itemizedlist spacing="compact">
+#end
+#macro(array_desc_end)
+  </itemizedlist>
+</listitem>
+#end
 #macro(array_single $type $desc)
 <listitem>
   <para>array:</para>
