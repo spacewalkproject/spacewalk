@@ -103,12 +103,8 @@ public class TokenFactory extends HibernateFactory {
         }
         if (t == null) {
             LocalizationService ls = LocalizationService.getInstance();
-            LookupException e = new LookupException("Could not find " +
+            throw new LookupException("Could not find " +
                                                     "token with id =  " + id);
-            e.setLocalizedTitle(ls.getMessage("lookup.jsp.title.token"));
-            e.setLocalizedReason1(ls.getMessage("lookup.jsp.reason1.token"));
-            e.setLocalizedReason2(ls.getMessage("lookup.jsp.reason2.token"));
-            throw e;
         }
         return t;
 
