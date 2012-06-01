@@ -168,7 +168,7 @@ public class ChannelHandler extends BaseHandler {
      * the number of systems subscribed as specified by the popularity count will be
      * returned.
      * @xmlrpc.param #session_key()
-     * @xmlrpc.param #prop("int", "popularityCount")
+     * @xmlrpc.param #param("int", "popularityCount")
      * @xmlrpc.returntype
      *     #array()
      *         $ChannelTreeNodeSerializer
