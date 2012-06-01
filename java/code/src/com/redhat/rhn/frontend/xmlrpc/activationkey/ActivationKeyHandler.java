@@ -111,15 +111,14 @@ public class ActivationKeyHandler extends BaseHandler {
      * default.")
      * @xmlrpc.param #param_desc("int", "usageLimit", "If unlimited usage is desired,
      * use the create API that does not include the parameter.")
-     * @xmlrpc.param #array()
-     *   #item_desc("string", "Add-on entitlement label to associate with the key.")
+     * @xmlrpc.param #array_desc("string", "Add-on entitlement label to associate with the key.")
      *   #options()
      *     #item("monitoring_entitled")
      *     #item("provisioning_entitled")
      *     #item("virtualization_host")
      *     #item("virtualization_host_platform")
      *   #options_end()
-     * #array_end()
+     * #array_desc_end()
      * @xmlrpc.param #param("boolean", "universalDefault")
      * @xmlrpc.returntype string - The new activation key.
      */
@@ -221,15 +220,14 @@ public class ActivationKeyHandler extends BaseHandler {
      * @xmlrpc.param #param("string", "description")
      * @xmlrpc.param #param_desc("string", "baseChannelLabel", "Leave empty to accept
      * default.")
-     * @xmlrpc.param #array()
-     *   #item_desc("string", "Add-on entitlement label to associate with the key.")
+     * @xmlrpc.param #array_desc("string", "Add-on entitlement label to associate with the key.")
      *   #options()
      *     #item("monitoring_entitled")
      *     #item("provisioning_entitled")
      *     #item("virtualization_host")
      *     #item("virtualization_host_platform")
      *   #options_end()
-     * #array_end()
+     * #array_desc_end()
      * @xmlrpc.param #param("boolean", "universalDefault")
      * @xmlrpc.returntype string - The new activation key.
      */
@@ -388,15 +386,14 @@ public class ActivationKeyHandler extends BaseHandler {
      * virtualization_host, virtualization_host_platform)
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("string", "key")
-     * @xmlrpc.param #array()
-     *   #item_desc("string", "entitlement label")
+     * @xmlrpc.param #array_desc("string", "entitlement label")
      *   #options()
      *     #item("monitoring_entitled")
      *     #item("provisioning_entitled")
      *     #item("virtualization_host")
      *     #item("virtualization_host_platform")
      *   #options_end()
-     * #array_end()
+     * #array_desc_end()
      * @xmlrpc.returntype #return_int_success()
      */
     public int addEntitlements(String sessionKey, String key, List entitlements) {
@@ -422,15 +419,14 @@ public class ActivationKeyHandler extends BaseHandler {
      * provisioning_entitled, virtualization_host, virtualization_host_platform)
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("string", "key")
-     * @xmlrpc.param #array()
-     *   #item_desc("string", "entitlement label")
+     * @xmlrpc.param #array_desc("string", "entitlement label")
      *   #options()
      *     #item("monitoring_entitled")
      *     #item("provisioning_entitled")
      *     #item("virtualization_host")
      *     #item("virtualization_host_platform")
      *   #options_end()
-     * #array_end()
+     * #array_desc_end()
      * @xmlrpc.returntype #return_int_success()
      */
     public int removeEntitlements(String sessionKey, String key, List entitlements) {
