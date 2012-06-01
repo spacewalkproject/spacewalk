@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2010 Red Hat, Inc.
+ * Copyright (c) 2009--2012 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -13,12 +13,10 @@
  * in this software or its documentation.
  */
 
-/*
- * AUTOMATICALLY GENERATED FILE, DO NOT EDIT.
- */
 package com.redhat.rhn.common.hibernate;
 
 import com.redhat.rhn.common.db.DatabaseException;
+import com.redhat.rhn.common.localization.LocalizationService;
 
 /**
  * Thrown if the the object couldn't be found, or it multiple objects were found
@@ -29,6 +27,7 @@ import com.redhat.rhn.common.db.DatabaseException;
  */
 public class LookupException extends DatabaseException  {
 
+    private static LocalizationService lc = LocalizationService.getInstance();
     private String localizedTitle;
     private String localizedReason1;
     private String localizedReason2;
@@ -42,7 +41,6 @@ public class LookupException extends DatabaseException  {
      */
     public LookupException(String message) {
         super(message);
-        setDefaults();
     }
 
     /**
@@ -55,21 +53,14 @@ public class LookupException extends DatabaseException  {
      */
     public LookupException(String message, Throwable cause) {
         super(message, cause);
-        setDefaults();
     }
-
-    private void setDefaults() {
-        localizedTitle = "lookup.default.title";
-        localizedReason1 = "lookup.default.reason1";
-        localizedReason2 = "lookup.default.reason2";
-    }
-
 
     /**
      * @return Returns the localizedReason1.
      */
     public String getLocalizedReason1() {
-        return localizedReason1;
+        return localizedReason1 != null ?
+                localizedReason1 : lc.getMessage("lookup.default.reason1");
     }
 
 
@@ -85,7 +76,8 @@ public class LookupException extends DatabaseException  {
      * @return Returns the localizedReason2.
      */
     public String getLocalizedReason2() {
-        return localizedReason2;
+        return localizedReason2 != null ?
+                localizedReason2 : lc.getMessage("lookup.default.reason2");
     }
 
 
@@ -101,7 +93,8 @@ public class LookupException extends DatabaseException  {
      * @return Returns the localizedTitle.
      */
     public String getLocalizedTitle() {
-        return localizedTitle;
+        return localizedTitle != null ?
+                localizedTitle : lc.getMessage("lookup.default.title");
     }
 
 
