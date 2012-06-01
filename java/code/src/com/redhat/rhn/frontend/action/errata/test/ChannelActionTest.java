@@ -25,6 +25,7 @@ import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.errata.ChannelAction;
 import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.manager.errata.ErrataManager;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.testing.ActionHelper;
@@ -50,7 +51,7 @@ public class ChannelActionTest extends RhnBaseTestCase {
         ChannelAction action = new ChannelAction();
 
         ActionMapping mapping = new ActionMapping();
-        ActionForward def = new ActionForward("default", "path", true);
+        ActionForward def = new ActionForward(RhnHelper.DEFAULT_FORWARD, "path", true);
         ActionForward publish = new ActionForward("publish", "path", true);
         ActionForward failure = new ActionForward("failure", "path", false);
         mapping.addForwardConfig(def);
@@ -97,7 +98,7 @@ public class ChannelActionTest extends RhnBaseTestCase {
         ChannelAction action = new ChannelAction();
 
         ActionMapping mapping = new ActionMapping();
-        ActionForward def = new ActionForward("default", "path", true);
+        ActionForward def = new ActionForward(RhnHelper.DEFAULT_FORWARD, "path", true);
         ActionForward failure = new ActionForward("failure", "path", false);
         ActionForward push = new ActionForward("push", "path", false);
         mapping.addForwardConfig(def);

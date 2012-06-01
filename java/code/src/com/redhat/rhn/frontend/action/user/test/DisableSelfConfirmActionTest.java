@@ -17,6 +17,7 @@ package com.redhat.rhn.frontend.action.user.test;
 import com.redhat.rhn.domain.user.UserFactory;
 import com.redhat.rhn.frontend.action.user.DisableSelfConfirmAction;
 import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.testing.ActionHelper;
 import com.redhat.rhn.testing.RhnBaseTestCase;
 
@@ -33,9 +34,9 @@ public class DisableSelfConfirmActionTest extends RhnBaseTestCase {
         ActionHelper ah = new ActionHelper();
         ActionForward af;
 
-        ah.setUpAction(action, "default");
+        ah.setUpAction(action, RhnHelper.DEFAULT_FORWARD);
         af = ah.executeAction();
-        assertEquals("default", af.getName());
+        assertEquals(RhnHelper.DEFAULT_FORWARD, af.getName());
 
         //successfully disabled
         ah.setUpAction(action, "logout");

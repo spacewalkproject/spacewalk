@@ -20,6 +20,7 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.common.BadParameterException;
 import com.redhat.rhn.frontend.action.errata.NotifySetupAction;
 import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.testing.RhnBaseTestCase;
 import com.redhat.rhn.testing.RhnMockDynaActionForm;
 import com.redhat.rhn.testing.RhnMockHttpServletRequest;
@@ -40,7 +41,7 @@ public class NotifySetupActionTest extends RhnBaseTestCase {
         NotifySetupAction action = new NotifySetupAction();
 
         ActionMapping mapping = new ActionMapping();
-        ActionForward def = new ActionForward("default", "path", false);
+        ActionForward def = new ActionForward(RhnHelper.DEFAULT_FORWARD, "path", false);
         RhnMockDynaActionForm form = new RhnMockDynaActionForm();
         RhnMockHttpServletRequest request = TestUtils.getRequestWithSessionAndUser();
         MockHttpServletResponse response = new MockHttpServletResponse();
@@ -68,7 +69,7 @@ public class NotifySetupActionTest extends RhnBaseTestCase {
         request.setupAddParameter("eid", published.getId().toString());
         request.setupAddParameter("eid", unpublished.getId().toString());
         ActionForward result = action.execute(mapping, form, request, response);
-        assertEquals("default", result.getName());
+        assertEquals(RhnHelper.DEFAULT_FORWARD, result.getName());
         assertNotNull(request.getAttribute("advisory"));
     }
 }

@@ -19,6 +19,7 @@ import com.redhat.rhn.domain.errata.test.ErrataFactoryTest;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.errata.EditAction;
 import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.manager.errata.ErrataManager;
 import com.redhat.rhn.testing.RhnBaseTestCase;
 import com.redhat.rhn.testing.RhnMockDynaActionForm;
@@ -44,7 +45,7 @@ public class EditActionTest extends RhnBaseTestCase {
         EditAction action = new EditAction();
 
         ActionMapping mapping = new ActionMapping();
-        ActionForward def = new ActionForward("default", "path", false);
+        ActionForward def = new ActionForward(RhnHelper.DEFAULT_FORWARD, "path", false);
         ActionForward failure = new ActionForward("failure", "path", false);
         ActionForward success = new ActionForward("updated", "path", true);
         mapping.addForwardConfig(def);
@@ -72,7 +73,7 @@ public class EditActionTest extends RhnBaseTestCase {
 
         //Execute setupAction to fillout form
         ActionForward result = action.unspecified(mapping, form, request, response);
-        assertEquals("default", result.getName());
+        assertEquals(RhnHelper.DEFAULT_FORWARD, result.getName());
         //make sure form was filled out
         assertEquals(form.get("synopsis"), errata.getSynopsis());
         //add empty buglistId & buglistSummary so validator doesn't freak out
@@ -84,20 +85,20 @@ public class EditActionTest extends RhnBaseTestCase {
         request.setupAddParameter("eid", errata.getId().toString());
         form.set("synopsis", ""); //required field, so we should get a validation error
         result = action.update(mapping, form, request, response);
-        assertEquals("default", result.getName());
+        assertEquals(RhnHelper.DEFAULT_FORWARD, result.getName());
 
         //make sure adv name has to be unique
         request.setupAddParameter("eid", errata.getId().toString());
         form.set("synopsis", "this errata has been edited");
         form.set("advisoryName", errata2.getAdvisoryName());
         result = action.update(mapping, form, request, response);
-        assertEquals("default", result.getName());
+        assertEquals(RhnHelper.DEFAULT_FORWARD, result.getName());
 
         //make sure adv name cannot start with rh
         request.setupAddParameter("eid", errata.getId().toString());
         form.set("advisoryName", "rh" + TestUtils.randomString());
         result = action.update(mapping, form, request, response);
-        assertEquals("default", result.getName());
+        assertEquals(RhnHelper.DEFAULT_FORWARD, result.getName());
 
         //make sure we can edit an errata
         String newAdvisoryName = errata.getAdvisoryName() + "edited";
@@ -124,7 +125,7 @@ public class EditActionTest extends RhnBaseTestCase {
         request.setupAddParameter("buglistUrlNew",
                 "https://bugzilla.redhat.com/show_bug.cgi?id=123");
         result = action.update(mapping, form, request, response);
-        assertEquals("default", result.getName());
+        assertEquals(RhnHelper.DEFAULT_FORWARD, result.getName());
 
         //errata has now been edited... let's look it back up from the db and make sure
         //our changes were saved.
@@ -143,7 +144,7 @@ public class EditActionTest extends RhnBaseTestCase {
         EditAction action = new EditAction();
 
         ActionMapping mapping = new ActionMapping();
-        ActionForward def = new ActionForward("default", "path", false);
+        ActionForward def = new ActionForward(RhnHelper.DEFAULT_FORWARD, "path", false);
         RhnMockDynaActionForm form = new RhnMockDynaActionForm();
         RhnMockHttpServletRequest request = TestUtils.getRequestWithSessionAndUser();
         MockHttpServletResponse response = new MockHttpServletResponse();
@@ -160,7 +161,7 @@ public class EditActionTest extends RhnBaseTestCase {
         assertNull(form.get("synopsis"));
         //execute the action
         ActionForward result = action.unspecified(mapping, form, request, response);
-        assertEquals(result.getName(), "default");
+        assertEquals(result.getName(), RhnHelper.DEFAULT_FORWARD);
         //make sure form was filled out properly
         assertEquals(form.get("synopsis"), errata.getSynopsis());
         assertEquals(form.get("advisoryName"), errata.getAdvisoryName());

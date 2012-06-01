@@ -22,6 +22,7 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.channel.RetiredChannelTreeAction;
 import com.redhat.rhn.frontend.listview.ListControl;
 import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.testing.ActionHelper;
 import com.redhat.rhn.testing.RhnBaseTestCase;
@@ -41,7 +42,7 @@ public class RetiredChannelTreeActionTest extends RhnBaseTestCase {
             }
         };
         ActionHelper sah = new ActionHelper();
-        sah.setUpAction(action, "default");
+        sah.setUpAction(action, RhnHelper.DEFAULT_FORWARD);
         sah.getRequest().setupAddParameter(RequestContext.FILTER_STRING, (String) null);
 
         User user = sah.getUser();

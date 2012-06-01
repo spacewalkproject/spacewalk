@@ -23,6 +23,7 @@ import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.rhnset.RhnSetFactory;
 import com.redhat.rhn.domain.rhnset.SetCleanup;
 import com.redhat.rhn.domain.role.RoleFactory;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.rhnset.RhnSetManager;
 import com.redhat.rhn.testing.RhnMockStrutsTestCase;
@@ -76,6 +77,6 @@ public class CloneErrataActionTest extends RhnMockStrutsTestCase {
         request.addParameter("dispatch", "Clone Errata");
 
         actionPerform();
-        verifyForward("default");
+        verifyForward(RhnHelper.DEFAULT_FORWARD);
     }
 }

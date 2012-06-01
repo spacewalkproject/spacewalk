@@ -24,6 +24,7 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.systems.monitoring.BaseProbeAction;
 import com.redhat.rhn.frontend.action.systems.monitoring.BaseProbeCreateAction;
 import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.manager.monitoring.ModifyProbeCommand;
 import com.redhat.rhn.testing.ActionHelper;
 import com.redhat.rhn.testing.ForwardWrapper;
@@ -66,7 +67,7 @@ public abstract class ProbeCreateTestCase extends RhnBaseTestCase {
     }
 
     public final void testMissingParams() throws Exception {
-        modifyActionHelper("default");
+        modifyActionHelper(RhnHelper.DEFAULT_FORWARD);
 
         Probe orig = MonitoringFactoryTest.createTestProbe(user);
 
@@ -80,16 +81,16 @@ public abstract class ProbeCreateTestCase extends RhnBaseTestCase {
         MonitoringTestUtils.setupParamValues(ah, params, 3);
 
         ForwardWrapper af = ah.executeAction();
-        assertEquals("default", af.getName());
+        assertEquals(RhnHelper.DEFAULT_FORWARD, af.getName());
     }
 
     public final void testExecute() throws Exception {
 
-        modifyActionHelper("default");
+        modifyActionHelper(RhnHelper.DEFAULT_FORWARD);
         setupCommand(ah, null);
         ForwardWrapper af = ah.executeAction();
 
-        assertEquals("default", af.getName());
+        assertEquals(RhnHelper.DEFAULT_FORWARD, af.getName());
         Command command = (Command) ah.getRequest().getAttribute("command");
         assertNotNull(command);
         assertEquals(command.getName(), ModifyProbeCommand.COMMAND_DEFAULT);
@@ -113,7 +114,7 @@ public abstract class ProbeCreateTestCase extends RhnBaseTestCase {
     }
 
     public final void testSelectedCommand() throws Exception {
-        modifyActionHelper("default");
+        modifyActionHelper(RhnHelper.DEFAULT_FORWARD);
         RhnMockHttpSession session = (RhnMockHttpSession) ah.getRequest().getSession();
         session.setAttribute(
                 BaseProbeCreateAction.SELECTED_COMMAND_GROUP_SESSION, "tools");
@@ -123,7 +124,7 @@ public abstract class ProbeCreateTestCase extends RhnBaseTestCase {
         setupCommand(ah, null);
         ForwardWrapper af = ah.executeAction();
 
-        assertEquals("default", af.getName());
+        assertEquals(RhnHelper.DEFAULT_FORWARD, af.getName());
         Command command = (Command) ah.getRequest().getAttribute("command");
         assertNotNull(command);
         assertEquals("tools", command.getCommandGroup().getGroupName());
@@ -135,7 +136,7 @@ public abstract class ProbeCreateTestCase extends RhnBaseTestCase {
 
         Probe orig = MonitoringFactoryTest.createTestProbe(user);
 
-        modifyActionHelper("default");
+        modifyActionHelper(RhnHelper.DEFAULT_FORWARD);
         ah.getForm().set(RhnAction.SUBMITTED, Boolean.TRUE);
         setupCommand(ah, orig);
         setupProbeFields(ah, orig);
@@ -147,7 +148,7 @@ public abstract class ProbeCreateTestCase extends RhnBaseTestCase {
         MonitoringTestUtils.setupParamValues(ah, params, 3);
 
         ForwardWrapper af = ah.executeAction();
-        assertEquals("default", af.getName());
+        assertEquals(RhnHelper.DEFAULT_FORWARD, af.getName());
     }
 
     protected abstract BaseProbeAction createProbeAction();

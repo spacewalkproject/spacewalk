@@ -22,6 +22,7 @@ import com.redhat.rhn.domain.errata.test.ErrataFactoryTest;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.errata.NotifyAction;
 import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.manager.errata.ErrataManager;
 import com.redhat.rhn.testing.RhnBaseTestCase;
 import com.redhat.rhn.testing.RhnMockDynaActionForm;
@@ -44,7 +45,7 @@ public class NotifyActionTest extends RhnBaseTestCase {
 
         RhnMockHttpServletRequest request = TestUtils.getRequestWithSessionAndUser();
         ActionMapping mapping = new ActionMapping();
-        ActionForward def = new ActionForward("default", "path", false);
+        ActionForward def = new ActionForward(RhnHelper.DEFAULT_FORWARD, "path", false);
         RhnMockDynaActionForm form = new RhnMockDynaActionForm();
         MockHttpServletResponse response = new MockHttpServletResponse();
         mapping.addForwardConfig(def);
@@ -72,7 +73,7 @@ public class NotifyActionTest extends RhnBaseTestCase {
         //test default case
         request.setupAddParameter("eid", published.getId().toString());
         ActionForward result = action.execute(mapping, form, request, response);
-        assertEquals("default", result.getName());
+        assertEquals(RhnHelper.DEFAULT_FORWARD, result.getName());
 
         Long id = published.getId();
         flushAndEvict(published);

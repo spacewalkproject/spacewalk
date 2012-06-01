@@ -29,6 +29,7 @@ import com.redhat.rhn.frontend.action.kickstart.tree.TreeCreateAction;
 import com.redhat.rhn.frontend.action.kickstart.tree.TreeEditAction;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.manager.rhnpackage.test.PackageManagerTest;
 import com.redhat.rhn.testing.ChannelTestUtils;
 import com.redhat.rhn.testing.RhnPostMockStrutsTestCase;
@@ -234,7 +235,7 @@ public class TreeActionTest extends RhnPostMockStrutsTestCase {
         setRequestPathInfo("/kickstart/TreeDelete");
         actionPerform();
         verifyNoActionErrors();
-        verifyForward("default");
+        verifyForward(RhnHelper.DEFAULT_FORWARD);
         assertNotNull(request.getAttribute(RequestContext.PAGE_LIST));
         verifyPageList(KickstartData.class);
     }

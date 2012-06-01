@@ -17,6 +17,7 @@ package com.redhat.rhn.frontend.action.user.test;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.user.ChangeEmailSetupAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.manager.user.UserManager;
 import com.redhat.rhn.testing.ActionHelper;
 import com.redhat.rhn.testing.RhnBaseTestCase;
@@ -43,7 +44,7 @@ public class ChangeEmailSetupActionTest extends RhnBaseTestCase {
         UserManager.storeUser(user);
 
         ActionForward result = sah.executeAction();
-        assertEquals("default", result.getName());
+        assertEquals(RhnHelper.DEFAULT_FORWARD, result.getName());
 
         //If we are a satellite, then we should expect yourchangeemail.instructions
         //and message.Update

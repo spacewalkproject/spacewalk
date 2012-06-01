@@ -22,6 +22,7 @@ import com.redhat.rhn.domain.server.test.ServerFactoryTest;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.rhnpackage.InstallPatchSetSetupAction;
 import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.testing.RhnBaseTestCase;
 import com.redhat.rhn.testing.RhnMockDynaActionForm;
 import com.redhat.rhn.testing.RhnMockHttpServletRequest;
@@ -51,7 +52,7 @@ public class InstallPatchSetSetupTest extends RhnBaseTestCase {
         Server system = ServerFactoryTest.createTestServer(user);
 
         ActionMapping mapping = new ActionMapping();
-        ActionForward def = new ActionForward("default", "path", false);
+        ActionForward def = new ActionForward(RhnHelper.DEFAULT_FORWARD, "path", false);
         RhnMockDynaActionForm form = new RhnMockDynaActionForm();
         MockHttpServletResponse response = new MockHttpServletResponse();
         mapping.addForwardConfig(def);
@@ -61,6 +62,6 @@ public class InstallPatchSetSetupTest extends RhnBaseTestCase {
 
         //execute the action
         ActionForward result = action.execute(mapping, form, request, response);
-        assertEquals(result.getName(), "default");
+        assertEquals(result.getName(), RhnHelper.DEFAULT_FORWARD);
     }
 }

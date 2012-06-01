@@ -23,6 +23,7 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.systems.monitoring.ProbeDeleteAction;
 import com.redhat.rhn.frontend.action.systems.monitoring.ProbeDetailsAction;
 import com.redhat.rhn.frontend.action.systems.monitoring.ProbeEditAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.manager.monitoring.MonitoringManager;
 import com.redhat.rhn.testing.ActionHelper;
 import com.redhat.rhn.testing.RhnBaseTestCase;
@@ -62,9 +63,9 @@ public class ProbeDeleteActionTest extends RhnBaseTestCase {
 
     public void testExecute() throws Exception {
 
-        setUpAction("default");
+        setUpAction(RhnHelper.DEFAULT_FORWARD);
         ActionForward af = ah.executeAction();
-        assertEquals("default", af.getName());
+        assertEquals(RhnHelper.DEFAULT_FORWARD, af.getName());
         assertNotNull(ah.getRequest().getAttribute("probe"));
         assertNotNull(ah.getRequest().getAttribute("system"));
     }

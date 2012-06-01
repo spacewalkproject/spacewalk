@@ -21,6 +21,7 @@ import com.redhat.rhn.frontend.action.monitoring.ProbeSuiteCreateAction;
 import com.redhat.rhn.frontend.action.monitoring.ProbeSuiteEditAction;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.testing.ActionHelper;
 import com.redhat.rhn.testing.RhnBaseTestCase;
 import com.redhat.rhn.testing.TestUtils;
@@ -86,11 +87,11 @@ public class ProbeSuiteActionTest extends RhnBaseTestCase {
 
     public void testSubmitFailValidation() throws Exception {
 
-        setUpAction(new ProbeSuiteCreateAction(), "default");
+        setUpAction(new ProbeSuiteCreateAction(), RhnHelper.DEFAULT_FORWARD);
         ah.getForm().set(RhnAction.SUBMITTED, new Boolean(true));
         ah.getForm().set("suite_name", "");
         ActionForward af = ah.executeAction();
-        assertEquals("default", af.getName());
+        assertEquals(RhnHelper.DEFAULT_FORWARD, af.getName());
         ActionMessages messages = (ActionMessages)
             ah.getRequest().getSession().getAttribute(Globals.ERROR_KEY);
         assertEquals(1, messages.size());
@@ -98,9 +99,9 @@ public class ProbeSuiteActionTest extends RhnBaseTestCase {
     }
 
     private void executeNonSubmit(Action actionIn) throws Exception {
-        setUpAction(actionIn, "default");
+        setUpAction(actionIn, RhnHelper.DEFAULT_FORWARD);
         ActionForward af = ah.executeAction();
-        assertEquals("default", af.getName());
+        assertEquals(RhnHelper.DEFAULT_FORWARD, af.getName());
         assertNotNull(ah.getRequest().getAttribute("probeSuite"));
     }
 

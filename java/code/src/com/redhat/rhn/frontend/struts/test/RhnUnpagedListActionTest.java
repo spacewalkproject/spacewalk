@@ -18,6 +18,7 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.common.BadParameterException;
 import com.redhat.rhn.frontend.listview.ListControl;
 import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.RhnUnpagedListAction;
 import com.redhat.rhn.frontend.struts.StrutsDelegate;
 import com.redhat.rhn.testing.ActionHelper;
@@ -72,7 +73,8 @@ public class RhnUnpagedListActionTest extends RhnBaseTestCase {
             }
             filterList(lc, request, user);
 
-            return strutsDelegate.forwardParams(mapping.findForward("default"),
+            return strutsDelegate.forwardParams(
+                    mapping.findForward(RhnHelper.DEFAULT_FORWARD),
                     request.getParameterMap());
         }
 

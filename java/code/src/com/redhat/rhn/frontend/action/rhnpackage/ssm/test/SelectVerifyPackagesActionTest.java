@@ -15,6 +15,7 @@
 package com.redhat.rhn.frontend.action.rhnpackage.ssm.test;
 
 import com.redhat.rhn.common.db.datasource.DataResult;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.taglibs.list.ListTagUtil;
 import com.redhat.rhn.frontend.taglibs.list.TagHelper;
 import com.redhat.rhn.frontend.taglibs.list.helper.ListHelper;
@@ -42,7 +43,7 @@ public class SelectVerifyPackagesActionTest extends RhnMockStrutsTestCase {
         actionPerform();
 
         // Verify
-        verifyForward("default");
+        verifyForward(RhnHelper.DEFAULT_FORWARD);
 
         Object pageList = getRequest().getAttribute("pageList");
         assertNotNull(pageList);

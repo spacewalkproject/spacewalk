@@ -68,7 +68,7 @@ public abstract class BaseDeleteErrataActionAbstractTest extends RhnMockStrutsTe
 //     assertEquals(5, set.size());
 //
 //     actionPerform();
-//     verifyForward("default");
+//     verifyForward(RhnHelper.DEFAULT_FORWARD);
 //
 //     set = RhnSetDecl.ERRATA_TO_DELETE.get(user);
 //

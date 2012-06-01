@@ -29,6 +29,7 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.systems.monitoring.ProbeDetailsAction;
 import com.redhat.rhn.frontend.context.Context;
 import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.taglibs.list.helper.ListHelper;
 import com.redhat.rhn.manager.monitoring.test.MonitoringManagerTest;
 import com.redhat.rhn.testing.ActionHelper;
@@ -112,7 +113,7 @@ public class ProbeDetailsActionTest extends RhnBaseTestCase {
         ah.getRequest().setupGetParameterMap(ah.getForm().getMap());
 
         ActionForward af = ah.executeAction();
-        assertEquals("default", af.getName());
+        assertEquals(RhnHelper.DEFAULT_FORWARD, af.getName());
         assertNotNull(ah.getRequest().getAttribute("probe"));
         assertNotNull(ah.getRequest().getAttribute("system"));
         assertNotNull(ah.getRequest().getAttribute("status_class"));
@@ -161,7 +162,7 @@ public class ProbeDetailsActionTest extends RhnBaseTestCase {
         setupBadDatePicker(ah.getForm().getMap(), "end");
 
         ActionForward af = ah.executeAction();
-        assertEquals("default", af.getName());
+        assertEquals(RhnHelper.DEFAULT_FORWARD, af.getName());
         DatePicker start = (DatePicker) ah.getRequest().getAttribute("start");
         DatePicker end = (DatePicker) ah.getRequest().getAttribute("end");
         assertNotNull(start.getDate());

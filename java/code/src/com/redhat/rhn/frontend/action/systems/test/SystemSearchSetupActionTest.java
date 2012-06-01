@@ -22,6 +22,7 @@ import com.redhat.rhn.domain.server.test.ServerFactoryTest;
 import com.redhat.rhn.frontend.action.systems.SystemSearchSetupAction;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.testing.RhnMockStrutsTestCase;
 
 import org.apache.struts.action.DynaActionForm;
@@ -68,7 +69,7 @@ public class SystemSearchSetupActionTest extends RhnMockStrutsTestCase {
         addRequestParameter(SystemSearchSetupAction.VIEW_MODE,
         "systemsearch_name_and_description");
         actionPerform();
-        verifyForward("default");
+        verifyForward(RhnHelper.DEFAULT_FORWARD);
         DataResult dr = (DataResult) request.getAttribute(RequestContext.PAGE_LIST);
         assertNotNull(dr);
         assertFalse(dr.isEmpty());

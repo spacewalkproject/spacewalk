@@ -15,6 +15,7 @@
 package com.redhat.rhn.frontend.action.test;
 
 import com.redhat.rhn.frontend.action.LoginSetupAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.manager.satellite.test.CertificateManagerTest;
 import com.redhat.rhn.testing.RhnMockDynaActionForm;
 import com.redhat.rhn.testing.RhnMockHttpServletRequest;
@@ -60,7 +61,8 @@ public class LoginSetupActionTest extends RhnMockStrutsTestCase {
 
         // setup stuff for Struts
         ActionMapping mapping = new ActionMapping();
-        mapping.addForwardConfig(new ActionForward("default", "path", false));
+        mapping.addForwardConfig(
+                new ActionForward(RhnHelper.DEFAULT_FORWARD, "path", false));
         RhnMockDynaActionForm form = new RhnMockDynaActionForm("loginForm");
         RhnMockHttpServletRequest req = new RhnMockHttpServletRequest();
         RhnMockHttpServletResponse resp = new RhnMockHttpServletResponse();
@@ -77,6 +79,6 @@ public class LoginSetupActionTest extends RhnMockStrutsTestCase {
         assertNotNull(bounce);
         assertEquals(bounce, "/rhn/UserDetails.do?sid=1");
         assertNotNull(rc);
-        assertEquals("default", rc.getName());
+        assertEquals(RhnHelper.DEFAULT_FORWARD, rc.getName());
     }
 }

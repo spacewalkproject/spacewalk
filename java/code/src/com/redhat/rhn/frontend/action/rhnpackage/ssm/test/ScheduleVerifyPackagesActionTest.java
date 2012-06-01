@@ -14,6 +14,7 @@
  */
 package com.redhat.rhn.frontend.action.rhnpackage.ssm.test;
 
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.testing.RhnMockStrutsTestCase;
 
 /**
@@ -38,7 +39,7 @@ public class ScheduleVerifyPackagesActionTest extends RhnMockStrutsTestCase {
         actionPerform();
 
         // Verify
-        verifyForward("default");
+        verifyForward(RhnHelper.DEFAULT_FORWARD);
 
         Object pageList = getRequest().getAttribute("pageList");
         assertNotNull(pageList);

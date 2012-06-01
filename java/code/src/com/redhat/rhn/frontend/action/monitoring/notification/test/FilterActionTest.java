@@ -35,6 +35,7 @@ import com.redhat.rhn.frontend.action.systems.monitoring.test.ProbeDetailsAction
 import com.redhat.rhn.frontend.context.Context;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.manager.monitoring.MonitoringManager;
 import com.redhat.rhn.manager.satellite.ConfigureSatelliteCommand;
 import com.redhat.rhn.testing.ActionHelper;
@@ -128,7 +129,7 @@ public class FilterActionTest extends RhnBaseTestCase {
 
     public void testCreateExecute() throws Exception {
 
-        setUpAction(new FilterCreateAction(), "default");
+        setUpAction(new FilterCreateAction(), RhnHelper.DEFAULT_FORWARD);
         executeNonSubmit();
     }
 
@@ -155,7 +156,7 @@ public class FilterActionTest extends RhnBaseTestCase {
     public void testCreateSubmitFailValidation() throws Exception {
 
         action = new FilterCreateAction();
-        setUpAction(action, "default");
+        setUpAction(action, RhnHelper.DEFAULT_FORWARD);
         ah.getForm().set(RhnAction.SUBMITTED, new Boolean(true));
         ah.getForm().set(FilterCreateAction.DESCRIPTION, "");
         ah.getForm().set(FilterCreateAction.RECURRING_DURATION, "");
@@ -208,7 +209,7 @@ public class FilterActionTest extends RhnBaseTestCase {
 
     public void testEditExecute() throws Exception {
 
-        setUpAction(new FilterEditAction(), "default");
+        setUpAction(new FilterEditAction(), RhnHelper.DEFAULT_FORWARD);
         filter.setRecurringDuration(new Long(TEST_DURATION));
         filter.setRecurringFrequency(new Long(Calendar.MONTH));
         filter.setRecurringDurationType(new Long(Calendar.MINUTE));
@@ -227,7 +228,7 @@ public class FilterActionTest extends RhnBaseTestCase {
     }
 
     public void testLongRecurDuration() throws Exception {
-        setUpAction(new FilterEditAction(), "default");
+        setUpAction(new FilterEditAction(), RhnHelper.DEFAULT_FORWARD);
         filter.setRecurringDuration(new Long(364240800));
         filter.setRecurringDurationType(new Long(Calendar.YEAR));
         executeNonSubmit();
@@ -295,7 +296,7 @@ public class FilterActionTest extends RhnBaseTestCase {
 
     private void executeNonSubmit() throws Exception {
         ActionForward af = ah.executeAction();
-        assertEquals("default", af.getName());
+        assertEquals(RhnHelper.DEFAULT_FORWARD, af.getName());
         assertNotNull(ah.getRequest().getAttribute("filter"));
         assertNotNull(ah.getRequest().getAttribute("start"));
         assertNotNull(ah.getRequest().getAttribute("filterTypes"));

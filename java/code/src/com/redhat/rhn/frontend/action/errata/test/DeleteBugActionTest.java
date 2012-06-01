@@ -20,6 +20,7 @@ import com.redhat.rhn.domain.errata.test.ErrataFactoryTest;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.errata.DeleteBugAction;
 import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.manager.errata.ErrataManager;
 import com.redhat.rhn.manager.errata.test.ErrataManagerTest;
 import com.redhat.rhn.testing.RhnBaseTestCase;
@@ -42,7 +43,7 @@ public class DeleteBugActionTest extends RhnBaseTestCase {
         DeleteBugAction action = new DeleteBugAction();
 
         ActionMapping mapping = new ActionMapping();
-        ActionForward def = new ActionForward("default", "path", true);
+        ActionForward def = new ActionForward(RhnHelper.DEFAULT_FORWARD, "path", true);
         mapping.addForwardConfig(def);
 
         RhnMockHttpServletRequest request = TestUtils.getRequestWithSessionAndUser();
@@ -71,7 +72,7 @@ public class DeleteBugActionTest extends RhnBaseTestCase {
         request.setupAddParameter("bid", bugId.toString());
 
         ActionForward result = action.execute(mapping, form, request, response);
-        assertEquals(result.getName(), "default");
+        assertEquals(result.getName(), RhnHelper.DEFAULT_FORWARD);
 
         flushAndEvict(e); //get rid of e
 

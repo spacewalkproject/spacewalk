@@ -27,6 +27,7 @@ import com.redhat.rhn.frontend.action.monitoring.ProbeSuiteProbeEditAction;
 import com.redhat.rhn.frontend.action.systems.monitoring.ProbeDetailsAction;
 import com.redhat.rhn.frontend.action.systems.monitoring.ProbeEditAction;
 import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.testing.ActionHelper;
 import com.redhat.rhn.testing.RhnBaseTestCase;
 import com.redhat.rhn.testing.UserTestUtils;
@@ -68,9 +69,9 @@ public class ProbeSuiteProbeEditActionTest extends RhnBaseTestCase {
     }
     public void testExecute() throws Exception {
 
-        ActionHelper ah = createActionHelper("default");
+        ActionHelper ah = createActionHelper(RhnHelper.DEFAULT_FORWARD);
         ActionForward af = ah.executeAction();
-        assertEquals("default", af.getName());
+        assertEquals(RhnHelper.DEFAULT_FORWARD, af.getName());
         assertNotNull(ah.getRequest().getAttribute("probe"));
         assertNotNull(ah.getRequest().getAttribute("probeSuite"));
         assertNotNull(ah.getRequest().getAttribute("intervals"));

@@ -52,7 +52,7 @@ public class ActionHelper extends Assert {
      * @throws Exception if error occurs setting up the Action.
      */
      public void setUpAction(Action actionIn) throws Exception {
-         setUpAction(actionIn, "default");
+         setUpAction(actionIn, RhnHelper.DEFAULT_FORWARD);
      }
 
     /**

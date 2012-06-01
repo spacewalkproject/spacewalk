@@ -24,6 +24,7 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.errata.ChannelSetupAction;
 import com.redhat.rhn.frontend.dto.ChannelOverview;
 import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.manager.errata.ErrataManager;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.rhnset.RhnSetManager;
@@ -78,7 +79,7 @@ public class ChannelSetupActionTest extends RhnBaseTestCase {
 
         //make sure set was set
         assertNotNull(sah.getRequest().getAttribute("set"));
-        assertEquals(result.getName(), "default");
+        assertEquals(result.getName(), RhnHelper.DEFAULT_FORWARD);
 
         //get the data result back out of the request and inspect
         DataResult dr = (DataResult) sah.getRequest().getAttribute("pageList");

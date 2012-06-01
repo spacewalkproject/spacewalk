@@ -21,6 +21,7 @@ import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.channel.ChannelEntitlementSetupAction;
 import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.taglibs.list.helper.ListHelper;
 import com.redhat.rhn.testing.ActionHelper;
 import com.redhat.rhn.testing.RhnBaseTestCase;
@@ -34,7 +35,7 @@ public class ChannelEntitlementSetupActionTest extends RhnBaseTestCase {
         ChannelEntitlementSetupAction action = new ChannelEntitlementSetupAction();
 
         ActionHelper sah = new ActionHelper();
-        sah.setUpAction(action, "default");
+        sah.setUpAction(action, RhnHelper.DEFAULT_FORWARD);
         sah.getRequest().setupAddParameter(RequestContext.FILTER_STRING, (String) null);
 
         User user = sah.getUser();

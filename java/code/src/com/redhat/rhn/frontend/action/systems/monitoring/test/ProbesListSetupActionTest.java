@@ -23,6 +23,7 @@ import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.test.ServerFactoryTest;
 import com.redhat.rhn.frontend.action.systems.monitoring.ProbesListSetupAction;
 import com.redhat.rhn.frontend.dto.monitoring.ServerProbeDto;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.taglibs.list.helper.ListHelper;
 import com.redhat.rhn.manager.monitoring.MonitoringManager;
 import com.redhat.rhn.testing.ActionHelper;
@@ -55,7 +56,7 @@ public class ProbesListSetupActionTest extends RhnBaseTestCase {
         ah.getRequest().setupAddParameter("sid", server.getId().toString());
         ah.setupClampListBounds();
         ActionForward af = ah.executeAction();
-        assertEquals("default", af.getName());
+        assertEquals(RhnHelper.DEFAULT_FORWARD, af.getName());
         DataResult dr = (DataResult) ah.getRequest().getAttribute(ListHelper.DATA_SET);
         assertNotNull(dr);
         assertTrue(dr.size() > 0);
@@ -85,7 +86,7 @@ public class ProbesListSetupActionTest extends RhnBaseTestCase {
         ah.getRequest().setupAddParameter("sid", server.getId().toString());
         ah.setupClampListBounds();
         ActionForward af = ah.executeAction();
-        assertEquals("default", af.getName());
+        assertEquals(RhnHelper.DEFAULT_FORWARD, af.getName());
         DataResult dr = (DataResult) ah.getRequest().getAttribute(ListHelper.DATA_SET);
         assertTrue(dr.size() == 0);
     }

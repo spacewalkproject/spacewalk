@@ -21,6 +21,7 @@ import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.ServerFactory;
 import com.redhat.rhn.frontend.action.systems.sdc.SystemDetailsEditAction;
 import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.manager.entitlement.EntitlementManager;
 import com.redhat.rhn.manager.system.SystemManager;
 import com.redhat.rhn.testing.ChannelTestUtils;
@@ -103,7 +104,7 @@ public class SystemDetailsEditActionTest extends RhnPostMockStrutsTestCase {
 
     public void testBaseEntitlementListForEntitledSystem() throws Exception {
         actionPerform();
-        verifyForward("default");
+        verifyForward(RhnHelper.DEFAULT_FORWARD);
         List options = (List) request
                               .getAttribute(SystemDetailsEditAction
                                             .BASE_ENTITLEMENT_OPTIONS);
@@ -135,7 +136,7 @@ public class SystemDetailsEditActionTest extends RhnPostMockStrutsTestCase {
         SystemManager.removeAllServerEntitlements(s.getId());
         TestUtils.saveAndFlush(s);
         actionPerform();
-        verifyForward("default");
+        verifyForward(RhnHelper.DEFAULT_FORWARD);
         List options = (List) request
                               .getAttribute(SystemDetailsEditAction
                                             .BASE_ENTITLEMENT_OPTIONS);

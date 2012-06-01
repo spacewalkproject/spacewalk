@@ -20,6 +20,7 @@ import com.redhat.rhn.domain.monitoring.config.ConfigMacro;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.satellite.MonitoringConfigAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.manager.monitoring.MonitoringManager;
 import com.redhat.rhn.testing.ActionHelper;
 import com.redhat.rhn.testing.RhnBaseTestCase;
@@ -79,7 +80,7 @@ public class MonitoringConfigActionTest extends RhnBaseTestCase {
         setupExpectedProperties(ah);
         ActionForward af = ah.executeAction();
         assertFalse(restartCalled);
-        assertEquals("default", af.getName());
+        assertEquals(RhnHelper.DEFAULT_FORWARD, af.getName());
         assertNotNull(ah.getRequest().getAttribute("configList"));
         assertNotNull(ah.getForm().get(MonitoringConfigAction.IS_MONITORING_SCOUT));
 
@@ -118,7 +119,7 @@ public class MonitoringConfigActionTest extends RhnBaseTestCase {
         assertTrue(restartCalled);
         assertEquals(!oldScoutValue,
                 Config.get().getBoolean(ConfigDefaults.WEB_IS_MONITORING_SCOUT));
-        assertEquals("default", af.getName());
+        assertEquals(RhnHelper.DEFAULT_FORWARD, af.getName());
         assertNotNull(ah.getRequest().getAttribute("configList"));
 
         // Check that it saved

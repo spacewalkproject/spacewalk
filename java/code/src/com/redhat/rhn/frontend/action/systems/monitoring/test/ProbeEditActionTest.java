@@ -24,6 +24,7 @@ import com.redhat.rhn.domain.server.test.ServerFactoryTest;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.systems.monitoring.ProbeDetailsAction;
 import com.redhat.rhn.frontend.action.systems.monitoring.ProbeEditAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.testing.ActionHelper;
 import com.redhat.rhn.testing.RhnBaseTestCase;
 
@@ -76,7 +77,7 @@ public class ProbeEditActionTest extends RhnBaseTestCase {
 
 
         ActionForward af = ah.executeAction();
-        assertEquals("default", af.getName());
+        assertEquals(RhnHelper.DEFAULT_FORWARD, af.getName());
         assertNotNull(ah.getRequest().getAttribute("probe"));
         assertNotNull(ah.getRequest().getAttribute("system"));
         assertNotNull(ah.getRequest().getAttribute("intervals"));
@@ -117,7 +118,7 @@ public class ProbeEditActionTest extends RhnBaseTestCase {
         MonitoringTestUtils.setupParamValues(ah, probe.getCommand(), 3);
 
         ActionForward af = ah.executeAction();
-        assertEquals("default", af.getName());
+        assertEquals(RhnHelper.DEFAULT_FORWARD, af.getName());
 
     }
 

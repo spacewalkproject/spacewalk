@@ -19,6 +19,7 @@ import com.redhat.rhn.domain.common.CommonFactory;
 import com.redhat.rhn.domain.common.FileList;
 import com.redhat.rhn.domain.common.test.FileListTest;
 import com.redhat.rhn.frontend.action.systems.provisioning.PreservationListDeleteSubmitAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.testing.ActionHelper;
 import com.redhat.rhn.testing.RhnBaseTestCase;
 
@@ -78,7 +79,7 @@ public class PreservationListDeleteSubmitActionTest extends RhnBaseTestCase {
      */
     public void testNothingSeleted() throws Exception {
         ActionHelper ah = new ActionHelper();
-        ah.setUpAction(action, "default");
+        ah.setUpAction(action, RhnHelper.DEFAULT_FORWARD);
         ah.getRequest().setRequestURL("");
         ah.getRequest().setupAddParameter("newset", (String)null);
         ah.getRequest().setupAddParameter("items_on_page", (String)null);
@@ -86,7 +87,7 @@ public class PreservationListDeleteSubmitActionTest extends RhnBaseTestCase {
         ah.setupClampListBounds();
         ActionForward testforward = ah.executeAction("forwardToConfirm");
         assertEquals("path?lower=10", testforward.getPath());
-        assertEquals("default", testforward.getName());
+        assertEquals(RhnHelper.DEFAULT_FORWARD, testforward.getName());
     }
 
 }

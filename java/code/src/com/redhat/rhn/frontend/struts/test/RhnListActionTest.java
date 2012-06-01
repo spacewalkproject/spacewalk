@@ -19,6 +19,7 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.common.BadParameterException;
 import com.redhat.rhn.frontend.listview.PageControl;
 import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.RhnListAction;
 import com.redhat.rhn.testing.ActionHelper;
 import com.redhat.rhn.testing.RhnBaseTestCase;
@@ -72,8 +73,8 @@ public class RhnListActionTest extends RhnBaseTestCase {
             }
             clampListBounds(pc, request, user);
 
-            return getStrutsDelegate().forwardParams(mapping.findForward("default"),
-                    request.getParameterMap());
+            return getStrutsDelegate().forwardParams(mapping.findForward(
+                    RhnHelper.DEFAULT_FORWARD), request.getParameterMap());
         }
 
         public PageControl getPageControl() {

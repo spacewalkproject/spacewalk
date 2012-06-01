@@ -24,6 +24,7 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.SetLabels;
 import com.redhat.rhn.frontend.action.common.test.RhnSetActionTest;
 import com.redhat.rhn.frontend.action.errata.AffectedSystemsAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.testing.ActionHelper;
 import com.redhat.rhn.testing.RhnMockDynaActionForm;
 import com.redhat.rhn.testing.RhnMockHttpServletRequest;
@@ -52,7 +53,7 @@ public class AffectedSystemsActionTest extends MockObjectTestCase {
         Mock mapping = mock(ActionMapping.class, "mapping");
         mapping.expects(once())
                .method("findForward")
-               .with(eq("default"))
+               .with(eq(RhnHelper.DEFAULT_FORWARD))
                .will(returnValue(forward));
 
         request.setupAddParameter("items_selected", (String[])null);

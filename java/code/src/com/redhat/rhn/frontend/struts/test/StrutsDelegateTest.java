@@ -14,6 +14,7 @@
  */
 package com.redhat.rhn.frontend.struts.test;
 
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.StrutsDelegate;
 import com.redhat.rhn.testing.RhnMockDynaActionForm;
 
@@ -42,7 +43,7 @@ public class StrutsDelegateTest extends TestCase {
      *
      */
     public final void testForwardParams() {
-        ActionForward success = new ActionForward("default", "path", false);
+        ActionForward success = new ActionForward(RhnHelper.DEFAULT_FORWARD, "path", false);
 
         StrutsDelegate strutsDelegate = new StrutsDelegateStub();
 

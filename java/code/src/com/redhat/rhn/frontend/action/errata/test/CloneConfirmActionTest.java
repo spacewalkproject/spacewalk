@@ -24,6 +24,7 @@ import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.rhnset.RhnSetFactory;
 import com.redhat.rhn.domain.rhnset.SetCleanup;
 import com.redhat.rhn.domain.role.RoleFactory;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.manager.errata.ErrataManager;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.rhnset.RhnSetManager;
@@ -71,7 +72,7 @@ public class CloneConfirmActionTest extends RhnPostMockStrutsTestCase {
         request.addParameter("dispatch", "Confirm");
 
         actionPerform();
-        verifyForward("default");
+        verifyForward(RhnHelper.DEFAULT_FORWARD);
         set = RhnSetDecl.ERRATA_CLONE.get(user);
         assertEquals(0, set.size());
 

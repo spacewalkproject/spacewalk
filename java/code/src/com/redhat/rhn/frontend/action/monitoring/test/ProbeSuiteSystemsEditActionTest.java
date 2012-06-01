@@ -34,6 +34,7 @@ import com.redhat.rhn.frontend.action.monitoring.ProbeSuiteSystemsEditSetupActio
 import com.redhat.rhn.frontend.dto.SystemOverview;
 import com.redhat.rhn.frontend.listview.PageControl;
 import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.manager.monitoring.MonitoringManager;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.user.UserManager;
@@ -101,7 +102,7 @@ public class ProbeSuiteSystemsEditActionTest extends RhnBaseTestCase {
                 pc.setStart(1);
             }
         };
-        setUpAction(a, "default");
+        setUpAction(a, RhnHelper.DEFAULT_FORWARD);
         //Add a ServerProbe to the suite.
         TemplateProbe tprobe = (TemplateProbe) MonitoringFactoryTest.
             createTestProbe(user, MonitoringConstants.getProbeTypeSuite());
@@ -170,7 +171,7 @@ public class ProbeSuiteSystemsEditActionTest extends RhnBaseTestCase {
     }
 
     public void testSelectAll() throws Exception {
-        setUpAction(new ProbeSuiteSystemsEditAction(), "default");
+        setUpAction(new ProbeSuiteSystemsEditAction(), RhnHelper.DEFAULT_FORWARD);
         TemplateProbe tprobe = (TemplateProbe) MonitoringFactoryTest.
             createTestProbe(user, MonitoringConstants.getProbeTypeSuite());
         suite.addProbe(tprobe, user);
