@@ -93,6 +93,10 @@ insert into rhnServerServerGroupArchCompat ( server_arch_id, server_group_type )
             lookup_sg_type('sw_mgr_entitled'));
 
 insert into rhnServerServerGroupArchCompat ( server_arch_id, server_group_type )
+        values (lookup_server_arch('armv6l-redhat-linux'),
+            lookup_sg_type('sw_mgr_entitled'));
+
+insert into rhnServerServerGroupArchCompat ( server_arch_id, server_group_type )
 	values (lookup_server_arch('s390-debian-linux'),
             lookup_sg_type('sw_mgr_entitled'));
 
@@ -222,6 +226,10 @@ insert into rhnServerServerGroupArchCompat ( server_arch_id, server_group_type )
 
 insert into rhnServerServerGroupArchCompat ( server_arch_id, server_group_type )
         values (lookup_server_arch('armv5tejl-redhat-linux'),
+            lookup_sg_type('enterprise_entitled'));
+
+insert into rhnServerServerGroupArchCompat ( server_arch_id, server_group_type )
+        values (lookup_server_arch('armv6l-redhat-linux'),
             lookup_sg_type('enterprise_entitled'));
 
 insert into rhnServerServerGroupArchCompat ( server_arch_id, server_group_type )
@@ -370,6 +378,10 @@ insert into rhnServerServerGroupArchCompat ( server_arch_id, server_group_type )
 
 insert into rhnServerServerGroupArchCompat ( server_arch_id, server_group_type )
         values (lookup_server_arch('armv5tejl-redhat-linux'),
+            lookup_sg_type('provisioning_entitled'));
+
+insert into rhnServerServerGroupArchCompat ( server_arch_id, server_group_type )
+        values (lookup_server_arch('armv6l-redhat-linux'),
             lookup_sg_type('provisioning_entitled'));
 
 insert into rhnServerServerGroupArchCompat ( server_arch_id, server_group_type )
@@ -502,6 +514,10 @@ insert into rhnServerServerGroupArchCompat ( server_arch_id, server_group_type )
 
 insert into rhnServerServerGroupArchCompat ( server_arch_id, server_group_type )
         values (lookup_server_arch('armv5tejl-redhat-linux'),
+            lookup_sg_type('monitoring_entitled'));
+
+insert into rhnServerServerGroupArchCompat ( server_arch_id, server_group_type )
+        values (lookup_server_arch('armv6l-redhat-linux'),
             lookup_sg_type('monitoring_entitled'));
 
 insert into rhnServerServerGroupArchCompat ( server_arch_id, server_group_type )
@@ -622,6 +638,10 @@ insert into rhnServerServerGroupArchCompat ( server_arch_id, server_group_type )
         values (lookup_server_arch('armv5tejl-redhat-linux'),
             lookup_sg_type('virtualization_host'));
 
+insert into rhnServerServerGroupArchCompat ( server_arch_id, server_group_type )
+        values (lookup_server_arch('armv6l-redhat-linux'),
+            lookup_sg_type('virtualization_host'));
+
 insert into rhnServerServerGroupArchCompat ( server_arch_id, server_group_type)
     values (lookup_server_arch('s390-debian-linux'),
             lookup_sg_type('virtualization_host'));
@@ -672,6 +692,10 @@ insert into rhnServerServerGroupArchCompat ( server_arch_id, server_group_type )
 
 insert into rhnServerServerGroupArchCompat ( server_arch_id, server_group_type )
         values (lookup_server_arch('armv5tejl-redhat-linux'),
+            lookup_sg_type('virtualization_host_platform'));
+
+insert into rhnServerServerGroupArchCompat ( server_arch_id, server_group_type )
+        values (lookup_server_arch('armv6l-redhat-linux'),
             lookup_sg_type('virtualization_host_platform'));
 
 insert into rhnServerServerGroupArchCompat ( server_arch_id, server_group_type)

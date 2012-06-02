@@ -117,6 +117,20 @@ insert into rhnServerPackageArchCompat
 
 insert into rhnServerPackageArchCompat
 (server_arch_id, package_arch_id, preference) values
+(LOOKUP_SERVER_ARCH('armv6l-redhat-linux'), LOOKUP_PACKAGE_ARCH('armv6l'), 0);
+
+insert into rhnServerPackageArchCompat
+(server_arch_id, package_arch_id, preference) values
+(LOOKUP_SERVER_ARCH('armv6l-redhat-linux'), LOOKUP_PACKAGE_ARCH('armv5tel'), 10);
+
+insert into rhnServerPackageArchCompat
+(server_arch_id, package_arch_id, preference) values
+(LOOKUP_SERVER_ARCH('armv6l-redhat-linux'), LOOKUP_PACKAGE_ARCH('noarch'), 1000);
+
+
+
+insert into rhnServerPackageArchCompat
+(server_arch_id, package_arch_id, preference) values
 (LOOKUP_SERVER_ARCH('athlon-redhat-linux'), LOOKUP_PACKAGE_ARCH('athlon'), 0);
 
 insert into rhnServerPackageArchCompat
