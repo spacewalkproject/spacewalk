@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.8.45
+Version:        1.8.46
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -68,6 +68,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Sat Jun 02 2012 Miroslav Suchý <msuchy@redhat.com> 1.8.46-1
+- 719609 - add support for RaspberryPi (armv6l) (msuchy@redhat.com)
+
 * Thu May 31 2012 Jan Pazdziora 1.8.45-1
 - Disable rhn_pkgsrc_mod_trig while updating rhnPackageSource, so that modified
   does not get modified.
