@@ -1,5 +1,5 @@
 Name:		spacewalk-pylint
-Version:	0.4
+Version:	0.5
 Release:	1%{?dist}
 Summary:	Pylint configuration for spacewalk python packages
 
@@ -49,6 +49,9 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Mon Jun 04 2012 Miroslav Suchý <msuchy@redhat.com> 0.5-1
+- %%defattr is not needed since rpm 4.4 (msuchy@redhat.com)
+
 * Wed May 16 2012 Miroslav Suchý <msuchy@redhat.com> 0.4-1
 - 800899 - consistently use macros
 - 800899 - include license file
