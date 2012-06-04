@@ -61,7 +61,7 @@ public class SystemDetailsHandler extends BaseHandler {
       * @xmlrpc.doc Check the configuration management status for a kickstart profile.
       * @xmlrpc.param #session_key()
       * @xmlrpc.param #param_desc("string", "ksLabel","the kickstart profile label")
-      * @xmlrpc.returntype #prop_desc("boolean", "enabled", "true if configuration
+      * @xmlrpc.returntype #param_desc("boolean", "enabled", "true if configuration
       * management is enabled; otherwise, false")
       */
     public boolean checkConfigManagement(String sessionKey, String ksLabel) {
