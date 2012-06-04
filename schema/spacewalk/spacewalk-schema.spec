@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.8.46
+Version:        1.8.47
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -68,6 +68,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Mon Jun 04 2012 Miroslav Suchý <msuchy@redhat.com> 1.8.47-1
+- Add support for studio image deployments (DB files) (jrenner@suse.de)
+
 * Sat Jun 02 2012 Miroslav Suchý <msuchy@redhat.com> 1.8.46-1
 - 719609 - add support for RaspberryPi (armv6l) (msuchy@redhat.com)
 
