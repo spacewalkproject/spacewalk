@@ -23,7 +23,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.80
+Version: 1.8.81
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -612,6 +612,18 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Jun 04 2012 Miroslav Suchý <msuchy@redhat.com> 1.8.81-1
+- Add support for studio image deployments (web UI) (jrenner@suse.de)
+- 811470 - fix apidoc for channel.access.setOrgSharing() (mzazrivec@redhat.com)
+- 811470 - fix apidoc for channel.listPopularChannels() (mzazrivec@redhat.com)
+- 811470 - fix apidoc for activationkey.listActivatedSystems()
+  (mzazrivec@redhat.com)
+- 811470 - apidoc: use array_desc to remove empty list bullets
+  (mzazrivec@redhat.com)
+- 811470 - new macro: array_desc (mzazrivec@redhat.com)
+- The ip colum is numeric, do not cast parameter to string.
+  (jpazdziora@redhat.com)
+
 * Wed May 30 2012 Tomas Lestach <tlestach@redhat.com> 1.8.80-1
 - switch checkstyle to be run on RHEL6
 - checkstyle: VirtualInstanceFactory - Redundant 'static' modifier.
