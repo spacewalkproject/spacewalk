@@ -1055,19 +1055,21 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.param #array_single("int", "serverId")
      * @xmlrpc.param #param("string", "packageName")
      * @xmlrpc.returntype
-     *      #array()
-     *        #prop_desc("int", "id", "server ID")
-     *        #prop_desc("string", "name", "server name")
-     *        #struct("package")
-     *          #prop("int", "id")
-     *          #prop("string", "name")
-     *          #prop("string", "version")
-     *          #prop("string", "release")
-     *          #prop("string", "epoch")
-     *          #prop("string", "arch")
+     *     #array()
+     *         #struct("system")
+     *             #prop_desc("int", "id", "server ID")
+     *             #prop_desc("string", "name", "server name")
+     *             #prop_desc("struct", "package", "package structure")
+     *                 #struct("package")
+     *                     #prop("int", "id")
+     *                     #prop("string", "name")
+     *                     #prop("string", "version")
+     *                     #prop("string", "release")
+     *                     #prop("string", "epoch")
+     *                     #prop("string", "arch")
+     *                #struct_end()
      *        #struct_end()
-     *      #array_end()
-     *
+     *    #array_end()
      */
     public List listLatestAvailablePackage(String sessionKey, List<Integer> systemIds,
             String name) throws FaultException {
