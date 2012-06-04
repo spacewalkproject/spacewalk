@@ -128,7 +128,7 @@ public class SystemDetailsHandler extends BaseHandler {
     * @xmlrpc.doc Check the remote commands status flag for a kickstart profile.
     * @xmlrpc.param #session_key()
     * @xmlrpc.param #param_desc("string", "ksLabel","the kickstart profile label")
-    * @xmlrpc.returntype #prop_desc("boolean", "enabled", "true if remote
+    * @xmlrpc.returntype #param_desc("boolean", "enabled", "true if remote
     * commands support is enabled; otherwise, false")
     */
     public boolean checkRemoteCommands(String sessionKey, String ksLabel) {
