@@ -108,6 +108,7 @@
        <packagereq type="default">SatConfig-spread</packagereq>
        <packagereq type="default">scdb</packagereq>
        <packagereq type="default">simple-core</packagereq>
+       <packagereq type="default">simply-xml</packagereq>
        <packagereq type="default">sitemesh</packagereq>
        <packagereq type="default">SNMPAlerts</packagereq>
        <packagereq type="default">spacecmd</packagereq>
@@ -180,6 +181,7 @@
        <packagereq type="default">ssl_bridge</packagereq>
        <packagereq type="default">status_log_acceptor</packagereq>
        <packagereq type="default">stringtree-json</packagereq>
+       <packagereq type="default">susestudio-java-client</packagereq>
        <packagereq type="default">tanukiwrapper</packagereq>
        <packagereq type="default">tanukiwrapper-manual</packagereq>
        <packagereq type="default">tsdb</packagereq>
