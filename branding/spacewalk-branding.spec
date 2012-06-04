@@ -1,5 +1,5 @@
 Name:       spacewalk-branding
-Version:    1.8.2
+Version:    1.8.3
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -82,6 +82,10 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Mon Jun 04 2012 Miroslav Suchý <msuchy@redhat.com> 1.8.3-1
+- Add support for studio image deployments (web UI) (jrenner@suse.de)
+- %%defattr is not needed since rpm 4.4 (msuchy@redhat.com)
+
 * Fri Apr 27 2012 Jan Pazdziora 1.8.2-1
 - Missing icon for the systems that need reboot list (dmacvicar@suse.de)
 
