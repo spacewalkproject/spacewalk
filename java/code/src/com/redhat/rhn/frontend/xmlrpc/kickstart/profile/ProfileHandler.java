@@ -928,14 +928,10 @@ public class ProfileHandler extends BaseHandler {
      *  #struct("Comparison Info")
      *      #prop_desc("array", "kickstartLabel1", "Actual label of the first kickstart
      *                 profile is the key into the struct")
-     *          #array()
-     *              #prop("string", "package name")
-     *          #array_end()
+     *          #array_single("string", "package name")
      *      #prop_desc("array", "kickstartLabel2", "Actual label of the second kickstart
      *                 profile is the key into the struct")
-     *          #array()
-     *              #prop("string", "package name")
-     *          #array_end()
+     *          #array_single("string", "package name")
      *  #struct_end()
      */
     public Map<String, Set<String>> comparePackages(String sessionKey,
