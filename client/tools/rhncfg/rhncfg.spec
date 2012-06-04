@@ -8,7 +8,7 @@ Group:   Applications/System
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.10.30
+Version: 5.10.31
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -112,6 +112,9 @@ fi
 
 # $Id$
 %changelog
+* Mon Jun 04 2012 Stephen Herr <sherr@redhat.com> 5.10.31-1
+- 824707 - make /var/log/rhncfg-actions have 600 permissions
+
 * Fri Jun 01 2012 Stephen Herr <sherr@redhat.com> 5.10.30-1
 - 824707 - rhncfg-actions should not log the diff of files that are not
   readable by all
