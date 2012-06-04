@@ -43,7 +43,7 @@ public class DistChannelHandler extends BaseHandler {
      * @xmlrpc.param #session_key()
      * @xmlrpc.returntype
      *   #array("dist channel map")
-     *      @DistChannelMapSerializer
+     *      $DistChannelMapSerializer
      *   #array_end()
      */
     public Object[] listDefaultMaps(String sessionKey) {
