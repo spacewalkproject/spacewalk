@@ -87,7 +87,7 @@ public class ProfileHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("string", "kslabel", "Label of kickstart
      * profile to be changed.")
      * @xmlrpc.returntype
-     *     #prop_desc("string", "kstreeLabel", "Label of the kickstart tree.")
+     *     #param_desc("string", "kstreeLabel", "Label of the kickstart tree.")
      */
     public String getKickstartTree(String sessionKey, String kslabel) {
 
