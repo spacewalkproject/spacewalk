@@ -12,7 +12,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.29
+Version: 1.8.30
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -655,6 +655,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Mon Jun 04 2012 Miroslav Suchý <msuchy@redhat.com> 1.8.30-1
+- Add support for studio image deployments (backend) (jrenner@suse.de)
+
 * Fri Jun 01 2012 Michael Mraka <michael.mraka@redhat.com> 1.8.29-1
 - print reasonable error message when something wrong with repo
 
