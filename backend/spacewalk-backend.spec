@@ -12,7 +12,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.30
+Version: 1.8.31
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -663,6 +663,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Tue Jun 05 2012 Jan Pazdziora 1.8.31-1
+- No longer building spacewalk-backend-sql-oracle on Fedora 17+.
+
 * Mon Jun 04 2012 Miroslav Suchý <msuchy@redhat.com> 1.8.30-1
 - Add support for studio image deployments (backend) (jrenner@suse.de)
 
