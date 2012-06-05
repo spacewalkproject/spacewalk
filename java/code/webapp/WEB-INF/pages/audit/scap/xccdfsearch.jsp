@@ -65,7 +65,7 @@
     <!-- there are two forms here, need to keep the formvars around for pagination -->
     <input type="hidden" name="submitted" value="true"/>
     <input type="hidden" name="search_string" value="${search_string}"/>
-    <input type="hidden" name="whereToSearch" value="${whereToSearch}"/>
+    <input type="hidden" name="whereToSearch" value="${param.whereToSearch}"/>
   </rl:listset>
 </c:if>
 
