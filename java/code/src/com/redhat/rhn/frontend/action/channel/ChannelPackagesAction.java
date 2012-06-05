@@ -60,7 +60,8 @@ public class ChannelPackagesAction extends RhnAction {
         request.setAttribute("channel_name", chan.getName());
         request.setAttribute("cid", chan.getId());
         request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
-        request.setAttribute("pageList", PackageManager.listPackagesInChannelForList(cid));
+        request.setAttribute(RequestContext.PAGE_LIST,
+                PackageManager.listPackagesInChannelForList(cid));
 
         return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
 

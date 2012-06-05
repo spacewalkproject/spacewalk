@@ -92,7 +92,7 @@ public class ListCustomDataAction extends RhnAction {
             pageList.add(returnMap);
         }
 
-        request.setAttribute("pageList", pageList);
+        request.setAttribute(RequestContext.PAGE_LIST, pageList);
         request.setAttribute("system", server);
 
         return getStrutsDelegate().forwardParams(

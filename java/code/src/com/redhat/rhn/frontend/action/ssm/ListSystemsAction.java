@@ -47,7 +47,7 @@ public class ListSystemsAction extends RhnAction implements Listable {
             HttpServletResponse response) {
         ListHelper helper = new ListHelper(this, request);
         helper.setListName("systemList");
-        helper.setDataSetName("pageList");
+        helper.setDataSetName(RequestContext.PAGE_LIST);
         helper.execute();
         return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }

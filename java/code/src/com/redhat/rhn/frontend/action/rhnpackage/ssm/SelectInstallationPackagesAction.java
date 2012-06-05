@@ -41,8 +41,6 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class SelectInstallationPackagesAction extends RhnAction implements Listable {
 
-    private static final String DATA_SET = "pageList";
-
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping actionMapping,
                                  ActionForm actionForm,
@@ -54,7 +52,7 @@ public class SelectInstallationPackagesAction extends RhnAction implements Lista
         Map params = new HashMap();
         params.put(RequestContext.CID, context.getRequiredParam(RequestContext.CID));
         ListSessionSetHelper helper = new ListSessionSetHelper(this, request, params);
-        helper.setDataSetName(DATA_SET);
+        helper.setDataSetName(RequestContext.PAGE_LIST);
         helper.execute();
 
         if (helper.isDispatched()) {

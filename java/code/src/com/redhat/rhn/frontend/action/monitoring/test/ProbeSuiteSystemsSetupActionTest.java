@@ -72,7 +72,7 @@ public class ProbeSuiteSystemsSetupActionTest extends RhnBaseTestCase {
         user = requestContext.getLoggedInUser();
         RhnSet set = (RhnSet) request.getAttribute("set");
 
-        List dr = (List) request.getAttribute("pageList");
+        List dr = (List) request.getAttribute(RequestContext.PAGE_LIST);
         assertNotNull(dr);
         assertTrue(dr.size() > 0);
         assertTrue(dr.get(0) instanceof MonitoredServerDto);

@@ -44,7 +44,6 @@ import javax.servlet.http.HttpServletResponse;
 public class CompareSystemSetupAction extends RhnAction {
 
     private static final String LIST_NAME = "compareList";
-    public static final String DATA_SET = "pageList";
 
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping,
@@ -96,7 +95,7 @@ public class CompareSystemSetupAction extends RhnAction {
         request.setAttribute(ListTagHelper.PARENT_URL,
                 request.getRequestURI() + "?sid=" + sid + "&sid_1=" + sid1);
 
-        request.setAttribute(DATA_SET, dataSet);
+        request.setAttribute(RequestContext.PAGE_LIST, dataSet);
 
         ListTagHelper.bindSetDeclTo(LIST_NAME, getDecl(sid), request);
         TagHelper.bindElaboratorTo(LIST_NAME, dataSet.getElaborator(), request);

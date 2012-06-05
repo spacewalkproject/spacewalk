@@ -84,7 +84,7 @@ public class ChannelPackagesRemoveAction extends RhnAction {
         request.setAttribute("cid", chan.getId());
         request.setAttribute("channel_name", chan.getName());
         request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
-        request.setAttribute("pageList", result);
+        request.setAttribute(RequestContext.PAGE_LIST, result);
 
         String button = LocalizationService.getInstance().getMessage(
         "channel.jsp.package.confirmbutton");

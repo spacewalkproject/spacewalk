@@ -100,7 +100,7 @@ public class SystemEntitlementOrgsAction extends RhnAction {
 
         request.setAttribute("egntname", entitlementLabel);
         request.setAttribute("enthuman", e.getHumanReadableLabel());
-        request.setAttribute("pageList", result);
+        request.setAttribute(RequestContext.PAGE_LIST, result);
         request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI() +
             "?label=" + entitlementLabel);
 

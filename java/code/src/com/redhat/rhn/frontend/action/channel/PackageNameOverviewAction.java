@@ -77,7 +77,7 @@ public class PackageNameOverviewAction extends RhnAction {
                     user.getOrg(), pkgName, channelArches);
         }
 
-        request.setAttribute("pageList", dr);
+        request.setAttribute(RequestContext.PAGE_LIST, dr);
 
         return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }

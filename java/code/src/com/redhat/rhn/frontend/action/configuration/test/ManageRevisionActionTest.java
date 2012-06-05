@@ -17,6 +17,7 @@ package com.redhat.rhn.frontend.action.configuration.test;
 import com.redhat.rhn.domain.config.ConfigRevision;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.frontend.dto.ConfigRevisionDto;
+import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.testing.ConfigTestUtils;
 import com.redhat.rhn.testing.RhnMockStrutsTestCase;
 import com.redhat.rhn.testing.UserTestUtils;
@@ -37,7 +38,7 @@ public class ManageRevisionActionTest extends RhnMockStrutsTestCase {
         addRequestParameter("cfid", revision.getConfigFile().getId().toString());
         actionPerform();
         assertNotNull(request.getParameter("cfid"));
-        verifyList("pageList", ConfigRevisionDto.class);
+        verifyList(RequestContext.PAGE_LIST, ConfigRevisionDto.class);
     }
 }
 

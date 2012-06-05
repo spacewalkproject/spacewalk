@@ -170,7 +170,7 @@ public class AddCustomErrataAction extends RhnListAction {
 
         DataResult dr = getData(request, selectedChannel, currentChan, null,
                 checked, user);
-        request.setAttribute("pageList", dr);
+        request.setAttribute(RequestContext.PAGE_LIST, dr);
 
         if (ListTagHelper.getListAction(LIST_NAME, request) != null) {
             helper.execute(set, LIST_NAME, dr);

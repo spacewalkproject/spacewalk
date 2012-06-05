@@ -15,6 +15,7 @@
 package com.redhat.rhn.frontend.action.rhnpackage.ssm.test;
 
 import com.redhat.rhn.common.db.datasource.DataResult;
+import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.taglibs.list.ListTagUtil;
 import com.redhat.rhn.frontend.taglibs.list.TagHelper;
@@ -45,7 +46,7 @@ public class SelectRemovePackagesActionTest extends RhnMockStrutsTestCase {
         // Verify
         verifyForward(RhnHelper.DEFAULT_FORWARD);
 
-        Object pageList = getRequest().getAttribute("pageList");
+        Object pageList = getRequest().getAttribute(RequestContext.PAGE_LIST);
         assertNotNull(pageList);
 
         DataResult result = (DataResult)pageList;

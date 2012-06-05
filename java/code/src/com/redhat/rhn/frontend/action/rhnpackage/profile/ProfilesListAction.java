@@ -39,8 +39,6 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class ProfilesListAction extends RhnListAction implements Listable {
 
-    private static final String DATA_SET = "pageList";
-
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping actionMapping,
                                  ActionForm actionForm,
@@ -49,7 +47,7 @@ public class ProfilesListAction extends RhnListAction implements Listable {
         throws Exception {
 
         ListHelper helper = new ListHelper(this, request);
-        helper.setDataSetName(DATA_SET);
+        helper.setDataSetName(RequestContext.PAGE_LIST);
         helper.execute();
         return actionMapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }

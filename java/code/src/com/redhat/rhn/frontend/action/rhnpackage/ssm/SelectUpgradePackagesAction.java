@@ -42,8 +42,6 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class SelectUpgradePackagesAction extends RhnAction implements Listable {
 
-    private static final String DATA_SET = "pageList";
-
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping actionMapping, ActionForm actionForm,
                                  HttpServletRequest request, HttpServletResponse response)
@@ -54,7 +52,7 @@ public class SelectUpgradePackagesAction extends RhnAction implements Listable {
         Map params = new HashMap();
 
         ListSessionSetHelper helper = new ListSessionSetHelper(this, request, params);
-        helper.setDataSetName(DATA_SET);
+        helper.setDataSetName(RequestContext.PAGE_LIST);
         helper.execute();
 
         if (helper.isDispatched()) {

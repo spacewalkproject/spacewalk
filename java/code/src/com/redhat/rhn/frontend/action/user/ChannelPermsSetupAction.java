@@ -78,7 +78,7 @@ public class ChannelPermsSetupAction extends RhnListAction {
             }
         }
 
-        request.setAttribute("pageList", dr);
+        request.setAttribute(RequestContext.PAGE_LIST, dr);
         request.setAttribute("user", user);
         request.setAttribute("role", "subscribe");
         request.setAttribute("userIsChannelAdmin",

@@ -94,7 +94,7 @@ public class MigrateSystemsAction extends RhnAction implements Listable {
         request.setAttribute("orgs", user.getOrg().getTrustedOrgs());
         ListHelper helper = new ListHelper(this, request);
         helper.setListName("systemList");
-        helper.setDataSetName("pageList");
+        helper.setDataSetName(RequestContext.PAGE_LIST);
         helper.execute();
 
         return mapping.findForward(RhnHelper.DEFAULT_FORWARD);

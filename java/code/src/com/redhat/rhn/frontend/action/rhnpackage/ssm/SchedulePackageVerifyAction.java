@@ -25,6 +25,7 @@ import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionMessages;
 import org.apache.struts.action.DynaActionForm;
+
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.messaging.MessageQueue;
@@ -52,8 +53,6 @@ import com.redhat.rhn.manager.system.SystemManager;
  */
 public class SchedulePackageVerifyAction extends RhnAction implements Listable {
 
-    private static final String DATA_SET = "pageList";
-
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping actionMapping,
                                  ActionForm actionForm,
@@ -63,7 +62,7 @@ public class SchedulePackageVerifyAction extends RhnAction implements Listable {
         RequestContext requestContext = new RequestContext(request);
 
         ListHelper helper = new ListHelper(this, request);
-        helper.setDataSetName(DATA_SET);
+        helper.setDataSetName(RequestContext.PAGE_LIST);
         helper.execute();
 
         if (request.getParameter("dispatch") != null) {

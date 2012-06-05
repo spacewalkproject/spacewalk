@@ -62,7 +62,7 @@ public class SatUserListAction extends RhnAction {
         request.setAttribute("canModify", canModify);
         request.setAttribute("userOrgId", oid);
         request.setAttribute("orgName", name);
-        request.setAttribute("pageList", result);
+        request.setAttribute(RequestContext.PAGE_LIST, result);
         request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
         return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }

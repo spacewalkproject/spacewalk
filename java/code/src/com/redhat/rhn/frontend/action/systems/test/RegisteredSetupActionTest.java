@@ -24,6 +24,7 @@ import com.redhat.rhn.domain.server.ServerGroup;
 import com.redhat.rhn.domain.server.test.ServerFactoryTest;
 import com.redhat.rhn.domain.server.test.ServerGroupTest;
 import com.redhat.rhn.frontend.action.systems.RegisteredSetupAction;
+import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.manager.system.SystemManager;
 import com.redhat.rhn.testing.RhnPostMockStrutsTestCase;
@@ -54,7 +55,7 @@ public class RegisteredSetupActionTest extends RhnPostMockStrutsTestCase {
             request.addParameter("threshold", RegisteredSetupAction.OPTIONS[j]);
 
             actionPerform();
-            DataResult dr = (DataResult) request.getAttribute("pageList");
+            DataResult dr = (DataResult) request.getAttribute(RequestContext.PAGE_LIST);
             assertNotNull(dr);
             assertFalse(dr.isEmpty());
         }

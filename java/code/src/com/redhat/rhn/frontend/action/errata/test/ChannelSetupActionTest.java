@@ -82,7 +82,8 @@ public class ChannelSetupActionTest extends RhnBaseTestCase {
         assertEquals(result.getName(), RhnHelper.DEFAULT_FORWARD);
 
         //get the data result back out of the request and inspect
-        DataResult dr = (DataResult) sah.getRequest().getAttribute("pageList");
+        DataResult dr = (DataResult) sah.getRequest().getAttribute(
+                RequestContext.PAGE_LIST);
         assertNotNull(dr);
         Iterator itr = dr.iterator();
         while (itr.hasNext()) {

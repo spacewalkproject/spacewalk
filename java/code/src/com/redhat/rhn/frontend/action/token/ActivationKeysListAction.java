@@ -46,7 +46,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class ActivationKeysListAction extends RhnAction {
     private static final String LIST_NAME = "activationKeys";
-    private static final String DATA_SET = "pageList";
+    private static final String DATA_SET = RequestContext.PAGE_LIST;
     private static final String DEFAULT_KEY = "default";
 
     /**

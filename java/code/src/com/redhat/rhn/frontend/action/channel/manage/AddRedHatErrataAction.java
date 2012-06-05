@@ -214,7 +214,7 @@ public class AddRedHatErrataAction extends RhnListAction {
 
 
 
-        request.setAttribute("pageList", dr);
+        request.setAttribute(RequestContext.PAGE_LIST, dr);
 
         if (ListTagHelper.getListAction("errata", request) != null) {
         helper.execute(set, "errata", dr);

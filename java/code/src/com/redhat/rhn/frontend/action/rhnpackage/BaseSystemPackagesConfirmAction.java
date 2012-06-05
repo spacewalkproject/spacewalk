@@ -55,7 +55,7 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Rev$
  */
 public abstract class BaseSystemPackagesConfirmAction extends RhnAction {
-    private static final String DATA_SET = "pageList";
+    private static final String DATA_SET = RequestContext.PAGE_LIST;
     private static final String ENABLE_REMOTE_COMMAND =
                                             "enableRemoteCommand";
     private static final String WIDGET_SUMMARY = "widgetSummary";

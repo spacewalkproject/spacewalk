@@ -52,7 +52,7 @@ public class GlobalConfigChannelList extends RhnListAction {
         pc.setFilter(true);
 
         clampListBounds(pc, request, user);
-        request.setAttribute("pageList", getDataResult(user, pc));
+        request.setAttribute(RequestContext.PAGE_LIST, getDataResult(user, pc));
         return getStrutsDelegate().forwardParams(mapping.findForward(
                 RhnHelper.DEFAULT_FORWARD), request.getParameterMap());
 

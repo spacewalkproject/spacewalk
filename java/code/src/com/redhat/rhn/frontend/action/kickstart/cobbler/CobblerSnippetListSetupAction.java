@@ -68,7 +68,7 @@ public class CobblerSnippetListSetupAction extends RhnAction {
                                                     mapping.getParameter() + "]");
         }
         Collections.sort(result, NAME_COMPARATOR);
-        request.setAttribute("pageList", result);
+        request.setAttribute(RequestContext.PAGE_LIST, result);
         request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
         return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }

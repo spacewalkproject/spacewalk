@@ -60,7 +60,7 @@ public class ErrataConfirmSetupAction extends RhnListAction {
                 (DynaActionForm)formIn, "date", DatePicker.YEAR_RANGE_POSITIVE);
 
         request.setAttribute("date", picker);
-        request.setAttribute("pageList", dr);
+        request.setAttribute(RequestContext.PAGE_LIST, dr);
         request.setAttribute("errata", errata);
 
         return mapping.findForward(RhnHelper.DEFAULT_FORWARD);

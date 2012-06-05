@@ -20,6 +20,7 @@ import com.redhat.rhn.domain.action.ActionFactory;
 import com.redhat.rhn.domain.action.test.ActionFactoryTest;
 import com.redhat.rhn.frontend.action.common.BadParameterException;
 import com.redhat.rhn.frontend.action.schedule.CompletedSystemsSetupAction;
+import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.testing.ActionHelper;
 import com.redhat.rhn.testing.RhnBaseTestCase;
 
@@ -50,7 +51,7 @@ public class CompletedSystemsSetupActionTest extends RhnBaseTestCase {
         String name = (String) sah.getRequest().getAttribute("actionname");
         Action a2 = (Action)sah.getRequest().getAttribute("action");
 
-        assertNotNull(sah.getRequest().getAttribute("pageList"));
+        assertNotNull(sah.getRequest().getAttribute(RequestContext.PAGE_LIST));
         assertNotNull(sah.getRequest().getAttribute("user"));
         assertNotNull(name);
         assertEquals("RHN-JAVA Test Action", name);

@@ -19,6 +19,7 @@ import com.redhat.rhn.domain.common.CommonFactory;
 import com.redhat.rhn.domain.common.FileList;
 import com.redhat.rhn.domain.common.test.FileListTest;
 import com.redhat.rhn.domain.role.RoleFactory;
+import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.testing.RhnMockStrutsTestCase;
 import com.redhat.rhn.testing.TestUtils;
 import com.redhat.rhn.testing.UserTestUtils;
@@ -38,7 +39,7 @@ public class PreservationListActionTest extends RhnMockStrutsTestCase {
         TestUtils.flushAndEvict(f);
         setRequestPathInfo("/systems/provisioning/preservation/PreservationList");
         actionPerform();
-        DataResult dr = (DataResult) request.getAttribute("pageList");
+        DataResult dr = (DataResult) request.getAttribute(RequestContext.PAGE_LIST);
         assertNotNull(dr);
         assertTrue(dr.size() > 0);
     }

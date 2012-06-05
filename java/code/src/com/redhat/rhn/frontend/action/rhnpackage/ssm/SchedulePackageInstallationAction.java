@@ -47,8 +47,6 @@ import com.redhat.rhn.manager.system.SystemManager;
  */
 public class SchedulePackageInstallationAction extends RhnListAction implements Listable {
 
-    private static final String DATA_SET = "pageList";
-
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping actionMapping,
                                  ActionForm actionForm,
@@ -58,7 +56,7 @@ public class SchedulePackageInstallationAction extends RhnListAction implements 
         RequestContext requestContext = new RequestContext(request);
 
         ListHelper helper = new ListHelper(this, request);
-        helper.setDataSetName(DATA_SET);
+        helper.setDataSetName(RequestContext.PAGE_LIST);
         helper.execute();
 
         if (request.getParameter("dispatch") != null) {

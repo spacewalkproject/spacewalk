@@ -51,8 +51,6 @@ import javax.servlet.http.HttpServletResponse;
 /** @version $Revision$ */
 public class AddPackagesAction extends RhnAction implements Listable {
 
-    private static final String DATA_SET = "pageList";
-
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping actionMapping,
                                  ActionForm actionForm,
@@ -76,7 +74,7 @@ public class AddPackagesAction extends RhnAction implements Listable {
             RhnSetManager.store(set);
         }
         ListRhnSetHelper helper = new ListRhnSetHelper(this, request, decl);
-        helper.setDataSetName(DATA_SET);
+        helper.setDataSetName(RequestContext.PAGE_LIST);
 
 
         // If it's a view change, don't throw a message saying there was nothing selected

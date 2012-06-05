@@ -61,7 +61,7 @@ public abstract class BaseChannelTreeAction extends RhnUnpagedListAction {
             Collections.sort(dr);
             dr = handleOrphans(dr);
 
-            request.setAttribute("pageList", dr);
+            request.setAttribute(RequestContext.PAGE_LIST, dr);
             request.setAttribute("satAdmin", user.hasRole(RoleFactory.SAT_ADMIN));
             addAttributes(requestContext);
             return mapping.findForward(RhnHelper.DEFAULT_FORWARD);

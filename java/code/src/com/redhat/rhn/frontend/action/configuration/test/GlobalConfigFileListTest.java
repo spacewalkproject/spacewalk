@@ -18,6 +18,7 @@ import com.redhat.rhn.domain.config.ConfigFile;
 import com.redhat.rhn.domain.config.ConfigurationFactory;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.frontend.dto.ConfigFileDto;
+import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.testing.ConfigTestUtils;
 import com.redhat.rhn.testing.RhnMockStrutsTestCase;
 import com.redhat.rhn.testing.UserTestUtils;
@@ -39,7 +40,7 @@ public class GlobalConfigFileListTest extends RhnMockStrutsTestCase {
 
         setRequestPathInfo("/configuration/file/GlobalConfigFileList");
         actionPerform();
-        verifyList("pageList", ConfigFileDto.class);
+        verifyList(RequestContext.PAGE_LIST, ConfigFileDto.class);
     }
 }
 

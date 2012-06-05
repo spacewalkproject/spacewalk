@@ -70,7 +70,7 @@ public class KickstartIpRangeSetupAction extends RhnAction {
 
         request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
 
-        request.setAttribute("pageList", getDataResult(requestContext, null));
+        request.setAttribute(RequestContext.PAGE_LIST, getDataResult(requestContext, null));
 
         return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
 

@@ -54,7 +54,7 @@ public class RepoListSetupAction extends RhnAction {
 
         result = RepoLister.getInstance().list(user);
         Collections.sort(result, LABEL_COMPARATOR);
-        request.setAttribute("pageList", result);
+        request.setAttribute(RequestContext.PAGE_LIST, result);
         request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
         return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }

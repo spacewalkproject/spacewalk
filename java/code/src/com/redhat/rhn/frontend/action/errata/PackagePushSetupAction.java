@@ -104,7 +104,7 @@ public class PackagePushSetupAction extends RhnListAction {
 
             Channel c = ChannelManager.lookupByIdAndUser(cid, user);
             if (!dr.isEmpty()) {
-                request.setAttribute("pageList", dr);
+                request.setAttribute(RequestContext.PAGE_LIST, dr);
                 request.setAttribute("cid", cid);
                 request.setAttribute("set", packageSet);
                 request.setAttribute("advisory", e.getAdvisory());

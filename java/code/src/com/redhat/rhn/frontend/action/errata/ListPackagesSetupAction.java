@@ -64,7 +64,7 @@ public class ListPackagesSetupAction extends BaseErrataSetupAction {
         DataResult dr = PackageManager.packagesInErrata(errata, pc);
 
         RhnSet set = RhnSetDecl.PACKAGES_TO_REMOVE.get(user);
-        request.setAttribute("pageList", dr);
+        request.setAttribute(RequestContext.PAGE_LIST, dr);
         request.setAttribute("set", set);
 
        if (!requestContext.isSubmitted()) {

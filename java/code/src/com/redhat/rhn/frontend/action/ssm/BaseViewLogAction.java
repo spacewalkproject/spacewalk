@@ -14,6 +14,7 @@
  */
 package com.redhat.rhn.frontend.action.ssm;
 
+import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.RhnListAction;
 import com.redhat.rhn.frontend.taglibs.list.helper.ListHelper;
@@ -36,8 +37,6 @@ import javax.servlet.http.HttpServletResponse;
  */
 public abstract class BaseViewLogAction extends RhnListAction implements Listable {
 
-    private static final String DATA_SET = "pageList";
-
     /**
      * Allows the subclass to introduce a message key specific to the data it provides.
      *
@@ -54,7 +53,7 @@ public abstract class BaseViewLogAction extends RhnListAction implements Listabl
         throws Exception {
 
         ListHelper helper = new ListHelper(this, request);
-        helper.setDataSetName(DATA_SET);
+        helper.setDataSetName(RequestContext.PAGE_LIST);
         helper.execute();
 
         request.setAttribute("summaryKey", getSummaryKey());

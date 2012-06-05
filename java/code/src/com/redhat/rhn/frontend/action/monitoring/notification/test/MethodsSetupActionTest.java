@@ -17,6 +17,7 @@ package com.redhat.rhn.frontend.action.monitoring.notification.test;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.frontend.action.monitoring.notification.MethodsSetupAction;
 import com.redhat.rhn.frontend.dto.monitoring.MethodDto;
+import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.testing.ActionHelper;
 import com.redhat.rhn.testing.RhnBaseTestCase;
 import com.redhat.rhn.testing.RhnMockHttpServletRequest;
@@ -40,7 +41,7 @@ public class MethodsSetupActionTest extends RhnBaseTestCase {
 
         // Remove if not a List SetupAction
         RhnMockHttpServletRequest request = sah.getRequest();
-        DataResult dr = (DataResult) request.getAttribute("pageList");
+        DataResult dr = (DataResult) request.getAttribute(RequestContext.PAGE_LIST);
         assertNotNull(dr);
         assertTrue(dr.size() > 0);
         assertTrue(dr.iterator().next() instanceof MethodDto);

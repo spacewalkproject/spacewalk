@@ -140,7 +140,7 @@ public class AssignedGroupsSetupAction extends RhnListAction {
 
 
         ListTagHelper.bindSetDeclTo(LIST_NAME, getSetDecl(), request);
-        request.setAttribute("pageList", dr);
+        request.setAttribute(RequestContext.PAGE_LIST, dr);
 
         return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }

@@ -60,7 +60,7 @@ public class UserListSetupAction extends RhnAction {
 
         request.setAttribute("canModify", canModify);
         request.setAttribute("orgName", name);
-        request.setAttribute("pageList", result);
+        request.setAttribute(RequestContext.PAGE_LIST, result);
         request.setAttribute(ListTagHelper.PARENT_URL,
                 request.getRequestURI() + "?oid=" + oid);
         return mapping.findForward(RhnHelper.DEFAULT_FORWARD);

@@ -17,6 +17,7 @@ package com.redhat.rhn.frontend.action.configuration.test;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.domain.config.ConfigChannel;
 import com.redhat.rhn.domain.role.RoleFactory;
+import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.testing.ConfigTestUtils;
 import com.redhat.rhn.testing.RhnMockStrutsTestCase;
 import com.redhat.rhn.testing.UserTestUtils;
@@ -32,8 +33,8 @@ public class ChannelSystemsListSetupTest extends RhnMockStrutsTestCase {
         setRequestPathInfo("/configuration/channel/ChannelSystems");
         addRequestParameter("ccid", "" + ccid);
         actionPerform();
-        assertNotNull(request.getAttribute("pageList"));
-        DataResult dr = (DataResult)request.getAttribute("pageList");
+        assertNotNull(request.getAttribute(RequestContext.PAGE_LIST));
+        DataResult dr = (DataResult)request.getAttribute(RequestContext.PAGE_LIST);
         assertEquals(0, dr.getTotalSize());
     }
 }

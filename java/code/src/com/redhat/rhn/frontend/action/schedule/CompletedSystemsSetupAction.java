@@ -56,7 +56,7 @@ public class CompletedSystemsSetupAction extends RhnListAction {
         ActionFormatter af = action.getFormatter();
 
         request.setAttribute("actionname", af.getName());
-        request.setAttribute("pageList", dr);
+        request.setAttribute(RequestContext.PAGE_LIST, dr);
         request.setAttribute("user", user);
         request.setAttribute("action", action);
 

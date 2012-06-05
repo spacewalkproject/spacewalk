@@ -52,7 +52,7 @@ public class RemovePackagesSetupAction extends BaseErrataSetupAction {
 
         DataResult dr = PackageManager.packageIdsInSet(user, "packages_to_remove", pc);
 
-        request.setAttribute("pageList", dr);
+        request.setAttribute(RequestContext.PAGE_LIST, dr);
         return super.execute(mapping, formIn, request, response);
     }
 }

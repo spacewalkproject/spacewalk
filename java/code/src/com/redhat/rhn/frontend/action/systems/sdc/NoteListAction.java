@@ -57,7 +57,7 @@ public class NoteListAction extends RhnListAction {
 
         DataResult dr = SystemManager.systemNotes(s);
 
-        request.setAttribute("pageList", dr);
+        request.setAttribute(RequestContext.PAGE_LIST, dr);
         request.setAttribute("sid", sid);
         request.setAttribute("system", s);
 

@@ -18,6 +18,7 @@ import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.test.KickstartDataTest;
 import com.redhat.rhn.domain.role.RoleFactory;
+import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.testing.RhnMockStrutsTestCase;
 import com.redhat.rhn.testing.UserTestUtils;
 
@@ -36,7 +37,7 @@ public class KickstartsSetupActionTest extends RhnMockStrutsTestCase {
         KickstartData k = KickstartDataTest.createKickstartWithChannel(user.getOrg());
         setRequestPathInfo("/kickstart/Kickstarts");
         actionPerform();
-        DataResult dr = (DataResult) request.getAttribute("pageList");
+        DataResult dr = (DataResult) request.getAttribute(RequestContext.PAGE_LIST);
         assertNotNull(dr);
         assertTrue(dr.size() >= 1);
     }

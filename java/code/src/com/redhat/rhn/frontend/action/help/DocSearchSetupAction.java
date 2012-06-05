@@ -173,11 +173,11 @@ public class DocSearchSetupAction extends RhnAction {
                                          searchString,
                                          viewmode, request);
             log.debug("GET search: " + results);
-            request.setAttribute("pageList",
+            request.setAttribute(RequestContext.PAGE_LIST,
                     results != null ? results : Collections.EMPTY_LIST);
         }
         else {
-            request.setAttribute("pageList", Collections.EMPTY_LIST);
+            request.setAttribute(RequestContext.PAGE_LIST, Collections.EMPTY_LIST);
         }
     }
 

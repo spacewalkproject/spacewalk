@@ -45,7 +45,7 @@ public abstract class BaseListAction extends RhnAction implements Listable {
 
     /** {@inheritDoc} */
     public String getDataSetName() {
-        return "pageList";
+        return RequestContext.PAGE_LIST;
     }
 
     /** {@inheritDoc} */

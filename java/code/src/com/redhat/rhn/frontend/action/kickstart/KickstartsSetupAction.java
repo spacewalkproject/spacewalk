@@ -64,7 +64,7 @@ public class KickstartsSetupAction  extends RhnAction {
                                                 listCobblerProfiles(user);
         result.addAll(dtos);
         request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
-        request.setAttribute("pageList", result);
+        request.setAttribute(RequestContext.PAGE_LIST, result);
         TagHelper.bindElaboratorTo("ksList", result.getElaborator(), request);
         return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }

@@ -219,7 +219,7 @@ public class ErrataSearchAction extends RhnAction {
                     search, viewmode, form);
 
             log.warn("GET search: " + results);
-            request.setAttribute("pageList",
+            request.setAttribute(RequestContext.PAGE_LIST,
                     results != null ? results : Collections.EMPTY_LIST);
         }
         else {
@@ -230,7 +230,7 @@ public class ErrataSearchAction extends RhnAction {
                 log.debug("Issue Start Date = " + dates.getStart().getDate());
                 log.debug("End Start Date = " + dates.getEnd().getDate());
             }
-            request.setAttribute("pageList", Collections.EMPTY_LIST);
+            request.setAttribute(RequestContext.PAGE_LIST, Collections.EMPTY_LIST);
             Map paramMap = request.getParameterMap();
             if (!paramMap.containsKey("optionIssueDateSearch")) {
                 form.set("optionIssueDateSearch", Boolean.FALSE);

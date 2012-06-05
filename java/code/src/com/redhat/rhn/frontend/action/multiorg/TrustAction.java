@@ -114,7 +114,7 @@ abstract class FormDispatcher extends RhnAction {
 public class TrustAction extends FormDispatcher {
 
     private static final String LIST_NAME = "trustedOrgs";
-    private static final String DATA_SET = "pageList";
+    private static final String DATA_SET = RequestContext.PAGE_LIST;
     private static final RhnSetDecl RHNSET = RhnSetDecl.MULTIORG_TRUST_LIST;
 
     /**

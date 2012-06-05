@@ -20,6 +20,7 @@ import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.test.ServerFactoryTest;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.rhnpackage.SolarisPatchSetListSetupAction;
+import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.testing.ActionHelper;
 import com.redhat.rhn.testing.RhnBaseTestCase;
 import com.redhat.rhn.testing.RhnMockHttpServletRequest;
@@ -55,7 +56,7 @@ public class SolarisPatchSetListSetupTest extends RhnBaseTestCase {
 
         RhnMockHttpServletRequest request = sah.getRequest();
 
-        DataResult dr = (DataResult) request.getAttribute("pageList");
+        DataResult dr = (DataResult) request.getAttribute(RequestContext.PAGE_LIST);
         assertNotNull(dr);
         assertTrue(dr.size() == 0);
     }

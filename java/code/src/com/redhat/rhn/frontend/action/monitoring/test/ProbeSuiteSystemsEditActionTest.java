@@ -124,9 +124,10 @@ public class ProbeSuiteSystemsEditActionTest extends RhnBaseTestCase {
 
         sah.executeAction();
         assertNotNull(sah.getRequest().getAttribute("probeSuite"));
-        assertNotNull(sah.getRequest().getAttribute("pageList"));
+        assertNotNull(sah.getRequest().getAttribute(RequestContext.PAGE_LIST));
         assertNotNull(sah.getRequest().getAttribute("satClusters"));
-        DataResult dr = (DataResult) sah.getRequest().getAttribute("pageList");
+        DataResult dr = (DataResult) sah.getRequest().getAttribute(
+                RequestContext.PAGE_LIST);
         assertTrue(dr.size() > 0);
         for (int i = 0; i < dr.size(); i++) {
             SystemOverview so = (SystemOverview) dr.get(i);

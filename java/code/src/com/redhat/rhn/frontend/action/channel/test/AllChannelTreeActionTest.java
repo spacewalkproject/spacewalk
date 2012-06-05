@@ -51,7 +51,8 @@ public class AllChannelTreeActionTest extends RhnBaseTestCase {
         OrgFactory.save(user.getOrg());
 
         sah.executeAction();
-        DataResult dr = (DataResult) sah.getRequest().getAttribute("pageList");
+        DataResult dr = (DataResult) sah.getRequest().getAttribute(
+                RequestContext.PAGE_LIST);
         assertNotEmpty(dr);
    }
 }

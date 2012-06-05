@@ -59,7 +59,6 @@ import redstone.xmlrpc.XmlRpcFault;
  */
 public class SystemSearchSetupAction extends RhnAction implements Listable {
 
-    public static final String LIST_NAME = "pageList";
     public static final String DATA_SET = "searchResults";
 
     public static final String[] OPT_GROUPS_TITLES = { "systemsearch.jsp.details",
@@ -412,7 +411,7 @@ public class SystemSearchSetupAction extends RhnAction implements Listable {
 
     /** {@inheritDoc} */
     public String getListName()  {
-        return LIST_NAME;
+        return RequestContext.PAGE_LIST;
     }
 
     /** {@inheritDoc} */

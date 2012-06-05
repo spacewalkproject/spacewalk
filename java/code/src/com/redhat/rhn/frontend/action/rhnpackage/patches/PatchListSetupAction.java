@@ -62,7 +62,7 @@ public class PatchListSetupAction extends RhnListAction {
 
         Server server = SystemManager.lookupByIdAndUser(sid, user);
 
-        request.setAttribute("pageList", dr);
+        request.setAttribute(RequestContext.PAGE_LIST, dr);
         request.setAttribute("set", set);
         request.setAttribute("system", server);
 

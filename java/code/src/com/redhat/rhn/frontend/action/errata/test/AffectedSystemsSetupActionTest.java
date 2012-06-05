@@ -18,6 +18,7 @@ import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.domain.errata.test.ErrataFactoryTest;
 import com.redhat.rhn.frontend.dto.SystemOverview;
+import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.testing.RhnMockStrutsTestCase;
 
 import java.util.Iterator;
@@ -48,7 +49,7 @@ public class AffectedSystemsSetupActionTest extends RhnMockStrutsTestCase {
         Errata e = ErrataFactoryTest.createTestErrata(user.getOrg().getId());
         addRequestParameter("eid", e.getId().toString());
         actionPerform();
-        DataResult dr = (DataResult) request.getAttribute("pageList");
+        DataResult dr = (DataResult) request.getAttribute(RequestContext.PAGE_LIST);
         assertNotNull(dr);
         Iterator itr = dr.iterator();
         while (itr.hasNext()) {

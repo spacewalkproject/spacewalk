@@ -48,7 +48,7 @@ public class CustomKeyListAction extends RhnAction {
 
         DataResult result = SystemManager.listDataKeys(user);
         request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
-        request.setAttribute("pageList", result);
+        request.setAttribute(RequestContext.PAGE_LIST, result);
 
         return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
 

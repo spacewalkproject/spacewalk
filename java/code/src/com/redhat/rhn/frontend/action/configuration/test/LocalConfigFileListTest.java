@@ -15,6 +15,7 @@
 package com.redhat.rhn.frontend.action.configuration.test;
 
 import com.redhat.rhn.domain.role.RoleFactory;
+import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.testing.RhnMockStrutsTestCase;
 import com.redhat.rhn.testing.UserTestUtils;
 
@@ -30,7 +31,7 @@ public class LocalConfigFileListTest extends RhnMockStrutsTestCase {
 
         setRequestPathInfo("/configuration/file/LocalConfigFileList");
         actionPerform();
-        assertNotNull(request.getAttribute("pageList"));
+        assertNotNull(request.getAttribute(RequestContext.PAGE_LIST));
     }
 }
 

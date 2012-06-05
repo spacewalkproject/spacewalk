@@ -57,7 +57,7 @@ public class VisibleSystemsListSetupAction extends RhnListAction {
         //we want set to change for logged in user rather than the target user
         RhnSet set = RhnSetDecl.SYSTEMS.get(requestContext.getLoggedInUser());
 
-        request.setAttribute("pageList", dr);
+        request.setAttribute(RequestContext.PAGE_LIST, dr);
         request.setAttribute("user", user);
         request.setAttribute("set", set);
 

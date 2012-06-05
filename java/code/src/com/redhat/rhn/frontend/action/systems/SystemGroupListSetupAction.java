@@ -63,7 +63,7 @@ public class SystemGroupListSetupAction extends RhnAction {
 
         DataResult result = SystemManager.groupList(user, null);
         request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
-        request.setAttribute("pageList", result);
+        request.setAttribute(RequestContext.PAGE_LIST, result);
         ListTagHelper.bindSetDeclTo("groupList", getSetDecl(), request);
         TagHelper.bindElaboratorTo("groupList", result.getElaborator(), request);
 

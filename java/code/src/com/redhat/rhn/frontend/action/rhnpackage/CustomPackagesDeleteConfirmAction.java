@@ -69,7 +69,7 @@ public class CustomPackagesDeleteConfirmAction extends RhnAction {
 
         TagHelper.bindElaboratorTo(LIST_NAME, result.getElaborator(), request);
         request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
-        request.setAttribute("pageList", result);
+        request.setAttribute(RequestContext.PAGE_LIST, result);
 
         String button = LocalizationService.getInstance().getMessage(
         "channel.jsp.manage.package.delete");

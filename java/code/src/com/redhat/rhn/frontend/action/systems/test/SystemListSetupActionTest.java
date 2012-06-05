@@ -25,6 +25,7 @@ import com.redhat.rhn.domain.server.test.ServerFactoryTest;
 import com.redhat.rhn.frontend.action.systems.SystemListSetupAction;
 import com.redhat.rhn.frontend.dto.SystemOverview;
 import com.redhat.rhn.frontend.listview.PageControl;
+import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.manager.system.SystemManager;
 import com.redhat.rhn.testing.RhnMockStrutsTestCase;
 
@@ -44,7 +45,7 @@ public class SystemListSetupActionTest extends RhnMockStrutsTestCase {
     public void testPerformExecute() throws Exception {
         ServerFactoryTest.createTestServer(user, true);
         actionPerform();
-        DataResult dr = (DataResult) request.getAttribute("pageList");
+        DataResult dr = (DataResult) request.getAttribute(RequestContext.PAGE_LIST);
         assertTrue(dr.size() > 0);
     }
 

@@ -61,7 +61,7 @@ public class CreateCustomDataAction extends RhnAction {
                 server.getOrg().getId(), sid);
         requestContext.getRequiredParam(RequestContext.SID);
         request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
-        request.setAttribute("pageList", result);
+        request.setAttribute(RequestContext.PAGE_LIST, result);
         request.setAttribute("system", server);
 
         return getStrutsDelegate().forwardParams(

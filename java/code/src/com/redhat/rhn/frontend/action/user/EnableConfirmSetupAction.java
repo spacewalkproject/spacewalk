@@ -91,7 +91,7 @@ public class EnableConfirmSetupAction extends RhnListAction {
         clampListBounds(pc, request, user);
         DataResult dr = UserManager.usersInSet(user, "user_list", pc);
         dr.setElaborationParams(Collections.EMPTY_MAP);
-        request.setAttribute("pageList", dr);
+        request.setAttribute(RequestContext.PAGE_LIST, dr);
         request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
 
         return mapping.findForward(RhnHelper.DEFAULT_FORWARD);

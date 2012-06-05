@@ -92,7 +92,7 @@ public class VirtualGuestsListSetupAction extends BaseSystemListSetupAction {
 
         SdcHelper.ssmCheck(request, sid, user);
         request.setAttribute("set", set);
-        request.setAttribute("pageList", dr);
+        request.setAttribute(RequestContext.PAGE_LIST, dr);
         request.setAttribute("system", server);
         request.setAttribute("actionOptions", getActionOptions());
         request.setAttribute("guestSettingOptions", getGuestSettingOptions());

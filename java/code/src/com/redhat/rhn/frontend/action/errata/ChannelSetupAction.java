@@ -146,7 +146,7 @@ public class ChannelSetupAction extends RhnListAction {
             }
         }
 
-        request.setAttribute("pageList", channels);
+        request.setAttribute(RequestContext.PAGE_LIST, channels);
         request.setAttribute("set", set);
         //set advisory for toolbar
         request.setAttribute("advisory", e.getAdvisory());

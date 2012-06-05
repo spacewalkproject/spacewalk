@@ -34,7 +34,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class VirtualizationEntitlementsAction extends MappingDispatchAction {
 
-    public static final String PAGELIST = "pageList";
+    public static final String PAGELIST = RequestContext.PAGE_LIST;
 
     /**
      * Initializes the action

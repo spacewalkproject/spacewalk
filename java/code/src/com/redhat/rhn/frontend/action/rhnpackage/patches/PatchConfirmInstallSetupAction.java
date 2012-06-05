@@ -79,7 +79,7 @@ public class PatchConfirmInstallSetupAction extends RhnListAction {
         Date expectedCheckIn = new Date(server.getLastCheckin().getTime() +
                                         (1000 * 60 * 60 * 2));
         request.setAttribute("expectedcheckin", expectedCheckIn);
-        request.setAttribute("pageList", dr);
+        request.setAttribute(RequestContext.PAGE_LIST, dr);
         request.setAttribute("sid", sid);
         request.setAttribute("pageSummary", msg);
         request.setAttribute("system", server);

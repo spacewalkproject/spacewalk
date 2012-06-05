@@ -41,8 +41,6 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class PackageListAction extends RhnAction implements Listable {
 
-    private static final String DATA_SET = "pageList";
-
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping actionMapping,
                                  ActionForm actionForm,
@@ -64,7 +62,7 @@ public class PackageListAction extends RhnAction implements Listable {
         Map params = new HashMap();
         params.put(RequestContext.PRID, context.getRequiredParam(RequestContext.PRID));
         ListHelper helper = new ListHelper(this, request, params);
-        helper.setDataSetName(DATA_SET);
+        helper.setDataSetName(RequestContext.PAGE_LIST);
         helper.execute();
 
         Map forwardParams = new HashMap();

@@ -51,8 +51,6 @@ import javax.servlet.http.HttpServletResponse;
 /** @version $Revision$ */
 public class AddPackagesConfirmAction extends RhnAction implements Listable {
 
-    private static final String DATA_SET = "pageList";
-
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping actionMapping,
                                  ActionForm actionForm,
@@ -70,7 +68,7 @@ public class AddPackagesConfirmAction extends RhnAction implements Listable {
                 context.getRequiredParam("eid"));
 
         ListRhnSetHelper helper = new ListRhnSetHelper(this, request, decl);
-        helper.setDataSetName(DATA_SET);
+        helper.setDataSetName(RequestContext.PAGE_LIST);
         helper.setWillClearSet(false);
         helper.execute();
 

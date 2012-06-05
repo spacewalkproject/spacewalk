@@ -17,6 +17,7 @@ package com.redhat.rhn.frontend.action.errata.test;
 import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.domain.errata.test.ErrataFactoryTest;
 import com.redhat.rhn.frontend.action.errata.RemovePackagesSetupAction;
+import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.testing.ActionHelper;
 import com.redhat.rhn.testing.RhnBaseTestCase;
 
@@ -47,6 +48,6 @@ public class BaseErrataConfirmSetupActionTest extends RhnBaseTestCase {
         sah.getRequest().setupAddParameter("eid", e.getId().toString());
 
         sah.executeAction();
-        assertNotNull(sah.getRequest().getAttribute("pageList"));
+        assertNotNull(sah.getRequest().getAttribute(RequestContext.PAGE_LIST));
     }
 }

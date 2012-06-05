@@ -58,7 +58,7 @@ public class ChannelFamilyTreeAction extends BaseChannelTreeAction {
         Collections.sort(dr);
         dr = handleOrphans(dr);
         dr.setFilter(false);
-        request.setAttribute("pageList", dr);
+        request.setAttribute(RequestContext.PAGE_LIST, dr);
         request.setAttribute("cfid", cfid);
         request.setAttribute("familyName", co.getName());
 

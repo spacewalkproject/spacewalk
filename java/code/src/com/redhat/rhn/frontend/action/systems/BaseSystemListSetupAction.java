@@ -62,7 +62,7 @@ public abstract class BaseSystemListSetupAction extends RhnListAction {
         setStatusDisplay(dr, user);
 
         request.setAttribute("set", set);
-        request.setAttribute("pageList", dr);
+        request.setAttribute(RequestContext.PAGE_LIST, dr);
         return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
     /**

@@ -60,7 +60,7 @@ public class SolarisPatchSetListSetupAction extends RhnListAction {
         // need security
         Server server = SystemManager.lookupByIdAndUser(sid, user);
 
-        request.setAttribute("pageList", dr);
+        request.setAttribute(RequestContext.PAGE_LIST, dr);
         request.setAttribute("system", server);
 
         return getStrutsDelegate().forwardParams(

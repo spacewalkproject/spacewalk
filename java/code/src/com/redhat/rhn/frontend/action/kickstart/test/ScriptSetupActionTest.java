@@ -35,7 +35,7 @@ public class ScriptSetupActionTest extends RhnMockStrutsTestCase {
         setRequestPathInfo("/kickstart/Scripts");
         addRequestParameter(RequestContext.KICKSTART_ID, k.getId().toString());
         actionPerform();
-        DataResult dr = (DataResult) request.getAttribute("pageList");
+        DataResult dr = (DataResult) request.getAttribute(RequestContext.PAGE_LIST);
         assertNotNull(dr);
         assertTrue(dr.size() > 0);
 

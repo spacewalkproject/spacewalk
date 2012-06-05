@@ -56,7 +56,7 @@ public class SoftwareEntitlementDetailsAction extends RhnAction {
                 channelFamily.getChannels());
 
         request.setAttribute("entitlementName", channelFamily.getName());
-        request.setAttribute("pageList", channelsPageList);
+        request.setAttribute(RequestContext.PAGE_LIST, channelsPageList);
         request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
 
         return mapping.findForward(RhnHelper.DEFAULT_FORWARD);

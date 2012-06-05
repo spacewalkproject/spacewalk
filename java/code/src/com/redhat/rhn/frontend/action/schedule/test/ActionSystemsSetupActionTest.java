@@ -25,6 +25,7 @@ import com.redhat.rhn.domain.server.test.ServerFactoryTest;
 import com.redhat.rhn.frontend.action.common.BadParameterException;
 import com.redhat.rhn.frontend.action.schedule.ActionSystemsSetupAction;
 import com.redhat.rhn.frontend.action.schedule.InProgressSystemsSetupAction;
+import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.manager.action.ActionManager;
 import com.redhat.rhn.testing.ActionHelper;
 import com.redhat.rhn.testing.RhnBaseTestCase;
@@ -72,7 +73,7 @@ public class ActionSystemsSetupActionTest extends RhnBaseTestCase {
         sah.getRequest().setupAddParameter("returnvisit", (String) null);
 
         sah.executeAction();
-        assertNotNull(sah.getRequest().getAttribute("pageList"));
+        assertNotNull(sah.getRequest().getAttribute(RequestContext.PAGE_LIST));
         assertNotNull(sah.getRequest().getAttribute("user"));
         assertNotNull(sah.getRequest().getAttribute("action"));
         assertNotNull(sah.getRequest().getAttribute("actionname"));

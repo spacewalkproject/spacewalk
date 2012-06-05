@@ -60,7 +60,6 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class SchedulePackageUpgradeAction extends RhnAction implements Listable {
 
-    private static final String DATA_SET = "pageList";
     private static Logger log = Logger.getLogger(SchedulePackageUpgradeAction.class);
 
     /** {@inheritDoc} */
@@ -72,7 +71,7 @@ public class SchedulePackageUpgradeAction extends RhnAction implements Listable 
         RequestContext requestContext = new RequestContext(request);
 
         ListHelper helper = new ListHelper(this, request);
-        helper.setDataSetName(DATA_SET);
+        helper.setDataSetName(RequestContext.PAGE_LIST);
         helper.execute();
 
         if (request.getParameter("dispatch") != null) {

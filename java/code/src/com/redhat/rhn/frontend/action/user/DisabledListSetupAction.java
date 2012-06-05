@@ -94,7 +94,7 @@ public class DisabledListSetupAction extends RhnAction {
             ListTagHelper.setSelectedAmount(LIST_NAME, set.size(), request);
         }
 
-        request.setAttribute("pageList", dr);
+        request.setAttribute(RequestContext.PAGE_LIST, dr);
         request.setAttribute("set", set);
         request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
 

@@ -48,7 +48,7 @@ public abstract class BaseErrataListSetupAction extends RhnListAction {
 
         DataResult dr = getDataResult(user, pc);
 
-        request.setAttribute("pageList", dr);
+        request.setAttribute(RequestContext.PAGE_LIST, dr);
         return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
 

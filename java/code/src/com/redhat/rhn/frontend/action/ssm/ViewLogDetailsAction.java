@@ -44,7 +44,6 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class ViewLogDetailsAction extends RhnListAction implements Listable {
 
-    private static final String DATA_SET = "pageList";
     private static final String PARAM_OPERATION_ID = "oid";
 
     /** {@inheritDoc} */
@@ -65,7 +64,7 @@ public class ViewLogDetailsAction extends RhnListAction implements Listable {
 
         // List stuff for the server list
         ListHelper helper = new ListHelper(this, request);
-        helper.setDataSetName(DATA_SET);
+        helper.setDataSetName(RequestContext.PAGE_LIST);
 
         Map<String, String> helperParams = new HashMap<String, String>(1);
         helperParams.put("oid", request.getParameter("oid"));

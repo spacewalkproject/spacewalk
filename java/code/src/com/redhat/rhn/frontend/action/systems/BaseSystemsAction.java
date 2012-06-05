@@ -71,10 +71,10 @@ public abstract class BaseSystemsAction extends RhnListAction {
         }
 
 
-        request.setAttribute("pageList", result);
+        request.setAttribute(RequestContext.PAGE_LIST, result);
         ListTagHelper.bindSetDeclTo("systemList", getSetDecl(), request);
 
-        request.setAttribute("pageList", result);
+        request.setAttribute(RequestContext.PAGE_LIST, result);
         request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
 
         TagHelper.bindElaboratorTo("systemList", result.getElaborator(), request);

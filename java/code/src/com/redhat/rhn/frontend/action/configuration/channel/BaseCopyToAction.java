@@ -91,7 +91,7 @@ public abstract class BaseCopyToAction extends RhnAction {
             helper.execute(getSetDecl().get(user), getJspLabel(), result);
         }
 
-        req.setAttribute("pageList", result);
+        req.setAttribute(RequestContext.PAGE_LIST, result);
 
 
         RhnSet destSet = getSetDecl().lookup(user);
