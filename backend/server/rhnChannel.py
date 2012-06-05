@@ -1846,7 +1846,7 @@ def unsubscribe_channels(server_id, channels):
     for channel in child_channels + base_channels:
         ret = unsubscribe_sql(server_id, channel["id"], 0)
         if not ret:
-            rhnSQL.rollback("unsub_all_channels")
+            rhnSQL.rollback("unsub_channels")
             raise rhnFault(36, "Could not unsubscribe server %s "\
                            "from channel %s" % (server_id, channel["label"]))
 
