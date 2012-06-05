@@ -23,7 +23,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.81
+Version: 1.8.82
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -615,6 +615,25 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Jun 05 2012 Tomas Lestach <tlestach@redhat.com> 1.8.82-1
+- use apache-commons-io on Fedoras instead of jakarta-commons-io
+- Refactor "pageList" to RequestContext.PAGE_LIST
+- Refactor struts "default" forward also in /tests.
+- Refactor "default" to RhnHelper.DEFAULT_FORWARD
+- Remove unneeded variable
+- Do not set nonexisting localization.
+- Localized defaults should be localized.
+- Handle nonexistent testresult.
+- Show also scan's scheduler on details page.
+- Show also scan's arguments on details page.
+- 811470 - proper use of xml entities in apidoc
+- 811470 - fix apidoc for system.listLatestAvailablePackage()
+- 811470 - fix apidoc for kickstart.profile.system.checkRemoteCommands()
+- 811470 - fix apidoc of kickstart.profile.system.checkConfigManagement()
+- 811470 - fix apidoc for kickstart.profile.getKickstartTree()
+- 811470 - fix apidoc for kickstart.profile.comparePackages()
+- 811470 - fix apidoc for distchannel.listDefaultMaps()
+
 * Mon Jun 04 2012 Miroslav Suchý <msuchy@redhat.com> 1.8.81-1
 - Add support for studio image deployments (web UI) (jrenner@suse.de)
 - 811470 - fix apidoc for channel.access.setOrgSharing() (mzazrivec@redhat.com)
