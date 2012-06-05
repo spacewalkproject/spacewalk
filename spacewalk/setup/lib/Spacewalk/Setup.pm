@@ -1024,6 +1024,7 @@ sub postgresql_clear_db {
 	my $dbh = get_dbh($answers);
 	local $dbh->{RaiseError} = 0;
 	local $dbh->{PrintError} = 1;
+	local $dbh->{PrintWarn} = 0;
 	local $dbh->{AutoCommit} = 1;
 	for my $c (split /\n/, $POSTGRESQL_CLEAR_SCHEMA) {
 		$dbh->do($c);
