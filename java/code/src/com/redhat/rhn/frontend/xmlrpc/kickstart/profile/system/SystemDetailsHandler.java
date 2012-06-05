@@ -758,7 +758,7 @@ public class SystemDetailsHandler extends BaseHandler {
      * @throws FaultException A FaultException is thrown if:
      *   - The sessionKey is invalid
      *   - The kickstartLabel is invalid
-     * @return the registration type -> one of reactivation/deletion/none
+     * @return the registration type -&gt; one of reactivation/deletion/none
      *
      * @xmlrpc.doc returns the registration type of a given kickstart profile.
      * Registration Type can be one of reactivation/deletion/none
