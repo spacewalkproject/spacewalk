@@ -15,22 +15,6 @@
 
 from spacewalk.server import rhnSQL
 
-# maps a funky product release to something that is canonical
-# and has a chance of hitting some channels
-def real_version(version):
-    version = str(version)
-
-    h = rhnSQL.prepare("""
-    select canon_version
-    from rhnRedHatCanonVersion rhcv
-    where rhcv.version = :version
-    """)
-    h.execute(version = version)
-    ret = h.fetchone_dict()
-    if not ret:
-        return version
-    return ret["canon_version"]
-
 # checks if an arch is for real
 def check_package_arch(name):
     name = str(name)
@@ -47,6 +31,5 @@ if __name__ == '__main__':
     """Test code.
     """
     rhnSQL.initDB()
-    print real_version('7.1sbe')
     print check_package_arch('i386')
 
