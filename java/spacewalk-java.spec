@@ -56,7 +56,6 @@ Requires: jakarta-commons-discovery
 Requires: jakarta-commons-cli
 Requires: jakarta-commons-el
 Requires: jakarta-commons-fileupload
-Requires: jakarta-commons-io
 Requires: jakarta-taglibs-standard
 Requires: jcommon
 Requires: jdom
@@ -93,8 +92,10 @@ Requires: jpackage-utils >= 0:1.5
 Requires: cobbler >= 2.0.0
 Requires: dojo
 %if 0%{?fedora}
+Requires: apache-commons-io
 Requires: apache-commons-logging
 %else
+Requires: jakarta-commons-io
 Requires: jakarta-commons-logging
 %endif
 BuildRequires: ant
@@ -128,7 +129,6 @@ BuildRequires: jakarta-commons-collections
 BuildRequires: jakarta-commons-discovery
 BuildRequires: jakarta-commons-el
 BuildRequires: jakarta-commons-fileupload
-BuildRequires: jakarta-commons-io
 BuildRequires: jakarta-commons-validator
 BuildRequires: jakarta-taglibs-standard
 BuildRequires: jcommon
@@ -158,6 +158,9 @@ BuildRequires: postgresql-jdbc
 %if 0%{?fedora}
 # spelling checker is only for Fedoras (no aspell in RHEL6)
 BuildRequires: aspell aspell-en libxslt
+BuildRequires: apache-commons-io
+%else
+BuildRequires: jakarta-commons-io
 %endif
 Obsoletes: rhn-java < 5.3.0
 Obsoletes: rhn-java-sat < 5.3.0
