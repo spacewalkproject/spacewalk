@@ -25,7 +25,6 @@ from spacewalk.common.rhnTranslate import _, cat
 from spacewalk.common.rhnLib import checkValue
 from spacewalk.server.rhnLib import normalize_server_arch
 from spacewalk.server.rhnServer import server_route, server_lib
-from spacewalk.server.rhnMapping import real_version
 from spacewalk.server.rhnHandler import rhnHandler
 from spacewalk.server import rhnUser, rhnServer, rhnSQL, rhnCapability, \
         rhnChannel, rhnVirtualization
@@ -250,7 +249,7 @@ class Registration(rhnHandler):
         else:
             up2date_uuid = None
 
-        release = real_version(release_version)
+        release = str(release_version)
 
         if data.has_key('token'):
             token_string = data['token']
@@ -822,8 +821,7 @@ class Registration(rhnHandler):
         # we need to load the user because we will generate a new certificate
         self.load_user = 1
         server = self.auth_system(system_id)
-        # real_version will fix it, as well as stringify it for us
-        newver = real_version(newver)
+        newver = str(newver)
         if not newver:
             raise rhnFault(21, _("Invalid system release version requested"))
         #log the entry
