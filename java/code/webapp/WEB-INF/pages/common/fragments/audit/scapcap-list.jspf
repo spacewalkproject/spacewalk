@@ -22,4 +22,15 @@
       </c:choose>
     </rl:column>
   </rl:list>
+
+  <input type="hidden" name="submitted" value="true"/>
+  <input type="hidden" name="params" value="${param.params}"/>
+  <input type="hidden" name="path" value="${param.path}"/>
+  <input type="hidden" name="use_date" value="true"/>
+  <input type="hidden" name="date_year" value="${param.date_year}"/>
+  <input type="hidden" name="date_month" value="${param.date_month}"/>
+  <input type="hidden" name="date_day" value="${param.date_day}"/>
+  <input type="hidden" name="date_hour" value="${param.date_hour}"/>
+  <input type="hidden" name="date_minute" value="${param.date_minute}"/>
+  <input type="hidden" name="date_am_pm" value="${param.date_am_pm}"/>
 </rl:listset>
