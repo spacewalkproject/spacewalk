@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.8.47
+Version:        1.8.48
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -68,6 +68,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Tue Jun 05 2012 Michael Mraka <michael.mraka@redhat.com> 1.8.48-1
+- removed support for Red Hat Linux 6.2 and 7.[0123]
+
 * Mon Jun 04 2012 Miroslav Suchý <msuchy@redhat.com> 1.8.47-1
 - Add support for studio image deployments (DB files) (jrenner@suse.de)
 
