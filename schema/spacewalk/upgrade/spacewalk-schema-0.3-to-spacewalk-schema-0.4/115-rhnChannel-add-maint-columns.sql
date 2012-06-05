@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2012 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -15,8 +15,10 @@
 --
 --
 --
+alter trigger rhn_channel_mod_trig disable;
 ALTER TABLE rhnChannel
 ADD channel_access  varchar2(10) default 'private';
+alter trigger rhn_channel_mod_trig enable;
 
 ALTER TABLE rhnChannel
 ADD maint_name  varchar2(128);
