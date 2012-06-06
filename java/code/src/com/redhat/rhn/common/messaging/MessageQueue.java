@@ -25,6 +25,8 @@ import EDU.oswego.cs.dl.util.concurrent.LinkedQueue;
 
 import com.redhat.rhn.frontend.events.CloneErrataAction;
 import com.redhat.rhn.frontend.events.CloneErrataEvent;
+import com.redhat.rhn.frontend.events.NewCloneErrataAction;
+import com.redhat.rhn.frontend.events.NewCloneErrataEvent;
 import com.redhat.rhn.frontend.events.NewUserAction;
 import com.redhat.rhn.frontend.events.NewUserEvent;
 import com.redhat.rhn.frontend.events.RestartSatelliteAction;
@@ -68,8 +70,8 @@ public class MessageQueue {
     private static int messageCount;
 
     /**
-    * Util class so we don't have a usable constructor
-    */
+     * Util class so we don't have a usable constructor
+     */
     private MessageQueue() {
     }
 
@@ -154,9 +156,9 @@ public class MessageQueue {
     }
 
     /**
-    * Get the number of messages in the queue
-    * @return int number of messages in queue.
-    */
+     * Get the number of messages in the queue
+     * @return int number of messages in queue.
+     */
     public static int getMessageCount() {
         return messageCount;
     }
@@ -228,10 +230,10 @@ public class MessageQueue {
     }
 
     /**
-    * Check to see if the MessageQueue is running and available to
-    * publish MessageEvents to
-    * @return boolean true if MessageQueue is running.
-    */
+     * Check to see if the MessageQueue is running and available to
+     * publish MessageEvents to
+     * @return boolean true if MessageQueue is running.
+     */
     public static boolean isMessaging() {
         return (dispatcher != null && !dispatcher.isStopped());
     }
@@ -263,11 +265,11 @@ public class MessageQueue {
 
         // Used to allow SSM child channel changes to be run asynchronously
         SsmChangeChannelSubscriptionsAction sccsa =
-            new SsmChangeChannelSubscriptionsAction();
+                new SsmChangeChannelSubscriptionsAction();
         MessageQueue.registerAction(sccsa, SsmChangeChannelSubscriptionsEvent.class);
 
         MessageQueue.registerAction(new SsmDeleteServersAction(),
-                                                SsmDeleteServersEvent.class);
+                SsmDeleteServersEvent.class);
 
         // Used to allow SSM package installs to be run asynchronously
         SsmInstallPackagesAction ssmPackageInstallAction = new SsmInstallPackagesAction();
@@ -285,6 +287,8 @@ public class MessageQueue {
         //Clone Errata into a channel
         CloneErrataAction cea = new CloneErrataAction();
         MessageQueue.registerAction(cea, CloneErrataEvent.class);
+        NewCloneErrataAction ncea = new NewCloneErrataAction();
+        MessageQueue.registerAction(ncea, NewCloneErrataEvent.class);
 
     }
 }

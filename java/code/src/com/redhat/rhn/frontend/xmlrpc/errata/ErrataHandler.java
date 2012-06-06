@@ -49,7 +49,6 @@ import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.rhnpackage.Package;
 import com.redhat.rhn.domain.rhnpackage.PackageFactory;
 import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.frontend.action.channel.manage.PublishErrataHelper;
 import com.redhat.rhn.frontend.dto.CVE;
 import com.redhat.rhn.frontend.dto.PackageDto;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
@@ -876,12 +875,37 @@ public class ErrataHandler extends BaseHandler {
      */
     public Object[] clone(String sessionKey, String channelLabel,
             List advisoryNames) throws InvalidChannelRoleException {
-        return clone(sessionKey, channelLabel, advisoryNames, false);
+        return clone(sessionKey, channelLabel, advisoryNames, false, false);
+    }
+
+    /**
+     * Asynchronously clones a list of errata into a specified channel
+     *
+     * @param sessionKey The sessionKey containing the logged in user
+     * @param channelLabel the channel's label that we are cloning into
+     * @param advisoryNames an array of String objects containing the advisory name
+     *          of every errata you want to clone
+     * @throws InvalidChannelRoleException if the user perms are incorrect
+     * @return 1 on success, exception thrown otherwise.
+     *
+     * @xmlrpc.doc Asynchronously clone a list of errata into the specified channel.
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param("string", "channel_label")
+     * @xmlrpc.param
+     *      #array_single("string", " advisory - The advisory name of the errata to clone.")
+     * @xmlrpc.returntype
+     *          #return_int_success()
+     */
+    public int cloneAsync(String sessionKey, String channelLabel,
+            List advisoryNames) throws InvalidChannelRoleException {
+        clone(sessionKey, channelLabel, advisoryNames, false, false);
+        return 1;
     }
 
 
     private Object[] clone(String sessionKey, String channelLabel,
-            List<String> advisoryNames, boolean inheritPackages) {
+            List<String> advisoryNames, boolean inheritPackages,
+            boolean asynchronous) {
         User loggedInUser = getLoggedInUser(sessionKey);
 
         Logger log = Logger.getLogger(ErrataFactory.class);
@@ -897,7 +921,7 @@ public class ErrataHandler extends BaseHandler {
         if (inheritPackages) {
             if (!channel.isCloned()) {
                 throw new InvalidChannelException("Cloned channel expected: " +
-                    channel.getLabel());
+                        channel.getLabel());
             }
 
             Channel original = ChannelFactory.lookupOriginalChannel(channel);
@@ -919,39 +943,23 @@ public class ErrataHandler extends BaseHandler {
         }
 
         List<Errata> errataToClone = new ArrayList<Errata>();
-        List<Errata> errataToPublish = new ArrayList<Errata>();
+        List<Long> errataIds = new ArrayList<Long>();
         //We loop through once, making sure all the errata exist
         for (String advisory : advisoryNames) {
             Errata toClone = lookupErrata(advisory, loggedInUser.getOrg());
             errataToClone.add(toClone);
+            errataIds.add(toClone.getId());
         }
 
-        //For each errata look up existing clones, or manually clone it
-        for (Errata toClone : errataToClone) {
-            if (toClone.isCloned()) {
-                errataToPublish.add(toClone);
-            }
-            else {
-                List<Errata> clones = ErrataManager.lookupPublishedByOriginal(
-                        loggedInUser, toClone);
-                if (clones.isEmpty()) {
-                    errataToPublish.add(PublishErrataHelper.cloneErrataFast(toClone,
-                            loggedInUser.getOrg()));
-                }
-                else {
-                    errataToPublish.add(clones.get(0));
-                }
-            }
+        if (asynchronous) {
+            ErrataManager.cloneErrataApiAsync(channel, errataIds, loggedInUser,
+                    inheritPackages);
+            return new ArrayList<Errata>().toArray();
         }
-
-        //Now publish them all to the channel in a single shot
-        List<Errata> published = ErrataFactory.publishToChannel(errataToPublish, channel,
-                loggedInUser, inheritPackages);
-        for (Errata e : published) {
-            ErrataFactory.save(e);
+        else {
+            return ErrataManager.cloneErrataApi(channel, errataToClone,
+                    loggedInUser, inheritPackages);
         }
-
-        return published.toArray();
     }
 
 
@@ -979,10 +987,34 @@ public class ErrataHandler extends BaseHandler {
      */
     public Object[] cloneAsOriginal(String sessionKey, String channelLabel,
             List<String> advisoryNames) throws InvalidChannelRoleException {
-        return clone(sessionKey, channelLabel, advisoryNames, true);
+        return clone(sessionKey, channelLabel, advisoryNames, true, false);
     }
 
-
+    /**
+     * Asynchronously clones a list of errata into a specified cloned channel
+     * according the original erratas
+     *
+     * @param sessionKey The sessionKey containing the logged in user
+     * @param channelLabel the cloned channel's label that we are cloning into
+     * @param advisoryNames an array of String objects containing the advisory name
+     *          of every errata you want to clone
+     * @throws InvalidChannelRoleException if the user perms are incorrect
+     * @return 1 on success, exception thrown otherwise.
+     *
+     * @xmlrpc.doc Asynchronously clones a list of errata into a specified cloned channel
+     * according the original erratas
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param("string", "channel_label")
+     * @xmlrpc.param
+     *      #array_single("string", " advisory - The advisory name of the errata to clone.")
+     * @xmlrpc.returntype
+     *          #return_int_success()
+     */
+    public int cloneAsOriginalAsync(String sessionKey, String channelLabel,
+            List<String> advisoryNames) throws InvalidChannelRoleException {
+        clone(sessionKey, channelLabel, advisoryNames, true, true);
+        return 1;
+    }
 
 
     private Object getRequiredAttribute(Map map, String attribute) {

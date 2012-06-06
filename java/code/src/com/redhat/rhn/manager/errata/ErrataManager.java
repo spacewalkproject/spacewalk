@@ -39,11 +39,13 @@ import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.action.channel.manage.PublishErrataHelper;
 import com.redhat.rhn.frontend.dto.ChannelOverview;
 import com.redhat.rhn.frontend.dto.ErrataOverview;
 import com.redhat.rhn.frontend.dto.OwnedErrata;
 import com.redhat.rhn.frontend.dto.PackageOverview;
 import com.redhat.rhn.frontend.events.CloneErrataEvent;
+import com.redhat.rhn.frontend.events.NewCloneErrataEvent;
 import com.redhat.rhn.frontend.listview.PageControl;
 import com.redhat.rhn.frontend.xmlrpc.InvalidErrataException;
 import com.redhat.rhn.manager.BaseManager;
@@ -180,7 +182,7 @@ public class ErrataManager extends BaseManager {
      * @return Errata that is reloaded from the DB.
      */
     public static Errata addChannelsToErrata(Errata errata,
-                        Collection<Long> channelIds, User user) {
+            Collection<Long> channelIds, User user) {
         log.debug("addChannelsToErrata");
         Iterator itr = channelIds.iterator();
 
@@ -279,7 +281,7 @@ public class ErrataManager extends BaseManager {
      */
     public static DataResult allSecurityErrata(User user) {
         SelectMode m = ModeFactory.getMode("Errata_queries",
-                        "all_errata_by_type_with_cves");
+                "all_errata_by_type_with_cves");
         Map params = new HashMap();
         params.put("org_id", user.getOrg().getId());
         params.put("type", ErrataFactory.ERRATA_TYPE_SECURITY);
@@ -377,7 +379,7 @@ public class ErrataManager extends BaseManager {
     public static DataResult relevantSecurityErrata(User user,
             PageControl pc) {
         SelectMode m = ModeFactory.getMode("Errata_queries",
-                        "relevant_errata_by_type_with_cves");
+                "relevant_errata_by_type_with_cves");
         Map params = new HashMap();
         params.put("user_id", user.getId());
         params.put("type", ErrataFactory.ERRATA_TYPE_SECURITY);
@@ -502,7 +504,7 @@ public class ErrataManager extends BaseManager {
      * @return all of the errata
      */
     private static DataResult errataInSet(User user, PageControl pc, String mode,
-                                          String label) {
+            String label) {
         SelectMode m = ModeFactory.getMode("Errata_queries", mode);
         Map params = new HashMap();
         params.put("user_id", user.getId());
@@ -556,7 +558,7 @@ public class ErrataManager extends BaseManager {
 
         List<WriteMode> modes = new LinkedList<WriteMode>();
         modes.add(ModeFactory.getWriteMode("Errata_queries",
-                                "deleteChannelErrataPackagesBulk"));
+                "deleteChannelErrataPackagesBulk"));
         modes.add(ModeFactory.getWriteMode("Errata_queries", "deleteErrataFileBulk"));
         modes.add(ModeFactory.getWriteMode("Errata_queries", "deleteErrataPackageBulk"));
         modes.add(ModeFactory.getWriteMode("Errata_queries", "deleteErrataTmpBulk"));
@@ -587,8 +589,8 @@ public class ErrataManager extends BaseManager {
         RhnSetManager.store(bulk);
 
         for (ChannelOverview chan : cList) {
-             ChannelManager.queueChannelChange(chan.getLabel(),
-                                            "java::deleteErrata", "errata deletion");
+            ChannelManager.queueChannelChange(chan.getLabel(),
+                    "java::deleteErrata", "errata deletion");
         }
 
     }
@@ -657,8 +659,8 @@ public class ErrataManager extends BaseManager {
         // If this is a non-accessible RH errata or the errata belongs to another org,
         // throw a lookup exception
         if (returnedErrata.getOrg() == null ||
-            (returnedErrata.getOrg().getId() != user.getOrg().getId() &&
-             !user.getOrg().getTrustedOrgs().contains(returnedErrata.getOrg()))) {
+                (returnedErrata.getOrg().getId() != user.getOrg().getId() &&
+                !user.getOrg().getTrustedOrgs().contains(returnedErrata.getOrg()))) {
             LocalizationService ls = LocalizationService.getInstance();
             LookupException e = new LookupException("Could not find errata: " + eid);
             e.setLocalizedTitle(ls.getMessage("lookup.jsp.title.errata"));
@@ -733,8 +735,8 @@ public class ErrataManager extends BaseManager {
      */
     public static DataResult systemsAffectedXmlRpc(User user, Long eid) {
         SelectMode m = ModeFactory.getMode("System_queries",
-                                           "affected_by_errata_no_selectable",
-                                           Map.class);
+                "affected_by_errata_no_selectable",
+                Map.class);
         Map params = new HashMap();
         params.put("eid", eid);
         params.put("user_id", user.getId());
@@ -752,9 +754,9 @@ public class ErrataManager extends BaseManager {
      * @return DataResult of systems
      */
     public static DataResult relevantSystemsInSet(User user, String label,
-                                                  Long eid, PageControl pc) {
+            Long eid, PageControl pc) {
         SelectMode m = ModeFactory.getMode("System_queries",
-                                           "in_set_and_affected_by_errata");
+                "in_set_and_affected_by_errata");
         Map params = new HashMap();
         params.put("eid", eid);
         params.put("user_id", user.getId());
@@ -833,11 +835,11 @@ public class ErrataManager extends BaseManager {
         List<String> advTypes = new ArrayList<String>();
         LocalizationService ls = LocalizationService.getInstance();
         advTypes.add(ls.getMessage("errata.create.bugfixadvisory",
-                     LocalizationService.DEFAULT_LOCALE));
+                LocalizationService.DEFAULT_LOCALE));
         advTypes.add(ls.getMessage("errata.create.productenhancementadvisory",
-                     LocalizationService.DEFAULT_LOCALE));
+                LocalizationService.DEFAULT_LOCALE));
         advTypes.add(ls.getMessage("errata.create.securityadvisory",
-                     LocalizationService.DEFAULT_LOCALE));
+                LocalizationService.DEFAULT_LOCALE));
         return advTypes;
     }
 
@@ -892,16 +894,16 @@ public class ErrataManager extends BaseManager {
      * @return List of cloneableErrata
      */
     public static DataResult clonableErrata(Long orgid,
-                                            boolean showCloned) {
+            boolean showCloned) {
         SelectMode m;
 
         if (showCloned) {
             m = ModeFactory.getMode("Errata_queries",
-                                    "clonable_errata_list_all");
+                    "clonable_errata_list_all");
         }
         else {
             m = ModeFactory.getMode("Errata_queries",
-                                    "clonable_errata_list_uncloned");
+                    "clonable_errata_list_uncloned");
         }
 
 
@@ -910,7 +912,7 @@ public class ErrataManager extends BaseManager {
         return makeDataResult(params, params, null, m);
     }
 
-   /**
+    /**
      * Get List of cloneable Errata for an org, from a particular channel
      * @param orgid org we want to lookup against
      * @param cid channelid
@@ -918,17 +920,17 @@ public class ErrataManager extends BaseManager {
      * @return List of cloneableErrata
      */
     public static DataResult clonableErrataForChannel(Long orgid,
-                                                      Long cid,
-                                                      boolean showCloned) {
+            Long cid,
+            boolean showCloned) {
         SelectMode m;
 
         if (showCloned) {
             m = ModeFactory.getMode("Errata_queries",
-                                    "clonable_errata_for_channel_all");
+                    "clonable_errata_for_channel_all");
         }
         else {
             m = ModeFactory.getMode("Errata_queries",
-                                    "clonable_errata_for_channel_uncloned");
+                    "clonable_errata_for_channel_uncloned");
         }
 
         Map params = new HashMap();
@@ -948,7 +950,7 @@ public class ErrataManager extends BaseManager {
      * @return List of applicable channels for the erratum (that the org has access to)
      */
     public static DataResult applicableChannels(Long eid, Long orgid,
-                                                PageControl pc, Class clazz) {
+            PageControl pc, Class clazz) {
         SelectMode m;
         if (clazz == null) {
             m = ModeFactory.getMode("Channel_queries", "org_errata_channels");
@@ -1073,283 +1075,338 @@ public class ErrataManager extends BaseManager {
      * @param setLabel the set label
      * @return list of Errata Overview Objects
      */
-   public static DataResult<ErrataOverview> lookupErrataListFromSet(
-                   User user, String setLabel) {
-       Map params = new HashMap();
-       params.put("user_id", user.getId());
-       params.put("set", setLabel);
-       SelectMode m = ModeFactory.getMode(
-               "Errata_queries", "errata_list_in_set");
-       return m.execute(params);
+    public static DataResult<ErrataOverview> lookupErrataListFromSet(
+            User user, String setLabel) {
+        Map params = new HashMap();
+        params.put("user_id", user.getId());
+        params.put("set", setLabel);
+        SelectMode m = ModeFactory.getMode(
+                "Errata_queries", "errata_list_in_set");
+        return m.execute(params);
 
-   }
+    }
 
-   /**
-    * Finds the packages contained in an errata that apply to a channel
-    * @param customChan the channel to look in
-    * @param errata the errata to look for packs with
-    * @param user the user doing the request.
-    * @return collection of PackageOverview objects
-    */
-   public static DataResult<PackageOverview> lookupPacksFromErrataForChannel(
-               Channel customChan, Errata errata, User user) {
-       Map params = new HashMap();
-       //params.put("uid", user.getId());
-       params.put("eid" , errata.getId());
-       params.put("org_id" , user.getOrg().getId());
-       params.put("custom_cid", customChan.getId());
-       SelectMode m = ModeFactory.getMode(
-               "Errata_queries",  "find_packages_for_errata_and_channel");
-       return m.execute(params);
+    /**
+     * Finds the packages contained in an errata that apply to a channel
+     * @param customChan the channel to look in
+     * @param errata the errata to look for packs with
+     * @param user the user doing the request.
+     * @return collection of PackageOverview objects
+     */
+    public static DataResult<PackageOverview> lookupPacksFromErrataForChannel(
+            Channel customChan, Errata errata, User user) {
+        Map params = new HashMap();
+        //params.put("uid", user.getId());
+        params.put("eid" , errata.getId());
+        params.put("org_id" , user.getOrg().getId());
+        params.put("custom_cid", customChan.getId());
+        SelectMode m = ModeFactory.getMode(
+                "Errata_queries",  "find_packages_for_errata_and_channel");
+        return m.execute(params);
 
-   }
+    }
 
-   /**
-    * Lists the packages contained in an errata associated to a channel
-    * @param customChan the channel to look in
-    * @param errata the errata to look for packs with
-    * @param user the user doing the request.
-    * @return collection of PackageOverview objects
-    */
-   public static DataResult<PackageOverview> listErrataChannelPacks(
-               Channel customChan, Errata errata, User user) {
-       Map params = new HashMap();
-       params.put("eid" , errata.getId());
-       params.put("org_id" , user.getOrg().getId());
-       params.put("custom_cid", customChan.getId());
-       SelectMode m = ModeFactory.getMode(
-               "Errata_queries",  "find_errata_channel_packages");
-       return m.execute(params);
+    /**
+     * Lists the packages contained in an errata associated to a channel
+     * @param customChan the channel to look in
+     * @param errata the errata to look for packs with
+     * @param user the user doing the request.
+     * @return collection of PackageOverview objects
+     */
+    public static DataResult<PackageOverview> listErrataChannelPacks(
+            Channel customChan, Errata errata, User user) {
+        Map params = new HashMap();
+        params.put("eid" , errata.getId());
+        params.put("org_id" , user.getOrg().getId());
+        params.put("custom_cid", customChan.getId());
+        SelectMode m = ModeFactory.getMode(
+                "Errata_queries",  "find_errata_channel_packages");
+        return m.execute(params);
 
-   }
+    }
 
-   /**
-    * Finds the errata ids issued between start and end dates.
-    * @param start String start date
-    * @param end String end date
-    * @return errata ids issued between start -> end
-    */
-   public static List<Long> listErrataIdsIssuedBetween(String start, String end) {
-       String mode = "issued_between";
-       Map params = new HashMap();
-       if (!StringUtils.isEmpty(start)) {
-           params.put("start_date_str", start);
-       }
-       if (!StringUtils.isEmpty(end)) {
-           params.put("end_date_str", end);
-       }
-       SelectMode m = ModeFactory.getMode("Errata_queries", mode);
-       DataResult result =  m.execute(params);
-       List ids = new ArrayList<Long>();
-       for (Iterator iter = result.iterator(); iter.hasNext();) {
-           Map row = (Map) iter.next();
-           Long rawId = (Long) row.get("id");
-           ids.add(rawId);
-       }
-       return ids;
+    /**
+     * Finds the errata ids issued between start and end dates.
+     * @param start String start date
+     * @param end String end date
+     * @return errata ids issued between start -> end
+     */
+    public static List<Long> listErrataIdsIssuedBetween(String start, String end) {
+        String mode = "issued_between";
+        Map params = new HashMap();
+        if (!StringUtils.isEmpty(start)) {
+            params.put("start_date_str", start);
+        }
+        if (!StringUtils.isEmpty(end)) {
+            params.put("end_date_str", end);
+        }
+        SelectMode m = ModeFactory.getMode("Errata_queries", mode);
+        DataResult result =  m.execute(params);
+        List ids = new ArrayList<Long>();
+        for (Iterator iter = result.iterator(); iter.hasNext();) {
+            Map row = (Map) iter.next();
+            Long rawId = (Long) row.get("id");
+            ids.add(rawId);
+        }
+        return ids;
 
-   }
-
-
-
-   /**
-    * remove an erratum for a channel and updates the errata cache accordingly
-    * @param errata the errata to remove
-    * @param chan the channel to remove the erratum from
-    * @param user the user doing the removing
-    */
-   public static void removeErratumFromChannel(Errata errata, Channel chan, User user) {
-
-       if (!user.hasRole(RoleFactory.CHANNEL_ADMIN)) {
-           throw new PermissionException(RoleFactory.CHANNEL_ADMIN);
-       }
-
-       //Since we don't remove the packages, we need to insert those entries
-       //       in case they aren't already there.
-       // So we are inserting   (systemID, packageId) entries, because we're
-       //      going to delete the (systemId, packageId, errataId) entries
-       List<Long> pids = ErrataFactory.listErrataChannelPackages(
-               chan.getId(), errata.getId());
-       ErrataCacheManager.insertCacheForChannelPackages(chan.getId(), null, pids);
-
-
-       //Remove the errata from the channel
-       chan.getErratas().remove(errata);
-       List<Long> eList = new ArrayList<Long>();
-       eList.add(errata.getId());
-       //First delete the cache entries
-       ErrataCacheManager.deleteCacheEntriesForChannelErrata(chan.getId(), eList);
-       //Then we need to see if the errata is in any other channels within the channel tree.
-
-       List<Channel> cList = new ArrayList<Channel>();
-       if (chan.isBaseChannel()) {
-           cList.addAll(ChannelFactory.listAllChildrenForChannel(chan));
-       }
-       else {
-           //add parent
-           Channel parent = chan.getParentChannel();
-           cList.add(parent); //add parent
-           //add sibbling and self
-           cList.addAll(ChannelFactory.listAllChildrenForChannel(parent));
-           cList.remove(chan); //remove self
-
-       }
-       for (Channel tmpChan : cList) {
-           if (tmpChan.getErratas().contains(errata)) {
-               List<Long> tmpCidList = new ArrayList<Long>();
-               tmpCidList.add(tmpChan.getId());
-               ErrataCacheManager.insertCacheForChannelErrataAsync(tmpCidList, errata);
-           }
-       }
-
-   }
-
-
-   /**
-    * Publish errata to a channel asynchronisly (cloning as necessary),
-    *   does not do any package push
-    * @param chan the channel
-    * @param errataIds list of errata ids
-    * @param user the user doing the push
-    */
-   public static void publishErrataToChannelAsync(Channel chan,
-           Collection<Long> errataIds, User user) {
-       Logger.getLogger(ErrataManager.class).debug("Publishing");
-       CloneErrataEvent eve = new CloneErrataEvent(chan, errataIds, user);
-       MessageQueue.publish(eve);
-   }
+    }
 
 
 
+    /**
+     * remove an erratum for a channel and updates the errata cache accordingly
+     * @param errata the errata to remove
+     * @param chan the channel to remove the erratum from
+     * @param user the user doing the removing
+     */
+    public static void removeErratumFromChannel(Errata errata, Channel chan, User user) {
 
-   /**
-    * Send errata notifications for a particular errata and channel
-    * @param e the errata to send notifications about
-    * @param chan the channel with which to decide which systems
-    *       and users to send errata for
-    * @param date  the date
-    */
-   public static void addErrataNotification(Errata e, Channel chan, Date date) {
-       Map params = new HashMap();
-       params.put("cid", chan.getId());
-       params.put("eid", e.getId());
-       java.sql.Date newDate = new java.sql.Date(date.getTime());
-       params.put("datetime", newDate);
-       WriteMode m = ModeFactory.getWriteMode(
-               "Errata_queries",  "insert_errata_notification");
-       m.executeUpdate(params);
-   }
+        if (!user.hasRole(RoleFactory.CHANNEL_ADMIN)) {
+            throw new PermissionException(RoleFactory.CHANNEL_ADMIN);
+        }
 
-   /**
-    * Delete all errata notifications for an errata
-    * @param e the errata to clear notifications for
-    */
-   public static void clearErrataNotifications(Errata e) {
-       Map params = new HashMap();
-       params.put("eid", e.getId());
-       WriteMode m = ModeFactory.getWriteMode(
-               "Errata_queries",  "clear_errata_notification");
-       m.executeUpdate(params);
-   }
+        //Since we don't remove the packages, we need to insert those entries
+        //       in case they aren't already there.
+        // So we are inserting   (systemID, packageId) entries, because we're
+        //      going to delete the (systemId, packageId, errataId) entries
+        List<Long> pids = ErrataFactory.listErrataChannelPackages(
+                chan.getId(), errata.getId());
+        ErrataCacheManager.insertCacheForChannelPackages(chan.getId(), null, pids);
 
-   /**
-    * Delete all errata notifications for an errata in specified channel
-    * @param e the errata to clear notifications for
-    * @param c affected channel
-    */
-   public static void clearErrataChannelNotifications(Errata e, Channel c) {
-       Map params = new HashMap();
-       params.put("eid", e.getId());
-       params.put("cid", c.getId());
-       WriteMode m = ModeFactory.getWriteMode(
-               "Errata_queries",  "clear_errata_channel_notification");
-       m.executeUpdate(params);
-   }
 
-   /**
-    * List queued errata notifications
-    * @param e the errata
-    * @return list of maps
-    */
-   public static List listErrataNotifications(Errata e) {
-       Map params = new HashMap();
-       params.put("eid", e.getId());
-       SelectMode m = ModeFactory.getMode("Errata_queries", "list_errata_notification");
-       return m.execute(params);
-   }
+        //Remove the errata from the channel
+        chan.getErratas().remove(errata);
+        List<Long> eList = new ArrayList<Long>();
+        eList.add(errata.getId());
+        //First delete the cache entries
+        ErrataCacheManager.deleteCacheEntriesForChannelErrata(chan.getId(), eList);
+        // Then we need to see if the errata is in any other channels within the
+        // channel tree.
 
-   /**
-    * update the errata search index.
-    * @return true if index was updated, false otherwise.
-    */
-   private static boolean updateSearchIndex() {
-       boolean flag = false;
+        List<Channel> cList = new ArrayList<Channel>();
+        if (chan.isBaseChannel()) {
+            cList.addAll(ChannelFactory.listAllChildrenForChannel(chan));
+        }
+        else {
+            //add parent
+            Channel parent = chan.getParentChannel();
+            cList.add(parent); //add parent
+            //add sibbling and self
+            cList.addAll(ChannelFactory.listAllChildrenForChannel(parent));
+            cList.remove(chan); //remove self
 
-       try {
-           XmlRpcClient client = new XmlRpcClient(
-                   ConfigDefaults.get().getSearchServerUrl(), true);
-           List args = new ArrayList();
-           args.add("errata");
-           Boolean rc = (Boolean)client.invoke("admin.updateIndex", args);
-           flag =  rc.booleanValue();
-       }
-       catch (XmlRpcFault e) {
-           // right now updateIndex doesn't throw any faults.
-           log.error("Errata index not updated. Search server unavailable." +
-                   "ErrorCode = " + e.getErrorCode(), e);
-           e.printStackTrace();
-       }
-       catch (Exception e) {
-           // if the search server is down, folks will know when they
-           // attempt to search. If this call failed the errata in
-           // question won't be searchable immediately, but will get picked
-           // up the next time the search server runs the job (after being
-           // restarted.
-           log.error("Errata index not updated. Search server unavailable.", e);
-       }
+        }
+        for (Channel tmpChan : cList) {
+            if (tmpChan.getErratas().contains(errata)) {
+                List<Long> tmpCidList = new ArrayList<Long>();
+                tmpCidList.add(tmpChan.getId());
+                ErrataCacheManager.insertCacheForChannelErrataAsync(tmpCidList, errata);
+            }
+        }
 
-       return flag;
-   }
+    }
 
-   /**
-    * Apply errata updates to a system list at a specified time.
-    * @param loggedInUser The logged in user
-    * @param systemIds list of system IDs
-    * @param errataIds List of errata IDs to apply (as Integers)
-    * @param earliestOccurrence Earliest occurrence of the errata update
-    */
-   public static void applyErrataHelper(User loggedInUser, List<Long> systemIds,
-                                    List<Integer> errataIds, Date earliestOccurrence) {
-       // first check, whether the errata list is applicable to the whole system list
-       // if not, exception is thrown
-       for (Long sid : systemIds) {
-           checkApplicableErrata(loggedInUser, errataIds, sid);
-       }
 
-       // at this point all errata is applicable to all systems, so let's apply
-       applyErrata(loggedInUser, errataIds, earliestOccurrence, systemIds);
-   }
+    /**
+     * Publish errata to a channel asynchronously (cloning as necessary),
+     *   does not do any package push
+     * @param chan the channel
+     * @param errataIds list of errata ids
+     * @param user the user doing the push
+     */
+    public static void publishErrataToChannelAsync(Channel chan,
+            Collection<Long> errataIds, User user) {
+        Logger.getLogger(ErrataManager.class).debug("Publishing");
+        CloneErrataEvent eve = new CloneErrataEvent(chan, errataIds, user);
+        MessageQueue.publish(eve);
+    }
 
-   private static void checkApplicableErrata(User loggedInUser, List<Integer> errataIds,
+    /**
+     * Clone errata to a channel
+     * @param chan the channel
+     * @param errata list of errata ids
+     * @param user the user doing the push
+     * @param inheritPackages inherit packages from the original bug (instaed of the
+     * clone in the case of a clone of a clone)
+     * @return an array of Errata that have been published
+     */
+    public static Object[] cloneErrataApi(Channel chan, List<Errata> errata,
+            User user, boolean inheritPackages) {
+        List<Errata> errataToPublish = new ArrayList<Errata>();
+        // For each errata look up existing clones, or manually clone it
+        for (Errata toClone : errata) {
+            if (toClone.isCloned()) {
+                errataToPublish.add(toClone);
+            }
+            else {
+                List<Errata> clones = ErrataManager.lookupPublishedByOriginal(
+                        user, toClone);
+                if (clones.isEmpty()) {
+                    errataToPublish.add(PublishErrataHelper.cloneErrataFast(
+                            toClone, user.getOrg()));
+                }
+                else {
+                    errataToPublish.add(clones.get(0));
+                }
+            }
+        }
+
+        List<Errata> published = ErrataFactory.publishToChannel(
+                errataToPublish, chan, user, inheritPackages);
+        for (Errata e : published) {
+            ErrataFactory.save(e);
+        }
+        return published.toArray();
+    }
+
+    /**
+     * Clone errata to a channel asynchronously
+     * @param chan the channel
+     * @param errata list of errata ids
+     * @param user the user doing the push
+     * @param inheritPackages inherit packages from the original bug (instead of the
+     * clone in the case of a clone of a clone)
+     */
+    public static void cloneErrataApiAsync(Channel chan, List<Long> errata,
+            User user, boolean inheritPackages) {
+        Logger.getLogger(ErrataManager.class).debug("Cloning");
+        NewCloneErrataEvent neve = new NewCloneErrataEvent(chan, errata, user,
+                inheritPackages);
+        MessageQueue.publish(neve);
+    }
+
+
+
+
+    /**
+     * Send errata notifications for a particular errata and channel
+     * @param e the errata to send notifications about
+     * @param chan the channel with which to decide which systems
+     *       and users to send errata for
+     * @param date  the date
+     */
+    public static void addErrataNotification(Errata e, Channel chan, Date date) {
+        Map params = new HashMap();
+        params.put("cid", chan.getId());
+        params.put("eid", e.getId());
+        java.sql.Date newDate = new java.sql.Date(date.getTime());
+        params.put("datetime", newDate);
+        WriteMode m = ModeFactory.getWriteMode(
+                "Errata_queries",  "insert_errata_notification");
+        m.executeUpdate(params);
+    }
+
+    /**
+     * Delete all errata notifications for an errata
+     * @param e the errata to clear notifications for
+     */
+    public static void clearErrataNotifications(Errata e) {
+        Map params = new HashMap();
+        params.put("eid", e.getId());
+        WriteMode m = ModeFactory.getWriteMode(
+                "Errata_queries",  "clear_errata_notification");
+        m.executeUpdate(params);
+    }
+
+    /**
+     * Delete all errata notifications for an errata in specified channel
+     * @param e the errata to clear notifications for
+     * @param c affected channel
+     */
+    public static void clearErrataChannelNotifications(Errata e, Channel c) {
+        Map params = new HashMap();
+        params.put("eid", e.getId());
+        params.put("cid", c.getId());
+        WriteMode m = ModeFactory.getWriteMode(
+                "Errata_queries",  "clear_errata_channel_notification");
+        m.executeUpdate(params);
+    }
+
+    /**
+     * List queued errata notifications
+     * @param e the errata
+     * @return list of maps
+     */
+    public static List listErrataNotifications(Errata e) {
+        Map params = new HashMap();
+        params.put("eid", e.getId());
+        SelectMode m = ModeFactory.getMode("Errata_queries", "list_errata_notification");
+        return m.execute(params);
+    }
+
+    /**
+     * update the errata search index.
+     * @return true if index was updated, false otherwise.
+     */
+    private static boolean updateSearchIndex() {
+        boolean flag = false;
+
+        try {
+            XmlRpcClient client = new XmlRpcClient(
+                    ConfigDefaults.get().getSearchServerUrl(), true);
+            List args = new ArrayList();
+            args.add("errata");
+            Boolean rc = (Boolean)client.invoke("admin.updateIndex", args);
+            flag =  rc.booleanValue();
+        }
+        catch (XmlRpcFault e) {
+            // right now updateIndex doesn't throw any faults.
+            log.error("Errata index not updated. Search server unavailable." +
+                    "ErrorCode = " + e.getErrorCode(), e);
+            e.printStackTrace();
+        }
+        catch (Exception e) {
+            // if the search server is down, folks will know when they
+            // attempt to search. If this call failed the errata in
+            // question won't be searchable immediately, but will get picked
+            // up the next time the search server runs the job (after being
+            // restarted.
+            log.error("Errata index not updated. Search server unavailable.", e);
+        }
+
+        return flag;
+    }
+
+    /**
+     * Apply errata updates to a system list at a specified time.
+     * @param loggedInUser The logged in user
+     * @param systemIds list of system IDs
+     * @param errataIds List of errata IDs to apply (as Integers)
+     * @param earliestOccurrence Earliest occurrence of the errata update
+     */
+    public static void applyErrataHelper(User loggedInUser, List<Long> systemIds,
+            List<Integer> errataIds, Date earliestOccurrence) {
+        // first check, whether the errata list is applicable to the whole system list
+        // if not, exception is thrown
+        for (Long sid : systemIds) {
+            checkApplicableErrata(loggedInUser, errataIds, sid);
+        }
+
+        // at this point all errata is applicable to all systems, so let's apply
+        applyErrata(loggedInUser, errataIds, earliestOccurrence, systemIds);
+    }
+
+    private static void checkApplicableErrata(User loggedInUser, List<Integer> errataIds,
             Long serverId) {
-       // Check to make sure the given errata are applicable to and unscheduled for the
-       // system in question. This catches three scenarios, errata that don't apply to
-       // this system, are already scheduled, or don't exist in the first place.
-       // TODO: fail silently in some of these cases?
-       Set unscheduledErrataIds = new HashSet();
-       List unscheduledErrata = SystemManager.unscheduledErrata(loggedInUser,
-               serverId, null);
-       for (Iterator it = unscheduledErrata.iterator(); it.hasNext();) {
-           Errata e = (Errata)it.next();
-           unscheduledErrataIds.add(e.getId());
-       }
-       for (Iterator it = errataIds.iterator(); it.hasNext();) {
-           Integer currentId = (Integer)it.next();
-           if (!unscheduledErrataIds.contains(currentId.longValue())) {
-               throw new InvalidErrataException();
-           }
-       }
-   }
+        // Check to make sure the given errata are applicable to and unscheduled for the
+        // system in question. This catches three scenarios, errata that don't apply to
+        // this system, are already scheduled, or don't exist in the first place.
+        // TODO: fail silently in some of these cases?
+        Set unscheduledErrataIds = new HashSet();
+        List unscheduledErrata = SystemManager.unscheduledErrata(loggedInUser,
+                serverId, null);
+        for (Iterator it = unscheduledErrata.iterator(); it.hasNext();) {
+            Errata e = (Errata)it.next();
+            unscheduledErrataIds.add(e.getId());
+        }
+        for (Iterator it = errataIds.iterator(); it.hasNext();) {
+            Integer currentId = (Integer)it.next();
+            if (!unscheduledErrataIds.contains(currentId.longValue())) {
+                throw new InvalidErrataException();
+            }
+        }
+    }
 
     private static void applyErrata(User loggedInUser, List errataIds,
             Date earliestOccurrence, List<Long> serverIds) {

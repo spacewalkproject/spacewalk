@@ -134,7 +134,7 @@ def main(options):
     needed_channels = []
     for channel_list in options.channels:
         tree_cloner = ChannelTreeCloner(channel_list, xmlrpc, db, 
-                                        options.to_date, options.blacklist, options.removelist)
+                                        options.to_date, options.blacklist, options.removelist, options.background)
         cloners.append(tree_cloner)
         needed_channels += tree_cloner.needing_create().values()
 
@@ -184,7 +184,7 @@ class ChannelTreeCloner:
          """
     # pylint: disable=R0902
     def __init__(self, channels, remote_api, db_api, to_date, blacklist, 
-                                            removelist):
+                                            removelist, detached):
         self.remote_api = remote_api
         self.db_api = db_api
         self.channel_map = channels
@@ -195,12 +195,13 @@ class ChannelTreeCloner:
         self.dest_parent = None
         self.src_parent = None
         self.channel_details = None        
+        self.detached = detached
         
         self.validate_source_channels()        
         for from_label in self.ordered_labels():
             to_label = self.channel_map[from_label]            
             cloner = ChannelCloner(from_label, to_label, self.to_date, 
-                                   self.remote_api, self.db_api)
+                                   self.remote_api, self.db_api, self.detached)
             self.cloners.append(cloner)
             
     
@@ -383,7 +384,7 @@ class ChannelTreeCloner:
 
 class ChannelCloner:
     # pylint: disable=R0902
-    def __init__(self, from_label, to_label, to_date, remote_api, db_api):
+    def __init__(self, from_label, to_label, to_date, remote_api, db_api, detached):
         self.remote_api = remote_api
         self.db_api = db_api
         self.from_label = from_label
@@ -394,6 +395,7 @@ class ChannelCloner:
         self.available_errata = None          
         self.new_pkg_hash = {}
         self.old_pkg_hash = {}
+        self.detached = detached
         
         
     def dest_label(self):
@@ -489,8 +491,11 @@ class ChannelCloner:
         pb.printAll(1)
         while(len(errata_ids) > 0):
             errata_set = errata_ids[:bunch_size]
-            del errata_ids[:bunch_size]            
-            self.remote_api.clone_errata(self.to_label, errata_set)
+            del errata_ids[:bunch_size]
+            if self.detached:
+                self.remote_api.clone_errata_async(self.to_label, errata_set)
+            else:
+                self.remote_api.clone_errata(self.to_label, errata_set)
             pb.addTo(bunch_size)
             pb.printIncrement()
             
@@ -611,6 +616,10 @@ class RemoteApi:
     def clone_errata(self, to_label, errata_list):
         self.auth_check()
         self.client.errata.cloneAsOriginal(self.auth_token, to_label, errata_list)
+    
+    def clone_errata_async(self, to_label, errata_list):
+        self.auth_check()
+        self.client.errata.cloneAsOriginalAsync(self.auth_token, to_label, errata_list)
     
     def get_details(self, label):
         self.auth_check()

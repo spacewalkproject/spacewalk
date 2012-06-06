@@ -133,6 +133,7 @@ def parse_args():
     parser.add_option("-m", "--sample-config", dest='sample', action='store_true', help="Print a sample full configuration file and exit.")
     parser.add_option("-k", "--skip_depsolve", dest='skip_depsolve', action='store_true', help="Skip all dependency solving (Not recommended).")
     parser.add_option("-v", "--validate", dest='validate', action='store_true', help="Run repoclosure on the set of specified repositories.")
+    parser.add_option("-g", "--background", dest='background', action='store_true', help="Clone the errata in the background. Prompt will return quicker; before cloning is finished.")
         
     (options, args) = parser.parse_args()    
 
@@ -188,15 +189,15 @@ def systemExit(code, msgs=None):
         for msg in msgs:
             sys.stderr.write(str(msg)+'\n')
     sys.exit(code)
-    
-def main():    
+
+def main():
     try:
-        args = parse_args();        
+        args = parse_args();
         return cloneByDate.main(args)
     except KeyboardInterrupt:
         systemExit(0, "\nUser interrupted process.")
     except UserError, error:
-        systemExit(-1, "\n%s" % error)        
+        systemExit(-1, "\n%s" % error)
     return 0
 
 
