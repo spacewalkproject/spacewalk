@@ -1,7 +1,7 @@
 %define rhnroot %{_prefix}/share/rhn
 
 Name:		spacewalk-utils
-Version:	1.8.16
+Version:	1.8.17
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -86,6 +86,9 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Wed Jun 06 2012 Stephen Herr <sherr@redhat.com> 1.8.17-1
+- 829485 - Created new asyncronous api methods for cloning errata
+
 * Wed May 23 2012 Stephen Herr <sherr@redhat.com> 1.8.16-1
 - 824583 - spacewalk-clone-by-date failes with TypeError when on Postgres
   database.
