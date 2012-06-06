@@ -12142,6 +12142,18 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
        <trans-unit id="scapsearch.jsp.whatsearch.tip">
          <source>&lt;strong&gt;Examples:&lt;/strong&gt; &#39;no_hashes_outside_shadow&#39;, &#39;CCE-14300-8&#39;</source>
        </trans-unit>
+       <trans-unit id="scapsearch.jsp.scan_date">
+         <source>Scan Dates to Search</source>
+       </trans-unit>
+       <trans-unit id="scapsearch.jsp.search_by_scan_dates">
+         <source>Search Scans Performed Between Dates</source>
+       </trans-unit>
+       <trans-unit id="scapsearch.jsp.start_date">
+         <source>Start Date</source>
+       </trans-unit>
+       <trans-unit id="scapsearch.jsp.end_date">
+         <source>End Date</source>
+       </trans-unit>
      </group>
 
      <!-- Action common -->

@@ -43,7 +43,7 @@ import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 public class ScapManager extends BaseManager {
 
     private static final List<String> SEARCH_TERM_PRECEDENCE = Arrays.asList(
-            "slabel");
+            "slabel", "start", "end");
 
     /**
      * Returns the given system is scap enabled.

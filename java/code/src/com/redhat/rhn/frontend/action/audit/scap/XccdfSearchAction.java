@@ -15,7 +15,9 @@
 package com.redhat.rhn.frontend.action.audit.scap;
 
 import java.net.MalformedURLException;
+import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.Map;
@@ -36,6 +38,8 @@ import org.directwebremoting.util.Logger;
 import redstone.xmlrpc.XmlRpcException;
 import redstone.xmlrpc.XmlRpcFault;
 
+import com.redhat.rhn.common.util.DatePicker;
+import com.redhat.rhn.frontend.action.common.DateRangePicker;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnHelper;
@@ -48,6 +52,7 @@ public class XccdfSearchAction extends RhnAction {
 
     private static final String SEARCH_STRING = "search_string";
     private static final String WHERE_TO_SEARCH = "whereToSearch";
+    private static final String SCAN_DATE_SEARCH = "optionScanDateSearch";
     private static Logger log = Logger.getLogger(XccdfSearchAction.class);
 
     /** {@inheritDoc} */
@@ -120,15 +125,18 @@ public class XccdfSearchAction extends RhnAction {
         request.setAttribute(SEARCH_STRING, searchString);
         form.set(WHERE_TO_SEARCH,
                 "system_list".equals(whereToSearch) ? whereToSearch : "all");
+        DateRangePicker picker = setupDatePicker(form, request);
 
         if (!StringUtils.isBlank(searchString)) {
+            picker.processDatePickers(getOptionScanDateSearch(request), false);
             List results = XccdfSearchHelper.performSearch(searchString, whereToSearch,
-                    context);
+                getPickerDate(request, "start"), getPickerDate(request, "end"), context);
             request.setAttribute(RequestContext.PAGE_LIST,
                     results != null ? results : Collections.EMPTY_LIST);
         }
         else {
             request.setAttribute(RequestContext.PAGE_LIST, Collections.EMPTY_LIST);
+            picker.processDatePickers(false, false);
         }
     }
 
@@ -145,5 +153,31 @@ public class XccdfSearchAction extends RhnAction {
             }
         }
         return forwardParams;
+    }
+
+    private Date getPickerDate(HttpServletRequest request, String paramName) {
+        if (getOptionScanDateSearch(request)) {
+            DatePicker dPick = (DatePicker)request.getAttribute(paramName);
+            if (dPick != null) {
+                return dPick.getDate();
+            }
+        }
+        return null;
+    }
+
+    private Boolean getOptionScanDateSearch(HttpServletRequest request) {
+        String strDateSearch = request.getParameter(SCAN_DATE_SEARCH);
+        return "on".equals(strDateSearch);
+    }
+
+    private DateRangePicker setupDatePicker(DynaActionForm form,
+            HttpServletRequest request) {
+        Calendar today = Calendar.getInstance();
+        today.setTime(new Date());
+        Calendar yesterday = (Calendar) today.clone();
+        yesterday.add(Calendar.DAY_OF_YEAR, -1);
+        return new DateRangePicker(form, request, yesterday.getTime(), today.getTime(),
+                DatePicker.YEAR_RANGE_NEGATIVE, "scapsearch.jsp.start_date",
+                "scapsearch.jsp.end_date");
     }
 }

@@ -238,6 +238,19 @@
             <form-property name="search_string" type="java.lang.String"/>
             <form-property name="whereToSearch" type="java.lang.String"/>
             <form-property name="submitted" type="java.lang.Boolean" />
+            <form-property name="optionScanDateSearch" type="java.lang.Boolean" />
+            <form-property name="start_year" type="java.lang.Integer"/>
+            <form-property name="start_month" type="java.lang.Integer"/>
+            <form-property name="start_day" type="java.lang.Integer"/>
+            <form-property name="start_hour" type="java.lang.Integer"/>
+            <form-property name="start_minute" type="java.lang.Integer"/>
+            <form-property name="start_am_pm" type="java.lang.Integer"/>
+            <form-property name="end_year" type="java.lang.Integer"/>
+            <form-property name="end_month" type="java.lang.Integer"/>
+            <form-property name="end_day" type="java.lang.Integer"/>
+            <form-property name="end_hour" type="java.lang.Integer"/>
+            <form-property name="end_minute" type="java.lang.Integer"/>
+            <form-property name="end_am_pm" type="java.lang.Integer"/>
         </form-bean>
         <form-bean name="errataSearchForm"
                    type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">

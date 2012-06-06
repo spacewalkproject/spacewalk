@@ -15,7 +15,9 @@
 package com.redhat.rhn.frontend.action.audit.scap;
 
 import java.net.MalformedURLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -42,6 +44,8 @@ public class XccdfSearchHelper extends RhnAction {
      * Perform search over XCCDF
      * @param searchString A string to search within xccdf:Rules
      * @param whereToSearch Where to search for scans, either ssm or all machines
+     * @param startDate search scans performed after startDate (null to ommit)
+     * @param endDate search scans performed before endDate (null to ommit)
      * @param context A context of cuyrrent request
      * @return a list of xccdf:rule-results
      * @throws MalformedURLException possibly bad configuration for search server address
@@ -49,7 +53,7 @@ public class XccdfSearchHelper extends RhnAction {
      * @throws XmlRpcFault bad communication with search server
      */
     public static List performSearch(String searchString, String whereToSearch,
-            RequestContext context)
+            Date startDate, Date endDate, RequestContext context)
             throws MalformedURLException, XmlRpcException, XmlRpcFault {
         ArrayList args = new ArrayList();
         args.add(context.getWebSession().getId());
@@ -70,6 +74,10 @@ public class XccdfSearchHelper extends RhnAction {
         params.put("user_id", context.getCurrentUser().getId());
         if (SYSTEM_LIST.equals(whereToSearch)) {
             params.put("slabel", SYSTEM_LIST);
+        }
+        if (startDate != null && endDate != null) {
+            params.put("start", new Timestamp(startDate.getTime()));
+            params.put("end", new Timestamp(endDate.getTime()));
         }
         return ScapManager.ruleResultsByIdentIds(params, identIds);
     }

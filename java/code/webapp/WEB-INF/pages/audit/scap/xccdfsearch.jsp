@@ -6,6 +6,21 @@
 
 <html:xhtml/>
 <html>
+<head>
+  <script language="javascript">
+    Event.observe(window, 'load', function() {
+        scanDateSearchOptions();
+        });
+    function scanDateSearchOptions() {
+      if ($("scanDateOptionsCheckBox").checked) {
+        Element.show("scanDateOptions");
+      } else {
+        Element.hide("scanDateOptions");
+      }
+    }
+  </script>
+</head>
+
 <body>
 
 <rhn:toolbar base="h1" img="/img/rhn-icon-search.gif" imgAlt="search.alt.img">
@@ -45,6 +60,32 @@
             </div>
           </td>
         </tr>
+        <tr><th><bean:message key="scapsearch.jsp.scan_date"/>:</th>
+          <td>
+            <html:checkbox styleId="scanDateOptionsCheckBox" property="optionScanDateSearch" onclick="javascript:scanDateSearchOptions()">
+              <label for="scanDateOptionsCheckBox">
+                <bean:message key="scapsearch.jsp.search_by_scan_dates"/>
+              </label>
+            </html:checkbox>
+            </br>
+            <div id="scanDateOptions" class="indent">
+              <table>
+                <tr><td><bean:message key="scapsearch.jsp.start_date"/>:</td>
+                  <td><jsp:include page="/WEB-INF/pages/common/fragments/date-picker.jsp">
+                      <jsp:param name="widget" value="start"/>
+                    </jsp:include>
+                  </td>
+                </tr>
+                <tr><td><bean:message key="scapsearch.jsp.end_date"/>:</td>
+                  <td><jsp:include page="/WEB-INF/pages/common/fragments/date-picker.jsp">
+                      <jsp:param name="widget" value="end"/>
+                    </jsp:include>
+                  </td>
+                <tr>
+              </table>
+            </div>
+          </td>
+        </tr>
       </table>
     </div> <!-- search-choices-group -->
   </div> <!-- search-choices -->
@@ -66,6 +107,19 @@
     <input type="hidden" name="submitted" value="true"/>
     <input type="hidden" name="search_string" value="${search_string}"/>
     <input type="hidden" name="whereToSearch" value="${param.whereToSearch}"/>
+    <input type="hidden" name="optionScanDateSearch" value="${param.optionScanDateSearch}"/>
+    <input type="hidden" name="start_year" value="${param.start_year}"/>
+    <input type="hidden" name="start_month" value="${param.start_month}"/>
+    <input type="hidden" name="start_day" value="${param.start_day}"/>
+    <input type="hidden" name="start_hour" value="${param.start_hour}"/>
+    <input type="hidden" name="start_minute" value="${param.start_minute}"/>
+    <input type="hidden" name="start_am_pm" value="${param.start_am_pm}"/>
+    <input type="hidden" name="end_year" value="${param.end_year}"/>
+    <input type="hidden" name="end_month" value="${param.end_month}"/>
+    <input type="hidden" name="end_day" value="${param.end_day}"/>
+    <input type="hidden" name="end_hour" value="${param.end_hour}"/>
+    <input type="hidden" name="end_minute" value="${param.end_minute}"/>
+    <input type="hidden" name="end_am_pm" value="${param.end_am_pm}"/>
   </rl:listset>
 </c:if>
 
