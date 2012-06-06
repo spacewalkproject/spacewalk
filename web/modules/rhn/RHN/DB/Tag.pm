@@ -105,16 +105,9 @@ sub remove_tags_from_system {
   my $sid = shift;
 
   my $dbh = $params{transaction} || RHN::DB->connect();
-  my $query = <<EOQ;
-BEGIN
-  rhn_server.tag_delete(:server_id, :tag_id);
-END;
-EOQ
 
-  my $sth = $dbh->prepare($query);
-  
   for my $tag (@tags) {
-    $sth->execute_h(tag_id => $tag, server_id => $sid);
+    $dbh->call_procedure('rhn_server.tag_delete', $sid, $tag);
   }
   $dbh->commit;
 }
