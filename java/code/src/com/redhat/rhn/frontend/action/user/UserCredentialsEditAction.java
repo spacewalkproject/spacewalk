@@ -29,6 +29,7 @@ import com.redhat.rhn.domain.credentials.CredentialsFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 
 /**
  * Create and edit credentials for external systems or APIs.
@@ -93,6 +94,6 @@ public class UserCredentialsEditAction extends RhnAction {
                 request.setAttribute(ATTRIB_CREDS, newCreds);
             }
         }
-        return mapping.findForward("default");
+        return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
 }
