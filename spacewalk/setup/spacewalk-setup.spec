@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        1.8.10
+Version:        1.8.11
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -109,6 +109,9 @@ rm -rf %{buildroot}
 %{_mandir}/man8/spacewalk-make-mount-points*
 
 %changelog
+* Wed Jun 06 2012 Jan Pazdziora 1.8.11-1
+- Suppress db notices when clearing the schema
+
 * Thu May 31 2012 Jan Pazdziora 1.8.10-1
 - get rid of jabberd xsl templates in spacewalk-setup
 
