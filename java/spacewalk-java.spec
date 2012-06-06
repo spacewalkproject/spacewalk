@@ -23,7 +23,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.82
+Version: 1.8.83
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -615,6 +615,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Jun 06 2012 Stephen Herr <sherr@redhat.com> 1.8.83-1
+- 829485 - Created new asyncronous api methods for cloning errata
+
 * Tue Jun 05 2012 Tomas Lestach <tlestach@redhat.com> 1.8.82-1
 - use apache-commons-io on Fedoras instead of jakarta-commons-io
 - Refactor "pageList" to RequestContext.PAGE_LIST
