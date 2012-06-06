@@ -19,20 +19,22 @@ returns numeric
 as $$
 declare
     tag_id  numeric;
+    tag_name_id numeric;
 begin
+    tag_name_id := lookup_tag_name(name_in);
+
     select id
       into tag_id
       from rhnTag
      where org_id = org_id_in and
-           name_id = lookup_tag_name(name_in);
+           name_id = tag_name_id;
 
     if not found then
         tag_id := nextval('rhn_tag_id_seq');
         begin
             perform pg_dblink_exec(
                 'insert into rhnTag(id, org_id, name_id) values (' ||
-                tag_id || ', ' || org_id_in || ', ' ||
-                coalesce(quote_literal(lookup_tag_name(name_in)), 'NULL') || ')');
+                tag_id || ', ' || org_id_in || ', ' || tag_name_id || ')');
         exception when unique_violation then
             select id
               into strict tag_id
