@@ -6440,6 +6440,12 @@ Suivez cet url pour obtenir la liste complète des systèmes inactifs :
         </context-group>
       <target>Action de comparaison de configuration programmée avec succès pour &lt;strong&gt;{0} systèmes&lt;/strong&gt;.</target></trans-unit>
 
+      <trans-unit id="schedulediff.ssm.failure">
+        <source>Failed to schedule Configuration Comparison Action</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/ssm/config/Diff.do</context>
+        </context-group>
+      <target>Échec de la programmation d'une action de comparaison de configuration</target></trans-unit>
 
 
 

@@ -6413,6 +6413,12 @@ Follow this url to see the full list of inactive systems:
         </context-group>
       <target>&lt;strong&gt;{0} સિસ્ટમો&lt;/strong&gt; માટે રૂપરેખાંકન સરખામણી ક્રિયા સફળતાપૂર્વક સુનિશ્ચિત થઈ.</target></trans-unit>
 
+      <trans-unit id="schedulediff.ssm.failure">
+        <source>Failed to schedule Configuration Comparison Action</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/ssm/config/Diff.do</context>
+        </context-group>
+      <target>રૂપરેખાંકન સરખામણી ક્રિયા સુનિશ્ચિત કરવામાં નિષ્ફળ</target></trans-unit>
 
 
 

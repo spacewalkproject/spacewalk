@@ -6425,6 +6425,12 @@ Follow this url to see the full list of inactive systems:
         </context-group>
       <target>Ação de Comparação de Configuração agendada com sucesso para &lt;strong&gt;{0} sistemas&lt;/strong&gt;.</target></trans-unit>
 
+      <trans-unit id="schedulediff.ssm.failure">
+        <source>Failed to schedule Configuration Comparison Action</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/ssm/config/Diff.do</context>
+        </context-group>
+      <target>Falha ao agendar Ação de Comparação de Configuração</target></trans-unit>
 
 
 

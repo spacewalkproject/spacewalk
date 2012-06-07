@@ -6437,6 +6437,12 @@ Seguite l'url sotto riportato per visualizzare l'elenco completo di sistemi inat
         </context-group>
       <target>Azione di confronto della configurazione per &lt;strong&gt;{0} sistemi&lt;/strong&gt; programmata con successo.</target></trans-unit>
 
+      <trans-unit id="schedulediff.ssm.failure">
+        <source>Failed to schedule Configuration Comparison Action</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/ssm/config/Diff.do</context>
+        </context-group>
+      <target>Impossibile programmare l'azione di confronto della configurazione</target></trans-unit>
 
 
 

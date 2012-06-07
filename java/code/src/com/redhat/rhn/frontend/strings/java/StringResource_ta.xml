@@ -6413,6 +6413,12 @@ url பின்பற்றி செயலிழக்கப்பட்ட �
         </context-group>
       <target>&lt;strong&gt;{0} கணினிகளுக்கு&lt;/strong&gt; வெற்றிகரமான கட்டமைப்பு ஒப்பீடு செயல் திட்டமிடப்பட்டது.</target></trans-unit>
 
+      <trans-unit id="schedulediff.ssm.failure">
+        <source>Failed to schedule Configuration Comparison Action</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/ssm/config/Diff.do</context>
+        </context-group>
+      <target>கட்டமைப்பு ஒப்பீடு செயலைத் திட்டமிட முடியவில்லை</target></trans-unit>
 
 
 

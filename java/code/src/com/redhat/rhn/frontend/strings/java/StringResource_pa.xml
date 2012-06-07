@@ -6415,6 +6415,12 @@ Follow this url to see the full list of inactive systems:
         </context-group>
       <target>ਸੰਰਚਨਾ ਤੁਲਨਾ ਕਾਰਵਾਈ ਸਫਲਤਾਪੂਰਕ &lt;strong&gt;{0} ਸਿਸਟਮਾਂ&lt;/strong&gt; ਲਈ ਤਹਿ ਕੀਤੀ ਗਈ ਹੈ।</target></trans-unit>
 
+      <trans-unit id="schedulediff.ssm.failure">
+        <source>Failed to schedule Configuration Comparison Action</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/ssm/config/Diff.do</context>
+        </context-group>
+      <target>ਸੰਰਚਨਾ ਤੁਲਨਾ ਕਾਰਵਾਈ ਤਹਿ ਕਰਨ ਵਿੱਚ ਫੇਲ</target></trans-unit>
 
 
 

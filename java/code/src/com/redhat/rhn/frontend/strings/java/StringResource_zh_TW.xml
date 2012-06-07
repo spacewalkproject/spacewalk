@@ -6412,6 +6412,12 @@ Follow this url to see the full list of inactive systems:
         </context-group>
       <target>已為 &lt;strong&gt;{0} 個系統&lt;/strong&gt;成功地排程了配置比較的動作。</target></trans-unit>
 
+      <trans-unit id="schedulediff.ssm.failure">
+        <source>Failed to schedule Configuration Comparison Action</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/ssm/config/Diff.do</context>
+        </context-group>
+      <target>無法排程配置比較的動作</target></trans-unit>
 
 
 
