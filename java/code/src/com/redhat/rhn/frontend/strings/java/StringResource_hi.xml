@@ -6399,6 +6399,13 @@ Follow this url to see the full list of inactive systems:
       <target>सेंडबॉक्स</target></trans-unit>
 
 
+      <trans-unit id="schedulediff.ssm.successes">
+        <source>Configuration Comparison Action scheduled successfully for &lt;strong&gt;{0} systems&lt;/strong&gt;.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/ssm/config/Diff.do</context>
+          <context context-type="paramnotes">Configuration Comparison Action scheduled successfully for {0} systems.</context>
+        </context-group>
+      <target>विन्यास तुलना क्रिया को सफलतापूर्वक &lt;strong&gt;{0} systems&lt;/strong&gt; के लिये नियोजित किया गया.</target></trans-unit>
 
 
 

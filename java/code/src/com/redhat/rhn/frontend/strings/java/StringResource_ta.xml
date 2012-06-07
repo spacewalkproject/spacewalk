@@ -6399,6 +6399,13 @@ url பின்பற்றி செயலிழக்கப்பட்ட �
       <target>சான்ட்பாக்ஸ்</target></trans-unit>
 
 
+      <trans-unit id="schedulediff.ssm.successes">
+        <source>Configuration Comparison Action scheduled successfully for &lt;strong&gt;{0} systems&lt;/strong&gt;.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/ssm/config/Diff.do</context>
+          <context context-type="paramnotes">Configuration Comparison Action scheduled successfully for {0} systems.</context>
+        </context-group>
+      <target>&lt;strong&gt;{0} கணினிகளுக்கு&lt;/strong&gt; வெற்றிகரமான கட்டமைப்பு ஒப்பீடு செயல் திட்டமிடப்பட்டது.</target></trans-unit>
 
 
 

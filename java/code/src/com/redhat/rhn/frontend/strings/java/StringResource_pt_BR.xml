@@ -6411,6 +6411,13 @@ Follow this url to see the full list of inactive systems:
       <target>Quarentena</target></trans-unit>
 
 
+      <trans-unit id="schedulediff.ssm.successes">
+        <source>Configuration Comparison Action scheduled successfully for &lt;strong&gt;{0} systems&lt;/strong&gt;.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/ssm/config/Diff.do</context>
+          <context context-type="paramnotes">Configuration Comparison Action scheduled successfully for {0} systems.</context>
+        </context-group>
+      <target>Ação de Comparação de Configuração agendada com sucesso para &lt;strong&gt;{0} sistemas&lt;/strong&gt;.</target></trans-unit>
 
 
 

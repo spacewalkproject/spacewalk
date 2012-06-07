@@ -6401,6 +6401,13 @@ Follow this url to see the full list of inactive systems:
       <target>ਸੈਂਡਬਕਸਾ</target></trans-unit>
 
 
+      <trans-unit id="schedulediff.ssm.successes">
+        <source>Configuration Comparison Action scheduled successfully for &lt;strong&gt;{0} systems&lt;/strong&gt;.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/ssm/config/Diff.do</context>
+          <context context-type="paramnotes">Configuration Comparison Action scheduled successfully for {0} systems.</context>
+        </context-group>
+      <target>ਸੰਰਚਨਾ ਤੁਲਨਾ ਕਾਰਵਾਈ ਸਫਲਤਾਪੂਰਕ &lt;strong&gt;{0} ਸਿਸਟਮਾਂ&lt;/strong&gt; ਲਈ ਤਹਿ ਕੀਤੀ ਗਈ ਹੈ।</target></trans-unit>
 
 
 

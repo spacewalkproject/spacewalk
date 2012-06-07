@@ -6424,6 +6424,13 @@ Follow this url to see the full list of inactive systems:
       <target>Sandbox</target></trans-unit>
 
 
+      <trans-unit id="schedulediff.ssm.successes">
+        <source>Configuration Comparison Action scheduled successfully for &lt;strong&gt;{0} systems&lt;/strong&gt;.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/ssm/config/Diff.do</context>
+          <context context-type="paramnotes">Configuration Comparison Action scheduled successfully for {0} systems.</context>
+        </context-group>
+      <target>成功地为 &lt;strong&gt;{0} 个系统&lt;/strong&gt;预定了 Configuration Comparison Action。</target></trans-unit>
 
 
 
