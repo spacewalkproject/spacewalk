@@ -16,6 +16,7 @@ package com.redhat.rhn.frontend.action.audit.scap;
 
 import java.net.MalformedURLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -65,11 +66,12 @@ public class XccdfSearchHelper extends RhnAction {
             identIds.add(id);
         }
 
+        Map params = new HashMap<String, Object>();
+        params.put("user_id", context.getCurrentUser().getId());
         if (SYSTEM_LIST.equals(whereToSearch)) {
-            return ScapManager.ruleResultsByIdentIdsForSsm(context.getCurrentUser(),
-                     identIds);
+            params.put("slabel", SYSTEM_LIST);
         }
-        return ScapManager.ruleResultsByIdentIds(context.getCurrentUser(), identIds);
+        return ScapManager.ruleResultsByIdentIds(params, identIds);
     }
 
     private static String preprocessSearchString(String searchString) {

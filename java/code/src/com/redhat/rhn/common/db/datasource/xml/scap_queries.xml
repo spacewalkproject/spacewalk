@@ -113,7 +113,9 @@
   </query>
 </mode>
 
-<mode name="ruleresults_by_idents" class="com.redhat.rhn.frontend.dto.XccdfRuleResultDto">
+<!-- Queries starting with rr_by_idents are binded dynamically
+     in ScapManager.ruleResultsByIdents() method. -->
+<mode name="rr_by_idents" class="com.redhat.rhn.frontend.dto.XccdfRuleResultDto">
   <query params="user_id">
   SELECT DISTINCT rr.id, rrt.label, rr.testresult_id AS test_result_id
       FROM rhnXccdfRuleresult rr,
@@ -131,8 +133,8 @@
   </query>
 </mode>
 
-<mode name="ruleresults_by_idents_for_ssm" class="com.redhat.rhn.frontend.dto.XccdfRuleResultDto">
-  <query params="user_id">
+<mode name="rr_by_idents_slabel" class="com.redhat.rhn.frontend.dto.XccdfRuleResultDto">
+  <query params="user_id, slabel">
   SELECT DISTINCT rr.id, rrt.label, rr.testresult_id AS test_result_id
       FROM rhnXccdfRuleresult rr,
           rhnXccdfRuleresultType rrt,
@@ -145,7 +147,7 @@
           AND tr.id = testresult_id
           AND tr.server_id = st.element
           AND st.user_id = :user_id
-          AND st.label = 'system_list'
+          AND st.label = :slabel
       ORDER BY rr.id DESC
   </query>
 </mode>

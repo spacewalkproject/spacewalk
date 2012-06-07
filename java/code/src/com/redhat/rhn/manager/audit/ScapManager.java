@@ -15,6 +15,7 @@
 package com.redhat.rhn.manager.audit;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -40,6 +41,9 @@ import com.redhat.rhn.manager.rhnset.RhnSetDecl;
  * @version $Rev$
  */
 public class ScapManager extends BaseManager {
+
+    private static final List<String> SEARCH_TERM_PRECEDENCE = Arrays.asList(
+            "slabel");
 
     /**
      * Returns the given system is scap enabled.
@@ -131,33 +135,21 @@ public class ScapManager extends BaseManager {
 
     /**
      * Get xccdf:rule-results by ident's ids
-     * @param user attempting to view results
+     * @param inParams direct parameters for query.
+     * user_id is the only compulsory
      * @param identIds list of xccdf:ident ids
      * @return the result
      */
-    public static List<XccdfRuleResultDto> ruleResultsByIdentIds(User user,
+    public static List<XccdfRuleResultDto> ruleResultsByIdentIds(Map inParams,
             List<Long> identIds) {
-        SelectMode m = ModeFactory.getMode("scap_queries",
-                "ruleresults_by_idents");
-        HashMap params = new HashMap();
-        params.put("user_id", user.getId());
-        return m.execute(params, identIds);
-    }
-
-    /**
-     * Get xccdf:rule-results by ident's ids, but only those in relation
-     * with some of the SSM systems.
-     * @param user requesting results
-     * @param identIds list of xccdf:ident ids
-     * @return the result
-     */
-    public static List<XccdfRuleResultDto> ruleResultsByIdentIdsForSsm(
-            User user, List<Long> identIds) {
-        SelectMode m = ModeFactory.getMode("scap_queries",
-                "ruleresults_by_idents_for_ssm");
-        HashMap params = new HashMap();
-        params.put("user_id", user.getId());
-        return m.execute(params, identIds);
+        String modeName = "rr_by_idents";
+        for (String term : SEARCH_TERM_PRECEDENCE) {
+            if (inParams.containsKey(term)) {
+                modeName += "_" + term;
+            }
+        }
+        SelectMode m = ModeFactory.getMode("scap_queries", modeName);
+        return m.execute(inParams, identIds);
     }
 
     /**
