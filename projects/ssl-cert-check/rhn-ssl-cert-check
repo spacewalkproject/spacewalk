@@ -32,12 +32,7 @@ unset ADMIN EXPIRATION CHECK
 EXPIRATION=${EXPIRATION:-60}
 
 if [ -z "$ADMIN" ]; then
-    ADMIN=$(spacewalk-cfg-get traceback_mail)
-    # Replace commas with spaces
-    ADMIN=${ADMIN//,/ }
-    # Trim leading spaces
-    shopt -s extglob
-    ADMIN=${ADMIN/#+( )/}
+    ADMIN=$(spacewalk-cfg-get traceback_mail | perl -0777 -pe 's/\s+/,/g; s/^,|,$//g')
 fi
 
 if [ -z "$ADMIN" ]; then
