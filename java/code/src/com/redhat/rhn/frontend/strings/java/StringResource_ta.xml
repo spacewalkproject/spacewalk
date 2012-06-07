@@ -6398,6 +6398,12 @@ url பின்பற்றி செயலிழக்கப்பட்ட �
         </context-group>
       <target>சான்ட்பாக்ஸ்</target></trans-unit>
 
+      <trans-unit id="schedulediff.ssm.success">
+        <source>Configuration Comparison Action scheduled successfully for &lt;strong&gt;1 system&lt;/strong&gt;.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/ssm/config/Diff.do</context>
+        </context-group>
+      <target>&lt;strong&gt;1 கணினிக்கு&lt;/strong&gt; வெற்றிகரமான கட்டமைப்பு ஒப்பீடு செயல் திட்டமிடப்பட்டது.</target></trans-unit>
 
       <trans-unit id="schedulediff.ssm.successes">
         <source>Configuration Comparison Action scheduled successfully for &lt;strong&gt;{0} systems&lt;/strong&gt;.</source>

@@ -6423,6 +6423,12 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
         </context-group>
       <target>Entorno de prueba</target></trans-unit>
 
+      <trans-unit id="schedulediff.ssm.success">
+        <source>Configuration Comparison Action scheduled successfully for &lt;strong&gt;1 system&lt;/strong&gt;.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/ssm/config/Diff.do</context>
+        </context-group>
+      <target>Acción de comparación de configuración programada con éxito para &lt;strong&gt;1 sistema&lt;/strong&gt;.</target></trans-unit>
 
       <trans-unit id="schedulediff.ssm.successes">
         <source>Configuration Comparison Action scheduled successfully for &lt;strong&gt;{0} systems&lt;/strong&gt;.</source>

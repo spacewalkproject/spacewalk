@@ -6429,6 +6429,12 @@ Folgen Sie dieser URL f&amp;uuml;r die vollst&amp;auml;ndige Liste inaktiver Sys
         </context-group>
       <target>Sandbox</target></trans-unit>
 
+      <trans-unit id="schedulediff.ssm.success">
+        <source>Configuration Comparison Action scheduled successfully for &lt;strong&gt;1 system&lt;/strong&gt;.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/ssm/config/Diff.do</context>
+        </context-group>
+      <target>Die Aktion zum Abgleichen der Konfiguration wurde erfolgreich f&amp;uuml;r &lt;strong&gt;1 System&lt;/strong&gt; geplant.</target></trans-unit>
 
       <trans-unit id="schedulediff.ssm.successes">
         <source>Configuration Comparison Action scheduled successfully for &lt;strong&gt;{0} systems&lt;/strong&gt;.</source>
