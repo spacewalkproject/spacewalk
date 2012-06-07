@@ -64,6 +64,9 @@ Utility for cloning errata by date.
         <arg>-y</arg><arg> --assumeyes </arg>
     </cmdsynopsis>
     <cmdsynopsis>
+        <arg>-g</arg><arg> --background</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
         <arg>-h</arg><arg>--help</arg>
     </cmdsynopsis>
 </Synopsis>
@@ -167,6 +170,17 @@ Utility for cloning errata by date.
         <term> -r <replaceable>PKG1,PKG2,PKG3</replaceable>, --removelist=<replaceable>PKG1,PKG2,PKG3</replaceable>  </term>
         <listitem>
             <para>Comma separated list of package names to be removed after cloning.  Perl-style regular expressions are also supported.  All packages are considered for removal, even those not added by errata/channel cloning.  Dependency resolution is not ensured on resulting repository.
+            </para>
+            <para>
+                Note:  This option is global across all destination channels. To specify per channel removelists, you must use a configuration file.  See --sample-config for an example.
+            </para>
+        </listitem>
+    </varlistentry>
+    parser.add_option("-g", "--background", dest='background', action='store_true', help="Clone the errata in the background. Prompt will return quicker; before cloning is finished.")
+    <varlistentry>
+        <term> -g --background</term>
+        <listitem>
+            <para>This option makes the cloning of the errata into the destination channel happen asynchronously in the background, allowing the script to return much faster.
             </para>
             <para>
                 Note:  This option is global across all destination channels. To specify per channel removelists, you must use a configuration file.  See --sample-config for an example.
