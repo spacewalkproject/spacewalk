@@ -176,7 +176,6 @@ Utility for cloning errata by date.
             </para>
         </listitem>
     </varlistentry>
-    parser.add_option("-g", "--background", dest='background', action='store_true', help="Clone the errata in the background. Prompt will return quicker; before cloning is finished.")
     <varlistentry>
         <term> -g --background</term>
         <listitem>
