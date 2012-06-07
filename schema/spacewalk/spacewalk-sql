@@ -131,13 +131,13 @@ spacewalk-sql - utility for feeding SQL to Spacewalk's database
 
 =head1 SYNOPSIS
 
-    B<spacewalk-sql> sql-file-to-use.sql
-    B<spacewalk-sql> - < sql-file-to-use.sql
+    spacewalk-sql sql-file-to-use.sql
+    spacewalk-sql - < sql-file-to-use.sql
 
-    B<spacewalk-sql> --verbose sql-file-to-use.sql
-    B<spacewalk-sql> --select-mode - < sql-file-to-use.sql
-    B<spacewalk-sql> --verbose --select-mode sql-file-to-use.sql
-    B<spacewalk-sql> --select-mode-direct sql-file-to-use.sql
+    spacewalk-sql --verbose sql-file-to-use.sql
+    spacewalk-sql --select-mode - < sql-file-to-use.sql
+    spacewalk-sql --verbose --select-mode sql-file-to-use.sql
+    spacewalk-sql --select-mode-direct sql-file-to-use.sql
 
 =head1 OPTIONS
 
