@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.8.48
+Version:        1.8.49
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -68,6 +68,13 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Thu Jun 07 2012 Jan Pazdziora 1.8.49-1
+- We cannot use markup in formatted text (synopsis).
+- 803370 - lookup_tag: schema upgrade
+- 803370 - lookup_tag: don't call lookup_tag_name twice
+- Disable rhn_channel_mod_trig while updating rhnChannel, so that modified does
+  not get modified.
+
 * Tue Jun 05 2012 Michael Mraka <michael.mraka@redhat.com> 1.8.48-1
 - removed support for Red Hat Linux 6.2 and 7.[0123]
 
