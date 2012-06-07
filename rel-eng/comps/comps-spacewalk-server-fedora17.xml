@@ -20,7 +20,6 @@
        <packagereq type="default">yum-rhn-plugin</packagereq>
 
        <packagereq type="default">eventReceivers</packagereq>
-       <packagereq type="default">heirloom-pkgtools</packagereq>
        <packagereq type="default">jpam</packagereq>
        <packagereq type="default">MessageQueue</packagereq>
        <packagereq type="default">nocpulse-common</packagereq>
