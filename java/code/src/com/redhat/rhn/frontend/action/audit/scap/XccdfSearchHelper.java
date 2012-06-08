@@ -46,6 +46,7 @@ public class XccdfSearchHelper extends RhnAction {
      * @param whereToSearch Where to search for scans, either ssm or all machines
      * @param startDate search scans performed after startDate (null to ommit)
      * @param endDate search scans performed before endDate (null to ommit)
+     * @param ruleResult search rules with given ruleresult label (null to ommit)
      * @param context A context of cuyrrent request
      * @return a list of xccdf:rule-results
      * @throws MalformedURLException possibly bad configuration for search server address
@@ -53,7 +54,7 @@ public class XccdfSearchHelper extends RhnAction {
      * @throws XmlRpcFault bad communication with search server
      */
     public static List performSearch(String searchString, String whereToSearch,
-            Date startDate, Date endDate, RequestContext context)
+            Date startDate, Date endDate, String ruleResult, RequestContext context)
             throws MalformedURLException, XmlRpcException, XmlRpcFault {
         ArrayList args = new ArrayList();
         args.add(context.getWebSession().getId());
@@ -78,6 +79,9 @@ public class XccdfSearchHelper extends RhnAction {
         if (startDate != null && endDate != null) {
             params.put("start", new Timestamp(startDate.getTime()));
             params.put("end", new Timestamp(endDate.getTime()));
+        }
+        if (ruleResult != null) {
+            params.put("result", ruleResult);
         }
         return ScapManager.ruleResultsByIdentIds(params, identIds);
     }

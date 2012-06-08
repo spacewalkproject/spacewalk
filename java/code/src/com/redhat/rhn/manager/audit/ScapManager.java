@@ -43,7 +43,7 @@ import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 public class ScapManager extends BaseManager {
 
     private static final List<String> SEARCH_TERM_PRECEDENCE = Arrays.asList(
-            "slabel", "start", "end");
+            "slabel", "start", "end", "result");
 
     /**
      * Returns the given system is scap enabled.
@@ -219,6 +219,14 @@ public class ScapManager extends BaseManager {
             throw new LookupException("Could not find XCCDF scan " +
                     testResultId + " for user " + user.getId());
         }
+    }
+
+    /**
+     * Return list of possible results of xccdf:rule evaluation
+     * @return the result
+     */
+    public static List<Map<String, String>> ruleResultTypeLabels() {
+        return ModeFactory.getMode("scap_queries", "result_type_labels").execute();
     }
 
     /**

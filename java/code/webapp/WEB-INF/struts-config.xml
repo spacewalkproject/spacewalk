@@ -238,6 +238,7 @@
             <form-property name="search_string" type="java.lang.String"/>
             <form-property name="whereToSearch" type="java.lang.String"/>
             <form-property name="submitted" type="java.lang.Boolean" />
+            <form-property name="result_filter" type="java.lang.String"/>
             <form-property name="optionScanDateSearch" type="java.lang.Boolean" />
             <form-property name="start_year" type="java.lang.Integer"/>
             <form-property name="start_month" type="java.lang.Integer"/>

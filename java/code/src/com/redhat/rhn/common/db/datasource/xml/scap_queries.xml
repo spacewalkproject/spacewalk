@@ -201,6 +201,96 @@
   </query>
 </mode>
 
+<mode name="rr_by_idents_result" class="com.redhat.rhn.frontend.dto.XccdfRuleResultDto">
+  <query params="user_id, result">
+  SELECT DISTINCT rr.id, rrt.label, rr.testresult_id AS test_result_id
+      FROM rhnXccdfRuleresult rr,
+          rhnXccdfRuleresultType rrt,
+          rhnXccdfRuleIdentMap rim,
+          rhnXccdfTestresult tr,
+          rhnUserServerPerms usp
+      WHERE rim.ident_id IN (%s)
+          AND rim.rresult_id = rr.id
+          AND rr.result_id = rrt.id
+          AND tr.id = rr.testresult_id
+          AND tr.server_id = usp.server_id
+          AND usp.user_id = :user_id
+          AND rrt.label = :result
+      ORDER BY rr.id DESC
+  </query>
+</mode>
+
+<mode name="rr_by_idents_slabel_result" class="com.redhat.rhn.frontend.dto.XccdfRuleResultDto">
+  <query params="user_id, slabel, result">
+  SELECT DISTINCT rr.id, rrt.label, rr.testresult_id AS test_result_id
+      FROM rhnXccdfRuleresult rr,
+          rhnXccdfRuleresultType rrt,
+          rhnXccdfRuleIdentMap rim,
+          rhnXccdfTestResult tr,
+          rhnSet st
+      WHERE rim.ident_id IN (%s)
+          AND rim.rresult_id = rr.id
+          AND rr.result_id = rrt.id
+          AND tr.id = testresult_id
+          AND tr.server_id = st.element
+          AND st.user_id = :user_id
+          AND st.label = :slabel
+          AND rrt.label = :result
+      ORDER BY rr.id DESC
+  </query>
+</mode>
+
+<mode name="rr_by_idents_start_end_result" class="com.redhat.rhn.frontend.dto.XccdfRuleResultDto">
+  <query params="user_id, start, end, result">
+  SELECT DISTINCT rr.id, rrt.label, rr.testresult_id AS test_result_id
+    FROM rhnXccdfRuleresult rr,
+          rhnXccdfRuleresultType rrt,
+          rhnXccdfRuleIdentMap rim,
+          rhnXccdfTestresult tr,
+          rhnUserServerPerms usp,
+          rhnActionScap ras,
+          rhnServerAction sa
+      WHERE rim.ident_id IN (%s)
+          AND rim.rresult_id = rr.id
+          AND rr.result_id = rrt.id
+          AND tr.id = rr.testresult_id
+          AND tr.server_id = usp.server_id
+          AND usp.user_id = :user_id
+          AND tr.action_scap_id = ras.id
+          AND sa.action_id = ras.action_id
+          AND sa.completion_time &gt;= :start
+          AND sa.completion_time &lt;= :end
+          AND rrt.label = :result
+      ORDER BY rr.id DESC
+  </query>
+</mode>
+
+<mode name="rr_by_idents_slabel_start_end_result" class="com.redhat.rhn.frontend.dto.XccdfRuleResultDto">
+  <query params="user_id, slabel, start, end, result">
+  SELECT DISTINCT rr.id, rrt.label, rr.testresult_id AS test_result_id
+      FROM rhnXccdfRuleresult rr,
+          rhnXccdfRuleresultType rrt,
+          rhnXccdfRuleIdentMap rim,
+          rhnXccdfTestResult tr,
+          rhnSet st,
+          rhnActionScap ras,
+          rhnServerAction sa
+      WHERE rim.ident_id IN (%s)
+          AND rim.rresult_id = rr.id
+          AND rr.result_id = rrt.id
+          AND tr.id = testresult_id
+          AND tr.server_id = st.element
+          AND st.user_id = :user_id
+          AND st.label = :slabel
+          AND tr.action_scap_id = ras.id
+          AND sa.action_id = ras.action_id
+          AND sa.completion_time &gt;= :start
+          AND sa.completion_time &lt;= :end
+          AND rrt.label = :result
+      ORDER BY rr.id DESC
+  </query>
+</mode>
+
 <mode name="idents_per_ruleresult" class="com.redhat.rhn.frontend.dto.XccdfIdentDto">
   <query params="rr_id">
   SELECT xi.id, xi.identifier, xis.system
@@ -260,6 +350,13 @@
       WHERE st.user_id = :user_id
           AND st.label = :set_label
       ORDER BY name ASC
+  </query>
+</mode>
+
+<mode name="result_type_labels">
+  <query>
+  SELECT label
+      FROM rhnXccdfRuleresultType
   </query>
 </mode>
 

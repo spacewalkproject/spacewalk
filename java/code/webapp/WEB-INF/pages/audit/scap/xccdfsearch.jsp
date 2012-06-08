@@ -48,6 +48,13 @@
             </span>
           </td>
         </tr>
+        <tr><th><bean:message key="scapsearch.jsp.withresult"/>:</th>
+          <td>
+            <html:select property="result_filter">
+              <html:options collection="allResults" property="label" labelProperty="label"/>
+            </html:select>
+          </td>
+        </tr>
         <tr><th><bean:message key="systemsearch.jsp.wheretosearch"/></th>
           <td>
             <div style="text-align: left">

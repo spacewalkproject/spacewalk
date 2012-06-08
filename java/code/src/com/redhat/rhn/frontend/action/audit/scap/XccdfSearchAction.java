@@ -19,6 +19,7 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -44,6 +45,7 @@ import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
+import com.redhat.rhn.manager.audit.ScapManager;
 
 /**
  * XccdfSearchAction
@@ -53,6 +55,7 @@ public class XccdfSearchAction extends RhnAction {
     private static final String SEARCH_STRING = "search_string";
     private static final String WHERE_TO_SEARCH = "whereToSearch";
     private static final String SCAN_DATE_SEARCH = "optionScanDateSearch";
+    private static final String ANY_LABEL = "any";
     private static Logger log = Logger.getLogger(XccdfSearchAction.class);
 
     /** {@inheritDoc} */
@@ -125,12 +128,14 @@ public class XccdfSearchAction extends RhnAction {
         request.setAttribute(SEARCH_STRING, searchString);
         form.set(WHERE_TO_SEARCH,
                 "system_list".equals(whereToSearch) ? whereToSearch : "all");
+        setupRuleResultLabelOptions(request);
         DateRangePicker picker = setupDatePicker(form, request);
 
         if (!StringUtils.isBlank(searchString)) {
             picker.processDatePickers(getOptionScanDateSearch(request), false);
             List results = XccdfSearchHelper.performSearch(searchString, whereToSearch,
-                getPickerDate(request, "start"), getPickerDate(request, "end"), context);
+                getPickerDate(request, "start"), getPickerDate(request, "end"),
+                getRuleResultLabel(form), context);
             request.setAttribute(RequestContext.PAGE_LIST,
                     results != null ? results : Collections.EMPTY_LIST);
         }
@@ -179,5 +184,23 @@ public class XccdfSearchAction extends RhnAction {
         return new DateRangePicker(form, request, yesterday.getTime(), today.getTime(),
                 DatePicker.YEAR_RANGE_NEGATIVE, "scapsearch.jsp.start_date",
                 "scapsearch.jsp.end_date");
+    }
+
+    private String getRuleResultLabel(DynaActionForm form) {
+        String resultFilter = form.getString("result_filter");
+        if (resultFilter == null ||
+                ANY_LABEL.equals(resultFilter) || "".equals(resultFilter)) {
+            return null;
+        }
+        return resultFilter;
+    }
+
+    private void setupRuleResultLabelOptions(HttpServletRequest request) {
+        List<Map<String, String>> possibleResults = ScapManager.ruleResultTypeLabels();
+        Map<String, String> anyLabel = new HashMap<String, String>();
+        anyLabel.put("label", ANY_LABEL);
+        possibleResults.add(0, anyLabel);
+
+        request.setAttribute("allResults", possibleResults);
     }
 }
