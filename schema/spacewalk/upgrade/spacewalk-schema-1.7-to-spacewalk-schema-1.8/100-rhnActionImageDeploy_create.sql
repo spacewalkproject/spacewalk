@@ -15,7 +15,9 @@
 
 CREATE TABLE rhnActionImageDeploy
 (
-    id            NUMBER NOT NULL PRIMARY KEY,
+    id            NUMBER NOT NULL
+                  CONSTRAINT rhn_aid_id_pk PRIMARY KEY
+                  USING INDEX TABLESPACE [[64k_tbs]],
     action_id     NUMBER NOT NULL
                       CONSTRAINT rhn_act_idp_act_fk
                       REFERENCES rhnAction (id)
