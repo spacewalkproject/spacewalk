@@ -23,7 +23,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.83
+Version: 1.8.84
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -615,6 +615,13 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Jun 08 2012 Jan Pazdziora 1.8.84-1
+- 829894 - fix channel links on CloneErrata page
+- Revert "removing unused string with trans-id 'schedulediff.ssm.failure'"
+- Revert "removing unused string with trans-id 'schedulediff.ssm.success'"
+- Revert "removing unused string with trans-id 'schedulediff.ssm.successes'"
+- Refactor "default" to RhnHelper.DEFAULT_FORWARD
+
 * Wed Jun 06 2012 Stephen Herr <sherr@redhat.com> 1.8.83-1
 - 829485 - Created new asyncronous api methods for cloning errata
 
