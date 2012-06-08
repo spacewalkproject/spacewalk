@@ -101,6 +101,21 @@ public class VirtualInstanceFactory extends HibernateFactory {
 
     }
 
+    /**
+     * Gets the virtual Instance for a given Sid for a host
+     * @param id the system id of the host
+     * @param org the org to check against
+     * @return the virtual instance
+     */
+    public VirtualInstance lookupByHostId(Org org, Long id) {
+        Session session = HibernateFactory.getSession();
+        VirtualInstance results = (VirtualInstance) session.getNamedQuery(
+                "VirtualInstance.lookupHostBySid").
+                setParameter("org", org).setParameter("sid", id).uniqueResult();
+
+        return results;
+
+    }
 
     /**
      * Check if the given guest instance is outdated. (i.e. a newer instance

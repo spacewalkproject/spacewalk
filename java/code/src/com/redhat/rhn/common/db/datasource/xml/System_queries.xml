@@ -1244,6 +1244,10 @@ select distinct sgm.server_id as ID, 1 as virtual_host
 	        sgm.server_id in (%s) and
 		    (sgt.label='virtualization_host_platform' or
 		                sgt.label='virtualization_host')
+union
+select VI.host_system_id as ID, 1 as virtual_host
+    from rhnVirtualInstance VI
+        where VI.host_system_id in (%s)
 </query>
 
 <query name="system_overview_most_critical" params="">

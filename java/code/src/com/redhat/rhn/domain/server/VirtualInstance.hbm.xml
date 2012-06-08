@@ -41,6 +41,13 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     	]]>
     </query>
 
+    <query name="VirtualInstance.lookupHostBySid">
+        <![CDATA[
+      from VirtualInstance vi
+          where vi.hostSystem.id = :sid and vi.hostSystem.org = :org
+        ]]>
+    </query>
+
     <query name="VirtualInstance.isOutdatedVirtualInstance">
         <![CDATA[
         from VirtualInstance guest where guest = :guest
