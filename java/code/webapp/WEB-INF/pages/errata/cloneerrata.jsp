@@ -75,7 +75,7 @@
             </rl:column>
             <rl:column headerkey="cloneerrata.jsp.potentialchannels">
                 <c:forEach items="${current.channelMap}" var="map">
-                    <a href="/network/software/channels/manage/index.pxt?cid=${map.id}">${map.name}</a><br/>
+                    <a href="/rhn/channels/manage/Edit.do?cid=${map.id}">${map.name}</a><br/>
                 </c:forEach>
             </rl:column>
             <rl:column headerkey="cloneerrata.jsp.alreadycloned"
