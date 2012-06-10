@@ -1204,4 +1204,130 @@ def do_configchannel_diff(self, args):
 
     return diff( source_data, target_data, source_channel, target_channel )
 
+####################                                             
+                                             
+def help_configchannel_sync(self):
+    print 'configchannel_sync:'
+    print 'sync config files between two config channels'
+    print ''
+    print 'usage: configchannel_sync SOURCE_CHANNEL TARGET_CHANNEL'
+    
+def complete_configchannel_sync(self, text, line, beg, end):
+    parts = shlex.split(line)
+    if line[-1] == ' ': parts.append('')
+    args = len(parts)
+    
+    if args == 2:
+        return tab_completer(self.do_configchannel_list('', True), text)
+    if args == 3:
+        return tab_completer(self.do_configchannel_list('', True), text)
+    return []
+    
+def do_configchannel_sync(self, args, doreturn = False):
+    options = []
+
+    (args, options) = parse_arguments(args, options)
+
+    if len(args) != 1 and len(args) != 2:
+        self.help_configchannel_sync()
+        return
+        
+    source_channel = args[0]
+    if not self.check_configchannel( source_channel ): return
+    
+    target_channel = None
+    if len(args) == 2:
+        target_channel = args[1]
+    elif hasattr( self, "do_configchannel_getcorresponding" ):
+        # can a corresponding channel name be found automatically?
+        target_channel=self.do_configchannel_getcorresponding( source_channel)
+    if not self.check_configchannel( target_channel ): return
+        
+    logging.info( "syncing files from configchannel "+source_channel+" to "+target_channel )    
+
+    source_files = set( self.do_configchannel_listfiles( source_channel, doreturn = True ) )
+    target_files = set( self.do_configchannel_listfiles( target_channel, doreturn = True ) )
+
+    both=source_files & target_files
+    if both:
+        print "files common in both channels:"
+        print "\n".join( both )
+        print
+
+    source_only=source_files.difference( target_files )
+    if source_only:
+        print "files only in source "+source_channel
+        print "\n".join( source_only )
+        print
+
+    target_only=target_files.difference( source_files )
+    if target_only:
+        print "files only in target "+target_channel
+        print "\n".join( target_only )
+        print
+
+    if both:
+        print "files that are in both channels will be overwritten in the target channel" 
+    if source_only:
+        print "files only in the source channel will be added to the target channel"        
+    if target_only:
+        print "files only in the target channel will be deleted"
+
+    if not (both or source_only or target_only):
+        logging.info( "nothing to do" )
+        return
+        
+    if not self.user_confirm('perform synchronisation [y/N]:'): return
+    
+    source_data_list = self.client.configchannel.lookupFileInfo(\
+                                      self.session, source_channel, 
+                                      list( both  ) + list(source_only) )
+        
+    for source_data in source_data_list:
+        if source_data.get('type') == 'file' or source_data.get('type') == 'directory':
+            if source_data.get('contents') and not source_data.get('binary'):
+                contents = source_data.get('contents').encode('base64')
+            else:
+                contents = source_data.get('contents')
+            target_data = {
+                'contents':                 contents,
+                'contents_enc64':           True,
+                'owner':                    source_data.get('owner'),
+                'group':                    source_data.get('group'),
+                # get permissions from permissions_mode instead of permissions
+                'permissions':              source_data.get('permissions_mode'),
+                'selinux_ctx':              source_data.get('selinux_ctx'),
+                'macro-start-delimiter':    source_data.get('macro-start-delimiter'),
+                'macro-end-delimiter':      source_data.get('macro-end-delimiter'),
+            }
+            for k,v in target_data.items():
+                if not v:
+                    del target_data[k]            
+            logging.debug( source_data.get('path') + ": " + str(target_data) )
+            self.client.configchannel.createOrUpdatePath(self.session,
+                                                         target_channel,
+                                                         source_data.get('path'),
+                                                         source_data.get('type') == 'directory',
+                                                         target_data)
+                   
+        elif source_data.get('type') == 'symlink':
+            target_data = {
+                'target_path':  source_data.get('target_path'),
+                'selinux_ctx':  source_data.get('selinux_ctx'),
+            }
+            logging.debug( source_data.get('path') + ": " + str(target_data) )
+            self.client.configchannel.createOrUpdateSymlink(self.session,
+                                                            target_channel,
+                                                            source_data.get('path'),
+                                                            target_data )
+            
+        else:
+            logging.warning( "unknown file type " + source_data.type )
+            
+            
+    # removing all files from target channel that did not exist on source channel
+    if target_only:
+        #self.do_configchannel_removefiles( target_channel + " " + "/.metainfo" + " ".join(target_only) )    
+        self.do_configchannel_removefiles( target_channel + " " + " ".join(target_only) )
+    
 # vim:ts=4:expandtab:
