@@ -1475,4 +1475,102 @@ def do_softwarechannel_diff(self, args):
 
     return diff( source_data, target_data, source_channel, target_channel )
 
+####################
+
+def help_softwarechannel_sync(self):
+    print 'softwarechannel_sync: '
+    print 'sync the packages of two software channels'
+    print ''
+    print 'usage: softwarechannel_sync SOURCE_CHANNEL TARGET_CHANNEL'
+
+def complete_softwarechannel_sync(self, text, line, beg, end):
+    parts = shlex.split(line)
+    if line[-1] == ' ': parts.append('')
+    args = len(parts)
+
+    if args == 2:
+        return tab_completer(self.do_softwarechannel_list('', True), text)
+    if args == 3:
+        return tab_completer(self.do_softwarechannel_list('', True), text)
+    return []
+
+def do_softwarechannel_sync(self, args):
+    options = []
+
+    (args, options) = parse_arguments(args, options)
+
+    if len(args) != 1 and len(args) != 2:
+        self.help_softwarechannel_sync()
+        return
+
+    source_channel = args[0]
+    if not self.check_softwarechannel( source_channel ): return
+
+    target_channel = None
+    if len(args) == 2:
+        target_channel = args[1]
+    elif hasattr( self, "do_softwarechannel_getcorresponding" ):
+        # can a corresponding channel name be found automatically?
+        target_channel=self.do_softwarechannel_getcorresponding( source_channel)
+    if not self.check_softwarechannel( target_channel ): return
+
+    logging.info( "syncing packages from softwarechannel "+source_channel+" to "+target_channel )
+
+    # use API call instead of spacecmd function
+    # to get detailed infos about the packages
+    # and not just there names
+    source_packages = self.client.channel.software.listAllPackages(self.session,
+                                                               source_channel)
+    target_packages = self.client.channel.software.listAllPackages(self.session,
+        target_channel)
+
+    # get the package IDs
+    source_package_ids = set()
+    for package in source_packages:
+        try:
+            source_package_ids.add(package['id'])
+        except KeyError:
+            logging.error( "failed to read key id" )
+            continue
+
+    target_package_ids = set()
+    for package in target_packages:
+        try:
+            target_package_ids.add(package['id'])
+        except KeyError:
+            logging.error( "failed to read key id" )
+            continue
+
+    print "packages common in both channels:"
+    for i in ( source_package_ids & target_package_ids ):
+        print self.get_package_name( i )
+    print
+
+    # check for packages only in the source channel
+    source_only = source_package_ids.difference(target_package_ids)
+    if source_only:
+        print 'packages to add to channel "' + target_channel + '":'
+        for i in source_only:
+            print self.get_package_name( i )
+        print
+
+
+    # check for packages only in the target channel
+    target_only=target_package_ids.difference( source_package_ids )
+    if target_only:
+        print 'packages to remove from channel "' + target_channel + '":'
+        for i in target_only:
+            print self.get_package_name( i )
+        print
+
+    if source_only or target_only:
+        if not self.user_confirm('Perform these changes to channel ' + target_channel + ' [y/N]:'): return
+
+        self.client.channel.software.addPackages(self.session,
+                                                target_channel,
+                                                list(source_only) )
+        self.client.channel.software.removePackages(self.session,
+                                                target_channel,
+                                                list(target_only) )
+
 # vim:ts=4:expandtab:
