@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.8.50
+Version:        1.8.51
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -68,6 +68,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Mon Jun 11 2012 Jan Pazdziora 1.8.51-1
+- The upgrade scripts are not processed with oracle2postgresql, making separate
+  PostgreSQL scripts.
+
 * Fri Jun 08 2012 Jan Pazdziora 1.8.50-1
 - Properly name the primary index constraint/index for rhnActionImageDeploy.
 
