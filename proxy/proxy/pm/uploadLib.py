@@ -21,10 +21,6 @@ from rhnpush import uploadLib
 class UploadClass(uploadLib.UploadClass):
     """ Functionality for an uploading tool """
 
-    # pylint: disable=R0904
-    def authenticate(self):
-        self.setUsernamePassword()
-
     def _listChannelSource(self):
         self.die(1, "Listing source rpms not supported")
 
