@@ -13,7 +13,6 @@ BuildArch:      noarch
 Requires:       perl
 Requires:       libxslt
 Requires:       jabberd
-Requires:       spacewalk-branding
 
 %description
 Script, which setup Jabberd for Spacewalk. Used during installation of
