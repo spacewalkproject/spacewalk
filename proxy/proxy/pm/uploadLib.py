@@ -24,10 +24,6 @@ class UploadClass(uploadLib.UploadClass):
     def _listChannelSource(self):
         self.die(1, "Listing source rpms not supported")
 
-    def _listChannel(self):
-        return uploadLib.listChannel(self.server, self.username, self.password,
-                                     self.channels)
-
     def copyonly(self):
         # Set the forcing factor
         self.setForce()
@@ -45,14 +41,6 @@ class UploadClass(uploadLib.UploadClass):
             
     def _get_files(self):
         return self.files
-
-    def _uploadSourcePackageInfo(self, info):
-        return uploadLib.call(self.server.packages.uploadSourcePackageInfo,
-                              self.username, self.password, info)
-
-    def _uploadPackageInfo(self, info):
-        return uploadLib.call(self.server.packages.uploadPackageInfo,
-                              self.username, self.password, info)
 
     def _processFile(self, filename, relativeDir=None, source=None, nosig=None):
         """ call parent _processFile and add to returned has md5sum """
