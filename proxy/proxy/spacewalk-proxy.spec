@@ -4,7 +4,7 @@ Group:   Applications/Internet
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 1.8.3
+Version: 1.8.4
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
 BuildRequires: python
@@ -331,6 +331,10 @@ fi
 
 
 %changelog
+* Mon Jun 11 2012 Michael Mraka <michael.mraka@redhat.com> 1.8.4-1
+- provide /usr/share/spacewalk in proxy
+- %%defattr is not needed since rpm 4.4
+
 * Wed Apr 18 2012 Miroslav Suchý <msuchy@redhat.com> 1.8.3-1
 - add pylint warning
 
