@@ -107,14 +107,10 @@ public class VirtualInstanceFactory extends HibernateFactory {
      * @param org the org to check against
      * @return the virtual instance
      */
-    public VirtualInstance lookupByHostId(Org org, Long id) {
+    public List<VirtualInstance> listByHostId(Org org, Long id) {
         Session session = HibernateFactory.getSession();
-        VirtualInstance results = (VirtualInstance) session.getNamedQuery(
-                "VirtualInstance.lookupHostBySid").
-                setParameter("org", org).setParameter("sid", id).uniqueResult();
-
-        return results;
-
+        return session.getNamedQuery("VirtualInstance.listByHostId").
+                setParameter("org", org).setParameter("sid", id).list();
     }
 
     /**

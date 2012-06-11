@@ -41,7 +41,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     	]]>
     </query>
 
-    <query name="VirtualInstance.lookupHostBySid">
+    <query name="VirtualInstance.listByHostId">
         <![CDATA[
       from VirtualInstance vi
           where vi.hostSystem.id = :sid and vi.hostSystem.org = :org
