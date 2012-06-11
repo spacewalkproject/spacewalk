@@ -166,6 +166,7 @@ make -f Makefile.proxy
 rm -rf $RPM_BUILD_ROOT
 make -f Makefile.proxy install PREFIX=$RPM_BUILD_ROOT
 install -d -m 750 $RPM_BUILD_ROOT/%{_var}/cache/rhn/proxy-auth
+install -d -m 750 $RPM_BUILD_ROOT/%{_datadir}/spacewalk
 
 mkdir -p $RPM_BUILD_ROOT/%{_var}/spool/rhn-proxy/list
 
@@ -292,6 +293,7 @@ fi
 %attr(750,apache,apache) %dir %{_var}/spool/rhn-proxy
 %attr(750,apache,apache) %dir %{_var}/spool/rhn-proxy/list
 %attr(770,root,apache) %dir %{_var}/log/rhn
+%attr(755,root,apache) %dir %{_datadir}/spacewalk
 # config files
 %attr(755,root,apache) %dir %{rhnconf}
 %attr(645,root,apache) %config %{rhnconf}/rhn.conf
