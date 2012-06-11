@@ -40,12 +40,11 @@ from rhnpush.uploadLib import UploadError, listChannelBySession
 from optparse import Option, OptionParser
 
 # RHN imports
+from rhnpush import uploadLib
+from spacewalk.common.checksum import getFileChecksum
 from spacewalk.common.rhnConfig import CFG, initCFG
 from spacewalk.common.rhnLib import parseUrl
 initCFG('proxy.package_manager')
-
-# local imports
-import uploadLib
 
 # globals
 PREFIX = 'rhn'
@@ -223,6 +222,31 @@ class UploadClass(uploadLib.UploadClass):
         # Make sure the file permissions are set correctly, so that Apache can
         # see the files
         os.chmod(packagePath, 0644)
+
+    def _listChannelSource(self):
+        self.die(1, "Listing source rpms not supported")
+
+    def copyonly(self):
+        # Set the forcing factor
+        self.setForce()
+        # Relative directory
+        self.setRelativeDir()
+        # Set the count
+        self.setCount()
+
+        for filename in self.files:
+            fileinfo = self._processFile(filename,
+                                    relativeDir=self.relativeDir,
+                                    source=self.options.source,
+                                    nosig=self.options.nosig)
+            self.processPackage(fileinfo['nvrea'], filename)
+
+    def _processFile(self, filename, relativeDir=None, source=None, nosig=None):
+        """ call parent _processFile and add to returned has md5sum """
+        info = uploadLib.UploadClass._processFile(self, filename, relativeDir, source, nosig)
+        checksum = getFileChecksum('md5', filename=filename)
+        info['md5sum'] = checksum
+        return info
 
 
 def rpmPackageName(p):
