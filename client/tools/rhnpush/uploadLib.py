@@ -58,7 +58,6 @@ class UploadClass:
     """Functionality for an uploading tool
     """
     def __init__(self, options, files=None):
-        #CmdlineClass.__init__(self, table, argsDescription, aliasing)
         self.options = options
         self.username = None
         self.password = None
@@ -181,12 +180,9 @@ class UploadClass:
         self.setURL()
         # set the channels
         self.setChannels()
-        # set the username and password
-        #self.setUsernamePassword()
         # set the server
         self.setServer()
 
-        #XXX
         self.authenticate()
 
         if self.options.source:
@@ -346,7 +342,6 @@ class UploadClass:
         # set the server
         self.setServer()
         
-        #XXX
         self.authenticate()
         
         source = self.options.source
@@ -412,13 +407,9 @@ class UploadClass:
     def processPackage(self, package, filename):
         pass
 
-    #12/22/05 wregglej 173287 This calls the XMLRPC function that checks whether or not the
-    #current session is still valid.
     def checkSession(self, session):
         return call(self.server.packages.check_session, session)
 
-    #12/22/05 wregglej 173287 Reads the cached session string from ~/.rhnpushcache and 
-    #configures a session object with it.
     def readSession(self):
         try:
             self.session = rhnpush_cache.RHNPushSession()
@@ -426,8 +417,6 @@ class UploadClass:
         except Exception, e:
             self.session = None
 
-    #12/22/05 wregglej 173287 Writes the session to ~/.rhnpushcache and configures makes sure the
-    #session object is configured with it.
     def writeSession(self, session):
         if self.session:
             self.session.setSessionString(session)
@@ -438,13 +427,6 @@ class UploadClass:
         if not self.options.no_cache:
             self.session.writeSession()
 
-    #12/22 wregglej 173287 The actual authenication process. It reads in the session, checks the sessions validity,
-    #and will prompt the user for their username and password if there's something wrong with their session string.
-    #After they've entered their username/password, they are passed to the new XMLRPC call 'login', which will 
-    #verify the user/pass and return a new session string if they are correct.
-    #Need to fix this up so there's less repeated code.
-    # 2008-09-26 mmraka - 461701: if --username is set use always username/password
-    # and generate new session
     def authenticate(self):
         #Only use the session token stuff if we're talking to a sat that supports session-token authentication.
         self.readSession()
