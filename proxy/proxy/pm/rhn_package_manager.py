@@ -36,7 +36,7 @@ import os
 import sys
 import shutil
 from operator import truth
-from rhnpush.uploadLib import UploadError, listChannel
+from rhnpush.uploadLib import UploadError, listChannelBySession
 from optparse import Option, OptionParser
 
 # RHN imports
@@ -165,13 +165,14 @@ class UploadClass(uploadLib.UploadClass):
         self.setURL()
         # set the channels
         self.setChannels()
-        # set the username and password
-        self.setUsernamePassword()
         # set the server
         self.setServer()
 
+        self.authenticate()
+
         # List the channel's contents
-        channel_list = listChannel(self.server, self.username, self.password,
+        channel_list = listChannelBySession(self.server,
+                                     self.session.getSessionString(),
                                      self.channels)
 
         # Convert it to a hash of hashes
