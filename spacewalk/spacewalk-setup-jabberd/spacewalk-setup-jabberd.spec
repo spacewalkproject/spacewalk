@@ -1,5 +1,5 @@
 Name:           spacewalk-setup-jabberd
-Version:        1.8.2
+Version:        1.8.3
 Release:        1%{?dist}
 Summary:        Tools to setup jabberd for Spacewalk
 Group:          Applications/System
@@ -57,7 +57,7 @@ rm -rf %{buildroot}
 %{_sysconfdir}/pki/spacewalk
 
 %changelog
-* Mon Jun 11 2012 Michael Mraka <michael.mraka@redhat.com> 1.8.2-1
+* Mon Jun 11 2012 Michael Mraka <michael.mraka@redhat.com> 1.8.3-1
 - there's no spacewalk-branding in spacewalk-proxy
 
 * Mon May 21 2012 Miroslav Suchý <msuchy@redhat.com> 1.8.1-1
