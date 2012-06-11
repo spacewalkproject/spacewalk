@@ -138,7 +138,7 @@ class UploadClass(uploadLib.UploadClass):
             scheme = 'https://'
         self.url = CFG.RHN_PARENT or ''
         self.url = parseUrl(self.url)[1].split(':')[0]
-        self.url = scheme + self.url + '/XP'
+        self.url = scheme + self.url + '/APP'
 
     def setProxyUsernamePassword(self):
         # overloaded for uploadlib.py
