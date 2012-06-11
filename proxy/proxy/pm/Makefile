@@ -4,7 +4,7 @@
 
 TOP	= ..
 SUBDIR  = PackageManager
-FILES	= rhn_package_manager uploadLib __init__
+FILES	= rhn_package_manager __init__
 MAN_BASE = rhn_package_manager
 MAN_SECT = 8
 DOCBOOK2MAN = /usr/bin/docbook2man

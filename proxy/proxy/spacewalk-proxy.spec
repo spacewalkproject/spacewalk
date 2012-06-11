@@ -317,7 +317,6 @@ fi
 %attr(644,root,apache) %{_prefix}/share/rhn/config-defaults/rhn_proxy_package_manager.conf
 %{_bindir}/rhn_package_manager
 %{rhnroot}/PackageManager/rhn_package_manager.py*
-%{rhnroot}/PackageManager/uploadLib.py*
 %{rhnroot}/PackageManager/__init__.py*
 %{_mandir}/man8/rhn_package_manager.8.gz
 
