@@ -603,20 +603,11 @@ def parseXMLRPCfault(fault):
         faultCode = -faultCode
     return ServerFault(faultCode, "", fault.faultString)
 
-def listChannel(server, username, password, channels):
-    return call(server.packages.listChannel, channels, username, password)
-
 def listChannelBySession(server, session_string, channels): 
     return call(server.packages.listChannelBySession, channels, session_string)
 
-def listChannelSource(server, username, password, channels):
-    return call(server.packages.listChannelSource, channels, username, password)
-
 def listChannelSourceBySession(server, session_string, channels):
     return call(server.packages.listChannelSourceBySession, channels, session_string)
-
-def listMissingSourcePackages(server, username, password, channels):
-    return call(server.packages.listMissingSourcePackages, channels, username, password)
 
 def listMissingSourcePackagesBySession(server, session_string, channels):
     return call(server.packages.listMissingSourcePackagesBySession, channels, session_string)
@@ -626,9 +617,6 @@ def getPackageChecksumBySession(server, session_string, info):
 
 def getSourcePackageChecksumBySession(server, session_string, info):
     return call(server.packages.getSourcePackageChecksumBySession, session_string, info)
-
-def getPackageChecksum(server, username, password, info):
-    return call(server.packages.getPackageChecksum, username, password, info)
 
 def getSourcePackageChecksum(server, username, password, info):
     return call(server.packages.getSourcePackageChecksum, username, password, info)
@@ -640,11 +628,6 @@ def getPackageMD5sumBySession(server, session_string, info):
 def getSourcePackageMD5sumBySession(server, session_string, info):
     return call(server.packages.getSourcePackageMD5sumBySession, session_string, info)
 
-def getPackageMD5sum(server, username, password, info):
-    return call(server.packages.getPackageMD5sum, username, password, info)
-
-def getSourcePackageMD5sum(server, username, password, info):
-    return call(server.packages.getSourcePackageMD5sum, username, password, info)
 
 
 def getServer(uri, proxy=None, username=None, password=None, ca_chain=None):
