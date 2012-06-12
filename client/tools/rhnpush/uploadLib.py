@@ -432,14 +432,11 @@ class UploadClass:
         self.readSession()
         if self.session and not self.options.new_cache and self.options.username == self.username:
             chksession = self.checkSession(self.session.getSessionString())
-            if not chksession:
-                self.setUsernamePassword()
-                sessstr = call(self.server.packages.login, self.username, self.password)
-                self.writeSession(sessstr)
-        else:
-            self.setUsernamePassword()
-            sessstr = call(self.server.packages.login, self.username, self.password)
-            self.writeSession(sessstr)
+            if chksession:
+                return
+        self.setUsernamePassword()
+        sessstr = call(self.server.packages.login, self.username, self.password)
+        self.writeSession(sessstr)
 
     def _processFile(self, filename, relativeDir=None, source=None, nosig=None):
         """ Processes a file
