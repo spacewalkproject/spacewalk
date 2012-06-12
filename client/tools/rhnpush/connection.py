@@ -57,9 +57,9 @@ class BaseConnection:
                 'password'  : self._proxy_password,
             }
             if self._scheme == 'http':
-                return apply(connections.HTTPProxyConnection, (), params)
+                return connections.HTTPProxyConnection(**params)
             params['trusted_certs'] = self._trusted_certs
-            return apply(connections.HTTPSProxyConnection, (), params)
+            return connections.HTTPSProxyConnection(**params)
         else:
             if self._scheme == 'http':
                 return connections.HTTPConnection(self._host, self._port)

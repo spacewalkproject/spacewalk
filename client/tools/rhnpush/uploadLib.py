@@ -72,10 +72,10 @@ class UploadClass:
 
     def warn(self, verbose, *args):
         if self.options.verbose >= verbose:
-            apply(ReportError, args)
+            ReportError(*args)
 
     def die(self, errcode, *args):
-        apply(ReportError, args)
+        ReportError(*args)
         #pkilambi:bug#176358:this should exit with error code
         sys.exit(errcode)
 
@@ -579,7 +579,7 @@ def listdir(directory):
 def call(function, *params):
     # Wrapper function
     try:
-        ret = apply(function, params)
+        ret = function(*params)
     except xmlrpclib.Fault, e:
         x = parseXMLRPCfault(e)
         if x.faultString:
