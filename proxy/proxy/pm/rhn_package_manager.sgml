@@ -7,7 +7,7 @@
 
 <RefMeta>
 <RefEntryTitle>rhn_package_manager</RefEntryTitle><manvolnum>8</manvolnum>
-<RefMiscInfo>Version 4.0</RefMiscInfo>
+<RefMiscInfo>Version 5.0</RefMiscInfo>
 </RefMeta>
 
 <RefNameDiv>
@@ -160,6 +160,18 @@ Manages RPM packages for the RHN proxy
         <term>--no-ssl</term>
         <listitem>
             <para>Turn off SSL (not recommended).</para>
+        </listitem>
+    </varlistentry>
+   <varlistentry>
+        <term>-N, --new-cache</term>
+        <listitem>
+            <para>create a new username/password cache</para>
+        </listitem>
+    </varlistentry>
+   <varlistentry>
+        <term>--no-cache</term>
+        <listitem>
+            <para>Do not create username/password cache</para>
         </listitem>
     </varlistentry>
    <varlistentry>
