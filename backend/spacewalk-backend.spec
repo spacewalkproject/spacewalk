@@ -141,23 +141,16 @@ Obsoletes: rhns-server-app < 5.3.0
 Obsoletes: rhns-app < 5.3.0
 Provides: rhns-server-app = 1:%{version}-%{release}
 Provides: rhns-app = 1:%{version}-%{release}
-
-%description app
-These are the files required for running the /APP handler.
-Calls to /APP are used by internal maintenance tools (rhnpush).
-
-%package xp
-Summary: Handler for /XP
-Group: Applications/Internet
-Requires: %{name}-server = %{version}-%{release}
+Obsoletes: spacewalk-backend-xp < 1.8.33
+Provides: spacewalk-backend-xp = %{version}-%{release}
 Obsoletes: rhns-server-xp < 5.3.0
 Obsoletes: rhns-xp < 5.3.0
 Provides: rhns-server-xp = 1:%{version}-%{release}
 Provides: rhns-xp = 1:%{version}-%{release}
 
-%description xp
-These are the files required for running the /XP handler.
-Calls to /XP are used by tools publicly available (like rhn_package_manager).
+%description app
+These are the files required for running the /APP handler.
+Calls to /APP are used by internal maintenance tools (rhnpush).
 
 %package iss
 Summary: Handler for /SAT
@@ -464,7 +457,6 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{rhnroot}/wsgi/sat.py*
 %{rhnroot}/wsgi/sat_dump.py*
 %{rhnroot}/wsgi/xmlrpc.py*
-%{rhnroot}/wsgi/xp.py*
 
 # logs and other stuff
 %config(noreplace) %{_sysconfdir}/logrotate.d/spacewalk-backend-server
@@ -499,15 +491,6 @@ rm -f %{rhnconf}/rhnSecret.py*
 %attr(644,root,apache) %{rhnconfigdefaults}/rhn_server_app.conf
 %attr(644,root,apache) %config %{httpdconf}/rhn/spacewalk-backend-app.conf
 %config(noreplace) %{_sysconfdir}/logrotate.d/spacewalk-backend-app
-
-%files xp
-%doc LICENSE
-%dir %{rhnroot}/server/handlers/xp
-%{rhnroot}/server/handlers/xp/*
-# config files
-%attr(644,root,apache) %{rhnconfigdefaults}/rhn_server_xp.conf
-%attr(644,root,apache) %config %{httpdconf}/rhn/spacewalk-backend-xp.conf
-%config(noreplace) %{_sysconfdir}/logrotate.d/spacewalk-backend-xp
 
 %files iss
 %doc LICENSE
