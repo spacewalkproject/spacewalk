@@ -32,7 +32,6 @@ This script performs various management operations on the RHN proxy:
 import os
 import random
 import sys
-import string
 import time
 import urlparse
 import rhnpush_confmanager
@@ -163,7 +162,7 @@ class UploadClass(uploadLib.UploadClass):
             self.die(2, "Invalid URL %s" % server)
         if path == '':
             path = '/APP'
-        if string.lower(scheme) not in ('http', 'https'):
+        if scheme.lower() not in ('http', 'https'):
             self.die(3, "Unknown URL scheme %s" % scheme)
         self.url = urlparse.urlunparse((scheme, netloc, path, params, query,
             fragment))

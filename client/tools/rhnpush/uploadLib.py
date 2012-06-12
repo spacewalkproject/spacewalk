@@ -17,7 +17,6 @@
 import os
 import re
 import sys
-import string
 import fnmatch
 import getpass
 import rhnpush_cache
@@ -130,7 +129,7 @@ class UploadClass:
         if not self.options.channel:
             self.die(-1, "No channel was specified")
         self.channels = self.options.channel
-        self.warn(1, "Channels: %s" % string.join(self.channels))
+        self.warn(1, "Channels: %s" % ' '.join(self.channels))
 
     setNoChannels = setChannels
 
@@ -523,7 +522,7 @@ def readStdin():
         line = sys.stdin.readline()
         if not line:
             break
-        l.append(string.strip(line))
+        l.append(line.strip())
     return l
 
 
@@ -549,7 +548,7 @@ def getUsernamePassword(cmdlineUsername, cmdlinePassword):
             # EOF
             tty.write("\n")
             sys.exit(0)
-        username = string.strip(username)
+        username = username.strip()
         if username:
             break
 
@@ -682,4 +681,4 @@ def get_header(file, fildes=None, source=None):
     return h
 
 def ReportError(*args):
-    sys.stderr.write(string.join(map(str, args)) + "\n")
+    sys.stderr.write(' '.join(map(str, args)) + "\n")

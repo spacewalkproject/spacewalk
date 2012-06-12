@@ -19,7 +19,6 @@ import optparse
 import os
 import re
 import socket
-import string
 import sys
 import time
 
@@ -500,7 +499,7 @@ def parse_pkginfo(pkginfo_str):
 
     version_match = _ver_regex.match(dct.get('version', ''))
     if version_match:
-        version = _sanitize_string_version(string.rstrip(version_match.group("ver"))) or "0"
+        version = _sanitize_string_version(version_match.group("ver").rstrip()) or "0"
         release = version_match.group("rev")
 
     dct['version'] = version

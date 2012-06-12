@@ -14,7 +14,6 @@
 #
 
 import socket
-import string
 import base64
 import sys
 import urllib
@@ -275,6 +274,6 @@ class PackageUpload:
             fault_code = None
         text = map(lambda x: x[1], headers.getaddrlist(prefix + '-String'))
         # text is a list now, convert it to a string
-        text = string.join(text, '\n')
+        text = '\n'.join(text)
         text = base64.decodestring(text)
         return text

@@ -18,7 +18,6 @@
 #
 # $Id$
 
-import string
 import base64
 
 import connection
@@ -45,9 +44,9 @@ class PackageUpload(connection.PackageUpload):
 
     # Encodes an array of variables into Base64 (column-separated)
     def encode_values(self, arr):
-        val = string.join(map(string.strip, map(base64.encodestring, arr)), ':')
+        val = ':'.join(map(lambda x: x.strip(), map(base64.encodestring, arr)))
         # Get rid of the newlines
-        val = string.replace(val, '\n', '')
+        val = val.replace('\n', '')
         # And split the result into lines of fixed size
         line_len = 80
         result = []
