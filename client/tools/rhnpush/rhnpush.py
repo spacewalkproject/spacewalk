@@ -369,7 +369,7 @@ class UploadClass(uploadLib.UploadClass):
                 try:
                     ret = self.package(pkg, checksum_type, checksum)
                     if ret is None:
-                        raise UploadError()
+                        raise uploadLib.UploadError()
 
                 # TODO:  Revisit this.  We throw this error all over the place,
                 #        but doing so will cause us to skip the --tolerant logic
@@ -380,7 +380,7 @@ class UploadClass(uploadLib.UploadClass):
 
                 #FIX: it checks for tolerant flag and aborts only if the flag is
                 #not specified
-                except UploadError, ue:
+                except uploadLib.UploadError, ue:
                     if not self.options.tolerant:
                         self.die(1, ue)
                     self.warn(2, ue)
@@ -538,11 +538,11 @@ class UploadClass(uploadLib.UploadClass):
             
         if packaging == 'rpm' and self.options.nosig is None and not h.is_signed():
             #pkilambi:bug#173886:force exit to check for sig if --nosig 
-            raise UploadError("ERROR: %s: unsigned rpm (use --nosig to force)"% package)
+            raise uploadLib.UploadError("ERROR: %s: unsigned rpm (use --nosig to force)"% package)
 
         try:
             ret = self._push_package_v2(package, FileChecksumType, FileChecksum)
-        except UploadError, e:
+        except uploadLib.UploadError, e:
             ret, diff_level, pdict = e.args[:3]
             severities = {
                 1   : 'path changed',
@@ -564,7 +564,7 @@ class UploadClass(uploadLib.UploadClass):
             if diff_level != 1:
                 # This will prevent us from annoyingly retrying when there is
                 # no reason to.
-                raise UploadError()
+                raise uploadLib.UploadError()
             return ret
 
         return ret
@@ -594,13 +594,13 @@ class UploadClass(uploadLib.UploadClass):
                 data = rpclib.xmlrpclib.loads(msgstr)
             except:
 	        # Raise the exception instead of silently dying
-                raise UploadError("Error pushing %s: %s (%s)" % 
+                raise uploadLib.UploadError("Error pushing %s: %s (%s)" %
 		            (package, msgstr, status)), None, sys.exc_info()[2]
             (diff_dict, ), methodname = data
             del methodname
             diff_level = diff_dict['level']
             pdict = diff_dict['diff']
-            raise UploadError(ret, diff_level, pdict)
+            raise uploadLib.UploadError(ret, diff_level, pdict)
 
         if status == 403:
             #auth expired raise an exception to grab one
@@ -610,9 +610,6 @@ class UploadClass(uploadLib.UploadClass):
             self.die(1, "Error pushing %s: %s (%s)" % (package, msgstr, status))
             
         return ret
-
-class UploadError(Exception):
-    pass
 
 class AuthenticationRequired(Exception):
     pass
