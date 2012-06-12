@@ -13,8 +13,7 @@ SUBDIRS = \
 		  config \
 		  config_mgmt \
                   sat \
-		  xmlrpc \
-		  xp
+		  xmlrpc
 
 include $(TOP)/Makefile.defs
 
