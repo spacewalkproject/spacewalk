@@ -23,7 +23,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.84
+Version: 1.8.85
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -615,6 +615,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Jun 12 2012 Tomas Lestach <tlestach@redhat.com> 1.8.85-1
+- 797124 - virt host may have several virtual instances
+- 797124 - fix virt host icon issue on WebUI
+
 * Fri Jun 08 2012 Jan Pazdziora 1.8.84-1
 - 829894 - fix channel links on CloneErrata page
 - Revert "removing unused string with trans-id 'schedulediff.ssm.failure'"
