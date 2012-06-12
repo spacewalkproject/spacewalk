@@ -437,8 +437,12 @@ class Server(ServerWrapper):
                     raise server_lib.rhnNoSystemEntitlementsException, None, sys.exc_info()[2]
 
     def _entitle(self, entitlement):
-        entitle_server = rhnSQL.Procedure("rhn_entitlements.entitle_server")
-        entitle_server(self.server['id'], entitlement)
+        system_entitlements = server_lib.check_entitlement(self.server["id"])
+        system_entitlements = system_entitlements.keys()
+
+        if entitlement not in system_entitlements:
+            entitle_server = rhnSQL.Procedure("rhn_entitlements.entitle_server")
+            entitle_server(self.server['id'], entitlement)
 
     def create_perm_cache(self):
         log_debug(4)
