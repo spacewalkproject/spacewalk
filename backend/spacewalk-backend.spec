@@ -274,14 +274,14 @@ make -f Makefile.backend all
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT/%{rhnroot}
-install -d $RPM_BUILD_ROOT/%{pythonrhnroot}
+install -d $RPM_BUILD_ROOT%{rhnroot}
+install -d $RPM_BUILD_ROOT%{pythonrhnroot}
 make -f Makefile.backend install PREFIX=$RPM_BUILD_ROOT \
     MANDIR=%{_mandir}
 export PYTHON_MODULE_NAME=%{name}
 export PYTHON_MODULE_VERSION=%{version}
 
-rm -v $RPM_BUILD_ROOT/%{apacheconfd}/zz-spacewalk-server-python.conf
+rm -v $RPM_BUILD_ROOT%{apacheconfd}/zz-spacewalk-server-python.conf
 
 %if 0%{?fedora} > 16
 rm -rf $RPM_BUILD_ROOT%{pythonrhnroot}/server/rhnSQL/driver_cx_Oracle.py*
@@ -293,11 +293,11 @@ rm -rf $RPM_BUILD_ROOT%{pythonrhnroot}/server/rhnSQL/driver_cx_Oracle.py*
 rm -rf $RPM_BUILD_ROOT
 
 %check
-make -f Makefile.backend PYTHONPATH=$RPM_BUILD_ROOT/%{python_sitelib} test || :
+make -f Makefile.backend PYTHONPATH=$RPM_BUILD_ROOT%{python_sitelib} test || :
 
 %if 0%{?fedora} > 15 || 0%{?rhel} > 5
 # check coding style
-export PYTHONPATH=$RPM_BUILD_ROOT/%{python_sitelib}:/usr/lib/rhn
+export PYTHONPATH=$RPM_BUILD_ROOT%{python_sitelib}:/usr/lib/rhn
 spacewalk-pylint $RPM_BUILD_ROOT%{pythonrhnroot}/common \
                  $RPM_BUILD_ROOT%{pythonrhnroot}/wsgi
 %endif
