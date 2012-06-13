@@ -148,10 +148,10 @@ class UploadClass:
     def directory(self):
         self.warn(2, "Uploading files from directory", self.options.dir)
 
-        for file in listdir(self.options.dir):
+        for filename in listdir(self.options.dir):
             # only add packages
-            if file[-3:] in ("rpm", "mpm"):
-                self.files.append(file)
+            if filename[-3:] in ("rpm", "mpm"):
+                self.files.append(filename)
 
     def filter_excludes(self):
         if not self.options.exclude:
@@ -667,9 +667,9 @@ def packageCompare(pkg1, pkg2, is_mpm=None):
 
 
 # returns a header from a package file on disk.
-def get_header(file, fildes=None, source=None):
+def get_header(filename, fildes=None, source=None):
     try:
-        h = get_package_header(filename=file, fd=fildes)
+        h = get_package_header(filename=filename, fd=fildes)
     except:
         raise UploadError("Package is invalid"), None, sys.exc_info()[2]
         

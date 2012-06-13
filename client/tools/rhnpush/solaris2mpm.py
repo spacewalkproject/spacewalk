@@ -238,9 +238,9 @@ def _run(archives=sys.argv[1:]):
 
         # cleanup as we go
         if options.CLEANUP:
-            for file in _temp_files:
-                if os.path.isfile(file):
-                    os.unlink(file)
+            for filename in _temp_files:
+                if os.path.isfile(filename):
+                    os.unlink(filename)
 
 # archive tests ----------------------------------------------------------
 

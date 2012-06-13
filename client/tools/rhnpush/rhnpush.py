@@ -306,11 +306,11 @@ class UploadClass(uploadLib.UploadClass):
         # have to be pushed before the cluster itself
         files1 = []
         files2 = []
-        for file in self.files:
-            if file.startswith('patch-cluster-'):
-                files2.append(file)
+        for filename in self.files:
+            if filename.startswith('patch-cluster-'):
+                files2.append(filename)
             else:
-                files1.append(file)
+                files1.append(filename)
 
         self.files = files1 + files2
 

@@ -108,7 +108,7 @@ class ArchiveParser(object):
 
     # private helper methods ---------------------------------------------
 
-    def _find(self, file):
+    def _find(self, filename):
         """[internal] Returns the relative path to a file in the archive"""
 
         file_path = None
@@ -132,7 +132,7 @@ class ArchiveParser(object):
                 # damn while loop still had a hold of the original reference
                 contents.extend(e_contents)
             else:
-                if entry.endswith(file):
+                if entry.endswith(filename):
                     file_path = entry
                     break
 
@@ -164,26 +164,26 @@ class ArchiveParser(object):
 
         return (d, f)
 
-    def contains(self, file):
+    def contains(self, filename):
         """Returns true iff the file is contained in the archive"""
-        return self._find(file) is not None
+        return self._find(filename) is not None
 
-    def read(self, file):
+    def read(self, filename):
         """Returns the contents of the file, or None on error
            First occurence of that file in archive is returned
         """
 
-        f = self._find(file)
+        f = self._find(filename)
         if f:
             return self.direct_read(f)
         else:
             return None
 
-    def direct_read(self, file):
+    def direct_read(self, filename):
         """ Returns the contens of the file, file is relative path in archive.
             Top most level (_get_archive_dir) is automaticaly added.
          """
-        f = os.path.join(os.path.abspath(self._archive_dir), file)
+        f = os.path.join(os.path.abspath(self._archive_dir), filename)
         contents = None
 
         if os.path.isfile(f) and os.access(f, os.R_OK):

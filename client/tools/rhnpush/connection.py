@@ -169,7 +169,7 @@ class PackageUpload:
 
         return self._response
 
-    def upload(self, file, FileChecksumType, FileChecksum):
+    def upload(self, filename, FileChecksumType, FileChecksum):
         """
         Uploads a file.
         Returns (http_error_code, error_message)
@@ -181,10 +181,10 @@ class PackageUpload:
             self.package_arch
         """
         try:
-            a_pkg = package_from_filename(file)
+            a_pkg = package_from_filename(filename)
             a_pkg.read_header()
         except InvalidPackageError:
-            return -1, "Not an RPM: %s" % file
+            return -1, "Not an RPM: %s" % filename
 
         # Set some package data members
         self.package_name = a_pkg.header['name']
@@ -205,7 +205,7 @@ class PackageUpload:
 
         if isinstance(nvra[3], IntType):
             # Old rpm format
-            return -1, "Deprecated RPM format: %s" % file
+            return -1, "Deprecated RPM format: %s" % filename
 
         self.nvra = nvra
 
