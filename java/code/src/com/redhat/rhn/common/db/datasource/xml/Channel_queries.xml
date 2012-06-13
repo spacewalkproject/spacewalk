@@ -997,7 +997,7 @@ GROUP BY C.id, C.name
 </mode>
 
 <callable-mode name="convert_to_flex">
-    <query params="sid, cfid, uid">
+    <query params="sid, cfid">
       { call rhn_channel.convert_to_fve(:sid, :cfid) }
     </query>
 </callable-mode>

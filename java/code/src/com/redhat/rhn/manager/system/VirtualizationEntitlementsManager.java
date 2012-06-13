@@ -17,14 +17,12 @@ package com.redhat.rhn.manager.system;
 import com.redhat.rhn.common.db.WrappedSQLException;
 import com.redhat.rhn.common.db.datasource.CallableMode;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
-import com.redhat.rhn.domain.common.ExceptionMessage;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.server.ServerFactory;
 import com.redhat.rhn.domain.server.VirtualInstanceFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.ChannelFamilySystemGroup;
 
-import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -160,14 +158,13 @@ public class VirtualizationEntitlementsManager {
                 toRet.add(sid);
             }
             catch (WrappedSQLException sq) {
-                SQLException ex = (SQLException) sq.getCause();
-                if (ex != null) {
-                    ExceptionMessage m = ExceptionMessage.lookup(ex.getErrorCode());
-                    if (m != null && "not_enough_flex_entitlements".equals(m.getLabel())) {
-                        break;
+                String msg = sq.getMessage();
+                if (msg != null) {
+                    if (msg.contains("not_enough_flex_entitlements")) {
+                        continue;
                     }
-                    if (m != null && "server_cannot_convert_to_flex".equals(m.getLabel())) {
-                        break;
+                    if (msg.contains("server_cannot_convert_to_flex")) {
+                        continue;
                     }
                 }
                 throw sq;
