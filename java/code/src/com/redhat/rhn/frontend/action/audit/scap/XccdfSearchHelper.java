@@ -27,6 +27,7 @@ import redstone.xmlrpc.XmlRpcException;
 import redstone.xmlrpc.XmlRpcFault;
 
 import com.redhat.rhn.common.conf.ConfigDefaults;
+import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.manager.audit.ScapManager;
@@ -44,17 +45,20 @@ public class XccdfSearchHelper extends RhnAction {
      * Perform search over XCCDF
      * @param searchString A string to search within xccdf:Rules
      * @param whereToSearch Where to search for scans, either ssm or all machines
-     * @param startDate search scans performed after startDate (null to ommit)
-     * @param endDate search scans performed before endDate (null to ommit)
-     * @param ruleResult search rules with given ruleresult label (null to ommit)
-     * @param context A context of cuyrrent request
+     * @param startDate search scans performed after startDate (null to omit)
+     * @param endDate search scans performed before endDate (null to omit)
+     * @param ruleResult search rules with given ruleresult label (null to omit)
+     * @param returnTestResults return results as list of TestResult (true),
+     * or RuleResults (false)
+     * @param context A context of current request
      * @return a list of xccdf:rule-results
      * @throws MalformedURLException possibly bad configuration for search server address
      * @throws XmlRpcException in the case of a serialization failure
      * @throws XmlRpcFault bad communication with search server
      */
-    public static List performSearch(String searchString, String whereToSearch,
-            Date startDate, Date endDate, String ruleResult, RequestContext context)
+    public static DataResult performSearch(String searchString, String whereToSearch,
+            Date startDate, Date endDate, String ruleResult, boolean returnTestResults,
+            RequestContext context)
             throws MalformedURLException, XmlRpcException, XmlRpcFault {
         ArrayList args = new ArrayList();
         args.add(context.getWebSession().getId());
@@ -83,7 +87,7 @@ public class XccdfSearchHelper extends RhnAction {
         if (ruleResult != null) {
             params.put("result", ruleResult);
         }
-        return ScapManager.ruleResultsByIdentIds(params, identIds);
+        return ScapManager.searchByIdentIds(params, identIds, returnTestResults);
     }
 
     private static String preprocessSearchString(String searchString) {

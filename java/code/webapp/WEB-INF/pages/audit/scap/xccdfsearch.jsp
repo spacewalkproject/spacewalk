@@ -93,6 +93,18 @@
             </div>
           </td>
         </tr>
+        <tr><th><bean:message key="scapsearch.jsp.show_as"/>:</th>
+          <td>
+            <div style="text-align: left">
+              <html:radio property="show_as" value="rr" styleId="show_as-rr"/>
+              <label for="show_as-rr"><bean:message key="scapsearch.jsp.list_rr"/></label>
+            </div>
+            <div style="text-align: left">
+              <html:radio property="show_as" value="tr" styleId="show_as-tr"/>
+              <label for="show_as-tr"><bean:message key="scapsearch.jsp.list_tr"/></label>
+            </div>
+          </td>
+        </tr>
       </table>
     </div> <!-- search-choices-group -->
   </div> <!-- search-choices -->
@@ -105,15 +117,26 @@
 
   <rl:listset name="searchSet" legend="xccdf">
     <rhn:csrf/>
-    <rl:list emptykey="generic.jsp.none" name="searchResults" dataset="pageList">
-      <rl:decorator name="PageSizeDecorator"/>
-      <%@ include file="/WEB-INF/pages/common/fragments/audit/rule-common-columns.jspf" %>
-    </rl:list>
+    <c:choose>
+      <c:when test="${param.show_as == 'tr'}">
+        <rl:list emptykey="generic.jsp.none" name="searchResults" dataset="pageList">
+          <%@ include file="/WEB-INF/pages/common/fragments/audit/xccdf-easy-list.jspf" %>
+        </rl:list>
+      </c:when>
+
+      <c:otherwise>
+        <rl:list emptykey="generic.jsp.none" name="searchResults" dataset="pageList">
+          <rl:decorator name="PageSizeDecorator"/>
+          <%@ include file="/WEB-INF/pages/common/fragments/audit/rule-common-columns.jspf" %>
+        </rl:list>
+      </c:otherwise>
+    </c:choose>
 
     <!-- there are two forms here, need to keep the formvars around for pagination -->
     <input type="hidden" name="submitted" value="true"/>
     <input type="hidden" name="search_string" value="${search_string}"/>
     <input type="hidden" name="whereToSearch" value="${param.whereToSearch}"/>
+    <input type="hidden" name="show_as" value="${param.show_as}"/>
     <input type="hidden" name="optionScanDateSearch" value="${param.optionScanDateSearch}"/>
     <input type="hidden" name="start_year" value="${param.start_year}"/>
     <input type="hidden" name="start_month" value="${param.start_month}"/>

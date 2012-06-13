@@ -12157,6 +12157,15 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
        <trans-unit id="scapsearch.jsp.end_date">
          <source>End Date</source>
        </trans-unit>
+       <trans-unit id="scapsearch.jsp.show_as">
+         <source>Show Search Result As</source>
+       </trans-unit>
+       <trans-unit id="scapsearch.jsp.list_rr">
+         <source>List of XCCDF Rule Results</source>
+       </trans-unit>
+       <trans-unit id="scapsearch.jsp.list_tr">
+         <source>List of XCCDF Scans</source>
+       </trans-unit>
      </group>
 
      <!-- Action common -->

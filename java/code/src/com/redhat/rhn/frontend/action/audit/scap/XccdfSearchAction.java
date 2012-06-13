@@ -39,12 +39,14 @@ import org.directwebremoting.util.Logger;
 import redstone.xmlrpc.XmlRpcException;
 import redstone.xmlrpc.XmlRpcFault;
 
+import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.util.DatePicker;
 import com.redhat.rhn.frontend.action.common.DateRangePicker;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
+import com.redhat.rhn.frontend.taglibs.list.TagHelper;
 import com.redhat.rhn.manager.audit.ScapManager;
 
 /**
@@ -56,6 +58,9 @@ public class XccdfSearchAction extends RhnAction {
     private static final String WHERE_TO_SEARCH = "whereToSearch";
     private static final String SCAN_DATE_SEARCH = "optionScanDateSearch";
     private static final String ANY_LABEL = "any";
+    private static final String SHOW_AS = "show_as";
+    private static final String TESTRESULT_ID = "tr";
+    private static final String RULERESULT_ID = "rr";
     private static Logger log = Logger.getLogger(XccdfSearchAction.class);
 
     /** {@inheritDoc} */
@@ -129,15 +134,21 @@ public class XccdfSearchAction extends RhnAction {
         form.set(WHERE_TO_SEARCH,
                 "system_list".equals(whereToSearch) ? whereToSearch : "all");
         setupRuleResultLabelOptions(request);
+        setupShowAsOption(form);
         DateRangePicker picker = setupDatePicker(form, request);
 
         if (!StringUtils.isBlank(searchString)) {
             picker.processDatePickers(getOptionScanDateSearch(request), false);
-            List results = XccdfSearchHelper.performSearch(searchString, whereToSearch,
-                getPickerDate(request, "start"), getPickerDate(request, "end"),
-                getRuleResultLabel(form), context);
+            DataResult results = XccdfSearchHelper.performSearch(searchString,
+                whereToSearch, getPickerDate(request, "start"),
+                getPickerDate(request, "end"), getRuleResultLabel(form),
+                isTestestResultRequested(form), context);
             request.setAttribute(RequestContext.PAGE_LIST,
                     results != null ? results : Collections.EMPTY_LIST);
+            if (isTestestResultRequested(form) && results != null) {
+                TagHelper.bindElaboratorTo("searchResults", results.getElaborator(),
+                        request);
+            }
         }
         else {
             request.setAttribute(RequestContext.PAGE_LIST, Collections.EMPTY_LIST);
@@ -184,6 +195,21 @@ public class XccdfSearchAction extends RhnAction {
         return new DateRangePicker(form, request, yesterday.getTime(), today.getTime(),
                 DatePicker.YEAR_RANGE_NEGATIVE, "scapsearch.jsp.start_date",
                 "scapsearch.jsp.end_date");
+    }
+
+    private boolean isTestestResultRequested(DynaActionForm form) {
+        String showAs = form.getString(SHOW_AS);
+        if (showAs == null ||
+                RULERESULT_ID.equals(showAs) || "".equals(showAs)) {
+            return false;
+        }
+        return true;
+    }
+
+    private void setupShowAsOption(DynaActionForm form) {
+        String showAs = form.getString(SHOW_AS);
+        form.set(SHOW_AS,
+                TESTRESULT_ID.equals(showAs) ? showAs : RULERESULT_ID);
     }
 
     private String getRuleResultLabel(DynaActionForm form) {

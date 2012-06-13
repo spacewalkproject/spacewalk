@@ -134,22 +134,29 @@ public class ScapManager extends BaseManager {
     }
 
     /**
-     * Get xccdf:rule-results by ident's ids
+     * Get xccdf:rule-result-s or xccdf:TestResult-s by ident's ids
      * @param inParams direct parameters for query.
      * user_id is the only compulsory
      * @param identIds list of xccdf:ident ids
+     * @param returnTestResults what to return
+     * (true - list of testresults, false - list of rule-results)
      * @return the result
      */
-    public static List<XccdfRuleResultDto> ruleResultsByIdentIds(Map inParams,
-            List<Long> identIds) {
-        String modeName = "rr_by_idents";
+    public static DataResult searchByIdentIds(Map inParams,
+            List<Long> identIds, boolean returnTestResults) {
+        String modeName = (returnTestResults ? "t" : "r") + "r_by_idents";
         for (String term : SEARCH_TERM_PRECEDENCE) {
             if (inParams.containsKey(term)) {
                 modeName += "_" + term;
             }
         }
         SelectMode m = ModeFactory.getMode("scap_queries", modeName);
-        return m.execute(inParams, identIds);
+        DataResult dr = m.execute(inParams, identIds);
+        if (returnTestResults) {
+            dr.setTotalSize(dr.size());
+            dr = processPageControl(dr, null, new HashMap());
+        }
+        return dr;
     }
 
     /**
