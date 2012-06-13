@@ -148,16 +148,16 @@ class ArchiveParser(object):
         """Return a tuple of directories and files in the archive at the given
         directory: prefix"""
 
-        dir = os.path.join(self._archive_dir, prefix)
-        assert os.path.isdir(dir)
+        dirname = os.path.join(self._archive_dir, prefix)
+        assert os.path.isdir(dirname)
 
-        l = os.listdir(dir)
+        l = os.listdir(dirname)
 
         d = []
         f = []
 
         for i in l:
-            if os.path.isdir(os.path.join(dir, i)):
+            if os.path.isdir(os.path.join(dirname, i)):
                 d.append(i)
             else:
                 f.append(i)
@@ -199,9 +199,9 @@ class ArchiveParser(object):
     def zip(self, prefix=""):
         """Create a zip archive of a (sub-)directory of the archive"""
 
-        dir = os.path.join(self._archive_dir, prefix)
-        zip_dir = os.path.basename(dir)
-        parent_dir = os.path.dirname(dir)
+        dirname = os.path.join(self._archive_dir, prefix)
+        zip_dir = os.path.basename(dirname)
+        parent_dir = os.path.dirname(dirname)
 
         cwd = os.getcwd()
         os.chdir(parent_dir)
@@ -306,8 +306,8 @@ def _has_executable(exc):
     # this is posix specific
     dirs = os.environ["PATH"].split(':')
 
-    for dir in dirs:
-        path = os.path.join(dir, exc)
+    for dirname in dirs:
+        path = os.path.join(dirname, exc)
         if os.access(path, os.X_OK):
             return True
 

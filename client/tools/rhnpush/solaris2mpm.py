@@ -209,8 +209,8 @@ def _run(archives=sys.argv[1:]):
                 patches, x = archive_parser.list()
                 if patches == ['patches']:
                     patches, x = archive_parser.list('patches/')
-                for dir in patches:
-                    patch_mpm = create_patch_mpm(archive_parser, prefix=dir)
+                for dirname in patches:
+                    patch_mpm = create_patch_mpm(archive_parser, prefix=dirname)
                     write_mpm(patch_mpm)
                     _close_mpm(patch_mpm)
 
@@ -223,8 +223,8 @@ def _run(archives=sys.argv[1:]):
             # package
             elif _is_package_archive(archive_parser):
                 pkgs, x = archive_parser.list()
-                for dir in pkgs:
-                    pkg_mpm = create_pkg_mpm(archive_parser, prefix=dir)
+                for dirname in pkgs:
+                    pkg_mpm = create_pkg_mpm(archive_parser, prefix=dirname)
                     write_mpm(pkg_mpm)
                     _close_mpm(pkg_mpm)
                         
