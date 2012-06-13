@@ -17,7 +17,14 @@
   <bean:message key="system.audit.listscap.jsp.overview"/>
 </rhn:toolbar>
 
-<%@ include file="/WEB-INF/pages/common/fragments/audit/xccdf-easy-list.jspf" %>
+<rl:listset name="groupSet" legend="xccdf">
+  <rhn:csrf />
+  <rhn:submitted />
+  <rl:list emptykey="audit.listxccdf.jsp.noscans">
+    <%@ include file="/WEB-INF/pages/common/fragments/audit/xccdf-easy-list.jspf" %>
+  </rl:list>
+  <rhn:tooltip key="audit.listxccdf.jsp.tooltip"/>
+</rl:listset>
 
 </body>
 </html>
