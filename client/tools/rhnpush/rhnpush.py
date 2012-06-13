@@ -83,7 +83,7 @@ def main():
     ]
 
     #Having to maintain a store_true list is ugly. I'm trying to get rid of this.
-    true_list = ['usage', 'test', 'source', 'header', 'nullorg', 'newest',\
+    true_list = ['usage', 'test', 'source', 'header', 'nullorg', 'newest', \
                  'nosig', 'force', 'list', 'stdin', 'new_cache','extended_test', \
                  'no_session_caching', 'tolerant']
     optionParser = OptionParser(option_list=optionsTable, usage="%prog [OPTION] [<package>]")
@@ -296,7 +296,7 @@ class UploadClass(uploadLib.UploadClass):
         # Do we have the new-style handler available?
 
         #ping the server for status
-        self.warn(2,"url is",self.url_v2)
+        self.warn(2, "url is", self.url_v2)
         ping = rhnpush_v2.PingPackageUpload(self.url_v2, self.options.proxy)
         self.ping_status, errmsg, headerinfo = ping.ping()
         self.warn(2, "Result codes:", self.ping_status, errmsg)
@@ -349,12 +349,12 @@ class UploadClass(uploadLib.UploadClass):
 
             elif server_digest == "on-disk" and not self.options.force:
                 channel_packages.append(pkgs_info[pkg_key])
-                self.warn(0,"Package on disk but not on db -- Skipping Upload "%pkg)
+                self.warn(0, "Package on disk but not on db -- Skipping Upload " % pkg)
                 continue
 
             elif server_digest != digest:
                 if self.options.force:
-                    self.warn(1,"Package checksum %s mismatch  -- Forcing Upload"% pkg)
+                    self.warn(1, "Package checksum %s mismatch  -- Forcing Upload" % pkg)
                 else:
                     msg = """Error: Package %s already exists on the server with a different checksum. Skipping upload to prevent overwriting existing package. (You may use rhnpush with the --force option to force this upload if the force_upload option is enabled on your server.)\n"""% pkg
                     if not self.options.tolerant:

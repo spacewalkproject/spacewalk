@@ -95,7 +95,7 @@ class CacheManagerTestCase(unittest.TestCase):
     def testGetUsernamePassword(self):
         self.cache = rhnpush_cache.CacheManager(5)
         self.cache.setUsernamePassword('wregglej', 'password')
-        u,p = self.cache.getUsernamePassword()
+        u, p = self.cache.getUsernamePassword()
         assert u == 'wregglej' and p == 'password'
 
     def testSetCacheLifetime(self):
