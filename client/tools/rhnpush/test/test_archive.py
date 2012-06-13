@@ -47,9 +47,9 @@ class ArchiveTest(unittest.TestCase):
         fd.write(TEST_CONTENTS)
         fd.close()
 
-        zip = zipfile.ZipFile(TEST_ARCHIVE, 'w')
-        zip.write(TEST_FILE_PATH)
-        zip.close()
+        fzip = zipfile.ZipFile(TEST_ARCHIVE, 'w')
+        fzip.write(TEST_FILE_PATH)
+        fzip.close()
 
     def tearDown(self):
         if os.path.isfile(TEST_FILE_PATH):
