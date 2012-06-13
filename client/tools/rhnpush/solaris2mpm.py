@@ -565,9 +565,9 @@ def _sanitize_string_version(str):
     underscore_mode = 0
 
     for c in str:
-       if _illegal_ver_regex.match(c) is not None:
+        if _illegal_ver_regex.match(c) is not None:
             underscore_mode = 1
-       else:
+        else:
             if underscore_mode:
                 result += '_'
                 underscore_mode = 0

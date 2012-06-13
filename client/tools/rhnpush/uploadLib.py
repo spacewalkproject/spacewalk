@@ -380,7 +380,7 @@ class UploadClass:
                 ret = self._uploadPackageInfo(hash)
 
             if ret is None:
-               self.die(-1, "Upload attempt failed")
+                self.die(-1, "Upload attempt failed")
 
             # Append the package information
             alreadyUploaded, newPackages = ret
@@ -542,8 +542,8 @@ def getUsernamePassword(cmdlineUsername, cmdlinePassword):
         try:
             username = tty.readline()
         except KeyboardInterrupt:
-                tty.write("\n")
-                sys.exit(0)
+            tty.write("\n")
+            sys.exit(0)
         if username is None:
             # EOF
             tty.write("\n")
