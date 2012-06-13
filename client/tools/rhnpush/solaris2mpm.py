@@ -149,19 +149,19 @@ def _parse_options():
     usage = "usage: solaris2mpm <options> archive1 [archive2 [...]]"
     version = "solaris2mpm %s, %s" % (__revision__, __copyright__)
 
-    parser = optparse.OptionParser(usage=usage, version=version)
+    oparser = optparse.OptionParser(usage=usage, version=version)
 
-    parser.add_option("-?", "--usage", action="store_true", dest="USAGE",
+    oparser.add_option("-?", "--usage", action="store_true", dest="USAGE",
                       help="print program usage and exit")
-    parser.add_option("--tempdir", action="store", dest="TEMPDIR",
+    oparser.add_option("--tempdir", action="store", dest="TEMPDIR",
                       default="/tmp/", help="temporary directory to work from")
-    parser.add_option("--select-arch", action="store", dest="ARCH",
+    oparser.add_option("--select-arch", action="store", dest="ARCH",
                       help="select architecture (i386 or sparc) for multi-arch packages")
-    parser.add_option("--no-cleanup", action="store_false", dest="CLEANUP",
+    oparser.add_option("--no-cleanup", action="store_false", dest="CLEANUP",
                       default=True, help=optparse.SUPPRESS_HELP)
 
     global options
-    options, args = parser.parse_args()
+    options, args = oparser.parse_args()
 
     if options.USAGE:
         print usage
