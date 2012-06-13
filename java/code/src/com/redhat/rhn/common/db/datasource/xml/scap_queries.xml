@@ -170,6 +170,7 @@
           AND usp.user_id = :user_id
           AND tr.action_scap_id = ras.id
           AND sa.action_id = ras.action_id
+          AND sa.server_id = tr.server_id
           AND sa.completion_time &gt;= :start
           AND sa.completion_time &lt;= :end
       ORDER BY rr.id DESC
@@ -195,6 +196,7 @@
           AND st.label = :slabel
           AND tr.action_scap_id = ras.id
           AND sa.action_id = ras.action_id
+          AND sa.server_id = tr.server_id
           AND sa.completion_time &gt;= :start
           AND sa.completion_time &lt;= :end
       ORDER BY rr.id DESC
@@ -258,6 +260,7 @@
           AND usp.user_id = :user_id
           AND tr.action_scap_id = ras.id
           AND sa.action_id = ras.action_id
+          AND sa.server_id = tr.server_id
           AND sa.completion_time &gt;= :start
           AND sa.completion_time &lt;= :end
           AND rrt.label = :result
@@ -284,6 +287,7 @@
           AND st.label = :slabel
           AND tr.action_scap_id = ras.id
           AND sa.action_id = ras.action_id
+          AND sa.server_id = tr.server_id
           AND sa.completion_time &gt;= :start
           AND sa.completion_time &lt;= :end
           AND rrt.label = :result
