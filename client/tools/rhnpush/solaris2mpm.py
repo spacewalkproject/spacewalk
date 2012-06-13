@@ -536,14 +536,14 @@ def compose_pstamp_and_release(header):
 
     return release_part + pstamp_part
 
-def _sanitize_string(str):
+def _sanitize_string(s):
     """Replaces all non-alphanumeric chars with an underscore and returns the
        result.
     """
     result = ''
     underscore_mode = 0
 
-    for c in str:
+    for c in s:
         if not c.isalnum():
             underscore_mode = 1
         else:
@@ -557,14 +557,14 @@ def _sanitize_string(str):
 
     return result
 
-def _sanitize_string_version(str):
+def _sanitize_string_version(s):
     """Replaces all none-valid version chars with an underscore and returns the
        result.
     """
     result = ''
     underscore_mode = 0
 
-    for c in str:
+    for c in s:
         if _illegal_ver_regex.match(c) is not None:
             underscore_mode = 1
         else:
