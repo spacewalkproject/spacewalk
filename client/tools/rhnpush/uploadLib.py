@@ -185,12 +185,12 @@ class UploadClass:
         self.authenticate()
 
         if self.options.source:
-            list = self._listChannelSource()
+            channel_list = self._listChannelSource()
         else:
             # List the channel's contents
-            list = self._listChannel()
+            channel_list = self._listChannel()
 
-        for p in list:
+        for p in channel_list:
             print p[:6]
 
     def newest(self):
