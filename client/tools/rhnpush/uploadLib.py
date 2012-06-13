@@ -284,8 +284,8 @@ class UploadClass:
 
         # Return the list of files to push
         l = []
-        for hash in localPackagesHash.values():
-            for filename in hash.values():
+        for fhash in localPackagesHash.values():
+            for filename in fhash.values():
                 l.append(filename)
         l.sort()
         self.files = l
@@ -358,15 +358,15 @@ class UploadClass:
                 continue
 
             # Send the big hash
-            hash = {'packages' : headersList}
+            info = {'packages' : headersList}
             if self.orgId > 0 or self.orgId == '':
-                hash['orgId'] = self.orgId
+                info['orgId'] = self.orgId
 
             if self.force:
-                hash['force'] = self.force
+                info['force'] = self.force
 
             if self.channels:
-                hash['channels'] = self.channels
+                info['channels'] = self.channels
 
             # Some feedback
             if self.options.verbose:
@@ -375,9 +375,9 @@ class UploadClass:
                     ReportError("\t\t%s" % p)
 
             if source:
-                ret = self._uploadSourcePackageInfo(hash)
+                ret = self._uploadSourcePackageInfo(info)
             else:
-                ret = self._uploadPackageInfo(hash)
+                ret = self._uploadPackageInfo(info)
 
             if ret is None:
                 self.die(-1, "Upload attempt failed")
@@ -484,7 +484,7 @@ class UploadClass:
             lh.append(a_pkg.header['arch'])
 
         # Build the header hash to be sent
-        hash = { 'header' : Binary(a_pkg.header.unload()),
+        info = { 'header' : Binary(a_pkg.header.unload()),
                 'checksum_type' : a_pkg.checksum_type,
                 'checksum' : a_pkg.checksum,
                 'packageSize' : size,
@@ -492,10 +492,10 @@ class UploadClass:
                 'header_end' : a_pkg.header_end}
         if relativeDir:
             # Append the relative dir too
-            hash["relativePath"] = "%s/%s" % (relativeDir,
+            info["relativePath"] = "%s/%s" % (relativeDir,
                 os.path.basename(filename))
-        hash['nvrea'] = tuple(lh)
-        return hash
+        info['nvrea'] = tuple(lh)
+        return info
 
     def _processBatch(self, batch, relativeDir, source, verbose, nosig=None):
         sentPackages = {}
@@ -503,16 +503,16 @@ class UploadClass:
         for filename in batch:
             if verbose:
                 print "Uploading %s" % filename
-            hash = self._processFile(filename, relativeDir=relativeDir, source=source,
+            info = self._processFile(filename, relativeDir=relativeDir, source=source,
                 nosig=nosig)
             # Get nvrea
-            nvrea = hash['nvrea']
-            del hash['nvrea']
+            nvrea = info['nvrea']
+            del info['nvrea']
 
             sentPackages[nvrea] = filename
 
             # Append the header to the list of headers to be sent out
-            headersList.append(hash)
+            headersList.append(info)
         return sentPackages, headersList
 
 def readStdin():
