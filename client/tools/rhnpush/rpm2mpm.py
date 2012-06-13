@@ -40,8 +40,8 @@ def main():
         except:
             raise
 
-def _compute_filename(dict):
-    return '%s-%s.%s.mpm' % (dict['name'], dict['version'], dict['arch'])
+def _compute_filename(hdr):
+    return '%s-%s.%s.mpm' % (hdr['name'], hdr['version'], hdr['arch'])
 
 def rpm_to_mpm(header, file_stream):
     tag_map = {
@@ -192,13 +192,13 @@ def _extract_array_fields(header, tag_maps):
 
     result = []
     for i in range(count):
-        dict = {}
+        tag_dict = {}
         for key, rpmtag in tag_maps.items():
             arr = header[rpmtag]
             if type(arr) not in (ListType, TupleType):
                 arr = [arr]
-            dict[key] = arr[i]
-        result.append(dict)
+            tag_dict[key] = arr[i]
+        result.append(tag_dict)
     return result
 
 
