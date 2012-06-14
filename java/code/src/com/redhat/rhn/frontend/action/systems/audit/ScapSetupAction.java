@@ -16,6 +16,7 @@ package com.redhat.rhn.frontend.action.systems.audit;
 
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.action.systems.sdc.SdcHelper;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.manager.audit.ScapManager;
@@ -36,5 +37,7 @@ public abstract class ScapSetupAction extends RhnAction {
         boolean enabled = ScapManager.isScapEnabled(server, user);
         context.getRequest().setAttribute(SCAP_ENABLED, enabled);
         context.getRequest().setAttribute(REQUIRED_PKG, SPACEWALK_OSCAP);
+
+        SdcHelper.ssmCheck(context.getRequest(), server.getId(), user);
     }
 }

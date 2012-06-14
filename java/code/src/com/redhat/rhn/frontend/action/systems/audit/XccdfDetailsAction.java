@@ -27,6 +27,7 @@ import com.redhat.rhn.domain.audit.ScapFactory;
 import com.redhat.rhn.domain.audit.XccdfTestResult;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.action.systems.sdc.SdcHelper;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnHelper;
@@ -64,6 +65,7 @@ public class XccdfDetailsAction extends RhnAction implements Listable {
 
         request.setAttribute(ListTagHelper.PARENT_URL,
                 request.getRequestURI() + "?sid=" + sid + "&xid=" + xid);
+        SdcHelper.ssmCheck(request, sid, user);
 
         return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }

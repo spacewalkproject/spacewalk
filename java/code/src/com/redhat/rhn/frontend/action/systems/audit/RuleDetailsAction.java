@@ -25,6 +25,7 @@ import org.apache.struts.action.ActionMapping;
 
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.action.systems.sdc.SdcHelper;
 import com.redhat.rhn.frontend.dto.XccdfRuleResultDto;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
@@ -63,6 +64,7 @@ public class RuleDetailsAction extends RhnAction implements Listable {
 
         request.setAttribute(ListTagHelper.PARENT_URL,
                 request.getRequestURI() + "?sid=" + sid + "&rrid=" + ruleResultId);
+        SdcHelper.ssmCheck(request, sid, user);
 
         return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
