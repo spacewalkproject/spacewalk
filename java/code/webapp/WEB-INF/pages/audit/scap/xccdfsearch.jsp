@@ -137,6 +137,7 @@
     <input type="hidden" name="search_string" value="${search_string}"/>
     <input type="hidden" name="whereToSearch" value="${param.whereToSearch}"/>
     <input type="hidden" name="show_as" value="${param.show_as}"/>
+    <input type="hidden" name="result_filter" value="{param.result_filter}"/>
     <input type="hidden" name="optionScanDateSearch" value="${param.optionScanDateSearch}"/>
     <input type="hidden" name="start_year" value="${param.start_year}"/>
     <input type="hidden" name="start_month" value="${param.start_month}"/>
