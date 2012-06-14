@@ -4,7 +4,7 @@ Group:   Applications/Internet
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 1.8.4
+Version: 1.8.5
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
 BuildRequires: python
@@ -331,6 +331,13 @@ fi
 
 
 %changelog
+* Thu Jun 14 2012 Michael Mraka <michael.mraka@redhat.com> 1.8.5-1
+- 829724 - use session based calls from rhnpush.uploadLib
+- 829724 - modified checkSync() to use session based authentication
+- 829724 - session based authentication needs --new-cache and --no-cache
+- 829724 - use session based authentication
+- 829724 - /XP handler defines small subset of /APP handler functions
+
 * Mon Jun 11 2012 Michael Mraka <michael.mraka@redhat.com> 1.8.4-1
 - provide /usr/share/spacewalk in proxy
 - %%defattr is not needed since rpm 4.4
