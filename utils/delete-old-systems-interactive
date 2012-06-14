@@ -47,10 +47,10 @@ else {
 }
 
 my $not_before = time - $idle_time;
-my ($sec, $min, $h, $d, $m, $y) = gmtime($not_before);
+my ($sec, $min, $h, $d, $m, $y) = localtime($not_before);
 my $cutoff = sprintf '%04d%02d%02dT%02d:%02d:%02d',
 				$y + 1900,$m + 1, $d, $h, $min, $sec;
-print "Lookup on [$host] systems with last checkin before [$cutoff] GMT\n";
+print "Lookup on [$host] systems with last checkin before [$cutoff]\n";
 
 my $client = new Frontier::Client(url => "http://$host/rpc/api", debug=>0);
 my $session = $client->call('auth.login', $username, $passwd)
