@@ -4,7 +4,7 @@ Group:   Applications/Internet
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 1.8.5
+Version: 1.8.6
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
 BuildRequires: python
@@ -330,6 +330,10 @@ fi
 
 
 %changelog
+* Thu Jun 14 2012 Michael Mraka <michael.mraka@redhat.com> 1.8.6-1
+- no more special uploadLib.py
+- merged uploadLib.UploadClass into rhn_package_manager.UploadClass
+
 * Thu Jun 14 2012 Michael Mraka <michael.mraka@redhat.com> 1.8.5-1
 - 829724 - use session based calls from rhnpush.uploadLib
 - 829724 - modified checkSync() to use session based authentication
