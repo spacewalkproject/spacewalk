@@ -12,7 +12,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.34
+Version: 1.8.35
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -663,6 +663,10 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Fri Jun 15 2012 Michael Mraka <michael.mraka@redhat.com> 1.8.35-1
+- fixed Instance of 'deb_Header' has no 'keys' member
+- removed unreachable code
+
 * Tue Jun 12 2012 Tomas Lestach <tlestach@redhat.com> 1.8.34-1
 - 804106 - do not entitle virt guests twice during registration
 
