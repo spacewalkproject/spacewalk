@@ -187,47 +187,6 @@ def __query_source_package_path_by_name(server_id, pkgFilename, channel):
     return h.fetchone_dict()
 
 
-# Old client
-# get source package path via package name.
-def get_source_package_path_by_name(server_id, packageName):
-    log_debug(3, packageName)
-    statement = """
-    select
-            unique ps.path
-    from
-            rhnSourceRPM sr,
-            rhnPackageSource ps,
-            rhnPackage p,
-            rhnChannelPackage cp,
-            rhnServerChannel sc
-    where   
-                sc.server_id = :server_id
-            and sc.channel_id = cp.channel_id
-            and cp.package_id = p.id
-            and p.source_rpm_id = sr.id
-            and ((p.org_id is null and ps.org_id is null) 
-                or p.org_id = ps.org_id)
-            and sr.name = :name
-            and p.source_rpm_id = ps.source_rpm_id
-    """
-    h = rhnSQL.prepare(statement)
-    h.execute(name=packageName, server_id=server_id)
-    rs = h.fetchone_dict()
-    if not rs:
-        log_debug(4, "Error", "Non-existant package requested", server_id, 
-            packageName)
-        raise rhnFault(17, _("Invalid RPM package %s requested") % packageName)
-
-    filePath = "%s/%s" % (CFG.MOUNT_POINT, rs['path'])
-    if not os.access(filePath, os.R_OK):
-        # Package not found on the filesystem
-        log_error("Package not found", filePath)
-        raise rhnFault(17, _("Package not found"))
-
-    # Set the flag for the proxy download accelerator
-    rhnFlags.set("Download-Accelerator-Path", rs['path'])
-    return filePath
-
 def get_info_for_package(pkg, channel_id, org_id):
     log_debug(3, pkg)
     pkg = map(str, pkg)
@@ -294,7 +253,4 @@ if __name__ == '__main__':
     # new client
     print get_package_path(1000463284, 'kernel-2.4.2-2.i686.rpm', 'redhat-linux-i386-7.1')
     print get_source_package_path(1000463284, 'kernel-2.4.2-2.i686.rpm', 'redhat-linux-i386-7.1')
-    
-    # old client
-    print get_source_package_path_by_name(1000463284, 'kernel-2.4.2-2.src.rpm')
     
