@@ -1,6 +1,6 @@
 python-rhn-client-tools (1.6.41-1) unstable; urgency=low
 
-  * Rebase to upstream version
+  * Initial Debian release
   * 703833 - if /sbin/service is not available, try to use /usr/sbin/service
 
- -- Šimon Lukašík <isimluk@fedoraproject.org>  Mon, 12 Dec 2011 12:53:49 +0200
+ -- Miroslav Suchy <miroslav@suchy.cz>  Fri, 15 Jun 2012 18:17:35 +0200
