@@ -25,6 +25,11 @@ INSTALL         = install -p --verbose
 INSTALL_DIR     = $(INSTALL) -m 755 -d 
 INSTALL_DATA    = $(INSTALL) -m 644 
 
+# DEBIAN
+ifeq ($(shell test -f /usr/share/pixmaps/debian-logo.png && echo "exists" ), exists)
+LOGO = /usr/share/pixmaps/debian-logo.png
+endif
+
 # Fedora
 ifeq ($(shell test -f /usr/share/icons/hicolor/48x48/apps/fedora-logo-icon.png && echo "exists" ), exists)
 LOGO = /usr/share/icons/hicolor/48x48/apps/fedora-logo-icon.png
