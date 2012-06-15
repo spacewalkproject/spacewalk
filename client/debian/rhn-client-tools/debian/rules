@@ -13,5 +13,5 @@ override_dh_auto_install:
 	$(MAKE) $(params) install
 
 %:
-	dh $@
+	dh $@ --with python2
 
