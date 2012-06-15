@@ -1302,61 +1302,7 @@ def _list_packages(channel, cache_prefix, function):
     rhnCache.set(cache_entry, ret, c_info["last_modified"])
     return ret
 
-# list packages in a channel list and compute the latest packages
-# across the whole selection
-# channel_list is an array of hashes as returned by channel_info
-def list_packages_from_channels(channel_list):
-    if not channel_list:
-        return []
-    
-    # look it up in the cache first
-    labels = map(lambda a: a["label"], channel_list)
-    labels.sort()
-    log_debug(3, labels)
-    labels = string.join(labels, "-")
-    # get the latest channel timestamp and use it as a cache entry timestamp
-    timestamp = max(map(lambda a: a["last_modified"], channel_list))
-    cache_entry = "list_packages_from_channels-%s" % labels
-    ret = rhnCache.get(cache_entry, timestamp)   
-    if ret: # we scored a cache hit
-        log_debug(4, "Scored cache hit", labels)
-        return ret
 
-    # select the latest version of a package from the union of all channels
-    # this server is subscribed to
-    ret = {}   
-    for c in channel_list:
-        packages = list_packages_sql(c["id"])
-        for pkg in packages:
-            p = list(pkg[:4])
-            # Old client versions expect the size to be sent as an integer,
-            # not as a string; so make sure we convert it to int
-            p.append(int(pkg[5]))
-            package_name = p[0] # for readability
-            if ret.has_key(package_name):
-                # already there, need to do a version compare
-                # Compare the current package with the already stored one
-                # XXX: do we really need to use this here instead of having
-                #      the DB do the dirty work?
-                if rhn_rpm.nvre_compare(ret[package_name], p) < 0:
-                    ret[package_name] = p # Replace the stored package
-            else:
-                ret[package_name] = p
-            # XXX Should try to pick the matching architecture but this is
-            # a PITA; otherwise, for multiarched packages, we may return
-            # the wrong size. If we really care this can be done
-    # return the package list in a sorted order
-    packages = ret.values()
-    packages.sort(lambda a, b: cmp(a[0], b[0]))
-    # Save to cache and return
-    rhnCache.set(cache_entry, packages, timestamp)
-    return packages 
-
-         
-                
-        
-        
-    
 
 
 # list the obsoletes for a channel
