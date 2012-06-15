@@ -1,6 +1,5 @@
-python-rhnlib (2.5.52-1) unstable; urgency=low
+rhnlib (2.5.52-1) unstable; urgency=low
 
-  * Initial debian release
+  * Initial release (Closes: #597490)
 
- -- Miroslav Suchy <miroslav@suchy.cz>  Fri, 15 Jun 2012 17:43:13 +0200
-
+ -- Bernd Zeimetz <bzed@debian.org>  Fri, 15 Jun 2012 17:25:38 +0200
