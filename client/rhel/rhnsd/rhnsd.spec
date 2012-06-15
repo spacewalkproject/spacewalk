@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhnsd
-Version: 4.9.15
+Version: 5.0.0
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
@@ -15,6 +15,13 @@ Requires: rhn-check >= 0.0.8
 Requires(post): aaa_base
 Requires(preun): aaa_base
 BuildRequires: sysconfig
+%elsif 0%{?fedora} || 0%{?rhel} > 5
+Requires(post): chkconfig
+Requires(preun): chkconfig
+Requires(post): systemd-sysv
+Requires(preun): systemd-sysv
+Requires(post): systemd-units
+Requires(preun): systemd-units
 %else
 Requires(post): chkconfig
 Requires(preun): chkconfig
@@ -41,6 +48,11 @@ make -f Makefile.rhnsd install VERSION=%{version}-%{release} PREFIX=$RPM_BUILD_R
 %if 0%{?suse_version}
 install -m 0755 rhnsd.init.SUSE $RPM_BUILD_ROOT/%{_initrddir}/rhnsd
 %endif
+%if 0%{?fedora} || 0%{?rhel} > 5
+rm $RPM_BUILD_ROOT/%{_initrddir}/rhnsd
+mkdir -p $RPM_BUILD_ROOT/%{_unitdir}
+install -m 0644 rhnsd.service $RPM_BUILD_ROOT/%{_unitdir}/
+%endif
 
 %find_lang %{name}
 
@@ -50,14 +62,22 @@ install -m 0755 rhnsd.init.SUSE $RPM_BUILD_ROOT/%{_initrddir}/rhnsd
 
 %preun
 if [ $1 = 0 ] ; then
-    /etc/rc.d/init.d/rhnsd stop >/dev/null 2>&1
+    %if 0%{?fedora} || 0%{?rhel} > 5
+    /bin/systemctl stop rhnsd >/dev/null 2>&1
+    %else
+    service rhnsd stop >/dev/null 2>&1
+    %endif
     /sbin/chkconfig --del rhnsd
 fi
 
 
 %postun
 if [ "$1" -ge "1" ]; then
-    /etc/rc.d/init.d/rhnsd condrestart >/dev/null 2>&1 || :
+    %if 0%{?fedora} || 0%{?rhel} > 5
+    /bin/systemctl condrestart rhnsd >/dev/null 2>&1 || :
+    %else
+    service rhnsd condrestart >/dev/null 2>&1 || :
+    %endif
 fi
 
 %clean
@@ -68,7 +88,11 @@ rm -fr $RPM_BUILD_ROOT
 %dir %{_sysconfdir}/sysconfig/rhn
 %config(noreplace) %{_sysconfdir}/sysconfig/rhn/rhnsd
 %{_sbindir}/rhnsd
+%if 0%{?fedora} || 0%{?rhel} > 5
+%{_unitdir}/rhnsd.service
+%else
 %{_initrddir}/rhnsd
+%endif
 %{_mandir}/man8/rhnsd.8*
 %doc LICENSE
 
