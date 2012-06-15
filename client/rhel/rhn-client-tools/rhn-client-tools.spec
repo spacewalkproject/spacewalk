@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 1.8.4
+Version: 1.8.5
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -339,6 +339,11 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Fri Jun 15 2012 Miroslav Suchý 1.8.5-1
+- fix files header, filese are not released under GPLv2+ but only GPLv2
+- fix files headers. our code is under gplv2 license
+- %%defattr is not needed since rpm 4.4
+
 * Wed May 02 2012 Milan Zazrivec <mzazrivec@redhat.com> 1.8.4-1
 - 816199 - fix package dependency on newt
 
