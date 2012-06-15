@@ -188,14 +188,6 @@ def __query_source_package_path_by_name(server_id, pkgFilename, channel):
 
 
 # Old client
-# get source package path by [n,v,r,e]
-def get_source_package_path_by_nvre(server_id, pkg):
-    log_debug(3, pkg)
-    name = "%s-%s-%s.src.rpm" % tuple(pkg[:3])
-    return get_source_package_path_by_name(server_id, name)
-
-
-# Old client
 # get source package path via package name.
 def get_source_package_path_by_name(server_id, packageName):
     log_debug(3, packageName)
@@ -304,6 +296,5 @@ if __name__ == '__main__':
     print get_source_package_path(1000463284, 'kernel-2.4.2-2.i686.rpm', 'redhat-linux-i386-7.1')
     
     # old client
-    print get_source_package_path_by_nvre(1000463284, ['kernel', '2.4.2', '2', ''])
     print get_source_package_path_by_name(1000463284, 'kernel-2.4.2-2.src.rpm')
     
