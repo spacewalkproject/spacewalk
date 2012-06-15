@@ -1,4 +1,4 @@
-Source: python-rhnlib
+Source: rhnlib
 Section: python
 Priority: extra
 Maintainer: Miroslav Suchý <miroslav@suchy.cz>
