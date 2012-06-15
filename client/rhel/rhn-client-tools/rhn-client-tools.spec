@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 1.8.5
+Version: 1.8.6
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -339,6 +339,9 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Fri Jun 15 2012 Miroslav Suchý <msuchy@redhat.com> 1.8.6-1
+- on Debian use Debian logo
+
 * Fri Jun 15 2012 Miroslav Suchý 1.8.5-1
 - fix files header, filese are not released under GPLv2+ but only GPLv2
 - fix files headers. our code is under gplv2 license
