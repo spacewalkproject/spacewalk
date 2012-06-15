@@ -1359,22 +1359,6 @@ def list_packages_from_channels(channel_list):
     
 
 
-# build the listall variants for the channels a server is subscribed to
-# this one uses list_packages_from_channels, which does its own caching
-def list_packages_for_server(server_id, need_size = 0):
-    log_debug(3, server_id, "need_size = %s" % need_size)
-    channel_list = channels_for_server(server_id)
-    if not channel_list:
-        return []
-    ret = list_packages_from_channels(channel_list)
-    if not ret:
-        return []
-    if need_size:
-        return ret
-    # we don't need the size in there, take it out
-    ret = map(lambda a: a[:-1], ret)
-    return ret
-
 # list the obsoletes for a channel
 def list_obsoletes(channel):
     log_debug(3, channel)
