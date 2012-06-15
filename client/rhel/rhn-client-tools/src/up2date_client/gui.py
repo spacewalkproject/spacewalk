@@ -1,6 +1,6 @@
 #
 # GUI for Update Agent
-# Copyright (c) 1999-2010 Red Hat, Inc.  Distributed under GPL.
+# Copyright (c) 1999-2010 Red Hat, Inc.  Distributed under GPLv2.
 #
 # Authors:
 #    Preston Brown <pbrown@redhat.com>

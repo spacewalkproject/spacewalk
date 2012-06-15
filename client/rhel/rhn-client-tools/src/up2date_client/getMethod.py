@@ -1,7 +1,7 @@
 # Retrieve action method name given queued action information.
 #
 # Client code for Update Agent
-# Copyright (c) 1999-2002 Red Hat, Inc.  Distributed under GPL.
+# Copyright (c) 1999-2002 Red Hat, Inc.  Distributed under GPLv2.
 #
 # An allowable xmlrpc method is retrieved given a base location, a
 # hierarchical route to the class/module, and method name.

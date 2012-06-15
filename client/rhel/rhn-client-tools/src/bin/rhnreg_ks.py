@@ -1,7 +1,7 @@
 #!/usr/bin/python
 #
 # Registration client for the Red Hat Network for useage with kickstart 
-# Copyright (c) 1999--2012 Red Hat, Inc.  Distributed under GPL.
+# Copyright (c) 1999--2012 Red Hat, Inc.  Distributed under GPLv2.
 #
 # Authors:
 #       Adrian Likins <alikins@redhat.com>

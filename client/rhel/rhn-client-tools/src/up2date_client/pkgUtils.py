@@ -1,5 +1,5 @@
 # Client code for Update Agent
-# Copyright (c) 2011--2012 Red Hat, Inc.  Distributed under GPL.
+# Copyright (c) 2011--2012 Red Hat, Inc.  Distributed under GPLv2.
 #
 # Author: Simon Lukasik
 

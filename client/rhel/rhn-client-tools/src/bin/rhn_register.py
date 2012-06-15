@@ -2,7 +2,7 @@
 #
 # Red Hat Network registration tool
 # Adapted from wrapper.py
-# Copyright (c) 1999-2010 Red Hat, Inc.  Distributed under GPL.
+# Copyright (c) 1999-2010 Red Hat, Inc.  Distributed under GPLv2.
 #
 # Authors:
 #       Adrian Likins <alikins@redhat.com>
