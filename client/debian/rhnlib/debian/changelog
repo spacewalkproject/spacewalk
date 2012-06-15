@@ -1,6 +1,6 @@
-python-rhnlib (2.5.40-1) unstable; urgency=low
+python-rhnlib (2.5.52-1) unstable; urgency=low
 
-  * Rebased to upstream version
+  * Initial debian release
 
- -- Šimon Lukašík <xlukas08@stud.fit.vutbr.cz>  Sat, 16 Apr 2011 17:43:13 +0200
+ -- Miroslav Suchy <miroslav@suchy.cz>  Fri, 15 Jun 2012 17:43:13 +0200
 
