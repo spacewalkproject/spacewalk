@@ -10,16 +10,16 @@
 #export DH_VERBOSE=1
 
 
-override_dh_auto_build:
-	if [ ! -e setup.py ]; then sed -e "s/\@VERSION\@/$(shell dpkg-parsechangelog | grep Version: | cut -f2 -d' ' | cut -f1 -d- )/" -e 's/\@NAME\@/rhnlib/' setup.py.in > setup.py; fi
+override_dh_auto_configure:
+	if [ ! -e setup.py ]; then sed -e "s/\@VERSION\@/$(shell dpkg-parsechangelog | grep Version: | cut -f2 -d' ' | cut -f1 -d- )/" -e 's/\@NAME\@/rhn/' setup.py.in > setup.py; fi
 	if [ ! -e setup.cfg ]; then sed 's/\@RELEASE\@/$(shell dpkg-parsechangelog | grep Version: | cut -f2 -d' ' | cut -f2 -d- )/' setup.cfg.in > setup.cfg; fi
 	dh_auto_configure --buildsystem=python_distutils
 
 clean:
-	if [ -f setup.py ]; then dh --buildsystem=python_distutils $@; fi
+	if [ -f setup.py ]; then dh $@ --with python2 --buildsystem=python_distutils; fi
 	rm -f setup.py setup.cfg
 	rm -rf build
 
 %:
-	dh --buildsystem=python_distutils $@
+	dh $@ --with python2 --buildsystem python_distutils
 
