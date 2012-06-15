@@ -106,12 +106,6 @@ class UserAuth:
             # Satellites are not allowwd to push in the null org
             raise rhnFault(4, 
                 _("You are not authorized to manage packages in the null org"))
-            if not self.isSuperuser():
-                # Nope
-                raise rhnFault(4, 
-                    _("You are not authorized to manage packages in the null org"))
-
-            org_id = None
 
         if org_id and self.org_id != org_id:
             # Not so fast...
