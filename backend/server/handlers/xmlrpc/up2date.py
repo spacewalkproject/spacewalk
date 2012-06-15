@@ -53,14 +53,6 @@ class Up2date(rhnHandler):
         self.functions.append('subscribeChannels')
         self.functions.append('unsubscribeChannels')
         self.functions.append('history')
-        # --- Clients v1- ---
-        self.functions.append('listall')
-        self.functions.append('listall_size')
-        self.functions.append('header')
-        self.functions.append('package')
-        self.functions.append('source_package')
-        self.functions.append('source_package_by_name')
-        # --- All clients ---
         self.functions.append('solvedep')
         self.functions.append('solveDependencies')
         self.functions.append('solveDependencies_arch')
