@@ -10,7 +10,7 @@ Homepage: https://fedorahosted.org/spacewalk
 Package: python-rhnlib
 Architecture: all
 Depends: ${python:Depends}, ${misc:Depends}, python-openssl
-Description: Collection of Python modules used by the Spacewalk software
+Description: Python libraries for the RHN project
  Collection of base Python modules used by the Red Hat Network
  (http://rhn.redhat.com) and Spacewalk software.
  This is common library used by both clients and server.
