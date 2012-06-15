@@ -122,66 +122,6 @@ def unlink_package_file(path):
                 raise
         dirname = os.path.dirname(dirname)
 
-# Old client
-# Get a package by [n,v,r,e] and compat arch
-# Returns the path to the matching [n,v,r,e] with the max arch compatible w/ours,
-def get_package_path_compat_arches(server_id, pkg, server_arch):
-    log_debug(3, pkg, server_arch)
-    # Ugly but effective
-    pkg = map(str, pkg)
-    # Build the param dict
-    param_dict = {
-        'name'      : pkg[0], 
-        'ver'       : pkg[1],
-        'rel'       : pkg[2], 
-        'server_arch': server_arch,
-        'server_id' : server_id
-    }
-    if pkg[3] == '':
-        epochStatement = "is NULL"
-    else:
-        epochStatement = "= :epoch"
-        param_dict['epoch'] = pkg[3]
-
-    statement = """
-    select
-        p.id, p.path path, p.package_arch_id
-    from
-        rhnPackage p,
-        rhnPackageName pn,
-        rhnPackageEvr pe,
-        rhnServerArch sa,
-        rhnChannelPackage cp,
-        rhnServerPackageArchCompat spac,
-        rhnServerChannel sc
-    where
-            sc.server_id = :server_id
-        and sc.channel_id = cp.channel_id
-        and cp.package_id = p.id
-        and p.name_id = pn.id
-        and pn.name = :name
-        and p.evr_id = pe.id
-        and pe.version = :ver
-        and pe.release = :rel
-        and pe.epoch %s
-        and p.package_arch_id = spac.package_arch_id
-        and spac.server_arch_id = sa.id
-        and sa.label = :server_arch
-        order by spac.preference
-    """ % epochStatement
-    h = rhnSQL.prepare(statement)
-    apply(h.execute, (), param_dict)
-        
-    # Because of the ordering, we have to retrieve only the first row in the
-    # result set - that should be the best one
-    row = h.fetchone_dict()
-    if not row:
-        log_debug(4, "Error", "Non-existant package requested", server_id, 
-            pkg, server_arch)
-        raise rhnFault(17, _("Invalid RPM package %s requested") % str(pkg))
-
-    return check_package_file(row['path'], row['id'], str(pkg))
-
 def get_all_package_paths(server_id, pkg_spec, channel):
     """
     return the remote path if available and localpath
@@ -361,7 +301,6 @@ if __name__ == '__main__':
     print
     # new client
     print get_package_path(1000463284, 'kernel-2.4.2-2.i686.rpm', 'redhat-linux-i386-7.1')
-    print get_package_path_compat_arches(1000463284, ['kernel', '2.4.2', '2', ''], 'i686')
     print get_source_package_path(1000463284, 'kernel-2.4.2-2.i686.rpm', 'redhat-linux-i386-7.1')
     
     # old client
