@@ -4,7 +4,7 @@ Name:          rhnpush
 Group:         Applications/System
 License:       GPLv2
 URL:           http://fedorahosted.org/spacewalk
-Version:       5.5.44
+Version:       5.5.45
 Release:       1%{?dist}
 Source0:       https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 BuildRoot:     %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -56,6 +56,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc COPYING
 
 %changelog
+* Sat Jun 16 2012 Miroslav Suchý <msuchy@redhat.com> 5.5.45-1
+- 827022 - add COPYING file
+
 * Mon May 21 2012 Jan Pazdziora 5.5.44-1
 - 823491 - Use the correct a_pkg variable.
 - %%defattr is not needed since rpm 4.4
