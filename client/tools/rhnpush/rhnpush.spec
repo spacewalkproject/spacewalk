@@ -53,6 +53,7 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) %attr(644,root,root) %{_sysconfdir}/sysconfig/rhn/rhnpushrc
 %{_mandir}/man8/rhnpush.8*
 %{_mandir}/man8/solaris2mpm.8*
+%doc COPYING
 
 %changelog
 * Mon May 21 2012 Jan Pazdziora 5.5.44-1
