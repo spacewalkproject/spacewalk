@@ -36,7 +36,10 @@ if getPlatform() == 'deb' or dist()[0] == 'SuSE':
         def __getattr__(self, name):
             raise AttributeError(_("class %s has no attribute '%s'") % (self.__class__.__name__, name))
         def __setattr__(self, name, value):
-            raise AttributeError(_("class %s has no attribute '%s'") % (self.__class__.__name__, name))
+            if name in ['errmsg', 'value']:
+                self.__dict__['value'] = value
+            else:
+                self.__dict__[name] = value
 else:
     from yum.Errors import YumBaseError
 
