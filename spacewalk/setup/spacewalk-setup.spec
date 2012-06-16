@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        1.8.11
+Version:        1.8.12
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -110,6 +110,9 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Sat Jun 16 2012 Miroslav Suchý 1.8.12-1
+- 827022 - add LICENSE file and change mention Artistic licence to GPLv2
+
 * Wed Jun 06 2012 Jan Pazdziora 1.8.11-1
 - Suppress db notices when clearing the schema
 
