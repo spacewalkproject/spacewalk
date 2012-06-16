@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 1.8.7
+Version: 1.8.8
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -339,6 +339,9 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Sat Jun 16 2012 Miroslav Suchý <msuchy@redhat.com> 1.8.8-1
+- workaround problem on suse and debian where you inherit from two same classes
+
 * Sat Jun 16 2012 Miroslav Suchý 1.8.7-1
 - allow linking against openssl (msuchy@redhat.com)
 
