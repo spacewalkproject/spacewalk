@@ -107,6 +107,7 @@ rm -rf %{buildroot}
 %{_datadir}/spacewalk/*
 %attr(755, apache, root) %{_var}/spacewalk
 %{_mandir}/man8/spacewalk-make-mount-points*
+%doc LICENSE
 
 %changelog
 * Wed Jun 06 2012 Jan Pazdziora 1.8.11-1
