@@ -2,7 +2,7 @@ Name: spacewalk-reports
 Summary: Script based reporting
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.3
+Version: 1.8.4
 Release: 1%{?dist}
 URL: https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -43,6 +43,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc COPYING
 
 %changelog
+* Sat Jun 16 2012 Miroslav Suchý <msuchy@redhat.com> 1.8.4-1
+- 827022 - add COPYING file
+
 * Mon May 21 2012 Jan Pazdziora 1.8.3-1
 - %%defattr is not needed since rpm 4.4
 - require spacewalk-branding
