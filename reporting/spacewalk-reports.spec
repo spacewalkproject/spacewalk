@@ -40,6 +40,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/spacewalk/reports.py*
 %{_datadir}/spacewalk/reports
 %{_mandir}/man8/spacewalk-report.8*
+%doc COPYING
 
 %changelog
 * Mon May 21 2012 Jan Pazdziora 1.8.3-1
