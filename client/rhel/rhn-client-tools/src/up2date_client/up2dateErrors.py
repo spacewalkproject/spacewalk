@@ -79,8 +79,11 @@ class Error(YumBaseError):
             else:
                 self.__dict__[name] = value
 
+class DebAndSuseRepoError(Error):
+   pass
+
 if getPlatform() == 'deb' or dist()[0] == 'SuSE':
-    RepoError = Error
+    RepoError = DebAndSuseRepoError
 else:
     from yum.Errors import RepoError
 
