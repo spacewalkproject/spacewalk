@@ -3,10 +3,12 @@
 #
 
 APT {
-    List-Refresh "true";
-    Update::Pre-Invoke {
-        "/usr/lib/apt-spacewalk/pre_invoke.py";
-    };
+  Update {
+        List-Refresh "true";
+        Pre-Invoke {
+            "/usr/lib/apt-spacewalk/pre_invoke.py";
+        }
+  }
 };
 DPkg::Post-Invoke {
     "/usr/lib/apt-spacewalk/post_invoke.py";
