@@ -144,8 +144,10 @@ touch %{buildroot}%{_var}/log/rhn/osa-dispatcher.log
 
 %if 0%{?fedora} || 0%{?rhel} > 5
 rm $RPM_BUILD_ROOT/%{_initrddir}/osad
+rm $RPM_BUILD_ROOT/%{_initrddir}/osa-dispatcher
 mkdir -p $RPM_BUILD_ROOT/%{_unitdir}
 install -m 0644 osad.service $RPM_BUILD_ROOT/%{_unitdir}/
+install -m 0644 osa-dispatcher.service $RPM_BUILD_ROOT/%{_unitdir}/
 %endif
 
 %if 0%{?include_selinux_package}
@@ -269,7 +271,11 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 %dir %{_sysconfdir}/rhn/tns_admin
 %dir %{_sysconfdir}/rhn/tns_admin/osa-dispatcher
 %config(noreplace) %{_sysconfdir}/rhn/tns_admin/osa-dispatcher/sqlnet.ora
+%if 0%{?fedora} || 0%{?rhel} > 5
+%{_unitdir}/osa-dispatcher.service
+%else
 %attr(755,root,root) %{_initrddir}/osa-dispatcher
+%endif
 %attr(770,root,%{apache_group}) %dir %{_var}/log/rhn/oracle
 %attr(770,root,root) %dir %{_var}/log/rhn/oracle/osa-dispatcher
 %doc LICENSE
