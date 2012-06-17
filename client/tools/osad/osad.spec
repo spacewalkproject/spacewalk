@@ -16,7 +16,7 @@ Group:   System Environment/Daemons
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.10.44
+Version: 5.11.0
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -35,17 +35,24 @@ Requires: PyXML
 %endif
 Conflicts: osa-dispatcher < %{version}-%{release}
 Conflicts: osa-dispatcher > %{version}-%{release}
-%if !0%{?suse_version}
-Requires(post): chkconfig
-Requires(preun): chkconfig
-# This is for /sbin/service
-Requires(preun): initscripts
-%else
+%if 0%{?suse_version}
 # provides chkconfig on SUSE
 Requires(post): aaa_base
 Requires(preun): aaa_base
 # to make chkconfig test work during build
 BuildRequires: sysconfig syslog
+%elsif 0%{?fedora} || 0%{?rhel} > 5
+Requires(post): chkconfig
+Requires(preun): chkconfig
+Requires(post): systemd-sysv
+Requires(preun): systemd-sysv
+Requires(post): systemd-units
+Requires(preun): systemd-units
+%else
+Requires(post): chkconfig
+Requires(preun): chkconfig
+# This is for /sbin/service
+Requires(preun): initscripts
 %endif
 
 %description
@@ -134,6 +141,12 @@ make -f Makefile.osad install PREFIX=$RPM_BUILD_ROOT ROOT=%{rhnroot} INITDIR=%{_
 mkdir -p %{buildroot}%{_var}/log/rhn
 touch %{buildroot}%{_var}/log/osad
 touch %{buildroot}%{_var}/log/rhn/osa-dispatcher.log
+
+%if 0%{?fedora} || 0%{?rhel} > 5
+rm $RPM_BUILD_ROOT/%{_initrddir}/osad
+mkdir -p $RPM_BUILD_ROOT/%{_unitdir}
+install -m 0644 osad.service $RPM_BUILD_ROOT/%{_unitdir}/
+%endif
 
 %if 0%{?include_selinux_package}
 for selinuxvariant in %{selinux_variants}
@@ -227,7 +240,11 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 %config(noreplace) %{_sysconfdir}/sysconfig/rhn/osad.conf
 %config(noreplace) %attr(600,root,root) %{_sysconfdir}/sysconfig/rhn/osad-auth.conf
 %config(noreplace) %{client_caps_dir}/*
+%if 0%{?fedora} || 0%{?rhel} > 5
+%{_unitdir}/osad.service
+%else
 %attr(755,root,root) %{_initrddir}/osad
+%endif
 %doc LICENSE
 %config(noreplace) %{_sysconfdir}/logrotate.d/osad
 %ghost %attr(600,root,root) %{_var}/log/osad

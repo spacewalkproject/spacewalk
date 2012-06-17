@@ -1,0 +1,11 @@
+[Unit]
+Description=OSAD daemon
+After=syslog.target network.target
+
+[Service]
+EnvironmentFile=-/etc/sysconfig/osad
+PIDFile=/var/run/osad.pid
+ExecStart=/usr/sbin/osad --pid-file $PIDFile
+
+[Install]
+WantedBy=multi-user.target
