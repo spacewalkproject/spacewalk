@@ -112,7 +112,7 @@ public class ConfigurationManager extends BaseManager {
      */
     public DataResult<ConfigChannelDto> listGlobalChannels(User user, PageControl pc) {
         SelectMode m = ModeFactory.getMode("config_queries",
-                                           "overview_config_channels");
+                "overview_config_channels");
         Map params = new HashMap();
         params.put("user_id", user.getId());
         params.put("org_id", user.getOrg().getId());
@@ -130,10 +130,10 @@ public class ConfigurationManager extends BaseManager {
      * @return A list of the channels in DTO format.
      */
     public DataResult<ConfigChannelDto>
-                        listGlobalChannelsForActivationKeySubscriptions
-                                                (ActivationKey key, User user) {
+    listGlobalChannelsForActivationKeySubscriptions
+    (ActivationKey key, User user) {
         SelectMode m = ModeFactory.getMode("config_queries",
-                        "overview_config_channels_for_act_key_subscriptions");
+                "overview_config_channels_for_act_key_subscriptions");
         Map params = new HashMap();
         params.put("user_id", user.getId());
         params.put("org_id", user.getOrg().getId());
@@ -150,10 +150,10 @@ public class ConfigurationManager extends BaseManager {
      * @return A list of the channels in DTO format.
      */
     public DataResult<ConfigChannelDto>
-                        listGlobalChannelsForActivationKey(ActivationKey key,
-                                                            User user) {
+    listGlobalChannelsForActivationKey(ActivationKey key,
+            User user) {
         SelectMode m = ModeFactory.getMode("config_queries",
-                                           "overview_config_channels_for_act_key");
+                "overview_config_channels_for_act_key");
         Map params = new HashMap();
         params.put("user_id", user.getId());
         params.put("org_id", user.getOrg().getId());
@@ -175,11 +175,11 @@ public class ConfigurationManager extends BaseManager {
      * @return A list of the channels in DTO format.
      */
     public DataResult<ConfigChannelDto>
-                                listGlobalChannelsForSystemSubscriptions(Server server,
-                                    User user,
-                                    PageControl pc) {
+    listGlobalChannelsForSystemSubscriptions(Server server,
+            User user,
+            PageControl pc) {
         SelectMode m = ModeFactory.getMode("config_queries",
-                                           "config_channels_for_system_subscriptions");
+                "config_channels_for_system_subscriptions");
         Map params = new HashMap();
         params.put("user_id", user.getId());
         params.put("org_id", user.getOrg().getId());
@@ -198,7 +198,7 @@ public class ConfigurationManager extends BaseManager {
      */
     public DataResult listManagedSystemsAndFiles(User user, PageControl pc) {
         SelectMode m = ModeFactory.getMode("config_queries",
-                                           "config_managed_systems");
+                "config_managed_systems");
         Map params = new HashMap();
         params.put("user_id", user.getId());
         return makeDataResult(params, new HashMap(), pc, m);
@@ -212,12 +212,12 @@ public class ConfigurationManager extends BaseManager {
      */
     public boolean isConfigEnabled(Server server, User user) {
         SelectMode m = ModeFactory.getMode("config_queries",
-                                        "system_config_enabled_check");
-         Map params = new HashMap();
-         params.put("user_id", user.getId());
-         params.put("sid", server.getId());
-         DataResult<Map<String, ? extends Number>> dr = m.execute(params);
-         return dr.get(0).get("count").intValue() > 0;
+                "system_config_enabled_check");
+        Map params = new HashMap();
+        params.put("user_id", user.getId());
+        params.put("sid", server.getId());
+        DataResult<Map<String, ? extends Number>> dr = m.execute(params);
+        return dr.get(0).get("count").intValue() > 0;
     }
 
 
@@ -291,7 +291,7 @@ public class ConfigurationManager extends BaseManager {
             throw new IllegalArgumentException("User and file are in different orgs.");
         }
         SelectMode m = ModeFactory.getMode("config_queries",
-            "compare_revision_list");
+                "compare_revision_list");
         Map params = new HashMap();
         params.put("cfid", file.getId());
         params.put("crid", current.getId());
@@ -313,7 +313,7 @@ public class ConfigurationManager extends BaseManager {
             throw new IllegalArgumentException("User and file are in different orgs.");
         }
         SelectMode m = ModeFactory.getMode("config_queries",
-            "compare_alternate_file_list");
+                "compare_alternate_file_list");
         Map params = new HashMap();
         params.put("cfid", current.getId());
         params.put("user_id", user.getId());
@@ -330,7 +330,7 @@ public class ConfigurationManager extends BaseManager {
      */
     public DataResult listChannelsForFileCompare(User user, PageControl pc) {
         SelectMode m = ModeFactory.getMode("config_queries",
-            "compare_other_channel_list");
+                "compare_other_channel_list");
         Map params = new HashMap();
         params.put("user_id", user.getId());
         params.put("org_id", user.getOrg().getId());
@@ -347,7 +347,7 @@ public class ConfigurationManager extends BaseManager {
      */
     public DataResult listFilesInChannel(User user, ConfigChannel channel, PageControl pc) {
         SelectMode m = ModeFactory.getMode("config_queries",
-            "compare_other_file_list");
+                "compare_other_file_list");
         Map params = new HashMap();
         params.put("user_id", user.getId());
         params.put("ccid", channel.getId());
@@ -523,7 +523,7 @@ public class ConfigurationManager extends BaseManager {
      * @return A list of config file names in DTO format.
      */
     public DataResult <ConfigFileNameDto> listFileNamesForSystem(User user,
-                                                    Server server, PageControl pc) {
+            Server server, PageControl pc) {
         SelectMode m = ModeFactory.getMode("config_queries",
                 "file_names_for_system");
         Map params = new HashMap();
@@ -531,6 +531,39 @@ public class ConfigurationManager extends BaseManager {
         params.put("sid", server.getId());
         Map elabParams = new HashMap();
         elabParams.put("sid", server.getId());
+        DataResult dr = makeDataResult(params, elabParams, pc, m);
+        return dr;
+    }
+
+    /**
+     * Lists the file names to which the given server is subscribed
+     * Finds the deployable revisions for each file name.
+     *
+     * There's not really a space in the sql xml file for comments on
+     * how the query works, so I'll put them here. The first query I tried
+     * was one layer of joins to get the list of file names. However, if a
+     * file was in multiple config channels that a server was subscribed too
+     * it would show up in the list multiple times. What we really want is
+     * to only list the files that can actually appear on the customer's
+     * machine. I created a temporary table that groups by file id
+     * and selects the min (highest) priority config channel available.
+     * Then we do the normal joins to get the actual return values, and we
+     * are guaranteed to have a unique list of the files in the highest
+     * priority channels.
+     *
+     * @param user The user requesting a list of file names
+     * @param server The server to which these files must be relevant
+     * @param pc A PageControl for this user
+     * @return A list of config file names in DTO format.
+     */
+    public DataResult<ConfigFileNameDto> listFileNamesForSystemQuick(User user,
+            Server server, PageControl pc) {
+        SelectMode m = ModeFactory.getMode("config_queries",
+                "file_names_for_system_quick");
+        Map params = new HashMap();
+        params.put("user_id", user.getId());
+        params.put("sid", server.getId());
+        Map elabParams = new HashMap();
         DataResult dr = makeDataResult(params, elabParams, pc, m);
         return dr;
     }
@@ -612,7 +645,7 @@ public class ConfigurationManager extends BaseManager {
      */
     public DataResult ssmChannelList(User user, PageControl pc) {
         SelectMode m = ModeFactory.getMode("config_queries",
-                                           "ssm_config_channels");
+                "ssm_config_channels");
         Map params = new HashMap();
         params.put("user_id", user.getId());
         params.put("org_id", user.getOrg().getId());
@@ -710,7 +743,7 @@ public class ConfigurationManager extends BaseManager {
      */
     public DataResult ssmSystemListForChannels(User user, PageControl pc) {
         SelectMode m = ModeFactory.getMode("config_queries",
-                                           "ssm_systems_for_config_channels");
+                "ssm_systems_for_config_channels");
         Map params = new HashMap();
         params.put("user_id", user.getId());
         params.put("system_set_label", RhnSetDecl.SYSTEMS.getLabel());
@@ -750,7 +783,7 @@ public class ConfigurationManager extends BaseManager {
      */
     public DataResult listGlobalConfigFiles(User user, PageControl pc) {
         SelectMode m = ModeFactory.getMode("config_queries",
-                                           "global_configfiles_for_user");
+                "global_configfiles_for_user");
         Map params = new HashMap();
         params.put("user_id", user.getId());
         params.put("org_id", user.getOrg().getId());
@@ -767,7 +800,7 @@ public class ConfigurationManager extends BaseManager {
      */
     public DataResult listLocalConfigFiles(User user, PageControl pc) {
         SelectMode m = ModeFactory.getMode("config_queries",
-                                           "local_configfiles_for_user");
+                "local_configfiles_for_user");
         Map params = new HashMap();
         params.put("user_id", user.getId());
         params.put("org_id", user.getOrg().getId());
@@ -791,7 +824,7 @@ public class ConfigurationManager extends BaseManager {
     public DataResult listChannelsForFileCopy(User user, ConfigFile current,
             String type, PageControl pc) {
         SelectMode m = ModeFactory.getMode("config_queries",
-                                                "channels_for_file_copy");
+                "channels_for_file_copy");
         Map params = new HashMap();
         params.put("org_id", user.getOrg().getId());
         params.put("ccid", current.getConfigChannel().getId());
@@ -846,8 +879,8 @@ public class ConfigurationManager extends BaseManager {
     public int getSystemCount(User user, ConfigChannel channel)  {
         if (!accessToChannel(user.getId(), channel.getId())) {
             throw new IllegalArgumentException(
-                "User [" + user.getId() +
-                "] has no access to channel [" + channel.getId() + "]");
+                    "User [" + user.getId() +
+                    "] has no access to channel [" + channel.getId() + "]");
         }
         SelectMode m = ModeFactory.getMode("config_queries",
                 "systems_subscribed_to_channel");
@@ -896,8 +929,8 @@ public class ConfigurationManager extends BaseManager {
     public int getSymlinkCount(User user, ConfigChannel channel) {
         if (!accessToChannel(user.getId(), channel.getId())) {
             throw new IllegalArgumentException(
-                "User [" + user.getId() +
-                "] has no access to channel [" + channel.getId() + "]");
+                    "User [" + user.getId() +
+                    "] has no access to channel [" + channel.getId() + "]");
         }
         Map params = new HashMap();
         params.put("ccid", channel.getId());
@@ -915,8 +948,8 @@ public class ConfigurationManager extends BaseManager {
     public int getDirCount(User user, ConfigChannel channel)  {
         if (!accessToChannel(user.getId(), channel.getId())) {
             throw new IllegalArgumentException(
-                "User [" + user.getId() +
-                "] has no access to channel [" + channel.getId() + "]");
+                    "User [" + user.getId() +
+                    "] has no access to channel [" + channel.getId() + "]");
         }
         Map params = new HashMap();
         params.put("ccid", channel.getId());
@@ -934,8 +967,8 @@ public class ConfigurationManager extends BaseManager {
     public int getFileCount(User user, ConfigChannel channel)  {
         if (!accessToChannel(user.getId(), channel.getId())) {
             throw new IllegalArgumentException(
-                "User [" + user.getId() +
-                "] has no access to channel [" + channel.getId() + "]");
+                    "User [" + user.getId() +
+                    "] has no access to channel [" + channel.getId() + "]");
         }
         Map params = new HashMap();
         params.put("ccid", channel.getId());
@@ -953,8 +986,8 @@ public class ConfigurationManager extends BaseManager {
     public DataResult getSystemInfo(User user, ConfigChannel channel) {
         if (!accessToChannel(user.getId(), channel.getId())) {
             throw new IllegalArgumentException(
-                "User [" + user.getId() +
-                "] has no access to channel [" + channel.getId() + "]");
+                    "User [" + user.getId() +
+                    "] has no access to channel [" + channel.getId() + "]");
         }
         Map params = new HashMap();
         params.put("ccid", channel.getId());
@@ -973,8 +1006,8 @@ public class ConfigurationManager extends BaseManager {
     public DataResult getFileInfo(User user, ConfigChannel channel) {
         if (!accessToChannel(user.getId(), channel.getId())) {
             throw new IllegalArgumentException(
-                "User [" + user.getId() +
-                "] has no access to channel [" + channel.getId() + "]");
+                    "User [" + user.getId() +
+                    "] has no access to channel [" + channel.getId() + "]");
         }
         Map params = new HashMap();
         params.put("ccid", channel.getId());
@@ -1059,8 +1092,8 @@ public class ConfigurationManager extends BaseManager {
     public ChannelSummary getChannelSummary(User user, ConfigChannel channel) {
         if (!accessToChannel(user.getId(), channel.getId())) {
             throw new IllegalArgumentException(
-                "User [" + user.getId() +
-                "] has no access to channel [" + channel.getId() + "]");
+                    "User [" + user.getId() +
+                    "] has no access to channel [" + channel.getId() + "]");
         }
         ChannelSummary summary = new ChannelSummary();
         summary.setNumSystems(getSystemCount(user, channel));
@@ -1073,7 +1106,7 @@ public class ConfigurationManager extends BaseManager {
             ConfigFileDto mostRecent = (ConfigFileDto)dr.get(0);
             Long revid = new Long(mostRecent.getId().longValue());
             ConfigRevision rev =
-                ConfigurationManager.getInstance().lookupConfigRevision(user, revid);
+                    ConfigurationManager.getInstance().lookupConfigRevision(user, revid);
             summary.setMostRecentMod(rev);
             String fileDate = StringUtil.categorizeTime(rev.getModified().getTime(),
                     StringUtil.WEEKS_UNITS);
@@ -1102,69 +1135,69 @@ public class ConfigurationManager extends BaseManager {
      * @return list of com.redhat.rhn.frontend.dto.ConfigFileDto
      */
     public DataResult<ConfigFileDto> listCurrentFiles(User user,
-                                    ConfigChannel channel, PageControl pc) {
+            ConfigChannel channel, PageControl pc) {
         return listCurrentFiles(user, channel, pc, null);
     }
 
-     /**
-      * List latest revisions controlled by this channel, sorted by date-modified
-      * (descending), optionally constrained by the specified set
-      * @param user user making the request
-      * @param channel channel of interest
-      * @param pc controller/elaborator for the list
-      * @param setLabel label of set we care about, or NULL if we don't want to use a set
-      * @return list of com.redhat.rhn.frontend.dto.ConfigFileDto
-      */
-     public DataResult listCurrentFiles(
-             User user, ConfigChannel channel, PageControl pc, String setLabel) {
-         Map params = new HashMap();
-         params.put("ccid", channel.getId());
-         params.put("user_id", user.getId());
-         SelectMode m = null;
-         if (setLabel != null) {
-             m = ModeFactory.getMode("config_queries", "latest_files_in_namespace_set");
-             params.put("set_label", setLabel);
-         }
-         else {
-             m = ModeFactory.getMode("config_queries", "latest_files_in_namespace");
-         }
-         DataResult<ConfigFileDto> dr = makeDataResult(params, new HashMap(), pc, m);
-         return dr;
-     }
+    /**
+     * List latest revisions controlled by this channel, sorted by date-modified
+     * (descending), optionally constrained by the specified set
+     * @param user user making the request
+     * @param channel channel of interest
+     * @param pc controller/elaborator for the list
+     * @param setLabel label of set we care about, or NULL if we don't want to use a set
+     * @return list of com.redhat.rhn.frontend.dto.ConfigFileDto
+     */
+    public DataResult listCurrentFiles(
+            User user, ConfigChannel channel, PageControl pc, String setLabel) {
+        Map params = new HashMap();
+        params.put("ccid", channel.getId());
+        params.put("user_id", user.getId());
+        SelectMode m = null;
+        if (setLabel != null) {
+            m = ModeFactory.getMode("config_queries", "latest_files_in_namespace_set");
+            params.put("set_label", setLabel);
+        }
+        else {
+            m = ModeFactory.getMode("config_queries", "latest_files_in_namespace");
+        }
+        DataResult<ConfigFileDto> dr = makeDataResult(params, new HashMap(), pc, m);
+        return dr;
+    }
 
-     /**
-      * List revisions for the given file
-      * @param user user making the request
-      * @param file config file for which we are listing revisions
-      * @param pc controller/elaborator for the list
-      * @return List of revisions in dto format.
-      */
-     public DataResult<ConfigRevisionDto> listRevisionsForFile(User user,
-                                         ConfigFile file, PageControl pc) {
-         Map params = new HashMap();
-         params.put("cfid", file.getId());
-         params.put("user_id", user.getId());
-         SelectMode m = ModeFactory.getMode("config_queries", "configfile_revisions");
-         DataResult dr = makeDataResult(params, new HashMap(), pc, m);
-         return dr;
-     }
+    /**
+     * List revisions for the given file
+     * @param user user making the request
+     * @param file config file for which we are listing revisions
+     * @param pc controller/elaborator for the list
+     * @return List of revisions in dto format.
+     */
+    public DataResult<ConfigRevisionDto> listRevisionsForFile(User user,
+            ConfigFile file, PageControl pc) {
+        Map params = new HashMap();
+        params.put("cfid", file.getId());
+        params.put("user_id", user.getId());
+        SelectMode m = ModeFactory.getMode("config_queries", "configfile_revisions");
+        DataResult dr = makeDataResult(params, new HashMap(), pc, m);
+        return dr;
+    }
 
-     /**
-      * List systems subscribed to this channel, sorted by date added (descending)
-      * @param user user making the request
-      * @param channel channel of interest
-      * @param pc controller/elaborator for the list
-      * @return List of Maps with keys ('id', 'name', 'modified')
-      */
-     public DataResult listChannelSystems(User user, ConfigChannel channel,
-             PageControl pc) {
-         Map params = new HashMap();
-         params.put("ccid", channel.getId());
-         params.put("user_id", user.getId());
-         SelectMode m = ModeFactory.getMode("config_queries", "systems_subscribed_by_date");
-         DataResult dr = makeDataResult(params, new HashMap(), pc, m);
-         return dr;
-     }
+    /**
+     * List systems subscribed to this channel, sorted by date added (descending)
+     * @param user user making the request
+     * @param channel channel of interest
+     * @param pc controller/elaborator for the list
+     * @return List of Maps with keys ('id', 'name', 'modified')
+     */
+    public DataResult listChannelSystems(User user, ConfigChannel channel,
+            PageControl pc) {
+        Map params = new HashMap();
+        params.put("ccid", channel.getId());
+        params.put("user_id", user.getId());
+        SelectMode m = ModeFactory.getMode("config_queries", "systems_subscribed_by_date");
+        DataResult dr = makeDataResult(params, new HashMap(), pc, m);
+        return dr;
+    }
 
     /**
      * List global config channels for a system. Used in the sdc
@@ -1350,14 +1383,14 @@ public class ConfigurationManager extends BaseManager {
         //first make sure that the user has permission to delete this revision
         if (!user.getOrg().equals(revision.getConfigFile().getConfigChannel().getOrg())) {
             throw new IllegalArgumentException("Cannot delete config revision. User [" +
-                user.getId() + "] and revision [" +
-                revision.getId() + "] are in different orgs");
+                    user.getId() + "] and revision [" +
+                    revision.getId() + "] are in different orgs");
         }
 
         if (!accessToRevision(user.getId(), revision.getId())) {
             throw new IllegalArgumentException("Cannot delete config revision. User [" +
-                user.getId() +
-                "] is not allowed access to revision [" + revision.getId() + "]");
+                    user.getId() +
+                    "] is not allowed access to revision [" + revision.getId() + "]");
         }
         //remove the channel
         return ConfigurationFactory.removeConfigRevision(revision, user.getOrg().getId());
@@ -1379,8 +1412,8 @@ public class ConfigurationManager extends BaseManager {
         }
         if (!accessToFile(user.getId(), file.getId())) {
             throw new IllegalArgumentException(
-                "User [" + user.getId() +
-                "] does not have access to file [" + file.getId() + "].");
+                    "User [" + user.getId() +
+                    "] does not have access to file [" + file.getId() + "].");
         }
         //remove the file
         ConfigurationFactory.removeConfigFile(file);
@@ -1444,14 +1477,14 @@ public class ConfigurationManager extends BaseManager {
         return dr;
     }
 
-   /**
-    * For a specified channel, return info about all config-files that the
-    * user has access to that are NOT already in that channel
-    * @param usr User making the request
-    * @param cc ConfigChannel of interest
-    * @param pc A page control for this user.
-    * @return DataResult; entities are cfid, path, ccid, name, and modified
-    */
+    /**
+     * For a specified channel, return info about all config-files that the
+     * user has access to that are NOT already in that channel
+     * @param usr User making the request
+     * @param cc ConfigChannel of interest
+     * @param pc A page control for this user.
+     * @return DataResult; entities are cfid, path, ccid, name, and modified
+     */
     public DataResult listFilesNotInChannel(User usr, ConfigChannel cc, PageControl pc) {
         // Validate params
         if (usr == null || cc == null) {
@@ -1529,28 +1562,28 @@ public class ConfigurationManager extends BaseManager {
      *          type com.redhat.rhn.frontend.dto.ConfigFileNameDto
      */
     public List< ? extends ConfigFileNameDto> listManagedPathsFor(Server server,
-                                                User user,
-                                                ConfigChannelType type) {
+            User user,
+            ConfigChannelType type) {
         Map params = new HashMap();
-         params.put("sid", server.getId());
-         params.put("user_id", user.getId());
-         params.put("channel_type", type.getLabel());
-         String modeQuery = "central_managed_files_for_sdc";
-         if (ConfigChannelType.sandbox().equals(type)) {
-             modeQuery = "sandbox_managed_files_for_sdc";
-         }
-         else if (ConfigChannelType.local().equals(type)) {
-             modeQuery = "local_managed_files_for_sdc";
-         }
-         SelectMode m = ModeFactory
-                 .getMode("config_queries", modeQuery);
+        params.put("sid", server.getId());
+        params.put("user_id", user.getId());
+        params.put("channel_type", type.getLabel());
+        String modeQuery = "central_managed_files_for_sdc";
+        if (ConfigChannelType.sandbox().equals(type)) {
+            modeQuery = "sandbox_managed_files_for_sdc";
+        }
+        else if (ConfigChannelType.local().equals(type)) {
+            modeQuery = "local_managed_files_for_sdc";
+        }
+        SelectMode m = ModeFactory
+                .getMode("config_queries", modeQuery);
 
-         Map elabParams = new HashMap();
-         elabParams.put("sid", server.getId());
-         elabParams.put("channel_type", type.getLabel());
-         DataResult result = m.execute(params);
-         result.elaborate(elabParams);
-         return result;
+        Map elabParams = new HashMap();
+        elabParams.put("sid", server.getId());
+        elabParams.put("channel_type", type.getLabel());
+        DataResult result = m.execute(params);
+        result.elaborate(elabParams);
+        return result;
     }
 
     /**
@@ -1569,10 +1602,10 @@ public class ConfigurationManager extends BaseManager {
      * @return ConfigFileCount object holding the files and dirs
      */
     public ConfigFileCount countAllActionPaths(Server server,
-                                        Action action) {
+            Action action) {
         return countActionPaths(server,
-                                    action,
-                                    "count_paths_in_action");
+                action,
+                "count_paths_in_action");
     }
 
     /**
@@ -1598,10 +1631,10 @@ public class ConfigurationManager extends BaseManager {
      *                          that were selected for comparison
      */
     public ConfigFileCount countSuccessfulCompares(Server server,
-                                        Action action) {
+            Action action) {
         return countActionPaths(server,
-                                  action,
-                                  "count_successfully_compared_paths");
+                action,
+                "count_successfully_compared_paths");
     }
 
 
@@ -1619,10 +1652,10 @@ public class ConfigurationManager extends BaseManager {
      * @return ConfigFileCount object holding the files and dirs
      */
     public ConfigFileCount countDifferingPaths(Server server,
-                                        Action action) {
+            Action action) {
         return countActionPaths(server,
-                                  action,
-                                  "count_differing_paths");
+                action,
+                "count_differing_paths");
     }
     private ConfigFileCount countActionPaths(Server server,
             Action action, String query) {
@@ -1644,8 +1677,8 @@ public class ConfigurationManager extends BaseManager {
      *
      */
     public ConfigFileCount countLocallyManagedPaths(Server server,
-                                        User user,
-                                        ConfigChannelType cct) {
+            User user,
+            ConfigChannelType cct) {
 
         boolean isLocal = ConfigChannelType.local().equals(cct) ||
                 ConfigChannelType.sandbox().equals(cct);
@@ -1655,7 +1688,7 @@ public class ConfigurationManager extends BaseManager {
         params.put("user_id", user.getId());
         params.put("cct_label", cct.getLabel());
         return processCountedFilePathQueries("count_locally_managed_file_paths",
-                                                                params);
+                params);
     }
 
     private ConfigFileCount processCountedFilePathQueries(String query, Map params) {
@@ -1779,7 +1812,7 @@ public class ConfigurationManager extends BaseManager {
         if (!accessToChannel(user.getId(), id)) {
             LocalizationService ls = LocalizationService.getInstance();
             LookupException e =
-                new LookupException("Could not find config channel with id=" + id);
+                    new LookupException("Could not find config channel with id=" + id);
             e.setLocalizedTitle(ls.getMessage("lookup.configchan.title"));
             e.setLocalizedReason1(ls.getMessage("lookup.configchan.reason1"));
             e.setLocalizedReason2(ls.getMessage("lookup.configchan.reason2"));
@@ -1796,18 +1829,18 @@ public class ConfigurationManager extends BaseManager {
      * @return The sought for config channel.
      */
     public ConfigChannel lookupConfigChannel(User user,
-                                                String label,
-                                                ConfigChannelType cct) {
+            String label,
+            ConfigChannelType cct) {
         ConfigChannel cc = ConfigurationFactory.
-                               lookupConfigChannelByLabel(label,
-                                                           user.getOrg(),
-                                                            cct);
+                lookupConfigChannelByLabel(label,
+                        user.getOrg(),
+                        cct);
 
         if (cc == null || !accessToChannel(user.getId(), cc.getId())) {
             LocalizationService ls = LocalizationService.getInstance();
             LookupException e =
-                new LookupException("Could not find config channel " +
-                                                "with label=" + label);
+                    new LookupException("Could not find config channel " +
+                            "with label=" + label);
             e.setLocalizedTitle(ls.getMessage("lookup.configchan.title"));
             e.setLocalizedReason1(ls.getMessage("lookup.configchan.reason1"));
             e.setLocalizedReason2(ls.getMessage("lookup.configchan.reason2"));
@@ -1827,7 +1860,7 @@ public class ConfigurationManager extends BaseManager {
         if (!accessToFile(user.getId(), id)) {
             LocalizationService ls = LocalizationService.getInstance();
             LookupException e =
-                new LookupException("Could not find config file with id=" + id);
+                    new LookupException("Could not find config file with id=" + id);
             e.setLocalizedTitle(ls.getMessage("lookup.configfile.title"));
             e.setLocalizedReason1(ls.getMessage("lookup.configfile.reason1"));
             e.setLocalizedReason2(ls.getMessage("lookup.configfile.reason2"));
@@ -1853,7 +1886,7 @@ public class ConfigurationManager extends BaseManager {
         if (!accessToChannel(user.getId(), ccid)) {
             LocalizationService ls = LocalizationService.getInstance();
             LookupException e =
-                new LookupException("Could not find config file with id=" + ccid);
+                    new LookupException("Could not find config file with id=" + ccid);
             e.setLocalizedTitle(ls.getMessage("lookup.configfile.title"));
             e.setLocalizedReason1(ls.getMessage("lookup.configfile.reason1"));
             e.setLocalizedReason2(ls.getMessage("lookup.configfile.reason2"));
@@ -1873,7 +1906,7 @@ public class ConfigurationManager extends BaseManager {
         if (!accessToRevision(user.getId(), id)) {
             LocalizationService ls = LocalizationService.getInstance();
             LookupException e =
-                new LookupException("Could not find config revision with id=" + id);
+                    new LookupException("Could not find config revision with id=" + id);
             e.setLocalizedTitle(ls.getMessage("lookup.configrev.title"));
             e.setLocalizedReason1(ls.getMessage("lookup.configrev.reason1"));
             e.setLocalizedReason2(ls.getMessage("lookup.configrev.reason2"));
@@ -1895,14 +1928,14 @@ public class ConfigurationManager extends BaseManager {
 
         if (cr == null) {
             throw new LookupException("Could not find config revision with revision id=" +
-                revId);
+                    revId);
         }
 
         if (!accessToRevision(user.getId(), cr.getId())) {
             LocalizationService ls = LocalizationService.getInstance();
             LookupException e =
-                new LookupException("Could not find config revision with revision id=" +
-                    revId);
+                    new LookupException("Could not find config revision with revision id=" +
+                            revId);
             e.setLocalizedTitle(ls.getMessage("lookup.configrev.title"));
             e.setLocalizedReason1(ls.getMessage("lookup.configrev.reason1"));
             e.setLocalizedReason2(ls.getMessage("lookup.configrev.reason2"));
@@ -2028,7 +2061,7 @@ public class ConfigurationManager extends BaseManager {
         // Validate params
         if (usr == null || cc == null || cf == null) {
             throw new IllegalArgumentException(
-                "User, channel, and config-file cannot be null.");
+                    "User, channel, and config-file cannot be null.");
         }
         Map params = new HashMap();
         Map elabParams = new HashMap();
@@ -2062,9 +2095,9 @@ public class ConfigurationManager extends BaseManager {
      * @param datePicked date to deploy or null for the earliest date
      */
     public void deployConfiguration(User user,
-                                        Collection <Server> servers,
-                                        Date datePicked) {
-      deployConfiguration(user, servers, null, datePicked);
+            Collection <Server> servers,
+            Date datePicked) {
+        deployConfiguration(user, servers, null, datePicked);
     }
 
 
@@ -2079,9 +2112,9 @@ public class ConfigurationManager extends BaseManager {
      * @param datePicked date to deploy or null for the earliest date
      */
     public void deployConfiguration(User user,
-                                        Collection <Server> servers,
-                                        ConfigChannel channel,
-                                        Date datePicked) {
+            Collection <Server> servers,
+            ConfigChannel channel,
+            Date datePicked) {
         if (datePicked == null) {
             datePicked = new Date();
         }
@@ -2090,10 +2123,10 @@ public class ConfigurationManager extends BaseManager {
 
             List <ConfigFileNameDto> names;
             if (channel == null) {
-              names = listFileNamesForSystem(user, server, null);
+                names = listFileNamesForSystem(user, server, null);
             }
             else {
-              names = listFileNamesForSystemChannel(user, server, channel, null);
+                names = listFileNamesForSystemChannel(user, server, channel, null);
             }
 
             Set <Server> system = new HashSet<Server>();
@@ -2101,13 +2134,13 @@ public class ConfigurationManager extends BaseManager {
             Set <Long> revs = new HashSet<Long>();
             for (ConfigFileNameDto dto : names) {
                 revs.add(getDeployableRevisionForFileName(dto.getId().longValue(),
-                                                                    server.getId()));
+                        server.getId()));
             }
 
             Action act = ActionManager.createConfigActionForServers(
-                                            user, revs, system,
-                                                ActionFactory.TYPE_CONFIGFILES_DEPLOY,
-                                                datePicked);
+                    user, revs, system,
+                    ActionFactory.TYPE_CONFIGFILES_DEPLOY,
+                    datePicked);
             ActionFactory.save(act);
         }
     }
@@ -2212,11 +2245,11 @@ public class ConfigurationManager extends BaseManager {
         }
 
         if (!SystemManager.serverHasFeature(server.getId(),
-                                    FEATURE_CONFIG)) {
+                FEATURE_CONFIG)) {
             String msg = "Config feature needs to be enabled on the server" +
-                            " for handling Config Management. The provided server [%s]" +
-                             " does not have have this enabled. Add provisioning" +
-                             " capabilities to the system to enable this..";
+                    " for handling Config Management. The provided server [%s]" +
+                    " does not have have this enabled. Add provisioning" +
+                    " capabilities to the system to enable this..";
             throw new PermissionException(String.format(msg, server));
         }
     }
@@ -2259,13 +2292,13 @@ public class ConfigurationManager extends BaseManager {
      * @return true if there already exists such a channel/false otherwise.
      */
     public boolean isDuplicated(String label, ConfigChannelType cct,
-                                Org org) {
+            Org org) {
         Map params = new HashMap();
         params.put("cc_label", label);
         params.put("cct_label", cct.getLabel());
         params.put("org_id", org.getId());
         SelectMode m = ModeFactory.getMode("config_queries",
-                                    "lookup_id_by_label_org_channel_type");
+                "lookup_id_by_label_org_channel_type");
         DataResult dr = m.execute(params);
         return !dr.isEmpty();
     }

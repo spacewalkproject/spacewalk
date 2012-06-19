@@ -1284,6 +1284,46 @@ ORDER BY CFN.path
   <elaborator name="file_name_elab" />
 </mode>
 
+<mode name="file_names_for_system_quick" class="com.redhat.rhn.frontend.dto.ConfigFileNameDto">
+  <query params="sid, user_id">
+select cc.label as config_channel_label,
+       cft.label AS config_file_type,
+       cr.modified as last_modified_date,
+       cc.name AS config_channel_name,
+       cct.label AS config_channel_type,
+       cfn.path
+  from rhnConfigChannel cc,
+       rhnConfigChannelType cct,
+       rhnConfigFileType cft,
+       rhnConfigRevision cr,
+       rhnConfigFile cf,
+       rhnConfigFileName cfn,
+       rhnServerConfigChannel scc,
+       (select  cf.config_file_name_id as id, min(scc.position) as position
+          FROM  rhnServerConfigChannel SCC,
+                rhnConfigFile CF, rhnUserServerPerms USP,
+                rhnConfigChannel CC, rhnConfigChannelType CCT
+         WHERE  SCC.server_id = :sid
+           AND  USP.server_id = SCC.server_id
+           AND  USP.user_id = :user_id
+           AND  SCC.config_channel_id = CF.config_channel_id
+           AND  SCC.config_channel_id = CC.id
+           AND  CC.confchan_type_id = CCT.id
+           AND  CCT.label != 'server_import'
+           group by cf.config_file_name_id) tmp
+ where tmp.id = cfn.id
+   and scc.position = tmp.position
+   and scc.config_channel_id = cc.id
+   and scc.server_id = :sid
+   and cc.confchan_type_id = cct.id
+   and cf.latest_config_revision_id = cr.id
+   and cf.config_channel_id = cc.id
+   and cf.config_file_name_id = cfn.id
+   and cr.config_file_type_id = cft.id
+order by cfn.path;
+  </query>
+</mode>
+
 <mode name="file_names_for_system_channel" class="com.redhat.rhn.frontend.dto.ConfigFileNameDto">
   <query params="sid, ccid, user_id">
 SELECT  DISTINCT CFN.id, CFN.path

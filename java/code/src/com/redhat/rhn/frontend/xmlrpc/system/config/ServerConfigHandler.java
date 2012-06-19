@@ -78,23 +78,22 @@ public class ServerConfigHandler extends BaseHandler {
      * #array_end()
      */
     public List<ConfigFileNameDto> listFiles(String sessionKey,
-                                            Integer sid, boolean listLocal) {
+            Integer sid, boolean listLocal) {
         User loggedInUser = getLoggedInUser(sessionKey);
         XmlRpcSystemHelper sysHelper = XmlRpcSystemHelper.getInstance();
         ConfigurationManager cm = ConfigurationManager.getInstance();
         Server server = sysHelper.lookupServer(loggedInUser, sid);
         if (listLocal) {
             DataResult<ConfigFileNameDto> dtos =
-                           cm.listFileNamesForSystem(loggedInUser, server, null);
-            dtos.elaborate();
+                    cm.listFileNamesForSystemQuick(loggedInUser, server, null);
             return dtos;
         }
         List<ConfigFileNameDto> files = new LinkedList<ConfigFileNameDto>();
         List <ConfigFileDto> currentFiles = cm.listCurrentFiles(loggedInUser,
-                                                server.getSandboxOverride(), null);
+                server.getSandboxOverride(), null);
         for (ConfigFileDto dto : currentFiles) {
             files.add(ConfigFileNameDtoSerializer.toNameDto(dto,
-                                        ConfigChannelType.SANDBOX, null));
+                    ConfigChannelType.SANDBOX, null));
         }
         return files;
     }
@@ -161,11 +160,11 @@ public class ServerConfigHandler extends BaseHandler {
      *              $ConfigRevisionSerializer
      */
     public ConfigRevision createOrUpdatePath(String sessionKey,
-                                            Integer sid,
-                                            String path,
-                                            boolean isDir,
-                                            Map<String, Object> data,
-                                            boolean commitToLocal) {
+            Integer sid,
+            String path,
+            boolean isDir,
+            Map<String, Object> data,
+            boolean commitToLocal) {
 
         // confirm that the user only provided valid keys in the map
         Set<String> validKeys = new HashSet<String>();
@@ -195,7 +194,7 @@ public class ServerConfigHandler extends BaseHandler {
         }
         XmlRpcConfigChannelHelper configHelper = XmlRpcConfigChannelHelper.getInstance();
         return configHelper.createOrUpdatePath(user, channel, path,
-                        isDir ? ConfigFileType.dir() : ConfigFileType.file(), data);
+                isDir ? ConfigFileType.dir() : ConfigFileType.file(), data);
     }
 
 
@@ -237,10 +236,10 @@ public class ServerConfigHandler extends BaseHandler {
      *              $ConfigRevisionSerializer
      */
     public ConfigRevision createOrUpdateSymlink(String sessionKey,
-                                            Integer sid,
-                                            String path,
-                                            Map<String, Object> data,
-                                            boolean commitToLocal) {
+            Integer sid,
+            String path,
+            Map<String, Object> data,
+            boolean commitToLocal) {
 
         // confirm that the user only provided valid keys in the map
         Set<String> validKeys = new HashSet<String>();
@@ -261,7 +260,7 @@ public class ServerConfigHandler extends BaseHandler {
         }
         XmlRpcConfigChannelHelper configHelper = XmlRpcConfigChannelHelper.getInstance();
         return configHelper.createOrUpdatePath(user, channel, path,
-                                                ConfigFileType.symlink(), data);
+                ConfigFileType.symlink(), data);
     }
 
     /**
@@ -294,7 +293,7 @@ public class ServerConfigHandler extends BaseHandler {
      *      #array_end()
      */
     public List<ConfigRevision> lookupFileInfo(String sessionKey,
-        Integer sid, List<String> paths, boolean searchLocal) {
+            Integer sid, List<String> paths, boolean searchLocal) {
         User loggedInUser = getLoggedInUser(sessionKey);
         XmlRpcSystemHelper sysHelper = XmlRpcSystemHelper.getInstance();
         Server server = sysHelper.lookupServer(loggedInUser, sid);
@@ -304,7 +303,7 @@ public class ServerConfigHandler extends BaseHandler {
             ConfigFile cf;
             if (searchLocal) {
                 cf = cm.lookupConfigFile(loggedInUser,
-                                    server.getLocalOverride().getId(), path);
+                        server.getLocalOverride().getId(), path);
                 if (cf == null) {
                     for (ConfigChannel cn : server.getConfigChannels()) {
                         cf = cm.lookupConfigFile(loggedInUser, cn.getId(), path);
@@ -351,34 +350,34 @@ public class ServerConfigHandler extends BaseHandler {
      *
      */
     public int deleteFiles(String sessionKey,
-                                       Integer sid,
-                                       List <String> paths,
-                                       boolean deleteFromLocal) {
-       User loggedInUser = getLoggedInUser(sessionKey);
-       XmlRpcSystemHelper sysHelper = XmlRpcSystemHelper.getInstance();
-       ConfigurationManager cm = ConfigurationManager.getInstance();
-       Server server = sysHelper.lookupServer(loggedInUser, sid);
-       List<ConfigFile> cfList = new ArrayList<ConfigFile>();
-       for (String path : paths) {
-           ConfigFile cf;
-           if (deleteFromLocal) {
-               cf = cm.lookupConfigFile(loggedInUser,
-                                   server.getLocalOverride().getId(), path);
-               if (cf == null) {
-                   throw new NoSuchConfigFilePathException(path);
-               }
-           }
-           else {
-               cf = cm.lookupConfigFile(loggedInUser,
-                       server.getSandboxOverride().getId(), path);
-           }
-           cfList.add(cf);
-       }
-       for (ConfigFile cf : cfList) {
-           cm.deleteConfigFile(loggedInUser, cf);
-       }
-       return 1;
-   }
+            Integer sid,
+            List <String> paths,
+            boolean deleteFromLocal) {
+        User loggedInUser = getLoggedInUser(sessionKey);
+        XmlRpcSystemHelper sysHelper = XmlRpcSystemHelper.getInstance();
+        ConfigurationManager cm = ConfigurationManager.getInstance();
+        Server server = sysHelper.lookupServer(loggedInUser, sid);
+        List<ConfigFile> cfList = new ArrayList<ConfigFile>();
+        for (String path : paths) {
+            ConfigFile cf;
+            if (deleteFromLocal) {
+                cf = cm.lookupConfigFile(loggedInUser,
+                        server.getLocalOverride().getId(), path);
+                if (cf == null) {
+                    throw new NoSuchConfigFilePathException(path);
+                }
+            }
+            else {
+                cf = cm.lookupConfigFile(loggedInUser,
+                        server.getSandboxOverride().getId(), path);
+            }
+            cfList.add(cf);
+        }
+        for (ConfigFile cf : cfList) {
+            cm.deleteConfigFile(loggedInUser, cf);
+        }
+        return 1;
+    }
 
 
     /**
@@ -412,7 +411,7 @@ public class ServerConfigHandler extends BaseHandler {
         }
         catch (MissingCapabilityException e) {
             throw new com.redhat.rhn.frontend.xmlrpc.MissingCapabilityException(
-                e.getCapability(), e.getServer());
+                    e.getCapability(), e.getServer());
         }
         return 1;
     }
@@ -481,14 +480,14 @@ public class ServerConfigHandler extends BaseHandler {
      * @xmlrpc.returntype #return_int_success()
      */
     public int addChannels(String sessionKey, List<Number> serverIds,
-                            List<String> configChannelLabels, boolean addToTop) {
+            List<String> configChannelLabels, boolean addToTop) {
         User loggedInUser = getLoggedInUser(sessionKey);
         XmlRpcSystemHelper helper = XmlRpcSystemHelper.getInstance();
         List <Server> servers = helper.lookupServers(loggedInUser, serverIds);
         XmlRpcConfigChannelHelper configHelper =
-                            XmlRpcConfigChannelHelper.getInstance();
+                XmlRpcConfigChannelHelper.getInstance();
         List <ConfigChannel> channels = configHelper.
-                             lookupGlobals(loggedInUser, configChannelLabels);
+                lookupGlobals(loggedInUser, configChannelLabels);
         ConfigChannelListProcessor proc = new ConfigChannelListProcessor();
         if (addToTop) {
             Collections.reverse(channels);
@@ -529,14 +528,14 @@ public class ServerConfigHandler extends BaseHandler {
      * @xmlrpc.returntype #return_int_success()
      */
     public int setChannels(String sessionKey, List<Number> serverIds,
-                                        List<String> configChannelLabels) {
+            List<String> configChannelLabels) {
         User loggedInUser = getLoggedInUser(sessionKey);
         XmlRpcSystemHelper helper = XmlRpcSystemHelper.getInstance();
         List <Server> servers = helper.lookupServers(loggedInUser, serverIds);
         XmlRpcConfigChannelHelper configHelper =
-                            XmlRpcConfigChannelHelper.getInstance();
+                XmlRpcConfigChannelHelper.getInstance();
         List <ConfigChannel> channels = configHelper.
-                             lookupGlobals(loggedInUser, configChannelLabels);
+                lookupGlobals(loggedInUser, configChannelLabels);
         ConfigChannelListProcessor proc = new ConfigChannelListProcessor();
         for (Server server : servers) {
             proc.replace(server.getConfigChannels(), channels);
@@ -561,14 +560,14 @@ public class ServerConfigHandler extends BaseHandler {
      * @xmlrpc.returntype #return_int_success()
      */
     public int removeChannels(String sessionKey, List<Number> serverIds,
-                            List<String> configChannelLabels) {
+            List<String> configChannelLabels) {
         User loggedInUser = getLoggedInUser(sessionKey);
         XmlRpcSystemHelper helper = XmlRpcSystemHelper.getInstance();
         List<Server> servers = helper.lookupServers(loggedInUser, serverIds);
         XmlRpcConfigChannelHelper configHelper =
-            XmlRpcConfigChannelHelper.getInstance();
+                XmlRpcConfigChannelHelper.getInstance();
         List <ConfigChannel> channels = configHelper.
-             lookupGlobals(loggedInUser, configChannelLabels);
+                lookupGlobals(loggedInUser, configChannelLabels);
         ConfigChannelListProcessor proc = new ConfigChannelListProcessor();
         boolean success = true;
         for (Server server : servers) {
