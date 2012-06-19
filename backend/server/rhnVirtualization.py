@@ -311,13 +311,13 @@ class VirtualizationEventHandler:
         if identity == IdentityType.HOST:
             condition = """
                 vi.uuid is null
-                and vi.host_system_id=:sysid
+                and vi.host_system_id=:system_id
             """
         elif identity == IdentityType.GUEST:
             condition = """
                 vi.uuid=:uuid
                 AND (vi.virtual_system_id is null or
-                     vi.virtual_system_id = :sysid)
+                     vi.virtual_system_id = :system_id)
                 and exists (
                     select 1
                     from
@@ -346,8 +346,7 @@ class VirtualizationEventHandler:
                 %s
         """ % (condition)
         query = rhnSQL.prepare(select_sql)
-        query.execute(sysid = system_id, uuid = uuid,
-                system_id = system_id)
+        query.execute(system_id = system_id, uuid = uuid)
  
         row = query.fetchone_dict() or {}
 
