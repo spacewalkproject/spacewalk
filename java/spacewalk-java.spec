@@ -23,7 +23,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.86
+Version: 1.8.87
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -615,6 +615,16 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Jun 19 2012 Tomas Lestach <tlestach@redhat.com> 1.8.87-1
+- correctly report kernel not being found at distro creation
+- 822918 - impossible to get error code from PG exceptions
+- Add missing dollar sign.
+- Setup {inSSM} variable on audit pages.
+- Add forgotten hidden form variable.
+- Improve SCAP search: Return list of xccdf:TestResults-s
+- Move the listset definition out off the fragment.
+- Fix flawed SQL queries.
+
 * Tue Jun 12 2012 Simon Lukasik <slukasik@redhat.com> 1.8.86-1
 - Improve SCAP search: searching by scan's result
 - Improve SCAP search: searching by scan date
