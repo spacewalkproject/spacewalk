@@ -293,7 +293,9 @@ public class KickstartableTree extends BaseDomainHelper {
         if (pathExists(defaultPath)) {
             return defaultPath;
         }
-        throw new ValidatorException(INVALID_KERNEL, defaultPath);
+        ValidatorException.raiseException(INVALID_KERNEL, defaultPath);
+        // we'll never get here, just a compiler required line
+        return "";
     }
 
     /**
