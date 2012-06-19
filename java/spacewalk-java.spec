@@ -507,7 +507,7 @@ fi
 %{jardir}/concurrent.jar
 %{jardir}/dom4j.jar
 %{jardir}/dwr-*.jar
-%{jardir}/hibernate3.jar
+%{jardir}/hibernate3*
 %{jardir}/jaf.jar
 %{jardir}/javamail.jar
 %{jardir}/jcommon.jar
