@@ -339,6 +339,14 @@ Serializable {
     }
 
     /**
+     * isVirtBridge tells if nic is a virtual bridge
+     * @return true if the nic is a virtual bridge, false otherwise
+     */
+    public boolean isVirtBridge() {
+        return ("bridge".equals(module) && getName().startsWith("virbr"));
+    }
+
+    /**
      * Retrieve list of IPv6 addresses
      * @return List of ServerNetAddress6 objects
      */

@@ -323,7 +323,7 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
         if (serverIn.getNetworkInterfaces() != null) {
             for (NetworkInterface n : serverIn.getNetworkInterfaces()) {
                 // don't create a physical network device for a bond
-                if (n.isPublic() && !n.isBond()) {
+                if (n.isPublic() && !n.isVirtBridge() && !n.isBond()) {
                     Network net = new Network(getCobblerConnection(),
                             n.getName());
                     net.setIpAddress(n.getIpaddr());
