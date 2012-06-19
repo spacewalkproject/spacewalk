@@ -1026,8 +1026,8 @@ class EntitlementVirtualizationListener(VirtualizationListener):
                     procedure.rhn_entitlements.entitle_server(guest_sid,
                             entitlement)
                 except rhnSQL.SQLError, e:
-                    log_error("Error adding entitlement %s: %s"
-                            % (entitlement, str(e)))
+                    log_error("Error adding entitlement %s to host ID-%s: %s"
+                            % (entitlement, guest_sid, str(e)))
                     # rhnSQL.rollback()
                     return
 
