@@ -187,18 +187,6 @@ public class KickstartHelper {
                 log.debug("ksdata                         : " +
                         ksdata);
             }
-            // Create and add a KickstartSession if there isn't one already
-            if (retval.get(SESSION) == null && !options.containsKey(VIEW_LABEL) &&
-                    ksdata != null) {
-
-
-                log.debug("Creating KickstartSession since there isnt one already.");
-                KickstartSessionCreateCommand cmd =
-                    new KickstartSessionCreateCommand(org, ksdata, remoteAddr);
-                cmd.store();
-
-                retval.put(SESSION, cmd.getKickstartSession());
-            }
         }
         // Add the host.
         retval.put(HOST, getKickstartHost());
