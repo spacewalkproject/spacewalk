@@ -1,0 +1,4 @@
+-- oracle equivalent source sha1 fb418952e1dc9f6da8960a60bc25e683e23f873a
+
+CREATE INDEX rhn_xccdf_rim_ident_idx
+    ON rhnXccdfRuleIdentMap (ident_id);

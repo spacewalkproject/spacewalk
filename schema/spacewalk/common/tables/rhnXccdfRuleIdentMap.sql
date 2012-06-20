@@ -30,3 +30,8 @@ CREATE UNIQUE INDEX rhn_xccdf_rim_ri_uq
     ON rhnXccdfRuleIdentMap (rresult_id, ident_id)
     TABLESPACE [[8m_tbs]]
     NOLOGGING;
+
+CREATE INDEX rhn_xccdf_rim_ident_idx
+    ON rhnXccdfRuleIdentMap (ident_id)
+    TABLESPACE [[8m_tbs]]
+    NOLOGGING;
