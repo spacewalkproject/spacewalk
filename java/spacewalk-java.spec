@@ -23,7 +23,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.89
+Version: 1.8.90
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -615,6 +615,17 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Jun 20 2012 Stephen Herr <sherr@redhat.com> 1.8.90-1
+- 823798 - update API documentation
+- 748331 - remove unused import
+- 748331 - do not create multiple default ks sessions
+- removing @Override annotations, methods aren't overriden
+- removing @Override annotation, method isn't overriden
+- remove unnecessary else clause
+- remove unnecessary else clause
+- remove unnecessary casts
+- 833474 - removed the ';' character due the error ORA-00911
+
 * Tue Jun 19 2012 Stephen Herr <sherr@redhat.com> 1.8.89-1
 - 833474 - system.config.listFiles could take > 8 minutes if there were lots of
   revisions on lots of config files
