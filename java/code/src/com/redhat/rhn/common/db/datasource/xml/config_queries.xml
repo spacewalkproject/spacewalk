@@ -1320,7 +1320,7 @@ select cc.label as config_channel_label,
    and cf.config_channel_id = cc.id
    and cf.config_file_name_id = cfn.id
    and cr.config_file_type_id = cft.id
-order by cfn.path;
+order by cfn.path
   </query>
 </mode>
 
