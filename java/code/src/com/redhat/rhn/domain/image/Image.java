@@ -224,7 +224,6 @@ public class Image extends BaseDto implements Comparable<Image> {
     /**
      * {@inheritDoc}
      */
-    @Override
     public int compareTo(Image image) {
         int ret = 0;
         if (!this.name.equals(image.getName())) {
