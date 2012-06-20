@@ -395,8 +395,8 @@ public class ConfigChannelHandler extends BaseHandler {
      *              "Config file macro end delimiter. Use null or
      *  empty string to accept the default. (only for non-directories)")
      *      #prop_desc("int", "revision", "next revision number, auto increment for null")
-     *      #prop_desc("boolean", "binary", "mark the binary content,
-     *              (only for non-directories)")
+     *      #prop_desc("boolean", "binary", "mark the binary content, if True,
+     *      base64 encoded content is expected (only for non-directories)")
      *
      *  #struct_end()
      * @xmlrpc.returntype
