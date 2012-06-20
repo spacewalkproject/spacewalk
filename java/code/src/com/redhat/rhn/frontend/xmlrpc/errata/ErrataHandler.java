@@ -956,10 +956,8 @@ public class ErrataHandler extends BaseHandler {
                     inheritPackages);
             return new ArrayList<Errata>().toArray();
         }
-        else {
-            return ErrataManager.cloneErrataApi(channel, errataToClone,
-                    loggedInUser, inheritPackages);
-        }
+        return ErrataManager.cloneErrataApi(channel, errataToClone,
+                loggedInUser, inheritPackages);
     }
 
 
