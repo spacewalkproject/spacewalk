@@ -143,9 +143,7 @@ public class Credentials extends BaseDomainHelper {
         if (this.encodedPassword != null) {
             return new String(Base64.decodeBase64(this.encodedPassword.getBytes()));
         }
-        else {
-            return this.encodedPassword;
-        }
+        return this.encodedPassword;
     }
 
     /**
