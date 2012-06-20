@@ -68,10 +68,10 @@ public class ScheduleImageDeploymentAction extends RhnAction {
             DynaActionForm form = (DynaActionForm) actionForm;
             Long vcpus = (Long) form.get("vcpus");
             Long memkb = (Long) form.get("mem_mb") * 1024;
-            String bridge = (String) form.getString("bridge");
-            String proxyServer = (String) form.getString("proxy_server");
-            String proxyUser = (String) form.getString("proxy_user");
-            String proxyPass = (String) form.getString("proxy_pass");
+            String bridge = form.getString("bridge");
+            String proxyServer = form.getString("proxy_server");
+            String proxyUser = form.getString("proxy_user");
+            String proxyPass = form.getString("proxy_pass");
 
             // Find the requested image
             String imageId = request.getParameter("image_id");
