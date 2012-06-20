@@ -1,0 +1,4 @@
+-- oracle equivalent source sha1 4c4dfc5a9e08612c69cd89227c591bd895530377
+
+CREATE INDEX rhn_xccdf_rresult_tresult_idx
+    ON rhnXccdfRuleresult (testresult_id);

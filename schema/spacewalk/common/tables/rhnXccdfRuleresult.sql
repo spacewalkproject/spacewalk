@@ -29,4 +29,9 @@ CREATE TABLE rhnXccdfRuleresult
 ENABLE ROW MOVEMENT
 ;
 
+CREATE INDEX rhn_xccdf_rresult_tresult_idx
+    ON rhnXccdfRuleresult (testresult_id)
+    TABLESPACE [[4m_tbs]]
+    NOLOGGING;
+
 CREATE SEQUENCE rhn_xccdf_rresult_id_seq;
