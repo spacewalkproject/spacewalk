@@ -5,7 +5,7 @@
 Summary: Red Hat Network Client Utilities and Libraries
 Name: rhnclient
 Source0: %{name}-%{version}.tar.gz
-Version: 0.14
+Version: 0.15
 Release: 1
 License: GPLv2
 Group: Development/Libraries
@@ -64,6 +64,10 @@ rm -rf $RPM_BUILD_ROOT
 #%doc ChangeLog COPYING README TODO
 
 %changelog
+* Thu Jun 21 2012 Jan Pazdziora 0.15-1
+- allow linking against openssl
+- %%defattr is not needed since rpm 4.4
+
 * Tue Nov 01 2011 Michael Mraka <michael.mraka@redhat.com> 0.14-1
 - 744287 - fixed path so it isn't substituted in rpm2pkg
 
