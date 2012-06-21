@@ -1,6 +1,6 @@
 Summary: RHN support for yum
 Name: yum-rhn-plugin
-Version: 1.8.1
+Version: 1.8.2
 Release: 1%{?dist}
 License: GPLv2
 Group: System Environment/Base
@@ -70,6 +70,10 @@ fi
 %doc LICENSE
 
 %changelog
+* Thu Jun 21 2012 Jan Pazdziora 1.8.2-1
+- fix files headers. our code is under gplv2 license
+- %%defattr is not needed since rpm 4.4
+
 * Wed May 02 2012 Milan Zazrivec <mzazrivec@redhat.com> 1.8.1-1
 - 817567 - fix reports for auto-errata application already installed
 
