@@ -23,7 +23,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.90
+Version: 1.8.91
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -615,6 +615,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Jun 21 2012 Tomas Lestach <tlestach@redhat.com> 1.8.91-1
+- enable filtering by synopsis for all the errata tabs
+- remove simple-xml and susestudio-java-client from ivy.xml
+
 * Wed Jun 20 2012 Stephen Herr <sherr@redhat.com> 1.8.90-1
 - 823798 - update API documentation
 - 748331 - remove unused import
