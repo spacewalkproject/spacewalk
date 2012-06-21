@@ -1022,9 +1022,11 @@ class EntitlementVirtualizationListener(VirtualizationListener):
         for entitlement in host_system_slots:
             if entitlement not in guest_system_slots:
                 try:
+                    rhnSQL.transaction(entitlement)
                     procedure.rhn_entitlements.entitle_server(guest_sid,
                             entitlement)
                 except rhnSQL.SQLError, e:
+                    rhnSQL.rollback(entitlement)
                     log_error("Error adding entitlement %s to host ID-%s: %s"
                             % (entitlement, guest_sid, str(e)))
                     # rhnSQL.rollback()
