@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.8.52
+Version:        1.8.53
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -68,6 +68,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Thu Jun 21 2012 Jan Pazdziora 1.8.53-1
+- Make the .postgresql schema upgrade script actually use the PostgreSQL
+  syntax.
+
 * Wed Jun 20 2012 Simon Lukasik <slukasik@redhat.com> 1.8.52-1
 - Add index on ident_id for better performance
 - Add index on testresult_id for better performance.
