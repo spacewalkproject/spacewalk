@@ -84,6 +84,8 @@
 			</c:choose>
 		</rl:column>
 	</rl:list>
+	<rl:csv name="groupSet"
+	exportColumns="id,testResult,completionTime,pass,fail,error,unknown,notapplicable,notchecked,notselected,informational,fixed,sum"/>
 </rl:listset>
 
 <rhn:tooltip><bean:message key="system.audit.listscap.jsp.tooltip"/></rhn:tooltip>

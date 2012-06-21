@@ -7725,6 +7725,43 @@ Follow this url to see the full list of inactive systems:
         <source>Matching Field Value</source>
       </trans-unit>
 
+      <trans-unit id="testResult">
+        <source>Idref of TestResult</source>
+      </trans-unit>
+      <trans-unit id="completionTime">
+        <source>Completion Time</source>
+      </trans-unit>
+      <trans-unit id="pass">
+        <source>Pass</source>
+      </trans-unit>
+      <trans-unit id="fail">
+        <source>Fail</source>
+      </trans-unit>
+      <trans-unit id="error">
+        <source>Error</source>
+      </trans-unit>
+      <trans-unit id="unknown">
+        <source>Unknown</source>
+      </trans-unit>
+      <trans-unit id="notapplicable">
+        <source>Notapplicable</source>
+      </trans-unit>
+      <trans-unit id="notchecked">
+        <source>Notchecked</source>
+      </trans-unit>
+      <trans-unit id="notselected">
+        <source>Notselected</source>
+      </trans-unit>
+      <trans-unit id="informational">
+        <source>Informational</source>
+      </trans-unit>
+      <trans-unit id="fixed">
+        <source>Fixed</source>
+      </trans-unit>
+      <trans-unit id="sum">
+        <source>Total</source>
+      </trans-unit>
+
 
       <trans-unit id="listtag.clearfilter">
           <source>Clear filter </source>
