@@ -48,10 +48,10 @@ sub _get_dbi_connect_parameters {
 		} else {
 			$DSN = "dbi:Pg:dbname=$dbname";
 			my $host = PXT::Config->get("db_host");
-			if (defined $host and $host ne '') {
+			if (defined $host and $host ne '' and $host ne 'localhost') {
 				$DSN .= ";host=$host";
 				my $port = PXT::Config->get("db_port");
-				if (defined $port and $port ne '') {
+				if (defined $port and $port ne '' and $port ne '5432') {
 					$DSN .= ";port=$port";
 				}
 			}
