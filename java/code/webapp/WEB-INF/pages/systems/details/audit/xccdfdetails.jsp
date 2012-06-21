@@ -79,6 +79,8 @@
     <%@ include file="/WEB-INF/pages/common/fragments/audit/rule-common-columns.jspf" %>
 
   </rl:list>
+  <rl:csv name="groupSet"
+    exportColumns="id,documentIdref,identsString,evaluationResult"/>
 </rl:listset>
 
 </body>

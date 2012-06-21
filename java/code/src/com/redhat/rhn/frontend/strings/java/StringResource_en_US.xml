@@ -7762,6 +7762,16 @@ Follow this url to see the full list of inactive systems:
         <source>Total</source>
       </trans-unit>
 
+      <trans-unit id="documentIdref">
+        <source>Idref of rule-result</source>
+      </trans-unit>
+      <trans-unit id="identsString">
+        <source>Assigned Idents</source>
+      </trans-unit>
+      <trans-unit id="evaluationResult">
+        <source>Result of Evaluation</source>
+      </trans-unit>
+
 
       <trans-unit id="listtag.clearfilter">
           <source>Clear filter </source>

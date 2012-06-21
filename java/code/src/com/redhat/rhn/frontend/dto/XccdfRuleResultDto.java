@@ -25,7 +25,7 @@ import com.redhat.rhn.manager.audit.ScapManager;
  * Simple DTO for transfering data from the DB to the UI through datasource.
  * @version $Rev$
  */
-public class XccdfRuleResultDto {
+public class XccdfRuleResultDto extends BaseDto {
 
     private Long id;
     private String label;
@@ -54,6 +54,15 @@ public class XccdfRuleResultDto {
      */
     public String getLabel() {
         return label;
+    }
+
+    /**
+     * Returns the actual xccdf:rule-result result
+     * @return the result
+     */
+    public String getEvaluationResult() {
+        // this method serve only for better localization within CSVWriter
+        return getLabel();
     }
 
     /**
