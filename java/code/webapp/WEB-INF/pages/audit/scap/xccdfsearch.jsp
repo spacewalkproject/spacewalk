@@ -122,6 +122,8 @@
         <rl:list emptykey="generic.jsp.none" name="searchResults" dataset="pageList">
           <%@ include file="/WEB-INF/pages/common/fragments/audit/xccdf-easy-list.jspf" %>
         </rl:list>
+        <rl:csv dataset="pageList" name="searchResults"
+          exportColumns="id,sid,serverName,profile,satisfied,dissatisfied,satisfactionUnknown"/>
       </c:when>
 
       <c:otherwise>
@@ -129,6 +131,8 @@
           <rl:decorator name="PageSizeDecorator"/>
           <%@ include file="/WEB-INF/pages/common/fragments/audit/rule-common-columns.jspf" %>
         </rl:list>
+        <rl:csv dataset="pageList" name="searchResults"
+          exportColumns="id,documentIdref,identsString,evaluationResult"/>
       </c:otherwise>
     </c:choose>
 
