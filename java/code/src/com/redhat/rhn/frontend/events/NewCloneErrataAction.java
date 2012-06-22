@@ -14,7 +14,12 @@
  */
 package com.redhat.rhn.frontend.events;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.redhat.rhn.common.messaging.EventMessage;
+import com.redhat.rhn.domain.errata.Errata;
+import com.redhat.rhn.domain.errata.ErrataFactory;
 import com.redhat.rhn.manager.errata.ErrataManager;
 import org.apache.log4j.Logger;
 
@@ -33,7 +38,10 @@ extends AbstractDatabaseAction {
     @Override
     public void doExecute(EventMessage msgIn) {
         NewCloneErrataEvent msg = (NewCloneErrataEvent) msgIn;
-        ErrataManager.cloneErrataApi(msg.getChan(), msg.getHydratedErrata(),
+        Long eid = msg.getErrata();
+        List<Errata> errata = new ArrayList<Errata>();
+        errata.add(ErrataFactory.lookupById(eid));
+        ErrataManager.cloneErrataApi(msg.getChan(), errata,
                 msg.getUser(), msg.isInheritPackages());
     }
 }

@@ -1271,9 +1271,11 @@ public class ErrataManager extends BaseManager {
     public static void cloneErrataApiAsync(Channel chan, List<Long> errata,
             User user, boolean inheritPackages) {
         Logger.getLogger(ErrataManager.class).debug("Cloning");
-        NewCloneErrataEvent neve = new NewCloneErrataEvent(chan, errata, user,
-                inheritPackages);
-        MessageQueue.publish(neve);
+        for (long eid : errata) {
+            NewCloneErrataEvent neve = new NewCloneErrataEvent(chan, eid, user,
+                    inheritPackages);
+            MessageQueue.publish(neve);
+        }
     }
 
 

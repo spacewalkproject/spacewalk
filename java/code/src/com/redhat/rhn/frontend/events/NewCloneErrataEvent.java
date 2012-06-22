@@ -18,20 +18,17 @@ import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.common.messaging.EventDatabaseMessage;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelFactory;
-import com.redhat.rhn.domain.errata.Errata;
-import com.redhat.rhn.domain.errata.ErrataFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.user.UserFactory;
 
 import org.hibernate.Transaction;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
 /**
  * NewCloneErrataAction - publish event to clone the errata into a channel.
  *
+ * I wanted this to contain a list of errata ids and do multiple
+ * clones per event, but I couldn't get it to recall the list of ids
+ * once the message got popped back off
  * @version $Rev$
  */
 public class NewCloneErrataEvent implements EventDatabaseMessage {
@@ -39,7 +36,7 @@ public class NewCloneErrataEvent implements EventDatabaseMessage {
 
 
     private Long chanId;
-    private Collection<Long> errata;
+    private Long errata;
     private final Transaction txn;
     private final Long userId;
     private boolean inheritPackages;
@@ -51,7 +48,7 @@ public class NewCloneErrataEvent implements EventDatabaseMessage {
      * @param userIn the user
      * @param inheritPackagesIn inheritPackages
      */
-    public NewCloneErrataEvent(Channel chanIn, Collection<Long> errataIn,
+    public NewCloneErrataEvent(Channel chanIn, Long errataIn,
             User userIn, boolean inheritPackagesIn) {
         chanId = chanIn.getId();
         errata = errataIn;
@@ -63,6 +60,7 @@ public class NewCloneErrataEvent implements EventDatabaseMessage {
     /**
      * {@inheritDoc}
      */
+    @Override
     public String toText() {
         // really a noop
         return "";
@@ -72,6 +70,7 @@ public class NewCloneErrataEvent implements EventDatabaseMessage {
      *
      * {@inheritDoc}
      */
+    @Override
     public Transaction getTransaction() {
         return txn;
     }
@@ -105,22 +104,11 @@ public class NewCloneErrataEvent implements EventDatabaseMessage {
         this.chanId = chanIn.getId();
     }
 
-    /**
-     * @return A List of Errata objects
-     */
-    public List<Errata> getHydratedErrata() {
-        List<Errata> errataList = new ArrayList<Errata>();
-        for (Long erratum : errata) {
-            errataList.add(ErrataFactory.lookupById(erratum));
-        }
-        return errataList;
-    }
-
 
     /**
      * @return Returns the errata.
      */
-    public Collection<Long> getErrata() {
+    public Long getErrata() {
         return errata;
     }
 
@@ -128,7 +116,7 @@ public class NewCloneErrataEvent implements EventDatabaseMessage {
     /**
      * @param errataIn The errata to set.
      */
-    public void setErrata(Collection<Long> errataIn) {
+    public void setErrata(Long errataIn) {
         this.errata = errataIn;
     }
 
