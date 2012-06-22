@@ -12,7 +12,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.37
+Version: 1.8.38
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -646,6 +646,12 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Fri Jun 22 2012 Michael Mraka <michael.mraka@redhat.com> 1.8.38-1
+- fixed usage of path macros
+- removed -xp subpackage
+- removed dead code for /XP handler
+- removed unused /XP handler
+
 * Fri Jun 22 2012 Michael Mraka <michael.mraka@redhat.com> 1.8.37-1
 - 811646 - handle locally exception in entitle_server()
 - don't pass the same parameter twice
