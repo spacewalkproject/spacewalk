@@ -4,7 +4,7 @@ Name:          rhnpush
 Group:         Applications/System
 License:       GPLv2
 URL:           http://fedorahosted.org/spacewalk
-Version:       5.5.45
+Version:       5.5.46
 Release:       1%{?dist}
 Source0:       https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 BuildRoot:     %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -56,6 +56,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc COPYING
 
 %changelog
+* Fri Jun 22 2012 Michael Mraka <michael.mraka@redhat.com> 5.5.46-1
+- removed commented out code and obsoleted comments
+
 * Sat Jun 16 2012 Miroslav Suchý <msuchy@redhat.com> 5.5.45-1
 - 827022 - add COPYING file
 
