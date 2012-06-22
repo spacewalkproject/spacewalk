@@ -70,11 +70,21 @@ public class PxtCookieManager {
         // there's no need to use domain and besides that it causes trouble,
         //  when accessing the server within the local network (without FQDN)
         // pxtCookie.setDomain(request.getServerName());
-        pxtCookie.setMaxAge(timeout);
+        if (!userAgentContains(request, "msie")) {
+            pxtCookie.setMaxAge(timeout);
+        }
         pxtCookie.setPath(DEFAULT_PATH);
         pxtCookie.setSecure(ConfigDefaults.get().isSSLAvailable());
 
         return pxtCookie;
+    }
+
+    private boolean userAgentContains(HttpServletRequest request, String browserId) {
+        String userAgent = request.getHeader("User-Agent");
+        if (userAgent != null) {
+            return userAgent.toLowerCase().contains(browserId);
+        }
+        return false;
     }
 
     /**
