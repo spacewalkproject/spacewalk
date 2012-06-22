@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.18
+Version: 1.8.19
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -254,6 +254,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Fri Jun 22 2012 Jan Pazdziora 1.8.19-1
+- For the localhost:5432 case, use the Unix socket local connection.
+
 * Fri Jun 08 2012 Jan Pazdziora 1.8.18-1
 - 803370 - call to rhn_server.tag_delete db agnostic
 
