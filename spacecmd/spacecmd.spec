@@ -4,7 +4,7 @@
 %endif
 
 Name:        spacecmd
-Version:     1.8.9
+Version:     1.8.10
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -60,6 +60,10 @@ touch %{buildroot}/%{python_sitelib}/spacecmd/__init__.py
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Fri Jun 22 2012 Jan Pazdziora 1.8.10-1
+- spacecmd : enhancement add configchannel_sync
+- spacecmd : enhancement add softwarechannel_sync
+
 * Thu May 31 2012 Stephen Herr <sherr@redhat.com> 1.8.9-1
 - 809905 - fixing chroot option for addscript, is now possible to not chroot in
   non-interactive mode
