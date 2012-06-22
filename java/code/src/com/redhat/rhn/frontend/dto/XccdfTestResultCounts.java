@@ -21,7 +21,7 @@ import java.util.List;
  * Simple DTO for transfering data from the DB to the UI through datasource.
  * @version $Rev$
  */
-public abstract class XccdfTestResultCounts {
+public abstract class XccdfTestResultCounts extends BaseDto {
 
     private static final String PASS_LABEL = "pass";
     private static final String FAIL_LABEL = "fail";

@@ -7772,6 +7772,19 @@ Follow this url to see the full list of inactive systems:
         <source>Result of Evaluation</source>
       </trans-unit>
 
+      <trans-unit id="profile">
+        <source>Idref of Profile</source>
+      </trans-unit>
+      <trans-unit id="satisfied">
+        <source>Satisfied</source>
+      </trans-unit>
+      <trans-unit id="dissatisfied">
+        <source>Dissatisfied</source>
+      </trans-unit>
+      <trans-unit id="satisfactionUnknown">
+        <source>Unknown</source>
+      </trans-unit>
+
 
       <trans-unit id="listtag.clearfilter">
           <source>Clear filter </source>

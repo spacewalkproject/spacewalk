@@ -46,6 +46,14 @@ public class XccdfTestResultDto extends XccdfTestResultCounts {
     }
 
     /**
+     * Returs id of xccdf:TestResult
+     * @return the xid
+     */
+    public Long getId() {
+        return getXid();
+    }
+
+    /**
      * Returns id of targeted system
      * @return the sid
      */
