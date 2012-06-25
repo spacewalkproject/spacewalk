@@ -23,7 +23,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.94
+Version: 1.8.95
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -615,6 +615,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Jun 25 2012 Jan Pazdziora 1.8.95-1
+- Fixing checkstyle.
+
 * Fri Jun 22 2012 Stephen Herr <sherr@redhat.com> 1.8.94-1
 - 829485 - fixed asynchronous errata cloning internal server errors
 - 829790 - handle spoiled browsers separatelly
