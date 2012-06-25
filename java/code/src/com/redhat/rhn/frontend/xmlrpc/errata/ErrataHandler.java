@@ -864,12 +864,12 @@ public class ErrataHandler extends BaseHandler {
      * @return Returns an array of Errata objects, which get serialized into XMLRPC
      *
      * @xmlrpc.doc Clone a list of errata into the specified channel.
-     * 
+     *
      * Warning: Issuing a synchronous clone request for a channel that has asynchronous
      * errata cloning jobs pending can result in a database deadlock! Adding more
      * asynchronous jobs is safe. If deadlock occurs one must re-schedule both the
      * synchronous and asynchronous jobs to ensure all errata are cloned.
-     * 
+     *
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param("string", "channel_label")
      * @xmlrpc.param
@@ -895,12 +895,12 @@ public class ErrataHandler extends BaseHandler {
      * @return 1 on success, exception thrown otherwise.
      *
      * @xmlrpc.doc Asynchronously clone a list of errata into the specified channel.
-     * 
+     *
      * Warning: Issuing a synchronous clone request for a channel that has asynchronous
      * errata cloning jobs pending can result in a database deadlock! Adding more
      * asynchronous jobs is safe. If deadlock occurs one must re-schedule both the
      * synchronous and asynchronous jobs to ensure all errata are cloned.
-     * 
+     *
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param("string", "channel_label")
      * @xmlrpc.param
@@ -986,12 +986,12 @@ public class ErrataHandler extends BaseHandler {
      *
      * @xmlrpc.doc Clones a list of errata into a specified cloned channel
      * according the original erratas.
-     * 
+     *
      * Warning: Issuing a synchronous cloneAsOriginal request for a channel that has
      * asynchronous errata cloning jobs pending can result in a database deadlock! Adding
      * more asynchronous jobs is safe. If deadlock occurs one must re-schedule both the
      * synchronous and asynchronous jobs to ensure all errata are cloned.
-     * 
+     *
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param("string", "channel_label")
      * @xmlrpc.param
@@ -1019,12 +1019,12 @@ public class ErrataHandler extends BaseHandler {
      *
      * @xmlrpc.doc Asynchronously clones a list of errata into a specified cloned channel
      * according the original erratas
-     * 
+     *
      * Warning: Issuing a synchronous cloneAsOriginal request for a channel that has
      * asynchronous errata cloning jobs pending can result in a database deadlock! Adding
      * more asynchronous jobs is safe. If deadlock occurs one must re-schedule both the
      * synchronous and asynchronous jobs to ensure all errata are cloned.
-     * 
+     *
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param("string", "channel_label")
      * @xmlrpc.param
