@@ -17,10 +17,15 @@
 import cStringIO
 
 import sys
+import os
 
 from spacewalk.satellite_tools.disk_dumper import iss
 from spacewalk.satellite_tools.syncLib import log2stderr, log2email
 from spacewalk.common.rhnTB import Traceback
+
+if os.geteuid() != 0:
+    print "This script must be run as root."
+    exit()
 
 if __name__ == "__main__":
     try:

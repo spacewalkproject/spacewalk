@@ -22,7 +22,10 @@ A tool that exports satellite content into a directory in an XML format. That co
     <cmdsynopsis>
         <command>rhn-satellite-exporter</command> 
         <arg>options <replaceable>...</replaceable></arg>
-        <arg>-v</arg> <arg>--verbose</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>-v</arg>
+        <arg>--verbose</arg>
     </cmdsynopsis>
     <cmdsynopsis>
         <arg>-d<replaceable>DIRECTORY</replaceable></arg>
@@ -116,6 +119,12 @@ A tool that exports satellite content into a directory in an XML format. That co
 <RefSect1><Title>Options</Title>
 <variablelist>
     <varlistentry>
+        <term>-v, --verbose</term>
+        <listitem>
+            <para>Set debug level to 3. Overrides the value in rhn.conf.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
         <term>-dDIR, --dir=DIR</term>
         <listitem>
             <para>Place the exported information into this directory.</para>
@@ -128,8 +137,7 @@ A tool that exports satellite content into a directory in an XML format. That co
         </listitem>
     </varlistentry>
     <varlistentry>
-        <term>-c<replaceable>CHANNEL_LABEL</replaceable>, 
-            --channel=<replaceable>CHANNEL_LABEL</replaceable></term>
+        <term>-c<replaceable>CHANNEL_LABEL</replaceable>, --channel=<replaceable>CHANNEL_LABEL</replaceable></term>
         <listitem>
             <para>Process data for this specific channel (specified by label) 
             only.
@@ -138,8 +146,7 @@ A tool that exports satellite content into a directory in an XML format. That co
         </listitem>
     </varlistentry>
     <varlistentry>
-        <term>-a,
-            --all-channels</term>
+        <term>-a, --all-channels</term>
         <listitem>
             <para>Export all channels.</para>
         </listitem>
