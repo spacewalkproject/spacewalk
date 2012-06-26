@@ -20,6 +20,7 @@ import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.user.UserFactory;
+import com.redhat.rhn.manager.errata.AsyncErrataCloneCounter;
 
 import org.hibernate.Transaction;
 
@@ -128,5 +129,17 @@ public class NewCloneErrataEvent implements EventDatabaseMessage {
         return UserFactory.lookupById(userId);
     }
 
+    /**
+     * Register the async clone event with the counter
+     */
+    public void register() {
+        AsyncErrataCloneCounter.getInstance().addAsyncErrataCloneJob(chanId);
+    }
 
+    /**
+     * De-regiser the async clone event from the counter
+     */
+    public void deregister() {
+        AsyncErrataCloneCounter.getInstance().removeAsyncErrataCloneJob(chanId);
+    }
 }

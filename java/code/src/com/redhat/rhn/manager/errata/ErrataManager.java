@@ -1274,12 +1274,20 @@ public class ErrataManager extends BaseManager {
         for (long eid : errata) {
             NewCloneErrataEvent neve = new NewCloneErrataEvent(chan, eid, user,
                     inheritPackages);
+            neve.register();
             MessageQueue.publish(neve);
         }
     }
 
-
-
+    /**
+     * Check if the channel has pending asynchronous errata clone jobs
+     * @param channel channel to check
+     * @return true if there are pending jobs, false otherwise
+     */
+    public static boolean channelHasPendingAsyncCloneJobs(Channel channel) {
+        return AsyncErrataCloneCounter.getInstance().channelHasPendingJobs(
+                channel.getId());
+    }
 
     /**
      * Send errata notifications for a particular errata and channel

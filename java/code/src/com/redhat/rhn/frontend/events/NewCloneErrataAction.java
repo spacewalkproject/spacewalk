@@ -43,5 +43,6 @@ extends AbstractDatabaseAction {
         errata.add(ErrataFactory.lookupById(eid));
         ErrataManager.cloneErrataApi(msg.getChan(), errata,
                 msg.getUser(), msg.isInheritPackages());
+        msg.deregister();
     }
 }
