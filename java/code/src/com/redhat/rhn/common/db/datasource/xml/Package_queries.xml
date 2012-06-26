@@ -1007,7 +1007,7 @@ SELECT  pn.name AS NAME,
                             WHERE SPdP.server_id = :sid
                             AND SPdP.patch_id = full_list.id
                             AND SPdP.package_nevra_id = PNEVRA.id))
-ORDER BY  UPPER(NVRE)
+ORDER BY  UPPER(name || '-' || evr_t_as_vre_simple(full_list.evr))
   </query>
   <elaborator params="sid" multiple="t">
 SELECT DISTINCT PN.name AS NAME,
