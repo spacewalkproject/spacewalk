@@ -965,8 +965,10 @@ public class ErrataHandler extends BaseHandler {
                             " has pending asynchronous errata clone jobs. You must wait" +
                     "until asychronous errata clone jobs are done.");
         }
-        return ErrataManager.cloneErrataApi(channel, errataToClone,
-                loggedInUser, inheritPackages);
+        else {
+            return ErrataManager.cloneErrataApi(channel, errataToClone,
+                    loggedInUser, inheritPackages);
+        }
     }
 
 
