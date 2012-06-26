@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.19
+Version: 1.8.20
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -254,6 +254,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Tue Jun 26 2012 Michael Mraka <michael.mraka@redhat.com> 1.8.20-1
+- Correcting ISE on postgresql: NVL keyword
+
 * Fri Jun 22 2012 Jan Pazdziora 1.8.19-1
 - For the localhost:5432 case, use the Unix socket local connection.
 
