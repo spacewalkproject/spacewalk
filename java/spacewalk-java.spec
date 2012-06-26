@@ -23,7 +23,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.96
+Version: 1.8.97
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -615,6 +615,13 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Jun 26 2012 Jan Pazdziora 1.8.97-1
+- Each dataset must have a different name.
+- Add CSV downloader for scap search page.
+- Add CSV downloader to all-scans page
+- Add CSV downloader for scan's details page
+- Add CSV downloader for system's scans page
+
 * Tue Jun 26 2012 Michael Mraka <michael.mraka@redhat.com> 1.8.96-1
 - Correcting two ISE on postgresql: NVRE not found
 
