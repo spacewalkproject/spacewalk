@@ -310,7 +310,7 @@ class Packages(RPC_Base):
                 package['checksum'] = package['md5sum']
 
             exec_args = {
-                'pkg_name':    package['name'],
+                'name':    package['name'],
                 'pkg_epoch':   package['epoch'],
                 'pkg_version': package['version'],
                 'pkg_rel':     package['release'],
@@ -425,7 +425,7 @@ class Packages(RPC_Base):
                rhnPackageArch pa,
                rhnChecksumView c
          where
-               pn.name     = :pkg_name
+               pn.name     = :name
           and  ( pe.epoch  = :pkg_epoch or
                 ( pe.epoch is null and :pkg_epoch is null )
                )
@@ -459,7 +459,7 @@ class Packages(RPC_Base):
                     pkg_epoch = str(pkg_epoch)
            
             query_args = {
-                'pkg_name':     pkg_info['name'],
+                'name':     pkg_info['name'],
                 'pkg_epoch':    pkg_epoch,
                 'pkg_version':  str(pkg_info['version']),
                 'pkg_rel':      str(pkg_info['release']),
@@ -486,7 +486,7 @@ class Packages(RPC_Base):
         row = h.fetchone_dict()
         if not row:
 	    ret = ''
-        elif row.has_key('path'):
+        elif row.get('path'):
             filePath = os.path.join(CFG.MOUNT_POINT, row['path'])
             if os.access(filePath, os.R_OK):
                 if row.has_key('checksum'):
@@ -498,7 +498,7 @@ class Packages(RPC_Base):
                 log_error("Package not found", filePath)
                 ret = ''
         else:
-            log_error("Package path null for package", filePath)
+            log_error("Package path null for package", query_args['name'])
             ret = ''
         return ret
 
