@@ -136,7 +136,7 @@ print Spacewalk::Setup::loc("* Restarting services.\n");
 Spacewalk::Setup::system_or_exit(['/usr/sbin/spacewalk-service', 'restart'], 40,
 	       'Could not restart spacewalk services.');
 
-wait_for_tomcat($answers{hostname});
+wait_for_tomcat($answers{hostname}) or exit 56;
 
 Spacewalk::Setup::upgrade_stop_services(\%opts);
 Spacewalk::Setup::oracle_upgrade_start_db(\%opts);
@@ -1394,11 +1394,11 @@ sub wait_for_tomcat {
             sleep 5;
         }
         else {
-            return;
+            return 1;
         }
     }
     print "Tomcat failed to start properly or the installer ran out of tries.  Please check /var/log/tomcat*/catalina.out for errors.\n";
-    return;
+    return 0;
 }
 
 package Sat::Cert;
