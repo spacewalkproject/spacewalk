@@ -146,7 +146,7 @@ public class XccdfSearchAction extends RhnAction {
             request.setAttribute(RequestContext.PAGE_LIST,
                     results != null ? results : Collections.EMPTY_LIST);
             if (isTestestResultRequested(form) && results != null) {
-                TagHelper.bindElaboratorTo("searchResults", results.getElaborator(),
+                TagHelper.bindElaboratorTo("searchResultsTr", results.getElaborator(),
                         request);
             }
         }

@@ -119,10 +119,10 @@
     <rhn:csrf/>
     <c:choose>
       <c:when test="${param.show_as == 'tr'}">
-        <rl:list emptykey="generic.jsp.none" name="searchResults" dataset="pageList">
+        <rl:list emptykey="generic.jsp.none" name="searchResultsTr" dataset="pageList">
           <%@ include file="/WEB-INF/pages/common/fragments/audit/xccdf-easy-list.jspf" %>
         </rl:list>
-        <rl:csv dataset="pageList" name="searchResults"
+        <rl:csv dataset="pageList" name="searchResultsTr"
           exportColumns="id,sid,serverName,profile,satisfied,dissatisfied,satisfactionUnknown"/>
       </c:when>
 
