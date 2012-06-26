@@ -1270,7 +1270,7 @@ SELECT S.id,
   SELECT 
 DISTINCT S.id,
          S.name AS SERVER_NAME,
-         NVL((SELECT 1
+         COALESCE((SELECT 1
                 FROM rhnServerFeaturesView SFV
                WHERE SFV.server_id = S.id
                  AND SFV.label = 'ftr_system_grouping'), 0) AS SELECTABLE
