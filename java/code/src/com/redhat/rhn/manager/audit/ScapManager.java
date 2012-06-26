@@ -111,7 +111,7 @@ public class ScapManager extends BaseManager {
      * @param testResultId of XccdfTestResult of the test for which to search
      * @return the list of rule-results
      */
-    public static DataResult ruleResultsPerScan(Long testResultId) {
+    public static List<XccdfRuleResultDto> ruleResultsPerScan(Long testResultId) {
         SelectMode m = ModeFactory.getMode("scap_queries",
                 "show_ruleresults");
         HashMap params = new HashMap();

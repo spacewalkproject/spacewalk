@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+
+<schema targetNamespace="http://rhn.redhat.com"
+	xmlns="http://www.w3.org/1999/XMLSchema"
+	xmlns:rhn="http://rhn.redhat.com">
+	<attribute name="first">
+		<simpleType baseType="long">
+			<minInclusive value="1"/>
+		</simpleType>
+	</attribute>
+	<attribute name="second">
+		<simpleType baseType="long">
+			<minInclusive value="1"/>
+		</simpleType>
+	</attribute>
+</schema>

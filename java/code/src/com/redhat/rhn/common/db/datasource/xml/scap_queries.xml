@@ -568,7 +568,7 @@
       WHERE rim.rresult_id = :rr_id
           AND rim.ident_id = xi.id
           AND xi.identsystem_id = xis.id
-      ORDER BY xis.system
+      ORDER BY xis.system, xi.identifier
   </query>
 </mode>
 

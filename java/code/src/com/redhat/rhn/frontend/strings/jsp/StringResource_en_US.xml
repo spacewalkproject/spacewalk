@@ -12085,6 +12085,18 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 
      <group>
        <context-group name="ctx">
+         <context context-type="sourcefile">View of SCAP XCCDF Scan</context>
+       </context-group>
+       <trans-unit id="xccdfdiff.firstscan">
+         <source>First Scan</source>
+       </trans-unit>
+       <trans-unit id="xccdfdiff.secondscan">
+         <source>Second Scan</source>
+       </trans-unit>
+     </group>
+
+     <group>
+       <context-group name="ctx">
          <context context-type="sourcefile">Detailed view of single SCAP XCCDF rule-result</context>
        </context-group>
        <trans-unit id="system.audit.ruledetails.jsp.heading">
@@ -12179,6 +12191,21 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
        </trans-unit>
        <trans-unit id="scapsearch.jsp.list_tr">
          <source>List of XCCDF Scans</source>
+       </trans-unit>
+     </group>
+
+     <group>
+       <context-group name="ctx">
+         <context context-type="sourcefile">Diff of OpenSCAP XCCDF scans</context>
+       </context-group>
+       <trans-unit id="scapdiff.jsp.toolbar">
+         <source>OpenSCAP Diff</source>
+       </trans-unit>
+       <trans-unit id="scapdiff.jsp.summary">
+         <source>Compare XCCDF scans rule by rule.</source>
+       </trans-unit>
+       <trans-unit id="scapdiff.jsp.instructions">
+         <source>Specify Id of scans (the xid).</source>
        </trans-unit>
      </group>
 

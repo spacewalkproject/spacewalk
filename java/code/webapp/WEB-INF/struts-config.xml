@@ -254,6 +254,11 @@
             <form-property name="end_minute" type="java.lang.Integer"/>
             <form-property name="end_am_pm" type="java.lang.Integer"/>
         </form-bean>
+        <form-bean name="xccdfDiff"
+                   type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
+            <form-property name="first" type="java.lang.Long"/>
+            <form-property name="second" type="java.lang.Long"/>
+        </form-bean>
         <form-bean name="errataSearchForm"
                    type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
             <form-property name="search_string" type="java.lang.String"/>
@@ -1976,6 +1981,23 @@
         type="com.redhat.rhn.frontend.action.audit.scap.XccdfSearchAction">
         <forward name="default" path="/WEB-INF/pages/audit/scap/xccdfsearch.jsp"/>
         <forward name="success" path="/audit/scap/Search.do" redirect="true" />
+    </action>
+
+    <action path="/audit/scap/Diff"
+        name="xccdfDiff"
+        scope="request"
+        input="/WEB-INF/pages/audit/scap/xccdfdiff.jsp"
+        type="com.redhat.rhn.frontend.action.audit.scap.XccdfDiffAction">
+        <forward name="default" path="/WEB-INF/pages/audit/scap/xccdfdiff.jsp"/>
+    </action>
+
+    <action path="/audit/scap/DiffSubmit"
+        name="xccdfDiff"
+        scope="request"
+        input="/WEB-INF/pages/audit/scap/xccdfdiffsubmit.jsp"
+        type="com.redhat.rhn.frontend.action.audit.scap.XccdfDiffSubmitAction">
+        <forward name="default" path="/WEB-INF/pages/audit/scap/xccdfdiffsubmit.jsp"/>
+        <forward name="error" path="/audit/scap/Diff.do"/>
     </action>
 
     <!-- ===== ERRATA ===== -->
