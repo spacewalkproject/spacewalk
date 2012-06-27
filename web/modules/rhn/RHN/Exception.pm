@@ -94,6 +94,15 @@ sub constraint_value {
       return "";
     }
   }
+  elsif ($self->{-text}) {
+    # PostgreSQL
+    if ($self->{-text} =~ /constraint "(.*)"/) {
+      return uc($1);
+    }
+    else {
+      return "";
+    }
+  }
   else {
     return "";
   }
