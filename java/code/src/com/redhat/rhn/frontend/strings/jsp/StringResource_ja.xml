@@ -18361,9 +18361,9 @@ the organizations (excluding the default @@PRODUCT_NAME@@ organization) on this 
           <context context-type="sourcefile">/rhn/admin/multiorg/OrgTrusts</context>
         </context-group>
       <target>
-      以下のチェックが解除された組織は {0} 組織の信頼できる組織です。つまり、これら 2 つの組織間でコンテンツを共有し、
-      システムを移行できます。組織の隣にあるボックスをオンにして信頼を追加し (または、チェックをオフにして信頼を削除し)、
-      '信頼の変更' ボタンをクリックします。
+      以下の一覧で、チェックマークが付いた組織は、{0} 組織の信頼できる組織です。これら 2 つの組織間では、
+      コンテンツの共有やシステムの移行が可能ということになります。信頼を追加するには、組織の横にあるチェックボックスにチェックマークを付けて (また、
+      信頼を削除するにはチェックマークを外して)、「信頼の変更」ボタンをクリックします。
         </target></trans-unit>
       <trans-unit id="org.trust.confirm.summary">
         <source>
