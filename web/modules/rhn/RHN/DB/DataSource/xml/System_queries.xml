@@ -27,32 +27,6 @@ ORDER BY UPPER(COALESCE(X.server_name, '(none)')), X.id
   <elaborator name="entitlements"/>
 </mode>
 
-<mode name="provisioning_systems_in_ks_set">
-  <query params="user_id, kstid">
-SELECT DISTINCT S.id,
-       S.name AS SERVER_NAME
-  FROM rhnServer S,
-       rhnSet ST,
-       rhnUserServerPerms USP,
-       rhnKickstartableTree KST,
-       rhnChannel C
- WHERE USP.user_id = :user_id
-   AND ST.user_id = :user_id
-   AND ST.label = 'system_list'
-   AND USP.server_id = ST.element
-   AND EXISTS (SELECT 1 FROM rhnServerEntitlementView SEV WHERE SEV.server_id = ST.element AND SEV.label = 'provisioning_entitled')
-   AND USP.server_id = S.id
-   AND KST.id = :kstid
-   AND C.id = KST.channel_id
-   AND EXISTS (SELECT 1 FROM rhnServerChannelArchCompat 
-               WHERE server_arch_id = S.server_arch_id
-               AND C.channel_arch_id = channel_arch_id) 
-ORDER BY UPPER(NVL(S.NAME, '(none)')), S.ID
-  </query>
-  <elaborator name="system_overview" />
-  <elaborator name="entitlements"/>
-</mode>
-
 <mode name="provisioning_systems_in_set_with_tag">
   <query params="user_id, tag_id">
 SELECT DISTINCT S.id,
