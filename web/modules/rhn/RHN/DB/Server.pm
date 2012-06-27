@@ -641,32 +641,6 @@ EOS
   return $ret;
 }
 
-# bug 247457
-# need to remove virtualization_host by hand to allow removal
-# of corrupt servers from satellite. This is lame, but without
-# a schema change, it is the only viable solution.
-sub remove_virtualization_host_entitlement {
-  my $class = shift;
-  my $server_id = shift;
-
-  my $query = <<EOQ;
-  SELECT sg.id FROM rhnServerGroup sg, rhnServerGroupType sgt
-   WHERE sg.group_type = sgt.id 
-     AND sgt.label = 'virtualization_host'
-EOQ
-
-  my $dbh = RHN::DB->connect();
-  my $sth = $dbh->prepare($query);
-  $sth->execute_h();
-  my ($id) = $sth->fetchrow;
-  $sth->finish;
-  # if we can't find it, just bail
-  return unless $id;
-
-  $class->remove_servers_from_groups([$server_id], [$id], $dbh);
-  $dbh->commit;
-}
-
 sub system_pending_actions_count {
   my $class = shift;
   my $server_id = shift;
