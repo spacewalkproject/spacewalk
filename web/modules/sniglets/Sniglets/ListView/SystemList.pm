@@ -221,10 +221,6 @@ sub _register_modes {
 			   -datasource => RHN::DataSource::System->new,
                            -action_callback => \&add_systems_to_namespace_cb);
 
-  Sniglets::ListView::List->add_mode(-mode => "config_managed_systems",
-				     -datasource => RHN::DataSource::System->new,
-				     -action_callback => \&Sniglets::ConfigManagement::config_managed_systems_cb);
-
   Sniglets::ListView::List->add_mode(-mode => "config_systems_list",
 				     -datasource => RHN::DataSource::System->new,
 				     -provider => \&config_systems_list);

@@ -1196,39 +1196,6 @@ ORDER BY UPPER(NVL(S.NAME, '(none)')), SCC.server_id
   <elaborator name="entitlements"/>
 </mode>
 
-<mode name="config_managed_systems">
-  <query name="available_to_user" />
-  <elaborator>
-SELECT S.id, 
-       NVL((SELECT SCC.config_channel_id
-              FROM rhnConfigChannelType CCT, rhnConfigChannel CC, rhnServerConfigChannel SCC
-             WHERE SCC.server_id = S.id
-               AND SCC.config_channel_id = CC.id
-               AND CC.confchan_type_id = CCT.id
-               AND CCT.label = 'local_override'), 0) CCID,
-       (SELECT COUNT(CF.id)
-          FROM rhnConfigFile CF, rhnConfigChannelType CCT, rhnConfigChannel CC, rhnServerConfigChannel SCC
-         WHERE SCC.server_id = S.id
-           AND SCC.config_channel_id = CC.id
-           AND CC.confchan_type_id = CCT.id
-           AND CF.config_channel_id = CC.id
-           AND CCT.label = 'local_override') LOCAL_FILE_COUNT,
-       NVL((SELECT COUNT(SCC.config_channel_id)
-              FROM rhnConfigChannelType CCT, rhnConfigChannel CC, rhnServerConfigChannel SCC
-             WHERE SCC.server_id = S.id
-               AND SCC.config_channel_id = CC.id
-               AND CC.confchan_type_id = CCT.id
-               AND CCT.label = 'normal'), 0) CONF_CHANNEL_COUNT,
-       NVL((SELECT 1
-              FROM rhnServerFeaturesView SFV
-             WHERE SFV.server_id = S.id
-               AND SFV.label = 'ftr_config'), 0) AS SELECTABLE
-  FROM rhnServer S
- WHERE S.id IN (%s)
-  </elaborator>
-  <elaborator name="entitlements"/>
-</mode>
-
 <mode name="config_systems_list">
   <query params="user_id">
       SELECT DISTINCT S.id, S.name AS system
