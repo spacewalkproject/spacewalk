@@ -23,7 +23,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.98
+Version: 1.8.99
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -615,6 +615,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Jun 27 2012 Jan Pazdziora 1.8.99-1
+- checkstyle fix
+
 * Tue Jun 26 2012 Stephen Herr <sherr@redhat.com> 1.8.98-1
 - 829485 - resolveing potential deadlock during asynchronous errata clone
 
