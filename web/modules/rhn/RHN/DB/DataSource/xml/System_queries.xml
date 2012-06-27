@@ -29,6 +29,7 @@ ORDER BY UPPER(COALESCE(X.server_name, '(none)')), X.id
 
 <mode name="provisioning_systems_in_set_with_tag">
   <query params="user_id, tag_id">
+SELECT * FROM (
 SELECT DISTINCT S.id,
        S.name AS SERVER_NAME,
        SS.id AS SNAPSHOT_ID,
@@ -52,8 +53,8 @@ SELECT DISTINCT S.id,
    AND USP.server_id = SS.server_id
    AND SS.id = STag.snapshot_id
    AND STag.tag_id = :tag_id
-   AND USP.server_id = S.id
-ORDER BY UPPER(COALESCE(S.NAME, '(none)')), S.ID
+   AND USP.server_id = S.id) X
+ORDER BY UPPER(COALESCE(X.SERVER_NAME, '(none)')), X.ID
   </query>
   <elaborator name="system_overview" />
 </mode>
