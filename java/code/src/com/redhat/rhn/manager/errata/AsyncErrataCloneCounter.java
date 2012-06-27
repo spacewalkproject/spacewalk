@@ -1,7 +1,3 @@
-package com.redhat.rhn.manager.errata;
-
-import java.util.Hashtable;
-
 /**
  * If someone attempts to schedule a synchronous errata clone into a
  * channel that has asynchronous errata clones taking place in the
@@ -11,10 +7,14 @@ import java.util.Hashtable;
  * residing in tomcat memory only, so the counter should not be
  * persistent. That is why I implemented the counter as a singeton
  * class instead of a database table or some other such implementation.
- * 
+ *
  * @author Stephen Herr <sherr@redhat.com>
  *
  */
+package com.redhat.rhn.manager.errata;
+
+import java.util.Hashtable;
+
 public class AsyncErrataCloneCounter {
     // hashtable is syncronized, so is threadsafe
     private final Hashtable<Long, Integer> count;
