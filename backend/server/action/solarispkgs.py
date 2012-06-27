@@ -23,13 +23,13 @@ __rhnexport__ = ['install', 'remove', 'patchInstall', 'patchRemove',
 
 _query_install = rhnSQL.Statement("""
     select distinct
-           pn.name name,
-           pe.epoch epoch,
-           pe.version version,
-           pe.release release,
-           pa.label arch,
-           c.label channel_label,
-           nvl2(c.parent_channel, 0, 1) is_parent_channel
+           pn.name as name,
+           pe.epoch as epoch,
+           pe.version as version,
+           pe.release as release,
+           pa.label as arch,
+           c.label as channel_label,
+           case when c.parent_channel is not null then 0 else 1 end is_parent_channel
       from rhnActionPackage ap,
            rhnPackage p,
            rhnPackageName pn,
@@ -52,11 +52,11 @@ _query_install = rhnSQL.Statement("""
 
 _query_remove = rhnSQL.Statement("""
     select distinct
-           pn.name name,
-           pe.epoch epoch,
-           pe.version version,
-           pe.release release,
-           pa.label arch
+           pn.name as name,
+           pe.epoch as epoch,
+           pe.version asversion,
+           pe.release as release,
+           pa.label as arch
       from rhnActionPackage ap,
            rhnPackageName pn,
            rhnPackageEVR pe,
