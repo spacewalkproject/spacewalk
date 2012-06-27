@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.22
+Version: 1.8.23
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -253,6 +253,11 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Wed Jun 27 2012 Jan Pazdziora 1.8.23-1
+- The remove_virtualization_host_entitlement no longer used, removing.
+- The rhn:delete_server_cb and delete_server_cb no longer used, removing.
+- The delete_confirm.pxt was replaced by DeleteConfirm.do.
+
 * Wed Jun 27 2012 Jan Pazdziora 1.8.22-1
 - Perl Notes pages seem like dead code.
 
