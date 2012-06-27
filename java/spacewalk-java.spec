@@ -47,7 +47,7 @@ Requires: jfreechart >= 1.0.9
 
 Requires: bcel
 Requires: c3p0
-Requires: hibernate3 >= 0:3.2.4
+Requires: hibernate3 = 0:3.2.4
 Requires: java >= 1:1.6.0
 Requires: java-devel >= 1:1.6.0
 Requires: jakarta-commons-lang >= 0:2.1
@@ -121,7 +121,7 @@ BuildRequires: c3p0
 BuildRequires: concurrent
 BuildRequires: cglib
 BuildRequires: dom4j
-BuildRequires: hibernate3
+BuildRequires: hibernate3 = 0:3.2.4
 BuildRequires: jaf
 BuildRequires: jakarta-commons-cli
 BuildRequires: jakarta-commons-codec
