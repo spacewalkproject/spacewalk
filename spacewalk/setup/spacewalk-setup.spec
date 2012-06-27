@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        1.8.12
+Version:        1.8.13
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -110,6 +110,9 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Wed Jun 27 2012 Jan Pazdziora 1.8.13-1
+- Exit if starting tomcat did not pass.
+
 * Sat Jun 16 2012 Miroslav Suchý 1.8.12-1
 - 827022 - add LICENSE file and change mention Artistic licence to GPLv2
 
