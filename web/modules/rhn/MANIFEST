@@ -11,7 +11,6 @@ RHN/DB/ChannelEditor.pm
 RHN/DB/Channel.pm
 RHN/DB/Errata.pm
 RHN/DB/JoinClass.pm
-RHN/DB/Notes.pm
 RHN/DB/Org.pm
 RHN/DB/Package.pm
 RHN/DB.pm
@@ -38,7 +37,6 @@ RHN.pm
 RHN/Scheduler.pm
 RHN/ServerActions.pm
 RHN/ServerGroup.pm
-RHN/ServerNotes.pm
 RHN/ServerPackage.pm
 RHN/Server.pm
 RHN/Session.pm

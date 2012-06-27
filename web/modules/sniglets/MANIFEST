@@ -26,7 +26,6 @@ Sniglets/ServerActions.pm
 Sniglets/ServerGroupList.pm
 Sniglets/ServerGroup.pm
 Sniglets/ServerList.pm
-Sniglets/ServerNotes.pm
 Sniglets/Servers.pm
 Sniglets/Sets.pm
 Sniglets/Sitenav.pm

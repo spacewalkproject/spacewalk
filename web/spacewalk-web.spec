@@ -191,7 +191,6 @@ rm -rf $RPM_BUILD_ROOT
 %{perl_vendorlib}/RHN/Server.pm
 %{perl_vendorlib}/RHN/ServerActions.pm
 %{perl_vendorlib}/RHN/ServerGroup.pm
-%{perl_vendorlib}/RHN/ServerNotes.pm
 %{perl_vendorlib}/RHN/Session.pm
 %{perl_vendorlib}/RHN/Set.pm
 %{perl_vendorlib}/RHN/SimpleStruct.pm
