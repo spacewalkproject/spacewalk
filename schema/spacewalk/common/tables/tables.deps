@@ -153,7 +153,6 @@ rhnServerCustomDataValue       :: rhnCustomDataKey
 rhnServerDMI                   :: rhnServer
 rhnServerGroup                 :: rhnServerGroupType web_customer
 rhnServerGroupMembers          :: rhnServer rhnServerGroup
-rhnServerGroupNotes            :: web_contact rhnServerGroup
 rhnServerGroupTypeFeature      :: rhnFeature rhnServerGroupType
 rhnServerHistory               :: rhnServer
 rhnServerInfo                  :: rhnServer
