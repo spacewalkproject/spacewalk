@@ -97,24 +97,6 @@ ORDER BY UPPER(coalesce(S.SERVER_NAME, '(none)')), S.ID
 </mode>
 
 
-<mode name="users_systems_with_value_for_key">
-  <query params="user_id, cikid">
-SELECT S.id,
-       S.name AS SERVER_NAME,
-       SCDV.value
-  FROM rhnServer S,
-       rhnServerCustomDataValue SCDV,
-       rhnUserServerPerms USP
- WHERE USP.user_id = :user_id
-   AND USP.server_id = SCDV.server_id
-   AND SCDV.key_id = :cikid
-   AND USP.server_id = S.id
-ORDER BY UPPER(NVL(S.NAME, '(none)')), S.ID
-  </query>
-  <elaborator name="system_overview" />
-</mode>
-
-
 <query name="ssm_package_upgrades_systems" params="user_id">
 SELECT  DISTINCT 
         S.id,

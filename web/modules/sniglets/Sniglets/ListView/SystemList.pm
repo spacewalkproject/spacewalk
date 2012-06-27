@@ -66,10 +66,6 @@ sub _register_modes {
 			   -datasource => RHN::DataSource::System->new,
 			   -provider => \&provisioning_systems_in_set_cb);
 
-  Sniglets::ListView::List->add_mode(-mode => "users_systems_with_value_for_key",
-			   -datasource => RHN::DataSource::System->new,
-			   -provider => \&custominfo_values_provider);
-
   Sniglets::ListView::List->add_mode(-mode => "visible_to_user",
 			   -datasource => RHN::DataSource::System->new);
 
