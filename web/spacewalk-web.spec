@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.21
+Version: 1.8.22
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -253,6 +253,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Wed Jun 27 2012 Jan Pazdziora 1.8.22-1
+- Perl Notes pages seem like dead code.
+
 * Wed Jun 27 2012 Michael Mraka <michael.mraka@redhat.com> 1.8.21-1
 - 835608 - error messages in PostgreSQL have different pattern
 
