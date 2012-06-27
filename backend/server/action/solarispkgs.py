@@ -57,14 +57,13 @@ _query_remove = rhnSQL.Statement("""
            pe.version asversion,
            pe.release as release,
            pa.label as arch
-      from rhnActionPackage ap,
-           rhnPackageName pn,
+      from rhnPackageName pn,
            rhnPackageEVR pe,
-           rhnPackageArch pa
+           rhnActionPackage ap
+      left join rhnPackageArch pa on ap.package_arch_id = pa.id
      where ap.action_id = :action_id
        and ap.evr_id = pe.id
        and ap.name_id = pn.id
-       and ap.package_arch_id = pa.id (+)
 """)
 
 def install(server_id, action_id, dry_run=0):
