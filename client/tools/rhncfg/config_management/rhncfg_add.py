@@ -49,7 +49,7 @@ class Handler(handler_base.HandlerBase):
              help="Ignore missing local files",
          ),
         handler_base.HandlerBase._option_class(
-            '--selinux-context',       action="store_true",
+            '--selinux-context',       action="store",
              help="Overwrite the SELinux context",
          ),
     ]
