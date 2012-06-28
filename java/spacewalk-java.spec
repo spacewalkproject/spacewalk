@@ -23,7 +23,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.102
+Version: 1.8.103
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -616,6 +616,12 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Jun 28 2012 Tomas Lestach <tlestach@redhat.com> 1.8.103-1
+- 795565 - add API doc for channel.software.listErrata update_date attribute
+- 795565 - remove "date" from the channel.software.listErrata API doc
+- adding conflicts for quartz >= 2.0
+- 706318 - Japaneese translation fix
+
 * Wed Jun 27 2012 Tomas Lestach <tlestach@redhat.com> 1.8.102-1
 - requre quartz version lower than 2.0
 - change hibernate3 namespace
