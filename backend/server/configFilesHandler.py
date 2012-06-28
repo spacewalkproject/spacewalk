@@ -179,7 +179,7 @@ class ConfigFilesHandler(rhnHandler):
         # Oracle doesn't like certain binding variables
         file['username'] = file.get('user','')
         file['groupname'] = file.get('group','')
-        file['file_mode'] = file.get('mode','')
+        file['file_mode'] = str(file.get('mode',''))
         # if the selinux flag is not sent by the client it is set to the last file
         # revision (or to None (i.e. NULL) in case of first revision) - see the bug
         # 644985 - SELinux context cleared from RHEL4 rhncfg-client
