@@ -42,16 +42,8 @@ _query_delete_server_action_package_result = rhnSQL.Statement("""
 _query_insert_server_action_package_result = rhnSQL.Statement("""
     insert into rhnServerActionPackageResult
            (server_id, action_package_id, result_code, stderr, stdout)
-    values (:server_id, :action_package_id, :result_code, empty_blob(),
-            empty_blob())
-""")
-
-_query_lookup_server_action_package_result = rhnSQL.Statement("""
-    select stdout, stderr
-      from rhnServerActionPackageResult
-     where server_id = :server_id
-       and action_package_id = :action_package_id
-       for update of stdout, stderr
+    values (:server_id, :action_package_id, :result_code, :stdout_data,
+            :stderr_data)
 """)
 
 def install(server_id, action_id, data={}):
@@ -89,8 +81,7 @@ def install(server_id, action_id, data={}):
     h.execute(server_id=server_id, action_id=action_id)
     
     # Insert new entries
-    h = rhnSQL.prepare(_query_insert_server_action_package_result)
-    hl = rhnSQL.prepare(_query_lookup_server_action_package_result)
+    h = rhnSQL.prepare(_query_insert_server_action_package_result, blob_map={'stdout_data': 'stdout_data', 'stderr_data': 'stderr_data'} )
     for k, (action_package_id, v) in key_id.items():
         result_code, stdout_data, stderr_data = v[:3]
         if stdout_data:
@@ -101,15 +92,7 @@ def install(server_id, action_id, data={}):
             # Nothing to do
             continue
         h.execute(server_id=server_id, action_package_id=action_package_id,
-            result_code=result_code)
-
-        hl.execute(server_id=server_id, action_package_id=action_package_id)
-        row = hl.fetchone_dict()
-        stdout, stderr = row['stdout'], row['stderr']
-        if stdout_data:
-            stdout.write(stdout_data)
-        if stderr_data:
-            stderr.write(stderr_data)
+            result_code=result_code, stdout_data=stdout_data, stderr_data=stderr_data)
 
 remove = install
 
