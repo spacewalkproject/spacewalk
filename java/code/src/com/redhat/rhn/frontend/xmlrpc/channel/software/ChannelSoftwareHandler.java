@@ -1569,7 +1569,6 @@ public class ChannelSoftwareHandler extends BaseHandler {
      *    #array()
      *      #struct("errata")
      *        #prop_desc("int", "id", "Errata Id")
-     *        #prop_desc("string", "date", "Date erratum was created.")
      *        #prop_desc("string", "advisory_synopsis", "Summary of the erratum.")
      *        #prop_desc("string", "advisory_type", "Type label such as Security, Bug Fix")
      *        #prop_desc("string", "advisory_name", "Name such as RHSA, etc")
