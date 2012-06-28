@@ -12,7 +12,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.43
+Version: 1.8.44
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -646,6 +646,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Thu Jun 28 2012 Michael Mraka <michael.mraka@redhat.com> 1.8.44-1
+- fixed AttributeError: 'buffer' object has no attribute 'write'
+
 * Thu Jun 28 2012 Michael Mraka <michael.mraka@redhat.com> 1.8.43-1
 - Correct SQL query for installing and removing solaris patches
 - Correct query for PGSQL
