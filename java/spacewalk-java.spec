@@ -292,6 +292,7 @@ Requires: spacewalk-java-lib
 Requires: spacewalk-java-jdbc
 Requires: concurrent
 Requires: quartz < 2.0
+Conflicts: quartz >= 2.0
 Requires: cobbler >= 2.0.0
 Obsoletes: taskomatic < 5.3.0
 Obsoletes: taskomatic-sat < 5.3.0
