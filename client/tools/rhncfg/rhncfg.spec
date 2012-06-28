@@ -8,7 +8,7 @@ Group:   Applications/System
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.10.31
+Version: 5.10.32
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -112,6 +112,9 @@ fi
 
 # $Id$
 %changelog
+* Thu Jun 28 2012 Michael Mraka <michael.mraka@redhat.com> 5.10.32-1
+- 765816 - value of selinux context is important
+
 * Mon Jun 04 2012 Stephen Herr <sherr@redhat.com> 5.10.31-1
 - 824707 - make /var/log/rhncfg-actions have 600 permissions
 
