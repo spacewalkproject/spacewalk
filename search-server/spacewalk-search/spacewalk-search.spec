@@ -35,7 +35,8 @@ Requires: jakarta-oro
 Requires: oro
 %endif
 #Requires: lucene
-Requires: quartz
+Requires: quartz < 2.0
+Conflicts: quartz >= 2.0
 Requires: redstone-xmlrpc
 #Requires: picocontainer
 Requires: tanukiwrapper
