@@ -7,7 +7,7 @@
 %define modulename spacewalk-monitoring
 
 Name:           spacewalk-monitoring-selinux
-Version:        1.8.0
+Version:        1.8.1
 Release:        1%{?dist}
 Summary:        SELinux policy module supporting Spacewalk monitoring
 
@@ -141,6 +141,10 @@ fi
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
+* Fri Jun 29 2012 Jan Pazdziora 1.8.1-1
+- Make java_t bits optional, as Fedora 17 does not have this type.
+- %%defattr is not needed since rpm 4.4
+
 * Tue Feb 07 2012 Miroslav Suchý 1.7.2-1
 - set selinux context for /etc/NOCpulse.ini
 
