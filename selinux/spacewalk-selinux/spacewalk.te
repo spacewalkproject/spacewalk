@@ -13,7 +13,6 @@ require {
 	type restorecon_t;
 	type httpd_sys_script_t;
 	type httpd_log_t;
-	type java_t;
 	type initrc_t;
 	type system_mail_t;
 	type nfs_t;
@@ -41,7 +40,13 @@ dontaudit httpd_sys_script_t httpd_log_t:file { ioctl };
 type spacewalk_initrc_exec_t;
 domain_entry_file(initrc_t, spacewalk_initrc_exec_t)
 
-domain_auto_trans(java_t, spacewalk_initrc_exec_t, initrc_t)
+optional_policy(`
+	gen_require(`
+		type java_t;
+	')
+	domain_auto_trans(java_t, spacewalk_initrc_exec_t, initrc_t)
+')
+
 allow restorecon_t spacewalk_initrc_exec_t:file { relabelto getattr };
 
 filetrans_pattern(httpd_t, spacewalk_log_t, spacewalk_httpd_log_t, file)
