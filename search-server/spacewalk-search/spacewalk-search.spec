@@ -4,7 +4,7 @@ Name: spacewalk-search
 Summary: Spacewalk Full Text Search Server
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.4
+Version: 1.8.5
 Release: 1%{?dist}
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
@@ -124,6 +124,9 @@ fi
 %{_sysconfdir}/logrotate.d/rhn-search
 
 %changelog
+* Fri Jun 29 2012 Jan Pazdziora 1.8.5-1
+- 836374 - add support for external PostgreSQL database in search server.
+
 * Thu Jun 28 2012 Tomas Lestach <tlestach@redhat.com> 1.8.4-1
 - search needs quartz < 2.0 as well
 
