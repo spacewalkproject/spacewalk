@@ -19,6 +19,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <property name="guestName" type="string" column="guest_name"/>
         <property name="diskPath" type="string" column="disk_path"/>
         <property name="virtBridge" type="string" column="virt_bridge"/>
+        <property name="macAddress" type="string" column="mac_address"/>
 	    <property name="memMb" type="long" column="mem_kb"/>
         <property name="vcpus" type="long" column="vcpus"/>
         <property name="diskGb" type="long" column="disk_gb"/>

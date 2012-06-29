@@ -844,6 +844,7 @@
 		    <form-property name="memoryAllocation" type="java.lang.String" />
 		    <form-property name="virtualCpus" type="java.lang.String" />
 		    <form-property name="virtBridge" type="java.lang.String" />
+            <form-property name="macAddress" type="java.lang.String" />
 		    <form-property name="diskPath" type="java.lang.String" />
 		    <form-property name="storageType" type="java.lang.String" />
 		    <form-property name="localStorageGigabytes" type="java.lang.String" />

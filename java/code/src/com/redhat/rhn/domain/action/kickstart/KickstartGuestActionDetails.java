@@ -28,9 +28,23 @@ public class KickstartGuestActionDetails extends BaseKickstartActionDetails {
     private Long diskGb;
     private String virtBridge;
     private String diskPath;
+    private String macAddress;
 
+    /**
+     * Returns the mac address
+     * @return the mac address
+     */
+    public String getMacAddress() {
+        return this.macAddress;
+    }
 
-
+    /**
+     * Sets the mac address
+     * @param macAddressIn the mac address to set
+     */
+    public void setMacAddress(String macAddressIn) {
+        this.macAddress = macAddressIn;
+    }
 
     /**
      * Returns the kickstart session ID.

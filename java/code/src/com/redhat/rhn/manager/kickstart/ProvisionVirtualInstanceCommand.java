@@ -59,6 +59,7 @@ public class ProvisionVirtualInstanceCommand extends KickstartScheduleCommand {
     private Long localStorage;
     private String filePath;
     private String virtBridge;
+    private String macAddress;
 
 
     /**
@@ -88,8 +89,8 @@ public class ProvisionVirtualInstanceCommand extends KickstartScheduleCommand {
         // We'll pass in the host server here, since the host server is the
         // only one that exists.
         this(selectedServer, KickstartFactory.
-                        lookupKickstartDataByIdAndOrg(userIn.getOrg(), ksid),
-                        userIn, scheduleDateIn, kickstartServerNameIn);
+                lookupKickstartDataByIdAndOrg(userIn.getOrg(), ksid),
+                userIn, scheduleDateIn, kickstartServerNameIn);
     }
 
     /**
@@ -104,7 +105,7 @@ public class ProvisionVirtualInstanceCommand extends KickstartScheduleCommand {
      *                              this machine
      */
     public ProvisionVirtualInstanceCommand(Long selectedServer,
-                                KickstartData ksData,
+            KickstartData ksData,
             User userIn, Date scheduleDateIn, String kickstartServerNameIn) {
 
         // We'll pass in the host server here, since the host server is the
@@ -127,15 +128,16 @@ public class ProvisionVirtualInstanceCommand extends KickstartScheduleCommand {
      * @return the created cobbler only profile aware kickstartScheduleCommand
      */
     public static ProvisionVirtualInstanceCommand createCobblerScheduleCommand(
-                                            Long selectedServer,
-                                            String label,
-                                            User userIn,
-                                            Date scheduleDateIn,
-                                            String kickstartServerNameIn) {
+            Long selectedServer,
+            String label,
+            User userIn,
+            Date scheduleDateIn,
+            String kickstartServerNameIn) {
 
         ProvisionVirtualInstanceCommand cmd = new
-                                        ProvisionVirtualInstanceCommand(selectedServer,
-                     (KickstartData)null,  userIn, scheduleDateIn, kickstartServerNameIn);
+                ProvisionVirtualInstanceCommand(selectedServer,
+ (KickstartData) null, userIn, scheduleDateIn,
+                kickstartServerNameIn);
         cmd.cobblerProfileLabel = label;
         cmd.cobblerOnly =  true;
         return cmd;
@@ -147,15 +149,17 @@ public class ProvisionVirtualInstanceCommand extends KickstartScheduleCommand {
      * @return Returns the rebootAction (if any) - null for virtual
      * provisioning, since we don't want to reboot the host!
      */
+    @Override
     public Action scheduleRebootAction(Action prereqAction) {
         log.debug("** Skipping rebootAction - provisioning a virtual instance.");
 
         return null;
     }
 
+    @Override
     protected SelectMode getMode() {
         return ModeFactory.getMode("General_queries",
-                                   "virtual_kickstarts_channels_for_org");
+                "virtual_kickstarts_channels_for_org");
     }
 
 
@@ -178,6 +182,7 @@ public class ProvisionVirtualInstanceCommand extends KickstartScheduleCommand {
      *
      * @return Returns the KickstartGuestAction
      */
+    @Override
     public Action scheduleKickstartAction(Action prereqAction) {
 
         KickstartSession ksSession = getKickstartSession();
@@ -199,8 +204,25 @@ public class ProvisionVirtualInstanceCommand extends KickstartScheduleCommand {
      *
      * @return Returns a ValidatorError if something goes wrong.  ie, never
      */
+    @Override
     protected ValidatorError validateUp2dateVersion() {
         return null;
+    }
+
+    /**
+     * Returns the mac address
+     * @return the mac address
+     */
+    public String getMacAddress() {
+        return this.macAddress;
+    }
+
+    /**
+     * Sets the mac address
+     * @param macAddressIn The mac address to set.
+     */
+    public void setMacAddress(String macAddressIn) {
+        this.macAddress = macAddressIn;
     }
 
     /**
@@ -271,6 +293,7 @@ public class ProvisionVirtualInstanceCommand extends KickstartScheduleCommand {
      *
      * {@inheritDoc}
      */
+    @Override
     public DataResult<? extends KickstartDto> getKickstartProfiles() {
         DataResult<? extends KickstartDto> result =  super.getKickstartProfiles();
         for (Iterator<? extends KickstartDto> itr = result.iterator(); itr.hasNext();) {
@@ -335,10 +358,10 @@ public class ProvisionVirtualInstanceCommand extends KickstartScheduleCommand {
      * @return the virt path.
      */
     public static String makeDefaultVirtPath(String name,
-                                KickstartVirtualizationType type) {
+            KickstartVirtualizationType type) {
         File virtPathDir =  ConfigDefaults.get().getVirtPath(
-                            KickstartVirtualizationType.xenPV().equals(type) ||
-                                KickstartVirtualizationType.xenFV().equals(type));
+                KickstartVirtualizationType.xenPV().equals(type) ||
+                KickstartVirtualizationType.xenFV().equals(type));
         File virtPath = new File(virtPathDir, name.replace(' ', '-'));
         return virtPath.getAbsolutePath();
     }

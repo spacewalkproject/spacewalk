@@ -49,4 +49,13 @@
             <br/><br/>
         </td>
       </tr>
+      <tr>
+        <th><bean:message key="kickstartdetails.jsp.mac_address"/>:</th>
+        <td>
+            <html:text  property="macAddress" maxlength="17" size="17" styleId="macAddressId"/>
+            <br/>
+            <bean:message key="kickstartdetails.jsp.mac_address.tip"/>
+            <br/><br/>
+        </td>
+      </tr>
     </table>

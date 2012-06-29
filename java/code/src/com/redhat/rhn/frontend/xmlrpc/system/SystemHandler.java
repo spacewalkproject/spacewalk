@@ -177,7 +177,7 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.returntype string
      */
     public String obtainReactivationKey(String sessionKey, Integer sid)
-    throws FaultException {
+            throws FaultException {
         //Get the logged in user and server
         User loggedInUser = getLoggedInUser(sessionKey);
         Server server = lookupServer(loggedInUser, sid);
@@ -202,7 +202,7 @@ public class SystemHandler extends BaseHandler {
 
         String note = "Reactivation key for " + server.getName() + ".";
         ActivationKey key = ActivationKeyManager.getInstance().
-        createNewReActivationKey(loggedInUser, server, note);
+                createNewReActivationKey(loggedInUser, server, note);
 
         key.setUsageLimit(new Long(1));
 
@@ -225,7 +225,7 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.returntype string
      */
     public String obtainReactivationKey(String clientCert)
-    throws FaultException, MethodInvalidParamException {
+            throws FaultException, MethodInvalidParamException {
         StringReader rdr = new StringReader(clientCert);
         Server server = null;
 
@@ -275,7 +275,7 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.returntype #return_int_success()
      */
     public int upgradeEntitlement(String sessionKey, Integer sid, String entitlementLevel)
-    throws FaultException {
+            throws FaultException {
         //Get the logged in user and server
         User loggedInUser = getLoggedInUser(sessionKey);
         Server server = lookupServer(loggedInUser, sid);
@@ -291,7 +291,7 @@ public class SystemHandler extends BaseHandler {
         }
 
         long availableSlots = ServerGroupFactory
-        .lookupEntitled(entitlement, loggedInUser.getOrg()).getAvailableSlots();
+                .lookupEntitled(entitlement, loggedInUser.getOrg()).getAvailableSlots();
         if (availableSlots < 1) {
             throw new NotEnoughEntitlementsException();
         }
@@ -332,7 +332,7 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.returntype #return_int_success()
      */
     public int setChildChannels(String sessionKey, Integer sid, List channelIdsOrLabels)
-    throws FaultException {
+            throws FaultException {
 
         //Get the logged in user and server
         User loggedInUser = getLoggedInUser(sessionKey);
@@ -409,16 +409,18 @@ public class SystemHandler extends BaseHandler {
      */
     @Deprecated
     public int setBaseChannel(String sessionKey, Integer sid, Integer cid)
-    throws FaultException {
+            throws FaultException {
         //Get the logged in user and server
         User loggedInUser = getLoggedInUser(sessionKey);
         Server server = lookupServer(loggedInUser, sid);
         UpdateBaseChannelCommand cmd =
-            new UpdateBaseChannelCommand(loggedInUser, server, new Long(cid.longValue()));
+                new UpdateBaseChannelCommand(
+                        loggedInUser, server, new Long(cid.longValue()));
         ValidatorError ve = cmd.store();
         if (ve != null) {
             throw new InvalidChannelException(
-                LocalizationService.getInstance().getMessage(ve.getKey(), ve.getValues()));
+                    LocalizationService.getInstance()
+                    .getMessage(ve.getKey(), ve.getValues()));
         }
         return 1;
     }
@@ -444,7 +446,7 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.returntype #return_int_success()
      */
     public int setBaseChannel(String sessionKey, Integer sid, String channelLabel)
-    throws FaultException {
+            throws FaultException {
 
         //Get the logged in user and server
         User loggedInUser = getLoggedInUser(sessionKey);
@@ -472,8 +474,8 @@ public class SystemHandler extends BaseHandler {
         }
         ValidatorError ve = cmd.store();
         if (ve != null) {
-            throw new InvalidChannelException(
-                LocalizationService.getInstance().getMessage(ve.getKey(), ve.getValues()));
+            throw new InvalidChannelException(LocalizationService.getInstance()
+                    .getMessage(ve.getKey(), ve.getValues()));
         }
         return 1;
     }
@@ -539,7 +541,7 @@ public class SystemHandler extends BaseHandler {
      *
      */
     public Object[] listSubscribableBaseChannels(String sessionKey, Integer sid)
-    throws FaultException {
+            throws FaultException {
 
         //Get the logged in user and server
         User loggedInUser = getLoggedInUser(sessionKey);
@@ -548,10 +550,10 @@ public class SystemHandler extends BaseHandler {
         List returnList = new ArrayList();
 
         List<EssentialChannelDto> list =
-            ChannelManager.listBaseChannelsForSystem(loggedInUser, server);
+                ChannelManager.listBaseChannelsForSystem(loggedInUser, server);
         for (EssentialChannelDto ch : list) {
             Boolean currentBase = (baseChannel != null) &&
-            baseChannel.getId().equals(ch.getId());
+                    baseChannel.getId().equals(ch.getId());
             returnList.add(createChannelMap(ch, currentBase));
         }
 
@@ -639,7 +641,7 @@ public class SystemHandler extends BaseHandler {
      */
     @Deprecated
     public Object[] listChildChannels(String sessionKey, Integer sid)
-    throws FaultException {
+            throws FaultException {
 
         return listSubscribableChildChannels(sessionKey, sid);
     }
@@ -670,7 +672,7 @@ public class SystemHandler extends BaseHandler {
      *      #array_end()
      */
     public Object[] listSubscribableChildChannels(String sessionKey, Integer sid)
-    throws FaultException {
+            throws FaultException {
         // Get the logged in user and server
         User loggedInUser = getLoggedInUser(sessionKey);
         Server server = lookupServer(loggedInUser, sid);
@@ -741,7 +743,7 @@ public class SystemHandler extends BaseHandler {
      */
     public Object[] listOlderInstalledPackages(String sessionKey, Integer sid,
             String name, String version, String release, String epoch)
-    throws FaultException {
+                    throws FaultException {
         // Get the logged in user and server
         User loggedInUser = getLoggedInUser(sessionKey);
         Server server = lookupServer(loggedInUser, sid);
@@ -806,7 +808,7 @@ public class SystemHandler extends BaseHandler {
      */
     public Object[] listNewerInstalledPackages(String sessionKey, Integer sid,
             String name, String version, String release, String epoch)
-    throws FaultException {
+                    throws FaultException {
         // Get the logged in user and server
         User loggedInUser = getLoggedInUser(sessionKey);
         Server server = lookupServer(loggedInUser, sid);
@@ -999,7 +1001,7 @@ public class SystemHandler extends BaseHandler {
      *      #struct_end()
      */
     public Object[] listLatestUpgradablePackages(String sessionKey, Integer sid)
-    throws FaultException {
+            throws FaultException {
         // Get the logged in user and server
         User loggedInUser = getLoggedInUser(sessionKey);
         Server server = lookupServer(loggedInUser, sid);
@@ -1031,7 +1033,7 @@ public class SystemHandler extends BaseHandler {
      *      #struct_end()
      */
     public Object[] listLatestInstallablePackages(String sessionKey, Integer sid)
-    throws FaultException {
+            throws FaultException {
         // Get the logged in user and server
         User loggedInUser = getLoggedInUser(sessionKey);
         Server server = lookupServer(loggedInUser, sid);
@@ -1089,8 +1091,8 @@ public class SystemHandler extends BaseHandler {
             if (pkgEvr != null) {
                 // find the latest package available to each system
                 Package pkg = PackageManager.guestimatePackageBySystem(sid.longValue(),
-                              (Long) pkgEvr.get("name_id"), (Long) pkgEvr.get("evr_id"),
-                                         null, loggedInUser.getOrg());
+                        (Long) pkgEvr.get("name_id"), (Long) pkgEvr.get("evr_id"),
+                        null, loggedInUser.getOrg());
 
                 // build the hash to return
                 if (pkg != null) {
@@ -1230,14 +1232,14 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.returntype #return_int_success()
      */
     public Integer deleteGuestProfiles(String sessionKey, Integer hostId,
-        List<String> guestNames) {
+            List<String> guestNames) {
         User loggedInUser = getLoggedInUser(sessionKey);
         Server server = lookupServer(loggedInUser, hostId);
 
         if (server != null && !server.isVirtualHost()) {
             throw new FaultException(1005, "notAHostSystem",
-                "The system ID specified (" + hostId +
-                ") does not represent a host system");
+                    "The system ID specified (" + hostId +
+                    ") does not represent a host system");
         }
 
         List<String> availableGuests = new ArrayList();
@@ -1259,7 +1261,7 @@ public class SystemHandler extends BaseHandler {
 
             if (vi.isRegisteredGuest()) {
                 throw new SystemsNotDeletedException("Unable to delete guest profile " +
-                    vi.getName() + ": the guest is registered.");
+                        vi.getName() + ": the guest is registered.");
             }
             server.removeGuest(vi);
         }
@@ -1283,7 +1285,7 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.returntype #return_int_success()
      */
     public int deleteSystems(String sessionKey, List<Integer> systemIds)
-    throws FaultException {
+            throws FaultException {
         // Get the logged in user and server
         User loggedInUser = getLoggedInUser(sessionKey);
 
@@ -1308,13 +1310,13 @@ public class SystemHandler extends BaseHandler {
 
         // Fire the request off asynchronously
         SsmDeleteServersEvent event =
-            new SsmDeleteServersEvent(loggedInUser, deletion);
+                new SsmDeleteServersEvent(loggedInUser, deletion);
         MessageQueue.publish(event);
 
         // If we skipped any systems, create an error message and throw a FaultException
         if (skippedSids.size() > 0) {
             StringBuilder msg = new StringBuilder(
-            "The following systems were NOT deleted: ");
+                    "The following systems were NOT deleted: ");
             for (Integer sid :  skippedSids) {
                 msg.append("\n" + sid);
             }
@@ -1426,7 +1428,7 @@ public class SystemHandler extends BaseHandler {
      *      #array_end()
      */
     public List getNetworkDevices(String sessionKey, Integer sid)
-    throws FaultException {
+            throws FaultException {
         // Get the logged in user and server
         User loggedInUser = getLoggedInUser(sessionKey);
         Server server = lookupServer(loggedInUser, sid);
@@ -1603,7 +1605,7 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.returntype #return_int_success()
      */
     public int setCustomValues(String sessionKey, Integer sid, Map values)
-    throws FaultException {
+            throws FaultException {
         // Get the logged in user and server
         User loggedInUser = getLoggedInUser(sessionKey);
         Server server = lookupServer(loggedInUser, sid);
@@ -1634,7 +1636,7 @@ public class SystemHandler extends BaseHandler {
             // We need to throw an exception. Append each undefined key to the
             // exception message.
             StringBuffer msg = new StringBuffer("One or more of the following " +
-            "custom info fields was not defined: ");
+                    "custom info fields was not defined: ");
 
             for (Iterator itr = skippedKeys.iterator(); itr.hasNext();) {
                 String label = (String) itr.next();
@@ -1706,7 +1708,7 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.returntype #return_int_success()
      */
     public int deleteCustomValues(String sessionKey, Integer sid, List<String> keys)
-    throws FaultException {
+            throws FaultException {
         // Get the logged in user and server
         User loggedInUser = getLoggedInUser(sessionKey);
         Server server = lookupServer(loggedInUser, sid);
@@ -1738,7 +1740,7 @@ public class SystemHandler extends BaseHandler {
             // We need to throw an exception. Append each undefined key to the
             // exception message.
             StringBuffer msg = new StringBuffer("One or more of the following " +
-            "custom info fields was not defined: ");
+                    "custom info fields was not defined: ");
 
             for (String label : skippedKeys) {
                 msg.append("\n" + label);
@@ -1764,7 +1766,7 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.returntype #return_int_success()
      */
     public int setProfileName(String sessionKey, Integer sid, String name)
-    throws FaultException {
+            throws FaultException {
         // Get the logged in user and server
         User loggedInUser = getLoggedInUser(sessionKey);
         Server server = lookupServer(loggedInUser, sid);
@@ -1807,7 +1809,7 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.returntype #return_int_success()
      */
     public int addNote(String sessionKey, Integer sid, String subject, String body)
-    throws FaultException {
+            throws FaultException {
         // Get the logged in user and server
         User loggedInUser = getLoggedInUser(sessionKey);
         Server server = lookupServer(loggedInUser, sid);
@@ -2149,7 +2151,7 @@ public class SystemHandler extends BaseHandler {
      * @return Returns 1 if successful, exception otherwise
      *
      * @xmlrpc.doc Provision a guest on the host specified.  Defaults to:
-     * memory=512MB, vcpu=1, storage=3GB.
+     * memory=512MB, vcpu=1, storage=3GB, mac_address=random.
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param_desc("int", "serverId", "ID of host to provision guest on.")
      * @xmlrpc.param #param("string", "guestName")
@@ -2159,7 +2161,7 @@ public class SystemHandler extends BaseHandler {
     public int provisionVirtualGuest(String sessionKey, Integer sid, String guestName,
             String profileName) {
         return provisionVirtualGuest(sessionKey, sid, guestName, profileName,
-                new Integer(512), new Integer(1), new Integer(3));
+                new Integer(512), new Integer(1), new Integer(3), "");
     }
 
     /**
@@ -2180,7 +2182,7 @@ public class SystemHandler extends BaseHandler {
      * on error
      */
     public int provisionSystem(String sessionKey, Integer serverId, String profileName)
-    throws FaultException {
+            throws FaultException {
         log.debug("provisionSystem called.");
         User loggedInUser = getLoggedInUser(sessionKey);
 
@@ -2188,12 +2190,12 @@ public class SystemHandler extends BaseHandler {
         Server server = lookupServer(loggedInUser, serverId);
         if (!(server.hasEntitlement(EntitlementManager.PROVISIONING))) {
             throw new FaultException(-2, "provisionError",
-            "System does not have provisioning entitlement");
+                    "System does not have provisioning entitlement");
         }
 
         KickstartData ksdata = KickstartFactory.
-        lookupKickstartDataByLabelAndOrgId(profileName,
-                loggedInUser.getOrg().getId());
+                lookupKickstartDataByLabelAndOrgId(profileName,
+                        loggedInUser.getOrg().getId());
         if (ksdata == null) {
             throw new FaultException(-3, "kickstartProfileNotFound",
                     "No Kickstart Profile found with label: " + profileName);
@@ -2234,7 +2236,7 @@ public class SystemHandler extends BaseHandler {
      */
     public int provisionSystem(String sessionKey, Integer serverId,
             String profileName, Date earliestDate)
-    throws FaultException {
+                    throws FaultException {
         log.debug("provisionSystem called.");
         User loggedInUser = getLoggedInUser(sessionKey);
 
@@ -2242,12 +2244,12 @@ public class SystemHandler extends BaseHandler {
         Server server = lookupServer(loggedInUser, serverId);
         if (!(server.hasEntitlement(EntitlementManager.PROVISIONING))) {
             throw new FaultException(-2, "provisionError",
-            "System does not have provisioning entitlement");
+                    "System does not have provisioning entitlement");
         }
 
         KickstartData ksdata = KickstartFactory.
-        lookupKickstartDataByLabelAndOrgId(profileName,
-                loggedInUser.getOrg().getId());
+                lookupKickstartDataByLabelAndOrgId(profileName,
+                        loggedInUser.getOrg().getId());
         if (ksdata == null) {
             throw new FaultException(-3, "kickstartProfileNotFound",
                     "No Kickstart Profile found with label: " + profileName);
@@ -2283,7 +2285,7 @@ public class SystemHandler extends BaseHandler {
      *
      * @xmlrpc.doc Provision a guest on the host specified.  This schedules the guest
      * for creation and will begin the provisioning process when the host checks in
-     * or if OSAD is enabled will begin immediately.
+     * or if OSAD is enabled will begin immediately. Defaults to mac_address=random.
      *
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param_desc("int", "serverId", "ID of host to provision guest on.")
@@ -2297,12 +2299,49 @@ public class SystemHandler extends BaseHandler {
      */
     public int provisionVirtualGuest(String sessionKey, Integer sid, String guestName,
             String profileName, Integer memoryMb, Integer vcpus, Integer storageGb) {
+        return provisionVirtualGuest(sessionKey, sid, guestName, profileName,
+                memoryMb, vcpus, storageGb, "");
+    }
+
+    /**
+     * Provision a guest on the server specified.
+     *
+     * @param sessionKey of user making call
+     * @param sid of server to provision guest on
+     * @param guestName to assign to guest
+     * @param profileName of Kickstart Profile to use.
+     * @param memoryMb to allocate to the guest (maxMemory)
+     * @param vcpus to assign
+     * @param storageGb to assign to disk
+     * @param macAddress to assign
+     * @return Returns 1 if successful, exception otherwise
+     *
+     * @xmlrpc.doc Provision a guest on the host specified.  This schedules the guest
+     * for creation and will begin the provisioning process when the host checks in
+     * or if OSAD is enabled will begin immediately.
+     *
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param_desc("int", "serverId", "ID of host to provision guest on.")
+     * @xmlrpc.param #param("string", "guestName")
+     * @xmlrpc.param #param_desc("string", "profileName", "Kickstart Profile to use.")
+     * @xmlrpc.param #param_desc("int", "memoryMb", "Memory to allocate to the guest")
+     * @xmlrpc.param #param_desc("int", "vcpus", "Number of virtual CPUs to allocate to
+     *                                          the guest.")
+     * @xmlrpc.param #param_desc("int", "storageGb", "Size of the guests disk image.")
+     * @xmlrpc.param #param_desc("string", "macAddress", "macAddress to give the guest's
+     *                                          virtual networking hardware.")
+     * @xmlrpc.returntype #return_int_success()
+     */
+    public int provisionVirtualGuest(String sessionKey, Integer sid,
+            String guestName, String profileName, Integer memoryMb,
+            Integer vcpus, Integer storageGb, String macAddress) {
         log.debug("provisionVirtualGuest called.");
         User loggedInUser = getLoggedInUser(sessionKey);
         // Lookup the server so we can validate it exists and throw error if not.
         lookupServer(loggedInUser, sid);
         KickstartData ksdata = KickstartFactory.
-        lookupKickstartDataByLabelAndOrgId(profileName, loggedInUser.getOrg().getId());
+                lookupKickstartDataByLabelAndOrgId(profileName, loggedInUser
+                        .getOrg().getId());
 
         if (ksdata == null) {
             throw new FaultException(-3, "kickstartProfileNotFound",
@@ -2317,6 +2356,8 @@ public class SystemHandler extends BaseHandler {
         cmd.setMemoryAllocation(new Long(memoryMb));
         cmd.setVirtualCpus(new Long(vcpus.toString()));
         cmd.setLocalStorageSize(new Long(storageGb));
+        // setting an empty string generates a random mac address
+        cmd.setMacAddress(macAddress);
         // setting an empty string generates a default virt path
         cmd.setFilePath("");
         // Store the new KickstartSession to the DB.
@@ -2535,7 +2576,7 @@ public class SystemHandler extends BaseHandler {
                 return server.getRunningKernel();
             }
             return LocalizationService.getInstance().getMessage(
-            "server.runningkernel.unknown");
+                    "server.runningkernel.unknown");
         }
         catch (LookupException e) {
             throw new NoSuchSystemException(e);
@@ -2701,7 +2742,7 @@ public class SystemHandler extends BaseHandler {
         }
 
         ErrataManager.applyErrataHelper(getLoggedInUser(sessionKey),
-                                        longServerIds, errataIds, earliestOccurrence);
+                longServerIds, errataIds, earliestOccurrence);
         return 1;
     }
 
@@ -3761,7 +3802,7 @@ public class SystemHandler extends BaseHandler {
         User loggedInUser = getLoggedInUser(sessionKey);
 
         DataResult profiles = ProfileManager.listProfileOverviews(
-                                             loggedInUser.getOrg().getId());
+                loggedInUser.getOrg().getId());
 
         return profiles.toArray();
     }
@@ -3783,7 +3824,7 @@ public class SystemHandler extends BaseHandler {
 
         // make sure the user can access this profile
         Profile profile = ProfileManager.lookupByIdAndOrg(profileId.longValue(),
-                                                          loggedInUser.getOrg());
+                loggedInUser.getOrg());
 
         return ProfileManager.deleteProfile(profile);
     }
@@ -4381,7 +4422,7 @@ public class SystemHandler extends BaseHandler {
      *      #array_end()
      */
     public Object[] getConnectionPath(String sessionKey, Integer sid)
-    throws FaultException {
+            throws FaultException {
 
         // Get the logged in user and server
         User loggedInUser = getLoggedInUser(sessionKey);
@@ -4486,7 +4527,7 @@ public class SystemHandler extends BaseHandler {
      * is not being included.
      */
     public int setupStaticNetwork(String clientcert, Map<String, Object> data,
-        Map<String, Object> data6) {
+            Map<String, Object> data6) {
         SystemRecord rec = getSystemRecordFromClientCert(clientcert);
         if (rec == null) {
             throw new NoSuchSystemException();
@@ -4514,7 +4555,8 @@ public class SystemHandler extends BaseHandler {
         String ksDistro = (String) meta.get(KickstartFormatter.KS_DISTRO);
 
         String command = KickstartFormatter.makeStaticNetworkCommand(device, hostName,
-            nameservers.get(0), ip4, nm4, gw4, ip6, nm6, gw6, preferIpv6Gateway, ksDistro);
+                nameservers.get(0), ip4, nm4, gw4, ip6, nm6, gw6,
+                preferIpv6Gateway, ksDistro);
 
         rec.setHostName(hostName);
         rec.setGateway((preferIpv6Gateway) ? gw6 : gw4);
@@ -4557,7 +4599,7 @@ public class SystemHandler extends BaseHandler {
 
         if (!(server.hasEntitlement(EntitlementManager.PROVISIONING))) {
             throw new FaultException(-2, "provisionError",
-            "System does not have provisioning entitlement");
+                    "System does not have provisioning entitlement");
         }
 
         KickstartData ksData = lookupKsData(ksLabel, loggedInUser.getOrg());
@@ -4612,7 +4654,7 @@ public class SystemHandler extends BaseHandler {
 
         if (!(server.hasEntitlement(EntitlementManager.PROVISIONING))) {
             throw new FaultException(-2, "provisionError",
-            "System does not have provisioning entitlement");
+                    "System does not have provisioning entitlement");
         }
 
         SystemRecord rec = SystemRecord.lookupById(
@@ -4675,7 +4717,7 @@ public class SystemHandler extends BaseHandler {
 
         if (!(server.hasEntitlement(EntitlementManager.PROVISIONING))) {
             throw new FaultException(-2, "provisionError",
-            "System does not have provisioning entitlement");
+                    "System does not have provisioning entitlement");
         }
 
         SystemRecord rec = SystemRecord.lookupById(
@@ -4724,7 +4766,7 @@ public class SystemHandler extends BaseHandler {
     public List listDuplicatesByIp(String sessionKey) {
         User loggedInUser = getLoggedInUser(sessionKey);
         List<DuplicateSystemGrouping> list =
-            SystemManager.listDuplicatesByIP(loggedInUser, 0L);
+                SystemManager.listDuplicatesByIP(loggedInUser, 0L);
         return transformDuplicate(list, "ip");
     }
 
@@ -4749,7 +4791,7 @@ public class SystemHandler extends BaseHandler {
     public List listDuplicatesByMac(String sessionKey) {
         User loggedInUser = getLoggedInUser(sessionKey);
         List<DuplicateSystemGrouping> list =
-            SystemManager.listDuplicatesByMac(loggedInUser, 0L);
+                SystemManager.listDuplicatesByMac(loggedInUser, 0L);
         return transformDuplicate(list, "mac");
     }
 
@@ -4774,7 +4816,7 @@ public class SystemHandler extends BaseHandler {
     public List listDuplicatesByHostname(String sessionKey) {
         User loggedInUser = getLoggedInUser(sessionKey);
         List<DuplicateSystemGrouping> list =
-            SystemManager.listDuplicatesByHostname(loggedInUser, 0L);
+                SystemManager.listDuplicatesByHostname(loggedInUser, 0L);
         return transformDuplicate(list, "hostname");
     }
 
@@ -4813,7 +4855,7 @@ public class SystemHandler extends BaseHandler {
     public List listEligibleFlexGuests(String sessionKey) {
         User user = getLoggedInUser(sessionKey);
         return VirtualizationEntitlementsManager.
-                    getInstance().listEligibleFlexGuests(user);
+                getInstance().listEligibleFlexGuests(user);
     }
 
     /**
@@ -4833,10 +4875,10 @@ public class SystemHandler extends BaseHandler {
      *                  that were converted to use flex entitlement.
      */
     public int convertToFlexEntitlement(String sessionKey,
-                List serverIds, String channelFamilyLabel) {
+            List serverIds, String channelFamilyLabel) {
         User user = getLoggedInUser(sessionKey);
         ChannelFamily cf = ChannelFamilyFactory.lookupByLabel(
-                                    channelFamilyLabel, user.getOrg());
+                channelFamilyLabel, user.getOrg());
         if (cf == null) {
             throw new InvalidEntitlementException();
         }
@@ -4846,7 +4888,7 @@ public class SystemHandler extends BaseHandler {
             longServerIds.add(new Long((Integer) it.next()));
         }
         return VirtualizationEntitlementsManager.getInstance().
-                            convertToFlex(longServerIds, cf.getId(), user).size();
+                convertToFlex(longServerIds, cf.getId(), user).size();
     }
 
     /**
@@ -4952,7 +4994,7 @@ public class SystemHandler extends BaseHandler {
         Server server = lookupServer(loggedInUser, serverId);
         if (!(server.hasEntitlement(EntitlementManager.PROVISIONING))) {
             throw new FaultException(-2, "provisionError",
-            "System does not have provisioning entitlement: " + server.getId());
+                    "System does not have provisioning entitlement: " + server.getId());
         }
         List<ServerSnapshot> snps = ServerFactory.listSnapshots(loggedInUser.getOrg(),
                 server, null, null);

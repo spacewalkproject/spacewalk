@@ -24,6 +24,7 @@ import com.redhat.rhn.domain.user.User;
 import org.apache.log4j.Logger;
 import org.cobbler.Network;
 import org.cobbler.SystemRecord;
+import org.cobbler.XmlRpcException;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -70,7 +71,7 @@ public class CobblerVirtualSystemCommand extends CobblerSystemCreateCommand {
      */
     public CobblerVirtualSystemCommand(User userIn, Server serverIn,
             KickstartData ksDataIn, String mediaPathIn,
-                            String activationKeysIn, String guestNameIn) {
+            String activationKeysIn, String guestNameIn) {
         super(userIn, serverIn, ksDataIn, mediaPathIn, activationKeysIn);
         guestName = guestNameIn;
     }
@@ -97,7 +98,15 @@ public class CobblerVirtualSystemCommand extends CobblerSystemCreateCommand {
     @Override
     protected void processNetworkInterfaces(SystemRecord rec, Server serverIn) {
         log.debug("processNetworkInterfaces called.");
-        String newMac = (String) invokeXMLRPC("get_random_mac", Collections.EMPTY_LIST);
+
+        KickstartGuestAction action = (KickstartGuestAction) getScheduledAction();
+        KickstartGuestActionDetails details = action
+                .getKickstartGuestActionDetails();
+        String newMac = details.getMacAddress();
+        if (newMac == null || newMac.equals("")) {
+            newMac = (String) invokeXMLRPC("get_random_mac",
+                    Collections.EMPTY_LIST);
+        }
         Network net = new Network(getCobblerConnection(), "eth0");
         net.setMacAddress(newMac);
         List<Network> nics = new LinkedList<Network>();
@@ -106,6 +115,7 @@ public class CobblerVirtualSystemCommand extends CobblerSystemCreateCommand {
     }
 
 
+    @Override
     protected SystemRecord lookupExisting() {
         log.debug("lookupExisting called.");
 
@@ -140,14 +150,29 @@ public class CobblerVirtualSystemCommand extends CobblerSystemCreateCommand {
      */
     @Override
     public ValidatorError store() {
-        ValidatorError error = super.store();
+        ValidatorError error = null;
+        try {
+            error = super.store();
+        }
+        catch (XmlRpcException e) {
+            if (e.getCause() != null &&
+                    e.getCause().getMessage() != null &&
+                    e.getCause().getMessage()
+                    .contains("MAC address duplicated")) {
+                error = new ValidatorError(
+                        "frontend.actions.systems.virt.duplicatemacaddressvalue");
+            }
+            else {
+                throw e;
+            }
+        }
         if (error == null) {
             KickstartGuestAction action = (KickstartGuestAction) getScheduledAction();
             KickstartGuestActionDetails details = action.getKickstartGuestActionDetails();
             setupVirtAttributes(details.getMemMb().intValue(),
-                            details.getDiskGb().intValue(),
-                            details.getVcpus().intValue(),
-                            details.getDiskPath());
+                    details.getDiskGb().intValue(),
+                    details.getVcpus().intValue(),
+                    details.getDiskPath());
         }
         return error;
     }

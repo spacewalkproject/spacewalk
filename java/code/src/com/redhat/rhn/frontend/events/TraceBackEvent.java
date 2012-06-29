@@ -41,6 +41,7 @@ public class TraceBackEvent extends BaseEvent implements EventMessage {
      *                  request values
      * @return Text of email.
      */
+    @Override
     public String toText() {
         StringWriter sw = new StringWriter();
         PrintWriter out = new PrintWriter(sw);
@@ -71,7 +72,8 @@ public class TraceBackEvent extends BaseEvent implements EventMessage {
             out.println(":");
             out.println(request.toString());
 
-            if (request.getMethod().equals("POST")) {
+            if (request.getMethod() != null &&
+                    request.getMethod().equals("POST")) {
                 out.print(ls.getMessage("form variables", getUserLocale()));
                 out.println(":");
                 Enumeration ne = request.getParameterNames();
@@ -129,7 +131,7 @@ public class TraceBackEvent extends BaseEvent implements EventMessage {
      * @return hashmark string
      */
     public String getHashMarks() {
-      return TraceBackEvent.HASHES;
+        return TraceBackEvent.HASHES;
     }
 
     /**

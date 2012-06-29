@@ -39,6 +39,7 @@ public class KickstartDto extends BaseDto {
     private int virtSpace;
     private int virtCpus;
     private String virtBridge;
+    private String macAddress;
 
 
     /**
@@ -58,6 +59,7 @@ public class KickstartDto extends BaseDto {
     /**
      * @return the id
      */
+    @Override
     public Long getId() {
         return id;
     }
@@ -65,9 +67,9 @@ public class KickstartDto extends BaseDto {
     /**
      * @param idIn The id to set.
      */
-     public void setId(Long idIn) {
-         this.id = idIn;
-     }
+    public void setId(Long idIn) {
+        this.id = idIn;
+    }
 
     /**
      * @return the orgId
@@ -79,9 +81,9 @@ public class KickstartDto extends BaseDto {
     /**
      * @param orgIdIn The id to set.
      */
-     public void setOrgId(Long orgIdIn) {
-         this.orgId = orgIdIn;
-     }
+    public void setOrgId(Long orgIdIn) {
+        this.orgId = orgIdIn;
+    }
 
     /**
      * @return the kickstart tree id
@@ -93,9 +95,9 @@ public class KickstartDto extends BaseDto {
     /**
      * @param kstreeIdIn The kstree id to set.
      */
-     public void setKstreeId(Long kstreeIdIn) {
-         this.kstreeId = kstreeIdIn;
-     }
+    public void setKstreeId(Long kstreeIdIn) {
+        this.kstreeId = kstreeIdIn;
+    }
 
     /**
      * @return Returns the label.
@@ -256,5 +258,19 @@ public class KickstartDto extends BaseDto {
      */
     public void setVirtBridge(String virtBridgeIn) {
         this.virtBridge = virtBridgeIn;
+    }
+
+    /**
+     * @return Returns the mac address
+     */
+    public String getMacAddress() {
+        return macAddress;
+    }
+
+    /**
+     * @param macAddressIn the macAddress to set
+     */
+    public void setMacAddress(String macAddressIn) {
+        this.macAddress = macAddressIn;
     }
 }

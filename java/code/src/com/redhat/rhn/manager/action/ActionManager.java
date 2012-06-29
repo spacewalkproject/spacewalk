@@ -159,7 +159,7 @@ public class ActionManager extends BaseManager {
         if (returnedAction == null) {
             LocalizationService ls = LocalizationService.getInstance();
             LookupException e =
-                new LookupException("Could not find action with id: " + aid);
+                    new LookupException("Could not find action with id: " + aid);
             e.setLocalizedTitle(ls.getMessage("lookup.jsp.title.action"));
             e.setLocalizedReason1(ls.getMessage("lookup.jsp.reason1.action"));
             e.setLocalizedReason2(ls.getMessage("lookup.jsp.reason2.action"));
@@ -183,8 +183,8 @@ public class ActionManager extends BaseManager {
      * @return the Action found or null if none exists
      */
     public static Action lookupLastCompletedAction(User user,
-                                            ActionType type,
-                                            Server server) {
+            ActionType type,
+            Server server) {
         // TODO: check on user visibility ??
 
         return ActionFactory.lookupLastCompletedAction(user, type, server);
@@ -199,7 +199,7 @@ public class ActionManager extends BaseManager {
      */
     public static void archiveActions(User user, String label) {
         WriteMode m = ModeFactory.getWriteMode("Action_queries",
-                                               "archive_actions");
+                "archive_actions");
         Map params = new HashMap();
         params.put("user_id", user.getId());
         params.put("org_id", user.getOrg().getId());
@@ -291,7 +291,7 @@ public class ActionManager extends BaseManager {
      */
     public static Action createErrataAction(User user, Errata errata) {
         ErrataAction a = (ErrataAction)ActionFactory
-                             .createAction(ActionFactory.TYPE_ERRATA);
+                .createAction(ActionFactory.TYPE_ERRATA);
         if (user != null) {
             a.setSchedulerUser(user);
             a.setOrg(user.getOrg());
@@ -323,8 +323,8 @@ public class ActionManager extends BaseManager {
         //the given channel is the sandbox for the given server.
 
         ConfigUploadAction a =
-            (ConfigUploadAction)ActionFactory.createAction(
-                    ActionFactory.TYPE_CONFIGFILES_UPLOAD, earliest);
+                (ConfigUploadAction)ActionFactory.createAction(
+                        ActionFactory.TYPE_CONFIGFILES_UPLOAD, earliest);
         a.setOrg(user.getOrg());
         a.setSchedulerUser(user);
         a.setName(a.getActionType().getName());
@@ -366,8 +366,8 @@ public class ActionManager extends BaseManager {
      * @return The created diff action
      */
     public static Action createConfigDiffAction(User user,
-                                                Collection<Long> revisions,
-                                                Collection<Long> serverIds) {
+            Collection<Long> revisions,
+            Collection<Long> serverIds) {
         //diff actions are non-destructive, so there is no point to schedule them for any
         //later than now.
         return createConfigAction(user, revisions, serverIds,
@@ -402,21 +402,21 @@ public class ActionManager extends BaseManager {
         for (Long sid : serverConfigMap.keySet()) {
             if (ActionFactory.TYPE_CONFIGFILES_DEPLOY.equals(type) &&
                     !SystemManager.clientCapable(sid,
-                                 SystemManager.CAP_CONFIGFILES_DEPLOY)) {
-                 throw new MissingCapabilityException(SystemManager.CAP_CONFIGFILES_DEPLOY,
-                         ServerFactory.lookupById(sid));
+                            SystemManager.CAP_CONFIGFILES_DEPLOY)) {
+                throw new MissingCapabilityException(SystemManager.CAP_CONFIGFILES_DEPLOY,
+                        ServerFactory.lookupById(sid));
             }
             ActionFactory.addServerToAction(sid, a);
             //now that we made a server action, we must make config revision actions
             //which depend on the server as well.
             for (Long revId : serverConfigMap.get(sid)) {
-                  WriteMode m = ModeFactory.getWriteMode("Action_queries",
-                          "add_config_rev_to_action");
-                  Map params = new HashMap();
-                  params.put("sid", sid);
-                  params.put("aid", a.getId());
-                  params.put("crid", revId);
-                  m.executeUpdate(params);
+                WriteMode m = ModeFactory.getWriteMode("Action_queries",
+                        "add_config_rev_to_action");
+                Map params = new HashMap();
+                params.put("sid", sid);
+                params.put("aid", a.getId());
+                params.put("crid", revId);
+                m.executeUpdate(params);
             }
         }
         if (a.getServerActions().size() < 1) {
@@ -444,9 +444,9 @@ public class ActionManager extends BaseManager {
      * @return The created config action
      */
     public static Action createConfigActionForServers(User user,
-                                                Collection<Long> revisions,
-                                                Collection<Server> servers,
-                                                ActionType type, Date earliest) {
+            Collection<Long> revisions,
+            Collection<Server> servers,
+            ActionType type, Date earliest) {
         //create the action
         ConfigAction a = (ConfigAction)ActionFactory.createAction(type, earliest);
 
@@ -460,8 +460,8 @@ public class ActionManager extends BaseManager {
         a.setSchedulerUser(user);
         for (Server server : servers) {
             if (ActionFactory.TYPE_CONFIGFILES_DEPLOY.equals(type) &&
-                       !SystemManager.clientCapable(server.getId(),
-                                    SystemManager.CAP_CONFIGFILES_DEPLOY)) {
+                    !SystemManager.clientCapable(server.getId(),
+                            SystemManager.CAP_CONFIGFILES_DEPLOY)) {
                 throw new MissingCapabilityException(
                         SystemManager.CAP_CONFIGFILES_DEPLOY, server);
             }
@@ -472,7 +472,7 @@ public class ActionManager extends BaseManager {
             for (Long revId : revisions) {
                 try {
                     ConfigRevision rev = ConfigurationManager.getInstance()
-                        .lookupConfigRevision(user, revId);
+                            .lookupConfigRevision(user, revId);
                     ActionFactory.addConfigRevisionToAction(rev, server, a);
                 }
                 catch (LookupException e) {
@@ -522,8 +522,8 @@ public class ActionManager extends BaseManager {
         sa.setServer(server);
 
         SolarisPackagePatchRemoveAction patchAction =
-            (SolarisPackagePatchRemoveAction) ActionFactory.createAction(
-                ActionFactory.TYPE_SOLARISPKGS_PATCHREMOVE);
+                (SolarisPackagePatchRemoveAction) ActionFactory.createAction(
+                        ActionFactory.TYPE_SOLARISPKGS_PATCHREMOVE);
         patchAction.setOrg(user.getOrg());
         patchAction.setName("Patch Removal");
         patchAction.setSchedulerUser(user);
@@ -563,8 +563,8 @@ public class ActionManager extends BaseManager {
         sa.setServer(server);
 
         SolarisPackagePatchInstallAction patchAction =
-            (SolarisPackagePatchInstallAction) ActionFactory.createAction(
-                ActionFactory.TYPE_SOLARISPKGS_PATCHINSTALL);
+                (SolarisPackagePatchInstallAction) ActionFactory.createAction(
+                        ActionFactory.TYPE_SOLARISPKGS_PATCHINSTALL);
         patchAction.setOrg(user.getOrg());
         patchAction.setName("Patch Install");
         patchAction.setSchedulerUser(user);
@@ -576,7 +576,7 @@ public class ActionManager extends BaseManager {
         for (Iterator itr = set.getElements().iterator(); itr.hasNext();) {
             RhnSetElement rse = (RhnSetElement) itr.next();
             WriteMode m = ModeFactory.getWriteMode("Action_queries",
-                "schedule_action_no_arch");
+                    "schedule_action_no_arch");
             Map params = new HashMap();
             params.put("action_id", patchAction.getId());
             params.put("name_id", rse.getElement());
@@ -596,14 +596,14 @@ public class ActionManager extends BaseManager {
      *
      */
     public static Action createPatchSetInstallAction(User user,
-                                                     Server server,
-                                                     PatchSet patchSet) {
+            Server server,
+            PatchSet patchSet) {
 
         SolarisPackagePatchClusterInstallAction patchSetAction
-            = (SolarisPackagePatchClusterInstallAction)
-              createBaseAction(user,
-                               server,
-                               ActionFactory.TYPE_SOLARISPKGS_PATCHCLUSTERINSTALL);
+        = (SolarisPackagePatchClusterInstallAction)
+        createBaseAction(user,
+                server,
+                ActionFactory.TYPE_SOLARISPKGS_PATCHCLUSTERINSTALL);
 
         patchSetAction.setName("Patch Cluster Install");
 
@@ -666,10 +666,10 @@ public class ActionManager extends BaseManager {
      * @return The Action we have created
      *
      */
-     public static Action createBaseAction(User user, Server server, ActionType type) {
+    public static Action createBaseAction(User user, Server server, ActionType type) {
 
         Action action =
-            ActionFactory.createAction(type);
+                ActionFactory.createAction(type);
 
         action.setSchedulerUser(user);
         action.setOrg(user.getOrg());
@@ -683,7 +683,7 @@ public class ActionManager extends BaseManager {
         action.addServerAction(sa);
 
         return action;
-     }
+    }
 
     /**
      * Stores the action in the database through hibernate
@@ -728,9 +728,9 @@ public class ActionManager extends BaseManager {
      * @return A list containing the pending actions for the user
      */
     public static DataResult recentlyScheduledActions(User user, PageControl pc,
-                                                        long age) {
+            long age) {
         SelectMode m = ModeFactory.getMode("Action_queries",
-                                           "recently_scheduled_action_list");
+                "recently_scheduled_action_list");
         Map params = new HashMap();
         params.put("user_id", user.getId());
         params.put("org_id", user.getOrg().getId());
@@ -810,7 +810,7 @@ public class ActionManager extends BaseManager {
         return getActions(user, pc, "archived_action_list");
     }
 
-     /**
+    /**
      * Helper method that does the work of getting a specific
      * DataResult for scheduled actions.
      * @param user The user in question
@@ -856,7 +856,7 @@ public class ActionManager extends BaseManager {
      */
     public static DataResult getPackageList(Long aid, PageControl pc) {
         SelectMode m = ModeFactory.getMode("Package_queries",
-                           "packages_associated_with_action");
+                "packages_associated_with_action");
         Map params = new HashMap();
         params.put("aid", aid);
         if (pc != null) {
@@ -874,7 +874,7 @@ public class ActionManager extends BaseManager {
      */
     public static DataResult getErrataList(Long aid) {
         SelectMode m = ModeFactory.getMode("Errata_queries",
-                           "errata_associated_with_action");
+                "errata_associated_with_action");
 
         Map params = new HashMap();
         params.put("aid", aid);
@@ -941,9 +941,9 @@ public class ActionManager extends BaseManager {
      * @return Returns list containing the completed systems.
      */
     private static DataResult getActionSystems(User user,
-                                              Action action,
-                                              PageControl pc,
-                                              String mode) {
+            Action action,
+            PageControl pc,
+            String mode) {
 
         SelectMode m = ModeFactory.getMode("System_queries", mode);
         Map params = new HashMap();
@@ -966,8 +966,8 @@ public class ActionManager extends BaseManager {
      * @return Returns list containing the completed systems.
      */
     public static DataResult completedSystems(User user,
-                                              Action action,
-                                              PageControl pc) {
+            Action action,
+            PageControl pc) {
 
         return getActionSystems(user, action, pc, "systems_completed_action");
     }
@@ -981,8 +981,8 @@ public class ActionManager extends BaseManager {
      * @return Returns list containing the completed systems.
      */
     public static DataResult inProgressSystems(User user,
-                                              Action action,
-                                              PageControl pc) {
+            Action action,
+            PageControl pc) {
 
         return getActionSystems(user, action, pc, "systems_in_progress_action");
     }
@@ -996,8 +996,8 @@ public class ActionManager extends BaseManager {
      * @return Returns list containing the completed systems.
      */
     public static DataResult failedSystems(User user,
-                                              Action action,
-                                              PageControl pc) {
+            Action action,
+            PageControl pc) {
 
         return getActionSystems(user, action, pc, "systems_failed_action");
     }
@@ -1022,7 +1022,7 @@ public class ActionManager extends BaseManager {
     public static PackageAction schedulePackageRefresh(User scheduler, Server server,
             Date earliest) {
         PackageAction pa = (PackageAction) schedulePackageAction(scheduler,
-            (List) null, ActionFactory.TYPE_PACKAGES_REFRESH_LIST, earliest, server);
+                (List) null, ActionFactory.TYPE_PACKAGES_REFRESH_LIST, earliest, server);
         storeAction(pa);
         return pa;
     }
@@ -1052,7 +1052,7 @@ public class ActionManager extends BaseManager {
             // We need to schedule a hardware refresh to pull
             // in the packages.runTransaction capability
             Action hwrefresh =
-                scheduleHardwareRefreshAction(scheduler, server, earliest);
+                    scheduleHardwareRefreshAction(scheduler, server, earliest);
             ActionFactory.save(hwrefresh);
             action.setPrerequisite(hwrefresh);
         }
@@ -1144,7 +1144,7 @@ public class ActionManager extends BaseManager {
 
         // this is SOOOO WRONG, we need to get rid of DataSource
         m = ModeFactory.getWriteMode("Action_queries",
-            "insert_action_package_delta");
+                "insert_action_package_delta");
         Map params = new HashMap();
         params.put("action_id", action.getId());
         params.put("delta_id", pd.getId());
@@ -1177,10 +1177,10 @@ public class ActionManager extends BaseManager {
             Server srvr, RhnSet pkgs, Date earliestAction) {
         if (!srvr.isSolaris()) {
             return (PackageAction) schedulePackageAction(scheduler, srvr, pkgs,
-                ActionFactory.TYPE_PACKAGES_REMOVE, earliestAction);
+                    ActionFactory.TYPE_PACKAGES_REMOVE, earliestAction);
         }
         return (PackageAction) schedulePackageAction(scheduler, srvr, pkgs,
-            ActionFactory.TYPE_SOLARISPKGS_REMOVE, earliestAction);
+                ActionFactory.TYPE_SOLARISPKGS_REMOVE, earliestAction);
     }
 
 
@@ -1196,10 +1196,10 @@ public class ActionManager extends BaseManager {
             Server srvr, List<Map<String, Long>> pkgs, Date earliestAction) {
         if (!srvr.isSolaris()) {
             return (PackageAction) schedulePackageAction(scheduler, pkgs,
-                ActionFactory.TYPE_PACKAGES_REMOVE, earliestAction, srvr);
+                    ActionFactory.TYPE_PACKAGES_REMOVE, earliestAction, srvr);
         }
         return (PackageAction) schedulePackageAction(scheduler, pkgs,
-            ActionFactory.TYPE_SOLARISPKGS_REMOVE, earliestAction, srvr);
+                ActionFactory.TYPE_SOLARISPKGS_REMOVE, earliestAction, srvr);
     }
 
     /**
@@ -1224,12 +1224,12 @@ public class ActionManager extends BaseManager {
         // we'll end up with 2 actions created if the server list is mixed
         if (!rhelServers.isEmpty()) {
             schedulePackageAction(scheduler, pkgs, ActionFactory.TYPE_PACKAGES_REMOVE,
-                earliestAction, rhelServers);
+                    earliestAction, rhelServers);
         }
 
         if (!solarisServers.isEmpty()) {
             schedulePackageAction(scheduler, pkgs, ActionFactory.TYPE_SOLARISPKGS_REMOVE,
-                earliestAction, solarisServers);
+                    earliestAction, solarisServers);
         }
     }
 
@@ -1278,10 +1278,10 @@ public class ActionManager extends BaseManager {
             Server srvr, List pkgs, Date earliestAction) {
         if (!srvr.isSolaris()) {
             return (PackageAction) schedulePackageAction(scheduler, pkgs,
-                ActionFactory.TYPE_PACKAGES_UPDATE, earliestAction, srvr);
+                    ActionFactory.TYPE_PACKAGES_UPDATE, earliestAction, srvr);
         }
         return (PackageAction) schedulePackageAction(scheduler, pkgs,
-            ActionFactory.TYPE_SOLARISPKGS_INSTALL, earliestAction, srvr);
+                ActionFactory.TYPE_SOLARISPKGS_INSTALL, earliestAction, srvr);
     }
 
     /**
@@ -1305,12 +1305,12 @@ public class ActionManager extends BaseManager {
         // we'll end up with 2 actions created if the server list is mixed
         if (!rhelServers.isEmpty()) {
             schedulePackageAction(scheduler, pkgs, ActionFactory.TYPE_PACKAGES_UPDATE,
-                earliestAction, rhelServers);
+                    earliestAction, rhelServers);
         }
 
         if (!solarisServers.isEmpty()) {
             schedulePackageAction(scheduler, pkgs, ActionFactory.TYPE_SOLARISPKGS_INSTALL,
-                earliestAction, solarisServers);
+                    earliestAction, solarisServers);
         }
 
     }
@@ -1340,7 +1340,7 @@ public class ActionManager extends BaseManager {
     public static PackageAction schedulePackageVerify(User scheduler,
             Server srvr, List<Map<String, Long>> pkgs, Date earliest) {
         return (PackageAction) schedulePackageAction(scheduler, pkgs,
-            ActionFactory.TYPE_PACKAGES_VERIFY, earliest, srvr);
+                ActionFactory.TYPE_PACKAGES_VERIFY, earliest, srvr);
     }
     /**
      * Schedules a script action for the given servers
@@ -1365,7 +1365,7 @@ public class ActionManager extends BaseManager {
             }
 
             if (!SystemManager.hasEntitlement(srvr.getId(),
-                        EntitlementManager.PROVISIONING)) {
+                    EntitlementManager.PROVISIONING)) {
                 throw new MissingEntitlementException(
                         EntitlementManager.PROVISIONING.getHumanReadableLabel());
             }
@@ -1397,7 +1397,7 @@ public class ActionManager extends BaseManager {
     }
 
     private static Action scheduleAction(User scheduler, ActionType type, String name,
-                                         Date earliestAction, Set<Long> serverIds) {
+            Date earliestAction, Set<Long> serverIds) {
         /**
          * We have to relookup the type here, because most likely a static final variable
          *  was passed in.  If we use this and the .reload() gets called below
@@ -1425,7 +1425,7 @@ public class ActionManager extends BaseManager {
         m.executeUpdate(params,  sidList);
 
 
-            //action.addServerAction(sa);
+        //action.addServerAction(sa);
 
         return action;
     }
@@ -1447,7 +1447,7 @@ public class ActionManager extends BaseManager {
     }
 
     private static Action createScheduledAction(User scheduler, ActionType type,
-                                                String name, Date earliestAction) {
+            String name, Date earliestAction) {
         Action pa = ActionFactory.createAction(type);
         pa.setName(name);
         pa.setOrg(scheduler.getOrg());
@@ -1478,7 +1478,7 @@ public class ActionManager extends BaseManager {
         }
 
         return scheduleKickstartAction(ksdata.getPreserveFileLists(), scheduler, srvr,
-                                        earliestAction, appendString, kickstartHost);
+                earliestAction, appendString, kickstartHost);
 
     }
 
@@ -1534,11 +1534,11 @@ public class ActionManager extends BaseManager {
             ) {
 
         KickstartGuestAction ksAction = (KickstartGuestAction)
-            scheduleAction(pcmd.getUser(),
-                           pcmd.getHostServer(),
-                           ActionFactory.TYPE_KICKSTART_INITIATE_GUEST,
-                           ActionFactory.TYPE_KICKSTART_INITIATE_GUEST.getName(),
-                           pcmd.getScheduleDate());
+                scheduleAction(pcmd.getUser(),
+                        pcmd.getHostServer(),
+                        ActionFactory.TYPE_KICKSTART_INITIATE_GUEST,
+                        ActionFactory.TYPE_KICKSTART_INITIATE_GUEST.getName(),
+                        pcmd.getScheduleDate());
         KickstartGuestActionDetails kad = new KickstartGuestActionDetails();
         kad.setAppendString(pcmd.getExtraOptions());
         kad.setParentAction(ksAction);
@@ -1548,10 +1548,11 @@ public class ActionManager extends BaseManager {
         kad.setDiskPath(pcmd.getFilePath());
         kad.setVcpus(new Long(pcmd.getVirtualCpus()));
         kad.setGuestName(pcmd.getGuestName());
+        kad.setMacAddress(pcmd.getMacAddress());
         kad.setKickstartSessionId(ksSessionId);
 
         Profile cProfile = Profile.lookupById(CobblerXMLRPCHelper.getConnection(
-           pcmd.getUser()), pcmd.getKsdata().getCobblerId());
+                pcmd.getUser()), pcmd.getKsdata().getCobblerId());
         if (pcmd.getVirtBridge() == null) {
             kad.setVirtBridge(cProfile.getVirtBridge());
         }
@@ -1670,7 +1671,7 @@ public class ActionManager extends BaseManager {
      */
     public static void removeSystemFromAction(Server serverIn, Action actionIn) {
         CallableMode m = ModeFactory.getCallableMode("System_queries",
-            "remove_from_action");
+                "remove_from_action");
         Map inParams = new HashMap();
         inParams.put("server_id", serverIn.getId());
         inParams.put("action_id", actionIn.getId());
@@ -1711,10 +1712,10 @@ public class ActionManager extends BaseManager {
      * @return The action that has been scheduled.
      */
     public static Action schedulePackageAction(User scheduler,
-                                            List pkgs,
-                                            ActionType type,
-                                            Date earliestAction,
-                                            Server...servers) {
+            List pkgs,
+            ActionType type,
+            Date earliestAction,
+            Server...servers) {
         Set<Long> serverIds = new HashSet<Long>();
         for (Server s : servers) {
             serverIds.add(s.getId());
@@ -1735,23 +1736,23 @@ public class ActionManager extends BaseManager {
      * @return The action that has been scheduled.
      */
     public static Action schedulePackageAction(User scheduler,
-                                               List pkgs,
-                                               ActionType type,
-                                               Date earliestAction,
-                                               Set<Long> serverIds) {
+            List pkgs,
+            ActionType type,
+            Date earliestAction,
+            Set<Long> serverIds) {
 
         String name = "";
         if (type.equals(ActionFactory.TYPE_PACKAGES_REMOVE) ||
-            type.equals(ActionFactory.TYPE_SOLARISPKGS_REMOVE)) {
+                type.equals(ActionFactory.TYPE_SOLARISPKGS_REMOVE)) {
             name = "Package Removal";
         }
         else if (type.equals(ActionFactory.TYPE_PACKAGES_UPDATE) ||
-                 type.equals(ActionFactory.TYPE_SOLARISPKGS_INSTALL)) {
+                type.equals(ActionFactory.TYPE_SOLARISPKGS_INSTALL)) {
             name = "Package Install";
         }
         else if (type.equals(ActionFactory.TYPE_PACKAGES_VERIFY)) {
-           name = "Package Verify";
-       }
+            name = "Package Verify";
+        }
         else if (type.equals(ActionFactory.TYPE_PACKAGES_REFRESH_LIST)) {
             name = "Package List Refresh";
         }
@@ -1763,38 +1764,38 @@ public class ActionManager extends BaseManager {
         ActionFactory.save(action);
 
         if (pkgs != null) {
-          // for each item in the set create a package action detail
-          // I'm using datasource to insert the records instead of
-          // hibernate. It seems terribly inefficient to lookup a
-          // packagename and packageevr object to insert the ids into the
-          // correct table if I already have the ids.
-          for (Iterator itr = pkgs.iterator(); itr.hasNext();) {
-              Map rse = (Map) itr.next();
-              Map params = new HashMap();
-              Long nameId = (Long) rse.get("name_id");
-              Long evrId = (Long) rse.get("evr_id");
-              Long archId = (Long) rse.get("arch_id");
-              if (nameId == null || evrId == null) {
-                  throw new IllegalArgumentException("name_id or " +
-                        "evr_id are not in the Map passed into " +
-                        "this method.  Please populate the Map " +
-                        "with the name_id and evr_id items");
-              }
-              params.put("action_id", action.getId());
-              params.put("name_id", nameId);
-              params.put("evr_id", evrId);
+            // for each item in the set create a package action detail
+            // I'm using datasource to insert the records instead of
+            // hibernate. It seems terribly inefficient to lookup a
+            // packagename and packageevr object to insert the ids into the
+            // correct table if I already have the ids.
+            for (Iterator itr = pkgs.iterator(); itr.hasNext();) {
+                Map rse = (Map) itr.next();
+                Map params = new HashMap();
+                Long nameId = (Long) rse.get("name_id");
+                Long evrId = (Long) rse.get("evr_id");
+                Long archId = (Long) rse.get("arch_id");
+                if (nameId == null || evrId == null) {
+                    throw new IllegalArgumentException("name_id or " +
+                            "evr_id are not in the Map passed into " +
+                            "this method.  Please populate the Map " +
+                            "with the name_id and evr_id items");
+                }
+                params.put("action_id", action.getId());
+                params.put("name_id", nameId);
+                params.put("evr_id", evrId);
 
-              WriteMode m = null;
-              if (archId == null) {
-                  m = ModeFactory.getWriteMode("Action_queries",
-                          "schedule_action_no_arch");
-              }
-              else {
-                  params.put("arch_id", archId);
-                  m = ModeFactory.getWriteMode("Action_queries", "schedule_action");
-              }
-              m.executeUpdate(params);
-          }
+                WriteMode m = null;
+                if (archId == null) {
+                    m = ModeFactory.getWriteMode("Action_queries",
+                            "schedule_action_no_arch");
+                }
+                else {
+                    params.put("arch_id", archId);
+                    m = ModeFactory.getWriteMode("Action_queries", "schedule_action");
+                }
+                m.executeUpdate(params);
+            }
         }
 
         return action;
@@ -1824,7 +1825,7 @@ public class ActionManager extends BaseManager {
             packages.add(row);
         }
         return schedulePackageAction(scheduler, packages, type, earliestAction, srvr
-        );
+                );
     }
 
     /**
@@ -1853,7 +1854,7 @@ public class ActionManager extends BaseManager {
      * @return scheduled Scap Action
      */
     public static ScapAction scheduleXccdfEval(User scheduler, Set<Long> serverIds,
-        String path, String parameters, Date earliestAction) {
+            String path, String parameters, Date earliestAction) {
         if (serverIds.isEmpty()) {
             return null;
         }
@@ -1872,9 +1873,9 @@ public class ActionManager extends BaseManager {
 
         ScapActionDetails scapDetails = new ScapActionDetails(path, parameters);
         ScapAction action = (ScapAction) scheduleAction(scheduler,
-            ActionFactory.TYPE_SCAP_XCCDF_EVAL,
-            ActionFactory.TYPE_SCAP_XCCDF_EVAL.getName(),
-            earliestAction, serverIds);
+                ActionFactory.TYPE_SCAP_XCCDF_EVAL,
+                ActionFactory.TYPE_SCAP_XCCDF_EVAL.getName(),
+                earliestAction, serverIds);
         action.setScapActionDetails(scapDetails);
         ActionFactory.save(action);
         return action;

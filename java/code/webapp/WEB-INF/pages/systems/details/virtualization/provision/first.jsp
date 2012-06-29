@@ -43,7 +43,8 @@ function setStep(stepName) {
          	<rl:column headerkey="kickstart.channel.virtCpu.jsp" bound="true" attr="virtCpus"/>
          	<rl:column headerkey="kickstart.channel.virtDisk.jsp" bound="true" attr="virtSpace"/>         	
          	<rl:column headerkey="kickstart.channel.virtMemory.jsp" bound="true" attr="virtMemory"/>
-         	<rl:column headerkey="kickstart.channel.virtBridge.jsp" bound="true" attr="virtBridge" styleclass="last-column"/>
+         	<rl:column headerkey="kickstart.channel.virtBridge.jsp" bound="true" attr="virtBridge"/>
+            <rl:column headerkey="kickstart.channel.macAddress.jsp" bound="true" attr="macAddress" styleclass="last-column"/>
     </rl:list>
 	
 	<h2><bean:message key="virtualization.provision.first.jsp.header2" /></h2>

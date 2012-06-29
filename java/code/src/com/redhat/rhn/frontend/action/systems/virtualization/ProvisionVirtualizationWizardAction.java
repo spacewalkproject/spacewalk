@@ -57,6 +57,7 @@ public class ProvisionVirtualizationWizardAction extends ScheduleKickstartWizard
     public static final String VIRTUAL_BRIDGE = "virtBridge";
     public static final String VIRTUAL_FILE_PATH = "diskPath";
     public static final String LOCAL_STORAGE_GB = "localStorageGigabytes";
+    public static final String MAC_ADDRESS = "macAddress";
     public static final String PROFILE = "cobbler_profile";
 
     public static final String GUEST_NAME = "guestName";
@@ -84,6 +85,10 @@ public class ProvisionVirtualizationWizardAction extends ScheduleKickstartWizard
 
         if (StringUtils.isEmpty(form.getString(LOCAL_STORAGE_GB))) {
             form.set(LOCAL_STORAGE_GB, "");
+        }
+
+        if (StringUtils.isEmpty(form.getString(MAC_ADDRESS))) {
+            form.set(MAC_ADDRESS, "");
         }
 
         // Check if the server already has rhnVirtHost package installed.
@@ -216,6 +221,18 @@ public class ProvisionVirtualizationWizardAction extends ScheduleKickstartWizard
         else {
             cmd.setVirtBridge(this.getCobblerProfile(ctx).getVirtBridge());
         }
+        if (!StringUtils.isEmpty(form.getString(MAC_ADDRESS))) {
+            String macAddress = form.getString(MAC_ADDRESS);
+            macAddress = macAddress.replace(":", "");
+            macAddress = macAddress.toLowerCase();
+            macAddress = macAddress.substring(0, 2) + ":" +
+                    macAddress.substring(2, 4) + ":" +
+                    macAddress.substring(4, 6) + ":" +
+                    macAddress.substring(6, 8) + ":" +
+                    macAddress.substring(8, 10) + ":" +
+                    macAddress.substring(10);
+            cmd.setMacAddress(macAddress);
+        }
         cmd.setFilePath(form.getString(VIRTUAL_FILE_PATH));
         storeProxyInfo(form, ctx, cmd);
         // Store the new KickstartSession to the DB.
@@ -290,6 +307,22 @@ public class ProvisionVirtualizationWizardAction extends ScheduleKickstartWizard
                 errors.add(ActionErrors.GLOBAL_MESSAGE, new ActionMessage(
                         "frontend.actions.systems.virt.invalidstoragevalue"));
                 form.set(LOCAL_STORAGE_GB, "");
+            }
+        }
+
+        if (!StringUtils.isEmpty(form.getString(MAC_ADDRESS))) {
+            try {
+                String macAddress = form.getString(MAC_ADDRESS);
+                macAddress = macAddress.replace(":", "");
+                if (macAddress.length() != 12 ||
+                        !macAddress.matches("^[0-9a-fA-F]+$")) {
+                    throw new NumberFormatException();
+                }
+            }
+            catch (NumberFormatException e) {
+                errors.add(ActionErrors.GLOBAL_MESSAGE, new ActionMessage(
+                        "frontend.actions.systems.virt.invalidmacaddressvalue"));
+                form.set(MAC_ADDRESS, "");
             }
         }
 

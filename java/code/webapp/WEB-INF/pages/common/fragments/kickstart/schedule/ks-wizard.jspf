@@ -30,6 +30,7 @@
 	        <input type="hidden" name="virtualCpus" value="${form.virtualCpus}" />
 	        <input type="hidden" name="localStorageGigabytes" value="${form.localStorageGigabytes}" />
 	        <input type="hidden" name="diskPath" value="${form.diskPath}" />
+            <input type="hidden" name="macAddress" value="${form.macAddress}" />
         </c:if>
 		<%@ include file="/WEB-INF/pages/common/fragments/kickstart/schedule/proxy-options.jspf" %>
 

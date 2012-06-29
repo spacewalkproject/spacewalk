@@ -7821,6 +7821,14 @@ Follow this url to see the full list of inactive systems:
           <source>Only natural numbers are accepted as storage values.</source>
       </trans-unit>
 
+       <trans-unit id="frontend.actions.systems.virt.invalidmacaddressvalue">
+          <source>MAC Addresses must be of the form XX:XX:XX:XX:XX:XX where all X's are hexedecimal values.</source>
+      </trans-unit>
+
+       <trans-unit id="frontend.actions.systems.virt.duplicatemacaddressvalue">
+          <source>MAC Addresses must be unique. This MAC Address has already been recorded. Please choose a different MAC Address.</source>
+      </trans-unit>
+
        <trans-unit id="frontend.actions.channels.manager.add.viewChannels">
           <source>View Associated Channels</source>
       </trans-unit>
