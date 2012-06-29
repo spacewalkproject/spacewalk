@@ -66,6 +66,16 @@ public class DatabaseManager {
         }
         if (config.getString("db_backend").equals("oracle")) {
             overrides.setProperty("db_name", "@" + overrides.getProperty("db_name"));
+        } else {
+            String db_host = config.getString("db_host");
+            String db_port = config.getString("db_port");
+            if (db_host != null && db_host.length() > 0) {
+                if (db_port != null && db_port.length() > 0) {
+                    overrides.setProperty("db_name", "//" + db_host + ":" + db_port + "/" + overrides.getProperty("db_name"));
+                } else {
+                    overrides.setProperty("db_name", "//" + db_host + "/" + overrides.getProperty("db_name"));
+                }
+            }
         }
 
         client = SqlMapClientBuilder.buildSqlMapClient(reader, overrides);
