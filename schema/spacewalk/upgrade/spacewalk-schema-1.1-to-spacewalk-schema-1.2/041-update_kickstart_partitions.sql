@@ -46,7 +46,7 @@ begin
                     on kcn.id = kc.ks_command_name_id
                  where kcn.name in ('partitions', 'raids', 'volgroups', 'logvols', 'include', 'custom_partition')
                    and kc.kickstart_id = kickstart.kickstart_id
-                 order by kcn.sort_order
+                 order by kcn.sort_order, kc.arguments
         ) loop
            if length(lob_data) > 0 then
                dbms_lob.append(lob_data, utl_raw.cast_to_raw(chr(10)));
