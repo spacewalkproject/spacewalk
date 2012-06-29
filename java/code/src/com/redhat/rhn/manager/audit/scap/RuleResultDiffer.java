@@ -70,4 +70,21 @@ public class RuleResultDiffer {
     public List<RuleResultComparator> getData() {
         return new ArrayList<RuleResultComparator>(dataMap.values());
     }
+
+    /**
+     * Get list of comparators betwen rule-results (a subset).
+     * @param differs defines resulting subset.
+     * True - filters out those which does not differ.
+     * False - filters out those which differs.
+     * @return results
+     */
+    public List<RuleResultComparator> getData(Boolean differs) {
+        List<RuleResultComparator> result = new ArrayList<RuleResultComparator>();
+        for (RuleResultComparator item : dataMap.values()) {
+            if (item.getDiffers() == differs) {
+                result.add(item);
+            }
+        }
+        return result;
+    }
 }

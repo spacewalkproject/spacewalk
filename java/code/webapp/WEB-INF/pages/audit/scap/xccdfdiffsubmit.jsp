@@ -25,8 +25,34 @@ div.differs {
   <bean:message key="scapdiff.jsp.toolbar"/>
 </rhn:toolbar>
 
+<div style="float: right;">
+  <c:if test="${view != 'full'}">
+    <a href="/rhn/audit/scap/DiffSubmit.do?first=${param.first}&second=${param.second}&view=full">
+  </c:if>
+  <bean:message key="diff.jsp.full"/>
+  <c:if test="${view != 'full'}"></a></c:if>
+
+  &nbsp;&nbsp;|&nbsp;&nbsp;
+  <c:if test="${view != 'changed'}">
+    <a href="/rhn/audit/scap/DiffSubmit.do?first=${param.first}&second=${param.second}&view=changed">
+  </c:if>
+  <bean:message key="xccdfdiff.view.changed"/>
+  <c:if test="${view != 'changed'}"></a></c:if>
+
+  &nbsp;&nbsp;|&nbsp;&nbsp;
+  <c:if test="${view != 'same'}">
+    <a href="/rhn/audit/scap/DiffSubmit.do?first=${param.first}&second=${param.second}&view=same">
+  </c:if>
+  <bean:message key="xccdfdiff.view.same"/>
+  <c:if test="${view != 'same'}"></a></c:if>
+</div>
+
+
 <rl:listset name="groupSet" legend="xccdf">
   <rhn:csrf/>
+
+  <h2><bean:message key="system.audit.xccdfdetails.jsp.xccdfrules"/></h2>
+
   <rl:list emptykey="generic.jsp.none">
     <rl:decorator name="PageSizeDecorator"/>
 

@@ -41,6 +41,8 @@ import com.redhat.rhn.manager.audit.scap.RuleResultDiffer;
 public class XccdfDiffSubmitAction extends RhnAction implements Listable {
     private static final String FIRST = "first";
     private static final String SECOND = "second";
+    private static final String VIEW = "view";
+    private static final String FULL = "full";
 
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping,
@@ -58,12 +60,14 @@ public class XccdfDiffSubmitAction extends RhnAction implements Listable {
         Long first = (Long) form.get(FIRST);
         Long second = (Long) form.get(SECOND);
         // TODO: ensure that scans of given ids exist
+        request.setAttribute(VIEW, getView(request));
 
         ListHelper helper = new ListHelper(this, request);
         helper.execute();
 
         request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI() +
-                "?" + FIRST + "=" + first + "&" + SECOND + "=" + second);
+                "?" + FIRST + "=" + first + "&" + SECOND + "=" + second +
+                "&" + VIEW + "=" + getView(request));
 
         return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
@@ -72,7 +76,16 @@ public class XccdfDiffSubmitAction extends RhnAction implements Listable {
     public List<RuleResultComparator> getResult(RequestContext context) {
         Long first = context.getRequiredParam(FIRST);
         Long second = context.getRequiredParam(SECOND);
+        String view = getView(context.getRequest());
         RuleResultDiffer differ = new RuleResultDiffer(first, second);
-        return differ.getData();
+        if (FULL.equals(view)) {
+            return differ.getData();
+        }
+        return differ.getData("changed".equals(view));
+    }
+
+    private String getView(HttpServletRequest request) {
+        String view = request.getParameter(VIEW);
+        return (view == null || "".equals(view)) ? FULL : view;
     }
 }
