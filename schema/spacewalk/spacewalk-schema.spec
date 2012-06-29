@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.8.56
+Version:        1.8.57
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -68,6 +68,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Fri Jun 29 2012 Jan Pazdziora 1.8.57-1
+- Make the resulting data order more deterministic.
+
 * Wed Jun 27 2012 Jan Pazdziora 1.8.56-1
 - Besides rhnServerGroupNotes, the table source was also creating sequence --
   dropping.
