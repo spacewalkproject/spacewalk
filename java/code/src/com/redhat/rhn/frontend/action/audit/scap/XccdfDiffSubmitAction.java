@@ -28,6 +28,7 @@ import org.apache.struts.action.ActionMessages;
 import org.apache.struts.action.DynaActionForm;
 
 import com.redhat.rhn.domain.audit.ScapFactory;
+import com.redhat.rhn.domain.audit.XccdfTestResult;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
@@ -39,6 +40,7 @@ import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
 import com.redhat.rhn.manager.audit.ScapManager;
 import com.redhat.rhn.manager.audit.scap.RuleResultComparator;
 import com.redhat.rhn.manager.audit.scap.RuleResultDiffer;
+import com.redhat.rhn.manager.audit.scap.TestResultDiffer;
 
 /**
  * Static action page.
@@ -48,6 +50,7 @@ public class XccdfDiffSubmitAction extends RhnAction implements Listable {
     private static final String SECOND = "second";
     private static final String VIEW = "view";
     private static final String FULL = "full";
+    private static final String CHANGED = "changed";
     private static final String MISSING_MSG = "message.xccdfdiff.missing";
 
     /** {@inheritDoc} */
@@ -67,6 +70,7 @@ public class XccdfDiffSubmitAction extends RhnAction implements Listable {
         Long first = (Long) form.get(FIRST);
         Long second = (Long) form.get(SECOND);
         User user = context.getLoggedInUser();
+        String view = getView(request);
 
         if (!ScapManager.isAvailableToUser(user, first)) {
             errors.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
@@ -82,14 +86,19 @@ public class XccdfDiffSubmitAction extends RhnAction implements Listable {
                     mapping.findForward("error"), request.getParameterMap());
         }
 
-        request.setAttribute(VIEW, getView(request));
+        XccdfTestResult firstTr = ScapFactory.lookupTestResultById(first);
+        XccdfTestResult secondTr = ScapFactory.lookupTestResultById(second);
+        request.setAttribute("metadataList", FULL.equals(view) ?
+                TestResultDiffer.diff(firstTr, secondTr) :
+                TestResultDiffer.diff(firstTr, secondTr, CHANGED.equals(view)));
+        request.setAttribute(VIEW, view);
 
         ListHelper helper = new ListHelper(this, request);
         helper.execute();
 
         request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI() +
                 "?" + FIRST + "=" + first + "&" + SECOND + "=" + second +
-                "&" + VIEW + "=" + getView(request));
+                "&" + VIEW + "=" + view);
 
         return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
@@ -103,7 +112,7 @@ public class XccdfDiffSubmitAction extends RhnAction implements Listable {
         if (FULL.equals(view)) {
             return differ.getData();
         }
-        return differ.getData("changed".equals(view));
+        return differ.getData(CHANGED.equals(view));
     }
 
     private String getView(HttpServletRequest request) {

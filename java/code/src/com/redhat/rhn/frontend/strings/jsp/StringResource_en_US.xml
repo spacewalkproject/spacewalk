@@ -12093,6 +12093,9 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
        <context-group name="ctx">
          <context context-type="sourcefile">View of SCAP XCCDF Scan</context>
        </context-group>
+       <trans-unit id="xccdfdiff.fieldnames">
+         <source>Field Names</source>
+       </trans-unit>
        <trans-unit id="xccdfdiff.firstscan">
          <source>First Scan</source>
        </trans-unit>
