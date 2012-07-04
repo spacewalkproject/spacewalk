@@ -1191,7 +1191,7 @@ ORDER BY S.name, S.id
   <elaborator params="pid" multiple="t">
 SELECT SPP.server_id AS ID,
        PN.name AS PACKAGE_NAME,
-       PN.name || '-' || PE.evr.as_vre_simple() AS PACKAGE_NVRE,
+       PN.name || '-' || evr_t_as_vre_simple(PE.evr) AS PACKAGE_NVRE,
        PN.id || '|' || PE.id AS PACKAGE_ID_COMBO
   FROM rhnPackageName PN,
        rhnPackageEVR PE,
@@ -1237,7 +1237,7 @@ ORDER BY S.name, S.id
   <elaborator params="pid" multiple="t">
 SELECT DISTINCT S.id,
        PN.name AS PACKAGE_NAME,
-       PN.name || '-' || PE.evr.as_vre_simple() AS PACKAGE_NVRE,
+       PN.name || '-' || evr_t_as_vre_simple(PE.evr) AS PACKAGE_NVRE,
        PN.id || '|' || PE.id AS PACKAGE_ID_COMBO
   FROM rhnPackageName PN,
        rhnPackageEVR PE,
