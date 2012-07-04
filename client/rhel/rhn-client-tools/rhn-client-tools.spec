@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 1.8.9
+Version: 1.8.10
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -339,6 +339,9 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Wed Jul 04 2012 Miroslav Suchý <msuchy@redhat.com> 1.8.10-1
+- read memory information even on kernels 3.x
+
 * Sat Jun 16 2012 Miroslav Suchý <msuchy@redhat.com> 1.8.9-1
 - allow to set value on Debian
 
