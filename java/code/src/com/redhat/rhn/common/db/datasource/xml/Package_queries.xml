@@ -1085,8 +1085,8 @@ ORDER BY  UPPER(pn.name)
   </query>
   <elaborator params="sid" multiple="t">
 SELECT P.id,
-       NVL(SA.completion_time,
-           NVL(SA.pickup_time,
+       COALESCE(SA.completion_time,
+           COALESCE(SA.pickup_time,
                SA.created)) AS TIMESTAMP,
        ACS.name AS ACTION_STATUS
   FROM rhnActionStatus ACS,
