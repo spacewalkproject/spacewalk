@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.8.57
+Version:        1.8.58
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -68,6 +68,11 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Wed Jul 04 2012 Jan Pazdziora 1.8.58-1
+- We mustn't serialize object into string in lookup_evr, we need to only create
+  it once within the link.
+- 836656 - Allow user to set MAC Address when provisioning a virtual guest
+
 * Fri Jun 29 2012 Jan Pazdziora 1.8.57-1
 - Make the resulting data order more deterministic.
 
