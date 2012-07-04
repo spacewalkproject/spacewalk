@@ -141,7 +141,7 @@ Obsoletes: rhns-server-app < 5.3.0
 Obsoletes: rhns-app < 5.3.0
 Provides: rhns-server-app = 1:%{version}-%{release}
 Provides: rhns-app = 1:%{version}-%{release}
-Obsoletes: spacewalk-backend-xp < 1.8.33
+Obsoletes: spacewalk-backend-xp < 1.8.38
 Provides: spacewalk-backend-xp = %{version}-%{release}
 Obsoletes: rhns-server-xp < 5.3.0
 Obsoletes: rhns-xp < 5.3.0
