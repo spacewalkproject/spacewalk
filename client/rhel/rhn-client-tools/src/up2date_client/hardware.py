@@ -338,7 +338,7 @@ def read_cpuinfo():
 def read_memory():
     un = os.uname()
     kernel = un[2]
-    if kernel[:3] == "2.6":
+    if kernel[:3] >= "2.6":
         return read_memory_2_6()
     if kernel[:3] == "2.4":
         return read_memory_2_4()
