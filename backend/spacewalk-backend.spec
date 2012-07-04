@@ -12,7 +12,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.45
+Version: 1.8.46
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -646,6 +646,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Wed Jul 04 2012 Jan Pazdziora 1.8.46-1
+- Make sure even upgrades from 1.8.33 remove spacewalk-backend-xp.
+
 * Thu Jun 28 2012 Michael Mraka <michael.mraka@redhat.com> 1.8.45-1
 - 765816 - file mode have to be string
 
