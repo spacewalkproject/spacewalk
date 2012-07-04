@@ -312,7 +312,8 @@ def figureDEFS_distinguishing(options):
         DEFS['--set-org-unit'] = getOption(options, 'set_org_unit')
     if getOption(options, 'set_common_name') is not None:
         DEFS['--set-common-name'] = getOption(options, 'set_common_name')
-    # NOTE: --set-hostname set in figureDEFS_dirs()
+    if getOption(options, 'set_hostname') is not None:
+        DEFS['--set-hostname'] = getOption(options, 'set_hostname')
     if getOption(options, 'set_email') is not None:
         DEFS['--set-email'] = getOption(options, 'set_email')
     DEFS['--set-cname'] = getOption(options, 'set_cname') # this is list
