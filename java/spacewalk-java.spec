@@ -23,7 +23,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.104
+Version: 1.8.105
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -616,6 +616,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Jul 05 2012 Stephen Herr <sherr@redhat.com> 1.8.105-1
+- 837913 - work around for if hibernate loads a clonedchannel as its own
+  original
+
 * Fri Jun 29 2012 Stephen Herr <sherr@redhat.com> 1.8.104-1
 - 836656 - Allow user to set MAC Address when provisioning a virtual guest
 
