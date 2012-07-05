@@ -42,6 +42,7 @@ public class ClonedChannel extends Channel {
     /**
      * {@inheritDoc}
      */
+    @Override
     public boolean isCloned() {
         return true;
     }
@@ -51,7 +52,10 @@ public class ClonedChannel extends Channel {
      */
     @Override
     public ChecksumType getChecksumType() {
-        if (super.getChecksumType() == null) {
+        // We can reach a StackOverflow here if the current channel is also the
+        // original. Happening because of a Hibernate problem. See BZ 837913.
+        if (super.getChecksumType() == null &&
+                !super.getLabel().equals(getOriginal().getLabel())) {
             // if the checksum type is not set use the
             //checksum of original channel instead.
             setChecksumType(getOriginal().getChecksumType());
