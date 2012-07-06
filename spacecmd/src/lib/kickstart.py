@@ -1879,9 +1879,12 @@ def export_kickstart_getdetails(self, profile, kickstarts):
     details['partitioning_scheme'] = \
         self.client.kickstart.profile.system.getPartitioningScheme(\
             self.session, profile)
-    details['reg_type'] = \
-        self.client.kickstart.profile.system.getRegistrationType(self.session,\
+    if self.check_api_version('10.11'):
+        details['reg_type'] = \
+        self.client.kickstart.profile.system.getRegistrationType(self.session,
             profile)
+    else:
+        details['reg_type'] = "none"
     details['config_mgmt'] = \
         self.client.kickstart.profile.system.checkConfigManagement(\
             self.session, profile)
