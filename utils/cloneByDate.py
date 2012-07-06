@@ -134,7 +134,9 @@ def main(options):
     needed_channels = []
     for channel_list in options.channels:
         tree_cloner = ChannelTreeCloner(channel_list, xmlrpc, db, 
-                                        options.to_date, options.blacklist, options.removelist, options.background)
+                                        options.to_date, options.blacklist,
+                                        options.removelist, options.background,
+                                        options.security_only)
         cloners.append(tree_cloner)
         needed_channels += tree_cloner.needing_create().values()
 
@@ -177,14 +179,16 @@ def main(options):
 
 class ChannelTreeCloner:
     """Usage:
-        a = ChannelTreeCloner(channel_hash, xmlrpc, db, to_date, blacklist)
+        a = ChannelTreeCloner(channel_hash, xmlrpc, db, to_date, blacklist,
+            removelist, detached, security_only)
         a.create_channels()
         a.prepare()
         a.clone()
          """
     # pylint: disable=R0902
     def __init__(self, channels, remote_api, db_api, to_date, blacklist, 
-                                            removelist, detached):
+                                            removelist, detached,
+                                            security_only):
         self.remote_api = remote_api
         self.db_api = db_api
         self.channel_map = channels
@@ -196,12 +200,14 @@ class ChannelTreeCloner:
         self.src_parent = None
         self.channel_details = None        
         self.detached = detached
+        self.security_only = security_only
         
         self.validate_source_channels()        
         for from_label in self.ordered_labels():
             to_label = self.channel_map[from_label]            
             cloner = ChannelCloner(from_label, to_label, self.to_date, 
-                                   self.remote_api, self.db_api, self.detached)
+                                   self.remote_api, self.db_api, self.detached,
+                                   self.security_only)
             self.cloners.append(cloner)
             
     
@@ -384,7 +390,8 @@ class ChannelTreeCloner:
 
 class ChannelCloner:
     # pylint: disable=R0902
-    def __init__(self, from_label, to_label, to_date, remote_api, db_api, detached):
+    def __init__(self, from_label, to_label, to_date, remote_api, db_api,
+            detached, security_only):
         self.remote_api = remote_api
         self.db_api = db_api
         self.from_label = from_label
@@ -396,6 +403,7 @@ class ChannelCloner:
         self.new_pkg_hash = {}
         self.old_pkg_hash = {}
         self.detached = detached
+        self.security_only = security_only
         
         
     def dest_label(self):
@@ -509,7 +517,11 @@ class ChannelCloner:
         
         for err in available_errata:
             if err['issue_date'].date() <= self.to_date.date():
-                to_clone.append(err)
+                if self.security_only:
+                    if err['advisory_type'] == 'Security Advisory':
+                        to_clone.append(err)
+                else:
+                    to_clone.append(err)
         
         return (to_clone, available_errata)   
         

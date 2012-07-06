@@ -40,6 +40,7 @@ SAMPLE_CONFIG = """
  "assumeyes":true,
  "to_date": "2011-10-01",
  "skip_depsolve":false,
+ "security_only":false,
  "blacklist": {
                  "ALL":["sendmail"],
                  "my-rhel5-x86_64-clone":["emacs"],
@@ -80,7 +81,8 @@ def merge_config(options):
     #if soemthing is in the config and not passed in as an argument
     #   add it to options
     overwrite = ["username", "password", "blacklist", "removelist", "channels", 
-                 "server", "assumeyes", "to_date", "skip_depsolve"]
+                 "server", "assumeyes", "to_date", "skip_depsolve",
+                 "security_only"]
     for key in overwrite:
         if config.has_key(key) and not getattr(options, key):
             setattr(options, key, config[key])
@@ -134,6 +136,7 @@ def parse_args():
     parser.add_option("-k", "--skip_depsolve", dest='skip_depsolve', action='store_true', help="Skip all dependency solving (Not recommended).")
     parser.add_option("-v", "--validate", dest='validate', action='store_true', help="Run repoclosure on the set of specified repositories.")
     parser.add_option("-g", "--background", dest='background', action='store_true', help="Clone the errata in the background. Prompt will return quicker; before cloning is finished.")
+    parser.add_option("-o", "--security_only", dest='security_only', action='store_true', help="Only clone security errata (and their dependencies).")
         
     (options, args) = parser.parse_args()    
 

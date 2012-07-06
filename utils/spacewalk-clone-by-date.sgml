@@ -64,6 +64,9 @@ Utility for cloning errata by date.
         <arg>-y</arg><arg> --assumeyes </arg>
     </cmdsynopsis>
     <cmdsynopsis>
+        <arg>-o</arg><arg> --security_only </arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
         <arg>-g</arg><arg> --background</arg>
     </cmdsynopsis>
     <cmdsynopsis>
@@ -135,6 +138,12 @@ Utility for cloning errata by date.
         <term> -y  --assumeyes</term>
         <listitem>
             <para>Instead of asking for confirmation before cloning a channel or errata, continue uninterrupted.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term> -o  --security_only</term>
+        <listitem>
+            <para>Clone only security errata (and their dependencies).</para>
         </listitem>
     </varlistentry>
     <varlistentry>
