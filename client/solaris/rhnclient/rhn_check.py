@@ -153,7 +153,7 @@ def run_action(method, params):
             traceback.print_exc()            
         # wrong number of arguments, wrong type of arguments, etc
         status = 6,
-        message = "Fatal error in Python code occured"
+        message = "Fatal error in Python code occurred"
         data = {}
     except UnknownXML:
         log.log_debug("Got unknown XML-RPC call", method, params)
