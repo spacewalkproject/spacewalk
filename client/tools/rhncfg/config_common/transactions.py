@@ -92,7 +92,7 @@ class DeployTransaction:
                             if os.path.islink(path):
                                 log_debug(9, "copying symlink %s to %s"% (path,new_path_dir))
                                 linkto = os.readlink(path)
-                                if os.path.exists(new_path):
+                                if os.path.lexists(new_path):
                                     log_debug(9, "symlink %s exists, removing it"% (path))
                                     os.unlink(new_path)
                                 os.symlink(linkto,new_path)
