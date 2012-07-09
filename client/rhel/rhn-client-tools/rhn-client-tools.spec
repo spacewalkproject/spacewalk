@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 1.8.10
+Version: 1.8.11
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -339,6 +339,9 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Mon Jul 09 2012 Michael Mraka <michael.mraka@redhat.com> 1.8.11-1
+- Fix typo in 'Fatal error in Python code occured'
+
 * Wed Jul 04 2012 Miroslav Suchý <msuchy@redhat.com> 1.8.10-1
 - read memory information even on kernels 3.x
 
