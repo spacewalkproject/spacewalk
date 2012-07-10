@@ -162,7 +162,7 @@ def run_action(method, params):
         message = "Invalid function call attempted"
         data = {}
     except AttributeError:
-        log.log_debug("Attempt to call an unsupported action", method, params)
+        log.log_debug("Attempt to call an unsupported action ", method, params)
         status = 6
         message = "Invalid function call attempted"
         data = {}

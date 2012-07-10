@@ -342,7 +342,7 @@ class CheckCli(rhncli.RhnCli):
         try:
             (status, message, data) = CheckCli.__do_call(method, params, kwargs)
         except getMethod.GetMethodException:
-            log.log_debug("Attempt to call an unsupported action", method,
+            log.log_debug("Attempt to call an unsupported action ", method,
                 params)
             status = 6
             message = "Invalid function call attempted"
