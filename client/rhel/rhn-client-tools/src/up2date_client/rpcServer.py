@@ -64,7 +64,7 @@ class RetryServer(rpclib.Server):
                 typ, uri = urllib.splittype(self.serverList.server())
                 typ = typ.lower()
                 if typ not in ("http", "https"):
-                    raise InvalidRedirectionError(
+                    raise rpclib.InvalidRedirectionError(
                         "Redirected to unsupported protocol %s" % typ), None, sys.exc_info()[2]
 
                 self._host, self._handler = urllib.splithost(uri)
