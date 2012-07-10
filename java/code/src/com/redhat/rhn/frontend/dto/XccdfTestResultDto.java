@@ -16,6 +16,8 @@ package com.redhat.rhn.frontend.dto;
 
 import java.util.Date;
 
+import com.redhat.rhn.manager.audit.ScapManager;
+
 /**
  * Simple DTO for transfering data from the DB to the UI through datasource.
  * @version $Rev$
@@ -150,5 +152,13 @@ public class XccdfTestResultDto extends XccdfTestResultCounts {
      */
     public void setPath(String pathIn) {
         this.path = pathIn;
+    }
+
+    /**
+     * Return the TestResult with metadata similar to the this one
+     * @return id of testresult
+     */
+    public Long getComparableId() {
+        return ScapManager.previousComparableTestResult(xid);
     }
 }

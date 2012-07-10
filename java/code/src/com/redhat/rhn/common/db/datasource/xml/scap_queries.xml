@@ -110,6 +110,23 @@
   </query>
 </mode>
 
+<mode name="previous_comparable_tr">
+  <query params="xid">
+  SELECT max(eq.id) as xid
+      FROM rhnXccdfTestResult ref,
+          rhnXccdfBenchmark refb,
+          rhnXccdfTestResult eq,
+          rhnXccdfBenchmark eqb
+      WHERE ref.id = :xid
+          AND eq.id &lt; ref.id
+          AND ref.profile_id = eq.profile_id
+          AND ref.server_id = eq.server_id
+          AND ref.benchmark_id = refb.id
+          AND eq.benchmark_id = eqb.id
+          AND refb.identifier = eqb.identifier
+  </query>
+</mode>
+
 <!-- Queries starting with rr_by_idents are binded dynamically
      in ScapManager.ruleResultsByIdents() method. -->
 <mode name="rr_by_idents" class="com.redhat.rhn.frontend.dto.XccdfRuleResultDto">

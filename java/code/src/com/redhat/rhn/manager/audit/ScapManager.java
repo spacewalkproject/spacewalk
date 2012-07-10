@@ -132,6 +132,22 @@ public class ScapManager extends BaseManager {
     }
 
     /**
+     * Get a TestResult with metadata similar to the given.
+     * Which has been evaluated on the same machine just before the given.
+     * So it makes a sence to compare these two.
+     * @param testResultId referential TestResult
+     * @return result or null (if not any)
+     */
+    public static Long previousComparableTestResult(Long testResultId) {
+        SelectMode m = ModeFactory.getMode("scap_queries",
+                "previous_comparable_tr");
+        HashMap<String, Long> params = new HashMap<String, Long>();
+        params.put("xid", testResultId);
+        DataResult<Map> toReturn = m.execute(params);
+        return (Long) toReturn.get(0).get("xid");
+    }
+
+    /**
      * Get xccdf:rule-result-s or xccdf:TestResult-s by ident's ids
      * @param inParams direct parameters for query.
      * user_id is the only compulsory

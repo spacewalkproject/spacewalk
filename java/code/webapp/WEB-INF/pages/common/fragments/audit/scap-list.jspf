@@ -4,6 +4,16 @@
 	<rl:list emptykey="system.audit.listscap.jsp.noscans">
 		<rl:decorator name="ElaborationDecorator"/>
 
+		<rl:column headerkey="system.audit.listscap.jsp.diff" styleclass="center" headerclass="center">
+			<c:choose>
+			<c:when test="${not empty current.comparableId}">
+				<a href="/rhn/audit/scap/DiffSubmit.do?first=${current.comparableId}&second=${current.xid}&view=changed">
+				${current.comparableId}
+				</a>
+			</c:when>
+			<c:otherwise>-</c:otherwise>
+			</c:choose>
+		</rl:column>
 		<rl:column headerkey="system.audit.listscap.jsp.testresult">
 			<a href="/rhn/systems/details/audit/XccdfDetails.do?sid=${param.sid}&xid=${current.xid}">
 				${current.testResult}
