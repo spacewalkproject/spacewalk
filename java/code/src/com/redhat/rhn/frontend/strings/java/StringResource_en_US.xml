@@ -7742,10 +7742,13 @@ Follow this url to see the full list of inactive systems:
         <source>Matching Field Value</source>
       </trans-unit>
 
+      <trans-unit id="xid">
+        <source>Xid</source>
+      </trans-unit>
       <trans-unit id="testResult">
         <source>Idref of TestResult</source>
       </trans-unit>
-      <trans-unit id="completionTime">
+      <trans-unit id="completed">
         <source>Completion Time</source>
       </trans-unit>
       <trans-unit id="pass">

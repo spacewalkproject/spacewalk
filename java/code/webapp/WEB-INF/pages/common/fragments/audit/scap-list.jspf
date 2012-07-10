@@ -2,14 +2,15 @@
 	<rhn:csrf />
 
 	<rl:list emptykey="system.audit.listscap.jsp.noscans">
+		<rl:decorator name="ElaborationDecorator"/>
 
 		<rl:column headerkey="system.audit.listscap.jsp.testresult">
-			<a href="/rhn/systems/details/audit/XccdfDetails.do?sid=${param.sid}&xid=${current.id}">
+			<a href="/rhn/systems/details/audit/XccdfDetails.do?sid=${param.sid}&xid=${current.xid}">
 				${current.testResult}
 			</a>
 		</rl:column>
 		<rl:column headerkey="system.audit.listscap.jsp.completed">
-			${current.completionTime}
+			${current.completed}
 		</rl:column>
 		<rl:column headerkey="system.audit.listscap.jsp.percentage">
 			<c:choose>
@@ -24,68 +25,38 @@
 			</c:choose>
 		</rl:column>
 		<rl:column headerkey="system.audit.listscap.jsp.pass.abb">
-			<c:choose>
-				<c:when test="${empty current.pass}">0</c:when>
-				<c:otherwise>${current.pass}</c:otherwise>
-			</c:choose>
+			${current.pass}
 		</rl:column>
 		<rl:column headerkey="system.audit.listscap.jsp.fail.abb">
-			<c:choose>
-				<c:when test="${empty current.fail}">0</c:when>
-				<c:otherwise>${current.fail}</c:otherwise>
-			</c:choose>
+			${current.fail}
 		</rl:column>
 		<rl:column headerkey="system.audit.listscap.jsp.error.abb">
-			<c:choose>
-				<c:when test="${empty current.error}">0</c:when>
-				<c:otherwise>${current.error}</c:otherwise>
-			</c:choose>
+			${current.error}
 		</rl:column>
 		<rl:column headerkey="system.audit.listscap.jsp.unknown.abb">
-			<c:choose>
-				<c:when test="${empty current.unknown}">0</c:when>
-				<c:otherwise>${current.unknown}</c:otherwise>
-			</c:choose>
+			${current.unknown}
 		</rl:column>
 		<rl:column headerkey="system.audit.listscap.jsp.notapplicable.abb">
-			<c:choose>
-				<c:when test="${empty current.notapplicable}">0</c:when>
-				<c:otherwise>${current.notapplicable}</c:otherwise>
-			</c:choose>
+			${current.notapplicable}
 		</rl:column>
 		<rl:column headerkey="system.audit.listscap.jsp.notchecked.abb">
-			<c:choose>
-				<c:when test="${empty current.notchecked}">0</c:when>
-				<c:otherwise>${current.notchecked}</c:otherwise>
-			</c:choose>
+			${current.notchecked}
 		</rl:column>
 		<rl:column headerkey="system.audit.listscap.jsp.notselected.abb">
-			<c:choose>
-				<c:when test="${empty current.notselected}">0</c:when>
-				<c:otherwise>${current.notselected}</c:otherwise>
-			</c:choose>
+			${current.notselected}
 		</rl:column>
 		<rl:column headerkey="system.audit.listscap.jsp.informational.abb">
-			<c:choose>
-				<c:when test="${empty current.informational}">0</c:when>
-				<c:otherwise>${current.informational}</c:otherwise>
-			</c:choose>
+			${current.informational}
 		</rl:column>
 		<rl:column headerkey="system.audit.listscap.jsp.fixed.abb">
-			<c:choose>
-				<c:when test="${empty current.fixed}">0</c:when>
-				<c:otherwise>${current.fixed}</c:otherwise>
-			</c:choose>
+			${current.fixed}
 		</rl:column>
 		<rl:column headerkey="system.audit.listscap.jsp.total">
-			<c:choose>
-				<c:when test="${empty current.sum}">0</c:when>
-				<c:otherwise>${current.sum}</c:otherwise>
-			</c:choose>
+			${current.sum}
 		</rl:column>
 	</rl:list>
 	<rl:csv name="groupSet"
-	exportColumns="id,testResult,completionTime,pass,fail,error,unknown,notapplicable,notchecked,notselected,informational,fixed,sum"/>
+	exportColumns="xid,testResult,completed,pass,fail,error,unknown,notapplicable,notchecked,notselected,informational,fixed,sum"/>
 </rl:listset>
 
 <rhn:tooltip><bean:message key="system.audit.listscap.jsp.tooltip"/></rhn:tooltip>

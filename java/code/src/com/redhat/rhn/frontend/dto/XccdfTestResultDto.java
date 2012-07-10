@@ -24,6 +24,7 @@ public class XccdfTestResultDto extends XccdfTestResultCounts {
 
     private Long xid;
     private Long sid;
+    private String testResult;
     private String serverName;
     private String profile;
     private Date completed;
@@ -67,6 +68,22 @@ public class XccdfTestResultDto extends XccdfTestResultCounts {
      */
     public void setSid(Long sidIn) {
         this.sid = sidIn;
+    }
+
+    /**
+     * Returns xccdf idref of the TestResult
+     * @return the identifier
+     */
+    public String getTestResult() {
+        return testResult;
+    }
+
+    /**
+     * Sets the xccdf idref of the TestResult
+     * @param testResultIn to set
+     */
+    public void setTestResult(String testResultIn) {
+        this.testResult = testResultIn;
     }
 
     /**

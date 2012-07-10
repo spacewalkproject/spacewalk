@@ -23,10 +23,12 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
+import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
+import com.redhat.rhn.frontend.taglibs.list.TagHelper;
 import com.redhat.rhn.frontend.taglibs.list.helper.ListHelper;
 import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
 import com.redhat.rhn.manager.audit.ScapManager;
@@ -62,6 +64,9 @@ public class ListScapAction extends ScapSetupAction implements Listable {
      */
     public List getResult(RequestContext context) {
         Server server = context.lookupAndBindServer();
-        return ScapManager.allScans(server);
+        DataResult results = ScapManager.allScans(server);
+        TagHelper.bindElaboratorTo("groupSet", results.getElaborator(),
+                context.getRequest());
+        return results;
     }
 }

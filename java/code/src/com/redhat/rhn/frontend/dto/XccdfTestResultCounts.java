@@ -169,6 +169,18 @@ public abstract class XccdfTestResultCounts extends BaseDto {
         return getError() + getUnknown() + getNotchecked();
     }
 
+    /**
+     * Get the total number of rule-results within given testResult
+     * @return the count
+     */
+    public Long getSum() {
+        Long sum = new Long(0);
+        for (Long i : (List<Long>) this.count) {
+            sum += i;
+        }
+        return sum;
+    }
+
     private Long getCountOf(String resultLabel) {
         Long result = getCountMap().get(resultLabel);
         return (result != null) ? result : 0;

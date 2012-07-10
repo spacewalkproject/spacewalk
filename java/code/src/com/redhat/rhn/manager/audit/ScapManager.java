@@ -14,7 +14,6 @@
  */
 package com.redhat.rhn.manager.audit;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
@@ -97,13 +96,12 @@ public class ScapManager extends BaseManager {
      * @param server The system for which to search
      * @return The list of scan results in brief
      */
-    public static List allScans(Server server) {
+    public static DataResult allScans(Server server) {
         SelectMode m = ModeFactory.getMode("scap_queries",
                 "show_system_scans");
         HashMap params = new HashMap();
         params.put("sid", server.getId());
-        DataResult dr = m.execute(params);
-        return transposeView(dr);
+        return makeDataResult(params, new HashMap(), null, m);
     }
 
     /**
@@ -250,35 +248,6 @@ public class ScapManager extends BaseManager {
         params.put("user_id", user.getId());
         params.put("xid", testResultId);
         return m.execute(params).size() >= 1;
-    }
-
-    private static List<Map<String, Object>> transposeView(DataResult testResultsRaw) {
-        List<Map<String, Object>> resultView = new ArrayList<Map<String, Object>>();
-        Map<String, Object> currResult = null;
-        for (Map row : (DataResult<Map>) testResultsRaw) {
-            if (currResult != null &&
-                    ((Long) currResult.get("id")).equals(row.get("id"))) {
-                String label = (String) row.get("label");
-                Long figure = (Long) row.get("figure");
-                currResult.put(label, figure);
-                currResult.put("sum", ((Long) currResult.get("sum")) + figure);
-            }
-            else {
-                if (currResult != null) {
-                    resultView.add(currResult);
-                }
-                currResult = new HashMap<String, Object>();
-                currResult.put("id", row.get("id"));
-                currResult.put("testResult", row.get("test_result"));
-                currResult.put((String) row.get("label"), row.get("figure"));
-                currResult.put("sum", row.get("figure"));
-                currResult.put("completionTime", row.get("completion_time"));
-            }
-        }
-        if (currResult != null) {
-            resultView.add(currResult);
-        }
-        return resultView;
     }
 
     private static HashSet<Long> idsInDataResultToSet(DataResult dataIn) {
