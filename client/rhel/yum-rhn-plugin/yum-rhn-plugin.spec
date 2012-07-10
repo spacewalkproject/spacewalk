@@ -1,6 +1,6 @@
 Summary: RHN support for yum
 Name: yum-rhn-plugin
-Version: 1.8.2
+Version: 1.8.3
 Release: 1%{?dist}
 License: GPLv2
 Group: System Environment/Base
@@ -70,6 +70,9 @@ fi
 %doc LICENSE
 
 %changelog
+* Tue Jul 10 2012 Stephen Herr <sherr@redhat.com> 1.8.3-1
+- 839052 - yum-rhn-plugin honors yum timeout value
+
 * Thu Jun 21 2012 Jan Pazdziora 1.8.2-1
 - fix files headers. our code is under gplv2 license
 - %%defattr is not needed since rpm 4.4
