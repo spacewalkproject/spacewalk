@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.25
+Version: 1.8.26
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -253,6 +253,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Tue Jul 10 2012 Michael Mraka <michael.mraka@redhat.com> 1.8.26-1
+- cross-database references are not implemented: pe.evr.as_vre_simple
+
 * Thu Jun 28 2012 Michael Mraka <michael.mraka@redhat.com> 1.8.25-1
 - removed unused query
 
