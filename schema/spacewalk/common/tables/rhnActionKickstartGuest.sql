@@ -37,7 +37,8 @@ CREATE TABLE rhnActionKickstartGuest
     created              DATE
                              DEFAULT (sysdate) NOT NULL,
     modified             DATE
-                             DEFAULT (sysdate) NOT NULL
+                             DEFAULT (sysdate) NOT NULL,
+    mac_address          VARCHAR2(17)
 )
 ENABLE ROW MOVEMENT
 ;
