@@ -23,7 +23,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.105
+Version: 1.8.106
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -616,6 +616,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Jul 10 2012 Michael Mraka <michael.mraka@redhat.com> 1.8.106-1
+- COALESCE instead of NVL keyword for pgsql compatibility
+
 * Thu Jul 05 2012 Stephen Herr <sherr@redhat.com> 1.8.105-1
 - 837913 - work around for if hibernate loads a clonedchannel as its own
   original
