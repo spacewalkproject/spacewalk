@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 1.8.11
+Version: 1.8.12
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -339,6 +339,10 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Tue Jul 10 2012 Michael Mraka <michael.mraka@redhat.com> 1.8.12-1
+- Add missing space to log message
+- Fix missing exception scope
+
 * Mon Jul 09 2012 Michael Mraka <michael.mraka@redhat.com> 1.8.11-1
 - Fix typo in 'Fatal error in Python code occured'
 
