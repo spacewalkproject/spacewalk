@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.8.58
+Version:        1.8.59
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -68,6 +68,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Tue Jul 10 2012 Stephen Herr <sherr@redhat.com> 1.8.59-1
+- 836656 - Also add new column to initial table creation
+
 * Wed Jul 04 2012 Jan Pazdziora 1.8.58-1
 - We mustn't serialize object into string in lookup_evr, we need to only create
   it once within the link.
