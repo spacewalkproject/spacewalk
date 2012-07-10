@@ -1,4 +1,4 @@
-# Makefuile for spacewalk-oscap
+# Makefile for spacewalk-oscap
 #
 
 ACTIONS		= scap

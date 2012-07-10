@@ -16,7 +16,7 @@ Requires:	libxslt
 Requires:       rhnlib
 Requires:       rhn-check
 %description
-spacewalk-oscap is a plug-in fro rhn-check. With this plugin, user is able
+spacewalk-oscap is a plug-in for rhn-check. With this plugin, user is able
 to run OpenSCAP scan from Spacewalk or RHN Satellite server.
 
 %prep
