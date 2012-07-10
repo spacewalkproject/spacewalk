@@ -147,6 +147,7 @@ def init_hook(conduit):
 
     repos = conduit.getRepos()
     conduit_conf = conduit.getConf()
+    timeout = conduit_conf.timeout
     cachedir = conduit_conf.cachedir
     sslcacert = get_ssl_ca_cert(up2date_cfg)
     pluginOptions = getRHNRepoOptions(conduit, 'main')
@@ -163,6 +164,8 @@ def init_hook(conduit):
             repo.metadata_expire = conduit_conf.metadata_expire
             repo.exclude = conduit_conf.exclude
             repo._proxy_dict = proxy_dict
+            if repo.timeout < timeout:
+                repo.timeout = timeout
             if hasattr(conduit_conf, '_repos_persistdir'):
                 repo.base_persistdir = conduit_conf._repos_persistdir
             repoOptions = getRHNRepoOptions(conduit, repo.id)
