@@ -12084,6 +12084,12 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
        <trans-unit id="system.audit.xccdfdetails.jsp.unknown">
          <source>Unknown</source>
        </trans-unit>
+       <trans-unit id="system.audit.xccdfdetails.jsp.diff">
+         <source>diff to previous</source>
+       </trans-unit>
+       <trans-unit id="system.audit.xccdfdetails.jsp.nodiff">
+         <source>No comparable scan was found.</source>
+       </trans-unit>
        <trans-unit id="system.audit.xccdfdetails.jsp.reschedule">
          <source>reschedule</source>
        </trans-unit>

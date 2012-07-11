@@ -19,6 +19,8 @@ import java.util.Date;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.domain.action.scap.ScapActionDetails;
 import com.redhat.rhn.domain.server.Server;
+import com.redhat.rhn.manager.audit.ScapManager;
+import com.redhat.rhn.manager.audit.scap.RuleResultDiffer;
 
 
 /**
@@ -36,6 +38,9 @@ public class XccdfTestResult {
     private Date startTime;
     private Date endTime;
     private byte[] errors;
+
+    private Long comparableId = null;
+    private String diffIcon = null;
 
     /**
      * Getter for id
@@ -187,5 +192,28 @@ public class XccdfTestResult {
      */
     public String getErrrosContents() {
         return HibernateFactory.getByteArrayContents(this.errors);
+    }
+
+    /**
+     * Return the TestResult with metadata similar to the this one
+     * @return id of testresult
+     */
+    public Long getComparableId() {
+        if (comparableId == null) {
+            comparableId = ScapManager.previousComparableTestResult(id);
+        }
+        return comparableId;
+    }
+
+    /**
+     * Return name of the list icon, which best refers to the state of diff.
+     * The diff between current TestResult and previous comparable TestResult.
+     * @return the result
+     */
+    public String getDiffIcon() {
+        if (diffIcon == null) {
+            diffIcon = new RuleResultDiffer(getComparableId(), id).overallComparison();
+        }
+        return diffIcon;
     }
 }

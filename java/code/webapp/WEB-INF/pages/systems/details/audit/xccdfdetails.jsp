@@ -13,6 +13,21 @@
 <%@ include file="/WEB-INF/pages/common/fragments/systems/system-header.jspf" %>
 
 <div class="toolbar">
+  <c:choose>
+    <c:when test="${not empty testResult.comparableId}">
+      <a href="/rhn/audit/scap/DiffSubmit.do?first=${testResult.comparableId}&second=${testResult.id}&view=changed">
+        <img src="/img/rhn-listicon-${testResult.diffIcon}.gif"
+          alt="<bean:message key="scapdiff.jsp.i.${current.diffIcon}"/>"
+          title="<bean:message key="scapdiff.jsp.i.${current.diffIcon}"/>"/>
+        <bean:message key="system.audit.xccdfdetails.jsp.diff"/>
+      </a>
+    </c:when>
+    <c:otherwise>
+      <bean:message key="system.audit.xccdfdetails.jsp.nodiff"/>
+    </c:otherwise>
+  </c:choose>
+  |
+
   <a href="/rhn/systems/details/audit/ScheduleXccdf.do?sid=${param.sid}&path=${testResult.scapActionDetails.path}&params=${testResult.scapActionDetails.parametersContents}">
     <img src="/img/restart.png" alt="<bean:message key="system.audit.xccdfdetails.jsp.reschedule"/>"/>
     <bean:message key="system.audit.xccdfdetails.jsp.reschedule"/>
