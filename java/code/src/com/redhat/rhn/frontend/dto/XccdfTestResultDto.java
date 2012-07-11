@@ -17,6 +17,7 @@ package com.redhat.rhn.frontend.dto;
 import java.util.Date;
 
 import com.redhat.rhn.manager.audit.ScapManager;
+import com.redhat.rhn.manager.audit.scap.RuleResultDiffer;
 
 /**
  * Simple DTO for transfering data from the DB to the UI through datasource.
@@ -31,6 +32,9 @@ public class XccdfTestResultDto extends XccdfTestResultCounts {
     private String profile;
     private Date completed;
     private String path;
+
+    private Long comparableId = null;
+    private String diffIcon = null;
 
     /**
      * Returns id of xccdf:TestResult
@@ -159,6 +163,21 @@ public class XccdfTestResultDto extends XccdfTestResultCounts {
      * @return id of testresult
      */
     public Long getComparableId() {
-        return ScapManager.previousComparableTestResult(xid);
+        if (comparableId == null) {
+            comparableId = ScapManager.previousComparableTestResult(xid);
+        }
+        return comparableId;
+    }
+
+    /**
+     * Return name of the list icon, which best refers to the state of diff.
+     * The diff between current TestResult and previous comparable TestResult.
+     * @return the result
+     */
+    public String getDiffIcon() {
+        if (diffIcon == null) {
+            diffIcon = new RuleResultDiffer(getComparableId(), xid).overallComparison();
+        }
+        return diffIcon;
     }
 }

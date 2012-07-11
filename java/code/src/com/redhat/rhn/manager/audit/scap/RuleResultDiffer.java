@@ -87,4 +87,24 @@ public class RuleResultDiffer {
         }
         return result;
     }
+
+    /**
+     * Returns the top-level state of rule-result's comparison.
+     * @return the state
+     * "checked" = no difference
+     * "alert" = differences
+     * "error" = notable differences (may imply that the second scan is worse)
+     */
+    public String overallComparison() {
+        List<RuleResultComparator> difference = getData(true);
+        if (difference.isEmpty()) {
+            return "checked";
+        }
+        for (RuleResultComparator c : difference) {
+            if (c.isTheSecondWorse()) {
+                return "error";
+            }
+        }
+        return "alert";
+    }
 }

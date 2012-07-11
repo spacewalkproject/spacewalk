@@ -21,6 +21,11 @@ import com.redhat.rhn.frontend.dto.XccdfRuleResultDto;
  * @version $Rev$
  */
 public class RuleResultComparator {
+    private static final String PASS = "pass";
+    private static final String FAIL = "fail";
+    private static final String ERROR = "error";
+    private static final String INFORMATIONAL = "informational";
+    private static final String FIXED = "fixed";
 
     /* The constructors ensure that at least one of the following items is not null. */
     private XccdfRuleResultDto first;
@@ -108,5 +113,31 @@ public class RuleResultComparator {
      */
     public XccdfRuleResultDto getSecond() {
         return second;
+    }
+
+    /**
+     * Returns true if the second rule-result evaluation was notably worse than the first.
+     * The result represents the top-level view of the comparison. The objective is
+     * to detect possible deterioration of the machine state or the suspicion of such.
+     * @return true - if the second evaluation is considered 'worse'
+     */
+    public boolean isTheSecondWorse() {
+        if (second == null) {
+            return false;
+        }
+        String sLabel = second.getLabel();
+        if (first == null) {
+            return FAIL.equals(sLabel) || ERROR.equals(sLabel);
+        }
+        String fLabel = first.getLabel();
+        if (fLabel.equals(sLabel)) {
+            return false;
+        }
+        if (FAIL.equals(sLabel) || ERROR.equals(sLabel)) {
+            return true;
+        }
+        return (PASS.equals(fLabel) || INFORMATIONAL.equals(fLabel) ||
+            FIXED.equals(fLabel)) && !(PASS.equals(sLabel) ||
+            INFORMATIONAL.equals(sLabel) || FIXED.equals(sLabel));
     }
 }

@@ -11969,9 +11969,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
        <trans-unit id="system.audit.listscap.jsp.total">
            <source>Total</source>
        </trans-unit>
-       <trans-unit id="system.audit.listscap.jsp.diff">
-           <source>Diff</source>
-       </trans-unit>
        <trans-unit id="system.audit.listscap.jsp.legend">
            <source>Xccdf Legend</source>
        </trans-unit>
@@ -12224,6 +12221,15 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
        </trans-unit>
        <trans-unit id="scapdiff.jsp.instructions">
          <source>Specify Id of scans (the xid).</source>
+       </trans-unit>
+       <trans-unit id="scapdiff.jsp.i.checked">
+         <source>No difference compared to the previous.</source>
+       </trans-unit>
+       <trans-unit id="scapdiff.jsp.i.alert">
+         <source>There are differences to the previous.</source>
+       </trans-unit>
+       <trans-unit id="scapdiff.jsp.i.error">
+         <source>This scan found more failures than the previous.</source>
        </trans-unit>
      </group>
 
