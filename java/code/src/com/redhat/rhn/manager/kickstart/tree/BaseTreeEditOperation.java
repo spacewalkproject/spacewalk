@@ -95,11 +95,18 @@ public abstract class BaseTreeEditOperation extends BasePersistOperation {
 
             Distro distro = Distro.lookupById(CobblerXMLRPCHelper.getConnection(
                     this.getUser()), tree.getCobblerId());
+            Distro xen_distro = Distro.lookupById(CobblerXMLRPCHelper.getConnection(
+                    this.getUser()), tree.getCobblerXenId());
 
             Map kOpts = distro.getKernelOptions();
             distro.setKernelOptions(getKernelOptions());
             distro.setKernelPostOptions(getPostKernelOptions());
             distro.save();
+            if (xen_distro != null) {
+                xen_distro.setKernelOptions(getKernelOptions());
+                xen_distro.setKernelPostOptions(getPostKernelOptions());
+                xen_distro.save();
+            }
         }
         catch (XmlRpcException xe) {
             HibernateFactory.rollbackTransaction();
