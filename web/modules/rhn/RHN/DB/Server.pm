@@ -848,7 +848,7 @@ sub server_event_delta_action {
 
   my $dbh = RHN::DB->connect;
   my $sth = $dbh->prepare(<<EOS);
-SELECT rTO.label AS OPERATION, PN.name NAME, PN.name || '-' || PE.evr.as_vre_simple() AS NVRE
+SELECT rTO.label AS OPERATION, PN.name AS NAME, PN.name || '-' || evr_t_as_vre_simple(PE.evr) AS NVRE
   FROM rhnPackageName PN,
        rhnPackageEVR PE,
        rhnTransactionOperation rTO,
