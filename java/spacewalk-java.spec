@@ -23,7 +23,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.106
+Version: 1.8.107
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -616,6 +616,13 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Jul 12 2012 Tomas Lestach <tlestach@redhat.com> 1.8.107-1
+- 829790 - fix PxtSessionDelegateImplTest test
+- 829790 - fix PxtCookieManagerTest test
+- 748331 - fix appropriate tests
+- removing @Override annotations for methods that aren't overriden
+- Copying kopts to the xen distro.
+
 * Tue Jul 10 2012 Michael Mraka <michael.mraka@redhat.com> 1.8.106-1
 - COALESCE instead of NVL keyword for pgsql compatibility
 
