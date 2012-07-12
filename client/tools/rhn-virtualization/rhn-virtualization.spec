@@ -10,7 +10,7 @@ License:        GPLv2
 URL:            https://fedorahosted.org/spacewalk
 Source0:        https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 
-Version:        5.4.36
+Version:        5.4.37
 Release:        1%{?dist}
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:      noarch
@@ -147,6 +147,9 @@ fi
 %doc LICENSE
 
 %changelog
+* Thu Jul 12 2012 Stephen Herr <sherr@redhat.com> 5.4.37-1
+- 839776 - rhn-profile-sync exits with status 1 if libvirtd is not running
+
 * Mon Jun 04 2012 Miroslav Suchý <msuchy@redhat.com> 5.4.36-1
 - Add support for studio image deployments (client) (jrenner@suse.de)
 - %%defattr is not needed since rpm 4.4 (msuchy@redhat.com)
