@@ -61,7 +61,6 @@ public class NewCloneErrataEvent implements EventDatabaseMessage {
     /**
      * {@inheritDoc}
      */
-    @Override
     public String toText() {
         // really a noop
         return "";
@@ -71,7 +70,6 @@ public class NewCloneErrataEvent implements EventDatabaseMessage {
      *
      * {@inheritDoc}
      */
-    @Override
     public Transaction getTransaction() {
         return txn;
     }
