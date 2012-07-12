@@ -54,12 +54,12 @@ vdsm_enabled = _check_status("vdsmd")
 # Public Interface
 ###############################################################################
 
-def refresh():
+def refresh(fail_on_error=False):
     """
     Refreshes the virtualization info for this host and any subdomains on the
     server.
     """
-    if _is_host_domain():
+    if _is_host_domain(fail_on_error):
         domain_identity = IdentityType.HOST
         my_uuid = _fetch_host_uuid()
     else:
@@ -170,7 +170,7 @@ def schedulePoller(minute, hour, dom, month, dow):
 # Helper Routines
 ###############################################################################
 
-def _is_host_domain():
+def _is_host_domain(fail_on_error=False):
     """
     This function returns true if this system is currently a host domain.  
     Simply having virtualization enabled is sufficient.
@@ -188,6 +188,8 @@ def _is_host_domain():
         conn = libvirt.openReadOnly(None)
     except libvirt.libvirtError: # libvirtd is not running
         sys.stderr.write(rhncli.utf8_encode(_("Warning: Could not retrieve virtualization information!\n\tlibvirtd service needs to be running.\n")))
+        if fail_on_error:
+            exit(1)
         return False
     if conn and conn.getType() in ['Xen', 'QEMU']:
         return True
