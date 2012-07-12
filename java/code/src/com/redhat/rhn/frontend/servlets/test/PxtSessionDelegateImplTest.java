@@ -151,6 +151,7 @@ public class PxtSessionDelegateImplTest extends MockObjectTestCase {
 
         mockRequest.stubs().method("getServerName").will(
                 returnValue("somehost.redhat.com"));
+        mockRequest.stubs().method("getHeader").withAnyArguments().will(returnValue(null));
     }
 
     private void setUpLoadPxtSession() {
