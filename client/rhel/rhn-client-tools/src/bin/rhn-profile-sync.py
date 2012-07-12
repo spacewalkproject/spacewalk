@@ -48,7 +48,7 @@ class ProfileCli(rhncli.RhnCli):
        
         if support is not None:
             print _("Updating virtualization profile...")
-            support.refresh()
+            support.refresh(True)
 
 
 if __name__ == "__main__":
