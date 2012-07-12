@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 1.8.12
+Version: 1.8.13
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -339,6 +339,9 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Thu Jul 12 2012 Stephen Herr <sherr@redhat.com> 1.8.13-1
+- 839776 - rhn-profile-sync exits with status 1 if libvirtd is not running
+
 * Tue Jul 10 2012 Michael Mraka <michael.mraka@redhat.com> 1.8.12-1
 - Add missing space to log message
 - Fix missing exception scope
