@@ -69,8 +69,6 @@ public class KickstartHelperTest extends BaseTestCaseWithUser {
         assertNotNull(options.get("label"));
         assertNotNull(options.get("ksdata"));
         assertNotNull(options.get("host"));
-        assertNotNull(options.get("session"));
-
     }
 
     public void testKsViewLabel() {
@@ -104,10 +102,6 @@ public class KickstartHelperTest extends BaseTestCaseWithUser {
         Map options = helper.parseKickstartUrl(url);
 
         assertEquals(ksdata, options.get("ksdata"));
-        //  This is the key test
-
-
-        assertNotNull(options.get("session"));
     }
 
     public void testValidateKickstartChannel() throws Exception {
