@@ -75,6 +75,7 @@ public class PxtCookieManagerTest extends MockObjectTestCase {
         domain = "redhat.com";
 
         mockRequest.stubs().method("getServerName").will(returnValue(host + "." + domain));
+        mockRequest.stubs().method("getHeader").withAnyArguments().will(returnValue(null));
     }
 
     protected void tearDown() throws Exception {
