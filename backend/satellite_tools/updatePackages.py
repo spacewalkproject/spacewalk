@@ -114,7 +114,7 @@ _get_path_query = """
 			and rhnPackage.evr_id = rhnPackageEvr.id
 			and rhnPackage.package_arch_id = rhnPackageArch.id
                         and rhnPackage.checksum_id = rhnChecksumView.id
-		)
+		) X
 	where '/' || new_path <> nvl(substr(path, -length(new_path) - 1), 'x')
 """
 
