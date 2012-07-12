@@ -101,10 +101,13 @@ _get_path_query = """
                        rhnChecksumView.checksum,
                        rhnPackage.path,
                        rhnPackageEvr.epoch,
-			decode(rhnPackage.org_id, null, 'NULL', rhnPackage.org_id) || '/' || substr(rhnChecksumView.checksum, 1, 3)
+                        case when rhnPackage.org_id is null then 'NULL'
+                             else rhnPackage.org_id || '' end
+                        || '/' || substr(rhnChecksumView.checksum, 1, 3)
 			|| '/' || rhnPackageName.name
-			|| '/' || decode(rhnPackageEvr.epoch, null, '', rhnPackageEvr.epoch || ':')
-				|| rhnPackageEvr.version || '-' || rhnPackageEvr.release
+			|| '/' || case when rhnPackageEvr.epoch is null then ''
+                                       else rhnPackageEvr.epoch || ':' end
+                        || rhnPackageEvr.version || '-' || rhnPackageEvr.release
 			|| '/' || rhnPackageArch.label
 			|| '/' || rhnChecksumView.checksum
 			|| substr(rhnPackage.path, instr(rhnPackage.path, '/', -1))
