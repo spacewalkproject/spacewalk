@@ -240,7 +240,8 @@ class ZipParser(ArchiveParser):
 
     def _explode(self, archive):
         """Explode zip archive"""
-        self._archive_dir = os.path.join(self._temp_dir, self._get_archive_dir())
+        self._archive_dir = os.path.join(self._temp_dir,
+                                         self._get_archive_dir()).rstrip('/')
 
         try:
             self.zip_file.extractall(self._temp_dir)
