@@ -12,7 +12,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.47
+Version: 1.8.48
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -646,6 +646,10 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Thu Jul 12 2012 Michael Mraka <michael.mraka@redhat.com> 1.8.48-1
+- prostgresql don't know about decode
+- fixed ERROR: subquery in FROM must have an alias
+
 * Tue Jul 10 2012 Michael Mraka <michael.mraka@redhat.com> 1.8.47-1
 - Fix indentation error
 
