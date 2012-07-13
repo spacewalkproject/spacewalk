@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        1.8.13
+Version:        1.8.14
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -110,6 +110,9 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Fri Jul 13 2012 Tomas Lestach <tlestach@redhat.com> 1.8.14-1
+- increase allowed parameter count
+
 * Wed Jun 27 2012 Jan Pazdziora 1.8.13-1
 - Exit if starting tomcat did not pass.
 
