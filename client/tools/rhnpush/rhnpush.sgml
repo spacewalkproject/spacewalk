@@ -90,9 +90,6 @@ Utility to push binary and source RPMs into an RHN channel.
         <arg>-N</arg> <arg>--new-cache</arg>
     </cmdsynopsis>
     <cmdsynopsis>
-        <arg>--no-cache</arg>
-    </cmdsynopsis>
-    <cmdsynopsis>
         <arg>--no-session-caching</arg>
     </cmdsynopsis>
   <cmdsynopsis>
@@ -281,12 +278,6 @@ Utility to push binary and source RPMs into an RHN channel.
         <term>-N --new-cache</term>
         <listitem>
             <para>create a new username/password cache</para>
-        </listitem>
-    </varlistentry>
-    <varlistentry>
-        <term>--no-cache</term>
-        <listitem>
-            <para>Do not create username/password cache</para>
         </listitem>
     </varlistentry>
    <varlistentry>
