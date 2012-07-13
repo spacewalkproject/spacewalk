@@ -39,6 +39,11 @@ rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT/%{rhnroot}
 make -f Makefile.rhnpush install PREFIX=$RPM_BUILD_ROOT ROOT=%{rhnroot} \
     MANDIR=%{_mandir}
+%if  0%{?rhel} && 0%{?rhel} < 6
+rm -fv $RPM_BUILD_ROOT%{_bindir}/solaris2mpm
+rm -fv $RPM_BUILD_ROOT%{rhnroot}/rhnpush/solaris2mpm.py*
+rm -fv $RPM_BUILD_ROOT%{_mandir}/man8/solaris2mpm.8*
+%endif
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -49,10 +54,12 @@ rm -rf $RPM_BUILD_ROOT
 %{rhnroot}/rhnpush/*
 %attr(755,root,root) %{_bindir}/rhnpush
 %attr(755,root,root) %{_bindir}/rpm2mpm
-%attr(755,root,root) %{_bindir}/solaris2mpm
 %config(noreplace) %attr(644,root,root) %{_sysconfdir}/sysconfig/rhn/rhnpushrc
 %{_mandir}/man8/rhnpush.8*
+%if 0%{?fedora} || 0%{?rhel} > 5
+%attr(755,root,root) %{_bindir}/solaris2mpm
 %{_mandir}/man8/solaris2mpm.8*
+%endif
 %doc COPYING
 
 %changelog
