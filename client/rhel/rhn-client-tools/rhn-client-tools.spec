@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 1.8.13
+Version: 1.8.14
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -339,6 +339,9 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Fri Jul 13 2012 Jan Pazdziora 1.8.14-1
+- 771749 - if the exception is <type 'instance'>, just plain if will fail.
+
 * Thu Jul 12 2012 Stephen Herr <sherr@redhat.com> 1.8.13-1
 - 839776 - rhn-profile-sync exits with status 1 if libvirtd is not running
 
