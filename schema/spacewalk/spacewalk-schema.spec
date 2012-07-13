@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.8.59
+Version:        1.8.60
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -68,6 +68,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Fri Jul 13 2012 Jan Pazdziora 1.8.60-1
+- Add the PostgreSQL specific mad_address upgrade script.
+
 * Tue Jul 10 2012 Stephen Herr <sherr@redhat.com> 1.8.59-1
 - 836656 - Also add new column to initial table creation
 
