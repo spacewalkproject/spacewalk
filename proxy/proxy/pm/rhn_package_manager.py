@@ -71,7 +71,6 @@ def main():
         Option(     '--copyonly',  action='store_true', help="Only copy packages; don't reimport"),
         Option(     '--test',      action='store_true', help='Only print the packages to be pushed'),
         Option('-N','--new-cache',  action='store_true', help='Create a new username/password cache'),
-        Option(     '--no-cache',   action='store_true', help='Do not create a username/password cache'),
         Option(     '--no-ssl',    action='store_true', help='Turn off SSL (not recommended).'),
         Option(     '--no-session-caching',  action='store_true',
             help='Disables session-token authentication.'),
