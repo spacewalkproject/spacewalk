@@ -22,6 +22,11 @@ import tempfile
 import select
 import zipfile
 import tarfile
+import sys
+
+if not hasattr(zipfile, 'ZIP64_LIMIT'):
+    sys.stderr.write("%s requires zipfile with ZIP64 support.\n" % sys.argv[0])
+    sys.exit(3)
 
 # exceptions -------------------------------------------------------------
 
