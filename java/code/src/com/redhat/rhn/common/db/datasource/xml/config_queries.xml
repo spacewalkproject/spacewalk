@@ -1312,7 +1312,8 @@ select cc.label as config_channel_label,
            AND  CCT.label != 'server_import'
            group by cf.config_file_name_id) tmp
  where tmp.id = cfn.id
-   and scc.position = tmp.position
+   and (scc.position = tmp.position
+        or (scc.position is null and tmp.position is null))
    and scc.config_channel_id = cc.id
    and scc.server_id = :sid
    and cc.confchan_type_id = cct.id
