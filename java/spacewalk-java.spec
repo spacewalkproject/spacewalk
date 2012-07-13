@@ -23,7 +23,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.107
+Version: 1.8.108
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -614,6 +614,18 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Jul 13 2012 Tomas Lestach <tlestach@redhat.com> 1.8.108-1
+- struts jars may be available in different directories
+- Show XCCDF-diff icon on the XCCDF-Details page.
+- Show icon when referencing to XCCDF-diff
+- Show XCCDF-diff results on List-Scans page.
+- Rewrite ListScap page query with Dto & elaborator.
+- XCCDF Diff shall compare also scan's metadata.
+- Make sure that the user has permission to see the scan (when diffing).
+- Diff should show: either all, changed, or invariant items
+- OpenSCAP Integration -- XCCDF Scan Diff
+- checkstyle fix
+
 * Thu Jul 12 2012 Tomas Lestach <tlestach@redhat.com> 1.8.107-1
 - 829790 - fix PxtSessionDelegateImplTest test
 - 829790 - fix PxtCookieManagerTest test
