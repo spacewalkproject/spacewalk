@@ -63,14 +63,14 @@ select sysdate, 'Creating tablespace data_tbs' message from dual;
 
 create smallfile tablespace data_tbs
 datafile
-    'RHNORA_DATA_PATH()/data_01.dbf' size RHNORA_SPACE(500)M,
-    'RHNORA_DATA_PATH()/data_02.dbf' size RHNORA_SPACE(500)M,
-    'RHNORA_DATA_PATH()/data_03.dbf' size RHNORA_SPACE(500)M,
-    'RHNORA_DATA_PATH()/data_04.dbf' size RHNORA_SPACE(500)M,
-    'RHNORA_DATA_PATH()/data_05.dbf' size RHNORA_SPACE(500)M,
-    'RHNORA_DATA_PATH()/data_06.dbf' size RHNORA_SPACE(500)M,
-    'RHNORA_DATA_PATH()/data_07.dbf' size RHNORA_SPACE(500)M,
-    'RHNORA_DATA_PATH()/data_08.dbf' size RHNORA_SPACE(500)M
+    'RHNORA_DATA_PATH()/data_01.dbf' size RHNORA_SPACE(1000)M,
+    'RHNORA_DATA_PATH()/data_02.dbf' size RHNORA_SPACE(1000)M,
+    'RHNORA_DATA_PATH()/data_03.dbf' size RHNORA_SPACE(1000)M,
+    'RHNORA_DATA_PATH()/data_04.dbf' size RHNORA_SPACE(1000)M,
+    'RHNORA_DATA_PATH()/data_05.dbf' size RHNORA_SPACE(1000)M,
+    'RHNORA_DATA_PATH()/data_06.dbf' size RHNORA_SPACE(1000)M,
+    'RHNORA_DATA_PATH()/data_07.dbf' size RHNORA_SPACE(1000)M,
+    'RHNORA_DATA_PATH()/data_08.dbf' size RHNORA_SPACE(1000)M
     extent management local segment space management auto;
 
 alter database default tablespace data_tbs;
