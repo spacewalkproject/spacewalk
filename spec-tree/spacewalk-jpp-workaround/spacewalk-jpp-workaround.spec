@@ -1,5 +1,5 @@
 Name:		spacewalk-jpp-workaround
-Version:	1.0.1
+Version:	1.0.2
 Release:	1%{?dist}
 Summary:	Workaround package to fulfill jpackage broken dependencies
 
@@ -56,6 +56,10 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Fri Jul 13 2012 Tomas Lestach <tlestach@redhat.com> 1.0.2-1
+- let our workaround package provide struts-taglib and struts-tiles for fc17
+- %%defattr is not needed since rpm 4.4
+
 * Thu Dec 15 2011 Michael Mraka <michael.mraka@redhat.com> 1.0.1-1
 - take msv out of yum transaction
 
