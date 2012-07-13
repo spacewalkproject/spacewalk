@@ -29,6 +29,11 @@ Provides:   spring = 1:1.2.9.0
 Obsoletes:  spring < 1:1.2.9.0
 %endif
 
+%if 0%{?fedora} && 0%{fedora} >= 17
+Provides:   struts-taglib = 1.3.8
+Provides:   struts-tiles = 1.3.8
+%endif
+
 %description
 This package fulfills jpackage missing msv-msv dependency.
 
