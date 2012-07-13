@@ -39,7 +39,7 @@ from up2date_client import up2dateAuth, config, up2dateErrors, rhncli
 
 def systemExit(code, msgs=None):
      "Exit with a code and optional message(s). Saved a few lines of code."
-     if msgs:
+     if msgs is not None:
          if type(msgs) not in [type([]), type(())]:
              msgs = (msgs, )
          for msg in msgs:
