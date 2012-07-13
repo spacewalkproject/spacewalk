@@ -54,7 +54,6 @@ class rhnpushConfigParser:
                                 'channel'           :   '',
                                 'cache_lifetime'    :   '600',
                                 'new_cache'         :   '0',
-                                'no_cache'          :   '0',
                                 'extended_test'     :   '0',
                                 'no_session_caching'     :   '0', 
                                 'proxy'             :   '',

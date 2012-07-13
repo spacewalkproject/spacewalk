@@ -64,9 +64,6 @@ cache_lifetime 	=	600
 #Reset the cache
 new_cache		=	0	
 
-#Disable user/pass caching.
-no_cache        =   0
-
 #Run the extended version of the test
 extended_test   =   0
 

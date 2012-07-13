@@ -76,7 +76,6 @@ def main():
         Option(     '--test',       action='store_true', help='Only print the packages to be pushed'),
         Option('-?','--usage',      action='store_true', help='Briefly describe the options'),
         Option('-N','--new-cache',  action='store_true', help='Create a new username/password cache'),
-        Option(     '--no-cache',   action='store_true', help='Do not create a username/password cache'),
         Option(     '--extended-test',  action='store_true', help='Perform a more verbose test'),
         Option(     '--no-session-caching',  action='store_true', 
             help='Disables session-token authentication.'),
@@ -85,9 +84,8 @@ def main():
     ]
 
     #Having to maintain a store_true list is ugly. I'm trying to get rid of this.
-    #12/22/05 wregglej 173287   Added no_cache to true_list so it's value gets changed from a string to an int.
     true_list = ['usage', 'test', 'source', 'header', 'nullorg', 'newest',\
-                 'nosig', 'force', 'list', 'stdin', 'new_cache','extended_test', 'no_cache',\
+                 'nosig', 'force', 'list', 'stdin', 'new_cache','extended_test', \
                  'no_session_caching', 'tolerant']
     optionParser = OptionParser(option_list=optionsTable, usage="%prog [OPTION] [<package>]")
     manager = rhnpush_confmanager.ConfManager(optionParser, true_list)
