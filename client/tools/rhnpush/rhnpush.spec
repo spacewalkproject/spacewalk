@@ -4,7 +4,7 @@ Name:          rhnpush
 Group:         Applications/System
 License:       GPLv2
 URL:           http://fedorahosted.org/spacewalk
-Version:       5.5.47
+Version:       5.5.48
 Release:       1%{?dist}
 Source0:       https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 BuildRoot:     %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -63,6 +63,10 @@ rm -rf $RPM_BUILD_ROOT
 %doc COPYING
 
 %changelog
+* Fri Jul 13 2012 Michael Mraka <michael.mraka@redhat.com> 5.5.48-1
+- 838044 - solaris2mpm on RHEL5 is not supported
+- remove trailing '/' from from archive dir
+
 * Tue Jun 26 2012 Michael Mraka <michael.mraka@redhat.com> 5.5.47-1
 - reuse UploadError from uploadLib
 - removed functions not used in rhnpush/rhn-package-manager
