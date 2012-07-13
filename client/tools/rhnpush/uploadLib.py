@@ -424,7 +424,7 @@ class UploadClass:
             self.session = rhnpush_cache.RHNPushSession()
             self.session.setSessionString(session)
       
-        if not self.options.no_cache:
+        if not self.options.no_session_caching:
             self.session.writeSession()
 
     def authenticate(self):
