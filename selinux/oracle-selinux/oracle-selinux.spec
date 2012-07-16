@@ -19,7 +19,7 @@
 %endif
 
 Name:            oracle-selinux
-Version:         0.1.23.32
+Version:         0.1.23.33
 Release:         1%{?obtag}%{?dist}%{?repo}
 Summary:         SELinux policy module supporting Oracle
 Group:           System Environment/Base
@@ -209,6 +209,10 @@ fi
 %attr(0755,root,root) %{_sbindir}/oracle-nofcontext-selinux-enable
 
 %changelog
+* Mon Jul 16 2012 Jan Pazdziora 0.1.23.33-1
+- Start using the .tar.gz in the .src.rpm for oracle-selinux.
+- %%defattr is not needed since rpm 4.4
+
 * Wed Nov 23 2011 Jan Pazdziora 0.1.23.32-1
 - Require the roles.
 
