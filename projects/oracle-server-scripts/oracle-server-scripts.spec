@@ -10,21 +10,7 @@ Summary: Oracle 10g Database Server Enterprise Edition scripts
 Name: oracle-server-scripts
 Version: 10.2.0.56
 Release: 1%{?dist}
-Source0: oracle-home.sh
-Source1: init-params.ora
-Source2: create-db.sh
-Source3: start-db.sh
-Source4: stop-db.sh
-Source5: create-user.sh
-Source6: explain.sql
-Source7: users.sql
-Source8: sessions.sql
-Source9: default-createdb.tmpl
-Source10: embedded-createdb.tmpl
-Source11: rhnora.m4
-Source12: embedded-upgradedb.tmpl
-Source13: embedded-upgradedb-10g.tmpl
-Source14: oracle-compute-sga.sh
+Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 License: Proprietary
 Group:   Oracle Server
 BuildArch: noarch
@@ -39,21 +25,22 @@ Requires: /sbin/restorecon
 Management scripts for Oracle
 
 %prep
-%setup -c -T
+%setup -q
 
 %install
 rm -rf $RPM_BUILD_ROOT
 mkdir -p $RPM_BUILD_ROOT
 
 install -m755 -d $RPM_BUILD_ROOT%{oracle_admin}
-for f in %{SOURCE0} %{SOURCE1} %{SOURCE2} %{SOURCE3} \
-	 %{SOURCE4} %{SOURCE5} %{SOURCE9} %{SOURCE10} %{SOURCE11} \
-	 %{SOURCE12} %{SOURCE13} %{SOURCE14}; do
+for f in oracle-home.sh init-params.ora create-db.sh start-db.sh \
+	stop-db.sh create-user.sh \
+	default-createdb.tmpl embedded-createdb.tmpl rhnora.m4 \
+	embedded-upgradedb.tmpl embedded-upgradedb-10g.tmpl oracle-compute-sga.sh ; do
     install -m 755 $f $RPM_BUILD_ROOT%{oracle_admin}
 done
 
 install -m755 -d $RPM_BUILD_ROOT%{oracle_scripts}
-for f in %{SOURCE6} %{SOURCE7} %{SOURCE8} ; do
+for f in explain.sql users.sql sessions.sql ; do
     install -m 644 $f $RPM_BUILD_ROOT%{oracle_scripts}
 done
 
