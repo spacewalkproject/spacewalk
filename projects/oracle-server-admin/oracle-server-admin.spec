@@ -41,6 +41,10 @@ rm -rf $RPM_BUILD_ROOT
 %{oracle_admin}
 
 %changelog
+* Mon Jul 16 2012 Jan Pazdziora 0.2.1-1
+- Start using the .tar.gz in the .src.rpm for oracle-server-admin.
+- All the NoTgzBuilders are now spacewalkx.builderx.NoTgzBuilder.
+
 * Thu Sep 23 2010 Michael Mraka <michael.mraka@redhat.com> 0.1.13-1
 - switched to default VersionTagger
 
