@@ -8,7 +8,7 @@
 
 Summary: Oracle 10g Database Server Enterprise Edition scripts
 Name: oracle-server-scripts
-Version: 10.2.0.56
+Version: 10.2.0.57
 Release: 1%{?dist}
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 License: Proprietary
@@ -88,6 +88,9 @@ exit 0
 %{oracle_scripts}
 
 %changelog
+* Mon Jul 16 2012 Jan Pazdziora 10.2.0.57-1
+- Start using the .tar.gz in the .src.rpm for oracle-server-scripts.
+
 * Mon Mar 26 2012 Miroslav Suchý 10.2.0.56-1
 - add requires /sbin/restorecon (msuchy@redhat.com)
 - All the NoTgzBuilders are now spacewalkx.builderx.NoTgzBuilder.
