@@ -5,7 +5,7 @@
 %define modulename oracle-rhnsat
 
 Name:            oracle-rhnsat-selinux
-Version:         10.2.0.20
+Version:         10.2.0.21
 Release:         1%{?dist}
 Summary:         SELinux policy module supporting Oracle
 Group:           System Environment/Base
@@ -106,6 +106,11 @@ fi
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
+* Mon Jul 16 2012 Jan Pazdziora 10.2.0.21-1
+- Start using the .tar.gz in the .src.rpm for oracle-rhnsat-selinux.
+- %%defattr is not needed since rpm 4.4
+- All the NoTgzBuilders are now spacewalkx.builderx.NoTgzBuilder.
+
 * Wed May 04 2011 Michael Mraka <michael.mraka@redhat.com> 10.2.0.20-1
 - fixed typo
 
