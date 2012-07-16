@@ -1,8 +1,8 @@
 Summary: Oracle Database Server command-line admin scripts
 Name: oracle-server-admin
-Version: 0.1.13
+Version: 0.2.1
 Release: 1%{?dist}
-Source0: admin-wrapper.sh
+Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 License: Oracle License
 Group: Oracle Server
 BuildArch: noarch
@@ -17,14 +17,14 @@ Requires: oracle-config
 Command-line admin scripts for Oracle Server
 
 %prep
-%setup -c -T
+%setup -q
 
 %install
 rm -rf $RPM_BUILD_ROOT
 mkdir -p $RPM_BUILD_ROOT
 
 install -m755 -d $RPM_BUILD_ROOT%{oracle_admin}
-install -m755 %{SOURCE0} $RPM_BUILD_ROOT%{oracle_admin}/
+install -m755 admin-wrapper.sh $RPM_BUILD_ROOT%{oracle_admin}/
 (cd $RPM_BUILD_ROOT%{oracle_admin};
     wrapper=$(basename %{SOURCE0})
     for s in create-db.sh start-db.sh stop-db.sh create-user.sh; do
