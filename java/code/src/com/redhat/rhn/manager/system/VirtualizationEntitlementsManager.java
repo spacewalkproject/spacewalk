@@ -17,6 +17,7 @@ package com.redhat.rhn.manager.system;
 import com.redhat.rhn.common.db.WrappedSQLException;
 import com.redhat.rhn.common.db.datasource.CallableMode;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
+import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.server.ServerFactory;
 import com.redhat.rhn.domain.server.VirtualInstanceFactory;
@@ -160,10 +161,11 @@ public class VirtualizationEntitlementsManager {
             catch (WrappedSQLException sq) {
                 String msg = sq.getMessage();
                 if (msg != null) {
-                    if (msg.contains("not_enough_flex_entitlements")) {
-                        continue;
-                    }
-                    if (msg.contains("server_cannot_convert_to_flex")) {
+                    if (msg.contains("not_enough_flex_entitlements") ||
+                    msg.contains("server_cannot_convert_to_flex")) {
+                        // PG does not like reusing connections that
+                        // already signalled a Connection error
+                        HibernateFactory.closeSession();
                         continue;
                     }
                 }
