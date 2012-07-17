@@ -138,6 +138,10 @@ satellite-cert-file =
 #
 # run-updater =
 
+# Set to 'Y' to automatically enable tftp and xinetd services during installation.
+#
+# enable-tftp =
+
 # *** For troubleshooting/testing only. ***
 #
 # rhn-parent =
