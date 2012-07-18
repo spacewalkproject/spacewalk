@@ -128,23 +128,26 @@ public class AddRedHatErrataAction extends RhnListAction {
             selectedChannelStr = null;
         }
 
+        if (!requestContext.isSubmitted()) {
+            //If this is a clone, go ahead and pre-select the original Channel
+            Channel original = ChannelFactory.lookupOriginalChannel(currentChan);
 
+            while (original != null) {
 
-
-        //If this is a clone, go ahead and pre-select the original Channel
-        Channel original = ChannelFactory.lookupOriginalChannel(currentChan);
-        if (!requestContext.isSubmitted() && original != null) {
-            selectedChannel = original;
-            selectedChannelStr = selectedChannel.getId().toString();
-            String tmp = findVersionFromChannel(selectedChannel);
-            if (tmp == null) {
-                // if we haven't found channel version, let's try to check its parent
-                if (!selectedChannel.isBaseChannel()) {
-                    tmp = findVersionFromChannel(selectedChannel.getParentChannel());
+                selectedChannel = original;
+                selectedChannelStr = selectedChannel.getId().toString();
+                String tmp = findVersionFromChannel(selectedChannel);
+                if (tmp == null) {
+                    // if we haven't found channel version, let's try to check its parent
+	                if (!selectedChannel.isBaseChannel()) {
+                        tmp = findVersionFromChannel(selectedChannel.getParentChannel());
+                    }
                 }
-            }
-            if (tmp != null) {
-                selectedVersionStr = tmp;
+                if (tmp != null) {
+                    selectedVersionStr = tmp;
+                    break;
+                }
+                original = ChannelFactory.lookupOriginalChannel(original);
             }
         }
 
