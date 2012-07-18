@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 1.8.14
+Version: 1.8.15
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -339,6 +339,9 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Wed Jul 18 2012 Jan Pazdziora 1.8.15-1
+- Update rhn_check to send abrt data to the server
+
 * Fri Jul 13 2012 Jan Pazdziora 1.8.14-1
 - 771749 - if the exception is <type 'instance'>, just plain if will fail.
 
