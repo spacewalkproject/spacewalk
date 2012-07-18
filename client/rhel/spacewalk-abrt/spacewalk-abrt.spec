@@ -35,6 +35,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/rhn/actions/abrt.*
 
 %changelog
+* Wed Jul 18 2012 Jan Pazdziora 0.0.1-1
+- new package built with tito
+
 * Mon Jul 09 2012 Richard Marko <rmarko@redhat.com> 0.0.1-1
 - initial packaging
 
