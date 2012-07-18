@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.8.60
+Version:        1.8.61
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -68,6 +68,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Wed Jul 18 2012 Jan Pazdziora 1.8.61-1
+- Add schema and migration files for rhnAbrtInfo table
+
 * Fri Jul 13 2012 Jan Pazdziora 1.8.60-1
 - Add the PostgreSQL specific mad_address upgrade script.
 
