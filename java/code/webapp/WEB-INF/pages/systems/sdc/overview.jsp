@@ -346,19 +346,19 @@
     </table>
   </div>
   <div style="width: 45%; float: left;">
-    <h2>Application crashes</h2>
+    <h2><bean:message key="sdc.details.overview.crashes.application"/></h2>
     <table class="details">
       <c:choose>
         <c:when test="${system.crashes.created == null}">
-          To get application crash data install spacewalk-abrt on this system.
+          <bean:message key="sdc.details.overview.crashes.nodata"/>
         </c:when>
         <c:otherwise>
           <tr>
-            <th>Last report</th>
+            <th><bean:message key="sdc.details.overview.crashes.lastreport"/></th>
             <td><fmt:formatDate value="${system.crashes.created}" type="both" dateStyle="short" timeStyle="long"/></td>
           </tr>
           <tr>
-            <th>Crash count</th>
+            <th><bean:message key="sdc.details.overview.crashes.crashcount"/></th>
             <td><c:out value="${system.crashes.crashCount}"/></td>
           </tr>
         </c:otherwise>

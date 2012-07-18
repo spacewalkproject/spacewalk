@@ -17890,6 +17890,34 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
             </context-group>
          </trans-unit>
 
+         <trans-unit id="sdc.details.overview.crashes.application">
+            <source>Application crashes</source>
+            <context-group name="ctx">
+            <context context-type="sourcefile">/systems/details/Overview.do</context>
+            </context-group>
+         </trans-unit>
+
+         <trans-unit id="sdc.details.overview.crashes.nodata">
+            <source>To get application crash data install spacewalk-abrt on this system.</source>
+            <context-group name="ctx">
+            <context context-type="sourcefile">/systems/details/Overview.do</context>
+            </context-group>
+         </trans-unit>
+
+         <trans-unit id="sdc.details.overview.crashes.lastreport">
+            <source>Last report</source>
+            <context-group name="ctx">
+            <context context-type="sourcefile">/systems/details/Overview.do</context>
+            </context-group>
+         </trans-unit>
+
+         <trans-unit id="sdc.details.overview.crashes.crashcount">
+            <source>Crash count</source>
+            <context-group name="ctx">
+            <context context-type="sourcefile">/systems/details/Overview.do</context>
+            </context-group>
+         </trans-unit>
+
          <trans-unit id="sdc.details.migrate.header">
             <source>Migrate System Between Organizations</source>
             <context-group name="ctx">
