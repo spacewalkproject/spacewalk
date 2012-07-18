@@ -80,6 +80,31 @@ client.auth.logout(key)<br />
 </code>
 <hr />
 
+<p />
+<h3>Ruby example:</h3><br />
+Below is an example of the channel.listAllChannels API call. List of channal labels is printed.
+<p />
+
+<code>
+#!/usr/bin/env ruby<br />
+require "xmlrpc/client"<br />
+<br />
+@SATELLITE_URL = "http://satellite.example.com/rpc/api"<br />
+@SATELLITE_LOGIN = "username"<br />
+@SATELLITE_PASSWORD = "password"<br />
+<br />
+@client = XMLRPC::Client.new2(@SATELLITE_URL)<br />
+<br />
+@key = @client.call('auth.login', @SATELLITE_LOGIN, @SATELLITE_PASSWORD)<br />
+channels = @client.call('channel.listAllChannels', @key)<br />
+for channel in channels do<br />
+&nbsp;&nbsp;&nbsp;p channel["label"]<br />
+end<br />
+<br />
+@client.call('auth.logout', @key)<br />
+</code>
+<hr />
+
 For more examples visit the <a href="https://fedorahosted.org/spacewalk/">Spacewalk community page</a>.
 
 <p />
