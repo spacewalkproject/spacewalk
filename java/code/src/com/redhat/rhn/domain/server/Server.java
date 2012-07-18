@@ -112,6 +112,7 @@ public class Server extends BaseDomainHelper implements Identifiable {
     private ProxyInfo proxyInfo;
     private Set<? extends ServerGroup> groups;
     private Set<Capability> capabilities;
+    private Crashes crashes;
 
     public static final String VALID_CNAMES = "valid_cnames_";
 
@@ -1866,6 +1867,20 @@ public class Server extends BaseDomainHelper implements Identifiable {
             con = CobblerXMLRPCHelper.getConnection(user);
         }
         return SystemRecord.lookupById(con, getCobblerId());
+    }
+
+    /**
+     * @return Return application crashes.
+     */
+    public Crashes getCrashes() {
+        return crashes;
+    }
+
+    /**
+     * @param crashIn Set application crashes.
+     */
+    public void setCrashes(Crashes crashIn) {
+        crashes = crashIn;
     }
 
 }

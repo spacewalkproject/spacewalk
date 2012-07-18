@@ -118,6 +118,9 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <one-to-one name="cpu" class="com.redhat.rhn.domain.server.CPU"
             property-ref="server" cascade="all" lazy="proxy"/>
 
+        <one-to-one name="crashes" class="com.redhat.rhn.domain.server.Crashes"
+            property-ref="server" cascade="all" lazy="proxy"/>
+
         <one-to-one name="lock" class="com.redhat.rhn.domain.server.ServerLock"
                     cascade="all" lazy="proxy"/>
 
