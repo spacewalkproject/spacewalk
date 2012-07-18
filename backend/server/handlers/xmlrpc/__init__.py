@@ -24,6 +24,7 @@ import queue
 import errata
 import proxy
 import get_handler
+import abrt
 
 rpcClasses = {
     "registration"      : registration.Registration,
@@ -32,6 +33,7 @@ rpcClasses = {
     "errata"            : errata.Errata,
     "proxy"             : proxy.Proxy,
     "servers"           : up2date.Servers,
+    "abrt"              : abrt.Abrt,
     }
 
 getHandler = get_handler.GetHandler
