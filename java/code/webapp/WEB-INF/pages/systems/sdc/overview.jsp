@@ -345,6 +345,26 @@
       </tr>
     </table>
   </div>
+  <div style="width: 45%; float: left;">
+    <h2>Application crashes</h2>
+    <table class="details">
+      <c:choose>
+        <c:when test="${system.crashes.created == null}">
+          To get application crash data install spacewalk-abrt on this system.
+        </c:when>
+        <c:otherwise>
+          <tr>
+            <th>Last report</th>
+            <td><fmt:formatDate value="${system.crashes.created}" type="both" dateStyle="short" timeStyle="long"/></td>
+          </tr>
+          <tr>
+            <th>Crash count</th>
+            <td><c:out value="${system.crashes.crashCount}"/></td>
+          </tr>
+        </c:otherwise>
+      </c:choose>
+    </table>
+  </div>
   <div style="clear: left; width: 45%; float: left; line-height: 200%">
     <h2><bean:message key="sdc.details.overview.subscribedchannels" arg0="/rhn/systems/details/SystemChannels.do?sid=${system.id}"/></h2>
 
