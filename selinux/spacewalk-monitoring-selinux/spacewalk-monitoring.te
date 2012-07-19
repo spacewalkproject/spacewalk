@@ -183,6 +183,7 @@ optional_policy(`
         type postgresql_port_t;
     ')
     allow spacewalk_monitoring_t postgresql_port_t:tcp_socket name_connect;
+    postgresql_stream_connect(spacewalk_monitoring_t)
 ')
 
 mta_send_mail(spacewalk_monitoring_t)
