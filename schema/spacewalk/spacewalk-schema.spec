@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.8.62
+Version:        1.8.63
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -68,6 +68,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Thu Jul 19 2012 Jan Pazdziora 1.8.63-1
+- Adding table dependency for rhnAbrtInfo.
+
 * Wed Jul 18 2012 Jan Pazdziora 1.8.62-1
 - Fix the equivalence SHA1.
 
