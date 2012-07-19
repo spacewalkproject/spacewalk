@@ -23,7 +23,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.111
+Version: 1.8.112
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -614,6 +614,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Jul 19 2012 Tomas Lestach <tlestach@redhat.com> 1.8.112-1
+- checkstyle fix
+
 * Thu Jul 19 2012 Tomas Lestach <tlestach@redhat.com> 1.8.111-1
 - 814365 - check not only one channel original when checking channel version
 - reverting fix for 814365,839611 due to performance regression
