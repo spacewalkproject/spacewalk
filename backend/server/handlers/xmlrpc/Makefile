@@ -6,7 +6,7 @@ TOP	= ../../..
 SUBDIR	= server/handlers/xmlrpc
 
 FILES	= __init__ country queue registration states up2date errata \
-	  getMethod proxy get_handler
+	  getMethod proxy get_handler abrt
 
 include $(TOP)/Makefile.defs
 
