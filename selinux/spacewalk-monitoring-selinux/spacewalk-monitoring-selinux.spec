@@ -7,7 +7,7 @@
 %define modulename spacewalk-monitoring
 
 Name:           spacewalk-monitoring-selinux
-Version:        1.8.1
+Version:        1.8.2
 Release:        1%{?dist}
 Summary:        SELinux policy module supporting Spacewalk monitoring
 
@@ -141,6 +141,9 @@ fi
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
+* Thu Jul 19 2012 Jan Pazdziora 1.8.2-1
+- Allow monitoring to use local PostgreSQL.
+
 * Fri Jun 29 2012 Jan Pazdziora 1.8.1-1
 - Make java_t bits optional, as Fedora 17 does not have this type.
 - %%defattr is not needed since rpm 4.4
