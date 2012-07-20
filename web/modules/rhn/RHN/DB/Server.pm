@@ -2005,9 +2005,9 @@ EOS
   }
 
   $sth = $dbh->prepare(<<EOS);
-INSERT INTO rhnServerConfigChannel SCC
+INSERT INTO rhnServerConfigChannel
   (server_id, config_channel_id, position)
-SELECT DISTINCT S.id, :ccid, :pos
+SELECT DISTINCT S.id, :ccid + 0, :pos + 0
   FROM rhnServer S
  WHERE S.id = :sid
    AND EXISTS (
