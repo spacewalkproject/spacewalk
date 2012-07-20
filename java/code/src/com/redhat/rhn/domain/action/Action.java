@@ -118,7 +118,7 @@ public class Action extends BaseDomainHelper implements Serializable {
      * @param nameIn to set
     */
     public void setName(String nameIn) {
-        if (nameIn.length() > NAME_LENGTH_LIMIT) {
+        if (nameIn != null && nameIn.length() > NAME_LENGTH_LIMIT) {
             this.name = nameIn.substring(0, NAME_LENGTH_LIMIT);
         }
         else {
