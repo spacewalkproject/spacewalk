@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.28
+Version: 1.8.29
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -253,6 +253,10 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Fri Jul 20 2012 Tomas Kasparek <tkasparek@redhat.com> 1.8.29-1
+- 841453  - forcing parameter to be numeric
+- Forcing parameter to be string
+
 * Fri Jul 13 2012 Jan Pazdziora 1.8.28-1
 - OpenSCAP Integration -- XCCDF Scan Diff
 
