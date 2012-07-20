@@ -17,8 +17,8 @@
     <c:when test="${not empty testResult.comparableId}">
       <a href="/rhn/audit/scap/DiffSubmit.do?first=${testResult.comparableId}&second=${testResult.id}&view=changed">
         <img src="/img/rhn-listicon-${testResult.diffIcon}.gif"
-          alt="<bean:message key="scapdiff.jsp.i.${current.diffIcon}"/>"
-          title="<bean:message key="scapdiff.jsp.i.${current.diffIcon}"/>"/>
+          alt="<bean:message key="scapdiff.jsp.i.${testResult.diffIcon}"/>"
+          title="<bean:message key="scapdiff.jsp.i.${testResult.diffIcon}"/>"/>
         <bean:message key="system.audit.xccdfdetails.jsp.diff"/>
       </a>
     </c:when>
