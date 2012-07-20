@@ -1250,7 +1250,7 @@ EOS
 INSERT INTO rhnPackageDelta
   (id, label)
 VALUES
-  (:id, 'delta-' || :id)
+  (cast(:id as numeric), 'delta-' || :id)
 EOS
   $sth->execute_h(id => $delta_id);
 
