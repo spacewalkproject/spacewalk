@@ -53,7 +53,7 @@
 		<rl:column sortable="true"
 				   bound="false"
 		           headerkey="grouplist.jsp.name"
-		           sortattr="name" filterattr="name" styleclass="${nameStyle}">
+		           sortattr="name" defaultsort="asc" filterattr="name" styleclass="${nameStyle}">
 		    		<a href="/network/systems/groups/details.pxt?sgid=${current.id}">${current.name}</a>
 		</rl:column>		 			
 	</rl:list>
