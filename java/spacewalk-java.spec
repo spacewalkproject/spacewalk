@@ -23,7 +23,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.112
+Version: 1.8.113
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -614,6 +614,12 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Jul 20 2012 Tomas Lestach <tlestach@redhat.com> 1.8.113-1
+- Make the tip to be more standard English.
+- Remove XCCDF Legend from places where it is not necessary.
+- 840567 - prevent NPE
+- 841635 - sort groups by default
+
 * Thu Jul 19 2012 Tomas Lestach <tlestach@redhat.com> 1.8.112-1
 - checkstyle fix
 
