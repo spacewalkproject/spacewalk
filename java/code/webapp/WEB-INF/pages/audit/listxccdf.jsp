@@ -17,7 +17,7 @@
   <bean:message key="system.audit.listscap.jsp.overview"/>
 </rhn:toolbar>
 
-<rl:listset name="groupSet" legend="xccdf">
+<rl:listset name="groupSet">
   <rhn:csrf />
   <rhn:submitted />
   <rl:list emptykey="audit.listxccdf.jsp.noscans">

@@ -48,7 +48,7 @@ div.differs {
 </div>
 
 
-<rl:listset name="groupSet" legend="xccdf">
+<rl:listset name="groupSet">
   <rhn:csrf/>
 
   <h2><bean:message key="system.audit.xccdfdetails.jsp.header"/></h2>

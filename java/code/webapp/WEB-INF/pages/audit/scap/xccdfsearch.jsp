@@ -115,7 +115,7 @@
   <c:set var="pageList" value="${requestScope.pageList}"/>
   <hr/>
 
-  <rl:listset name="searchSet" legend="xccdf">
+  <rl:listset name="searchSet">
     <rhn:csrf/>
     <c:choose>
       <c:when test="${param.show_as == 'tr'}">
