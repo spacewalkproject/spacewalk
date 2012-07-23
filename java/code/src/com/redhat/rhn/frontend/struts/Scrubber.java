@@ -135,6 +135,7 @@ public class Scrubber {
     }
 
     private Object scrubString(String value) {
+        value = value.trim();
         for (int x = 0; x < prohibitedInput.length; x++) {
             value = value.replaceAll(prohibitedInput[x], "");
         }
