@@ -121,8 +121,9 @@ def init_hook(conduit):
         return
 
     if not login_info:
-        conduit.error(0, _("This system is not registered with RHN.") + "\n" +
-            RHN_DISABLED)
+        conduit.error(0, _("This system is not registered with RHN Classic or RHN Satellite.") +
+                "\n" + _("You can use rhn_register to register.") +
+                "\n" + RHN_DISABLED)
         rhn_enabled = False
         truncateRHNReposCache(conduit)
         return 
@@ -136,14 +137,18 @@ def init_hook(conduit):
         truncateRHNReposCache(conduit)
         return
     except up2dateErrors.NoSystemIdError:
-        conduit.error(0, _("This system may not be a registered to RHN. SystemId could not be acquired.\n") +
-                          RHN_DISABLED)
+        conduit.error(0, _("This system may not be a registered to RHN Classic or RHN Satellite. SystemId could not be acquired.") +
+                "\n" + _("You can use rhn_register to register.") +
+                "\n" + RHN_DISABLED)
         rhn_enabled = False
         return
     except up2dateErrors.RhnServerException, e:
         conduit.error(0, COMMUNICATION_ERROR + "\n" + CHANNELS_DISABLED + 
             "\n" + unicode(e))
         return
+
+    if rhn_enabled:
+        conduit.info(2, _("This system is receiving updates from RHN Classic or RHN Satellite."))
 
     repos = conduit.getRepos()
     conduit_conf = conduit.getConf()
