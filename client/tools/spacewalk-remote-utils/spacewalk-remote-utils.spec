@@ -4,7 +4,7 @@
 %endif
 
 Name:        spacewalk-remote-utils
-Version:     1.8.0
+Version:     1.8.1
 Release:     1%{?dist}
 Summary:     Utilities to interact with a RHN Satellite or Spacewalk server remotely.
 
@@ -58,6 +58,14 @@ docbook2man ./spacewalk-create-channel/doc/spacewalk-create-channel.sgml -o ./sp
 %doc %{_mandir}/man1/spacewalk-create-channel.1.gz
 
 %changelog
+* Mon Jul 23 2012 Tomas Lestach <tlestach@redhat.com> 1.8.1-1
+- 841027 - adding RHEL6.3 channel definitions
+- add RHEL6.1 and RHEL6.2 Workstation channel definitions
+- fix repodir to match RHEL-6 release directories
+- add RHEL5.6 Client Supplementary channel definitions
+- %%defattr is not needed since rpm 4.4
+- Bumping package versions for 1.8.
+
 * Wed Feb 22 2012 Miroslav Suchý 1.7.1-1
 - 796077 - Include the RHEL 5.8 definitions in spacewalk-repo-sync
 - Bumping package versions for 1.7. (mzazrivec@redhat.com)
