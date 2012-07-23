@@ -392,7 +392,7 @@ def gather(clear):
                   else:
                     update_num = update.replace("U","") #strip the U
                   # RHEL-6/6.0/Server/x86_64/os/
-                  repoDir = "RHEL-%s-%s/%s.%s/%s/os/" % (version, release, version, update_num, arch)
+                  repoDir = "RHEL-%s/%s.%s/%s/%s/os/" % (version, version, update_num, release, arch)
                   fullDir = GATHER_DIR + repoDir
                   if not saveRpmList(fullDir +  release + "/listing", DATA_DIR + getFileName(version, update,release, arch)):
                       saveRpmList(fullDir +  release + "/Packages/", DATA_DIR + getFileName(version, update,release, arch))
