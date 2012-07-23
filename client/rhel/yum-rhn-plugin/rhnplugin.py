@@ -137,7 +137,7 @@ def init_hook(conduit):
         truncateRHNReposCache(conduit)
         return
     except up2dateErrors.NoSystemIdError:
-        conduit.error(0, _("This system may not be a registered to RHN Classic or RHN Satellite. SystemId could not be acquired.") +
+        conduit.error(0, _("This system may not be registered to RHN Classic or RHN Satellite. SystemId could not be acquired.") +
                 "\n" + _("You can use rhn_register to register.") +
                 "\n" + RHN_DISABLED)
         rhn_enabled = False
