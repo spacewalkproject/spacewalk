@@ -852,8 +852,9 @@ public class ServerFactory extends HibernateFactory {
         SnapshotTag retval = (SnapshotTag) HibernateFactory
                 .getSession().getNamedQuery("SnapshotTag.lookupByTagName")
                 .setString("tag_name", tagName)
-                // Retrieve from cache if there
-                .setCacheable(true).uniqueResult();
+                // Do not use setCacheable(true), as tag deletion will
+                // usually end up making this query's output out of date
+                .uniqueResult();
         return retval;
     }
 }
