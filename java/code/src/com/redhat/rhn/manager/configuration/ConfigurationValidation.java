@@ -196,7 +196,7 @@ public class ConfigurationValidation {
      * @return true if valid, false otherwise
      */
     public static boolean validateUserOrGroup(String in) {
-        return (in != null && in.matches("^[a-zA-Z][a-zA-Z0-9_\\-]*$"));
+        return (in != null && in.matches("^[a-zA-Z0-9_][a-zA-Z0-9_\\-]*$"));
     }
 
     /**
