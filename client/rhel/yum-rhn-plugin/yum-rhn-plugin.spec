@@ -1,6 +1,6 @@
 Summary: RHN support for yum
 Name: yum-rhn-plugin
-Version: 1.8.3
+Version: 1.8.4
 Release: 1%{?dist}
 License: GPLv2
 Group: System Environment/Base
@@ -70,6 +70,9 @@ fi
 %doc LICENSE
 
 %changelog
+* Mon Jul 23 2012 Stephen Herr <sherr@redhat.com> 1.8.4-1
+- 842396 - Updated yum info messages to play nice with Subscription Management
+
 * Tue Jul 10 2012 Stephen Herr <sherr@redhat.com> 1.8.3-1
 - 839052 - yum-rhn-plugin honors yum timeout value
 
