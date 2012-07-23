@@ -106,6 +106,11 @@ public class SyncRepositoriesAction extends RhnAction implements Listable {
                 return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
             }
 
+            if (chan.getSources().isEmpty()) {
+                createErrorMessage(request,
+                        "repos.jsp.channel.norepos", null);
+                return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
+            }
 
             try {
                 if (context.wasDispatched("repos.jsp.button-sync")) {
