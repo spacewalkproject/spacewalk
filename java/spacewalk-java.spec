@@ -23,7 +23,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.114
+Version: 1.8.115
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -614,6 +614,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Jul 24 2012 Jan Pazdziora 1.8.115-1
+- Revert "removing unused string with trans-id 'gpgssl_keys.added'"
+- Revert "removing unused string with trans-id 'gpgssl_keys.removed'"
+
 * Mon Jul 23 2012 Tomas Lestach <tlestach@redhat.com> 1.8.114-1
 - 757711 - do not start repo sync of a channel with no associated repositories
 - trim all the form strings within the regular scrub
