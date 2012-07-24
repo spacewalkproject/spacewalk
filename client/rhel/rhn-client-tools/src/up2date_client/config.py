@@ -74,16 +74,24 @@ class ConfigFile:
         if not os.access(self.fileName, os.R_OK):
 #            print "warning: can't access %s" % self.fileName
             return
-        
+
         f = open(self.fileName, "r")
 
+        multiline = ''
         for line in f.readlines():
             # strip comments
             if line.find('#') == 0:
                 continue
-            line = line.strip()            
+            line = multiline + line.strip()
             if not line:
                 continue
+
+            # if line ends in '\', append the next line before parsing
+            if line[-1] == '\\':
+                multiline = line[:-1].strip()
+                continue
+            else:
+                multiline = ''
 
             split = line.split('=', 1)
             if len(split) != 2:
@@ -115,7 +123,9 @@ class ConfigFile:
                 elif values[0] == "":
                     value = []
                 else:
-                    value = values[:-1]
+                    # there could be whitespace between the values on
+                    # one line, let's strip it out
+                    value = [val.strip() for val in values[:-1]]
 
             # now insert the (comment, value) in the dictionary
             newval = (comment, value)
