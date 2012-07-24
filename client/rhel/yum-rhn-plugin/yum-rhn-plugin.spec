@@ -1,6 +1,6 @@
 Summary: RHN support for yum
 Name: yum-rhn-plugin
-Version: 1.8.4
+Version: 1.8.5
 Release: 1%{?dist}
 License: GPLv2
 Group: System Environment/Base
@@ -70,6 +70,9 @@ fi
 %doc LICENSE
 
 %changelog
+* Tue Jul 24 2012 Jan Pazdziora 1.8.5-1
+- 842396 - Fixed legacy typo
+
 * Mon Jul 23 2012 Stephen Herr <sherr@redhat.com> 1.8.4-1
 - 842396 - Updated yum info messages to play nice with Subscription Management
 
