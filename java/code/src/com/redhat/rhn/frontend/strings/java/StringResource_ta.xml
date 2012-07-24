@@ -5921,6 +5921,12 @@ url பின்பற்றி செயலிழக்கப்பட்ட �
       <target>குறிப்பிட்ட அடிப்படை தடம் மற்றும் கிக்ஸ்டார்ட் கிளையை காணவில்லை.</target></trans-unit>
 
 
+      <trans-unit id="gpgssl_keys.removed">
+<source>{0} Key(s) removed.</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/kickstart/KickstartCryptoKeysList.do</context>
+        </context-group>
+      <target>{0} விசைகள் நீக்கப்பட்டன.</target></trans-unit>
 
       <trans-unit id="kickstart.script.success">
         <source>Kickstart Script successfully updated.</source>

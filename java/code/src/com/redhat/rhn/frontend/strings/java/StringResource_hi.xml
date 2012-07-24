@@ -5921,6 +5921,12 @@ Follow this url to see the full list of inactive systems:
       <target>निर्दिष्ट बेस चैनल व किकस्टार्ट तरू नहीं मिला.</target></trans-unit>
 
 
+      <trans-unit id="gpgssl_keys.removed">
+<source>{0} Key(s) removed.</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/kickstart/KickstartCryptoKeysList.do</context>
+        </context-group>
+      <target>{0} कुंजी हटाया गया.</target></trans-unit>
 
       <trans-unit id="kickstart.script.success">
         <source>Kickstart Script successfully updated.</source>

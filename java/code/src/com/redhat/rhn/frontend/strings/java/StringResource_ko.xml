@@ -5921,6 +5921,12 @@ Follow this url to see the full list of inactive systems:
       <target>지정된 기본 채널과 킥스타트 트리를 찾을 수 없습니다.</target></trans-unit>
 
 
+      <trans-unit id="gpgssl_keys.removed">
+<source>{0} Key(s) removed.</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/kickstart/KickstartCryptoKeysList.do</context>
+        </context-group>
+      <target>{0} 개의 키가 삭제되었습니다.</target></trans-unit>
 
       <trans-unit id="kickstart.script.success">
         <source>Kickstart Script successfully updated.</source>

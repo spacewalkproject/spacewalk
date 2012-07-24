@@ -5948,6 +5948,12 @@ Suivez cet url pour obtenir la liste complète des systèmes inactifs :
       <target>Impossible de trouver le canal de base et l'arborescence kickstart spécifiés.</target></trans-unit>
 
 
+      <trans-unit id="gpgssl_keys.removed">
+<source>{0} Key(s) removed.</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/kickstart/KickstartCryptoKeysList.do</context>
+        </context-group>
+      <target>{0} clé(s) supprimée(s)</target></trans-unit>
 
       <trans-unit id="kickstart.script.success">
         <source>Kickstart Script successfully updated.</source>

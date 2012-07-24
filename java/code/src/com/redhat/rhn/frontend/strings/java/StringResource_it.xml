@@ -5945,6 +5945,12 @@ Seguite l'url sotto riportato per visualizzare l'elenco completo di sistemi inat
       <target>Il canale di base specificato e l'albero kickstart non sono stati trovati.</target></trans-unit>
 
 
+      <trans-unit id="gpgssl_keys.removed">
+<source>{0} Key(s) removed.</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/kickstart/KickstartCryptoKeysList.do</context>
+        </context-group>
+      <target>Chiave/i {0} rimossa/e.</target></trans-unit>
 
       <trans-unit id="kickstart.script.success">
         <source>Kickstart Script successfully updated.</source>

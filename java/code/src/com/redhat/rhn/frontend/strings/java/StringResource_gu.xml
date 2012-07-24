@@ -5921,6 +5921,12 @@ Follow this url to see the full list of inactive systems:
       <target>સ્પષ્ટ થયેલ આધાર ચેનલ અને કિકસ્ટાર્ટ વૃક્ષ મળ્યું ન હતું.</target></trans-unit>
 
 
+      <trans-unit id="gpgssl_keys.removed">
+<source>{0} Key(s) removed.</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/kickstart/KickstartCryptoKeysList.do</context>
+        </context-group>
+      <target>{0} કીઓ દૂર કરાઈ.</target></trans-unit>
 
       <trans-unit id="kickstart.script.success">
         <source>Kickstart Script successfully updated.</source>

@@ -5945,6 +5945,12 @@ Follow this url to see the full list of inactive systems:
       <target>指定されたベースチャンネル及びキックスタートツリーは見つかりませんでした。</target></trans-unit>
 
 
+      <trans-unit id="gpgssl_keys.removed">
+<source>{0} Key(s) removed.</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/kickstart/KickstartCryptoKeysList.do</context>
+        </context-group>
+      <target>{0} キーが削除されました。</target></trans-unit>
 
       <trans-unit id="kickstart.script.success">
         <source>Kickstart Script successfully updated.</source>
