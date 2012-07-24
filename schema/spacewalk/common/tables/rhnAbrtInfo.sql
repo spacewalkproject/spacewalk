@@ -15,7 +15,9 @@
 
 CREATE TABLE rhnAbrtInfo
 (
-    id             NUMBER NOT NULL,
+    id             NUMBER NOT NULL
+              CONSTRAINT rhn_abrt_info_pk PRIMARY KEY
+              USING INDEX TABLESPACE [[2m_tbs]],
     server_id      NUMBER NOT NULL
                        CONSTRAINT rhn_abrt_info_srvr_fk
                            REFERENCES rhnServer (id)
