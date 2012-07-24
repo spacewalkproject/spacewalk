@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.8.64
+Version:        1.8.65
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -68,6 +68,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Tue Jul 24 2012 Jan Pazdziora 1.8.65-1
+- Add missing primary key, when we already have it in the schema upgrade
+  scripts.
+
 * Mon Jul 23 2012 Tomas Kasparek <tkasparek@redhat.com> 1.8.64-1
 - Preventing whole SQL string from being NULL
 - If by accident pg_dblink_exec is given NULL string (e.g concatenation of
