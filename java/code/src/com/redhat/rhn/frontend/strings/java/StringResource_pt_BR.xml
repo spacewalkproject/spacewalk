@@ -5932,6 +5932,12 @@ Follow this url to see the full list of inactive systems:
         </context-group>
       <target>O canal base e a árvore de kickstart especificados não foram encontrados.</target></trans-unit>
 
+      <trans-unit id="gpgssl_keys.added">
+<source>{0} Key(s) added.</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/kickstart/KickstartCryptoKeysList.do</context>
+        </context-group>
+      <target>{0} Chave(s) adicionada(s).</target></trans-unit>
 
       <trans-unit id="gpgssl_keys.removed">
 <source>{0} Key(s) removed.</source>

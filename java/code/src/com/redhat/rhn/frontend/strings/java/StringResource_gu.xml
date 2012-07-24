@@ -5920,6 +5920,12 @@ Follow this url to see the full list of inactive systems:
         </context-group>
       <target>સ્પષ્ટ થયેલ આધાર ચેનલ અને કિકસ્ટાર્ટ વૃક્ષ મળ્યું ન હતું.</target></trans-unit>
 
+      <trans-unit id="gpgssl_keys.added">
+<source>{0} Key(s) added.</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/kickstart/KickstartCryptoKeysList.do</context>
+        </context-group>
+      <target>{0} કીઓ ઉમેરાઈ.</target></trans-unit>
 
       <trans-unit id="gpgssl_keys.removed">
 <source>{0} Key(s) removed.</source>
