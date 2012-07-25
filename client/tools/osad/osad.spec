@@ -48,6 +48,7 @@ Requires(post): systemd-sysv
 Requires(preun): systemd-sysv
 Requires(post): systemd-units
 Requires(preun): systemd-units
+BuildRequires: systemd-units
 %else
 Requires(post): chkconfig
 Requires(preun): chkconfig
