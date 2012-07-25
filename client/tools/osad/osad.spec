@@ -41,7 +41,7 @@ Requires(post): aaa_base
 Requires(preun): aaa_base
 # to make chkconfig test work during build
 BuildRequires: sysconfig syslog
-%elsif 0%{?fedora} || 0%{?rhel} > 5
+%elsif 0%{?fedora}
 Requires(post): chkconfig
 Requires(preun): chkconfig
 Requires(post): systemd-sysv
@@ -142,7 +142,7 @@ mkdir -p %{buildroot}%{_var}/log/rhn
 touch %{buildroot}%{_var}/log/osad
 touch %{buildroot}%{_var}/log/rhn/osa-dispatcher.log
 
-%if 0%{?fedora} || 0%{?rhel} > 5
+%if 0%{?fedora}
 rm $RPM_BUILD_ROOT/%{_initrddir}/osad
 rm $RPM_BUILD_ROOT/%{_initrddir}/osa-dispatcher
 mkdir -p $RPM_BUILD_ROOT/%{_unitdir}
@@ -242,7 +242,7 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 %config(noreplace) %{_sysconfdir}/sysconfig/rhn/osad.conf
 %config(noreplace) %attr(600,root,root) %{_sysconfdir}/sysconfig/rhn/osad-auth.conf
 %config(noreplace) %{client_caps_dir}/*
-%if 0%{?fedora} || 0%{?rhel} > 5
+%if 0%{?fedora}
 %{_unitdir}/osad.service
 %else
 %attr(755,root,root) %{_initrddir}/osad
@@ -271,7 +271,7 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 %dir %{_sysconfdir}/rhn/tns_admin
 %dir %{_sysconfdir}/rhn/tns_admin/osa-dispatcher
 %config(noreplace) %{_sysconfdir}/rhn/tns_admin/osa-dispatcher/sqlnet.ora
-%if 0%{?fedora} || 0%{?rhel} > 5
+%if 0%{?fedora}
 %{_unitdir}/osa-dispatcher.service
 %else
 %attr(755,root,root) %{_initrddir}/osa-dispatcher

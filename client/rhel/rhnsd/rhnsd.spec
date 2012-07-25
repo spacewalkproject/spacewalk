@@ -15,7 +15,7 @@ Requires: rhn-check >= 0.0.8
 Requires(post): aaa_base
 Requires(preun): aaa_base
 BuildRequires: sysconfig
-%elsif 0%{?fedora} || 0%{?rhel} > 5
+%elsif 0%{?fedora}
 Requires(post): chkconfig
 Requires(preun): chkconfig
 Requires(post): systemd-sysv
@@ -48,7 +48,7 @@ make -f Makefile.rhnsd install VERSION=%{version}-%{release} PREFIX=$RPM_BUILD_R
 %if 0%{?suse_version}
 install -m 0755 rhnsd.init.SUSE $RPM_BUILD_ROOT/%{_initrddir}/rhnsd
 %endif
-%if 0%{?fedora} || 0%{?rhel} > 5
+%if 0%{?fedora}
 rm $RPM_BUILD_ROOT/%{_initrddir}/rhnsd
 mkdir -p $RPM_BUILD_ROOT/%{_unitdir}
 install -m 0644 rhnsd.service $RPM_BUILD_ROOT/%{_unitdir}/
@@ -62,7 +62,7 @@ install -m 0644 rhnsd.service $RPM_BUILD_ROOT/%{_unitdir}/
 
 %preun
 if [ $1 = 0 ] ; then
-    %if 0%{?fedora} || 0%{?rhel} > 5
+    %if 0%{?fedora}
     /bin/systemctl stop rhnsd >/dev/null 2>&1
     %else
     service rhnsd stop >/dev/null 2>&1
@@ -73,7 +73,7 @@ fi
 
 %postun
 if [ "$1" -ge "1" ]; then
-    %if 0%{?fedora} || 0%{?rhel} > 5
+    %if 0%{?fedora}
     /bin/systemctl condrestart rhnsd >/dev/null 2>&1 || :
     %else
     service rhnsd condrestart >/dev/null 2>&1 || :
@@ -88,7 +88,7 @@ rm -fr $RPM_BUILD_ROOT
 %dir %{_sysconfdir}/sysconfig/rhn
 %config(noreplace) %{_sysconfdir}/sysconfig/rhn/rhnsd
 %{_sbindir}/rhnsd
-%if 0%{?fedora} || 0%{?rhel} > 5
+%if 0%{?fedora}
 %{_unitdir}/rhnsd.service
 %else
 %{_initrddir}/rhnsd
