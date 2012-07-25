@@ -131,6 +131,13 @@ public class CryptoKeysHandler extends BaseHandler {
 
         DeleteCryptoKeyCommand command =
             new DeleteCryptoKeyCommand(loggedInUser, description);
+
+        for (KickstartData kData :
+            KickstartFactory.listKickstartDataByCKeyDescription(description)) {
+                kData.removeCryptoKey(command.getCryptoKey());
+                KickstartFactory.saveKickstartData(kData);
+        }
+
         ValidatorError[] errors = command.store();
 
         if (errors == null) {
