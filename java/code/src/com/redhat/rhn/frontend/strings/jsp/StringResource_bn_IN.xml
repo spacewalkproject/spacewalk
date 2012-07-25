@@ -15361,11 +15361,11 @@ Kickstart করার সময় অনুগ্রহ করে সিস্ট
         </context-group>
     <target>@@PRODUCT_NAME@@ দ্বারা না পরিচালিত হওয়া প্রোফাইলের ক্ষেত্রে, kickstart সমাপ্তির পরে @@PRODUCT_NAME@@-এ সিস্টেম নিবন্ধনের কোনো নিশ্চয়তা দেওয়া হয় না। kickstart-র পরে @@PRODUCT_NAME@@-র সিস্টেমের তালিকার মধ্যে আপনার সিস্টেম অন্তর্ভুক্ত করা হবে কি না তা যাচাই করার জন্য kickstart প্রোফাইলের নামের উপর ক্লিক করে সংশ্লিষ্ট কিক-স্টার্টটি পর্যালোচনা করুন।</target></trans-unit>
     <trans-unit id="kickstarts.distro.cobbler-only.tooltip">
-        <source>Kickstart profiles that are not managed by @@PRODUCT_NAME@@ can not be edited in the @@PRODUCT_NAME@@ UI. To modify these profiles, please log onto the @@PRODUCT_NAME@@ server and run the 'cobbler edit profile' command. For more information, consult the @@PRODUCT_NAME@@ Reference Guide.</source>
+        <source>Kickstart profiles that are not managed by @@PRODUCT_NAME@@ can not be edited in the @@PRODUCT_NAME@@ UI. To modify these profiles, please log onto the @@PRODUCT_NAME@@ server and run the 'cobbler profile edit' command. For more information, consult the @@PRODUCT_NAME@@ Reference Guide.</source>
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/kickstart/Kickstarts.do</context>
         </context-group>
-    <target>@@PRODUCT_NAME@@ দ্বারা না পরিচালিত হওয়া প্রোফাইলগুলি @@PRODUCT_NAME@@ ইউজার ইন্টারফেসের মধ্যে পরিবর্তন করা সম্ভব নয়। এই প্রোফাইলগুলি পরিবর্তনের জন্য @@PRODUCT_NAME@@-এ লগ-ইন করে 'cobbler edit profile' কমান্ডটি সঞ্চালনা করুন। অধিক বিবরণের জন্য @@PRODUCT_NAME@@ Reference Guide পড়ুন।</target></trans-unit>
+    <target>@@PRODUCT_NAME@@ দ্বারা না পরিচালিত হওয়া প্রোফাইলগুলি @@PRODUCT_NAME@@ ইউজার ইন্টারফেসের মধ্যে পরিবর্তন করা সম্ভব নয়। এই প্রোফাইলগুলি পরিবর্তনের জন্য @@PRODUCT_NAME@@-এ লগ-ইন করে 'cobbler profile edit' কমান্ডটি সঞ্চালনা করুন। অধিক বিবরণের জন্য @@PRODUCT_NAME@@ Reference Guide পড়ুন।</target></trans-unit>
 	<trans-unit id="kickstart.distro.sw_managed.jsp">
         <source>@@PRODUCT_NAME@@ Managed?*</source>
         <context-group name="ctx">

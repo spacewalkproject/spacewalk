@@ -15394,11 +15394,11 @@ a aba &lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;Chaves de At
         </context-group>
     <target>Os perfis que não forem gerenciados por @@PRODUCT_NAME@@, não possuem garantia de registrar sistemas no @@PRODUCT_NAME@@ após realizar o kickstart. Talvez você queira rever estes kickstarts (clique no nome do perfil para fazer isto) para confirmar se seu sistema irá reaparecer ou não na lista de sistemas do @@PRODUCT_NAME@@ após o kickstart.</target></trans-unit>
     <trans-unit id="kickstarts.distro.cobbler-only.tooltip">
-        <source>Kickstart profiles that are not managed by @@PRODUCT_NAME@@ can not be edited in the @@PRODUCT_NAME@@ UI. To modify these profiles, please log onto the @@PRODUCT_NAME@@ server and run the 'cobbler edit profile' command. For more information, consult the @@PRODUCT_NAME@@ Reference Guide.</source>
+        <source>Kickstart profiles that are not managed by @@PRODUCT_NAME@@ can not be edited in the @@PRODUCT_NAME@@ UI. To modify these profiles, please log onto the @@PRODUCT_NAME@@ server and run the 'cobbler profile edit' command. For more information, consult the @@PRODUCT_NAME@@ Reference Guide.</source>
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/kickstart/Kickstarts.do</context>
         </context-group>
-    <target>Os perfis de kickstart que não são gerenciados por @@PRODUCT_NAME@@ não poderão ser editados na UI do @@PRODUCT_NAME@@. Para modificar estes perfis, registre-se no servidor do @@PRODUCT_NAME@@ e execute o comando 'cobbler edit profile'. Para mais informações, consulte o Guia de Referência do @@PRODUCT_NAME@@.</target></trans-unit>
+    <target>Os perfis de kickstart que não são gerenciados por @@PRODUCT_NAME@@ não poderão ser editados na UI do @@PRODUCT_NAME@@. Para modificar estes perfis, registre-se no servidor do @@PRODUCT_NAME@@ e execute o comando 'cobbler profile edit'. Para mais informações, consulte o Guia de Referência do @@PRODUCT_NAME@@.</target></trans-unit>
 	<trans-unit id="kickstart.distro.sw_managed.jsp">
         <source>@@PRODUCT_NAME@@ Managed?*</source>
         <context-group name="ctx">

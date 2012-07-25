@@ -15356,11 +15356,11 @@ the &lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;Activation Key
         </context-group>
     <target>@@PRODUCT_NAME@@에 의해 관리되지 않는 프로파일이 킥스타트 후에 시스템을 @@PRODUCT_NAME@@에 등록할 수 있는 것은 아닙니다. 킥스타트 후 시스템이 @@PRODUCT_NAME@@ 시스템 목록에 다시 나타나는지를 확인하기 위해 이러한 킥스타트를 다시 살펴보시고자 할 수 있습니다.. (프로파일 이름을 클릭하는 등)      </target></trans-unit>
     <trans-unit id="kickstarts.distro.cobbler-only.tooltip">
-        <source>Kickstart profiles that are not managed by @@PRODUCT_NAME@@ can not be edited in the @@PRODUCT_NAME@@ UI. To modify these profiles, please log onto the @@PRODUCT_NAME@@ server and run the 'cobbler edit profile' command. For more information, consult the @@PRODUCT_NAME@@ Reference Guide.</source>
+        <source>Kickstart profiles that are not managed by @@PRODUCT_NAME@@ can not be edited in the @@PRODUCT_NAME@@ UI. To modify these profiles, please log onto the @@PRODUCT_NAME@@ server and run the 'cobbler profile edit' command. For more information, consult the @@PRODUCT_NAME@@ Reference Guide.</source>
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/kickstart/Kickstarts.do</context>
         </context-group>
-    <target>@@PRODUCT_NAME@@에 의해 관리되지 않는 킥스타트 프로파일은 @@PRODUCT_NAME@@ 사용자 인터페이스를 수정할 수 없습니다. 이러한 프로파일을 수정하려면, @@PRODUCT_NAME@@ 서버에 로그인하여 'cobbler edit profile' 명령을 실행합니다. 보다 자세한 내용은 @@PRODUCT_NAME@@ 참조 가이드를 살펴보십시오.  </target></trans-unit>
+    <target>@@PRODUCT_NAME@@에 의해 관리되지 않는 킥스타트 프로파일은 @@PRODUCT_NAME@@ 사용자 인터페이스를 수정할 수 없습니다. 이러한 프로파일을 수정하려면, @@PRODUCT_NAME@@ 서버에 로그인하여 'cobbler profile edit' 명령을 실행합니다. 보다 자세한 내용은 @@PRODUCT_NAME@@ 참조 가이드를 살펴보십시오.  </target></trans-unit>
 	<trans-unit id="kickstart.distro.sw_managed.jsp">
         <source>@@PRODUCT_NAME@@ Managed?*</source>
         <context-group name="ctx">

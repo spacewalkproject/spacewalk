@@ -15358,11 +15358,11 @@ the &lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;Activation Key
         </context-group>
     <target>非 @@PRODUCT_NAME@@ 所管理的設定檔無法保證能夠在 kickstart 完成後將系統註冊至 @@PRODUCT_NAME@@。請檢視這些 kickstart（點選設定檔名稱）來確認您的系統是否會在 kickstart 完成後出現在 @@PRODUCT_NAME@@ 系統清單中。</target></trans-unit>
     <trans-unit id="kickstarts.distro.cobbler-only.tooltip">
-        <source>Kickstart profiles that are not managed by @@PRODUCT_NAME@@ can not be edited in the @@PRODUCT_NAME@@ UI. To modify these profiles, please log onto the @@PRODUCT_NAME@@ server and run the 'cobbler edit profile' command. For more information, consult the @@PRODUCT_NAME@@ Reference Guide.</source>
+        <source>Kickstart profiles that are not managed by @@PRODUCT_NAME@@ can not be edited in the @@PRODUCT_NAME@@ UI. To modify these profiles, please log onto the @@PRODUCT_NAME@@ server and run the 'cobbler profile edit' command. For more information, consult the @@PRODUCT_NAME@@ Reference Guide.</source>
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/kickstart/Kickstarts.do</context>
         </context-group>
-    <target>非 @@PRODUCT_NAME@@ 所管理的 Kickstart 設定檔無法在 @@PRODUCT_NAME@@ UI 中進行編輯。若要編輯這些設定檔，請登入 @@PRODUCT_NAME@@ 伺服器，並執行「cobbler edit profile」這項指令。如欲取得更多相關資訊，請參閱 @@PRODUCT_NAME@@ 參考指南。</target></trans-unit>
+    <target>非 @@PRODUCT_NAME@@ 所管理的 Kickstart 設定檔無法在 @@PRODUCT_NAME@@ UI 中進行編輯。若要編輯這些設定檔，請登入 @@PRODUCT_NAME@@ 伺服器，並執行「cobbler profile edit」這項指令。如欲取得更多相關資訊，請參閱 @@PRODUCT_NAME@@ 參考指南。</target></trans-unit>
 	<trans-unit id="kickstart.distro.sw_managed.jsp">
         <source>@@PRODUCT_NAME@@ Managed?*</source>
         <context-group name="ctx">

@@ -15362,11 +15362,11 @@ the &lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;Activation Key
         </context-group>
     <target> ਪਰੋਫਾਈਲ ਜੋ @@PRODUCT_NAME@@-ਪਰਬੰਧਿਤ ਨਹੀਂ ਹਨ, ਦੀ ਗਰੰਟੀ ਨਹੀਂ ਹੈ ਕਿ ਉਹ ਸਿਸਟਮ ਨੂੰ ਕਿੱਕਸਟਾਰਟ ਕਰਨ ਤੋਂ ਬਾਅਦ @@PRODUCT_NAME@@ ਤੇ ਰਜਿਸਟਰ ਕਰੇ। ਤੁਸੀਂ ਇਹਨਾਂ ਕਿੱਕਸਟਾਰਟਾਂ ਦੀ ਜਾਂਚ (ਅਜਿਹਾ ਕਰਨ ਲਈ ਪਰੋਫਾਈਲ ਨਾਂ ਦਬਾਓ) ਕਰ ਸਕਦੇ ਹੋ ਤਾਂ ਕਿ ਵੇਕਿਆ ਜਾ ਸਕੇ ਕਿ ਤੁਹਾਡੇ ਸਿਸਟਮ ਕਿੱਕਸਟਾਰਟ ਤੋਂ ਬਾਅਦ @@PRODUCT_NAME@@ ਸਿਸਟਮ ਸੂਚੀ ਵਿੱਚ ਦਿਸੇਗਾ ਜਾਂ ਨਹੀਂ।</target></trans-unit>
     <trans-unit id="kickstarts.distro.cobbler-only.tooltip">
-        <source>Kickstart profiles that are not managed by @@PRODUCT_NAME@@ can not be edited in the @@PRODUCT_NAME@@ UI. To modify these profiles, please log onto the @@PRODUCT_NAME@@ server and run the 'cobbler edit profile' command. For more information, consult the @@PRODUCT_NAME@@ Reference Guide.</source>
+        <source>Kickstart profiles that are not managed by @@PRODUCT_NAME@@ can not be edited in the @@PRODUCT_NAME@@ UI. To modify these profiles, please log onto the @@PRODUCT_NAME@@ server and run the 'cobbler profile edit' command. For more information, consult the @@PRODUCT_NAME@@ Reference Guide.</source>
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/kickstart/Kickstarts.do</context>
         </context-group>
-    <target>ਕਿੱਸਟਾਰਕਟ ਪਰੋਫਾਈਲ ਜਿਸ ਦਾ ਪਰਬੰਧਨ @@PRODUCT_NAME@@ ਨਾਲ ਨਹੀਂ ਹੁੰਦਾ ਨੂੰ @@PRODUCT_NAME@@ UI ਵਿੱਚ ਸੋਧਿਆ ਨਹੀਂ ਜਾ ਸਕਦਾ। ਇਹਨਾਂ ਪਰੋਫਾਈਲਾਂ ਨੂੰ ਸੋਧਣ ਲਈ, ਕਿਰਪਾ ਕਰਕੇ @@PRODUCT_NAME@@ ਸਰਵਰ ਤੇ ਲਾਗਇਨ ਕਰੋ ਅਤੇ 'cobbler edit profile' ਕਮਾਂਡ ਚਲਾਓ। ਵਝੇਰੇ ਜਾਣਕਾਰੀ ਲਈ, @@PRODUCT_NAME@@ ਹਵਾਲਾ ਗਾਈਡ ਵੇਖੋ।</target></trans-unit>
+    <target>ਕਿੱਸਟਾਰਕਟ ਪਰੋਫਾਈਲ ਜਿਸ ਦਾ ਪਰਬੰਧਨ @@PRODUCT_NAME@@ ਨਾਲ ਨਹੀਂ ਹੁੰਦਾ ਨੂੰ @@PRODUCT_NAME@@ UI ਵਿੱਚ ਸੋਧਿਆ ਨਹੀਂ ਜਾ ਸਕਦਾ। ਇਹਨਾਂ ਪਰੋਫਾਈਲਾਂ ਨੂੰ ਸੋਧਣ ਲਈ, ਕਿਰਪਾ ਕਰਕੇ @@PRODUCT_NAME@@ ਸਰਵਰ ਤੇ ਲਾਗਇਨ ਕਰੋ ਅਤੇ 'cobbler profile edit' ਕਮਾਂਡ ਚਲਾਓ। ਵਝੇਰੇ ਜਾਣਕਾਰੀ ਲਈ, @@PRODUCT_NAME@@ ਹਵਾਲਾ ਗਾਈਡ ਵੇਖੋ।</target></trans-unit>
 	<trans-unit id="kickstart.distro.sw_managed.jsp">
         <source>@@PRODUCT_NAME@@ Managed?*</source>
         <context-group name="ctx">

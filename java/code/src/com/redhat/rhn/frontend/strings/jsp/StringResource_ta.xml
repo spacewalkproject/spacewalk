@@ -15363,11 +15363,11 @@ the &lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;Activation Key
         </context-group>
     <target>@@PRODUCT_NAME@@-மேலாண்மை செய்யாத விவரக்குறிப்புகள் கிக்ஸ்டார்டிற்கு பின் @@PRODUCT_NAME@@க்கு பதிவு செய்ய உத்தரவாதம் கொடுக்க முடியாது. நீங்கள் இந்த கிக்ஸ்டார்ட்களை மறுபார்வை செய்ய (விவரக்குறிப்பு பெயரை சொடுக்கி) உங்கள் கணினி கிக்ஸ்டார்ட செய்த பின் @@PRODUCT_NAME@@ கணினி பட்டியலில் மீண்டும் தோன்றுகிறது.</target></trans-unit>
     <trans-unit id="kickstarts.distro.cobbler-only.tooltip">
-        <source>Kickstart profiles that are not managed by @@PRODUCT_NAME@@ can not be edited in the @@PRODUCT_NAME@@ UI. To modify these profiles, please log onto the @@PRODUCT_NAME@@ server and run the 'cobbler edit profile' command. For more information, consult the @@PRODUCT_NAME@@ Reference Guide.</source>
+        <source>Kickstart profiles that are not managed by @@PRODUCT_NAME@@ can not be edited in the @@PRODUCT_NAME@@ UI. To modify these profiles, please log onto the @@PRODUCT_NAME@@ server and run the 'cobbler profile edit' command. For more information, consult the @@PRODUCT_NAME@@ Reference Guide.</source>
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/kickstart/Kickstarts.do</context>
         </context-group>
-    <target>கிக்ஸ்டார்ட் விவரக்குறிப்புகள் @@PRODUCT_NAME@@ஆல் நிர்வகிக்கப்படாதது @@PRODUCT_NAME@@ UIஇல் திருத்த முடியாது. இந்த விவரக்குறிப்புகளை மாற்ற, @@PRODUCT_NAME@@ சேவையகத்தில் புகுபதிவு செய்து 'cobbler edit profile' கட்டளையை உள்ளிடவும். மேலும் தகவலுக்கு, @@PRODUCT_NAME@@ குறிப்பு கையேட்டை பார்க்கவும்.</target></trans-unit>
+    <target>கிக்ஸ்டார்ட் விவரக்குறிப்புகள் @@PRODUCT_NAME@@ஆல் நிர்வகிக்கப்படாதது @@PRODUCT_NAME@@ UIஇல் திருத்த முடியாது. இந்த விவரக்குறிப்புகளை மாற்ற, @@PRODUCT_NAME@@ சேவையகத்தில் புகுபதிவு செய்து 'cobbler profile edit' கட்டளையை உள்ளிடவும். மேலும் தகவலுக்கு, @@PRODUCT_NAME@@ குறிப்பு கையேட்டை பார்க்கவும்.</target></trans-unit>
 	<trans-unit id="kickstart.distro.sw_managed.jsp">
         <source>@@PRODUCT_NAME@@ Managed?*</source>
         <context-group name="ctx">

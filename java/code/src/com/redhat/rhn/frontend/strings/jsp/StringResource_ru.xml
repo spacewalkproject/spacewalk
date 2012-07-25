@@ -15357,11 +15357,11 @@ the &lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;Activation Key
         </context-group>
     <target> Нет гарантии, что профили, которые не находятся под управлением @@PRODUCT_NAME@@, зарегистрируют системы в @@PRODUCT_NAME@@ после завершения кикстарта. Можно просмотреть кикстарт, нажав на имени профиля, чтобы проверить, появится ли ваша система в списке систем @@PRODUCT_NAME@@ после кикстарта.</target></trans-unit>
     <trans-unit id="kickstarts.distro.cobbler-only.tooltip">
-        <source>Kickstart profiles that are not managed by @@PRODUCT_NAME@@ can not be edited in the @@PRODUCT_NAME@@ UI. To modify these profiles, please log onto the @@PRODUCT_NAME@@ server and run the 'cobbler edit profile' command. For more information, consult the @@PRODUCT_NAME@@ Reference Guide.</source>
+        <source>Kickstart profiles that are not managed by @@PRODUCT_NAME@@ can not be edited in the @@PRODUCT_NAME@@ UI. To modify these profiles, please log onto the @@PRODUCT_NAME@@ server and run the 'cobbler profile edit' command. For more information, consult the @@PRODUCT_NAME@@ Reference Guide.</source>
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/kickstart/Kickstarts.do</context>
         </context-group>
-    <target>Профили кикстарта, которые не находятся под управлением @@PRODUCT_NAME@@, не могут быть изменены в интерфейсе @@PRODUCT_NAME@@. Чтобы изменить профили, авторизуйтесь на сервере @@PRODUCT_NAME@@ и выполните команду 'cobbler edit profile'. Более подробную информацию можно найти в Справочном руководстве @@PRODUCT_NAME@@.</target></trans-unit>
+    <target>Профили кикстарта, которые не находятся под управлением @@PRODUCT_NAME@@, не могут быть изменены в интерфейсе @@PRODUCT_NAME@@. Чтобы изменить профили, авторизуйтесь на сервере @@PRODUCT_NAME@@ и выполните команду 'cobbler profile edit'. Более подробную информацию можно найти в Справочном руководстве @@PRODUCT_NAME@@.</target></trans-unit>
 	<trans-unit id="kickstart.distro.sw_managed.jsp">
         <source>@@PRODUCT_NAME@@ Managed?*</source>
         <context-group name="ctx">

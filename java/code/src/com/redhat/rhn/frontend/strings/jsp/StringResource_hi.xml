@@ -15363,11 +15363,11 @@ the &lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;Activation Key
         </context-group>
     <target> प्रोफाइल जो कि @@PRODUCT_NAME@@-प्रबंधित हैं वे @@PRODUCT_NAME@@ में किकस्टार्ट के बाद सिस्टम को पंजीकृत करने के लिए गारंटी नहीं दिए जाते हैं. आप इन किकस्टार्ट की समीक्षा करने की इच्छा रख सकते हैं (प्रोफाइल नाम पर ऐसा करने के लिए क्लिक करें) यह संपुष्ट करने के लिए कि क्या आपका सिस्टम @@PRODUCT_NAME@@ सिस्टम सूची में किकस्टार्ट के बाद फिर प्रकट होगा.</target></trans-unit>
     <trans-unit id="kickstarts.distro.cobbler-only.tooltip">
-        <source>Kickstart profiles that are not managed by @@PRODUCT_NAME@@ can not be edited in the @@PRODUCT_NAME@@ UI. To modify these profiles, please log onto the @@PRODUCT_NAME@@ server and run the 'cobbler edit profile' command. For more information, consult the @@PRODUCT_NAME@@ Reference Guide.</source>
+        <source>Kickstart profiles that are not managed by @@PRODUCT_NAME@@ can not be edited in the @@PRODUCT_NAME@@ UI. To modify these profiles, please log onto the @@PRODUCT_NAME@@ server and run the 'cobbler profile edit' command. For more information, consult the @@PRODUCT_NAME@@ Reference Guide.</source>
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/kickstart/Kickstarts.do</context>
         </context-group>
-    <target>किकस्टार्ट प्रोफाइल जो कि @@PRODUCT_NAME@@ के द्वारा प्रबंधित नहीं किया जाता है को @@PRODUCT_NAME@@ UI में संपादित नहीं किया जा सकता है. इन प्रोफाइल को रूपांतरित करने के लिए, कृपया @@PRODUCT_NAME@@ सर्वर पर लॉग ऑन करें और 'cobbler edit profile' कमांड चलाएँ. अधिक सूचना के लिए, @@PRODUCT_NAME@@ संदर्भ गाइड की सलाह लें.</target></trans-unit>
+    <target>किकस्टार्ट प्रोफाइल जो कि @@PRODUCT_NAME@@ के द्वारा प्रबंधित नहीं किया जाता है को @@PRODUCT_NAME@@ UI में संपादित नहीं किया जा सकता है. इन प्रोफाइल को रूपांतरित करने के लिए, कृपया @@PRODUCT_NAME@@ सर्वर पर लॉग ऑन करें और 'cobbler profile edit' कमांड चलाएँ. अधिक सूचना के लिए, @@PRODUCT_NAME@@ संदर्भ गाइड की सलाह लें.</target></trans-unit>
 	<trans-unit id="kickstart.distro.sw_managed.jsp">
         <source>@@PRODUCT_NAME@@ Managed?*</source>
         <context-group name="ctx">

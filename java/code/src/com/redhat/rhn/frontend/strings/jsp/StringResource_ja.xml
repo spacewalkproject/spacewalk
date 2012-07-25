@@ -15384,11 +15384,11 @@ the &lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;Activation Key
         </context-group>
     <target> @@PRODUCT_NAME@@ によって管理されないプロフィールは、キックスタートの後にシステムを @@PRODUCT_NAME@@ にシステムを登録できるとは限りません。キックスタートを再度チェックして (プロフィール名をクリック)、キックスタートの後にシステムが @@PRODUCT_NAME@@ システム一覧に再表示されるか確認するとよいでしょう。</target></trans-unit>
     <trans-unit id="kickstarts.distro.cobbler-only.tooltip">
-        <source>Kickstart profiles that are not managed by @@PRODUCT_NAME@@ can not be edited in the @@PRODUCT_NAME@@ UI. To modify these profiles, please log onto the @@PRODUCT_NAME@@ server and run the 'cobbler edit profile' command. For more information, consult the @@PRODUCT_NAME@@ Reference Guide.</source>
+        <source>Kickstart profiles that are not managed by @@PRODUCT_NAME@@ can not be edited in the @@PRODUCT_NAME@@ UI. To modify these profiles, please log onto the @@PRODUCT_NAME@@ server and run the 'cobbler profile edit' command. For more information, consult the @@PRODUCT_NAME@@ Reference Guide.</source>
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/kickstart/Kickstarts.do</context>
         </context-group>
-    <target>@@PRODUCT_NAME@@ によって管理されないキックスタートプロフィールは、@@PRODUCT_NAME@@ ユーザーインターフェイスで編集することはできません。これらのプロフィールを編集するには、@@PRODUCT_NAME@@ サーバーにログインし、「cobbler edit profile」コマンドを実行します。詳細は、 @@PRODUCT_NAME@@ リファレンスガイドを参照してください。</target></trans-unit>
+    <target>@@PRODUCT_NAME@@ によって管理されないキックスタートプロフィールは、@@PRODUCT_NAME@@ ユーザーインターフェイスで編集することはできません。これらのプロフィールを編集するには、@@PRODUCT_NAME@@ サーバーにログインし、「cobbler profile edit」コマンドを実行します。詳細は、 @@PRODUCT_NAME@@ リファレンスガイドを参照してください。</target></trans-unit>
 	<trans-unit id="kickstart.distro.sw_managed.jsp">
         <source>@@PRODUCT_NAME@@ Managed?*</source>
         <context-group name="ctx">

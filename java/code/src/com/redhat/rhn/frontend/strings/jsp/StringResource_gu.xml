@@ -15363,11 +15363,11 @@ the &lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;Activation Key
         </context-group>
     <target> રૂપરેખાઓ કે જે @@PRODUCT_NAME@@-સંચાલિત થયેલ છે તે કિકસ્ટાર્ટ પછી @@PRODUCT_NAME@@ માં સિસ્ટમો ને રજીસ્ટર કરવાની ખાતરી આપેલ નથી. ક્યાં કિકસ્ટાર્ટ પછી @@PRODUCT_NAME@@ સિસ્ટમ યાદીમાં તમારી સિસ્ટમ પુન:દેખાશે કે નહિં તે ખાતરી કરવા માટે આ કિકસ્ટાર્ટો (આ કરવા માટે રૂપરેખા નામ પર ક્લિક કરો) ને ચકાસવાની તમે ઇચ્છા રાખી શકો છો.</target></trans-unit>
     <trans-unit id="kickstarts.distro.cobbler-only.tooltip">
-        <source>Kickstart profiles that are not managed by @@PRODUCT_NAME@@ can not be edited in the @@PRODUCT_NAME@@ UI. To modify these profiles, please log onto the @@PRODUCT_NAME@@ server and run the 'cobbler edit profile' command. For more information, consult the @@PRODUCT_NAME@@ Reference Guide.</source>
+        <source>Kickstart profiles that are not managed by @@PRODUCT_NAME@@ can not be edited in the @@PRODUCT_NAME@@ UI. To modify these profiles, please log onto the @@PRODUCT_NAME@@ server and run the 'cobbler profile edit' command. For more information, consult the @@PRODUCT_NAME@@ Reference Guide.</source>
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/kickstart/Kickstarts.do</context>
         </context-group>
-    <target>કિકસ્ટાર્ટ રૂપરેખાઓ કે જે @@PRODUCT_NAME@@ દ્દારા સંચાલિત થયેલ છે જે @@PRODUCT_NAME@@ UI માં ફેરફાર કરી શકાતુ નથી. આ રૂપરેખાઓને બદલવા માટે, મહેરબાની કરીને @@PRODUCT_NAME@@ સર્વર પર પ્રવેશો અને 'cobbler edit profile' આદેશને ચલાવો. વધારે જાણકારી માટે, @@PRODUCT_NAME@@ સંદર્ભ માર્ગદર્શિકાનો સંપર્ક કરો.</target></trans-unit>
+    <target>કિકસ્ટાર્ટ રૂપરેખાઓ કે જે @@PRODUCT_NAME@@ દ્દારા સંચાલિત થયેલ છે જે @@PRODUCT_NAME@@ UI માં ફેરફાર કરી શકાતુ નથી. આ રૂપરેખાઓને બદલવા માટે, મહેરબાની કરીને @@PRODUCT_NAME@@ સર્વર પર પ્રવેશો અને 'cobbler profile edit' આદેશને ચલાવો. વધારે જાણકારી માટે, @@PRODUCT_NAME@@ સંદર્ભ માર્ગદર્શિકાનો સંપર્ક કરો.</target></trans-unit>
 	<trans-unit id="kickstart.distro.sw_managed.jsp">
         <source>@@PRODUCT_NAME@@ Managed?*</source>
         <context-group name="ctx">

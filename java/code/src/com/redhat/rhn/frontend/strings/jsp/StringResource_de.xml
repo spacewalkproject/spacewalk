@@ -15405,11 +15405,11 @@ den Reiter &lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;Aktivie
         </context-group>
     <target> Bei Profilen, die nicht von @@PRODUCT_NAME@@ verwaltet werden, ist nicht gewährleistet, dass Systeme nach dem Kickstart beim @@PRODUCT_NAME@@ angemeldet werden. Sie sollten diese Kickstarts daraufhin überprüfen (klicken Sie dafür auf den Profilnamen), ob Ihr System nach dem Kickstart in der @@PRODUCT_NAME@@ Systemliste wieder erscheint.You may wish to review these kickstarts (click on the profile name to do so) to confirm whether or not your system will reappear in the @@PRODUCT_NAME@@ system list after kickstart.</target></trans-unit>
     <trans-unit id="kickstarts.distro.cobbler-only.tooltip">
-        <source>Kickstart profiles that are not managed by @@PRODUCT_NAME@@ can not be edited in the @@PRODUCT_NAME@@ UI. To modify these profiles, please log onto the @@PRODUCT_NAME@@ server and run the 'cobbler edit profile' command. For more information, consult the @@PRODUCT_NAME@@ Reference Guide.</source>
+        <source>Kickstart profiles that are not managed by @@PRODUCT_NAME@@ can not be edited in the @@PRODUCT_NAME@@ UI. To modify these profiles, please log onto the @@PRODUCT_NAME@@ server and run the 'cobbler profile edit' command. For more information, consult the @@PRODUCT_NAME@@ Reference Guide.</source>
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/kickstart/Kickstarts.do</context>
         </context-group>
-    <target>Kickstart-Profile, die nicht von @@PRODUCT_NAME@@ verwaltet werden, können nicht über die @@PRODUCT_NAME@@-Benutzeroberfläche modifiziert werden. Um diese Profile zu modifizieren, loggen Sie sich bitte beim @@PRODUCT_NAME@@ Server ein und führen den 'cobbler edit profile' Befehl aus. Werfen Sie für weitere Informationen bitte einen Blick in das @@PRODUCT_NAME@@ Referenzhandbuch.</target></trans-unit>
+    <target>Kickstart-Profile, die nicht von @@PRODUCT_NAME@@ verwaltet werden, können nicht über die @@PRODUCT_NAME@@-Benutzeroberfläche modifiziert werden. Um diese Profile zu modifizieren, loggen Sie sich bitte beim @@PRODUCT_NAME@@ Server ein und führen den 'cobbler profile edit' Befehl aus. Werfen Sie für weitere Informationen bitte einen Blick in das @@PRODUCT_NAME@@ Referenzhandbuch.</target></trans-unit>
 	<trans-unit id="kickstart.distro.sw_managed.jsp">
         <source>@@PRODUCT_NAME@@ Managed?*</source>
         <context-group name="ctx">

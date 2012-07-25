@@ -15397,11 +15397,11 @@ the &lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;Activation Key
         </context-group>
     <target>无法保证在 kicstart 后，不是由 @@PRODUCT_NAME@@ 管理的侧写可在 @@PRODUCT_NAME@@ 中注册系统。您可以查看这些 kickstart（点击侧写名称即可）以确定在 kickstart 后您的系统是否会重新出现在 @@PRODUCT_NAME@@ 系统列表中。</target></trans-unit>
     <trans-unit id="kickstarts.distro.cobbler-only.tooltip">
-        <source>Kickstart profiles that are not managed by @@PRODUCT_NAME@@ can not be edited in the @@PRODUCT_NAME@@ UI. To modify these profiles, please log onto the @@PRODUCT_NAME@@ server and run the 'cobbler edit profile' command. For more information, consult the @@PRODUCT_NAME@@ Reference Guide.</source>
+        <source>Kickstart profiles that are not managed by @@PRODUCT_NAME@@ can not be edited in the @@PRODUCT_NAME@@ UI. To modify these profiles, please log onto the @@PRODUCT_NAME@@ server and run the 'cobbler profile edit' command. For more information, consult the @@PRODUCT_NAME@@ Reference Guide.</source>
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/kickstart/Kickstarts.do</context>
         </context-group>
-    <target>不是由 @@PRODUCT_NAME@@ 管理的 kickstart 侧写无法在 @@PRODUCT_NAME@@ 用户界面中进行编辑。要修改这些侧写，请登录到 @@PRODUCT_NAME@@ 服务器，并运行 'cobbler edit profile' 命令。有关详情请参考《@@PRODUCT_NAME@@ 参考指南》。</target></trans-unit>
+    <target>不是由 @@PRODUCT_NAME@@ 管理的 kickstart 侧写无法在 @@PRODUCT_NAME@@ 用户界面中进行编辑。要修改这些侧写，请登录到 @@PRODUCT_NAME@@ 服务器，并运行 'cobbler profile edit' 命令。有关详情请参考《@@PRODUCT_NAME@@ 参考指南》。</target></trans-unit>
 	<trans-unit id="kickstart.distro.sw_managed.jsp">
         <source>@@PRODUCT_NAME@@ Managed?*</source>
         <context-group name="ctx">

@@ -15360,11 +15360,11 @@ per sottoscrivere i sistemi ai canali software durante un kickstart.&lt;/span&gt
         </context-group>
     <target>Ai profili non gestiti da @@PRODUCT_NAME@@ non verrà garantita la registrazione dei sistemi con @@PRODUCT_NAME@@ dopo il kickstart. È consigliato controllare i suddetti kickstart (per fare questo selezionare il nome del profilo) per confermare o meno la presenza del vostro sistema all'interno dell'elenco dei sistemi @@PRODUCT_NAME@@.</target></trans-unit>
     <trans-unit id="kickstarts.distro.cobbler-only.tooltip">
-        <source>Kickstart profiles that are not managed by @@PRODUCT_NAME@@ can not be edited in the @@PRODUCT_NAME@@ UI. To modify these profiles, please log onto the @@PRODUCT_NAME@@ server and run the 'cobbler edit profile' command. For more information, consult the @@PRODUCT_NAME@@ Reference Guide.</source>
+        <source>Kickstart profiles that are not managed by @@PRODUCT_NAME@@ can not be edited in the @@PRODUCT_NAME@@ UI. To modify these profiles, please log onto the @@PRODUCT_NAME@@ server and run the 'cobbler profile edit' command. For more information, consult the @@PRODUCT_NAME@@ Reference Guide.</source>
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/kickstart/Kickstarts.do</context>
         </context-group>
-    <target>I profili di kickstart non gestiti da @@PRODUCT_NAME@@ non possono essere modificati nella UI di @@PRODUCT_NAME@@. Per modificare i suddetti profili eseguite il login sul server di @@PRODUCT_NAME@@ ed eseguite il comando 'cobbler edit profile'. Per maggiori informazioni consultate la @@PRODUCT_NAME@@ Reference Guide.</target></trans-unit>
+    <target>I profili di kickstart non gestiti da @@PRODUCT_NAME@@ non possono essere modificati nella UI di @@PRODUCT_NAME@@. Per modificare i suddetti profili eseguite il login sul server di @@PRODUCT_NAME@@ ed eseguite il comando 'cobbler profile edit'. Per maggiori informazioni consultate la @@PRODUCT_NAME@@ Reference Guide.</target></trans-unit>
 	<trans-unit id="kickstart.distro.sw_managed.jsp">
         <source>@@PRODUCT_NAME@@ Managed?*</source>
         <context-group name="ctx">
