@@ -319,7 +319,7 @@ class ConnectionManager {
         Session session = info.getSession();
         try {
             Transaction txn = info.getTransaction();
-            if (txn != null) {
+            if (txn != null && !txn.wasCommitted() && !txn.wasRolledBack()) {
                 try {
                     txn.commit();
                 }
