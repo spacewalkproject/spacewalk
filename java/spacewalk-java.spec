@@ -23,7 +23,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.116
+Version: 1.8.117
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -614,6 +614,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Jul 26 2012 Tomas Lestach <tlestach@redhat.com> 1.8.117-1
+- log a message when repo sync task is triggered
+
 * Wed Jul 25 2012 Tomas Lestach <tlestach@redhat.com> 1.8.116-1
 - 843050 - fix recommended cobbler command
 - 753056 - dissociate deleted crypto key from its kickstart profiles
