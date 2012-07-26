@@ -527,9 +527,9 @@ default_or_input "Create and populate configuration channel $CHANNEL_LABEL?" POP
 POPULATE_CONFIG_CHANNEL=$(yes_no $POPULATE_CONFIG_CHANNEL)
 if [ "$POPULATE_CONFIG_CHANNEL" = "1" ]; then
 	rhncfg-manager create-channel --server-name "$RHN_PARENT" \
-                rhn_proxy_config_$SYSTEM_ID
+                "$CHANNEL_LABEL"
 	rhncfg-manager update --server-name "$RHN_PARENT" \
-                --channel=rhn_proxy_config_$SYSTEM_ID \
+                --channel="$CHANNEL_LABEL" \
                 $HTTPDCONFD_DIR/ssl.conf \
                 $RHNCONF_DIR/rhn.conf \
                 $RHNCONF_DIR/cluster.ini \
