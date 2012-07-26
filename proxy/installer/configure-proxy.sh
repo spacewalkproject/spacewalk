@@ -526,8 +526,14 @@ CHANNEL_LABEL="rhn_proxy_config_$SYSTEM_ID"
 default_or_input "Create and populate configuration channel $CHANNEL_LABEL?" POPULATE_CONFIG_CHANNEL 'Y/n'
 POPULATE_CONFIG_CHANNEL=$(yes_no $POPULATE_CONFIG_CHANNEL)
 if [ "$POPULATE_CONFIG_CHANNEL" = "1" ]; then
-	rhncfg-manager create-channel --server-name "$RHN_PARENT" \
-                "$CHANNEL_LABEL"
+        RHNCFG_STATUS=1
+        while [ $RHNCFG_STATUS != 0 ] ; do
+            CONFIG_CHANNELS=$(rhncfg-manager list-channels --server-name "$RHN_PARENT")
+            RHNCFG_STATUS=$?
+        done
+        if ! grep -q -E "^ +$CHANNEL_LABEL$" <<<"$CONFIG_CHANNELS" ; then
+            rhncfg-manager create-channel --server-name "$RHN_PARENT" "$CHANNEL_LABEL"
+        fi
 	rhncfg-manager update --server-name "$RHN_PARENT" \
                 --channel="$CHANNEL_LABEL" \
                 $HTTPDCONFD_DIR/ssl.conf \
