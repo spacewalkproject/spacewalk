@@ -92,37 +92,36 @@ INTERACTIVE=1
 CNAME_INDEX=0
 
 while [ $# -ge 1 ]; do
-	case $1 in
-            --help | -h)  print_help;;
-            --answer-file=*) parse_answer_file $1;;
-            --non-interactive) INTERACTIVE=0;;
-
-			--version=*) VERSION=$(echo $1 | cut -d= -f2-);;
-			--rhn-parent=*) RHN_PARENT=$(echo $1 | cut -d= -f2-);;
-			--traceback-email=*) TRACEBACK_EMAIL=$(echo $1 | cut -d= -f2-);;
-			--use-ssl=*) USE_SSL=$(echo $1 | cut -d= -f2-);;
-			--ca-chain=*) CA_CHAIN=$(echo $1 | cut -d= -f2-);;
-			--force-own-ca) FORCE_OWN_CA=1;;
-			--http-proxy=*) HTTP_PROXY=$(echo $1 | cut -d= -f2-);;
-			--http-username=*) HTTP_USERNAME=$(echo $1 | cut -d= -f2-);;
-			--http-password=*) HTTP_PASSWORD=$(echo $1 | cut -d= -f2-);;
-			--ssl-build-dir=*) SSL_BUILD_DIR=$(echo $1 | cut -d= -f2-);;
-			--ssl-org=*) SSL_ORG=$(echo $1 | cut -d= -f2-);;
-			--ssl-orgunit=*) SSL_ORGUNIT=$(echo $1 | cut -d= -f2-);;
-			--ssl-common=*) SSL_COMMON=$(echo $1 | cut -d= -f2-);;
-			--ssl-city=*) SSL_CITY=$(echo $1 | cut -d= -f2-);;
-			--ssl-state=*) SSL_STATE=$(echo $1 | cut -d= -f2-);;
-			--ssl-country=*) SSL_COUNTRY=$(echo $1 | cut -d= -f2-);;
-			--ssl-email=*) SSL_EMAIL=$(echo $1 | cut -d= -f2-);;
-			--ssl-password=*) SSL_PASSWORD=$(echo $1 | cut -d= -f2-);;
-            --ssl-cname=*) SSL_CNAME_PARSED[CNAME_INDEX++]=--set-cname=$(echo $1 | cut -d= -f2-);;
-			--install-monitoring=*) INSTALL_MONITORING=$(echo $1 | cut -d= -f2-);;
-			--enable-scout=*) ENABLE_SCOUT=$(echo $1 | cut -d= -f2-);;
-			--monitoring-parent=*) MONITORING_PARENT_IP=$(echo $1 | cut -d= -f2-);;
-			--monitoring-parent-ip=*) MONITORING_PARENT_IP=$(echo $1 | cut -d= -f2-);;
-			--populate-config-channel=*) POPULATE_CONFIG_CHANNEL=$(echo $1 | cut -d= -f2-);;
-			--start-services=*) START_SERVICES=$(echo $1 | cut -d= -f2-);;
-			*) echo Error: Invalid option $1
+    case $1 in
+        --help | -h)  print_help;;
+        --answer-file=*) parse_answer_file $1;;
+        --non-interactive) INTERACTIVE=0;;
+        --version=*) VERSION=$(echo $1 | cut -d= -f2-);;
+        --rhn-parent=*) RHN_PARENT=$(echo $1 | cut -d= -f2-);;
+        --traceback-email=*) TRACEBACK_EMAIL=$(echo $1 | cut -d= -f2-);;
+        --use-ssl=*) USE_SSL=$(echo $1 | cut -d= -f2-);;
+        --ca-chain=*) CA_CHAIN=$(echo $1 | cut -d= -f2-);;
+        --force-own-ca) FORCE_OWN_CA=1;;
+        --http-proxy=*) HTTP_PROXY=$(echo $1 | cut -d= -f2-);;
+        --http-username=*) HTTP_USERNAME=$(echo $1 | cut -d= -f2-);;
+        --http-password=*) HTTP_PASSWORD=$(echo $1 | cut -d= -f2-);;
+        --ssl-build-dir=*) SSL_BUILD_DIR=$(echo $1 | cut -d= -f2-);;
+        --ssl-org=*) SSL_ORG=$(echo $1 | cut -d= -f2-);;
+        --ssl-orgunit=*) SSL_ORGUNIT=$(echo $1 | cut -d= -f2-);;
+        --ssl-common=*) SSL_COMMON=$(echo $1 | cut -d= -f2-);;
+        --ssl-city=*) SSL_CITY=$(echo $1 | cut -d= -f2-);;
+        --ssl-state=*) SSL_STATE=$(echo $1 | cut -d= -f2-);;
+        --ssl-country=*) SSL_COUNTRY=$(echo $1 | cut -d= -f2-);;
+        --ssl-email=*) SSL_EMAIL=$(echo $1 | cut -d= -f2-);;
+        --ssl-password=*) SSL_PASSWORD=$(echo $1 | cut -d= -f2-);;
+        --ssl-cname=*) SSL_CNAME_PARSED[CNAME_INDEX++]=--set-cname=$(echo $1 | cut -d= -f2-);;
+        --install-monitoring=*) INSTALL_MONITORING=$(echo $1 | cut -d= -f2-);;
+        --enable-scout=*) ENABLE_SCOUT=$(echo $1 | cut -d= -f2-);;
+        --monitoring-parent=*) MONITORING_PARENT_IP=$(echo $1 | cut -d= -f2-);;
+        --monitoring-parent-ip=*) MONITORING_PARENT_IP=$(echo $1 | cut -d= -f2-);;
+        --populate-config-channel=*) POPULATE_CONFIG_CHANNEL=$(echo $1 | cut -d= -f2-);;
+        --start-services=*) START_SERVICES=$(echo $1 | cut -d= -f2-);;
+        *) echo Error: Invalid option $1
     esac
     shift
 done
