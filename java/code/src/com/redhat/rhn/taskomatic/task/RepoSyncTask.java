@@ -59,9 +59,7 @@ public class RepoSyncTask extends RhnJavaJob {
             throw new JobExecutionException("No such channel with channel_id " + channelId);
         }
 
-        if (log.isDebugEnabled()) {
-            log.debug("Syncing repos for channel: " + c.getName());
-        }
+        log.info("Syncing repos for channel: " + c.getName());
 
         executeExtCmd(getSyncCommand(c).toArray(new String[0]));
         c.setLastSynced(new Date());
