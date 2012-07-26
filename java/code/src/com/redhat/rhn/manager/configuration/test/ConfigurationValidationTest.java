@@ -104,7 +104,7 @@ public class ConfigurationValidationTest extends RhnBaseTestCase {
         name = "";
         assertFalse(ConfigurationValidation.validateUserOrGroup(name));
         name = "0root";
-        assertFalse(ConfigurationValidation.validateUserOrGroup(name));
+        assertTrue(ConfigurationValidation.validateUserOrGroup(name));
         name = "root*";
         assertFalse(ConfigurationValidation.validateUserOrGroup(name));
     }
