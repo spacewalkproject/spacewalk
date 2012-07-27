@@ -31,12 +31,6 @@ insert into rhnUserGroupType (id, label, name) values (
 
 insert into rhnUserGroupType (id, label, name) values (
 	sequence_nextval('rhn_usergroup_type_seq'),
-	'org_applicant',
-	'Organization Applicant'
-);
-
-insert into rhnUserGroupType (id, label, name) values (
-	sequence_nextval('rhn_usergroup_type_seq'),
 	'channel_admin',
 	'Channel Administrator'
 );
