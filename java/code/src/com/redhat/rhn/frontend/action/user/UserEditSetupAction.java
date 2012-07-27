@@ -139,8 +139,7 @@ public class UserEditSetupAction extends RhnAction {
         StringBuffer disabledRoles = new StringBuffer();
 
         for (Role currRole : orgRoles) {
-            if (currRole.equals(RoleFactory.ORG_APPLICANT) ||
-                    currRole.equals(RoleFactory.CERT_ADMIN)) {
+            if (currRole.equals(RoleFactory.CERT_ADMIN)) {
                 continue;
             }
             log.debug("currRole = " + currRole.getLabel());

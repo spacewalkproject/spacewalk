@@ -145,8 +145,6 @@ public class UserEditActionTest extends RhnBaseTestCase {
                 (String)null);
         request.setupAddParameter("role_" + RoleFactory.ORG_ADMIN.getLabel(),
                 (String)null);
-        request.setupAddParameter("role_" + RoleFactory.ORG_APPLICANT.getLabel(),
-                (String)null);
         request.setupAddParameter("role_" + RoleFactory.CHANNEL_ADMIN.getLabel(),
                 (String)null);
         request.setupAddParameter("role_" + RoleFactory.SAT_ADMIN.getLabel(),

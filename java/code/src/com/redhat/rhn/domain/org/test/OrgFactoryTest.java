@@ -156,11 +156,6 @@ public class OrgFactoryTest extends RhnBaseTestCase {
         assertNull(lookup.getToken());
     }
 
-    public void testHasRole() throws Exception {
-        Org org1 = UserTestUtils.findNewOrg("testOrg");
-        assertTrue(org1.hasRole(RoleFactory.ORG_APPLICANT));
-    }
-
     public void testImpliedEntitlement() throws Exception {
         Org org1 = OrgFactory.createOrg();
         assertTrue(org1
