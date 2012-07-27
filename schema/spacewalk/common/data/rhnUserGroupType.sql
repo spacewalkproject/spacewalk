@@ -65,12 +65,6 @@ insert into rhnUserGroupType (id, label, name) values (
 	'Activation Key Administrator'
 );
 
-insert into rhnUserGroupType (id, label, name) values (
-	sequence_nextval('rhn_usergroup_type_seq'),
-	'cert_admin',
-	'Certificate Administrator'
-);
-
 commit;
 
 --
