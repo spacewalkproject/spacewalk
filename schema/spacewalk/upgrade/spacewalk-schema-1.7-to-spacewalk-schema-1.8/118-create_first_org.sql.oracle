@@ -7,32 +7,30 @@
 -- FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 -- along with this software; if not, see
 -- http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
--- 
+--
 -- Red Hat trademarks are not licensed under GPLv2. No permission is
 -- granted to use or replicate Red Hat trademarks that are incorporated
--- in this software or its documentation. 
+-- in this software or its documentation.
+--
+--
+-- This creates an org with ID of 1, and errors if there already is one
 --
 
+
+
 create or replace procedure
-create_new_org
+create_first_org
 (
-	name_in      in varchar2,
-	password_in  in varchar2,
-	org_id_out   out number
+	name_in in varchar2,
+	password_in in varchar2
 ) is
 	ug_type			number;
 	group_val		number;
-	new_org_id              number;
 begin
-    
-        select web_customer_id_seq.nextval into new_org_id from dual;
-
 	insert into web_customer (
 		id, name
-
-	
 	) values (
-		new_org_id, name_in
+		1, name_in
 	);
 
 	select rhn_user_group_id_seq.nextval into group_val from dual;
@@ -48,8 +46,8 @@ begin
 		max_members, group_type, org_id
 	) values (
 		group_val, 'Organization Administrators',
-		'Organization Administrators for Org ' || name_in,
-		NULL, ug_type, new_org_id
+		'Organization Administrators for Org ' || name_in || ' (1)',
+		NULL, ug_type, 1
 	);
 
 	select rhn_user_group_id_seq.nextval into group_val from dual;
@@ -65,8 +63,8 @@ begin
 		max_members, group_type, org_id
 	) values (
 		group_val, 'System Group Administrators',
-		'System Group Administrators for Org ' || name_in,
-		NULL, ug_type, new_org_id
+		'System Group Administrators for Org ' || name_in || ' (1)',
+		NULL, ug_type, 1
 	);
 
 
@@ -83,13 +81,13 @@ begin
 		max_members, group_type, org_id
 	) values (
 		group_val, 'Activation Key Administrators',
-		'Activation Key Administrators for Org ' || name_in,
-		NULL, ug_type, new_org_id
+		'Activation Key Administrators for Org ' || name_in || ' (1)',
+		NULL, ug_type, 1
 	);
 
 	-- config admin is special; it gets created in
 	-- rhn_entitlements.set_customer_provisioning instead.
-	
+
 	select rhn_user_group_id_seq.nextval into group_val from dual;
 
 	select	id
@@ -103,22 +101,37 @@ begin
 		max_members, group_type, org_id
 	) values (
 		group_val, 'Channel Administrators',
-		'Channel Administrators for Org ' || name_in,
-		NULL, ug_type, new_org_id
+		'Channel Administrators for Org ' || name_in || ' (1)',
+		NULL, ug_type, 1
 	);
+
+	select rhn_user_group_id_seq.nextval into group_val from dual;
+
+	select	id
+	into	ug_type
+	from	rhnUserGroupType
+	where	label = 'satellite_admin';
+
+	insert into rhnUserGroup (
+		id, name,
+		description,
+		max_members, group_type, org_id
+	) values (
+		group_val, 'Satellite Administrators',
+		'Satellite Administrators for Org ' || name_in || ' (1)',
+		NULL, ug_type, 1
+	);
+
 
 	-- there aren't any users yet, so we don't need to update
 	-- rhnUserServerPerms
-        insert into rhnServerGroup 
+        insert into rhnServerGroup
 		( id, name, description, max_members, group_type, org_id )
-		select rhn_server_group_id_seq.nextval, sgt.name, sgt.name, 
-			0, sgt.id, new_org_id
+		select rhn_server_group_id_seq.nextval, sgt.name, sgt.name,
+			0, sgt.id, 1
 		from rhnServerGroupType sgt
 		where sgt.label = 'sw_mgr_entitled';
-	
-	org_id_out := new_org_id;
-		
-end create_new_org;
+
+end create_first_org;
 /
 show errors;
-

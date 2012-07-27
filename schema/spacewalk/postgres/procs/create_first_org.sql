@@ -1,4 +1,4 @@
--- oracle equivalent source sha1 5ab67356ee6f35be89739cf5d31334fdf96596ac
+-- oracle equivalent source sha1 77c8eb10ea3d63cd683455e740162c43246851bc
 -- retrieved from ./1279712605/e7eb734c1a1ae108af13b6aa9040c8f20aee64c5/schema/spacewalk/oracle/procs/create_first_org.sql
 --
 -- Copyright (c) 2008--2010 Red Hat, Inc.
@@ -50,23 +50,6 @@ begin
 	) values (
 		group_val, 'Organization Administrators',
 		'Organization Administrators for Org ' || name_in || ' (1)',
-		NULL, ug_type, 1
-	);
-
-	select nextval('rhn_user_group_id_seq') into group_val from dual;
-
-	select	id
-	into	ug_type
-	from	rhnUserGroupType
-	where	label = 'org_applicant';
-
-	insert into rhnUserGroup (
-		id, name,
-		description,
-		max_members, group_type, org_id
-	) values (
-		group_val, 'Organization Applicants',
-		'Organization Applicants for Org ' || name_in || ' (1)',
 		NULL, ug_type, 1
 	);
 

@@ -1,5 +1,4 @@
--- oracle equivalent source sha1 0162ede8482479569e72b71371bcad1e421c7b7a
--- retrieved from ./1279712605/e7eb734c1a1ae108af13b6aa9040c8f20aee64c5/schema/spacewalk/oracle/procs/create_new_org.sql
+-- oracle equivalent source sha1 bffebbd6ff83f0d1f159394958b8f4b16b4f246c
 --
 -- Copyright (c) 2008--2010 Red Hat, Inc.
 --
@@ -9,10 +8,10 @@
 -- FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 -- along with this software; if not, see
 -- http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
--- 
+--
 -- Red Hat trademarks are not licensed under GPLv2. No permission is
 -- granted to use or replicate Red Hat trademarks that are incorporated
--- in this software or its documentation. 
+-- in this software or its documentation.
 --
 
 create or replace function create_new_org
@@ -127,5 +126,3 @@ begin
 end;
 $$
 language plpgsql;
-
-
