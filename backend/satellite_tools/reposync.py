@@ -461,7 +461,7 @@ class RepoSync(object):
         else:
             # we expect to get ISO formated date
             ret = date
-        return ret
+        return ret[:19] #return 1st 19 letters of date, therefore preventing ORA-01830 caused by fractions of seconds
 
     def fix_notice(self, notice):
         if "." in notice['version']:
