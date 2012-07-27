@@ -58,18 +58,7 @@ class UserAuth:
         log_debug(4, "Groups: %s; org_id: %s; user_id: %s" % (
             self.groups, self.org_id, self.user_id))
 
-    def isSuperuser(self):
-        if 'rhn_superuser' in self.groups:
-            log_debug(4, "Is superuser")
-            return 1
-        log_debug(4, "Is NOT superuser")
-        return 0
-
     def isOrgAdmin(self):
-        if self.isSuperuser():
-            log_debug(4, "Is org admin because isa superuser")
-            # Superusers can do anything
-            return 1
         if 'org_admin' in self.groups:
             log_debug(4, "Is org admin")
             return 1
@@ -77,10 +66,6 @@ class UserAuth:
         return 0
 
     def isChannelAdmin(self):
-        if self.isSuperuser():
-            # Superusers can do anything
-            log_debug(4, "Is channel admin because isa superuser")
-            return 1
         if 'org_admin' in self.groups:
             log_debug(4, "Is channel admin because isa org admin")
             return 1
@@ -135,9 +120,6 @@ class UserAuth:
         log_debug(4, channels)
         if not channels:
             return
-        if 'rhn_superuser' in self.groups:
-            log_debug(4, "Is superuser")
-            return None
 
         # rhn_channel.user_role_check checks for the ownership of the channel
         # by this user's org

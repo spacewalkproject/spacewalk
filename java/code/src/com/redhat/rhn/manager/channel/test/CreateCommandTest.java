@@ -15,7 +15,6 @@
 package com.redhat.rhn.manager.channel.test;
 
 import com.redhat.rhn.domain.channel.Channel;
-import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.xmlrpc.InvalidChannelLabelException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidChannelNameException;
@@ -60,7 +59,6 @@ public class CreateCommandTest extends RhnBaseTestCase {
         invalidChannelName(null);
         invalidChannelName("_123456");
         // test rhn or red hat channels
-        assertFalse(user.hasRole(RoleFactory.RHN_SUPERUSER));
         invalidChannelName("rhn-channel-name");
         invalidChannelName("redhat linux");
         invalidChannelName("Red Hat Enterprise Spacewalk Sync");
@@ -152,7 +150,6 @@ public class CreateCommandTest extends RhnBaseTestCase {
         invalidChannelLabel("------");
         invalidChannelLabel("______");
         // test rhn or red hat channels
-        assertFalse(user.hasRole(RoleFactory.RHN_SUPERUSER));
         invalidChannelLabel("rhn-channel-name");
         invalidChannelLabel("redhat linux");
         invalidChannelLabel("Red Hat Enterprise Spacewalk Sync");

@@ -930,8 +930,7 @@ public class ChannelManager extends BaseManager {
     public static boolean verifyChannelAdmin(User user, Long cid)
         throws InvalidChannelRoleException {
 
-        if (user.hasRole(RoleFactory.RHN_SUPERUSER) ||
-                user.hasRole(RoleFactory.CHANNEL_ADMIN)) {
+        if (user.hasRole(RoleFactory.CHANNEL_ADMIN)) {
             return true;
         }
 
@@ -1023,10 +1022,6 @@ public class ChannelManager extends BaseManager {
      */
     public static boolean verifyChannelSubscribe(User user, Long cid) {
 
-        if (user.hasRole(RoleFactory.RHN_SUPERUSER)) {
-            return true;
-        }
-
         try {
             return verifyChannelRole(user, cid, QRY_ROLE_SUBSCRIBE);
         }
@@ -1054,10 +1049,6 @@ public class ChannelManager extends BaseManager {
      * @return Returns true if the user has permission, false otherwise
      */
     public static boolean verifyChannelManage(User user, Long cid) {
-
-        if (user.hasRole(RoleFactory.RHN_SUPERUSER)) {
-            return true;
-        }
 
         try {
             return verifyChannelRole(user, cid, QRY_ROLE_MANAGE);

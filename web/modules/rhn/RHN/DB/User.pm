@@ -801,8 +801,6 @@ sub verify_channel_subscribe {
   my $self = shift;
   my @channel_ids = @_;
 
-  return 1 if $self->is('rhn_superuser');
-
   for my $cid (@channel_ids) {
     return 0 unless $self->verify_channel_role($cid, 'subscribe');
   }
@@ -1063,8 +1061,6 @@ sub verify_user_admin {
   my $self = shift;
   my @user_ids = @_;
 
-  return 1 if $self->is('rhn_superuser');
-
   my $dbh = RHN::DB->connect;
   my $sth = $dbh->prepare("SELECT org_id FROM web_contact WHERE id = ?");
 
@@ -1104,8 +1100,6 @@ sub verify_system_group_user_admin {
   my $self = shift;
   my @user_ids = @_;
 
-  return 1 if $self->is('rhn_superuser');
-
   my $dbh = RHN::DB->connect;
   my $sth = $dbh->prepare("SELECT org_id FROM web_contact WHERE id = ?");
 
@@ -1130,8 +1124,6 @@ sub verify_system_group_user_admin {
 sub verify_channel_admin {
   my $self = shift;
   my @channel_ids = @_;
-
-  return 1 if $self->is('rhn_superuser');
 
   for my $cid (@channel_ids) {
     next unless $cid;
@@ -1161,8 +1153,6 @@ EOQ
 sub verify_errata_admin {
   my $self = shift;
   my @errata_ids = @_;
-
-  return 1 if $self->is('rhn_superuser');
 
   my $dbh = RHN::DB->connect;
   my $sth = $dbh->prepare(<<EOQ);

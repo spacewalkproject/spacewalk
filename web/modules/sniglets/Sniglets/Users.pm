@@ -359,7 +359,7 @@ sub check_perms {
   }
 
   #role - property of a user - currently channel_admin, coma_admin,
-  #coma_author, coma_publisher, org_admin, org_applicant, or rhn_superuser.
+  #coma_author, coma_publisher, org_admin, org_applicant.
   if ($params{role}) {
     if ($params{role} =~ /^!(.*)$/) {
       return if $pxt->user->is($1);

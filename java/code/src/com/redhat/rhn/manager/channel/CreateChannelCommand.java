@@ -18,7 +18,6 @@ import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelArch;
 import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.domain.common.ChecksumType;
-import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.xmlrpc.InvalidChannelLabelException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidChannelNameException;
@@ -375,8 +374,7 @@ public class CreateChannelCommand {
         // the perl code used to ignore case with a /i at the end of
         // the regex, so we toLowerCase() the channel name to make it
         // work the same.
-        if (!user.hasRole(RoleFactory.RHN_SUPERUSER) &&
-            Pattern.compile(REDHAT_REGEX).matcher(cname.toLowerCase()).find()) {
+        if (Pattern.compile(REDHAT_REGEX).matcher(cname.toLowerCase()).find()) {
             throw new InvalidChannelNameException(cname,
                 InvalidChannelNameException.Reason.RHN_CHANNEL_BAD_PERMISSIONS,
                 "edit.channel.invalidchannelname.redhat", "");
@@ -413,8 +411,7 @@ public class CreateChannelCommand {
         // the perl code used to ignore case with a /i at the end of
         // the regex, so we toLowerCase() the channel name to make it
         // work the same.
-        if (!user.hasRole(RoleFactory.RHN_SUPERUSER) &&
-            Pattern.compile(REDHAT_REGEX).matcher(clabel.toLowerCase()).find()) {
+        if (Pattern.compile(REDHAT_REGEX).matcher(clabel.toLowerCase()).find()) {
             throw new InvalidChannelLabelException(clabel,
                 InvalidChannelLabelException.Reason.RHN_CHANNEL_BAD_PERMISSIONS,
                 "edit.channel.invalidchannellabel.redhat", "");

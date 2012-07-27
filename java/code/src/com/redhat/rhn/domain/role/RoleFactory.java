@@ -97,11 +97,6 @@ public class RoleFactory extends HibernateFactory {
     public static final Role CHANNEL_ADMIN = lookupByLabel("channel_admin");
 
     /**
-     * The constant representing rhn_superuser
-     */
-    public static final Role RHN_SUPERUSER = lookupByLabel("rhn_superuser");
-
-    /**
      * The constant representing rhn_support
      */
     public static final Role RHN_SUPPORT = lookupByLabel("rhn_support");

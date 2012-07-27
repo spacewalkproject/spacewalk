@@ -132,16 +132,14 @@ sub channel_edit_cb {
 
   my $errors = 0;
 
-  unless ($pxt->user->is('rhn_superuser')) {
-    if ($channel_name =~ /^(rhn|red\s*hat)/i) {
-      $pxt->push_message(local_alert => "Channel name cannot begin with '<strong>$1</strong>'");
-      $errors++;
-    }
+  if ($channel_name =~ /^(rhn|red\s*hat)/i) {
+    $pxt->push_message(local_alert => "Channel name cannot begin with '<strong>$1</strong>'");
+    $errors++;
+  }
 
-    if ($channel_label =~ /^(rhn|red\s*hat)/i) {
-      $pxt->push_message(local_alert => "Channel label cannot begin with '<strong>$1</strong>'");
-      $errors++;
-    }
+  if ($channel_label =~ /^(rhn|red\s*hat)/i) {
+    $pxt->push_message(local_alert => "Channel label cannot begin with '<strong>$1</strong>'");
+    $errors++;
   }
   # bugzilla: 161517 - allow _ and / in channel labels
   # bugzilla: 459827 - disallow names longer than 64 characters
