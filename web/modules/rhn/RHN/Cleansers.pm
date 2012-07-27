@@ -267,7 +267,6 @@ sub verify_support_var_access {
   my @vars = grep { defined $_ } @_;
 
   return 1 unless @vars;
-  return 1 if $user->is('rhn_support');
 
   return 0;
 }

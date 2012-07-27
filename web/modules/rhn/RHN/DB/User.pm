@@ -171,14 +171,6 @@ EOQ
     }
   }
 
-  # the cert admin role implies rhn_support
-  my $implied_cert_admin_role = 'rhn_support';
-  if(exists $roles{cert_admin}) {
-    if (grep { $implied_cert_admin_role eq $_ } $ret->org->available_roles) {
-      $roles{$implied_cert_admin_role} = 1;
-    }
-  }
-  
   $ret->roles(keys %roles);
 
   return $ret;

@@ -171,8 +171,7 @@ public class UserEditSetupAction extends RhnAction {
                 disabled = true;
                 log.debug("2");
             }
-            else if (currRole.equals(RoleFactory.RHN_SUPPORT) &&
-                    targetUser.hasRole(RoleFactory.CERT_ADMIN)) {
+            else if (targetUser.hasRole(RoleFactory.CERT_ADMIN)) {
                 disabled = true;
                 log.debug("3");
             }
