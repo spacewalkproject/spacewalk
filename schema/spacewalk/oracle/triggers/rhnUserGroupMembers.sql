@@ -83,33 +83,6 @@ end;
 /
 show errors
 
-create or replace trigger
-rhn_ugm_applicant_fix
-after delete on rhnUserGroupMembers
-for each row
-declare
-    	group_type_val    NUMBER;
-    	group_label_val   rhnUserGroupType.label%TYPE;	
-begin
-    	SELECT group_type INTO group_type_val
-	  FROM rhnUserGroup
-	 WHERE id = :old.user_group_id;
-	 
-	IF group_type_val IS NOT NULL
-	THEN
-	    SELECT label INTO group_label_val
-	      FROM rhnUserGroupType
-	     WHERE id = group_type_val;
-	     
-	    IF group_label_val = 'org_applicant'
-	    THEN
-	    	UPDATE web_contact SET password = old_password WHERE id = :old.user_id;
-	    END IF;
-	END IF;
-end;
-/
-show errors
-
 --
 -- Revision 1.6  2002/05/10 22:00:48  pjones
 -- add rhnFAQClass, and make it a dep for rhnFAQ

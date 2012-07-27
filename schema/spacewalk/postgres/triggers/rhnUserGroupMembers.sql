@@ -1,4 +1,4 @@
--- oracle equivalent source sha1 0e562b1725e73cb9739287fbb46eab11df7646ee
+-- oracle equivalent source sha1 c1d797e0a54dc1fb3b13fe3ba5f262da37f64afc
 -- retrieved from ./1241132947/9984c41fb98d15becf3c29432c19cd7a266dece4/schema/spacewalk/oracle/triggers/rhnUserGroupMembers.sql
 --
 -- Copyright (c) 2008--2011 Red Hat, Inc.
@@ -108,42 +108,4 @@ rhn_ug_member_del_trig
 before delete on rhnUserGroupMembers
 for each row
 execute procedure rhn_ug_member_del_trig_fun();
-
-
-
-
-create or replace function rhn_ugm_applicant_fix_fun() returns trigger
-as
-$$
-declare
-        group_type_val    NUMERIC;
-        group_label_val   rhnUserGroupType.label%TYPE;
-begin
-        SELECT group_type INTO group_type_val
-          FROM rhnUserGroup
-         WHERE id = old.user_group_id;
-
-        IF group_type_val IS NOT NULL
-        THEN
-            SELECT label INTO group_label_val
-              FROM rhnUserGroupType
-             WHERE id = group_type_val;
-
-            IF group_label_val = 'org_applicant'
-            THEN
-                UPDATE web_contact SET password = old_password WHERE id = old.user_id;
-            END IF;
-        END IF;
-	return new;
-end;
-$$ LANGUAGE PLPGSQL;
-
-
-create trigger
-rhn_ugm_applicant_fix
-after delete on rhnUserGroupMembers
-for each row
-execute procedure rhn_ugm_applicant_fix_fun();
-
-
 
