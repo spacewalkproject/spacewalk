@@ -12,7 +12,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.50
+Version: 1.8.51
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -646,6 +646,10 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Fri Jul 27 2012 Tomas Kasparek <tkasparek@redhat.com> 1.8.51-1
+- Truncating date string and therefore preventing ORA-01830
+- Fixing placeholder syntax.
+
 * Thu Jul 19 2012 Jan Pazdziora 1.8.50-1
 - Add abrt into list of packaged modules.
 
