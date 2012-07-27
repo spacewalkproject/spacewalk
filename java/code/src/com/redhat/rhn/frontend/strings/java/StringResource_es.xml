@@ -2164,12 +2164,6 @@ asegurarse de que estén disponibles para que este perfil kickstart funcione apr
           <context context-type="sourcefile">/rhn/account/UserDetails</context>
         </context-group>
       <target>Administrador del canal</target></trans-unit>
-      <trans-unit id="rhn_superuser">
-<source>@@PRODUCT_NAME@@ Superuser</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/account/UserDetails</context>
-        </context-group>
-      <target>Superusuario de @@PRODUCT_NAME@@</target></trans-unit>
       <trans-unit id="coma_admin">
 <source>Coma CMS Administrator</source>
         <context-group name="ctx">

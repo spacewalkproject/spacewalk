@@ -2170,12 +2170,6 @@ verfügbar machen, damit dieses Kickstart-Profil einwandfrei funktionieren kann.
           <context context-type="sourcefile">/rhn/account/UserDetails</context>
         </context-group>
       <target>Channel-Administrator</target></trans-unit>
-      <trans-unit id="rhn_superuser">
-<source>@@PRODUCT_NAME@@ Superuser</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/account/UserDetails</context>
-        </context-group>
-      <target>@@PRODUCT_NAME@@ Superuser</target></trans-unit>
       <trans-unit id="coma_admin">
 <source>Coma CMS Administrator</source>
         <context-group name="ctx">

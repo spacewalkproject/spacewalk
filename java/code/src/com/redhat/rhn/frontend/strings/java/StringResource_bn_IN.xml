@@ -2145,12 +2145,6 @@ available for this kickstart profile to function properly.
           <context context-type="sourcefile">/rhn/account/UserDetails</context>
         </context-group>
       <target>চ্যানেলের অ্যাডমিনিস্ট্রেটর</target></trans-unit>
-      <trans-unit id="rhn_superuser">
-<source>@@PRODUCT_NAME@@ Superuser</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/account/UserDetails</context>
-        </context-group>
-      <target>@@PRODUCT_NAME@@ সুপার-ইউজার</target></trans-unit>
       <trans-unit id="coma_admin">
 <source>Coma CMS Administrator</source>
         <context-group name="ctx">
