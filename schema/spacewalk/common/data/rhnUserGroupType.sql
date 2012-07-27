@@ -43,12 +43,6 @@ insert into rhnUserGroupType (id, label, name) values (
 
 insert into rhnUserGroupType (id, label, name) values (
 	sequence_nextval('rhn_usergroup_type_seq'),
-	'rhn_support',
-	'Spacewalk Support Administrator'
-);
-
-insert into rhnUserGroupType (id, label, name) values (
-	sequence_nextval('rhn_usergroup_type_seq'),
 	'config_admin',
 	'Configuration Administrator'
 );
