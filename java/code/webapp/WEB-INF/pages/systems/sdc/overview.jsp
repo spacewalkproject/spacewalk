@@ -8,6 +8,7 @@
 <body>
 <%@ include file="/WEB-INF/pages/common/fragments/systems/system-header.jspf" %>
 
+  <rhn:require acl="not system_has_bootstrap_entitlement();">
   <div class="panel panel-default">
     <div class="panel-heading">
       <h4><bean:message key="sdc.details.overview.systemstatus"/></h4>
@@ -88,6 +89,7 @@
       </c:if>
     </div>
   </div>
+  </rhn:require>
 
   <div class="row-0">
     <div class="col-md-6">
@@ -173,6 +175,7 @@
             <td><bean:message key="sdc.details.overview.sysid"/></td>
             <td><c:out value="${system.id}" /></td>
           </tr>
+          <rhn:require acl="not system_has_bootstrap_entitlement();">
           <tr>
             <td><bean:message key="sdc.details.overview.activationkey"/></td>
             <td>
@@ -200,9 +203,11 @@
               </c:choose>
             </td>
           </tr>
+          </rhn:require>
         </table>
       </div>
 
+      <rhn:require acl="not system_has_bootstrap_entitlement();">
       <!-- Channel subcriptions -->
       <div class="panel panel-default">
         <div class="panel-heading">
@@ -231,7 +236,7 @@
           </c:if>
         </div>
       </div>
-
+      </rhn:require>
     </div>
 
     <div class="col-md-6">
@@ -246,10 +251,12 @@
             <td><bean:message key="sdc.details.overview.checkedin"/></td>
             <td><fmt:formatDate value="${system.lastCheckin}" type="both" dateStyle="short" timeStyle="long"/></td>
           </tr>
+          <rhn:require acl="not system_has_bootstrap_entitlement();">
           <tr>
             <td><bean:message key="sdc.details.overview.registered"/></td>
             <td><fmt:formatDate value="${system.created}" type="both" dateStyle="short" timeStyle="long"/></td>
           </tr>
+          </rhn:require>
           <tr>
             <td><bean:message key="sdc.details.overview.lastbooted"/></td>
             <td><fmt:formatDate value="${system.lastBootAsDate}" type="both" dateStyle="short" timeStyle="long"/><br/>
@@ -317,6 +324,7 @@
           <h4><bean:message key="sdc.details.overview.sysproperties" arg0="/rhn/systems/details/Edit.do?sid=${system.id}"/></h4>
         </div>
         <table class="table">
+          <rhn:require acl="not system_has_bootstrap_entitlement();">
           <tr>
             <td><bean:message key="sdc.details.overview.entitlement"/></td>
             <td>
@@ -347,6 +355,7 @@
             </c:choose>
             </td>
           </tr>
+          </rhn:require>
           <rhn:require acl="system_feature(ftr_errata_updates)"
                      mixins="com.redhat.rhn.common.security.acl.SystemAclHandler">
           <tr>
