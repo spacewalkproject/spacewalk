@@ -123,7 +123,7 @@ _get_path_query = """
 
 _update_pkg_path_query = """
     update rhnPackage
-       set path =: new_path
+       set path = :new_path
     where id = :the_id
 """
 
