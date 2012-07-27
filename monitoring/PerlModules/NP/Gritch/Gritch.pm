@@ -406,7 +406,8 @@ sub sendmail {
    } else {
 	# Use sendmail
 	if (Mail::Mailer::is_exe('sendmail')) {
-           my $msg = Mail::Send->new(Subject => $subject, To => $recip, From => $self->recipient);
+           my $msg = Mail::Send->new(Subject => $subject, To => $recip);
+           $msg->set('From', $self->recipient);
            my $fh = $msg->open('sendmail');
            print $fh $message;
            $fh->close;
