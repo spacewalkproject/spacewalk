@@ -7,7 +7,7 @@
 %define modulename spacewalk-monitoring
 
 Name:           spacewalk-monitoring-selinux
-Version:        1.8.2
+Version:        1.8.3
 Release:        1%{?dist}
 Summary:        SELinux policy module supporting Spacewalk monitoring
 
@@ -141,6 +141,9 @@ fi
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
+* Fri Jul 27 2012 Michael Mraka <michael.mraka@redhat.com> 1.8.3-1
+- 650735 - set proper context for cgi scripts
+
 * Thu Jul 19 2012 Jan Pazdziora 1.8.2-1
 - Allow monitoring to use local PostgreSQL.
 
