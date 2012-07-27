@@ -1,4 +1,4 @@
--- oracle equivalent source sha1 3c08ae96ed82d9b7339d494306c73052ebe2938e
+-- oracle equivalent source sha1 3fe11cae9cdf4c4add57938bef09be71fa1f52c4
 --
 -- Copyright (c) 2008--2012 Red Hat, Inc.
 --
@@ -834,8 +834,6 @@ as $$
             roles_to_process := array_append(roles_to_process, 'system_group_admin');
 
             roles_to_process := array_append(roles_to_process, 'activation_key_admin');
-
-            roles_to_process := array_append(roles_to_process, 'org_applicant');
         elsif service_label_in = 'provisioning' then
             ents_to_process := array_append(ents_to_process, 'rhn_provisioning');
 
