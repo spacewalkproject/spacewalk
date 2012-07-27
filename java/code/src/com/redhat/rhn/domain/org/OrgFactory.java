@@ -181,7 +181,6 @@ public class OrgFactory extends HibernateFactory {
         Org retval = lookupById((Long) row.get("org_id"));
 
         retval.addRole(RoleFactory.ACTIVATION_KEY_ADMIN);
-        retval.addRole(RoleFactory.CERT_ADMIN);
         retval.addRole(RoleFactory.CHANNEL_ADMIN);
         retval.addRole(RoleFactory.CONFIG_ADMIN);
         retval.addRole(RoleFactory.SYSTEM_GROUP_ADMIN);
