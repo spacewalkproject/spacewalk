@@ -74,8 +74,6 @@ insert_transaction_package      :: rhnTransactionPackage
 insert_xccdf_benchmark          :: rhnXccdfBenchmark
 insert_xccdf_ident_system       :: rhnXccdfIdentSystem
 insert_xccdf_profile            :: rhnXccdfProfile
-is_user_applicant               :: rhnUserGroupType web_contact rhnUserGroup \
-                                   rhnUserGroupMembers
 lookup_arch_type                :: data/rhnArchType rhn_exception.pks
 lookup_channel_arch             :: rhn_exception.pks data/rhnException rhnChannelArch \
                                    data/rhnChannelArch
