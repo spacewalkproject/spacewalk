@@ -221,21 +221,8 @@ class User:
     def __save(self):
         """ Save this record in the database. """
         is_admin = 0
-        if self.customer.real:
-            # get the org_id and the applicant group id for this org
-            org_id = self.customer["id"]
-            h = rhnSQL.prepare("""
-            select ug.id
-            from rhnUserGroup ug, rhnUserGroupType ugt
-            where ugt.label = 'org_applicant'
-            and ug.group_type = ugt.id
-            and ug.org_id = :org_id
-            """)
-            h.execute(org_id=org_id)
-            data = h.fetchone_dict()
-            # XXX: prone to errors, but we'll need to see them first
-            grp_id = data["id"]
-        else: # an org does not exist... create one
+        if not self.customer.real:
+            # an org does not exist... create one
             create_new_org = rhnSQL.Procedure("create_new_org")
             ret = create_new_org(
                 self.customer["name"],

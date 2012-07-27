@@ -202,11 +202,6 @@ sub forgot_password_cb {
     my $password = PXT::Utils->random_password(12);
     my $username = $user->login;
 
-    if ($user->is('org_applicant')) {
-      $pxt->push_message(local_alert => 'Your account has not yet been approved.  When it is, you will be notified via email.');
-      return;
-    }
-
     $user->set_password($password);
     $user->commit;
     
@@ -359,7 +354,7 @@ sub check_perms {
   }
 
   #role - property of a user - currently channel_admin, coma_admin,
-  #coma_author, coma_publisher, org_admin, org_applicant.
+  #coma_author, coma_publisher, org_admin.
   if ($params{role}) {
     if ($params{role} =~ /^!(.*)$/) {
       return if $pxt->user->is($1);
