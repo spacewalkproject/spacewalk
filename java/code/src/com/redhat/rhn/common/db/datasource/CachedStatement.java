@@ -37,6 +37,7 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
@@ -45,6 +46,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
+import java.util.TimeZone;
 
 /**
  * A cached set of query/elaborator strings and the parameterMap hash maps.
@@ -772,7 +774,8 @@ public class CachedStatement {
         // this            : August 23, 2005 12:00:00 AM PDT
         // vs the real date: August 23, 2005 1:36:12 PM PDT
         if (columnValue instanceof Date) {
-            return rs.getTimestamp(columnName);
+            Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT"));
+            return rs.getTimestamp(columnName, cal);
         }
         else if (columnValue instanceof BigDecimal) {
             return rs.getLong(columnName);
