@@ -1048,18 +1048,6 @@ class Registration(rhnHandler):
         self.auth_system(system_id)
         return 0
         
-    def __save_user(self, user):
-        """ Moved the saving of the user out to a common method
-            so that we can save to the db in a satellite.
-
-            It is called from the update_contact_info.
-        """
-        self.__save_user_db(user)
-   
-    def __save_user_db(self, user):
-        """ Saves the user to the database. """
-        user.save()
-
     def update_contact_info(self, username, password, info={}):
         """ this API call is no longer used """
         log_debug(5, username, info)
