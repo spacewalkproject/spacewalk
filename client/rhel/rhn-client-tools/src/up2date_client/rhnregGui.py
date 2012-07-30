@@ -829,9 +829,9 @@ class CreateProfilePage:
             return True
         global productInfo # Contains the user's info (name, e-mail, etc)
         if cfg['supportsUpdateContactInfo']:
-            ret = self.__updateContactInfo(False, productInfo, username, password, pwin)
+            ret = self.__updateContactInfo(productInfo, username, password, pwin)
         else:
-            ret = self.__registerProduct(False, productInfo, pwin)
+            ret = self.__registerProduct(productInfo, pwin)
         if ret:
             return ret
         pwin.setProgress(3, 6)
@@ -913,36 +913,10 @@ class CreateProfilePage:
         return False
     
     
-    def __updateContactInfo(self, newAccount, productInfo, uname, password, pwin):
-        try:
-            if newAccount:
-                rhnreg.updateContactInfo(uname, password, productInfo)
-        except up2dateErrors.CommunicationError, e:
-            pwin.hide()
-            self.fatalError(_("Problem registering personal information:\n") + e.errmsg)
-            return True # fatalError in firstboot will return to here
-        except:
-            setArrowCursor()
-            pwin.hide()
-            errorWindow(_("Problem registering personal information"))
-            return True
+    def __updateContactInfo(self, productInfo, uname, password, pwin):
         return False   
     
-    def __registerProduct(self, newAccount, productInfo, pwin):
-        try:
-            if newAccount:
-                # incorporate the info from the oemInfoFile as well
-                oemInfo = rhnreg.getOemInfo()
-                rhnreg.registerProduct(self.systemId, productInfo, oemInfo)
-        except up2dateErrors.CommunicationError, e:
-            pwin.hide()
-            self.fatalError(_("Problem registering personal information:\n") + e.errmsg)
-            return True # fatalError in firstboot will return to here
-        except:
-            setArrowCursor()
-            pwin.hide()
-            errorWindow(_("Problem registering personal information"))
-            return True
+    def __registerProduct(self, productInfo, pwin):
         return False
 
 
