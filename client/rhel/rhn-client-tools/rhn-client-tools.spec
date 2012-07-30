@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 1.8.16
+Version: 1.8.17
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -339,6 +339,9 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Mon Jul 30 2012 Michael Mraka <michael.mraka@redhat.com> 1.8.17-1
+- removed dead code
+
 * Tue Jul 24 2012 Stephen Herr <sherr@redhat.com> 1.8.16-1
 - 842836 - Make multi-line lists in conf files parse correctly
 
