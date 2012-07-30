@@ -902,32 +902,6 @@ class SendingWindow:
         # include the info from the oeminfo file as well
         self.oemInfo = rhnreg.getOemInfo()
         
-        # dont send if already registered, do send if they have oemInfo
-        if ( not self.tui.alreadyRegistered ) or ( len(self.oemInfo)):
-            # send product registration information
-            if rhnreg.cfg['supportsUpdateContactInfo']:
-                try:
-                    rhnreg.updateContactInfo(self.tui.userName, self.tui.password,  self.tui.productInfo)
-                except up2dateErrors.CommunicationError, e:
-                    FatalErrorWindow(self.screen, _("Problem registering personal information:\n") + e.errmsg)
-                except:
-                    print sys.exc_info()
-                    print sys.exc_type
-                    
-                    FatalErrorWindow(self.screen, 
-                                     _("Problem registering personal information"))
-                    
-            else:
-                try:
-                    rhnreg.registerProduct(systemId, self.tui.productInfo)
-                except up2dateErrors.CommunicationError, e:
-                    FatalErrorWindow(self.screen, 
-                                     _("Problem registering personal information:\n") + 
-                                     e.errmsg)
-                except:
-                    log.log_exception(*sys.exc_info())
-                    FatalErrorWindow(self.screen, _("Problem registering personal information"))
-
         self.setScale(2, 4)
 
         # maybe upload hardware profile
