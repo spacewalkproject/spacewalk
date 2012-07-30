@@ -54,6 +54,7 @@ class BaseApacheServer:
             try:
                 rhnSQL.closeDB()
             except:
+                # pylint: disable=W0702
                 pass
 
             # Fetch global message being sent to clients if applicable.
