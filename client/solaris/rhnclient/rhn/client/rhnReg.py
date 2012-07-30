@@ -328,7 +328,7 @@ def registerSystem(username = None, password = None,
     return ret
 
 
-def registerProduct(systemId, productInfo, oemInfo={}):
+def registerProduct(systemId, productInfo):
     s = rpcServer.getServer()
 
     try:

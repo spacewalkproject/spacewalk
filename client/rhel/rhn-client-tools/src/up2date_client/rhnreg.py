@@ -458,7 +458,7 @@ def registerSystem2(username = None, password = None,
     return result
 
 
-def registerProduct(systemId, productInfo, oemInfo={}):
+def registerProduct(systemId, productInfo):
     s = rhnserver.RhnServer()
     s.registration.register_product(systemId, productInfo)
 

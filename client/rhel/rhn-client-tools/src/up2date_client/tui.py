@@ -919,7 +919,7 @@ class SendingWindow:
                     
             else:
                 try:
-                    rhnreg.registerProduct(systemId, self.tui.productInfo,self.tui.oemInfo)
+                    rhnreg.registerProduct(systemId, self.tui.productInfo)
                 except up2dateErrors.CommunicationError, e:
                     FatalErrorWindow(self.screen, 
                                      _("Problem registering personal information:\n") + 

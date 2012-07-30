@@ -330,7 +330,7 @@ def main(arglist=[]):
 #        rhnReg.sendPackages(systemId, packageList)
 
     if contactinfo:
-        rhnReg.registerProduct(systemId, contactinfo, oemInfo)
+        rhnReg.registerProduct(systemId, contactinfo)
 
     if not norhnsd:
         rhnReg.startRhnsd()
