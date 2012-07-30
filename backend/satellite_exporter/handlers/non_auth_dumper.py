@@ -151,7 +151,7 @@ class NonAuthenticatedDumper(rhnHandler, dumper.XML_Dumper):
             except IOError, e:
                 # Remote end has closed connection already
                 log_error("Error closing the stream", str(e))
-                pass
+
             self._compressed_stream = None
         self._is_closed = 1
         log_debug(3, "Closed")
