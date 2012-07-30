@@ -12,7 +12,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.51
+Version: 1.8.52
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -646,6 +646,10 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Mon Jul 30 2012 Tomas Lestach <tlestach@redhat.com> 1.8.52-1
+- remove usage of org_applicant user role
+- remove usage of rhn_superuser user role
+
 * Fri Jul 27 2012 Tomas Kasparek <tkasparek@redhat.com> 1.8.51-1
 - Truncating date string and therefore preventing ORA-01830
 - Fixing placeholder syntax.
