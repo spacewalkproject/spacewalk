@@ -82,7 +82,6 @@ gladefile = "/usr/share/rhn/up2date_client/rh_register.glade"
 # we need to carry these values between screen, so stash at module scope
 username = None
 password = None
-newAccount = None # Should be assigned True or False
 productInfo = None
 hw_activation_code = None
 serverType = None
@@ -453,8 +452,6 @@ class LoginPage:
         username = self.loginUname.get_text()
         password = self.loginPw.get_text()
 
-        global newAccount
-        newAccount = False
         # validate / check user name
         if self.loginUname.get_text() == "":
             # we assume someone else creates this method...
@@ -760,7 +757,7 @@ class CreateProfilePage:
         pwin = progress.Progress()
         pwin.setLabel(_("Sending your profile information to Red Hat Network.  Please wait."))
         self.systemId = None
-        global newAccount, username, password, hw_activation_code, \
+        global username, password, hw_activation_code, \
                _hasBaseChannelAndUpdates, chosen_channel
         other = {}
         if hw_activation_code:
@@ -832,9 +829,9 @@ class CreateProfilePage:
             return True
         global productInfo # Contains the user's info (name, e-mail, etc)
         if cfg['supportsUpdateContactInfo']:
-            ret = self.__updateContactInfo(newAccount, productInfo, username, password, pwin)
+            ret = self.__updateContactInfo(False, productInfo, username, password, pwin)
         else:
-            ret = self.__registerProduct(newAccount, productInfo, pwin)
+            ret = self.__registerProduct(False, productInfo, pwin)
         if ret:
             return ret
         pwin.setProgress(3, 6)
