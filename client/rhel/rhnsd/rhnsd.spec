@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhnsd
-Version: 5.0.2
+Version: 5.0.3
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
@@ -100,6 +100,9 @@ rm -fr $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Mon Jul 30 2012 Michael Mraka <michael.mraka@redhat.com> 5.0.3-1
+- there's no elsif macro
+
 * Wed Jul 25 2012 Michael Mraka <michael.mraka@redhat.com> 5.0.2-1
 - make sure _unitdir is defined
 
