@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.8.65
+Version:        1.8.66
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -68,6 +68,16 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Mon Jul 30 2012 Tomas Lestach <tlestach@redhat.com> 1.8.66-1
+- remove org_applicant from rhnUserGroupType table
+- remove org_applicant related triggers
+- remove org_applicant from rhn_entitlements
+- remove unused is_user_applicant function
+- remove unused org_applicant user role from creating new orgs
+- remove cert_admin from rhnUserGroupType table
+- remove rhn_support from rhnUserGroupType table
+- remove rhn_superuser from rhnUserGroupType table
+
 * Tue Jul 24 2012 Jan Pazdziora 1.8.65-1
 - Add missing primary key, when we already have it in the schema upgrade
   scripts.
