@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.29
+Version: 1.8.30
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -253,6 +253,11 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Mon Jul 30 2012 Tomas Lestach <tlestach@redhat.com> 1.8.30-1
+- remove usage of org_applicant user role
+- remove usage of rhn_support user role
+- remove usage of rhn_superuser user role
+
 * Fri Jul 20 2012 Tomas Kasparek <tkasparek@redhat.com> 1.8.29-1
 - 841453  - forcing parameter to be numeric
 - Forcing parameter to be string
