@@ -91,13 +91,13 @@ class BaseApacheServer:
         self.server_instance = {}
 
     # Virtual functions
-    def _headerParserHandler(self, req):
+    def _headerParserHandler(self, _req):
         return apache.OK
 
-    def _handler(self, req):
+    def _handler(self, _req):
         return apache.OK
 
-    def _cleanupHandler(self, req):
+    def _cleanupHandler(self, _req):
         return apache.OK
 
     def _wrapper(self, req, function):
