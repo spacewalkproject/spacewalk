@@ -198,7 +198,8 @@ class ApacheServer(BaseApacheServer):
                 (module_name, function_name))
         return f
 
-    def _validate_version(self, req):
+    @staticmethod
+    def _validate_version(req):
         server_version = constants.PROTOCOL_VERSION
         vstr = 'X-RHN-Satellite-XML-Dump-Version'
         if not req.headers_in.has_key(vstr):
