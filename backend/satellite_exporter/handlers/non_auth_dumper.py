@@ -51,6 +51,7 @@ class NonAuthenticatedDumper(rhnHandler, dumper.XML_Dumper):
         self.headers_out = UserDictCase()
         self._raw_stream = req
         self._raw_stream.content_type = 'application/octet-stream'
+        self.compress_level = 0
         # State machine
         self._headers_sent = 0
         self._is_closed = 0
