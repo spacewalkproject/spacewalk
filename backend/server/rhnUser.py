@@ -312,22 +312,6 @@ class User:
         """)
         h.execute(user_id=user_id)
         return map(lambda x: x['role'], h.fetchall_dict() or [])
-
-    def save(self):
-        """ This is a wrapper for the above class that allows us to rollback
-            any changes in case we don't succeed completely.
-        """
-        log_debug(3, self.username)
-        rhnSQL.commit()
-        try:
-            self.__save()
-        except:            
-            rhnSQL.rollback()
-            # shoot the exception up the chain
-            raise
-        else:
-            rhnSQL.commit()
-        return 0
     
     def reload(self, user_id):
         """ Reload the current data from the SQL database using the given id """
