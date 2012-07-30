@@ -86,6 +86,7 @@ class BaseApacheServer:
         return retval
 
     def _cleanup(self):
+        # pylint: disable=W0201
         self.server = None
         self.server_classes = None
         self.server_instance = {}
