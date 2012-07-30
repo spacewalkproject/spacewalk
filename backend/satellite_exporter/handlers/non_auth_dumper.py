@@ -44,7 +44,7 @@ class MissingPackageError(Exception):
     pass
 
 class NonAuthenticatedDumper(rhnHandler, dumper.XML_Dumper):
-    # pylint: disable=E1101
+    # pylint: disable=E1101,W0102
     def __init__(self, req):
         rhnHandler.__init__(self)
         dumper.XML_Dumper.__init__(self)
