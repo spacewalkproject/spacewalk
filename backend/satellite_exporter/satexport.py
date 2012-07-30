@@ -92,6 +92,7 @@ class BaseApacheServer:
         self.server_instance = {}
 
     # Virtual functions
+    # pylint: disable=R0201
     def _headerParserHandler(self, _req):
         return apache.OK
 
