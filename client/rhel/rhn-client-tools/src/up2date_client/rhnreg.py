@@ -539,10 +539,6 @@ def getServerType(serverUrl=None):
         return 'satellite'
 
 
-def updatePackages(systemId):
-    s = rhnserver.RhnServer()
-    s.registration.add_packages(systemId, pkgUtils.getInstalledPackageList())
-
 class ActivationResult:
     ACTIVATED_NOW = 0
     ALREADY_USED = 1
