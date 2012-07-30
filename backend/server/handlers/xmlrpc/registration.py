@@ -1048,54 +1048,6 @@ class Registration(rhnHandler):
         self.auth_system(system_id)
         return 0
         
-        # we're updating the user records, so we need to load the user object
-        self.load_user = 1
-        server = self.auth_system(system_id)
-        log_debug(1, self.server_id)
-        user = server.user
-        # XXX: test that this user is an admin for the server
-        # raise rhnFault(4, "This username does not have administrator rights")
-        import states
-        import country
-        for k in product.keys():
-            # argh, the blimey scurge of null fax numbers!
-            if product[k] == None or product[k] == '':
-                continue
-            # now assign everything into the right place
-            if k in ["reg_num"]: # we'll deal with it later                
-                continue
-            if k == 'state':
-                if states.states_to_abbr.has_key(product[k]):
-                    product[k] = states.states_to_abbr[product[k]]
-            if k == 'country':
-                invalid_codes = country.t9_countries.values() + \
-                                country.t9_countries.keys()
-                if product[k] in invalid_codes:
-                    log_error("Invalid country", product[k])
-                    raise rhnFault(30, _("Not a valid Country: %s")
-                                         % product[k])
-                if country.country_to_iso.has_key(product[k]):
-                    product[k] = country.country_to_iso[product[k]]
-                elif product[k] in country.country_to_iso.values():
-                    pass
-                else: # bad user! bad!
-                    if not product[k] in invalid_codes:
-                        product[k] = 'US'
-            # contact permissions
-            if k in ["contact_phone", "contact_mail",
-                     "contact_email", "contact_fax"]:
-                user.set_contact_perm(k, product[k])
-            # other personal info
-            if k in ["first_name", "last_name", "company", "phone",
-                     "fax", "title", "position"]:
-                user.set_info(k, product[k])
-            # address information
-            if k in ["city", "zip", "address1", "address2", "country", "state"]:
-                user.set_info(k, product[k])
-
-        user.save()
-        return 0
-
     def __save_user(self, user):
         """ Moved the saving of the user out to a common method
             so that we can save to the db in a satellite.
