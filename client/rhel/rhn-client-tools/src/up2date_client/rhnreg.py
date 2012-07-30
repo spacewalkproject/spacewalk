@@ -457,15 +457,6 @@ def registerSystem2(username = None, password = None,
                                 rawDict=info)
     return result
 
-
-def registerProduct(systemId, productInfo):
-    s = rhnserver.RhnServer()
-    s.registration.register_product(systemId, productInfo)
-
-def updateContactInfo(username, password, productInfo):
-    s = rhnserver.RhnServer()
-    s.registration.update_contact_info(username, password, productInfo)
-
 def server_supports_eus():
     return cfg["supportsEUS"]
 
