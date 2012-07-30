@@ -12,7 +12,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.52
+Version: 1.8.53
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -646,6 +646,10 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Mon Jul 30 2012 Michael Mraka <michael.mraka@redhat.com> 1.8.53-1
+- update_contact_info is not called from client for a long time
+- removed unaccessible code
+
 * Mon Jul 30 2012 Tomas Lestach <tlestach@redhat.com> 1.8.52-1
 - remove usage of org_applicant user role
 - remove usage of rhn_superuser user role
