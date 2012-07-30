@@ -1061,8 +1061,8 @@ class Registration(rhnHandler):
         user.save()
 
     def update_contact_info(self, username, password, info={}):
+        """ this API call is no longer used """
         log_debug(5, username, info)
-        contact_info = info.copy()
         username, password = str(username), str(password)
         user = rhnUser.search(username)
         if user is None:
@@ -1073,42 +1073,6 @@ class Registration(rhnHandler):
             log_error("User password check failed", username)
             raise rhnFault(2)
 
-        import states
-        import country
-        val = contact_info.get('state')
-        if val and states.states_to_abbr.has_key(val):
-            contact_info['state'] = states.states_to_abbr[val]
-        val = contact_info.get('country')
-        if val:
-            if (country.t9_countries.has_key(val) or
-                val in country.t9_countries.values()):
-                 raise rhnFault(30, _("Not a valid Country: %s") %
-                     val)
-            if country.country_to_iso.has_key(val):
-                contact_info['country'] = country.country_to_iso[val]
-            elif val not in country.country_to_iso.values():
-                # Invalid country, assume US
-                contact_info['country'] = 'US'
-
-        contact_perm_keys = ["contact_phone", "contact_mail", 
-            "contact_email", "contact_fax", ]
-        for k in contact_perm_keys:
-            val = contact_info.get(k)
-            if val is not None:
-                log_debug(6, "Contact", k, val)
-                user.set_contact_perm(k, val)
-
-        info_keys = ["first_name", "last_name", "company", "phone",
-            "fax", "title", "position",
-            "city", "zip", "address1", "address2", "country", "state", ]
-        for k in info_keys:
-            val = contact_info.get(k)
-            if val is not None:
-                log_debug(6, "Info", k, val)
-                user.set_info(k, val)
-        
-        # save the user either to the database or the UserService
-        self.__save_user(user)
         return 0
 
     def update_transactions(self, system_id, timestamp, transactions_hash):
