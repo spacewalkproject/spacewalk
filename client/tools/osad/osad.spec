@@ -41,7 +41,8 @@ Requires(post): aaa_base
 Requires(preun): aaa_base
 # to make chkconfig test work during build
 BuildRequires: sysconfig syslog
-%elsif 0%{?fedora}
+%else
+%if 0%{?fedora}
 Requires(post): chkconfig
 Requires(preun): chkconfig
 Requires(post): systemd-sysv
@@ -54,6 +55,7 @@ Requires(post): chkconfig
 Requires(preun): chkconfig
 # This is for /sbin/service
 Requires(preun): initscripts
+%endif
 %endif
 
 %description

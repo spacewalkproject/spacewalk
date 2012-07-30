@@ -15,7 +15,8 @@ Requires: rhn-check >= 0.0.8
 Requires(post): aaa_base
 Requires(preun): aaa_base
 BuildRequires: sysconfig
-%elsif 0%{?fedora}
+%else
+%if 0%{?fedora}
 Requires(post): chkconfig
 Requires(preun): chkconfig
 Requires(post): systemd-sysv
@@ -29,6 +30,7 @@ Requires(preun): chkconfig
 # This is for /sbin/service
 Requires(preun): initscripts
 Requires(postun): initscripts
+%endif
 %endif
 
 %description
