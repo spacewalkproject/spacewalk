@@ -23,7 +23,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.118
+Version: 1.8.119
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -614,6 +614,14 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Jul 30 2012 Tomas Lestach <tlestach@redhat.com> 1.8.119-1
+- remove usage of cert_admin user role
+- remove usage of rhn_support user role
+- remove usage of unused org_applicant user role
+- remove rhn_superuser occurences in java translation strings
+- remove usage of rhn_superuser user role
+- 802267 - update ConfigurationValidationTest
+
 * Thu Jul 26 2012 Tomas Lestach <tlestach@redhat.com> 1.8.118-1
 - 816454 - do not commit already committed transaction
 
