@@ -191,6 +191,7 @@ on this system."),
      administrators for further details.
      """),
      72: _("""You can not unsubscribe from base channel."""),
+     73: _("""Satellite or Proxy channel can not be subscribed."""),
 
      # 80-90: server group errors
      80: _("There was an error while trying to join the system to its groups"),
