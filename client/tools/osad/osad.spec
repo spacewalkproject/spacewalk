@@ -29,9 +29,6 @@ Requires: python-hashlib
 %endif
 %if 0%{?suse_version} >= 1140
 Requires: python-xml
-%else
-# This should have been required by rhnlib
-Requires: PyXML
 %endif
 Conflicts: osa-dispatcher < %{version}-%{release}
 Conflicts: osa-dispatcher > %{version}-%{release}
