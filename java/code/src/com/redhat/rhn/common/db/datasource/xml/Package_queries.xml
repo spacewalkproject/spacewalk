@@ -1906,39 +1906,6 @@ select distinct p.evr_id as id
   </query>
 </mode>
 
-
-<mode name="package_dto_for_errata" class="com.redhat.rhn.frontend.dto.PackageDto">
-  <query params="eid">
-        select  P.id,
-                        evr.epoch,
-                        PN.name,
-                        evr.version,
-                        evr.release,
-                        PA.label as arch_label,
-                        P.build_host,
-                        P.description,
-                        C.checksum,
-                        P.vendor,
-                        P.summary,
-                        P.cookie,
-                        P.copyright,
-                        P.path,
-                        P.build_time,
-                        P.package_size,
-                        P.payload_size,
-                        CT.label as checksum_type,
-                               TO_CHAR(P.last_modified, 'YYYY-MM-DD HH24:MI:SS') AS last_modified
-        from            rhnPackage P
-        inner join  rhnErrataPackage EP on P.id = EP.package_id
-        inner join  rhnPackageEvr evr on P.evr_id = evr.id
-        inner join  rhnPackageName pn on P.name_id = PN.id
-        inner join  rhnPackageArch PA on PA.id = P.package_arch_id
-        inner join rhnChecksum C on C.id = P.checksum_id
-        inner join rhnChecksumType CT on CT.id = C.CHECKSUM_TYPE_ID
-        where  EP.errata_id = :eid
-  </query>
-</mode>
-
 <mode name="channel_arch_and_org_access">
     <query params="channel_id, org_id">
 SELECT p.id, comp.package_arch_id, p.org_id org_package, octv.package_id org_access, sctv.package_id shared_access

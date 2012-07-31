@@ -50,7 +50,6 @@ import com.redhat.rhn.domain.rhnpackage.Package;
 import com.redhat.rhn.domain.rhnpackage.PackageFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.CVE;
-import com.redhat.rhn.frontend.dto.PackageDto;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
 import com.redhat.rhn.frontend.xmlrpc.DuplicateErrataException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidAdvisoryReleaseException;
@@ -703,11 +702,11 @@ public class ErrataHandler extends BaseHandler {
         Errata errata = lookupErrataReadOnly(advisoryName, loggedInUser.getOrg());
 
         List<Map> toRet = new ArrayList<Map>();
-        for (PackageDto dto : PackageManager.listPackageDtosForErrata(errata)) {
-            toRet.add(PackageHelper.packageToMap(dto, loggedInUser));
+        for (Iterator iter = errata.getPackages().iterator(); iter.hasNext();) {
+            Package pkg = (Package) iter.next();
+            toRet.add(PackageHelper.packageToMap(pkg, loggedInUser));
         }
         return toRet;
-
     }
 
     /**

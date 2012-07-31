@@ -20,7 +20,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <property name="payloadSize"     type="long"   column="payload_size"/>
         <property name="installedSize"   type="long"   column="installed_size"/>
         <property name="buildHost"       type="string" column="build_host"/>
-        <property name="buildTime"       type="date"   column="build_time"/>
+        <property name="buildTime"       type="timestamp"   column="build_time"/>
         <property name="vendor"          type="string" column="vendor"/>
         <property name="payloadFormat"   type="string" column="payload_format"/>
         <property name="compat"          type="long"   column="compat"/>
@@ -28,9 +28,9 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <property name="headerSignature" type="string" column="header_sig"/>
         <property name="copyright"       type="string" column="copyright"/>
         <property name="cookie"          type="string" column="cookie"/>
-        <property name="lastModified"    type="date"   column="last_modified"/>
-        <property name="created"         type="date"   column="created"/>
-        <property name="modified"        type="date"   column="modified"/>
+        <property name="lastModified"    type="timestamp"   column="last_modified"/>
+        <property name="created"         type="timestamp"   column="created"/>
+        <property name="modified"        type="timestamp"   column="modified"/>
 
        <set name="packageKeys" lazy="true" table="rhnPackageKeyAssociation"
             cascade="save-update" >

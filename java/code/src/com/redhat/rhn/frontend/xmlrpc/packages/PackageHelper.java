@@ -19,7 +19,6 @@ import com.redhat.rhn.common.translation.Translator;
 import com.redhat.rhn.domain.rhnpackage.Package;
 import com.redhat.rhn.domain.rhnpackage.PackageEvr;
 import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.frontend.dto.PackageDto;
 import com.redhat.rhn.manager.rhnpackage.PackageManager;
 
 import org.apache.commons.lang.StringUtils;
@@ -123,74 +122,6 @@ public class PackageHelper {
 
         return pkgMap;
     }
-
-
-    /**
-     * Utility method to convert a package to a map.
-     * @param pkg The package to convert
-     * @param user The user requesting the package conversion (used in calculating the
-     * providing_channels attribute)
-     * @return Returns a map representation of a package
-     */
-    public static Map packageToMap(PackageDto pkg, User user) {
-
-        Map pkgMap = new HashMap();
-
-        // deal with the providing channels first
-        DataResult dr = PackageManager.providingChannels(user, pkg.getId());
-        List channelLabels = new ArrayList();
-        for (Iterator itr = dr.iterator(); itr.hasNext();) {
-            Map map = (Map) itr.next();
-            channelLabels.add(map.get("label"));
-        }
-        pkgMap.put("providing_channels", channelLabels);
-
-
-        addEntry(pkgMap, "name",
-                StringUtils.defaultString(pkg.getName()));
-
-        addEntry(pkgMap, "epoch", StringUtils.defaultString(pkg.getEpoch()));
-        addEntry(pkgMap, "version", StringUtils.defaultString(pkg.getVersion()));
-        addEntry(pkgMap, "release", StringUtils.defaultString(pkg.getRelease()));
-
-
-        addEntry(pkgMap, "arch_label", pkg.getArchLabel());
-
-        addEntry(pkgMap, "id", pkg.getId());
-        addEntry(pkgMap, "build_host",
-                      StringUtils.defaultString(pkg.getBuildHost()));
-        addEntry(pkgMap, "description",
-                      StringUtils.defaultString(pkg.getDescription()));
-        addEntry(pkgMap, "checksum",
-                      StringUtils.defaultString(pkg.getChecksum()));
-        addEntry(pkgMap, "checksum_type",
-                      StringUtils.defaultString(
-                              pkg.getChecksumType()));
-        addEntry(pkgMap, "vendor",
-                      StringUtils.defaultString(pkg.getVendor()));
-        addEntry(pkgMap, "summary",
-                      StringUtils.defaultString(pkg.getSummary()));
-        addEntry(pkgMap, "cookie",
-                      StringUtils.defaultString(pkg.getCookie()));
-        addEntry(pkgMap, "license",
-                      StringUtils.defaultString(pkg.getCopyright()));
-        addEntry(pkgMap, "path",
-                StringUtils.defaultString(pkg.getPath()));
-        addEntry(pkgMap, "file",
-                StringUtils.defaultString(pkg.getFile()));
-        addEntry(pkgMap, "build_date",
-                      Translator.date2String(pkg.getBuildTime()));
-        addEntry(pkgMap, "last_modified_date", pkg.getLastModified());
-
-        Long sz = pkg.getPackageSize();
-        addEntry(pkgMap, "size", (sz == null) ? "" : String.valueOf(sz));
-
-        sz = pkg.getPayloadSize();
-        addEntry(pkgMap, "payload_size", (sz == null) ? "" : String.valueOf(sz));
-
-        return pkgMap;
-    }
-
 
     private static void addEntry(Map map, String key, Object value) {
         map.put(key, value);
