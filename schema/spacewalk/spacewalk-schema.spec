@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.8.66
+Version:        1.8.67
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -68,6 +68,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Tue Jul 31 2012 Tomas Lestach <tlestach@redhat.com> 1.8.67-1
+- fix upgrade script
+
 * Mon Jul 30 2012 Tomas Lestach <tlestach@redhat.com> 1.8.66-1
 - remove org_applicant from rhnUserGroupType table
 - remove org_applicant related triggers
