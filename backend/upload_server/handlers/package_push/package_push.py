@@ -137,7 +137,8 @@ class PackagePush(basePackageUpload.BasePackageUpload):
         
         return apache.OK
 
-    def _send_package_diff(self, req, diff_level, diff):
+    @staticmethod
+    def _send_package_diff(req, diff_level, diff):
         args = {
             'level' : diff_level,
             'diff'  : diff,
@@ -150,7 +151,8 @@ class PackagePush(basePackageUpload.BasePackageUpload):
         req.write(reply)
         return apache.OK
 
-    def get_auth_token(self, value):
+    @staticmethod
+    def get_auth_token(value):
         s = ''.join(map(lambda x: x.strip(), value.split('')))
         arr = map(base64.decodestring, s.split(':'))
         return arr
