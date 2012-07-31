@@ -41,6 +41,9 @@ class PackagePush(basePackageUpload.BasePackageUpload):
         self.username = None
         self.password = None
         self.force = None
+        self.rel_package_path = None
+        self.org_id = None
+        self.package_path = None
         
     def headerParserHandler(self, req):
         ret = basePackageUpload.BasePackageUpload.headerParserHandler(self, req)
