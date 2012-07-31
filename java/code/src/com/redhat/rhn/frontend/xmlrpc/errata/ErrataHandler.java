@@ -217,7 +217,7 @@ public class ErrataHandler extends BaseHandler {
         // just want to make sure the caller is logged in.
         User loggedInUser = getLoggedInUser(sessionKey);
 
-        Errata errata = lookupErrata(advisoryName, loggedInUser.getOrg());
+        Errata errata = lookupErrataReadOnly(advisoryName, loggedInUser.getOrg());
 
         Map errataMap = new HashMap();
 
@@ -700,7 +700,7 @@ public class ErrataHandler extends BaseHandler {
             throws FaultException {
         // Get the logged in user
         User loggedInUser = getLoggedInUser(sessionKey);
-        Errata errata = lookupErrata(advisoryName, loggedInUser.getOrg());
+        Errata errata = lookupErrataReadOnly(advisoryName, loggedInUser.getOrg());
 
         List<Map> toRet = new ArrayList<Map>();
         for (PackageDto dto : PackageManager.listPackageDtosForErrata(errata)) {
@@ -846,11 +846,49 @@ public class ErrataHandler extends BaseHandler {
          * need to make sure here that everything is checked correclty
          */
         if (errata.getOrg() != null && !errata.getOrg().equals(org)) {
-            throw new FaultException(-209, "no_such_errata",
-                    "The errata " + advisoryName + " cannot be found.");
+            throw new FaultException(-209, "no_rights_to_access",
+                    "You don't have rights to access " + advisoryName + " errata.");
         }
 
         return errata;
+    }
+
+    /**
+     * Private helper method to lookup an errata and throw a Fault exception if it isn't
+     * found
+     * @param advisoryName The advisory name for the erratum you're looking for
+     * @return Returns the errata or a Fault Exception
+     * @throws FaultException Occurs when the erratum is not found
+     */
+    private Errata lookupErrataReadOnly(String advisoryName, Org org)
+            throws FaultException {
+        Errata errata = ErrataManager.lookupByAdvisory(advisoryName);
+
+        /*
+         * ErrataManager.lookupByAdvisory() could return null, so we need to check
+         * and throw a no_such_errata exception if the errata was not found.
+         */
+        if (errata == null) {
+            throw new FaultException(-208, "no_such_errata",
+                    "The errata " + advisoryName + " cannot be found.");
+        }
+        /**
+         * errata with org_id of null are public, but ones with an org id of !null are not
+         * need to make sure here that everything is checked correclty
+         */
+
+        if (errata.getOrg() == null || errata.getOrg().equals(org)) {
+            return errata;
+        }
+        Set<Channel> errataChannels = errata.getChannels();
+        List orgChannels = org.getAccessibleChannels();
+        for (Channel channel : errataChannels) {
+           if (orgChannels.contains(channel)) {
+               return errata;
+           }
+        }
+        throw new FaultException(-209, "no_rights_to_access",
+                "You don't have rights to access " + advisoryName + " errata.");
     }
 
     /**
