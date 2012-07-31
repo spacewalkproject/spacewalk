@@ -138,11 +138,11 @@ class PackagePush(basePackageUpload.BasePackageUpload):
         return apache.OK
 
     def _send_package_diff(self, req, diff_level, diff):
-        dict = {
+        args = {
             'level' : diff_level,
             'diff'  : diff,
         }
-        reply = rpclib.xmlrpclib.dumps((dict, ))
+        reply = rpclib.xmlrpclib.dumps((args, ))
         ret_stat = apache.HTTP_BAD_REQUEST
         req.status = ret_stat
         req.err_headers_out['Content-Length'] = str(len(reply))
