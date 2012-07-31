@@ -57,18 +57,18 @@ class IncompatibleVersionError(ParseException):
         self.stream_version = stream_version
         self.parser_version = parser_version
 
-# PyXML parser exception wrappers
+# XML parser exception wrappers
 # Exposed functionality for the next three include:
 #    getColumnNumber(), getLineNumber(), and _msg (or just str(e))
 
 class RecoverableParseException(SAXParseException):
-    """exception wrapper for a critical, but possibly recoverable, PyXML parser
+    """exception wrapper for a critical, but possibly recoverable, XML parser
        error.
     """
     pass
 
 class FatalParseException(SAXParseException):
-    """exception wrapper for a critical PyXML parser error.
+    """exception wrapper for a critical XML parser error.
     """
     pass
 
