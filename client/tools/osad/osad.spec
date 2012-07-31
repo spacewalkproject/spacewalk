@@ -16,7 +16,7 @@ Group:   System Environment/Daemons
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.11.3
+Version: 5.11.4
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -298,6 +298,9 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 %endif
 
 %changelog
+* Tue Jul 31 2012 Michael Mraka <michael.mraka@redhat.com> 5.11.4-1
+- 844603 - removed PyXML dependency
+
 * Mon Jul 30 2012 Michael Mraka <michael.mraka@redhat.com> 5.11.3-1
 - there's no elsif macro
 
