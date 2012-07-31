@@ -87,7 +87,7 @@ SELECT CFN.path,
        rhnConfigFileName CFN,
        rhnActionConfigFileName ACFN
   LEFT JOIN rhnConfigFileFailure CFF
-   AND ACFN.failure_id = CFF.id
+    ON ACFN.failure_id = CFF.id
  WHERE ACFN.server_id = :sid
    AND ACFN.action_id = :aid
    AND ACFN.config_file_name_id = CFN.id
