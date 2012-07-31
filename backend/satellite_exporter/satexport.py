@@ -51,10 +51,10 @@ class BaseApacheServer:
         # short-circuit everything if sending a system-wide message.
         if CFG.SEND_MESSAGE_TO_ALL:
             # Drop the database connection
+            # pylint: disable=W0702
             try:
                 rhnSQL.closeDB()
             except:
-                # pylint: disable=W0702
                 pass
 
             # Fetch global message being sent to clients if applicable.
