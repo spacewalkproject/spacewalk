@@ -97,9 +97,6 @@ class PackagePush(basePackageUpload.BasePackageUpload):
             self.org_id, self.force = rhnPackageUpload.authenticate(self.username,
                 self.password, force=force, null_org=self.null_org)
 
-        nevra = [self.package_name, "", self.package_version, 
-            self.package_release, self.package_arch]
-
         return apache.OK
 
 
