@@ -27,7 +27,6 @@ from spacewalk.common.rhnLog import log_debug, log_error
 from spacewalk.common.rhnConfig import CFG
 from spacewalk.common.rhnException import rhnFault
 from spacewalk.server import rhnPackageUpload, rhnSQL, basePackageUpload
-from spacewalk.common.checksum import getFileChecksum
 
 class PackagePush(basePackageUpload.BasePackageUpload):
     def __init__(self, req):
