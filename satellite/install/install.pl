@@ -150,6 +150,11 @@ sub do_precondition_checks {
   my $opts = shift;
   my $answers = shift;
 
+  if (umask() & ~022) {
+    print "The installer needs umask not to exceed 0022.\n";
+    exit 56;
+  }
+
   if (not $opts->{"skip-system-version-test"}
       and not correct_system_version(%version_info)) {
     print loc(<<EOQ);
