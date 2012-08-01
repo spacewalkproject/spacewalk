@@ -1,5 +1,5 @@
 Name:         NOCpulsePlugins
-Version:      2.209.5
+Version:      2.209.6
 Release:      1%{?dist}
 Summary:      NOCpulse authored Plug-ins
 URL:          https://fedorahosted.org/spacewalk
@@ -86,6 +86,11 @@ fi
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Wed Aug 01 2012 Jan Pazdziora 2.209.6-1
+- 844992 - force the array context so that Class::MethodMaker behaves the same
+  in both versions 1 and 2.
+- %%defattr is not needed since rpm 4.4
+
 * Tue Apr 03 2012 Jan Pazdziora 2.209.5-1
 - 518985 - fix ORA-00918: column ambiguously defined (mzazrivec@redhat.com)
 
