@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        1.8.14
+Version:        1.8.15
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -110,6 +110,9 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Wed Aug 01 2012 Jan Pazdziora 1.8.15-1
+- 751678 - Make sure we chown the directory structure if /rhnsat is a symlink.
+
 * Fri Jul 13 2012 Tomas Lestach <tlestach@redhat.com> 1.8.14-1
 - increase allowed parameter count
 
