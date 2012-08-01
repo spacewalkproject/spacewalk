@@ -23,7 +23,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.120
+Version: 1.8.121
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -614,6 +614,11 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Aug 01 2012 Tomas Lestach <tlestach@redhat.com> 1.8.121-1
+- Construct GMT millisecond value for timestamp if DB does not store timezone
+- 844048 - let errata.listPackages API return also packages associated with
+  unpublished errata
+
 * Tue Jul 31 2012 Tomas Kasparek <tkasparek@redhat.com> 1.8.120-1
 - 838618 - Allowing some API calls to be called from another organizations
 
