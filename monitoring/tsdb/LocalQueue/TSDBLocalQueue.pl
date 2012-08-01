@@ -86,8 +86,8 @@ while (1) {
 
             $last_scan_time = $now;
             $Log->log(1, "Rescanned directory: ", 
-                      scalar(@{$queue_manager->current_file_keys}), " current, ",
-                      scalar(@{$queue_manager->old_file_keys}), " old\n");
+                      scalar(@{[ $queue_manager->current_file_keys ]}), " current, ",
+                      scalar(@{[ $queue_manager->old_file_keys ]}), " old\n");
         } otherwise {
             my $err = shift;
             $ErrorOut->print("Problem scanning directory: $err\n");
@@ -181,8 +181,8 @@ while (1) {
     }
 
     # If there are no files, nod off for a while.
-    if (scalar(@{$queue_manager->current_file_keys}) == 0 
-        && scalar(@{$queue_manager->old_file_keys}) == 0) {
+    if (scalar(@{[ $queue_manager->current_file_keys ]}) == 0
+        && scalar(@{[ $queue_manager->old_file_keys ]}) == 0) {
 
         $Log->log(1, "No current or old files, sleep ", NO_FILES_SLEEP, "\n");
         $Log->flush();
