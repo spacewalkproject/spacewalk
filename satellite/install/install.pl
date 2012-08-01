@@ -710,7 +710,7 @@ sub install_updates_packages {
 sub import_gpg_key {
    my $gpg_key_file = '/etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release';
    if (-f $gpg_key_file) {
-     my $file_content = `gpg $gpg_key_file`;
+     my $file_content = `gpg $gpg_key_file 2> /dev/null`;
      my ($fingerprint) = ($file_content =~  m!/(\S+)!);
      if (defined $fingerprint and system "rpm -q gpg-pubkey-$fingerprint > /dev/null") {
        system "rpm --import $gpg_key_file";
