@@ -57,7 +57,7 @@ export ORAENV_ASK ORACLE_SID
 . oraenv
 
 mkdir -p /rhnsat/data /rhnsat/admin
-chown -R oracle:dba /rhnsat
+chown -RL oracle:dba /rhnsat
 if selinuxenabled && semodule -l | grep '^oracle-rhnsat\b' ; then
 	restorecon -rv /rhnsat
 	RUNRESTORECON=--run-restorecon
