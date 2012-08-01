@@ -55,8 +55,8 @@ Swap:       136544      84496      52048
 
     $self->assert($result->overall_status eq $result->OK, "Wrong status: ",
                   $result->overall_status);
-    $self->assert(scalar($result->item_named_keys) == 3, "Not 3 items: ",
-                  scalar($result->item_named_keys));
+    $self->assert(scalar(@{[ $result->item_named_keys ]}) == 3, "Not 3 items: ",
+                  scalar(@{[ $result->item_named_keys ]}));
 
     my $used = $result->item_named('Used')->value;
     my $expect = 84496 / 1024 / 1024;

@@ -58,9 +58,9 @@ my $STATE_FILE   = "$tmp_dir/escalator.state";
 
   my $count;
   if ($show_sends) {
-    $count = scalar($escalator->_sends_keys);
+    $count = scalar(@{[ $escalator->_sends_keys ]});
   } else {
-    $count = scalar($escalator->_alerts_keys);
+    $count = scalar(@{[ $escalator->_alerts_keys ]});
   }
  
 
