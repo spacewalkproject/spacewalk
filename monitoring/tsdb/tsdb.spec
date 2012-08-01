@@ -8,7 +8,7 @@
 %define npbin       %{_bindir}
 Name:         tsdb
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version:      1.27.28
+Version:      1.27.29
 Release:      1%{?dist}
 Summary:      Time Series Database
 URL:          https://fedorahosted.org/spacewalk
@@ -89,6 +89,11 @@ fi
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Wed Aug 01 2012 Jan Pazdziora 1.27.29-1
+- 844992 - force the array context so that Class::MethodMaker behaves the same
+  in both versions 1 and 2.
+- %%defattr is not needed since rpm 4.4
+
 * Tue Mar 13 2012 Michael Mraka <michael.mraka@redhat.com> 1.27.28-1
 - fixed error: %%changelog entries must start with *
 
