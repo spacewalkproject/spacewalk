@@ -101,6 +101,7 @@ print loc("* Applying updates.\n");
 install_updates_packages();
 
 print loc("* Installing RHN packages.\n");
+import_gpg_key();
 install_rhn_packages(\%opts);
 
 
@@ -704,6 +705,17 @@ sub install_updates_packages {
 		 'Could not update system.  Most likely your system is not configured with the @Base package group.  See the RHN Satellite Server Installation Guide for more information about Software Requirements.');
 
   return 1;
+}
+
+sub import_gpg_key {
+   my $gpg_key_file = '/etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release';
+   if (-f $gpg_key_file) {
+     my $file_content = `gpg $gpg_key_file`;
+     my ($fingerprint) = ($file_content =~  m!/(\S+)!);
+     if (defined $fingerprint and system "rpm -q gpg-pubkey-$fingerprint > /dev/null") {
+       system "rpm --import $gpg_key_file";
+     }
+   }
 }
 
 sub install_rhn_packages {
