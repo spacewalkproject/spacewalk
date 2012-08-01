@@ -9,7 +9,7 @@ Name:         NPalert
 Summary:      NOCpulse notification system
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version:      1.127.6
+Version:      1.127.7
 Release:      1%{?dist}
 BuildArch:    noarch
 Requires:     perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
@@ -136,6 +136,11 @@ fi
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Wed Aug 01 2012 Jan Pazdziora 1.127.7-1
+- 844992 - force the array context so that Class::MethodMaker behaves the same
+  in both versions 1 and 2.
+- %%defattr is not needed since rpm 4.4
+
 * Fri Mar 09 2012 Miroslav Suchý 1.127.6-1
 - remove RHN_DB_USERNAME from monitoring scout configuration
 
