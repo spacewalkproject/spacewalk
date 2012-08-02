@@ -6775,6 +6775,9 @@ Suivez cet url pour obtenir la liste complète des systèmes inactifs :
 		<source>1 of 1 file on the system differed from the @@PRODUCT_NAME@@-Managed files</source>
 	<target>1 de 1 fichier sur le système diffère des fichiers gérés par @@PRODUCT_NAME@@</target></trans-unit>
 
+	<trans-unit id="sdc.config.differing.files_2">
+		<source>{0} of {1} files on the system differed from the @@PRODUCT_NAME@@-Managed files.</source>
+	<target>{0} de {1} fichiers sur le système diffèrent des fichiers gérés par @@PRODUCT_NAME@@.</target></trans-unit>
     </group>
 
     <group>
