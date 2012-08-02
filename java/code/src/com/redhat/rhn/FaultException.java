@@ -25,6 +25,7 @@ public class FaultException extends RuntimeException  {
 
     protected int errorCode;
     protected String label;
+    protected Object [] arguments;
 
     /**
      * Constructor
@@ -49,6 +50,7 @@ public class FaultException extends RuntimeException  {
         super(LocalizationService.getInstance().getMessage(messageId, args));
         this.errorCode =  error;
         this.label =  lbl;
+        this.arguments = args;
     }
 
     /**
@@ -98,6 +100,22 @@ public class FaultException extends RuntimeException  {
      */
     public void setLabel(String lbl) {
         this.label = lbl;
+    }
+
+    /**
+     * getter for exception arguments
+     * @return arguments
+     */
+    public Object[] getArgs() {
+        return arguments;
+    }
+
+    /**
+     * setter for exception arguments
+     * @param args arguments
+     */
+    public void setArgs(Object[] args) {
+        this.arguments = args;
     }
 
 }

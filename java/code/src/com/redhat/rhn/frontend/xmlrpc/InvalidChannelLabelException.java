@@ -105,6 +105,6 @@ public class InvalidChannelLabelException extends FaultException {
         TOO_SHORT,
         IS_MISSING,
         LABEL_IN_USE,
-        RHN_CHANNEL_BAD_PERMISSIONS
+        REDHAT_REGEX_FAILS
     }
 }

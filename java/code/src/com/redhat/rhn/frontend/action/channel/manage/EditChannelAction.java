@@ -468,9 +468,10 @@ public class EditChannelAction extends RhnAction implements Listable {
                         new ActionMessage("edit.channel.invalidchannelname.regex"));
                 break;
 
-            case RHN_CHANNEL_BAD_PERMISSIONS:
+            case REDHAT_REGEX_FAILS:
                 errors.add(ActionMessages.GLOBAL_MESSAGE,
-                        new ActionMessage("edit.channel.invalidchannelname.redhat"));
+                        new ActionMessage("edit.channel.invalidchannelname.redhat",
+                                ferengi.getArgs()));
                 break;
 
             case TOO_SHORT:
@@ -510,9 +511,10 @@ public class EditChannelAction extends RhnAction implements Listable {
                     new ActionMessage("edit.channel.invalidchannellabel.regex"));
                 break;
 
-            case RHN_CHANNEL_BAD_PERMISSIONS:
+            case REDHAT_REGEX_FAILS:
                 errors.add(ActionMessages.GLOBAL_MESSAGE,
-                    new ActionMessage("edit.channel.invalidchannellabel.redhat"));
+                    new ActionMessage("edit.channel.invalidchannellabel.redhat",
+                            q.getArgs()));
                 break;
 
             case TOO_SHORT:
