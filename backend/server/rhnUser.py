@@ -454,66 +454,9 @@ def __new_user_db(username, password, email, org_id, org_password):
             # Bad password
             raise rhnFault(2)
         
-    # From this point on, the password may be encrypted
-    if encrypted_password:
-        password = encrypt_password(password)
-
-    is_real = 0
-    # the password matches, do we need to create a new entry?
-    if not data.has_key("id"):
-        user = User(username, password)
-    else: # we have to reload this entry into a User structure
-        user = User(username, password)
-        if not user.reload(data["id"]) == 0:
-            # something horked during reloading entry from database
-            # we can not really say that the entry does not exist...
-            raise rhnFault(10)
-        is_real = 1
-        
-    # now we have user reloaded, check for updated email
-    if email:
-
-        # don't update the user's email address in the satellite context...
-        # we *must* in the live context, but user creation through rhn_register
-        # is disallowed in the satellite context anyway...
-        if not pre_existing_user:
-            user.set_info("email", email)
-            
-    # XXX This should go away eventually
-    if org_id and org_password: # check out this org
-        h = rhnSQL.prepare("""
-        select id, password from web_customer
-        where id = :org_id
-        """)
-        h.execute(org_id=str(org_id))
-        data = h.fetchone_dict()
-        if not data: # wrong organization
-            raise rhnFault(2, _("Invalid Organization Credentials"))
-        # The org password is not encrypted, easy comparison
-        if org_password.lower() != data["password"].lower():
-            # Invalid org password
-            raise rhnFault(2, _("Invalid Organization Credentials"))
-        if is_real: # this is a real entry, don't clobber the org_id
-            old_org_id = user.contact["org_id"]
-            new_org_id  = data["id"]
-            if old_org_id != new_org_id:
-                raise rhnFault(42, 
-                    _("User `%s' not a member of organization %s") % 
-                        (username, org_id))
-        else: # new user, set its org
-            user.set_org_id(data["id"])
-        
-    # force the save if this is a new entry
-    ret = user.save()
-    if not ret == 0:
-        raise rhnFault(5)
-    # check if we need to remove the reservation
-    if not data.has_key("id"):
-        # remove reservation
-        h = rhnSQL.prepare("""
-        delete from rhnUserReserved where login_uc = upper(:username)
-        """)
-        h.execute(username=username)
+    # creation of user was never supported in spacewalk but this call was mis-used
+    # to check username/password in the past
+    # so let's skip other checks and return now
     return 0
 
 
