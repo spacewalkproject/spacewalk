@@ -6745,6 +6745,9 @@ Follow this url to see the full list of inactive systems:
 
 
 
+	<trans-unit id="sdc.config.differing.files_0">
+		<source>No existing files in the existing system differed from the @@PRODUCT_NAME@@-Managed files.</source>
+        <target>ਮੌਜੂਦਾ ਸਿਸਟਮ ਉੱਪਰ ਕੋਈ ਮੌਜੂਦਾ ਫਾਇਲ @@PRODUCT_NAME@@-ਪਰਬੰਧਿਤ ਫਾਇਲਾਂ ਤੋਂ ਵੱਖਰੀ ਨਹੀਂ ਹੈ।</target></trans-unit>
 
 	<trans-unit id="sdc.config.differing.files_1">
 		<source>1 of 1 file on the system differed from the @@PRODUCT_NAME@@-Managed files</source>
