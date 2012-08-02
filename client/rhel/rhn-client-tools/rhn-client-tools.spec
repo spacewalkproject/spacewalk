@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 1.8.17
+Version: 1.8.18
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -339,6 +339,9 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Thu Aug 02 2012 Michael Mraka <michael.mraka@redhat.com> 1.8.18-1
+- registerUser is dead since b27c6ad4b90a6c4c3f970fc0f8faefae7c134c9c
+
 * Mon Jul 30 2012 Michael Mraka <michael.mraka@redhat.com> 1.8.17-1
 - removed dead code
 
