@@ -243,11 +243,6 @@ def reserveUser(username, password):
     return s.registration.reserve_user(username, password)
 
 
-def registerUser(username, password):
-    s = rhnserver.RhnServer()
-    s.registration.new_user(username, password)
-
-
 class RegistrationResult:
     def __init__(self, systemId, channels, failedChannels, systemSlots, 
                  failedSystemSlots, universalActivationKey, rawDict=None):
