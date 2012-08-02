@@ -100,16 +100,16 @@ class Registration(rhnHandler):
         self.functions.append("new_system")
         self.functions.append("new_system_user_pass")
 ##        self.functions.append("new_system_activation_key")
-        self.functions.append("new_user")
+        self.functions.append("new_user")               # obsoleted
         self.functions.append("privacy_statement")
         self.functions.append("refresh_hw_profile")
         self.functions.append("register_osad")
         self.functions.append("register_osad_jid")
         self.functions.append("register_product")
-        self.functions.append("reserve_user")
+        self.functions.append("reserve_user")           # obsoleted
         self.functions.append("send_serial")
         self.functions.append("upgrade_version")
-        self.functions.append("update_contact_info")
+        self.functions.append("update_contact_info")    # obsoleted
         self.functions.append("update_packages")
         self.functions.append("update_transactions")
         self.functions.append("virt_notify")
