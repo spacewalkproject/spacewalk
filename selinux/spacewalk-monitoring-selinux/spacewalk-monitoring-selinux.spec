@@ -7,7 +7,7 @@
 %define modulename spacewalk-monitoring
 
 Name:           spacewalk-monitoring-selinux
-Version:        1.8.3
+Version:        1.8.4
 Release:        1%{?dist}
 Summary:        SELinux policy module supporting Spacewalk monitoring
 
@@ -141,6 +141,9 @@ fi
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
+* Thu Aug 02 2012 Michael Mraka <michael.mraka@redhat.com> 1.8.4-1
+- 650735 - fix context of /usr/share/nocpulse/cgi-bin
+
 * Fri Jul 27 2012 Michael Mraka <michael.mraka@redhat.com> 1.8.3-1
 - 650735 - set proper context for cgi scripts
 
