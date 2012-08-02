@@ -6737,6 +6737,9 @@ Seguite l'url sotto riportato per visualizzare l'elenco completo di sistemi inat
 			<source>No system comparisons completed.</source>
         <target>Non è stato completato alcun confronto del sistema.</target></trans-unit>
 
+	<trans-unit id="sdc.config.diff.files_0_dirs_0_symlinks_0">
+		<source>No files, directories or symlinks were selected for comparison. [&lt;a href="{6}"&gt;View Details&lt;/a&gt;]</source>
+	<target></target></trans-unit>
 
 	<trans-unit id="sdc.config.diff.files_0_dirs_0_symlinks_1">
 		<source>{4} of 1 symlink on the system was successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href="{6}"&gt;View Details&lt;/a&gt;]</source>
