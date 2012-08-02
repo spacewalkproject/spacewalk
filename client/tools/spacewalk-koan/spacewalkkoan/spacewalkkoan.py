@@ -247,7 +247,11 @@ def initiate_guest(kickstart_host, cobbler_system_name, virt_type, name, mem_kb,
         virtualization.support.refresh()
     except Exception, e:
         (xa, xb, tb) = sys.exc_info()
-        if  hasattr(e,"from_koan") and len(str(e)) > 1:
+        if str(xb).startswith("The MAC address you entered is already in use"):
+            # I really wish there was a better way to check for this
+            error_messages['koan'] = str(xb)
+            print str(xb)
+        elif  hasattr(e,"from_koan") and len(str(e)) > 1:
             error_messages['koan'] = str(e)[1:-1]
             print str(e)[1:-1] # nice exception, no traceback needed
         else:
