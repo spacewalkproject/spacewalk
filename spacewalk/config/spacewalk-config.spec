@@ -1,6 +1,6 @@
 Name: spacewalk-config
 Summary: Spacewalk Configuration
-Version: 1.8.2
+Version: 1.8.3
 Release: 1%{?dist}
 URL: http://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -104,6 +104,9 @@ chgrp apache /etc/rhn /etc/rhn/rhn.conf /etc/rhn/cluster.ini 2> /dev/null || :
 chmod o-rwx /etc/rhn/rhn.conf* /etc/rhn/cluster.ini* /etc/sysconfig/rhn/backup-* /var/lib/rhn/rhn-satellite-prep/* 2> /dev/null || :
 
 %changelog
+* Mon Aug 06 2012 Jan Pazdziora 1.8.3-1
+- 844474 - add a comment about the server.satellite.http_proxy format.
+
 * Wed Jun 27 2012 Jan Pazdziora 1.8.2-1
 - The delete_confirm.pxt was replaced by DeleteConfirm.do.
 - %%defattr is not needed since rpm 4.4
