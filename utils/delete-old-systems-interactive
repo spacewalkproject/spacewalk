@@ -68,13 +68,13 @@ $systems = [
 
 my $delete = 0;
 my $total = @$systems;
-$cutoff =~ s/-//g;
-$cutoff =~ tr/T/ /;
+$cutoff =~ s/\D//g;
 for (my $i = 0; $i < @$systems; $i++) {
 	my $sys = $systems->[$i];
 	my $sys_date = $sys->{last_checkin};
-	if (not $sys_date =~ / /) {
-		$sys_date .= ' 23:59:59';
+	my $sys_date =~ s/\D//g;
+	if (length($sys_date) == 8) {
+		$sys_date .= '235959';
 	}
 	print "System [$sys->{name}] id [$sys->{id}] last checking [$sys->{last_checkin}] ";
 	if ($sys_date lt $cutoff) {
