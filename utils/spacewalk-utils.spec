@@ -1,7 +1,7 @@
 %define rhnroot %{_prefix}/share/rhn
 
 Name:		spacewalk-utils
-Version:	1.8.22
+Version:	1.8.23
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -86,6 +86,9 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Mon Aug 06 2012 Tomas Lestach <tlestach@redhat.com> 1.8.23-1
+- 843466 - prevent spacewalk-hostname-rename to fail with an IPv6 address
+
 * Mon Aug 06 2012 Michael Mraka <michael.mraka@redhat.com> 1.8.22-1
 - 817484 - strip non-number chars from date format
 
