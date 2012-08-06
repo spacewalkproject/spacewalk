@@ -65,10 +65,11 @@
                 </rl:column>
 
 
-                 <rl:column sortable="false"
+                 <rl:column sortable="true"
                                    bound="false"
                                    filterattr="advisorySynopsis"
                            headerkey="erratalist.jsp.synopsis"
+                           sortattr="advisorySynopsis"
                           >
                         ${current.advisorySynopsis}
                 </rl:column>
