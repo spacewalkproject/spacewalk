@@ -23,7 +23,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.123
+Version: 1.8.124
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -614,6 +614,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Aug 06 2012 Tomas Lestach <tlestach@redhat.com> 1.8.124-1
+- detect oracle TIMESTAMPTZ objects and convert them correctly to timestamp
+
 * Thu Aug 02 2012 Tomas Lestach <tlestach@redhat.com> 1.8.123-1
 - 842992 - display a relevant error message when creating channel names/labels
   starting with rhn|redhat
