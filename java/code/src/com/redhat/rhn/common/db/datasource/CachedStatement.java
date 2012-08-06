@@ -768,12 +768,17 @@ public class CachedStatement {
      */
     private Object getObject(ResultSet rs, String columnName) throws SQLException {
         Object columnValue = rs.getObject(columnName);
+        if (columnValue == null) {
+            return null;
+        }
+
         // Workaround for problem where the JDBC driver returns a
         // java.sql.Date that often times will not deliver time
         // precision beyond 12:00AM Midnight so you get dates like
         // this            : August 23, 2005 12:00:00 AM PDT
         // vs the real date: August 23, 2005 1:36:12 PM PDT
-        if (columnValue instanceof Date) {
+        if (columnValue instanceof Date ||
+            ("oracle.sql.TIMESTAMPTZ".equals(columnValue.getClass().getCanonicalName()))) {
             Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT"));
             return rs.getTimestamp(columnName, cal);
         }
