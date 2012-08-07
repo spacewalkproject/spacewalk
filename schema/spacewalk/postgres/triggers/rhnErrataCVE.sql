@@ -1,5 +1,5 @@
--- oracle equivalent source sha1 da11fc61282da4aba4dc137311521183d568cac3
--- retrieved from ./1239053651/49a123cbe214299834e6ce97b10046d8d9c7642a/schema/spacewalk/oracle/triggers/rhnErrataCVE.sql
+-- oracle equivalent source sha1 10a79d5c34ad9d453aa081667469d2f104450c40
+
 create or replace function rhn_errata_cve_mod_trig_fun() returns trigger as
 $$
 begin

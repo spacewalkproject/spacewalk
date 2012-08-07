@@ -1,5 +1,5 @@
--- oracle equivalent source sha1 22b1074528177a0dbdb435162840dd543cf2573d
--- retrieved from ./1241102873/cdc6d42049bf86fbc9f1d3a5c54275eeacbd641d/schema/spacewalk/oracle/triggers/rhnErrataBuglistTmp.sql
+-- oracle equivalent source sha1 2b3af6013d4f7761e87eb7024eb4218c3fff13f3
+
 
 create or replace function rhn_errata_buglisttmp_mod_trig_fun() returns trigger as
 $$

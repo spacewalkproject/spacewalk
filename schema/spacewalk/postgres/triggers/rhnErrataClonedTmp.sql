@@ -1,5 +1,5 @@
--- oracle equivalent source sha1 ff4b616f51bf57a85111f7b92b6b0d6ef2bd12d4
--- retrieved from ./1239053651/49a123cbe214299834e6ce97b10046d8d9c7642a/schema/spacewalk/oracle/triggers/rhnErrataClonedTmp.sql
+-- oracle equivalent source sha1 b1ee0841d4cb46725919c80367d2509e78584d98
+
 create or replace function rhn_eclonedtmp_mod_trig_fun() returns trigger as
 $$
 begin

@@ -1,5 +1,5 @@
--- oracle equivalent source sha1 7de58348cdc962a76bede6a565f3d1a19c67672a
--- retrieved from ./1241102873/cdc6d42049bf86fbc9f1d3a5c54275eeacbd641d/schema/spacewalk/oracle/triggers/rhnChannelFamily.sql
+-- oracle equivalent source sha1 3524cbfc189420e5300d30b682c8fcfc5546465d
+
 create or replace function rhn_channel_family_mod_trig_fun() returns trigger as
 $$
 begin

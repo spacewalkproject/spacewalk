@@ -1,5 +1,5 @@
--- oracle equivalent source sha1 0513f9a5de57c6f5387bd9aa7997630255dbe905
--- retrieved from ./1241102873/cdc6d42049bf86fbc9f1d3a5c54275eeacbd641d/schema/spacewalk/oracle/triggers/rhnSolarisPatchSet.sql
+-- oracle equivalent source sha1 4dbd1e35bf7a3025183d9d4a9fda80c30ffffb68
+
 create or replace function rhn_solaris_ps_mod_trig_fun() returns trigger as
 $$
 begin

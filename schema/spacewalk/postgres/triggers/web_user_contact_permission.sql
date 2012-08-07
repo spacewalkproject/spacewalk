@@ -1,5 +1,5 @@
--- oracle equivalent source sha1 1a3a430ef6963b67adb8ac9253d251be8b794f76
--- retrieved from ./1241102873/cdc6d42049bf86fbc9f1d3a5c54275eeacbd641d/schema/spacewalk/oracle/triggers/web_user_contact_permission.sql
+-- oracle equivalent source sha1 3740ad536b3e5a26b43f37d7a82e6f069f6a58f5
+
 create or replace function web_user_cp_timestamp_fun() returns trigger as
 $$
 begin

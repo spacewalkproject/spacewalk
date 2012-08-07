@@ -1,5 +1,5 @@
--- oracle equivalent source sha1 2dd1af534b1a28a155096efacbe9cd4c799b51e9
--- retrieved from ./1241102873/cdc6d42049bf86fbc9f1d3a5c54275eeacbd641d/schema/spacewalk/oracle/triggers/rhnChannelPackageArchCompat.sql
+-- oracle equivalent source sha1 9da15450a03a857e4fe15862e463bd850f7e18bb
+
 create or replace function rhn_cp_ac_mod_trig_fun() returns trigger as
 $$
 begin

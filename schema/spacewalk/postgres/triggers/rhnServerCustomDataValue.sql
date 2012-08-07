@@ -1,5 +1,5 @@
--- oracle equivalent source sha1 91ffdddaa3f7bf87411352cf5c1ea08bff85afd1
--- retrieved from ./1241102873/cdc6d42049bf86fbc9f1d3a5c54275eeacbd641d/schema/spacewalk/oracle/triggers/rhnServerCustomDataValue.sql
+-- oracle equivalent source sha1 defd30f9c418cdcdc09e2612739969dc4659ef71
+
 create or replace function rhn_scdv_mod_trig_fun() returns trigger as
 $$
 begin

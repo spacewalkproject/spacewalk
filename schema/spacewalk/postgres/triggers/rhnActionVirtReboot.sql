@@ -1,5 +1,5 @@
--- oracle equivalent source sha1 7d854b97762ee011e781feb4cf59c17b114af4ea
--- retrieved from ./1239053651/49a123cbe214299834e6ce97b10046d8d9c7642a/schema/spacewalk/oracle/triggers/rhnActionVirtReboot.sql
+-- oracle equivalent source sha1 78984481e5515b81d21a789eb283bad0029187f6
+
 create or replace function rhn_avreboot_mod_trig_fun() returns trigger as
 $$
 begin

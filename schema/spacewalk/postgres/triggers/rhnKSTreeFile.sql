@@ -1,5 +1,5 @@
--- oracle equivalent source sha1 55859618006fb64b787d5657ebf9df5288c46726
--- retrieved from ./1241132947/9984c41fb98d15becf3c29432c19cd7a266dece4/schema/spacewalk/oracle/triggers/rhnKSTreeFile.sql
+-- oracle equivalent source sha1 0ab6c27431d4412d9215196baa379cbd4662e2c2
+
 create or replace function rhn_kstreefile_mod_trig_fun() returns trigger as
 $$
 begin

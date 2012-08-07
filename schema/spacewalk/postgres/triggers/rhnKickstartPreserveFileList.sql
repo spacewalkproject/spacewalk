@@ -1,5 +1,5 @@
--- oracle equivalent source sha1 9186ddb8d4b222ae28504a4cffa7f2ea22e06ad1
--- retrieved from ./1241102873/cdc6d42049bf86fbc9f1d3a5c54275eeacbd641d/schema/spacewalk/oracle/triggers/rhnKickstartPreserveFileList.sql
+-- oracle equivalent source sha1 6e1e553525cd6604c5e5cde45fb329640ee2c312
+
 create or replace function rhn_kspreservefl_mod_trig_fun() returns trigger as
 $$
 begin

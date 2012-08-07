@@ -1,5 +1,5 @@
--- oracle equivalent source sha1 931ffaaab5efd6ccf91cb875a4effff5e80054f1
--- retrieved from ./1241102873/cdc6d42049bf86fbc9f1d3a5c54275eeacbd641d/schema/spacewalk/oracle/triggers/rhnDevice.sql
+-- oracle equivalent source sha1 e6d93d5d850bd26fe55f8f1fe5ddae8c36227c6b
+
 
 create or replace function rhn_device_mod_trig_fun() returns trigger as
 $$

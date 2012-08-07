@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2012 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -23,11 +23,11 @@ before insert or update or delete on rhnErrataPackage
 for each row
 begin
 	if inserting or updating then	
-		:new.modified := sysdate;
+		:new.modified := current_timestamp;
 	end if;
 	if deleting then
 		update rhnErrata
-		set rhnErrata.last_modified = sysdate
+		set rhnErrata.last_modified = current_timestamp
 		where rhnErrata.id in ( :old.errata_id );
 	end if;
 end rhn_errata_package_mod_trig;

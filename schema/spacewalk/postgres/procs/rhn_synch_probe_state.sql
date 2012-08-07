@@ -1,7 +1,7 @@
--- oracle equivalent source sha1 93ccb88c450fb798388f87921d8e4dc456bfffd6
--- retrieved from ./1241128047/984a347f2afbd47756e90584364799dd670b62db/schema/spacewalk/oracle/procs/rhn_synch_probe_state.sql
+-- oracle equivalent source sha1 ff14558330710bc7ef775d3756f4e79bc166d3ef
+
 --
--- Copyright (c) 2008--2010 Red Hat, Inc.
+-- Copyright (c) 2008--2012 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or

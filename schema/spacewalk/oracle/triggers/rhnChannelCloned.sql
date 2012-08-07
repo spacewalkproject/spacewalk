@@ -18,7 +18,7 @@ rhn_channel_cloned_comps_trig
 before insert or update on rhnChannelCloned
 for each row
 begin
-	:new.modified := sysdate;
+	:new.modified := current_timestamp;
 
 	if inserting then
 		-- if there are not comps in the cloned channel by now,
@@ -27,7 +27,7 @@ begin
 			( id, channel_id, relative_filename,
 				last_modified, created, modified )
 		select rhn_channelcomps_id_seq.nextval, :new.id, relative_filename,
-				sysdate, sysdate, sysdate
+				current_timestamp, current_timestamp, current_timestamp
 		from rhnChannelComps
 		where channel_id = :new.original_id
 			and not exists (

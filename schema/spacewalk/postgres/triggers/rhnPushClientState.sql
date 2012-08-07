@@ -1,5 +1,5 @@
--- oracle equivalent source sha1 ee7ee108ed5982d36f0221c3c542ebdc2433c391
--- retrieved from ./1241102873/cdc6d42049bf86fbc9f1d3a5c54275eeacbd641d/schema/spacewalk/oracle/triggers/rhnPushClientState.sql
+-- oracle equivalent source sha1 79a0c20aa01b49bd5c9338796be1a5325d259d5b
+
 create or replace function rhn_pclient_state_mod_trig_fun() returns trigger as
 $$
 begin

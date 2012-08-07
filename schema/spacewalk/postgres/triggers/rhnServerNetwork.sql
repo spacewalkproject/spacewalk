@@ -1,4 +1,4 @@
--- oracle equivalent source sha1 7d7357a60861def0d2bee056efb81cd80fedffdd
+-- oracle equivalent source sha1 022307e9d690010f443673170becac34edecc66a
 
 create or replace function rhn_servernetwork_mod_trig_fun() returns trigger as
 $$

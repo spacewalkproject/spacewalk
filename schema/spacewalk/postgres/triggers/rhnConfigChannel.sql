@@ -1,7 +1,7 @@
--- oracle equivalent source sha1 1431f29812c7f479597853e466bf97d4dac6bc57
--- retrieved from ./1241132947/9984c41fb98d15becf3c29432c19cd7a266dece4/schema/spacewalk/oracle/triggers/rhnConfigChannel.sql
+-- oracle equivalent source sha1 bd0750bc874f78034336ffc0bab3ab1da64443e6
+
 --
--- Copyright (c) 2008--2010 Red Hat, Inc.
+-- Copyright (c) 2008--2012 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or

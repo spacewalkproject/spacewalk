@@ -17,6 +17,6 @@ create or replace trigger time_series_purge_mod_trig
 before insert or update on time_series_purge
 for each row
 begin
-    :new.modified := sysdate;
+    :new.modified := current_timestamp;
 end;
 /

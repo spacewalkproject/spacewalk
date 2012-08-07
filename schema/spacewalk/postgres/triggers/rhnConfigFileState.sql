@@ -1,5 +1,5 @@
--- oracle equivalent source sha1 df359eb4bf3d508aaef159f63bad54c62fd83f3b
--- retrieved from ./1241102873/cdc6d42049bf86fbc9f1d3a5c54275eeacbd641d/schema/spacewalk/oracle/triggers/rhnConfigFileState.sql
+-- oracle equivalent source sha1 2b2bf621b8cf847decd116ab919f14292ce7cfda
+
 create or replace function rhn_cfstate_mod_trig_fun() returns trigger as
 $$
 begin

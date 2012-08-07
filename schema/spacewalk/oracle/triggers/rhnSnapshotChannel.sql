@@ -1,6 +1,6 @@
 
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2012 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -19,7 +19,7 @@ rhn_snapchan_mod_trig
 before insert or update on rhnSnapshotChannel
 for each row
 begin
-	update rhnSnapshot set modified = sysdate where id = :new.snapshot_id;
+	update rhnSnapshot set modified = current_timestamp where id = :new.snapshot_id;
 end;
 /
 show errors

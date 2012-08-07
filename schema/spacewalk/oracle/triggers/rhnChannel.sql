@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2012 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -21,7 +21,7 @@ rhn_channel_mod_trig
 before insert or update on rhnChannel
 for each row
 begin
-	:new.last_modified := sysdate;
+	:new.last_modified := current_timestamp;
 	-- this is a really bad way of saying "if all we''re 
 	-- changing is the date"
 	if updating then
@@ -34,7 +34,7 @@ begin
 		  (:old.name != :new.name) or
 		  (:old.summary != :new.summary) or
 		  (:old.description != :new.description) then
-			:new.modified := sysdate;
+			:new.modified := current_timestamp;
 		end if;
 	end if;
 end;

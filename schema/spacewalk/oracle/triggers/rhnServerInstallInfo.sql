@@ -1,6 +1,6 @@
 
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2012 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -19,7 +19,7 @@ rhn_s_inst_info_mod_trig
 before insert or update on rhnServerInstallInfo
 for each row
 begin
-	:new.modified := sysdate;
+	:new.modified := current_timestamp;
 end;
 /
 show errors

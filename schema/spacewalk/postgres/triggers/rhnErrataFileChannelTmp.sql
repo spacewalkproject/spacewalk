@@ -1,5 +1,5 @@
--- oracle equivalent source sha1 61d693002c6edfb93450d58d2375154b0e293cbb
--- retrieved from ./1240273396/cea26e10fb65409287d4579c2409403b45e5e838/schema/spacewalk/oracle/triggers/rhnErrataFileChannelTmp.sql
+-- oracle equivalent source sha1 b4fc98df9eb81f7c8509c838555326a32cc3933f
+
 create or replace function rhn_efilectmp_mod_trig_fun() returns trigger as
 $$
 begin

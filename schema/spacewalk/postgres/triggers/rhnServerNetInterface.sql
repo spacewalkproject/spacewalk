@@ -1,4 +1,4 @@
--- oracle equivalent source sha1 e70841a1bf2069970b4742ee1cd2e67591ce5d9b
+-- oracle equivalent source sha1 ea137214270003a152d6760ab99f8e3f93fc94a1
 create or replace function rhn_srv_net_iface_mod_trig_fun() returns trigger as
 $$
 begin

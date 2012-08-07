@@ -18,7 +18,7 @@ rhn_ksscript_mod_trig
 before insert or update on rhnKickstartScript
 for each row
 begin
-	:new.modified := sysdate;
+	:new.modified := current_timestamp;
 end rhn_ksscript_mod_trig;
 /
 show errors

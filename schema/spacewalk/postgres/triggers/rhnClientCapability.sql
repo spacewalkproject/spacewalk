@@ -1,5 +1,5 @@
--- oracle equivalent source sha1 31266e6dd103671c0b224d5055461a0c5db3040e
--- retrieved from ./1241102873/cdc6d42049bf86fbc9f1d3a5c54275eeacbd641d/schema/spacewalk/oracle/triggers/rhnClientCapability.sql
+-- oracle equivalent source sha1 7ba6c364101eda268023cf983fd09df4c4635a37
+
 create or replace function rhn_clientcap_mod_trig_fun() returns trigger as
 $$
 begin

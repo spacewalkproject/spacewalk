@@ -18,7 +18,7 @@ rhn_conffiletype_mod_trig
 before insert or update on rhnConfigFileType
 for each row
 begin
-	:new.modified := sysdate;
+	:new.modified := current_timestamp;
 end;
 /
 show errors

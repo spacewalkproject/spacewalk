@@ -1,5 +1,5 @@
--- oracle equivalent source sha1 2f84f56ce8f6b1883f5cdc9d014c0960ef07ca4d
--- retrieved from ./1239053651/49a123cbe214299834e6ce97b10046d8d9c7642a/schema/spacewalk/oracle/triggers/rhnActionVirtRefresh.sql
+-- oracle equivalent source sha1 93fba096e57c82cebb179ff614aa30ecefd34fd9
+
 create or replace function rhn_avrefresh_mod_trig_fun() returns trigger as
 $$
 begin

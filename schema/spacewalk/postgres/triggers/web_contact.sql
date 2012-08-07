@@ -1,5 +1,5 @@
--- oracle equivalent source sha1 c2038f056ed1f3b7edac1d1a75ca21f06c7a620b
--- retrieved from ./1241057068/d2f16725f65bddae85cd4782cd82e0c84c0a776d/schema/spacewalk/oracle/triggers/web_contact.sql
+-- oracle equivalent source sha1 0eeee0299f008bdd2a1d57e9499276e63a68220d
+
 --
 -- Copyright (c) 2008--2012 Red Hat, Inc.
 --

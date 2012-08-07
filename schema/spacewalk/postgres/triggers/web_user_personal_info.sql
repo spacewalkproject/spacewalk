@@ -1,7 +1,7 @@
--- oracle equivalent source sha1 57b352ea9792142fc34a3240b4d4a8ea57e740c1
--- retrieved from ./1239053651/49a123cbe214299834e6ce97b10046d8d9c7642a/schema/spacewalk/oracle/triggers/web_user_personal_info.sql
+-- oracle equivalent source sha1 f08959a50851ee2c77b3c94cee08dc225ea4a7be
+
 --
--- Copyright (c) 2008--2010 Red Hat, Inc.
+-- Copyright (c) 2008--2012 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or

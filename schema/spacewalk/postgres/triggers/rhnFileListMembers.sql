@@ -1,5 +1,5 @@
--- oracle equivalent source sha1 69e4ad8d7ab0f3409f9b0ec866535380f9374169
--- retrieved from ./1241102873/cdc6d42049bf86fbc9f1d3a5c54275eeacbd641d/schema/spacewalk/oracle/triggers/rhnFileListMembers.sql
+-- oracle equivalent source sha1 876f40de1b1ac6ee002555ef1249d059056418e5
+
 create or replace function rhn_flmembers_mod_trig_fun() returns trigger as
 $$
 begin

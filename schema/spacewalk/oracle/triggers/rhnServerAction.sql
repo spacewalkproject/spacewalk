@@ -1,6 +1,6 @@
 
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2012 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -21,7 +21,7 @@ for each row
 declare
 	handle_status	number;
 begin
-	:new.modified := sysdate;
+	:new.modified := current_timestamp;
 	handle_status := 0;
 	if updating then
 		if :new.status != :old.status then
@@ -33,9 +33,9 @@ begin
 
 	if handle_status = 1 then
 		if :new.status = 1 then
-			:new.pickup_time := sysdate;
+			:new.pickup_time := current_timestamp;
 		elsif :new.status = 2 then
-			:new.completion_time := sysdate;
+			:new.completion_time := current_timestamp;
 		end if;
 	end if;
 end;

@@ -16,7 +16,7 @@ rhn_pkg_sugg_mod_trig
 before insert or update on rhnPackageSuggests
 for each row
 begin
-        :new.modified := sysdate;
+        :new.modified := current_timestamp;
 end;
 /
 show errors

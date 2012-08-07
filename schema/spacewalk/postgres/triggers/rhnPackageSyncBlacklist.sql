@@ -1,5 +1,5 @@
--- oracle equivalent source sha1 7c7c4cdfdddbb19afed68b330cd9094bfc39479d
--- retrieved from ./1241102873/cdc6d42049bf86fbc9f1d3a5c54275eeacbd641d/schema/spacewalk/oracle/triggers/rhnPackageSyncBlacklist.sql
+-- oracle equivalent source sha1 900f5cf1ec139e01d463bdade7fd7f31042d74d4
+
 create or replace function rhn_packagesyncbl_mod_trig_fun() returns trigger as
 $$
 begin

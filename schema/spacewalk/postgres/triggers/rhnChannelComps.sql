@@ -1,5 +1,5 @@
--- oracle equivalent source sha1 f215c16664b471d144dbc5a19967dbd33aa10d63
--- retrieved from ./1241132947/9984c41fb98d15becf3c29432c19cd7a266dece4/schema/spacewalk/oracle/triggers/rhnChannelComps.sql
+-- oracle equivalent source sha1 f3cf62f61ccfa374114a1a7e156f091f9d9026d3
+
 
 
 create or replace function rhn_channelcomps_mod_trig_fun() returns trigger as

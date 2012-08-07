@@ -1,5 +1,5 @@
--- oracle equivalent source sha1 aace56c46cb0f70cb2e1bf379487b8a159d3be15
--- retrieved from ./1241102873/cdc6d42049bf86fbc9f1d3a5c54275eeacbd641d/schema/spacewalk/oracle/triggers/rhnSnapshotServerGroup.sql
+-- oracle equivalent source sha1 c2b782221f6963e6ced0e149a7d20733b4927fab
+
 
 create or replace function rhn_snapshotsg_mod_trig_fun() returns trigger as
 $$

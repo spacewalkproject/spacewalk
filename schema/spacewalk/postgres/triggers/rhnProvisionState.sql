@@ -1,5 +1,5 @@
--- oracle equivalent source sha1 98f0ebe9867779e697d17f3ae13ce59f720aa03a
--- retrieved from ./1239053651/49a123cbe214299834e6ce97b10046d8d9c7642a/schema/spacewalk/oracle/triggers/rhnProvisionState.sql
+-- oracle equivalent source sha1 02d887ea206490642d23a1b1a0f469e1b458992e
+
 create or replace function rhn_provstate_mod_trig_fun() returns trigger as
 $$
 begin

@@ -1,5 +1,5 @@
--- oracle equivalent source sha1 44603082e6be8dcc8cc118fb16fcbc0da132665d
--- retrieved from ./1240273396/cea26e10fb65409287d4579c2409403b45e5e838/schema/spacewalk/oracle/triggers/rhnErrataFilePackageSource.sql
+-- oracle equivalent source sha1 03b6415f7dc14db1b013755f81388515713f7924
+
 create or replace function rhn_efileps_mod_trig_fun() returns trigger as
 $$
 begin

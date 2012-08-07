@@ -1,5 +1,5 @@
--- oracle equivalent source sha1 6e1f3554f050484c1a409401fd240d82da8756ba
--- retrieved from ./1239053651/49a123cbe214299834e6ce97b10046d8d9c7642a/schema/spacewalk/oracle/triggers/rhnActionVirtVcpu.sql
+-- oracle equivalent source sha1 e0427ec22d4cd4d53d57f68e70bcb69c7c44dffb
+
 create or replace function rhn_avcpu_mod_trig_fun() returns trigger as
 $$
 begin

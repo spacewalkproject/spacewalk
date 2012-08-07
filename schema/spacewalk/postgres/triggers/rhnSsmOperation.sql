@@ -1,5 +1,5 @@
--- oracle equivalent source sha1 1a22bb238b1ecbcfc709456ca3979f18e8661f35
--- retrieved from ./1241102873/cdc6d42049bf86fbc9f1d3a5c54275eeacbd641d/schema/spacewalk/oracle/triggers/rhnSsmOperation.sql
+-- oracle equivalent source sha1 0bfe648c2a2939268ca32fe054b7a8e0d60d9ed5
+
 create or replace function rhn_ssmop_mod_trig_fun() returns trigger as
 $$
 begin

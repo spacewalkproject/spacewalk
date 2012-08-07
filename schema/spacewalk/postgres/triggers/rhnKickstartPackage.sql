@@ -1,5 +1,5 @@
--- oracle equivalent source sha1 e2308db9b015b3ed34d6cb32819692b322f35009
--- retrieved from ./1241102873/cdc6d42049bf86fbc9f1d3a5c54275eeacbd641d/schema/spacewalk/oracle/triggers/rhnKickstartPackage.sql
+-- oracle equivalent source sha1 5f0f6cb8059cc84742ab96f9055d76ce92fc826b
+
 create or replace function rhn_kspackage_mod_trig_fun() returns trigger as
 $$
 begin

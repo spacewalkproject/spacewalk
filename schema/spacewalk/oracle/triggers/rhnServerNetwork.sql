@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008--2011 Red Hat, Inc.
+-- Copyright (c) 2008--2012 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -18,7 +18,7 @@ rhn_servernetwork_mod_trig
 before insert or update on rhnServerNetwork
 for each row
 begin
-        :new.modified := sysdate;
+        :new.modified := current_timestamp;
 end;
 /
 
@@ -36,7 +36,7 @@ begin
 		or :old.ip6addr <> :new.ip6addr then
 		update rhn_probe
 		set last_update_user = 'IP change',
-			last_update_date = sysdate
+			last_update_date = current_timestamp
 		where (recid, probe_type) in (
 			select probe_id, probe_type
 			from rhn_check_probe

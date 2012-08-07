@@ -156,7 +156,7 @@ IS
                 from    rhnChannel c
                 where   c.id = channel_id_in
             );
-            UPDATE rhnServer SET channels_changed = sysdate WHERE id = server_id_in;
+            UPDATE rhnServer SET channels_changed = current_timestamp WHERE id = server_id_in;
             INSERT INTO rhnServerChannel (server_id, channel_id, is_fve) VALUES (server_id_in, channel_id_in, is_fve);
 			IF recalcfamily_in > 0
 			THEN
@@ -515,7 +515,7 @@ IS
           where   c.id = channel_id_in
       );
 
-        UPDATE rhnServer SET channels_changed = sysdate WHERE id = server_id_in;
+        UPDATE rhnServer SET channels_changed = current_timestamp WHERE id = server_id_in;
    end if;
         
    DELETE FROM rhnServerChannel WHERE server_id = server_id_in AND channel_id = channel_id_in;
@@ -1122,12 +1122,12 @@ IS
         insert into rhnChannelNewestPackageAudit (channel_id, caller)
              values (channel_id_in, caller_in);
         update rhnChannel
-           set last_modified = greatest(sysdate, last_modified + 1/86400)
+           set last_modified = greatest(current_timestamp, last_modified + interval '1' second)
          where id = channel_id_in;
     end;
 
    procedure update_channel ( channel_id_in in number, invalidate_ss in number := 0, 
-                              date_to_use in timestamp with local time zone := sysdate )
+                              date_to_use in timestamp with local time zone := current_timestamp )
    is
 
    channel_last_modified timestamp with local time zone;
@@ -1164,7 +1164,7 @@ IS
 
    end update_channel;
 
-   procedure update_channels_by_package ( package_id_in in number, date_to_use in timestamp with local time zone := sysdate )
+   procedure update_channels_by_package ( package_id_in in number, date_to_use in timestamp with local time zone := current_timestamp )
    is
 
    cursor channels is
@@ -1182,7 +1182,7 @@ IS
    end update_channels_by_package;
 
    
-   procedure update_channels_by_errata ( errata_id_in number, date_to_use in timestamp with local time zone := sysdate )
+   procedure update_channels_by_errata ( errata_id_in number, date_to_use in timestamp with local time zone := current_timestamp )
    is
 
    cursor channels is

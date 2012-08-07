@@ -1,5 +1,5 @@
--- oracle equivalent source sha1 15d10db5293957d77da362fa54ab5d22ef132f31
--- retrieved from ./1241128047/984a347f2afbd47756e90584364799dd670b62db/schema/spacewalk/oracle/triggers/rhnErrata.sql
+-- oracle equivalent source sha1 0b4ba3acc8e18b34b266da905fe5d823ee283fae
+
 --
 -- Copyright (c) 2008--2012 Red Hat, Inc.
 --

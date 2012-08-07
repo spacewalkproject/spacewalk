@@ -131,11 +131,11 @@ IS
     	RETURN NUMBER;
 
     PROCEDURE update_channel ( channel_id_in in number, invalidate_ss in number := 0, 
-                               date_to_use in timestamp with local time zone := sysdate );
+                               date_to_use in timestamp with local time zone := current_timestamp );
 
-    PROCEDURE  update_channels_by_package ( package_id_in in number, date_to_use in timestamp with local time zone := sysdate );
+    PROCEDURE  update_channels_by_package ( package_id_in in number, date_to_use in timestamp with local time zone := current_timestamp );
 
-     PROCEDURE update_channels_by_errata ( errata_id_in number, date_to_use in timestamp with local time zone := sysdate );
+     PROCEDURE update_channels_by_errata ( errata_id_in number, date_to_use in timestamp with local time zone := current_timestamp );
 
 
     PRAGMA RESTRICT_REFERENCES(org_channel_setting, WNDS, RNPS, WNPS);

@@ -1,5 +1,5 @@
--- oracle equivalent source sha1 015e4e123542da6b3a03c6ed9968b49b9b3c50d1
--- retrieved from ./1241102873/cdc6d42049bf86fbc9f1d3a5c54275eeacbd641d/schema/spacewalk/oracle/triggers/rhnPushDispatcher.sql
+-- oracle equivalent source sha1 2ff9d309b1cd9f7c23c1d94c003af0363c2c254f
+
 create or replace function rhn_pushdispatch_mod_trig_fun() returns trigger as
 $$
 begin

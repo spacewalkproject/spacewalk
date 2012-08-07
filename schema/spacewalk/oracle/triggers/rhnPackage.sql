@@ -1,6 +1,6 @@
 
 --
--- Copyright (c) 2008--2010 Red Hat, Inc.
+-- Copyright (c) 2008--2012 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -21,22 +21,22 @@ for each row
 begin
 	-- when we do a sat sync, we use last_modified to keep track
 	-- of the upstream modification date.  So if we're setting
-	-- it explicitly, don't override with sysdate.  But if we're
+	-- it explicitly, don't override with current_timestamp.  But if we're
 	-- not changing it, then this is a genuine update that needs
 	-- tracking.
 	--
 	-- we're not using is_satellite() here instead, because we
 	-- might want to use this to keep webdev in sync.
 	if :new.last_modified = :old.last_modified then
-		:new.last_modified := sysdate;
+		:new.last_modified := current_timestamp;
 	end if;       
-	:new.modified := sysdate;
+	:new.modified := current_timestamp;
 
         -- bz 619337 if we are updating the checksum, we need to
         -- update the last modified time on all the channels the package is in
         if :new.checksum_id != :old.checksum_id then
             update rhnChannel
-              set last_modified = sysdate
+              set last_modified = current_timestamp
               where id in (select channel_id
                               from rhnChannelPackage
                               where package_id = :new.id);
