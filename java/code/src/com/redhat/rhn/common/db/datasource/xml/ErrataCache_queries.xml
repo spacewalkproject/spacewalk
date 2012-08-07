@@ -109,7 +109,7 @@ DELETE FROM rhnOrgErrataCacheQueue WHERE org_id = :org_id
   <!-- -->
   <query params="channel_id">
   INSERT INTO rhnServerNeededCache (server_id, package_id)
-	  ( SELECT /*+ RULE */ DISTINCT
+	  ( SELECT DISTINCT
 	     S.id as server_id,
 	     P.id as package_id
 		FROM
@@ -144,7 +144,7 @@ DELETE FROM rhnOrgErrataCacheQueue WHERE org_id = :org_id
   <!-- -->
   <query params="channel_id, errata_id">
   INSERT INTO rhnServerNeededCache (server_id, errata_id, package_id)
-	  ( SELECT /*+ RULE */ DISTINCT
+	  ( SELECT DISTINCT
 	     S.id as server_id,
 	     :errata_id as errata_id,
 	     P.id as package_id

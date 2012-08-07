@@ -411,7 +411,7 @@ select distinct sg.org_id as id
 <mode name="summarypop_orgs_recent_actions"
 	class="com.redhat.rhn.frontend.dto.OrgIdWrapper">
    <query params="">
-SELECT /*+full(sa)*/  DISTINCT S.org_id as id
+SELECT DISTINCT S.org_id as id
   FROM rhnServer S,
        rhnServerAction SA,
        rhnServerGroup SG,
@@ -573,7 +573,7 @@ where rhnChannelErrata.errata_id = rhnErrataPackage.errata_id
 <mode name="repomdgenerator_channel_packages"
     class="com.redhat.rhn.frontend.dto.PackageDto">
    <query params="channel_id">
-  SELECT /*+ ORDERED */ p.id, pn.name as name, pevr.epoch as epoch,
+  SELECT p.id, pn.name as name, pevr.epoch as epoch,
          pevr.version as version, pevr.release as release,
          p.summary, p.description, pa.label as arch_label,
          p.build_time, p.path, p.package_size, p.payload_size, p.installed_size,
