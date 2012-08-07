@@ -8,7 +8,7 @@ Group:   Applications/System
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.10.33
+Version: 5.10.34
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -112,6 +112,9 @@ fi
 
 # $Id$
 %changelog
+* Tue Aug 07 2012 Tomas Kasparek <tkasparek@redhat.com> 5.10.34-1
+- 840250 - If there's symlink in file deployment path it will be created
+
 * Mon Jul 09 2012 Michael Mraka <michael.mraka@redhat.com> 5.10.33-1
 - check symlink not target file existence
 
