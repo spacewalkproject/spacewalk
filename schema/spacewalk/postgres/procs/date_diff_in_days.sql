@@ -1,6 +1,6 @@
--- oracle equivalent source sha1 c719ca6b0a21d4e173b6570cc03d71269c0b7bec
+-- oracle equivalent source sha1 955c0ef4c817326c6affc97993fcbccdefe3bee7
 --
--- Copyright (c) 2008--2010 Red Hat, Inc.
+-- Copyright (c) 2008--2012 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -14,16 +14,10 @@
 -- in this software or its documentation.
 --
 --
--- Diffs two dates (date2 - date1) and returns number of dates in the result.
+-- Diffs two timestamps (date2 - date1) and returns number of dates in the result.
 -- If two timestamps are given it can return fraction digits in the same way
 -- as Oracle does.
 --
-
-create or replace function date_diff_in_days(date, date)
-returns numeric as
-$$
-select cast($2 - $1 as numeric)
-$$ language sql immutable;
 
 create or replace function date_diff_in_days(timestamptz, timestamptz)
 returns numeric as
