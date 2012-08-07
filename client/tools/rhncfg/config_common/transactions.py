@@ -49,6 +49,7 @@ class DeployTransaction:
 
         self.files = []
 	self.dirs  = []
+	self.symlinks = []
 	self.new_dirs = []
         self.backup_by_path = {}
         self.newtemp_by_path = {}
@@ -259,7 +260,10 @@ class DeployTransaction:
 	for i in range(len(self.new_dirs)):
 	    remove_dir = self.new_dirs[i]
 	    log_debug(6, "removing directory %s that was created during transaction ..." % remove_dir)
-	    os.rmdir(remove_dir)
+	    if os.path.islink(remove_dir) == True:
+		os.remove(remove_dir)
+	    else:
+		os.rmdir(remove_dir)
 	    log_debug(9, "directory removed")
 
         log_debug(3, "rollback successful")
@@ -269,6 +273,10 @@ class DeployTransaction:
         fp = file_utils.FileProcessor()
 
         log_debug(3, "deploying transaction")
+
+        for dep_file in self.files:
+	    if dep_file['filetype'] == 'symlink':
+		self.symlinks.append(dep_file)
  
         # 0. handle any dirs we need to create first
         #    a) if the dir exists, then just change the mode and owners, 
@@ -305,7 +313,7 @@ class DeployTransaction:
                         self._chown_chmod_chcon(dirname, dirname, directory)
                     else:
                         log_debug(3, "directory not found, creating: %s" % dirname)
-			dirs_created = utils.mkdir_p(dirname)
+			dirs_created = utils.mkdir_p(dirname, None, self.symlinks, self.files)
                         self.new_dirs.extend(dirs_created)
                         self._chown_chmod_chcon(dirname, dirname, directory)
                     if self.deployment_cb:
@@ -334,9 +342,9 @@ class DeployTransaction:
                 (directory, filename) = os.path.split(path)
 		if os.path.isdir(path) and not os.path.islink(path):
 		    raise cfg_exceptions.FileEntryIsDirectory(path)
-                if not os.path.exists(directory) and os.path.isdir(directory):
+                if not os.path.exists(directory):# and os.path.isdir(directory):
                     log_debug(7, "creating directories for %s ..." % directory)
-                    dirs_created = utils.mkdir_p(directory)
+                    dirs_created = utils.mkdir_p(directory, None, self.symlinks, self.files)
 		    self.new_dirs.extend(dirs_created)
                     log_debug(7, "directories created and added to list for rollback")
                 
@@ -363,10 +371,10 @@ class DeployTransaction:
                     	log_debug(9, "backup file %s written" % self.backup_by_path[path])
 
             # 3.
+            paths.sort(key = lambda s: string.count(s, os.path.sep))
             for path in paths:
                 if self.deployment_cb:
                     self.deployment_cb(path)
-
                 log_debug(6, "deploying %s ..." % path)
                 os.rename(self.newtemp_by_path[path], path)
                 # race
@@ -381,9 +389,3 @@ class DeployTransaction:
             if self.auto_rollback:
                 self.rollback()
             raise
-
-        
-
-
-    
-        

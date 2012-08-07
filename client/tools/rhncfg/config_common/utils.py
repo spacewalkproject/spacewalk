@@ -88,7 +88,7 @@ def copyfile_p(src, dst):
     else:
         shutil.copyfile(src, dst)
 
-def mkdir_p(path, mode=None):
+def mkdir_p(path, mode=None, symlinks=None, allfiles=None):
     """
     Similar to 'mkdir -p' -- makes all directories necessary to ensure
     the 'path' is a directory, and return the list of directories that were 
@@ -101,6 +101,15 @@ def mkdir_p(path, mode=None):
     components = path_full_split(path)
     for i in range(1,len(components)):
         d = os.path.join(*components[:i+1])
+        if symlinks:
+	    for symlink in symlinks:
+		if symlink['path'] == d:
+		    # create symlink and remove it from symlink list
+		    os.symlink(symlink['symlink'], symlink['path'])
+		    symlinks.remove(symlink)
+		    allfiles.remove(symlink)
+		    dirs_created.append(symlink)
+		    continue
         log_debug(8, "testing",d)
         try:
             os.mkdir(d, mode)
