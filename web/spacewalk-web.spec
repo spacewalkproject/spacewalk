@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.31
+Version: 1.8.32
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -253,6 +253,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Tue Aug 07 2012 Jan Pazdziora 1.8.32-1
+- Remove hints that should no longer be needed.
+
 * Wed Aug 01 2012 Jan Pazdziora 1.8.31-1
 - fix outer join syntax
 
