@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2012 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -9,27 +9,15 @@
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
 #
 
-ifndef COMMON
-COMMON  := ../../../common
-endif
-ifndef NAME
-NAME  := $(notdir $(shell pwd))
-endif
+COMMON := ../../common
+FLAGS  := COMMON=../$(COMMON)
 
-SOURCES := $(notdir $(wildcard $(COMMON)/$(NAME)/*))
-
-
-common : clean
+common :
 	@mkdir -p common
-	@cp Makefile common
-	@$(MAKE) -C common NAME=$(NAME) links
-
-links : $(SOURCES)
-
-%.sql %.deps :
-	@ln -s $(COMMON)/$(NAME)/$@ .
+	@cp $(COMMON)/Makefile common
+	@$(MAKE) -C common $(FLAGS) $(MAKEOVERRIDES)
 
 clean :
 	@rm -rf common
 
-.PHONY: clean common
+.PHONY : common clean

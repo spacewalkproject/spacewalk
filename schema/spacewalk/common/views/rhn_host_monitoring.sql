@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008--2011 Red Hat, Inc.
+-- Copyright (c) 2008--2012 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -37,7 +37,7 @@ select  s.id            as recid,
         4               as os_id,
         to_number(null,null) as asset_id,
         cast(null as char)   as last_update_user,
-        cast(null as date)   as last_update_date
+        cast(null as timestamp with local time zone)   as last_update_date
 from	rhnServer	s
 ;
 
