@@ -23,7 +23,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.124
+Version: 1.8.125
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -614,6 +614,12 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Aug 07 2012 Jan Pazdziora 1.8.125-1
+- Remove hints that should no longer be needed.
+- enable sorting of errata list according to synopsis on the
+  rhn/channels/manage/errata/ListRemove.do page
+- fix errata sort on the rhn/channels/manage/errata/ListRemove.do page
+
 * Mon Aug 06 2012 Tomas Lestach <tlestach@redhat.com> 1.8.124-1
 - detect oracle TIMESTAMPTZ objects and convert them correctly to timestamp
 
