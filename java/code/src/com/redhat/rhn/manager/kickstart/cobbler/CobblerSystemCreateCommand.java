@@ -34,6 +34,7 @@ import org.apache.log4j.Logger;
 import org.cobbler.Network;
 import org.cobbler.Profile;
 import org.cobbler.SystemRecord;
+import org.cobbler.XmlRpcException;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -67,6 +68,9 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
     private String bridgeName;
     private List<String> bridgeSlaves;
     private String bridgeOptions;
+    private String bridgeAddress;
+    private String bridgeNetmask;
+    private boolean isBridgeDhcp;
     /**
      * @param dhcp true if the network type is dhcp
      * @param networkInterfaceIn The name of the network interface
@@ -82,18 +86,24 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
     }
 
     /**
-     * @param doBridge boolean, wheither or not to set up a bridge post-install
+     * @param doBridge boolean, whether or not to set up a bridge post-install
      * @param name string, name of the bridge
      * @param slaves string array, nics to use as slaves
      * @param options string, bridge options
+     * @param isBridgeDhcpIn boolean, if the bridge will use dhcp to obtain an ip address
+     * @param address string, ip address for the bridge (if isDhcp is false)
+     * @param netmask string, netmask for the bridge (if isDhcp is false)
      */
     public void setBridgeInfo(boolean doBridge, String name,
-            List<String> slaves,
-            String options) {
+            List<String> slaves, String options, boolean isBridgeDhcpIn,
+            String address, String netmask) {
         setupBridge = doBridge;
         bridgeName = name;
         bridgeSlaves = slaves;
         bridgeOptions = options;
+        isBridgeDhcp = isBridgeDhcpIn;
+        bridgeAddress = address;
+        bridgeNetmask = netmask;
     }
 
     /**
@@ -254,7 +264,19 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
                     getCobblerSystemRecordName(),
                     profile);
         }
-        processNetworkInterfaces(rec, server);
+        try {
+            processNetworkInterfaces(rec, server);
+        }
+        catch (XmlRpcException e) {
+            if (e.getCause() != null && e.getCause().getMessage() != null &&
+                    e.getCause().getMessage().contains("IP address duplicated")) {
+                return new ValidatorError(
+                        "frontend.actions.systems.virt.duplicateipaddressvalue");
+            }
+            else {
+                throw e;
+            }
+        }
         rec.setProfile(profile);
 
         if (isDhcp) {
@@ -301,7 +323,19 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
         rec.setKsMeta(ksmeta);
         rec.setKernelOptions(kernelOptions);
         rec.setKernelPostOptions(postKernelOptions);
-        rec.save();
+        try {
+            rec.save();
+        }
+        catch (XmlRpcException e) {
+            if (e.getCause() != null && e.getCause().getMessage() != null &&
+                    e.getCause().getMessage().contains("IP address duplicated")) {
+                return new ValidatorError(
+                        "frontend.actions.systems.virt.duplicateipaddressvalue");
+            }
+            else {
+                throw e;
+            }
+        }
         server.setCobblerId(rec.getId());
         return null;
     }
@@ -342,6 +376,10 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
                     if (ipv6Addresses.size() > 0) {
                         net.setIpv6Secondaries(ipv6Addresses);
                     }
+                    if (setupBridge && bridgeSlaves.contains(n.getName())) {
+                        net.makeBondingSlave();
+                        net.setBondingMaster(bridgeName);
+                    }
 
                     nics.add(net);
                 }
@@ -358,6 +396,11 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
                 Network net = new Network(getCobblerConnection(), bridgeName);
                 net.makeBondingMaster();
                 net.setBondingOptions(bridgeOptions);
+                net.setStaticNetwork(!isBridgeDhcp);
+                if (!isBridgeDhcp) {
+                    net.setNetmask(bridgeNetmask);
+                    net.setIpAddress(bridgeAddress);
+                }
                 nics.add(net);
             }
         }

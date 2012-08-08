@@ -113,8 +113,11 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
     public static final String BOND_INTERFACE = "bondInterface";
     public static final String BOND_SLAVE_INTERFACES = "bondSlaveInterfaces";
     public static final String HIDDEN_BOND_SLAVE_INTERFACES = "hiddenBondSlaveInterfaces";
+    public static final String BOND_STATIC = "bondStatic";
+    public static final String BOND_IP_ADDRESS = "bondAddress";
     public static final String BOND_OPTIONS = "bondOptions";
     public static final String CREATE_BOND_VALUE = "bonding";
+    public static final String STATIC_BOND_VALUE = "true";
     public static final String DONT_CREATE_BOND_VALUE = "none";
     /**
      * {@inheritDoc}
@@ -151,6 +154,7 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
         /**
          * {@inheritDoc}
          */
+        @Override
         public List getResult(RequestContext ctx) {
             Long sid = ctx.getParamAsLong(RequestContext.SID);
             User user = ctx.getCurrentUser();
@@ -228,12 +232,21 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
             form.set(BOND_TYPE, DONT_CREATE_BOND_VALUE);
         }
 
-        if (StringUtils.isBlank(form.getString(BOND_INTERFACE))) {
-            for (NetworkInterface nic : nics) {
-                if (nic.isBond()) {
-                    form.set(BOND_INTERFACE, nic.getName());
-                    break;
-                }
+        NetworkInterface oldBond = null;
+        for (NetworkInterface nic : nics) {
+            if (nic.isBond()) {
+                oldBond = nic;
+                break;
+            }
+        }
+
+        if (oldBond != null) {
+            if (StringUtils.isBlank(form.getString(BOND_INTERFACE))) {
+                form.set(BOND_INTERFACE, oldBond.getName());
+            }
+
+            if (StringUtils.isBlank(form.getString(BOND_IP_ADDRESS))) {
+                form.set(BOND_IP_ADDRESS, oldBond.getIpaddr());
             }
         }
 
@@ -270,21 +283,28 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
         return strings;
     }
 
-    private void setupNetworkInfo(DynaActionForm form, RequestContext context,
-            KickstartScheduleCommand cmd) {
-        Server server = cmd.getServer();
+    private List<NetworkInterface> getPublicNetworkInterfaces(
+            Server server) {
         List<NetworkInterface> nics = new LinkedList<NetworkInterface>(
                 server.getNetworkInterfaces());
-
-        if (nics.isEmpty()) {
-            return;
-        }
 
         for (Iterator<NetworkInterface> itr = nics.iterator(); itr.hasNext();) {
             NetworkInterface nic = itr.next();
             if (nic.isDisabled() || "127.0.0.1".equals(nic.getIpaddr())) {
                 itr.remove();
             }
+        }
+
+        return nics;
+    }
+
+    private void setupNetworkInfo(DynaActionForm form, RequestContext context,
+            KickstartScheduleCommand cmd) {
+        Server server = cmd.getServer();
+        List<NetworkInterface> nics = getPublicNetworkInterfaces(server);
+
+        if (nics.isEmpty()) {
+            return;
         }
 
         context.getRequest().setAttribute(NETWORK_INTERFACES, nics);
@@ -549,6 +569,24 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
                 tmp.add(slave);
             }
             cmd.setBondSlaveInterfaces(tmp);
+            if (STATIC_BOND_VALUE.equals(form.getString(BOND_STATIC))) {
+                cmd.setBondDhcp(false);
+                cmd.setBondAddress(form.getString(BOND_IP_ADDRESS));
+                List<NetworkInterface> nics = getPublicNetworkInterfaces(cmd
+                        .getServer());
+                String netmask = "255.255.255.0";
+                for (NetworkInterface nic : nics) {
+                    if (nic.isPublic() && nic.getNetmask() != null &&
+                            !StringUtils.isEmpty(nic.getNetmask())) {
+                        netmask = nic.getNetmask();
+                        break;
+                    }
+                }
+                cmd.setBondNetmask(netmask);
+            }
+            else {
+                cmd.setBondDhcp(true);
+            }
         }
 
         if (form.getString(USE_IPV6_GATEWAY).equals("1")) {
@@ -730,6 +768,20 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
             ActionErrors errors = new ActionErrors();
             errors.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
                     "kickstart.bond.not.defined.jsp"));
+            addErrors(ctx.getRequest(), errors);
+            return false;
+        }
+
+        final String ipaddressPattern = "^([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\." +
+                "([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\." +
+                "([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\." +
+                "([01]?\\d\\d?|2[0-4]\\d|25[0-5])$";
+
+        if (form.getString(BOND_STATIC).equals(STATIC_BOND_VALUE) &&
+                !form.getString(BOND_IP_ADDRESS).matches(ipaddressPattern)) {
+            ActionErrors errors = new ActionErrors();
+            errors.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
+                    "kickstart.bond.bad.ip.address.jsp"));
             addErrors(ctx.getRequest(), errors);
             return false;
         }

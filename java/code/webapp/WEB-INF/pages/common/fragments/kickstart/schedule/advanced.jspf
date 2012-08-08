@@ -19,6 +19,30 @@ function setStep(stepName) {
 	var field = document.getElementById("wizard-step");
 	field.value = stepName;
 }
+
+function getCheckedValue(radioObj) {
+    if(!radioObj)
+        return "";
+    var radioLength = radioObj.length;
+    if(radioLength == undefined)
+        if(radioObj.checked)
+            return radioObj.value;
+        else
+            return "";
+    for(var i = 0; i < radioLength; i++) {
+        if(radioObj[i].checked) {
+            return radioObj[i].value;
+        }
+    }
+    return "";
+}
+
+function enableBondStaticIpAddress() {
+    var staticBond = document.getElementById("kickstartScheduleWizardForm").bondStatic
+    if (getCheckedValue(staticBond) == 'true') {
+        document.getElementById("bondAddress").disabled = false
+    }
+}
     </script>
   </head>
   <body>

@@ -9799,6 +9799,20 @@ Please note that some manual configuration of these scripts may still be require
     </context-group>
   </trans-unit>
 
+  <trans-unit id="kickstart.postnetconn.bondstatic.jsp.label">
+    <source>Use static networking with this IP address:</source>
+    <context-group name="ctx">
+      <context context-type="sourcefile">/rhn/kickstart/KickstartSystemDetailsEdit</context>
+    </context-group>
+  </trans-unit>
+
+  <trans-unit id="kickstart.postnetconn.bonddhcp.jsp.label">
+    <source>Use DHCP to acquire an IP address</source>
+    <context-group name="ctx">
+      <context context-type="sourcefile">/rhn/kickstart/KickstartSystemDetailsEdit</context>
+    </context-group>
+  </trans-unit>
+
   <trans-unit id="kickstart.selinux.jsp.label">
     <source>SELinux</source>
     <context-group name="ctx">

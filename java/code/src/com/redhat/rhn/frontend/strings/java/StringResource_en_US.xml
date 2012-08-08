@@ -6367,6 +6367,13 @@ Follow this url to see the full list of inactive systems:
         </context-group>
       </trans-unit>
 
+      <trans-unit id="kickstart.bond.bad.ip.address.jsp">
+        <source>The IP address specified for the bonded network interface is not valid.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/kickstart/ScheduleWizard.do</context>
+        </context-group>
+      </trans-unit>
+
       <!-- Activation Keys -->
      <group>
        <context-group name="ctx">
@@ -7937,6 +7944,10 @@ Follow this url to see the full list of inactive systems:
 
        <trans-unit id="frontend.actions.systems.virt.duplicatemacaddressvalue">
           <source>MAC Addresses must be unique. This MAC Address has already been recorded. Please choose a different MAC Address.</source>
+      </trans-unit>
+
+       <trans-unit id="frontend.actions.systems.virt.duplicateipaddressvalue">
+          <source>IP Addresses must be unique. This IP Address has already been recorded. Please choose a different IP Address.</source>
       </trans-unit>
 
        <trans-unit id="frontend.actions.channels.manager.add.viewChannels">
