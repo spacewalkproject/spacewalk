@@ -23,7 +23,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.125
+Version: 1.8.126
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -614,6 +614,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Aug 08 2012 Stephen Herr <sherr@redhat.com> 1.8.126-1
+- 818700 - adding capability for static bond
+
 * Tue Aug 07 2012 Jan Pazdziora 1.8.125-1
 - Remove hints that should no longer be needed.
 - enable sorting of errata list according to synopsis on the
