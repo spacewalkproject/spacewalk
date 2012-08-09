@@ -1806,7 +1806,7 @@ def do_kickstart_clone(self, args):
         print '\n'.join(sorted(profiles))
         print
 
-        options.name = prompt_user('Origianl Profile:', noblank = True)
+        options.name = prompt_user('Original Profile:', noblank = True)
 
         options.clonename = prompt_user('Cloned Profile:', noblank = True)
     else:
