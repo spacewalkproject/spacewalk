@@ -152,7 +152,7 @@ public class CobblerVirtualSystemCommand extends CobblerSystemCreateCommand {
     public ValidatorError store() {
         ValidatorError error = null;
         try {
-            error = super.store();
+            error = super.store(false);
         }
         catch (XmlRpcException e) {
             if (e.getCause() != null &&

@@ -249,6 +249,15 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
      */
     @Override
     public ValidatorError store() {
+        return store(true);
+    }
+
+    /**
+     * Store the System to cobbler
+     * @param saveCobblerId false if CobblerVirtualSystemCommand is calling, true otherwise
+     * @return ValidatorError if the store failed.
+     */
+    public ValidatorError store(boolean saveCobblerId) {
         Profile profile = Profile.lookupByName(getCobblerConnection(), profileName);
         // First lookup by MAC addr
         SystemRecord rec = lookupExisting();
@@ -336,7 +345,20 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
                 throw e;
             }
         }
-        server.setCobblerId(rec.getId());
+
+        /*
+         * This is a band-aid for the problem revealed in bug 846221. However
+         * the real fix involves creating a new System for the virtual guest
+         * instead of re-using the host System object, and I am unsure of what
+         * effects that would have. The System object is used when creating
+         * reActivation keys and setting up the cobbler SystemRecord network
+         * info among other things. No bugs have been reported in those areas
+         * yet, so I don't want to change something that has the potential to
+         * break a lot of things.
+         */
+        if (saveCobblerId) {
+            server.setCobblerId(rec.getId());
+        }
         return null;
     }
     /**
