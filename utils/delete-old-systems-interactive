@@ -72,7 +72,7 @@ $cutoff =~ s/\D//g;
 for (my $i = 0; $i < @$systems; $i++) {
 	my $sys = $systems->[$i];
 	my $sys_date = $sys->{last_checkin};
-	my $sys_date =~ s/\D//g;
+	$sys_date =~ s/\D//g;
 	if (length($sys_date) == 8) {
 		$sys_date .= '235959';
 	}
