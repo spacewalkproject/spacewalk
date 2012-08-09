@@ -2324,6 +2324,12 @@ dr&amp;uuml;cken und &lt;b&gt;k&amp;ouml;nnen sich nicht wieder einloggen&lt;/b&
 
 
 
+      <trans-unit id="packagelist.jsp.summary.packages">
+<source>The following packages are associated with this action:</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/schedule/PackageList</context>
+        </context-group>
+      <target>Die folgenden Pakete stehen mit dieser Aktion in Zusammenhang:</target></trans-unit>
 
 
       <trans-unit id="packagelist.jsp.nopackages">

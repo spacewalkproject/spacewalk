@@ -2324,6 +2324,12 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
 
 
 
+      <trans-unit id="packagelist.jsp.summary.packages">
+<source>The following packages are associated with this action:</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/schedule/PackageList</context>
+        </context-group>
+      <target>Следующие пакеты ассоциированы с этим действием:</target></trans-unit>
 
 
       <trans-unit id="packagelist.jsp.nopackages">
