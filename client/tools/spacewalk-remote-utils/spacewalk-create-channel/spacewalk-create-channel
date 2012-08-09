@@ -401,7 +401,7 @@ def gather(clear):
                      saveRpmList(fullDir +  subrepo + "/listing", DATA_DIR + getFileName(version, update,release, arch, subrepo))
                   #do supplementary
                   suppl = extras[1]
-                  fullDir = GATHER_DIR + "RHEL-%s-%s-%s/%s.%s/%s/os/Packages/" % (version, release, suppl, version, update_num, arch) 
+                  fullDir = GATHER_DIR + "RHEL-%s-%s/%s.%s/%s/%s/os/Packages/" % (version, suppl, version, update_num, release, arch)
                   saveRpmList(fullDir + "/", DATA_DIR + getFileName(version, update,release, arch, suppl)) 
 
                   #do optional
