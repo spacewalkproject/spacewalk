@@ -405,7 +405,7 @@ def gather(clear):
                   saveRpmList(fullDir + "/", DATA_DIR + getFileName(version, update,release, arch, suppl)) 
 
                   #do optional
-                  fullDir = GATHER_DIR + "RHEL-%s-%s/%s.%s/optional/%s/os/" % (version, release, version, update_num, arch)
+                  fullDir = GATHER_DIR + "RHEL-%s/%s.%s/%s/optional/%s/os/" % (version, version, update_num, release, arch)
                   saveRpmList(fullDir + "/Packages/", DATA_DIR + getFileName(version, update,release, arch, 'optional'))
 
 def saveRpmList(source, filename):
