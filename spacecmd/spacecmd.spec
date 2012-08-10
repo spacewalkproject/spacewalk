@@ -4,7 +4,7 @@
 %endif
 
 Name:        spacecmd
-Version:     1.8.11
+Version:     1.8.12
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -60,6 +60,9 @@ touch %{buildroot}/%{python_sitelib}/spacecmd/__init__.py
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Fri Aug 10 2012 Jan Pazdziora 1.8.12-1
+- Fixed small typo in spacecmd/src/lib/kickstart.py
+
 * Mon Jul 09 2012 Michael Mraka <michael.mraka@redhat.com> 1.8.11-1
 - spacecmd : Fix kickstart_export with old API versions
 
