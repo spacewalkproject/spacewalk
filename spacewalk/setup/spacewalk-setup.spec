@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        1.8.15
+Version:        1.8.16
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -110,6 +110,9 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Fri Aug 10 2012 Jan Pazdziora 1.8.16-1
+- 847011 - document --external-db option
+
 * Wed Aug 01 2012 Jan Pazdziora 1.8.15-1
 - 751678 - Make sure we chown the directory structure if /rhnsat is a symlink.
 
