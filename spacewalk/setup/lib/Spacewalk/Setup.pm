@@ -48,6 +48,9 @@ use constant DEFAULT_ANSWER_FILE_GLOB =>
 use constant DEFAULT_RHN_CONF_LOCATION =>
   '/etc/rhn/rhn.conf';
 
+use constant DEFAULT_UP2DATE_LOCATION =>
+  '/etc/sysconfig/rhn/up2date';
+
 use constant DEFAULT_RHN_ETC_DIR =>
   '/etc/sysconfig/rhn';
 

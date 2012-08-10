@@ -67,6 +67,23 @@ if (-e Spacewalk::Setup::DEFAULT_RHN_CONF_LOCATION) {
         \%rhnOptions);
 }
 
+my %up2dateOptions = ();
+if (-e Spacewalk::Setup::DEFAULT_UP2DATE_LOCATION) {
+    Spacewalk::Setup::read_config(Spacewalk::Setup::DEFAULT_UP2DATE_LOCATION,
+        \%up2dateOptions);
+
+    if ($up2dateOptions{'enableProxy'}) {
+        $answers{'rhn-http-proxy'} = $up2dateOptions{'httpProxy'}
+            if not defined $answers{'rhn-http-proxy'};
+        if ($up2dateOptions{'enableProxyAuth'}) {
+            $answers{'rhn-http-proxy-username'} = $up2dateOptions{'proxyUser'}
+                if not defined $answers{'rhn-http-proxy-username'};
+            $answers{'rhn-http-proxy-password'} = $up2dateOptions{'proxyPassword'}
+                if not defined $answers{'rhn-http-proxy-password'};
+        }
+    }
+}
+
 choose_database_schema(\%answers);
 
 # If Oracle was selected, call the Oracle specific setup script. If it turns
