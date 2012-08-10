@@ -10,7 +10,7 @@ License:        GPLv2
 URL:            https://fedorahosted.org/spacewalk
 Source0:        https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 
-Version:        5.4.38
+Version:        5.4.39
 Release:        1%{?dist}
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:      noarch
@@ -151,6 +151,9 @@ fi
 %doc LICENSE
 
 %changelog
+* Fri Aug 10 2012 Jan Pazdziora 5.4.39-1
+- 820862 - fix traceback on a fat rhev-3 host
+
 * Fri Jul 13 2012 Stephen Herr <sherr@redhat.com> 5.4.38-1
 - Automatic commit of package [rhn-virtualization] release [5.4.37-1].
 - 839776 - rhn-profile-sync exits with status 1 if libvirtd is not running
