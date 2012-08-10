@@ -10,7 +10,7 @@ License:        GPLv2
 URL:            https://fedorahosted.org/spacewalk
 Source0:        https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 
-Version:        5.4.40
+Version:        5.4.41
 Release:        1%{?dist}
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:      noarch
@@ -151,6 +151,9 @@ fi
 %doc LICENSE
 
 %changelog
+* Fri Aug 10 2012 Milan Zazrivec <mzazrivec@redhat.com> 5.4.41-1
+- don't include localvdsm.py on fedora
+
 * Fri Aug 10 2012 Milan Zazrivec <mzazrivec@redhat.com> 5.4.40-1
 - fix file inclusion on a fedora build
 
