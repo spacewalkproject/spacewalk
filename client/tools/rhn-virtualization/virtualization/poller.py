@@ -127,7 +127,7 @@ def poll_hypervisor():
 
     return state
 
-def poll_through_vdsm():
+def poll_through_vdsm(server):
     """
      This method polls all the virt guests running on a VDSM enabled Host.
      Libvirt is disabled by default on RHEV-M managed clients.
@@ -138,12 +138,6 @@ def poll_through_vdsm():
      * The server should account for business rules similar to
        xen/kvm.
     """
-    import localvdsm
-    try:
-        server = localvdsm.connect()
-    except:
-        # VDSM raised an exception we're done here
-        return {}
     # Extract list of vm's. True returns full list
     try:
         domains = server.list(True)
@@ -279,16 +273,21 @@ if __name__ == "__main__":
     # First, handle the options.
     _parse_options()
 
-    # check for VDSM status
-    import commands
     vdsm_enabled = False
-    status, msg = commands.getstatusoutput("/etc/init.d/vdsmd status")
-    if status == 0:
-        vdsm_enabled = True
+    server = None
+    try:
+        from virtualization import localvdsm
+        import commands
+        status, msg = commands.getstatusoutput("/etc/init.d/vdsmd status")
+        if status == 0:
+            server = localvdsm.connect()
+            vdsm_enabled = True
+    except ImportError:
+        pass
 
     # Crawl each of the domains on this host and obtain the new state.
     if vdsm_enabled:
-        domain_list = poll_through_vdsm()
+        domain_list = poll_through_vdsm(server)
     elif libvirt:
         domain_list = poll_hypervisor()
     else:

@@ -1,1 +1,1 @@
-0-59/2 * * * * root python /usr/share/rhn/virtualization/poller.py
+0-59/2 * * * * root python < /usr/share/rhn/virtualization/poller.py
