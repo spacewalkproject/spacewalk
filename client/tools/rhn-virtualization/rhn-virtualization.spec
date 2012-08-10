@@ -79,7 +79,7 @@ make -f Makefile.rhn-virtualization
 %install
 rm -rf $RPM_BUILD_ROOT
 make -f Makefile.rhn-virtualization DESTDIR=$RPM_BUILD_ROOT PKGDIR0=%{_initrddir} install
-%if (0%{?rhel} && 0%{?rhel} > 5)
+%if 0%{?fedora} || (0%{?rhel} && 0%{?rhel} > 5)
 find $RPM_BUILD_ROOT -name "localvdsm*" -exec rm -f '{}' ';'
 %endif
 
@@ -143,7 +143,7 @@ fi
 %{rhn_dir}/virtualization/support.py*
 %{rhn_dir}/actions/virt.py*
 %{rhn_dir}/actions/image.py*
-%if 0%{?fedora} || 0%{?suse_version} || (0%{?rhel} && 0%{?rhel} < 6)
+%if 0%{?suse_version} || (0%{?rhel} && 0%{?rhel} < 6)
 %{rhn_dir}/virtualization/localvdsm.py*
 %endif
 %{rhn_conf_dir}/studio-*-template.xml
