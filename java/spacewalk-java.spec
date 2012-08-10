@@ -23,7 +23,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.126
+Version: 1.8.127
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -614,6 +614,11 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Aug 10 2012 Jan Pazdziora 1.8.127-1
+- 846221 - Don't let virtual kickstarts screw up the host's cobbler id
+- Revert "removing unused string with trans-id
+  'packagelist.jsp.summary.packages'"
+
 * Wed Aug 08 2012 Stephen Herr <sherr@redhat.com> 1.8.126-1
 - 818700 - adding capability for static bond
 
