@@ -51,6 +51,6 @@ FROM (
           AND p.evr_id = pe.id
           AND chp.package_id = p.id
           AND chp.channel_id = m.channel_id
-)
+) latest_packages
 group by channel_id, name_id, evr_id, package_arch_id
 ;
