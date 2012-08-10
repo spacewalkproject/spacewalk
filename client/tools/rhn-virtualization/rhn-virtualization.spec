@@ -143,7 +143,7 @@ fi
 %{rhn_dir}/virtualization/support.py*
 %{rhn_dir}/actions/virt.py*
 %{rhn_dir}/actions/image.py*
-%if 0%{?suse_version} || (0%{?rhel} && 0%{?rhel} < 6)
+%if 0%{?fedora} || 0%{?suse_version} || (0%{?rhel} && 0%{?rhel} < 6)
 %{rhn_dir}/virtualization/localvdsm.py*
 %endif
 %{rhn_conf_dir}/studio-*-template.xml
