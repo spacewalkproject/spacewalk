@@ -101,7 +101,7 @@
 </rl:list>
 <rl:csv dataset="pageList"
 	        name="groupList"
-	        exportColumns="id, name, securityErrata, bugErrata, enhancementErrata, groupAdmins, serverCount, monitoringStatus" />
+	        exportColumns="id, name, groupAdmins, serverCount, monitoringStatus" />
 <div align="right">
   <hr />
 	<input type="submit" name="union" value="${rhn:localize('grouplist.jsp.union')}" />
