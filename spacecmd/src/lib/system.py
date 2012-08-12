@@ -2925,5 +2925,74 @@ def do_system_comparewithchannel(self, args):
         self.print_comparison_withchannel(channelnewer, systemnewer,\
                                             channelmissing, latestpkgs)
 
+####################
+
+def help_system_schedulehardwarerefresh(self):
+    print 'system_schedulehardwarerefresh: Schedule a hardware refresh ' + \
+          'for a system'
+    print 'usage: system_schedulehardwarerefresh <SYSTEMS>'
+    print
+    print self.HELP_SYSTEM_OPTS
+
+def complete_system_schedulehardwarerefresh(self, text, line, beg, end):
+    return self.tab_complete_systems(text)
+
+def do_system_schedulehardwarerefresh(self, args):
+    (args, options) = parse_arguments(args)
+
+    if not len(args):
+        self.help_system_schedulehardwarerefresh()
+        return
+
+    # use the systems listed in the SSM
+    if re.match('ssm', args[0], re.I):
+        systems = self.ssm.keys()
+    else:
+        systems = self.expand_systems(args)
+
+    action_time = parse_time_input('now')
+
+    for system in systems:
+        system_id = self.get_system_id(system)
+        if not system_id: continue
+
+        self.client.system.scheduleHardwareRefresh(self.session,
+                                                   system_id,
+                                                   action_time)
+
+####################
+
+def help_system_schedulepackagerefresh(self):
+    print 'system_schedulepackagerefresh: Schedule a software package ' + \
+          'refresh for a system'
+    print 'usage: system_schedulepackagerefresh <SYSTEMS>'
+    print
+    print self.HELP_SYSTEM_OPTS
+
+def complete_system_schedulepackagerefresh(self, text, line, beg, end):
+    return self.tab_complete_systems(text)
+
+def do_system_schedulepackagerefresh(self, args):
+    (args, options) = parse_arguments(args)
+
+    if not len(args):
+        self.help_system_schedulepackagerefresh()
+        return
+
+    # use the systems listed in the SSM
+    if re.match('ssm', args[0], re.I):
+        systems = self.ssm.keys()
+    else:
+        systems = self.expand_systems(args)
+
+    action_time = parse_time_input('now')
+
+    for system in systems:
+        system_id = self.get_system_id(system)
+        if not system_id: continue
+
+        self.client.system.schedulePackageRefresh(self.session,
+                                                  system_id,
+                                                  action_time)
 
 # vim:ts=4:expandtab:
