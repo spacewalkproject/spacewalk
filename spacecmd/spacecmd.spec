@@ -4,7 +4,7 @@
 %endif
 
 Name:        spacecmd
-Version:     1.8.12
+Version:     1.8.13
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -60,6 +60,10 @@ touch %{buildroot}/%{python_sitelib}/spacecmd/__init__.py
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Sun Aug 12 2012 Aron Parsons <aronparsons@gmail.com> 1.8.13-1
+- spacecmd: add system_schedule{hardware,package}refresh functions Signed-off-
+  by: Aron Parsons <aronparsons@gmail.com>
+
 * Fri Aug 10 2012 Jan Pazdziora 1.8.12-1
 - Fixed small typo in spacecmd/src/lib/kickstart.py
 
