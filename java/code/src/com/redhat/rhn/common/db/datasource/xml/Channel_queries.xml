@@ -1012,6 +1012,8 @@ GROUP BY C.id, C.name
     FROM rhnChannel c1 inner join rhnUserChannel UC on UC.channel_id = C1.id
     AND c1.parent_channel IS NOT NULL
     AND UC.user_id = :user_id
+    JOIN rhnChannelFamilyMembers cfm ON cfm.channel_id = c1.id JOIN rhnChannelFamily cf ON cf.id = cfm.channel_family_id
+    WHERE cf.label != 'rhn-proxy' AND cf.label != 'rhn-satellite'
     ORDER BY parent, name
   </query>
 </mode>
