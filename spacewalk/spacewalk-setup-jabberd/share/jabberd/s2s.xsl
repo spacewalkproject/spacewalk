@@ -24,4 +24,19 @@
   <xsl:copy>3</xsl:copy>
 </xsl:template>
 
+<xsl:template match="/s2s/lookup[not(resolve-ipv6)]/comment()[contains(., '&lt;resolve-ipv6')]">
+  <xsl:value-of select="." disable-output-escaping="yes" />
+</xsl:template>
+
+<xsl:template match="/s2s/lookup[not(resolve-ipv6) and not(comment()[contains(., '&lt;resolve-ipv6')])]">
+  <xsl:copy>
+  <xsl:text>
+     </xsl:text>
+     <resolve-ipv6/>
+  <xsl:text>
+</xsl:text>
+  <xsl:apply-templates select="@*|node()" />
+  </xsl:copy>
+</xsl:template>
+
 </xsl:stylesheet>
