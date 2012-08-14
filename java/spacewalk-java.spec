@@ -23,7 +23,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.127
+Version: 1.8.128
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -614,6 +614,14 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Aug 14 2012 Tomas Lestach <tlestach@redhat.com> 1.8.128-1
+- 836656 - removed MAC Address from kickstart profile listing
+- 847256 - xml escape group names
+- 847308 - rhn-proxy and rhn-satellite channels shall not be associated with an
+  activation key
+- 846915 - systemGroup csv was including fields that have not been valid since
+  bug 573153
+
 * Fri Aug 10 2012 Jan Pazdziora 1.8.127-1
 - 846221 - Don't let virtual kickstarts screw up the host's cobbler id
 - Revert "removing unused string with trans-id
