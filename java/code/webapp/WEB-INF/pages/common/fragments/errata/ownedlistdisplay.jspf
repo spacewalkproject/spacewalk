@@ -28,11 +28,11 @@
                      title="<bean:message key='erratalist.jsp.productenhancementadvisory'/>"/>
             </c:if>
         </rl:column>
-        <rl:column headerkey="erratalist.jsp.advisory"
-                   filterattr="advisorySynopsis">
+        <rl:column headerkey="erratalist.jsp.advisory">
             <a href="/rhn/errata/manage/Edit.do?eid=${current.id}">${current.advisoryName}</a>
         </rl:column>
-        <rl:column headerkey="erratalist.jsp.synopsis">
+        <rl:column headerkey="erratalist.jsp.synopsis"
+                   filterattr="synopsis">
             ${current.synopsis}
         </rl:column>
         <rl:column headerkey="erratalist.jsp.updated"
