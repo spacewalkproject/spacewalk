@@ -44,6 +44,7 @@ import org.cobbler.Profile;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletResponse;
 /**
@@ -267,6 +268,12 @@ public class ProvisionVirtualizationWizardAction extends ScheduleKickstartWizard
             errors.add(ActionErrors.GLOBAL_MESSAGE, new ActionMessage(
                     "frontend.actions.systems.virt.invalidguestnamelength",
                     (MIN_NAME_SIZE)));
+        }
+
+        Pattern pattern = Pattern.compile("^[\\w\\-\\.\\_]+$", Pattern.CASE_INSENSITIVE);
+        if (!pattern.matcher(name).matches()) {
+            errors.add(ActionErrors.GLOBAL_MESSAGE, new ActionMessage(
+                    "frontend.actions.systems.virt.invalidregexp"));
         }
 
         if (!StringUtils.isEmpty(form.getString(MEMORY_ALLOCATION))) {
