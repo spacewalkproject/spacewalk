@@ -23,7 +23,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.128
+Version: 1.8.129
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -614,6 +614,14 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Aug 15 2012 Tomas Lestach <tlestach@redhat.com> 1.8.129-1
+- 848036 - fix icons on SSM system list page
+- 785088 - validate virt guest parameters also for API input
+- 785088 - introduce regexp for virtual guest name
+- 787873 - fix misleading "Filter by" label
+- removing @Override annotations for methods that aren't overriden
+- remove unnecessary else clauses
+
 * Tue Aug 14 2012 Tomas Lestach <tlestach@redhat.com> 1.8.128-1
 - 836656 - removed MAC Address from kickstart profile listing
 - 847256 - xml escape group names
