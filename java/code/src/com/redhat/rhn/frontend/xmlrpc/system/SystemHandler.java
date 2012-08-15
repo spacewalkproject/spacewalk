@@ -2364,7 +2364,8 @@ public class SystemHandler extends BaseHandler {
         ValidatorError ve = cmd.store();
         if (ve != null) {
             throw new FaultException(-2, "provisionError",
-                    LocalizationService.getInstance().getMessage(ve.getKey()));
+                    LocalizationService.getInstance().getMessage(
+                        ve.getKey(), ve.getValues()));
         }
 
         return 1;

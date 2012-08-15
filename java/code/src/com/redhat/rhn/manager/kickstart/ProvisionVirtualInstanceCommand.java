@@ -42,6 +42,7 @@ import java.io.File;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.regex.Pattern;
 
 /**
  * Provides frequently used data for scheduling a kickstart
@@ -52,6 +53,10 @@ public class ProvisionVirtualInstanceCommand extends KickstartScheduleCommand {
 
     private static Logger log = Logger.getLogger(ProvisionVirtualInstanceCommand.class);
 
+    public static final int MIN_NAME_SIZE = 4;
+    public static final int MAX_CPU = 32;
+    public static final String GUEST_NAME_REGEXP = "^[\\w\\-\\.\\_]+$";
+
     private String guestName;
     private Long memoryAllocation;
     private Long virtualCpus;
@@ -60,7 +65,6 @@ public class ProvisionVirtualInstanceCommand extends KickstartScheduleCommand {
     private String filePath;
     private String virtBridge;
     private String macAddress;
-
 
     /**
      * Constructor
@@ -366,4 +370,25 @@ public class ProvisionVirtualInstanceCommand extends KickstartScheduleCommand {
         return virtPath.getAbsolutePath();
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    public ValidatorError doValidation() {
+        if (guestName.length() < MIN_NAME_SIZE) {
+            return new ValidatorError(
+                    "frontend.actions.systems.virt.invalidguestnamelength",
+                    MIN_NAME_SIZE);
+        }
+
+        Pattern pattern = Pattern.compile(GUEST_NAME_REGEXP, Pattern.CASE_INSENSITIVE);
+        if (!pattern.matcher(guestName).matches()) {
+            return new ValidatorError("frontend.actions.systems.virt.invalidregexp");
+        }
+
+        if (virtualCpus <= 0 || virtualCpus > ProvisionVirtualInstanceCommand.MAX_CPU) {
+            return new ValidatorError("frontend.actions.systems.virt.invalidcpuvalue",
+                    MAX_CPU + 1);
+        }
+        return super.doValidation();
+    }
 }

@@ -62,8 +62,6 @@ public class ProvisionVirtualizationWizardAction extends ScheduleKickstartWizard
     public static final String PROFILE = "cobbler_profile";
 
     public static final String GUEST_NAME = "guestName";
-    public static final int MIN_NAME_SIZE = 4;
-    public static final int MAX_CPU = 32;
 
     /**
      * {@inheritDoc}
@@ -264,13 +262,15 @@ public class ProvisionVirtualizationWizardAction extends ScheduleKickstartWizard
         ActionErrors errors = new ActionErrors();
         String name = form.getString(GUEST_NAME);
 
-        if (name.length() < MIN_NAME_SIZE) {
+        if (name.length() < ProvisionVirtualInstanceCommand.MIN_NAME_SIZE) {
             errors.add(ActionErrors.GLOBAL_MESSAGE, new ActionMessage(
                     "frontend.actions.systems.virt.invalidguestnamelength",
-                    (MIN_NAME_SIZE)));
+                    (ProvisionVirtualInstanceCommand.MIN_NAME_SIZE)));
         }
 
-        Pattern pattern = Pattern.compile("^[\\w\\-\\.\\_]+$", Pattern.CASE_INSENSITIVE);
+        Pattern pattern = Pattern.compile(
+                ProvisionVirtualInstanceCommand.GUEST_NAME_REGEXP,
+                Pattern.CASE_INSENSITIVE);
         if (!pattern.matcher(name).matches()) {
             errors.add(ActionErrors.GLOBAL_MESSAGE, new ActionMessage(
                     "frontend.actions.systems.virt.invalidregexp"));
@@ -292,14 +292,14 @@ public class ProvisionVirtualizationWizardAction extends ScheduleKickstartWizard
         if (!StringUtils.isEmpty(form.getString(VIRTUAL_CPUS))) {
             try {
                 Long cpus = Long.parseLong(form.getString(VIRTUAL_CPUS));
-                if (cpus <= 0 || cpus > MAX_CPU) {
+                if (cpus <= 0 || cpus > ProvisionVirtualInstanceCommand.MAX_CPU) {
                     throw new NumberFormatException();
                 }
             }
             catch (NumberFormatException e) {
                 errors.add(ActionErrors.GLOBAL_MESSAGE, new ActionMessage(
                         "frontend.actions.systems.virt.invalidcpuvalue",
-                        (MAX_CPU + 1)));
+                        (ProvisionVirtualInstanceCommand.MAX_CPU + 1)));
             }
         }
 
