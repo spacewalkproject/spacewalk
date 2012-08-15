@@ -282,9 +282,7 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
                 return new ValidatorError(
                         "frontend.actions.systems.virt.duplicateipaddressvalue");
             }
-            else {
-                throw e;
-            }
+            throw e;
         }
         rec.setProfile(profile);
 
@@ -341,9 +339,7 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
                 return new ValidatorError(
                         "frontend.actions.systems.virt.duplicateipaddressvalue");
             }
-            else {
-                throw e;
-            }
+            throw e;
         }
 
         /*
