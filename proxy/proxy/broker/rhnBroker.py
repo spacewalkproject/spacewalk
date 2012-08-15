@@ -225,8 +225,16 @@ class BrokerHandler(SharedHandler):
                 #      None that is is correct logic. It should be -taw
                 break
 
+            error_info = string.split(respHeaders['X-RHN-Proxy-Auth-Error'], ':')
+            error = error_info[0]
+
+            # If a proxy other than this one needs to update its auth token
+            # pass the error on up to it
+            if ((error == '1003' or error == '1004') and len(error_info) > 2
+                    and error_info[2] != self.proxyAuth.hostname):
+                break
+
             # Expired/invalid auth token; go through the loop once again
-            error = respHeaders['X-RHN-Proxy-Auth-Error'].split(':')[0]
             if error == '1003': # invalid token
                 msg = "RHN Proxy Session Token INVALID -- bad!"
                 log_error(msg)
