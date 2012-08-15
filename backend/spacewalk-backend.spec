@@ -12,7 +12,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.59
+Version: 1.8.60
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -647,6 +647,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Wed Aug 15 2012 Stephen Herr <sherr@redhat.com> 1.8.60-1
+- 848475 - multi-tiered proxies don't update auth tokens correctly
+
 * Thu Aug 02 2012 Michael Mraka <michael.mraka@redhat.com> 1.8.59-1
 - calls have been removed from client side, mark them as obsoleted
 - unfortunatelly old clients can still call new_user
