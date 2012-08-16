@@ -4,7 +4,7 @@ Group:   Applications/Internet
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 1.8.9
+Version: 1.8.10
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
 BuildRequires: python
@@ -330,6 +330,9 @@ fi
 
 
 %changelog
+* Thu Aug 16 2012 Stephen Herr <sherr@redhat.com> 1.8.10-1
+- 848475 - Don't expect string to already be imported
+
 * Wed Aug 15 2012 Stephen Herr <sherr@redhat.com> 1.8.9-1
 - 848475 - multi-tiered proxies don't update auth tokens correctly
 
