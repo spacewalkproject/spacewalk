@@ -225,7 +225,7 @@ class BrokerHandler(SharedHandler):
                 #      None that is is correct logic. It should be -taw
                 break
 
-            error_info = string.split(respHeaders['X-RHN-Proxy-Auth-Error'], ':')
+            error_info = str(respHeaders['X-RHN-Proxy-Auth-Error']).split(':')
             error = error_info[0]
 
             # If a proxy other than this one needs to update its auth token
