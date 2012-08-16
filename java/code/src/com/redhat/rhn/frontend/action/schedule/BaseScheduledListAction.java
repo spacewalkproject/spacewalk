@@ -132,5 +132,4 @@ public abstract class BaseScheduledListAction extends RhnAction implements Lista
 
         return mapping.findForward("archive");
     }
-
 }

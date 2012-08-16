@@ -27,71 +27,17 @@
         <rhn:csrf />
 		<rl:list emptykey="archivedactions.jsp.nogroups" styleclass="list">
 
-            <rl:decorator name="PageSizeDecorator"/>
-            <rl:decorator name="ElaborationDecorator"/>
 
-            <rl:column sortable="true"
-                       bound="false"
-                       headerkey="actions.jsp.action"
-                       sortattr="actionName"
-                       styleclass="list-fat-column-50"
-                       filterattr="actionName">
-                <a href="/rhn/schedule/CompletedSystems.do?aid=${current.id}"><c:out value="${current.actionName}" /></a>
-            </rl:column>
+			<%@ include file="/WEB-INF/pages/common/fragments/scheduledactions/listdisplay-new.jspf" %>
 
-            <rl:column sortable="true"
-                       bound="false"
-                       headerkey="actions.jsp.earliest"
-                       sortattr="earliestDate"
-                       defaultsort="desc">
-                <c:out value="${current.earliest}" />
-            </rl:column>
-
-            <rl:column sortable="false"
-                       bound="false"
-                       headerkey="actions.jsp.succeeded"
-                       styleclass="thin-column">
-                <c:if test="${current.completed != 0}">
-                    <a href="/rhn/schedule/CompletedSystems.do?aid=${current.id}">${current.completed}</a>
-                </c:if>
-                <c:if test="${current.completed == 0}">
-                    ${current.completed}
-                </c:if>
-            </rl:column>
-
-            <rl:column sortable="false"
-                       bound="false"
-                       headerkey="actions.jsp.failed"
-                       styleclass="thin-column">
-                <c:if test="${current.failed != 0}">
-                    <a href="/rhn/schedule/FailedSystems.do?aid=${current.id}">${current.failed}</a>
-                </c:if>
-                <c:if test="${current.failed == 0}">
-                    ${current.failed}
-                </c:if>
-            </rl:column>
-
-            <rl:column sortable="false"
-                       bound="false"
-                       headerkey="actions.jsp.inprogress"
-                       styleclass="thin-column">
-                <c:if test="${current.inProgress != 0}">
-                    <a href="/rhn/schedule/InProgressSystems.do?aid=${current.id}">${current.inProgress}</a>
-                </c:if>
-                <c:if test="${current.inProgress == 0}">
-                    ${current.inProgress}
-                </c:if>
-            </rl:column>
-
-            <rl:column sortable="false"
-                       bound="false"
-                       headerkey="actions.jsp.total"
-                       styleclass="last-column thin-column">
-                ${current.tally}
-            </rl:column>
 
 		</rl:list>
 		<rhn:submitted/>
+		 <div align="right">
+		     <input type="submit"
+               name="dispatch"
+               value='<bean:message key="actions.jsp.deleteactions"/>'/>
+         </div>
 	</rl:listset>
 
 

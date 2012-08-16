@@ -27,10 +27,10 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 
         <many-to-one name="schedulerUser"
             class="com.redhat.rhn.domain.user.legacy.UserImpl"
-            column="scheduler" update="true" insert="true" cascade="all" />
+            column="scheduler" />
         <many-to-one name="actionType"
             class="com.redhat.rhn.domain.action.ActionType"
-            column="action_type" cascade="all" update="false" />
+            column="action_type" />
         <set name="serverActions" outer-join="false" cascade="all" lazy="true"
             inverse="true" order-by="modified asc">
             <key column="action_id"/>

@@ -53,6 +53,10 @@ public class RhnSetDecl {
             SetCleanup.UNOWNED_ACTIONS);
 
     // set of actions by action_id
+    public static final RhnSetDecl ACTIONS_ARCHIVED = make("archived_action_list",
+            SetCleanup.UNOWNED_ACTIONS);
+
+    // set of actions by action_id
     public static final RhnSetDecl ACTIONS_PENDING = make(
             "pending_action_list", SetCleanup.UNOWNED_ACTIONS);
 

@@ -42,4 +42,8 @@ public class InvalidActionTypeException extends FaultException {
         super(2701, "invalidActionType", LocalizationService.getInstance().
                 getMessage("api.action.invalidactiontype"), cause);
     }
+
+    public InvalidActionTypeException(String msg) {
+        super(2701, "invalidActionType", msg);
+    }
 }

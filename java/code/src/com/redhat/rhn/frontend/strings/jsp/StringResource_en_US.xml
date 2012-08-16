@@ -769,6 +769,24 @@
           </context>
         </context-group>
       </trans-unit>
+    <trans-unit id="message.actionDeleted">
+<source>&lt;strong&gt;{0}&lt;/strong&gt; action deleted.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/schedule/ArchivedActions</context>
+          <context context-type="paramnotes">
+            1 action deleted.
+          </context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="message.actionsDeleted">
+<source>&lt;strong&gt;{0}&lt;/strong&gt; actions deleted.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/schedule/ArchivedActions</context>
+          <context context-type="paramnotes">
+            2 actions deleted.
+          </context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="relogin.jsp.pleasesignin">
 <source>Please Sign In</source>
         <context-group name="ctx">
@@ -2185,6 +2203,12 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/schedule/CompletedActions</context>
           <context context-type="sourcefile">/rhn/schedule/FailedActions</context>
           <context context-type="sourcefile">/rhn/schedule/PendingActions</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="actions.jsp.deleteactions">
+<source>Delete Actions</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/schedule/ArchivedActions</context>
         </context-group>
       </trans-unit>
       <trans-unit id="actions.jsp.archiveactions">

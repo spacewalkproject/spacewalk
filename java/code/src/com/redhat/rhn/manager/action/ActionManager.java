@@ -64,6 +64,7 @@ import com.redhat.rhn.domain.server.ServerFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.PackageMetadata;
 import com.redhat.rhn.frontend.listview.PageControl;
+import com.redhat.rhn.frontend.xmlrpc.InvalidActionTypeException;
 import com.redhat.rhn.manager.BaseManager;
 import com.redhat.rhn.manager.MissingCapabilityException;
 import com.redhat.rhn.manager.MissingEntitlementException;
@@ -222,7 +223,7 @@ public class ActionManager extends BaseManager {
 
     /**
      * Cancels the server actions associated with a given action, and if
-     * required deals with assicuated pending kickstart actions.
+     * required deals with associated pending kickstart actions.
      *
      * Actions themselves are not deleted, only the ServerActions associated
      * with them.
@@ -260,6 +261,32 @@ public class ActionManager extends BaseManager {
         KickstartFactory.failKickstartSessions(actionsToDelete, servers);
 
         ActionFactory.deleteServerActionsByParent(actionsToDelete);
+    }
+
+    /**
+     * Deletes the archived actions
+     *
+     * @param user User requesting the delete action
+     * @param actionIds List of action ids to be deleted
+     */
+    public static void deleteActionsById(User user, List actionsIds) {
+        List<Action> actions = new ArrayList<Action>();
+        for (Iterator<Number> ai = actionsIds.iterator(); ai.hasNext(); ){
+            long actionId = ai.next().longValue();
+            Action action = ActionManager.lookupAction(user, actionId);
+            if (action != null) {
+                // check, whether the actions are archived
+                if (action.getArchived() == 0) {
+                    throw new InvalidActionTypeException(
+                            "Archive following action before deletion: " + action.getId());
+                }
+                actions.add(action);
+            }
+        }
+        // now, delete them
+        for (Action action : actions) {
+            ActionFactory.remove(action);
+        }
     }
 
     /**

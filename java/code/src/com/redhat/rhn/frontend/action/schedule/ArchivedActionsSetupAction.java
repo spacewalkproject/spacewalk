@@ -14,17 +14,23 @@
  */
 package com.redhat.rhn.frontend.action.schedule;
 
+import com.redhat.rhn.common.localization.LocalizationService;
+import com.redhat.rhn.domain.rhnset.RhnSet;
+import com.redhat.rhn.domain.rhnset.RhnSetElement;
+import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
-import com.redhat.rhn.frontend.struts.RhnAction;
-import com.redhat.rhn.frontend.struts.RhnHelper;
-import com.redhat.rhn.frontend.taglibs.list.helper.ListHelper;
-import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
+import com.redhat.rhn.frontend.struts.StrutsDelegate;
 import com.redhat.rhn.manager.action.ActionManager;
+import com.redhat.rhn.manager.rhnset.RhnSetDecl;
+import com.redhat.rhn.manager.rhnset.RhnSetManager;
 
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.ActionMessage;
+import org.apache.struts.action.ActionMessages;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -34,31 +40,70 @@ import javax.servlet.http.HttpServletResponse;
  * ArchivedActionsSetupAction
  * @version $Rev$
  */
-public class ArchivedActionsSetupAction extends RhnAction implements Listable {
+public class ArchivedActionsSetupAction extends BaseScheduledListAction {
 
     /**
      *
      * {@inheritDoc}
      */
-    public ActionForward execute(ActionMapping mapping,
-            ActionForm formIn,
-            HttpServletRequest request,
-            HttpServletResponse response) {
-
-        RequestContext context = new RequestContext(request);
-        ListHelper helper = new ListHelper(this, request);
-        helper.execute();
-
-        return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
+    protected RhnSetDecl getSetDecl() {
+        return RhnSetDecl.ACTIONS_ARCHIVED;
     }
 
     /**
-     *
-     * {@inheritDoc}
-     */
-    public List getResult(RequestContext context) {
-        return ActionManager.archivedActions(context.getCurrentUser(), null);
-    }
+    *
+    * {@inheritDoc}
+    */
+   public List getResult(RequestContext context) {
+       return ActionManager.archivedActions(context.getLoggedInUser(), null);
+   }
 
+   /**
+    *
+    * {@inheritDoc}
+    */
+   protected ActionForward handleSubmit(ActionMapping mapping,
+           ActionForm formIn, HttpServletRequest request,
+           HttpServletResponse response) {
+       RequestContext requestContext = new RequestContext(request);
+       StrutsDelegate strutsDelegate = getStrutsDelegate();
+
+       User user = requestContext.getLoggedInUser();
+       RhnSet set = getSetDecl().get(user);
+
+
+       List actionIdsToDelete = new LinkedList();
+
+       for (RhnSetElement element : set.getElements()) {
+           actionIdsToDelete.add(element.getElement());
+       }
+
+       ActionManager.deleteActionsById(user, actionIdsToDelete);
+
+
+       ActionMessages msgs = new ActionMessages();
+       // If there was only one action cancelled, display the "action" cancelled
+       // message, else display the "actions" archived message.
+       if (set.size() == 1) {
+           msgs.add(ActionMessages.GLOBAL_MESSAGE,
+                    new ActionMessage("message.actionDeleted",
+                            LocalizationService.getInstance()
+                                               .formatNumber(new Integer(set.size()))));
+       }
+       else {
+           msgs.add(ActionMessages.GLOBAL_MESSAGE,
+                    new ActionMessage("message.actionsDeleted",
+                            LocalizationService.getInstance()
+                                               .formatNumber(new Integer(set.size()))));
+       }
+       strutsDelegate.saveMessages(request, msgs);
+
+       set.clear();
+       RhnSetManager.store(set);
+
+
+       return  mapping.findForward("success");
+
+   }
 
 }

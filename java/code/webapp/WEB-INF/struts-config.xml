@@ -1860,9 +1860,12 @@
     <action path="/schedule/ArchivedActions"
         scope="request"
         input="/WEB-INF/pages/schedule/archivedactions.jsp"
-        type="com.redhat.rhn.frontend.action.schedule.ArchivedActionsSetupAction">
+        type="com.redhat.rhn.frontend.action.schedule.ArchivedActionsSetupAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <set-property property="postRequiredIfSubmitted" value="true" />
         <forward name="default"
                path="/WEB-INF/pages/schedule/archivedactions.jsp" />
+		<forward name="success" path="/schedule/ArchivedActions.do" redirect="true"/>
     </action>
 
 

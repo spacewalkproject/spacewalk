@@ -23,8 +23,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <property name="remainingTries" column="remaining_tries" type="long" />
         <many-to-one name="status"
             class="com.redhat.rhn.domain.action.ActionStatus"
-            column="status"
-            cascade="all" />
+            column="status" />
 		
 		<!-- we do this so that we don't have to load the whole server object as a key which is very expensive
 				this is the reason for insert="false" update="false" -->
