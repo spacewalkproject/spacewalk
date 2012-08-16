@@ -26,9 +26,8 @@ mkdir -p $RPM_BUILD_ROOT
 install -m755 -d $RPM_BUILD_ROOT%{oracle_admin}
 install -m755 admin-wrapper.sh $RPM_BUILD_ROOT%{oracle_admin}/
 (cd $RPM_BUILD_ROOT%{oracle_admin};
-    wrapper=$(basename %{SOURCE0})
     for s in create-db.sh start-db.sh stop-db.sh create-user.sh; do
-        ln -s $wrapper $s
+        ln -s admin-wrapper.sh $s
     done
 )
 
