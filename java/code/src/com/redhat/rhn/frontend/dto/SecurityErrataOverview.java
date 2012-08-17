@@ -52,7 +52,7 @@ public class SecurityErrataOverview extends ErrataOverview
                 // expected errata_cves_elab returns 2 columns
                 if (columnCount < 3) {
                     for (int i = 1; i <= columnCount; i++) {
-                        if (meta.getColumnLabel(i).equals("cve")) {
+                        if (meta.getColumnLabel(i).equalsIgnoreCase("cve")) {
                             String cve = rs.getString("cve");
                             if (cve != null) {
                                 addCve(cve);
