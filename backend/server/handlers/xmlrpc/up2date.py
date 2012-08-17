@@ -163,7 +163,7 @@ class Up2date(rhnHandler):
         log_debug(1, self.server_id, channelNames)
         for channelName in channelNames:
             if NONSUBSCRIBABLE_CHANNELS.search(channelName):
-                raise rhnFault(73)
+                raise rhnFault(73, explain=False)
             else:
                 rhnChannel.subscribe_channel(self.server_id, channelName,
                                          username, passwd)
