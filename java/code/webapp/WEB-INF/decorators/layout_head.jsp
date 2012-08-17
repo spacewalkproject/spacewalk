@@ -7,6 +7,10 @@
     <c:if test="${pageContext.request.requestURI == '/rhn/Load.do'}">
       <meta http-equiv="refresh" content="0; url=<c:out value="${param.return_url}" />" />
     </c:if>
+    <c:if test="${pageContext.request.requestURI == '/rhn/kickstart/cobbler/CobblerSnippetView.do' || pageContext.request.requestURI == '/rhn/kickstart/cobbler/CobblerSnippetCreate.do' || pageContext.request.requestURI == '/rhn/kickstart/cobbler/CobblerSnippetEdit.do' || pageContext.request.requestURI == '/rhn/kickstart/KickstartScriptCreate.do' || pageContext.request.requestURI == '/rhn/kickstart/KickstartScriptEdit.do' || pageContext.request.requestURI == '/rhn/kickstart/KickstartScriptCreate.do' || pageContext.request.requestURI == '/rhn/kickstart/AdvancedModeEdit.do' || pageContext.request.requestURI == '/rhn/kickstart/AdvancedModeCreate.do' || pageContext.request.requestURI == '/rhn/configuration/file/FileDetails.do' || pageContext.request.requestURI == '/rhn/configuration/file/FileDownload.do' || pageContext.request.requestURI == '/rhn/systems/details/configuration/addfiles/CreateFile.do' || pageContext.request.requestURI == '/rhn/configuration/ChannelCreateFiles.do' || pageContext.request.requestURI == '/rhn/admin/Catalina.do'}">
+      <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7"/>
+      <!-- If we are loading a page that uses editarea, tell IE to use IE7 Compatability mode. This has to be the first thing in head if its gonna work. Only necessary for IE, but doesnt hurt other browsers. Conditional comments are going away in IE 10, so not including them here so this will continue to work. -->
+    </c:if>
     <meta http-equiv="content-type" content="text/html;charset=UTF-8"/>
     <title>
       <bean:message key="layout.jsp.productname"/>
