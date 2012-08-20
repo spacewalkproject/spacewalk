@@ -23,7 +23,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.129
+Version: 1.8.130
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -614,6 +614,13 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Aug 20 2012 Tomas Lestach <tlestach@redhat.com> 1.8.130-1
+- 198887 - checkstyle fixes
+- 198887 - introducing a possibility to delete archived actions
+- 848368 - make IE use IE7 compatability mode for pages with editarea
+- Fix missing CVEs in patches listing with Oracle 11
+- 848036 - fix icons on SSM provisioning page
+
 * Wed Aug 15 2012 Tomas Lestach <tlestach@redhat.com> 1.8.129-1
 - 848036 - fix icons on SSM system list page
 - 785088 - validate virt guest parameters also for API input
