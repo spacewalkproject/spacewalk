@@ -267,11 +267,11 @@ public class ActionManager extends BaseManager {
      * Deletes the archived actions
      *
      * @param user User requesting the delete action
-     * @param actionIds List of action ids to be deleted
+     * @param actionsIds List of action ids to be deleted
      */
     public static void deleteActionsById(User user, List actionsIds) {
         List<Action> actions = new ArrayList<Action>();
-        for (Iterator<Number> ai = actionsIds.iterator(); ai.hasNext(); ){
+        for (Iterator<Number> ai = actionsIds.iterator(); ai.hasNext();) {
             long actionId = ai.next().longValue();
             Action action = ActionManager.lookupAction(user, actionId);
             if (action != null) {

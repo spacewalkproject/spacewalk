@@ -43,6 +43,10 @@ public class InvalidActionTypeException extends FaultException {
                 getMessage("api.action.invalidactiontype"), cause);
     }
 
+    /**
+     * Constructor
+     * @param msg (unlocalized) exception message to be displayed
+     */
     public InvalidActionTypeException(String msg) {
         super(2701, "invalidActionType", msg);
     }
