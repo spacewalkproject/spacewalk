@@ -31,7 +31,7 @@ class ConnectionError(Exception):
 
 class BaseConnection:
     def __init__(self, uri, proxy=None):
-        self._scheme, (self._host, self._port), self._path = self.parse_url(uri)[:3]
+        self._scheme, (self._host, self._port), self._path = parse_url(uri)[:3]
 
         if proxy:
             arr = rpclib.get_proxy_info(proxy)
@@ -80,24 +80,6 @@ class BaseConnection:
     def __getattr__(self, name):
         return getattr(self._connection, name)
 
-
-    def parse_url(self, url, scheme="http", path='/'):
-        _scheme, netloc, _path, params, query, fragment = urlparse.urlparse(url)
-        if not netloc:
-            # No scheme - trying to patch it up ourselves?
-            url = scheme + "://" + url
-            _scheme, netloc, _path, params, query, fragment = urlparse.urlparse(url)
-
-        if not netloc:
-            # XXX
-            raise Exception()
-
-        (host, port) = urllib.splitport(netloc)
-
-        if not _path:
-            _path = path
-
-        return (_scheme, (host, port), _path, params, query, fragment)
 
 class PackageUpload:
     header_prefix = "X-RHN-Upload"
@@ -279,3 +261,21 @@ class PackageUpload:
         text = '\n'.join(text)
         text = base64.decodestring(text)
         return text
+
+def parse_url(url, scheme="http", path='/'):
+    _scheme, netloc, _path, params, query, fragment = urlparse.urlparse(url)
+    if not netloc:
+        # No scheme - trying to patch it up ourselves?
+        url = scheme + "://" + url
+        _scheme, netloc, _path, params, query, fragment = urlparse.urlparse(url)
+
+    if not netloc:
+        # XXX
+        raise Exception()
+
+    (host, port) = urllib.splitport(netloc)
+
+    if not _path:
+        _path = path
+
+    return (_scheme, (host, port), _path, params, query, fragment)
