@@ -82,14 +82,14 @@ class rhnpushConfigParser:
         try:
             self.settings.read([self.filename])
         except IOError, e:
-            print "Config File Error: line %s, file %s: $s" % (e.lineno, e.filename, e)
+            print "Config File Error: line %s, file %s: %s" % (e.lineno, e.filename, e)
             sys.exit(1)
 
     def write(self, fileobj):
         try:
             self.settings.write(fileobj)
         except IOError, e:
-            print "Config File Error: line %s, file %s: $s" % (e.lineno, e.filename, e)
+            print "Config File Error: line %s, file %s: %s" % (e.lineno, e.filename, e)
             sys.exit(1)
 
 
