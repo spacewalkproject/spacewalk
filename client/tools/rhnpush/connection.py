@@ -268,10 +268,6 @@ class PackageUpload:
     def get_error_message(self, headers):
         prefix = self.header_prefix + '-Error'
         errcodestr = prefix + "-Code"
-        if headers.has_key(errcodestr):
-            fault_code = headers[errcodestr]
-        else:
-            fault_code = None
         text = map(lambda x: x[1], headers.getaddrlist(prefix + '-String'))
         # text is a list now, convert it to a string
         text = '\n'.join(text)
