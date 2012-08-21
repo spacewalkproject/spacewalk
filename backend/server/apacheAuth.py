@@ -16,6 +16,7 @@
 
 import time
 import string
+import re
 
 from spacewalk.common import rhnFlags
 from spacewalk.common.rhnLog import log_debug, log_error
@@ -48,14 +49,19 @@ def _verifyProxyAuthToken(auth_token):
 
     log_debug(4, auth_token)
     token, hostname = splitProxyAuthToken(auth_token)
+    hostname = hostname.strip()
+    ip_regex = '^([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\.([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\.([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\.([01]?\\d\\d?|2[0-4]\\d|25[0-5])$'
+    hostname_is_ip_address = re.match(ip_regex, hostname)
 
     headers = rhnFlags.get('outputTransportOptions')
     if len(token) < 5:
         # Bad auth information; decline any action
         log_debug(4, "incomplete proxy authentication token: %s"
           % auth_token)
-        headers['X-RHN-Proxy-Auth-Error'] = '%s:%s"%s' % (
-            1003, _("incomplete proxy authentication token: %s") % auth_token, hostname)
+        headers['X-RHN-Proxy-Auth-Error'] = '%s:%s' % (
+            1003, _("incomplete proxy authentication token: %s") % auth_token)
+        if not hostname_is_ip_address:
+            headers['X-RHN-Proxy-Auth-Origin'] = hostname
         raise rhnFault(1003) # Invalid session key
 
     log_debug(5, "proxy auth token: %s,  hostname: %s"
@@ -70,9 +76,11 @@ def _verifyProxyAuthToken(auth_token):
             (proxyId, proxyUser))
         log_debug(4, "Sent proxy signature %s does not match ours %s." % (
             signature, computed))
-        headers['X-RHN-Proxy-Auth-Error'] = '%s:%s:%s' % (
+        headers['X-RHN-Proxy-Auth-Error'] = '%s:%s' % (
             1003, _("Sent proxy signature %s does not match ours %s.") % (
-            signature, computed), hostname)
+            signature, computed))
+        if not hostname_is_ip_address:
+            headers['X-RHN-Proxy-Auth-Origin'] = hostname
         raise rhnFault(1003) # Invalid session key
 
     # Convert the expiration/time to floats:
@@ -81,7 +89,9 @@ def _verifyProxyAuthToken(auth_token):
 
     if rhnServerTime + expireOffset < time.time():
         log_debug(4, "Expired proxy authentication token")
-        headers['X-RHN-Proxy-Auth-Error']  = '%s:%s:%s' % (1004, "Expired", hostname)
+        headers['X-RHN-Proxy-Auth-Error']  = '%s:%s' % (1004, "Expired")
+        if not hostname_is_ip_address:
+            headers['X-RHN-Proxy-Auth-Origin'] = hostname
         raise rhnFault(1004) # Expired client authentication token
 
     log_debug(4, "Proxy auth OK: sigs match; not an expired token")
