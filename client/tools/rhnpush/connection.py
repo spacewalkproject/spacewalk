@@ -175,7 +175,7 @@ class PackageUpload:
 
         return self._response
 
-    def upload(self, filename, FileChecksumType, FileChecksum):
+    def upload(self, filename, fileChecksumType, fileChecksum):
         """
         Uploads a file.
         Returns (http_error_code, error_message)
@@ -216,8 +216,8 @@ class PackageUpload:
         self.nvra = nvra
 
         # use the precomputed passed checksum
-        self.checksum_type = FileChecksumType
-        self.checksum = FileChecksum
+        self.checksum_type = fileChecksumType
+        self.checksum = fileChecksum
                 
         # Set headers
         self.set_header("Content-Type", "application/x-rpm")
