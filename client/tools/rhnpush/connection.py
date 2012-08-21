@@ -110,6 +110,12 @@ class PackageUpload:
         self.package_version = None
         self.package_release = None
         self.package_arch = None
+        self.checksum = None
+        self.checksum_type = None
+        self.nvra = None
+        self._resp_headers = None
+        self.packaging = None
+        self._response = None
 
     def set_header(self, name, value):
         if not self.headers.has_key(name):
