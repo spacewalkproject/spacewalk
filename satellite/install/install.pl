@@ -329,6 +329,8 @@ sub rhn_register {
       -password => 1);
 
   if ($up2dateopts->{'httpProxy'}) {
+    $up2dateopts->{'proxyUser'} ||= '';
+    $up2dateopts->{'proxyPassword'} ||= '';
     ask(-question => "The following proxy information was found in use by up2date:
 Proxy Hostname: $up2dateopts->{'httpProxy'}
 Proxy Username: $up2dateopts->{'proxyUser'}
