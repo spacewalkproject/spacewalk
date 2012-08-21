@@ -35,19 +35,6 @@ class  ConfManager:
         self.cmdconfig = optionparser
         self.store_true_list = store_true_list
 
-    #1/3/06 wregglej 172376  rhnpush shouldn't gag, choke, and die when trying to write the 
-    #local config file on a read-only filesystem. Plus, I redid the writing of the config files
-    #to avoid duping code.
-    #2/20/06 wregglej, but apparently it didn't occur to me to remove a completely redundant try-catch.
-    def _write_config_file(self, cfg_filename, config_obj):
-        #Just skip writing the config file if access is denied. rhnpush is probably being run
-        #on a read-only filesystem, which is supported. 
-        cfg_dir = os.path.split(cfg_filename)[0]
-        if os.access(cfg_dir, os.W_OK):
-            new_config_file = open(cfg_filename, "w+")
-            config_obj.write(new_config_file)
-            new_config_file.close()
-
     #Change the files options of the self.userconfig
     #Change the exclude options of the self.userconfig
     def _files_to_list(self):
