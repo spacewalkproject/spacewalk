@@ -302,7 +302,7 @@ sub rhn_register {
   my $opts = shift;
   my $answers = shift;
   my $up2dateopts = shift;
-  my $proxyAccept = '';
+  my $proxyAccept;
 
   if ($opts->{disconnected}) {
     print loc("** Registration: Disconnected mode.  Not registering with RHN.\n");
