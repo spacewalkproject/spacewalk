@@ -36,8 +36,9 @@
    WHERE KS.org_id = :org_id
      AND KS.active = 'Y'
      AND ( C.channel_arch_id = :prim_arch_id OR C.channel_arch_id = :sec_arch_id )
-     AND (   KVT.label != 'xenpv'
-          OR KVT.label IS NULL)
+     AND (  KVT.label = 'none'
+         OR KVT.label = 'para_host'
+         OR KVT.label IS NULL)
      AND KS.cobbler_id IS NOT NULL
 ORDER BY KS.label, KS.id
   </query>
