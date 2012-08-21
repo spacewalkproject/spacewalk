@@ -116,7 +116,7 @@ class rhnpushConfigParser:
 
     #Returns an option read in from the configuration files.
     def __getitem__(self, item):
-        return self.settings.get_option(item)
+        return self.get_option(item)
 
     #Takes all of the configuration options read in by the ConfigParser and makes them attributes of the object.
     def _add_config_as_attr(self, ensure_consistency=False):
