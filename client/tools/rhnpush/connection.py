@@ -28,7 +28,7 @@ from spacewalk.common.rhn_pkg import InvalidPackageError, package_from_filename
 class ConnectionError(Exception):
     pass
 
-
+# pylint: disable=R0902
 class BaseConnection:
     def __init__(self, uri, proxy=None):
         self._scheme, (self._host, self._port), self._path = parse_url(uri)[:3]
