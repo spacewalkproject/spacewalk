@@ -12,7 +12,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.60
+Version: 1.8.61
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -647,6 +647,10 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Tue Aug 21 2012 Stephen Herr <sherr@redhat.com> 1.8.61-1
+- 848475 - separate proxy auth error hostname into separate header
+- 849219 - don't explain the error about not subscribing proxy channels
+
 * Wed Aug 15 2012 Stephen Herr <sherr@redhat.com> 1.8.60-1
 - 848475 - multi-tiered proxies don't update auth tokens correctly
 
