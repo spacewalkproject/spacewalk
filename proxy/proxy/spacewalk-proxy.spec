@@ -4,7 +4,7 @@ Group:   Applications/Internet
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 1.8.10
+Version: 1.8.11
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
 BuildRequires: python
@@ -330,6 +330,9 @@ fi
 
 
 %changelog
+* Tue Aug 21 2012 Stephen Herr <sherr@redhat.com> 1.8.11-1
+- 848475 - separate proxy auth error hostname into separate header
+
 * Thu Aug 16 2012 Stephen Herr <sherr@redhat.com> 1.8.10-1
 - 848475 - Don't expect string to already be imported
 
