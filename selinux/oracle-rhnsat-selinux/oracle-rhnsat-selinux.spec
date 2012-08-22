@@ -5,7 +5,7 @@
 %define modulename oracle-rhnsat
 
 Name:            oracle-rhnsat-selinux
-Version:         10.2.0.21
+Version:         10.2.0.22
 Release:         1%{?dist}
 Summary:         SELinux policy module supporting Oracle
 Group:           System Environment/Base
@@ -106,6 +106,9 @@ fi
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
+* Wed Aug 22 2012 Michael Mraka <michael.mraka@redhat.com> 10.2.0.22-1
+- 799131 - allow oracle db to read logs/*.aud files
+
 * Mon Jul 16 2012 Jan Pazdziora 10.2.0.21-1
 - Start using the .tar.gz in the .src.rpm for oracle-rhnsat-selinux.
 - %%defattr is not needed since rpm 4.4
