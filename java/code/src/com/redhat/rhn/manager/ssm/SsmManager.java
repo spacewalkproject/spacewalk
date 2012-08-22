@@ -76,8 +76,10 @@ public class SsmManager {
 
         RhnSet ssm = RhnSetDecl.SYSTEMS.lookup(user);
         List<Server> servers = new ArrayList<Server>();
-        for (RhnSetElement rse : ssm.getElements()) {
-            servers.add(SystemManager.lookupByIdAndUser(rse.getElement(), user));
+        if (ssm != null) {
+            for (RhnSetElement rse : ssm.getElements()) {
+                servers.add(SystemManager.lookupByIdAndUser(rse.getElement(), user));
+            }
         }
 
         // Keeps a mapping of how many entitlements are left on each channel. This map
