@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.8.70
+Version:        1.8.71
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -68,6 +68,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Wed Aug 22 2012 Michael Mraka <michael.mraka@redhat.com> 1.8.71-1
+- Insert pxt session errors on postgres
+
 * Fri Aug 10 2012 Michael Mraka <michael.mraka@redhat.com> 1.8.70-1
 - 843374 - fixed subquery in FROM must have an alias
 - 843374 - upgrade script for rhnChannelNewestPackageView
