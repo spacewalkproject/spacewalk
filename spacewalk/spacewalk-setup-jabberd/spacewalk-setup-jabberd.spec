@@ -1,5 +1,5 @@
 Name:           spacewalk-setup-jabberd
-Version:        1.8.3
+Version:        1.8.4
 Release:        1%{?dist}
 Summary:        Tools to setup jabberd for Spacewalk
 Group:          Applications/System
@@ -57,6 +57,9 @@ rm -rf %{buildroot}
 %{_sysconfdir}/pki/spacewalk
 
 %changelog
+* Wed Aug 22 2012 Michael Mraka <michael.mraka@redhat.com> 1.8.4-1
+- 800297 - s2s: enable resolve-ipv6
+
 * Mon Jun 11 2012 Michael Mraka <michael.mraka@redhat.com> 1.8.3-1
 - there's no spacewalk-branding in spacewalk-proxy
 
