@@ -99,6 +99,7 @@ instance_name
 user_dump_dest
 EOPATTERNS
 	echo "compatible=10.2.0.4.0" >>$UPGRADE_PFILE
+        $ORACLE_ADMIN_DIR/oracle-compute-sga.sh >>$UPGRADE_PFILE
 fi
 
 # upgrade the database
