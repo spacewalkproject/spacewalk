@@ -1,7 +1,7 @@
 %define rhnroot %{_prefix}/share/rhn
 
 Name:		spacewalk-utils
-Version:	1.8.25
+Version:	1.8.26
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -86,6 +86,9 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Wed Aug 22 2012 Michael Mraka <michael.mraka@redhat.com> 1.8.26-1
+- 812886 - the Enhancement Advisory is actually Product Enhancement Advisory.
+
 * Fri Aug 10 2012 Michael Mraka <michael.mraka@redhat.com> 1.8.25-1
 - added channel definitions for Fedora17
 
