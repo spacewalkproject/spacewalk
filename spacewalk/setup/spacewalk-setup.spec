@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        1.8.16
+Version:        1.8.17
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -110,6 +110,10 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Wed Aug 22 2012 Michael Mraka <michael.mraka@redhat.com> 1.8.17-1
+- fix memory settings on 24+ cpu machines
+- 847276 - pull http proxy settings from up2date conf.
+
 * Fri Aug 10 2012 Jan Pazdziora 1.8.16-1
 - 847011 - document --external-db option
 
