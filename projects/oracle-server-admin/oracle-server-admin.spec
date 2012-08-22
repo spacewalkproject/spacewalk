@@ -1,6 +1,6 @@
 Summary: Oracle Database Server command-line admin scripts
 Name: oracle-server-admin
-Version: 0.2.1
+Version: 0.2.2
 Release: 1%{?dist}
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 License: Oracle License
@@ -40,6 +40,9 @@ rm -rf $RPM_BUILD_ROOT
 %{oracle_admin}
 
 %changelog
+* Wed Aug 22 2012 Michael Mraka <michael.mraka@redhat.com> 0.2.2-1
+- link to correct script name during package build
+
 * Mon Jul 16 2012 Jan Pazdziora 0.2.1-1
 - Start using the .tar.gz in the .src.rpm for oracle-server-admin.
 - All the NoTgzBuilders are now spacewalkx.builderx.NoTgzBuilder.
