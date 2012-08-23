@@ -413,6 +413,7 @@ class UploadClass:
         return call(self.server.packages.check_session, session)
 
     def readSession(self):
+        # pylint: disable=W0703
         try:
             self.session = rhnpush_cache.RHNPushSession()
             self.session.readSession()
