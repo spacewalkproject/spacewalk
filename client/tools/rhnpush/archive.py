@@ -393,31 +393,31 @@ def get_archive_parser(archive, tempdir="/tmp/"):
 
     # decompress the archive
     archive = _decompress(archive)
-    Class = None
+    parserClass = None
     fd = open(archive, 'r')
 
     magic = fd.read(4)
     if magic == "PK\x03\x04":
-        Class = ZipParser
+        parserClass = ZipParser
 
     fd.seek(0)
     magic = fd.read(20)
     if magic == "# PaCkAgE DaTaStReAm":
-        Class = CpioParser
+        parserClass = CpioParser
 
     fd.seek(257)
     magic = fd.read(5)
     if magic == "ustar":
-        Class = TarParser
+        parserClass = TarParser
 
     # pre-posix tar doesn't have any standard file magic
     if archive.endswith(".tar"):
-        Class = TarParser
+        parserClass = TarParser
 
     fd.close()
 
-    if Class is None:
+    if parserClass is None:
         raise UnknownArchiveError("Wasn't able to identify: '%s'" % archive)
 
-    return Class(archive, tempdir)
+    return parserClass(archive, tempdir)
 
