@@ -183,6 +183,7 @@ class ArchiveParser(object):
         """ Returns the contens of the file, file is relative path in archive.
             Top most level (_get_archive_dir) is automaticaly added.
          """
+        # pylint: disable=W0703
         f = os.path.join(os.path.abspath(self._archive_dir), filename)
         contents = None
 
