@@ -122,8 +122,9 @@ public class SyncRepositoriesAction extends RhnAction implements Listable {
 
                 }
                 else if (context.wasDispatched("schedule.button")) {
-                    if ((picker.isDisabled() || StringUtils.isEmpty(picker.getCronEntry())) &&
-                            oldCronExpr != null) {
+                    if ((picker.isDisabled() ||
+                            StringUtils.isEmpty(picker.getCronEntry())) &&
+                                oldCronExpr != null) {
                         taskomatic.unscheduleRepoSync(chan, user);
                         createSuccessMessage(request, "message.syncschedule.disabled",
                                 chan.getName());
