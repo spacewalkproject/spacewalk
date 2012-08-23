@@ -506,7 +506,7 @@ ORDER BY  rhn_channel.channel_priority(ACh.parent_or_self_id), ACh.parent_or_sel
 
 <mode name="all_channels_tree">
   <query params="user_id">
-SELECT  C.name,
+SELECT  distinct C.name,
         UC.channel_id ID,
         PC.label PARENT_CHANNEL,
         C.label,
