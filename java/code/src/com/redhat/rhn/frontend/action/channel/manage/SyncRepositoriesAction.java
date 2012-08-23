@@ -29,6 +29,7 @@ import com.redhat.rhn.manager.user.UserManager;
 import com.redhat.rhn.taskomatic.TaskomaticApi;
 import com.redhat.rhn.taskomatic.TaskomaticApiException;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
@@ -121,12 +122,13 @@ public class SyncRepositoriesAction extends RhnAction implements Listable {
 
                 }
                 else if (context.wasDispatched("schedule.button")) {
-                    if (picker.isDisabled() && oldCronExpr != null) {
+                    if ((picker.isDisabled() || StringUtils.isEmpty(picker.getCronEntry())) &&
+                            oldCronExpr != null) {
                         taskomatic.unscheduleRepoSync(chan, user);
                         createSuccessMessage(request, "message.syncschedule.disabled",
                                 chan.getName());
                     }
-                    else if (picker.getCronEntry() != null) {
+                    else if (!StringUtils.isEmpty(picker.getCronEntry())) {
                         Date date = taskomatic.scheduleRepoSync(chan, user,
                                 picker.getCronEntry());
                         createSuccessMessage(request, "message.syncscheduled",
