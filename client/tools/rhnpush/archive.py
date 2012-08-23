@@ -65,7 +65,7 @@ class ArchiveParser(object):
         self._temp_dir = tempfile.mktemp()
         os.mkdir(self._temp_dir, 0700)
 
-        self._explode(archive)
+        self._explode()
 
     # destructor ---------------------------------------------------------
 
@@ -88,7 +88,7 @@ class ArchiveParser(object):
 
         raise NotImplementedError("ArchiveParser: abstract base class method '_explode_cmd'")
 
-    def _explode(self, archive):
+    def _explode(self):
         """[internal] Explode a archive for neutral parsing"""
 
         cmd = self._explode_cmd()
@@ -243,7 +243,7 @@ class ZipParser(ArchiveParser):
     def _get_archive_dir(self):
         return self.zip_file.namelist()[0]
 
-    def _explode(self, archive):
+    def _explode(self):
         """Explode zip archive"""
         self._archive_dir = os.path.join(self._temp_dir,
                                          self._get_archive_dir()).rstrip('/')
@@ -268,7 +268,7 @@ class TarParser(ArchiveParser):
     def _get_archive_dir(self):
         return self.tar_file.getnames()[0]
 
-    def _explode(self, archive):
+    def _explode(self):
         """Explode tar archive"""
         self._archive_dir = os.path.join(self._temp_dir, self._get_archive_dir())
 
