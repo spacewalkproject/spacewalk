@@ -23,7 +23,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.132
+Version: 1.8.133
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -614,6 +614,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Aug 23 2012 Tomas Lestach <tlestach@redhat.com> 1.8.133-1
+- 851040 - checkstyle issue
+
 * Thu Aug 23 2012 Tomas Lestach <tlestach@redhat.com> 1.8.132-1
 - 851040 - detect empty quartz crop expression
 - 851150 - we need only unique channel list
