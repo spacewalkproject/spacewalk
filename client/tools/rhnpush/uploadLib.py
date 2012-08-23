@@ -76,7 +76,8 @@ class UploadClass:
         if self.options.verbose >= verbose:
             ReportError(*args)
 
-    def die(self, errcode, *args):
+    @staticmethod
+    def die(errcode, *args):
         ReportError(*args)
         #pkilambi:bug#176358:this should exit with error code
         sys.exit(errcode)
@@ -439,7 +440,8 @@ class UploadClass:
         sessstr = call(self.server.packages.login, self.username, self.password)
         self.writeSession(sessstr)
 
-    def _processFile(self, filename, relativeDir=None, source=None, nosig=None):
+    @staticmethod
+    def _processFile(filename, relativeDir=None, source=None, nosig=None):
         """ Processes a file
             Returns a hash containing:
               header
