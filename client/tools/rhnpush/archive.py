@@ -97,7 +97,7 @@ class ArchiveParser(object):
         assert self._archive_dir is not None    # assigned in _explode_cmd
 
         if cmd:
-            status = _my_popen(cmd)
+            _my_popen(cmd)
 
             if os.path.isdir(self._archive_dir):
                 return
@@ -226,7 +226,7 @@ class ArchiveParser(object):
         cpio_file = os.path.join(self._temp_dir, "%s.pkg" % prefix)
 
         cmd = "pkgtrans -s %s %s %s" % (self._archive_dir, cpio_file, prefix)
-        stat = _my_popen(cmd)
+        _my_popen(cmd)
 
         if os.path.isfile(cpio_file):
             return cpio_file
@@ -342,7 +342,7 @@ def _my_popen(cmd):
     if status != 0:
         raise Exception("%s exited with status %s and error\n%s" % (cmd, status, txt))
 
-    return status
+    return
 
 # NOTE these next two functions rely on file magic to determine the compression
 # and archive types. some file magic information can be found here:
@@ -379,10 +379,7 @@ def _decompress(archive):
 
         print "Decompressing archive"
 
-        stat = _my_popen("%s %s" % (cmd, archive))
-
-        if stat != 0:
-            raise DecompressionError("Error decompressing '%s'" % archive)
+        _my_popen("%s %s" % (cmd, archive))
 
         # remove the now invalid suffix from the archive name
         for sfx in sfx_list:
