@@ -255,6 +255,9 @@ class ZipParser(ArchiveParser):
                                                 (self._archive_dir, str(e)))
         return
 
+    def _explode_cmd(self):
+        pass
+
 # parser for tar archives ------------------------------------------------
 
 class TarParser(ArchiveParser):
@@ -275,6 +278,9 @@ class TarParser(ArchiveParser):
             raise InvalidArchiveError("Archive did not expand to %s: %s" %
                                                 (self._archive_dir, str(e)))
         return
+
+    def _explode_cmd(self):
+        pass
 
 # parser for cpio archives -----------------------------------------------
 
