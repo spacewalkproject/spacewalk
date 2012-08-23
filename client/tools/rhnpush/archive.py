@@ -208,7 +208,7 @@ class ArchiveParser(object):
 
         zip_file = os.path.join(self._parent_dir, "%s.zip" % zip_dir)
         fd = zipfile.ZipFile(zip_file, 'w', zipfile.ZIP_DEFLATED)
-        for base, dirs, files in os.walk(zip_dir):
+        for base, _dirs, files in os.walk(zip_dir):
             fd.write(base)
             for f in files:
                 fd.write(os.path.join(base, f))
@@ -329,7 +329,7 @@ def _my_popen(cmd):
 
     txt = ""
     while 1:
-        rd, wr, ex = select.select([ popen.stdout, popen.stderr ], [], [ popen.stdout, popen.stderr ], 5)
+        rd, _wr, ex = select.select([ popen.stdout, popen.stderr ], [], [ popen.stdout, popen.stderr ], 5)
         if ex:
             txt += popen.stdout.read()
             txt += popen.stderr.read()
