@@ -32,6 +32,7 @@ except ImportError:
     # old-style xmlrpclib library
     rpclib = xmlrpclib
     Binary = rpclib.Binary
+    # pylint: disable=F0401
     import cgiwrap
     Output = cgiwrap.Output
 
