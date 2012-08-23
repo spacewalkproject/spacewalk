@@ -303,7 +303,7 @@ class UploadClass:
 
         to_push = []
         for pkg in pkglist:
-            pkg_name, pkg_channel = pkg[:2]
+            pkg_name, _pkg_channel = pkg[:2]
             if not localPackagesHash.has_key(pkg_name):
                 # We don't have it
                 continue
@@ -416,7 +416,7 @@ class UploadClass:
         try:
             self.session = rhnpush_cache.RHNPushSession()
             self.session.readSession()
-        except Exception, e:
+        except Exception:
             self.session = None
 
     def writeSession(self, session):
