@@ -72,7 +72,10 @@ public class ChildChannelAction extends RhnAction {
 
         // If submitted, save the user's choices for the confirm page
         if (isSubmitted(daForm) && request.getParameter("dispatch") != null) {
-            processList(user, request);
+            if (processList(user, request) == 0) {
+                createSuccessMessage(request, "ssmchildsubconfirm.jsp.noSystems", null);
+                return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
+            }
             return mapping.findForward("success");
         }
         return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
@@ -134,7 +137,7 @@ public class ChildChannelAction extends RhnAction {
      * @param user    user making the request
      * @param request http request to grab the user submitted data from
      */
-    protected void processList(User user, HttpServletRequest request) {
+    protected int processList(User user, HttpServletRequest request) {
 
         List<String> subList = new ArrayList<String>();
         List<String> unsubList = new ArrayList<String>();
@@ -152,6 +155,7 @@ public class ChildChannelAction extends RhnAction {
         }
 
         storeChannelChanges(user, subList, unsubList);
+        return subList.size() + unsubList.size();
     }
 
     /**
