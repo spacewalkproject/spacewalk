@@ -19,6 +19,12 @@ BuildRequires:      rhn-client-tools
 %endif
 BuildRequires: docbook-utils, gettext
 BuildRequires: python-devel
+%if 0%{?fedora} > 15 || 0%{?rhel} > 5
+# pylint check
+BuildRequires:  spacewalk-pylint
+BuildRequires:  rhn-client-tools
+BuildRequires:  spacewalk-backend-libs > 1.8.33
+%endif
 
 Summary: Package uploader for the Red Hat Network Satellite Server
 
@@ -48,6 +54,12 @@ rm -fv $RPM_BUILD_ROOT%{_mandir}/man8/solaris2mpm.8*
 %clean
 rm -rf $RPM_BUILD_ROOT
 
+%check
+%if 0%{?fedora} > 15 || 0%{?rhel} > 5
+# check coding style
+export PYTHONPATH=$RPM_BUILD_ROOT%{python_sitelib}:/usr/share/rhn
+spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
+%endif
 
 %files
 %dir %{rhnroot}/rhnpush
