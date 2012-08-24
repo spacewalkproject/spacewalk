@@ -199,6 +199,7 @@ class UploadClass(uploadLib.UploadClass):
     def setChannels(self):
         self.channels = self.options.channel or []
 
+    # pylint: disable=W0702
     def _test_force(self):
         test_force_str =  "Setting force flag:  %s"
         test_force = "Passed"
