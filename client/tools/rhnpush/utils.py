@@ -49,6 +49,7 @@ def make_common_attr_equal(object1, object2):
 
 if __name__ == "__main__":
 #This is just for testing purposes.
+# pylint: disable=R0903
     class class1:
         def __init__(self):
             self.a = "aaaa"
