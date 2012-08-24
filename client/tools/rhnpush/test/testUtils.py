@@ -24,10 +24,12 @@ class TestObj1:
         self._d = '1'
         self._e = '2'
 
-    def _private_function(self):
+    @staticmethod
+    def _private_function():
         print "This is privatei to TestObj1 instances"
 
-    def public_function(self):
+    @staticmethod
+    def public_function():
         print "This is public and belongs to TestObj1"
 
 class TestObj2:
@@ -39,10 +41,12 @@ class TestObj2:
         self._e = '5'
         self.f = 'aaa'
 
-    def _private_function(self):
+    @staticmethod
+    def _private_function():
         print "This is private to TestObj2 instances"
 
-    def public_function(self):
+    @staticmethod
+    def public_function():
         print "This is public and belongs to TestObj2"
 
 
