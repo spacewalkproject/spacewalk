@@ -852,7 +852,7 @@ def _unique_list_of_dicts(list_):
         if list_[i] == list_[i+1]:
             del list_[i]
             continue
-        i+=1
+        i += 1
 
     return list_
 
