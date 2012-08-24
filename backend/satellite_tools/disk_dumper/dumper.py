@@ -63,7 +63,7 @@ class XML_Dumper:
     def get_channel_families_statement_new(self, cids):
         
         args = {
-	   'ch_ids'	: cids
+           'ch_ids'     : cids
         }
 
         query = """
@@ -77,10 +77,10 @@ class XML_Dumper:
     def get_channels_statement(self):
         query = """
             select c.id channel_id, c.label,
-	           ct.label as checksum_type,
+                   ct.label as checksum_type,
                    TO_CHAR(c.last_modified, 'YYYYMMDDHH24MISS') last_modified
               from rhnChannel c left outer join rhnChecksumType ct on c.checksum_type_id = ct.id,
-	           rhnChannelFamilyMembers cfm,
+                   rhnChannelFamilyMembers cfm,
                    (%s
                    ) scf
              where scf.channel_family_id = cfm.channel_family_id
@@ -431,7 +431,7 @@ class XML_Dumper:
             all_channels_hash[row['label']] = row
 
         # Intersect the list of channels they've sent to us 
-	iss_slave_sha256_capable = (float(rhnFlags.get('X-RHN-Satellite-XML-Dump-Version')) >= constants.SHA256_SUPPORTED_VERSION)
+        iss_slave_sha256_capable = (float(rhnFlags.get('X-RHN-Satellite-XML-Dump-Version')) >= constants.SHA256_SUPPORTED_VERSION)
 
         if not channel_labels:
             channels = all_channels_hash
@@ -610,7 +610,7 @@ class CachedDumper(exportLib.BaseDumper):
     hash_factor = 1
     key_template = 'dump/%s/dump-%s.xml'
     def __init__(self, writer, params):
-	statement = rhnSQL.prepare(self.iterator_query)
+        statement = rhnSQL.prepare(self.iterator_query)
         iterator = CachedQueryIterator(statement, params,
             cache_get=self.cache_get)
         exportLib.BaseDumper.__init__(self, writer, data_iterator=iterator)
@@ -664,7 +664,7 @@ class CachedDumper(exportLib.BaseDumper):
 class ChannelsDumper(exportLib.ChannelsDumper):
     _query_list_channels = rhnSQL.Statement("""
         select c.id, c.org_id, 
-	       c.label, ca.label channel_arch, c.basedir, c.name, 
+               c.label, ca.label channel_arch, c.basedir, c.name,
                c.summary, c.description, c.gpg_key_url,
                ct.label checksum_type,
                TO_CHAR(c.last_modified, 'YYYYMMDDHH24MISS') last_modified, 
