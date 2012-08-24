@@ -39,7 +39,6 @@ from rhn.connections import idn_ascii_to_pune
 
 from optparse import Option, OptionParser
 from rhn import rpclib
-from spacewalk.common.checksum import getFileChecksum
 from spacewalk.common.rhn_pkg import InvalidPackageError, package_from_filename
 import uploadLib
 import rhnpush_v2
