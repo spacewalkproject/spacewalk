@@ -152,6 +152,10 @@ def main():
     
 class UploadClass(uploadLib.UploadClass):
     # pylint: disable=E1101
+    def __init__(self, options, files=None):
+        uploadLib.UploadClass.__init__(self, options, files)
+        self.url_v2 = None
+
     def setURL(self):
         server = idn_ascii_to_pune(self.options.server)
         if server is None:
@@ -302,8 +306,8 @@ class UploadClass(uploadLib.UploadClass):
         #ping the server for status
         self.warn(2, "url is", self.url_v2)
         ping = rhnpush_v2.PingPackageUpload(self.url_v2, self.options.proxy)
-        self.ping_status, errmsg, headerinfo = ping.ping()
-        self.warn(2, "Result codes:", self.ping_status, errmsg)
+        ping_status, errmsg, headerinfo = ping.ping()
+        self.warn(2, "Result codes:", ping_status, errmsg)
 
         
         # move patch clusters to the end because all the patches in the cluster
