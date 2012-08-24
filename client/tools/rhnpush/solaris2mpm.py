@@ -862,7 +862,8 @@ def _unique_list_of_dicts(list_):
 def write_mpm(mpm):
     """Write out the mpm file"""
 
-    if mpm is None: return
+    if mpm is None:
+        return
 
     dest = _compute_filename(mpm.header)
     print "Writing %s" % dest
