@@ -657,7 +657,9 @@ class Dumper(dumper.XML_Dumper):
             pb.printAll(1) 
             for channel in self.channel_ids:
                 self.set_filename(self.fm.getChannelsFile(channel['label']))
-                dumper.XML_Dumper.dump_channels(self, [channel], self.start_date, self.end_date, self.use_rhn_date, self.whole_errata)
+                dumper.XML_Dumper.dump_channels(self, [channel],
+                                                self.start_date, self.end_date,
+                                                self.use_rhn_date, self.whole_errata)
     
                 log2email(4, "Channel: %s" % channel['label'])
                 log2email(5, "Channel exported to %s" % self.fm.getChannelsFile(channel['label']))
@@ -847,14 +849,18 @@ class Dumper(dumper.XML_Dumper):
             pb.printAll(1)
             for kickstart_file in self.kickstart_files:
                 #get the path to the kickstart files under the satellite's mount point
-                path_to_files = os.path.join(CFG.MOUNT_POINT, kickstart_file['base-path'], kickstart_file['relative-path'])
+                path_to_files = os.path.join(CFG.MOUNT_POINT,
+                                             kickstart_file['base-path'],
+                                             kickstart_file['relative-path'])
     
                 #Make sure the path actually exists
                 if not os.path.exists(path_to_files):
                     raise ISSError("Missing kickstart file under satellite mount-point: %s" % (path_to_files,), "")
     
                 #generate the path to the kickstart files under the export directory.
-                path_to_export_file = self.fm.getKickstartFileFile(kickstart_file['label'], kickstart_file['relative-path'])
+                path_to_export_file = self.fm.getKickstartFileFile(
+                                                        kickstart_file['label'],
+                                                        kickstart_file['relative-path'])
                 #os.path.join(self.mp, kickstart_file['base-path'], kickstart_file['relative-path'])
                 if os.path.exists(path_to_export_file):
                     # already exists, skip ks file
@@ -882,7 +888,9 @@ class Dumper(dumper.XML_Dumper):
                                         e.__class__.__name__), tbout.getvalue()), \
                           None, sys.exc_info()[2]
     
-                log2email(5, "Kickstart File: %s" % os.path.join(kickstart_file['base-path'], kickstart_file['relative-path'])) 
+                log2email(5, "Kickstart File: %s" %
+                                         os.path.join(kickstart_file['base-path'],
+                             kickstart_file['relative-path']))
         
                 pb.addTo(1)
                 pb.printIncrement()
@@ -1101,21 +1109,27 @@ class ExporterMain:
         #verify mountpoint
         if os.access(self.outputdir, os.F_OK|os.R_OK|os.W_OK):
             if os.path.isdir(self.outputdir):
-                self.dumper = Dumper(self.outputdir, self.options.channel, self.options.hard_links, start_date=self.start_date, end_date=self.end_date, use_rhn_date=self.options.use_rhn_date, whole_errata=self.options.whole_errata)
+                self.dumper = Dumper(self.outputdir,
+                                     self.options.channel,
+                                     self.options.hard_links,
+                                     start_date=self.start_date,
+                                     end_date=self.end_date,
+                                     use_rhn_date=self.options.use_rhn_date,
+                                     whole_errata=self.options.whole_errata)
                 self.actionmap = {
-                                    'arches'                :   {'dump' : self.dumper.dump_arches},
-                                    'arches-extra'          :   {'dump' : self.dumper.dump_server_group_type_server_arches},
-                                    'blacklists'            :   {'dump' : self.dumper.dump_blacklist_obsoletes},
-                                    'channel-families'      :   {'dump' : self.dumper.dump_channel_families},
-                                    'channels'              :   {'dump' : self.dumper.dump_channels},
-                                    'packages'              :   {'dump' : self.dumper.dump_packages},
-                                    'short'                 :   {'dump' : self.dumper.dump_packages_short},
-                                    #'channel-pkg-short'     :   {'dump' : self.dumper.dump_channel_packages_short},
-                                    #'source-packages'       :   {'dump' : self.dumper.dump_source_packages},
-                                    'errata'                :   {'dump' : self.dumper.dump_errata},
-                                    'kickstarts'            :   {'dump' : [self.dumper.dump_kickstart_data, 
+                                    'arches'           :   {'dump' : self.dumper.dump_arches},
+                                    'arches-extra'     :   {'dump' : self.dumper.dump_server_group_type_server_arches},
+                                    'blacklists'       :   {'dump' : self.dumper.dump_blacklist_obsoletes},
+                                    'channel-families' :   {'dump' : self.dumper.dump_channel_families},
+                                    'channels'         :   {'dump' : self.dumper.dump_channels},
+                                    'packages'         :   {'dump' : self.dumper.dump_packages},
+                                    'short'            :   {'dump' : self.dumper.dump_packages_short},
+                                    #'channel-pkg-short' :   {'dump' : self.dumper.dump_channel_packages_short},
+                                    #'source-packages'   :   {'dump' : self.dumper.dump_source_packages},
+                                    'errata'           :   {'dump' : self.dumper.dump_errata},
+                                    'kickstarts'       :   {'dump' : [self.dumper.dump_kickstart_data,
                                                                            self.dumper.dump_kickstart_files]},
-                                    'rpms'                  :   {'dump' : self.dumper.dump_rpms},
+                                    'rpms'             :   {'dump' : self.dumper.dump_rpms},
                                  }
             else:
                 print "The output directory is not a directory"
