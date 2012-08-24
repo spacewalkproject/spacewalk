@@ -60,6 +60,7 @@ class UtilsTestCase(unittest.TestCase):
         self.obj1 = None
         self.obj2 = None
 
+    # pylint: disable=W0212
     def testMakeCommonAttrEqual(self):
         self.obj1, self.obj2 = utils.make_common_attr_equal(self.obj1, self.obj2)
         assert (self.obj1._d == '1'
