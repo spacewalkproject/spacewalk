@@ -231,6 +231,7 @@ def _run(archives=sys.argv[1:]):
 # archive tests ----------------------------------------------------------
 
 # This is not a good way to do this, but it will suffice for now.
+# pylint: disable=W0212
 def _close_mpm(mpm):
     if hasattr(mpm, "payload_stream") and mpm.payload_stream:
         mpm.payload_stream.close()
