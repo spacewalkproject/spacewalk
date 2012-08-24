@@ -52,12 +52,6 @@ class  ConfManager:
 
 
     #Changes every option in config that is also in store_true_list that is set to '0' to None
-    def _zero_to_none(self, config, store_true_list):
-        for opt in config.keys():
-            for cmd in store_true_list:
-                if str(opt) == cmd and config.__dict__[opt] == '0':
-                    config.__dict__[opt] = None
-
     def get_config(self):
         for f in self.cfgFileList:
             if os.access(f, os.F_OK):
@@ -82,7 +76,7 @@ class  ConfManager:
         argoptions, files = self.cmdconfig.parse_args()
         
         #Makes self.defaultconfig compatible with argoptions by changing all '0' value attributes to None.
-        self._zero_to_none(self.defaultconfig, self.store_true_list)
+        _zero_to_none(self.defaultconfig, self.store_true_list)
     
         #If verbose isn't set at the command-line, it automatically gets set to zero. If it's at zero, change it to
         #None so the settings in the config files take precedence.
@@ -110,4 +104,9 @@ class  ConfManager:
             self.defaultconfig.files = files
 
         return self.defaultconfig   
-            
+
+def _zero_to_none(config, store_true_list):
+    for opt in config.keys():
+        for cmd in store_true_list:
+            if str(opt) == cmd and config.__dict__[opt] == '0':
+                config.__dict__[opt] = None
