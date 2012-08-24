@@ -162,14 +162,14 @@ class Dumper(dumper.XML_Dumper):
         self.pb_length = 20             #progress bar length
         self.pb_complete = " - Done!"   #string that's printed when progress bar is done.
         self.pb_char = "#"              #the string used as each unit in the progress bar.
-	self.hardlinks = hardlinks
+        self.hardlinks = hardlinks
 
-	self.start_date = start_date
-	self.end_date   = end_date
+        self.start_date = start_date
+        self.end_date   = end_date
         self.use_rhn_date = use_rhn_date
         self.whole_errata = whole_errata
 
-	if self.start_date:
+        if self.start_date:
             dates = { 'start_date' : self.start_date,
                       'end_date'   : self.end_date, }
         else:
@@ -183,10 +183,10 @@ class Dumper(dumper.XML_Dumper):
         try:
             query = """
                  select ch.id channel_id, label, 
-		      TO_CHAR(last_modified, 'YYYYMMDDHH24MISS') last_modified
-		   from rhnChannel ch
-		  where ch.label = :label
-		"""
+                      TO_CHAR(last_modified, 'YYYYMMDDHH24MISS') last_modified
+                   from rhnChannel ch
+                  where ch.label = :label
+                """
             self.channel_query = rhnSQL.Statement(query)
             ch_data = rhnSQL.prepare(self.channel_query)
 
@@ -253,9 +253,9 @@ class Dumper(dumper.XML_Dumper):
             else:
                 query = """
                          select rcp.package_id id, rp.path path
-		           from rhnChannelPackage rcp, rhnPackage rp
-		          where rcp.package_id = rp.id
-		            and rcp.channel_id = :channel_id
+                           from rhnChannelPackage rcp, rhnPackage rp
+                          where rcp.package_id = rp.id
+                            and rcp.channel_id = :channel_id
                     """
 
             if self.start_date:
@@ -309,13 +309,13 @@ class Dumper(dumper.XML_Dumper):
             if self.whole_errata and self.start_date:
                 query = """
                  select rp.id package_id,  
-		            TO_CHAR(rp.last_modified, 'YYYYMMDDHH24MISS') last_modified
+                            TO_CHAR(rp.last_modified, 'YYYYMMDDHH24MISS') last_modified
                  from rhnChannelPackage rcp, rhnPackage rp
                     left join rhnErrataPackage rep on rp.id = rep.package_id
                         left join rhnErrata re on rep.errata_id = re.id
-		         where rcp.channel_id = :channel_id
-		            and rcp.package_id = rp.id
-		    """
+                         where rcp.channel_id = :channel_id
+                            and rcp.package_id = rp.id
+                    """
             else:
                 query = """
                  select rp.id package_id,
@@ -379,12 +379,12 @@ class Dumper(dumper.XML_Dumper):
 
         ###SOURCE PACKAGE INFO###
         try:
-	    query = """
+            query = """
                   select ps.id package_id, 
-		         TO_CHAR(ps.last_modified,'YYYYMMDDHH24MISS') last_modified,
+                         TO_CHAR(ps.last_modified,'YYYYMMDDHH24MISS') last_modified,
                          ps.source_rpm_id source_rpm_id
                     from rhnPackageSource ps
-		"""
+                """
             if self.start_date:
                 if self.whole_errata:
                     query += """
@@ -412,13 +412,13 @@ class Dumper(dumper.XML_Dumper):
                         """
                 elif self.use_rhn_date:
                    query += """
-	           where ps.last_modified >= TO_TIMESTAMP(:start_date, 'YYYYMMDDHH24MISS')
-	             and ps.last_modified <= TO_TIMESTAMP(:end_date, 'YYYYMMDDHH24MISS')
+                   where ps.last_modified >= TO_TIMESTAMP(:start_date, 'YYYYMMDDHH24MISS')
+                     and ps.last_modified <= TO_TIMESTAMP(:end_date, 'YYYYMMDDHH24MISS')
                    """
                 else:
                    query += """
-	           where ps.modified >= TO_TIMESTAMP(:start_date, 'YYYYMMDDHH24MISS')
-	             and ps.modified <= TO_TIMESTAMP(:end_date, 'YYYYMMDDHH24MISS')
+                   where ps.modified >= TO_TIMESTAMP(:start_date, 'YYYYMMDDHH24MISS')
+                     and ps.modified <= TO_TIMESTAMP(:end_date, 'YYYYMMDDHH24MISS')
                    """
             self.source_package_query = rhnSQL.Statement(query)
             source_package_data = rhnSQL.prepare(self.source_package_query)
@@ -441,12 +441,12 @@ class Dumper(dumper.XML_Dumper):
         try:
             query = """
                    select e.id errata_id,
-		          TO_CHAR(e.last_modified,'YYYYMMDDHH24MISS') last_modified,
-		          e.advisory_name "advisory-name"
-	             from rhnChannelErrata ce, rhnErrata e
-		    where ce.channel_id = :channel_id
-		      and ce.errata_id = e.id
-		"""
+                          TO_CHAR(e.last_modified,'YYYYMMDDHH24MISS') last_modified,
+                          e.advisory_name "advisory-name"
+                     from rhnChannelErrata ce, rhnErrata e
+                    where ce.channel_id = :channel_id
+                      and ce.errata_id = e.id
+                """
             if self.start_date:
                 if self.use_rhn_date:
                     query += """
@@ -479,23 +479,23 @@ class Dumper(dumper.XML_Dumper):
         ###KICKSTART DATA/TREES INFO###
         try:
             query = """
-	        select  kt.id kstree_id, kt.label kickstart_label, 
-		        TO_CHAR(kt.last_modified, 'YYYYMMDDHH24MISS') last_modified
-		  from  rhnKickstartableTree kt
-		 where   kt.channel_id = :channel_id
-		 """
+                select  kt.id kstree_id, kt.label kickstart_label,
+                        TO_CHAR(kt.last_modified, 'YYYYMMDDHH24MISS') last_modified
+                  from  rhnKickstartableTree kt
+                 where   kt.channel_id = :channel_id
+                 """
             if self.start_date:
                 if self.use_rhn_date:
                    query += """
-		   and kt.last_modified >= TO_TIMESTAMP(:start_date, 'YYYYMMDDHH24MISS')
-		   and kt.last_modified <= TO_TIMESTAMP(:end_date, 'YYYYMMDDHH24MISS')
-		   and kt.org_id is Null
+                   and kt.last_modified >= TO_TIMESTAMP(:start_date, 'YYYYMMDDHH24MISS')
+                   and kt.last_modified <= TO_TIMESTAMP(:end_date, 'YYYYMMDDHH24MISS')
+                   and kt.org_id is Null
                    """
                 else:
                    query += """
-		   and kt.modified >= TO_TIMESTAMP(:start_date, 'YYYYMMDDHH24MISS')
-		   and kt.modified <= TO_TIMESTAMP(:end_date, 'YYYYMMDDHH24MISS')
-		   and kt.org_id is Null
+                   and kt.modified >= TO_TIMESTAMP(:start_date, 'YYYYMMDDHH24MISS')
+                   and kt.modified <= TO_TIMESTAMP(:end_date, 'YYYYMMDDHH24MISS')
+                   and kt.org_id is Null
                    """
             self.kickstart_trees_query = rhnSQL.Statement(query)
             kickstart_data = rhnSQL.prepare(self.kickstart_trees_query)
@@ -516,19 +516,19 @@ class Dumper(dumper.XML_Dumper):
         ###KICKSTART FILES INFO###
         try:
             query = """
-		    select rktf.relative_filename "relative-path", 
-		           c.checksum_type "checksum-type", c.checksum,
+                    select rktf.relative_filename "relative-path",
+                           c.checksum_type "checksum-type", c.checksum,
                            rktf.file_size "file-size",
-		           TO_CHAR(rktf.last_modified, 'YYYYMMDDHH24MISS') "last-modified", 
-			   rkt.base_path "base-path",
-		           rkt.label label, 
-			   TO_CHAR(rkt.modified, 'YYYYMMDDHH24MISS') "modified"
-		      from rhnKSTreeFile rktf, rhnKickstartableTree rkt,
+                           TO_CHAR(rktf.last_modified, 'YYYYMMDDHH24MISS') "last-modified",
+                           rkt.base_path "base-path",
+                           rkt.label label,
+                           TO_CHAR(rkt.modified, 'YYYYMMDDHH24MISS') "modified"
+                      from rhnKSTreeFile rktf, rhnKickstartableTree rkt,
                            rhnChecksumView c
-		     where rktf.kstree_id = :kstree_id
-		       and rkt.id = rktf.kstree_id
+                     where rktf.kstree_id = :kstree_id
+                       and rkt.id = rktf.kstree_id
                        and rktf.checksum_id = c.id
-	        """
+                """
             if self.start_date:
                 if self.use_rhn_date:
                     query += """
@@ -839,10 +839,10 @@ class Dumper(dumper.XML_Dumper):
                 try:
                     if self.hardlinks:
                         #Make hardlinks
-			try:
+                        try:
                             os.link(path_to_files, path_to_export_file)
-			except OSError:
-			    pass
+                        except OSError:
+                            pass
                     else:
                         #Copy file from satellite to export dir.
                         shutil.copyfile(path_to_files, path_to_export_file)
@@ -1177,7 +1177,7 @@ class ExporterMain:
                         else:
                             self.actionmap[action]['dump']()
 
-			# Now Compress the dump data
+                        # Now Compress the dump data
                         if action != 'rpms':
                             if action == 'arches-extra':
                                 action = 'arches'
@@ -1199,24 +1199,24 @@ class ExporterMain:
                                             compress_file(filepath)    
             if self.options.make_isos:
                 #iso_output = os.path.join(self.isos_dir, self.dump_dir)
-	        iso_output = self.isos_dir
-	        if not os.path.exists(iso_output):
-	            os.makedirs(iso_output)
-		            
-	        iss_isos.create_isos(self.outputdir, iso_output, \
+                iso_output = self.isos_dir
+                if not os.path.exists(iso_output):
+                    os.makedirs(iso_output)
+
+                iss_isos.create_isos(self.outputdir, iso_output, \
                           "rhn-export", self.start_date, self.end_date, 
-			  iso_type=self.options.make_isos)
+                          iso_type=self.options.make_isos)
 
                 # Generate md5sum digest file for isos
-	        if os.path.exists(iso_output):
-	            f = open(os.path.join(iso_output, 'MD5SUM'), 'w')
-		    for file in os.listdir(iso_output):
-		        if self.options.make_isos != "dvds":
-			    if file != "MD5SUM":
-		                md5_val = getFileChecksum('md5', (os.path.join(iso_output, file)))
-			        md5str = "%s  %s\n" % (md5_val, file)
-	                        f.write(md5str)
-	            f.close()
+                if os.path.exists(iso_output):
+                    f = open(os.path.join(iso_output, 'MD5SUM'), 'w')
+                    for file in os.listdir(iso_output):
+                        if self.options.make_isos != "dvds":
+                            if file != "MD5SUM":
+                                md5_val = getFileChecksum('md5', (os.path.join(iso_output, file)))
+                                md5str = "%s  %s\n" % (md5_val, file)
+                                f.write(md5str)
+                    f.close()
 
             if self.options.email:
                 sendMail()
