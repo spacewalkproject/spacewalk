@@ -1016,9 +1016,9 @@ def _to_db_timestamp(s):
         for i in range(len(_months)):
             if m == _months[i]:
                 break
-        else:
-            raise Exception("unknown month %s" % arr[0]), None, sys.exc_info()[2]
-        m = i + 1
+            else:
+                raise Exception("unknown month %s" % arr[0]), None, sys.exc_info()[2]
+            m = i + 1
 
     d = int(d)
     y = int(y)
