@@ -321,6 +321,7 @@ def create_patch_set_mpm(archive_parser, archive):
 def create_patch_mpm(archive_parser, prefix="", archive=""):
     """Create an mpm package from a parser holding a patch archive"""
 
+    # pylint: disable=R0915
     # have to have one or the other
     assert prefix or archive
 
