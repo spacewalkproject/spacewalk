@@ -219,6 +219,7 @@ def _run(archives=sys.argv[1:]):
             else:
                 raise MPMInputError("'%s' does not appear to contain Solaris content")
 
+        # pylint: disable=W0703
         except Exception, e:
             print "Error creating mpm for %s: %s" % (archive, repr(e))
 
