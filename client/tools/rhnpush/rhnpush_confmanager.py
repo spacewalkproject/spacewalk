@@ -64,6 +64,7 @@ class  ConfManager:
         self._files_to_list()
         
         #Change the channel string into a list of strings.
+        # pylint: disable=E1103
         if not self.defaultconfig.channel:
             #if no channel then make it null array instead of
             #an empty string array from of size 1 [''] .
