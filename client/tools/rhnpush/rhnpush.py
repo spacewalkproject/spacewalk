@@ -528,7 +528,7 @@ class UploadClass(uploadLib.UploadClass):
         return (checksum_data, pkg_hash, digest_hash)
 
 
-    def package(self, package, FileChecksumType, FileChecksum):
+    def package(self, package, fileChecksumType, fileChecksum):
         self.warn(1, "Uploading package %s" % package)
         if not os.access(package, os.R_OK):
             self.die(-1, "Could not read file %s" % package)
@@ -550,7 +550,7 @@ class UploadClass(uploadLib.UploadClass):
             raise uploadLib.UploadError("ERROR: %s: unsigned rpm (use --nosig to force)"% package)
 
         try:
-            ret = self._push_package_v2(package, FileChecksumType, FileChecksum)
+            ret = self._push_package_v2(package, fileChecksumType, fileChecksum)
         except uploadLib.UploadError, e:
             ret, diff_level, pdict = e.args[:3]
             severities = {
@@ -578,7 +578,7 @@ class UploadClass(uploadLib.UploadClass):
 
         return ret
 
-    def _push_package_v2(self, package, FileChecksumType, FileChecksum):
+    def _push_package_v2(self, package, fileChecksumType, fileChecksum):
         self.warn(1, "Using POST request")
         pu = rhnpush_v2.PackageUpload(self.url_v2, self.options.proxy)
 
@@ -586,7 +586,7 @@ class UploadClass(uploadLib.UploadClass):
         pu.set_force(self.options.force)
         pu.set_null_org(self.options.nullorg)
 
-        status, msgstr = pu.upload(package, FileChecksumType, FileChecksum)
+        status, msgstr = pu.upload(package, fileChecksumType, fileChecksum)
 
         ret = {}
         for tag in ('name', 'version', 'release', 'epoch', 'arch'):
@@ -595,8 +595,8 @@ class UploadClass(uploadLib.UploadClass):
                 val = ''
             ret[tag] = val
 
-        ret['checksum_type'] = FileChecksumType
-        ret['checksum'] = FileChecksum
+        ret['checksum_type'] = fileChecksumType
+        ret['checksum'] = fileChecksum
         if status == 400:
             # Bad request - something bad happened
             try:
