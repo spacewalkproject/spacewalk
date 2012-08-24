@@ -15,12 +15,10 @@
 
 # system imports
 import os
-import re
 import sys
 import fnmatch
 import getpass
 import rhnpush_cache
-import struct
 import xmlrpclib
 from spacewalk.common import rhn_mpm
 from spacewalk.common.rhn_pkg import package_from_filename, get_package_header
