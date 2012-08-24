@@ -1,5 +1,5 @@
 Name:		spacewalk-pylint
-Version:	0.5
+Version:	0.6
 Release:	1%{?dist}
 Summary:	Pylint configuration for spacewalk python packages
 
@@ -49,6 +49,9 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Fri Aug 24 2012 Michael Mraka <michael.mraka@redhat.com> 0.6-1
+- let's silence pylint on our large modules and objects
+
 * Mon Jun 04 2012 Miroslav Suchý <msuchy@redhat.com> 0.5-1
 - %%defattr is not needed since rpm 4.4 (msuchy@redhat.com)
 
