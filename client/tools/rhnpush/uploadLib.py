@@ -69,6 +69,10 @@ class UploadClass:
         self.new_sat = None
         self.url = None
         self.channels = None
+        self.count = None
+        self.server = None
+        self.session = None
+        self.orgId = None
 
     def warn(self, verbose, *args):
         if self.options.verbose >= verbose:
