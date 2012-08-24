@@ -1352,8 +1352,6 @@ class _KickstartableTreeDumper(BaseRowDumper):
     def set_attributes(self):
         row_dict = self._row.copy()
         del dict['id']
-        # XXX Should we export this one?
-        #del dict['base-path']
         last_modified = row_dict['last-modified']
         row_dict['last-modified'] = _dbtime2timestamp(last_modified)
         return row_dict
