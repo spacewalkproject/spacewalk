@@ -987,11 +987,11 @@ def _normalizeAttribute(objtype, attribute):
         # (Don't know how to handle it) or (Expecting a scalar)
         return attribute
     elif objtype is types.IntType:
-            if attribute == '' or attribute == 'None':
-                # Treat it as NULL
-                return None
-            else:
-                return int(attribute)
+        if attribute == '' or attribute == 'None':
+            # Treat it as NULL
+            return None
+        else:
+            return int(attribute)
     elif objtype is importLib.DateType:
         return _normalizeDateType(attribute)
     elif isinstance(objtype, types.ListType):
