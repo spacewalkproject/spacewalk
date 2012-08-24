@@ -52,18 +52,18 @@ class XMLWriter:
         # Converts the string to the desired encoding
         return unicode(s, self.charset).encode(self.encoding)
 
-    def open_tag(self, name, attributes={}, namespace=None):
+    def open_tag(self, name, attributes=None, namespace=None):
         "Opens a tag with the specified attributes"
         return self._open_tag(None, name, attributes=attributes, 
             namespace=namespace)
 
-    def empty_tag(self, name, attributes={}, namespace=None):
+    def empty_tag(self, name, attributes=None, namespace=None):
         "Writes an empty tag with the specified attributes"
         return self._open_tag(1, name, attributes=attributes,
             namespace=namespace)
     
     # Now the function that does most of the work for open_tag and empty_tag
-    def _open_tag(self, empty, name, attributes={}, namespace=None):
+    def _open_tag(self, empty, name, attributes=None, namespace=None):
         if namespace:
             name = "%s:%s" % (namespace, name)
         self.stream.write("<")
