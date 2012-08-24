@@ -542,7 +542,7 @@ def populate_channel_family_permissions(cert):
             quant = int(quant)
         flex = cf.flex
         if flex == '':
-           flex = 0
+            flex = 0
         if flex is not None:
             flex = int(flex)
 
