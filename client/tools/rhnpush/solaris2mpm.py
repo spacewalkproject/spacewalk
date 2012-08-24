@@ -192,9 +192,9 @@ def _run(archives=sys.argv[1:]):
                 set_mpm = create_patch_set_mpm(archive_parser, archive)
                 write_mpm(set_mpm)
                 # create the individual patch mpms
-                patches, x = archive_parser.list()
+                patches, _dummy = archive_parser.list()
                 if patches == ['patches']:
-                    patches, x = archive_parser.list('patches/')
+                    patches, _dummy = archive_parser.list('patches/')
                 for dirname in patches:
                     patch_mpm = create_patch_mpm(archive_parser, prefix=dirname)
                     write_mpm(patch_mpm)
@@ -208,7 +208,7 @@ def _run(archives=sys.argv[1:]):
 
             # package
             elif _is_package_archive(archive_parser):
-                pkgs, x = archive_parser.list()
+                pkgs, _dummy = archive_parser.list()
                 for dirname in pkgs:
                     pkg_mpm = create_pkg_mpm(archive_parser, prefix=dirname)
                     write_mpm(pkg_mpm)
@@ -359,7 +359,7 @@ def create_patch_mpm(archive_parser, prefix="", archive=""):
     # recent format has files in patches subdir
     if os.path.isdir(os.path.join(archive_parser._archive_dir, patch_path_with_subdir)):
         patch_path = patch_path_with_subdir
-    pkgs, x = archive_parser.list(patch_path)
+    pkgs, _dummy = archive_parser.list(patch_path)
 
     for pkg in pkgs:
         pkginfo_file = os.path.join(prefix, pkg, 'pkginfo')
@@ -468,7 +468,7 @@ def parse_pkginfo(pkginfo_str):
                   "PSTAMP=":    "pstamp",
                   "VENDOR=":    "vendor" }
 
-    parse_dict, x = parser(lines, trans_dict.keys(), "=")
+    parse_dict, _dummy = parser(lines, trans_dict.keys(), "=")
 
     dct = _translate_dict(trans_dict, parse_dict)
 
@@ -512,7 +512,7 @@ def compose_pstamp_and_release(header):
         try:
             pstamp = _extract_pstamp_as_release(header['pstamp'])
             pstamp_part = delimiter + pstamp
-        except PStampParseException, pspe:
+        except PStampParseException:
             # Could not convert the pstamp into a release number.  Just use
             # the raw string.
             pstamp = header['pstamp']
@@ -661,7 +661,7 @@ def parse_cluster_readme(readme_string):
                    "DATE:":                 "date",
                    "CLUSTER DESCRIPTION":   "description" }
 
-    parse_dict, x = parser(lines, trans_dict.keys(), ":")
+    parse_dict, _dummy = parser(lines, trans_dict.keys(), ":")
 
     dct = _translate_dict(trans_dict, parse_dict)
     # munge some fields
@@ -683,7 +683,7 @@ def parse_patch_readme(readme_string):
                    "SunOS Release:":            "sunos_rel",
                    "Relevant Architectures:":   "target_arch" }
 
-    parse_dict, x = parser(lines, trans_dict.keys(), ":")
+    parse_dict, _dummy = parser(lines, trans_dict.keys(), ":")
 
     dct = _translate_dict(trans_dict, parse_dict)
     # Munge munge munge
@@ -706,7 +706,7 @@ def parse_patchinfo(patchinfo_string):
                    "PATCH_INCOMPAT=":   "conflicts",
                    "PATCH_OBSOLETES=":  "obsoletes" }
 
-    parse_dict, x = parser(lines, trans_dict.keys(), "=")
+    parse_dict, _dummy = parser(lines, trans_dict.keys(), "=")
 
     dct = _translate_dict(trans_dict, parse_dict)
 
@@ -748,7 +748,7 @@ def parse_patch_pkginfo(pkginfo_string):
                    "SUNW_REQUIRES=":    "requires",
                    "SUNW_INCOMPAT=":    "conflicts" }
 
-    parse_dict, x = parser(lines, trans_dict.keys(), "=")
+    parse_dict, _dummy = parser(lines, trans_dict.keys(), "=")
 
     dct = _translate_dict(trans_dict, parse_dict)
 
@@ -1039,7 +1039,6 @@ def parser(lines, sections, delim):
     """
 
     resp = {}
-    sect_dict = {}
 
     section = None
     content = []
