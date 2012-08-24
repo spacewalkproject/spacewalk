@@ -26,6 +26,7 @@ import ConfigParser
 #Uses a ConfigParser to create a dictionary of the configuration options.
 #That dictionary is then used to add instance variables to the object dynamically.
 class rhnpushConfigParser:
+    # pylint: disable=W0201
     _instance = None
 
     def __init__(self, filename=None, ensure_consistency=False):
