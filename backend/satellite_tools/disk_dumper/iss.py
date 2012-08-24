@@ -417,15 +417,15 @@ class Dumper(dumper.XML_Dumper):
                          )
                         """
                 elif self.use_rhn_date:
-                   query += """
-                   where ps.last_modified >= TO_TIMESTAMP(:start_date, 'YYYYMMDDHH24MISS')
+                    query += """
+                    where ps.last_modified >= TO_TIMESTAMP(:start_date, 'YYYYMMDDHH24MISS')
                      and ps.last_modified <= TO_TIMESTAMP(:end_date, 'YYYYMMDDHH24MISS')
-                   """
+                    """
                 else:
-                   query += """
-                   where ps.modified >= TO_TIMESTAMP(:start_date, 'YYYYMMDDHH24MISS')
+                    query += """
+                    where ps.modified >= TO_TIMESTAMP(:start_date, 'YYYYMMDDHH24MISS')
                      and ps.modified <= TO_TIMESTAMP(:end_date, 'YYYYMMDDHH24MISS')
-                   """
+                    """
             self.source_package_query = rhnSQL.Statement(query)
             source_package_data = rhnSQL.prepare(self.source_package_query)
             source_package_data.execute(**dates)
@@ -496,17 +496,17 @@ class Dumper(dumper.XML_Dumper):
                  """
             if self.start_date:
                 if self.use_rhn_date:
-                   query += """
-                   and kt.last_modified >= TO_TIMESTAMP(:start_date, 'YYYYMMDDHH24MISS')
-                   and kt.last_modified <= TO_TIMESTAMP(:end_date, 'YYYYMMDDHH24MISS')
-                   and kt.org_id is Null
-                   """
+                    query += """
+                    and kt.last_modified >= TO_TIMESTAMP(:start_date, 'YYYYMMDDHH24MISS')
+                    and kt.last_modified <= TO_TIMESTAMP(:end_date, 'YYYYMMDDHH24MISS')
+                    and kt.org_id is Null
+                    """
                 else:
-                   query += """
-                   and kt.modified >= TO_TIMESTAMP(:start_date, 'YYYYMMDDHH24MISS')
-                   and kt.modified <= TO_TIMESTAMP(:end_date, 'YYYYMMDDHH24MISS')
-                   and kt.org_id is Null
-                   """
+                    query += """
+                    and kt.modified >= TO_TIMESTAMP(:start_date, 'YYYYMMDDHH24MISS')
+                    and kt.modified <= TO_TIMESTAMP(:end_date, 'YYYYMMDDHH24MISS')
+                    and kt.org_id is Null
+                    """
             self.kickstart_trees_query = rhnSQL.Statement(query)
             kickstart_data = rhnSQL.prepare(self.kickstart_trees_query)
             self.kickstart_trees = []
