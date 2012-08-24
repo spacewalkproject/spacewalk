@@ -306,9 +306,9 @@ def activateSatellite_remote(options):
         ret = s.satellite.activate_satellite(systemid, rhn_cert)
     except rpclib.xmlrpclib.Fault, f:
         sys.stderr.write("Error reported from RHN: %s\n" % f)
-	# NOTE: we support the old (pre-cactus) web-handler API and the new.
-	# The old web handler used faultCodes of 1|-1 and the new API uses
-	# faultCodes in the range [1020, ..., 1039]
+        # NOTE: we support the old (pre-cactus) web-handler API and the new.
+        # The old web handler used faultCodes of 1|-1 and the new API uses
+        # faultCodes in the range [1020, ..., 1039]
         if oldApiYN and abs(f.faultCode) == 1:
             sys.stderr.write(
                 'ERROR: error upon attempt to activate this %s\n'
@@ -633,10 +633,10 @@ def main():
             except PopulateChannelFamiliesException, e:
                 writeError(e)
                 return 40
-	else:
+        else:
             # We're disconnected so we'll only update the channels we
             # already know about.
-	    localUpdateChannels()
+            localUpdateChannels()
 
     return 0
 
