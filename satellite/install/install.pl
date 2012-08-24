@@ -339,6 +339,8 @@ Proxy Password: Not displayed - see /etc/sysconfig/rhn/up2date:proxyPassword
 Import values to be used by Satellite [y/n]",
         -test => qr/\S+/,
         -answer => \$proxyAccept);
+  } else {
+    $proxyAccept = 'n';
   }
   if ($proxyAccept eq 'y') {
     $answers->{'rhn-http-proxy'} = $up2dateopts->{'httpProxy'};
