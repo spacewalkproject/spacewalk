@@ -500,7 +500,7 @@ class ChannelsDumper(BaseSubelementDumper):
     subelement_dumper_class = _ChannelDumper
 
     def __init__(self, writer, channels=[]):
-        BaseDumper.__init__(self, writer)
+        BaseSubelementDumper.__init__(self, writer)
         self._channels = channels
 
     def set_iterator(self):
@@ -611,7 +611,7 @@ class ChannelFamiliesDumper(BaseQueryDumper):
 
     def __init__(self, writer, data_iterator=None, ignore_subelements=0, 
             null_max_members=1, virt_filter=0):
-        BaseDumper.__init__(self, writer, data_iterator=data_iterator)
+        BaseQueryDumper.__init__(self, writer, data_iterator=data_iterator)
         self._ignore_subelements = ignore_subelements
         self._null_max_members = null_max_members
         self.virt_filter = virt_filter
