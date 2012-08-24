@@ -52,6 +52,7 @@ RPMTAG_NOSOURCE = 1051
 
 def main():
     # Initialize a command-line processing object with a table of options
+    # pylint: disable=C0301
     optionsTable = [
         Option('-v','--verbose',    action='count',      help='Increase verbosity', default=0),
         Option('-d','--dir',        action='store',      help='Process packages from this directory'),
@@ -81,6 +82,7 @@ def main():
         Option(     '--tolerant',   action='store_true', 
             help='If rhnpush errors while uploading a package, continue uploading the rest of the packages.')
     ]
+    # pylint: enable=C0301
 
     #Having to maintain a store_true list is ugly. I'm trying to get rid of this.
     true_list = ['usage', 'test', 'source', 'header', 'nullorg', 'newest', \
@@ -356,7 +358,11 @@ class UploadClass(uploadLib.UploadClass):
                 if self.options.force:
                     self.warn(1, "Package checksum %s mismatch  -- Forcing Upload" % pkg)
                 else:
-                    msg = """Error: Package %s already exists on the server with a different checksum. Skipping upload to prevent overwriting existing package. (You may use rhnpush with the --force option to force this upload if the force_upload option is enabled on your server.)\n"""% pkg
+                    msg = "Error: Package %s already exists on the server with" \
+                          " a different checksum. Skipping upload to prevent" \
+                          " overwriting existing package. (You may use rhnpush with" \
+                          " the --force option to force this upload if the" \
+                          " force_upload option is enabled on your server.)\n" % pkg
                     if not self.options.tolerant:
                         self.die(-1, msg)
                     self.warn(0, msg)
@@ -499,19 +505,23 @@ class UploadClass(uploadLib.UploadClass):
             # could have expired.Make sure its re-authenticated.
             self.authenticate()
             if uploadLib.exists_getPackageChecksumBySession(self.server):
-                checksum_data = uploadLib.getPackageChecksumBySession(self.server, self.session.getSessionString(), info)
+                checksum_data = uploadLib.getPackageChecksumBySession(self.server,
+                                                self.session.getSessionString(), info)
             else:
                 # old server only md5 capable
-                checksum_data = uploadLib.getPackageMD5sumBySession(self.server, self.session.getSessionString(), info)
+                checksum_data = uploadLib.getPackageMD5sumBySession(self.server,
+                                                self.session.getSessionString(), info)
         else:
             # computing checksum and other info is expensive process and session
             # could have expired.Make sure its re-authenticated.
             self.authenticate()
             if uploadLib.exists_getPackageChecksumBySession(self.server):
-                checksum_data = uploadLib.getSourcePackageChecksumBySession(self.server, self.session.getSessionString(), info)
+                checksum_data = uploadLib.getSourcePackageChecksumBySession(self.server,
+                                                self.session.getSessionString(), info)
             else:
                 # old server only md5 capable
-                checksum_data = uploadLib.getSourcePackageMD5sumBySession(self.server, self.session.getSessionString(), info)
+                checksum_data = uploadLib.getSourcePackageMD5sumBySession(self.server,
+                                                self.session.getSessionString(), info)
 
         return (checksum_data, pkg_hash, digest_hash)
 
