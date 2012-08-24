@@ -22,21 +22,7 @@ import socket
 import sys
 import time
 
-try:
-    import hashlib
-except ImportError:
-    import md5
-    class hashlib:
-        @staticmethod
-        def new(checksum):
-            # Add sha1 if needed.
-            if checksum == 'md5':
-                return md5.new()
-            # if not md5 or sha1, its invalid
-            if checksum not in ['md5', 'sha1']:
-                raise ValueError, "Incompatible checksum type"
-
-from spacewalk.common import rhn_mpm
+from spacewalk.common import rhn_mpm, checksum
 
 from archive import get_archive_parser
 
@@ -663,17 +649,7 @@ def provide_self(header):
 def md5sum_for_stream(data_stream):
     """Calcualte the md5sum for a datastream and return it in a utf8 friendly
     format"""
-
-    md5obj = hashlib.new('md5')
-    while True:
-        buf = data_stream.read(1024000)
-        if buf:
-            md5obj.update(buf)
-        else:
-            break
-    data_stream.seek(0)
-
-    return md5obj.hexdigest()
+    return checksum.getFileChecksum('md5', file_obj=data_stream)
 
 # patch set mpm creation -------------------------------------------------
 
