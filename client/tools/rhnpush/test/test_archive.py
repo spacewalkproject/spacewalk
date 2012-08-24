@@ -63,22 +63,26 @@ class ArchiveTest(unittest.TestCase):
 
     # test methods -------------------------------------------------------
 
-    def testInstantiation(self):
+    @staticmethod
+    def testInstantiation():
         "test the instantiation of an archive parser object"
         p = archive.get_archive_parser(TEST_ARCHIVE)
         assert isinstance(p, archive.ArchiveParser)
 
-    def testFind(self):
+    @staticmethod
+    def testFind():
         "test the ability of the parser to find a file in the archive"
         p = archive.get_archive_parser(TEST_ARCHIVE)
         assert p.contains(TEST_FILE)
 
-    def testFindPath(self):
+    @staticmethod
+    def testFindPath():
         "test the ability of the parser to find a subpath in the archive"
         p = archive.get_archive_parser(TEST_ARCHIVE)
         assert p.contains("foo/bar/" + TEST_FILE)
 
-    def testRead(self):
+    @staticmethod
+    def testRead():
         "test the ability of the parser to read a file in the archive"
         p = archive.get_archive_parser(TEST_ARCHIVE)
         contents = p.read(TEST_FILE)
