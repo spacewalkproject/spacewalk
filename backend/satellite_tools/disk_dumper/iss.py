@@ -59,11 +59,11 @@ class ISSChannelPackageShortDiskSource:
     def _getFile(self):
         return os.path.join(self.mp, self.pathkey % (self.channelid,))
 
-""" This class maps dumps to files. In other words, you give it
-the type of dump you're doing and it gives you the file to
-write it to. 
-"""
 class FileMapper:
+    """ This class maps dumps to files. In other words, you give it
+    the type of dump you're doing and it gives you the file to
+    write it to.
+    """
     def __init__(self, mount_point):
         self.mp = mount_point
         self.filemap = {
@@ -148,11 +148,11 @@ class FileMapper:
         self.filemap['kickstart_files'].set_relative_path(relative_path)
         return self.setup_file(self.filemap['kickstart_files']._getFile())
 
-""" This class subclasses the XML_Dumper class. It overrides
- the _get_xml_writer method and adds a set_stream method,
- which will let it write to a file instead of over the wire.
-"""
 class Dumper(dumper.XML_Dumper): 
+    """ This class subclasses the XML_Dumper class. It overrides
+     the _get_xml_writer method and adds a set_stream method,
+     which will let it write to a file instead of over the wire.
+    """
     def __init__(self, outputdir, channel_labels, hardlinks, start_date, \
                   end_date, use_rhn_date, whole_errata):
         dumper.XML_Dumper.__init__(self)
