@@ -373,7 +373,7 @@ class UploadClass(uploadLib.UploadClass):
                     self.warn(0, msg)
                     continue
                 
-            for t in range(0, tries):
+            for _t in range(0, tries):
                 try:
                     ret = self.package(pkg, checksum_type, checksum)
                     if ret is None:
@@ -392,7 +392,7 @@ class UploadClass(uploadLib.UploadClass):
                     if not self.options.tolerant:
                         self.die(1, ue)
                     self.warn(2, ue)
-                except AuthenticationRequired, a:
+                except AuthenticationRequired:
                     #session expired so we re-authenticate for the process to complete
                     #this uses the username and password from memory if available
                     #else it prompts for one.
@@ -460,7 +460,7 @@ class UploadClass(uploadLib.UploadClass):
                 a_pkg = package_from_filename(pkg)
                 a_pkg.read_header()
                 a_pkg.payload_checksum()
-            except InvalidPackageError, e:
+            except InvalidPackageError:
                 if not self.options.tolerant:
                     self.die(-1, "ERROR: %s: This file doesn't appear to be a package" % pkg)
                 self.warn(2, "ERROR: %s: This file doesn't appear to be a package" % pkg)
