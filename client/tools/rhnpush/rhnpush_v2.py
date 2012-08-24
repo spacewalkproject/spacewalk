@@ -43,7 +43,8 @@ class PackageUpload(connection.PackageUpload):
             self.headers["%s-%s" % (self.header_prefix, "Null-Org")] = "1"
 
     # Encodes an array of variables into Base64 (column-separated)
-    def encode_values(self, arr):
+    @staticmethod
+    def encode_values(arr):
         val = ':'.join(map(lambda x: x.strip(), map(base64.encodestring, arr)))
         # Get rid of the newlines
         val = val.replace('\n', '')
