@@ -20,6 +20,8 @@
         <input type="hidden" name="hiddenBondSlaveInterfaces" value="${rhn:arrayToString(form.bondSlaveInterfaces)}" />
         <input type="hidden" name="bondStatic" value="${form.bondStatic}" />
         <input type="hidden" name="bondAddress" value="${form.bondAddress}" />
+        <input type="hidden" name="bondNetmask" value="${form.bondNetmask}" />
+        <input type="hidden" name="bondGateway" value="${form.bondGateway}" />
 
         <!-- Store useful id fields-->
         <input type="hidden" name="wizardStep" value="first" id="wizard-step" />

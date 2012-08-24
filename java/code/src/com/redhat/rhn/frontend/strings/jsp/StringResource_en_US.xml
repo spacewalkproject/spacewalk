@@ -9802,42 +9802,70 @@ Please note that some manual configuration of these scripts may still be require
   </trans-unit>
 
   <trans-unit id="kickstart.postnetconn.bondname.jsp.label">
-    <source>Bond name</source>
+    <source>Name</source>
     <context-group name="ctx">
       <context context-type="sourcefile">/rhn/kickstart/KickstartSystemDetailsEdit</context>
     </context-group>
   </trans-unit>
 
   <trans-unit id="kickstart.postnetconn.bondinterfaces.jsp.label">
-    <source>Interfaces to bond</source>
+    <source>Interfaces</source>
     <context-group name="ctx">
       <context context-type="sourcefile">/rhn/kickstart/KickstartSystemDetailsEdit</context>
     </context-group>
   </trans-unit>
 
   <trans-unit id="kickstart.postnetconn.bondoptions.jsp.label">
-    <source>Bond options</source>
+    <source>Options</source>
     <context-group name="ctx">
       <context context-type="sourcefile">/rhn/kickstart/KickstartSystemDetailsEdit</context>
     </context-group>
   </trans-unit>
 
   <trans-unit id="kickstart.postnetconn.bondoptionstip.jsp.label">
-    <source>Bond options are a space-separated list of any valid "bonding" kernel module options. Common options include mode=[0,1,2] (0 is round-robin, 1 is active-backup, 2 is balance-xor) and miimon=100</source>
+    <source>Options is a space-separated list of any valid "bonding" kernel module options. Common options include mode=[0,1,2] (0 is round-robin, 1 is active-backup, 2 is balance-xor) and miimon=100</source>
     <context-group name="ctx">
       <context context-type="sourcefile">/rhn/kickstart/KickstartSystemDetailsEdit</context>
     </context-group>
   </trans-unit>
 
   <trans-unit id="kickstart.postnetconn.bondstatic.jsp.label">
-    <source>Use static networking with this IP address:</source>
+    <source>Use static networking</source>
+    <context-group name="ctx">
+      <context context-type="sourcefile">/rhn/kickstart/KickstartSystemDetailsEdit</context>
+    </context-group>
+  </trans-unit>
+
+  <trans-unit id="kickstart.postnetconn.bondaddress.jsp.label">
+    <source>IP address:</source>
+    <context-group name="ctx">
+      <context context-type="sourcefile">/rhn/kickstart/KickstartSystemDetailsEdit</context>
+    </context-group>
+  </trans-unit>
+
+  <trans-unit id="kickstart.postnetconn.bondnetmask.jsp.label">
+    <source>Netmask:</source>
+    <context-group name="ctx">
+      <context context-type="sourcefile">/rhn/kickstart/KickstartSystemDetailsEdit</context>
+    </context-group>
+  </trans-unit>
+
+  <trans-unit id="kickstart.postnetconn.bondgateway.jsp.label">
+    <source>Gateway:</source>
     <context-group name="ctx">
       <context context-type="sourcefile">/rhn/kickstart/KickstartSystemDetailsEdit</context>
     </context-group>
   </trans-unit>
 
   <trans-unit id="kickstart.postnetconn.bonddhcp.jsp.label">
-    <source>Use DHCP to acquire an IP address</source>
+    <source>Use DHCP</source>
+    <context-group name="ctx">
+      <context context-type="sourcefile">/rhn/kickstart/KickstartSystemDetailsEdit</context>
+    </context-group>
+  </trans-unit>
+
+  <trans-unit id="kickstart.postnetconn.bonddescription.jsp.label">
+    <source>Configure the bond:</source>
     <context-group name="ctx">
       <context context-type="sourcefile">/rhn/kickstart/KickstartSystemDetailsEdit</context>
     </context-group>

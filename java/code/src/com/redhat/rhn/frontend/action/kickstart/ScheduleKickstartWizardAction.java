@@ -115,6 +115,8 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
     public static final String HIDDEN_BOND_SLAVE_INTERFACES = "hiddenBondSlaveInterfaces";
     public static final String BOND_STATIC = "bondStatic";
     public static final String BOND_IP_ADDRESS = "bondAddress";
+    public static final String BOND_NETMASK = "bondNetmask";
+    public static final String BOND_GATEWAY = "bondGateway";
     public static final String BOND_OPTIONS = "bondOptions";
     public static final String CREATE_BOND_VALUE = "bonding";
     public static final String STATIC_BOND_VALUE = "true";
@@ -154,6 +156,7 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
         /**
          * {@inheritDoc}
          */
+        @Override
         public List getResult(RequestContext ctx) {
             Long sid = ctx.getParamAsLong(RequestContext.SID);
             User user = ctx.getCurrentUser();
@@ -246,6 +249,10 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
 
             if (StringUtils.isBlank(form.getString(BOND_IP_ADDRESS))) {
                 form.set(BOND_IP_ADDRESS, oldBond.getIpaddr());
+            }
+
+            if (StringUtils.isBlank(form.getString(BOND_NETMASK))) {
+                form.set(BOND_NETMASK, oldBond.getNetmask());
             }
         }
 
@@ -571,17 +578,8 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
             if (STATIC_BOND_VALUE.equals(form.getString(BOND_STATIC))) {
                 cmd.setBondDhcp(false);
                 cmd.setBondAddress(form.getString(BOND_IP_ADDRESS));
-                List<NetworkInterface> nics = getPublicNetworkInterfaces(cmd
-                        .getServer());
-                String netmask = "255.255.255.0";
-                for (NetworkInterface nic : nics) {
-                    if (nic.isPublic() && nic.getNetmask() != null &&
-                            !StringUtils.isEmpty(nic.getNetmask())) {
-                        netmask = nic.getNetmask();
-                        break;
-                    }
-                }
-                cmd.setBondNetmask(netmask);
+                cmd.setBondNetmask(form.getString(BOND_NETMASK));
+                cmd.setBondGateway(form.getString(BOND_GATEWAY));
             }
             else {
                 cmd.setBondDhcp(true);
@@ -758,33 +756,62 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
         }
 
         String[] slaves = (String[]) form.get(BOND_SLAVE_INTERFACES);
+        ActionErrors errors = new ActionErrors();
 
         // if we are trying to create a bond but have not specified a name or at
         // least one slave interface
         if (form.getString(BOND_TYPE).equals(CREATE_BOND_VALUE) &&
                 (StringUtils.isBlank(form.getString(BOND_INTERFACE)) ||
                         slaves.length < 1 || StringUtils.isBlank(slaves[0]))) {
-            ActionErrors errors = new ActionErrors();
             errors.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
                     "kickstart.bond.not.defined.jsp"));
-            addErrors(ctx.getRequest(), errors);
-            return false;
         }
 
-        final String ipaddressPattern = "^([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\." +
+        final String ipv4addressPattern = "^([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\." +
                 "([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\." +
                 "([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\." +
                 "([01]?\\d\\d?|2[0-4]\\d|25[0-5])$";
 
-        if (form.getString(BOND_STATIC).equals(STATIC_BOND_VALUE) &&
-                !form.getString(BOND_IP_ADDRESS).matches(ipaddressPattern)) {
-            ActionErrors errors = new ActionErrors();
-            errors.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
-                    "kickstart.bond.bad.ip.address.jsp"));
+        /*
+         * The IPv6 address regex was created by Stephen Ryan at Dartware
+         * and taken from this forum: http://forums.intermapper.com/viewtopic.php?t=452
+         * It is licenced under a Creative Commons Attribution-ShareAlike 3.0 Unported
+         * License. We can freely use it in (even in commercial products) as long as
+         * we attribute its creation to him, so don't remove this message.
+         */
+        final String ipv6addressPattern = "^(((?=(?>.*?::)(?!.*::)))(::)?([0-9A-" +
+                "F]{1,4}::?){0,5}|([0-9A-F]{1,4}:){6})(\\2([0-9A-F]{1,4}(::?|$))" +
+                "{0,2}|((25[0-5]|(2[0-4]|1\\d|[1-9])?\\d)(\\.|$)){4}|[0-9A-F]{1," +
+                "4}:[0-9A-F]{1,4})(?<![^:]:|\\.)\\z";
+
+        if (form.getString(BOND_STATIC).equals(STATIC_BOND_VALUE)) {
+            String address = form.getString(BOND_IP_ADDRESS);
+            String netmask = form.getString(BOND_NETMASK);
+            String gateway = form.getString(BOND_GATEWAY);
+
+            if (!address.matches(ipv4addressPattern) &&
+                    !address.matches(ipv6addressPattern)) {
+                errors.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
+                        "kickstart.bond.bad.ip.address.jsp"));
+            }
+
+            if (!netmask.matches(ipv4addressPattern) &&
+                    !netmask.matches(ipv6addressPattern)) {
+                errors.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
+                        "kickstart.bond.bad.netmask.jsp"));
+            }
+
+            if (!gateway.matches(ipv4addressPattern) &&
+                    !gateway.matches(ipv6addressPattern)) {
+                errors.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
+                        "kickstart.bond.bad.ip.address.jsp"));
+            }
+        }
+
+        if (errors.size() > 0) {
             addErrors(ctx.getRequest(), errors);
             return false;
         }
-
         return true;
     }
 

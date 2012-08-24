@@ -41,6 +41,8 @@ function enableBondStaticIpAddress() {
     var staticBond = document.getElementById("kickstartScheduleWizardForm").bondStatic
     if (getCheckedValue(staticBond) == 'true') {
         document.getElementById("bondAddress").disabled = false
+        document.getElementById("bondNetmask").disabled = false
+        document.getElementById("bondGateway").disabled = false
     }
 }
     </script>

@@ -7,7 +7,7 @@
         <td>
         <input type="radio" name="bondType" value="none"
               onclick="form.masterInterfaceName.disabled = true; form.slaveInterfaceNames.disabled = true; form.bondingInterfaceOptions.disabled = true;
-              form.bondStaticTrue.disabled = true; form.bondStaticFalse.disabled = true; form.bondAddress.disabled = true;"
+              form.bondStaticTrue.disabled = true; form.bondStaticFalse.disabled = true; form.bondAddress.disabled = true; form.bondNetmask.disabled = true; form.bondGateway.disabled = true;"
               <c:if test="${form.bondType == null || form.bondType == 'none'}">checked="checked"</c:if>
               />
         <bean:message key="kickstart.postnetconn.none.jsp.label"/>&nbsp;
@@ -20,25 +20,40 @@
         <bean:message key="kickstart.postnetconn.bonding.jsp.label" />&nbsp;
         <br />
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="bondStatic" id="bondStaticTrue" value="true"
-              onclick="form.bondAddress.disabled = false;"
+              onclick="form.bondAddress.disabled = false; form.bondNetmask.disabled = false; form.bondGateway.disabled = false;"
               <c:if test="${form.bondStatic == null || form.bondStatic != 'false'}">checked="checked"</c:if>
               <c:if test="${form.bondType ne 'bonding'}">disabled="true"</c:if>/>
-        <bean:message key="kickstart.postnetconn.bondstatic.jsp.label" />&nbsp;
-        <input type="test" name="bondAddress" id="bondAddress" size="15" Maxlength="15"
+        <bean:message key="kickstart.postnetconn.bondstatic.jsp.label" />
+        <br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<bean:message key="kickstart.postnetconn.bondaddress.jsp.label" />&nbsp;
+        <input type="test" name="bondAddress" id="bondAddress" size="15" Maxlength="39"
               <c:if test="${form.bondType ne 'bonding' && form.bondStatic ne 'true'}">disabled="true"</c:if>
               value="${form.bondAddress}"/>
         <br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<bean:message key="kickstart.postnetconn.bondnetmask.jsp.label" />&nbsp;
+        <input type="test" name="bondNetmask" id="bondNetmask" size="15" Maxlength="39"
+              <c:if test="${form.bondType ne 'bonding' && form.bondStatic ne 'true'}">disabled="true"</c:if>
+              value="${form.bondNetmask}"/>
+        <br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<bean:message key="kickstart.postnetconn.bondgateway.jsp.label" />&nbsp;
+        <input type="test" name="bondGateway" id="bondGateway" size="15" Maxlength="39"
+              <c:if test="${form.bondType ne 'bonding' && form.bondStatic ne 'true'}">disabled="true"</c:if>
+              value="${form.bondGateway}"/>
+        <br />
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="bondStatic" id="bondStaticFalse" value="false"
-              onclick="form.bondAddress.disabled = true;"
+              onclick="form.bondAddress.disabled = true; form.bondNetmask.disabled = true; form.bondGateway.disabled = true;"
               <c:if test="${form.bondStatic == 'false'}">checked="checked"</c:if>
               <c:if test="${form.bondType ne 'bonding'}">disabled="true"</c:if>/>
         <bean:message key="kickstart.postnetconn.bonddhcp.jsp.label" />&nbsp;
+        <br />
+        <br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<bean:message key="kickstart.postnetconn.bonddescription.jsp.label" />
         <br />
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<bean:message key="kickstart.postnetconn.bondname.jsp.label" />:&nbsp;
         <input type="text" name="bondInterface" id="masterInterfaceName" size="5" Maxlength="10"
                 <c:if test="${form.bondType ne 'bonding'}">disabled="true"</c:if>
                 value="${form.bondInterface}"/>
-        &nbsp;<bean:message key="kickstart.postnetconn.bondinterfaces.jsp.label" />:&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<bean:message key="kickstart.postnetconn.bondinterfaces.jsp.label" />:&nbsp;
         <select name="bondSlaveInterfaces" id="slaveInterfaceNames" multiple="multiple"
             <c:if test="${form.bondType ne 'bonding'}">disabled="true"</c:if>
             >
@@ -48,7 +63,7 @@
                 value='${nic.name}'>${nic.name}</option>
             </c:forEach>
         </select>
-        &nbsp;<bean:message key="kickstart.postnetconn.bondoptions.jsp.label" />:&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<bean:message key="kickstart.postnetconn.bondoptions.jsp.label" />:&nbsp;
         <input type="text" name="bondOptions" id="bondingInterfaceOptions" size="10" Maxlength="125"
             <c:if test="${form.bondType ne 'bonding'}">disabled="true"</c:if>
             value="${form.bondOptions}"/>

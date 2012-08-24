@@ -70,6 +70,7 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
     private String bridgeOptions;
     private String bridgeAddress;
     private String bridgeNetmask;
+    private String bridgeGateway;
     private boolean isBridgeDhcp;
     /**
      * @param dhcp true if the network type is dhcp
@@ -93,10 +94,11 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
      * @param isBridgeDhcpIn boolean, if the bridge will use dhcp to obtain an ip address
      * @param address string, ip address for the bridge (if isDhcp is false)
      * @param netmask string, netmask for the bridge (if isDhcp is false)
+     * @param gateway string, gateway for the bridge (if isDhcp is false)
      */
     public void setBridgeInfo(boolean doBridge, String name,
             List<String> slaves, String options, boolean isBridgeDhcpIn,
-            String address, String netmask) {
+            String address, String netmask, String gateway) {
         setupBridge = doBridge;
         bridgeName = name;
         bridgeSlaves = slaves;
@@ -104,6 +106,7 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
         isBridgeDhcp = isBridgeDhcpIn;
         bridgeAddress = address;
         bridgeNetmask = netmask;
+        bridgeGateway = gateway;
     }
 
     /**
@@ -418,6 +421,7 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
                 if (!isBridgeDhcp) {
                     net.setNetmask(bridgeNetmask);
                     net.setIpAddress(bridgeAddress);
+                    rec.setGateway(bridgeGateway);
                 }
                 nics.add(net);
             }

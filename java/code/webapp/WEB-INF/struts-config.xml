@@ -829,6 +829,8 @@
             <form-property name="hiddenBondSlaveInterfaces" type="java.lang.String" />
             <form-property name="bondStatic" type="java.lang.String" />
             <form-property name="bondAddress" type="java.lang.String" />
+            <form-property name="bondNetmask" type="java.lang.String" />
+            <form-property name="bondGateway" type="java.lang.String" />
             <form-property name="bondOptions" type="java.lang.String" />
             <form-property name="networkType" type="java.lang.String" />
             <form-property name="networkInterface" type="java.lang.String" />

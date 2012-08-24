@@ -164,6 +164,7 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
     private boolean isBondDhcp;
     private String bondAddress;
     private String bondNetmask;
+    private String bondGateway;
 
     /**
      * Constructor for a kickstart where the host and the target are the same system.
@@ -524,6 +525,7 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
     /**
      * {@inheritDoc}
      */
+    @Override
     public ValidatorError store() {
 
         ValidatorError e = this.doValidation();
@@ -612,7 +614,7 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
         cmd.setNetworkInfo(isDhcp, networkInterface, this.useIpv6Gateway(),
                 ksdata.getInstallType().getLabel());
         cmd.setBridgeInfo(createBond, bondInterface, bondSlaveInterfaces,
-                bondOptions, isBondDhcp, bondAddress, bondNetmask);
+                bondOptions, isBondDhcp, bondAddress, bondNetmask, bondGateway);
         ValidatorError cobblerError = cmd.store();
         if (cobblerError != null) {
             return cobblerError;
@@ -1443,6 +1445,20 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
      */
     public void setBondNetmask(String bondNetmaskIn) {
         this.bondNetmask = bondNetmaskIn;
+    }
+
+    /**
+     * @return The bondGateway
+     */
+    public String getBondGateway() {
+        return bondGateway;
+    }
+
+    /**
+     * @param bondGatewayIn The bondGateway to set
+     */
+    public void setBondGateway(String bondGatewayIn) {
+        this.bondGateway = bondGatewayIn;
     }
 
     /**
