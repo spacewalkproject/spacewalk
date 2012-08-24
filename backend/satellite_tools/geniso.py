@@ -210,7 +210,7 @@ def sizeStrToInt(s):
 
 # The visitfunc argument for os.path.walk
 def __visitfunc(arg, dirname, names):
-     for f in names:
+    for f in names:
         filename = os.path.normpath("%s/%s" % (dirname, f))
         if os.path.isdir(filename):
             # walk will process it later
