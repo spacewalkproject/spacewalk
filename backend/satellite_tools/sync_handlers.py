@@ -427,7 +427,7 @@ class ContainerHandler:
         self.setChannelPackageArchContainer()
         # all other containers
         self.setChannelFamilyContainer()
-	self.setProductNamesContainer()
+        self.setProductNamesContainer()
 
     def __del__(self):
         self.handler.close() # kill the circular reference.
@@ -529,7 +529,7 @@ def populate_channel_family_permissions(cert):
     # Bugs 171160, 183365: We can't assume that the satellite already knows
     # about rh-public (it may not yet know about any channels).
     if current_cfs.has_key("rh-public"):
-	cert_chfam_hash["rh-public"] = None
+        cert_chfam_hash["rh-public"] = None
 
     for cf in cert.channel_families:
         if not current_cfs.has_key(cf.name):
@@ -569,14 +569,14 @@ def populate_channel_family_permissions(cert):
             org_id = None
         else:
             max_members, max_flex = max_tuple
-	    # default the org to 1 for channel families from cert
+            # default the org to 1 for channel families from cert
             org_id = 1
 
         cf_name = cf_name.encode('utf-8')
         try:
-	    old_max_tuple = cfps[(cf_name, org_id)]
+            old_max_tuple = cfps[(cf_name, org_id)]
         except KeyError:
-	    # New channel family, populate the db from cert
+            # New channel family, populate the db from cert
             cfps[(cf_name, org_id)] = max_tuple
             old_max_tuple = None
               
@@ -584,22 +584,22 @@ def populate_channel_family_permissions(cert):
     sum_max_values = compute_sum_max_members(cfps)
     for (cf_name, org_id), (max_members, max_flex) in cfps.items():
         if org_id == 1:
-	    if cert_chfam_hash.has_key(cf_name):
+            if cert_chfam_hash.has_key(cf_name):
                 cert_max_value = cert_chfam_hash[cf_name][0] or 0
                 cert_max_flex = cert_chfam_hash[cf_name][1] or 0 
             else:
-	        # remove entitlements on extra slots 
+                # remove entitlements on extra slots
                 cfps[(cf_name, org_id)] = None
                 continue
             if not max_members: 
-	        max_members = 0
+                max_members = 0
             if not max_flex:
                 max_flex = 0
 
             (sum_max_mem, sum_max_flex) = sum_max_values[cf_name] 
             if cert_max_value >= sum_max_mem:
                 cfps[(cf_name, 1)][0] = max_members + \
-		                  (cert_max_value - sum_max_mem)
+                                  (cert_max_value - sum_max_mem)
             else:
                 purge_count = sum_max_mem - cert_max_value
                 cfps[(cf_name, 1)][0] = max_members - purge_count
@@ -708,7 +708,7 @@ _query_purge_private_channel_families = rhnSQL.Statement("""
 def purge_extra_channel_families():
     # Get rid of the extra channel families
     try:
-	# Purge all unused private channel families with null org
+        # Purge all unused private channel families with null org
         h = rhnSQL.prepare(_query_purge_private_channel_families)
         h.execute()
     except rhnSQL.SQLError, e:
