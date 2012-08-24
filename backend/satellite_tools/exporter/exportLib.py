@@ -48,7 +48,7 @@ class BaseDumper:
     # Generic timing function
     def timer(self, debug_level, message, function, *args, **kwargs):
         start = time.time()
-        result = apply(function, args, kwargs)
+        result = function(*args, **kwargs)
         log_debug(debug_level, message, "timing: %.3f" % (time.time() - start))
         return result
 
