@@ -708,7 +708,7 @@ class _PackageDumper(BaseRowDumper):
             "package_group", "rpm_version", "package_size", "payload_size", 
             "installed_size", "build_host", "source_rpm", "payload_format",
             "compat"]
-        dict = {
+        attr_dict = {
             'id'            : "rhn-package-%s" % self._row['id'],
             'org_id'        : self._row['org_id'] or "",
             'epoch'         : self._row['epoch'] or "",
@@ -717,11 +717,11 @@ class _PackageDumper(BaseRowDumper):
             'last-modified' : _dbtime2timestamp(self._row['last_modified']),
         }
         for attr in attrs:
-            dict[attr.replace('_', '-')] = self._row[attr]
+            attr_dict[attr.replace('_', '-')] = self._row[attr]
         if self._row['checksum_type'] == 'md5':
             # compatibility with older satellite
-            dict['md5sum'] = self._row['checksum']
-        return dict
+            attr_dict['md5sum'] = self._row['checksum']
+        return attr_dict
 
     def set_iterator(self):
         arr = []
@@ -1350,13 +1350,13 @@ class _KickstartableTreeDumper(BaseRowDumper):
     tag_name = 'rhn-kickstartable-tree'
 
     def set_attributes(self):
-        dict = self._row.copy()
+        row_dict = self._row.copy()
         del dict['id']
         # XXX Should we export this one?
         #del dict['base-path']
-        last_modified = dict['last-modified']
-        dict['last-modified'] = _dbtime2timestamp(last_modified)
-        return dict
+        last_modified = row_dict['last-modified']
+        row_dict['last-modified'] = _dbtime2timestamp(last_modified)
+        return row_dict
 
     def set_iterator(self):
         kstree_id = self._row['id']
