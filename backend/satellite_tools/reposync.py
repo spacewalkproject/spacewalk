@@ -186,7 +186,7 @@ class RepoSync(object):
                              'arch'          : pkg['arch'],
                              'channel_id'    : int(self.channel['id']),
                              }
-		if pkg['epoch'] == '0':
+                if pkg['epoch'] == '0':
                     epochStatement = "(pevr.epoch is NULL or pevr.epoch = '0')"
                 elif pkg['epoch'] is None or pkg['epoch'] == '':
                     epochStatement = "pevr.epoch is NULL"
@@ -334,7 +334,7 @@ class RepoSync(object):
                         # package is already in the channel
                         to_link = False
                 elif db_pack['channel_id'] == channel_id:
-		    # different package with SAME NVREA
+                    # different package with SAME NVREA
                     self.disassociate_package(db_pack)
 
             if to_download or to_link:
@@ -428,9 +428,9 @@ class RepoSync(object):
                                       where c.checksum = :checksum
                                         and c.checksum_type = :checksum_type
                                     )
-		""")
+                """)
         h.execute(channel_id=self.channel['id'],
-		  checksum_type=pack['checksum_type'], checksum=pack['checksum'])
+                  checksum_type=pack['checksum_type'], checksum=pack['checksum'])
 
     def _importer_run(self, package, caller, backend):
         importer = ChannelPackageSubscription(
