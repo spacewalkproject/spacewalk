@@ -12,11 +12,18 @@ persistent=no
 [MESSAGES CONTROL]
 
 # Disable the message(s) with the given id(s).
-disable=I0011,C0111,R0801,W0142,W0403,W0603
+disable=I0011,C0302,C0111,R0801,R0902,R0904,R0912,R0913,R0914,R0915,W0142,W0403,W0603
 
 # list of disabled messages:
 #I0011: 62: Locally disabling R0201
+#C0302:  1: Too many lines in module (2425)
 #C0111:  1: Missing docstring
+#R0902: 19:RequestedChannels: Too many instance attributes (9/7)
+#R0904: 26:Transport: Too many public methods (22/20)
+#R0912:171:set_slots_from_cert: Too many branches (59/20)
+#R0913:101:GETServer.__init__: Too many arguments (11/10)
+#R0914:171:set_slots_from_cert: Too many local variables (38/20)
+#R0915:171:set_slots_from_cert: Too many statements (169/50)
 #W0142:228:MPM_Package.write: Used * or ** magic
 #W0403: 28: Relative import 'rhnLog', should be 'backend.common.rhnLog'
 #W0603: 72:initLOG: Using the global statement
