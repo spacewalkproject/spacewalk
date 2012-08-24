@@ -88,6 +88,7 @@ def main():
     true_list = ['usage', 'test', 'source', 'header', 'nullorg', 'newest', \
                  'nosig', 'force', 'list', 'stdin', 'new_cache','extended_test', \
                  'no_session_caching', 'tolerant']
+    # pylint: disable=E1101,E1103
     optionParser = OptionParser(option_list=optionsTable, usage="%prog [OPTION] [<package>]")
     manager = rhnpush_confmanager.ConfManager(optionParser, true_list)
     options = manager.get_config()
@@ -150,6 +151,7 @@ def main():
         return 1
     
 class UploadClass(uploadLib.UploadClass):
+    # pylint: disable=E1101
     def setURL(self):
         server = idn_ascii_to_pune(self.options.server)
         if server is None:
