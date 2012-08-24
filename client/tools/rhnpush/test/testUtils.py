@@ -69,8 +69,5 @@ class UtilsTestCase(unittest.TestCase):
                 and self.obj1.c == 6
                 and self.obj2.f == 'aaa')
 
-    def testAttrNotFunction(self):
-        assert utils.attr_not_function(self.obj1.__dict__['a']) == True
-
 if __name__ == "__main__":
     unittest.main()
