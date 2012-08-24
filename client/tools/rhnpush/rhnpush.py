@@ -150,7 +150,7 @@ def main():
         return 1
     
 class UploadClass(uploadLib.UploadClass):
-    # pylint: disable=E1101
+    # pylint: disable=E1101,W0201
     def __init__(self, options, files=None):
         uploadLib.UploadClass.__init__(self, options, files)
         self.url_v2 = None
