@@ -43,15 +43,15 @@ class CertVersionMismatchError(Exception):
     def __init__(self, old_version, new_version):
         self._message = "the versions of current and new certificate do not match, [%s] vs. [%s]" % (old_version, new_version)
     def __str__(self):
-          return self._message
+        return self._message
 
 class NoFreeEntitlementsError(Exception):
     def __init__(self, label, quantity):
-          self.label = label
-          self.quantity = quantity
-          self.message = \
-          "Error: You do not have enough unused %s entitlements in the base org. You will need at least %s free entitlements, based on your current consumption. Please un-entitle the remaining systems for the activation to proceed." % (self.label, self.quantity)
-          self.args = [self.message]
+        self.label = label
+        self.quantity = quantity
+        self.message = \
+        "Error: You do not have enough unused %s entitlements in the base org. You will need at least %s free entitlements, based on your current consumption. Please un-entitle the remaining systems for the activation to proceed." % (self.label, self.quantity)
+        self.args = [self.message]
 
 def get_all_orgs():
     """ Fetch org_id. Create first org_id if needed.
@@ -382,16 +382,16 @@ def set_slots_from_cert(cert, testonly=False):
             del extra_slots[slot_type_id]
 
         if sys_ent_total_max.has_key(db_label) and \
-             sys_ent_total_max[db_label] is not None:
-	     # Do the math only if the slot already exists
-             if sys_ent_total_max[db_label] > int(quantity):
-	         # If cert count is lower than existing db slot
-                 purge_count = sys_ent_total_max[db_label] - int(quantity)
-                 quantity = sys_ent_counts[(db_label, 1)] - purge_count
+            sys_ent_total_max[db_label] is not None:
+	    # Do the math only if the slot already exists
+            if sys_ent_total_max[db_label] > int(quantity):
+	        # If cert count is lower than existing db slot
+                purge_count = sys_ent_total_max[db_label] - int(quantity)
+                quantity = sys_ent_counts[(db_label, 1)] - purge_count
                   
-             else:
-	         # If cert is higher take the extra count and add to max
-                 quantity = sys_ent_counts[(db_label, 1)] + \
+            else:
+	        # If cert is higher take the extra count and add to max
+                quantity = sys_ent_counts[(db_label, 1)] + \
                             (int(quantity) - sys_ent_total_max[db_label])
 
         try:
@@ -713,34 +713,34 @@ def _test_store_rhnCryptoKey(caCert):
     store_rhnCryptoKey(description, caCert)
 
 def create_first_private_chan_family():
-       """
-       Check to see if org has a channelfamily associated with it.
-       If not, Create one.
-       """
-       _lookup_chfam = """
-          SELECT 1 from rhnChannelFamily
-           WHERE label='private-channel-family-1'
-       """
-       h = rhnSQL.prepare(_lookup_chfam)
-       row = h.execute()
-       # some extra check for upgrades
-       if row:
-           # Already exists, move on
-           return
-       _query_create_chfam = """
-          INSERT INTO  rhnChannelFamily
-                 (id, name, label, org_id, product_url)
-          VALUES (sequence_nextval('rhn_channel_family_id_seq'), :name, :label, :org, :url)
+    """
+    Check to see if org has a channelfamily associated with it.
+    If not, Create one.
+    """
+    _lookup_chfam = """
+       SELECT 1 from rhnChannelFamily
+        WHERE label='private-channel-family-1'
+    """
+    h = rhnSQL.prepare(_lookup_chfam)
+    row = h.execute()
+    # some extra check for upgrades
+    if row:
+        # Already exists, move on
+        return
+    _query_create_chfam = """
+       INSERT INTO  rhnChannelFamily
+              (id, name, label, org_id, product_url)
+       VALUES (sequence_nextval('rhn_channel_family_id_seq'), :name, :label, :org, :url)
 
-       """
-       h = rhnSQL.prepare(_query_create_chfam)
-       try:
-           h.execute(name='Private Channel Family 1', \
-                     label='private-channel-family-1', \
-                     org=1, url='First Org Created')
-       except rhnSQL.SQLError, e:
-           # if we're here that means we're voilating something
-           raise
+    """
+    h = rhnSQL.prepare(_query_create_chfam)
+    try:
+        h.execute(name='Private Channel Family 1', \
+                  label='private-channel-family-1', \
+                  org=1, url='First Org Created')
+    except rhnSQL.SQLError, e:
+        # if we're here that means we're voilating something
+        raise
            
 
 def verify_family_permissions(orgid=1):
