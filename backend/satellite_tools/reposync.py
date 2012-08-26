@@ -43,11 +43,12 @@ def set_filter_opt(option, opt_str, value, parser):
 
 class RepoSync(object):
     def __init__(self, channel_label, repo_type, url=None, fail=False,
-                 quiet=False, filters=[]):
+                 quiet=False, filters=[], no_errata = False):
         self.regen = False
         self.fail = fail
         self.quiet = quiet
         self.filters = filters
+        self.no_errata = no_errata
 
         initCFG('server')
         db_string = CFG.DEFAULT_DB #"rhnsat/rhnsat@rhnsat"
@@ -100,7 +101,9 @@ class RepoSync(object):
             try:
                 plugin = self.repo_plugin(url, self.channel_label)
                 self.import_packages(plugin, repo_id, url)
-                self.import_updates(plugin, url)
+
+                if not self.no_errata:
+                    self.import_updates(plugin, url)
             except Exception, e:
                 self.error_msg("ERROR: %s" % e.value)
                 continue

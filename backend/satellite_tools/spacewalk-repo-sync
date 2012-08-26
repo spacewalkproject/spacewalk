@@ -79,6 +79,8 @@ def main():
                       callback=reposync.set_filter_opt,
                       type='str', nargs=1, dest='filters', default=[],
                       help="List of excluded packages")
+    parser.add_option('', '--no-errata', action='store_true', dest='no_errata',
+                      default=False, help="Do not sync errata")
     (options, args) = parser.parse_args()
 
     if not options.channel_label:
@@ -89,7 +91,8 @@ def main():
                       url=options.url,
                       fail=options.fail,
                       quiet=options.quiet,
-                      filters=options.filters)
+                      filters=options.filters,
+                      no_errata=options.no_errata)
     sync.sync()
     releaseLOCK()
     return 0
