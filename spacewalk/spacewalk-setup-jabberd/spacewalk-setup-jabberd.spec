@@ -16,7 +16,7 @@ Requires:       jabberd
 Requires:       %{_datadir}/spacewalk
 
 %description
-Script, which setup Jabberd for Spacewalk. Used during installation of
+Script, which sets up Jabberd for Spacewalk. Used during installation of
 Spacewalk server or Spacewalk proxy.
 
 %prep
