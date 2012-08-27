@@ -23,7 +23,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.134
+Version: 1.8.135
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -614,6 +614,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Aug 27 2012 Tomas Kasparek <tkasparek@redhat.com> 1.8.135-1
+- 733420 - Checking user permissions for CryptoKeysHandler
+
 * Fri Aug 24 2012 Stephen Herr <sherr@redhat.com> 1.8.134-1
 - 818700 - allow user to set the gateway for static bonds
 
