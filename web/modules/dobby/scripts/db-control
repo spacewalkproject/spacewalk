@@ -104,7 +104,7 @@ Before restoring, the files in DIRNAME are verified.  Once all files are verifie
 
 =item B<shrink-segments>
 
-Determines and shrinks database segments with signifcant amount of free space.
+Determines and shrinks database segments with significant amount of free space.
 
 =item B<start>
 
