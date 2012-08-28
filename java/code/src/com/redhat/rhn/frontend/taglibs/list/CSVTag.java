@@ -14,6 +14,7 @@
  */
 package com.redhat.rhn.frontend.taglibs.list;
 
+import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.frontend.action.CSVDownloadAction;
 import com.redhat.rhn.frontend.taglibs.list.helper.ListHelper;
@@ -208,7 +209,6 @@ public class CSVTag extends BodyTagSupport {
      */
     public String makeCSVRequestParams() {
         String paramExportColumns = "exportColumns_" + getUniqueName();
-        String paramPageList = "pageList_" + getUniqueName();
         String paramHeader = "header_" + getUniqueName();
         HttpServletRequest request = (HttpServletRequest) pageContext
                 .getRequest();
@@ -216,11 +216,10 @@ public class CSVTag extends BodyTagSupport {
         // exportColumns and pageData __must__ be in session context
         // so CSVDownloadAction is able to retreive them.
         session.setAttribute(paramExportColumns, exportColumns);
-        session.setAttribute(paramPageList, pageData);
 
         String csvKey =
             CSVDownloadAction.EXPORT_COLUMNS + "=" + paramExportColumns +
-                "&" + CSVDownloadAction.PAGE_LIST_DATA + "=" + paramPageList +
+                "&" + exportDataToSession(session) +
                 "&" + CSVDownloadAction.UNIQUE_NAME + "=" + getUniqueName();
 
         if (header != null) {
@@ -231,4 +230,25 @@ public class CSVTag extends BodyTagSupport {
         return csvKey;
     }
 
+    private String exportDataToSession(HttpSession session) {
+        if (pageData != null && pageData instanceof DataResult &&
+                ((DataResult)pageData).getMode() != null &&
+                ((DataResult)pageData).getMode().getQuery() != null) {
+            /* We better do not export pageList, let's keep the query instead.
+             *   1) Query is usually smaller than data. And since this never gets deleted
+             *      from session, the session data doesn't grow that rapidly.
+             *   2) Part of the pageList might be already elaborated and we cannot say
+             *      which (consider filters, alfphabar, pagination, and sorting).
+             *      Repeated elaboration isn't great thing; bug 453477, 851480, 445895
+             */
+            String paramQuery = "query_" + getUniqueName();
+            session.setAttribute(paramQuery, ((DataResult)pageData).getMode().getQuery());
+            return CSVDownloadAction.QUERY_DATA + "=" + paramQuery;
+        }
+        else {
+            String paramPageList = "pageList_" + getUniqueName();
+            session.setAttribute(paramPageList, pageData);
+            return CSVDownloadAction.PAGE_LIST_DATA + "=" + paramPageList;
+        }
+    }
 }

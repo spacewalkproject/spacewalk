@@ -14,6 +14,8 @@
  */
 package com.redhat.rhn.frontend.action;
 
+import com.redhat.rhn.common.db.datasource.CachedStatement;
+import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.db.datasource.Elaborator;
 import com.redhat.rhn.common.util.CSVWriter;
 import com.redhat.rhn.common.util.download.ByteArrayStreamInfo;
@@ -47,6 +49,7 @@ import javax.servlet.http.HttpSession;
 public class CSVDownloadAction extends DownloadAction {
     public static final String EXPORT_COLUMNS = "__CSV__exportColumnsParam";
     public static final String PAGE_LIST_DATA = "___CSV_pageListData";
+    public static final String QUERY_DATA = "__CSV_queryMode";
     public static final String UNIQUE_NAME = "__CSV_uniqueName";
     public static final String HEADER_NAME = "__CSV_headerName";
 
@@ -106,6 +109,15 @@ public class CSVDownloadAction extends DownloadAction {
      */
     protected List getPageData(HttpServletRequest request, HttpSession session)
         throws Exception {
+        String paramQuery = request.getParameter(QUERY_DATA);
+        if (paramQuery != null) {
+            CachedStatement query = (CachedStatement) session.getAttribute(paramQuery);
+            if (query == null) {
+                throw new Exception("Missing request parameter, " + QUERY_DATA);
+            }
+            return (DataResult) query.restartQuery();
+        }
+
         String paramPageData = request.getParameter(PAGE_LIST_DATA);
         if (null == paramPageData) {
             throw new Exception("Missing request parameter, " + EXPORT_COLUMNS);

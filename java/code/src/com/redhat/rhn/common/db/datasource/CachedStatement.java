@@ -76,6 +76,7 @@ public class CachedStatement {
     // This is only set if the current CachedStatement is a duplicate of an
     // existing one with the %s expanded out.
     private CachedStatement parentStatement;
+    private List restartData = null;
 
     // We could (and probably should) cache the ResultSet metadata here as
     // well.  There is no reason that the first call to each statement
@@ -437,6 +438,7 @@ public class CachedStatement {
     // returning an Object and letting the caller do the casting for us.
     private Object execute(String sql, Map parameterMap,
                               Map parameters, Mode mode, List dr)  {
+        storeForRestart(sql, parameterMap, parameters, mode, dr);
         PreparedStatement ps = null;
         try {
             Connection conn = stealConnection();
@@ -860,6 +862,29 @@ public class CachedStatement {
         session.flush();
         conn = session.connection();
         return conn;
+    }
+
+    private void storeForRestart(String sql, Map parameterMap,
+            Map parameters, Mode mode, List dr) {
+        restartData = new ArrayList();
+        restartData.add(sql);
+        restartData.add(parameterMap);
+        restartData.add(parameters);
+        restartData.add(mode);
+        restartData.add(dr);
+    }
+
+    /**
+     * Restart the latest query
+     * @return what the previous query returned or null.
+     */
+    public Object restartQuery() {
+        return restartData == null ? null :
+                execute((String) restartData.get(0),
+                        (Map) restartData.get(1),
+                        (Map) restartData.get(2),
+                        (Mode) restartData.get(3),
+                        (List) restartData.get(4));
     }
 }
 
