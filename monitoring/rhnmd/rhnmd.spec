@@ -8,7 +8,7 @@ Summary:        Red Hat Network Monitoring Daemon
 Name:           rhnmd
 URL:            https://fedorahosted.org/spacewalk
 Source0:        https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version:        5.3.10
+Version:        5.3.11
 Release:        1%{?dist}
 License:        GPLv2
 BuildArch:      noarch
@@ -119,6 +119,10 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Tue Aug 28 2012 Tomas Kasparek <tkasparek@redhat.com> 5.3.11-1
+- 852386 - Independent SElinux policy for rhel5
+- %%defattr is not needed since rpm 4.4
+
 * Fri Oct 07 2011 Jan Pazdziora 5.3.10-1
 - 594647 - label rhnmd's files upon installation.
 
