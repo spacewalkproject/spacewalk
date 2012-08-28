@@ -26,6 +26,7 @@ import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelArch;
 import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.domain.channel.ContentSource;
+import com.redhat.rhn.domain.channel.ContentSourceFilter;
 import com.redhat.rhn.domain.channel.InvalidChannelRoleException;
 import com.redhat.rhn.domain.channel.NewChannelHelper;
 import com.redhat.rhn.domain.errata.Errata;
@@ -2717,6 +2718,32 @@ public class ChannelSoftwareHandler extends BaseHandler {
                 return new String("");
             }
             return cronExpr;
+    }
+
+   /**
+    * Lists the filters for a repo
+    * @param sessionKey Session containing user information.
+    * @param label of the repo to use
+    * @return list of filters
+    *
+    * @xmlrpc.doc Lists the filters for a repo
+    * @xmlrpc.param #session_key()
+    * @xmlrpc.param #param_desc("string", "label", "repository label")
+    * @xmlrpc.returntype
+    *      #array()
+    *          $ContentSourceFilterSerializer
+    *      #array_end()
+    *
+   **/
+    public List<ContentSourceFilter> listRepoFilters(String sessionKey, String label) {
+        User user = getLoggedInUser(sessionKey);
+
+        ContentSource cs = lookupContentSourceByLabel(label, user.getOrg());
+
+        List<ContentSourceFilter> result =
+            ChannelFactory.lookupContentSourceFiltersById(cs.getId());
+
+        return result;
     }
 
     private ContentSource lookupContentSourceById(Long repoId, Org org) {
