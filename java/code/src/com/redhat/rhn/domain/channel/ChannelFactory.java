@@ -188,6 +188,17 @@ public class ChannelFactory extends HibernateFactory {
     }
 
 
+    /**
+     * Lookup a content source's filters by id
+     * @param id source id
+     * @return the ContentSourceFilters
+     */
+    public static List<ContentSourceFilter> lookupContentSourceFiltersById(Long id) {
+        Map params = new HashMap();
+        params.put("source_id", id);
+        return singleton.listObjectsByNamedQuery(
+                "ContentSourceFilter.findBySourceId", params);
+    }
 
     /**
      * Retrieve a list of channel ids associated with the labels provided
