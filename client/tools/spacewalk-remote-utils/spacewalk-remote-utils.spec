@@ -9,7 +9,7 @@ Release:     1%{?dist}
 Summary:     Utilities to interact with a RHN Satellite or Spacewalk server remotely.
 
 Group:       Applications/System
-License:     GPLv3+
+License:     GPLv2
 URL:         http://fedorahosted.org/spacewalk
 Source:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 BuildRoot:   %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
