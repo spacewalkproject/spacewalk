@@ -23,7 +23,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.134
+Version: 1.8.136
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -614,6 +614,20 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Aug 28 2012 Aron Parsons <aronparsons@gmail.com> 1.8.136-1
+- add listRepoFilters API call
+- add lookupContentSourceFiltersById method to ChannelFactory
+- add serializer for ContentSourceFilter
+- add ContentSourceFilter class
+- 733420 - Checking user permissions for CryptoKeysHandler
+
+* Tue Aug 28 2012 Aron Parsons <aronparsons@gmail.com>
+- add listRepoFilters API call
+- add lookupContentSourceFiltersById method to ChannelFactory
+- add serializer for ContentSourceFilter
+- add ContentSourceFilter class
+- 733420 - Checking user permissions for CryptoKeysHandler
+
 * Fri Aug 24 2012 Stephen Herr <sherr@redhat.com> 1.8.134-1
 - 818700 - allow user to set the gateway for static bonds
 
