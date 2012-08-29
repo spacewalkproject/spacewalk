@@ -4,7 +4,7 @@
 %endif
 
 Name:        spacecmd
-Version:     1.8.13
+Version:     1.8.14
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -60,6 +60,9 @@ touch %{buildroot}/%{python_sitelib}/spacecmd/__init__.py
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Wed Aug 29 2012 Aron Parsons <aronparsons@gmail.com> 1.8.14-1
+- spacecmd: prevent outputting escape sequences to non-terminals
+
 * Sun Aug 12 2012 Aron Parsons <aronparsons@gmail.com> 1.8.13-1
 - spacecmd: add system_schedule{hardware,package}refresh functions Signed-off-
   by: Aron Parsons <aronparsons@gmail.com>
