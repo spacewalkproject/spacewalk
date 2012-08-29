@@ -68,7 +68,7 @@ public class PermissionException extends RhnRuntimeException  {
      */
     public PermissionException(Role role) {
         this("You do not have permissions to " +
-                "perform this action. You need to have atleast a " + role.getName() +
+                "perform this action. You need to have at least a " + role.getName() +
                                  " role to perform this action");
         // begin member variable initialization
     }
