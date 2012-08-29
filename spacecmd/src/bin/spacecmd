@@ -24,7 +24,6 @@
 import logging, os, re, sys, xmlrpclib
 from ConfigParser import SafeConfigParser, NoOptionError
 from optparse import Option, OptionParser
-from spacecmd.shell import SpacewalkShell
     
 _INTRO = '''Welcome to spacecmd, a command-line interface to Spacewalk.
 
@@ -77,6 +76,14 @@ if __name__ == '__main__':
 
     # server-specifics will be loaded from the configuration file later
     config = SafeConfigParser()
+
+    # prevent readline from outputting escape sequences to non-terminals
+    if not sys.stdout.isatty():
+        logging.debug('stdout is not a TTY, setting TERM=dumb')
+        os.environ['TERM'] = 'dumb'
+
+    # import our Cmd subclass after we settle our TERM value
+    from spacecmd.shell import SpacewalkShell
 
     # create an instance of the shell
     shell = SpacewalkShell(options, conf_dir, config)
