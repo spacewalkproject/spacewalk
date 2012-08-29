@@ -713,7 +713,7 @@ public class StringUtil {
         while (token.hasMoreElements()) {
             String option = token.nextToken();
             if (!StringUtils.isBlank(option)) { //Skip blank lines
-                String[] args = option.split("=");
+                String[] args = option.split("=", 2);
                 if (args.length != 2) {
                     ValidatorException.raiseException(errorKey, option);
                 }
