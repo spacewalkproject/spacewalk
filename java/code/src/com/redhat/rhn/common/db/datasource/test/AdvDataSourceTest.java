@@ -26,7 +26,6 @@ import com.redhat.rhn.common.hibernate.HibernateHelper;
 import com.redhat.rhn.testing.RhnBaseTestCase;
 import com.redhat.rhn.testing.TestUtils;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
 
@@ -289,26 +288,6 @@ public class AdvDataSourceTest extends RhnBaseTestCase {
             assertNotNull(row.getTestColumn());
             assertNotNull(row.getPin());
             assertNotNull(row.getFoobar());
-        }
-    }
-
-    public void testDoubleElaboration() throws Exception {
-        if (ConfigDefaults.get().isOracle()) {
-            SelectMode m = ModeFactory.getMode("test_queries", "withClass");
-            DataResult<TableData> dr = m.execute(Collections.EMPTY_MAP);
-            assertTrue(dr.size() >= 1);
-            dr.elaborate();
-            TableData rowA = dr.get(0);
-            String tableNameA = rowA.getTableName();
-            String columnNameA = StringUtils.join(rowA.getColumnName().iterator(), ",");
-            // Elaborate 2nd time
-            dr.elaborate();
-            TableData rowB = dr.get(0);
-            String tableNameB = rowB.getTableName();
-            String columnNameB = StringUtils.join(rowB.getColumnName().iterator(), ",");
-
-            assertEquals(tableNameA, tableNameB);
-            assertEquals(columnNameA, columnNameB);
         }
     }
 

@@ -736,10 +736,7 @@ public class CachedStatement {
                 if (c == null) {
                     c = new ArrayList();
                 }
-                Object item = getObject(rs, columnName);
-                if (!c.contains(item)) {
-                    c.add(item);
-                }
+                c.add(getObject(rs, columnName));
                 MethodUtil.callMethod(obj, setName, c);
                 continue;
             }
