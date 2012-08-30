@@ -23,7 +23,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.136
+Version: 1.8.137
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -614,6 +614,16 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Aug 30 2012 Tomas Lestach <tlestach@redhat.com> 1.8.137-1
+- 851480 - Do not elaborate objects twice in row.
+- 851480 - Revert "bz: 453477: duplicated entries in CSV download for some
+  fields"
+- allow complex kickstart variables containing severel '='
+- 851519 - display a reasonable error message on the permission error page
+- Fixing test KickstartScheduleCommandTest.testProfileArches
+- fix ContentSourceFilter.findBySourceId to return list of ContentSourceFilter
+  objects
+
 * Tue Aug 28 2012 Aron Parsons <aronparsons@gmail.com> 1.8.136-1
 - add listRepoFilters API call
 - add lookupContentSourceFiltersById method to ChannelFactory
