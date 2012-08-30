@@ -23,7 +23,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.137
+Version: 1.8.138
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -614,6 +614,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Aug 30 2012 Tomas Lestach <tlestach@redhat.com> 1.8.138-1
+- 851150 - make the select working on PG as well
+
 * Thu Aug 30 2012 Tomas Lestach <tlestach@redhat.com> 1.8.137-1
 - 851480 - Do not elaborate objects twice in row.
 - 851480 - Revert "bz: 453477: duplicated entries in CSV download for some
