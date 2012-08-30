@@ -22,7 +22,13 @@ import os
 import sys
 import config
 
-import ethtool
+try:
+    import ethtool
+    ethtool_present = True
+except ImportError:
+    sys.stderr.write("Warning: information about network interfaces could not be retrieved on this platform.\n")
+    ethtool_present = False
+
 import gettext
 t = gettext.translation('rhn-client-tools', fallback=True)
 _ = t.ugettext
@@ -523,6 +529,10 @@ def read_network():
 def read_network_interfaces():
     intDict = {}
     intDict['class'] = "NETINTERFACES"
+
+    if not ethtool_present:
+        # ethtool is not available on non-linux platforms (as kfreebsd), skip it
+        return intDict
 
     interfaces = list(set(ethtool.get_devices() + ethtool.get_active_devices()))
     for interface in interfaces:
