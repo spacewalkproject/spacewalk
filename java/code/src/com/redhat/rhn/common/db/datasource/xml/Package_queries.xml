@@ -805,34 +805,43 @@ ORDER BY  UPPER(PN.name)
 
 <mode name="system_upgradable_package_list_no_errata_info">
   <query params="sid">
-SELECT  PN.name,
-        NVL(PE.epoch, ' ') as FROM_EPOCH,
-        NVL(PE.version, ' ') as FROM_VERSION,
-        NVL(PE.release, ' ') as FROM_RELEASE,
-        NVL((full_list.evr).epoch, ' ') as TO_EPOCH,
-        NVL((full_list.evr).version, ' ') as TO_VERSION,
-        NVL((full_list.evr).release, ' ') as TO_RELEASE,
-        full_list.arch_label as ARCH,
-        P.id as TO_PACKAGE_ID
-  FROM  (
-         SELECT  SOP.package_name_id name_id,
-                 MAX(PE.evr) evr,
-                 PE.id evr_id,
-                 SP.package_arch_id,
-                 PA.label as arch_label
-           FROM  rhnServerOutdatedPackages SOP
-                 INNER JOIN rhnServerPackage SP ON SP.server_id = SOP.server_id
-                 INNER JOIN rhnPackageEVR PE ON SOP.package_evr_id = PE.id
-                 LEFT JOIN rhnPackageArch PA ON PA.id = SP.package_arch_id
-          WHERE  SOP.server_id = :sid
-            AND  SOP.package_name_id = SP.name_id
-        GROUP BY SOP.package_name_id, SP.package_arch_id, PA.label, PE.id
-        ) full_list
-        INNER JOIN rhnServerPackage SP ON ( full_list.name_id = SP.name_id AND full_list.package_arch_id = SP.package_arch_id )
-        INNER JOIN rhnPackageName PN ON ( PN.id = full_list.name_id )
-        INNER JOIN rhnPackageEVR PE ON ( SP.evr_id = PE.id )
-        INNER JOIN rhnPackage P on ( P.name_id = full_list.name_id AND P.evr_id = full_list.evr_id AND P.package_arch_id = full_list.package_arch_id )
- WHERE  SP.server_id = :sid
+    SELECT  n.name,
+        NVL(sp.evr.epoch, ' ') as from_epoch,
+        NVL(sp.evr.version, ' ') as from_version,
+        NVL(sp.evr.release, ' ') as from_release,
+        spa.label as from_arch,
+        spa.label as arch,
+        NVL(up.evr.epoch, ' ') as to_epoch,
+        NVL(up.evr.version, ' ') as to_version,
+        NVL(up.evr.release, ' ') as to_release,
+        up.arch_label as to_arch,
+        up.id as to_package_id
+  FROM
+    (SELECT sp.server_id, sp.name_id, sp.package_arch_id, sp_pe.evr
+        FROM rhnServerPackage sp
+            join rhnPackageEvr sp_pe ON sp_pe.id = sp.evr_id
+            WHERE sp.server_id = :sid) sp
+        JOIN rhnPackageName n ON n.id = sp.name_id
+        JOIN rhnPackageArch spa ON spa.id = sp.package_arch_id,
+    (
+    SELECT p.id, p.name_id, e.evr, a.id as arch_id, a.label as arch_label
+    FROM
+    (SELECT p.name_id, max(e.evr) as max_evr
+        FROM rhnServerChannel sc
+        JOIN rhnChannelPackage cp ON cp.channel_id = sc.channel_id
+        JOIN rhnPackage p ON p.id = cp.package_id
+        JOIN rhnPackageEvr e ON e.id = p.evr_id
+        WHERE sc.server_id = :sid
+        GROUP BY p.name_id) u
+    JOIN rhnPackageEvr e ON e.evr = u.max_evr
+    JOIN rhnPackage p ON p.name_id = u.name_id AND p.evr_id = e.id
+    JOIN rhnPackageArch a ON a.id = p.package_arch_id
+        ) up,
+    rhnPackageUpgradeArchCompat puac
+    WHERE puac.package_arch_id = sp.package_arch_id
+      AND puac.package_upgrade_arch_id = up.arch_id
+      AND sp.evr &lt; up.evr
+      AND sp.name_id = up.name_id
   </query>
 </mode>
 
