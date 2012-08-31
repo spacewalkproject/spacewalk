@@ -4010,6 +4010,13 @@ user before attempting to deactivate their account.</source>
         </context-group>
       </trans-unit>
 
+      <trans-unit id="BQ">
+        <source>Bonaire, Sint Eustatius and Saba</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">All country select list pull-downs</context>
+        </context-group>
+      </trans-unit>
+
       <trans-unit id="BR">
         <source>Brazil</source>
         <context-group name="ctx">
@@ -4166,6 +4173,13 @@ user before attempting to deactivate their account.</source>
 
       <trans-unit id="CV">
         <source>Cape Verde</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">All country select list pull-downs</context>
+        </context-group>
+      </trans-unit>
+
+      <trans-unit id="CW">
+        <source>Curaçao</source>
         <context-group name="ctx">
           <context context-type="sourcefile">All country select list pull-downs</context>
         </context-group>
@@ -5269,6 +5283,13 @@ user before attempting to deactivate their account.</source>
 
       <trans-unit id="SV">
         <source>El Salvador</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">All country select list pull-downs</context>
+        </context-group>
+      </trans-unit>
+
+      <trans-unit id="SX">
+        <source>Sint Maarten</source>
         <context-group name="ctx">
           <context context-type="sourcefile">All country select list pull-downs</context>
         </context-group>
