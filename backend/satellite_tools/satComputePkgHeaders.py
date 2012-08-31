@@ -71,7 +71,7 @@ class Runner:
     def main(self):
         parser = OptionParser(option_list=options_table)
 
-        (self.options, args) = parser.parse_args()
+        (self.options, _args) = parser.parse_args()
 
         rhnSQL.initDB()
 
