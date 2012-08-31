@@ -193,7 +193,7 @@ class Runner:
                 continue
 
             try:
-                (header_start, header_end) = rhn_rpm.get_header_byte_range(p_file);
+                (header_start, header_end) = rhn_rpm.get_header_byte_range(p_file)
             except Exception, e:
                 print "Error reading header size from file %s: %s" % (path, e)
 
