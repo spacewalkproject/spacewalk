@@ -35,7 +35,6 @@ def initEMAIL_LOG(reinit=0):
         EMAIL_LOG = StringIO()
 
 def dumpEMAIL_LOG():
-    global EMAIL_LOG
     if EMAIL_LOG is not None:
         return EMAIL_LOG.getvalue()
     return None
@@ -115,7 +114,6 @@ def log2email(level, msg, cleanYN=0, notimeYN=0):
     """ Log to the email log.
         Arguments: see def _prepLogMsg(...) above.
     """
-    global EMAIL_LOG
     if EMAIL_LOG is not None:
         log2stream(level, msg, cleanYN, notimeYN, EMAIL_LOG)
 
