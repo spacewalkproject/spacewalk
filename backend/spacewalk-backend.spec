@@ -12,7 +12,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.63
+Version: 1.8.64
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -647,6 +647,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Fri Aug 31 2012 Michael Mraka <michael.mraka@redhat.com> 1.8.64-1
+- fixed pylint errors
+
 * Mon Aug 27 2012 Stephen Herr <sherr@redhat.com> 1.8.63-1
 - 848475 - Adding IPv6 ip-address detection to proxy auth fix
 
