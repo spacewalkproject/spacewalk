@@ -23,7 +23,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.138
+Version: 1.8.139
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -614,6 +614,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Aug 31 2012 Jan Pazdziora 1.8.139-1
+- Add countries BQ, CW, SX.
+
 * Thu Aug 30 2012 Tomas Lestach <tlestach@redhat.com> 1.8.138-1
 - 851150 - make the select working on PG as well
 
