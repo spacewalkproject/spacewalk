@@ -161,6 +161,15 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     		    order by C.name]]>						
         <return alias="c" class="com.redhat.rhn.domain.channel.Channel" />
     </sql-query>
+    <sql-query name="Channel.findSubscribableBaseChannels">
+        <![CDATA[SELECT {c.*}
+                 FROM rhnUserChannel uc JOIN rhnChannel {c} ON c.id = uc.channel_id
+                     LEFT OUTER JOIN rhnChannelCloned c_1_ ON c.id = c_1_.id
+                 WHERE uc.user_id = :user_id
+                     AND uc.role = 'subscribe'
+                     AND c.parent_channel is null]]>
+        <return alias="c" class="com.redhat.rhn.domain.channel.Channel" />
+    </sql-query>
     <sql-query name="Channel.findAllBaseChannels">
         <![CDATA[SELECT {c.*}
                  FROM rhnUserChannel uc,

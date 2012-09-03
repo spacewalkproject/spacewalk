@@ -279,7 +279,7 @@ public class ActivationKeyDetailsAction extends RhnAction {
         List<LabelValueBean> channelWidgets = new LinkedList<LabelValueBean>();
         channelWidgets.add(lvl10n("activation-key.jsp.rh-default",
                             String.valueOf(DEFAULT_CHANNEL_ID)));
-        List<Channel> rhChannels = ChannelFactory.listRedHatBaseChannels();
+        List<Channel> rhChannels = ChannelFactory.listSubscribableBaseChannels(user);
         for (Channel channel : rhChannels) {
             channelWidgets.add(lv(channel.getName(), String.valueOf(channel.getId())));
         }

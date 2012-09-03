@@ -937,6 +937,18 @@ public class ChannelFactory extends HibernateFactory {
      * @param user logged in user.
      * @return list of custom channels
      */
+    public static List<Channel> listSubscribableBaseChannels(User user) {
+        Map params = new HashMap();
+        params.put("user_id", user.getId());
+        return singleton.listObjectsByNamedQuery(
+                "Channel.findSubscribableBaseChannels", params);
+    }
+
+    /**
+     * List all accessible base channels for an org
+     * @param user logged in user.
+     * @return list of custom channels
+     */
     public static List<Channel> listAllBaseChannels(User user) {
         Map params = new HashMap();
         params.put("org_id", user.getOrg().getId());
