@@ -14,7 +14,8 @@ update rhnpackage set package_group = (select n.id
 -- delete unused groups
 delete from rhnpackagegroup pg
       where not exists (select 1 from rhnpackage p where p.package_group = pg.id)
-        and id > 1; -- don't remove 'NoGroup'
+        -- don't remove 'NoGroup'
+        and id > 1;
 
 -- remove trailing \n
 update rhnpackagegroup set name = substr(name, 1, length(name)-1)
@@ -48,7 +49,8 @@ update rhnPackageSource set package_group = (select n.id
 -- delete unused groups
 delete from rhnpackagegroup pg
       where not exists (select 1 from rhnpackage p where p.package_group = pg.id)
-        and id > 1; -- don't remove 'NoGroup'
+        -- don't remove 'NoGroup'
+        and id > 1;
 
 -- remove trailing spaces from rest of packages
 update rhnpackagegroup set name = trim(name)
