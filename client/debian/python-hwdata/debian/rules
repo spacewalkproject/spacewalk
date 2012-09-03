@@ -1,0 +1,59 @@
+#!/usr/bin/make -f
+export DH_VERBOSE=0
+PACKAGE = $(shell dh_listpackages|head -n1)
+PYVERS  = $(shell pyversions -vr)
+
+################################################################################
+#. Build
+build: build-arch build-indep
+build-arch: build-stamp
+build-indep: build-stamp
+build-stamp: $(PYVERS:%=build-ext-%)
+	dh_testdir
+	touch $@
+build-ext-%:
+	python$* setup.py build
+	touch $@
+
+################################################################################
+#. Install
+install: install-stamp
+	dh_testdir
+	dh_testroot
+	dh_installdirs
+	dh_installchangelogs
+	dh_installdocs
+	dh_installexamples
+	dh_install
+	dh_python2
+	dh_installman
+install-stamp: build-stamp $(PYVERS:%=install-ext-%)
+install-ext-%:
+	python$* setup.py install --root $(CURDIR)/debian/$(PACKAGE) \
+		--install-layout=deb
+	touch $@
+
+################################################################################
+#. Binary
+binary: build install
+	dh_testdir
+	dh_testroot
+	dh_strip
+	dh_compress
+	dh_fixperms
+	dh_installdeb
+	dh_shlibdeps
+	dh_gencontrol
+	dh_md5sums
+	dh_builddeb
+
+################################################################################
+#. Clean
+clean:
+	dh_testdir
+	dh_testroot
+	python$* setup.py clean
+	dh_clean build-stamp install-stamp \
+	  $(PYVERS:%=install-ext-%) $(PYVERS:%=build-ext-%) \
+
+.PHONY: build clean binary-indep binary-arch binary install

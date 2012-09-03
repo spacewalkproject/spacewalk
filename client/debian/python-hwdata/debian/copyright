@@ -1,0 +1,58 @@
+Provides python interface to database stored in hwdata package.
+It allows you to get human readable description of USB and PCI devices.
+===============================================================
+
+
+python-hwdata - python bindings to hwdata package
+=================================
+
+This package was authored and debianized by William van de Velde <kc@cobradevil.org> on
+Fri, 6 Jul 2012.
+
+It was downloaded from https://fedorahosted.org/spacewalk/wiki/Projects/python-hwdata
+
+Upstream Author: William van de Velde <kc@cobradevil.org>
+
+The Debian packaging is © 2012, William van de Velde <kc@cobradevil.org> and is licensed
+under the GPL, see `/usr/share/common-licenses/GPL-2'.
+
+License:
+    GPLv2 - The python-dmidecode packages is available under the terms of
+    the GNU General Public license version 3.  On Debian systems, the complete
+    text of the GNU General Public License can be found in
+    `/usr/share/common-licenses/GPL-2'.
+
+
+hwdata
+=========
+
+Original Author: Alan Cox <alan@redhat.com>
+
+Developer & Maintainer: Jean Delvare <khali@linux-fr.org>
+
+License: GNU GPLv2
+
+
+Copyrights
+==========
+    © 2000-2002 Alan Cox <alan@redhat.com>
+    © 2000-2008 Jean Delvare <khali@linux-fr.org>
+    © 2007-2009 Nima Talebi <nima@it.net.au>
+    © 2009      David Sommerseth <davids@redhat.com>
+
+License:
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this package; if not, write to the Free Software
+    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
+
+// vim: ft=asciidoc
