@@ -23,7 +23,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.139
+Version: 1.8.140
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -614,6 +614,11 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Sep 04 2012 Tomas Lestach <tlestach@redhat.com> 1.8.140-1
+- 853444 - list only subscribable base channels for actiovation key
+  associations
+- 839960 - rewrite query for system.listLatestUpgradablePackages API
+
 * Fri Aug 31 2012 Jan Pazdziora 1.8.139-1
 - Add countries BQ, CW, SX.
 
