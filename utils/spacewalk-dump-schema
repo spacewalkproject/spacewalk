@@ -38,13 +38,16 @@ if (grep { defined $_ } $db, $user, $password) {
 }
 
 $ENV{NLS_LANG} = 'AMERICAN_AMERICA.UTF8';
+$ENV{NLS_DATE_FORMAT} = 'YYYY-MM-DD HH24:MI:SS';
+$ENV{NLS_TIMESTAMP_FORMAT} = 'YYYY-MM-DD HH24:MI:SS';
+$ENV{NLS_TIMESTAMP_TZ_FORMAT} = 'YYYY-MM-DD HH24:MI:SS TZH:TZM';
+
 my $dbh = DBI->connect("dbi:Oracle:$options{db_name}", $options{db_user}, $options{db_password}, {
 	RaiseError => 1,
 	FetchHashKeyName => 'NAME_lc',
 	LongReadLen => 10_000_000,
 	LongTruncOk => 0,
 });
-$dbh->do(q!alter session set nls_date_format = 'YYYY-MM-DD HH24:MI:SS'!);
 
 print <<'EOS';
 \set ON_ERROR_STOP on
