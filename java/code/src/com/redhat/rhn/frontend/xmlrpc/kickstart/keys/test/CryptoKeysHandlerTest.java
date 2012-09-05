@@ -38,7 +38,7 @@ public class CryptoKeysHandlerTest extends BaseHandlerTestCase {
 
     public void testListAllKeys() throws Exception {
         // Setup
-        User otherOrg = UserTestUtils.findNewUser();
+        User otherOrg = UserTestUtils.findNewUser("testUser", "testOrg", true);
         CryptoKey key = CryptoTest.createTestKey(otherOrg.getOrg());
         KickstartFactory.saveCryptoKey(key);
         flushAndEvict(key);
@@ -65,11 +65,11 @@ public class CryptoKeysHandlerTest extends BaseHandlerTestCase {
 
         // Test
         CryptoKeysHandler handler = new CryptoKeysHandler();
-        handler.create(regularKey, description, "GPG", content);
+        handler.create(adminKey, description, "GPG", content);
 
         // Verify
         CryptoKey cryptoKey =
-            KickstartFactory.lookupCryptoKey(description, regular.getOrg());
+            KickstartFactory.lookupCryptoKey(description, admin.getOrg());
 
         assertNotNull(cryptoKey);
         assertEquals(cryptoKey.getDescription(), description);
@@ -79,14 +79,14 @@ public class CryptoKeysHandlerTest extends BaseHandlerTestCase {
 
     public void testDelete() throws Exception {
         // Setup
-        CryptoKey key = CryptoTest.createTestKey(regular.getOrg());
+        CryptoKey key = CryptoTest.createTestKey(admin.getOrg());
         KickstartFactory.saveCryptoKey(key);
         assertNotNull(KickstartFactory.lookupCryptoKeyById(key.getId(), key.getOrg()));
         flushAndEvict(key);
 
         // Test
         CryptoKeysHandler handler = new CryptoKeysHandler();
-        handler.delete(regularKey, key.getDescription());
+        handler.delete(adminKey, key.getDescription());
 
         // Verify
         CryptoKey deletedKey =
@@ -96,14 +96,14 @@ public class CryptoKeysHandlerTest extends BaseHandlerTestCase {
 
     public void testGetDetails() throws Exception {
         // Setup
-        CryptoKey key = CryptoTest.createTestKey(regular.getOrg());
+        CryptoKey key = CryptoTest.createTestKey(admin.getOrg());
         KickstartFactory.saveCryptoKey(key);
         assertNotNull(KickstartFactory.lookupCryptoKeyById(key.getId(), key.getOrg()));
         flushAndEvict(key);
 
         // Test
         CryptoKeysHandler handler = new CryptoKeysHandler();
-        CryptoKey cryptoKey = handler.getDetails(regularKey, key.getDescription());
+        CryptoKey cryptoKey = handler.getDetails(adminKey, key.getDescription());
 
         // Verify
         assertNotNull(cryptoKey);
