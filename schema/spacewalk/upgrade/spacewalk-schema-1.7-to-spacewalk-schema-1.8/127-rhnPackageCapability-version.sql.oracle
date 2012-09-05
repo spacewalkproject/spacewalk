@@ -1,0 +1,3 @@
+
+alter table rhnPackageCapability modify version varchar2(512) ;
+
