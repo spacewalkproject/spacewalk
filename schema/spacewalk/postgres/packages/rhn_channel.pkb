@@ -25,7 +25,7 @@ update pg_settings set setting = 'rhn_channel,' || setting where name = 'search_
     create or replace function obtain_read_lock(channel_family_id_in in numeric, org_id_in in numeric)
     returns void as $$
     declare
-        read_lock date;
+        read_lock timestamptz;
     begin
         select created into read_lock
           from rhnPrivateChannelFamily
