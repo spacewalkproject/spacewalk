@@ -28,6 +28,7 @@ report_msg = {
         'file'      : "%5d files scanned",
         'exists'    : "ERROR: %5d files missing on disk",
         'dbexists'  : "ERROR: %5d files missing in database",
+        'restore'   : "ERROR: %5d file paths could not be restored",
         'size'      : "ERROR: %5d file size mismatch(es)",
         'checksum'  : "ERROR: %5d file checksum mismatch(es)",
         'nevrao'    : "ERROR: %5d file NEVRAO mismatch(es)",
@@ -95,6 +96,8 @@ def check_db_vs_disk(options):
 
             if check_disk_exists(abs_path) == 1:
                 report['exists'] += 1
+            elif options.restore:
+                report['restore'] +=  check_disk_nevrao(abs_path, row.copy(), True)
             else:
                 if options.size:
                     report['size'] += check_disk_size(abs_path, row['package_size'])
@@ -105,7 +108,7 @@ def check_db_vs_disk(options):
                                                row['checksum_type'], row['checksum'])
     h.close()
     error_found=0
-    for i in ['file', 'exists', 'size', 'nevrao', 'checksum']:
+    for i in ['file', 'exists', 'restore', 'size', 'nevrao', 'checksum']:
         if report[i] > 0:
             log(1, report_msg[i] % report[i])
             if i != 'file':
@@ -127,7 +130,7 @@ def check_disk_size(abs_path, size):
         ret = 1
     return ret
 
-def check_disk_nevrao(abs_path, row):
+def check_disk_nevrao(abs_path, row, restore=None):
     file = {};
     (_redhat_,
       file['org_id'],
@@ -156,8 +159,52 @@ def check_disk_nevrao(abs_path, row):
         if file[key] != row[key]:
             log(0, "File path mismatch: %s (%s: %s vs. %s)" % (abs_path, key, row[key],
                                                                file[key]))
+            if restore:
+                log(2, "Begining file path restoration: %s" % abs_path)
+                return restore_file_path(file, row)
             ret = 1
     return ret
+
+
+def restore_file_path(file, row):
+    prefix = CFG.MOUNT_POINT + '/'
+    new_path = 'redhat/' + row['org_id'] + '/' + row['checksum_prefix'] + '/' + row['name'] + '/' + row['evr'] + '/' + row['arch'] + '/' + row['checksum'] + '/' + row['basename']
+    query = "update rhnPackage set path=\'" + new_path + "\' where id=" + str(row['id'])
+    new_path = prefix + new_path
+    cleanup = True
+    try: #1st, make dirs needed
+        os.makedirs(new_path.rsplit('/', 1)[0])
+    except OSError, e:
+        if e.errno!=17: #something broke up
+            log(0, "File path restoration failed: %s" % row['path'])
+            return 1
+        else:
+            cleanup = False #dir already exists, do not cleanup
+    try: #2nd, create hardlink; os.link and os.makedirs in 1 dir would be problem due to checking of errno 17...
+        os.link(prefix + row['path'], new_path)
+    except OSError:
+        log(0, "File path restoration failed, rolling back: %s" % row['path'])
+        if cleanup==True:
+            try:
+                os.removedirs(new_path.rsplit('/', 1)[0])
+            except OSError, e:
+                if e.errno!=39:
+                    log(0, "Could not rollback file path restoration: %s" % row['path'])
+                    return 1
+        return
+    h = rhnSQL.prepare(query)
+    h.execute()
+    rhnSQL.commit()
+    try:
+        os.remove(prefix + row['path'])
+        os.removedirs(prefix + row['path'].rsplit('/', 1)[0])
+    except OSError, e:
+        if e.errno==2:
+            log(2, "File %s%s was removed by someone else but transaction has been successfully completed" % (prefix, row['path']))
+        elif e.errno!=39:
+            log(4, "Unexpected error, computer is going to self destruct")
+    log(0, "File %s%s successfully restored, new file path: %s" % (prefix, row['path'], new_path))
+    return 0
 
 def check_disk_checksum(abs_path, checksum_type, checksum):
     try:
@@ -242,6 +289,8 @@ if __name__ == '__main__':
             help="Check only if packages from filesystem are in the database"),
         Option("-r", "--remove",        action="store_true",
             help="Automaticaly remove packages from filesystem not present in database"),
+        Option("-F", "--fix-file-path", action="store_true", dest="restore", default=False,
+            help="Restores file paths, try this when you have NEVRAO mismatches. Do not run this command with another commands"),
     ]
     parser = OptionParser(option_list=options_table)
     (options, args) = parser.parse_args()
