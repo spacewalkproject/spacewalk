@@ -395,6 +395,7 @@ install -d -m 755 $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d
 install -m 644 conf/default/rhn_hibernate.conf $RPM_BUILD_ROOT%{_prefix}/share/rhn/config-defaults/rhn_hibernate.conf
 install -m 644 conf/default/rhn_taskomatic_daemon.conf $RPM_BUILD_ROOT%{_prefix}/share/rhn/config-defaults/rhn_taskomatic_daemon.conf
 install -m 644 conf/default/rhn_org_quartz.conf $RPM_BUILD_ROOT%{_prefix}/share/rhn/config-defaults/rhn_org_quartz.conf
+install -m 644 conf/rhn_java.conf $RPM_BUILD_ROOT%{_prefix}/share/rhn/config-defaults
 install -m 755 conf/logrotate/rhn_web_api $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/rhn_web_api
 install -m 755 scripts/taskomatic $RPM_BUILD_ROOT%{_initrddir}
 install -m 755 scripts/unittest.xml $RPM_BUILD_ROOT/%{_datadir}/rhn/
@@ -599,6 +600,7 @@ fi
 %{_prefix}/share/rhn/config-defaults/rhn_hibernate.conf
 %{_prefix}/share/rhn/config-defaults/rhn_taskomatic_daemon.conf
 %{_prefix}/share/rhn/config-defaults/rhn_org_quartz.conf
+%{_prefix}/share/rhn/config-defaults/rhn_java.conf
 %config %{_sysconfdir}/logrotate.d/rhn_web_api
 
 %files lib
