@@ -8,7 +8,7 @@
 
 Summary: Oracle 10g Database Server Enterprise Edition scripts
 Name: oracle-server-scripts
-Version: 10.2.0.57
+Version: 10.2.0.58
 Release: 1%{?dist}
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 License: Proprietary
@@ -88,6 +88,10 @@ exit 0
 %{oracle_scripts}
 
 %changelog
+* Thu Sep 06 2012 Michael Mraka <michael.mraka@redhat.com> 10.2.0.58-1
+- 852757 - create 2GB TEMP by default
+- create 8GB data_tbs by default
+
 * Mon Jul 16 2012 Jan Pazdziora 10.2.0.57-1
 - Start using the .tar.gz in the .src.rpm for oracle-server-scripts.
 
