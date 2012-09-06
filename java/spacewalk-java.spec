@@ -23,7 +23,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.140
+Version: 1.8.141
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -614,6 +614,13 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Sep 06 2012 Tomas Lestach <tlestach@redhat.com> 1.8.141-1
+- removing unused IsoServlet
+- removing java/buildconf/builder directory
+- CryptoKeysHandlerTest are undertaken with OrgAdmin privileges.
+- 815964 - not critical, but adding to this version of rhn_web.conf too
+- 815964 - moving monitoring probe batch option from rhn.conf to rhn_web.conf
+
 * Tue Sep 04 2012 Tomas Lestach <tlestach@redhat.com> 1.8.140-1
 - 853444 - list only subscribable base channels for actiovation key
   associations
