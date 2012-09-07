@@ -23,7 +23,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.142
+Version: 1.8.143
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -616,6 +616,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Sep 07 2012 Tomas Lestach <tlestach@redhat.com> 1.8.143-1
+- checkstyle fix
+
 * Fri Sep 07 2012 Tomas Lestach <tlestach@redhat.com> 1.8.142-1
 - changing web.login_banner -> java.login_banner
 - changing web.custom_footer -> java.custom_footer
