@@ -44,7 +44,7 @@ public class SessionCleanup extends RhnJavaJob {
 
         //retrieves info from user preferences
         long window = c.getInt("web.session_database_lifetime");
-        int batchSize = c.getInt("web.session_delete_batch_size");
+        int batchSize = c.getInt("java.session_delete_batch_size");
         int commitInterval = c.getInt("web.session_delete_commit_interval");
 
         // 100000 is an arbitrary value
