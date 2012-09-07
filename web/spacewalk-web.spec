@@ -1235,7 +1235,7 @@ rm -rf $RPM_BUILD_ROOT
   (tlestach@redhat.com)
 
 * Mon Nov 30 2009 Miroslav Suchý <msuchy@redhat.com> 0.7.7-1
-- add variable web.chat_enabled to config file
+- add variable java.chat_enabled to config file
 
 * Thu Nov 19 2009 Michael Mraka <michael.mraka@redhat.com> 0.7.6-1
 - 531649 - fixed confirmation message after channel merge/compare
