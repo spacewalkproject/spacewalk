@@ -356,14 +356,14 @@ public class TestUtils {
      *
      */
     public static void enableLocalizationDebugMode() {
-        Config.get().setString("web.l10n_debug", "true");
+        Config.get().setString("java.l10n_debug", "true");
     }
 
     /**
     * Turns of the Config setting for L10N debug mode
     */
     public static void disableLocalizationDebugMode() {
-        Config.get().setString("web.l10n_debug", "false");
+        Config.get().setString("java.l10n_debug", "false");
     }
 
     /**
@@ -392,9 +392,9 @@ public class TestUtils {
      */
     public static boolean isLocalized(String checkMe) {
         if (!Boolean.valueOf(
-                Config.get().getString("web.l10n_debug", "false")).booleanValue()) {
+                Config.get().getString("java.l10n_debug", "false")).booleanValue()) {
             throw new
-                IllegalArgumentException("web.l10n_debug is set to false.  " +
+                IllegalArgumentException("java.l10n_debug is set to false.  " +
                         "This test doesnt mean anything if its set to false. ");
         }
         return (checkMe.startsWith(Config.get().getString("java.l10n_debug_marker", "$$$")));

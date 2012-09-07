@@ -314,7 +314,7 @@ public class LocalizationService {
     private String getDebugVersionOfString(String mess) {
         // If we have put the Service into debug mode we
         // will wrap all the messages in a marker.
-        boolean debugMode = Config.get().getBoolean("web.l10n_debug");
+        boolean debugMode = Config.get().getBoolean("java.l10n_debug");
         if (debugMode) {
             StringBuffer debug = new StringBuffer();
             String marker = Config.get().getString("java.l10n_debug_marker",
