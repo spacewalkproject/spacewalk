@@ -9,7 +9,7 @@
     : <a href="http://www.redhat.com/">redhat.com</a>
       <div style="color: black"><bean:message key="footer.jsp.release" arg0="/rhn/help/dispatcher/release_notes" arg1="${rhn:getConfig('web.version')}" /></div>
     <p><%@ include file="/WEB-INF/pages/common/fragments/bugzilla.jspf" %></p>
-    <c:set var="custom_footer" scope="page" value="${rhn:getConfig('web.custom_footer')}" />
+    <c:set var="custom_footer" scope="page" value="${rhn:getConfig('java.custom_footer')}" />
     <c:if test="${! empty custom_footer}">
         <p><c:out value="${custom_footer}" escapeXml="false"/></p>
     </c:if>
