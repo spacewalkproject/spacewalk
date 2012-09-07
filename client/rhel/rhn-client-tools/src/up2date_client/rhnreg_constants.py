@@ -66,7 +66,7 @@ CONTINUE_REGISTERING   = _("Take me back to the setup process.")
 REGISTER_LATER2        = _("I'll register later.")
 
 # Info Window
-REGISTER_WINDOW   = _("Enter you account information")
+REGISTER_WINDOW   = _("Enter your account information")
 LOGIN_PROMPT      = _("Please enter your login information for the %s Red "
                     "Hat Network Satellite:\n\n")
 HOSTED_LOGIN      = _("Red Hat Login:")
