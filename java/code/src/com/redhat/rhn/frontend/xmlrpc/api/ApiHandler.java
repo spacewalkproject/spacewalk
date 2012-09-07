@@ -61,7 +61,7 @@ public class ApiHandler extends BaseHandler {
      * @xmlrpc.returntype string
      */
     public String getVersion() {
-        return Config.get().getString("web.apiversion");
+        return Config.get().getString("java.apiversion");
     }
 
     private Collection getNamespaces() {

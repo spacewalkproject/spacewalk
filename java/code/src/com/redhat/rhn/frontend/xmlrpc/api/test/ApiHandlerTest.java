@@ -33,7 +33,7 @@ public class ApiHandlerTest extends RhnBaseTestCase {
 
     public void testGetVersion() {
         ApiHandler handler = new ApiHandler();
-        String version = Config.get().getString("web.apiversion");
+        String version = Config.get().getString("java.apiversion");
         assertEquals(version, handler.getVersion());
     }
 }
