@@ -23,7 +23,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.141
+Version: 1.8.142
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -616,6 +616,31 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Sep 07 2012 Tomas Lestach <tlestach@redhat.com> 1.8.142-1
+- changing web.login_banner -> java.login_banner
+- changing web.custom_footer -> java.custom_footer
+- changing web.custom_header -> java.custom_header
+- changing web.chat_enabled -> java.chat_enabled
+- changing web.taskomatic_cobbler_user -> java.taskomatic_cobbler_user
+- changing web.excluded_countries -> java.excluded_countries
+- changing web.supported_locales -> java.supported_locales
+- changing web.l10n_missingmessage_exceptions ->
+  java.l10n_missingmessage_exceptions
+- changing web.l10n_debug -> java.l10n_debug
+- changing web.l10n_debug_marker -> java.l10n_debug_marker
+- changing web.errata_cache_compute_threshold ->
+  java.errata_cache_compute_threshold
+- changing web.sandbox_lifetime -> java.sandbox_lifetime
+- changing web.apiversion -> java.apiversion
+- changing web.development_environment -> java.development_environment
+- changing web.customer_service_email -> java.customer_service_email
+- changing web.session_delete_commit_interval ->
+  java.session_delete_commit_interval
+- changing web.session_delete_batch_size -> java.session_delete_batch_size
+- changing web.min_user_len -> java.min_user_len
+- deploy rhn_java.conf
+- move java related configuration the rhn_java.conf
+
 * Thu Sep 06 2012 Tomas Lestach <tlestach@redhat.com> 1.8.141-1
 - removing unused IsoServlet
 - removing java/buildconf/builder directory
