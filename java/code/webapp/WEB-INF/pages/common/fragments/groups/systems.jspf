@@ -23,7 +23,9 @@
       <bean:message key="${param.title_key}"/>
     </h2>
     <p>
-    <div class="page-summary">${param.summary}</div>
+    <div class="page-summary">
+    <bean:message key="${param.summary_key}" arg0="${param.summary_arg0}" />
+    </div>
     </p>
 <rl:listset name="systemListSet" legend="system">
     <rhn:csrf />

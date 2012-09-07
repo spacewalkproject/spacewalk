@@ -18,7 +18,7 @@
 	<bean:message key="${param.title_key}"/>
 	</h2>
     <p>
-    ${param.summary}
+    <bean:message key="${param.summary_key}" arg0="${param.summary_arg0}" />
     </p>
 
 <c:set var="pageList" value="${requestScope.all}" />
@@ -67,8 +67,9 @@
 
 </c:when>
 <c:otherwise>
-<p><strong>${param.empty_message}</strong>
-</p>
+  <p><strong>
+    <bean:message key="${param.empty_message_key}" arg0="${param.empty_message_arg0}" arg1="${param.empty_message_arg1}"/>
+  </strong></p>
 </div>
 </c:otherwise>
 </c:choose> 			
