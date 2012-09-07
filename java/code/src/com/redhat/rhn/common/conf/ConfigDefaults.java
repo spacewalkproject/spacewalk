@@ -86,7 +86,7 @@ public class ConfigDefaults {
 
     public static final String PRODUCT_NAME = "web.product_name";
 
-    public static final String COBBLER_AUTOMATED_USER = "web.taskomatic_cobbler_user";
+    public static final String COBBLER_AUTOMATED_USER = "java.taskomatic_cobbler_user";
 
     public static final String DOC_REFERENCE_GUIDE = "docs.reference_guide";
     public static final String DOC_INSTALL_GUIDE = "docs.install_guide";
