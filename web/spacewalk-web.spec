@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.34
+Version: 1.8.35
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -253,6 +253,11 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Fri Sep 07 2012 Tomas Lestach <tlestach@redhat.com> 1.8.35-1
+- restore changelog
+- changing web.chat_enabled -> java.chat_enabled
+- move java related configuration the rhn_java.conf
+
 * Wed Sep 05 2012 Stephen Herr <sherr@redhat.com> 1.8.34-1
 - 815964 - moving monitoring probe batch option from rhn.conf to rhn_web.conf
 
