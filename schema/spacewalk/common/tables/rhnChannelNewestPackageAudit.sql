@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2012 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -16,8 +16,8 @@
 
 CREATE TABLE rhnChannelNewestPackageAudit
 (
-    refresh_time  DATE
-                      DEFAULT (sysdate) NOT NULL,
+    refresh_time  timestamp with local time zone
+                      DEFAULT (current_timestamp) NOT NULL,
     channel_id    NUMBER NOT NULL
                       CONSTRAINT rhn_cnp_at_cid_fk
                           REFERENCES rhnChannel (id)

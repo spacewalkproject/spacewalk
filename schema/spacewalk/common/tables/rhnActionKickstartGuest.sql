@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2012 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -34,10 +34,10 @@ CREATE TABLE rhnActionKickstartGuest
     disk_path            VARCHAR2(256),
     virt_bridge          VARCHAR2(256),
     kickstart_host       VARCHAR2(256),
-    created              DATE
-                             DEFAULT (sysdate) NOT NULL,
-    modified             DATE
-                             DEFAULT (sysdate) NOT NULL,
+    created              timestamp with local time zone
+                             DEFAULT (current_timestamp) NOT NULL,
+    modified             timestamp with local time zone
+                             DEFAULT (current_timestamp) NOT NULL,
     mac_address          VARCHAR2(17)
 )
 ENABLE ROW MOVEMENT

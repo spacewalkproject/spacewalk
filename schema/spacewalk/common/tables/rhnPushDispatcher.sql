@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008--2011 Red Hat, Inc.
+-- Copyright (c) 2008--2012 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -21,14 +21,14 @@ CREATE TABLE rhnPushDispatcher
                       USING INDEX TABLESPACE [[8m_tbs]],
     jabber_id     VARCHAR2(128) NOT NULL,
     password      VARCHAR(32),
-    last_checkin  DATE
-                      DEFAULT (sysdate) NOT NULL,
+    last_checkin  timestamp with local time zone
+                      DEFAULT (current_timestamp) NOT NULL,
     hostname      VARCHAR2(256) NOT NULL,
     port          NUMBER NOT NULL,
-    created       DATE
-                      DEFAULT (sysdate) NOT NULL,
-    modified      DATE
-                      DEFAULT (sysdate) NOT NULL
+    created       timestamp with local time zone
+                      DEFAULT (current_timestamp) NOT NULL,
+    modified      timestamp with local time zone
+                      DEFAULT (current_timestamp) NOT NULL
 )
 ENABLE ROW MOVEMENT
 ;

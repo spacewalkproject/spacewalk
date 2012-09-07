@@ -59,12 +59,12 @@ CREATE TABLE rhnPackage
     header_sig       VARCHAR2(64),
     copyright        VARCHAR2(128),
     cookie           VARCHAR2(128),
-    last_modified    DATE
-                         DEFAULT (sysdate) NOT NULL,
-    created          DATE
-                         DEFAULT (sysdate) NOT NULL,
-    modified         DATE
-                         DEFAULT (sysdate) NOT NULL,
+    last_modified    timestamp with local time zone
+                         DEFAULT (current_timestamp) NOT NULL,
+    created          timestamp with local time zone
+                         DEFAULT (current_timestamp) NOT NULL,
+    modified         timestamp with local time zone
+                         DEFAULT (current_timestamp) NOT NULL,
     header_start     NUMBER
                          DEFAULT (-1) NOT NULL,
     header_end       NUMBER

@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2012 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -22,8 +22,8 @@ CREATE TABLE rhn_snmp_alert
     sender_cluster_id  NUMBER(12) NOT NULL,
     dest_ip            VARCHAR2(255) NOT NULL,
     dest_port          NUMBER(5) NOT NULL,
-    date_generated     DATE,
-    date_submitted     DATE,
+    date_generated     timestamp with local time zone,
+    date_submitted     timestamp with local time zone,
     command_name       VARCHAR2(255),
     notif_type         NUMBER(5),
     op_center          VARCHAR2(255),

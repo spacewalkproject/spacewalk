@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2012 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -19,7 +19,7 @@ CREATE TABLE rhn_satellite_state
     satellite_id          NUMBER(12) NOT NULL
                               CONSTRAINT rhn_satst_sat_id_pk PRIMARY KEY
                               USING INDEX TABLESPACE [[2m_tbs]],
-    last_check            DATE,
+    last_check            timestamp with local time zone,
     probe_count           NUMBER(10),
     pct_ok                NUMBER(10,2),
     pct_warning           NUMBER(10,2),

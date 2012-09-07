@@ -22,10 +22,10 @@ CREATE TABLE rhnPackageSuggests
                            REFERENCES rhnPackageCapability (id),
     sense          NUMBER
                        DEFAULT (0) NOT NULL,
-    created        DATE
-                       DEFAULT (sysdate) NOT NULL,
-    modified       DATE
-                       DEFAULT (sysdate) NOT NULL
+    created        timestamp with local time zone
+                       DEFAULT (current_timestamp) NOT NULL,
+    modified       timestamp with local time zone
+                       DEFAULT (current_timestamp) NOT NULL
 )
 ENABLE ROW MOVEMENT
 ;

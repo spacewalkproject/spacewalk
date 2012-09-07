@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008--2010 Red Hat, Inc.
+-- Copyright (c) 2008--2012 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -31,7 +31,7 @@ CREATE TABLE rhn_contact_groups
                                 CONSTRAINT rhn_cntgp_rotate_f_ck
                                     CHECK (rotate_first in ('0','1')),
     last_update_user        VARCHAR2(40) NOT NULL,
-    last_update_date        DATE NOT NULL,
+    last_update_date        timestamp with local time zone NOT NULL,
     notification_format_id  NUMBER(12)
                                 DEFAULT (4) NOT NULL
 )

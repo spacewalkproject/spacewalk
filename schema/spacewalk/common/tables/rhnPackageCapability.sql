@@ -21,10 +21,10 @@ CREATE TABLE rhnPackageCapability
                   USING INDEX TABLESPACE [[4m_tbs]],
     name      VARCHAR2(4000) NOT NULL,
     version   VARCHAR2(512),
-    created   DATE
-                  DEFAULT (sysdate) NOT NULL,
-    modified  DATE
-                  DEFAULT (sysdate) NOT NULL
+    created   timestamp with local time zone
+                  DEFAULT (current_timestamp) NOT NULL,
+    modified  timestamp with local time zone
+                  DEFAULT (current_timestamp) NOT NULL
 )
 ENABLE ROW MOVEMENT
 ;

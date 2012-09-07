@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008--2011 Red Hat, Inc.
+-- Copyright (c) 2008--2012 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -18,13 +18,13 @@ CREATE TABLE rhn_command_queue_execs
 (
     instance_id       NUMBER(12) NOT NULL,
     netsaint_id       NUMBER(12) NOT NULL,
-    date_accepted     DATE,
-    date_executed     DATE,
+    date_accepted     timestamp with local time zone,
+    date_executed     timestamp with local time zone,
     exit_status       NUMBER(5),
     execution_time    NUMBER(10,6),
     stdout            VARCHAR2(4000),
     stderr            VARCHAR2(4000),
-    last_update_date  DATE,
+    last_update_date  timestamp with local time zone,
     target_type       VARCHAR2(10) NOT NULL
 )
 ENABLE ROW MOVEMENT

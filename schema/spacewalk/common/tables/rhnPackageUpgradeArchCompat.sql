@@ -22,10 +22,10 @@ CREATE TABLE rhnPackageUpgradeArchCompat
     package_upgrade_arch_id NUMBER NOT NULL
                          CONSTRAINT rhn_puac_pauid_fk
                              REFERENCES rhnPackageArch (id),
-    created          DATE
-                         DEFAULT (sysdate) NOT NULL,
-    modified         DATE
-                         DEFAULT (sysdate) NOT NULL
+    created          timestamp with local time zone
+                         DEFAULT (current_timestamp) NOT NULL,
+    modified         timestamp with local time zone
+                         DEFAULT (current_timestamp) NOT NULL
 )
 ENABLE ROW MOVEMENT
 ;

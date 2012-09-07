@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2012 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -25,9 +25,9 @@ CREATE TABLE rhnSsmOperation
                          ON DELETE CASCADE,
     description  VARCHAR2(256) NOT NULL,
     status       VARCHAR2(32) NOT NULL,
-    started      DATE NOT NULL,
-    modified     DATE
-                     DEFAULT (sysdate) NOT NULL
+    started      timestamp with local time zone NOT NULL,
+    modified     timestamp with local time zone
+                     DEFAULT (current_timestamp) NOT NULL
 )
 ;
 

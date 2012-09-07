@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008--2010 Red Hat, Inc.
+-- Copyright (c) 2008--2012 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -35,7 +35,7 @@ CREATE TABLE rhn_contact_methods
     email_address              VARCHAR2(50),
     email_reply_to             VARCHAR2(50),
     last_update_user           VARCHAR2(40),
-    last_update_date           DATE,
+    last_update_date           timestamp with local time zone,
     snmp_host                  VARCHAR2(255),
     snmp_port                  NUMBER(5),
     notification_format_id     NUMBER(12)

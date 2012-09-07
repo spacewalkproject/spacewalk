@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008--2011 Red Hat, Inc.
+-- Copyright (c) 2008--2012 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -36,10 +36,10 @@ CREATE TABLE rhnKickstartScript
                           CHECK (raw_script in ('Y','N')),
     interpreter   VARCHAR2(80),
     data          BLOB,
-    created       DATE
-                      DEFAULT (sysdate) NOT NULL,
-    modified      DATE
-                      DEFAULT (sysdate) NOT NULL
+    created       timestamp with local time zone
+                      DEFAULT (current_timestamp) NOT NULL,
+    modified      timestamp with local time zone
+                      DEFAULT (current_timestamp) NOT NULL
 )
 ENABLE ROW MOVEMENT
 ;

@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008--2010 Red Hat, Inc.
+-- Copyright (c) 2008--2012 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -46,10 +46,10 @@ CREATE TABLE web_user_site_info
                                 REFERENCES web_user_site_type (type),
     oracle_site_id      VARCHAR2(32),
     notes               VARCHAR2(2000),
-    created             DATE
-                            DEFAULT (sysdate),
-    modified            DATE
-                            DEFAULT (sysdate),
+    created             timestamp with local time zone
+                            DEFAULT (current_timestamp),
+    modified            timestamp with local time zone
+                            DEFAULT (current_timestamp),
     alt_first_names_ol  VARCHAR2(128),
     alt_last_name_ol    VARCHAR2(128),
     address1_ol         VARCHAR2(128),

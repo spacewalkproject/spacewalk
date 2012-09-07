@@ -26,7 +26,7 @@ CREATE TABLE rhn_sat_cluster
     customer_id           NUMBER(12) NOT NULL,
     description           VARCHAR2(255) NOT NULL,
     last_update_user      VARCHAR2(40),
-    last_update_date      DATE,
+    last_update_date      timestamp with local time zone,
     physical_location_id  NUMBER(12) NOT NULL,
     public_key            VARCHAR2(2000),
     vip                   VARCHAR2(15),

@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2012 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -25,12 +25,12 @@ CREATE TABLE rhnKSTreeFile
                           CONSTRAINT rhn_kstreefile_chsum_fk
                            REFERENCES rhnChecksum (id),
     file_size          NUMBER NOT NULL,
-    last_modified      DATE
-                           DEFAULT (sysdate) NOT NULL,
-    created            DATE
-                           DEFAULT (sysdate) NOT NULL,
-    modified           DATE
-                           DEFAULT (sysdate) NOT NULL
+    last_modified      timestamp with local time zone
+                           DEFAULT (current_timestamp) NOT NULL,
+    created            timestamp with local time zone
+                           DEFAULT (current_timestamp) NOT NULL,
+    modified           timestamp with local time zone
+                           DEFAULT (current_timestamp) NOT NULL
 )
 ENABLE ROW MOVEMENT
 ;

@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2012 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -21,12 +21,12 @@ CREATE TABLE rhn_command_queue_instances
                           USING INDEX TABLESPACE [[4m_tbs]],
     command_id        NUMBER(12) NOT NULL,
     notes             VARCHAR2(2000),
-    date_submitted    DATE NOT NULL,
-    expiration_date   DATE NOT NULL,
+    date_submitted    timestamp with local time zone NOT NULL,
+    expiration_date   timestamp with local time zone NOT NULL,
     notify_email      VARCHAR2(50),
     timeout           NUMBER(5),
     last_update_user  VARCHAR2(40),
-    last_update_date  DATE
+    last_update_date  timestamp with local time zone
 )
 ENABLE ROW MOVEMENT
 ;

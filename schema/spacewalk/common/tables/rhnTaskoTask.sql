@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2010 Red Hat, Inc.
+-- Copyright (c) 2010--2012 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -21,10 +21,10 @@ CREATE TABLE rhnTaskoTask
     name      VARCHAR2(80) NOT NULL
                   CONSTRAINT rhn_tasko_task_name_uq UNIQUE,
     class     VARCHAR2(60) NOT NULL,
-    created   DATE
-                  DEFAULT (sysdate) NOT NULL,
-    modified  DATE
-                  DEFAULT (sysdate) NOT NULL
+    created   timestamp with local time zone
+                  DEFAULT (current_timestamp) NOT NULL,
+    modified  timestamp with local time zone
+                  DEFAULT (current_timestamp) NOT NULL
 )
 ;
 

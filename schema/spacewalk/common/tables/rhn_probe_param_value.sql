@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008--2011 Red Hat, Inc.
+-- Copyright (c) 2008--2012 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -21,7 +21,7 @@ CREATE TABLE rhn_probe_param_value
     param_name        VARCHAR2(40) NOT NULL,
     value             VARCHAR2(1024),
     last_update_user  VARCHAR2(40),
-    last_update_date  DATE
+    last_update_date  timestamp with local time zone
 )
 ENABLE ROW MOVEMENT
 ;

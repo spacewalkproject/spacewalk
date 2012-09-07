@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008--2011 Red Hat, Inc.
+-- Copyright (c) 2008--2012 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -31,7 +31,7 @@ CREATE TABLE rhn_command
     for_host_probe       CHAR(1)
                              DEFAULT ('0') NOT NULL,
     last_update_user     VARCHAR2(40),
-    last_update_date     DATE,
+    last_update_date     timestamp with local time zone,
     system_requirements  VARCHAR2(40),
     version_support      VARCHAR2(1024),
     help_url             VARCHAR2(1024)

@@ -25,10 +25,10 @@ CREATE TABLE rhnServerNetInterface
     name       VARCHAR2(32) NOT NULL,
     hw_addr    VARCHAR2(18),
     module     VARCHAR2(128),
-    created    DATE
-                   DEFAULT (sysdate) NOT NULL,
-    modified   DATE
-                   DEFAULT (sysdate) NOT NULL
+    created    timestamp with local time zone
+                   DEFAULT (current_timestamp) NOT NULL,
+    modified   timestamp with local time zone
+                   DEFAULT (current_timestamp) NOT NULL
 )
 ENABLE ROW MOVEMENT
 ;

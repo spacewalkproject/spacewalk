@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2012 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -24,13 +24,13 @@ CREATE TABLE rhnServerActionScriptResult
                               REFERENCES rhnActionScript (id)
                               ON DELETE CASCADE,
     output            BLOB,
-    start_date        DATE NOT NULL,
-    stop_date         DATE NOT NULL,
+    start_date        timestamp with local time zone NOT NULL,
+    stop_date         timestamp with local time zone NOT NULL,
     return_code       NUMBER NOT NULL,
-    created           DATE
-                          DEFAULT (sysdate) NOT NULL,
-    modified          DATE
-                          DEFAULT (sysdate) NOT NULL
+    created           timestamp with local time zone
+                          DEFAULT (current_timestamp) NOT NULL,
+    modified          timestamp with local time zone
+                          DEFAULT (current_timestamp) NOT NULL
 )
 TABLESPACE [[blob]]
 ENABLE ROW MOVEMENT

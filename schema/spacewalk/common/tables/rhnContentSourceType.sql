@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008--2010 Red Hat, Inc.
+-- Copyright (c) 2008--2012 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -23,8 +23,8 @@ rhnContentSourceType
                         constraint rhn_cst_id_pk primary key,
 	label		varchar2(32) NOT NULL
                         constraint rhn_cst_label_uq unique,
-	created		date default(sysdate) NOT NULL,
-	modified	date default(sysdate) NOT NULL
+	created		timestamp with local time zone default(current_timestamp) NOT NULL,
+	modified	timestamp with local time zone default(current_timestamp) NOT NULL
 ) 
 	enable row movement
   ;

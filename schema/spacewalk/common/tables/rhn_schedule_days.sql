@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2012 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -23,14 +23,14 @@ CREATE TABLE rhn_schedule_days
                               CHECK (recid > 0),
     schedule_id       NUMBER(12),
     ord               NUMBER(3),
-    start_1           DATE,
-    end_1             DATE,
-    start_2           DATE,
-    end_2             DATE,
-    start_3           DATE,
-    end_3             DATE,
-    start_4           DATE,
-    end_4             DATE,
+    start_1           timestamp with local time zone,
+    end_1             timestamp with local time zone,
+    start_2           timestamp with local time zone,
+    end_2             timestamp with local time zone,
+    start_3           timestamp with local time zone,
+    end_3             timestamp with local time zone,
+    start_4           timestamp with local time zone,
+    end_4             timestamp with local time zone,
     last_update_user  VARCHAR2(40),
     last_update_date  VARCHAR2(40)
 )

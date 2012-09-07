@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2012 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -23,12 +23,12 @@ CREATE TABLE rhnRepoRegenQueue
     reason          VARCHAR2(128),
     force           CHAR(1),
     bypass_filters  CHAR(1),
-    next_action     DATE
-                        DEFAULT (sysdate),
-    created         DATE
-                        DEFAULT (sysdate) NOT NULL,
-    modified        DATE
-                        DEFAULT (sysdate) NOT NULL
+    next_action     timestamp with local time zone
+                        DEFAULT (current_timestamp),
+    created         timestamp with local time zone
+                        DEFAULT (current_timestamp) NOT NULL,
+    modified        timestamp with local time zone
+                        DEFAULT (current_timestamp) NOT NULL
 )
 ;
 

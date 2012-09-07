@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008--2011 Red Hat, Inc.
+-- Copyright (c) 2008--2012 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -24,10 +24,10 @@ CREATE TABLE rhn_redirects
     redirect_type        VARCHAR2(20) NOT NULL,
     description          VARCHAR2(25),
     reason               VARCHAR2(2000),
-    expiration           DATE NOT NULL,
+    expiration           timestamp with local time zone NOT NULL,
     last_update_user     VARCHAR2(40),
-    last_update_date     DATE,
-    start_date           DATE NOT NULL,
+    last_update_date     timestamp with local time zone,
+    start_date           timestamp with local time zone NOT NULL,
     recurring            NUMBER(12)
                              DEFAULT (0) NOT NULL,
     recurring_frequency  NUMBER(12)

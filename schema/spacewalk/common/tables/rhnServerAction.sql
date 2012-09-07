@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008--2010 Red Hat, Inc.
+-- Copyright (c) 2008--2012 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -28,14 +28,14 @@ CREATE TABLE rhnServerAction
                              REFERENCES rhnActionStatus (id),
     result_code      NUMBER,
     result_msg       VARCHAR2(1024),
-    pickup_time      DATE,
+    pickup_time      timestamp with local time zone,
     remaining_tries  NUMBER
                          DEFAULT (5) NOT NULL,
-    completion_time  DATE,
-    created          DATE
-                         DEFAULT (sysdate) NOT NULL,
-    modified         DATE
-                         DEFAULT (sysdate) NOT NULL
+    completion_time  timestamp with local time zone,
+    created          timestamp with local time zone
+                         DEFAULT (current_timestamp) NOT NULL,
+    modified         timestamp with local time zone
+                         DEFAULT (current_timestamp) NOT NULL
 )
 ENABLE ROW MOVEMENT
 ;

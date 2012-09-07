@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008--2011 Red Hat, Inc.
+-- Copyright (c) 2008--2012 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -28,8 +28,8 @@ rhnContentSourceFilter
         flag            varchar2(1) NOT NULL
                         check (flag in ('+','-')),
         filter          varchar2(4000) NOT NULL,
-        created         date default(sysdate) NOT NULL,
-        modified        date default(sysdate) NOT NULL
+        created         timestamp with local time zone default(current_timestamp) NOT NULL,
+        modified        timestamp with local time zone default(current_timestamp) NOT NULL
 )
 	enable row movement
   ;

@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008--2011 Red Hat, Inc.
+-- Copyright (c) 2008--2012 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -32,10 +32,10 @@ CREATE TABLE rhnErrataTmp
     synopsis          VARCHAR2(4000),
     topic             VARCHAR2(4000),
     solution          VARCHAR2(4000),
-    issue_date        DATE
-                          DEFAULT (sysdate) NOT NULL,
-    update_date       DATE
-                          DEFAULT (sysdate) NOT NULL,
+    issue_date        timestamp with local time zone
+                          DEFAULT (current_timestamp) NOT NULL,
+    update_date       timestamp with local time zone
+                          DEFAULT (current_timestamp) NOT NULL,
     refers_to         VARCHAR2(4000),
     notes             VARCHAR2(4000),
     org_id            NUMBER
@@ -46,12 +46,12 @@ CREATE TABLE rhnErrataTmp
                           CONSTRAINT rhn_erratatmp_lm_ck
                               CHECK (locally_modified in ('Y','N')),
     errata_from       VARCHAR(127),
-    created           DATE
-                          DEFAULT (sysdate) NOT NULL,
-    modified          DATE
-                          DEFAULT (sysdate) NOT NULL,
-    last_modified     DATE
-                          DEFAULT (sysdate) NOT NULL
+    created           timestamp with local time zone
+                          DEFAULT (current_timestamp) NOT NULL,
+    modified          timestamp with local time zone
+                          DEFAULT (current_timestamp) NOT NULL,
+    last_modified     timestamp with local time zone
+                          DEFAULT (current_timestamp) NOT NULL
 )
 ENABLE ROW MOVEMENT
 ;

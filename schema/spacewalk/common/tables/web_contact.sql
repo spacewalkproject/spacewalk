@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008--2010 Red Hat, Inc.
+-- Copyright (c) 2008--2012 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -28,10 +28,10 @@ CREATE TABLE web_contact
                            USING INDEX TABLESPACE [[web_index_tablespace_2]],
     password           VARCHAR2(38) NOT NULL,
     old_password       VARCHAR2(38),
-    created            DATE
-                           DEFAULT (sysdate) NOT NULL,
-    modified           DATE
-                           DEFAULT (sysdate) NOT NULL,
+    created            timestamp with local time zone
+                           DEFAULT (current_timestamp) NOT NULL,
+    modified           timestamp with local time zone
+                           DEFAULT (current_timestamp) NOT NULL,
     oracle_contact_id  NUMBER
                            CONSTRAINT web_contact_ocid_unq UNIQUE
                            USING INDEX TABLESPACE [[web_index_tablespace_2]],

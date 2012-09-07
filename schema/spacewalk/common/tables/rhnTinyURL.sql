@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008--2010 Red Hat, Inc.
+-- Copyright (c) 2008--2012 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -21,10 +21,10 @@ CREATE TABLE rhnTinyURL
     enabled  VARCHAR2(1) NOT NULL
                  CONSTRAINT rhn_tu_enabled_ck
                      CHECK (enabled in ('Y','N')),
-    created  DATE
-                 DEFAULT (sysdate) NOT NULL,
-    expires  DATE
-                 DEFAULT (sysdate) NOT NULL
+    created  timestamp with local time zone
+                 DEFAULT (current_timestamp) NOT NULL,
+    expires  timestamp with local time zone
+                 DEFAULT (current_timestamp) NOT NULL
 )
 ENABLE ROW MOVEMENT
 ;

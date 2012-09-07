@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008--2010 Red Hat, Inc.
+-- Copyright (c) 2008--2012 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -30,7 +30,7 @@ CREATE TABLE rhnPackageFile
     groupname      VARCHAR2(32) NOT NULL,
     rdev           NUMBER NOT NULL,
     file_size      NUMBER NOT NULL,
-    mtime          DATE NOT NULL,
+    mtime          timestamp with local time zone NOT NULL,
     checksum_id    NUMBER
                       CONSTRAINT rhn_package_file_chsum_fk
                           REFERENCES rhnChecksum (id),
@@ -38,10 +38,10 @@ CREATE TABLE rhnPackageFile
     flags          NUMBER NOT NULL,
     verifyflags    NUMBER NOT NULL,
     lang           VARCHAR2(32),
-    created        DATE
-                       DEFAULT (sysdate) NOT NULL,
-    modified       DATE
-                       DEFAULT (sysdate) NOT NULL
+    created        timestamp with local time zone
+                       DEFAULT (current_timestamp) NOT NULL,
+    modified       timestamp with local time zone
+                       DEFAULT (current_timestamp) NOT NULL
 )
 ENABLE ROW MOVEMENT
 ;

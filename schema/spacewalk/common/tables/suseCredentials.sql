@@ -27,8 +27,8 @@ CREATE TABLE suseCredentials
     url      VARCHAR2(256),
     username VARCHAR2(64) NOT NULL,
     password VARCHAR2(64) NOT NULL,
-    created  DATE DEFAULT (sysdate) NOT NULL,
-    modified DATE DEFAULT (sysdate) NOT NULL
+    created  timestamp with local time zone DEFAULT (current_timestamp) NOT NULL,
+    modified timestamp with local time zone DEFAULT (current_timestamp) NOT NULL
 )
 ENABLE ROW MOVEMENT
 ;

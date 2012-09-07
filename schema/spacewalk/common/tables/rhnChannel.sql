@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008--2010 Red Hat, Inc.
+-- Copyright (c) 2008--2012 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -39,16 +39,16 @@ CREATE TABLE rhnChannel
     gpg_key_url         VARCHAR2(256),
     gpg_key_id          VARCHAR2(14),
     gpg_key_fp          VARCHAR2(50),
-    end_of_life         DATE,
+    end_of_life         timestamp with local time zone,
     checksum_type_id    NUMBER CONSTRAINT rhn_channel_checksum_fk
                                 REFERENCES rhnChecksumType(id),
     receiving_updates   CHAR(1)
                             DEFAULT ('Y') NOT NULL
                             CONSTRAINT rhn_channel_ru_ck
                                 CHECK (receiving_updates in ('Y', 'N')),
-    last_modified       DATE
-                            DEFAULT (sysdate) NOT NULL,
-    last_synced         DATE,
+    last_modified       timestamp with local time zone
+                            DEFAULT (current_timestamp) NOT NULL,
+    last_synced         timestamp with local time zone,
     channel_product_id  NUMBER
                             CONSTRAINT rhn_channel_cpid_fk
                                 REFERENCES rhnChannelProduct (id),
@@ -58,10 +58,10 @@ CREATE TABLE rhnChannel
     maint_email         VARCHAR2(128),
     maint_phone         VARCHAR2(128),
     support_policy      VARCHAR2(256),
-    created             DATE
-                            DEFAULT (sysdate) NOT NULL,
-    modified            DATE
-                            DEFAULT (sysdate) NOT NULL
+    created             timestamp with local time zone
+                            DEFAULT (current_timestamp) NOT NULL,
+    modified            timestamp with local time zone
+                            DEFAULT (current_timestamp) NOT NULL
 )
 ENABLE ROW MOVEMENT
 ;

@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008--2011 Red Hat, Inc.
+-- Copyright (c) 2008--2012 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -20,7 +20,7 @@ CREATE TABLE rhn_current_state_summaries
     template_id  VARCHAR2(10) NOT NULL,
     state        VARCHAR2(20) NOT NULL,
     state_count  NUMBER(9),
-    last_check   DATE
+    last_check   timestamp with local time zone
 )
 ENABLE ROW MOVEMENT
 ;

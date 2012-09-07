@@ -5,6 +5,7 @@ s/\bVARCHAR2/VARCHAR/i;
 s/\bDATE\b/TIMESTAMPTZ/i;
 s/\bNUMBER\b/NUMERIC/i;
 s/\bBLOB\b/BYTEA/i;
+s/\btimestamp with local time zone\b/TIMESTAMPTZ/i;
 
 # functions
 s/\bSYSDATE\b/CURRENT_TIMESTAMP/i;

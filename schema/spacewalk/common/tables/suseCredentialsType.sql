@@ -20,10 +20,10 @@ CREATE TABLE suseCredentialsType
                   USING INDEX TABLESPACE [[64k_tbs]],
     label     VARCHAR2(64) NOT NULL,
     name      VARCHAR2(128) NOT NULL,
-    created   DATE
-                  DEFAULT (sysdate) NOT NULL,
-    modified  DATE
-                  DEFAULT (sysdate) NOT NULL
+    created   timestamp with local time zone
+                  DEFAULT (current_timestamp) NOT NULL,
+    modified  timestamp with local time zone
+                  DEFAULT (current_timestamp) NOT NULL
 )
 ENABLE ROW MOVEMENT
 ;

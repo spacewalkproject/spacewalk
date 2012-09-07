@@ -27,7 +27,7 @@ CREATE TABLE rhn_sat_node
                                CONSTRAINT rhn_satnd_target_type_ck
                                    CHECK (target_type in ('node')),
     last_update_user       VARCHAR2(40),
-    last_update_date       DATE,
+    last_update_date       timestamp with local time zone,
     mac_address            VARCHAR2(17) NOT NULL,
     max_concurrent_checks  NUMBER(4),
     sat_cluster_id         NUMBER(12) NOT NULL,

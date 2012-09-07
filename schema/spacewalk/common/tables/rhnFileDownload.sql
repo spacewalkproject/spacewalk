@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2012 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -22,8 +22,8 @@ CREATE TABLE rhnFileDownload
     location      VARCHAR2(2000) NOT NULL,
     token         VARCHAR2(48),
     requestor_ip  VARCHAR2(15) NOT NULL,
-    start_time    DATE
-                      DEFAULT (sysdate) NOT NULL,
+    start_time    timestamp with local time zone
+                      DEFAULT (current_timestamp) NOT NULL,
     user_id       NUMBER
                       CONSTRAINT rhn_filedl_uid_fk
                           REFERENCES web_contact (id)

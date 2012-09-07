@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2012 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -19,8 +19,8 @@ CREATE TABLE rhnServerInfo
     server_id        NUMBER NOT NULL
                          CONSTRAINT rhn_server_info_sid_fk
                              REFERENCES rhnServer (id),
-    checkin          DATE
-                         DEFAULT (sysdate),
+    checkin          timestamp with local time zone
+                         DEFAULT (current_timestamp),
     checkin_counter  NUMBER
                          DEFAULT (0)
 )

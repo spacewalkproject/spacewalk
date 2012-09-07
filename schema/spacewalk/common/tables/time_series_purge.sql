@@ -22,8 +22,8 @@ create table time_series_purge
                   constraint time_series_purge_pid_fk
                   references rhn_probe(recid),
     deleted   number,
-    created   date default (sysdate) not null,
-    modified  date default (sysdate) not null
+    created   timestamp with local time zone default (current_timestamp) not null,
+    modified  timestamp with local time zone default (current_timestamp) not null
 )
 enable row movement;
 

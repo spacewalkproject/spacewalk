@@ -23,7 +23,7 @@ CREATE TABLE rhnAbrtInfo
                            REFERENCES rhnServer (id)
                            ON DELETE CASCADE,
     num_crashes    NUMBER NOT NULL,
-    created        DATE NOT NULL
+    created        timestamp with local time zone NOT NULL
 )
 ENABLE ROW MOVEMENT
 ;

@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008--2010 Red Hat, Inc.
+-- Copyright (c) 2008--2012 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -29,10 +29,10 @@ CREATE TABLE rhnConfigRevision
     config_info_id       NUMBER NOT NULL
                              CONSTRAINT rhn_confrevision_ciid_fk
                                  REFERENCES rhnConfigInfo (id),
-    created              DATE
-                             DEFAULT (sysdate) NOT NULL,
-    modified             DATE
-                             DEFAULT (sysdate) NOT NULL,
+    created              timestamp with local time zone
+                             DEFAULT (current_timestamp) NOT NULL,
+    modified             timestamp with local time zone
+                             DEFAULT (current_timestamp) NOT NULL,
     config_file_type_id  NUMBER
                              DEFAULT (1) NOT NULL
                              CONSTRAINT rhn_conf_rev_cfti_fk

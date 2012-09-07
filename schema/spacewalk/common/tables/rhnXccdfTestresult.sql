@@ -33,8 +33,8 @@ CREATE TABLE rhnXccdfTestresult
                        CONSTRAINT rhn_xccdf_tresult_profile_fk
                            REFERENCES rhnXccdfProfile (id),
     identifier     VARCHAR2(120) NOT NULL,
-    start_time     DATE,
-    end_time       DATE NOT NULL,
+    start_time     timestamp with local time zone,
+    end_time       timestamp with local time zone NOT NULL,
     errors         BLOB
 )
 TABLESPACE [[blob]]

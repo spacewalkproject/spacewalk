@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008--2010 Red Hat, Inc.
+-- Copyright (c) 2008--2012 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -52,17 +52,17 @@ CREATE TABLE rhnUserInfo
                                 DEFAULT ('N') NOT NULL
                                 CONSTRAINT rhn_user_info_pam_ck
                                     CHECK (use_pam_authentication in ('Y','N')),
-    last_logged_in          DATE,
+    last_logged_in          timestamp with local time zone,
     agreed_to_ws_terms      CHAR(1)
                                 CONSTRAINT rhn_user_info_ws_ck
                                     CHECK (agreed_to_ws_terms is null or agreed_to_ws_terms in ('Y','N')),
     agreed_to_es_terms      CHAR(1)
                                 CONSTRAINT rhn_user_info_es_ck
                                     CHECK (agreed_to_es_terms is null or agreed_to_es_terms in ('Y','N')),
-    created                 DATE
-                                DEFAULT (sysdate) NOT NULL,
-    modified                DATE
-                                DEFAULT (sysdate) NOT NULL,
+    created                 timestamp with local time zone
+                                DEFAULT (current_timestamp) NOT NULL,
+    modified                timestamp with local time zone
+                                DEFAULT (current_timestamp) NOT NULL,
     preferred_locale        VARCHAR2(8)
 )
 ENABLE ROW MOVEMENT

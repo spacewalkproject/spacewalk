@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2012 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -23,7 +23,7 @@ CREATE TABLE rhn_check_suites
     suite_name        VARCHAR2(40) NOT NULL,
     description       VARCHAR2(255),
     last_update_user  VARCHAR2(40) NOT NULL,
-    last_update_date  DATE NOT NULL
+    last_update_date  timestamp with local time zone NOT NULL
 )
 ENABLE ROW MOVEMENT
 ;

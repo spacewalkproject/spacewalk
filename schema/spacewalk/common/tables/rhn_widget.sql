@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2012 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -21,7 +21,7 @@ CREATE TABLE rhn_widget
                           USING INDEX TABLESPACE [[64k_tbs]],
     description       VARCHAR2(80) NOT NULL,
     last_update_user  VARCHAR2(40),
-    last_update_date  DATE
+    last_update_date  timestamp with local time zone
 )
 ENABLE ROW MOVEMENT
 ;

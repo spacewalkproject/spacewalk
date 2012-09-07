@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2012 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -57,8 +57,8 @@ CREATE TABLE rhnKickstartSession
                              CONSTRAINT rhn_ks_session_spid_fk
                                  REFERENCES rhnServerProfile (id)
                                  ON DELETE SET NULL,
-    last_action          DATE
-                             DEFAULT (sysdate) NOT NULL,
+    last_action          timestamp with local time zone
+                             DEFAULT (current_timestamp) NOT NULL,
     package_fetch_count  NUMBER
                              DEFAULT (0) NOT NULL,
     last_file_request    VARCHAR2(2048),
@@ -71,10 +71,10 @@ CREATE TABLE rhnKickstartSession
                                  REFERENCES rhnKickstartVirtualizationType (id)
                                  ON DELETE SET NULL,
     client_ip            VARCHAR2(15),
-    created              DATE
-                             DEFAULT (sysdate) NOT NULL,
-    modified             DATE
-                             DEFAULT (sysdate) NOT NULL
+    created              timestamp with local time zone
+                             DEFAULT (current_timestamp) NOT NULL,
+    modified             timestamp with local time zone
+                             DEFAULT (current_timestamp) NOT NULL
 )
 ENABLE ROW MOVEMENT
 ;

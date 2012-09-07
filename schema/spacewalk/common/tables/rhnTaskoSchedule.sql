@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2010 Red Hat, Inc.
+-- Copyright (c) 2010--2012 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -23,14 +23,14 @@ CREATE TABLE rhnTaskoSchedule
                         CONSTRAINT rhn_tasko_schedule_bunch_fk
                         REFERENCES rhnTaskoBunch (id),
     org_id          NUMBER,
-    active_from     DATE,
-    active_till     DATE,
+    active_from     timestamp with local time zone,
+    active_till     timestamp with local time zone,
     cron_expr       VARCHAR2(20),
     data            BLOB,
-    created         DATE
-                        DEFAULT (sysdate) NOT NULL,
-    modified        DATE
-                        DEFAULT (sysdate) NOT NULL
+    created         timestamp with local time zone
+                        DEFAULT (current_timestamp) NOT NULL,
+    modified        timestamp with local time zone
+                        DEFAULT (current_timestamp) NOT NULL
 )
 ;
 
