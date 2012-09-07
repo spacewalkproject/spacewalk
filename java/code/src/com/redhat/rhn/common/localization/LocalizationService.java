@@ -363,7 +363,7 @@ public class LocalizationService {
                 "] not found.***" + caller;
         log.error(message);
         boolean exceptionMode = Config.get().getBoolean(
-                "web.l10n_missingmessage_exceptions");
+                "java.l10n_missingmessage_exceptions");
         if (exceptionMode) {
             throw new IllegalArgumentException(message);
         }
