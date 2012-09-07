@@ -170,12 +170,12 @@ public class LocalizationService {
      * @return boolean if we reloaded the files or not.
      */
     public boolean reloadResourceFiles() {
-        if (Config.get().getBoolean("web.development_environment")) {
+        if (Config.get().getBoolean("java.development_environment")) {
             initService();
             return true;
         }
         log.error("Tried to reload XML StringResource files but " +
-                "we aren't in web.development_environment mode");
+                "we aren't in java.development_environment mode");
         return false;
     }
 
