@@ -37,7 +37,7 @@
 		        <html:text property="login" size="15" maxlength="45" styleId="login" />
 		        <br>
 		        <span class="small-text"><strong><bean:message key="tip" /></strong>
-		          <bean:message key="org.login.tip" arg0="${rhn:getConfig('web.min_user_len')}" /><br>"
+		          <bean:message key="org.login.tip" arg0="${rhn:getConfig('java.min_user_len')}" /><br>"
 		          <bean:message key="org.login.examples" /></span>
 
 		      </td>
