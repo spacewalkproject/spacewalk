@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008--2010 Red Hat, Inc.
+-- Copyright (c) 2008--2012 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -42,7 +42,7 @@ CREATE TABLE rhnPackage
     payload_size     NUMBER,
     installed_size   NUMBER,
     build_host       VARCHAR2(256),
-    build_time       DATE,
+    build_time       timestamp,
     source_rpm_id    NUMBER
                          CONSTRAINT rhn_package_srcrpmid_fk
                              REFERENCES rhnSourceRPM (id),

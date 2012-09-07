@@ -1,0 +1,30 @@
+
+begin
+	for rec in (
+		select trigger_name
+		from user_triggers
+		where table_name = 'RHNPACKAGE'
+		) loop
+		execute immediate 'alter trigger ' || rec.trigger_name || ' disable';
+	end loop;
+end;
+/
+
+alter table rhnPackage add orig_date date;
+update rhnPackage set orig_date = build_time;
+update rhnPackage set build_time = null;
+alter table rhnPackage modify build_time timestamp;
+update rhnPackage set build_time = orig_date;
+alter table rhnPackage drop column orig_date;
+
+begin
+	for rec in (
+		select trigger_name
+		from user_triggers
+		where table_name = 'RHNPACKAGE'
+		) loop
+		execute immediate 'alter trigger ' || rec.trigger_name || ' enable';
+	end loop;
+end;
+/
+
