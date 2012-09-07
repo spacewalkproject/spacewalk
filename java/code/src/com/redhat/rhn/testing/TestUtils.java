@@ -397,7 +397,7 @@ public class TestUtils {
                 IllegalArgumentException("web.l10n_debug is set to false.  " +
                         "This test doesnt mean anything if its set to false. ");
         }
-        return (checkMe.startsWith(Config.get().getString("web.l10n_debug_marker", "$$$")));
+        return (checkMe.startsWith(Config.get().getString("java.l10n_debug_marker", "$$$")));
     }
 
     /**

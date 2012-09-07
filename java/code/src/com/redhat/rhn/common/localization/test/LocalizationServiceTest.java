@@ -261,7 +261,7 @@ public class LocalizationServiceTest extends RhnBaseTestCase {
     public void testDebugMessage() {
         TestUtils.enableLocalizationDebugMode();
         String received = ls.getMessage("testMessage");
-        String marker = Config.get().getString("web.l10n_debug_marker", "$$$");
+        String marker = Config.get().getString("java.l10n_debug_marker", "$$$");
         assertTrue(received.startsWith(marker));
         assertTrue(received.endsWith(marker));
         // Reset it back

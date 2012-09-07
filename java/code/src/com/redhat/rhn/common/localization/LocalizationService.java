@@ -317,7 +317,7 @@ public class LocalizationService {
         boolean debugMode = Config.get().getBoolean("web.l10n_debug");
         if (debugMode) {
             StringBuffer debug = new StringBuffer();
-            String marker = Config.get().getString("web.l10n_debug_marker",
+            String marker = Config.get().getString("java.l10n_debug_marker",
                     "$$$");
             debug.append(marker);
             debug.append(mess);
