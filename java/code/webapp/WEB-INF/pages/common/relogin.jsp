@@ -35,7 +35,7 @@
   </div> <!-- end contentLeft -->
 
   <div id="contentRight">
-    <c:set var="login_banner" scope="page" value="${rhn:getConfig('web.login_banner')}" />
+    <c:set var="login_banner" scope="page" value="${rhn:getConfig('java.login_banner')}" />
     <c:if test="${! empty login_banner}">
       <p><c:out value="${login_banner}" escapeXml="false"/></p>
     </c:if>
