@@ -1,3 +1,8 @@
 
+drop index rhn_pkg_cap_name_version_uq;
+
 alter table rhnPackageCapability modify version varchar2(512) ;
+
+CREATE UNIQUE INDEX rhn_pkg_cap_name_version_uq
+    ON rhnPackageCapability (name, version);
 
