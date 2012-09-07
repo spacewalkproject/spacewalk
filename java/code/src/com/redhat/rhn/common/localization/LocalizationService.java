@@ -132,7 +132,7 @@ public class LocalizationService {
     }
 
     private void loadSupportedLocales() {
-        String rawLocales = Config.get().getString("web.supported_locales");
+        String rawLocales = Config.get().getString("java.supported_locales");
         if (rawLocales == null) {
             return;
         }

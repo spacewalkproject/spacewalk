@@ -60,7 +60,7 @@ public class PreferencesLocaleHandlerTest extends BaseHandlerTestCase {
     public void testListLocales() {
         Object[] o = handler.listLocales();
         assertNotNull(o);
-        String[] locales = Config.get().getStringArray("web.supported_locales");
+        String[] locales = Config.get().getStringArray("java.supported_locales");
         assertNotNull(locales);
         assertEquals(locales.length, o.length);
     }
