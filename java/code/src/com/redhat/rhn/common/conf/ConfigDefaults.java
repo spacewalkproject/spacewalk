@@ -76,7 +76,7 @@ public class ConfigDefaults {
 
     public static final String CONFIG_REVISION_MAX_SIZE = "web.maximum_config_file_size";
 
-    public static final String WEB_EXCLUDED_COUNTRIES = "web.excluded_countries";
+    public static final String WEB_EXCLUDED_COUNTRIES = "java.excluded_countries";
 
     public static final String DISCONNECTED = "disconnected";
 
