@@ -12,7 +12,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.64
+Version: 1.8.65
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -647,6 +647,10 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Fri Sep 07 2012 Jan Pazdziora 1.8.65-1
+- Adding file path restoration functionality to spacewalk-data-fsck
+- 815964 - moving monitoring probe batch option from rhn.conf to rhn_web.conf
+
 * Fri Aug 31 2012 Michael Mraka <michael.mraka@redhat.com> 1.8.64-1
 - fixed pylint errors
 
