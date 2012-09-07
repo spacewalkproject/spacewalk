@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.8.72
+Version:        1.8.73
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -68,6 +68,16 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Fri Sep 07 2012 Jan Pazdziora 1.8.73-1
+- Remove the postgres/tables/rhnPackage.sql, we now have the same columns.
+- Make the rhnPackage.build_time timestamp (without time zone) on both
+  databases.
+- We need to recreate the index.
+- 849018 - schema upgrade scripts for extending rhnPackageCapability.version.
+- 849018 - extending rhnPackageCapability.version.
+- 854686 - Fixing the rhn_command.command_class default.
+- Make the into variable match the data type of the table column.
+
 * Mon Sep 03 2012 Michael Mraka <michael.mraka@redhat.com> 1.8.72-1
 - oracle's sql parser doesn't like comments after semicolon
 
