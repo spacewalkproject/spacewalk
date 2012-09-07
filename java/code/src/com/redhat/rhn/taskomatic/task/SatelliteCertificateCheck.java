@@ -80,7 +80,7 @@ public class SatelliteCertificateCheck extends RhnJavaJob {
         mail.setBody(body);
         mail.setRecipients(TaskHelper.getAdminEmails(org));
 
-        String from = Config.get().getString("web.customer_service_email",
+        String from = Config.get().getString("java.customer_service_email",
                                              "dev-null@redhat.com");
 
         mail.setFrom(from);
