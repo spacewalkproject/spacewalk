@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 1.8.19
+Version: 1.8.20
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -339,6 +339,9 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Mon Sep 10 2012 Jan Pazdziora 1.8.20-1
+- 786422 - fixing typo in rhn_register tui
+
 * Thu Aug 30 2012 Miroslav Suchý <msuchy@redhat.com> 1.8.19-1
 - workaround missing python-ethtool
 
