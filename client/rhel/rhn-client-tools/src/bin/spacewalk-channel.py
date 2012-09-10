@@ -34,7 +34,7 @@ if _LIBPATH not in sys.path:
     sys.path.append(_LIBPATH)
 
 from up2date_client.rhnChannel import subscribeChannels, unsubscribeChannels, getChannels
-from up2date_client import up2dateAuth, config, up2dateErrors, rhncli
+from up2date_client import up2dateAuth, config, up2dateErrors, rhncli, rhnserver
 
 
 def systemExit(code, msgs=None):
@@ -88,10 +88,12 @@ def processCommandline():
 def get_available_channels(user, password):
     """ return list of available child channels """
     cfg = config.initUp2dateConfig()
-    satellite_url = config.getServerlURL()[0]
-    scheme, netloc, path, query, fragment = urlparse.urlsplit(satellite_url)
-    satellite_url = urlparse.urlunsplit((scheme, netloc, '/rpc/api', query, fragment))
-    client = xmlrpclib.Server(satellite_url, verbose=0)
+    modified_servers = []
+    servers = config.getServerlURL()
+    for server in servers:
+        scheme, netloc, path, query, fragment = urlparse.urlsplit(server)
+        modified_servers.append(urlparse.urlunsplit(scheme, netloc, '/rpc/api', query, fragment))
+    client = rhnserver.RhnServer(serverOverride=modified_servers)
     try:
         key = client.auth.login(user, password)
     except xmlrpclib.Fault, exc:

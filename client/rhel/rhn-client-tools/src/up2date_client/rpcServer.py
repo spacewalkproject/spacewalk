@@ -106,7 +106,7 @@ class ServerList:
         self.index = 0
 
 
-def getServer(refreshCallback=None):
+def getServer(refreshCallback=None, serverOverride=None):
     log = up2dateLog.initLog()
     cfg = config.initUp2dateConfig()
 
@@ -123,7 +123,10 @@ def getServer(refreshCallback=None):
     else:
         proxyHost = None
 
-    serverUrls = config.getServerlURL()
+    if not serverOverride:
+        serverUrls = config.getServerlURL()
+    else:
+        serverUrls = serverOverride
     serverList = ServerList(serverUrls)
 
     proxyUser = None
