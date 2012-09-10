@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.8.73
+Version:        1.8.74
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -68,6 +68,15 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Mon Sep 10 2012 Jan Pazdziora 1.8.74-1
+- Change sysdate to current_timestamp in procedural code.
+- Change date type usage to timestamp in procedural code.
+- Update the rhn_host_monitoring.last_update_date type to TIMESTAMP WITH LOCAL
+  TIME ZONE, run common/views through spacewalk-oracle2postgresql as well to
+  get it converted to TIMESTAMP WITH TIME ZONE.
+- Update DATE to TIMESTAMP WITH LOCAL TIME ZONE and SYSDATE to
+  CURRENT_TIMESTAMP in tables.
+
 * Fri Sep 07 2012 Jan Pazdziora 1.8.73-1
 - Remove the postgres/tables/rhnPackage.sql, we now have the same columns.
 - Make the rhnPackage.build_time timestamp (without time zone) on both
