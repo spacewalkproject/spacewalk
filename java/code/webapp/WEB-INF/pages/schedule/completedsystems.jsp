@@ -20,7 +20,7 @@
   <rhn:listdisplay>
     <rhn:column header="actions.jsp.system"
                 url="/network/systems/details/history/event.pxt?sid=${current.id}&hid=${action.id}">
-        ${current.name}
+        <c:out value="${current.name}" escapeXml="true" />
     </rhn:column>
 
     <rhn:column header="completedsystems.jsp.completed">

@@ -25,7 +25,7 @@
 	                   buttonsAttr="canEdit:true">
     <rhn:column header="actions.jsp.system"
                 url="/network/systems/details/history/event.pxt?sid=${current.id}&hid=${action.id}">
-        ${current.serverName}
+        <c:out value="${current.name}" escapeXml="true" />
     </rhn:column>
 
     <rhn:column header="failedsystems.jsp.failed">
