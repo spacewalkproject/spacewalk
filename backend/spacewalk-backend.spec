@@ -186,7 +186,7 @@ This package contains listener for the Server XML dumper.
 Summary: Spacewalk server and client tools libraries
 Group: Applications/Internet
 BuildRequires: python2-devel
-Conflicts: %{name} < 0.8.28
+Conflicts: %{name} < 1.7.0
 Requires: python-hashlib
 BuildRequires: python-hashlib
 
