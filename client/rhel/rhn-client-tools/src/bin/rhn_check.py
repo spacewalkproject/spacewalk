@@ -32,6 +32,10 @@ import os
 import sys
 import socket
 
+import gettext
+t = gettext.translation('rhn-client-tools', fallback=True)
+_ = t.ugettext
+
 from OpenSSL import SSL
 sys.path.append("/usr/share/rhn/")
 
