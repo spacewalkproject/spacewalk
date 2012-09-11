@@ -311,10 +311,10 @@ class Gui(rhnregGui.StartPage, rhnregGui.ChooseServerPage, rhnregGui.LoginPage,
         self.finishPage.emit_stop_by_name("prepare")
         if rhnregGui.hasBaseChannelAndUpdates():
             self.druid.finish.set_label(_("_Finish"))
-            title = _("Finish setting up software updates")
+            title = _("Updates Configured")
         else:
             self.druid.finish.set_label(_("_Exit"))
-            title = _("Software updates setup unsuccessful")
+            title = _("Software Updates Not Set Up")
         self.finishPagePrepare()
         self.mainWin.set_title(title)
         self.finishPage.set_title(title)

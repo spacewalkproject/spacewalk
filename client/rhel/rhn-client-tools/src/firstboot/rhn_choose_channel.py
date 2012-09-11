@@ -36,7 +36,7 @@ class moduleClass(Module):
         Module.__init__(self)
         self.priority = 108.6
         self.sidebarTitle = _("Select operating system release")
-        self.title = _("Select operating system release")
+        self.title = _("Operating System Release Version")
         self.chooseChannel = FirstbootChooseChannelPage()
 
     def needsNetwork(self):

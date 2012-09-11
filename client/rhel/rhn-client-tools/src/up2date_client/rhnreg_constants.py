@@ -20,7 +20,7 @@ CONNECT_WINDOW_TEXT   = _("We are attempting to contact the Red Hat "
 CONNECT_WINDOW_TEXT2  = _("A proxy was specified at %s.")                          
 
 # Start Window
-START_REGISTER_WINDOW = _("Registering for software updates")
+START_REGISTER_WINDOW = _("System Registration")
 START_REGISTER_TEXT   = _("This assistant will guide you through " 
                           "connecting your system to "
                           "Red Hat Network (RHN) to receive software "
@@ -57,7 +57,7 @@ WHY_REGISTER_TIP      = _("Tip: Red Hat values your privacy: "
 BACK_REGISTER         = _("Take me back to the registration")
 
 # Confirm Quit Window
-CONFIRM_QUIT           = _("Software update setup unsuccessful")
+CONFIRM_QUIT           = _("Software Update Not Set Up")
 CONFIRM_QUIT_SURE       = _("Are you sure you don't want to connect your system to Red Hat Network? "
                            "You'll miss out on the benefits of a Red Hat Enterprise Linux subscription:\n")
 CONFIRM_QUIT_WILLNOT       = _("You will not be able to take advantage of these subscription privileges without connecting "
@@ -66,7 +66,7 @@ CONTINUE_REGISTERING   = _("Take me back to the setup process.")
 REGISTER_LATER2        = _("I'll register later.")
 
 # Info Window
-REGISTER_WINDOW   = _("Enter your account information")
+REGISTER_WINDOW   = _("Red Hat Account")
 LOGIN_PROMPT      = _("Please enter your login information for the %s Red "
                     "Hat Network Satellite:\n\n")
 HOSTED_LOGIN      = _("Red Hat Login:")
@@ -78,7 +78,7 @@ USER_REQUIRED     = _("Please enter a desired login.")
 PASSWORD_REQUIRED = _("Please enter and verify a password.")
 
 # OS Release Window
-SELECT_OSRELEASE             = _("Select operating system release")
+SELECT_OSRELEASE             = _("Operating System Release Version")
 OS_VERSION                   = _("Operating System version:")
 MINOR_RELEASE                = _(" Minor Release: ")
 LIMITED_UPDATES              = _("Limited Updates Only")
@@ -89,7 +89,7 @@ CONFIRM_OS_ALL               = _("Your system will be subscribed to the base"
                                  " updates.")
 
 # Hardware Window
-HARDWARE_WINDOW = _("Create your system profile - Hardware")
+HARDWARE_WINDOW = _("Create Profile - Hardware")
 HARDWARE_WINDOW_DESC1 = _("A Profile Name is a descriptive name that"
                           " you choose to identify this System Profile"
                           " on the Red Hat Network web pages. Optionally,"
@@ -101,7 +101,7 @@ HARDWARE_WINDOW_CHECKBOX = _("Include the following information about hardware"
                              " and network:")
 
 # Packages Window
-PACKAGES_WINDOW         = _("Create your system profile - Packages")
+PACKAGES_WINDOW         = _("Create Profile - Packages")
 PACKAGES_WINDOW_DESC1   = _("RPM information is important to determine what"
                           " updated software packages are relevant to this"
                           " system.")
@@ -118,7 +118,7 @@ HOSTED_LOGIN_TIP       = _("Tip: Forgot your login or password? "
                             "Visit: https://rhn.redhat.com/rhn/sales/LoginInfo.do")
 EMAIL                  = _("*Email Address:")
 
-SYSTEM_ALREADY_SETUP = _("System already registered")
+SYSTEM_ALREADY_SETUP = _("System Already Registered")
 SYSTEM_ALREADY_REGISTERED = _("It appears this system has already been set up for software updates:")
 SYSTEM_ALREADY_REGISTERED_CONT = _("Are you sure you would like to continue?")
 
@@ -142,7 +142,7 @@ SEND_WINDOW_DESC = _("We are finished collecting information for the System Prof
 SENDING_WINDOW = _("Sending Profile to Red Hat Network")
 
 # Finish Window
-FINISH_WINDOW           = _("Finish setting up software updates")
+FINISH_WINDOW           = _("Updates Configured")
 FINISH_WINDOW_TEXT_TUI  = _("You may now run 'yum update' from this system's "
                             "command line to get the latest "
                             "software updates from Red Hat Network. You will need to run this "
@@ -154,7 +154,7 @@ FINISH_WINDOW_TEXT_TUI  = _("You may now run 'yum update' from this system's "
                             "Hat Network web interface.)")
 
 # Review Window
-REVIEW_WINDOW           = _("Review system subscription details")
+REVIEW_WINDOW           = _("Review Subscription")
 REVIEW_WINDOW_PROMPT    = _("Please review the subscription details below:")
 SUB_NUM                 = _("The installation number %s was activated during "
                             "this system's initial connection to Red Hat Network.")

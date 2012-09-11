@@ -6,7 +6,7 @@
 
 <widget class="GtkWindow" id="mainWin">
   <property name="visible">True</property>
-  <property name="title" translatable="yes">Registering for software updates</property>
+  <property name="title" translatable="yes">System Registration</property>
   <property name="type">GTK_WINDOW_TOPLEVEL</property>
   <property name="window_position">GTK_WIN_POS_CENTER</property>
   <property name="modal">False</property>
@@ -32,7 +32,7 @@
       <child>
 	<widget class="GnomeDruidPageStandard" id="startPage">
 	  <property name="visible">True</property>
-	  <property name="title" translatable="yes">Registering for software updates</property>
+	  <property name="title" translatable="yes">Set Up Software Updates</property>
 	  <property name="logo">@@logo@@</property>
 	  <signal name="next" handler="onStartPageNext"/>
 	  <signal name="prepare" handler="onStartPagePrepare"/>
@@ -55,7 +55,7 @@
       <child>
 	<widget class="GnomeDruidPageStandard" id="chooseServerPage">
 	  <property name="visible">True</property>
-	  <property name="title" translatable="yes">Choose an update location</property>
+	  <property name="title" translatable="yes">Choose Service</property>
 	  <property name="logo">@@logo@@</property>
 	  <signal name="next" handler="onChooseServerPageNext"/>
 	  <signal name="back" handler="onChooseServerPageBack"/>
@@ -79,7 +79,7 @@
       <child>
 	<widget class="GnomeDruidPageStandard" id="loginPage">
 	  <property name="visible">True</property>
-	  <property name="title" translatable="yes">Enter your account information</property>
+	  <property name="title" translatable="yes">Red Hat Account</property>
 	  <property name="logo">@@logo@@</property>
 	  <signal name="next" handler="onLoginPageNext"/>
 	  <signal name="back" handler="onLoginPageBack"/>
@@ -103,7 +103,7 @@
       <child>
 	<widget class="GnomeDruidPageStandard" id="chooseChannelPage">
 	  <property name="visible">True</property>
-	  <property name="title" translatable="yes">Select operating system release</property>
+	  <property name="title" translatable="yes">Operating System Release Version</property>
 	  <property name="logo">@@logo@@</property>
 	  <signal name="next" handler="onChooseChannelPageNext" last_modification_time="Fri, 22 Jun 2007 16:04:40 GMT"/>
 	  <signal name="back" handler="onChooseChannelPageBack" last_modification_time="Fri, 22 Jun 2007 16:05:05 GMT"/>
@@ -127,7 +127,7 @@
       <child>
 	<widget class="GnomeDruidPageStandard" id="createProfilePage">
 	  <property name="visible">True</property>
-	  <property name="title" translatable="yes">Create your system profile</property>
+	  <property name="title" translatable="yes">Create Profile</property>
 	  <property name="logo">@@logo@@</property>
 	  <signal name="next" handler="onCreateProfilePageNext"/>
 	  <signal name="back" handler="onCreateProfilePageBack"/>
@@ -151,7 +151,7 @@
       <child>
 	<widget class="GnomeDruidPageStandard" id="reviewSubscriptionPage">
 	  <property name="visible">True</property>
-	  <property name="title" translatable="yes">Review system subscription details</property>
+	  <property name="title" translatable="yes">Review Subscription</property>
 	  <property name="logo">@@logo@@</property>
 	  <signal name="next" handler="onReviewSubscriptionPageNext"/>
 	  <signal name="prepare" handler="onReviewSubscriptionPagePrepare"/>

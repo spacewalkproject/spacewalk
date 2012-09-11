@@ -531,7 +531,7 @@ You may access the software update tool by running &lt;b&gt;Software Update&lt;/
 
 <widget class="GtkWindow" id="initialLoginWindow">
   <property name="visible">True</property>
-  <property name="title" translatable="yes">Enter Your Account Information</property>
+  <property name="title" translatable="yes">Red Hat Account</property>
   <property name="type">GTK_WINDOW_TOPLEVEL</property>
   <property name="window_position">GTK_WIN_POS_NONE</property>
   <property name="modal">False</property>
@@ -4712,7 +4712,7 @@ Are you sure you would like to continue?</property>
 </widget>
 
 <widget class="GtkDialog" id="alreadyRegisteredDialog">
-  <property name="title" translatable="yes">System already registered</property>
+  <property name="title" translatable="yes">System Already Registered</property>
   <property name="type">GTK_WINDOW_TOPLEVEL</property>
   <property name="window_position">GTK_WIN_POS_NONE</property>
   <property name="modal">False</property>
@@ -5029,7 +5029,7 @@ Are you sure you would like to continue?</property>
 </widget>
 
 <widget class="GtkDialog" id="alreadyRegisteredSubscriptionManagerDialog">
-  <property name="title" translatable="yes">System already registered</property>
+  <property name="title" translatable="yes">System Already Registered</property>
   <property name="type">GTK_WINDOW_TOPLEVEL</property>
   <property name="window_position">GTK_WIN_POS_NONE</property>
   <property name="modal">False</property>
