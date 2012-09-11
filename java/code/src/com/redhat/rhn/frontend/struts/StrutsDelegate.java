@@ -390,6 +390,7 @@ public class StrutsDelegate {
             }
             else {
                 request.setAttribute(key, requestMsg);
+                request.getSession().setAttribute(key, requestMsg);
             }
         }
 

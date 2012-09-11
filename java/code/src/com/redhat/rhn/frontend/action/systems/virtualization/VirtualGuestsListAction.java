@@ -28,6 +28,7 @@ import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.RhnValidationHelper;
 import com.redhat.rhn.frontend.struts.StrutsDelegate;
+import com.redhat.rhn.manager.kickstart.ProvisionVirtualInstanceCommand;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.system.SystemManager;
 
@@ -166,28 +167,41 @@ public class VirtualGuestsListAction extends BaseSystemListAction {
         List<ValidatorError> validationErrors = new LinkedList<ValidatorError>();
         List<ValidatorWarning> validationWarnings = new LinkedList<ValidatorWarning>();
         if (dispatchAction.equals("setVcpu")) {
-            Iterator it = set.getElements().iterator();
-            while (it.hasNext()) {
-                RhnSetElement element = (RhnSetElement)it.next();
-                ValidatorResult result = SystemManager.validateVcpuSetting(
-                        element.getElement(), Integer.parseInt(guestSettingValue));
-                validationErrors.addAll(result.getErrors());
-                validationWarnings.addAll(result.getWarnings());
+            try {
+                Iterator it = set.getElements().iterator();
+                while (it.hasNext()) {
+                    RhnSetElement element = (RhnSetElement)it.next();
+                    ValidatorResult result = SystemManager.validateVcpuSetting(
+                            element.getElement(), Integer.parseInt(guestSettingValue));
+                    validationErrors.addAll(result.getErrors());
+                    validationWarnings.addAll(result.getWarnings());
+                }
+            }
+            catch (NumberFormatException e) {
+                validationErrors.add(new ValidatorError(
+                        "frontend.actions.systems.virt.invalidcpuvalue",
+                        new Object [] {ProvisionVirtualInstanceCommand.MAX_CPU + 1}));
             }
         }
         else if (dispatchAction.equals("setMemory")) {
-            Iterator it = set.getElements().iterator();
-            List virtInstanceIds = new LinkedList();
-            while (it.hasNext()) {
-                RhnSetElement element = (RhnSetElement)it.next();
-                virtInstanceIds.add(element.getElement());
+            try {
+                Iterator it = set.getElements().iterator();
+                List virtInstanceIds = new LinkedList();
+                while (it.hasNext()) {
+                    RhnSetElement element = (RhnSetElement)it.next();
+                    virtInstanceIds.add(element.getElement());
 
+                }
+
+                ValidatorResult result = SystemManager.validateGuestMemorySetting(
+                        virtInstanceIds, Integer.parseInt(guestSettingValue));
+                validationErrors.addAll(result.getErrors());
+                validationWarnings.addAll(result.getWarnings());
             }
-
-            ValidatorResult result = SystemManager.validateGuestMemorySetting(
-                    virtInstanceIds, Integer.parseInt(guestSettingValue));
-            validationErrors.addAll(result.getErrors());
-            validationWarnings.addAll(result.getWarnings());
+            catch (NumberFormatException e) {
+                validationErrors.add(new ValidatorError(
+                        "frontend.actions.systems.virt.invalidmemvalue"));
+            }
         }
         strutsDelegate.saveMessages(request,
                         validationErrors, validationWarnings);

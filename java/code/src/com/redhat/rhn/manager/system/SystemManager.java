@@ -2108,36 +2108,38 @@ public class SystemManager extends BaseManager {
         // Technically the limit is 32 for 32-bit architectures and 64 for 64-bit,
         // but the kernel is currently set to only accept 32 in either case. This may
         // need to change down the road.
-        if (proposedVcpuSetting > 32) {
+        if (0 > proposedVcpuSetting || proposedVcpuSetting > 32) {
             result.addError(new ValidatorError(
                 "systems.details.virt.vcpu.limit.msg",
                 new Object [] {"32", guest.getName()}));
         }
 
-        // Warn the user if the proposed vCPUs exceeds the physical CPUs on the
-        // host:
-        CPU hostCpu = host.getCpu();
-        if (hostCpu != null && hostCpu.getNrCPU() != null) {
-            if (proposedVcpuSetting > hostCpu.getNrCPU().intValue()) {
-                result.addWarning(new ValidatorWarning(
-                    "systems.details.virt.vcpu.exceeds.host.cpus",
-                    new Object [] {host.getCpu().getNrCPU(), guest.getName()}));
+        if (result.getErrors().isEmpty()) {
+            // Warn the user if the proposed vCPUs exceeds the physical CPUs on the
+            // host:
+            CPU hostCpu = host.getCpu();
+            if (hostCpu != null && hostCpu.getNrCPU() != null) {
+                if (proposedVcpuSetting > hostCpu.getNrCPU().intValue()) {
+                    result.addWarning(new ValidatorWarning(
+                        "systems.details.virt.vcpu.exceeds.host.cpus",
+                        new Object [] {host.getCpu().getNrCPU(), guest.getName()}));
+                }
             }
-        }
 
-        // Warn the user if the proposed vCPUs is an increase for this guest.
-        // If the new value exceeds the setting the guest was started with, a
-        // reboot will be required for the setting to take effect.
-        VirtualInstanceState running = VirtualInstanceFactory.getInstance().
-            getRunningState();
-        if (guest.getState() != null &&
-                guest.getState().getId().equals(running.getId())) {
-            Integer currentGuestCpus = guest.getNumberOfCPUs();
-            if (currentGuestCpus != null && proposedVcpuSetting >
-                    currentGuestCpus.intValue()) {
-                result.addWarning(new ValidatorWarning(
-                    "systems.details.virt.vcpu.increase.warning",
-                    new Object [] {new Integer(proposedVcpuSetting), guest.getName()}));
+            // Warn the user if the proposed vCPUs is an increase for this guest.
+            // If the new value exceeds the setting the guest was started with, a
+            // reboot will be required for the setting to take effect.
+            VirtualInstanceState running = VirtualInstanceFactory.getInstance().
+                getRunningState();
+            if (guest.getState() != null &&
+                    guest.getState().getId().equals(running.getId())) {
+                Integer currentGuestCpus = guest.getNumberOfCPUs();
+                if (currentGuestCpus != null && proposedVcpuSetting >
+                        currentGuestCpus.intValue()) {
+                    result.addWarning(new ValidatorWarning(
+                        "systems.details.virt.vcpu.increase.warning",
+                        new Object [] {new Integer(proposedVcpuSetting), guest.getName()}));
+                }
             }
         }
 
