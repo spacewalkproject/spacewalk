@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.8.74
+Version:        1.8.75
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -68,6 +68,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Tue Sep 11 2012 Jan Pazdziora 1.8.75-1
+- The default can also be found in the metadata without parentheses.
+
 * Mon Sep 10 2012 Jan Pazdziora 1.8.74-1
 - Change sysdate to current_timestamp in procedural code.
 - Change date type usage to timestamp in procedural code.
