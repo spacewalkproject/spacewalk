@@ -74,7 +74,7 @@ begin
 			and table_name not like '%$%'
 			and data_default is not null
 		) loop
-		if rec.data_default like '(sysdate)%' then
+		if rec.data_default like '(sysdate)%' or rec.data_default like 'sysdate%' then
 			execute immediate 'alter table ' || rec.table_name || ' modify ' || rec.column_name || ' default (current_timestamp)';
 		end if;
 	end loop;
