@@ -23,7 +23,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.143
+Version: 1.8.144
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -616,6 +616,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Sep 11 2012 Tomas Lestach <tlestach@redhat.com> 1.8.144-1
+- 713684 - localize strings after import
+- 855845 - escaping system name
+
 * Fri Sep 07 2012 Tomas Lestach <tlestach@redhat.com> 1.8.143-1
 - checkstyle fix
 
