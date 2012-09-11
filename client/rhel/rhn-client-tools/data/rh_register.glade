@@ -364,7 +364,7 @@ You may access the software update tool by running &lt;b&gt;Software Update&lt;/
 		      <child>
 			<widget class="GtkLabel" id="label93">
 			  <property name="visible">True</property>
-			  <property name="label" translatable="yes" context="yes">Red Hat Network _Location:</property>
+			  <property name="label" translatable="yes" context="yes">RHN _Location:</property>
 			  <property name="use_underline">True</property>
 			  <property name="use_markup">False</property>
 			  <property name="justify">GTK_JUSTIFY_LEFT</property>
@@ -399,6 +399,7 @@ You may access the software update tool by running &lt;b&gt;Software Update&lt;/
 			  <property name="has_frame">True</property>
 			  <property name="invisible_char">•</property>
 			  <property name="activates_default">False</property>
+			  <property name="width_chars">35</property>
 			  <accessibility>
 			    <atkproperty name="AtkObject::accessible_name" translatable="yes">satellite server location</atkproperty>
 			  </accessibility>
@@ -410,6 +411,7 @@ You may access the software update tool by running &lt;b&gt;Software Update&lt;/
 			  <property name="right_attach">2</property>
 			  <property name="top_attach">0</property>
 			  <property name="bottom_attach">1</property>
+			  <property name="x_padding">10</property>
 			  <property name="x_options"></property>
 			</packing>
 		      </child>
