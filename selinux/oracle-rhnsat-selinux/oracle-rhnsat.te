@@ -62,3 +62,11 @@ optional_policy(`
 	')
 ')
 
+# 768097
+optional_policy(`
+	gen_require(`
+		type postfix_smtpd_t;
+	')
+	dontaudit postfix_smtpd_t oracle_dir_t:dir getattr;
+')
+
