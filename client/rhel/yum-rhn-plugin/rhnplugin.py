@@ -44,6 +44,7 @@ requires_api_version = '2.5'
 plugin_type = TYPE_CORE
 pcklAuthFileName = "/var/spool/up2date/loginAuth.pkl"
 cachedRHNReposFile = 'rhnplugin.repos'
+versionRHNRepoFile = 'rhnversion'
 
 rhn_enabled = True
 
@@ -186,6 +187,8 @@ def init_hook(conduit):
             repos.add(repo)
             if cachefile:
                 cachefile.write("%s %s\n" % (repo.id, repo.name))
+            if not currentRHNRepoVersion(repo, channel['version']):
+                repo._metadataCurrent = False
     if cachefile:
         cachefile.close()
 
@@ -235,6 +238,27 @@ def addCachedRepos(conduit):
             repo.enable()
             if not repos.findRepos(repo.id):
                 repos.add(repo)
+
+def currentRHNRepoVersion(repo, repoversion):
+    cachedir = repo.cachedir
+    versionfilename = os.path.join(cachedir, versionRHNRepoFile)
+    last_version = None
+    versionfile = None
+    try:
+        if not os.path.exists(cachedir):
+            os.makedirs(cachedir, 0755)
+        if os.path.exists(versionfilename):
+            versionfile = open(versionfilename, 'r+')
+            last_version = versionfile.readline().strip('\n')
+            versionfile.seek(0,0)
+        else:
+            versionfile = open(versionfilename, 'w')
+        versionfile.write(repoversion + '\n')
+        versionfile.close()
+    except:
+        if versionfile:
+            versionfile.close()
+    return (last_version == repoversion)
 
 def posttrans_hook(conduit):
     """ Post rpm transaction hook. We update the RHN profile here. """
