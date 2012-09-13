@@ -63,7 +63,7 @@ class moduleClass(Module):
         try:
             self.rhsmActive = False
             if self.chooseServerPage.chooseServerPageApply() is False:
-                interface.moveToPage(moduleTitle=_("Red Hat Login"))
+                interface.moveToPage(moduleTitle=_("Red Hat Account"))
                 return RESULT_JUMP
             else:
                 return RESULT_FAILURE
