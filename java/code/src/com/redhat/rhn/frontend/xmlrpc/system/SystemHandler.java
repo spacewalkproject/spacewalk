@@ -4919,7 +4919,7 @@ public class SystemHandler extends BaseHandler {
      * bug fix and enhancement errata counts plus a score based on the default
      * system currency multipliers.
      *
-     * @xmlrpc.doc Get the System Currency score multipliers
+     * @xmlrpc.doc Get the System Currency scores for all servers the user has access to
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.returntype
      *      #array()
