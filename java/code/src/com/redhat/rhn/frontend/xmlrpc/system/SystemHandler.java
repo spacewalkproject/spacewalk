@@ -4902,6 +4902,7 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.returntype Map of score multipliers
      */
     public Map getSystemCurrencyMultipliers(String sessionKey) {
+        getLoggedInUser(sessionKey);
         Map multipliers = new HashMap();
         multipliers.put("scCrit", ConfigDefaults.get().getSCCrit());
         multipliers.put("scImp", ConfigDefaults.get().getSCImp());
