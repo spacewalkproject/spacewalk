@@ -38,8 +38,8 @@ class moduleClass(Module):
     def __init__(self):
         Module.__init__(self)
         self.priority = 106.5
-        self.sidebarTitle = _("Choose Server")
-        self.title = _("Choose Server")
+        self.sidebarTitle = _("Choose Service")
+        self.title = _("Choose Service")
         self.support_sm = False
         self.rhsmActive = True
 

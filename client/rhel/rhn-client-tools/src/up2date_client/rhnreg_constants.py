@@ -160,29 +160,23 @@ SUB_NUM                 = _("The installation number %s was activated during "
                             "this system's initial connection to Red Hat Network.")
 SUB_NUM_RESULT          = _("Subscriptions have been activated for the following "
                             "Red Hat products/services:")
-CHANNELS_TITLE          = _("Software channel subscriptions:")
+CHANNELS_TITLE          = _("Software Channel Subscriptions:")
 OK_CHANNELS             = _("This system will receive updates from the "
-                            "following Red Hat Network software channels:")
-CHANNELS_SAT_WARNING    = _("Warning: If an installed product on this system "
-                            "is not listed above, you "
-                            "will not receive updates or support for that "
-                            "product. If you would like "
-                            "to receive updates for that product, please "
+                            "following RHN Classic software channels:")
+CHANNELS_SAT_WARNING    = _("Warning: Only installed product listed above will receive "
+                            "updates and support. If you would like "
+                            "to receive updates for additional products, please "
                             "login to your satellite web interface "
                             "and subscribe this system to the appropriate "
-                            "software channels to get updates for that "
-                            "product. See Kbase article 11313 "
+                            "software channels. See Kbase article"
                             "for more details. "
                             "(http://kbase.redhat.com/faq/docs/DOC-11313)")
-CHANNELS_HOSTED_WARNING = _("Warning: If an installed product on this system "
-                            "is not listed above, you "
-                            "will not receive updates or support for that "
-                            "product. If you would like "
-                            "to receive updates for that product, please "
-                            "visit http://rhn.redhat.com/ "
+CHANNELS_HOSTED_WARNING = _("Warning: Only installed products listed above "
+                            "will receive updates and support. If you would "
+                            "like to receive updates for additional products, "
+                            "please visit http://access.redhat.com/ "
                             "and subscribe this system to the appropriate "
-                            "software channels to get updates for that "
-                            "product. See Kbase article 11313 "
+                            "software channels. See Kbase article "
                             "for more details. "
                             "(http://kbase.redhat.com/faq/docs/DOC-11313)")
 YUM_PLUGIN_WARNING		= _("Warning: yum-rhn-plugin is not present, could not enable it.\n"
@@ -206,10 +200,10 @@ NO_BASE_CHANNEL            = _(
 "appropriate active subscriptions available in your account, you may browse "
 "to this system's profile in the RHN web interface and subscribe this system "
 "to software channels via the software > software channels tab.")
-SLOTS_TITLE             = _("RHN service level:")
-OK_SLOTS                = _("Depending on what RHN modules are associated with a system, you'll "
-                            "enjoy different benefits of Red Hat Network. The following are the "
-                            "RHN modules associated with this system:")
+SLOTS_TITLE             = _("RHN Classic Service Level:")
+OK_SLOTS                = _("Depending on what RHN Classic modules are associated with a system, you'll "
+                            "enjoy different benefits. The following are the "
+                            "RHN Classic modules associated with this system:")
 SLOTS                   =  SLOTS_TITLE + "\n" + OK_SLOTS + "\n%s"
 FAILED_SLOTS            = _("This system was unable to be associated with the "
                             "following RHN module(s) because there were "
@@ -252,14 +246,14 @@ NO_SYS_ENTITLEMENT         = _("This system was unable to be associated with "
 "to this system's profile in the RHN web interface, delete the profile, and "
 "re-connect this system to Red Hat Network.")
 ACTIVATION_KEY          = _("Universal default activation key detected\n"
-                            "A universal default activation key was detected in your RHN organization. "
-                            "What this means is that a set of properties (software channel subscriptions, " 
-                            "Red Hat Network service, package installations, system group memberships, etc.) "
-                            "for your system's connection to Red Hat Network "
+                            "A universal default activation key was detected in your RHN Classic account. "
+                            "This means that a set of properties (software channel subscriptions, " 
+                            "package installations, system group memberships, etc.) "
+                            "for your system's connection to RHN Classic "
                             "have been determined by the activation key rather than your "
                             "installation number.  " 
                             "You may also refer to the RHN Reference Guide, section 6.4.6 for more details "
-                            "about activation keys (http://rhn.redhat.com/rhn/help/reference/)\n"
+                            "about activation keys (http://access.redhat.com/knowledge/docs/Red_Hat_Network/)\n"
                             "Universal Default activation key: %s")
 
 # Error Messages.

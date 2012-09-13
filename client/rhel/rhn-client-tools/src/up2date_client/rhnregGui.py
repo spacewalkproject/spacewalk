@@ -217,6 +217,7 @@ class StartPage:
                                                     domain="rhn-client-tools")
         self.startXml.signal_autoconnect({
             "onWhyRegisterButtonClicked" : self.startPageWhyRegisterButton,
+            "onMoreInfoButtonClicked" : self.startPageMoreInfoButton,
         })
         self.registerNowButton = self.startXml.get_widget("registerNowButton")
         if not firstboot:
@@ -229,6 +230,9 @@ class StartPage:
     
     def startPageWhyRegisterButton(self, button):
         WhyRegisterDialog()
+
+    def startPageMoreInfoButton(self, button):
+        MoreInfoDialog()
 
     def startPageRegisterNow(self):
         """Returns True if the user has selected to register now. False if 
@@ -755,7 +759,7 @@ class CreateProfilePage:
         """Returns False if everything's ok or True if something's wrong."""
         setBusyCursor()
         pwin = progress.Progress()
-        pwin.setLabel(_("Sending your profile information to Red Hat Network.  Please wait."))
+        pwin.setLabel(_("Registering system and sending profile information to Red Hat.  Please wait."))
         self.systemId = None
         global username, password, hw_activation_code, \
                _hasBaseChannelAndUpdates, chosen_channel
@@ -1143,6 +1147,18 @@ class ConfirmQuitDialog:
                            error)
         self.dialog.destroy()
 
+class MoreInfoDialog:
+    def __init__(self):
+        self.moreInfoXml = gtk.glade.XML(gladefile,
+            "moreInfoDialog", domain="rhn-client-tools")
+        self.dlg = self.moreInfoXml.get_widget("moreInfoDialog")
+        self.moreInfoXml.signal_autoconnect({
+            "onCloseMoreInfoButtonClicked" : self.finish,
+        })
+
+    def finish(self, button):
+        self.dlg.hide()
+        self.rc = 1 # What does this do? Is it needed?
 
 class WhyRegisterDialog:
     def __init__(self):
