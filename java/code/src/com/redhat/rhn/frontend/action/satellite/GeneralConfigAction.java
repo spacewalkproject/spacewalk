@@ -110,7 +110,6 @@ public class GeneralConfigAction extends BaseConfigAction {
 
             if (!errors.isEmpty()) {
                 getStrutsDelegate().saveMessages(request, errors);
-                addErrors(request, errors);
                 return mapping.findForward("failure");
             }
 
