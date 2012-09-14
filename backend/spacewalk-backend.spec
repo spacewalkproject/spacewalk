@@ -12,7 +12,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.66
+Version: 1.8.67
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -647,6 +647,10 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Fri Sep 14 2012 Jan Pazdziora 1.8.67-1
+- Now that the Oracle columns are of type TIMESTAMP WITH LOCAL TIME ZONE,
+  nls_timestamp_format is needed as well.
+
 * Mon Sep 10 2012 Michael Mraka <michael.mraka@redhat.com> 1.8.66-1
 - spacewalk-backend-libs can break spacewalk-backend < 1.7
 
