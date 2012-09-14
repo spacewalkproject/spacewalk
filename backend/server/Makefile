@@ -17,7 +17,6 @@ SPACEWALK_FILES		= __init__ \
                   rhnDependency \
                   rhnAction \
                   rhnHandler rhnImport rhnMapping rhnLib rhnPackage \
-                  rhnKickstart \
                   rhnPackageUpload basePackageUpload rhnRepository \
                   rhnSession rhnUser rhnVirtualization taskomatic
 SUBDIRS		= rhnSQL rhnServer action \

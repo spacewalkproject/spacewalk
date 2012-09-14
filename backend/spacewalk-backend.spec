@@ -397,7 +397,6 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{pythonrhnroot}/server/rhnAuthPAM.py*
 %{pythonrhnroot}/server/rhnCapability.py*
 %{pythonrhnroot}/server/rhnChannel.py*
-%{pythonrhnroot}/server/rhnKickstart.py*
 %{pythonrhnroot}/server/rhnDependency.py*
 %{pythonrhnroot}/server/rhnPackage.py*
 %{pythonrhnroot}/server/rhnPackageUpload.py*
