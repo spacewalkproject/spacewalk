@@ -777,6 +777,7 @@ public class CachedStatement {
         // this            : August 23, 2005 12:00:00 AM PDT
         // vs the real date: August 23, 2005 1:36:12 PM PDT
         if (columnValue instanceof Date ||
+            ("oracle.sql.TIMESTAMPLTZ".equals(columnValue.getClass().getCanonicalName())) ||
             ("oracle.sql.TIMESTAMPTZ".equals(columnValue.getClass().getCanonicalName()))) {
             Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT"));
             return rs.getTimestamp(columnName, cal);
