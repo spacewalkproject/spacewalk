@@ -1209,7 +1209,7 @@ ORDER BY S.ID
 </query>
 
 <query name="system_overview" params="">
-  SELECT SERVER_ID AS ID, OUTDATED_PACKAGES, SERVER_NAME, security_errata, bug_errata, enhancement_errata,
+  SELECT /*+ RULE */ SERVER_ID AS ID, OUTDATED_PACKAGES, SERVER_NAME, security_errata, bug_errata, enhancement_errata,
           SERVER_ADMINS, GROUP_COUNT, MODIFIED, CHANNEL_LABELS, CHANNEL_ID, HISTORY_COUNT,
           LAST_CHECKIN_DAYS_AGO, PENDING_UPDATES, OS, RELEASE, SERVER_ARCH_NAME, LAST_CHECKIN, LOCKED,
           config_files_with_differences,
