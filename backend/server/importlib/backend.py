@@ -78,6 +78,9 @@ class Backend:
         sth = self.dbmodule.prepare("alter session set nls_date_format ='%s'"
                                  % format)
         sth.execute()
+        sth = self.dbmodule.prepare("alter session set nls_timestamp_format ='%s'"
+                                 % format)
+        sth.execute()
 
     def processCapabilities(self, capabilityHash):
         # First figure out which capabilities are already inserted
