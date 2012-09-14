@@ -288,7 +288,10 @@ class _ChannelDumper(BaseRowDumper):
         # Errata information (with timestamps)
         query_args = {'channel_id': channel_id}
         if self.start_date:
-            query = self._query__get_errata_ids_by_limits
+            if self.use_rhn_date:
+                query = self._query__get_errata_ids_by_rhnlimits
+            else:
+                query = self._query__get_errata_ids_by_limits
             query_args.update({'lower_limit': self.start_date,
                                'upper_limit': self.end_date})
         else:
