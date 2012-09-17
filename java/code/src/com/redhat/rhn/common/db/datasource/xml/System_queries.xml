@@ -37,6 +37,7 @@ select * from (
 ORDER BY  UPPER(COALESCE(X.name, '(none)')), X.id
   </query>
   <elaborator name="system_overview" />
+  <elaborator name="system_monitoring" />
 </mode>
 
 <mode name="find_by_name" class="com.redhat.rhn.frontend.dto.SystemOverview">
@@ -51,6 +52,7 @@ ORDER BY  UPPER(COALESCE(X.name, '(none)')), X.id
      and S.name = :name
   </query>
   <elaborator name="system_overview" />
+  <elaborator name="system_monitoring" />
 </mode>
 
 
@@ -70,6 +72,7 @@ SELECT  S.id,
 ORDER BY UPPER(COALESCE(S.NAME, '(none)')), S.ID
   </query>
   <elaborator name="system_overview" />
+  <elaborator name="system_monitoring" />
   <elaborator name="is_virtual_guest" />
   <elaborator name="is_virtual_host" />
 </mode>
@@ -98,6 +101,7 @@ SELECT DISTINCT S.id,
 ORDER BY UPPER(COALESCE(X.server_name, '(none)')), X.id
   </query>
   <elaborator name="system_overview" />
+  <elaborator name="system_monitoring" />
 </mode>
 
 <mode name="custom_vals">
@@ -211,6 +215,7 @@ SELECT  S.id as id,
 ORDER BY UPPER(COALESCE(S.NAME, '(none)')), S.ID
   </query>
   <elaborator name="system_overview" />
+  <elaborator name="system_monitoring" />
 </mode>
 
 <mode name="count_systems_subscribed_to_channel">
@@ -254,6 +259,7 @@ SELECT
 ORDER BY UPPER(COALESCE(S.NAME, '(none)')), S.ID
   </query>
   <elaborator name="system_overview" />
+  <elaborator name="system_monitoring" />
   <elaborator name="entitlements"/>
 </mode>
 
@@ -344,6 +350,7 @@ SELECT SGM.server_id AS ID, S.name AS NAME,
 ORDER BY UPPER(COALESCE(S.NAME, '(none)')), S.ID
   </query>
   <elaborator name="system_overview" />
+  <elaborator name="system_monitoring" />
   <elaborator name="entitlements"/>
 </mode>
 
@@ -361,6 +368,7 @@ SELECT S.id, S.name,
 ORDER BY UPPER(COALESCE(S.NAME, '(none)')), S.ID
   </query>
   <elaborator name="system_overview" />
+  <elaborator name="system_monitoring" />
   <elaborator name="entitlements"/>
 </mode>
 
@@ -378,6 +386,7 @@ SELECT  S.id, S.name
 ORDER BY  UPPER(COALESCE(S.NAME, '(none)')), S.ID
   </query>
   <elaborator name="system_overview" />
+  <elaborator name="system_monitoring" />
 </mode>
 
 <mode name="systems_with_needed_package" class="com.redhat.rhn.frontend.dto.SystemOverview">
@@ -391,6 +400,7 @@ SELECT  S.ID
 ORDER BY  UPPER(COALESCE(S.NAME, '(none)')), S.ID
   </query>
   <elaborator name="system_overview" />
+  <elaborator name="system_monitoring" />
 </mode>
 
 <mode name="target_systems_for_channel" class="com.redhat.rhn.frontend.dto.SystemOverview">
@@ -409,6 +419,7 @@ SELECT ES.id, S.name, 1 as selectable
    AND EXISTS (SELECT 1 FROM rhnUserServerPerms USP WHERE USP.user_id = :user_id AND USP.server_id = ES.id)
   </query>
     <elaborator name="system_overview" />
+  <elaborator name="system_monitoring" />
     <elaborator name="entitlements"/>
 </mode>
 
@@ -462,6 +473,7 @@ ORDER BY  UPPER(COALESCE(X.name, '(none)')), X.id
 <mode name="visible_to_user_from_sysid_list" class="com.redhat.rhn.frontend.dto.SystemSearchResult">
   <query name="available_to_user_from_sysid_list" />
   <elaborator name="system_overview" />
+  <elaborator name="system_monitoring" />
   <elaborator name="entitlements"/>
   <elaborator name="is_virtual_guest" />
   <elaborator name="is_virtual_host" />
@@ -471,6 +483,7 @@ ORDER BY  UPPER(COALESCE(X.name, '(none)')), X.id
 <mode name="visible_to_user" class="com.redhat.rhn.frontend.dto.SystemOverview">
   <query name="available_to_user" />
   <elaborator name="system_overview" />
+  <elaborator name="system_monitoring" />
   <elaborator name="entitlements"/>
   <elaborator name="is_virtual_guest" />
   <elaborator name="is_virtual_host" />
@@ -565,6 +578,7 @@ where a.user_id = :formvar_uid
 		ORDER BY  UPPER(COALESCE(S.name, '(none)')), S.id
 	</query>
    <elaborator name="system_overview" />
+  <elaborator name="system_monitoring" />
    <elaborator name="entitlements" />
 </mode>
 
@@ -619,6 +633,7 @@ SELECT SA.server_id as id,
       WHERE errata_id = :eid)
   </elaborator>
   <elaborator name="system_overview" />
+  <elaborator name="system_monitoring" />
   <elaborator name="entitlements" />
 </mode>
 
@@ -639,11 +654,13 @@ SELECT SA.server_id as id,
 ORDER BY UPPER(COALESCE(S.NAME, '(none)')), S.ID
   </query>
   <elaborator name="system_overview" />
+  <elaborator name="system_monitoring" />
 </mode>
 
 <mode name="in_set" class="com.redhat.rhn.frontend.dto.SystemOverview">
   <query name="in_set" />
   <elaborator name="system_overview" />
+  <elaborator name="system_monitoring" />
   <elaborator name="entitlements" />
   <elaborator name="is_virtual_guest" />
   <elaborator name="is_virtual_host" />
@@ -715,6 +732,7 @@ select * from (
 ORDER BY  UPPER(COALESCE(X.NAME, '(none)')), X.ID
   </query>
   <elaborator name="system_overview" />
+  <elaborator name="system_monitoring" />
   <elaborator name="entitlements" />
   <elaborator name="is_virtual_guest" />
   <elaborator name="is_virtual_host" />
@@ -734,6 +752,7 @@ SELECT    S.ID, S.NAME,
 ORDER BY  UPPER(COALESCE(S.NAME, '(none)')), S.ID
   </query>
   <elaborator name="system_overview" />
+  <elaborator name="system_monitoring" />
   <elaborator name="is_virtual_guest" />
   <elaborator name="is_virtual_host" />
 </mode>
@@ -756,6 +775,7 @@ SELECT S.ID, S.NAME,
 ORDER BY  UPPER(COALESCE(S.NAME, '(none)')), S.ID
   </query>
   <elaborator name="system_overview" />
+  <elaborator name="system_monitoring" />
   <elaborator name="entitlements" />
   <elaborator name="is_virtual_guest" />
   <elaborator name="is_virtual_host" />
@@ -787,6 +807,7 @@ SELECT DISTINCT S.id, S.NAME,
 <mode name="having_errata_with_keyword_applied_since_last_reboot" class="com.redhat.rhn.frontend.dto.SystemOverview">
   <query name="having_errata_with_keyword_applied_since_last_reboot_list"/>
   <elaborator name="system_overview" />
+  <elaborator name="system_monitoring" />
   <elaborator name="entitlements" />
   <elaborator name="is_virtual_guest" />
   <elaborator name="is_virtual_host" />
@@ -831,6 +852,7 @@ SELECT S.id, S.NAME,
 ORDER BY UPPER(COALESCE(S.NAME, '(none)')), S.ID
   </query>
   <elaborator name="system_overview" />
+  <elaborator name="system_monitoring" />
   <elaborator name="entitlements" />
   <elaborator name="is_virtual_guest" />
   <elaborator name="is_virtual_host" />
@@ -852,6 +874,7 @@ SELECT S.id, S.NAME,
 ORDER BY SI.checkin DESC
   </query>
   <elaborator name="system_overview" />
+  <elaborator name="system_monitoring" />
   <elaborator name="entitlements" />
 </mode>
 
@@ -877,6 +900,7 @@ SELECT S.id, S.NAME, S.info, S.created,
 ORDER BY S.created DESC
   </query>
   <elaborator name="system_overview" />
+  <elaborator name="system_monitoring" />
   <elaborator name="entitlements" />
   <elaborator name="is_virtual_guest" />
   <elaborator name="is_virtual_host" />
@@ -905,6 +929,7 @@ SELECT S.id, S.NAME, S.info, S.created,
 ORDER BY S.created DESC
   </query>
   <elaborator name="system_overview" />
+  <elaborator name="system_monitoring" />
   <elaborator name="entitlements" />
 </mode>
 
@@ -920,6 +945,7 @@ SELECT PI.server_id ID, S.name,
    AND S.id = PI.server_id
   </query>
   <elaborator name="system_overview"/>
+  <elaborator name="system_monitoring" />
   <elaborator name="entitlements" />
   <elaborator name="is_virtual_guest" />
   <elaborator name="is_virtual_host" />
@@ -1051,6 +1077,7 @@ SELECT SP.proxy_server_id ID, S.name, (SP.position + 1) AS position, SP.hostname
 ORDER BY SP.position
   </query>
   <elaborator name="system_overview"/>
+  <elaborator name="system_monitoring" />
 </mode>
 
 <!--     TO_CHAR(A.earliest_action, 'YYYY-MM-DD HH24:MI:SS') AS DISPLAY_DATE -->
@@ -1076,6 +1103,7 @@ ORDER BY SP.position
 ORDER BY  UPPER(COALESCE(S.name, '(none)')), S.ID
   </query>
   <elaborator name="system_overview" />
+  <elaborator name="system_monitoring" />
 </mode>
 
 <mode name="systems_failed_action" class="com.redhat.rhn.frontend.dto.ActionedSystem">
@@ -1096,6 +1124,7 @@ ORDER BY  UPPER(COALESCE(S.name, '(none)')), S.ID
 ORDER BY  UPPER(COALESCE(S.name, '(none)')), S.ID
   </query>
   <elaborator name="system_overview" />
+  <elaborator name="system_monitoring" />
 </mode>
 
 <mode name="systems_completed_action" class="com.redhat.rhn.frontend.dto.ActionedSystem">
@@ -1116,6 +1145,7 @@ ORDER BY  UPPER(COALESCE(S.name, '(none)')), S.ID
 ORDER BY  UPPER(COALESCE(S.name, '(none)')), S.ID
   </query>
   <elaborator name="system_overview" />
+  <elaborator name="system_monitoring" />
 </mode>
 
 <mode name="systems_in_set_with_no_base_channel"  class="com.redhat.rhn.frontend.dto.EssentialServerDto">
@@ -1212,28 +1242,30 @@ ORDER BY S.ID
   SELECT /*+ RULE */ SERVER_ID AS ID, OUTDATED_PACKAGES, SERVER_NAME, security_errata, bug_errata, enhancement_errata,
           SERVER_ADMINS, GROUP_COUNT, MODIFIED, CHANNEL_LABELS, CHANNEL_ID, HISTORY_COUNT,
           LAST_CHECKIN_DAYS_AGO, PENDING_UPDATES, OS, RELEASE, SERVER_ARCH_NAME, LAST_CHECKIN, LOCKED,
-          config_files_with_differences,
-          MONITORING_STATUS.ST AS MONITORING_STATUS
-  FROM  rhnServerOverview OV LEFT OUTER JOIN
-     ( SELECT CP.host_id, CASE MAX(CASE PS.state
-               WHEN 'OK' THEN 1
-               WHEN 'PENDING' THEN 2
-               WHEN 'UNKNOWN' THEN 3
-               WHEN 'WARNING' THEN 4
-               WHEN 'CRITICAL' THEN 5 END)
-           WHEN 1 THEN 'OK'
-           WHEN 2 THEN 'PENDING'
-           WHEN 3 THEN 'UNKNOWN'
-           WHEN 4 THEN 'WARNING'
-           WHEN 5 THEN 'CRITICAL' END ST
-      FROM  rhn_check_probe CP, rhn_probe_state PS
-      WHERE  PS.probe_id = CP.probe_id
-      GROUP BY CP.host_id ) MONITORING_STATUS
-  ON  OV.server_id = MONITORING_STATUS.host_id
+          config_files_with_differences
+  FROM  rhnServerOverview
   WHERE  server_id IN (%s)
 ORDER BY  UPPER(COALESCE(SERVER_NAME, '(none)')), SERVER_ID
 </query>
 
+<query name="system_monitoring" params="">
+  SELECT CP.host_id AS id,
+    CASE MAX(CASE PS.state
+        WHEN 'OK' THEN 1
+        WHEN 'PENDING' THEN 2
+        WHEN 'UNKNOWN' THEN 3
+        WHEN 'WARNING' THEN 4
+        WHEN 'CRITICAL' THEN 5 END)
+      WHEN 1 THEN 'OK'
+      WHEN 2 THEN 'PENDING'
+      WHEN 3 THEN 'UNKNOWN'
+      WHEN 4 THEN 'WARNING'
+      WHEN 5 THEN 'CRITICAL' END MONITORING_STATUS
+  FROM rhn_check_probe CP, rhn_probe_state PS
+  WHERE  PS.probe_id = CP.probe_id
+    AND CP.host_id IN (%s)
+  GROUP BY CP.host_id
+</query>
 
 <query name="is_virtual_guest" params="">
 SELECT vi.virtual_system_id as ID, 1 as virtual_guest FROM rhnVirtualInstance vi WHERE vi.virtual_system_id in (%s)
@@ -1955,6 +1987,7 @@ SELECT S.id,
 ORDER BY UPPER(COALESCE(S.NAME, '(none)')), S.ID
   </query>
   <elaborator name="system_overview" />
+  <elaborator name="system_monitoring" />
 </mode>
 
 </datasource_modes>
