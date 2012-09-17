@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 1.8.20
+Version: 1.8.21
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -339,6 +339,15 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Mon Sep 17 2012 Jan Pazdziora 1.8.21-1
+- 823551 - fixing problem with firstboot
+- 823551 - gui and text changes for firstboot and rhn_register
+- 810389 - rhn_register / firstboot gui minor updates
+- 810315 - New "updates availabe" screenshot for firstboot
+- 851657 - polish registration strings
+- 855992 - make rhn-channel smart enough to use proxy if configured
+- 855883 - rhn_check: use gettext correctly when needed
+
 * Mon Sep 10 2012 Jan Pazdziora 1.8.20-1
 - 786422 - fixing typo in rhn_register tui
 
