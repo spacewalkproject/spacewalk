@@ -1302,22 +1302,8 @@ ORDER BY  SECURITY_ERRATA DESC, BUG_ERRATA DESC, ENHANCEMENT_ERRATA DESC
           SERVER_ID as system_id, SECURITY_ERRATA, BUG_ERRATA, ENHANCEMENT_ERRATA, OUTDATED_PACKAGES, SERVER_NAME,
           SERVER_ADMINS, GROUP_COUNT, OV.MODIFIED, CHANNEL_LABELS, CHANNEL_ID, HISTORY_COUNT,
           LAST_CHECKIN_DAYS_AGO, PENDING_UPDATES, OS, RELEASE, SERVER_ARCH_NAME, LAST_CHECKIN, LOCKED,
-          config_files_with_differences, MONITORING_STATUS.ST AS MONITORING_STATUS
-    FROM  rhnVirtualInstance VI, rhnServerOverview OV LEFT OUTER JOIN
-       ( SELECT CP.host_id, CASE MAX(CASE PS.state
-               WHEN 'OK' THEN 1
-               WHEN 'PENDING' THEN 2
-               WHEN 'UNKNOWN' THEN 3
-               WHEN 'WARNING' THEN 4
-               WHEN 'CRITICAL' THEN 5 END)
-           WHEN 1 THEN 'OK'
-           WHEN 2 THEN 'PENDING'
-           WHEN 3 THEN 'UNKNOWN'
-           WHEN 4 THEN 'WARNING'
-           WHEN 5 THEN 'CRITICAL' END ST
-           FROM  rhn_check_probe CP, rhn_probe_state PS
-          WHERE  PS.probe_id = CP.probe_id
-         GROUP BY CP.host_id ) MONITORING_STATUS ON OV.server_id = MONITORING_STATUS.host_id
+          config_files_with_differences
+    FROM  rhnVirtualInstance VI, rhnServerOverview OV
    WHERE  VI.id IN (%s)
      AND  (   (    VI.uuid IS NULL
                AND OV.server_id = VI.host_system_id)
