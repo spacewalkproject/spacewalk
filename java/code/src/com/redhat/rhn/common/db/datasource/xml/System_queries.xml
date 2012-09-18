@@ -37,6 +37,7 @@ select * from (
 ORDER BY  UPPER(COALESCE(X.name, '(none)')), X.id
   </query>
   <elaborator name="system_overview" />
+  <elaborator name="system_config_files_with_diffs" />
 </mode>
 
 <mode name="find_by_name" class="com.redhat.rhn.frontend.dto.SystemOverview">
@@ -51,6 +52,7 @@ ORDER BY  UPPER(COALESCE(X.name, '(none)')), X.id
      and S.name = :name
   </query>
   <elaborator name="system_overview" />
+  <elaborator name="system_config_files_with_diffs" />
 </mode>
 
 
@@ -70,6 +72,7 @@ SELECT  S.id,
 ORDER BY UPPER(COALESCE(S.NAME, '(none)')), S.ID
   </query>
   <elaborator name="system_overview" />
+  <elaborator name="system_config_files_with_diffs" />
   <elaborator name="is_virtual_guest" />
   <elaborator name="is_virtual_host" />
 </mode>
@@ -98,6 +101,7 @@ SELECT DISTINCT S.id,
 ORDER BY UPPER(COALESCE(X.server_name, '(none)')), X.id
   </query>
   <elaborator name="system_overview" />
+  <elaborator name="system_config_files_with_diffs" />
   <elaborator name="system_monitoring" />
 </mode>
 
@@ -212,6 +216,7 @@ SELECT  S.id as id,
 ORDER BY UPPER(COALESCE(S.NAME, '(none)')), S.ID
   </query>
   <elaborator name="system_overview" />
+  <elaborator name="system_config_files_with_diffs" />
   <elaborator name="system_monitoring" />
 </mode>
 
@@ -256,6 +261,7 @@ SELECT
 ORDER BY UPPER(COALESCE(S.NAME, '(none)')), S.ID
   </query>
   <elaborator name="system_overview" />
+  <elaborator name="system_config_files_with_diffs" />
   <elaborator name="system_monitoring" />
   <elaborator name="entitlements"/>
 </mode>
@@ -347,6 +353,7 @@ SELECT SGM.server_id AS ID, S.name AS NAME,
 ORDER BY UPPER(COALESCE(S.NAME, '(none)')), S.ID
   </query>
   <elaborator name="system_overview" />
+  <elaborator name="system_config_files_with_diffs" />
   <elaborator name="system_monitoring" />
   <elaborator name="entitlements"/>
 </mode>
@@ -365,6 +372,7 @@ SELECT S.id, S.name,
 ORDER BY UPPER(COALESCE(S.NAME, '(none)')), S.ID
   </query>
   <elaborator name="system_overview" />
+  <elaborator name="system_config_files_with_diffs" />
   <elaborator name="system_monitoring" />
   <elaborator name="entitlements"/>
 </mode>
@@ -383,6 +391,7 @@ SELECT  S.id, S.name
 ORDER BY  UPPER(COALESCE(S.NAME, '(none)')), S.ID
   </query>
   <elaborator name="system_overview" />
+  <elaborator name="system_config_files_with_diffs" />
   <elaborator name="system_monitoring" />
 </mode>
 
@@ -397,6 +406,7 @@ SELECT  S.ID
 ORDER BY  UPPER(COALESCE(S.NAME, '(none)')), S.ID
   </query>
   <elaborator name="system_overview" />
+  <elaborator name="system_config_files_with_diffs" />
   <elaborator name="system_monitoring" />
 </mode>
 
@@ -416,6 +426,7 @@ SELECT ES.id, S.name, 1 as selectable
    AND EXISTS (SELECT 1 FROM rhnUserServerPerms USP WHERE USP.user_id = :user_id AND USP.server_id = ES.id)
   </query>
     <elaborator name="system_overview" />
+  <elaborator name="system_config_files_with_diffs" />
   <elaborator name="system_monitoring" />
     <elaborator name="entitlements"/>
 </mode>
@@ -470,6 +481,7 @@ ORDER BY  UPPER(COALESCE(X.name, '(none)')), X.id
 <mode name="visible_to_user_from_sysid_list" class="com.redhat.rhn.frontend.dto.SystemSearchResult">
   <query name="available_to_user_from_sysid_list" />
   <elaborator name="system_overview" />
+  <elaborator name="system_config_files_with_diffs" />
   <elaborator name="system_monitoring" />
   <elaborator name="entitlements"/>
   <elaborator name="is_virtual_guest" />
@@ -480,6 +492,7 @@ ORDER BY  UPPER(COALESCE(X.name, '(none)')), X.id
 <mode name="visible_to_user" class="com.redhat.rhn.frontend.dto.SystemOverview">
   <query name="available_to_user" />
   <elaborator name="system_overview" />
+  <elaborator name="system_config_files_with_diffs" />
   <elaborator name="system_monitoring" />
   <elaborator name="entitlements"/>
   <elaborator name="is_virtual_guest" />
@@ -513,6 +526,7 @@ ORDER BY  UPPER(COALESCE(X.name, '(none)')), X.id
 <mode name="most_critical_systems" class="com.redhat.rhn.frontend.dto.SystemOverview">
   <query name="available_to_user_with_errata" />
   <elaborator name="system_overview_most_critical" />
+  <elaborator name="system_config_files_with_diffs" />
   <elaborator name="system_monitoring" />
 </mode>
 
@@ -576,6 +590,7 @@ where a.user_id = :formvar_uid
 		ORDER BY  UPPER(COALESCE(S.name, '(none)')), S.id
 	</query>
    <elaborator name="system_overview" />
+  <elaborator name="system_config_files_with_diffs" />
   <elaborator name="system_monitoring" />
    <elaborator name="entitlements" />
 </mode>
@@ -631,6 +646,7 @@ SELECT SA.server_id as id,
       WHERE errata_id = :eid)
   </elaborator>
   <elaborator name="system_overview" />
+  <elaborator name="system_config_files_with_diffs" />
   <elaborator name="system_monitoring" />
   <elaborator name="entitlements" />
 </mode>
@@ -652,12 +668,14 @@ SELECT SA.server_id as id,
 ORDER BY UPPER(COALESCE(S.NAME, '(none)')), S.ID
   </query>
   <elaborator name="system_overview" />
+  <elaborator name="system_config_files_with_diffs" />
   <elaborator name="system_monitoring" />
 </mode>
 
 <mode name="in_set" class="com.redhat.rhn.frontend.dto.SystemOverview">
   <query name="in_set" />
   <elaborator name="system_overview" />
+  <elaborator name="system_config_files_with_diffs" />
   <elaborator name="system_monitoring" />
   <elaborator name="entitlements" />
   <elaborator name="is_virtual_guest" />
@@ -730,6 +748,7 @@ select * from (
 ORDER BY  UPPER(COALESCE(X.NAME, '(none)')), X.ID
   </query>
   <elaborator name="system_overview" />
+  <elaborator name="system_config_files_with_diffs" />
   <elaborator name="system_monitoring" />
   <elaborator name="entitlements" />
   <elaborator name="is_virtual_guest" />
@@ -750,6 +769,7 @@ SELECT    S.ID, S.NAME,
 ORDER BY  UPPER(COALESCE(S.NAME, '(none)')), S.ID
   </query>
   <elaborator name="system_overview" />
+  <elaborator name="system_config_files_with_diffs" />
   <elaborator name="system_monitoring" />
   <elaborator name="is_virtual_guest" />
   <elaborator name="is_virtual_host" />
@@ -773,6 +793,7 @@ SELECT S.ID, S.NAME,
 ORDER BY  UPPER(COALESCE(S.NAME, '(none)')), S.ID
   </query>
   <elaborator name="system_overview" />
+  <elaborator name="system_config_files_with_diffs" />
   <elaborator name="system_monitoring" />
   <elaborator name="entitlements" />
   <elaborator name="is_virtual_guest" />
@@ -805,6 +826,7 @@ SELECT DISTINCT S.id, S.NAME,
 <mode name="having_errata_with_keyword_applied_since_last_reboot" class="com.redhat.rhn.frontend.dto.SystemOverview">
   <query name="having_errata_with_keyword_applied_since_last_reboot_list"/>
   <elaborator name="system_overview" />
+  <elaborator name="system_config_files_with_diffs" />
   <elaborator name="system_monitoring" />
   <elaborator name="entitlements" />
   <elaborator name="is_virtual_guest" />
@@ -850,6 +872,7 @@ SELECT S.id, S.NAME,
 ORDER BY UPPER(COALESCE(S.NAME, '(none)')), S.ID
   </query>
   <elaborator name="system_overview" />
+  <elaborator name="system_config_files_with_diffs" />
   <elaborator name="system_monitoring" />
   <elaborator name="entitlements" />
   <elaborator name="is_virtual_guest" />
@@ -872,6 +895,7 @@ SELECT S.id, S.NAME,
 ORDER BY SI.checkin DESC
   </query>
   <elaborator name="system_overview" />
+  <elaborator name="system_config_files_with_diffs" />
   <elaborator name="system_monitoring" />
   <elaborator name="entitlements" />
 </mode>
@@ -898,6 +922,7 @@ SELECT S.id, S.NAME, S.info, S.created,
 ORDER BY S.created DESC
   </query>
   <elaborator name="system_overview" />
+  <elaborator name="system_config_files_with_diffs" />
   <elaborator name="system_monitoring" />
   <elaborator name="entitlements" />
   <elaborator name="is_virtual_guest" />
@@ -927,6 +952,7 @@ SELECT S.id, S.NAME, S.info, S.created,
 ORDER BY S.created DESC
   </query>
   <elaborator name="system_overview" />
+  <elaborator name="system_config_files_with_diffs" />
   <elaborator name="system_monitoring" />
   <elaborator name="entitlements" />
 </mode>
@@ -943,6 +969,7 @@ SELECT PI.server_id ID, S.name,
    AND S.id = PI.server_id
   </query>
   <elaborator name="system_overview"/>
+  <elaborator name="system_config_files_with_diffs" />
   <elaborator name="system_monitoring" />
   <elaborator name="entitlements" />
   <elaborator name="is_virtual_guest" />
@@ -976,6 +1003,7 @@ SELECT PI.server_id ID, S.name,
 ORDER BY NAME, VI.virtual_system_id, VI.uuid DESC
   </query>
   <elaborator name="virtual_system_overview"/>
+  <elaborator name="system_config_files_with_diffs" />
   <elaborator name="virtual_system_entitlements" />
 </mode>
 
@@ -1022,6 +1050,7 @@ ORDER BY NAME, VI.virtual_system_id, VI.uuid DESC
   ORDER BY VI.host_system_id, VI.uuid DESC
   </query>
   <elaborator name="virtual_system_overview"/>
+  <elaborator name="system_config_files_with_diffs" />
   <elaborator name="virtual_system_entitlements" />
   <elaborator name="total_virtual_instances" />
   <elaborator name="active_virtual_instances" />
@@ -1075,6 +1104,7 @@ SELECT SP.proxy_server_id ID, S.name, (SP.position + 1) AS position, SP.hostname
 ORDER BY SP.position
   </query>
   <elaborator name="system_overview"/>
+  <elaborator name="system_config_files_with_diffs" />
   <elaborator name="system_monitoring" />
 </mode>
 
@@ -1102,6 +1132,7 @@ ORDER BY  UPPER(COALESCE(S.name, '(none)')), S.ID
   </query>
   <elaborator name="system_overview" />
   <elaborator name="system_monitoring" />
+  <elaborator name="system_config_files_with_diffs" />
 </mode>
 
 <mode name="systems_failed_action" class="com.redhat.rhn.frontend.dto.ActionedSystem">
@@ -1122,6 +1153,7 @@ ORDER BY  UPPER(COALESCE(S.name, '(none)')), S.ID
 ORDER BY  UPPER(COALESCE(S.name, '(none)')), S.ID
   </query>
   <elaborator name="system_overview" />
+  <elaborator name="system_config_files_with_diffs" />
   <elaborator name="system_monitoring" />
 </mode>
 
@@ -1143,6 +1175,7 @@ ORDER BY  UPPER(COALESCE(S.name, '(none)')), S.ID
 ORDER BY  UPPER(COALESCE(S.name, '(none)')), S.ID
   </query>
   <elaborator name="system_overview" />
+  <elaborator name="system_config_files_with_diffs" />
   <elaborator name="system_monitoring" />
 </mode>
 
@@ -1237,13 +1270,32 @@ ORDER BY S.ID
 </query>
 
 <query name="system_overview" params="">
-  SELECT /*+ RULE */ SERVER_ID AS ID, OUTDATED_PACKAGES, SERVER_NAME, security_errata, bug_errata, enhancement_errata,
+  SELECT SERVER_ID AS ID, OUTDATED_PACKAGES, SERVER_NAME, security_errata, bug_errata, enhancement_errata,
           SERVER_ADMINS, GROUP_COUNT, MODIFIED, CHANNEL_LABELS, CHANNEL_ID, HISTORY_COUNT,
-          LAST_CHECKIN_DAYS_AGO, PENDING_UPDATES, OS, RELEASE, SERVER_ARCH_NAME, LAST_CHECKIN, LOCKED,
-          config_files_with_differences
+          LAST_CHECKIN_DAYS_AGO, PENDING_UPDATES, OS, RELEASE, SERVER_ARCH_NAME, LAST_CHECKIN, LOCKED
   FROM  rhnServerOverview
   WHERE  server_id IN (%s)
 ORDER BY  UPPER(COALESCE(SERVER_NAME, '(none)')), SERVER_ID
+</query>
+
+<query name="system_config_files_with_diffs">
+  SELECT ACR.server_id AS ID, count(*) AS config_files_with_differences
+    FROM rhnActionConfigRevision ACR
+         INNER JOIN rhnActionConfigRevisionResult ACRR ON ACR.id = ACRR.action_config_revision_id
+   WHERE ACR.action_id = (
+         SELECT MAX(rA.id)
+           FROM rhnAction rA
+                INNER JOIN rhnServerAction rSA ON rSA.action_id = rA.id
+                INNER JOIN rhnActionStatus rAS ON rAS.id = rSA.status
+                INNER JOIN rhnActionType rAT ON rAT.id = rA.action_type
+          WHERE rSA.server_id = ACR.server_id
+            AND rAS.name in ('Completed', 'Failed')
+            AND rAT.label = 'configfiles.diff'
+         )
+     AND ACR.failure_id is null
+     AND ACRR.result is not null
+     AND ACR.server_id in (%s)
+GROUP BY ACR.server_id
 </query>
 
 <query name="system_monitoring" params="">
@@ -1287,8 +1339,7 @@ select VI.host_system_id as ID, 1 as virtual_host
 <query name="system_overview_most_critical" params="">
  SELECT  SERVER_ID AS ID, SECURITY_ERRATA, BUG_ERRATA, ENHANCEMENT_ERRATA, OUTDATED_PACKAGES, SERVER_NAME,
           SERVER_ADMINS, GROUP_COUNT, MODIFIED, CHANNEL_LABELS, HISTORY_COUNT,
-          LAST_CHECKIN_DAYS_AGO, PENDING_UPDATES, OS, RELEASE, SERVER_ARCH_NAME, LAST_CHECKIN, LOCKED,
-          config_files_with_differences
+          LAST_CHECKIN_DAYS_AGO, PENDING_UPDATES, OS, RELEASE, SERVER_ARCH_NAME, LAST_CHECKIN, LOCKED
     FROM  rhnServerOverview
    WHERE  server_id IN (%s)
 ORDER BY  SECURITY_ERRATA DESC, BUG_ERRATA DESC, ENHANCEMENT_ERRATA DESC
@@ -1298,8 +1349,7 @@ ORDER BY  SECURITY_ERRATA DESC, BUG_ERRATA DESC, ENHANCEMENT_ERRATA DESC
  SELECT  VI.id,
           SERVER_ID as system_id, SECURITY_ERRATA, BUG_ERRATA, ENHANCEMENT_ERRATA, OUTDATED_PACKAGES, SERVER_NAME,
           SERVER_ADMINS, GROUP_COUNT, OV.MODIFIED, CHANNEL_LABELS, CHANNEL_ID, HISTORY_COUNT,
-          LAST_CHECKIN_DAYS_AGO, PENDING_UPDATES, OS, RELEASE, SERVER_ARCH_NAME, LAST_CHECKIN, LOCKED,
-          config_files_with_differences
+          LAST_CHECKIN_DAYS_AGO, PENDING_UPDATES, OS, RELEASE, SERVER_ARCH_NAME, LAST_CHECKIN, LOCKED
     FROM  rhnVirtualInstance VI, rhnServerOverview OV
    WHERE  VI.id IN (%s)
      AND  (   (    VI.uuid IS NULL
@@ -1360,6 +1410,7 @@ DISTINCT VI.id,
 ORDER BY NAME, VI.virtual_system_id, VI.uuid DESC
   </query>
   <elaborator name="virtual_system_overview"/>
+  <elaborator name="system_config_files_with_diffs" />
   <elaborator name="virtual_system_entitlements" />
 </mode>
 
@@ -1946,6 +1997,7 @@ SELECT S.id,
 ORDER BY UPPER(COALESCE(S.NAME, '(none)')), S.ID
   </query>
   <elaborator name="system_overview" />
+  <elaborator name="system_config_files_with_diffs" />
   <elaborator name="system_monitoring" />
 </mode>
 
