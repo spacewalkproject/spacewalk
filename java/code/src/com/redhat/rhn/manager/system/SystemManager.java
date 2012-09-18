@@ -2226,20 +2226,6 @@ public class SystemManager extends BaseManager {
     }
 
     /**
-     * gets the monitoring status for a particular system
-     * @param user the user to check for
-     * @param sid the system id to check for
-     * @return DataResult with the monitoring string
-     */
-    public static DataResult getMonitoringStatus(User user, Long sid) {
-        SelectMode m = ModeFactory.getMode("System_queries", "monitoring_status");
-        Map params = new HashMap();
-        params.put("uid", user.getId());
-        params.put("sid", sid);
-        return m.execute(params);
-    }
-
-    /**
      * Return the system names and IDs that are selected in the SSM for the given user,
      * which also have been subscribed to the given channel.
      *

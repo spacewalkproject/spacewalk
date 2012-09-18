@@ -23,7 +23,6 @@
    	    <rl:decorator name="ElaborationDecorator"/>
    	    <c:if test = "${empty noSystemIcons}">
  	  	    <rl:decorator name="SystemIconDecorator"/>
-   		    <rl:decorator name="SystemHealthIconDecorator"/>
    	    </c:if>
 		<rl:decorator name="PageSizeDecorator"/>
 		
