@@ -3,9 +3,11 @@ Description=OSA Dispatcher daemon
 After=syslog.target network.target
 
 [Service]
+Type=forking
 EnvironmentFile=-/etc/sysconfig/osa-dispatcher
 PIDFile=/var/run/osa-dispatcher.pid
 ExecStart=/usr/sbin/osa-dispatcher --pid-file /var/run/osa-dispatcher.pid
+ExecStartPre=/bin/rm -f /var/run/osa-dispatcher.pid
 
 [Install]
 WantedBy=multi-user.target
