@@ -23,7 +23,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.147
+Version: 1.8.148
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -616,6 +616,18 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Sep 18 2012 Tomas Lestach <tlestach@redhat.com> 1.8.148-1
+- ssm_kickstartable mode does not need system_monitoring elaborator
+- find_by_name mode does not need system_monitoring elaborator
+- virtual_hosts_for_user mode does not need system_monitoring elaborator
+- virtual_system_overview does not need system health information
+- use system_monitoring elaborator in most_critical_systems query
+- remove SystemHealthIconDecorator and appropriate query
+- extract system_monitoring elaborator from system_overview
+- removing @Override annotations for methods that aren't overriden
+- removing @Override annotations for methods that aren't overriden
+- removing unnecessarily nested else statement
+
 * Mon Sep 17 2012 Jan Pazdziora 1.8.147-1
 - 790120 - Adding the RULE hint back into the system_overview elaborator
 - Checkstyle fix.
