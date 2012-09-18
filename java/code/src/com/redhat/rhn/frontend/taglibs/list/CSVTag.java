@@ -245,10 +245,8 @@ public class CSVTag extends BodyTagSupport {
             session.setAttribute(paramQuery, ((DataResult)pageData).getMode().getQuery());
             return CSVDownloadAction.QUERY_DATA + "=" + paramQuery;
         }
-        else {
-            String paramPageList = "pageList_" + getUniqueName();
-            session.setAttribute(paramPageList, pageData);
-            return CSVDownloadAction.PAGE_LIST_DATA + "=" + paramPageList;
-        }
+        String paramPageList = "pageList_" + getUniqueName();
+        session.setAttribute(paramPageList, pageData);
+        return CSVDownloadAction.PAGE_LIST_DATA + "=" + paramPageList;
     }
 }
