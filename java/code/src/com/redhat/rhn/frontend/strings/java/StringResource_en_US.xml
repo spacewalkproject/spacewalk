@@ -1179,6 +1179,14 @@ http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd"
           <context context-type="sourcefile">com.redhat.rhn.frontend.action.monitoring.notification.AbstractFilterEditAction</context>
         </context-group>
       </trans-unit>
+
+      <trans-unit id="error.proxy_invalid">
+<source>HTTP proxy needs to be specified as host:port.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/config/GeneralConfig</context>
+        </context-group>
+      </trans-unit>
+
       <trans-unit id="/rhn/">
 <source>That username is already taken; please choose another.</source>
         <context-group name="ctx">

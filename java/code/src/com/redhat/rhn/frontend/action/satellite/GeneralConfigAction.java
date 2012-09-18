@@ -16,6 +16,7 @@ package com.redhat.rhn.frontend.action.satellite;
 
 import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.conf.ConfigDefaults;
+import com.redhat.rhn.common.validator.HostPortValidator;
 import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
@@ -212,7 +213,16 @@ public class GeneralConfigAction extends BaseConfigAction {
      */
     private ActionErrors validateForm(DynaActionForm form) {
         ActionErrors errors = new ActionErrors();
-        String email = (String) form.get(translateFormPropertyName("traceback_mail"));
+
+        // Check if proxy is given as host:port
+        String proxy = (String) form.get(
+                translateFormPropertyName("server.satellite.http_proxy"));
+        HostPortValidator validator = HostPortValidator.getInstance();
+        if (!(proxy.equals("") || validator.isValid(proxy))) {
+            errors.add(ActionMessages.GLOBAL_MESSAGE,
+                    new ActionMessage("error.proxy_invalid"));
+        }
+
         String password = (String) form.get(
                    translateFormPropertyName("server.satellite.http_proxy_password"));
         String confirmationPassword = (String) form.get(
