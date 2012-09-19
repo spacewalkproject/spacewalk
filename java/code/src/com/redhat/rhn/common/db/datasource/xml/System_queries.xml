@@ -351,7 +351,6 @@ ORDER BY UPPER(COALESCE(S.NAME, '(none)')), S.ID
   </query>
   <elaborator name="system_overview" />
   <elaborator name="system_config_files_with_diffs" />
-  <elaborator name="system_monitoring" />
   <elaborator name="entitlements"/>
 </mode>
 
