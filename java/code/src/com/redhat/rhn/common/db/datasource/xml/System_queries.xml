@@ -420,7 +420,6 @@ SELECT ES.id, S.name, 1 as selectable
   </query>
     <elaborator name="system_overview" />
   <elaborator name="system_config_files_with_diffs" />
-  <elaborator name="system_monitoring" />
     <elaborator name="entitlements"/>
 </mode>
 
