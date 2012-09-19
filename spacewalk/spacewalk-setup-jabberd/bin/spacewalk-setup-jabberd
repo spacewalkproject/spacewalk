@@ -35,7 +35,7 @@ if ($q =~ /^rhn-(org-)?httpd-ssl-key-pair/) {
 	$macros{'server_pem'} = '/etc/jabberd/server.pem';
 }
 
-if (-f "/proc/net/if_inet6") {
+if (-f "/proc/net/if_inet6" and -s "/proc/net/if_inet6") {
         $macros{'localhost'} = '::1';
         $macros{'ipaddress'} = '::';
 }
