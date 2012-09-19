@@ -23,7 +23,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.148
+Version: 1.8.149
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -616,6 +616,11 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Sep 19 2012 Jan Pazdziora 1.8.149-1
+- Convert TIMESTAMP without time zone as well.
+- Validate proxy format on general config page
+- 790120 - make system_overview fast
+
 * Tue Sep 18 2012 Tomas Lestach <tlestach@redhat.com> 1.8.148-1
 - ssm_kickstartable mode does not need system_monitoring elaborator
 - find_by_name mode does not need system_monitoring elaborator
