@@ -387,7 +387,6 @@ ORDER BY  UPPER(COALESCE(S.NAME, '(none)')), S.ID
   </query>
   <elaborator name="system_overview" />
   <elaborator name="system_config_files_with_diffs" />
-  <elaborator name="system_monitoring" />
 </mode>
 
 <mode name="systems_with_needed_package" class="com.redhat.rhn.frontend.dto.SystemOverview">
@@ -402,7 +401,6 @@ ORDER BY  UPPER(COALESCE(S.NAME, '(none)')), S.ID
   </query>
   <elaborator name="system_overview" />
   <elaborator name="system_config_files_with_diffs" />
-  <elaborator name="system_monitoring" />
 </mode>
 
 <mode name="target_systems_for_channel" class="com.redhat.rhn.frontend.dto.SystemOverview">
