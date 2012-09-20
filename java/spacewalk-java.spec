@@ -23,7 +23,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.149
+Version: 1.8.150
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -616,6 +616,22 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Sep 20 2012 Jan Pazdziora 1.8.150-1
+- Checkstyle fix.
+- 790120 - removing the config elaborator from a few queries where it's not
+  needed
+- affected_by_errata mode does not need system_monitoring elaborator
+- system_entitlement_list mode does not need system_monitoring elaborator
+- visible_to_user_from_sysid_list mode does not need system_monitoring
+  elaborator
+- target_systems_for_channel mode does not need system_monitoring elaborator
+- systems_with_needed_package mode does not need system_monitoring elaborator
+- target_systems_for_group mode does not need system_monitoring elaborator
+- systems_in_group mode does not need system_monitoring elaborator
+- systems_subscribed_to_channel mode does not need system_monitoring elaborator
+- systems_with_package_nvr mode does not need system_monitoring elaborator
+- ssm_remote_commandable mode does not need system_monitoring elaborator
+
 * Wed Sep 19 2012 Jan Pazdziora 1.8.149-1
 - Convert TIMESTAMP without time zone as well.
 - Validate proxy format on general config page
