@@ -48,7 +48,7 @@ public class HostPortValidator {
 
     /**
      * Return true if the given string is a valid host[:port] representation.
-     * @param hostPort
+     * @param hostPort the string with host[:port]
      * @return true if hostPort represents a valid host and port, else false.
      */
     public boolean isValid(String hostPort) {

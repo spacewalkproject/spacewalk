@@ -36,17 +36,24 @@ public class HostPortValidatorTest extends TestCase {
     }
 
     public void testIPv6() {
-        assertTrue(HostPortValidator.getInstance().isValid("2001:0db8:85a3:08d3:1319:8a2e:0370:7344"));
-        assertTrue(HostPortValidator.getInstance().isValid("[2001:0db8:85a3:08d3:1319:8a2e:0370:7344]"));
-        assertTrue(HostPortValidator.getInstance().isValid("[2001:0db8:85a3:08d3:1319:8a2e:0370:7344]:8888"));
+        assertTrue(HostPortValidator.getInstance().isValid(
+            "2001:0db8:85a3:08d3:1319:8a2e:0370:7344"));
+        assertTrue(HostPortValidator.getInstance().isValid(
+            "[2001:0db8:85a3:08d3:1319:8a2e:0370:7344]"));
+        assertTrue(HostPortValidator.getInstance().isValid(
+            "[2001:0db8:85a3:08d3:1319:8a2e:0370:7344]:8888"));
         assertTrue(HostPortValidator.getInstance().isValid("[2607:f0d0:1002:51::4]:8888"));
         assertTrue(HostPortValidator.getInstance().isValid("[::1]"));
         assertTrue(HostPortValidator.getInstance().isValid("[::1]:8888"));
 
-        assertFalse(HostPortValidator.getInstance().isValid("2001:0db8:85a3:08d3:1319:8a2e:0370:7344:8888"));
-        assertFalse(HostPortValidator.getInstance().isValid("[2001:0db8:85a3:08d3:1319:8a2e:0370:7344]]:8888"));
-        assertFalse(HostPortValidator.getInstance().isValid("[2001:0db8:85a3:08d3:1319:8a2e:0370:7344:8888"));
-        assertFalse(HostPortValidator.getInstance().isValid("2001:0db8:85a3:08d3:1319:8a2e:0370:7344]:8888"));
+        assertFalse(HostPortValidator.getInstance().isValid(
+            "2001:0db8:85a3:08d3:1319:8a2e:0370:7344:8888"));
+        assertFalse(HostPortValidator.getInstance().isValid(
+            "[2001:0db8:85a3:08d3:1319:8a2e:0370:7344]]:8888"));
+        assertFalse(HostPortValidator.getInstance().isValid(
+            "[2001:0db8:85a3:08d3:1319:8a2e:0370:7344:8888"));
+        assertFalse(HostPortValidator.getInstance().isValid(
+            "2001:0db8:85a3:08d3:1319:8a2e:0370:7344]:8888"));
         assertFalse(HostPortValidator.getInstance().isValid("[::1]:"));
         assertFalse(HostPortValidator.getInstance().isValid("[]"));
     }
@@ -58,6 +65,7 @@ public class HostPortValidatorTest extends TestCase {
         assertTrue(HostPortValidator.getInstance().isValid("proxy.example.com:8888"));
 
         assertFalse(HostPortValidator.getInstance().isValid("http://proxy.example.com"));
-        assertFalse(HostPortValidator.getInstance().isValid("http://proxy.example.com:8888"));
+        assertFalse(HostPortValidator.getInstance().isValid(
+            "http://proxy.example.com:8888"));
     }
 }
