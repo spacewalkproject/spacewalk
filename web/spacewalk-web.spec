@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.35
+Version: 1.8.36
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -253,6 +253,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Thu Sep 20 2012 Jan Pazdziora 1.8.36-1
+- Avoid link without eid parameter filled.
+
 * Fri Sep 07 2012 Tomas Lestach <tlestach@redhat.com> 1.8.35-1
 - restore changelog
 - changing web.chat_enabled -> java.chat_enabled
