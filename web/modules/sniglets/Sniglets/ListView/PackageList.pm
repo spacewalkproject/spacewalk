@@ -1484,7 +1484,7 @@ sub obsoleting_packages_provider {
     my $adv_type = $row->{ADVISORY_TYPE};
     my $adv_id = $row->{ERRATA_ID};
 
-    $row->{RELATED_ERRATA} = sprintf('<img src="%s" alt="%s" />&#160;<a href="/rhn/errata/details/Details.do?eid=%s">%s</a>', $adv_icon{$adv_type}, $adv_type, $adv_id, $adv);
+    $row->{RELATED_ERRATA} = defined $adv_id ? sprintf('<img src="%s" alt="%s" />&#160;<a href="/rhn/errata/details/Details.do?eid=%s">%s</a>', $adv_icon{$adv_type}, $adv_type, $adv_id, $adv) : '';
   }
 
   return (%ret);
