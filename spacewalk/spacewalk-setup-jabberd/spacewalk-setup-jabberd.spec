@@ -1,5 +1,5 @@
 Name:           spacewalk-setup-jabberd
-Version:        1.8.5
+Version:        1.8.6
 Release:        1%{?dist}
 Summary:        Tools to setup jabberd for Spacewalk
 Group:          Applications/System
@@ -57,6 +57,9 @@ rm -rf %{buildroot}
 %{_sysconfdir}/pki/spacewalk
 
 %changelog
+* Thu Sep 20 2012 Jan Pazdziora 1.8.6-1
+- 857284 - don't setup ipv6 if /proc/net/if_inet6 is empty
+
 * Mon Aug 27 2012 Miroslav Suchý <msuchy@redhat.com> 1.8.5-1
 - 807479 - correct description
 
