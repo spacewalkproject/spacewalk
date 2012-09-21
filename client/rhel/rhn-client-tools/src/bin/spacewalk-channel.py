@@ -64,7 +64,7 @@ def processCommandline():
         Option('-l', '--list',            action='store_true',
             help=_('list channels')),
         Option('-b', '--base',            action='store_true',
-            help='show base channel of a system'),
+            help=_('show base channel of a system')),
         Option('-L', '--available-channels', action='store_true',
             help=_('list all available child channels')),
         Option('-v', '--verbose',         action='store_true',
