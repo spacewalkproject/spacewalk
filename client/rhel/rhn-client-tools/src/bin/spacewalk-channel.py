@@ -63,6 +63,8 @@ def processCommandline():
             help=_('unsubscribe from channel')),
         Option('-l', '--list',            action='store_true',
             help=_('list channels')),
+        Option('-b', '--base',            action='store_true',
+            help='show base channel of a system'),
         Option('-L', '--available-channels', action='store_true',
             help=_('list all available child channels')),
         Option('-v', '--verbose',         action='store_true',
@@ -79,10 +81,10 @@ def processCommandline():
     # we take no extra commandline arguments that are not linked to an option
     if args:
         systemExit(1, _("ERROR: these arguments make no sense in this context (try --help)"))
-    if not OPTIONS.user and not OPTIONS.list:
+    if not OPTIONS.user and not OPTIONS.list and not OPTIONS.base:
         print _("Username: "),
         OPTIONS.user = sys.stdin.readline().rstrip('\n')
-    if not OPTIONS.password and not OPTIONS.list:
+    if not OPTIONS.password and not OPTIONS.list and not OPTIONS.base:
         OPTIONS.password = getpass.getpass()
 
 def get_available_channels(user, password):
@@ -148,6 +150,17 @@ def main():
             systemExit(1, _('Unable to locate SystemId file. Is this system registered?'))
         channels.sort()
         print '\n'.join(channels)
+    elif OPTIONS.base:
+        try:
+            for channel in getChannels().channels():
+                # Base channel has no parent
+                if not channel['parent_channel']:
+                    print channel['label']
+        except up2dateErrors.NoChannelsError:
+            systemExit(1, 'This system is not associated with any channel.')
+        except up2dateErrors.NoSystemIdError:
+            systemExit(1, 'Unable to locate SystemId file. Is this system registered?')
+
     elif OPTIONS.available_channels:
         channels = get_available_channels(OPTIONS.user, OPTIONS.password)
         channels.sort()
