@@ -137,9 +137,10 @@ public class PackageCapabilityIterator {
      *
      * @param key key as string
      * @return key as date
+     * @throws SQLException sql exception
      */
-    public Date getDate(String key) {
-        return (Date) row.get(key.toLowerCase());
+    public Date getDate(String key) throws SQLException {
+        return rs.getTimestamp(key.toLowerCase());
     }
 
     /**

@@ -15,6 +15,7 @@
 package com.redhat.rhn.taskomatic.task.repomd;
 
 import com.redhat.rhn.common.conf.ConfigDefaults;
+import com.redhat.rhn.common.translation.SqlExceptionTranslator;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.frontend.dto.PackageDto;
 import com.redhat.rhn.manager.rhnpackage.PackageManager;
@@ -27,6 +28,7 @@ import org.xml.sax.SAXException;
 import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
 import java.io.Writer;
+import java.sql.SQLException;
 
 /**
  *
@@ -127,15 +129,19 @@ public class OtherXmlWriter extends RepomdWriter {
         catch (SAXException e) {
             throw new RepomdRuntimeException(e);
         }
+        catch (SQLException e) {
+            SqlExceptionTranslator.sqlException(e);
+        }
     }
 
     /**
      *
      * @param pkgDto pkg changelog info to add to xml
      * @throws SAXException sax exception
+     * @throws SQLException sql exception
      */
     private void addPackageChangelog(PackageDto pkgDto,
-            SimpleContentHandler tmpHandler) throws SAXException {
+            SimpleContentHandler tmpHandler) throws SAXException, SQLException {
 
         long pkgId = pkgDto.getId().longValue();
         while (changeLogIterator.hasNextForPackage(pkgId)) {

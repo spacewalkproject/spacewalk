@@ -125,6 +125,7 @@ public class ChannelRepodataWorker implements QueueWorker {
         }
         catch (Exception e) {
             logger.error(e);
+            e.printStackTrace();
             HibernateFactory.rollbackTransaction();
         }
         finally {
