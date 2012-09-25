@@ -14,6 +14,7 @@ update rhnpackage set package_group = (select n.id
 -- delete unused groups
 delete from rhnpackagegroup pg
       where not exists (select 1 from rhnpackage p where p.package_group = pg.id)
+        and not exists (select 1 from rhnpackagesource p where p.package_group = pg.id)
         -- don't remove 'NoGroup'
         and id > 1;
 
@@ -49,6 +50,7 @@ update rhnPackageSource set package_group = (select n.id
 -- delete unused groups
 delete from rhnpackagegroup pg
       where not exists (select 1 from rhnpackage p where p.package_group = pg.id)
+        and not exists (select 1 from rhnpackagesource p where p.package_group = pg.id)
         -- don't remove 'NoGroup'
         and id > 1;
 
