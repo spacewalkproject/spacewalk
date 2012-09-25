@@ -11,6 +11,7 @@ require {
 	type http_cache_port_t;
 	type initrc_t;
 	type urandom_device_t;
+	type oracle_lsnrctl_t;
 }
 
 rw_files_pattern(oracle_db_t, oracle_sqlplus_log_t, oracle_sqlplus_log_t)
@@ -39,3 +40,20 @@ term_dontaudit_use_console(oracle_tnslsnr_t)
 mcs_ptrace_all(oracle_db_t)
 
 allow oracle_sqlplus_t urandom_device_t:chr_file read;
+
+# for oracle-xe-11.2.0-1.0.x86_64
+allow oracle_lsnrctl_t self:netlink_route_socket { bind create getattr nlmsg_read };
+
+corenet_udp_bind_generic_node(oracle_lsnrctl_t)
+
+allow oracle_tnslsnr_t oracle_db_log_t:dir { search getattr setattr };
+allow oracle_tnslsnr_t oracle_db_log_t:file getattr;
+
+corecmd_exec_ls(oracle_db_t)
+corecmd_exec_shell(oracle_db_t)
+corecmd_read_bin_symlinks(oracle_db_t)
+
+fs_manage_tmpfs_dirs(oracle_db_t)
+fs_manage_tmpfs_files(oracle_db_t)
+
+allow oracle_db_t self:process { execstack execmem };

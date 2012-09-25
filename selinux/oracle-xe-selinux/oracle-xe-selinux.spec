@@ -29,7 +29,7 @@ Requires:         selinux-policy >= %{selinux_policyver}
 %endif
 Requires(post):   /usr/sbin/semodule, /sbin/restorecon, /sbin/ldconfig, /usr/sbin/selinuxenabled
 Requires(postun): /usr/sbin/semodule, /sbin/restorecon
-Requires:         oracle-xe-univ
+Requires:         /etc/init.d/oracle-xe
 Requires:         oracle-nofcontext-selinux
 Requires:         oracle-lib-compat
 
@@ -65,9 +65,8 @@ for selinuxvariant in %{selinux_variants}
            %{buildroot}%{_datadir}/selinux/${selinuxvariant}/%{modulename}.pp
   done
 
-%define extra_restorecon /usr/lib/oracle/xe/app/oracle/product/10.2.0/server/log /usr/lib/oracle/xe/oradata /usr/lib/oracle/xe/app /var/tmp/.oracle
-%define extra_subdirs /usr/lib/oracle/xe/app/oracle/flash_recovery_area /usr/lib/oracle/xe/app/oracle/admin /usr/lib/oracle/xe/oradata
-sed -i -e 's!%%extra_restorecon!%extra_restorecon!g' -e 's!%%extra_subdirs!%extra_subdirs!g' %{name}-enable
+%define extra_restorecon /usr/lib/oracle/xe/oradata /usr/lib/oracle/xe/app /var/tmp/.oracle /u01/app/oracle
+sed -i -e 's!%%extra_restorecon!%extra_restorecon!g' %{name}-enable
 cd -
 
 # Install SELinux interfaces
@@ -111,9 +110,9 @@ fi
 %posttrans
 #this may be safely remove when BZ 505066 is fixed
 if /usr/sbin/selinuxenabled ; then
-  # Relabel oracle-xe-univ's files
-  rpm -ql oracle-xe-univ | while read i ; do [ -e $i ] && echo $i ; done | xargs -n 100 /sbin/restorecon -Rivv
-  # Fix up additional directories, not owned by oracle-xe-univ
+  # Relabel oracle-xe-univ/oracle-xe's files
+  rpm -qlf /etc/init.d/oracle-xe | while read i ; do [ -e $i ] && echo $i ; done | xargs -n 100 /sbin/restorecon -Rivv
+  # Fix up additional directories, not owned by oracle-xe-univ/oracle-xe
   /sbin/restorecon -Rivv %extra_restorecon
 fi
 
@@ -130,10 +129,10 @@ if [ $1 -eq 0 ]; then
   /usr/sbin/semanage port -d -t oracle_port_t -p tcp 9000 || :
   /usr/sbin/semanage port -d -t oracle_port_t -p tcp 9055 || :
 
-  # Clean up oracle-xe-univ's files
-  rpm -ql oracle-xe-univ | while read i ; do [ -e $i ] && echo $i ; done | xargs -n 100 /sbin/restorecon -Rivv
+  # Clean up oracle-xe-univ/oracle-xe's files
+  rpm -qlf /etc/init.d/oracle-xe | while read i ; do [ -e $i ] && echo $i ; done | xargs -n 100 /sbin/restorecon -Rivv
 
-  # Clean up additional directories, not owned by oracle-xe-univ
+  # Clean up additional directories, not owned by oracle-xe-univ/oracle-xe
   /sbin/restorecon -Rivv %extra_restorecon
 fi
 

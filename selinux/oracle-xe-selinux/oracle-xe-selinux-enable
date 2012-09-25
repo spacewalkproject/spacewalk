@@ -9,17 +9,27 @@ for selinuxvariant in mls strict targeted
   done
 
 /usr/sbin/semanage port -a -t oracle_port_t -p tcp 9055 || :
+/usr/sbin/getsebool oracle_11g_support > /dev/null 2>&1 && /usr/sbin/setsebool oracle_11g_support 1
 
-# Relabel oracle-xe-univ's files
-rpm -ql oracle-xe-univ | xargs -n 100 /sbin/restorecon -Rivv
+# Relabel oracle-xe's files
+rpm -qlf /etc/init.d/oracle-xe | xargs -n 100 /sbin/restorecon -Rivv
 
 # Create the extra directories if they do not exist yet, so that they
 # can be restorecon'ed
-mkdir -p %extra_restorecon
-mkdir -p %extra_subdirs
-chown oracle:dba %extra_subdirs
 
-# Fix up additional directories, not owned by oracle-xe-univ
+EXTRA_SUBDIRS=''
+ORACLE_XE_VERSION=$( rpm -qf --qf '%{version}\n' /etc/init.d/oracle-xe )
+if [ ${ORACLE_XE_VERSION%%.*} == 11 ] ; then
+	EXTRA_SUBDIRS="/u01/app/oracle/admin /u01/app/oracle/admin/XE/adump /u01/app/oracle/diag /u01/app/oracle/diag/tnslsnr /u01/app/oracle/fast_recovery_area/XE /u01/app/oracle/oradata /u01/app/oracle/product/11.2.0/xe/log/$( hostname -s )/client /u01/app/oracle/oradiag_oracle /u01/app/oracle/oradiag_oracle/diag /u01/app/oracle/product/11\.2\.0/xe/config/log"
+elif [ ${ORACLE_XE_VERSION%%.*} == 10 ] ; then
+	EXTRA_SUBDIRS='/usr/lib/oracle/xe/app/oracle/product/10.2.0/server/log /usr/lib/oracle/xe/app/oracle/flash_recovery_area /usr/lib/oracle/xe/app/oracle/admin /usr/lib/oracle/xe/oradata /var/tmp/.oracle'
+fi
+if [ -n "EXTRA_SUBDIRS" ] ; then
+	mkdir -p $EXTRA_SUBDIRS
+	chown oracle:dba $EXTRA_SUBDIRS
+fi
+
+# Fix up additional directories, not owned by oracle-xe-univ/oracle-xe
 /sbin/restorecon -Rivv %extra_restorecon
 
 /sbin/ldconfig
