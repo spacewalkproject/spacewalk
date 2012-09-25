@@ -23,7 +23,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.150
+Version: 1.8.151
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -616,6 +616,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Sep 25 2012 Tomas Lestach <tlestach@redhat.com> 1.8.151-1
+- getting timestamp from PackageCapabilityIterator in a correct way
+
 * Thu Sep 20 2012 Jan Pazdziora 1.8.150-1
 - Checkstyle fix.
 - 790120 - removing the config elaborator from a few queries where it's not
