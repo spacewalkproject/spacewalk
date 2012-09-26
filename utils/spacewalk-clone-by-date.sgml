@@ -93,6 +93,11 @@ Utility for cloning errata by date.
     command line will override a configuration file value with the exception of channels.  If a configuration file is
     specified, --channels is not a valid command line argument.
   </para>
+  <para>
+    Please keep in mind that not all packages are associated with an erratum. This means that since
+    spacewalk-clone-by-date will grab only packages associated with an erratum, not all packages at a certain date
+    will get cloned.
+  </para>
 </RefSect1>
 
 <RefSect1><Title>Options</Title>
