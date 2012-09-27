@@ -94,7 +94,7 @@ def get_available_channels(user, password):
     servers = config.getServerlURL()
     for server in servers:
         scheme, netloc, path, query, fragment = urlparse.urlsplit(server)
-        modified_servers.append(urlparse.urlunsplit(scheme, netloc, '/rpc/api', query, fragment))
+        modified_servers.append(urlparse.urlunsplit((scheme, netloc, '/rpc/api', query, fragment)))
     client = rhnserver.RhnServer(serverOverride=modified_servers)
     try:
         key = client.auth.login(user, password)
