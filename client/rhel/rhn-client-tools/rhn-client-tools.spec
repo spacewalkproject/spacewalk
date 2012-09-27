@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 1.8.22
+Version: 1.8.23
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -339,6 +339,9 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Thu Sep 27 2012 Stephen Herr <sherr@redhat.com> 1.8.23-1
+- 855992 - fix typo in urlunsplit method call
+
 * Wed Sep 26 2012 Jan Pazdziora 1.8.22-1
 - 859281 - translatable strings
 - 859281 - rhn-channel: new option to list base channel of a system
