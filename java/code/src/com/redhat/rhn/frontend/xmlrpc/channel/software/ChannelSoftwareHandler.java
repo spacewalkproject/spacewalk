@@ -2746,6 +2746,201 @@ public class ChannelSoftwareHandler extends BaseHandler {
         return result;
     }
 
+    /**
+     * adds a filter for a given repo.
+     * @param sessionKey the sessionkey needed for authentication
+     * @param label of the repo to use
+     * @param filterIn list of filters
+     * @return sort order for the new filter
+     *
+     * @xmlrpc.doc Adds a filter for a given repo.
+     * @xmlrpc.param #param("string", "sessionKey ")
+     * @xmlrpc.param #param_desc("string", "label", "repository label")
+     * @xmlrpc.param
+     *  #struct("filter_map")
+     *          #prop_desc("string", "filter", "string to filter on")
+     *          #prop_desc("string", "flag", "+ for include, - for exclude")
+     *  #struct_end()
+     * @xmlrpc.returntype int sort order for new filter
+     */
+    public int addRepoFilter(String sessionKey, String label, Map filterIn) {
+        User user = getLoggedInUser(sessionKey);
+
+        Role orgAdminRole = RoleFactory.lookupByLabel("org_admin");
+
+        if (!user.hasRole(orgAdminRole)) {
+            throw new PermissionException("Only Org Admins can add repo filters.");
+        }
+
+        ContentSource cs = lookupContentSourceByLabel(label, user.getOrg());
+
+        String flag = (String) filterIn.get("flag");
+        String filter = (String) filterIn.get("filter");
+
+        if (!(flag.equals("+") || flag.equals("-"))) {
+            throw new InvalidParameterException("flag must be + or -");
+        }
+
+        // determine the highest sort order of existing filters
+        int sortOrder = 0;
+        for (ContentSourceFilter f : listRepoFilters(sessionKey, label)) {
+            sortOrder = Math.max(sortOrder, f.getSortOrder());
+        }
+
+        ContentSourceFilter newFilter = new ContentSourceFilter();
+        newFilter.setSourceId(cs.getId());
+        newFilter.setFlag(flag);
+        newFilter.setFilter(filter);
+        newFilter.setSortOrder(sortOrder + 1);
+
+        ChannelFactory.save(newFilter);
+
+        return sortOrder;
+    }
+
+    /**
+     * removes a filter for a given repo.
+     * @param sessionKey the sessionkey needed for authentication
+     * @param label of the repo to use
+     * @param filterIn list of filters
+     * @return 1 on success
+     *
+     * @xmlrpc.doc removes a filter for a given repo.
+     * @xmlrpc.param #param("string", "sessionKey ")
+     * @xmlrpc.param #param_desc("string", "label", "repository label")
+     * @xmlrpc.param
+     *  #struct("filter_map")
+     *          #prop_desc("string", "filter", "string to filter on")
+     *          #prop_desc("string", "flag", "+ for include, - for exclude")
+     *  #struct_end()
+     * @xmlrpc.returntype #return_int_success()
+     */
+    public int removeRepoFilter(String sessionKey, String label, Map filterIn) {
+        User user = getLoggedInUser(sessionKey);
+
+        Role orgAdminRole = RoleFactory.lookupByLabel("org_admin");
+
+        if (!user.hasRole(orgAdminRole)) {
+            throw new PermissionException("Only Org Admins can remove repo filters.");
+        }
+
+        ContentSource cs = lookupContentSourceByLabel(label, user.getOrg());
+
+        String flag = (String) filterIn.get("flag");
+        String filter = (String) filterIn.get("filter");
+
+        if (!(flag.equals("+") || flag.equals("-"))) {
+            throw new InvalidParameterException("flag must be + or -");
+        }
+
+        // find the existing filter
+        ContentSourceFilter oldFilter = null;
+        for (ContentSourceFilter f : listRepoFilters(sessionKey, label)) {
+            if (flag.equals(f.getFlag()) && filter.equals(f.getFilter())) {
+                oldFilter = f;
+                break;
+            }
+        }
+
+        if (oldFilter == null) {
+            throw new InvalidParameterException("filter does not exist");
+        }
+
+        ChannelFactory.remove(oldFilter);
+
+        return 1;
+    }
+
+    /**
+     * replaces the existing set of filters for a given repo.
+     * filters are ranked by their order in the array.
+     * @param sessionKey the sessionkey needed for authentication
+     * @param label of the repo to use
+     * @param filtersIn list of filters
+     * @return 1 on success
+     *
+     * @xmlrpc.doc Replaces the existing set of filters for a given repo.
+     * Filters are ranked by their order in the array.
+     * @xmlrpc.param #param("string", "sessionKey ")
+     * @xmlrpc.param #param_desc("string", "label", "repository label")
+     * @xmlrpc.param
+     *  #array()
+     *      #struct("filter_map")
+     *          #prop_desc("string", "filter", "string to filter on")
+     *          #prop_desc("string", "flag", "+ for include, - for exclude")
+     *      #struct_end()
+     *  #array_end()
+     * @xmlrpc.returntype #return_int_success()
+     */
+    public int setRepoFilters(String sessionKey, String label, List<Map> filtersIn) {
+        User user = getLoggedInUser(sessionKey);
+
+        Role orgAdminRole = RoleFactory.lookupByLabel("org_admin");
+
+        if (!user.hasRole(orgAdminRole)) {
+            throw new PermissionException("Only Org Admins can set repo filters.");
+        }
+
+        ContentSource cs = lookupContentSourceByLabel(label, user.getOrg());
+
+        List<ContentSourceFilter> filters = new ArrayList();
+
+        int i = 1;
+        for (Map filterIn : filtersIn) {
+            String flag = (String) filterIn.get("flag");
+            String filter = (String) filterIn.get("filter");
+
+            if (!(flag.equals("+") || flag.equals("-"))) {
+                throw new InvalidParameterException("flag must be + or -");
+            }
+
+            ContentSourceFilter f = new ContentSourceFilter();
+            f.setSourceId(cs.getId());
+            f.setFlag(flag);
+            f.setFilter(filter);
+            f.setSortOrder(i);
+
+            filters.add(f);
+
+            i++;
+        }
+
+        ChannelFactory.clearContentSourceFilters(cs.getId());
+
+        for (ContentSourceFilter filter : filters) {
+            ChannelFactory.save(filter);
+        }
+
+        return 1;
+    }
+
+   /**
+    * Clears the filters for a repo
+    * @param sessionKey Session containing user information.
+    * @param label of the repo to use
+    * @return 1 on success
+    *
+    * @xmlrpc.doc Removes the filters for a repo
+    * @xmlrpc.param #session_key()
+    * @xmlrpc.param #param_desc("string", "label", "repository label")
+    * @xmlrpc.returntype #return_int_success()
+   **/
+    public int clearRepoFilters(String sessionKey, String label) {
+        User user = getLoggedInUser(sessionKey);
+
+        Role orgAdminRole = RoleFactory.lookupByLabel("org_admin");
+
+        if (!user.hasRole(orgAdminRole)) {
+            throw new PermissionException("Only Org Admins can remove repo filters.");
+        }
+
+        ContentSource cs = lookupContentSourceByLabel(label, user.getOrg());
+
+        ChannelFactory.clearContentSourceFilters(cs.getId());
+
+        return 1;
+    }
+
     private ContentSource lookupContentSourceById(Long repoId, Org org) {
         ContentSource cs = ChannelFactory.lookupContentSource(repoId, org);
         if (cs == null) {
