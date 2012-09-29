@@ -23,7 +23,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.151
+Version: 1.8.152
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -616,6 +616,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Sat Sep 29 2012 Aron Parsons <aronparsons@gmail.com> 1.8.152-1
+- add API calls to manage repo filters
+- add methods to add/remove ContentSourceFilter objects
+
 * Tue Sep 25 2012 Tomas Lestach <tlestach@redhat.com> 1.8.151-1
 - getting timestamp from PackageCapabilityIterator in a correct way
 
