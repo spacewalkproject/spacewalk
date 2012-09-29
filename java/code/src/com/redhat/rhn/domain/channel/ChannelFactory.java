@@ -237,6 +237,14 @@ public class ChannelFactory extends HibernateFactory {
     }
 
     /**
+     * Insert or Update a content source filter.
+     * @param f content source filter to be stored in database.
+     */
+    public static void save(ContentSourceFilter f) {
+        singleton.saveObject(f);
+    }
+
+    /**
      * Remove a Channel from the DB
      * @param c Action to be removed from database.
      */
@@ -269,6 +277,14 @@ public class ChannelFactory extends HibernateFactory {
      */
     public static void remove(ContentSource src) {
         singleton.removeObject(src);
+    }
+
+    /**
+     * Remove a ContentSourceFilter from the DB
+     * @param filter to be removed from database
+     */
+    public static void remove(ContentSourceFilter filter) {
+        singleton.removeObject(filter);
     }
 
     /**
@@ -1011,5 +1027,21 @@ public class ChannelFactory extends HibernateFactory {
         criteria.setProjection(Projections.rowCount());
         criteria.add(Restrictions.eq("channel", ch));
         return (Integer)criteria.uniqueResult() > 0;
+    }
+
+    /**
+     * Clear a content source's filters
+     * @param id source id
+     */
+    public static void clearContentSourceFilters(Long id) {
+        List<ContentSourceFilter> filters = lookupContentSourceFiltersById(id);
+
+        for (ContentSourceFilter filter : filters) {
+            remove(filter);
+        }
+
+        // flush so that if we're creating new filters we don't get constraint
+        // violations for rhn_csf_sid_so_uq
+        HibernateFactory.getSession().flush();
     }
 }
