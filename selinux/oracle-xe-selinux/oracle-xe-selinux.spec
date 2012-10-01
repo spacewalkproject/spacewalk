@@ -5,7 +5,7 @@
 %define modulename oracle-xe
 
 Name:            oracle-xe-selinux
-Version:         10.2.0.24
+Version:         10.2.0.25
 Release:         1%{?dist}
 Summary:         SELinux policy module supporting Oracle XE
 Group:           System Environment/Base
@@ -143,6 +143,10 @@ fi
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
+* Mon Oct 01 2012 Jan Pazdziora 10.2.0.25-1
+- Adding file contexts and stuff for oracle-xe-11.2.0-1.0.x86_64.
+- %%defattr is not needed since rpm 4.4
+
 * Tue Apr 10 2012 Jan Pazdziora 10.2.0.24-1
 - The rman is more like the database server process.
 - The backup.sh and restore.sh need to run as sqlplus, so that their log files
