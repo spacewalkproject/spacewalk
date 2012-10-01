@@ -34,8 +34,8 @@
     <!-- =================== Ant Contrib Tasks ======================= -->
     <taskdef resource="net/sf/antcontrib/antcontrib.properties"
              classpathref="buildjars"/>
-
-    <taskdef name="for" classname="net.sf.antcontrib.logic.For" onerror="report"/>
+   
+    <taskdef name="for" classpathref="buildjars" classname="net.sf.antcontrib.logic.For" onerror="report"/>
 
     <property name="init-taskdefs.notrequired" value="true" />
 
