@@ -23,7 +23,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.152
+Version: 1.8.153
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -616,6 +616,11 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Oct 02 2012 Tomas Lestach <tlestach@redhat.com> 1.8.153-1
+- 860002 - prevent Page Request Error when at pagination
+- 860831 - fix system column value on the rhn/schedule/FailedSystems.do page
+- changes required to make 'ant create-webapp-dir' work properly
+
 * Sat Sep 29 2012 Aron Parsons <aronparsons@gmail.com> 1.8.152-1
 - add API calls to manage repo filters
 - add methods to add/remove ContentSourceFilter objects
