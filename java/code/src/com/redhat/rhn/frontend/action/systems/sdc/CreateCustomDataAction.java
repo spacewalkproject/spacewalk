@@ -20,16 +20,12 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnHelper;
-import com.redhat.rhn.frontend.struts.StrutsDelegate;
 import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
 import com.redhat.rhn.manager.system.SystemManager;
 
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
-
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -52,20 +48,14 @@ public class CreateCustomDataAction extends RhnAction {
         Long sid = requestContext.getRequiredParam(RequestContext.SID);
         Server server = SystemManager.lookupByIdAndUser(sid, user);
 
-        Map params = new HashMap();
-        StrutsDelegate strutsDelegate = getStrutsDelegate();
-
-        params.put(RequestContext.SID, request.getParameter(RequestContext.SID));
-
         DataResult result = SystemManager.lookupKeysSansValueForServer(
                 server.getOrg().getId(), sid);
-        requestContext.getRequiredParam(RequestContext.SID);
-        request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
+        request.setAttribute(ListTagHelper.PARENT_URL,
+                request.getRequestURI() + "?sid=" + server.getId());
         request.setAttribute(RequestContext.PAGE_LIST, result);
         request.setAttribute("system", server);
 
-        return getStrutsDelegate().forwardParams(
-                mapping.findForward(RhnHelper.DEFAULT_FORWARD), params);
+        return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
 
 }
