@@ -58,5 +58,5 @@ fs_manage_tmpfs_files(oracle_db_t)
 
 allow oracle_db_t self:process { execstack execmem };
 
-dev_search_sysfs(oracle_db_t)
+dev_read_sysfs(oracle_db_t)
 dev_list_sysfs(oracle_db_t)
