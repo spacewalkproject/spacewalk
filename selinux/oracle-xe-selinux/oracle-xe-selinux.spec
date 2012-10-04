@@ -5,7 +5,7 @@
 %define modulename oracle-xe
 
 Name:            oracle-xe-selinux
-Version:         10.2.0.26
+Version:         10.2.0.27
 Release:         1%{?dist}
 Summary:         SELinux policy module supporting Oracle XE
 Group:           System Environment/Base
@@ -143,6 +143,9 @@ fi
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
+* Thu Oct 04 2012 Jan Pazdziora 10.2.0.27-1
+- Allowing Oracle XE 11 to read sysfs.
+
 * Thu Oct 04 2012 Jan Pazdziora 10.2.0.26-1
 - Allowing Oracle XE 11 to read sysfs.
 
