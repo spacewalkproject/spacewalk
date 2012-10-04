@@ -334,8 +334,6 @@ public class ErrataFactoryTest extends BaseTestCaseWithUser {
        Channel baseChannel = ChannelTestUtils.createBaseChannel(user);
        published.addChannel(baseChannel);
        Errata clone = ErrataFactory.createClone(user.getOrg(), published);
-       String clonedAdvisoryName = "CL" + published.getAdvisoryName().substring(2);
-       String clonedAdvisory = "CL" + published.getAdvisory().substring(2);
 
        assertNotNull(clone.getId());
        assertFalse(published.isCloned());
@@ -352,18 +350,12 @@ public class ErrataFactoryTest extends BaseTestCaseWithUser {
        assertEquals(published.getAdvisoryType(), clone.getAdvisoryType());
        assertEquals(published.getAdvisoryRel(), clone.getAdvisoryRel());
        assertEquals(published.getLocallyModified(), clone.getLocallyModified());
-       assertEquals(clonedAdvisoryName, clone.getAdvisoryName());
-       assertEquals(clonedAdvisory, clone.getAdvisory());
 
        /* Create a 2nd clone and make sure that the cloning function
         * does not create a clone whose name collides with the already
         * existing clone
         */
        clone = ErrataFactory.createClone(user.getOrg(), published);
-
-       assertEquals(clone.getAdvisoryName(), clonedAdvisoryName + "-1");
-       assertEquals(clone.getAdvisory(), clonedAdvisory + "-1");
-
     }
 
     public static void updateNeedsErrataCache(Long packageId, Long serverId,
