@@ -130,7 +130,6 @@ public class PackageTest extends RhnBaseTestCase {
         p.setHeaderSignature("Rhn-Java Unit Test");
         p.setCopyright("Red Hat - RHN - 2005");
         p.setCookie("Chocolate Chip");
-        p.setLastModified(new Date());
         p.setCreated(new Date());
         p.setModified(new Date());
 
