@@ -475,7 +475,7 @@ class RepoSync(object):
                 notice['version'] = new_version / 100
             except TypeError: # yum in RHEL5 does not have __setitem__
                 notice._md['version'] = new_version / 100
-        if "suse" in notice.get('from','').lower():
+        if notice['from'] and "suse" in notice['from'].lower():
             # suse style; we need to append the version to id
             try:
                 notice['update_id'] = notice['update_id'] + '-' + notice['version']
