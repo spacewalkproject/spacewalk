@@ -12,7 +12,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.70
+Version: 1.8.71
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -646,6 +646,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Thu Oct 04 2012 Michael Mraka <michael.mraka@redhat.com> 1.8.71-1
+- 860860 - don't fail when from attribute is missing
+
 * Wed Oct 03 2012 Jan Pazdziora 1.8.70-1
 - Revert "diffing packages speedup on postgresql"
 
