@@ -134,7 +134,7 @@ public class ErrataMailer extends RhnJavaJob {
             String email = (String) userInfo.get("email");
             String login = (String) userInfo.get("login");
             List servers = userMap.get(userId);
-            log.info("Nofification for user " + login + "(" + userId + ") about " +
+            log.info("Notification for user " + login + "(" + userId + ") about " +
                     servers.size()  + " relevant server(s).");
             String emailBody = formatEmail(login, email, errata, servers);
             Mail mail = new SmtpMail();
