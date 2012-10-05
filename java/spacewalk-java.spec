@@ -23,7 +23,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.154
+Version: 1.8.155
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -616,6 +616,14 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Oct 05 2012 Tomas Lestach <tlestach@redhat.com> 1.8.155-1
+- fix PushDispatcherTest
+- fix ErrataTest
+- fix ActivationKeyManagerTest
+- fix RequestContextTest
+- fix ErrataFactoryTest.testCreateClone
+- do not set last_modified for rhnPackage tests
+
 * Fri Oct 05 2012 Jan Pazdziora 1.8.154-1
 - Fixed typo on ErrataMailer.java
 
