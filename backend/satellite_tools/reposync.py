@@ -13,9 +13,11 @@
 # granted to use or replicate Red Hat trademarks that are incorporated
 # in this software or its documentation.
 #
+import gzip
 import hashlib
 import os
 import re
+import shutil
 import sys
 import time
 from datetime import datetime
@@ -33,6 +35,7 @@ from spacewalk.server.importlib.errataImport import ErrataImport
 from spacewalk.server import taskomatic
 
 default_log_location = '/var/log/rhn/reposync/'
+relative_comps_dir   = 'rhn/comps'
 default_hash = 'sha256'
 
 def set_filter_opt(option, opt_str, value, parser):
@@ -101,6 +104,7 @@ class RepoSync(object):
             try:
                 plugin = self.repo_plugin(url, self.channel_label)
                 self.import_packages(plugin, repo_id, url)
+                self.import_groups(plugin, url)
 
                 if not self.no_errata:
                     self.import_updates(plugin, url)
@@ -135,6 +139,48 @@ class RepoSync(object):
         self.print_msg("Repo %s has %s errata." % (url, len(notices)))
         if notices:
             self.upload_updates(notices)
+
+    def import_groups(self, plug, url):
+        groupsfile = plug.get_groups()
+        if groupsfile:
+            basename = os.path.basename(groupsfile)
+            self.print_msg("Repo %s has comps file %s." % (url, basename))
+            relativedir =  os.path.join(relative_comps_dir, self.channel_label)
+            absdir =  os.path.join(CFG.MOUNT_POINT, relativedir)
+            if not os.path.exists(absdir):
+                os.makedirs(absdir)
+            relativepath = os.path.join(relativedir, basename)
+            abspath =  os.path.join(absdir, basename)
+            if basename.endswith('.gz'):
+                # gunzip
+                abspath = abspath.rstrip('.gz')
+                relativepath = relativepath.rstrip('.gz')
+                src = gzip.open(groupsfile)
+                dst = open(abspath, "w")
+                shutil.copyfileobj(src,dst)
+                dst.close()
+                src.close()
+
+            else:
+                # copy (not move) the file to get correct selinux context
+                shutil.copy2(groupsfile, abspath)
+
+            # update or insert
+            hu = rhnSQL.prepare("""update rhnChannelComps
+                                      set relative_filename = :relpath,
+                                          modified = current_timestamp
+                                    where channel_id = :cid""")
+            hu.execute(cid=self.channel['id'], relpath=relativepath)
+
+            hi = rhnSQL.prepare("""insert into rhnChannelComps
+                                  (id, channel_id, relative_filename)
+                                  (select sequence_nextval('rhn_channelcomps_id_seq'),
+                                          :cid,
+                                          :relpath
+                                     from dual
+                                    where not exists (select 1 from rhnChannelComps
+                                                       where channel_id = :cid))""")
+            hi.execute(cid=self.channel['id'], relpath=relativepath)
 
     def upload_updates(self, notices):
         batch = []

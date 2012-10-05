@@ -240,3 +240,6 @@ class ContentSource(object):
         um = YumUpdateMetadata()
         um.add(self.repo, all=True)
         return um.notices
+
+    def get_groups(self):
+        return self.repo.getGroups()
