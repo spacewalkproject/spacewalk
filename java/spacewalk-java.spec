@@ -23,7 +23,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.153
+Version: 1.8.154
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -616,6 +616,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Oct 05 2012 Jan Pazdziora 1.8.154-1
+- Fixed typo on ErrataMailer.java
+
 * Tue Oct 02 2012 Tomas Lestach <tlestach@redhat.com> 1.8.153-1
 - 860002 - prevent Page Request Error when at pagination
 - 860831 - fix system column value on the rhn/schedule/FailedSystems.do page
