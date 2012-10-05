@@ -2,7 +2,7 @@
 
 
 TAGS="spacewalk-nightly-rhel5 spacewalk-nightly-rhel6 spacewalk-nightly-fedora16 spacewalk-nightly-fedora17"
-FEDORA_UPLOAD=1
+FEDORA_UPLOAD=0
 
 pushd . >/dev/null
 pushd `dirname $0`/.. >/dev/null
