@@ -565,7 +565,10 @@ public class ActivationKeyManager {
                             PackageManager.RHNCFG_CLIENT,
                             PackageManager.RHNCFG_ACTIONS};
         for (String name : names) {
-            key.addPackage(PackageManager.lookupPackageName(name), null);
+            PackageName pn = PackageManager.lookupPackageName(name);
+            if (pn != null) {
+                key.addPackage(pn, null);
+            }
         }
     }
 
