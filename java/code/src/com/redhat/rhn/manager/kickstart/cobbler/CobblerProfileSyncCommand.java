@@ -149,7 +149,7 @@ public class CobblerProfileSyncCommand extends CobblerCommand {
         //Now re-set the filename in case someone set it incorrectly
         String handle = (String) invokeXMLRPC("get_profile_handle",
                 cobblerProfile.get("name"), xmlRpcToken);
-        invokeXMLRPC("modify_profile", handle, "kickstart", profile.getCobblerFileName(),
+        invokeXMLRPC("modify_profile", handle, "kickstart", profile.buildCobblerFileName(),
                 xmlRpcToken);
         invokeXMLRPC("save_profile", handle, xmlRpcToken);
 

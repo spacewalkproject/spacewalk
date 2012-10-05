@@ -38,6 +38,16 @@ public class CobblerProfileEditCommand extends CobblerProfileCommand {
     }
 
     /**
+     * Call this if you want to use the taskomatic_user.
+     *
+     * Useful for automated non-user initiated syncs
+     * @param ksDataIn to sync
+     */
+    public CobblerProfileEditCommand(KickstartData ksDataIn) {
+        super(ksDataIn);
+    }
+
+    /**
      * {@inheritDoc}
      */
     public ValidatorError store() {
@@ -45,12 +55,12 @@ public class CobblerProfileEditCommand extends CobblerProfileCommand {
             return new CobblerProfileCreateCommand(ksData, user).store();
         }
 
-        Profile prof = Profile.lookupById(CobblerXMLRPCHelper.getConnection(user),
-                ksData.getCobblerId());
+        Profile prof = Profile.lookupById(getCobblerConnection(), ksData.getCobblerId());
 
         if (prof != null) {
             String cobName = makeCobblerName(ksData);
-            if (!cobName.equals(prof.getName())) {
+            if (!cobName.equals(prof.getName()) ||
+                    !ksData.buildCobblerFileName().equals(ksData.getCobblerFileName())) {
                 // delete current cfg file
                 KickstartFactory.removeKickstartTemplatePath(ksData);
                 // create new cfg file

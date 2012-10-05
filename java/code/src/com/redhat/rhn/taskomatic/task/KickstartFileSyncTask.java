@@ -18,6 +18,7 @@ import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
+import com.redhat.rhn.manager.kickstart.cobbler.CobblerProfileEditCommand;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerXMLRPCHelper;
 
 import org.cobbler.CobblerConnection;
@@ -52,10 +53,12 @@ public class KickstartFileSyncTask extends RhnJavaJob {
             if (!ks.isRawData()) {
                 Profile p = Profile.lookupById(cc, ks.getCobblerId());
                 if (p != null) {
-                    String file = p.getKickstart();
-                    if (file != null && !(new File(file)).exists()) {
+                    String ksFilePath = ks.buildCobblerFileName();
+                    if (!(new File(ksFilePath)).exists() ||
+                            !ksFilePath.equals(p.getKickstart())) {
                         log.info("Syncing " + ks.getLabel());
-                        KickstartFactory.saveKickstartData(ks);
+                        CobblerProfileEditCommand cpec = new CobblerProfileEditCommand(ks);
+                        cpec.store();
                     }
                 }
             }

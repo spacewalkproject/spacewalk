@@ -1312,7 +1312,7 @@ public class KickstartData {
             }
         }
 
-        return buildCobblerFileName();
+        return null;
     }
 
     /**
