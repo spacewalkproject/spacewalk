@@ -14,7 +14,7 @@
 %else
 %define oraclever 11.2
 %define oracleicname instantclient%{oraclever}
-%define oracleicver 11.2.0.2.0
+%define oracleicver 11.2.0.3.0
 %endif
 %endif
 
