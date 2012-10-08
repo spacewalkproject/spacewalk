@@ -53,7 +53,6 @@ Requires:       spacewalk-backend-server
 Requires:       spacewalk-backend-sql
 Requires:       spacewalk-backend-xml-export-libs
 Requires:       spacewalk-backend-xmlrpc
-Requires:       spacewalk-backend-xp
 Requires:       rhnpush
 
 
