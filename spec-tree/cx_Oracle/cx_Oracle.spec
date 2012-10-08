@@ -1,6 +1,6 @@
 %define name cx_Oracle
-%define version 5.0.4
-%define release 2
+%define version 5.1.2
+%define release 1
 
 # different arches have differnet oracle versions
 %define oracleicname instantclient
