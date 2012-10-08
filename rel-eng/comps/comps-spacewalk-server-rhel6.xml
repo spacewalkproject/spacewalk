@@ -153,6 +153,7 @@
     <uservisible>false</uservisible>
     <packagelist>
        <packagereq type="optional">jpam-javadoc</packagereq>
+       <packagereq type="optional">simple-xml-javadoc</packagereq>
        <packagereq type="optional">tanukiwrapper-javadoc</packagereq>
     </packagelist>
   </group>

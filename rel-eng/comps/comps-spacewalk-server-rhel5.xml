@@ -219,6 +219,7 @@
        <packagereq type="optional">msv-xsdlib-javadoc</packagereq>
        <packagereq type="optional">oscache-javadoc</packagereq>
        <packagereq type="optional">relaxngDatatype-javadoc</packagereq>
+       <packagereq type="optional">simple-xml-javadoc</packagereq>
        <packagereq type="optional">sitemesh-javadoc</packagereq>
        <packagereq type="optional">tanukiwrapper-javadoc</packagereq>
        <packagereq type="optional">ws-jaxme-javadoc</packagereq>

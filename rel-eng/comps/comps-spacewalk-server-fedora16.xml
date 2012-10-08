@@ -152,6 +152,7 @@
     <uservisible>false</uservisible>
     <packagelist>
        <packagereq type="optional">jpam-javadoc</packagereq>
+       <packagereq type="optional">simple-xml-javadoc</packagereq>
     </packagelist>
   </group>
   <group>
