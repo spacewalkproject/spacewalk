@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2010 Red Hat, Inc.
+ * Copyright (c) 2012 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -15,9 +15,10 @@
 package com.redhat.rhn.frontend.action.systems.monitoring;
 
 import com.redhat.rhn.domain.server.Server;
+import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
-import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnHelper;
+import com.redhat.rhn.frontend.struts.RhnListAction;
 import com.redhat.rhn.frontend.taglibs.list.helper.ListRhnSetHelper;
 import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
 import com.redhat.rhn.manager.monitoring.MonitoringManager;
@@ -34,47 +35,48 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * ProbesListSetupAction
- * @version $Rev: 59372 $
- */
-public class ProbesListSetupAction extends RhnAction implements Listable {
 
-    /**
-     *
-     * {@inheritDoc}
-     */
-    public ActionForward execute(ActionMapping actionMapping,
-            ActionForm formIn,
-            HttpServletRequest request,
-            HttpServletResponse response) {
+/**
+ * ProbesDeleteConfirmSetupAction
+ * @version $Rev$
+ */
+public class ProbesDeleteConfirmSetupAction extends RhnListAction implements Listable {
+
+    /** {@inheritDoc} */
+    public ActionForward execute(ActionMapping mapping,
+                                 ActionForm formIn,
+                                 HttpServletRequest request,
+                                 HttpServletResponse response) {
 
         RequestContext requestContext = new RequestContext(request);
-        Server server = requestContext.lookupAndBindServer();
-        request.setAttribute("sid", server.getId());
 
-        ListRhnSetHelper helper =
-                new ListRhnSetHelper(this, request, RhnSetDecl.PROBES_TO_DELETE);
+        User user = requestContext.getLoggedInUser();
+        Server server = requestContext.lookupAndBindServer();
+
+        Map params = new HashMap();
+        params.put(RequestContext.SID, server.getId());
+        ListRhnSetHelper helper = new ListRhnSetHelper(this, request,
+                RhnSetDecl.PROBES_TO_DELETE, params);
+        helper.ignoreEmptySelection();
         helper.execute();
 
         if (helper.isDispatched()) {
-            Map params = new HashMap();
-            params.put("sid", server.getId());
+            int deleted = MonitoringManager.getInstance().
+                    deleteProbesInSet(user, "probe_delete_list");
+            createSuccessMessage(request, "probeedit.probesdeleted",
+                    new Integer(deleted).toString());
             return getStrutsDelegate().forwardParams(
-                    actionMapping.findForward("continue"), params);
+                    mapping.findForward("continue"), params);
         }
 
-        // request.setAttribute("sid", server.getId());
-        return actionMapping.findForward(RhnHelper.DEFAULT_FORWARD);
+        return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
 
     /**
-     *
      * {@inheritDoc}
      */
-    public List getResult(RequestContext rctx) {
-        Server server = rctx.lookupAndBindServer();
-        return MonitoringManager.getInstance().
-            probesForSystem(rctx.getCurrentUser(), server, null);
+    public List getResult(RequestContext context) {
+        User user = context.getLoggedInUser();
+        return MonitoringManager.getInstance().probesInSet(user, "probe_delete_list");
     }
 }

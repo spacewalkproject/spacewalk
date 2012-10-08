@@ -36,7 +36,13 @@
 		styleclass="list"
 		>
 			<rl:decorator name="PageSizeDecorator"/>
-                <rl:decorator name="ElaborationDecorator"/>
+            <rl:decorator name="SelectableDecorator"/>
+            <rl:decorator name="ElaborationDecorator"/>
+
+
+            <rl:selectablecolumn value="${current.selectionKey}"
+                 selected="${current.selected}"
+                 styleclass="first-column"/>
 
             <%@ include file="/WEB-INF/pages/common/fragments/probes/probe-state-column-new.jspf" %>
 
@@ -74,7 +80,13 @@
 
 
 </rl:list>
+
+  <div align="right">
+    <hr/>
     <input type="hidden" name="sid" value="${sid}" />
+    <input type="submit" name="dispatch"
+        value='<bean:message key="probdelete.jsp.deleteprobes"/>'/>
+  </div>
  <rl:csv  exportColumns="id,description,stateString,stateOutputString"/>
 </rl:listset>
 

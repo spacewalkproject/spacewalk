@@ -3237,6 +3237,13 @@ user before attempting to deactivate their account.</source>
       </context-group>
       </trans-unit>
 
+      <trans-unit id="probeedit.probesdeleted">
+<source>Successfully deleted {0} probe(s).</source>
+      <context-group name="ctx">
+        <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
+      </context-group>
+      </trans-unit>
+
       <trans-unit id="probeedit.probedeleted">
 <source>Probe &lt;strong&gt;{0}&lt;/strong&gt; deleted.</source>
       <context-group name="ctx">

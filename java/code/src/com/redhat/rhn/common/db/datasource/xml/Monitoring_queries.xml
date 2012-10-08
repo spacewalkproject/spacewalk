@@ -351,6 +351,33 @@ SELECT count(ps.state) AS state_count, PS.state
   </query>
 </mode>
 
+<mode name="probes_in_set" class="com.redhat.rhn.frontend.dto.monitoring.ServerProbeDto">
+  <query params="user_id, set_label">
+SELECT P.recid id, P.description,
+       S.id server_id,
+       S.name server_name,
+       PS.state, PS.output, PS.last_check
+  FROM rhn_probe P,
+       rhnServer S,
+       rhn_probe_state PS,
+       rhnSet ST
+ WHERE ST.user_id = :user_id
+   AND ST.label = :set_label
+   AND ST.element = P.recid
+   AND P.recid = PS.probe_id
+   AND S.id = (SELECT host_id from rhn_check_probe where probe_id = P.recid)
+ORDER BY P.last_update_date, P.recid
+  </query>
+</mode>
+
+<write-mode name="delete_probes_in_set">
+  <query params="user_id, set_label">
+ delete from rhn_probe where recid in
+    (select element from rhnSet S where S.label = :set_label and S.user_id = :user_id)
+  </query>
+</write-mode>
+
+
 <callable-mode name="push_scout_config">
   <query params="org_id, scout_id, user_id">
 {call rhn_install_org_satellites(:org_id, :scout_id, :user_id)}

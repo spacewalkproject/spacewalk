@@ -152,6 +152,10 @@ public class RhnSetDecl {
     public static final RhnSetDecl PROBE_SUITES_TO_DELETE = make(
             ProbeSuiteHelper.DELETE_SUITES_LIST_NAME, SetCleanup.UNOWNED_SUITES);
 
+    // set of probes to delete
+    public static final RhnSetDecl PROBES_TO_DELETE = make(
+            "probe_delete_list", SetCleanup.NOOP);
+
     // set of probe suites to delete
     public static final RhnSetDecl SUITE_PROBES_TO_DELETE = make(
             ProbeSuiteHelper.DELETE_PROBES_LIST_NAME, SetCleanup.NOOP);

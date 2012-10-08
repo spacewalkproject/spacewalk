@@ -6316,7 +6316,14 @@ value for this entitlement, excluding the default organization's consumption.</s
 
     <!-- Probe Deletion -->
     <trans-unit id="probdelete.jsp.header">
-<source>Confirm System Probe Deletion</source>
+<source> System Probe Deletion</source>
+      <context-group name="ctx">
+        <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDelete.do</context>
+      </context-group>
+    </trans-unit>
+
+    <trans-unit id="probdelete.jsp.multiple">
+<source>This will delete selected probes &lt;strong&gt;permanently&lt;/strong&gt; from this system.</source>
       <context-group name="ctx">
         <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDelete.do</context>
       </context-group>
@@ -6345,6 +6352,13 @@ value for this entitlement, excluding the default organization's consumption.</s
 
     <trans-unit id="probdelete.jsp.p4">
 <source>Please click the button only once; it will take a few moments for the deletion process to complete.</source>
+      <context-group name="ctx">
+        <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDelete.do</context>
+      </context-group>
+    </trans-unit>
+
+    <trans-unit id="probdelete.jsp.deleteprobes">
+<source>Delete Probes</source>
       <context-group name="ctx">
         <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDelete.do</context>
       </context-group>

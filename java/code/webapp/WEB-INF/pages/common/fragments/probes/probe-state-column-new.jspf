@@ -3,8 +3,7 @@
         <rl:column sortable="false"
                            bound="false"
                    headerkey="probedetails.jsp.state"
-                   headerclass="thin-column"
-                   styleclass="first-column">
+                   headerclass="thin-column">
         <c:if test="${current.stateString == 'UNKNOWN'}">
           <img src="/img/rhn-mon-unknown.gif" title="<bean:message key='monitoring.status.unknown'/>"
                alt="<bean:message key='monitoring.status.unknown'/>"/>

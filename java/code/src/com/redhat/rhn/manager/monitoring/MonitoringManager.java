@@ -17,6 +17,7 @@ package com.redhat.rhn.manager.monitoring;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.SelectMode;
+import com.redhat.rhn.common.db.datasource.WriteMode;
 import com.redhat.rhn.domain.monitoring.MonitoringConstants;
 import com.redhat.rhn.domain.monitoring.MonitoringFactory;
 import com.redhat.rhn.domain.monitoring.Probe;
@@ -757,4 +758,32 @@ public class MonitoringManager extends BaseManager {
         return makeDataResult(params, elabParams, null, m);
     }
 
+    /**
+     * Returns probe list from rhnSet
+     * @param user user
+     * @param setLabel rhnSet label
+     * @return probe list
+     */
+    public DataResult probesInSet(User user, String setLabel) {
+        SelectMode m = ModeFactory.getMode("Monitoring_queries", "probes_in_set");
+        Map params = new HashMap();
+        params.put("user_id", user.getId());
+        params.put("set_label", setLabel);
+        return makeDataResult(params, new HashMap(), null, m);
+    }
+
+    /**
+     * Deletes probes in rhnSet
+     * @param user user
+     * @param setLabel rhnSet label
+     * @return number of deleted probes
+     */
+    public int deleteProbesInSet(User user, String setLabel) {
+        WriteMode m = ModeFactory.getWriteMode("Monitoring_queries",
+                "delete_probes_in_set");
+        Map params = new HashMap();
+        params.put("user_id", user.getId());
+        params.put("set_label", setLabel);
+        return m.executeUpdate(params);
+    }
 }
