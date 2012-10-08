@@ -1,5 +1,5 @@
 Name:           oracle-lib-compat
-Version:        11.2.0.6
+Version:        11.2.0.7
 Release:        1%{?dist}
 Summary:        Compatibility package so that perl-DBD-Oracle will install
 Group:          Applications/Multimedia
@@ -114,6 +114,10 @@ find %{_prefix}/lib/oracle/%{icdir} \
         | xargs execstack -c
 
 %changelog
+* Mon Oct 08 2012 Jan Pazdziora 11.2.0.7-1
+- Require latest greatest oracle-instantclient11.2-*.
+- %%defattr is not needed since rpm 4.4
+
 * Fri Feb 03 2012 Jan Pazdziora 11.2.0.6-1
 - Avoid cat: write error: Broken pipe when calling tomcat service under trap ''
   PIPE
