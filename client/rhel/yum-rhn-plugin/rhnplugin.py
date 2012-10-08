@@ -115,6 +115,8 @@ def init_hook(conduit):
     try:
         login_info = up2dateAuth.getLoginInfo()
     except up2dateErrors.RhnServerException, e:
+        if hasattr(conduit._base, 'exit_code') and 'check-update' in sys.argv:
+            conduit._base.exit_code = 1
         rewordError(e)
         conduit.error(0, COMMUNICATION_ERROR + "\n" + RHN_DISABLED + "\n" +
             unicode(e))
@@ -144,6 +146,8 @@ def init_hook(conduit):
         rhn_enabled = False
         return
     except up2dateErrors.RhnServerException, e:
+        if hasattr(conduit._base, 'exit_code') and 'check-update' in sys.argv:
+            conduit._base.exit_code = 1
         conduit.error(0, COMMUNICATION_ERROR + "\n" + CHANNELS_DISABLED + 
             "\n" + unicode(e))
         return
