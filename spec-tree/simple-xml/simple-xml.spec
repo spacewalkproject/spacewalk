@@ -93,5 +93,8 @@ rm -rf $RPM_BUILD_ROOT
 %doc %{_javadocdir}/%{name}
 
 %changelog
+* Mon Oct 08 2012 Jan Pazdziora 2.6.7-1
+- Updating simple-xml to latest version (2.6.7).
+
 * Thu May 17 2012 Miroslav Suchy <msuchy@redhat.com> 2.6.3-1
 - initial release for Fedora
