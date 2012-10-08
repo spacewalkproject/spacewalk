@@ -64,6 +64,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE.txt README.txt BUILD.txt HISTORY.txt html samples test
 
 %changelog
+* Mon Oct 08 2012 Jan Pazdziora 5.1.2-1
+- Rebase to cx_Oracle 5.1.2.
+
 * Mon Oct 08 2012 Jan Pazdziora 5.0.4-2
 - Require latest greatest oracle-instantclient11.2-*.
 - %%defattr is not needed since rpm 4.4
