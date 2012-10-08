@@ -19,7 +19,7 @@
 
 Name:           simple-xml
 Summary:        An XML serialization framework for Java
-Version:        2.6.3
+Version:        2.6.7
 Release:        1%{?dist}
 %if 0%{?suse_version}
 License:        Apache-2.0
