@@ -62,6 +62,10 @@ rm -f `find $RPM_BUILD_ROOT -type f -name perllocal.pod -o -name .packlist`
 %{_mandir}/man3/*
 
 %changelog
+* Mon Oct 08 2012 Jan Pazdziora 1.50-1
+- Rebase perl-DBD-Oracle to 1.50.
+- %%defattr is not needed since rpm 4.4
+
 * Fri Jan 07 2011 Jan Pazdziora 1.27-2
 - We shall hardcode the 11g version.
 - Revert "Specify the InstantClient version with -V."
