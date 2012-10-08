@@ -1,12 +1,11 @@
 Summary: DBD-Oracle module for perl
 Name: perl-DBD-Oracle
-Version: 1.27
-Release: 2%{?dist}
+Version: 1.50
+Release: 1%{?dist}
 License:  GPL+ or Artistic
 Group: Development/Libraries
 Source0: DBD-Oracle-%{version}.tar.gz
 Source1: demo.mk
-Patch2: update-blob-syn.patch
 Url: http://www.cpan.org
 BuildRoot: %{_tmppath}/perl-DBD-Oracle-buildroot/
 BuildRequires: perl >= 0:5.6.1, perl(DBI)
@@ -19,20 +18,12 @@ Requires: perl(DBI) >= 1.51
 %description
 DBD-Oracle module for perl
 
-%package explain
-Summary: ora_explain script from DBD-Oracle module for perl
-Group: Development/Libraries
-
-%description explain
-ora_explain script
-
 %prep
 %define modname %(echo %{name}| sed 's/perl-//')
 %define perl_vendorlib %(eval "`%{__perl} -V:installvendorlib`"; echo $installvendorlib)
 %define perl_vendorarch %(eval "`%{__perl} -V:installvendorarch`"; echo $installvendorarch)
 
 %setup -q -n %{modname}-%{version}
-%patch2 -p1
 
 cp %{SOURCE1} .
 
@@ -50,7 +41,7 @@ ORACLE_HOME=$(find /usr/lib/oracle/ -name client64 | tail -1)
 ORACLE_HOME=$(find /usr/lib/oracle/ -name client | tail -1)
 %endif
 export ORACLE_HOME
-perl Makefile.PL -m $MKFILE INSTALLDIRS="vendor" PREFIX=%{_prefix} -V 11.2.0.2.0
+perl Makefile.PL -m $MKFILE INSTALLDIRS="vendor" PREFIX=%{_prefix} -V 11.2.0.3.0
 make  %{?_smp_mflags} OPTIMIZE="%{optflags}"
 
 %clean
@@ -63,15 +54,12 @@ make PREFIX=$RPM_BUILD_ROOT%{_prefix} pure_install
 rm -f `find $RPM_BUILD_ROOT -type f -name perllocal.pod -o -name .packlist`
 
 %files
+%defattr(-,root,root)
 %{perl_vendorarch}/auto/DBD/
 %{perl_vendorarch}/DBD/
 %{perl_vendorarch}/Oraperl.pm
 %{perl_vendorarch}/oraperl.ph
 %{_mandir}/man3/*
-
-%files explain
-%{_bindir}/ora_explain
-%{_mandir}/man1/ora_explain.1.gz
 
 %changelog
 * Fri Jan 07 2011 Jan Pazdziora 1.27-2
