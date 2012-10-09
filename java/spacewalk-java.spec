@@ -23,7 +23,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.156
+Version: 1.8.157
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -616,6 +616,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Oct 09 2012 Michael Mraka <michael.mraka@redhat.com> 1.8.157-1
+- fixed html entities in translations
+
 * Tue Oct 09 2012 Jan Pazdziora 1.8.156-1
 - 863479 - enhancing kickstart file sync with cobbler
 
