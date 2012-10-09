@@ -6145,11 +6145,11 @@ Follow this url to see the full list of inactive systems:
       <target>시스템을 킥스타트하기 위해 up2date의 버전 {0} 혹은 그 이상의 버전이 필요합니다. 이 시스템은 {1}이 설치되어져 있으나 시스템의 채널에서 필요한 버전으로 업데이트를 하기 위한 up2date의 버전을 찾을 수 없습니다.</target></trans-unit>
 
       <trans-unit id="kickstart.state.guesttimedout">
-          <source>The guest system has not communicated with @@PRODUCT_NAME@@ in the past {0} minutes. The install process might be progressing slowly due to hardware constraints, or it might be frozen.&lt;p/&gt;You may wish to troubleshoot this issue by running &lt;em&gt;virsh console &lt;strong&gt;guestname&lt;/strong%gt;&lt;/em&gt; on the host system. This command will allow you to connect to the text console of the guest as it is installing, which may provide additional information about this guest system's installation status.</source>
+          <source>The guest system has not communicated with @@PRODUCT_NAME@@ in the past {0} minutes. The install process might be progressing slowly due to hardware constraints, or it might be frozen.&lt;p/&gt;You may wish to troubleshoot this issue by running &lt;em&gt;virsh console &lt;strong&gt;guestname&lt;/strong&gt;&lt;/em&gt; on the host system. This command will allow you to connect to the text console of the guest as it is installing, which may provide additional information about this guest system's installation status.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">rhn/systems/details/kickstart/SessionStatus.do</context>
         </context-group>
-      <target>지난 {0}분 동안 게스트 시스템이 @@PRODUCT_NAME@@와 통신하지 않았습니다. 하드 웨어 제약으로 인해 설치 과정이 지연되거나 중지될 수 있습니다.&lt;p/&gt; 호스트 시스템에서 &lt;em&gt;virsh console &lt;strong&gt;guestname&lt;/strong%gt;&lt;/em&gt; 명령을 실행하여 이 문제를 해결할 수 있습니다. 이 명령으로 설치 시 게스트 시스템의 설치 상태에 관한 추가 정보를 제공하는 게스트의 텍스트 콘솔에 연결할 수 있습니다.        </target></trans-unit>
+      <target>지난 {0}분 동안 게스트 시스템이 @@PRODUCT_NAME@@와 통신하지 않았습니다. 하드 웨어 제약으로 인해 설치 과정이 지연되거나 중지될 수 있습니다.&lt;p/&gt; 호스트 시스템에서 &lt;em&gt;virsh console &lt;strong&gt;guestname&lt;/strong&gt;&lt;/em&gt; 명령을 실행하여 이 문제를 해결할 수 있습니다. 이 명령으로 설치 시 게스트 시스템의 설치 상태에 관한 추가 정보를 제공하는 게스트의 텍스트 콘솔에 연결할 수 있습니다.        </target></trans-unit>
 
       <trans-unit id="tree.edit.success">
         <source>Kickstart Distribution Updated</source>

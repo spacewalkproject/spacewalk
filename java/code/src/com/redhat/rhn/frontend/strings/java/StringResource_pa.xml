@@ -6147,11 +6147,11 @@ Follow this url to see the full list of inactive systems:
       <target>ਸਾਨੂੰ ਸਿਸਟਮ ਕਿੱਕਸਟਾਰਟ ਕਰਨ ਵਾਸਤੇ up2date ਦੇ ਵਰਜਨ {0} ਜਾਂ ਜਿਆਦਾ ਦੀ ਲੋੜ ਹੈ। ਇਹ ਸਿਸਟਮ ਤੇ {1} ਇੰਸਟਾਲ ਹੈ ਪਰ ਅਸੀਂ ਇਸ ਸਿਸਟਮ ਦੇ ਚੈਨਲਾਂ ਉੱਪਰ ਇਸ ਨੂੰ ਉੱਪਰਲੇ ਵਰਜਨਾਂ ਤੱਕ ਅੱਪਡੇਟ ਕਰਨ ਲਈ up2date ਦਾ ਵਰਜਨ ਲੱਭ ਨਹੀਂ ਸਕਦੇ।</target></trans-unit>
 
       <trans-unit id="kickstart.state.guesttimedout">
-          <source>The guest system has not communicated with @@PRODUCT_NAME@@ in the past {0} minutes. The install process might be progressing slowly due to hardware constraints, or it might be frozen.&lt;p/&gt;You may wish to troubleshoot this issue by running &lt;em&gt;virsh console &lt;strong&gt;guestname&lt;/strong%gt;&lt;/em&gt; on the host system. This command will allow you to connect to the text console of the guest as it is installing, which may provide additional information about this guest system's installation status.</source>
+          <source>The guest system has not communicated with @@PRODUCT_NAME@@ in the past {0} minutes. The install process might be progressing slowly due to hardware constraints, or it might be frozen.&lt;p/&gt;You may wish to troubleshoot this issue by running &lt;em&gt;virsh console &lt;strong&gt;guestname&lt;/strong&gt;&lt;/em&gt; on the host system. This command will allow you to connect to the text console of the guest as it is installing, which may provide additional information about this guest system's installation status.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">rhn/systems/details/kickstart/SessionStatus.do</context>
         </context-group>
-      <target>ਗਿਸਟ ਸਿਸਟਮ ਪਿਛਲੇ {0} ਮਿੰਟਾਂ ਵਿੱਚ @@PRODUCT_NAME@@ ਨਾਲ ਕੋਈ ਸੰਪਰਕ ਨਹੀਂ ਕੀਤਾ। ਇੰਸਟਾਲ ਕਾਰਜ ਹਾਰਟਵੇਅਰ ਜਾਣਕਾਰੀ ਕਰਕੇ ਹੌਲੀ ਹੌਲੀ ਤਰੱਕੀ ਕਰ ਰਿਹਾ ਹੋਵੇਗਾ, ਜਾਂ ਰੁਕ ਗਿਆ ਹੋ ਸਕਦਾ ਹੈ।&lt;p/&gt;ਤੁਸੀਂ ਇਸ ਮੁੱਦੇ ਨੂੰ ਹੱਲ ਕਰਨ ਲਈ ਗਿਸਟ ਸਿਸਟਮ ਉੱਪਰ &lt;em&gt;virsh console &lt;strong&gt;guestname&lt;/strong%gt;&lt;/em&gt; ਚਲਾ ਸਕਦੇ ਹੋ। ਇਹ ਕਮਾਂਡ ਤੁਹਾਨੂੰ ਇੰਸਟਾਲੇਸ਼ਨ ਦੌਰਾਨ ਗਿਸਟ ਦੇ ਪਾਠ ਕੰਸੋਲ ਨਾਲ ਜੁੜਨ ਦੀ ਮਨਜੂਰੀ ਦਿੰਦੀ ਹੈ, ਜੋ ਇਸ ਗਿਸਟ ਸਿਸਟਮ ਦੀ ਇੰਸਟਾਲ ਹਾਲਤ ਬਾਰੇ ਹੋਰ ਜਾਣਕਾਰੀ ਦਿੰਦੀ ਹੈ।</target></trans-unit>
+      <target>ਗਿਸਟ ਸਿਸਟਮ ਪਿਛਲੇ {0} ਮਿੰਟਾਂ ਵਿੱਚ @@PRODUCT_NAME@@ ਨਾਲ ਕੋਈ ਸੰਪਰਕ ਨਹੀਂ ਕੀਤਾ। ਇੰਸਟਾਲ ਕਾਰਜ ਹਾਰਟਵੇਅਰ ਜਾਣਕਾਰੀ ਕਰਕੇ ਹੌਲੀ ਹੌਲੀ ਤਰੱਕੀ ਕਰ ਰਿਹਾ ਹੋਵੇਗਾ, ਜਾਂ ਰੁਕ ਗਿਆ ਹੋ ਸਕਦਾ ਹੈ।&lt;p/&gt;ਤੁਸੀਂ ਇਸ ਮੁੱਦੇ ਨੂੰ ਹੱਲ ਕਰਨ ਲਈ ਗਿਸਟ ਸਿਸਟਮ ਉੱਪਰ &lt;em&gt;virsh console &lt;strong&gt;guestname&lt;/strong&gt;&lt;/em&gt; ਚਲਾ ਸਕਦੇ ਹੋ। ਇਹ ਕਮਾਂਡ ਤੁਹਾਨੂੰ ਇੰਸਟਾਲੇਸ਼ਨ ਦੌਰਾਨ ਗਿਸਟ ਦੇ ਪਾਠ ਕੰਸੋਲ ਨਾਲ ਜੁੜਨ ਦੀ ਮਨਜੂਰੀ ਦਿੰਦੀ ਹੈ, ਜੋ ਇਸ ਗਿਸਟ ਸਿਸਟਮ ਦੀ ਇੰਸਟਾਲ ਹਾਲਤ ਬਾਰੇ ਹੋਰ ਜਾਣਕਾਰੀ ਦਿੰਦੀ ਹੈ।</target></trans-unit>
 
       <trans-unit id="tree.edit.success">
         <source>Kickstart Distribution Updated</source>

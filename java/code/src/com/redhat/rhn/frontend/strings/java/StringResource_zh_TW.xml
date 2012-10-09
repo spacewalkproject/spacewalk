@@ -6144,11 +6144,11 @@ Follow this url to see the full list of inactive systems:
       <target>我們需要 up2date {0} 以上（含）的版本，好對系統進行 kickstart。這台系統已安裝 {1}，但在這台系統上，我們找不到 up2date，無法將其升級至所需的版本。</target></trans-unit>
 
       <trans-unit id="kickstart.state.guesttimedout">
-          <source>The guest system has not communicated with @@PRODUCT_NAME@@ in the past {0} minutes. The install process might be progressing slowly due to hardware constraints, or it might be frozen.&lt;p/&gt;You may wish to troubleshoot this issue by running &lt;em&gt;virsh console &lt;strong&gt;guestname&lt;/strong%gt;&lt;/em&gt; on the host system. This command will allow you to connect to the text console of the guest as it is installing, which may provide additional information about this guest system's installation status.</source>
+          <source>The guest system has not communicated with @@PRODUCT_NAME@@ in the past {0} minutes. The install process might be progressing slowly due to hardware constraints, or it might be frozen.&lt;p/&gt;You may wish to troubleshoot this issue by running &lt;em&gt;virsh console &lt;strong&gt;guestname&lt;/strong&gt;&lt;/em&gt; on the host system. This command will allow you to connect to the text console of the guest as it is installing, which may provide additional information about this guest system's installation status.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">rhn/systems/details/kickstart/SessionStatus.do</context>
         </context-group>
-      <target>在過去的 {0} 分鐘內，客座端系統並未與 @@PRODUCT_NAME@@ 進行通訊。因為硬體限制，安裝過程可能稍嫌緩慢，或停滯不前。&lt;p/&gt;您可以在主機系統上執行 &lt;em&gt;virsh console &lt;strong&gt;客座端名稱&lt;/strong%gt;&lt;/em&gt; 來進行疑難排解。這項指令能讓您連接到正在進行安裝的客座端之文字終端機，並提供有關此客座端系統安裝狀態的額外資訊。</target></trans-unit>
+      <target>在過去的 {0} 分鐘內，客座端系統並未與 @@PRODUCT_NAME@@ 進行通訊。因為硬體限制，安裝過程可能稍嫌緩慢，或停滯不前。&lt;p/&gt;您可以在主機系統上執行 &lt;em&gt;virsh console &lt;strong&gt;客座端名稱&lt;/strong&gt;&lt;/em&gt; 來進行疑難排解。這項指令能讓您連接到正在進行安裝的客座端之文字終端機，並提供有關此客座端系統安裝狀態的額外資訊。</target></trans-unit>
 
       <trans-unit id="tree.edit.success">
         <source>Kickstart Distribution Updated</source>
