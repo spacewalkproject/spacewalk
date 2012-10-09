@@ -280,8 +280,6 @@ export PYTHON_MODULE_VERSION=%{version}
 
 rm -v $RPM_BUILD_ROOT%{apacheconfd}/zz-spacewalk-server-python.conf
 
-rm -rf $RPM_BUILD_ROOT%{pythonrhnroot}/server/rhnSQL/driver_cx_Oracle.py*
-
 %find_lang %{name}-server
 
 %clean
