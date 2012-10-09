@@ -12259,7 +12259,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
          <source>Search XCCDF Rules For</source>
        </trans-unit>
        <trans-unit id="scapsearch.jsp.whatsearch.tip">
-         <source>&lt;strong&gt;Examples:&lt;/strong&gt; &#39;no_hashes_outside_shadow&#39;, &#39;CCE-14300-8&#39;</source>
+         <source>&lt;strong&gt;Examples:&lt;/strong&gt; 'no_hashes_outside_shadow', 'CCE-14300-8'</source>
        </trans-unit>
        <trans-unit id="scapsearch.jsp.withresult">
          <source>With Result</source>
@@ -19011,7 +19011,7 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
 
 
       <trans-unit id="org.login.examples">
-        <source>&lt;strong&gt;Examples:&lt;/strong&gt; &#39;sales-admin&#39;, &#39;admin_prodops@example.com&#39;, &#39;sales.admin&#39;</source>
+        <source>&lt;strong&gt;Examples:&lt;/strong&gt; 'sales-admin', 'admin_prodops@example.com', 'sales.admin'</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/OrgCreate.do</context>
         </context-group>
