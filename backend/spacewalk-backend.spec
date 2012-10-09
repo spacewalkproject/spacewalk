@@ -280,9 +280,7 @@ export PYTHON_MODULE_VERSION=%{version}
 
 rm -v $RPM_BUILD_ROOT%{apacheconfd}/zz-spacewalk-server-python.conf
 
-%if 0%{?fedora} > 16
 rm -rf $RPM_BUILD_ROOT%{pythonrhnroot}/server/rhnSQL/driver_cx_Oracle.py*
-%endif
 
 %find_lang %{name}-server
 
