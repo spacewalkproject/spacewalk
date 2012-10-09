@@ -5,7 +5,7 @@
 %define modulename oracle-xe
 
 Name:            oracle-xe-selinux
-Version:         10.2.0.28
+Version:         10.2.0.29
 Release:         1%{?dist}
 Summary:         SELinux policy module supporting Oracle XE
 Group:           System Environment/Base
@@ -137,6 +137,10 @@ fi
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
+* Tue Oct 09 2012 Jan Pazdziora 10.2.0.29-1
+- The auth_read_passwd is not available everywhere.
+- We need lib_t.
+
 * Tue Oct 09 2012 Jan Pazdziora 10.2.0.28-1
 - Addressing AVC denials on Fedora 17.
 
