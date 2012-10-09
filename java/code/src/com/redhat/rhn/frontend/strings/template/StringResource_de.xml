@@ -184,7 +184,7 @@ Thank you for using @@PRODUCT_NAME@@.
         </context-group>
       <target>Hallo!
 
-Ein neuer Benutzer wurde Ihrem Account hinzugef&amp;uuml;gt.
+Ein neuer Benutzer wurde Ihrem Account hinzugefügt.
 
 {0}
 
@@ -375,7 +375,7 @@ der Ansicht des Einzelsystems den Reiter "Details".
           <context context-type="sourcefile">Taskomatic task: DailySummary.java</context>
           <context context-type="paramnotes">{0} - current time in short format</context>
         </context-group>
-      <target>@@PRODUCT_NAME@@ Täglicher Statusbericht f&amp;uuml;r {0}</target></trans-unit>
+      <target>@@PRODUCT_NAME@@ Täglicher Statusbericht für {0}</target></trans-unit>
       <trans-unit id="dailysummary.email.body">
 <source>This is the @@PRODUCT_NAME@@ Status Report for your account {0}, as of {1}.
 
@@ -478,7 +478,7 @@ Vielen Dank, dass Sie @@PRODUCT_NAME@@ verwenden.
         <context-group name="ctx">
           <context context-type="sourcefile">Taskomatic: @@PRODUCT_NAME@@CertificateCheck</context>
         </context-group>
-      <target>Red Hat Satellite Benachrichtigung &amp;uuml;ber den Ablauf des Zertifikats</target></trans-unit>
+      <target>Red Hat Satellite Benachrichtigung über den Ablauf des Zertifikats</target></trans-unit>
 
       <trans-unit id="email.satellitecert.expired.body">
 <source>
