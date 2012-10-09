@@ -12,6 +12,7 @@ require {
 	type initrc_t;
 	type urandom_device_t;
 	type oracle_lsnrctl_t;
+	type lib_t;
 }
 
 rw_files_pattern(oracle_db_t, oracle_sqlplus_log_t, oracle_sqlplus_log_t)
