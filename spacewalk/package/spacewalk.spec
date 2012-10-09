@@ -1,7 +1,7 @@
 %define release_name Smile
 
 Name:           spacewalk
-Version:        1.8.1
+Version:        1.8.2
 Release:        1%{?dist}
 Summary:        Spacewalk Systems Management Application
 URL:            https://fedorahosted.org/spacewalk
@@ -175,6 +175,10 @@ rm -rf %{buildroot}
 %{_datadir}/spacewalk/setup/defaults.d/postgresql-backend.conf
 
 %changelog
+* Tue Oct 09 2012 Jan Pazdziora 1.8.2-1
+- The spacewalk-backend-xp subpackage is not longer built.
+- %%defattr is not needed since rpm 4.4
+
 * Mon Apr 16 2012 Jan Pazdziora 1.8.1-1
 - Require postgresql >= 8.4 (mzazrivec@redhat.com)
 
