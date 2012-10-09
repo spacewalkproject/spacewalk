@@ -1,0 +1,3 @@
+
+auth_read_passwd(oracle_lsnrctl_t)
+auth_read_passwd(oracle_sqlplus_t)

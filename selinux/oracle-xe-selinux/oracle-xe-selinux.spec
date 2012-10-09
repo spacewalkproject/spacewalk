@@ -16,10 +16,7 @@ License:         GPLv2+
 # cd spacewalk
 # make srpm TAG=%{name}-%{version}-%{release}
 URL:             http://fedorahosted.org/spacewalk
-Source1:         %{modulename}.if
-Source2:         %{modulename}.te
-Source3:         %{modulename}.fc
-Source4:         %{name}-enable
+Source0:         https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 BuildRoot:       %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 BuildRequires:   checkpolicy, selinux-policy-devel, hardlink
 BuildArch:       noarch
@@ -37,27 +34,25 @@ Requires:         oracle-lib-compat
 SELinux policy module supporting Oracle XE server.
 
 %prep
-rm -rf %{name}-%{version}
-mkdir -p %{name}-%{version}
-cp -p %{SOURCE1} %{SOURCE2} %{SOURCE3} %{SOURCE4} %{name}-%{version}
+%setup -q
 
 %build
 # Build SELinux policy modules
-cd %{name}-%{version}
 perl -i -pe 'BEGIN { $VER = join ".", grep /^\d+$/, split /\./, "%{version}.%{release}"; } s!\@\@VERSION\@\@!$VER!g;' %{modulename}.te
+%if 0%{?fedora} >= 17
+cat %{modulename}.te.fedora17 >> %{modulename}.te
+%endif
 for selinuxvariant in %{selinux_variants}
 do
     make NAME=${selinuxvariant} -f /usr/share/selinux/devel/Makefile
     mv %{modulename}.pp %{modulename}.pp.${selinuxvariant}
     make NAME=${selinuxvariant} -f /usr/share/selinux/devel/Makefile clean
 done
-cd -
 
 %install
 rm -rf %{buildroot}
 
 # Install SELinux policy modules
-cd %{name}-%{version}
 for selinuxvariant in %{selinux_variants}
   do
     install -d %{buildroot}%{_datadir}/selinux/${selinuxvariant}
@@ -67,11 +62,10 @@ for selinuxvariant in %{selinux_variants}
 
 %define extra_restorecon /usr/lib/oracle/xe/oradata /usr/lib/oracle/xe/app /var/tmp/.oracle /u01/app/oracle
 sed -i -e 's!%%extra_restorecon!%extra_restorecon!g' %{name}-enable
-cd -
 
 # Install SELinux interfaces
 install -d %{buildroot}%{_datadir}/selinux/devel/include/%{moduletype}
-install -p -m 644 %{name}-%{version}/%{modulename}.if \
+install -p -m 644 %{modulename}.if \
   %{buildroot}%{_datadir}/selinux/devel/include/%{moduletype}/%{modulename}.if
 
 # Hardlink identical policy module packages together
@@ -79,7 +73,7 @@ install -p -m 644 %{name}-%{version}/%{modulename}.if \
 
 # Install oracle-xe-selinux-enable which will be called in %posttrans
 install -d %{buildroot}%{_sbindir}
-install -p -m 755 %{name}-%{version}/%{name}-enable %{buildroot}%{_sbindir}/%{name}-enable
+install -p -m 755 %{name}-enable %{buildroot}%{_sbindir}/%{name}-enable
 
 %clean
 rm -rf %{buildroot}
@@ -137,7 +131,7 @@ if [ $1 -eq 0 ]; then
 fi
 
 %files
-%doc %{name}-%{version}/%{modulename}.fc %{name}-%{version}/%{modulename}.if %{name}-%{version}/%{modulename}.te
+%doc %{modulename}.fc %{modulename}.if %{modulename}.te
 %{_datadir}/selinux/*/%{modulename}.pp
 %{_datadir}/selinux/devel/include/%{moduletype}/%{modulename}.if
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
