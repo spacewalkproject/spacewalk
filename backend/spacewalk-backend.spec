@@ -63,7 +63,6 @@ Requires: %{name}-sql-virtual = %{version}-%{release}
 This package contains the basic code that provides SQL connectivity for
 the Spacewalk backend modules.
 
-%if 0%{?fedora} < 17
 %package sql-oracle
 Summary: Oracle backend for Spacewalk
 Group: Applications/Internet
@@ -73,7 +72,6 @@ Provides: %{name}-sql-virtual = %{version}-%{release}
 %description sql-oracle
 This package contains provides Oracle connectivity for the Spacewalk backend
 modules.
-%endif
 
 %package sql-postgresql
 Summary: Postgresql backend for Spacewalk
@@ -375,11 +373,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{pythonrhnroot}/server/rhnSQL/__init__.py*
 %{pythonrhnroot}/server/rhnSQL/sql_*.py*
 
-%if 0%{?fedora} < 17
 %files sql-oracle
 %doc LICENSE
 %{pythonrhnroot}/server/rhnSQL/driver_cx_Oracle.py*
-%endif
 
 %files sql-postgresql
 %doc LICENSE
