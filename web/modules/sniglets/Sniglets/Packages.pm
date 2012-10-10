@@ -35,8 +35,6 @@ sub register_tags {
   $pxt->register_tag('rhn-package-dependencies' => \&package_dependencies);
 
   $pxt->register_tag('rhn-package-details' => \&package_details);
-  $pxt->register_tag('rhn-package-change-log' => \&package_change_log);
-
 
   $pxt->register_tag('rhn-unknown-package-nvre' => \&unknown_package_nvre);
 
@@ -122,37 +120,6 @@ sub package_dependencies {
     }
     $ret =~ s/\{package_$dependency\}/ defined $dep_list ? $dep_list : '&#160;'/eig;
   }
-
-  return $ret;
-}
-
-sub package_change_log {
-  my $pxt = shift;
-  my %params = @_;
-
-  my $pid = $pxt->param('pid');
-
-  die "no pid!" unless $pid;
-
-  my $package = RHN::Package->lookup(-id => $pid);
-
-  my @changelog;
-  @changelog = $package->change_log;
-
-  my $block = $params{__block__};
-  my $ret;
-  foreach my $change (@changelog) {
-    my $current = $block;
-    $current =~ s({time})(PXT::HTML->htmlify_text($change->{TIME}))egims;
-    for (qw(NAME TEXT)) {
-      utf8::encode($change->{$_}); utf8::decode($change->{$_});
-    }
-    $current =~ s({modifier})(PXT::HTML->htmlify_text($change->{NAME}))egism;
-    $current =~ s({entry})(PXT::HTML->htmlify_text($change->{TEXT}))egims;
-    $ret .= $current;
-  }
-
-  $ret = "No change log entries." unless $ret;
 
   return $ret;
 }
