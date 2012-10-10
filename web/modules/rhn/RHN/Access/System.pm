@@ -34,7 +34,6 @@ sub register_acl_handlers {
   $acl->register_handler(client_capable => \&client_capable);
   $acl->register_handler(system_kickstart_in_progress => \&kickstart_in_progress);
   $acl->register_handler(system_kickstart_session_exists => \&kickstart_session_exists);
-  $acl->register_handler(system_profile_capable => \&system_profile_capable);
   $acl->register_handler(org_has_proxies => \&org_has_proxies);
   $acl->register_handler(package_available => \&package_available_to_system);
   $acl->register_handler(action_pending_named => \&action_pending_named);
@@ -94,19 +93,6 @@ sub kickstart_session_exists {
 
   my $session = RHN::Kickstart::Session->lookup(-sid => $sid, -org_id => $pxt->user->org_id, -expired => 1, -soft => 1);
   return 1 if ($session);
-
-  return 0;
-}
-
-# Different from client_capable - this is for UI bits to turn on or off based upon the system type
-sub system_profile_capable {
-  my $pxt = shift;
-  my $cap = shift;
-
-  my $sid = $pxt->param('sid');
-  return 0 unless $sid;
-
-  return 1 if (RHN::Server->system_profile_capable($sid, $cap));
 
   return 0;
 }
