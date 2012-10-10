@@ -347,28 +347,6 @@ sub prerequisite_action {
   return $new_action;
 }
 
-sub next_action_in_chain {
-  my $self = shift;
-
-  my $dbh = RHN::DB->connect;
-  my $sth = $dbh->prepare(<<EOQ);
-SELECT A.id
-  FROM rhnAction A
- WHERE A.prerequisite = :current_aid
-EOQ
-
-  $sth->execute_h(current_aid => $self->id);
-  my ($next_aid) = $sth->fetchrow();
-  $sth->finish;
-
-  return unless $next_aid;
-
-  my $class = ref $self;
-  my $new_action = $class->lookup(-id => $next_aid);
-
-  return $new_action;
-}
-
 sub action_is_for_server {
   my $class = shift;
   my $action_id = shift;
