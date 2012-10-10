@@ -18,6 +18,7 @@ import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.SelectMode;
+import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.util.download.DownloadException;
 import com.redhat.rhn.common.util.download.DownloadUtils;
 import com.redhat.rhn.common.validator.ValidatorException;
@@ -120,13 +121,14 @@ public class KickstartManager extends BaseManager {
                 text.contains("There is a templating error preventing this file from")) {
                     ValidatorException.
                         raiseException("kickstart.jsp.error.template_generation",
-                            KickstartUrlHelper.getFileDowloadPageUrl(ksdata));
+                                LocalizationService.getInstance().
+                                getMessage("kickstartdownload.jsp.header"));
                 }
             }
         }
         catch (DownloadException de) {
             ValidatorException.raiseException("kickstart.jsp.error.template_generation",
-                                        KickstartUrlHelper.getFileDowloadPageUrl(ksdata));
+                    LocalizationService.getInstance().getMessage("kickstartdownload.jsp.header"));
         }
     }
 

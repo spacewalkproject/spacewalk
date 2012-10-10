@@ -47,10 +47,6 @@ public class KickstartUrlHelper {
     public static final String KS_CFG = "/ks/cfg";
     public static final String COBBLER_SERVER_VARIABLE = "$http_server";
     public static final String COBBLER_MEDIA_VARIABLE = "media_path";
-    private static final String KS_RAW_PAGE_URL =
-                        "/rhn/kickstart/KickstartFileDownloadAdvanced.do?ksid=%s";
-    private static final String KS_WIZARD_PAGE_URL =
-            "/rhn/kickstart/KickstartFileDownload.do?ksid=%s";
     private final KickstartData ksData;
     private final String host;
     private final String protocol;
@@ -347,17 +343,5 @@ public class KickstartUrlHelper {
                         data.getCobblerId());
         return "http://" + ConfigDefaults.get().getCobblerHost() + COBBLER_URL_BASE_PATH +
                     prof.getName();
-    }
-
-    /**
-     * Returns the file download page URL
-     * @param data the kickstart data
-     * @return the url
-     */
-    public static String getFileDowloadPageUrl(KickstartData data) {
-        if (data.isRawData()) {
-            return String.format(KS_RAW_PAGE_URL, data.getId().toString());
-        }
-        return String.format(KS_WIZARD_PAGE_URL, data.getId().toString());
     }
 }
