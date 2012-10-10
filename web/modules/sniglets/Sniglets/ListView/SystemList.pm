@@ -463,22 +463,6 @@ EOM
   return (%ret);
 }
 
-sub custominfo_values_provider {
-  my $self = shift;
-  my $pxt = shift;
-
-  my %ret = $self->default_provider($pxt);
-
-  foreach my $key (@{$ret{data}}) {
-
-    if (defined $key->{VALUE}) {
-      $key->{VALUE} = '<pre>' . $key->{VALUE} . '</pre>';
-    }
-  }
-
-  return (%ret);
-}
-
 
 sub selected_systems_installed_package_provider {
   my $self = shift;
