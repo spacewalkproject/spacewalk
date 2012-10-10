@@ -347,18 +347,6 @@ sub prerequisite_action {
   return $new_action;
 }
 
-sub get_top_of_action_chain {
-  my $self = shift;
-
-  my $current_action = $self;
-
-  while ($current_action->prerequisite()) {
-    $current_action = $current_action->prerequisite_action;
-  }
-
-  return $current_action;
-}
-
 sub next_action_in_chain {
   my $self = shift;
 
