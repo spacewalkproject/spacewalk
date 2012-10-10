@@ -23,8 +23,7 @@
         Below is a list of the RHN Proxy servers this system connects
         through to reach the primary RHN server.  The RHN Proxy the
         system connects directly to, if any, is listed first on this
-        list.  This feature is only available to RHN Proxy version
-        3.1.1 or later.
+        list.
       </p>
 
       <p>
