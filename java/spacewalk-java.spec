@@ -23,7 +23,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.157
+Version: 1.8.158
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -616,6 +616,13 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Oct 10 2012 Jan Pazdziora 1.8.158-1
+- Using empty paragraph for layout purposes is rarely needed.
+- 817473 - remove html markup from the kickstart.jsp.error.template_generation
+  error message
+- 832433 - remove html tags from the activation-key.java.exists error message
+- polishing configmanager.filedetails.content.no-macro-name error message
+
 * Tue Oct 09 2012 Michael Mraka <michael.mraka@redhat.com> 1.8.157-1
 - fixed html entities in translations
 
