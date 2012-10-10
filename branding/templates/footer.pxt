@@ -8,6 +8,5 @@
     <div style="color: black">
       Spacewalk release <a href="/rhn/help/dispatcher/release_notes"><pxt-config var="version" /></a>
     </div>
-    <p><rhn-bugzilla-link /></p>
   </div>
 </pxt-passthrough>

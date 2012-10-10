@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2010 Red Hat, Inc.
+# Copyright (c) 2008--2012 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -22,7 +22,6 @@ sub register_tags {
   my $class = shift;
   my $pxt = shift;
 
-  $pxt->register_tag("rhn-bugzilla-link", \&rhn_bugzilla_link);
   $pxt->register_tag("rhn-redirect", \&rhn_redirect);
 }
 
@@ -33,12 +32,6 @@ sub rhn_redirect {
   if ($url = $params{'url'}) {
     $pxt->redirect($url);
   }
-}
-
-sub rhn_bugzilla_link {
-  my $pxt = shift;
-
-  return '';
 }
 
 1;
