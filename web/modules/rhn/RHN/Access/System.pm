@@ -35,7 +35,6 @@ sub register_acl_handlers {
   $acl->register_handler(system_kickstart_in_progress => \&kickstart_in_progress);
   $acl->register_handler(system_kickstart_session_exists => \&kickstart_session_exists);
   $acl->register_handler(org_has_proxies => \&org_has_proxies);
-  $acl->register_handler(system_entitlement_possible => \&system_entitlement_possible);
 }
 
 sub child_channel_candidate {
@@ -107,27 +106,5 @@ sub org_has_proxies {
 
   return 0;
 }
-
-sub system_entitlement_possible {
-  my $pxt = shift;
-  my $target_entitlement = shift;
-
-  throw "(invalid_entitlement) Invalid entitlement: $target_entitlement"
-    unless RHN::Entitlements->is_valid_entitlement($target_entitlement);
-
-  my ($sid) = $pxt->param('sid');
-  throw "No sid parameter when testing for system entitlement level '$target_entitlement'"
-    unless $sid;
-
-  my $server = RHN::Server->lookup(-id => $sid);
-
-  if ($server->has_entitlement($target_entitlement) or
-      $server->can_entitle_server($target_entitlement)) {
-    return 1;
-  }
-
-  return 0;
-}
-
 
 1;
