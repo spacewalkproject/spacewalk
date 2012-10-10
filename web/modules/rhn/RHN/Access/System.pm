@@ -35,7 +35,6 @@ sub register_acl_handlers {
   $acl->register_handler(system_kickstart_in_progress => \&kickstart_in_progress);
   $acl->register_handler(system_kickstart_session_exists => \&kickstart_session_exists);
   $acl->register_handler(org_has_proxies => \&org_has_proxies);
-  $acl->register_handler(action_pending_named => \&action_pending_named);
   $acl->register_handler(last_action_attempt_failed => \&last_action_attempt_failed);
   $acl->register_handler(system_entitlement_possible => \&system_entitlement_possible);
 }
@@ -108,23 +107,6 @@ sub org_has_proxies {
   }
 
   return 0;
-}
-
-sub action_pending_named {
-  my $pxt = shift;
-  my $action_name = shift;
-
-  my $sid = $pxt->param('sid');
-
-  throw "(missing_param) Missing parameter 'sid'" unless $sid;
-  throw "(missing_acl_param) Missing acl parameter" unless $action_name;
-
-  my $ds = new RHN::DataSource::Action (-mode => 'actions_for_system_named');
-  my $data = $ds->execute_full(-sid => $sid, -action_name => $action_name);
-
-  return 0 unless (grep { $_->{STATUS} eq 'Queued' or $_->{STATUS} eq 'Picked Up' } @{$data});
-
-  return 1;
 }
 
 sub last_action_attempt_failed {
