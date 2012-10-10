@@ -139,25 +139,6 @@ my $j = $s_table->create_join(
 # Server object methods
 ############################
 
-sub get_cpu_arch_name {
-  my $self = shift;
-
-  my $dbh = RHN::DB->connect();
-  my $sth = $dbh->prepare(<<EOQ);
-SELECT CA.name
-  FROM rhnCpuArch CA,
-       rhnCpu C
- WHERE C.server_id = :server_id
-   AND C.cpu_arch_id = CA.id
-EOQ
-
-  $sth->execute_h(server_id => $self->id);
-
-  my ($cpu_arch_name) = $sth->fetchrow;
-  $sth->finish;
-  return $cpu_arch_name;
-}
-
 sub get_latest_action_named {
   my $self = shift;
   my $action_name = shift;
