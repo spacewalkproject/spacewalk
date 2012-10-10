@@ -138,37 +138,6 @@ sub _blank_config_channel {
   return $self;
 }
 
-sub set_type {
-  my $self = shift;
-  my $type = shift || '';
-
-  my $dbh = RHN::DB->connect;
-
-  my $query = <<EOQ;
-SELECT CCT.id, CCT.label, CCT.name
-  FROM rhnConfigChannelType CCT
- WHERE CCT.label = :label
-EOQ
-
-  my $sth = $dbh->prepare($query);
-  $sth->execute_h(label => $type);
-
-  my $row = $sth->fetchrow_hashref;
-  $sth->finish;
-
-  unless ($row) {
-    throw "(invalid_configchannel_type) Could not find config channel type '$type'";
-  }
-
-  foreach my $attr (qw/id name label/) {
-    my $meth = 'type_' . $attr;
-    $self->{"__${meth}__"} = $row->{uc($attr)};
-  }
-  $self->confchan_type_id($row->{ID});
-
-  return;
-}
-
 sub commit {
   my $self = shift;
   my $transaction = shift;
