@@ -104,7 +104,7 @@ public class ConfigurationValidation {
                 // Can't find a function-name
                 if (name == null || name.trim().length() == 0) {
                     result.addError(new ValidatorError(
-                                "configmanager.filedetails.content.no-macro-name"));
+                                "configmanager.filedetails.content.no-macro-name", seq));
                 }
                 // Function-name doesn't look like one we understand
                 else if (!name.startsWith("rhn.system.")) {
