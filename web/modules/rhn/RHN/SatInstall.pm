@@ -24,7 +24,6 @@ use English;
 use POSIX qw/dup2 setsid O_WRONLY O_CREAT/;
 use ModPerl::Util qw/exit/;
 use DateTime;
-use IPC::Open3;
 
 use RHN::DB;
 use Params::Validate;
