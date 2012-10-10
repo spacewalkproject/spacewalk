@@ -136,31 +136,6 @@ EOQ
   return $server_status;
 }
 
-# Like get_server_status, but returns a hash for the server's row in
-# rhnActionStatus, or an arrayref of all servers for that action if no
-# server id is specified.
-sub get_full_server_status {
-  my $self = shift;
-  my $server_id = shift;
-
-  my $ds = new RHN::DataSource::Action (-mode => 'server_status');
-  my $data = $ds->execute_full(-aid => $self->id);
-
-  if ($server_id) {
-    # There should never be more than one matching row.
-    my ($row) = grep { $_->{ID} == $server_id } @{$data};
-
-    throw "(no_status_for_server) No status found for system '$server_id', action '" . $self->id . "'"
-      unless $row;
-
-    return $row;
-  }
-
-  return $data;
-
-}
-
-
 sub cancel_pending_for_system {
   my $class = shift;
   my %params = validate(@_, {server_id => 1, transaction => 0});
