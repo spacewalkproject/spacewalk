@@ -35,7 +35,6 @@ sub register_acl_handlers {
   $acl->register_handler(system_kickstart_in_progress => \&kickstart_in_progress);
   $acl->register_handler(system_kickstart_session_exists => \&kickstart_session_exists);
   $acl->register_handler(org_has_proxies => \&org_has_proxies);
-  $acl->register_handler(package_available => \&package_available_to_system);
   $acl->register_handler(action_pending_named => \&action_pending_named);
   $acl->register_handler(last_action_attempt_failed => \&last_action_attempt_failed);
   $acl->register_handler(system_entitlement_possible => \&system_entitlement_possible);
@@ -109,29 +108,6 @@ sub org_has_proxies {
   }
 
   return 0;
-}
-
-sub package_available_to_system {
-  my $pxt = shift;
-  my $package_name = shift;
-
-  my $sid = $pxt->param('sid');
-
-  return 0 unless $sid;
-  return 0 unless $package_name;
-
-  my $base_channel_id = RHN::Server->base_channel_id($sid);
-
-  return 0 unless $base_channel_id;
-
-  my @packages = RHN::Package->latest_packages_in_channel_tree(-uid => $pxt->user->id,
-							       -packages => [ $package_name ],
-							       -base_cid => $base_channel_id,
-							      );
-
-  return 0 unless (@packages);
-
-  return 1;
 }
 
 sub action_pending_named {
