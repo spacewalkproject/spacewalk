@@ -39,7 +39,6 @@ sub register_tags {
   $pxt->register_tag('rhn-channel-gpg-key' => \&channel_gpg_key);
 
   $pxt->register_tag('rhn-tri-state-channel-list', => \&tri_state_channel_list);
-  $pxt->register_tag('rhn-resubscribe-warning-ssm' => \&resubscribe_warning_ssm, 3);
 
 
   $pxt->register_tag('viewed_channel_name' => \&viewed_channel_name, -10);
@@ -55,16 +54,6 @@ sub register_callbacks {
 my $SUBSCRIBE = 1;
 my $UNSUBSCRIBE = 2;
 
-sub resubscribe_warning_ssm {
-  my $pxt = shift;
-  my %params = @_;
-
-  if ($pxt->pnotes('resubscribe_warning')) {
-    return $params{__block__};
-  }
-
-  return '';
-}
 
 
 
