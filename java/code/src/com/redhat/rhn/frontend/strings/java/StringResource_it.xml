@@ -6169,7 +6169,7 @@ Seguite l'url sotto riportato per visualizzare l'elenco completo di sistemi inat
       <target>È necessaria una versione {0} o più recente di up2date per poter eseguire il kickstart del sistema.  Questo sistema presenta {1} installato ma non siamo stati in grado di trovare una versione di up2date nei canali del sistema, in modo da poterlo aggiornare alla versione desiderata.</target></trans-unit>
 
       <trans-unit id="kickstart.state.guesttimedout">
-          <source>The guest system has not communicated with @@PRODUCT_NAME@@ in the past {0} minutes. The install process might be progressing slowly due to hardware constraints, or it might be frozen.&lt;p/&gt;You may wish to troubleshoot this issue by running &lt;em&gt;virsh console &lt;strong&gt;guestname&lt;/strong&gt;&lt;/em&gt; on the host system. This command will allow you to connect to the text console of the guest as it is installing, which may provide additional information about this guest system's installation status.</source>
+          <source>&lt;p&gt;The guest system has not communicated with @@PRODUCT_NAME@@ in the past {0} minutes. The install process might be progressing slowly due to hardware constraints, or it might be frozen.&lt;/p&gt; &lt;p&gt;You may wish to troubleshoot this issue by running &lt;em&gt;virsh console &lt;strong&gt;guestname&lt;/strong&gt;&lt;/em&gt; on the host system. This command will allow you to connect to the text console of the guest as it is installing, which may provide additional information about this guest system's installation status.&lt;/p&gt;</source>
         <context-group name="ctx">
           <context context-type="sourcefile">rhn/systems/details/kickstart/SessionStatus.do</context>
         </context-group>

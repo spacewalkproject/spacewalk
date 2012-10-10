@@ -6151,7 +6151,7 @@ Follow this url to see the full list of inactive systems:
       <target>সিস্টেম kickstart করার জন্য up2date-র {0} অথবা ঊর্ধ্বতন সংস্করণ আবশ্যক।  সিস্টেমের মধ্যে {1} ইনস্টল থাকা সত্ত্বেও প্রয়োজনীয় অথবা ঊর্ধ্বতন সংস্করণে আপগ্রেড করার উদ্দেশ্যে সিস্টেমের চ্যানেলের মধ্যে up2date-র কোনো সংস্করণ সনাক্ত করা যায়নি।</target></trans-unit>
 
       <trans-unit id="kickstart.state.guesttimedout">
-          <source>The guest system has not communicated with @@PRODUCT_NAME@@ in the past {0} minutes. The install process might be progressing slowly due to hardware constraints, or it might be frozen.&lt;p/&gt;You may wish to troubleshoot this issue by running &lt;em&gt;virsh console &lt;strong&gt;guestname&lt;/strong&gt;&lt;/em&gt; on the host system. This command will allow you to connect to the text console of the guest as it is installing, which may provide additional information about this guest system's installation status.</source>
+          <source>&lt;p&gt;The guest system has not communicated with @@PRODUCT_NAME@@ in the past {0} minutes. The install process might be progressing slowly due to hardware constraints, or it might be frozen.&lt;/p&gt; &lt;p&gt;You may wish to troubleshoot this issue by running &lt;em&gt;virsh console &lt;strong&gt;guestname&lt;/strong&gt;&lt;/em&gt; on the host system. This command will allow you to connect to the text console of the guest as it is installing, which may provide additional information about this guest system's installation status.&lt;/p&gt;</source>
         <context-group name="ctx">
           <context context-type="sourcefile">rhn/systems/details/kickstart/SessionStatus.do</context>
         </context-group>
