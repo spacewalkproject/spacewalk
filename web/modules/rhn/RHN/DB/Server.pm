@@ -2096,22 +2096,6 @@ EOQ
   return $row;
 }
 
-# Make a guess at this system's hostname
-sub guess_hostname {
-  my $self = shift;
-
-  my $hostname = $self->name;
-
-  my @net_infos = $self->get_net_infos;
-  foreach my $net_info (@net_infos) {
-    next if (not $net_info->hostname || $net_info->hostname =~ /^localhost/);
-
-    $hostname = $net_info->hostname;
-  }
-
-  return $hostname;
-}
-
 sub cleanup_monitoring_for_system {
   my $class = shift;
   my $id = shift;
