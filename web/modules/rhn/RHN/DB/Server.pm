@@ -1137,20 +1137,6 @@ EOQ
   return \%groups;
 }
 
-sub has_hardware_profile {
-  my $self = shift;
-
-  my $dbh = RHN::DB->connect;
-  my $query = "SELECT 1 FROM rhnCpu WHERE server_id = ?";
-  my $sth = $dbh->prepare($query);
-  $sth->execute($self->id);
-
-  my ($profiled) = $sth->fetchrow;
-  $sth->finish;
-
-  return $profiled || 0;
-}
-
 sub entitlements {
   my $self_or_class = shift;
 
