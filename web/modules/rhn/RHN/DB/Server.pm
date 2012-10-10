@@ -196,37 +196,6 @@ EOQ
   $dbh->commit;
 }
 
-sub get_custom_value {
-  my $class = shift;
-  my %params = validate(@_, {server_id => 1, key_id => 1});
-
-  my $dbh = RHN::DB->connect();
-  my $sth = $dbh->prepare(<<EOQ);
-SELECT CDK.label AS KEY,
-       SCDV.value AS VALUE,
-       TO_CHAR(SCDV.modified, 'YYYY-MM-DD HH24:MI:SS') AS LAST_MODIFIED,
-       TO_CHAR(SCDV.created, 'YYYY-MM-DD HH24:MI:SS') AS CREATED,
-       wc_creator.login AS CREATED_BY,
-       wc_modifier.login AS LAST_MODIFIED_BY
-  FROM web_contact wc_creator,
-       web_contact wc_modifier,
-       rhnCustomDataKey CDK,
-       rhnServerCustomDataValue SCDV
- WHERE CDK.id = :key_id
-   AND SCDV.server_id = :server_id
-   AND CDK.id = SCDV.key_id
-   AND SCDV.created_by = wc_creator.id (+)
-   AND SCDV.last_modified_by = wc_modifier.id (+)
-EOQ
-
-  $sth->execute_h(server_id => $params{server_id}, key_id => $params{key_id});
-
-  my $ret = $sth->fetchrow_hashref;
-  $sth->finish;
-
-  return $ret;
-}
-
 sub version_of_package_installed {
   my $self = shift;
   my $name = shift;
