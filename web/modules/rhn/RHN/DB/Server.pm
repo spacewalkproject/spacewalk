@@ -21,7 +21,6 @@ use RHN::DB;
 use RHN::Org;
 use RHN::DB::Channel;
 use RHN::DB::Server;
-use RHN::DB::Server::NetInfo;
 use RHN::DB::TableClass;
 
 use RHN::DataSource::Errata;
@@ -928,14 +927,6 @@ sub subscribe_to_channel {
   else {
     return $dbh;
   }
-}
-
-# returns an array of all the net info objects related to a server
-sub get_net_infos {
-  my $self = shift;
-
-  my @net_infos = RHN::DB::Server::NetInfo->lookup_net_info_by_server($self->id);
-  return @net_infos;
 }
 
 

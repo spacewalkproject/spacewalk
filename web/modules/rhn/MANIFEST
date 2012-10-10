@@ -17,7 +17,6 @@ RHN/DB.pm
 RHN/DB/Scheduler.pm
 RHN/DB/ServerActions.pm
 RHN/DB/ServerGroup.pm
-RHN/DB/Server/NetInfo.pm
 RHN/DB/ServerPackage.pm
 RHN/DB/Server.pm
 RHN/DB/Set.pm
