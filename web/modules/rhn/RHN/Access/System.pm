@@ -34,7 +34,6 @@ sub register_acl_handlers {
   $acl->register_handler(client_capable => \&client_capable);
   $acl->register_handler(system_kickstart_in_progress => \&kickstart_in_progress);
   $acl->register_handler(system_kickstart_session_exists => \&kickstart_session_exists);
-  $acl->register_handler(system_packaging_type => \&system_packaging_type);
   $acl->register_handler(system_profile_capable => \&system_profile_capable);
   $acl->register_handler(org_has_proxies => \&org_has_proxies);
   $acl->register_handler(package_available => \&package_available_to_system);
@@ -95,19 +94,6 @@ sub kickstart_session_exists {
 
   my $session = RHN::Kickstart::Session->lookup(-sid => $sid, -org_id => $pxt->user->org_id, -expired => 1, -soft => 1);
   return 1 if ($session);
-
-  return 0;
-}
-
-# Does the packaging type of the system match the input?  (rpm, sysv-solaris, tar)
-sub system_packaging_type {
-  my $pxt = shift;
-  my $type = shift;
-
-  my $sid = $pxt->param('sid');
-  return 0 unless $sid;
-
-  return 1 if (RHN::Server->packaging_type($sid) eq $type);
 
   return 0;
 }
