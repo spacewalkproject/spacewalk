@@ -1,5 +1,5 @@
 Name:       spacewalk-branding
-Version:    1.8.3
+Version:    1.8.4
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -82,6 +82,10 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Wed Oct 10 2012 Jan Pazdziora 1.8.4-1
+- The Sniglets::Utils is no longer needed in footer.pxt.
+- The rhn-bugzilla-link generates emply paragraph.
+
 * Mon Jun 04 2012 Miroslav Suchý <msuchy@redhat.com> 1.8.3-1
 - Add support for studio image deployments (web UI) (jrenner@suse.de)
 - %%defattr is not needed since rpm 4.4 (msuchy@redhat.com)
