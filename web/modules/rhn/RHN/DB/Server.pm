@@ -140,24 +140,6 @@ my $j = $s_table->create_join(
 # Server object methods
 ############################
 
-sub applet_activated {
-  my $self = shift;
-
-  # never, ever select the uuid.  if you think you need it for something, you're wrong.
-  my $dbh = RHN::DB->connect();
-  my $sth = $dbh->prepare(<<EOQ);
-SELECT 1
-  FROM rhnServerUuid
- WHERE server_id = :server_id
-EOQ
-
-  $sth->execute_h(server_id => $self->id);
-  my ($activated) = $sth->fetchrow;
-  $sth->finish;
-
-  return $activated;
-}
-
 sub get_cpu_arch_name {
   my $self = shift;
 
