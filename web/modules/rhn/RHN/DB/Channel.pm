@@ -294,17 +294,6 @@ EOQ
   return 0;
 }
 
-sub tri_state_channel_list {
-  my $class = shift;
-  my $org_id = shift;
-  my $user_id = shift;
-
-  my $ds = new RHN::DataSource::Channel(-mode => 'tri_state_channel_list');
-  my $channels = $ds->execute_query(-user_id => $user_id);
-
-  return @$channels;
-}
-
 sub subscribable_channels {
   my $class = shift;
   my %params = validate(@_, {server_id => 1, user_id => 1, base_channel_id => 1});
