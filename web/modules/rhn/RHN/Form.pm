@@ -163,17 +163,6 @@ sub add_widget {
   return;
 }
 
-sub remove_widget {
-  my $self = shift;
-  my $label = shift;
-
-  delete $self->{widgets_by_label}->{$label};
-
-  $self->{widgets} = [ grep { $_->label ne $label } @{$self->{widgets}} ];
-
-  return;
-}
-
 sub lookup_widget {
   my $self = shift;
   my $label = shift;
