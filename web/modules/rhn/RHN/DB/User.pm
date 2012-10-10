@@ -478,35 +478,6 @@ sub oai_contact_sync {
   }
 }
 
-# instance OR class method
-sub sites {
-  my $class = shift;
-  my $uid = shift;
-  my $type = shift;
-
-  if (ref $class) {
-    $type = $uid;
-    $uid = $class->id;
-  }
-
-  my $dbh = RHN::DB->connect;
-
-  my $type_clause = '';
-  $type_clause = "AND TYPE = ?" if $type;
-
-  my $query = $s->select_query("S.WEB_USER_ID = ? $type_clause ORDER BY MODIFIED DESC");
-  my $sth = $dbh->prepare($query);
-  $sth->execute($uid, $type_clause ? $type : ());
-
-  my @ret;
-  while (my @row = $sth->fetchrow) {
-    push @ret, bless { map { ("__${_}__" => shift @row) } $s->method_names }, "RHN::DB::UserSite";
-  }
-
-  return @ret;
-}
-
-
 # this crap is foobared.  unfoobar it later.
 sub RHN::DB::UserSite::commit {
   my $self = shift;
