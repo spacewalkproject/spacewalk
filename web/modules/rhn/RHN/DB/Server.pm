@@ -138,36 +138,6 @@ my $j = $s_table->create_join(
 # Server object methods
 ############################
 
-sub get_latest_action_named {
-  my $self = shift;
-  my $action_name = shift;
-
-  my $dbh = RHN::DB->connect();
-  my $sth = $dbh->prepare(<<EOQ);
-SELECT A.id
-  FROM rhnAction A,
-       rhnServerAction SA
- WHERE SA.server_id = :server_id
-   AND SA.action_id = A.id
-   AND A.name = :action_name
-ORDER BY SA.created DESC
-EOQ
-
-  $sth->execute_h(server_id => $self->id,
-		  action_name => $action_name,
-		 );
-
-  my ($action_id) = $sth->fetchrow;
-  $sth->finish;
-
-  return unless $action_id;
-
-  my $action = RHN::Action->lookup(-id => $action_id);
-  die "no action object for action_id $action_id" unless $action;
-
-  return $action;
-}
-
 sub bulk_set_custom_value {
   my $class = shift;
   my %params = validate(@_, {set_label => 1, user_id => 1, key_label => 1, value => 0});
