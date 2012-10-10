@@ -45,7 +45,6 @@ use RHN::Kickstart::Session;
 use Sniglets::Forms;
 use Sniglets::HTML;
 use Sniglets::ServerActions;
-use Sniglets::ActivationKeys;
 
 sub register_tags {
   my $class = shift;
@@ -564,7 +563,9 @@ sub system_activation_key_cb {
   }
 
   if ($pxt->dirty_param('generate_new_key')) {
-    my $token = Sniglets::ActivationKeys->create_token($pxt);
+    my $token = RHN::Token->create_token;
+    $token->user_id($pxt->user->id);
+    $token->org_id($pxt->user->org_id);
     $token->activation_key_token(RHN::Token->generate_random_key);
     my $server = RHN::Server->lookup(-id => $sid);
 
