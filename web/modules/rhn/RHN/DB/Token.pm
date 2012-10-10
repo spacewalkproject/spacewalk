@@ -195,48 +195,6 @@ EOQ
   return @groups;
 }
 
-sub set_channels {
-  my $self = shift;
-  my %params = validate(@_, { channels => 1, transaction => 0 });
-
-  my @channels = grep { defined $_ and $_ > 0 } @{$params{channels}};
-
-  my $dbh = $params{transaction} || RHN::DB->connect;
-  my $query;
-  my $sth;
-
-  $query = <<EOQ;
-DELETE FROM rhnRegTokenChannels RTC
-      WHERE RTC.token_id = :tid
-EOQ
-
-  $sth = $dbh->prepare($query);
-  $sth->execute_h(tid => $self->id);
-
-  # make sure we don't add rhn-satellite or rhn-proxy channels to any keys...
-  $query = <<EOQ;
-INSERT INTO rhnRegTokenChannels
-            (token_id, channel_id)
-SELECT DISTINCT :tid, :cid
-  FROM rhnChannelFamily CF,
-       rhnChannelFamilyMembers CFM
- WHERE CFM.channel_id = :cid
-   AND CFM.channel_family_id = CF.id
-   AND CF.label NOT IN ('rhn-proxy', 'rhn-satellite')
-EOQ
-
-  $sth = $dbh->prepare($query);
-
-  foreach my $cid (@channels) {
-    $sth->execute_h(tid => $self->id, cid => $cid);
-  }
-
-  $sth->finish;
-  $dbh->commit unless $params{transaction};
-
-  return;
-}
-
 sub lookup {
   my $class = shift;
   my %params = validate(@_, { id => 0, sid => 0, token => 0 });
