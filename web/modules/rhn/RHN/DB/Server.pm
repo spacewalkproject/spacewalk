@@ -164,26 +164,6 @@ EOQ
   $dbh->commit;
 }
 
-sub version_of_package_installed {
-  my $self = shift;
-  my $name = shift;
-
-  my $dbh = RHN::DB->connect;
-  my $sth = $dbh->prepare(<<EOS);
-SELECT PE.epoch, PE.version, PE.release
-  FROM rhnPackageEVR PE,
-       rhnServerPackage SP
- WHERE SP.evr_id = PE.id
-   AND SP.name_id = lookup_package_name(?)
-   and SP.server_id = ?
-EOS
-  $sth->execute($name, $self->id);
-  my ($result) = $sth->fetchrow_hashref;
-  $sth->finish;
-
-  return $result;
-}
-
 sub up2date_version_at_least {
   my $self = shift;
   my %ver_info = @_;
