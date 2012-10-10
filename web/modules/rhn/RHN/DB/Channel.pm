@@ -555,26 +555,6 @@ sub channel_id_by_label {
 }
 
 
-sub channel_entitlement_overview {
-  my $self = shift;
-  my $org_id = shift;
-
-  my $dbh = RHN::DB->connect;
-  my $sth = $dbh->prepare(<<EOQ);
-SELECT CFO.id, CFO.name, CFO.current_members, CFO.max_members, CFO.has_subscription, CFO.url
-  FROM rhnChannelFamilyOverview CFO
- WHERE CFO.org_id = ?
-EOQ
-  $sth->execute($org_id);
-
-  my @ret;
-  while (my @row = $sth->fetchrow) {
-    push @ret, [ @row ];
-  }
-
-  return @ret;
-}
-
 #adopt channel into channel_famil(y|ies)
 sub adopt_into_family {
   my $self = shift;
