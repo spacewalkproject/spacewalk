@@ -21,7 +21,6 @@ use RHN::DB;
 use RHN::Org;
 use RHN::DB::Channel;
 use RHN::DB::Server;
-use RHN::DB::Server::StorageDevice;
 use RHN::DB::Server::NetInfo;
 use RHN::DB::TableClass;
 
@@ -949,16 +948,6 @@ sub subscribe_to_channel {
   else {
     return $dbh;
   }
-}
-
-# returns an array of all the storage devices attached to a server.
-# TODO:  should we be caching this result?
-sub get_storage_devices {
-  my $self = shift;
-
-  my @storage_devices = RHN::DB::Server::StorageDevice->lookup_storage_devices_by_server($self->id);
-
-  return @storage_devices;
 }
 
 # returns an array of all the net info objects related to a server

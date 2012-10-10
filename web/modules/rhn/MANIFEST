@@ -20,7 +20,6 @@ RHN/DB/ServerGroup.pm
 RHN/DB/Server/NetInfo.pm
 RHN/DB/ServerPackage.pm
 RHN/DB/Server.pm
-RHN/DB/Server/StorageDevice.pm
 RHN/DB/Set.pm
 RHN/DB/TableClass.pm
 RHN/DB/UserGroup.pm
