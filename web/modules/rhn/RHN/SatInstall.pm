@@ -89,30 +89,4 @@ my %server_cert_opts = (
    'set-hostname' => 1,
 );
 
-sub generate_server_cert {
-  my $class = shift;
-  my %params = validate(@_, {
-   %server_cert_opts,
-			    });
-
-  $params{'cert-expiration'} *= 365;
-
-  my @opts = "--gen-server";
-
-  foreach my $name (keys %params) {
-    next unless ($params{$name}
-		 and exists $server_cert_opts{$name});
-
-    push @opts, qq(--$name=$params{$name});
-  }
-
-  my @command = ('/usr/bin/rhn-sudo-ssl-tool',  @opts, '-q');
-
-  my $pid = open3(undef, ">&STDERR", ">&STDERR", @command);
-  waitpid( $pid, 0 );
-  my $ret = $?;
-
-  return $ret;
-}
-
 1;
