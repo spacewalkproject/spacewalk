@@ -335,18 +335,6 @@ foreach my $field ($tc->method_names) {
   croak $@ if($@);
 }
 
-sub prerequisite_action {
-  my $self = shift;
-
-  return unless $self->prerequisite;
-
-  my $aid = $self->prerequisite;
-  my $class = ref $self;
-  my $new_action = $class->lookup(-id => $aid);
-
-  return $new_action;
-}
-
 sub action_is_for_server {
   my $class = shift;
   my $action_id = shift;
