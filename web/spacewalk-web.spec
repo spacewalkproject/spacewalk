@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.36
+Version: 1.8.37
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -253,6 +253,10 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Wed Oct 10 2012 Jan Pazdziora 1.8.37-1
+- Dead code removal.
+- RHN Proxies older than version 5 as no longer supported.
+
 * Thu Sep 20 2012 Jan Pazdziora 1.8.36-1
 - Avoid link without eid parameter filled.
 
