@@ -6427,7 +6427,7 @@ Follow this url to see the full list of inactive systems:
      </trans-unit>
 
      <trans-unit id="activation-key.java.exists">
-         <source>An activation key with label &lt;strong&gt;{0}&lt;/strong&gt; is already taken. Please choose a different label.</source>
+         <source>An activation key with label '{0}' is already taken. Please choose a different label.</source>
      </trans-unit>
      <trans-unit id="activation-key.java.created">
          <source>Activation key &lt;strong&gt;{0}&lt;/strong&gt; has been created.</source>
