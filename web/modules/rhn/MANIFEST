@@ -16,7 +16,6 @@ RHN/DB/Package.pm
 RHN/DB.pm
 RHN/DB/Scheduler.pm
 RHN/DB/ServerActions.pm
-RHN/DB/Server/CdDevice.pm
 RHN/DB/ServerGroup.pm
 RHN/DB/Server/HwDevice.pm
 RHN/DB/Server/NetInfo.pm

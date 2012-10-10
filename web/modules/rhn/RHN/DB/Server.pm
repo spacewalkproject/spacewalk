@@ -21,7 +21,6 @@ use RHN::DB;
 use RHN::Org;
 use RHN::DB::Channel;
 use RHN::DB::Server;
-use RHN::DB::Server::CdDevice;
 use RHN::DB::Server::HwDevice;
 use RHN::DB::Server::StorageDevice;
 use RHN::DB::Server::NetInfo;
@@ -1031,16 +1030,6 @@ sub subscribe_to_channel {
   else {
     return $dbh;
   }
-}
-
-# returns an array of all the cd devices connected to a server
-# TODO:  should we be caching this result?
-sub get_cd_devices {
-  my $self = shift;
-
-  my @cd_devices = RHN::DB::Server::CdDevice->lookup_cd_devices_by_server($self->id);
-
-  return @cd_devices;
 }
 
 # returns an array of all the hardware devices attached to a server.
