@@ -483,56 +483,6 @@ EOQ
   return $columns[0];
 }
 
-sub base_channel_label {
-  my $self = shift;
-
-  my $dbh = RHN::DB->connect();
-  my $query;
-  my $sth;
-
-  $query = <<EOQ;
-SELECT  C.label
-  FROM  rhnChannel C, rhnServerChannel SC
- WHERE  SC.server_id = ?
-   AND  SC.channel_id = C.id
-   AND  C.parent_channel IS NULL
-EOQ
-
-  $sth = $dbh->prepare($query);
-  $sth->execute($self->id);
-
-  my @columns;
-  @columns = $sth->fetchrow;
-  $sth->finish;
-
-  return $columns[0] || '';
-}
-
-sub base_channel_name {
-  my $self = shift;
-
-  my $dbh = RHN::DB->connect();
-  my $query;
-  my $sth;
-
-  $query = <<EOQ;
-SELECT  C.name
-  FROM  rhnChannel C, rhnServerChannel SC
- WHERE  SC.server_id = ?
-   AND  SC.channel_id = C.id
-   AND  C.parent_channel IS NULL
-EOQ
-
-  $sth = $dbh->prepare($query);
-  $sth->execute($self->id);
-
-  my @columns;
-  @columns = $sth->fetchrow;
-  $sth->finish;
-
-  return $columns[0];
-}
-
 # given a channel family label and server_id, return the child channels
 # the server could be subscribed to, if any
 sub child_channel_candidates {
