@@ -296,29 +296,6 @@ foreach my $field ($j->method_names) {
   }
 }
 
-# and now build some for RHN::DB::UserSite.  READ ONLY accessors
-foreach my $field ($s->method_names) {
-  my $sub = q {
-    sub RHN::DB::UserSite::[[field]] {
-      my $self = shift;
-      if (@_ and "[[field]]" ne "id") {
-        my $value = shift;
-	# die "RHN::DB::UserSite->[[field]] fails criteria" unless $value =~ $method_criteria{[[field]]};
-        $self->{":modified:"}->{[[field]]} = 1;
-        $self->{__[[field]]__} = $value;
-      }
-      return $self->{__[[field]]__};
-    }
-  };
-
-  $sub =~ s/\[\[field\]\]/$field/g;
-  eval $sub;
-
-  if ($@) {
-    die $@;
-  }
-}
-
 sub users_by_email {
   my $class = shift;
   my $email = shift;
@@ -475,50 +452,6 @@ sub oai_contact_sync {
   }
   else {
     # nop
-  }
-}
-
-# this crap is foobared.  unfoobar it later.
-sub RHN::DB::UserSite::commit {
-  my $self = shift;
-  my $dbh = RHN::DB->connect;
-  my $sth;
-  my $mode = 'update';
-
-  my @modified = keys %{$self->{":modified:"}};
-  my %modified = map { $_ => 1 } @modified;
-
-  return unless @modified;
-
-  my $query;
-  if ($mode eq 'update') {
-    $query = $s->update_query($s->methods_to_columns(@modified));
-    $query .= "S.ID = ?";
-  }
-  else {
-    $query = $s->insert_query($s->methods_to_columns(@modified));
-  }
-
-  PXT::Debug->log(7, "user site commit query:  $query");
-
-  $sth = $dbh->prepare($query);
-  my @vals = (map { $self->$_() } grep { $modified{$_} } $s->method_names), ($modified{site_id} ? () : $self->site_id);
-  $sth->execute(@vals, $mode eq 'insert' ? () : $self->site_id);
-
-  $dbh->commit;
-  $self->oai_site_sync();
-}
-
-sub RHN::DB::UserSite::oai_site_sync {
-  my $self = shift;
-
-  if (PXT::Config->get('enable_oai_sync')) {
-    my $dbh = RHN::DB->connect;
-
-    $dbh->call_procedure("XXRH_OAI_WRAPPER.sync_address", $self->site_id);
-    $dbh->commit;
-  }
-  else {
   }
 }
 
