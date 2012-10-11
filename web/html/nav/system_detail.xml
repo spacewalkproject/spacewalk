@@ -131,7 +131,6 @@
   <rhn-tab name="Provisioning" acl="not is_solaris();system_feature(ftr_kickstart) or system_feature(ftr_snapshotting)" url="/rhn/systems/details/kickstart/ScheduleWizard.do">
 
     <rhn-tab name="Kickstart" url="/rhn/systems/details/kickstart/ScheduleWizard.do" acl="system_feature(ftr_kickstart); not is_solaris()" node-id="kickstart_details">
-      <rhn-tab-directory>/network/systems/details/kickstart</rhn-tab-directory>
       <rhn-tab-directory>/rhn/systems/details/kickstart</rhn-tab-directory>
       <rhn-tab name="Session Status" url="/rhn/systems/details/kickstart/SessionStatus.do" acl="system_kickstart_session_exists()">
         <rhn-tab-url>/rhn/systems/details/kickstart/SessionCancel.do</rhn-tab-url>
