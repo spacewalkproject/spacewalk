@@ -1511,59 +1511,6 @@ EOS
   $dbh->commit;
 }
 
-sub compatible_with_server { #returns the id and name of all servers which this server can be profiled against.
-  my $class = shift;
-  my $server_id = shift;
-  my $user_id = shift;
-  my $org_id = shift;
-
-  my %params = (sid => $server_id, user_id => $user_id);
-
-  my $org_string;
-  if (defined $org_id) {
-    $org_string = '= :org_id';
-    $params{org_id} = $org_id;
-  }
-  else {
-    $org_string = 'IS NULL';
-  }
-
-  my $dbh = RHN::DB->connect;
-
-  my $query = <<EOQ;
-SELECT S.id, S.name
-  FROM rhnServer S,
-       rhnServer SBase
- WHERE S.org_id = SBase.org_id
-   AND SBase.id = :sid
-   AND EXISTS (SELECT 1 FROM rhnUserServerPerms WHERE user_id = :user_id AND server_id = S.id)
-   AND (EXISTS (SELECT 1
-                 FROM rhnServerChannel SC, rhnServerChannel SCBase
-                WHERE SCBase.server_id = SBase.id
-                  AND SC.channel_id = SCBase.channel_id
-                  AND SC.server_id = S.id)
-       OR EXISTS (SELECT 1
-                    FROM rhnChannel C, rhnServerChannel SC
-                   WHERE SC.server_id = S.id
-                     AND SC.channel_id = C.id
-                     AND C.org_id $org_string
-                     AND C.parent_channel IS NULL) )
-   AND S.id != :sid
-   AND EXISTS (SELECT 1 FROM rhnServerFeatureView SFV WHERE SFV.server_id = S.id AND SFV.label = 'ftr_profile_compare')
-ORDER BY UPPER(S.name)
-EOQ
-
-  my $sth = $dbh->prepare($query);
-  $sth->execute_h(%params);
-
-  my @ret;
-  while (my @data = $sth->fetchrow) {
-    push @ret, [ @data ];
-  }
-
-  return @ret;
-}
-
 # eids of applicable errata for which the server does not have a
 # pending update action
 #

@@ -213,54 +213,6 @@ EOQ
   $dbh->commit unless $params{transaction};
 }
 
-sub compatible_with_server {
-  my $class = shift;
-  my $server_id = shift;
-  my $org_id = shift;
-
-  my %params = (sid => $server_id);
-
-  my $org_string;
-  if (defined $org_id) {
-    $org_string = '= :org_id';
-    $params{org_id} = $org_id;
-  }
-  else {
-    $org_string = 'IS NULL';
-  }
-
-  my $dbh = RHN::DB->connect;
-
-  my $query = <<EOQ;
-SELECT DISTINCT P.id, P.name
-  FROM rhnServer S,
-       rhnServerProfile P
- WHERE P.org_id = S.org_id
-   AND S.id = :sid
-   AND P.profile_type_id = (SELECT id FROM rhnServerProfileType WHERE label = 'normal')
-   AND (EXISTS (SELECT 1
-                 FROM rhnServerChannel SC
-                WHERE SC.server_id = S.id
-                  AND SC.channel_id = P.base_channel)
-       OR EXISTS (SELECT 1
-                    FROM rhnChannel C
-                   WHERE C.id = P.base_channel
-                     AND C.org_id $org_string
-                     AND C.parent_channel IS NULL) )
-
-EOQ
-
-  my $sth = $dbh->prepare($query);
-  $sth->execute_h(%params);
-
-  my @ret;
-  while (my @data = $sth->fetchrow) {
-    push @ret, [ @data ];
-  }
-
-  return @ret;
-}
-
 sub compatible_with_channel {
   my $class = shift;
   my %params = validate(@_, { cid => 1, org_id => 1 });
