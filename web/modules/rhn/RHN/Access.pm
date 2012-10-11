@@ -35,7 +35,6 @@ sub register_acl_handlers {
   $acl->register_handler(global_config => \&global_config_acl_test);
   $acl->register_handler(org_role => \&org_role_acl_test);
   $acl->register_handler(org_entitlement => \&org_entitlement_acl_test);
-  $acl->register_handler(system_entitled => \&system_entitled_acl_test);
   $acl->register_handler(system_locked => \&system_locked_acl_test);
   $acl->register_handler(system_feature => \&system_feature_acl_test);
   $acl->register_handler(system_is_proxy => \&system_is_proxy_acl_test);
@@ -136,27 +135,6 @@ sub org_channel_family_acl_test {
   die "org_channel_family_acl_test called with no \$pxt->user authenticated" unless $pxt->user;
 
   return $pxt->user->org->has_channel_family_entitlement($cfam) ? 1 : 0;
-}
-
-sub system_entitled_acl_test {
-  my $pxt = shift;
-  my $ent = shift;
-
-  throw "No entitlement level specified in system_entitled_acl_test"
-    unless $ent;
-
-  my ($sid) = $pxt->param('sid');
-  throw "No sid parameter when testing for system entitlement level '$ent'"
-    unless $sid;
-
-  my $server = lookup_system_fast($pxt, $sid);
-  if ($ent) {
-    my $current_entitlement = $server->is_entitled;
-    return ($current_entitlement and $current_entitlement eq $ent) ? 1 : 0;
-  }
-  else {
-    return $server->is_entitled ? 1 : 0;
-  }
 }
 
 sub system_locked_acl_test {
