@@ -12,7 +12,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.75
+Version: 1.8.76
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -638,6 +638,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Thu Oct 11 2012 Michael Mraka <michael.mraka@redhat.com> 1.8.76-1
+- let's spacewalk-repo-sync download comps.xml
+
 * Tue Oct 09 2012 Jan Pazdziora 1.8.75-1
 - Put Oracle stuff back for Fedora 17.
 
