@@ -195,22 +195,6 @@ ORDER BY EARLIEST DESC
 
 
 
-<mode name="archived_action_list">
-  <query params="user_id, org_id">
-SELECT  DISTINCT UAO.id AS ID,
-        TO_CHAR(UAO.earliest_action, 'YYYY-MM-DD HH24:MI:SS') AS EARLIEST,
-        UAO.type_name,
-        (CASE UAO.action_name WHEN NULL THEN UAO.type_name ELSE UAO.action_name END) AS ACTION_NAME
-  FROM  rhnUserActionOverview UAO
- WHERE  UAO.org_id = :org_id
-   AND  UAO.user_id = :user_id
-   AND  UAO.archived = 1
-ORDER BY EARLIEST DESC
-  </query>
-
-  <elaborator name="action_overview_elab" />
-</mode>
-
 <mode name="actions_for_system_named">
   <query params="sid, action_name">
 SELECT SA.action_id AS ID,

@@ -68,10 +68,6 @@ sub _register_modes {
 			   -datasource => RHN::DataSource::Action->new,
 			   -action_callback => \&default_callback);
 
-  Sniglets::ListView::List->add_mode(-mode => "archived_action_list",
-			   -datasource => RHN::DataSource::Action->new,
-			   -action_callback => \&default_callback);
-
 }
 
 
