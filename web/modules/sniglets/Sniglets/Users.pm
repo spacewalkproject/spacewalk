@@ -31,7 +31,6 @@ use URI;
 
 use Sniglets::Forms;
 use Sniglets::Forms::Style;
-use RHN::Form::ParsedForm;
 use RHN::ContactMethod;
 use RHN::ContactGroup;
 use RHN::SatInstall;
