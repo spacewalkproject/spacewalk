@@ -328,6 +328,9 @@ class OracleBackend(Backend):
                 'checksum_type_id' : DBint(),
             },
             pk          = ['label'],
+            severityHash = {
+                'channel_product_id'          : 0,
+            },
         ),
         Table('rhnChannelFamily',
             fields      = {
