@@ -38,9 +38,6 @@ sub trap {
 sub list_of { return "users" }
 
 sub _register_modes {
-  Sniglets::ListView::List->add_mode(-mode => "feedback_user_list",
-				     -datasource => RHN::DataSource::User->new);
-
   Sniglets::ListView::List->add_mode(-mode => "group_admins",
 				     -datasource => RHN::DataSource::User->new,
 				     -provider => \&group_admin_provider,
