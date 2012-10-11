@@ -484,31 +484,4 @@ sub generate_random_key {
   return md5_hex(PXT::Utils->random_bits(1024));
 }
 
-sub org_default {
-  my $self = shift;
-  my $new_value = shift;
-
-  my $dbh = RHN::DB->connect;
-  if (defined $new_value) {
-    if ($new_value) { # Clear all others and set this one
-      $dbh->do_h("DELETE FROM rhnRegTokenOrgDefault WHERE org_id = :org_id", org_id => $self->org_id);
-      $dbh->do_h("INSERT INTO rhnRegTokenOrgDefault (org_id,  reg_token_id) VALUES (:org_id, :rtid)",
-		 org_id => $self->org_id, rtid => $self->id);
-    }
-    else { # Just clear this one
-      $dbh->do_h("DELETE FROM rhnRegTokenOrgDefault WHERE org_id = :org_id and reg_token_id = :rtid",
-		 org_id => $self->org_id, rtid => $self->id);
-    }
-
-    $dbh->commit;
-  }
-
-  my $sth = $dbh->prepare("SELECT 1 FROM rhnRegTokenOrgDefault WHERE reg_token_id = :rtid");
-  $sth->execute_h(rtid => $self->id);
-  my ($hit) = $sth->fetchrow;
-  $sth->finish;
-
-  return $hit ? 1 : 0;
-}
-
 1;
