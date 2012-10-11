@@ -128,7 +128,7 @@ public class KickstartManager extends BaseManager {
         }
         catch (DownloadException de) {
             ValidatorException.raiseException("kickstart.jsp.error.template_generation",
-                    LocalizationService.getInstance().getMessage("kickstartdownload.jsp.header"));
+              LocalizationService.getInstance().getMessage("kickstartdownload.jsp.header"));
         }
     }
 
