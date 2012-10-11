@@ -412,12 +412,4 @@ public class Access extends BaseHandler {
         }
         return true;
     }
-
-    /*
-     * These were taken out 06/16/2005 and should be implemented and put back in
-     * as we need them.
-     * aclSystemEntitled
-     * aclSystemLocked
-     * aclFormvarExists
-     */
 }
