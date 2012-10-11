@@ -444,39 +444,6 @@ EOQ
 }
 
 
-sub package_groups {
-  my $class = shift;
-  my $channel_id = shift;
-
-    my $dbh = RHN::DB->connect;
-
-  my $query = <<EOQ;
-SELECT PN.name, PN.name || '-' || EVR.version || '-' ||  EVR.release || DECODE(EVR.epoch, NULL, '', ':' || EVR.epoch) NVRE, PG.name, PO.name_id || '|' || PO.evr_id, PA.name
-  FROM rhnPackageArch PA, rhnChannelPackage CP, rhnPackageGroup PG, rhnPackageName PN, rhnPackageEVR EVR, rhnPackage PO
- WHERE CP.channel_id = ?
-   AND PO.id = CP.package_id
-   AND PG.id = PO.package_group
-   AND PO.name_id = PN.id
-   AND PO.evr_id = EVR.id
-   AND PO.package_arch_id = PA.id
-EOQ
-  my $sth = $dbh->prepare($query);
-  $sth->execute($channel_id);
-
-  my %groups;
-  while (my @row = $sth->fetchrow) {
-    $row[2] =~ s/\s*$//;
-    $row[2] =~ s/Enviornment/Environment/; # fix a typo in an old glibc pkg
-    my ($upper, $lower) = split m(/), $row[2], 2;
-    $lower ||= '';
-
-    push @{$groups{$upper}->{$lower}}, [ $row[0], $row[1], $row[3], $row[4] ];
-  }
-
-  return \%groups;
-
-}
-
 sub lookup {
   my $class = shift;
   my %params = validate(@_, {id => 1});

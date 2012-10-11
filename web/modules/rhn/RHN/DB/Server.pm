@@ -1037,65 +1037,6 @@ sub commit {
 }
 
 
-sub package_groups {
-  my $self = shift;
-
-  my $dbh = RHN::DB->connect;
-
-  my $query = <<EOQ;
-  SELECT    SP_NAME.name, SP_EVR.evr.as_vre_simple(), SP.name_id || '|' || SP.evr_id ID_COMBO
-    FROM    rhnPackageEvr SP_EVR, rhnPackageName SP_NAME, rhnServerPackage SP
-   WHERE    SP.server_id = ?
-     AND    SP.name_id = SP_NAME.id
-     AND    SP.evr_id = SP_EVR.id
-ORDER BY    UPPER(name), SP_EVR.evr DESC
-EOQ
-  my $sth = $dbh->prepare($query);
-  $sth->execute($self->id);
-  my %server_pkg;
-  while (my ($name, $evr, $id_combo) = $sth->fetchrow) {
-#    $server_pkg{$name} = [$id_combo, $nvre, $name_id, $evr_id];
-    $server_pkg{$name} = [$name, $evr, $id_combo];
-  }
-
-  if (not keys %server_pkg) {
-    return;
-  }
-
-  $query = <<EOQ;
-SELECT PN.name, PG.name
-  FROM rhnPackageEVR PE, rhnPackage P, rhnChannelPackage CP, rhnPackageGroup PG, rhnPackageName PN, rhnServerChannel SC
- WHERE SC.server_id = ?
-   AND SC.channel_id = CP.channel_id
-   AND P.id = CP.package_id
-   AND PE.id = P.evr_id
-   AND PG.id = P.package_group
-   AND P.name_id = PN.id
-ORDER BY UPPER(P.name), PE.evr DESC
-EOQ
-  $sth = $dbh->prepare($query);
-  $sth->execute($self->id);
-
-  my %pkg_seen;
-  my %groups;
-  my %filter_server_pkg = %server_pkg;
-  while (my @row = $sth->fetchrow) {
-    delete $filter_server_pkg{$row[0]};
-    next if $pkg_seen{$row[0]}++;
-    $row[1] =~ s/\s*$//;
-    $row[1] =~ s/Enviornment/Environment/; # fix a typo in an old glibc pkg
-    my ($upper, $lower) = split m(/), $row[1], 2;
-    $lower ||= '';
-
-    push @{$groups{$upper}->{$lower}}, $server_pkg{$row[0]}
-      if exists $server_pkg{$row[0]};
-  }
-
-  $groups{Ungrouped}->{''} = [ sort { lc $a cmp lc $b } values %filter_server_pkg ];
-
-  return \%groups;
-}
-
 sub entitlements {
   my $self_or_class = shift;
 
