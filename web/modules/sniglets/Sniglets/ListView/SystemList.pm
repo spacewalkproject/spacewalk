@@ -62,10 +62,6 @@ sub _register_modes {
 			   -datasource => RHN::DataSource::System->new,
                            -action_callback => \&ssm_remote_command_action_cb);
 
-  Sniglets::ListView::List->add_mode(-mode => "provisioning_systems_in_set",
-			   -datasource => RHN::DataSource::System->new,
-			   -provider => \&provisioning_systems_in_set_cb);
-
   Sniglets::ListView::List->add_mode(-mode => "visible_to_user",
 			   -datasource => RHN::DataSource::System->new);
 
@@ -397,25 +393,6 @@ sub ssm_remote_command_action_cb {
   }
 
   return 1;
-}
-
-
-sub provisioning_systems_in_set_cb {
-  my $self = shift;
-  my $pxt = shift;
-
-  my %ret = $self->default_provider($pxt);
-  my $prov_sets = scalar @{$ret{data}}; #num provisioning systems
-  my $systems = RHN::Set->lookup(-label => 'system_list', -uid => $pxt->user->id);
-  my $total_sets = scalar $systems->contents; #num systems in ssm
-  my $non_prov = $total_sets - $prov_sets; #num non provisioning systems
-  if ($total_sets > $prov_sets) {
-  my $msg = <<EOM; 
-This operation could not be performed on some of the selected systems because they have insufficient entitlements or incompatible architectures. You may continue this operation with the listed compatible systems.
-EOM
-  $pxt->push_message(local_alert => $msg); #warn user 
-  }
-  return (%ret);
 }
 
 
