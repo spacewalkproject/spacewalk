@@ -431,40 +431,6 @@ where a.user_id = :some_user_id
   <elaborator name="entitlements"/>
 </mode>
 
-<mode name="affected_by_errata">
-  <query params="eid, user_id">
-  select * from (
-  SELECT  DISTINCT S.id, S.name
-    FROM  rhnServerNeededErrataCache SNEC,
-          rhnEntitledServers S,
-          rhnUserServerPerms USP
-   WHERE  SNEC.errata_id = :eid
-     AND  USP.user_id = :user_id
-     AND  S.id = USP.server_id
-     AND  S.id = SNEC.server_id
-  ) X
-ORDER BY  UPPER(NVL(X.name, '(none)')), X.id
-  </query>
-  <elaborator params="eid" multiple="t">
-SELECT SA.server_id as id, 
-       (SELECT name 
-          FROM rhnActionStatus where id = SA.status) as status,
-       SA.action_id,
-       (SELECT SA2.modified 
-          FROM rhnServerAction SA2 
-         WHERE SA2.server_id = SA.server_id
-           AND SA2.action_id = SA.action_id) AS modified
-  FROM rhnServerAction SA
- WHERE SA.server_id IN (%s)
-   AND SA.action_id IN (
-           SELECT action_id
-             FROM rhnActionErrataUpdate
-            WHERE errata_id = :eid)
-  </elaborator>
-  <elaborator name="system_overview" />
-  <elaborator name="entitlements"/>
-</mode>
-
 <mode name="in_group_and_affected_by_errata">
   <query params="eid, user_id, sgid">
   SELECT S.ID, S.name

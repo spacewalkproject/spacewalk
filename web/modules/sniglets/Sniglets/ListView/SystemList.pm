@@ -110,10 +110,6 @@ sub _register_modes {
   Sniglets::ListView::List->add_mode(-mode => "target_systems_for_channel_in_set",
 			   -datasource => RHN::DataSource::System->new);
 
-  Sniglets::ListView::List->add_mode(-mode => "affected_by_errata",
-			   -datasource => RHN::DataSource::System->new,
-			   -provider => \&affected_by_errata_provider);
-
   Sniglets::ListView::List->add_mode(-mode => "in_group_and_affected_by_errata",
 			   -datasource => RHN::DataSource::System->new);
 
@@ -1266,28 +1262,6 @@ sub install_package {
 
   $system_set->empty;
   $system_set->commit;
-}
-
-sub affected_by_errata_provider {
-  my $self = shift;
-  my $pxt = shift;
-
-  my %ret = $self->default_provider($pxt);
-
-  foreach my $row (@{$ret{data}}) {
-    my $stat = $row->{__data__}->[0];
-    if ($stat->{STATUS}) {
-      if ($stat->{STATUS} eq 'Queued') {
-        $stat->{STATUS} = 'Pending';
-      }
-      $row->{STATUS} = PXT::HTML->link('/rhn/schedule/ActionDetails.do?aid=' . $stat->{ACTION_ID}, $stat->{STATUS});
-    }
-    else {
-      $row->{STATUS} = 'None';
-    }
-  }
-
-  return %ret;
 }
 
 sub systems_with_patch_provider {
