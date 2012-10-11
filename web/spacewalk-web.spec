@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.38
+Version: 1.8.39
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -253,6 +253,11 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Thu Oct 11 2012 Michael Mraka <michael.mraka@redhat.com> 1.8.39-1
+- 847194 - Document & set default web.smtp_server
+- Module Sniglets::ListView::TracerList not used, removing.
+- The database_queries.xml do not seem to be used, removing.
+
 * Thu Oct 11 2012 Tomas Lestach <tlestach@redhat.com> 1.8.38-1
 - reverting of web.chat_enabled -> java.chat_enabled translation
 - Removing use which is not used.
