@@ -1927,6 +1927,9 @@ def computeDiff(hash1, hash2, diffHash, diffobj, prefix=None):
         if hash2[k] == v:
             # Same values
             continue
+        if k == 'installed_size' and v is not None and hash2[k] is None:
+            # Skip installed_size which might not have been populated
+            continue
         if diffHash.has_key(k):
             diffval = diffHash[k]
             if diffval == 0:
