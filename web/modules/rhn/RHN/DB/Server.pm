@@ -258,18 +258,6 @@ sub is_virtual_host {
   }
 }
 
-sub has_virtualization_entitlement {
-  my $self = shift;
-
-  if ($self -> has_entitlement("virtualization_host") ||
-         $self -> has_entitlement("virtualization_host_platform")) {
-    return 1;
-  }
-  else {
-    return;
-  }
-}
-
 sub has_management_entitlement {
   my $self = shift;
 
