@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.37
+Version: 1.8.38
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -253,6 +253,20 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Thu Oct 11 2012 Tomas Lestach <tlestach@redhat.com> 1.8.38-1
+- reverting of web.chat_enabled -> java.chat_enabled translation
+- Removing use which is not used.
+- Methods server_group_count no longer referenced, removing.
+- Methods lookup_key were deprecated long enough, removing.
+- Methods compatible_with_server no longer referenced, removing.
+- The org_default method no longer referenced, removing.
+- Methods package_groups no longer referenced, removing.
+- The has_virtualization_entitlement method no longer referenced, removing.
+- ACL handler system_entitled no longer used, removing.
+- ACL handler system_has_virtualization_entitlement no longer used, removing.
+- The latest_packages_in_channel_tree method no longer referenced, removing.
+- The /network/systems/details/kickstart/* is not used for a long time.
+
 * Wed Oct 10 2012 Jan Pazdziora 1.8.37-1
 - Dead code removal.
 - RHN Proxies older than version 5 as no longer supported.
