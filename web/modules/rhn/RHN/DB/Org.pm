@@ -367,28 +367,6 @@ sub has_role {
 }
 
 
-sub server_group_count {
-  my $self = shift;
-
-  my $dbh = RHN::DB->connect;
-  my $query =<<EOQ;
-SELECT COUNT(id)
-  FROM rhnServerGroup
- WHERE org_id = ?
-   AND group_type IS NULL
-EOQ
-
-  my $sth = $dbh->prepare($query);
-  $sth->execute($self->id);
-
-  my ($count) = $sth->fetchrow;
-
-  $sth->finish;
-
-  return $count;
-
-}
-
 # generalized slot name function; also caches for better performance
 sub slot_name {
   my $self = shift;

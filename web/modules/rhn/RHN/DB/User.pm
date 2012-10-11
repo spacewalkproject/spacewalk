@@ -1324,27 +1324,6 @@ sub set_pref {
   $dbh->commit;
 }
 
-sub server_group_count {
-  my $self = shift;
-
-  my $dbh = RHN::DB->connect;
-  my $query =<<EOQ;
-SELECT COUNT(server_group_id)
-  FROM rhnUserServerGroupPerms
- WHERE user_id = ?
-EOQ
-
-  my $sth = $dbh->prepare($query);
-  $sth->execute($self->id);
-
-  my ($count) = $sth->fetchrow;
-
-  $sth->finish;
-
-  return $count;
-}
-
-
 sub errata_count {
   my $self = shift;
 
