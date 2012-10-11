@@ -49,7 +49,6 @@ sub register_acl_handlers {
   $acl->register_handler(need_first_user => \&need_first_user);
   $acl->register_handler(system_is_virtual => \&system_is_virtual_acl_test);
   $acl->register_handler(system_is_virtual_host => \&system_is_virtual_host_acl_test);
-  $acl->register_handler(system_has_virtualization_entitlement => \&system_has_virtualization_entitlement_acl_test);
   $acl->register_handler(system_has_management_entitlement => \&system_has_management_entitlement_acl_test);
 }
 
@@ -259,17 +258,6 @@ sub system_is_virtual_host_acl_test {
 
   my $server = lookup_system_fast($pxt, $sid);
   return $server->is_virtual_host() ? 1 : 0;
-}
-
-sub system_has_virtualization_entitlement_acl_test {
-  my $pxt = shift;
-
-  my ($sid) = $pxt->param('sid');
-  throw "No sid parameter when testing to see if system is a vhost"
-    unless $sid;
-
-  my $server = lookup_system_fast($pxt, $sid);
-  return $server->has_virtualization_entitlement() ? 1 : 0;
 }
 
 sub system_has_management_entitlement_acl_test {
