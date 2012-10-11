@@ -1022,27 +1022,6 @@ EOQ
   return $ret;
 }
 
-sub latest_packages_in_channel_tree {
-  my $class = shift;
-  my %params = validate(@_, { uid => 1, packages => 1, base_cid => 1 });
-
-  my $user_id = $params{uid};
-  my $base_cid = $params{base_cid};
-
-  my @pids;
-
-  foreach my $name (@{$params{packages}}) {
-    my $ds = new RHN::DataSource::Simple(-querybase => "Package_queries", -mode => "latest_package_in_channel_tree");
-    my ($package) = @{$ds->execute_query(-user_id => $user_id, -cid => $base_cid, -package_name => $name )};
-
-    next unless $package;
-
-    push @pids, $package->{ID};
-  }
-
-  return (@pids);
-}
-
 sub packaging_type {
   my $class_or_self = shift;
 
