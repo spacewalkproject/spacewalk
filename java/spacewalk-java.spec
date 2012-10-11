@@ -23,7 +23,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.158
+Version: 1.8.159
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -616,6 +616,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Oct 11 2012 Jan Pazdziora 1.8.159-1
+- Checkstyle fix.
+
 * Wed Oct 10 2012 Jan Pazdziora 1.8.158-1
 - Using empty paragraph for layout purposes is rarely needed.
 - 817473 - remove html markup from the kickstart.jsp.error.template_generation
