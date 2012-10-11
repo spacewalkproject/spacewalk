@@ -23,7 +23,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.160
+Version: 1.8.161
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -616,6 +616,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Oct 11 2012 Tomas Lestach <tlestach@redhat.com> 1.8.161-1
+- make possible to delete more probes at once on the system monitoring page
+- dropping old comment
+
 * Thu Oct 11 2012 Tomas Lestach <tlestach@redhat.com> 1.8.160-1
 - reverting of web.chat_enabled -> java.chat_enabled translation
 - The /network/systems/details/kickstart/* is not used for a long time.
