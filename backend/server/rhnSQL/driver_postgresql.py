@@ -276,7 +276,7 @@ class Cursor(sql_base.Cursor):
             raise rhnException("Cannot execute empty cursor")
         if self.blob_map:
             for blob_var in self.blob_map.keys():
-                 kw[blob_var] = kw[blob_var].replace('\\', '\\\\')
+                 kw[blob_var] = buffer(kw[blob_var])
 
         try:
             retval = apply(function, p, kw)
