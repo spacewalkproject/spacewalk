@@ -93,7 +93,7 @@ sub channel_edit_cb {
   my $new_channel = $cid ? 0 : 1;
 
   my $parent_id = $pxt->dirty_param('channel_parent');
-  die "illegal parent id" unless $pxt->user->verify_channel_access($parent_id);
+  die "illegal parent id" unless $pxt->user->verify_channel_subscribe($parent_id);
 
   my $channel;
 
