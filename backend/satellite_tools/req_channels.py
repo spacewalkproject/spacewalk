@@ -158,7 +158,7 @@ class Method:
         self._name = name
 
     def __call__(self, *args, **kwargs):
-        return apply(self._func, (self._name, ) + args, kwargs)
+        return self._func(self._name, *args, **kwargs)
 
 # Test functions
 
