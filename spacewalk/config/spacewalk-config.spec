@@ -1,6 +1,6 @@
 Name: spacewalk-config
 Summary: Spacewalk Configuration
-Version: 1.8.3
+Version: 1.8.4
 Release: 1%{?dist}
 URL: http://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -104,6 +104,9 @@ chgrp apache /etc/rhn /etc/rhn/rhn.conf /etc/rhn/cluster.ini 2> /dev/null || :
 chmod o-rwx /etc/rhn/rhn.conf* /etc/rhn/cluster.ini* /etc/sysconfig/rhn/backup-* /var/lib/rhn/rhn-satellite-prep/* 2> /dev/null || :
 
 %changelog
+* Fri Oct 12 2012 Jan Pazdziora 1.8.4-1
+- The /network/systems/details/kickstart/* is not used for a long time.
+
 * Mon Aug 06 2012 Jan Pazdziora 1.8.3-1
 - 844474 - add a comment about the server.satellite.http_proxy format.
 
