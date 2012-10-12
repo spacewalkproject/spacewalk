@@ -152,7 +152,7 @@ class BaseWireSource:
                 continue
             func = getattr(server, method)
             try:
-                stream = apply(func, params)
+                stream = func(*params)
                 return stream
             except rpclib.xmlrpclib.ProtocolError, e:
                 p = tuple(['<the systemid>'] + list(params[1:]))
@@ -284,9 +284,9 @@ class XMLRPCWireSource(BaseWireSource):
 
     def _xmlrpc(self, function, params):
         try:
-            retval = apply(getattr(BaseWireSource.serverObj, function), params)
+            retval = getattr(BaseWireSource.serverObj, function)(*params)
         except TypeError, e:
-            log(-1, 'ERROR: during "apply(getattr(BaseWireSource.serverObj, %s), %s)"' % (function, params))
+            log(-1, 'ERROR: during "getattr(BaseWireSource.serverObj, %s)(*(%s))"' % (function, params))
             raise
         except rpclib.xmlrpclib.ProtocolError, e:
             log2(-1, 2, 'ERROR: ProtocolError: %s' % e, stream=sys.stderr)
@@ -397,7 +397,7 @@ class RPCGetWireSource(BaseWireSource):
         cfg = config.initUp2dateConfig()
         while fault_count - expired_token < cfg['networkRetries']:
             try:
-                ret = apply(getattr(get_server_obj, function_name), params)
+                ret = getattr(get_server_obj, function_name)(*params)
             except rpclib.xmlrpclib.ProtocolError, e:
                 # We have two codes to check: the HTTP error code, and the
                 # combination (failtCode, faultString) encoded in the headers
