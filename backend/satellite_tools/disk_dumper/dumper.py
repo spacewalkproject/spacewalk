@@ -531,7 +531,7 @@ class QueryIterator:
                     return None
                 # Execute the satement
                 log_debug(5, "Using param", pos, self._params[pos])
-                apply(self._statement.execute, (), self._params[pos])
+                self._statement.execute(**self._params[pos])
                 self._result_set_exhausted = 0
                 # Go back into the loop
                 continue
@@ -592,7 +592,7 @@ class CachedQueryIterator:
         
     def _execute(self, params):
         log_debug(4, params)
-        apply(self._statement.execute, (), params)
+        self._statement.execute(**params)
 
     def close(self):
         """ Make sure we remove references to these objects, or circular
