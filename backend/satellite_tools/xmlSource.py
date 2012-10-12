@@ -53,7 +53,7 @@ class _EndContainerEvent(Exception):
 
 class IncompatibleVersionError(ParseException):
     def __init__(self, stream_version, parser_version, *args):
-        apply(ParseException.__init__, ((self, ) + args))
+        ParseException.__init__(self, *args)
         self.stream_version = stream_version
         self.parser_version = parser_version
 
