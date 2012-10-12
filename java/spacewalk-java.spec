@@ -23,7 +23,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.161
+Version: 1.8.162
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -616,6 +616,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Oct 12 2012 Jan Pazdziora 1.8.162-1
+- fix ConfigRevisionSerializer
+
 * Thu Oct 11 2012 Tomas Lestach <tlestach@redhat.com> 1.8.161-1
 - make possible to delete more probes at once on the system monitoring page
 - dropping old comment
