@@ -150,10 +150,9 @@ public class ConfigRevisionSerializer implements XmlRpcCustomSerializer {
     }
 
     protected void addEncodedFileContent(ConfigRevision rev, SerializerHelper helper) {
-        String content = rev.getConfigContent().getContentsString();
         try {
-            helper.add(CONTENTS, new String(Base64.encodeBase64(content.getBytes("UTF-8")),
-                    "UTF-8"));
+            helper.add(CONTENTS, new String(Base64.encodeBase64(
+                    rev.getConfigContent().getContents()), "UTF-8"));
         }
          catch (UnsupportedEncodingException e) {
              String msg = "Following errors were encountered " +
