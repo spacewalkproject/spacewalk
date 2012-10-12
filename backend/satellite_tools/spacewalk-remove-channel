@@ -163,7 +163,7 @@ def __serverCheck(labels, unsubscribe):
     params, bind_params = _bind_many(labels)
     bind_params = string.join(bind_params, ', ')
     h = rhnSQL.prepare(sql % (bind_params))
-    apply(h.execute, (), params)
+    h.execute(**params)
     list = h.fetchall_dict()
     if not list:
         return 0
@@ -198,7 +198,7 @@ def __unsubscribeServers(labels):
     params, bind_params = _bind_many(labels)
     bind_params = string.join(bind_params, ', ')
     h = rhnSQL.prepare(sql % (bind_params))
-    apply(h.execute, (), params)
+    h.execute(**params)
     list = h.fetchall_dict()
 
     channel_counts = {}
@@ -247,7 +247,7 @@ def __kickstartCheck(labels):
     params, bind_params = _bind_many(labels)
     bind_params = string.join(bind_params, ', ')
     h = rhnSQL.prepare(sql % (bind_params))
-    apply(h.execute, (), params)
+    h.execute(**params)
     list = h.fetchall_dict()
 
     if not list:
@@ -418,7 +418,7 @@ def list_packages(channelLabels, sources=0, force=0):
                 templ % ("not", bind_params),
             )
     h = rhnSQL.prepare(query)
-    apply(h.execute, (), params)
+    h.execute(**params)
     return map(lambda x: x['id'], h.fetchall_dict() or [])
 
 def _templ_rpms():
