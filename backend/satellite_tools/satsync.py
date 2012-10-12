@@ -1198,7 +1198,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
             else:
                 params['org_id'] = package['org_id']
 
-            apply(h.execute, (), params)
+            h.execute(**params)
             row = h.fetchone_dict()
             self._process_package(pid, package, None, row,
                 self._missing_channel_source_packages[channel_label],
