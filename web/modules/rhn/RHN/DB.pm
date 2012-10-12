@@ -436,6 +436,9 @@ sub execute_h {
         if (defined $v->{ora_field}) {
           $attr->{ora_field} = $v->{ora_field};
         }
+      } elsif ($self->{Database}->{Driver}->{Name} eq 'Pg') {
+        eval 'use DBD::Pg ()';
+	$attr->{pg_type} = DBD::Pg::PG_BYTEA();
       }
       $v = $v->{value};
     }
