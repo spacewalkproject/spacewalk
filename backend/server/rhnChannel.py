@@ -43,7 +43,7 @@ class BaseChannelDeniedError(Exception):
 
 class ChannelException(Exception):
     def __init__(self, channel_id=None, *args, **kwargs):
-        apply(Exception.__init__, (self, ) + args, kwargs)
+        Exception.__init__(self, *args, **kwargs)
         self.channel_id = channel_id
         self.channel = None
 

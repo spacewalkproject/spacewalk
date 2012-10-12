@@ -62,7 +62,7 @@ def _create_server_group(org_id, name, description, max_members):
 
 def create_server_group(params):
     "Create a server group from a dictionary with the params"
-    return apply(_create_server_group, (), params)
+    return _create_server_group(**params)
 
 def fetch_server_group(org_id, name):
     "Load a server group object from the org id and name"

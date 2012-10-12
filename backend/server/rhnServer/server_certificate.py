@@ -51,7 +51,7 @@ class Checksum:
             algo = kwargs['algo']
         self.sum = hashlib.new(algo, secret)
         if len(args) > 0:
-            apply(self.feed, args)
+            self.feed(*args)
     def feed(self, arg):
         #sys.stderr.write("arg = %s, type = %s\n" % (arg, type(arg)))
         if type(arg) == type(()) or type(arg) == type([]):

@@ -180,7 +180,7 @@ class CallableObj:
         self.name = name
 
     def __call__(self, *args, **kwargs):
-        return apply(self.func, (self.name, ) + args, kwargs)
+        return self.func(self.name, *args, **kwargs)
 
 def make_evr(nvre, source=False):
     """ IN: 'e:name-version-release' or 'name-version-release:e'

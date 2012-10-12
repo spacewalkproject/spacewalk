@@ -275,7 +275,7 @@ def build_new_system_params_with_token(**kwargs):
     params = {
         'token'         : kwargs.get('token', "no such token"),
     }
-    params.update(apply(build_new_system_params_with_username, (), kwargs))
+    params.update(build_new_system_params_with_username(**kwargs))
     del params['username']
     del params['password']
     return params

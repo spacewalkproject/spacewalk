@@ -283,7 +283,7 @@ class Cursor(sql_base.Cursor):
                 kw[blob_var] = buffer(kw[blob_var])
 
         try:
-            retval = apply(function, p, kw)
+            retval = function(*p, **kw)
         except psycopg2.InternalError, e:
             error_code = 99999
             m = re.match('ERROR: +-([0-9]+)', e.pgerror)
@@ -341,7 +341,7 @@ class Cursor(sql_base.Cursor):
                                              column_name, where_clause)
         c = rhnSQL.prepare(sql)
         kwargs[column_name] = data
-        apply(c.execute, (), kwargs)
+        c.execute(**kwargs)
 
     def close(self):
         pass

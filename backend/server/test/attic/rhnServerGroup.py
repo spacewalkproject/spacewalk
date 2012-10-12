@@ -101,7 +101,7 @@ class CallableObj:
         self.name = name
 
     def __call__(self, *args, **kwargs):
-        return apply(self.func, (self.name, ) + args, kwargs)
+        return self.func(self.name, *args, **kwargs)
 
 def create_new_org(username, password):
     f = rhnSQL.Procedure('create_new_org')

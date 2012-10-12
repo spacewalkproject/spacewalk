@@ -280,7 +280,7 @@ and p.package_arch_id = pa.id
 
 class SolveDependenciesError(Exception):
     def __init__(self, deps=None, packages=None, *args, **kwargs):
-        apply(Exception.__init__, (self, ) + args, kwargs)
+        Exception.__init__(self, *args, **kwargs)
         self.deps = deps
         self.packages = packages
 

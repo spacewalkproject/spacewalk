@@ -59,7 +59,7 @@ class Tests1(unittest.TestCase):
         p = rhnSQL.Procedure("create_new_org")
         username = password = "unittest-%.3f" % time.time()
         args = (username, password, rhnSQL.types.NUMBER())
-        return apply(p, args), args
+        return p(*args), args
 
     def test_procedure_1(self):
         "Tests procedure calls that return things in their OUT variables"

@@ -168,11 +168,11 @@ def verify(server_id, action_id, data={}):
 
     if verify_attribs['action_id']:
         h = rhnSQL.prepare(_query_insert_attribute_verify_results)
-        apply(h.executemany, (), verify_attribs)
+        h.executemany(**verify_attribs)
 
     if missing_files['action_id']:
         h = rhnSQL.prepare(_query_insert_missing_verify_results)
-        apply(h.executemany, (), missing_files)
+        h.executemany(**missing_files)
 
     rhnSQL.commit()
 

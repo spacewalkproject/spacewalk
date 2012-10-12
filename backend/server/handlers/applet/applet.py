@@ -225,7 +225,7 @@ class Applet(rhnHandler):
         and cnp.name_id = pn.id
         and cnp.evr_id = pe.id
         """ % (qlist, qlist))
-        apply(h.execute, (), qdict)
+        h.execute(**qdict)
 
         plist = h.fetchall_dict()
 

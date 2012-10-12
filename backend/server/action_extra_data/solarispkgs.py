@@ -66,7 +66,7 @@ def install(server_id, action_id, data={}):
             'release'   : k[2],
             'epoch'     : None,
         }
-        apply(h.execute, (), params)
+        h.execute(**params)
         row = h.fetchone_dict()
         if not row:
             log_debug(4, "action_id: %d; server_id: %s; package specified, "

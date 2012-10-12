@@ -143,7 +143,7 @@ class TemplatedDocument(BaseTemplatedDocument):
         if params is None:
             params = ()
 
-        result = apply(f, params)
+        result = f(*params)
 
         if result == None:
             if defval:

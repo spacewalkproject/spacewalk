@@ -727,7 +727,7 @@ class GenericPackageImport(Import):
 # Exceptions
 class ImportException(Exception):
     def __init__(self, arglist):
-        apply(Exception.__init__, (self, ) + arglist)
+        Exception.__init__(self, *arglist)
 
 class AlreadyUploadedError(ImportException):
     def __init__(self, object, *rest):

@@ -577,7 +577,7 @@ def __execute_many(cursor, array, col_names, **kwargs):
     for k, v in kwargs.items():
         params[k] = [ v ] * linecount
 
-    apply(cursor.executemany, (), params)
+    cursor.executemany(**params)
 
 def _packages_from_cursor(cursor):
     result = []

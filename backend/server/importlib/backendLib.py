@@ -222,7 +222,7 @@ class BaseTableLookup:
     def query(self, values):
         key, values = self._selectQueryKey(values)
         statement = self._getCachedQuery(key)
-        apply(statement.execute, (), values)
+        statement.execute(**values)
         return statement
 
 
@@ -339,7 +339,7 @@ class TableUpdate(BaseTableLookup):
                 self.whereclauses[key])
             h = self.dbmodule.prepare(statement)
             for lookup_hash, blob_hash in val:
-                apply(h.execute, (), lookup_hash)
+                h.execute(**lookup_hash)
                 # Should have exactly one row here
                 row = h.fetchone_dict()
                 if not row:
