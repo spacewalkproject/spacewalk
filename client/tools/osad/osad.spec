@@ -16,7 +16,7 @@ Group:   System Environment/Daemons
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.11.6
+Version: 5.11.7
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -301,6 +301,9 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 %endif
 
 %changelog
+* Sat Oct 13 2012 Jan Pazdziora 5.11.7-1
+- Start of osa-dispatcher on RHEL 5.
+
 * Tue Sep 18 2012 Jan Pazdziora 5.11.6-1
 - Remove osa-dispatcher.pid in StartPre as confined daemon is unable to.
 
