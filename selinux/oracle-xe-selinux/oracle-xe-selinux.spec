@@ -5,7 +5,7 @@
 %define modulename oracle-xe
 
 Name:            oracle-xe-selinux
-Version:         10.2.0.29
+Version:         10.2.0.30
 Release:         1%{?dist}
 Summary:         SELinux policy module supporting Oracle XE
 Group:           System Environment/Base
@@ -137,6 +137,9 @@ fi
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
+* Sat Oct 13 2012 Jan Pazdziora 10.2.0.30-1
+- Configure of Oracle XE 11 on RHEL 5.
+
 * Tue Oct 09 2012 Jan Pazdziora 10.2.0.29-1
 - The auth_read_passwd is not available everywhere.
 - We need lib_t.
