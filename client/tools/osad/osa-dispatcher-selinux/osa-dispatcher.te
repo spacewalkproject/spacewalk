@@ -94,3 +94,9 @@ postgresql_stream_connect(osa_dispatcher_t)
 kernel_read_kernel_sysctls(osa_dispatcher_t)
 dev_list_sysfs(osa_dispatcher_t)
 dev_read_sysfs(osa_dispatcher_t)
+
+require {
+	class netlink_route_socket { write getattr read bind create nlmsg_read };
+}
+
+allow osa_dispatcher_t self:netlink_route_socket { write getattr read bind create nlmsg_read };
