@@ -13,6 +13,7 @@ require {
 	type urandom_device_t;
 	type oracle_lsnrctl_t;
 	type lib_t;
+	type bin_t;
 }
 
 rw_files_pattern(oracle_db_t, oracle_sqlplus_log_t, oracle_sqlplus_log_t)
@@ -67,3 +68,7 @@ allow oracle_lsnrctl_t oracle_db_log_t:dir getattr;
 allow oracle_sqlplus_t oracle_db_log_t:dir getattr;
 
 dontaudit oracle_sqlplus_t lib_t:dir write;
+
+allow oracle_db_t bin_t:file { read execute execute_no_trans };
+
+corenet_udp_bind_compat_ipv4_node(oracle_lsnrctl_t)
