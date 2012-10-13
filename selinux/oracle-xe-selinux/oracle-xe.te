@@ -71,4 +71,9 @@ dontaudit oracle_sqlplus_t lib_t:dir write;
 
 allow oracle_db_t bin_t:file { read execute execute_no_trans };
 
-corenet_udp_bind_compat_ipv4_node(oracle_lsnrctl_t)
+optional_policy(`
+        gen_require(`
+                type compat_ipv4_node_t;
+        ')
+	allow oracle_lsnrctl_t compat_ipv4_node_t:udp_socket node_bind;
+')
