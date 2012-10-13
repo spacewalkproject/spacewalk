@@ -5,7 +5,7 @@
 %define modulename oracle-xe
 
 Name:            oracle-xe-selinux
-Version:         10.2.0.30
+Version:         10.2.0.31
 Release:         1%{?dist}
 Summary:         SELinux policy module supporting Oracle XE
 Group:           System Environment/Base
@@ -137,6 +137,9 @@ fi
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
+* Sat Oct 13 2012 Jan Pazdziora 10.2.0.31-1
+- corenet_udp_bind_compat_ipv4_node no available on newer OSes.
+
 * Sat Oct 13 2012 Jan Pazdziora 10.2.0.30-1
 - Configure of Oracle XE 11 on RHEL 5.
 
