@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.8.78
+Version:        1.8.79
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -68,6 +68,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Mon Oct 15 2012 Jan Pazdziora 1.8.79-1
+- Revert "Quote newlines to match the Oracle behaviour.", we use
+  standard_conforming_strings now.
+
 * Fri Oct 05 2012 Tomas Lestach <tlestach@redhat.com> 1.8.78-1
 - updating oracle source sha1
 
