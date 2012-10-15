@@ -7538,6 +7538,17 @@
 
 <!-- end repo -->
 
+    <action path="/channels/manage/DistChannelMap"
+        scope="request"
+        parameter="all"
+        input="/WEB-INF/pages/channel/manage/distchannelmap.jsp"
+        type="com.redhat.rhn.frontend.action.channel.manage.DistChannelMapSetupAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <set-property property="postRequiredIfSubmitted" value="true" />
+        <forward name="default"
+                 path="/WEB-INF/pages/channel/manage/distchannelmap.jsp"/>
+    </action>
+
    <action path="/common/DownloadFile"
         scope="request"
         type="com.redhat.rhn.frontend.action.common.DownloadFile"

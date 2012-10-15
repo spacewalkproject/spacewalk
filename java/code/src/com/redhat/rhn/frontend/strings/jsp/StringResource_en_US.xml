@@ -17,6 +17,13 @@
             </context-group>
         </trans-unit>
 
+        <trans-unit id="column.release">
+            <source>Release</source>
+            <context-group name="ctx">
+                <context context-type="sourcefile">/rhn/channels/manage/DistChannelMap</context>
+            </context-group>
+        </trans-unit>
+
         <trans-unit id="column.basechannel">
             <source>Base Channel</source>
             <context-group name="ctx">
@@ -8828,6 +8835,9 @@ Please note that some manual configuration of these scripts may still be require
         </trans-unit>
         <trans-unit id="repos.jsp.channel.repos">
           <source>Channel Repositories</source>
+        </trans-unit>
+        <trans-unit id="distchannelmap.jsp.update">
+          <source>Update Distribution Channel Map</source>
         </trans-unit>
 
     <!-- TNC -->
