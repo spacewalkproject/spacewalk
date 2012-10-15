@@ -23,7 +23,7 @@ insert into rhnPackageProvider (id, name) values
 insert into rhnPackageProvider (id, name) values
 (sequence_nextval('rhn_package_provider_id_seq'), 'Scientific Linux' );
 insert into rhnPackageProvider (id, name) values
-(sequence_nextval('rhn_package_provider_id_seq'), 'Suse' );
+(sequence_nextval('rhn_package_provider_id_seq'), 'SUSE' );
 insert into rhnPackageProvider (id, name) values
 (sequence_nextval('rhn_package_provider_id_seq'), 'Oracle Inc.' );
 insert into rhnPackageProvider (id, name) values
