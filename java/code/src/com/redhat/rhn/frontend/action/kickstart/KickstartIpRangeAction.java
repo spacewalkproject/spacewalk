@@ -90,13 +90,14 @@ public class KickstartIpRangeAction extends RhnAction {
         KickstartIpCommand cmd =
             new KickstartIpCommand(ctx.getRequiredParam(RequestContext.KICKSTART_ID),
                                    ctx.getCurrentUser());
+        KickstartData ksData = cmd.getKickstartData();
 
-        request.setAttribute(RequestContext.KICKSTART, cmd.getKickstartData());
+        request.setAttribute(RequestContext.KICKSTART, ksData);
 
         //Display message if this kickstart profile's channel is inadequate.
         KickstartHelper helper = new KickstartHelper(request);
         User user = new RequestContext(request).getLoggedInUser();
-        if (!helper.verifyKickstartChannel(cmd.getKickstartData(), user)) {
+        if (!helper.verifyKickstartChannel(ksData, user)) {
             strutsDelegate.saveMessages(request,
                     helper.createInvalidChannelMsg(cmd.getKickstartData()));
         }
@@ -116,7 +117,7 @@ public class KickstartIpRangeAction extends RhnAction {
             else {
                 cmd.store();
                 createSuccessMessage(request, getSuccessKey(),
-                        cmd.getKickstartData().getLabel());
+                        ksData.getLabel());
                 setupFormValues(form);
             }
 
@@ -132,7 +133,7 @@ public class KickstartIpRangeAction extends RhnAction {
         //Create the kickstart urls to display
 
         String host = helper.getKickstartHost();
-        KickstartUrlHelper urlHelper = new KickstartUrlHelper(cmd.getKickstartData(), host);
+        KickstartUrlHelper urlHelper = new KickstartUrlHelper(ksData, host);
 
         request.setAttribute(URL, urlHelper.getKickstartFileUrl());
         request.setAttribute(URLRANGE, urlHelper.getKickstartFileUrlIpRange());
