@@ -34,7 +34,7 @@ public class RowRenderer {
         rowClasses = new String[2];
         rowClasses[0] = "list-row-even";
         rowClasses[1] = "list-row-odd";
-        rowNum = -1;
+        rowNum = 0;
 
     }
 
