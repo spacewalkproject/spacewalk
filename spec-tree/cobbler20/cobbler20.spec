@@ -3,7 +3,7 @@
 %define _binaries_in_noarch_packages_terminate_build 0
 %global debug_package %{nil}
 Summary: Boot server configurator
-Name: cobbler
+Name: cobbler20
 License: GPLv2+
 AutoReq: no
 Version: 2.0.11
@@ -11,6 +11,10 @@ Release: 2%{?dist}
 Source0: cobbler-%{version}.tar.gz
 Group: Applications/System
 Requires: python >= 2.3
+
+Provides: cobbler = %{version}-%{release}
+Obsoletes: cobbler <= %{version}-%{release}
+
 %if 0%{?suse_version} >= 1000
 Requires: apache2
 Requires: apache2-mod_python
@@ -84,7 +88,7 @@ mirroring, and built-in DHCP/DNS Management.  Cobbler has
 a XMLRPC API for integration with other applications.
 
 %prep
-%setup -q
+%setup -q -n cobbler-%{version}
 
 %build
 %{__python} setup.py build 
@@ -357,6 +361,17 @@ of an existing system.  For use with a boot-server configured with Cobbler
 %dir /var/log/koan
 %doc AUTHORS COPYING CHANGELOG README
 
+%package -n cobbler-epel
+Summary: Compatibility package to pull in cobbler package from EPEL/Fedora
+Group: Applications/System
+Requires: cobbler >= 2.2
+Provides: cobbler20
+
+%description -n cobbler-epel
+
+Compatibility package to pull in cobbler package from EPEL/Fedora.
+
+%files -n cobbler-epel
 
 %package -n cobbler-web
 
