@@ -698,6 +698,7 @@ public class ListTag extends BodyTagSupport {
         styleClass = "list";
         styleId = null;
         rowCounter = -1;
+        setRowRenderer(null);
         width = null;
         columnCount = 0;
         pageSize = -1;
