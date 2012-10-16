@@ -775,11 +775,12 @@ class Backend:
                              timeout=timeouts)
 
     
-    def processChannels(self, channels):
+    def processChannels(self, channels, base_channels):
         childTables = [
-            'rhnChannelFamilyMembers', 'rhnDistChannelMap',
-            'rhnReleaseChannelMap',
+            'rhnChannelFamilyMembers', 'rhnReleaseChannelMap',
         ]
+        if base_channels:
+            childTables.append('rhnDistChannelMap')
         self.__processObjectCollection(channels, 'rhnChannel', childTables,
             'channel_id', uploadForce=4, ignoreUploaded=1, forceVerify=1)
 

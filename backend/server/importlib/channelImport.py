@@ -141,7 +141,7 @@ class ChannelImport(Import):
             parentChannels[parent] = None
         # Process the easy case of null parent channels
         try:
-            self.backend.processChannels(nullParentBatch)
+            self.backend.processChannels(nullParentBatch, True)
         except:
             self.backend.rollback()
             raise
@@ -188,7 +188,7 @@ class ChannelImport(Import):
         
         # And process these channels too
         try:
-            self.backend.processChannels(nonNullParentBatch)
+            self.backend.processChannels(nonNullParentBatch, False)
         except:
             self.backend.rollback()
             raise
