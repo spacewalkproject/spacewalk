@@ -12,6 +12,7 @@ Patch0: bug219916_expired_password_hang.patch
 Patch1: %{name}-%{version}-s390x.patch
 Patch2: jpam-0.4-ppc.patch
 Patch3: jpam-0.4-no_checkstyle.patch
+Patch4: jpam-0.4-no-password-prompt.patch
 Version: 0.4
 Release: 20%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
@@ -43,6 +44,7 @@ Javadoc for %{name}.
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
+%patch4 -p1
 
 rm -Rfv tools/*.jar
 build-jar-repository -p tools/ %jpackage_jars
