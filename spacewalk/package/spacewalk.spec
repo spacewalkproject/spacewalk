@@ -86,6 +86,7 @@ Requires:       selinux-policy-base >= 3.7.19-93
 
 Requires:       editarea >= 0.8.2-2
 
+Requires:       cobbler20
 
 %description common
 Spacewalk is a systems management application that will
