@@ -7,7 +7,7 @@ Name: cobbler20
 License: GPLv2+
 AutoReq: no
 Version: 2.0.11
-Release: 2%{?dist}
+Release: 3%{?dist}
 Source0: cobbler-%{version}.tar.gz
 Group: Applications/System
 Requires: python >= 2.3
@@ -414,6 +414,9 @@ Web interface for Cobbler that allows visiting http://server/cobbler_web to conf
 %doc AUTHORS COPYING CHANGELOG README
 
 %changelog
+* Tue Oct 16 2012 Jan Pazdziora 2.0.11-3
+- Compatibility package to provide cobbler 2.0.
+
 * Tue Apr 26 2011 Scott Henson <shenson@redhat.com> - 2.0.11-2
 - Actually include a change log entry
 
