@@ -24,6 +24,7 @@
 
                  <rl:column sortable="true"
                    bound="false"
+                   styleclass="first-column"
                    headerkey="Operating System"
                    sortattr="os"
                    >
@@ -46,6 +47,7 @@
                 </rl:column>
                  <rl:column sortable="true"
                    bound="false"
+                   styleclass="last-column"
                    headerkey="channel.edit.jsp.label"
                    sortattr="channel.label"
                    >
