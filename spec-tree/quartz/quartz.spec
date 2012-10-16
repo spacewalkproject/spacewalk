@@ -28,6 +28,7 @@ Group:   Development/Libraries/Java
 Requires: %{name}
 Requires: spacewalk-slf4j
 Requires: ojdbc14
+Requires: quartz = %{version}
 
 %description oracle
 Oracle driver delegate for %{name}
