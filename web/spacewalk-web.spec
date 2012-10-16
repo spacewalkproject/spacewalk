@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.41
+Version: 1.8.42
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -253,6 +253,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Tue Oct 16 2012 Jan Pazdziora 1.8.42-1
+- Adding use which seems to be needed.
+
 * Fri Oct 12 2012 Jan Pazdziora 1.8.41-1
 - 844433 - fix cloning a child channel with a parent in different org
 - Bind bytea with PG_BYTEA.
