@@ -64,6 +64,7 @@ dev_read_sysfs(oracle_db_t)
 dev_list_sysfs(oracle_db_t)
 
 allow oracle_lsnrctl_t oracle_db_log_t:dir getattr;
+allow oracle_lsnrctl_t oracle_db_log_t:dir search;
 
 allow oracle_sqlplus_t oracle_db_log_t:dir getattr;
 
