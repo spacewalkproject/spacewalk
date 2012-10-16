@@ -39,6 +39,7 @@ use RHN::Form::Widget::Hidden;
 use RHN::Form::Widget::Literal;
 use RHN::Form::Widget::Select;
 use RHN::Form::Widget::Submit;
+use RHN::Form::ParsedForm;
 use RHN::SatelliteCert;
 use RHN::Kickstart::Session;
 
