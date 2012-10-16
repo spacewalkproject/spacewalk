@@ -1,7 +1,7 @@
 Name: quartz
 Summary: Quartz Enterprise Job Scheduler
 Version:        1.8.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Quartz Enterprise Job Scheduler
 License:        ASL 2.0
 URL:            http://www.quartz-scheduler.org/
@@ -63,6 +63,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_javadir}/%{name}-oracle-%{version}.jar
 
 %changelog
+* Tue Oct 16 2012 Tomas Lestach <tlestach@redhat.com> 1.8.1-4
+-  fix spacewalk dependency issue on F17
+
 * Fri Jul 30 2010 Tomas Lestach <tlestach@redhat.com> 1.8.1-3
 - changing quartz spec to require spacewalk-slf4j (tlestach@redhat.com)
 
