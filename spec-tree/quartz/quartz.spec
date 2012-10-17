@@ -1,7 +1,7 @@
 Name: quartz
 Summary: Quartz Enterprise Job Scheduler
-Version:        1.8.2
-Release:        1%{?dist}
+Version:        1.8.1
+Release:        4%{?dist}
 Summary:        Quartz Enterprise Job Scheduler
 License:        ASL 2.0
 URL:            http://www.quartz-scheduler.org/
@@ -68,10 +68,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_javadir}/%{name}-oracle-%{version}.jar
 
 %changelog
-* Wed Oct 17 2012 Tomas Lestach <tlestach@redhat.com> 1.8.2-1
-- let quartz require apache-commons-logging instead of jakarta-commons-logging
-  on fedoras
-
 * Tue Oct 16 2012 Tomas Lestach <tlestach@redhat.com> 1.8.1-4
 -  fix spacewalk dependency issue on F17
 
