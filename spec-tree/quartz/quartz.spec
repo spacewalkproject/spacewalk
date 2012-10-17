@@ -12,7 +12,12 @@ BuildArch: noarch
 
 Requires: java >= 1.5
 Requires: jakarta-commons-collections
+%if 0%{?fedora}
+Requires: apache-commons-logging
+%else
 Requires: jakarta-commons-logging
+%endif
+
 Requires: spacewalk-slf4j
 
 %description
