@@ -16,6 +16,8 @@
 
 CREATE TABLE rhnDistChannelMap
 (
+    id               NUMBER NOT NULL
+                        CONSTRAINT rhn_dcm_id_pk PRIMARY KEY,
     os               VARCHAR2(64) NOT NULL,
     release          VARCHAR2(64) NOT NULL,
     channel_arch_id  NUMBER NOT NULL
@@ -24,15 +26,17 @@ CREATE TABLE rhnDistChannelMap
     channel_id       NUMBER NOT NULL
                          CONSTRAINT rhn_dcm_cid_fk
                              REFERENCES rhnChannel (id)
-                             ON DELETE CASCADE
+                             ON DELETE CASCADE,
+    org_id           NUMBER
+                        CONSTRAINT rhn_dcm_oid_fk
+                            REFERENCES web_customer (id)
+                            ON DELETE CASCADE
 )
 ENABLE ROW MOVEMENT
 ;
 
-CREATE INDEX rhn_dcm_os_release_caid_idx
-    ON rhnDistChannelMap (os, release, channel_arch_id)
-    TABLESPACE [[64k_tbs]];
+CREATE SEQUENCE rhn_dcm_id_seq;
 
 ALTER TABLE rhnDistChannelMap
-    ADD CONSTRAINT rhn_dcm_os_release_caid_uq UNIQUE (os, release, channel_arch_id);
+    ADD CONSTRAINT rhn_dcm_release_caid_oid_uq UNIQUE (release, channel_arch_id, org_id);
 

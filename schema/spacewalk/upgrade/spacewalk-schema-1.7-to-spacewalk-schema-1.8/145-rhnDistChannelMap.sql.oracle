@@ -1,0 +1,11 @@
+ALTER TABLE rhnDistChannelMap ADD org_id NUMBER;
+ALTER TABLE rhnDistChannelMap ADD CONSTRAINT rhn_dcm_oid_fk FOREIGN KEY (org_id) REFERENCES web_customer (id) ON DELETE CASCADE;
+DROP INDEX rhn_dcm_os_release_caid_idx;
+ALTER TABLE rhnDistChannelMap DROP CONSTRAINT rhn_dcm_os_release_caid_uq;
+ALTER TABLE rhnDistChannelMap ADD CONSTRAINT rhn_dcm_release_caid_oid_uq UNIQUE (release, channel_arch_id, org_id);
+
+ALTER TABLE rhnDistChannelMap ADD id NUMBER;
+CREATE SEQUENCE rhn_dcm_id_seq;
+UPDATE rhnDistChannelMap SET id = rhn_dcm_id_seq.nextval;
+ALTER TABLE rhnDistChannelMap MODIFY id NUMBER NOT NULL;
+ALTER TABLE rhnDistChannelMap ADD CONSTRAINT rhn_dcm_id_pk PRIMARY KEY (id);
