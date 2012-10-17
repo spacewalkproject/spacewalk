@@ -1,4 +1,10 @@
+%if 0%{?fedora}
+Requires: apache-commons-io
+%define jpackage_run_jars antlr apache-commons-beanutils apache-commons-collections apache-commons-logging regexp
+%else
 %define jpackage_run_jars antlr jakarta-commons-beanutils jakarta-commons-collections jakarta-commons-logging regexp
+%endif
+
 %define jpackage_build_jars checkstyle junit
 %define jpackage_jars %jpackage_run_jars %jpackage_build_jars
 
