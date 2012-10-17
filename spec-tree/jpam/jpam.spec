@@ -20,7 +20,7 @@ Patch2: jpam-0.4-ppc.patch
 Patch3: jpam-0.4-no_checkstyle.patch
 Patch4: jpam-0.4-no-password-prompt.patch
 Version: 0.4
-Release: 20%{?dist}
+Release: 21%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 Requires: %jpackage_run_jars
@@ -102,6 +102,10 @@ fi
 %{_javadocdir}/%{name}-%{version}
 
 %changelog
+* Wed Oct 17 2012 Jan Pazdziora 0.4-21
+- 860119 - Remove expected password prompts from PAM_conv, they fail for
+  non-English locales.
+
 * Fri Dec 17 2010 Tomas Lestach <tlestach@redhat.com> 0.4-20
 - disable checkstyle, since there's a problem with jpackage checkstyle
 
