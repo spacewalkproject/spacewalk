@@ -70,6 +70,7 @@ import com.redhat.rhn.manager.MissingCapabilityException;
 import com.redhat.rhn.manager.MissingEntitlementException;
 import com.redhat.rhn.manager.configuration.ConfigurationManager;
 import com.redhat.rhn.manager.entitlement.EntitlementManager;
+import com.redhat.rhn.manager.errata.ErrataManager;
 import com.redhat.rhn.manager.kickstart.ProvisionVirtualInstanceCommand;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerVirtualSystemCommand;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerXMLRPCHelper;
@@ -80,6 +81,7 @@ import org.apache.log4j.Logger;
 import org.cobbler.Profile;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
@@ -1642,53 +1644,17 @@ public class ActionManager extends BaseManager {
      * @param scheduler Person scheduling the action.
      * @param srvr Server whose errata is going to be scheduled.
      * @param earliest Earliest possible time action will occur.
-     * @return Currently scheduled Errata Actions
      */
-    public static List scheduleAllErrataUpdate(User scheduler, Server srvr,
+    public static void scheduleAllErrataUpdate(User scheduler, Server srvr,
             Date earliest) {
-        DataResult errata = SystemManager.unscheduledErrata(scheduler, srvr.getId(), null);
-        errata.elaborate();
-        // I don't have time to model SQL into Hibernate lingo, and I don't want
-        // to have to write yet another one off SQL query just to overcome
-        // Hibernate.
-        // If someone wants to model this into Hibernate please do so:
-        //        SELECT DISTINCT E.id, E.update_date
-        //        FROM rhnErrata E,
-        //             rhnServerNeededPackageCache SNPC
-        //       WHERE EXISTS (SELECT server_id FROM rhnUserServerPerms USP
-        //             WHERE USP.user_id = :user_id AND USP.server_id = :sid)
-        //         AND SNPC.server_id = :sid
-        //         AND SNPC.errata_id = E.id
-        //         AND NOT EXISTS (SELECT SA.server_id
-        //                           FROM rhnActionErrataUpdate AEU,
-        //                                rhnServerAction SA,
-        //                                rhnActionStatus AST
-        //                          WHERE SA.server_id = :sid
-        //                            AND SA.status = AST.id
-        //                            AND AST.name IN('Queued', 'Picked Up')
-        //                            AND AEU.action_id = SA.action_id
-        //                            AND AEU.errata_id = E.id )
-        //      ORDER BY E.update_date, E.id
-        //
-        // And don't forget the errataOverview elaborator
-        List actions = new LinkedList();
-        for (Iterator itr = errata.iterator(); itr.hasNext();) {
-            PublishedErrata e = (PublishedErrata) itr.next();
-
-            Object[] args = new Object[2];
-            args[0] = e.getAdvisory();
-            args[1] = e.getSynopsis();
-            String name = LocalizationService.getInstance().getMessage(
-                    "action.name", args);
-
-            ErrataAction action = (ErrataAction) scheduleAction(scheduler, srvr,
-                    ActionFactory.TYPE_ERRATA, name, earliest);
-            action.addErrata(e);
-            ActionFactory.save(action);
-            actions.add(action);
+        // Do not elaborate, we need only the IDs in here
+        DataResult<Errata> errata = SystemManager.unscheduledErrata(scheduler, srvr.getId(), null);
+        List<Long> errataIds = new ArrayList<Long>();
+        for (Errata e : errata) {
+            errataIds.add(e.getId());
         }
-
-        return actions;
+        List<Long> serverIds = Arrays.asList(srvr.getId());
+        ErrataManager.applyErrata(scheduler, errataIds, earliest, serverIds);
     }
 
     /**

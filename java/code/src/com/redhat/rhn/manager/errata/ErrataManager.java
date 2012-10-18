@@ -29,6 +29,7 @@ import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.messaging.MessageQueue;
 import com.redhat.rhn.common.security.PermissionException;
 import com.redhat.rhn.domain.action.Action;
+import com.redhat.rhn.domain.action.errata.ErrataAction;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.domain.errata.Bug;
@@ -1394,7 +1395,7 @@ public class ErrataManager extends BaseManager {
         }
 
         // at this point all errata is applicable to all systems, so let's apply
-        applyErrata(loggedInUser, errataIds, earliestOccurrence, systemIds);
+        applyErrata(loggedInUser, convertToLongs(errataIds), earliestOccurrence, systemIds);
     }
 
     private static void checkApplicableErrata(User loggedInUser, List<Integer> errataIds,
@@ -1418,22 +1419,68 @@ public class ErrataManager extends BaseManager {
         }
     }
 
-    private static void applyErrata(User loggedInUser, List errataIds,
-            Date earliestOccurrence, List<Long> serverIds) {
-        for (Iterator it = errataIds.iterator(); it.hasNext();) {
-            Integer currentId = (Integer)it.next();
-            Errata errata = ErrataManager.lookupErrata(currentId.longValue(),
-                    loggedInUser);
-            Action update = ActionManager.createErrataAction(loggedInUser, errata);
-            if (earliestOccurrence != null) {
-                update.setEarliestAction(earliestOccurrence);
+    /**
+     * Apply a list of errata to a list of servers.
+     * @param user
+     * @param errataIds
+     * @param earliest
+     * @param serverIds
+     */
+    public static void applyErrata(User user, List<Long> errataIds, Date earliest,
+            List<Long> serverIds) {
+        // Schedule updates to the software update stack first
+        ErrataAction swStackUpdate = null;
+        List<Errata> errata = new ArrayList<Errata>();
+        for (Long currentId : errataIds) {
+            Errata erratum = ErrataManager.lookupErrata(currentId, user);
+            if (erratum.hasKeyword("restart_suggested")) {
+                if (swStackUpdate == null) {
+                    swStackUpdate = createErrataAction(user, erratum, earliest, serverIds);
+                }
+                else {
+                    swStackUpdate.addErrata(erratum);
+                }
             }
-
-            for (Long serverId : serverIds) {
-                ActionManager.addServerToAction(serverId, update);
+            else {
+                errata.add(erratum);
             }
-
-            ActionManager.storeAction(update);
         }
+        if (swStackUpdate != null) {
+            Object[] args = new Object[] {swStackUpdate.getErrata().size()};
+            swStackUpdate.setName(LocalizationService.getInstance().getMessage(
+                    "errata.swstack", args));
+            ActionManager.storeAction(swStackUpdate);
+        }
+
+        // Schedule remaining errata actions
+        for (Errata e : errata) {
+            ActionManager.storeAction(createErrataAction(user, e, earliest, serverIds));
+        }
+    }
+
+    /**
+     * Create a single {@link ErrataAction}.
+     */
+    private static ErrataAction createErrataAction(User user, Errata erratum, Date earliest,
+            List<Long> serverIds) {
+        Action update = ActionManager.createErrataAction(user, erratum);
+        if (earliest != null) {
+            update.setEarliestAction(earliest);
+        }
+        for (Long serverId : serverIds) {
+            ActionManager.addServerToAction(serverId, update);
+        }
+        return (ErrataAction) update;
+    }
+
+    /**
+     * Convert a list of {@link Integer} to a list of {@link Long}.
+     */
+    private static List<Long> convertToLongs(List<Integer> list) {
+        List<Long> ret = new ArrayList<Long>();
+        for (Integer i : list) {
+            ret.add(i.longValue());
+        }
+        return ret;
     }
 }

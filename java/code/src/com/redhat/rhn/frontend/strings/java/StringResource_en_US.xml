@@ -2125,6 +2125,14 @@ available for this kickstart profile to function properly.
         </context-group>
       </trans-unit>
 
+      <trans-unit id="errata.swstack">
+<source>Errata Update: Combined update for the software update stack ({0} errata)</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/errata/details/ErrataConfirm.do</context>
+          <context context-type="paramnotes">Errata Update: combined software stack update (4 errata)</context>
+        </context-group>
+      </trans-unit>
+
       <trans-unit id="errata.schedule">
 <source>&lt;strong&gt;{0}&lt;/strong&gt; errata update has been scheduled for &lt;a href="/rhn/systems/details/Overview.do?sid={2}&quot;&gt;{1}&lt;/a&gt;.</source>
         <context-group name="ctx">

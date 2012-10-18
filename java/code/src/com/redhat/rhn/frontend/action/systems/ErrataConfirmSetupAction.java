@@ -15,9 +15,6 @@
 package com.redhat.rhn.frontend.action.systems;
 
 import com.redhat.rhn.common.util.DatePicker;
-import com.redhat.rhn.domain.action.Action;
-import com.redhat.rhn.domain.errata.Errata;
-import com.redhat.rhn.domain.errata.ErrataFactory;
 import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
@@ -27,7 +24,7 @@ import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.StrutsDelegate;
 import com.redhat.rhn.frontend.taglibs.list.helper.ListRhnSetHelper;
 import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
-import com.redhat.rhn.manager.action.ActionManager;
+import com.redhat.rhn.manager.errata.ErrataManager;
 import com.redhat.rhn.manager.system.SystemManager;
 
 import org.apache.struts.action.ActionForm;
@@ -37,9 +34,13 @@ import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionMessages;
 import org.apache.struts.action.DynaActionForm;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -113,16 +114,14 @@ public class ErrataConfirmSetupAction extends RhnAction implements Listable {
         Server server = SystemManager.lookupByIdAndUser(sid, user);
         RhnSet set = ErrataSetupAction.getSetDecl(sid).get(user);
 
-        List<Errata> errataList = ErrataFactory.listErrata(set.getElementValues());
-
+        // Get the errata IDs
+        Set<Long> errataList = set.getElementValues();
         if (server != null && !errataList.isEmpty()) {
-             for (Errata e : errataList) {
-                 Action update = ActionManager.createErrataAction(user, e);
-                 ActionManager.addServerToAction(server.getId(), update);
-                 update.setEarliestAction(getStrutsDelegate().readDatePicker(form, "date",
-                         DatePicker.YEAR_RANGE_POSITIVE));
-                 ActionManager.storeAction(update);
-             }
+            Date earliest = getStrutsDelegate().readDatePicker(form, "date",
+                    DatePicker.YEAR_RANGE_POSITIVE);
+            List<Long> serverIds = Arrays.asList(server.getId());
+            List<Long> errataIds = new ArrayList<Long>(errataList);
+            ErrataManager.applyErrata(user, errataIds, earliest, serverIds);
 
              ActionMessages msg = new ActionMessages();
              Object[] args = new Object[3];
@@ -152,7 +151,6 @@ public class ErrataConfirmSetupAction extends RhnAction implements Listable {
         return strutsDelegate.forwardParams(
                 mapping.findForward(RhnHelper.DEFAULT_FORWARD), params);
     }
-
 
     /**
      * Makes a parameter map containing request params that need to
