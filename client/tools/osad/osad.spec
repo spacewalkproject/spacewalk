@@ -16,7 +16,7 @@ Group:   System Environment/Daemons
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.11.7
+Version: 5.11.8
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -302,6 +302,9 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 %endif
 
 %changelog
+* Thu Oct 18 2012 Michael Mraka <michael.mraka@redhat.com> 5.11.8-1
+- osad requires config.getServerlURL()
+
 * Sat Oct 13 2012 Jan Pazdziora 5.11.7-1
 - Start of osa-dispatcher on RHEL 5.
 
