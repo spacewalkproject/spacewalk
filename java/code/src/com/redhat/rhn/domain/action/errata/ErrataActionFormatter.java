@@ -42,29 +42,30 @@ public class ErrataActionFormatter extends ActionFormatter {
      */
     protected String getNotesBody() {
         StringBuffer retval = new StringBuffer();
-        Set erratas = ((ErrataAction) this.getAction()).getErrata();
+        Set<Errata> erratas = ((ErrataAction) this.getAction()).getErrata();
         if (erratas != null && erratas.size() > 0) {
-            Errata errata = (Errata) erratas.toArray()[0];
-            retval.append("<strong><a href=\"/rhn/errata/details/Details.do?eid=");
-            retval.append(errata.getId().toString());
-            retval.append("\">");
-            retval.append(errata.getAdvisory());
-            retval.append("</a></strong><br/><br/>");
-            retval.append("<strong>");
-            retval.append(errata.getSynopsis());
-            retval.append("</strong><br/><br/>");
-            retval.append(errata.getAdvisoryType());
-            retval.append("<br/><br/>");
-            if (errata.getTopic() != null) {
-                retval.append(StringUtil.htmlifyText(errata.getTopic()));
+            for (Errata errata : erratas) {
+                retval.append("<strong><a href=\"/rhn/errata/details/Details.do?eid=");
+                retval.append(errata.getId().toString());
+                retval.append("\">");
+                retval.append(errata.getAdvisory());
+                retval.append("</a></strong><br/><br/>");
+                retval.append("<strong>");
+                retval.append(errata.getSynopsis());
+                retval.append("</strong><br/><br/>");
+                retval.append(errata.getAdvisoryType());
+                retval.append("<br/><br/>");
+                if (errata.getTopic() != null) {
+                    retval.append(StringUtil.htmlifyText(errata.getTopic()));
+                }
+                retval.append("<br/>");
+                if (errata.getDescription() != null) {
+                    retval.append(StringUtil.htmlifyText(errata.getDescription()));
+                }
+                retval.append("<br/>");
+                retval.append("<br/>");
             }
-            retval.append("<br/>");
-            if (errata.getDescription() != null) {
-                retval.append(StringUtil.htmlifyText(errata.getDescription()));
-            }
-            retval.append("<br/>");
         }
-
         return retval.toString();
     }
 

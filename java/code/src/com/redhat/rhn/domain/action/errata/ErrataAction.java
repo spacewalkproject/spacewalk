@@ -27,19 +27,19 @@ import java.util.Set;
  */
 public class ErrataAction extends Action {
 
-    private Set errata;
+    private Set<Errata> errata;
 
     /**
      * @return Returns the errata.
      */
-    public Set getErrata() {
+    public Set<Errata> getErrata() {
         return errata;
     }
 
     /**
      * @param errataIn The errata to set.
      */
-    public void setErrata(Set errataIn) {
+    public void setErrata(Set<Errata> errataIn) {
         this.errata = errataIn;
     }
 
@@ -49,7 +49,7 @@ public class ErrataAction extends Action {
      */
     public void addErrata(Errata e) {
         if (errata == null) {
-            errata = new HashSet();
+            errata = new HashSet<Errata>();
         }
         errata.add(e);
     }
