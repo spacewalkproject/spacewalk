@@ -391,9 +391,9 @@ public class KickstartBuilder {
      * @param label  the Ks label
      * @return checks for duplicate labels
      */
-    private boolean labelAlreadyExists(String label) {
-        return (KickstartFactory.
-           lookupKickstartDataByLabelAndOrgId(label, user.getOrg().getId()) != null);
+    private KickstartData labelAlreadyExists(String label) {
+        return KickstartFactory.
+                lookupKickstartDataByCILabelAndOrgId(label, user.getOrg().getId());
     }
 
     /**
@@ -406,8 +406,9 @@ public class KickstartBuilder {
             ValidatorException.raiseException("kickstart.details.nolabel",
                                                            MIN_KS_LABEL_LENGTH);
         }
-        if (labelAlreadyExists(label)) {
-            ValidatorException.raiseException("kickstart.error.labelexists");
+        KickstartData existing = labelAlreadyExists(label);
+        if (existing != null) {
+            ValidatorException.raiseException("kickstart.error.labelexists", existing.getLabel());
         }
         if (!isLabelValid(label)) {
             ValidatorException.raiseException("kickstart.error.invalidlabel",

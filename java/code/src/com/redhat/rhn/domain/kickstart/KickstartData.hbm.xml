@@ -99,6 +99,9 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     <query name="KickstartData.findByIdAndOrg">
         <![CDATA[from com.redhat.rhn.domain.kickstart.KickstartData as t where t.id = :id and t.org = :org_id]]>
     </query>
+    <query name="KickstartData.findByCILabelAndOrg">
+        <![CDATA[from com.redhat.rhn.domain.kickstart.KickstartData as t where LOWER(t.label) = LOWER(:label) and t.org = :org_id]]>
+    </query>
     <query name="KickstartData.findByLabelAndOrg">
         <![CDATA[from com.redhat.rhn.domain.kickstart.KickstartData as t where t.label = :label and t.org = :org_id]]>
     </query>

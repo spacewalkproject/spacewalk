@@ -146,6 +146,25 @@ public class KickstartFactory extends HibernateFactory {
     }
 
     /**
+     * Lookup a KickstartData based on a case insensitive label and orgId
+     * This is needed due to the cobbler converts the kickstart profiles to lowecase
+     * @param label to lookup
+     * @param orgId who owns KickstartData
+     * @return KickstartData if found, null if not
+     */
+    public static KickstartData lookupKickstartDataByCILabelAndOrgId(
+            String label, Long orgId) {
+        if (StringUtils.isBlank(label)) {
+            throw new IllegalArgumentException("kickstartLabel cannot be null");
+        }
+        return (KickstartData) HibernateFactory.getSession().
+                                      getNamedQuery("KickstartData.findByCILabelAndOrg")
+                                      .setString("label", label)
+                                      .setLong("org_id", orgId.longValue())
+                                      .uniqueResult();
+    }
+
+    /**
      * Lookup a KickstartData based on a label
      * @param label to lookup
      * @return KickstartData if found, null if not
