@@ -610,3 +610,21 @@ tr.alphaResult td.sortedCol {
 .list-fat-column-50 {
 	width: 50%;
 }
+
+/** Highlightning of hovered rows **/
+
+.list-row-odd:hover td {
+        background-color: #d0d0d0;
+}
+
+.list-row-even:hover td {
+        background-color: #d0d0d0;
+}
+
+.list-row-even:hover td.sortedCol  {
+  background-color: #a0b1ff;
+}
+
+.list-row-odd:hover td.sortedCol  {
+  background-color: #a0b1ff;
+}
