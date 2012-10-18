@@ -614,17 +614,17 @@ tr.alphaResult td.sortedCol {
 /** Highlightning of hovered rows **/
 
 .list-row-odd:hover td {
-        background-color: #d0d0d0;
+        background-color: #d8d8d8;
 }
 
 .list-row-even:hover td {
-        background-color: #d0d0d0;
+        background-color: #d8d8d8;
 }
 
 .list-row-even:hover td.sortedCol  {
-  background-color: #a0b1ff;
+  background-color: #d0d1ff;
 }
 
 .list-row-odd:hover td.sortedCol  {
-  background-color: #a0b1ff;
+  background-color: #d0d1ff;
 }
