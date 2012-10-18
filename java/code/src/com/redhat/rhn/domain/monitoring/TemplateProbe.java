@@ -111,7 +111,10 @@ public class TemplateProbe extends Probe {
         Set retval = new HashSet();
         while (i.hasNext()) {
             ServerProbe p = (ServerProbe) i.next();
-            retval.add(p.getServer());
+            Server s = p.getServer();
+            if (s != null) {
+                retval.add(p.getServer());
+            }
         }
         return retval;
     }
