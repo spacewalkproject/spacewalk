@@ -1,5 +1,5 @@
 Name:       spacewalk-branding
-Version:    1.8.4
+Version:    1.8.5
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -82,6 +82,10 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Fri Oct 19 2012 Jan Pazdziora 1.8.5-1
+- Edit colors in highlightning of :hovered rows in list views
+- Highlightning of :hover row in list views
+
 * Wed Oct 10 2012 Jan Pazdziora 1.8.4-1
 - The Sniglets::Utils is no longer needed in footer.pxt.
 - The rhn-bugzilla-link generates emply paragraph.
