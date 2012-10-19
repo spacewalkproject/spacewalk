@@ -1,7 +1,7 @@
 %define release_name Smile
 
 Name:           spacewalk
-Version:        1.8.3
+Version:        1.8.4
 Release:        1%{?dist}
 Summary:        Spacewalk Systems Management Application
 URL:            https://fedorahosted.org/spacewalk
@@ -176,6 +176,10 @@ rm -rf %{buildroot}
 %{_datadir}/spacewalk/setup/defaults.d/postgresql-backend.conf
 
 %changelog
+* Fri Oct 19 2012 Jan Pazdziora 1.8.4-1
+- We need one extra package in the dependency chain to prefer cobbler20 upon
+  fresh installation.
+
 * Tue Oct 16 2012 Jan Pazdziora 1.8.3-1
 - Require the cobbler20 for full installation.
 
