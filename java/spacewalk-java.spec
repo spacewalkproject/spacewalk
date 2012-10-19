@@ -23,7 +23,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.164
+Version: 1.8.165
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -616,6 +616,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Oct 19 2012 Tomas Lestach <tlestach@redhat.com> 1.8.165-1
+- checkstyle fix
+
 * Fri Oct 19 2012 Jan Pazdziora 1.8.164-1
 - prevent NPE, when accessing probe suite systems with no system associated
 - 822834 - do not allow creating kickstart profiles that differ from existing
