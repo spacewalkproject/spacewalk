@@ -23,7 +23,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.163
+Version: 1.8.164
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -616,6 +616,14 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Oct 19 2012 Jan Pazdziora 1.8.164-1
+- prevent NPE, when accessing probe suite systems with no system associated
+- 822834 - do not allow creating kickstart profiles that differ from existing
+  ones just by case
+- added missing import
+- add column style class to render table border
+- don't call cmd.getKickstartData() over and over
+
 * Mon Oct 15 2012 Tomas Lestach <tlestach@redhat.com> 1.8.163-1
 - intorduce first draft of read-only dist channel map page
 - first row of ListTag light - similar to the ListDisplayTag
