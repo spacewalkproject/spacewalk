@@ -38,6 +38,29 @@ public class DistChannelMap implements Serializable {
     private Channel channel;
 
     /**
+     * default Constructor
+     */
+    public DistChannelMap() {
+    }
+
+    /**
+     * Constructor
+     * @param orgIn organization
+     * @param osIn operaing system
+     * @param releaseIn release
+     * @param chaIn channel architecture
+     * @param channelIn channel
+     */
+    public DistChannelMap(Org orgIn, String osIn, String releaseIn,
+            ChannelArch chaIn, Channel channelIn) {
+        this.org = orgIn;
+        this.os = osIn;
+        this.release = releaseIn;
+        this.channelArch = chaIn;
+        this.channel = channelIn;
+    }
+
+    /**
      * Getter for os
      * @return String to get
     */

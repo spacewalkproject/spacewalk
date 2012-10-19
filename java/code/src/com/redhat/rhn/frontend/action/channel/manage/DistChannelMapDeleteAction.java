@@ -14,14 +14,12 @@
  */
 package com.redhat.rhn.frontend.action.channel.manage;
 
-import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.domain.channel.ChannelFactory;
+import com.redhat.rhn.domain.channel.DistChannelMap;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnHelper;
-import com.redhat.rhn.frontend.taglibs.list.helper.ListHelper;
-import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
 
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -31,31 +29,35 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
-
 /**
- * DistChannelMapSetupAction
+ * DistChannelMapDeleteAction
  * @version $Rev$
  */
-public class DistChannelMapSetupAction extends RhnAction implements Listable {
+public class DistChannelMapDeleteAction extends RhnAction {
 
-    /**
-     * {@inheritDoc}
-     */
-    public ActionForward execute(ActionMapping mapping, ActionForm form,
-            HttpServletRequest request, HttpServletResponse response) throws Exception {
-        RequestContext context = new RequestContext(request);
-        User user =  context.getLoggedInUser();
-        ListHelper helper = new ListHelper(this, request);
-        helper.execute();
+    /** {@inheritDoc} */
+    public ActionForward execute(ActionMapping mapping,
+                                  ActionForm formIn,
+                                  HttpServletRequest request,
+                                  HttpServletResponse response) {
+        RequestContext ctx = new RequestContext(request);
+        User user = ctx.getLoggedInUser();
 
+        Long dcmId = ctx.getRequiredParam("dcm");
+
+        DistChannelMap dcMapping = ChannelFactory.lookupDistChannelMapById(dcmId);
+        ctx.getRequest().setAttribute("dcmap", dcMapping);
+
+        if (ctx.isSubmitted()) {
+            if (dcMapping != null && dcMapping.getOrg() != null) {
+                createSuccessMessage(request, "distchannelmap.jsp.delete.message",
+                        dcMapping.getOs());
+                ChannelFactory.remove(dcMapping);
+                return mapping.findForward("success");
+            }
+            createErrorMessage(request, "distchannelmap.jsp.delete.default.message",
+                    null);
+        }
         return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public DataResult getResult(RequestContext context) {
-        return new DataResult(
-                ChannelFactory.listAllDistChannelMapsByOrg(context.getLoggedInUser().getOrg()));
     }
 }

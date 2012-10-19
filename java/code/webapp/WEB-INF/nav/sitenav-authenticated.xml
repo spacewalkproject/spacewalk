@@ -173,7 +173,9 @@
         <rhn-tab-url>/rhn/channels/manage/repos/RepoCreate.do</rhn-tab-url>
       </rhn-tab>
     </rhn-tab>
-    <rhn-tab name="Distribution Channel Mapping" acl="user_role(satellite_admin)" url="/rhn/channels/manage/DistChannelMap.do">
+    <rhn-tab name="Distribution Channel Mapping" acl="user_role(org_admin)" url="/rhn/channels/manage/DistChannelMap.do">
+      <rhn-tab-url>/rhn/channels/manage/DistChannelMapEdit.do</rhn-tab-url>
+      <rhn-tab-url>/rhn/channels/manage/DistChannelMapDelete.do</rhn-tab-url>
     </rhn-tab>
   </rhn-tab>
   <rhn-tab name="Audit" url="/rhn/audit/ListXccdf.do">

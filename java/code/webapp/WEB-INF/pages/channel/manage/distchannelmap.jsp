@@ -11,14 +11,24 @@
 </head>
 <body>
 
-<h1><img src="/img/rhn-icon-subscribe_replace.png"> <bean:message key="Distribution Channel Mapping"/></h1>
+<rhn:toolbar base="h1" img="/img/rhn-icon-subscribe_replace.png"
+               creationUrl="DistChannelMapEdit.do"
+               creationType="distchannelmap"
+               imgAlt="info.alt.img">
+  <bean:message key="Distribution Channel Mapping"/>
+</rhn:toolbar>
+
+<div class="page-summary">
+<p><bean:message key="distchannelmap.jsp.summary"/></p>
+</div>
+
 
 <rl:listset name="distChannelMap">
 <rhn:csrf />
 
 <input type="hidden" name="cid" value="${cid}" />
 
-	<rl:list emptykey="repos.jsp.norepos" alphabarcolumn="os" >
+	<rl:list emptykey="distchannelmap.jsp.empty" alphabarcolumn="os" >
 
 			<rl:decorator name="PageSizeDecorator"/>
 
@@ -28,7 +38,7 @@
                    headerkey="Operating System"
                    sortattr="os"
                    >
-                    ${current.os}
+                     <a href="/rhn/channels/manage/DistChannelMapEdit.do?dcm=${current.id}">${current.os}</a>
                 </rl:column>
                  <rl:column sortable="true"
                    bound="false"
@@ -47,13 +57,25 @@
                 </rl:column>
                  <rl:column sortable="true"
                    bound="false"
-                   styleclass="last-column"
                    headerkey="channel.edit.jsp.label"
                    sortattr="channel.label"
                    >
                     ${current.channel.label}
                 </rl:column>
-
+                 <rl:column
+                   bound="false"
+                   styleclass="last-column"
+                   headerkey="org.specific"
+                   >
+                   <c:choose>
+                     <c:when test="${current.org != null}">
+                       <img src="/img/rhn-listicon-checked.gif">
+                     </c:when>
+                     <c:otherwise>
+                       <img src="/img/rhn-listicon-unchecked.gif">
+                     </c:otherwise>
+                   </c:choose>
+                </rl:column>
 	</rl:list>
 <!--
 	<div align="right">

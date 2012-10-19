@@ -824,6 +824,30 @@ public class ChannelFactory extends HibernateFactory {
     }
 
     /**
+     * Lists all dist channel maps for an user organization
+     * @param user user
+     * @return list of dist channel maps
+     */
+    public static List<DistChannelMap> listAllDistChannelMapsByOrg(User user) {
+        Map params = new HashMap();
+        params.put("org_id", user.getOrg().getId());
+        return singleton.listObjectsByNamedQuery("DistChannelMap.listAllByOrg", params);
+    }
+
+    /**
+     * Lookup the dist channel map by id
+     *
+     * @param id dist channel map id
+     * @return DistChannelMap, null if none is found
+     */
+    public static DistChannelMap lookupDistChannelMapById(Long id) {
+        Map params = new HashMap();
+        params.put("id", id);
+        return (DistChannelMap)singleton.lookupObjectByNamedQuery(
+                "DistChannelMap.lookupById", params);
+    }
+
+    /**
      * Lookup the dist channel map for the given product name, release, and channel arch.
      * Returns null if none is found.
      *

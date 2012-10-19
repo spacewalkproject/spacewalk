@@ -8859,8 +8859,71 @@ Please note that some manual configuration of these scripts may still be require
         <trans-unit id="repos.jsp.channel.repos">
           <source>Channel Repositories</source>
         </trans-unit>
+        <trans-unit id="os">
+          <source>Operating System</source>
+        </trans-unit>
+        <trans-unit id="release">
+          <source>Release</source>
+        </trans-unit>
+        <trans-unit id="org.specific">
+          <source>Organization Specific</source>
+        </trans-unit>
+        <trans-unit id="distchannelmap.jsp.create">
+          <source>Create New Distribution Channel Map</source>
+        </trans-unit>
         <trans-unit id="distchannelmap.jsp.update">
           <source>Update Distribution Channel Map</source>
+        </trans-unit>
+        <trans-unit id="distchannelmap.jsp.delete">
+          <source>Delete Distribution Channel Map</source>
+        </trans-unit>
+        <trans-unit id="distchannelmap.jsp.create.submit">
+          <source>Create New Mapping</source>
+        </trans-unit>
+        <trans-unit id="distchannelmap.jsp.update.submit">
+          <source>Update Mapping</source>
+        </trans-unit>
+        <trans-unit id="distchannelmap.jsp.delete.submit">
+          <source>Delete Mapping</source>
+        </trans-unit>
+        <trans-unit id="distchannelmap.jsp.create.message">
+          <source>New Distribution Channel Mapping '{0}' created successfully.</source>
+        </trans-unit>
+        <trans-unit id="distchannelmap.jsp.update.message">
+          <source>Distribution Channel Mapping '{0}' updated successfully.</source>
+        </trans-unit>
+        <trans-unit id="distchannelmap.jsp.delete.message">
+          <source>Distribution Channel Mapping '{0}' deleted successfully.</source>
+        </trans-unit>
+        <trans-unit id="distchannelmap.jsp.delete.default.message">
+          <source>Default Distribution Channel Mappings cannot be deleted.</source>
+        </trans-unit>
+        <trans-unit id="distchannelmap.jsp.summary">
+          <source>Distribution channel mappings define default base channels where servers land according to its OS and architecture by registration. Default distribution channel mappings may be overriden, but not deleted.</source>
+        </trans-unit>
+        <trans-unit id="distchannelmap.jsp.edit.summary">
+          <source>Organization specific Distribution Channel Mappings may be edited here. Default Distribution Channel Mappings cannot be edited. They can only be overriden within every organization.</source>
+        </trans-unit>
+        <trans-unit id="distchannelmap.jsp.delete.summary">
+          <source>Organization specific Distribution Channel Mapping will be deleted. If it is currently overriding a default channel mapping, the default mapping becomes effective.</source>
+        </trans-unit>
+        <trans-unit id="distchannelmap.jsp.delete.default.summary">
+          <source>Default Distribution Channel Mappings cannot be deleted. They can only be overriden within every organization.</source>
+        </trans-unit>
+        <trans-unit id="toolbar.create.distchannelmap">
+          <source>create new distribution channel mapping</source>
+          <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/channel/manage/repo/RepoList.do</context>
+          </context-group>
+        </trans-unit>
+        <trans-unit id="toolbar.delete.distchannelmap">
+          <source>delete distribution channel mapping</source>
+          <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/channel/manage/repo/RepoList.do</context>
+          </context-group>
+        </trans-unit>
+        <trans-unit id="distchannelmap.jsp.empty">
+          <source>No distribution channel mappings currently exist.</source>
         </trans-unit>
 
     <!-- TNC -->

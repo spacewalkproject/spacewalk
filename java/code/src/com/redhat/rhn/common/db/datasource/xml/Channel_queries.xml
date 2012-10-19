@@ -1019,4 +1019,10 @@ GROUP BY C.id, C.name
   </query>
 </mode>
 
+<mode name="dist_channel_map_for_org" class="com.redhat.rhn.domain.channel.DistChannelMap">
+  <query params="org_id">
+  SELECT * FROM rhnOrgDistChannelMap WHERE org_id = :org_id
+  </query>
+</mode>
+
 </datasource_modes>

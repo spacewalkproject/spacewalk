@@ -1213,6 +1213,14 @@
       <form-property name="proxy_pass" type="java.lang.String" />
     </form-bean>
 
+    <form-bean name="distChannelMapForm"
+               type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
+      <form-property name="os" type="java.lang.String" />
+      <form-property name="release" type="java.lang.String" />
+      <form-property name="architecture" type="java.lang.String" />
+      <form-property name="channel_label" type="java.lang.String" />
+    </form-bean>
+
   </form-beans>
 
   <global-exceptions>
@@ -7570,7 +7578,6 @@
 
     <action path="/channels/manage/DistChannelMap"
         scope="request"
-        parameter="all"
         input="/WEB-INF/pages/channel/manage/distchannelmap.jsp"
         type="com.redhat.rhn.frontend.action.channel.manage.DistChannelMapSetupAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
@@ -7579,16 +7586,37 @@
                  path="/WEB-INF/pages/channel/manage/distchannelmap.jsp"/>
     </action>
 
-   <action path="/common/DownloadFile"
+    <action path="/channels/manage/DistChannelMapEdit"
+        scope="request"
+        name="distChannelMapForm"
+        type="com.redhat.rhn.frontend.action.channel.manage.DistChannelMapEditAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <set-property property="postRequiredIfSubmitted" value="true" />
+        <forward name="default"
+                 path="/WEB-INF/pages/channel/manage/distchannelmapedit.jsp"/>
+        <forward name="success"
+                 path="/channels/manage/DistChannelMap.do" redirect = "true"/>
+    </action>
+
+    <action path="/channels/manage/DistChannelMapDelete"
+        scope="request"
+        name="distChannelMapForm"
+        type="com.redhat.rhn.frontend.action.channel.manage.DistChannelMapDeleteAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <set-property property="postRequiredIfSubmitted" value="true" />
+        <forward name="default"
+                 path="/WEB-INF/pages/channel/manage/distchannelmapdelete.jsp"/>
+        <forward name="success"
+                 path="/channels/manage/DistChannelMap.do" redirect = "true"/>
+    </action>
+
+    <action path="/common/DownloadFile"
         scope="request"
         type="com.redhat.rhn.frontend.action.common.DownloadFile"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
 		<forward name="error"
              path="/WEB-INF/pages/common/errors/baddownloadaction.jsp"/>
-      </action>
-
-
-
+    </action>
 
     <action path="/admin/config/Orgs"
             forward="/WEB-INF/pages/admin/config/multiorg.jsp" />
