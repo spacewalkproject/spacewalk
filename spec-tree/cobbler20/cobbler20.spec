@@ -7,7 +7,7 @@ Name: cobbler20
 License: GPLv2+
 AutoReq: no
 Version: 2.0.11
-Release: 3%{?dist}
+Release: 4%{?dist}
 Source0: cobbler-%{version}.tar.gz
 Group: Applications/System
 Requires: python >= 2.3
@@ -425,6 +425,10 @@ Web interface for Cobbler that allows visiting http://server/cobbler_web to conf
 %doc AUTHORS COPYING CHANGELOG README
 
 %changelog
+* Fri Oct 19 2012 Jan Pazdziora 2.0.11-4
+- We need one extra package in the dependency chain to prefer cobbler20 upon
+  fresh installation.
+
 * Tue Oct 16 2012 Jan Pazdziora 2.0.11-3
 - Compatibility package to provide cobbler 2.0.
 
