@@ -408,7 +408,8 @@ public class KickstartBuilder {
         }
         KickstartData existing = labelAlreadyExists(label);
         if (existing != null) {
-            ValidatorException.raiseException("kickstart.error.labelexists", existing.getLabel());
+            ValidatorException.raiseException("kickstart.error.labelexists",
+                    existing.getLabel());
         }
         if (!isLabelValid(label)) {
             ValidatorException.raiseException("kickstart.error.invalidlabel",
