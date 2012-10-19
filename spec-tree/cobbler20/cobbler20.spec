@@ -361,11 +361,22 @@ of an existing system.  For use with a boot-server configured with Cobbler
 %dir /var/log/koan
 %doc AUTHORS COPYING CHANGELOG README
 
+%package -n cobbler2
+Summary: Compatibility package to pull in cobbler from Spacewalk repo
+Group: Applications/System
+Requires: cobbler20 = %{version}-%{release}
+
+%description -n cobbler2
+
+Compatibility package to pull in cobbler from Spacewalk repo.
+
+%files -n cobbler2
+
 %package -n cobbler-epel
 Summary: Compatibility package to pull in cobbler package from EPEL/Fedora
 Group: Applications/System
 Requires: cobbler >= 2.2
-Provides: cobbler20
+Provides: cobbler2
 
 %description -n cobbler-epel
 
