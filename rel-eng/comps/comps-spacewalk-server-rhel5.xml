@@ -27,6 +27,7 @@
        <packagereq type="default">cglib-demo</packagereq>
        <packagereq type="default">cglib-nohook</packagereq>
        <packagereq type="default">cglib-repolib</packagereq>
+       <packagereq type="default">cobbler2</packagereq>
        <packagereq type="default">cobbler20</packagereq>
        <packagereq type="default">cobbler-epel</packagereq>
        <packagereq type="default">concurrent</packagereq>
