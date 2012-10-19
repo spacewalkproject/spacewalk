@@ -1395,7 +1395,7 @@ public class ErrataManager extends BaseManager {
         }
 
         // at this point all errata is applicable to all systems, so let's apply
-        applyErrata(loggedInUser, convertToLongs(errataIds), earliestOccurrence, systemIds);
+        applyErrata(loggedInUser, errataIds, earliestOccurrence, systemIds);
     }
 
     private static void checkApplicableErrata(User loggedInUser, List<Integer> errataIds,
@@ -1426,12 +1426,16 @@ public class ErrataManager extends BaseManager {
      * @param earliest
      * @param serverIds
      */
-    public static void applyErrata(User user, List<Long> errataIds, Date earliest,
+    public static void applyErrata(User user, List errataIds, Date earliest,
             List<Long> serverIds) {
         // Schedule updates to the software update stack first
         ErrataAction swStackUpdate = null;
         List<Errata> errata = new ArrayList<Errata>();
-        for (Long currentId : errataIds) {
+        for (Iterator it = errataIds.iterator(); it.hasNext();) {
+            Object next = it.next();
+            Long currentId = next instanceof Long ? (Long) next :
+                    ((Integer) next).longValue();
+
             Errata erratum = ErrataManager.lookupErrata(currentId, user);
             if (erratum.hasKeyword("restart_suggested")) {
                 if (swStackUpdate == null) {
@@ -1471,16 +1475,5 @@ public class ErrataManager extends BaseManager {
             ActionManager.addServerToAction(serverId, update);
         }
         return (ErrataAction) update;
-    }
-
-    /**
-     * Convert a list of {@link Integer} to a list of {@link Long}.
-     */
-    private static List<Long> convertToLongs(List<Integer> list) {
-        List<Long> ret = new ArrayList<Long>();
-        for (Integer i : list) {
-            ret.add(i.longValue());
-        }
-        return ret;
     }
 }
