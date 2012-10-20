@@ -23,7 +23,7 @@ Requires: dbus-1-python
 %else
 Requires: dbus-python
 %endif
-%if 0%{?fedora} || 0%{?rhel} > 5
+%if 0%{?fedora} || 0%{?rhel} > 5 || 0%{?suse_version} >= 1140
 Requires: python-gudev
 Requires: python-hwdata
 %else
@@ -143,7 +143,7 @@ mkdir -p $RPM_BUILD_ROOT/var/lib/up2date
 mkdir -pm700 $RPM_BUILD_ROOT%{_localstatedir}/spool/up2date
 touch $RPM_BUILD_ROOT%{_localstatedir}/spool/up2date/loginAuth.pkl
 
-%if 0%{?fedora} || 0%{?rhel} > 5
+%if 0%{?fedora} || 0%{?rhel} > 5 || 0%{?suse_version} >= 1140
 rm $RPM_BUILD_ROOT%{_datadir}/rhn/up2date_client/hardware_hal.*
 %else
 rm $RPM_BUILD_ROOT%{_datadir}/rhn/up2date_client/hardware_gudev.*
