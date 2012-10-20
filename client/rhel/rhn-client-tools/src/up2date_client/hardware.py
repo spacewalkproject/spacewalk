@@ -453,7 +453,7 @@ def findHostByRoute():
     # Override hostname with the one in /etc/sysconfig/network 
     # for bz# 457953
     
-    if os.access("/etc/sysconfig/network", os.R_OK):
+    if os.path.isfile("/etc/sysconfig/network") and os.access("/etc/sysconfig/network", os.R_OK):
         networkinfo = open("/etc/sysconfig/network", "r").readlines()
 	
         for info in networkinfo:
