@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.46
+Version: 1.8.47
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -253,6 +253,14 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Mon Oct 22 2012 Jan Pazdziora 1.8.47-1
+- 852039 - get rid of useless error messages when verifying backup with db-
+  control
+- 552628 - added reset-password to man page
+- 552628 - alter command can't use bind variables
+- 852038 - Using fetchall_arrayref instead of fullfetch_arrayref.
+- 850714 - do not push strings into an array, when array is expected
+
 * Mon Oct 22 2012 Jan Pazdziora 1.8.46-1
 - removing spurious debugging line from check-database-space-usage.sh
 - do not restore dirs if there is none to restore
