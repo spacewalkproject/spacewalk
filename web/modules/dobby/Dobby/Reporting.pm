@@ -18,7 +18,7 @@ use strict;
 package Dobby::Reporting;
 use Dobby::DB;
 
-sub tablespace_overview {
+sub tablespace_overview_oracle {
   my $class = shift;
   my $dobby = shift;
 
@@ -53,6 +53,22 @@ EOQ
 
   my $sth = $dbh->prepare($query);
   $sth->execute;
+  return $sth->fullfetch_hashref;
+}
+
+sub tablespace_overview_postgresql {
+  my $class = shift;
+  my $dobby = shift;
+  my $schema = shift;
+
+  my $dbh = $dobby->sysdba_connect;
+
+  my $query = <<EOQ;
+SELECT pg_size_pretty(pg_database_size(?)) as TOTAL_SIZE;
+EOQ
+
+  my $sth = $dbh->prepare($query);
+  $sth->execute($schema);
   return $sth->fullfetch_hashref;
 }
 

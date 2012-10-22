@@ -400,8 +400,21 @@ sub ora_instance_state {
 
 sub sysdba_connect {
   my $self = shift;
-
   return $self->{sysdbh} if $self->{sysdbh};
+  my $backend = PXT::Config->get('db_backend');
+  return ($backend eq 'postgresql') ? $self->sysdba_connect_postgresql : $self->sysdba_connect_oracle;
+}
+
+sub sysdba_connect_postgresql {
+  my $self = shift;
+  my ($dsn, $login, $password, $attr) = RHN::DBI::_get_dbi_connect_parameters();
+  my $dbh = eval { RHN::DB->direct_connect($dsn, $login, $password, $attr) };
+  $self->{sysdbh} = $dbh;
+  return $dbh;
+}
+
+sub sysdba_connect_oracle {
+  my $self = shift;
 
   $ENV{ORACLE_SID} = $self->config->get("sid");
   $ENV{ORACLE_HOME} = $self->config->get("oracle_home");

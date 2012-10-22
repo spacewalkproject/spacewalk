@@ -146,20 +146,29 @@ sub command_report {
   }
 
   my $indent = "  ";
+  my $backend = PXT::Config->get('db_backend');
 
-  my $fmt = "%-24s %7s %7s %7s %5s%%\n";
-  printf $fmt, "Tablespace", "Size", "Used", "Avail", "Use";
+  if ($backend eq 'postgresql') {
+    my $fmt = "%-24s %7s\n";
+    my $schema = PXT::Config->get('db_name');
+    printf $fmt, "Tablespace", "Size";
+    my $ret = (Dobby::Reporting->tablespace_overview_postgresql($d, $schema))[0];
+    printf $fmt, $schema, $ret->{'TOTAL_SIZE'};
+  } else {
+    my $fmt = "%-24s %7s %7s %7s %5s%%\n";
+    printf $fmt, "Tablespace", "Size", "Used", "Avail", "Use";
 
-  my $class = __PACKAGE__;
-  for my $ts (sort { $a->{NAME} cmp $b->{NAME} } Dobby::Reporting->tablespace_overview($d)) {
-    $ts->{FREE_BYTES} = $ts->{TOTAL_BYTES} - ($ts->{USED_BYTES} or 0) unless $ts->{FREE_BYTES};
-    $ts->{USED_BYTES} = $ts->{TOTAL_BYTES} - ($ts->{FREE_BYTES} or 0) unless $ts->{USED_BYTES};
-    printf $fmt,
-      $ts->{NAME},
-      $class->size_scale($ts->{TOTAL_BYTES}),
-      $class->size_scale($ts->{USED_BYTES}),
-      $class->size_scale($ts->{FREE_BYTES}),
-      sprintf("%.0f", 100 * ($ts->{USED_BYTES} / $ts->{TOTAL_BYTES}));
+    my $class = __PACKAGE__;
+    for my $ts (sort { $a->{NAME} cmp $b->{NAME} } Dobby::Reporting->tablespace_overview_oracle($d)) {
+      $ts->{FREE_BYTES} = $ts->{TOTAL_BYTES} - ($ts->{USED_BYTES} or 0) unless $ts->{FREE_BYTES};
+      $ts->{USED_BYTES} = $ts->{TOTAL_BYTES} - ($ts->{FREE_BYTES} or 0) unless $ts->{USED_BYTES};
+      printf $fmt,
+        $ts->{NAME},
+        $class->size_scale($ts->{TOTAL_BYTES}),
+        $class->size_scale($ts->{USED_BYTES}),
+        $class->size_scale($ts->{FREE_BYTES}),
+        sprintf("%.0f", 100 * ($ts->{USED_BYTES} / $ts->{TOTAL_BYTES}));
+    }
   }
   return 0;
 }
