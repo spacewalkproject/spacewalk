@@ -1,0 +1,10 @@
+create or replace trigger rhn_dist_channel_map_mod_trig
+before insert or update on rhnDistChannelMap
+for each row
+begin
+    if :new.id is null then
+        select rhn_dcm_id_seq.nextval into :new.id from dual;
+    end if;
+end;
+/
+show errors
