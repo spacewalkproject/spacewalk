@@ -42,6 +42,7 @@ help() {
 
 PG_DATA=/var/lib/pgsql/data
 PG_HBA="$PG_DATA/pg_hba.conf"
+POSTGRESQL="$PG_DATA/postgresql.conf"
 
 create() {
     if [ -z "$PGUSER" -o -z "$PGPASSWORD" -o -z "$PGNAME" ] ; then
@@ -52,6 +53,9 @@ create() {
 
     if [ ! -d "$PG_DATA/base" ] ; then
         service postgresql initdb
+
+	# see bug 821446, we enable timestamps in logs by default
+	sed -i 's/^\(.*log_line_prefix.*\)$/### Edited by spacewalk-setup-embedded-postgresql: ###\n# was: \1\nlog_line_prefix = '\''%s'\''/ ' $POSTGRESQL
 
         sed -i 's/^\([^#].*\)$/### next line has been commented out by spacewalk-setup-embedded-postgresql: ###\n##\1/ ' $PG_HBA
         cat >> $PG_HBA <<EOF
