@@ -939,13 +939,13 @@ sub postgresql_setup_embedded_db {
         return 0;
     }
 
-    if (-d "/var/lib/pgsql/data/base") {
+    if (! system(qq{/usr/bin/spacewalk-setup-embedded-postgresql check --db $answers->{'db-name'}})) {
         my $shared_dir = SHARED_DIR;
         print loc(<<EOQ);
 The embedded database appears to be already installed. Either rerun
 this script with the --skip-db-install option, or use the
-'$shared_dir/postgresql/remove-db.sh --db $answers->{'db-name'}' script to remove the embedded database
-and try again.
+'/usr/bin/spacewalk-setup-embedded-postgresql remove --db $answers->{'db-name'} --user $answers->{'db-user'}'
+script to remove the embedded database and try again.
 EOQ
 
         exit 13;
@@ -975,8 +975,11 @@ EOQ
 		-log_file_size => DB_INSTALL_LOG_SIZE,
 		-err_message => "Could not install database.\n",
 		-err_code => 15,
-		-system_opts => [ "/usr/bin/spacewalk-setup-embedded-postgresql", "--db", $answers->{'db-name'},
-                        "--user", $answers->{'db-user'}, "--password", $answers->{'db-password'}]);
+		-system_opts => [ "/usr/bin/spacewalk-setup-embedded-postgresql",
+                                  "create",
+                                  "--db", $answers->{'db-name'},
+                                  "--user", $answers->{'db-user'},
+                                  "--password", $answers->{'db-password'}]);
 
     print loc("** Database: Installation complete.\n");
 

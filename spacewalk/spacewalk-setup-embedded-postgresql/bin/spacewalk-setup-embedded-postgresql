@@ -34,36 +34,113 @@ while true ; do
     shift
 done
 
-if [ -z "$PGUSER" -o -z "$PGPASSWORD" -o -z "$PGNAME" ] ; then
-    echo "usage: $(basename $0) --db <database_name> --user <username> --password <password>" >&2
-    exit 1
-fi
+help() {
+    echo "usage: $(basename $0) create --db <database_name> --user <username> --password <password>" >&2
+    echo "       $(basename $0) remove [ --db <database_name> | --user <username> ]" >&2
+    echo "       $(basename $0) check  [ --db <database_name> | --user <username> ]" >&2
+}
 
 PG_DATA=/var/lib/pgsql/data
 PG_HBA="$PG_DATA/pg_hba.conf"
 
-chkconfig postgresql on
+create() {
+    if [ -z "$PGUSER" -o -z "$PGPASSWORD" -o -z "$PGNAME" ] ; then
+        help
+        exit 1
+    fi
+    chkconfig postgresql on
 
-if [ ! -d "$PG_DATA/base" ] ; then
-    service postgresql initdb
+    if [ ! -d "$PG_DATA/base" ] ; then
+        service postgresql initdb
 
-    sed -i 's/^\([^#].*\)$/### next line has been commented out by spacewalk-setup-embedded-postgresql: ###\n##\1/ ' $PG_HBA
-    cat >> $PG_HBA <<EOF
+        sed -i 's/^\([^#].*\)$/### next line has been commented out by spacewalk-setup-embedded-postgresql: ###\n##\1/ ' $PG_HBA
+        cat >> $PG_HBA <<EOF
 
 local $PGNAME $PGUSER md5
 host  $PGNAME $PGUSER 127.0.0.1/8 md5
 host  $PGNAME $PGUSER ::1/128 md5
 local $PGNAME postgres  ident
+local postgres postgres  ident
+
 EOF
-fi
+    fi
 
-service postgresql start
+    service postgresql start
 
-runuser - postgres -c "
-PGPASSWORD='$PGPASSWORD'
-createdb '$PGNAME'
-createlang plpgsql '$PGNAME'
-yes '$PGPASSWORD' | createuser -P -sDR '$PGUSER'
-"
+    if ! exists_db ; then
+            runuser - postgres -c "createdb '$PGNAME'; createlang plpgsql '$PGNAME'"
+    fi
+    if ! exists_user ; then
+            runuser - postgres -c "yes '$PGPASSWORD' | createuser -P -sDR '$PGUSER'"
+    fi
 
-service postgresql reload
+    service postgresql reload
+}
+
+remove() {
+    if [ -z "$PGUSER" -a -z "$PGNAME" ] ; then
+        help
+        exit 1
+    fi
+    if exists_db ; then
+            runuser - postgres -c "dropdb '$PGNAME'"
+    fi
+    if exists_user ; then
+            runuser - postgres -c "dropuser '$PGUSER'"
+    fi
+}
+
+check() {
+    if [ -z "$PGUSER" -a -z "$PGNAME" ] ; then
+        help
+        exit 1
+    fi
+    RET=0
+    if [ -n "$PGUSER" ] ; then
+        if exists_user ; then
+            echo "User \"$PGUSER\" already exists"
+        else
+            echo "User \"$PGUSER\" does not exist"
+            RET=1
+        fi
+    fi
+    if [ -n "$PGNAME" ] ; then
+        if exists_db ; then
+            echo "Database \"$PGNAME\" already exists"
+        else
+            echo "Database \"$PGNAME\" does not exist"
+            RET=1
+        fi
+    fi
+    exit $RET
+}
+
+exists_db() {
+    EXISTS=$(runuser - postgres -c 'psql -t -c "select datname from pg_database where datname='"'$PGNAME'"';"')
+    if [ "x$EXISTS" == "x $PGNAME" ] ; then
+        return 0
+    else
+        return 1
+    fi
+}
+
+exists_user() {
+    EXISTS=$(runuser - postgres -c 'psql -t -c "select usename from pg_user where usename='"'$PGUSER'"';"')
+    if [ "x$EXISTS" == "x $PGUSER" ] ; then
+        return 0
+    else
+        return 1
+    fi
+}
+
+case $1 in
+        create) create
+            ;;
+        remove) remove
+            ;;
+        check)  check
+            ;;
+        *)      help
+            ;;
+esac
+
