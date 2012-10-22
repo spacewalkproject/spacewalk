@@ -1234,7 +1234,7 @@ sub oracle_setup_embedded_db {
     } else {
         $answers->{'db-user'} = 'rhnsat' if not defined $answers->{'db-user'};
         $answers->{'db-password'} = 'rhnsat' if not defined $answers->{'db-password'};
-        $answers->{'db-name'} = 'rhnsat.world' if not defined $answers->{'db-name'};
+        $answers->{'db-name'} = 'rhnsat.world';
         $answers->{'db-host'} = 'localhost';
         $answers->{'db-port'} = 1521;
     }
