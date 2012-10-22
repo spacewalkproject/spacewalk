@@ -519,7 +519,7 @@ sub remove_obsoleted_packages {
 sub remove_jabberd_configs {
   my $opts = shift;
 
-  return if (not $opts->{'upgrade'});
+  return unless ($opts->{'upgrade'});
 
   foreach my $cf ('c2s', 's2s', 'sm', 'router') {
     my $cf_path = "/etc/jabberd/$cf.xml";
