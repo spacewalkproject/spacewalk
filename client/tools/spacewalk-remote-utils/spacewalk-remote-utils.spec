@@ -15,7 +15,7 @@ Source:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.
 BuildRoot:   %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 BuildArch:   noarch
 
-Requires:    rhnlib >= 2.5.38
+Requires:    rhnlib >= 2.5.31
 BuildRequires: python-devel
 BuildRequires: docbook-utils
 %if 0%{?suse_version}
