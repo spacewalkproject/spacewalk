@@ -1198,7 +1198,7 @@ sub migrate_embedded_db {
   print loc("*** Database: Migration process logged at: " . DB_MIGRATION_LOG_FILE . "\n");
   log_rotate(DB_MIGRATION_LOG_FILE);
   system_or_exit(["/bin/bash", "-c",
-	"(/usr/bin/spacewalk-dump-schema" .
+	"(set -o pipefail; /usr/bin/spacewalk-dump-schema" .
 	" --db=" . $emb_oracle_creds->{'db-name'} .
 	" --user=" . $emb_oracle_creds->{'db-user'} .
 	" --password=" . $emb_oracle_creds->{'db-password'} . " | spacewalk-sql" .
