@@ -244,7 +244,7 @@ Requires: python-hashlib
 Requires: mod_ssl
 Requires: %{name}-xml-export-libs
 Requires: cobbler >= 2.0.0
-Requires: rhnlib  >= 2.5.38
+Requires: rhnlib  >= 2.5.35
 Obsoletes: rhns-satellite-tools < 5.3.0
 Obsoletes: spacewalk-backend-satellite-tools <= 0.2.7
 Provides: spacewalk-backend-satellite-tools = %{version}-%{release}
