@@ -60,16 +60,21 @@ sub command_startstop {
   my $command = shift;
 
   my $d = new Dobby::DB;
+  my $backend = PXT::Config->get('db_backend');
 
   if ($command eq 'start') {
     if ($d->instance_state ne 'OFFLINE') {
       print "Database already running.\n";
     }
     else {
-      print "Starting database... ";
-      $d->database_startup;
-      $d->listener_startup;
-      print "done.\n";
+      if ($backend eq 'postgresql') {
+        system("/sbin/service", "postgresql", "start");
+      } else {
+        print "Starting database... ";
+        $d->database_startup;
+        $d->listener_startup;
+        print "done.\n";
+      }
     }
   }
   elsif ($command eq 'stop') {
@@ -77,10 +82,14 @@ sub command_startstop {
       print "Database already shut down.\n";
     }
     else {
-      print "Shutting down database... ";
-      $d->listener_shutdown;
-      $d->database_shutdown("immediate");
-      print "done.\n";
+      if ($backend eq 'postgresql') {
+        system("/sbin/service", "postgresql", "stop");
+      } else {
+        print "Shutting down database... ";
+        $d->listener_shutdown;
+        $d->database_shutdown("immediate");
+        print "done.\n";
+      }
     }
   }
   else {
