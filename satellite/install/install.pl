@@ -274,7 +274,7 @@ sub python_path {
 }
 
 sub system_is_registered {
-  my $ret = system_debug('/usr/sbin/rhn_check');
+  my $ret = system_debug('/usr/sbin/rhn_check', '--');
 
   return ($ret ? 0 : 1);
 }
