@@ -48,7 +48,6 @@ import com.redhat.rhn.domain.config.ConfigFileName;
 import com.redhat.rhn.domain.config.ConfigRevision;
 import com.redhat.rhn.domain.config.ConfigurationFactory;
 import com.redhat.rhn.domain.errata.Errata;
-import com.redhat.rhn.domain.errata.impl.PublishedErrata;
 import com.redhat.rhn.domain.image.Image;
 import com.redhat.rhn.domain.image.ProxyConfig;
 import com.redhat.rhn.domain.kickstart.KickstartData;
@@ -1648,7 +1647,8 @@ public class ActionManager extends BaseManager {
     public static void scheduleAllErrataUpdate(User scheduler, Server srvr,
             Date earliest) {
         // Do not elaborate, we need only the IDs in here
-        DataResult<Errata> errata = SystemManager.unscheduledErrata(scheduler, srvr.getId(), null);
+        DataResult<Errata> errata = SystemManager.unscheduledErrata(scheduler,
+                srvr.getId(), null);
         List<Long> errataIds = new ArrayList<Long>();
         for (Errata e : errata) {
             errataIds.add(e.getId());

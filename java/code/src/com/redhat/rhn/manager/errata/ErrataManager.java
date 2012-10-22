@@ -1421,10 +1421,10 @@ public class ErrataManager extends BaseManager {
 
     /**
      * Apply a list of errata to a list of servers.
-     * @param user
-     * @param errataIds
-     * @param earliest
-     * @param serverIds
+     * @param user user
+     * @param errataIds errata ids
+     * @param earliest schedule time
+     * @param serverIds server ids
      */
     public static void applyErrata(User user, List errataIds, Date earliest,
             List<Long> serverIds) {
