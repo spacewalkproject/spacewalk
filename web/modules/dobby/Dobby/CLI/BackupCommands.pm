@@ -47,10 +47,16 @@ sub register_dobby_commands {
 		      -handler => \&command_restore);
 }
 
-sub cut_dir {
+# returns $file cuted of prefix made from $cut_off_dir
+sub cut_off_dir {
   my ($file, $cut_off_dir) = @_;
   $file =~ s/^$cut_off_dir//;
-  return dirname($file);
+  return $file;
+}
+
+sub cut_dir {
+  my ($file, $cut_off_dir) = @_;
+  return dirname(cut_off_dir($file, $cut_off_dir));
 }
 
 sub directory_contents {
@@ -178,7 +184,11 @@ sub command_restore {
     # script itself.
 
     my ($src, $dst) = ($file_entry->to, $file_entry->from);
-    $src = File::Spec->catfile($restore_dir, basename($src));
+    if ($log->base_dir) {
+      $src = File::Spec->catfile($restore_dir, cut_off_dir($src, $log->base_dir));
+    } else { # old backups (prior spacewalk 1.8) do not have basedir and assume all in one dir
+      $src = File::Spec->catfile($restore_dir, basename($src));
+    }
     my ($digest, $missing);
 
     printf "  %s", $src;
