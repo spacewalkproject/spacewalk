@@ -120,6 +120,9 @@ sub parse_options {
             "enable-tftp:s",
                     "external-db",
                     "db-only",
+            "rhn-http-proxy:s",
+            "rhn-http-proxy-username:s",
+            "rhn-http-proxy-password:s",
 		   );
 
   my $usage = loc("usage: %s %s\n",

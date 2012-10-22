@@ -1064,9 +1064,9 @@ sub populate_initial_configs {
     (
      mount_point => $answers->{'mount-point'} || '/var/satellite',
      kickstart_mount_point => $answers->{'kickstart-mount-point'} || $answers->{'mount-point'} || '/var/satellite',
-     serverDOTsatelliteDOThttp_proxy => $answers->{'rhn-http-proxy'} || '',
-     serverDOTsatelliteDOThttp_proxy_username => $answers->{'rhn-http-proxy-username'} || '',
-     serverDOTsatelliteDOThttp_proxy_password => $answers->{'rhn-http-proxy-password'} || '',
+     serverDOTsatelliteDOThttp_proxy => ($opts->{'rhn-http-proxy'} ? $opts->{'rhn-http-proxy'} : $answers->{'rhn-http-proxy'}) || '',
+     serverDOTsatelliteDOThttp_proxy_username => ($opts->{'rhn-http-proxy'} ? $opts->{'rhn-http-proxy-username'} : $answers->{'rhn-http-proxy-username'}) || '',
+     serverDOTsatelliteDOThttp_proxy_password => ($opts->{'rhn-http-proxy'} ? $opts->{'rhn-http-proxy-password'} :$answers->{'rhn-http-proxy-password'}) || '',
      webDOTis_monitoring_backend => 0,
      webDOTis_monitoring_scout => 0,
      webDOTenable_solaris_support => 0,

@@ -46,6 +46,7 @@ my %opts = Spacewalk::Setup::parse_options();
 
 my %up2dateOptions = ();
 my %rhnOptions = ();
+my @additionalOptions = ();
 # read existing confgiuration
 Spacewalk::Setup::read_config(DEFAULT_UP2DATE_CONF_LOCATION, \%up2dateOptions);
 
@@ -66,7 +67,7 @@ do_precondition_checks(\%opts, \%answers);
 print loc("* Pre-install checks complete.  Beginning installation.\n");
 
 print loc("* RHN Registration.\n");
-rhn_register(\%opts, \%answers, \%up2dateOptions, \%rhnOptions);
+rhn_register(\%opts, \%answers, \%up2dateOptions, \%rhnOptions, \@additionalOptions);
 
 Spacewalk::Setup::upgrade_stop_services(\%opts);
 remove_obsoleted_packages(\%opts);
@@ -124,7 +125,7 @@ if (@not_installed_rpms) {
 
 # Call spacewalk-setup:
 print loc("* Now running spacewalk-setup.\n");
-system(SPACEWALK_SETUP_SCRIPT, @ARGV_ORIG, '--skip-logfile-init');
+system(SPACEWALK_SETUP_SCRIPT, @ARGV_ORIG, '--skip-logfile-init', @additionalOptions);
 
 exit;
 
@@ -285,6 +286,8 @@ sub rhn_register {
   my $opts = shift;
   my $answers = shift;
   my $up2dateopts = shift;
+  my $rhnOptions = shift;
+  my $proxyOptionsRef = shift;
   my $proxyAccept;
 
   if ($opts->{disconnected}) {
@@ -361,6 +364,8 @@ Import values to be used by Satellite [y/n]",
       }
     }
   }
+
+  push @$proxyOptionsRef, map { "--$_=" . $answers{$_} } grep { defined $answers{$_} } grep /^rhn-http-proxy/, keys %answers;
 
   my $sys_hostname = $answers->{hostname};
 
