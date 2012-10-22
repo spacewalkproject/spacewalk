@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        1.8.19
+Version:        1.8.20
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -110,6 +110,13 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Mon Oct 22 2012 Jan Pazdziora 1.8.20-1
+- don't remove Oracle stuff during oracle->postgresql migration
+- run db migration in upgrade mode only
+- set pipefail to correctly detect failed schema migration
+- remove oracle-rhnsat-selinux during oracle -> postgresql migration
+- Logic for embedded database migration
+
 * Mon Oct 22 2012 Michael Mraka
 - check free space under /var/lib/pgsql/data
 - modified embedded_diskspace_check to support non default directories
