@@ -1,6 +1,3 @@
-%define name cx_Oracle
-%define version 5.1.2
-%define release 1
 
 # different arches have differnet oracle versions
 %define oracleicname instantclient
@@ -19,9 +16,9 @@
 %endif
 
 Summary: Python interface to Oracle
-Name: %{name}
-Version: %{version}
-Release: %{release}%{?dist}
+Name: cx_Oracle
+Version: 5.1.2
+Release: 1%{?dist}
 Source0: %{name}-%{version}.tar.gz
 License: Python Software Foundation License
 Group: Development/Libraries
