@@ -1147,7 +1147,7 @@ sub embedded_oracle_stop {
 }
 
 sub remove_oracle_packages {
-  my @rpms = ('oracle-instantclient-jdbc', 'oracle-server-admin',
+  my @rpms = ('oracle-instantclient-jdbc', 'oracle-rhnsat-selinux', 'oracle-server-admin',
               'oracle-server-scripts', 'oracle-server-scripts', 'oracle-server-i386',
               'oracle-server-x86_64', 'oracle-server-s390x');
   my @delete = ();
