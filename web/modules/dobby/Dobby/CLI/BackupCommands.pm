@@ -294,9 +294,11 @@ sub command_restore {
       print "done.\n";
 
       print "Restoring empty directories... ";
-      for my $dir_entry (@{$log->cold_dirs}) {
-        if (my @dirs = File::Path::mkpath($dir_entry->from, 0, 0700)) {
-          chown $uid, $gid, @dirs;
+      if ($log->cold_dirs) {
+        for my $dir_entry (@{$log->cold_dirs}) {
+          if (my @dirs = File::Path::mkpath($dir_entry->from, 0, 0700)) {
+            chown $uid, $gid, @dirs;
+          }
         }
       }
       print "done.\n";
