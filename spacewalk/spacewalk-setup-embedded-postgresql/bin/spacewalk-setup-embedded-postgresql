@@ -43,12 +43,12 @@ chkconfig postgresql on
 service postgresql initdb
 service postgresql start
 
-su - postgres <<EOP
+runuser - postgres -c "
 PGPASSWORD='$PGPASSWORD'
 createdb '$PGNAME'
 createlang plpgsql '$PGNAME'
 yes '$PGPASSWORD' | createuser -P -sDR '$PGUSER'
-EOP
+"
 
 PG_HBA=/var/lib/pgsql/data/pg_hba.conf
 sed -i 's/^\([^#].*\)$/### next line has been commented out by spacewalk-setup-embedded-postgresql: ###\n##\1/ ' $PG_HBA
