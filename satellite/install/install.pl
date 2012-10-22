@@ -72,6 +72,7 @@ Spacewalk::Setup::upgrade_stop_services(\%opts);
 remove_obsoleted_packages(\%opts);
 remove_jabberd_configs(\%opts);
 remove_rhn_cache_and_kickstarts(\%opts);
+remove_nocpulse_ini(\%opts);
 
 my $run_updater;
 if (defined $opts{'run-updater'}) {
@@ -550,6 +551,16 @@ sub remove_rhn_cache_and_kickstarts {
      if (-d '/var/lib/rhn/kickstarts/wizard') {
          system('rm -f /var/lib/rhn/kickstarts/wizard/* > /dev/null 2>&1');
      }
+  }
+}
+
+sub remove_nocpulse_ini {
+  my $opts = shift;
+
+  return unless ($opts->{'upgrade'});
+
+  if (-f "/etc/NOCpulse.ini") {
+    system("rm -f /etc/NOCpulse.ini > /dev/null 2>&1");
   }
 }
 
