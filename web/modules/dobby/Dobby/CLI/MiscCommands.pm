@@ -183,20 +183,30 @@ sub command_tablesizes {
   }
 
   my $indent = "  ";
-
-  my $fmt = "%-32s %7s\n";
-  printf $fmt, "Tables", "Size";
-
+  my $backend = PXT::Config->get('db_backend');
   my $class = __PACKAGE__;
-  my $total = 0;
-  for my $ts (sort { $a->{NAME} cmp $b->{NAME} } Dobby::Reporting->table_size_overview($d)) {
-    printf $fmt,
-      $ts->{NAME}, $class->size_scale($ts->{TOTAL_BYTES});
-    $total += $ts->{TOTAL_BYTES};
-  }
 
-  printf $fmt, "-" x 32, "-" x 7;
-  printf $fmt, "Total", $class->size_scale($total);
+  if ($backend eq 'postgresql') {
+    my $fmt = "%-32s %12s %12s %21s\n";
+    printf $fmt, "Tables", "Planner Size", "Real Size", "Real Size+Toasts+Idx";
+
+    for my $ts (sort { $a->{NAME} cmp $b->{NAME} } Dobby::Reporting->table_size_overview_postgresql($d)) {
+      printf $fmt, $ts->{'NAME'}, $ts->{'PLANER'}, $ts->{'SIZE'}, $ts->{'TOTAL_SIZE'};
+    }
+  } else {
+    my $fmt = "%-32s %7s\n";
+    printf $fmt, "Tables", "Size";
+
+    my $total = 0;
+    for my $ts (sort { $a->{NAME} cmp $b->{NAME} } Dobby::Reporting->table_size_overview_oracle($d)) {
+      printf $fmt,
+        $ts->{NAME}, $class->size_scale($ts->{TOTAL_BYTES});
+      $total += $ts->{TOTAL_BYTES};
+    }
+
+    printf $fmt, "-" x 32, "-" x 7;
+    printf $fmt, "Total", $class->size_scale($total);
+  }
   return 0;
 }
 
