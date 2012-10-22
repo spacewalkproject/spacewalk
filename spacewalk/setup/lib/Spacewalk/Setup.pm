@@ -1146,28 +1146,6 @@ sub embedded_oracle_stop {
   }
 }
 
-sub remove_oracle_packages {
-  my @rpms = ('oracle-instantclient-jdbc', 'oracle-rhnsat-selinux', 'oracle-server-admin',
-              'oracle-server-scripts', 'oracle-server-scripts', 'oracle-server-i386',
-              'oracle-server-x86_64', 'oracle-server-s390x');
-  my @delete = ();
-
-  foreach my $rpm (@rpms) {
-    system("rpm -q $rpm >& /dev/null");
-    push(@delete, $rpm) if ($? >> 8 == 0);
-  }
-
-  system_or_exit(['rpm', '-e', @delete], 1, "*** Database: package removal failed");
-}
-
-sub remove_oracle_files {
-  my @paths = ('/opt/apps/oracle', '/rhnsat');
-
-  foreach my $path (@paths) {
-    system_or_exit(['rm', '-rf', $path], 1, "*** Database: Removal of $path failed.\n");
-  }
-}
-
 sub migrate_embedded_db {
   my $opts = shift;
   my $answers = shift;
@@ -1211,12 +1189,6 @@ sub migrate_embedded_db {
   print loc("** Database: Data migration successfully completed.\n");
   print loc("** Database: Stoping embedded Oracle database.\n");
   embedded_oracle_stop();
-
-  print loc("** Database: Removing Oracle database.\n");
-  print loc("*** Database: Removing packages.\n");
-  remove_oracle_packages();
-  print loc("*** Database: Removing configuration and database files.\n");
-  remove_oracle_files();
 }
 
 
