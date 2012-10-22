@@ -17,7 +17,7 @@ export PATH
 reportusage() {
    # both command produce percent as 5th field and first row is header, which is ignored
    if [ 0$(spacewalk-cfg-get db_backend) = "0postgresql" ]; then
-      df -h /var/lib/pgsql/data/
+      df -hP /var/lib/pgsql/data/
    else
       # don't report UNDO usage
        /sbin/runuser oracle -c "db-control report" | grep -E -v 'UNDO|TEMP'
