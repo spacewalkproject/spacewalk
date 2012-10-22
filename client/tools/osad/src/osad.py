@@ -143,7 +143,7 @@ class Runner(jabber_lib.Runner):
                     s.add_trusted_cert(osa_ssl_cert)
                 s.registration.welcome_message()
         
-                server_capabilities = s.get_server_capability()
+                server_capabilities = get_server_capability(s)
                 if not server_capabilities.has_key('registration.register_osad'):
                     die("Server does not support OSAD registration")
         
@@ -363,6 +363,35 @@ class Runner(jabber_lib.Runner):
         auth_info = osad_config.get_auth_info(auth_info_file, 'osad-auth', force,
             username=username, password=password, resource=resource)
         return auth_info
+
+def get_server_capability(s):
+    headers = s.get_response_headers()
+    if headers is None:
+        # No request done yet
+        return {}
+    cap_headers = headers.getallmatchingheaders("X-RHN-Server-Capability")
+    if not cap_headers:
+        return {}
+    regexp = re.compile(
+            r"^(?P<name>[^(]*)\((?P<version>[^)]*)\)\s*=\s*(?P<value>.*)$")
+    vals = {}
+    for h in cap_headers:
+        arr = string.split(h, ':', 1)
+        assert len(arr) == 2
+        val = string.strip(arr[1])
+        if not val:
+            continue
+
+        mo = regexp.match(val)
+        if not mo:
+            # XXX Just ignoring it, for now
+            continue
+        vdict = mo.groupdict()
+        for k, v in vdict.items():
+            vdict[k] = string.strip(v)
+
+        vals[vdict['name']] = vdict
+    return vals
 
 if __name__ == '__main__':
     sys.exit(main() or 0)

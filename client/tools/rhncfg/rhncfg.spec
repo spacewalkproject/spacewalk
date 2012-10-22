@@ -15,7 +15,7 @@ BuildArch: noarch
 BuildRequires: docbook-utils
 BuildRequires: python
 Requires: python
-Requires: rhnlib >= 2.5.32
+Requires: rhnlib
 Requires: rhn-client-tools
 %if 0%{?suse_version}
 # provide rhn directories and no selinux on suse

@@ -22,7 +22,7 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
 BuildRequires: python-devel
 Requires: python
-Requires: rhnlib >= 2.5.38
+Requires: rhnlib >= 1.8-3
 Requires: jabberpy
 Requires: rhn-client-tools >= 1.3.7
 %if 0%{?rhel} && 0%{?rhel} <= 5
