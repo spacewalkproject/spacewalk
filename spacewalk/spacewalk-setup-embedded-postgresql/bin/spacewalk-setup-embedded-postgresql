@@ -1,0 +1,63 @@
+#!/bin/bash
+
+set -e
+
+OPTS=$(getopt --longoptions=db:,user:,password: -n ${0##*/} -- d:u:p "$@")
+
+if [ $? != 0 ] ; then echo "Terminating..." >&2 ; exit 1 ; fi
+
+eval set -- "$OPTS"
+
+while true ; do
+    case "$1" in
+        -d|--db)
+            PGNAME=$2
+            shift
+            ;;
+        -u|--user)
+            PGUSER=$2
+            shift
+            ;;
+        -p|--password)
+            PGPASSWORD=$2
+            shift
+            ;;
+        --)
+            shift
+            break
+            ;;
+        *)
+            echo "Internal error [$1]!" >&2
+            exit 1
+            ;;
+    esac
+    shift
+done
+
+if [ -z "$PGUSER" -o -z "$PGPASSWORD" -o -z "$PGNAME" ] ; then
+    echo "usage: $(basename $0) --db <database_name> --user <username> --password <password>" >&2
+    exit 1
+fi
+
+chkconfig postgresql on
+service postgresql initdb
+service postgresql start
+
+su - postgres <<EOP
+PGPASSWORD='$PGPASSWORD'
+createdb '$PGNAME'
+createlang plpgsql '$PGNAME'
+yes '$PGPASSWORD' | createuser -P -sDR '$PGUSER'
+EOP
+
+PG_HBA=/var/lib/pgsql/data/pg_hba.conf
+sed -i 's/^\([^#].*\)$/### next line has been commented out by spacewalk-setup-embedded-postgresql: ###\n##\1/ ' $PG_HBA
+cat >> $PG_HBA <<EOF
+
+local $PGNAME $PGUSER md5
+host  $PGNAME $PGUSER 127.0.0.1/8 md5
+host  $PGNAME $PGUSER ::1/128 md5
+local $PGNAME postgres  ident
+EOF
+
+service postgresql reload
