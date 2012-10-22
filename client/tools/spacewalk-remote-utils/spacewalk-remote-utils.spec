@@ -4,7 +4,7 @@
 %endif
 
 Name:        spacewalk-remote-utils
-Version:     1.8.4
+Version:     1.8.5
 Release:     1%{?dist}
 Summary:     Utilities to interact with a RHN Satellite or Spacewalk server remotely.
 
@@ -62,6 +62,10 @@ docbook2man ./spacewalk-create-channel/doc/spacewalk-create-channel.sgml -o ./sp
 %doc %{_mandir}/man1/spacewalk-create-channel.1.gz
 
 %changelog
+* Mon Oct 22 2012 Jan Pazdziora 1.8.5-1
+- no need to require rhnlib >= 2.5.31
+- rhnlib >= 2.5.38 is not necessary
+
 * Tue Aug 28 2012 Jan Pazdziora 1.8.4-1
 - Fixing the License rpm header to match the COPYING information.
 
