@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        1.8.17
+Version:        1.8.18
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -110,6 +110,13 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Mon Oct 22 2012 Michael Mraka
+- merge spacewalk-setup-embedded-postgresql and remove-db.sh
+- added script to remove database
+- added embedded postgresql installation part
+- embedded database is now postgresql
+- implement on-line backup and restore on PG
+
 * Wed Aug 22 2012 Michael Mraka <michael.mraka@redhat.com> 1.8.17-1
 - fix memory settings on 24+ cpu machines
 - 847276 - pull http proxy settings from up2date conf.
