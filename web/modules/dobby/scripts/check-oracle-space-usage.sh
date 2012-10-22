@@ -15,8 +15,13 @@ PATH=/usr/bin:/bin
 export PATH
 
 reportusage() {
-   # don't report UNDO usage
-   /sbin/runuser oracle -c "db-control report" | grep -E -v 'UNDO|TEMP'
+   # both command produce percent as 5th field and first row is header, which is ignored
+   if [ 0$(spacewalk-cfg-get db_backend) = "0postgresql" ]; then
+      df -h /var/lib/pgsql/data/
+   else
+      # don't report UNDO usage
+       /sbin/runuser oracle -c "db-control report" | grep -E -v 'UNDO|TEMP'
+   fi
 }
 
 mailitout() {
@@ -25,13 +30,20 @@ mailitout() {
    #get Satellite email address
    MAILADDRESS=$(spacewalk-cfg-get traceback_mail)
 
-   SUBJECT="Warning - high tablespace usage on Satellite oracle DB"
+   if [ 0$(spacewalk-cfg-get db_backend) = "0postgresql" ]; then
+      SUBJECT="Warning - PostgreSQL database mount point is running out of space"
+      BODY="This is a notice to let you know that you have gone over 90% usage of
+the mount point where the PostgreSQL database resides. We recommend to be
+proactive and increase the storage before getting to 100% usage."
+   else
+      SUBJECT="Warning - high tablespace usage on Satellite oracle DB"
 
-   BODY="This is a notice to let you know that you have gone over 90% usage in
+      BODY="This is a notice to let you know that you have gone over 90% usage in
 one of the Oracle Tablespaces. We recommend to be proactive and increase the
 size of the tablespace  before getting to 100% usage. Please consult
 the Satellite documentation on using db-control to increase the size or
 contact Red Hat Support for assistance."
+   fi
 
    echo -e "$BODY\n\n$reportusage" | mail -s "$SUBJECT" $MAILADDRESS
    exit 0
