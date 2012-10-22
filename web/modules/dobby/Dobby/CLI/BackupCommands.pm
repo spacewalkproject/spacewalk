@@ -19,7 +19,7 @@ package Dobby::CLI::BackupCommands;
 use Carp;
 use Dobby::Files;
 use Dobby::BackupLog;
-use File::Basename qw/basename/;
+use File::Basename qw/basename dirname/;
 use File::Spec;
 use Filesys::Df;
 use POSIX;
@@ -47,14 +47,24 @@ sub register_dobby_commands {
 		      -handler => \&command_restore);
 }
 
+sub cut_dir {
+  my ($file, $cut_off_dir) = @_;
+  $file =~ s/^$cut_off_dir//;
+  return dirname($file);
+}
+
 sub directory_contents {
-  my $cli = shift;
-  my $dir = shift;
+  my ($cli, $dir, $cut_off_dir) = @_;
 
   my @files;
   opendir DIR, $dir or $cli->fatal("opendir $dir: $!");
-  push @files, grep { -f $_ } map { File::Spec->catfile($dir, $_) } readdir DIR;
+  my @dir_content = readdir DIR;
   closedir DIR;
+  my @without_up_dir = grep {$_ ne '.' and $_ ne '..'} @dir_content;
+  foreach my $directory (grep { -d $_ } map { File::Spec->catfile($dir, $_) } @without_up_dir) {
+    push @files, directory_contents($cli, $directory, $cut_off_dir);
+  }
+  push @files, map {[$_, cut_dir($_, $cut_off_dir)]} grep { -f $_ } map { File::Spec->catfile($dir, $_) } @dir_content;
 
   return @files;
 }
@@ -71,6 +81,7 @@ sub command_backup {
   $cli->fatal("Database is running; please stop before running a cold backup.") if $d->instance_state ne 'OFFLINE';
 
   my $source_dir = $d->data_dir;
+  my $backend = PXT::Config->get('db_backend');
 
   my $log = new Dobby::BackupLog;
   $log->type('cold');
@@ -82,15 +93,18 @@ sub command_backup {
 
   my @files;
 
-  push @files, $d->lk_file;
-  push @files, $d->sp_file;
-
-  for my $dir ($d->data_dir, $d->archive_log_dir) {
-    push @files, directory_contents($cli, $dir);
+  if ($backend eq 'oracle') {
+    push @files, $d->lk_file;
+    push @files, $d->sp_file;
   }
 
-  for my $file (@files) {
-    my $file_entry = Dobby::Files->backup_file($file, $backup_dir);
+  for my $dir ($d->data_dir, $d->archive_log_dir) {
+    push @files, directory_contents($cli, $dir, $dir) if ($dir);
+  }
+
+  for my $ret (@files) {
+    my ($file, $rel_dir) = @{$ret};
+    my $file_entry = Dobby::Files->backup_file($rel_dir, $file, $backup_dir);
     $log->add_cold_file($file_entry);
   }
 

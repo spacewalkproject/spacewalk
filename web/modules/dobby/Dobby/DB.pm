@@ -72,14 +72,16 @@ sub database_started {
 
 sub data_dir {
   my $self = shift;
-
-  return sprintf($self->config->get("data_dir_format"), $self->sid);
+  my $backend = PXT::Config->get('db_backend');
+  return ($backend eq 'postgresql') ? $self->config->get("pg_data_dir_format") :
+    sprintf($self->config->get("data_dir_format"), $self->sid);
 }
 
 sub archive_log_dir {
   my $self = shift;
-
-  return sprintf($self->config->get("archive_dir_format"), $self->sid);
+  my $backend = PXT::Config->get('db_backend');
+  return ($backend eq 'postgresql') ? undef :
+    sprintf($self->config->get("archive_dir_format"), $self->sid);
 }
 
 sub oracle_homedir_relative {

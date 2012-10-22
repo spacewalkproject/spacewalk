@@ -18,7 +18,8 @@ package Dobby::Files;
 use Digest::MD5;
 use Compress::Zlib;
 use File::Basename qw/basename/;
-
+use File::Spec;
+use File::Path;
 
 # given source and dst, gzip a file into dst, returning the checksum
 # of the original file
@@ -88,11 +89,11 @@ sub gunzip_copy {
 }
 
 sub backup_file {
-  my $class = shift;
-  my $file = shift;
-  my $backup_dir = shift;
+  my ($class, $rel_dir, $file, $backup_dir) = @_;
 
-  my $dest = sprintf("%s/%s.gz", $backup_dir, basename($file));
+  my $real_dest_dir = File::Spec->catdir($backup_dir, $rel_dir);
+  File::Path::mkpath($real_dest_dir) or (-d $real_dest_dir) or die ("Error: could not create directory $real_dest_dir\n");
+  my $dest = sprintf("%s/%s.gz", $real_dest_dir, basename($file));
   $dest =~ s(//+)(/)g;
   my $then = time;
 
