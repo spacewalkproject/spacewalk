@@ -13,11 +13,20 @@ use Dobby::Log;
 my $exec_name = basename $0;
 my $cli = new Dobby::CLI $exec_name;
 
+my $backend = PXT::Config->get('db_backend');
 my $cfg = new PXT::Config("dobby");
-my ($username, undef, $uid, $gid) = getpwnam($cfg->get("oracle_user"));
+my $intended_username = $cfg->get("${backend}_user");
+my ($username, undef, $uid, $gid) = getpwnam($intended_username);
 
 if (not defined $uid or not defined $gid or $uid != $> or $gid != $)) {
-  $cli->fatal("Error: please run this command as the $username user ('su - oracle').");
+  if ($backend eq 'postgresql') {
+    # postgresql backend can be run as root or postgres user
+    if ( $> != 0 or $) != 0) {
+      $cli->fatal("Error: please run this command as the root ('su -').");
+    }
+  } else { # oracle backend can be run only as oracle user
+    $cli->fatal("Error: please run this command as the $intended_username user ('su - $intended_username').");
+  }
 }
 
 Dobby::CLI::MiscCommands->register_dobby_commands($cli);
