@@ -211,15 +211,15 @@ sub command_tablesizes {
 }
 
 sub command_reportstats {
-  my $cli = shift;
-
+  my ($cli, $command, $days) = @_;
   my $d = new Dobby::DB;
   if (not $d->database_started) {
     print "Error: The database must be running to get a statistics report.\n";
     return 1;
   }
-
-  my $stats = $d->report_database_stats();
+  my $backend = PXT::Config->get('db_backend');
+  $days = 1 unless (defined $days);
+  my $stats = ($backend eq 'postgresql') ? $d->report_database_stats_postgresql($days) : $d->report_database_stats_oracle;
   for my $i (sort keys %$stats) {
     print "Tables with $i statistics: $stats->{$i}\n";
   }

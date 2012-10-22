@@ -147,7 +147,39 @@ sub tablespace_extend {
   $dbh->do("ALTER TABLESPACE $ts ADD $ft '$fn' SIZE $sz REUSE");
 }
 
-sub report_database_stats {
+sub report_database_stats_postgresql {
+  my ($self, $days) = @_;
+
+  my $stats = {
+        stale => 0,
+        empty => 0,
+  };
+  my $dbh = $self->connect;
+
+  # sanitize input
+  $days += 0;
+  my $sth = $dbh->prepare(<<RSTATS);
+select count(*)
+from pg_stat_user_tables
+where (last_analyze < now() - interval '$days' day or last_analyze is null) and
+  (last_autoanalyze < now() - interval '$days' day or last_autoanalyze is null);
+RSTATS
+  $sth->execute;
+  ($stats->{'stale'}) = $sth->fetchrow_array;
+
+  $sth = $dbh->prepare(<<RSTATS);
+select count(*)
+from pg_stat_user_tables
+where last_analyze is null and
+  last_autoanalyze is null
+RSTATS
+  $sth->execute;
+  ($stats->{'empty'}) = $sth->fetchrow_array;
+
+  return $stats;
+}
+
+sub report_database_stats_oracle {
   my $self = shift;
 
   my $stats = {
