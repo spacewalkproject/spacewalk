@@ -489,6 +489,11 @@ sub remove_obsoleted_packages {
                 'quartz-oracle', 'jaf', 'jta',
                 'python-sgmlop', 'xml-commons-apis', 'jakarta-commons-io',
                 'geronimo-specs-compat', 'spacewalk-backend-upload-server');
+
+    if (Spacewalk::Setup::is_embedded_db($opts)) {
+        push @pkgs, 'spacewalk-oracle', 'perl-NOCpulse-Probe-Oracle', 'NOCpulsePlugins-Oracle';
+    }
+
     for my $pkg (@pkgs) {
       if (system_debug('rpm', '-q', $pkg) == 0) {
         system_debug('rpm', '-ev', '--nodeps', $pkg);
