@@ -81,7 +81,7 @@ use constant RHN_LOG_DIR =>
 use constant DB_UPGRADE_LOG_FILE =>
   '/var/log/rhn/upgrade_db.log';
 
-use constant DB_UPGRADE_LOG_SIZE => 20000000;
+use constant DB_UPGRADE_LOG_SIZE => 22000000;
 
 use constant DB_INSTALL_LOG_SIZE => 11416;
 
