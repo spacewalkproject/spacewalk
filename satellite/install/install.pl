@@ -585,17 +585,25 @@ sub answered {
 # that Satellite rpms need.
 
 sub get_required_rpms {
-  my $NEEDRPMS_FILE = 'updates/rhelrpms';
-  open FH, $NEEDRPMS_FILE
-    or die loc("Error reading list of needed rpms from %s: %s", $NEEDRPMS_FILE, $!);
+  my $opts = shift;
   my %needed_rpms;
-  while (<FH>) {
-    next if /^\s*#/;
-    chomp;
-    $needed_rpms{$_} = 1 if /./;
+  my $NEEDRPMS_FILE = 'updates/rhelrpms';
+  my @NEEDRPMS_FILES = ($NEEDRPMS_FILE);
+  if (Spacewalk::Setup::is_embedded_db($opts)) {
+        push @NEEDRPMS_FILES, "$NEEDRPMS_FILE.postgresql";
+  } else {
+        push @NEEDRPMS_FILES, "$NEEDRPMS_FILE.oracle";
   }
-  close FH;
-
+  for my $f (@NEEDRPMS_FILES) {
+    open FH, $f
+      or die loc("Error reading list of needed rpms from %s: %s", $f, $!);
+    while (<FH>) {
+      next if /^\s*#/;
+      chomp;
+      $needed_rpms{$_} = 1 if /./;
+    }
+    close FH;
+  }
   return \%needed_rpms;
 }
 
@@ -605,7 +613,7 @@ sub check_required_rpms {
   my $run_updater = shift;
   my $rpm_qa = shift;
 
-  my $needed_rpms = get_required_rpms();
+  my $needed_rpms = get_required_rpms($opts);
   for (keys %$needed_rpms) {
     if (exists $rpm_qa->{$_}) {
       delete $needed_rpms->{$_};
