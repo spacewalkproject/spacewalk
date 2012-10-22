@@ -55,7 +55,20 @@ create() {
         service postgresql initdb
 
 	# see bug 821446, we enable timestamps in logs by default
-	sed -i 's/^\(.*log_line_prefix.*\)$/### Edited by spacewalk-setup-embedded-postgresql: ###\n# was: \1\nlog_line_prefix = '\''%m'\''/ ' $POSTGRESQL
+	sed -i 's/^\(max_connections.*\|shared_buffers.*\)$/### next line has been commented out by spacewalk-setup-embedded-postgresql: ###\n##\1/ ' $POSTGRESQL
+        cat >> $POSTGRESQL <<EOF
+
+### spacewalk-setup-embedded-postgresql modified values
+checkpoint_completion_target = 0.7
+checkpoint_segments = 8
+effective_cache_size = 1152MB
+log_line_prefix = '%m' 
+maintenance_work_mem = 96MB
+max_connections = 600
+shared_buffers = 384MB
+wal_buffers = 4MB
+work_mem = 2560kB
+EOF
 
         sed -i 's/^\([^#].*\)$/### next line has been commented out by spacewalk-setup-embedded-postgresql: ###\n##\1/ ' $PG_HBA
         cat >> $PG_HBA <<EOF
