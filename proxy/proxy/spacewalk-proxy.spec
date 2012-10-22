@@ -4,7 +4,7 @@ Group:   Applications/Internet
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 1.8.11
+Version: 1.8.12
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
 BuildRequires: python
@@ -330,6 +330,9 @@ fi
 
 
 %changelog
+* Mon Oct 22 2012 Jan Pazdziora 1.8.12-1
+- bump up proxy version to 5.5.0
+
 * Tue Aug 21 2012 Stephen Herr <sherr@redhat.com> 1.8.11-1
 - 848475 - separate proxy auth error hostname into separate header
 
