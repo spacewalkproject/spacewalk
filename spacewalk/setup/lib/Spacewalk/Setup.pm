@@ -204,11 +204,11 @@ sub load_answer_file {
 }
 
 # Check if we're installing with an embedded database. Check for existence of
-# an "EmbeddedDB" directory beneath the dir we're running from (i.e.
+# an "PostgreSQL" directory beneath the dir we're running from (i.e.
 # installing from ISO)
 sub is_embedded_db {
   my $opts = shift;
-  return (-d 'EmbeddedDB' and not defined($opts->{'external-db'}) ? 1 : 0 );
+  return (-d 'PostgreSQL' and not defined($opts->{'external-db'}) ? 1 : 0 );
 }
 
 sub system_debug {
