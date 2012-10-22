@@ -257,6 +257,7 @@ sub command_restore {
       print "Extraction and verification complete, renaming files... ";
       for my $entry (@rename_queue) {
 	rename $entry->[0] => $entry->[1] or warn "Rename $entry->[0] => $entry->[1] error: $!";
+        system("/sbin/restorecon", $entry->[1]);
       }
       print "done.\n";
 
