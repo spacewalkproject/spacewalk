@@ -17,6 +17,7 @@ use strict;
 package Dobby::CLI::MiscCommands;
 
 use Carp;
+use English;
 
 use Dobby::DB;
 use Dobby::Reporting;
@@ -230,6 +231,10 @@ sub command_resetpassword {
   my $cli = shift;
 
   my $d = new Dobby::DB;
+
+  my @rec = getpwnam("postgres");
+  $EUID = $rec[2];
+
   if (not $d->database_started) {
     print "Error: The database must be running to reset the user password.\n";
     return 1;

@@ -63,6 +63,10 @@ sub database_started {
   my $self = shift;
 
   my $dbh = eval { $self->sysdba_connect };
+  if (not $dbh and PXT::Config->get('db_backend') eq 'postgresql') {
+    my $dsn = "dbi:Pg:dbname=".PXT::Config->get("db_name");
+    $dbh = eval { RHN::DB->direct_connect($dsn) };
+  }
   return $dbh ? 1 : 0;
 }
 
@@ -481,8 +485,12 @@ sub password_reset {
   my $self = shift;
   my $user = PXT::Config->get("db_user");
   my $password = PXT::Config->get("db_password");
-  my $dbh = $self->sysdba_connect;
-  if ($dbh->do(qq{ALTER USER $user IDENTIFIED BY "$password" ACCOUNT UNLOCK})) {
+  my $backend = PXT::Config->get('db_backend');
+  my $dsn = "dbi:Pg:dbname=".PXT::Config->get("db_name");
+  my $dbh = ($backend eq 'postgresql') ? RHN::DB->direct_connect($dsn) : $self->sysdba_connect;
+  my $query = ($backend eq 'postgresql') ? qq|ALTER USER $user WITH ENCRYPTED PASSWORD ?|
+        : qq{ALTER USER $user IDENTIFIED BY ? ACCOUNT UNLOCK};
+  if ($dbh->do($query, undef, $password)) {
     return $user;
   }
   return 0;
