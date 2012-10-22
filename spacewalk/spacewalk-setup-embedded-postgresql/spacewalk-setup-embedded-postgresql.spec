@@ -22,6 +22,8 @@ installation of Spacewalk server.
 
 %install
 rm -rf %{buildroot}
+install -d -m 755 %{buildroot}/%{_bindir}
+install -m 0644 bin/* %{buildroot}/%{_bindir}
 chmod -R u+w %{buildroot}/%{_bindir}/*
 install -d -m 755 %{buildroot}/%{_datadir}/spacewalk/setup/defaults.d
 install -m 0644 setup/defaults.d/* %{buildroot}/%{_datadir}/spacewalk/setup/defaults.d/
