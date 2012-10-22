@@ -23,7 +23,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.165
+Version: 1.8.166
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -616,6 +616,12 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Oct 22 2012 Tomas Lestach <tlestach@redhat.com> 1.8.166-1
+- checkstyle fixes
+- Make applyErrata() work with Longs and Integers
+- Show errata details for all errata in the given list
+- Schedule updates for software update stack first
+
 * Fri Oct 19 2012 Tomas Lestach <tlestach@redhat.com> 1.8.165-1
 - checkstyle fix
 
