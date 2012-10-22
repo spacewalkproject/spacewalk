@@ -499,6 +499,11 @@ sub remove_obsoleted_packages {
         push @pkgs, 'spacewalk-oracle', 'perl-NOCpulse-Probe-Oracle', 'NOCpulsePlugins-Oracle';
     }
 
+    if (Spacewalk::Setup::is_db_migration()) {
+        push @pkgs, 'oracle-instantclient-sqlplus';
+        push @pkgs, 'oracle-instantclient-sqlplus-selinux';
+    }
+
     for my $pkg (@pkgs) {
       if (system_debug('rpm', '-q', $pkg) == 0) {
         system_debug('rpm', '-ev', '--nodeps', $pkg);
