@@ -60,10 +60,12 @@ B<db-control>
 [B<examine DIRNAME>]
 [B<extend TABLESPACE>]
 [B<gather-stats PCT>]
+[B<get-optimizer>]
 [B<help>]
 [B<report>]
 [B<report-stats>]
 [B<restore DIRNAME>]
+[B<set-optimizer>]
 [B<shrink-segments>]
 [B<start>]
 [B<status>]
@@ -87,11 +89,15 @@ Examines the contents of a backup directory.  Quicker than B<verify>, this comma
 
 =item B<extend TABLESPACE>
 
-Increases the tablespace size for TABLESPACE by adding an additional datafile.
+Increases the tablespace size for TABLESPACE by adding an additional datafile. (Oracle only)
 
 =item B<gather-stats PCT>
 
 Gather statistics on database objects. On Oracle PCT is the percentage of rows to estimate (the default is 15 per cent). On PostgreSQL PCT does not have sense.
+
+=item B<get-optimizer>
+
+Show database optimizer mode (Oracle only).
 
 =item B<help>
 
@@ -119,9 +125,13 @@ Restores the database from backup kept in DIRNAME.  Database must be stopped for
 
 Before restoring, the files in DIRNAME are verified.  Once all files are verified successfully, the restore runs.  Once the restore is completed, the database may be started and run normally.
 
+=item B<set-optimizer>
+
+Set database optimizer mode to ALL_ROWS (Oracle only).
+
 =item B<shrink-segments>
 
-Determines and shrinks database segments with significant amount of free space.
+Determines and shrinks database segments with signifcant amount of free space. (Oracle only)
 
 =item B<start>
 

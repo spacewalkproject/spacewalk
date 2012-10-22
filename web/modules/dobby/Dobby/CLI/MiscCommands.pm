@@ -260,6 +260,9 @@ sub command_resetpassword {
 sub command_get_optimizer {
   my $cli = shift;
 
+  my $backend = PXT::Config->get('db_backend');
+  $cli->fatal("Error: This command works only with Oracle.") unless ($backend eq 'oracle');
+
   my $d = new Dobby::DB;
 
   if (not $d->database_started) {
@@ -280,6 +283,9 @@ sub command_get_optimizer {
 
 sub command_set_optimizer {
   my $cli = shift;
+
+  my $backend = PXT::Config->get('db_backend');
+  $cli->fatal("Error: This command works only with Oracle.") unless ($backend eq 'oracle');
 
   my $d = new Dobby::DB;
 

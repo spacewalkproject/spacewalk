@@ -44,6 +44,9 @@ sub command_extend {
   my $ts = shift;
   $ts = uc($ts);
 
+  my $backend = PXT::Config->get('db_backend');
+  $cli->fatal("Error: This command works only with Oracle.") unless ($backend eq 'oracle');
+
   $cli->usage("TABLESPACE") unless $ts;
 
   my $d = new Dobby::DB;
@@ -139,6 +142,9 @@ sub gather_stats {
 
 sub shrink_segments {
   my $cli = shift;
+
+  my $backend = PXT::Config->get('db_backend');
+  $cli->fatal("Error: This command works only with Oracle.") unless ($backend eq 'oracle');
 
   my $d = new Dobby::DB;
 
