@@ -496,11 +496,8 @@ sub remove_obsoleted_packages {
         push @pkgs, 'rhn-java-sat';
     }
 
-    if (Spacewalk::Setup::is_embedded_db($opts)) {
-        push @pkgs, 'spacewalk-oracle', 'perl-NOCpulse-Probe-Oracle', 'NOCpulsePlugins-Oracle';
-    }
-
     if (Spacewalk::Setup::is_db_migration()) {
+        push @pkgs, 'spacewalk-oracle', 'perl-NOCpulse-Probe-Oracle', 'NOCpulsePlugins-Oracle';
         push @pkgs, 'oracle-instantclient-sqlplus';
         push @pkgs, 'oracle-instantclient-sqlplus-selinux';
     }
