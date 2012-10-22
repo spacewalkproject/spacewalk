@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.43
+Version: 1.8.44
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -253,6 +253,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Mon Oct 22 2012 Miroslav Suchý
+- 805822 - reword --help page
+
 * Mon Oct 22 2012 Miroslav Suchý
 - drop plpgsql language before restore
 - implement on-line backup and restore on PG
