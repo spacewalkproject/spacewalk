@@ -928,14 +928,8 @@ sub postgresql_setup_embedded_db {
         return 0;
     }
 
-    if ($opts->{'upgrade'}) {
-        # FIXME: upgrade code should go here
-        return 0;
-    }
-
-    if ($opts->{"skip-db-install"} || $opts->{"upgrade"}) {
+    if ($opts->{"skip-db-install"}) {
         print loc("** Database: Embedded database installation SKIPPED.\n");
-
         return 0;
     }
 
