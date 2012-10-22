@@ -22,10 +22,9 @@ installation of Spacewalk server.
 
 %install
 rm -rf %{buildroot}
-chmod -R u+w %{buildroot}/*
-#install -d -m 755 %{buildroot}/%{_datadir}/spacewalk/setup/
-#install -d -m 755 %{buildroot}/%{_datadir}/spacewalk/setup/jabberd
-#install -m 0644 share/jabberd/* %{buildroot}/%{_datadir}/spacewalk/setup/jabberd/
+chmod -R u+w %{buildroot}/%{_bindir}/*
+install -d -m 755 %{buildroot}/%{_datadir}/spacewalk/setup/defaults.d
+install -m 0644 setup/defaults.d/* %{buildroot}/%{_datadir}/spacewalk/setup/defaults.d/
 
 
 %check
@@ -40,7 +39,6 @@ rm -rf %{buildroot}
 %doc LICENSE
 %{_bindir}/spacewalk-setup-embedded-postgresql
 %{_mandir}/man1/*
-%dir %{_datadir}/spacewalk
-%{_datadir}/spacewalk/*
+%{_datadir}/spacewalk/setup/defaults.d/*
 
 %changelog
