@@ -934,7 +934,7 @@ sub postgresql_setup_db {
     write_rhn_conf($answers, 'db-backend', 'db-host', 'db-port', 'db-name', 'db-user', 'db-password');
     postgresql_populate_db($opts, $answers);
 
-    if (is_db_migration()) {
+    if (is_db_migration() and $opts->{"upgrade"}) {
         print loc("* Database: Starting embedded database migration.\n");
         migrate_embedded_db($opts, $answers);
     }
