@@ -783,7 +783,8 @@ sub install_rhn_packages {
 
   if (Spacewalk::Setup::is_embedded_db($opts)) {
       push(@rpms, glob("EmbeddedDB/*.rpm"), glob("PostgreSQL/*.rpm"));
-  } else {
+  }
+  if (not(-d 'PostgreSQL' and Spacewalk::Setup::is_embedded_db($opts))) {
       push(@rpms, glob("Oracle/*.rpm"));
   }
   system_or_exit(['yum', 'localinstall', '-y', @rpms],
