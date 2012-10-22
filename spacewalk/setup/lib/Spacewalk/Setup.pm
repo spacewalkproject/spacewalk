@@ -933,7 +933,8 @@ sub postgresql_setup_embedded_db {
         return 0;
     }
 
-    if (! system(qq{/usr/bin/spacewalk-setup-embedded-postgresql check --db $answers->{'db-name'}})) {
+    if (-d "/var/lib/pgsql/data/base" and
+        ! system(qq{/usr/bin/spacewalk-setup-embedded-postgresql check --db $answers->{'db-name'}})) {
         my $shared_dir = SHARED_DIR;
         print loc(<<EOQ);
 The embedded database appears to be already installed. Either rerun
