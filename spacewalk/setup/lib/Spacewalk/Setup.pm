@@ -216,6 +216,7 @@ sub is_embedded_db {
 
 # Return 1 in case setup should also migrate from embedded oracle -> embedded postgresql
 sub is_db_migration {
+  return 0 if not -d 'PostgreSQL';
   foreach my $rpm ('oracle-server-i386', 'oracle-server-x86_64', 'oracle-server-s390x') {
     system("rpm -q $rpm >& /dev/null");
     if ($? >> 8 == 0) {
