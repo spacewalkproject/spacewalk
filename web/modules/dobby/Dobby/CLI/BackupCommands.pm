@@ -129,6 +129,7 @@ sub command_restore {
   my $command = shift;
   my $restore_dir = shift;
 
+  my $backend = PXT::Config->get('db_backend');
   $cli->usage("BACKUP_DIR") unless $restore_dir and -d $restore_dir;
   my $restore_log = File::Spec->catfile($restore_dir, "backup-log.dat");
   $cli->fatal("Error: restoration failed, unable to locate $restore_log") unless -r $restore_log;
@@ -180,6 +181,8 @@ sub command_restore {
     return 1;
   }
 
+  my $intended_username = $cfg->get("${backend}_user");
+  my ($username, undef, $uid, $gid) = getpwnam($intended_username);
   for my $file_entry (@{$log->cold_files}) {
     # to and from reverse since their names come from the backup
     # script itself.
@@ -213,6 +216,7 @@ sub command_restore {
 	if (not defined $digest and $@) {
 	  $err_msg = $@;
 	}
+        chown $uid, $gid, $src;
       }
 
       $seen_files{+$dst} = 1;
@@ -258,6 +262,7 @@ sub command_restore {
       for my $entry (@rename_queue) {
 	rename $entry->[0] => $entry->[1] or warn "Rename $entry->[0] => $entry->[1] error: $!";
         system("/sbin/restorecon", $entry->[1]);
+
       }
       print "done.\n";
 
