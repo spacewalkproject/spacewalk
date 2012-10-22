@@ -166,7 +166,7 @@ def main(needsDict=None):
 
     needsDict = needsDict or DEFAULT_NEEDS
 
-    unfulfilled = getNeeds()[0]
+    unfulfilled = getNeeds(needsDict)[0]
     if unfulfilled:
         sys.stderr.write("ERROR: diskspace does not meet minimum system "
                          "requirements:\n")
@@ -194,5 +194,9 @@ def main(needsDict=None):
 
 
 if __name__ == "__main__":
-    sys.exit(main() or 0)
+    needsDict = {}
+    if sys.argv:
+        for i, dir in enumerate(sys.argv[1::2]):
+            needsDict[dir] = int(sys.argv[i*2+2]) * 2**20 # in MB
+    sys.exit(main(needsDict) or 0)
 
