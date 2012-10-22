@@ -114,8 +114,8 @@ sub command_backup {
   my @files;
 
   if ($backend eq 'oracle') {
-    push @files, $d->lk_file;
-    push @files, $d->sp_file;
+    push @files, [$d->lk_file, '/'];
+    push @files, [$d->sp_file, '/'];
   }
 
   for my $dir ($d->data_dir, $d->archive_log_dir) {
