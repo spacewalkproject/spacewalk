@@ -170,6 +170,14 @@
         <th><bean:message key="sdc.details.overview.sysid"/></th>
         <td><c:out value="${system.id}" /></td>
       </tr>
+     <tr>
+        <th><bean:message key="sdc.details.overview.activationkey"/></th>
+        <td>
+          <c:forEach items="${activationKey}" var="key">
+            <c:out value="${key.token}" /></br>
+          </c:forEach>
+        </td>
+      </tr>
       <tr>
         <th><bean:message key="sdc.details.overview.lockstatus"/></th>
         <td>

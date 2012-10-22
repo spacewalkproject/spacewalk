@@ -138,6 +138,7 @@ public class SystemOverviewAction extends RhnAction {
         request.setAttribute("system", s);
         request.setAttribute("hasLocation",
                 !(s.getLocation() == null || s.getLocation().isEmpty()));
+        request.setAttribute("activationKey", SystemManager.getActivationKeys(s));
         return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
 

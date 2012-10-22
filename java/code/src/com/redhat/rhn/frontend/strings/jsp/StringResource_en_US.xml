@@ -17661,6 +17661,13 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
         	</context-group>
 	     </trans-unit>
 
+       <trans-unit id="sdc.details.overview.activationkey">
+        <source>Activation Key:</source>
+        <context-group name="ctx">
+        <context context-type="sourcefile">/systems/details/Overview.do</context>
+         </context-group>
+       </trans-unit>
+
 	     <trans-unit id="sdc.details.overview.lockstatus">
 	     	<source>Lock Status:</source>
 	     	<context-group name="ctx">
