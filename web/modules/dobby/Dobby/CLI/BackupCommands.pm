@@ -130,6 +130,7 @@ sub command_restore {
   my $restore_dir = shift;
 
   my $backend = PXT::Config->get('db_backend');
+  my $cfg = new PXT::Config("dobby");
   $cli->usage("BACKUP_DIR") unless $restore_dir and -d $restore_dir;
   my $restore_log = File::Spec->catfile($restore_dir, "backup-log.dat");
   $cli->fatal("Error: restoration failed, unable to locate $restore_log") unless -r $restore_log;
@@ -212,11 +213,10 @@ sub command_restore {
 
       printf " -> %s...", $tmpdst;
       if (not $missing) {
-	$digest = eval { Dobby::Files->gunzip_copy($src, $tmpdst) };
+	$digest = eval { Dobby::Files->gunzip_copy($src, $tmpdst, $uid, $gid) };
 	if (not defined $digest and $@) {
 	  $err_msg = $@;
 	}
-        chown $uid, $gid, $src;
       }
 
       $seen_files{+$dst} = 1;

@@ -17,7 +17,7 @@ use strict;
 package Dobby::Files;
 use Digest::MD5;
 use Compress::Zlib;
-use File::Basename qw/basename/;
+use File::Basename qw/basename dirname/;
 use File::Spec;
 use File::Path;
 
@@ -50,13 +50,20 @@ sub gzip_copy {
 # integrity of the archive)
 
 sub gunzip_copy {
-  my $class = shift;
-  my $src = shift;
-  my $dst = shift;
+  my ($class, $src, $dst, $uid, $gid) = @_;
+  if (defined($uid) or defined($gid)) {
+    # if not defined set it to -1 i.e. no change
+    $uid = -1 if not defined $uid;
+    $gid = -1 if not defined $gid;
+  }
 
   my $write;
   local * OUT;
   if ($dst) {
+    my $dst_directory = dirname($dst);
+    if (my @dirs = File::Path::mkpath($dst_directory, 0, 0700)) {
+      chown $uid, $gid, @dirs;
+    }
     open OUT, '>', $dst or die "open $dst: $!\n";
     $write = 1
   }
@@ -84,6 +91,8 @@ sub gunzip_copy {
 
   $gz->gzclose;
   close OUT if $write;
+  chown $uid, $gid, $dst;
+  chmod 0640, $dst;
 
   return $ctx->hexdigest;
 }
