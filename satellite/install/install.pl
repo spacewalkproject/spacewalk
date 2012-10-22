@@ -70,7 +70,7 @@ rhn_register(\%opts, \%answers, \%up2dateOptions, \%rhnOptions);
 
 Spacewalk::Setup::upgrade_stop_services(\%opts);
 remove_obsoleted_packages(\%opts);
-
+remove_jabberd_configs(\%opts);
 
 my $run_updater;
 if (defined $opts{'run-updater'}) {
@@ -511,6 +511,22 @@ sub remove_obsoleted_packages {
     }
   }
   return 1;
+}
+
+# We need to remove jabberd configs before the package installation so that
+# they can be replaced by configs from latest jabberd build. These will later
+# be properly configured by spacewalk-setup-jabberd.
+sub remove_jabberd_configs {
+  my $opts = shift;
+
+  return if (not $opts->{'upgrade'});
+
+  foreach my $cf ('c2s', 's2s', 'sm', 'router') {
+    my $cf_path = "/etc/jabberd/$cf.xml";
+    if (-f $cf_path) {
+      system("mv -f $cf_path $cf_path.old");
+    }
+  }
 }
 
 sub ask {
