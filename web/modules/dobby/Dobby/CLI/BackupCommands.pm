@@ -19,6 +19,7 @@ package Dobby::CLI::BackupCommands;
 use Carp;
 use Dobby::Files;
 use Dobby::BackupLog;
+use English;
 use File::Basename qw/basename dirname/;
 use File::Spec;
 use Filesys::Df;
@@ -27,7 +28,7 @@ use POSIX;
 use Dobby::DB;
 use Dobby::Reporting;
 use Dobby::CLI::MiscCommands;
-
+use Spacewalk::Setup qw/postgresql_clear_db /;
 
 sub register_dobby_commands {
   my $class = shift;
@@ -45,6 +46,13 @@ sub register_dobby_commands {
   $cli->register_mode(-command => "examine",
 		      -description => "Display information about an RHN Oracle Instance backup",
 		      -handler => \&command_restore);
+  $cli->register_mode(-command => "pg-online-backup",
+          -description => "Perform online backup the RHN PostgreSQL database",
+          -handler => \&command_pg_online_backup);
+  $cli->register_mode(-command => "pg-restore",
+          -description => "Restore the RHN PostgreSQL database made by pg-online-backup",
+          -handler => \&command_pg_restore);
+
 }
 
 # returns $file cuted of prefix made from $cut_off_dir
@@ -303,6 +311,56 @@ sub command_restore {
     }
   }
   return 0;
+}
+
+sub command_pg_online_backup {
+  my ($cli, $command, $file) = @_;
+  $cli->usage("FILE") unless $file;
+
+  my $backup_dir = dirname $file;
+
+  my $backend = PXT::Config->get('db_backend');
+  $cli->fatal("Error: This backup method works only with PostgreSQL.") unless ($backend eq 'postgresql');
+  my $cfg = new PXT::Config("dobby");
+  my @rec = getpwnam($cfg->get("postgresql_user"));
+  $EUID = $rec[2];
+  $cli->fatal("Error: $backup_dir is not a writable directory for user $rec[0].") unless -d $backup_dir and -w $backup_dir;
+  $cli->fatal("Error: Backup file $file already exists in $file.") if -f $file;
+
+  print "Backing up to file $file.\n";
+  my $ret = system("/usr/bin/pg_dump", "--blobs", "--clean", "-Fc", "-v", "-Z7", "--file=$file", PXT::Config->get('db_name'));
+  print "Backup complete.\n";
+  return $ret;
+}
+
+sub command_pg_restore {
+  my ($cli, $command, $file) = @_;
+  $cli->usage("FILE") unless $file;
+
+  $cli->fatal("Error: restoration failed, unable to locate $file") unless -r $file;
+
+  my $backend = PXT::Config->get('db_backend');
+  $cli->fatal("Error: This backup method works only with PostgreSQL.") unless ($backend eq 'postgresql');
+  my $cfg = new PXT::Config("dobby");
+  my @rec = getpwnam($cfg->get("postgresql_user"));
+  $EUID = $rec[2];
+  $cli->fatal("Error: file $file is not readable by user $rec[0]") unless -r $file;
+
+  my $user = PXT::Config->get("db_user");
+  my $password = PXT::Config->get("db_password");
+  my $dsn = "dbi:Pg:dbname=".PXT::Config->get("db_name");
+  my $dbh = RHN::DB->direct_connect($dsn);
+
+  no warnings 'redefine';
+  sub Spacewalk::Setup::system_debug {
+     system @_;
+  }
+  postgresql_clear_db($dbh);
+
+  print "** Restoring from file $file.\n";
+  my $ret = system("/usr/bin/pg_restore", "-Fc", "--jobs=2", "--dbname=".PXT::Config->get('db_name'), $file );
+  print "Restoration complete.\n";
+  return $ret;
 }
 
 1;

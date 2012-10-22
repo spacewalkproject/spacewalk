@@ -97,6 +97,14 @@ Gather statistics on database objects. On Oracle PCT is the percentage of rows t
 
 Gives a list of db-control options.
 
+=item B<pg-online-backup FILE>
+
+Perform online backup of database. This works only with PostgreSQL backend and FILE must be in directory writeable by postgres user. While this backup method is slower compared to "backup" (aprox. 4 times). You do not need to shut down neither Spacewalk services nor DB service.
+
+=item B<pg-restore FILE>
+
+Restores the database from backup file FILE, which was made by command "pg-online-backup". This command will shut down all Spacewalk services and leave only database running. Then all objects from DB are removed and backup is restored. You have to start up Spacewalk services manualy.
+
 =item B<report>
 
 Reports on current usage of database space.  

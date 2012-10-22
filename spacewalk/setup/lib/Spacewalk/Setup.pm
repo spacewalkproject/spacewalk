@@ -8,7 +8,7 @@ use English;
 
 use Exporter 'import';
 use vars '@EXPORT_OK';
-@EXPORT_OK = qw(loc system_debug system_or_exit);
+@EXPORT_OK = qw(loc system_debug system_or_exit postgresql_clear_db);
 
 use Getopt::Long qw(GetOptions);
 use Symbol qw(gensym);
@@ -932,7 +932,8 @@ sub postgresql_populate_db {
 
     if ($opts->{"clear-db"}) {
         print Spacewalk::Setup::loc("** Database: --clear-db option used.  Clearing database.\n");
-        postgresql_clear_db($answers);
+        my $dbh = get_dbh($answers);
+        postgresql_clear_db($dbh);
     }
 
     if (postgresql_test_db_schema($answers)) {
@@ -946,7 +947,8 @@ sub postgresql_populate_db {
 
         if ($answers->{"clear-db"} =~ /Y/i) {
             print Spacewalk::Setup::loc("** Database: Clearing database.\n");
-            postgresql_clear_db($answers);
+            my $dbh = get_dbh($answers);
+            postgresql_clear_db($dbh);
             print Spacewalk::Setup::loc("** Database: Re-populating database.\n");
         }
         else {
@@ -1015,7 +1017,7 @@ my $POSTGRESQL_CLEAR_SCHEMA = <<EOS;
 	create schema public authorization postgres ;
 EOS
 sub postgresql_clear_db {
-	my $answers = shift;
+	my $dbh = shift;
 
 	print loc("** Database: Shutting down spacewalk services that may be using DB.\n");
 
@@ -1024,7 +1026,6 @@ sub postgresql_clear_db {
 
 	print loc("** Database: Services stopped.  Clearing DB.\n");
 
-	my $dbh = get_dbh($answers);
 	local $dbh->{RaiseError} = 0;
 	local $dbh->{PrintError} = 1;
 	local $dbh->{PrintWarn} = 0;
