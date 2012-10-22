@@ -39,8 +39,24 @@ if [ -z "$PGUSER" -o -z "$PGPASSWORD" -o -z "$PGNAME" ] ; then
     exit 1
 fi
 
+PG_DATA=/var/lib/pgsql/data
+PG_HBA="$PG_DATA/pg_hba.conf"
+
 chkconfig postgresql on
-service postgresql initdb
+
+if [ ! -d "$PG_DATA/base" ] ; then
+    service postgresql initdb
+
+    sed -i 's/^\([^#].*\)$/### next line has been commented out by spacewalk-setup-embedded-postgresql: ###\n##\1/ ' $PG_HBA
+    cat >> $PG_HBA <<EOF
+
+local $PGNAME $PGUSER md5
+host  $PGNAME $PGUSER 127.0.0.1/8 md5
+host  $PGNAME $PGUSER ::1/128 md5
+local $PGNAME postgres  ident
+EOF
+fi
+
 service postgresql start
 
 runuser - postgres -c "
@@ -49,15 +65,5 @@ createdb '$PGNAME'
 createlang plpgsql '$PGNAME'
 yes '$PGPASSWORD' | createuser -P -sDR '$PGUSER'
 "
-
-PG_HBA=/var/lib/pgsql/data/pg_hba.conf
-sed -i 's/^\([^#].*\)$/### next line has been commented out by spacewalk-setup-embedded-postgresql: ###\n##\1/ ' $PG_HBA
-cat >> $PG_HBA <<EOF
-
-local $PGNAME $PGUSER md5
-host  $PGNAME $PGUSER 127.0.0.1/8 md5
-host  $PGNAME $PGUSER ::1/128 md5
-local $PGNAME postgres  ident
-EOF
 
 service postgresql reload
