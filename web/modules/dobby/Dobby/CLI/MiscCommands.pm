@@ -48,10 +48,10 @@ sub register_dobby_commands {
                       -description => "Reset the user password and unlock account",
                       -handler => \&command_resetpassword);
   $cli->register_mode(-command => "get-optimizer",
-                      -description => "Show database optimizer mode",
+                      -description => "Show database optimizer mode (Oracle only)",
                       -handler => \&command_get_optimizer);
   $cli->register_mode(-command => "set-optimizer",
-                      -description => "Set database optimizer mode",
+                      -description => "Set database optimizer mode (Oracle only)",
                       -handler => \&command_set_optimizer);
 }
 
