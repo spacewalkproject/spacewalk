@@ -105,7 +105,7 @@ install_rhn_packages(\%opts);
 
 
 my %satellite_rpms = map { m!^.+/(.+)-.+-.+$! and ( $1 => 1 ); }
-    glob("Satellite/*.rpm Oracle/*.rpm PostgreSQL/*.rpm");
+    glob("Satellite/*.rpm Oracle/*.rpm EmbeddedDB/*.rpm PostgreSQL/*.rpm");
 my %current_rpm_qa =
     map { ( $_ => 1 ) }
     grep { not exists $rpm_qa{$_} and not exists $satellite_rpms{$_} }
