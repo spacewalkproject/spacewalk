@@ -500,6 +500,7 @@ sub remove_obsoleted_packages {
     if (`rpm -q --qf='%{VERSION}' redhat-release 2>/dev/null` =~ /^5.+$/) {
         push @pkgs, 'xml-commons';
         push @pkgs, 'rhn-java-sat';
+        push @pkgs, 'spacewalk-slf4j-1.6.1-4.el5sat';
     }
 
     if (Spacewalk::Setup::is_db_migration()) {
