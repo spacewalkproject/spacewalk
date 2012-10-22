@@ -523,7 +523,7 @@ sub remove_jabberd_configs {
   return if (`rpm -qp --qf='%{VERSION}-%{RELEASE}' Satellite/jabberd-2*.rpm` eq
              `rpm -q --qf='%{VERSION}-%{RELEASE}' jabberd`);
 
-  foreach my $cf ('c2s', 's2s', 'sm', 'router') {
+  foreach my $cf ('c2s', 's2s', 'sm', 'router', 'router-users') {
     my $cf_path = "/etc/jabberd/$cf.xml";
     if (-f $cf_path) {
       system("mv -f $cf_path $cf_path.old");
