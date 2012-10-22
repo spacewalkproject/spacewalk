@@ -356,6 +356,7 @@ sub command_pg_restore {
      system @_;
   }
   postgresql_clear_db($dbh);
+  system('/usr/bin/droplang', 'plpgsql', PXT::Config->get('db_name'));
 
   print "** Restoring from file $file.\n";
   my $ret = system("/usr/bin/pg_restore", "-Fc", "--jobs=2", "--dbname=".PXT::Config->get('db_name'), $file );
