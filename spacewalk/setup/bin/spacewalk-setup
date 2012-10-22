@@ -150,7 +150,7 @@ print Spacewalk::Setup::loc("* Setting up Cobbler..\n");
 setup_cobbler(\%opts, \%answers);
 
 if ($opts{'upgrade'}) {
-  if (Spacewalk::Setup::is_embedded_db()) {
+  if (Spacewalk::Setup::is_embedded_db() and Spacewalk::Setup::is_db_migration()) {
     Spacewalk::Setup::postgresql_start();
   }
 
