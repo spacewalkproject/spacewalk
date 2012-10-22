@@ -347,22 +347,8 @@ sub connect {
   my $self = shift;
 
   return $self->{dbh} if $self->{dbh};
-
-  my %params = (RaiseError => 1,
-		PrintError => 0,
-		AutoCommit => 0);
-
-  $ENV{ORACLE_SID} = $self->config->get("sid");
-  $ENV{ORACLE_HOME} = $self->config->get("oracle_home");
-  my $dbi_str = "dbi:Oracle:";
-
-  my $dbh = RHN::DB->direct_connect($dbi_str,
-				    PXT::Config->get("db_user"),
-				    PXT::Config->get("db_password"),
-				    \%params);
-
-  $self->{dbh} = $dbh;
-  return $dbh;
+  $self->{dbh} = RHN::DBI->connect;
+  return $self->{dbh};
 }
 
 sub pg_instance_state {
