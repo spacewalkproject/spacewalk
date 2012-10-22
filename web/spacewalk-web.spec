@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.45
+Version: 1.8.46
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -253,6 +253,13 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Mon Oct 22 2012 Jan Pazdziora 1.8.46-1
+- removing spurious debugging line from check-database-space-usage.sh
+- do not restore dirs if there is none to restore
+- ignore missing backup_dir on old dumps
+- 825804 - check-oracle-space-usage.sh renamed to check-database-space-usage.sh
+- 815236 - use df with POSIX compatibility
+
 * Mon Oct 22 2012 Miroslav Suchý
 - 805822 - warn about parsing backup log
 - 805822 - mark some commands as Oracle only and sync --help with man page
