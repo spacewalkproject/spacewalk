@@ -194,6 +194,7 @@ class apacheHandler(apacheSession):
         # Avoid leaving Oracle deadlocks
         try:
             ret = self._req_processor.process()
+            rhnSQL.rollback()
         except:
             if not CFG.SEND_MESSAGE_TO_ALL:
                 rhnSQL.rollback()
