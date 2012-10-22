@@ -71,6 +71,7 @@ rhn_register(\%opts, \%answers, \%up2dateOptions, \%rhnOptions);
 Spacewalk::Setup::upgrade_stop_services(\%opts);
 remove_obsoleted_packages(\%opts);
 remove_jabberd_configs(\%opts);
+remove_rhn_cache_and_kickstarts(\%opts);
 
 my $run_updater;
 if (defined $opts{'run-updater'}) {
@@ -529,6 +530,29 @@ sub remove_jabberd_configs {
     if (-f $cf_path) {
       system("mv -f $cf_path $cf_path.old");
     }
+  }
+}
+
+sub remove_rhn_cache_and_kickstarts {
+  my $opts = shift;
+
+  return unless ($opts->{'upgrade'});
+
+  my $schema_version;
+
+  foreach my $schema ('satellite-schema', 'rhn-satellite-schema') {
+    system("rpm -q --qf='%{VERSION}' $schema >/dev/nul 2>&1");
+    if ($? >> 8 == 0) {
+      $schema_version = `rpm -q --qf='%{VERSION}' $schema 2>/dev/null`;
+    }
+  }
+
+  if ($schema_version and $schema_version =~ /5.[012].?/) {
+     system('rm -rf /var/cache/rhn/* > /dev/null 2>&1');
+
+     if (-d '/var/lib/rhn/kickstarts/wizard') {
+         system('rm -f /var/lib/rhn/kickstarts/wizard/* > /dev/null 2>&1');
+     }
   }
 }
 
