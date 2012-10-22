@@ -47,6 +47,10 @@ if [ -x /etc/init.d/oracle ]; then
     DB_SERVICE="oracle"
 fi
 
+if [ -x /etc/init.d/postgresql ]; then
+    DB_SERVICE="postgresql"
+fi
+
 MONITORING_ENABLED=`awk -F= '! /[[:space:]]*#/ && /web.is_monitoring_backend/ {gsub(/[[:space:]]*/,""); print $2}' $RHN_CONF_FILE`
 MONITORING_SCOUT_ENABLED=`awk -F= '! /[[:space:]]*#/ && /web.is_monitoring_scout/ {gsub(/[[:space:]]*/,""); print $2}' $RHN_CONF_FILE`
 NOCPULSE_PRIVATE_KEY_FILE=~nocpulse/.ssh/nocpulse-identity
