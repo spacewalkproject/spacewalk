@@ -490,9 +490,10 @@ sub password_reset {
   my $backend = PXT::Config->get('db_backend');
   my $dsn = "dbi:Pg:dbname=".PXT::Config->get("db_name");
   my $dbh = ($backend eq 'postgresql') ? RHN::DB->direct_connect($dsn) : $self->sysdba_connect;
-  my $query = ($backend eq 'postgresql') ? qq|ALTER USER $user WITH ENCRYPTED PASSWORD ?|
-        : qq{ALTER USER $user IDENTIFIED BY ? ACCOUNT UNLOCK};
-  if ($dbh->do($query, undef, $password)) {
+  my $query = ($backend eq 'postgresql') ?
+          qq{ALTER USER $user WITH ENCRYPTED PASSWORD '$password'}:
+          qq{ALTER USER $user IDENTIFIED BY "$password" ACCOUNT UNLOCK};
+  if ($dbh->do($query)) {
     return $user;
   }
   return 0;
