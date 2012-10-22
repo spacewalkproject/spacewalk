@@ -1,5 +1,5 @@
 Name:           spacewalk-setup-embedded-postgresql
-Version:        0.1
+Version:        1.8.1
 Release:        1%{?dist}
 Summary:        Tools to setup embedded PostgreSQL database for Spacewalk
 Group:          Applications/System
@@ -43,3 +43,6 @@ rm -rf %{buildroot}
 %{_datadir}/spacewalk/setup/defaults.d/*
 
 %changelog
+* Mon Oct 22 2012 Michael Mraka
+- spacewalk-setup-embedded-postgresql 1.8
+
