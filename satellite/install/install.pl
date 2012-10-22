@@ -65,8 +65,6 @@ do_precondition_checks(\%opts, \%answers);
 
 print loc("* Pre-install checks complete.  Beginning installation.\n");
 
-remove_php_packages();
-
 print loc("* RHN Registration.\n");
 rhn_register(\%opts, \%answers, \%up2dateOptions, \%rhnOptions);
 
@@ -273,23 +271,6 @@ sub python_path {
   $path ||= '/usr/bin/python';
 
   return $path;
-}
-
-sub remove_php_packages {
-  my @packages = `rpm -qa | grep -E '(php|piranha|squirrelmail|specspo)'`;
-
-  if (@packages) {
-    for (@packages) {
-      chomp;
-    }
-    my $ret = system_debug('rpm', '-e', @packages);
-
-    if ($ret) {
-      die "Could not remove php packages: " . join(', ', @packages) . "\n";
-    }
-  }
-
-  return 1;
 }
 
 sub system_is_registered {
