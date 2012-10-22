@@ -104,7 +104,7 @@ install_rhn_packages(\%opts);
 
 
 my %satellite_rpms = map { m!^.+/(.+)-.+-.+$! and ( $1 => 1 ); }
-    glob("Satellite/*.rpm EmbeddedDB/*.rpm");
+    glob("Satellite/*.rpm Oracle/*.rpm PostgreSQL/*.rpm");
 my %current_rpm_qa =
     map { ( $_ => 1 ) }
     grep { not exists $rpm_qa{$_} and not exists $satellite_rpms{$_} }
@@ -713,7 +713,9 @@ sub install_rhn_packages {
   my @rpms = glob("Satellite/*.rpm");
 
   if (Spacewalk::Setup::is_embedded_db($opts)) {
-      push(@rpms, glob("EmbeddedDB/*.rpm"));
+      push(@rpms, glob("PostgreSQL/*.rpm"));
+  } else {
+      push(@rpms, glob("Oracle/*.rpm"));
   }
   system_or_exit(['yum', 'localinstall', '-y', @rpms],
 		 26,
