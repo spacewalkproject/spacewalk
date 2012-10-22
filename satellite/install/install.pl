@@ -487,7 +487,8 @@ sub remove_obsoleted_packages {
     my @pkgs = ('rhn-apache', 'rhn-modpython', 'rhn-modssl', 'rhn-modperl',
                 'perl-libapreq', 'bouncycastle-jdk1.4',
                 'quartz-oracle', 'jaf', 'jta',
-                'python-sgmlop', 'xml-commons-apis', 'jakarta-commons-io', 'geronimo-specs-compat');
+                'python-sgmlop', 'xml-commons-apis', 'jakarta-commons-io',
+                'geronimo-specs-compat', 'spacewalk-backend-upload-server');
     for my $pkg (@pkgs) {
       if (system_debug('rpm', '-q', $pkg) == 0) {
         system_debug('rpm', '-ev', '--nodeps', $pkg);
