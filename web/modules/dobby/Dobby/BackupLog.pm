@@ -134,7 +134,7 @@ sub addTextValue {
     my $node = shift;
     my $doc = shift;
     my $value = shift;
-    if (!$value) {
+    if (not defined $value) {
       $value = "";
     }
     my $textNode = $doc->createTextNode($value);
