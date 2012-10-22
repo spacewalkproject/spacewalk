@@ -61,6 +61,7 @@ sub cut_dir {
 
 sub directory_contents {
   my ($cli, $dir, $cut_off_dir) = @_;
+  $cut_off_dir = $dir if not defined $cut_off_dir;
 
   my @files;
   opendir DIR, $dir or $cli->fatal("opendir $dir: $!");
@@ -160,7 +161,7 @@ sub command_restore {
   my @existing_files;
   if ($command eq 'restore') {
     push @existing_files, directory_contents($cli, $d->data_dir);
-    push @existing_files, directory_contents($cli, $d->archive_log_dir);
+    push @existing_files, directory_contents($cli, $d->archive_log_dir) if $d->archive_log_dir;
   }
 
   my $df = df($d->data_dir, "1024");
@@ -214,7 +215,7 @@ sub command_restore {
 	}
       }
 
-      $seen_files{+basename($dst)} = 1;
+      $seen_files{+$dst} = 1;
       push @rename_queue, [ $tmpdst, $dst ];
     }
     elsif ($command eq 'examine') {
@@ -263,8 +264,9 @@ sub command_restore {
       # in the backup set.  if we've seen it before, then we overwrote
       # it, so the contents are correct.
       print "Removing unnecessary files... ";
-      for my $file (@existing_files) {
-	next if exists $seen_files{+basename($file)};
+      for my $ret (@existing_files) {
+        my ($file, $rel_dir) = @{$ret};
+	next if exists $seen_files{+$file};
 
 	unlink $file or warn "Error unlinking $file: $!";
       }
