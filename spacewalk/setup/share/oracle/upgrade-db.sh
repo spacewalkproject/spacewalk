@@ -116,6 +116,6 @@ m4 -I$ORACLE_ADMIN_DIR \
    --define RHNORA_DB_USER=$DB_USER \
    $UPGRADE_TMPL \
    | $ORACLE_HOME/bin/sqlplus /nolog \
-   | cat > /rhnsat/admin/rhnsat/logs/upgrade_$ORACLE_SID.log
+   | cat -
 
 set +x
