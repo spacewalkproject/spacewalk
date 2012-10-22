@@ -131,7 +131,7 @@ SELECT tbs.segment_space_management, rec.*
 EOQ
   my $sth = $dbh->prepare($query);
   $sth->execute;
-  return $sth->fullfetch_hashref;
+  return @{$sth->fetchall_arrayref({ })};
 }
 
 1;
