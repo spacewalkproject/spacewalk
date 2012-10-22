@@ -1253,7 +1253,6 @@ EOQ
                    -err_code => 15,
                    -system_opts => ['/sbin/runuser', 'oracle', '-c',
                                     SHARED_DIR . '/oracle/upgrade-db.sh' .
-                                    " --db $answers->{'db-name'}" .
                                     " --user $answers->{'db-user'}"]);
 
         system_or_exit(['service', 'oracle', 'restart'], 41,
