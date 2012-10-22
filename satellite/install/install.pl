@@ -492,6 +492,7 @@ sub remove_obsoleted_packages {
     # Remove xml-commons on RHEL-5 only
     if (`rpm -q --qf='%{VERSION}' redhat-release 2>/dev/null` =~ /^5.+$/) {
         push @pkgs, 'xml-commons';
+        push @pkgs, 'rhn-java-sat';
     }
 
     if (Spacewalk::Setup::is_embedded_db($opts)) {
