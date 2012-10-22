@@ -8,7 +8,7 @@ Group:   Applications/System
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.10.34
+Version: 5.10.35
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -112,6 +112,10 @@ fi
 
 # $Id$
 %changelog
+* Mon Oct 22 2012 Jan Pazdziora 5.10.35-1
+- Revert "Revert "Revert "get_server_capability() is defined twice in osad and
+  rhncfg, merge and move to rhnlib and make it member of rpclib.Server"""
+
 * Tue Aug 07 2012 Tomas Kasparek <tkasparek@redhat.com> 5.10.34-1
 - 840250 - If there's symlink in file deployment path it will be created
 
