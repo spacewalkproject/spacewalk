@@ -545,7 +545,7 @@ sub remove_rhn_cache_and_kickstarts {
     }
   }
 
-  if ($schema_version and $schema_version =~ /5.[01234].?/) {
+  if ($schema_version and $schema_version =~ /^5\.[01234]\./) {
      system('rm -rf /var/cache/rhn/* > /dev/null 2>&1');
 
      if (-d '/var/lib/rhn/kickstarts/wizard') {
