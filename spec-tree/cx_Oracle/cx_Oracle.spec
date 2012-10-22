@@ -27,7 +27,6 @@ License: Python Software Foundation License
 Group: Development/Libraries
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 Prefix: %{_prefix}
-Vendor: Anthony Tuininga <anthony.tuininga@gmail.com>
 Url: http://cx-oracle.sourceforge.net
 AutoReq: 0
 Provides: python(:DBAPI:oracle) = 2.0
