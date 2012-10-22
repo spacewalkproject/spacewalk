@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.42
+Version: 1.8.43
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -253,6 +253,32 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Mon Oct 22 2012 Miroslav Suchý
+- drop plpgsql language before restore
+- implement on-line backup and restore on PG
+- 805822 - edit man page to include PostgreSQL specific commands
+- 663315 - wait until database is really offline
+- log into control file empty directories
+- correctly set ownership of restored files
+- set ownership of restored files under PG
+- restore selinux context after restore
+- implement "db-control restore" on PG
+- db-control under PG can be run as root or postgres user
+- implement "db-control examine/verify" on PG
+- put into control file base directory
+- if size is undef write 0
+- implement "db-control backup" on PG
+- implement "db-control reset-password" on PG
+- implement "db-control report-stats" on PG
+- unify connect() with RHN::DBI
+- implement "db-control gather-stats" under PG
+- mark "db-control extend" and "db-control shrink-segments" as Oracle only
+- implement "db-control tablesizes" under PG
+- implement "db-control report" under PG
+- mark set-optimizer and get-optimizer as Oracle only
+- implement "db-control start" and "db-control stop" under PG
+- implement "db-control status" under PG
+
 * Tue Oct 16 2012 Jan Pazdziora 1.8.42-1
 - Adding use which seems to be needed.
 
