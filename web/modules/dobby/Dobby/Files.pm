@@ -100,27 +100,33 @@ sub gunzip_copy {
 sub backup_file {
   my ($class, $rel_dir, $file, $backup_dir) = @_;
 
-  my $real_dest_dir = File::Spec->catdir($backup_dir, $rel_dir);
-  File::Path::mkpath($real_dest_dir) or (-d $real_dest_dir) or die ("Error: could not create directory $real_dest_dir\n");
-  my $dest = sprintf("%s/%s.gz", $real_dest_dir, basename($file));
-  $dest =~ s(//+)(/)g;
-  my $then = time;
+  if (-d $file) { #empty directory
+    my $dir_entry = new Dobby::BackupLog::DirEntry;
+    $dir_entry->from($file);
+    print "  Empty directory $file\n";
+    return $dir_entry;
+  } else {
+    my $file_entry = new Dobby::BackupLog::FileEntry;
+    my $real_dest_dir = File::Spec->catdir($backup_dir, $rel_dir);
+    File::Path::mkpath($real_dest_dir) or (-d $real_dest_dir) or die ("Error: could not create directory $real_dest_dir\n");
+    my $dest = sprintf("%s/%s.gz", $real_dest_dir, basename($file));
+    $dest =~ s(//+)(/)g;
+    my $then = time;
 
-  my $file_entry = new Dobby::BackupLog::FileEntry;
-  $file_entry->start(time);
+    $file_entry->start(time);
 
-  print "  $file -> $dest ... ";
-  my $hexdigest = Dobby::Files->gzip_copy($file, $dest);
-  print "done.\n";
+    print "  $file -> $dest ... ";
+    my $hexdigest = Dobby::Files->gzip_copy($file, $dest);
+    print "done.\n";
 
-  $file_entry->original_size(-s $file);
-  $file_entry->compressed_size(-s $dest);
-  $file_entry->from($file);
-  $file_entry->to($dest);
-  $file_entry->finish(time);
-  $file_entry->digest($hexdigest);
-
-  return $file_entry;
+    $file_entry->original_size(-s $file);
+    $file_entry->compressed_size(-s $dest);
+    $file_entry->from($file);
+    $file_entry->to($dest);
+    $file_entry->finish(time);
+    $file_entry->digest($hexdigest);
+    return $file_entry;
+  }
 }
 
 1;

@@ -22,7 +22,7 @@ use Storable qw/freeze thaw/;
 use XML::LibXML;
 
 our @ISA = qw/RHN::SimpleStruct/;
-our @simple_struct_fields = qw/start finish sid tablespaces archive_logs control_file type cold_files base_dir/;
+our @simple_struct_fields = qw/start finish sid tablespaces archive_logs control_file type cold_files cold_dirs base_dir/;
 
 # UGLY HACK for now; use Storable instead of a real data structure.
 # ugh.
@@ -69,6 +69,11 @@ sub fromXml() {
     $log->add_cold_file($fe->fromXml($fileentry)); 
   }
 
+  foreach my $direntry ($doc->getElementsByTagName('direntry')){
+    my $de = new Dobby::BackupLog::DirEntry();
+    $log->add_cold_file($de->fromXml($direntry));
+  }
+
   foreach my $tablespaceentry ($doc->getElementsByTagName('tablespaceentry')){
     my $te = new Dobby::BackupLog::TablespaceEntry();
     $log->add_tablespace_entry($te->fromXml($tablespaceentry)); 
@@ -110,6 +115,12 @@ sub toXml {
       $cold_files-> appendChild($file_entry->toXml($doc));
     }  
   }
+  my $cold_dirs = $doc->createElement('colddirs');
+  if (defined($self->cold_dirs)) {
+    for my $dir_entry (@{$self->cold_dirs}) {
+      $cold_dirs-> appendChild($dir_entry->toXml($doc));
+    }
+  }
   
   my $tablespaces =  $doc->createElement('tablespaces');
   if (defined($self->tablespaces)) {
@@ -119,6 +130,7 @@ sub toXml {
   }
   
   $root->appendChild($cold_files);
+  $root->appendChild($cold_dirs);
   $root->appendChild($tablespaces);
   $root->appendChild($sid);
   $root->appendChild($start); 
@@ -171,9 +183,17 @@ sub add_tablespace_entry {
 sub add_cold_file {
   my $self = shift;
 
-  my $cold_files = $self->cold_files;
-  push @$cold_files, @_;
-  $self->cold_files($cold_files);
+  foreach my $file (@_) {
+    if ($file->isa("Dobby::BackupLog::FileEntry")) {
+      my $cold_files = $self->cold_files;
+      push @$cold_files, @_;
+      $self->cold_files($cold_files);
+    } elsif ($file->isa("Dobby::BackupLog::DirEntry")) {
+      my $cold_dirs = $self->cold_dirs;
+      push @$cold_dirs, @_;
+      $self->cold_dirs($cold_dirs);
+    }
+  }
 }
 
 package Dobby::BackupLog::TablespaceEntry;
@@ -302,4 +322,35 @@ sub fromXml {
   return $self;
 }
 
+package Dobby::BackupLog::DirEntry;
+use RHN::SimpleStruct;
+
+our @ISA = qw/RHN::SimpleStruct/;
+our @simple_struct_fields = qw/from/;
+
+#convert the object to XML
+sub toXml {
+  my $self = shift;
+  my $doc = shift;
+
+  my $entry = $doc->createElement('direntry');
+
+  my $from = $doc->createElement('from');
+  Dobby::BackupLog::addTextValue($from, $doc, $self->from);
+
+  $entry->appendChild($from);
+
+  return $entry;
+}
+
+#fill out the object with the values
+#from the XML Dom.
+sub fromXml {
+  my $self = shift;
+  my $element = shift;
+
+  $self->from(Dobby::BackupLog::getTextValue($element, 'from'));
+
+  return $self;
+}
 1;

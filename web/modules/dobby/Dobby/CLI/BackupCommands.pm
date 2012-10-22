@@ -73,7 +73,11 @@ sub directory_contents {
   }
   push @files, map {[$_, cut_dir($_, $cut_off_dir)]} grep { -f $_ } map { File::Spec->catfile($dir, $_) } @dir_content;
 
-  return @files;
+  if (@files) {
+    return @files;
+  } else { #directory is empty, return directory itself
+    return ([$dir, $cut_off_dir]) if ($dir ne $cut_off_dir);
+  }
 }
 
 sub command_backup {
@@ -111,6 +115,7 @@ sub command_backup {
   }
 
   for my $ret (@files) {
+    next unless $ret;
     my ($file, $rel_dir) = @{$ret};
     my $file_entry = Dobby::Files->backup_file($rel_dir, $file, $backup_dir);
     $log->add_cold_file($file_entry);
@@ -271,12 +276,20 @@ sub command_restore {
       # it, so the contents are correct.
       print "Removing unnecessary files... ";
       for my $ret (@existing_files) {
+        next unless $ret;
         my ($file, $rel_dir) = @{$ret};
 	next if exists $seen_files{+$file};
 
 	unlink $file or warn "Error unlinking $file: $!";
       }
+      print "done.\n";
 
+      print "Restoring empty directories... ";
+      for my $dir_entry (@{$log->cold_dirs}) {
+        if (my @dirs = File::Path::mkpath($dir_entry->from, 0, 0700)) {
+          chown $uid, $gid, @dirs;
+        }
+      }
       print "done.\n";
 
       print "Restoration complete, you may now start the database.\n";
