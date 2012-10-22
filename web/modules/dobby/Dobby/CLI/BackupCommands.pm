@@ -35,22 +35,22 @@ sub register_dobby_commands {
   my $cli = shift;
 
   $cli->register_mode(-command => "backup",
-		      -description => "Backup the RHN Oracle Instance",
+		      -description => "Backup the database instance of RHN Satellite",
 		      -handler => \&command_backup);
   $cli->register_mode(-command => "restore",
-		      -description => "Restore the RHN Oracle Instance from backup",
+		      -description => "Restore the database instance of RHN Satellite from backup",
 		      -handler => \&command_restore);
   $cli->register_mode(-command => "verify",
-		      -description => "Verify an RHN Oracle Instance backup",
+		      -description => "Verify an database instance of RHN Satellite backup",
 		      -handler => \&command_restore);
   $cli->register_mode(-command => "examine",
-		      -description => "Display information about an RHN Oracle Instance backup",
+		      -description => "Display information about a database instance of RHN Satellite backup",
 		      -handler => \&command_restore);
   $cli->register_mode(-command => "pg-online-backup",
-          -description => "Perform online backup the RHN PostgreSQL database",
+          -description => "Perform online backup the PostgreSQL of RHN Satellite database",
           -handler => \&command_pg_online_backup);
   $cli->register_mode(-command => "pg-restore",
-          -description => "Restore the RHN PostgreSQL database made by pg-online-backup",
+          -description => "Restore the PostgreSQL database of RHN Satellite made by pg-online-backup",
           -handler => \&command_pg_restore);
 
 }

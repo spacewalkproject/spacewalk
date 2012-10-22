@@ -27,10 +27,10 @@ sub register_dobby_commands {
   my $cli = shift;
 
   $cli->register_mode(-command => "stop",
-		      -description => "Stop the RHN Oracle Instance",
+		      -description => "Stop the database instance of RHN Satellite",
 		      -handler => \&command_startstop);
   $cli->register_mode(-command => "start",
-		      -description => "Start the RHN Oracle Instance",
+		      -description => "Start the database instance of RHN Satellite",
 		      -handler => \&command_startstop);
 
   $cli->register_mode(-command => "status",

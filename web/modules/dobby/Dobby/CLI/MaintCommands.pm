@@ -28,13 +28,13 @@ sub register_dobby_commands {
   my $cli = shift;
 
   $cli->register_mode(-command => "extend",
-		      -description => "Increase the RHN Oracle Instance tablespace (Oracle only)",
+		      -description => "Increase the Oracle Instance tablespace of RHN Satellite (Oracle only)",
 		      -handler => \&command_extend);
   $cli->register_mode(-command => "gather-stats",
-		      -description => "Gather statistics on RHN Oracle database objects",
+		      -description => "Gather statistics on database instance of RHN Satellite objects",
 		      -handler => \&gather_stats);
   $cli->register_mode(-command => "shrink-segments",
-		      -description => "Shrink RHN Oracle database segments (Oracle only)",
+		      -description => "Shrink Oracle database segments of RHN Satellite (Oracle only)",
 		      -handler => \&shrink_segments);
 }
 
