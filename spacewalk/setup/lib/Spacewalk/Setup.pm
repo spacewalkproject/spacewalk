@@ -206,12 +206,10 @@ sub load_answer_file {
   return;
 }
 
-# Check if we're installing with an embedded database. Check for existence of
-# an "PostgreSQL" directory beneath the dir we're running from (i.e.
-# installing from ISO)
+# Check if we're installing with an embedded database.
 sub is_embedded_db {
   my $opts = shift;
-  return (-d 'PostgreSQL' and not defined($opts->{'external-db'}) ? 1 : 0 );
+  return not defined($opts->{'external-db'});
 }
 
 # Return 1 in case setup should also migrate from embedded oracle -> embedded postgresql
