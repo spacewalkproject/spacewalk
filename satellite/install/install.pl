@@ -486,7 +486,8 @@ sub remove_obsoleted_packages {
     print "* Purging conflicting packages.\n";
     my @pkgs = ('rhn-apache', 'rhn-modpython', 'rhn-modssl', 'rhn-modperl',
                 'perl-libapreq', 'bouncycastle-jdk1.4',
-                'quartz-oracle', 'jaf', 'jta');
+                'quartz-oracle', 'jaf', 'jta',
+                'python-sgmlop', 'xml-commons-apis', 'jakarta-commons-io', 'geronimo-specs-compat');
     for my $pkg (@pkgs) {
       if (system_debug('rpm', '-q', $pkg) == 0) {
         system_debug('rpm', '-ev', '--nodeps', $pkg);
