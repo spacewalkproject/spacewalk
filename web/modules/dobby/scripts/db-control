@@ -91,7 +91,7 @@ Increases the tablespace size for TABLESPACE by adding an additional datafile.
 
 =item B<gather-stats PCT>
 
-Gather statistics on database objects. PCT is the percentage of rows to estimate (the default is 15 per cent).
+Gather statistics on database objects. On Oracle PCT is the percentage of rows to estimate (the default is 15 per cent). On PostgreSQL PCT does not have sense.
 
 =item B<help>
 
@@ -101,9 +101,9 @@ Gives a list of db-control options.
 
 Reports on current usage of database space.  
 
-=item B<report-stats>
+=item B<report-stats DAYS>
 
-Reports tables with stale or empty statistics.
+Reports tables with stale or empty statistics. On Oracle DAYS are ignored. On PostgreSQL shows tables, which has not been ANALYZED (gather-stats do that) for DAYS days. Default is one day.
 
 =item B<restore DIRNAME>
 
@@ -129,7 +129,7 @@ Stops the RHN Satellite database instance.  This is required to perform B<backup
 
 =item B<tablesizes>
 
-Show space report for each table.
+Show space report for each table. On PostgreSQL the meaning of columns is as follows: "Planner Size" - size which planner usefor determining execution plan. It may differ from real size. "Real Size" - real size of data file on disk. "Real Size+Toasts+Idx" - reali size of data file on disk, including TOAST (The Oversized-Attribute Storage Technique) and indexes.
 
 =item B<verify DIRNAME>
 
