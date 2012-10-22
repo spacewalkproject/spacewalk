@@ -894,6 +894,7 @@ sub postgresql_setup_db {
     print Spacewalk::Setup::loc("** Database: Setting up database connection for PostgreSQL backend.\n");
     my $connected;
 
+    postgresql_setup_embedded_db($opts, $answers);
     while (not $connected) {
         postgresql_get_database_answers($opts, $answers);
 
@@ -915,6 +916,69 @@ sub postgresql_setup_db {
 
     write_rhn_conf($answers, 'db-backend', 'db-host', 'db-port', 'db-name', 'db-user', 'db-password');
     postgresql_populate_db($opts, $answers);
+
+    return 1;
+}
+
+sub postgresql_setup_embedded_db {
+    my $opts = shift;
+    my $answers = shift;
+
+    if (not is_embedded_db($opts)) {
+        return 0;
+    }
+
+    if ($opts->{'upgrade'}) {
+        # FIXME: upgrade code should go here
+        return 0;
+    }
+
+    if ($opts->{"skip-db-install"} || $opts->{"upgrade"}) {
+        print loc("** Database: Embedded database installation SKIPPED.\n");
+
+        return 0;
+    }
+
+    if (-d "/var/lib/pgsql/data/base") {
+        my $shared_dir = SHARED_DIR;
+        print loc(<<EOQ);
+The embedded database appears to be already installed. Either rerun
+this script with the --skip-db-install option, or use the
+'$shared_dir/postgresql/remove-db.sh' script to remove the embedded database
+and try again.
+EOQ
+
+        exit 13;
+    }
+
+    if (not $opts->{"skip-db-diskspace-check"}) {
+        system_or_exit(['python', SHARED_DIR .
+            '/embedded_diskspace_check.py'], 14,
+            'There is not enough space available for the embedded database.');
+    }
+    else {
+        print loc("** Database: Embedded database diskspace check SKIPPED!\n");
+    }
+
+    printf loc(<<EOQ, DB_INSTALL_LOG_FILE);
+** Database: Installing the database:
+** Database: This is a long process that is logged in:
+** Database:   %s
+EOQ
+
+    if (have_selinux()) {
+      local *X; open X, '>', DB_INSTALL_LOG_FILE and close X;
+      system('/sbin/restorecon', DB_INSTALL_LOG_FILE);
+    }
+    print_progress(-init_message => "*** Progress: #",
+        -log_file_name => DB_INSTALL_LOG_FILE,
+		-log_file_size => DB_INSTALL_LOG_SIZE,
+		-err_message => "Could not install database.\n",
+		-err_code => 15,
+		-system_opts => [ "/usr/bin/spacewalk-setup-embedded-postgresql", "--db", $answers->{'db-name'},
+                        "--user", $answers->{'db-user'}, "--password", $answers->{'db-password'}]);
+
+    print loc("** Database: Installation complete.\n");
 
     return 1;
 }
@@ -1055,24 +1119,12 @@ sub oracle_setup_db {
     oracle_check_for_users_and_groups($opts);
 
     print loc("* Setting up database.\n");
-    oracle_setup_embedded_db($opts, $answers);
     oracle_setup_db_connection($opts, $answers);
     oracle_test_db_settings($opts, $answers);
     write_rhn_conf($answers, 'db-backend', 'db-name', 'db-user', 'db-password');
     oracle_populate_db($opts, $answers);
 }
 
-sub oracle_upgrade_start_db {
-    my $opts = shift;
-    if (is_embedded_db($opts)) {
-        if ($opts->{'upgrade'}) {
-            system_or_exit(['/sbin/service', 'oracle', 'start'], 19,
-                'Could not start the oracle database service.');
-        }
-    }
-
-    return;
-}
 
 sub oracle_check_for_users_and_groups {
     my $opts = shift;
@@ -1083,96 +1135,6 @@ sub oracle_check_for_users_and_groups {
         check_users_exist(@required_users);
         check_groups_exist(@required_groups);
     }
-}
-
-sub oracle_setup_embedded_db {
-    my $opts = shift;
-    my $answers = shift;
-
-    if (not is_embedded_db($opts)) {
-        return 0;
-    } else {
-        $answers->{'db-user'} = 'rhnsat' if not defined $answers->{'db-user'};
-        $answers->{'db-password'} = 'rhnsat' if not defined $answers->{'db-password'};
-        $answers->{'db-name'} = 'rhnsat' if not defined $answers->{'db-name'};
-        $answers->{'db-host'} = 'localhost';
-        $answers->{'db-port'} = 1521;
-    }
-
-
-    if ($opts->{'upgrade'}) {
-        printf loc(<<EOQ, DB_UPGRADE_LOG_FILE);
-** Database: Upgrading the database server to latest Oracle 10g:
-** Database: This is a long process that is logged in:
-** Database: %s
-EOQ
-        print_progress(-init_message => "*** Progress: #",
-                   -log_file_name => DB_UPGRADE_LOG_FILE,
-                   -log_file_size => DB_UPGRADE_LOG_SIZE,
-                   -err_message => "Could not upgrade database.\n",
-                   -err_code => 15,
-                   -system_opts => ['/sbin/runuser', 'oracle', '-c',
-                                    SHARED_DIR . '/oracle/upgrade-db.sh' .
-                                    " --db $answers->{'db-name'}" .
-                                    " --user $answers->{'db-user'}"]);
-
-        system_or_exit(['service', 'oracle', 'restart'], 41,
-                       'Could not restart oracle service');
-
-        return 0;
-    }
-
-    if ($opts->{"skip-db-install"} || $opts->{"upgrade"}) {
-        print loc("** Database: Embedded database installation SKIPPED.\n");
-
-        return 0;
-    }
-
-    if (-d "/rhnsat/data") {
-        my $shared_dir = SHARED_DIR;
-        print loc(<<EOQ);
-The embedded database appears to be already installed. Either rerun
-this script with the --skip-db-install option, or use the
-'$shared_dir/oracle/remove-db.sh' script to remove the embedded database and try
-again.
-EOQ
-
-        exit 13;
-    }
-
-    if (not $opts->{"skip-db-diskspace-check"}) {
-        system_or_exit(['python', SHARED_DIR .
-            '/embedded_diskspace_check.py'], 14,
-            'There is not enough space available for the embedded database.');
-    }
-    else {
-        print loc("** Database: Embedded database diskspace check SKIPPED!\n");
-    }
-
-    printf loc(<<EOQ, DB_INSTALL_LOG_FILE);
-** Database: Installing the database:
-** Database: This is a long process that is logged in:
-** Database:   %s
-EOQ
-
-    if (have_selinux()) {
-      local *X; open X, '>', DB_INSTALL_LOG_FILE and close X;
-      system('/sbin/restorecon', DB_INSTALL_LOG_FILE);
-    }
-    print_progress(-init_message => "*** Progress: #",
-        -log_file_name => DB_INSTALL_LOG_FILE,
-		-log_file_size => DB_INSTALL_LOG_SIZE,
-		-err_message => "Could not install database.\n",
-		-err_code => 15,
-		-system_opts => [ SHARED_DIR . "/oracle/install-db.sh", "--db", $answers->{'db-name'},
-                        "--user", $answers->{'db-user'}, "--password", $answers->{'db-password'}]);
-
-    print loc("** Database: Installation complete.\n");
-
-    sleep(5); # We need to sleep because sometimes the database doesn't
-            # come back up fast enough.
-
-    return 1;
 }
 
 sub oracle_setup_db_connection {

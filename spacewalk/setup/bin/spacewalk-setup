@@ -156,7 +156,6 @@ Spacewalk::Setup::system_or_exit(['/usr/sbin/spacewalk-service', 'restart'], 40,
 wait_for_tomcat($answers{hostname}) or exit 56;
 
 Spacewalk::Setup::upgrade_stop_services(\%opts);
-Spacewalk::Setup::oracle_upgrade_start_db(\%opts);
 
 if ($opts{'upgrade'}) {
   print Spacewalk::Setup::loc("This portion of the $product_name upgrade process has successfully completed.\n");
