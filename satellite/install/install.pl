@@ -782,7 +782,7 @@ sub install_rhn_packages {
   my @rpms = glob("Satellite/*.rpm");
 
   if (Spacewalk::Setup::is_embedded_db($opts)) {
-      push(@rpms, glob("PostgreSQL/*.rpm"));
+      push(@rpms, glob("EmbeddedDB/*.rpm"), glob("PostgreSQL/*.rpm"));
   } else {
       push(@rpms, glob("Oracle/*.rpm"));
   }
