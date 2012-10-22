@@ -158,6 +158,10 @@ wait_for_tomcat($answers{hostname}) or exit 56;
 Spacewalk::Setup::upgrade_stop_services(\%opts);
 
 if ($opts{'upgrade'}) {
+  if (Spacewalk::Setup::is_embedded_db()) {
+    Spacewalk::Setup::postgresql_start();
+  }
+
   print Spacewalk::Setup::loc("This portion of the $product_name upgrade process has successfully completed.\n");
   if ($product_name =~ /Satellite/) {
     print Spacewalk::Setup::loc("Please refer to appropriate upgrade document in /etc/sysconfig/rhn/satellite-upgrade\n");
