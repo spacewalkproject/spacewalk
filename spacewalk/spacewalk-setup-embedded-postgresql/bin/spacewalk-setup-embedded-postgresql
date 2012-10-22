@@ -43,6 +43,8 @@ help() {
 PG_DATA=/var/lib/pgsql/data
 PG_HBA="$PG_DATA/pg_hba.conf"
 POSTGRESQL="$PG_DATA/postgresql.conf"
+PG_PIDFILE="/var/run/postmaster.5432.pid"
+PG_SOCKET="/tmp/.s.PGSQL.5432"
 
 create() {
     if [ -z "$PGUSER" -o -z "$PGPASSWORD" -o -z "$PGNAME" ] ; then
@@ -83,6 +85,15 @@ EOF
     fi
 
     service postgresql start
+
+    if /usr/sbin/lsof /proc > /dev/null ; then
+        while [ -f "$PG_PIDFILE" ] ; do
+            # wait for postmaster to be ready
+            /usr/sbin/lsof -t -p $(cat "$PG_PIDFILE" 2>/dev/null) -a "$PG_SOCKET" \
+                && break
+            sleep 1
+        done
+    fi
 
     if ! exists_db ; then
             runuser - postgres -c "createdb '$PGNAME'; createlang plpgsql '$PGNAME'"
