@@ -1234,7 +1234,7 @@ sub oracle_setup_embedded_db {
     } else {
         $answers->{'db-user'} = 'rhnsat' if not defined $answers->{'db-user'};
         $answers->{'db-password'} = 'rhnsat' if not defined $answers->{'db-password'};
-        $answers->{'db-name'} = 'rhnsat' if not defined $answers->{'db-name'};
+        $answers->{'db-name'} = 'rhnsat.world' if not defined $answers->{'db-name'};
         $answers->{'db-host'} = 'localhost';
         $answers->{'db-port'} = 1521;
     }
@@ -1304,7 +1304,7 @@ EOQ
 		-log_file_size => DB_INSTALL_LOG_SIZE,
 		-err_message => "Could not install database.\n",
 		-err_code => 15,
-		-system_opts => [ SHARED_DIR . "/oracle/install-db.sh", "--db", $answers->{'db-name'},
+		-system_opts => [ SHARED_DIR . "/oracle/install-db.sh",
                         "--user", $answers->{'db-user'}, "--password", $answers->{'db-password'}]);
 
     print loc("** Database: Installation complete.\n");
