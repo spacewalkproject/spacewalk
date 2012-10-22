@@ -7,15 +7,12 @@ use Spacewalk::Setup ();
 use Getopt::Long ();
 use DBI ();
 
+my $DATA_DIR = '/etc/sysconfig/rhn/schema-dump';
 my $config_file = Spacewalk::Setup::DEFAULT_RHN_CONF_LOCATION;
 my %options;
 Spacewalk::Setup::read_config($config_file, \%options);
 
-if ($options{db_backend} ne 'oracle') {
-	die "The $0 is can only dump Oracle database schema.\n";
-}
-
-my ($db, $user, $password);
+my ($db, $user, $password, $raw);
 
 sub usage {
 	print "$0: [--db=SID --user=USERNAME --password=PASSWORD] [ --help ]\n";
@@ -29,12 +26,17 @@ Getopt::Long::GetOptions (
 	'db=s' => \$db,
 	'user=s' => \$user,
 	'password=s' => \$password,
+	'raw' => \$raw,
 	'help' => \&usage,
 ) or exit 1;
 
 if (grep { defined $_ } $db, $user, $password) {
 	# Some connect parameter was specified, let's use it as new connect info
 	@options{qw( db_name db_user db_password )} = ( $db, $user, $password );
+} else {
+	if ($options{db_backend} ne 'oracle') {
+		die "The $0 can only dump Oracle database schema.\n";
+	}
 }
 
 $ENV{NLS_LANG} = 'AMERICAN_AMERICA.UTF8';
@@ -47,63 +49,315 @@ my $dbh = DBI->connect("dbi:Oracle:$options{db_name}", $options{db_user}, $optio
 	FetchHashKeyName => 'NAME_lc',
 	LongReadLen => 10_000_000,
 	LongTruncOk => 0,
+	AutoCommit => 0,
 });
+
+$SIG{'PIPE'} = sub {
+	die "SIGPIPE received.\n";
+};
+
+process_scripts($dbh, 'pre');
 
 print <<'EOS';
 \set ON_ERROR_STOP on
 EOS
-process_sequences($dbh);
+
+my %ROWIDS = ();
+my $SEQ = 1;
 process_tables($dbh);
-$dbh->disconnect();
-
-exit 0;
-
-sub process_sequences {
-	my $dbh = shift;
-	my $sth = $dbh->prepare(q!
-		select lower(sequence_name) sequence_name, last_number
-		from user_sequences
-		order by sequence_name
-	!);
-	$sth->execute();
-	while (my $row = $sth->fetchrow_hashref()) {
-		print "select pg_catalog.setval('$row->{sequence_name}', $row->{last_number}, false);\n";
+process_sequences($dbh);
+if (not $raw) {
+	my $dist = `rpm -qf --qf '%{release}\n' /etc/sysconfig/rhn/schema-dump`;
+	chomp $dist;
+	$dist =~ s/^.+(\.[^\.]+)$/$1/;
+	for my $file (sort < $DATA_DIR/sql/* >) {
+		local *FILE;
+		open FILE, '<', $file or die "Error reading [$file]: $!\n";
+		while (<FILE>) {
+			s/\@\@DIST\@\@/$dist/;
+			print;
+		}
+		close FILE;
 	}
 }
 
-sub process_tables {
+exit 0;
+
+END {
+	return if (not defined $dbh);
+
+	process_scripts($dbh, 'post');
+	$dbh->disconnect();
+}
+
+sub get_table_scripts {
+	my $filename = shift;
+
+	return if (not -f $filename);
+
+	local $_;
+	local *FILE;
+	open FILE, '<', $filename or die "Error reading [$filename]: $!\n";
+	my $data = {};
+	my $key;
+	my $text;
+	while (<FILE>) {
+		chomp;
+		if (/^\s*$/) {
+			push @{$data->{$key}}, $text if ($text);
+			$text = '';
+		} elsif (/^\s/) {
+			$text .= $_;
+		} else {
+			$key = join ',', sort split /,/, $_;
+			$data->{$key} = ();
+		}
+	}
+	push @{$data->{$key}}, $text if ($text);
+	close FILE;
+	return $data;
+}
+
+sub process_scripts {
 	my $dbh = shift;
-	my $tables = $dbh->selectcol_arrayref(q!
+	my $stage = shift;
+
+	return if ($raw or not -d "$DATA_DIR/$stage");
+
+	my $tables = $dbh->selectall_hashref(q!
 		select lower(table_name) table_name
 		from user_tables
 		where table_name <> 'PLAN_TABLE' -- plan_table is not part of our schema
 		order by table_name
-	!);
-	for (@$tables) {
+	!, 'table_name');
+
+	my %scripts;
+	{
+		local *DIR;
+		opendir DIR, "$DATA_DIR/$stage" or die "Error reading [$DATA_DIR/$stage]: $!\n";
+		while (defined($_ = readdir DIR)) {
+			next if /^\.\.?$/ or not exists $tables->{$_};
+			$scripts{$_} = get_table_scripts("$DATA_DIR/$stage/$_");
+		}
+		closedir DIR;
+	}
+
+	foreach my $table (keys %scripts) {
+		next if (not defined $tables->{$table});
+
+		my $sth = eval {
+			local $dbh->{PrintError} = 0;
+			$dbh->prepare("select * from $table");
+		};
+
+		my $columns;
+		if (defined $sth and not $@) {
+			$sth->execute();
+			my $row = $sth->fetchrow_arrayref();
+			$columns = join ',', sort @{$sth->{NAME_lc}};
+		} else {
+			die $@ if (not $DBI::err == 942);
+		}
+
+		next if (not exists $scripts{$table}{$columns});
+
+		foreach my $script (@{$scripts{$table}{$columns}}) {
+			$sth = $dbh->prepare($script);
+			$sth->execute();
+			$dbh->commit();
+		}
+	}
+}
+
+sub get_sequence_exception {
+	local $_;
+	my $name = shift;
+	my $file = "$DATA_DIR/sequences/$name";
+	if (not -f $file) {
+		return;
+	}
+	local *EXCEPTION;
+	open EXCEPTION, '<', $file or die "Error reading [$file]: $!\n";
+	my $data = '';
+	while (<EXCEPTION>) {
+		if (/^skip\s*$/) {
+			close EXCEPTION;
+			return 'skip';
+		}
+		$data .= $_;
+	}
+	close EXCEPTION;
+	return $data;
+}
+
+sub process_sequences {
+	my $dbh = shift;
+	my $sequences = $dbh->selectall_hashref(q!
+		select lower(sequence_name) sequence_name, last_number
+		from user_sequences
+		order by sequence_name
+	!, 'sequence_name');
+	if (not $raw and -d "$DATA_DIR/sequences") {
+		local *DIR;
+		opendir DIR, "$DATA_DIR/sequences" or die "Error reading [$DATA_DIR/sequences]: $!\n";
+		while (defined($_ = readdir DIR)) {
+			next if /^\.\.?$/;
+			$sequences->{$_} = 'missing' if not exists $sequences->{$_};
+		}
+		closedir DIR;
+	}
+	for (sort keys %$sequences) {
+		my $last_number = $sequences->{$_}{last_number} if ref $sequences->{$_};;
+		if (not $raw) {
+			my $exception = get_sequence_exception($_);
+			if (defined $exception) {
+				if ($exception =~ /^missing sequence/) {
+					if ($sequences->{$_} eq 'missing') {
+						$last_number = $SEQ;
+					}
+				} elsif ($exception eq 'skip') {
+					print "-- Skipping $_\n";
+					next;
+				} else {
+					print "select pg_catalog.setval('$_', ( $exception )::bigint);\n";
+					next;
+				}
+			}
+		}
+		$last_number = 1 if not defined $last_number;
+		print "select pg_catalog.setval('$_', $last_number, false);\n";
+	}
+}
+
+sub get_table_exception {
+	local $_;
+	my $name = shift;
+	my $file = "$DATA_DIR/tables/$name";
+	if (not -f $file) {
+		return;
+	}
+	local *EXCEPTION;
+	open EXCEPTION, '<', $file or die "Error reading [$file]: $!\n";
+	my $data = {};
+	my $key;
+	while (<EXCEPTION>) {
+		if (/^skip\s*$/) {
+			close EXCEPTION;
+			return 'skip';
+		}
+		if (/^\s/) {
+			$data->{$key} .= $_;
+		} else {
+			chomp;
+			$key = join ',', sort split /,/, $_;
+		}
+	}
+	close EXCEPTION;
+	return $data;
+}
+
+sub process_tables {
+	my $dbh = shift;
+	my $tables = $dbh->selectall_hashref(q!
+		select lower(table_name) table_name
+		from user_tables
+		where table_name <> 'PLAN_TABLE' -- plan_table is not part of our schema
+		order by table_name
+	!, 'table_name');
+	if (not $raw and -d "$DATA_DIR/tables") {
+		local *DIR;
+		opendir DIR, "$DATA_DIR/tables" or die "Error reading [$DATA_DIR/tables]: $!\n";
+		while (defined($_ = readdir DIR)) {
+			next if /^\.\.?$/;
+			$tables->{$_} = 'missing' if not exists $tables->{$_};
+		}
+		closedir DIR;
+	}
+	my %exceptions;
+	for (sort keys %$tables) {
+		if (not $raw) {
+			my $exception = get_table_exception($_);
+			if (defined $exception) {
+				$exceptions{$_} = $exception;
+				if ($tables->{$_} eq 'missing'
+					and ref $exceptions{$_}) {
+					if (exists $exceptions{$_}{'missing table'}) {
+						$exceptions{$_} = { 'missing table' => $exceptions{$_}{'missing table'} };
+					} else {
+						$exception = $exceptions{$_} = 'skip';
+					}
+				}
+				if ($exception eq 'skip') {
+					print "-- Skipping $_\n";
+					next;
+				}
+			}
+		}
+
 		print "alter table $_ disable trigger all;\n";
+		print "alter table $_ set (autovacuum_enabled = false);\n";
 	}
-	for (@$tables) {
+	for (sort keys %$tables) {
+		if (exists $exceptions{$_} and $exceptions{$_} eq 'skip') {
+			next;
+		}
 		print "delete from $_;\n";
-		# print "commit;\n";
 	}
-	for (@$tables) {
+	for (sort keys %$tables) {
+		if (exists $exceptions{$_} and $exceptions{$_} eq 'skip') {
+			next;
+		}
 		next if /^qrtz_/;		# skip the quartz tables, they get regenerated anyway
-		process_table($dbh, $_);
+		process_table($dbh, $_, $exceptions{$_});
 	}
-	for (@$tables) {
+	for (sort keys %$tables) {
+		if (exists $exceptions{$_} and $exceptions{$_} eq 'skip') {
+			next;
+		}
 		print "alter table $_ enable trigger all;\n";
+		print "alter table $_ set (autovacuum_enabled = true);\n";
 	}
 }
 
 sub process_table {
-	my ($dbh, $table) = @_;
-	my $sth = $dbh->prepare("select * from $table");
-	$sth->execute();
-	my $row = $sth->fetchrow_arrayref();
-	if (not $row) {
-		return;
+	my ($dbh, $table, $exception) = @_;
+	my ($row, $names, $the_names);
+	my $sth = eval {
+		local $dbh->{PrintError} = 0;
+		$dbh->prepare("select * from $table");
+	};
+	my $sorted_the_names = '';
+	if (defined $sth and not $@) {
+		$sth->execute();
+		$row = $sth->fetchrow_arrayref();
+		$names = $sth->{NAME_lc};
+		$the_names = join ',', @$names;
+		$sorted_the_names = join ',', sort @$names;
+	} else {
+		if (not $DBI::err == 942) {
+			die $@;
+		}
+		$sorted_the_names = $the_names = 'missing table';
 	}
-	my $names = $sth->{NAME_lc};
+	if (ref $exception) {
+		if (exists $exception->{$sorted_the_names}) {
+			$sth = $dbh->prepare($exception->{$sorted_the_names});
+			$sth->execute();
+			$row = $sth->fetchrow_arrayref();
+			$names = $sth->{NAME_lc};
+			print "-- Original columns for $table: $the_names\n";
+			$the_names = join ',', @$names;
+		}
+	}
+	my @use_rowids = ();
+	for (my $i = 0; $i < @$names; $i++) {
+		if ($names->[$i] =~ s/^rowid_//) {
+			$use_rowids[$i] = 1;
+		}
+	}
+	if (@use_rowids) {
+		$the_names = join ',', @$names;
+	}
 	my $types = $sth->{TYPE};
 	my @types;
 	for (my $i = 0; $i < @$types; $i++) {
@@ -111,11 +365,17 @@ sub process_table {
 		push @types, ( defined $type ? $type : 'unknown' );
 	}
 	print "-- Types for $table: @types\n";
-	print qq!copy $table(@{[ join ',', @$names ]}) from stdin;\n!;
+	print qq!copy $table($the_names) from stdin;\n!;
 	while ($row) {
 		for (my $i = 0; $i < @$row; $i++) {
 			print "\t" if $i;
-			if (defined $row->[$i]) {
+			if (defined $use_rowids[$i]) {
+				if (not defined $ROWIDS{$row->[$i]}) {
+					$SEQ++;
+					$ROWIDS{$row->[$i]} = $SEQ;
+				}
+				print $ROWIDS{$row->[$i]};
+			} elsif (defined $row->[$i]) {
 				if (ref $row->[$i] and ref $row->[$i] eq 'ARRAY') {	# user types
 					no warnings 'uninitialized';
 					$row->[$i] = "(@{[ join ',', @{$row->[$i]} ]})";
