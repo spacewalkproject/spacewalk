@@ -1,5 +1,5 @@
 Name:           spacewalk-setup-embedded-postgresql
-Version:        1.8.1
+Version:        1.8.2
 Release:        1%{?dist}
 Summary:        Tools to setup embedded PostgreSQL database for Spacewalk
 Group:          Applications/System
@@ -43,6 +43,12 @@ rm -rf %{buildroot}
 %{_datadir}/spacewalk/setup/defaults.d/*
 
 %changelog
+* Mon Oct 22 2012 Michael Mraka
+- tuned default postgresql settings
+- use current time not start of session time
+- 821446 - turning on timestamp logging for pgsql by default
+- let's start embedded database before checking its state
+
 * Mon Oct 22 2012 Michael Mraka
 - spacewalk-setup-embedded-postgresql 1.8
 
