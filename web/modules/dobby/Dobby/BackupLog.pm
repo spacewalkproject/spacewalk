@@ -22,7 +22,7 @@ use Storable qw/freeze thaw/;
 use XML::LibXML;
 
 our @ISA = qw/RHN::SimpleStruct/;
-our @simple_struct_fields = qw/start finish sid tablespaces archive_logs control_file type cold_files/;
+our @simple_struct_fields = qw/start finish sid tablespaces archive_logs control_file type cold_files base_dir/;
 
 # UGLY HACK for now; use Storable instead of a real data structure.
 # ugh.
@@ -61,6 +61,7 @@ sub fromXml() {
   $log->start(getTextValue($doc,'start'));
   $log->type(getTextValue($doc,'type'));
   $log->finish(getTextValue($doc,'finish'));
+  $log->base_dir(getTextValue($doc,'basedir'));
   
   
   foreach my $fileentry ($doc->getElementsByTagName('fileentry')){
@@ -92,6 +93,8 @@ sub toXml {
   addTextValue($type, $doc, $self->type);
   my $finish = $doc->createElement('finish');
   addTextValue($finish, $doc, $self->finish);
+  my $base_dir = $doc->createElement('basedir');
+  addTextValue($base_dir, $doc, $self->base_dir);
   
   my $archive_logs = $doc->createElement('archivelogs');
   if (defined($self->archive_logs)) {
@@ -121,7 +124,8 @@ sub toXml {
   $root->appendChild($start); 
   $root->appendChild($control_file); 
   $root->appendChild($type); 
-  $root->appendChild($finish); 
+  $root->appendChild($finish);
+  $root->appendChild($base_dir);
 
   my $retval = $root->toString . "\n";
   return $retval;

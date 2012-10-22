@@ -87,6 +87,7 @@ sub command_backup {
   $log->type('cold');
   $log->sid($d->sid);
   $log->start(time);
+  $log->base_dir($backup_dir);
 
   $|++;
   print "Initiating cold backup of database ", $d->sid, "...\n";
