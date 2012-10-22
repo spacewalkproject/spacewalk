@@ -4,7 +4,7 @@ Summary: Python libraries for the RHN project
 Name: rhnlib
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 2.5.53
+Version: 2.5.54
 Release: 1%{?dist}
 
 Group: Development/Libraries
@@ -60,6 +60,10 @@ rm -rf $RPM_BUILD_ROOT
 %{python_sitelib}/*
 
 %changelog
+* Mon Oct 22 2012 Jan Pazdziora 2.5.54-1
+- Revert "Revert "Revert "get_server_capability() is defined twice in osad and
+  rhncfg, merge and move to rhnlib and make it member of rpclib.Server"""
+
 * Thu Jun 21 2012 Jan Pazdziora 2.5.53-1
 - allow linking against openssl
 - %%defattr is not needed since rpm 4.4
