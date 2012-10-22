@@ -173,12 +173,19 @@ RSTATS
   return $stats;
 }
 
-sub gather_database_stats {
+sub gather_database_stats_oracle {
   my $self = shift;
   my $pct  = shift;
 
   my $dbh = $self->connect;
   $dbh->do("begin dbms_stats.gather_schema_stats(NULL, ESTIMATE_PERCENT=> $pct, DEGREE=>DBMS_STATS.DEFAULT_DEGREE, CASCADE=>TRUE); end;");
+}
+
+sub gather_database_stats_postgresql {
+  my $self = shift;
+
+  my $dbh = $self->connect;
+  $dbh->do("ANALYZE");
 }
 
 sub segadv_runtask {
