@@ -65,6 +65,7 @@ B<db-control>
 [B<report>]
 [B<report-stats>]
 [B<restore DIRNAME>]
+[B<reset-password>]
 [B<set-optimizer>]
 [B<shrink-segments>]
 [B<start>]
@@ -118,6 +119,10 @@ Reports on current usage of database space.
 =item B<report-stats DAYS>
 
 Reports tables with stale or empty statistics. On Oracle DAYS are ignored. On PostgreSQL shows tables, which has not been ANALYZED (gather-stats do that) for DAYS days. Default is one day.
+
+=item B<reset-password>
+
+Resets database password according to value in /etc/rhn/rhn.conf.
 
 =item B<restore DIRNAME>
 
