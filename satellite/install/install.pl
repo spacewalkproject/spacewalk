@@ -520,6 +520,9 @@ sub remove_jabberd_configs {
   my $opts = shift;
 
   return unless ($opts->{'upgrade'});
+  # Don't remove the config files if we're on latest version already
+  return if (`rpm -qp --qf='%{VERSION}-%{RELEASE}' Satellite/jabberd-2*.rpm` eq
+             `rpm -q --qf='%{VERSION}-%{RELEASE}' jabberd`);
 
   foreach my $cf ('c2s', 's2s', 'sm', 'router') {
     my $cf_path = "/etc/jabberd/$cf.xml";
