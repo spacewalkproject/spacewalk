@@ -149,6 +149,7 @@ sub command_restore {
   $cli->fatal("Error: restoration failed, unable to locate $restore_log") unless -r $restore_log;
 
   my $d = new Dobby::DB;
+  print "Parsing backup log.\n";
   my $log = Dobby::BackupLog->parse($restore_log);
 
   if ($log->type ne 'cold') {
