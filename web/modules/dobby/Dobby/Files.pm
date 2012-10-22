@@ -91,8 +91,13 @@ sub gunzip_copy {
 
   $gz->gzclose;
   close OUT if $write;
-  chown $uid, $gid, $dst;
-  chmod 0640, $dst;
+  if (defined($dst)) {
+    # if not defined set it to -1 i.e. no change
+    $uid = -1 if not defined $uid;
+    $gid = -1 if not defined $gid;
+    chown $uid, $gid, $dst;
+    chmod 0640, $dst;
+  }
 
   return $ctx->hexdigest;
 }
