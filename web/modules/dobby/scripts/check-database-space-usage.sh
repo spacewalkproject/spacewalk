@@ -55,6 +55,7 @@ NUMBERS=$(echo "$REPORTUSAGE" | awk '{if (FNR > 1) {sub("%",""); print $5}}')
 for num in $NUMBERS
    do
    # if number is over 90% then send warning email
+   echo $num
    if [ $num -gt 90 ]
       then mailitout "$REPORTUSAGE"
    fi

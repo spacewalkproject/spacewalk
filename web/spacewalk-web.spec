@@ -137,7 +137,7 @@ mkdir -p $RPM_BUILD_ROOT/%{_sysconfdir}/cron.daily
 
 install -m 644 conf/rhn_web.conf $RPM_BUILD_ROOT%{_prefix}/share/rhn/config-defaults
 install -m 644 conf/rhn_dobby.conf $RPM_BUILD_ROOT%{_prefix}/share/rhn/config-defaults
-install -m 755 modules/dobby/scripts/check-oracle-space-usage.sh $RPM_BUILD_ROOT/%{_sysconfdir}/cron.daily/check-oracle-space-usage.sh
+install -m 755 modules/dobby/scripts/check-database-space-usage.sh $RPM_BUILD_ROOT/%{_sysconfdir}/cron.daily/check-database-space-usage.sh
 
 
 %clean
@@ -230,7 +230,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/db-control.1.gz
 %{perl_vendorlib}/Dobby.pm
 %attr(640,root,apache) %{_prefix}/share/rhn/config-defaults/rhn_dobby.conf
-%attr(0755,root,root) %{_sysconfdir}/cron.daily/check-oracle-space-usage.sh
+%attr(0755,root,root) %{_sysconfdir}/cron.daily/check-database-space-usage.sh
 %{perl_vendorlib}/Dobby/
 
 %files -n spacewalk-grail
