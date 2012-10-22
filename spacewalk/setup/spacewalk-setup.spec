@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        1.8.18
+Version:        1.8.19
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -110,6 +110,12 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Mon Oct 22 2012 Michael Mraka
+- check free space under /var/lib/pgsql/data
+- modified embedded_diskspace_check to support non default directories
+- don't print error messages if postgresql is not set up yet
+- setup embedded db also during upgrade
+
 * Mon Oct 22 2012 Michael Mraka
 - merge spacewalk-setup-embedded-postgresql and remove-db.sh
 - added script to remove database
