@@ -95,6 +95,9 @@ check() {
         help
         exit 1
     fi
+
+    service postgresql status >& /dev/null || service postgresql start
+
     RET=0
     if [ -n "$PGUSER" ] ; then
         if exists_user ; then
