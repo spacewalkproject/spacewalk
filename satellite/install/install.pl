@@ -487,8 +487,12 @@ sub remove_obsoleted_packages {
     my @pkgs = ('rhn-apache', 'rhn-modpython', 'rhn-modssl', 'rhn-modperl',
                 'perl-libapreq', 'bouncycastle-jdk1.4',
                 'quartz-oracle', 'jaf', 'jta',
-                'python-sgmlop', 'xml-commons-apis', 'jakarta-commons-io',
-                'geronimo-specs-compat', 'spacewalk-backend-upload-server');
+                'python-sgmlop', 'geronimo-specs-compat', 'spacewalk-backend-upload-server');
+
+    # Remove xml-commons on RHEL-5 only
+    if (`rpm -q --qf='%{VERSION}' redhat-release 2>/dev/null` =~ /^5.+$/) {
+        push @pkgs, 'xml-commons';
+    }
 
     if (Spacewalk::Setup::is_embedded_db($opts)) {
         push @pkgs, 'spacewalk-oracle', 'perl-NOCpulse-Probe-Oracle', 'NOCpulsePlugins-Oracle';
