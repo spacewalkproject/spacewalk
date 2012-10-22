@@ -55,7 +55,7 @@ create() {
         service postgresql initdb
 
 	# see bug 821446, we enable timestamps in logs by default
-	sed -i 's/^\(.*log_line_prefix.*\)$/### Edited by spacewalk-setup-embedded-postgresql: ###\n# was: \1\nlog_line_prefix = '\''%s'\''/ ' $POSTGRESQL
+	sed -i 's/^\(.*log_line_prefix.*\)$/### Edited by spacewalk-setup-embedded-postgresql: ###\n# was: \1\nlog_line_prefix = '\''%m'\''/ ' $POSTGRESQL
 
         sed -i 's/^\([^#].*\)$/### next line has been commented out by spacewalk-setup-embedded-postgresql: ###\n##\1/ ' $PG_HBA
         cat >> $PG_HBA <<EOF
