@@ -16,6 +16,7 @@
 use strict;
 package Dobby::DB;
 use RHN::DB;
+use RHN::DBI ();
 use PXT::Config;
 use Dobby::Log;
 
@@ -357,7 +358,23 @@ sub connect {
   return $dbh;
 }
 
+sub pg_instance_state {
+  my $self = shift;
+  if (defined $RHN::DB::dbh and $RHN::DB::dbh->ping()) {
+    return "OPEN";
+  }
+  my ($dsn, $login, $password, $attr) = RHN::DBI::_get_dbi_connect_parameters();
+  my $dbh = eval { RHN::DB->direct_connect($dsn, $login, $password, $attr) };
+  return $dbh ? "OPEN" : "OFFLINE";
+}
+
 sub instance_state {
+  my $self = shift;
+  my $backend = PXT::Config->get('db_backend');
+  return ($backend eq 'postgresql') ? $self->pg_instance_state : $self->ora_instance_state;
+}
+
+sub ora_instance_state {
   my $self = shift;
   # ORA-01033 -- startup/shutdown in progress (mounted but not open)
   # ORA-01089 -- immediate startup/shutdown in progress (shutdown in progress)
