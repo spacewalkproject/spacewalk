@@ -23,8 +23,7 @@ installation of Spacewalk server.
 %install
 rm -rf %{buildroot}
 install -d -m 755 %{buildroot}/%{_bindir}
-install -m 0644 bin/* %{buildroot}/%{_bindir}
-chmod -R u+w %{buildroot}/%{_bindir}/*
+install -m 0755 bin/* %{buildroot}/%{_bindir}
 install -d -m 755 %{buildroot}/%{_datadir}/spacewalk/setup/defaults.d
 install -m 0644 setup/defaults.d/* %{buildroot}/%{_datadir}/spacewalk/setup/defaults.d/
 
@@ -39,8 +38,8 @@ rm -rf %{buildroot}
 %files
 %defattr(-,root,root,-)
 %doc LICENSE
-%{_bindir}/spacewalk-setup-embedded-postgresql
-%{_mandir}/man1/*
+%attr(755,root,root) %{_bindir}/spacewalk-setup-embedded-postgresql
+#%{_mandir}/man1/*
 %{_datadir}/spacewalk/setup/defaults.d/*
 
 %changelog
