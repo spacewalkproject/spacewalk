@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        1.8.20
+Version:        1.8.21
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -110,6 +110,21 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Mon Oct 22 2012 Jan Pazdziora 1.8.21-1
+- 562287 - pass proxy configuration to spacewalk-setup to store it into
+  rhn.conf file
+- upgrade: start pg server only when migrating
+- don't restart services when upgrading
+- set upgrade_db.log size to 22M
+- don't duplicate database upgrade log
+- don't support custom db-name in an answer file
+- don't pass db-name to upgrade-db.sh
+- When not using tnsnames.ora, the full service name has to be used.
+- Revert oracle_setup_embedded_db part of "added embedded postgresql
+  installation part"
+- Installation is with embedded database if not told otherwise.
+- No migration if the ISO has embedded Oracle software.
+
 * Mon Oct 22 2012 Jan Pazdziora 1.8.20-1
 - don't remove Oracle stuff during oracle->postgresql migration
 - run db migration in upgrade mode only
