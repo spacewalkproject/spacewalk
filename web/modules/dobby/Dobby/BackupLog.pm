@@ -61,7 +61,8 @@ sub fromXml() {
   $log->start(getTextValue($doc,'start'));
   $log->type(getTextValue($doc,'type'));
   $log->finish(getTextValue($doc,'finish'));
-  $log->base_dir(getTextValue($doc,'basedir'));
+  # this may fail on 5.4- dumps, it is safe to ignore it
+  eval { $log->base_dir(getTextValue($doc,'basedir')); };
   
   
   foreach my $fileentry ($doc->getElementsByTagName('fileentry')){
