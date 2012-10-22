@@ -86,10 +86,17 @@ sub command_startstop {
       if ($backend eq 'postgresql') {
         system("/sbin/service", "postgresql", "stop");
       } else {
-        print "Shutting down database... ";
+        print "Shutting down database";
         $d->listener_shutdown;
         $d->database_shutdown("immediate");
-        print "done.\n";
+        my $i = 5;
+        $| = 1;
+        while (($i-- > 0) and ($d->instance_state ne 'OFFLINE')) {
+          sleep 1;
+          print ".";
+        }
+        my $s = ($d->instance_state eq 'OFFLINE') ? " done.\n" : " fail.\n";
+        print $s;
       }
     }
   }
