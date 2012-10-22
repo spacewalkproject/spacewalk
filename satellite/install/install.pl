@@ -648,9 +648,13 @@ sub get_required_rpms {
   my $NEEDRPMS_FILE = 'updates/rhelrpms';
   my @NEEDRPMS_FILES = ($NEEDRPMS_FILE);
   if (Spacewalk::Setup::is_embedded_db($opts)) {
-        push @NEEDRPMS_FILES, "$NEEDRPMS_FILE.postgresql";
-  } else {
-        push @NEEDRPMS_FILES, "$NEEDRPMS_FILE.oracle";
+      if (-d 'PostgreSQL') {
+	  push @NEEDRPMS_FILES, "$NEEDRPMS_FILE.postgresql";
+      } elsif (-d 'EmbeddedDB') {
+          push @NEEDRPMS_FILES, "$NEEDRPMS_FILE.oracle";
+      }
+  } else {	# this is external database, meaning Oracle
+      push @NEEDRPMS_FILES, "$NEEDRPMS_FILE.external-oracle";
   }
   for my $f (@NEEDRPMS_FILES) {
     open FH, $f
