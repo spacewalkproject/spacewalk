@@ -944,7 +944,7 @@ sub postgresql_setup_embedded_db {
         print loc(<<EOQ);
 The embedded database appears to be already installed. Either rerun
 this script with the --skip-db-install option, or use the
-'$shared_dir/postgresql/remove-db.sh' script to remove the embedded database
+'$shared_dir/postgresql/remove-db.sh --db $answers->{'db-name'}' script to remove the embedded database
 and try again.
 EOQ
 
