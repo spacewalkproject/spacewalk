@@ -236,6 +236,15 @@
 	      </c:if>
    </rhn:require>
 
+  <tr>
+    <th>
+      <bean:message key="package.jsp.errata" />:
+    </th>
+    <td><a href="http://www.google.com/search?q=${package_name}+inurl:errata+site:redhat.com" target="_blank">
+      <bean:message key="package.jsp.erratasearch" />
+    </a></td>
+  <tr/>
+
 
 
 </div>

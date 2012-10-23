@@ -20436,6 +20436,14 @@ given channel.</source>
 			<source>File Unavailable</source>
       </trans-unit>
 
+      <trans-unit id="package.jsp.errata">
+      <source>Errata</source>
+      </trans-unit>
+
+      <trans-unit id="package.jsp.erratasearch">
+      <source>Search Google for errata</source>
+      </trans-unit>
+
       <trans-unit id="package.jsp.sunosrelease">
 			<source>SunOs Release</source>
       </trans-unit>
