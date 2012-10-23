@@ -2586,6 +2586,21 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/systems/details/packages/patches/PatchConfirm</context>
         </context-group>
       </trans-unit>
+
+      <trans-unit id="packagelist.jsp.extrapackages">
+<source>Extra Packages</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/packages/PackageList</context>
+        </context-group>
+      </trans-unit>
+
+<trans-unit id="packagelist.jsp.extrapackagessummary">
+<source>The following packages are installed on this system and are not present in any of its channels.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/packages/ForeignPackages</context>
+        </context-group>
+      </trans-unit>
+
       <!-- upgradable.jsp -->
       <trans-unit id="upgradable.jsp.header">
 <source>Upgradable Packages</source>
@@ -5128,6 +5143,14 @@ value for this entitlement, excluding the default organization's consumption.</s
         <source>Systems Requiring Reboot</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/RequiringReboot</context>
+          <context context-type="sourcefile">/rhn/systems/YourRhn.do</context>
+        </context-group>
+      </trans-unit>
+
+      <trans-unit id="extrapackagessystemslist.jsp.header">
+        <source>Systems with Extra Packages</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/ExtraPackagesSystems.do</context>
           <context context-type="sourcefile">/rhn/systems/YourRhn.do</context>
         </context-group>
       </trans-unit>

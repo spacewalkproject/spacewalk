@@ -231,6 +231,40 @@ public class SystemManager extends BaseManager {
     }
 
     /**
+     * Returns a list of systems with extra packages installed.
+     *
+     * @param user User to check the systems for
+     * @param pc Page control
+     *
+     * @return list of SystemOverviews.
+     */
+    public static DataResult getExtraPackagesSystems(User user, PageControl pc) {
+        SelectMode m = ModeFactory.getMode("System_queries",
+            "extra_packages_systems_count");
+        Map params = new HashMap();
+        params.put("userid", user.getId());
+        params.put("orgid", user.getOrg().getId());
+
+        return makeDataResult(params, new HashMap<String, Object>(), pc, m);
+    }
+
+    /**
+     * Returns the list of extra packages for a system.
+     * @param serverId Server ID in question
+     * @return List of extra packages
+     */
+    public static DataResult listExtraPackages(Long serverId) {
+        SelectMode m = ModeFactory.getMode("Package_queries",
+                                           "extra_packages_for_system");
+        Map params = new HashMap();
+        params.put("serverid", serverId);
+        Map elabParams = new HashMap();
+
+        DataResult dataResult = makeDataResult(params, elabParams, null, m);
+        return dataResult;
+    }
+
+    /**
      * Gets the latest upgradable packages for a system
      * @param sid The id for the system we want packages for
      * @return Returns a list of the latest upgradable packages for a system

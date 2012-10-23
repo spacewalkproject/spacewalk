@@ -61,6 +61,7 @@ public class SystemOverviewSerializer implements XmlRpcCustomSerializer {
         helper.add("id", system.getId());
         helper.add("name", system.getName());
         helper.add("last_checkin", system.getLastCheckinDate());
+        helper.add("extra_pkg_count", system.getExtraPkgCount());
         helper.writeTo(output);
     }
 }

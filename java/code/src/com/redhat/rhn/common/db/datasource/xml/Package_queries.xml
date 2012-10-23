@@ -465,6 +465,38 @@ SELECT PN.id || '|' || SPE.id AS ID_COMBO,
   </query>
 </mode>
 
+<mode name="extra_packages_for_system" class="com.redhat.rhn.frontend.dto.PackageListItem">
+  <query params="serverid">
+select p.id,
+       pn.id || '|' || pe.id || '|' || pa.id as id_combo,
+       pn.name || '-' || pe.version || '-' || pe.release as nvre,
+       pn.name || '-' || evr_t_as_vre_simple(pe.evr) || '.' || pa.label as nvrea,
+       pn.name as name,
+       pe.version as version,
+       pe.release as release,
+       pe.epoch as epoch,
+       pn.id as name_id,
+       pe.id as evr_id,
+       pa.label as arch,
+       sp.installTime
+  from rhnServerPackage sp
+       left outer join rhnPackage p on (sp.name_id = p.name_id and
+                                        sp.evr_id = p.evr_id and
+                                        sp.package_arch_id = p.package_arch_id)
+        left outer join (select sc.server_id, cp.package_id
+                           from rhnServerChannel sc
+                                join rhnChannelPackage cp on (sc.channel_id = cp.channel_id)
+                        ) scp on (scp.package_id = p.id and
+                                  scp.server_id = sp.server_id)
+       left outer join rhnPackageName pn on (pn.id = sp.name_id)
+       left outer join rhnPackageArch pa on (pa.id = sp.package_arch_id)
+       left outer join rhnPackageEvr pe on (pe.id = sp.evr_id)
+ where sp.server_id = :serverid and
+       (p.id is null or scp.package_id is null)
+ order by nvre
+  </query>
+</mode>
+
 <mode name="packages_from_server_set" class="com.redhat.rhn.frontend.dto.SsmRemovePackageListItem">
   <query params="user_id, set_label">
 SELECT   PN.ID || '|' || PE.ID || '|' || X.package_arch_id AS id_combo,

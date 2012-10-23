@@ -1977,5 +1977,34 @@ ORDER BY UPPER(COALESCE(S.NAME, '(none)')), S.ID
   <elaborator name="system_monitoring" />
 </mode>
 
-</datasource_modes>
+<mode name="extra_packages_systems_count"
+      class="com.redhat.rhn.frontend.dto.SystemOverview">
+  <query params="userid, orgid">
+select s.id as id,
+       s.name as name,
+       1 as selectable,
+       count(sp.name_id) as extra_pkg_count
+  from rhnServer s
+       join rhnUserServerPerms usp on (usp.server_id = s.id and
+                                       usp.user_id = :userid)
+       join rhnServerPackage sp on (s.id = sp.server_id)
+       left outer join rhnPackage p on (sp.name_id = p.name_id and
+                                        sp.evr_id = p.evr_id and
+                                        sp.package_arch_id = p.package_arch_id)
+        left outer join (select sc.server_id, cp.package_id
+                           from rhnServerChannel sc
+                                join rhnChannelPackage cp on (sc.channel_id = cp.channel_id)
+                        ) scp on (scp.package_id = p.id and
+                                  scp.server_id = sp.server_id)
+ where (p.id is null or scp.package_id is null) and
+       s.org_id = :orgid
+ group by s.name, s.id
+ order by name, id;
+  </query>
+  <elaborator name="system_overview" />
+  <elaborator name="entitlements" />
+  <elaborator name="is_virtual_guest" />
+  <elaborator name="is_virtual_host" />
+</mode>
 
+</datasource_modes>

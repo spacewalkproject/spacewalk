@@ -3038,6 +3038,18 @@
                  redirect="true" />
     </action>
 
+    <action path="/systems/details/packages/ExtraPackagesList"
+        scope="request"
+        type="com.redhat.rhn.frontend.action.rhnpackage.ExtraPackagesListAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <set-property property="postRequiredIfSubmitted" value="true" />
+        <forward name="default"
+                 path="/WEB-INF/pages/systems/details/packages/extra-packages-list.jsp"/>
+        <forward name="confirm"
+                 path="/systems/details/packages/RemoveExtraConfirm.do"
+                 redirect="true" />
+    </action>
+
     <action path="/systems/details/packages/RemoveConfirm"
         scope="request"
         name="datePickerForm"
@@ -3054,6 +3066,24 @@
                  path="/systems/details/packages/ScheduleRemoteCommand.do"
                  redirect="true" />
     </action>
+
+    <action path="/systems/details/packages/RemoveExtraConfirm"
+        scope="request"
+        name="datePickerForm"
+        input="/WEB-INF/pages/systems/details/packages/packageconfirm.jsp"
+        type="com.redhat.rhn.frontend.action.rhnpackage.RemoveExtraConfirmSetupAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <set-property property="postRequiredIfSubmitted" value="true" />
+        <forward name="default"
+                 path="/WEB-INF/pages/systems/details/packages/packageconfirm.jsp"/>
+        <forward name="confirm"
+                 path="/systems/details/packages/Packages.do"
+                 redirect="true" />
+        <forward name="remotecmd"
+                 path="/systems/details/packages/ScheduleRemoteCommand.do"
+                 redirect="true" />
+    </action>
+
 
    <action path="/systems/details/packages/UpgradableList"
         scope="request"
@@ -7848,6 +7878,15 @@
       <forward name="success"
                redirect="true"
                path="/account/Credentials.do" />
+    </action>
+
+    <action path="/systems/ExtraPackagesSystems"
+        scope="request"
+        input="/WEB-INF/pages/systems/extra-packages-systems-list.jsp"
+        type="com.redhat.rhn.frontend.action.systems.ExtraPackagesSystemsAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <forward name="default"
+                 path="/WEB-INF/pages/systems/extra-packages-systems-list.jsp"/>
     </action>
 
   </action-mappings>

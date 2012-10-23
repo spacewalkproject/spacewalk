@@ -76,6 +76,7 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.ActivationKeyDto;
 import com.redhat.rhn.frontend.dto.ErrataOverview;
 import com.redhat.rhn.frontend.dto.EssentialChannelDto;
+import com.redhat.rhn.frontend.dto.PackageListItem;
 import com.redhat.rhn.frontend.dto.ServerPath;
 import com.redhat.rhn.frontend.dto.SystemCurrency;
 import com.redhat.rhn.frontend.dto.SystemOverview;
@@ -5032,5 +5033,72 @@ public class SystemHandler extends BaseHandler {
         }
         ServerFactory.removeTagFromSnapshot(server.getId(), tag);
         return 1;
+    }
+
+    /**
+     * List systems with extra packages
+     * @param sessionKey the session key
+     * @return Array of systems with extra packages
+     *
+     * @xmlrpc.doc List systems with extra packages
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.returntype
+     *     #array()
+     *         #struct()
+     *             #prop_desc("int", "id", "System ID")
+     *             #prop_desc("string", "name", "System profile name")
+     *             #prop_desc("int", "extra_pkg_count", "Extra packages count")
+     *         #struct_end()
+     *     #array_end()
+     */
+    public Object[] listSystemsWithExtraPackages(String sessionKey) {
+        User loggedInUser = getLoggedInUser(sessionKey);
+        return SystemManager.getExtraPackagesSystems(loggedInUser, null).toArray();
+    }
+
+    /**
+    * List extra packages for given system
+    * @param sessionKey Session key
+    * @param serverId Server ID
+    * @return Array of extra packages for given system
+    *
+    * @xmlrpc.doc List extra packages for a system
+    * @xmlrpc.param #param("string", "sessionKey")
+    * @xmlrpc.param #param("int", "serverId")
+    * @xmlrpc.returntype
+    *      #array()
+    *          #struct("package")
+    *                 #prop("string", "name")
+    *                 #prop("string", "version")
+    *                 #prop("string", "release")
+    *                 #prop_desc("string", "epoch", "returned only if non-zero")
+    *                 #prop("string", "arch")
+    *                 #prop_desc("date", "installtime", "returned only if known")
+    *          #struct_end()
+    *      #array_end()
+    */
+    public List listExtraPackages(String sessionKey, Integer serverId) {
+        User loggedInUser = getLoggedInUser(sessionKey);
+        DataResult dr = SystemManager.listExtraPackages(new Long(serverId));
+
+        List returnList = new ArrayList();
+
+        for (Iterator itr = dr.iterator(); itr.hasNext();) {
+            PackageListItem row = (PackageListItem) itr.next();
+            Map pkg = new HashMap();
+
+            pkg.put("name", row.getName());
+            pkg.put("version", row.getVersion());
+            pkg.put("release", row.getRelease());
+            if (row.getEpoch() != null) {
+                pkg.put("epoch", row.getEpoch());
+            }
+            pkg.put("arch", row.getArch());
+            pkg.put("installtime", row.getInstallTime());
+
+            returnList.add(pkg);
+        }
+
+        return returnList;
     }
 }

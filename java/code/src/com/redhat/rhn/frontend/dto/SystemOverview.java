@@ -71,6 +71,7 @@ public class SystemOverview extends BaseDto implements Serializable  {
     private String lastCheckinString;
     private boolean isVirtualHost;
     private boolean isVirtualGuest;
+    private Long extraPkgCount;
     private static final  String NONE_VALUE = "(none)";
 
 
@@ -732,5 +733,19 @@ public class SystemOverview extends BaseDto implements Serializable  {
         return enhancementErrata + securityErrata + bugErrata;
     }
 
+    /**
+     * Sets a number of extra packages in the system.
+     * @param packagesCount extra packages to set
+     */
+    public void setExtraPkgCount(Long packagesCount) {
+        this.extraPkgCount = packagesCount;
+    }
+
+    /**
+     * @return Retuns the extraPkgCount
+     */
+    public Long getExtraPkgCount() {
+        return this.extraPkgCount;
+    }
 
 }
