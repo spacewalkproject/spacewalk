@@ -284,10 +284,6 @@ public class ActivationKeyDetailsAction extends RhnAction {
             channelWidgets.add(lv(channel.getName(), String.valueOf(channel.getId())));
         }
 
-        List<Channel> customChannels = ChannelFactory.listCustomBaseChannels(user);
-        for (Channel channel : customChannels) {
-            channelWidgets.add(lv(channel.getName(), String.valueOf(channel.getId())));
-        }
         context.getRequest().setAttribute(POSSIBLE_CHANNELS, channelWidgets.toArray());
 
     }
