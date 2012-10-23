@@ -240,9 +240,10 @@ class UploadClass(uploadLib.UploadClass):
                                     nosig=self.options.nosig)
             self.processPackage(fileinfo['nvrea'], filename)
 
-    def _processFile(self, filename, relativeDir=None, source=None, nosig=None):
+    @staticmethod
+    def _processFile(filename, relativeDir=None, source=None, nosig=None):
         """ call parent _processFile and add to returned has md5sum """
-        info = uploadLib.UploadClass._processFile(self, filename, relativeDir, source, nosig)
+        info = uploadLib.UploadClass._processFile(filename, relativeDir, source, nosig)
         checksum = getFileChecksum('md5', filename=filename)
         info['md5sum'] = checksum
         return info
