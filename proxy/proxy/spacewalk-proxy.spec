@@ -13,7 +13,7 @@ Requires: httpd
 %if 0%{?fedora} > 15 || 0%{?rhel} > 5
 # pylint check
 BuildRequires: spacewalk-pylint
-BuildRequires: rhnpush >= 5.5.40
+BuildRequires: rhnpush >= 5.5.52
 BuildRequires: spacewalk-backend-libs >= 1.7.24
 BuildRequires: spacewalk-backend >= 1.7.24
 %endif
