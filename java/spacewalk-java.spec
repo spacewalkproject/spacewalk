@@ -23,7 +23,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.167
+Version: 1.8.168
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -616,6 +616,14 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Oct 23 2012 Stephen Herr <sherr@redhat.com> 1.8.168-1
+- 869428 - Added new API method for Splice integration
+- Fixing a bunch of Generics type errors
+- Expose extra packages / systems with extra packages
+- 853444 - do not list custom base channel twice in the base channel combo for
+  an activation key
+- WebUI improvement, adding "Search Google for errata" on package details page.
+
 * Mon Oct 22 2012 Jan Pazdziora 1.8.167-1
 - WebUI improvement, showing activation key used for system activation at
   system overview page.
