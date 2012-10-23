@@ -31,7 +31,7 @@ public class ScriptActionDetails extends ActionChild {
     private String groupname;
     private byte[] script;
     private Long timeout;
-    private Set results;
+    private Set<ScriptResult> results;
 
     /**
      * @return Returns the groupname.
@@ -92,14 +92,14 @@ public class ScriptActionDetails extends ActionChild {
     /**
      * @return Returns the result.
      */
-    public Set getResults() {
+    public Set<ScriptResult> getResults() {
         return results;
     }
 
     /**
      * @param r The result to set.
      */
-    public void setResults(Set r) {
+    public void setResults(Set<ScriptResult> r) {
         this.results = r;
     }
 
@@ -109,7 +109,7 @@ public class ScriptActionDetails extends ActionChild {
      */
     public void addResult(ScriptResult r) {
         if (this.results == null) { //init results if needed
-            this.results = new HashSet();
+            this.results = new HashSet<ScriptResult>();
         }
         r.setParentScriptActionDetails(this);
         this.results.add(r);

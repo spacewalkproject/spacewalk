@@ -58,10 +58,11 @@ import com.redhat.rhn.domain.rhnpackage.profile.ProfileFactory;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.server.CPU;
 import com.redhat.rhn.domain.server.CustomDataValue;
+import com.redhat.rhn.domain.server.Device;
 import com.redhat.rhn.domain.server.Dmi;
-import com.redhat.rhn.domain.server.InstalledPackage;
 import com.redhat.rhn.domain.server.Location;
 import com.redhat.rhn.domain.server.ManagedServerGroup;
+import com.redhat.rhn.domain.server.NetworkInterface;
 import com.redhat.rhn.domain.server.Note;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.ServerFactory;
@@ -74,12 +75,16 @@ import com.redhat.rhn.domain.token.ActivationKey;
 import com.redhat.rhn.domain.token.ActivationKeyFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.ActivationKeyDto;
+import com.redhat.rhn.frontend.dto.ChannelFamilySystemGroup;
 import com.redhat.rhn.frontend.dto.ErrataOverview;
 import com.redhat.rhn.frontend.dto.EssentialChannelDto;
 import com.redhat.rhn.frontend.dto.PackageListItem;
+import com.redhat.rhn.frontend.dto.HistoryEvent;
+import com.redhat.rhn.frontend.dto.ProfileOverviewDto;
 import com.redhat.rhn.frontend.dto.ServerPath;
 import com.redhat.rhn.frontend.dto.SystemCurrency;
 import com.redhat.rhn.frontend.dto.SystemOverview;
+import com.redhat.rhn.frontend.dto.VirtualSystemOverview;
 import com.redhat.rhn.frontend.events.SsmDeleteServersEvent;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
 import com.redhat.rhn.frontend.xmlrpc.InvalidActionTypeException;
@@ -332,8 +337,9 @@ public class SystemHandler extends BaseHandler {
      * or channelLabel")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int setChildChannels(String sessionKey, Integer sid, List channelIdsOrLabels)
-            throws FaultException {
+    public int setChildChannels(String sessionKey, Integer sid,
+            List channelIdsOrLabels)
+                    throws FaultException {
 
         //Get the logged in user and server
         User loggedInUser = getLoggedInUser(sessionKey);
@@ -548,7 +554,7 @@ public class SystemHandler extends BaseHandler {
         User loggedInUser = getLoggedInUser(sessionKey);
         Server server = lookupServer(loggedInUser, sid);
         Channel baseChannel = server.getBaseChannel();
-        List returnList = new ArrayList();
+        List<Map<String, Object>> returnList = new ArrayList<Map<String, Object>>();
 
         List<EssentialChannelDto> list =
                 ChannelManager.listBaseChannelsForSystem(loggedInUser, server);
@@ -598,13 +604,14 @@ public class SystemHandler extends BaseHandler {
      *          $SystemOverviewSerializer
      *      #array_end()
      */
-    public List listActiveSystems(String sessionKey) throws FaultException {
+    public List<SystemOverview> listActiveSystems(String sessionKey)
+            throws FaultException {
         User loggedInUser = getLoggedInUser(sessionKey);
         return SystemManager.systemListShortActive(loggedInUser, null);
     }
 
-    private Map createChannelMap(EssentialChannelDto channel, Boolean currentBase) {
-        Map ret = new HashMap();
+    private Map<String, Object> createChannelMap(EssentialChannelDto channel, Boolean currentBase) {
+        Map<String, Object> ret = new HashMap<String, Object>();
 
         ret.put("id", channel.getId());
         ret.put("name", channel.getName());
@@ -678,7 +685,7 @@ public class SystemHandler extends BaseHandler {
         User loggedInUser = getLoggedInUser(sessionKey);
         Server server = lookupServer(loggedInUser, sid);
         Channel baseChannel = server.getBaseChannel();
-        List returnList = new ArrayList();
+        List<Map<String, Object>> returnList = new ArrayList<Map<String, Object>>();
 
         //make sure channel is not null
         if (baseChannel == null) {
@@ -693,7 +700,7 @@ public class SystemHandler extends BaseHandler {
         //      Luckily, this list shouldn't be too long.
         for (Iterator itr = dr.iterator(); itr.hasNext();) {
             Map row = (Map) itr.next();
-            Map channel = new HashMap();
+            Map<String, Object> channel = new HashMap<String, Object>();
 
             channel.put("id", row.get("id"));
             channel.put("label", row.get("label"));
@@ -872,9 +879,10 @@ public class SystemHandler extends BaseHandler {
      * @param pkgEpoch The epoch of the package
      * @return Returns a map representing a package
      */
-    private Map fillOutPackage(String pkgName, String pkgVersion, String pkgRelease,
+    private Map<String, String> fillOutPackage(String pkgName,
+            String pkgVersion, String pkgRelease,
             String pkgEpoch) {
-        Map map = new HashMap();
+        Map<String, String> map = new HashMap<String, String>();
         map.put("name", StringUtils.defaultString(pkgName));
         map.put("version", StringUtils.defaultString(pkgVersion));
         map.put("release", StringUtils.defaultString(pkgRelease));
@@ -1074,17 +1082,17 @@ public class SystemHandler extends BaseHandler {
      *        #struct_end()
      *    #array_end()
      */
-    public List listLatestAvailablePackage(String sessionKey, List<Integer> systemIds,
+    public List<Map<String, Object>> listLatestAvailablePackage(String sessionKey, List<Integer> systemIds,
             String name) throws FaultException {
         // Get the logged in user
         User loggedInUser = getLoggedInUser(sessionKey);
 
-        List list = new ArrayList();
+        List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
 
         for (Integer sid : systemIds) {
             Server server = lookupServer(loggedInUser, sid);
 
-            Map systemMap = new HashMap();
+            Map<String, Object> systemMap = new HashMap<String, Object>();
 
             // get the package name ID
             Map pkgEvr = PackageManager.lookupEvrIdByPackageName(sid.longValue(), name);
@@ -1097,7 +1105,7 @@ public class SystemHandler extends BaseHandler {
 
                 // build the hash to return
                 if (pkg != null) {
-                    HashMap pkgMap = new HashMap();
+                    Map<String, Object> pkgMap = new HashMap<String, Object>();
                     pkgMap.put("id", pkg.getId());
                     pkgMap.put("name", pkg.getPackageName().getName());
                     pkgMap.put("version", pkg.getPackageEvr().getVersion());
@@ -1142,12 +1150,13 @@ public class SystemHandler extends BaseHandler {
         Server server = lookupServer(loggedInUser, sid);
 
         // A list of entitlements to return
-        List entitlements = new ArrayList();
+        List<String> entitlements = new ArrayList<String>();
 
         // Loop through the entitlement objects for this server and stick
         // label into the entitlements list to return
-        for (Iterator itr = server.getEntitlements().iterator(); itr.hasNext();) {
-            Entitlement entitlement = (Entitlement) itr.next();
+        for (Iterator<Entitlement> itr = server.getEntitlements().iterator(); itr
+                .hasNext();) {
+            Entitlement entitlement = itr.next();
             entitlements.add(entitlement.getLabel());
         }
 
@@ -1243,7 +1252,7 @@ public class SystemHandler extends BaseHandler {
                     ") does not represent a host system");
         }
 
-        List<String> availableGuests = new ArrayList();
+        List<String> availableGuests = new ArrayList<String>();
 
         for (VirtualInstance vi : server.getGuests()) {
             availableGuests.add(vi.getName());
@@ -1393,7 +1402,8 @@ public class SystemHandler extends BaseHandler {
      *              #prop_desc("string", "hostname", "Hostname of server")
      *          #struct_end()
      */
-    public Map getNetwork(String sessionKey, Integer sid) throws FaultException {
+    public Map<String, String> getNetwork(String sessionKey, Integer sid)
+            throws FaultException {
         // Get the logged in user and server
         User loggedInUser = getLoggedInUser(sessionKey);
         Server server = lookupServer(loggedInUser, sid);
@@ -1404,7 +1414,7 @@ public class SystemHandler extends BaseHandler {
         String hostname = server.getHostname();
 
         // Stick in a map and return
-        Map network = new HashMap();
+        Map<String, String> network = new HashMap<String, String>();
         network.put("ip", StringUtils.defaultString(ip));
         network.put("ip6", StringUtils.defaultString(ip6));
         network.put("hostname", StringUtils.defaultString(hostname));
@@ -1428,13 +1438,14 @@ public class SystemHandler extends BaseHandler {
      *          $NetworkInterfaceSerializer
      *      #array_end()
      */
-    public List getNetworkDevices(String sessionKey, Integer sid)
-            throws FaultException {
+    public List<NetworkInterface> getNetworkDevices(String sessionKey,
+            Integer sid)
+                    throws FaultException {
         // Get the logged in user and server
         User loggedInUser = getLoggedInUser(sessionKey);
         Server server = lookupServer(loggedInUser, sid);
-        Set devices = server.getNetworkInterfaces();
-        return new ArrayList(devices);
+        Set<NetworkInterface> devices = server.getNetworkInterfaces();
+        return new ArrayList<NetworkInterface>(devices);
     }
 
     /**
@@ -1468,7 +1479,7 @@ public class SystemHandler extends BaseHandler {
                     loggedInUser);
 
 
-            List servers = new ArrayList(1);
+            List<Server> servers = new ArrayList<Server>(1);
             servers.add(server);
 
             if (member) {
@@ -1515,13 +1526,13 @@ public class SystemHandler extends BaseHandler {
         Server server = lookupServer(loggedInUser, sid);
 
         DataResult groups = SystemManager.availableSystemGroups(server, loggedInUser);
-        List returnList = new ArrayList();
+        List<Map<String, Object>> returnList = new ArrayList<Map<String, Object>>();
 
 
         // More stupid data munging...
         for (Iterator itr = groups.iterator(); itr.hasNext();) {
             Map map = (Map) itr.next();
-            Map row = new HashMap();
+            Map<String, Object> row = new HashMap<String, Object>();
 
             row.put("id", map.get("id"));
             row.put("sgid", map.get("id").toString());
@@ -1550,7 +1561,8 @@ public class SystemHandler extends BaseHandler {
      *              $SystemOverviewSerializer
      *          #array_end()
      */
-    public List listUserSystems(String sessionKey, String login) throws FaultException {
+    public List<SystemOverview> listUserSystems(String sessionKey, String login)
+            throws FaultException {
         // Get the logged in user
         User loggedInUser = getLoggedInUser(sessionKey);
         User target = XmlRpcUserHelper.getInstance().lookupTargetUser(loggedInUser, login);
@@ -1569,7 +1581,7 @@ public class SystemHandler extends BaseHandler {
      *              $SystemOverviewSerializer
      *          #array_end()
      */
-    public List listUserSystems(String sessionKey) {
+    public List<SystemOverview> listUserSystems(String sessionKey) {
         // Get the logged in user
         User loggedInUser = getLoggedInUser(sessionKey);
         return SystemManager.systemListShort(loggedInUser, null);
@@ -1605,13 +1617,13 @@ public class SystemHandler extends BaseHandler {
      *    #struct_end()
      * @xmlrpc.returntype #return_int_success()
      */
-    public int setCustomValues(String sessionKey, Integer sid, Map values)
+    public int setCustomValues(String sessionKey, Integer sid, Map<String, String> values)
             throws FaultException {
         // Get the logged in user and server
         User loggedInUser = getLoggedInUser(sessionKey);
         Server server = lookupServer(loggedInUser, sid);
         Org org = loggedInUser.getOrg();
-        List skippedKeys = new ArrayList();
+        List<String> skippedKeys = new ArrayList<String>();
 
         /*
          * Loop through the map the user sent us. Check to make sure that the org has the
@@ -1619,9 +1631,9 @@ public class SystemHandler extends BaseHandler {
          * the skippedKeys list so we can throw a fault exception later and tell the user
          * which keys were skipped.
          */
-        Set keys = values.keySet();
-        for (Iterator itr = keys.iterator(); itr.hasNext();) {
-            String label = (String) itr.next();
+        Set<String> keys = values.keySet();
+        for (Iterator<String> itr = keys.iterator(); itr.hasNext();) {
+            String label = itr.next();
             if (org.hasCustomDataKey(label)) {
                 server.addCustomDataValue(label, values.get(label).toString(),
                         loggedInUser);
@@ -1639,8 +1651,8 @@ public class SystemHandler extends BaseHandler {
             StringBuffer msg = new StringBuffer("One or more of the following " +
                     "custom info fields was not defined: ");
 
-            for (Iterator itr = skippedKeys.iterator(); itr.hasNext();) {
-                String label = (String) itr.next();
+            for (Iterator<String> itr = skippedKeys.iterator(); itr.hasNext();) {
+                String label = itr.next();
                 msg.append("\n" + label);
             }
 
@@ -1666,20 +1678,20 @@ public class SystemHandler extends BaseHandler {
      *          #prop("string", "custom info label")
      *      #struct_end()
      */
-    public Map getCustomValues(String sessionKey, Integer sid) throws FaultException {
+    public Map<String, String> getCustomValues(String sessionKey, Integer sid) throws FaultException {
         // Get the logged in user and server
         User loggedInUser = getLoggedInUser(sessionKey);
         Server server = lookupServer(loggedInUser, sid);
 
-        Set customDataValues = server.getCustomDataValues();
-        Map returnMap = new HashMap();
+        Set<CustomDataValue> customDataValues = server.getCustomDataValues();
+        Map<String, String> returnMap = new HashMap<String, String>();
 
         /*
          * Loop through the customDataValues set for the server. We're only interested in
          * the key and value information from the CustomDataValue object.
          */
-        for (Iterator itr = customDataValues.iterator(); itr.hasNext();) {
-            CustomDataValue val = (CustomDataValue) itr.next();
+        for (Iterator<CustomDataValue> itr = customDataValues.iterator(); itr.hasNext();) {
+            CustomDataValue val = itr.next();
             if (val.getValue() != null) {
                 returnMap.put(val.getKey().getLabel(), val.getValue());
             }
@@ -1955,7 +1967,7 @@ public class SystemHandler extends BaseHandler {
      *      #struct_end()
      *  #array_end()
      */
-    public List listSystemEvents(String sessionKey, Integer sid) {
+    public List<Map<String, Object>> listSystemEvents(String sessionKey, Integer sid) {
 
         // Get the logged in user and server
         User loggedInUser = getLoggedInUser(sessionKey);
@@ -1971,10 +1983,10 @@ public class SystemHandler extends BaseHandler {
         // information like, the specific errata applied, pkgs installed/removed/
         // upgraded/verified, config files uploaded, deployed or compared...etc.
 
-        List<Map> results = new ArrayList<Map>();
+        List<Map<String, Object>> results = new ArrayList<Map<String, Object>>();
         for (ServerAction sAction : sActions) {
 
-            Map result = new HashMap();
+            Map<String, Object> result = new HashMap<String, Object>();
 
             Action action = sAction.getParentAction();
 
@@ -2366,7 +2378,7 @@ public class SystemHandler extends BaseHandler {
         if (ve != null) {
             throw new FaultException(-2, "provisionError",
                     LocalizationService.getInstance().getMessage(
-                        ve.getKey(), ve.getValues()));
+                            ve.getKey(), ve.getValues()));
         }
 
         return 1;
@@ -2437,10 +2449,10 @@ public class SystemHandler extends BaseHandler {
      *              successfully checked in")
      *  #struct_end()
      */
-    public Map getName(String sessionKey, Integer serverId) {
+    public Map<String, Object> getName(String sessionKey, Integer serverId) {
         User loggedInUser = getLoggedInUser(sessionKey);
         Server server = lookupServer(loggedInUser, serverId);
-        Map name = new HashMap();
+        Map<String, Object> name = new HashMap<String, Object>();
         name.put("id", server.getId());
         name.put("name", server.getName());
         name.put("last_checkin", server.getLastCheckin());
@@ -2486,13 +2498,13 @@ public class SystemHandler extends BaseHandler {
     public List<Channel> listSubscribedChildChannels(String sessionKey, Integer sid) {
         User loggedInUser = getLoggedInUser(sessionKey);
         Server server = lookupServer(loggedInUser, sid);
-        Set childChannels = server.getChildChannels();
+        Set<Channel> childChannels = server.getChildChannels();
 
         if (childChannels == null) {
-            return new ArrayList();
+            return new ArrayList<Channel>();
         }
 
-        return new ArrayList(childChannels);
+        return new ArrayList<Channel>(childChannels);
     }
 
 
@@ -2517,10 +2529,10 @@ public class SystemHandler extends BaseHandler {
      *          #array_end()
      *
      */
-    public List searchByName(String sessionKey, String regexp) {
+    public List<SystemOverview> searchByName(String sessionKey, String regexp) {
         User loggedInUser = getLoggedInUser(sessionKey);
         List<SystemOverview>  systems =  getUserSystemsList(loggedInUser);
-        List returnList = new ArrayList();
+        List<SystemOverview> returnList = new ArrayList<SystemOverview>();
 
         Pattern pattern = Pattern.compile(regexp, Pattern.CASE_INSENSITIVE);
 
@@ -2608,7 +2620,7 @@ public class SystemHandler extends BaseHandler {
     public Object[] getEventHistory(String sessionKey, Integer sid) {
         User loggedInUser = getLoggedInUser(sessionKey);
         Server server = lookupServer(loggedInUser, sid);
-        List history = ServerFactory.getServerHistory(server);
+        List<HistoryEvent> history = ServerFactory.getServerHistory(server);
         return history.toArray();
     }
 
@@ -2633,7 +2645,8 @@ public class SystemHandler extends BaseHandler {
 
         User loggedInUser = getLoggedInUser(sessionKey);
         Server server = lookupServer(loggedInUser, sid);
-        DataResult dr = SystemManager.relevantErrata(loggedInUser, server.getId());
+        DataResult<ErrataOverview> dr = SystemManager.relevantErrata(
+                loggedInUser, server.getId());
         return dr.toArray();
     }
 
@@ -2714,7 +2727,8 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.param #array_single("int", "errataId")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int scheduleApplyErrata(String sessionKey, List serverIds, List errataIds) {
+    public int scheduleApplyErrata(String sessionKey, List<Integer> serverIds,
+            List<Integer> errataIds) {
         return scheduleApplyErrata(sessionKey, serverIds, errataIds, null);
     }
 
@@ -2734,13 +2748,13 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.param dateTime.iso8601 earliestOccurrence
      * @xmlrpc.returntype #return_int_success()
      */
-    public int scheduleApplyErrata(String sessionKey, List serverIds, List errataIds,
+    public int scheduleApplyErrata(String sessionKey, List<Integer> serverIds, List<Integer> errataIds,
             Date earliestOccurrence) {
 
         // we need long values to pass to ErrataManager.applyErrataHelper
-        List<Long> longServerIds = new ArrayList();
-        for (Iterator it = serverIds.iterator(); it.hasNext();) {
-            longServerIds.add(new Long((Integer) it.next()));
+        List<Long> longServerIds = new ArrayList<Long>();
+        for (Iterator<Integer> it = serverIds.iterator(); it.hasNext();) {
+            longServerIds.add(new Long(it.next()));
         }
 
         ErrataManager.applyErrataHelper(getLoggedInUser(sessionKey),
@@ -2764,7 +2778,8 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.returntype #return_int_success()
      */
     @Deprecated
-    public int applyErrata(String sessionKey, Integer sid, List errataIds) {
+    public int applyErrata(String sessionKey, Integer sid,
+            List<Integer> errataIds) {
         scheduleApplyErrata(sessionKey, sid, errataIds);
         return 1;
     }
@@ -2783,8 +2798,9 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.param  #array_single("int", "errataId")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int scheduleApplyErrata(String sessionKey, Integer sid, List errataIds) {
-        List serverIds = new ArrayList();
+    public int scheduleApplyErrata(String sessionKey, Integer sid,
+            List<Integer> errataIds) {
+        List<Integer> serverIds = new ArrayList<Integer>();
         serverIds.add(sid);
 
         return scheduleApplyErrata(sessionKey, serverIds, errataIds);
@@ -2806,9 +2822,9 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.param dateTime.iso8601 earliestOccurrence
      * @xmlrpc.returntype #return_int_success()
      */
-    public int scheduleApplyErrata(String sessionKey, Integer sid, List errataIds,
+    public int scheduleApplyErrata(String sessionKey, Integer sid, List<Integer> errataIds,
             Date earliestOccurrence) {
-        List serverIds = new ArrayList();
+        List<Integer> serverIds = new ArrayList<Integer>();
         serverIds.add(sid);
 
         return scheduleApplyErrata(sessionKey, serverIds, errataIds, earliestOccurrence);
@@ -2882,7 +2898,7 @@ public class SystemHandler extends BaseHandler {
         Server server = lookupServer(loggedInUser, sid);
         Dmi dmi = server.getDmi();
         if (dmi == null) {
-            return new HashMap();
+            return new HashMap<String, String>();
         }
         return dmi;
     }
@@ -2905,7 +2921,7 @@ public class SystemHandler extends BaseHandler {
         Server server = lookupServer(loggedInUser, sid);
         CPU cpu = server.getCpu();
         if (cpu == null) {
-            return new HashMap();
+            return new HashMap<String, String>();
         }
         return cpu;
     }
@@ -2926,10 +2942,10 @@ public class SystemHandler extends BaseHandler {
      *      #prop_desc("int", "swap", "The amount of swap space in MB.")
      *  #struct_end()
      */
-    public Map getMemory(String sessionKey, Integer sid) {
+    public Map<String, Long> getMemory(String sessionKey, Integer sid) {
         User loggedInUser = getLoggedInUser(sessionKey);
         Server server = lookupServer(loggedInUser, sid);
-        Map memory = new HashMap();
+        Map<String, Long> memory = new HashMap<String, Long>();
         memory.put("swap", new Long(server.getSwap()));
         memory.put("ram", new Long(server.getRam()));
         return memory;
@@ -2954,7 +2970,7 @@ public class SystemHandler extends BaseHandler {
     public Object[] getDevices(String sessionKey, Integer sid) {
         User loggedInUser = getLoggedInUser(sessionKey);
         Server server = lookupServer(loggedInUser, sid);
-        Set devices = server.getDevices();
+        Set<Device> devices = server.getDevices();
         return devices.toArray();
     }
 
@@ -2974,7 +2990,7 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.param dateTime.iso8601 earliestOccurrence
      * @xmlrpc.returntype #return_int_success()
      */
-    public int schedulePackageInstall(String sessionKey, Integer sid, List packageIds,
+    public int schedulePackageInstall(String sessionKey, Integer sid, List<Integer> packageIds,
             Date earliestOccurrence) {
         User loggedInUser = getLoggedInUser(sessionKey);
         Server server = SystemManager.lookupByIdAndUser(new Long(sid.longValue()),
@@ -2988,10 +3004,10 @@ public class SystemHandler extends BaseHandler {
         }
 
         // Build a list of maps in the format the ActionManager wants:
-        List packageMaps = new LinkedList();
-        for (Iterator it = packageIds.iterator(); it.hasNext();) {
-            Integer pkgId = (Integer)it.next();
-            Map pkgMap = new HashMap();
+        List<Map<String, Long>> packageMaps = new LinkedList<Map<String, Long>>();
+        for (Iterator<Integer> it = packageIds.iterator(); it.hasNext();) {
+            Integer pkgId = it.next();
+            Map<String, Long> pkgMap = new HashMap<String, Long>();
 
             Package p = PackageManager.lookupByIdAndUser(new Long(pkgId.longValue()),
                     loggedInUser);
@@ -3033,7 +3049,7 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.returntype int - ID of the action scheduled, otherwise exception thrown
      * on error
      */
-    public int schedulePackageRemove(String sessionKey, Integer sid, List packageIds,
+    public int schedulePackageRemove(String sessionKey, Integer sid, List<Integer> packageIds,
             Date earliestOccurrence) {
 
         User loggedInUser = getLoggedInUser(sessionKey);
@@ -3048,10 +3064,10 @@ public class SystemHandler extends BaseHandler {
         }
 
         // Build a list of maps in the format the ActionManager wants:
-        List packageMaps = new LinkedList();
-        for (Iterator it = packageIds.iterator(); it.hasNext();) {
-            Integer pkgId = (Integer)it.next();
-            Map pkgMap = new HashMap();
+        List<Map<String, Long>> packageMaps = new LinkedList<Map<String, Long>>();
+        for (Iterator<Integer> it = packageIds.iterator(); it.hasNext();) {
+            Integer pkgId = it.next();
+            Map<String, Long> pkgMap = new HashMap<String, Long>();
 
             Package p = PackageManager.lookupByIdAndUser(new Long(pkgId.longValue()),
                     loggedInUser);
@@ -3134,15 +3150,15 @@ public class SystemHandler extends BaseHandler {
         Channel channel = ChannelFactory.lookupByLabelAndUser(channelLabel,
                 loggedInUser);
 
-        Set chanPacks = channel.getPackages();
-        Set sysPacks = server.getPackages();
-        Set intersection = new HashSet();
+        Set<Package> chanPacks = channel.getPackages();
+        Set<Package> sysPacks = server.getPackages();
+        Set<Package> intersection = new HashSet<Package>();
 
-        for (Iterator it = sysPacks.iterator(); it.hasNext();) {
-            InstalledPackage insPack = (InstalledPackage) it.next();
+        for (Iterator<Package> it = sysPacks.iterator(); it.hasNext();) {
+            Package insPack = it.next();
 
-            for (Iterator chanIt = chanPacks.iterator(); chanIt.hasNext();) {
-                Package chanPack = (Package) chanIt.next();
+            for (Iterator<Package> chanIt = chanPacks.iterator(); chanIt.hasNext();) {
+                Package chanPack = chanIt.next();
 
                 if (insPack.equals(chanPack)) {
                     intersection.add(chanPack);
@@ -3234,7 +3250,7 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.returntype int - ID of the script run action created. Can be used to fetch
      * results with system.getScriptResults.
      */
-    public Integer scheduleScriptRun(String sessionKey, List systemIds, String username,
+    public Integer scheduleScriptRun(String sessionKey, List<Integer> systemIds, String username,
             String groupname, Integer timeout, String script, Date earliest) {
 
         User loggedInUser = getLoggedInUser(sessionKey);
@@ -3243,10 +3259,10 @@ public class SystemHandler extends BaseHandler {
                 new Long(timeout.longValue()), script);
         ScriptAction action = null;
 
-        List servers = new ArrayList();
+        List<Server> servers = new ArrayList<Server>();
 
-        for (Iterator sysIter = systemIds.iterator(); sysIter.hasNext();) {
-            Integer sidAsInt = (Integer) sysIter.next();
+        for (Iterator<Integer> sysIter = systemIds.iterator(); sysIter.hasNext();) {
+            Integer sidAsInt = sysIter.next();
             Long sid = new Long(sidAsInt.longValue());
             Server server = null;
 
@@ -3303,7 +3319,7 @@ public class SystemHandler extends BaseHandler {
     public Integer scheduleScriptRun(String sessionKey, Integer sid, String username,
             String groupname, Integer timeout, String script, Date earliest) {
 
-        List systemIds = new ArrayList();
+        List<Integer> systemIds = new ArrayList<Integer>();
         systemIds.add(sid);
 
         return scheduleScriptRun(sessionKey, systemIds, username, groupname, timeout,
@@ -3337,8 +3353,9 @@ public class SystemHandler extends BaseHandler {
         }
 
         List<ScriptResult> results = new LinkedList<ScriptResult>();
-        for (Iterator it = details.getResults().iterator(); it.hasNext();) {
-            ScriptResult r = (ScriptResult)it.next();
+        for (Iterator<ScriptResult> it = details.getResults().iterator(); it
+                .hasNext();) {
+            ScriptResult r = it.next();
             results.add(r);
         }
         return results.toArray();
@@ -3363,8 +3380,8 @@ public class SystemHandler extends BaseHandler {
      *          #array_single("$ScriptResultSerializer", "result")
      *      #struct_end()
      */
-    public Map getScriptActionDetails(String sessionKey, Integer actionId) {
-        Map retDetails = new HashMap();
+    public Map<String, Object> getScriptActionDetails(String sessionKey, Integer actionId) {
+        Map<String, Object> retDetails = new HashMap<String, Object>();
         User loggedInUser = getLoggedInUser(sessionKey);
         ScriptRunAction action = lookupScriptRunAction(actionId, loggedInUser);
         ScriptActionDetails details = action.getScriptActionDetails();
@@ -3376,8 +3393,9 @@ public class SystemHandler extends BaseHandler {
 
         if (details.getResults() != null) {
             List<ScriptResult> results = new LinkedList<ScriptResult>();
-            for (Iterator it = details.getResults().iterator(); it.hasNext();) {
-                ScriptResult r = (ScriptResult)it.next();
+            for (Iterator<ScriptResult> it = details.getResults().iterator(); it
+                    .hasNext();) {
+                ScriptResult r = it.next();
                 results.add(r);
             }
             retDetails.put("result", results.toArray());
@@ -3485,7 +3503,8 @@ public class SystemHandler extends BaseHandler {
      *
      *  @xmlrpc.returntype #return_int_success()
      */
-    public Integer setDetails(String sessionKey, Integer serverId, Map details) {
+    public Integer setDetails(String sessionKey, Integer serverId,
+            Map<String, Object> details) {
 
         // confirm that the user only provided valid keys in the map
         Set<String> validKeys = new HashSet<String>();
@@ -3576,7 +3595,8 @@ public class SystemHandler extends BaseHandler {
         }
         if (details.containsKey("country")) {
             String country = (String)details.get("country");
-            Map map = LocalizationService.getInstance().availableCountries();
+            Map<String, String> map = LocalizationService.getInstance()
+                    .availableCountries();
             if (country.length() > 2 ||
                     !map.containsValue(country)) {
                 throw new UnrecognizedCountryException(country);
@@ -3659,7 +3679,7 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.param #array_single("string", " entitlementLabel")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int addEntitlements(String sessionKey, Integer serverId, List entitlements) {
+    public int addEntitlements(String sessionKey, Integer serverId, List<String> entitlements) {
         boolean needsSnapshot = false;
         User loggedInUser = getLoggedInUser(sessionKey);
         Server server = null;
@@ -3686,7 +3706,7 @@ public class SystemHandler extends BaseHandler {
             throw new InvalidEntitlementException();
         }
 
-        List addOnEnts = new LinkedList(entitlements);
+        List<String> addOnEnts = new LinkedList<String>(entitlements);
         // first process base entitlements
         for (Entitlement en : EntitlementManager.getBaseEntitlements()) {
             if (addOnEnts.contains(en.getLabel())) {
@@ -3700,9 +3720,9 @@ public class SystemHandler extends BaseHandler {
             throw new InvalidEntitlementException("Base entitlement missing");
         }
 
-        for (Iterator it = addOnEnts.iterator(); it.hasNext();) {
+        for (Iterator<String> it = addOnEnts.iterator(); it.hasNext();) {
 
-            Entitlement ent = EntitlementManager.getByName((String)it.next());
+            Entitlement ent = EntitlementManager.getByName(it.next());
 
             // Ignore if the system already has this entitlement:
             if (server.hasEntitlement(ent)) {
@@ -3746,7 +3766,7 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.param #array_single("string", "entitlement_label")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int removeEntitlements(String sessionKey, Integer serverId, List entitlements) {
+    public int removeEntitlements(String sessionKey, Integer serverId, List<String> entitlements) {
         boolean needsSnapshot = false;
         User loggedInUser = getLoggedInUser(sessionKey);
         Server server = null;
@@ -3760,10 +3780,10 @@ public class SystemHandler extends BaseHandler {
 
         validateEntitlements(entitlements);
 
-        List<Entitlement> baseEnts = new LinkedList();
+        List<Entitlement> baseEnts = new LinkedList<Entitlement>();
 
-        for (Iterator it = entitlements.iterator(); it.hasNext();) {
-            Entitlement ent = EntitlementManager.getByName((String)it.next());
+        for (Iterator<String> it = entitlements.iterator(); it.hasNext();) {
+            Entitlement ent = EntitlementManager.getByName(it.next());
             if (ent.isBase()) {
                 baseEnts.add(ent);
                 continue;
@@ -3803,7 +3823,7 @@ public class SystemHandler extends BaseHandler {
     public Object[] listPackageProfiles(String sessionKey) {
         User loggedInUser = getLoggedInUser(sessionKey);
 
-        DataResult profiles = ProfileManager.listProfileOverviews(
+        DataResult<ProfileOverviewDto> profiles = ProfileManager.listProfileOverviews(
                 loggedInUser.getOrg().getId());
 
         return profiles.toArray();
@@ -3931,7 +3951,8 @@ public class SystemHandler extends BaseHandler {
      */
     public Object[] listOutOfDateSystems(String sessionKey) {
         User loggedInUser = getLoggedInUser(sessionKey);
-        DataResult list = SystemManager.outOfDateList(loggedInUser, null);
+        DataResult<SystemOverview> list = SystemManager.outOfDateList(
+                loggedInUser, null);
         return list.toArray();
     }
 
@@ -3956,7 +3977,8 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.returntype #return_int_success()
      */
     public int scheduleSyncPackagesWithSystem(String sessionKey, Integer targetServerId,
-            Integer sourceServerId, List packageIds, Date earliest) {
+            Integer sourceServerId,
+            List<Integer> packageIds, Date earliest) {
 
         User loggedInUser = getLoggedInUser(sessionKey);
         Server target = null;
@@ -3977,9 +3999,9 @@ public class SystemHandler extends BaseHandler {
 
         // For each of the package ids provided, retrieve the pkg id combo
         // which includes name_id|evr_id|arch_id
-        Set pkgIdCombos = new HashSet();
-        for (Iterator it = packageIds.iterator(); it.hasNext();) {
-            Integer i = (Integer)it.next();
+        Set<String> pkgIdCombos = new HashSet<String>();
+        for (Iterator<Integer> it = packageIds.iterator(); it.hasNext();) {
+            Integer i = it.next();
 
             Package pkg = PackageManager.lookupByIdAndUser(i.longValue(), loggedInUser);
 
@@ -4051,7 +4073,7 @@ public class SystemHandler extends BaseHandler {
         User loggedInUser = getLoggedInUser(sessionKey);
 
         List <Server> servers = ServerFactory.listUngroupedSystems(loggedInUser);
-        List <Map> serverMaps = new ArrayList<Map>();
+        List<Map<String, Object>> serverMaps = new ArrayList<Map<String, Object>>();
         XmlRpcSystemHelper helper = XmlRpcSystemHelper.getInstance();
         for (Server server : servers) {
             serverMaps.add(helper.format(server));
@@ -4077,7 +4099,7 @@ public class SystemHandler extends BaseHandler {
         Server server = lookupServer(loggedInUser, sid);
         Channel base = server.getBaseChannel();
         if (base == null) {
-            return new HashMap();
+            return new HashMap<String, String>();
         }
         return base;
     }
@@ -4096,7 +4118,7 @@ public class SystemHandler extends BaseHandler {
      *          $SystemOverviewSerializer
      *      #array_end()
      */
-    public List listInactiveSystems(String sessionKey) {
+    public List<SystemOverview> listInactiveSystems(String sessionKey) {
         User loggedInUser = getLoggedInUser(sessionKey);
         return SystemManager.systemListShortInactive(loggedInUser, null);
     }
@@ -4117,7 +4139,8 @@ public class SystemHandler extends BaseHandler {
      *          $SystemOverviewSerializer
      *      #array_end()
      */
-    public List listInactiveSystems(String sessionKey, Integer days) {
+    public List<SystemOverview> listInactiveSystems(String sessionKey,
+            Integer days) {
         User loggedInUser = getLoggedInUser(sessionKey);
         return SystemManager.systemListShortInactive(loggedInUser, days, null);
     }
@@ -4154,7 +4177,8 @@ public class SystemHandler extends BaseHandler {
      *              $SystemOverviewSerializer
      *           #array_end()
      */
-    public List listSystemsWithPackage(String sessionKey, Integer pid) {
+    public List<SystemOverview> listSystemsWithPackage(String sessionKey,
+            Integer pid) {
         User loggedInUser = getLoggedInUser(sessionKey);
         Package pack = PackageFactory.lookupByIdAndOrg(
                 pid.longValue(), loggedInUser.getOrg());
@@ -4183,7 +4207,8 @@ public class SystemHandler extends BaseHandler {
      *                  $SystemOverviewSerializer
      *              #array_end()
      */
-    public List listSystemsWithPackage(String sessionKey, String  name, String version,
+    public List<SystemOverview> listSystemsWithPackage(String sessionKey,
+            String name, String version,
             String release) {
         User loggedInUser = getLoggedInUser(sessionKey);
         return SystemManager.listSystemsWithPackage(loggedInUser,
@@ -4202,7 +4227,7 @@ public class SystemHandler extends BaseHandler {
      *       $SystemOverviewSerializer
      *      #array_end()
      */
-    public List listVirtualHosts(String sessionKey) {
+    public List<SystemOverview> listVirtualHosts(String sessionKey) {
         User loggedInUser = getLoggedInUser(sessionKey);
         return SystemManager.listVirtualHosts(loggedInUser);
     }
@@ -4221,9 +4246,11 @@ public class SystemHandler extends BaseHandler {
      *          $VirtualSystemOverviewSerializer
      *     #array_end()
      */
-    public List listVirtualGuests(String sessionKey, Integer sid) {
+    public List<VirtualSystemOverview> listVirtualGuests(String sessionKey,
+            Integer sid) {
         User loggedInUser = getLoggedInUser(sessionKey);
-        DataResult result =  SystemManager.virtualGuestsForHostList(loggedInUser,
+        DataResult<VirtualSystemOverview> result = SystemManager
+                .virtualGuestsForHostList(loggedInUser,
                 sid.longValue(), null);
         result.elaborate();
         return result;
@@ -4251,7 +4278,7 @@ public class SystemHandler extends BaseHandler {
         VirtualInstance vi = VirtualInstanceFactory.getInstance().lookupByGuestId(
                 loggedInUser.getOrg(), sid.longValue());
 
-        Map context = new HashMap();
+        Map<String, String> context = new HashMap<String, String>();
         //convert from mega to kilo bytes
         context.put(VirtualizationSetMemoryAction.SET_MEMORY_STRING,
                 new Integer(memory * 1024).toString());
@@ -4290,7 +4317,7 @@ public class SystemHandler extends BaseHandler {
         VirtualInstance vi = VirtualInstanceFactory.getInstance().lookupByGuestId(
                 loggedInUser.getOrg(), sid.longValue());
 
-        Map context = new HashMap();
+        Map<String, String> context = new HashMap<String, String>();
         context.put(VirtualizationSetVcpusAction.SET_CPU_STRING, numOfCpus.toString());
 
         VirtualizationActionCommand cmd = new VirtualizationActionCommand(loggedInUser,
@@ -4352,7 +4379,7 @@ public class SystemHandler extends BaseHandler {
                         action,
                         vi.getHostSystem(),
                         vi.getUuid(),
-                        new HashMap());
+ new HashMap<String, String>());
         cmd.store();
         return cmd.getAction().getId().intValue();
     }
@@ -4642,7 +4669,7 @@ public class SystemHandler extends BaseHandler {
      *          #prop_array_end()
      *      #struct_end()
      */
-    public Map getVariables(String sessionKey, Integer serverId) {
+    public Map<String, Object> getVariables(String sessionKey, Integer serverId) {
 
         User loggedInUser = getLoggedInUser(sessionKey);
 
@@ -4665,7 +4692,7 @@ public class SystemHandler extends BaseHandler {
             throw new NoSuchCobblerSystemRecordException();
         }
 
-        Map vars = new HashMap();
+        Map<String, Object> vars = new HashMap<String, Object>();
         vars.put("netboot", rec.isNetbootEnabled());
         vars.put("variables", rec.getKsMeta());
 
@@ -4736,10 +4763,11 @@ public class SystemHandler extends BaseHandler {
     }
 
 
-    private List transformDuplicate(List<DuplicateSystemGrouping> list, String propName) {
-        List toRet = new ArrayList();
+    private List<Map<String, Object>> transformDuplicate(
+            List<DuplicateSystemGrouping> list, String propName) {
+        List<Map<String, Object>> toRet = new ArrayList<Map<String, Object>>();
         for (DuplicateSystemGrouping b : list) {
-            Map map = new HashMap();
+            Map<String, Object> map = new HashMap<String, Object>();
             map.put(propName, b.getKey());
             map.put("systems", b.getSystems());
             toRet.add(map);
@@ -4765,7 +4793,7 @@ public class SystemHandler extends BaseHandler {
      *           #struct_end()
      *      #array_end()
      **/
-    public List listDuplicatesByIp(String sessionKey) {
+    public List<Map<String, Object>> listDuplicatesByIp(String sessionKey) {
         User loggedInUser = getLoggedInUser(sessionKey);
         List<DuplicateSystemGrouping> list =
                 SystemManager.listDuplicatesByIP(loggedInUser, 0L);
@@ -4815,7 +4843,7 @@ public class SystemHandler extends BaseHandler {
      *           #struct_end()
      *      #array_end()
      **/
-    public List listDuplicatesByHostname(String sessionKey) {
+    public List<Map<String, Object>> listDuplicatesByHostname(String sessionKey) {
         User loggedInUser = getLoggedInUser(sessionKey);
         List<DuplicateSystemGrouping> list =
                 SystemManager.listDuplicatesByHostname(loggedInUser, 0L);
@@ -4836,7 +4864,7 @@ public class SystemHandler extends BaseHandler {
      *              $ChannelFamilySystemGroupSerializer
      *          #array_end()
      **/
-    public List listFlexGuests(String sessionKey) {
+    public List<ChannelFamilySystemGroup> listFlexGuests(String sessionKey) {
         User user = getLoggedInUser(sessionKey);
         return VirtualizationEntitlementsManager.getInstance().listFlexGuests(user);
     }
@@ -4854,7 +4882,8 @@ public class SystemHandler extends BaseHandler {
      *              $ChannelFamilySystemGroupSerializer
      *          #array_end()
      **/
-    public List listEligibleFlexGuests(String sessionKey) {
+    public List<ChannelFamilySystemGroup> listEligibleFlexGuests(
+            String sessionKey) {
         User user = getLoggedInUser(sessionKey);
         return VirtualizationEntitlementsManager.
                 getInstance().listEligibleFlexGuests(user);
@@ -4877,7 +4906,7 @@ public class SystemHandler extends BaseHandler {
      *                  that were converted to use flex entitlement.
      */
     public int convertToFlexEntitlement(String sessionKey,
-            List serverIds, String channelFamilyLabel) {
+            List<Integer> serverIds, String channelFamilyLabel) {
         User user = getLoggedInUser(sessionKey);
         ChannelFamily cf = ChannelFamilyFactory.lookupByLabel(
                 channelFamilyLabel, user.getOrg());
@@ -4885,9 +4914,9 @@ public class SystemHandler extends BaseHandler {
             throw new InvalidEntitlementException();
         }
         // we need long values to pass
-        List<Long> longServerIds = new ArrayList();
-        for (Iterator it = serverIds.iterator(); it.hasNext();) {
-            longServerIds.add(new Long((Integer) it.next()));
+        List<Long> longServerIds = new ArrayList<Long>();
+        for (Iterator<Integer> it = serverIds.iterator(); it.hasNext();) {
+            longServerIds.add(new Long(it.next()));
         }
         return VirtualizationEntitlementsManager.getInstance().
                 convertToFlex(longServerIds, cf.getId(), user).size();
@@ -4902,9 +4931,9 @@ public class SystemHandler extends BaseHandler {
      *  @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.returntype Map of score multipliers
      */
-    public Map getSystemCurrencyMultipliers(String sessionKey) {
+    public Map<String, Integer> getSystemCurrencyMultipliers(String sessionKey) {
         getLoggedInUser(sessionKey);
-        Map multipliers = new HashMap();
+        Map<String, Integer> multipliers = new HashMap<String, Integer>();
         multipliers.put("scCrit", ConfigDefaults.get().getSCCrit());
         multipliers.put("scImp", ConfigDefaults.get().getSCImp());
         multipliers.put("scMod", ConfigDefaults.get().getSCMod());
@@ -4937,13 +4966,13 @@ public class SystemHandler extends BaseHandler {
      *          #struct_end()
      *      #array_end()
      */
-    public List getSystemCurrencyScores(String sessionKey) {
+    public List<Map<String, Long>> getSystemCurrencyScores(String sessionKey) {
         User user = getLoggedInUser(sessionKey);
         DataResult<SystemCurrency> dr = SystemManager.systemCurrencyList(user, null);
-        List l = new ArrayList();
-        for (Iterator it = dr.iterator(); it.hasNext();) {
-            Map m = new HashMap();
-            SystemCurrency s = (SystemCurrency) it.next();
+        List<Map<String, Long>> l = new ArrayList<Map<String, Long>>();
+        for (Iterator<SystemCurrency> it = dr.iterator(); it.hasNext();) {
+            Map<String, Long> m = new HashMap<String, Long>();
+            SystemCurrency s = it.next();
             m.put("sid", s.getId());
             m.put("crit", s.getCritical());
             m.put("imp", s.getImportant());

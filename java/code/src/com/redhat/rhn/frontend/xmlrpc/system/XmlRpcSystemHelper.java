@@ -85,7 +85,7 @@ public class XmlRpcSystemHelper {
      * corresponding to sid cannot be found.
      */
     public List<Server> lookupServers(User user,
-                List< ? extends Number> serverIds)  throws NoSuchSystemException {
+            List< ? extends Number> serverIds)  throws NoSuchSystemException {
         List<Server> servers = new LinkedList<Server>();
         for (Number sid : serverIds) {
             servers.add(lookupServer(user, sid));
@@ -101,8 +101,8 @@ public class XmlRpcSystemHelper {
      * @param server server to format
      * @return a Map with just enough info to get details on a server
      */
-    public Map format(Server server) {
-        Map serverMap = new HashMap();
+    public Map<String, Object> format(Server server) {
+        Map<String, Object> serverMap = new HashMap<String, Object>();
         serverMap.put("id", server.getId());
         serverMap.put("name", server.getName());
         serverMap.put("last_checkin", server.getLastCheckin());

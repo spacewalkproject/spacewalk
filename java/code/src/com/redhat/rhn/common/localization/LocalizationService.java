@@ -76,7 +76,7 @@ public class LocalizationService {
     private Map keyToBundleMap;
 
     // List of supported locales
-    private Map supportedLocales = new HashMap();
+    private final Map supportedLocales = new HashMap();
 
     /**
      * hidden constructor
@@ -125,7 +125,7 @@ public class LocalizationService {
         }
         catch (ClassNotFoundException ce) {
             String message = "Class not found when trying to initalize " +
-                                "the LocalizationService: " + ce.toString();
+                    "the LocalizationService: " + ce.toString();
             log.error(message, ce);
             throw new LocalizationException(message, ce);
         }
@@ -570,17 +570,19 @@ public class LocalizationService {
      *
      * @return SortedMap sorted map of available countries.
      */
-    public SortedMap availableCountries() {
-        List validCountries = new LinkedList(Arrays.asList(Locale
+    public SortedMap<String, String> availableCountries() {
+        List<String> validCountries = new LinkedList<String>(
+                Arrays.asList(Locale
                 .getISOCountries()));
         String[] excluded = Config.get().getStringArray(
                 ConfigDefaults.WEB_EXCLUDED_COUNTRIES);
         if (excluded != null) {
-            validCountries.removeAll(new LinkedList(Arrays.asList(excluded)));
+            validCountries.removeAll(new LinkedList<String>(Arrays
+                    .asList(excluded)));
         }
-        SortedMap ret = new TreeMap();
-        for (Iterator iter = validCountries.iterator(); iter.hasNext();) {
-            String isoCountry = (String) iter.next();
+        SortedMap<String, String> ret = new TreeMap<String, String>();
+        for (Iterator<String> iter = validCountries.iterator(); iter.hasNext();) {
+            String isoCountry = iter.next();
             ret.put(this.getMessage(isoCountry), isoCountry);
         }
 

@@ -36,7 +36,9 @@ import com.redhat.rhn.domain.server.ServerFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.PackageListItem;
 import com.redhat.rhn.frontend.dto.PackageMetadata;
+import com.redhat.rhn.frontend.dto.ProfileDto;
 import com.redhat.rhn.frontend.dto.ProfileOverviewDto;
+import com.redhat.rhn.frontend.dto.ProfilePackageOverviewDto;
 import com.redhat.rhn.frontend.listview.PageControl;
 import com.redhat.rhn.manager.BaseManager;
 import com.redhat.rhn.manager.MissingEntitlementException;
@@ -134,14 +136,14 @@ public class ProfileManager extends BaseManager {
      */
     public static void copyFrom(Server server, Profile profile) {
         WriteMode m = ModeFactory.getWriteMode("profile_queries",
-                                               "delete_package_profile");
+                "delete_package_profile");
         Map params = new HashMap();
         params.put("sid", server.getId());
         params.put("prid", profile.getId());
         m.executeUpdate(params);
 
         m = ModeFactory.getWriteMode("profile_queries",
-                                     "insert_package_profile");
+                "insert_package_profile");
         params = new HashMap();
         params.put("sid", server.getId());
         params.put("prid", profile.getId());
@@ -252,7 +254,7 @@ public class ProfileManager extends BaseManager {
                             log.debug("Checking on : " + profpkgitem.getEvr());
 
                             if (compareArch(syspkgitem.getArch(),
-                                profpkgitem.getArch()) != 0) {
+                                    profpkgitem.getArch()) != 0) {
                                 // if the arch of the packages doesn't match, we don't
                                 // need to compare the EVR; therefore, if at end of the
                                 // list, add both packages to the result
@@ -277,7 +279,7 @@ public class ProfileManager extends BaseManager {
                                 // If the package exists on one but not the other we
                                 // need to add it to the compare map
                                 if (pm.getComparisonAsInt() !=
-                                    PackageMetadata.KEY_NO_DIFF) {
+                                        PackageMetadata.KEY_NO_DIFF) {
 
                                     if ((j + 1) == plist.size()) {
                                         // this is the last entry in plist; therefore,
@@ -427,7 +429,7 @@ public class ProfileManager extends BaseManager {
      */
     private static int compareArch(String a1, String a2) {
         if (((a1 == null) && (a2 != null)) ||
-            ((a1 != null) && (a2 == null))) {
+                ((a1 != null) && (a2 == null))) {
             return 1;
         }
 
@@ -725,8 +727,8 @@ public class ProfileManager extends BaseManager {
 
                         if (log.isDebugEnabled()) {
                             log.debug("Package [" + pm.getName() +
-                                   "] is in Channel [" + validChannel.getId() +
-                                   "]");
+                                    "] is in Channel [" + validChannel.getId() +
+                                    "]");
                         }
 
                         neededChannels.add(validChannel);
@@ -806,8 +808,8 @@ public class ProfileManager extends BaseManager {
 
                     if (log.isDebugEnabled()) {
                         log.debug("Package [" + pm.getName() +
-                               "] is in Channel [" + validChannel.getId() +
-                               "]");
+                                "] is in Channel [" + validChannel.getId() +
+                                "]");
                     }
 
                     pm.addChannel(validChannel);
@@ -901,8 +903,8 @@ public class ProfileManager extends BaseManager {
 
                         if (log.isDebugEnabled()) {
                             log.debug("Package [" + pm.getName() +
-                                   "] is in Channel [" + validChannel.getId() +
-                                   "]");
+                                    "] is in Channel [" + validChannel.getId() +
+                                    "]");
                         }
 
                         neededChannels.add(validChannel);
@@ -1072,7 +1074,7 @@ public class ProfileManager extends BaseManager {
 
     private static DataResult getPackagesInChannelByIdCombo(Long cid) {
         SelectMode m = ModeFactory.getMode("Package_queries",
-            "packages_in_channel_by_id_combo");
+                "packages_in_channel_by_id_combo");
         Map params = new HashMap();
         Map elabParams = new HashMap();
         params.put("cid", cid);
@@ -1116,8 +1118,8 @@ public class ProfileManager extends BaseManager {
                 for (int i = 0; i < pkgsInChannel.size(); i++) {
                     PackageListItem pkgInChannel = pkgsInChannel.get(i);
                     if (pkgInChannel.getVersion().equals(pm.getVersion()) &&
-                        pkgInChannel.getRelease().equals(pm.getRelease()) &&
-                        (epochcmp(pkgInChannel.getEpoch(), pm.getEpoch()) == 0)) {
+                            pkgInChannel.getRelease().equals(pm.getRelease()) &&
+                            (epochcmp(pkgInChannel.getEpoch(), pm.getEpoch()) == 0)) {
 
                         foundMatch = true;
                         break;  //stop searching for match
@@ -1271,7 +1273,8 @@ public class ProfileManager extends BaseManager {
      * @param profileId The id of the profile the packages are associated with.
      * @return DataResult of ProfilePackageOverviewDto
      */
-    public static DataResult listProfilePackages(Long profileId) {
+    public static DataResult<ProfilePackageOverviewDto> listProfilePackages(
+            Long profileId) {
 
         SelectMode m = ModeFactory.getMode("profile_queries", "profile_package_overview");
 
@@ -1310,11 +1313,12 @@ public class ProfileManager extends BaseManager {
      * @param pc PageControl to filter the list.
      * @return DataResult containing ProfileDto objects
      */
-    public static DataResult compatibleWithChannel(Channel channelIn,
+    public static DataResult<ProfileDto> compatibleWithChannel(
+            Channel channelIn,
             Org orgIn, PageControl pc) {
 
         SelectMode m = ModeFactory.getMode("profile_queries",
-                    "compatible_with_channel");
+                "compatible_with_channel");
         Map params = new HashMap();
         params.put("org_id", orgIn.getId());
         params.put("cid", channelIn.getId());
