@@ -146,6 +146,7 @@ import java.io.IOException;
 import java.io.StringReader;
 import java.sql.Blob;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -608,6 +609,98 @@ public class SystemHandler extends BaseHandler {
             throws FaultException {
         User loggedInUser = getLoggedInUser(sessionKey);
         return SystemManager.systemListShortActive(loggedInUser, null);
+    }
+
+    /**
+     * Given a list of server ids, will return details about the
+     * systems that are active and visible to the user
+     * @param sessionKey The sessionKey for the logged in user
+     * @param serverIds A list of ids to get info for
+     * @return a list of maps representing the details for the active systems
+     * 
+     * @throws FaultException A FaultException is thrown if the user cannot
+     * be found from the session key
+     * 
+     * @xmlrpc.doc Given a list of server ids, returns a list of active servers' details visible to the user.
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param  #array_single("int", "serverIds")
+     * @xmlrpc.returntype
+     *   #array()
+     *     #struct("server details")
+     *       #prop_desc("int", "id", "The server's id")
+     *       #prop_desc("string", "name", "The server's name")
+     *       #prop_desc("dateTime.iso8601", "last_checkin", "Last time server successfully checked in ")
+     *       #prop_desc("int", "ram", "The amount of physical memory in MB.")
+     *       #prop_desc("int", "swap", "The amount of swap space in MB.")
+     *       #prop_desc("struct", "network_devices", "The server's network devices")
+     *       $NetworkInterfaceSerializer
+     *       #prop_desc("struct", "dmi_info", "The server's dmi info")
+     *       $DmiSerializer
+     *       #prop_desc("struct", "cpu_info", "The server's cpu info")
+     *       $CpuSerializer
+     *       #prop_desc("array", "subscribed_channels", "List of subscribed channels")
+     *         #array()
+     *           #struct("channel")
+     *             #prop_desc("int", "channel_id", "The channel id.")
+     *             #prop_desc("string", "channel_label", "The channel label.")
+     *           #struct_end()
+     *         #array_end()
+     *       #prop_desc("array", "active_guest_system_ids", "List of virtual guest system ids for active guests")
+     *         #array()
+     *           #prop_desc("int", "guest_id", "The guest's system id.")
+     *         #array_end()
+     *     #struct_end()
+     *   #array_end()
+     */
+    public List<Map<String, Object>> listActiveSystemDetails(String sessionKey,
+            List<Integer> serverIds) throws FaultException {
+        User loggedInUser = getLoggedInUser(sessionKey);
+        List<Server> servers = XmlRpcSystemHelper.getInstance().lookupServers(
+                loggedInUser, serverIds);
+        List<Map<String, Object>> ret = new ArrayList<Map<String, Object>>();
+        for (Server server : servers) {
+            if (!server.isInactive()) {
+                Map<String, Object> m = new HashMap<String, Object>();
+                m.put("id", server.getId());
+                m.put("name", server.getName());
+                m.put("last_checkin", server.getLastCheckin());
+                m.put("ram", server.getRam());
+                m.put("swap", server.getSwap());
+                m.put("cpu_info", server.getCpu());
+                m.put("dmi_info", server.getDmi());
+                m.put("network_devices",
+                        new ArrayList<NetworkInterface>(server
+                                .getNetworkInterfaces()));
+
+                List<Map<String, Object>> channels = new ArrayList<Map<String, Object>>();
+                Channel base = server.getBaseChannel();
+                if (base != null) {
+                    Map<String, Object> basec = new HashMap<String, Object>();
+                    basec.put("channel_id", base.getId());
+                    basec.put("channel_label", base.getLabel());
+                    channels.add(basec);
+                    for (Channel child : server.getChildChannels()) {
+                        Map<String, Object> childc = new HashMap<String, Object>();
+                        childc.put("channel_id", child.getId());
+                        childc.put("channel_label", child.getLabel());
+                        channels.add(childc);
+                    }
+                }
+                m.put("subscribed_channels", channels);
+
+                Collection<VirtualInstance> guests = server.getGuests();
+                List<Long> guestList = new ArrayList<Long>();
+                for (VirtualInstance guest : guests) {
+                    Server g = guest.getGuestSystem();
+                    if (g != null && !g.isInactive()) {
+                        guestList.add(g.getId());
+                    }
+                }
+
+                ret.add(m);
+            }
+        }
+        return ret;
     }
 
     private Map<String, Object> createChannelMap(EssentialChannelDto channel, Boolean currentBase) {
@@ -4251,7 +4344,7 @@ public class SystemHandler extends BaseHandler {
         User loggedInUser = getLoggedInUser(sessionKey);
         DataResult<VirtualSystemOverview> result = SystemManager
                 .virtualGuestsForHostList(loggedInUser,
-                sid.longValue(), null);
+                        sid.longValue(), null);
         result.elaborate();
         return result;
     }
@@ -4379,7 +4472,7 @@ public class SystemHandler extends BaseHandler {
                         action,
                         vi.getHostSystem(),
                         vi.getUuid(),
- new HashMap<String, String>());
+                        new HashMap<String, String>());
         cmd.store();
         return cmd.getAction().getId().intValue();
     }
@@ -5086,26 +5179,26 @@ public class SystemHandler extends BaseHandler {
     }
 
     /**
-    * List extra packages for given system
-    * @param sessionKey Session key
-    * @param serverId Server ID
-    * @return Array of extra packages for given system
-    *
-    * @xmlrpc.doc List extra packages for a system
-    * @xmlrpc.param #param("string", "sessionKey")
-    * @xmlrpc.param #param("int", "serverId")
-    * @xmlrpc.returntype
-    *      #array()
-    *          #struct("package")
-    *                 #prop("string", "name")
-    *                 #prop("string", "version")
-    *                 #prop("string", "release")
-    *                 #prop_desc("string", "epoch", "returned only if non-zero")
-    *                 #prop("string", "arch")
-    *                 #prop_desc("date", "installtime", "returned only if known")
-    *          #struct_end()
-    *      #array_end()
-    */
+     * List extra packages for given system
+     * @param sessionKey Session key
+     * @param serverId Server ID
+     * @return Array of extra packages for given system
+     *
+     * @xmlrpc.doc List extra packages for a system
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param("int", "serverId")
+     * @xmlrpc.returntype
+     *      #array()
+     *          #struct("package")
+     *                 #prop("string", "name")
+     *                 #prop("string", "version")
+     *                 #prop("string", "release")
+     *                 #prop_desc("string", "epoch", "returned only if non-zero")
+     *                 #prop("string", "arch")
+     *                 #prop_desc("date", "installtime", "returned only if known")
+     *          #struct_end()
+     *      #array_end()
+     */
     public List listExtraPackages(String sessionKey, Integer serverId) {
         User loggedInUser = getLoggedInUser(sessionKey);
         DataResult dr = SystemManager.listExtraPackages(new Long(serverId));
