@@ -1,5 +1,5 @@
 Name:       spacewalk-branding
-Version:    1.8.5
+Version:    1.8.6
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -82,6 +82,10 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Tue Oct 23 2012 Tomas Lestach <tlestach@redhat.com> 1.8.6-1
+- make the white image background transparent
+- Expose extra packages / systems with extra packages
+
 * Fri Oct 19 2012 Jan Pazdziora 1.8.5-1
 - Edit colors in highlightning of :hovered rows in list views
 - Highlightning of :hover row in list views
