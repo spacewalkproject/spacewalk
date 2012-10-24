@@ -560,3 +560,33 @@ div.indent {
         margin-right: auto;
         margin-top: 64px;
 }
+
+@media print {
+	.button { display: none; }
+	.content-nav-rowone, .content-nav-rowtwo, .contentnav-row2 { display: none; }
+	.csv-download { display: none; }
+	.list-sizeselector { display: none; }
+	.list-infotext { display: none; }
+	.list-alphabar-enabled, .list-alphabar-disabled {
+		display: none;
+}
+	.list-navbuttons { display: none; }
+	.toolbar { display: none; }
+	.toolbar-h1 img { display: none; }
+	#id { display: none; }
+	#geo { display: none; }
+	#linx { display: none; }
+	#mainNav { display: none; }
+	#utilityLinks { display: none; }
+	#header_selcount { display: none; }
+	#searchbar { display: none; }
+	INPUT[type="submit"] { display: none; }
+	td.sidebar { display: none; }
+	div#searchbarinner { display: none; }
+	body { background: white; }
+	#bar { display: none; }
+	#acc-logged-user-org-pipe { display: none; }
+	#acc-prefs { display: none; }
+	#acc-prefs-pipe { display: none; }
+	#acc-logout { display: none; }
+}

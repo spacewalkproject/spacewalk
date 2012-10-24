@@ -19,7 +19,24 @@
 	</div>
 	<div id="utilityAccount">
         <p>
-         <span class="label"><bean:message key="header.jsp.loggedin"/></span> <a href="/rhn/account/UserDetails.do"><c:out escapeXml="true" value="${requestScope.session.user.login}" /></a><span class="navPipe">|</span><span class="label"><bean:message key="header.jsp.org"/></span> <a><c:out escapeXml="true" value="${requestScope.session.user.org.name}" /></a><span class="navPipe">|</span><a href="/rhn/account/UserPreferences.do"><bean:message key="header.jsp.preferences"/></a><span class="navPipe">|</span><html:link forward="logout"><span><bean:message key="header.jsp.signout"/></span></html:link>
+         <span id="acc-logged-user">
+         <span class="label"><bean:message key="header.jsp.loggedin"/></span> <a href="/rhn/account/UserDetails.do"><c:out escapeXml="true" value="${requestScope.session.user.login}" /></a>
+         </span>
+         <span class="navPipe" id="acc-logged-user-pipe">|</span>
+
+         <span id="acc-logged-user-org">
+         <span class="label"><bean:message key="header.jsp.org"/></span> <a><c:out escapeXml="true" value="${requestScope.session.user.org.name}" /></a>
+         </span>
+         <span class="navPipe" id="acc-logged-user-org-pipe">|</span>
+
+         <span id="acc-prefs">
+         <a href="/rhn/account/UserPreferences.do"><bean:message key="header.jsp.preferences"/></a>
+         </span>
+         <span class="navPipe" id="acc-prefs-pipe">|</span>
+
+         <span id="acc-logout">
+         <html:link forward="logout"><span><bean:message key="header.jsp.signout"/></span></html:link>
+         </span>
         </p>
 	</div>
 </div>
