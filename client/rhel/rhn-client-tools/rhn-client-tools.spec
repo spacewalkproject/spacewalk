@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 1.8.23
+Version: 1.8.24
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -339,6 +339,9 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Wed Oct 24 2012 Stephen Herr <sherr@redhat.com> 1.8.24-1
+- 869814 - removing firstboot and RHN Hosted integration from rhn-client-tools
+
 * Thu Sep 27 2012 Stephen Herr <sherr@redhat.com> 1.8.23-1
 - 855992 - fix typo in urlunsplit method call
 
