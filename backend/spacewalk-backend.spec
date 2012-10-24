@@ -12,7 +12,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.81
+Version: 1.8.82
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -638,6 +638,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Wed Oct 24 2012 Jan Pazdziora 1.8.82-1
+- group file might be missing
+
 * Mon Oct 22 2012 Jan Pazdziora 1.8.81-1
 - 828804 - no su-ing to oracle with embedded PostgreSQL.
 - rhnlib >= 2.5.38 is not necessary
