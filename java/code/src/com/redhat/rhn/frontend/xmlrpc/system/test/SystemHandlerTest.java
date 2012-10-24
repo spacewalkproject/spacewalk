@@ -25,7 +25,6 @@ import com.redhat.rhn.domain.action.ActionFactory;
 import com.redhat.rhn.domain.action.script.ScriptActionDetails;
 import com.redhat.rhn.domain.action.script.ScriptResult;
 import com.redhat.rhn.domain.action.script.ScriptRunAction;
-import com.redhat.rhn.domain.action.server.ServerAction;
 import com.redhat.rhn.domain.action.virtualization.VirtualizationSetMemoryAction;
 import com.redhat.rhn.domain.action.virtualization.VirtualizationSetVcpusAction;
 import com.redhat.rhn.domain.channel.Channel;
@@ -823,7 +822,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
 
     public void testListAllEvents() throws Exception {
         Server server = ServerFactoryTest.createTestServer(admin);
-        List<ServerAction>results = handler.listSystemEvents(adminKey,
+        List<Map<String, Object>>results = handler.listSystemEvents(adminKey,
                 new Integer(server.getId().intValue()));
         assertEquals(0, results.size());
 

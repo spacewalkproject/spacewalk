@@ -60,6 +60,7 @@ import com.redhat.rhn.domain.server.CPU;
 import com.redhat.rhn.domain.server.CustomDataValue;
 import com.redhat.rhn.domain.server.Device;
 import com.redhat.rhn.domain.server.Dmi;
+import com.redhat.rhn.domain.server.InstalledPackage;
 import com.redhat.rhn.domain.server.Location;
 import com.redhat.rhn.domain.server.ManagedServerGroup;
 import com.redhat.rhn.domain.server.NetworkInterface;
@@ -621,7 +622,8 @@ public class SystemHandler extends BaseHandler {
      * @throws FaultException A FaultException is thrown if the user cannot
      * be found from the session key
      * 
-     * @xmlrpc.doc Given a list of server ids, returns a list of active servers' details visible to the user.
+     * @xmlrpc.doc Given a list of server ids, returns a list of active servers'
+     * details visible to the user.
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param  #array_single("int", "serverIds")
      * @xmlrpc.returntype
@@ -629,7 +631,8 @@ public class SystemHandler extends BaseHandler {
      *     #struct("server details")
      *       #prop_desc("int", "id", "The server's id")
      *       #prop_desc("string", "name", "The server's name")
-     *       #prop_desc("dateTime.iso8601", "last_checkin", "Last time server successfully checked in ")
+     *       #prop_desc("dateTime.iso8601", "last_checkin", 
+     *         "Last time server successfully checked in ")
      *       #prop_desc("int", "ram", "The amount of physical memory in MB.")
      *       #prop_desc("int", "swap", "The amount of swap space in MB.")
      *       #prop_desc("struct", "network_devices", "The server's network devices")
@@ -645,7 +648,8 @@ public class SystemHandler extends BaseHandler {
      *             #prop_desc("string", "channel_label", "The channel label.")
      *           #struct_end()
      *         #array_end()
-     *       #prop_desc("array", "active_guest_system_ids", "List of virtual guest system ids for active guests")
+     *       #prop_desc("array", "active_guest_system_ids",
+     *           "List of virtual guest system ids for active guests")
      *         #array()
      *           #prop_desc("int", "guest_id", "The guest's system id.")
      *         #array_end()
@@ -703,7 +707,8 @@ public class SystemHandler extends BaseHandler {
         return ret;
     }
 
-    private Map<String, Object> createChannelMap(EssentialChannelDto channel, Boolean currentBase) {
+    private Map<String, Object> createChannelMap(EssentialChannelDto channel,
+            Boolean currentBase) {
         Map<String, Object> ret = new HashMap<String, Object>();
 
         ret.put("id", channel.getId());
@@ -1175,8 +1180,8 @@ public class SystemHandler extends BaseHandler {
      *        #struct_end()
      *    #array_end()
      */
-    public List<Map<String, Object>> listLatestAvailablePackage(String sessionKey, List<Integer> systemIds,
-            String name) throws FaultException {
+    public List<Map<String, Object>> listLatestAvailablePackage(String sessionKey,
+            List<Integer> systemIds, String name) throws FaultException {
         // Get the logged in user
         User loggedInUser = getLoggedInUser(sessionKey);
 
@@ -1771,7 +1776,8 @@ public class SystemHandler extends BaseHandler {
      *          #prop("string", "custom info label")
      *      #struct_end()
      */
-    public Map<String, String> getCustomValues(String sessionKey, Integer sid) throws FaultException {
+    public Map<String, String> getCustomValues(String sessionKey, Integer sid) 
+        throws FaultException {
         // Get the logged in user and server
         User loggedInUser = getLoggedInUser(sessionKey);
         Server server = lookupServer(loggedInUser, sid);
@@ -2841,8 +2847,8 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.param dateTime.iso8601 earliestOccurrence
      * @xmlrpc.returntype #return_int_success()
      */
-    public int scheduleApplyErrata(String sessionKey, List<Integer> serverIds, List<Integer> errataIds,
-            Date earliestOccurrence) {
+    public int scheduleApplyErrata(String sessionKey, List<Integer> serverIds,
+            List<Integer> errataIds, Date earliestOccurrence) {
 
         // we need long values to pass to ErrataManager.applyErrataHelper
         List<Long> longServerIds = new ArrayList<Long>();
@@ -3083,8 +3089,8 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.param dateTime.iso8601 earliestOccurrence
      * @xmlrpc.returntype #return_int_success()
      */
-    public int schedulePackageInstall(String sessionKey, Integer sid, List<Integer> packageIds,
-            Date earliestOccurrence) {
+    public int schedulePackageInstall(String sessionKey, Integer sid,
+            List<Integer> packageIds, Date earliestOccurrence) {
         User loggedInUser = getLoggedInUser(sessionKey);
         Server server = SystemManager.lookupByIdAndUser(new Long(sid.longValue()),
                 loggedInUser);
@@ -3142,8 +3148,8 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.returntype int - ID of the action scheduled, otherwise exception thrown
      * on error
      */
-    public int schedulePackageRemove(String sessionKey, Integer sid, List<Integer> packageIds,
-            Date earliestOccurrence) {
+    public int schedulePackageRemove(String sessionKey, Integer sid,
+            List<Integer> packageIds, Date earliestOccurrence) {
 
         User loggedInUser = getLoggedInUser(sessionKey);
         Server server = SystemManager.lookupByIdAndUser(new Long(sid.longValue()),
@@ -3244,11 +3250,11 @@ public class SystemHandler extends BaseHandler {
                 loggedInUser);
 
         Set<Package> chanPacks = channel.getPackages();
-        Set<Package> sysPacks = server.getPackages();
+        Set<InstalledPackage> sysPacks = server.getPackages();
         Set<Package> intersection = new HashSet<Package>();
 
-        for (Iterator<Package> it = sysPacks.iterator(); it.hasNext();) {
-            Package insPack = it.next();
+        for (Iterator<InstalledPackage> it = sysPacks.iterator(); it.hasNext();) {
+            InstalledPackage insPack = it.next();
 
             for (Iterator<Package> chanIt = chanPacks.iterator(); chanIt.hasNext();) {
                 Package chanPack = chanIt.next();
@@ -3343,8 +3349,9 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.returntype int - ID of the script run action created. Can be used to fetch
      * results with system.getScriptResults.
      */
-    public Integer scheduleScriptRun(String sessionKey, List<Integer> systemIds, String username,
-            String groupname, Integer timeout, String script, Date earliest) {
+    public Integer scheduleScriptRun(String sessionKey, List<Integer> systemIds,
+            String username, String groupname, Integer timeout, String script,
+            Date earliest) {
 
         User loggedInUser = getLoggedInUser(sessionKey);
 
@@ -3772,7 +3779,8 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.param #array_single("string", " entitlementLabel")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int addEntitlements(String sessionKey, Integer serverId, List<String> entitlements) {
+    public int addEntitlements(String sessionKey, Integer serverId,
+            List<String> entitlements) {
         boolean needsSnapshot = false;
         User loggedInUser = getLoggedInUser(sessionKey);
         Server server = null;
@@ -3859,7 +3867,8 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.param #array_single("string", "entitlement_label")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int removeEntitlements(String sessionKey, Integer serverId, List<String> entitlements) {
+    public int removeEntitlements(String sessionKey, Integer serverId,
+            List<String> entitlements) {
         boolean needsSnapshot = false;
         User loggedInUser = getLoggedInUser(sessionKey);
         Server server = null;

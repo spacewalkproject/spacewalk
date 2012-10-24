@@ -2184,7 +2184,8 @@ public class SystemManager extends BaseManager {
                 currentGuestCpus.intValue()) {
                     result.addWarning(new ValidatorWarning(
                             "systems.details.virt.vcpu.increase.warning",
-                            new Object [] {new Integer(proposedVcpuSetting), guest.getName()}));
+                            new Object [] {new Integer(proposedVcpuSetting),
+                                guest.getName()}));
                 }
             }
         }

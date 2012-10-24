@@ -29,7 +29,6 @@ import com.redhat.rhn.domain.entitlement.VirtualizationEntitlement;
 import com.redhat.rhn.domain.org.CustomDataKey;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.org.OrgFactory;
-import com.redhat.rhn.domain.rhnpackage.Package;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.manager.configuration.ConfigurationManager;
 import com.redhat.rhn.manager.entitlement.EntitlementManager;
@@ -107,9 +106,10 @@ public class Server extends BaseDomainHelper implements Identifiable {
     private Set<VirtualInstance> guests = new HashSet<VirtualInstance>();
     private VirtualInstance virtualInstance;
     private PushClient pushClient;
-    private final ConfigChannelListProcessor configListProc = new ConfigChannelListProcessor();
+    private final ConfigChannelListProcessor configListProc = 
+        new ConfigChannelListProcessor();
     private Set<ServerHistoryEvent> history;
-    private Set<Package> packages;
+    private Set<InstalledPackage> packages;
     private ProxyInfo proxyInfo;
     private Set<? extends ServerGroup> groups;
     private Set<Capability> capabilities;
@@ -1797,7 +1797,7 @@ public class Server extends BaseDomainHelper implements Identifiable {
     /**
      * @return Returns the packages.
      */
-    public Set<Package> getPackages() {
+    public Set<InstalledPackage> getPackages() {
         return packages;
     }
 
@@ -1805,7 +1805,7 @@ public class Server extends BaseDomainHelper implements Identifiable {
     /**
      * @param packagesIn The packages to set.
      */
-    public void setPackages(Set<Package> packagesIn) {
+    public void setPackages(Set<InstalledPackage> packagesIn) {
         this.packages = packagesIn;
     }
 
