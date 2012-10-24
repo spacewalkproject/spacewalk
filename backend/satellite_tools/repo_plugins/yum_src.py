@@ -21,6 +21,7 @@ import os.path
 
 import yum
 from spacewalk.common import fileutils
+from yum.Errors import RepoMDError
 from yum.config import ConfigParser
 from yum.update_md import UpdateMetadata, UpdateNoticeException, UpdateNotice
 from yum.yumRepo import YumRepository
@@ -242,4 +243,8 @@ class ContentSource(object):
         return um.notices
 
     def get_groups(self):
-        return self.repo.getGroups()
+        try:
+            groups = self.repo.getGroups()
+        except RepoMDError:
+            groups = None
+        return groups
