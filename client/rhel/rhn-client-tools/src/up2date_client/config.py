@@ -26,7 +26,7 @@ Defaults = {
     'enableProxy'       : ("Use a HTTP Proxy",
                            0),
     'serverURL'         : ("Remote server URL",
-                           "https://xmlrpc.rhn.redhat.com/XMLRPC"),
+                           "https://your.server.url.here/XMLRPC"),
     'debug'             : ("Whether or not debugging is enabled",
                            0),
     'systemIdPath'      : ("Location of system id",
@@ -35,7 +35,7 @@ Defaults = {
                            "system version",
                            ""),
     'httpProxy'         : ("HTTP proxy in host:port format, e.g. "\
-                           "squid.redhat.com:3128",
+                           "squid.example.com:3128",
                            ""),
     'proxyUser'         : ("The username for an authenticated proxy",
                            ""),
@@ -47,7 +47,7 @@ Defaults = {
                            "connections before giving up",
                            1),
     'sslCACert'         : ("The CA cert used to verify the ssl server",
-                           "/usr/share/rhn/RHNS-CA-CERT"),
+                           "/usr/share/rhn/RHN-ORG-TRUSTED-SSL-CERT"),
     'noReboot'          : ("Disable the reboot action",
                            0),
     'disallowConfChanges': ("Config options that can not be overwritten by a config update action",
@@ -65,7 +65,7 @@ class ConfigFile:
         self.fileName = filename
         if self.fileName:
             self.load()
-            
+
     def load(self, filename = None):
         if filename:
             self.fileName = filename
@@ -153,7 +153,7 @@ class ConfigFile:
             if not os.access(os.path.dirname(self.fileName), os.R_OK):
                 print _("%s was not found" % os.path.dirname(self.fileName))
                 return
-        
+
         f = open(self.fileName+'.new', "w")
         os.chmod(self.fileName, 0600)
 
@@ -185,14 +185,14 @@ class ConfigFile:
 
     def update(self, dict):
         self.dict.update(dict)
-    
+
     # we return None when we reference an invalid key instead of
     # raising an exception
     def __getitem__(self, name):
         if self.dict.has_key(name):
             return self.dict[name][1]
-        return None    
-   
+        return None
+
     def __setitem__(self, name, value):
         if self.dict.has_key(name):
             val = self.dict[name]
@@ -258,11 +258,11 @@ class Config:
         if self.stored.has_key(name):
             return self.stored[name]
         return None
-        
+
     # These function expose access to the peristent storage for
     # updates and saves
     def info(self, name): # retrieve comments
-        return self.stored.info(name)    
+        return self.stored.info(name)
 
     def save(self):
         self.stored.save()
@@ -337,11 +337,11 @@ def initUp2dateConfig(cfg_file = "/etc/sysconfig/rhn/up2date"):
         cfg
     except NameError:
         cfg = None
-        
+
     if cfg == None:
         cfg = Config(cfg_file)
         cfg["isatty"] = False
         if sys.stdout.isatty():
             cfg["isatty"] = True
-        
+
     return cfg

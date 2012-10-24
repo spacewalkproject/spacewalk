@@ -17,11 +17,11 @@ COPYRIGHT_TEXT        = _(u"Copyright © 2006--2010 Red Hat, Inc. All rights res
 CONNECT_WINDOW        = _("Attempting to contact the Red Hat Network server.")
 CONNECT_WINDOW_TEXT   = _("We are attempting to contact the Red Hat "
                           "Network server at %s.")
-CONNECT_WINDOW_TEXT2  = _("A proxy was specified at %s.")                          
+CONNECT_WINDOW_TEXT2  = _("A proxy was specified at %s.")
 
 # Start Window
 START_REGISTER_WINDOW = _("System Registration")
-START_REGISTER_TEXT   = _("This assistant will guide you through " 
+START_REGISTER_TEXT   = _("This assistant will guide you through "
                           "connecting your system to "
                           "Red Hat Network (RHN) to receive software "
                           "updates, including "
@@ -34,7 +34,7 @@ START_REGISTER_TEXT   = _("This assistant will guide you through "
                           "or Proxy (optional)\n\n")
 
 # Why Register Window
-WHY_REGISTER          = _("Why Should I Connect to RHN? ...")                  
+WHY_REGISTER          = _("Why Should I Connect to RHN? ...")
 WHY_REGISTER_WINDOW   = _("Why Register")
 WHY_REGISTER_TEXT     = _("Connecting your system to Red Hat Network allows you to take full "
                           "advantage of the benefits of a paid subscription, including:")
@@ -50,8 +50,7 @@ WHY_REGISTER_SUPP_TXT = _("Access to the technical support experts at Red Hat or
                           "with any issues you might encounter with this system.")
 WHY_REGISTER_COMP_TXT = _("Stay in compliance with your subscription agreement "
                           "and manage subscriptions "
-                          "for systems connected to your account at "
-                          "http://rhn.redhat.com/.")
+                          "for systems connected to your account.")
 WHY_REGISTER_TIP      = _("Tip: Red Hat values your privacy: "
                           "http://www.redhat.com/legal/privacy_statement.html")
 BACK_REGISTER         = _("Take me back to the registration")
@@ -112,10 +111,6 @@ PACKAGES_WINDOW_UNCHECK = _("You may deselect individual packages by"
 PACKAGES_WINDOW_PKGLIST = _("Building Package List")
 
 # Product Window
-HOSTED_LOGIN_PROMPT    = _("Please enter your login information for Red "
-                           "Hat Network (http://rhn.redhat.com/):\n\n")
-HOSTED_LOGIN_TIP       = _("Tip: Forgot your login or password? " 
-                            "Visit: https://rhn.redhat.com/rhn/sales/LoginInfo.do")
 EMAIL                  = _("*Email Address:")
 
 SYSTEM_ALREADY_SETUP = _("System Already Registered")
@@ -124,8 +119,8 @@ SYSTEM_ALREADY_REGISTERED_CONT = _("Are you sure you would like to continue?")
 
 RHSM_SYSTEM_ALREADY_REGISTERED = _("This system has already been registered with RHN"
 				" using RHN certficate-based technology.\n\n"
-				"The tool you are using is attempting to re-register"
-				" using RHN Classic technology. Red Hat recommends "
+				"The tool you are using is attempting to re-register "
+				"using RHN Satellite or RHN Proxy technology. Red Hat recommends "
 				"(except in a few cases) that customers only register with RHN once.\n\n"
 				"To learn more about RHN registration and technologies please consult this"
 				" Knowledge Base Article: https://access.redhat.com/kb/docs/DOC-45563")
@@ -162,21 +157,13 @@ SUB_NUM_RESULT          = _("Subscriptions have been activated for the following
                             "Red Hat products/services:")
 CHANNELS_TITLE          = _("Software Channel Subscriptions:")
 OK_CHANNELS             = _("This system will receive updates from the "
-                            "following RHN Classic software channels:")
+                            "following software channels:")
 CHANNELS_SAT_WARNING    = _("Warning: Only installed product listed above will receive "
                             "updates and support. If you would like "
                             "to receive updates for additional products, please "
                             "login to your satellite web interface "
                             "and subscribe this system to the appropriate "
                             "software channels. See Kbase article"
-                            "for more details. "
-                            "(http://kbase.redhat.com/faq/docs/DOC-11313)")
-CHANNELS_HOSTED_WARNING = _("Warning: Only installed products listed above "
-                            "will receive updates and support. If you would "
-                            "like to receive updates for additional products, "
-                            "please visit http://access.redhat.com/ "
-                            "and subscribe this system to the appropriate "
-                            "software channels. See Kbase article "
                             "for more details. "
                             "(http://kbase.redhat.com/faq/docs/DOC-11313)")
 YUM_PLUGIN_WARNING		= _("Warning: yum-rhn-plugin is not present, could not enable it.\n"
@@ -190,20 +177,15 @@ FAILED_CHANNELS         = _("You were unable to be subscribed to the following "
                             "subscriptions available in your account:")
 NO_BASE_CHANNEL            = _(
 "This system was unable to subscribe to any software channels. Your system "
-"will not receive any software updates to keep it secure and supported. There "
-"are a few things you can try to resolve this situation:\n(1) Log in to "
-"http://rhn.redhat.com/ and unentitle an inactive system at "
-"Your RHN > Subscription Management > System Entitlements.\n"
-"(2) Purchase an additional Red Hat Enterprise Linux subscription at "
-"http://www.redhat.com/store/.\n(3) Activate a new "
-"installation number at http://www.redhat.com/now/. Once you make the "
+"will not receive any software updates to keep it secure and supported. "
+"Contact your Satellite administrator about this problem. Once you make the "
 "appropriate active subscriptions available in your account, you may browse "
 "to this system's profile in the RHN web interface and subscribe this system "
 "to software channels via the software > software channels tab.")
-SLOTS_TITLE             = _("RHN Classic Service Level:")
-OK_SLOTS                = _("Depending on what RHN Classic modules are associated with a system, you'll "
+SLOTS_TITLE             = _("Service Level:")
+OK_SLOTS                = _("Depending on what RHN Satellite modules are associated with a system, you'll "
                             "enjoy different benefits. The following are the "
-                            "RHN Classic modules associated with this system:")
+                            "RHN Satellite modules associated with this system:")
 SLOTS                   =  SLOTS_TITLE + "\n" + OK_SLOTS + "\n%s"
 FAILED_SLOTS            = _("This system was unable to be associated with the "
                             "following RHN module(s) because there were "
@@ -214,7 +196,7 @@ MANAGEMENT              = _("Management module: automatic updates, systems "
                             "grouping, systems permissions, system package profiling")
 PROVISIONING            = _("Provisioning module: bare-metal provisioning, existing state provisioning, "
                             "rollbacks, configuration management")
-MONITORING              = _("Monitoring module: pre-defined and custom system " 
+MONITORING              = _("Monitoring module: pre-defined and custom system "
                             "performance probes, system performance email "
                             "notifications, graphs of system performance")
 
@@ -235,23 +217,18 @@ VIRT_FAILED = _("<b>Warning:</b> Any guest systems you create on this system "
 
 NO_SYS_ENTITLEMENT         = _("This system was unable to be associated with "
 "any RHN service level modules. This system will not receive any software "
-"updates to keep it secure and supported. There "
-"are a few things you can try to resolve this situation:\n(1) Log in to "
-"http://rhn.redhat.com/ and unentitle an inactive system at "
-"Your RHN > Subscription Management > System Entitlements.\n"
-"(2) Purchase an additional Red Hat Enterprise Linux subscription at "
-"http://www.redhat.com/store/.\n(3) Activate a new "
-"installation number at http://www.redhat.com/now/. Once you make the "
+"updates to keep it secure and supported. Contace your Satellite administrator "
+"about this problem. Once you make the "
 "appropriate active subscriptions available in your account, you may browse "
 "to this system's profile in the RHN web interface, delete the profile, and "
 "re-connect this system to Red Hat Network.")
 ACTIVATION_KEY          = _("Universal default activation key detected\n"
-                            "A universal default activation key was detected in your RHN Classic account. "
-                            "This means that a set of properties (software channel subscriptions, " 
+                            "A universal default activation key was detected in your account. "
+                            "This means that a set of properties (software channel subscriptions, "
                             "package installations, system group memberships, etc.) "
-                            "for your system's connection to RHN Classic "
+                            "for your system's connection to RHN Satellite or RHN Proxy"
                             "have been determined by the activation key rather than your "
-                            "installation number.  " 
+                            "installation number.  "
                             "You may also refer to the RHN Reference Guide, section 6.4.6 for more details "
                             "about activation keys (http://access.redhat.com/knowledge/docs/Red_Hat_Network/)\n"
                             "Universal Default activation key: %s")
@@ -278,7 +255,7 @@ SSL_CERT_ERROR_MSG         = _("<b><span size=\"16000\">Incompatible Certificate
                                "The certificate you provided, <b>%s</b>, is not compatible with "
                                " the Red Hat Network server at <b>%s</b>. You may want to double-check"
                                " that you have provided a valid certificate file."
-                               " Are you sure you have provided the correct certificate, and that" 
+                               " Are you sure you have provided the correct certificate, and that"
                                " the certificate file has not been corrupted?\n\n"
                                "Please try again with a different certificate file.")
 
@@ -309,7 +286,7 @@ CHANNEL_PAGE_WARNING = _("Warning:You will not be able to limit this"
                           " system to minor release that is older than"
                           " the recent minor release if you select this"
                           " option.\n")
- 
+
 CONFIRM_OS_WARNING      = _("Your system will be subscribed to %s \n"
                             "base software channel. You will not be\n"
                             "able to move this system to an earlier release\n"

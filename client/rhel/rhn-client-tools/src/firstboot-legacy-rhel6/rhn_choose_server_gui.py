@@ -51,7 +51,6 @@ class moduleClass(Module):
             return RESULT_SUCCESS
 
         if self.support_sm \
-            and not self.chooseServerPage.chooseServerXml.get_widget("hostedButton").get_active() \
             and not self.chooseServerPage.chooseServerXml.get_widget("satelliteButton").get_active():
                 i = 0
                 while not interface.moduleList[i].__module__.startswith('rhsm_'):
