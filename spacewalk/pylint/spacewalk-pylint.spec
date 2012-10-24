@@ -1,5 +1,5 @@
 Name:		spacewalk-pylint
-Version:	0.7
+Version:	0.8
 Release:	1%{?dist}
 Summary:	Pylint configuration for spacewalk python packages
 
@@ -49,6 +49,9 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Wed Oct 24 2012 Michael Mraka <michael.mraka@redhat.com> 0.8-1
+- Revert "put W1201 on list of ignored pylint warnings"
+
 * Fri Aug 24 2012 Miroslav Suchý <msuchy@redhat.com> 0.7-1
 - put W1201 on list of ignored pylint warnings
 
