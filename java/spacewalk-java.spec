@@ -23,7 +23,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.168
+Version: 1.8.169
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -616,6 +616,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Oct 24 2012 Stephen Herr <sherr@redhat.com> 1.8.169-1
+- fixing problems in 9d2ad9da4305d41d1d43666b2685eed2136c2f16
+- WebUI - css for @media print
+
 * Tue Oct 23 2012 Stephen Herr <sherr@redhat.com> 1.8.168-1
 - 869428 - Added new API method for Splice integration
 - Fixing a bunch of Generics type errors
