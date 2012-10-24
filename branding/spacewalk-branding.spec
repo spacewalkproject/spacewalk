@@ -1,5 +1,5 @@
 Name:       spacewalk-branding
-Version:    1.8.6
+Version:    1.8.7
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -82,6 +82,9 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Wed Oct 24 2012 Jan Pazdziora 1.8.7-1
+- WebUI - css for @media print
+
 * Tue Oct 23 2012 Tomas Lestach <tlestach@redhat.com> 1.8.6-1
 - make the white image background transparent
 - Expose extra packages / systems with extra packages
