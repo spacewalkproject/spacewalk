@@ -240,9 +240,15 @@
     <th>
       <bean:message key="package.jsp.errata" />:
     </th>
-    <td><a href="http://www.google.com/search?q=${package_name}+inurl:errata+site:redhat.com" target="_blank">
-      <bean:message key="package.jsp.erratasearch" />
-    </a></td>
+    <td>
+      <c:forEach items="${erratum}" var="tmpErrata">
+        <a href="/rhn/errata/details/Details.do?eid=${tmpErrata.id}"><c:out value="${tmpErrata.advisory}" /></a>
+        </br>
+      </c:forEach>
+      <c:if test="${erratumEmpty == true}">
+        <bean:message key="package.jsp.errataunavailable" />
+      </c:if>
+    </td>
   <tr/>
 
 

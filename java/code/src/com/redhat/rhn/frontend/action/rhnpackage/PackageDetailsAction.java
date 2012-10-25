@@ -136,6 +136,9 @@ public class PackageDetailsAction extends RhnAction {
                     PackageFactory.findPackagesWithDifferentArch(pkg));
             request.setAttribute("pid", pid);
 
+            request.setAttribute("erratumEmpty", pkg.getPublishedErrata().isEmpty());
+            request.setAttribute("erratum", pkg.getPublishedErrata());
+
             return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
         }
         PackageListItem item = PackageListItem.parse(request.getParameter("id_combo"));

@@ -20463,8 +20463,8 @@ given channel.</source>
       <source>Errata</source>
       </trans-unit>
 
-      <trans-unit id="package.jsp.erratasearch">
-      <source>Search Google for errata</source>
+      <trans-unit id="package.jsp.errataunavailable">
+      <source>No errata are available for this package</source>
       </trans-unit>
 
       <trans-unit id="package.jsp.sunosrelease">
