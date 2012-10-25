@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        1.8.21
+Version:        1.8.22
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -110,6 +110,10 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Thu Oct 25 2012 Jan Pazdziora 1.8.22-1
+- Exit if spacewalk-setup-embedded-postgresql is not installed.
+- Only start database for embedded scenario.
+
 * Mon Oct 22 2012 Jan Pazdziora 1.8.21-1
 - 562287 - pass proxy configuration to spacewalk-setup to store it into
   rhn.conf file
