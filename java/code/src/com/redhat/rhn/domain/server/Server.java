@@ -106,7 +106,7 @@ public class Server extends BaseDomainHelper implements Identifiable {
     private Set<VirtualInstance> guests = new HashSet<VirtualInstance>();
     private VirtualInstance virtualInstance;
     private PushClient pushClient;
-    private final ConfigChannelListProcessor configListProc = 
+    private final ConfigChannelListProcessor configListProc =
         new ConfigChannelListProcessor();
     private Set<ServerHistoryEvent> history;
     private Set<InstalledPackage> packages;

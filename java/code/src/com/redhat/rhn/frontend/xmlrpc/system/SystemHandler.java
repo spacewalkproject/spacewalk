@@ -618,10 +618,10 @@ public class SystemHandler extends BaseHandler {
      * @param sessionKey The sessionKey for the logged in user
      * @param serverIds A list of ids to get info for
      * @return a list of maps representing the details for the active systems
-     * 
+     *
      * @throws FaultException A FaultException is thrown if the user cannot
      * be found from the session key
-     * 
+     *
      * @xmlrpc.doc Given a list of server ids, returns a list of active servers'
      * details visible to the user.
      * @xmlrpc.param #param("string", "sessionKey")
@@ -631,7 +631,7 @@ public class SystemHandler extends BaseHandler {
      *     #struct("server details")
      *       #prop_desc("int", "id", "The server's id")
      *       #prop_desc("string", "name", "The server's name")
-     *       #prop_desc("dateTime.iso8601", "last_checkin", 
+     *       #prop_desc("dateTime.iso8601", "last_checkin",
      *         "Last time server successfully checked in ")
      *       #prop_desc("int", "ram", "The amount of physical memory in MB.")
      *       #prop_desc("int", "swap", "The amount of swap space in MB.")
@@ -1776,7 +1776,7 @@ public class SystemHandler extends BaseHandler {
      *          #prop("string", "custom info label")
      *      #struct_end()
      */
-    public Map<String, String> getCustomValues(String sessionKey, Integer sid) 
+    public Map<String, String> getCustomValues(String sessionKey, Integer sid)
         throws FaultException {
         // Get the logged in user and server
         User loggedInUser = getLoggedInUser(sessionKey);
