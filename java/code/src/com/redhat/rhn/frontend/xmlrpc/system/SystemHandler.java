@@ -147,6 +147,7 @@ import java.io.IOException;
 import java.io.StringReader;
 import java.sql.Blob;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
@@ -156,6 +157,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TimeZone;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -612,6 +614,22 @@ public class SystemHandler extends BaseHandler {
         return SystemManager.systemListShortActive(loggedInUser, null);
     }
 
+    private Date convertLocalToUtc(Date in) {
+        Calendar c = Calendar.getInstance();
+        c.setTime(in);
+        TimeZone z = c.getTimeZone();
+        int offset = z.getRawOffset();
+        if (z.inDaylightTime(in)) {
+            offset += z.getDSTSavings();
+        }
+        int offsetHrs = offset / 1000 / 60 / 60;
+        int offsetMins = offset / 1000 / 60 % 60;
+        c.add(Calendar.HOUR_OF_DAY, (-offsetHrs));
+        c.add(Calendar.MINUTE, (-offsetMins));
+        c.set(Calendar.MILLISECOND, 0);
+        return c.getTime();
+    }
+
     /**
      * Given a list of server ids, will return details about the
      * systems that are active and visible to the user
@@ -632,7 +650,7 @@ public class SystemHandler extends BaseHandler {
      *       #prop_desc("int", "id", "The server's id")
      *       #prop_desc("string", "name", "The server's name")
      *       #prop_desc("dateTime.iso8601", "last_checkin",
-     *         "Last time server successfully checked in ")
+     *         "Last time server successfully checked in (in UTC)")
      *       #prop_desc("int", "ram", "The amount of physical memory in MB.")
      *       #prop_desc("int", "swap", "The amount of swap space in MB.")
      *       #prop_desc("struct", "network_devices", "The server's network devices")
@@ -656,8 +674,8 @@ public class SystemHandler extends BaseHandler {
      *     #struct_end()
      *   #array_end()
      */
-    public List<Map<String, Object>> listActiveSystemDetails(String sessionKey,
-            List<Integer> serverIds) throws FaultException {
+    public List<Map<String, Object>> listActiveSystemsDetails(
+            String sessionKey, List<Integer> serverIds) throws FaultException {
         User loggedInUser = getLoggedInUser(sessionKey);
         List<Server> servers = XmlRpcSystemHelper.getInstance().lookupServers(
                 loggedInUser, serverIds);
@@ -667,7 +685,7 @@ public class SystemHandler extends BaseHandler {
                 Map<String, Object> m = new HashMap<String, Object>();
                 m.put("id", server.getId());
                 m.put("name", server.getName());
-                m.put("last_checkin", server.getLastCheckin());
+                m.put("last_checkin", convertLocalToUtc(server.getLastCheckin()));
                 m.put("ram", server.getRam());
                 m.put("swap", server.getSwap());
                 m.put("cpu_info", server.getCpu());
