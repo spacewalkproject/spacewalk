@@ -1,7 +1,7 @@
 %define release_name Smile
 
 Name:           spacewalk
-Version:        1.8.4
+Version:        1.8.5
 Release:        1%{?dist}
 Summary:        Spacewalk Systems Management Application
 URL:            https://fedorahosted.org/spacewalk
@@ -177,6 +177,9 @@ rm -rf %{buildroot}
 %{_datadir}/spacewalk/setup/defaults.d/postgresql-backend.conf
 
 %changelog
+* Thu Oct 25 2012 Jan Pazdziora 1.8.5-1
+- Require spacewalk-setup-embedded-postgresql for spacewalk-setup to work.
+
 * Fri Oct 19 2012 Jan Pazdziora 1.8.4-1
 - We need one extra package in the dependency chain to prefer cobbler20 upon
   fresh installation.
