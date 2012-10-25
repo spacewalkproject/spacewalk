@@ -911,7 +911,9 @@ sub postgresql_setup_db {
     print Spacewalk::Setup::loc("** Database: Setting up database connection for PostgreSQL backend.\n");
     my $connected;
 
-    postgresql_start();
+    if (is_embedded_db($opts)) {
+      postgresql_start();
+    }
     postgresql_setup_embedded_db($opts, $answers);
 
     while (not $connected) {
