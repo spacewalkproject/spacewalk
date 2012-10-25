@@ -965,6 +965,14 @@ sub postgresql_setup_embedded_db {
         return 0;
     }
 
+    if (not -x '/usr/bin/spacewalk-setup-embedded-postgresql') {
+        print loc(<<EOQ);
+The spacewalk-setup-embedded-postgresql does not seem to be available.
+You might want to use --external-db command line option.
+EOQ
+        exit 24;
+    }
+
     if (-d "/var/lib/pgsql/data/base" and
         ! system(qq{/usr/bin/spacewalk-setup-embedded-postgresql check --db $answers->{'db-name'}})) {
         my $shared_dir = SHARED_DIR;
