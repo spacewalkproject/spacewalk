@@ -33,7 +33,7 @@ import redstone.xmlrpc.XmlRpcSerializer;
  *      #struct("distChannelMap")
  *          #prop_desc("string", "os", "Operationg System")
  *          #prop_desc("string", "release", "OS Relase")
- *          #prop_desc("string", "arch_label", "Channel architecture")
+ *          #prop_desc("string", "arch_name", "Channel architecture")
  *          #prop_desc("string", "channel_label", "Channel label")
  *     #struct_end()
  */
