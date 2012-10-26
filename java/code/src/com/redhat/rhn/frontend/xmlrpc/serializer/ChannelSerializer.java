@@ -53,7 +53,7 @@ import com.redhat.rhn.frontend.xmlrpc.serializer.util.SerializerHelper;
  *      #prop("string", "gpg_key_url")
  *      #prop("string", "gpg_key_id")
  *      #prop("string", "gpg_key_fp")
- *      #prop("dateTime.iso8601", "yumrepo_last_sync")
+ *      #prop_desc("dateTime.iso8601", "yumrepo_last_sync", "(optional)")
  *      #prop("string", "end_of_life")
  *      #prop("string", "parent_channel_label")
  *      #prop("string", "clone_original")
@@ -118,12 +118,7 @@ public class ChannelSerializer implements XmlRpcCustomSerializer {
                 ContentSource cs = (ContentSource) itr.next();
                 csList.add(cs);
             }
-            if (c.getLastSynced() != null) {
-                helper.add("yumrepo_last_sync", c.getLastSynced());
-            }
-            else {
-                helper.add("yumrepo_last_sync", "");
-            }
+            helper.add("yumrepo_last_sync", c.getLastSynced());
         }
         helper.add("contentSources", csList);
 
