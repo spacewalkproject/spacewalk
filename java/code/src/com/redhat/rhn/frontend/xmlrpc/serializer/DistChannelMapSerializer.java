@@ -35,6 +35,7 @@ import redstone.xmlrpc.XmlRpcSerializer;
  *          #prop_desc("string", "release", "OS Relase")
  *          #prop_desc("string", "arch_name", "Channel architecture")
  *          #prop_desc("string", "channel_label", "Channel label")
+ *          #prop_desc("string", "org_specific", "'Y' organization specific, 'N' default")
  *     #struct_end()
  */
 public class DistChannelMapSerializer implements XmlRpcCustomSerializer {
@@ -59,6 +60,7 @@ public class DistChannelMapSerializer implements XmlRpcCustomSerializer {
         helper.add("release", dstChannelMap.getRelease());
         helper.add("arch_name", dstChannelMap.getChannelArch().getName());
         helper.add("channel_label", dstChannelMap.getChannel().getLabel());
+        helper.add("org_specific", dstChannelMap.getOrg() == null ? "N" : "Y" );
 
         helper.writeTo(output);
     }

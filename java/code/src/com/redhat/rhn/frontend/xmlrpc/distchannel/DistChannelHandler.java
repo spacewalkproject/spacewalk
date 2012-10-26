@@ -19,12 +19,17 @@ import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelArch;
 import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.domain.channel.DistChannelMap;
+import com.redhat.rhn.domain.org.Org;
+import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
 import com.redhat.rhn.frontend.xmlrpc.InvalidChannelArchException;
 import com.redhat.rhn.frontend.xmlrpc.NoSuchChannelException;
 import com.redhat.rhn.frontend.xmlrpc.NoSuchDistChannelMapException;
+import com.redhat.rhn.frontend.xmlrpc.NoSuchOrgException;
+
+import org.apache.commons.lang.StringUtils;
 
 /**
  * DistChannelHandler - provides methods to access distribution channel information.
@@ -35,11 +40,11 @@ import com.redhat.rhn.frontend.xmlrpc.NoSuchDistChannelMapException;
 public class DistChannelHandler extends BaseHandler {
 
     /**
-     * Lists the default distribution channel maps defined per satellite
+     * Lists the default distribution channel maps
      * @param sessionKey The sessionKey containing the logged in user
      * @return List of dist channel maps
      *
-     * @xmlrpc.doc Lists the default distribution channel maps defined per satellite
+     * @xmlrpc.doc Lists the default distribution channel maps
      * @xmlrpc.param #session_key()
      * @xmlrpc.returntype
      *   #array("dist channel map")
@@ -47,75 +52,116 @@ public class DistChannelHandler extends BaseHandler {
      *   #array_end()
      */
     public Object[] listDefaultMaps(String sessionKey) {
+        getLoggedInUser(sessionKey);
         return ChannelFactory.listAllDistChannelMaps().toArray();
     }
 
     /**
-     * Sets (/removes if channelLabel empty) a default distribution channel map
-     * @param sessionKey The sessionKey containing the logged in user
-     * @param os OS
-     * @param release Relase
-     * @param archLabel architecture label
-     * @param channelLabel channel label
-     * @return Returns 1 if successful, exception otherwise
+     * Lists distribution channel maps valid for the user's organization
+     * @param sessionKey session key
+     * @return List of dist channel maps
      *
-     * @xmlrpc.doc Sets (/removes if channelLabel empty) a default distribution channel map
+     * @xmlrpc.doc Lists distribution channel maps valid for the user's organization
      * @xmlrpc.param #session_key()
-     * @xmlrpc.param #param("string", "os")
-     * @xmlrpc.param #param("string", "release")
-     * @xmlrpc.param #param("string", "archLabel")
-     * @xmlrpc.param #param("string", "channelLabel")
-     * @xmlrpc.returntype #return_int_success()
+     * @xmlrpc.returntype
+     *   #array("dist channel map")
+     *      $DistChannelMapSerializer
+     *   #array_end()
      */
-    public int setDefaultMap(String sessionKey, String os, String release,
-                                            String archLabel, String channelLabel) {
+    public Object[] listMapsForOrg(String sessionKey) {
+        User loggedInUser = getLoggedInUser(sessionKey);
+        return ChannelFactory.listAllDistChannelMapsByOrg(loggedInUser.getOrg()).toArray();
+    }
+
+    /**
+     * Lists distribution channel maps valid for an organization,
+     * satellite admin right needed
+     * @param sessionKey session key
+     * @return List of dist channel maps
+     *
+     * @xmlrpc.doc Lists distribution channel maps valid for an organization,
+     * satellite admin right needed
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.returntype
+     *   #array("dist channel map")
+     *      $DistChannelMapSerializer
+     *   #array_end()
+     */
+    public Object[] listMapsForOrg(String sessionKey, Integer orgId) {
         User loggedInUser = getLoggedInUser(sessionKey);
         if (!loggedInUser.hasRole(RoleFactory.SAT_ADMIN)) {
             throw new PermissionException(RoleFactory.SAT_ADMIN);
         }
+        Org org = OrgFactory.lookupById(new Long(orgId));
+        if (org == null) {
+            throw new NoSuchOrgException(orgId.toString());
+        }
 
-        ChannelArch channelArch = ChannelFactory.lookupArchByLabel(archLabel);
+        return ChannelFactory.listAllDistChannelMapsByOrg(org).toArray();
+    }
+
+    /**
+     * Sets, overrides (/removes if channelLabel empty) a distribution channel map
+     * within an organization
+     * @param sessionKey The sessionKey containing the logged in user
+     * @param os OS
+     * @param release Relase
+     * @param archName architecture label
+     * @param channelLabel channel label
+     * @return Returns 1 if successful, exception otherwise
+     *
+     * @xmlrpc.doc Sets, overrides (/removes if channelLabel empty)
+     * a distribution channel map within an organization
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param("string", "os")
+     * @xmlrpc.param #param("string", "release")
+     * @xmlrpc.param #param("string", "archName")
+     * @xmlrpc.param #param("string", "channelLabel")
+     * @xmlrpc.returntype #return_int_success()
+     */
+    public int setMapForOrg(String sessionKey, String os, String release,
+                                            String archName, String channelLabel) {
+        User loggedInUser = getLoggedInUser(sessionKey);
+        if (!loggedInUser.hasRole(RoleFactory.ORG_ADMIN)) {
+            throw new PermissionException(RoleFactory.ORG_ADMIN);
+        }
+        Org org = loggedInUser.getOrg();
+
+        ChannelArch channelArch = ChannelFactory.lookupArchByName(archName);
         if (channelArch == null) {
-            throw new InvalidChannelArchException(archLabel);
+            throw new InvalidChannelArchException(archName);
         }
-        DistChannelMap dcm = ChannelFactory.lookupDistChannelMapByOsReleaseArch(os,
-                release, channelArch);
-        if ((dcm != null) && (dcm.getChannel().getProductName() != null)) {
-            throw new PermissionException("It's not possible to change " +
-                   dcm.getChannel().getProductName().getName() + " channel maps.");
+        Channel channel = null;
+        if (!StringUtils.isEmpty(channelLabel)) {
+            channel = ChannelFactory.lookupByLabel(channelLabel);
+            if (channel == null) {
+                throw new NoSuchChannelException(channelLabel);
+            }
         }
 
-        if (channelLabel.isEmpty()) {
-            // remove dist channel map
-            if (dcm != null) {
-                ChannelFactory.remove(dcm);
-            }
-            else {
+        DistChannelMap dcm = ChannelFactory.lookupDistChannelMapByOrgReleaseArch(
+                org, release, channelArch);
+
+        if (channel == null) {
+            // remove
+            if (dcm == null || dcm.getOrg() == null){
                 throw new NoSuchDistChannelMapException();
             }
+            ChannelFactory.remove(dcm);
+            return 1;
+        }
+        // channel != null
+        if (dcm == null || dcm.getOrg() == null) {
+            // create
+            dcm = new DistChannelMap(org, os, release, channelArch, channel);
+            ChannelFactory.save(dcm);
         }
         else {
-            Channel channel = ChannelFactory.lookupByLabel(channelLabel);
-            if (channel == null) {
-                throw new NoSuchChannelException();
-            }
-
-            if (dcm != null) {
-                // update channel map
-                dcm.setChannel(channel);
-                ChannelFactory.save(dcm);
-            }
-            else {
-                // create new channel map
-                dcm = new DistChannelMap();
-                dcm.setOs(os);
-                dcm.setRelease(release);
-                dcm.setChannelArch(channelArch);
-                dcm.setChannel(channel);
-                ChannelFactory.save(dcm);
-            }
+            // update
+            dcm.setOs(os);
+            dcm.setChannel(channel);
+            ChannelFactory.save(dcm);
         }
-
         return 1;
     }
 }

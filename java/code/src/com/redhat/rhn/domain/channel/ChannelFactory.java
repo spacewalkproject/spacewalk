@@ -828,9 +828,9 @@ public class ChannelFactory extends HibernateFactory {
      * @param user user
      * @return list of dist channel maps
      */
-    public static List<DistChannelMap> listAllDistChannelMapsByOrg(User user) {
+    public static List<DistChannelMap> listAllDistChannelMapsByOrg(Org org) {
         Map params = new HashMap();
-        params.put("org_id", user.getOrg().getId());
+        params.put("org_id", org.getId());
         return singleton.listObjectsByNamedQuery("DistChannelMap.listAllByOrg", params);
     }
 
@@ -868,23 +868,24 @@ public class ChannelFactory extends HibernateFactory {
     }
 
     /**
-     * Lookup the dist channel map for the given os, release, and channel arch.
+     * Lookup the dist channel map for the given organization according to
+     * release and channel arch.
      * Returns null if none is found.
      *
-     * @param os OS
-     * @param release Version.
+     * @param org organization
+     * @param release release
      * @param channelArch Channel arch.
      * @return DistChannelMap, null if none is found
      */
-    public static DistChannelMap lookupDistChannelMapByOsReleaseArch(String os,
-                                            String release, ChannelArch channelArch) {
+    public static DistChannelMap lookupDistChannelMapByOrgReleaseArch(Org org,
+            String release, ChannelArch channelArch) {
 
         Map params = new HashMap();
-        params.put("os", os);
+        params.put("org_id", org.getId());
         params.put("release", release);
-        params.put("channelArch", channelArch);
+        params.put("channel_arch_id", channelArch.getId());
         return (DistChannelMap)singleton.lookupObjectByNamedQuery(
-                "DistChannelMap.findByOsReleaseArch", params);
+                "DistChannelMap.findByOrgReleaseArch", params);
     }
 
     /**
