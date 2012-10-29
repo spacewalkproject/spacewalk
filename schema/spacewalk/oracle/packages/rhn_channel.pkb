@@ -26,16 +26,17 @@ IS
                 org_id_in in number
         ) return rhnChannel%ROWTYPE is
                 select distinct c.*
-                from    rhnDistChannelMap                       dcm,
+                from    rhnOrgDistChannelMap                       odcm,
                                 rhnServerChannelArchCompat      scac,
                                 rhnChannel                                      c,
                                 rhnChannelPermissions           cp
                 where   cp.org_id = org_id_in
                         and cp.channel_id = c.id
                         and c.parent_channel is null
-                        and c.id = dcm.channel_id
-                        and c.channel_arch_id = dcm.channel_arch_id
-                        and dcm.release = release_in
+                        and c.id = odcm.channel_id
+                        and c.channel_arch_id = odcm.channel_arch_id
+                        and odcm.release = release_in
+                        and odcm.for_org_id = org_id_in
                         and scac.server_arch_id = server_arch_id_in
                         and scac.channel_arch_id = c.channel_arch_id;
 
