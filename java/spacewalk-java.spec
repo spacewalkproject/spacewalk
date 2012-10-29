@@ -23,7 +23,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.171
+Version: 1.8.172
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -616,6 +616,11 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Oct 29 2012 Jan Pazdziora 1.8.172-1
+- Change of message which is shown if no errata is available for package
+- remove unnecessary casts
+- removing @Override annotation from a method that isn't overriden
+
 * Mon Oct 29 2012 Jan Pazdziora 1.8.171-1
 - 869428 - last_checkin date should be displayed as UTC for splice integration
   API
