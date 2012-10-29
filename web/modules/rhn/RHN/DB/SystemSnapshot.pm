@@ -15,6 +15,8 @@
 
 package RHN::DB::SystemSnapshot;
 
+use strict;
+
 use Params::Validate qw/validate/;
 Params::Validate::validation_options(strip_leading => "-");
 
@@ -62,7 +64,7 @@ foreach my $field ($j->method_names) {
        sub [[field]] {
          my $self = shift;
          if (@_) {
-           if ($rw_fields{[[field]]} or $self->{__newly_created__}) {
+           if ($self->{__newly_created__}) {
              my $value = shift;
              $self->{":modified:"}->{[[field]]} = 1;
              $self->{__[[field]]__} = $value;
@@ -130,7 +132,7 @@ sub channel_diffs {
   my $snapshot_channels = $ds->execute_query(-user_id => undef, -sid => $self->server_id, -ss_id => $self->id);
 
   $ds->mode('system_channels');
-  my $current_channels = $ds->execute_query(-sid => $self->server_id, -user_id => undef, -org_id => $org_id);
+  my $current_channels = $ds->execute_query(-sid => $self->server_id, -user_id => undef);
 
  return $self->gen_diff(current => $current_channels,
 			 snapshot => $snapshot_channels,
@@ -147,7 +149,7 @@ sub package_diffs {
   my $snapshot_packages = $ds->execute_query(-user_id => undef, -sid => $self->server_id, -ss_id => $self->id, -org_id => $self->org_id);
 
   $ds->mode('system_canonical_package_list');
-  my $current_packages = $ds->execute_query(-sid => $self->server_id, -user_id => undef, -org_id => $org_id);
+  my $current_packages = $ds->execute_query(-sid => $self->server_id, -user_id => undef, -org_id => $self->org_id);
 
  return $self->gen_diff(current => $current_packages,
 			snapshot => $snapshot_packages,
@@ -176,7 +178,7 @@ sub config_channel_diffs {
   my $snapshot_config_channels = $ds->execute_query(-user_id => undef, -sid => $self->server_id, -ss_id => $self->id);
 
   $ds->mode('normal_namespaces_for_system');
-  my $current_config_channels = $ds->execute_query(-sid => $self->server_id, -user_id => undef, -org_id => $org_id);
+  my $current_config_channels = $ds->execute_query(-sid => $self->server_id);
 
  return $self->gen_diff(current => $current_config_channels,
 			snapshot => $snapshot_config_channels,
@@ -262,8 +264,8 @@ sub snapshot_configfiles_list {
   my $class = shift;
   my %params = validate(@_, {server_id => 1, snapshot_id => 1});
 
-  $ds = new RHN::DataSource::Simple(-querybase => 'config_queries', -mode => 'configfiles_for_snapshot');
-  $data = $ds->execute_query(-sid => $params{server_id}, -ss_id => $params{snapshot_id});
+  my $ds = new RHN::DataSource::Simple(-querybase => 'config_queries', -mode => 'configfiles_for_snapshot');
+  my $data = $ds->execute_query(-sid => $params{server_id}, -ss_id => $params{snapshot_id});
 
   return $data;
 }
@@ -273,8 +275,8 @@ sub snapshot_config_channel_list {
   my $class = shift;
   my %params = validate(@_, {server_id => 1, snapshot_id => 1});
 
-  $ds = new RHN::DataSource::ConfigChannel (-mode => 'namespaces_for_snapshot');
-  $data = $ds->execute_query(-sid => $params{server_id}, -ss_id => $params{snapshot_id});
+  my $ds = new RHN::DataSource::ConfigChannel (-mode => 'namespaces_for_snapshot');
+  my $data = $ds->execute_query(-sid => $params{server_id}, -ss_id => $params{snapshot_id});
 
   return $data;
 }
@@ -311,10 +313,10 @@ sub snapshot_pkg_delta {
   my $snapshot_ds = new RHN::DataSource::Package(-mode => "system_snapshot_package_list");
   my $snapshot_data = $snapshot_ds->execute_query(-sid => $params{server_id}, -ss_id => $params{snapshot_id}, -org_id => $params{org_id});
 
-  my $current_manifest = RHN::Manifest->new(-org_id => $org_id);
+  my $current_manifest = RHN::Manifest->new(-org_id => $params{org_id});
   $current_manifest->datasource_result_into_manifest($current_data);
 
-  my $snapshot_manifest = RHN::Manifest->new(-org_id => $org_id);
+  my $snapshot_manifest = RHN::Manifest->new(-org_id => $params{org_id});
   $snapshot_manifest->datasource_result_into_manifest($snapshot_data);
 
   # do comparison... diff only.
@@ -444,12 +446,6 @@ sub rollback_to_snapshot {
 
       $deployed_config_files = 1;
       $last_aid = $deploy_aid;
-    }
-
-    # don't leave temp set lying around...
-    if ($files_set) {
-      $files_set->empty;
-      $transaction = $files_set->commit($transaction);
     }
   };
 
