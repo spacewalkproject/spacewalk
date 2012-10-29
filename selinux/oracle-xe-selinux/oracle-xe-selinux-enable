@@ -9,7 +9,7 @@ for selinuxvariant in mls strict targeted
   done
 
 /usr/sbin/semanage port -a -t oracle_port_t -p tcp 9055 || :
-/usr/sbin/getsebool oracle_11g_support > /dev/null 2>&1 && /usr/sbin/setsebool oracle_11g_support 1
+/usr/sbin/getsebool oracle_11g_support > /dev/null 2>&1 && /usr/sbin/setsebool -P oracle_11g_support 1
 
 # Relabel oracle-xe's files
 rpm -qlf /etc/init.d/oracle-xe | xargs -n 100 /sbin/restorecon -Rivv
