@@ -1,6 +1,6 @@
 Name: spacewalk-config
 Summary: Spacewalk Configuration
-Version: 1.8.4
+Version: 1.8.5
 Release: 1%{?dist}
 URL: http://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -104,6 +104,13 @@ chgrp apache /etc/rhn /etc/rhn/rhn.conf /etc/rhn/cluster.ini 2> /dev/null || :
 chmod o-rwx /etc/rhn/rhn.conf* /etc/rhn/cluster.ini* /etc/sysconfig/rhn/backup-* /var/lib/rhn/rhn-satellite-prep/* 2> /dev/null || :
 
 %changelog
+* Mon Oct 29 2012 Jan Pazdziora 1.8.5-1
+- We just assume Apache 2.2 these days, no need to check.
+- All the Java requests end up at /rhn, no need to have separate .do and .jsp
+  rewrites.
+- 663248 - enable connection polling to tomcat.
+- 663250 - set the Expires header for static content.
+
 * Fri Oct 12 2012 Jan Pazdziora 1.8.4-1
 - The /network/systems/details/kickstart/* is not used for a long time.
 
