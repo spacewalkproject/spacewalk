@@ -239,6 +239,7 @@ class _ChannelDumper(BaseRowDumper):
           from rhnDistChannelMap dcm, rhnChannelArch ca
          where dcm.channel_id = :channel_id
            and dcm.channel_arch_id = ca.id
+           and dcm.org_id is null
     """)
 
     def set_iterator(self):

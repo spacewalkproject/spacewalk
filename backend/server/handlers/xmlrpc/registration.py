@@ -602,7 +602,7 @@ class Registration(rhnHandler):
             try:
                 base = rhnChannel.get_channel_for_release_arch(
                                                         version,
-                                                        arch)
+                                                        arch, newserv['org_id'])
                 failed_channels.append(base['label'])
             # We want to swallow exceptions here as we are just generating data
             # for the review screen in rhn_register.

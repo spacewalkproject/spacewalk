@@ -82,6 +82,7 @@ class Errata(rhnHandler):
                 and p.id = cp.package_id
                 and cp.channel_id = dcm.channel_id
                 and dcm.release = :dist
+                and dcm.org_id is null
                 -- map to an errata as well
                 and p.id = ep.package_id
                 and ep.errata_id = e.id

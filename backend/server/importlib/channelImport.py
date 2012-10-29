@@ -314,6 +314,7 @@ class DistChannelMapImport(Import):
                     "Invalid dist_channel_map channel %s" % dcm['channel'])
             dcm['arch'] = arch
             dcm['channel_id'] = channel['id']
+            dcm['org_id'] = None
             
     def submit(self):
         try:
