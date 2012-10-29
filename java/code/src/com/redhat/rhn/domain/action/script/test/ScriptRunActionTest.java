@@ -136,7 +136,7 @@ public class ScriptRunActionTest extends RhnBaseTestCase {
         ScriptRunAction scriptaction = (ScriptRunAction) a;
         assertEquals(1, scriptaction.getScriptActionDetails().getResults().size());
 
-        ScriptResult lookupResult = (ScriptResult)scriptaction.getScriptActionDetails().
+        ScriptResult lookupResult = scriptaction.getScriptActionDetails().
             getResults().iterator().next();
         assertEquals(startDate.getTime() / 1000,
                 lookupResult.getStartDate().getTime() / 1000);

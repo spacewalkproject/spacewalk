@@ -994,7 +994,7 @@ public class SystemManagerTest extends RhnBaseTestCase {
         int sizeAfter = server.getNotes().size();
         assertTrue(sizeAfter == (sizeBefore + 1));
 
-        Note deleteMe = (Note) server.getNotes().iterator().next();
+        Note deleteMe = server.getNotes().iterator().next();
 
         // Test
         SystemManager.deleteNote(admin, server.getId(), deleteMe.getId());

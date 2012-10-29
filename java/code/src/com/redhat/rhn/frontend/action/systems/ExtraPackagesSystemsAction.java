@@ -46,6 +46,6 @@ public class ExtraPackagesSystemsAction extends BaseSystemsAction {
 
     protected DataResult<SystemOverview> getDataResult(User user, PageControl pc,
         ActionForm formIn) {
-        return (DataResult<SystemOverview>) SystemManager.getExtraPackagesSystems(user, pc);
+        return SystemManager.getExtraPackagesSystems(user, pc);
     }
 }

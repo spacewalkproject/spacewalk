@@ -792,7 +792,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         assertTrue(sizeAfter > sizeBefore);
 
         // Test
-        Note deleteMe = (Note) server.getNotes().iterator().next();
+        Note deleteMe = server.getNotes().iterator().next();
         result = handler.deleteNote(adminKey, server.getId().intValue(),
                 deleteMe.getId().intValue());
 
