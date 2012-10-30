@@ -2,7 +2,7 @@
 Summary: Various utility scripts and data files for RHN Satellite installations
 Name: spacewalk-admin
 URL:     https://fedorahosted.org/spacewalk
-Version: 1.8.5
+Version: 1.8.6
 Release: 1%{?dist}
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 License: GPLv2
@@ -75,6 +75,10 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) %{_sysconfdir}/rhn/service-list
 
 %changelog
+* Tue Oct 30 2012 Jan Pazdziora 1.8.6-1
+- Update the copyright year.
+- %%defattr is not needed since rpm 4.4
+
 * Thu May 10 2012 Jan Pazdziora 1.8.5-1
 - Add support for database-specific override files.
 
