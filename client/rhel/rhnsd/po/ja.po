@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Hirofumi Saito <hi_saito@yk.rim.or.jp>, 2004.
 # kiyoto james hashida <khashida@brisbane.redhat.com>, 2007.
@@ -10,37 +10,38 @@
 # Noriko Mizumoto <noriko@redhat.com>, 2004, 2005, 2006, 2007.
 # noriko <noriko@fedoraproject.org>, 2011.
 # Tadashi Jokagi <fedora@elf.no-ip.org>, 2005.
+# Tomoyuki KATO <tomo@dream.daynight.jp>, 2012.
 # Yukihiro Nakai <ynakai@redhat.com>, 2001.
 msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: http://bugzilla.redhat.com/\n"
 "POT-Creation-Date: 2011-12-21 12:22+0100\n"
-"PO-Revision-Date: 2012-02-14 13:07+0000\n"
-"Last-Translator: Miroslav Suchý <msuchy@redhat.com>\n"
+"PO-Revision-Date: 2012-03-16 10:08+0000\n"
+"Last-Translator: Tomoyuki KATO <tomo@dream.daynight.jp>\n"
 "Language-Team: Japanese <trans-ja@lists.fedoraproject.org>\n"
-"Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0\n"
+"Language: ja\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 
 #: ../rhnsd.c:55
 msgid "MINS"
-msgstr ""
+msgstr "MINS"
 
 #: ../rhnsd.c:56
 msgid "Connect to Red Hat Network every MINS minutes"
-msgstr ""
+msgstr "MINS 分ごとに Red Hat Network に接続します"
 
 #: ../rhnsd.c:58
 msgid "Run in foreground"
-msgstr ""
+msgstr "フォアグラウンドで実行します"
 
 #. Short description of program.
 #: ../rhnsd.c:63
 msgid "Red Hat Network Services Daemon"
-msgstr ""
+msgstr "Red Hat Network Services Daemon"
 
 #: ../rhnsd.c:116
 #, c-format
