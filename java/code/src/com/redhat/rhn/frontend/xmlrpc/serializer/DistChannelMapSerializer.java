@@ -60,7 +60,7 @@ public class DistChannelMapSerializer implements XmlRpcCustomSerializer {
         helper.add("release", dstChannelMap.getRelease());
         helper.add("arch_name", dstChannelMap.getChannelArch().getName());
         helper.add("channel_label", dstChannelMap.getChannel().getLabel());
-        helper.add("org_specific", dstChannelMap.getOrg() == null ? "N" : "Y" );
+        helper.add("org_specific", dstChannelMap.getOrg() == null ? "N" : "Y");
 
         helper.writeTo(output);
     }

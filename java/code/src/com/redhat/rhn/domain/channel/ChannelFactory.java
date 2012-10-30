@@ -825,7 +825,7 @@ public class ChannelFactory extends HibernateFactory {
 
     /**
      * Lists all dist channel maps for an user organization
-     * @param user user
+     * @param org organization
      * @return list of dist channel maps
      */
     public static List<DistChannelMap> listAllDistChannelMapsByOrg(Org org) {

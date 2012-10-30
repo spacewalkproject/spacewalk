@@ -56,6 +56,7 @@ public class DistChannelMapSetupAction extends RhnAction implements Listable {
      */
     public DataResult getResult(RequestContext context) {
         return new DataResult(
-                ChannelFactory.listAllDistChannelMapsByOrg(context.getLoggedInUser().getOrg()));
+                ChannelFactory.listAllDistChannelMapsByOrg(
+                    context.getLoggedInUser().getOrg()));
     }
 }

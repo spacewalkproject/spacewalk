@@ -77,11 +77,13 @@ public class DistChannelHandler extends BaseHandler {
      * Lists distribution channel maps valid for an organization,
      * satellite admin right needed
      * @param sessionKey session key
+     * @param orgId organization id
      * @return List of dist channel maps
      *
      * @xmlrpc.doc Lists distribution channel maps valid for an organization,
      * satellite admin right needed
      * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param("int", "orgId")
      * @xmlrpc.returntype
      *   #array("dist channel map")
      *      $DistChannelMapSerializer
@@ -144,7 +146,7 @@ public class DistChannelHandler extends BaseHandler {
 
         if (channel == null) {
             // remove
-            if (dcm == null || dcm.getOrg() == null){
+            if (dcm == null || dcm.getOrg() == null) {
                 throw new NoSuchDistChannelMapException();
             }
             ChannelFactory.remove(dcm);
