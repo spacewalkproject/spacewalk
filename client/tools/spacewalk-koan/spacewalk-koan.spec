@@ -3,7 +3,7 @@ Name: spacewalk-koan
 Group: System Environment/Kernel
 License: GPLv2
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 1.8.2
+Version: 1.8.3
 Release: 1%{?dist}
 BuildArch : noarch
 URL:            https://fedorahosted.org/spacewalk
@@ -46,6 +46,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/rhn/actions/
 
 %changelog
+* Tue Oct 30 2012 Jan Pazdziora 1.8.3-1
+- Update the copyright year.
+
 * Thu Aug 02 2012 Stephen Herr <sherr@redhat.com> 1.8.2-1
 - 845326 - Show pretty error if customer specifies a MAC address already in use
 - %%defattr is not needed since rpm 4.4
