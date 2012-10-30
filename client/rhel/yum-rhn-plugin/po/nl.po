@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Bart Couvreur <bercie23@yahoo.com>, 2005.
 # Miroslav Suchý <msuchy@redhat.com>, 2011.
@@ -11,79 +11,94 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
-"Report-Msgid-Bugs-To: http://bugzilla.redhat.com/\n"
-"POT-Creation-Date: 2011-12-21 12:25+0100\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-10-30 11:31+0100\n"
 "PO-Revision-Date: 2012-04-11 17:40+0000\n"
 "Last-Translator: Richard E. van der Luit <nippur@fedoraproject.org>\n"
-"Language-Team: Dutch (http://www.transifex.com/projects/p/fedora/language/nl/)\n"
+"Language-Team: Dutch (http://www.transifex.com/projects/p/fedora/language/"
+"nl/)\n"
+"Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: nl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../rhnplugin.py:50
+#: ../rhnplugin.py:51
 msgid "There was an error communicating with RHN."
 msgstr "Er was een fout bij het communiceren met RHN."
 
-#: ../rhnplugin.py:65
+#: ../rhnplugin.py:66
 msgid "RHN Satellite or RHN Classic support will be disabled."
 msgstr "RHN Satellite of RHN Classic support zal worden uitgeschakeld."
 
 #. If non-root notify user RHN repo not accessible
-#: ../rhnplugin.py:69
+#: ../rhnplugin.py:70
 msgid ""
 "*Note* Red Hat Network repositories are not listed below. You must run this "
 "command as root to access RHN repositories."
-msgstr "*Let op* Red Hat Network repositories worden hieronder niet genoemd. U moet dit commando als root geven om toegang te krijgen tot RHN repositories."
+msgstr ""
+"*Let op* Red Hat Network repositories worden hieronder niet genoemd. U moet "
+"dit commando als root geven om toegang te krijgen tot RHN repositories."
 
-#: ../rhnplugin.py:84
+#: ../rhnplugin.py:85
 msgid "There was an error parsing the RHN proxy settings."
 msgstr "Er was een fout bij het verwerken van de RHN proxy-instellingen."
 
-#: ../rhnplugin.py:96
+#: ../rhnplugin.py:97
 msgid "Either --version, --help or no commands entered"
 msgstr "Of --versie, of --help, of geen commando ingevoerd"
 
-#: ../rhnplugin.py:101
+#: ../rhnplugin.py:102
 msgid "Cleaning"
 msgstr "Opruimen"
 
-#: ../rhnplugin.py:110
+#: ../rhnplugin.py:111
 msgid "Using list of RHN repos from cache"
 msgstr "Lijst van RHN repos van cache wordt gebruikt"
 
-#: ../rhnplugin.py:124
-msgid "This system is not registered with RHN."
+#: ../rhnplugin.py:127
+#, fuzzy
+msgid "This system is not registered with RHN Classic or RHN Satellite."
 msgstr "Dit systeem is niet geregistreerd bij RHN."
 
-#: ../rhnplugin.py:130
+#: ../rhnplugin.py:128 ../rhnplugin.py:144
+msgid "You can use rhn_register to register."
+msgstr ""
+
+#: ../rhnplugin.py:134
 msgid "RHN channel support will be disabled."
 msgstr "RHN kanaalondersteuning zal worden uitgeschakeld."
 
-#: ../rhnplugin.py:134
+#: ../rhnplugin.py:138
 msgid "This system is not subscribed to any channels."
 msgstr "Dit systeem is op geen enkel kanaal ingeschreven."
 
-#: ../rhnplugin.py:139
+#: ../rhnplugin.py:143
+#, fuzzy
 msgid ""
-"This system may not be a registered to RHN. SystemId could not be "
-"acquired.\n"
-msgstr "Dit systeem zou wel eens niet geregistreerd kunnen zijn bij RHN. SystemID kon niet worden vastgesteld.\n"
+"This system may not be registered to RHN Classic or RHN Satellite. SystemId "
+"could not be acquired."
+msgstr ""
+"Dit systeem zou wel eens niet geregistreerd kunnen zijn bij RHN. SystemID "
+"kon niet worden vastgesteld.\n"
 
-#: ../rhnplugin.py:245
+#: ../rhnplugin.py:156
+msgid "This system is receiving updates from RHN Classic or RHN Satellite."
+msgstr ""
+
+#: ../rhnplugin.py:281
 msgid "Package profile information could not be sent."
 msgstr "Informatie over het pakketprofiel kon niet worden verzonden."
 
-#: ../rhnplugin.py:253
+#: ../rhnplugin.py:289
 msgid "Error Message:"
 msgstr "Foutbericht:"
 
-#: ../rhnplugin.py:254
+#: ../rhnplugin.py:290
 msgid "Please run rhn_register as root on this client"
 msgstr "Geef commando rhn_register als root op deze client"
 
-#: ../rhnplugin.py:333
+#: ../rhnplugin.py:371
 #, python-format
 msgid "Missing required login information for RHN: %s"
 msgstr "Vereiste aanmeldinformatie voor RHN ontbreekt: %s"
