@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.8.81
+Version:        1.8.82
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -68,6 +68,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Tue Oct 30 2012 Tomas Lestach <tlestach@redhat.com> 1.8.82-1
+- Add SAST timezone Signed-off-by: Paresh Mutha <pmutha@redhat.com>
+
 * Thu Oct 25 2012 Milan Zazrivec <mzazrivec@redhat.com> 1.8.81-1
 - 869985 - fix unique constraint violation occuring during schema upgrade
 
