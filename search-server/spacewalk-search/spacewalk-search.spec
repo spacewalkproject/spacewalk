@@ -4,7 +4,7 @@ Name: spacewalk-search
 Summary: Spacewalk Full Text Search Server
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.5
+Version: 1.8.6
 Release: 1%{?dist}
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
@@ -124,6 +124,9 @@ fi
 %{_sysconfdir}/logrotate.d/rhn-search
 
 %changelog
+* Tue Oct 30 2012 Jan Pazdziora 1.8.6-1
+- Update the copyright year.
+
 * Fri Jun 29 2012 Jan Pazdziora 1.8.5-1
 - 836374 - add support for external PostgreSQL database in search server.
 
