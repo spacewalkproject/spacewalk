@@ -5,7 +5,7 @@
 Summary: Red Hat Network Client Utilities and Libraries
 Name: rhnclient
 Source0: %{name}-%{version}.tar.gz
-Version: 0.18
+Version: 0.19
 Release: 1
 License: GPLv2
 Group: Development/Libraries
@@ -64,6 +64,9 @@ rm -rf $RPM_BUILD_ROOT
 #%doc ChangeLog COPYING README TODO
 
 %changelog
+* Tue Oct 30 2012 Jan Pazdziora 0.19-1
+- Update the copyright year.
+
 * Tue Jul 31 2012 Michael Mraka <michael.mraka@redhat.com> 0.18-1
 - removed unused argument oemInfo
 
