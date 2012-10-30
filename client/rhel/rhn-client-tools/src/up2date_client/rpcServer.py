@@ -14,6 +14,7 @@ import up2dateLog
 import up2dateErrors 
 import up2dateUtils
 import up2dateAuth
+import urlparse
 
 import xmlrpclib
 from rhn import rpclib
@@ -159,15 +160,18 @@ def getServer(refreshCallback=None, serverOverride=None):
         s.setlang(lang)
 
     # require RHNS-CA-CERT file to be able to authenticate the SSL connections
-    for rhns_ca_cert in rhns_ca_certs:
-        if not os.access(rhns_ca_cert, os.R_OK):
-            msg = "%s: %s" % (_("ERROR: can not find RHNS CA file"),
-				 rhns_ca_cert)
-            log.log_me("%s" % msg)
-            raise up2dateErrors.SSLCertificateFileNotFound(msg)
+    need_ca = [ True for i in s.serverList.serverList
+                     if urlparse.urlparse(i)[0] == 'https']
+    if need_ca:
+        for rhns_ca_cert in rhns_ca_certs:
+            if not os.access(rhns_ca_cert, os.R_OK):
+                msg = "%s: %s" % (_("ERROR: can not find RHNS CA file"),
+                                     rhns_ca_cert)
+                log.log_me("%s" % msg)
+                raise up2dateErrors.SSLCertificateFileNotFound(msg)
 
-        # force the validation of the SSL cert
-        s.add_trusted_cert(rhns_ca_cert)
+            # force the validation of the SSL cert
+            s.add_trusted_cert(rhns_ca_cert)
 
     clientCaps.loadLocalCaps()
 
