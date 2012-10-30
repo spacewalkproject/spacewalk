@@ -140,6 +140,13 @@ http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd"
         </context-group>
     </trans-unit>
 
+    <trans-unit id="Africa/Johannesburg">
+<source>(GMT+0200) South Africa (Johannesburg)</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/account/UserDetails</context>
+        </context-group>
+    </trans-unit>
+
     <trans-unit id="Europe/Bucharest">
 <source>(GMT+0200) Europe (Eastern)</source>
         <context-group name="ctx">
