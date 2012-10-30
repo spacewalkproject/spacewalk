@@ -1,7 +1,6 @@
--- oracle equivalent source sha1 77c8eb10ea3d63cd683455e740162c43246851bc
--- retrieved from ./1279712605/e7eb734c1a1ae108af13b6aa9040c8f20aee64c5/schema/spacewalk/oracle/procs/create_first_org.sql
+-- oracle equivalent source sha1 62df7a6985c0deb03680ec4b374e17c175cd35d1
 --
--- Copyright (c) 2008--2010 Red Hat, Inc.
+-- Copyright (c) 2008--2012 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or

@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
 
-# Copyright (c) 1999-2002 Red Hat, Inc.  Distributed under GPLv2.
+# Copyright (c) 1999--2012 Red Hat, Inc.  Distributed under GPLv2.
 #
 # Author: Adrian Likins <alikins@redhat.com>
 
