@@ -8,7 +8,7 @@ Group:   Applications/System
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.10.35
+Version: 5.10.36
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -112,6 +112,11 @@ fi
 
 # $Id$
 %changelog
+* Tue Oct 30 2012 Jan Pazdziora 5.10.36-1
+- Update the copyright year.
+- fix for bz#869626 use st_mode, st_uid of dst Signed-off-by: Paresh Mutha
+  <pmutha@redhat.com>
+
 * Mon Oct 22 2012 Jan Pazdziora 5.10.35-1
 - Revert "Revert "Revert "get_server_capability() is defined twice in osad and
   rhncfg, merge and move to rhnlib and make it member of rpclib.Server"""
