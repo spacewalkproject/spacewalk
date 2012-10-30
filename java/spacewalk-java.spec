@@ -109,7 +109,8 @@ BuildRequires: jpam
 BuildRequires: tanukiwrapper
 Requires: classpathx-mail
 BuildRequires: classpathx-mail
-BuildRequires: perl(XML::XPath)
+BuildRequires: /usr/bin/xmllint
+BuildRequires: /usr/bin/perl
 %if 0%{?run_checkstyle}
 BuildRequires: checkstyle
 %endif
@@ -325,7 +326,7 @@ fi
 #check duplicate message keys in StringResource_*.xml files
 find . -name 'StringResource_*.xml' |      while read i ;
     do echo $i
-    CONTENT=$(./xpath -q -e '*//trans-unit/@id' "$i" | sort | uniq -d )
+    CONTENT=$(/usr/bin/xmllint --format "$i" | /usr/bin/perl -lne 'if (/<trans-unit( id=".+?")?/) { print $1 if $X{$1}++ }' )
     if [ -n "$CONTENT" ]; then
         echo ERROR - duplicate message keys: $CONTENT
         exit 1
