@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhnsd
-Version: 5.0.3
+Version: 5.0.4
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
@@ -100,6 +100,11 @@ rm -fr $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Tue Oct 30 2012 Jan Pazdziora 5.0.4-1
+- Update .po and .pot files for rhnsd.
+- New translations from Transifex for rhnsd.
+- Download translations from Transifex for rhnsd.
+
 * Mon Jul 30 2012 Michael Mraka <michael.mraka@redhat.com> 5.0.3-1
 - there's no elsif macro
 
