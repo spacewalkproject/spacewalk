@@ -1,25 +1,25 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Christian Rose <menthos@menthos.com>, 2002, 2003, 2004, 2005.
 # Magnus Larsson <fedoratrans@gmail.com>, 2006, 2007.
 # Miroslav Suchý <msuchy@redhat.com>, 2011.
+# Ulrika  <aurorauddeborg@gmail.com>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: http://bugzilla.redhat.com/\n"
 "POT-Creation-Date: 2011-12-21 12:25+0100\n"
-"PO-Revision-Date: 2012-02-14 13:00+0000\n"
-"Last-Translator: Miroslav Suchý <msuchy@redhat.com>\n"
-"Language-Team: Swedish (http://www.transifex.net/projects/p/fedora/language/"
-"sv/)\n"
-"Language: sv\n"
+"PO-Revision-Date: 2012-06-17 12:17+0000\n"
+"Last-Translator: Ulrika <aurorauddeborg@gmail.com>\n"
+"Language-Team: Swedish (http://www.transifex.com/projects/p/fedora/language/sv/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"Language: sv\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../rhnplugin.py:50
 msgid "There was an error communicating with RHN."
@@ -27,14 +27,14 @@ msgstr "Det uppstod ett fel vid kommunikaton med RHN."
 
 #: ../rhnplugin.py:65
 msgid "RHN Satellite or RHN Classic support will be disabled."
-msgstr ""
+msgstr "RHN satellit- eller RHN klassisk-stöd kommer att vara inaktiverat."
 
 #. If non-root notify user RHN repo not accessible
 #: ../rhnplugin.py:69
 msgid ""
 "*Note* Red Hat Network repositories are not listed below. You must run this "
 "command as root to access RHN repositories."
-msgstr ""
+msgstr "*Notera* Red Hat Network-förråd listas inte nedan. Du måste köra detta kommando som root för att få tillgång till RHN-förråd."
 
 #: ../rhnplugin.py:84
 msgid "There was an error parsing the RHN proxy settings."
@@ -42,15 +42,15 @@ msgstr "Det uppstod ett fel vid inläsning av proxyinställningarna för RHN."
 
 #: ../rhnplugin.py:96
 msgid "Either --version, --help or no commands entered"
-msgstr ""
+msgstr "Antingen --version, --help eller inga kommandon skrivna"
 
 #: ../rhnplugin.py:101
 msgid "Cleaning"
-msgstr ""
+msgstr "Städar"
 
 #: ../rhnplugin.py:110
 msgid "Using list of RHN repos from cache"
-msgstr ""
+msgstr "Använder RHN-förrådslista från cache"
 
 #: ../rhnplugin.py:124
 msgid "This system is not registered with RHN."
@@ -66,8 +66,9 @@ msgstr "Detta system prenumererar inte på några kanaler."
 
 #: ../rhnplugin.py:139
 msgid ""
-"This system may not be a registered to RHN. SystemId could not be acquired.\n"
-msgstr ""
+"This system may not be a registered to RHN. SystemId could not be "
+"acquired.\n"
+msgstr "Detta systemet kanske inte är registrerat på RHN. SystemId kunde inte hittas.\n"
 
 #: ../rhnplugin.py:245
 msgid "Package profile information could not be sent."
@@ -75,13 +76,13 @@ msgstr "Paketprofilinformation kunde inte skickas."
 
 #: ../rhnplugin.py:253
 msgid "Error Message:"
-msgstr ""
+msgstr "Felmeddelande:"
 
 #: ../rhnplugin.py:254
 msgid "Please run rhn_register as root on this client"
-msgstr ""
+msgstr "Var vänlig kör rhn_register som root på denna klient."
 
 #: ../rhnplugin.py:333
 #, python-format
 msgid "Missing required login information for RHN: %s"
-msgstr ""
+msgstr "Saknar nödvändig inloggningsinformation för RHN: %s"
