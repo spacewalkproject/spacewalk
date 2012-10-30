@@ -23,7 +23,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.173
+Version: 1.8.174
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -616,6 +616,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Oct 30 2012 Jan Pazdziora 1.8.174-1
+- Update the copyright year.
+
 * Tue Oct 30 2012 Tomas Lestach <tlestach@redhat.com> 1.8.173-1
 - Add SAST timezone Signed-off-by: Paresh Mutha <pmutha@redhat.com>
 - Make yumrepo_last_sync optional. Do not return it, if the repo was never
