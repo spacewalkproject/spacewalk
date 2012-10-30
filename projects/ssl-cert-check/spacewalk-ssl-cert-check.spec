@@ -5,7 +5,7 @@ License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 Epoch:	 1
-Version: 2.2
+Version: 2.3
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -39,6 +39,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Tue Oct 30 2012 Jan Pazdziora 2.3-1
+- Update the copyright year.
+
 * Thu Jun 07 2012 Jan Pazdziora 2.2-1
 - 788972 - for multiple recipient email addresses, join them with comma.
 - %%defattr is not needed since rpm 4.4
