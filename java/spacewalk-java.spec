@@ -23,7 +23,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.175
+Version: 1.8.176
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -616,6 +616,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Oct 30 2012 Tomas Lestach <tlestach@redhat.com> 1.8.176-1
+- fixing checkstyle
+
 * Tue Oct 30 2012 Tomas Lestach <tlestach@redhat.com> 1.8.175-1
 - rewrite distchannel APIs
 - fix distchannel.listDefaultMaps API
