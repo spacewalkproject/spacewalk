@@ -13,11 +13,8 @@ IS
                 select distinct c.*
                 from    rhnOrgDistChannelMap                       odcm,
                                 rhnServerChannelArchCompat      scac,
-                                rhnChannel                                      c,
-                                rhnChannelPermissions           cp
-                where   cp.org_id = org_id_in
-                        and cp.channel_id = c.id
-                        and c.parent_channel is null
+                                rhnChannel                                      c
+                where   c.parent_channel is null
                         and c.id = odcm.channel_id
                         and c.channel_arch_id = odcm.channel_arch_id
                         and odcm.release = release_in

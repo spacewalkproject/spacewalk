@@ -1,4 +1,4 @@
--- oracle equivalent source sha1 e5b83a1474fa01683c27c4e0f1deb2eea46970c4
+-- oracle equivalent source sha1 b0c8a29f5f1f28d2308ccaf6b52a4e54c3999e7c
 
 --update pg_setting
 update pg_settings set setting = 'rhn_channel,' || setting where name = 'search_path';
@@ -21,11 +21,8 @@ update pg_settings set setting = 'rhn_channel,' || setting where name = 'search_
                 select distinct c.*
                 from    rhnOrgDistChannelMap                       odcm,
                                 rhnServerChannelArchCompat      scac,
-                                rhnChannel                                      c,
-                                rhnChannelPermissions           cp
-                where   cp.org_id = org_id_in
-                        and cp.channel_id = c.id
-                        and c.parent_channel is null
+                                rhnChannel                                      c
+                where   c.parent_channel is null
                         and c.id = odcm.channel_id
                         and c.channel_arch_id = odcm.channel_arch_id
                         and odcm.release = release_in
@@ -66,11 +63,8 @@ update pg_settings set setting = 'rhn_channel,' || setting where name = 'search_
                 select distinct c.*
                 from    rhnOrgDistChannelMap                       odcm,
                                 rhnServerChannelArchCompat      scac,
-                                rhnChannel                                      c,
-                                rhnChannelPermissions           cp
-                where   cp.org_id = org_id_in
-                        and cp.channel_id = c.id
-                        and c.parent_channel is null
+                                rhnChannel                                      c
+                where   c.parent_channel is null
                         and c.id = odcm.channel_id
                         and c.channel_arch_id = odcm.channel_arch_id
                         and odcm.release = release_in

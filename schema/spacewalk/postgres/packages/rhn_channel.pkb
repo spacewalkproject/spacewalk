@@ -1,4 +1,4 @@
--- oracle equivalent source sha1 08ad46fa502e57b5e6f47b7d1c3919d20c490d09
+-- oracle equivalent source sha1 a57a1f03708569c16c3cd0d747a0736a2877a714
 --
 -- Copyright (c) 2008--2012 Red Hat, Inc.
 --
@@ -297,11 +297,8 @@ update pg_settings set setting = 'rhn_channel,' || setting where name = 'search_
                 select distinct c.*
                 from    rhnOrgDistChannelMap                       odcm,
                                 rhnServerChannelArchCompat      scac,
-                                rhnChannel                                      c,
-                                rhnChannelPermissions           cp
-                where   cp.org_id = org_id_in
-                        and cp.channel_id = c.id
-                        and c.parent_channel is null
+                                rhnChannel                                      c
+                where   c.parent_channel is null
                         and c.id = odcm.channel_id
                         and c.channel_arch_id = odcm.channel_arch_id
                         and odcm.release = release_in
@@ -387,11 +384,8 @@ update pg_settings set setting = 'rhn_channel,' || setting where name = 'search_
                 select distinct c.*
                 from    rhnOrgDistChannelMap                       odcm,
                                 rhnServerChannelArchCompat      scac,
-                                rhnChannel                                      c,
-                                rhnChannelPermissions           cp
-                where   cp.org_id = org_id_in
-                        and cp.channel_id = c.id
-                        and c.parent_channel is null
+                                rhnChannel                                      c
+                where   c.parent_channel is null
                         and c.id = odcm.channel_id
                         and c.channel_arch_id = odcm.channel_arch_id
                         and odcm.release = release_in
