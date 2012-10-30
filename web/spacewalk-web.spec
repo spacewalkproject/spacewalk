@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.47
+Version: 1.8.48
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -253,6 +253,10 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Tue Oct 30 2012 Jan Pazdziora 1.8.48-1
+- Update the copyright year.
+- Make RHN::DB::SystemSnapshot usable with strict.
+
 * Mon Oct 22 2012 Jan Pazdziora 1.8.47-1
 - 852039 - get rid of useless error messages when verifying backup with db-
   control
