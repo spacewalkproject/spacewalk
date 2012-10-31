@@ -203,9 +203,9 @@ class RepoSync(object):
             e['advisory_name'] = notice['update_id']
             e['advisory_rel']  = notice['version']
             e['advisory_type'] = typemap.get(notice['type'], 'Product Enhancement Advisory')
-            e['product']       = notice['release']
+            e['product']       = notice['release'] or 'Unknown'
             e['description']   = notice['description']
-            e['synopsis']      = notice['title']
+            e['synopsis']      = notice['title'] or notice['update_id']
             e['topic']         = ' '
             e['solution']      = ' '
             e['issue_date']    = self._to_db_date(notice['issued'])
