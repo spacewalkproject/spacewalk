@@ -1,6 +1,6 @@
 Name: spacewalk-config
 Summary: Spacewalk Configuration
-Version: 1.8.5
+Version: 1.8.6
 Release: 1%{?dist}
 URL: http://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -104,6 +104,9 @@ chgrp apache /etc/rhn /etc/rhn/rhn.conf /etc/rhn/cluster.ini 2> /dev/null || :
 chmod o-rwx /etc/rhn/rhn.conf* /etc/rhn/cluster.ini* /etc/sysconfig/rhn/backup-* /var/lib/rhn/rhn-satellite-prep/* 2> /dev/null || :
 
 %changelog
+* Wed Oct 31 2012 Jan Pazdziora 1.8.6-1
+- Advertise the www.spacewalkproject.org.
+
 * Mon Oct 29 2012 Jan Pazdziora 1.8.5-1
 - We just assume Apache 2.2 these days, no need to check.
 - All the Java requests end up at /rhn, no need to have separate .do and .jsp
