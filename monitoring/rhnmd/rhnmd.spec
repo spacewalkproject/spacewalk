@@ -21,6 +21,10 @@ BuildRequires:  sysconfig
 %else
 Requires:       openssh-server
 %endif
+%if 0%{?suse_version} >= 1210
+BuildRequires: systemd
+%{?systemd_requires}
+%endif
 BuildRequires:  pam-devel
 Obsoletes:      rhnmd.i386 < 5.3.0-5
 Obsoletes:      rhnmd.x86_64 < 5.3.0-5
@@ -44,17 +48,26 @@ rm -rf $RPM_BUILD_ROOT
 
 mkdir -p $RPM_BUILD_ROOT%{_usr}/sbin
 mkdir -p $RPM_BUILD_ROOT%{_usr}/lib
-mkdir -p $RPM_BUILD_ROOT%{_initddir}
 mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/%{np_name}
 mkdir -p $RPM_BUILD_ROOT%{_var}/lib/%{np_name}/.ssh
+mkdir -p $RPM_BUILD_ROOT%{_var}/lib/%{np_name}/sbin
 mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/pam.d
 mkdir -p $RPM_BUILD_ROOT%{_libdir}
 ln -sf sshd $RPM_BUILD_ROOT%{_usr}/sbin/rhnmd
+
 %if 0%{?suse_version}
-install -pm 0755 rhnmd.init.SUSE $RPM_BUILD_ROOT%{_initddir}/rhnmd
+%if 0%{?suse_version} >= 1210
+mkdir -p $RPM_BUILD_ROOT/%{_unitdir}
+install -m 0644 rhnmd.service $RPM_BUILD_ROOT/%{_unitdir}/
 %else
+mkdir -p $RPM_BUILD_ROOT%{_initddir}
+install -pm 0755 rhnmd.init.SUSE $RPM_BUILD_ROOT%{_initddir}/rhnmd
+%endif
+%else
+mkdir -p $RPM_BUILD_ROOT%{_initddir}
 install -pm 0755 rhnmd-init $RPM_BUILD_ROOT%{_initddir}/rhnmd
 %endif
+install -pm 0755 rhnmd_create_key.sh $RPM_BUILD_ROOT%{_var}/lib/%{np_name}/sbin/
 install -pm 0644 rhnmd_config $RPM_BUILD_ROOT%{_sysconfdir}/%{np_name}/rhnmd_config
 install -pm 0600 authorized_keys $RPM_BUILD_ROOT%{_var}/lib/%{np_name}/.ssh/authorized_keys
 install -pm 0644 rhnmd-pam_config $RPM_BUILD_ROOT%{_sysconfdir}/pam.d/rhnmd
@@ -80,6 +93,9 @@ if getent passwd %{np_name} >/dev/null && [ -d /home/nocpulse ]; then
   rm -rf %{_var}/lib/nocpulse/bin
   rm -rf %{_var}/lib/nocpulse/var
 fi
+%if 0%{?suse_version} >= 1210
+%service_add_pre rhnmd.service
+%endif
 
 %post
 # keygen is done in init script. Doing this in %post is bad for using this rpm in appliances.
@@ -89,6 +105,9 @@ then
     /sbin/runuser -s /bin/bash -c "/usr/bin/ssh-keygen -q -t dsa -N '' -f %{identity}" - %{np_name}
 fi
 %endif
+%if 0%{?suse_version} >= 1210
+%service_add_post rhnmd.service
+%else
 /sbin/chkconfig --add rhnmd
 /usr/sbin/semanage fcontext -a -t sshd_key_t '/var/lib/nocpulse/\.ssh/nocpulse-identity' || :
 %if 0%{?rhel} && "%rhel" < "6"
@@ -97,12 +116,22 @@ fi
 /usr/sbin/semanage fcontext -a -t ssh_home_t '/var/lib/nocpulse/\.ssh/authorized_keys' || :
 %endif
 /sbin/restorecon -rvv /var/lib/nocpulse || :
+%endif
 
 %preun
+%if 0%{?suse_version} >= 1210
+%service_del_preun rhnmd.service
+%else
 if [ $1 = 0 ]; then
     /sbin/service rhnmd stop > /dev/null 2>&1
     /sbin/chkconfig --del rhnmd
 fi
+%endif
+
+%if 0%{?suse_version} >= 1210
+%postun
+%service_del_preun rhnmd.service
+%endif
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -112,10 +141,16 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) %{_sysconfdir}/pam.d/rhnmd
 %dir %attr(-, %{np_name},%{np_name}) %{_var}/lib/%{np_name}
 %dir %attr(700, %{np_name},%{np_name}) %{_var}/lib/%{np_name}/.ssh
+%dir %attr(-, %{np_name},%{np_name}) %{_var}/lib/%{np_name}/sbin
 %config(noreplace) %attr(-, %{np_name},%{np_name}) %{_var}/lib/%{np_name}/.ssh/authorized_keys
+%{_var}/lib/%{np_name}/sbin/*
 %{_usr}/sbin/rhnmd
 %config(noreplace) %{_sysconfdir}/%{np_name}/rhnmd_config
+%if 0%{?suse_version} >= 1210
+%{_unitdir}/rhnmd.service
+%else
 %{_initddir}/rhnmd
+%endif
 %doc LICENSE
 
 %changelog

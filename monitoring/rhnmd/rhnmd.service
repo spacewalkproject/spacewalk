@@ -1,0 +1,12 @@
+[Unit]
+Description=rhnmd server daemon
+After=syslog.target network.target auditd.service
+
+[Service]
+User=nocpulse
+ExecStartPre=/var/lib/nocpulse/sbin/rhnmd_create_key.sh
+ExecStart=/usr/sbin/rhnmd -D -f /etc/nocpulse/rhnmd_config
+ExecReload=/bin/kill -HUP $MAINPID
+
+[Install]
+WantedBy=multi-user.target
