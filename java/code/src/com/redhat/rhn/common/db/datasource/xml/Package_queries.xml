@@ -867,6 +867,8 @@ ORDER BY  UPPER(PN.name)
         GROUP BY p.name_id) u
     JOIN rhnPackageEvr e ON e.evr = u.max_evr
     JOIN rhnPackage p ON p.name_id = u.name_id AND p.evr_id = e.id
+    JOIN rhnChannelPackage cp ON cp.package_id = p.id
+    JOIN rhnServerChannel sc ON sc.channel_id = cp.channel_id AND sc.server_id = :sid
     JOIN rhnPackageArch a ON a.id = p.package_arch_id
         ) up,
     rhnPackageUpgradeArchCompat puac
