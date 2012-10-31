@@ -11,6 +11,10 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires: gettext
 
 Requires: rhn-check >= 0.0.8
+%if 0%{?suse_version} >= 1210
+BuildRequires: systemd
+%{?systemd_requires}
+%endif
 %if 0%{?suse_version}
 Requires(post): aaa_base
 Requires(preun): aaa_base
@@ -48,10 +52,10 @@ make -f Makefile.rhnsd %{?_smp_mflags} CFLAGS="%{optflags}"
 rm -rf $RPM_BUILD_ROOT
 make -f Makefile.rhnsd install VERSION=%{version}-%{release} PREFIX=$RPM_BUILD_ROOT MANPATH=%{_mandir} INIT_DIR=$RPM_BUILD_ROOT/%{_initrddir}
 
-%if 0%{?suse_version}
+%if 0%{?suse_version} && 0%{?suse_version} < 1210
 install -m 0755 rhnsd.init.SUSE $RPM_BUILD_ROOT/%{_initrddir}/rhnsd
 %endif
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?suse_version} >= 1210
 rm $RPM_BUILD_ROOT/%{_initrddir}/rhnsd
 mkdir -p $RPM_BUILD_ROOT/%{_unitdir}
 install -m 0644 rhnsd.service $RPM_BUILD_ROOT/%{_unitdir}/
@@ -59,11 +63,22 @@ install -m 0644 rhnsd.service $RPM_BUILD_ROOT/%{_unitdir}/
 
 %find_lang %{name}
 
+%if 0%{?suse_version} >= 1210
+%pre
+%service_add_pre rhnsd.service
+%endif
 
 %post
+%if 0%{?suse_version} >= 1210
+%service_add_post rhnsd.service
+%else
 /sbin/chkconfig --add rhnsd
+%endif
 
 %preun
+%if 0%{?suse_version} >= 1210
+%service_del_preun rhnsd.service
+%else
 if [ $1 = 0 ] ; then
     %if 0%{?fedora}
     /bin/systemctl stop rhnsd >/dev/null 2>&1
@@ -72,9 +87,12 @@ if [ $1 = 0 ] ; then
     %endif
     /sbin/chkconfig --del rhnsd
 fi
-
+%endif
 
 %postun
+%if 0%{?suse_version} >= 1210
+%service_del_postun rhnsd.service
+%else
 if [ "$1" -ge "1" ]; then
     %if 0%{?fedora}
     /bin/systemctl condrestart rhnsd >/dev/null 2>&1 || :
@@ -82,16 +100,17 @@ if [ "$1" -ge "1" ]; then
     service rhnsd condrestart >/dev/null 2>&1 || :
     %endif
 fi
+%endif
 
 %clean
 rm -fr $RPM_BUILD_ROOT
 
 
-%files -f %{name}.lang 
+%files -f %{name}.lang
 %dir %{_sysconfdir}/sysconfig/rhn
 %config(noreplace) %{_sysconfdir}/sysconfig/rhn/rhnsd
 %{_sbindir}/rhnsd
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?suse_version} >= 1210
 %{_unitdir}/rhnsd.service
 %else
 %{_initrddir}/rhnsd
