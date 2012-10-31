@@ -2,7 +2,7 @@ Name: spacewalk-certs-tools
 Summary: Spacewalk SSL Key/Cert Tool
 Group: Applications/Internet
 License: GPLv2
-Version: 1.9.0
+Version: 1.9.1
 Release: 1%{?dist}
 URL:      https://fedorahosted.org/spacewalk 
 Source0:  https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -55,6 +55,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_var}/www/html/pub/bootstrap/client_config_update.py*
 
 %changelog
+* Wed Oct 31 2012 Michael Mraka <michael.mraka@redhat.com> 1.9.1-1
+- 862349 - create rpms compatible with RHEL5
+
 * Wed Oct 31 2012 Michael Mraka <michael.mraka@redhat.com> 1.8.4-1
 - download CA cert via http
 
