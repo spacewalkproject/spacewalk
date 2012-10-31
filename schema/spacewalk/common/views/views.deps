@@ -51,6 +51,7 @@ rhnEntitledServers               :: rhnServerGroup rhnServerGroupType \
 rhnHWDevice                      :: rhnDevice
 rhnOrgChannelTreeView            :: rhnChannel rhnChannelFamilyMembers \
                                     rhnOrgChannelFamilyPermissions
+rhnOrgDistChannelMap             :: rhnDistChannelMap
 rhnOrgErrata                     :: rhnChannelErrata  rhnAvailableChannels
 rhnPackageUpgradeArchCompat      :: rhnPackageArch
 rhnServerErrataTypeView          :: rhnErrata rhnServerNeededErrataCache
