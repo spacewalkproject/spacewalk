@@ -838,14 +838,14 @@ ORDER BY  UPPER(PN.name)
 <mode name="system_upgradable_package_list_no_errata_info">
   <query params="sid">
     SELECT  n.name,
-        NVL(sp.evr.epoch, ' ') as from_epoch,
-        NVL(sp.evr.version, ' ') as from_version,
-        NVL(sp.evr.release, ' ') as from_release,
+        NVL((sp.evr).epoch, ' ') as from_epoch,
+        NVL((sp.evr).version, ' ') as from_version,
+        NVL((sp.evr).release, ' ') as from_release,
         spa.label as from_arch,
         spa.label as arch,
-        NVL(up.evr.epoch, ' ') as to_epoch,
-        NVL(up.evr.version, ' ') as to_version,
-        NVL(up.evr.release, ' ') as to_release,
+        NVL((up.evr).epoch, ' ') as to_epoch,
+        NVL((up.evr).version, ' ') as to_version,
+        NVL((up.evr).release, ' ') as to_release,
         up.arch_label as to_arch,
         up.id as to_package_id
   FROM
