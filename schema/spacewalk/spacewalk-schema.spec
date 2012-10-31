@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.8.84
+Version:        1.8.85
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -68,6 +68,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Wed Oct 31 2012 Jan Pazdziora 1.8.85-1
+- Fixing syntax.
+
 * Tue Oct 30 2012 Tomas Lestach <tlestach@redhat.com> 1.8.84-1
 - channel permission shall be guaranteed by the rhnOrgDistChannelMap
 - update rhn_channel package to use rhnOrgDistChannelMap
