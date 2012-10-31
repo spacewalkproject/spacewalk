@@ -1,7 +1,7 @@
 %define rhnroot %{_prefix}/share/rhn
 
 Name:		spacewalk-utils
-Version:	1.9.0
+Version:	1.9.1
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -86,6 +86,9 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Wed Oct 31 2012 Jan Pazdziora 1.9.1-1
+- fixed spacing in man page
+
 * Wed Oct 31 2012 Jan Pazdziora 1.8.33-1
 - Advertise the yum.spacewalkproject.org.
 
