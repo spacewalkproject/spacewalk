@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2012 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -30,9 +30,9 @@ SELECT CASE WHEN dcm_o.org_id IS NOT NULL THEN dcm_o.id ELSE dcm_n.id END id,
         o.id as for_org_id,
         dcm_o.org_id,
         CASE WHEN dcm_o.org_id IS NOT NULL THEN dcm_o.os ELSE dcm_n.os END os,
-        CASE WHEN dcm_o.org_id IS NOT NULL THEN dcm_o.release ELSE dcm_n.release END release,
-        CASE WHEN dcm_o.org_id IS NOT NULL THEN dcm_o.channel_arch_id ELSE dcm_n.channel_arch_id END channel_arch_id,
-        CASE WHEN dcm_o.org_id IS NOT NULL THEN dcm_o.channel_id ELSE dcm_n.channel_id END channel_id
+        CASE WHEN dcm_o.org_id IS NOT NULL THEN dcm_o.release ELSE dcm_n.release END as release,
+        CASE WHEN dcm_o.org_id IS NOT NULL THEN dcm_o.channel_arch_id ELSE dcm_n.channel_arch_id END as channel_arch_id,
+        CASE WHEN dcm_o.org_id IS NOT NULL THEN dcm_o.channel_id ELSE dcm_n.channel_id END as channel_id
 FROM web_customer o
     JOIN (SELECT DISTINCT release, channel_arch_id from rhnDistChannelMap) dcm ON 1 = 1
     LEFT JOIN rhnDistChannelMap dcm_n ON dcm_n.org_id IS NULL
