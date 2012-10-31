@@ -792,18 +792,18 @@
       <target>&lt;strong&gt;@@PRODUCT_NAME@@&lt;/strong&gt; ਇੱਕ ਓਪਨ ਸੋਰਸ (GPLv2) ਲੀਨਕਸ ਸਿਸਟਮ ਪਰਬੰਧਨ ਹੱਲ ਹੈ। ਹੇਠਾਂ ਕੁਝ ਸਬੰਧ ਦਿੱਤੇ ਗਏ ਹਨ,  ਜੋ ਕਿ ਫਾਇਦੇਮੰਦ ਹੋ ਸਕਦੇ ਹਨ, ਜੇਕਰ ਤੁਹਾਨੂੰ ਤੁਹਾਡੇ ਸੈਟੇਲਾਈਟ @@PRODUCT_NAME@@ ਸਰਵਰ ਬਾਰੇ ਕੋਈ ਸਵਾਲ ਜਾਂ RHN ਬਾਰੇ ਹੋਰ ਸਵਾਲ ਹਨ।</target></trans-unit>
 
       <trans-unit id="login.jsp.satbody2">
-        <source>For details on @@PRODUCT_NAME@@, please visit our web-site at &lt;a href="http://spacewalk.redhat.com" target="_new"&gt; http://spacewalk.redhat.com&lt;/a&gt;. </source>
+        <source>For details on @@PRODUCT_NAME@@, please visit our web-site at &lt;a href="http://www.spacewalkproject.org/" target="_new"&gt; http://www.spacewalkproject.org/&lt;/a&gt;. </source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/Login</context>
         </context-group>
-      <target>@@PRODUCT_NAME@@ ਬਾਰੇ ਵੇਰਵੇ ਲਈ, ਕਿਰਪਾ ਕਰਕੇ ਅੱਗੇ ਦਿੱਤੇ ਸਾਡੀ ਵੈਬ ਸਾਇਟ 'ਤੇ ਜਾਓ &lt;a href="http://spacewalk.redhat.com" target="_new"&gt; http://spacewalk.redhat.com&lt;/a&gt;। </target></trans-unit>
+      <target>@@PRODUCT_NAME@@ ਬਾਰੇ ਵੇਰਵੇ ਲਈ, ਕਿਰਪਾ ਕਰਕੇ ਅੱਗੇ ਦਿੱਤੇ ਸਾਡੀ ਵੈਬ ਸਾਇਟ 'ਤੇ ਜਾਓ &lt;a href="http://www.spacewalkproject.org/" target="_new"&gt; http://www.spacewalkproject.org/&lt;/a&gt;। </target></trans-unit>
 
       <trans-unit id="login.jsp.satbody3">
-        <source>For details on interacting with the @@PRODUCT_NAME@@ community, please visit us at  &lt;a href="http://spacewalk.redhat.com/communicate.html" target="_new"&gt; http://spacewalk.redhat.com/communicate.html&lt;/a&gt;. </source>
+        <source>For details on interacting with the @@PRODUCT_NAME@@ community, please visit us at  &lt;a href="http://www.spacewalkproject.org/communicate.html" target="_new"&gt; http://www.spacewalkproject.org/communicate.html&lt;/a&gt;. </source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/Login</context>
         </context-group>
-      <target>@@PRODUCT_NAME@@ ਕਮਿਊਨਿਟੀ ਨਾਲ ਸੰਪਰਕ ਕਰਨ ਬਾਰੇ ਵਧੇਰੇ ਜਾਣਕਾਰੀ ਲਈ, ਕਿਰਪਾ ਕਰਕੇ &lt;a href="http://spacewalk.redhat.com/communicate.html" target="_new"&gt; http://spacewalk.redhat.com/communicate.html&lt;/a&gt; ਵੇਖੋ। </target></trans-unit>
+      <target>@@PRODUCT_NAME@@ ਕਮਿਊਨਿਟੀ ਨਾਲ ਸੰਪਰਕ ਕਰਨ ਬਾਰੇ ਵਧੇਰੇ ਜਾਣਕਾਰੀ ਲਈ, ਕਿਰਪਾ ਕਰਕੇ &lt;a href="http://www.spacewalkproject.org/communicate.html" target="_new"&gt; http://www.spacewalkproject.org/communicate.html&lt;/a&gt; ਵੇਖੋ। </target></trans-unit>
 
       <trans-unit id="login.jsp.satbody4">
         <source> </source>
@@ -19375,12 +19375,12 @@ given channel.</source>
       <target>@@PRODUCT_NAME@@ ਪਰੋਜੈਕਟ</target></trans-unit>
 
       <trans-unit id="layout.jsp.vendor.title">
-            <source>Visit http://spacewalk.redhat.com/ for more information</source>
-      <target>ਵਧੇਰੇ ਜਾਣਕਾਰੀ ਲਈ http://spacewalk.redhat.com/ ਵੇਖੋ</target></trans-unit>
+            <source>Visit http://www.spacewalkproject.org/ for more information</source>
+      <target>ਵਧੇਰੇ ਜਾਣਕਾਰੀ ਲਈ http://www.spacewalkproject.org/ ਵੇਖੋ</target></trans-unit>
 
       <trans-unit id="layout.jsp.vendor.website">
-            <source>http://spacewalk.redhat.com/</source>
-      <target>http://spacewalk.redhat.com/</target></trans-unit>
+            <source>http://www.spacewalkproject.org/</source>
+      <target>http://www.spacewalkproject.org/</target></trans-unit>
 
       <trans-unit id="channel.edit.jsp.name">
         <source>Channel Name</source>

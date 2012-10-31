@@ -5,7 +5,7 @@ Summary:        Initial setup tools for Red Hat Spacewalk
 
 Group:          Applications/System
 License:        GPLv2
-URL:            http://spacewalk.redhat.com
+URL:            http://www.spacewalkproject.org/
 Source0:        %{name}-%{version}.tar.gz
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 

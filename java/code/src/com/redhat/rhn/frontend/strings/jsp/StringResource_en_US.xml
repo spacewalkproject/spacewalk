@@ -836,14 +836,14 @@
       </trans-unit>
 
       <trans-unit id="login.jsp.satbody2">
-        <source>For details on @@PRODUCT_NAME@@, please visit our web-site at &lt;a href=&quot;http://spacewalk.redhat.com&quot; target=&quot;_new&quot;&gt; http://spacewalk.redhat.com&lt;/a&gt;. </source>
+        <source>For details on @@PRODUCT_NAME@@, please visit our web-site at &lt;a href=&quot;http://www.spacewalkproject.org/&quot; target=&quot;_new&quot;&gt; http://www.spacewalkproject.org/&lt;/a&gt;. </source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/Login</context>
         </context-group>
       </trans-unit>
 
       <trans-unit id="login.jsp.satbody3">
-        <source>For details on interacting with the @@PRODUCT_NAME@@ community, please visit us at  &lt;a href=&quot;http://spacewalk.redhat.com/communicate.html&quot; target=&quot;_new&quot;&gt; http://spacewalk.redhat.com/communicate.html&lt;/a&gt;. </source>
+        <source>For details on interacting with the @@PRODUCT_NAME@@ community, please visit us at  &lt;a href=&quot;http://www.spacewalkproject.org/communicate.html&quot; target=&quot;_new&quot;&gt; http://www.spacewalkproject.org/communicate.html&lt;/a&gt;. </source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/Login</context>
         </context-group>
@@ -20607,11 +20607,11 @@ given channel.</source>
       </trans-unit>
 
       <trans-unit id="layout.jsp.vendor.title">
-            <source>Visit http://spacewalk.redhat.com/ for more information</source>
+            <source>Visit http://www.spacewalkproject.org/ for more information</source>
       </trans-unit>
 
       <trans-unit id="layout.jsp.vendor.website">
-            <source>http://spacewalk.redhat.com/</source>
+            <source>http://www.spacewalkproject.org/</source>
       </trans-unit>
 
       <trans-unit id="channel.edit.jsp.name">

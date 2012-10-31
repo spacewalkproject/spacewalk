@@ -792,18 +792,18 @@
       <target>&lt;strong&gt;@@PRODUCT_NAME@@&lt;/strong&gt; はオープンソース (GPLv2) の Linux システム管理ソリューションです。@@PRODUCT_NAME@@ に関するご質問がある場合は、以下のリンクが便利です。</target></trans-unit>
 
       <trans-unit id="login.jsp.satbody2">
-        <source>For details on @@PRODUCT_NAME@@, please visit our web-site at &lt;a href="http://spacewalk.redhat.com" target="_new"&gt; http://spacewalk.redhat.com&lt;/a&gt;. </source>
+        <source>For details on @@PRODUCT_NAME@@, please visit our web-site at &lt;a href="http://www.spacewalkproject.org/" target="_new"&gt; http://www.spacewalkproject.org/&lt;/a&gt;. </source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/Login</context>
         </context-group>
-      <target>@@PRODUCT_NAME@@ の詳細については、 &lt;a href="http://spacewalk.redhat.com" target="_new"&gt; http://spacewalk.redhat.com&lt;/a&gt; のウェブサイトをご覧ください。</target></trans-unit>
+      <target>@@PRODUCT_NAME@@ の詳細については、 &lt;a href="http://www.spacewalkproject.org/" target="_new"&gt; http://www.spacewalkproject.org/&lt;/a&gt; のウェブサイトをご覧ください。</target></trans-unit>
 
       <trans-unit id="login.jsp.satbody3">
-        <source>For details on interacting with the @@PRODUCT_NAME@@ community, please visit us at  &lt;a href="http://spacewalk.redhat.com/communicate.html" target="_new"&gt; http://spacewalk.redhat.com/communicate.html&lt;/a&gt;. </source>
+        <source>For details on interacting with the @@PRODUCT_NAME@@ community, please visit us at  &lt;a href="http://www.spacewalkproject.org/communicate.html" target="_new"&gt; http://www.spacewalkproject.org/communicate.html&lt;/a&gt;. </source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/Login</context>
         </context-group>
-      <target>@@PRODUCT_NAME@@ コミュニティへの参加に関する詳細は、&lt;a href="http://spacewalk.redhat.com/communicate.html" target="_new"&gt; http://spacewalk.redhat.com/communicate.html&lt;/a&gt; をご覧ください。</target></trans-unit>
+      <target>@@PRODUCT_NAME@@ コミュニティへの参加に関する詳細は、&lt;a href="http://www.spacewalkproject.org/communicate.html" target="_new"&gt; http://www.spacewalkproject.org/communicate.html&lt;/a&gt; をご覧ください。</target></trans-unit>
 
       <trans-unit id="login.jsp.satbody4">
         <source> </source>
@@ -19435,12 +19435,12 @@ given channel.</source>
       <target>@@PRODUCT_NAME@@ プロジェクト</target></trans-unit>
 
       <trans-unit id="layout.jsp.vendor.title">
-            <source>Visit http://spacewalk.redhat.com/ for more information</source>
-      <target>詳細は http://spacewalk.redhat.com/ を確認してください</target></trans-unit>
+            <source>Visit http://www.spacewalkproject.org/ for more information</source>
+      <target>詳細は http://www.spacewalkproject.org/ を確認してください</target></trans-unit>
 
       <trans-unit id="layout.jsp.vendor.website">
-            <source>http://spacewalk.redhat.com/</source>
-      <target>http://spacewalk.redhat.com/</target></trans-unit>
+            <source>http://www.spacewalkproject.org/</source>
+      <target>http://www.spacewalkproject.org/</target></trans-unit>
 
       <trans-unit id="channel.edit.jsp.name">
         <source>Channel Name</source>

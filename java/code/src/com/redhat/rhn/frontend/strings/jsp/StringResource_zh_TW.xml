@@ -792,18 +792,18 @@
       <target>&lt;strong&gt;@@PRODUCT_NAME@@&lt;/strong&gt; 是個開源式的（GPLv2）Linux 系統管理解決方案。如果您有任何 @@PRODUCT_NAME@@ 伺服器上的問題，以下一些連結對您應該會有所幫助。</target></trans-unit>
 
       <trans-unit id="login.jsp.satbody2">
-        <source>For details on @@PRODUCT_NAME@@, please visit our web-site at &lt;a href="http://spacewalk.redhat.com" target="_new"&gt; http://spacewalk.redhat.com&lt;/a&gt;. </source>
+        <source>For details on @@PRODUCT_NAME@@, please visit our web-site at &lt;a href="http://www.spacewalkproject.org/" target="_new"&gt; http://www.spacewalkproject.org/&lt;/a&gt;. </source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/Login</context>
         </context-group>
-      <target>如需取得 @@PRODUCT_NAME@@ 上的詳情，請參閱我們的支援網站 &lt;a href="http://spacewalk.redhat.com" target="_new"&gt; http://spacewalk.redhat.com&lt;/a&gt;。</target></trans-unit>
+      <target>如需取得 @@PRODUCT_NAME@@ 上的詳情，請參閱我們的支援網站 &lt;a href="http://www.spacewalkproject.org/" target="_new"&gt; http://www.spacewalkproject.org/&lt;/a&gt;。</target></trans-unit>
 
       <trans-unit id="login.jsp.satbody3">
-        <source>For details on interacting with the @@PRODUCT_NAME@@ community, please visit us at  &lt;a href="http://spacewalk.redhat.com/communicate.html" target="_new"&gt; http://spacewalk.redhat.com/communicate.html&lt;/a&gt;. </source>
+        <source>For details on interacting with the @@PRODUCT_NAME@@ community, please visit us at  &lt;a href="http://www.spacewalkproject.org/communicate.html" target="_new"&gt; http://www.spacewalkproject.org/communicate.html&lt;/a&gt;. </source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/Login</context>
         </context-group>
-      <target>如欲取得有關於和 @@PRODUCT_NAME@@ 社群互動上的詳情，請參閱我們的網站 &lt;a href="http://spacewalk.redhat.com/communicate.html" target="_new"&gt; http://spacewalk.redhat.com/communicate.html&lt;/a&gt;。</target></trans-unit>
+      <target>如欲取得有關於和 @@PRODUCT_NAME@@ 社群互動上的詳情，請參閱我們的網站 &lt;a href="http://www.spacewalkproject.org/communicate.html" target="_new"&gt; http://www.spacewalkproject.org/communicate.html&lt;/a&gt;。</target></trans-unit>
 
       <trans-unit id="login.jsp.satbody4">
         <source> </source>
@@ -19368,12 +19368,12 @@ given channel.</source>
       <target>@@PRODUCT_NAME@@ 專案</target></trans-unit>
 
       <trans-unit id="layout.jsp.vendor.title">
-            <source>Visit http://spacewalk.redhat.com/ for more information</source>
-      <target>如欲取得更多相關資訊請參閱 http://spacewalk.redhat.com/</target></trans-unit>
+            <source>Visit http://www.spacewalkproject.org/ for more information</source>
+      <target>如欲取得更多相關資訊請參閱 http://www.spacewalkproject.org/</target></trans-unit>
 
       <trans-unit id="layout.jsp.vendor.website">
-            <source>http://spacewalk.redhat.com/</source>
-      <target>http://spacewalk.redhat.com/</target></trans-unit>
+            <source>http://www.spacewalkproject.org/</source>
+      <target>http://www.spacewalkproject.org/</target></trans-unit>
 
       <trans-unit id="channel.edit.jsp.name">
         <source>Channel Name</source>
