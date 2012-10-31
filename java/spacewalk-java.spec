@@ -23,7 +23,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.177
+Version: 1.8.178
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -617,6 +617,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Oct 31 2012 Jan Pazdziora 1.8.178-1
+- Advertise the www.spacewalkproject.org.
+
 * Tue Oct 30 2012 Jan Pazdziora 1.8.177-1
 - Using xmllint and grep or perl is faster.
 
