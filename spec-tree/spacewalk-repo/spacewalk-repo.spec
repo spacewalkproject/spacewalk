@@ -1,7 +1,7 @@
 Summary: Spacewalk packages yum repository configuration
 Name: spacewalk-repo
-Version: 1.8
-Release: 4%{?dist}
+Version: 1.9
+Release: 1%{?dist}
 License: GPLv2
 Group: System Environment/Base
 # This src.rpm is cannonical upstream
@@ -96,6 +96,9 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) %{_sysconfdir}/yum.repos.d/spacewalk-client-nightly.repo
 
 %changelog
+* Wed Oct 31 2012 Jan Pazdziora 1.9-1
+- Bumping up version.
+
 * Wed Oct 31 2012 Jan Pazdziora 1.8-4
 - We put the source directory under the respective version subdirectory.
 - %%defattr is not needed since rpm 4.4
