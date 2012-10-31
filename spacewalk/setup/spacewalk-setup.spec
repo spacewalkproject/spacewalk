@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        1.8.23
+Version:        1.8.24
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -110,6 +110,9 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Wed Oct 31 2012 Jan Pazdziora 1.8.24-1
+- Advertise the www.spacewalkproject.org.
+
 * Tue Oct 30 2012 Jan Pazdziora 1.8.23-1
 - Update the copyright year.
 
