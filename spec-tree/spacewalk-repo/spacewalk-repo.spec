@@ -58,7 +58,7 @@ REPO
 cat >>$RPM_BUILD_ROOT%{_sysconfdir}/yum.repos.d/spacewalk-source.repo <<REPO
 [spacewalk-source]
 name=Spacewalk SRPMS
-baseurl=http://spacewalk.redhat.com/source/%{version}/%{reposubdir}/
+baseurl=http://yum.spacewalkproject.org/%{version}/%{reposubdir}/source/
 gpgkey=http://yum.spacewalkproject.org/RPM-GPG-KEY-spacewalk-2012
 enabled=0
 gpgcheck=1
