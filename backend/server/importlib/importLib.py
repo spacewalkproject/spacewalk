@@ -162,6 +162,7 @@ class DistChannelMap(Information):
         'release'           : StringType,
         'channel_arch'      : StringType,
         'channel'           : StringType,
+        'org_id'            : IntType,
     }
 
 class ReleaseChannelMap(Information):
