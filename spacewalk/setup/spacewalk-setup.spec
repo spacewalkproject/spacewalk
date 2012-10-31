@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        1.8.24
+Version:        1.9.0
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 

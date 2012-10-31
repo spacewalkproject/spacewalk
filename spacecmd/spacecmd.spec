@@ -4,7 +4,7 @@
 %endif
 
 Name:        spacecmd
-Version:     1.8.15
+Version:     1.9.0
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 

@@ -1,6 +1,6 @@
 Name: quartz
 Summary: Quartz Enterprise Job Scheduler
-Version:        1.8.1
+Version:        1.9.0
 Release:        5%{?dist}
 Summary:        Quartz Enterprise Job Scheduler
 License:        ASL 2.0

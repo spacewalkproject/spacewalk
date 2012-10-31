@@ -1,6 +1,6 @@
 Summary: RHN support for yum
 Name: yum-rhn-plugin
-Version: 1.8.8
+Version: 1.9.0
 Release: 1%{?dist}
 License: GPLv2
 Group: System Environment/Base
