@@ -33,6 +33,10 @@ Requires: python-xml
 %endif
 Conflicts: osa-dispatcher < %{version}-%{release}
 Conflicts: osa-dispatcher > %{version}-%{release}
+%if 0%{?suse_version} >= 1210
+BuildRequires: systemd
+%{?systemd_requires}
+%endif
 %if 0%{?suse_version}
 # provides chkconfig on SUSE
 Requires(post): aaa_base
@@ -71,15 +75,18 @@ Requires: jabberpy
 Requires: lsof
 Conflicts: %{name} < %{version}-%{release}
 Conflicts: %{name} > %{version}-%{release}
-%if !0%{?suse_version}
+%if 0%{?suse_version} >= 1210
+%{?systemd_requires}
+%endif
+%if 0%{?suse_version}
+# provides chkconfig on SUSE
+Requires(post): aaa_base
+Requires(preun): aaa_base
+%else
 Requires(post): chkconfig
 Requires(preun): chkconfig
 # This is for /sbin/service
 Requires(preun): initscripts
-%else
-# provides chkconfig on SUSE
-Requires(post): aaa_base
-Requires(preun): aaa_base
 %endif
 
 %description -n osa-dispatcher
@@ -146,7 +153,7 @@ mkdir -p %{buildroot}%{_var}/log/rhn
 touch %{buildroot}%{_var}/log/osad
 touch %{buildroot}%{_var}/log/rhn/osa-dispatcher.log
 
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?suse_version} >= 1210
 rm $RPM_BUILD_ROOT/%{_initrddir}/osad
 rm $RPM_BUILD_ROOT/%{_initrddir}/osa-dispatcher
 mkdir -p $RPM_BUILD_ROOT/%{_unitdir}
@@ -178,27 +185,63 @@ install -p -m 755 osa-dispatcher-selinux/osa-dispatcher-selinux-enable %{buildro
 %clean
 rm -rf $RPM_BUILD_ROOT
 
+%if 0%{?suse_version} >= 1210
+
+%pre
+%service_add_pre osad.service
+
+%postun
+%service_del_postun osad.service
+
+%endif
+
 %post
+%if 0%{?suse_version} >= 1210
+%service_add_post osad.service
+%else
 if [ -f %{_sysconfdir}/init.d/osad ]; then
     /sbin/chkconfig --add osad
 fi
+%endif
 
 %preun
+%if 0%{?suse_version} >= 1210
+%service_del_preun osad.service
+%else
 if [ $1 = 0 ]; then
     /sbin/service osad stop > /dev/null 2>&1
     /sbin/chkconfig --del osad
 fi
+%endif
+
+%if 0%{?suse_version} >= 1210
+
+%pre -n osa-dispatcher
+%service_add_pre osa-dispatcher.service
+
+%postun -n osa-dispatcher
+%service_del_postun osa-dispatcher.service
+
+%endif
 
 %post -n osa-dispatcher
+%if 0%{?suse_version} >= 1210
+%service_add_post osa-dispatcher.service
+%else
 if [ -f %{_sysconfdir}/init.d/osa-dispatcher ]; then
     /sbin/chkconfig --add osa-dispatcher
 fi
+%endif
 
 %preun -n osa-dispatcher
+%if 0%{?suse_version} >= 1210
+%service_del_preun osa-dispatcher.service
+%else
 if [ $1 = 0 ]; then
     /sbin/service osa-dispatcher stop > /dev/null 2>&1
     /sbin/chkconfig --del osa-dispatcher
 fi
+%endif
 
 %if 0%{?include_selinux_package}
 %post -n osa-dispatcher-selinux
@@ -246,7 +289,7 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 %config(noreplace) %{_sysconfdir}/sysconfig/rhn/osad.conf
 %config(noreplace) %attr(600,root,root) %{_sysconfdir}/sysconfig/rhn/osad-auth.conf
 %config(noreplace) %{client_caps_dir}/*
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?suse_version} >= 1210
 %{_unitdir}/osad.service
 %else
 %attr(755,root,root) %{_initrddir}/osad
@@ -275,7 +318,7 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 %dir %{_sysconfdir}/rhn/tns_admin
 %dir %{_sysconfdir}/rhn/tns_admin/osa-dispatcher
 %config(noreplace) %{_sysconfdir}/rhn/tns_admin/osa-dispatcher/sqlnet.ora
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?suse_version} >= 1210
 %{_unitdir}/osa-dispatcher.service
 %else
 %attr(755,root,root) %{_initrddir}/osa-dispatcher
