@@ -23,7 +23,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.9.1
+Version: 1.9.2
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -617,6 +617,12 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Nov 01 2012 Jan Pazdziora 1.9.2-1
+- having html tag inside xml is not correct
+- decrease distChannelMap release minimal length
+- 839960 - fix system.listLatestUpgradablePackages API to list upgradable
+  packages from server channels only
+
 * Wed Oct 31 2012 Jan Pazdziora 1.9.1-1
 - Use braces for accessing composite types in PG
 
