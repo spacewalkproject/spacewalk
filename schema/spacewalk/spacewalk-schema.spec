@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.8.86
+Version:        1.8.87
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -68,6 +68,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Thu Nov 01 2012 Jan Pazdziora 1.8.87-1
+- Cannot drop index used for enforcement of unique/primary key.
+
 * Wed Oct 31 2012 Jan Pazdziora 1.8.86-1
 - The index might not actually exist.
 - Fixing syntax.
