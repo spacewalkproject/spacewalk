@@ -59,7 +59,15 @@ def _process_params(args, filename):
     params = ['--results', filename]
     errors = ''
     if args:
-        allowed_args = {'--profile': 1, '--skip-valid': 0}
+        allowed_args = {
+            '--profile': 1,
+            '--skip-valid': 0,
+            '--cpe-dict': 1,
+            '--cpe-dict2': 1,
+            '--fetch-remote-resources': 0,
+            '--datastream-id': 1,
+            '--xccdf-id': 1,
+            }
         args = args.split(' ')
         i = 0
         while i < len(args):
