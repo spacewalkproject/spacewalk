@@ -13,7 +13,7 @@
 
   <attribute name="release">
     <simpleType baseType="string">
-      <minLength value="3" />
+      <minLength value="2" />
       <maxLength value="64" />
     </simpleType>
   </attribute>
