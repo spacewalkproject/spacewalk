@@ -4858,7 +4858,7 @@ value for this entitlement, excluding the default organization's consumption.</s
       <target></target></trans-unit>
 
       <trans-unit id="systemcurrency.jsp.score">
-<source>System<br/>Score</source>
+<source>Score</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/SystemCurrency.do</context>
         </context-group>

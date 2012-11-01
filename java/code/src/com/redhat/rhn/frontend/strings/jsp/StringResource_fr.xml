@@ -4859,7 +4859,7 @@ pour ce droit d'accès, moins la consommation par défaut de l'organisation.</ta
       <target>Améliorations</target></trans-unit>
 
       <trans-unit id="systemcurrency.jsp.score">
-<source>System<br/>Score</source>
+<source>Score</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/SystemCurrency.do</context>
         </context-group>

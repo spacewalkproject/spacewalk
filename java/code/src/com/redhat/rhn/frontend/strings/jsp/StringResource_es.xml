@@ -4858,7 +4858,7 @@ para este derecho, excluyendo el consumo de la organización predeterminada.</ta
       <target>Mejoras</target></trans-unit>
 
       <trans-unit id="systemcurrency.jsp.score">
-<source>System<br/>Score</source>
+<source>Score</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/SystemCurrency.do</context>
         </context-group>
