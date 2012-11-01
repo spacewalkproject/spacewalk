@@ -1,5 +1,5 @@
 Name:		spacewalk-oscap
-Version:	0.0.10
+Version:	0.0.11
 Release:	1%{?dist}
 Summary:	OpenSCAP plug-in for rhn-check
 
@@ -42,6 +42,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Thu Nov 01 2012 Jan Pazdziora 0.0.11-1
+- 872248: Enable new `oscap' features in spacewalk-openscap.
+
 * Tue Jul 10 2012 Michael Mraka <michael.mraka@redhat.com> 0.0.10-1
 - Fix spacewalk-oscap typos
 
