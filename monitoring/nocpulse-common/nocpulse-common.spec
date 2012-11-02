@@ -9,7 +9,12 @@ BuildArch:    noarch
 Group:        Applications/System
 Buildroot:    %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 Requires(pre):  httpd, /usr/sbin/useradd
-Requires(post): /sbin/runuser, openssh
+Requires(post): openssh
+%if 0%{?fedora} > 17
+Requires(post): /usr/sbin/runuser
+%else
+Requires(post): /sbin/runuser
+%endif
 Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 # merging this two packages together
 # not backward compatible => no Provides:
