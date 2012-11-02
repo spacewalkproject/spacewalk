@@ -117,7 +117,7 @@ class BrokerHandler(SharedHandler):
                 # o if an SSL request, use the redirect
                 # o otherwise (non-ssl and not going through an outside HTTP
                 #   proxy) bypass that redirect for performance
-                self.rhnParent = '127.0.0.1'
+                self.rhnParent = self.proxyAuth.hostname
         else:
             # !GET: bypass cache, bypass redirect
             if CFG.USE_SSL:
