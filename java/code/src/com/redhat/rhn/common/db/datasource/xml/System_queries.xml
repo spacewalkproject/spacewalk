@@ -1999,7 +1999,7 @@ select s.id as id,
  where (p.id is null or scp.package_id is null) and
        s.org_id = :orgid
  group by s.name, s.id
- order by name, id;
+ order by name, id
   </query>
   <elaborator name="system_overview" />
   <elaborator name="entitlements" />
