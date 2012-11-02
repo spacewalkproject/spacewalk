@@ -4,7 +4,7 @@ Group:   Applications/Internet
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 1.9.0
+Version: 1.9.1
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
 BuildRequires: python
@@ -330,6 +330,10 @@ fi
 
 
 %changelog
+* Fri Nov 02 2012 Stephen Herr <sherr@redhat.com> 1.9.1-1
+- 872721 - keep the proxy from trying to auth as 127.0.0.1
+- Bumping package versions for 1.9.
+
 * Tue Oct 23 2012 Michael Mraka <michael.mraka@redhat.com> 1.8.14-1
 - _processFile() prototype has changed
 
