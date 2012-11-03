@@ -102,7 +102,7 @@
                </rl:column>
                </c:if>
 
-		<c:if test = "${empty noConfigFiles} and empty extraPackagesMode">
+		<c:if test = "${empty noConfigFiles and empty extraPackagesMode}">
 			<rl:column sortable="false"
 				   bound="false"
 				   headerkey="systemlist.jsp.configfiles"
