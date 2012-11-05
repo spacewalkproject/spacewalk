@@ -23,7 +23,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.9.4
+Version: 1.9.5
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -617,6 +617,11 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Nov 05 2012 Tomas Lestach <tlestach@redhat.com> 1.9.5-1
+- replace remaining DTD paths to www.hibernate.org/dtd with 3.2 default
+  hibernate.sourceforge.net
+- Fixing typo.
+
 * Fri Nov 02 2012 Tomas Lestach <tlestach@redhat.com> 1.9.4-1
 - Revert "change hibernate3 namespace"
 
