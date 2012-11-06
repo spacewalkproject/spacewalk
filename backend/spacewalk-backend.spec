@@ -12,7 +12,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 1.9.2
+Version: 1.9.3
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -637,6 +637,10 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Tue Nov 06 2012 Jan Pazdziora 1.9.3-1
+- The fcntl documentation recommends different pack format.
+- Only SEEK_SET used, no need to have zero defined in an extra module.
+
 * Wed Oct 31 2012 Jan Pazdziora 1.9.2-1
 - add org_id to DistChannelMap backend class
 
