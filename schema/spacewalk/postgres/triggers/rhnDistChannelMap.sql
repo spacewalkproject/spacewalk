@@ -18,7 +18,7 @@ create or replace function rhn_dist_channel_map_mod_trig_fun() returns trigger a
 $$
 begin
     if new.id is null then
-        new.id := nextval('rhn_rhn_dcm_id_seq');
+        new.id := nextval('rhn_dcm_id_seq');
     end if;
     return new;
 end;
