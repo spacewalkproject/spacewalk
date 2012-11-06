@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.9.5
+Version:        1.9.6
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -68,6 +68,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Tue Nov 06 2012 Tomas Lestach <tlestach@redhat.com> 1.9.6-1
+- use correct sequence name in PG rhnDistChannelMap trigger
+
 * Thu Nov 01 2012 Jan Pazdziora 1.9.5-1
 - Fixing the equivalence SHA1.
 
