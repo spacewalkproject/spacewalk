@@ -178,7 +178,7 @@
 
      <group>
        <context-group name="ctx">
-           <context context-type="sourcefile">General Stufff</context>
+           <context context-type="sourcefile">General Stuff</context>
      </context-group>
        <trans-unit id="yes">
          <source>Yes</source>
