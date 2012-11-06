@@ -6655,7 +6655,7 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
         <source>&lt;strong&gt;{0}&lt;/strong&gt; has been locked</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/Overview.do</context>
-          <context context-type="p aramnotes">{0} - name of a system ex: highwind</context>
+          <context context-type="paramnotes">{0} - name of a system ex: highwind</context>
         </context-group>
       <target>&lt;strong&gt;{0}&lt;/strong&gt; ha sido bloqueado.</target></trans-unit>
 
