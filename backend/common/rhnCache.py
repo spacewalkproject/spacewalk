@@ -34,9 +34,9 @@ from spacewalk.common.fileutils import makedirs, setPermsPath
 CACHEDIR = "/var/cache/rhn"
 
 # easy structures for locking stuff
-WRLOCK = pack("hhiiii", fcntl.F_WRLCK, 0, 0, 0, 0, 0)
-RDLOCK = pack("hhiiii", fcntl.F_RDLCK, 0, 0, 0, 0, 0)
-UNLOCK = pack("hhiiii", fcntl.F_UNLCK, 0, 0, 0, 0, 0)
+WRLOCK = pack("hhllhh", fcntl.F_WRLCK, 0, 0, 0, 0, 0)
+RDLOCK = pack("hhllhh", fcntl.F_RDLCK, 0, 0, 0, 0, 0)
+UNLOCK = pack("hhllhh", fcntl.F_UNLCK, 0, 0, 0, 0, 0)
 
 def cleanupPath(path):
     """take ~taw/../some/path/$MOUNT_POINT/blah and make it sensible."""
