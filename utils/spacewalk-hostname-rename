@@ -513,8 +513,7 @@ EOS
 print_status 0  # just simulate end
 
 echo -n "Changing cobbler settings ... " | tee -a $LOG
-# --enable-tftp=no means, everything stayes configured from previous configuration
-/usr/bin/spacewalk-setup-cobbler --enable-tftp=no >> $LOG 2>&1
+/usr/bin/spacewalk-setup-cobbler >> $LOG 2>&1
 print_status $?
 
 echo -n "Changing jabberd settings ... " | tee -a $LOG
