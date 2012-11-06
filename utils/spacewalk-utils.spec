@@ -1,7 +1,7 @@
 %define rhnroot %{_prefix}/share/rhn
 
 Name:		spacewalk-utils
-Version:	1.9.1
+Version:	1.9.2
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -86,6 +86,9 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Tue Nov 06 2012 Tomas Lestach <tlestach@redhat.com> 1.9.2-1
+- spacewalk-setup-cobbler does not use --enable-tftp option
+
 * Wed Oct 31 2012 Jan Pazdziora 1.9.1-1
 - fixed spacing in man page
 
