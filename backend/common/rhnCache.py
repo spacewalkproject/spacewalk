@@ -21,7 +21,6 @@ import gzip
 import cPickle
 import fcntl
 import sys
-from struct import pack
 from stat import ST_MTIME
 from errno import EEXIST
 
