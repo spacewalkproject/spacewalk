@@ -12,7 +12,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 1.9.4
+Version: 1.9.5
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -637,6 +637,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Wed Nov 07 2012 Jan Pazdziora 1.9.5-1
+- Using fcntl.lockf should avoid any need for packing.
+
 * Wed Nov 07 2012 Tomas Lestach <tlestach@redhat.com> 1.9.4-1
 - renaming forgotten 'dict' to 'row_dict'
 
