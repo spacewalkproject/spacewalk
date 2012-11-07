@@ -12,7 +12,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 1.9.3
+Version: 1.9.4
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -637,6 +637,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Wed Nov 07 2012 Tomas Lestach <tlestach@redhat.com> 1.9.4-1
+- renaming forgotten 'dict' to 'row_dict'
+
 * Tue Nov 06 2012 Jan Pazdziora 1.9.3-1
 - The fcntl documentation recommends different pack format.
 - Only SEEK_SET used, no need to have zero defined in an extra module.
