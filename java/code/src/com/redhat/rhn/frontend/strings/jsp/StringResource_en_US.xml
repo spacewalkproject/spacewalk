@@ -18170,6 +18170,24 @@ given channel.</source>
       <trans-unit id="provider">
         <source>Content Provider</source>
       </trans-unit>
+      <trans-unit id="currentMembers">
+        <source>Regular Usage - Used</source>
+      </trans-unit>
+      <trans-unit id="maxMembers">
+        <source>Regular Usage - Alloted</source>
+      </trans-unit>
+      <trans-unit id="maxAvailable">
+        <source>Regular Proposed Total</source>
+      </trans-unit>
+      <trans-unit id="currentFlex">
+        <source>Flex Usage - Used</source>
+      </trans-unit>
+      <trans-unit id="maxFlex">
+        <source>Flex Usage - Allotted</source>
+      </trans-unit>
+      <trans-unit id="maxAvailableFlex">
+        <source>Flex Proposed Total</source>
+      </trans-unit>
       <trans-unit id="channel.jsp.package.viewpackages">
         <source>View Packages</source>
       </trans-unit>

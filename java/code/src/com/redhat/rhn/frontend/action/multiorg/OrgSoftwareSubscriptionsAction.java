@@ -115,6 +115,9 @@ public class OrgSoftwareSubscriptionsAction extends RhnAction implements Listabl
                 request.getSession().removeAttribute(makeLabel(request));
             }
         }
+
+        request.setAttribute(RequestContext.PAGE_LIST, helper.getDataSet());
+
         return retval;
     }
 

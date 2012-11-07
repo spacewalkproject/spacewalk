@@ -46,7 +46,8 @@
 	<rhn:submitted/>
 	<input type="hidden" name="oid" value="${param.oid}"/>
 	
-    <rl:list
+    <rl:list dataset="pageList"
+			name="entitlement"
 	alphabarcolumn="name"
          styleclass="list"
          emptykey="orgsoftwaresubs.jsp.nochannelfams">
@@ -93,7 +94,6 @@
         </rl:column>
         <rl:column   styleclass="center"
                headertext="${rhn:localize('Flex Usage')} <br/>(${rhn:localize('Used/Allotted')})*">
-
             <c:choose>
             	<c:when test="${empty current.maxFlex or current.maxFlex == 0}">
             		<bean:message key="None Allocated"/>
@@ -130,6 +130,9 @@
 			</c:choose>
         </rl:column>
     </rl:list>
+	<rl:csv dataset="pageList"
+			name="entitlement"
+			exportColumns="name,currentMembers,maxMembers,maxAvailable,currentFlex,maxFlex,maxAvailableFlex" />
 <p><rhn:tooltip>*-<bean:message key = "Used/Allotted.tip"/></rhn:tooltip></p>
 <c:if test="${param.oid != 1}">
  <div align="right">
@@ -139,7 +142,6 @@
 </c:if>
 </rl:listset>
 </div>
-
 
 </body>
 </html>
