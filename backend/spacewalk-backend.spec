@@ -12,7 +12,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 1.9.5
+Version: 1.9.6
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -637,6 +637,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Wed Nov 07 2012 Jan Pazdziora 1.9.6-1
+- Fixing pylint error.
+
 * Wed Nov 07 2012 Jan Pazdziora 1.9.5-1
 - Using fcntl.lockf should avoid any need for packing.
 
