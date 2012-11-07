@@ -33,11 +33,6 @@ from spacewalk.common.fileutils import makedirs, setPermsPath
 # to reserve our own shared memory space.
 CACHEDIR = "/var/cache/rhn"
 
-# easy structures for locking stuff
-WRLOCK = pack("hhllhh", fcntl.F_WRLCK, 0, 0, 0, 0, 0)
-RDLOCK = pack("hhllhh", fcntl.F_RDLCK, 0, 0, 0, 0, 0)
-UNLOCK = pack("hhllhh", fcntl.F_UNLCK, 0, 0, 0, 0, 0)
-
 def cleanupPath(path):
     """take ~taw/../some/path/$MOUNT_POINT/blah and make it sensible."""
     if path is None:
@@ -51,13 +46,10 @@ def cleanupPath(path):
 def _fname(name):
     fname = "%s/%s" % (CACHEDIR, name)
     return cleanupPath(fname)
-# Lock it, using default mode fcntl.F_WRLCK.
-def _lock(fd, lock = WRLOCK):
-    fcntl.fcntl(fd, fcntl.F_SETLKW, lock)
 
 def _unlock(fd):
     try:
-        fcntl.fcntl(fd, fcntl.F_SETLKW, UNLOCK)
+        fcntl.lockf(fd, fcntl.LOCK_UN)
     except IOError:
         # If LOCK is not relinquished try flock, 
         # its usually more forgiving.
@@ -209,7 +201,7 @@ class ReadLockedFile(LockedFile):
             raise KeyError(name)
         fd = open(self.fname, "r")
 
-        _lock(fd.fileno(), RDLOCK)
+        fcntl.lockf(fd.fileno(), fcntl.LOCK_SH)
 
         if self.modified:
             if os.fstat(fd.fileno())[ST_MTIME] != self.modified:
@@ -231,7 +223,7 @@ class WriteLockedFile(LockedFile):
                 name, sys.exc_info()[2]
 
         # now we have the fd open, lock it
-        _lock(fd)
+        fcntl.lockf(fd, fcntl.LOCK_EX)
         return os.fdopen(fd, 'w')
 
     def close_fd(self):
