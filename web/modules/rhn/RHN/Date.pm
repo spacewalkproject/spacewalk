@@ -35,6 +35,11 @@ sub new {
   my $class = shift;
   my %params = validate(@_, { -now => 0, -epoch => 0, -string => 0, -user => 0, from_zone => 0, source => 0 });
 
+  my $time_zone = 'local';
+  if ($params{user}) {
+    $time_zone = $params{user}->get_timezone;
+  }
+
   my $dt;
   if (exists $params{source}) {
     my $from = $params{source};
@@ -51,19 +56,19 @@ sub new {
     $dt = $from->clone;
   }
   elsif (exists $params{now}) {
-    $dt = DateTime->now(time_zone => "local");
+    $dt = DateTime->now(time_zone => $time_zone);
   }
   elsif (exists $params{epoch}) {
-    $dt = DateTime->from_epoch(epoch => $params{epoch}, time_zone => "local");
+    $dt = DateTime->from_epoch(epoch => $params{epoch}, time_zone => $time_zone);
   }
   elsif (exists $params{string}) {
     my $from_zone = $params{from_zone};
     if ($from_zone) {
       $dt = DateTime->from_epoch(epoch => date_to_epoch($params{string}, $from_zone),
-				 time_zone => "local");
+				 time_zone => $time_zone);
     }
     else {
-      $dt = DateTime->from_epoch(epoch => str2time($params{string}), time_zone => "local");
+      $dt = DateTime->from_epoch(epoch => str2time($params{string}), time_zone => $time_zone);
     }
   }
   else {
@@ -71,10 +76,6 @@ sub new {
   }
 
   my $self = bless { dt => $dt }, $class;
-
-  if ($params{user}) {
-    $self->time_zone($params{user}->get_timezone);
-  }
 
   return $self;
 }
