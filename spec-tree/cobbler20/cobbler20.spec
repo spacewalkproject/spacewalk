@@ -7,7 +7,7 @@ Name: cobbler20
 License: GPLv2+
 AutoReq: no
 Version: 2.0.11
-Release: 4%{?dist}
+Release: 5%{?dist}
 Source0: cobbler-%{version}.tar.gz
 Patch0: catch_cheetah_exception.patch
 Group: Applications/System
@@ -427,6 +427,10 @@ Web interface for Cobbler that allows visiting http://server/cobbler_web to conf
 %doc AUTHORS COPYING CHANGELOG README
 
 %changelog
+* Thu Nov 08 2012 Tomas Lestach <tlestach@redhat.com> 2.0.11-5
+- 866326 - catch cheetah exception in mod_pythod/mod_wsgi and forward it as 500
+  SERVER ERROR
+
 * Fri Oct 19 2012 Jan Pazdziora 2.0.11-4
 - We need one extra package in the dependency chain to prefer cobbler20 upon
   fresh installation.
