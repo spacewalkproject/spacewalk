@@ -9,6 +9,7 @@ AutoReq: no
 Version: 2.0.11
 Release: 4%{?dist}
 Source0: cobbler-%{version}.tar.gz
+Patch0: catch_cheetah_exception.patch
 Group: Applications/System
 Requires: python >= 2.3
 
@@ -89,6 +90,7 @@ a XMLRPC API for integration with other applications.
 
 %prep
 %setup -q -n cobbler-%{version}
+%patch0 -p1
 
 %build
 %{__python} setup.py build 
