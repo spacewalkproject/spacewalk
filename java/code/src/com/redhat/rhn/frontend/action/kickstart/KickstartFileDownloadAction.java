@@ -35,6 +35,7 @@ import javax.servlet.http.HttpServletRequest;
 public class KickstartFileDownloadAction extends BaseKickstartEditAction {
 
     public static final String FILEDATA = "filedata";
+    public static final String FILEERROR = "fileerror";
     public static final String KSURL = "ksurl";
     private static final String INVALID_CHANNEL = "invalid_channel";
 
@@ -79,13 +80,13 @@ public class KickstartFileDownloadAction extends BaseKickstartEditAction {
             try {
                 request.setAttribute(FILEDATA, StringEscapeUtils.escapeHtml(
                         KickstartManager.getInstance().renderKickstart(data)));
+                request.setAttribute(KSURL, KickstartUrlHelper.getCobblerProfileUrl(data));
             }
             catch (DownloadException de) {
-                request.setAttribute(FILEDATA,
+                request.setAttribute(FILEERROR,
                                 StringEscapeUtils.escapeHtml(de.getContent()));
+                createErrorMessage(request, "kickstart.jsp.error.template_message", null);
             }
-
-            request.setAttribute(KSURL, KickstartUrlHelper.getCobblerProfileUrl(data));
         }
         else {
             request.setAttribute(INVALID_CHANNEL, "true");
