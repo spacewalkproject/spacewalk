@@ -21,6 +21,7 @@ use RHN::Exception qw/throw/;
 
 use Date::Parse;
 use DateTime;
+use POSIX ();
 use Params::Validate;
 Params::Validate::validation_options(strip_leading => "-");
 
@@ -92,6 +93,12 @@ sub now {
   my $class = shift;
 
   return $class->new(now => 1);
+}
+
+my $LONG_DATE_FORMAT = "%Y-%m-%d %H:%M:%S";
+# Shortcut to now->long_date, avoiding DateTime
+sub now_long_date {
+   return POSIX::strftime($LONG_DATE_FORMAT, localtime);
 }
 
 # construct a date from constituent elements
@@ -169,7 +176,7 @@ sub user_short_timezone {
 sub long_date {
   my $self = shift;
 
-  return $self->strftime("%Y-%m-%d %H:%M:%S");
+  return $self->strftime($LONG_DATE_FORMAT);
 }
 
 # helper function for our classical "short_date" format; zoneless

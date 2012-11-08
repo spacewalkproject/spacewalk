@@ -227,7 +227,7 @@ sub apply_unscheduled_errata {
 
     my $system = RHN::Server->lookup(-id => $sid);
 
-    my $earliest_date = RHN::Date->now->long_date;
+    my $earliest_date = RHN::Date->now_long_date;
     my $count = RHN::Scheduler->schedule_all_errata_updates_for_system(-org_id => $pxt->user->org_id,
 								       -user_id => $pxt->user->id,
 								       -earliest => $earliest_date,
@@ -564,7 +564,7 @@ sub apply_errata_cb {
 
   my $errata_set = RHN::Set->lookup(-label => $pxt->dirty_param('set_label'), -uid => $pxt->user->id);
 
-  my $earliest_date = RHN::Date->now->long_date;
+  my $earliest_date = RHN::Date->now_long_date;
   my @action_ids = RHN::Scheduler->schedule_errata_updates_for_system(-org_id => $pxt->user->org_id,
 								      -user_id => $pxt->user->id,
 								      -earliest => $earliest_date,

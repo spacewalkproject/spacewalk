@@ -406,7 +406,7 @@ sub rollback_to_snapshot {
 	($pkg_delta_aid, $transaction) = RHN::Scheduler->schedule_package_sync(org_id => $org_id,
 									       user_id => $user_id,
 									       server_id => $sid,
-									       earliest => RHN::Date->now->long_date,
+									       earliest => RHN::Date->now_long_date,
 									       comparison => $comparison,
 									       action_name => "Package sync to System Snapshot",
 									       transaction => $transaction,
@@ -432,7 +432,7 @@ sub rollback_to_snapshot {
 
     if (@{$files}) {
       my $deploy_aid;
-      my $now = RHN::Date->now->long_date;
+      my $now = RHN::Date->now_long_date;
 
       ($deploy_aid, $transaction) = RHN::Scheduler->schedule_config_action(-org_id => $org_id,
 									   -user_id => $user_id,

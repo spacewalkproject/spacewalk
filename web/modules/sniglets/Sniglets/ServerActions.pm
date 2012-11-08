@@ -404,7 +404,7 @@ sub server_set_actions_cb {
   my $num_systems = $system_set->contents;
 
   if ($pxt->dirty_param('sscd_hw_prof_update_conf')) {
-    my $earliest_date = RHN::Date->now->long_date;
+    my $earliest_date = RHN::Date->now_long_date;
     my $action_id = RHN::Scheduler->schedule_hardware_refresh(-org_id => $pxt->user->org_id,
 							      -user_id => $pxt->user->id,
 							      -earliest => $earliest_date,
@@ -414,7 +414,7 @@ sub server_set_actions_cb {
     $pxt->redirect('/rhn/systems/ssm/misc/Index.do');
   }
   elsif ($pxt->dirty_param('sscd_pkg_prof_update_conf')) {
-    my $earliest_date = RHN::Date->now->long_date;
+    my $earliest_date = RHN::Date->now_long_date;
     my @action_ids = RHN::Scheduler->sscd_schedule_package_refresh(-org_id => $pxt->user->org_id,
 								   -user_id => $pxt->user->id,
 								   -earliest => $earliest_date,

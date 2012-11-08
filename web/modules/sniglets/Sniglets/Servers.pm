@@ -481,7 +481,7 @@ sub server_prefs_form_cb {
 
 	my $system_set = new RHN::DB::Set 'system_list', $pxt->user->id;
 
-	RHN::Scheduler->schedule_all_errata_for_systems(-earliest => RHN::Date->now->long_date,
+	RHN::Scheduler->schedule_all_errata_for_systems(-earliest => RHN::Date->now_long_date,
 							-org_id => $pxt->user->org_id,
 							-user_id => $pxt->user->id,
 							-server_set => $system_set,

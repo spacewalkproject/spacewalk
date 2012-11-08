@@ -51,7 +51,7 @@ sub create {
   my $url = shift;
   my $expires = shift;
 
-  $expires ||= RHN::Date->now->long_date;
+  $expires ||= RHN::Date->now_long_date;
 
   my $token;
   while (1) {

@@ -1195,7 +1195,7 @@ sub remove_packages_cb {
 
   my $package_set = RHN::Set->lookup(-label => $set_label, -uid => $pxt->user->id);
 
-  my $earliest_date = RHN::Date->now->long_date;
+  my $earliest_date = RHN::Date->now_long_date;
   my $actions_scheduled =
     RHN::Scheduler->schedule_system_package_action(-org_id => $pxt->user->org_id,
 						   -user_id => $pxt->user->id,
@@ -1295,7 +1295,7 @@ sub install_packages_cb {
 
   my $package_set = RHN::Set->lookup(-label => $package_set_label, -uid => $pxt->user->id);
 
-  my $earliest_date = RHN::Date->now->long_date;
+  my $earliest_date = RHN::Date->now_long_date;
   my $actions_scheduled =
     RHN::Scheduler->schedule_system_package_action(-org_id => $pxt->user->org_id,
 						   -user_id => $pxt->user->id,

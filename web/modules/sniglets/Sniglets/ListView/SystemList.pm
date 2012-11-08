@@ -1142,7 +1142,7 @@ sub apply_errata_cb {
   $errata_set->empty;
   $errata_set->add($eid);
 
-  my $earliest_date = RHN::Date->now->long_date;
+  my $earliest_date = RHN::Date->now_long_date;
   my @action_ids = RHN::Scheduler->schedule_errata_updates_for_systems(-org_id => $pxt->user->org_id,
 								       -user_id => $pxt->user->id,
 								       -earliest => $earliest_date,
@@ -1248,7 +1248,7 @@ sub install_package {
 
   my $system_set = RHN::Set->lookup(-label => $set_label, -uid => $pxt->user->id);
 
-  my $earliest_date = RHN::Date->now->long_date;
+  my $earliest_date = RHN::Date->now_long_date;
   my $action_id = RHN::Scheduler->schedule_package_install(-org_id => $pxt->user->org_id,
 							   -user_id => $pxt->user->id,
 							   -earliest => $earliest_date,
