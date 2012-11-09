@@ -5903,7 +5903,7 @@ para este derecho, excluyendo el consumo de la organización predeterminada.</ta
         </trans-unit>
         <trans-unit id="ssm.overview.summary">
           <source>Welcome to the System Set Manager. This interface will allow you to easily work with large numbers of systems in the @@PRODUCT_NAME@@.</source>
-          <target>Bienvenido al Gestor de configuración del sistema. Esta interfaz le permitirá fácilmente trabajar con grandes cantidades de sistemas en el  @@NOMBRE_PRODUCTO@@.</target>
+          <target>Bienvenido al Gestor de configuración del sistema. Esta interfaz le permitirá fácilmente trabajar con grandes cantidades de sistemas en el  @@PRODUCT_NAME@@.</target>
         </trans-unit>
         <trans-unit id="ssm.overview.summary2">
           <source>The following tabs aid you in a number of tasks:</source>
