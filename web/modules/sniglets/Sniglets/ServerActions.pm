@@ -326,15 +326,12 @@ sub parse_date_pickbox {
 					    second => 0,
 					    time_zone => $pxt->user->get_timezone);
 
-  if (not $long_date) {
+  if ($long_date) {
+    return $scheduled_time->local_long_date;
+  }
+  else {
     return $scheduled_time->epoch;
   }
-
-  # the time was from the user's time.  now we must make it local to
-  # the app server in order to be passed to the database.
-  $scheduled_time->time_zone("local");
-
-  return $scheduled_time->long_date;
 }
 
 sub server_set_errata_set_actions_cb {

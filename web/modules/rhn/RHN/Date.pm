@@ -95,6 +95,14 @@ sub now_long_date {
    return POSIX::strftime($LONG_DATE_FORMAT, localtime);
 }
 
+# Return the datetime in the local time zone. We do not need
+# to know what the time zone is, localtime takes care of that.
+sub local_long_date {
+   my $self = shift;
+   my $epoch = $self->epoch;
+   return POSIX::strftime($LONG_DATE_FORMAT, localtime($epoch));
+}
+
 # construct a date from constituent elements
 sub construct {
   my $class = shift;
