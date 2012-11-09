@@ -32,6 +32,8 @@ use RHN::Form::Widget::Select;
 use Params::Validate;
 Params::Validate::validation_options(strip_leading => "-");
 
+use RHN::Date ();
+
 use RHN::DB;
 
 our @ISA = qw/Sniglets::ListView::List/;

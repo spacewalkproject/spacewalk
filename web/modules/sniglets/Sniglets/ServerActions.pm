@@ -32,6 +32,8 @@ use RHN::Exception;
 
 use POSIX;
 
+use RHN::Date ();
+
 sub register_tags {
   my $class = shift;
   my $pxt = shift;

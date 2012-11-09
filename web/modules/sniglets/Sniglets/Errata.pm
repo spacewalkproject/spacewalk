@@ -28,6 +28,7 @@ use PXT::Utils;
 use PXT::HTML;
 use RHN::Exception;
 
+use RHN::Date ();
 
 sub register_tags {
   my $class = shift;
