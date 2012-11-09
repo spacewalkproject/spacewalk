@@ -193,6 +193,13 @@
         </context-group>
         <target>（GMT-0600）美国（中部）</target>
       </trans-unit>
+      <trans-unit id="America/Regina">
+        <source>(GMT-0600) Canada (Regina)</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/account/UserDetails</context>
+        </context-group>
+        <target>（GMT-0400）加拿大（里贾纳）</target>
+      </trans-unit>
       <trans-unit id="America/Denver">
         <source>(GMT-0700) United States (Mountain)</source>
         <context-group name="ctx">
@@ -229,11 +236,18 @@
         <target>（GMT+1300）汤加</target>
       </trans-unit>
       <trans-unit id="Pacific/Wallis">
-        <source>(GMT+1200) New Zealand</source>
+        <source>(GMT+1200) New Zealand (Wallis)</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/account/UserDetails</context>
         </context-group>
         <target>（GMT+1200）新西兰</target>
+      </trans-unit>
+      <trans-unit id="Pacific/Auckland">
+        <source>(GMT+1200) New Zealand (Auckland)</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/account/UserDetails</context>
+        </context-group>
+        <target>（GMT+1200）新西兰（奥克兰）</target>
       </trans-unit>
       <trans-unit id="Pacific/Norfolk">
         <source>(GMT+1130) Norfolk Island</source>
@@ -951,6 +965,13 @@
         </context-group>
         <target>Critical 空闲的交换分区的百分比</target>
       </trans-unit>
+      <trans-unit id="Critical Swapped Process Count">
+        <source>Critical Swapped Process Count</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
+        </context-group>
+        <target>Critical 交换的进程数</target>
+      </trans-unit>
       <trans-unit id="Critical TIME_WAIT Connections">
         <source>Critical TIME_WAIT Connections</source>
         <context-group name="ctx">
@@ -1048,6 +1069,41 @@
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
         <target>Critical 写频率</target>
+      </trans-unit>
+      <trans-unit id="Critical if number of blocked processes exceeds">
+        <source>Critical if number of blocked processes exceeds</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
+        </context-group>
+        <target>如果被阻塞的进程超过这个值将到达 Critical</target>
+      </trans-unit>
+      <trans-unit id="Critical if number of children for any process exceeds">
+        <source>Critical if number of children for any process exceeds</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
+        </context-group>
+        <target>如果任何进程的子进程超过这个值将到达 Critical</target>
+      </trans-unit>
+      <trans-unit id="Critical if number of defunct processes exceeds">
+        <source>Critical if number of defunct processes exceeds</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
+        </context-group>
+        <target>如果非现存的进程超过这个值将到达 Critical</target>
+      </trans-unit>
+      <trans-unit id="Critical if number of stopped processes exceeds">
+        <source>Critical if number of stopped processes exceeds</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
+        </context-group>
+        <target>如果终止的进程超过这个值将到达 Critical</target>
+      </trans-unit>
+      <trans-unit id="Critical if number of swapped processes exceeds">
+        <source>Critical if number of swapped processes exceeds</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
+        </context-group>
+        <target>如果被交换的进程超过这个值将到达 Critical</target>
       </trans-unit>
       <trans-unit id="Database">
         <source>Database</source>
@@ -1258,6 +1314,13 @@
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
         <target>Oracle 密码</target>
+      </trans-unit>
+      <trans-unit id="Oracle Password_confirm">
+        <source>Oracle Password Confirm</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
+        </context-group>
+        <target>Oracle 密码确认</target>
       </trans-unit>
       <trans-unit id="Oracle Port">
         <source>Oracle Port</source>
@@ -1580,6 +1643,41 @@
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
         <target>Warn 用户</target>
+      </trans-unit>
+      <trans-unit id="Warn if number of blocked processes exceeds">
+        <source>Warn if number of blocked processes exceeds</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
+        </context-group>
+        <target>如果被阻塞的进程超过这个值将到达 Warn</target>
+      </trans-unit>
+      <trans-unit id="Warn if number of children for any process exceeds">
+        <source>Warn if number of children for any process exceeds</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
+        </context-group>
+        <target>如果任何进程的子进程超过这个值将到达 Warn</target>
+      </trans-unit>
+      <trans-unit id="Warn if number of defunct processes exceeds">
+        <source>Warn if number of defunct processes exceeds</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
+        </context-group>
+        <target>如果非现存的进程进程超过这个值将到达 Warn</target>
+      </trans-unit>
+      <trans-unit id="Warn if number of stopped processes exceeds">
+        <source>Warn if number of stopped processes exceeds</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
+        </context-group>
+        <target>如果被终止的进程超过这个值将到达 Warn</target>
+      </trans-unit>
+      <trans-unit id="Warn if number of swapped processes exceeds">
+        <source>Warn if number of swapped processes exceeds</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
+        </context-group>
+        <target>如果被交换的进程超过这个值将到达 Warn</target>
       </trans-unit>
       <trans-unit id="Warning Accesses">
         <source>Warning Accesses</source>
@@ -2014,6 +2112,13 @@
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
         <target>Warning 空闲的交换分区的百分比</target>
+      </trans-unit>
+      <trans-unit id="Warning Swapped Process Count">
+        <source>Warning Swapped Process Count</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
+        </context-group>
+        <target>Warning 交换的进程数</target>
       </trans-unit>
       <trans-unit id="Warning TIME_WAIT Connections">
         <source>Warning TIME_WAIT Connections</source>
@@ -3315,6 +3420,10 @@
           <source>BEA Weblogic</source>
           <target>BEA Weblogic</target>
         </trans-unit>
+        <trans-unit id="Red Hat Application Server">
+          <source>Red Hat Application Server</source>
+          <target>红帽应用服务器</target>
+        </trans-unit>
         <trans-unit id="General">
           <source>General</source>
           <target>一般</target>
@@ -3478,8 +3587,8 @@
           <source>Log Pattern Match</source>
           <target>日志特征匹配</target>
         </trans-unit>
-        <trans-unit id="Log Size Growth">
-          <source>Log Size Growth</source>
+        <trans-unit id="Log Size">
+          <source>Log Size</source>
           <target>日志大小</target>
         </trans-unit>
         <trans-unit id="LongLegs">

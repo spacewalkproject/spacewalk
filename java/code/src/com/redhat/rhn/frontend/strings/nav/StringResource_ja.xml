@@ -35,7 +35,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">Users Navigation Menu</context>
         </context-group>
-        <target>非アクティブ</target>
+        <target>停止されました</target>
       </trans-unit>
       <trans-unit id="User">
         <source>User</source>
@@ -57,6 +57,13 @@
           <context context-type="sourcefile">Action Details Navigation Menu</context>
         </context-group>
         <target>パッチのインストール</target>
+      </trans-unit>
+      <trans-unit id="system.nav.all">
+        <source>All</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Systems Navigation Menu</context>
+        </context-group>
+        <target>すべて</target>
       </trans-unit>
       <trans-unit id="virtualization.entitlements">
         <source>Virtualization Entitlements</source>
@@ -114,6 +121,13 @@
         </context-group>
         <target>重複する IP アドレス</target>
       </trans-unit>
+      <trans-unit id="duplicate.systems.nav.ip6s">
+        <source>Duplicate IPv6 Address</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Duplicate Systems Navigation Menu</context>
+        </context-group>
+        <target>重複する IPv6 アドレス</target>
+      </trans-unit>
       <trans-unit id="duplicate.systems.nav.mac_address">
         <source>Duplicate MAC Address</source>
         <context-group name="ctx">
@@ -134,6 +148,41 @@
           <context context-type="sourcefile">Systems Navigation Menu</context>
         </context-group>
         <target>システム通貨</target>
+      </trans-unit>
+      <trans-unit id="system.nav.outofdate">
+        <source>Out of Date</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Systems Navigation Menu</context>
+        </context-group>
+        <target>期限切れ</target>
+      </trans-unit>
+      <trans-unit id="system.nav.unentitled">
+        <source>Unentitled</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Systems Navigation Menu</context>
+        </context-group>
+        <target>エンタイトルメントなし</target>
+      </trans-unit>
+      <trans-unit id="system.nav.ungrouped">
+        <source>Ungrouped</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Systems Navigation Menu</context>
+        </context-group>
+        <target>グループ化されていない</target>
+      </trans-unit>
+      <trans-unit id="system.nav.inactive">
+        <source>Inactive</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Systems Navigation Menu</context>
+        </context-group>
+        <target>休止中</target>
+      </trans-unit>
+      <trans-unit id="system.nav.proxy">
+        <source>Proxy</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Systems Navigation Menu</context>
+        </context-group>
+        <target>Proxy</target>
       </trans-unit>
       <trans-unit id="ssm.nav.config">
         <source>Configuration</source>
@@ -205,6 +254,13 @@
         </context-group>
         <target>すべて</target>
       </trans-unit>
+      <trans-unit id="channel.nav.relevant">
+        <source>Relevant channels</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Channel Navigation Menu</context>
+        </context-group>
+        <target>関連チャンネル</target>
+      </trans-unit>
       <trans-unit id="channel.nav.all">
         <source>All Channels</source>
         <context-group name="ctx">
@@ -218,6 +274,13 @@
           <context context-type="sourcefile">Channel Navigation Menu</context>
         </context-group>
         <target>共有チャンネル</target>
+      </trans-unit>
+      <trans-unit id="channel.nav.vendor">
+        <source>Red Hat Channels</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Channel Navigation Menu</context>
+        </context-group>
+        <target>Red Hat チャンネル</target>
       </trans-unit>
       <trans-unit id="channel.nav.popular">
         <source>Popular Channels</source>
@@ -239,6 +302,13 @@
           <context context-type="sourcefile">Channel Navigation Menu</context>
         </context-group>
         <target>リタイアチャンネル</target>
+      </trans-unit>
+      <trans-unit id="audit.nav.audit">
+        <source>Audit</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Audit Navigation Menu</context>
+        </context-group>
+        <target>監査</target>
       </trans-unit>
       <trans-unit id="config.nav.managed">
         <source>Managed Systems</source>
@@ -274,6 +344,13 @@
           <context context-type="sourcefile">Configuration Navigation Menu</context>
         </context-group>
         <target>設定ファイル</target>
+      </trans-unit>
+      <trans-unit id="config.nav.quota">
+        <source>Quota for File Storage</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Configuration Navigation Menu</context>
+        </context-group>
+        <target>ファイル保存の制限</target>
       </trans-unit>
       <trans-unit id="config.nav.globalfiles">
         <source>Centrally Managed Files</source>
@@ -446,6 +523,19 @@
         </context-group>
         <target>その他のファイル</target>
       </trans-unit>
+      <group>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/audit/ListScap.do</context>
+        </context-group>
+        <trans-unit id="nav.system.audit.list_scans">
+          <source>List Scans</source>
+          <target>スキャンの一覧</target>
+        </trans-unit>
+        <trans-unit id="nav.system.audit.schedule">
+          <source>Schedule</source>
+          <target>スケジュール</target>
+        </trans-unit>
+      </group>
       <!-- SDC Config file navigation-->
       <group>
         <context-group name="ctx">
@@ -458,6 +548,14 @@
         <trans-unit id="nav.sdc.config.view_modify_files">
           <source>View/Modify Files</source>
           <target>ファイルの表示/変更</target>
+        </trans-unit>
+        <trans-unit id="nav.sdc.config.add_files">
+          <source>Add File</source>
+          <target>ファイルの追加</target>
+        </trans-unit>
+        <trans-unit id="nav.sdc.config.deploy_files">
+          <source>Deploy Files</source>
+          <target>ファイルの配備</target>
         </trans-unit>
         <trans-unit id="nav.sdc.config.compare_files">
           <source>Compare Files</source>
@@ -569,6 +667,13 @@
         </context-group>
         <target>セッションの状態</target>
       </trans-unit>
+      <trans-unit id="Session History">
+        <source>Session History</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+        <target>セッション履歴</target>
+      </trans-unit>
       <trans-unit id="Sandbox">
         <source>Sandbox</source>
         <context-group name="ctx">
@@ -602,7 +707,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
-        <target>タグシステム</target>
+        <target>システムにタグを付ける</target>
       </trans-unit>
       <trans-unit id="Reactivation">
         <source>Reactivation</source>
@@ -637,7 +742,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
-        <target>パッチクラスタ</target>
+        <target>パッチクラスター</target>
       </trans-unit>
       <trans-unit id="Notes">
         <source>Notes</source>
@@ -715,6 +820,20 @@
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
         <target>設定ファイル</target>
+      </trans-unit>
+      <trans-unit id="Local Overrides">
+        <source>Local Overrides</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+        <target>ローカルのオーバーライド</target>
+      </trans-unit>
+      <trans-unit id="Outage Policy">
+        <source>Outage Policy</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+        <target>機能停止ポリシー</target>
       </trans-unit>
       <trans-unit id="Join">
         <source>Join</source>
@@ -882,7 +1001,21 @@
         <context-group name="ctx">
           <context context-type="sourcefile">Kickstart Software menu</context>
         </context-group>
-        <target>パッケージプロフィール</target>
+        <target>パッケージプロファイル</target>
+      </trans-unit>
+      <trans-unit id="Expiration Dates &amp; Purchase History">
+        <source>Expiration Dates &amp; Purchase History</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Overview left nav menu</context>
+        </context-group>
+        <target>有効期限と購入履歴</target>
+      </trans-unit>
+      <trans-unit id="Purchase or Renew">
+        <source>Purchase or Renew</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Overview left nav menu</context>
+        </context-group>
+        <target>購入または更新</target>
       </trans-unit>
       <trans-unit id="Critical">
         <source>Critical</source>
@@ -1001,7 +1134,14 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/Subscriptions.do</context>
         </context-group>
-        <target>サブスクリプション（購読）</target>
+        <target>サブスクリプション</target>
+      </trans-unit>
+      <trans-unit id="subdetails.details">
+        <source>Details</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/multiorg/EntitlementDetails.do</context>
+        </context-group>
+        <target>詳細</target>
       </trans-unit>
       <!-- SSM NAV -->
       <group>

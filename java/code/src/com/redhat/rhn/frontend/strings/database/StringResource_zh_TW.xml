@@ -8,7 +8,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/Overview</context>
         </context-group>
-        <target>佇列 </target>
+        <target>已排程</target>
       </trans-unit>
       <trans-unit id="Picked Up">
         <source>Picked Up</source>
@@ -51,7 +51,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/SystemList</context>
         </context-group>
-        <target>Provisioning</target>
+        <target>佈建</target>
       </trans-unit>
       <trans-unit id="Non-Linux Entitled Servers">
         <source>Non-Linux</source>
@@ -193,6 +193,13 @@
         </context-group>
         <target>(GMT-0600) 美國 (中部時間)</target>
       </trans-unit>
+      <trans-unit id="America/Regina">
+        <source>(GMT-0600) Canada (Regina)</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/account/UserDetails</context>
+        </context-group>
+        <target>(GMT-0600) 加拿大（里賈納）</target>
+      </trans-unit>
       <trans-unit id="America/Denver">
         <source>(GMT-0700) United States (Mountain)</source>
         <context-group name="ctx">
@@ -229,11 +236,18 @@
         <target>(GMT+1300) 東加</target>
       </trans-unit>
       <trans-unit id="Pacific/Wallis">
-        <source>(GMT+1200) New Zealand</source>
+        <source>(GMT+1200) New Zealand (Wallis)</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/account/UserDetails</context>
         </context-group>
         <target>(GMT+1200) 紐西蘭</target>
+      </trans-unit>
+      <trans-unit id="Pacific/Auckland">
+        <source>(GMT+1200) New Zealand (Auckland)</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/account/UserDetails</context>
+        </context-group>
+        <target>(GMT+1200) 紐西蘭（奧克蘭）</target>
       </trans-unit>
       <trans-unit id="Pacific/Norfolk">
         <source>(GMT+1130) Norfolk Island</source>
@@ -951,6 +965,13 @@
         </context-group>
         <target>Critical 可用置換空間的百分比</target>
       </trans-unit>
+      <trans-unit id="Critical Swapped Process Count">
+        <source>Critical Swapped Process Count</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
+        </context-group>
+        <target>Critical 置換空間數</target>
+      </trans-unit>
       <trans-unit id="Critical TIME_WAIT Connections">
         <source>Critical TIME_WAIT Connections</source>
         <context-group name="ctx">
@@ -1048,6 +1069,41 @@
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
         <target>Critical 寫入率</target>
+      </trans-unit>
+      <trans-unit id="Critical if number of blocked processes exceeds">
+        <source>Critical if number of blocked processes exceeds</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
+        </context-group>
+        <target>Critical 如果阻絕程序數量超過的話</target>
+      </trans-unit>
+      <trans-unit id="Critical if number of children for any process exceeds">
+        <source>Critical if number of children for any process exceeds</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
+        </context-group>
+        <target>Critical 如果任何子程序數量超過的話</target>
+      </trans-unit>
+      <trans-unit id="Critical if number of defunct processes exceeds">
+        <source>Critical if number of defunct processes exceeds</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
+        </context-group>
+        <target>Critical 如果失去回應程序的數量超過的話</target>
+      </trans-unit>
+      <trans-unit id="Critical if number of stopped processes exceeds">
+        <source>Critical if number of stopped processes exceeds</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
+        </context-group>
+        <target>Critical 如果已停止程序的數量超過的話</target>
+      </trans-unit>
+      <trans-unit id="Critical if number of swapped processes exceeds">
+        <source>Critical if number of swapped processes exceeds</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
+        </context-group>
+        <target>Critical 如果置換程序超過數量的話</target>
       </trans-unit>
       <trans-unit id="Database">
         <source>Database</source>
@@ -1258,6 +1314,13 @@
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
         <target>Oracle 密碼</target>
+      </trans-unit>
+      <trans-unit id="Oracle Password_confirm">
+        <source>Oracle Password Confirm</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
+        </context-group>
+        <target>Oracle 密碼確認</target>
       </trans-unit>
       <trans-unit id="Oracle Port">
         <source>Oracle Port</source>
@@ -1580,6 +1643,41 @@
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
         <target>警告使用者</target>
+      </trans-unit>
+      <trans-unit id="Warn if number of blocked processes exceeds">
+        <source>Warn if number of blocked processes exceeds</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
+        </context-group>
+        <target>警告，如果阻絕程序的數字超過的話</target>
+      </trans-unit>
+      <trans-unit id="Warn if number of children for any process exceeds">
+        <source>Warn if number of children for any process exceeds</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
+        </context-group>
+        <target>警告，如果任何程序的子程序數量超過的話</target>
+      </trans-unit>
+      <trans-unit id="Warn if number of defunct processes exceeds">
+        <source>Warn if number of defunct processes exceeds</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
+        </context-group>
+        <target>警告，如果停止回應的程序數量超過的話</target>
+      </trans-unit>
+      <trans-unit id="Warn if number of stopped processes exceeds">
+        <source>Warn if number of stopped processes exceeds</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
+        </context-group>
+        <target>警告，如果停止的程序數量超過的話</target>
+      </trans-unit>
+      <trans-unit id="Warn if number of swapped processes exceeds">
+        <source>Warn if number of swapped processes exceeds</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
+        </context-group>
+        <target>警告，如果被置換的程序數量超過的話</target>
       </trans-unit>
       <trans-unit id="Warning Accesses">
         <source>Warning Accesses</source>
@@ -2014,6 +2112,13 @@
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
         <target>警告，可用置換百分比</target>
+      </trans-unit>
+      <trans-unit id="Warning Swapped Process Count">
+        <source>Warning Swapped Process Count</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
+        </context-group>
+        <target>警告已置換程序數</target>
       </trans-unit>
       <trans-unit id="Warning TIME_WAIT Connections">
         <source>Warning TIME_WAIT Connections</source>
@@ -3315,6 +3420,10 @@
           <source>BEA Weblogic</source>
           <target>BEA Weblogic</target>
         </trans-unit>
+        <trans-unit id="Red Hat Application Server">
+          <source>Red Hat Application Server</source>
+          <target>Red Hat 應用程式伺服器</target>
+        </trans-unit>
         <trans-unit id="General">
           <source>General</source>
           <target>一般的</target>
@@ -3478,8 +3587,8 @@
           <source>Log Pattern Match</source>
           <target>紀錄模式吻合</target>
         </trans-unit>
-        <trans-unit id="Log Size Growth">
-          <source>Log Size Growth</source>
+        <trans-unit id="Log Size">
+          <source>Log Size</source>
           <target>紀錄檔大小</target>
         </trans-unit>
         <trans-unit id="LongLegs">

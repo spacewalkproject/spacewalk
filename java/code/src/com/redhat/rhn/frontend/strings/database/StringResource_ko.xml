@@ -193,6 +193,13 @@
         </context-group>
         <target>(GMT-0600) 미국 (중부)</target>
       </trans-unit>
+      <trans-unit id="America/Regina">
+        <source>(GMT-0600) Canada (Regina)</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/account/UserDetails</context>
+        </context-group>
+        <target>(GMT-0600) 캐나다 (레지나)</target>
+      </trans-unit>
       <trans-unit id="America/Denver">
         <source>(GMT-0700) United States (Mountain)</source>
         <context-group name="ctx">
@@ -229,11 +236,18 @@
         <target>(GMT+1300) 통가</target>
       </trans-unit>
       <trans-unit id="Pacific/Wallis">
-        <source>(GMT+1200) New Zealand</source>
+        <source>(GMT+1200) New Zealand (Wallis)</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/account/UserDetails</context>
         </context-group>
         <target>(GMT+1200) 뉴질랜드</target>
+      </trans-unit>
+      <trans-unit id="Pacific/Auckland">
+        <source>(GMT+1200) New Zealand (Auckland)</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/account/UserDetails</context>
+        </context-group>
+        <target>(GMT+1200) 뉴질랜드 (오클랜드)</target>
       </trans-unit>
       <trans-unit id="Pacific/Norfolk">
         <source>(GMT+1130) Norfolk Island</source>
@@ -466,35 +480,35 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>Count process groups</target>
+        <target>프로세스 그룹의 수 </target>
       </trans-unit>
       <trans-unit id="Critical 1 min">
         <source>Critical 1 min</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>Critical 1 min</target>
+        <target>Critical 1 분</target>
       </trans-unit>
       <trans-unit id="Critical 15 min">
         <source>Critical 15 min</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>Critical 15 min</target>
+        <target>Critical 15 분 </target>
       </trans-unit>
       <trans-unit id="Critical 5 min">
         <source>Critical 5 min</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>Critical 5 min</target>
+        <target>Critical 5 분 </target>
       </trans-unit>
       <trans-unit id="Critical Accesses">
         <source>Critical Accesses</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>Critical Accesses</target>
+        <target>Critical 액세스 </target>
       </trans-unit>
       <trans-unit id="Critical Active Locks">
         <source>Critical Active Locks</source>
@@ -951,6 +965,13 @@
         </context-group>
         <target>Critical Swap Pct Free</target>
       </trans-unit>
+      <trans-unit id="Critical Swapped Process Count">
+        <source>Critical Swapped Process Count</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
+        </context-group>
+        <target>Critical Swapped Process Count</target>
+      </trans-unit>
       <trans-unit id="Critical TIME_WAIT Connections">
         <source>Critical TIME_WAIT Connections</source>
         <context-group name="ctx">
@@ -1048,6 +1069,41 @@
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
         <target>Critical Write rate</target>
+      </trans-unit>
+      <trans-unit id="Critical if number of blocked processes exceeds">
+        <source>Critical if number of blocked processes exceeds</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
+        </context-group>
+        <target>위험 (Critical): 대기 상태(blocked) 프로세스 수가 초과된 경우</target>
+      </trans-unit>
+      <trans-unit id="Critical if number of children for any process exceeds">
+        <source>Critical if number of children for any process exceeds</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
+        </context-group>
+        <target>위험 (Critical): 자식 프로세스 수가 초과된 경우</target>
+      </trans-unit>
+      <trans-unit id="Critical if number of defunct processes exceeds">
+        <source>Critical if number of defunct processes exceeds</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
+        </context-group>
+        <target>위험 (Critical): 좀비(defunct) 프로세스 수가 초과된 경우</target>
+      </trans-unit>
+      <trans-unit id="Critical if number of stopped processes exceeds">
+        <source>Critical if number of stopped processes exceeds</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
+        </context-group>
+        <target>위험 (Critical): 정지된(stopped) 프로세스 수가 초과된 경우</target>
+      </trans-unit>
+      <trans-unit id="Critical if number of swapped processes exceeds">
+        <source>Critical if number of swapped processes exceeds</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
+        </context-group>
+        <target>위험 (Critical): 교체된(swapped) 프로세스 수가 초과된 경우</target>
       </trans-unit>
       <trans-unit id="Database">
         <source>Database</source>
@@ -1258,6 +1314,13 @@
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
         <target>Oracle 암호</target>
+      </trans-unit>
+      <trans-unit id="Oracle Password_confirm">
+        <source>Oracle Password Confirm</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
+        </context-group>
+        <target>Oracle 암호 확인</target>
       </trans-unit>
       <trans-unit id="Oracle Port">
         <source>Oracle Port</source>
@@ -1580,6 +1643,41 @@
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
         <target>Warn Users</target>
+      </trans-unit>
+      <trans-unit id="Warn if number of blocked processes exceeds">
+        <source>Warn if number of blocked processes exceeds</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
+        </context-group>
+        <target>경고 (Warn): 대기 상태(blocked) 프로세스 수가 초과된 경우</target>
+      </trans-unit>
+      <trans-unit id="Warn if number of children for any process exceeds">
+        <source>Warn if number of children for any process exceeds</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
+        </context-group>
+        <target>경고 (Warn): 자식 프로세스 수가 초과된 경우</target>
+      </trans-unit>
+      <trans-unit id="Warn if number of defunct processes exceeds">
+        <source>Warn if number of defunct processes exceeds</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
+        </context-group>
+        <target>경고 (Warn): 좀비(defunct) 프로세스 수가 초과된 경우</target>
+      </trans-unit>
+      <trans-unit id="Warn if number of stopped processes exceeds">
+        <source>Warn if number of stopped processes exceeds</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
+        </context-group>
+        <target>경고 (Warn): 정지된(stopped) 프로세스 수가 초과된 경우</target>
+      </trans-unit>
+      <trans-unit id="Warn if number of swapped processes exceeds">
+        <source>Warn if number of swapped processes exceeds</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
+        </context-group>
+        <target>경고 (Warn): 교체된(swapped) 프로세스 수가 초과된 경우</target>
       </trans-unit>
       <trans-unit id="Warning Accesses">
         <source>Warning Accesses</source>
@@ -2014,6 +2112,13 @@
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
         <target>Warning Swap Pct Free</target>
+      </trans-unit>
+      <trans-unit id="Warning Swapped Process Count">
+        <source>Warning Swapped Process Count</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
+        </context-group>
+        <target>Warning Swapped Process Count</target>
       </trans-unit>
       <trans-unit id="Warning TIME_WAIT Connections">
         <source>Warning TIME_WAIT Connections</source>
@@ -3315,6 +3420,10 @@
           <source>BEA Weblogic</source>
           <target>BEA Weblogic</target>
         </trans-unit>
+        <trans-unit id="Red Hat Application Server">
+          <source>Red Hat Application Server</source>
+          <target>Red Hat Application Server</target>
+        </trans-unit>
         <trans-unit id="General">
           <source>General</source>
           <target>일반</target>
@@ -3478,8 +3587,8 @@
           <source>Log Pattern Match</source>
           <target>로그 패턴 일치</target>
         </trans-unit>
-        <trans-unit id="Log Size Growth">
-          <source>Log Size Growth</source>
+        <trans-unit id="Log Size">
+          <source>Log Size</source>
           <target>로그 크기</target>
         </trans-unit>
         <trans-unit id="LongLegs">

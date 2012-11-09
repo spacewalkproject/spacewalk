@@ -191,7 +191,14 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/account/UserDetails</context>
         </context-group>
-        <target>(GMT-0600) США (Центр)</target>
+        <target>(GMT-0600) США (центральное)</target>
+      </trans-unit>
+      <trans-unit id="America/Regina">
+        <source>(GMT-0600) Canada (Regina)</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/account/UserDetails</context>
+        </context-group>
+        <target>(GMT-0600) Canada (Регина)</target>
       </trans-unit>
       <trans-unit id="America/Denver">
         <source>(GMT-0700) United States (Mountain)</source>
@@ -229,11 +236,18 @@
         <target>(GMT+1300) Тонга</target>
       </trans-unit>
       <trans-unit id="Pacific/Wallis">
-        <source>(GMT+1200) New Zealand</source>
+        <source>(GMT+1200) New Zealand (Wallis)</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/account/UserDetails</context>
         </context-group>
         <target>(GMT+1200) Новая Зеландия</target>
+      </trans-unit>
+      <trans-unit id="Pacific/Auckland">
+        <source>(GMT+1200) New Zealand (Auckland)</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/account/UserDetails</context>
+        </context-group>
+        <target>(GMT+1200) Новая Зеландия (Окленд)</target>
       </trans-unit>
       <trans-unit id="Pacific/Norfolk">
         <source>(GMT+1130) Norfolk Island</source>
@@ -951,6 +965,13 @@
         </context-group>
         <target>Critical: свободно Swap (в %)</target>
       </trans-unit>
+      <trans-unit id="Critical Swapped Process Count">
+        <source>Critical Swapped Process Count</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
+        </context-group>
+        <target>Critical: счётчик процессов перестановки</target>
+      </trans-unit>
       <trans-unit id="Critical TIME_WAIT Connections">
         <source>Critical TIME_WAIT Connections</source>
         <context-group name="ctx">
@@ -1048,6 +1069,41 @@
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
         <target>Critical: скорость записи</target>
+      </trans-unit>
+      <trans-unit id="Critical if number of blocked processes exceeds">
+        <source>Critical if number of blocked processes exceeds</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
+        </context-group>
+        <target>Critical: если число заблокированных процессов превышает</target>
+      </trans-unit>
+      <trans-unit id="Critical if number of children for any process exceeds">
+        <source>Critical if number of children for any process exceeds</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
+        </context-group>
+        <target>Critical: если число дочерних процессов превышает</target>
+      </trans-unit>
+      <trans-unit id="Critical if number of defunct processes exceeds">
+        <source>Critical if number of defunct processes exceeds</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
+        </context-group>
+        <target>Critical: если число процессов-зомби превышает</target>
+      </trans-unit>
+      <trans-unit id="Critical if number of stopped processes exceeds">
+        <source>Critical if number of stopped processes exceeds</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
+        </context-group>
+        <target>Critical: если число остановленных процессов превышает</target>
+      </trans-unit>
+      <trans-unit id="Critical if number of swapped processes exceeds">
+        <source>Critical if number of swapped processes exceeds</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
+        </context-group>
+        <target>Critical: если число процессов перестановки превышает</target>
       </trans-unit>
       <trans-unit id="Database">
         <source>Database</source>
@@ -1259,6 +1315,13 @@
         </context-group>
         <target>Пароль Oracle</target>
       </trans-unit>
+      <trans-unit id="Oracle Password_confirm">
+        <source>Oracle Password Confirm</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
+        </context-group>
+        <target>Подтверждение пароля Oracle</target>
+      </trans-unit>
       <trans-unit id="Oracle Port">
         <source>Oracle Port</source>
         <context-group name="ctx">
@@ -1278,7 +1341,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>Имя пользователя Oracle</target>
+        <target>Пользователь Oracle</target>
       </trans-unit>
       <trans-unit id="Output Traffic Critical">
         <source>Output Traffic Critical</source>
@@ -1299,7 +1362,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>Пакеты для отсылки</target>
+        <target>Пакеты для передачи</target>
       </trans-unit>
       <trans-unit id="Password">
         <source>Password</source>
@@ -1320,14 +1383,14 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>Крититчно: если доля доступных блоков превышает</target>
+        <target>Критически, если доля доступных блоков превышает</target>
       </trans-unit>
       <trans-unit id="Percent of Available Extents Warn if Above">
         <source>Percent of Available Extents Warn if Above</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>Warn: если доля доступных блоков превышает</target>
+        <target>Предупреждение,  если доля доступных блоков превышает</target>
       </trans-unit>
       <trans-unit id="Port">
         <source>Port</source>
@@ -1383,7 +1446,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
-        <target>Список шаблонов фильтров удалённых IP адресов</target>
+        <target>Список шаблонов для фильтров удалённых IP адресов</target>
       </trans-unit>
       <trans-unit id="Remote port number filter">
         <source>Remote port number filter</source>
@@ -1580,6 +1643,41 @@
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
         <target>Warn: пользователи</target>
+      </trans-unit>
+      <trans-unit id="Warn if number of blocked processes exceeds">
+        <source>Warn if number of blocked processes exceeds</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
+        </context-group>
+        <target>Warn: если число заблокированных процессов превышает</target>
+      </trans-unit>
+      <trans-unit id="Warn if number of children for any process exceeds">
+        <source>Warn if number of children for any process exceeds</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
+        </context-group>
+        <target>Warn: если число дочерних процессов превышает</target>
+      </trans-unit>
+      <trans-unit id="Warn if number of defunct processes exceeds">
+        <source>Warn if number of defunct processes exceeds</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
+        </context-group>
+        <target>Warn: если число процессов-зомби превышает</target>
+      </trans-unit>
+      <trans-unit id="Warn if number of stopped processes exceeds">
+        <source>Warn if number of stopped processes exceeds</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
+        </context-group>
+        <target>Warn: если число остановленных процессов превышает</target>
+      </trans-unit>
+      <trans-unit id="Warn if number of swapped processes exceeds">
+        <source>Warn if number of swapped processes exceeds</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
+        </context-group>
+        <target>Warn: если число процессов перестановки превышает</target>
       </trans-unit>
       <trans-unit id="Warning Accesses">
         <source>Warning Accesses</source>
@@ -2014,6 +2112,13 @@
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
         <target>Warning: свободно Swap (в %)</target>
+      </trans-unit>
+      <trans-unit id="Warning Swapped Process Count">
+        <source>Warning Swapped Process Count</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
+        </context-group>
+        <target>Warning: счётчик процессов перестановки</target>
       </trans-unit>
       <trans-unit id="Warning TIME_WAIT Connections">
         <source>Warning TIME_WAIT Connections</source>
@@ -3315,6 +3420,10 @@
           <source>BEA Weblogic</source>
           <target>BEA Weblogic</target>
         </trans-unit>
+        <trans-unit id="Red Hat Application Server">
+          <source>Red Hat Application Server</source>
+          <target>Сервер приложений Red Hat</target>
+        </trans-unit>
         <trans-unit id="General">
           <source>General</source>
           <target>Общие</target>
@@ -3478,8 +3587,8 @@
           <source>Log Pattern Match</source>
           <target>Соответствие шаблона журналирования</target>
         </trans-unit>
-        <trans-unit id="Log Size Growth">
-          <source>Log Size Growth</source>
+        <trans-unit id="Log Size">
+          <source>Log Size</source>
           <target>Размер журнала</target>
         </trans-unit>
         <trans-unit id="LongLegs">
@@ -3592,7 +3701,7 @@
         </trans-unit>
         <trans-unit id="Swap Usage">
           <source>Swap Usage</source>
-          <target>Использование Swap</target>
+          <target>Занятость подкачки</target>
         </trans-unit>
         <trans-unit id="TCP Check">
           <source>TCP Check</source>
@@ -3600,7 +3709,7 @@
         </trans-unit>
         <trans-unit id="TCP Connections by State">
           <source>TCP Connections by State</source>
-          <target>TCP соединения по состоянию</target>
+          <target>TCP-соединения по состоянию</target>
         </trans-unit>
         <trans-unit id="TNS Ping">
           <source>TNS Ping</source>
@@ -3670,11 +3779,11 @@
         </trans-unit>
         <trans-unit id="kickstart.state.injected">
           <source>The system configuration has been modified to begin kickstart upon next boot.</source>
-          <target>Система настроена на выполнение кикстарта при следующем рестарте.</target>
+          <target>Система настроена на выполнение кикстарта после перезапуска.</target>
         </trans-unit>
         <trans-unit id="kickstart.state.restarted">
           <source>The system has been restarted in order to begin the kickstart process.</source>
-          <target>Произошел рестарт системы с целью начала кикстарта.</target>
+          <target>Система была перезапущена с целью начала кикстарта.</target>
         </trans-unit>
         <trans-unit id="kickstart.state.configuration_accessed">
           <source>The system has downloaded the kickstart configuration file from @@PRODUCT_NAME@@.</source>
