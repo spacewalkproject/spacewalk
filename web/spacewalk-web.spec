@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 1.9.1
+Version: 1.9.2
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -253,6 +253,16 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Fri Nov 09 2012 Jan Pazdziora 1.9.2-1
+- 490524 - Return the datetime in the local time zone.
+- 490524 - Epoch is always in UTC, no time_zone setting for epoch case.
+- Function date_to_epoch made obsolete, not used anymore.
+- The from_zone parameter is not used anywhere.
+- Use RHN::Date where it is used (only).
+- 490524 - Avoid initializing the object with local only to call time_zone
+  right away.
+- 490524 - Shortcut RHN::Date->now->long_date, avoiding DateTime.
+
 * Wed Oct 31 2012 Jan Pazdziora 1.9.1-1
 - Bumping version string to 1.9.
 - Bumping package versions for 1.9.
