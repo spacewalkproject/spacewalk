@@ -67,7 +67,7 @@ public class TaskoQuartzHelper {
         Trigger trigger = null;
         if (isCronExpressionEmpty(schedule.getCronExpr())) {
             trigger = new SimpleTrigger(schedule.getJobLabel(),
-                    getGroupName(schedule.getOrgId()), 1, 1);
+                    getGroupName(schedule.getOrgId()));
         }
         else {
             try {
