@@ -115,25 +115,6 @@ sub time_zone {
   return $self->{dt}->time_zone;
 }
 
-# internal function for conversion; a bit ineffecient right now but
-# gets the job done
-sub date_to_epoch {
-  my $str = shift;
-  my $zone_name = shift;
-
-  my ($s, $m, $h, $day, $mon, $yr) = strptime($str);
-
-  my $date = new DateTime(year => $yr + 1900,
-			  month => $mon + 1,
-			  day => $day,
-			  hour => $h,
-			  minute => $m,
-			  second => $s,
-			  time_zone => $zone_name);
-
-  return $date->epoch;
-}
-
 # format a string to a given pattern
 sub strftime {
   my $self = shift;
