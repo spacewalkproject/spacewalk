@@ -33,7 +33,7 @@ Params::Validate::validation_options(strip_leading => "-");
 
 sub new {
   my $class = shift;
-  my %params = validate(@_, { -now => 0, -epoch => 0, -string => 0, -user => 0, from_zone => 0, source => 0 });
+  my %params = validate(@_, { -now => 0, -epoch => 0, -string => 0, -user => 0, source => 0 });
 
   my $time_zone = 'local';
   if ($params{user}) {
@@ -62,14 +62,7 @@ sub new {
     $dt = DateTime->from_epoch(epoch => $params{epoch}, time_zone => $time_zone);
   }
   elsif (exists $params{string}) {
-    my $from_zone = $params{from_zone};
-    if ($from_zone) {
-      $dt = DateTime->from_epoch(epoch => date_to_epoch($params{string}, $from_zone),
-				 time_zone => $time_zone);
-    }
-    else {
-      $dt = DateTime->from_epoch(epoch => str2time($params{string}), time_zone => $time_zone);
-    }
+    $dt = DateTime->from_epoch(epoch => str2time($params{string}), time_zone => $time_zone);
   }
   else {
     throw "Missing parameter to RHN::Date constructor";
