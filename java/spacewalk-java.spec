@@ -23,7 +23,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.9.6
+Version: 1.9.7
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -617,6 +617,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Nov 09 2012 Michael Mraka <michael.mraka@redhat.com> 1.9.7-1
+- reverted macro name translation
+
 * Fri Nov 09 2012 Michael Mraka <michael.mraka@redhat.com> 1.9.6-1
 - backported translation changes from zanata
 
