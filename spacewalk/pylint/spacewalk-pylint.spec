@@ -1,5 +1,5 @@
 Name:		spacewalk-pylint
-Version:	0.8
+Version:	0.9
 Release:	1%{?dist}
 Summary:	Pylint configuration for spacewalk python packages
 
@@ -49,6 +49,9 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Sun Nov 11 2012 Michael Calmer <mc@suse.de> 0.9-1
+- BuildRequire docbook-style-xsl only on redhat
+
 * Wed Oct 24 2012 Michael Mraka <michael.mraka@redhat.com> 0.8-1
 - Revert "put W1201 on list of ignored pylint warnings"
 
