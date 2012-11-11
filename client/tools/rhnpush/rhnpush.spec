@@ -4,7 +4,7 @@ Name:          rhnpush
 Group:         Applications/System
 License:       GPLv2
 URL:           http://fedorahosted.org/spacewalk
-Version:       5.5.55
+Version:       5.5.56
 Release:       1%{?dist}
 Source0:       https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 BuildRoot:     %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -75,6 +75,9 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 %doc COPYING
 
 %changelog
+* Sun Nov 11 2012 Michael Calmer <mc@suse.de> 5.5.56-1
+- package solaris converter for SUSE too
+
 * Tue Oct 30 2012 Jan Pazdziora 5.5.55-1
 - Update the copyright year.
 
