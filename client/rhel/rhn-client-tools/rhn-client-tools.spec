@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 1.9.1
+Version: 1.9.2
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -339,6 +339,11 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Sun Nov 11 2012 Michael Calmer <mc@suse.de> 1.9.2-1
+- check if system id has changed
+- check if /etc/sysconfig/network is a file
+- no hal for openSUSE >= 11.4
+
 * Wed Oct 31 2012 Jan Pazdziora 1.9.1-1
 - 871867 - progress bar in rhn-client-tools can now translate its title
 
