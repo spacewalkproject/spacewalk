@@ -10,7 +10,7 @@ License:        GPLv2
 URL:            https://fedorahosted.org/spacewalk
 Source0:        https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 
-Version:        5.4.41
+Version:        5.4.42
 Release:        1%{?dist}
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:      noarch
@@ -151,6 +151,9 @@ fi
 %doc LICENSE
 
 %changelog
+* Sun Nov 11 2012 Michael Calmer <mc@suse.de> 5.4.42-1
+- no use of /var/lock/subsys/ anymore
+
 * Fri Aug 10 2012 Milan Zazrivec <mzazrivec@redhat.com> 5.4.41-1
 - don't include localvdsm.py on fedora
 
