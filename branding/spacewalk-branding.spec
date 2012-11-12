@@ -1,5 +1,5 @@
 Name:       spacewalk-branding
-Version:    1.9.0
+Version:    1.9.1
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -82,6 +82,12 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Mon Nov 12 2012 Tomas Lestach <tlestach@redhat.com> 1.9.1-1
+- 866326 - customize KickstartFileDownloadAdvanced.do page in case of kickstart
+  file DownloadException
+- reformated using xmllint -format
+- Bumping package versions for 1.9.
+
 * Wed Oct 24 2012 Jan Pazdziora 1.8.7-1
 - WebUI - css for @media print
 
