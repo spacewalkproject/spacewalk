@@ -23,7 +23,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.9.8
+Version: 1.9.9
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -617,6 +617,13 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Nov 12 2012 Tomas Lestach <tlestach@redhat.com> 1.9.9-1
+- Fix typos
+- 874278 - use iterators when going through the collection
+- make notes to errata APIs, CVEs may be associated only with published errata
+- it does not make much sense to use on delete cascade on many-to-many
+  relations
+
 * Mon Nov 12 2012 Tomas Lestach <tlestach@redhat.com> 1.9.8-1
 - 866326 - customize KickstartFileDownloadAdvanced.do page in case of kickstart
   file DownloadException
