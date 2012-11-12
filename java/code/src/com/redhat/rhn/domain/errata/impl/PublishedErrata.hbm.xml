@@ -47,7 +47,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
             <one-to-many
                 class="com.redhat.rhn.domain.errata.impl.PublishedBug"/>
         </set>
-        <set name="cves" lazy="true" cascade="all-delete-orphan" table="rhnErrataCve">
+        <set name="cves" lazy="true" cascade="save-update" table="rhnErrataCve">
         	<key column="errata_id"/>
         	<many-to-many column="cve_id" class="com.redhat.rhn.domain.errata.Cve" />
         </set>
