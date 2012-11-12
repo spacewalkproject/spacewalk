@@ -7,7 +7,7 @@ Name: cobbler20
 License: GPLv2+
 AutoReq: no
 Version: 2.0.11
-Release: 5%{?dist}
+Release: 6%{?dist}
 Source0: cobbler-%{version}.tar.gz
 Patch0: catch_cheetah_exception.patch
 Group: Applications/System
@@ -427,6 +427,10 @@ Web interface for Cobbler that allows visiting http://server/cobbler_web to conf
 %doc AUTHORS COPYING CHANGELOG README
 
 %changelog
+* Mon Nov 12 2012 Tomas Lestach <tlestach@redhat.com> 2.0.11-6
+- 866326 - catch xmlrpclib.Fault instead of general Exception in cobbler's
+  mod_python/mod_wsgi
+
 * Thu Nov 08 2012 Tomas Lestach <tlestach@redhat.com> 2.0.11-5
 - 866326 - catch cheetah exception in mod_pythod/mod_wsgi and forward it as 500
   SERVER ERROR
