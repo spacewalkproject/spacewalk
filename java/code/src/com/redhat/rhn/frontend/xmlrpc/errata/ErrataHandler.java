@@ -300,12 +300,21 @@ public class ErrataHandler extends BaseHandler {
      *                  with the errata.")
      *          #prop_desc("array", "CVEs", "'cves' is the key into the struct")
      *              #array_single("string", "cves - List of CVEs to associate
-     *                  with the errata.")
+     *                  with the errata. (valid only for published errata)")
      *     #struct_end()
      *
      *  @xmlrpc.returntype #return_int_success()
      */
     public Integer setDetails(String sessionKey, String advisoryName, Map details) {
+
+        User loggedInUser = getLoggedInUser(sessionKey);
+        Errata errata = lookupErrata(advisoryName, loggedInUser.getOrg());
+
+        if (errata.getOrg() == null) {
+            // Errata in the null org should not be modified; therefore, this is
+            // considered an invalid errata for this request
+            throw new InvalidErrataException(errata.getAdvisoryName());
+        }
 
         // confirm that the user only provided valid keys in the map
         Set<String> validKeys = new HashSet<String>();
@@ -322,7 +331,9 @@ public class ErrataHandler extends BaseHandler {
         validKeys.add("solution");
         validKeys.add("bugs");
         validKeys.add("keywords");
-        validKeys.add("cves");
+        if (errata.isPublished()) {
+            validKeys.add("cves");
+        }
         validateMap(validKeys, details);
 
         validKeys.clear();
@@ -335,15 +346,6 @@ public class ErrataHandler extends BaseHandler {
 
                 validateMap(validKeys, bugMap);
             }
-        }
-
-        User loggedInUser = getLoggedInUser(sessionKey);
-        Errata errata = lookupErrata(advisoryName, loggedInUser.getOrg());
-
-        if (errata.getOrg() == null) {
-            // Errata in the null org should not be modified; therefore, this is
-            // considered an invalid errata for this request
-            throw new InvalidErrataException(errata.getAdvisoryName());
         }
 
         if (details.containsKey("synopsis")) {
@@ -631,7 +633,8 @@ public class ErrataHandler extends BaseHandler {
         throws FaultException {
      *
      * @xmlrpc.doc Returns a list of <a href="http://www.cve.mitre.org/">CVE</a>s
-     * applicable to the erratum with the given advisory name.
+     * applicable to the erratum with the given advisory name. CVEs may be associated
+     * only with published errata.
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param("string",  "advisoryName")
      * @xmlrpc.returntype
