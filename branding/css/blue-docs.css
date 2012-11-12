@@ -139,7 +139,7 @@ pre,code,.guibutton,.keycap,.guilabel{font-size:0.9em;font-family:"liberation mo
 .command .replaceable{color:#555;}
 pre{display:block;background-color:#f7f2d0;color:#333;overflow:auto;}
 pre code, code{white-space:normal;}
-pre.warning { padding: 1em; background-color: #d7d7d7; };
+pre.warning { padding: 1em; background-color: #d7d7d7; }
 
 /*Notifications*/
 div.note,div.tip ,div.important ,div.caution ,div.warning{
