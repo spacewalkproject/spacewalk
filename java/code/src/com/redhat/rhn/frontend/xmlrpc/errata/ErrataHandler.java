@@ -1464,11 +1464,12 @@ public class ErrataHandler extends BaseHandler {
         User loggedInUser = getLoggedInUser(sessionKey);
 
         List<Errata> erratas = ErrataManager.lookupByCVE(cveName);
-        for (Errata errata : erratas) {
+        for (Iterator iter = erratas.iterator(); iter.hasNext();) {
+            Errata errata = (Errata) iter.next();
             // Remove errata that do not apply to the user's org
             if (errata.getOrg() != null &&
                     !errata.getOrg().equals(loggedInUser.getOrg())) {
-                erratas.remove(errata);
+                iter.remove();
             }
         }
         return erratas;
