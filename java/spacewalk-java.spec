@@ -23,7 +23,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.9.7
+Version: 1.9.8
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -617,6 +617,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Nov 12 2012 Tomas Lestach <tlestach@redhat.com> 1.9.8-1
+- 866326 - customize KickstartFileDownloadAdvanced.do page in case of kickstart
+  file DownloadException
+
 * Fri Nov 09 2012 Michael Mraka <michael.mraka@redhat.com> 1.9.7-1
 - reverted macro name translation
 
