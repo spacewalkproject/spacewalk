@@ -16,6 +16,7 @@
 package com.redhat.rhn.frontend.action.renderers;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -72,6 +73,13 @@ public class ImagesRenderer extends BaseFragmentRenderer {
             if (images != null && !images.isEmpty()) {
                 request.getSession().setAttribute(ATTRIB_IMAGES_LIST, images);
             }
+        }
+        catch (RuntimeException re) {
+            if (re.getCause() instanceof MalformedURLException) {
+                logger.error(re.getMessage());
+                request.setAttribute(ATTRIB_ERROR_MSG, "images.message.error.connection");
+            }
+            else throw re;
         }
         catch (IOException e) {
             logger.error(e.getMessage());
