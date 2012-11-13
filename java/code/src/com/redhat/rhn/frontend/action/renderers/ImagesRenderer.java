@@ -86,7 +86,7 @@ public class ImagesRenderer extends BaseFragmentRenderer {
      */
     private List<Image> getImages(User user, HttpServletRequest request)
             throws IOException {
-        List<Appliance> ret = new ArrayList<Appliance>();
+        List<Appliance> appliances = new ArrayList<Appliance>();
 
         // Lookup credentials and url
         Credentials creds = CredentialsFactory.lookupStudioCredentials(user);
@@ -97,22 +97,13 @@ public class ImagesRenderer extends BaseFragmentRenderer {
 
             // Get appliance builds from studio
             SUSEStudio studio = new SUSEStudio(studioUser, studioKey, studioUrl);
-            ret = studio.getAppliances();
+            appliances = studio.getAppliances();
         }
         else {
             request.setAttribute(ATTRIB_ERROR_MSG, "images.message.error.nocreds");
         }
 
         // Convert to a list of images
-        return convertAppliances(ret);
-    }
-
-    /**
-     * Convert a list of {@link Appliance}s to a list of {@link Image}s.
-     * @param appliances list of appliances
-     * @return list of images
-     */
-    private List<Image> convertAppliances(List<Appliance> appliances) {
         List<Image> ret = new LinkedList<Image>();
         for (Appliance appliance : appliances) {
             // Create one image object for every build
@@ -124,16 +115,28 @@ public class ImagesRenderer extends BaseFragmentRenderer {
                 Image img = new Image();
                 // Appliance attributes
                 img.setArch(appliance.getArch());
-                img.setEditUrl(appliance.getEditUrl());
+                img.setEditUrl(fixURL(appliance.getEditUrl(), creds));
                 img.setName(appliance.getName());
                 // Build attributes
-                img.setDownloadUrl(build.getDownloadUrl());
+                img.setDownloadUrl(fixURL(build.getDownloadUrl(), creds));
                 img.setId(new Long(build.getId()));
                 img.setImageSize(build.getImageSize());
                 img.setImageType(build.getImageType());
                 img.setVersion(build.getVersion());
                 ret.add(img);
             }
+        }
+        return ret;
+    }
+
+    /**
+     * Certain versions of SUSE Studio provide relative URLs only,
+     * automatically prepend the base URL in this case.
+     */
+    private String fixURL(String url, Credentials creds) {
+        String ret = url;
+        if (ret != null && ret.startsWith("/")) {
+            ret = creds.getUrl() + ret;
         }
         return ret;
     }
