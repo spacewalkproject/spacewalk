@@ -64,7 +64,7 @@ public class UserCredentialsEditAction extends RhnAction {
             Credentials newCreds = CredentialsFactory.createCredentials();
             newCreds.setUsername(request.getParameter(PARAM_USER).trim());
             newCreds.setPassword(request.getParameter(PARAM_KEY).trim());
-            newCreds.setUrl(request.getParameter(PARAM_URL).trim());
+            newCreds.setUrl(normalizeURL(request.getParameter(PARAM_URL)));
 
             // Check for completeness
             if (newCreds.isEmpty() || newCreds.isComplete()) {
@@ -77,7 +77,8 @@ public class UserCredentialsEditAction extends RhnAction {
                     // Store the credentials
                     creds.setUsername(newCreds.getUsername());
                     creds.setPassword(newCreds.getPassword());
-                    creds.setUrl(newCreds.getUrl());
+                    String url = newCreds.getUrl();
+                    creds.setUrl(url.isEmpty() ? DEFAULT_URL : url);
                     CredentialsFactory.storeCredentials(creds);
                 }
                 ActionMessages messages = new ActionMessages();
@@ -95,5 +96,23 @@ public class UserCredentialsEditAction extends RhnAction {
             }
         }
         return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
+    }
+
+    /**
+     * Very basic URL normalization.
+     * @param url
+     * @return url normalized
+     */
+    private String normalizeURL(String url) {
+        String ret = url;
+        if (ret != null) {
+            // trim() and make all lowercase
+            ret = url.trim().toLowerCase();
+            // Remove trailing slashes
+            while (ret.endsWith("/")) {
+                ret = ret.substring(0, ret.length() - 1);
+            }
+        }
+        return ret;
     }
 }
