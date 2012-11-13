@@ -16,7 +16,7 @@ Group:   System Environment/Daemons
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.11.11
+Version: 5.11.12
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -345,6 +345,9 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 %endif
 
 %changelog
+* Tue Nov 13 2012 Jan Pazdziora 5.11.12-1
+- Fixing the definition of the pid file.
+
 * Sun Nov 11 2012 Michael Calmer <mc@suse.de> 5.11.11-1
 - osad: use systemd for openSUSE >= 12.1
 - no use of /var/lock/subsys/ anymore
