@@ -1,31 +1,20 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# translation of it.po to
 # This file is distributed under the same license as the PACKAGE package.
-#
-# Translators:
-# Antonio Trande <sagitter@fedoraproject.org>, 2012.
-# Bettina De Monti <bdemonti@redhat.it>, 2001.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER, 2006.
-# Francesco Tombolini <tombo@adamantio.net>, 2010.
-# Francesco Valente <fvalen@redhat.com>, 2003, 2004.
-# Lorenzo Stobbione <lorenzo.stobbione@clsengineering.it>, 2004, 2005, 2006, 2007.
-# Mario Santagiuliana marionline <marionline@fedoraproject.org>, 2012.
-# Miroslav Suchý <msuchy@redhat.com>, 2011.
-# Silvio Pierro <perplesso82@gmail.com>, 2012.
-# Valentina Besi <valentina@redhat.it>, 2001.
+#
 msgid ""
 msgstr ""
-"Project-Id-Version: Spacewalk\n"
+"Project-Id-Version: it\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-10-30 11:31+0100\n"
-"PO-Revision-Date: 2012-06-01 18:06+0000\n"
-"Last-Translator: Francesco Tombolini <tombo@adamantio.net>\n"
-"Language-Team: Italian <trans-it@lists.fedoraproject.org>\n"
-"Language: it\n"
+"POT-Creation-Date: 2012-10-02 10:06-0400\n"
+"PO-Revision-Date: 2011-02-15 08:22+1000\n"
+"Last-Translator: \n"
+"Language-Team:  <it@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: KBabel 1.11.4\n"
 
 #: ../rhnplugin.py:51
 msgid "There was an error communicating with RHN."
@@ -33,7 +22,7 @@ msgstr "Si è verificato un errore durante la comunicazione con RHN."
 
 #: ../rhnplugin.py:66
 msgid "RHN Satellite or RHN Classic support will be disabled."
-msgstr "Il supporto RHN Satellite o RHN Classic sarà disabilitato."
+msgstr "Il supporto per RHN Satellite o RHN Classic verrà disabilitato."
 
 #. If non-root notify user RHN repo not accessible
 #: ../rhnplugin.py:70
@@ -41,45 +30,46 @@ msgid ""
 "*Note* Red Hat Network repositories are not listed below. You must run this "
 "command as root to access RHN repositories."
 msgstr ""
-"*Nota* I repository di Red Hat Network non sono elencati qui sotto. Devi "
-"eseguire questo comando come root per accedere ai repository RHN."
+"*Nota Bene* I repositori di Red Hat Network non sono elencati qui di "
+"seguito. È necessario eseguire questo comando come utente root per accedere "
+"ai suddetti repositori."
 
-#: ../rhnplugin.py:85
+#: ../rhnplugin.py:84
 msgid "There was an error parsing the RHN proxy settings."
 msgstr ""
 "Si è verificato un errore durante l'analizzazione delle impostazioni di RHN "
 "proxy."
 
-#: ../rhnplugin.py:97
+#: ../rhnplugin.py:96
 msgid "Either --version, --help or no commands entered"
-msgstr "Non è stato inserito --version, --help o nessun comando"
+msgstr ""
 
-#: ../rhnplugin.py:102
+#: ../rhnplugin.py:101
 msgid "Cleaning"
 msgstr ""
 
-#: ../rhnplugin.py:111
+#: ../rhnplugin.py:110
 msgid "Using list of RHN repos from cache"
 msgstr ""
 
-#: ../rhnplugin.py:127
+#: ../rhnplugin.py:124
 #, fuzzy
 msgid "This system is not registered with RHN Classic or RHN Satellite."
 msgstr "Questo sistema non risulta registrato con RHN."
 
-#: ../rhnplugin.py:128 ../rhnplugin.py:144
+#: ../rhnplugin.py:125 ../rhnplugin.py:141
 msgid "You can use rhn_register to register."
 msgstr ""
 
-#: ../rhnplugin.py:134
+#: ../rhnplugin.py:131
 msgid "RHN channel support will be disabled."
 msgstr "Il supporto del canale di RHN verrà disabilitato."
 
-#: ../rhnplugin.py:138
+#: ../rhnplugin.py:135
 msgid "This system is not subscribed to any channels."
 msgstr "Questo sistema non è registrato su alcun canale."
 
-#: ../rhnplugin.py:143
+#: ../rhnplugin.py:140
 #, fuzzy
 msgid ""
 "This system may not be registered to RHN Classic or RHN Satellite. SystemId "
@@ -88,23 +78,26 @@ msgstr ""
 "Questo sistema potrebbe non essere registrato con RHN. Impossibile acquisire "
 "SystemId.\n"
 
-#: ../rhnplugin.py:156
+#: ../rhnplugin.py:151
 msgid "This system is receiving updates from RHN Classic or RHN Satellite."
 msgstr ""
 
-#: ../rhnplugin.py:281
+#: ../rhnplugin.py:275
 msgid "Package profile information could not be sent."
 msgstr "Impossibile inviare le informazioni sul profilo del pacchetto."
 
-#: ../rhnplugin.py:289
+#. This is compensating for hosted/satellite returning back an error
+#. message instructing RHEL5 clients to run "up2date --register"
+#. bz: 438175
+#: ../rhnplugin.py:282
 msgid "Error Message:"
-msgstr "Messaggio di errore:"
+msgstr "Messaggio d'errore:"
 
-#: ../rhnplugin.py:290
+#: ../rhnplugin.py:283
 msgid "Please run rhn_register as root on this client"
-msgstr "Si prega di eseguire rhn_register come root su questo client"
+msgstr "Eseguire rhn_register come utente root su questo client"
 
-#: ../rhnplugin.py:371
+#: ../rhnplugin.py:364
 #, python-format
 msgid "Missing required login information for RHN: %s"
 msgstr "Informazioni di login necessarie mancanti per RHN: %s"

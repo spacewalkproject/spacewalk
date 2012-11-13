@@ -1,32 +1,31 @@
-# SOME DESCRIPTIVE TITLE.
+# Malay translation for yum-rhn-plugin.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
-# Translators:
 # Mahrazi Mohd Kamal<mahrazi@gmail.com>, 2006.
-# Miroslav Suchý <msuchy@redhat.com>, 2011.
-# Sharuzzaman Ahmat Raslan <sharuzzaman@myrealbox.com>, 2004.
+#
 msgid ""
 msgstr ""
-"Project-Id-Version: Spacewalk\n"
+"Project-Id-Version: yum-rhn-plugin\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-10-30 11:31+0100\n"
-"PO-Revision-Date: 2012-02-14 13:00+0000\n"
-"Last-Translator: Miroslav Suchý <msuchy@redhat.com>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"POT-Creation-Date: 2012-10-02 10:06-0400\n"
+"PO-Revision-Date: 2006-12-03 02:37+0800\n"
+"Last-Translator: Sharuzzaman Ahmat Raslan <sharuzzaman@myrealbox.com>\n"
+"Language-Team: Malay <ms@li.org>\n"
 "Language: ms\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Poedit-Language: Malay\n"
+"X-Poedit-Country: MALAYSIA\n"
 
 #: ../rhnplugin.py:51
 msgid "There was an error communicating with RHN."
 msgstr "Terdapat ralat berkomunikasi dengan RHN."
 
 #: ../rhnplugin.py:66
+#, fuzzy
 msgid "RHN Satellite or RHN Classic support will be disabled."
-msgstr ""
+msgstr "Sokongan saluran RHN akan dilumpuhkan."
 
 #. If non-root notify user RHN repo not accessible
 #: ../rhnplugin.py:70
@@ -35,62 +34,69 @@ msgid ""
 "command as root to access RHN repositories."
 msgstr ""
 
-#: ../rhnplugin.py:85
+#: ../rhnplugin.py:84
 msgid "There was an error parsing the RHN proxy settings."
 msgstr "Terdapat ralat menghurai tetapan proksi RHN."
 
-#: ../rhnplugin.py:97
+#: ../rhnplugin.py:96
+#, fuzzy
 msgid "Either --version, --help or no commands entered"
-msgstr ""
+msgstr "Sama ada --version, atau tiada arahan dimasukkan"
 
-#: ../rhnplugin.py:102
+#: ../rhnplugin.py:101
 msgid "Cleaning"
 msgstr ""
 
-#: ../rhnplugin.py:111
+#: ../rhnplugin.py:110
 msgid "Using list of RHN repos from cache"
 msgstr ""
 
-#: ../rhnplugin.py:127
+#: ../rhnplugin.py:124
 #, fuzzy
 msgid "This system is not registered with RHN Classic or RHN Satellite."
 msgstr "Sistem ini tidak berdaftar dengan RHN."
 
-#: ../rhnplugin.py:128 ../rhnplugin.py:144
+#: ../rhnplugin.py:125 ../rhnplugin.py:141
 msgid "You can use rhn_register to register."
 msgstr ""
 
-#: ../rhnplugin.py:134
+#: ../rhnplugin.py:131
 msgid "RHN channel support will be disabled."
 msgstr "Sokongan saluran RHN akan dilumpuhkan."
 
-#: ../rhnplugin.py:138
+#: ../rhnplugin.py:135
 msgid "This system is not subscribed to any channels."
 msgstr "Sistem ini tidak melanggan kepada sebarang saluran."
 
-#: ../rhnplugin.py:143
+#: ../rhnplugin.py:140
 msgid ""
 "This system may not be registered to RHN Classic or RHN Satellite. SystemId "
 "could not be acquired."
 msgstr ""
 
-#: ../rhnplugin.py:156
+#: ../rhnplugin.py:151
 msgid "This system is receiving updates from RHN Classic or RHN Satellite."
 msgstr ""
 
-#: ../rhnplugin.py:281
+#: ../rhnplugin.py:275
 msgid "Package profile information could not be sent."
 msgstr "Maklumat profil pakej tidak dapat dihantar."
 
-#: ../rhnplugin.py:289
+#. This is compensating for hosted/satellite returning back an error
+#. message instructing RHEL5 clients to run "up2date --register"
+#. bz: 438175
+#: ../rhnplugin.py:282
 msgid "Error Message:"
 msgstr ""
 
-#: ../rhnplugin.py:290
+#: ../rhnplugin.py:283
 msgid "Please run rhn_register as root on this client"
 msgstr ""
 
-#: ../rhnplugin.py:371
+#: ../rhnplugin.py:364
 #, python-format
 msgid "Missing required login information for RHN: %s"
 msgstr "Maklumat logmasuk untuk RHN yang diperlukan tiada: %s"
+
+#~ msgid "RHN support will be disabled."
+#~ msgstr "Sokongan RHN akan dilumpuhkan."

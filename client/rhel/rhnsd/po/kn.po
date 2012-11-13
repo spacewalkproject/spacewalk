@@ -1,63 +1,61 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# translation of kn.po to kannada
 # This file is distributed under the same license as the PACKAGE package.
-#
-# Translators:
-# Miroslav Suchý <msuchy@redhat.com>, 2011.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
 # shankar prasad <svenkate@redhat.com>, 2006.
-# shankar Prasad <svenkate@redhat.com>, 2006.
-# Shankar Prasad <svenkate@redhat.com>, 2007.
+#
 msgid ""
 msgstr ""
-"Project-Id-Version: Spacewalk\n"
+"Project-Id-Version: kn\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-12-21 12:22+0100\n"
-"PO-Revision-Date: 2012-02-14 13:07+0000\n"
-"Last-Translator: Miroslav Suchý <msuchy@redhat.com>\n"
-"Language-Team: Kannada (http://www.transifex.com/projects/p/fedora/language/"
-"kn/)\n"
-"Language: kn\n"
+"POT-Creation-Date: 2006-10-17 11:04-0400\n"
+"PO-Revision-Date: 2006-12-01 16:56+0530\n"
+"Last-Translator: shankar prasad <svenkate@redhat.com>\n"
+"Language-Team: kannada\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: KBabel 1.9.1\n"
+
+#: ../rhnsd.c:50
+msgid "MINS"
+msgstr "MINS"
+
+#: ../rhnsd.c:51
+msgid "Connect to Red Hat Network every MINS minutes"
+msgstr "ಪ್ರತೀ MINS ನಿಮಿಷಕ್ಕೆ Red Hat ಜಾಲಬಂಧಕ್ಕೆ ಸಂಪರ್ಕ ಕಲ್ಪಿಸು "
+
+#: ../rhnsd.c:53
+msgid "Log all actions to syslog"
+msgstr "ಎಲ್ಲಾ ಕ್ರಿಯೆಗಳನ್ನು syslog ಗೆ ಪ್ರವೇಶಿಸುವಂತೆ ಮಾಡು"
 
 #: ../rhnsd.c:55
-msgid "MINS"
-msgstr ""
-
-#: ../rhnsd.c:56
-msgid "Connect to Red Hat Network every MINS minutes"
-msgstr ""
-
-#: ../rhnsd.c:58
 msgid "Run in foreground"
-msgstr ""
+msgstr "ಮುಂಭಾಗದಲ್ಲಿ ಚಾಲಿಸು"
 
 #. Short description of program.
-#: ../rhnsd.c:63
+#: ../rhnsd.c:60
 msgid "Red Hat Network Services Daemon"
-msgstr ""
+msgstr "Red Hat Network Services Daemon"
 
-#: ../rhnsd.c:116
+#: ../rhnsd.c:97
 #, c-format
 msgid "Only root can run this program\n"
 msgstr "ಮೂಲವು ಮಾತ್ರ ಈ ಪ್ರೋಗ್ರಾಂ ಅನ್ನು ಚಾಲಿಸ ಬಲ್ಲದು\n"
 
-#: ../rhnsd.c:136
+#: ../rhnsd.c:112
 msgid "wrong number of arguments"
 msgstr "ತಪ್ಪು ಸಂಖ್ಯೆಯ ಆರ್ಗ್ಯುಮೆಂಟುಗಳು"
 
-#: ../rhnsd.c:143
+#: ../rhnsd.c:119
 msgid "already running"
 msgstr "ಈಗಾಗಲೆ ಚಾಲನೆಯಲ್ಲಿದೆ"
 
-#: ../rhnsd.c:243
+#: ../rhnsd.c:226
 #, c-format
 msgid "Copyright (C) %s Red Hat, Inc.\n"
 msgstr "ಹಕ್ಕು (C) %s Red Hat, Inc.\n"
 
-#: ../rhnsd.c:246
+#: ../rhnsd.c:229
 #, c-format
 msgid "Written by %s.\n"
 msgstr "ಬರೆದವರು %s. \n"

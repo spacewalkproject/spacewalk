@@ -1,30 +1,29 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-# Translators:
-# Valentin Laskov <laskov@festa.bg>, 2012.
+#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Spacewalk\n"
+"Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-10-30 11:31+0100\n"
-"PO-Revision-Date: 2012-10-06 21:34+0000\n"
-"Last-Translator: Valentin Laskov <laskov@festa.bg>\n"
-"Language-Team: Bulgarian <trans-bg@lists.fedoraproject.org>\n"
-"Language: bg\n"
+"POT-Creation-Date: 2012-10-02 10:06-0400\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../rhnplugin.py:51
 msgid "There was an error communicating with RHN."
-msgstr "Възникна грешка в комуникацията с RHN."
+msgstr ""
 
 #: ../rhnplugin.py:66
 msgid "RHN Satellite or RHN Classic support will be disabled."
-msgstr "RHN Satellite или RHN Classic поддръжката ще бъде забранена."
+msgstr ""
 
 #. If non-root notify user RHN repo not accessible
 #: ../rhnplugin.py:70
@@ -32,68 +31,65 @@ msgid ""
 "*Note* Red Hat Network repositories are not listed below. You must run this "
 "command as root to access RHN repositories."
 msgstr ""
-"*Бележка* Red Hat Network хранилищата не са показани по-долу. Трябва да "
-"стартирате тази команда като root за достъп до RHN хранилищата."
 
-#: ../rhnplugin.py:85
+#: ../rhnplugin.py:84
 msgid "There was an error parsing the RHN proxy settings."
-msgstr "Възникна грешка при разбора настройките на RHN proxy."
+msgstr ""
 
-#: ../rhnplugin.py:97
+#: ../rhnplugin.py:96
 msgid "Either --version, --help or no commands entered"
-msgstr "Или --version, --help или без въведени команди"
+msgstr ""
 
-#: ../rhnplugin.py:102
+#: ../rhnplugin.py:101
 msgid "Cleaning"
-msgstr "Почистване"
+msgstr ""
 
-#: ../rhnplugin.py:111
+#: ../rhnplugin.py:110
 msgid "Using list of RHN repos from cache"
-msgstr "Използване на списък RHN хранилища от кеша"
+msgstr ""
 
-#: ../rhnplugin.py:127
-#, fuzzy
+#: ../rhnplugin.py:124
 msgid "This system is not registered with RHN Classic or RHN Satellite."
-msgstr "Тази система не е регистрирана в RHN."
+msgstr ""
 
-#: ../rhnplugin.py:128 ../rhnplugin.py:144
+#: ../rhnplugin.py:125 ../rhnplugin.py:141
 msgid "You can use rhn_register to register."
 msgstr ""
 
-#: ../rhnplugin.py:134
+#: ../rhnplugin.py:131
 msgid "RHN channel support will be disabled."
-msgstr "Каналът за поддръжка на RHN ще бъде забранен."
+msgstr ""
 
-#: ../rhnplugin.py:138
+#: ../rhnplugin.py:135
 msgid "This system is not subscribed to any channels."
-msgstr "Тази система не е абонирана за никой от каналите."
+msgstr ""
 
-#: ../rhnplugin.py:143
-#, fuzzy
+#: ../rhnplugin.py:140
 msgid ""
 "This system may not be registered to RHN Classic or RHN Satellite. SystemId "
 "could not be acquired."
 msgstr ""
-"Тази система може да не е регистрирана в RHN. Не може да бъде придобит "
-"SystemId.\n"
 
-#: ../rhnplugin.py:156
+#: ../rhnplugin.py:151
 msgid "This system is receiving updates from RHN Classic or RHN Satellite."
 msgstr ""
 
-#: ../rhnplugin.py:281
+#: ../rhnplugin.py:275
 msgid "Package profile information could not be sent."
-msgstr "Информацията с профил на пакетите не може да бъде изпратена."
+msgstr ""
 
-#: ../rhnplugin.py:289
+#. This is compensating for hosted/satellite returning back an error
+#. message instructing RHEL5 clients to run "up2date --register"
+#. bz: 438175
+#: ../rhnplugin.py:282
 msgid "Error Message:"
-msgstr "Съобщение за грешка:"
+msgstr ""
 
-#: ../rhnplugin.py:290
+#: ../rhnplugin.py:283
 msgid "Please run rhn_register as root on this client"
-msgstr "Моля, стартирайте rhn_register като root на този клиент"
+msgstr ""
 
-#: ../rhnplugin.py:371
+#: ../rhnplugin.py:364
 #, python-format
 msgid "Missing required login information for RHN: %s"
-msgstr "Липсва необходимата информация за влизане за RHN: %s"
+msgstr ""

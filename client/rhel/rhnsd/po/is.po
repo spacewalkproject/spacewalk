@@ -1,61 +1,60 @@
-# SOME DESCRIPTIVE TITLE.
+# Icelandic translation of rhnsd
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
+# Richard Allen <ra@ra.is>, 2006.
 #
-# Translators:
-# Miroslav Suchý <msuchy@redhat.com>, 2011.
-# Richard Allen <ra@ra.is>, 2002, 2006.
 msgid ""
 msgstr ""
-"Project-Id-Version: Spacewalk\n"
+"Project-Id-Version: rhnsd\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-12-21 12:22+0100\n"
-"PO-Revision-Date: 2012-02-14 13:07+0000\n"
-"Last-Translator: Miroslav Suchý <msuchy@redhat.com>\n"
-"Language-Team: Icelandic (http://www.transifex.com/projects/p/fedora/"
-"language/is/)\n"
-"Language: is\n"
+"POT-Creation-Date: 2006-10-17 11:04-0400\n"
+"PO-Revision-Date: 2006-12-08 11:04-0000\n"
+"Last-Translator: Richard Allen <ra@ra.is>\n"
+"Language-Team: is <kde-isl@molar.is>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../rhnsd.c:50
+msgid "MINS"
+msgstr "MINS"
+
+#: ../rhnsd.c:51
+msgid "Connect to Red Hat Network every MINS minutes"
+msgstr "Tengjast Red Hat Network á MINS fresti"
+
+#: ../rhnsd.c:53
+msgid "Log all actions to syslog"
+msgstr "Skrá allar aðgerðir í kerfisannálinn"
 
 #: ../rhnsd.c:55
-msgid "MINS"
-msgstr ""
-
-#: ../rhnsd.c:56
-msgid "Connect to Red Hat Network every MINS minutes"
-msgstr ""
-
-#: ../rhnsd.c:58
 msgid "Run in foreground"
-msgstr ""
+msgstr "Keyra í forgrunni"
 
 #. Short description of program.
-#: ../rhnsd.c:63
+#: ../rhnsd.c:60
 msgid "Red Hat Network Services Daemon"
-msgstr ""
+msgstr "Red Hat Network þjónustan"
 
-#: ../rhnsd.c:116
+#: ../rhnsd.c:97
 #, c-format
 msgid "Only root can run this program\n"
 msgstr "Aðeins kerfisstjórinn má keyra þetta forrit\n"
 
-#: ../rhnsd.c:136
+#: ../rhnsd.c:112
 msgid "wrong number of arguments"
 msgstr "rangur fjöldi viðfanga"
 
-#: ../rhnsd.c:143
+#: ../rhnsd.c:119
 msgid "already running"
 msgstr "þegar í gangi"
 
-#: ../rhnsd.c:243
+#: ../rhnsd.c:226
 #, c-format
 msgid "Copyright (C) %s Red Hat, Inc.\n"
 msgstr "Höfundarréttur %s (C) Red Hat, Inc.\n"
 
-#: ../rhnsd.c:246
+#: ../rhnsd.c:229
 #, c-format
 msgid "Written by %s.\n"
 msgstr "Skrifað af %s.\n"

@@ -1,60 +1,62 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
+# Catalan translation of rhnsd
+# Copyright @ 2006 The Free Software Foundation, Inc.
+# This file is distributed under the same license as the
+#  yum-rhn-plugin package.
 #
-# Translators:
-# Miroslav Suchý <msuchy@redhat.com>, 2011.
-# Xavier Conde Rueda <xaviconde@eresmas.com>, 2004, 2005.
+# Josep Puigdemont i Casamajó <josep.puigdemont@gmail.com>, 2006
+#
 msgid ""
 msgstr ""
-"Project-Id-Version: Spacewalk\n"
+"Project-Id-Version: rhnsd\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-12-21 12:22+0100\n"
-"PO-Revision-Date: 2012-02-14 13:07+0000\n"
-"Last-Translator: Miroslav Suchý <msuchy@redhat.com>\n"
-"Language-Team: Catalan <fedora@llistes.softcatala.org>\n"
-"Language: ca\n"
+"POT-Creation-Date: 2006-10-17 11:04-0400\n"
+"PO-Revision-Date: 2006-10-29 00:17+0200\n"
+"Last-Translator: Josep Puigdemont i Casamajó <josep.puigdemont@gmail.com>\n"
+"Language-Team: Catalan <fedora@softcatala.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../rhnsd.c:50
+msgid "MINS"
+msgstr "MINS"
+
+#: ../rhnsd.c:51
+msgid "Connect to Red Hat Network every MINS minutes"
+msgstr "Connecta a Red Hat Network cada MINS minuts"
+
+#: ../rhnsd.c:53
+msgid "Log all actions to syslog"
+msgstr "Registre totes les accions al registre del sistema"
 
 #: ../rhnsd.c:55
-msgid "MINS"
-msgstr ""
-
-#: ../rhnsd.c:56
-msgid "Connect to Red Hat Network every MINS minutes"
-msgstr ""
-
-#: ../rhnsd.c:58
 msgid "Run in foreground"
-msgstr ""
+msgstr "Executa en segon pla"
 
 #. Short description of program.
-#: ../rhnsd.c:63
+#: ../rhnsd.c:60
 msgid "Red Hat Network Services Daemon"
-msgstr ""
+msgstr "Dimoni per a serveis de Red Hat Network"
 
-#: ../rhnsd.c:116
+#: ../rhnsd.c:97
 #, c-format
 msgid "Only root can run this program\n"
 msgstr "Només el superusuari pot executar aquest programa\n"
 
-#: ../rhnsd.c:136
+#: ../rhnsd.c:112
 msgid "wrong number of arguments"
 msgstr "el nombre d'arguments no és correcte"
 
-#: ../rhnsd.c:143
+#: ../rhnsd.c:119
 msgid "already running"
 msgstr "ja s'està executant"
 
-#: ../rhnsd.c:243
+#: ../rhnsd.c:226
 #, c-format
 msgid "Copyright (C) %s Red Hat, Inc.\n"
 msgstr "Copyright © %s Red Hat, Inc.\n"
 
-#: ../rhnsd.c:246
+#: ../rhnsd.c:229
 #, c-format
 msgid "Written by %s.\n"
 msgstr "Escrit per %s.\n"
