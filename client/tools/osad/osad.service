@@ -3,9 +3,10 @@ Description=OSAD daemon
 After=syslog.target network.target
 
 [Service]
+Type=forking
 EnvironmentFile=-/etc/sysconfig/osad
 PIDFile=/var/run/osad.pid
-ExecStart=/usr/sbin/osad --pid-file $PIDFile
+ExecStart=/usr/sbin/osad --pid-file /var/run/osad.pid
 
 [Install]
 WantedBy=multi-user.target
