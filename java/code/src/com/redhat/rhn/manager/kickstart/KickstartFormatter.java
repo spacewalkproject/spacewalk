@@ -194,21 +194,21 @@ public class KickstartFormatter {
         this.session = sessionIn;
     }
 
-    private void addLogBegin(StringBuilder buff, String logFile) {
+    private void addLogBegin(StringBuilder buff, String logFile, boolean bash) {
         if (ksdata.isRhel6OrGreater()) {
             buff.append(" --log " + logFile);
         }
-        else {
+        else if (bash) {
             buff.append(NEWLINE + "(");
         }
         buff.append(NEWLINE);
     }
 
-    private void addLogEnd(StringBuilder buff, String logFile) {
+    private void addLogEnd(StringBuilder buff, String logFile, boolean bash) {
         if (ksdata.isRhel6OrGreater()) {
             //nothing
         }
-        else {
+        else if(bash){
             buff.append(") >> " + logFile + " 2>&1" + NEWLINE);
         }
     }
@@ -577,11 +577,13 @@ public class KickstartFormatter {
                         }
                         if (typeIn.equals(KickstartScript.TYPE_POST) &&
                                 ksdata.getPostLog()) {
-                            addLogBegin(retval, POST_LOG_FILE + "." + kss.getPosition());
+                            addLogBegin(retval, POST_LOG_FILE + "." + kss.getPosition(),
+                                        StringUtils.isBlank(kss.getInterpreter()));
                         }
                         else if (typeIn.equals(KickstartScript.TYPE_PRE) &&
                                 ksdata.getPreLog()) {
-                            addLogBegin(retval, PRE_LOG_FILE + "." + kss.getPosition());
+                            addLogBegin(retval, PRE_LOG_FILE + "." + kss.getPosition(),
+                                        StringUtils.isBlank(kss.getInterpreter()));
                         }
                         else {
                             retval.append(NEWLINE);
@@ -590,11 +592,13 @@ public class KickstartFormatter {
 
                         if (typeIn.equals(KickstartScript.TYPE_POST) &&
                                 ksdata.getPostLog()) {
-                            addLogEnd(retval, POST_LOG_FILE + "." + kss.getPosition());
+                            addLogEnd(retval, POST_LOG_FILE + "." + kss.getPosition(),
+                                      StringUtils.isBlank(kss.getInterpreter()));
                         }
                         else if (typeIn.equals(KickstartScript.TYPE_PRE) &&
                                 ksdata.getPreLog()) {
-                            addLogEnd(retval, PRE_LOG_FILE + "." + kss.getPosition());
+                            addLogEnd(retval, PRE_LOG_FILE + "." + kss.getPosition(),
+                                      StringUtils.isBlank(kss.getInterpreter()));
                         }
                         if (kss.getRaw()) {
                             retval.append(RAW_END + NEWLINE);
@@ -639,13 +643,15 @@ public class KickstartFormatter {
 
                     if (ksdata.getNonChrootPost()) {
                         addLogBegin(retval, POST_LOG_NOCHROOT_FILE + "." +
-                                kss.getPosition());
+                                kss.getPosition(),
+                                StringUtils.isBlank(kss.getInterpreter()));
                         retval.append(RHN_TRACE);
                     }
                     retval.append(NEWLINE);
                     retval.append(kss.getDataContents() + NEWLINE);
                     if (ksdata.getNonChrootPost()) {
-                        addLogEnd(retval, POST_LOG_NOCHROOT_FILE + "." + kss.getPosition());
+                        addLogEnd(retval, POST_LOG_NOCHROOT_FILE + "." + kss.getPosition(),
+                                  StringUtils.isBlank(kss.getInterpreter()));
                     }
                     addEnd(retval);
                 }
@@ -660,7 +666,7 @@ public class KickstartFormatter {
         log.debug("getRhnPost called.");
         StringBuilder retval = new StringBuilder();
         retval.append("%" + KickstartScript.TYPE_POST);
-        addLogBegin(retval, RHN_LOG_FILE);
+        addLogBegin(retval, RHN_LOG_FILE, true);
         retval.append(BEGINRHN_LOG_APPEND);
 
         retval.append(renderKeys() + NEWLINE);
@@ -784,7 +790,7 @@ public class KickstartFormatter {
 
         retval.append(NEWLINE);
         retval.append(RHNCHECK + NEWLINE);
-        addLogEnd(retval, RHN_LOG_FILE);
+        addLogEnd(retval, RHN_LOG_FILE, true);
 
         retval.append(NEWLINE);
         // Work around for bug #522251
