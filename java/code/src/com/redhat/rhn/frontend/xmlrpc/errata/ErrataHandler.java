@@ -281,6 +281,8 @@ public class ErrataHandler extends BaseHandler {
      *                  following: 'Security Advisory', 'Product Enhancement Advisory',
      *                  or 'Bug Fix Advisory'")
      *          #prop("string", "product")
+     *          #prop("dateTime.iso8601", "issue_date")
+     *          #prop("dateTime.iso8601", "update_date")
      *          #prop("string", "errataFrom")
      *          #prop("string", "topic")
      *          #prop("string", "description")
@@ -323,6 +325,8 @@ public class ErrataHandler extends BaseHandler {
         validKeys.add("advisory_release");
         validKeys.add("advisory_type");
         validKeys.add("product");
+        validKeys.add("issue_date");
+        validKeys.add("update_date");
         validKeys.add("errataFrom");
         validKeys.add("topic");
         validKeys.add("description");
@@ -346,6 +350,14 @@ public class ErrataHandler extends BaseHandler {
 
                 validateMap(validKeys, bugMap);
             }
+        }
+
+        if (details.containsKey("issue_date")) {
+            errata.setIssueDate( new Date((String)details.get("issue_date")));
+        }
+
+        if (details.containsKey("update_date")) {
+            errata.setUpdateDate( new Date((String)details.get("update_date")));
         }
 
         if (details.containsKey("synopsis")) {
