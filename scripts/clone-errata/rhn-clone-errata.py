@@ -827,6 +827,24 @@ def main():
                 else:
                     print "\tErrata Created: %d" % spwErrObject['id']
 
+                try:
+                    if spwErrDetails['errata_issue_date']:
+                        mySPW.setDetails(spwErrataName, { 'issue_date' : spwErrDetails['errata_issue_date'] }, 0)
+                except Exception as e:
+                    if options.format:
+                        print >>sys.stderr, "failed to set issue_date: %s" % e
+                    else:
+                        print "failed to set issue_date: %s" % e
+
+                try:
+                    if spwErrDetails['errata_update_date']:
+                        mySPW.setDetails(spwErrataName, { 'update_date' : spwErrDetails['errata_update_date'] }, 0)
+                except Exception as e:
+                    if options.format:
+                        print >>sys.stderr, "failed to set update_date: %s" % e
+                    else:
+                        print "failed to set update_date: %s" % e
+
                 if options.publish:
                     spwPublish = mySPW.errataPublish (spwErrataName, [chanMap[chan]], 0)
                     if options.format:
