@@ -12,7 +12,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 1.9.6
+Version: 1.9.7
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -637,6 +637,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Wed Nov 14 2012 Michael Mraka <michael.mraka@redhat.com> 1.9.7-1
+- 868370 - fixed dependency solver for RHEL4 clients
+
 * Wed Nov 07 2012 Jan Pazdziora 1.9.6-1
 - Fixing pylint error.
 
