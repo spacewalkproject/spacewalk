@@ -7374,7 +7374,7 @@
            className="com.redhat.rhn.frontend.struts.RhnActionMapping">
       <set-property property="postRequiredIfSubmitted" value="true" />
       <forward name="default" path="/WEB-INF/pages/channel/manage/delete.jsp"/>
-      <forward name="success" path="/channels/manage/Manage.do"/>
+      <forward name="success" path="/channels/manage/Manage.do" redirect="true" />
    </action>
 
    <action path="/channels/manage/Edit"
