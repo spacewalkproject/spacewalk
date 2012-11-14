@@ -79,7 +79,9 @@ public class ImagesRenderer extends BaseFragmentRenderer {
                 logger.error(re.getMessage());
                 request.setAttribute(ATTRIB_ERROR_MSG, "images.message.error.connection");
             }
-            else throw re;
+            else {
+                throw re;
+            }
         }
         catch (IOException e) {
             logger.error(e.getMessage());

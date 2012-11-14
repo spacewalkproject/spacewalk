@@ -88,7 +88,8 @@ public class HostPortValidator {
         // Validate IP addresses externally (v4 and v6)
         if (host.replaceAll("[\\d\\.]", "").isEmpty() || host.contains(":")) {
             isValidHost = isValidIP(host);
-        } else {
+        }
+        else {
             // Validate hostname charset
             Matcher matcher = HOSTNAME.matcher(host);
             isValidHost = matcher.matches() ? isValidHost : false;
