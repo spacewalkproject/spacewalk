@@ -344,24 +344,15 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 
     <sql-query name="Channel.lookupOriginalPackages">
         <![CDATA[
-		        SELECT OLDEST.id
-		  FROM  (SELECT P.*,
-		                RANK() OVER (PARTITION BY P.name_id, P.package_arch_id ORDER BY PE.evr ASC) AS DEPTH
-		          FROM rhnPackageEVR PE,
-		               rhnPackage P,
-		               rhnChannelPackage CP
-		         WHERE CP.channel_id = :from_cid
-		           AND P.id = CP.package_id
-		           AND PE.id = P.evr_id
-		           AND ( P.org_id is null OR
-		                P.org_id = :org_id)
-		        ) OLDEST
-		  WHERE OLDEST.DEPTH = 1
-		    AND NOT EXISTS (SELECT 1
-		                      FROM rhnChannelErrata CE, rhnErrataPackage EP
-		                     WHERE CE.channel_id = :from_cid
-		                       AND CE.errata_id = EP.errata_id
-		                       AND EP.package_id = OLDEST.id)
+            SELECT DISTINCT cp.package_id AS id
+            FROM rhnChannelPackage cp
+            LEFT OUTER JOIN (
+                    SELECT ep.package_id, ep.errata_id
+                    FROM rhnChannelErrata ce
+                    JOIN rhnErrataPackage ep ON ep.errata_id = ce.errata_id
+                    WHERE ce.channel_id = :from_cid) e ON cp.package_id = e.package_id
+            WHERE cp.channel_id = :from_cid
+            AND e.errata_id IS NULL
         ]]>
         <return-scalar column="id" type="long"/>
     </sql-query>

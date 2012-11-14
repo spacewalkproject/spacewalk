@@ -112,8 +112,7 @@ public class NewChannelHelper {
         cloned.setGloballySubscribable(true, cloned.getOrg());
 
         if (originalState) {
-            List originalPacks = ChannelFactory.findOriginalPackages(toClone,
-                    user.getOrg());
+            List originalPacks = ChannelFactory.findOriginalPackages(toClone);
             Long clonedChannelId = cloned.getId();
             for (Iterator it = originalPacks.iterator(); it.hasNext();) {
                 Long pid = (Long) it.next();

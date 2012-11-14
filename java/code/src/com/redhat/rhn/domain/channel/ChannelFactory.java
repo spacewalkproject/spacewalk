@@ -780,11 +780,10 @@ public class ChannelFactory extends HibernateFactory {
      * @param org the org doing the cloning.
      * @return List of packages
      */
-    public static List findOriginalPackages(Channel channel, Org org) {
+    public static List findOriginalPackages(Channel channel) {
 
             Map params = new HashMap();
             params.put("from_cid", channel.getId());
-            params.put("org_id", org.getId());
             List idList = singleton.listObjectsByNamedQuery(
                     "Channel.lookupOriginalPackages", params);
             return idList;
