@@ -777,7 +777,6 @@ public class ChannelFactory extends HibernateFactory {
      * Find the original packages that were part of a channel.  This list
      *      includes only those packages that have not had errata released for them.
      * @param channel the channel to clone from
-     * @param org the org doing the cloning.
      * @return List of packages
      */
     public static List findOriginalPackages(Channel channel) {
