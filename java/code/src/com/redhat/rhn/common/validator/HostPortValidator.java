@@ -31,6 +31,9 @@ public class HostPortValidator {
     // Pattern to match IPv6 address in bracket notation
     private static final Pattern IPV6_BRACKETS = Pattern.compile("^\\[(.*)\\](:(\\d*))?$");
 
+    // Allow letters (of all languages), numbers, '.' and '-'
+    private static final Pattern HOSTNAME = Pattern.compile("^[\\p{L}\\p{N}.-]*$");
+
     // Private constructor
     private HostPortValidator() {
     }
@@ -85,6 +88,10 @@ public class HostPortValidator {
         // Validate IP addresses externally (v4 and v6)
         if (host.replaceAll("[\\d\\.]", "").isEmpty() || host.contains(":")) {
             isValidHost = isValidIP(host);
+        } else {
+            // Validate hostname charset
+            Matcher matcher = HOSTNAME.matcher(host);
+            isValidHost = matcher.matches() ? isValidHost : false;
         }
         boolean isValidPort = true;
         if (port != null) {

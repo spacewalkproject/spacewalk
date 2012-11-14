@@ -68,4 +68,14 @@ public class HostPortValidatorTest extends TestCase {
         assertFalse(HostPortValidator.getInstance().isValid(
             "http://proxy.example.com:8888"));
     }
+
+    public void testHostnameCharset() {
+        assertTrue(HostPortValidator.getInstance().isValid("müller"));
+        assertTrue(HostPortValidator.getInstance().isValid("pröxy.com"));
+
+        assertFalse(HostPortValidator.getInstance().isValid("pröxy.com;8888"));
+        assertFalse(HostPortValidator.getInstance().isValid("pröxy com"));
+        assertFalse(HostPortValidator.getInstance().isValid("pro xy:8888"));
+        assertFalse(HostPortValidator.getInstance().isValid("p$r%o&x!y="));
+    }
 }
