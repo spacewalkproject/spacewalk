@@ -23,7 +23,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.9.9
+Version: 1.9.10
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -617,6 +617,19 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Nov 14 2012 Tomas Lestach <tlestach@redhat.com> 1.9.10-1
+- checkstyle fixes
+- Check hostnames for special characters and whitespace
+- Catch MalformedURLException in case of missing protocol etc.
+- Basic normalization for SUSE Studio base URL
+- Workaround for Studio API returning incomplete URLs
+- 863025 - checkstyle fix
+- redirect to Manage.do page after successful channel remove
+- 863025 - original packages are those that are not associated with any erratum
+- 835597 - bash is used as interpreter in kickstart scripts even if set by path
+- 835597 - enable logging only for bash interpreter in kickstart scripts
+- Fix quartz trigger initialization repeat count
+
 * Mon Nov 12 2012 Tomas Lestach <tlestach@redhat.com> 1.9.9-1
 - Fix typos
 - 874278 - use iterators when going through the collection
