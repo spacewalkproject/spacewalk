@@ -25,7 +25,7 @@ import string
 __packages_with_arch_and_id_sql = """
 select distinct
     p.id id,
-    pn.name name,
+    pn.name,
     (pe.evr).version as version,
     (pe.evr).release as release,
     (pe.evr).epoch as epoch,
@@ -63,7 +63,7 @@ and pe.evr = (
 """
 __packages_sql = """
 select distinct
-    pn.name name,
+    pn.name,
     (pe.evr).version as version,
     (pe.evr).release as release,
     (pe.evr).epoch as epoch,
@@ -102,7 +102,7 @@ and pe.evr = (
 
 __packages_all_sql = """
 select distinct
-    pn.name name,
+    pn.name,
     (pe.evr).version as version,
     (pe.evr).release as release,
     (pe.evr).epoch as epoch,
