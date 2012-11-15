@@ -81,7 +81,7 @@ install -m 0644 rhnsd.service $RPM_BUILD_ROOT/%{_unitdir}/
 %else
 if [ $1 = 0 ] ; then
     %if 0%{?fedora}
-    /bin/systemctl stop rhnsd >/dev/null 2>&1
+    /bin/systemctl stop rhnsd.service >/dev/null 2>&1
     %else
     service rhnsd stop >/dev/null 2>&1
     %endif
@@ -95,7 +95,7 @@ fi
 %else
 if [ "$1" -ge "1" ]; then
     %if 0%{?fedora}
-    /bin/systemctl condrestart rhnsd >/dev/null 2>&1 || :
+    /bin/systemctl condrestart rhnsd.service >/dev/null 2>&1 || :
     %else
     service rhnsd condrestart >/dev/null 2>&1 || :
     %endif
