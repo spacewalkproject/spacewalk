@@ -235,8 +235,8 @@ This package contains PostgreSQL database backend files for the Spacewalk Java.
 Summary: Test Classes for testing spacewalk-java
 Group:  Applications/Internet
 
-BuildRequires:  jmock
-Requires: jmock
+BuildRequires:  jmock < 2.0
+Requires: jmock < 2.0
 Requires: ant-junit
 
 %description tests
