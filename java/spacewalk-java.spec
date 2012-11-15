@@ -23,7 +23,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.9.10
+Version: 1.9.11
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -617,6 +617,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Nov 15 2012 Tomas Lestach <tlestach@redhat.com> 1.9.11-1
+- let spacewalk-java require concrete version of jmock
+
 * Wed Nov 14 2012 Tomas Lestach <tlestach@redhat.com> 1.9.10-1
 - checkstyle fixes
 - Check hostnames for special characters and whitespace
