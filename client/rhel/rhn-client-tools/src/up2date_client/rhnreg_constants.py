@@ -263,8 +263,11 @@ SSL_CERT_EXPIRED           = _("<b><span size=\"12000\">Incompatible Certificate
                                " The certificate is expired. Please ensure you have the correct "
                                " certificate and your system time is correct.")
 
-SSL_CERT_FILE_NOT_FOUND_ERRER = _("Please verify the value of sslCACert in "
-                                  "/etc/sysconfig/rhn/up2date")
+SSL_CERT_FILE_NOT_FOUND_ERRER = _("Please verify the values of sslCACert and serverURL in "
+                                  "/etc/sysconfig/rhn/up2date. You can either make the "
+                                  "serverURL use http instead of https, or you can "
+                                  "download the SSL cert from your Satellite, place it "
+                                  "in /usr/share/rhn, and ensure sslCACert points to it.")
 
 ACT_KEY_USAGE_LIMIT_ERROR = _("Problem registering system.\n\n"
                               "A universal default activation key limits the "
