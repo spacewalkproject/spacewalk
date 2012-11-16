@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhnsd
-Version: 5.0.5
+Version: 5.0.6
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
@@ -119,6 +119,9 @@ rm -fr $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Fri Nov 16 2012 Jan Pazdziora 5.0.6-1
+- 876328 - updating rhel client tools translations
+
 * Sun Nov 11 2012 Michael Calmer <mc@suse.de> 5.0.5-1
 - use systemd on openSUSE >= 12.1
 - do not start rhnsd in runlevel 2 which has no network
