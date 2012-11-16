@@ -103,18 +103,11 @@ class ContentSource(object):
         self.proxy_user = CFG.http_proxy_username
         self.proxy_pass = CFG.http_proxy_password
 
-        if (self.proxy_user is not None and
-            self.proxy_pass is not None and
-            self.proxy_addr is not None):
-            self.proxy_url = "http://%s:%s@%s" % (
-                self.proxy_user, self.proxy_pass, self.proxy_addr)
-        elif self.proxy_addr is not None:
-            self.proxy_url = "http://" + self.proxy_addr
+        if name in self.yumbase.repos.repos:
+            repo = self.yumbase.repos.repos[name]
         else:
-            self.proxy_url = None
-
-        repo = yum.yumRepo.YumRepository(name)
-        repo.populate(self.configparser, name, self.yumbase.conf)
+            repo = yum.yumRepo.YumRepository(name)
+            repo.populate(self.configparser, name, self.yumbase.conf)
         self.repo = repo
         self.sack = None
 
@@ -137,8 +130,10 @@ class ContentSource(object):
             fileutils.makedirs(pkgdir, user='apache', group='apache')
         repo.pkgdir = pkgdir
 
-        if self.proxy_url is not None:
-            repo.proxy = self.proxy_url
+        if not repo.proxy and self.proxy_addr is not None:
+            repo.proxy = "http://%s" % self.proxy_addr
+            repo.proxy_username = self.proxy_user
+            repo.proxy_password = self.proxy_pass
 
         warnings = YumWarnings()
         warnings.disable()
