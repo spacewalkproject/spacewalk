@@ -329,6 +329,11 @@ def setServerURL(serverURL):
     cfg = initUp2dateConfig()
     cfg.set('serverURL', serverURL)
 
+def setSSLCACert(sslCACert):
+    """ Set sslCACert in config """
+    cfg = initUp2dateConfig()
+    cfg.set('sslCACert', sslCACert)
+
 
 def initUp2dateConfig(cfg_file = "/etc/sysconfig/rhn/up2date"):
     """This function is the right way to get at the up2date config."""

@@ -13,6 +13,18 @@ _ = t.ugettext
 
 COPYRIGHT_TEXT        = _(u"Copyright © 2006--2010 Red Hat, Inc. All rights reserved.")
 
+# Satellite URL Window
+SATELLITE_URL_WINDOW  = _("Enter your Red Hat Network Satellite URL.")
+SATELLITE_URL_TEXT    = _("Please enter the location of your Red Hat Network "
+                          "Satellite server and of its SSL "
+                          "certificate. The SSL certificate is only required "
+                          "if you will be connecting over https (recommended).")
+SATELLITE_URL_PROMPT  = _("Satellite URL:")
+SATELLITE_URL_PROMPT2 = _("SSL certificate:")
+SATELLITE_REQUIRED    = _("You must enter a valid Satellite URL.")
+SSL_REQUIRED          = _("If you are using https you must enter the location "
+                          "of a valid SSL certificate.")
+
 # Connect Window
 CONNECT_WINDOW        = _("Attempting to contact the Red Hat Network server.")
 CONNECT_WINDOW_TEXT   = _("We are attempting to contact the Red Hat "

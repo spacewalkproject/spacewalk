@@ -41,6 +41,10 @@ from rhnreg_constants import *
 log = up2dateLog.initLog()
 cfg = config.initUp2dateConfig()
 
+def ErrorWindow(screen, errmsg):
+    snack.ButtonChoiceWindow(screen, ERROR.encode('utf-8'), (u"%s" % errmsg).encode('utf-8'),
+                             [BACK.encode('utf-8')])
+
 def FatalErrorWindow(screen, errmsg):
     snack.ButtonChoiceWindow(screen, FATAL_ERROR.encode('utf-8'), (u"%s" % errmsg).encode('utf-8'),
                              [OK.encode('utf-8')])
@@ -81,17 +85,20 @@ def tui_call_wrapper(screen, func, *params):
     try:
         results = func(*params)
     except up2dateErrors.CommunicationError, e:
-        FatalErrorWindow(screen, HOSTED_CONNECTION_ERROR % config.getServerlURL()[0])
+        ErrorWindow(screen, HOSTED_CONNECTION_ERROR % config.getServerlURL()[0])
+        raise e
     except up2dateErrors.SSLCertificateVerifyFailedError, e:
-        FatalErrorWindow(screen, e.errmsg)
+        ErrorWindow(screen, e.errmsg)
+        raise e
     except up2dateErrors.NoBaseChannelError, e:
         FatalErrorWindow(screen, e.errmsg + '\n' +
                          BASECHANNELERROR % (up2dateUtils.getArch(),
                                              up2dateUtils.getOSRelease(),
                                              up2dateUtils.getVersion()))
     except up2dateErrors.SSLCertificateFileNotFound, e:
-        FatalErrorWindow(screen, e.errmsg + '\n\n' +
+        ErrorWindow(screen, e.errmsg + '\n\n' +
                          SSL_CERT_FILE_NOT_FOUND_ERRER)
+        raise e
 
     return results
 
@@ -101,13 +108,13 @@ class WindowSkipException:
         pass
 
 class AlreadyRegisteredWindow:
+    name = "AlreadyRegisteredWindow"
 
     def __init__(self, screen, tui):
 
         if not rhnreg.registered() or tui.test:
             raise WindowSkipException()
 
-        self.name = "AlreadyRegisteredWindow"
         self.screen = screen
         self.tui = tui
         size = snack._snack.size()
@@ -137,7 +144,7 @@ class AlreadyRegisteredWindow:
             pass
 
     def run(self):
-        log.log_debug("Running %s" % self.__class__.__name__)
+        log.log_debug("Running %s" % self.name)
 
         result = self.g.runOnce()
         button = self.bb.buttonPressed(result)
@@ -147,14 +154,126 @@ class AlreadyRegisteredWindow:
 
         return button
 
+class SatelliteUrlWindow:
+    name = "SatelliteUrlWindow"
+
+    def __init__(self, screen, tui):
+        self.screen = screen
+        self.tui = tui
+        self.tui.alreadyRegistered = 0
+
+        self.server = convert_url_from_pune(self.tui.serverURL)
+        fixed_server_url = rhnreg.makeNiceServerUrl(self.server)
+
+        #Save the config only if the url is different
+        if fixed_server_url != self.server:
+            self.server = fixed_server_url
+            config.setServerURL(self.server)
+            cfg.save()
+
+        size = snack._snack.size()
+
+        toplevel = snack.GridForm(screen, SATELLITE_URL_WINDOW.encode('utf-8'),
+                1, 4)
+
+        prompt_text = SATELLITE_URL_TEXT
+        url_label = SATELLITE_URL_PROMPT
+        ssl_label = SATELLITE_URL_PROMPT2
+
+        label = snack.Textbox(size[0]-10, 3,
+                                  prompt_text.encode('utf-8'),
+                                  scroll = 0, wrap = 1)
+
+        toplevel.add(label, 0, 0, anchorLeft = 1)
+
+        # spacer
+        label = snack.Label("".encode('utf-8'))
+        toplevel.add(label, 0, 1)
+
+        grid = snack.Grid(2, 3)
+
+        label = snack.Label(url_label.encode('utf-8'))
+        grid.setField(label, 0, 0, padding = (0, 0, 1, 0),
+                          anchorRight = 1)
+
+        self.urlEntry = snack.Entry(40)
+        self.urlEntry.set(self.server)
+        grid.setField(self.urlEntry, 1, 0, anchorLeft = 1)
+
+        label = snack.Label(ssl_label.encode('utf-8'))
+        grid.setField(label, 0, 1, padding = (0, 0, 1, 0),
+                          anchorRight = 1)
+
+        self.sslEntry = snack.Entry(40)
+        self.sslEntry.set(tui.sslCACert)
+        grid.setField(self.sslEntry, 1, 1, anchorLeft = 1)
+
+        toplevel.add(grid, 0, 2)
+
+        # BUTTON BAR
+        self.bb = snack.ButtonBar(screen,
+                                   [(NEXT.encode('utf-8'), "next"),
+                                   (BACK.encode('utf-8'), "back"),
+                                   (CANCEL.encode('utf-8'), "cancel")])
+
+        toplevel.add(self.bb, 0, 3, padding = (0, 1, 0, 0),
+                 growx = 1)
+
+
+        self.g = toplevel
+
+    def validateFields(self):
+        if self.urlEntry.value() == "":
+            snack.ButtonChoiceWindow(self.screen, ERROR.encode('utf-8'),
+                                     SATELLITE_REQUIRED.encode('utf-8'),
+                                     buttons = [OK.encode('utf-8')])
+            self.g.setCurrent(self.urlEntry)
+            return 0
+        if (self.urlEntry.value()[:5] == 'https' and
+                self.sslEntry.value() == ""):
+            snack.ButtonChoiceWindow(self.screen, ERROR.encode('utf-8'),
+                                     SSL_REQUIRED.encode('utf-8'),
+                                     buttons = [OK.encode('utf-8')])
+            self.g.setCurrent(self.sslEntry)
+            return 0
+        return 1
+
+    def saveResults(self):
+        self.tui.serverURL = self.urlEntry.value()
+        self.tui.sslCACert = self.sslEntry.value()
+        config.setServerURL(self.urlEntry.value())
+        config.setSSLCACert(self.sslEntry.value())
+        cfg.save()
+
+    def run(self):
+        log.log_debug("Running %s" % self.name)
+        self.screen.refresh()
+        valid = 0
+        while not valid:
+            result = self.g.run()
+            button = self.bb.buttonPressed(result)
+
+            if result == "F12":
+                button = "next"
+
+            if button == "next":
+                valid = self.validateFields()
+
+            else:
+                break
+
+        self.screen.popWindow()
+
+        return button
+
 class AlreadyRegisteredSubscriptionManagerWindow:
+    name = "AlreadyRegisteredSubscriptionManagerWindow"
 
     def __init__(self, screen, tui):
 
         if not rhnreg.rhsm_registered() or tui.test:
             raise WindowSkipException()
 
-        self.name = "AlreadyRegisteredSubscriptionManagerWindow"
         self.screen = screen
         self.tui = tui
         size = snack._snack.size()
@@ -178,7 +297,7 @@ class AlreadyRegisteredSubscriptionManagerWindow:
             pass
 
     def run(self):
-        log.log_debug("Running %s" % self.__class__.__name__)
+        log.log_debug("Running %s" % self.name)
 
         result = self.g.runOnce()
         button = self.bb.buttonPressed(result)
@@ -189,23 +308,14 @@ class AlreadyRegisteredSubscriptionManagerWindow:
         return button
 
 class ConnectWindow:
+    name = "ConnectWindow"
 
     def __init__(self, screen, tui):
-        self.name = "ConnectWindow"
         self.screen = screen
         self.tui = tui
         size = snack._snack.size()
 
         self.server = convert_url_from_pune(self.tui.serverURL)
-
-        fixed_server_url = rhnreg.makeNiceServerUrl(self.server)
-
-        #Save the config only if the url is different
-        if fixed_server_url != self.server:
-            self.server = fixed_server_url
-            config.setServerURL(self.server)
-
-            cfg.save()
 
         self.proxy = cfg['httpProxy']
 
@@ -226,14 +336,19 @@ class ConnectWindow:
 
 
     def run(self):
-        log.log_debug("Running %s" % self.__class__.__name__)
+        log.log_debug("Running %s" % self.name)
 
         # We draw and display the window.  The window gets displayed as
         # long as we are attempting to connect to the server.  Once we
         # connect the window is gone.
         result = self.g.draw()
         self.screen.refresh()
-        tui_call_wrapper(self.screen, rhnreg.getCaps)
+        # try to connect given the server url and ssl cert provided. If
+        # unsuccessful, return to previous screen to allow user to fix.
+        try:
+            tui_call_wrapper(self.screen, rhnreg.getCaps)
+        except:
+            return "back"
 
         self.screen.popWindow()
 
@@ -245,9 +360,9 @@ class ConnectWindow:
         pass
 
 class StartWindow:
+    name = "StartWindow"
 
     def __init__(self, screen, tui):
-        self.name = "StartWindow"
         self.screen = screen
         self.tui = tui
         size = snack._snack.size()
@@ -272,7 +387,7 @@ class StartWindow:
 
 
     def run(self):
-        log.log_debug("Running %s" % self.__class__.__name__)
+        log.log_debug("Running %s" % self.name)
         result = self.g.runOnce()
         button = self.bb.buttonPressed(result)
 
@@ -286,9 +401,9 @@ class StartWindow:
         return button
 
 class WhyRegisterWindow:
+    name = "WhyRegisterWindow"
 
     def __init__(self, screen, tui):
-        self.name = "WhyRegisterWindow"
         self.screen = screen
         self.tui = tui
         size = snack._snack.size()
@@ -319,7 +434,7 @@ class WhyRegisterWindow:
         self.g = toplevel
 
     def run(self):
-        log.log_debug("Running %s" % self.__class__.__name__)
+        log.log_debug("Running %s" % self.name)
         result = self.g.runOnce()
         button = self.bb.buttonPressed(result)
 
@@ -327,9 +442,9 @@ class WhyRegisterWindow:
 
 
 class InfoWindow:
+    name = "InfoWindow"
 
     def __init__(self, screen, tui):
-        self.name = "InfoWindow"
         self.screen = screen
         self.tui = tui
         self.tui.alreadyRegistered = 0
@@ -424,7 +539,7 @@ class InfoWindow:
         self.tui.password = self.passwordEntry.value()
 
     def run(self):
-        log.log_debug("Running %s" % self.__class__.__name__)
+        log.log_debug("Running %s" % self.name)
         self.screen.refresh()
         valid = 0
         while not valid:
@@ -444,6 +559,7 @@ class InfoWindow:
         return button
 
 class OSReleaseWindow:
+    name = "OSReleaseWindow"
 
     def __init__(self, screen, tui):
 
@@ -458,7 +574,6 @@ class OSReleaseWindow:
             log.log_debug("No available EUS channels, skipping OSReleaseWindow")
             raise WindowSkipException()
 
-        self.name = "OSReleaseWindow"
         self.screen = screen
         self.size = snack._snack.size()
 
@@ -524,7 +639,7 @@ class OSReleaseWindow:
 
 
     def run(self):
-        log.log_debug("Running %s" % self.__class__.__name__)
+        log.log_debug("Running %s" % self.name)
         self.screen.refresh()
         valid = "cancel"
         while valid == "cancel":
@@ -582,9 +697,9 @@ class OSReleaseWindow:
 
 
 class HardwareWindow:
+    name = "HardwareWindow"
 
     def __init__(self, screen, tui):
-        self.name = "HardwareWindow"
         self.screen = screen
         self.tui = tui
         size = snack._snack.size()
@@ -699,7 +814,7 @@ class HardwareWindow:
         self.tui.includeHardware = self.hardwareButton.selected()
 
     def run(self):
-        log.log_debug("Running %s" % self.__class__.__name__)
+        log.log_debug("Running %s" % self.name)
         result = self.g.runOnce()
         button = self.bb.buttonPressed(result)
 
@@ -708,9 +823,9 @@ class HardwareWindow:
         return button
 
 class PackagesWindow:
+    name = "PackagesWindow"
 
     def __init__(self, screen, tui):
-        self.name = "PackagesWindow"
         self.screen = screen
         self.tui = tui
         size = snack._snack.size()
@@ -779,7 +894,7 @@ class PackagesWindow:
 
 
     def run(self):
-        log.log_debug("Running %s" % self.__class__.__name__)
+        log.log_debug("Running %s" % self.name)
         result = self.g.runOnce()
         button = self.bb.buttonPressed(result)
 
@@ -788,11 +903,11 @@ class PackagesWindow:
         return button
 
 class SendWindow:
+    name = "SendWindow"
 
     def __init__(self, screen, tui):
         self.screen = screen
         self.tui = tui
-        self.name = "SendWindow"
         size = snack._snack.size()
 
         toplevel = snack.GridForm(screen, SEND_WINDOW.encode('utf-8'), 1, 2)
@@ -815,7 +930,7 @@ class SendWindow:
 
 
     def run(self):
-        log.log_debug("Running %s" % self.__class__.__name__)
+        log.log_debug("Running %s" % self.name)
         result = self.g.runOnce()
         button = self.bb.buttonPressed(result)
 
@@ -824,11 +939,11 @@ class SendWindow:
         return button
 
 class SendingWindow:
+    name = "SendingWindow"
 
     def __init__(self, screen, tui):
         self.screen = screen
         self.tui = tui
-        self.name = "SendingWindow"
         size = snack._snack.size()
 
         self.pwin = snack.GridForm(screen, SENDING_WINDOW.encode('utf-8'), 1, 1)
@@ -837,7 +952,7 @@ class SendingWindow:
         self.pwin.add(self.scale, 0, 0)
 
     def run(self):
-        log.log_debug("Running %s" % self.__class__.__name__)
+        log.log_debug("Running %s" % self.name)
 
         self.pwin.draw()
         self.screen.refresh()
@@ -946,9 +1061,9 @@ class SendingWindow:
 
 
 class FinishWindow:
+    name = "FinishWindow"
 
     def __init__(self, screen, tui):
-        self.name = "FinishWindow"
         self.screen = screen
         self.tui = tui
         size = snack._snack.size()
@@ -972,7 +1087,7 @@ class FinishWindow:
 
 
     def run(self):
-        log.log_debug("Running %s" % self.__class__.__name__)
+        log.log_debug("Running %s" % self.name)
         result = self.g.runOnce()
         button = self.bb.buttonPressed(result)
 
@@ -981,9 +1096,9 @@ class FinishWindow:
         return button
 
 class ReviewWindow:
+    name = "ReviewWindow"
 
     def __init__(self, screen, tui):
-        self.name = "ReviewWindow"
         self.screen = screen
         self.tui = tui
         self.reg_info = tui.reg_info
@@ -1058,7 +1173,7 @@ class ReviewWindow:
         return 1
 
     def run(self):
-        log.log_debug("Running %s" % self.__class__.__name__)
+        log.log_debug("Running %s" % self.name)
         result = self.g.runOnce()
         button = self.bb.buttonPressed(result)
 
@@ -1072,6 +1187,7 @@ class ReviewWindow:
         return button
 
 class Tui:
+    name = "RHN_REGISTER_TUI"
 
     def __init__(self, screen, test):
         self.screen = screen
@@ -1088,8 +1204,9 @@ class Tui:
         self.windows = [
             AlreadyRegisteredSubscriptionManagerWindow,
             AlreadyRegisteredWindow,
-            ConnectWindow,
             StartWindow,
+            SatelliteUrlWindow,
+            ConnectWindow,
             InfoWindow,
             OSReleaseWindow,
             HardwareWindow,
@@ -1103,6 +1220,7 @@ class Tui:
 
         if not cfg['sslCACert']:
             cfg.set('sslCACert', '/usr/share/rhn/RHN-ORG-TRUSTED-SSL-CERT')
+        self.sslCACert = cfg['sslCACert']
 
     def __del__(self):
         self.screen.finish()
@@ -1148,7 +1266,7 @@ class Tui:
         self.yum_plugin_conf_changed = 0
 
     def run(self):
-        log.log_debug("Running %s" % self.__class__.__name__)
+        log.log_debug("Running %s" % self.name)
         self.initResults()
 
         direction = "forward"
@@ -1175,6 +1293,13 @@ class Tui:
                 if result == "back":
                     if index > 0:
                         index = index - 1
+
+                    # If we're on the info window, "back" means go back
+                    # to the satellite url window, not back to the
+                    # temporary connection test window.
+                    if (index > 0 and
+                            self.windows[index].name == ConnectWindow.name):
+                        index -= 1
 
                     direction = "backward"
 
