@@ -58,6 +58,7 @@ import com.redhat.rhn.frontend.xmlrpc.InvalidChannelException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidChannelLabelException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidErrataException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidPackageException;
+import com.redhat.rhn.frontend.xmlrpc.InvalidParameterException;
 import com.redhat.rhn.frontend.xmlrpc.MissingErrataAttributeException;
 import com.redhat.rhn.frontend.xmlrpc.NoChannelsSelectedException;
 import com.redhat.rhn.frontend.xmlrpc.NoSuchChannelException;
@@ -353,11 +354,21 @@ public class ErrataHandler extends BaseHandler {
         }
 
         if (details.containsKey("issue_date")) {
-            errata.setIssueDate( new Date((String)details.get("issue_date")));
+            try {
+                errata.setIssueDate((Date)details.get("issue_date"));
+            }
+            catch (ClassCastException e) {
+                throw new InvalidParameterException("Wrong 'issue_date' format.");
+            }
         }
 
         if (details.containsKey("update_date")) {
-            errata.setUpdateDate( new Date((String)details.get("update_date")));
+            try {
+                errata.setUpdateDate((Date)details.get("update_date"));
+            }
+            catch (ClassCastException e) {
+                throw new InvalidParameterException("Wrong 'update_date' format.");
+            }
         }
 
         if (details.containsKey("synopsis")) {
