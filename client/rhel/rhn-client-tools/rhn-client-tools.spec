@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 1.9.3
+Version: 1.9.4
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -339,6 +339,9 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Fri Nov 16 2012 Stephen Herr <sherr@redhat.com> 1.9.4-1
+- 876740 - add server url edit screen to rhn_register tui
+
 * Fri Nov 16 2012 Jan Pazdziora 1.9.3-1
 - 876740 - updating error message for rhn_register TUI if SSL cert missing
 - 876328 - updating rhel client tools translations
