@@ -12,7 +12,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 1.9.7
+Version: 1.9.8
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -637,6 +637,10 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Fri Nov 16 2012 Jan Pazdziora 1.9.8-1
+- 877451 - yum-like per-repo configuration for spacewalk-repo-sync
+- remove misleading comment
+
 * Wed Nov 14 2012 Michael Mraka <michael.mraka@redhat.com> 1.9.7-1
 - 868370 - fixed dependency solver for RHEL4 clients
 
