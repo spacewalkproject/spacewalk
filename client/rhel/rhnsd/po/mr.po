@@ -1,62 +1,62 @@
-# translation of mr.po to Marathi
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
-# Rahul Bhalerao <b.rahul.pm@gmail.com>, 2006.
 #
+# Translators:
+# Miroslav Suchý <msuchy@redhat.com>, 2011.
+# Rahul Bhalerao <b.rahul.pm@gmail.com>, 2006.
+# Rahul Bhalerao <rahul.bhalerao@redhat.com>, 2007.
 msgid ""
 msgstr ""
-"Project-Id-Version: mr\n"
+"Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-10-17 11:04-0400\n"
-"PO-Revision-Date: 2006-10-30 15:15+0530\n"
-"Last-Translator: Rahul Bhalerao <b.rahul.pm@gmail.com>\n"
-"Language-Team: Marathi\n"
+"POT-Creation-Date: 2011-12-21 12:22+0100\n"
+"PO-Revision-Date: 2012-02-14 13:07+0000\n"
+"Last-Translator: Miroslav Suchý <msuchy@redhat.com>\n"
+"Language-Team: Marathi (http://www.transifex.com/projects/p/fedora/language/"
+"mr/)\n"
+"Language: mr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.9.1\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../rhnsd.c:50
-msgid "MINS"
-msgstr "MINS"
-
-#: ../rhnsd.c:51
-msgid "Connect to Red Hat Network every MINS minutes"
-msgstr "Red Hat Network ला दर MINS मिनिटांनी जोडा"
-
-#: ../rhnsd.c:53
-msgid "Log all actions to syslog"
-msgstr "सर्व क्रिया syslog मध्ये लॉग करा"
-
 #: ../rhnsd.c:55
+msgid "MINS"
+msgstr ""
+
+#: ../rhnsd.c:56
+msgid "Connect to Red Hat Network every MINS minutes"
+msgstr ""
+
+#: ../rhnsd.c:58
 msgid "Run in foreground"
-msgstr "अग्रभागात चालवा"
+msgstr ""
 
 #. Short description of program.
-#: ../rhnsd.c:60
+#: ../rhnsd.c:63
 msgid "Red Hat Network Services Daemon"
-msgstr "Red Hat Network सेवा डीमॉन"
+msgstr ""
 
-#: ../rhnsd.c:97
+#: ../rhnsd.c:116
 #, c-format
 msgid "Only root can run this program\n"
 msgstr "फक्त रूट हा कार्यक्रम चालवू शकतो\n"
 
-#: ../rhnsd.c:112
+#: ../rhnsd.c:136
 msgid "wrong number of arguments"
 msgstr "चुकीची आर्ग्यूमेंट संख्या"
 
-#: ../rhnsd.c:119
+#: ../rhnsd.c:143
 msgid "already running"
 msgstr "आधिच चालू"
 
-#: ../rhnsd.c:226
+#: ../rhnsd.c:243
 #, c-format
 msgid "Copyright (C) %s Red Hat, Inc.\n"
 msgstr "Copyright (C) %s Red Hat, Inc.\n"
 
-#: ../rhnsd.c:229
+#: ../rhnsd.c:246
 #, c-format
 msgid "Written by %s.\n"
 msgstr "%s द्वारे लिखित.\n"

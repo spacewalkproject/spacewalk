@@ -1,25 +1,25 @@
-# translation of or.po to Oriya
+# SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 #
-# Subhransu Behera <sbehera@redhat.com>, 2006.
+# Translators:
 # Manoj Kumar Giri <mgiri@redhat.com>, 2011.
+# Miroslav Suchý <msuchy@redhat.com>, 2011.
+# Subhransu Behera <sbehera@redhat.com>, 2006, 2007.
 msgid ""
 msgstr ""
-"Project-Id-Version: or\n"
+"Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-10-02 10:06-0400\n"
-"PO-Revision-Date: 2011-02-21 16:54+0530\n"
-"Last-Translator: Manoj Kumar Giri <mgiri@redhat.com>\n"
-"Language-Team: Oriya <oriya-group@lists.sarovar.org>\n"
+"POT-Creation-Date: 2012-10-30 11:31+0100\n"
+"PO-Revision-Date: 2012-02-14 13:00+0000\n"
+"Last-Translator: Miroslav Suchý <msuchy@redhat.com>\n"
+"Language-Team: Oriya (http://www.transifex.com/projects/p/fedora/language/"
+"or/)\n"
 "Language: or\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 1.1\n"
-"Plural-Forms: Plural-Forms: nplurals=2; plural=(n!=1);\n"
-"\n"
-"\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../rhnplugin.py:51
 msgid "There was an error communicating with RHN."
@@ -27,7 +27,7 @@ msgstr "RHN ସହିତ ସମ୍ବାଦ ବିନିମୟ କରିବା �
 
 #: ../rhnplugin.py:66
 msgid "RHN Satellite or RHN Classic support will be disabled."
-msgstr "RHN ସାଟେଲାଇଟ କିମ୍ବା RHN ଉତ୍କୃଷ୍ଟ ଶ୍ରେଣୀ ସହାୟତାକୁ ନିଷ୍କ୍ରିୟ କରି ଦିଆଯିବ।"
+msgstr ""
 
 #. If non-root notify user RHN repo not accessible
 #: ../rhnplugin.py:70
@@ -38,70 +38,63 @@ msgstr ""
 "*ଟିପ୍ପଣୀ* Red Hat ନେଟୱର୍କ ସଂଗ୍ରହାଳୟଗୁଡ଼ିକ ନିମ୍ନରେ ତାଲିକାଭୁକ୍ତ ହୋଇନାହିଁ। ଆପଣ ନିଶ୍ଚିତ ଭାବରେ ଏହି "
 "ନିର୍ଦ୍ଦେଶକୁ RHN ସଂଗ୍ରହାଳୟରେ ମୂଖ୍ୟ ଚାଳକ ଭାବରେ ଚଲାଇବା ଉଚିତ।"
 
-#: ../rhnplugin.py:84
+#: ../rhnplugin.py:85
 msgid "There was an error parsing the RHN proxy settings."
 msgstr "RHN ଛାୟା ବିନ୍ଯାସକୁ ବିଶ୍ଳେଷଣ କରିବା ସମୟରେ ଗୋଟିଏ ତୃଟି ପରିଲିଖିତ ହେଲା।"
 
-#: ../rhnplugin.py:96
-#, fuzzy
+#: ../rhnplugin.py:97
 msgid "Either --version, --help or no commands entered"
-msgstr "ଅଥବା --version, କିମ୍ବା କୌଣସି ନିର୍ଦ୍ଦେଶକୁ ଭରଣ କରାଯାଇ ନାହିଁ।"
+msgstr ""
 
-#: ../rhnplugin.py:101
+#: ../rhnplugin.py:102
 msgid "Cleaning"
 msgstr ""
 
-#: ../rhnplugin.py:110
+#: ../rhnplugin.py:111
 msgid "Using list of RHN repos from cache"
 msgstr ""
 
-#: ../rhnplugin.py:124
+#: ../rhnplugin.py:127
 #, fuzzy
 msgid "This system is not registered with RHN Classic or RHN Satellite."
 msgstr "ତନ୍ତ୍ରଟି RHN ରେ ପଞ୍ଜୀକୃତ ହୋଇନାହିଁ।"
 
-#: ../rhnplugin.py:125 ../rhnplugin.py:141
+#: ../rhnplugin.py:128 ../rhnplugin.py:144
 msgid "You can use rhn_register to register."
 msgstr ""
 
-#: ../rhnplugin.py:131
+#: ../rhnplugin.py:134
 msgid "RHN channel support will be disabled."
 msgstr "RHN ଉପପଥ ସହାୟତାକୁ ନିଷ୍କ୍ରିୟ କରି ଦିଆଯିବ।"
 
-#: ../rhnplugin.py:135
+#: ../rhnplugin.py:138
 msgid "This system is not subscribed to any channels."
 msgstr "ତନ୍ତ୍ରଟି କୌଣସି ଉପପଥ ସହିତ ହସ୍ତାକ୍ଷରିତ ହୋଇନାହିଁ।"
 
-#: ../rhnplugin.py:140
+#: ../rhnplugin.py:143
 #, fuzzy
 msgid ""
 "This system may not be registered to RHN Classic or RHN Satellite. SystemId "
 "could not be acquired."
 msgstr "ଏହି ତନ୍ତ୍ର ହୁଏତଃ RHN ରେ ପଞ୍ଜିକୃତ ହୋଇନାହିଁ। SystemId କୁ ଧରିହେଲାନାହିଁ।\n"
 
-#: ../rhnplugin.py:151
+#: ../rhnplugin.py:156
 msgid "This system is receiving updates from RHN Classic or RHN Satellite."
 msgstr ""
 
-#: ../rhnplugin.py:275
+#: ../rhnplugin.py:281
 msgid "Package profile information could not be sent."
 msgstr "ପ୍ଯାକେଜ ରୂପରେଖ ସୂଚନାକୁ ପଠାଇ ହେଲାନାହିଁ।"
 
-#. This is compensating for hosted/satellite returning back an error
-#. message instructing RHEL5 clients to run "up2date --register"
-#. bz: 438175
-#: ../rhnplugin.py:282
+#: ../rhnplugin.py:289
 msgid "Error Message:"
 msgstr "ତ୍ରୁଟି ସନ୍ଦେଶ:"
 
-#: ../rhnplugin.py:283
+#: ../rhnplugin.py:290
 msgid "Please run rhn_register as root on this client"
 msgstr "rhn_register କୁ ମୂଖ୍ୟ ଚାଳକ ଭାବରେ ଏହି କ୍ଲାଏଣ୍ଟ ଉପରେ ଚଲାନ୍ତୁ"
 
-#: ../rhnplugin.py:364
+#: ../rhnplugin.py:371
 #, python-format
 msgid "Missing required login information for RHN: %s"
 msgstr "RHN ପାଇଁ ଅନୁପସ୍ଥିତ ଥିବା ଆବଶ୍ଯକୀୟ ଲଗଇନ ସୂଚନା: %s"
-
-#~ msgid "RHN support will be disabled."
-#~ msgstr "RHN ସହାୟତାକୁ ନିଷ୍କ୍ରିୟ କରି ଦିଆଯିବ।"

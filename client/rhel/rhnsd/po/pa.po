@@ -1,64 +1,64 @@
-# translation of pa.po to Punjabi
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
-# Jaswinder Singh <jsingh@redhat.com>, 2006.
 #
+# Translators:
+# Amanpreet Singh Alam <aalam@redhat.com>, 2004.
+# Amanpreet Singh Brar <amanpreetalam@yahoo.com>, 2005.
+# Automatically generated <punjablinux@netscape.net>, 2004.
+# Harmeet Singh Phulewala <harmeetphulewala@yahoo.com>, 2005.
+# Jaswinder Singh <jsingh@redhat.com>, 2006, 2007.
+# Miroslav Suchý <msuchy@redhat.com>, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: pa\n"
+"Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-10-17 11:04-0400\n"
-"PO-Revision-Date: 2006-12-01 15:06+0530\n"
-"Last-Translator: Jaswinder Singh <jsingh@redhat.com>\n"
-"Language-Team: Punjabi <fedora-trans-pa@redhat.com>\n"
+"POT-Creation-Date: 2011-12-21 12:22+0100\n"
+"PO-Revision-Date: 2012-02-14 13:07+0000\n"
+"Last-Translator: Miroslav Suchý <msuchy@redhat.com>\n"
+"Language-Team: Panjabi (Punjabi) <punjabi-users@lists.sf.net>\n"
+"Language: pa\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.9.1\n"
-"Plural-Forms: Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"\n"
-"\n"
-
-#: ../rhnsd.c:50
-msgid "MINS"
-msgstr "MINS"
-
-#: ../rhnsd.c:51
-msgid "Connect to Red Hat Network every MINS minutes"
-msgstr "ਹਰੇਕ MINS ਮਿੰਟਾਂ ਤੋਂ ਬਾਅਦ Red Hat ਨੈੱਟਵਰਕ ਨਾਲ ਜੁੜੋ"
-
-#: ../rhnsd.c:53
-msgid "Log all actions to syslog"
-msgstr "ਸਭ ਕਾਰਵਾਈਆਂ ਨੂੰ syslog ਵਿੱਚ ਰੱਖੋ"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../rhnsd.c:55
+msgid "MINS"
+msgstr ""
+
+#: ../rhnsd.c:56
+msgid "Connect to Red Hat Network every MINS minutes"
+msgstr ""
+
+#: ../rhnsd.c:58
 msgid "Run in foreground"
-msgstr "ਫੋਰ-ਗਰਾਉਂਡ ਵਿੱਚ ਚਲਾਓ"
+msgstr ""
 
 #. Short description of program.
-#: ../rhnsd.c:60
+#: ../rhnsd.c:63
 msgid "Red Hat Network Services Daemon"
-msgstr "Red Hat ਨੈੱਟਵਰਕ ਸਰਵਿਸ ਡੈਮਨ"
+msgstr ""
 
-#: ../rhnsd.c:97
+#: ../rhnsd.c:116
 #, c-format
 msgid "Only root can run this program\n"
 msgstr "ਇਸ ਪਰੋਗਰਾਮ ਨੂੰ ਸਿਰਫ root ਚਲਾ ਸਕਦਾ ਹੈ\n"
 
-#: ../rhnsd.c:112
+#: ../rhnsd.c:136
 msgid "wrong number of arguments"
 msgstr "ਗਲਤ ਆਰਗੂਮੈਂਟ ਗਿਣਤੀ"
 
-#: ../rhnsd.c:119
+#: ../rhnsd.c:143
 msgid "already running"
 msgstr "ਪਹਿਲਾਂ ਚੱਲ ਰਿਹਾ ਹੈ"
 
-#: ../rhnsd.c:226
+#: ../rhnsd.c:243
 #, c-format
 msgid "Copyright (C) %s Red Hat, Inc.\n"
 msgstr "ਹੱਕ ਰਾਖਵੇਂ ਹਨ (C) %s Red Hat, Inc.\n"
 
-#: ../rhnsd.c:229
+#: ../rhnsd.c:246
 #, c-format
 msgid "Written by %s.\n"
 msgstr "%s ਦੁਆਰਾ ਲਿਖਿਆ ਗਿਆ।\n"

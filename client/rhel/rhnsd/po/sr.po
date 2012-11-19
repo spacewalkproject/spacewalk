@@ -1,60 +1,60 @@
-# Serbian translations for rhnsd
-# Copyright (C) 2006 Red Hat, Inc.
-# This file is distributed under the same license as the rhnsd package.
-# Miloš Komarčević <kmilos@gmail.com>, 2006.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
 #
+# Translators:
+# Miroslav Suchý <msuchy@redhat.com>, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: rhnsd\n"
+"Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-10-17 11:04-0400\n"
-"PO-Revision-Date: 2006-11-12 16:56+0100\n"
-"Last-Translator: Miloš Komarčević <kmilos@gmail.com>\n"
-"Language-Team: Serbian (sr) <fedora@prevod.org>\n"
+"POT-Creation-Date: 2011-12-21 12:22+0100\n"
+"PO-Revision-Date: 2012-02-14 13:07+0000\n"
+"Last-Translator: Miroslav Suchý <msuchy@redhat.com>\n"
+"Language-Team: Serbian <trans-sr@lists.fedoraproject.org>\n"
+"Language: sr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-
-#: ../rhnsd.c:50
-msgid "MINS"
-msgstr "МИН"
-
-#: ../rhnsd.c:51
-msgid "Connect to Red Hat Network every MINS minutes"
-msgstr "Повежи се на Red Hat Network сваких МИН минута"
-
-#: ../rhnsd.c:53
-msgid "Log all actions to syslog"
-msgstr "Записуј све радње у системски дневник"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: ../rhnsd.c:55
+msgid "MINS"
+msgstr ""
+
+#: ../rhnsd.c:56
+msgid "Connect to Red Hat Network every MINS minutes"
+msgstr ""
+
+#: ../rhnsd.c:58
 msgid "Run in foreground"
-msgstr "Извршавај у првом плану"
+msgstr ""
 
 #. Short description of program.
-#: ../rhnsd.c:60
+#: ../rhnsd.c:63
 msgid "Red Hat Network Services Daemon"
-msgstr "Демон Red Hat Network сервиса"
+msgstr ""
 
-#: ../rhnsd.c:97
+#: ../rhnsd.c:116
 #, c-format
 msgid "Only root can run this program\n"
 msgstr "Само root може покренути овај програм\n"
 
-#: ../rhnsd.c:112
+#: ../rhnsd.c:136
 msgid "wrong number of arguments"
 msgstr "погрешан број аргумената"
 
-#: ../rhnsd.c:119
+#: ../rhnsd.c:143
 msgid "already running"
 msgstr "већ је покренут"
 
-#: ../rhnsd.c:226
+#: ../rhnsd.c:243
 #, c-format
 msgid "Copyright (C) %s Red Hat, Inc.\n"
 msgstr "Ауторска права %s Red Hat, Inc.\n"
 
-#: ../rhnsd.c:229
+#: ../rhnsd.c:246
 #, c-format
 msgid "Written by %s.\n"
 msgstr "Написао је %s.\n"
