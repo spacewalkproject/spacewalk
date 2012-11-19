@@ -90,10 +90,10 @@ public class SessionCleanup extends RhnJavaJob {
         //retrieves and logs number of sessions deleted
         Long sessionsDeleted = (Long) row.get("sessions_deleted");
         if (sessionsDeleted > 0) {
-            log.info(row.get("sessions_deleted") + " stale session(s) deleted\n");
+            log.info(row.get("sessions_deleted") + " stale session(s) deleted");
         }
         else {
-            log.debug("No stale sessions deleted\n");
+            log.debug("No stale sessions deleted");
         }
     }
 
