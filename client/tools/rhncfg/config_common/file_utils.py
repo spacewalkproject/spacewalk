@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 import os
@@ -66,16 +66,16 @@ class FileProcessor:
 
         if file_struct.has_key('encoding'):
             encoding = file_struct['encoding']
-        
+
         contents = file_struct['file_contents']
 
         if contents and (encoding == 'base64'):
             contents = base64.decodestring(contents)
-        
+
         delim_start = file_struct['delim_start']
         delim_end = file_struct['delim_end']
 
-        fh = None        
+        fh = None
 
         (fullpath, dirs_created, fh) = maketemp(prefix=".rhn-cfg-tmp",
                                   directory=directory)
@@ -132,15 +132,15 @@ class FileProcessor:
 
         os.unlink(temp_file)
         return sectx_result + result
-        
+
     def _validate_struct(self, file_struct):
         for k in self.file_struct_fields.keys():
             if not file_struct.has_key(k):
                 # XXX
                 raise Exception, "Missing key %s" % k
-        
 
-def diff(src, dst, srcname=None, dstname=None):
+
+def diff(src, dst, srcname=None, dstname=None, display_diff=False):
     def f_content(path, name):
         if os.access(path, os.R_OK):
             f = open(path, 'U')
@@ -168,11 +168,12 @@ def diff(src, dst, srcname=None, dstname=None):
     # don't return the diff if the file is not readable by everyone
     # for security reasons.
     if (len(ret_list) > 0 # if differences exist
+            and not display_diff # and we have not explicitly decided to display
             and dst_stat.st_uid == 0 # and file is owned by root
             and not dst_stat.st_mode & stat.S_IROTH): #and not readable by all
         ret_list = [
                 "Differences exist in a file that is not readable by all. ",
-                "Re-deployment of configuration file is recommended."]
+                "Re-deployment of configuration file is recommended.\n"]
     return ret_list
 
 
@@ -189,7 +190,7 @@ def maketemp(prefix=None, directory=None, symlink=None):
     dirs_created = None
     if not os.path.exists(directory):
         dirs_created = utils.mkdir_p(directory)
-    
+
     if not prefix:
     # Create the file in /tmp by default
         prefix = 'rhncfg-tempfile'
