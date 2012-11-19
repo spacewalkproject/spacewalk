@@ -72,7 +72,9 @@ install -m 0644 rhnsd.service $RPM_BUILD_ROOT/%{_unitdir}/
 %if 0%{?suse_version} >= 1210
 %service_add_post rhnsd.service
 %else
-/sbin/chkconfig --add rhnsd
+if [ -f /etc/init.d/rhnsd ]; then
+    /sbin/chkconfig --add rhnsd
+fi
 %endif
 
 %preun
@@ -85,7 +87,9 @@ if [ $1 = 0 ] ; then
     %else
     service rhnsd stop >/dev/null 2>&1
     %endif
-    /sbin/chkconfig --del rhnsd
+    if [ -f /etc/init.d/rhnsd ]; then
+        /sbin/chkconfig --del rhnsd
+    fi
 fi
 %endif
 
