@@ -8,6 +8,7 @@
 
   <property name="tomcat" value="tomcat5" />
   <available file="/usr/share/java/tomcat6" type="dir" property="tomcat" value="tomcat6" />
+  <available file="/usr/share/java/tomcat" type="dir" property="tomcat" value="tomcat" />
   <echo message="Detected: ${tomcat}" />
 
   <target name="all" depends="test"/>

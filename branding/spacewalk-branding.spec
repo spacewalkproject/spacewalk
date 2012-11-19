@@ -36,7 +36,11 @@ install -d -m 755 %{buildroot}%{_datadir}/rhn/lib/
 %if  0%{?rhel} && 0%{?rhel} < 6
 install -d -m 755 %{buildroot}%{_var}/lib/tomcat5/webapps/rhn/WEB-INF/lib/
 %else
+%if 0%{?fedora}
+install -d -m 755 %{buildroot}%{_var}/lib/tomcat/webapps/rhn/WEB-INF/lib/
+%else
 install -d -m 755 %{buildroot}%{_var}/lib/tomcat6/webapps/rhn/WEB-INF/lib/
+%endif
 %endif
 install -d -m 755 %{buildroot}/%{_sysconfdir}/rhn
 install -d -m 755 %{buildroot}/%{_prefix}/share/rhn/config-defaults
@@ -52,7 +56,11 @@ cp -pR java-branding.jar %{buildroot}%{_datadir}/rhn/lib/
 %if  0%{?rhel} && 0%{?rhel} < 6
 ln -s %{_datadir}/rhn/lib/java-branding.jar %{buildroot}%{_var}/lib/tomcat5/webapps/rhn/WEB-INF/lib/java-branding.jar
 %else
+%if 0%{?fedora}
+ln -s %{_datadir}/rhn/lib/java-branding.jar %{buildroot}%{_var}/lib/tomcat/webapps/rhn/WEB-INF/lib/java-branding.jar
+%else
 ln -s %{_datadir}/rhn/lib/java-branding.jar %{buildroot}%{_var}/lib/tomcat6/webapps/rhn/WEB-INF/lib/java-branding.jar
+%endif
 %endif
 cp -p conf/rhn_docs.conf %{buildroot}/%{_prefix}/share/rhn/config-defaults/rhn_docs.conf
 
@@ -76,7 +84,11 @@ rm -rf %{buildroot}
 %if  0%{?rhel} && 0%{?rhel} < 6
 %{_var}/lib/tomcat5/webapps/rhn/WEB-INF/lib/java-branding.jar
 %else
+%if 0%{?fedora}
+%{_var}/lib/tomcat/webapps/rhn/WEB-INF/lib/java-branding.jar
+%else
 %{_var}/lib/tomcat6/webapps/rhn/WEB-INF/lib/java-branding.jar
+%endif
 %endif
 %{_prefix}/share/rhn/config-defaults/rhn_docs.conf
 %doc LICENSE

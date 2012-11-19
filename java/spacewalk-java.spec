@@ -9,8 +9,13 @@
 %define appdir          %{_localstatedir}/lib/tomcat5/webapps
 %define jardir          %{_localstatedir}/lib/tomcat5/webapps/rhn/WEB-INF/lib
 %else
+%if 0%{?fedora}
+%define appdir          %{_localstatedir}/lib/tomcat/webapps
+%define jardir          %{_localstatedir}/lib/tomcat/webapps/rhn/WEB-INF/lib
+%else
 %define appdir          %{_localstatedir}/lib/tomcat6/webapps
 %define jardir          %{_localstatedir}/lib/tomcat6/webapps/rhn/WEB-INF/lib
+%endif
 %endif
 
 %if 0%{?rhel} && 0%{?rhel} >= 6
@@ -72,11 +77,19 @@ Requires: jasper5
 Requires: tomcat5-servlet-2.4-api
 Requires: struts >= 0:1.2.9
 %else
+%if 0%{?fedora}
+Requires: tomcat >= 7
+Requires: tomcat-lib >= 7
+Requires: tomcat-servlet-3.0-api >= 7
+Requires: struts >= 0:1.3.0
+Requires: struts-taglib >= 0:1.3.0
+%else
 Requires: tomcat6
 Requires: tomcat6-lib
 Requires: tomcat6-servlet-2.5-api
 Requires: struts >= 0:1.3.0
 Requires: struts-taglib >= 0:1.3.0
+%endif
 %endif
 Requires: xalan-j2 >= 0:2.6.0
 Requires: xerces-j2
@@ -151,10 +164,18 @@ BuildRequires: struts >= 0:1.2.9
 BuildRequires: jsp
 BuildRequires: jasper5
 %else
+%if 0%{?fedora}
+BuildRequires: struts >= 0:1.3.0
+BuildRequires: struts-taglib >= 0:1.3.0
+BuildRequires: tomcat >= 7
+BuildRequires: tomcat-lib >= 7
+BuildRequires: jpackage-utils
+%else
 BuildRequires: struts >= 0:1.3.0
 BuildRequires: struts-taglib >= 0:1.3.0
 BuildRequires: tomcat6
 BuildRequires: tomcat6-lib
+%endif
 %endif
 BuildRequires: sitemesh
 BuildRequires: postgresql-jdbc
@@ -210,7 +231,11 @@ Requires: ojdbc14
 %if  0%{?rhel} && 0%{?rhel} < 6
 Requires: tomcat5
 %else
+%if 0%{?fedora}
+Requires: tomcat >= 7
+%else
 Requires: tomcat6
+%endif
 %endif
 Provides: spacewalk-java-jdbc = %{version}-%{release}
 
@@ -224,7 +249,11 @@ Requires: postgresql-jdbc
 %if  0%{?rhel} && 0%{?rhel} < 6
 Requires: tomcat5
 %else
+%if 0%{?fedora}
+Requires: tomcat >= 7
+%else
 Requires: tomcat6
+%endif
 %endif
 Provides: spacewalk-java-jdbc = %{version}-%{release}
 
@@ -372,9 +401,15 @@ ant -Dprefix=$RPM_BUILD_ROOT install-tomcat5
 install -d -m 755 $RPM_BUILD_ROOT%{_sysconfdir}/tomcat5/Catalina/localhost/
 install -m 755 conf/rhn.xml $RPM_BUILD_ROOT%{_sysconfdir}/tomcat5/Catalina/localhost/rhn.xml
 %else
+%if 0%{?fedora}
+ant -Dprefix=$RPM_BUILD_ROOT install-tomcat7
+install -d -m 755 $RPM_BUILD_ROOT%{_sysconfdir}/tomcat/Catalina/localhost/
+install -m 755 conf/rhn.xml $RPM_BUILD_ROOT%{_sysconfdir}/tomcat/Catalina/localhost/rhn.xml
+%else
 ant -Dprefix=$RPM_BUILD_ROOT install-tomcat6
 install -d -m 755 $RPM_BUILD_ROOT%{_sysconfdir}/tomcat6/Catalina/localhost/
 install -m 755 conf/rhn.xml $RPM_BUILD_ROOT%{_sysconfdir}/tomcat6/Catalina/localhost/rhn.xml
+%endif
 %endif
 
 # check spelling errors in all resources for English if aspell installed
@@ -588,7 +623,11 @@ fi
 %if  0%{?rhel} && 0%{?rhel} < 6
 %config(noreplace) %{_sysconfdir}/tomcat5/Catalina/localhost/rhn.xml
 %else
+%if 0%{?fedora}
+%config(noreplace) %{_sysconfdir}/tomcat/Catalina/localhost/rhn.xml
+%else
 %config(noreplace) %{_sysconfdir}/tomcat6/Catalina/localhost/rhn.xml
+%endif
 %endif
 %{realcobsnippetsdir}/spacewalk
 %attr(755, tomcat, root) %{_var}/spacewalk/systemlogs

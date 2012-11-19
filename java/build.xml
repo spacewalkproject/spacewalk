@@ -6,6 +6,7 @@
 <project name="RHN" default="all" basedir=".">
   <property name="tomcat" value="tomcat5" />
   <available file="/usr/share/java/tomcat6" type="dir" property="tomcat" value="tomcat6" />
+  <available file="/usr/share/java/tomcat" type="dir" property="tomcat" value="tomcat7" />
   <echo message="Importing buildconf/build-props-${tomcat}.xml" />
   <import file="buildconf/build-props-${tomcat}.xml" />
   <import file="buildconf/build-props.xml" />
@@ -837,6 +838,12 @@ delete from rhnChannel where label like 'ChannelLabel%';
        <antcall target="install" />
   </target>
 
+  <target name="install-tomcat7">
+       <property name="webapp-dir" value="/var/lib/tomcat/webapps/" />
+       <echo message="${prefix}" />
+       <echo message="${webapp-dir}" />
+       <antcall target="install" />
+  </target>
 
   <target name="apidoc-install"
           depends="apidoc-jsp"

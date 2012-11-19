@@ -117,7 +117,7 @@ if [ -d /etc/jabberd ]; then
 fi
 
 # tomcat for spacewalk 400+
-for tomcat in tomcat5 tomcat6 ; do
+for tomcat in tomcat tomcat5 tomcat6 ; do
   if [ -d /etc/$tomcat ]; then
     cp -fapRd /etc/$tomcat $DIR/conf/tomcat
   fi

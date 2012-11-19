@@ -32,6 +32,10 @@ if [ -x /etc/init.d/tomcat6 -o -x /lib/systemd/system/tomcat6.service ]; then
    TOMCAT="tomcat6"
 fi
 
+if [ /lib/systemd/system/tomcat.service ]; then
+   TOMCAT="tomcat"
+fi
+
 
 SERVICES="jabberd $DB_SERVICE $TOMCAT httpd osa-dispatcher Monitoring MonitoringScout rhn-search cobblerd taskomatic"
 if [ -f /etc/rhn/service-list ] ; then
