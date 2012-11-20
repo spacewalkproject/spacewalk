@@ -67,7 +67,8 @@ public abstract class UserEditActionHelper extends RhnAction {
             targetUser.setFirstNames((String)form.get("firstNames"));
             targetUser.setLastName((String)form.get("lastName"));
             targetUser.setTitle((String)form.get("title"));
-            targetUser.setPrefix((String)form.get("prefix"));
+            String prefix = (String)form.get("prefix");
+            targetUser.setPrefix(prefix.isEmpty() ? " " : prefix);
             // Update PAM Authentication attribute
             updatePamAttribute(loggedInUser, targetUser, form);
         }
