@@ -1,4 +1,3 @@
-# SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 #
@@ -6,21 +5,22 @@
 # Dafydd Walters <dwalters@dragontechnology.com>, 2004.
 # Miroslav Suchý <msuchy@redhat.com>, 2011.
 # Rhys Jones <rhys@sgwarnog.com>, 2005.
-# Translation by Owain Green <owaing@oceanfree.net>, 2004.
+# Translation by Owain Green <owaing@oceanfree.net>, 2004, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: http://bugzilla.redhat.com/\n"
 "POT-Creation-Date: 2012-10-30 11:32+0100\n"
-"PO-Revision-Date: 2012-02-14 13:00+0000\n"
-"Last-Translator: Miroslav Suchý <msuchy@redhat.com>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: cy\n"
+"PO-Revision-Date: 2012-11-20 16:52+0000\n"
+"Last-Translator: \n"
+"Language-Team: American English <kde-i18n-doc@kde.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: cy\n"
 "Plural-Forms: nplurals=4; plural=(n==1) ? 0 : (n==2) ? 1 : (n != 8 && n != "
 "11) ? 2 : 3;\n"
+"X-Generator: Lokalize 1.5\n"
 
 #: ../src/up2date_client/config.py:154
 #, python-format
@@ -32,8 +32,9 @@ msgid "Error: Server Unavailable. Please try later."
 msgstr ""
 
 #: ../src/up2date_client/rpcServer.py:164
+#, fuzzy
 msgid "ERROR: can not find RHNS CA file"
-msgstr ""
+msgstr "GWALL: Ni chafwyd ffeil RHNS CA:"
 
 #: ../src/up2date_client/rpcServer.py:202
 msgid "Connection aborted by the user"
@@ -44,9 +45,10 @@ msgid "Server has refused connection due to high load"
 msgstr "Gwrthodwyd cysylltiad â'r gweinydd o achos llwyth uchel"
 
 #: ../src/up2date_client/rhnregGui.py:145
+#, fuzzy
 #: ../src/up2date_client/rhnregGui.py:162
 msgid "Notice"
-msgstr ""
+msgstr "Niue"
 
 #: ../src/up2date_client/rhnregGui.py:155
 #: ../src/up2date_client/rhnregGui.py:169
@@ -55,8 +57,9 @@ msgid "Warning"
 msgstr "Rhybudd"
 
 #: ../src/up2date_client/rhnregGui.py:270
+#, fuzzy
 msgid "There was an error while applying your choice."
-msgstr ""
+msgstr "Bu gwall angheuol wrth arsefydlu'r pecyn:\n"
 
 #: ../src/up2date_client/rhnregGui.py:289
 msgid "You specified an invalid protocol. Only https and http are allowed."
@@ -64,8 +67,8 @@ msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:302
 msgid ""
-"You will not be able to successfully register this system without contacting "
-"a Red Hat Network server."
+"You will not be able to successfully register this system without contacting"
+" a Red Hat Network server."
 msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:322
@@ -89,8 +92,9 @@ msgid "Make sure the network connection on this system is operational."
 msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:338
+#, fuzzy
 msgid "There was an error communicating with Red Hat Network."
-msgstr ""
+msgstr "Bu gwall wrth gyfathrebu â'r gweinydd cofrestru:\n"
 
 #: ../src/up2date_client/rhnregGui.py:339
 msgid "The server may be in outage mode. You may have to try connecting later."
@@ -101,23 +105,26 @@ msgid "You may be running a client that is incompatible with the server."
 msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:374
-#, python-format
+#, fuzzy, python-format
 msgid ""
 "Please enter your account information for the <b>%s</b> Red Hat Network "
 "Satellite:"
-msgstr ""
+msgstr "Gwybodaeth gofrestru ar gyfer: "
 
 #: ../src/up2date_client/rhnregGui.py:413
+#, fuzzy
 msgid "You must enter a login."
-msgstr ""
+msgstr "Rhaid i chi roi eich enw olaf."
 
 #: ../src/up2date_client/rhnregGui.py:419
+#, fuzzy
 msgid "You must enter a password."
-msgstr ""
+msgstr "Rhaid i chi roi a gwirio cyfrinair."
 
 #: ../src/up2date_client/rhnregGui.py:432
+#, fuzzy
 msgid "There was an error while logging in."
-msgstr ""
+msgstr "Roedd problem wrth gofrestru'r system."
 
 #: ../src/up2date_client/rhnregGui.py:457
 msgid ""
@@ -126,33 +133,36 @@ msgid ""
 msgstr "Bu gwall wrth gyfathrebu â'r gweinydd cofrestru.  Dyma oedd y neges:\n"
 
 #: ../src/up2date_client/rhnregGui.py:595
+#, fuzzy
 msgid "There was an error while assembling information for the profile."
-msgstr ""
+msgstr "Bu gwall angheuol wrth arsefydlu'r pecyn:\n"
 
 #: ../src/up2date_client/rhnregGui.py:616
 msgid "Error running hardware profile"
 msgstr "Problem wrth redeg proffil caledwedd."
 
 #: ../src/up2date_client/rhnregGui.py:646
+#, fuzzy
 msgid "There was an error while populating the profile."
-msgstr ""
+msgstr "Bu gwall angheuol wrth arsefydlu'r pecyn:\n"
 
 #: ../src/up2date_client/rhnregGui.py:666
 msgid "You must choose a name for this profile."
 msgstr "Rhaid i chi ddewis enw ar gyfer y proffil yma."
 
 #: ../src/up2date_client/rhnregGui.py:680
+#, fuzzy
 msgid "There was an error while creating the profile."
-msgstr ""
+msgstr "Bu gwall angheuol wrth arsefydlu'r pecyn:\n"
 
 #: ../src/up2date_client/rhnregGui.py:691
-#, fuzzy
 msgid "Registering system and sending profile information.  Please wait."
-msgstr "Yn anfon eich gwybodaeth broffil at Rwydwaith Red Hat.  Arhoswch."
+msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:710
+#, fuzzy
 msgid "Registering System"
-msgstr ""
+msgstr "Problem wrth gofrestru'r system."
 
 #: ../src/up2date_client/rhnregGui.py:724
 #: ../src/up2date_client/rhnregGui.py:728
@@ -162,11 +172,11 @@ msgid "Problem registering system:\n"
 msgstr "Problem wrth gofrestru'r system:\n"
 
 #: ../src/up2date_client/rhnregGui.py:735
-#, python-format
+#, fuzzy, python-format
 msgid ""
 "The installation number [ %s ] provided is not a valid installation number. "
 "Please go back to the previous screen and fix it."
-msgstr ""
+msgstr "Nid yw'r rhif tanysgrifiad [ %s] a roddwyd yn rhif tanysgrifiad dilys."
 
 #: ../src/up2date_client/rhnregGui.py:745 ../src/up2date_client/tui.py:875
 msgid "Problem registering system."
@@ -181,12 +191,14 @@ msgid "There was a problem registering this system."
 msgstr "Roedd problem wrth gofrestru'r system."
 
 #: ../src/up2date_client/rhnregGui.py:774
+#, fuzzy
 msgid "Sending hardware information"
-msgstr ""
+msgstr "Anfon gwybodaeth _caledwedd"
 
 #: ../src/up2date_client/rhnregGui.py:779
+#, fuzzy
 msgid "Problem sending hardware information."
-msgstr ""
+msgstr "Gwall wrth ddarllen gwybodaeth caledwedd:"
 
 #. #            for row in range(self.regPackageArea.n_rows):
 #. #                rowData = self.regPackageArea.get_row_data(row)
@@ -198,12 +210,14 @@ msgstr ""
 #. #                if pkg[0] in selection:
 #. #                    selectedPackages.append(pkg)
 #: ../src/up2date_client/rhnregGui.py:803
+#, fuzzy
 msgid "Sending package information"
-msgstr ""
+msgstr "Anfon gwybodaeth _caledwedd"
 
 #: ../src/up2date_client/rhnregGui.py:808
+#, fuzzy
 msgid "Problem sending package information."
-msgstr ""
+msgstr "Problem wrth anfon rhestr becynnau."
 
 #: ../src/up2date_client/rhnregGui.py:839 ../src/up2date_client/tui.py:926
 msgid ""
@@ -212,12 +226,14 @@ msgid ""
 msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:893
+#, fuzzy
 msgid "There was an error while installing the certificate."
-msgstr ""
+msgstr "Bu gwall angheuol wrth arsefydlu'r pecyn:\n"
 
 #: ../src/up2date_client/rhnregGui.py:919
+#, fuzzy
 msgid "You must select a certificate."
-msgstr ""
+msgstr "Rhaid i chi roi enw defnyddiwr."
 
 #. TODO Modify rhnlib to raise a unique exception for the not a
 #. cert file case.
@@ -239,8 +255,9 @@ msgid "unknown"
 msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:1114
+#, fuzzy
 msgid "There was an error getting the list of hardware."
-msgstr ""
+msgstr "Bu gwall angheuol wrth arsefydlu'r pecyn:\n"
 
 #: ../src/up2date_client/rhnregGui.py:1126 ../src/up2date_client/tui.py:660
 #, python-format
@@ -253,8 +270,9 @@ msgid "%s MB"
 msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:1174
+#, fuzzy
 msgid "There was an error building the list of packages."
-msgstr ""
+msgstr "Bu gwall angheuol wrth arsefydlu'r pecyn:\n"
 
 #: ../src/up2date_client/rhnregGui.py:1189
 msgid "Package"
@@ -273,17 +291,15 @@ msgid ""
 "There was an error loading your configuration.  Make sure that\n"
 "you have read access to /etc/sysconfig/rhn."
 msgstr ""
-"Bu gwall wrth lwytho'ch cyfluniad.  Sicrhewch eich bod yn medru\n"
-"darllen /etc/sysconfig/rhn."
+"Bu gwall wrth lwytho'ch cyfluniad.  Sicrhewch eich bod yn medru\ndarllen "
+"/etc/sysconfig/rhn."
 
 #: ../src/up2date_client/rhnregGui.py:1274
 #, python-format
 msgid ""
 "There was an error saving your configuration. Make sure that\n"
 "you own %s."
-msgstr ""
-"Bu gwall wrth gadw'ch cyfluniad. Sicrhewch mai chi sy'n berchen\n"
-"%s."
+msgstr "Bu gwall wrth gadw'ch cyfluniad. Sicrhewch mai chi sy'n berchen\n%s."
 
 #: ../src/up2date_client/rhnregGui.py:1304
 #, python-format
@@ -311,13 +327,14 @@ msgstr ""
 
 #. Connect Window
 #: ../src/up2date_client/rhnreg_constants.py:17
+#, fuzzy
 msgid "Attempting to contact the Red Hat Network server."
-msgstr ""
+msgstr "Dewiswch Weinydd Rhwydwaith Red Hat i'w ddefnyddio"
 
 #: ../src/up2date_client/rhnreg_constants.py:18
-#, python-format
+#, fuzzy, python-format
 msgid "We are attempting to contact the Red Hat Network server at %s."
-msgstr ""
+msgstr "Dewiswch Weinydd Rhwydwaith Red Hat i'w ddefnyddio"
 
 #: ../src/up2date_client/rhnreg_constants.py:20
 #, python-format
@@ -326,8 +343,9 @@ msgstr ""
 
 #. Start Window
 #: ../src/up2date_client/rhnreg_constants.py:23 ../data/gui.glade.h:1
+#, fuzzy
 msgid "System Registration"
-msgstr ""
+msgstr "rhifCofrestru"
 
 #: ../src/up2date_client/rhnreg_constants.py:24
 msgid ""
@@ -348,8 +366,9 @@ msgid "Why Should I Connect to RHN? ..."
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:38 ../data/rh_register.glade.h:72
+#, fuzzy
 msgid "Why Register"
-msgstr ""
+msgstr "Cofrestredig yn Barod"
 
 #: ../src/up2date_client/rhnreg_constants.py:39
 msgid ""
@@ -370,8 +389,9 @@ msgid "Support:"
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:44
+#, fuzzy
 msgid "Compliance:"
-msgstr ""
+msgstr "Cwmni:"
 
 #: ../src/up2date_client/rhnreg_constants.py:45
 msgid ""
@@ -387,35 +407,38 @@ msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:49 ../data/rh_register.glade.h:81
 msgid ""
-"Access to the technical support experts at Red Hat or Red Hat's partners for "
-"help with any issues you might encounter with this system."
+"Access to the technical support experts at Red Hat or Red Hat's partners for"
+" help with any issues you might encounter with this system."
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:51
 msgid ""
-"Stay in compliance with your subscription agreement and manage subscriptions "
-"for systems connected to your account."
+"Stay in compliance with your subscription agreement and manage subscriptions"
+" for systems connected to your account."
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:54
 msgid ""
-"Tip: Red Hat values your privacy: http://www.redhat.com/legal/"
-"privacy_statement.html"
+"Tip: Red Hat values your privacy: "
+"http://www.redhat.com/legal/privacy_statement.html"
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:56
+#, fuzzy
 msgid "Take me back to the registration"
-msgstr ""
+msgstr "Up2date - Rhestr Becynnau (cofrestru)"
 
 #. Confirm Quit Window
 #: ../src/up2date_client/rhnreg_constants.py:59
+#, fuzzy
 msgid "Software Update Not Set Up"
-msgstr ""
+msgstr "Yn ailddechrau up2date"
 
 #: ../src/up2date_client/rhnreg_constants.py:60
 msgid ""
 "Are you sure you don't want to connect your system to Red Hat Network? "
-"You'll miss out on the benefits of a Red Hat Enterprise Linux subscription:\n"
+"You'll miss out on the benefits of a Red Hat Enterprise Linux "
+"subscription:\n"
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:62
@@ -434,26 +457,28 @@ msgstr ""
 
 #. Info Window
 #: ../src/up2date_client/rhnreg_constants.py:68 ../data/gui.glade.h:4
-#: ../data/rh_register.glade.h:16
 #, fuzzy
+#: ../data/rh_register.glade.h:16
 msgid "Red Hat Account"
 msgstr "Mewngofnod Red Hat"
 
 #: ../src/up2date_client/rhnreg_constants.py:69
-#, python-format
+#, fuzzy, python-format
 msgid ""
 "Please enter your login information for the %s Red Hat Network Satellite:\n"
 "\n"
-msgstr ""
+msgstr "Gwybodaeth gofrestru ar gyfer: "
 
 #: ../src/up2date_client/rhnreg_constants.py:71
+#, fuzzy
 msgid "Red Hat Login:"
-msgstr ""
+msgstr "Mewngofnod Red Hat"
 
 #: ../src/up2date_client/rhnreg_constants.py:72
+#, fuzzy
 #: ../src/up2date_client/tui.py:128
 msgid "Login:"
-msgstr ""
+msgstr "_Mewngofnod: "
 
 #: ../src/up2date_client/rhnreg_constants.py:73
 msgid "Password:"
@@ -470,8 +495,9 @@ msgid "Please enter a desired login."
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:77
+#, fuzzy
 msgid "Please enter and verify a password."
-msgstr ""
+msgstr "Rhaid i chi roi a gwirio cyfrinair."
 
 #. OS Release Window
 #: ../src/up2date_client/rhnreg_constants.py:80 ../data/gui.glade.h:5
@@ -484,17 +510,19 @@ msgid "Operating System version:"
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:82
+#, fuzzy
 msgid " Minor Release: "
-msgstr ""
+msgstr "Rhyddhad"
 
 #: ../src/up2date_client/rhnreg_constants.py:83
 msgid "Limited Updates Only"
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:84
+#, fuzzy
 #: ../data/rh_register.glade.h:157
 msgid "All available updates"
-msgstr ""
+msgstr "Diweddariadau Pecynnau Ar Gael"
 
 #: ../src/up2date_client/rhnreg_constants.py:85
 msgid "Confirm operating system release selection"
@@ -508,13 +536,14 @@ msgstr ""
 
 #. Hardware Window
 #: ../src/up2date_client/rhnreg_constants.py:91
+#, fuzzy
 msgid "Create Profile - Hardware"
-msgstr ""
+msgstr "Cysylltu eich system"
 
 #: ../src/up2date_client/rhnreg_constants.py:92
 msgid ""
-"A Profile Name is a descriptive name that you choose to identify this System "
-"Profile on the Red Hat Network web pages. Optionally, include a computer "
+"A Profile Name is a descriptive name that you choose to identify this System"
+" Profile on the Red Hat Network web pages. Optionally, include a computer "
 "serial or identification number."
 msgstr ""
 "Mae Enw Proffil yn enw disgrifiadol rydych yn ei ddewis i ddynodi'r Proffil "
@@ -535,13 +564,14 @@ msgstr "Cynnwys y wybodaeth ganlynol am galedwedd a rhwydwaith:"
 
 #. Packages Window
 #: ../src/up2date_client/rhnreg_constants.py:103
+#, fuzzy
 msgid "Create Profile - Packages"
-msgstr ""
+msgstr "Cysylltu eich system"
 
 #: ../src/up2date_client/rhnreg_constants.py:104
 msgid ""
-"RPM information is important to determine what updated software packages are "
-"relevant to this system."
+"RPM information is important to determine what updated software packages are"
+" relevant to this system."
 msgstr ""
 "Mae gwybodaeth RPM yn bwysig ar gyfer pennu pa becynnau meddalwedd wedi'u "
 "diweddaru sy'n briodol i'r system yma."
@@ -560,18 +590,22 @@ msgstr "Yn Adeiladu Rhestr Becynnau"
 
 #. Product Window
 #: ../src/up2date_client/rhnreg_constants.py:114
+#, fuzzy
 msgid "*Email Address:"
-msgstr ""
+msgstr "Cyfeiriad e-bost:"
 
 #: ../src/up2date_client/rhnreg_constants.py:116
+#, fuzzy
 #: ../data/rh_register.glade.h:131
 msgid "System Already Registered"
 msgstr ""
+"    --force                    - cofrestru'r system hyd yn oed os yw'n "
+"gofrestredig yn barod"
 
 #: ../src/up2date_client/rhnreg_constants.py:117
 #: ../data/rh_register.glade.h:132
 msgid "It appears this system has already been set up for software updates:"
-msgstr ""
+msgstr "Yn ailddechrau up2date"
 
 #: ../src/up2date_client/rhnreg_constants.py:118
 #: ../data/rh_register.glade.h:137
@@ -597,6 +631,7 @@ msgid "Send Profile Information to Red Hat Network"
 msgstr "Anfon Gwybodaeth Broffil at Rwydwaith Red Hat"
 
 #: ../src/up2date_client/rhnreg_constants.py:130
+#, fuzzy
 msgid ""
 "We are finished collecting information for the System Profile.\n"
 "\n"
@@ -604,6 +639,12 @@ msgid ""
 "\"Cancel\" and no information will be sent.  You can run the registration "
 "program later by typing `rhn_register` at the command line."
 msgstr ""
+"Rydym wedi gorffen casglu gwybodaeth ar gyfer y Proffil System.\n"
+"\n"
+"Gwasgwch \"Nesaf\" i anfon y Proffil System yma at Rwydwaith Red Hat.  "
+"Cliciwch \"Diddymu\" ac ni anfonir unrhyw wybodaeth.  Gallwch redeg y "
+"rhaglen gofrestru nes ymlaen drwy deipio `up2date --register` ar y llinell "
+"orchymyn."
 
 #. Sending Window
 #: ../src/up2date_client/rhnreg_constants.py:137
@@ -623,14 +664,15 @@ msgid ""
 "periodically to get the latest updates. Alternatively, you may configure "
 "this system for automatic software updates (also known as 'auto errata "
 "update') via the Red Hat Network web interface.  (Instructions for this are "
-"in chapter 6 of the RHN Reference Guide, available from the 'Help' button in "
-"the main Red Hat Network web interface.)"
+"in chapter 6 of the RHN Reference Guide, available from the 'Help' button in"
+" the main Red Hat Network web interface.)"
 msgstr ""
 
 #. Review Window
 #: ../src/up2date_client/rhnreg_constants.py:152 ../data/gui.glade.h:7
+#, fuzzy
 msgid "Review Subscription"
-msgstr ""
+msgstr "Disgrifiad"
 
 #: ../src/up2date_client/rhnreg_constants.py:153
 #: ../data/rh_register.glade.h:56
@@ -638,21 +680,23 @@ msgid "Please review the subscription details below:"
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:154
-#, python-format
+#, fuzzy, python-format
 msgid ""
 "The installation number %s was activated during this system's initial "
 "connection to Red Hat Network."
-msgstr ""
+msgstr "Cysylltu â Red Hat Network"
 
 #: ../src/up2date_client/rhnreg_constants.py:156
+#, fuzzy
 msgid ""
-"Subscriptions have been activated for the following Red Hat products/"
-"services:"
-msgstr ""
+"Subscriptions have been activated for the following Red Hat "
+"products/services:"
+msgstr "Annilys yw'r rhif tanysgrifiad"
 
 #: ../src/up2date_client/rhnreg_constants.py:158
+#, fuzzy
 msgid "Software Channel Subscriptions:"
-msgstr ""
+msgstr "Gwybodaeth Sianeli"
 
 #: ../src/up2date_client/rhnreg_constants.py:159
 msgid "This system will receive updates from the following software channels:"
@@ -706,8 +750,8 @@ msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:186
 msgid ""
-"Depending on what RHN Satellite modules are associated with a system, you'll "
-"enjoy different benefits. The following are the RHN Satellite modules "
+"Depending on what RHN Satellite modules are associated with a system, you'll"
+" enjoy different benefits. The following are the RHN Satellite modules "
 "associated with this system:"
 msgstr ""
 
@@ -725,8 +769,8 @@ msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:195
 msgid ""
-"Management module: automatic updates, systems grouping, systems permissions, "
-"system package profiling"
+"Management module: automatic updates, systems grouping, systems permissions,"
+" system package profiling"
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:197
@@ -768,9 +812,9 @@ msgstr ""
 msgid ""
 "This system was unable to be associated with any RHN service level modules. "
 "This system will not receive any software updates to keep it secure and "
-"supported. Contace your Satellite administrator about this problem. Once you "
-"make the appropriate active subscriptions available in your account, you may "
-"browse to this system's profile in the RHN web interface, delete the "
+"supported. Contace your Satellite administrator about this problem. Once you"
+" make the appropriate active subscriptions available in your account, you "
+"may browse to this system's profile in the RHN web interface, delete the "
 "profile, and re-connect this system to Red Hat Network."
 msgstr ""
 
@@ -825,8 +869,8 @@ msgid ""
 "\n"
 "The certificate you provided, <b>%s</b>, is not compatible with  the Red Hat "
 "Network server at <b>%s</b>. You may want to double-check that you have "
-"provided a valid certificate file. Are you sure you have provided the "
-"correct certificate, and that the certificate file has not been corrupted?\n"
+"provided a valid certificate file. Are you sure you have provided the correct "
+"certificate, and that the certificate file has not been corrupted?\n"
 "\n"
 "Please try again with a different certificate file."
 msgstr ""
@@ -902,9 +946,10 @@ msgid "Cancel"
 msgstr "Diddymu"
 
 #: ../src/up2date_client/rhnreg_constants.py:304
+#, fuzzy
 #: ../data/rh_register.glade.h:116
 msgid "No, Cancel"
-msgstr ""
+msgstr "Diddymu"
 
 #: ../src/up2date_client/rhnreg_constants.py:305
 #: ../data/rh_register.glade.h:118
@@ -944,48 +989,57 @@ msgid "Yes/No dialog:"
 msgstr "Ymgom Ie/Na:"
 
 #: ../src/up2date_client/tui.py:127
+#, fuzzy
 msgid "Red Hat Network Location:"
-msgstr ""
+msgstr "Mewngofnodiad Rhwydwaith Red Hat"
 
 #: ../src/up2date_client/tui.py:129
+#, fuzzy
 msgid "System ID:"
-msgstr ""
+msgstr "Cyfenw:"
 
 #: ../src/up2date_client/tui.py:414
 msgid "The server indicated an error:\n"
 msgstr "Arwyddodd y gweinydd wall:\n"
 
 #: ../src/up2date_client/tui.py:418
+#, fuzzy
 msgid "There was an error communicating with the registration server:\n"
-msgstr ""
+msgstr "Bu gwall wrth gyfathrebu â'r gweinydd cofrestru.  Dyma oedd y neges:\n"
 
 #: ../src/up2date_client/tui.py:609
 msgid "Profile name:"
 msgstr "Enw proffil:"
 
 #: ../src/up2date_client/tui.py:631 ../src/up2date_client/tui.py:632
+#, fuzzy
 msgid "Version: "
-msgstr ""
+msgstr "Fersiwn:"
 
 #: ../src/up2date_client/tui.py:638
+#, fuzzy
 msgid "CPU model: "
-msgstr ""
+msgstr "Model CPU:"
 
 #: ../src/up2date_client/tui.py:644
+#, fuzzy
 msgid "Hostname: "
-msgstr ""
+msgstr "Enw gwesteiwr:"
 
 #: ../src/up2date_client/tui.py:656
+#, fuzzy
 msgid "CPU speed: "
-msgstr ""
+msgstr "Cyflymder CPU:"
 
 #: ../src/up2date_client/tui.py:662
+#, fuzzy
 msgid "IP Address: "
-msgstr ""
+msgstr "Cyfeiriad IP:"
 
 #: ../src/up2date_client/tui.py:671
+#, fuzzy
 msgid "Memory: "
-msgstr ""
+msgstr "Cof:"
 
 #: ../src/up2date_client/tui.py:675
 #, python-format
@@ -1020,8 +1074,7 @@ msgstr ""
 msgid ""
 "  <Tab>/<Alt-Tab> between elements  |  <Space> selects  |  <F12> next screen"
 msgstr ""
-"  <Tab>/<Eil-Tab> rhwng elfennau  |  <Gofodnod> i ddewis  |  <F12> sgrin "
-"nesaf"
+"  <Tab>/<Eil-Tab> rhwng elfennau  |  <Gofodnod> i ddewis  |  <F12> sgrin nesaf"
 
 #: ../src/up2date_client/tui.py:1211
 msgid "You must run the RHN registration program as root."
@@ -1066,8 +1119,9 @@ msgid "Error validating data at server:\n"
 msgstr "Gwall wrth wirio data wrth y gweinydd:\n"
 
 #: ../src/up2date_client/up2dateErrors.py:175
+#, fuzzy
 msgid "The installation number is invalid"
-msgstr ""
+msgstr "Annilys yw'r rhif tanysgrifiad"
 
 #: ../src/up2date_client/up2dateErrors.py:178
 msgid "Error parsing the oemInfo file at field:\n"
@@ -1094,8 +1148,8 @@ msgid ""
 "    A common cause of this error code is due to having mistakenly setup an\n"
 "    Activation Key which is set as the universal default.  If an activation "
 "key is set\n"
-"    on the account as a universal default, you can disable this key and "
-"retry to avoid\n"
+"    on the account as a universal default, you can disable this key and retry "
+"to avoid\n"
 "    requiring a Management entitlement."
 msgstr ""
 
@@ -1119,9 +1173,7 @@ msgstr "Penodwch gyfrinair i'w ddefnyddio â dirprwy http dilysol"
 msgid ""
 "\n"
 "Aborted.\n"
-msgstr ""
-"\n"
-"Erthylwyd.\n"
+msgstr "\nErthylwyd.\n"
 
 #: ../src/up2date_client/rhncli.py:101
 #, python-format
@@ -1149,8 +1201,8 @@ msgstr "Bu gwall SSL: %s\n"
 
 #: ../src/up2date_client/rhncli.py:113
 msgid ""
-"A common cause of this error is the system time being incorrect. Verify that "
-"the time on this system is correct.\n"
+"A common cause of this error is the system time being incorrect. Verify that"
+" the time on this system is correct.\n"
 msgstr ""
 "Mae bod yr amser system yn anghywir yn achos cyffredin o'r gwall yma. "
 "Gwiriwch fod yr amser ar y system yma'n gywir.\n"
@@ -1183,37 +1235,45 @@ msgid ""
 msgstr ""
 
 #: ../src/up2date_client/rhncli.py:227
+#, fuzzy
 msgid "An error has occurred:"
 msgstr ""
+"Digwyddodd gwall OS annisgwyl:\n"
+"%s"
 
 #: ../src/up2date_client/rhncli.py:235
+#, fuzzy
 msgid "See /var/log/up2date for more information"
-msgstr ""
+msgstr "Anfon gwybodaeth _caledwedd"
 
 #: ../src/up2date_client/capabilities.py:88
 #, python-format
 msgid ""
-"This client requires the server to support %s, which the current server does "
-"not support"
+"This client requires the server to support %s, which the current server does"
+" not support"
 msgstr ""
 "Mae'r dibynnydd yma'n mynnu bod y gweinydd yn cynnal %s, nad yw'r gweinydd "
 "cyfredol yn ei gynnal"
 
 #: ../src/up2date_client/gui.py:313
+#, fuzzy
 msgid "_Finish"
-msgstr ""
+msgstr "Gorffen"
 
 #: ../src/up2date_client/gui.py:316
+#, fuzzy
 msgid "_Exit"
-msgstr ""
+msgstr "Golygu"
 
 #: ../src/up2date_client/gui.py:317
+#, fuzzy
 msgid "Software Updates Not Set Up"
-msgstr ""
+msgstr "Yn ailddechrau up2date"
 
 #: ../src/up2date_client/gui.py:327
+#, fuzzy
 msgid "You must run rhn_register as root."
-msgstr ""
+msgstr "Rhaid i chi redeg yr Asiant Diweddaru fel y gwraidd."
 
 #: ../src/up2date_client/gui.py:351
 #, python-format
@@ -1237,16 +1297,21 @@ msgid "Specify an organizational id for this system"
 msgstr ""
 
 #: ../src/bin/rhnreg_ks.py:54
+#, fuzzy
 msgid "Specify a url to use as a server"
-msgstr ""
+msgstr "Penodwch ba url gweinydd i'w ddefnyddio"
 
 #: ../src/bin/rhnreg_ks.py:56
+#, fuzzy
 msgid "Specify a file to use as the ssl CA cert"
 msgstr ""
+"    --sslCACert=<llwybr>       - penodwch ffeil i'w defnyddio fel y tyst ssl "
+"CA"
 
 #: ../src/bin/rhnreg_ks.py:58
+#, fuzzy
 msgid "Specify an activation key"
-msgstr ""
+msgstr "Penodwch ddirprwy http i'w ddefnyddio"
 
 #: ../src/bin/rhnreg_ks.py:60
 msgid ""
@@ -1254,16 +1319,23 @@ msgid ""
 msgstr ""
 
 #: ../src/bin/rhnreg_ks.py:62
+#, fuzzy
 msgid "[Deprecated] Read contact info from stdin"
-msgstr ""
+msgstr "    --contactinfo              - darllen gwybodaeth gysylltu o stdin "
 
 #: ../src/bin/rhnreg_ks.py:64
+#, fuzzy
 msgid "Do not probe or upload any hardware info"
 msgstr ""
+"    --nohardware               - peidio ag archwilio na llwytho i fyny "
+"unrhyw wybodaeth caledwedd "
 
 #: ../src/bin/rhnreg_ks.py:66
+#, fuzzy
 msgid "Do not profile or upload any package info"
 msgstr ""
+"    --nopackages               - peidio â phroffilio na lanlwytho unrhyw "
+"wybodaeth pecynnau "
 
 #: ../src/bin/rhnreg_ks.py:68
 msgid "Do not upload any virtualization info"
@@ -1274,12 +1346,18 @@ msgid "Do not start rhnsd after completion"
 msgstr ""
 
 #: ../src/bin/rhnreg_ks.py:72
+#, fuzzy
 msgid "Register the system even if it is already registered"
 msgstr ""
+"    --force                    - cofrestru'r system hyd yn oed os yw'n "
+"gofrestredig yn barod"
 
 #: ../src/bin/rhnreg_ks.py:82
+#, fuzzy
 msgid "A username and password are required to register a system."
 msgstr ""
+"Mynnir enw defnyddiwr, cyfrinair a chyfeiriad e-bost ar gyfer cofrestru "
+"system."
 
 #: ../src/bin/rhnreg_ks.py:87
 msgid "This system is already registered. Use --force to override"
@@ -1320,8 +1398,9 @@ msgstr ""
 "IP i'w defnyddio fel enw proffil, penodwch un os gwelwch yn dda."
 
 #: ../src/bin/rhn_register.py:37
+#, fuzzy
 msgid "Do not attempt to use X"
-msgstr ""
+msgstr "peidio â cheisio defnyddio X"
 
 #: ../src/bin/spacewalk-channel.py:53
 msgid "ERROR: must be root to execute\n"
@@ -1416,10 +1495,13 @@ msgid "Attempting to run more than one instance of rhn_check. Exiting.\n"
 msgstr ""
 
 #: ../src/bin/rhn-profile-sync.py:35
+#, fuzzy
 msgid ""
-"You need to register this system by running `rhn_register` before using this "
-"option"
+"You need to register this system by running `rhn_register` before using this"
+" option"
 msgstr ""
+"Mae angen i chi gofrestru'r system yma drwy redeg `up2date --register` cyn "
+"defnyddio'r dewisiad yma"
 
 #: ../src/bin/rhn-profile-sync.py:43
 msgid "Updating package profile..."
@@ -1430,8 +1512,9 @@ msgid "Updating hardware profile..."
 msgstr "Yn diweddaru proffil caledwedd..."
 
 #: ../src/bin/rhn-profile-sync.py:50
+#, fuzzy
 msgid "Updating virtualization profile..."
-msgstr ""
+msgstr "Yn diweddaru proffil pecynnau..."
 
 #: ../data/gui.glade.h:2
 msgid "Set Up Software Updates"
@@ -1442,25 +1525,29 @@ msgid "Choose Service"
 msgstr ""
 
 #: ../data/gui.glade.h:6
+#, fuzzy
 msgid "Create Profile"
-msgstr ""
+msgstr "Proffil Caledwedd"
 
 #: ../data/gui.glade.h:8
+#, fuzzy
 msgid "Provide a security certificate"
-msgstr ""
+msgstr "Rhaid i chi roi enw defnyddiwr."
 
 #: ../data/progress.glade.h:1
 #, fuzzy
 msgid "Sending Information"
-msgstr "Gwybodaeth Becynnau"
+msgstr "Anfon gwybodaeth _caledwedd"
 
 #: ../data/progress.glade.h:2
+#, fuzzy
 msgid "progress bar"
-msgstr ""
+msgstr "Ymgom Gynnydd"
 
 #: ../data/progress.glade.h:3
+#, fuzzy
 msgid "progress status"
-msgstr ""
+msgstr "Ymgom Gynnydd"
 
 #: ../data/rh_register.glade.h:1
 msgid ""
@@ -1470,9 +1557,9 @@ msgstr ""
 
 #: ../data/rh_register.glade.h:2
 msgid ""
-"This system will <b>not</b> be able to successfully receive software "
-"updates, including security updates, from Red Hat without connecting to a "
-"Red Hat Network server.\n"
+"This system will <b>not</b> be able to successfully receive software updates, "
+"including security updates, from Red Hat without connecting to a Red Hat "
+"Network server.\n"
 "\n"
 "To keep your system updated, secure, and supported, please register this "
 "system at your earliest convenience.\n"
@@ -1488,12 +1575,14 @@ msgid "I'd like to register with an RHN Satellite or RHN Proxy"
 msgstr ""
 
 #: ../data/rh_register.glade.h:11
+#, fuzzy
 msgid "Location:"
-msgstr ""
+msgstr "Swydd:"
 
 #: ../data/rh_register.glade.h:12
+#, fuzzy
 msgid "Example: https://satellite.example.com/XMLRPC"
-msgstr ""
+msgstr "esiampl: XXXX-XXXX-XXXX-XXXX (dim rhaid rhoi'r cysylltnodau)"
 
 #: ../data/rh_register.glade.h:13
 msgid "satellite server location"
@@ -1508,12 +1597,14 @@ msgid "Proxy Setup Button"
 msgstr ""
 
 #: ../data/rh_register.glade.h:17
+#, fuzzy
 msgid "Please enter your Red Hat account information:"
-msgstr ""
+msgstr "Gwybodaeth Cyfrif"
 
 #: ../data/rh_register.glade.h:18
+#, fuzzy
 msgid "RHN login field"
-msgstr ""
+msgstr "Mewngofnod Red Hat"
 
 #: ../data/rh_register.glade.h:19
 msgid "RHN password field"
@@ -1525,14 +1616,19 @@ msgid "_Password:"
 msgstr "Cyfrinair:"
 
 #: ../data/rh_register.glade.h:21
+#, fuzzy
 msgid "_Login:"
-msgstr ""
+msgstr "_Mewngofnod: "
 
 #: ../data/rh_register.glade.h:22
+#, fuzzy
 msgid ""
 "<small>Tip: Forgot your login or password? Contact your Satellite's "
 "<i>Organization Administrator</i>.</small>"
 msgstr ""
+"Wedi anghofio eich mewngofnod neu'ch cyfrinair Red Hat? Dewch o hyd iddo\n"
+"fan hyn: http://www.redhat.com/software/rhn/\n"
+" "
 
 #: ../data/rh_register.glade.h:23
 msgid "Hardware Info"
@@ -1541,36 +1637,42 @@ msgstr "Gwybodaeth Caledwedd"
 #: ../data/rh_register.glade.h:24
 #, fuzzy
 msgid "Red Hat Linux Version:"
-msgstr "Mewngofnod Red Hat"
+msgstr "Fersiwn Red Hat Linux:"
 
 #: ../data/rh_register.glade.h:25
+#, fuzzy
 msgid "Hostname:"
-msgstr ""
+msgstr "Enw gwesteiwr:"
 
 #: ../data/rh_register.glade.h:26
+#, fuzzy
 msgid "IP Address:"
-msgstr ""
+msgstr "Cyfeiriad IP:"
 
 #: ../data/rh_register.glade.h:27
+#, fuzzy
 msgid "ERROR"
-msgstr ""
+msgstr "GWALL"
 
 #: ../data/rh_register.glade.h:28
+#, fuzzy
 msgid "CPU Model:"
-msgstr ""
+msgstr "Model CPU:"
 
 #: ../data/rh_register.glade.h:29
+#, fuzzy
 msgid "CPU Speed:"
-msgstr ""
+msgstr "Cyflymder CPU:"
 
 #: ../data/rh_register.glade.h:30
+#, fuzzy
 msgid "Memory:"
-msgstr ""
+msgstr "Cof:"
 
 #: ../data/rh_register.glade.h:31
 #, fuzzy
 msgid "Hardware Profile"
-msgstr "Gwybodaeth Caledwedd"
+msgstr "Proffil Caledwedd"
 
 #: ../data/rh_register.glade.h:32
 msgid "Package Information"
@@ -1582,8 +1684,8 @@ msgstr ""
 
 #: ../data/rh_register.glade.h:34
 msgid ""
-"This assistant will guide you through the process of registering your system "
-"with Red Hat to receive software updates and other benefits. You will need "
+"This assistant will guide you through the process of registering your system"
+" with Red Hat to receive software updates and other benefits. You will need "
 "the following to register:"
 msgstr ""
 
@@ -1604,12 +1706,14 @@ msgid "• The address of an RHN Satellite or RHN Proxy"
 msgstr ""
 
 #: ../data/rh_register.glade.h:39
+#, fuzzy
 msgid "_Why Should I Register?"
-msgstr ""
+msgstr "Cofrestredig yn Barod"
 
 #: ../data/rh_register.glade.h:40
+#, fuzzy
 msgid "Why Should I Register?"
-msgstr ""
+msgstr "Cofrestredig yn Barod"
 
 #: ../data/rh_register.glade.h:41
 msgid ""
@@ -1626,8 +1730,9 @@ msgid "_No, I prefer to register at a later time."
 msgstr ""
 
 #: ../data/rh_register.glade.h:44
+#, fuzzy
 msgid "Link To Subscription"
-msgstr ""
+msgstr "Disgrifiad"
 
 #: ../data/rh_register.glade.h:45
 msgid ""
@@ -1644,8 +1749,8 @@ msgstr ""
 
 #: ../data/rh_register.glade.h:47
 msgid ""
-"Purchase an additional Red Hat Enterprise Linux subscription at http://www."
-"redhat.com/store/."
+"Purchase an additional Red Hat Enterprise Linux subscription at "
+"http://www.redhat.com/store/."
 msgstr ""
 
 #: ../data/rh_register.glade.h:48
@@ -1664,32 +1769,38 @@ msgid "•"
 msgstr ""
 
 #: ../data/rh_register.glade.h:51
+#, fuzzy
 msgid "installation number field"
-msgstr ""
+msgstr "Annilys yw'r rhif tanysgrifiad"
 
 #: ../data/rh_register.glade.h:52
+#, fuzzy
 msgid "Installation _Number:"
-msgstr ""
+msgstr "rhifCofrestru"
 
 #: ../data/rh_register.glade.h:53
+#, fuzzy
 msgid "<small><b>Example</b>: XXXX-XXXX-XXXX-XXXX</small>"
-msgstr ""
+msgstr "esiampl: XXXX-XXXX-XXXX-XXXX (dim rhaid rhoi'r cysylltnodau)"
 
 #: ../data/rh_register.glade.h:54
+#, fuzzy
 msgid "_Activate a subscription now..."
-msgstr ""
+msgstr "Gwneud eich tanysgrifiad yn weithredol"
 
 #: ../data/rh_register.glade.h:55
 msgid "Review system..."
 msgstr ""
 
 #: ../data/rh_register.glade.h:57
+#, fuzzy
 msgid "Create profile"
-msgstr ""
+msgstr "Proffil Caledwedd"
 
 #: ../data/rh_register.glade.h:58
+#, fuzzy
 msgid "<big><b>System Name</b></big>"
-msgstr ""
+msgstr "Cyfenw:"
 
 #: ../data/rh_register.glade.h:59
 msgid ""
@@ -1698,12 +1809,14 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:60
+#, fuzzy
 msgid "System _Name:"
-msgstr ""
+msgstr "Cyfenw:"
 
 #: ../data/rh_register.glade.h:61
+#, fuzzy
 msgid "system name"
-msgstr ""
+msgstr "Cyfenw:"
 
 #: ../data/rh_register.glade.h:62
 msgid "<big><b>Profile Data</b></big>"
@@ -1718,11 +1831,12 @@ msgstr ""
 #: ../data/rh_register.glade.h:64
 #, fuzzy
 msgid "_View Hardware Profile ..."
-msgstr "Yn diweddaru proffil caledwedd..."
+msgstr "Proffil Caledwedd"
 
 #: ../data/rh_register.glade.h:65
+#, fuzzy
 msgid "View Hardware Profile"
-msgstr ""
+msgstr "Proffil Caledwedd"
 
 #: ../data/rh_register.glade.h:66
 #, fuzzy
@@ -1730,26 +1844,29 @@ msgid "V_iew Package Profile ..."
 msgstr "Yn diweddaru proffil pecynnau..."
 
 #: ../data/rh_register.glade.h:67
+#, fuzzy
 msgid "View Package Profile"
-msgstr ""
+msgstr "Yn diweddaru proffil pecynnau..."
 
 #: ../data/rh_register.glade.h:68
 #, fuzzy
 msgid "Send _hardware profile"
-msgstr "Problem wrth anfon proffil caledwedd."
+msgstr "Proffil Caledwedd"
 
 #: ../data/rh_register.glade.h:69
+#, fuzzy
 msgid "Send hardware profile checkbox"
-msgstr ""
+msgstr "Proffil Caledwedd"
 
 #: ../data/rh_register.glade.h:70
 #, fuzzy
 msgid "Send _package profile"
-msgstr "Yn diweddaru proffil pecynnau..."
+msgstr "Anfon _rhestr becynnau"
 
 #: ../data/rh_register.glade.h:71
+#, fuzzy
 msgid "Send package profile checkbox"
-msgstr ""
+msgstr "Anfon _rhestr becynnau"
 
 #: ../data/rh_register.glade.h:73
 msgid ""
@@ -1758,12 +1875,14 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:74
+#, fuzzy
 msgid "_Close"
-msgstr ""
+msgstr "Cau"
 
 #: ../data/rh_register.glade.h:75
+#, fuzzy
 msgid "Close"
-msgstr ""
+msgstr "Cau"
 
 #: ../data/rh_register.glade.h:76
 msgid "<b>Security &amp; Updates:</b>"
@@ -1780,12 +1899,14 @@ msgid "<b>Downloads &amp; Upgrades:</b>"
 msgstr ""
 
 #: ../data/rh_register.glade.h:80
+#, fuzzy
 msgid "<b>Support:</b>"
-msgstr ""
+msgstr "Gwybodaeth gofrestru"
 
 #: ../data/rh_register.glade.h:82
+#, fuzzy
 msgid "<b>Management:</b>"
-msgstr ""
+msgstr "Gwybodaeth gofrestru"
 
 #: ../data/rh_register.glade.h:83
 msgid "Management"
@@ -1793,14 +1914,15 @@ msgstr ""
 
 #: ../data/rh_register.glade.h:84
 msgid ""
-"Manage subscriptions and systems registered to Customer Portal via access."
-"redhat.com or through one of our other subscription management services."
+"Manage subscriptions and systems registered to Customer Portal via "
+"access.redhat.com or through one of our other subscription management "
+"services."
 msgstr ""
 
 #: ../data/rh_register.glade.h:85
 msgid ""
-"<small><b>Tip:</b> Red Hat values your privacy: http://www.redhat.com/legal/"
-"privacy_statement.html.</small>"
+"<small><b>Tip:</b> Red Hat values your privacy: "
+"http://www.redhat.com/legal/privacy_statement.html.</small>"
 msgstr ""
 
 #: ../data/rh_register.glade.h:86
@@ -1819,12 +1941,14 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:91
+#, fuzzy
 msgid "I have an <b>_SSL certificate</b> to communicate with Red Hat Network:"
-msgstr ""
+msgstr "Bu gwall wrth gyfathrebu â'r gweinydd cofrestru:\n"
 
 #: ../data/rh_register.glade.h:92
+#, fuzzy
 msgid "Certificate _Location:"
-msgstr ""
+msgstr "Mewngofnodiad Rhwydwaith Red Hat"
 
 #: ../data/rh_register.glade.h:93
 msgid "Select A File"
@@ -1837,8 +1961,9 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:95
+#, fuzzy
 msgid "Your system is not setup for software updates."
-msgstr ""
+msgstr "Yn ailddechrau up2date"
 
 #: ../data/rh_register.glade.h:96
 msgid ""
@@ -1853,12 +1978,14 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:100
+#, fuzzy
 msgid "Proxy Configuration"
-msgstr ""
+msgstr "Cyfluniad Rhwydwaith"
 
 #: ../data/rh_register.glade.h:101
+#, fuzzy
 msgid "<b>HTTP Proxy</b>"
-msgstr ""
+msgstr "Galluogi Dirprwy HTTP:"
 
 #: ../data/rh_register.glade.h:102
 msgid "I would like to connect via an _HTTP proxy."
@@ -1869,8 +1996,9 @@ msgid "I would like to connect to Red Hat Network via an _HTTP proxy."
 msgstr ""
 
 #: ../data/rh_register.glade.h:104
+#, fuzzy
 msgid "<small><b>Example:</b> squid.example.com:3128</small>"
-msgstr ""
+msgstr "esiampl: XXXX-XXXX-XXXX-XXXX (dim rhaid rhoi'r cysylltnodau)"
 
 #: ../data/rh_register.glade.h:105
 msgid "_Proxy Location:"
@@ -1885,17 +2013,19 @@ msgid "proxy location"
 msgstr ""
 
 #: ../data/rh_register.glade.h:108
+#, fuzzy
 msgid "Use Au_thentication with HTTP Proxy:"
-msgstr ""
+msgstr "Defnyddio Dilysiant"
 
 #: ../data/rh_register.glade.h:109
+#, fuzzy
 msgid "Use Authentication with HTTP Proxy"
-msgstr ""
+msgstr "Defnyddio Dilysiant"
 
 #: ../data/rh_register.glade.h:110
 #, fuzzy
 msgid "Proxy _Username:"
-msgstr "Enw proffil:"
+msgstr "Enw defnyddiwr:"
 
 #: ../data/rh_register.glade.h:111
 #, fuzzy
@@ -1907,8 +2037,9 @@ msgid "proxy user field"
 msgstr ""
 
 #: ../data/rh_register.glade.h:113
+#, fuzzy
 msgid "proxy password field"
-msgstr ""
+msgstr "Cyfrinair:"
 
 #: ../data/rh_register.glade.h:114
 msgid "Confirm operation system release selection"
@@ -1953,12 +2084,14 @@ msgid "Go Back and Register"
 msgstr ""
 
 #: ../data/rh_register.glade.h:126
+#, fuzzy
 msgid "Register _Later"
-msgstr ""
+msgstr "Problem wrth gofrestru'r system."
 
 #: ../data/rh_register.glade.h:127
+#, fuzzy
 msgid "Register Later"
-msgstr ""
+msgstr "Problem wrth gofrestru'r system."
 
 #: ../data/rh_register.glade.h:128
 msgid ""
@@ -1972,24 +2105,29 @@ msgstr ""
 
 #: ../data/rh_register.glade.h:130
 msgid ""
-"You will not be able to take advantage of these benefits without registering."
+"You will not be able to take advantage of these benefits without "
+"registering."
 msgstr ""
 
 #: ../data/rh_register.glade.h:133
+#, fuzzy
 msgid "<b>Red Hat Network Location:</b>"
-msgstr ""
+msgstr "Mewngofnodiad Rhwydwaith Red Hat"
 
 #: ../data/rh_register.glade.h:134
+#, fuzzy
 msgid "<b>Login:</b>"
-msgstr ""
+msgstr "Gwybodaeth gofrestru"
 
 #: ../data/rh_register.glade.h:135
+#, fuzzy
 msgid "<b>System ID:</b>"
-msgstr ""
+msgstr "Cyfenw:"
 
 #: ../data/rh_register.glade.h:136
+#, fuzzy
 msgid "label"
-msgstr ""
+msgstr "label11"
 
 #: ../data/rh_register.glade.h:138
 #, fuzzy
@@ -1998,8 +2136,8 @@ msgstr "Rhybudd"
 
 #: ../data/rh_register.glade.h:139
 msgid ""
-"This system has already been registered with RHN using RHN certificate-based "
-"technology."
+"This system has already been registered with RHN using RHN certificate-based"
+" technology."
 msgstr ""
 
 #: ../data/rh_register.glade.h:140
@@ -2012,8 +2150,9 @@ msgstr ""
 #: ../data/rh_register.glade.h:141
 msgid ""
 "To learn more about RHN registration and technologies please consult this "
-"Knowledge Base Article: <a href=\"https://access.redhat.com/kb/docs/"
-"DOC-45563\">https://access.redhat.com/kb/docs/DOC-45563</a>\n"
+"Knowledge Base Article: <a "
+"href=\"https://access.redhat.com/kb/docs/DOC-45563\">"
+"https://access.redhat.com/kb/docs/DOC-45563</a>\n"
 msgstr ""
 
 #: ../data/rh_register.glade.h:143
@@ -2027,8 +2166,8 @@ msgid ""
 "\n"
 "You'll know when software updates are available when a package icon appears "
 "in the notification area of your desktop (usually in the upper-right corner, "
-"circled below.) Clicking on this icon, when available, will guide you "
-"through applying any updates that are available:"
+"circled below.) Clicking on this icon, when available, will guide you through "
+"applying any updates that are available:"
 msgstr ""
 
 #: ../data/rh_register.glade.h:147
@@ -2040,8 +2179,9 @@ msgid "Select how your system will receive updates:"
 msgstr ""
 
 #: ../data/rh_register.glade.h:150
+#, fuzzy
 msgid "Limited updates"
-msgstr ""
+msgstr "Unol Daleithiau"
 
 #: ../data/rh_register.glade.h:151
 msgid ""
@@ -2060,12 +2200,14 @@ msgid "_Minor release:"
 msgstr ""
 
 #: ../data/rh_register.glade.h:154
+#, fuzzy
 msgid "Choose minor release"
-msgstr ""
+msgstr "Rhyddhad"
 
 #: ../data/rh_register.glade.h:155
+#, fuzzy
 msgid "       "
-msgstr ""
+msgstr "     "
 
 #: ../data/rh_register.glade.h:156
 msgid ""
@@ -2082,8 +2224,8 @@ msgstr ""
 
 #: ../data/rh_register.glade.h:159
 msgid ""
-"All available updates will be provided to this system. If kept updated, this "
-"system will always be equivalent to the latest minor release in the main "
+"All available updates will be provided to this system. If kept updated, this"
+" system will always be equivalent to the latest minor release in the main "
 "'Red Hat Enterprise Linux x' software channel."
 msgstr ""
 
@@ -2096,8 +2238,8 @@ msgstr ""
 
 #: ../data/rh_register.glade.h:161
 msgid ""
-"Warning: Using this option, your system will always be the most recent minor "
-"release and cannot be limited to an older release version."
+"Warning: Using this option, your system will always be the most recent minor"
+" release and cannot be limited to an older release version."
 msgstr ""
 
 #: ../data/rh_register.glade.h:162
@@ -2106,13 +2248,13 @@ msgstr ""
 
 #: ../data/rh_register.glade.h:163
 msgid ""
-"Your system is ready to receive the software updates that will keep it "
-"secure and supported.\n"
+"Your system is ready to receive the software updates that will keep it secure "
+"and supported.\n"
 "\n"
 "You'll know when software updates are available when a package icon appears "
 "in the notification area of your desktop (usually in the upper-right corner, "
-"circled below.) Clicking on this icon, when available, will guide you "
-"through applying any updates that are available:"
+"circled below.) Clicking on this icon, when available, will guide you through "
+"applying any updates that are available:"
 msgstr ""
 
 #: ../data/rh_register.glade.h:166
@@ -2120,22 +2262,16 @@ msgid "icon of aplet"
 msgstr ""
 
 #: ../rhn_register.desktop.in.h:1
+#, fuzzy
 msgid "RHN Registration"
-msgstr ""
+msgstr "rhifCofrestru"
 
 #: ../rhn_register.desktop.in.h:2
 msgid "Register for software updates from Spacewalk/Satellite/Red Hat Network"
 msgstr ""
 
 #: ../rhn_register.desktop.in.h:3
+#, fuzzy
 msgid "Register to Spacewalk/Satellite/Red Hat Network."
-msgstr ""
+msgstr "Cofrestru â Rhwydwaith Red Hat"
 
-#~ msgid "Problem registering personal information:\n"
-#~ msgstr "Problem wrth gofrestru gwybodaeth bersonol:\n"
-
-#~ msgid "Problem registering personal information"
-#~ msgstr "Problem wrth gofrestru gwybodaeth bersonol"
-
-#~ msgid "Progress Dialog"
-#~ msgstr "Ymgom Gynnydd"

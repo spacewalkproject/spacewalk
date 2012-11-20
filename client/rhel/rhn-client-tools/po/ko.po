@@ -1,27 +1,26 @@
-# SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Eunju Kim <eukim@redhat.com>, 2006, 2007.
+# Eunju Kim <eukim@redhat.com>, 2006-2007.
 # Michelle Ji Yeen Kim <mkim@redhat.com>, 2005.
-# Michelle J Kim <mkim@redhat.com>, 2003, 2004.
+# Michelle J Kim <mkim@redhat.com>, 2003-2004.
 # Michelle Kim <mkim@redhat.com>, 2002.
-# Miroslav Suchý <msuchy@redhat.com>, 2011.
+# Miroslav Suchý <msuchy@redhat.com>, 2011, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: http://bugzilla.redhat.com/\n"
 "POT-Creation-Date: 2012-10-30 11:32+0100\n"
-"PO-Revision-Date: 2012-02-14 13:00+0000\n"
-"Last-Translator: Miroslav Suchý <msuchy@redhat.com>\n"
-"Language-Team: Korean (http://www.transifex.com/projects/p/fedora/language/"
-"ko/)\n"
-"Language: ko\n"
+"PO-Revision-Date: 2012-11-20 16:59+0000\n"
+"Last-Translator: \n"
+"Language-Team: American English <kde-i18n-doc@kde.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: ko\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Lokalize 1.5\n"
 
 #: ../src/up2date_client/config.py:154
 #, python-format
@@ -65,13 +64,13 @@ msgstr "잘못된 프로토콜을 지정하셨습니다. https와 http만이 허
 
 #: ../src/up2date_client/rhnregGui.py:302
 msgid ""
-"You will not be able to successfully register this system without contacting "
-"a Red Hat Network server."
+"You will not be able to successfully register this system without contacting"
+" a Red Hat Network server."
 msgstr "Red Hat Network 서버에 접속하지 않고 이 시스템을 등록할 수 없습니다. "
 
 #: ../src/up2date_client/rhnregGui.py:322
 msgid "Cannot contact selected server"
-msgstr ""
+msgstr "선택한 서버에 연결할 수 없음 "
 
 #: ../src/up2date_client/rhnregGui.py:323
 #, python-format
@@ -83,9 +82,7 @@ msgstr "'%s'에 있는 Satellite 또는 Proxy에 연결할 수 없습니다."
 msgid ""
 "Double-check the location - is '%s' correct? If not, you can correct it and "
 "try again."
-msgstr ""
-"위치 재확인 - '%s'이 맞습니까? 맞지 않을 경우, 패키지 선택을 수정하여 다시 시"
-"도해 주십시오."
+msgstr "위치 재확인 - '%s'이 맞습니까? 맞지 않을 경우, 패키지 선택을 수정하여 다시 시도해 주십시오."
 
 #: ../src/up2date_client/rhnregGui.py:328
 msgid "Make sure the network connection on this system is operational."
@@ -108,9 +105,7 @@ msgstr "서버에 맞지않는 클라이언트를 실행하고 있습니다."
 msgid ""
 "Please enter your account information for the <b>%s</b> Red Hat Network "
 "Satellite:"
-msgstr ""
-"<b>%s</b> Red Hat Network Satellite에 대한 사용자 로그인 정보를 입력하십시"
-"오: "
+msgstr "<b>%s</b> Red Hat Network Satellite에 대한 사용자 로그인 정보를 입력하십시오: "
 
 #: ../src/up2date_client/rhnregGui.py:413
 msgid "You must enter a login."
@@ -128,9 +123,7 @@ msgstr "로그인하는 도중 문제가 발생했습니다. "
 msgid ""
 "There was an error communicating with the registration server.  The message "
 "was:\n"
-msgstr ""
-"등록 서버와 통신하는 동안 오류가 발생했습니다. 오류 메세지는 다음과 같습니"
-"다:\n"
+msgstr "등록 서버와 통신하는 동안 오류가 발생했습니다. 오류 메세지는 다음과 같습니다:\n"
 
 #: ../src/up2date_client/rhnregGui.py:595
 msgid "There was an error while assembling information for the profile."
@@ -153,10 +146,8 @@ msgid "There was an error while creating the profile."
 msgstr "프로파일을 생성하는 동안 오류가 발생했습니다. "
 
 #: ../src/up2date_client/rhnregGui.py:691
-#, fuzzy
 msgid "Registering system and sending profile information.  Please wait."
 msgstr ""
-"프로파일 정보를 Red Hat Network로 보내고 있습니다.  잠시만 기다려 주십시오."
 
 #: ../src/up2date_client/rhnregGui.py:710
 msgid "Registering System"
@@ -174,9 +165,7 @@ msgstr "시스템을 등록하는 도중 문제 발생:\n"
 msgid ""
 "The installation number [ %s ] provided is not a valid installation number. "
 "Please go back to the previous screen and fix it."
-msgstr ""
-"입력하신 설치 번호 [ %s ]는 잘못된 설치 번호입니다. 이전 화면으로 가셔서 수정"
-"하시기 바랍니다."
+msgstr "입력하신 설치 번호 [ %s ]는 잘못된 설치 번호입니다. 이전 화면으로 가셔서 수정하시기 바랍니다."
 
 #: ../src/up2date_client/rhnregGui.py:745 ../src/up2date_client/tui.py:875
 msgid "Problem registering system."
@@ -220,8 +209,7 @@ msgid ""
 "Could not open /etc/yum/pluginconf.d/rhnplugin.conf\n"
 "yum-rhn-plugin is not enabled.\n"
 msgstr ""
-"/etc/yum/pluginconf.d/rhnplugin.conf를 열 수 없음\n"
-"yum-rhn-plugin이 활성화되어 있지 않음.\n"
+"/etc/yum/pluginconf.d/rhnplugin.conf를 열 수 없음\nyum-rhn-plugin이 활성화되어 있지 않음.\n"
 
 #: ../src/up2date_client/rhnregGui.py:893
 msgid "There was an error while installing the certificate."
@@ -237,9 +225,7 @@ msgstr "인증서를 선택해 주십시오."
 msgid ""
 "There was an SSL error. This could be because the file you picked was not a "
 "certificate file."
-msgstr ""
-"SSL 오류가 발생했습니다. 이는 선택하신 파일이 인증서 파일이 아니기 때문일 수 "
-"도 있습니다."
+msgstr "SSL 오류가 발생했습니다. 이는 선택하신 파일이 인증서 파일이 아니기 때문일 수 도 있습니다."
 
 #. TODO Provide better messages
 #: ../src/up2date_client/rhnregGui.py:956
@@ -280,25 +266,21 @@ msgstr "Arch"
 
 #: ../src/up2date_client/rhnregGui.py:1201
 msgid "Building a list of RPM packages installed on your system.  Please wait."
-msgstr ""
-"시스템에 설치된 RPM 패키지 목록을 작성하고 있습니다.  잠시만 기다려 주십시오."
+msgstr "시스템에 설치된 RPM 패키지 목록을 작성하고 있습니다.  잠시만 기다려 주십시오."
 
 #: ../src/up2date_client/rhnregGui.py:1232
 msgid ""
 "There was an error loading your configuration.  Make sure that\n"
 "you have read access to /etc/sysconfig/rhn."
 msgstr ""
-"설정을 로딩하는 동안 오류가 발생하였습니다. \n"
-" /etc/sysconfig/rhn에 읽기 접근 권한이 있는지 확인해 주십시오."
+"설정을 로딩하는 동안 오류가 발생하였습니다. \n /etc/sysconfig/rhn에 읽기 접근 권한이 있는지 확인해 주십시오."
 
 #: ../src/up2date_client/rhnregGui.py:1274
 #, python-format
 msgid ""
 "There was an error saving your configuration. Make sure that\n"
 "you own %s."
-msgstr ""
-"설정을 저장하는 동안 오류가 발생했습니다.  %s를 가지고 있는지 \n"
-"확인해 주십시오."
+msgstr "설정을 저장하는 동안 오류가 발생했습니다.  %s를 가지고 있는지 \n확인해 주십시오."
 
 #: ../src/up2date_client/rhnregGui.py:1304
 #, python-format
@@ -307,9 +289,8 @@ msgid ""
 "program, please file a bug at bugzilla.redhat.com. Including the relevant "
 "parts of '%s' would be very helpful. Thanks!"
 msgstr ""
-"이러한 오류가 발생해서는 안됩니다. 프로그램 기능 향상을 위해 버그를bugzilla."
-"redhat.com에 보고해 주시기 바랍니다. 버그와 연관된 '%s'의 부분을 알려주시면 "
-"더욱 감사드리겠습니다. 감사합니다!"
+"이러한 오류가 발생해서는 안됩니다. 프로그램 기능 향상을 위해 버그를bugzilla.redhat.com에 보고해 주시기 바랍니다. 버그와 "
+"연관된 '%s'의 부분을 알려주시면 더욱 감사드리겠습니다. 감사합니다!"
 
 #: ../src/up2date_client/rhnChannel.py:96
 msgid "Unable to Locate SystemId"
@@ -360,14 +341,9 @@ msgid ""
 " * The location of a Red Hat Network Satellite or Proxy (optional)\n"
 "\n"
 msgstr ""
-"지속적으로 시스템을 지원하고 호환되게 하기 위해 보안 업데이트를 포함하여 소프"
-"트웨어를 업데이트 하는 방법에 대해 시스템을 Red Hat Network (RHN)에 연결하여 "
-"안내해 드립니다. 다음과 같은 정보가 필요합니다:\n"
-"\n"
-" * 네트워크 연결\n"
-" * Red Hat 로그인 & 암호\n"
-" * Red Hat Network Satellite 또는 Proxy의 위치 (선택 사항)\n"
-"\n"
+"지속적으로 시스템을 지원하고 호환되게 하기 위해 보안 업데이트를 포함하여 소프트웨어를 업데이트 하는 방법에 대해 시스템을 Red Hat "
+"Network (RHN)에 연결하여 안내해 드립니다. 다음과 같은 정보가 필요합니다:\n\n * 네트워크 연결\n * Red Hat 로그인 "
+"& 암호\n * Red Hat Network Satellite 또는 Proxy의 위치 (선택 사항)\n\n"
 
 #. Why Register Window
 #: ../src/up2date_client/rhnreg_constants.py:37 ../data/rh_register.glade.h:8
@@ -405,41 +381,34 @@ msgid ""
 "Receive the latest software updates, including security updates, keeping "
 "this Red Hat Enterprise Linux system updated and secure."
 msgstr ""
-"보안 업데이트가 포함된 최신 소프트웨어를 업데이트하여 Red Hat Enterprise "
-"Linux 시스템을 지속적으로 업데이트하고 보안을 유지하시기 바랍니다."
+"보안 업데이트가 포함된 최신 소프트웨어를 업데이트하여 Red Hat Enterprise Linux 시스템을 지속적으로 업데이트하고 보안을 "
+"유지하시기 바랍니다."
 
 #: ../src/up2date_client/rhnreg_constants.py:47 ../data/rh_register.glade.h:79
 msgid ""
 "Download installation images for Red Hat Enterprise Linux releases, "
 "including new releases."
-msgstr ""
-"새로운 출시 버전을 포함하는 Red Hat Enterprise Linux 출시 버전에 대한 설치 이"
-"미지를 다운로드합니다."
+msgstr "새로운 출시 버전을 포함하는 Red Hat Enterprise Linux 출시 버전에 대한 설치 이미지를 다운로드합니다."
 
 #: ../src/up2date_client/rhnreg_constants.py:49 ../data/rh_register.glade.h:81
 msgid ""
-"Access to the technical support experts at Red Hat or Red Hat's partners for "
-"help with any issues you might encounter with this system."
-msgstr ""
-"Red Hat 또는 Red Hat 총판점에서 전문가에게 시스템 관련 사항에 관한 기술 지원"
-"을 받으시기 바랍니다."
+"Access to the technical support experts at Red Hat or Red Hat's partners for"
+" help with any issues you might encounter with this system."
+msgstr "Red Hat 또는 Red Hat 총판점에서 전문가에게 시스템 관련 사항에 관한 기술 지원을 받으시기 바랍니다."
 
 #: ../src/up2date_client/rhnreg_constants.py:51
-#, fuzzy
 msgid ""
-"Stay in compliance with your subscription agreement and manage subscriptions "
-"for systems connected to your account."
+"Stay in compliance with your subscription agreement and manage subscriptions"
+" for systems connected to your account."
 msgstr ""
-"서비스 이용 약관에 있는 데로 http://rhn.redhat.com/에 있는 사용자 계정에 연결"
-"된 시스템에 대한 등록 사항을 관리합니다."
 
 #: ../src/up2date_client/rhnreg_constants.py:54
 msgid ""
-"Tip: Red Hat values your privacy: http://www.redhat.com/legal/"
-"privacy_statement.html"
+"Tip: Red Hat values your privacy: "
+"http://www.redhat.com/legal/privacy_statement.html"
 msgstr ""
-"도움말: Red Hat은 사용자 개인 정보를 보호합니다: http://www.redhat.com/legal/"
-"privacy_statement.html"
+"도움말: Red Hat은 사용자 개인 정보를 보호합니다: http://www.redhat.com/legal/privacy_statement."
+"html"
 
 #: ../src/up2date_client/rhnreg_constants.py:56
 msgid "Take me back to the registration"
@@ -454,18 +423,17 @@ msgstr "소프트웨어 업데이트 설정"
 #: ../src/up2date_client/rhnreg_constants.py:60
 msgid ""
 "Are you sure you don't want to connect your system to Red Hat Network? "
-"You'll miss out on the benefits of a Red Hat Enterprise Linux subscription:\n"
+"You'll miss out on the benefits of a Red Hat Enterprise Linux "
+"subscription:\n"
 msgstr ""
-"정말로 시스템을 Red Hat Network에 연결하지 않으시겠습니다? Red Hat "
-"Enterprise Linux 등록 혜택을 놓치게 됩니다:\n"
+"정말로 시스템을 Red Hat Network에 연결하지 않으시겠습니다? Red Hat Enterprise Linux 등록 혜택을 놓치게 "
+"됩니다:\n"
 
 #: ../src/up2date_client/rhnreg_constants.py:62
 msgid ""
 "You will not be able to take advantage of these subscription privileges "
 "without connecting your system to Red Hat Network.\n"
-msgstr ""
-"시스템을 Red Hat Network에 연결하지 않고 이러한 등록 권한의 혜택을 받으실 수 "
-"없습니다.\n"
+msgstr "시스템을 Red Hat Network에 연결하지 않고 이러한 등록 권한의 혜택을 받으실 수 없습니다.\n"
 
 #: ../src/up2date_client/rhnreg_constants.py:64
 msgid "Take me back to the setup process."
@@ -477,8 +445,8 @@ msgstr "나중에 등록합니다."
 
 #. Info Window
 #: ../src/up2date_client/rhnreg_constants.py:68 ../data/gui.glade.h:4
-#: ../data/rh_register.glade.h:16
 #, fuzzy
+#: ../data/rh_register.glade.h:16
 msgid "Red Hat Account"
 msgstr "Red Hat 로그인"
 
@@ -487,9 +455,7 @@ msgstr "Red Hat 로그인"
 msgid ""
 "Please enter your login information for the %s Red Hat Network Satellite:\n"
 "\n"
-msgstr ""
-"%s Red Hat Network Satellite에 대한 사용자 로그인 정보를 입력합니다:\n"
-"\n"
+msgstr "%s Red Hat Network Satellite에 대한 사용자 로그인 정보를 입력합니다:\n\n"
 
 #: ../src/up2date_client/rhnreg_constants.py:71
 msgid "Red Hat Login:"
@@ -508,9 +474,7 @@ msgstr "암호:"
 msgid ""
 "Tip: Forgot your login or password?  Contact your Satellite's Organization "
 "Administrator."
-msgstr ""
-"도움말: 사용자명이나 암호를 잊어버리셨습니까? Satellite의 기업 관리자에게 연"
-"락하시기 바랍니다."
+msgstr "도움말: 사용자명이나 암호를 잊어버리셨습니까? Satellite의 기업 관리자에게 연락하시기 바랍니다."
 
 #: ../src/up2date_client/rhnreg_constants.py:76
 msgid "Please enter a desired login."
@@ -522,10 +486,10 @@ msgstr "암호를 입력하신 후 다시 한번 확인해 주십시오."
 
 #. OS Release Window
 #: ../src/up2date_client/rhnreg_constants.py:80 ../data/gui.glade.h:5
-#: ../data/rh_register.glade.h:148
 #, fuzzy
+#: ../data/rh_register.glade.h:148
 msgid "Operating System Release Version"
-msgstr "운영 체제 버전: "
+msgstr "운영 체제 버전:"
 
 #: ../src/up2date_client/rhnreg_constants.py:81
 msgid "Operating System version:"
@@ -552,9 +516,7 @@ msgstr "운영 체제 릴리즈 선택 확인  "
 msgid ""
 "Your system will be subscribed to the base software channel to receive all "
 "available updates."
-msgstr ""
-"시스템은 모든 사용 가능한 업데이트를 받도록 기본 소프트웨어 채널에 등록됩니"
-"다. "
+msgstr "시스템은 모든 사용 가능한 업데이트를 받도록 기본 소프트웨어 채널에 등록됩니다. "
 
 #. Hardware Window
 #: ../src/up2date_client/rhnreg_constants.py:91
@@ -564,21 +526,18 @@ msgstr "시스템 프로파일 생성 - 하드웨어 "
 
 #: ../src/up2date_client/rhnreg_constants.py:92
 msgid ""
-"A Profile Name is a descriptive name that you choose to identify this System "
-"Profile on the Red Hat Network web pages. Optionally, include a computer "
+"A Profile Name is a descriptive name that you choose to identify this System"
+" Profile on the Red Hat Network web pages. Optionally, include a computer "
 "serial or identification number."
 msgstr ""
-"프로파일 이름이란 Red Hat Network 웹 페이지에서 이 시스템 프로파일을 쉽게 식"
-"별할 수 있도록 해주는 설명적인 이름을 말합니다. 원하신다면, 컴퓨터 서비스 번"
-"호나 식별 번호를 사용하실 수 도 있습니다."
+"프로파일 이름이란 Red Hat Network 웹 페이지에서 이 시스템 프로파일을 쉽게 식별할 수 있도록 해주는 설명적인 이름을 말합니다. "
+"원하신다면, 컴퓨터 서비스 번호나 식별 번호를 사용하실 수 도 있습니다."
 
 #: ../src/up2date_client/rhnreg_constants.py:96
 msgid ""
 "Additional hardware information including PCI devices, disk sizes and mount "
 "points will be included in the profile."
-msgstr ""
-"PCI 장치, 디스크 용량과 마운트 지점이 같은 추가 하드웨어 정보가 프로파일에 포"
-"함됩니다."
+msgstr "PCI 장치, 디스크 용량과 마운트 지점이 같은 추가 하드웨어 정보가 프로파일에 포함됩니다."
 
 #: ../src/up2date_client/rhnreg_constants.py:99
 msgid "Include the following information about hardware and network:"
@@ -592,11 +551,9 @@ msgstr "시스템 프로파일 생성 - 패키지 "
 
 #: ../src/up2date_client/rhnreg_constants.py:104
 msgid ""
-"RPM information is important to determine what updated software packages are "
-"relevant to this system."
-msgstr ""
-"RPM 정보는 업데이트된 소프트웨어 패키지 중 이 시스템과 관련된 패키지를 찾아내"
-"는데 중요하게 사용됩니다."
+"RPM information is important to determine what updated software packages are"
+" relevant to this system."
+msgstr "RPM 정보는 업데이트된 소프트웨어 패키지 중 이 시스템과 관련된 패키지를 찾아내는데 중요하게 사용됩니다."
 
 #: ../src/up2date_client/rhnreg_constants.py:107
 msgid "Include RPM packages installed on this system in my System Profile"
@@ -616,9 +573,10 @@ msgid "*Email Address:"
 msgstr "*이메일 주소:"
 
 #: ../src/up2date_client/rhnreg_constants.py:116
+#, fuzzy
 #: ../data/rh_register.glade.h:131
 msgid "System Already Registered"
-msgstr ""
+msgstr "이미 시스템이 등록되어 있음 "
 
 #: ../src/up2date_client/rhnreg_constants.py:117
 #: ../data/rh_register.glade.h:132
@@ -656,11 +614,9 @@ msgid ""
 "\"Cancel\" and no information will be sent.  You can run the registration "
 "program later by typing `rhn_register` at the command line."
 msgstr ""
-"시스템 프로파일에 해당하는 정보 수집을 완료했습니다.\n"
-"\n"
-"\"다음\" 버튼을 눌러 이 시스템 프로파일을 Red Hat Network로 보내시기 바랍니"
-"다. \"취소\" 버튼을 클릭하시면 어떤 정보도 전송되지 않습니다. 명령행에 "
-"`rhn_register`를 입력하여 나중에 등록 프로그램을 실행하실 수 있습니다."
+"시스템 프로파일에 해당하는 정보 수집을 완료했습니다.\n\n\"다음\" 버튼을 눌러 이 시스템 프로파일을 Red Hat Network로 "
+"보내시기 바랍니다. \"취소\" 버튼을 클릭하시면 어떤 정보도 전송되지 않습니다. 명령행에 `rhn_register`를 입력하여 나중에 "
+"등록 프로그램을 실행하실 수 있습니다."
 
 #. Sending Window
 #: ../src/up2date_client/rhnreg_constants.py:137
@@ -680,16 +636,14 @@ msgid ""
 "periodically to get the latest updates. Alternatively, you may configure "
 "this system for automatic software updates (also known as 'auto errata "
 "update') via the Red Hat Network web interface.  (Instructions for this are "
-"in chapter 6 of the RHN Reference Guide, available from the 'Help' button in "
-"the main Red Hat Network web interface.)"
+"in chapter 6 of the RHN Reference Guide, available from the 'Help' button in"
+" the main Red Hat Network web interface.)"
 msgstr ""
-"Red Hat Network에서 최신 소프트웨어 업데이트를 받기위해 현재 이 시스템의 명령"
-"행에서 'yum update'를 실행하실 수 있습니다. 최신 업데이트를 받으시려면 이를 "
-"주기적으로 실행하셔야 합니다. 다른 방법으로는 Red Hat Network 웹 인터페이스"
-"를 통해 시스템에 자동 소프트웨어 업데이트 ('자동 에라타 업데이트 (auto "
-"errata update)'라고도 알려짐)를 설정하실 수 도 있습니다. (이에 관한 지시사항"
-"은 RHN 참조 가이드 6장에 있으며, Red Hat Network 웹 인터페이스에서 '도움말"
-"(Help)' 버튼을 누르시면 됩니다.)"
+"Red Hat Network에서 최신 소프트웨어 업데이트를 받기위해 현재 이 시스템의 명령행에서 'yum update'를 실행하실 수 "
+"있습니다. 최신 업데이트를 받으시려면 이를 주기적으로 실행하셔야 합니다. 다른 방법으로는 Red Hat Network 웹 인터페이스를 통해 "
+"시스템에 자동 소프트웨어 업데이트 ('자동 에라타 업데이트 (auto errata update)'라고도 알려짐)를 설정하실 수 도 "
+"있습니다. (이에 관한 지시사항은 RHN 참조 가이드 6장에 있으며, Red Hat Network 웹 인터페이스에서 '도움말(Help)' "
+"버튼을 누르시면 됩니다.)"
 
 #. Review Window
 #: ../src/up2date_client/rhnreg_constants.py:152 ../data/gui.glade.h:7
@@ -706,14 +660,12 @@ msgstr "아래의 등록 정보를 다시 확인하시기 바랍니다:"
 msgid ""
 "The installation number %s was activated during this system's initial "
 "connection to Red Hat Network."
-msgstr ""
-"시스템을 Red Hat Network로 초기 연결하는 동안 설치 번호 %s가 활성화되었습니"
-"다."
+msgstr "시스템을 Red Hat Network로 초기 연결하는 동안 설치 번호 %s가 활성화되었습니다."
 
 #: ../src/up2date_client/rhnreg_constants.py:156
 msgid ""
-"Subscriptions have been activated for the following Red Hat products/"
-"services:"
+"Subscriptions have been activated for the following Red Hat "
+"products/services:"
 msgstr "다음의 Red Hat 제품/서비스에 해당하는 등록이 활성화되었습니다:"
 
 #: ../src/up2date_client/rhnreg_constants.py:158
@@ -722,10 +674,8 @@ msgid "Software Channel Subscriptions:"
 msgstr "소프트웨어 채널 등록:"
 
 #: ../src/up2date_client/rhnreg_constants.py:159
-#, fuzzy
 msgid "This system will receive updates from the following software channels:"
 msgstr ""
-"다음의 Red Hat Network 소프트웨어 채널에서 시스템을 업데이트하실 수 있습니다:"
 
 #: ../src/up2date_client/rhnreg_constants.py:161
 #, fuzzy
@@ -746,9 +696,7 @@ msgstr ""
 msgid ""
 "Warning: yum-rhn-plugin is not present, could not enable it.\n"
 "Automatic updates will not work."
-msgstr ""
-"경고: yum-rhn-plugin이 없기 때문에 이를 활성화할 수 없습니다.\n"
-"자동 업데이트가 작동하지 않게 됩니다.     "
+msgstr "경고: yum-rhn-plugin이 없기 때문에 이를 활성화할 수 없습니다.\n자동 업데이트가 작동하지 않게 됩니다.     "
 
 #: ../src/up2date_client/rhnreg_constants.py:171
 msgid "Note: yum-rhn-plugin has been enabled."
@@ -760,20 +708,16 @@ msgid ""
 "yum-rhn-plugin is not enabled.\n"
 "Automatic updates will not work."
 msgstr ""
-"경고: yum-rhn-plugin을 활성화하는 도중 오류가 발생했습니다.\n"
-"yum-rhn-plugin은 활성화되어 있지 않습니다.\n"
-"자동 업데이트가 작동하지 않게 됩니다.  "
+"경고: yum-rhn-plugin을 활성화하는 도중 오류가 발생했습니다.\nyum-rhn-plugin은 활성화되어 있지 않습니다.\n자동 "
+"업데이트가 작동하지 않게 됩니다.  "
 
 #: ../src/up2date_client/rhnreg_constants.py:175
 msgid ""
 "You were unable to be subscribed to the following software channels because "
 "there were insufficient subscriptions available in your account:"
-msgstr ""
-"사용자 계정에서 사용 부적합한 등록이 있어 시스템을 다음의 소프트웨어 채널에 "
-"등록시킬 수 없습니다:"
+msgstr "사용자 계정에서 사용 부적합한 등록이 있어 시스템을 다음의 소프트웨어 채널에 등록시킬 수 없습니다:"
 
 #: ../src/up2date_client/rhnreg_constants.py:179
-#, fuzzy
 msgid ""
 "This system was unable to subscribe to any software channels. Your system "
 "will not receive any software updates to keep it secure and supported. "
@@ -782,79 +726,54 @@ msgid ""
 "to this system's profile in the RHN web interface and subscribe this system "
 "to software channels via the software > software channels tab."
 msgstr ""
-"이 시스템을 소프트웨어 채널에 등록할 수 없습니다.시스템의 보안을 유지하고 지"
-"원하기 위한 소프트웨어를 시스템에 업데이트하실 수 없습니다. 이러한 사항을 해"
-"결하기 위해 몇 가지 방법을 시도해 보실 수 있습니다:\n"
-"(1) http://rhn.redhat.com/에 로그인하여 Your RHN > 등록 관리 (Subscription "
-"Management) > 시스템 인타이틀먼트 (System Entitlements)에서 비활성화 시스템"
-"의 인타이틀먼트를 해제합니다.\n"
-"(2) http://www.redhat.com/store/에서 추가 Red Hat Enterprise Linux 등록을 구"
-"입합니다.\n"
-"(3) http://www.redhat.com/now/에서 새 설치 번호를 활성화합니다. 사용자 계정에"
-"서 알맞은 활성화 등록을 마치신 후, RHN 웹 인터페이스에 있는 시스템 프로파일"
-"로 이동하셔서 소프트웨어 (software) > 소프트웨어 채널(software channels) 탭"
-"을 통해 이 시스템을 소프트웨어 채널에 등록합니다."
 
 #: ../src/up2date_client/rhnreg_constants.py:185
-#, fuzzy
 msgid "Service Level:"
-msgstr "RHN 서비스 레벨:"
+msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:186
-#, fuzzy
 msgid ""
-"Depending on what RHN Satellite modules are associated with a system, you'll "
-"enjoy different benefits. The following are the RHN Satellite modules "
+"Depending on what RHN Satellite modules are associated with a system, you'll"
+" enjoy different benefits. The following are the RHN Satellite modules "
 "associated with this system:"
 msgstr ""
-"어떤 RHN 모듈이 시스템에 연관되어 있느냐에 따라, 다른 Red Hat Network의 혜택"
-"을 받으실 수 있습니다. 다음은 이 시스템에 연관된 RHN 모듈입니다:"
 
 #: ../src/up2date_client/rhnreg_constants.py:190
 msgid ""
 "This system was unable to be associated with the following RHN module(s) "
 "because there were insufficient subscriptions available in your account:"
-msgstr ""
-"사용자 계정에서 사용 부적합한 등록이 있어 시스템을 다음의 RHN 모듈과 연관시"
-"킬 수 없습니다:"
+msgstr "사용자 계정에서 사용 부적합한 등록이 있어 시스템을 다음의 RHN 모듈과 연관시킬 수 없습니다:"
 
 #: ../src/up2date_client/rhnreg_constants.py:193
 msgid ""
 "Update module: per-system updates, email errata notifications, errata "
 "information"
-msgstr ""
-"업데이트(Update) 모듈: 시스템당 업데이트, 이메일 에라타 통지, 에라타 정보"
+msgstr "업데이트(Update) 모듈: 시스템당 업데이트, 이메일 에라타 통지, 에라타 정보"
 
 #: ../src/up2date_client/rhnreg_constants.py:195
 msgid ""
-"Management module: automatic updates, systems grouping, systems permissions, "
-"system package profiling"
-msgstr ""
-"관리(Management) 모듈: 자동 업데이트, 시스템 그룹만들기, 시스템 권한 부여, 시"
-"스템 패키지 프로파일하기"
+"Management module: automatic updates, systems grouping, systems permissions,"
+" system package profiling"
+msgstr "관리(Management) 모듈: 자동 업데이트, 시스템 그룹만들기, 시스템 권한 부여, 시스템 패키지 프로파일하기"
 
 #: ../src/up2date_client/rhnreg_constants.py:197
 msgid ""
 "Provisioning module: bare-metal provisioning, existing state provisioning, "
 "rollbacks, configuration management"
-msgstr ""
-"프로비져닝(Provisioning) 모듈: bare-metal 프로비져닝, 기존 상태 프로비져닝, "
-"롤백, 구성 관리"
+msgstr "프로비져닝(Provisioning) 모듈: bare-metal 프로비져닝, 기존 상태 프로비져닝, 롤백, 구성 관리"
 
 #: ../src/up2date_client/rhnreg_constants.py:199
 msgid ""
 "Monitoring module: pre-defined and custom system performance probes, system "
 "performance email notifications, graphs of system performance"
 msgstr ""
-"모니터링(Monitoring) 모듈: 미리 정의된 사용자 시스템 성능 검색, 시스템 성능"
-"에 대한 이메일 통지, 시스템 성능에 대한 그래프"
+"모니터링(Monitoring) 모듈: 미리 정의된 사용자 시스템 성능 검색, 시스템 성능에 대한 이메일 통지, 시스템 성능에 대한 그래프"
 
 #: ../src/up2date_client/rhnreg_constants.py:203
 msgid ""
 "Virtualization module: software updates for a limited number of virtual "
 "guests on this system."
-msgstr ""
-"가상화 모듈: 시스템에서 제한된 숫자의 가상 게스트에 대한 소프트웨어 업데이트."
+msgstr "가상화 모듈: 시스템에서 제한된 숫자의 가상 게스트에 대한 소프트웨어 업데이트."
 
 #: ../src/up2date_client/rhnreg_constants.py:206
 msgid ""
@@ -862,8 +781,7 @@ msgid ""
 "virtual guests of this system, access to additional software channels for "
 "guests of this system."
 msgstr ""
-"가상화 플랫폼 모듈: 시스템에서 제한되지 않은 숫자의 가상 게스트에 대한 소프트"
-"웨어 업데이트, 게스트의 추가된 소프트웨어 채널로의 액세스."
+"가상화 플랫폼 모듈: 시스템에서 제한되지 않은 숫자의 가상 게스트에 대한 소프트웨어 업데이트, 게스트의 추가된 소프트웨어 채널로의 액세스."
 
 #: ../src/up2date_client/rhnreg_constants.py:210
 msgid ""
@@ -874,37 +792,23 @@ msgid ""
 "system entitlement to this system in RHN's web interface if you do not want "
 "virtual guests of this system to consume additional subscriptions."
 msgstr ""
-"<b>경고:</b> 시스템에 생성되고 RHN에 등록한 모든 게스트 시스템은 호스트 시스"
-"템의 등록 외에 Red Hat Enterprise Linux에 등록하게 됩니다. 다음과 같은 작업"
-"을 실행하셔야 합니다: (1) 가상화 또는 가상화 플랫폼 시스템 인타이틀먼트를 사"
-"용 가능하게 합니다. (2) 이 시스템의 가상 게스트가 추가 등록하는 것을 원하지 "
-"않으실 경우 RHN 웹 인터페이스에서 시스템 인타이틀먼트를 이러한 시스템에 적용"
-"합니다."
+"<b>경고:</b> 시스템에 생성되고 RHN에 등록한 모든 게스트 시스템은 호스트 시스템의 등록 외에 Red Hat Enterprise "
+"Linux에 등록하게 됩니다. 다음과 같은 작업을 실행하셔야 합니다: (1) 가상화 또는 가상화 플랫폼 시스템 인타이틀먼트를 사용 가능하게 "
+"합니다. (2) 이 시스템의 가상 게스트가 추가 등록하는 것을 원하지 않으실 경우 RHN 웹 인터페이스에서 시스템 인타이틀먼트를 이러한 "
+"시스템에 적용합니다."
 
 #: ../src/up2date_client/rhnreg_constants.py:218
-#, fuzzy
 msgid ""
 "This system was unable to be associated with any RHN service level modules. "
 "This system will not receive any software updates to keep it secure and "
-"supported. Contace your Satellite administrator about this problem. Once you "
-"make the appropriate active subscriptions available in your account, you may "
-"browse to this system's profile in the RHN web interface, delete the "
+"supported. Contace your Satellite administrator about this problem. Once you"
+" make the appropriate active subscriptions available in your account, you "
+"may browse to this system's profile in the RHN web interface, delete the "
 "profile, and re-connect this system to Red Hat Network."
 msgstr ""
-"이 시스템은 RHN 서비스 레벨 모듈에 연관될 수 없습니다. 시스템의 보안을 유지하"
-"고 지원하기 위한 소프트웨어를 시스템에 업데이트하실 수 없습니다. 이러한 사항"
-"을 해결하기 위해 몇 가지 방법을 시도해 보실 수 있습니다:\n"
-"(1) http://rhn.redhat.com/에 로그인하여 Your RHN > 등록 관리 (Subscription "
-"Management) > 시스템 인타이틀먼트 (System Entitlements)에서 비활성화 시스템"
-"의 인타이틀먼트를 해제합니다.\n"
-"(2) http://www.redhat.com/store/에서 추가 Red Hat Enterprise Linux 등록을 구"
-"입합니다.\n"
-"(3) http://www.redhat.com/now/에서 새 설치 번호를 활성화합니다. 사용자 계정에"
-"서 알맞은 활성화 등록을 마치신 후, RHN 웹 인터페이스에 있는 시스템 프로파일"
-"로 이동하셔서 프로파일을 삭제하고 시스템을 Red Hat Network에 다시 연결합니다."
 
 #: ../src/up2date_client/rhnreg_constants.py:225
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Universal default activation key detected\n"
 "A universal default activation key was detected in your account. This means "
@@ -916,14 +820,6 @@ msgid ""
 "(http://access.redhat.com/knowledge/docs/Red_Hat_Network/)\n"
 "Universal Default activation key: %s"
 msgstr ""
-"전사적 기본 활성화키가 검색됨\n"
-"귀사의 RHN에서 전사적 기본 활성화키가 검색되었습니다. 이는 Red Hat Network로 "
-"시스템을 연결하여 등록정보 모음 (소프트웨어 채널 등록, Red Hat Network 서비"
-"스, 패키지 설치, 시스템 그룹 멤버쉽 등)이 설치 번호에 의해서가 아니라 활성화"
-"키에 의해 결정되어 집니다. 활성화키에 관한 보다 자세한 정보는 RHN 참조 가이"
-"드, 6.4.6 장에서 참조하실 수 있습니다 (http://rhn.redhat.com/rhn/help/"
-"reference/)\n"
-"전사적 기본 활성화키: %s"
 
 #. Error Messages.
 #: ../src/up2date_client/rhnreg_constants.py:237
@@ -943,15 +839,9 @@ msgid ""
 "This system will not be able to successfully receive software updates from "
 "Red Hat without connecting to a Red Hat Network server"
 msgstr ""
-"Red Hat Network 서버에 연결할 수 없습니다.\n"
-"\n"
-"알려주신 위치를 다시한번 확인합니다 - '%s'이 맞습니까?\n"
-"맞지않다면, 위치를 수정하여 다시 시도해 보시기 바랍니다.\n"
-"\n"
-"시스템의 네트워크 연결이 작동하는 지를 확인합니다.\n"
-"\n"
-"시스템을 Red Hat Network 서버에 연결하지 않고 Red Hat에서 성공적으로 소프트웨"
-"어를 업데이트하실 수 없습니다."
+"Red Hat Network 서버에 연결할 수 없습니다.\n\n알려주신 위치를 다시한번 확인합니다 - '%s'이 맞습니까?\n맞지않다면, "
+"위치를 수정하여 다시 시도해 보시기 바랍니다.\n\n시스템의 네트워크 연결이 작동하는 지를 확인합니다.\n\n시스템을 Red Hat "
+"Network 서버에 연결하지 않고 Red Hat에서 성공적으로 소프트웨어를 업데이트하실 수 없습니다."
 
 #: ../src/up2date_client/rhnreg_constants.py:246
 #, python-format
@@ -963,8 +853,8 @@ msgid ""
 "This server doesn't support functionality needed by this version of the "
 "software update setup client. Please try again with a newer server."
 msgstr ""
-"이 서버는 소프트웨어 업데이트 설정 클라이언트 버전에서 필요한 기능적 지원을 "
-"하지 않습니다. 새로운 서버에서 다시 한번 시도해 보시기 바랍니다."
+"이 서버는 소프트웨어 업데이트 설정 클라이언트 버전에서 필요한 기능적 지원을 하지 않습니다. 새로운 서버에서 다시 한번 시도해 보시기 "
+"바랍니다."
 
 #: ../src/up2date_client/rhnreg_constants.py:254
 #, python-format
@@ -973,18 +863,14 @@ msgid ""
 "\n"
 "The certificate you provided, <b>%s</b>, is not compatible with  the Red Hat "
 "Network server at <b>%s</b>. You may want to double-check that you have "
-"provided a valid certificate file. Are you sure you have provided the "
-"correct certificate, and that the certificate file has not been corrupted?\n"
+"provided a valid certificate file. Are you sure you have provided the correct "
+"certificate, and that the certificate file has not been corrupted?\n"
 "\n"
 "Please try again with a different certificate file."
 msgstr ""
-"<b><span size=\"16000\">부적합한 인증서 파일</span></b>\n"
-"\n"
-"제공해 주신 인증서 <b>%s</b>가 <b>%s</b>에 있는 Red Hat Network 서버에 맞지 "
-"않습니다. 유효한 인증서 파일을 제공해 주셨는지를 다시 한번 확인하시기 바랍니"
-"다. 손상되지 않은 올바른 인증서 파일을 제공해 주셨습니까?\n"
-"\n"
-"다른 인증서 파일을 다시 한번 시도해 보시기 바랍니다."
+"<b><span size=\"16000\">부적합한 인증서 파일</span></b>\n\n제공해 주신 인증서 <b>%s</b>가 <b>%"
+"s</b>에 있는 Red Hat Network 서버에 맞지 않습니다. 유효한 인증서 파일을 제공해 주셨는지를 다시 한번 확인하시기 "
+"바랍니다. 손상되지 않은 올바른 인증서 파일을 제공해 주셨습니까?\n\n다른 인증서 파일을 다시 한번 시도해 보시기 바랍니다."
 
 #: ../src/up2date_client/rhnreg_constants.py:262
 msgid ""
@@ -993,10 +879,8 @@ msgid ""
 " The certificate is expired. Please ensure you have the correct  certificate "
 "and your system time is correct."
 msgstr ""
-"<b><span size=\"12000\">부적합한 인증서 파일</span></b>\n"
-"\n"
-" 인증서가 만료되었습니다. 인증서가 유효한지와 시스템 시간이 맞는지를 확인해 "
-"주시기 바랍니다. "
+"<b><span size=\"12000\">부적합한 인증서 파일</span></b>\n\n 인증서가 만료되었습니다. 인증서가 유효한지와 "
+"시스템 시간이 맞는지를 확인해 주시기 바랍니다. "
 
 #: ../src/up2date_client/rhnreg_constants.py:266
 msgid "Please verify the value of sslCACert in /etc/sysconfig/rhn/up2date"
@@ -1013,32 +897,23 @@ msgid ""
 "universal default activation key. More details can be found in Red Hat "
 "Knowledgebase Article #7924 at http://kbase.redhat.com/faq/FAQ_61_7924.shtm "
 msgstr ""
-"시스템을 등록하는 도중 문제 발생.\n"
-"\n"
-"전사적 기본 활성화키는 사용자 로그인과 관련된 RHN 기관에 연결할 수 있는 시스"
-"템의 수를 제한합니다. 이러한 시스템을 연결하기 위해, 귀사의 RHN 관리자에게 연"
-"락하셔서 연결을 허용하는 시스템의 수를 증가시키거나 또는 전사적 기본 활성화키"
-"를 비활성화시킵니다. 보다 자세한 정보는 http://kbase.redhat.com/faq/"
-"FAQ_61_7924.shtm에 있는 Red Hat Knowledgebase Article #7924에서 확인해 보시"
-"기 바랍니다."
+"시스템을 등록하는 도중 문제 발생.\n\n전사적 기본 활성화키는 사용자 로그인과 관련된 RHN 기관에 연결할 수 있는 시스템의 수를 "
+"제한합니다. 이러한 시스템을 연결하기 위해, 귀사의 RHN 관리자에게 연락하셔서 연결을 허용하는 시스템의 수를 증가시키거나 또는 전사적 "
+"기본 활성화키를 비활성화시킵니다. 보다 자세한 정보는 http://kbase.redhat.com/faq/FAQ_61_7924.shtm에 "
+"있는 Red Hat Knowledgebase Article #7924에서 확인해 보시기 바랍니다."
 
 #: ../src/up2date_client/rhnreg_constants.py:282
 msgid ""
 "\n"
 " Tip: Minor releases with a '*' are currently supported by Red Hat.\n"
 "\n"
-msgstr ""
-"\n"
-" 도움말: '*'로 표시된 마이너 릴리즈가 현재 Red Hat이 지원하는 것입니다.\n"
-"\n"
+msgstr "\n 도움말: '*'로 표시된 마이너 릴리즈가 현재 Red Hat이 지원하는 것입니다.\n\n"
 
 #: ../src/up2date_client/rhnreg_constants.py:285
 msgid ""
 "Warning:You will not be able to limit this system to minor release that is "
 "older than the recent minor release if you select this option.\n"
-msgstr ""
-"경고: 이 옵션을 선택하면 최신 마이너 릴리즈보다 더 이전 마이너 릴리즈로 시스"
-"템을 제한할 수 없습니다.\n"
+msgstr "경고: 이 옵션을 선택하면 최신 마이너 릴리즈보다 더 이전 마이너 릴리즈로 시스템을 제한할 수 없습니다.\n"
 
 #: ../src/up2date_client/rhnreg_constants.py:290
 #, python-format
@@ -1049,11 +924,8 @@ msgid ""
 "(you will be able to move to a newer release).\n"
 "Are you sure you would like to continue?"
 msgstr ""
-"여러분의 시스템이 %s에 기본 소프트웨어 \n"
-"채널에 등록될 것입니다. 여러분은 이 \n"
-"시스템을 더 이전 버전으로 변경할 수 \n"
-"없을 것입니다.(더 최신 버전으로는 변경\n"
-"가능합니다) 정말로 계속 진행하겠습니까?"
+"여러분의 시스템이 %s에 기본 소프트웨어 \n채널에 등록될 것입니다. 여러분은 이 \n시스템을 더 이전 버전으로 변경할 수 \n없을 "
+"것입니다.(더 최신 버전으로는 변경\n가능합니다) 정말로 계속 진행하겠습니까?"
 
 #. Navigation
 #: ../src/up2date_client/rhnreg_constants.py:299
@@ -1210,7 +1082,7 @@ msgstr "경고: chkconfig를 사용하여 rhnsd를 활성화하는데 실패"
 #: ../src/up2date_client/up2dateErrors.py:72
 #, python-format
 msgid "class %s has no attribute '%s'"
-msgstr ""
+msgstr "클래스 %s에는 '%s' 속성이 없습니다 "
 
 #: ../src/up2date_client/up2dateErrors.py:95
 msgid "RPM error.  The message was:\n"
@@ -1250,7 +1122,7 @@ msgstr "다음 항목에서 oemInfo 파일을 구문 분석하는 도중 오류 
 
 #: ../src/up2date_client/up2dateErrors.py:205
 msgid "Network error: "
-msgstr ""
+msgstr "네트워크 오류: "
 
 #: ../src/up2date_client/up2dateErrors.py:273
 msgid ""
@@ -1269,26 +1141,16 @@ msgid ""
 "    A common cause of this error code is due to having mistakenly setup an\n"
 "    Activation Key which is set as the universal default.  If an activation "
 "key is set\n"
-"    on the account as a universal default, you can disable this key and "
-"retry to avoid\n"
+"    on the account as a universal default, you can disable this key and retry "
+"to avoid\n"
 "    requiring a Management entitlement."
 msgstr ""
-"\n"
-"    귀하의 조직은 이 시스템을 Red Hat Network에 등록할 만큼 충분한 관리 인타"
-"이틀먼트를 가지고있지\n"
-"    않습니다. 조직 관리자에게 이 오류에 대해 알려주십시오.\n"
-"    조직의 기존 인타이틀먼트를 정지시키거나 추가로 인타이틀먼트를 구매하기 전"
-"에는 이 시스템을 등록\n"
-"    할 수 없습니다. 관리자가 추가로 인타이틀먼트를 구매하기 위해서는 Red Hat "
-"Network에 로그인해서\n"
-"    RHN의 '사용자 RHN' 섹션 아래의 '서브스크립션 관리' 페이지로 가셔야 합니"
-"다.\n"
-"     \n"
-"    이런 코드의 오류가 발생하는 일반적인 원인은 실수로 활성화 키를 전체 \n"
-"     디폴트로 설정했기 때문일 수도 있습니다. 만약 이 계정에 대해 설정된 활성"
-"화 키가\n"
-"    전체 디폴트 상태라면, 이 키를 비활성화시키고 다시 시도하면, 추가로 관리\n"
-"    인타이틀먼트를 요청하지 않아도 될 수 있습니다. "
+"\n    귀하의 조직은 이 시스템을 Red Hat Network에 등록할 만큼 충분한 관리 인타이틀먼트를 가지고있지\n    않습니다. "
+"조직 관리자에게 이 오류에 대해 알려주십시오.\n    조직의 기존 인타이틀먼트를 정지시키거나 추가로 인타이틀먼트를 구매하기 전에는 이 "
+"시스템을 등록\n    할 수 없습니다. 관리자가 추가로 인타이틀먼트를 구매하기 위해서는 Red Hat Network에 로그인해서\n    "
+"RHN의 '사용자 RHN' 섹션 아래의 '서브스크립션 관리' 페이지로 가셔야 합니다.\n     \n    이런 코드의 오류가 발생하는 "
+"일반적인 원인은 실수로 활성화 키를 전체 \n     디폴트로 설정했기 때문일 수도 있습니다. 만약 이 계정에 대해 설정된 활성화 키가\n "
+"   전체 디폴트 상태라면, 이 키를 비활성화시키고 다시 시도하면, 추가로 관리\n    인타이틀먼트를 요청하지 않아도 될 수 있습니다. "
 
 #: ../src/up2date_client/rhncli.py:70
 msgid "Show additional output"
@@ -1310,9 +1172,7 @@ msgstr "인증받은 http proxy에 사용할 암호 지정"
 msgid ""
 "\n"
 "Aborted.\n"
-msgstr ""
-"\n"
-"중지.\n"
+msgstr "\n중지.\n"
 
 #: ../src/up2date_client/rhncli.py:101
 #, python-format
@@ -1340,11 +1200,9 @@ msgstr "SSL 오류 발생: %s\n"
 
 #: ../src/up2date_client/rhncli.py:113
 msgid ""
-"A common cause of this error is the system time being incorrect. Verify that "
-"the time on this system is correct.\n"
-msgstr ""
-"이 오류는 시스템 시간이 잘못 설정되어 있을 경우 자주 발생합니다. 시스템 시간"
-"이 제대로 설정되었는지 확인해 주십시오.\n"
+"A common cause of this error is the system time being incorrect. Verify that"
+" the time on this system is correct.\n"
+msgstr "이 오류는 시스템 시간이 잘못 설정되어 있을 경우 자주 발생합니다. 시스템 시간이 제대로 설정되었는지 확인해 주십시오.\n"
 
 #: ../src/up2date_client/rhncli.py:120
 #, python-format
@@ -1366,15 +1224,12 @@ msgid "Unable to open gui. Try `up2date --nox`"
 msgstr "GUI를 시작할 수 없습니다. `up2date --nox`를 시도해 보십시오."
 
 #: ../src/up2date_client/rhncli.py:212
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "%%prog (Red Hat Network Client Tools) %s\n"
 "Copyright (C) 1999--2012 Red Hat, Inc.\n"
 "Licensed under the terms of the GPLv2."
 msgstr ""
-"%%prog (Red Hat Network 클라이언트 도구) %s\n"
-"저작권 (C) 1999-2010 Red Hat, Inc.\n"
-"저작권은 GPL의 조건을 따릅니다."
 
 #: ../src/up2date_client/rhncli.py:227
 msgid "An error has occurred:"
@@ -1387,10 +1242,9 @@ msgstr "보다 자세한 정보는 /var/log/up2date 를 참조하시기 바랍�
 #: ../src/up2date_client/capabilities.py:88
 #, python-format
 msgid ""
-"This client requires the server to support %s, which the current server does "
-"not support"
-msgstr ""
-"현재 서버가 지원되지 않으므로, 클라이언트에 %s(을)를 지원하는 서버가 필요함"
+"This client requires the server to support %s, which the current server does"
+" not support"
+msgstr "현재 서버가 지원되지 않으므로, 클라이언트에 %s(을)를 지원하는 서버가 필요함"
 
 #: ../src/up2date_client/gui.py:313
 msgid "_Finish"
@@ -1484,8 +1338,8 @@ msgid ""
 "Usage of --use-eus-channel option with --activationkey is not supported. "
 "Please use username and password instead."
 msgstr ""
-"--use-eus-channel 옵션을 --activationkey와 함께 사용하는 것을 지원하지 않습니"
-"다. 대신 사용자명과 암호를 사용하십시오. "
+"--use-eus-channel 옵션을 --activationkey와 함께 사용하는 것을 지원하지 않습니다. 대신 사용자명과 암호를 "
+"사용하십시오. "
 
 #: ../src/bin/rhnreg_ks.py:124
 msgid "The server you are registering against does not support EUS."
@@ -1496,8 +1350,7 @@ msgid ""
 "Warning: --contactinfo option has been deprecated. Please login to the "
 "server web user Interface and update your contactinfo. "
 msgstr ""
-"주의: --contactinfo 옵션은 사용 중지되었습니다. 서버 웹 사용자 인터페이스에 "
-"로그인해서 연락처 정보를 업데이트하십시오.  "
+"주의: --contactinfo 옵션은 사용 중지되었습니다. 서버 웹 사용자 인터페이스에 로그인해서 연락처 정보를 업데이트하십시오.  "
 
 #: ../src/bin/rhnreg_ks.py:178
 msgid "Warning: yum-rhn-plugin is not present, could not enable it."
@@ -1508,16 +1361,15 @@ msgid ""
 "Warning: Could not open /etc/yum/pluginconf.d/rhnplugin.conf\n"
 "yum-rhn-plugin is not enabled.\n"
 msgstr ""
-"경고: /etc/yum/pluginconf.d/rhnplugin.conf를 열 수 없습니다.\n"
-"yum-rhn-plugin은 활성화되어 있지 않습니다.\n"
+"경고: /etc/yum/pluginconf.d/rhnplugin.conf를 열 수 없습니다.\nyum-rhn-plugin은 활성화되어 있지 "
+"않습니다.\n"
 
 #: ../src/bin/rhnreg_ks.py:202
 msgid ""
 "A profilename was not specified, and hostname and IP address could not be "
 "determined to use as a profilename, please specify one."
 msgstr ""
-"프로파일 이름이 지정되지 않았으며 호스트명과 IP 주소를 프로파일 이름으로 사용"
-"할 수 없습니다. 프로파일 이름을 지정해 주십시오."
+"프로파일 이름이 지정되지 않았으며 호스트명과 IP 주소를 프로파일 이름으로 사용할 수 없습니다. 프로파일 이름을 지정해 주십시오."
 
 #: ../src/bin/rhn_register.py:37
 msgid "Do not attempt to use X"
@@ -1614,14 +1466,14 @@ msgstr ""
 #: ../src/bin/rhn_check.py:420
 msgid "Attempting to run more than one instance of rhn_check. Exiting.\n"
 msgstr ""
+"rhn_check의 하나 이상의 인스턴스를 실행하려 합니다.\n"
+"종료하고 있습니다. \n"
 
 #: ../src/bin/rhn-profile-sync.py:35
 msgid ""
-"You need to register this system by running `rhn_register` before using this "
-"option"
-msgstr ""
-"이 옵션을 사용하시기 전에 먼저 `rhn_register`를 실행하여 이 시스템을 등록하셔"
-"야 합니다"
+"You need to register this system by running `rhn_register` before using this"
+" option"
+msgstr "이 옵션을 사용하시기 전에 먼저 `rhn_register`를 실행하여 이 시스템을 등록하셔야 합니다"
 
 #: ../src/bin/rhn-profile-sync.py:43
 msgid "Updating package profile..."
@@ -1669,15 +1521,13 @@ msgstr "작업 진행 상태 "
 msgid ""
 "<b>The network connection on your system is not active. Your system cannot "
 "be set up for software updates at this time.</b>"
-msgstr ""
-"<b>시스템에 연결된 네트워크가 활성화되어 있지 않습니다. 소프트웨어 업데이트"
-"를 위해 시스템을 설정하실 수 없습니다.</b>"
+msgstr "<b>시스템에 연결된 네트워크가 활성화되어 있지 않습니다. 소프트웨어 업데이트를 위해 시스템을 설정하실 수 없습니다.</b>"
 
 #: ../data/rh_register.glade.h:2
 msgid ""
-"This system will <b>not</b> be able to successfully receive software "
-"updates, including security updates, from Red Hat without connecting to a "
-"Red Hat Network server.\n"
+"This system will <b>not</b> be able to successfully receive software updates, "
+"including security updates, from Red Hat without connecting to a Red Hat "
+"Network server.\n"
 "\n"
 "To keep your system updated, secure, and supported, please register this "
 "system at your earliest convenience.\n"
@@ -1687,15 +1537,10 @@ msgid ""
 "You may access the software update tool by running <b>Software Update</b> in "
 "the <b>System > Administration</b> menu."
 msgstr ""
-"Red Hat Network 서버에 연결하지 않고 Red Hat에서 시스템으로 보안 업데이트를 "
-"포함한 소프트웨어를 성공적으로 업데이트할 수 <b>없습니다.</b>\n"
-"\n"
-"시스템을 지속적으로 업데이트, 보안, 및 지원하시려면 가능한 빠른 시일내에 시스"
-"템을 등록하시기 바랍니다.\n"
-"n 이러한 RHN 등록 도구는 <b>시스템 > 관리</b> 메뉴의 <b>RHN 등록</b>를 실행하"
-"면 됩니다.\n"
-"소프트웨어 업데이트 도구는  <b>시스템 > 관리</b> 메뉴의 <b>소프트웨어 업데이"
-"트</b>를 실행하면 됩니다."
+"Red Hat Network 서버에 연결하지 않고 Red Hat에서 시스템으로 보안 업데이트를 포함한 소프트웨어를 성공적으로 업데이트할 수 "
+"<b>없습니다.</b>\n\n시스템을 지속적으로 업데이트, 보안, 및 지원하시려면 가능한 빠른 시일내에 시스템을 등록하시기 바랍니다.\nn "
+"이러한 RHN 등록 도구는 <b>시스템 > 관리</b> 메뉴의 <b>RHN 등록</b>를 실행하면 됩니다.\n소프트웨어 업데이트 도구는  "
+"<b>시스템 > 관리</b> 메뉴의 <b>소프트웨어 업데이트</b>를 실행하면 됩니다."
 
 #: ../data/rh_register.glade.h:10
 msgid "I'd like to register with an RHN Satellite or RHN Proxy"
@@ -1704,11 +1549,12 @@ msgstr ""
 #: ../data/rh_register.glade.h:11
 #, fuzzy
 msgid "Location:"
-msgstr "Proxy 위치 "
+msgstr "Proxy 위치(_P):  "
 
 #: ../data/rh_register.glade.h:12
+#, fuzzy
 msgid "Example: https://satellite.example.com/XMLRPC"
-msgstr ""
+msgstr "<small><b>예시:</b> https://satellite.example.com</small> "
 
 #: ../data/rh_register.glade.h:13
 msgid "satellite server location"
@@ -1738,12 +1584,12 @@ msgstr "RHN 암호란 "
 #: ../data/rh_register.glade.h:20
 #, fuzzy
 msgid "_Password:"
-msgstr "암호:"
+msgstr "암호(_P): "
 
 #: ../data/rh_register.glade.h:21
 #, fuzzy
 msgid "_Login:"
-msgstr "로그인:"
+msgstr "로그인(_L): "
 
 #: ../data/rh_register.glade.h:22
 #, fuzzy
@@ -1751,8 +1597,8 @@ msgid ""
 "<small>Tip: Forgot your login or password? Contact your Satellite's "
 "<i>Organization Administrator</i>.</small>"
 msgstr ""
-"도움말: 사용자명이나 암호를 잊어버리셨습니까? Satellite의 기업 관리자에게 연"
-"락하시기 바랍니다."
+"<small>도움말: 로그인 계정이나 암호를 잊어버리셨습니까? Satellite의<i>조직 관"
+"리자</i>에게 연락하시기 바랍니다.</small>    "
 
 #: ../data/rh_register.glade.h:23
 msgid "Hardware Info"
@@ -1761,41 +1607,42 @@ msgstr "하드웨어 정보"
 #: ../data/rh_register.glade.h:24
 #, fuzzy
 msgid "Red Hat Linux Version:"
-msgstr "Red Hat 로그인:"
+msgstr "Red Hat Linux 버전:   "
 
 #: ../data/rh_register.glade.h:25
 #, fuzzy
 msgid "Hostname:"
-msgstr "호스트명: "
+msgstr "호스트명:  "
 
 #: ../data/rh_register.glade.h:26
 #, fuzzy
 msgid "IP Address:"
-msgstr "IP 주소: "
+msgstr "IP 주소:  "
 
 #: ../data/rh_register.glade.h:27
+#, fuzzy
 msgid "ERROR"
-msgstr ""
+msgstr "오류    "
 
 #: ../data/rh_register.glade.h:28
 #, fuzzy
 msgid "CPU Model:"
-msgstr "CPU 모델: "
+msgstr "CPU 모델:  "
 
 #: ../data/rh_register.glade.h:29
 #, fuzzy
 msgid "CPU Speed:"
-msgstr "CPU 속도: "
+msgstr "CPU 속도:  "
 
 #: ../data/rh_register.glade.h:30
 #, fuzzy
 msgid "Memory:"
-msgstr "메모리: "
+msgstr "메모리:  "
 
 #: ../data/rh_register.glade.h:31
 #, fuzzy
 msgid "Hardware Profile"
-msgstr "하드웨어 프로파일 보기 "
+msgstr "하드웨어 프로파일    "
 
 #: ../data/rh_register.glade.h:32
 msgid "Package Information"
@@ -1806,26 +1653,26 @@ msgid "Start Window"
 msgstr "윈도우 시작"
 
 #: ../data/rh_register.glade.h:34
+#, fuzzy
 msgid ""
-"This assistant will guide you through the process of registering your system "
-"with Red Hat to receive software updates and other benefits. You will need "
+"This assistant will guide you through the process of registering your system"
+" with Red Hat to receive software updates and other benefits. You will need "
 "the following to register:"
 msgstr ""
+"다음과 같은 소프트웨어 업데이트를 위해 Red Hat Network (RHN)에 시스템을 연결"
+"하여 안내해 드립니다:  "
 
 #: ../data/rh_register.glade.h:35
-#, fuzzy
 msgid "• A network connection"
-msgstr "Red Hat Network 위치:"
+msgstr ""
 
 #: ../data/rh_register.glade.h:36
-#, fuzzy
 msgid "• Your account login"
-msgstr "사용자 계정 정보 입력"
+msgstr ""
 
 #: ../data/rh_register.glade.h:37
-#, fuzzy
 msgid "Your account login"
-msgstr "로그인 계정을 입력해 주십시오."
+msgstr ""
 
 #: ../data/rh_register.glade.h:38
 msgid "• The address of an RHN Satellite or RHN Proxy"
@@ -1842,28 +1689,34 @@ msgid "Why Should I Register?"
 msgstr "등록해야 하는 이유"
 
 #: ../data/rh_register.glade.h:41
+#, fuzzy
 msgid ""
 "Would you like to register your system at this time? <b>(Strongly "
 "recommended.)</b>"
-msgstr ""
+msgstr "지금 시스템을 등록하시겠습니까? <b>(강력히 권고함.)</b>  "
 
 #: ../data/rh_register.glade.h:42
+#, fuzzy
 msgid "_Yes, I'd like to register now."
-msgstr ""
+msgstr "예, 지금 등록합니다.(_Y)"
 
 #: ../data/rh_register.glade.h:43
+#, fuzzy
 msgid "_No, I prefer to register at a later time."
-msgstr ""
+msgstr "아니요, 나중에 등록합니다.(_N) "
 
 #: ../data/rh_register.glade.h:44
 msgid "Link To Subscription"
 msgstr "등록에 링크"
 
 #: ../data/rh_register.glade.h:45
+#, fuzzy
 msgid ""
 "Your system will need to access a subscription. This will allow you to keep "
 "your system updated, secure, and supported."
 msgstr ""
+"시스템의 서브스크립션을 액세스하셔야 합니다. 이는 지속적으로 시스템을 업데이"
+"트하고 지원함은 물론 시스템의 보안을 유지합니다. "
 
 #: ../data/rh_register.glade.h:46
 msgid ""
@@ -1871,30 +1724,38 @@ msgid ""
 "need to do one of the following to create an active subscription in your "
 "account before this system can be registered:"
 msgstr ""
-"<b>사용자 계정에서 사용가능한 활성화 등록이 없습니다.</b> 시스템이 등록되기 "
-"전에 사용자 계정에 활성화 등록을 생성하기 위해 다음의 절차를 따르시기 바랍니"
-"다:"
+"<b>사용자 계정에서 사용가능한 활성화 등록이 없습니다.</b> 시스템이 등록되기 전에 사용자 계정에 활성화 등록을 생성하기 위해 다음의 "
+"절차를 따르시기 바랍니다:"
 
 #: ../data/rh_register.glade.h:47
+#, fuzzy
 msgid ""
-"Purchase an additional Red Hat Enterprise Linux subscription at http://www."
-"redhat.com/store/."
+"Purchase an additional Red Hat Enterprise Linux subscription at "
+"http://www.redhat.com/store/."
 msgstr ""
+"http://www.redhat.com/store/에서 추가 Red Hat Enterprise Linux 서브스크립션"
+"을 구입하시기 바랍니다.   "
 
 #: ../data/rh_register.glade.h:48
+#, fuzzy
 msgid ""
 "Log in to http://rhn.redhat.com/ and unentitle an inactive system at Your "
 "RHN > Subscription Management > System Entitlements."
 msgstr ""
+"http://rhn.redhat.com/에 로그인하시고 사용자 RHN (Your RHN)> 서브스크립션 관"
+"리 (Subscription Management) > 시스템 인타이틀먼트 (System Entitlements)에 있"
+"는 비활성화 시스템의 인타이틀먼트를 해제하시기 바랍니다.   "
 
 #: ../data/rh_register.glade.h:49
+#, fuzzy
 msgid ""
 "Activate a previously purchased subscription you have not yet activated."
-msgstr ""
+msgstr "아직 활성화하지 않은 이전에 구입한 서브스크립션을 활성화합니다.      "
 
 #: ../data/rh_register.glade.h:50
+#, fuzzy
 msgid "•"
-msgstr ""
+msgstr "•  "
 
 #: ../data/rh_register.glade.h:51
 msgid "installation number field"
@@ -1903,11 +1764,12 @@ msgstr "설치 번호란 "
 #: ../data/rh_register.glade.h:52
 #, fuzzy
 msgid "Installation _Number:"
-msgstr "설치 번호란 "
+msgstr "설치 번호(_N):   "
 
 #: ../data/rh_register.glade.h:53
+#, fuzzy
 msgid "<small><b>Example</b>: XXXX-XXXX-XXXX-XXXX</small>"
-msgstr ""
+msgstr "<small><b>예시</b>: XXXX-XXXX-XXXX-XXXX</small> "
 
 #: ../data/rh_register.glade.h:54
 msgid "_Activate a subscription now..."
@@ -1922,8 +1784,9 @@ msgid "Create profile"
 msgstr "프로파일 생성"
 
 #: ../data/rh_register.glade.h:58
+#, fuzzy
 msgid "<big><b>System Name</b></big>"
-msgstr ""
+msgstr "<big><b>시스템명</b></big>    "
 
 #: ../data/rh_register.glade.h:59
 msgid ""
@@ -1934,26 +1797,30 @@ msgstr ""
 #: ../data/rh_register.glade.h:60
 #, fuzzy
 msgid "System _Name:"
-msgstr "시스템명 "
+msgstr "시스템명(_N):  "
 
 #: ../data/rh_register.glade.h:61
 msgid "system name"
 msgstr "시스템명 "
 
 #: ../data/rh_register.glade.h:62
+#, fuzzy
 msgid "<big><b>Profile Data</b></big>"
-msgstr ""
+msgstr "<big><b>프로파일 데이터</b></big>    "
 
 #: ../data/rh_register.glade.h:63
+#, fuzzy
 msgid ""
 "Send us a profile of your current hardware and packages so we can determine "
 "what updates are available."
 msgstr ""
+"귀사의 시스템에 설치된 하드웨어와 패키지에 관한 프로파일을 보내주시면 어떤 업"
+"데이트를 받으실 수 있는 지를 알려드립니다.  "
 
 #: ../data/rh_register.glade.h:64
 #, fuzzy
 msgid "_View Hardware Profile ..."
-msgstr "하드웨어 프로파일 보기 "
+msgstr "하드웨어 프로파일 보기(_V) ...  "
 
 #: ../data/rh_register.glade.h:65
 msgid "View Hardware Profile"
@@ -1962,7 +1829,7 @@ msgstr "하드웨어 프로파일 보기 "
 #: ../data/rh_register.glade.h:66
 #, fuzzy
 msgid "V_iew Package Profile ..."
-msgstr "패키지 프로파일 보기 "
+msgstr "패키지 프로파일 보기(_i) ...  "
 
 #: ../data/rh_register.glade.h:67
 msgid "View Package Profile"
@@ -1971,7 +1838,7 @@ msgstr "패키지 프로파일 보기 "
 #: ../data/rh_register.glade.h:68
 #, fuzzy
 msgid "Send _hardware profile"
-msgstr "하드웨어 프로파일 보내기 확인란  "
+msgstr "하드웨어 프로파일 보내기(_h)  "
 
 #: ../data/rh_register.glade.h:69
 msgid "Send hardware profile checkbox"
@@ -1980,7 +1847,7 @@ msgstr "하드웨어 프로파일 보내기 확인란  "
 #: ../data/rh_register.glade.h:70
 #, fuzzy
 msgid "Send _package profile"
-msgstr "패키지 프로파일 보내기 확인란 "
+msgstr "패키지 프로파일 보내기(_p)  "
 
 #: ../data/rh_register.glade.h:71
 msgid "Send package profile checkbox"
@@ -1996,7 +1863,7 @@ msgstr "유료 등록 서비스의 혜택을 받기 위해 시스템을 Red Hat 
 #: ../data/rh_register.glade.h:74
 #, fuzzy
 msgid "_Close"
-msgstr "종료 "
+msgstr "종료(_C) "
 
 #: ../data/rh_register.glade.h:75
 msgid "Close"
@@ -2005,7 +1872,7 @@ msgstr "종료 "
 #: ../data/rh_register.glade.h:76
 #, fuzzy
 msgid "<b>Security &amp; Updates:</b>"
-msgstr "보안 & 업데이트:"
+msgstr "<b>보안 &amp; 업데이트:</b>    "
 
 #: ../data/rh_register.glade.h:77
 #, fuzzy
@@ -2014,21 +1881,23 @@ msgid ""
 "this Red Hat Enterprise Linux system <b>updated</b> and <b>secure</b>."
 msgstr ""
 "보안 업데이트가 포함된 최신 소프트웨어를 업데이트하여 Red Hat Enterprise "
-"Linux 시스템을 지속적으로 업데이트하고 보안을 유지하시기 바랍니다."
+"Linux 시스템을 지속적으로 <b>업데이트</b>하고 <b>보안</b>을 유지하시기 바랍니"
+"다.   "
 
 #: ../data/rh_register.glade.h:78
 #, fuzzy
 msgid "<b>Downloads &amp; Upgrades:</b>"
-msgstr "다운로드 & 업그레이드:"
+msgstr "<b>다운로드 &amp; 업그레이드:</b>    "
 
 #: ../data/rh_register.glade.h:80
 #, fuzzy
 msgid "<b>Support:</b>"
-msgstr "지원:"
+msgstr "<b>지원:</b>    "
 
 #: ../data/rh_register.glade.h:82
+#, fuzzy
 msgid "<b>Management:</b>"
-msgstr ""
+msgstr "<b>로그인:</b>    "
 
 #: ../data/rh_register.glade.h:83
 msgid "Management"
@@ -2036,18 +1905,19 @@ msgstr ""
 
 #: ../data/rh_register.glade.h:84
 msgid ""
-"Manage subscriptions and systems registered to Customer Portal via access."
-"redhat.com or through one of our other subscription management services."
+"Manage subscriptions and systems registered to Customer Portal via "
+"access.redhat.com or through one of our other subscription management "
+"services."
 msgstr ""
 
 #: ../data/rh_register.glade.h:85
 #, fuzzy
 msgid ""
-"<small><b>Tip:</b> Red Hat values your privacy: http://www.redhat.com/legal/"
-"privacy_statement.html.</small>"
+"<small><b>Tip:</b> Red Hat values your privacy: "
+"http://www.redhat.com/legal/privacy_statement.html.</small>"
 msgstr ""
-"도움말: Red Hat은 사용자 개인 정보를 보호합니다: http://www.redhat.com/legal/"
-"privacy_statement.html"
+"<small><b>도움말:</b> Red Hat은 사용자 개인 정보를 보호합니다: http://www."
+"redhat.com/legal/privacy_statement.html.</small>  "
 
 #: ../data/rh_register.glade.h:86
 msgid "Provide a Security Certificate"
@@ -2067,29 +1937,32 @@ msgstr ""
 #: ../data/rh_register.glade.h:91
 #, fuzzy
 msgid "I have an <b>_SSL certificate</b> to communicate with Red Hat Network:"
-msgstr "Red Hat Network와 통신하는 동안 오류가 발생했습니다."
+msgstr "Red Hat Network와 통신하기 위한 <b>SSL 인증서</b>가 있습니다(_S):   "
 
 #: ../data/rh_register.glade.h:92
+#, fuzzy
 msgid "Certificate _Location:"
-msgstr ""
+msgstr "인증서 위치(_L):    "
 
 #: ../data/rh_register.glade.h:93
 msgid "Select A File"
 msgstr "파일 선택"
 
 #: ../data/rh_register.glade.h:94
+#, fuzzy
 msgid ""
 "I <b>_don't</b> have an SSL certificate. I will contact my system "
 "administrator for assistance and will register at a later time."
 msgstr ""
+"SSL 인증서가 <b>없습니다.(_d)</b> 시스템 관리자에게 연락하여 도움을 요청하고 "
+"나중에 등록하겠습니다.     "
 
 #: ../data/rh_register.glade.h:95
 #, fuzzy
 msgid "Your system is not setup for software updates."
-msgstr "시스템에 이미 소프트웨어 업데이트가 설정되었다고 나타납니다:"
+msgstr "시스템에 소프트웨어 업데이트가 설정되지 않았습니다.  "
 
 #: ../data/rh_register.glade.h:96
-#, fuzzy
 msgid ""
 "You won't be able to receive software updates, including security updates, "
 "for this system.\n"
@@ -2100,24 +1973,16 @@ msgid ""
 "You may access the software update tool by running <b>Software Update</b> in "
 "the <b>System > Administration</b> menu."
 msgstr ""
-"Red Hat Network 서버에 연결하지 않고 Red Hat에서 시스템으로 보안 업데이트를 "
-"포함한 소프트웨어를 성공적으로 업데이트할 수 <b>없습니다.</b>\n"
-"\n"
-"시스템을 지속적으로 업데이트, 보안, 및 지원하시려면 가능한 빠른 시일내에 시스"
-"템을 등록하시기 바랍니다.\n"
-"n 이러한 RHN 등록 도구는 <b>시스템 > 관리</b> 메뉴의 <b>RHN 등록</b>를 실행하"
-"면 됩니다.\n"
-"소프트웨어 업데이트 도구는  <b>시스템 > 관리</b> 메뉴의 <b>소프트웨어 업데이"
-"트</b>를 실행하면 됩니다."
 
 #: ../data/rh_register.glade.h:100
 #, fuzzy
 msgid "Proxy Configuration"
-msgstr "Proxy 위치 "
+msgstr "Proxy 위치(_P):  "
 
 #: ../data/rh_register.glade.h:101
+#, fuzzy
 msgid "<b>HTTP Proxy</b>"
-msgstr ""
+msgstr "<b>HTTP Proxy</b>"
 
 #: ../data/rh_register.glade.h:102
 #, fuzzy
@@ -2129,13 +1994,14 @@ msgid "I would like to connect to Red Hat Network via an _HTTP proxy."
 msgstr "HTTP proxy를 통해 Red Hat Network에 연결하고자 합니다(_H)."
 
 #: ../data/rh_register.glade.h:104
+#, fuzzy
 msgid "<small><b>Example:</b> squid.example.com:3128</small>"
-msgstr ""
+msgstr "<small><b>예시:</b> squid.example.com:3128</small> "
 
 #: ../data/rh_register.glade.h:105
 #, fuzzy
 msgid "_Proxy Location:"
-msgstr "Proxy 위치 "
+msgstr "Proxy 위치(_P):  "
 
 #: ../data/rh_register.glade.h:106
 msgid "Enter in the format hostname(:port)"
@@ -2148,7 +2014,7 @@ msgstr "Proxy 위치 "
 #: ../data/rh_register.glade.h:108
 #, fuzzy
 msgid "Use Au_thentication with HTTP Proxy:"
-msgstr "TTP Proxy로 인증 사용 "
+msgstr "TTP Proxy로 인증 사용(_t):  "
 
 #: ../data/rh_register.glade.h:109
 msgid "Use Authentication with HTTP Proxy"
@@ -2157,12 +2023,12 @@ msgstr "TTP Proxy로 인증 사용 "
 #: ../data/rh_register.glade.h:110
 #, fuzzy
 msgid "Proxy _Username:"
-msgstr "프로파일 이름:"
+msgstr "Proxy 사용자명(_U):   "
 
 #: ../data/rh_register.glade.h:111
 #, fuzzy
 msgid "Proxy P_assword:"
-msgstr "암호:"
+msgstr "Proxy 암호(_a):   "
 
 #: ../data/rh_register.glade.h:112
 msgid "proxy user field"
@@ -2179,12 +2045,12 @@ msgstr "운영 체제 릴리즈 선택 확인 "
 #: ../data/rh_register.glade.h:115
 #, fuzzy
 msgid "_No, Cancel"
-msgstr "아니오, 취소합니다"
+msgstr "아니요, 취소합니다(_N) "
 
 #: ../data/rh_register.glade.h:117
 #, fuzzy
 msgid "_Yes, Continue"
-msgstr "예, 계속진행합니다"
+msgstr "예, 계속진행합니다(_Y)"
 
 #: ../data/rh_register.glade.h:119
 msgid "<big><b>Moving to earlier releases won't be possible</b></big>"
@@ -2196,17 +2062,14 @@ msgid ""
 "be able to move this system to an earlier minor release channel if you "
 "continue (you will be able to move to a later release.)"
 msgstr ""
-"시스템은 기본 소프트웨어 채널이 등록될 것입니다. 계속 진행하시면 이 시스템을 "
-"더 이전의 마이너 릴리즈로 변경할 수 없습니다(이후의 마이너 버전으로는 변경할 "
-"수 있습니다)."
+"시스템은 기본 소프트웨어 채널이 등록될 것입니다. 계속 진행하시면 이 시스템을 더 이전의 마이너 릴리즈로 변경할 수 없습니다(이후의 마이너 "
+"버전으로는 변경할 수 있습니다)."
 
 #: ../data/rh_register.glade.h:121
 msgid ""
 "\n"
 "Are you sure you would like to continue?"
-msgstr ""
-"\n"
-"계속 진행하시겠습니까?"
+msgstr "\n계속 진행하시겠습니까?"
 
 #: ../data/rh_register.glade.h:123
 msgid "Are you Sure?"
@@ -2236,8 +2099,8 @@ msgid ""
 "Are you sure you don't want to register your system with Red Hat? You'll "
 "miss out on the benefits of a Red Hat Enterprise Linux Subscription:"
 msgstr ""
-"정말로 시스템을 Red Hat Network에 연결하지 않으시겠습니다? Red Hat "
-"Enterprise Linux 등록 혜택을 놓치게 됩니다:\n"
+"정말로 시스템을 Red Hat Network에 연결하지 않으시겠습니까? Red Hat "
+"Enterprise Linux 서브스크립션 혜택을 놓치게 됩니다: "
 
 #: ../data/rh_register.glade.h:129
 msgid "Management:"
@@ -2246,7 +2109,8 @@ msgstr ""
 #: ../data/rh_register.glade.h:130
 #, fuzzy
 msgid ""
-"You will not be able to take advantage of these benefits without registering."
+"You will not be able to take advantage of these benefits without "
+"registering."
 msgstr ""
 "시스템을 Red Hat Network에 연결하지 않고 이러한 등록 권한의 혜택을 받으실 수 "
 "없습니다.\n"
@@ -2254,50 +2118,59 @@ msgstr ""
 #: ../data/rh_register.glade.h:133
 #, fuzzy
 msgid "<b>Red Hat Network Location:</b>"
-msgstr "Red Hat Network 위치:"
+msgstr "<b>Red Hat Network 위치:</b>    "
 
 #: ../data/rh_register.glade.h:134
 #, fuzzy
 msgid "<b>Login:</b>"
-msgstr "로그인:"
+msgstr "<b>로그인:</b>    "
 
 #: ../data/rh_register.glade.h:135
 #, fuzzy
 msgid "<b>System ID:</b>"
-msgstr "시스템 ID:"
+msgstr "<b>시스템 ID:</b>    "
 
 #: ../data/rh_register.glade.h:136
+#, fuzzy
 msgid "label"
-msgstr ""
+msgstr "레이블  "
 
 #: ../data/rh_register.glade.h:138
 #, fuzzy
 msgid "<b>Warning</b>"
-msgstr "경고"
+msgstr "<b>경고</b>    "
 
 #: ../data/rh_register.glade.h:139
+#, fuzzy
 msgid ""
-"This system has already been registered with RHN using RHN certificate-based "
-"technology."
+"This system has already been registered with RHN using RHN certificate-based"
+" technology."
 msgstr ""
+"시스템이 이미 RHN 인증서 기반 인타이틀먼트 기술을 사용하여 RHN에 등록었습니"
+"다. "
 
 #: ../data/rh_register.glade.h:140
+#, fuzzy
 msgid ""
 "The tool you are using is attempting to re-register using RHN Classic "
 "technology. Red Hat recommends (except in a few cases) that customers only "
 "register with RHN once."
 msgstr ""
+"사용하시려는 도구는 RHN 클래식 기술을 사용하여 다시 등록 시도하고 있습니다. "
+"Red Hat은 RHN을 사용하여 한 번만 등록할 것을 권장합니다. (일부 경우 제외)"
 
 #: ../data/rh_register.glade.h:141
 msgid ""
 "To learn more about RHN registration and technologies please consult this "
-"Knowledge Base Article: <a href=\"https://access.redhat.com/kb/docs/"
-"DOC-45563\">https://access.redhat.com/kb/docs/DOC-45563</a>\n"
+"Knowledge Base Article: <a "
+"href=\"https://access.redhat.com/kb/docs/DOC-45563\">"
+"https://access.redhat.com/kb/docs/DOC-45563</a>\n"
 msgstr ""
 
 #: ../data/rh_register.glade.h:143
+#, fuzzy
 msgid "Software update setup has been completed for this system."
-msgstr ""
+msgstr "시스템의 소프트웨어 업데이트 설정이 완료되었습니다.   "
 
 #: ../data/rh_register.glade.h:144
 msgid ""
@@ -2306,8 +2179,8 @@ msgid ""
 "\n"
 "You'll know when software updates are available when a package icon appears "
 "in the notification area of your desktop (usually in the upper-right corner, "
-"circled below.) Clicking on this icon, when available, will guide you "
-"through applying any updates that are available:"
+"circled below.) Clicking on this icon, when available, will guide you through "
+"applying any updates that are available:"
 msgstr ""
 
 #: ../data/rh_register.glade.h:147
@@ -2329,7 +2202,7 @@ msgid ""
 "compatibility with the selected minor release software channel:"
 msgstr ""
 "<b>제한된 업데이트(_L)</b>는 이 시스템이 다음 적용 가능한 Red Hat Enterprise "
-"Linux 마이너 릴리즈 소프트웨어 체널과의 호환성을 유지하도록 할 것입니다: "
+"Linux 마이너 릴리즈 소프트웨어 체널과의 호환성을 유지하도록 할 것입니다:"
 
 #: ../data/rh_register.glade.h:152
 #, fuzzy
@@ -2338,7 +2211,7 @@ msgid ""
 "with the selected minor release software channel:"
 msgstr ""
 "<b>제한된 업데이트(_L)</b>는 이 시스템이 다음 적용 가능한 Red Hat Enterprise "
-"Linux 마이너 릴리즈 소프트웨어 체널과의 호환성을 유지하도록 할 것입니다: "
+"Linux 마이너 릴리즈 소프트웨어 체널과의 호환성을 유지하도록 할 것입니다:"
 
 #: ../data/rh_register.glade.h:153
 msgid "_Minor release:"
@@ -2350,15 +2223,13 @@ msgstr "마이너 릴리즈 선택 "
 
 #: ../data/rh_register.glade.h:155
 msgid "       "
-msgstr ""
+msgstr "       "
 
 #: ../data/rh_register.glade.h:156
 msgid ""
 "<b>Tip:</b> Minor releases with a '*' are currently fully supported by Red "
 "Hat."
-msgstr ""
-"<b>도움말:</b> '*'로 시작하는 마이너 릴리즈는 현재 Red Hat이 완전 지원합니"
-"다. "
+msgstr "<b>도움말:</b> '*'로 시작하는 마이너 릴리즈는 현재 Red Hat이 완전 지원합니다. "
 
 #: ../data/rh_register.glade.h:158
 #, fuzzy
@@ -2375,8 +2246,8 @@ msgstr ""
 #: ../data/rh_register.glade.h:159
 #, fuzzy
 msgid ""
-"All available updates will be provided to this system. If kept updated, this "
-"system will always be equivalent to the latest minor release in the main "
+"All available updates will be provided to this system. If kept updated, this"
+" system will always be equivalent to the latest minor release in the main "
 "'Red Hat Enterprise Linux x' software channel."
 msgstr ""
 "<b>모든 사용가능한 업데이트(_A)</b>가 이 시스템에 제공될 것입니다. 이 시스템"
@@ -2393,8 +2264,8 @@ msgstr ""
 
 #: ../data/rh_register.glade.h:161
 msgid ""
-"Warning: Using this option, your system will always be the most recent minor "
-"release and cannot be limited to an older release version."
+"Warning: Using this option, your system will always be the most recent minor"
+" release and cannot be limited to an older release version."
 msgstr ""
 
 #: ../data/rh_register.glade.h:162
@@ -2403,13 +2274,13 @@ msgstr "<b>시스템은 설치 도중에 업데이트를 위해 등록되었습�
 
 #: ../data/rh_register.glade.h:163
 msgid ""
-"Your system is ready to receive the software updates that will keep it "
-"secure and supported.\n"
+"Your system is ready to receive the software updates that will keep it secure "
+"and supported.\n"
 "\n"
 "You'll know when software updates are available when a package icon appears "
 "in the notification area of your desktop (usually in the upper-right corner, "
-"circled below.) Clicking on this icon, when available, will guide you "
-"through applying any updates that are available:"
+"circled below.) Clicking on this icon, when available, will guide you through "
+"applying any updates that are available:"
 msgstr ""
 
 #: ../data/rh_register.glade.h:166
@@ -2422,131 +2293,9 @@ msgstr "RHN 등록"
 
 #: ../rhn_register.desktop.in.h:2
 msgid "Register for software updates from Spacewalk/Satellite/Red Hat Network"
-msgstr ""
-"Spacewalk/Satellite/Red Hat Network에서 받는 소프트웨어 업데이트를 등록 "
+msgstr "Spacewalk/Satellite/Red Hat Network에서 받는 소프트웨어 업데이트를 등록 "
 
 #: ../rhn_register.desktop.in.h:3
 msgid "Register to Spacewalk/Satellite/Red Hat Network."
 msgstr "Spacewalk/Satellite/Red Hat Network에 등록."
 
-#~ msgid "We could not contact Red Hat Network (%s)."
-#~ msgstr "Red Hat Network (%s)에 연결할 수 없습니다."
-
-#~ msgid ""
-#~ "Did you mean to register to a Red Hat Network Satellite or Proxy? If so, "
-#~ "you can enter a Satellite or Proxy location instead."
-#~ msgstr ""
-#~ "Red Hat Network Satellite나 Proxy에 등록하시겠습니까? 등록하시려면, "
-#~ "Satellite나 Proxy 위치를 입력해 주십시오."
-
-#~ msgid "Problem registering personal information:\n"
-#~ msgstr "개인 정보를 등록하는 도중 문제 발생:\n"
-
-#~ msgid "Problem registering personal information"
-#~ msgstr "개인 정보를 등록하는 도중 문제 발생"
-
-#~ msgid "Registering for software updates"
-#~ msgstr "소프트웨어 업데이트에 등록"
-
-#~ msgid "Software update setup unsuccessful"
-#~ msgstr "소프트웨어 업데이트 설정 실패"
-
-#~ msgid "Enter you account information"
-#~ msgstr "사용자 계정 정보 입력 "
-
-#~ msgid "Select operating system release"
-#~ msgstr "운영 체제 릴리즈 선택 "
-
-#~ msgid ""
-#~ "Please enter your login information for Red Hat Network (http://rhn."
-#~ "redhat.com/):\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Red Hat Network (http://rhn.redhat.com/)에 대한 사용자 로그인 정보를 입력"
-#~ "하시기 바랍니다:\n"
-#~ "\n"
-
-#~ msgid ""
-#~ "Tip: Forgot your login or password? Visit: https://rhn.redhat.com/rhn/"
-#~ "sales/LoginInfo.do"
-#~ msgstr ""
-#~ "도움말: 로그인 계정이나 암호를 잊어버리셨습니까? https://rhn.redhat.com/"
-#~ "rhn/sales/LoginInfo.do를 살펴 보시기 바랍니다 "
-
-#~ msgid "Finish setting up software updates"
-#~ msgstr "소프트웨어 업데이트 설정 완료"
-
-#~ msgid "Review system subscription details"
-#~ msgstr "시스템 등록 정보 다시 보기"
-
-#~ msgid ""
-#~ "Warning: If an installed product on this system is not listed above, you "
-#~ "will not receive updates or support for that product. If you would like "
-#~ "to receive updates for that product, please visit http://rhn.redhat.com/ "
-#~ "and subscribe this system to the appropriate software channels to get "
-#~ "updates for that product. See Kbase article 11313 for more details. "
-#~ "(http://kbase.redhat.com/faq/docs/DOC-11313)"
-#~ msgstr ""
-#~ "경고: 이 시스템에 설치된 제품이 위의 목록에 없을 경우, 제품에 해당하는 업"
-#~ "데이트나 지원을 받으실 수 없게 됩니다. 제품에 해당하는 업데이트를 받으시려"
-#~ "면, http://rhn.redhat.com/으로 가셔서 시스템을 해당하는 소프트웨어 채널에 "
-#~ "등록하시기 바랍니다. 보다 자세한 정보는 Kbase article 11313장을 참조하시"
-#~ "기 바랍니다. (http://kbase.redhat.com/faq/docs/DOC-11313)"
-
-#~ msgid "Software updates setup unsuccessful"
-#~ msgstr "소프트웨어 업데이트 설정 실패"
-
-#~ msgid "Provide Certificate"
-#~ msgstr "인증서 제공"
-
-#~ msgid "Finish Updates Setup"
-#~ msgstr "업데이트 설정 완료"
-
-#~ msgid "There was a communication error with the server:"
-#~ msgstr "서버와 통신하는 과정에서 오류 발생:"
-
-#~ msgid "Would you like to go back and try again?"
-#~ msgstr "뒤로 돌아가서 다시 한번 시도하시겠습니까?"
-
-#~ msgid "Choose an update location"
-#~ msgstr "업데이트할 위치 선택"
-
-#~ msgid "Create your system profile"
-#~ msgstr "시스템 프로파일 생성"
-
-#~ msgid "Progress Dialog"
-#~ msgstr "작업 진행 상황 상자"
-
-#~ msgid ""
-#~ "<b>Warning:</b> You will <b>not</b> be able to limit this system to a "
-#~ "minor release that is older than the most recent minor release if you "
-#~ "select this option."
-#~ msgstr ""
-#~ "<b>경고:</b> 이 옵션을 선택하면 최신 마이너 릴리즈보다 더 이전 마이너 릴리"
-#~ "즈로 시스템을 제한할 수 <b>없습니다</b>.  "
-
-#~ msgid ""
-#~ "<small>Tip: Forgot your login or password? Look it up at \n"
-#~ "https://www.redhat.com/wapps/sso/rhn/lostPassword.html</small>"
-#~ msgstr ""
-#~ "<small>도움말: 로그인 계정이나 암호를 잊어비리셨습니까? \n"
-#~ "https://www.redhat.com/wapps/sso/rhn/lostPassword.html를 살펴 보시기 바랍"
-#~ "니다</small>"
-
-#~ msgid "Advanced Network Configuration"
-#~ msgstr "고급 네트워크 설정"
-
-#~ msgid "Advanced Network Configuration button"
-#~ msgstr "고급 네트워크 설정 버튼 "
-
-#~ msgid "Choose Channel"
-#~ msgstr "채널 선택"
-
-#~ msgid "Enter Your Account Information"
-#~ msgstr "계정 정보 입력"
-
-#~ msgid "No thanks, I'll connect later."
-#~ msgstr "아니요, 나중에 연결합니다. "
-
-#~ msgid "_Operating system version:"
-#~ msgstr "운영 체제 버전(_O): "

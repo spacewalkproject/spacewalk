@@ -1,21 +1,22 @@
-# SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# , 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-10-30 11:32+0100\n"
-"PO-Revision-Date: 2011-03-04 15:46+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2012-11-20 17:09+0000\n"
+"Last-Translator: \n"
+"Language-Team: American English <kde-i18n-doc@kde.org>\n"
 "Language: zh_CN.GB2312\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0\n"
+"X-Generator: Lokalize 1.5\n"
 
 #: ../src/up2date_client/config.py:154
 #, python-format
@@ -32,7 +33,7 @@ msgstr ""
 
 #: ../src/up2date_client/rpcServer.py:202
 msgid "Connection aborted by the user"
-msgstr ""
+msgstr "连接被用户中止"
 
 #: ../src/up2date_client/rpcServer.py:247
 msgid "Server has refused connection due to high load"
@@ -44,14 +45,16 @@ msgid "Notice"
 msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:155
+#, fuzzy
 #: ../src/up2date_client/rhnregGui.py:169
 #: ../src/up2date_client/rhnreg_constants.py:238
 msgid "Warning"
-msgstr ""
+msgstr "正在准备……"
 
 #: ../src/up2date_client/rhnregGui.py:270
+#, fuzzy
 msgid "There was an error while applying your choice."
-msgstr ""
+msgstr "在安装软件包时出现了一个致命错误：\n"
 
 #: ../src/up2date_client/rhnregGui.py:289
 msgid "You specified an invalid protocol. Only https and http are allowed."
@@ -84,8 +87,9 @@ msgid "Make sure the network connection on this system is operational."
 msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:338
+#, fuzzy
 msgid "There was an error communicating with Red Hat Network."
-msgstr ""
+msgstr "在与服务器联络时出现了一个致命错误。  错误讯息是：\n"
 
 #: ../src/up2date_client/rhnregGui.py:339
 msgid "The server may be in outage mode. You may have to try connecting later."
@@ -96,64 +100,74 @@ msgid "You may be running a client that is incompatible with the server."
 msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:374
-#, python-format
+#, fuzzy, python-format
 msgid ""
 "Please enter your account information for the <b>%s</b> Red Hat Network "
 "Satellite:"
-msgstr ""
+msgstr "显示程序版本信息"
 
 #: ../src/up2date_client/rhnregGui.py:413
+#, fuzzy
 msgid "You must enter a login."
-msgstr ""
+msgstr "你必须作为根用户运行更新代理。"
 
 #: ../src/up2date_client/rhnregGui.py:419
+#, fuzzy
 msgid "You must enter a password."
-msgstr ""
+msgstr "你必须作为根用户运行更新代理。"
 
 #: ../src/up2date_client/rhnregGui.py:432
+#, fuzzy
 msgid "There was an error while logging in."
-msgstr ""
+msgstr "显示程序版本信息"
 
 #: ../src/up2date_client/rhnregGui.py:457
+#, fuzzy
 msgid ""
 "There was an error communicating with the registration server.  The message "
 "was:\n"
-msgstr ""
+msgstr "在与服务器联络时出现了一个致命错误。  错误讯息是：\n"
 
 #: ../src/up2date_client/rhnregGui.py:595
+#, fuzzy
 msgid "There was an error while assembling information for the profile."
-msgstr ""
+msgstr "在安装软件包时出现了一个致命错误：\n"
 
 #: ../src/up2date_client/rhnregGui.py:616
+#, fuzzy
 msgid "Error running hardware profile"
-msgstr ""
+msgstr "更新软件包档案……"
 
 #: ../src/up2date_client/rhnregGui.py:646
+#, fuzzy
 msgid "There was an error while populating the profile."
-msgstr ""
+msgstr "在安装软件包时出现了一个致命错误：\n"
 
 #: ../src/up2date_client/rhnregGui.py:666
 msgid "You must choose a name for this profile."
 msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:680
+#, fuzzy
 msgid "There was an error while creating the profile."
-msgstr ""
+msgstr "在安装软件包时出现了一个致命错误：\n"
 
 #: ../src/up2date_client/rhnregGui.py:691
 msgid "Registering system and sending profile information.  Please wait."
 msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:710
+#, fuzzy
 msgid "Registering System"
-msgstr ""
+msgstr "显示程序版本信息"
 
 #: ../src/up2date_client/rhnregGui.py:724
+#, fuzzy
 #: ../src/up2date_client/rhnregGui.py:728
 #: ../src/up2date_client/rhnregGui.py:732 ../src/up2date_client/tui.py:863
 #: ../src/up2date_client/tui.py:866 ../src/up2date_client/tui.py:869
 msgid "Problem registering system:\n"
-msgstr ""
+msgstr "显示程序版本信息"
 
 #: ../src/up2date_client/rhnregGui.py:735
 #, python-format
@@ -163,24 +177,29 @@ msgid ""
 msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:745 ../src/up2date_client/tui.py:875
+#, fuzzy
 msgid "Problem registering system."
-msgstr ""
+msgstr "显示程序版本信息"
 
 #: ../src/up2date_client/rhnregGui.py:755 ../src/up2date_client/tui.py:880
+#, fuzzy
 msgid "Problem writing out system id to disk."
-msgstr ""
+msgstr "显示程序版本信息"
 
 #: ../src/up2date_client/rhnregGui.py:761
+#, fuzzy
 msgid "There was a problem registering this system."
-msgstr ""
+msgstr "显示程序版本信息"
 
 #: ../src/up2date_client/rhnregGui.py:774
+#, fuzzy
 msgid "Sending hardware information"
-msgstr ""
+msgstr "读取头出错"
 
 #: ../src/up2date_client/rhnregGui.py:779
+#, fuzzy
 msgid "Problem sending hardware information."
-msgstr ""
+msgstr "读取头出错"
 
 #. #            for row in range(self.regPackageArea.n_rows):
 #. #                rowData = self.regPackageArea.get_row_data(row)
@@ -192,12 +211,14 @@ msgstr ""
 #. #                if pkg[0] in selection:
 #. #                    selectedPackages.append(pkg)
 #: ../src/up2date_client/rhnregGui.py:803
+#, fuzzy
 msgid "Sending package information"
-msgstr ""
+msgstr "读取头出错"
 
 #: ../src/up2date_client/rhnregGui.py:808
+#, fuzzy
 msgid "Problem sending package information."
-msgstr ""
+msgstr "获取软件包列表时出错"
 
 #: ../src/up2date_client/rhnregGui.py:839 ../src/up2date_client/tui.py:926
 msgid ""
@@ -206,12 +227,14 @@ msgid ""
 msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:893
+#, fuzzy
 msgid "There was an error while installing the certificate."
-msgstr ""
+msgstr "在安装软件包时出现了一个致命错误：\n"
 
 #: ../src/up2date_client/rhnregGui.py:919
+#, fuzzy
 msgid "You must select a certificate."
-msgstr ""
+msgstr "你必须作为根用户运行更新代理。"
 
 #. TODO Modify rhnlib to raise a unique exception for the not a
 #. cert file case.
@@ -233,8 +256,9 @@ msgid "unknown"
 msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:1114
+#, fuzzy
 msgid "There was an error getting the list of hardware."
-msgstr ""
+msgstr "在安装软件包时出现了一个致命错误：\n"
 
 #: ../src/up2date_client/rhnregGui.py:1126 ../src/up2date_client/tui.py:660
 #, python-format
@@ -247,33 +271,42 @@ msgid "%s MB"
 msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:1174
+#, fuzzy
 msgid "There was an error building the list of packages."
-msgstr ""
+msgstr "在安装软件包时出现了一个致命错误：\n"
 
 #: ../src/up2date_client/rhnregGui.py:1189
+#, fuzzy
 msgid "Package"
-msgstr ""
+msgstr "软件包名"
 
 #: ../src/up2date_client/rhnregGui.py:1194
 msgid "Arch"
-msgstr ""
+msgstr "体系"
 
 #: ../src/up2date_client/rhnregGui.py:1201
+#, fuzzy
 msgid "Building a list of RPM packages installed on your system.  Please wait."
 msgstr ""
+"Red Hat 更新代理正在建立一个在你的系统上\n"
+"安装的更新了的 RPM 软件包列表。  请稍候。"
 
 #: ../src/up2date_client/rhnregGui.py:1232
 msgid ""
 "There was an error loading your configuration.  Make sure that\n"
 "you have read access to /etc/sysconfig/rhn."
 msgstr ""
+"在载入你的配置时出现错误。  请确定\n"
+"你有对 /etc/sysconfig/rhn 的读取权限。"
 
 #: ../src/up2date_client/rhnregGui.py:1274
-#, python-format
+#, fuzzy, python-format
 msgid ""
 "There was an error saving your configuration. Make sure that\n"
 "you own %s."
 msgstr ""
+"在储存你的配置时出现了一个错误。请确定\n"
+"你拥有 %s。"
 
 #: ../src/up2date_client/rhnregGui.py:1304
 #, python-format
@@ -293,7 +326,7 @@ msgstr ""
 
 #: ../src/up2date_client/debUtils.py:53 ../src/up2date_client/rpmUtils.py:112
 msgid "Getting list of packages installed on the system"
-msgstr ""
+msgstr "正在获取安装在你的系统上的软件包列表"
 
 #: ../src/up2date_client/rhnreg_constants.py:14
 msgid "Copyright © 2006--2010 Red Hat, Inc. All rights reserved."
@@ -301,13 +334,14 @@ msgstr ""
 
 #. Connect Window
 #: ../src/up2date_client/rhnreg_constants.py:17
+#, fuzzy
 msgid "Attempting to contact the Red Hat Network server."
-msgstr ""
+msgstr "Red Hat 网络配置"
 
 #: ../src/up2date_client/rhnreg_constants.py:18
-#, python-format
+#, fuzzy, python-format
 msgid "We are attempting to contact the Red Hat Network server at %s."
-msgstr ""
+msgstr "Red Hat 网络配置"
 
 #: ../src/up2date_client/rhnreg_constants.py:20
 #, python-format
@@ -316,8 +350,9 @@ msgstr ""
 
 #. Start Window
 #: ../src/up2date_client/rhnreg_constants.py:23 ../data/gui.glade.h:1
+#, fuzzy
 msgid "System Registration"
-msgstr ""
+msgstr "你必须作为根用户运行更新代理。"
 
 #: ../src/up2date_client/rhnreg_constants.py:24
 msgid ""
@@ -394,8 +429,9 @@ msgid ""
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:56
+#, fuzzy
 msgid "Take me back to the registration"
-msgstr ""
+msgstr "软件包安装选项"
 
 #. Confirm Quit Window
 #: ../src/up2date_client/rhnreg_constants.py:59
@@ -424,20 +460,22 @@ msgstr ""
 
 #. Info Window
 #: ../src/up2date_client/rhnreg_constants.py:68 ../data/gui.glade.h:4
+#, fuzzy
 #: ../data/rh_register.glade.h:16
 msgid "Red Hat Account"
-msgstr ""
+msgstr "Red Hat 更新代理"
 
 #: ../src/up2date_client/rhnreg_constants.py:69
-#, python-format
+#, fuzzy, python-format
 msgid ""
 "Please enter your login information for the %s Red Hat Network Satellite:\n"
 "\n"
-msgstr ""
+msgstr "显示程序版本信息"
 
 #: ../src/up2date_client/rhnreg_constants.py:71
+#, fuzzy
 msgid "Red Hat Login:"
-msgstr ""
+msgstr "Red Hat 更新代理"
 
 #: ../src/up2date_client/rhnreg_constants.py:72
 #: ../src/up2date_client/tui.py:128
@@ -446,7 +484,7 @@ msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:73
 msgid "Password:"
-msgstr ""
+msgstr "口令："
 
 #: ../src/up2date_client/rhnreg_constants.py:74
 msgid ""
@@ -459,8 +497,9 @@ msgid "Please enter a desired login."
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:77
+#, fuzzy
 msgid "Please enter and verify a password."
-msgstr ""
+msgstr "你必须作为根用户运行更新代理。"
 
 #. OS Release Window
 #: ../src/up2date_client/rhnreg_constants.py:80 ../data/gui.glade.h:5
@@ -473,17 +512,19 @@ msgid "Operating System version:"
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:82
+#, fuzzy
 msgid " Minor Release: "
-msgstr ""
+msgstr "发行"
 
 #: ../src/up2date_client/rhnreg_constants.py:83
 msgid "Limited Updates Only"
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:84
+#, fuzzy
 #: ../data/rh_register.glade.h:157
 msgid "All available updates"
-msgstr ""
+msgstr "可用的软件包更新"
 
 #: ../src/up2date_client/rhnreg_constants.py:85
 msgid "Confirm operating system release selection"
@@ -497,8 +538,9 @@ msgstr ""
 
 #. Hardware Window
 #: ../src/up2date_client/rhnreg_constants.py:91
+#, fuzzy
 msgid "Create Profile - Hardware"
-msgstr ""
+msgstr "更新软件包档案……"
 
 #: ../src/up2date_client/rhnreg_constants.py:92
 msgid ""
@@ -519,8 +561,9 @@ msgstr ""
 
 #. Packages Window
 #: ../src/up2date_client/rhnreg_constants.py:103
+#, fuzzy
 msgid "Create Profile - Packages"
-msgstr ""
+msgstr "更新软件包档案……"
 
 #: ../src/up2date_client/rhnreg_constants.py:104
 msgid ""
@@ -529,21 +572,24 @@ msgid ""
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:107
+#, fuzzy
 msgid "Include RPM packages installed on this system in my System Profile"
-msgstr ""
+msgstr "正在获取安装在你的系统上的软件包列表"
 
 #: ../src/up2date_client/rhnreg_constants.py:109
 msgid "You may deselect individual packages by unchecking them below."
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:111
+#, fuzzy
 msgid "Building Package List"
-msgstr ""
+msgstr "正在检索软件包"
 
 #. Product Window
 #: ../src/up2date_client/rhnreg_constants.py:114
+#, fuzzy
 msgid "*Email Address:"
-msgstr ""
+msgstr "新添加："
 
 #: ../src/up2date_client/rhnreg_constants.py:116
 #: ../data/rh_register.glade.h:131
@@ -589,8 +635,9 @@ msgstr ""
 
 #. Sending Window
 #: ../src/up2date_client/rhnreg_constants.py:137
+#, fuzzy
 msgid "Sending Profile to Red Hat Network"
-msgstr ""
+msgstr "Red Hat 网络配置"
 
 #. Finish Window
 #: ../src/up2date_client/rhnreg_constants.py:140
@@ -611,8 +658,9 @@ msgstr ""
 
 #. Review Window
 #: ../src/up2date_client/rhnreg_constants.py:152 ../data/gui.glade.h:7
+#, fuzzy
 msgid "Review Subscription"
-msgstr ""
+msgstr "描述"
 
 #: ../src/up2date_client/rhnreg_constants.py:153
 #: ../data/rh_register.glade.h:56
@@ -620,11 +668,11 @@ msgid "Please review the subscription details below:"
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:154
-#, python-format
+#, fuzzy, python-format
 msgid ""
 "The installation number %s was activated during this system's initial "
 "connection to Red Hat Network."
-msgstr ""
+msgstr "Red Hat 网络配置"
 
 #: ../src/up2date_client/rhnreg_constants.py:156
 msgid ""
@@ -633,8 +681,9 @@ msgid ""
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:158
+#, fuzzy
 msgid "Software Channel Subscriptions:"
-msgstr ""
+msgstr "频道信息"
 
 #: ../src/up2date_client/rhnreg_constants.py:159
 msgid "This system will receive updates from the following software channels:"
@@ -864,7 +913,7 @@ msgstr ""
 #: ../src/up2date_client/rhnreg_constants.py:299
 #: ../src/up2date_client/tui.py:414
 msgid "OK"
-msgstr ""
+msgstr "确定"
 
 #: ../src/up2date_client/rhnreg_constants.py:300
 #: ../src/up2date_client/tui.py:414
@@ -881,12 +930,13 @@ msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:303
 msgid "Cancel"
-msgstr ""
+msgstr "取消"
 
 #: ../src/up2date_client/rhnreg_constants.py:304
+#, fuzzy
 #: ../data/rh_register.glade.h:116
 msgid "No, Cancel"
-msgstr ""
+msgstr "取消"
 
 #: ../src/up2date_client/rhnreg_constants.py:305
 #: ../data/rh_register.glade.h:118
@@ -898,24 +948,29 @@ msgid "Press <space> to deselect the option."
 msgstr ""
 
 #: ../src/up2date_client/hardware.py:736
+#, fuzzy
 msgid "Error reading cpu information:"
-msgstr ""
+msgstr "显示程序版本信息"
 
 #: ../src/up2date_client/hardware.py:743
+#, fuzzy
 msgid "Error reading system memory information:"
-msgstr ""
+msgstr "显示程序版本信息"
 
 #: ../src/up2date_client/hardware.py:753
+#, fuzzy
 msgid "Error reading networking information:"
-msgstr ""
+msgstr "显示程序版本信息"
 
 #: ../src/up2date_client/hardware.py:774
+#, fuzzy
 msgid "Error reading install method information:"
-msgstr ""
+msgstr "显示程序版本信息"
 
 #: ../src/up2date_client/hardware.py:782
+#, fuzzy
 msgid "Error reading network interface information:"
-msgstr ""
+msgstr "显示程序版本信息"
 
 #: ../src/up2date_client/messageWindow.py:98
 msgid "Error:"
@@ -926,44 +981,52 @@ msgid "Yes/No dialog:"
 msgstr ""
 
 #: ../src/up2date_client/tui.py:127
+#, fuzzy
 msgid "Red Hat Network Location:"
-msgstr ""
+msgstr "Red Hat 网络配置"
 
 #: ../src/up2date_client/tui.py:129
+#, fuzzy
 msgid "System ID:"
-msgstr ""
+msgstr "用户名："
 
 #: ../src/up2date_client/tui.py:414
+#, fuzzy
 msgid "The server indicated an error:\n"
-msgstr ""
+msgstr "出现了某种 I/O 错误：%s"
 
 #: ../src/up2date_client/tui.py:418
+#, fuzzy
 msgid "There was an error communicating with the registration server:\n"
-msgstr ""
+msgstr "在与服务器联络时出现了一个致命错误。  错误讯息是：\n"
 
 #: ../src/up2date_client/tui.py:609
+#, fuzzy
 msgid "Profile name:"
-msgstr ""
+msgstr "用户名："
 
 #: ../src/up2date_client/tui.py:631 ../src/up2date_client/tui.py:632
+#, fuzzy
 msgid "Version: "
-msgstr ""
+msgstr "版本"
 
 #: ../src/up2date_client/tui.py:638
 msgid "CPU model: "
 msgstr ""
 
 #: ../src/up2date_client/tui.py:644
+#, fuzzy
 msgid "Hostname: "
-msgstr ""
+msgstr "用户名："
 
 #: ../src/up2date_client/tui.py:656
 msgid "CPU speed: "
 msgstr ""
 
 #: ../src/up2date_client/tui.py:662
+#, fuzzy
 msgid "IP Address: "
-msgstr ""
+msgstr "新添加："
 
 #: ../src/up2date_client/tui.py:671
 msgid "Memory: "
@@ -975,24 +1038,29 @@ msgid "%s megabytes"
 msgstr ""
 
 #: ../src/up2date_client/tui.py:895
+#, fuzzy
 msgid "Problem sending hardware profile:\n"
-msgstr ""
+msgstr "获取软件包列表时出错"
 
 #: ../src/up2date_client/tui.py:899
+#, fuzzy
 msgid "Problem sending hardware profile."
-msgstr ""
+msgstr "更新软件包档案……"
 
 #: ../src/up2date_client/tui.py:908
+#, fuzzy
 msgid "Problem sending package list:\n"
-msgstr ""
+msgstr "获取软件包列表时出错"
 
 #: ../src/up2date_client/tui.py:911
+#, fuzzy
 msgid "Problem sending package list."
-msgstr ""
+msgstr "获取软件包列表时出错"
 
 #: ../src/up2date_client/tui.py:964
+#, fuzzy
 msgid "Finish"
-msgstr ""
+msgstr "全部结束"
 
 #: ../src/up2date_client/tui.py:1085
 msgid "You specified an invalid protocol."
@@ -1004,8 +1072,9 @@ msgid ""
 msgstr ""
 
 #: ../src/up2date_client/tui.py:1211
+#, fuzzy
 msgid "You must run the RHN registration program as root."
-msgstr ""
+msgstr "你必须作为根用户运行更新代理。"
 
 #: ../src/up2date_client/rhnreg.py:56
 msgid "Warning: unable to enable rhnsd with chkconfig"
@@ -1019,35 +1088,38 @@ msgstr ""
 
 #: ../src/up2date_client/up2dateErrors.py:95
 msgid "RPM error.  The message was:\n"
-msgstr ""
+msgstr "RPM 错误。错误讯息是：\n"
 
 #: ../src/up2date_client/up2dateErrors.py:102
 msgid "Password error. The message was:\n"
-msgstr ""
+msgstr "口令错误。错误讯息是：\n"
 
 #: ../src/up2date_client/up2dateErrors.py:106
+#, fuzzy
 msgid "RPM dependency error. The message was:\n"
-msgstr ""
+msgstr "RPM 依赖关系错误。错误讯息是：\n"
 
 #: ../src/up2date_client/up2dateErrors.py:116
+#, fuzzy
 msgid "Error communicating with server. The message was:\n"
-msgstr ""
+msgstr "在与服务器联络时出错。错误讯息是：\n"
 
 #: ../src/up2date_client/up2dateErrors.py:123
 msgid "File Not Found: \n"
-msgstr ""
+msgstr "没有找到文件：\n"
 
 #: ../src/up2date_client/up2dateErrors.py:130
 msgid "Delay error from server.  The message was:\n"
-msgstr ""
+msgstr "来自服务器的延迟错误。  错误讯息是：\n"
 
 #: ../src/up2date_client/up2dateErrors.py:168
 msgid "Error validating data at server:\n"
 msgstr ""
 
 #: ../src/up2date_client/up2dateErrors.py:175
+#, fuzzy
 msgid "The installation number is invalid"
-msgstr ""
+msgstr "你必须作为根用户运行更新代理。"
 
 #: ../src/up2date_client/up2dateErrors.py:178
 msgid "Error parsing the oemInfo file at field:\n"
@@ -1081,7 +1153,7 @@ msgstr ""
 
 #: ../src/up2date_client/rhncli.py:70
 msgid "Show additional output"
-msgstr ""
+msgstr "显示附加的输出"
 
 #: ../src/up2date_client/rhncli.py:72
 msgid "Specify an http proxy to use"
@@ -1102,9 +1174,9 @@ msgid ""
 msgstr ""
 
 #: ../src/up2date_client/rhncli.py:101
-#, python-format
+#, fuzzy, python-format
 msgid "An unexpected OS error occurred: %s\n"
-msgstr ""
+msgstr "发生了一个意外的 OS 错误：%s"
 
 #: ../src/up2date_client/rhncli.py:105
 msgid "A connection was attempted with a malformed URI.\n"
@@ -1116,14 +1188,14 @@ msgid "A connection was attempted with a malformed URI: %s.\n"
 msgstr ""
 
 #: ../src/up2date_client/rhncli.py:109
-#, python-format
+#, fuzzy, python-format
 msgid "There was some sort of I/O error: %s\n"
-msgstr ""
+msgstr "出现了某种 I/O 错误：%s"
 
 #: ../src/up2date_client/rhncli.py:112
-#, python-format
+#, fuzzy, python-format
 msgid "There was an SSL error: %s\n"
-msgstr ""
+msgstr "出现了某种 I/O 错误：%s"
 
 #: ../src/up2date_client/rhncli.py:113
 msgid ""
@@ -1132,14 +1204,14 @@ msgid ""
 msgstr ""
 
 #: ../src/up2date_client/rhncli.py:120
-#, python-format
+#, fuzzy, python-format
 msgid "There was a SSL crypto error: %s\n"
-msgstr ""
+msgstr "出现了某种 I/O 错误：%s"
 
 #: ../src/up2date_client/rhncli.py:124
-#, python-format
+#, fuzzy, python-format
 msgid "There was an authentication error: %s\n"
-msgstr ""
+msgstr "出现了某种 I/O 错误：%s"
 
 #: ../src/up2date_client/rhncli.py:140
 #, python-format
@@ -1148,7 +1220,7 @@ msgstr ""
 
 #: ../src/up2date_client/rhncli.py:170 ../src/up2date_client/rhncli.py:205
 msgid "Unable to open gui. Try `up2date --nox`"
-msgstr ""
+msgstr "无法打开 gui，尝试“up2date --nox”"
 
 #: ../src/up2date_client/rhncli.py:212
 #, python-format
@@ -1159,12 +1231,16 @@ msgid ""
 msgstr ""
 
 #: ../src/up2date_client/rhncli.py:227
+#, fuzzy
 msgid "An error has occurred:"
 msgstr ""
+"发生了一个意外的 OS 错误：\n"
+"%s"
 
 #: ../src/up2date_client/rhncli.py:235
+#, fuzzy
 msgid "See /var/log/up2date for more information"
-msgstr ""
+msgstr "读取头出错"
 
 #: ../src/up2date_client/capabilities.py:88
 #, python-format
@@ -1174,25 +1250,29 @@ msgid ""
 msgstr ""
 
 #: ../src/up2date_client/gui.py:313
+#, fuzzy
 msgid "_Finish"
-msgstr ""
+msgstr "全部结束"
 
 #: ../src/up2date_client/gui.py:316
+#, fuzzy
 msgid "_Exit"
-msgstr ""
+msgstr "编辑"
 
 #: ../src/up2date_client/gui.py:317
+#, fuzzy
 msgid "Software Updates Not Set Up"
-msgstr ""
+msgstr "显示程序版本信息"
 
 #: ../src/up2date_client/gui.py:327
+#, fuzzy
 msgid "You must run rhn_register as root."
-msgstr ""
+msgstr "你必须作为根用户运行更新代理。"
 
 #: ../src/up2date_client/gui.py:351
 #, python-format
 msgid "There was some sort of I/O error: %s"
-msgstr ""
+msgstr "出现了某种 I/O 错误：%s"
 
 #: ../src/bin/rhnreg_ks.py:46
 msgid "Specify a profilename"
@@ -1292,8 +1372,9 @@ msgid ""
 msgstr ""
 
 #: ../src/bin/rhn_register.py:37
+#, fuzzy
 msgid "Do not attempt to use X"
-msgstr ""
+msgstr "不要试图使用 X"
 
 #: ../src/bin/spacewalk-channel.py:53
 msgid "ERROR: must be root to execute\n"
@@ -1395,15 +1476,17 @@ msgstr ""
 
 #: ../src/bin/rhn-profile-sync.py:43
 msgid "Updating package profile..."
-msgstr ""
+msgstr "更新软件包档案……"
 
 #: ../src/bin/rhn-profile-sync.py:46
+#, fuzzy
 msgid "Updating hardware profile..."
-msgstr ""
+msgstr "更新软件包档案……"
 
 #: ../src/bin/rhn-profile-sync.py:50
+#, fuzzy
 msgid "Updating virtualization profile..."
-msgstr ""
+msgstr "更新软件包档案……"
 
 #: ../data/gui.glade.h:2
 msgid "Set Up Software Updates"
@@ -1414,16 +1497,19 @@ msgid "Choose Service"
 msgstr ""
 
 #: ../data/gui.glade.h:6
+#, fuzzy
 msgid "Create Profile"
-msgstr ""
+msgstr "更新软件包档案……"
 
 #: ../data/gui.glade.h:8
+#, fuzzy
 msgid "Provide a security certificate"
-msgstr ""
+msgstr "你必须作为根用户运行更新代理。"
 
 #: ../data/progress.glade.h:1
+#, fuzzy
 msgid "Sending Information"
-msgstr ""
+msgstr "读取头出错"
 
 #: ../data/progress.glade.h:2
 msgid "progress bar"
@@ -1479,24 +1565,28 @@ msgid "Proxy Setup Button"
 msgstr ""
 
 #: ../data/rh_register.glade.h:17
+#, fuzzy
 msgid "Please enter your Red Hat account information:"
-msgstr ""
+msgstr "顾问信息"
 
 #: ../data/rh_register.glade.h:18
+#, fuzzy
 msgid "RHN login field"
-msgstr ""
+msgstr "Red Hat 更新代理"
 
 #: ../data/rh_register.glade.h:19
 msgid "RHN password field"
 msgstr ""
 
 #: ../data/rh_register.glade.h:20
+#, fuzzy
 msgid "_Password:"
-msgstr ""
+msgstr "口令："
 
 #: ../data/rh_register.glade.h:21
+#, fuzzy
 msgid "_Login:"
-msgstr ""
+msgstr "Red Hat 更新代理"
 
 #: ../data/rh_register.glade.h:22
 msgid ""
@@ -1505,20 +1595,24 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:23
+#, fuzzy
 msgid "Hardware Info"
-msgstr ""
+msgstr "更新软件包档案……"
 
 #: ../data/rh_register.glade.h:24
+#, fuzzy
 msgid "Red Hat Linux Version:"
-msgstr ""
+msgstr "Red Hat 更新代理"
 
 #: ../data/rh_register.glade.h:25
+#, fuzzy
 msgid "Hostname:"
-msgstr ""
+msgstr "用户名："
 
 #: ../data/rh_register.glade.h:26
+#, fuzzy
 msgid "IP Address:"
-msgstr ""
+msgstr "新添加："
 
 #: ../data/rh_register.glade.h:27
 msgid "ERROR"
@@ -1537,12 +1631,13 @@ msgid "Memory:"
 msgstr ""
 
 #: ../data/rh_register.glade.h:31
+#, fuzzy
 msgid "Hardware Profile"
-msgstr ""
+msgstr "更新软件包档案……"
 
 #: ../data/rh_register.glade.h:32
 msgid "Package Information"
-msgstr ""
+msgstr "软件包信息"
 
 #: ../data/rh_register.glade.h:33
 msgid "Start Window"
@@ -1594,8 +1689,9 @@ msgid "_No, I prefer to register at a later time."
 msgstr ""
 
 #: ../data/rh_register.glade.h:44
+#, fuzzy
 msgid "Link To Subscription"
-msgstr ""
+msgstr "描述"
 
 #: ../data/rh_register.glade.h:45
 msgid ""
@@ -1632,32 +1728,37 @@ msgid "•"
 msgstr ""
 
 #: ../data/rh_register.glade.h:51
+#, fuzzy
 msgid "installation number field"
-msgstr ""
+msgstr "你必须作为根用户运行更新代理。"
 
 #: ../data/rh_register.glade.h:52
+#, fuzzy
 msgid "Installation _Number:"
-msgstr ""
+msgstr "你必须作为根用户运行更新代理。"
 
 #: ../data/rh_register.glade.h:53
 msgid "<small><b>Example</b>: XXXX-XXXX-XXXX-XXXX</small>"
 msgstr ""
 
 #: ../data/rh_register.glade.h:54
+#, fuzzy
 msgid "_Activate a subscription now..."
-msgstr ""
+msgstr "描述"
 
 #: ../data/rh_register.glade.h:55
 msgid "Review system..."
 msgstr ""
 
 #: ../data/rh_register.glade.h:57
+#, fuzzy
 msgid "Create profile"
-msgstr ""
+msgstr "更新软件包档案……"
 
 #: ../data/rh_register.glade.h:58
+#, fuzzy
 msgid "<big><b>System Name</b></big>"
-msgstr ""
+msgstr "用户名："
 
 #: ../data/rh_register.glade.h:59
 msgid ""
@@ -1666,12 +1767,14 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:60
+#, fuzzy
 msgid "System _Name:"
-msgstr ""
+msgstr "用户名："
 
 #: ../data/rh_register.glade.h:61
+#, fuzzy
 msgid "system name"
-msgstr ""
+msgstr "用户名："
 
 #: ../data/rh_register.glade.h:62
 msgid "<big><b>Profile Data</b></big>"
@@ -1684,36 +1787,44 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:64
+#, fuzzy
 msgid "_View Hardware Profile ..."
-msgstr ""
+msgstr "更新软件包档案……"
 
 #: ../data/rh_register.glade.h:65
+#, fuzzy
 msgid "View Hardware Profile"
-msgstr ""
+msgstr "更新软件包档案……"
 
 #: ../data/rh_register.glade.h:66
+#, fuzzy
 msgid "V_iew Package Profile ..."
-msgstr ""
+msgstr "更新软件包档案……"
 
 #: ../data/rh_register.glade.h:67
+#, fuzzy
 msgid "View Package Profile"
-msgstr ""
+msgstr "更新软件包档案……"
 
 #: ../data/rh_register.glade.h:68
+#, fuzzy
 msgid "Send _hardware profile"
-msgstr ""
+msgstr "更新软件包档案……"
 
 #: ../data/rh_register.glade.h:69
+#, fuzzy
 msgid "Send hardware profile checkbox"
-msgstr ""
+msgstr "更新软件包档案……"
 
 #: ../data/rh_register.glade.h:70
+#, fuzzy
 msgid "Send _package profile"
-msgstr ""
+msgstr "获取软件包列表时出错"
 
 #: ../data/rh_register.glade.h:71
+#, fuzzy
 msgid "Send package profile checkbox"
-msgstr ""
+msgstr "获取软件包列表时出错"
 
 #: ../data/rh_register.glade.h:73
 msgid ""
@@ -1722,12 +1833,14 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:74
+#, fuzzy
 msgid "_Close"
-msgstr ""
+msgstr "关闭"
 
 #: ../data/rh_register.glade.h:75
+#, fuzzy
 msgid "Close"
-msgstr ""
+msgstr "关闭"
 
 #: ../data/rh_register.glade.h:76
 msgid "<b>Security &amp; Updates:</b>"
@@ -1744,12 +1857,14 @@ msgid "<b>Downloads &amp; Upgrades:</b>"
 msgstr ""
 
 #: ../data/rh_register.glade.h:80
+#, fuzzy
 msgid "<b>Support:</b>"
-msgstr ""
+msgstr "显示程序版本信息"
 
 #: ../data/rh_register.glade.h:82
+#, fuzzy
 msgid "<b>Management:</b>"
-msgstr ""
+msgstr "显示程序版本信息"
 
 #: ../data/rh_register.glade.h:83
 msgid "Management"
@@ -1783,12 +1898,14 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:91
+#, fuzzy
 msgid "I have an <b>_SSL certificate</b> to communicate with Red Hat Network:"
-msgstr ""
+msgstr "在与服务器联络时出现了一个致命错误。  错误讯息是：\n"
 
 #: ../data/rh_register.glade.h:92
+#, fuzzy
 msgid "Certificate _Location:"
-msgstr ""
+msgstr "Red Hat 网络配置"
 
 #: ../data/rh_register.glade.h:93
 msgid "Select A File"
@@ -1817,12 +1934,14 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:100
+#, fuzzy
 msgid "Proxy Configuration"
-msgstr ""
+msgstr "Red Hat 网络配置"
 
 #: ../data/rh_register.glade.h:101
+#, fuzzy
 msgid "<b>HTTP Proxy</b>"
-msgstr ""
+msgstr "启用 HTTP 代理："
 
 #: ../data/rh_register.glade.h:102
 msgid "I would like to connect via an _HTTP proxy."
@@ -1842,43 +1961,49 @@ msgstr ""
 
 #: ../data/rh_register.glade.h:106
 msgid "Enter in the format hostname(:port)"
-msgstr ""
+msgstr "以主机（：端口）格式输入"
 
 #: ../data/rh_register.glade.h:107
 msgid "proxy location"
 msgstr ""
 
 #: ../data/rh_register.glade.h:108
+#, fuzzy
 msgid "Use Au_thentication with HTTP Proxy:"
-msgstr ""
+msgstr "使用验证"
 
 #: ../data/rh_register.glade.h:109
+#, fuzzy
 msgid "Use Authentication with HTTP Proxy"
-msgstr ""
+msgstr "使用验证"
 
 #: ../data/rh_register.glade.h:110
+#, fuzzy
 msgid "Proxy _Username:"
-msgstr ""
+msgstr "用户名："
 
 #: ../data/rh_register.glade.h:111
+#, fuzzy
 msgid "Proxy P_assword:"
-msgstr ""
+msgstr "口令："
 
 #: ../data/rh_register.glade.h:112
 msgid "proxy user field"
 msgstr ""
 
 #: ../data/rh_register.glade.h:113
+#, fuzzy
 msgid "proxy password field"
-msgstr ""
+msgstr "口令："
 
 #: ../data/rh_register.glade.h:114
 msgid "Confirm operation system release selection"
 msgstr ""
 
 #: ../data/rh_register.glade.h:115
+#, fuzzy
 msgid "_No, Cancel"
-msgstr ""
+msgstr "取消"
 
 #: ../data/rh_register.glade.h:117
 msgid "_Yes, Continue"
@@ -1914,12 +2039,14 @@ msgid "Go Back and Register"
 msgstr ""
 
 #: ../data/rh_register.glade.h:126
+#, fuzzy
 msgid "Register _Later"
-msgstr ""
+msgstr "显示程序版本信息"
 
 #: ../data/rh_register.glade.h:127
+#, fuzzy
 msgid "Register Later"
-msgstr ""
+msgstr "显示程序版本信息"
 
 #: ../data/rh_register.glade.h:128
 msgid ""
@@ -1937,24 +2064,29 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:133
+#, fuzzy
 msgid "<b>Red Hat Network Location:</b>"
-msgstr ""
+msgstr "Red Hat 网络配置"
 
 #: ../data/rh_register.glade.h:134
+#, fuzzy
 msgid "<b>Login:</b>"
-msgstr ""
+msgstr "显示程序版本信息"
 
 #: ../data/rh_register.glade.h:135
+#, fuzzy
 msgid "<b>System ID:</b>"
-msgstr ""
+msgstr "用户名："
 
 #: ../data/rh_register.glade.h:136
+#, fuzzy
 msgid "label"
-msgstr ""
+msgstr "label11"
 
 #: ../data/rh_register.glade.h:138
+#, fuzzy
 msgid "<b>Warning</b>"
-msgstr ""
+msgstr "正在准备……"
 
 #: ../data/rh_register.glade.h:139
 msgid ""
@@ -2020,8 +2152,9 @@ msgid "_Minor release:"
 msgstr ""
 
 #: ../data/rh_register.glade.h:154
+#, fuzzy
 msgid "Choose minor release"
-msgstr ""
+msgstr "发行"
 
 #: ../data/rh_register.glade.h:155
 msgid "       "
@@ -2080,13 +2213,16 @@ msgid "icon of aplet"
 msgstr ""
 
 #: ../rhn_register.desktop.in.h:1
+#, fuzzy
 msgid "RHN Registration"
-msgstr ""
+msgstr "你必须作为根用户运行更新代理。"
 
 #: ../rhn_register.desktop.in.h:2
 msgid "Register for software updates from Spacewalk/Satellite/Red Hat Network"
 msgstr ""
 
 #: ../rhn_register.desktop.in.h:3
+#, fuzzy
 msgid "Register to Spacewalk/Satellite/Red Hat Network."
-msgstr ""
+msgstr "Red Hat 网络配置"
+
