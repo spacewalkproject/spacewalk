@@ -476,7 +476,7 @@ ln -s -f %{_javadir}/mchange-commons.jar $RPM_BUILD_ROOT%{jardir}/mchange-common
 rm -rf $RPM_BUILD_ROOT%{jardir}/jspapi.jar
 rm -rf $RPM_BUILD_ROOT%{jardir}/jasper5-compiler.jar
 rm -rf $RPM_BUILD_ROOT%{jardir}/jasper5-runtime.jar
-rm -rf $RPM_BUILD_ROOT%{jardir}/tomcat6*.jar
+rm -rf $RPM_BUILD_ROOT%{jardir}/tomcat*.jar
 %if 0%{?omit_tests} > 0
 rm -rf $RPM_BUILD_ROOT%{_datadir}/rhn/lib/rhn-test.jar
 rm -rf $RPM_BUILD_ROOT/classes/com/redhat/rhn/common/conf/test/conf
