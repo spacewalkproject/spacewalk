@@ -16,7 +16,7 @@
                 renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" />
 <div class="page-summary">
 <p><bean:message key="snippets.jsp.summary"/></p>
-<c:if test="${not empty requestScope.default}">
+<c:if test="${not empty requestScope['default']}">
 	<rhn:note key = "snippets.jsp.note.default"/>
 </c:if>
 </div>

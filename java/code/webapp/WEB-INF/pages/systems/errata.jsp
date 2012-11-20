@@ -44,7 +44,7 @@
 	<select name="type">
 		<c:forEach items="${combo}" var="item">
 			<option id="${item.id}"
-				<c:if test="${item.default}"> selected</c:if>
+				<c:if test="${item['default']}"> selected</c:if>
 				>  <bean:message key="${item.name}"/>
 			</option>
 		</c:forEach>

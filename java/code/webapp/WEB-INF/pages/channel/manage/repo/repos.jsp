@@ -14,7 +14,7 @@
 </rhn:toolbar>
 <div class="page-summary">
 <p><bean:message key="repos.jsp.summary"/></p>
-<c:if test="${not empty requestScope.default}">
+<c:if test="${not empty requestScope['default']}">
 	<rhn:note key = "repos.jsp.note.default"/>
 </c:if>
 </div>

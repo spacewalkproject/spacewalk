@@ -30,7 +30,7 @@
 	<bean:message key="activation-keys.jsp.universal-default-text"/>
 </p>
 <c:choose>
-   <c:when test="${not empty requestScope.default}">
+   <c:when test="${not empty requestScope['default']}">
 <table class="details">
     <tr>
         <th>
@@ -38,12 +38,12 @@
         </th>
         <td>
 			<c:choose>
-               <c:when test="${requestScope.default.note != null}">
-				<a href="/rhn/activationkeys/Edit.do?tid=${requestScope.default.id}">
-					     <c:out value="${requestScope.default.note}"/></a>            					
+               <c:when test="${requestScope['default'].note != null}">
+				<a href="/rhn/activationkeys/Edit.do?tid=${requestScope['default'].id}">
+					     <c:out value="${requestScope['default'].note}"/></a>            					
                </c:when>
                <c:otherwise>
-				<a href="/rhn/activationkeys/Edit.do?tid=${requestScope.default.id}">
+				<a href="/rhn/activationkeys/Edit.do?tid=${requestScope['default'].id}">
 					     <bean:message key="kickstart.activationkeys.jsp.description.none"/></a>
                </c:otherwise>
             </c:choose>
@@ -57,7 +57,7 @@
             <bean:message key="kickstart.activationkeys.jsp.key"/>
         </th>
         <td>
-        	<c:out value="${requestScope.default.token}"/>
+        	<c:out value="${requestScope['default'].token}"/>
         </td>
     </tr>
 
@@ -67,8 +67,8 @@
         </th>
         <td>
 			<c:choose>
-               <c:when test="${requestScope.default.usageLimit != null}">
-					<c:out value="${requestScope.default.usageLimit}"/>            					
+               <c:when test="${requestScope['default'].usageLimit != null}">
+					<c:out value="${requestScope['default'].usageLimit}"/>            					
                </c:when>
                <c:otherwise>
 					<bean:message key="kickstart.activationkeys.jsp.nousagelimit"/>
@@ -83,7 +83,7 @@
         </th>
         <td>
 			<c:choose>
-               <c:when test="${not requestScope.default.disabled}">
+               <c:when test="${not requestScope['default'].disabled}">
 					<bean:message key="Enabled"/>            					
                </c:when>
                <c:otherwise>
