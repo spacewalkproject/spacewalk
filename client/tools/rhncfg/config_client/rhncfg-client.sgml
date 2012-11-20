@@ -103,6 +103,7 @@
               If a file is readable only by root then the differences are not 
 	      displayed by default. The option -d or --diff-secure-files 
 	      forces the differences to be displayed.
+            </para>
         </listitem>
     </varlistentry>
     <varlistentry>
