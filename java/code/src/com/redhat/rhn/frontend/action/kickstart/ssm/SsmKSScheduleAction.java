@@ -146,7 +146,7 @@ public class SsmKSScheduleAction extends RhnAction implements Listable {
         }
         com.setProfileType(dynaForm.getString(
                 ScheduleKickstartWizardAction.TARGET_PROFILE_TYPE));
-        com.setServerProfileId((Long) dynaForm.get("targetProfile"));
+        com.setServerProfileId((Long) dynaForm.get("targetServerProfile"));
         com.setPackageProfileId((Long) dynaForm.get("targetProfile"));
 
         //do kernel params

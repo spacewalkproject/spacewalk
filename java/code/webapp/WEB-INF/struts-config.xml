@@ -841,6 +841,7 @@
             <form-property name="postKernelParams" type="java.lang.String" />
             <form-property name="targetProfileType" type="java.lang.String" />
             <form-property name="targetProfile" type="java.lang.Long" />
+            <form-property name="targetServerProfile" type="java.lang.Long" />
             <form-property name="syncPackages" type="java.util.List" />
             <form-property name="syncSystems" type="java.util.List" />
             <form-property name="date_year" type="java.lang.Integer" />

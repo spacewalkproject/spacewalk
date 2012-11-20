@@ -184,7 +184,7 @@ public class ProvisionVirtualizationWizardAction extends ScheduleKickstartWizard
         cmd.setKernelOptions(form.getString(KERNEL_PARAMS));
 
         cmd.setProfileType(form.getString("targetProfileType"));
-        cmd.setServerProfileId((Long) form.get("targetProfile"));
+        cmd.setServerProfileId((Long) form.get("targetServerProfile"));
         cmd.setProfileId((Long) form.get("targetProfile"));
 
         cmd.setGuestName(form.getString(GUEST_NAME));

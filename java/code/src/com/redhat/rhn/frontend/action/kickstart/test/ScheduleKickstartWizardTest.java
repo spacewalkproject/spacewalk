@@ -205,7 +205,7 @@ public class ScheduleKickstartWizardTest extends RhnMockStrutsTestCase {
         addRequestParameter(RequestContext.SID, s.getId().toString());
         addRequestParameter("targetProfileType",
                 KickstartScheduleCommand.TARGET_PROFILE_TYPE_SYSTEM);
-        addRequestParameter("targetProfile", otherServer.getId().toString());
+        addRequestParameter("targetServerProfile", otherServer.getId().toString());
         addRequestParameter("wizardStep", "third");
         addRequestParameter("items_selected", k.getCobblerId().toString());
         addRequestParameter("scheduleAsap", "false");

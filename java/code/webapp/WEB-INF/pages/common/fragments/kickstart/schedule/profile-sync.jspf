@@ -44,12 +44,12 @@
 				  />
 <bean:message key="kickstart.schedule.sync.pkg.profile.option3.jsp" />:&nbsp;&nbsp;
 
-        <select name="targetProfile" id="syncSystemSelect"
+        <select name="targetServerProfile" id="syncSystemSelect"
 			<c:if test="${form.targetProfileType ne 'system' or empty form.syncSystems}">disabled="true"</c:if>
 			>
 			<c:forEach var="system" items="${form.syncSystems}">
 				<option
-				<c:if test="${system.id == form.targetProfile}">selected="selected"</c:if>
+				<c:if test="${system.id == form.targetServerProfile}">selected="selected"</c:if>
 				value='${system.id}'>${system.name}</option>
 			</c:forEach>
 		</select>

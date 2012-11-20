@@ -612,7 +612,7 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
                  * sync in the kickstart profile
                  */
                 cmd.setProfileType(form.getString(TARGET_PROFILE_TYPE));
-                cmd.setServerProfileId((Long) form.get("targetProfile"));
+                cmd.setServerProfileId((Long) form.get("targetServerProfile"));
                 cmd.setProfileId((Long) form.get("targetProfile"));
             }
         }
