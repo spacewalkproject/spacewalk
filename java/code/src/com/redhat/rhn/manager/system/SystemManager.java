@@ -289,7 +289,7 @@ public class SystemManager extends BaseManager {
      */
     public static DataResult latestInstallablePackages(Long sid) {
         SelectMode m = ModeFactory.getMode("Package_queries",
-                "system_latest_all_available_packages",
+                "system_latest_available_packages",
                 Map.class);
         Map params = new HashMap();
         params.put("sid", sid);

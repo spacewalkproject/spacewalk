@@ -6,20 +6,19 @@
   </query>
 </callable-mode>
 
-<mode name="system_latest_all_available_packages">
+<mode name="system_latest_available_packages">
   <query params="sid">
 SELECT
         pn.name AS name,
-        full_list.id AS id,
+        pkg.id AS id,
         NVL((full_list.evr).version, ' ') AS version,
         NVL((full_list.evr).release, ' ') AS release,
         NVL((full_list.evr).epoch, ' ') AS epoch,
         NVL(full_list.arch_label, ' ') AS arch_label
   FROM  (
          SELECT  p.name_id name_id,
-                 p.id,
-                 p.evr_id,
                  max(pe.evr) evr,
+                 pa.id as arch_id,
                  pa.label as arch_label
            FROM  rhnPackageArch PA, rhnPackageEVR PE, rhnPackage P,
                  rhnChannelNewestPackage CNP, rhnServerChannel SC
@@ -28,17 +27,23 @@ SELECT
             AND  cnp.package_id = p.id
             AND  p.evr_id = pe.id
             AND  p.package_arch_id = pa.id
-       GROUP BY  p.name_id, p.id, p.evr_id, pa.label
+       GROUP BY  p.name_id, pa.label, pa.id
        ) full_list,
-       rhnPackageName pn
- WHERE  full_list.name_id = pn.id
-   AND  NOT EXISTS (SELECT 1
-                      FROM rhnServerPackage SP, rhnPackageEVR PE2
-                     WHERE SP.server_id = :sid
-                       AND SP.name_id = full_list.name_id
-                       AND SP.evr_id = PE2.id
-                       AND PE2.evr &gt;= full_list.evr)
-ORDER BY  UPPER(pn.name), full_list.evr
+       rhnPackage pkg
+       join rhnPackageName pn on pkg.name_id = pn.id
+       join rhnPackageEVR pevr on pkg.evr_id = pevr.id
+       join rhnChannelPackage CP on CP.package_id = pkg.id
+       join rhnServerChannel SC on SC.channel_id = CP.channel_id
+ WHERE full_list.name_id = pkg.name_id
+   AND full_list.evr = pevr.evr
+   AND full_list.arch_id = pkg.package_arch_id
+   AND SC.server_id = :sid
+   AND NOT EXISTS (SELECT 1
+                     FROM rhnServerPackage SP
+                    WHERE SP.server_id = :sid
+                      AND SP.name_id = full_list.name_id
+                      AND (SP.package_arch_id = full_list.arch_id or SP.package_arch_id is null))
+order by upper(pn.name)
   </query>
 </mode>
 
