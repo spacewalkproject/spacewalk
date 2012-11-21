@@ -200,8 +200,7 @@ class Client(jabber_lib.JabberClient):
         state_id = self._get_push_state_id('online')
         h = rhnSQL.prepare(self._query_update_client_message_received)
         ret = h.execute(jid=jid, state_id=state_id)
-        if ret:
-            rhnSQL.commit()
+        rhnSQL.commit()
 
 class InvalidClientError(Exception):
     pass
