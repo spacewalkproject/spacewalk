@@ -293,9 +293,9 @@ Create everything as well as unlimited activation key for every channel:
 
         if options.default_channels:
             try:
-                client.distchannel.setDefaultMap(key,
+                client.distchannel.setMapForOrg(key,
                                 base_info['name'], base_info['dist_map_release'],
-                                CHANNEL_ARCH[base_info['arch']], base_info['label'])
+                                base_info['arch'], base_info['label'])
 
             except xmlrpclib.Fault, e:
                 sys.stderr.write("ERROR: %s: %s\n" % (
