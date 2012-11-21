@@ -1305,7 +1305,7 @@ public class KickstartData {
         if (getCobblerId() != null) {
             Profile prof = Profile.lookupById(
                    CobblerXMLRPCHelper.getConnection(
-                   Config.get().getString(ConfigDefaults.COBBLER_AUTOMATED_USER)),
+                   ConfigDefaults.get().getCobblerAutomatedUser()),
                        getCobblerId());
             if (prof != null && !StringUtils.isBlank(prof.getKickstart())) {
                 return prof.getKickstart();
