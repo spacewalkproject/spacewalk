@@ -62,6 +62,10 @@ sub _register_modes {
 			   -datasource => RHN::DataSource::System->new,
                            -action_callback => \&ssm_remote_command_action_cb);
 
+  Sniglets::ListView::List->add_mode(-mode => "provisioning_systems_in_set_with_tag",
+			   -datasource => RHN::DataSource::System->new,
+			   -action_callback => \&ssm_rollback_by_tag_action_cb);
+
   Sniglets::ListView::List->add_mode(-mode => "visible_to_user",
 			   -datasource => RHN::DataSource::System->new);
 
