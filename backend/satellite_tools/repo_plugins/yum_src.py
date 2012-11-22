@@ -130,8 +130,9 @@ class ContentSource(object):
             fileutils.makedirs(pkgdir, user='apache', group='apache')
         repo.pkgdir = pkgdir
 
-        if not (repo.cfg.has_option(self.name, 'proxy') or repo.cfg.has_option('main', 'proxy')) \
-            and self.proxy_addr is not None:
+        if ((repo.cfg.has_section(self.name) and not repo.cfg.has_option(self.name, 'proxy')) or
+            (repo.cfg.has_section('main') and not repo.cfg.has_option('main', 'proxy'))) and \
+            self.proxy_addr is not None:
             repo.proxy = "http://%s" % self.proxy_addr
             repo.proxy_username = self.proxy_user
             repo.proxy_password = self.proxy_pass
