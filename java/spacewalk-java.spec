@@ -23,7 +23,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.9.14
+Version: 1.9.15
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -617,6 +617,11 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Nov 22 2012 Jan Pazdziora 1.9.15-1
+- 864037 - no hardcoding URLs.
+- 879006 - Use default cobbler user id if not overriden
+- Fix errors with unrequired field 'Prefix'
+
 * Wed Nov 21 2012 Jan Pazdziora 1.9.14-1
 - decrease distChannelMap release minimal length
 - No need to put empty lines to rhn_taskomatic_daemon.log.
