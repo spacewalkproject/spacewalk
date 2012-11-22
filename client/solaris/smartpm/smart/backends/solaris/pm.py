@@ -66,15 +66,10 @@ def solinstall(adminfile, path, pkg, prog=None):
                     raise UnzipException("patch %s: unzip of %s into %s failed: %s" % \
                                              (pkg.name, path, tdir, x))
 
-                zf = zipfile.ZipFile(path)
-                pd = zf.namelist()[0].split('/')[0]
-                zf.close()
-#                zf = os.path.basename(path)
-#                pd = zf.rstrip(".zip")
+                pd= os.listdir(tdir)
+                pkgdir = os.path.join(tdir, pd[0])
 
-                pkgdir = os.path.join(tdir, pd)
-
-                if not os.path.isdir(pkgdir):
+                if len(pd) > 1:
                     raise UnzipException( \
                         "patch %s contained more than 1 directory: %s" % \
                             (pkg.name, pkgdir))
