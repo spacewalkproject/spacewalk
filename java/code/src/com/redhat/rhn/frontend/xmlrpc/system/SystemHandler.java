@@ -1137,6 +1137,35 @@ public class SystemHandler extends BaseHandler {
     }
 
     /**
+     * Get the list of all installable packages for a given system.
+     * @param sessionKey The sessionKey containing the logged in user
+     * @param sid The id for the system in question
+     * @return Returns an array of maps representing the latest installable packages
+     * @throws FaultException A FaultException is thrown if the server corresponding to
+     * sid cannot be found.
+     *
+     * @xmlrpc.doc Get the list of all installable packages for a given system.
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param("int", "serverId")
+     * @xmlrpc.returntype
+     *      #struct("package")
+     *          #prop("string", "name")
+     *          #prop("string", "version")
+     *          #prop("string", "release")
+     *          #prop("string", "epoch")
+     *          #prop("int", "id")
+     *          #prop("string", "arch_label")
+     *      #struct_end()
+     */
+    public Object[] listAllInstallablePackages(String sessionKey, Integer sid)
+            throws FaultException {
+        User loggedInUser = getLoggedInUser(sessionKey);
+        Server server = lookupServer(loggedInUser, sid);
+        DataResult dr = SystemManager.allInstallablePackages(server.getId());
+        return dr.toArray();
+    }
+
+    /**
      * Get the list of latest installable packages for a given system.
      * @param sessionKey The sessionKey containing the logged in user
      * @param sid The id for the system in question

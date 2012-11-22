@@ -6,6 +6,30 @@
   </query>
 </callable-mode>
 
+<mode name="system_all_available_packages">
+  <query params="sid">
+SELECT PKG.id AS id,
+       PN.name AS name,
+       NVL((PEVR.evr).version, ' ') AS version,
+       NVL((PEVR.evr).release, ' ') AS release,
+       NVL((PEVR.evr).epoch, ' ') AS epoch,
+       NVL(PA.label, ' ') AS arch_label
+  FROM rhnPackage PKG
+       join rhnPackageName PN on PKG.name_id = PN.id
+       join rhnPackageEVR PEVR on PKG.evr_id = PEVR.id
+       join rhnPackageArch PA on PKG.package_arch_id = PA.id
+       join rhnChannelPackage CP on CP.package_id = PKG.id
+       join rhnServerChannel SC on SC.channel_id = CP.channel_id
+ WHERE SC.server_id = :sid
+   AND NOT EXISTS (SELECT 1
+                     FROM rhnServerPackage SP
+                    WHERE SP.server_id = :sid
+                      AND SP.name_id = PN.id
+                      AND (SP.package_arch_id = PA.id or SP.package_arch_id is null))
+ORDER BY UPPER(PN.name), PEVR.evr
+  </query>
+</mode>
+
 <mode name="system_latest_available_packages">
   <query params="sid">
 SELECT

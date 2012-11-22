@@ -283,6 +283,20 @@ public class SystemManager extends BaseManager {
     }
 
     /**
+     * Get all installable packages for a given system.
+     * @param sid The id for the system we want packages for
+     * @return Return a list of all installable packages for a system.
+     */
+    public static DataResult allInstallablePackages(Long sid) {
+        SelectMode m = ModeFactory.getMode("Package_queries",
+                "system_all_available_packages",
+                Map.class);
+        Map params = new HashMap();
+        params.put("sid", sid);
+        return m.execute(params);
+    }
+
+    /**
      * Gets the latest installable packages for a system
      * @param sid The id for the system we want packages for
      * @return Returns a list of latest installable packages for a system.
