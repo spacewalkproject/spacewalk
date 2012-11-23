@@ -48,6 +48,7 @@ public class NewChannelHelper {
     private String gpgUrl;
     private String gpgFingerprint;
     private String description;
+    private ProductName productName;
 
     /**
      * Creates a cloned channel based off the info contained within this object
@@ -101,6 +102,7 @@ public class NewChannelHelper {
         cloned.setOrg(user.getOrg());
         cloned.setBaseDir("/dev/null");  //this is how the perl code did it
         cloned.setOriginal(toClone);
+        cloned.setProductName(productName);
 
         if (parent != null) {
            cloned.setParentChannel(parent);
@@ -286,6 +288,13 @@ public class NewChannelHelper {
      */
     public void setParent(Channel parentIn) {
         this.parent = parentIn;
+    }
+
+    /**
+     * @param productNameIn Product name to set.
+     */
+    public void setProductName(ProductName productNameIn) {
+        this.productName = productNameIn;
     }
 
     /**
