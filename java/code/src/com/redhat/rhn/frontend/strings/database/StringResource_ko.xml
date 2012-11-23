@@ -138,11 +138,11 @@
         <target>(GMT+0800) 호주 (서부)</target>
       </trans-unit>
       <trans-unit id="Europe/Moscow">
-        <source>(GMT+0300) Russia (Moscow)</source>
+        <source>(GMT+0400) Russia (Moscow)</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/account/UserDetails</context>
         </context-group>
-        <target>(GMT+0300) 러시아 (모스크바)</target>
+        <target>(GMT+0400) 러시아 (모스크바)</target>
       </trans-unit>
       <trans-unit id="Europe/Bucharest">
         <source>(GMT+0200) Europe (Eastern)</source>

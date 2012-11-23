@@ -117,7 +117,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="Europe/Moscow">
-        <source>(GMT+0300) Russia (Moscow)</source>
+        <source>(GMT+0400) Russia (Moscow)</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/account/UserDetails</context>
         </context-group>

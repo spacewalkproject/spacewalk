@@ -138,11 +138,11 @@
         <target>(GMT+০৮০০) অস্ট্রেলিয়া (পশ্চিমাঞ্চল)</target>
       </trans-unit>
       <trans-unit id="Europe/Moscow">
-        <source>(GMT+0300) Russia (Moscow)</source>
+        <source>(GMT+0400) Russia (Moscow)</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/account/UserDetails</context>
         </context-group>
-        <target>(GMT+০৩০০) রাশিয়া (মস্কো)</target>
+        <target>(GMT+০৪০০) রাশিয়া (মস্কো)</target>
       </trans-unit>
       <trans-unit id="Europe/Bucharest">
         <source>(GMT+0200) Europe (Eastern)</source>
