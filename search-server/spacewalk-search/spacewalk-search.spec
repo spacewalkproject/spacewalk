@@ -83,8 +83,10 @@ rm -fr ${RPM_BUILD_ROOT}
 ant -Djar.version=%{version} install
 install -d -m 755 $RPM_BUILD_ROOT%{_prefix}/share/rhn/config-defaults
 install -d -m 755 $RPM_BUILD_ROOT%{_prefix}/share/rhn/search
-install -d -m 755 $RPM_BUILD_ROOT%{_prefix}/share/rhn/search/indexes
 install -d -m 755 $RPM_BUILD_ROOT%{_prefix}/share/rhn/search/lib
+install -d -m 755 $RPM_BUILD_ROOT%{_var}/lib/rhn/search
+install -d -m 755 $RPM_BUILD_ROOT%{_var}/lib/rhn/search/indexes
+ln -s -f %{_prefix}/share/rhn/search/indexes/docs $RPM_BUILD_ROOT%{_var}/lib/rhn/search/indexes/docs
 install -d -m 755 $RPM_BUILD_ROOT%{_initrddir}
 install -d -m 755 $RPM_BUILD_ROOT%{_bindir}
 install -d -m 755 $RPM_BUILD_ROOT%{_var}/log/rhn/search
@@ -107,6 +109,32 @@ rm -rf $RPM_BUILD_ROOT
 # This adds the proper /etc/rc*.d links for the script
 /sbin/chkconfig --add rhn-search
 
+was_running=0
+if /sbin/service rhn-search status > /dev/null 2>&1 ; then
+    was_running=1
+fi
+
+# Migrate original /usr/share/rhn/search/indexes/*
+# to /var/lib/rhn/search/indexes
+cd %{_prefix}/share/rhn/search/indexes && /bin/ls | /bin/grep -v docs | while read i ; do
+    if [ ! -e %{_var}/lib/rhn/search/indexes/$i ] ; then
+        if [ $was_running -eq 1 ] ; then
+            /sbin/service rhn-search stop > /dev/null 2>&1
+            was_running=2
+        fi
+        /bin/mv $i %{_var}/lib/rhn/search/indexes/$i
+        # If the mv failed for whatever reason, symlink
+        if [ -e $i ] ; then
+            /bin/rm -rf %{_var}/lib/rhn/search/indexes/$i
+            /bin/ln -s -f %{_prefix}/share/rhn/search/indexes/$i %{_var}/lib/rhn/search/indexes/$i
+        fi
+    fi
+done
+
+if [ $was_running -eq 1 ] ; then
+    /sbin/service rhn-search status > /dev/null 2>&1 || /sbin/service rhn-search start > /dev/null 2>&1
+fi
+
 %preun
 if [ $1 = 0 ] ; then
     /sbin/service rhn-search stop >/dev/null 2>&1
@@ -116,12 +144,14 @@ fi
 %files
 %attr(755, root, root) %{_var}/log/rhn/search
 %{_prefix}/share/rhn/search/lib/*
-%attr(755, root, root) %{_prefix}/share/rhn/search/indexes
 %attr(755, root, root) %{_initrddir}/rhn-search
 %attr(755, root, root) %{_bindir}/rhnsearchd
 %{_prefix}/share/rhn/config-defaults/rhn_search.conf
 %{_prefix}/share/rhn/config-defaults/rhn_search_daemon.conf
 %{_sysconfdir}/logrotate.d/rhn-search
+%dir %attr(755, root, root) %{_var}/lib/rhn/search
+%dir %attr(755, root, root) %{_var}/lib/rhn/search/indexes
+%attr(755, root, root) %{_var}/lib/rhn/search/indexes/docs
 
 %changelog
 * Tue Oct 30 2012 Jan Pazdziora 1.8.6-1

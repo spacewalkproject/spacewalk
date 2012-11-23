@@ -65,7 +65,7 @@ public class IndexManagerTest extends BaseTestCase {
     	throws IOException, IndexingException, QueryParseException {
 
     	Configuration config = TestUtil.makeConfiguration();
-    	config.setString("search.index_work_dir", "/usr/share/rhn/search/indexes/");
+    	config.setString("search.index_work_dir", "/var/lib/rhn/search/indexes/");
     	IndexManager indexMgr = new IndexManager(config);
     	//
 	// TODO: Revisit how docs data gets injected for testing.
