@@ -366,7 +366,7 @@ public class DownloadFile extends DownloadAction {
             }
 
             // Send data
-            URL url = new URL(ConfigDefaults.get().getCobblerServerUrl());
+            URL url = new URL(ConfigDefaults.get().getCobblerServerUrl() + '/cobbler_api';
             URLConnection conn = url.openConnection();
             conn.setDoOutput(true);
             OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
