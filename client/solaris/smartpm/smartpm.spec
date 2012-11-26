@@ -11,7 +11,7 @@ Name: smartpm
 Source0: smartpm-%{version}.tar.gz
 Epoch:   1 
 Version: 5.5.0
-Release: 0
+Release: 1
 License: GPLv2
 Group: Applications/System
 URL: http://www.smartpm.org/
@@ -56,6 +56,12 @@ env %{__python} setup.py build
 %{python_sitearch}/rhn/actions/solarispkgs.py*
 
 %changelog
+* Mon Nov 26 2012 Michael Mraka <michael.mraka@redhat.com> 5.5.0-1
+- let's reset version above satellite version
+- 838033 - Remove use of ZipFile object to avoid ZipFile 64 extension missing
+  in python 2.4
+- %%defattr is not needed since rpm 4.4
+
 * Wed Dec 21 2011 Milan Zazrivec <mzazrivec@redhat.com> 0.2-5
 - update copyright info
 
