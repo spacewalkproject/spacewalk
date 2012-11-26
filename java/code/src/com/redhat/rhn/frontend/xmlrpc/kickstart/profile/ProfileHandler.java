@@ -573,7 +573,8 @@ public class ProfileHandler extends BaseHandler {
                 "selinux", "reboot", "firewall", "xconfig", "skipx", "key",
                 "ignoredisk", "autopart", "cmdline", "firstboot", "graphical", "iscsi",
                 "iscsiname", "logging", "monitor", "multipath", "poweroff", "halt",
-                "services", "shutdown", "user", "vnc", "zfcp", "driverdisk", "md5_crypt_rootpw"};
+                "services", "shutdown", "user", "vnc", "zfcp", "driverdisk",
+                "md5_crypt_rootpw"};
 
         List<String> validOptions = Arrays.asList(validOptionNames);
 
