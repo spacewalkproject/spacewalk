@@ -23,7 +23,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.9.17
+Version: 1.9.18
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -617,6 +617,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Nov 26 2012 Tomas Lestach <tlestach@redhat.com> 1.9.18-1
+- 879332 - introduce 'md5_crypt_rootpw' option for
+  kickstart.profile.setAdvancedOptions API
+
 * Fri Nov 23 2012 Tomas Lestach <tlestach@redhat.com> 1.9.17-1
 - 879443 - preserve product name when cloning channels using API
 - Implement new API call system.listAllInstallablePackages
