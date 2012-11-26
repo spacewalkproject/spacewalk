@@ -53,6 +53,7 @@ import com.redhat.rhn.manager.kickstart.KickstartIpCommand;
 import com.redhat.rhn.manager.kickstart.KickstartManager;
 import com.redhat.rhn.manager.kickstart.KickstartOptionsCommand;
 
+import org.apache.commons.lang.BooleanUtils;
 import org.cobbler.Profile;
 
 import java.util.ArrayList;
@@ -533,6 +534,9 @@ public class ProfileHandler extends BaseHandler {
      *         or invalid advanced option is provided
      *
      * @xmlrpc.doc Set advanced options for a kickstart profile.
+     * If 'md5_crypt_rootpw' is set to 'True', 'root_pw' is taken as plaintext and
+     * will md5 encrypted on server side, otherwise a hash encoded password
+     * (according to the auth option) is expected
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param("string","ksLabel")
      * @xmlrpc.param
@@ -545,7 +549,7 @@ public class ProfileHandler extends BaseHandler {
      *              timezone, auth, rootpw, selinux, reboot, firewall, xconfig, skipx,
      *              key, ignoredisk, autopart, cmdline, firstboot, graphical, iscsi,
      *              iscsiname, logging, monitor, multipath, poweroff, halt, services,
-     *              shutdown, user, vnc, zfcp, driverdisk")
+     *              shutdown, user, vnc, zfcp, driverdisk, md5_crypt_rootpw")
      *          #prop_desc("string", "arguments", "Arguments of the option")
      *      #struct_end()
      *   #array_end()
@@ -569,7 +573,7 @@ public class ProfileHandler extends BaseHandler {
                 "selinux", "reboot", "firewall", "xconfig", "skipx", "key",
                 "ignoredisk", "autopart", "cmdline", "firstboot", "graphical", "iscsi",
                 "iscsiname", "logging", "monitor", "multipath", "poweroff", "halt",
-                "services", "shutdown", "user", "vnc", "zfcp", "driverdisk"};
+                "services", "shutdown", "user", "vnc", "zfcp", "driverdisk", "md5_crypt_rootpw"};
 
         List<String> validOptions = Arrays.asList(validOptionNames);
 
@@ -626,7 +630,7 @@ public class ProfileHandler extends BaseHandler {
                   if (cn.getName().equals("rootpw")) {
                       String pwarg = (String) option.get("arguments");
                         // password already encrypted
-                      if (pwarg.startsWith("$1$")) {
+                      if (!md5cryptRootPw(options)) {
                           kc.setArguments(pwarg);
                       }
                         // password changed, encrypt it
@@ -645,6 +649,15 @@ public class ProfileHandler extends BaseHandler {
         KickstartFactory.saveKickstartData(ksdata);
 
         return 1;
+    }
+
+    private boolean md5cryptRootPw(List<Map> options) {
+        for (Map m : options) {
+            if ("md5_crypt_rootpw".equals(m.get("name"))) {
+                return BooleanUtils.toBoolean((String)m.get("arguments"));
+            }
+        }
+        return false;
     }
 
     /**
