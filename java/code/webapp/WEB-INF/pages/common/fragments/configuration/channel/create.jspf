@@ -67,7 +67,6 @@
 					$('hiddenContentsRow').style.display = '';
 				});				
 			</script>
-			<span class="small-text"><bean:message key="filedetails.jsp.tip.symlink" /></span>
 			</td>
 		</tr>
 		<tr>

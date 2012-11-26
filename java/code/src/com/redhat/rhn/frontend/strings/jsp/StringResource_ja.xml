@@ -16553,13 +16553,6 @@ centrally-managed configuration channel, {2}; below is a list of systems you may
         </context-group>
         <target>&lt;strong&gt;ヒント:&lt;/strong&gt; user_u:role_r:type_t:s0-s15:c0.c1024 などの SELinux コンテキストを入力します (注記: すべての部分を入力する必要はありません)</target>
       </trans-unit>
-      <trans-unit id="filedetails.jsp.tip.symlink">
-        <source>&lt;strong&gt;Tip:&lt;/strong&gt; Enter the target of the symlink as the file contents</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/FileDetails.do</context>
-        </context-group>
-        <target>&lt;strong&gt;ヒント:&lt;/strong&gt; ファイルコンテンツとしてシンボリックリンクのターゲットを入力します</target>
-      </trans-unit>
       <!-- form error messages -->
       <trans-unit id="config-file-form.error.user-invalid">
         <source>User must be a valid Linux user name or user id, of 32 characters or less.</source>

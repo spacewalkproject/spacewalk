@@ -16563,13 +16563,6 @@ centrally-managed configuration channel, {2}; below is a list of systems you may
         </context-group>
         <target>&lt;strong&gt;提示：&lt;/strong&gt;输入 SELinux context，如：user_u:role_r:type_t:s0-s15:c0.c1024（注意：你不需要输入所有部分）</target>
       </trans-unit>
-      <trans-unit id="filedetails.jsp.tip.symlink">
-        <source>&lt;strong&gt;Tip:&lt;/strong&gt; Enter the target of the symlink as the file contents</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/FileDetails.do</context>
-        </context-group>
-        <target>&lt;strong&gt;提示：&lt;/strong&gt;把 Symlink 的目标作为文件内容输入</target>
-      </trans-unit>
       <!-- form error messages -->
       <trans-unit id="config-file-form.error.user-invalid">
         <source>User must be a valid Linux user name or user id, of 32 characters or less.</source>

@@ -16559,13 +16559,6 @@ centrally-managed configuration channel, {2}; below is a list of systems you may
         </context-group>
         <target>&lt;strong&gt;힌트:&lt;/strong&gt; user_u:role_r:type_t:s0-s15:c0.c1024과 같은 SELinux 문맥을 입력합니다 (참고: 모든 부분을 입력할 필요는 없습니다)</target>
       </trans-unit>
-      <trans-unit id="filedetails.jsp.tip.symlink">
-        <source>&lt;strong&gt;Tip:&lt;/strong&gt; Enter the target of the symlink as the file contents</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/FileDetails.do</context>
-        </context-group>
-        <target>&lt;strong&gt;힌트:&lt;/strong&gt; 파일 문맥으로 심볼릭 링크 대상을 입력합니다 </target>
-      </trans-unit>
       <!-- form error messages -->
       <trans-unit id="config-file-form.error.user-invalid">
         <source>User must be a valid Linux user name or user id, of 32 characters or less.</source>
