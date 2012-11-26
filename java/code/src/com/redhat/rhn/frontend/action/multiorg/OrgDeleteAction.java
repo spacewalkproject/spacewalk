@@ -14,14 +14,20 @@
  */
 package com.redhat.rhn.frontend.action.multiorg;
 
+import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.security.PermissionException;
+import com.redhat.rhn.domain.kickstart.KickstartData;
+import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.org.OrgFactory;
+import com.redhat.rhn.frontend.dto.kickstart.KickstartDto;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.manager.acl.AclManager;
+import com.redhat.rhn.manager.kickstart.KickstartLister;
+import com.redhat.rhn.manager.kickstart.KickstartDeleteCommand;
 
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -41,10 +47,11 @@ import javax.servlet.http.HttpServletResponse;
 public class OrgDeleteAction extends RhnAction {
 
     /** {@inheritDoc} */
+    @Override
     public ActionForward execute(ActionMapping mapping,
-                                  ActionForm formIn,
-                                  HttpServletRequest request,
-                                  HttpServletResponse response) {
+            ActionForm formIn,
+            HttpServletRequest request,
+            HttpServletResponse response) {
 
         RequestContext requestContext = new RequestContext(request);
         Long oid = requestContext.getParamAsLong(RequestContext.ORG_ID);
@@ -54,8 +61,8 @@ public class OrgDeleteAction extends RhnAction {
 
         if (!AclManager.hasAcl("user_role(satellite_admin)", request, null)) {
             LocalizationService ls = LocalizationService.getInstance();
-            PermissionException pex =
-                new PermissionException("Only satellite admin's can delete organizations");
+            PermissionException pex = new PermissionException(
+                    "Only satellite admin's can delete organizations");
             pex.setLocalizedTitle(ls.getMessage("permission.jsp.title.orgdetail"));
             pex.setLocalizedSummary(ls.getMessage("permission.jsp.summary.general"));
             throw pex;
@@ -68,7 +75,7 @@ public class OrgDeleteAction extends RhnAction {
                 retval = mapping.findForward("error");
             }
             else {
-                deleteOrg(oid, request);
+                deleteOrg(oid, request, requestContext);
                 retval = mapping.findForward("success");
             }
             retval = getStrutsDelegate().forwardParam(retval, "oid", oid.toString());
@@ -85,7 +92,7 @@ public class OrgDeleteAction extends RhnAction {
      * @param daForm to populate
      */
     private void setupFormValues(HttpServletRequest request,
-                                     DynaActionForm daForm) {
+            DynaActionForm daForm) {
         daForm.set("submitted", Boolean.TRUE);
 
         RequestContext requestContext = new RequestContext(request);
@@ -107,9 +114,22 @@ public class OrgDeleteAction extends RhnAction {
      * @param oidIn Organization Id to delete
      * @return Success or Failure in form of Boolean
      */
-    private void deleteOrg(Long oidIn, HttpServletRequest request) {
+    private void deleteOrg(Long oidIn, HttpServletRequest request, RequestContext ctx) {
         Org org = OrgFactory.lookupById(oidIn);
         String name = org.getName();
+
+        // delete kickstart profiles
+        DataResult<KickstartDto> results = KickstartLister.getInstance().
+                kickstartsInOrg(org, null);
+        for (KickstartDto ks : results) {
+            KickstartData ksdata = KickstartFactory.lookupKickstartDataByLabelAndOrgId(
+                    ks.getLabel(), oidIn);
+            if (ksdata != null) {
+                KickstartDeleteCommand kdc = new KickstartDeleteCommand(ksdata,
+                        ctx.getLoggedInUser());
+                kdc.store();
+            }
+        }
 
         OrgFactory.deleteOrg(oidIn);
         ActionMessages msg = new ActionMessages();

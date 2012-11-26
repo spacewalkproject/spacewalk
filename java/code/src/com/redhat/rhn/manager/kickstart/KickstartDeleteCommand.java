@@ -15,6 +15,7 @@
 package com.redhat.rhn.manager.kickstart;
 
 import com.redhat.rhn.common.validator.ValidatorError;
+import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerProfileDeleteCommand;
@@ -36,10 +37,19 @@ public class KickstartDeleteCommand extends KickstartEditCommand {
     }
 
     /**
+     * @param data kickstartdata to delete
+     * @param userIn kickstartdata user
+     */
+    public KickstartDeleteCommand(KickstartData data, User userIn) {
+        super(data, userIn);
+    }
+
+    /**
      * This is counter-intuitive however it is done this way to
      * reuse BaseKickstartEditAction
      * {@inheritDoc}
      */
+    @Override
     public ValidatorError store() {
         int deleted = KickstartFactory.removeKickstartData(getKickstartData());
         if (deleted == 0) {
@@ -47,7 +57,7 @@ public class KickstartDeleteCommand extends KickstartEditCommand {
         }
         else if (!StringUtils.isBlank(getKickstartData().getCobblerId())) {
             CobblerProfileDeleteCommand cmd =
-                new CobblerProfileDeleteCommand(getKickstartData(), this.getUser());
+                    new CobblerProfileDeleteCommand(getKickstartData(), this.getUser());
             cmd.store();
         }
         return null;
