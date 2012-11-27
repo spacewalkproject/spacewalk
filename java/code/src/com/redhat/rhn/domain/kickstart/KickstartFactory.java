@@ -429,10 +429,12 @@ public class KickstartFactory extends HibernateFactory {
         Profile p = Profile.lookupById(CobblerXMLRPCHelper.getAutomatedConnection(),
                 ksdataIn.getCobblerId());
         String path = getKickstartTemplatePath(ksdataIn, p);
-        File file = new File(path);
-        if (file.exists()) {
-            log.debug("deleting : " + path);
-            file.delete();
+        if (path != null) {
+            File file = new File(path);
+            if (file.exists()) {
+                log.debug("deleting : " + path);
+                file.delete();
+            }
         }
     }
 
