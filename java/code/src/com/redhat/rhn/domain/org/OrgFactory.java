@@ -16,11 +16,18 @@ package com.redhat.rhn.domain.org;
 
 import com.redhat.rhn.common.db.datasource.CallableMode;
 import com.redhat.rhn.common.db.datasource.DataList;
+import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.SelectMode;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.domain.channel.ChannelFamily;
+import com.redhat.rhn.domain.kickstart.KickstartData;
+import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.role.RoleFactory;
+import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.dto.kickstart.KickstartDto;
+import com.redhat.rhn.manager.kickstart.KickstartDeleteCommand;
+import com.redhat.rhn.manager.kickstart.KickstartLister;
 
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
@@ -68,13 +75,25 @@ public class OrgFactory extends HibernateFactory {
     }
 
     /**
-     *
-     * @param oid Org Id to delete
      * the org id is passed to pl/sql to wipe out
+     * @param oid Org Id to delete
+     * @param user User who initiated this action
      */
-    public static void deleteOrg(Long oid) {
-        // put in a sanity check here to make sure org exists
-        //Org org = OrgFactory.lookupById(oid);
+    public static void deleteOrg(Long oid, User user) {
+        Org org = OrgFactory.lookupById(oid);
+
+        // delete kickstart profiles (to clean up cobbler profiles)
+        DataResult<KickstartDto> results = KickstartLister.getInstance()
+                .kickstartsInOrg(org, null);
+        for (KickstartDto ks : results) {
+            KickstartData ksdata = KickstartFactory
+                    .lookupKickstartDataByLabelAndOrgId(ks.getLabel(), oid);
+            if (ksdata != null) {
+                KickstartDeleteCommand kdc = new KickstartDeleteCommand(ksdata,
+                        user);
+                kdc.store();
+            }
+        }
 
         Map in = new HashMap();
         in.put("org_id", oid);
@@ -91,8 +110,8 @@ public class OrgFactory extends HibernateFactory {
     public static Org lookupByName(String name) {
         Session session = HibernateFactory.getSession();
         return  (Org) session.getNamedQuery("Org.findByName")
-        .setString("name", name)
-        .uniqueResult();
+                .setString("name", name)
+                .uniqueResult();
     }
 
     /**
@@ -105,11 +124,11 @@ public class OrgFactory extends HibernateFactory {
         Session session = HibernateFactory.getSession();
 
         return (CustomDataKey) session.getNamedQuery("CustomDataKey.findByLabelAndOrg")
-        .setString("label", label)
-        .setEntity("org", org)
-        //Retrieve from cache if there
-        .setCacheable(true)
-        .uniqueResult();
+                .setString("label", label)
+                .setEntity("org", org)
+                //Retrieve from cache if there
+                .setCacheable(true)
+                .uniqueResult();
     }
 
     /**
@@ -121,10 +140,10 @@ public class OrgFactory extends HibernateFactory {
         Session session = HibernateFactory.getSession();
 
         return (CustomDataKey) session.getNamedQuery("CustomDataKey.findById")
-        .setLong("id", cikid)
-        //Retrieve from cache if there
-        .setCacheable(true)
-        .uniqueResult();
+                .setLong("id", cikid)
+                //Retrieve from cache if there
+                .setCacheable(true)
+                .uniqueResult();
     }
 
     /**
@@ -140,11 +159,11 @@ public class OrgFactory extends HibernateFactory {
         //hack around this for now...
         Session session = HibernateFactory.getSession();
         return (OrgEntitlementType) session.
-        getNamedQuery("OrgEntitlementType.findByLabel")
-        .setString("label", label)
-        //Retrieve from cache if there
-        .setCacheable(true)
-        .uniqueResult();
+                getNamedQuery("OrgEntitlementType.findByLabel")
+                .setString("label", label)
+                //Retrieve from cache if there
+                .setCacheable(true)
+                .uniqueResult();
     }
 
     /**
@@ -165,7 +184,7 @@ public class OrgFactory extends HibernateFactory {
 
     private static Org saveNewOrg(Org org) {
         CallableMode m = ModeFactory.getCallableMode("General_queries",
-        "create_org");
+                "create_org");
 
         Map inParams = new HashMap();
         Map outParams = new HashMap();
@@ -233,8 +252,8 @@ public class OrgFactory extends HibernateFactory {
     public static Long getActiveUsers(Org orgIn) {
         Session session = HibernateFactory.getSession();
         return  (Long) session.getNamedQuery("Org.numOfActiveUsers")
-        .setLong("org_id", orgIn.getId().longValue())
-        .uniqueResult();
+                .setLong("org_id", orgIn.getId().longValue())
+                .uniqueResult();
 
     }
 
@@ -246,8 +265,8 @@ public class OrgFactory extends HibernateFactory {
     public static Long getActiveSystems(Org orgIn) {
         Session session = HibernateFactory.getSession();
         return  (Long) session.getNamedQuery("Org.numOfSystems")
-        .setLong("org_id", orgIn.getId().longValue())
-        .uniqueResult();
+                .setLong("org_id", orgIn.getId().longValue())
+                .uniqueResult();
     }
 
     /**
@@ -258,8 +277,8 @@ public class OrgFactory extends HibernateFactory {
     public static Long getServerGroups(Org orgIn) {
         Session session = HibernateFactory.getSession();
         return  (Long) session.getNamedQuery("Org.numOfServerGroups")
-        .setLong("org_id", orgIn.getId().longValue())
-        .uniqueResult();
+                .setLong("org_id", orgIn.getId().longValue())
+                .uniqueResult();
     }
 
     /**
@@ -270,8 +289,8 @@ public class OrgFactory extends HibernateFactory {
     public static Long getConfigChannels(Org orgIn) {
         Session session = HibernateFactory.getSession();
         return  (Long) session.getNamedQuery("Org.numOfConfigChannels")
-        .setLong("org_id", orgIn.getId().longValue())
-        .uniqueResult();
+                .setLong("org_id", orgIn.getId().longValue())
+                .uniqueResult();
     }
 
     /**
@@ -282,7 +301,7 @@ public class OrgFactory extends HibernateFactory {
     public static Long getActivationKeys(Org orgIn) {
 
         SelectMode m = ModeFactory.getMode("General_queries",
-        "activation_keys_for_org");
+                "activation_keys_for_org");
         Map params = new HashMap();
         params.put("org_id", orgIn.getId());
         DataList keys = DataList.getDataList(m, params, Collections.EMPTY_MAP);
@@ -296,7 +315,7 @@ public class OrgFactory extends HibernateFactory {
      */
     public static Long getKickstarts(Org orgIn) {
         SelectMode m = ModeFactory.getMode("General_queries",
-        "kickstarts_for_org");
+                "kickstarts_for_org");
         Map params = new HashMap();
         params.put("org_id", orgIn.getId());
         DataList kickstarts = DataList.getDataList(m, params, Collections.EMPTY_MAP);
@@ -310,16 +329,16 @@ public class OrgFactory extends HibernateFactory {
     public static TemplateString lookupTemplateByLabel(String label) {
         Session session = HibernateFactory.getSession();
         return (TemplateString) session.getNamedQuery("TemplateString.findByLabel")
-        .setString("label", label)
-        //Retrieve from cache if there
-        .setCacheable(true)
-        .uniqueResult();
+                .setString("label", label)
+                //Retrieve from cache if there
+                .setCacheable(true)
+                .uniqueResult();
     }
 
     public static final TemplateString EMAIL_FOOTER =
-        lookupTemplateByLabel("email_footer");
+            lookupTemplateByLabel("email_footer");
     public static final TemplateString EMAIL_ACCOUNT_INFO =
-        lookupTemplateByLabel("email_account_info");
+            lookupTemplateByLabel("email_account_info");
 
     /**
      * Get the default organization.

@@ -41,10 +41,11 @@ import javax.servlet.http.HttpServletResponse;
 public class OrgDeleteAction extends RhnAction {
 
     /** {@inheritDoc} */
+    @Override
     public ActionForward execute(ActionMapping mapping,
-                                  ActionForm formIn,
-                                  HttpServletRequest request,
-                                  HttpServletResponse response) {
+            ActionForm formIn,
+            HttpServletRequest request,
+            HttpServletResponse response) {
 
         RequestContext requestContext = new RequestContext(request);
         Long oid = requestContext.getParamAsLong(RequestContext.ORG_ID);
@@ -85,7 +86,7 @@ public class OrgDeleteAction extends RhnAction {
      * @param daForm to populate
      */
     private void setupFormValues(HttpServletRequest request,
-                                     DynaActionForm daForm) {
+            DynaActionForm daForm) {
         daForm.set("submitted", Boolean.TRUE);
 
         RequestContext requestContext = new RequestContext(request);
@@ -110,8 +111,9 @@ public class OrgDeleteAction extends RhnAction {
     private void deleteOrg(Long oidIn, HttpServletRequest request) {
         Org org = OrgFactory.lookupById(oidIn);
         String name = org.getName();
+        RequestContext requestContext = new RequestContext(request);
 
-        OrgFactory.deleteOrg(oidIn);
+        OrgFactory.deleteOrg(oidIn, requestContext.getCurrentUser());
         ActionMessages msg = new ActionMessages();
         msg.add(ActionMessages.GLOBAL_MESSAGE,
                 new ActionMessage("message.org_deleted", name));

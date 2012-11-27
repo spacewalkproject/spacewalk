@@ -22,6 +22,7 @@ import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.kickstart.KickstartableTree;
 import com.redhat.rhn.domain.org.OrgFactory;
+import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.user.UserFactory;
 import com.redhat.rhn.frontend.dto.kickstart.KickstartDto;
@@ -64,21 +65,21 @@ public class SatScrubberTest extends TestCase {
     public void cleanupKickstarts() throws Exception {
         orgAdmin = UserFactory.findRandomOrgAdmin(OrgFactory.getSatelliteOrg());
         List kickstarts = KickstartLister.
-            getInstance().kickstartsInOrg(orgAdmin.getOrg(), null);
+                getInstance().kickstartsInOrg(orgAdmin.getOrg(), null);
         for (int i = 0; i < kickstarts.size(); i++) {
             KickstartDto dto = (KickstartDto) kickstarts.get(i);
             KickstartData ksdata = KickstartFactory.
-                lookupKickstartDataByIdAndOrg(orgAdmin.getOrg(), dto.getId());
+                    lookupKickstartDataByIdAndOrg(orgAdmin.getOrg(), dto.getId());
             if (ksdata.getLabel().startsWith("KS Data: ")) {
                 KickstartFactory.removeKickstartData(ksdata);
             }
         }
         List trees = KickstartLister.
-            getInstance().kickstartTreesInOrg(orgAdmin.getOrg(), null);
+                getInstance().kickstartTreesInOrg(orgAdmin.getOrg(), null);
         for (int i = 0; i < trees.size(); i++) {
             KickstartableTreeDto dto = (KickstartableTreeDto) trees.get(i);
             KickstartableTree tree = KickstartFactory.
-                lookupKickstartTreeByIdAndOrg(dto.getId(), orgAdmin.getOrg());
+                    lookupKickstartTreeByIdAndOrg(dto.getId(), orgAdmin.getOrg());
             if (tree.getLabel().startsWith("ks-ChannelLabel")) {
                 KickstartFactory.removeKickstartableTree(tree);
             }
@@ -158,7 +159,7 @@ public class SatScrubberTest extends TestCase {
      */
     private void deleteServer(Long sid) {
         CallableMode m = ModeFactory.
-            getCallableMode("System_queries", "delete_server");
+                getCallableMode("System_queries", "delete_server");
         Map in = new HashMap();
         in.put("server_id", sid);
         m.execute(in, new HashMap());
@@ -175,7 +176,8 @@ public class SatScrubberTest extends TestCase {
             Long id = (Long) row.get("id");
             log.debug("Deleting org: " + id);
             try {
-                OrgFactory.deleteOrg(new Long(id.longValue()));
+                OrgFactory.deleteOrg(new Long(id.longValue()), UserFactory
+                        .findResponsibleUser(1L, RoleFactory.SAT_ADMIN));
             }
             catch (Exception e) {
                 log.warn("Error deleting org: " + id, e);
@@ -193,6 +195,7 @@ public class SatScrubberTest extends TestCase {
      * @see TestCase#tearDown()
      * @see HibernateFactory#closeSession()
      */
+    @Override
     protected void tearDown() throws Exception {
         super.tearDown();
         TestCaseHelper.tearDownHelper();

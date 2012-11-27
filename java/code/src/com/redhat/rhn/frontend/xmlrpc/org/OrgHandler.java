@@ -77,7 +77,7 @@ import java.util.Map;
 public class OrgHandler extends BaseHandler {
 
     private static final String VALIDATION_XSD =
-        "/com/redhat/rhn/frontend/action/multiorg/validation/orgCreateForm.xsd";
+            "/com/redhat/rhn/frontend/action/multiorg/validation/orgCreateForm.xsd";
     private static final String ORG_ID_KEY = "org_id";
     private static final String ORG_NAME_KEY = "org_name";
     private static final String ALLOCATED_KEY = "allocated";
@@ -121,10 +121,10 @@ public class OrgHandler extends BaseHandler {
         getSatAdmin(sessionKey);
 
         validateCreateOrgData(orgName, adminPassword, firstName, lastName, email,
-            usePamAuth);
+                usePamAuth);
 
         CreateOrgCommand cmd = new CreateOrgCommand(orgName, adminLogin, adminPassword,
-            email);
+                email);
         cmd.setFirstName(firstName);
         cmd.setLastName(lastName);
         cmd.setPrefix(prefix);
@@ -207,7 +207,7 @@ public class OrgHandler extends BaseHandler {
      * @xmlrpc.returntype #return_int_success()
      */
     public int delete(String sessionKey, Integer orgId) {
-        getSatAdmin(sessionKey);
+        User user = getSatAdmin(sessionKey);
         Org org = verifyOrgExists(orgId);
 
         // Verify we're not trying to delete the default org (id 1):
@@ -216,7 +216,7 @@ public class OrgHandler extends BaseHandler {
             throw new SatelliteOrgException();
         }
 
-        OrgFactory.deleteOrg(org.getId());
+        OrgFactory.deleteOrg(org.getId(), user);
 
         return 1;
     }
@@ -427,6 +427,7 @@ public class OrgHandler extends BaseHandler {
      *     $OrgSoftwareEntitlementDtoSerializer
      *   #array_end()
      */
+    @Deprecated
     public List<OrgSoftwareEntitlementDto> listSoftwareEntitlements(String sessionKey,
             String channelFamilyLabel) {
 
@@ -512,8 +513,8 @@ public class OrgHandler extends BaseHandler {
         lookupChannelFamily(channelFamilyLabel);
 
         UpdateOrgSoftwareEntitlementsCommand cmd =
-            new UpdateOrgSoftwareEntitlementsCommand(channelFamilyLabel, org,
-                    Long.valueOf(allocation), null);
+                new UpdateOrgSoftwareEntitlementsCommand(channelFamilyLabel, org,
+                        Long.valueOf(allocation), null);
         ValidatorError ve = cmd.store();
         if (ve != null) {
             throw new ValidationException(ve.getMessage());
@@ -554,8 +555,8 @@ public class OrgHandler extends BaseHandler {
         lookupChannelFamily(channelFamilyLabel);
 
         UpdateOrgSoftwareEntitlementsCommand cmd =
-            new UpdateOrgSoftwareEntitlementsCommand(channelFamilyLabel, org,
-                    null, Long.valueOf(allocation));
+                new UpdateOrgSoftwareEntitlementsCommand(channelFamilyLabel, org,
+                        null, Long.valueOf(allocation));
         ValidatorError ve = cmd.store();
         if (ve != null) {
             throw new ValidationException(ve.getMessage());
@@ -630,8 +631,9 @@ public class OrgHandler extends BaseHandler {
      *     #struct_end()
      *   #array_end()
      */
+    @Deprecated
     public List<Map> listSystemEntitlements(String sessionKey,
-                    String label) {
+            String label) {
         getSatAdmin(sessionKey);
         verifyEntitlementExists(label);
         DataList<Map> result = OrgManager.allOrgsSingleEntitlement(label);
@@ -684,7 +686,7 @@ public class OrgHandler extends BaseHandler {
      *   #array_end()
      */
     public List<Map> listSystemEntitlements(String sessionKey,
-                    String label, Boolean includeUnentitled) {
+            String label, Boolean includeUnentitled) {
 
         getSatAdmin(sessionKey);
         verifyEntitlementExists(label);
@@ -731,7 +733,7 @@ public class OrgHandler extends BaseHandler {
      *   #array_end()
      */
     public List<OrgEntitlementDto> listSystemEntitlementsForOrg(String sessionKey,
-                            Integer orgId)  {
+            Integer orgId)  {
         getSatAdmin(sessionKey);
         Org org = verifyOrgExists(orgId);
         return OrgManager.listEntitlementsFor(org);
@@ -778,12 +780,12 @@ public class OrgHandler extends BaseHandler {
 
         Entitlement ent = EntitlementManager.getByName(systemEntitlementLabel);
         if (ent == null || (!EntitlementManager.getAddonEntitlements().contains(ent) &&
-            !EntitlementManager.getBaseEntitlements().contains(ent))) {
+                !EntitlementManager.getBaseEntitlements().contains(ent))) {
             throw new InvalidEntitlementException();
         }
 
         UpdateOrgSystemEntitlementsCommand cmd =
-            new UpdateOrgSystemEntitlementsCommand(ent, org, new Long(allocation));
+                new UpdateOrgSystemEntitlementsCommand(ent, org, new Long(allocation));
         ValidatorError ve = cmd.store();
         if (ve != null) {
             throw new ValidationException(ve.getMessage());
@@ -862,7 +864,7 @@ public class OrgHandler extends BaseHandler {
             // unless the user is a satellite admin, they are not permitted to migrate
             // systems from an org that they do not belong to
             if ((!admin.hasRole(RoleFactory.SAT_ADMIN)) &&
-                (!admin.getOrg().equals(server.getOrg()))) {
+                    (!admin.getOrg().equals(server.getOrg()))) {
                 throw new PermissionCheckFailureException(server);
             }
 
