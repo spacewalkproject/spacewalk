@@ -256,6 +256,7 @@ public class KickstartFormatter {
             buf.append("$kickstart_start");
         }
 
+        buf.append(NEWLINE);
         addCobblerSnippet(buf, "pre_install_network_config");
         buf.append(NEWLINE);
 
