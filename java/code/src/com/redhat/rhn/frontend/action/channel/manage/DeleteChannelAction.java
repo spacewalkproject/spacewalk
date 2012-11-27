@@ -14,19 +14,29 @@
  */
 package com.redhat.rhn.frontend.action.channel.manage;
 
+import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.security.PermissionException;
 import com.redhat.rhn.common.validator.ValidatorException;
+import com.redhat.rhn.domain.Identifiable;
 import com.redhat.rhn.domain.channel.Channel;
+import com.redhat.rhn.domain.rhnset.RhnSet;
+import com.redhat.rhn.domain.rhnset.RhnSetFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.manager.channel.ChannelManager;
+import com.redhat.rhn.manager.rhnpackage.PackageManager;
+import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.system.SystemManager;
 
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -74,8 +84,10 @@ public class DeleteChannelAction extends RhnAction {
             boolean override = request.getParameter("unsubscribeSystems") != null;
 
             if (override || subscribedSystemsCount == 0) {
-
+                DataResult dr;
                 try {
+                    dr = PackageManager.listCustomPackageForChannel(channelId,
+                            user.getOrg().getId());
                     ChannelManager.deleteChannel(user, channelLabel);
                 }
                 catch (PermissionException e) {
@@ -89,6 +101,15 @@ public class DeleteChannelAction extends RhnAction {
                 }
 
                 createSuccessMessage(request, "message.channeldeleted", channel.getName());
+                if (dr.size() > 0) {
+                    prefillRhnSetWithElements(RhnSetDecl.DELETABLE_PACKAGE_LIST.get(user),
+                            dr.iterator());
+                    Map params = new HashMap();
+                    params.put("selected_channel", "all_managed_packages");
+                    params.put("forwarded", "true");
+                    return getStrutsDelegate().forwardParams(actionMapping.findForward("delete"),
+                            params);
+                }
                 return actionMapping.findForward("success");
             }
             addMessage(request, "message.channel.delete.systemssubscribed");
@@ -101,5 +122,14 @@ public class DeleteChannelAction extends RhnAction {
         }
 
         return actionMapping.findForward(RhnHelper.DEFAULT_FORWARD);
+    }
+
+    private void prefillRhnSetWithElements(RhnSet set, Iterator identifiables) {
+        set.clear();
+        while (identifiables.hasNext()) {
+            Identifiable tkn = (Identifiable) identifiables.next();
+            set.addElement(tkn.getId());
+        }
+        RhnSetFactory.save(set);
     }
 }
