@@ -685,7 +685,7 @@ public class ListTagUtil {
         if (filterValue != null) {
             ListTagUtil.write(pageContext, StringEscapeUtils.escapeHtml(filterValue));
         }
-        ListTagUtil.write(pageContext, "\" autofocus/>");
+        ListTagUtil.write(pageContext, "\" autofocus=\"autofocus\"/>");
 
         ListTagUtil.write(pageContext, IE_MAGIC_SNIPPET);
         ListTagUtil.write(pageContext,
