@@ -142,6 +142,7 @@ class FileProcessor:
 
 def diff(src, dst, srcname=None, dstname=None, display_diff=False):
     def f_content(path, name):
+        statinfo = None
         if os.access(path, os.R_OK):
             f = open(path, 'U')
             content = f.readlines()
@@ -169,8 +170,9 @@ def diff(src, dst, srcname=None, dstname=None, display_diff=False):
     # for security reasons.
     if (len(ret_list) > 0 # if differences exist
             and not display_diff # and we have not explicitly decided to display
-            and dst_stat.st_uid == 0 # and file is owned by root
-            and not dst_stat.st_mode & stat.S_IROTH): #and not readable by all
+            and (dst_stat == None # file is not there or not readable to root
+                or (dst_stat.st_uid == 0 # file is owned by root
+                    and not dst_stat.st_mode & stat.S_IROTH))): # not read-all
         ret_list = [
                 "Differences exist in a file that is not readable by all. ",
                 "Re-deployment of configuration file is recommended.\n"]
