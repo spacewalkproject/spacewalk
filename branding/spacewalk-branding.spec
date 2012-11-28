@@ -1,5 +1,5 @@
 Name:       spacewalk-branding
-Version:    1.9.2
+Version:    1.9.3
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -82,6 +82,9 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Wed Nov 28 2012 Tomas Lestach <tlestach@redhat.com> 1.9.3-1
+- 470463 - fixing xmllint issue
+
 * Mon Nov 12 2012 Tomas Lestach <tlestach@redhat.com> 1.9.2-1
 - Fix typos
 
