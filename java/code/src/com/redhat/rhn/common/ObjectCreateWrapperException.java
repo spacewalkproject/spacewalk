@@ -27,11 +27,12 @@ package com.redhat.rhn.common;
  */
 public class ObjectCreateWrapperException extends RhnRuntimeException  {
 
+    private static final long serialVersionUID = -7377470979935659066L;
 
-    /////////////////////////
+    // ///////////////////////
     // Constructors
     /////////////////////////
-        /**
+    /**
      * Constructor
      * @param message exception message
      */
@@ -40,7 +41,7 @@ public class ObjectCreateWrapperException extends RhnRuntimeException  {
         // begin member variable initialization
     }
 
-        /**
+    /**
      * Constructor
      * @param message exception message
      * @param cause the cause (which is saved for later retrieval

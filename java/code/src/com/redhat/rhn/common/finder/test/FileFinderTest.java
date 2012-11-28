@@ -31,8 +31,8 @@ public class FileFinderTest extends RhnBaseTestCase {
         Finder f = FinderFactory.getFinder("com.redhat.rhn.common.finder.test");
         assertNotNull(f);
 
-        List result = f.find("Test.class");
-        String first = (String)result.get(0);
+        List<String> result = f.find("Test.class");
+        String first = result.get(0);
         assertTrue(first.startsWith("com/redhat/rhn/common/finder/test"));
         assertEquals(2, result.size());
     }
@@ -41,7 +41,7 @@ public class FileFinderTest extends RhnBaseTestCase {
         Finder f = FinderFactory.getFinder("com.redhat.rhn.common.finder");
         assertNotNull(f);
 
-        List result = f.find(".class");
+        List<String> result = f.find(".class");
         assertEquals(6, result.size());
     }
 
@@ -49,7 +49,7 @@ public class FileFinderTest extends RhnBaseTestCase {
         Finder f = FinderFactory.getFinder("com.redhat.rhn.common.finder");
         assertNotNull(f);
         String[] sarr = {"Test"};
-        List result = f.findExcluding(sarr, "class");
+        List<String> result = f.findExcluding(sarr, "class");
         assertEquals(4, result.size());
     }
 }

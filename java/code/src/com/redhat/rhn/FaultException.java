@@ -23,6 +23,7 @@ import com.redhat.rhn.common.localization.LocalizationService;
  */
 public class FaultException extends RuntimeException  {
 
+    private static final long serialVersionUID = -8293171315924454538L;
     protected int errorCode;
     protected String label;
     protected Object [] arguments;

@@ -29,11 +29,12 @@ import com.redhat.rhn.common.RhnRuntimeException;
  */
 public class ConfigException extends RhnRuntimeException  {
 
+    private static final long serialVersionUID = 8090115133541595876L;
 
-    /////////////////////////
+    // ///////////////////////
     // Constructors
     /////////////////////////
-        /**
+    /**
      * Constructor
      * @param message exception message
      */
@@ -42,7 +43,7 @@ public class ConfigException extends RhnRuntimeException  {
         // begin member variable initialization
     }
 
-        /**
+    /**
      * Constructor
      * @param message exception message
      * @param cause the cause (which is saved for later retrieval

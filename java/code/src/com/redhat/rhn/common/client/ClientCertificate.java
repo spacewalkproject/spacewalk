@@ -36,9 +36,9 @@ public class ClientCertificate {
 
     public static final String SYSTEM_ID = "system_id";
     public static final String FIELDS = "fields";
-    private List members;
-    private Map byName;
-    private Map checksumFields;
+    private final List<Member> members;
+    private final Map<String, String[]> byName;
+    private final Map<String, String> checksumFields;
 
 
     /**
@@ -46,10 +46,10 @@ public class ClientCertificate {
      */
     public ClientCertificate() {
 
-        members = new ArrayList();
-        byName = new HashMap();
+        members = new ArrayList<Member>();
+        byName = new HashMap<String, String[]>();
         // boy this is some ugly stuff
-        checksumFields = new HashMap();
+        checksumFields = new HashMap<String, String>();
         checksumFields.put("username", "");
         checksumFields.put("os_release", "");
         checksumFields.put("operating_system", "");
@@ -112,7 +112,7 @@ public class ClientCertificate {
      * @return all the values for the given field name
      */
     public String[] getValuesByName(String name) {
-        return (String[]) byName.get(name);
+        return byName.get(name);
     }
 
     /**
@@ -185,11 +185,11 @@ public class ClientCertificate {
         }
         catch (UnsupportedEncodingException e) {
             throw new InvalidCertificateException(
-                "Problem getting bytes for signature", e);
+                    "Problem getting bytes for signature", e);
         }
         catch (NoSuchAlgorithmException e) {
             throw new InvalidCertificateException(
-                "Problem getting MD5 message digest.", e);
+                    "Problem getting MD5 message digest.", e);
         }
 
         return signature;
@@ -209,12 +209,12 @@ public class ClientCertificate {
         param.addBody(value);
         value.addBody(struct);
 
-        for (Iterator itr = members.iterator(); itr.hasNext();) {
-            Member m = (Member)itr.next();
+        for (Iterator<Member> itr = members.iterator(); itr.hasNext();) {
+            Member m = itr.next();
             if (!m.getName().equals(FIELDS)) {
                 String[] values = m.getValues();
                 struct.addBody(createStringMember(m.getName(),
-                      (values != null && values.length > 0) ? values[0] : ""));
+                        (values != null && values.length > 0) ? values[0] : ""));
             }
             else {
                 struct.addBody(createFieldMember(m.getName(), m.getValues()));
@@ -226,6 +226,7 @@ public class ClientCertificate {
     /**
      * {@inheritDoc}
      */
+    @Override
     public String toString() {
         return asXml();
     }

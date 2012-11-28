@@ -23,6 +23,7 @@ import java.net.URL;
 import java.util.Enumeration;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 import java.util.zip.ZipEntry;
 
@@ -34,29 +35,31 @@ import java.util.zip.ZipEntry;
 class JarFinder implements Finder {
 
     private static Logger log = Logger.getLogger(JarFinder.class);
-    private URL url;
+    private final URL url;
 
     JarFinder(URL packageUrl) {
         url = packageUrl;
     }
 
     /** {@inheritDoc} */
-    public List find(String endStr) {
+    @Override
+    public List<String> find(String endStr) {
         return findExcluding(null, endStr);
     }
 
     /** {@inheritDoc} */
-    public List findExcluding(String[] excludes, String endStr) {
+    @Override
+    public List<String> findExcluding(String[] excludes, String endStr) {
         try {
             JarURLConnection conn = (JarURLConnection)url.openConnection();
             String starts = conn.getEntryName();
             JarFile jfile = conn.getJarFile();
 
-            List result = new LinkedList();
+            List<String> result = new LinkedList<String>();
 
-            Enumeration e = jfile.entries();
+            Enumeration<JarEntry> e = jfile.entries();
             while (e.hasMoreElements()) {
-                ZipEntry entry = (ZipEntry)e.nextElement();
+                ZipEntry entry = e.nextElement();
                 String entryName = entry.getName();
 
                 if (log.isDebugEnabled()) {
@@ -64,7 +67,7 @@ class JarFinder implements Finder {
                 }
 
                 if (entryName.startsWith(starts) &&
-                    !entry.isDirectory()) {
+                        !entry.isDirectory()) {
                     // Now we know that we have a file from the jar.  We need
                     // to parse the file to get the actual filename so that we
                     // can exclude the appropriate files.

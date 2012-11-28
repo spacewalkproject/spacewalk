@@ -45,18 +45,20 @@ class ConnectionManager {
 
     private static final Logger LOG = Logger.getLogger(ConnectionManager.class);
     private static final String[] PACKAGE_NAMES = {"com.redhat.rhn.domain",
-        "com.redhat.rhn.taskomatic"};
+    "com.redhat.rhn.taskomatic"};
 
-    private List configurators = new LinkedList();
+    private final List<Configurator> configurators = new LinkedList<Configurator>();
     private SessionFactory sessionFactory;
-    private ThreadLocal SESSION_TLS = new ThreadLocal() {
+    private final ThreadLocal<SessionInfo> SESSION_TLS = new ThreadLocal<SessionInfo>() {
 
-        public Object get() {
-            Object result = super.get();
+        @Override
+        public SessionInfo get() {
+            SessionInfo result = super.get();
             return result;
         }
     };
-    private Set packageNames = new HashSet<String>(Arrays.asList(PACKAGE_NAMES));
+    private final Set<String> packageNames = new HashSet<String>(
+            Arrays.asList(PACKAGE_NAMES));
 
     /**
      * enable possibility to load hbm.xml files from different path
@@ -142,10 +144,10 @@ class ConnectionManager {
             return;
         }
 
-        List hbms = new LinkedList();
+        List<String> hbms = new LinkedList<String>();
 
-        for (Iterator iter = packageNames.iterator(); iter.hasNext();) {
-            String pn = (String) iter.next();
+        for (Iterator<String> iter = packageNames.iterator(); iter.hasNext();) {
+            String pn = iter.next();
             hbms.addAll(FinderFactory.getFinder(pn).find("hbm.xml"));
             if (LOG.isDebugEnabled()) {
                 LOG.debug("Found: " + hbms);
@@ -162,13 +164,13 @@ class ConnectionManager {
             Properties hibProperties = Config.get().getNamespaceProperties(
                     "hibernate");
             hibProperties.put("hibernate.connection.username",
- Config.get()
+                    Config.get()
                     .getString(ConfigDefaults.DB_USER));
             hibProperties.put("hibernate.connection.password",
- Config.get()
+                    Config.get()
                     .getString(ConfigDefaults.DB_PASSWORD));
             String connectionUrl =
-                        Config.get().getString(ConfigDefaults.DB_PROTO) + ":";
+                    Config.get().getString(ConfigDefaults.DB_PROTO) + ":";
             String dbName = Config.get().getString(ConfigDefaults.DB_NAME);
             String dbHost = Config.get().getString(ConfigDefaults.DB_HOST);
             String dbPort = Config.get().getString(ConfigDefaults.DB_PORT);
@@ -200,16 +202,17 @@ class ConnectionManager {
                         " it is set to a fixed value by the code");
             }
 
-            for (Iterator i = hbms.iterator(); i.hasNext();) {
-                String hbmFile = (String) i.next();
+            for (Iterator<String> i = hbms.iterator(); i.hasNext();) {
+                String hbmFile = i.next();
                 if (LOG.isDebugEnabled()) {
                     LOG.debug("Adding resource " + hbmFile);
                 }
                 config.addResource(hbmFile);
             }
             if (configurators != null) {
-                for (Iterator i = configurators.iterator(); i.hasNext();) {
-                    Configurator c = (Configurator) i.next();
+                for (Iterator<Configurator> i = configurators.iterator(); i
+                        .hasNext();) {
+                    Configurator c = i.next();
                     c.addConfig(config);
                 }
             }
@@ -227,7 +230,7 @@ class ConnectionManager {
     }
 
     private SessionInfo threadSessionInfo() {
-        return (SessionInfo) SESSION_TLS.get();
+        return SESSION_TLS.get();
     }
 
     /**

@@ -24,14 +24,14 @@ import java.util.List;
 public class Member {
 
     private String name;
-    private List values;
+    private List<String> values;
 
     /**
      * Public ctor
      */
     public Member() {
         name = "";
-        values = new ArrayList();
+        values = new ArrayList<String>();
     }
 
     /**
@@ -55,7 +55,7 @@ public class Member {
      * @return the values.
      */
     public String[] getValues() {
-        return (String[])values.toArray(new String[values.size()]);
+        return values.toArray(new String[values.size()]);
     }
 
     /**
@@ -70,7 +70,7 @@ public class Member {
      * Replace all values with the new list of values.
      * @param valuesLst used to replace current list.
      */
-    public void setValues(List valuesLst) {
+    public void setValues(List<String> valuesLst) {
         values = valuesLst;
     }
 }

@@ -27,11 +27,12 @@ package com.redhat.rhn.common;
  */
 public class MethodInvocationException extends RhnRuntimeException  {
 
+    private static final long serialVersionUID = -7750203321709785033L;
 
-    /////////////////////////
+    // ///////////////////////
     // Constructors
     /////////////////////////
-        /**
+    /**
      * Constructor
      * @param message exception message
      */
@@ -40,7 +41,7 @@ public class MethodInvocationException extends RhnRuntimeException  {
         // begin member variable initialization
     }
 
-        /**
+    /**
      * Constructor
      * @param message exception message
      * @param cause the cause (which is saved for later retrieval

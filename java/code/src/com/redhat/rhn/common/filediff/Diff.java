@@ -26,9 +26,9 @@ import java.util.List;
  */
 public class Diff {
 
-    private String[] firstfile;
-    private String[] secondfile;
-    private int maxLength;
+    private final String[] firstfile;
+    private final String[] secondfile;
+    private final int maxLength;
 
     /**
      * @param firstfileIn The old(from) file as a String array.
@@ -48,7 +48,7 @@ public class Diff {
      */
     public String htmlDiff(boolean onlyChanged) {
         //do the file diff
-        List hunks = diffFiles();
+        List<Hunk> hunks = diffFiles();
         if (hunks == null) {
             return null;
         }
@@ -71,13 +71,13 @@ public class Diff {
     public String patchDiff(String pathOne, String pathTwo,
             Date fromDate, Date toDate) {
         //do the file diff
-        List hunks = diffFiles();
+        List<Hunk> hunks = diffFiles();
         if (hunks == null) {
             return null;
         }
 
         RhnPatchDiffWriter writer =
-            new RhnPatchDiffWriter(pathOne, pathTwo, fromDate, toDate);
+                new RhnPatchDiffWriter(pathOne, pathTwo, fromDate, toDate);
         writeHunks(hunks, writer);
         return writer.getResult();
     }
@@ -87,15 +87,15 @@ public class Diff {
      * @return A list of Hunks.
      * @see Hunk
      */
-    public List diffFiles() {
+    public List<Hunk> diffFiles() {
         Differ differ = new Differ(firstfile.length, secondfile.length);
         return differ.diff(firstfile, secondfile);
     }
 
-    private void writeHunks(List hunks, DiffWriter writer) {
-        Iterator i = hunks.iterator();
+    private void writeHunks(List<Hunk> hunks, DiffWriter writer) {
+        Iterator<Hunk> i = hunks.iterator();
         while (i.hasNext()) {
-            writer.writeHunk((Hunk)i.next());
+            writer.writeHunk(i.next());
         }
     }
 

@@ -27,11 +27,12 @@ package com.redhat.rhn.common.client;
  */
 public class InvalidCertificateException extends Exception  {
 
+    private static final long serialVersionUID = 4549595184117258582L;
 
-    /////////////////////////
+    // ///////////////////////
     // Constructors
     /////////////////////////
-        /**
+    /**
      * Constructor
      * @param message exception message
      */
@@ -40,7 +41,7 @@ public class InvalidCertificateException extends Exception  {
         // begin member variable initialization
     }
 
-        /**
+    /**
      * Constructor
      * @param message exception message
      * @param cause the cause (which is saved for later retrieval

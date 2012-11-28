@@ -47,8 +47,8 @@ public class Differ {
      * @param newFile The new(second, to) file
      * @return A list of Hunks representing the differences.
      */
-    public List diff(String[] oldFile, String[] newFile) {
-        List retval = null;
+    public List<Hunk> diff(String[] oldFile, String[] newFile) {
+        List<Hunk> retval = null;
         while (retval == null) {
             retval = step(oldFile, newFile);
         }
@@ -75,7 +75,7 @@ public class Differ {
      * @return A list of Hunks representing the differences. null if we need to
      *         step again
      */
-    private List step(String[] oldFile, String[] newFile) {
+    private List<Hunk> step(String[] oldFile, String[] newFile) {
         beforeCurrent = head;
         boolean forked;
         int minimumMatchValue = 0;

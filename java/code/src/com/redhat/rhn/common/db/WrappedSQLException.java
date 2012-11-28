@@ -27,11 +27,12 @@ package com.redhat.rhn.common.db;
  */
 public class WrappedSQLException extends DatabaseException  {
 
+    private static final long serialVersionUID = 8956678868060075067L;
 
-    /////////////////////////
+    // ///////////////////////
     // Constructors
     /////////////////////////
-        /**
+    /**
      * Constructor
      * @param message exception message
      */
@@ -40,7 +41,7 @@ public class WrappedSQLException extends DatabaseException  {
         // begin member variable initialization
     }
 
-        /**
+    /**
      * Constructor
      * @param message exception message
      * @param cause the cause (which is saved for later retrieval

@@ -32,7 +32,7 @@ public interface Finder {
      * @return a list of all classes within the package that end with the
      *         specified string
      */
-    List find(String endStr);
+    List<String> find(String endStr);
 
     /**
      * Find all files within a package that end with the specified string
@@ -42,5 +42,5 @@ public interface Finder {
      * @return a list of all classes within the package that end with the
      *         specified string
      */
-    List findExcluding(String[] excluding, String endStr);
+    List<String> findExcluding(String[] excluding, String endStr);
 }

@@ -202,13 +202,13 @@ public class Trace {
      * @param newFile The new(second, to) file
      * @return A list of hunks representing the edit to make oldFile into newFile.
      */
-    public List createHunks(String[] oldFile, String[] newFile) {
+    public List<Hunk> createHunks(String[] oldFile, String[] newFile) {
         //start at the beginning of both files.
         currentLineOld = 0;
         currentLineNew = 0;
         int linesOld = 0;
         int linesNew = 0;
-        List retval = new ArrayList();
+        List<Hunk> retval = new ArrayList<Hunk>();
 
         Edit current = edit;
         while (current != null) {

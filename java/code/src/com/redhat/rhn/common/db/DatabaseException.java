@@ -30,11 +30,12 @@ import com.redhat.rhn.common.RhnRuntimeException;
  */
 public class DatabaseException extends RhnRuntimeException  {
 
+    private static final long serialVersionUID = -4010657878416571239L;
 
-    /////////////////////////
+    // ///////////////////////
     // Constructors
     /////////////////////////
-        /**
+    /**
      * Constructor
      * @param message exception message
      */
@@ -43,7 +44,7 @@ public class DatabaseException extends RhnRuntimeException  {
         // begin member variable initialization
     }
 
-        /**
+    /**
      * Constructor
      * @param message exception message
      * @param cause the cause (which is saved for later retrieval

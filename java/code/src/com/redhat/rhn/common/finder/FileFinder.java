@@ -29,7 +29,7 @@ import java.util.List;
  */
 class FileFinder implements Finder {
 
-    private File startDir;
+    private final File startDir;
     private static Logger log = Logger.getLogger(FileFinder.class);
     private String path;
 
@@ -42,13 +42,15 @@ class FileFinder implements Finder {
     }
 
     /** {@inheritDoc} */
-    public List find(String endStr) {
+    @Override
+    public List<String> find(String endStr) {
         return findExcluding(null, endStr);
     }
 
     /** {@inheritDoc} */
-    public List findExcluding(String[] excludes, String endStr) {
-        List results = new LinkedList();
+    @Override
+    public List<String> findExcluding(String[] excludes, String endStr) {
+        List<String> results = new LinkedList<String>();
 
         if (!startDir.exists()) {
             // Shouldn't ever happen, because the FinderFactory should only
@@ -65,9 +67,9 @@ class FileFinder implements Finder {
             File current = new File(startDir, fileList[i]);
 
             if (current.isDirectory()) {
-                List subdirList = new FileFinder(current,
-                                  path + File.separator +
-                                  fileList[i]).findExcluding(excludes, endStr);
+                List<String> subdirList = new FileFinder(current,
+                        path + File.separator +
+                        fileList[i]).findExcluding(excludes, endStr);
                 if (log.isDebugEnabled()) {
                     log.debug("adding: " + subdirList);
                 }

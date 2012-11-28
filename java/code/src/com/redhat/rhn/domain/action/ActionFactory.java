@@ -97,8 +97,8 @@ public class ActionFactory extends HibernateFactory {
             try {
                 session = HibernateFactory.getSession();
                 List types = session.getNamedQuery("ActionArchType.loadAll")
-                                               //Retrieve from cache if there
-                                               .setCacheable(true).list();
+                        //Retrieve from cache if there
+                        .setCacheable(true).list();
 
                 actionArchTypes = new HashSet();
                 Iterator i = types.iterator();
@@ -110,7 +110,7 @@ public class ActionFactory extends HibernateFactory {
             catch (HibernateException he) {
                 log.error("Error loading ActionArchTypes from DB", he);
                 throw new
-                    HibernateRuntimeException("Error loading ActionArchTypes from db");
+                HibernateRuntimeException("Error loading ActionArchTypes from db");
             }
         }
     }
@@ -124,7 +124,7 @@ public class ActionFactory extends HibernateFactory {
 
         Session session = HibernateFactory.getSession();
         List<Number> ids = session.getNamedQuery("Action.findServerIds")
-                    .setLong("action_id", actionId).list();
+                .setLong("action_id", actionId).list();
         int failed = 0;
         for (Number id : ids) {
             try {
@@ -163,7 +163,7 @@ public class ActionFactory extends HibernateFactory {
 
     private  static void removeActionForSystem(Number actionId, Number sid) {
         CallableMode mode =
-            ModeFactory.getCallableMode("System_queries", "delete_action_for_system");
+                ModeFactory.getCallableMode("System_queries", "delete_action_for_system");
         Map params = new HashMap();
         params.put("action_id", actionId);
         params.put("server_id",  sid);
@@ -175,6 +175,7 @@ public class ActionFactory extends HibernateFactory {
      * Get the Logger for the derived class so log messages
      * show up on the correct class
      */
+    @Override
     protected Logger getLogger() {
         return log;
     }
@@ -241,9 +242,9 @@ public class ActionFactory extends HibernateFactory {
             sad.setScript(script.getBytes("UTF-8"));
         }
         catch (UnsupportedEncodingException uee) {
-                throw new
-                    IllegalArgumentException(
-                            "This VM or environment doesn't support UTF-8");
+            throw new
+            IllegalArgumentException(
+                    "This VM or environment doesn't support UTF-8");
         }
 
         return sad;
@@ -257,7 +258,7 @@ public class ActionFactory extends HibernateFactory {
     public static boolean doesServerHaveKickstartScheduled(Long serverId) {
         Session session = HibernateFactory.getSession();
         Query query =
-            session.getNamedQuery("ServerAction.findPendingKickstartsForServer");
+                session.getNamedQuery("ServerAction.findPendingKickstartsForServer");
         query.setParameter("serverId", serverId);
         query.setParameter("label", "kickstart.initiate");
         List retval = query.list();
@@ -297,15 +298,15 @@ public class ActionFactory extends HibernateFactory {
             retval = new ConfigUploadAction();
         }
         else if (typeIn.equals(TYPE_PACKAGES_AUTOUPDATE) ||
-                 typeIn.equals(TYPE_PACKAGES_DELTA) ||
-                 typeIn.equals(TYPE_PACKAGES_REFRESH_LIST) ||
-                 typeIn.equals(TYPE_PACKAGES_REMOVE) ||
-                 typeIn.equals(TYPE_PACKAGES_RUNTRANSACTION) ||
-                 typeIn.equals(TYPE_PACKAGES_UPDATE) ||
-                 typeIn.equals(TYPE_PACKAGES_VERIFY) ||
-                 typeIn.equals(TYPE_SOLARISPKGS_REMOVE) ||
-                 typeIn.equals(TYPE_SOLARISPKGS_INSTALL)) {
-           retval = new PackageAction();
+                typeIn.equals(TYPE_PACKAGES_DELTA) ||
+                typeIn.equals(TYPE_PACKAGES_REFRESH_LIST) ||
+                typeIn.equals(TYPE_PACKAGES_REMOVE) ||
+                typeIn.equals(TYPE_PACKAGES_RUNTRANSACTION) ||
+                typeIn.equals(TYPE_PACKAGES_UPDATE) ||
+                typeIn.equals(TYPE_PACKAGES_VERIFY) ||
+                typeIn.equals(TYPE_SOLARISPKGS_REMOVE) ||
+                typeIn.equals(TYPE_SOLARISPKGS_INSTALL)) {
+            retval = new PackageAction();
         }
         else if (typeIn.equals(TYPE_CONFIGFILES_MTIME_UPLOAD)) {
             retval = new ConfigUploadMtimeAction();
@@ -402,7 +403,7 @@ public class ActionFactory extends HibernateFactory {
         params.put("aid", id);
         params.put("orgId", user.getOrg().getId());
         return (Action)singleton.lookupObjectByNamedQuery(
-                                        "Action.findByIdandOrgId", params);
+                "Action.findByIdandOrgId", params);
     }
 
     /**
@@ -419,7 +420,7 @@ public class ActionFactory extends HibernateFactory {
         params.put("aid", action.getId());
         params.put("stid", status.getId());
         return (Integer)singleton.lookupObjectByNamedQuery(
-                                        "Action.getServerActionCountByStatus", params);
+                "Action.getServerActionCountByStatus", params);
     }
 
 
@@ -435,15 +436,15 @@ public class ActionFactory extends HibernateFactory {
      * @return the Action found or null if none exists
      */
     public static Action lookupLastCompletedAction(User user,
-                                            ActionType type,
-                                            Server server) {
+            ActionType type,
+            Server server) {
         Map params = new HashMap();
         params.put("userId", user.getId());
         params.put("actionTypeId", type.getId());
         params.put("serverId", server.getId());
         return (Action)singleton.lookupObjectByNamedQuery(
-                         "Action.findLastActionByServerIdAndActionTypeIdAndUserId",
-                             params);
+                "Action.findLastActionByServerIdAndActionTypeIdAndUserId",
+                params);
     }
 
 
@@ -465,10 +466,10 @@ public class ActionFactory extends HibernateFactory {
      * @throws Exception
      */
     public static ActionType lookupActionTypeByLabel(String label) {
-        Map params = new HashMap();
+        Map<String, String> params = new HashMap<String, String>();
         params.put("label", label);
         return (ActionType)
-            singleton.lookupObjectByNamedQuery("ActionType.findByLabel", params, true);
+                singleton.lookupObjectByNamedQuery("ActionType.findByLabel", params, true);
     }
 
     /**
@@ -477,10 +478,10 @@ public class ActionFactory extends HibernateFactory {
      * @return Returns the ActionStatus corresponding to name
      */
     private static ActionStatus lookupActionStatusByName(String name) {
-        Map params = new HashMap();
+        Map<String, String> params = new HashMap<String, String>();
         params.put("name", name);
         return (ActionStatus)
-            singleton.lookupObjectByNamedQuery("ActionStatus.findByName", params, true);
+                singleton.lookupObjectByNamedQuery("ActionStatus.findByName", params, true);
 
     }
 
@@ -492,12 +493,12 @@ public class ActionFactory extends HibernateFactory {
      * @return The ConfigRevisionActionResult corresponding to the revison ID.
      */
     public static ConfigRevisionActionResult
-                    lookupConfigActionResult(Long actionConfigRevisionId) {
-        Map params = new HashMap();
+    lookupConfigActionResult(Long actionConfigRevisionId) {
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("id", actionConfigRevisionId);
         return (ConfigRevisionActionResult)
-            singleton.lookupObjectByNamedQuery("ConfigRevisionActionResult.findById",
-                                                                    params, true);
+                singleton.lookupObjectByNamedQuery("ConfigRevisionActionResult.findById",
+                        params, true);
     }
 
     /**
@@ -508,11 +509,11 @@ public class ActionFactory extends HibernateFactory {
      * @return The ConfigRevisionAction corresponding to the revison ID.
      */
     public static ConfigRevisionAction
-                    lookupConfigRevisionAction(Long id) {
+    lookupConfigRevisionAction(Long id) {
 
         Session session = HibernateFactory.getSession();
         ConfigRevisionAction c = (ConfigRevisionAction) session.
-            get(ConfigRevisionAction.class, id);
+                get(ConfigRevisionAction.class, id);
         return c;
     }
 
@@ -527,12 +528,12 @@ public class ActionFactory extends HibernateFactory {
          * the foreign key constraint holds.
          */
         if (actionIn.getActionType().equals(TYPE_PACKAGES_AUTOUPDATE) ||
-            actionIn.getActionType().equals(TYPE_PACKAGES_DELTA) ||
-            actionIn.getActionType().equals(TYPE_PACKAGES_REFRESH_LIST) ||
-            actionIn.getActionType().equals(TYPE_PACKAGES_REMOVE) ||
-            actionIn.getActionType().equals(TYPE_PACKAGES_RUNTRANSACTION) ||
-            actionIn.getActionType().equals(TYPE_PACKAGES_UPDATE) ||
-            actionIn.getActionType().equals(TYPE_PACKAGES_VERIFY)) {
+                actionIn.getActionType().equals(TYPE_PACKAGES_DELTA) ||
+                actionIn.getActionType().equals(TYPE_PACKAGES_REFRESH_LIST) ||
+                actionIn.getActionType().equals(TYPE_PACKAGES_REMOVE) ||
+                actionIn.getActionType().equals(TYPE_PACKAGES_RUNTRANSACTION) ||
+                actionIn.getActionType().equals(TYPE_PACKAGES_UPDATE) ||
+                actionIn.getActionType().equals(TYPE_PACKAGES_VERIFY)) {
 
             PackageAction action = (PackageAction) actionIn;
             Set details = action.getDetails();
@@ -621,7 +622,7 @@ public class ActionFactory extends HibernateFactory {
         Session session = HibernateFactory.getSession();
 
         Query serverActionsToDelete =
-            session.getNamedQuery("ServerAction.deleteByParentActions");
+                session.getNamedQuery("ServerAction.deleteByParentActions");
         serverActionsToDelete.setParameterList("actions", parentActions);
         serverActionsToDelete.executeUpdate();
     }
@@ -636,7 +637,7 @@ public class ActionFactory extends HibernateFactory {
         params.put("orgId", user.getOrg().getId());
         params.put("server", serverIn);
         return singleton.listObjectsByNamedQuery(
-                                        "Action.findByServerAndOrgId", params);
+                "Action.findByServerAndOrgId", params);
     }
 
     /**
@@ -648,7 +649,7 @@ public class ActionFactory extends HibernateFactory {
         Map params = new HashMap();
         params.put("server", serverIn);
         return singleton.listObjectsByNamedQuery(
-                                        "ServerAction.findByServer", params);
+                "ServerAction.findByServer", params);
     }
 
     /**
@@ -658,10 +659,10 @@ public class ActionFactory extends HibernateFactory {
      */
     public static void rescheduleFailedServerActions(Action action, Long tries) {
         HibernateFactory.getSession().getNamedQuery("Action.rescheduleFailedActions")
-                .setParameter("action", action)
-                .setParameter("tries", tries)
-                .setParameter("failed", ActionFactory.STATUS_FAILED)
-                .setParameter("queued", ActionFactory.STATUS_QUEUED).executeUpdate();
+        .setParameter("action", action)
+        .setParameter("tries", tries)
+        .setParameter("failed", ActionFactory.STATUS_FAILED)
+        .setParameter("queued", ActionFactory.STATUS_QUEUED).executeUpdate();
     }
 
     /**
@@ -671,26 +672,26 @@ public class ActionFactory extends HibernateFactory {
      */
     public static void rescheduleAllServerActions(Action action, Long tries) {
         HibernateFactory.getSession().getNamedQuery("Action.rescheduleAllActions")
-                .setParameter("action", action)
-                .setParameter("tries", tries)
-                .setParameter("queued", ActionFactory.STATUS_QUEUED).executeUpdate();
+        .setParameter("action", action)
+        .setParameter("tries", tries)
+        .setParameter("queued", ActionFactory.STATUS_QUEUED).executeUpdate();
     }
 
 
     /**
-    * The constant representing the Action Status QUEUED
-    */
+     * The constant representing the Action Status QUEUED
+     */
     public static final ActionStatus STATUS_QUEUED =
             lookupActionStatusByName("Queued");
     /**
-    * The constant representing the Action Status COMPLETED
-    */
+     * The constant representing the Action Status COMPLETED
+     */
     public static final ActionStatus STATUS_COMPLETED =
             lookupActionStatusByName("Completed");
 
     /**
-    * The constant representing the Action Status FAILED
-    */
+     * The constant representing the Action Status FAILED
+     */
     public static final ActionStatus STATUS_FAILED =
             lookupActionStatusByName("Failed");
 

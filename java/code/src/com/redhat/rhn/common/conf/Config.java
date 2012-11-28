@@ -77,15 +77,16 @@ public class Config {
      * array of prefix in the order they should be search
      * if the given lookup string is without a namespace.
      */
-    private String[] prefixOrder = new String[] {"web", "server"};
+    private final String[] prefixOrder = new String[] {"web", "server"};
     private static Config singletonConfig = null;
     /** hash of configuration properties */
-    private Properties configValues = new Properties();
+    private final Properties configValues = new Properties();
     /** set of configuration file names */
-    private TreeSet fileList = new TreeSet(new Comparator() {
+    private final TreeSet<File> fileList = new TreeSet<File>(new Comparator() {
 
         /** {inheritDoc} */
-    public int compare(Object o1, Object o2) {
+        @Override
+        public int compare(Object o1, Object o2) {
             // Need to make sure we read the child namespace before the base
             // namespace.  To do that, we sort the list in reverse order based
             // on the length of the file name.  If two filenames have the same
@@ -215,7 +216,7 @@ public class Config {
                     if (result != null) {
                         break;
                     }
-                 }
+                }
             }
         }
         if (logger.isDebugEnabled()) {
@@ -308,8 +309,8 @@ public class Config {
      * @param name config entry name
      * @return instance of java.util.List populated with config values
      */
-    public List getList(String name) {
-        List retval = new LinkedList();
+    public List<String> getList(String name) {
+        List<String> retval = new LinkedList<String>();
         String[] vals = getStringArray(name);
         if (vals != null) {
             retval.addAll(Arrays.asList(vals));
@@ -443,8 +444,8 @@ public class Config {
      * Parse all of the added files.
      */
     public void parseFiles() {
-        for (Iterator i = fileList.iterator(); i.hasNext();) {
-            File curr = (File) i.next();
+        for (Iterator<File> i = fileList.iterator(); i.hasNext();) {
+            File curr = i.next();
 
             Properties props = new Properties();
             try {
@@ -455,7 +456,7 @@ public class Config {
             }
             String ns = makeNamespace(curr);
             logger.debug("Adding namespace: " + ns + " for file: " +
-                      curr.getAbsolutePath());
+                    curr.getAbsolutePath());
 
             // loop through all of the config values in the properties file
             // making sure the prefix is there.

@@ -27,11 +27,12 @@ package com.redhat.rhn.common;
  */
 public class IllegalRegexException extends RhnRuntimeException  {
 
+    private static final long serialVersionUID = -8547335837561868429L;
 
-    /////////////////////////
+    // ///////////////////////
     // Constructors
     /////////////////////////
-        /**
+    /**
      * Constructor
      * @param message exception message
      */
@@ -40,7 +41,7 @@ public class IllegalRegexException extends RhnRuntimeException  {
         // begin member variable initialization
     }
 
-        /**
+    /**
      * Constructor
      * @param message exception message
      * @param cause the cause (which is saved for later retrieval

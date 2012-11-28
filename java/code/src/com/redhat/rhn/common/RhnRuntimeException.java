@@ -30,6 +30,8 @@ package com.redhat.rhn.common;
  */
 public class RhnRuntimeException extends RuntimeException {
 
+    private static final long serialVersionUID = -995137119395700757L;
+
     /**
      *
      */

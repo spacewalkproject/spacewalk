@@ -23,7 +23,7 @@ import java.util.List;
  */
 public class FileLines {
 
-    private List lines;
+    private final List<String> lines;
     private int fromLine;
     private int toLine;
 
@@ -31,7 +31,7 @@ public class FileLines {
      * Can only be created in this package.
      */
     protected FileLines() {
-        lines = new ArrayList();
+        lines = new ArrayList<String>();
     }
 
 
@@ -70,7 +70,7 @@ public class FileLines {
     /**
      * @return Returns the lines.
      */
-    public List getLines() {
+    public List<String> getLines() {
         return lines;
     }
 

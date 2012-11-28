@@ -32,8 +32,8 @@ public class RhnPatchDiffWriter implements DiffVisitor, DiffWriter {
     private static final String HUNK_LABEL = "@@";
 
     //diff the entire result
-    private StringBuffer diff;
-    private int contextLines;
+    private final StringBuffer diff;
+    private final int contextLines;
 
     //stores the current edit, which can consist of multiple hunks with context lines.
     private EditPoint currentEdit;
@@ -75,6 +75,7 @@ public class RhnPatchDiffWriter implements DiffVisitor, DiffWriter {
     /**
      * {@inheritDoc}
      */
+    @Override
     public void writeHunk(Hunk hunkIn) {
         hunkIn.visit(this);
     }
@@ -82,6 +83,7 @@ public class RhnPatchDiffWriter implements DiffVisitor, DiffWriter {
     /**
      * {@inheritDoc}
      */
+    @Override
     public void accept(ChangeHunk hunk) {
         processEditHunk(hunk);
     }
@@ -89,6 +91,7 @@ public class RhnPatchDiffWriter implements DiffVisitor, DiffWriter {
     /**
      * {@inheritDoc}
      */
+    @Override
     public void accept(DeleteHunk hunk) {
         processEditHunk(hunk);
     }
@@ -96,6 +99,7 @@ public class RhnPatchDiffWriter implements DiffVisitor, DiffWriter {
     /**
      * {@inheritDoc}
      */
+    @Override
     public void accept(InsertHunk hunk) {
         processEditHunk(hunk);
     }
@@ -118,30 +122,31 @@ public class RhnPatchDiffWriter implements DiffVisitor, DiffWriter {
         newEndLine = hunk.getNewLines().getToLine();
     }
 
-    private void addEditLines(List lines, char edit) {
+    private void addEditLines(List<String> lines, char edit) {
         //adding lines to the edit.
-        Iterator i = lines.iterator();
+        Iterator<String> i = lines.iterator();
         while (i.hasNext()) {
-            currentEdit.addLine((String)i.next(), edit);
+            currentEdit.addLine(i.next(), edit);
         }
     }
 
     /**
      * {@inheritDoc}
      */
+    @Override
     public void accept(MatchHunk hunk) {
         int startLine = hunk.getOldLines().getFromLine();
         int endLine = hunk.getOldLines().getToLine();
         int numLines = endLine - startLine;
 
         //Get the matching lines.
-        Iterator lines = hunk.getOldLines().getLines().iterator();
+        Iterator<String> lines = hunk.getOldLines().getLines().iterator();
 
         int counter = 0;
         if (currentEdit != null) { //There was an edit hunk before us.
             //Add context after a previous edit.
             while (lines.hasNext() && counter < contextLines) {
-                currentEdit.addLine((String)lines.next(), MATCH_LABEL);
+                currentEdit.addLine(lines.next(), MATCH_LABEL);
                 counter++;
             }
         }
@@ -166,7 +171,7 @@ public class RhnPatchDiffWriter implements DiffVisitor, DiffWriter {
         }
         while (lines.hasNext()) {
             //add context before an edit.
-            currentEdit.addLine((String)lines.next(), MATCH_LABEL);
+            currentEdit.addLine(lines.next(), MATCH_LABEL);
         }
     }
 
@@ -188,10 +193,10 @@ public class RhnPatchDiffWriter implements DiffVisitor, DiffWriter {
     }
 
     private class EditPoint {
-        private int fromStart;
-        private int toStart;
+        private final int fromStart;
+        private final int toStart;
         private boolean writable;
-        private StringBuffer lines;
+        private final StringBuffer lines;
 
         /**
          * @param fromLine Starting line for from file

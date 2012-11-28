@@ -27,13 +27,14 @@ package com.redhat.rhn.common.db;
  */
 public class ConstraintViolationException extends DatabaseException  {
 
+    private static final long serialVersionUID = 8280712690008736370L;
     protected int constraintType;
     protected String constraint;
 
     /////////////////////////
     // Constructors
     /////////////////////////
-        /**
+    /**
      * Constructor
      * @param type constraint type
      * @param name constraint name
@@ -47,7 +48,7 @@ public class ConstraintViolationException extends DatabaseException  {
         this.constraint =  name;
     }
 
-        /**
+    /**
      * Constructor
      * @param type constraint type
      * @param name constraint name

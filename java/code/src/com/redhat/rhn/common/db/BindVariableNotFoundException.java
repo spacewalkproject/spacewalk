@@ -27,11 +27,12 @@ package com.redhat.rhn.common.db;
  */
 public class BindVariableNotFoundException extends DatabaseException  {
 
+    private static final long serialVersionUID = 1838264161671802774L;
 
-    /////////////////////////
+    // ///////////////////////
     // Constructors
     /////////////////////////
-        /**
+    /**
      * Constructor
      * @param message exception message
      */
@@ -40,7 +41,7 @@ public class BindVariableNotFoundException extends DatabaseException  {
         // begin member variable initialization
     }
 
-        /**
+    /**
      * Constructor
      * @param message exception message
      * @param cause the cause (which is saved for later retrieval

@@ -30,6 +30,8 @@ import java.io.Serializable;
  */
 public class EmptyVarcharInterceptor extends EmptyInterceptor {
 
+    private static final long serialVersionUID = 5351605245345217308L;
+
     private static final Logger LOG = Logger
             .getLogger(EmptyVarcharInterceptor.class);
 
