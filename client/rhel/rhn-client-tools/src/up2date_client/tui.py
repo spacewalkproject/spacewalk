@@ -229,6 +229,7 @@ class SatelliteUrlWindow:
                                      buttons = [OK.encode('utf-8')])
             self.g.setCurrent(self.urlEntry)
             return 0
+
         if (self.urlEntry.value()[:5] == 'https' and
                 self.sslEntry.value() == ""):
             snack.ButtonChoiceWindow(self.screen, ERROR.encode('utf-8'),
@@ -239,9 +240,15 @@ class SatelliteUrlWindow:
         return 1
 
     def saveResults(self):
-        self.tui.serverURL = self.urlEntry.value()
+        serverEntry = self.urlEntry.value()
+        # fix up the server url, E.G. if someone left off /XMLRPC
+        fixed_server_url = rhnreg.makeNiceServerUrl(serverEntry)
+        if fixed_server_url != serverEntry:
+            serverEntry = fixed_server_url
+
+        self.tui.serverURL = serverEntry
         self.tui.sslCACert = self.sslEntry.value()
-        config.setServerURL(self.urlEntry.value())
+        config.setServerURL(serverEntry)
         config.setSSLCACert(self.sslEntry.value())
         cfg.save()
 
