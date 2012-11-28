@@ -15182,7 +15182,7 @@ the &lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;Activation Key
         </context-group>
       </trans-unit>
       <trans-unit id="treecreate.jsp.header1">
-        <source>The following details are needed to define a kickstartable distribution. The tree path field should be a valid path to a installation tree located on this @@PRODUCT_NAME@@  server. The Kickstart RPM should be the name of the rpm containing the kickstart deploy scripts. These RPMs are provided by @@PRODUCT_NAME@@ and located in the @@PRODUCT_NAME@@ Tools child channels.&lt;br/&gt;&lt;br/&gt;
+        <source>The following details are needed to define a kickstartable distribution. The tree path field should be a valid path to an installation tree located on this @@PRODUCT_NAME@@  server. The Kickstart RPM should be the name of the rpm containing the kickstart deploy scripts. These RPMs are provided by @@PRODUCT_NAME@@ and located in the @@PRODUCT_NAME@@ Tools child channels.&lt;br/&gt;&lt;br/&gt;
 
 The Distribution Label field should contain only letters, numbers, hyphens, periods, and underscores. It must also be at least 4 characters long.&lt;br/&gt;&lt;br/&gt;
 
