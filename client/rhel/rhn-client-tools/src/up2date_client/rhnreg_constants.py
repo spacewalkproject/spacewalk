@@ -233,7 +233,7 @@ NO_SYS_ENTITLEMENT         = _("This system was unable to be associated with "
 "about this problem. Once you make the "
 "appropriate active subscriptions available in your account, you may browse "
 "to this system's profile in the RHN web interface, delete the profile, and "
-"re-connect this system to Red Hat Network Sattelite.")
+"re-connect this system to Red Hat Network Satellite.")
 ACTIVATION_KEY          = _("Universal default activation key detected\n"
                             "A universal default activation key was detected in your account. "
                             "This means that a set of properties (software channel subscriptions, "
