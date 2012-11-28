@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 1.9.3
+Version: 1.9.4
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -253,6 +253,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Wed Nov 28 2012 Tomas Lestach <tlestach@redhat.com> 1.9.4-1
+- 470463 - fixing xmllint issue
+
 * Wed Nov 21 2012 Jan Pazdziora 1.9.3-1
 - Revert "removed dead query"
 - Revert "The ssm_rollback_by_tag_action_cb method no longer referenced,
