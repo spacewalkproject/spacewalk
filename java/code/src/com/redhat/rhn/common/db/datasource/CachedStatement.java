@@ -61,22 +61,22 @@ public class CachedStatement {
     private static Logger log = Logger
             .getLogger(CachedStatement.class);
     static final int BATCH_SIZE = 500;
-    private String alias;
-    private String name;
+    private final String alias;
+    private final String name;
     /** the original query, before the named bind parameters were removed. */
     private String origQuery;
     private String query;
     private String column;
-    private Map qMap;
-    private List params;
-    private List sortOptions;
+    private Map<String, List<Integer>> qMap;
+    private List<String> params;
+    private List<String> sortOptions;
     private String defaultSort;
     private String sortOrder;
     private boolean multiple;
     // This is only set if the current CachedStatement is a duplicate of an
     // existing one with the %s expanded out.
     private CachedStatement parentStatement;
-    private List restartData = null;
+    private RestartData restartData = null;
 
     // We could (and probably should) cache the ResultSet metadata here as
     // well.  There is no reason that the first call to each statement
@@ -90,8 +90,8 @@ public class CachedStatement {
     public CachedStatement(String n, String a) {
         name = n;
         alias = a;
-        params = new ArrayList();
-        sortOptions = new ArrayList();
+        params = new ArrayList<String>();
+        sortOptions = new ArrayList<String>();
     }
 
     /**
@@ -125,8 +125,8 @@ public class CachedStatement {
             this.column = new String(orig.column);
         }
 
-        this.params = new ArrayList(orig.params);
-        this.sortOptions = new ArrayList(orig.sortOptions);
+        this.params = new ArrayList<String>(orig.params);
+        this.sortOptions = new ArrayList<String>(orig.sortOptions);
 
         if (orig.defaultSort != null) {
             this.defaultSort = new String(orig.defaultSort);
@@ -177,7 +177,7 @@ public class CachedStatement {
      * @param q the query to set.
      */
     public void setQuery(String q) {
-        qMap = new HashMap();
+        qMap = new HashMap<String, List<Integer>>();
         origQuery = q;
         query = NamedPreparedStatement.replaceBindParams(q, qMap);
     }
@@ -217,7 +217,7 @@ public class CachedStatement {
      * Set the parameters.
      * @param p the parameters to set.
      */
-    public void setParams(List p) {
+    public void setParams(List<String> p) {
         params.addAll(p);
     }
 
@@ -239,7 +239,7 @@ public class CachedStatement {
      * Set the parameters.
      * @param p the parameters to set.
      */
-    public void setSortOptions(List p) {
+    public void setSortOptions(List<String> p) {
         sortOptions.addAll(p);
     }
 
@@ -269,37 +269,40 @@ public class CachedStatement {
         multiple = m;
     }
 
-    int executeUpdate(Map parameters) {
+    int executeUpdate(Map<String, Object> parameters) {
         Integer res = (Integer)execute(query, qMap, parameters, null);
         return res.intValue();
     }
 
-    int executeUpdate(Map parameters, List inClause) {
+    int executeUpdate(Map<String, Object> parameters, List<Object> inClause) {
         Integer res = (Integer)execute(parameters, inClause, "", "", null);
         return res.intValue();
     }
 
 
-    DataResult execute(Map parameters, Mode mode) {
+    DataResult<Object> execute(Map<String, Object> parameters, Mode mode) {
         return execute(parameters, defaultSort, sortOrder, mode);
     }
 
-    DataResult execute(List parameters, Mode mode) {
-        return (DataResult) execute(null, parameters, "", "", mode);
+    DataResult<Object> execute(List<Object> parameters, Mode mode) {
+        return (DataResult<Object>) execute(null, parameters, "", "", mode);
     }
 
-    DataResult execute(Map parameters, List inClause, Mode mode) {
-        return (DataResult) execute(parameters, inClause, "", "", mode);
+    DataResult<Object> execute(Map<String, Object> parameters,
+            List<Object> inClause,
+            Mode mode) {
+        return (DataResult<Object>) execute(parameters, inClause, "", "", mode);
     }
 
-    Object execute(Map parameters, List inClause, String sortColumn,
-                       String order, Mode mode) {
+    Object execute(Map<String, Object> parameters, List<Object> inClause,
+            String sortColumn,
+            String order, Mode mode) {
         if (query.indexOf("%o") > 0 && !sortOptions.contains(sortColumn)) {
             throw new IllegalArgumentException("Sort Column, " + sortColumn +
-                                               " invalid for query " + this);
+                    " invalid for query " + this);
         }
         String finalQuery = query.replaceFirst("%o",
-                                               sortColumn + " " + order);
+                sortColumn + " " + order);
 
         if (query.indexOf("%s") > 0 &&
                 (inClause != null && !inClause.isEmpty())) {
@@ -339,14 +342,16 @@ public class CachedStatement {
         return execute(finalQuery, qMap, parameters, mode);
     }
 
-    DataResult execute(Map parameters, String sortColumn,
-                       String order, Mode mode) {
-        return (DataResult) execute(parameters, null, sortColumn, order, mode);
+    DataResult<Object> execute(Map<String, Object> parameters,
+            String sortColumn,
+            String order, Mode mode) {
+        return (DataResult<Object>) execute(parameters, null, sortColumn,
+                order, mode);
     }
 
-    Collection executeElaborator(List resultList, Mode mode,
-            Map parametersIn) {
-        List elaborated = new LinkedList();
+    Collection<Object> executeElaborator(List<Object> resultList, Mode mode,
+            Map<String, Object> parametersIn) {
+        List<Object> elaborated = new LinkedList<Object>();
         for (int batch = 0; batch < resultList.size(); batch = batch + BATCH_SIZE) {
             int toIndex = batch + BATCH_SIZE;
             if (toIndex > resultList.size()) {
@@ -354,15 +359,17 @@ public class CachedStatement {
             }
             elaborated.addAll(
                     executeElaboratorBatch(resultList.subList(batch, toIndex),
-                                                    mode, parametersIn));
+                            mode, parametersIn));
         }
         return elaborated;
     }
 
-    private Collection executeElaboratorBatch(List resultList, Mode mode,
-                                 Map parametersIn) {
+    private Collection<Object> executeElaboratorBatch(List<Object> resultList,
+            Mode mode,
+            Map<String, Object> parametersIn) {
         int len = resultList.size();
-        Map parameters = new HashMap(parametersIn);
+        Map<String, Object> parameters = new HashMap<String, Object>(
+                parametersIn);
 
         if (len == 0) {
             // Nothing to elaborate, just return;
@@ -371,16 +378,16 @@ public class CachedStatement {
 
         // If we aren't actually operating on a list, just elaborate.
         if (origQuery.indexOf("%s") == -1) {
-            return (DataResult)execute(query, qMap, parameters,
-                                       mode, resultList);
+            return (DataResult<Object>) execute(query, qMap, parameters,
+                    mode, resultList);
         }
 
         StringBuffer bindParams = new StringBuffer(":l0");
-        List newParams = new ArrayList(params);
+        List<String> newParams = new ArrayList<String>(params);
         if (!checkForColumn(resultList.get(0), column)) {
             throw new MapColumnNotFoundException("Column, " + column +
-                                                 ", not found " +
-                                        "in driving query results");
+                    ", not found " +
+                    "in driving query results");
         }
 
         parameters.put("l0", getKey(resultList.get(0), column));
@@ -409,16 +416,16 @@ public class CachedStatement {
         return cs.executeElaboratorBatch(resultList, mode, parameters);
     }
 
-    private Map setupParamMap(Map parameters) {
+    private Map<String, Object> setupParamMap(Map<String, Object> parameters) {
         if (parameters == null && !params.isEmpty()) {
             throw new IllegalArgumentException("Query contains named parameter," +
                     " but value map is null");
         }
         // Only pass the parameters from the original query.
-        HashMap intersection = new HashMap();
-        Iterator i = params.iterator();
+        HashMap<String, Object> intersection = new HashMap<String, Object>();
+        Iterator<String> i = params.iterator();
         while (i.hasNext()) {
-            String curr = (String)i.next();
+            String curr = i.next();
             if (!parameters.containsKey(curr)) {
                 throw new ParameterValueNotFoundException("Parameter '" + curr +
                         "' not given for query: " + query);
@@ -428,16 +435,16 @@ public class CachedStatement {
         return intersection;
     }
 
-    private Object execute(String sql, Map parameterMap,
-                              Map parameters, Mode mode)  {
-       return execute(sql, parameterMap, parameters, mode, null);
+    private Object execute(String sql, Map<String, List<Integer>> parameterMap,
+            Map<String, Object> parameters, Mode mode) {
+        return execute(sql, parameterMap, parameters, mode, null);
     }
 
     // This isn't great, but I want to return either an integer count of the
     // number of rows updated, or the DataResult.  That can only be done by
     // returning an Object and letting the caller do the casting for us.
-    private Object execute(String sql, Map parameterMap,
-                              Map parameters, Mode mode, List dr)  {
+    private Object execute(String sql, Map<String, List<Integer>> parameterMap,
+            Map<String, Object> parameters, Mode mode, List<Object> dr) {
         storeForRestart(sql, parameterMap, parameters, mode, dr);
         PreparedStatement ps = null;
         try {
@@ -455,8 +462,8 @@ public class CachedStatement {
             }
 
             boolean returnType = NamedPreparedStatement.execute(ps,
-                                                   parameterMap,
-                                                   setupParamMap(parameters));
+                    parameterMap,
+                    setupParamMap(parameters));
             if (log.isDebugEnabled()) {
                 log.debug("execute() - Return type: " + returnType);
             }
@@ -470,7 +477,7 @@ public class CachedStatement {
         }
         catch (HibernateException he) {
             throw new
-                HibernateRuntimeException(
+            HibernateRuntimeException(
                     "HibernateException executing CachedStatement", he);
 
         }
@@ -484,17 +491,19 @@ public class CachedStatement {
         }
     }
 
-    private Map processOutputParams(CallableStatement cs, Map outParams)
-        throws SQLException {
+    private Map<String, Object> processOutputParams(CallableStatement cs,
+            Map<String, Integer> outParams)
+                    throws SQLException {
 
-        Iterator i = outParams.keySet().iterator();
-        Map result = new HashMap();
+        Iterator<String> i = outParams.keySet().iterator();
+        Map<String, Object> result = new HashMap<String, Object>();
         while (i.hasNext()) {
-            String param = (String)i.next();
-            Iterator positions = NamedPreparedStatement.getPositions(param, qMap);
+            String param = i.next();
+            Iterator<Integer> positions = NamedPreparedStatement.getPositions(
+                    param, qMap);
             // For now assume that we only specify each output parameter once,
             // to do otherwise just doesn't make a lot of sense.
-            Integer pos = (Integer)positions.next();
+            Integer pos = positions.next();
             Object o = cs.getObject(pos.intValue());
             if (o instanceof BigDecimal) {
                 o = new Long(((BigDecimal)o).longValue());
@@ -504,7 +513,8 @@ public class CachedStatement {
         return result;
     }
 
-    Map executeCallable(Map inParams, Map outParams) {
+    Map<String, Object> executeCallable(Map<String, Object> inParams,
+            Map<String, Integer> outParams) {
         CallableStatement cs = null;
         try {
             Connection conn = stealConnection();
@@ -513,7 +523,7 @@ public class CachedStatement {
             // Do we need to check the return code?  The original code in
             // ConnInvocHandler didn't, but I'm not sure that is correct. rbb
             NamedPreparedStatement.execute(cs, qMap, inParams,
-                                           outParams);
+                    outParams);
             return processOutputParams(cs, outParams);
         }
         catch (SQLException e) {
@@ -521,7 +531,7 @@ public class CachedStatement {
         }
         catch (HibernateException he) {
             throw new
-                HibernateRuntimeException(
+            HibernateRuntimeException(
                     "HibernateException executing CachedStatement", he);
 
         }
@@ -530,28 +540,28 @@ public class CachedStatement {
         }
     }
 
-    private DataResult processResultSet(ResultSet rs, SelectMode mode,
-                                        List currentResults) {
+    private DataResult<Object> processResultSet(ResultSet rs, SelectMode mode,
+            List<Object> currentResults) {
 
-        Map pointers = null;
-        DataResult dr;
+        Map<Object, Integer> pointers = null;
+        DataResult<Object> dr;
         if (currentResults != null) {
             pointers = generatePointers(currentResults, getColumn());
-            dr = new DataResult(currentResults);
+            dr = new DataResult<Object>(currentResults);
         }
         else {
-            dr = new DataResult(mode);
+            dr = new DataResult<Object>(mode);
         }
         String className = mode.getClassString();
         try {
             // Get the column names from the result set.
-            List columns = getColumnNames(rs.getMetaData());
+            List<String> columns = getColumnNames(rs.getMetaData());
             if (currentResults != null &&
-                !columns.contains(getColumn().toLowerCase())) {
+                    !columns.contains(getColumn().toLowerCase())) {
                 // This is ugly, but we check driving query results someplace
                 // else, so this is only executed if we are elaborating.
                 throw new MapColumnNotFoundException("Column, " + column +
-                    ", not found in elaborator results");
+                        ", not found in elaborator results");
             }
 
             // loop through the results, adding them to the displayMap
@@ -560,12 +570,12 @@ public class CachedStatement {
                  * If no className was specified *or* if the caller wants a Map
                  */
                 if (className == null || className.equals("java.util.Map")) {
-                    Map resultMap;
+                    Map<String, Object> resultMap;
                     if (pointers == null) {
-                        resultMap = new HashMap();
+                        resultMap = new HashMap<String, Object>();
                     }
                     else {
-                        Integer pos = (Integer)pointers.get(getObject(rs, getColumn()));
+                        Integer pos = pointers.get(getObject(rs, getColumn()));
                         /* TODO: there is a possible bug here. If the elaborator does
                          * not restrict itself to only the current results (%s thing),
                          * then the pos here is null, because the object might not
@@ -573,10 +583,11 @@ public class CachedStatement {
                          * Decide if this is a bug here or a bug with the query that
                          * allows such effect. Decide what to do about it.
                          */
-                        resultMap = (Map)currentResults.get(pos.intValue());
+                        resultMap = (Map<String, Object>) currentResults
+                                .get(pos.intValue());
                     }
                     addToMap(columns, rs, resultMap,
-                             mode.getElaborators().indexOf(parentStatement));
+                            mode.getElaborators().indexOf(parentStatement));
 
                     // bug 141664: Don't add to the DataResult if we are
                     // elaborating the data.
@@ -588,17 +599,17 @@ public class CachedStatement {
                  * Otherwise, try to set the results to the class given.
                  */
                 else {
-                    Class clazz = Class.forName(className);
+                    Class<?> clazz = Class.forName(className);
                     Object obj;
                     if (pointers == null) {
                         obj = clazz.newInstance();
                     }
                     else {
-                        Integer pos = (Integer)pointers.get(getObject(rs, getColumn()));
+                        Integer pos = pointers.get(getObject(rs, getColumn()));
                         if (pos == null) {
                             // possible mismatch on elaborator ids
                             throw new IllegalArgumentException("Null elab match for " +
-                                getColumn() + " " + getObject(rs, getColumn()));
+                                    getColumn() + " " + getObject(rs, getColumn()));
                         }
                         obj = currentResults.get(pos.intValue());
                     }
@@ -630,27 +641,29 @@ public class CachedStatement {
         }
         catch (ClassNotFoundException e) {
             throw new ObjectCreateWrapperException("Could not create " +
-                                            className, e);
+                    className, e);
         }
         catch (InstantiationException e) {
             throw new ObjectCreateWrapperException("Could not create " +
-                                            className, e);
+                    className, e);
         }
         catch (IllegalAccessException e) {
             throw new ObjectCreateWrapperException("Could not create " +
-                                            className, e);
+                    className, e);
         }
         finally {
             HibernateHelper.cleanupDB(rs);
         }
     }
 
-    private void addToMap(List columns, ResultSet rs, Map resultMap, int pos)
-        throws SQLException {
-        Map newMap = new HashMap();
-        Iterator i = columns.iterator();
+    private void addToMap(List<String> columns, ResultSet rs,
+            Map<String, Object> resultMap,
+            int pos)
+                    throws SQLException {
+        Map<String, Object> newMap = new HashMap<String, Object>();
+        Iterator<String> i = columns.iterator();
         while (i.hasNext()) {
-            String columnName = (String)i.next();
+            String columnName = i.next();
             newMap.put(columnName.toLowerCase(),
                     getObject(rs, columnName));
         }
@@ -673,12 +686,12 @@ public class CachedStatement {
                 stmtName = "elaborator" + pos;
             }
             if (multiple) {
-                List newList = null;
+                List<Object> newList = null;
                 if (resultMap.containsKey(stmtName)) {
-                    newList = (List)resultMap.get(stmtName);
+                    newList = (List<Object>) resultMap.get(stmtName);
                 }
                 else {
-                    newList = new ArrayList();
+                    newList = new ArrayList<Object>();
                 }
                 newList.add(newMap);
                 resultMap.put(stmtName, newList);
@@ -689,10 +702,11 @@ public class CachedStatement {
         }
     }
 
-    private void addToObject(List columns, ResultSet rs, Object obj, boolean elaborator)
-        throws SQLException {
+    private void addToObject(List<String> columns, ResultSet rs, Object obj,
+            boolean elaborator)
+                    throws SQLException {
 
-        List columnSkip;
+        List<String> columnSkip;
         if (elaborator && obj instanceof RowCallback) {
             RowCallback cb = (RowCallback)obj;
             cb.callback(rs);
@@ -702,9 +716,9 @@ public class CachedStatement {
             columnSkip = new ArrayList<String>();
         }
 
-        Iterator i = columns.iterator();
+        Iterator<String> i = columns.iterator();
         while (i.hasNext()) {
-            String columnName = (String)i.next();
+            String columnName = i.next();
             if (columnSkip.contains(columnName.toLowerCase())) {
                 continue;
             }
@@ -724,7 +738,7 @@ public class CachedStatement {
                 //getName() gets the name of the set method
                 //setName is the name of the set method
                 if (methods[j].getName().equals(setName)) {
-                    Class paramType = methods[j].getParameterTypes()[0];
+                    Class<?> paramType = methods[j].getParameterTypes()[0];
                     if (Collection.class.isAssignableFrom(paramType)) {
                         isList = true;
                     }
@@ -733,10 +747,11 @@ public class CachedStatement {
             }
 
             if (isList) { //requires matching get method returning the same list
-                Collection c = (Collection)MethodUtil.callMethod(obj,
-                                                    getName, new Object[0]);
+                Collection<Object> c = (Collection<Object>) MethodUtil
+                        .callMethod(obj,
+                                getName, new Object[0]);
                 if (c == null) {
-                    c = new ArrayList();
+                    c = new ArrayList<Object>();
                 }
                 c.add(getObject(rs, columnName));
                 MethodUtil.callMethod(obj, setName, c);
@@ -777,9 +792,12 @@ public class CachedStatement {
         // this            : August 23, 2005 12:00:00 AM PDT
         // vs the real date: August 23, 2005 1:36:12 PM PDT
         if (columnValue instanceof Date ||
-            ("oracle.sql.TIMESTAMPLTZ".equals(columnValue.getClass().getCanonicalName())) ||
-            ("oracle.sql.TIMESTAMP".equals(columnValue.getClass().getCanonicalName())) ||
-            ("oracle.sql.TIMESTAMPTZ".equals(columnValue.getClass().getCanonicalName()))) {
+                ("oracle.sql.TIMESTAMPLTZ".equals(columnValue.getClass()
+                        .getCanonicalName())) ||
+                        ("oracle.sql.TIMESTAMP".equals(columnValue.getClass()
+                        .getCanonicalName())) ||
+                                ("oracle.sql.TIMESTAMPTZ".equals(columnValue.getClass()
+                        .getCanonicalName()))) {
             Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT"));
             return rs.getTimestamp(columnName, cal);
         }
@@ -788,9 +806,10 @@ public class CachedStatement {
         }
         return columnValue;
     }
-    private List getColumnNames(ResultSetMetaData rsmd) {
+
+    private List<String> getColumnNames(ResultSetMetaData rsmd) {
         try {
-            ArrayList columns = new ArrayList();
+            ArrayList<String> columns = new ArrayList<String>();
             int count = rsmd.getColumnCount();
 
             for (int i = 1; i <= count; i++) {
@@ -805,9 +824,9 @@ public class CachedStatement {
 
     private boolean checkForColumn(Object obj, String key) {
         if (obj instanceof Map) {
-            return ((Map)obj).containsKey(key);
+            return ((Map<String, Object>) obj).containsKey(key);
         }
-        Class clazz = obj.getClass();
+        Class<?> clazz = obj.getClass();
         Method[] methods = clazz.getMethods();
         for (int i = 0; i < methods.length; i++) {
             if (methods[i].getName().equals(StringUtil.beanify("get " + key))) {
@@ -819,7 +838,7 @@ public class CachedStatement {
 
     private Object getKey(Object obj, String key) {
         if (obj instanceof Map) {
-            return ((Map)obj).get(key);
+            return ((Map<String, Object>) obj).get(key);
         }
         Object keyData = MethodUtil.callMethod(obj,
                 StringUtil.beanify("get " + key),
@@ -827,17 +846,18 @@ public class CachedStatement {
         return keyData;
     }
 
-    private Map generatePointers(List dr, String key) {
+    private Map<Object, Integer> generatePointers(List<Object> dr, String key) {
 
-        Iterator i = dr.iterator();
+        Iterator<Object> i = dr.iterator();
         int pos = 0;
-        Map pointers = new HashMap();
+        Map<Object, Integer> pointers = new HashMap<Object, Integer>();
 
         while (i.hasNext()) {
             Object row = i.next();
 
             if (row instanceof Map) {
-                pointers.put(((Map)row).get(key), new Integer(pos));
+                pointers.put(((Map<String, Object>) row).get(key), new Integer(
+                        pos));
             }
             else {
                 Object keyData = MethodUtil.callMethod(row,
@@ -866,14 +886,10 @@ public class CachedStatement {
         return conn;
     }
 
-    private void storeForRestart(String sql, Map parameterMap,
-            Map parameters, Mode mode, List dr) {
-        restartData = new ArrayList();
-        restartData.add(sql);
-        restartData.add(parameterMap);
-        restartData.add(parameters);
-        restartData.add(mode);
-        restartData.add(dr);
+    private void storeForRestart(String sql,
+            Map<String, List<Integer>> parameterMap,
+            Map<String, Object> parameters, Mode mode, List<Object> dr) {
+        restartData = new RestartData(sql, parameterMap, parameters, mode, dr);
     }
 
     /**
@@ -881,12 +897,9 @@ public class CachedStatement {
      * @return what the previous query returned or null.
      */
     public Object restartQuery() {
-        return restartData == null ? null :
-                execute((String) restartData.get(0),
-                        (Map) restartData.get(1),
-                        (Map) restartData.get(2),
-                        (Mode) restartData.get(3),
-                        (List) restartData.get(4));
+        return restartData == null ? null : execute(restartData.getSql(),
+                restartData.getParameterMap(), restartData.getParameters(),
+                restartData.getMode(), restartData.getDr());
     }
 }
 

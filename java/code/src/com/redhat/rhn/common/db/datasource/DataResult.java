@@ -42,13 +42,13 @@ public class DataResult<T> extends ArrayList<T> {
     private CharacterMap index;
     private String filterData;
     private boolean filter;
-    private Map elabParams;
+    private Map<String, Object> elabParams;
 
     /**
      * Create a new DataResult object
      * @param dr The Mode that created this DataResult
      */
-    protected DataResult(DataResult dr) {
+    protected DataResult(DataResult<T> dr) {
         super(dr);
         mode = dr.getMode();
         start = dr.getStart();
@@ -74,7 +74,7 @@ public class DataResult<T> extends ArrayList<T> {
      * @param l The list to add
      * @param m The Mode that created this DataResult
      */
-    protected DataResult(Collection l, Mode m) {
+    protected DataResult(Collection<T> l, Mode m) {
         super(l);
         mode = (SelectMode)m;
     }
@@ -85,7 +85,7 @@ public class DataResult<T> extends ArrayList<T> {
      * short lists Hibernate Objects
      * @param l Collection of Objects you want in the Result
      */
-    public DataResult(Collection l) {
+    public DataResult(Collection<T> l) {
         this(l, null);
         this.setTotalSize(l.size());
         start = 1;
@@ -101,6 +101,7 @@ public class DataResult<T> extends ArrayList<T> {
     }
 
     /** {@inheritDoc} */
+    @Override
     public DataResult<T> subList(int fromIndex, int toIndex) {
         int last = toIndex;
 
@@ -113,11 +114,11 @@ public class DataResult<T> extends ArrayList<T> {
             fromIndex = last - 1;
         }
         if (fromIndex == -1) {
-            return new DataResult(mode);
+            return new DataResult<T>(mode);
         }
 
-        List temp = super.subList(fromIndex, last);
-        DataResult dr = new DataResult(temp, mode);
+        List<T> temp = super.subList(fromIndex, last);
+        DataResult<T> dr = new DataResult<T>(temp, mode);
         dr.start = fromIndex + 1;
         dr.end = toIndex;
         dr.totalSize = this.getTotalSize();
@@ -143,7 +144,7 @@ public class DataResult<T> extends ArrayList<T> {
      * key.  This will execute all elaborators.
      * @param values The values to bind to the BindParameters
      */
-    public void elaborate(Map values) {
+    public void elaborate(Map<String, Object> values) {
         elabParams = values;
         if (mode != null) {
             mode.elaborate(this, values);
@@ -170,14 +171,14 @@ public class DataResult<T> extends ArrayList<T> {
      *                          cycle.
      */
     public Elaborator getElaborator() {
-       return new ModeElaborator(mode, elabParams);
+        return new ModeElaborator(mode, elabParams);
     }
 
     /**
      * Return the parameters that were passed into the last call to elaborate()
      * @return Map of elaboration values
      */
-    public Map getElaborationParams() {
+    public Map<String, Object> getElaborationParams() {
         return elabParams;
     }
 
@@ -189,7 +190,7 @@ public class DataResult<T> extends ArrayList<T> {
      * @param values name/value pairs used to elaborate the query
      *
      */
-    public void setElaborationParams(Map values) {
+    public void setElaborationParams(Map<String, Object> values) {
         elabParams = values;
     }
 
@@ -296,9 +297,10 @@ public class DataResult<T> extends ArrayList<T> {
     }
 
     /** {@inheritDoc} */
+    @Override
     public String toString() {
         return "{Start: " + start + " End: " + end + " Total: " + totalSize +
-               super.toString() + "}";
+                super.toString() + "}";
     }
 
     /**
@@ -306,7 +308,7 @@ public class DataResult<T> extends ArrayList<T> {
      * @param dr data result to add
      * @return if data resule was changed
      */
-    public boolean addDataResult(DataResult dr) {
+    public boolean addDataResult(DataResult<T> dr) {
         boolean changed = super.addAll(dr);
         totalSize += dr.size();
         end += dr.size();

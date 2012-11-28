@@ -95,11 +95,11 @@ public class OrgFactory extends HibernateFactory {
             }
         }
 
-        Map in = new HashMap();
+        Map<String, Object> in = new HashMap<String, Object>();
         in.put("org_id", oid);
         CallableMode m = ModeFactory.getCallableMode(
                 "Org_queries", "delete_organization");
-        m.execute(in, new HashMap());
+        m.execute(in, new HashMap<String, Integer>());
     }
 
     /**
@@ -186,8 +186,8 @@ public class OrgFactory extends HibernateFactory {
         CallableMode m = ModeFactory.getCallableMode("General_queries",
                 "create_org");
 
-        Map inParams = new HashMap();
-        Map outParams = new HashMap();
+        Map<String, Object> inParams = new HashMap<String, Object>();
+        Map<String, Integer> outParams = new HashMap<String, Integer>();
 
         inParams.put("name", org.getName());
         // password is currently required as an input to the create_new_org
@@ -195,7 +195,7 @@ public class OrgFactory extends HibernateFactory {
         inParams.put("password", org.getName());
         outParams.put("org_id", new Integer(Types.NUMERIC));
 
-        Map row = m.execute(inParams, outParams);
+        Map<String, Object> row = m.execute(inParams, outParams);
         // Get the out params
         Org retval = lookupById((Long) row.get("org_id"));
 
@@ -302,7 +302,7 @@ public class OrgFactory extends HibernateFactory {
 
         SelectMode m = ModeFactory.getMode("General_queries",
                 "activation_keys_for_org");
-        Map params = new HashMap();
+        Map<String, Long> params = new HashMap<String, Long>();
         params.put("org_id", orgIn.getId());
         DataList keys = DataList.getDataList(m, params, Collections.EMPTY_MAP);
         return new Long(keys.size());
@@ -316,7 +316,7 @@ public class OrgFactory extends HibernateFactory {
     public static Long getKickstarts(Org orgIn) {
         SelectMode m = ModeFactory.getMode("General_queries",
                 "kickstarts_for_org");
-        Map params = new HashMap();
+        Map<String, Long> params = new HashMap<String, Long>();
         params.put("org_id", orgIn.getId());
         DataList kickstarts = DataList.getDataList(m, params, Collections.EMPTY_MAP);
         return new Long(kickstarts.size());

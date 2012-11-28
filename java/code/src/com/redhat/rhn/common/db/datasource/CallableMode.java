@@ -30,7 +30,8 @@ public class CallableMode extends BaseMode {
      * @param outParams A map of parameter names to SQL Type
      * @return A map of all result parameters to the result value
      */
-    public Map execute(Map inParams, Map outParams) {
+    public Map<String, Object> execute(Map<String, Object> inParams,
+            Map<String, Integer> outParams) {
         return getQuery().executeCallable(inParams, outParams);
     }
 }

@@ -73,7 +73,7 @@ public final class NamedPreparedStatement {
      * @return a SQL statement that can be used with JDBC
      */
     public static String replaceBindParams(String rawSQL,
-                                           Map parameterMap) {
+            Map<String, List<Integer>> parameterMap) {
         StringBuffer sql = new StringBuffer(rawSQL);
 
         int idx = findColon(0, sql);
@@ -83,9 +83,9 @@ public final class NamedPreparedStatement {
             String name = sql.substring(idx + 1, end).toLowerCase();
             sql = sql.replace(idx, end, "?");
 
-            List lst = (List)parameterMap.get(name);
+            List<Integer> lst = parameterMap.get(name);
             if (lst == null) {
-                lst = new ArrayList();
+                lst = new ArrayList<Integer>();
             }
             lst.add(new Integer(variableNumber));
             parameterMap.put(name, lst);
@@ -107,8 +107,10 @@ public final class NamedPreparedStatement {
      * @return true if CallableStatement executed without error, false otherwise.
      * @throws RuntimeException in case of SQLException
      */
-    public static boolean execute(CallableStatement cs, Map parameterMap,
-                                  Map inParams, Map outParams) throws RuntimeException {
+    public static boolean execute(CallableStatement cs,
+            Map<String, List<Integer>> parameterMap,
+            Map<String, Object> inParams, Map<String, Integer> outParams)
+            throws RuntimeException {
         try {
             setVars(cs, parameterMap, inParams);
             setOutputVars(cs, parameterMap, outParams);
@@ -131,8 +133,8 @@ public final class NamedPreparedStatement {
      * @throws RuntimeException in case of SQLException
      */
     public static boolean execute(PreparedStatement ps,
-                                    Map parameterMap,
-                                    Map parameters) {
+            Map<String, List<Integer>> parameterMap,
+            Map<String, Object> parameters) {
         try {
             setVars(ps, parameterMap, parameters);
             return ps.execute();
@@ -162,26 +164,27 @@ public final class NamedPreparedStatement {
      * @return The iterator for the list of data returned.
      * @throws BindVariableNotFoundException couldn't find bind variable
      */
-    public static Iterator getPositions(String name, Map parameterMap)
-        throws BindVariableNotFoundException {
+    public static Iterator<Integer> getPositions(String name,
+            Map<String, List<Integer>> parameterMap)
+            throws BindVariableNotFoundException {
 
-        List lst = (List)parameterMap.get(name.toLowerCase());
+        List<Integer> lst = parameterMap.get(name.toLowerCase());
         if (lst == null) {
             throw new BindVariableNotFoundException("Can't find variable: " +
-                                                    name);
+                    name);
         }
         return lst.iterator();
     }
 
-    private static void setVars(PreparedStatement ps, Map parameterMap,
-                                Map map) {
-        Iterator i = map.keySet().iterator();
+    private static void setVars(PreparedStatement ps,
+            Map<String, List<Integer>> parameterMap, Map<String, Object> map) {
+        Iterator<String> i = map.keySet().iterator();
 
         while (i.hasNext()) {
-            String name = (String)i.next();
-            Iterator positions = getPositions(name, parameterMap);
+            String name = i.next();
+            Iterator<Integer> positions = getPositions(name, parameterMap);
             while (positions.hasNext()) {
-                Integer pos = (Integer)positions.next();
+                Integer pos = positions.next();
                 try {
                     Object value = map.get(name);
                     ps.setObject(pos.intValue(), value);
@@ -193,21 +196,21 @@ public final class NamedPreparedStatement {
         }
     }
 
-    private static void setOutputVars(CallableStatement cs, Map parameterMap,
-                                      Map map) {
-        Iterator i = map.keySet().iterator();
+    private static void setOutputVars(CallableStatement cs,
+            Map<String, List<Integer>> parameterMap, Map<String, Integer> map) {
+        Iterator<String> i = map.keySet().iterator();
 
         while (i.hasNext()) {
-            String name = (String)i.next();
-            Iterator positions = getPositions(name, parameterMap);
+            String name = i.next();
+            Iterator<Integer> positions = getPositions(name, parameterMap);
             while (positions.hasNext()) {
-                Integer pos = (Integer)positions.next();
+                Integer pos = positions.next();
                 try {
                     // JDBC sucks.  It uses static int's instead of Integers
                     // to represent SQL types.  So, we treat the values as
                     // Integers, and the caller is responsible for inserting
                     // the Integer object.
-                    Integer type = (Integer)map.get(name);
+                    Integer type = map.get(name);
                     cs.registerOutParameter(pos.intValue(), type.intValue());
                 }
                 catch (SQLException e) {

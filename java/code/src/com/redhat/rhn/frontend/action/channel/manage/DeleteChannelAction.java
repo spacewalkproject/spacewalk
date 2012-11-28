@@ -50,11 +50,12 @@ public class DeleteChannelAction extends RhnAction {
     private static final String DISABLE_DELETE = "disableDelete";
 
     /** {@inheritDoc} */
+    @Override
     public ActionForward execute(ActionMapping actionMapping,
-                                 ActionForm actionForm,
-                                 HttpServletRequest request,
-                                 HttpServletResponse response)
-        throws Exception {
+            ActionForm actionForm,
+            HttpServletRequest request,
+            HttpServletResponse response)
+                    throws Exception {
 
         RequestContext context = new RequestContext(request);
         User user = context.getLoggedInUser();
@@ -68,14 +69,14 @@ public class DeleteChannelAction extends RhnAction {
 
         // The channel doesn't carry its subscribed system count, so add this separately
         int subscribedSystemsCount =
-            SystemManager.countSystemsSubscribedToChannel(channelId, user);
+                SystemManager.countSystemsSubscribedToChannel(channelId, user);
         request.setAttribute("subscribedSystemsCount", subscribedSystemsCount);
 
         // Load the number of systems subscribed through a trust relationship to
         // the channel
         int trustedSystemsCount =
-            SystemManager.countSubscribedToChannelWithoutOrg(channel.getOrg().getId(),
-                channelId);
+                SystemManager.countSubscribedToChannelWithoutOrg(channel.getOrg().getId(),
+                        channelId);
         request.setAttribute("trustedSystemsCount", trustedSystemsCount);
 
         if (context.isSubmitted()) {
@@ -107,8 +108,8 @@ public class DeleteChannelAction extends RhnAction {
                     Map params = new HashMap();
                     params.put("selected_channel", "all_managed_packages");
                     params.put("forwarded", "true");
-                    return getStrutsDelegate().forwardParams(actionMapping.findForward("delete"),
-                            params);
+                    return getStrutsDelegate().forwardParams(
+                            actionMapping.findForward("delete"), params);
                 }
                 return actionMapping.findForward("success");
             }

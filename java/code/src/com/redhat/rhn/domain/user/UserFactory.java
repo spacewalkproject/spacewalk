@@ -61,8 +61,8 @@ public  class UserFactory extends HibernateFactory {
     private static List timeZoneList;
 
     private static final Role[] IMPLIEDROLESARRAY = {RoleFactory.CHANNEL_ADMIN,
-            RoleFactory.CONFIG_ADMIN, RoleFactory.SYSTEM_GROUP_ADMIN,
-            RoleFactory.ACTIVATION_KEY_ADMIN, RoleFactory.MONITORING_ADMIN};
+        RoleFactory.CONFIG_ADMIN, RoleFactory.SYSTEM_GROUP_ADMIN,
+        RoleFactory.ACTIVATION_KEY_ADMIN, RoleFactory.MONITORING_ADMIN};
 
     /** List of Role objects that are applied if you are an Org_admin */
     public static final List <Role> IMPLIEDROLES = Arrays.asList(IMPLIEDROLESARRAY);
@@ -84,10 +84,10 @@ public  class UserFactory extends HibernateFactory {
     private static State loadState(String label) {
         Session session = HibernateFactory.getSession();
         State state = (State) session.getNamedQuery("UserState.lookupByLabel")
-                                         .setParameter("label", label)
-                                         //Retrieve from cache if there
-                                         .setCacheable(true)
-                                         .uniqueResult();
+                .setParameter("label", label)
+                //Retrieve from cache if there
+                .setCacheable(true)
+                .uniqueResult();
         return state;
     }
 
@@ -100,10 +100,10 @@ public  class UserFactory extends HibernateFactory {
     public static User findResponsibleUser(Long orgId, Role r) {
         Session session = HibernateFactory.getSession();
         Iterator itr = session.getNamedQuery("User.findResponsibleUser")
-                                         .setParameter("org_id", orgId)
-                                         .setParameter("type_id", r.getId())
-                                         //Retrieve from cache if there
-                                         .list().iterator();
+                .setParameter("org_id", orgId)
+                .setParameter("type_id", r.getId())
+                //Retrieve from cache if there
+                .list().iterator();
         if (itr.hasNext()) {
             // only care about the first one
             Object[] row = (Object[])itr.next();
@@ -123,21 +123,22 @@ public  class UserFactory extends HibernateFactory {
     public static User findRandomOrgAdmin(Org orgIn) {
         Role r = RoleFactory.ORG_ADMIN;
         Session session = HibernateFactory.getSession();
-        Iterator itr = session.getNamedQuery("User.findRandomOrgAdmin")
-                                         .setParameter("org_id", orgIn.getId())
-                                         .setParameter("type_id", r.getId())
-                                         //Retrieve from cache if there
-                                         .list().iterator();
+        Iterator<Long> itr = session.getNamedQuery("User.findRandomOrgAdmin")
+                .setParameter("org_id", orgIn.getId())
+                .setParameter("type_id", r.getId())
+                //Retrieve from cache if there
+                .list().iterator();
         if (itr.hasNext()) {
             // only care about the first one
-            return UserFactory.lookupById((Long)itr.next());
+            return UserFactory.lookupById(itr.next());
         }
         return null;
     }
 
     /** Get the Logger for the derived class so log messages
-    *   show up on the correct class
-    */
+     *   show up on the correct class
+     */
+    @Override
     protected Logger getLogger() {
         return log;
     }
@@ -190,7 +191,7 @@ public  class UserFactory extends HibernateFactory {
      * @param ids the ids to lookup for
      * @return the list of com.redhat.rhn.domain.User objects found
      */
-    public static List lookupByIds(Collection<Long> ids) {
+    public static List<User> lookupByIds(Collection<Long> ids) {
         if (ids.size() < 1000) {
             return realLookupByIds(ids);
         }
@@ -214,7 +215,7 @@ public  class UserFactory extends HibernateFactory {
     private static List<User> realLookupByIds(Collection<Long> ids) {
         Session session = HibernateFactory.getSession();
         Query query = session.getNamedQuery("User.findByIds")
-                             .setParameterList("userIds", ids);
+                .setParameterList("userIds", ids);
         return query.list();
     }
 
@@ -226,11 +227,11 @@ public  class UserFactory extends HibernateFactory {
      * @return the user found
      */
     public static User lookupById(User user, Long id) {
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("uid", id);
         params.put("orgId", user.getOrg().getId());
         User returnedUser  = (User)getInstance().lookupObjectByNamedQuery(
-                                       "User.findByIdandOrgId", params);
+                "User.findByIdandOrgId", params);
         if (returnedUser == null || !user.getOrg().equals(returnedUser.getOrg())) {
             LocalizationService ls = LocalizationService.getInstance();
             LookupException e = new LookupException("Could not find user " + id);
@@ -248,10 +249,10 @@ public  class UserFactory extends HibernateFactory {
      * @return the User found
      */
     public static User lookupByLogin(String login) {
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put(LOGIN_UC, login.toUpperCase());
         User user = (User)getInstance()
-                            .lookupObjectByNamedQuery("User.findByLogin", params);
+                .lookupObjectByNamedQuery("User.findByLogin", params);
 
         if (user == null) {
             LocalizationService ls = LocalizationService.getInstance();
@@ -271,11 +272,11 @@ public  class UserFactory extends HibernateFactory {
      * @return the User found
      */
     public static User lookupByLogin(User user, String login) {
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put(LOGIN_UC, login.toUpperCase());
         params.put("orgId", user.getOrg().getId());
         User returnedUser  = (User)getInstance().lookupObjectByNamedQuery(
-                                            "User.findByLoginAndOrgId", params);
+                "User.findByLoginAndOrgId", params);
 
         if (returnedUser == null) {
             LocalizationService ls = LocalizationService.getInstance();
@@ -320,12 +321,12 @@ public  class UserFactory extends HibernateFactory {
      * @return Returns true if the user is disabled
      */
     public static boolean isDisabled(User user) {
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("user", user);
         List <StateChange>  changes =  getInstance().
-                        listObjectsByNamedQuery("StateChanges.lookupByUserId", params);
+                listObjectsByNamedQuery("StateChanges.lookupByUserId", params);
         return changes != null && !changes.isEmpty() &&
-                                DISABLED.equals(changes.get(0).getState());
+                DISABLED.equals(changes.get(0).getState());
     }
 
 
@@ -352,8 +353,8 @@ public  class UserFactory extends HibernateFactory {
         }
         // save the user
         CallableMode m = ModeFactory.getCallableMode("User_queries", "create_new_user");
-        Map inParams = new HashMap();
-        Map outParams = new HashMap();
+        Map<String, Object> inParams = new HashMap<String, Object>();
+        Map<String, Integer> outParams = new HashMap<String, Integer>();
 
         // Can't add the orgId to the object until the User has been
         // successfully added to the DB. Doing so will mean that if
@@ -390,7 +391,7 @@ public  class UserFactory extends HibernateFactory {
         inParams.put("contEmail", "N");
 
         outParams.put("userId", new Integer(Types.NUMERIC));
-        Map result = m.execute(inParams, outParams);
+        Map<String, Object> result = m.execute(inParams, outParams);
 
         Org org = OrgFactory.lookupById(orgId);
         if (org != null) {
@@ -443,7 +444,7 @@ public  class UserFactory extends HibernateFactory {
         Boolean wasOrgAdmin = uimpl.wasOrgAdmin();
         if (wasOrgAdmin != null) {
             orgAdminChanged =
-                usr.hasRole(RoleFactory.ORG_ADMIN) != wasOrgAdmin.booleanValue();
+                    usr.hasRole(RoleFactory.ORG_ADMIN) != wasOrgAdmin.booleanValue();
         }
 
         if (orgAdminChanged) {
@@ -458,10 +459,10 @@ public  class UserFactory extends HibernateFactory {
      */
     public void syncServerGroupPerms(User usr) {
         CallableMode m = ModeFactory.getCallableMode("User_queries",
-                                                 "update_perms_for_user");
-        Map inParams = new HashMap();
+                "update_perms_for_user");
+        Map<String, Object> inParams = new HashMap<String, Object>();
         inParams.put("user_id", usr.getId());
-        m.execute(inParams, new HashMap());
+        m.execute(inParams, new HashMap<String, Integer>());
     }
 
 
@@ -474,10 +475,10 @@ public  class UserFactory extends HibernateFactory {
     public static RhnTimeZone getTimeZone(int id) {
         Session session = HibernateFactory.getSession();
         return (RhnTimeZone) session.getNamedQuery("RhnTimeZone.loadTimeZoneById")
-                                 .setInteger("tid", id)
-                                 //Retrieve from cache if there
-                                 .setCacheable(true)
-                                 .uniqueResult();
+                .setInteger("tid", id)
+                //Retrieve from cache if there
+                .setCacheable(true)
+                .uniqueResult();
     }
 
     /**
@@ -488,11 +489,11 @@ public  class UserFactory extends HibernateFactory {
     public static RhnTimeZone getTimeZone(String olsonName) {
         Session session = HibernateFactory.getSession();
         return (RhnTimeZone) session
-                                 .getNamedQuery("RhnTimeZone.loadTimeZoneByOlsonName")
-                                 .setString("ton", olsonName)
-                                 //Retrieve from cache if there
-                                 .setCacheable(true)
-                                 .uniqueResult();
+                .getNamedQuery("RhnTimeZone.loadTimeZoneByOlsonName")
+                .setString("ton", olsonName)
+                //Retrieve from cache if there
+                .setCacheable(true)
+                .uniqueResult();
     }
 
     /**
@@ -509,7 +510,7 @@ public  class UserFactory extends HibernateFactory {
      */
     public static List lookupAllTimeZones() {
         //timeZoneList is manually cached because instance variable is properly sorted
-            //whereas the database is not.
+        //whereas the database is not.
         if (timeZoneList == null) {
             List timeZones = null; //temporary holding place until sorted
             Session session = HibernateFactory.getSession();
@@ -521,12 +522,13 @@ public  class UserFactory extends HibernateFactory {
             //All other timezones are sorted West to East based on raw off-set.
             if (timeZones != null) {
                 Collections.sort(timeZones, new Comparator() {
+                    @Override
                     public int compare(Object o1, Object o2) {
                         int offSet1 = ((RhnTimeZone)o1).getTimeZone().getRawOffset();
                         int offSet2 = ((RhnTimeZone)o2).getTimeZone().getRawOffset();
 
                         if (offSet1 <= -18000000 && offSet1 >= -36000000 &&
-                            offSet2 <= -18000000 && offSet2 >= -36000000) {
+                                offSet2 <= -18000000 && offSet2 >= -36000000) {
                             //both in America
                             return offSet2 - offSet1;
                         }
@@ -543,10 +545,10 @@ public  class UserFactory extends HibernateFactory {
                         return offSet1 - offSet2;
                     }
                 }
-                );
+                        );
             }
 
-        timeZoneList = timeZones;
+            timeZoneList = timeZones;
         }
         return timeZoneList;
     }
@@ -595,7 +597,7 @@ public  class UserFactory extends HibernateFactory {
      */
     public static boolean satelliteHasUsers() {
         SelectMode m = ModeFactory.getMode("User_queries", "user_count");
-        DataResult dr = m.execute(new HashMap());
+        DataResult dr = m.execute(new HashMap<String, Object>());
         Map row = (Map) dr.get(0);
         Long count = (Long) row.get("user_count");
         return (count.longValue() > 0);
@@ -618,8 +620,8 @@ public  class UserFactory extends HibernateFactory {
      * @return UserServerPreference that corresponds to the parameters
      */
     public UserServerPreference lookupServerPreferenceByUserServerAndName(User user,
-                                                                             Server server,
-                                                                             String name) {
+            Server server,
+            String name) {
         UserServerPreferenceId id = new UserServerPreferenceId(user, server, name);
         Session session = HibernateFactory.getSession();
         return (UserServerPreference) session.get(UserServerPreference.class, id);
@@ -634,15 +636,15 @@ public  class UserFactory extends HibernateFactory {
      * @param value true if the preference should be true, false otherwise
      */
     public void setUserServerPreferenceValue(User user,
-                                                    Server server,
-                                                    String preferenceName,
-                                                    boolean value) {
+            Server server,
+            String preferenceName,
+            boolean value) {
         Session session = HibernateFactory.getSession();
         UserServerPreferenceId id = new UserServerPreferenceId(user,
-                                                             server,
-                                                             preferenceName);
+                server,
+                preferenceName);
         UserServerPreference usp = (UserServerPreference)
-                                   session.get(UserServerPreference.class, id);
+                session.get(UserServerPreference.class, id);
 
         /* Here, we delete the preference's entry if it should be true.
          * We would hopefully be ok setting the value to "1," but I'm emulating
@@ -696,8 +698,8 @@ public  class UserFactory extends HibernateFactory {
     public static void deleteUser(Long userId) {
         CallableMode m = ModeFactory.getCallableMode("User_queries",
                 "delete_user");
-        Map inParams = new HashMap();
-        Map outParams = new HashMap();
+        Map<String, Object> inParams = new HashMap<String, Object>();
+        Map<String, Integer> outParams = new HashMap<String, Integer>();
         inParams.put("user_id", userId);
         m.execute(inParams, outParams);
     }

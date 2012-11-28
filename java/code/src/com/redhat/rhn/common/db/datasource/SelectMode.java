@@ -29,7 +29,7 @@ import java.util.Map;
 public class SelectMode extends BaseMode implements Serializable {
 
     private String clazz;
-    private List elaborators;
+    private List<CachedStatement> elaborators;
     private int maxRows;
 
     // increase this number on any data change
@@ -41,7 +41,7 @@ public class SelectMode extends BaseMode implements Serializable {
 
     /** Constructs a new SelectMode */
     public SelectMode() {
-        elaborators = new ArrayList();
+        elaborators = new ArrayList<CachedStatement>();
     }
 
     /**
@@ -51,7 +51,8 @@ public class SelectMode extends BaseMode implements Serializable {
     public SelectMode(SelectMode modeIn) {
         if (modeIn != null) {
             this.clazz = modeIn.getClassString();
-            this.elaborators = new ArrayList(modeIn.getElaborators());
+            this.elaborators = new ArrayList<CachedStatement>(
+                    modeIn.getElaborators());
             setName(modeIn.getName());
             setQuery(new CachedStatement(modeIn.getQuery()));
         }
@@ -85,7 +86,7 @@ public class SelectMode extends BaseMode implements Serializable {
      * Returns the list of elaborator queries.
      * @return List of elaborator queries.
      */
-    public List getElaborators() {
+    public List<CachedStatement> getElaborators() {
         return elaborators;
     }
 
@@ -138,10 +139,10 @@ public class SelectMode extends BaseMode implements Serializable {
         while (subStart < inClause.size()) {
             int subLength = subStart + CachedStatement.BATCH_SIZE >= inClause.size() ?
                     inClause.size() - subStart  : CachedStatement.BATCH_SIZE;
-            List subClause = inClause.subList(subStart, subStart + subLength);
-            DataResult subDr = getQuery().execute(parameters, subClause, this);
-            toReturn.addDataResult(subDr);
-            subStart += subLength;
+                    List subClause = inClause.subList(subStart, subStart + subLength);
+                    DataResult subDr = getQuery().execute(parameters, subClause, this);
+                    toReturn.addDataResult(subDr);
+                    subStart += subLength;
         }
         return toReturn;
     }
@@ -155,23 +156,24 @@ public class SelectMode extends BaseMode implements Serializable {
      */
     public void elaborate(List resultList, Map parameters) {
         // find the requested elaborator.
-        Iterator i = elaborators.iterator();
+        Iterator<CachedStatement> i = elaborators.iterator();
         CachedStatement cs = null;
         while (i.hasNext()) {
-            cs = (CachedStatement)i.next();
+            cs = i.next();
 
             Collection elaborated = cs.executeElaborator(resultList, this,
-                                                         parameters);
+                    parameters);
             resultList.clear();
             resultList.addAll(elaborated);
         }
     }
 
     /** {@inheritDoc} */
+    @Override
     public String toString() {
         String str = super.toString();
         return str +
-               "  # of elaborators: " + elaborators.size() + " ]";
+                "  # of elaborators: " + elaborators.size() + " ]";
     }
 
     /**
