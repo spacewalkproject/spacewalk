@@ -23,7 +23,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.9.21
+Version: 1.9.22
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -617,6 +617,17 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Nov 28 2012 Tomas Lestach <tlestach@redhat.com> 1.9.22-1
+- typo fix
+- 519472 - suggest deleting custom packages after a channel is deleted
+- 880346 - deleting an org should remove cobbler profiles too
+- Revert "880346 - delete cobbler profiles when deleting an org"
+- add a null check
+- 470463 - fixing xmllint issue
+- put a newline before pre_install_network_config snippet
+- 880346 - delete cobbler profiles when deleting an org
+- 675193 - removing the confising tip
+
 * Mon Nov 26 2012 Jan Pazdziora 1.9.21-1
 - 864037 - fixing typo.
 
