@@ -522,7 +522,6 @@ public  class UserFactory extends HibernateFactory {
             //All other timezones are sorted West to East based on raw off-set.
             if (timeZones != null) {
                 Collections.sort(timeZones, new Comparator() {
-                    @Override
                     public int compare(Object o1, Object o2) {
                         int offSet1 = ((RhnTimeZone)o1).getTimeZone().getRawOffset();
                         int offSet2 = ((RhnTimeZone)o2).getTimeZone().getRawOffset();
