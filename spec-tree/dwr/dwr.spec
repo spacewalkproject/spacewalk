@@ -30,4 +30,7 @@ install -m 644 %{name}-%{version}.jar $RPM_BUILD_ROOT%{_javadir}/%{name}-%{versi
 
 
 %changelog
+* Thu Nov 29 2012 Tomas Lestach <tlestach@redhat.com> 3.0rc2-1
+- initial dwr build
+
 
