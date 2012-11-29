@@ -23,7 +23,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.9.22
+Version: 1.9.23
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -617,6 +617,11 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Nov 29 2012 Tomas Lestach <tlestach@redhat.com> 1.9.23-1
+- fix checkstyle issue
+- Some more type-safety / checkstyle fixes
+- Fixing a bunch of type-safety and checkstyle warnings
+
 * Wed Nov 28 2012 Tomas Lestach <tlestach@redhat.com> 1.9.22-1
 - typo fix
 - 519472 - suggest deleting custom packages after a channel is deleted
