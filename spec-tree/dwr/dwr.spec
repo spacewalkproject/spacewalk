@@ -7,6 +7,7 @@ License:    Apache Software License v2
 URL:        http://directwebremoting.org
 Source0:    %{name}-%{version}.tar.gz
 BuildArch:  noarch
+BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 Requires:   java
 
