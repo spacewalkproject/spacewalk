@@ -47,6 +47,7 @@ Requires: jfreechart >= 1.0.9
 
 Requires: bcel
 Requires: c3p0
+Requires: dwr
 Requires: hibernate3 = 0:3.2.4
 Requires: java >= 1:1.6.0
 Requires: java-devel >= 1:1.6.0
@@ -122,6 +123,7 @@ BuildRequires: c3p0
 BuildRequires: concurrent
 BuildRequires: cglib
 BuildRequires: dom4j
+BuildRequires: dwr
 BuildRequires: hibernate3 = 0:3.2.4
 BuildRequires: jaf
 BuildRequires: jakarta-commons-cli
@@ -415,6 +417,7 @@ install -m 644 conf/cobbler/snippets/redhat_register  $RPM_BUILD_ROOT%{cobdirsni
 
 ln -s -f /usr/sbin/tanukiwrapper $RPM_BUILD_ROOT%{_bindir}/taskomaticd
 ln -s -f %{_javadir}/ojdbc14.jar $RPM_BUILD_ROOT%{jardir}/ojdbc14.jar
+ln -s -f %{_javadir}/dwr.jar $RPM_BUILD_ROOT%{jardir}/dwr.jar
 install -d -m 755 $RPM_BUILD_ROOT%{realcobsnippetsdir}
 ln -s -f  %{cobdirsnippets} $RPM_BUILD_ROOT%{realcobsnippetsdir}/spacewalk
 touch $RPM_BUILD_ROOT%{_var}/spacewalk/systemlogs/audit-review.log
@@ -490,7 +493,7 @@ fi
 %{appdir}/rhn/WEB-INF/pages
 %{appdir}/rhn/WEB-INF/*.xml
 # list of all jar symlinks without any version numbers
-# and wildcards (except non-symlinks dwr and velocity)
+# and wildcards (except non-symlink velocity)
 %{jardir}/antlr.jar
 %{jardir}/bcel.jar
 %{jardir}/c3p0.jar
@@ -509,7 +512,7 @@ fi
 %{jardir}/commons-validator.jar
 %{jardir}/concurrent.jar
 %{jardir}/dom4j.jar
-%{jardir}/dwr-*.jar
+%{jardir}/dwr.jar
 %{jardir}/hibernate3*
 %{jardir}/jaf.jar
 %{jardir}/javamail.jar
