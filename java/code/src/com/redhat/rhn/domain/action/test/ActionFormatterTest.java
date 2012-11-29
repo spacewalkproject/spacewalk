@@ -94,7 +94,7 @@ public class ActionFormatterTest extends RhnBaseTestCase {
         String start = "<strong><a href=\"/rhn/errata/details/Details.do?eid=";
         String end = "</a></strong><br/><br/><strong>Test synopsis</strong><br/>" +
             "<br/>" + ErrataFactory.ERRATA_TYPE_BUG +
-            "<br/><br/>test topic<br/>Test desc ..<br/>";
+            "<br/><br/>test topic<br/>Test desc ..<br/><br/>";
         assertTrue(af.getNotes().startsWith(start));
         assertTrue(af.getNotes().endsWith(end));
     }
