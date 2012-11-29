@@ -1937,28 +1937,6 @@ public class ChannelSoftwareHandler extends BaseHandler {
         String archLabel = (String) channelDetails.get("arch_label");
         String summary = (String) channelDetails.get("summary");
         String description =  (String) channelDetails.get("description");
-        String gpgUrl;
-        if (channelDetails.get("gpg_key_url") == null) {
-            gpgUrl = (String) channelDetails.get("gpg_url");
-        }
-        else {
-            gpgUrl = (String) channelDetails.get("gpg_key_url");
-        }
-        String gpgId;
-        if ((String) channelDetails.get("gpg_key_id") == null) {
-            gpgId = (String) channelDetails.get("gpg_id");
-        }
-        else {
-            gpgId = (String) channelDetails.get("gpg_key_id");
-        }
-        String gpgFingerprint;
-        if (channelDetails.get("gpg_key_fp") == null) {
-            gpgFingerprint = (String) channelDetails.get("gpg_fingerprint");
-        }
-        else {
-            gpgFingerprint = (String) channelDetails.get("gpg_key_fp");
-        }
-
 
         if (ChannelFactory.lookupByLabel(loggedInUser.getOrg(), label) != null) {
             throw new DuplicateChannelLabelException(label);
@@ -1981,6 +1959,40 @@ public class ChannelSoftwareHandler extends BaseHandler {
         }
         else {
             arch = originalChan.getChannelArch();
+        }
+
+        String gpgUrl, gpgId, gpgFingerprint;
+        if (channelDetails.containsKey("gpg_key_url") ||
+                channelDetails.containsKey("gpg_url") ||
+                channelDetails.containsKey("gpg_key_id") ||
+                channelDetails.containsKey("gpg_id") ||
+                channelDetails.containsKey("gpg_key_fp") ||
+                channelDetails.containsKey("gpg_fingerprint")) {
+            // if one of the GPG information was set, use it
+            if (channelDetails.get("gpg_key_url") == null) {
+                gpgUrl = (String) channelDetails.get("gpg_url");
+            }
+            else {
+                gpgUrl = (String) channelDetails.get("gpg_key_url");
+            }
+            if ((String) channelDetails.get("gpg_key_id") == null) {
+                gpgId = (String) channelDetails.get("gpg_id");
+            }
+            else {
+                gpgId = (String) channelDetails.get("gpg_key_id");
+            }
+            if (channelDetails.get("gpg_key_fp") == null) {
+                gpgFingerprint = (String) channelDetails.get("gpg_fingerprint");
+            }
+            else {
+                gpgFingerprint = (String) channelDetails.get("gpg_key_fp");
+            }
+        }
+        else {
+            // copy GPG info from the original channel
+            gpgUrl = originalChan.getGPGKeyUrl();
+            gpgId = originalChan.getGPGKeyId();
+            gpgFingerprint = originalChan.getGPGKeyFp();
         }
 
         NewChannelHelper helper = new NewChannelHelper();
