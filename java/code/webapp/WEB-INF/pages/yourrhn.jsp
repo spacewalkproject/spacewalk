@@ -33,7 +33,6 @@
 	<script type="text/javascript" src="/rhn/dwr/interface/SystemGroupsRenderer.js"></script>
 </c:if>
 <script type="text/javascript" src="/javascript/scriptaculous.js"></script>
-<script type="text/javascript" src="/rhn/dwr/engine.js"></script>
 <script type="text/javascript" src="/javascript/render.js"></script>
 </head>
 <body>
