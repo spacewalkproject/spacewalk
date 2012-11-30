@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 1.9.5
+Version: 1.9.6
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -339,6 +339,10 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Fri Nov 30 2012 Jan Pazdziora 1.9.6-1
+- 876740 - fix typo
+- 876740 - server url auto-corrects common mistakes, messages say "Satellite"
+
 * Wed Nov 21 2012 Jan Pazdziora 1.9.5-1
 - 876328 - Merging the new translation work form RHEL 6.4
 - Revert "876328 - updating rhel client tools translations"
