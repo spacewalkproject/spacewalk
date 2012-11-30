@@ -535,7 +535,7 @@ sub setup_tomcat {
   die "$tomcatfile does not exist.\n" unless (-f $tomcatfile);
 
   {
-    open FILE, $tomcatfile
+    open FILE, '<', $tomcatfile
       or die "Error opening [$tomcatfile]: $!\n";
     local $/ = undef;
     $tomcatconf_content = <FILE>;
@@ -544,7 +544,7 @@ sub setup_tomcat {
   }
 
   for my $file (glob Spacewalk::Setup::SHARED_DIR . '/tomcatX.conf.[0-9]') {
-    open FILE, $file or die "Error reading [$file]: $!\n";
+    open FILE, '<', $file or die "Error reading [$file]: $!\n";
     my $regexp = <FILE>;
     chomp $regexp;
 
@@ -560,7 +560,7 @@ sub setup_tomcat {
   if ($tomcatconf_content ne $tomcatconf_content_orig) {
     Spacewalk::Setup::backup_file($tomcatdir, $tomcatconf);
 
-    open FILE, ">$tomcatfile"
+    open FILE, '>', $tomcatfile
       or die "Error opening [$tomcatfile]: $!\n";
     chmod 0644, $tomcatfile;
     print FILE $tomcatconf_content;
@@ -571,7 +571,7 @@ sub setup_tomcat {
   {
     local $/ = undef;
     local *FILE;
-    open FILE, $serverxmlfile
+    open FILE, '<', $serverxmlfile
       or die "Error opening [$serverxmlfile]: $!\n";
     my $serverxml_content_orig = <FILE>;
     close FILE;
@@ -582,7 +582,7 @@ sub setup_tomcat {
     if ($serverxml_content ne $serverxml_content_orig) {
       Spacewalk::Setup::backup_file($serverxmlfile =~ m!^(.+)/(.+)$!);
 
-      open FILE, ">$serverxmlfile"
+      open FILE, '>', $serverxmlfile
         or die "Error opening [$serverxmlfile]: $!\n";
       chmod 0644, $serverxmlfile;
       print FILE $serverxml_content;
