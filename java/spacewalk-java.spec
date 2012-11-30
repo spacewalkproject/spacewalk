@@ -23,7 +23,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.9.24
+Version: 1.9.25
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -620,6 +620,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Nov 30 2012 Tomas Lestach <tlestach@redhat.com> 1.9.25-1
+- do not include engine.js twice
+- remove embedded dwr from spacewalk-java and start using dwr package
+
 * Fri Nov 30 2012 Jan Pazdziora 1.9.24-1
 - Do not use Java keywords.
 - 851942 - copy GPG information from the original channel within
