@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhnsd
-Version: 5.0.7
+Version: 5.0.8
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
@@ -123,6 +123,9 @@ rm -fr $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Fri Nov 30 2012 Jan Pazdziora 5.0.8-1
+- Revert "876328 - updating rhel client tools translations"
+
 * Mon Nov 19 2012 Jan Pazdziora 5.0.7-1
 - Only run chkconfig if we are in the SysV world.
 - rhnsd needs to be marked as forking.
