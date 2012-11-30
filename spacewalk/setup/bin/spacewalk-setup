@@ -525,14 +525,14 @@ sub setup_tomcat {
   my $answers = shift;
 
   my ($tomcatconf_content_orig, $tomcatconf_content);
-  my $which_tomcat = qx{rpm -q --requires spacewalk-java};
-  my ($tomcatX) = ($which_tomcat =~ m/\b(tomcat\d)\b/m);
-  my $tomcatdir  = "/etc/$tomcatX";
-  my $tomcatconf = "$tomcatX.conf";
-  my $webxml = "web.xml";
-  my $tomcatfile = "$tomcatdir/$tomcatconf";
+  my @tomcat_confs = grep { -f $_ } glob("/etc/tomcat*/tomcat*.conf");
+  if (@tomcat_confs < 1) {
+    die "Couldn't find tomcat config file (/etc/tomcat*/tomcat*.conf).\n";
+  } elsif (@tomcat_confs > 1) {
+    die "Multiple tomcat config files found:\n  @tomcat_confs\nNot sure which tomcat to use.\n";
+  }
 
-  die "$tomcatfile does not exist.\n" unless (-f $tomcatfile);
+  my $tomcatfile = $tomcat_confs[0];
 
   {
     open FILE, '<', $tomcatfile
@@ -558,7 +558,7 @@ sub setup_tomcat {
   }
 
   if ($tomcatconf_content ne $tomcatconf_content_orig) {
-    Spacewalk::Setup::backup_file($tomcatdir, $tomcatconf);
+    Spacewalk::Setup::backup_file($tomcatfile =~ m!^(.+)/(.+)$!);
 
     open FILE, '>', $tomcatfile
       or die "Error opening [$tomcatfile]: $!\n";
@@ -567,6 +567,7 @@ sub setup_tomcat {
     close FILE;
   }
 
+  my ($tomcatdir) = ($tomcatfile =~ m!^(.+)/!);
   my $serverxmlfile = "$tomcatdir/server.xml";
   {
     local $/ = undef;
@@ -594,7 +595,8 @@ sub setup_tomcat {
   my $command = "patch --silent --directory=$tomcatdir --forward -p1 --input=$web_patch";
   system($command." --dry-run");
   if (not $?){
-      Spacewalk::Setup::backup_file($tomcatdir, $webxml);
+      Spacewalk::Setup::backup_file($tomcatdir, 'web.xml');
+
       system($command);
   }
   return;
