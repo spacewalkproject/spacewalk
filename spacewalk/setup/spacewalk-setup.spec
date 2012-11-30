@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        1.9.0
+Version:        1.9.1
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -110,6 +110,11 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Fri Nov 30 2012 Jan Pazdziora 1.9.1-1
+- Allow tomcat config file without number.
+- Prefer three-parameter open.
+- Stop repeated dir/file concatenation.
+
 * Wed Oct 31 2012 Jan Pazdziora 1.8.24-1
 - Advertise the www.spacewalkproject.org.
 
