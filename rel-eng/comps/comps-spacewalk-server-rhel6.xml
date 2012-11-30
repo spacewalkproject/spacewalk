@@ -23,6 +23,7 @@
        <packagereq type="default">cobbler20</packagereq>
        <packagereq type="default">cobbler-epel</packagereq>
        <packagereq type="default">cx_Oracle</packagereq>
+       <packagereq type="default">dwr</packagereq>
        <packagereq type="default">eventReceivers</packagereq>
        <packagereq type="default">jpam</packagereq>
        <packagereq type="default">MessageQueue</packagereq>
