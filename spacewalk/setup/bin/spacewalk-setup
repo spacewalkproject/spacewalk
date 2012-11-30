@@ -529,13 +529,14 @@ sub setup_tomcat {
   my ($tomcatX) = ($which_tomcat =~ m/\b(tomcat\d)\b/m);
   my $tomcatdir  = "/etc/$tomcatX";
   my $tomcatconf = "$tomcatX.conf";
-  my $serverxml = "server.xml";
   my $webxml = "web.xml";
-  die "$tomcatdir/$tomcatconf does not exist.\n" unless (-f "$tomcatdir/$tomcatconf");
+  my $tomcatfile = "$tomcatdir/$tomcatconf";
+
+  die "$tomcatfile does not exist.\n" unless (-f $tomcatfile);
 
   {
-    open FILE, "$tomcatdir/$tomcatconf"
-      or die "Error opening [$tomcatdir/$tomcatconf]: $!\n";
+    open FILE, $tomcatfile
+      or die "Error opening [$tomcatfile]: $!\n";
     local $/ = undef;
     $tomcatconf_content = <FILE>;
     $tomcatconf_content_orig = $tomcatconf_content;
@@ -559,30 +560,31 @@ sub setup_tomcat {
   if ($tomcatconf_content ne $tomcatconf_content_orig) {
     Spacewalk::Setup::backup_file($tomcatdir, $tomcatconf);
 
-    open FILE, ">$tomcatdir/$tomcatconf"
-      or die "Error opening [$tomcatdir/$tomcatconf]: $!\n";
-    chmod 0644, "$tomcatdir/$tomcatconf";
+    open FILE, ">$tomcatfile"
+      or die "Error opening [$tomcatfile]: $!\n";
+    chmod 0644, $tomcatfile;
     print FILE $tomcatconf_content;
     close FILE;
   }
 
+  my $serverxmlfile = "$tomcatdir/server.xml";
   {
     local $/ = undef;
     local *FILE;
-    open FILE, "$tomcatdir/$serverxml"
-      or die "Error opening $tomcatdir/$serverxml: $!\n";
+    open FILE, $serverxmlfile
+      or die "Error opening [$serverxmlfile]: $!\n";
     my $serverxml_content_orig = <FILE>;
     close FILE;
 
-    my $template = Spacewalk::Setup::SHARED_DIR . "/$serverxml.xsl";
-    my $serverxml_content = qx{/usr/bin/xsltproc $template $tomcatdir/$serverxml};
+    my $template = Spacewalk::Setup::SHARED_DIR . '/server.xml.xsl';
+    my $serverxml_content = qx{/usr/bin/xsltproc $template $serverxmlfile};
     die "There was an error running xsltproc\n" if $?;
     if ($serverxml_content ne $serverxml_content_orig) {
-      Spacewalk::Setup::backup_file($tomcatdir, $serverxml);
+      Spacewalk::Setup::backup_file($serverxmlfile =~ m!^(.+)/(.+)$!);
 
-      open FILE, ">$tomcatdir/$serverxml"
-        or die "Error opening [$tomcatdir/$serverxml]: $!\n";
-      chmod 0644, "$tomcatdir/$serverxml";
+      open FILE, ">$serverxmlfile"
+        or die "Error opening [$serverxmlfile]: $!\n";
+      chmod 0644, $serverxmlfile;
       print FILE $serverxml_content;
       close FILE;
     }
