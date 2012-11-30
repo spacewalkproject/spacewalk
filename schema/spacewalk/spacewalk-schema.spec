@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.9.7
+Version:        1.9.8
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -68,6 +68,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Fri Nov 30 2012 Jan Pazdziora 1.9.8-1
+- New timezones for RHEL 7
+- New installation type: RHEL 7
+
 * Tue Nov 06 2012 Tomas Lestach <tlestach@redhat.com> 1.9.7-1
 - 1.9 upgrade scripts go to the spacewalk-schema-1.8-to-spacewalk-schema-1.9
   dir
