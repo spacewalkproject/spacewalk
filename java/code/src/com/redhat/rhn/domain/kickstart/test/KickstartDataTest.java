@@ -121,7 +121,7 @@ public class KickstartDataTest extends BaseTestCaseWithUser {
         org.cobbler.Profile p = org.cobbler.Profile.create(
                 CobblerXMLRPCHelper.getConnection("test"),
                 CobblerCommand.makeCobblerName(k), d);
-        p.setKickstart(k.getCobblerFileName());
+        p.setKickstart(k.buildCobblerFileName());
         k.setCobblerId(p.getUid());
 
     }
@@ -175,7 +175,7 @@ public class KickstartDataTest extends BaseTestCaseWithUser {
         k = (KickstartData) reload(k);
         KickstartFactory.saveKickstartData(k);
 
-        String contents = FileUtils.readStringFromFile(k.getCobblerFileName());
+        String contents = FileUtils.readStringFromFile(k.buildCobblerFileName());
         assertTrue(contents.indexOf("\\$") > 0);
         assertTrue(contents.indexOf("\\$" +
                 KickstartUrlHelper.COBBLER_MEDIA_VARIABLE) < 0);
@@ -285,7 +285,7 @@ public class KickstartDataTest extends BaseTestCaseWithUser {
         assertNull(lookupById(user.getOrg(), ksd.getId()));
         assertNull(lookupByLabel(ksd.getLabel()));
 
-        String path = ksd.getCobblerFileName();
+        String path = ksd.buildCobblerFileName();
         File f = new File(path);
         assertFalse(f.exists());
 
