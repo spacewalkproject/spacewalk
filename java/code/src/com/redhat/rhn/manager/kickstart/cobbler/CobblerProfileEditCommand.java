@@ -22,6 +22,8 @@ import com.redhat.rhn.domain.user.User;
 import org.apache.commons.lang.StringUtils;
 import org.cobbler.Profile;
 
+import java.io.File;
+
 /**
  * KickstartCobblerCommand - class to contain logic to communicate with cobbler
  * @version $Rev$
@@ -59,8 +61,10 @@ public class CobblerProfileEditCommand extends CobblerProfileCommand {
 
         if (prof != null) {
             String cobName = makeCobblerName(ksData);
+            String cobFileName = ksData.buildCobblerFileName();
             if (!cobName.equals(prof.getName()) ||
-                    !ksData.buildCobblerFileName().equals(ksData.getCobblerFileName())) {
+                    !cobFileName.equals(ksData.getCobblerFileName()) ||
+                    !(new File(cobFileName)).exists()) {
                 // delete current cfg file
                 KickstartFactory.removeKickstartTemplatePath(ksData);
                 // create new cfg file
@@ -68,7 +72,7 @@ public class CobblerProfileEditCommand extends CobblerProfileCommand {
                 // change ks profile name
                 prof.setName(cobName);
                 // change ks profile cfg path
-                prof.setKickstart(this.ksData.buildCobblerFileName());
+                prof.setKickstart(cobFileName);
             }
             updateCobblerFields(prof);
         }

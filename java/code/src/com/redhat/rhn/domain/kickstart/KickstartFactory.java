@@ -879,6 +879,8 @@ public class KickstartFactory extends HibernateFactory {
     public static List<KickstartData> listAllKickstartData() {
         Session session = getSession();
         Criteria c = session.createCriteria(KickstartData.class);
+        // Hibernate does not filter out duplicate references by default
+        c.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
         return c.list();
     }
 
