@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.9.25
+Version: 1.9.26
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -659,6 +659,15 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Dec 04 2012 Jan Pazdziora 1.9.26-1
+- Do not package tomcat 7 stuff from buildroot.
+- On Fedoras, start to use tomcat >= 7.
+- KickstartDataTest should no longer fail
+- 881830 - create /var/lib/rhn/kickstarts/wizard/*.cfg files if missing by the
+  KickstartFileSyncTask
+- PackageHelperTest should no more fail at testPackageToMap
+- ActionFormatterTest should no more fail at testErrataFormatter
+
 * Fri Nov 30 2012 Tomas Lestach <tlestach@redhat.com> 1.9.25-1
 - do not include engine.js twice
 - remove embedded dwr from spacewalk-java and start using dwr package
