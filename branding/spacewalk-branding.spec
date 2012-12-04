@@ -1,5 +1,5 @@
 Name:       spacewalk-branding
-Version:    1.9.3
+Version:    1.9.4
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -94,6 +94,9 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Tue Dec 04 2012 Jan Pazdziora 1.9.4-1
+- On Fedoras, start to use tomcat >= 7.
+
 * Wed Nov 28 2012 Tomas Lestach <tlestach@redhat.com> 1.9.3-1
 - 470463 - fixing xmllint issue
 
