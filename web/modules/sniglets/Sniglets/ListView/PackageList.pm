@@ -1163,7 +1163,7 @@ INSERT
   INTO rhnRepoRegenQueue
         (id, channel_label, client, reason, force, bypass_filters, next_action, created, modified)
 VALUES (sequence_nextval('rhn_repo_regen_queue_id_seq'),
-        :label, 'perl-web::delete_packages_cb', NULL, 'N', 'N', sysdate, sysdate, sysdate)
+        :label, 'perl-web::delete_packages_cb', NULL, 'N', 'N', current_timestamp, current_timestamp, current_timestamp)
 EOQ
 
   foreach my $cid (@channels) {
