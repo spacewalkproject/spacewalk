@@ -12,7 +12,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 1.9.10
+Version: 1.9.11
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -637,6 +637,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Tue Dec 04 2012 Jan Pazdziora 1.9.11-1
+- On Fedoras, start to use tomcat >= 7.
+
 * Fri Nov 30 2012 Jan Pazdziora 1.9.10-1
 - 877451 - read the repo config from yumbase
 - 877451 - correct the proxy configuration logic
