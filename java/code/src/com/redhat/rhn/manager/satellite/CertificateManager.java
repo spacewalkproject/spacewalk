@@ -30,6 +30,7 @@ public class CertificateManager extends BaseManager {
     private static CertificateManager instance = new CertificateManager();
 
     public static final int GRACE_PERIOD_IN_DAYS = 7;
+    public static final int RESTRICTED_PERIOD_IN_DAYS = 24;
     private static final long MILLISECONDS_IN_DAY =  86400000;
 
     /**
@@ -69,6 +70,18 @@ public class CertificateManager extends BaseManager {
                now.before(getGracePeriodEndDate());
     }
 
+    /**
+     * Return whether the satellite certificate is in a restricted period or not.
+     * False will be returned if the restricted period is over or if it has not
+     * begun.
+     * @return true if in restricted period, false otherwise
+     */
+    public boolean isSatelliteCertInRestrictedPeriod() {
+        Date now = Calendar.getInstance().getTime();
+        return now.after(getGracePeriodEndDate()) &&
+               now.before(getRestrictedPeriodEndDate());
+    }
+
     protected Date getGracePeriodBeginDate() {
         SatelliteCertificate sc = CertificateFactory.lookupNewestCertificate();
         Calendar cal = Calendar.getInstance();
@@ -94,6 +107,24 @@ public class CertificateManager extends BaseManager {
         cal.set(Calendar.MILLISECOND, 0);
         cal.set(Calendar.AM_PM, Calendar.AM);
         cal.add(Calendar.DATE, GRACE_PERIOD_IN_DAYS);
+        return cal.getTime();
+    }
+
+    /**
+     * @return Date that represent the end of the satellite's certificate's
+     * restricted period
+     */
+    public Date getRestrictedPeriodEndDate() {
+        SatelliteCertificate sc = CertificateFactory.lookupNewestCertificate();
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(sc.getExpires());
+        cal.set(Calendar.HOUR, 0);
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.MILLISECOND, 0);
+        cal.set(Calendar.AM_PM, Calendar.AM);
+        cal.add(Calendar.DATE, GRACE_PERIOD_IN_DAYS);
+        cal.add(Calendar.DATE, RESTRICTED_PERIOD_IN_DAYS);
         return cal.getTime();
     }
 

@@ -19,11 +19,18 @@ import com.redhat.rhn.common.security.CSRFTokenException;
 import com.redhat.rhn.common.security.CSRFTokenValidator;
 import com.redhat.rhn.frontend.security.AuthenticationService;
 import com.redhat.rhn.frontend.security.AuthenticationServiceFactory;
+import com.redhat.rhn.manager.satellite.CertificateManager;
 
 import org.apache.log4j.Logger;
+import org.apache.struts.Globals;
+import org.apache.struts.action.ActionMessage;
+import org.apache.struts.action.ActionMessages;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Date;
+import java.util.Enumeration;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -80,6 +87,7 @@ public class AuthFilter implements Filter {
                     !authenticationService.skipCsfr((HttpServletRequest) request)) {
                 try {
                     CSRFTokenValidator.validate(hreq);
+
                 }
                 catch (CSRFTokenException e) {
                     // send HTTP 403 if security token validation failed
@@ -88,8 +96,24 @@ public class AuthFilter implements Filter {
                             e.getMessage());
                     return;
                 }
+                if (CertificateManager.getInstance().isSatelliteCertInRestrictedPeriod() &&
+                        !authenticationService.postOnRestrictedWhitelist(hreq)) {
+                    // interrupt the POST and redirect to the referer page
+                    URL url = getHttpRequestReferer(hreq);
+                    String pathUrl;
+                    if (url == null) {
+                        pathUrl = "/YourRhn.do";
+                    }
+                    else {
+                        pathUrl = url.getProtocol() + "://" + url.getHost() + url.getFile();
+                    }
+                    log.warn("Blocking " + hreq.getRequestURI() +
+                            " POST in restricted period. Redirecting to " + pathUrl);
+                    addErrorMessage(hreq, "restricted.forbidden");
+                    ((HttpServletResponse) response).sendRedirect(url.getFile());
+                    return;
+                }
             }
-
             chain.doFilter(request, response);
         }
         else {
@@ -102,6 +126,35 @@ public class AuthFilter implements Filter {
 //                    " [" + new Date() + "] (" +
 //                    ((HttpServletRequest)(request)).getRequestURI() + ")");
 //        }
+    }
+
+    private void addErrorMessage(HttpServletRequest hreq, String msgKey) {
+        ActionMessages ams = new ActionMessages();
+        ams.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(msgKey));
+        hreq.getSession().setAttribute(Globals.ERROR_KEY, ams);
+    }
+
+    /**
+     * @param request
+     * @param response
+     * @param hreq
+     * @throws MalformedURLException
+     * @throws ServletException
+     * @throws IOException
+     */
+    private URL getHttpRequestReferer(HttpServletRequest hreq) {
+        Enumeration em = hreq.getHeaders("referer");
+        URL url = null;
+        while (em.hasMoreElements()) {
+            String urlString = (String) em.nextElement();
+            try {
+                url = new URL(urlString);
+            }
+            catch (MalformedURLException e) {
+                // it does not matter, if there's no referer
+            }
+        }
+        return url;
     }
 
     /**

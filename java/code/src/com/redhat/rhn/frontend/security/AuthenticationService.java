@@ -54,6 +54,14 @@ public interface AuthenticationService {
     boolean skipCsfr(HttpServletRequest request);
 
     /**
+     * If Satellite certificate is in the restricted mode, there's just a whitelist
+     * of pages the user may visit
+     * @param request The current request
+     * @return True if the url isn't allowed in the restricted mode
+     */
+    boolean postOnRestrictedWhitelist(HttpServletRequest request);
+
+    /**
      * Redirects the request to whatever resource handles logins. This method is typically
      * invoked after a call to {@link #validate(HttpServletRequest, HttpServletResponse)}
      * fails. Note that the redirect may be client-side or server-side, and it may be to an
@@ -65,6 +73,19 @@ public interface AuthenticationService {
      */
     void redirectToLogin(HttpServletRequest request, HttpServletResponse response)
         throws ServletException;
+
+    /**
+     * Redirects the request to a different page
+     * Used in restricted period after grace period has expired to prevent basic satellite
+     * functionality
+     *
+     * @param request the request
+     * @param response the response
+     * @param path where to redirect
+     * @throws ServletException If an unrecoverable error occurs
+     */
+    void redirectTo(HttpServletRequest request, HttpServletResponse response, String path)
+            throws ServletException;
 
     /**
      * Invalidates login credentials associated with the given request.

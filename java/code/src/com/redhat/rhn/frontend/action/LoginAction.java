@@ -71,7 +71,11 @@ public class LoginAction extends RhnAction {
             ActionForm form, HttpServletRequest request,
             HttpServletResponse response) {
 
-        if (CertificateManager.getInstance().isSatelliteCertExpired()) {
+        CertificateManager cm = CertificateManager.getInstance();
+        if (cm.isSatelliteCertInRestrictedPeriod()) {
+            createErrorMessage(request, "satellite.expired.restricted", null);
+        }
+        else if (cm.isSatelliteCertExpired()) {
             addMessage(request, "satellite.expired");
             request.setAttribute(LoginSetupAction.HAS_EXPIRED, Boolean.TRUE);
             return mapping.findForward("failure");
