@@ -55,6 +55,7 @@ public class KickstartFileSyncTaskTest extends RhnBaseTestCase {
         assertFalse(f.exists());
         KickstartFileSyncTask task = new KickstartFileSyncTask();
         task.execute(null);
+        f = new File(p.getKickstart());
         assertTrue(f.exists());
 
     }
