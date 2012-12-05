@@ -606,11 +606,12 @@ where rhnChannelErrata.errata_id = rhnErrataPackage.errata_id
    <query params="channel_id">
   SELECT chpkg.package_id, pkgcap.id, pkgcap.name, pkgcap.version
     FROM rhnPackageFile pkgf, rhnPackageCapability pkgcap,
-         rhnChannelPackage chpkg
+         rhnChannelPackage chpkg left join  rhnPackageRepodata prd ON prd.package_id = chpkg.package_id
     WHERE
           chpkg.package_id = pkgf.package_id
       AND pkgf.capability_id = pkgcap.id
       AND chpkg.channel_id = :channel_id
+      AND prd.primary_xml is null
   ORDER BY pkgf.package_id
    </query>
 </mode>
@@ -619,11 +620,12 @@ where rhnChannelErrata.errata_id = rhnErrataPackage.errata_id
    <query params="channel_id">
   SELECT chpkg.package_id, pkgcap.id, pkgcap.name, pkgcap.version, pkgp.sense
     FROM rhnPackageProvides pkgp, rhnPackageCapability pkgcap,
-         rhnChannelPackage chpkg
+    	rhnChannelPackage chpkg left join  rhnPackageRepodata prd ON prd.package_id = chpkg.package_id
     WHERE
           chpkg.package_id = pkgp.package_id
       AND pkgp.capability_id = pkgcap.id
       AND chpkg.channel_id = :channel_id
+      AND prd.primary_xml is null
   ORDER BY pkgp.package_id
    </query>
 </mode>
@@ -632,11 +634,12 @@ where rhnChannelErrata.errata_id = rhnErrataPackage.errata_id
    <query params="channel_id">
   SELECT chpkg.package_id, pkgcap.id, pkgcap.name, pkgcap.version, pkgp.sense
     FROM rhnPackageRequires pkgp, rhnPackageCapability pkgcap,
-         rhnChannelPackage chpkg
+    	rhnChannelPackage chpkg left join  rhnPackageRepodata prd ON prd.package_id = chpkg.package_id
     WHERE
           chpkg.package_id = pkgp.package_id
       AND pkgp.capability_id = pkgcap.id
       AND chpkg.channel_id = :channel_id
+      AND prd.primary_xml is null
   ORDER BY pkgp.package_id
    </query>
 </mode>
@@ -645,11 +648,12 @@ where rhnChannelErrata.errata_id = rhnErrataPackage.errata_id
    <query params="channel_id">
   SELECT chpkg.package_id, pkgcap.id, pkgcap.name, pkgcap.version, pkgp.sense
     FROM rhnPackageConflicts pkgp, rhnPackageCapability pkgcap,
-         rhnChannelPackage chpkg
+    	rhnChannelPackage chpkg left join  rhnPackageRepodata prd ON prd.package_id = chpkg.package_id
     WHERE
           chpkg.package_id = pkgp.package_id
       AND pkgp.capability_id = pkgcap.id
       AND chpkg.channel_id = :channel_id
+      AND prd.primary_xml is null
   ORDER BY pkgp.package_id
    </query>
 </mode>
@@ -658,11 +662,12 @@ where rhnChannelErrata.errata_id = rhnErrataPackage.errata_id
    <query params="channel_id">
   SELECT chpkg.package_id, pkgcap.id, pkgcap.name, pkgcap.version, pkgp.sense
     FROM rhnPackageObsoletes pkgp, rhnPackageCapability pkgcap,
-         rhnChannelPackage chpkg
+    	rhnChannelPackage chpkg left join  rhnPackageRepodata prd ON prd.package_id = chpkg.package_id
     WHERE
           chpkg.package_id = pkgp.package_id
       AND pkgp.capability_id = pkgcap.id
       AND chpkg.channel_id = :channel_id
+      AND prd.primary_xml is null
   ORDER BY pkgp.package_id
    </query>
 </mode>
@@ -671,11 +676,12 @@ where rhnChannelErrata.errata_id = rhnErrataPackage.errata_id
    <query params="channel_id">
   SELECT chpkg.package_id, pkgcap.id, pkgcap.name, pkgcap.version, pkgp.sense
     FROM rhnPackageRecommends pkgp, rhnPackageCapability pkgcap,
-         rhnChannelPackage chpkg
+         rhnChannelPackage chpkg left join  rhnPackageRepodata prd ON prd.package_id = chpkg.package_id
     WHERE
           chpkg.package_id = pkgp.package_id
       AND pkgp.capability_id = pkgcap.id
       AND chpkg.channel_id = :channel_id
+      AND prd.primary_xml is null
   ORDER BY pkgp.package_id
    </query>
 </mode>
@@ -684,11 +690,12 @@ where rhnChannelErrata.errata_id = rhnErrataPackage.errata_id
    <query params="channel_id">
   SELECT chpkg.package_id, pkgcap.id, pkgcap.name, pkgcap.version, pkgp.sense
     FROM rhnPackageSuggests pkgp, rhnPackageCapability pkgcap,
-         rhnChannelPackage chpkg
+         rhnChannelPackage chpkg left join  rhnPackageRepodata prd ON prd.package_id = chpkg.package_id
     WHERE
           chpkg.package_id = pkgp.package_id
       AND pkgp.capability_id = pkgcap.id
       AND chpkg.channel_id = :channel_id
+      AND prd.primary_xml is null
   ORDER BY pkgp.package_id
    </query>
 </mode>
@@ -697,11 +704,12 @@ where rhnChannelErrata.errata_id = rhnErrataPackage.errata_id
    <query params="channel_id">
   SELECT chpkg.package_id, pkgcap.id, pkgcap.name, pkgcap.version, pkgp.sense
     FROM rhnPackageSupplements pkgp, rhnPackageCapability pkgcap,
-         rhnChannelPackage chpkg
+         rhnChannelPackage chpkg left join  rhnPackageRepodata prd ON prd.package_id = chpkg.package_id
     WHERE
           chpkg.package_id = pkgp.package_id
       AND pkgp.capability_id = pkgcap.id
       AND chpkg.channel_id = :channel_id
+      AND prd.primary_xml is null
   ORDER BY pkgp.package_id
    </query>
 </mode>
