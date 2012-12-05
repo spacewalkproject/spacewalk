@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.9.26
+Version: 1.9.27
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -659,6 +659,12 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Dec 05 2012 Tomas Lestach <tlestach@redhat.com> 1.9.27-1
+- update catalina.out path for tomcat7
+- KickstartFileSyncTaskTest should no longer fail
+- 883546 - repodata inconsistency due to concurrent modification
+- use dwr30.dtd insted of dwr20.dtd
+
 * Tue Dec 04 2012 Jan Pazdziora 1.9.26-1
 - Do not package tomcat 7 stuff from buildroot.
 - On Fedoras, start to use tomcat >= 7.
