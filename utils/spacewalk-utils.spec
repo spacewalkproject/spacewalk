@@ -1,7 +1,7 @@
 %define rhnroot %{_prefix}/share/rhn
 
 Name:		spacewalk-utils
-Version:	1.9.4
+Version:	1.9.5
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -86,6 +86,9 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Wed Dec 05 2012 Michael Mraka <michael.mraka@redhat.com> 1.9.5-1
+- 866930 - do not traceback when called without --to_date
+
 * Wed Nov 21 2012 Michael Mraka <michael.mraka@redhat.com> 1.9.4-1
 - updated according to modified distchannel API
 
