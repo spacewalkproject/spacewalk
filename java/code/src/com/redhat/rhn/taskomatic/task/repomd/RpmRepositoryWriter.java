@@ -40,10 +40,10 @@ import com.redhat.rhn.manager.rhnpackage.PackageManager;
 import com.redhat.rhn.manager.task.TaskManager;
 
 /**
-*
-* @version $Rev $
-*
-*/
+ *
+ * @version $Rev $
+ *
+ */
 public class RpmRepositoryWriter extends RepositoryWriter {
 
     private static final String PRIMARY_FILE = "primary.xml.gz.new";
@@ -91,7 +91,7 @@ public class RpmRepositoryWriter extends RepositoryWriter {
         PackageManager.createRepoEntrys(channel.getId());
 
         String prefix = mountPoint + File.separator + pathPrefix +
-        File.separator + channel.getLabel() + File.separator;
+                File.separator + channel.getLabel() + File.separator;
 
         // we closed the session, so we need to reload the object
         channel = (Channel) HibernateFactory.getSession().get(channel.getClass(),
@@ -116,7 +116,7 @@ public class RpmRepositoryWriter extends RepositoryWriter {
         String checksumAlgo = this.checksumtype;
         if (checksumAlgo.toUpperCase().startsWith("SHA")) {
             checksumAlgo = this.checksumtype.substring(0, 3) + "-" +
-            this.checksumtype.substring(3);
+                    this.checksumtype.substring(3);
         }
         // translate sha1 to sha for xml repo files
         String checksumLabel = this.checksumtype;

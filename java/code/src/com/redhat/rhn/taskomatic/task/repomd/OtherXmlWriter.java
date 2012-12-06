@@ -17,11 +17,10 @@ package com.redhat.rhn.taskomatic.task.repomd;
 import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.translation.SqlExceptionTranslator;
 import com.redhat.rhn.domain.channel.Channel;
+import com.redhat.rhn.frontend.dto.PackageChangelogDto;
 import com.redhat.rhn.frontend.dto.PackageDto;
 import com.redhat.rhn.manager.rhnpackage.PackageManager;
 import com.redhat.rhn.manager.task.TaskManager;
-import com.redhat.rhn.taskomatic.task.TaskConstants;
-
 import org.apache.commons.lang.StringUtils;
 import org.xml.sax.SAXException;
 
@@ -29,6 +28,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
 import java.io.Writer;
 import java.sql.SQLException;
+import java.util.Collection;
 
 /**
  *
@@ -37,7 +37,6 @@ import java.sql.SQLException;
  */
 public class OtherXmlWriter extends RepomdWriter {
 
-    private PackageCapabilityIterator changeLogIterator;
     /**
      *
      * @param writer The writer object for other.xml
@@ -70,8 +69,6 @@ public class OtherXmlWriter extends RepomdWriter {
      * @param channel channel info
      */
     public void begin(Channel channel) {
-        changeLogIterator = new PackageCapabilityIterator(channel,
-                TaskConstants.TASK_QUERY_REPOMD_GENERATOR_PACKAGE_CHANGELOG);
         SimpleAttributesImpl attr = new SimpleAttributesImpl();
         attr.addAttribute("xmlns", "http://linux.duke.edu/metadata/other");
         attr.addAttribute("packages", Integer.toString(channel.getPackageCount()));
@@ -143,14 +140,16 @@ public class OtherXmlWriter extends RepomdWriter {
     private void addPackageChangelog(PackageDto pkgDto,
             SimpleContentHandler tmpHandler) throws SAXException, SQLException {
 
-        long pkgId = pkgDto.getId().longValue();
-        while (changeLogIterator.hasNextForPackage(pkgId)) {
-            String author = changeLogIterator.getString("author");
-            String text = changeLogIterator.getString("text");
+        Long pkgId = pkgDto.getId();
+        Collection<PackageChangelogDto> changelogEntries = TaskManager
+                .getPackageChangelogDtos(pkgId);
+        for (PackageChangelogDto changelogEntry : changelogEntries) {
+            String author = changelogEntry.getAuthor();
+            String text = changelogEntry.getText();
             SimpleAttributesImpl attr = new SimpleAttributesImpl();
             attr.addAttribute("author", sanitize(pkgId, author));
-            attr.addAttribute("date", Long.toString(changeLogIterator.getDate(
-                    "time").getTime() / 1000));
+            attr.addAttribute("date",
+                    Long.toString(changelogEntry.getTime().getTime() / 1000));
             tmpHandler.startElement("changelog", attr);
             tmpHandler.addCharacters(sanitize(pkgId, text));
             tmpHandler.endElement("changelog");

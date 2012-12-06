@@ -18,6 +18,8 @@ import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.SelectMode;
 import com.redhat.rhn.domain.channel.Channel;
+import com.redhat.rhn.frontend.dto.PackageCapabilityDto;
+import com.redhat.rhn.frontend.dto.PackageChangelogDto;
 import com.redhat.rhn.frontend.dto.PackageDto;
 import com.redhat.rhn.taskomatic.task.TaskConstants;
 
@@ -45,8 +47,36 @@ public class TaskManager {
     public static Collection<PackageDto> getChannelPackageDtos(Channel channel) {
         SelectMode m = ModeFactory.getMode(TaskConstants.MODE_NAME,
                 TaskConstants.TASK_QUERY_REPOMD_GENERATOR_CHANNEL_PACKAGES);
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("channel_id", channel.getId());
+        return m.execute(params);
+    }
+
+    /**
+     * Get capabilities of a certain type for a package
+     * @param packageId the package's id
+     * @param query the query to execute
+     * @return a collection of capabilities
+     */
+    public static Collection<PackageCapabilityDto> getPackageCapabilityDtos(
+            Long packageId, String query) {
+        SelectMode m = ModeFactory.getMode(TaskConstants.MODE_NAME, query);
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("package_id", packageId);
+        return m.execute(params);
+    }
+
+    /**
+     * Get changelog entries for a particular package
+     * @param packageId the package's id
+     * @return a collection of changelogs
+     */
+    public static Collection<PackageChangelogDto> getPackageChangelogDtos(
+            Long packageId) {
+        SelectMode m = ModeFactory.getMode(TaskConstants.MODE_NAME,
+                TaskConstants.TASK_QUERY_REPOMD_GENERATOR_PACKAGE_CHANGELOG);
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("package_id", packageId);
         return m.execute(params);
     }
 

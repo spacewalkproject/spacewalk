@@ -15,7 +15,9 @@
 package com.redhat.rhn.taskomatic.task.repomd;
 
 import com.redhat.rhn.domain.channel.Channel;
+import com.redhat.rhn.frontend.dto.PackageCapabilityDto;
 import com.redhat.rhn.frontend.dto.PackageDto;
+import com.redhat.rhn.manager.task.TaskManager;
 import com.redhat.rhn.taskomatic.task.TaskConstants;
 
 import org.apache.log4j.Logger;
@@ -26,6 +28,7 @@ import java.io.IOException;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.BufferedWriter;
+import java.util.Collection;
 import java.util.zip.GZIPOutputStream;
 
 /**
@@ -38,10 +41,6 @@ public class DebPackageWriter {
     private static Logger log = Logger.getLogger(DebPackageWriter.class);
     private String filenamePackages = "";
     private String channelLabel = "";
-    private PackageCapabilityIterator providesIterator;
-    private PackageCapabilityIterator requiresIterator;
-    private PackageCapabilityIterator conflictsIterator;
-    private PackageCapabilityIterator obsoletesIterator;
 
     /**
      *
@@ -58,19 +57,6 @@ public class DebPackageWriter {
                 f.delete();
             }
             f.createNewFile();
-
-            providesIterator = new PackageCapabilityIterator(
-                    channel,
-                    TaskConstants.TASK_QUERY_REPOMD_GENERATOR_CAPABILITY_PROVIDES);
-            requiresIterator = new PackageCapabilityIterator(
-                    channel,
-                    TaskConstants.TASK_QUERY_REPOMD_GENERATOR_CAPABILITY_REQUIRES);
-            conflictsIterator = new PackageCapabilityIterator(
-                    channel,
-                    TaskConstants.TASK_QUERY_REPOMD_GENERATOR_CAPABILITY_CONFLICTS);
-            obsoletesIterator = new PackageCapabilityIterator(
-                    channel,
-                    TaskConstants.TASK_QUERY_REPOMD_GENERATOR_CAPABILITY_OBSOLETES);
         }
         catch (Exception e) {
             log.debug("Create file Packages failed " + e.toString());
@@ -112,14 +98,22 @@ public class DebPackageWriter {
             out.newLine();
 
             // dependencies
-            addPackageDepData(out, providesIterator,
-                    pkgDto.getId().longValue(), "Provides");
-            addPackageDepData(out, requiresIterator,
-                    pkgDto.getId().longValue(), "Depends");
-            addPackageDepData(out, conflictsIterator, pkgDto.getId()
-                    .longValue(), "Conflicts");
-            addPackageDepData(out, obsoletesIterator, pkgDto.getId()
-                    .longValue(), "Replaces");
+            addPackageDepData(
+                    out,
+                    TaskConstants.TASK_QUERY_REPOMD_GENERATOR_CAPABILITY_PROVIDES,
+                    pkgDto.getId(), "Provides");
+            addPackageDepData(
+                    out,
+                    TaskConstants.TASK_QUERY_REPOMD_GENERATOR_CAPABILITY_REQUIRES,
+                    pkgDto.getId(), "Depends");
+            addPackageDepData(
+                    out,
+                    TaskConstants.TASK_QUERY_REPOMD_GENERATOR_CAPABILITY_CONFLICTS,
+                    pkgDto.getId(), "Conflicts");
+            addPackageDepData(
+                    out,
+                    TaskConstants.TASK_QUERY_REPOMD_GENERATOR_CAPABILITY_OBSOLETES,
+                    pkgDto.getId(), "Replaces");
 
             out.write("Filename: XMLRPC/GET-REQ/" + channelLabel + "/getPackage/" +
                     pkgDto.getName() + "-" + pkgDto.getVersion() + "-" +
@@ -187,11 +181,13 @@ public class DebPackageWriter {
      * @param dep
      *            dependency info
      */
-    private void addPackageDepData(BufferedWriter out,
-            PackageCapabilityIterator pkgCapIter, long pkgId, String dep) {
+    private void addPackageDepData(BufferedWriter out, String query,
+            Long pkgId, String dep) {
         int count = 0;
+        Collection<PackageCapabilityDto> capabilities = TaskManager
+                .getPackageCapabilityDtos(pkgId, query);
         try {
-            while (pkgCapIter.hasNextForPackage(pkgId)) {
+            for (PackageCapabilityDto capability : capabilities) {
                 if (count == 0) {
                     out.write(dep + ": ");
                 }
@@ -199,8 +195,8 @@ public class DebPackageWriter {
                     out.write(", ");
                 }
                 count++;
-                String name = pkgCapIter.getString("name");
-                String version = pkgCapIter.getString("version");
+                String name = capability.getName();
+                String version = capability.getVersion();
                 out.write(name);
                 if (version != null && !version.isEmpty()) {
                     out.write(" (" + version + ")");

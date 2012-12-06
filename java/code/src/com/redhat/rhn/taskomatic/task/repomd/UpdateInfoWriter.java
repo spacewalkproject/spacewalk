@@ -104,7 +104,7 @@ public class UpdateInfoWriter extends RepomdWriter {
      * @throws SAXException
      */
     private void addErratum(Errata erratum, Channel channel)
-        throws SAXException {
+            throws SAXException {
         SimpleAttributesImpl attr = new SimpleAttributesImpl();
         attr.addAttribute("from", erratum.getErrataFrom());
         attr.addAttribute("status", "final");
@@ -112,9 +112,11 @@ public class UpdateInfoWriter extends RepomdWriter {
         attr.addAttribute("version", Long.toString(erratum.getAdvisoryRel()));
         handler.startElement("update", attr);
 
-        handler.addElementWithCharacters("id", sanitize(0, erratum
+        handler.addElementWithCharacters("id",
+                sanitize(0L, erratum
                 .getAdvisoryName()));
-        handler.addElementWithCharacters("title", sanitize(0, erratum
+        handler.addElementWithCharacters("title",
+                sanitize(0L, erratum
                 .getSynopsis()));
 
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -129,7 +131,8 @@ public class UpdateInfoWriter extends RepomdWriter {
         handler.startElement("updated", attr);
         handler.endElement("updated");
 
-        handler.addElementWithCharacters("description", sanitize(0, erratum
+        handler.addElementWithCharacters("description",
+                sanitize(0L, erratum
                 .getDescription()));
 
         addErratumReferences(erratum);
@@ -145,7 +148,7 @@ public class UpdateInfoWriter extends RepomdWriter {
      * @throws SAXException
      */
     private void addErratumPkgList(Errata erratum, Channel channel)
-        throws SAXException {
+            throws SAXException {
         handler.startElement("pkglist");
 
         SimpleAttributesImpl attr = new SimpleAttributesImpl();
@@ -190,7 +193,7 @@ public class UpdateInfoWriter extends RepomdWriter {
 
                 attr.clear();
                 attr.addAttribute("type",
-                    sanitize(pkgId, pkg.getChecksum().getChecksumType().getLabel()));
+                        sanitize(pkgId, pkg.getChecksum().getChecksumType().getLabel()));
                 handler.startElement("sum", attr);
                 handler.addCharacters(sanitize(pkgId, pkg.getChecksum().getChecksum()));
                 handler.endElement("sum");
@@ -223,8 +226,8 @@ public class UpdateInfoWriter extends RepomdWriter {
             }
             else {
                 attr.addAttribute("href",
-                                  "http://bugzilla.redhat.com/bugzilla/show_bug.cgi?id=" +
-                                   bug.getId());
+                        "http://bugzilla.redhat.com/bugzilla/show_bug.cgi?id=" +
+                                bug.getId());
             }
             attr.addAttribute("id", Long.toString(bug.getId()));
             attr.addAttribute("type", "bugzilla");
@@ -242,7 +245,7 @@ public class UpdateInfoWriter extends RepomdWriter {
             SimpleAttributesImpl attr = new SimpleAttributesImpl();
             attr.addAttribute("href",
                     "http://www.cve.mitre.org/cgi-bin/cvename.cgi?name=" + cve);
-            attr.addAttribute("id", sanitize(0, cve.getName()));
+            attr.addAttribute("id", sanitize(0L, cve.getName()));
             attr.addAttribute("type", "cve");
             handler.startElement("reference", attr);
             handler.endElement("reference");

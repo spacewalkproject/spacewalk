@@ -602,126 +602,92 @@ where rhnChannelErrata.errata_id = rhnErrataPackage.errata_id
    </query>
 </mode>
 
-<mode name="repomdgenerator_capability_files">
-   <query params="channel_id">
-  SELECT chpkg.package_id, pkgcap.id, pkgcap.name, pkgcap.version
-    FROM rhnPackageFile pkgf, rhnPackageCapability pkgcap,
-         rhnChannelPackage chpkg left join  rhnPackageRepodata prd ON prd.package_id = chpkg.package_id
-    WHERE
-          chpkg.package_id = pkgf.package_id
-      AND pkgf.capability_id = pkgcap.id
-      AND chpkg.channel_id = :channel_id
-      AND prd.primary_xml is null
-  ORDER BY pkgf.package_id
+<mode name="repomdgenerator_capability_files"
+    class="com.redhat.rhn.frontend.dto.PackageCapabilityDto">
+   <query params="package_id">
+  SELECT pkgcap.id, pkgcap.name, pkgcap.version
+    FROM rhnPackageFile pkgf, rhnPackageCapability pkgcap
+   WHERE pkgf.capability_id = pkgcap.id
+     AND pkgf.package_id = :package_id
    </query>
 </mode>
 
-<mode name="repomdgenerator_capability_provides">
-   <query params="channel_id">
-  SELECT chpkg.package_id, pkgcap.id, pkgcap.name, pkgcap.version, pkgp.sense
-    FROM rhnPackageProvides pkgp, rhnPackageCapability pkgcap,
-    	rhnChannelPackage chpkg left join  rhnPackageRepodata prd ON prd.package_id = chpkg.package_id
-    WHERE
-          chpkg.package_id = pkgp.package_id
-      AND pkgp.capability_id = pkgcap.id
-      AND chpkg.channel_id = :channel_id
-      AND prd.primary_xml is null
-  ORDER BY pkgp.package_id
+<mode name="repomdgenerator_capability_provides"
+    class="com.redhat.rhn.frontend.dto.PackageCapabilityDto">
+   <query params="package_id">
+  SELECT pkgcap.id, pkgcap.name, pkgcap.version, pkgp.sense
+    FROM rhnPackageProvides pkgp, rhnPackageCapability pkgcap
+   WHERE pkgp.capability_id = pkgcap.id
+     AND pkgp.package_id = :package_id
    </query>
 </mode>
 
-<mode name="repomdgenerator_capability_requires">
-   <query params="channel_id">
-  SELECT chpkg.package_id, pkgcap.id, pkgcap.name, pkgcap.version, pkgp.sense
-    FROM rhnPackageRequires pkgp, rhnPackageCapability pkgcap,
-    	rhnChannelPackage chpkg left join  rhnPackageRepodata prd ON prd.package_id = chpkg.package_id
-    WHERE
-          chpkg.package_id = pkgp.package_id
-      AND pkgp.capability_id = pkgcap.id
-      AND chpkg.channel_id = :channel_id
-      AND prd.primary_xml is null
-  ORDER BY pkgp.package_id
+<mode name="repomdgenerator_capability_requires"
+    class="com.redhat.rhn.frontend.dto.PackageCapabilityDto">
+   <query params="package_id">
+  SELECT pkgcap.id, pkgcap.name, pkgcap.version, pkgp.sense
+    FROM rhnPackageRequires pkgp, rhnPackageCapability pkgcap
+   WHERE pkgp.capability_id = pkgcap.id
+     AND pkgp.package_id = :package_id
    </query>
 </mode>
 
-<mode name="repomdgenerator_capability_conflicts">
-   <query params="channel_id">
-  SELECT chpkg.package_id, pkgcap.id, pkgcap.name, pkgcap.version, pkgp.sense
-    FROM rhnPackageConflicts pkgp, rhnPackageCapability pkgcap,
-    	rhnChannelPackage chpkg left join  rhnPackageRepodata prd ON prd.package_id = chpkg.package_id
-    WHERE
-          chpkg.package_id = pkgp.package_id
-      AND pkgp.capability_id = pkgcap.id
-      AND chpkg.channel_id = :channel_id
-      AND prd.primary_xml is null
-  ORDER BY pkgp.package_id
+<mode name="repomdgenerator_capability_conflicts"
+    class="com.redhat.rhn.frontend.dto.PackageCapabilityDto">
+   <query params="package_id">
+  SELECT pkgcap.id, pkgcap.name, pkgcap.version, pkgp.sense
+    FROM rhnPackageConflicts pkgp, rhnPackageCapability pkgcap
+   WHERE pkgp.capability_id = pkgcap.id
+     AND pkgp.package_id = :package_id
    </query>
 </mode>
 
-<mode name="repomdgenerator_capability_obsoletes">
-   <query params="channel_id">
-  SELECT chpkg.package_id, pkgcap.id, pkgcap.name, pkgcap.version, pkgp.sense
-    FROM rhnPackageObsoletes pkgp, rhnPackageCapability pkgcap,
-    	rhnChannelPackage chpkg left join  rhnPackageRepodata prd ON prd.package_id = chpkg.package_id
-    WHERE
-          chpkg.package_id = pkgp.package_id
-      AND pkgp.capability_id = pkgcap.id
-      AND chpkg.channel_id = :channel_id
-      AND prd.primary_xml is null
-  ORDER BY pkgp.package_id
+<mode name="repomdgenerator_capability_obsoletes"
+    class="com.redhat.rhn.frontend.dto.PackageCapabilityDto">
+   <query params="package_id">
+  SELECT pkgcap.id, pkgcap.name, pkgcap.version, pkgp.sense
+    FROM rhnPackageObsoletes pkgp, rhnPackageCapability pkgcap
+   WHERE pkgp.capability_id = pkgcap.id
+     AND pkgp.package_id = :package_id
    </query>
 </mode>
 
-<mode name="repomdgenerator_capability_recommends">
-   <query params="channel_id">
-  SELECT chpkg.package_id, pkgcap.id, pkgcap.name, pkgcap.version, pkgp.sense
-    FROM rhnPackageRecommends pkgp, rhnPackageCapability pkgcap,
-         rhnChannelPackage chpkg left join  rhnPackageRepodata prd ON prd.package_id = chpkg.package_id
-    WHERE
-          chpkg.package_id = pkgp.package_id
-      AND pkgp.capability_id = pkgcap.id
-      AND chpkg.channel_id = :channel_id
-      AND prd.primary_xml is null
-  ORDER BY pkgp.package_id
+<mode name="repomdgenerator_capability_recommends"
+    class="com.redhat.rhn.frontend.dto.PackageCapabilityDto">
+   <query params="package_id">
+  SELECT pkgcap.id, pkgcap.name, pkgcap.version, pkgp.sense
+    FROM rhnPackageRecommends pkgp, rhnPackageCapability pkgcap
+   WHERE pkgp.capability_id = pkgcap.id
+     AND pkgp.package_id = :package_id
    </query>
 </mode>
 
-<mode name="repomdgenerator_capability_suggests">
-   <query params="channel_id">
-  SELECT chpkg.package_id, pkgcap.id, pkgcap.name, pkgcap.version, pkgp.sense
-    FROM rhnPackageSuggests pkgp, rhnPackageCapability pkgcap,
-         rhnChannelPackage chpkg left join  rhnPackageRepodata prd ON prd.package_id = chpkg.package_id
-    WHERE
-          chpkg.package_id = pkgp.package_id
-      AND pkgp.capability_id = pkgcap.id
-      AND chpkg.channel_id = :channel_id
-      AND prd.primary_xml is null
-  ORDER BY pkgp.package_id
+<mode name="repomdgenerator_capability_suggests"
+    class="com.redhat.rhn.frontend.dto.PackageCapabilityDto">
+   <query params="package_id">
+  SELECT pkgcap.id, pkgcap.name, pkgcap.version, pkgp.sense
+    FROM rhnPackageSuggests pkgp, rhnPackageCapability pkgcap
+   WHERE pkgp.capability_id = pkgcap.id
+     AND pkgp.package_id = :package_id
    </query>
 </mode>
 
-<mode name="repomdgenerator_capability_supplements">
-   <query params="channel_id">
-  SELECT chpkg.package_id, pkgcap.id, pkgcap.name, pkgcap.version, pkgp.sense
-    FROM rhnPackageSupplements pkgp, rhnPackageCapability pkgcap,
-         rhnChannelPackage chpkg left join  rhnPackageRepodata prd ON prd.package_id = chpkg.package_id
-    WHERE
-          chpkg.package_id = pkgp.package_id
-      AND pkgp.capability_id = pkgcap.id
-      AND chpkg.channel_id = :channel_id
-      AND prd.primary_xml is null
-  ORDER BY pkgp.package_id
+<mode name="repomdgenerator_capability_supplements"
+    class="com.redhat.rhn.frontend.dto.PackageCapabilityDto">
+   <query params="package_id">
+  SELECT pkgcap.id, pkgcap.name, pkgcap.version, pkgp.sense
+    FROM rhnPackageSupplements pkgp, rhnPackageCapability pkgcap
+   WHERE pkgp.capability_id = pkgcap.id
+     AND pkgp.package_id = :package_id
    </query>
 </mode>
 
-<mode name="repomdgenerator_package_changelog">
-   <query params="channel_id">
-  SELECT chpkg.package_id, pkglog.time, pkglog.name as author, pkglog.text
-    FROM rhnPackageChangeLog pkglog, rhnChannelPackage chpkg
-    WHERE
-          chpkg.package_id = pkglog.package_id
-      AND chpkg.channel_id = :channel_id
-  ORDER BY pkglog.package_id
+<mode name="repomdgenerator_package_changelog"
+    class="com.redhat.rhn.frontend.dto.PackageChangelogDto">
+   <query params="package_id">
+  SELECT pkglog.time, pkglog.name as author, pkglog.text
+    FROM rhnPackageChangeLog pkglog
+    WHERE pkglog.package_id = :package_id
    </query>
 </mode>
 

@@ -17,6 +17,7 @@ package com.redhat.rhn.taskomatic.task.repomd;
 
 import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.domain.channel.Channel;
+import com.redhat.rhn.frontend.dto.PackageCapabilityDto;
 import com.redhat.rhn.frontend.dto.PackageDto;
 import com.redhat.rhn.manager.rhnpackage.PackageManager;
 import com.redhat.rhn.manager.task.TaskManager;
@@ -27,6 +28,7 @@ import org.xml.sax.SAXException;
 
 import java.io.ByteArrayOutputStream;
 import java.io.Writer;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -37,14 +39,6 @@ import java.util.Map;
  */
 public class PrimaryXmlWriter extends RepomdWriter {
 
-    private PackageCapabilityIterator filesIterator;
-    private PackageCapabilityIterator providesIterator;
-    private PackageCapabilityIterator requiresIterator;
-    private PackageCapabilityIterator conflictsIterator;
-    private PackageCapabilityIterator obsoletesIterator;
-    private PackageCapabilityIterator recommendsIterator;
-    private PackageCapabilityIterator suggestsIterator;
-    private PackageCapabilityIterator supplementsIterator;
     /**
      *
      * @param writer The writer object for primary xml
@@ -89,22 +83,6 @@ public class PrimaryXmlWriter extends RepomdWriter {
      * @param channel channel data
      */
     public void begin(Channel channel) {
-        filesIterator = new PackageCapabilityIterator(channel,
-                TaskConstants.TASK_QUERY_REPOMD_GENERATOR_CAPABILITY_FILES);
-        providesIterator = new PackageCapabilityIterator(channel,
-                TaskConstants.TASK_QUERY_REPOMD_GENERATOR_CAPABILITY_PROVIDES);
-        requiresIterator = new PackageCapabilityIterator(channel,
-                TaskConstants.TASK_QUERY_REPOMD_GENERATOR_CAPABILITY_REQUIRES);
-        conflictsIterator = new PackageCapabilityIterator(channel,
-                TaskConstants.TASK_QUERY_REPOMD_GENERATOR_CAPABILITY_CONFLICTS);
-        obsoletesIterator = new PackageCapabilityIterator(channel,
-                TaskConstants.TASK_QUERY_REPOMD_GENERATOR_CAPABILITY_OBSOLETES);
-        recommendsIterator = new PackageCapabilityIterator(channel,
-                TaskConstants.TASK_QUERY_REPOMD_GENERATOR_CAPABILITY_RECOMMENDS);
-        suggestsIterator = new PackageCapabilityIterator(channel,
-                TaskConstants.TASK_QUERY_REPOMD_GENERATOR_CAPABILITY_SUGGESTS);
-        supplementsIterator = new PackageCapabilityIterator(channel,
-                TaskConstants.TASK_QUERY_REPOMD_GENERATOR_CAPABILITY_SUPPLEMENTS);
         SimpleAttributesImpl attr = new SimpleAttributesImpl();
         attr.addAttribute("xmlns", "http://linux.duke.edu/metadata/common");
         attr.addAttribute("xmlns:rpm", "http://linux.duke.edu/metadata/rpm");
@@ -264,21 +242,28 @@ public class PrimaryXmlWriter extends RepomdWriter {
      */
     private void addPackagePrcoData(PackageDto pkgDto,
             SimpleContentHandler localHandler) throws SAXException {
-        addPackageDepData(providesIterator, pkgDto.getId().longValue(),
-                "provides", localHandler);
-        addPackageDepData(requiresIterator, pkgDto.getId().longValue(),
-                "requires", localHandler);
-        addPackageDepData(conflictsIterator, pkgDto.getId().longValue(),
-                "conflicts", localHandler);
-        addPackageDepData(obsoletesIterator, pkgDto.getId().longValue(),
-                "obsoletes", localHandler);
-        addPackageDepData(recommendsIterator, pkgDto.getId().longValue(),
-                "recommends", localHandler);
-        addPackageDepData(suggestsIterator, pkgDto.getId().longValue(),
-                "suggests", localHandler);
-        addPackageDepData(supplementsIterator, pkgDto.getId().longValue(),
-                "supplements", localHandler);
-   }
+        addPackageDepData(
+                TaskConstants.TASK_QUERY_REPOMD_GENERATOR_CAPABILITY_PROVIDES,
+                pkgDto.getId(), "provides", localHandler);
+        addPackageDepData(
+                TaskConstants.TASK_QUERY_REPOMD_GENERATOR_CAPABILITY_REQUIRES,
+                pkgDto.getId(), "requires", localHandler);
+        addPackageDepData(
+                TaskConstants.TASK_QUERY_REPOMD_GENERATOR_CAPABILITY_CONFLICTS,
+                pkgDto.getId(), "conflicts", localHandler);
+        addPackageDepData(
+                TaskConstants.TASK_QUERY_REPOMD_GENERATOR_CAPABILITY_OBSOLETES,
+                pkgDto.getId(), "obsoletes", localHandler);
+        addPackageDepData(
+                TaskConstants.TASK_QUERY_REPOMD_GENERATOR_CAPABILITY_RECOMMENDS,
+                pkgDto.getId(), "recommends", localHandler);
+        addPackageDepData(
+                TaskConstants.TASK_QUERY_REPOMD_GENERATOR_CAPABILITY_SUGGESTS,
+                pkgDto.getId(), "suggests", localHandler);
+        addPackageDepData(
+                TaskConstants.TASK_QUERY_REPOMD_GENERATOR_CAPABILITY_SUPPLEMENTS,
+                pkgDto.getId(), "supplements", localHandler);
+    }
 
     /**
      *
@@ -287,21 +272,21 @@ public class PrimaryXmlWriter extends RepomdWriter {
      * @param dep dependency info
      * @throws SAXException sax exception
      */
-    private void addPackageDepData(PackageCapabilityIterator pkgCapIter, long pkgId,
-                String dep, SimpleContentHandler localHandler) throws SAXException {
+    private void addPackageDepData(String query, Long pkgId,
+            String dep, SimpleContentHandler localHandler) throws SAXException {
+        Collection<PackageCapabilityDto> capabilities = TaskManager
+                .getPackageCapabilityDtos(pkgId, query);
         localHandler.startElement("rpm:" + dep);
-        while (pkgCapIter.hasNextForPackage(pkgId)) {
+        for (PackageCapabilityDto capability : capabilities) {
             SimpleAttributesImpl attr = new SimpleAttributesImpl();
-            attr.addAttribute("name", sanitize(pkgId, pkgCapIter
-                    .getString("name")));
+            attr.addAttribute("name", sanitize(pkgId, capability.getName()));
             Map<String, String> evrMap = parseEvr(sanitize(pkgId,
-                    pkgCapIter
-                    .getString("version")));
+                    capability.getVersion()));
 
             if (evrMap.get("epoch") != null || evrMap.get("version") != null ||
                     evrMap.get("release") != null) {
-                attr.addAttribute("flags", getSenseAsString(pkgCapIter
-                        .getNumber("sense").longValue()));
+                attr.addAttribute("flags",
+                        getSenseAsString(capability.getSense()));
             }
 
             if (evrMap.get("epoch") != null) {
@@ -330,7 +315,7 @@ public class PrimaryXmlWriter extends RepomdWriter {
      * @return package evr object
      */
     private static Map<String, String> parseEvr(String evr) {
-        Map map = new HashMap<String, String>();
+        Map<String, String> map = new HashMap<String, String>();
         map.put("epoch", null);
         map.put("version", null);
         map.put("release", null);
@@ -368,8 +353,12 @@ public class PrimaryXmlWriter extends RepomdWriter {
     private void addEssentialPackageFiles(long pkgId,
             SimpleContentHandler hndlr) throws SAXException {
         String regex = ".*bin/.*|^/etc/.*|^/usr/lib.sendmail$";
-        while (filesIterator.hasNextForPackage(pkgId)) {
-            String path = sanitize(pkgId, filesIterator.getString("name"));
+        Collection<PackageCapabilityDto> files = TaskManager
+                .getPackageCapabilityDtos(
+                        pkgId,
+                        TaskConstants.TASK_QUERY_REPOMD_GENERATOR_CAPABILITY_FILES);
+        for (PackageCapabilityDto file : files) {
+            String path = sanitize(pkgId, file.getName());
             if (path.matches(regex)) {
                 hndlr.addElementWithCharacters("file", path);
             }
