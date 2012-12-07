@@ -238,6 +238,8 @@
     <description>Spacewalk Server Non-installatble Packages</description>
     <uservisible>false</uservisible>
     <packagelist>
+       <packagereq type="optional">cobbler-web</packagereq>
+       <packagereq type="optional">koan</packagereq>
        <packagereq type="optional">spacewalk-java-tests</packagereq>
     </packagelist>
   </group>
