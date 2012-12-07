@@ -293,6 +293,7 @@ class ChooseServerPage:
         # If they changed the value, write it back to the config file.
         if customServer != self.server:
             config.setServerURL(customServer)
+            self.server = customServer
         if not cfg['sslCACert']:
             up2dateConfig.set('sslCACert',
                               '/usr/share/rhn/RHN-ORG-TRUSTED-SSL-CERT')
@@ -728,6 +729,9 @@ class CreateProfilePage:
             self.fatalError(_("Problem registering system:\n") + e.errmsg)
             return True # fatalError in firstboot will return to here
         except up2dateErrors.InsuffMgmntEntsError, e:
+            pwin.hide()
+            self.fatalError(_("Problem registering system:\n") + e.errmsg)
+        except up2dateErrors.RegistrationDeniedError, e:
             pwin.hide()
             self.fatalError(_("Problem registering system:\n") + e.errmsg)
         except up2dateErrors.InvalidProductRegistrationError, e:

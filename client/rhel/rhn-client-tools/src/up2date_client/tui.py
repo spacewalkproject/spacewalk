@@ -989,6 +989,9 @@ class SendingWindow:
         except up2dateErrors.InsuffMgmntEntsError, e:
             FatalErrorWindow(self.screen,
                              _("Problem registering system:\n") + e.errmsg)
+        except up2dateErrors.RegistrationDeniedError, e:
+            FatalErrorWindow(self.screen,
+                             _("Problem registering system:\n") + e.errmsg)
         except up2dateErrors.ActivationKeyUsageLimitError, e:
             FatalErrorWindow(self.screen,
                              ACT_KEY_USAGE_LIMIT_ERROR)

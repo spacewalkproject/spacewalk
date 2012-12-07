@@ -45,7 +45,7 @@ class _DoCallWrapper(object):
     A callable object that will handle multiple levels of attributes,
     and catch exceptions.
     """
-    
+
     def __init__(self, server, method_name):
         self._server = server
         self._method_name = method_name
@@ -80,7 +80,7 @@ class _DoCallWrapper(object):
                 raise up2dateErrors.SSLCertificateVerifyFailedError(), None, sys.exc_info()[2]
             else:
                 raise up2dateErrors.NetworkError(message), None, sys.exc_info()[2]
-    
+
     def __exception_from_fault(self, fault):
             if fault.faultCode == -3:
                 # This username is already taken, or the password is incorrect.
@@ -118,6 +118,8 @@ class _DoCallWrapper(object):
                 exception = up2dateErrors.AbuseError(fault.faultString)
             elif abs(fault.faultCode) == 60:
                 exception = up2dateErrors.AuthenticationTicketError(fault.faultString)
+            elif abs(fault.faultCode) == 74:
+                exception = up2dateErrors.RegistrationDeniedError()
             elif abs(fault.faultCode) == 105:
                 exception = up2dateErrors.RhnUuidUniquenessError(fault.faultString)
             elif fault.faultCode == 99:
@@ -156,8 +158,8 @@ class _DoCallWrapper(object):
 
 class RhnServer(object):
 
-    """ 
-    An rpc server object that calls doCall for you, and catches lower 
+    """
+    An rpc server object that calls doCall for you, and catches lower
     level exceptions
     """
 

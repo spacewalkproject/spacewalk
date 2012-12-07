@@ -167,7 +167,7 @@ on this system."),
      does not already exists on the server
      """),
      55: _("""
-     The --force rhnpush option is disabled on this server. 
+     The --force rhnpush option is disabled on this server.
      Please contact your Satellite administrator for more help.
      """),
 
@@ -192,6 +192,7 @@ on this system."),
      """),
      72: _("""You can not unsubscribe from base channel."""),
      73: _("""Satellite or Proxy channel can not be subscribed."""),
+     74: _("") # not used, reserved for Hosted-only RegistrationDenied error.
 
      # 80-90: server group errors
      80: _("There was an error while trying to join the system to its groups"),
