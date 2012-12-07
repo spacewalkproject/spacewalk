@@ -32,7 +32,7 @@ if [ -x /etc/init.d/tomcat6 -o -x /lib/systemd/system/tomcat6.service ]; then
    TOMCAT="tomcat6"
 fi
 
-if [ /lib/systemd/system/tomcat.service ]; then
+if [ -x /lib/systemd/system/tomcat.service ]; then
    TOMCAT="tomcat"
 fi
 
