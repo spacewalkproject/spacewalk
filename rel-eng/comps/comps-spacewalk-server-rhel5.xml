@@ -235,7 +235,7 @@
   <group>
     <id>spacewalk-server-no-install</id>
     <name>Spacewalk Server Junk</name>
-    <description>Spacewalk Server Non-installatble Packages</description>
+    <description>Spacewalk Server Non-installable Packages</description>
     <uservisible>false</uservisible>
     <packagelist>
        <packagereq type="optional">cobbler-web</packagereq>
