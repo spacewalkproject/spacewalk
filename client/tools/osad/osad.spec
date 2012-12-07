@@ -202,6 +202,11 @@ rm -rf $RPM_BUILD_ROOT
 if [ -f %{_sysconfdir}/init.d/osad ]; then
     /sbin/chkconfig --add osad
 fi
+
+# Fix the /var/log/osad permission BZ 836984
+if [ -f %{_var}/log/osad ]; then
+    /bin/chmod 600 %{_var}/log/osad
+fi
 %endif
 
 %preun

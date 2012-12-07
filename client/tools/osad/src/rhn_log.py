@@ -39,10 +39,9 @@ class Logger:
 
             if not Logger.logfile is None:
                 try:
-                    file = open( Logger.logfile, 'a' )
-                    os.chmod(Logger.logfile, 0600)
-                    file.write( outstring )
-                    file.close()
+                    fd = os.open(Logger.logfile, os.O_APPEND | os.O_RDWR | os.O_CREAT, 0600)
+                    os.write(fd, outstring)
+                    os.close(fd)
                 except IOError:
                     raise 
 
