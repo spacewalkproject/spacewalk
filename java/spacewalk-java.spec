@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.9.27
+Version: 1.9.28
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -659,6 +659,11 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Dec 07 2012 Jan Pazdziora 1.9.28-1
+- 883546 - reworking how repodata xml gets built to avoid "snapshot too old"
+  errors
+- Revert "883546 - repodata inconsistency due to concurrent modification"
+
 * Wed Dec 05 2012 Tomas Lestach <tlestach@redhat.com> 1.9.27-1
 - update catalina.out path for tomcat7
 - KickstartFileSyncTaskTest should no longer fail
