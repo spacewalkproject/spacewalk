@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 1.9.6
+Version: 1.9.7
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -339,6 +339,10 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Mon Dec 10 2012 Jan Pazdziora 1.9.7-1
+- 885170 - provide translations of a new error recieved from Hosted
+- 882174 - read the hostname from /etc/hostname if needed
+
 * Fri Nov 30 2012 Jan Pazdziora 1.9.6-1
 - 876740 - fix typo
 - 876740 - server url auto-corrects common mistakes, messages say "Satellite"
