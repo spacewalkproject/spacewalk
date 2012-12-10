@@ -23,7 +23,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.8.180
+Version: 1.8.181
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -617,6 +617,11 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Dec 10 2012 Michael Mraka <michael.mraka@redhat.com> 1.8.181-1
+- 839960 - fix system.listLatestUpgradablePackages API to list upgradable
+  packages from server channels only
+- Use braces for accessing composite types in PG
+
 * Mon Nov 05 2012 Tomas Lestach <tlestach@redhat.com> 1.8.180-1
 - replace remaining DTD paths to www.hibernate.org/dtd with 3.2 default
   hibernate.sourceforge.net
