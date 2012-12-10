@@ -8,7 +8,7 @@ Summary:        Red Hat Network Monitoring Daemon
 Name:           rhnmd
 URL:            https://fedorahosted.org/spacewalk
 Source0:        https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version:        5.3.13
+Version:        5.3.14
 Release:        1%{?dist}
 License:        GPLv2
 BuildArch:      noarch
@@ -182,6 +182,10 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Mon Dec 10 2012 Michael Mraka <michael.mraka@redhat.com> 5.3.14-1
+- added missing pid file
+- fixed service description
+
 * Mon Dec 10 2012 Michael Mraka <michael.mraka@redhat.com> 5.3.13-1
 - use rhnmd.service on Fedora
 
