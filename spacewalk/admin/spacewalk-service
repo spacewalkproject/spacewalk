@@ -28,11 +28,11 @@ if [ -x /etc/init.d/tomcat5 ]; then
    TOMCAT="tomcat5"
 fi
 
-if [ -x /etc/init.d/tomcat6 -o -x /lib/systemd/system/tomcat6.service ]; then
+if [ -x /etc/init.d/tomcat6 -o -e /lib/systemd/system/tomcat6.service ]; then
    TOMCAT="tomcat6"
 fi
 
-if [ -x /lib/systemd/system/tomcat.service ]; then
+if [ -e /lib/systemd/system/tomcat.service ]; then
    TOMCAT="tomcat"
 fi
 
