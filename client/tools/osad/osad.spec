@@ -16,7 +16,7 @@ Group:   System Environment/Daemons
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.11.13
+Version: 5.11.14
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -350,6 +350,9 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 %endif
 
 %changelog
+* Mon Dec 10 2012 Jan Pazdziora 5.11.14-1
+- 836984 - fixes the permissions on /var/log/osad log file
+
 * Thu Nov 22 2012 Jan Pazdziora 5.11.13-1
 - always commit the update
 
