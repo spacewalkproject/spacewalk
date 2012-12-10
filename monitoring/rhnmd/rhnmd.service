@@ -1,5 +1,5 @@
 [Unit]
-Description=rhnmd server daemon
+Description=Red Hat Network Monitoring daemon
 After=syslog.target network.target auditd.service
 
 [Service]
