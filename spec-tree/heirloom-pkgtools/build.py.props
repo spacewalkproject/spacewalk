@@ -1,3 +1,6 @@
 [buildconfig]
 builder = spacewalkx.builderx.NoTgzBuilder
 
+[buildconfig]
+tagger = spacewalk.releng.tagger.ReleaseTagger
+
