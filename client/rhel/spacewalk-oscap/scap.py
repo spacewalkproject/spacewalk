@@ -62,8 +62,7 @@ def _process_params(args, filename):
         allowed_args = {
             '--profile': 1,
             '--skip-valid': 0,
-            '--cpe-dict': 1,
-            '--cpe-dict2': 1,
+            '--cpe': 1,
             '--fetch-remote-resources': 0,
             '--datastream-id': 1,
             '--xccdf-id': 1,
