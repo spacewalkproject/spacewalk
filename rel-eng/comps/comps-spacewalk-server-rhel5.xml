@@ -39,6 +39,7 @@
        <packagereq type="default">dom4j-repolib</packagereq>
        <packagereq type="default">dwr</packagereq>
        <packagereq type="default">eventReceivers</packagereq>
+       <packagereq type="optional">heirloom-pkgtools</packagereq>
        <packagereq type="default">hibernate3</packagereq>
        <packagereq type="default">hibernate3-manual</packagereq>
        <packagereq type="default">hibernate3-repolib</packagereq>

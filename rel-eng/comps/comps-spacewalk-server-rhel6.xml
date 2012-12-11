@@ -25,6 +25,7 @@
        <packagereq type="default">cx_Oracle</packagereq>
        <packagereq type="default">dwr</packagereq>
        <packagereq type="default">eventReceivers</packagereq>
+       <packagereq type="optional">heirloom-pkgtools</packagereq>
        <packagereq type="default">jpam</packagereq>
        <packagereq type="default">MessageQueue</packagereq>
        <packagereq type="default">nocpulse-common</packagereq>
