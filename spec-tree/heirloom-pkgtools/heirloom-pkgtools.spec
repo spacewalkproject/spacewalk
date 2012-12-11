@@ -16,12 +16,16 @@ Patch3:		binpath.patch
 Patch4:		sbinpath.patch
 Patch5:		cpio-D.patch
 Patch6:		compute_checksum-64bit.patch
+Patch7:		use-flex.patch
 
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:	gcc
 BuildRequires:	openssl-devel
 BuildRequires:	flex
+%if 0%{?fedora}
+BuildRequires:	compat-flex = 2.5.4a
+%endif
 
 %description
 Heirloom Packaging Tools are Linux ports of the SVR4
@@ -36,6 +40,9 @@ OpenSolaris.
 %patch4 -p1
 %patch5 -p1
 %patch6 -p1
+%if 0%{?fedora}
+%patch7 -p1
+%endif
 
 %build
 make -f makefile SHELL=/bin/bash CC=gcc BINDIR=%{_bindir} SBINDIR=%{_sbindir}
