@@ -6,7 +6,7 @@ Summary:	Heirloom Packaging Tools
 Group:		Development/Tools
 License:	CDDL
 Version:	1.%{heriloom_pkgtools_version}
-Release:	7%{?dist}
+Release:	8%{?dist}
 
 URL:		http://heirloom.sourceforge.net/pkgtools.html
 Source0:	%{name}-%{heriloom_pkgtools_version}.tar.bz2
@@ -104,6 +104,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_var}/sadm/install/admin/default
 
 %changelog
+* Tue Dec 11 2012 Jan Pazdziora 1.070227-8
+- On Fedoras, use compat-flex and -lfl.
+
 * Tue Dec 11 2012 Jan Pazdziora 1.070227-7
 - set correct tagger for heirloom-pkgtools
 - set correct builder for heirloom-pkgtools
