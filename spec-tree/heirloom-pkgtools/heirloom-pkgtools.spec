@@ -6,7 +6,7 @@ Summary:	Heirloom Packaging Tools
 Group:		Development/Tools
 License:	CDDL
 Version:	1.%{heriloom_pkgtools_version}
-Release:	6%{?dist}
+Release:	7%{?dist}
 
 URL:		http://heirloom.sourceforge.net/pkgtools.html
 Source0:	%{name}-%{heriloom_pkgtools_version}.tar.bz2
@@ -97,6 +97,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_var}/sadm/install/admin/default
 
 %changelog
+* Tue Dec 11 2012 Jan Pazdziora 1.070227-7
+- set correct tagger for heirloom-pkgtools
+- set correct builder for heirloom-pkgtools
+
 * Fri Feb 27 2009 Jan Pazdziora 1.070227-6
 - fixed pkgmk producing wrong checksums in pkgmap on 64bit
 
