@@ -18,6 +18,9 @@ DIR		= -m 755 --verbose -d
 
 all: $(OBJECTS)
 
+%.xslt: %.xslt.in
+	xsltproc gxm.xml $< > $@
+
 %.pyc: %.py
 	python -c "import py_compile; py_compile.compile('$<')"
 
@@ -28,4 +31,4 @@ install: all
 	$(INSTALL) $(FILE) $(CAPABILITY) $(CAPSDIR)
 
 clean:
-	@rm -rf *.pyc *~ .*~
+	@rm -rf *.pyc *~ .*~ $(XSLT)

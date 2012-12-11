@@ -11,6 +11,7 @@ BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:	noarch
 BuildRequires:	python-devel
 BuildRequires:	rhnlib
+BuildRequires:  libxslt
 Requires:	openscap-utils >= 0.9.2
 Requires:	libxslt
 Requires:       rhnlib

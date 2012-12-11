@@ -23,7 +23,7 @@ Authors:
 
     <xsl:template match="/">
         <benchmark-resume>
-            <xsl:apply-templates select="cdf:Benchmark"/>
+            <xsl:apply-templates select="*[local-name()='Benchmark']"/>
         </benchmark-resume>
     </xsl:template>
 

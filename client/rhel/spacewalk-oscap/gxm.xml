@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- GNU XSLT Multiplexer -->
+
+<!-- Copyright 2012 Red Hat Inc., Durham, North Carolina. All Rights Reserved.
+
+This library is free software; you can redistribute it and/or modify it under
+the terms of the GNU Lesser General Public License as published by the Free
+Software Foundation; either version 2.1 of the License.
+
+This library is distributed in the hope that it will be useful, but WITHOUT
+ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public License for more
+details.
+
+You should have received a copy of the GNU Lesser General Public License along
+with this library; if not, write to the Free Software Foundation, Inc., 59
+Temple Place, Suite 330, Boston, MA  02111-1307 USA
+
+Authors:
+     Simon Lukasik <slukasik@redhat.com>
+  -->
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0"
+    xmlns:xccdf_12="http://checklists.nist.gov/xccdf/1.2">
+    <xsl:output method="xml" encoding="UTF-8" indent="yes"/>
+
+    <xsl:template match="/">
+	<xsl:apply-templates select="/*"/>
+    </xsl:template>
+
+    <xsl:template match="xsl:stylesheet">
+	<xsl:copy xmlns:xccdf_12="http://checklists.nist.gov/xccdf/1.2">
+            <xsl:copy-of select="document('')/xsl:stylesheet/namespace::*[local-name() = 'xccdf_12']"/>
+	    <xsl:apply-templates select="*|@*" mode="copy"/>
+	    <xsl:apply-templates select="*[not(local-name()='output')][not(@match='/')]" mode="flourish"/>
+	</xsl:copy>
+    </xsl:template>
+
+    <xsl:template match="@*|node()" mode="copy">
+        <xsl:copy>
+            <xsl:apply-templates select="@*|node()" mode="copy"/>
+        </xsl:copy>
+    </xsl:template>
+
+    <xsl:template match="@*|node()" mode="flourish">
+        <xsl:copy>
+            <xsl:apply-templates select="@*|node()" mode="flourish"/>
+        </xsl:copy>
+    </xsl:template>
+
+    <xsl:template match="@select|@match" mode="flourish">
+	<xsl:variable name="tmp" select="name()"/>
+        <xsl:attribute name="{$tmp}">
+            <xsl:call-template name="string-replace-all">
+                <xsl:with-param name="text" select="." />
+                <xsl:with-param name="replace" select="'cdf:'" />
+                <xsl:with-param name="by" select="'xccdf_12:'" />
+            </xsl:call-template>
+        </xsl:attribute>
+    </xsl:template>
+
+
+    <xsl:template name="string-replace-all">
+        <!-- Poor XSLT 1.0 does not know how to replase strings. -->
+        <xsl:param name="text" />
+        <xsl:param name="replace" />
+        <xsl:param name="by" />
+        <xsl:choose>
+            <xsl:when test="contains($text, $replace)">
+                <xsl:value-of select="substring-before($text,$replace)" />
+                <xsl:value-of select="$by" />
+                <xsl:call-template name="string-replace-all">
+                    <xsl:with-param name="text" select="substring-after($text,$replace)" />
+                    <xsl:with-param name="replace" select="$replace" />
+                    <xsl:with-param name="by" select="$by" />
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="$text" />
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+</xsl:stylesheet>
+
