@@ -82,7 +82,7 @@ def find_name_servers():
     return ret
 
 def find_gateway():
-    response = execute("route -n | awk '/^0\.0\.0\.0/ {print $2}'")
+    response = execute("ip -f inet4 route list dev %s|awk '/^default/ {print $3}'")
     if response:
         return response[0]
     else:
