@@ -1,6 +1,10 @@
 <?xml version="1.0"?>
                                                                               
 <project name="build-webapp">
+<!-- determine tomcat version -->
+  <property name="tomcat" value="tomcat5" />
+    <available file="/usr/share/java/tomcat6" type="dir" property="tomcat" value="tomcat6" />
+    <available file="/usr/share/java/tomcat" type="dir" property="tomcat" value="tomcat7" />
 
   <!-- ================ Local Deployment Tasks ==================== -->
   <!--
@@ -196,19 +200,19 @@
 
   <target name="install-java"
          description="Used to setup the java side of spacewalk  devel environment">
-    <mkdir dir="/var/lib/tomcat5/webapps.save"/>
-    <move file="/var/lib/tomcat5/webapps/rhn"
-          tofile="/var/lib/tomcat5/webapps.save/rhn"/>
-    <symlink link="/var/lib/tomcat5/webapps/rhn"
+    <mkdir dir="/var/lib/${tomcat}/webapps.save"/>
+    <move file="/var/lib/${tomcat}/webapps/rhn"
+          tofile="/var/lib/${tomcat}/webapps.save/rhn"/>
+    <symlink link="/var/lib/${tomcat}/webapps/rhn"
              resource="${git.home}/java/rhnwebapp"/>
   </target>
 
   <target name="uninstall-java"
           description="Used to uninstall the java side of spacewalk devel environment">
-    <symlink action="delete" link="/var/lib/tomcat5/webapps/rhn"/>
-    <move file="/var/lib/tomcat5/webapps.save/rhn"
-          tofile="/var/lib/tomcat5/webapps/rhn"/>
-    <delete dir="/var/lib/tomcat5/webapps.save"/>
+    <symlink action="delete" link="/var/lib/${tomcat}/webapps/rhn"/>
+    <move file="/var/lib/${tomcat}/webapps.save/rhn"
+          tofile="/var/lib/${tomcat}/webapps/rhn"/>
+    <delete dir="/var/lib/${tomcat}/webapps.save"/>
   </target>
 
   <target name="install-devel"
