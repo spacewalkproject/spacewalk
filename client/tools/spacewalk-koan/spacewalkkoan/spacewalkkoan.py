@@ -81,8 +81,8 @@ def find_name_servers():
             ret.append(s)
     return ret
 
-def find_gateway():
-    response = execute("ip -f inet route list dev %s|awk '/^default/ {print $3}'")
+def find_gateway(device):
+    response = execute("ip -f inet route list dev %s|awk '/^default/ {print $3}'" % device)
     if response:
         return response[0]
     else:
@@ -103,7 +103,7 @@ def getSystemId():
 
 def update_static_device_records(kickstart_host, static_device):
     client = xmlrpclib.Server("https://" + kickstart_host + "/rpc/api")
-    data = {"gateway" : find_gateway(),\
+    data = {"gateway" : find_gateway(static_device),\
             "nameservers": find_name_servers(),\
             "hostname" : find_host_name(),\
             "device" :  static_device,\
