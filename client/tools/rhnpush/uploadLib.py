@@ -339,10 +339,20 @@ class UploadClass:
         return self.files[:]
 
     def _uploadSourcePackageInfo(self, info):
-        return call(self.server.packages.uploadSourcePackageInfoBySession, self.session.getSessionString(), info)
+        if self.use_session:
+            return call(self.server.packages.uploadSourcePackageInfoBySession,
+                        self.session.getSessionString(), info)
+        else:
+            return call(self.server.packages.uploadSourcePackageInfo,
+                        self.username, self.password, info)
 
     def _uploadPackageInfo(self, info):
-        return call(self.server.packages.uploadPackageInfoBySession, self.session.getSessionString(), info)
+        if self.use_session:
+            return call(self.server.packages.uploadPackageInfoBySession,
+                        self.session.getSessionString(), info)
+        else:
+            return call(self.server.packages.uploadPackageInfo,
+                        self.username, self.password, info)
 
     def uploadHeaders(self):
         # Set the forcing factor
