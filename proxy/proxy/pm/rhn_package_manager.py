@@ -127,7 +127,7 @@ def main():
 
 class UploadClass(uploadLib.UploadClass):
     # pylint: disable=R0904
-    def setURL(self):
+    def setURL(self, path = '/APP'):
         # overloaded for uploadlib.py
         if not CFG.RHN_PARENT:
             self.die(-1, "rhn_parent not set in the configuration file")
@@ -138,7 +138,7 @@ class UploadClass(uploadLib.UploadClass):
             scheme = 'https://'
         self.url = CFG.RHN_PARENT or ''
         self.url = parseUrl(self.url)[1].split(':')[0]
-        self.url = scheme + self.url + '/APP'
+        self.url = scheme + self.url + path
 
     def setProxyUsernamePassword(self):
         # overloaded for uploadlib.py
