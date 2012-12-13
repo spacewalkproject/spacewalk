@@ -35,8 +35,9 @@ This script performs various management operations on the RHN proxy:
 import os
 import sys
 import shutil
+import xmlrpclib
 from operator import truth
-from rhnpush.uploadLib import UploadError, listChannelBySession
+from rhnpush.uploadLib import UploadError
 from optparse import Option, OptionParser
 
 # RHN imports
