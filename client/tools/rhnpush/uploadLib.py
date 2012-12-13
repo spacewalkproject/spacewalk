@@ -583,7 +583,7 @@ def listdir(directory):
     return packagesList
 
 
-def call(function, *params):
+def call(function, *params, **kwargs):
     # Wrapper function
     try:
         ret = function(*params)
@@ -595,6 +595,8 @@ def call(function, *params):
             print x.faultExplanation
         sys.exit(-1)
     except xmlrpclib.ProtocolError, e:
+        if kwargs.get('raise_protocol_error'):
+            raise
         print e.errmsg
         sys.exit(-1)
 

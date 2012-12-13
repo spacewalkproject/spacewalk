@@ -140,6 +140,15 @@ class UploadClass(uploadLib.UploadClass):
         self.url = parseUrl(self.url)[1].split(':')[0]
         self.url = scheme + self.url + path
 
+   def setServer(self):
+       try:
+          uploadLib.UploadClass.setServer(self)
+          uploadLib.call(self.server.packages.no_op, raise_protocol_error=True)
+       except xmlrpclib.ProtocolError, e:
+           if e.errcode == 404:
+               self.setURL('/XP')
+               uploadLib.UploadClass.setServer(self)
+
     def setProxyUsernamePassword(self):
         # overloaded for uploadlib.py
         self.proxyUsername = CFG.HTTP_PROXY_USERNAME
