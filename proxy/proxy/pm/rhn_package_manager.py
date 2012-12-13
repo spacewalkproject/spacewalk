@@ -150,6 +150,8 @@ class UploadClass(uploadLib.UploadClass):
                self.use_session = False
                self.setURL('/XP')
                uploadLib.UploadClass.setServer(self)
+           else:
+               raise
 
     def authenticate(self):
         if self.use_session:
