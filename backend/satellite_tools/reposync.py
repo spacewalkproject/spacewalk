@@ -109,7 +109,7 @@ class RepoSync(object):
                 if not self.no_errata:
                     self.import_updates(plugin, url)
             except Exception, e:
-                self.error_msg("ERROR: %s" % e.value)
+                self.error_msg("ERROR: %s" % e)
                 continue
         if self.regen:
             taskomatic.add_to_repodata_queue_for_channel_package_subscription(
