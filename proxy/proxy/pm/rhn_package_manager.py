@@ -185,9 +185,7 @@ class UploadClass(uploadLib.UploadClass):
         self.authenticate()
 
         # List the channel's contents
-        channel_list = listChannelBySession(self.server,
-                                     self.session.getSessionString(),
-                                     self.channels)
+        channel_list = self._listChannel()
 
         # Convert it to a hash of hashes
         remotePackages = {}

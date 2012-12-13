@@ -274,7 +274,7 @@ class UploadClass:
             same_names_hash[nvrea] = filename
 
         # Now get the list from the server
-        pkglist = listChannelBySession(self.server, self.session.getSessionString(), self.channels)
+        pkglist = self._listChannel()
 
         for p in pkglist:
             name = p[0]
