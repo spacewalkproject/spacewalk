@@ -175,10 +175,24 @@ class UploadClass:
         self.files = self.files + readStdin()
 
     def _listChannelSource(self):
-        return listChannelSourceBySession(self.server, self.session.getSessionString(), self.channels)
+        if self.use_session:
+            return listChannelSourceBySession(self.server,
+                                              self.session.getSessionString(),
+                                              self.channels)
+        else:
+            return listChannelSource(self.server,
+                                     self.username, self.password,
+                                     self.channels)
 
     def _listChannel(self):
-        return listChannelBySession(self.server, self.session.getSessionString(), self.channels)
+        if self.use_session:
+            return listChannelBySession(self.server,
+                                        self.session.getSessionString(),
+                                        self.channels)
+        else:
+            return listChannel(self.server,
+                               self.username, self.password,
+                               self.channels)
 
     def list(self):
         # set the URL
