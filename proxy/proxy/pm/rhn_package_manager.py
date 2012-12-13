@@ -146,8 +146,15 @@ class UploadClass(uploadLib.UploadClass):
           uploadLib.call(self.server.packages.no_op, raise_protocol_error=True)
        except xmlrpclib.ProtocolError, e:
            if e.errcode == 404:
+               self.use_session = False
                self.setURL('/XP')
                uploadLib.UploadClass.setServer(self)
+
+    def authenticate(self):
+        if self.use_session:
+            uploadLib.UploadClass.authenticate(self)
+        else:
+            self.setUsernamePassword()
 
     def setProxyUsernamePassword(self):
         # overloaded for uploadlib.py

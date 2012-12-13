@@ -73,6 +73,7 @@ class UploadClass:
         self.session = None
         self.orgId = None
         self.relativeDir = None
+        self.use_session = True
 
     def warn(self, verbose, *args):
         if self.options.verbose >= verbose:
