@@ -310,13 +310,21 @@ class UploadClass:
         l.sort()
         self.files = l
 
+    def _listMissingSourcePackages(self):
+        if self.use_session:
+           return listMissingSourcePackagesBySession(self.server,
+                                self.session.getSessionString(), self.channels)
+        else:
+           return listMissingSourcePackages(self.server,
+                                self.username, self.password, self.channels)
+
     def get_missing_source_packages(self):
         localPackagesHash = {}
         for filename in self.files:
             localPackagesHash[os.path.basename(filename)] = filename
         
         # Now get the list from the server
-        pkglist = listMissingSourcePackagesBySession(self.server, self.session.getSessionString(), self.channels)
+        pkglist = self._listMissingSourcePackages()
 
         to_push = []
         for pkg in pkglist:
