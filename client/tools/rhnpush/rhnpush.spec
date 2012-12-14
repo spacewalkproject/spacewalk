@@ -4,7 +4,7 @@ Name:          rhnpush
 Group:         Applications/System
 License:       GPLv2
 URL:           http://fedorahosted.org/spacewalk
-Version:       5.5.56
+Version:       5.5.57
 Release:       1%{?dist}
 Source0:       https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 BuildRoot:     %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -75,6 +75,9 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 %doc COPYING
 
 %changelog
+* Fri Dec 14 2012 Michael Mraka <michael.mraka@redhat.com> 5.5.57-1
+- 873541 - switch back to /XP handler if /APP is not available
+
 * Sun Nov 11 2012 Michael Calmer <mc@suse.de> 5.5.56-1
 - package solaris converter for SUSE too
 
