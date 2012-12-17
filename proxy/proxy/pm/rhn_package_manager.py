@@ -141,17 +141,17 @@ class UploadClass(uploadLib.UploadClass):
         self.url = parseUrl(self.url)[1].split(':')[0]
         self.url = scheme + self.url + path
 
-   def setServer(self):
-       try:
-          uploadLib.UploadClass.setServer(self)
-          uploadLib.call(self.server.packages.no_op, raise_protocol_error=True)
-       except xmlrpclib.ProtocolError, e:
-           if e.errcode == 404:
-               self.use_session = False
-               self.setURL('/XP')
-               uploadLib.UploadClass.setServer(self)
-           else:
-               raise
+    def setServer(self):
+        try:
+           uploadLib.UploadClass.setServer(self)
+           uploadLib.call(self.server.packages.no_op, raise_protocol_error=True)
+        except xmlrpclib.ProtocolError, e:
+            if e.errcode == 404:
+                self.use_session = False
+                self.setURL('/XP')
+                uploadLib.UploadClass.setServer(self)
+            else:
+                raise
 
     def authenticate(self):
         if self.use_session:
