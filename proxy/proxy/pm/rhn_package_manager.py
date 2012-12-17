@@ -127,7 +127,7 @@ def main():
 
 
 class UploadClass(uploadLib.UploadClass):
-    # pylint: disable=R0904
+    # pylint: disable=R0904,W0221
     def setURL(self, path = '/APP'):
         # overloaded for uploadlib.py
         if not CFG.RHN_PARENT:
@@ -143,8 +143,8 @@ class UploadClass(uploadLib.UploadClass):
 
     def setServer(self):
         try:
-           uploadLib.UploadClass.setServer(self)
-           uploadLib.call(self.server.packages.no_op, raise_protocol_error=True)
+            uploadLib.UploadClass.setServer(self)
+            uploadLib.call(self.server.packages.no_op, raise_protocol_error=True)
         except xmlrpclib.ProtocolError, e:
             if e.errcode == 404:
                 self.use_session = False
