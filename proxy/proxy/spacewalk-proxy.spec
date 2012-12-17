@@ -4,7 +4,7 @@ Group:   Applications/Internet
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 1.9.2
+Version: 1.9.3
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
 BuildRequires: python
@@ -330,6 +330,9 @@ fi
 
 
 %changelog
+* Mon Dec 17 2012 Michael Mraka <michael.mraka@redhat.com> 1.9.3-1
+- fixed indentation
+
 * Fri Dec 14 2012 Michael Mraka <michael.mraka@redhat.com> 1.9.2-1
 - 873541 - switch back to /XP handler if /APP is not available
 
