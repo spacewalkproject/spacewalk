@@ -3,7 +3,7 @@ Name: spacewalk-koan
 Group: System Environment/Kernel
 License: GPLv2
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 1.9.0
+Version: 1.9.1
 Release: 1%{?dist}
 BuildArch : noarch
 URL:            https://fedorahosted.org/spacewalk
@@ -46,6 +46,12 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/rhn/actions/
 
 %changelog
+* Mon Dec 17 2012 Jan Pazdziora 1.9.1-1
+- properly specify device for 'ip route' command
+- typo fix
+- use ip instead of route to determine default gateway
+- use ip instead of ifconfig to get networking info
+
 * Tue Oct 30 2012 Jan Pazdziora 1.8.3-1
 - Update the copyright year.
 
