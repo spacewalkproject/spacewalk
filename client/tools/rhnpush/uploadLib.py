@@ -312,10 +312,10 @@ class UploadClass:
 
     def _listMissingSourcePackages(self):
         if self.use_session:
-           return listMissingSourcePackagesBySession(self.server,
+            return listMissingSourcePackagesBySession(self.server,
                                 self.session.getSessionString(), self.channels)
         else:
-           return listMissingSourcePackages(self.server,
+            return listMissingSourcePackages(self.server,
                                 self.username, self.password, self.channels)
 
     def get_missing_source_packages(self):
