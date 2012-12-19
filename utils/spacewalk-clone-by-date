@@ -22,6 +22,7 @@ import sys
 import datetime
 import getpass
 import os
+import StringIO
 from optparse import OptionParser
 import simplejson as json
 
@@ -69,44 +70,47 @@ def merge_config(options):
         return options
     elif not options.config:
         return options
-    
+
     if not os.path.isfile(options.config):
-        raise UserError("%s does not exist." % options.config) 
-    
+        raise UserError("%s does not exist." % options.config)
+
     try:
-        config = json.load(open(options.config))
+        config_file = open(options.config).read()
+        # strip any and all whitespace
+        config_file = re.sub(r'\s', '', config_file)
+        config = json.load(StringIO.StringIO(config_file))
     except:
         raise UserError("Configuration file is invalid, please check syntax.")
-    
+
     #if soemthing is in the config and not passed in as an argument
     #   add it to options
-    overwrite = ["username", "password", "blacklist", "removelist", "channels", 
+    overwrite = ["username", "password", "blacklist", "removelist", "channels",
                  "server", "assumeyes", "to_date", "skip_depsolve",
                  "security_only"]
     for key in overwrite:
         if config.has_key(key) and not getattr(options, key):
             setattr(options, key, config[key])
-        
+
     if type(options.channels) == dict:
-        options.channels =  [options.channels] 
-    
+        options.channels =  [options.channels]
+
     validate_list_dict("blacklist", options.blacklist)
     validate_list_dict("removelist", options.removelist)
-    
-    return options
-   
 
-    
+    return options
+
+
+
 def validate_list_dict(name, pkg_dict):
     """
-        Validates a removelist or blacklist to be map with lists as values    
+        Validates a removelist or blacklist to be map with lists as values
     """
     if type(pkg_dict) != type({}):
         raise UserError("%s  is not formatted correctly" % name)
     for key, value in pkg_dict.items():
         if type(value) != type([]):
             raise UserError("Channel %s in %s packages not formatted correctly" % (key, name))
-      
+
 # Using --channels as an argument only supports a single channel 'tree'
 #  So we need to convert a 2-tuple list of channel labels into an array with a hash
 #  ex:   [ ("rhel-i386-servr-5", "my-rhel-clone"), ('rhel-child', 'clone-child')]
@@ -119,8 +123,8 @@ def transform_arg_channels(chan_list):
     to_ret = {}
     for src, dest in chan_list:
         to_ret[src] = dest
-    return [to_ret]   
-        
+    return [to_ret]
+
 def parse_args():
     parser = OptionParser()
     parser.add_option("-c", "--config", dest="config", help="Config file specifying options")
@@ -137,8 +141,8 @@ def parse_args():
     parser.add_option("-v", "--validate", dest='validate', action='store_true', help="Run repoclosure on the set of specified repositories.")
     parser.add_option("-g", "--background", dest='background', action='store_true', help="Clone the errata in the background. Prompt will return quicker; before cloning is finished.")
     parser.add_option("-o", "--security_only", dest='security_only', action='store_true', help="Only clone security errata (and their dependencies).")
-        
-    (options, args) = parser.parse_args()    
+
+    (options, args) = parser.parse_args()
 
     if options.sample:
         print SAMPLE_CONFIG
@@ -146,30 +150,30 @@ def parse_args():
 
     if options.config and options.channels:
         raise UserError("Cannot specify both --channels and --config.")
-    
+
     if options.blacklist:
         options.blacklist = {"ALL":options.blacklist.split(",")}
-        
+
     if options.removelist:
-        options.removelist = {"ALL":options.removelist.split(",")}        
-    
+        options.removelist = {"ALL":options.removelist.split(",")}
+
     options = merge_config(options)
-    
+
     if not options.username:
         raise UserError("Username not specified")
 
     if options.channels == None or len(options.channels) == 0:
         raise UserError("No channels specified. See --help for details.")
-    
+
 
     if not options.validate:
         if options.to_date:
             options.to_date = parse_time(options.to_date)
-    
+
     if not options.password:
         options.password = getpass.getpass()
-    
-    
+
+
     return options
 
 
