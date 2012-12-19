@@ -26,6 +26,7 @@ import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.session.WebSession;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.manager.entitlement.EntitlementManager;
+import com.redhat.rhn.manager.satellite.CertificateManager;
 import com.redhat.rhn.manager.session.SessionManager;
 
 import org.apache.log4j.Logger;
@@ -53,6 +54,14 @@ import redstone.xmlrpc.XmlRpcInvocationHandler;
 public class BaseHandler implements XmlRpcInvocationHandler {
 
     private static Logger log = Logger.getLogger(BaseHandler.class);
+
+    protected boolean providesAuthentication() {
+        return false;
+    }
+
+    protected boolean availableInRestrictedPeriod() {
+        return false;
+    }
 
     /**
      * called by BaseHandler.doPost, contains the code that determines what
@@ -105,6 +114,30 @@ public class BaseHandler implements XmlRpcInvocationHandler {
         }
 
         try {
+            if (!providesAuthentication()) {
+                CertificateManager cm = CertificateManager.getInstance();
+                if (cm.isSatelliteCertInRestrictedPeriod()) {
+                    // allow only selected handlers
+                    if (!availableInRestrictedPeriod()) {
+                        log.warn("Blocking " + this.getClass().getSimpleName() + "." +
+                                methodCalled + " API in restricted period.");
+                        throw new SatelliteCertificateExpiredException(
+                                "You are not allowed to perform this API until your " +
+                                "certificate is renewed. Please contact Red Hat for a " +
+                                "new certificate. Till then your satellite will have " +
+                                "restricted functionality.");
+                    }
+                }
+                else if (cm.isSatelliteCertExpired()) {
+                    // disable API at all
+                    log.warn("Blocking " + this.getClass().getSimpleName() + "." +
+                    methodCalled + " API after satellite certificate has expired.");
+                    throw new SatelliteCertificateExpiredException(
+                            "You are not allowed to perform this API until your " +
+                            "certificate is renewed. Please contact Red Hat for a " +
+                            "new certificate.");
+                }
+            }
             return foundMethod.invoke(this, converted);
         }
         catch (IllegalAccessException e) {

@@ -171,6 +171,10 @@ public class SystemHandler extends BaseHandler {
 
     private static Logger log = Logger.getLogger(SystemHandler.class);
 
+    protected boolean availableInRestrictedPeriod() {
+        return true;
+    }
+
     /**
      * Get a reactivation key for this server.
      *

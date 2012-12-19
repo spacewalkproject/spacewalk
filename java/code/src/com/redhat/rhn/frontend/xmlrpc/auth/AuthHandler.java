@@ -39,6 +39,10 @@ public class AuthHandler extends BaseHandler {
 
     private static Logger log = Logger.getLogger(AuthHandler.class);
 
+    protected boolean providesAuthentication() {
+        return true;
+    }
+
     /**
      * Logout user with sessionKey
      * @param sessionKey The sessionKey for the loggedInUser

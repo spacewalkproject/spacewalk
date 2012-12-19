@@ -47,6 +47,10 @@ import java.util.Map;
 @SuppressWarnings("unchecked")
 public class OrgTrustHandler extends BaseHandler {
 
+    protected boolean availableInRestrictedPeriod() {
+        return true;
+    }
+
     /**
      * Lists all organizations trusted by the user's organization.
      * @param sessionKey session containing User information.
