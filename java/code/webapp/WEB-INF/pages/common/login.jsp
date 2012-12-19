@@ -6,7 +6,7 @@
 <html>
 <head>
     <script src="/javascript/focus.js" type="text/javascript"></script>
-    <meta name="decorator" content="layout_equals" />
+    <meta name="decorator" content="layout_c" />
 </head>
 <body onLoad="formFocus('loginForm', 'username')">
 
