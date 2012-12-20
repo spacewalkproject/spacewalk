@@ -164,6 +164,11 @@ def parse_args():
 
     if options.channels == None or len(options.channels) == 0:
         raise UserError("No channels specified. See --help for details.")
+    else:
+        for channel_group in options.channels:
+            existing = channel_group.keys()[0]
+            if existing.startswith('-') or channel_group[existing].startswith('-'):
+                raise UserError("The -l / --channels option requires two arguments")
 
 
     if not options.validate:
