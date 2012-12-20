@@ -52,7 +52,7 @@ Requires: jfreechart >= 1.0.9
 
 Requires: bcel
 Requires: c3p0
-Requires: dwr
+Requires: dwr >= 3
 Requires: hibernate3 = 0:3.2.4
 Requires: java >= 1:1.6.0
 Requires: java-devel >= 1:1.6.0
@@ -136,7 +136,7 @@ BuildRequires: c3p0
 BuildRequires: concurrent
 BuildRequires: cglib
 BuildRequires: dom4j
-BuildRequires: dwr
+BuildRequires: dwr >= 3
 BuildRequires: hibernate3 = 0:3.2.4
 BuildRequires: jaf
 BuildRequires: jakarta-commons-cli
