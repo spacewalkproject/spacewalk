@@ -696,9 +696,9 @@ class Server(ServerWrapper):
         log_debug(3, "Certificate expiration: %s; now: time: %s (%s)" % (
             expire_string, time.ctime(now), now))
 
-        # We will allow for a grace period of 8 days after the cert expires to 
+        # We will allow for a grace period of 7 days after the cert expires to
         # give the user some time renew the certificate before we disable.
-        grace_period_seconds = 60 * 60 * 24 * 8
+        grace_period_seconds = 60 * 60 * 24 * 7
 
         if (now > expire_time + grace_period_seconds):
             log_debug(1, "Satellite certificate expired on %s" % expire_string)
