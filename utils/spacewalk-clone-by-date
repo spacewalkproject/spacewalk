@@ -23,7 +23,7 @@ import datetime
 import getpass
 import os
 import StringIO
-from optparse import OptionParser
+from argparse import ArgumentParser
 import simplejson as json
 
 _LIBPATH = "/usr/share/rhn"
@@ -126,23 +126,23 @@ def transform_arg_channels(chan_list):
     return [to_ret]
 
 def parse_args():
-    parser = OptionParser()
-    parser.add_option("-c", "--config", dest="config", help="Config file specifying options")
-    parser.add_option("-u", "--username", dest="username", help="Username")
-    parser.add_option("-p", "--password", dest="password", help="Password")
-    parser.add_option("-s", "--server", dest="server", help="Server URL to use for api connections (defaults to https://localhost/rpc/api)", default="https://localhost/rpc/api")
-    parser.add_option("-l", "--channels", dest="channels", nargs=2, action="append", help="Original channel and clone channel labels space separated (e.g. --channels=rhel-i386-server-5 myclone).  Can be specified multiple times.")
-    parser.add_option("-b", "--blacklist", dest="blacklist",  help="Comma separated list of package names (or regular expressions) to exclude from cloned errata (Only added packages will be considered).")
-    parser.add_option("-r", "--removelist", dest="removelist",  help="Comma separated list of package names (or regular expressions) to remove from destination channel (All packages are available for removal).")
-    parser.add_option("-d", "--to_date", dest="to_date", help="Clone errata to the specified date (YYYY-MM-DD)")
-    parser.add_option("-y", "--assumeyes", dest='assumeyes', action='store_true', help="Assume yes for any prompts (unattended).")
-    parser.add_option("-m", "--sample-config", dest='sample', action='store_true', help="Print a sample full configuration file and exit.")
-    parser.add_option("-k", "--skip_depsolve", dest='skip_depsolve', action='store_true', help="Skip all dependency solving (Not recommended).")
-    parser.add_option("-v", "--validate", dest='validate', action='store_true', help="Run repoclosure on the set of specified repositories.")
-    parser.add_option("-g", "--background", dest='background', action='store_true', help="Clone the errata in the background. Prompt will return quicker; before cloning is finished.")
-    parser.add_option("-o", "--security_only", dest='security_only', action='store_true', help="Only clone security errata (and their dependencies).")
+    parser = ArgumentParser()
+    parser.add_argument("-c", "--config", dest="config", help="Config file specifying options")
+    parser.add_argument("-u", "--username", dest="username", help="Username")
+    parser.add_argument("-p", "--password", dest="password", help="Password")
+    parser.add_argument("-s", "--server", dest="server", help="Server URL to use for api connections (defaults to https://localhost/rpc/api)", default="https://localhost/rpc/api")
+    parser.add_argument("-l", "--channels", dest="channels", nargs=2, action="append", help="Original channel and clone channel labels space separated (e.g. --channels=rhel-i386-server-5 myclone).  Can be specified multiple times.")
+    parser.add_argument("-b", "--blacklist", dest="blacklist",  help="Comma separated list of package names (or regular expressions) to exclude from cloned errata (Only added packages will be considered).")
+    parser.add_argument("-r", "--removelist", dest="removelist",  help="Comma separated list of package names (or regular expressions) to remove from destination channel (All packages are available for removal).")
+    parser.add_argument("-d", "--to_date", dest="to_date", help="Clone errata to the specified date (YYYY-MM-DD)")
+    parser.add_argument("-y", "--assumeyes", dest='assumeyes', action='store_true', help="Assume yes for any prompts (unattended).")
+    parser.add_argument("-m", "--sample-config", dest='sample', action='store_true', help="Print a sample full configuration file and exit.")
+    parser.add_argument("-k", "--skip_depsolve", dest='skip_depsolve', action='store_true', help="Skip all dependency solving (Not recommended).")
+    parser.add_argument("-v", "--validate", dest='validate', action='store_true', help="Run repoclosure on the set of specified repositories.")
+    parser.add_argument("-g", "--background", dest='background', action='store_true', help="Clone the errata in the background. Prompt will return quicker; before cloning is finished.")
+    parser.add_argument("-o", "--security_only", dest='security_only', action='store_true', help="Only clone security errata (and their dependencies).")
 
-    (options, args) = parser.parse_args()
+    options = parser.parse_args()
 
     if options.sample:
         print SAMPLE_CONFIG
