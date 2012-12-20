@@ -1527,7 +1527,11 @@ public class ActionManager extends BaseManager {
                 pcmd.getKsdata());
         kad.setCobblerSystemName(vcmd.getCobblerSystemRecordName());
 
-        kad.setKickstartHost(pcmd.getKickstartServerName());
+        String hostname = pcmd.getKickstartServerName();
+        if (pcmd.getProxyHost() != null) {
+            hostname = pcmd.getProxyHost();
+        }
+        kad.setKickstartHost(hostname);
         ksAction.setKickstartGuestActionDetails(kad);
         return ksAction;
     }
