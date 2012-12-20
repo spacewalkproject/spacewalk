@@ -98,8 +98,14 @@
         </trans-unit>
       </group>
       <!-- TimeZones -->
+      <trans-unit id="Australia/Brisbane">
+        <source>(GMT+1000) Australia (Eastern Standard)</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/account/UserDetails</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="Australia/Sydney">
-        <source>(GMT+1000) Australia (Eastern)</source>
+        <source>(GMT+1000) Australia (Eastern Daylight)</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/account/UserDetails</context>
         </context-group>

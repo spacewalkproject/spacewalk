@@ -18,7 +18,14 @@ insert into rhnTimezone
   (id, olson_name, display_name)
 values
   (sequence_nextval('rhn_timezone_id_seq'),
-   'Australia/Sydney', 'Australia (Eastern)');
+   'Australia/Brisbane', 'Australia (Eastern Standard)');
+
+
+insert into rhnTimezone
+  (id, olson_name, display_name)
+values
+  (sequence_nextval('rhn_timezone_id_seq'),
+   'Australia/Sydney', 'Australia (Eastern Daylight)');
 
 
 insert into rhnTimezone
