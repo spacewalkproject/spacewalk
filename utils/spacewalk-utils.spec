@@ -1,7 +1,7 @@
 %define rhnroot %{_prefix}/share/rhn
 
 Name:		spacewalk-utils
-Version:	1.9.5
+Version:	1.9.6
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -86,6 +86,16 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Fri Dec 21 2012 Jan Pazdziora 1.9.6-1
+- 889317 - fix short-sighted problem in previous patch
+- 889317 - make sure the user passes two channels to spacewalk-clone-by-date
+- Revert "889317 - migrate spacewalk-clone-by-date to argparse to avoid
+  optparse bug"
+- 889317 - migrate spacewalk-clone-by-date to argparse to avoid optparse bug
+- 885782 - strip whitespace from spacewalk-clone-by-date conf file
+- 870794 - don't create the clone channel if we're gonna error out due to lack
+  of repodata
+
 * Wed Dec 05 2012 Michael Mraka <michael.mraka@redhat.com> 1.9.5-1
 - 866930 - do not traceback when called without --to_date
 
