@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.9.8
+Version:        1.9.9
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -68,6 +68,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Fri Dec 21 2012 Jan Pazdziora 1.9.9-1
+- 889247 - support for Australia EST/EDT timezones
+
 * Fri Nov 30 2012 Jan Pazdziora 1.9.8-1
 - New timezones for RHEL 7
 - New installation type: RHEL 7
