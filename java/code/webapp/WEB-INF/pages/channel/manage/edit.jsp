@@ -7,12 +7,19 @@
 <body>
 
 <script type="text/javascript">
-function setChildChannelArch() {
-var baseChannels = {};
+function setChildChannelArchChecksum() {
+var baseChannelArches = {};
 <c:forEach items="${parentChannelArches}" var="parentChannel">
-baseChannels["<c:out value="${parentChannel.key}" />"] = "<c:out value="${parentChannel.value}"/>";
+baseChannelArches["<c:out value="${parentChannel.key}" />"] = "<c:out value="${parentChannel.value}"/>";
 </c:forEach>
-document.getElementById("parentarch").value = baseChannels[document.getElementById("parent").value];
+
+var baseChannelChecksums = {};
+<c:forEach items="${parentChannelChecksums}" var="parentChannel">
+baseChannelChecksums["<c:out value="${parentChannel.key}" />"] = "<c:out value="${parentChannel.value}"/>";
+</c:forEach>
+
+document.getElementById("parentarch").value = baseChannelArches[document.getElementById("parent").value];
+document.getElementById("checksum").value = baseChannelChecksums[document.getElementById("parent").value];
 }
 </script>
 
@@ -70,7 +77,7 @@ document.getElementById("parentarch").value = baseChannels[document.getElementBy
           <c:choose>
             <c:when test='${empty param.cid}'>
                 <html:select property="parent" styleId="parent"
-                 onchange="setChildChannelArch()">
+                 onchange="setChildChannelArchChecksum()">
                     <html:options collection="parentChannels"
                                   property="value"
                                   labelProperty="label" />
