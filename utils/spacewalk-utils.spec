@@ -1,7 +1,7 @@
 %define rhnroot %{_prefix}/share/rhn
 
 Name:		spacewalk-utils
-Version:	1.9.6
+Version:	1.9.7
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -86,6 +86,9 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Fri Dec 21 2012 Jan Pazdziora 1.9.7-1
+- We cannot have except and finally in the same try block for python 2.4.
+
 * Fri Dec 21 2012 Jan Pazdziora 1.9.6-1
 - 889317 - fix short-sighted problem in previous patch
 - 889317 - make sure the user passes two channels to spacewalk-clone-by-date
