@@ -130,7 +130,7 @@
         </context-group>
         <target>(GMT+0900) Japão</target>
       </trans-unit>
-      <trans-unit id="Asia/Hong_Kong">
+      <trans-unit id="Australia/Perth">
         <source>(GMT+0800) Australia (Western)</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/account/UserDetails</context>
