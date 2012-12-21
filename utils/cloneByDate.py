@@ -337,6 +337,7 @@ class ChannelTreeCloner:
         # dep solver expects the metadata to be in /repodata directory;
         # create temporary symlinks
         temp_repo_links = []
+        repo = None
         for repo in repos:
             yum_repodata_path = "%s/repodata" % (repo['relative_path'])
             create_repodata_link(repo['relative_path'], yum_repodata_path)
@@ -718,7 +719,8 @@ class UserError(Exception):
 
 class UserRepoError(UserError):
     def __init__(self, label, yum_error=None):
-        msg = "Unable to read repository information.\nPlease verify repodata has been generated in /var/cache/rhn/repodata/%s." % label
+        msg = "Unable to read repository information.\n" \
+	    + "Please verify repodata has been generated in /var/cache/rhn/repodata/%s." % label
         if yum_error:
             msg += "\nError from yum: %s" % yum_error
         UserError.__init__(self, msg)
