@@ -342,12 +342,13 @@ class ChannelTreeCloner:
             create_repodata_link(repo['relative_path'], yum_repodata_path)
             temp_repo_links.append(yum_repodata_path)
         try:
-            solver = DepSolver(repos, nvrea_list)
-            dep_results = solver.processResults(solver.getDependencylist())
-            solver.cleanup()
-            self.process_deps(dep_results)
-        except RepoError, e:
-            raise UserRepoError(repo["id"], e.value)
+            try:
+                solver = DepSolver(repos, nvrea_list)
+                dep_results = solver.processResults(solver.getDependencylist())
+                solver.cleanup()
+                self.process_deps(dep_results)
+            except RepoError, e:
+                raise UserRepoError(repo["id"], e.value)
         finally:
             # clean up temporary symlinks
             for link in temp_repo_links:
