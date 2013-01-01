@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.9.32
+Version: 1.9.33
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -659,6 +659,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Jan 01 2013 Jan Pazdziora 1.9.33-1
+- set child channel checksum type to parent's
+- 889463 - correct olson name for Australia Western timezone
+
 * Fri Dec 21 2012 Jan Pazdziora 1.9.32-1
 - 889247 - support for Australia EST/EDT timezones
 - update dwr dependencies since we expect dwr3
