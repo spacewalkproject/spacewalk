@@ -419,7 +419,7 @@ public class ErrataHandler extends BaseHandler {
                 (ArrayList<Map<String, Object>>) details.get("bugs")) {
 
                 if (bugMap.containsKey("id") && bugMap.containsKey("summary")) {
-                    String url = "";
+                    String url = null;
                     if (bugMap.containsKey("url")) {
                         url = (String) bugMap.get("url");
                     }
@@ -1251,7 +1251,7 @@ public class ErrataHandler extends BaseHandler {
 
         for (Iterator itr = bugs.iterator(); itr.hasNext();) {
             Map bugMap = (Map) itr.next();
-            String url = "";
+            String url = null;
             if (bugMap.containsKey("url")) {
                 url = (String) bugMap.get("url");
             }
