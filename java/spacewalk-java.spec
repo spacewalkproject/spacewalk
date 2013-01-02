@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.9.33
+Version: 1.9.34
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -659,6 +659,13 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Jan 02 2013 Tomas Lestach <tlestach@redhat.com> 1.9.34-1
+- use null as default value instead of an empty string for bug url
+- adding previosly deleted strings
+- 889263 - restrict API functionality when satellite certificate expires
+- 889263 - allow displaying action messages on the webui login page
+- 889263 - restrict WebUI functionality when satelllite certificate expires
+
 * Tue Jan 01 2013 Jan Pazdziora 1.9.33-1
 - set child channel checksum type to parent's
 - 889463 - correct olson name for Australia Western timezone
