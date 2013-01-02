@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.9.35
+Version: 1.9.36
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -659,6 +659,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Jan 02 2013 Stephen Herr <sherr@redhat.com> 1.9.36-1
+- 890344 - fixing dependency list in taskomatic SysV script
+
 * Wed Jan 02 2013 Jan Pazdziora 1.9.35-1
 - No need to specify debug when it is not used.
 - change year copyright preferencies for newly created java files using eclipse
