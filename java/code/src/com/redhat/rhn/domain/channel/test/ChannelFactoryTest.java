@@ -119,9 +119,9 @@ public class ChannelFactoryTest extends RhnBaseTestCase {
         Date lastmodified = new Date();
         Date created = new Date();
         Date modified = new Date();
-        String gpgurl = "TestChannel gpg key url";
-        String gpgid = "GPGKEYID";
-        String gpgfp = "TestChannel gpg key fp";
+        String gpgurl = "https://gpg.url";
+        String gpgid = "B3BCE11D";
+        String gpgfp = "AAAA BBBB CCCC DDDD EEEE FFFF 7777 8888 9999 0000";
         Calendar cal = Calendar.getInstance();
         cal.roll(Calendar.DATE, true);
         Date endoflife = new Date(System.currentTimeMillis() + Integer.MAX_VALUE);
