@@ -39,13 +39,11 @@ my $if_inet6 = "/proc/net/if_inet6";
 if (-f $if_inet6) {
 	local *F;
 	open F, $if_inet6 or die "Error opening $if_inet6: $!\n";
-	my $lines = @{[<F>]};
-	close F;
-
-	if ($lines > 0) {
+	if (defined <F>) {
 		$macros{'localhost'} = '::1';
 		$macros{'ipaddress'} = '::';
 	}
+	close F;
 }
 
 my $usage = <<EOHELP;
