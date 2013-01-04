@@ -187,3 +187,10 @@ optional_policy(`
 ')
 
 mta_send_mail(spacewalk_monitoring_t)
+
+optional_policy(`
+	gen_require(`
+		type sshd_t;
+	')
+	allow sshd_t spacewalk_monitoring_var_lib_t:dir { search getattr };
+')
