@@ -36,6 +36,7 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Rev$
  */
 public class EnabledListSetupAction extends RhnAction implements Listable {
+    public static final String LIST_NAME = "userList";
 
     /**
      * ${@inheritDoc}
@@ -43,6 +44,7 @@ public class EnabledListSetupAction extends RhnAction implements Listable {
     public ActionForward execute(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response) throws Exception {
         ListHelper helper = new ListHelper(this, request);
+        helper.setListName(LIST_NAME);
         helper.setDataSetName(getDataSetName());
         helper.execute();
         return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
