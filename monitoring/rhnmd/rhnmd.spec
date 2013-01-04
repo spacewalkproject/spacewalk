@@ -47,6 +47,7 @@ Provides:       rhnmd.i386 = %{version}
 Provides:       rhnmd.x86_64 = %{version}
 
 Requires(post): /usr/sbin/semanage, /sbin/restorecon
+Requires(preun): /usr/sbin/semanage
 
 %description
 rhnmd enables secure ssh-based communication between the monitoring
@@ -138,6 +139,9 @@ fi
 /usr/sbin/semanage fcontext -a -t ssh_home_t '/var/lib/nocpulse/\.ssh/authorized_keys' || :
 %endif
 /sbin/restorecon -rvv /var/lib/nocpulse || :
+%if 0%{?fedora}
+/usr/sbin/semanage port -l | grep -q '^ssh_port_t\b.*\btcp\b.*\b4545\b' || /usr/sbin/semanage port -a -t ssh_port_t -p tcp 4545 || :
+%endif
 %endif
 
 %preun
@@ -147,6 +151,7 @@ fi
 if [ $1 = 0 ]; then
     %if 0%{?fedora}
     /bin/systemctl stop rhnmd.service >/dev/null 2>&1
+    /usr/sbin/semanage port -d -t ssh_port_t -p tcp 4545 || :
     %else
     /sbin/service rhnmd stop > /dev/null 2>&1
     %endif
