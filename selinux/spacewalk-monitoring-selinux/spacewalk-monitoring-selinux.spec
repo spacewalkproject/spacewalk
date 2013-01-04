@@ -7,7 +7,7 @@
 %define modulename spacewalk-monitoring
 
 Name:           spacewalk-monitoring-selinux
-Version:        1.9.0
+Version:        1.9.1
 Release:        1%{?dist}
 Summary:        SELinux policy module supporting Spacewalk monitoring
 
@@ -141,6 +141,9 @@ fi
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
+* Fri Jan 04 2013 Jan Pazdziora 1.9.1-1
+- Allow rhnmd to traverse /var/lib/nocpulse on Spacewalk server.
+
 * Thu Aug 02 2012 Michael Mraka <michael.mraka@redhat.com> 1.8.4-1
 - 650735 - fix context of /usr/share/nocpulse/cgi-bin
 
