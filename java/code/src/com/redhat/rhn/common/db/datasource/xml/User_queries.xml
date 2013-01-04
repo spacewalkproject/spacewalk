@@ -155,7 +155,7 @@ ORDER BY wcd.login_uc
   <elaborator params="">
 SELECT  UIOO.user_id as id, user_login, user_first_name, user_last_name, role_names,
         last_logged_in, date_completed as change_date, WUPI.first_names as changed_by_first_name,
-        WUPI.last_name as changed_by_last_name, 'disabled' as status
+        WUPI.last_name as changed_by_last_name, 'disabled' as status, WUPI.email as email
   FROM  rhnUsersInOrgOverview UIOO, rhnUserInfo UI, rhnWebContactChangeLog WCCL,
         web_user_personal_info WUPI
  WHERE  UIOO.user_id IN (%s)
@@ -176,7 +176,7 @@ SELECT  UIOO.user_id as id, user_login, user_first_name, user_last_name, role_na
 
 <query name="users_in_org_overview" params="">
   SELECT  UIOO.user_id as id, user_login, user_first_name, user_last_name, role_names,
-          server_count, server_group_count, last_logged_in,
+          server_count, server_group_count, last_logged_in, WUPI.email as email,
           nvl((select
                 distinct wccs.label
             from
@@ -189,9 +189,10 @@ SELECT  UIOO.user_id as id, user_login, user_first_name, user_last_name, role_na
                               (select max(wccl_exists.date_completed)
                                  from rhnWebContactChangeLog   wccl_exists
                                 where wccl.web_contact_id = wccl_exists.web_contact_id)),'enabled') as status
-    FROM  rhnUsersInOrgOverview UIOO, rhnUserInfo UI
+    FROM  rhnUsersInOrgOverview UIOO, rhnUserInfo UI, web_user_personal_info WUPI
    WHERE  UIOO.user_id IN (%s)
      AND  UI.user_id = UIOO.user_id
+     AND  UIOO.user_id = WUPI.web_user_id
 ORDER BY  UPPER(user_login), UIOO.user_id
 </query>
 

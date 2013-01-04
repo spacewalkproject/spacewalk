@@ -41,6 +41,21 @@ public class UserOverview extends BaseDto {
     private Date changeDate;
     private String changedByFirstName;
     private String changedByLastName;
+    private String email;
+
+    /**
+     * @return Returns the email address
+     */
+    public String getEmail() {
+        return email;
+    }
+
+    /**
+     * @param emailIn email to set
+     */
+    public void setEmail(String emailIn) {
+        email = emailIn;
+    }
 
     /**
      * @return Returns the changeDate.

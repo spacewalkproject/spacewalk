@@ -62,7 +62,7 @@
  	</rl:list>
  	<rl:csv dataset="pageList"
 		name="disabledUserList"
-		exportColumns="userLogin,userLastName,userFirstName,roleNames,lastLoggedIn,changedByFirstName,changedByLastName,changeDate"/>
+		exportColumns="userLogin,userLastName,userFirstName,email,roleNames,lastLoggedIn,changedByFirstName,changedByLastName,changeDate"/>
 	
 	<div align="right">
     	<hr />
