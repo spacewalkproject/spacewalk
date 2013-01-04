@@ -42,7 +42,7 @@ do_restart_sanity_check()
 start()
 {
 	echo -n $"Starting $prog:"
-	daemon --user nocpulse $SSHD -f /etc/nocpulse/rhnmd_config && success || failure
+	daemon --user nocpulse $SSHD -f /etc/nocpulse/rhnmd_config
 	RETVAL=$?
 	[ "$RETVAL" = 0 ] && touch /var/lock/subsys/rhnmd
 	echo
