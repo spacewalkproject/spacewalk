@@ -68,6 +68,8 @@ import redstone.xmlrpc.XmlRpcSerializer;
  *          #prop_desc("string", "osa_status", "Either 'unknown', 'offline', or 'online'.")
  *          #prop_desc("boolean", "lock_status", "True indicates that the system is locked.
  *           False indicates that the system is unlocked.")
+ *          #prop_desc("string", "virtualization", "Virtualization type -
+ *           for virtual guests only (optional)")
  *  #struct_end()
  */
 public class ServerSerializer implements XmlRpcCustomSerializer {
@@ -175,6 +177,10 @@ public class ServerSerializer implements XmlRpcCustomSerializer {
             locked = Boolean.TRUE;
         }
         helper.add("lock_status", locked);
+
+        if (server.isVirtualGuest()) {
+            helper.add("virtualization", server.getVirtualInstance().getType().getName());
+        }
 
         helper.writeTo(output);
     }
