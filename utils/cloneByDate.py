@@ -213,7 +213,7 @@ class ChannelTreeCloner:
         if parents:
             self.src_parent = parents[0]
             self.dest_parent = parents[1]
-            self.parents_specified= True
+            self.parents_specified = True
         else:
             self.src_parent = None
             self.dest_parent = None

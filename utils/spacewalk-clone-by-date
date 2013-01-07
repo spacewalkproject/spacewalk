@@ -150,7 +150,10 @@ def parse_args():
     # Config file users must re-list the parent channels, the tool
     # correctly determins if a channel already exists and does not try
     # to re-create it.
-    parser.add_option("-a", "--parents", dest="parents", nargs=2, help="Already existing channels that will be used as the original parent and destination parent of child channels cloned this session.")
+    parser.add_option("-a", "--parents", dest="parents", nargs=2,
+            help="Already existing channels that will be used as the "
+            + "original parent and destination parent of child "
+            + "channels cloned this session.")
 
     (options, args) = parser.parse_args()
 
