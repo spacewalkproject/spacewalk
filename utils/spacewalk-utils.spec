@@ -1,7 +1,7 @@
 %define rhnroot %{_prefix}/share/rhn
 
 Name:		spacewalk-utils
-Version:	1.9.8
+Version:	1.9.9
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -86,6 +86,9 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Mon Jan 07 2013 Stephen Herr <sherr@redhat.com> 1.9.9-1
+- 892789 - add --parents option to spacewalk-clone-by-date
+
 * Fri Dec 21 2012 Jan Pazdziora 1.9.8-1
 - Silencing pylint warnings.
 
