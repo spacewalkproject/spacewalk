@@ -101,8 +101,23 @@ class RepoSync(object):
         start_time = datetime.now()
         for (repo_id, url) in self.urls:
             self.print_msg("Repo URL: %s" % url)
+            plugin = None
             try:
                 plugin = self.repo_plugin(url, self.channel_label)
+                if repo_id is not None:
+                    keys = rhnSQL.fetchone_dict("""
+                        select k1.key as ca_cert, k2.key as client_cert, k3.key as client_key
+                        from rhncontentsourcessl
+                                join rhncryptokey k1
+                                on rhncontentsourcessl.ssl_ca_cert_id = k1.id
+                                left outer join rhncryptokey k2
+                                on rhncontentsourcessl.ssl_client_cert_id = k2.id
+                                left outer join rhncryptokey k3
+                                on rhncontentsourcessl.ssl_client_key_id = k3.id
+                        where rhncontentsourcessl.content_source_id = :repo_id
+                        """, repo_id=int(repo_id))
+                    if keys and keys.has_key('ca_cert'):
+                        plugin.set_ssl_options(keys['ca_cert'], keys['client_cert'], keys['client_key'])
                 self.import_packages(plugin, repo_id, url)
                 self.import_groups(plugin, url)
 
@@ -110,7 +125,8 @@ class RepoSync(object):
                     self.import_updates(plugin, url)
             except Exception, e:
                 self.error_msg("ERROR: %s" % e)
-                continue
+            if plugin is not None:
+                plugin.clear_ssl_cache()
         if self.regen:
             taskomatic.add_to_repodata_queue_for_channel_package_subscription(
                 [self.channel_label], [], "server.app.yumreposync")
