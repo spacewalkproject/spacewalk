@@ -17,6 +17,8 @@ package com.redhat.rhn.frontend.xmlrpc.serializer;
 import com.redhat.rhn.frontend.dto.PackageOverview;
 import com.redhat.rhn.frontend.xmlrpc.serializer.util.SerializerHelper;
 
+import org.apache.commons.lang.StringUtils;
+
 import java.io.IOException;
 import java.io.Writer;
 
@@ -57,7 +59,7 @@ public class PackageOverviewSerializer implements XmlRpcCustomSerializer {
         helper.add("id", pO.getId());
         helper.add("name", pO.getPackageName());
         helper.add("summary", pO.getSummary());
-        helper.add("description", pO.getDescription());
+        helper.add("description", StringUtils.defaultString(pO.getDescription()));
         helper.add("version", pO.getVersion());
         helper.add("release", pO.getRelease());
         String epoch = pO.getEpoch();
