@@ -140,10 +140,17 @@ def main(options):
             if not os.path.exists(repodata(label)):
                 raise UserRepoError(label)
 
-        tree_cloner = ChannelTreeCloner(channel_list, xmlrpc, db,
-                                        options.to_date, options.blacklist,
-                                        options.removelist, options.background,
-                                        options.security_only)
+        if options.parents:
+            tree_cloner = ChannelTreeCloner(channel_list, xmlrpc, db,
+                                            options.to_date, options.blacklist,
+                                            options.removelist, options.background,
+                                            options.security_only, options.parents)
+        else:
+            tree_cloner = ChannelTreeCloner(channel_list, xmlrpc, db,
+                                            options.to_date, options.blacklist,
+                                            options.removelist, options.background,
+                                            options.security_only)
+
         cloners.append(tree_cloner)
         needed_channels += tree_cloner.needing_create().values()
 
@@ -195,7 +202,7 @@ class ChannelTreeCloner:
     # pylint: disable=R0902
     def __init__(self, channels, remote_api, db_api, to_date, blacklist,
                                             removelist, detached,
-                                            security_only):
+                                            security_only, parents = None):
         self.remote_api = remote_api
         self.db_api = db_api
         self.channel_map = channels
@@ -203,8 +210,14 @@ class ChannelTreeCloner:
         self.cloners = []
         self.blacklist = blacklist
         self.removelist = removelist
-        self.dest_parent = None
-        self.src_parent = None
+        if parents:
+            self.src_parent = parents[0]
+            self.dest_parent = parents[1]
+            self.parents_specified= True
+        else:
+            self.src_parent = None
+            self.dest_parent = None
+            self.parents_specified = False
         self.channel_details = None
         self.detached = detached
         self.security_only = security_only
@@ -225,6 +238,13 @@ class ChannelTreeCloner:
         """
         to_create = {}
         existing = self.remote_api.list_channel_labels()
+        if self.parents_specified:
+            if (self.dest_parent not in existing
+                    or self.src_parent not in existing):
+                raise UserError("Channels specified with --parents must"
+                        + " already exist.\nIf you want to clone the"
+                        + " parent channels too simply add another"
+                        + " --channels option.")
         for src, dest in self.channel_map.items():
             if dest not in existing:
                 to_create[src] = dest
@@ -246,7 +266,10 @@ class ChannelTreeCloner:
 
         if len(to_create) == 0:
             return
-        dest_parent = self.channel_map[self.src_parent]
+        if self.parents_specified:
+            dest_parent = self.dest_parent
+        else:
+            dest_parent = self.channel_map[self.src_parent]
         nvreas  = []
 
         #clone the destination parent if it doesn't exist
@@ -272,12 +295,14 @@ class ChannelTreeCloner:
     def validate_source_channels(self):
         self.channel_details = self.remote_api.channel_details(
                                        self.channel_map, values=False)
-        self.src_parent = self.find_parent(self.channel_map.keys())
+        if not self.src_parent:
+            self.src_parent = self.find_parent(self.channel_map.keys())
         self.validate_children(self.src_parent, self.channel_map.keys())
 
     def validate_dest_channels(self):
         self.channel_details = self.remote_api.channel_details(self.channel_map)
-        self.dest_parent = self.find_parent(self.channel_map.values())
+        if not self.dest_parent:
+            self.dest_parent = self.find_parent(self.channel_map.values())
         self.validate_children(self.dest_parent, self.channel_map.values())
 
     def validate_children(self, parent, label_list):
@@ -300,6 +325,8 @@ class ChannelTreeCloner:
 
     def ordered_labels(self):
         """Return list of labels with parent first"""
+        if self.parents_specified:
+            return self.channel_map.keys()
         labels = self.channel_map.keys()
         labels.remove(self.src_parent)
         labels.insert(0, self.src_parent)

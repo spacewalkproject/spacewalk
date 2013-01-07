@@ -141,6 +141,16 @@ def parse_args():
     parser.add_option("-v", "--validate", dest='validate', action='store_true', help="Run repoclosure on the set of specified repositories.")
     parser.add_option("-g", "--background", dest='background', action='store_true', help="Clone the errata in the background. Prompt will return quicker; before cloning is finished.")
     parser.add_option("-o", "--security_only", dest='security_only', action='store_true', help="Only clone security errata (and their dependencies).")
+    # Note: the parents option has no logical analog for the config
+    # file. This option is provided primarily as a convenience option to
+    # provide a more intuitive way to clone a child channels for an
+    # already-existing parent. However, the config file can easily
+    # contain many different channel trees, and any implementation that
+    # involves multiple channel trees would be extremely un-intuitive.
+    # Config file users must re-list the parent channels, the tool
+    # correctly determins if a channel already exists and does not try
+    # to re-create it.
+    parser.add_option("-a", "--parents", dest="parents", nargs=2, help="Already existing channels that will be used as the original parent and destination parent of child channels cloned this session.")
 
     (options, args) = parser.parse_args()
 

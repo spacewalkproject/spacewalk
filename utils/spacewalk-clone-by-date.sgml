@@ -72,6 +72,10 @@ Utility for cloning errata by date.
     <cmdsynopsis>
         <arg>-h</arg><arg>--help</arg>
     </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>-a <replaceable>SRC_PARENT DEST_PARENT</replaceable></arg>
+        <arg>--channels=<replaceable>SRC_PARENT DEST_PARENT</replaceable></arg>
+    </cmdsynopsis>
 </Synopsis>
 </RefSynopsisDiv>
 
@@ -198,6 +202,12 @@ Utility for cloning errata by date.
             <para>
                 Note:  This option is global across all destination channels. To specify per channel removelists, you must use a configuration file.  See --sample-config for an example.
             </para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-a <replaceable>SRC_PARENT DEST_PARENT</replaceable>, --parents=<replaceable>SRC_PARENT DEST_PARENT</replaceable></term>
+        <listitem>
+            <para>Space separated list of source parent channel and destination parent channel.  These channels are used for resolving dependencies and cloning the children, but will not be cloned themselves.  Both channels specified here must already exist.  There is no way to specify this option through the config channel, you must simply re-list the parent src:dest channels as part of the list to clone.  Spacewalk-clone-by-date will detect that the dest parent channel already exists and will not try to re-create it.</para>
         </listitem>
     </varlistentry>
 </variablelist>
