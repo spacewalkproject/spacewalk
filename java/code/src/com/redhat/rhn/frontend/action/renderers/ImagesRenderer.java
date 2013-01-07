@@ -49,7 +49,7 @@ public class ImagesRenderer extends BaseFragmentRenderer {
     public static final String ATTRIB_ERROR_MSG = "errorMsg";
 
     // List of all valid image types
-    private static List<String> validImageTypes = Arrays.asList("vmx", "xen");
+    private static List<String> validImageTypes = Arrays.asList("kvm", "vmx", "xen");
 
     // The URL of the page to render
     private static final String PAGE_URL =
