@@ -22,6 +22,7 @@ import com.redhat.rhn.domain.rhnset.RhnSetElement;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.common.BadParameterException;
+import com.redhat.rhn.frontend.action.configuration.ConfigActionHelper;
 import com.redhat.rhn.frontend.action.configuration.ConfigChannelSetComparator;
 import com.redhat.rhn.frontend.dto.ConfigSystemDto;
 import com.redhat.rhn.frontend.struts.RequestContext;
@@ -142,6 +143,8 @@ public class SubscribeConfirm extends RhnAction {
                 //skip this server
             }
         }
+
+        ConfigActionHelper.clearRhnSets(user);
 
         //Give the user a message about how many servers we have changed.
         if (successes == 1) {

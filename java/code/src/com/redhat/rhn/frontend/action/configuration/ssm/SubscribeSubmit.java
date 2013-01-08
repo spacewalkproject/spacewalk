@@ -54,7 +54,7 @@ public class SubscribeSubmit extends BaseSetOperateOnSelectedItemsAction {
      * {@inheritDoc}
      */
     protected RhnSetDecl getSetDecl() {
-        return RhnSetDecl.CONFIG_CHANNELS;
+        return RhnSetDecl.CONFIG_CHANNELS_RANKING;
     }
 
     /**
@@ -84,7 +84,6 @@ public class SubscribeSubmit extends BaseSetOperateOnSelectedItemsAction {
                                     ActionForm formIn,
                                     HttpServletRequest request,
                                     HttpServletResponse response) {
-        //if they chose no probe suites, return to the same page with a message
         RhnSet set = updateSet(request);
 
         RequestContext context = new RequestContext(request);
