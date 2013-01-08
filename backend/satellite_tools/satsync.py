@@ -2355,7 +2355,7 @@ def processCommandline():
               _("  0  - User interrupted or intentional exit"),
               _("  1  - attempting to run more than one instance of satellite-sync."),
               _("  2  - Unable to find synchronization tools."),
-              _("  3  - a general socket occurred"),
+              _("  3  - a general socket exception occurred"),
               _("  4  - an SSL error occurred. Recheck your SSL settings."),
               _("  5  - RHN error"),
               _("  6  - unhandled exception occurred"),

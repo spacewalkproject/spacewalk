@@ -143,7 +143,7 @@ def main():
         satsync.sendMail()
         raise
     except socket.error, e:
-        msg = "\nERROR: a general socket occurred:"
+        msg = "\nERROR: a general socket exception occurred:"
         systemExit_exception(3, msg, e)
     except socket.sslerror, e:
         msg = ("""
@@ -181,7 +181,7 @@ if __name__ == '__main__':
 #0  User interrupted process.
 #1  attempting to run more than one instance of satellite-sync.
 #2  Unable to find synchronization tools.
-#3  a general socket occurred
+#3  a general socket exception occurred
 #4  an SSL error occurred. Recheck your SSL settings.
 #5  RHN error
 #6  unhandled exception occurred
