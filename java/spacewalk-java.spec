@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.9.37
+Version: 1.9.38
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -659,6 +659,13 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Jan 08 2013 Michael Mraka <michael.mraka@redhat.com> 1.9.38-1
+- 863123 - improved query
+- 885760 - add virtualization guest info to the ServerSerializer
+- 890897 - prevent NPE when package description is null
+- 891681 - added email field to user list csv
+- 892020 - Must set correct list name for user CSV list to work
+
 * Fri Jan 04 2013 Tomas Lestach <tlestach@redhat.com> 1.9.37-1
 - fix ChannelSoftwareHandlerTest unit test
 
