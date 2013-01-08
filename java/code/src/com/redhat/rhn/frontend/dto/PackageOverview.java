@@ -104,7 +104,7 @@ public class PackageOverview extends BaseDto {
      * @return Returns the description.
      */
     public String getDescription() {
-        return description.trim();
+        return StringUtils.defaultString(description).trim();
     }
     /**
      * @return Returns the summary.
