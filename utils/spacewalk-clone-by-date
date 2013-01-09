@@ -172,9 +172,6 @@ def parse_args():
 
     options = merge_config(options)
 
-    if not options.username:
-        raise UserError("Username not specified")
-
     if options.channels == None or len(options.channels) == 0:
         raise UserError("No channels specified. See --help for details.")
     else:
@@ -183,6 +180,14 @@ def parse_args():
                 if existing.startswith('-') or channel_group[existing].startswith('-'):
                     raise UserError("The -l / --channels option requires two arguments")
 
+    if options.parents != None:
+        if (len(options.parents) != 2
+                or options.parents[0].startswith('-')
+                or options.parents[1].startswith('-')):
+            raise UserError("The -a / --parents option requires two arguments")
+
+    if not options.username:
+        raise UserError("Username not specified")
 
     if not options.validate:
         if options.to_date:
