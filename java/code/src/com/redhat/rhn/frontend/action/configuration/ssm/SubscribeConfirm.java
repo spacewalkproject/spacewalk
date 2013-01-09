@@ -161,64 +161,53 @@ public class SubscribeConfirm extends RhnAction {
     }
 
     private boolean subscribeServer(User user, Server server,
-            RhnSet channels, String position) {
-        boolean retval = false; //whether subscriptions have changed
-        List toCheck = server.getConfigChannels(); //so we don't add duplicates
+            RhnSet toSubsChs, String position) {
+        boolean retval = false; // whether subscriptions have changed
+        // save the currently subscribed channels
+        List currentChs = new ArrayList(server.getConfigChannels());
         ConfigurationManager cm = ConfigurationManager.getInstance();
 
-        if (position.equals(REPLACE)) {
-            //clear the current subscriptions,
-            toCheck.clear();
-        }
-        else if (position.equals(HIGHEST)) {
-            //copy the current subscriptions, and clear them, so we
-            //can add them back at the end.
-            toCheck = new ArrayList(server.getConfigChannels());
+        // for LOWEST the current channel subscription stays preserved
+        if (!position.equals(LOWEST)) {
             server.getConfigChannels().clear();
         }
 
-        //Order the channels in the order requested by user
-        List setElements = new ArrayList(channels.getElements());
-        Collections.sort(setElements, new ConfigChannelSetComparator());
-        Iterator i = setElements.iterator();
+        // Order the new channels in the order requested by user
+        List rankElements = new ArrayList(
+                RhnSetDecl.CONFIG_CHANNELS_RANKING.get(user).getElements());
+        Collections.sort(rankElements, new ConfigChannelSetComparator());
+        Iterator i = rankElements.iterator();
 
-        //subscribe to all the channels
+        // subscribe to the new channels
         while (i.hasNext()) {
             Long ccid = ((RhnSetElement)i.next()).getElement();
             ConfigChannel channel = cm.lookupConfigChannel(user, ccid);
-            /* Decision Point:
-             * there are two ways to approach subscribing channels
-             * when servers already are subscribed.
-             * One: leave the current subscriptions as they were
-             * if (!toCheck.contains(channel)) {
-             *   server.subscribe(channel);
-             *   retval = true;
-             * }
-             *
-             * Two: resubscribe in the new position.
-             *
-             * We chose number two because the user gets what
-             * they see and therefore is less surprised.
-             *
-             * We did not allow the user to choose which functionality
-             * they wanted because that would have complicated an
-             * already complex series of decisions.
-             */
-            if (toCheck.contains(channel)) {
-                toCheck.remove(channel);
+
+            if (currentChs.contains(channel)) {
+                // for REPLACE we need to re-subscribe current channels
+                // in order requested by user
+                if (position.equals(REPLACE)) {
+                    server.subscribe(channel);
+                }
             }
-            server.subscribe(channel);
-            retval = true; //subscriptions have changed
+            else {
+                if (toSubsChs.contains(channel.getId())) {
+                    // subscribe new channels
+                    server.subscribe(channel);
+                    retval = true;
+                }
+            }
         }
 
         if (position.equals(HIGHEST)) {
-            //now we have to add back what they had before.
-            Iterator j = toCheck.iterator();
+            // for HIGHEST we have to re-subscribe to the channels the system was
+            // originally subscribed to
+            Iterator j = currentChs.iterator();
             while (j.hasNext()) {
                 server.subscribe((ConfigChannel)j.next());
             }
         }
-        return retval; //whether subscriptions have changed
+        return retval;
     }
 
     private void checkPosition(HttpServletRequest request) {
