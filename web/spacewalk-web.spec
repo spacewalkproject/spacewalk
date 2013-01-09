@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 1.9.5
+Version: 1.9.6
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -253,6 +253,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Wed Jan 09 2013 Tomas Lestach <tlestach@redhat.com> 1.9.6-1
+- 893068 - Fixing enable_snapshot typo
+
 * Fri Dec 07 2012 Jan Pazdziora 1.9.5-1
 - Remove sysdate keyword
 
