@@ -550,7 +550,7 @@ class ChannelCloner:
         to_clone = []
 
         for err in available_errata:
-            if err['issue_date'].date() <= self.to_date.date():
+            if self.to_date and err['issue_date'].date() <= self.to_date.date():
                 if self.security_only:
                     if err['advisory_type'] == 'Security Advisory':
                         to_clone.append(err)

@@ -170,7 +170,7 @@ Utility for cloning errata by date.
     <varlistentry>
         <term>-d <replaceable>YYYY-MM-DD</replaceable>, --to_date=<replaceable>YYYY-MM-DD</replaceable></term>
         <listitem>
-            <para>All errata on or before the specified date will be cloned if it does not already exist in the destination channel(s).
+            <para>All errata on or before the specified date will be cloned if it does not already exist in the destination channel(s). If this option is omitted no errata will be cloned.
             </para>
         </listitem>
     </varlistentry>
