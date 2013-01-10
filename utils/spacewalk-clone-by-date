@@ -157,12 +157,30 @@ def parse_args():
 
     (options, args) = parser.parse_args()
 
+    if options.parents != None:
+        if (len(options.parents) != 2
+                or options.parents[0].startswith('-')
+                or options.parents[1].startswith('-')):
+            raise UserError("The -a / --parents option requires two arguments")
+
+    # have to check this option before we merge with the config file to
+    # ensure that optparse is parsing the args correctly. We have to
+    # check it again after the config file merge.
+    if options.channels != None:
+        for channel_group in options.channels:
+            if (len(channel_group) != 2 or channel_group[0].startswith('-')
+                    or channel_group[1].startswith('-')):
+                raise UserError("The -l / --channels option requires two arguments")
+
     if options.sample:
         print SAMPLE_CONFIG
         sys.exit(0)
 
     if options.config and options.channels:
         raise UserError("Cannot specify both --channels and --config.")
+
+    if options.config and options.parents:
+        raise UserError("Cannot specify both --parents and --config.")
 
     if options.blacklist:
         options.blacklist = {"ALL":options.blacklist.split(",")}
@@ -179,12 +197,6 @@ def parse_args():
             for existing in channel_group.keys():
                 if existing.startswith('-') or channel_group[existing].startswith('-'):
                     raise UserError("The -l / --channels option requires two arguments")
-
-    if options.parents != None:
-        if (len(options.parents) != 2
-                or options.parents[0].startswith('-')
-                or options.parents[1].startswith('-')):
-            raise UserError("The -a / --parents option requires two arguments")
 
     if not options.username:
         raise UserError("Username not specified")
