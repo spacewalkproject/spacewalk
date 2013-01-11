@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.9.39
+Version: 1.9.40
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -659,6 +659,11 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Jan 11 2013 Tomas Lestach <tlestach@redhat.com> 1.9.40-1
+- introduce new synchronous system.deleteSystem API
+- fix typos
+- make the system.deleteSystems API doc more precise
+
 * Wed Jan 09 2013 Tomas Lestach <tlestach@redhat.com> 1.9.39-1
 - 868884 - fix the 'Replace Existing Subscriptions' SSM config channel option
 - 868884 - subscribe only to selected config channels via SSM
