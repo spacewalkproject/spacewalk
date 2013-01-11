@@ -1429,7 +1429,7 @@ public class SystemHandler extends BaseHandler {
     }
 
     /**
-     * Delete systems given a list of system ids.
+     * Delete systems given a list of system ids asynchronously.
      * This call queues the systems for deletion
      * @param sessionKey The sessionKey containing the logged in user
      * @param systemIds A list of systems ids to delete
@@ -1438,7 +1438,7 @@ public class SystemHandler extends BaseHandler {
      * @throws FaultException A FaultException is thrown if the server corresponding to
      * sid cannot be found.
      *
-     * @xmlrpc.doc Delete systems given a list of system ids.
+     * @xmlrpc.doc Delete systems given a list of system ids asynchronously.
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #array_single("int", "serverId")
      * @xmlrpc.returntype #return_int_success()
