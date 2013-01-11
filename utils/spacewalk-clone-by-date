@@ -165,7 +165,8 @@ def parse_args():
 
     # have to check this option before we merge with the config file to
     # ensure that optparse is parsing the args correctly. We have to
-    # check it again after the config file merge.
+    # check it again after the config file merge to make sure we have
+    # channels.
     if options.channels != None:
         for channel_group in options.channels:
             if (len(channel_group) != 2 or channel_group[0].startswith('-')
@@ -192,11 +193,6 @@ def parse_args():
 
     if options.channels == None or len(options.channels) == 0:
         raise UserError("No channels specified. See --help for details.")
-    else:
-        for channel_group in options.channels:
-            for existing in channel_group.keys():
-                if existing.startswith('-') or channel_group[existing].startswith('-'):
-                    raise UserError("The -l / --channels option requires two arguments")
 
     if not options.username:
         raise UserError("Username not specified")
