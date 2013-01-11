@@ -1531,7 +1531,27 @@ public class SystemHandler extends BaseHandler {
         return 1;
     }
 
+    /**
+     * Delete a system given its server id synchronously
+     * @param sessionKey The sessionKey containing the logged in user
+     * @param serverId The id of the server in question
+     * @return 1 on success
+     * @throws FaultException A FaultException is thrown if:
+     *   - The server corresponding to the sid cannot be found
+     * @xmlrpc.doc Delete a system given its server id synchronously
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param("int", "serverId")
+     * @xmlrpc.returntype #return_int_success()
+     */
+    public int deleteSystem(String sessionKey, Integer serverId)
+            throws FaultException {
 
+        User loggedInUser =  getLoggedInUser(sessionKey);
+        Server server = lookupServer(loggedInUser, serverId);
+
+        SystemManager.deleteServer(loggedInUser, server.getId());
+        return 1;
+    }
 
     /**
      * Get the addresses and hostname for a given server
