@@ -1487,7 +1487,7 @@ public class SystemHandler extends BaseHandler {
 
 
     /**
-     * Delete a system given its cilent certificate.
+     * Delete a system given its client certificate.
      *
      * @param clientCert  client certificate of the system.
      * @return 1 on success
@@ -1495,7 +1495,7 @@ public class SystemHandler extends BaseHandler {
      *   - The server corresponding to the sid cannot be found
      * @throws MethodInvalidParamException thrown if certificate is invalid.
      * @since 10.10
-     * @xmlrpc.doc Delete a system given its cilent certificate.
+     * @xmlrpc.doc Delete a system given its client certificate.
      * @xmlrpc.param #param_desc("string", "systemid", "systemid file")
      * @xmlrpc.returntype #return_int_success()
      */
