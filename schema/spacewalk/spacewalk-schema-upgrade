@@ -58,6 +58,27 @@ if (not defined $my_schema_release) {
 my $target_schema = join '-', $my_schema_name, $my_schema_version, $my_schema_release;
 (my $target_schema_norm = $target_schema) =~ s!^(.+-\d+(\.\d+)*)(\..*)*$!$1!;
 
+my $schema_banner = '/etc/sysconfig/rhn/schema-upgrade/banner.txt';
+if (-f $schema_banner and -s $schema_banner) {
+	local *BANNER;
+	open BANNER, $schema_banner or die "Error reading [$schema_banner]: $!\n";
+	while (<BANNER>) {
+		print;
+	}
+	close BANNER;
+
+	if (not @ARGV or $ARGV[0] ne '-y') {
+		local $| = 1;
+		READ_ENTER:
+		print "Hit Enter to continue or Ctrl+C to interrupt: ";
+		my $in = <STDIN>;
+		chomp $in;
+		if ($in ne '') {
+			goto READ_ENTER;
+		}
+	}
+}
+
 print "Schema upgrade: [$start_schema] -> [$target_schema]\n";
 
 my $retried = 0;
@@ -228,6 +249,7 @@ close SQL;
 
 if (not @ARGV or $ARGV[0] ne '-y') {
 	print "Planning to run spacewalk-sql with [$SCHEMA_UPGRADE_LOGDIR/$stamp-script.sql]\n";
+	print "\nPlase make sure you have a valid backup of your database before continuing.\n\n";
 	local $| = 1;
 	READ_ENTER:
 	print "Hit Enter to continue or Ctrl+C to interrupt: ";
