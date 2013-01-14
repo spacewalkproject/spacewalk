@@ -236,12 +236,12 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 
     <sql-query name="Channel.packageInChannelAndErrata">
         <![CDATA[
-                select cp.id
+                select cp.package_id
                   from rhnChannelPackage cp
                   join rhnErrataPackage ep
                     on ep.package_id = cp.package_id
                  where cp.channel_id = :cid
-                   and e.errata_id in (:eids)
+                   and ep.errata_id in (:eids)
 				   ]]>
     </sql-query>
 
