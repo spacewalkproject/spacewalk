@@ -3629,10 +3629,10 @@ rm -f %{rhnconf}/rhnSecret.py*
 * Mon Dec  8 2008 Michael Mraka <michael.mraka@redhat.com> 0.4.6-1
 - fixed Obsoletes: rhns-* < 5.3.0
 
-* Thu Dec 5 2008 Partha Aji <paji@redhat.com>
+* Fri Dec 5 2008 Partha Aji <paji@redhat.com>
 - Removed spacewalk-cobbler-sync & cobbler-spacewalk-sync from tools package
 
-* Wed Nov 18 2008 Partha Aji <paji@redhat.com>
+* Tue Nov 18 2008 Partha Aji <paji@redhat.com>
 - Added spacewalk-cobbler-sync to tools package
 
 * Mon Nov 17 2008 Devan Goodwin <dgoodwin@redhat.com> 0.4.5-1
@@ -3801,7 +3801,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 * Mon Jan 27 2003 Mihai Ibanescu <misa@redhat.com>
 - Requires PyXML
 
-* Mon Jan 14 2003 Todd Warner <taw@redhat.com>
+* Tue Jan 14 2003 Todd Warner <taw@redhat.com>
 - moved ownership of the /var/cache/rhn directory to the rhns-server rpm.
   It's really a server/satellite thang.
 - blow away the cache upon uninstallation.
@@ -3949,7 +3949,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 - siteConfig.py is now config(noreplace) since it was screwing up the
   already-installed siteConfig.py
   
-* Mon Jul 10 2001 Todd Warner <taw@redhat.com>
+* Thu Jul 10 2001 Todd Warner <taw@redhat.com>
 - /var/log/rhns --> /var/log/rhn to match rhnConfig.py
 
 * Mon Jul  9 2001 Cristian Gafton <gafton@redhat.com>
