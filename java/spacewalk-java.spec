@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.9.40
+Version: 1.9.41
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -659,6 +659,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Jan 14 2013 Tomas Lestach <tlestach@redhat.com> 1.9.41-1
+- 863123 - the query works much better when it uses existing columns
+
 * Fri Jan 11 2013 Tomas Lestach <tlestach@redhat.com> 1.9.40-1
 - introduce new synchronous system.deleteSystem API
 - fix typos
