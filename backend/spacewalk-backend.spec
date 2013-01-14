@@ -3949,7 +3949,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 - siteConfig.py is now config(noreplace) since it was screwing up the
   already-installed siteConfig.py
   
-* Thu Jul 10 2001 Todd Warner <taw@redhat.com>
+* Tue Jul 10 2001 Todd Warner <taw@redhat.com>
 - /var/log/rhns --> /var/log/rhn to match rhnConfig.py
 
 * Mon Jul  9 2001 Cristian Gafton <gafton@redhat.com>
