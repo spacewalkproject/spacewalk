@@ -4,7 +4,7 @@
 %endif
 
 Name:        spacewalk-remote-utils
-Version:     1.9.0
+Version:     1.9.1
 Release:     1%{?dist}
 Summary:     Utilities to interact with a RHN Satellite or Spacewalk server remotely.
 
@@ -62,6 +62,11 @@ docbook2man ./spacewalk-create-channel/doc/spacewalk-create-channel.sgml -o ./sp
 %doc %{_mandir}/man1/spacewalk-create-channel.1.gz
 
 %changelog
+* Mon Jan 14 2013 Tomas Lestach <tlestach@redhat.com> 1.9.1-1
+- 895029 - adding RHEL5.9 channel definitions
+- 895029 - adding RHEL4.9-Extras channel definitions
+- Bumping package versions for 1.9.
+
 * Mon Oct 22 2012 Jan Pazdziora 1.8.5-1
 - no need to require rhnlib >= 2.5.31
 - rhnlib >= 2.5.38 is not necessary
