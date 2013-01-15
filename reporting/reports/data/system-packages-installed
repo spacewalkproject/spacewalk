@@ -1,0 +1,38 @@
+
+synopsis:
+
+	Packages installed on systems
+
+description:
+
+	List all packages for all systems across whole spacewalk
+
+columns:
+
+	system_id	System id
+	org_id	Id of organization system belongs to
+	package_name	Name of the package
+	package_epoch	Epoch of the package
+	package_version	Version of the package
+	package_release	Release of the package
+	package_arch	Architecture of the package
+
+sql:
+
+	select * from (
+	select rhnServer.id as system_id,
+		rhnServer.org_id as org_id,
+		rhnPackageName.name as package_name,
+		rhnPackageEvr.epoch as package_epoch,
+		rhnPackageEvr.version as package_version,
+		rhnPackageEvr.release as package_release,
+		rhnPackageArch.label as package_arch
+	from rhnServer
+		join rhnServerPackage on rhnServer.id=rhnServerPackage.server_id
+		join rhnPackageName on rhnServerPackage.name_id=rhnPackageName.id
+		join rhnPackageEvr on rhnServerPackage.evr_id=rhnPackageEvr.id
+		join rhnPackageArch on rhnServerPackage.package_arch_id=rhnPackageArch.id
+	) X
+	-- where placeholder
+	order by system_id, org_id, package_name, package_name
+
