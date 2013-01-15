@@ -1,0 +1,29 @@
+
+synopsis:
+
+	System groups in spacewalk/satellite
+
+description:
+
+	List of all system groups across whole spacewalk/satellite
+
+columns:
+	
+	group_id	System group id
+	name	System group name
+	current_members	Number of current members in system group
+	org_id	ID of organization which owns the system group
+
+sql:
+
+	select * from (
+	select id as group_id,
+		name,
+		current_members,
+		org_id
+	from rhnservergroup
+		where group_type is null
+	) X
+	-- where placeholder
+	order by group_id
+

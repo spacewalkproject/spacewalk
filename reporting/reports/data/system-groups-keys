@@ -1,0 +1,33 @@
+
+synopsis:
+
+  Activeations keys for system groups
+
+description:
+
+  Lists all activation keys which can be used for registration of system into specific system group
+
+columns:
+
+	group_id	System group id
+	group_name	System group name
+	org_id  Id of organization group belongs to
+	activation_key	Activation key
+
+sql:
+
+  select * from (
+	select sysgroup.id as group_id,
+		sysgroup.name as group_name,
+		sysgroup.org_id as org_id,
+		AK.token as activation_key
+	from rhnactivationkey AK
+		join rhnregtoken RT on AK.REG_TOKEN_ID=RT.ID,
+		rhnservergroup sysgroup
+	where RT.disabled=0
+		and sysgroup.org_id=RT.org_id
+		and sysgroup.group_type is null
+  ) X
+  -- where placeholder
+  order by org_id, group_id
+

@@ -1,0 +1,32 @@
+
+synopsis:
+
+	Systems in system groups
+
+description:
+
+	List of all systems which belongs to any system group
+
+columns:
+
+	group_id	System group ID
+	group_name	System group name
+	server_id	System ID	
+	server_name	Name of the system
+
+sql:
+
+	select * from (
+	select sysgroup.id as group_id,
+		sysgroup.name as group_name,
+		server.id as server_id,
+		server.name as server_name
+	from rhnservergroup sysgroup, rhnservergroupmembers members,
+		rhnserver server
+	where sysgroup.id=members.server_group_id
+		and members.server_id=server.id
+		and sysgroup.group_type is null
+	) X
+	-- where placeholder
+	order by group_id, server_id
+
