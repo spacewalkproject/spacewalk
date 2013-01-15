@@ -38,7 +38,7 @@ import reports
 
 try:
 	from spacewalk.server import rhnSQL
-	from spacewalk.common.rhnConfig import initCFG
+	from spacewalk.common.rhnConfig import initCFG, RHNOptions
 except KeyboardInterrupt:
 	systemExit(-1, "\nUser interrupted process.")
 
@@ -180,6 +180,10 @@ if __name__ == '__main__':
 
 			the_sql = report.sql
 
+			if report_name == "inactive-systems":
+				cfg = RHNOptions('web')
+				cfg.parse()
+				the_sql = the_sql.replace('-- checkin_threshold_placeholder', str(cfg.get('system_checkin_threshold')))
 			if the_sql_where:
 				the_sql = the_sql.replace('-- where placeholder', 'where %s' % ' and '.join(the_sql_where))
 

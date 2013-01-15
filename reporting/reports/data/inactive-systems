@@ -1,0 +1,32 @@
+
+synopsis:
+
+	Inactive system in spacewalk
+
+description:
+
+	List of all inactive systems in spacewalk
+
+columns:
+
+	system_id	System id
+	system_name	System name
+	organization_id	Id of organization system belongs to
+	last_checkin	Last check of the system
+
+sql:
+
+	select * from (
+	select rhnServer.id as system_id,
+		rhnServer.name as system_name,
+		rhnServer.org_id as organization_id,
+		rhnServerInfo.checkin as last_checkin
+	from rhnServer
+		join rhnServerInfo on rhnServer.id=rhnServerInfo.server_id
+	where rhnServerInfo.checkin < current_timestamp - numtodsinterval(
+	-- checkin_threshold_placeholder
+	* 86400, 'second')
+	) X
+	-- where placeholer
+	order by system_id, organization_id
+
