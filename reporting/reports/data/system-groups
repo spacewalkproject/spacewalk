@@ -8,7 +8,7 @@ description:
 	List of all system groups across whole spacewalk/satellite
 
 columns:
-	
+
 	group_id	System group id
 	name	System group name
 	current_members	Number of current members in system group

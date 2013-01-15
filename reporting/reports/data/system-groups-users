@@ -35,7 +35,7 @@ sql:
 		and web_contact.id=wupi.web_user_id
 		and sysgroup.group_type is null
 		and ((perms.user_id=web_contact.id
-			and perms.server_group_id=sysgroup.id) 
+			and perms.server_group_id=sysgroup.id)
 			or (web_contact.id in (select UGM.user_id from rhnUserGroupMembers UGM join rhnUserGroup UG on UGM.USER_GROUP_ID=UG.ID where (UG.NAME='Organization Administrators'))))
 	) X
 	-- where placeholder

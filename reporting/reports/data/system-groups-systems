@@ -11,7 +11,7 @@ columns:
 
 	group_id	System group ID
 	group_name	System group name
-	server_id	System ID	
+	server_id	System ID
 	server_name	Name of the system
 
 sql:
