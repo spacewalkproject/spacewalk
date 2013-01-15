@@ -14,7 +14,7 @@ columns:
 	profile_name	Profile name, as stored on server
 	hostname	Hostname, as reported by the system
 	ip_address	IPv4 address, as reported by the system
-        ipv6_address    IPv6 address, as reported by the system
+	ipv6_address    IPv6 address, as reported by the system
 	registered_by	User under which the system is registered
 	registration_time	Registration time
 	last_checkin_time	Last checkin time
@@ -28,6 +28,7 @@ columns:
 	organization		Organization name
 	virtual_host:i		System identifier of host, if system is a guest
 	architecture		Architecture of the system
+	is_virtualized	Information whether system is virtualized or not
 	hardware		Hardware information
 
 multival_columns:
@@ -45,7 +46,7 @@ sql:
 		registration_time, last_checkin_time, kernel_version,
 		packages_out_of_date, errata_out_of_date,
 		software_channel, configuration_channel,
-		entitlements, system_group, organization, virtual_host, architecture, hardware
+		entitlements, system_group, organization, virtual_host, architecture, is_virtualized, hardware
 	from (
 	select rhnserver.id as server_id, rhnserver.name as profile_name,
 		rhnservernetwork.hostname, trim(rhnservernetwork.ipaddr) as ip_address,
@@ -74,6 +75,8 @@ sql:
 		(
 		select rhnserverarch.name from rhnserverarch where rhnserver.server_arch_id = rhnserverarch.id
 		) as architecture,
+		(case when (select rhnVirtualInstance.virtual_system_id from rhnVirtualInstance where rhnVirtualInstance.virtual_system_id=rhnserver.id) is null then 'No' else 'Yes' end
+) as is_virtualized,
 		get_hw_info_as_clob(rhnserver.id, '; ') as hardware
 	from rhnserver left outer join
 		(
