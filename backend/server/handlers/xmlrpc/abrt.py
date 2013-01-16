@@ -17,9 +17,13 @@ from spacewalk.server import rhnSQL
 from spacewalk.common.rhnLog import log_debug
 from spacewalk.server.rhnHandler import rhnHandler
 
-_query_delete_data = rhnSQL.Statement("""
-delete from rhnAbrtInfo where server_id = :server_id
-""")
+_query_update_data = rhnSQL.Statement("""
+update rhnAbrtInfo
+   set num_crashes = :num_crashes,
+       created = current_timestamp
+ where server_id = :server_id
+"""
+)
 
 _query_store_data = rhnSQL.Statement("""
 insert into rhnAbrtInfo(
@@ -45,12 +49,12 @@ class Abrt(rhnHandler):
         log_debug(1, self.server_id, version, status, message, data)
 
         if status == 0:
-            h = rhnSQL.prepare(_query_delete_data)
-            h.execute(server_id=self.server_id)
+            h = rhnSQL.prepare(_query_update_data)
+            r = h.execute(num_crashes=data['num_crashes'], server_id = self.server_id)
 
-            h = rhnSQL.prepare(_query_store_data)
-            h.execute(server_id=self.server_id,
-                num_crashes=data['num_crashes'])
+            if r == 0:
+                h = rhnSQL.prepare(_query_store_data)
+                h.execute(server_id=self.server_id, num_crashes=data['num_crashes'])
 
             rhnSQL.commit()
 
