@@ -1,10 +1,12 @@
 import os
 import sys
 sys.path.append("/usr/share/rhn/")
+from up2date_client import config
 
 __rhnexport__ = [ 'check' ]
 
-ABRT_DIR = '/var/spool/abrt'
+cf = config.ConfigFile('/etc/abrt/abrt.conf')
+ABRT_DIR = cf['DumpLocation'] or '/var/spool/abrt'
 
 def check(version):
     if not os.path.isdir(ABRT_DIR):
