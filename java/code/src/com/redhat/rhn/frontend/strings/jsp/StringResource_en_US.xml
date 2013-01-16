@@ -9137,6 +9137,12 @@ Please note that some manual configuration of these scripts may still be require
           <context context-type="sourcefile">/rhn/keys/CryptoKeysList.do</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="keys.jsp.default-ssl-key-copy">
+        <source>This key/cert will be copied over to newly created organizations.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/keys/CryptoKeysList.do</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="toolbar.create.keys">
         <source>create new stored key/cert</source>
         <context-group name="ctx">

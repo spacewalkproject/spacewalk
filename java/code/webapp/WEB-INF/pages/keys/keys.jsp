@@ -37,6 +37,12 @@
 	           styleclass="first-column"
 	           sortattr="description">
 		<c:out value="<a href=\"/rhn/keys/CryptoKeyEdit.do?key_id=${current.id}\">${current.description}</a>" escapeXml="false" />
+		<rhn:require acl="user_role(satellite_admin)">
+		<c:if test="${current.description == 'RHN-ORG-TRUSTED-SSL-CERT' and current.label == 'SSL'}">
+		<c:out value="<br/>" escapeXml="false" />
+		<bean:message key="keys.jsp.default-ssl-key-copy"/>
+		</c:if>
+		</rhn:require>
 	</rl:column>
 
 	<!-- Type Column -->
