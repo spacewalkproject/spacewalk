@@ -60,12 +60,4 @@ public class ManagedServerGroup extends ServerGroup {
     protected void setAssociatedAdmins(Set newUsers) {
         this.associatedAdmins = newUsers;
     }
-
-    /**
-     * returns true if this is user managed, false otherwise.
-     * @return true if this is user managed, false otherwise.
-     */
-    public boolean isUserManaged() {
-        return true;
-    }
 }

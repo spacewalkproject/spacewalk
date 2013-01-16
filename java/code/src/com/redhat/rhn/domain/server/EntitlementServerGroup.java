@@ -27,16 +27,6 @@ public class EntitlementServerGroup extends ServerGroup {
     private Long maxMembers;
 
     /**
-     * returns true if this group is user managed, false
-     * otherwise.
-     * @return true if this group is user managed, false
-     * otherwise.
-     */
-    public boolean isUserManaged() {
-        return false;
-    }
-
-    /**
      * Getter for maxMembers
      * @return Long to get
     */
