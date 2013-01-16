@@ -353,26 +353,28 @@
       </tr>
     </table>
   </div>
-  <div style="width: 45%; float: left;">
-    <h2><bean:message key="sdc.details.overview.crashes.application"/></h2>
-    <table class="details">
-      <c:choose>
-        <c:when test="${system.crashes.created == null}">
-          <bean:message key="sdc.details.overview.crashes.nodata"/>
-        </c:when>
-        <c:otherwise>
-          <tr>
-            <th><bean:message key="sdc.details.overview.crashes.lastreport"/></th>
-            <td><fmt:formatDate value="${system.crashes.created}" type="both" dateStyle="short" timeStyle="long"/></td>
-          </tr>
-          <tr>
-            <th><bean:message key="sdc.details.overview.crashes.crashcount"/></th>
-            <td><c:out value="${system.crashes.crashCount}"/></td>
-          </tr>
-        </c:otherwise>
-      </c:choose>
-    </table>
-  </div>
+  <rhn:require acl="client_capable(abrt.check);" mixins="com.redhat.rhn.common.security.acl.SystemAclHandler">
+    <div style="width: 45%; float: left;">
+      <h2><bean:message key="sdc.details.overview.crashes.application"/></h2>
+      <table class="details">
+        <c:choose>
+          <c:when test="${system.crashes.created == null}">
+            <bean:message key="sdc.details.overview.crashes.nodata"/>
+          </c:when>
+          <c:otherwise>
+            <tr>
+              <th><bean:message key="sdc.details.overview.crashes.lastreport"/></th>
+              <td><fmt:formatDate value="${system.crashes.created}" type="both" dateStyle="short" timeStyle="long"/></td>
+            </tr>
+            <tr>
+              <th><bean:message key="sdc.details.overview.crashes.crashcount"/></th>
+              <td><c:out value="${system.crashes.crashCount}"/></td>
+            </tr>
+          </c:otherwise>
+        </c:choose>
+      </table>
+    </div>
+  </rhn:require>
   <div style="clear: left; width: 45%; float: left; line-height: 200%">
     <h2><bean:message key="sdc.details.overview.subscribedchannels" arg0="/rhn/systems/details/SystemChannels.do?sid=${system.id}"/></h2>
 
