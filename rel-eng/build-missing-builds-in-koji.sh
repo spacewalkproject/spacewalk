@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-TAGS="spacewalk-nightly-rhel5 spacewalk-nightly-rhel6 spacewalk-nightly-fedora16 spacewalk-nightly-fedora17"
+TAGS="spacewalk-nightly-rhel5 spacewalk-nightly-rhel6 spacewalk-nightly-fedora17 spacewalk-nightly-fedora18"
 FEDORA_UPLOAD=0
 
 pushd . >/dev/null
