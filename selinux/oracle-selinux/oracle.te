@@ -163,7 +163,7 @@ allow oracle_lsnrctl_t oracle_tnslsnr_t:unix_stream_socket connectto;
 
 # Allow listener to execute oracle binary
 allow oracle_tnslsnr_t bin_t:dir search;
-allow oracle_tnslsnr_t oracle_db_exec_t:file { rx_file_perms };
+can_exec(oracle_tnslsnr_t, oracle_db_exec_t)
 allow oracle_tnslsnr_t oracle_db_t:fd use;
 
 # Allow listener to communicate with database via shared memory
