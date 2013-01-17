@@ -27,8 +27,6 @@ import com.redhat.rhn.manager.user.CreateUserCommand;
 
 import org.apache.log4j.Logger;
 
-import java.util.List;
-
 /**
  * CreateOrgCommand - Command to create an org and the first admin in the Org.
  * @version $Rev: 119601 $
@@ -147,7 +145,8 @@ public class CreateOrgCommand {
 
         // Lookup the SSL crypto key for the default org and copy it to the new:
         Org defaultOrg = OrgFactory.getSatelliteOrg();
-        CryptoKey ssl = KickstartFactory.lookupCryptoKey("RHN-ORG-TRUSTED-SSL-CERT", defaultOrg);
+        CryptoKey ssl = KickstartFactory.lookupCryptoKey("RHN-ORG-TRUSTED-SSL-CERT",
+	    defaultOrg);
         if (ssl != null && ssl.isSSL()) {
             // TODO
             log.debug("Found a SSL key for the default org to copy: " +
