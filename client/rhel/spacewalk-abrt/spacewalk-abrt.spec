@@ -1,5 +1,5 @@
 Name:           spacewalk-abrt
-Version:        0.0.1
+Version:        1.9.1
 Release:        1%{?dist}
 Summary:        ABRT plug-in for rhn-check
 
@@ -35,6 +35,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/rhn/actions/abrt.*
 
 %changelog
+* Thu Jan 17 2013 Jan Pazdziora 1.9.1-1
+- abrt: use DumpLocation from /etc/abrt/abrt.conf if set
+
 * Wed Jul 18 2012 Jan Pazdziora 0.0.1-1
 - new package built with tito
 
