@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.9.41
+Version: 1.9.42
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -659,6 +659,13 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Jan 17 2013 Jan Pazdziora 1.9.42-1
+- For RHN-ORG-TRUSTED-SSL-CERT, inform that it will be copied over to new orgs.
+- Copy RHN-ORG-TRUSTED-SSL-CERT if it exists, not a random SSL key.
+- display abrt summary only if spacewalk-abrt is installed
+- abrt: correct webui message
+- The isUserManaged does not seem to be used anywhere, removing.
+
 * Mon Jan 14 2013 Tomas Lestach <tlestach@redhat.com> 1.9.41-1
 - 863123 - the query works much better when it uses existing columns
 
