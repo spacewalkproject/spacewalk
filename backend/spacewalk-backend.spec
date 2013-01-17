@@ -12,7 +12,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 1.9.15
+Version: 1.9.16
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -637,6 +637,10 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Thu Jan 17 2013 Jan Pazdziora 1.9.16-1
+- abrt: use insert + update rather than delete + insert
+- fix bogus dates in changelog
+
 * Wed Jan 02 2013 Tomas Lestach <tlestach@redhat.com> 1.9.15-1
 - 889263 - unify java & backend grace period lenghts
 - 890910 - set satsync email sender to root@<satfqdn>
