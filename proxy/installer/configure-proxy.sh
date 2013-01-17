@@ -76,13 +76,13 @@ options:
   --version=VERSION
             Version of Spacewalk Proxy Server you want to activate.
 HELP
-	exit
+	exit 1
 }
 
 parse_answer_file () {
     local FILE="$1"
     local ALIAS
-    . $(echo $FILE | cut -d= -f2-)
+    . "$FILE"
     for ALIAS in ${SSL_CNAME[@]}; do
         SSL_CNAME_PARSED[CNAME_INDEX++]=--set-cname=$ALIAS
     done
@@ -91,37 +91,46 @@ parse_answer_file () {
 INTERACTIVE=1
 CNAME_INDEX=0
 
-while [ $# -ge 1 ]; do
-    case $1 in
-        --help | -h)  print_help;;
-        --answer-file=*) parse_answer_file $1;;
+OPTS=$(getopt --longoptions=help,answer-file:,non-interactive,version:,rhn-parent:,traceback-email:,use-ssl:,ca-chain:,force-own-ca,http-proxy:,http-username:,http-password:,ssl-build-dir:,ssl-org:,ssl-orgunit:,ssl-common:,ssl-city:,ssl-state:,ssl-country:,ssl-email:,ssl-password:,ssl-cname:,install-monitoring:,enable-scout:,monitoring-parent:,monitoring-parent-ip:,populate-config-channel:,start-services: -n ${0##*/} -- h "$@")
+
+if [ $? != 0 ] ; then
+        print_help
+fi
+
+eval set -- "$OPTS"
+
+while : ; do
+    case "$1" in
+        --help|-h)  print_help;;
+        --answer-file) parse_answer_file "$2"; shift;;
         --non-interactive) INTERACTIVE=0;;
-        --version=*) VERSION=$(echo $1 | cut -d= -f2-);;
-        --rhn-parent=*) RHN_PARENT=$(echo $1 | cut -d= -f2-);;
-        --traceback-email=*) TRACEBACK_EMAIL=$(echo $1 | cut -d= -f2-);;
-        --use-ssl=*) USE_SSL=$(echo $1 | cut -d= -f2-);;
-        --ca-chain=*) CA_CHAIN=$(echo $1 | cut -d= -f2-);;
+        --version) VERSION=$2; shift;;
+        --rhn-parent) RHN_PARENT="$2"; shift;;
+        --traceback-email) TRACEBACK_EMAIL="$2"; shift;;
+        --use-ssl) USE_SSL="$2"; shift;;
+        --ca-chain) CA_CHAIN="$2"; shift;;
         --force-own-ca) FORCE_OWN_CA=1;;
-        --http-proxy=*) HTTP_PROXY=$(echo $1 | cut -d= -f2-);;
-        --http-username=*) HTTP_USERNAME=$(echo $1 | cut -d= -f2-);;
-        --http-password=*) HTTP_PASSWORD=$(echo $1 | cut -d= -f2-);;
-        --ssl-build-dir=*) SSL_BUILD_DIR=$(echo $1 | cut -d= -f2-);;
-        --ssl-org=*) SSL_ORG=$(echo $1 | cut -d= -f2-);;
-        --ssl-orgunit=*) SSL_ORGUNIT=$(echo $1 | cut -d= -f2-);;
-        --ssl-common=*) SSL_COMMON=$(echo $1 | cut -d= -f2-);;
-        --ssl-city=*) SSL_CITY=$(echo $1 | cut -d= -f2-);;
-        --ssl-state=*) SSL_STATE=$(echo $1 | cut -d= -f2-);;
-        --ssl-country=*) SSL_COUNTRY=$(echo $1 | cut -d= -f2-);;
-        --ssl-email=*) SSL_EMAIL=$(echo $1 | cut -d= -f2-);;
-        --ssl-password=*) SSL_PASSWORD=$(echo $1 | cut -d= -f2-);;
-        --ssl-cname=*) SSL_CNAME_PARSED[CNAME_INDEX++]=--set-cname=$(echo $1 | cut -d= -f2-);;
-        --install-monitoring=*) INSTALL_MONITORING=$(echo $1 | cut -d= -f2-);;
-        --enable-scout=*) ENABLE_SCOUT=$(echo $1 | cut -d= -f2-);;
-        --monitoring-parent=*) MONITORING_PARENT_IP=$(echo $1 | cut -d= -f2-);;
-        --monitoring-parent-ip=*) MONITORING_PARENT_IP=$(echo $1 | cut -d= -f2-);;
-        --populate-config-channel=*) POPULATE_CONFIG_CHANNEL=$(echo $1 | cut -d= -f2-);;
-        --start-services=*) START_SERVICES=$(echo $1 | cut -d= -f2-);;
-        *) echo Error: Invalid option $1
+        --http-proxy) HTTP_PROXY="$2"; shift;;
+        --http-username) HTTP_USERNAME="$2"; shift;;
+        --http-password) HTTP_PASSWORD="$2"; shift;;
+        --ssl-build-dir) SSL_BUILD_DIR="$2"; shift;;
+        --ssl-org) SSL_ORG="$2"; shift;;
+        --ssl-orgunit) SSL_ORGUNIT="$2"; shift;;
+        --ssl-common) SSL_COMMON="$2"; shift;;
+        --ssl-city) SSL_CITY="$2"; shift;;
+        --ssl-state) SSL_STATE="$2"; shift;;
+        --ssl-country) SSL_COUNTRY="$2"; shift;;
+        --ssl-email) SSL_EMAIL="$2"; shift;;
+        --ssl-password) SSL_PASSWORD="$2"; shift;;
+        --ssl-cname) SSL_CNAME_PARSED[CNAME_INDEX++]=--set-cname="$2"; shift;;
+        --install-monitoring) INSTALL_MONITORING="$2"; shift;;
+        --enable-scout) ENABLE_SCOUT="$2"; shift;;
+        --monitoring-parent) MONITORING_PARENT_IP="$2"; shift;;
+        --monitoring-parent-ip) MONITORING_PARENT_IP="$2"; shift;;
+        --populate-config-channel) POPULATE_CONFIG_CHANNEL="$2"; shift;;
+        --start-services) START_SERVICES="$2"; shift;;
+        --) shift; break;;
+        *) echo Error: Invalid option $1; exit 1;;
     esac
     shift
 done
