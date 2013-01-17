@@ -27,6 +27,6 @@ sql:
 	-- checkin_threshold_placeholder
 	* 86400, 'second')
 	) X
-	-- where placeholer
+	-- where placeholder
 	order by system_id, organization_id
 

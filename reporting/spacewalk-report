@@ -183,7 +183,8 @@ if __name__ == '__main__':
 			if report_name == "inactive-systems":
 				cfg = RHNOptions('web')
 				cfg.parse()
-				the_sql = the_sql.replace('-- checkin_threshold_placeholder', str(cfg.get('system_checkin_threshold')))
+				the_dict_where['tresh'] = str(cfg.get('system_checkin_threshold'))
+				the_sql = the_sql.replace('-- checkin_threshold_placeholder', ':tresh')
 			if the_sql_where:
 				the_sql = the_sql.replace('-- where placeholder', 'where %s' % ' and '.join(the_sql_where))
 
