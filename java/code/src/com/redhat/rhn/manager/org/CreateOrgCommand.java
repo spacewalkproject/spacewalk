@@ -146,7 +146,7 @@ public class CreateOrgCommand {
         // Lookup the SSL crypto key for the default org and copy it to the new:
         Org defaultOrg = OrgFactory.getSatelliteOrg();
         CryptoKey ssl = KickstartFactory.lookupCryptoKey("RHN-ORG-TRUSTED-SSL-CERT",
-	    defaultOrg);
+            defaultOrg);
         if (ssl != null && ssl.isSSL()) {
             // TODO
             log.debug("Found a SSL key for the default org to copy: " +
