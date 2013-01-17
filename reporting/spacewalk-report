@@ -180,16 +180,11 @@ if __name__ == '__main__':
 
 			the_sql = report.sql
 
-			if report_name == "inactive-systems":
-				cfg = RHNOptions('web')
-				cfg.parse()
-				the_dict_where['tresh'] = str(cfg.get('system_checkin_threshold'))
-				the_sql = the_sql.replace('-- checkin_threshold_placeholder', ':tresh')
 			if the_sql_where:
 				the_sql = the_sql.replace('-- where placeholder', 'where %s' % ' and '.join(the_sql_where))
 
 			h = rhnSQL.prepare(the_sql)
-			h.execute(**the_dict_where)
+			h.execute(**dict(report.params.items() + the_dict_where.items()))
 
 			db_columns = map(lambda x: x[0].lower(), h.description)
 			if db_columns != report.columns:

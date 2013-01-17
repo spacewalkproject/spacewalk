@@ -3,6 +3,8 @@ import os
 import re
 import sys
 
+from spacewalk.common.rhnConfig import RHNOptions
+
 REPORT_DEFINITIONS = "/usr/share/spacewalk/reports/data"
 
 def available_reports():
@@ -21,6 +23,7 @@ class report:
 		self.multival_column_names = {}
 		self.multival_columns_reverted = {}
 		self.multival_columns_stop = []
+		self.params = {}
 		self._load(full_path)
 
 	def _load(self, full_path):
@@ -96,6 +99,14 @@ class report:
 				if description != None:
 					self.column_descriptions[c] = description
 				i = i + 1
+		elif tag == 'params':
+			lines = filter(lambda x: x != '', re.split('\s*\n\s*', value))
+			for l in lines:
+				( p, v ) = re.split('\s+', l, 1)
+				( component, option ) = re.split('\.', v, 1)
+				cfg = RHNOptions(component)
+				cfg.parse()
+				self.params[p] = str(cfg.get(option))
 		elif tag == 'multival_columns':
 			# the multival_columns specifies either
 			# a "stop" column, usually the first one,
