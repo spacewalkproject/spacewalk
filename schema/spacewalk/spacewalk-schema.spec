@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.9.10
+Version:        1.9.11
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -68,6 +68,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Thu Jan 17 2013 Jan Pazdziora 1.9.11-1
+- 894356 - more informative spacewalk-schema-upgrade
+
 * Wed Jan 02 2013 Jan Pazdziora 1.9.10-1
 - 889463 - correct olson name for Australia Western timezone
 
