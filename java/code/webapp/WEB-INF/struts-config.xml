@@ -2678,7 +2678,7 @@
         <forward name="default"
                  path="/WEB-INF/pages/systems/duplicate/duplicatesystems.jsp"/>
         <forward name="confirm"
-                 path="/systems/ssm/DeleteConfirm.do"
+                 path="/systems/DuplicateSystemsDeleteConfirm.do"
                  redirect="true"/>
     </action>
 
@@ -2692,7 +2692,7 @@
         <forward name="default"
                  path="/WEB-INF/pages/systems/duplicate/duplicatesystems.jsp"/>
         <forward name="confirm"
-                 path="/systems/ssm/DeleteConfirm.do"
+                 path="/systems/DuplicateSystemsDeleteConfirm.do"
                  redirect="true"/>
     </action>
 
@@ -2706,7 +2706,7 @@
         <forward name="default"
                  path="/WEB-INF/pages/systems/duplicate/duplicatesystems.jsp"/>
          <forward name="confirm"
-                  path="/systems/ssm/DeleteConfirm.do"
+                  path="/systems/DuplicateSystemsDeleteConfirm.do"
                   redirect="true"/>
     </action>
 
@@ -2720,7 +2720,7 @@
         <forward name="default"
                  path="/WEB-INF/pages/systems/duplicate/duplicatesystems.jsp"/>
          <forward name="confirm"
-                  path="/systems/ssm/DeleteConfirm.do"
+                  path="/systems/DuplicateSystemsDeleteConfirm.do"
                   redirect="true"/>
     </action>
 
@@ -2748,6 +2748,19 @@
                   redirect="true"/>
     </action>
 
+    <action path="/systems/DuplicateSystemsDeleteConfirm"
+        scope="request"
+        input="/WEB-INF/pages/systems/duplicate/duplicatesystemsdelete.jsp"
+        type="com.redhat.rhn.frontend.action.systems.duplicate.DuplicateSystemsDeleteSetupAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping"
+        parameter="hostname">
+        <set-property property="postRequiredIfSubmitted" value="true" />
+        <forward name="default"
+                 path="/WEB-INF/pages/systems/duplicate/duplicatesystemsdelete.jsp"/>
+         <forward name="confirm"
+                  path="/systems/DuplicateIPList.do"
+                  redirect="true"/>
+    </action>
 
     <action path="/systems/OutOfDate"
         scope="request"

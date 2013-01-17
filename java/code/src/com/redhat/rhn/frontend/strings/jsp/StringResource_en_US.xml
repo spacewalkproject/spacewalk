@@ -4916,6 +4916,9 @@ value for this entitlement, excluding the default organization's consumption.</s
         <trans-unit id="duplicate.systems.delete.confirm.message">
           <source> There may be system profiles selected for deletion below that were not selected on the Duplicate System Profiles page. Please check the list below carefully to prevent accidental deletion of profiles that may have been in the System Set Manager.</source>
         </trans-unit>
+        <trans-unit id="duplicate.systems.delete.confirmmessage">
+          <source>Selected systems have been queued for deletion.</source>
+        </trans-unit>
         <trans-unit id="Compare Systems">
           <source>Compare Systems</source>
         </trans-unit>

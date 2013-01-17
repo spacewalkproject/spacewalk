@@ -23,6 +23,7 @@ public final class SetLabels {
     public static final String SYSTEM_ENTITLEMENTS = "system_entitlements";
     public static final String AFFECTED_SYSTEMS_LIST = "errata_system_list";
     public static final String SYSTEM_LIST = "system_list";
+    public static final String DUPLICATE_SYSTEM_LIST = "duplicate_system_list";
     public static final String PATCH_INSTALL_SET = "install_patch_list";
     public static final String PATCH_REMOVE_SET  = "removable_patch_list";
     public static final String PACKAGE_UPGRADE_SET = "upgrade_package_list";

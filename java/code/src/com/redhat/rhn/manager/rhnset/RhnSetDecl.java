@@ -164,6 +164,10 @@ public class RhnSetDecl {
     public static final RhnSetDecl SYSTEMS = make(SetLabels.SYSTEM_LIST,
             SetCleanup.ILLEGAL_SERVERS);
 
+    // set of duplicate servers by server_id
+    public static final RhnSetDecl DUPLICATE_SYSTEMS = make(
+            SetLabels.DUPLICATE_SYSTEM_LIST, SetCleanup.NOOP);
+
     // set of servers by server_id
     public static final RhnSetDecl SYSTEMS_AFFECTED = make(
             SetLabels.AFFECTED_SYSTEMS_LIST, SetCleanup.UNOWNED_SERVERS);

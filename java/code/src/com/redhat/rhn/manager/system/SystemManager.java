@@ -2677,6 +2677,20 @@ public class SystemManager extends BaseManager {
      * @return List of SystemOverview objects
      */
     public static List<SystemOverview> inSet(User user, String setLabel) {
+        return inSet(user, setLabel, false);
+    }
+
+
+    /**
+     * Get a list of SystemOverview objects for the systems in an rhnset with option
+     * to elaborate the result
+     * @param user the user doing the lookup
+     * @param setLabel the label of the set
+     * @param elaborate elaborate results
+     * @return List of SystemOverview objects
+     */
+    public static List<SystemOverview> inSet(User user, String setLabel,
+            boolean elaborate) {
         DataResult retval = null;
         SelectMode mode = ModeFactory.getMode("System_queries",
                 "in_set");
@@ -2684,7 +2698,10 @@ public class SystemManager extends BaseManager {
         params.put("user_id", user.getId());
         params.put("set_label", setLabel);
         retval = mode.execute(params);
-        retval.setElaborationParams(Collections.EMPTY_MAP);
+        if (elaborate) {
+            retval.setElaborationParams(Collections.EMPTY_MAP);
+            retval.elaborate();
+        }
         return retval;
     }
 

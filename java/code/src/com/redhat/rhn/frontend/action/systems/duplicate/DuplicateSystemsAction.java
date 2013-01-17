@@ -70,8 +70,7 @@ public class DuplicateSystemsAction extends RhnAction implements Listable {
         helper.setWillClearSet(false);
         helper.execute();
         if (helper.isDispatched()) {
-            RequestContext context = new RequestContext(request);
-            return handleConfirm(context, mapping);
+            return mapping.findForward("confirm");
         }
 
 
@@ -100,13 +99,6 @@ public class DuplicateSystemsAction extends RhnAction implements Listable {
         return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
 
-    private ActionForward handleConfirm(RequestContext context,
-            ActionMapping mapping) {
-        getStrutsDelegate().saveMessage("duplicate.systems.delete.confirm.message",
-                context.getRequest());
-        return mapping.findForward("confirm");
-    }
-
     /**
      * {@inheritDoc}
      */
@@ -126,7 +118,7 @@ public class DuplicateSystemsAction extends RhnAction implements Listable {
     }
 
     private RhnSetDecl getSetDecl() {
-        return RhnSetDecl.SYSTEMS;
+        return RhnSetDecl.DUPLICATE_SYSTEMS;
     }
 
 }
