@@ -118,6 +118,23 @@
 				</c:choose>
 			</rl:column>
 		</c:if>
+                <c:if test="${empty extraPackagesMode}">
+                    <rl:column sortable="false"
+                               bound="false"
+                               headerkey="systemlist.jsp.crashes"
+                               styleclass="center"
+                               headerclass="thin-column">
+                        <c:choose>
+                            <c:when test="${current.crashCount == null}">
+                                <bean:message key="none.message"/>
+                            </c:when>
+                            <c:otherwise>
+                                <c:out value="${current.crashCount}" escapeXml="false"/>
+                            </c:otherwise>
+                        </c:choose>
+		    </rl:column>
+                </c:if>
+
 		<c:if test = "${not empty showLastCheckin}">
 			<rl:column sortable="false"
 					attr="lastCheckin"
