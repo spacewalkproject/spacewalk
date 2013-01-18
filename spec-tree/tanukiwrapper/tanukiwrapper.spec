@@ -63,9 +63,11 @@ Requires:	jpackage-utils >= 0:1.6
 Obsoletes:	%{name}-demo < 0:3.1.2-2jpp
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
+%if %{gcj_support}
 BuildRequires:		java-gcj-compat-devel
 Requires(post):		java-gcj-compat
 Requires(postun):	java-gcj-compat
+%endif
 
 %description
 The Java Service Wrapper is an application which has 
@@ -184,6 +186,7 @@ fi
 %endif
 
 %files
+%defattr(-,root,root,-)
 %doc doc/license.txt *.sample
 %{_sbindir}/%{name}
 %{_libdir}/libwrapper.so
@@ -194,10 +197,12 @@ fi
 %endif
 
 %files javadoc
+%defattr(0644,root,root,0755)
 %{_javadocdir}/%{name}-%{version}
 %ghost %doc %{_javadocdir}/%{name}
 
 %files manual
+%defattr(0644,root,root,0755)
 %doc doc/*
 
 %changelog

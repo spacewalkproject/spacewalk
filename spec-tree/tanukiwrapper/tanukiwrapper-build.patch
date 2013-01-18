@@ -1,0 +1,10 @@
+--- build.xml~	2006-03-01 05:34:34.000000000 +0200
++++ build.xml	2006-05-09 11:15:33.000000000 +0300
+@@ -294,2 +294,3 @@
+     <target name="convert" depends="init:msg, init:java-missing">
++    <!-- No-op, but prevents build using ant-nodeps built with non-Sun JDK :(
+         <native2ascii src="${src.dir}/java"
+@@ -299,2 +300,3 @@
+                       includes="**/*.native" />
++    -->
+     </target>

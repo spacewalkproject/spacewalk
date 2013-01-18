@@ -1,0 +1,26 @@
+diff -up ./build.xml.sav ./build.xml
+--- ./build.xml.sav	2006-10-17 10:21:20.000000000 -0400
++++ ./build.xml	2008-09-24 10:57:02.000000000 -0400
+@@ -65,6 +65,7 @@
+                 <equals arg1="${os.arch}" arg2="ia64"/>
+                 <equals arg1="${os.arch}" arg2="x86_64"/>
+                 <equals arg1="${os.arch}" arg2="x86"/>
++                <equals arg1="${os.arch}" arg2="x86_64"/>
+                 <equals arg1="${os.arch}" arg2="i686"/>
+                 <equals arg1="${os.arch}" arg2="i586"/>
+                 <equals arg1="${os.arch}" arg2="i486"/>
+@@ -168,12 +169,14 @@
+         </condition>
+         
+         <!-- Not all JVMs support the sun.arch.data.model property.  Default to 32-bit. -->
++	<!--
+         <property name="sun.arch.data.model" value="32"/>
+         <condition property="bits-mismatch" value="true">
+             <not>
+                 <equals arg1="${sun.arch.data.model}" arg2="${bits}"/>
+             </not>
+         </condition>
++	-->
+ 
+         <condition property="pre-release.disable" value="true">
+             <not>

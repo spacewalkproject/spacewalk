@@ -1,0 +1,36 @@
+diff -up ./src/c/Makefile-linux-ppc-64.sav ./src/c/Makefile-linux-ppc-64
+--- ./src/c/Makefile-linux-ppc-64.sav	2009-07-31 12:18:21.000000000 -0400
++++ ./src/c/Makefile-linux-ppc-64	2009-07-31 12:18:31.000000000 -0400
+@@ -33,7 +33,7 @@ libwrapper.so: $(libwrapper_so_OBJECTS)
+ 
+ %.o: %.c
+ 	@echo '$(COMPILE) -c $<'; \
+-	$(COMPILE) $(DEFS) -Wp,-MD,.deps/$(*F).pp -c $<
++	$(COMPILE) $(DEFS) -fPIC -Wp,-MD,.deps/$(*F).pp -c $<
+ 	@-cp .deps/$(*F).pp .deps/$(*F).P; \
+ 	tr ' ' '\012' < .deps/$(*F).pp \
+ 	| sed -e 's/^\\$$//' -e '/^$$/ d' -e '/:$$/ d' -e 's/$$/ :/' \
+diff -up ./src/c/Makefile-linux-x86-32.sav ./src/c/Makefile-linux-x86-32
+--- ./src/c/Makefile-linux-x86-32.sav	2009-07-31 12:17:28.000000000 -0400
++++ ./src/c/Makefile-linux-x86-32	2009-07-31 12:19:11.000000000 -0400
+@@ -31,7 +31,7 @@ libwrapper.so: $(libwrapper_so_OBJECTS)
+ 
+ %.o: %.c
+ 	@echo '$(COMPILE) -c $<'; \
+-	$(COMPILE) $(DEFS) -Wp,-MD,.deps/$(*F).pp -c $<
++	$(COMPILE) $(DEFS) -fPIC -Wp,-MD,.deps/$(*F).pp -c $<
+ 	@-cp .deps/$(*F).pp .deps/$(*F).P; \
+ 	tr ' ' '\012' < .deps/$(*F).pp \
+ 	| sed -e 's/^\\$$//' -e '/^$$/ d' -e '/:$$/ d' -e 's/$$/ :/' \
+diff -up ./src/c/Makefile-linux-x86-64.sav ./src/c/Makefile-linux-x86-64
+--- ./src/c/Makefile-linux-x86-64.sav	2009-07-31 12:17:40.000000000 -0400
++++ ./src/c/Makefile-linux-x86-64	2009-07-31 12:19:41.000000000 -0400
+@@ -33,7 +33,7 @@ libwrapper.so: $(libwrapper_so_OBJECTS)
+ 
+ %.o: %.c
+ 	@echo '$(COMPILE) -c $<'; \
+-	$(COMPILE) $(DEFS) -Wp,-MD,.deps/$(*F).pp -c $<
++	$(COMPILE) $(DEFS) -fPIC -Wp,-MD,.deps/$(*F).pp -c $<
+ 	@-cp .deps/$(*F).pp .deps/$(*F).P; \
+ 	tr ' ' '\012' < .deps/$(*F).pp \
+ 	| sed -e 's/^\\$$//' -e '/^$$/ d' -e '/:$$/ d' -e 's/$$/ :/' \

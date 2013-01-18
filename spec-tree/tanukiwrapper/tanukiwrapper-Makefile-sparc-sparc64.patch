@@ -1,0 +1,86 @@
+--- wrapper_3.2.3_src/src/c/Makefile-linux-sparc-32	2009-10-15 19:40:08.633904530 +0000
++++ wrapper_3.2.3_src/src/c/Makefile-linux-sparc-32	2009-10-26 00:29:29.000000000 +0000
+@@ -0,0 +1,39 @@
++COMPILE = gcc -O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -mcpu=ultrasparc -Wall --pedantic
++
++INCLUDE=$(JAVA_HOME)/include
++
++DEFS = -I$(INCLUDE) -I$(INCLUDE)/linux
++
++wrapper_SOURCE = wrapper.c wrapperinfo.c wrappereventloop.c wrapper_unix.c property.c logger.c
++
++libwrapper_so_OBJECTS = wrapperjni_unix.o wrapperinfo.o wrapperjni.o
++
++BIN = ../../bin
++LIB = ../../lib
++
++all: init wrapper libwrapper.so
++
++clean:
++	rm -f *.o
++
++cleanall: clean
++	rm -rf *~ .deps
++	rm -f $(BIN)/wrapper $(LIB)/libwrapper.so
++
++init:
++	if test ! -d .deps; then mkdir .deps; fi
++
++wrapper: $(wrapper_SOURCE)
++	$(COMPILE) -pthread $(wrapper_SOURCE) -o $(BIN)/wrapper -lm
++
++libwrapper.so: $(libwrapper_so_OBJECTS)
++	${COMPILE} -shared -fPIC $(libwrapper_so_OBJECTS) -o $(LIB)/libwrapper.so
++
++%.o: %.c
++	@echo '$(COMPILE) -c $<'; \
++	$(COMPILE) $(DEFS) -fPIC -Wp,-MD,.deps/$(*F).pp -c $<
++	@-cp .deps/$(*F).pp .deps/$(*F).P; \
++	tr ' ' '\012' < .deps/$(*F).pp \
++	| sed -e 's/^\\$$//' -e '/^$$/ d' -e '/:$$/ d' -e 's/$$/ :/' \
++	>> .deps/$(*F).P; \
++	rm .deps/$(*F).pp
+--- wrapper_3.2.3_src/src/c/Makefile-linux-sparc64-64	2009-10-15 19:40:08.633904530 +0000
++++ wrapper_3.2.3_src/src/c/Makefile-linux-sparc64-64	2009-10-26 00:28:26.000000000 +0000
+@@ -0,0 +1,41 @@
++# This makefile is inprogess.  It builds, but the resulting libwrapper.so does not yet work.
++# If you know how to fix it then please help out.
++COMPILE = gcc -O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m64 -mcpu=ultrasparc -fPIC -Wall --pedantic
++
++INCLUDE=$(JAVA_HOME)/include
++
++DEFS = -I$(INCLUDE) -I$(INCLUDE)/linux
++
++wrapper_SOURCE = wrapper.c wrapperinfo.c wrappereventloop.c wrapper_unix.c property.c logger.c
++
++libwrapper_so_OBJECTS = wrapperjni_unix.o wrapperinfo.o wrapperjni.o
++
++BIN = ../../bin
++LIB = ../../lib
++
++all: init wrapper libwrapper.so
++
++clean:
++	rm -f *.o
++
++cleanall: clean
++	rm -rf *~ .deps
++	rm -f $(BIN)/wrapper $(LIB)/libwrapper.so
++
++init:
++	if test ! -d .deps; then mkdir .deps; fi
++
++wrapper: $(wrapper_SOURCE)
++	$(COMPILE) -pthread -lm $(wrapper_SOURCE) -o $(BIN)/wrapper
++
++libwrapper.so: $(libwrapper_so_OBJECTS)
++	${COMPILE} -shared $(libwrapper_so_OBJECTS) -o $(LIB)/libwrapper.so
++
++%.o: %.c
++	@echo '$(COMPILE) -c $<'; \
++	$(COMPILE) $(DEFS) -fPIC -Wp,-MD,.deps/$(*F).pp -c $<
++	@-cp .deps/$(*F).pp .deps/$(*F).P; \
++	tr ' ' '\012' < .deps/$(*F).pp \
++	| sed -e 's/^\\$$//' -e '/^$$/ d' -e '/:$$/ d' -e 's/$$/ :/' \
++	>> .deps/$(*F).P; \
++	rm .deps/$(*F).pp

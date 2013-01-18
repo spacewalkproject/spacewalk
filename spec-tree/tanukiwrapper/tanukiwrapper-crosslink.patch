@@ -1,0 +1,12 @@
+--- build.xml~	2006-05-09 11:15:33.000000000 +0300
++++ build.xml	2006-05-09 11:18:34.000000000 +0300
+@@ -15,3 +15,4 @@
+     <!-- property name="classpath"     value=""/ -->
+-    
++    <property name="jdk.api" value="http://java.sun.com/j2se/1.5/docs/api/" />
++
+     <property name="ant.dist.version" value="1.6.2"/>
+@@ -577,2 +578,3 @@
+             destdir="${jdoc.dir}"
++            link="${jdk.api}"
+             author="true"

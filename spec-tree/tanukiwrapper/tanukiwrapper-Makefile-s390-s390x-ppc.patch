@@ -1,0 +1,128 @@
+--- src/c/Makefile-linux-s390-32.old	1969-12-31 19:00:00.000000000 -0500
++++ src/c/Makefile-linux-s390-32	2006-08-04 16:39:15.000000000 -0400
+@@ -0,0 +1,39 @@
++COMPILE = gcc -O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -fasynchronous-unwind-tables -Wall --pedantic
++
++INCLUDE=$(JAVA_HOME)/include
++
++DEFS = -I$(INCLUDE) -I$(INCLUDE)/linux
++
++wrapper_SOURCE = wrapper.c wrapperinfo.c wrappereventloop.c wrapper_unix.c property.c logger.c
++
++libwrapper_so_OBJECTS = wrapperjni_unix.o wrapperinfo.o wrapperjni.o
++
++BIN = ../../bin
++LIB = ../../lib
++
++all: init wrapper libwrapper.so
++
++clean:
++	rm -f *.o
++
++cleanall: clean
++	rm -rf *~ .deps
++	rm -f $(BIN)/wrapper $(LIB)/libwrapper.so
++
++init:
++	if test ! -d .deps; then mkdir .deps; fi
++
++wrapper: $(wrapper_SOURCE)
++	$(COMPILE) -pthread $(wrapper_SOURCE) -o $(BIN)/wrapper -lm
++
++libwrapper.so: $(libwrapper_so_OBJECTS)
++	${COMPILE} -shared -fPIC $(libwrapper_so_OBJECTS) -o $(LIB)/libwrapper.so
++
++%.o: %.c
++	@echo '$(COMPILE) -c $<'; \
++	$(COMPILE) $(DEFS) -fPIC -Wp,-MD,.deps/$(*F).pp -c $<
++	@-cp .deps/$(*F).pp .deps/$(*F).P; \
++	tr ' ' '\012' < .deps/$(*F).pp \
++	| sed -e 's/^\\$$//' -e '/^$$/ d' -e '/:$$/ d' -e 's/$$/ :/' \
++	>> .deps/$(*F).P; \
++	rm .deps/$(*F).pp
+--- src/c/Makefile-linux-s390x-64.old	1969-12-31 19:00:00.000000000 -0500
++++ src/c/Makefile-linux-s390x-64	2006-08-04 16:38:53.000000000 -0400
+@@ -0,0 +1,39 @@
++COMPILE = gcc -O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -fasynchronous-unwind-tables -Wall --pedantic
++
++INCLUDE=$(JAVA_HOME)/include
++
++DEFS = -I$(INCLUDE) -I$(INCLUDE)/linux
++
++wrapper_SOURCE = wrapper.c wrapperinfo.c wrappereventloop.c wrapper_unix.c property.c logger.c
++
++libwrapper_so_OBJECTS = wrapperjni_unix.o wrapperinfo.o wrapperjni.o
++
++BIN = ../../bin
++LIB = ../../lib
++
++all: init wrapper libwrapper.so
++
++clean:
++	rm -f *.o
++
++cleanall: clean
++	rm -rf *~ .deps
++	rm -f $(BIN)/wrapper $(LIB)/libwrapper.so
++
++init:
++	if test ! -d .deps; then mkdir .deps; fi
++
++wrapper: $(wrapper_SOURCE)
++	$(COMPILE) -pthread $(wrapper_SOURCE) -o $(BIN)/wrapper -lm
++
++libwrapper.so: $(libwrapper_so_OBJECTS)
++	${COMPILE} -shared -fPIC $(libwrapper_so_OBJECTS) -o $(LIB)/libwrapper.so
++
++%.o: %.c
++	@echo '$(COMPILE) -c $<'; \
++	$(COMPILE) $(DEFS) -fPIC -Wp,-MD,.deps/$(*F).pp -c $<
++	@-cp .deps/$(*F).pp .deps/$(*F).P; \
++	tr ' ' '\012' < .deps/$(*F).pp \
++	| sed -e 's/^\\$$//' -e '/^$$/ d' -e '/:$$/ d' -e 's/$$/ :/' \
++	>> .deps/$(*F).P; \
++	rm .deps/$(*F).pp
+--- src/c/Makefile-linux-ppc-32.old	1969-12-31 19:00:00.000000000 -0500
++++ src/c/Makefile-linux-ppc-32	2006-08-04 17:43:10.000000000 -0400
+@@ -0,0 +1,41 @@
++# This makefile is inprogess.  It builds, but the resulting libwrapper.so does not yet work.
++# If you know how to fix it then please help out.
++COMPILE = gcc -O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -fasynchronous-unwind-tables -fPIC --pedantic
++
++INCLUDE=$(JAVA_HOME)/include
++
++DEFS = -I$(INCLUDE) -I$(INCLUDE)/linux
++
++wrapper_SOURCE = wrapper.c wrapperinfo.c wrappereventloop.c wrapper_unix.c property.c logger.c
++
++libwrapper_so_OBJECTS = wrapperjni_unix.o wrapperinfo.o wrapperjni.o
++
++BIN = ../../bin
++LIB = ../../lib
++
++all: init wrapper libwrapper.so
++
++clean:
++	rm -f *.o
++
++cleanall: clean
++	rm -rf *~ .deps
++	rm -f $(BIN)/wrapper $(LIB)/libwrapper.so
++
++init:
++	if test ! -d .deps; then mkdir .deps; fi
++
++wrapper: $(wrapper_SOURCE)
++	$(COMPILE) -pthread -lm $(wrapper_SOURCE) -o $(BIN)/wrapper
++
++libwrapper.so: $(libwrapper_so_OBJECTS)
++	${COMPILE} -shared $(libwrapper_so_OBJECTS) -o $(LIB)/libwrapper.so
++
++%.o: %.c
++	@echo '$(COMPILE) -c $<'; \
++	$(COMPILE) $(DEFS) -fPIC -Wp,-MD,.deps/$(*F).pp -c $<
++	@-cp .deps/$(*F).pp .deps/$(*F).P; \
++	tr ' ' '\012' < .deps/$(*F).pp \
++	| sed -e 's/^\\$$//' -e '/^$$/ d' -e '/:$$/ d' -e 's/$$/ :/' \
++	>> .deps/$(*F).P; \
++	rm .deps/$(*F).pp
