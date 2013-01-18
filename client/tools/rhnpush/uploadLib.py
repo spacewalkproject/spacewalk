@@ -693,6 +693,7 @@ def exists_getPackageChecksumBySession(rpc_server):
     # but extended_profile in version 2 has been created just 2 months before
     # getPackageChecksumBySession lets use it instead
     server = rhnserver.RhnServer()
+    # pylint: disable=W0212
     server._server = rpc_server
     result = server.capabilities.hasCapability('xmlrpc.packages.extended_profile', 2)
     return result
