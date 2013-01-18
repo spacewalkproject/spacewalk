@@ -751,10 +751,10 @@ public class SystemOverview extends BaseDto implements Serializable  {
 
     /**
      * Sets a number of crashes on the system.
-     * @param crashCount crash count to set
+     * @param crashCountIn crash count to set
      */
-    public void setCrashCount(Long crashCount) {
-        this.crashCount = crashCount;
+    public void setCrashCount(Long crashCountIn) {
+        this.crashCount = crashCountIn;
     }
 
     /**
