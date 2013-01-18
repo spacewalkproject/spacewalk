@@ -1,7 +1,7 @@
 Name: quartz
 Summary: Quartz Enterprise Job Scheduler
-Version:        1.8.1
-Release:        5%{?dist}
+Version:        1.8.4
+Release:        2%{?dist}
 Summary:        Quartz Enterprise Job Scheduler
 License:        ASL 2.0
 URL:            http://www.quartz-scheduler.org/
@@ -18,7 +18,7 @@ Requires: apache-commons-logging
 Requires: jakarta-commons-logging
 %endif
 
-Requires: spacewalk-slf4j
+Requires: slf4j
 
 %description
 Quartz is a job scheduling system that can be integrated with, or used
@@ -31,7 +31,7 @@ Java components or EJBs.
 Summary: Oracle JDBC driver delegate for %{name}
 Group:   Development/Libraries/Java
 Requires: %{name}
-Requires: spacewalk-slf4j
+Requires: slf4j
 Requires: ojdbc14
 Requires: quartz = %{version}
 
@@ -68,13 +68,13 @@ rm -rf $RPM_BUILD_ROOT
 %{_javadir}/%{name}-oracle-%{version}.jar
 
 %changelog
-* Wed Oct 17 2012 Tomas Lestach <tlestach@redhat.com> 1.8.1-5
-- Use ReleaseTagger
-- let quartz require apache-commons-logging instead of jakarta-commons-logging
-  on fedoras
+* Mon Mar 28 2011 Michael Mraka <michael.mraka@redhat.com> 1.8.4-2
+- require standard slf4j
 
-* Tue Oct 16 2012 Tomas Lestach <tlestach@redhat.com> 1.8.1-4
--  fix spacewalk dependency issue on F17
+* Fri Mar 04 2011 Jan Pazdziora 1.8.4-1
+- 681006 - rebase quartz to 1.8.4 to address high CPU usage.
+- replace jakarta-commons-logging with apache-commons-logging on F14
+  (tlestach@redhat.com)
 
 * Fri Jul 30 2010 Tomas Lestach <tlestach@redhat.com> 1.8.1-3
 - changing quartz spec to require spacewalk-slf4j (tlestach@redhat.com)
