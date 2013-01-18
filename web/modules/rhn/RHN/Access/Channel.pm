@@ -35,7 +35,6 @@ sub register_acl_handlers {
   $acl->register_handler(org_channel_setting => \&org_channel_setting);
   $acl->register_handler(user_can_admin_channel => \&user_can_admin_channel);
   $acl->register_handler(channel_is_clone => \&channel_is_clone);
-  $acl->register_handler(channel_has_downloads => \& channel_has_downloads);
   $acl->register_handler(channel_packaging_type => \&channel_packaging_type);
   $acl->register_handler(channel_type_capable => \&channel_type_capable);
   $acl->register_handler(configfile_is_file => \&configfile_is_file);
@@ -57,14 +56,6 @@ sub configfile_is_file {
     else {
         return 0;
     }
-}
-
-sub channel_has_downloads {
-  my $pxt = shift;
-
-  return 1 if RHN::Channel->has_downloads($pxt->param('cid'));
-
-  return 0;
 }
 
 sub channel_eoled {

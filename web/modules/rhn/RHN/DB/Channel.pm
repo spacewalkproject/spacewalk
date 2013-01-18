@@ -269,31 +269,6 @@ sub trusted_orgs {
 ################################
 
 
-sub has_downloads {
-  my $class = shift;
-  my $cid = shift;
-
-  die "no cid" unless $cid;
-
-  my $dbh = RHN::DB->connect;
-  my $query;
-  my $sth;
-
-  $query = <<EOQ;
-SELECT 1 FROM rhnChannelDownloads WHERE channel_id = :cid
-EOQ
-
-  $sth = $dbh->prepare($query);
-  $sth->execute_h(cid => $cid);
-
-  my @row = $sth->fetchrow;
-  $sth->finish;
-
-  return 1 if @row;
-
-  return 0;
-}
-
 sub subscribable_channels {
   my $class = shift;
   my %params = validate(@_, {server_id => 1, user_id => 1, base_channel_id => 1});
