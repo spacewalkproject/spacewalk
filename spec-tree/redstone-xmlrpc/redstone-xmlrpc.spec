@@ -2,7 +2,7 @@
 Summary: An xmlrpc library
 Name: redstone-xmlrpc
 Version: 1.1_20071120 
-Release: 8%{?dist}
+Release: 9%{?dist}
 License: LGPL
 Group: Development/Library
 URL: http://xmlrpc.sourceforge.net
@@ -48,6 +48,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_javadir}
 
 %changelog
+* Fri Jan 18 2013 Michael Mraka <michael.mraka@redhat.com> 1.1_20071120-9
+- rebuild redstone-xmlrpc from git
+
 * Mon May 18 2009 Dennis Gilmore <dgilmore@redhat.com> 1.1_20071120-8
 - rebuild in new git tree
 
