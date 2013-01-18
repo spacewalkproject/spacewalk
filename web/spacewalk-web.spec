@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 1.9.6
+Version: 1.9.7
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -253,6 +253,14 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Fri Jan 18 2013 Jan Pazdziora 1.9.7-1
+- Removing no longer used rhnChannelDownloads, rhnDownloads, and
+  rhnDownloadType.
+- The channel_has_downloads acl and has_downloads are not longer used,
+  removing.
+- Removing the Downloads tab, it points to nonexisting
+  /rhn/software/channel/downloads/Download.do page.
+
 * Wed Jan 09 2013 Tomas Lestach <tlestach@redhat.com> 1.9.6-1
 - 893068 - Fixing enable_snapshot typo
 
