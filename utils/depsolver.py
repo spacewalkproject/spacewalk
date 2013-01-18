@@ -65,6 +65,7 @@ class DepSolver:
         """
          populate the repostore with packages
         """
+        # pylint: disable=W0212
         self._repostore._setup = True
         self._repostore.populateSack(which='all')
 
