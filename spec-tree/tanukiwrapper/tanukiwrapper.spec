@@ -38,7 +38,7 @@
 
 Name:		tanukiwrapper
 Version:	3.2.3
-Release:	6%{?dist}
+Release:	7%{?dist}
 Summary:	Java Service Wrapper
 Epoch:		0
 License:	BSD
@@ -210,6 +210,9 @@ fi
 %doc doc/*
 
 %changelog
+* Fri Jan 18 2013 Michael Mraka <michael.mraka@redhat.com> 3.2.3-7
+- use gcj_support on RHEL
+
 * Fri Jan 18 2013 Michael Mraka <michael.mraka@redhat.com> 3.2.3-6
 - rebuild package via standard process from git
 
