@@ -1,6 +1,6 @@
 Name:		simple-core		
 Version:	3.1.3
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Embeddable Java HTTP engine capable of handling large loads
 Group:	 	Development/Libraries	
 License:	GNU
@@ -55,6 +55,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_javadocdir}/*
 
 %changelog
+* Fri Jan 18 2013 Michael Mraka <michael.mraka@redhat.com> 3.1.3-3
+- rebuild simple-core from git
+
 * Thu Jul 29 2010 Shannon Hughes <shughes@redhat.com> 3.1.3-2
 - new package built with tito
 
