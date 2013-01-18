@@ -1,0 +1,17 @@
+Index: source/redstone/xmlrpc/XmlRpcSerializer.java
+===================================================================
+--- source/redstone/xmlrpc/XmlRpcSerializer.java	(revision 30)
++++ source/redstone/xmlrpc/XmlRpcSerializer.java	(working copy)
+@@ -132,9 +132,9 @@
+         writer.write( "<member><name>faultCode</name><value><int>" );
+         writer.write( String.valueOf( code ) );
+         writer.write( "</int></value>" );
+-        writer.write( "</member><member><name>faultString</name><value><string>" );
+-        writer.write( message );
+-        writer.write( "</string></value></member></struct></value></fault></methodResponse>" );
++        writer.write( "</member><member><name>faultString</name>" );
++        serialize( message, writer );
++        writer.write( "</member></struct></value></fault></methodResponse>" );
+     }
+     
+     
