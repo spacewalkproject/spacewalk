@@ -28,6 +28,5 @@
   <rhn-tab name="Target Systems" acl="channel_subscribable()">
     <rhn-tab-url>/rhn/channels/TargetSystems.do</rhn-tab-url>
   </rhn-tab>
-  <rhn-tab name="Downloads" acl="channel_has_downloads()" url="/rhn/software/channel/downloads/Download.do" />
 </rhn-navi-tree>
 
