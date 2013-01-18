@@ -41,7 +41,6 @@ rhnArchTypeActions             :: rhnArchType rhnActionType
 rhnChannel                     :: web_customer rhnChannelArch rhnChannelProduct \
                                   rhnProductName rhnChecksum
 rhnChannelArch                 :: rhnArchType
-rhnChannelDownloads            :: rhnChannel rhnDownloads
 rhnChannelComps                :: rhnChannel
 rhnChannelCloned               :: rhnChannelComps
 rhnChannelErrata               :: rhnChannel rhnErrata
@@ -67,7 +66,6 @@ rhnCryptoKey                   :: rhnCryptoKeyType
 rhnCryptoKeyKickstart          :: rhnCryptoKey rhnKSData
 rhnDevice                      :: rhnServer
 rhnDistChannelMap              :: rhnChannel rhnChannelArch
-rhnDownloads                   :: rhnChannelFamily rhnFile rhnDownloadType
 rhnErrata                      :: rhnChecksum web_customer rhnErrataSeverity
 rhnErrataBuglist               :: rhnErrata
 rhnErrataBuglistTmp            :: rhnErrataTmp

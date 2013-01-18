@@ -41,21 +41,6 @@ ORDER BY C.parent_channel NULLS FIRST, UPPER(C.name)
   </query>
 </mode>
 
-<mode name="release_notes_url_by_category">
-  <query params="channel_label, download_type">
-SELECT UNIQUE RD.category, RD.release_notes_url
-  FROM rhnDownloads RD,
-       rhnDownloadType DT,
-       rhnChannelDownloads CD,
-       rhnChannel C
- WHERE C.label = :channel_label
-   AND CD.channel_id = C.id
-   AND RD.id = CD.downloads_id
-   AND DT.id = RD.download_type
-   AND DT.label = :download_type
-  </query>
-</mode>
-
 <mode name="user_subscribe_perms">
   <query params="u_id, org_id">
 SELECT AC.channel_id AS ID,
@@ -123,66 +108,6 @@ ORDER BY rhn_channel.channel_priority(UACh.parent_or_self_id), UACh.parent_or_se
   </query>
   <elaborator name="visible_server_count"/>
 </mode>
-
-<mode name="channels_with_downloads_tree_relevant">
-  <query params="user_id, org_id">
-SELECT  UACh.channel_name AS NAME,
-        UACh.channel_id AS ID,
-        UACh.channel_depth AS DEPTH,
-        UACh.channel_arch_id,
-        UACh.current_members,
-        UACh.available_members,
-        UACh.parent_or_self_label,
-        UACh.channel_label
-  FROM  rhnUserAvailableChannels UACh
- WHERE  UACh.user_id = :user_id
-   AND  EXISTS (
-SELECT 1
-  FROM rhnDownloadType DT,
-       rhnDownloads D,
-       rhnChannelDownloads CD
- WHERE CD.channel_id = UACh.channel_id
-   AND CD.downloads_id = D.id
-   AND D.download_type = DT.id
-   AND DT.label = 'iso'
-)
-   AND  (    UACh.channel_arch_id = lookup_channel_arch('channel-ia32')
-          OR  EXISTS (SELECT 1
-                 FROM rhnServerChannelArchCompat SCAC, rhnServer S
-                WHERE S.org_id = :org_id
-                  AND S.server_arch_id = SCAC.server_arch_id
-                  AND SCAC.channel_arch_id = UACh.channel_arch_id))
-   AND  (UACh.end_of_life is NULL OR UACh.end_of_life > sysdate)
-ORDER BY  rhn_channel.channel_priority(UACh.parent_or_self_id), UACh.parent_or_self_id, UACh.channel_depth, UPPER(UACh.channel_name)
-  </query>
-</mode>
-
-<mode name="channels_with_downloads_tree_full">
-  <query params="user_id">
-SELECT  UACh.channel_name AS NAME,
-        UACh.channel_id AS ID,
-        UACh.channel_depth AS DEPTH,
-        UACh.channel_arch_id,
-        UACh.current_members,
-        UACh.available_members,
-        UACh.parent_or_self_label,
-        UACh.channel_label
-  FROM  rhnUserAvailableChannels UACh
- WHERE  UACh.user_id = :user_id
-   AND  EXISTS (
-SELECT 1
-  FROM rhnDownloadType DT,
-       rhnDownloads D,
-       rhnChannelDownloads CD
- WHERE CD.channel_id = UACh.channel_id
-   AND CD.downloads_id = D.id
-   AND D.download_type = DT.id
-   AND DT.label = 'iso'
-)
-ORDER BY  rhn_channel.channel_priority(UACh.parent_or_self_id),  UACh.parent_or_self_id, UACh.channel_depth, UPPER(UACh.channel_name)
-  </query>
-</mode>
-
 
 <mode name="channel_tree_ssm_install">
   <query params="org_id, user_id">

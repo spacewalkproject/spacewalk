@@ -59,14 +59,6 @@ sub _register_modes {
 			   -datasource => RHN::DataSource::Channel->new,
 			   -provider => \&channel_tree);
 
-  Sniglets::ListView::List->add_mode(-mode => "channels_with_downloads_tree_relevant",
-			   -datasource => RHN::DataSource::Channel->new,
-			   -provider => \&channel_tree);
-
-  Sniglets::ListView::List->add_mode(-mode => "channels_with_downloads_tree_full",
-			   -datasource => RHN::DataSource::Channel->new,
-			   -provider => \&channel_tree);
-
   Sniglets::ListView::List->add_mode(-mode => "channel_tree_ssm_install",
 			   -datasource => RHN::DataSource::Channel->new,
 			   -provider => \&channel_tree);
