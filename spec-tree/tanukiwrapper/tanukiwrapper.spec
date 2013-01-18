@@ -34,7 +34,7 @@
 
 Name:		tanukiwrapper
 Version:	3.2.3
-Release:	5%{?dist}
+Release:	6%{?dist}
 Summary:	Java Service Wrapper
 Epoch:		0
 License:	BSD
@@ -206,6 +206,9 @@ fi
 %doc doc/*
 
 %changelog
+* Fri Jan 18 2013 Michael Mraka <michael.mraka@redhat.com> 3.2.3-6
+- rebuild package via standard process from git
+
 * Sun Oct 25 2009 Dennis Gilmore <dennis@ausil.us> - 0:3.2.3-5
 - add patch with sparc support
 
