@@ -2,7 +2,7 @@
 Summary: An json string library
 Name: stringtree-json
 Version: 2.0.9
-Release: 7%{?dist}
+Release: 8%{?dist}
 License: LGPL
 Group: Development/Library
 URL: http://stringtree.org/stringtree-json.html
@@ -42,6 +42,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_javadir}
 
 %changelog
+* Sat Jan 19 2013 Michael Mraka <michael.mraka@redhat.com> 2.0.9-8
+- rebuild stringtree-json from git
+
 * Fri Feb 27 2009 Dennis Gilmore 2.0.9-7
 - ExcludeArch: ia64
 
