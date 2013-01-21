@@ -68,7 +68,7 @@ public class CryptoKeysHandler extends BaseHandler {
         Org org = loggedInUser.getOrg();
         KickstartLister lister = KickstartLister.getInstance();
 
-        DataResult dataResult = lister.cryptoKeysInOrg(org, null);
+        DataResult dataResult = lister.cryptoKeysInOrg(org);
         return dataResult;
     }
 

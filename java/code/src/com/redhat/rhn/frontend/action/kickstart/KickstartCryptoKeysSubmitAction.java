@@ -85,7 +85,7 @@ public class KickstartCryptoKeysSubmitAction extends BaseKickstartListSubmitActi
                                        HttpServletRequest request) {
         RequestContext rctx = new RequestContext(request);
         return KickstartLister.getInstance().
-            cryptoKeysInOrg(rctx.getCurrentUser().getOrg(), null);
+            cryptoKeysInOrg(rctx.getCurrentUser().getOrg());
     }
 
     protected void processMethodKeys(Map map) {

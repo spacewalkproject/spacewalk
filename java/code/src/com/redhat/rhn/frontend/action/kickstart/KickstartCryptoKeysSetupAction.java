@@ -43,7 +43,7 @@ public class KickstartCryptoKeysSetupAction extends BaseKickstartListSetupAction
      */
     protected DataResult getDataResult(RequestContext rctx, PageControl pc) {
         return KickstartLister.getInstance().
-            cryptoKeysInOrg(rctx.getCurrentUser().getOrg(), pc);
+            cryptoKeysInOrg(rctx.getCurrentUser().getOrg());
     }
 
     /**

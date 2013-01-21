@@ -43,7 +43,7 @@ public class CryptoKeysListSetupAction extends RhnAction {
         RequestContext requestContext = new RequestContext(request);
 
         DataResult result = KickstartLister.getInstance().cryptoKeysInOrg(
-                requestContext.getCurrentUser().getOrg(), null);
+                requestContext.getCurrentUser().getOrg());
         request.setAttribute(RequestContext.PAGE_LIST, result);
         request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
         return mapping.findForward(RhnHelper.DEFAULT_FORWARD);

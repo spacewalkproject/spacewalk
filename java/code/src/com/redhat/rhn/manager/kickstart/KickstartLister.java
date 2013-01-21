@@ -175,10 +175,9 @@ public class KickstartLister extends BaseManager {
      * Get the list of GPG keys definied for this org.  Returns
      * DataResult of CryptoKeyDto.
      * @param orgIn that has the GPG keys
-     * @param pc the page control
      * @return DataResult of GPG keys
      */
-    public DataResult cryptoKeysInOrg(Org orgIn, PageControl pc) {
+    public DataResult cryptoKeysInOrg(Org orgIn) {
         if (logger.isDebugEnabled()) {
             logger.debug("gpgKeysInOrg(Org orgIn=" +
                     orgIn + ") - start");

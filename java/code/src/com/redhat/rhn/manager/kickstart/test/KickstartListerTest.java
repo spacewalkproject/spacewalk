@@ -59,7 +59,7 @@ public class KickstartListerTest extends BaseTestCaseWithUser {
        KickstartFactory.saveCryptoKey(key);
        flushAndEvict(key);
 
-       DataResult dr = KickstartLister.getInstance().cryptoKeysInOrg(o, null);
+       DataResult dr = KickstartLister.getInstance().cryptoKeysInOrg(o);
        assertTrue(dr.size() > 0);
        assertTrue(dr.get(0) instanceof CryptoKeyDto);
    }
