@@ -9,7 +9,7 @@ Name:         NPalert
 Summary:      NOCpulse notification system
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version:      1.127.7
+Version:      1.127.8
 Release:      1%{?dist}
 BuildArch:    noarch
 Requires:     perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
@@ -137,6 +137,9 @@ fi
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Mon Jan 21 2013 Michael Mraka <michael.mraka@redhat.com> 1.127.8-1
+- specify permission on /usr/share/nocpulse/templates
+
 * Wed Aug 01 2012 Jan Pazdziora 1.127.7-1
 - 844992 - force the array context so that Class::MethodMaker behaves the same
   in both versions 1 and 2.
