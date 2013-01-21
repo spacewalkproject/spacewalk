@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.9.47
+Version: 1.9.48
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -659,6 +659,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Jan 21 2013 Michael Mraka <michael.mraka@redhat.com> 1.9.48-1
+- specify permission on /var/lib/tomcat*/webapps
+
 * Fri Jan 18 2013 Milan Zazrivec <mzazrivec@redhat.com> 1.9.47-1
 - New API: system.getCrashCount()
 
