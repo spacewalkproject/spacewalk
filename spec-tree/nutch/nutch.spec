@@ -1,6 +1,6 @@
 Name: nutch
 Version: 1.0
-Release: 0.15.20081201040121nightly%{?dist}
+Release: 0.16.20081201040121nightly%{?dist}
 Summary: Open source web-search software
 
 Group: Development/Tools
@@ -47,6 +47,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Jan 21 2013 Michael Mraka <michael.mraka@redhat.com> 1.0-0.16.20081201040121nightly
+- rebuild nutch from git
+
 * Wed Oct 10 2012 Stephen Herr <sherr@redhat.com> 1.0-0.15.20081201040121nightly
 - Fixing nutch buildroot symlink issue
 
