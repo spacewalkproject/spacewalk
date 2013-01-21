@@ -107,8 +107,8 @@ fi
 
 %files
 %{_sysconfdir}/cron.d/notification
-%attr(755, nocpulse, nocpulse) %dir %{httpd_prefix}
 %{httpd_prefix}
+%attr(755, nocpulse, nocpulse) %dir %{httpd_prefix}/templates
 %dir %attr(-, %notif_user,%notif_user) %install_prefix
 %dir %{perl_vendorlib}/NOCpulse/Notif
 %{perl_vendorlib}/NOCpulse/Notif/*
