@@ -509,7 +509,7 @@ fi
 
 %files
 %defattr(644,tomcat,tomcat,775)
-%dir %{appdir}
+%attr(755, root, tomcat) %dir %{appdir}
 %dir %{appdir}/rhn/
 %{appdir}/rhn/apidoc/
 %{appdir}/rhn/css/
