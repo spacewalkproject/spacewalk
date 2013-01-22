@@ -15,7 +15,7 @@
     <rhn-tab name="Subscription Management" url="/rhn/systems/SystemEntitlements.do" acl="user_role(org_admin)" >
       <rhn-tab name="System Entitlements" url="/rhn/systems/SystemEntitlements.do" acl="user_role(org_admin)" />
       <rhn-tab name="Software Channel Entitlements" url="/rhn/channels/software/Entitlements.do" acl="user_role(org_admin)" />
-    </rhn-tab>  
+    </rhn-tab>
   </rhn-tab>
   <rhn-tab name="Systems" url="/rhn/systems/Overview.do">
     <rhn-tab name="Overview" url="/rhn/systems/Overview.do" acl="org_entitlement(sw_mgr_enterprise)"/>
@@ -173,7 +173,7 @@
     <rhn-tab name="Status" url="/rhn/monitoring/ProbeList.do">
        <rhn-tab-directory>/rhn/monitoring/</rhn-tab-directory>
     </rhn-tab>
-    <rhn-tab name="Scout Config Push" acl="show_monitoring();" url="/network/monitoring/scout/index.pxt" >    
+    <rhn-tab name="Scout Config Push" acl="show_monitoring();" url="/network/monitoring/scout/index.pxt" >
 		<rhn-tab-url>/network/monitoring/scout/index.pxt</rhn-tab-url>
     </rhn-tab>
     <rhn-tab name="Notification" url="/rhn/monitoring/config/notification/Methods.do">
@@ -236,7 +236,7 @@
       </rhn-tab>
 	  <rhn-tab name="Cobbler" acl="user_role(satellite_admin)">
 	    <rhn-tab-url>/rhn/admin/config/Cobbler.do</rhn-tab-url>
-	  </rhn-tab>        
+	  </rhn-tab>
     </rhn-tab>
     <rhn-tab name="Task Engine Status" acl="user_role(satellite_admin)" url="/rhn/admin/TaskStatus.do">
     </rhn-tab>

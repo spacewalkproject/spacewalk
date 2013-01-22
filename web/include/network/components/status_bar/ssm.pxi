@@ -6,7 +6,7 @@
 
 <div>
 <rhn-require acl="user_authenticated(); org_entitlement(sw_mgr_enterprise)">
-  <span id="header_selcount"><rhn-set-totals set="system_list" noun="system"/></span> 
+  <span id="header_selcount"><rhn-set-totals set="system_list" noun="system"/></span>
 
     <a class="button" href="/rhn/ssm/index.do">Manage</a>
 

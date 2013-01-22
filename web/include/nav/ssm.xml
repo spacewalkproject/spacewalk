@@ -63,7 +63,7 @@
              </rhn-tab>
 
 	</rhn-tab>
-	
+
 	<rhn-tab name="Groups" acl="user_role(org_admin)">
 		<rhn-tab-url>/network/systems/ssm/groups/index.pxt</rhn-tab-url>
 		<rhn-tab-url>/network/systems/ssm/groups/alter_membership_conf.pxt</rhn-tab-url>
@@ -80,7 +80,7 @@
                 <rhn-tab-url>/rhn/channel/ssm/ChildSubscriptionsConfirm.do</rhn-tab-url>
             </rhn-tab>
 	</rhn-tab>
-	
+
 	<rhn-tab name="Configuration" url="/rhn/systems/ssm/config/Deploy.do">
 	  <rhn-tab name="Deploy Files" url="/rhn/systems/ssm/config/Deploy.do" />
 	  <rhn-tab name="Compare Files" url="/rhn/systems/ssm/config/Diff.do" />
