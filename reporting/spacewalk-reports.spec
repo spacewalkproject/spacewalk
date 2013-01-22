@@ -2,7 +2,7 @@ Name: spacewalk-reports
 Summary: Script based reporting
 Group: Applications/Internet
 License: GPLv2
-Version: 1.9.1
+Version: 1.9.2
 Release: 1%{?dist}
 URL: https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -43,6 +43,11 @@ rm -rf $RPM_BUILD_ROOT
 %doc COPYING
 
 %changelog
+* Tue Jan 22 2013 Tomas Kasparek <tkasparek@redhat.com> 1.9.2-1
+- 768074 - report of package upgrades available for systems
+  (tkasparek@redhat.com)
+- 745342 - system custom info report (tkasparek@redhat.com)
+
 * Thu Jan 17 2013 Tomas Kasparek <tkasparek@redhat.com> 1.9.1-1
 - parametrization of spacewalk-report with spacewalk config
 - security fix + fixing typo
