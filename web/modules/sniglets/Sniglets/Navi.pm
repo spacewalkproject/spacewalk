@@ -85,10 +85,10 @@ sub navi_nav {
   my $file;
   my $depth = $params{depth} || 0;
   if ($params{file}) {
-    $file = File::Spec->catfile($pxt->document_root, $pxt->derelative_path($params{file}));
+    $file = File::Spec->catfile(PXT::Config->get('include_dir'), $pxt->derelative_path($params{file}));
   }
   else {
-    $file = File::Spec->catfile($pxt->document_root, $pxt->user ? "/nav/sitenav-authenticated.xml" : "/nav/sitenav.xml");
+    $file = File::Spec->catfile(PXT::Config->get('include_dir'), $pxt->user ? "/nav/sitenav-authenticated.xml" : "/nav/sitenav.xml");
   }
 
   my $tree = Sniglets::Navi->load_tree($file);

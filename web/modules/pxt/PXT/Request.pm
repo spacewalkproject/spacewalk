@@ -531,7 +531,7 @@ sub include {
   $params{-path} = $params{-file}
     if exists $params{-file};
 
-  my $data = PXT::ApacheHandler->_read_file($params{-path}, $self->document_root);
+  my $data = PXT::ApacheHandler->_read_file($params{-path}, PXT::Config->get('include_dir'));
 
   return $data if $params{-raw};
 
