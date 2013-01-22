@@ -31,6 +31,7 @@ rhnServerOverview
     enhancement_errata,
     outdated_packages,
 	config_files_with_differences,
+    crash_count,
     last_checkin_days_ago,
     last_checkin,
     pending_updates,
