@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.9.13
+Version:        1.9.14
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -68,6 +68,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Tue Jan 22 2013 Jan Pazdziora 1.9.14-1
+- When adding a column to view, we better name it as well.
+
 * Tue Jan 22 2013 Jan Pazdziora 1.9.13-1
 - Adding rhnContentSourceSsl, to hold certificates and keys to make
   authenticated SSL connections.
