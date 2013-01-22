@@ -1,0 +1,30 @@
+
+synopsis:
+
+	Display system custom info
+
+description:
+
+	Display custom for all systems in spacewalk with any custom info associated
+
+columns:
+
+	server_id	Server id
+	org_id	Organization id
+	server_name	Server name
+	key	Custom info key
+	value	Custom info value
+
+sql:
+
+	select * from (
+	select rhnServer.id as server_id,
+	rhnServer.org_id as org_id,
+	rhnServer.name as server_name,
+	rhnCustomDataKey.label as key,
+	rhnServerCustomDataValue.value as value
+	from rhnServer join rhnServerCustomDataValue on rhnServer.id=rhnServerCustomDataValue.server_id join rhnCustomDataKey on rhnServerCustomDataValue.key_id=rhnCustomDataKey.id
+	) X
+	-- where placeholder
+	order by org_id, server_id
+
