@@ -82,19 +82,20 @@ public class AuthFilter implements Filter {
             HttpServletRequest hreq = new
                 RhnHttpServletRequest((HttpServletRequest)request);
 
-            // validate security token to prevent CSRF type of attacks
-            if (hreq.getMethod().equals("POST") &&
-                    !authenticationService.skipCsfr((HttpServletRequest) request)) {
-                try {
-                    CSRFTokenValidator.validate(hreq);
 
-                }
-                catch (CSRFTokenException e) {
-                    // send HTTP 403 if security token validation failed
-                    HttpServletResponse hres = (HttpServletResponse) response;
-                    hres.sendError(HttpServletResponse.SC_FORBIDDEN,
-                            e.getMessage());
-                    return;
+            if (hreq.getMethod().equals("POST")) {
+                // validate security token to prevent CSRF type of attacks
+                if (!authenticationService.skipCsfr((HttpServletRequest) request)) {
+                    try {
+                        CSRFTokenValidator.validate(hreq);
+                    }
+                    catch (CSRFTokenException e) {
+                        // send HTTP 403 if security token validation failed
+                        HttpServletResponse hres = (HttpServletResponse) response;
+                        hres.sendError(HttpServletResponse.SC_FORBIDDEN,
+                                e.getMessage());
+                        return;
+                    }
                 }
                 if (CertificateManager.getInstance().isSatelliteCertInRestrictedPeriod() &&
                         !authenticationService.postOnRestrictedWhitelist(hreq)) {

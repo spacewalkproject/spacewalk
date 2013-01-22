@@ -71,6 +71,9 @@ public class PxtAuthenticationService extends BaseAuthenticationService {
         POST_UNPROTECTED_URIS = UnmodifiableSet.decorate(set);
 
         set = new TreeSet();
+        // login
+        set.add("/rhn/Login");
+        set.add("/rhn/ReLogin");
         // base and add on entitlements
         set.add("/rhn/systems/details/Edit.do");
         set.add("/rhn/systems/SystemEntitlementsSubmit.do");
