@@ -299,7 +299,8 @@ Dear @@PRODUCT_NAME@@ User,
 
 This email is being sent to you to inform you that your @@PRODUCT_NAME@@ Certificate
 has expired on your {0} server. After {1} day(s) the systems
-management services provided by your @@PRODUCT_NAME@@ Server will become inaccessible.</source>
+management services provided by your @@PRODUCT_NAME@@ Server will be restricted for {2} days.
+After that the services will become inaccessible.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Taskomatic: @@PRODUCT_NAME@@CertificateCheck</context>
           <context context-type="paramnotes">
@@ -337,6 +338,14 @@ Thank you for using @@PRODUCT_NAME@@.
         <context-group name="ctx">
           <context context-type="sourcefile">Taskomatic: @@PRODUCT_NAME@@CertificateCheck</context>
         </context-group>
+      </trans-unit>
+      <trans-unit id="email.satellitecert.restricted.body">
+        <source>
+Dear @@PRODUCT_NAME@@ User,
+
+This email is being sent to you to inform you that your @@PRODUCT_NAME@@ Certificate
+has expired on your {0} server. Your Satellite is on day {1} of {2} day restricted period
+and will soon stop functioning.</source>
       </trans-unit>
       <trans-unit id="email.satellitecert.expired.body">
         <source>

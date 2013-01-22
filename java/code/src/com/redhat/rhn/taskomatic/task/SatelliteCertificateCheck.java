@@ -40,7 +40,20 @@ public class SatelliteCertificateCheck extends RhnJavaJob {
 
         CertificateManager man = CertificateManager.getInstance();
 
-        if (man.isSatelliteCertExpired()) {
+        if (man.isSatelliteCertInRestrictedPeriod()) {
+            String[] dayProgress = man.getDayProgressInRestrictedPeriod();
+            String body = ls.getMessage("email.satellitecert.restricted.body",
+                    ConfigDefaults.get().getHostname(), dayProgress[0], dayProgress[1]);
+            if (ConfigDefaults.get().isSpacewalk()) {
+                body += ls.getMessage("email.satellitecert.spwbodyend");
+            }
+            else {
+                body += ls.getMessage("email.satellitecert.satbodyend");
+            }
+            sendMessage(ls.getMessage("email.satellitecert.expired.subject"),
+                    body);
+        }
+        else if (man.isSatelliteCertExpired()) {
             String body = ls.getMessage("email.satellitecert.expired.body",
                     ConfigDefaults.get().getHostname());
             if (ConfigDefaults.get().isSpacewalk()) {
@@ -53,9 +66,10 @@ public class SatelliteCertificateCheck extends RhnJavaJob {
                     body);
         }
         else if (man.isSatelliteCertInGracePeriod()) {
-            Object[] args = new String[2];
+            Object[] args = new String[3];
             args[0] = ConfigDefaults.get().getHostname();
             args[1] = new Long(man.getDaysLeftBeforeCertExpiration()).toString();
+            args[2] = new Long(CertificateManager.RESTRICTED_PERIOD_IN_DAYS).toString();
             String body = ls.getMessage("email.satellitecert.graceperiod.body", args);
             if (ConfigDefaults.get().isSpacewalk()) {
                 body += ls.getMessage("email.satellitecert.spwbodyend");
