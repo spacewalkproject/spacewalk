@@ -53,13 +53,9 @@ public class SatelliteCertificateCheck extends RhnJavaJob {
                     body);
         }
         else if (man.isSatelliteCertInGracePeriod()) {
-            long daysUntilExpiration = (man.getGracePeriodEndDate().getTime()  -
-                    System.currentTimeMillis()) /
-                    86400000;
-
             Object[] args = new String[2];
             args[0] = ConfigDefaults.get().getHostname();
-            args[1] = new Long(daysUntilExpiration).toString();
+            args[1] = new Long(man.getDaysLeftBeforeCertExpiration()).toString();
             String body = ls.getMessage("email.satellitecert.graceperiod.body", args);
             if (ConfigDefaults.get().isSpacewalk()) {
                 body += ls.getMessage("email.satellitecert.spwbodyend");
