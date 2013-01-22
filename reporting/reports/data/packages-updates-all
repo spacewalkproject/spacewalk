@@ -1,0 +1,54 @@
+
+synopsis:
+
+	List of packages which can be upgraded
+
+description:
+
+	Prints list of packages which can be upgraded for all systems in spacewalk
+
+columns:
+
+	system_id System id
+  org_id  Id of organization system belongs to
+  package_name  Name of the package
+  package_epoch Epoch of the package
+  package_version Version of the package
+  package_release Release of the package
+  package_arch  Architecture of the package
+	newer_epoch Version of the newer package available
+  newer_version Release of the newer package available
+  newer_release  Architecture of the newer package available
+
+sql:
+
+	select * from (
+	select RS.id as system_id,
+    RS.org_id as org_id,
+    RPN.name as package_name,
+    RPE.epoch as package_epoch,
+    RPE.version as package_version,
+    RPE.release as package_release,
+    RPA.label as package_arch,
+		RPE1.epoch as newer_epoch,
+    RPE1.version as newer_version,
+    RPE1.release as newer_release
+  from rhnServer RS
+    join rhnServerPackage RSP on RS.id=RSP.server_id
+    join rhnPackageName RPN on RSP.name_id=RPN.id
+    join rhnPackageEvr RPE on RSP.evr_id=RPE.id
+    join rhnPackageArch RPA on RSP.package_arch_id=RPA.id,
+		rhnServer RS1
+		join rhnServerChannel RSC on RS1.id=RSC.server_id
+		join rhnChannelPackage RCP on RSC.channel_id=RCP.channel_id
+		join rhnPackage RP on RCP.package_id=RP.id
+		join rhnPackageName RPN1 on RP.name_id=RPN1.id
+    join rhnPackageEvr RPE1 on RP.evr_id=RPE1.id
+    join rhnPackageArch RPA1 on RP.package_arch_id=RPA1.id
+	where RS.id=RS1.id
+		and RPN.name=RPN1.name
+		and RPE.evr < RPE1.evr
+	) X
+	-- where placeholder
+	order by org_id, system_id
+
