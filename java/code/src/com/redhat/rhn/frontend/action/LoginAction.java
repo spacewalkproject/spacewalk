@@ -73,7 +73,8 @@ public class LoginAction extends RhnAction {
 
         CertificateManager cm = CertificateManager.getInstance();
         if (cm.isSatelliteCertInRestrictedPeriod()) {
-            createErrorMessage(request, "satellite.expired.restricted", null);
+            createErrorMessageWithMultipleArgs(request, "satellite.expired.restricted",
+                   cm.getDayProgressInRestrictedPeriod());
         }
         else if (cm.isSatelliteCertExpired()) {
             addMessage(request, "satellite.expired");

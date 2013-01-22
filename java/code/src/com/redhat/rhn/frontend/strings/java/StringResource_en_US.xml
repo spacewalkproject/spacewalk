@@ -5160,7 +5160,7 @@ user before attempting to deactivate their account.</source>
         </context-group>
       </trans-unit>
       <trans-unit id="satellite.expired.restricted">
-        <source>Your satellite certificate has expired.  Please contact Red Hat for a new certificate. Till then your satellite will have restricted functionality.</source>
+        <source>Your Satellite Certificate has expired. Your Satellite is on day {0} of {1} day restricted period and will soon stop functioning. Please contact Red Hat for a new certificate.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/Login.do</context>
         </context-group>
@@ -5173,7 +5173,7 @@ user before attempting to deactivate their account.</source>
         </context-group>
       </trans-unit>
       <trans-unit id="restricted.forbidden">
-        <source>You are not allowed to perform this action until your certificate is renewed. Please contact Red Hat for a new certificate. Till then your satellite will have restricted functionality.</source>
+        <source>You are not allowed to perform this action until your Satellite Certificate is renewed. Your Satellite is on day {0} of the {1} restricted period and will soon stop functioning. Please contact Red Hat for a new certificate.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/Login.do</context>
         </context-group>

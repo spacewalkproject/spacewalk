@@ -134,7 +134,10 @@ public class CertificateManager extends BaseManager {
      *
      */
     public long getDaysLeftBeforeCertExpiration() {
-        long endTime = getGracePeriodEndDate().getTime();
+        return getDaysLeftBefore(getGracePeriodEndDate().getTime());
+    }
+
+    private long getDaysLeftBefore(long endTime) {
         Calendar cal = Calendar.getInstance();
         cal.set(Calendar.HOUR, 0);
         cal.set(Calendar.MINUTE, 0);
@@ -142,5 +145,16 @@ public class CertificateManager extends BaseManager {
         cal.set(Calendar.MILLISECOND, 0);
         cal.set(Calendar.AM_PM, Calendar.AM);
         return (endTime - cal.getTime().getTime()) / MILLISECONDS_IN_DAY;
+    }
+
+    /**
+     * @return the number of the days left before the restricted period finishes
+     */
+    public String[] getDayProgressInRestrictedPeriod() {
+        String[] progress = new String[2];
+        progress[0] = new Long(RESTRICTED_PERIOD_IN_DAYS -
+                getDaysLeftBefore(getRestrictedPeriodEndDate().getTime()) + 1).toString();
+        progress[1] = new Long(RESTRICTED_PERIOD_IN_DAYS).toString();
+        return progress;
     }
 }
