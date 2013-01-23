@@ -14,7 +14,7 @@
 --
 
 create or replace trigger
-rhn_content_source_ssl_mod_trig
+rhn_cont_source_ssl_mod_trig
 before insert or update on rhnContentSourceSsl
 for each row
 begin

@@ -1,6 +1,6 @@
--- oracle equivalent source sha1 2330953d139fc07f77743e6bc63abb49d0a2d147
+-- oracle equivalent source sha1 69c5d82c00ea96836eed1be6a65507f53b7730f3
 
-create or replace function rhn_content_source_ssl_mod_trig_fun() returns trigger as
+create or replace function rhn_cont_source_ssl_mod_trig_fun() returns trigger as
 $$
 begin
 	new.modified := current_timestamp;
@@ -10,7 +10,7 @@ $$ language plpgsql;
 
 
 create trigger
-rhn_content_source_ssl_mod_trig
+rhn_cont_source_ssl_mod_trig
 before insert or update on rhnContentSourceSsl
 for each row
-execute procedure rhn_content_source_ssl_mod_trig_fun();
+execute procedure rhn_cont_source_ssl_mod_trig_fun();
