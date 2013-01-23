@@ -25,11 +25,7 @@ Requires: httpd
 Requires: tftp-server
 %endif
 
-%if 0%{?rhel} >= 6
 Requires: mod_wsgi
-%else
-Requires: mod_python
-%endif
 
 Requires: createrepo
 %if 0%{?fedora} >= 11
@@ -237,13 +233,8 @@ test "x$RPM_BUILD_ROOT" != "x" && rm -rf $RPM_BUILD_ROOT
 %if 0%{?suse_version} >= 1000
 %config(noreplace) /etc/apache2/conf.d/cobbler.conf
 %else
-%if 0%{?rhel} >= 6
 %config(noreplace) /etc/httpd/conf.d/cobbler_wsgi.conf
 %exclude /etc/httpd/conf.d/cobbler.conf
-%else
-%config(noreplace) /etc/httpd/conf.d/cobbler.conf
-%exclude /etc/httpd/conf.d/cobbler_wsgi.conf
-%endif
 %endif
 
 %dir /var/log/cobbler/syslog
