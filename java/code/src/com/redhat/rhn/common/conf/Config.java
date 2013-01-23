@@ -451,7 +451,7 @@ public class Config {
                 props.load(new FileInputStream(curr));
             }
             catch (IOException e) {
-                logger.error("Could not parse file" + curr, e);
+                logger.error("Could not parse file " + curr, e);
             }
             String ns = makeNamespace(curr);
             logger.debug("Adding namespace: " + ns + " for file: " +
