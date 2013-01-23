@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.9.51
+Version: 1.9.52
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -659,6 +659,16 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Jan 23 2013 Tomas Lestach <tlestach@redhat.com> 1.9.52-1
+- add extra space to error message
+- 902673 - tell the user about restricted period, when notifying about
+  certificate expiration
+- 902671 - unify restricted period length information at WebUI banner and
+  notification e-mail
+- 889263 - change wording for the restricted period related messages
+- 889263 - check for restricted POSTS even if CSRF check is bypassed
+- 889263 - enable paging on Software Channel Entitlements page
+
 * Wed Jan 23 2013 Michael Mraka <michael.mraka@redhat.com> 1.9.51-1
 - use path compatible with slf4j >= 1.6
 
