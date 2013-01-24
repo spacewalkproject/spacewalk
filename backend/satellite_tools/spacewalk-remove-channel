@@ -218,21 +218,12 @@ def __unsubscribeServers(labels):
                      finalSize=len(list), finalBarLength=40, stream=sys.stdout)
     pb.printAll(1)
 
+    unsubscribe_server_proc = rhnSQL.Procedure("rhn_channel.unsubscribe_server")
     for i in list:
-        __unbsubscribeServer(i['server_id'], i['channel_id'])
+        unsubscribe_server_proc(i['server_id'], i['channel_id'])
         pb.addTo(1)
         pb.printIncrement()
     pb.printComplete()
-
-
-def __unbsubscribeServer(server_id, channel_id):
-    sql = """
-         begin
-         /*pg perform*/ rhn_channel.unsubscribe_server(:server_id, :channel_id);
-         end;
-    """
-    h = rhnSQL.prepare(sql, params=('server_id numeric', 'channel_id numeric'))
-    h.execute(server_id=server_id, channel_id=channel_id)
 
 
 def __kickstartCheck(labels):
