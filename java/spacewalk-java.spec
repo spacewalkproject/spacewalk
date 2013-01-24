@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.9.52
+Version: 1.9.53
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -659,6 +659,11 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Jan 24 2013 Tomas Lestach <tlestach@redhat.com> 1.9.53-1
+- do not allow changing type of an existing crypto key on CryptoKeyEdit.do page
+- simplify CryptoKey isSSL() and isGPG() methods
+- introducing SslCryptoKey and GpgCryptoKey
+
 * Wed Jan 23 2013 Tomas Lestach <tlestach@redhat.com> 1.9.52-1
 - add extra space to error message
 - 902673 - tell the user about restricted period, when notifying about
