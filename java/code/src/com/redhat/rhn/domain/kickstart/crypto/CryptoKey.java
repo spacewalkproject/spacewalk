@@ -87,7 +87,7 @@ public class CryptoKey implements Identifiable {
      * @return true if this is a SSL key
      */
     public boolean isSSL() {
-        return this.getCryptoKeyType().getLabel().equals("SSL");
+        return false;
     }
 
     /**
@@ -95,7 +95,7 @@ public class CryptoKey implements Identifiable {
      * @return if this is a GPG key
      */
     public boolean isGPG() {
-        return this.getCryptoKeyType().getLabel().equals("GPG");
+        return false;
     }
 
     /**

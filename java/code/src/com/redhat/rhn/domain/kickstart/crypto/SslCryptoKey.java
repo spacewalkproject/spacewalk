@@ -20,5 +20,11 @@ package com.redhat.rhn.domain.kickstart.crypto;
  * @version $Rev$
  */
 public class SslCryptoKey extends CryptoKey {
-
+    /**
+    *
+    * @return true if this is a SSL key
+    */
+   public boolean isSSL() {
+       return true;
+   }
 }

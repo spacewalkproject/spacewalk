@@ -20,5 +20,11 @@ package com.redhat.rhn.domain.kickstart.crypto;
  * @version $Rev$
  */
 public class GpgCryptoKey extends CryptoKey {
-
+    /**
+    *
+    * @return if this is a GPG key
+    */
+   public boolean isGPG() {
+       return false;
+   }
 }
