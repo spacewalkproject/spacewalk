@@ -1,6 +1,6 @@
--- oracle equivalent source sha1 a57a1f03708569c16c3cd0d747a0736a2877a714
+-- oracle equivalent source sha1 e53c181a3223101f00b87b186f283b3ce4f3ca8a
 --
--- Copyright (c) 2008--2012 Red Hat, Inc.
+-- Copyright (c) 2008--2013 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -1236,6 +1236,27 @@ update pg_settings set setting = 'rhn_channel,' || setting where name = 'search_
          perform rhn_server.update_needed_cache(server.id);
       end loop;
    end$$ language plpgsql;
+
+    create or replace function set_comps(channel_id_in in numeric, path_in in varchar, timestamp_in in varchar) returns void
+    as $$
+    declare
+    row record;
+    begin
+        for row in (
+            select relative_filename, last_modified
+            from rhnChannelComps
+            where channel_id = channel_id_in
+            ) loop
+            if row.relative_filename = path_in
+                and row.last_modified = to_date(timestamp_in, 'YYYYMMDDHH24MISS') then
+                return;
+            end if;
+        end loop;
+        delete from rhnChannelComps
+        where channel_id = channel_id_in;
+        insert into rhnChannelComps (id, channel_id, relative_filename, last_modified, created, modified)
+        values (sequence_nextval('rhn_channelcomps_id_seq'), channel_id_in, path_in, to_date(timestamp_in, 'YYYYMMDDHH24MISS'), current_timestamp, current_timestamp);
+    end$$ language plpgsql;
 
 -- restore the original setting
 update pg_settings set setting = overlay( setting placing '' from 1 for (length('rhn_channel')+1) ) where name = 'search_path';

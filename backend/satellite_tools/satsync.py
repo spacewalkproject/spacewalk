@@ -601,28 +601,6 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
         except Exception:
             None
 
-    def _set_comps_for_channel(self, backend, channel_id, path, timestamp):
-        sth = backend.dbmodule.prepare("""
-                declare
-                        /*pg_cs*/ cursor comps_data /*pg cursor*/ (cid_in numeric) is
-                                select relative_filename, last_modified
-                                from rhnChannelComps
-                                where channel_id = cid_in;
-                begin
-                        for row in comps_data(:channel_id_in) loop
-                                if row.relative_filename = :path_in
-                                        and row.last_modified = to_date(:timestamp_in, 'YYYYMMDDHH24MISS') then
-                                        return;
-                                end if;
-                        end loop;
-                        delete from rhnChannelComps
-                        where channel_id = :channel_id_in;
-                        insert into rhnChannelComps (id, channel_id, relative_filename, last_modified, created, modified)
-                        values (sequence_nextval('rhn_channelcomps_id_seq'), :channel_id_in, :path_in, to_date(:timestamp_in, 'YYYYMMDDHH24MISS'), current_timestamp, current_timestamp);
-                end;
-        """, params = ( 'channel_id_in numeric', 'path_in varchar', 'timestamp_in varchar' ))
-        sth.execute(channel_id_in = channel_id, path_in = path, timestamp_in = timestamp)
-
     def _process_comps(self, backend, label, timestamp):
         comps_path = 'rhn/comps/%s/comps-%s.xml' % (label, timestamp)
         full_path = os.path.join(CFG.MOUNT_POINT, comps_path)
@@ -636,7 +614,7 @@ Please contact your RHN representative""") % (generation, sat_cert.generation))
             f.write_file(stream)
         data = { label : None }
         backend.lookupChannels(data)
-        self._set_comps_for_channel(backend, data[label]['id'], comps_path, timestamp)
+        rhnSQL.Procedure('rhn_channel.set_comps')(data[label]['id'], comps_path, timestamp)
 
     def process_channels(self):
         """ push channels, channel-family and dist. map information
