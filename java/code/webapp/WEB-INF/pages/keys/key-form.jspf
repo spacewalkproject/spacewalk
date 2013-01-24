@@ -12,12 +12,18 @@
             <bean:message key="keycreate.jsp.type"/>
         </th>
         <td>
-            <html:select property="type">
-              <html:options collection="types"
-                property="value"
-                labelProperty="label" />
-            </html:select>
-
+            <c:choose>
+                <c:when test="${cryptoKey.id != null}">
+                    <c:out value="${cryptoKey.cryptoKeyType.label}"/>
+                </c:when>
+                <c:otherwise>
+                    <html:select property="type">
+                        <html:options collection="types"
+                            property="value"
+                            labelProperty="label" />
+                    </html:select>
+                </c:otherwise>
+            </c:choose>
         </td>
     </tr>
     <tr>
