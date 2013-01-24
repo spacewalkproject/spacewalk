@@ -689,16 +689,6 @@ def _fetch_channel_family_permissions():
     return h.fetchall_dict() or []
 
 
-_query_purge_extra_channel_families_1 = rhnSQL.Statement("""
-    delete from rhnPrivateChannelFamily cfp
-     where max_members = 0
-       and not exists (
-        select 1 from rhnChannelFamilyMembers
-         where channel_family_id = cfp.channel_family_id
-       )
-""")
-
-
 _query_purge_private_channel_families = rhnSQL.Statement("""
     delete from rhnChannelFamily
         where org_id is null
