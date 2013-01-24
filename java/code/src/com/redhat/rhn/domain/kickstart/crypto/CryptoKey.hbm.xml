@@ -11,6 +11,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                 <param name="sequence">RHN_CRYPTOKEY_ID_SEQ</param>
             </generator>
         </id>
+        <discriminator formula="(SELECT type.label FROM rhnCryptoKeyType type WHERE type.id = crypto_key_type_id)" type="java.lang.String" />
         <property name="description" column="description" not-null="true" type="string" length="1024" />
         <property name="key" column="key"  type="binary" />
 
@@ -22,6 +23,12 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
             class="com.redhat.rhn.domain.kickstart.crypto.CryptoKeyType"
             column="crypto_key_type_id"/>
 
+        <subclass name="com.redhat.rhn.domain.kickstart.crypto.SslCryptoKey"
+        discriminator-value="SSL">
+        </subclass>
+        <subclass name="com.redhat.rhn.domain.kickstart.crypto.GpgCryptoKey"
+        discriminator-value="GPG">
+        </subclass>
     </class>
     <query name="CryptoKey.findByDescAndOrg">
         <![CDATA[from com.redhat.rhn.domain.kickstart.crypto.CryptoKey as c
