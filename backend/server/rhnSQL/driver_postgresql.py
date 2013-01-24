@@ -195,7 +195,6 @@ class Database(sql_base.Database):
 
     def prepare(self, sql, force=0, params=None, blob_map=None):
         if params != None:              # support for anonymour plpgsql
-            sql = re.sub(r'/\*pg_cs\*/\s*cursor', '', sql)
             sql = re.sub(r'/\*pg (.+?)\*/', '\g<1>', sql)
             sql = re.sub(r':(\w+)', '\g<1>', sql)
             s = hashlib.new('sha1')

@@ -717,21 +717,21 @@ def purge_extra_channel_families():
         syncLib.log(-1, str(e))
 
 
-_query_update_family_counts = rhnSQL.Statement("""
-    declare
-        /*pg_cs*/ cursor ch_fam_cursor /*pg cursor*/ is
-            select cf.id channel_family_id, wc.id org_id
-              from rhnChannelFamily cf, web_customer wc;
-    begin
-        for row in ch_fam_cursor loop
-            /*pg perform*/ rhn_channel.update_family_counts(row.channel_family_id,
-                row.org_id);
-        end loop;
-    end;
+_query_private_families = rhnSQL.Statement("""
+    select channel_family_id, org_id
+    from rhnPrivateChannelFamily
+    order by channel_family_id, org_id
 """)
 def update_channel_family_counts():
-    h = rhnSQL.prepare(_query_update_family_counts, params=())
+    update_family_counts_proc = rhnSQL.Procedure("rhn_channel.update_family_counts")
+    h = rhnSQL.prepare(_query_private_families)
     h.execute()
+    while 1:
+        row = h.fetchone_dict()
+        if not row:
+            break
+        update_family_counts_proc(row['channel_family_id'], row['org_id'])
+
     rhnSQL.commit()
 
 
