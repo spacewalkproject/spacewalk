@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.9.19
+Version:        1.9.20
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -68,6 +68,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Fri Jan 25 2013 Jan Pazdziora 1.9.20-1
+- Adding the .sql suffix so that the file gets processed during upgrade.
+
 * Fri Jan 25 2013 Jan Pazdziora 1.9.19-1
 - Fixing typo.
 
