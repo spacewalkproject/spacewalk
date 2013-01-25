@@ -83,20 +83,6 @@ sub lookup {
   return $cache->get($id);
 }
 
-sub all_traces {
-  my $class = shift;
-
-  my $cache = $class->get_cache;
-  my @ret;
-  for my $k ($cache->get_keys) {
-    next if $k eq 'tracing_active';
-
-    push @ret, $k;
-  }
-  return map { PXT::Trace::DB->lookup($_) } @ret;
-}
-
-
 sub commit {
   my $class = shift;
   my $trace = shift;
