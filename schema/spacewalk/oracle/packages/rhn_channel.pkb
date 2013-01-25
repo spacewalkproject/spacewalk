@@ -1222,7 +1222,7 @@ IS
             select relative_filename, last_modified
             from rhnChannelComps
             where channel_id = channel_id_in
-            ) channel_id_in) loop
+            ) loop
             if row.relative_filename = :path_in
                 and row.last_modified = to_date(:timestamp_in, 'YYYYMMDDHH24MISS') then
                 return;
