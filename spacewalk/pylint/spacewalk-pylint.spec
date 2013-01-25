@@ -1,5 +1,5 @@
 Name:		spacewalk-pylint
-Version:	0.9
+Version:	0.10
 Release:	1%{?dist}
 Summary:	Pylint configuration for spacewalk python packages
 
@@ -49,6 +49,9 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Fri Jan 25 2013 Michael Mraka <michael.mraka@redhat.com> 0.10-1
+- ignore Container implementation related warnings
+
 * Sun Nov 11 2012 Michael Calmer <mc@suse.de> 0.9-1
 - BuildRequire docbook-style-xsl only on redhat
 
