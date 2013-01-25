@@ -20,7 +20,6 @@
 import sys
 import re
 import psycopg2
-import hashlib
 
 # workaround for python-psycopg2 = 2.0.13 (RHEL6)
 # which does not import extensions by default
@@ -193,19 +192,7 @@ class Database(sql_base.Database):
                       "Exception information: %s" % sys.exc_info()[1])
             self.connect() # only allow one try
 
-    def prepare(self, sql, force=0, params=None, blob_map=None):
-        if params != None:              # support for anonymour plpgsql
-            sql = re.sub(r':(\w+)', '\g<1>', sql)
-            s = hashlib.new('sha1')
-            s.update(sql)
-            sha1 = s.hexdigest()
-            c = self.prepare("select 1 from information_schema.routines where routine_name = 'rhn_asdf_' || :sha1");
-            c.execute(sha1=sha1)
-            if not c.fetchone():
-                c = self.prepare("create function rhn_asdf_%s (%s) returns void as $x%s$%s$x%s$ language plpgsql" % ( sha1, ','.join(params), sha1, sql, sha1 ))
-                c.execute()
-            qparams = ','.join(map(lambda x: re.sub(r'^(\w+).*', ':\g<1>', x), params))
-            sql = "select rhn_asdf_%s(%s)" % (sha1, qparams)
+    def prepare(self, sql, force=0, blob_map=None):
         return Cursor(dbh=self.dbh, sql=sql, force=force, blob_map=blob_map)
 
     def execute(self, sql, *args, **kwargs):
