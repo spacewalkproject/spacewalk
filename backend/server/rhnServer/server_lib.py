@@ -302,9 +302,6 @@ def entitlement_grants_service(entitlement, service):
 # Push client related
 # XXX should be moved to a different file?
 _query_update_push_client_registration = rhnSQL.Statement("""
-declare
-    updated_id numeric;
-begin
     update rhnPushClient 
        set name = :name_in,
            shared_key = :shared_key_in,
@@ -312,14 +309,12 @@ begin
            next_action_time = NULL,
            last_ping_time = NULL
      where server_id = :server_id_in
-     returning server_id into updated_id;
-    if updated_id is null then
+""")
+_query_insert_push_client_registration = rhnSQL.Statement("""
         insert into rhnPushClient
            (id, server_id, name, shared_key, state_id)
         values (sequence_nextval('rhn_pclient_id_seq'), :server_id_in, :name_in,
-            :shared_key_in, :state_id_in);
-    end if;
-end;
+            :shared_key_in, :state_id_in)
 """)
 def update_push_client_registration(server_id):
     # Generate a new a new client name and shared key
@@ -330,11 +325,14 @@ def update_push_client_registration(server_id):
     assert row is not None
     state_id = row['id']
     
-    h = rhnSQL.prepare(_query_update_push_client_registration,
-         params = ('server_id_in numeric', 'name_in varchar',
-                   'shared_key_in varchar', 'state_id_in numeric'))
-    h.execute(server_id_in=server_id, name_in=client_name,
+    h = rhnSQL.prepare(_query_update_push_client_registration)
+    rowcount = h.execute(server_id_in=server_id, name_in=client_name,
         shared_key_in=shared_key, state_id_in=state_id)
+    if not rowcount:
+        h = rhnSQL.prepare(_query_insert_push_client_registration)
+        h.execute(server_id_in=server_id, name_in=client_name,
+            shared_key_in=shared_key, state_id_in=state_id)
+
     # Get the server's (database) time
     # XXX
     timestamp = int(time.time())
