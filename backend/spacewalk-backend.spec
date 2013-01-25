@@ -12,7 +12,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 1.9.19
+Version: 1.9.20
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -637,6 +637,10 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Fri Jan 25 2013 Michael Mraka <michael.mraka@redhat.com> 1.9.20-1
+- silence warning about "\0" string
+- disable false positive warnings
+
 * Fri Jan 25 2013 Jan Pazdziora 1.9.19-1
 - The rhn_asdf_* anonymous logic should not be needed anymore.
 - Reimplement anonymous block with update or insert.
