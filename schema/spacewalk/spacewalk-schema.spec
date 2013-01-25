@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.9.17
+Version:        1.9.18
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -68,6 +68,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-sql*
 
 %changelog
+* Fri Jan 25 2013 Jan Pazdziora 1.9.18-1
+- Reimplement _set_comps_for_channel as stored procedure.
+
 * Wed Jan 23 2013 Jan Pazdziora 1.9.17-1
 - Avoid exceeding maximal identifier length.
 
