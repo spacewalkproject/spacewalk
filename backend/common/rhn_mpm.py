@@ -224,7 +224,7 @@ class MPM_Package(A_Package):
         self._encode_header(output_stream)
         self._encode_payload(output_stream)
 
-        # pylint: disable=W1401
+        # pylint: disable=W1401,E0012
         # now we know header and payload size so rewind back and write lead
         lead_arr = (self._magic, 1, "\0" * 3, self.header_flags,
             self.payload_flags, self.header_size, self.payload_size, '\0' * 92)
