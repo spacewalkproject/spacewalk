@@ -12,7 +12,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 1.9.18
+Version: 1.9.19
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -637,6 +637,14 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Fri Jan 25 2013 Jan Pazdziora 1.9.19-1
+- The rhn_asdf_* anonymous logic should not be needed anymore.
+- Reimplement anonymous block with update or insert.
+- Reimplement anonymous block with rhnSQL.Procedure.
+- The _query_purge_extra_channel_families_1 seems unused, removing.
+- Reimplement anonymous block.
+- Reimplement _set_comps_for_channel as stored procedure.
+
 * Tue Jan 22 2013 Jan Pazdziora 1.9.18-1
 - Use SSL options from rhncontentsourcessl during spacewalk-repo-sync.
 
