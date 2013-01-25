@@ -12,7 +12,7 @@ persistent=no
 [MESSAGES CONTROL]
 
 # Disable the message(s) with the given id(s).
-disable=I0011,C0302,C0111,R0801,R0902,R0904,R0912,R0913,R0914,R0915,W0142,W0403,W0603
+disable=I0011,C0302,C0111,R0801,R0902,R0904,R0912,R0913,R0914,R0915,R0924,W0142,W0403,W0603
 
 # list of disabled messages:
 #I0011: 62: Locally disabling R0201
@@ -23,6 +23,7 @@ disable=I0011,C0302,C0111,R0801,R0902,R0904,R0912,R0913,R0914,R0915,W0142,W0403,
 #R0912:171:set_slots_from_cert: Too many branches (59/20)
 #R0913:101:GETServer.__init__: Too many arguments (11/10)
 #R0914:171:set_slots_from_cert: Too many local variables (38/20)
+#R0924: 30,0:deb_Header: Badly implemented Container, implements __getitem__ but not __delitem__, __len__, __setitem__
 #R0915:171:set_slots_from_cert: Too many statements (169/50)
 #W0142:228:MPM_Package.write: Used * or ** magic
 #W0403: 28: Relative import 'rhnLog', should be 'backend.common.rhnLog'
