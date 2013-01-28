@@ -1,5 +1,5 @@
 Name:		spacewalk-pylint
-Version:	0.10
+Version:	0.11
 Release:	1%{?dist}
 Summary:	Pylint configuration for spacewalk python packages
 
@@ -49,6 +49,9 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Mon Jan 28 2013 Michael Mraka <michael.mraka@redhat.com> 0.11-1
+- Revert "ignore Container implementation related warnings"
+
 * Fri Jan 25 2013 Michael Mraka <michael.mraka@redhat.com> 0.10-1
 - ignore Container implementation related warnings
 
