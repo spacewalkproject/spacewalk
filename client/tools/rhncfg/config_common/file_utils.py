@@ -128,7 +128,7 @@ class FileProcessor:
                 else:
                     raise e
         else:
-            result = ''.join(diff(path, temp_file))
+            result = ''.join(diff(temp_file, path))
 
         os.unlink(temp_file)
         return sectx_result + result
