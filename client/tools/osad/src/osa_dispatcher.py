@@ -268,29 +268,26 @@ class Runner(jabber_lib.Runner):
         return row['id']
     
 
-    _query_register_dispatcher = rhnSQL.Statement("""
-        declare
-            i numeric;
-        begin
+    _query_update_register_dispatcher = rhnSQL.Statement("""
             update rhnPushDispatcher
                set last_checkin = current_timestamp,
                    hostname = :hostname_in,
                    port = :port_in
              where jabber_id = :jabber_id_in
-            returning id into i;
-            if i is null then
-                -- Have to insert the row
+    """)
+    _query_insert_register_dispatcher = rhnSQL.Statement("""
                 insert into rhnPushDispatcher 
                        (id, jabber_id, last_checkin, hostname, port, password)
                 values (sequence_nextval('rhn_pushdispatch_id_seq'), :jabber_id_in, current_timestamp,
-                       :hostname_in, :port_in, :password_in);
-            end if;
-        end;
+                       :hostname_in, :port_in, :password_in)
     """)
 
     def _register_dispatcher(self, jabber_id, hostname, port):
-        h = rhnSQL.prepare(self._query_register_dispatcher, params = ( 'hostname_in varchar', 'port_in numeric', 'jabber_id_in varchar', 'password_in varchar' ))
-        h.execute(jabber_id_in=jabber_id, hostname_in=hostname, port_in=port, password_in=self._password)
+        h = rhnSQL.prepare(self._query_update_register_dispatcher)
+        rowcount = h.execute(jabber_id_in=jabber_id, hostname_in=hostname, port_in=port, password_in=self._password)
+        if not rowcount:
+            h = rhnSQL.prepare(self._query_insert_register_dispatcher)
+            h.execute(jabber_id_in=jabber_id, hostname_in=hostname, port_in=port, password_in=self._password)
         rhnSQL.commit()
 
     _query_get_client_jids = rhnSQL.Statement("""
