@@ -74,8 +74,17 @@ class RPM_Header:
     def __getitem__(self, name):
         return self.hdr[name]
 
+    def __setitem__(self, name, item):
+        self.hdr[name] = item
+
+    def __delitem__(self, name):
+        del self.hdr[name]
+
     def __getattr__(self, name):
         return getattr(self.hdr, name)
+
+    def __len__(self):
+        return len(self.hdr)
 
     def __nonzero__(self):
         if self.hdr:
