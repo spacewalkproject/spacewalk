@@ -1223,15 +1223,15 @@ IS
             from rhnChannelComps
             where channel_id = channel_id_in
             ) loop
-            if row.relative_filename = :path_in
-                and row.last_modified = to_date(:timestamp_in, 'YYYYMMDDHH24MISS') then
+            if row.relative_filename = path_in
+                and row.last_modified = to_date(timestamp_in, 'YYYYMMDDHH24MISS') then
                 return;
             end if;
         end loop;
         delete from rhnChannelComps
-        where channel_id = :channel_id_in;
+        where channel_id = channel_id_in;
         insert into rhnChannelComps (id, channel_id, relative_filename, last_modified, created, modified)
-        values (sequence_nextval('rhn_channelcomps_id_seq'), :channel_id_in, :path_in, to_date(:timestamp_in, 'YYYYMMDDHH24MISS'), current_timestamp, current_timestamp);
+        values (sequence_nextval('rhn_channelcomps_id_seq'), channel_id_in, path_in, to_date(timestamp_in, 'YYYYMMDDHH24MISS'), current_timestamp, current_timestamp);
     end set_comps;
 
 END rhn_channel;
