@@ -102,7 +102,8 @@ public class LoginAction extends RhnAction {
         RequestContext ctx = new RequestContext(request);
 
         if (e.isEmpty()) {
-            if (urlBounce == null || urlBounce.trim().equals("")) {
+            if (urlBounce == null || urlBounce.trim().equals("") ||
+                    urlBounce.equals("/rhn/")) {
                 if (log.isDebugEnabled()) {
                     log.debug("2 - url bounce is empty using [" + DEFAULT_URL_BOUNCE + "]");
                 }
