@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.9.53
+Version: 1.9.54
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -659,6 +659,11 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Jan 28 2013 Tomas Lestach <tlestach@redhat.com> 1.9.54-1
+- 905055 - prevent executing both LoginAction and LoginSetupAction when re-
+  logging after successful logout
+- 889263 - whitelist more actions for the restricted period
+
 * Thu Jan 24 2013 Tomas Lestach <tlestach@redhat.com> 1.9.53-1
 - do not allow changing type of an existing crypto key on CryptoKeyEdit.do page
 - simplify CryptoKey isSSL() and isGPG() methods
