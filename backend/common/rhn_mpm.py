@@ -115,6 +115,9 @@ class MPM_Header:
     def __getattr__(self, name):
         return getattr(self.hdr, name)
 
+    def __len__(self):
+        return len(self.hdr)
+
     @staticmethod
     def is_signed():
         return 0
