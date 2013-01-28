@@ -77,9 +77,12 @@ public class PxtAuthenticationService extends BaseAuthenticationService {
         // base and add on entitlements
         set.add("/rhn/systems/details/Edit.do");
         set.add("/rhn/systems/SystemEntitlementsSubmit.do");
-        // org system entitlements
+        // system entitlements
+        set.add("/rhn/admin/multiorg/EntitlementOrgs.do");
         set.add("/rhn/admin/multiorg/OrgSystemSubscriptions.do");
-        // org software channel entitlements
+        // software channel entitlements
+        set.add("/rhn/admin/multiorg/SoftwareEntitlements.do");
+        set.add("/rhn/admin/multiorg/SoftwareEntitlementSubscriptions.do");
         set.add("/rhn/admin/multiorg/OrgSoftwareSubscriptions.do");
         // satellite software channel entitlements
         set.add("/rhn/channels/software/EntitlementsSubmit.do");
@@ -98,6 +101,7 @@ public class PxtAuthenticationService extends BaseAuthenticationService {
         set.add("/rhn/systems/details/SystemChannels.do");
         set.add("/rhn/channel/ssm/BaseChannelSubscribe.do");
         set.add("/rhn/channel/ssm/ChildSubscriptions.do");
+        set.add("/rhn/channel/ssm/ChildSubscriptionsConfirm.do");
         // change flex -> regular entitlemnts
         set.add("/rhn/systems/entitlements/");
         // upload certificate
