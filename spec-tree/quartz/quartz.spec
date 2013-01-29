@@ -1,7 +1,7 @@
 Name: quartz
 Summary: Quartz Enterprise Job Scheduler
 Version:        1.8.4
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Quartz Enterprise Job Scheduler
 License:        ASL 2.0
 URL:            http://www.quartz-scheduler.org/
@@ -68,6 +68,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_javadir}/%{name}-oracle-%{version}.jar
 
 %changelog
+* Tue Jan 29 2013 Michael Mraka <michael.mraka@redhat.com> 1.8.4-4
+- require at least slf4j-1.6
+
 * Fri Jan 18 2013 Michael Mraka <michael.mraka@redhat.com> 1.8.4-3
 - rebased to newer version
 
