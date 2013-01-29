@@ -18,7 +18,7 @@ Requires: apache-commons-logging
 Requires: jakarta-commons-logging
 %endif
 
-Requires: slf4j
+Requires: slf4j > 1.6
 
 %description
 Quartz is a job scheduling system that can be integrated with, or used
@@ -31,7 +31,7 @@ Java components or EJBs.
 Summary: Oracle JDBC driver delegate for %{name}
 Group:   Development/Libraries/Java
 Requires: %{name}
-Requires: slf4j
+Requires: slf4j > 1.6
 Requires: ojdbc14
 Requires: quartz = %{version}
 
