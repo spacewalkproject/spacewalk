@@ -7,10 +7,12 @@ import os
 import pycurl
 import re
 import sys
+import shutil
 
 sys.path.append("/usr/share/rhn/")
 import virtualization.support as virt_support
 from virtualization.util import generate_uuid
+from virtualization.errors import VirtualizationException
 from up2date_client import up2dateLog
 
 log = up2dateLog.initLog()
@@ -69,14 +71,14 @@ def _connect_to_hypervisor():
     try:
         import libvirt
     except ImportError, ie:
-        raise VirtLibNotFoundException, \
+        raise VirtualizationException, \
               "Unable to locate libvirt: %s" % str(ie)
 
     # Attempt to connect to the hypervisor.
     try:
         connection = libvirt.open(None)
     except Exception, e:
-        raise VirtualizationKickstartException, \
+        raise VirtualizationException, \
               "Could not connect to hypervisor: %s" % str(e)
 
     return connection
@@ -85,7 +87,7 @@ def _connect_to_hypervisor():
 # this is not nice but tarfile.py does not support
 # sparse file writing :(
 #
-def _extractImage( source, dest ):
+def _extractImage( source, dest, imageType ):
     param = "xf"
     if not os.path.exists( source ):
         log.log_debug("source file not found: %s" % source)
@@ -100,12 +102,16 @@ def _extractImage( source, dest ):
     elif( source.endswith("bz2") ):
         param = param + "j"
 
-    # skip the root directory in the tar - extract only the image files
-    cmd = "tar %s %s -C %s --strip-components=1" % ( param, source, dest )
-    log.log_debug(cmd)
-    if os.system( cmd ) != 0:
-        log.log_debug( "%s failed" % cmd )
-        raise Exception("%s failed" % cmd)
+    if imageType == 'qcow2':
+        log.log_debug(2, "copy %s to %s" %(source, dest))
+        shutil.copy2(source, dest)
+    else:
+        # skip the root directory in the tar - extract only the image files
+        cmd = "tar %s %s -C %s --strip-components=1" % ( param, source, dest )
+        log.log_debug(cmd)
+        if os.system( cmd ) != 0:
+            log.log_debug( "%s failed" % cmd )
+            raise Exception("%s failed" % cmd)
 
     return 0
 
@@ -185,7 +191,7 @@ def deploy(params, extraParams="",cache_only=None):
 
     # studioArchiveFileName = workshop_test_sles11sp1.i686-0.0.1.vmx.tar.gz
     # studioArchiveFileName = Just_enough_OS_openSUSE_12.1.x86_64-0.0.1.xen.tar.gz
-    m = re.search( '(.*)\.(x86_64|i\d86)-(\d+\.\d+\.\d+)\.(xen|vmx)', studioArchiveFileName )
+    m = re.search( '(.*)\.(x86_64|i\d86)-(\d+\.\d+\.\d+)\.(xen|vmx|qcow2)', studioArchiveFileName )
 
     imageName    = m.group(1)
     imageArch    = m.group(2)
@@ -193,7 +199,10 @@ def deploy(params, extraParams="",cache_only=None):
     imageType    = m.group(4)
     studioImageDiskFileName = imageName+"."+imageArch+"-"+imageVersion
 
-    connection = _connect_to_hypervisor()
+    try:
+        connection = _connect_to_hypervisor()
+    except Exception, e:
+        return (1, "%s" % e, {})
 
     # if we got an explicit name, we'll use it
     if params.has_key("domainName") and params["domainName"] != "":
@@ -225,7 +234,7 @@ def deploy(params, extraParams="",cache_only=None):
         return (0, "image fetched and cached for later deployment", {})
     try:
         targetDir = _createTargetDir( "%s/%s" % (IMAGE_BASE_PATH, imageName) )
-        _extractImage( "%s/%s" % (IMAGE_BASE_PATH,studioArchiveFileName), targetDir )
+        _extractImage( "%s/%s" % (IMAGE_BASE_PATH,studioArchiveFileName), targetDir, imageType )
     except Exception, e:
         return (1, "extracting the image tarball failed with: %s" % e, {})
 
@@ -236,6 +245,8 @@ def deploy(params, extraParams="",cache_only=None):
     studioFileExtension = "vmdk"
     if imageType == "xen":
         studioFileExtension = "raw"
+    elif imageType == "qcow2":
+        studioFileExtension = "qcow2"
     extractedImagePath = "%s/%s.%s" % (targetDir,studioImageDiskFileName,studioFileExtension)
     log.log_debug("working on image in %s" % extractedImagePath)
     if not os.path.exists( extractedImagePath ):
