@@ -189,6 +189,7 @@ public class TaskoRun {
                 return tail;
             }
             catch (IOException e) {
+                log.error("Can't tail " + fileName + ": " + e.toString());
                 // return "";
             }
         }
