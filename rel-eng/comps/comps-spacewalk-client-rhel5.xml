@@ -32,7 +32,6 @@
        <packagereq type="default">spacewalk-client-repo</packagereq>
        <packagereq type="default">spacewalk-backend-libs</packagereq>
        <packagereq type="default">spacewalk-oscap</packagereq>
-       <packagereq type="default">spacewalk-abrt</packagereq>
     </packagelist>
   </group>
 </comps>
