@@ -188,9 +188,6 @@ public class TaskoRun {
                 file.close();
                 return tail;
             }
-            catch (FileNotFoundException e) {
-                // return "";
-            }
             catch (IOException e) {
                 // return "";
             }
