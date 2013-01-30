@@ -93,9 +93,11 @@ public abstract class RhnJavaJob implements RhnJob {
         HibernateFactory.closeSession();
     }
 
-    protected void executeExtCmd(String[] args) {
+    protected void executeExtCmd(String[] args)
+        throws JobExecutionException {
+
         SystemCommandExecutor ce = new SystemCommandExecutor();
-        ce.execute(args);
+        int exitCode = ce.execute(args);
 
         String cmdOutput = ce.getLastCommandOutput();
         String cmdError = ce.getLastCommandErrorMessage();
@@ -104,6 +106,12 @@ public abstract class RhnJavaJob implements RhnJob {
         }
         if (!"".equals(cmdError)) {
             log.error(cmdError);
+        }
+
+        if (exitCode != 0) {
+            // use stderr, unless it is empty, then use stdout
+            throw new JobExecutionException(
+                    cmdError.isEmpty() ? cmdOutput : cmdError);
         }
     }
 }
