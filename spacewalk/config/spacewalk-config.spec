@@ -1,6 +1,6 @@
 Name: spacewalk-config
 Summary: Spacewalk Configuration
-Version: 1.9.2
+Version: 1.9.3
 Release: 1%{?dist}
 URL: http://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -104,6 +104,10 @@ chgrp apache /etc/rhn /etc/rhn/rhn.conf /etc/rhn/cluster.ini 2> /dev/null || :
 chmod o-rwx /etc/rhn/rhn.conf* /etc/rhn/cluster.ini* /etc/sysconfig/rhn/backup-* /var/lib/rhn/rhn-satellite-prep/* 2> /dev/null || :
 
 %changelog
+* Thu Jan 31 2013 Michael Mraka <michael.mraka@redhat.com> 1.9.3-1
+- RewriteLock is no longer valid in apache 2.4
+- removed no longer necessary directory definitions
+
 * Tue Jan 22 2013 Jan Pazdziora 1.9.2-1
 - We no longer ship /var/www/html/applications.
 
