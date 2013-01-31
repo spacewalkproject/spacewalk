@@ -18,6 +18,7 @@ import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.SelectMode;
 import com.redhat.rhn.common.db.datasource.WriteMode;
+import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.OperationDetailsDto;
 import com.redhat.rhn.manager.BaseManager;
@@ -147,20 +148,19 @@ public class SsmOperationManager extends BaseManager {
      *
      * @param user        user under which to associate the operation; cannot be
      *                    <code>null</code>
-     * @param description high level description of what the operation is doing;
-     *                    cannot be <code>null</code>
+     * @param messageId message id of operation description; cannot be <code>null</code>
      * @param rhnSetLabel references a RhnSet with the server IDs to associate with the
      *                    new operation; if this is <code>null</code> no mappings will
      *                    be created at this time
      * @return the id of the created operation
      */
-    public static long createOperation(User user, String description,
+    public static long createOperation(User user, String messageId,
                                        String rhnSetLabel) {
         if (user == null) {
             throw new IllegalArgumentException("user cannot be null");
         }
 
-        if (description == null) {
+        if (messageId == null) {
             throw new IllegalArgumentException("description cannot be null");
         }
 
@@ -181,7 +181,7 @@ public class SsmOperationManager extends BaseManager {
         params.clear();
         params.put("op_id", operationId);
         params.put("user_id", user.getId());
-        params.put("description", description);
+        params.put("description", LocalizationService.getInstance().getMessage(messageId));
         params.put("status", SsmOperationStatus.IN_PROGRESS.getText());
 
         writeMode.executeUpdate(params);
