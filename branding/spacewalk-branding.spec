@@ -1,5 +1,5 @@
 Name:       spacewalk-branding
-Version:    1.9.4
+Version:    1.9.5
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -88,6 +88,10 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Thu Jan 31 2013 Michael Mraka <michael.mraka@redhat.com> 1.9.5-1
+- removed no longer necessary directory definitions
+- pack branding template files outside of document root
+
 * Tue Dec 04 2012 Jan Pazdziora 1.9.4-1
 - On Fedoras, start to use tomcat >= 7.
 
