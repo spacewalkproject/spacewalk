@@ -9511,7 +9511,7 @@ Folgen Sie dieser URL für die vollständige Liste inaktiver Systeme:
         <source>Schedule Package Verifications</source>
         <target>Paketüberprüfungen planen</target>
       </trans-unit>
-      <trans-unit id="ssm.package.delete.operationname">
+      <trans-unit id="ssm.server.delete.operationname">
         <source>Server Delete</source>
         <target>Server löschen</target>
       </trans-unit>

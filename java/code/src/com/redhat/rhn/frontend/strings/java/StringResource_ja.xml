@@ -9509,7 +9509,7 @@ Follow this url to see the full list of inactive systems:
         <source>Schedule Package Verifications</source>
         <target>パッケージ検証のスケジュール</target>
       </trans-unit>
-      <trans-unit id="ssm.package.delete.operationname">
+      <trans-unit id="ssm.server.delete.operationname">
         <source>Server Delete</source>
         <target>サーバーの削除</target>
       </trans-unit>

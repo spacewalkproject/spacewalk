@@ -7523,6 +7523,9 @@ Follow this url to see the full list of inactive systems:
       <trans-unit id="ssm.package.verify.operationname">
         <source>Schedule Package Verifications</source>
       </trans-unit>
+      <trans-unit id="ssm.server.delete.operationname">
+        <source>Server Delete</source>
+      </trans-unit>
       <trans-unit id="ssm.migrate.systems.confirmmessage">
         <source>Systems Migrated</source>
       </trans-unit>

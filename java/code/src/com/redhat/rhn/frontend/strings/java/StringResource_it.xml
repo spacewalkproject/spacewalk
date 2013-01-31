@@ -9510,7 +9510,7 @@ Seguite l'url sotto riportato per visualizzare l'elenco completo di sistemi inat
         <source>Schedule Package Verifications</source>
         <target>Programma le verifiche dei pacchetti</target>
       </trans-unit>
-      <trans-unit id="ssm.package.delete.operationname">
+      <trans-unit id="ssm.server.delete.operationname">
         <source>Server Delete</source>
         <target>Cancella server</target>
       </trans-unit>

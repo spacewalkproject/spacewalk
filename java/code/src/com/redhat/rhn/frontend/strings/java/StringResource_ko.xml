@@ -9511,7 +9511,7 @@ Follow this url to see the full list of inactive systems:
         <source>Schedule Package Verifications</source>
         <target>패키지 검증 스케줄 </target>
       </trans-unit>
-      <trans-unit id="ssm.package.delete.operationname">
+      <trans-unit id="ssm.server.delete.operationname">
         <source>Server Delete</source>
         <target>서버 삭제 </target>
       </trans-unit>

@@ -9512,7 +9512,7 @@ Suivez cet url pour obtenir la liste complète des systèmes inactifs :
         <source>Schedule Package Verifications</source>
         <target>Planifier les vérifications de packages</target>
       </trans-unit>
-      <trans-unit id="ssm.package.delete.operationname">
+      <trans-unit id="ssm.server.delete.operationname">
         <source>Server Delete</source>
         <target>Supprimer le serveur</target>
       </trans-unit>
