@@ -14,7 +14,6 @@
 # in this software or its documentation.
 #
 
-import shutil
 import sys
 import gzip
 import os.path
@@ -233,7 +232,7 @@ class ContentSource(object):
         return pkg.verifyLocalPkg()
 
     def _clean_cache(self, directory):
-        shutil.rmtree(directory, True)
+        rmtree(directory, True)
 
     def get_updates(self):
         if not self.repo.repoXML.repoData.has_key('updateinfo'):
@@ -273,6 +272,6 @@ class ContentSource(object):
         repo = self.repo
         dir = os.path.join(repo.basecachedir, self.name, '.ssl-certs')
         try:
-            rmtree(dir)
+            self._clean_cache(dir)
         except:
             pass
