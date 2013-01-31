@@ -268,7 +268,6 @@ class ContentSource(object):
             f.close
 
     def clear_ssl_cache(self):
-        return
         repo = self.repo
         dir = os.path.join(repo.basecachedir, self.name, '.ssl-certs')
         try:
