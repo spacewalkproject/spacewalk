@@ -20,6 +20,7 @@ import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.WriteMode;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
+import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.domain.action.Action;
 import com.redhat.rhn.domain.action.ActionFactory;
 import com.redhat.rhn.domain.action.script.ScriptActionDetails;
@@ -742,7 +743,8 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
 
         List<OperationDetailsDto> ops = SsmOperationManager.allOperations(admin);
         for (OperationDetailsDto op : ops) {
-            assertEquals(op.getDescription(), SsmDeleteServersAction.OPERATION_NAME);
+            assertEquals(op.getDescription(), LocalizationService.getInstance().
+                    getMessage(SsmDeleteServersAction.OPERATION_NAME));
         }
     }
 

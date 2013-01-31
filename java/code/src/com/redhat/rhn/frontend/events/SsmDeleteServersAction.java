@@ -29,7 +29,7 @@ import java.util.List;
  * @version $Revision$
  */
 public class SsmDeleteServersAction extends AbstractDatabaseAction {
-    public static final String OPERATION_NAME = "Server Delete";
+    public static final String OPERATION_NAME = "ssm.server.delete.operationname";
 
     /** {@inheritDoc} */
     protected void doExecute(EventMessage msg) {
