@@ -34,6 +34,8 @@ from spacewalk.server.importlib.backendOracle import SQLBackend
 from spacewalk.server.importlib.errataImport import ErrataImport
 from spacewalk.server import taskomatic
 
+from urlgrabber.grabber import URLGrabError
+
 default_log_location = '/var/log/rhn/reposync/'
 relative_comps_dir   = 'rhn/comps'
 default_hash = 'sha256'
@@ -46,12 +48,13 @@ def set_filter_opt(option, opt_str, value, parser):
 
 class RepoSync(object):
     def __init__(self, channel_label, repo_type, url=None, fail=False,
-                 quiet=False, filters=[], no_errata = False):
+                 quiet=False, filters=[], no_errata = False, sync_kickstart = False):
         self.regen = False
         self.fail = fail
         self.quiet = quiet
         self.filters = filters
         self.no_errata = no_errata
+        self.sync_kickstart = sync_kickstart
 
         initCFG('server')
         db_string = CFG.DEFAULT_DB
@@ -79,7 +82,7 @@ class RepoSync(object):
 
         if not url:
             # TODO:need to look at user security across orgs
-            h = rhnSQL.prepare("""select s.id, s.source_url
+            h = rhnSQL.prepare("""select s.id, s.source_url, s.label
                                   from rhnContentSource s,
                                        rhnChannelContentSource cs
                                  where s.id = cs.source_id
@@ -87,7 +90,7 @@ class RepoSync(object):
             h.execute(channel_id=int(self.channel['id']))
             source_data = h.fetchall_dict()
             if source_data:
-                self.urls = [(row['id'], row['source_url']) for row in source_data]
+                self.urls = [(row['id'], row['source_url'], row['label']) for row in source_data]
             else:
                 self.error_msg("Channel has no URL associated")
                 sys.exit(1)
@@ -99,7 +102,7 @@ class RepoSync(object):
     def sync(self):
         """Trigger a reposync"""
         start_time = datetime.now()
-        for (repo_id, url) in self.urls:
+        for (repo_id, url, repo_label) in self.urls:
             self.print_msg("Repo URL: %s" % url)
             plugin = None
             try:
@@ -123,6 +126,12 @@ class RepoSync(object):
 
                 if not self.no_errata:
                     self.import_updates(plugin, url)
+                if self.sync_kickstart:
+                    try:
+                        self.import_kickstart(plugin, url, repo_label)
+                    except:
+                        rhnSQL.rollback()
+                        raise
             except Exception, e:
                 self.error_msg("ERROR: %s" % e)
             if plugin is not None:
@@ -598,6 +607,71 @@ class RepoSync(object):
 
         return ret
 
+    def import_kickstart(self, plug, url, repo_label):
+        pxeboot_path = 'images/pxeboot/'
+        pxeboot = plug.get_file(pxeboot_path)
+        if pxeboot is None:
+            if not re.search(r'/$', url):
+                url = url + '/'
+            self.error_msg("ERROR: kickstartable tree not detected (no %s%s)" % (url, pxeboot_path))
+            return
+        channel_id = int(self.channel['id'])
+
+        if rhnSQL.fetchone_dict("""
+            select id
+            from rhnKickstartableTree
+            where org_id = :org_id and channel_id = :channel_id and label = :label
+            """, org_id = self.channel['org_id'], channel_id = self.channel['id'], label = repo_label):
+            print "Kickstartable tree %s already synced." % repo_label
+            return
+
+        row = rhnSQL.fetchone_dict("""
+            select sequence_nextval('rhn_kstree_id_seq') as id from dual
+            """)
+        ks_id = row['id']
+        ks_path = 'rhn/kickstart/%s/%s' % ( self.channel['org_id'], repo_label )
+
+        row = rhnSQL.execute("""
+            insert into rhnKickstartableTree (id, org_id, label, base_path, channel_id,
+                        kstree_type, install_type, last_modified, created, modified)
+            values (:id, :org_id, :label, :base_path, :channel_id,
+                        ( select id from rhnKSTreeType where label = 'externally-managed'),
+                        ( select id from rhnKSInstallType where label = 'generic_rpm'),
+                        current_timestamp, current_timestamp, current_timestamp)
+            """, id = ks_id, org_id = self.channel['org_id'], label = repo_label,
+                base_path = os.path.join(CFG.MOUNT_POINT, ks_path), channel_id = self.channel['id'])
+
+        insert_h = rhnSQL.prepare("""
+            insert into rhnKSTreeFile (kstree_id, relative_filename, checksum_id, file_size, last_modified, created, modified)
+            values (:id, :path, lookup_checksum('sha256', :checksum), :size, epoch_seconds_to_timestamp_tz(:st_time), current_timestamp, current_timestamp)
+            """)
+        dirs = [ '' ]
+        while len(dirs) > 0:
+            d = dirs.pop(0)
+            v = None
+            if d == pxeboot_path:
+                v = pxeboot
+            else:
+                v = plug.get_file(d)
+            if v is None:
+                continue
+
+            for s in (m.group(1) for m in re.finditer(r'<a href="(.+?)"', v)):
+                if re.match(r'/', s) or re.search(r'\?', s) or re.search(r'\.\.', s) or re.match(r'[a-zA-Z]+:', s) or re.search(r'\.rpm$', s):
+                    continue
+                if re.search(r'/$', s):
+                    dirs.append(d + s)
+                    continue
+                local_path = os.path.join(CFG.MOUNT_POINT, ks_path, d, s)
+                if os.path.exists(local_path):
+                    print "File %s%s already present locally" % (d, s)
+                else:
+                    print "Retrieving %s" % d + s
+                    plug.get_file(d + s, os.path.join(CFG.MOUNT_POINT, ks_path))
+                st = os.stat(local_path)
+                insert_h.execute(id = ks_id, path = d + s, checksum = getFileChecksum('sha256', local_path), size = st.st_size, st_time = st.st_mtime)
+
+        rhnSQL.commit()
 
 class ContentPackage:
 

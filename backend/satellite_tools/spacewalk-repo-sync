@@ -81,6 +81,8 @@ def main():
                       help="List of excluded packages")
     parser.add_option('', '--no-errata', action='store_true', dest='no_errata',
                       default=False, help="Do not sync errata")
+    parser.add_option('', '--sync-kickstart', action='store_true', dest='sync_kickstart',
+                      default=False, help="Sync kickstartable tree")
     (options, args) = parser.parse_args()
 
     if not options.channel_label:
@@ -92,7 +94,8 @@ def main():
                       fail=options.fail,
                       quiet=options.quiet,
                       filters=options.filters,
-                      no_errata=options.no_errata)
+                      no_errata=options.no_errata,
+                      sync_kickstart=options.sync_kickstart)
     sync.sync()
     releaseLOCK()
     return 0
