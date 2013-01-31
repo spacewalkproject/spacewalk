@@ -2698,8 +2698,8 @@ public class SystemManager extends BaseManager {
         params.put("user_id", user.getId());
         params.put("set_label", setLabel);
         retval = mode.execute(params);
+        retval.setElaborationParams(Collections.EMPTY_MAP);
         if (elaborate) {
-            retval.setElaborationParams(Collections.EMPTY_MAP);
             retval.elaborate();
         }
         return retval;
