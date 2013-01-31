@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 1.9.9
+Version: 1.9.10
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -255,6 +255,10 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Thu Jan 31 2013 Michael Mraka <michael.mraka@redhat.com> 1.9.10-1
+- moved template files out of document root
+- look for pxt includes outside of document root
+
 * Mon Jan 28 2013 Jan Pazdziora 1.9.9-1
 - With removal of TracerList, all_traces is not longer used, removing.
 
