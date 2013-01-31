@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.9.54
+Version: 1.9.55
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -659,6 +659,12 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Jan 31 2013 Tomas Lestach <tlestach@redhat.com> 1.9.55-1
+- 906345 - undo delete 'Server Delete' string
+- 906345 - localize operation descriptions
+- 896015 - we need to set elaboration params anyway
+- correct the case
+
 * Mon Jan 28 2013 Tomas Lestach <tlestach@redhat.com> 1.9.54-1
 - 905055 - prevent executing both LoginAction and LoginSetupAction when re-
   logging after successful logout
