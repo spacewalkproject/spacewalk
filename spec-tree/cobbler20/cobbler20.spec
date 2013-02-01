@@ -7,7 +7,7 @@ Name: cobbler20
 License: GPLv2+
 AutoReq: no
 Version: 2.0.11
-Release: 7%{?dist}
+Release: 8%{?dist}
 Source0: cobbler-%{version}.tar.gz
 Patch0: catch_cheetah_exception.patch
 Group: Applications/System
@@ -445,6 +445,10 @@ Web interface for Cobbler that allows visiting http://server/cobbler_web to conf
 %doc AUTHORS COPYING CHANGELOG README
 
 %changelog
+* Fri Feb 01 2013 Michael Mraka <michael.mraka@redhat.com> 2.0.11-8
+- let's use native systemd service on fedora
+- create systemd service for cobblerd
+
 * Wed Jan 23 2013 Jan Pazdziora 2.0.11-7
 - Move to mod_wsgi both on Fedoras and on RHEL 5.
 
