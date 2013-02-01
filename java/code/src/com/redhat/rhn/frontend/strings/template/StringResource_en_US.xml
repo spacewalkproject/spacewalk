@@ -328,8 +328,7 @@ Thank you for using @@PRODUCT_NAME@@.
       </trans-unit>
       <trans-unit id="email.satellitecert.satbodyend">
         <source>
-Please contact your regional Red Hat Customer Service Representative for information
-on how to renew your @@PRODUCT_NAME@@ Certificate.
+Please visit the following url for steps on how to request or generate a new @@PRODUCT_NAME@@ certificate: https://access.redhat.com/knowledge/tools/satcert
 
 
 Thank you for using @@PRODUCT_NAME@@.
