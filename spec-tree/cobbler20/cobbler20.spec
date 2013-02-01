@@ -7,7 +7,7 @@ Name: cobbler20
 License: GPLv2+
 AutoReq: no
 Version: 2.0.11
-Release: 8%{?dist}
+Release: 9%{?dist}
 Source0: cobbler-%{version}.tar.gz
 Source1: cobblerd.service
 Patch0: catch_cheetah_exception.patch
@@ -446,7 +446,7 @@ Web interface for Cobbler that allows visiting http://server/cobbler_web to conf
 %doc AUTHORS COPYING CHANGELOG README
 
 %changelog
-* Fri Feb 01 2013 Michael Mraka <michael.mraka@redhat.com> 2.0.11-8
+* Fri Feb 01 2013 Michael Mraka <michael.mraka@redhat.com> 2.0.11-9
 - let's use native systemd service on fedora
 - create systemd service for cobblerd
 
