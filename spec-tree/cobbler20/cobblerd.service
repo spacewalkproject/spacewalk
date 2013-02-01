@@ -1,0 +1,9 @@
+[Unit]
+Description=daemon that a provides remote cobbler API and status tracking
+After=network.target xinetd.service httpd.service
+
+[Service]
+ExecStart=/usr/bin/cobblerd --daemonize
+
+[Install]
+WantedBy=multi-user.target
