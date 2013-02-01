@@ -9,6 +9,7 @@ AutoReq: no
 Version: 2.0.11
 Release: 8%{?dist}
 Source0: cobbler-%{version}.tar.gz
+Source1: cobblerd.service
 Patch0: catch_cheetah_exception.patch
 Group: Applications/System
 Requires: python >= 2.3
@@ -104,9 +105,9 @@ PREFIX="--prefix=/usr"
 %{__python} setup.py install --optimize=1 --root=$RPM_BUILD_ROOT $PREFIX
 mkdir $RPM_BUILD_ROOT/var/www/cobbler/rendered/
 %if 0%{?fedora}
-rm $RPM_BUILD_ROOT%{_initrddir}/cobblerd
+rm $RPM_BUILD_ROOT/etc/init.d/cobblerd
 mkdir -p $RPM_BUILD_ROOT%{_unitdir}
-install -m 0644 cobblerd.service $RPM_BUILD_ROOT%{_unitdir}/
+install -m 0644 %{SOURCE1} $RPM_BUILD_ROOT%{_unitdir}/
 %endif
 
 %post
