@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 1.9.10
+Version: 1.9.11
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -255,6 +255,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Fri Feb 01 2013 Michael Mraka <michael.mraka@redhat.com> 1.9.11-1
+- no-access is no more used
+
 * Thu Jan 31 2013 Michael Mraka <michael.mraka@redhat.com> 1.9.10-1
 - moved template files out of document root
 - look for pxt includes outside of document root
