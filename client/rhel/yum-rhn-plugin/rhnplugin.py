@@ -750,5 +750,6 @@ def getRHNRepoOptions(conduit, repoid):
         pass
     return None
 
-
-
+def config_hook(conduit):
+    if hasattr(conduit, 'registerPackageName'):
+        conduit.registerPackageName("yum-rhn-plugin")
