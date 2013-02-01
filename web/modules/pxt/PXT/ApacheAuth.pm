@@ -121,9 +121,6 @@ sub authz_handler {
     if ($type eq 'valid-user') {
       $passes++;
     }
-    elsif ($type eq 'no-access') {
-      return FORBIDDEN;
-    }
     elsif ($type eq 'acl') {
 
       # support addition mixin'able acls directly from the .htaccess file...
