@@ -83,7 +83,7 @@ public class DatabaseHandler {
         }
         try {
             String queryName = getQueryName(query);
-            Map<String, String> params = getQueryParams(query);
+            Map<String, Object> params = getQueryParams(query);
             if (log.isDebugEnabled()) {
                 log.debug("Calling runQuery(" + sessionId + ", " + namespace +
                         ", " + queryName + ", " + params + ")");
@@ -131,7 +131,7 @@ public class DatabaseHandler {
      * @return List of params from query
      * @throws QueryParseException thrown when queryIn is malformed
      */
-    private Map<String, String> getQueryParams(String queryIn) throws QueryParseException {
+    private Map<String, Object> getQueryParams(String queryIn) throws QueryParseException {
         queryIn = queryIn.trim();
         String delim = ":(";
         int index = queryIn.indexOf(delim);
@@ -160,10 +160,10 @@ public class DatabaseHandler {
      * @return List of results
      */
     private List<Result> runQuery(Long sessionId, String namespace, String queryName,
-            Map<String, String> args)
+            Map<String, Object> args)
         throws SQLException, SqlMapException {
         // Look up Query in DB
-        args.put("sessionId", sessionId.toString());
+        args.put("sessionId", sessionId);
         Query query = databaseManager.getQuery(queryName);
         List<Result> retval;
         try {
