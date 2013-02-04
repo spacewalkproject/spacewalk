@@ -12,7 +12,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 1.9.23
+Version: 1.9.24
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -637,6 +637,11 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Mon Feb 04 2013 Jan Pazdziora 1.9.24-1
+- Stop referencing URL which no longer exists.
+- The abuse_check was a hosted feature.
+- Removing rhnFault codes that are not raised anywhere in our code base.
+
 * Fri Feb 01 2013 Jan Pazdziora 1.9.23-1
 - Parse the directory listings and retrieve kickstartable trees when called
   with the --sync-kickstart option.
