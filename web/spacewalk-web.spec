@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 1.9.11
+Version: 1.9.12
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -255,6 +255,12 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Mon Feb 04 2013 Jan Pazdziora 1.9.12-1
+- Automatic commit of package [rhncfg] release [5.10.41-1].
+- Redirect to landing.pxt to flush out the blue messages, then go to Index.do.
+- The gpg_info.pxt is only referenced from channel_gpg_key, only used by rhn-
+  channel-gpg-key in this page, removing.
+
 * Fri Feb 01 2013 Michael Mraka <michael.mraka@redhat.com> 1.9.11-1
 - no-access is no more used
 
