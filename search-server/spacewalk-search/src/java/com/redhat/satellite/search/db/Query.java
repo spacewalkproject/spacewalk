@@ -24,7 +24,7 @@ import java.util.List;
 /**
  * Named Select query
  * @param <T> type returned by query
- * 
+ *
  * @version $Rev$
  */
 public class Query<T> {
@@ -64,7 +64,7 @@ public class Query<T> {
     @SuppressWarnings("unchecked")
     public List<T> loadList(Object param) throws SQLException {
         List r = session.queryForList(queryName, param);
-        List<Object> results = (List<Object>)r;
+        List<Object> results = r;
         List<T> retval = new ArrayList<T>(results.size());
         for (Object item : results) {
             retval.add((T)item);
@@ -82,7 +82,7 @@ public class Query<T> {
     public T load(Object param) throws SQLException {
         return (T)session.queryForObject(queryName, param);
     }
-    
+
     /**
      * Load single object from query
      * @return T
