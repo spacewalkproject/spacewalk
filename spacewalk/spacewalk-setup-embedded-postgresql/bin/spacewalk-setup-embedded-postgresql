@@ -72,6 +72,8 @@ wal_buffers = 4MB
 work_mem = 2560kB
 EOF
 
+        sysctl kernel.shmmax | ( read v v v ; LIMIT=500000000 ; if [ "0$v" -lt $LIMIT ] ; then sysctl "kernel.shmmax=$LIMIT" >> /etc/sysctl.conf ; fi )
+
         sed -i 's/^\([^#].*\)$/### next line has been commented out by spacewalk-setup-embedded-postgresql: ###\n##\1/ ' $PG_HBA
         cat >> $PG_HBA <<EOF
 
