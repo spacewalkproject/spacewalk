@@ -1,5 +1,5 @@
 Name:           spacewalk-setup-embedded-postgresql
-Version:        1.9.0
+Version:        1.9.1
 Release:        1%{?dist}
 Summary:        Tools to setup embedded PostgreSQL database for Spacewalk
 Group:          Applications/System
@@ -43,6 +43,12 @@ rm -rf %{buildroot}
 %{_datadir}/spacewalk/setup/defaults.d/*
 
 %changelog
+* Mon Feb 04 2013 Jan Pazdziora 1.9.1-1
+- 903487 - on newer PostgreSQL versions, plpgsql gets created automatically in
+  new database, we need to skip createlang there.
+- Bump up the shmmax in case it is too small for our PostgreSQL configuration
+  purposes.
+
 * Mon Oct 22 2012 Michael Mraka
 - wait for postmaster to be ready
 - made postgresql log more readable
