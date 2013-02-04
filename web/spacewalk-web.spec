@@ -257,6 +257,7 @@ rm -rf $RPM_BUILD_ROOT
 %changelog
 * Mon Feb 04 2013 Jan Pazdziora 1.9.12-1
 - Automatic commit of package [rhncfg] release [5.10.41-1].
+- Removed /network/systems/ssm/misc/index.pxt, it is no longer referenced.
 - Redirect to landing.pxt to flush out the blue messages, then go to Index.do.
 - The gpg_info.pxt is only referenced from channel_gpg_key, only used by rhn-
   channel-gpg-key in this page, removing.
