@@ -98,7 +98,10 @@ EOF
     fi
 
     if ! exists_db ; then
-            runuser - postgres -c "createdb '$PGNAME'; createlang plpgsql '$PGNAME'"
+            runuser - postgres -c "createdb '$PGNAME'"
+    fi
+    if ! exists_plpgsql ; then
+            runuser - postgres -c "createlang plpgsql '$PGNAME'"
     fi
     if ! exists_user ; then
             runuser - postgres -c "yes '$PGPASSWORD' | createuser -P -sDR '$PGUSER'"
@@ -151,6 +154,15 @@ check() {
 exists_db() {
     EXISTS=$(runuser - postgres -c 'psql -t -c "select datname from pg_database where datname='"'$PGNAME'"';"')
     if [ "x$EXISTS" == "x $PGNAME" ] ; then
+        return 0
+    else
+        return 1
+    fi
+}
+
+exists_plpgsql() {
+    EXISTS=$(runuser - postgres -c 'psql -At -c "select lanname from pg_catalog.pg_language where lanname='"'plpgsql'"';"'" $PGNAME")
+    if [ "x$EXISTS" == "xplpgsql" ] ; then
         return 0
     else
         return 1
