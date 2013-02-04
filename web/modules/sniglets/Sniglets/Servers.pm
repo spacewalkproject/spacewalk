@@ -499,7 +499,7 @@ sub server_prefs_form_cb {
       $pxt->push_message(site_info => $message);
     }
 
-    $pxt->redirect('/rhn/systems/ssm/misc/Index.do');
+    $pxt->redirect('landing.pxt');
   }
 }
 
@@ -602,7 +602,7 @@ sub server_set_lock_cb {
   }
 
   $pxt->push_message(site_info => $msg);
-  $pxt->redirect("index.pxt");
+  $pxt->redirect("landing.pxt");
 }
 
 sub remote_command_form {

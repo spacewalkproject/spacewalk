@@ -131,7 +131,7 @@
     <hr />
 
     <input type="submit" name="sscd_change_system_prefs" value="Change Preferences" />
-    <input type="hidden" name="do_nothing_redir" value="/rhn/systems/ssm/misc/Index.do" />
+    <input type="hidden" name="do_nothing_redir" value="landing.pxt" />
     <input type="hidden" name="pxt:trap" value="rhn:ssm_change_system_prefs_cb" />
   </div>
 

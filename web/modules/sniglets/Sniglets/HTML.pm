@@ -39,6 +39,7 @@ sub register_tags {
 
   $pxt->register_tag("rhn-checkable", \&rhn_checkable, 10);
 
+  $pxt->register_tag("rhn-refresh-redirect", \&rhn_refresh_redirect);
   $pxt->register_tag("rhn-autorefresh-widget", \&rhn_autorefresh_widget);
   $pxt->register_tag("rhn-return-link", \&return_link);
 }
@@ -208,6 +209,14 @@ sub unless_var {
 
   return $block unless ($pxt->passthrough_param($attr{formvar}) or $pxt->context($attr{formvar}));
 
+  return;
+}
+
+sub rhn_refresh_redirect {
+  my $pxt = shift;
+  my %attr = @_;
+  my $url = $pxt->derelative_url($attr{url});
+  $pxt->header_out(Refresh => "5; $url");
   return;
 }
 
