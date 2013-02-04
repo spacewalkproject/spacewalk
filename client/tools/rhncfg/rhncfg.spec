@@ -8,7 +8,7 @@ Group:   Applications/System
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.10.40
+Version: 5.10.41
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -112,6 +112,10 @@ fi
 
 # $Id$
 %changelog
+* Mon Feb 04 2013 Jan Pazdziora 5.10.41-1
+- 856608 - moved rhncfg dependency on spacewalk-backend-libs to base package
+  All sub-packages now require it
+
 * Mon Jan 28 2013 Stephen Herr <sherr@redhat.com> 5.10.40-1
 - 903534 - Web UI config diff always shows 'binary files differ'
 
