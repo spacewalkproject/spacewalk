@@ -3,7 +3,6 @@
 	acl_mixins="com.redhat.rhn.common.security.acl.ChannelAclHandler">
   <rhn-tab name="Details">
     <rhn-tab-url>/rhn/channels/ChannelDetail.do</rhn-tab-url>
-    <rhn-tab-url>/network/software/channels/gpg_info.pxt</rhn-tab-url>
   </rhn-tab>
   <rhn-tab name="Subscribers" acl="org_entitlement(sw_mgr_enterprise);org_channel_setting(not_globally_subscribable);user_role(channel_admin) or user_can_admin_channel()">
     <rhn-tab-url>/network/software/channels/subscribers.pxt</rhn-tab-url>

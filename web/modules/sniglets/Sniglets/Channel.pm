@@ -36,8 +36,6 @@ sub register_tags {
 
   $pxt->register_tag('rhn-channel-details' => \&channel_details);
 
-  $pxt->register_tag('rhn-channel-gpg-key' => \&channel_gpg_key);
-
   $pxt->register_tag('viewed_channel_name' => \&viewed_channel_name, -10);
 }
 
@@ -52,36 +50,6 @@ my $SUBSCRIBE = 1;
 my $UNSUBSCRIBE = 2;
 
 
-
-
-sub channel_gpg_key {
-  my $pxt = shift;
-  my %params = @_;
-
-  my $cid = $pxt->param('cid');
-
-  die "No cid!" unless defined $cid;
-  die "no permission for channel $cid!" unless $pxt->user->org->has_channel_permission($cid);
-
-  my $block = $params{__block__};
-  my $channel = RHN::Channel->lookup(-id => $cid);
-
-  my %subst;
-  $subst{channel_gpg_key_url} = PXT::Utils->escapeHTML($channel->gpg_key_url() || '');
-
-  return '' unless $subst{channel_gpg_key_url};
-
-  if ($subst{channel_gpg_key_url} =~ m{^http(s)?://}) {
-    $subst{channel_gpg_key_url} = "<a href=\"".$pxt->derelative_url($subst{channel_gpg_key_url}, 'https')."\">".$subst{channel_gpg_key_url}."</a>";
-  }
-
-  $subst{channel_gpg_info_url} = $pxt->derelative_url("/network/software/channels/gpg_info.pxt?cid=$cid", 'https');
-  $subst{channel_gpg_key_id} = $channel->gpg_key_id() || 'unknown';
-  $subst{channel_gpg_key_fp} = $channel->gpg_key_fp() || 'unknown';
-
-
-  return PXT::Utils->perform_substitutions($block, \%subst);
-}
 
 
 sub channel_details {
