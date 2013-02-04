@@ -97,6 +97,7 @@ public class Server extends BaseDomainHelper implements Identifiable {
     private Set<Network> networks;
     private Ram ram;
     private Dmi dmi;
+    private NetworkInterface primaryInterface;
     private Set<NetworkInterface> networkInterfaces;
     private Set<CustomDataValue> customDataValues;
     private Set<Channel> channels;
@@ -856,6 +857,10 @@ public class Server extends BaseDomainHelper implements Identifiable {
      * eth1, eth1*, after that its first match that is not 127.0.0.1
      */
     public NetworkInterface findPrimaryNetworkInterface() {
+        primaryInterface = lookupForPrimaryInterface();
+        if (primaryInterface != null) {
+            return primaryInterface;
+        }
         if (!networkInterfaces.isEmpty()) {
             Iterator<NetworkInterface> i = networkInterfaces.iterator();
             // First pass look for names
@@ -863,18 +868,22 @@ public class Server extends BaseDomainHelper implements Identifiable {
 
             ni = findActiveIfaceWithName("eth0", false);
             if (ni != null) {
+                primaryInterface = ni;
                 return ni;
             }
             ni = findActiveIfaceWithName("eth0", true);
             if (ni != null) {
+                primaryInterface = ni;
                 return ni;
             }
             ni = findActiveIfaceWithName("eth1", false);
             if (ni != null) {
+                primaryInterface = ni;
                 return ni;
             }
             ni = findActiveIfaceWithName("eth1", true);
             if (ni != null) {
+                primaryInterface = ni;
                 return ni;
             }
             // Second pass look for localhost
@@ -885,11 +894,13 @@ public class Server extends BaseDomainHelper implements Identifiable {
                 if (addr != null &&
                         !addr.equals("127.0.0.1")) {
                     log.debug("Found NetworkInterface !localhost");
+                    primaryInterface = n;
                     return n;
                 }
                 for (ServerNetAddress6 ad6 : n.getIPv6Addresses()) {
                     if (ad6 != null && !ad6.getAddress().equals("::1")) {
                         log.debug("Found NetworkInterface !localhost");
+                        primaryInterface = n;
                         return n;
                     }
                 }
@@ -897,8 +908,10 @@ public class Server extends BaseDomainHelper implements Identifiable {
             // If we didnt match any of the above criteria
             // just give up and return the 1st one.
             log.debug("just returning 1st network interface");
-            return networkInterfaces.iterator().next();
+            primaryInterface = networkInterfaces.iterator().next();
+            return primaryInterface;
         }
+        primaryInterface = null;
         return null;
     }
 
@@ -1892,4 +1905,58 @@ public class Server extends BaseDomainHelper implements Identifiable {
         crashCount = crashIn;
     }
 
+    /**
+     * @return primaryInterface Primary network interface
+     */
+    public NetworkInterface getPrimaryInterface() {
+        return primaryInterface;
+    }
+
+    /**
+     * @param primaryInterfaceIn Primary network interface to be set
+     */
+    public void setPrimaryInterface(NetworkInterface primaryInterfaceIn) {
+        primaryInterface = primaryInterfaceIn;
+        Iterator<NetworkInterface> i = networkInterfaces.iterator();
+        while (i.hasNext()) {
+            NetworkInterface n = i.next();
+            n.setPrimary(null);
+        }
+        SystemManager.storeServer(this);
+        primaryInterface.setPrimary("Y");
+        if (networks.size() == 1) {
+            Network n = networks.iterator().next();
+            n.setIpaddr(primaryInterface.getIpaddr());
+            n.setIp6addr(primaryInterface.getGlobalIpv6Addr());
+        }
+    }
+
+    /**
+     * @param interfaceName name of the interface
+     */
+    public void setPrimaryInterfaceWithName(String interfaceName) {
+        setPrimaryInterface(findActiveIfaceWithName(interfaceName, false));
+    }
+
+    private NetworkInterface lookupForPrimaryInterface() {
+        for (NetworkInterface n : networkInterfaces) {
+            if (n.getPrimary() != null && n.getPrimary().equals("Y")) {
+                return n;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * @return active Set of active interaces without lo
+     */
+    public Set <NetworkInterface> getActiveNetworkInterfaces() {
+        Set <NetworkInterface> active = new HashSet();
+        for (NetworkInterface n : networkInterfaces) {
+            if (!n.isDisabled()) {
+                active.add(n);
+            }
+        }
+        return active;
+    }
 }

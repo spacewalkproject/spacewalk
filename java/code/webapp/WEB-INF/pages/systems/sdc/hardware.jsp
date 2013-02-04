@@ -20,7 +20,6 @@
             <bean:message key="sdc.details.hardware.schedule"/>
           </html:submit>
         </div>
-    </html:form>
  
     <h2><bean:message key="sdc.details.hardware.general"/></h2>
 
@@ -184,7 +183,27 @@
         </td>
       </tr>
 
+			<tr>
+				<th>
+					<c:out value="Primary network interface:"/>
+				</th>
+				<td>
+					<html:select property="primaryInterface" styleId="primaryInterface">
+						<html:options collection="networkInterfaces"
+							property="value"
+							labelProperty="display"/>
+					</html:select>
+				</td>
+			</tr>
+
     </table>
+		<br/>
+			<rhn:csrf />
+        <div align="right">
+          <html:submit property="update_interface">
+            <bean:message key="sdc.details.edit.update"/>
+          </html:submit>
+        </div>
     <br/>
     <table class="list compare-list" width="90%" cellspacing="0">
       <thead>
@@ -496,7 +515,7 @@
       </tbody>
     </table>
     </c:if>
-
+	</html:form>
   </body>
 </html:html>
 

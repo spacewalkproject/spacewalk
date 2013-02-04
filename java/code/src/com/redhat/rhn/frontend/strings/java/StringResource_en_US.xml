@@ -1417,6 +1417,12 @@
           <context context-type="sourcefile">/rhn/users/AssignedSystemGroups</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="message.interfaceSet">
+        <source>Primary network interface set to &lt;strong&gt;{0}&lt;/strong&gt;.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">NOT USED</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="prefix">
         <source>Prefix</source>
         <context-group name="ctx">

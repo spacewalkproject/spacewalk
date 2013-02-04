@@ -44,6 +44,7 @@ Serializable {
             "([0-9A-F]{1,4}::?){0,5}|([0-9A-F]{1,4}:){6})(\\2([0-9A-F]{1,4}(::?|$)){0,2}" +
             "|((25[0-5]|(2[0-4]|1\\d|[1-9])?\\d)(\\.|$)){4}|[0-9A-F]{1,4}:[0-9A-F]{1,4})" +
             "(?<![^:]:|\\.)\\z";
+    private String primary;
 
     /**
      * @return Returns the interfaceid.
@@ -369,4 +370,35 @@ Serializable {
         this.sa4 = sa4In;
     }
 
+    /**
+     * @return primary String which indicates primary interface
+     */
+    public String getPrimary() {
+        return primary;
+    }
+
+    /**
+     * @param primaryIn String which sets primary interface ('Y')
+     */
+    public void setPrimary(String primaryIn) {
+        primary = primaryIn;
+    }
+
+    /**
+     * @return Returns first most global ipv6 address
+     */
+    public String getGlobalIpv6Addr() {
+        ArrayList <String> addrs = getGlobalIpv6Addresses();
+        if (addrs == null) {
+            addrs = findServerNetAddress6ByScope("site");
+        }
+        if (addrs == null) {
+            addrs = findServerNetAddress6ByScope("link");
+        }
+        if (addrs == null) {
+            addrs = findServerNetAddress6ByScope("host");
+        }
+        return ((addrs != null && addrs.iterator().hasNext()) ?
+                addrs.iterator().next() : "::1");
+    }
 }

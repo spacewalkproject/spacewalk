@@ -74,25 +74,38 @@ public class SystemHardwareAction extends RhnAction {
         request.setAttribute(SID, sid);
 
         if (isSubmitted(form)) {
-            Action a = ActionManager.scheduleHardwareRefreshAction(user, server, now);
-            ActionFactory.save(a);
+            if (ctx.hasParam("update_interface")) {
+                server.setPrimaryInterfaceWithName(form.get("primaryInterface").toString());
+                createSuccessMessage(request, "message.interfaceSet",
+                        form.get("primaryInterface").toString());
+            }
+            else {
+                Action a = ActionManager.scheduleHardwareRefreshAction(user, server, now);
+                ActionFactory.save(a);
 
-            createSuccessMessage(request, "message.refeshScheduled", server.getName());
+                createSuccessMessage(request, "message.refeshScheduled", server.getName());
 
-            // No idea why I have to do this  :(
-            params.put(SID, sid);
+                // No idea why I have to do this  :(
+                params.put(SID, sid);
 
-            fwd = "success";
+                fwd = "success";
+            }
+
         }
 
-        setupForm(request, cpu, server);
+        setupForm(request, cpu, server, form);
 
         return getStrutsDelegate().forwardParams(
                 mapping.findForward(fwd), params);
     }
 
-    private void setupForm(HttpServletRequest request, CPU cpu, Server server) {
+    private void setupForm(HttpServletRequest request, CPU cpu, Server server,
+            DynaActionForm daForm) {
 
+        daForm.set("primaryInterface", server.findPrimaryNetworkInterface().getName());
+        request.setAttribute("primaryInterface",
+                server.findPrimaryNetworkInterface().getName());
+        request.setAttribute("networkInterfaces", getNetworkInterfaces(server));
         request.setAttribute("system", server);
         if (cpu != null) {
             request.setAttribute("cpu_model", cpu.getModel());
@@ -245,6 +258,22 @@ public class SystemHardwareAction extends RhnAction {
         request.setAttribute("captureDevices", captureDevices);
 
         request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
+    }
+
+    private List getNetworkInterfaces(Server s) {
+        List pages = new ArrayList();
+        for (NetworkInterface ni : s.getActiveNetworkInterfaces()) {
+            String istr = ni.getName();
+            pages.add(createDisplayMap(istr, istr));
+        }
+        return pages;
+    }
+
+    private Map createDisplayMap(String display, String value) {
+        Map selection = new HashMap();
+        selection.put("display", display);
+        selection.put("value", value);
+        return selection;
     }
 
 }

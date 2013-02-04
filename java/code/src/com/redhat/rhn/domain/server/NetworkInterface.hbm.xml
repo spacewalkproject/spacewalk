@@ -18,6 +18,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
             insert="false" update="false"/>
         <property name="modified" column="modified" type="timestamp"
             insert="false" update="false"/>
+				<property name="primary" column="is_primary" type="string" length="2" />
     </class>
 
     <query name="NetworkInterface.lookup">
