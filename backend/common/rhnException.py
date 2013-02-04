@@ -39,15 +39,12 @@ templateValues = {
 #   2000-2999: RHN Satellite specific interation errors
 
 FaultArray = {
-     10000: _("Outage mode"),
      # 0-999: RHN client/client-like interaction errors:
      1: _("This does not appear to be a valid username."),
      2: _("Invalid username and password combination."),
      3: _("This login is already taken, or the password is incorrect."),
      4: _("Permission denied."),
-     5: _("Can not create new entry."),
      6: _("Object not found."),
-     7: _("Account limits exceeded."),
      8: _("Invalid System Digital ID."),
      9: _("Invalid System Credentials."),
      10: _("Could not retrieve user data from database."),
@@ -56,19 +53,13 @@ FaultArray = {
      13: _("Minimum username length violation."),
      14: _("Minimum password length violation."),
      15: _("The username contains invalid characters."),
-     16: _("Invalid product registration code."),
      17: _("File not found."),
-     18: _("Invalid Architecture and OS release combination."),
      19: _("Architecture and OS version combination is not supported."),
      20: _("Could not retrieve system data from database."),
      21: _("Invalid arguments passed to function."),
      22: _("Unable to retrieve requested entry."),
      23: _("Could not update database entry."),
      24: _("Unsupported server architecture."),
-     25: _("LDAP operation failed."),
-     26: _("Backend RPM database failure: can not retrieve \
-requested information."),
-     27: _("Server Entry is busy."),
      28: _("""
      The anonymous server functionality is no longer available.
 
@@ -97,7 +88,6 @@ on this system."),
      39: _("The system is not currently subscribed to the specified channel."),
      40: _("The specified channel does not exist."),
      41: _("Invalid channel version."),
-     42: _("Invalid ORG_ID requested"),
      43: _("""
      User group membership limits exceeded.
 
@@ -119,18 +109,7 @@ on this system."),
 
      The architecture of the package is not supported by Red Hat Network
      """),
-     46: _("""
-     Incompatible architectures.
-
-     The architecture of the package you are trying to upload is not
-     compatible with the channel architecture.
-     """),
      47: _("""Invalid RPM header"""),
-     48: _("""
-     Invalid channel.
-
-     The channel you have specified does not exist.
-     """),
      49: _("""
      You are getting this error because RHN has detected an abuse of
      service from this system and account. This error is triggered when
@@ -148,18 +127,6 @@ on this system."),
      """),
      # For the uploading tools
      50: _("Invalid information uploaded to the server"),
-     51: _("""
-     Demo service currently disabled due to high load. If you would like
-     to see Red Hat's policies on Demo service, or find out how you can
-     purchase a subscription service and receive priority download access,
-     please go to http://%(hostname)s/preview/index.pxt
-     """),
-     52: _("""
-     Access to Red Hat Network is currently limited to subscription customers.
-     Please try again later.  If you would like to become a subscription
-     customer, go to https://%(hostname)s/preview/priority_service.pxt for
-     more information.
-     """),
      53: _("Error uploading network interfaces configuration."),
      54: _("""
      Package Upload Failed due to uniqueness constraint violation.
@@ -192,7 +159,6 @@ on this system."),
      """),
      72: _("""You can not unsubscribe from base channel."""),
      73: _("""Satellite or Proxy channel can not be subscribed."""),
-     74: _(""), # not used, reserved for Hosted-only RegistrationDenied error.
 
      # 80-90: server group errors
      80: _("There was an error while trying to join the system to its groups"),
@@ -204,17 +170,8 @@ maximum membership exceeded"),
 
      # 100-109: e-mail and uuid related faults
      100: _("Maximum e-mail length violation."),
-     101: _("Changing e-mail address is not supported."),
      105: _("This system has been previously registered."),
      106: _("Invalid username"),
-
-     # 110-129: disabled org errors
-     110: _("Service for your account has been disabled."),
-     111: _("Email address not validated; service disabled"),
-     112: _("Survey not filled out; service disabled"),
-
-     # 130-140: bugzilla errata import errors
-     130: _("Bugzilla erratum import error"),
 
      # 140-159 applet errors
      140: _("Unable to look up server"),
@@ -222,18 +179,7 @@ maximum membership exceeded"),
      # 160-179: OSAD errors
      160: _("Required argument is missing"),
 
-     # 500-599: Package Uploader errors
-     500: _("Missing HTTP header information"),
-     501: _("The package's checksum signature does not match the header one"),
-     502: _("Header information does not match package metainformation"),
-     503: _("Package with a different signature already uploaded"),
-     504: _("Not an RPM package"),
-     505: _("Unsigned RPM package"),
-     506: _("Incompatible package and channel architectures"),
-     507: _("Incompatible checksum type"),
-
      # 600-699: RHEL5+ EN errors
-     600: _("Invalid Entitlement Number"),
      601: _("No entitlement information tied to hardware"),
      602: _("Installation number is not entitling"),
 
@@ -264,16 +210,6 @@ maximum membership exceeded"),
      RHN Satellite user creation is not allowed via rhn_register;
      please contact your sysadmin to have your account created.
      """),
-     2002: _("""
-     RHN Satellite system ID does not match an RHN Satellite Server
-     in the database. Please contact your designated Red Hat representative
-     or visit https://rhn.redhat.com/help/contact.pxt immediately if
-     experiencing difficulties with the process of enabling or continued
-     enablement of this RHN Satellite Server.
-     """),
-     2003: _("""
-     This satellite server is not allowed to access the specified channel
-     """),
      2004: _("""
      This satellite server is not allowed to use Inter Satellite Sync on this satellite
      """),
@@ -281,20 +217,10 @@ maximum membership exceeded"),
      Inter Satellite Sync is disabled on this satellite.
      """),
 
-     # Kickstart errors
-     2100: _("Access denied to kickstart tree"),
-     2101: _("Could not find kickstart file"),
-     2102: _("""
-     Kickstart tree would not lint, there are packages
-     missing in the channel
-     """),
-
      # 3000-3999: XML dumper errors:
      3000: _("Invalid datatype passed"),
      3001: _("Unable to retrieve channel"),
-     3002: _("Invalid package name"),
      3003: _("Unable to retrieve package"),
-     3004: _("Invalid erratum name"),
      3005: _("Unable to retrieve erratum"),
      3006: _("Invalid satellite certificate"),
      3007: _("File is missing"),
@@ -304,7 +230,6 @@ maximum membership exceeded"),
      3011: _("Invalid version string"),
      3012: _("Mismatching versions"),
      3013: _("Invalid channel version"),
-     3014: _("Missing snapshot for channels"),
      3015: _("No comps file for channel"),
      3016: _("Unable to retrieve comps file"),
 
@@ -325,13 +250,6 @@ maximum membership exceeded"),
      4015: _("Full path of file must be specified"),
      4016: _("Invalid revision number"),
      4017: _("Cannot compare files of different file type"),
-
-     # 5000 - 5099: entitlement mapper errors
-     5000: _("The speicified item is not present in the input"),
-     5001: _("Invalid item code"),
-     5002: _("Invalid user role"),
-     5003: _("Invalid server group"),
-     5004: _("Invalid channel family"),
     }
 
 
