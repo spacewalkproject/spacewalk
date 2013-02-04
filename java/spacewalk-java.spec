@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.9.56
+Version: 1.9.57
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -659,6 +659,13 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Feb 04 2013 Jan Pazdziora 1.9.57-1
+- Redirect to landing.pxt to flush out the blue messages, then go to Index.do.
+- Replace /network/systems/ssm/misc/index.pxt redirect with
+  /rhn/systems/ssm/misc/Index.do.
+- The gpg_info.pxt is only referenced from channel_gpg_key, only used by rhn-
+  channel-gpg-key in this page, removing.
+
 * Mon Feb 04 2013 Tomas Lestach <tlestach@redhat.com> 1.9.56-1
 - 903718 - give the user url to request or generate a new certificate
 - 903557 - fix queries for extra packages
