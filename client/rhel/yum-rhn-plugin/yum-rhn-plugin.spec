@@ -1,6 +1,6 @@
 Summary: RHN support for yum
 Name: yum-rhn-plugin
-Version: 1.9.2
+Version: 1.9.3
 Release: 1%{?dist}
 License: GPLv2
 Group: System Environment/Base
@@ -70,6 +70,9 @@ fi
 %doc LICENSE
 
 %changelog
+* Mon Feb 04 2013 Jan Pazdziora 1.9.3-1
+- 529923 - register package name in config_hook
+
 * Fri Nov 30 2012 Jan Pazdziora 1.9.2-1
 - Revert "876328 - updating rhel client tools translations"
 
