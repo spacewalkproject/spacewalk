@@ -705,12 +705,12 @@ class Server(ServerWrapper):
             return 0
         return 1
 
-    def checkin(self, commit = 1, check_for_abuse = 1):
+    def checkin(self, commit = 1):
         """ convenient wrapper for these thing until we clean the code up """
         if not self.server.has_key("id"):
             return 0 # meaningless if rhnFault not raised
-        return server_lib.checkin(self.server["id"], commit,
-                       check_for_abuse=check_for_abuse)
+        return server_lib.checkin(self.server["id"], commit)
+
     def throttle(self):
         """ convenient wrapper for these thing until we clean the code up """
         if not self.server.has_key("id"):

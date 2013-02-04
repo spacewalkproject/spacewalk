@@ -195,26 +195,8 @@ def create_server_setup(server_id, org_id):
     return 1
 
 
-def __special_server(server_id):
-    """ checks if this server is a special kind so that we don't raise an
-        abuse error for it
-    """
-    # if a proxy or a satellite we don't enforce this. thanks chip.
-    h = rhnSQL.prepare("""
-    select 1 from rhnProxyInfo where server_id = :server_id
-    union
-    select 1 from rhnSatelliteInfo where server_id = :server_id
-    """)
-    h.execute(server_id = server_id)
-    ret = h.fetchone_dict()
-    if ret:
-        return 1
-    return 0
-
-
-def checkin(server_id, commit=1, check_for_abuse=1):
+def checkin(server_id, commit=1):
     """ checkin - update the last checkin time
-                - check for abuse of service.
     """
     log_debug(3, server_id)
     h = rhnSQL.prepare("""
@@ -225,31 +207,6 @@ def checkin(server_id, commit=1, check_for_abuse=1):
     h.execute(server_id = server_id)
     if commit:
         rhnSQL.commit()
-    # If not checking for abuse, short-circuit the rest.
-    if not CFG.ABUSE_CHECK or not check_for_abuse:
-        return 1
-    # now check for abusers
-    h = rhnSQL.prepare("""
-    select s.name, si.checkin_counter - ((sysdate - s.created) * 100) ticks
-    from rhnServer s, rhnServerInfo si
-    where s.id = si.server_id
-    and sysdate - s.created > 7
-    and s.id = :server_id
-    """)
-    h.execute(server_id = server_id)
-    ret = h.fetchone_dict()
-    if not ret:
-        return 1
-    # we only allow a threshold of 1500 extra connections above what we
-    # think is the absolute max.
-    if ret["ticks"] > 1500:
-        # special servers are exempt
-        if __special_server(server_id):
-            return 1
-        log_error("Abuse of Service", server_id)
-        rhnSQL.commit() # don't leave uncommited stuff behind
-        raise rhnFault(49, "Abuse of Service detected for server %s (%s)"
-                           % (ret["name"], server_id), 0)
     return 1
 
 def set_qos(server_id):

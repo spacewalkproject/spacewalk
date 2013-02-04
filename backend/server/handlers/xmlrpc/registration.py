@@ -119,7 +119,6 @@ class Registration(rhnHandler):
         self.load_user = 0
         self.check_entitlement = 0
         self.throttle = 0
-        self.check_for_abuse = 1
 
         # a mapping between vendor and asset tags or serial numbers.
         # if we want to support other vendors for re

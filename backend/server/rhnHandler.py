@@ -38,8 +38,6 @@ class rhnHandler(RPC_Base):
         self.load_user = 0
         # do we check for entitlement of the server
         self.check_entitlement = 1
-        # do we check for abuse
-        self.check_for_abuse = 1
         # do we attempt throttling 
         self.throttle = CFG.THROTTLE
         # attempt quality of service checks
@@ -63,7 +61,7 @@ class rhnHandler(RPC_Base):
         self.server = server
         # update the latest checkin time
         if self.update_checkin:
-            server.checkin(check_for_abuse = self.check_for_abuse)
+            server.checkin()
 
         if not server.validateSatCert():
             log_error("Satellite Certificate has expired")

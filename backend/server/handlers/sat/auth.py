@@ -34,9 +34,6 @@ class Authentication(rhnHandler):
         self.functions.append('check')
         self.functions.append('login')
         
-        # our own defaults for authentication
-        self.check_for_abuse = 0
-
         # this is populated directly by server.apacheRequest.py
         self.remote_hostname = ''
 

@@ -110,21 +110,6 @@ on this system."),
      The architecture of the package is not supported by Red Hat Network
      """),
      47: _("""Invalid RPM header"""),
-     49: _("""
-     You are getting this error because RHN has detected an abuse of
-     service from this system and account. This error is triggered when
-     your system makes too many connections to Red Hat Network. This
-     error can not be triggered under a normal use of the Red Hat Network
-     service as configured by default on Red Hat Linux.
-
-     The Red Hat Network services for this system will remain disabled
-     until you will reduce the RHN network traffic from your system to
-     acceptable limits.
-
-     Please log into RHN and visit https://%(hostname)s/help/contact.pxt
-     to contact technical support if you think you have received this
-     message in error.
-     """),
      # For the uploading tools
      50: _("Invalid information uploaded to the server"),
      53: _("Error uploading network interfaces configuration."),

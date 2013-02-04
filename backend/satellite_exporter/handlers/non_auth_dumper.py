@@ -57,9 +57,6 @@ class NonAuthenticatedDumper(rhnHandler, dumper.XML_Dumper):
         self._is_closed = 0
         self._compressed_stream = None
 
-        # Don't check for abuse
-        self.check_for_abuse = 0
-
         self.functions = [
             'arches',
             'arches_extra',
