@@ -181,10 +181,7 @@ maximum membership exceeded"),
      # issued by an RHN Server/Satellite to the proxy
      1002: _("""
      RHN Proxy system ID does not match an RHN Proxy Server
-     in the database. Please contact your designated Red Hat representative
-     or visit https://rhn.redhat.com/help/contact.pxt immediately if
-     experiencing difficulties with the process of enabling or continued
-     enablement of this RHN Proxy Server.
+     in the database.
      """),
      1003: _("RHN Proxy session token is invalid."),
      1004: _("RHN Proxy session token has expired."),
