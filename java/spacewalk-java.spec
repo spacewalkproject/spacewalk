@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.9.57
+Version: 1.9.58
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -678,6 +678,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Feb 05 2013 Michael Mraka <michael.mraka@redhat.com> 1.9.58-1
+- updated rhn-search path in messages
+- added systemd service for taskomatic
+
 * Mon Feb 04 2013 Jan Pazdziora 1.9.57-1
 - Redirect to landing.pxt to flush out the blue messages, then go to Index.do.
 - Replace /network/systems/ssm/misc/index.pxt redirect with
