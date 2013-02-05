@@ -1,0 +1,12 @@
+[Unit]
+Description=This is Spacewalk search engine.
+After=local-fs.target network.target httpd.service
+
+[Service]
+Type=forking
+ExecStart=/usr/sbin/rhn-search start
+ExecStop=/usr/sbin/rhn-search stop
+
+[Install]
+WantedBy=multi-user.target
+
