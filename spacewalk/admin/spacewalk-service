@@ -56,15 +56,7 @@ forward_services() {
             if [ "$service" == "$TOMCAT" \
                 -a "$ACTION" == "start" \
                 -a "$WAIT_FOR_TOMCAT" == "1" ] ; then
-                if /usr/sbin/lsof /proc > /dev/null ; then
-                    echo "Waiting for tomcat to be ready ..."
-                    while [ -f "/var/run/$TOMCAT.pid" ] ; do
-                        /usr/sbin/lsof -t -i TCP:8009 -p $(cat /var/run/$TOMCAT.pid) > /dev/null && break
-                        sleep 1
-                    done
-                else
-                    echo "No lsof found, not waiting for tomcat."
-                fi
+                /usr/sbin/spacewalk-wait-for-tomcat
             fi
 	fi
         if [ $E_STAT -ne 0 ]; then

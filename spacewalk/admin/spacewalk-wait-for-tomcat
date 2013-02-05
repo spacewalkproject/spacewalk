@@ -1,0 +1,22 @@
+#!/bin/bash
+
+if [ -x /etc/init.d/tomcat5 ]; then
+   TOMCAT="tomcat5"
+elif [ -x /etc/init.d/tomcat6 ]; then
+   TOMCAT="tomcat6"
+elif [ -e /lib/systemd/system/tomcat.service ]; then
+   TOMCAT="tomcat"
+else
+   echo "No tomcat service found."
+   exit 0;
+fi
+
+if /usr/sbin/lsof /proc > /dev/null ; then
+    echo "Waiting for tomcat to be ready ..."
+    while [ -f "/var/run/$TOMCAT.pid" ] ; do
+        /usr/sbin/lsof -t -i TCP:8009 -p $(cat /var/run/$TOMCAT.pid) > /dev/null && break
+        sleep 1
+    done
+else
+    echo "No lsof found, not waiting for tomcat."
+fi
