@@ -51,6 +51,7 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %doc LICENSE
 %dir %{rhnroot}
+%{_sbindir}/spacewalk-wait-for-tomcat
 %{_sbindir}/spacewalk-service
 %{_sbindir}/rhn-satellite
 %{_bindir}/validate-sat-cert.pl
