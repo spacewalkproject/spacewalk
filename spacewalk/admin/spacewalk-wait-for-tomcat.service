@@ -1,0 +1,9 @@
+[Unit]
+Description=Spacewalk wait for tomcat
+After=tomcat.service
+Before=httpd.service
+
+[Service]
+ExecStart=-/usr/sbin/spacewalk-wait-for-tomcat
+Type=oneshot
+TimeoutSec=120
