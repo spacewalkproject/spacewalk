@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 1.9.12
+Version: 1.9.13
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -255,6 +255,12 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Tue Feb 05 2013 Jan Pazdziora 1.9.13-1
+- Removing hw_prof_update_conf.pxt, pkg_prof_update_conf.pxt, and
+  rhn:server_set_actions_cb as they have been replaced by .do pages.
+- Removed /network/systems/ssm/misc/index.pxt, it is no longer referenced (was
+  bundled with the tagging commit).
+
 * Mon Feb 04 2013 Jan Pazdziora 1.9.12-1
 - Automatic commit of package [rhncfg] release [5.10.41-1].
 - Removed /network/systems/ssm/misc/index.pxt, it is no longer referenced.
