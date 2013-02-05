@@ -53,8 +53,6 @@ sub register_callbacks {
   $pxt->register_callback('rhn:server_set_errata_set_actions_cb' => \&server_set_errata_set_actions_cb);
 
   # currently used for mass deletes, mass pkg/hw prof updates, etc...
-  $pxt->register_callback('rhn:server_set_actions_cb' => \&server_set_actions_cb);
-
   $pxt->register_callback('rhn:reschedule_action_cb' => \&reschedule_action_cb);
 
   $pxt->register_callback('rhn:sscd_reboot_servers_cb' => \&sscd_reboot_servers_cb);
@@ -392,38 +390,6 @@ sub reschedule_action_cb {
     throw "Param 'success_redirect' needed but not provided." unless $redir;
 
     $pxt->redirect($redir . "?sid=$server_id&amp;aid=$action_id");
-  }
-}
-
-sub server_set_actions_cb {
-  my $pxt = shift;
-  my $system_set = RHN::Set->lookup(-label => 'system_list', -uid => $pxt->user->id);
-
-  my $num_systems = $system_set->contents;
-
-  if ($pxt->dirty_param('sscd_hw_prof_update_conf')) {
-    my $earliest_date = RHN::Date->now_long_date;
-    my $action_id = RHN::Scheduler->schedule_hardware_refresh(-org_id => $pxt->user->org_id,
-							      -user_id => $pxt->user->id,
-							      -earliest => $earliest_date,
-							      -server_set => $system_set);
-
-    $pxt->push_message(site_info => "$num_systems hardware profiles will be refreshed.");
-    $pxt->redirect('/rhn/systems/ssm/misc/Index.do');
-  }
-  elsif ($pxt->dirty_param('sscd_pkg_prof_update_conf')) {
-    my $earliest_date = RHN::Date->now_long_date;
-    my @action_ids = RHN::Scheduler->sscd_schedule_package_refresh(-org_id => $pxt->user->org_id,
-								   -user_id => $pxt->user->id,
-								   -earliest => $earliest_date,
-								   -server_set => $system_set);
-
-
-    $pxt->push_message(site_info => "$num_systems package profiles will be refreshed.");
-    $pxt->redirect('/rhn/systems/ssm/misc/Index.do');
-  }
-  else {
-    croak 'no valid action specified!';
   }
 }
 
