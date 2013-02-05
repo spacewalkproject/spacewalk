@@ -415,7 +415,12 @@ install -m 755 conf/rhn.xml $RPM_BUILD_ROOT%{_sysconfdir}/tomcat6/Catalina/local
 # check spelling errors in all resources for English if aspell installed
 [ -x "$(which aspell)" ] && scripts/spelling/check_java.sh .. en_US
 
+%if 0%{?fedora}
+install -d -m 755 $RPM_BUILD_ROOT%{_sbindir}
+install -d -m 755 $RPM_BUILD_ROOT%{_unitdir}
+%else
 install -d -m 755 $RPM_BUILD_ROOT%{_initrddir}
+%endif
 install -d -m 755 $RPM_BUILD_ROOT%{_bindir}
 install -d -m 755 $RPM_BUILD_ROOT%{_sysconfdir}/rhn
 install -d -m 755 $RPM_BUILD_ROOT%{_prefix}/share/rhn
@@ -435,7 +440,12 @@ install -m 644 conf/default/rhn_taskomatic_daemon.conf $RPM_BUILD_ROOT%{_prefix}
 install -m 644 conf/default/rhn_org_quartz.conf $RPM_BUILD_ROOT%{_prefix}/share/rhn/config-defaults/rhn_org_quartz.conf
 install -m 644 conf/rhn_java.conf $RPM_BUILD_ROOT%{_prefix}/share/rhn/config-defaults
 install -m 755 conf/logrotate/rhn_web_api $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/rhn_web_api
+%if 0%{?fedora}
+install -m 755 scripts/taskomatic $RPM_BUILD_ROOT%{_sbindir}
+install -m 755 scripts/taskomatic.service $RPM_BUILD_ROOT%{_unitdir}
+%else
 install -m 755 scripts/taskomatic $RPM_BUILD_ROOT%{_initrddir}
+%endif
 install -m 755 scripts/unittest.xml $RPM_BUILD_ROOT/%{_datadir}/rhn/
 install -m 644 build/webapp/rhnjava/WEB-INF/lib/rhn.jar $RPM_BUILD_ROOT%{_datadir}/rhn/lib
 %if ! 0%{?omit_tests} > 0
@@ -498,13 +508,17 @@ rm -rf $RPM_BUILD_ROOT
 rm -f %{realcobsnippetsdir}/spacewalk
 
 %post -n spacewalk-taskomatic
-# This adds the proper /etc/rc*.d links for the script
-/sbin/chkconfig --add taskomatic
+if [ -f /etc/init.d/taskomatic ]; then
+   # This adds the proper /etc/rc*.d links for the script
+   /sbin/chkconfig --add taskomatic
+fi
 
 %preun -n spacewalk-taskomatic
 if [ $1 = 0 ] ; then
-   /sbin/service taskomatic stop >/dev/null 2>&1
-   /sbin/chkconfig --del taskomatic
+   if [ -f /etc/init.d/taskomatic ]; then
+      /sbin/service taskomatic stop >/dev/null 2>&1
+      /sbin/chkconfig --del taskomatic
+   fi
 fi
 
 %files
@@ -634,7 +648,12 @@ fi
 %ghost %attr(644, tomcat, root) %{_var}/spacewalk/systemlogs/audit-review.log
 
 %files -n spacewalk-taskomatic
+%if 0%{?fedora}
+%attr(755, root, root) %{_sbindir}/taskomatic
+%attr(755, root, root) %{_unitdir}/taskomatic.service
+%else
 %attr(755, root, root) %{_initrddir}/taskomatic
+%endif
 %attr(755, root, root) %{_bindir}/taskomaticd
 %attr(755, root, root) %{_datadir}/rhn/lib/spacewalk-asm.jar
 
