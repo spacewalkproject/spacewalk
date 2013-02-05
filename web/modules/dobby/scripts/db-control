@@ -25,7 +25,8 @@ if (not defined $uid or not defined $gid or $uid != $> or $gid != $)) {
       $cli->fatal("Error: please run this command as the root ('su -').");
     }
   } else { # oracle backend can be run only as oracle user
-    $cli->fatal("Error: please run this command as the $intended_username user ('su - $intended_username').");
+    exec '/sbin/runuser', '-', $intended_username, '-c', join ' ', map "'$_'", $0, @ARGV;
+    $cli->fatal("Error: runuser $intended_username failed");
   }
 }
 

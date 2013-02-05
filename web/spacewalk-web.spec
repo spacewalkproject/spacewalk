@@ -71,6 +71,7 @@ Requires: httpd
 Requires:  perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Obsoletes: rhn-dobby < 5.3.0
 Provides: rhn-dobby = 5.3.0
+Requires: /sbin/runuser
 
 %description -n spacewalk-dobby
 Dobby is collection of Perl modules and scripts to administer an Oracle
