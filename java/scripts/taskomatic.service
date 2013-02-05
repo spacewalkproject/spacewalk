@@ -1,0 +1,11 @@
+[Unit]
+Description=Taskomatic is schedule task execution system.
+After=local-fs.target cobblerd.service sendmail.service
+
+[Service]
+Type=forking
+ExecStart=/usr/sbin/taskomatic start
+ExecStop=/usr/sbin/taskomatic stop
+
+[Install]
+WantedBy=multi-user.target
