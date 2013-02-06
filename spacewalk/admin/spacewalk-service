@@ -138,24 +138,6 @@ status() {
     return $?
 }
 
-ensure_httpd_down() {
-    COUNT=0
-    LIMIT=10
-
-    while [ "$(pidof httpd | wc -w)" -gt 0 ] && [ "$COUNT" -lt "$LIMIT" ]
-    do
-	sleep 1
-	((COUNT++))
-    done
-
-    if [ "$COUNT" -eq "$LIMIT" ]; then
-	killall -9 httpd
-	sleep 4
-    fi
-
-    return 0
-}
-
 OPTS=$(getopt --longoptions=exclude:,level:,no-wait-for-tomcat -n ${0##*/} -- e:l:T "$@")
 
 if [ $? != 0 ] ; then echo "Terminating..." >&2 ; exit 1 ; fi
@@ -213,7 +195,7 @@ case "$1" in
         stop
         sleep 4
 
-        ensure_httpd_down
+        /usr/sbin/spacewalk-startup-helper ensure-httpd-down
 
         start
         ;;

@@ -23,6 +23,25 @@ else
 fi
 }
 
+ensure_httpd_down() {
+    COUNT=0
+    LIMIT=10
+
+    while [ "$(pidof httpd | wc -w)" -gt 0 ] && [ "$COUNT" -lt "$LIMIT" ]
+    do
+       sleep 1
+       ((COUNT++))
+    done
+
+    if [ "$COUNT" -eq "$LIMIT" ]; then
+       killall -9 httpd
+       sleep 4
+    fi
+
+    return 0
+}
+
 case $1 in
+        ensure-httpd-down) ensure_httpd_down;;
         wait-for-tomcat) wait_for_tomcat;;
 esac
