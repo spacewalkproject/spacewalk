@@ -3,7 +3,7 @@
 
 Name: apt-spacewalk
 Summary: Spacewalk plugin for Advanced Packaging tool.
-Version: 1.0.6
+Version: 1.0.7
 Release: 1%{?dist}
 License: GPLv2
 Source0: https://example.com/%{name}-%{version}.tar.gz
@@ -19,6 +19,9 @@ to acquire content from Spacewalk server
 %files
 
 %changelog
+* Wed Feb 06 2013 Jan Pazdziora 1.0.7-1
+- update documentation on Debian packages
+
 * Sun Jun 17 2012 Miroslav Suchý <msuchy@redhat.com> 1.0.6-1
 - add copyright information to header of .py files
 - ListRefresh is in APT:Update namespace
