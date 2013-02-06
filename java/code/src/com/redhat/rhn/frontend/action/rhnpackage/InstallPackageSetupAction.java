@@ -17,7 +17,6 @@ package com.redhat.rhn.frontend.action.rhnpackage;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.manager.rhnpackage.PackageManager;
-import com.redhat.rhn.manager.solarispackage.SolarisManager;
 
 /**
  * InstallPackageSetupAction
@@ -30,9 +29,6 @@ public class InstallPackageSetupAction extends BaseSystemPackagesAction {
      * @return List of packages that can be installed..
      */
     protected DataResult getDataResult(Server server) {
-        if (!server.isSolaris()) {
-            return PackageManager.systemAvailablePackages(server.getId(), null);
-        }
-        return SolarisManager.systemAvailablePackageList(server.getId(), null);
+        return PackageManager.systemAvailablePackages(server.getId(), null);
     }
 }

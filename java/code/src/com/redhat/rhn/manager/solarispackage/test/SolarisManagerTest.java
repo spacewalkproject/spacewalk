@@ -40,7 +40,7 @@ public class SolarisManagerTest extends RhnBaseTestCase {
         pc.setStart(1);
 
         // hard code for now.
-        DataResult dr = SolarisManager.systemAvailablePackageList(new Long(1000010004), pc);
+        DataResult dr = PackageManager.systemAvailablePackages(new Long(1000010004), pc);
         assertNotNull(dr);
 
     }
