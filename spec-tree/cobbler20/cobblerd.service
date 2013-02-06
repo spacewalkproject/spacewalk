@@ -3,8 +3,9 @@ Description=daemon that a provides remote cobbler API and status tracking
 After=network.target xinetd.service httpd.service
 
 [Service]
-Type=forking
-ExecStart=/usr/bin/cobblerd --daemonize
+ExecStart=/usr/bin/cobblerd --no-daemonize
+PrivateTmp=yes
+KillMode=process
 
 [Install]
 WantedBy=multi-user.target
