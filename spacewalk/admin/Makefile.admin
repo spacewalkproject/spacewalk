@@ -36,7 +36,7 @@ PERL_SCRIPTS = rhn-config-satellite.pl \
                rhn-generate-pem.pl \
                validate-sat-cert.pl
 
-SBIN_SCRIPTS = rhn-sat-restart-silent spacewalk-service spacewalk-wait-for-tomcat
+SBIN_SCRIPTS = rhn-sat-restart-silent spacewalk-service spacewalk-startup-helper
 
 CONF_FILES = service-list
 

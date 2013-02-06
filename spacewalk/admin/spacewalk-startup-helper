@@ -1,5 +1,6 @@
 #!/bin/bash
 
+wait_for_tomcat() {
 if [ -x /etc/init.d/tomcat5 ]; then
    TOMCAT="tomcat5"
 elif [ -x /etc/init.d/tomcat6 ]; then
@@ -20,3 +21,8 @@ if /usr/sbin/lsof /proc > /dev/null ; then
 else
     echo "No lsof found, not waiting for tomcat."
 fi
+}
+
+case $1 in
+        wait-for-tomcat) wait_for_tomcat;;
+esac

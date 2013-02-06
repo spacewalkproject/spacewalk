@@ -56,7 +56,7 @@ forward_services() {
             if [ "$service" == "$TOMCAT" \
                 -a "$ACTION" == "start" \
                 -a "$WAIT_FOR_TOMCAT" == "1" ] ; then
-                /usr/sbin/spacewalk-wait-for-tomcat
+                /usr/sbin/spacewalk-startup-helper wait-for-tomcat
             fi
 	fi
         if [ $E_STAT -ne 0 ]; then
