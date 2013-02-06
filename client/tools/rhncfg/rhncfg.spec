@@ -8,7 +8,7 @@ Group:   Applications/System
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.10.41
+Version: 5.10.42
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -122,6 +122,10 @@ fi
 
 # $Id$
 %changelog
+* Wed Feb 06 2013 Stephen Herr <sherr@redhat.com> 5.10.42-1
+- 908011 - make rhncfg depend on correct version of rhn-client-tools for RHEL
+- 908011 - make rhncfg depend on newer rhn-client-tools
+
 * Mon Feb 04 2013 Jan Pazdziora 5.10.41-1
 - 856608 - moved rhncfg dependency on spacewalk-backend-libs to base package
   All sub-packages now require it
