@@ -17,7 +17,6 @@ package com.redhat.rhn.frontend.action.rhnpackage;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.manager.rhnpackage.PackageManager;
-import com.redhat.rhn.manager.solarispackage.SolarisManager;
 
 /**
  * UpgradableListSetupAction
@@ -26,10 +25,6 @@ import com.redhat.rhn.manager.solarispackage.SolarisManager;
 public class UpgradableListSetupAction extends BaseSystemPackagesAction {
     @Override
     protected DataResult getDataResult(Server server) {
-        if (!server.isSolaris()) {
             return PackageManager.upgradable(server.getId(), null);
-        }
-        return SolarisManager.systemUpgradablePackageList(server.getId(), null);
     }
-
 }

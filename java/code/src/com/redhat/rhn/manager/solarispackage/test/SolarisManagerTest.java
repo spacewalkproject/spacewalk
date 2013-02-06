@@ -50,10 +50,8 @@ public class SolarisManagerTest extends RhnBaseTestCase {
         pc.setStart(1);
 
         // hard code for now.
-        DataResult dr = SolarisManager.
-                                      systemUpgradablePackageList(new Long(1000010004), pc);
+        DataResult dr = PackageManager.upgradable(new Long(1000010004), pc);
         assertNotNull(dr);
-
     }
 
     public void atestSystemAvailablePatchList() {

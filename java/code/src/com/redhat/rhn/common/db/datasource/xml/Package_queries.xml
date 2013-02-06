@@ -1199,65 +1199,6 @@ SELECT 1
   </query>
 </mode>
 
-<mode name="system_upgradable_solaris_package_list" class="com.redhat.rhn.frontend.dto.UpgradablePackageListItem">
-  <query params="sid">
-SELECT  P.id AS id,
-        PN.name AS name,
-        pn.id || '|' || lookup_evr((full_list.evr).epoch, (full_list.evr).version, (full_list.evr).release) AS id_combo
-  FROM  rhnPackage P,
-        rhnSolarisPackage SP,
-        rhnPackageName PN,
-        (
-         SELECT  SOP.package_name_id AS name_id, MAX(PE.evr) evr
-           FROM  rhnPackageEVR PE, rhnServerOutdatedPackages SOP
-          WHERE  SOP.server_id = :sid
-            AND  SOP.package_evr_id = PE.id
-       GROUP BY  SOP.package_name_id
-         ) full_list
- WHERE  full_list.name_id = PN.id
-   AND  PN.id = P.name_id
-   AND  P.evr_id = lookup_evr((full_list.evr).epoch, (full_list.evr).version, (full_list.evr).release)
-   AND  P.id = SP.package_id
-ORDER BY  UPPER(PN.name)
-  </query>
-  <elaborator params="sid" multiple="t">
-SELECT  P.id AS id,
-        PN.id as name_id,
-        pn.name ||'-'|| evr_t_as_vre_simple(full_list.evr) AS nvre,
-        lookup_evr((full_list.evr).epoch, (full_list.evr).version, (full_list.evr).release) AS evr_id,
-        PN.name || '-' || evr_t_as_vre_simple(SPE.evr) AS installed,
-        full_list.server_id AS SERVER_ID,
-        full_list.errata_id AS ERRATA_ID,
-        full_list.errata_advisory AS ERRATA_ADVISORY,
-        (full_list.evr).epoch AS EPOCH,
-        (full_list.evr).version AS VERSION,
-        (full_list.evr).release AS RELEASE,
-        E.advisory_type AS ERRATA_ADVISORY_TYPE
-  FROM  rhnPackage P,
-        rhnPackageName PN,
-        rhnPackageEVR PE,
-        rhnPackageEVR SPE,
-        rhnServerPackage SP,
-        (
-         SELECT  SOP.package_name_id name_id, MAX(peD.evr) evr,
-                 SOP.server_id server_id, SOP.errata_id errata_id,
-                 SOP.errata_advisory errata_advisory
-           FROM  rhnPackageEVR PED, rhnServerOutdatedPackages SOP
-          WHERE  SOP.server_id = :sid
-            AND  SOP.package_evr_id = PED.id
-       GROUP BY  SOP.package_name_id, SOP.server_id, SOP.errata_id, SOP.errata_advisory
-         ) full_list LEFT OUTER JOIN rhnErrata E on full_list.errata_id = E.id
- WHERE  P.id IN (%s)
-   AND  P.name_id = PN.id
-   AND  PN.id = full_list.name_id
-   AND  PE.id = lookup_evr((full_list.evr).epoch, (full_list.evr).version, (full_list.evr).release)
-   AND  SP.name_id = PN.id
-   AND  SP.server_id = :sid
-   AND  SPE.id = SP.evr_id
-   AND  SPE.evr &lt; PE.evr
-  </elaborator>
-</mode>
-
 <mode name="all_packages_in_channel_after" class="com.redhat.rhn.frontend.dto.PackageDto">
   <query params="cid, start_date_str">
 SELECT
