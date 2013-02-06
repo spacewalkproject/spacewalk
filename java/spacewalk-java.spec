@@ -28,7 +28,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.9.58
+Version: 1.9.59
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -678,6 +678,11 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Feb 06 2013 Tomas Lestach <tlestach@redhat.com> 1.9.59-1
+- 908346 - unify available package list for all systems
+- 908346 - unify package list for all systems
+- 908346 - unify upgradable package list for all systems
+
 * Tue Feb 05 2013 Michael Mraka <michael.mraka@redhat.com> 1.9.58-1
 - updated rhn-search path in messages
 - added systemd service for taskomatic
