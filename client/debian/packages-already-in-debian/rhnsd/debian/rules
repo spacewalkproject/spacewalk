@@ -1,0 +1,21 @@
+#!/usr/bin/make -f
+
+PACKAGENAME=$(strip $(shell dh_listpackages | head -1))
+
+params=-f Makefile.rhnsd PLATFORM=deb PREFIX=$(CURDIR)/debian/$(PACKAGENAME)
+
+
+override_dh_auto_clean:
+	$(MAKE) $(params) clean
+override_dh_auto_build:
+	dh_auto_build -- $(params)
+override_dh_auto_install:
+	$(MAKE) $(params) install
+	rm -rf $(CURDIR)/debian/$(PACKAGENAME)/etc/rc.d
+override_dh_auto_test:
+	# nothing to test.
+
+%:
+	dh $@
+
+

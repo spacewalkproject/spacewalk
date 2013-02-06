@@ -1,5 +1,8 @@
 HOW TO BUILD DEBIAN PACKAGES
 
+Note: Core packages are already in Debian. They are handled differently.
+      See packages-already-in-debian/README
+
 python-rhnlib in client/rhel/rhnlib
 -----------------------------------
 cd client/rhel/rhnlib

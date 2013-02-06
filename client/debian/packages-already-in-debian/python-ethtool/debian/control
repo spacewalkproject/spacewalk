@@ -1,0 +1,17 @@
+Source: python-ethtool
+Section: python
+Priority: extra
+Maintainer: Miroslav Suchý <miroslav@suchy.cz>
+Uploaders: Bernd Zeimetz <bzed@debian.org>
+Build-Depends: debhelper (>= 7.0.50~), python-all-dev (>= 2.6.6-3~), libnl-dev, asciidoc, pkg-config, libxml2-utils, docbook-xml, xsltproc
+Standards-Version: 3.9.3
+Homepage: http://fedorapeople.org/gitweb?p=dsommers/public_git/python-ethtool.git;a=summary
+Vcs-Browser: http://anonscm.debian.org/gitweb/?p=collab-maint/spacewalk/python-ethtool.git
+Vcs-Git: git://anonscm.debian.org/collab-maint/spacewalk/python-ethtool.git
+
+Package: python-ethtool
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ${python:Depends}
+Description: Python bindings for the ethtool kernel interface
+ Allows querying and changing of ethernet card settings, such as speed,
+ port, autonegotiation, and PCI locations.

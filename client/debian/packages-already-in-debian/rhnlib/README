@@ -1,0 +1,28 @@
+rhnlib - A collection of python modules used by the Red Hat Network
+(http://rhn.redhat.com) software.
+
+Copyright (C) 2002 Red Hat, Inc.
+
+This library is distributed under the terms of the GNU Public License (GPL).
+
+$Id$
+
+0. HISTORY
+
+Traditionally, rhn used a patched version of Fredrik Lundh's xmlrpclib, 
+shipped with Red Hat 6.2, 7.0, 7.1, 7.2 and 7.3 in a package called 
+python-xmlrpc.
+
+The additions included improved transport objects (proxy support, a 
+better SSL framework, encodings and transfers), most of them part of a module
+called cgiwrap.
+
+Since python 2.2 (and previous python 2 releases) ships Fredrik Lundh's
+xmlrpclib as a standard library, maintaining a patched version of xmlrpclib
+was no longer feasible. SSL support in python 2.2 is also hopelessly
+incomplete, so using an external module seems to be a better approach. We
+chose pyOpenSSL instead of m2crypto, partly because swig seems to change
+rather quickly.
+
+rhnlib tries to reuse as much as possible from the old cgiwrap, as well as
+from what the standard python libraries provide.

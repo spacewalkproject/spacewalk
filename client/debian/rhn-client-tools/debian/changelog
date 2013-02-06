@@ -1,6 +1,0 @@
-python-rhn-client-tools (1.6.41-1) unstable; urgency=low
-
-  * Initial Debian release
-  * 703833 - if /sbin/service is not available, try to use /usr/sbin/service
-
- -- Miroslav Suchy <miroslav@suchy.cz>  Fri, 15 Jun 2012 18:17:35 +0200

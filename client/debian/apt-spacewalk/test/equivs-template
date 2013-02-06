@@ -1,7 +1,0 @@
-Section: misc
-Priority: optional
-Standards-Version: 3.6.2
-Package: %name%
-Version: %version%
-Description: Dummy testing package
-Architecture: %arch%

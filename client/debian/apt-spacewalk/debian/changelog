@@ -1,7 +1,0 @@
-apt-spacewalk (1.0.4-1) unstable; urgency=low
-
-  * Updated to the upstream version
-  * The method can be killed by the keyboard interrupt
-
- -- Simon Lukasik <xlukas08@stud.fit.vutbr.cz>  Thu, 28 Apr 2011 12:53:49 +0200
-

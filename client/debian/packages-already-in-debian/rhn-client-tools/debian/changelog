@@ -1,0 +1,18 @@
+rhn-client-tools (1.8.9-3) unstable; urgency=low
+
+  * [79e26720] Depend on hal instead of python-gudev on !linux-any.
+
+ -- Bernd Zeimetz <bzed@debian.org>  Fri, 28 Sep 2012 23:25:55 +0200
+
+rhn-client-tools (1.8.9-2) unstable; urgency=low
+
+  * [c611b6e2] Remove the dependency on !linux arches on python-ethtool.
+  * [bf0389ab] Add README.source.
+
+ -- Bernd Zeimetz <bzed@debian.org>  Thu, 13 Sep 2012 00:55:56 +0200
+
+rhn-client-tools (1.8.9-1) unstable; urgency=low
+
+  * Initial Debian release
+
+ -- Miroslav Suchý <miroslav@suchy.cz>  Sat, 16 Jun 2012 14:26:12 +0200

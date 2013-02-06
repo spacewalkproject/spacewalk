@@ -1,0 +1,20 @@
+#!/usr/bin/make -f
+
+# Uncomment this to turn on verbose mode.
+#export DH_VERBOSE=1
+
+override_dh_auto_build:
+	dh_auto_build --buildsystem python_distutils
+	cp -p pethtool.py pethtool
+	cp -p pifconfig.py pifconfig
+	a2x -d manpage -f manpage man/pethtool.8.asciidoc
+	a2x -d manpage -f manpage man/pifconfig.8.asciidoc
+
+clean:
+	if [ -f setup.py ]; then dh $@ --buildsystem python_distutils --with python2; fi
+	#rm -f setup.py
+	rm -f setup.cfg pethtool pifconfig man/pethtool.8 man/pifconfig.8
+	rm -rf build
+
+%:
+	dh $@ --buildsystem python_distutils --with python2

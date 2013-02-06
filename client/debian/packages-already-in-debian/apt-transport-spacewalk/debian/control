@@ -1,0 +1,23 @@
+Source: apt-spacewalk
+Section: admin
+Priority: extra
+Maintainer: Miroslav Suchý <miroslav@suchy.cz>
+Uploaders: Bernd Zeimetz <bzed@debian.org>
+Build-Depends: debhelper (>= 7.0.50~), python (>= 2.6.6-3~)
+Standards-Version: 3.9.3
+Homepage: https://fedorahosted.org/spacewalk
+Vcs-Browser: http://anonscm.debian.org/gitweb/?p=collab-maint/spacewalk/apt-spacewalk.git
+Vcs-Git: git://anonscm.debian.org/collab-maint/spacewalk/apt-spacewalk.git
+
+Package: apt-transport-spacewalk
+Architecture: all
+Depends: ${misc:Depends}, ${python:Depends}, apt, python-apt,
+ rhn-client-tools
+Provides: ${python:Provides}
+Recommends: rhnsd
+Description: APT transport for communicating with Spacewalk servers
+ makes it possible to use
+ 'deb spacewalk://your-spacewalk-server/XMLRPC channels: channel1 channel2'
+ type lines in your sources.list. Also it provides the necessary hooks to
+ update your sources.list automatically according to the settings on
+ your Spacewalk server.

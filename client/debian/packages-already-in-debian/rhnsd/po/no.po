@@ -1,0 +1,59 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Kjartan Maraas <kmaraas@gnome.org>, 2003.
+msgid ""
+msgstr ""
+"Project-Id-Version: Spacewalk\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-12-21 12:22+0100\n"
+"PO-Revision-Date: 2011-03-04 16:04+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: no\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+
+#: ../rhnsd.c:55
+msgid "MINS"
+msgstr ""
+
+#: ../rhnsd.c:56
+msgid "Connect to Red Hat Network every MINS minutes"
+msgstr ""
+
+#: ../rhnsd.c:58
+msgid "Run in foreground"
+msgstr ""
+
+#. Short description of program.
+#: ../rhnsd.c:63
+msgid "Red Hat Network Services Daemon"
+msgstr ""
+
+#: ../rhnsd.c:116
+#, c-format
+msgid "Only root can run this program\n"
+msgstr ""
+
+#: ../rhnsd.c:136
+msgid "wrong number of arguments"
+msgstr ""
+
+#: ../rhnsd.c:143
+msgid "already running"
+msgstr ""
+
+#: ../rhnsd.c:243
+#, c-format
+msgid "Copyright (C) %s Red Hat, Inc.\n"
+msgstr ""
+
+#: ../rhnsd.c:246
+#, c-format
+msgid "Written by %s.\n"
+msgstr ""

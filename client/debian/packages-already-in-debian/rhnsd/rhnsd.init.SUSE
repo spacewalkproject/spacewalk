@@ -1,0 +1,114 @@
+#!/bin/sh
+#
+# rhnsd:	Starts the Red Hat Network Daemon
+#
+# chkconfig: 345 97 03
+# description:  This is a daemon which handles the task of connecting \
+#		periodically to the Red Hat Network servers to \
+#		check for updates, notifications and perform system \
+#		monitoring tasks according to the service level that \
+#		this server is subscribed for
+#
+# processname: rhnsd
+# pidfile: /var/run/rhnsd.pid
+#
+
+### BEGIN INIT INFO
+# Provides: rhnsd
+# Required-Start: $local_fs $network $remote_fs $named $time
+# Required-Stop: $local_fs $network $remote_fs $named
+# Default-Start: 2 3 5
+# Default-Stop: 0 1 6
+# Short-Description: Starts the Red Hat Network Daemon
+# Description: This is a daemon which handles the task of connecting
+#               periodically to the Red Hat Network servers to
+#               check for updates, notifications and perform system
+#               monitoring tasks according to the service level that
+#               this server is subscribed for.
+### END INIT INFO
+
+
+# interval in minutes to connect to Red Hat Network. The minimum allowed
+# value is currently 1 hour; by default rhnsd will connect every four hours.
+# This should be more than suitable for the vast majority of systems.  You
+# may adjust the interval by editing the file /etc/sysconfig/rhn/rhnsd.
+
+RHNSD=/usr/sbin/rhnsd
+RHNSD_PIDFILE=/var/run/rhnsd.pid
+
+# Sanity checks.
+[ -x $RHNSD ] || exit 6
+RHN_UP2DATE_FILE="/etc/sysconfig/rhn/up2date"
+[ -f $RHN_UP2DATE_FILE ] || exit 6
+if [ -r $RHN_UP2DATE_FILE ]; then
+        RHN_SYSTEMID_FILE=`awk -F '=[[:space:]]*' '/^[[:space:]]*systemIdPath[[:space:]]*=/ {print $2}' $RHN_UP2DATE_FILE`
+        [ -f $RHN_SYSTEMID_FILE ] || exit 6
+elif [ "$1" != "status" ];  then
+        echo "Insufficient privilege. Cannot open file $RHN_UP2DATE_FILE for reading."
+        exit 4
+fi
+
+# Source function library.
+. /etc/rc.status
+
+# Shell functions sourced from /etc/rc.status:
+#      rc_check         check and set local and overall rc status
+#      rc_status        check and set local and overall rc status
+#      rc_status -v     ditto but be verbose in local rc status
+#      rc_status -v -r  ditto and clear the local rc status
+#      rc_failed        set local and overall rc status to failed
+#      rc_reset         clear local rc status (overall remains)
+#      rc_exit          exit appropriate to overall rc status
+
+# First reset status of this service
+rc_reset
+
+start() {
+    echo -n $"Starting Red Hat Network Daemon: "
+    startproc -p $RHNSD_PIDFILE $RHNSD
+    rc_status
+    touch /var/lock/subsys/rhnsd
+    rc_status -v
+}
+
+stop() {
+    echo -n $"Stopping Red Hat Network Daemon: "
+    killproc -p $RHNSD_PIDFILE $RHNSD
+    rc_status -v
+    rm -f /var/lock/subsys/rhnsd
+}
+
+# See how we were called.
+case "$1" in
+    start)
+	start
+	;;
+    stop)
+	stop
+	;;
+    status)
+        echo -n "Checking for service rhnsd: "
+        checkproc -p $RHNSD_PIDFILE $RHNSD
+	rc_status -v
+        ;;
+    restart|force-reload)
+	stop
+	start
+	;;
+    condrestart|try-restart)
+	if [ -f /var/lock/subsys/rhnsd ]; then
+	    stop
+	    start
+	fi
+	;;
+    reload)
+        echo -n $"Reloading Red Hat Network Daemon: "
+        killproc -p $RHNSD_PIDFILE -HUP $RHNSD
+        rc_status -v
+        echo
+        ;;
+    *)
+	echo $"Usage: $0 {start|stop|status|restart|force-reload|condrestart|try-restart|reload}"
+        exit 2
+esac
+rc_exit

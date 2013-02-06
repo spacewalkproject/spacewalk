@@ -1,0 +1,42 @@
+From 8baef61c8b6b9564e7e936f52575d5eb75b5ee38 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Miroslav=20Such=C3=BD?= <msuchy@redhat.com>
+Date: Thu, 30 Aug 2012 10:53:01 +0200
+Subject: [PATCH] workaround missing python-ethtool
+
+On Debian/kfreebsd is not available python-ethtoool. It is because it requires libnl,
+which is Linux specific.
+So if python-ethtools is not present, do not fail and just print warning,
+that hardware information about network interfaces are not present.
+And read_network_interfaces() will return empty dictionary.
+---
+ .../rhel/rhn-client-tools/src/up2date_client/hardware.py   |   12 +++++++++++-
+ 1 file changed, 11 insertions(+), 1 deletion(-)
+
+--- a/src/up2date_client/hardware.py
++++ b/src/up2date_client/hardware.py
+@@ -22,7 +22,13 @@ import os
+ import sys
+ import config
+ 
+-import ethtool
++try:
++    import ethtool
++    ethtool_present = True
++except ImportError:
++    sys.stderr.write("Warning: information about network interfaces could not be retrieved on this platform.\n")
++    ethtool_present = False
++
+ import gettext
+ t = gettext.translation('rhn-client-tools', fallback=True)
+ _ = t.ugettext
+@@ -524,6 +530,10 @@ def read_network_interfaces():
+     intDict = {}
+     intDict['class'] = "NETINTERFACES"
+ 
++    if not ethtool_present:
++        # ethtool is not available on non-linux platforms (as kfreebsd), skip it
++        return intDict
++
+     interfaces = list(set(ethtool.get_devices() + ethtool.get_active_devices()))
+     for interface in interfaces:
+         try:

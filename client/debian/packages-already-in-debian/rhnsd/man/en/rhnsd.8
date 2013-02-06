@@ -1,0 +1,97 @@
+.\" Copyright 2006 Red Hat, Inc.
+.\"
+.\" This man page is free documentation; you can redistribute it and/or modify
+.\" it under the terms of the GNU General Public License as published by
+.\" the Free Software Foundation; either version 2 of the License, or
+.\" (at your option) any later version.
+.\"
+.\" This program is distributed in the hope that it will be useful,
+.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+.\" GNU General Public License for more details.
+.\"
+.\" You should have received a copy of the GNU General Public License
+.\" along with this man page; if not, write to the Free Software
+.\" Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+.\"
+.TH RHNSD 8 "2006 November 13" "Linux" "Red Hat, Inc."
+
+.SH NAME
+rhnsd \- A program for querying the Red Hat Network for updates and information.
+
+.SH SYNOPSIS
+
+rhn_check [\fIoptions\fP]
+
+.SH DESCRIPTION
+
+.PP
+\fBrhnsd\fR is a background daemon process that periodically
+polls the Red Hat Network to see if there are any queued actions
+available. If any are queued, rhnsd will execute those actions. 
+.PP
+rhnsd is typically started from the initialization (init) scripts in 
+\fI/etc/init.d/rhnsd\fP.
+when it's time to poll the Red Hat Network servers for available
+updates and actions. The default interval is every 240 minutes. 
+The minimum polling interval is 60 minutes. 
+.PP
+To check for updates, rhnsd runs an external program called 
+\fBrhn_check\fR. This is a small application that actually
+makes the network connection to Red Hat Networks. 
+.PP
+The rhnsd daemon does not listen on any network ports, nor
+does it ever talk to the network directly. Any network
+activity is done via the \fBrhn_check\fR utility. 
+.PP
+rhnsd can be configured by editing the
+\fI/etc/sysconfig/rhn/rhnsd\fP. 
+configuration file. This is actually the
+configuration file the rhnsd initialization script
+\fI/etc/init.d/rhnsd\fP.
+uses.
+
+.SH OPTIONS
+.IP "\fB-i\fR, \fB--interval\fR"
+Specify the interval that rhnsd should wait between
+checking the Red Hat Network. Default is 240 minutes,
+the minimum is 60 minutes. This can also be specified
+in \fI/etc/sysconfig/rhn/rhnsd\fP
+.br
+.IP "\fB-f\fR, \fB--foreground\fR"
+force the rhnsd process to run in the foreground instead
+of automatically backgrounding itself, as it does by default.
+
+.SH FILES
+
+.IP \fI/etc/sysconfig/rhn/rhnsd\fP
+Configuration settings for the rhnsd daemon's initialization script.
+.br
+
+.SH "SEE ALSO"
+
+.PP
+\fBrhn_check\fP(8), \fBrhn_register\fP(8), \fBrhnsd\fP(8), \fBrhn-profile-sync\fP(8), \fBrhnplugin\fP(8), \fBup2date\fP(5).
+
+.SH AUTHORS
+
+Preston Brown <pbrown@redhat.com>
+.br
+Cristian Gafton <gafton@redhat.com>
+.br
+Adrian Likins <alikins@redhat.com>
+.br
+James Bowes <jbowes@redhat.com>
+
+.SH "BUGS"
+.PP
+Report bugs to <http://bugzilla.redhat.com>.
+
+.SH COPYRIGHT
+
+.PP
+Copyright \(co 1999-2006 Red Hat, Inc.
+
+.PP
+This is free software; see the source for copying conditions.  There is 
+NO warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.

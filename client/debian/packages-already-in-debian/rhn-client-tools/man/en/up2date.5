@@ -1,0 +1,103 @@
+.\" Copyright 1999-2010 Red Hat, Inc.
+.\"
+.\" This man page is free documentation; you can redistribute it and/or modify
+.\" it under the terms of the GNU General Public License as published by
+.\" the Free Software Foundation; version 2 of the License.
+.\"
+.\" This program is distributed in the hope that it will be useful,
+.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+.\" GNU General Public License for more details.
+.\"
+.\" You should have received a copy of the GNU General Public License
+.\" along with this man page; if not, write to the Free Software
+.\" Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+.\"
+.TH "UP2DATE" "5" "2010 August 30" "Linux" "Red Hat, Inc."
+.SH NAME
+
+up2date \- Configuration file for Red Hat Network client programs.
+
+.SH DESCRIPTION
+
+.PP
+Red Hat Network client programs, such as \fBrhn_check(8)\fR, use a common
+configuration file at \fI/etc/sysconfig/rhn/up2date\fR.
+
+.SH OPTIONS
+
+.IP \fBenableProxy\fR
+Use a HTTP Proxy. Can be either 0 (False) or 1 (True).
+.br
+.IP \fBserverURL\fR
+Remote server URL
+.br
+.IP \fBdebug\fR
+Whether or not debugging is enabled. Can be either 0 (False) or 1 (True).
+.br
+.IP \fBsystemIdPath\fR
+Location of system id file. Expects the path of a file on disk.
+.br
+.IP \fBversionOverride\fR
+Override the automatically determined system version. Expects a string or blank (do not override the version).
+.br
+.IP \fBhttpProxy\fR
+HTTP proxy in host:port format, e.g. squid.redhat.com:3128
+.br
+.IP \fBproxyUser\fR 
+The username for an authenticated proxy.
+.br
+.IP \fBproxyPassword\fR
+The password to use for an authenticated proxy.
+.br
+.IP \fBenableProxyAuth\fR
+To use an authenticated proxy or not. Can be either 0 (False) or 1 (True).
+.br
+.IP \fBnetworkRetries\fR 
+Number of attempts to make at network connections before giving up. Expects a
+positive integer.
+.br
+.IP \fBsslCACert\fR
+The CA cert used to verify the ssl server. Expects the path of a file on disk.
+.br
+.IP \fBnoReboot\fR
+Disable the reboot action. Can be either 0 (False) or 1 (True).
+.br
+.IP \fBdisallowConfChanges\fR
+Config options that can not be overwritten by a config update action. Expects a
+semi-colon separated list of config option names.
+.IP \fBhostedWhitelist\fR
+Override the default list of URLs the RHN Register client treats as official RHN hosted servers. This only affects the RHN Register graphical- and text-based clients, as it changes some of the options that appear. This option is included for testing purposes only.
+.br
+.IP \fBretrieveOnly\fR
+If set to 1 (True), package installs done through rhn_check will only download
+the package, the package will not be installed.
+.br
+.SH FILES
+
+.IP \fI/etc/sysconfig/rhn/up2date\fP
+The location of this configuration file
+
+.SH "SEE ALSO"
+
+.PP
+\fBrhn_check\fP(8), \fBrhn_register\fP(8), \fBrhnreg_ks\fP(8), \fBrhnsd\fP(8), \fBrhn-profile-sync\fP(8), \fBrhnplugin\fP(8), \fBrhnplugin.conf\fP(5).
+
+.SH AUTHORS
+.PP
+See the AUTHORS file included with this software.
+.PP
+This manual page was written by James Bowes <jbowes@redhat.com>
+
+.SH "BUGS"
+.PP
+Report bugs to <http://bugzilla.redhat.com>.
+
+.SH COPYRIGHT
+
+.PP
+Copyright \(co 1999\-2010 Red Hat, Inc.
+
+.PP
+This is free software; see the source for copying conditions.  There is 
+NO warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.

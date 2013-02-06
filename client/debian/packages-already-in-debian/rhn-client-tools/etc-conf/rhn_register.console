@@ -1,0 +1,6 @@
+USER=root
+PROGRAM=/usr/sbin/rhn_register
+NOXOPTION=--nox
+SESSION=true
+ROLE=sysadm_r
+TYPE=rpm_t

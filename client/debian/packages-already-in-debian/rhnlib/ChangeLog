@@ -1,0 +1,103 @@
+Version 1.8
+ - Breaking transports.Transport.request() into smaller pieces
+ - Added factories for the transport classes in the Server object
+ - Fixed a bug in File.__del__ (if close is called twice, it tried to call
+   None)
+ - Fixed a bug in SSL.read() (on an open stream, read() would block instead of
+   returning with the amount of data available).
+ - The previous fix in SSL.read uncovered a nastier bug in httplib:
+   http://python.org/sf/988120
+   Fixed it in our HTTPResponse subclass
+ - The internal _httplib did not have a _read_chunked
+   (http://bugzilla.redhat.com/128008)
+
+Version 1.7
+ - Renamed _xmlrpclib.py to _internal_xmlrpclib.py to avoid _xmlrpclib from
+   self-importing (bug #119876)
+ - Added a User-Agent header for CONNECTION tunnels.
+ - Fixed lookupEncoding
+
+Version 1.6
+ - GET methods have empty bodies, so rpclib.GETServer._req_body should return
+   empty string not None
+ - Properly convert chunk sizes in python 1.5.2
+
+Version 1.5
+ - Added iterator for the UserDictCase objects. Easier than subclassing
+   IterableUserDict since the code has to work with python 1.5.2.
+ - rhn/transports.py: one can pass to an Input object a stream that doesn't
+   have a close() method.
+ - rpclib exposes File now too
+ - rhn/transports.py: the Output object now sets Content-Length
+   (which will be cleared when sent upstream)
+
+Version 1.3
+ - work on HTTP/HTTPS redirection support at the Server class level in
+   rhnlib.py:
+   - new data in the instance to keep setting made to the underlying transport
+   - new methods to control and check redirection: allow_redirect() and
+     redirected() which returns the redirected URL or None
+   - separated the initialization code to provide a default transport as an
+     new method default_transport()
+   - added redirection handling in _request() with some associated checking
+     like https->http redirection being forbidden
+   - at the transport level, request() checks redirection, position a
+     redirection flag and returns None if redirected.
+ - Added some flexibility on the way to specify proxy informations, the
+   get_proxy_info() function of rhnlib.py is used to extract host, port,
+   username and password information from the proxy URL or old host:port
+   format.
+ - Fixed an error related to decoding the tuples that XMLRPC returns back.
+
+Version 1.2
+ - Changed the ugly way of passing around InputStream as an exception
+ - The transport flags are now more generic, allowing for future extensibility
+ - Added a transport flag 'allow_partial_content' which will prevent the
+   transport from raising an exception if a 206 status code is received
+ - New Server methods:  get_response_headers, get_response_status and
+   get_response_reason; you can now inspect the headers even for successful
+   connections
+ - Changed the GETServer method calls to accept offset and amount
+ - Added get_content_range, to parse the interesting values out of the HTTP
+   headers
+ - Added accept_ranges, a function that returns true if the server accepts
+   ranges. Note that even though the server doesn't advertise itself as
+   accepting ranges, it's still possible for the client to issue a range
+   request; depending on the response status code, the client can see if the
+   server supports ranges (206) or not (200)
+ - set_header and add_header are now different and doing what they are
+   supposed to do
+ - added get_transport_flags() as a Server method
+ - fixed an instance when Input.io was not rewound
+
+Version 1.1
+ - Minor bugfixes
+ - Building the rpm with distutils is too painful; switching to a
+   human-maintained spec file instead.
+
+Version 1.0
+ - More or less 0.9 for public consumption
+
+Version 0.9
+ - SSL.py: use load_verify_locations multiple times. This function seems to do
+   more than my poor method of getting the cert store and adding certs by 
+   hand, probably because load_certificate from a buffer can only handle one
+   certificate at the time.
+ - With the addition of SmartIO, the memory usage should be limited to 16k,
+   after which the objects will be dumped on the disk in temporary files.
+ - Fixed yet another file descriptor leak (and still in SSL).
+
+Version 0.8
+ - User-Agent, X-Info and X-Client-Version were not present in the HTTP
+   headers; fixed
+ - Completely deprecating rhnHTTPlib: swallowed reportError
+ - Fixed stupid typo introduced when fixing the previous bug.
+ - Fixed #69518 (up2date seems to never properly reauthenticate after a auth
+   timeout)
+ - Fixed #69311 (leaking file descriptors over SSL connections).
+ - Fixed #68911 (and some other bugs that were related to this one).
+ - Fixed a proxy related bug. Thanks to Gil Chilton <Gil.Chilton@capitalone.com>
+   for helping me discover and test it.
+
+Version 0.7
+ - More careful distutils packaging.

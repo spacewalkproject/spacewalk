@@ -1,0 +1,19 @@
+Source: rhnlib
+Section: python
+Priority: extra
+Maintainer: Miroslav Suchý <miroslav@suchy.cz>
+Uploaders: Bernd Zeimetz <bzed@debian.org>
+Build-Depends: python (>= 2.6.6-3~), debhelper (>= 7.0.50~)
+Standards-Version: 3.9.3
+Homepage: https://fedorahosted.org/spacewalk
+Vcs-Browser: http://anonscm.debian.org/gitweb/?p=collab-maint/spacewalk/rhnlib.git
+Vcs-Git: git://anonscm.debian.org/collab-maint/spacewalk/rhnlib.git
+
+Package: python-rhn
+Architecture: all
+Depends: ${python:Depends}, ${misc:Depends}, python-openssl
+Description: Python libraries for the RHN project
+ Collection of base Python modules used by the Red Hat Network
+ (http://rhn.redhat.com) and Spacewalk software.
+ This is common library used by both clients and server.
+

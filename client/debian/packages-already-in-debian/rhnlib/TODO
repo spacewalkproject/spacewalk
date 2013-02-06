@@ -1,0 +1,17 @@
+$Id$
+
+- Check nonblocking support for HTTPS as well.
+- Allow for multi-valued headers
+- Wrapper around the socket class, to allow for calling select() on the socket
+  I/O
+- Split this module intelligently
+- Build an __init__ file to expose the desired API
+- Fix the Input and Output objects: setting the encoding from the input object
+  to the output object is difficult (there is a patch somewhere for this, I'll
+  have to look it up -- misa)
+- Clean up things
+- More documentation
+- Check compliance with python 1.5
+- Figure out a better way to pass the client version
+- Figure out what the version we pass in the headers should look like.
+- Finish the TODO :-)

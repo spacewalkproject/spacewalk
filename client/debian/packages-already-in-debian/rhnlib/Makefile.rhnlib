@@ -1,0 +1,59 @@
+# Makefile for the rhn modules
+#
+# $Id: Makefile 102335 2006-09-14 18:51:19Z dbenamy $
+
+PYTHON      = /usr/bin/python
+
+NAME	    = rhnlib
+VERSION	    = $(call _get_tag,VERSION)
+RELEASE	    = $(call _get_tag,RELEASE)
+_get_tag    = $(shell rpm -q --queryformat "%{$1}" --specfile $(NAME).spec | head -1)
+
+WORKDIR	    = $(shell pwd)
+SOURCEDIR   = $(WORKDIR)
+SRCRPMDIR   = $(WORKDIR)
+BUILDDIR    = $(WORKDIR)
+RPMDIR	    = $(WORKDIR)
+
+RPMBUILD    = rpmbuild
+RPMBUILDCMD = $(RPMBUILD) --define "_sourcedir $(SOURCEDIR)" --define "_srcrpmdir $(SRCRPMDIR)" --define "_builddir $(BUILDDIR)" --define "_rpmdir $(RPMDIR)" --define "_build_name_fmt %{NAME}-%{VERSION}-%{RELEASE}.%{ARCH}.rpm"
+
+TARBALL	    = $(NAME)-$(VERSION).tar.gz
+
+.PHONY: build install rpm devel release clean
+
+all:	build
+
+setup.py: setup.py.in $(VERFILE)
+	@sed -e 's/@VERSION@/$(VERSION)/' -e 's/@NAME@/$(NAME)/' $< > $@
+	
+setup.cfg: setup.cfg.in $(VERFILE)
+	@sed 's/@RELEASE@/$(RELEASE)/' $< > $@
+
+build: setup.py
+	@$(PYTHON) setup.py build
+	for i in build/lib/rhn/rpclib.py build/lib/rhn/transports.py ; do sed -i 's!\$$Revision\$$!$(VERSION)-$(RELEASE)!' $$i ; done
+
+install: setup.py setup.cfg
+	@$(PYTHON) setup.py install
+
+$(TARBALL): clean setup.py setup.cfg
+	@$(PYTHON) setup.py sdist $(DISTUTILS_OPT)
+	@mv dist/$(TARBALL) $(WORKDIR)
+	@rm -rf dist
+
+tar:	$(TARBALL)
+
+test-srpm: $(TARBALL)
+	$(RPMBUILDCMD) --nodeps -ts $(TARBALL)
+
+test-rpm: $(TARBALL)
+	$(RPMBUILDCMD) --nodeps -ta $(TARBALL)
+
+rpm: $(TARBALL)
+	$(RPMBUILD) -ta $(TARBALL)
+
+release: tar test-srpm
+
+clean:
+	@rm -rfv dist build MANIFEST setup.cfg setup.py *pyc *.tar.gz *.rpm $(NAME)-$(VERSION)

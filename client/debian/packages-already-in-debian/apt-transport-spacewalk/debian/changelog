@@ -1,0 +1,14 @@
+apt-spacewalk (1.0.6-2) unstable; urgency=low
+
+  * [22c43b83] Rename binary package to apt-transport-spacewalk
+    as suggested by the apt developers.
+  * [e98c50bc] Remove extra 'either' from debian/copyright.
+  * [5ea16bcd] Fix dh_python2 override.
+
+ -- Bernd Zeimetz <bzed@debian.org>  Tue, 19 Jun 2012 22:15:45 +0200
+
+apt-spacewalk (1.0.6-1) unstable; urgency=low
+
+  * Initial release.
+
+ -- Bernd Zeimetz <bzed@debian.org>  Sun, 17 Jun 2012 13:55:50 +0200

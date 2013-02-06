@@ -1,0 +1,5 @@
+rhnsd (4.9.15-1) unstable; urgency=low
+
+  * Initial release.
+
+ -- Bernd Zeimetz <bzed@debian.org>  Sun, 17 Jun 2012 13:50:04 +0200

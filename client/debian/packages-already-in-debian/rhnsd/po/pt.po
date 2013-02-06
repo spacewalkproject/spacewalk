@@ -1,0 +1,59 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Miroslav Suchý <msuchy@redhat.com>, 2011.
+msgid ""
+msgstr ""
+"Project-Id-Version: Spacewalk\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-12-21 12:22+0100\n"
+"PO-Revision-Date: 2012-02-14 13:07+0000\n"
+"Last-Translator: Miroslav Suchý <msuchy@redhat.com>\n"
+"Language-Team: Portuguese <trans-pt@lists.fedoraproject.org>\n"
+"Language: pt\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+
+#: ../rhnsd.c:55
+msgid "MINS"
+msgstr ""
+
+#: ../rhnsd.c:56
+msgid "Connect to Red Hat Network every MINS minutes"
+msgstr ""
+
+#: ../rhnsd.c:58
+msgid "Run in foreground"
+msgstr ""
+
+#. Short description of program.
+#: ../rhnsd.c:63
+msgid "Red Hat Network Services Daemon"
+msgstr ""
+
+#: ../rhnsd.c:116
+#, c-format
+msgid "Only root can run this program\n"
+msgstr "Apenas o 'root' poderá executar este programa\n"
+
+#: ../rhnsd.c:136
+msgid "wrong number of arguments"
+msgstr "número errado de argumentos"
+
+#: ../rhnsd.c:143
+msgid "already running"
+msgstr "já em execução"
+
+#: ../rhnsd.c:243
+#, c-format
+msgid "Copyright (C) %s Red Hat, Inc.\n"
+msgstr "Copyright (C) %s Red Hat, Inc.\n"
+
+#: ../rhnsd.c:246
+#, c-format
+msgid "Written by %s.\n"
+msgstr "Criado por %s.\n"
