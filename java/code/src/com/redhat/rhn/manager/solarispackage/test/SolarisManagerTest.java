@@ -16,6 +16,7 @@ package com.redhat.rhn.manager.solarispackage.test;
 
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.frontend.listview.PageControl;
+import com.redhat.rhn.manager.rhnpackage.PackageManager;
 import com.redhat.rhn.manager.solarispackage.SolarisManager;
 import com.redhat.rhn.testing.RhnBaseTestCase;
 
@@ -83,7 +84,7 @@ public class SolarisManagerTest extends RhnBaseTestCase {
         pc.setStart(1);
 
         // hard code for now.
-        DataResult dr = SolarisManager.systemPackageList(new Long(1000010004), pc);
+        DataResult dr = PackageManager.systemPackageList(new Long(1000010004), pc);
         assertNotNull(dr);
 
 

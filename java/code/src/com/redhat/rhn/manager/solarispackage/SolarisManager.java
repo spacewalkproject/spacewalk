@@ -53,16 +53,6 @@ public class SolarisManager extends BaseManager {
     }
 
     /**
-     * Returns list of installed solaris package(s) for given server
-     * @param sid Server Id
-     * @param pc PageControl can also be null.
-     * @return list of solaris packages for given server
-     */
-    public static DataResult systemPackageList(Long sid, PageControl pc) {
-        return solarisPackageHelper(sid, pc, "system_solaris_package_list");
-    }
-
-    /**
      * Returns list of installed solaris patch(es) for given server
      * @param sid Server Id
      * @param pc PageControl can also be null.

@@ -1028,28 +1028,6 @@ ORDER BY UPPER(PN.name), UPPER(evr_t_as_vre_simple(PE.evr))
   </query>
 </mode>
 
-<mode name="system_solaris_package_list" class="com.redhat.rhn.frontend.dto.PackageListItem">
-  <query params="sid">
-SELECT  PN.id || '|' || PE.id AS ID_COMBO,
-        PN.name || '-' || evr_t_as_vre_simple(PE.evr) AS NVRE,
-        PN.name AS name,
-        PE.version,
-        PE.release,
-        PE.epoch,
-        PN.id AS NAME_ID,
-        PE.id AS EVR_ID,
-        PA.LABEL as arch
-  FROM  rhnServerPackage SP
-  			INNER JOIN rhnPackageName PN ON SP.name_id = PN.id
-  			INNER JOIN rhnPackageEVR PE ON SP.evr_id = PE.id
-  			INNER JOIN rhnPackageArch PA ON PA.id = SP.package_arch_id
-  			INNER JOIN rhnArchType AT ON AT.id = PA.arch_type_id
-  WHERE  SP.server_id = :sid
-	   AND  AT.label = 'sysv-solaris'
-ORDER BY UPPER(PN.name), UPPER(evr_t_as_vre_simple(PE.evr))
-  </query>
-</mode>
-
 <mode name="system_available_patch_list" class="com.redhat.rhn.frontend.dto.PackageListItem">
   <query params="sid">
 SELECT  pn.name AS NAME,
