@@ -1,6 +1,6 @@
 [Unit]
 Description=OSA Dispatcher daemon
-After=syslog.target network.target
+After=syslog.target network.target jabberd.service
 
 [Service]
 Type=forking
