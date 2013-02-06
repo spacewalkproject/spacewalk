@@ -38,13 +38,7 @@ start() {
     # Start daemon
     echo -n "Starting $prog: "
     if [ "$prog" == "osa-dispatcher" ]; then
-        RETRIES=10
-        while [ $RETRIES -gt 0 ]
-        do
-            lsof -t -i :5222 > /dev/null && break
-            RETRIES=$((RETRIES-1))
-            sleep 0.5
-        done
+        /usr/sbin/spacewalk-startup-helper wait-for-jabberd
     fi
     daemon $script --pid-file /var/run/$prog.pid
     RETVAL=$?

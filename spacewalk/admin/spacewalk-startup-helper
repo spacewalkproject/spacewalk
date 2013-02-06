@@ -1,5 +1,15 @@
 #!/bin/bash
 
+wait_for_jabberd() {
+    RETRIES=10
+    while [ $RETRIES -gt 0 ]
+    do
+        /usr/sbin/lsof -t -i :5222 > /dev/null && break
+        ((RETRIES-1))
+        sleep 0.5
+    done
+}
+
 wait_for_tomcat() {
 if [ -x /etc/init.d/tomcat5 ]; then
    TOMCAT="tomcat5"
@@ -43,5 +53,6 @@ ensure_httpd_down() {
 
 case $1 in
         ensure-httpd-down) ensure_httpd_down;;
+        wait-for-jabberd) wait_for_jabberd;;
         wait-for-tomcat) wait_for_tomcat;;
 esac
