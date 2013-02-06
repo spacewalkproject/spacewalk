@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 1.9.13
+Version: 1.9.14
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -256,6 +256,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Wed Feb 06 2013 Stephen Herr <sherr@redhat.com> 1.9.14-1
+- Make it possible to run db-control without doing su - oracle first.
+
 * Tue Feb 05 2013 Jan Pazdziora 1.9.13-1
 - Removing hw_prof_update_conf.pxt, pkg_prof_update_conf.pxt, and
   rhn:server_set_actions_cb as they have been replaced by .do pages.
