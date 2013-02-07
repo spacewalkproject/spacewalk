@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 import sys
@@ -49,6 +49,12 @@ def _check_status(daemon):
     return True
 
 vdsm_enabled = _check_status("vdsmd")
+# override vdsm_enabled if we can't read information from it
+try:
+    from virtualization import localvdsm
+except ImportError:
+    vdsm_enabled = False
+
 
 ###############################################################################
 # Public Interface
@@ -72,14 +78,15 @@ def refresh(fail_on_error=False):
 
     # First, declare our own existence.
     plan.add(
-        EventType.EXISTS, 
-        TargetType.SYSTEM, 
+        EventType.EXISTS,
+        TargetType.SYSTEM,
         { PropertyType.IDENTITY : domain_identity,
           PropertyType.UUID     : my_uuid          })
 
     # Now, crawl each of the domains on this host.
     if vdsm_enabled:
-        domains = poller.poll_through_vdsm() 
+        server = localvdsm.connect()
+        domains = poller.poll_through_vdsm(server)
     else:
         domains = poller.poll_hypervisor()
 
@@ -172,13 +179,13 @@ def schedulePoller(minute, hour, dom, month, dow):
 
 def _is_host_domain(fail_on_error=False):
     """
-    This function returns true if this system is currently a host domain.  
+    This function returns true if this system is currently a host domain.
     Simply having virtualization enabled is sufficient.
 
     We can figure out if Xen/Qemu is running by checking for the type
     """
     if vdsm_enabled:
-        # since vdsm is enabled, lets move further and 
+        # since vdsm is enabled, lets move further and
         # see what we get
         return True
     if not libvirt:
@@ -197,7 +204,7 @@ def _is_host_domain(fail_on_error=False):
 
 def _fetch_host_uuid():
     """
-    This function returns the UUID of the host system.  This will always be 
+    This function returns the UUID of the host system.  This will always be
     16 zeros.
     """
     return '0000000000000000'
