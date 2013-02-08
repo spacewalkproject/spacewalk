@@ -115,10 +115,7 @@ sub authz_handler {
                                : map {$_->{requirement} =~ s/^acl\s+//;
                                       $_->{requirement};} @{$r->requires});
 
-  my ($reqs, $passes);
-
   foreach my $entry (@requires) {
-    $reqs++;
 
     # support addition mixin'able acls directly from the .htaccess file...
     my @mixins;
@@ -135,19 +132,12 @@ sub authz_handler {
       warn "acl fail: $entry";
       return FORBIDDEN;
     }
-    $passes++;
   }
 
 #  $r->log_reason('User ' . $user->login . ' not allowed by "require"');
 
-  if ($reqs == $passes) {
-    $session->uid($user_id);
-    return OK;
-  }
-  else {
-    warn "User did not pass all auth requisites ($passes/$reqs matched)";
-    return FORBIDDEN;
-  }
+  $session->uid($user_id);
+  return OK;
 }
 
 1;
