@@ -112,15 +112,13 @@ sub authz_handler {
   my $pxt = $r->pnotes('pxt_request');
 
   my @requires = ($acl_require ? ($acl_require)
-                               : map {$_->{requirement}} @{$r->requires});
+                               : map {$_->{requirement} =~ s/^acl\s+//;
+                                      $_->{requirement};} @{$r->requires});
 
   my ($reqs, $passes);
 
   foreach my $entry (@requires) {
-    my ($type, $string) = split /\s+/, $entry, 2;
     $reqs++;
-
-    if ($type eq 'acl') {
 
       # support addition mixin'able acls directly from the .htaccess file...
       my @mixins;
@@ -129,19 +127,15 @@ sub authz_handler {
       }
 
       # clean up the string for the acl parser...
-      $string =~ s{mixin\s+.*?\s+}{}g;
+      $entry =~ s{mixin\s+.*?\s+}{}g;
 
       my $acl_parser = new PXT::ACL(mixins => \@mixins);
 
-      if (not $acl_parser->eval_acl($pxt, $string)) {
-	warn "acl fail: $string";
+      if (not $acl_parser->eval_acl($pxt, $entry)) {
+	warn "acl fail: $entry";
 	return FORBIDDEN;
       }
       $passes++;
-    }
-    else {
-      die "Unknown 'require' type '$type' in .htaccess";
-    }
   }
 
 #  $r->log_reason('User ' . $user->login . ' not allowed by "require"');

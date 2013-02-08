@@ -53,7 +53,7 @@ sub acl_check_authorization {
         # print acl to log.
         #$r->log_error($require_args);
         PXT::ApacheAuth::handler($r);
-        return (PXT::ApacheAuth::authz_handler($r, "acl $require_args") == Apache2::Const::OK ?
+        return (PXT::ApacheAuth::authz_handler($r, $require_args) == Apache2::Const::OK ?
                 Apache2::Const::AUTHZ_GRANTED : Apache2::Const::AUTHZ_DENIED);
 
 }
