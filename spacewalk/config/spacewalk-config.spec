@@ -1,6 +1,6 @@
 Name: spacewalk-config
 Summary: Spacewalk Configuration
-Version: 1.9.4
+Version: 1.9.5
 Release: 1%{?dist}
 URL: http://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -104,6 +104,12 @@ chgrp apache /etc/rhn /etc/rhn/rhn.conf /etc/rhn/cluster.ini 2> /dev/null || :
 chmod o-rwx /etc/rhn/rhn.conf* /etc/rhn/cluster.ini* /etc/sysconfig/rhn/backup-* /var/lib/rhn/rhn-satellite-prep/* 2> /dev/null || :
 
 %changelog
+* Fri Feb 08 2013 Michael Mraka <michael.mraka@redhat.com> 1.9.5-1
+- don't overload standard valid-user keyword
+- make pxt ACL work in apache 2.4
+- put requires for single file/directory to one line
+- merged .htaccess to main httpd configuration
+
 * Fri Feb 01 2013 Michael Mraka <michael.mraka@redhat.com> 1.9.4-1
 - made apache 2.4 happy with our acl auth definitions
 
