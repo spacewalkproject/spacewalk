@@ -120,10 +120,7 @@ sub authz_handler {
     my ($type, $string) = split /\s+/, $entry, 2;
     $reqs++;
 
-    if ($type eq 'valid-user') {
-      $passes++;
-    }
-    elsif ($type eq 'acl') {
+    if ($type eq 'acl') {
 
       # support addition mixin'able acls directly from the .htaccess file...
       my @mixins;
