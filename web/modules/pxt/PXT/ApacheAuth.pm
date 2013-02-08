@@ -120,22 +120,22 @@ sub authz_handler {
   foreach my $entry (@requires) {
     $reqs++;
 
-      # support addition mixin'able acls directly from the .htaccess file...
-      my @mixins;
-      while ($entry =~ m/mixin\s+(.*?)\s+/g) {
-	push @mixins, $1;
-      }
+    # support addition mixin'able acls directly from the .htaccess file...
+    my @mixins;
+    while ($entry =~ m/mixin\s+(.*?)\s+/g) {
+      push @mixins, $1;
+    }
 
-      # clean up the string for the acl parser...
-      $entry =~ s{mixin\s+.*?\s+}{}g;
+    # clean up the string for the acl parser...
+    $entry =~ s{mixin\s+.*?\s+}{}g;
 
-      my $acl_parser = new PXT::ACL(mixins => \@mixins);
+    my $acl_parser = new PXT::ACL(mixins => \@mixins);
 
-      if (not $acl_parser->eval_acl($pxt, $entry)) {
-	warn "acl fail: $entry";
-	return FORBIDDEN;
-      }
-      $passes++;
+    if (not $acl_parser->eval_acl($pxt, $entry)) {
+      warn "acl fail: $entry";
+      return FORBIDDEN;
+    }
+    $passes++;
   }
 
 #  $r->log_reason('User ' . $user->login . ' not allowed by "require"');
