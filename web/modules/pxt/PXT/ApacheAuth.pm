@@ -100,6 +100,7 @@ sub handler {
 
 sub authz_handler {
   my $r = shift;
+  my $acl_require = shift;      # apache 2.4
 
   return OK if $r->main;
 
@@ -110,7 +111,8 @@ sub authz_handler {
   my $session = $r->pnotes('pxt_session');
   my $pxt = $r->pnotes('pxt_request');
 
-  my @requires = map {$_->{requirement}} @{$r->requires};
+  my @requires = ($acl_require ? ($acl_require)
+                               : map {$_->{requirement}} @{$r->requires});
 
   my ($reqs, $passes);
 
