@@ -7,7 +7,7 @@ Name: cobbler20
 License: GPLv2+
 AutoReq: no
 Version: 2.0.11
-Release: 10%{?dist}
+Release: 11%{?dist}
 Source0: cobbler-%{version}.tar.gz
 Source1: cobblerd.service
 Patch0: catch_cheetah_exception.patch
@@ -446,6 +446,9 @@ Web interface for Cobbler that allows visiting http://server/cobbler_web to conf
 %doc AUTHORS COPYING CHANGELOG README
 
 %changelog
+* Fri Feb 08 2013 Stephen Herr <sherr@redhat.com> 2.0.11-11
+- Cobbler sometimes wants to share things through /tmp
+
 * Wed Feb 06 2013 Stephen Herr <sherr@redhat.com> 2.0.11-10
 - Actually forcing cobblerd to not fork seems to work much better
 - cobblerd must be marked as forking for systemd to treat it correctly
