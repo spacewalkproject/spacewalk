@@ -20,8 +20,6 @@
 import sys
 from optparse import OptionParser, Option
 
-from spacewalk.common.rhnConfig import initCFG
-
 SERVER_RETURN = 0
 
 def log_error(*args):
@@ -56,8 +54,6 @@ from spacewalk.common import rhn_rpm
 options_table = [
     Option("-v", "--verbose",       action="count", 
         help="Increase verbosity"),
-    Option("-d", "--db",            action="store", 
-        help="DB string to connect to"),
     Option("--commit",              action="store_true",
         help="Commit work"),
     Option("--backup-file",         action="store",
@@ -77,12 +73,7 @@ class Runner:
 
         (self.options, args) = parser.parse_args()
 
-        if not self.options.db:
-            print "--db not specified"
-            return 1
-
-        initCFG('server')
-        rhnSQL.initDB(self.options.db)
+        rhnSQL.initDB()
 
         self._channels_hash = self._get_channels()
 

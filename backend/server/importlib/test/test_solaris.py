@@ -251,8 +251,7 @@ solaris_patch_sets = [
 
 if __debug__: print "-" * 75
 
-#rhnSQL.initDB("rhnuser/rhnuser@webdev")
-rhnSQL.initDB("shughes1/shughes1@shughes1")
+rhnSQL.initDB()
 
 backend = OracleBackend()
 backend.init()

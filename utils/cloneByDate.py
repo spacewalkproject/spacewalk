@@ -707,8 +707,7 @@ class DBApi:
 
     def __init__(self):
         initCFG('server')
-        db_string = CFG.DEFAULT_DB #"rhnsat/rhnsat@rhnsat"
-        rhnSQL.initDB(db_string)
+        rhnSQL.initDB()
 
     @staticmethod
     def applicable_errata(from_label, to_label):

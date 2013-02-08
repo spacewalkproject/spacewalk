@@ -248,7 +248,7 @@ if __name__ == '__main__':
     """
     from spacewalk.common.rhnLog import initLOG
     initLOG("stdout", 1)
-    rhnSQL.initDB('rhnuser/rhnuser@webqa')
+    rhnSQL.initDB()
     print
     # new client
     print get_package_path(1000463284, 'kernel-2.4.2-2.i686.rpm', 'redhat-linux-i386-7.1')

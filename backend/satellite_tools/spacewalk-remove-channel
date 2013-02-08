@@ -90,7 +90,7 @@ def main():
     initCFG('server')
     initLOG("stdout", options.verbose or 0)
 
-    rhnSQL.initDB(CFG.DEFAULT_DB)
+    rhnSQL.initDB()
 
     dict_label, dict_parents = __listChannels()
     if options.list:

@@ -844,7 +844,7 @@ def is_host_uuid(uuid):
 
 if __name__ == '__main__':
 
-    rhnSQL.initDB("rhnsat/rhnsat@rhnsat")
+    rhnSQL.initDB()
 
     host_sysid  = 1000010001
     guest_sysid = 1000010010

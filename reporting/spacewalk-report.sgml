@@ -17,7 +17,6 @@ Generate reports from Spacewalk server in csv format
 <Synopsis>
     <cmdsynopsis>
         <command>spacewalk-report</command>
-        <arg>--db=<replaceable>connect_string</replaceable></arg>
         <arg>--info</arg>
     </cmdsynopsis>
     <cmdsynopsis>
@@ -27,8 +26,6 @@ Generate reports from Spacewalk server in csv format
           <arg>--multival-on-rows</arg>
           <arg>--multival-separator=<replaceable>separator-string</replaceable></arg>
         </group>
-        <sbr>
-        <arg>--db=<replaceable>connect-string</replaceable></arg>
         <sbr>
         <arg>--info</arg>
         <sbr>
@@ -83,20 +80,6 @@ Generate reports from Spacewalk server in csv format
             default), this option can change the string which
             separates multiple values in one field. The default is
             semicolon.</para>
-        </listitem>
-    </varlistentry>
-    <varlistentry>
-        <term>--db=<replaceable>connect-string</replaceable></term>
-        <listitem>
-            <para>Database connect string in the form of
-            <replaceable>username/password@dbname</replaceable> can be
-            specified to generated report from user-defined database.
-            By default, connect string from default_db option from
-            /etc/rhn/rhn.conf is used.</para>
-            <para>This option should be considered obsoleted and may
-            not be available in next versions of
-            <command>spacewalk-report</command>.
-            </para>
         </listitem>
     </varlistentry>
     <varlistentry>

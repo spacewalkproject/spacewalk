@@ -28,10 +28,6 @@ import server.xmlrpc.up2date
 from spacewalk.server import rhnSQL, rhnChannel, rhnServer, rhnUser, rhnServerGroup, rhnActivationKey
 from spacewalk.server.xmlrpc import registration
 
-def init_db(username, password, dbhost):
-    db = "%s/%s@%s" % (username, password, dbhost)
-    rhnSQL.initDB(db)
-
 def create_channel_family():
     cf = rhnChannel.ChannelFamily()
     cf.load_from_dict(new_channel_family_dict())

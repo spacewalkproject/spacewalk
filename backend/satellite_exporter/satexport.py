@@ -63,7 +63,7 @@ class BaseApacheServer:
             return self._send_xmlrpc(req, rhnFault(-1,
                 _("IMPORTANT MESSAGE FOLLOWS:\n%s") % msg, explain=0))
 
-        rhnSQL.initDB(CFG.DEFAULT_DB)
+        rhnSQL.initDB()
         self.server = options['SERVER']
 
         self.server_classes = rhnImport.load("satellite_exporter/handlers")

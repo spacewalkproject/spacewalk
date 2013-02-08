@@ -86,9 +86,6 @@ A tool that exports satellite content into a directory in an XML format. That co
         <arg>--traceback-mail</arg>
     </cmdsynopsis>
     <cmdsynopsis>
-        <arg>--db=<replaceable>DBUSERNAME/DBPASSWORD@DBSID</replaceable></arg>
-    </cmdsynopsis>
-    <cmdsynopsis>
         <arg>--help</arg>
     </cmdsynopsis>
 </Synopsis>
@@ -107,9 +104,6 @@ A tool that exports satellite content into a directory in an XML format. That co
 </para>
 <para>
     When importing an exported channel into a satellite on which you have not run satellite-sync, you will need to use satellite-sync's --rhn-cert option to import the entitlements cert.
-</para>
-<para>
-    The --db option is mainly intended for debug purposes. If you decide to use this option, be warned that rhn-satellite-exporter will not be able to export the RPMs for the channel you are dumping if the RPMs are not already imported into the satellite you are running rhn-satellite-exporter on. As an example, if you are running rhn-satellite-exporter on Satellite A with the --db option to connect to the database for Satellite B, rhn-satellite-exporter will not find the RPMs because they are not on Satellite A. They are on Satellite B. The exception to this is if the channel(s) you are exporting exist on both Satellite A and Satellite B.
 </para>
 <para>
     The --email option is used to send a report to the administrator's email address when the export is complete. If an error occurs when the --email option is set, the error should be included in the report. The only time that --email will not work is if an error occurs while the program is starting up. Increasing the debug level by using --debug-level will increase the amount of information included in the report.
@@ -270,12 +264,6 @@ A tool that exports satellite content into a directory in an XML format. That co
         <term>--traceback-mail</term>
         <listitem>
             <para>Alternative email address for --email.</para>
-        </listitem>
-    </varlistentry>
-    <varlistentry>
-        <term>--db=<replaceable>DBUSERNAME/DBPASSWORD@DBSID</replaceable></term>
-        <listitem>
-            <para>Extract information from this database. The value must be an Oracle connection string that is configured in your tnsnames.ora file.</para>
         </listitem>
     </varlistentry>
     <varlistentry>

@@ -18,7 +18,6 @@ import sys
 from optparse import Option, OptionParser
 
 from spacewalk.common import rhnTB
-from spacewalk.common.rhnConfig import CFG, initCFG
 from spacewalk.server import rhnSQL
 
 import satCerts
@@ -26,7 +25,6 @@ import satCerts
 DEFAULT_TRUSTED_CERT = 'RHN-ORG-TRUSTED-SSL-CERT'
 
 def processCommandline():
-    initCFG('server.satellite')
     
     options = [
         Option('--ca-cert',      action='store', default=DEFAULT_TRUSTED_CERT, type="string", help='public CA certificate, default is %s' % DEFAULT_TRUSTED_CERT),
@@ -48,15 +46,7 @@ def processCommandline():
         sys.exit(10)
 
     try:
-        db_backend = CFG.DB_BACKEND
-        db_host = CFG.DB_HOST
-        db_port = CFG.DB_PORT
-        db_user = CFG.DB_user
-        db_password = CFG.DB_PASSWORD
-        db_name = CFG.DB_NAME
-
-        rhnSQL.initDB(backend=db_backend, host=db_host, port=db_port,
-                    username=db_user, password=db_password, database=db_name)
+        rhnSQL.initDB()
     except:
         sys.stderr.write("""\
 ERROR: there was a problem trying to initialize the database:

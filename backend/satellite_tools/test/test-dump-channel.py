@@ -18,7 +18,7 @@ from spacewalk.server import rhnSQL
 from spacewalk.satellite_tools import xmlSource
 from spacewalk.satellite_tools.exporter import xmlWriter, exportLib
 
-rhnSQL.initDB("rhnuser/rhnuser@webdev")
+rhnSQL.initDB()
 
 s = StringIO.StringIO()
 writer = xmlWriter.XMLWriter(stream=s)

@@ -99,10 +99,6 @@ Incrementally synchronize an RHN Satellite's DB data and RPM repository with Red
         <arg>--ca-cert=<replaceable>SSL_CA_CERT_FULL_PATH</replaceable></arg>
     </cmdsynopsis>
     <cmdsynopsis>
-        <arg>-d<replaceable>DBUSERNAME/DBPASSWORD@DBSID</replaceable></arg>
-        <arg>--db=<replaceable>DBUSERNAME/DBPASSWORD@DBSID</replaceable></arg>
-    </cmdsynopsis>
-    <cmdsynopsis>
         <arg>--orgid=<replaceable>ORGID</replaceable></arg>
     </cmdsynopsis>
     <cmdsynopsis>
@@ -441,13 +437,6 @@ Incrementally synchronize an RHN Satellite's DB data and RPM repository with Red
         <term>--ca-cert=<replaceable>SSL_CA_CERT_FULL_PATH</replaceable></term>
         <listitem>
             <para>alternative SSL CA Cert (fullpath to cert file)</para>
-        </listitem>
-    </varlistentry>
-    <varlistentry>
-        <term>-d<replaceable>DBUSERNAME/DBPASSWORD@DB</replaceable>,
-           --db=<replaceable>DBUSERNAME/DBPASSWORD@DB</replaceable></term>
-        <listitem>
-            <para>alternative database connection string (username/password@sid).</para>
         </listitem>
     </varlistentry>
     <varlistentry>

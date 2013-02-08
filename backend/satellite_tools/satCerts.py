@@ -776,11 +776,7 @@ def verify_family_permissions(orgid=1):
 
 
 if __name__ == '__main__':
-    from spacewalk.common.rhnConfig import CFG, initCFG
-    
-    initCFG('server.satellite')
-    print 'database: %s' % CFG.DEFAULT_DB
-    rhnSQL.initDB(CFG.DEFAULT_DB)
+    rhnSQL.initDB()
 
     #_test_storeRhnCert(open('rhn.cert').read())
     _test_store_rhnCryptoKey('ca.crt')

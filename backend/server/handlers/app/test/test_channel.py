@@ -43,15 +43,10 @@ kargs = {
     'release'         : version
     }
 
-def init_db(username, password, dbhost):
-    db = "%s/%s@%s" % (username, password, dbhost)
-    rhnSQL.initDB(db)
-
 class ChannelTestCase(unittest.TestCase):
     
     def setUp(self):
-        #init_db('rhnuser', 'rhnuser', db)
-        rhnSQL.initDB('rhnuser/rhnuser@webdev')
+        rhnSQL.initDB()
         
     def tearDown(self):
         rhnSQL.rollback()

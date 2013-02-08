@@ -1020,7 +1020,6 @@ class ExporterMain:
             debug_level = int(CFG.DEBUG)
 
         CFG.set("TRACEBACK_MAIL", self.options.traceback_mail or CFG.TRACEBACK_MAIL)
-        CFG.set("DEFAULT_DB", self.options.db or CFG.DEFAULT_DB)
         CFG.set("DEBUG", debug_level)
         CFG.set("ISSEMAIL", self.options.email)
         
@@ -1029,7 +1028,7 @@ class ExporterMain:
          
         #This was taken straight from satsync.py.
         try:
-            rhnSQL.initDB(CFG.DEFAULT_DB)
+            rhnSQL.initDB()
         except SQLConnectError:
             print 'SQLERROR: There was an error connecting to the Database.'
             sys.exit(-1)

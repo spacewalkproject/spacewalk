@@ -25,7 +25,6 @@
 import os
 
 from spacewalk.server import rhnSQL
-from spacewalk.common.rhnConfig import CFG, initCFG
 
 from spacewalk.satellite_tools.satCerts import store_rhnCryptoKey
 from spacewalk.satellite_tools.satCerts import _querySelectCryptoCertInfo
@@ -34,8 +33,7 @@ print "NOTE: has to be performed on an RHN Satellite or server"
 
 description = 'RHN-ORG-TRUSTED-SSL-CERT'
 
-initCFG('server.satellite')
-rhnSQL.initDB(CFG.DEFAULT_DB)
+rhnSQL.initDB()
 
 def deleteCertRow():
     # get rhn_cryptokey_id (there can only be one, bugzilla: 120297)

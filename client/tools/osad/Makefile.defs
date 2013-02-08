@@ -79,7 +79,7 @@ pychecker :: $(PYFILES)
 	$(descend-subdirs)
 
 db-checker :: $(PYFILES)
-	@PYTHONPATH=$(PYTHONPATH) $(TOP)/$(DBCHECKER) $(DBCHECKEROPTS) --db $(DB) $(PYFILES) || :
+	@PYTHONPATH=$(PYTHONPATH) $(TOP)/$(DBCHECKER) $(DBCHECKEROPTS) $(PYFILES) || :
 	$(descend-subdirs)
 
 graphviz :: 

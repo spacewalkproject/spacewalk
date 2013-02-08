@@ -40,36 +40,15 @@ if _LIBPATH not in sys.path:
 
 try:
     from spacewalk.server import rhnSQL
-    from spacewalk.common.rhnConfig import initCFG
 except KeyboardInterrupt:
     sys.stderr.write("\nUser interrupted process.\n")
     sys.exit(0)
 
 
 def processCommandline():
-    """ process the commandline """
 
-    from optparse import Option, OptionParser
-    optionsTable = [
-        Option('--db', action='store', type="string",
-               help='alternative database string (USERNAME/PASSWORD@SID). '+\
-                    'Default value is the DEFAULT_DB setting in '+\
-                    '/etc/rhn/rhn.conf'),
-      ]
-
-    optionParser = OptionParser(option_list=optionsTable)
-    options, args = optionParser.parse_args()
-
-    # we take no extra commandline arguments that are not linked to an option
-    if args:
-        msg = "ERROR: these arguments make no sense in this context (try "+\
-              "--help): %s\n" % repr(args)
-        sys.stderr.write(msg)
-        sys.exit(-1)
-
-    initCFG('server')
     try:
-        rhnSQL.initDB(options.db)
+        rhnSQL.initDB()
     except KeyboardInterrupt:
         sys.stderr.write("\nUser interrupted process.\n")
         sys.exit(0)

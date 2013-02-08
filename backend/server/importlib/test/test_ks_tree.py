@@ -50,7 +50,7 @@ ks_trees = [
     }),
 ]
 
-rhnSQL.initDB("rhnuser/rhnuser@webdev")
+rhnSQL.initDB()
 
 backend = OracleBackend()
 backend.init()

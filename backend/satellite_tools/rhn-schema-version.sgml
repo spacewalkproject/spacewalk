@@ -23,9 +23,6 @@ Fetch the database schema version for an &RHNSAT;.
         <arg>options <replaceable>...</replaceable></arg>
     </cmdsynopsis>
     <cmdsynopsis>
-        <arg>--db <replaceable>USERNAME/PASSWORD@SID</replaceable></arg>
-    </cmdsynopsis>
-    <cmdsynopsis>
         <arg>-h</arg> <arg>--help</arg>
     </cmdsynopsis>
 </Synopsis>
@@ -45,13 +42,6 @@ Fetch the database schema version for an &RHNSAT;.
         <term>-h, --help</term>
         <listitem>
             <para>Display the help screen with a list of options.</para>
-        </listitem>
-    </varlistentry>
-    <varlistentry>
-        <term>--db <replaceable>USERNAME/PASSWORD@SID</replaceable></term>
-        <listitem>
-            <para>alternative database string. Default value is the DEFAULT_DB
-                  setting in /etc/rhn/rhn.conf</para>
         </listitem>
     </varlistentry>
 </variablelist>

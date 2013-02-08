@@ -38,7 +38,6 @@ import reports
 
 try:
 	from spacewalk.server import rhnSQL
-	from spacewalk.common.rhnConfig import initCFG, RHNOptions
 except KeyboardInterrupt:
 	systemExit(-1, "\nUser interrupted process.")
 
@@ -52,9 +51,6 @@ def processCommandline():
 			default=';',
 			help='if there are multiple values for certain field, separate them with this string' \
 				' (unless --multival-on-rows)'),
-		Option('--db', action='store', type="string",
-			help='alternative database string (username/password@sid);' \
-				+ ' default is default_db from /etc/rhn/rhn.conf'),
 		Option('--info', action='store_true',
 			help='print synopsis of the report in the list of report, or description of individual reports specified'),
 		Option('--list-fields', action='store_true',
@@ -173,8 +169,7 @@ if __name__ == '__main__':
 				else:
 					the_sql_where.append('%s in ( %s )' % (k, val))
 
-			initCFG('server')
-			rhnSQL.initDB(options.db)
+			rhnSQL.initDB()
 
 			writer = csv.writer(sys.stdout, lineterminator = "\n")
 

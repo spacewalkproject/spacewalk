@@ -28,7 +28,7 @@ class TestServer:
     #The actual implementation
     class TestServerImplementation:
 
-        def __init__(self, username=None, password=None, email=None, dbusername=None, dbpassword=None, dbhostname=None):
+        def __init__(self)
             #start_init = time.time()            
 
             
@@ -41,15 +41,12 @@ class TestServer:
             self.test_username = username or ("test_username_%.3f" % mytime)
             self.test_password = password or ("test_password_%.3f" % mytime) 
             self.test_email = email or ("%s@test_domain.com" % self.test_username)
-            self.dbusername = dbusername or 'rhnuser'
-            self.dbpassword = dbpassword or 'rhnuser'
-            self.dbhostname = dbhostname or 'webdev'
             self.channel_arch = 'unittestarch'            
 
             self.roles = ['org_admin']
             rhnFlags.set( 'outputTransportOptions', UserDictCase() )
             
-            self._init_db( self.dbusername, self.dbpassword, self.dbhostname )
+            self._init_db()
             self._init_org()
             self._init_user(self.roles)
             self._init_server()
@@ -57,9 +54,8 @@ class TestServer:
             self._init_up2date()
 
         #Sets up database connection
-        def _init_db( self, username, password, dbhost ):
-            self.db = "%s/%s@%s" % (username, password, dbhost)
-            rhnSQL.initDB( self.db )
+        def _init_db( self ):
+            rhnSQL.initDB()
 
         #creates an org 
         def _init_org( self ):

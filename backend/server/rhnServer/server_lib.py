@@ -344,5 +344,5 @@ def generate_random_string(length=20):
     return string.lower(result)
 
 if __name__ == '__main__':
-    rhnSQL.initDB('rhnuser/rhnuser@webdev')
+    rhnSQL.initDB()
     print update_push_client_registration(1000102174)

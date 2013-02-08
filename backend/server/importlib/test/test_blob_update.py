@@ -34,11 +34,7 @@ from spacewalk.server.importlib.backendLib import Table, DBblob, DBint, TableUpd
     TableInsert
 
 def main():
-    if len(sys.argv) != 2:
-        print "Usage: %s <connect-string>" % sys.argv[0]
-        return 1
-
-    rhnSQL.initDB(sys.argv[1])
+    rhnSQL.initDB()
 
     blob_values1 = [
         # Regular update

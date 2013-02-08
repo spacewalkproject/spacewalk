@@ -57,8 +57,7 @@ class RepoSync(object):
         self.sync_kickstart = sync_kickstart
 
         initCFG('server')
-        db_string = CFG.DEFAULT_DB
-        rhnSQL.initDB(db_string)
+        rhnSQL.initDB()
 
         # setup logging
         log_filename = 'reposync.log'

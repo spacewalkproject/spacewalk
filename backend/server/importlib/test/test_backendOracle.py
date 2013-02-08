@@ -3,8 +3,6 @@
 from spacewalk.server import rhnSQL
 
 
-DB = 'rhnsat/rhnsat@rhnsat'
-
 from spacewalk.server.importlib.backendOracle import OracleBackend
 from spacewalk.server.importlib.backendLib import DBint, DBstring, DBdateTime, DBblob
 
@@ -16,7 +14,7 @@ for k,v  in tabs.iteritems():
    utabs[k.upper()] = v
 
 
-rhnSQL.initDB(DB)
+rhnSQL.initDB()
 h = rhnSQL.prepare("""select table_name, column_name, data_type, data_length
 	from user_tab_columns""")
 h.execute()

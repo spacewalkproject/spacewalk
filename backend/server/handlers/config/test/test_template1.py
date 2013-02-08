@@ -17,7 +17,7 @@ import sys
 from templated_document import ServerTemplatedDocument
 from spacewalk.server import rhnServer, rhnSQL
 
-rhnSQL.initDB('rhnuser/rhnuser@webdev')
+rhnSQL.initDB()
 
 server_id = 1003887108
 

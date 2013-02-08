@@ -6,16 +6,13 @@ from pprint import pprint
 
 try:
    from spacewalk.server import rhnSQL
-   from spacewalk.common.rhnConfig import CFG, initCFG
 except:
    print "Couldn't load needed libs, Are you sure you are running this on a satellite?"
    sys.exit(1)
 
 
 
-initCFG()
-db_string = CFG.DEFAULT_DB
-rhnSQL.initDB(db_string)
+rhnSQL.initDB()
 
 def main():
     printAcrossSatelliteUsage();

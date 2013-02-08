@@ -200,8 +200,7 @@ class Runner:
             log(-1, ['', messages.syncer_error % e], )
             sys.exit(10)
 
-        dbusername, dbpassword, dbinstance = _parseDbString(CFG.DEFAULT_DB)
-        log(1, '   db:  %s/<password>@%s' % (dbusername, dbinstance))
+        log(1, '   db:  %s/<password>@%s' % (CFG.DB_USER, CFG.DB_NAME))
 
         selected = filter(lambda action, ad=actionDict: ad[action],
                           actionDict.keys())
@@ -2028,33 +2027,6 @@ def _getImportedChannels():
     return []
 
 
-def _parseDbString(dbstring):
-    """ given "dbusername/dbpassword@dbinstance",
-        return (dbusername, dbpassword, dbinstance).
-    """
-    x = ''
-    errorMsg = _('ERROR: in /etc/rhn/rhn.conf DEFAULT_DB '
-                'must be of form dbusername/dbpassword@dbinstance')
-
-    # parse instance
-    try:
-        x = string.split(dbstring, '@')
-    except:
-        log(-1, errorMsg, stream=sys.stderr)
-        sys.exit(18)
-    if len(x) != 2:
-        log(-1, errorMsg, stream=sys.stderr)
-        sys.exit(18)
-    dbinstance = x[1]
-
-    # parse username and password
-    u_p = string.split(x[0], '/')
-    if len(u_p) != 2:
-        log(-1, errorMsg, stream=sys.stderr)
-        sys.exit(18)
-    return (u_p[0], u_p[1], dbinstance)
-
-
 def processCommandline():
     "process the commandline, setting the OPTIONS object"
 
@@ -2070,8 +2042,6 @@ def processCommandline():
             help=_('disk dump will be considered to be a full export; see "man satellite-sync" for more information.')),
         Option(     '--include-custom-channels',       action='store_true',
             help=_('existing custom channels will also be synced (unless -c is used)')),
-        Option('-d','--db',                  action='store',
-            help=_('alternative database connection string (username/password@sid)')),
         Option(     '--debug-level',         action='store',
             help=_('override debug level set in /etc/rhn/rhn.conf (which is currently set at %s).') % CFG.DEBUG),
         Option(     '--dump-version',        action='store',
@@ -2154,10 +2124,9 @@ def processCommandline():
     CFG.set("HTTP_PROXY_USERNAME", OPTIONS.http_proxy_username or CFG.HTTP_PROXY_USERNAME)
     CFG.set("HTTP_PROXY_PASSWORD", OPTIONS.http_proxy_password or CFG.HTTP_PROXY_PASSWORD)
     CFG.set("CA_CHAIN", OPTIONS.ca_cert or CFG.CA_CHAIN)
-    CFG.set("DEFAULT_DB", OPTIONS.db or CFG.DEFAULT_DB)
  
     try:
-        rhnSQL.initDB(CFG.DEFAULT_DB)
+        rhnSQL.initDB()
     except (SQLError, SQLSchemaError, SQLConnectError), e:
         # An SQL error is fatal... crash and burn
         log(-1, _("ERROR: Can't connect to the database: %s") % e, stream=sys.stderr)

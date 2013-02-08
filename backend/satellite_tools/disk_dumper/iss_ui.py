@@ -68,8 +68,6 @@ class UI:
                 help="Email a report of what was exported."),
             option(         "--traceback-mail",        action="store",
                 help="Alternative email address for --email."),
-            option(         "--db",                     action="store",
-                help="Connect to this database."),   
                             ]
         self.optionparser = option_parser(option_list=self.optiontable)
         self.options, self.args = self.optionparser.parse_args()

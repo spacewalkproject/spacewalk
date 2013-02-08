@@ -32,7 +32,7 @@ If you're upgrading from RHN Satellite 5.3, this step can be safely skipped.
 <para>
 Run update-packages script as root:
 <code>
-  /usr/bin/update-packages --db=$(spacewalk-cfg-get default_db) \
+  /usr/bin/update-packages \
         --update-filer \
         --update-kstrees \
         --debug
@@ -59,12 +59,6 @@ size of your filer and the speed of your hardware. Assume 60 - 120 GB / hour.
         <term>-v, --verbose</term>
         <listitem>
             <para>Increase verbosity.</para>
-        </listitem>
-    </varlistentry>
-    <varlistentry>
-        <term>-d DB, --db=DB</term>
-        <listitem>
-            <para>DB string to connect to.</para>
         </listitem>
     </varlistentry>
     <varlistentry>

@@ -26,20 +26,7 @@ if _topdir not in sys.path:
 from spacewalk.server import rhnSQL
 
 def main():
-    options_table = [
-        Option("-d", "--db",            action="store", 
-            help="DB string to connect to"),
-    ]
-
-    parser = OptionParser(option_list=options_table)
-
-    (options, args) = parser.parse_args()
-
-    if not options.db:
-        print "--db not specified"
-        return 1
-
-    rhnSQL.initDB(options.db)
+    rhnSQL.initDB()
 
     if not args:
         print "No module specified"

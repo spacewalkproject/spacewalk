@@ -156,7 +156,7 @@ def prepRhnCert(options):
         writing to default storage location
     """
 
-    # NOTE: default_db MUST be populated in /etc/rhn/rhn.conf before this
+    # NOTE: db_* options MUST be populated in /etc/rhn/rhn.conf before this
     #       function is run.
     #       validateSatCert() must have been run prior to this as well (it
     #       populates "/var/log/entitlementCert"
@@ -186,7 +186,7 @@ def activateSatellite_local(options):
 
         Assumptions:
           o cert has already been written to DEFAULT_RHN_CERT_LOCATION
-          o rhn.conf is written, to include default_db setting
+          o rhn.conf is written, to include db_* setting
           o database is setup and populated
     """
 
@@ -406,10 +406,6 @@ def populateChannelFamilies(options):
     if options.dump_version:
         args.extend(['--dump-version', options.dump_version])
 
-    ## database string for that satellite-sync
-    #if options.db:
-    #    args.extend(['--db', options.db])
-
     if options.verbose:
         print "Executing: %s\n" % repr(' '.join(args))
     ret, out_stream, err_stream = fileutils.rhn_popen(args)
@@ -573,15 +569,7 @@ def main():
         # local activation
         try:
 
-            db_backend = CFG.DB_BACKEND
-            db_host = CFG.DB_HOST
-            db_port = CFG.DB_PORT
-            db_user = CFG.DB_user
-            db_password = CFG.DB_PASSWORD
-            database = CFG.DB_NAME
-
-            rhnSQL.initDB(backend=db_backend, host=db_host, port=db_port, 
-                        username=db_user, password=db_password, database=database)
+            rhnSQL.initDB()
             if options.verbose:
                 print ("Database connectioned initialized: refer to %s" % 
                        CFG.filename)

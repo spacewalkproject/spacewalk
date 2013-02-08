@@ -16,7 +16,7 @@ from spacewalk.server import rhnSQL
 
 from spacewalk.satellite_tools.exporter import xmlWriter, exportLib
 
-rhnSQL.initDB("satdev/satdev@citisat")
+rhnSQL.initDB()
 
 writer = xmlWriter.XMLWriter(skip_xml_decl=1)
 

@@ -51,12 +51,6 @@ Helper utility that update packages checksum.
         </listitem>
     </varlistentry>
     <varlistentry>
-        <term>-d DB, --db=DB</term>
-        <listitem>
-            <para>DB string to connect to.</para>
-        </listitem>
-    </varlistentry>
-    <varlistentry>
         <term>--debug</term>
         <listitem>
             <para>Logs the debug information to a log file /var/log/rhn/update-packages.log</para>

@@ -21,7 +21,7 @@ from syncContainerHandlers import processErrata
 
 initCFG('server.satellite')
 initLOG(CFG.LOG_FILE, CFG.DEBUG)
-rhnSQL.initDB('satuser/satuser@satdev')
+rhnSQL.initDB()
 
 cache = SyncCache().init()
 cache.addChannelsState(['redhat-linux-i386-8.0'])

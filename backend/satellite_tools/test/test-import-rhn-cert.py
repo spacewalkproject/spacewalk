@@ -17,13 +17,12 @@ from spacewalk.server import rhnSQL
 from spacewalk.satellite_tools import satCerts
 
 def main():
-    if len(sys.argv) != 3:
-        print "Usage: %s <db-string> <cert>" % sys.argv[0]
+    if len(sys.argv) != 2:
+        print "Usage: %s <cert>" % sys.argv[0]
         return 1
-    db_string = sys.argv[1]
-    cert = sys.argv[2]
+    cert = sys.argv[1]
 
-    rhnSQL.initDB(db_string)
+    rhnSQL.initDB()
 
     satCerts.storeRhnCert(open(cert).read())
 

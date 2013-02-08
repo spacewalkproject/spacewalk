@@ -47,7 +47,6 @@ options_table = [
         help="Convert filer structure"),
     Option("--update-kstrees", action="store_true",
         help="Fix kickstart trees permissions"),
-    Option("-d", "--db", action="store", help="DB string to connect to"),
     Option("-v", "--verbose", action="count",
         help="Increase verbosity"),
     Option("--debug", action="store_true",
@@ -74,12 +73,7 @@ def main():
         initLOG(CFG.LOG_FILE, options.debug or 0)
         debug = 1
 
-    if not options.db:
-        sys.stderr.write("--db not specified\n")
-        sys.exit(1)
-
-    print "Connecting to %s" % options.db
-    rhnSQL.initDB(options.db)
+    rhnSQL.initDB()
 
     if options.update_filer:
         process_package_data()

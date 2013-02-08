@@ -70,55 +70,31 @@ def __init__DB(backend, host, port, username, password, database):
     __DB.connect()
     return 0
 
-def initDB(dsn=None, backend=None, host="localhost", port=None, username=None,
+def initDB(backend=None, host=None, port=None, username=None,
         password=None, database=None):
     """
     Initialize the database.
 
-    For Oracle connections: provide just a string dsn argument, or a username,
-    password, and database. (sid in this case)
+    Either we get backend and all parameter which means the caller
+    knows what they are doing, or we populate everything from the
+    config files.
     """
 
-    if backend == None:
-        backend=CFG.DB_BACKEND
+    if backend is None:
+        backend = CFG.DB_BACKEND
+        host = CFG.DB_HOST
+        port = CFG.DB_PORT
+        database = CFG.DB_DATABASE
+        username = CFG.DB_USER
+        password = CFG.DB_PASSWORD
 
     if not SUPPORTED_BACKENDS.has_key(backend):
         raise rhnException("Unsupported database backend", backend)
 
-    if backend == ORACLE:
-        # For Oracle, must provide either dsn or username, password,
-        # and database.
-        if not dsn and not (username and password and database):
-            # Grab the default from the config file:
-            dsn = CFG.DEFAULT_DB
-
-        if dsn:
-            # split the dsn up into username/pass/sid so we can call the rest of
-            # the code in a uniform fashion for all database backends:
-            (username, temp) = dsn.split("/", 1)
-            (password, database) = temp.split("@")
-            del temp
-
-    if backend == POSTGRESQL:
-        host = None
-        port = None
-        dsn = CFG.DEFAULT_DB
-        (username, temp) = dsn.split("/")
-        (password, dsn) = temp.split("@")
-        del temp
-        for i in dsn.split(';'):
-            (k, v) = i.split('=')
-            if k == 'dbname':
-                database = v
-            elif k == 'host':
-                host = v
-            elif k == 'port':
-                port = int(v)
-            else:
-                raise rhnException("Unknown piece in default_db string", i)
+    if port:
+        port = int(port)
 
     # Hide the password
-    add_to_seclist(dsn)
     add_to_seclist(password)
     try:
         __init__DB(backend, host, port, username, password, database)
@@ -179,11 +155,6 @@ def Row(table, hash_name, hash_value = None):
 def Table(table, hash_name, local_cache = 0):
     db = __test_DB()
     return sql_table.Table(db, table, hash_name, local_cache)
-
-# Returns the connection string to the DB
-def database():
-    db = __test_DB()
-    return db.dsn
 
 # Functions points of entry
 def cursor():
