@@ -5,7 +5,7 @@
 %define vardir         /var/lib/nocpulse
 Name:         SputLite
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version:      1.9.0
+Version:      1.9.1
 Release:      1%{?dist}
 Summary:      Command queue processor (Sputnik Lite)
 URL:          https://fedorahosted.org/spacewalk
@@ -96,6 +96,10 @@ fi
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Fri Feb 08 2013 Michael Mraka <michael.mraka@redhat.com> 1.9.1-1
+- removed lost files we are not packing for ages
+- %%defattr is not needed since rpm 4.4
+
 * Thu Feb 02 2012 Jan Pazdziora 1.7.2-1
 - import used module (msuchy@redhat.com)
 
