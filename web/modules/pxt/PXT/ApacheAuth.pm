@@ -110,12 +110,12 @@ sub authz_handler {
   my $session = $r->pnotes('pxt_session');
   my $pxt = $r->pnotes('pxt_request');
 
-  my @requires = @{$r->requires};
+  my @requires = map {$_->{requirement}} @{$r->requires};
 
   my ($reqs, $passes);
 
   foreach my $entry (@requires) {
-    my ($type, $string) = split /\s+/, $entry->{requirement}, 2;
+    my ($type, $string) = split /\s+/, $entry, 2;
     $reqs++;
 
     if ($type eq 'valid-user') {
@@ -125,7 +125,7 @@ sub authz_handler {
 
       # support addition mixin'able acls directly from the .htaccess file...
       my @mixins;
-      while ($entry->{requirement} =~ m/mixin\s+(.*?)\s+/g) {
+      while ($entry =~ m/mixin\s+(.*?)\s+/g) {
 	push @mixins, $1;
       }
 
