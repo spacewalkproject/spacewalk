@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 1.9.14
+Version: 1.9.15
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -256,6 +256,16 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Fri Feb 08 2013 Michael Mraka <michael.mraka@redhat.com> 1.9.15-1
+- $reqs was always equal $passes
+- acl is the only one supported type now
+- removed unused valid-user type
+- make pxt ACL work in apache 2.4
+- simplify @requires list
+- merged .htaccess to main httpd configuration
+- Silence the Statement unlikely to be reached at /usr/bin/db-control line 29
+  warning.
+
 * Wed Feb 06 2013 Stephen Herr <sherr@redhat.com> 1.9.14-1
 - Make it possible to run db-control without doing su - oracle first.
 
