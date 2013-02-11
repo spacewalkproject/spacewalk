@@ -18,7 +18,11 @@
 
     <c:forEach items="${channels}" var="current">
         <div class="page-summary">
-		<b><c:out value="${current.name}"/> </b>
+        <b>
+            <a href="/rhn/channels/ChannelDetail.do?cid=${current.id}">
+                <c:out value="${current.name}"/>
+            </a>
+        </b>
 			<br/>
 
 			    <c:if test="${empty current.packages}">
