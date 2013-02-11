@@ -1,0 +1,10 @@
+[Unit]
+Description=Spacewalk Monitoring Scout service
+After=syslog.target network.target
+
+[Service]
+ExecStart=/usr/sbin/MonitoringScout start
+ExecStop=/usr/sbin/MonitoringScout stop
+
+[Install]
+WantedBy=multi-user.target
