@@ -12,7 +12,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 1.9.25
+Version: 1.9.26
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -637,6 +637,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Mon Feb 11 2013 Michael Mraka <michael.mraka@redhat.com> 1.9.26-1
+- allow client to access mod_wsgi pages under apache 2.4
+
 * Tue Feb 05 2013 Jan Pazdziora 1.9.25-1
 - The urls now have three elements, make the list consistent.
 
