@@ -1,0 +1,100 @@
+.\" Copyright 2013 Red Hat, Inc.
+.\"
+.\" This man page is free documentation; you can redistribute it and/or modify
+.\" it under the terms of the GNU General Public License as published by
+.\" the Free Software Foundation; version 2 of the License.
+.\"
+.\" This program is distributed in the hope that it will be useful,
+.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+.\" GNU General Public License for more details.
+.\"
+.\" You should have received a copy of the GNU General Public License
+.\" along with this man page; if not, write to the Free Software
+.\" Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+.\"
+.TH "SPACEWALK-ABRT" "8" "2013 February 12" "Linux" "Red Hat, Inc."
+.SH NAME
+
+spacewalk-abrt \- Utility for reporting software crashes to Spacewalk
+and RHN Satellite.
+
+.SH SYNOPSIS
+
+spacewalk-abrt [\fIoptions\fP] command
+
+.SH DESCRIPTION
+
+.PP
+\fBspacewalk-abrt\fP is a client program that reports a software crash
+that occured on a client system to Spacewalk or Red Hat Network Satellite.
+The program operates on top of a problem directory created by \fBABRT\fP
+daemon. Ordinarilly, this program is executed automatically by \fBabrtd\fP
+when a software crash occurs.
+
+.SH COMMANDS
+
+.IP "\fB--report=PROBLEM_DIRECTORY\fP"
+Report the software crash captured in the specified problem directory.
+.br
+.IP "\fB--update-count=PROBLEM_DIRECTORY\fP"
+Update crash count for the specified problem directory.
+.br
+.IP "\fB--sync\fP"
+Synchronize all problem directories found on the client with server.
+.br
+
+
+.SH OPTIONS
+
+.IP "\fB-v, --verbose\fP"
+Increase the debugging output.
+.br
+.IP "\fB--proxy=PROXY\fP"
+Specify an http proxy to use.
+.br
+.IP "\fB--proxyUser=PROXYUSER\fP"
+Specify a username to use for an authenticated proxy. This option must be used
+in conjunction with \fBproxyPassword\fP.
+.br
+.IP "\fB--proxyPassword=PROXYPASSWORD\fP"
+Specify a password to use for an authenticated proxy. This option must be used
+in conjunction with \fBproxyUser\fP.
+.br
+.IP "\fB--version\fP"
+Show the program's version number and exit.
+.br
+.IP "\fB-h, --help\fP"
+Show a help message and exit.
+
+.SH FILES
+
+.IP \fI/etc/libreport/events.d/spacewalk.conf\fP
+This configuration file instructs abrt to execute spacewalk-abrt utility when
+a software crash occurs.
+.br
+.IP \fI/etc/abrt/abrt.conf\fP
+Basic configuration for \fBABRT\fP.
+
+.SH "SEE ALSO"
+
+.PP
+\fBabrtd\fP(8), \fBabrt.conf\fP(5).
+
+.SH AUTHORS
+.PP
+.PP
+This manual page was written by Milan Zazrivec <mzazrivec@redhat.com>.
+
+.SH "BUGS"
+.PP
+Report bugs to <http://bugzilla.redhat.com>.
+
+.SH COPYRIGHT
+
+.PP
+Copyright \(co 2013 Red Hat, Inc.
+
+.PP
+This is free software; see the source for copying conditions.  There is
+NO warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.

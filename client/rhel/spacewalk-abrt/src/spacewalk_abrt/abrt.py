@@ -1,0 +1,105 @@
+#!/usr/bin/python
+#
+# Copyright (c) 2013 Red Hat, Inc.
+#
+# This software is licensed to you under the GNU General Public License,
+# version 2 (GPLv2). There is NO WARRANTY for this software, express or
+# implied, including the implied warranties of MERCHANTABILITY or FITNESS
+# FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
+# along with this software; if not, see
+# http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
+#
+# Red Hat trademarks are not licensed under GPLv2. No permission is
+# granted to use or replicate Red Hat trademarks that are incorporated
+# in this software or its documentation.
+#
+
+import base64
+import os
+import sys
+
+RHNROOT = '/usr/share/rhn'
+if RHNROOT not in sys.path:
+    sys.path.append(RHNROOT)
+
+import gettext
+t = gettext.translation('spacewalk-abrt', fallback=True)
+_ = t.ugettext
+
+from up2date_client import up2dateAuth
+from up2date_client import rhnserver
+
+def _readline(filepath):
+    if os.path.exists(filepath):
+        filecontent = None
+        f = open(filepath, 'r')
+        filecontent = f.readlines()[0].strip()
+        f.close()
+
+        return filecontent
+    else:
+        return None
+
+def report(problem_dir):
+    problem_dir = os.path.normpath(problem_dir)
+    basename = os.path.basename(problem_dir)
+    if not (os.path.exists(problem_dir) and  os.path.isdir(problem_dir)):
+        #FIXME: log?
+        return -1
+
+    server = rhnserver.RhnServer()
+    if not server.capabilities.hasCapability('abrt'):
+        return -1
+
+    systemid = up2dateAuth.getSystemId()
+
+    # Package information
+    pkg_data = {}
+    for item in ['pkg_name', 'pkg_epoch', 'pkg_version', 'pkg_release', 'pkg_arch']:
+        pkg_item_path = os.path.join(problem_dir, item)
+        if os.path.exists(pkg_item_path):
+            filecontent = _readline(pkg_item_path)
+
+            if filecontent:
+                pkg_data[item] = filecontent
+
+    # Crash information
+    crash_data = {'crash': basename, 'path': problem_dir}
+    # Crash count
+    crash_count = _readline(os.path.join(problem_dir, 'count'))
+    if crash_count:
+        crash_data['count'] = crash_count
+
+    # Create record about the crash
+    r = server.abrt.create_crash(systemid, crash_data, pkg_data)
+
+    if (r < 0): # Error creating new crash report
+        # FIXME: log?
+        return -1
+
+    # Upload every particular file in the problem directory to the server
+    for i in os.listdir(problem_dir):
+        path = os.path.join(problem_dir, i)
+        if not os.path.isfile(path):
+            continue
+
+        filecontent = None
+        with open(path, 'r') as f:
+            filecontent = f.read()
+
+        crash_file_data = {'filename': os.path.basename(i),
+                           'path': path,
+                           'filesize': os.stat(path)[6],
+                           'filecontent': base64.encodestring(filecontent),
+                           'content-encoding': 'base64'}
+        server.abrt.upload_crash_file(systemid, basename, crash_file_data)
+
+    return 1
+
+
+def update_count(problem_dir):
+    return 1
+
+
+def sync(abrt_dir):
+    return 1

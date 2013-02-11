@@ -58,6 +58,7 @@ delete_server                   :: rhn_channel.pks rhn_config.pks \
                                    rhnServerEntitlementView
 delete_server_bulk              :: delete_server
 does_user_have_role             :: rhnUserGroup rhnUserGroupMembers rhnUserGroupType
+insert_crash_file               :: rhnServerCrashFile
 insert_client_capability        :: rhnClientCapabilityName
 insert_checksum                 :: rhnChecksum rhnChecksumType
 insert_config_filename          :: rhnConfigFileName

@@ -1,28 +1,39 @@
-# Makefile for spacewalk-abrt
-#
-
-ACTIONS		= abrt
-PYFILES		= $(addsuffix .py, $(ACTIONS)) $(addsuffix .pyc, $(ACTIONS))
-CAPABILITY	= abrt
-OBJECTS		= $(PYFILES) $(XSLT)
+# Makefile.spacewalk-abrt
 
 PREFIX		?=
-ACTIONDIR	= $(PREFIX)/usr/share/rhn/actions
-CAPSDIR		= $(PREFIX)/etc/sysconfig/rhn/clientCaps.d
-INSTALL		= /usr/bin/install -c
-FILE		= -m 644
-DIR		= -m 755 --verbose -d
+MANPATH		?= /usr/share/man
+SUBDIRS		= etc-conf man po src
+VERSION         := $(shell echo `grep ^Version: spacewalk-abrt.spec | awk '{ print $$2 }'`)
 
+ifndef PLATFORM
+  PLATFORM=rpm
+endif
 
-all: $(OBJECTS)
+export PREFIX
+export MANPATH
+export VERSION
+export PLATFORM
 
-%.pyc: %.py
-	python -c "import py_compile; py_compile.compile('$<')"
+all::
 
-install: all
-	$(INSTALL) $(DIR) $(ACTIONDIR) $(CAPSDIR)
-	$(INSTALL) $(FILE) $(PYFILES) $(ACTIONDIR)
-	$(INSTALL) $(FILE) $(CAPABILITY) $(CAPSDIR)
+install:: all
 
-clean:
-	@rm -rf *.pyc *~ .*~
+clean::
+	@rm -fv *~ .*~
+	@rm -fv spacewalk-abrt*.tar.gz spacewalk-abrt*.tar.bz2
+	@find . -name .\#\* -exec rm -fv {} \;
+	@rm -fv *.rpm
+	@rm -fv po/.intltool-merge-cache
+
+descend-subdirs = @$(foreach d,$(SUBDIRS), $(MAKE) -C $(d) $@ || exit 1; )
+
+all clean install :: $(SUBDIRS)
+	$(descend-subdirs)
+
+tardist: clean
+	rm -Rfv /tmp/spacewalk-abrt-$(VERSION)
+	cp -fapRdv . /tmp/spacewalk-abrt-$(VERSION)
+	tar zcfv spacewalk-abrt-$(VERSION).tar.gz --exclude \.svn -C /tmp spacewalk-abrt-$(VERSION)
+
+rpm: tardist
+	rpmbuild -ta spacewalk-abrt-$(VERSION).tar.gz

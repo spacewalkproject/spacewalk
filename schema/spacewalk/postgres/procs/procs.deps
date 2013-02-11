@@ -59,6 +59,7 @@ delete_server                   :: rhn_channel.pks rhn_config.pks \
                                    rhnServerEntitlementView
 delete_server_bulk              :: delete_server
 does_user_have_role             :: rhnUserGroup rhnUserGroupMembers rhnUserGroupType
+insert_crash_file               :: rhnServerCrashFile
 lookup_arch_type                :: data/rhnArchType rhn_exception.pks
 lookup_channel_arch             :: rhn_exception.pks data/rhnException rhnChannelArch \
                                    data/rhnChannelArch

@@ -148,6 +148,8 @@ rhnServerArch                  :: rhnArchType
 rhnServerChannel               :: rhnServer rhnChannel
 rhnServerChannelArchCompat     :: rhnServerArch rhnChannelArch
 rhnServerConfigChannel         :: rhnServer rhnConfigChannel
+rhnServerCrash                 :: rhnServer rhnPackageName rhnPackageEVR rhnPackageArch
+rhnServerCrashFile             :: rhnServerCrash
 rhnServerCustomDataValue       :: rhnCustomDataKey
 rhnServerDMI                   :: rhnServer
 rhnServerGroup                 :: rhnServerGroupType web_customer

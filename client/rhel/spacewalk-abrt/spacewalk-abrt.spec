@@ -32,7 +32,10 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %config  /etc/sysconfig/rhn/clientCaps.d/abrt
-%{_datadir}/rhn/actions/abrt.*
+%config  /etc/libreport/events.d/spacewalk.conf
+%{_bindir}/spacewalk-abrt
+%{_datadir}/rhn/spacewalk_abrt/*
+%{_mandir}/man8/*
 
 %changelog
 * Thu Jan 17 2013 Jan Pazdziora 1.9.1-1

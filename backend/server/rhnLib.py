@@ -18,6 +18,7 @@ import re
 import hashlib
 import string
 import base64
+import posixpath
 
 from spacewalk.common.rhnLib import parseRPMName
 from spacewalk.common.rhnLog import log_debug
@@ -204,3 +205,26 @@ def make_evr(nvre, source=False):
         result["release"] = result["release"][:-4]
 
     return result
+
+def _is_secure_path(path):
+    path = posixpath.normpath(path)
+    return not path.startswith(('/', '../'))
+
+def get_crash_path(org_id, system_id, crash):
+    """For a given org_id, system_id and crash, return relative path to a crash directory."""
+
+    path = os.path.join('systems', org_id, system_id, 'crashes', crash)
+
+    if _is_secure_path(path):
+        return path
+    else:
+        return None
+
+def get_crashfile_path(org_id, system_id, crash, filename):
+    """For a given org_id, system_id, crash and filename, return relative path to a crash file."""
+    path = os.path.join(get_crash_path(org_id, system_id, crash), filename)
+
+    if _is_secure_path(path):
+        return path
+    else:
+        return None

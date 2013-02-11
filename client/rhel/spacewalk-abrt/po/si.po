@@ -1,0 +1,26 @@
+#: ../src/bin/spacewalk-abrt:39
+msgid "Upload content of the specified problem directory"
+msgstr ""
+
+#: ../src/bin/spacewalk-abrt:41
+msgid "Update crash count for the specified problem directory"
+msgstr ""
+
+#: ../src/bin/spacewalk-abrt:43
+msgid "Synchronyze missing problem directories"
+msgstr ""
+
+#: ../src/bin/spacewalk-abrt:50
+#, c-format
+msgid "Error: specified problem directory [%s] does not exist.\n"
+msgstr ""
+
+#: ../src/bin/spacewalk-abrt:61
+msgid "No command specified. Use --help for more information on the usage."
+msgstr ""
+
+#: ../src/bin/spacewalk-abrt:70
+msgid ""
+"More than one command specified. Use --help for more information on the "
+"usage."
+msgstr ""
