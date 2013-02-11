@@ -1,7 +1,7 @@
 rhnlib - A collection of python modules used by the Red Hat Network
 (http://rhn.redhat.com) software.
 
-Copyright (C) 2002 Red Hat, Inc.
+Copyright (C) 2002--2013 Red Hat, Inc.
 
 This library is distributed under the terms of the GNU Public License (GPL).
 

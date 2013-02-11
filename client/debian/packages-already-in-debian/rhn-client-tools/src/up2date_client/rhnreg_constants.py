@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # String constants for the RHN Register TUI/GUI.
-# Copyright (c) 2000--2011 Red Hat, Inc.
+# Copyright (c) 2000--2013 Red Hat, Inc.
 #
 # Author:
 #       James Slagle <jslagle@redhat.com>

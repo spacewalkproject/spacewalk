@@ -1,7 +1,7 @@
 #! /usr/bin/python
 # -*- python -*-
 # -*- coding: utf-8 -*-
-#   Copyright (C) 2008 Red Hat Inc.
+# Copyright (C) 2008--2013 Red Hat, Inc.
 #
 #   Arnaldo Carvalho de Melo <acme@redhat.com>
 #

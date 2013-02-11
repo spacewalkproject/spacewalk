@@ -1,6 +1,6 @@
 #
 # Progress bar for Update Agent
-# Copyright (c) 1999-2010 Red Hat, Inc.
+# Copyright (c) 1999--2013 Red Hat, Inc.
 #
 # Author: Preston Brown <pbrown@redhat.com>
 
