@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 Group: Applications/Internet
 License: GPLv2
-Version: 1.9.15
+Version: 1.9.16
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk/
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -259,6 +259,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Mon Feb 11 2013 Michael Mraka <michael.mraka@redhat.com> 1.9.16-1
+- install Apache24Config.pm in on Fedora with apache 2.4
+
 * Fri Feb 08 2013 Michael Mraka <michael.mraka@redhat.com> 1.9.15-1
 - $reqs was always equal $passes
 - acl is the only one supported type now
