@@ -4,7 +4,7 @@ Group:   Applications/Internet
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 1.9.4
+Version: 1.9.5
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
 BuildRequires: python
@@ -330,6 +330,9 @@ fi
 
 
 %changelog
+* Mon Feb 11 2013 Michael Mraka <michael.mraka@redhat.com> 1.9.5-1
+- cleanup old CVS files
+
 * Mon Dec 17 2012 Michael Mraka <michael.mraka@redhat.com> 1.9.4-1
 - fixed pylint warnings
 
