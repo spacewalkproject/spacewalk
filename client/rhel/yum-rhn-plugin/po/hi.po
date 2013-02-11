@@ -1,22 +1,22 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Miroslav Suchý <msuchy@redhat.com>, 2011.
-# Rajesh Ranjan <rranjan@redhat.com>, 2004, 2005, 2006, 2007, 2011.
+# Rajesh Ranjan <rranjan@redhat.com>, 2004-2007,2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: http://bugzilla.redhat.com/\n"
 "POT-Creation-Date: 2012-10-30 11:31+0100\n"
-"PO-Revision-Date: 2012-02-14 13:00+0000\n"
-"Last-Translator: Miroslav Suchý <msuchy@redhat.com>\n"
+"PO-Revision-Date: 2012-10-30 10:38+0000\n"
+"Last-Translator: adelton <jpx-tx@adelton.com>\n"
 "Language-Team: Hindi <indlinux-hindi@lists.sourceforge.net>\n"
-"Language: hi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: hi\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../rhnplugin.py:51
@@ -32,9 +32,7 @@ msgstr ""
 msgid ""
 "*Note* Red Hat Network repositories are not listed below. You must run this "
 "command as root to access RHN repositories."
-msgstr ""
-"*नोट* Red Hat Network रिपोजिटरी को नीचे सूचीबद्ध किया गया है. आपको जरूर इस कमांड "
-"को बतौर रूट RHN रिपोजिटरी के पहुँच के लिए चलाना चाहिए."
+msgstr "*नोट* Red Hat Network रिपोजिटरी को नीचे सूचीबद्ध किया गया है. आपको जरूर इस कमांड को बतौर रूट RHN रिपोजिटरी के पहुँच के लिए चलाना चाहिए."
 
 #: ../rhnplugin.py:85
 msgid "There was an error parsing the RHN proxy settings."
@@ -53,9 +51,8 @@ msgid "Using list of RHN repos from cache"
 msgstr ""
 
 #: ../rhnplugin.py:127
-#, fuzzy
 msgid "This system is not registered with RHN Classic or RHN Satellite."
-msgstr "यह सिस्टम RHN के साथ पंजीकृत नहीं है."
+msgstr ""
 
 #: ../rhnplugin.py:128 ../rhnplugin.py:144
 msgid "You can use rhn_register to register."
@@ -70,12 +67,10 @@ msgid "This system is not subscribed to any channels."
 msgstr "यह सिस्टम किसी चैनल से सदस्यता लिया नहीं है."
 
 #: ../rhnplugin.py:143
-#, fuzzy
 msgid ""
 "This system may not be registered to RHN Classic or RHN Satellite. SystemId "
 "could not be acquired."
 msgstr ""
-"यह सिस्टम RHN में पंजीकृत नहीं हो सकता है. SystemId को अर्जित नहीं किया जा सकता है.\n"
 
 #: ../rhnplugin.py:156
 msgid "This system is receiving updates from RHN Classic or RHN Satellite."
